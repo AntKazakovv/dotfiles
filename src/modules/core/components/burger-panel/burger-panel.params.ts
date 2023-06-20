@@ -1,4 +1,8 @@
 import {IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {
+    TFixedPanelState,
+    IFixedPanelSizes,
+} from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
 
 export type BurgerPanelType = 'left' | 'right' | 'left-fixed' | 'right-fixed';
 /**
@@ -11,6 +15,11 @@ export type BurgerPanelType = 'left' | 'right' | 'left-fixed' | 'right-fixed';
  * scale-stagger - alternate appearances with zooming
  */
 export type BurgerPanelAnimeType = 'fade' | 'fade-stagger' | 'translate-stagger' | 'scale-stagger';
+
+export interface IFixedPanelAppearanceParams {
+    value?: TFixedPanelState;
+    params?: IFixedPanelSizes;
+};
 
 export interface IBurgerPanelCParams extends IComponentParams<string, BurgerPanelType, string> {
     type: BurgerPanelType;

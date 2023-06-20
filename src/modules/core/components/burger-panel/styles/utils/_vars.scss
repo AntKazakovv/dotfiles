@@ -107,6 +107,8 @@ $themeDefault: map-merge((
     'additionalJustifySelf': start,
     'panelSearchTransformHover': rotate(30deg),
     'panelSearchColorHover': var(--mc-baseMain),
+
+    'backdropBg': var(--mc-bg-o6),
 ), $customThemeDefault);
 
 $customThemeLeft: () !default;
@@ -289,7 +291,6 @@ $themeMobile: map-merge((
 
 $customThemeLeftFixed: () !default;
 $themeLeftFixed: map-merge((
-    'backdropBg': var(--mc-bg-o6),
     'headerGridCols': 1fr,
     'headerPadding': ef.size(2) ef.size(4),
     'loginMargin': 0,
@@ -326,3 +327,8 @@ $themeLeftFixed: map-merge((
     'btnExpandTransition': color 0.2s ease-in-out,
     'btnExpandIconTransition': transform 0.2s ease-in-out,
 ), $customThemeLeftFixed);
+
+$customThemeRight: () !default;
+$themeRight: map-merge((
+    'panelBg': var(--mc-bg700),
+), $customThemeRight);

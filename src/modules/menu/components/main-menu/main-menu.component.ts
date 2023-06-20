@@ -18,7 +18,6 @@ import {
     BehaviorSubject,
 } from 'rxjs';
 import {
-    distinctUntilChanged,
     takeUntil,
 } from 'rxjs/operators';
 import _set from 'lodash-es/set';
@@ -41,7 +40,10 @@ import {
     GamesCatalogService,
 } from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import {MenuService} from 'wlc-engine/modules/menu/system/services/menu.service';
-import {TFixedPanelState} from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
+import {
+    TFixedPanelState,
+    TFixedPanelStore,
+} from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
 import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
 import {TIconExtension} from 'wlc-engine/modules/menu/system/interfaces/menu.interface';
 
@@ -66,7 +68,7 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
     protected menuSettings: IMenuOptions;
     protected isAuth: boolean;
     protected gamesCatalogService: GamesCatalogService;
-    protected compactState$: BehaviorSubject<TFixedPanelState>;
+    protected fixedPanelStore$: BehaviorSubject<TFixedPanelStore>;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMainMenuCParams,
@@ -152,7 +154,7 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
             },
         });
 
-        if (this.$params.type === 'fixed-burger') {
+        if (this.$params.themeMod === 'fixed-burger') {
             this.initFixedMenu();
         }
 
@@ -175,17 +177,17 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
     }
 
     protected initFixedMenu(): void {
-        this.compactState$ = this.configService.get<BehaviorSubject<TFixedPanelState>>('fixedPanelState$');
+        this.fixedPanelStore$ = this.configService.get<BehaviorSubject<TFixedPanelStore>>('fixedPanelStore$');
 
-        this.compactState$
+        this.fixedPanelStore$
             .pipe(
-                distinctUntilChanged(),
                 takeUntil(this.$destroy),
             )
-            .subscribe((state: TFixedPanelState) => {
+            .subscribe((store: TFixedPanelStore) => {
+                const state: TFixedPanelState = store[this.$params.fixedPanelPosition];
                 this.$params.menuParams.useTooltip = state === 'compact';
                 this.$params.menuParams = _clone(this.$params.menuParams);
-                this.cdr.detectChanges();
+                this.cdr.markForCheck();
             });
     }
 

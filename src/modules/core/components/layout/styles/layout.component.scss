@@ -6,8 +6,11 @@
 body {
     min-width: 375px;
 
+    &.wlc-body--panels-open {
+        overflow: hidden;
+    }
+
     @media (pointer: fine) {
-        margin-right: calc(-1 * (100vw - 100%));
         overflow-x: hidden;
     }
 

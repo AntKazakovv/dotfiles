@@ -56,7 +56,7 @@
 
 <ng-template #headerLeftTypeFixed>
     <div class="{{$class}}__header">
-        <button class="{{$class}}__btn-expand {{$class}}__btn-expand--{{fixedPanelState$ | async}}"
+        <button class="{{$class}}__btn-expand {{$class}}__btn-expand--{{fixedPanelState}}"
             (click)="toggleFixedPanel(true)">
             <span wlc-icon
                 iconPath="/wlc/icons/burger-expand.svg"

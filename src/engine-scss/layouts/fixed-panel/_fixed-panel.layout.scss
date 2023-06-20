@@ -1,28 +1,59 @@
 @import './utils/vars';
 
-.wlc-body--layout-fixed-panel-in {
-    --fp-padding: calc(var(--fp-size-compact) + var(--fp-size-gap));
+.wlc-body--fp-left,
+.wlc-body--fp-right {
 
     .wlc-app {
         transition: ef.get-value($fixedPanelLayoutConfig, 'globalTransition');
     }
+}
 
-    &.wlc-body--layout-fixed-panel-expanded {
-        --fp-padding: calc(var(--fp-size-full) + var(--fp-size-gap));
+.wlc-body--fp-left {
+
+    &-compact {
+        --fp-left-padding: calc(var(--fp-left-size-compact) + var(--fp-left-size-gap));
     }
 
-    &.wlc-body--layout-fixed-panel-left {
+    &-expanded {
+        --fp-left-padding: calc(var(--fp-left-size-full) + var(--fp-left-size-gap));
+    }
+
+    &:not(.wlc-body--fp-left-nopadding) {
 
         .wlc-app {
-            padding-right: var(--fp-size-gap);
-            padding-left: var(--fp-padding);
+            padding-left: var(--fp-left-padding, 0);
         }
     }
 
-    &.wlc-body--layout-fixed-panel-right {
+    &:not(.wlc-body--fp-right) {
+
+        @include mq.min(1366) {
+            padding-right: var(--fp-left-size-gap);
+        }
+    }
+}
+
+.wlc-body--fp-right {
+
+    &-compact {
+        --fp-right-padding: calc(var(--fp-right-size-compact) + var(--fp-right-size-gap));
+    }
+
+    &-expanded {
+        --fp-right-padding: calc(var(--fp-right-size-full) + var(--fp-right-size-gap));
+    }
+
+    &:not(.wlc-body--fp-right-nopadding) {
 
         .wlc-app {
-            padding-right: var(--fp-padding);
+            padding-right: var(--fp-right-padding);
+        }
+    }
+
+    &:not(.wlc-body--fp-left) {
+
+        @include mq.min(1366) {
+            padding-left: var(--fp-right-size-gap);
         }
     }
 }

@@ -152,7 +152,6 @@ export class FloatPanelsComponent extends AbstractComponent implements OnInit {
         }
         this.openedPanel = '';
         this.removeModifiers(['open', `opened-${panelName}`]);
-        this.document.body.style.overflow = null;
         this.bodyClassService.removeClassByPrefix('wlc-body--panels-open');
     }
 
@@ -236,7 +235,6 @@ export class FloatPanelsComponent extends AbstractComponent implements OnInit {
         }
         this.openedPanel = panelName;
         this.addModifiers(['open', `opened-${panelName}`]);
-        this.document.body.style.overflow = 'hidden';
         this.bodyClassService.addModifier('wlc-body--panels-open');
     }
 }

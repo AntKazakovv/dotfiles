@@ -49,6 +49,7 @@ export const moduleConfig: IChatConfig = _mergeWith(
 
 export const components = {
     'wlc-chat-icon': ChatIconComponent,
+    'wlc-chat-panel': ChatPanelComponent,
 };
 
 @NgModule({

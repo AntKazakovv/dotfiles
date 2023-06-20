@@ -5,6 +5,7 @@ import {
     Observable,
     filter,
 } from 'rxjs';
+import _merge from 'lodash-es/merge';
 
 import {
     ConfigService,
@@ -18,6 +19,11 @@ import {
     UserProfile,
 } from 'wlc-engine/modules/user';
 import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
+import {
+    TFixedPanelPos,
+    TFixedPanelState,
+    TFixedPanelStore,
+} from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
 import {TUseAsNickname} from './../config/chat.config';
 
 export interface IChatCredentials {
@@ -37,6 +43,8 @@ export class TempAdapterService {
 
     public userProfile$: BehaviorSubject<UserProfile> = this.configService
         .get<BehaviorSubject<UserProfile>>('$user.userProfile$');
+
+    public fixedPanelStore$: BehaviorSubject<TFixedPanelStore>;
 
     private _login$: BehaviorSubject<string> = new BehaviorSubject(null);
 
@@ -125,6 +133,14 @@ export class TempAdapterService {
         await modal.closed;
     }
 
+    public toggleFixedPanel(pos: TFixedPanelPos): void {
+        const currentStore: TFixedPanelStore = this.fixedPanelStore$.getValue();
+        const state: TFixedPanelState = currentStore[pos] === 'expanded' ? 'compact' : 'expanded';
+
+        this.fixedPanelStore$.next(_merge(currentStore, {[pos]: state}));
+        this.configService.saveFixedPanelState(pos, state);
+    }
+
     protected init(): void {
 
         if (this.nicknameType === 'login') {
@@ -159,5 +175,7 @@ export class TempAdapterService {
 
             this.isAuth$.next(false);
         });
+
+        this.fixedPanelStore$ = this.configService.get<BehaviorSubject<TFixedPanelStore>>('fixedPanelStore$');
     }
 }

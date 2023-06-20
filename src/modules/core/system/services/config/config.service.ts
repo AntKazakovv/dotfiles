@@ -27,6 +27,7 @@ import _isObject from 'lodash-es/isObject';
 import _cloneDeep from 'lodash-es/cloneDeep';
 import _find from 'lodash-es/find';
 import _includes from 'lodash-es/includes';
+import _merge from 'lodash-es/merge';
 
 import {
     DataService,
@@ -75,7 +76,11 @@ import {
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
-import {TFixedPanelState} from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
+import {
+    TFixedPanelStore,
+    TFixedPanelPos,
+    TFixedPanelState,
+} from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
 import * as sectionsLib from 'wlc-engine/modules/core/system/config/layouts/sections';
 
 export * from './app-config.model';
@@ -218,6 +223,25 @@ export class ConfigService {
         return _cloneDeep(this.global);
     }
 
+    /**
+     * Saves fixed panel state to localstorage
+     *
+     * @param {TFixedPanelPos} pos - fixed panel positioning
+     * @param {TFixedPanelState} state - fixed panel current state
+     */
+    public saveFixedPanelState(pos: TFixedPanelPos, state: TFixedPanelState): void {
+        const saved: TFixedPanelStore = this.get<TFixedPanelStore>({
+            name: 'fixedPanelUserState',
+            storageType: 'localStorage',
+        });
+
+        this.set<TFixedPanelStore>({
+            name: 'fixedPanelUserState',
+            value: _merge(saved, {[pos]: state}),
+            storageType: 'localStorage',
+        });
+    }
+
     private setGlobals(): void {
         this.set<BehaviorSubject<UserProfile>>({name: '$user.userProfile$', value: new BehaviorSubject(null)});
         this.set<BehaviorSubject<UserInfo>>({name: '$user.userInfo$', value: new BehaviorSubject(null)});
@@ -272,43 +296,17 @@ export class ConfigService {
         });
 
         if (appConfig.$base.fixedPanel?.use) {
-            this.initFixedPanel();
+            this.initFixedPanels();
         }
 
         this.$resolve();
     }
 
-    private initFixedPanel(): void {
-        let panelState: TFixedPanelState;
-        let userState: TFixedPanelState = this.get<TFixedPanelState>({
-            name: 'fixedPanelUserState',
-            storageType: 'localStorage',
-        });
+    private initFixedPanels(): void {
 
-        if (this.get<boolean>('$base.fixedPanel.compactModByDefault') && !userState) {
-            userState = 'compact';
-
-            this.set<TFixedPanelState>({
-                name: 'fixedPanelUserState',
-                value: userState,
-                storageType: 'localStorage',
-            });
-        }
-
-
-        if (userState) {
-            panelState = userState;
-        } else {
-            if (this.window.innerWidth < this.get<number>('$base.fixedPanel.breakpoints.expand')) {
-                panelState = 'compact';
-            } else {
-                panelState = 'expanded';
-            }
-        }
-
-        this.set<BehaviorSubject<TFixedPanelState>>({
-            name: 'fixedPanelState$',
-            value: new BehaviorSubject(panelState),
+        this.set<BehaviorSubject<TFixedPanelStore>>({
+            name: 'fixedPanelStore$',
+            value: new BehaviorSubject({}),
         });
     }
 

@@ -23,4 +23,8 @@
     &.wlc-chat-panel--closed {
         transform: helpers.get-prop('panelTransformClosed');
     }
+
+    &--pos-absolute {
+        position: absolute;
+    }
 }

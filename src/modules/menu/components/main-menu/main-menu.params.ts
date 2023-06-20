@@ -2,11 +2,12 @@ import {
     IComponentParams,
     CustomType,
 } from 'wlc-engine/modules/core';
+import {TFixedPanelPos} from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
 import {
     MenuParams,
 } from 'wlc-engine/modules/menu';
 
-export type Type = 'default' | 'burger-menu' | 'fixed-burger' | CustomType;
+export type Type = 'default' | 'burger-menu' | CustomType;
 export type Theme = 'default' | CustomType;
 export type ThemeMod = 'default' | 'fixed-burger' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
@@ -26,6 +27,7 @@ export interface IMainMenuCParams extends IComponentParams<Theme, Type, ThemeMod
     };
     items?: MenuParams.IMenuItem[];
     menuParams?: MenuParams.IMenuCParams,
+    fixedPanelPosition?: TFixedPanelPos,
 }
 
 export const defaultParams: IMainMenuCParams = {
@@ -42,4 +44,5 @@ export const defaultParams: IMainMenuCParams = {
             },
         },
     },
+    fixedPanelPosition: 'left',
 };

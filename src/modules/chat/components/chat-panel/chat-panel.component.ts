@@ -34,5 +34,9 @@ export class ChatPanelComponent extends AbstractChatComponent implements OnInit 
                 this.switchMod('closed', !isOpened);
                 this.cdr.markForCheck();
             });
+
+        if (this.chatService.useInFixedPanel) {
+            this.addMod('pos-absolute');
+        }
     }
 }

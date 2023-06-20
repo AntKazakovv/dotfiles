@@ -16,13 +16,6 @@ import {
     Optional,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
-import {
-    trigger,
-    transition,
-    useAnimation,
-    query,
-    animateChild,
-} from '@angular/animations';
 
 import {TransitionService} from '@uirouter/core';
 import {
@@ -33,11 +26,11 @@ import {
     asyncScheduler,
 } from 'rxjs';
 import {
-    distinctUntilChanged,
-    startWith,
     takeUntil,
     takeWhile,
     throttleTime,
+    filter,
+    map,
 } from 'rxjs/operators';
 import _forEach from 'lodash-es/forEach';
 import _merge from 'lodash-es/merge';
@@ -62,26 +55,20 @@ import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import {
     BurgerPanelAppearanceAnimations,
-    sizeAnimation,
 } from './burger-panel.animations';
 import {
     IFixedPanelConfig,
-    IFixedPanelSizes,
+    IFixedPanelItemParams,
+    TFixedPanelPos,
     TFixedPanelState,
+    TFixedPanelStore,
 } from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
-import {$base} from 'wlc-engine/modules/core/system/config/base';
-import * as $config from 'wlc-config/index';
 import * as Params from './burger-panel.params';
 
 enum Directions {
     left = 2,
     right = 4,
 }
-
-const fixedPanelSizes: IFixedPanelSizes = _merge(
-    _get($base, 'fixedPanel.sizes'),
-    _get($config, '$base.fixedPanel.sizes'),
-);
 
 @Component({
     selector: '[wlc-burger-panel]',
@@ -90,25 +77,6 @@ const fixedPanelSizes: IFixedPanelSizes = _merge(
     changeDetection: ChangeDetectionStrategy.OnPush,
     animations: [
         ...BurgerPanelAppearanceAnimations,
-        trigger('outerAppearance', [
-            transition('* => expanded', [
-                useAnimation(sizeAnimation, {
-                    params: {from: `${fixedPanelSizes.compact}px`},
-                }),
-                query('@innerAppearance', [
-                    animateChild(),
-                ]),
-            ]),
-
-            transition('* => compact', [
-                useAnimation(sizeAnimation, {
-                    params: {from: `${fixedPanelSizes.full}px`},
-                }),
-                query('@innerAppearance', [
-                    animateChild(),
-                ]),
-            ]),
-        ]),
     ],
 })
 export class BurgerPanelComponent extends AbstractComponent
@@ -117,7 +85,7 @@ export class BurgerPanelComponent extends AbstractComponent
     @HostBinding('attr.aria-hidden') get isHidden(): boolean {
         return !this.isOpened;
     };
-    @HostBinding('@outerAppearance') public outerAppearance: string;
+    @HostBinding('@outerAppearance') public outerAppearance: Params.IFixedPanelAppearanceParams = {};
 
     @Input() public isOpened: boolean;
     @Input() protected id: string;
@@ -127,8 +95,6 @@ export class BurgerPanelComponent extends AbstractComponent
     public override $params: Params.IBurgerPanelCParams;
     public title: string;
     public headerMenuConfig: IWrapperCParams;
-    public fixedPanelConfig: IFixedPanelConfig;
-    public fixedPanelState$: BehaviorSubject<TFixedPanelState>;
 
     protected isUseTouchEvents: boolean;
     protected hammer$: any; // HammerInstance
@@ -139,6 +105,10 @@ export class BurgerPanelComponent extends AbstractComponent
     protected animeType: string;
     protected collapsedByUser: boolean = false;
     protected isFixedPanel: boolean;
+    protected fixedPanelConfig: IFixedPanelItemParams;
+    protected fixedPanelPos: TFixedPanelPos;
+    protected fixedPanelStore$: BehaviorSubject<TFixedPanelStore>;
+    protected fixedPanelState: TFixedPanelState;
 
     constructor(
         @Optional() @Inject('injectParams') protected injectParams: Params.IBurgerPanelCParams,
@@ -183,7 +153,7 @@ export class BurgerPanelComponent extends AbstractComponent
             this.initPanListeners();
         }
 
-        if (this.$params.type === 'left-fixed') {
+        if (this.$params.type === 'left-fixed' || this.$params.type === 'right-fixed') {
             this.isOpened = true;
         }
     }
@@ -194,7 +164,7 @@ export class BurgerPanelComponent extends AbstractComponent
         this.updateScrollbar.complete();
 
         if (this.isFixedPanel) {
-            this.updateFixedPanelCssVars();
+            this.setFixedPanelCssVars();
         }
     }
 
@@ -208,8 +178,8 @@ export class BurgerPanelComponent extends AbstractComponent
 
     public get animationState(): TFixedPanelState | 'close' | string {
         let animationState: string;
-        if (this.isFixedPanel) {
-            animationState = this.fixedPanelState$.getValue();
+        if (this.isFixedPanel && this.fixedPanelStore$) {
+            animationState = this.getPanelState();
         } else {
             animationState = this.isOpened ? `${this.animeType}-open` : 'close';
         }
@@ -217,8 +187,9 @@ export class BurgerPanelComponent extends AbstractComponent
     }
 
     public get useBackdrop(): boolean {
-        return this.fixedPanelState$?.getValue() === 'expanded'
-            && this.window.innerWidth < this.fixedPanelConfig.breakpoints.expand;
+        return this.fixedPanelConfig?.useBackdrop
+            && this.fixedPanelState === 'expanded'
+            && this.window.innerWidth < this.fixedPanelConfig?.breakpoints.expand;
     }
 
     /** Changes fixed panel state
@@ -227,19 +198,25 @@ export class BurgerPanelComponent extends AbstractComponent
      */
 
     public toggleFixedPanel(saveState: boolean = false): void {
-        const currentState: TFixedPanelState = this.fixedPanelState$.getValue();
-        const state: TFixedPanelState = currentState === 'expanded' ? 'compact' : 'expanded';
-        this.outerAppearance = state;
+        const state: TFixedPanelState = this.fixedPanelState === 'expanded' ? 'compact' : 'expanded';
+
+        this.updatePanelStore(state);
 
         if (saveState) {
-            this.configService.set<TFixedPanelState>({
-                name: 'fixedPanelUserState',
-                value: state,
-                storageType: 'localStorage',
-            });
+            this.configService.saveFixedPanelState(this.fixedPanelPos, this.fixedPanelState);
         }
+    }
 
-        this.fixedPanelState$.next(state);
+    protected updateAnimations(): void {
+        this.outerAppearance = {
+            value: this.fixedPanelState,
+            params: this.fixedPanelConfig.sizes,
+        };
+    }
+
+    protected getPanelState(store?: TFixedPanelStore): TFixedPanelState {
+        const panelStore: TFixedPanelStore = store || this.fixedPanelStore$.getValue();
+        return _get(panelStore, this.fixedPanelPos);
     }
 
     protected async init(): Promise<void> {
@@ -381,11 +358,19 @@ export class BurgerPanelComponent extends AbstractComponent
     }
 
     protected prepareFixedPanel(): void {
-        this.fixedPanelConfig = this.configService.get<IFixedPanelConfig>('$base.fixedPanel');
-        this.fixedPanelState$ = this.configService.get<BehaviorSubject<TFixedPanelState>>('fixedPanelState$');
+        this.fixedPanelPos = <TFixedPanelPos>this.$params.type.replace('-fixed', '');
+        this.fixedPanelConfig = this.configService.get<IFixedPanelConfig>('$base.fixedPanel')
+            .panels[this.fixedPanelPos];
 
-        this.initFixedPanelListeners();
-        this.fixedPanelState$.next(this.fixedPanelState$.getValue());
+        if (this.fixedPanelConfig) {
+            this.fixedPanelStore$ = this.configService.get<BehaviorSubject<TFixedPanelStore>>('fixedPanelStore$');
+            this.fixedPanelState = this.prepareFixedPanelState(this.fixedPanelConfig, this.fixedPanelPos);
+
+            this.setFixedPanelCssVars();
+            this.updatePanelStore(this.fixedPanelState);
+            this.addModifiers(`view-${this.fixedPanelState}`);
+            this.initFixedPanelListeners();
+        }
     }
 
     protected initFixedPanelListeners(): void {
@@ -399,65 +384,90 @@ export class BurgerPanelComponent extends AbstractComponent
                 this.autoSwitchFixedPanel(event.matches);
             });
 
-        this.fixedPanelState$
+        this.fixedPanelStore$
             .pipe(
-                startWith(null),
-                distinctUntilChanged((prev: TFixedPanelState, curr: TFixedPanelState): boolean => {
-                    if (prev !== curr) {
-                        this.removeModifiers(`view-${prev}`);
-                        this.addModifiers(`view-${curr}`);
-                    }
-                    return prev === curr;
-                }),
+                filter(store => store[this.fixedPanelPos] !== this.fixedPanelState),
+                map(store => store[this.fixedPanelPos]),
                 takeUntil(this.$destroy),
             )
-            .subscribe((): void => {
-                this.updateFixedPanelCssVars();
+            .subscribe((state: TFixedPanelState): void => {
+                this.removeModifiers(`view-${this.fixedPanelState}`);
+
+                this.fixedPanelState = state;
+
+                this.updateAnimations();
+                this.addModifiers(`view-${state}`);
             });
 
-        GlobalHelper.createMutationObserver(
-            this.hostElement.nativeElement,
-            {
-                childList: true,
-                subtree: true,
-            })
-            .pipe(
-                throttleTime(updateScrollbarThrottleTime, asyncScheduler, {trailing: true}),
-                takeUntil(this.$destroy),
-            )
-            .subscribe(() => {
-                this.updateScrollbar.next();
-            });
+        if (this.$params.useScroll) {
+            GlobalHelper.createMutationObserver(
+                this.hostElement.nativeElement,
+                {
+                    childList: true,
+                    subtree: true,
+                })
+                .pipe(
+                    throttleTime(updateScrollbarThrottleTime, asyncScheduler, {trailing: true}),
+                    takeUntil(this.$destroy),
+                )
+                .subscribe(() => {
+                    this.updateScrollbar.next();
+                });
+        }
     }
 
-    protected autoSwitchFixedPanel(canExpanded: boolean): void {
-        const userState: TFixedPanelState = this.configService.get<TFixedPanelState>({
+    protected prepareFixedPanelState(config: IFixedPanelItemParams, position: TFixedPanelPos): TFixedPanelState {
+        const userStore: TFixedPanelStore = this.configService.get<TFixedPanelStore>({
             name: 'fixedPanelUserState',
             storageType: 'localStorage',
         });
-        const currentState: TFixedPanelState = this.fixedPanelState$.getValue();
+        const userState: TFixedPanelState = _get(userStore, position);
+        let panelState: TFixedPanelState = userState;
+
+        if (!userState) {
+            if (config.compactModByDefault || this.window.innerWidth < config.breakpoints.expand) {
+                panelState = 'compact';
+            } else {
+                panelState = 'expanded';
+            }
+        }
+
+        return panelState;
+    }
+
+    protected autoSwitchFixedPanel(canExpanded: boolean): void {
+        const userStore: TFixedPanelStore = this.configService.get<TFixedPanelStore>({
+            name: 'fixedPanelUserState',
+            storageType: 'localStorage',
+        });
+        const userState = _get(userStore, this.fixedPanelPos);
+        const currentState: TFixedPanelState = this.fixedPanelState;
 
         if (!userState && (currentState === 'compact' && canExpanded || currentState === 'expanded' && !canExpanded)) {
             this.toggleFixedPanel();
         } else {
-            this.fixedPanelState$.next(currentState);
+            this.updatePanelStore(currentState);
         }
     }
 
-    protected updateFixedPanelCssVars(): void {
+    protected setFixedPanelCssVars(): void {
         const root: HTMLElement = this.document.documentElement;
         const isVisiblePanel: boolean = this.document.body.clientWidth >= this.fixedPanelConfig.breakpoints.display;
-
         if (root) {
             _forEach(this.fixedPanelConfig.sizes, (val, key) => {
                 const value = isVisiblePanel ? `${val}px` : null;
-                root.style.setProperty(`--fp-size-${key}`, value);
+                root.style.setProperty(`--fp-${this.fixedPanelPos}-size-${key}`, value);
             });
 
             _forEach(this.fixedPanelConfig.breakpoints, (val, key) => {
                 const value = isVisiblePanel ? `${val}px` : null;
-                root.style.setProperty(`--fp-breakpoint-${key}`, value);
+                root.style.setProperty(`--fp-${this.fixedPanelPos}-bp-${key}`, value);
             });
         }
+    }
+
+    protected updatePanelStore(state: TFixedPanelState): void {
+        const newState = {[this.fixedPanelPos]: state};
+        this.fixedPanelStore$.next(_merge(this.fixedPanelStore$.getValue(), newState));
     }
 }

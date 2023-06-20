@@ -1,0 +1,29 @@
+$class: 'wlc-burger-panel';
+
+.#{$class}--theme-right:host {
+    right: var(--body-padding-overflow, 0);
+    // right: 0;
+    width: var(--bp-width);
+    height: 100%;
+    background: ef.get-value($themeRight, 'panelBg');
+
+    .#{$class} {
+
+        &__inner {
+            min-height: 100%;
+        }
+    }
+
+    &.#{$class}--type-right-fixed {
+        --bp-width: var(--fp-right-size-compact);
+        --bp-transition: none;
+
+        .wlc-body--fp-right-in & {
+            visibility: visible;
+        }
+
+        &.#{$class}--view-expanded {
+            --bp-width: var(--fp-right-size-full);
+        }
+    }
+}

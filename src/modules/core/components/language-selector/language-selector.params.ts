@@ -1,4 +1,5 @@
 import {IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {TFixedPanelPos} from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
 
 
 export type ThemeType = 'default' | 'mobile-app';
@@ -39,6 +40,7 @@ export interface ILanguageSelectorCParams extends IComponentParams<ThemeType, Co
      */
     order?: string[];
     compactMod?: boolean;
+    fixedPanelPosition?: TFixedPanelPos;
     useTooltip?: boolean;
 }
 
@@ -68,4 +70,5 @@ export const defaultParams: ILanguageSelectorCParams = {
     wlcElement: 'block_language-selector',
     compactMod: false,
     useTooltip: false,
+    fixedPanelPosition: 'left',
 };

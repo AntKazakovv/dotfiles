@@ -1,4 +1,5 @@
 import {IRoom} from 'wlc-engine/modules/chat/system/interfaces';
+import {TFixedPanelPos} from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
 
 export interface IChatConfig {
     /**
@@ -53,6 +54,8 @@ export interface IChatConfig {
          * If true, chat will be opened on application init
          */
         startsWithOpen?: boolean;
+        /** Disable appending chat panel to body (use if chat inside fixed panel) */
+        fixedPanelPosition?: TFixedPanelPos;
     };
 }
 

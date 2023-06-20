@@ -7,6 +7,7 @@
 
 @import './themes/default';
 @import './themes/left';
+@import './themes/right';
 @import './themes/option3';
 @import './themes/mobile';
 
@@ -86,5 +87,26 @@
         .wlc-burger-panel__user-deposit {
             transform: translateZ(0);
         }
+
+        .wlc-burger-panel {
+
+            &__backdrop {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100%;
+                background: ef.get-value($themeDefault, 'backdropBg');
+                cursor: pointer;
+            }
+        }
+    }
+
+    &.wlc-burger-panel--type-left-fixed,
+    &.wlc-burger-panel--type-right-fixed {
+        height: 100vh;
+        transform: translate3d(0, 0, 0);
+        will-change: width;
+        // contain: size;
     }
 }

@@ -55,7 +55,7 @@ export namespace wlcMainMenu {
         params: {
             theme: 'burger-panel',
             themeMod: 'fixed-burger',
-            type: 'fixed-burger',
+            type: 'burger-panel',
             wlcElement: 'block_main-nav-panel',
             common: {
                 icons: {

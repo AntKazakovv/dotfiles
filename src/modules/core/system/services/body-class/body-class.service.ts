@@ -22,6 +22,7 @@ import {
 import _forEach from 'lodash-es/forEach';
 import _split from 'lodash-es/split';
 import _startsWith from 'lodash-es/startsWith';
+import _merge from 'lodash-es/merge';
 
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
@@ -34,7 +35,9 @@ import {DeviceType} from 'wlc-engine/modules/core/system/interfaces';
 import {WINDOW} from 'wlc-engine/modules/app/system/tokens/window';
 import {
     IFixedPanelConfig,
+    TFixedPanelPos,
     TFixedPanelState,
+    TFixedPanelStore,
 } from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
 import {TColorTheme} from 'wlc-engine/modules/core/system/interfaces/base-config/color-theme-switching.config';
 
@@ -52,7 +55,7 @@ export enum BodyClassPrefix {
     osVer = 'wlc-body--osver-',
     browser = 'wlc-body--browser-',
     country = 'wlc-body--country-',
-    layout = 'wlc-body--layout-'
+    fixedPanel = 'wlc-body--fp-'
 };
 
 export type TBodyClassPrefix = keyof typeof BodyClassPrefix;
@@ -69,13 +72,12 @@ export class BodyClassService {
     private metaThemeColor: HTMLMetaElement = this.document.querySelector('meta[name="theme-color"]');
     private scrollStopPosition: number = 0;
     private scrollingGap: number;
-    private observer: MutationObserver;
-    private paddingTrottle: ReturnType<typeof setTimeout>;
     private stickyHeaderMobile: boolean;
     private bodyClassList: DOMTokenList = this.document.body.classList;
     private colorThemeService: ColorThemeService;
     private _fixedPanelConfig: IFixedPanelConfig;
-    private _currFixedPanelBodyState: TFixedPanelState;
+    private _currFixedPanelBodyState: TFixedPanelStore = {};
+    private _openedModalsCounter: number = 0;
 
     constructor(
         @Inject(DOCUMENT) private document: Document,
@@ -157,55 +159,65 @@ export class BodyClassService {
     private initFixedPanel(): void {
         this._fixedPanelConfig = this.configService.get<IFixedPanelConfig>('$base.fixedPanel');
 
-        this.configService.get<BehaviorSubject<TFixedPanelState>>('fixedPanelState$')
-            .subscribe((state: TFixedPanelState): void => {
-                this.addFixedPanelClasses(state);
+        this.configService.get<BehaviorSubject<TFixedPanelStore>>('fixedPanelStore$')
+            .subscribe((store: TFixedPanelStore): void => {
+                _forEach(store, (state: TFixedPanelState, pos: TFixedPanelPos) => {
+                    this.addModifier(`${BodyClassPrefix.fixedPanel}${pos}`);
+                    this.addFixedPanelClasses(pos, state);
+                });
             });
-
-        this.addModifier(`${BodyClassPrefix.layout}fixed-panel-${this._fixedPanelConfig.position}`);
     }
 
-    private addFixedPanelClasses(state?: TFixedPanelState) {
-        const inClass = `${BodyClassPrefix.layout}fixed-panel-in`;
+    private addFixedPanelClasses(pos: TFixedPanelPos, state?: TFixedPanelState) {
+        const panelConfig = this._fixedPanelConfig.panels[pos];
+        const inClass = `${BodyClassPrefix.fixedPanel}${pos}-in`;
+        const isCompactView = this.window.innerWidth < panelConfig.breakpoints.expand;
 
-        if (this.window.innerWidth >= this._fixedPanelConfig.breakpoints.display) {
-            const bodyState: TFixedPanelState = this.window.innerWidth < this._fixedPanelConfig.breakpoints.expand
-                ? 'compact'
-                : state;
+        if (this.window.innerWidth >= panelConfig.breakpoints.display) {
+            const bodyState: TFixedPanelState = isCompactView ? 'compact' : state;
 
-            this.removeClassByPrefix(`${BodyClassPrefix.layout}fixed-panel-${this._currFixedPanelBodyState}`);
-            this.addModifier(`${BodyClassPrefix.layout}fixed-panel-${bodyState}`);
+            this.removeClassByPrefix(`${BodyClassPrefix.fixedPanel}${pos}-${this._currFixedPanelBodyState[pos]}`);
+            this.addModifier(`${BodyClassPrefix.fixedPanel}${pos}-${bodyState}`);
             this.addModifier(inClass);
-            this._currFixedPanelBodyState = bodyState;
+
+            const currBodyState = _merge(
+                this._currFixedPanelBodyState,
+                {[pos]: bodyState},
+            );
+            this._currFixedPanelBodyState = currBodyState;
+
+            if (isCompactView && !panelConfig.sizes.compact) {
+                this.addModifier(`${BodyClassPrefix.fixedPanel}${pos}-nopadding`);
+            } else {
+                this.removeClassByPrefix(`${BodyClassPrefix.fixedPanel}${pos}-nopadding`);
+            }
         } else {
             this.removeClassByPrefix(inClass);
         }
     }
 
-    private addBodyPadding(): void {
-        if (this.paddingTrottle
-            || this.bodyClassList.contains('modal-open')
-            || this.bodyClassList.contains('wlc-body--panels-open')) {
-            return;
+    private fixBodyPadding(removePadding?: boolean): void {
+        const bodyStyles = this.window.getComputedStyle(this.window.document.body);
+        const hasBodyScroll = bodyStyles.getPropertyValue('overflow-y') !== 'hidden';
+
+        if (removePadding) {
+            if(this._openedModalsCounter > 0) {
+                this._openedModalsCounter--;
+            }
+        } else {
+            this._openedModalsCounter++;
         }
 
-        this.paddingTrottle = setTimeout(() => {
-            this.paddingTrottle = null;
-        }, 100);
+        if (hasBodyScroll && !removePadding) {
+            const padding = this.window.innerWidth - this.document.documentElement.clientWidth + 'px';
+            this.document.body.style.setProperty('--body-padding-overflow', padding);
+            this.document.body.style.paddingRight = padding;
+        }
 
-        this.document.body.style.paddingRight = this.window.innerWidth
-            - this.document.documentElement.clientWidth + 'px';
-    }
-
-    protected initBodyObserver(): void {
-
-        this.observer = new MutationObserver(() => {
-            this.addBodyPadding();
-        });
-        this.observer.observe(this.document.body, {
-            childList: true,
-            subtree: true,
-        });
+        if (removePadding && !this._openedModalsCounter) {
+            this.document.body.style.setProperty('--body-padding-overflow', null);
+            this.document.body.style.paddingRight = null;
+        }
     }
 
     private addStaticClasses(): void {
@@ -247,7 +259,19 @@ export class BodyClassService {
             this.replaceModifier('device', deviceType);
         });
 
-        this.initBodyObserver();
+        this.eventService.subscribe([
+            {name: 'modalOpened'},
+            {name: 'PANEL_OPEN'},
+        ], () => {
+            this.fixBodyPadding();
+        });
+
+        this.eventService.subscribe([
+            {name: 'modalClosed'},
+            {name: 'PANEL_CLOSE'},
+        ], () => {
+            this.fixBodyPadding(true);
+        });
 
         this.setMetaThemeColor();
     }
@@ -255,13 +279,6 @@ export class BodyClassService {
     private setMetaThemeColor(): void {
         if (!this.metaThemeColor) {
             return;
-        }
-        if (this.actionService.device.isIOS) {
-            let iosVersion = this.actionService.device.osVersion.split('.');
-            if (+iosVersion[0] > 15 || +iosVersion[0] === 15 && +iosVersion[1] > 0) {
-                this.metaThemeColor.content = 'currentColor';
-                return;
-            }
         }
         this.metaThemeColor.content = getComputedStyle(this.document.body).getPropertyValue('--mc-bg') || '#000000';
     }

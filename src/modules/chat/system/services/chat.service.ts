@@ -46,6 +46,7 @@ import {DialogService} from 'wlc-engine/modules/chat/system/services/dialog.serv
 import {IChatCredentials} from './temp-adapter.service';
 import {TempAdapterService} from 'wlc-engine/modules/chat/system/services/temp-adapter.service';
 import {Direction, IMessage, IStanza} from './../interfaces/index';
+import {TFixedPanelPos} from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
 
 export interface IContact {
     nickname: string;
@@ -62,6 +63,7 @@ export class ChatService {
     public readonly tabVisibility$: Observable<boolean> = fromEvent(this.document, 'visibilitychange')
         .pipe(map(() => this.document.visibilityState === 'visible'), startWith(true));
     public readonly messageFail$: Subject<void> = new Subject();
+    public useInFixedPanel: boolean = false;
     protected checkCompleted: boolean = false;
 
     protected rooms: Map<string, RoomModel> = new Map([]);
@@ -82,6 +84,7 @@ export class ChatService {
     protected selfOId: Set<string> = new Set([]);
     protected userChanged$: Subject<any> = new Subject();
     protected chatStatus$: BehaviorSubject<'connecting' | null> = new BehaviorSubject(null);
+    protected fixedPanelPos: TFixedPanelPos;
 
     constructor (
         @Inject(DOCUMENT) protected document: Document,
@@ -103,14 +106,22 @@ export class ChatService {
      * Open chat panel
      */
     public openChat(): void {
-        this.isChatOpened$.next(true);
+        if (this.fixedPanelPos) {
+            this.tas.toggleFixedPanel(this.fixedPanelPos);
+        } else {
+            this.isChatOpened$.next(true);
+        }
     }
 
     /**
      * close chat panel
      */
     public closeChat(): void {
-        this.isChatOpened$.next(false);
+        if (this.fixedPanelPos) {
+            this.tas.toggleFixedPanel(this.fixedPanelPos);
+        } else {
+            this.isChatOpened$.next(false);
+        }
     }
 
     public get currentNickname(): string | null {
@@ -149,9 +160,12 @@ export class ChatService {
      * Emits main app sign in action and close chat
      */
     public signInAction(): void {
-        this.closeChat();
+        if (!this.fixedPanelPos) {
+            this.closeChat();
+        }
+
         this.tas.signInAction().then(() => {
-            if (this.tas.isAuth$.getValue()) {
+            if (this.tas.isAuth$.getValue() && !this.fixedPanelPos) {
                 this.openChat();
             }
         });
@@ -238,11 +252,17 @@ export class ChatService {
         this.subscribeIsAuthStatus();
         this.subscribeVisibilityStatus();
 
-        timer(0).pipe(tap(() => {
-            if (!this.panelRef) {
-                this.attachPanel();
-            }
-        })).subscribe();
+        const fixedPanelPosition = this.config.base.initOptions.fixedPanelPosition;
+        if (!fixedPanelPosition) {
+            timer(0).pipe(tap(() => {
+                if (!this.panelRef) {
+                    this.attachPanel();
+                }
+            })).subscribe();
+        } else {
+            this.fixedPanelPos = fixedPanelPosition;
+            this.useInFixedPanel = true;
+        }
     }
 
     /**

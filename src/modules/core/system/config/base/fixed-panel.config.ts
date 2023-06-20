@@ -2,15 +2,32 @@ import {IFixedPanelConfig} from 'wlc-engine/modules/core/system/interfaces/base-
 
 export const fixedPanelConfig: IFixedPanelConfig = {
     use: false,
-    position: 'left',
-    compactModByDefault: false,
-    sizes: {
-        full: 250,
-        compact: 60,
-        gap: 15,
-    },
-    breakpoints: {
-        display: 1024,
-        expand: 1630,
+    panels: {
+        left: {
+            compactModByDefault: false,
+            sizes: {
+                full: 250,
+                compact: 60,
+                gap: 15,
+            },
+            breakpoints: {
+                display: 1024,
+                expand: 1630,
+            },
+            useBackdrop: true,
+        },
+        right: {
+            compactModByDefault: false,
+            sizes: {
+                full: 320,
+                compact: 0,
+                gap: 15,
+            },
+            breakpoints: {
+                display: 0,
+                expand: 1630,
+            },
+            useBackdrop: false,
+        },
     },
 };

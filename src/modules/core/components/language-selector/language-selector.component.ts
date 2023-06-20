@@ -26,7 +26,6 @@ import {
     merge,
 } from 'rxjs';
 import {
-    distinctUntilChanged,
     takeUntil,
     throttleTime,
     map,
@@ -45,7 +44,9 @@ import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import * as Params from './language-selector.params';
 
-import {TFixedPanelState} from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
+import {
+    TFixedPanelStore,
+} from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
 
 export {ILanguageSelectorCParams} from './language-selector.params';
 
@@ -378,9 +379,8 @@ export class LanguageSelectorComponent
         this.addModifiers('compact');
         this.setDropdownPosition();
 
-        this.configService.get<BehaviorSubject<TFixedPanelState>>('fixedPanelState$')?.pipe(
-            distinctUntilChanged(),
-            map((state: TFixedPanelState): boolean => state === 'compact'),
+        this.configService.get<BehaviorSubject<TFixedPanelStore>>('fixedPanelStore$')?.pipe(
+            map((store: TFixedPanelStore): boolean => store[this.$params.fixedPanelPosition] === 'compact'),
             takeUntil(this.$destroy),
         ).subscribe((isCompact: boolean) => {
             this.updateCompactState(isCompact);

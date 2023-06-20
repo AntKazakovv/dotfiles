@@ -277,23 +277,6 @@
     }
 
     /*Fixed panel*/
-    &.wlc-burger-panel--type-left-fixed,
-    &.wlc-burger-panel--type-right-fixed {
-
-        .wlc-burger-panel {
-
-            &__backdrop {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100vw;
-                height: 100%;
-                background: ef.get-value($themeLeftFixed, 'backdropBg');
-                cursor: pointer;
-            }
-        }
-    }
-
     &.wlc-burger-panel--type-left-fixed {
         --bp-header-grid-cols: #{ef.get-value($themeLeftFixed, 'headerGridCols')};
         --bp-header-padding: #{ef.get-value($themeLeftFixed, 'headerPadding')};
@@ -304,23 +287,20 @@
         --bp-transition: none;
         --bp-main-menu-margin: #{ef.get-value($themeLeftFixed, 'mainMenuMargin')};
         --bp-userinfo-margin: #{ef.get-value($themeLeftFixed, 'userInfoMargin')};
-        --bp-width: var(--fp-size-compact);
+        --bp-width: var(--fp-left-size-compact);
         --bp-logout-display: #{ef.get-value($themeLeftFixed, 'logoutDisplay')};
         --bp-postmenu-link-height: #{ef.get-value($themeLeftFixed, 'postmenuLinkMinHeight')};
 
         position: sticky;
         top: 0;
         left: 0;
-        height: 100vh;
-        transform: translate3d(0, 0, 0);
-        will-change: width;
 
-        .wlc-body--layout-fixed-panel-in & {
+        .wlc-body--fp-left-in & {
             visibility: visible;
         }
 
         &.wlc-burger-panel--view-expanded {
-            --bp-width: var(--fp-size-full);
+            --bp-width: var(--fp-left-size-full);
         }
 
         &.wlc-burger-panel--view-compact {

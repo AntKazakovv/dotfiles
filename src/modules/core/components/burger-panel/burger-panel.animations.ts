@@ -6,25 +6,31 @@ import {
     transition,
     trigger,
     state,
-    animation,
+    animateChild,
 } from '@angular/animations';
 
-export const sizeAnimation = animation([
-    style({
-        width: '{{ from }}',
-    }),
-    animate('{{ speed }}', style({
-        width: '{{ to }}',
-    })),
-], {
-    params: {
-        from: '60px',
-        to: '*',
-        speed: '0.3s ease-out',
-    },
-});
-
 export const BurgerPanelAppearanceAnimations = [
+    trigger('outerAppearance', [
+        transition('* => expanded', [
+            style({width: '{{ compact }}px'}),
+            animate('250ms', style({
+                width: '*',
+            })),
+            query('@innerAppearance', [
+                animateChild(),
+            ]),
+        ], {params: {compact: 60}}),
+
+        transition('* => compact', [
+            style({width: '{{ full }}px'}),
+            animate('250ms', style({
+                width: '*',
+            })),
+            query('@innerAppearance', [
+                animateChild(),
+            ]),
+        ], {params: {full: 250}}),
+    ]),
     trigger('innerAppearance', [
         state('close', style({opacity: 0})),
         transition('* => fade-open', [
@@ -90,7 +96,7 @@ export const BurgerPanelAppearanceAnimations = [
                 opacity: 0,
                 transform: 'translateY(30px)',
             }),
-            animate('0.25s 0.1s ease-out', style({
+            animate('0.25s 0.2s ease-out', style({
                 opacity: 1,
                 transform: 'translateY(0)',
             })),
