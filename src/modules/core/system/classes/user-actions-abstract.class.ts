@@ -1,16 +1,24 @@
 import {
     Directive,
     ChangeDetectorRef,
+    OnInit,
 } from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
 
+import {
+    BehaviorSubject,
+    debounceTime,
+    takeUntil,
+} from 'rxjs';
 import _keys from 'lodash-es/keys';
 import _isArray from 'lodash-es/isArray';
 import _isString from 'lodash-es/isString';
 import _toString from 'lodash-es/toString';
+import _merge from 'lodash-es/merge';
 
 import {
     AbstractComponent,
+    IComponentParams,
     IMixedParams,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
@@ -24,7 +32,10 @@ import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notifi
 import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
-import {UserService} from 'wlc-engine/modules/user';
+import {
+    IRegFormDataForConfig,
+    UserService,
+} from 'wlc-engine/modules/user';
 import {
     ChosenBonusSetParams,
     ChosenBonusType,
@@ -42,7 +53,9 @@ export interface IValidateData {
 }
 
 @Directive()
-export abstract class UserActionsAbstract<T> extends AbstractComponent {
+export abstract class UserActionsAbstract<T> extends AbstractComponent implements OnInit {
+
+    public formData: BehaviorSubject<IIndexing<unknown>>;
 
     constructor(
         protected componentParams: IMixedParams<T>,
@@ -54,6 +67,27 @@ export abstract class UserActionsAbstract<T> extends AbstractComponent {
         cdr?: ChangeDetectorRef,
     ) {
         super(componentParams, configService, cdr);
+    }
+
+    public override ngOnInit(inlineParams?: IComponentParams<unknown, unknown, unknown>): void {
+        super.ngOnInit(inlineParams);
+        this.getFormDataFromCash();
+    }
+
+    /**
+     * get form for saving data by configService
+     * @param form
+     * @returns {void}
+     */
+    public getForm(form: UntypedFormGroup): void {
+        form.valueChanges
+            .pipe(
+                debounceTime(500),
+                takeUntil(this.$destroy),
+            )
+            .subscribe(() => {
+                this.saveFormData(form);
+            });
     }
 
     protected async finishUserReg(formValue: unknown): Promise<void> {
@@ -154,5 +188,22 @@ export abstract class UserActionsAbstract<T> extends AbstractComponent {
             formData.fields.push('registrationBonus');
         }
         return formData;
+    }
+
+    protected saveFormData(form: UntypedFormGroup): void {
+        const formData = _merge(
+            this.configService.get<IRegFormDataForConfig>('regFormData')?.form,
+            this.formDataPreparation(form),
+        );
+
+        this.configService.set<object>({
+            name: 'regFormData',
+            value: {form: formData},
+        });
+    }
+
+    protected getFormDataFromCash(): void {
+        const formValues = this.configService.get<IRegFormDataForConfig>('regFormData');
+        this.formData = new BehaviorSubject(formValues?.form?.data);
     }
 }

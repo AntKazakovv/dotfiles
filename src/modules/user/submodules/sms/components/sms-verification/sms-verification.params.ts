@@ -46,14 +46,12 @@ export const smsVerificationFormConfig: IFormWrapperCParams = {
             name: 'user.wlc-phone-field',
             params: {
                 name: ['phoneCode', 'phoneNumber'],
-                locked: true,
                 phoneCode: <ISelectCParams>{
                     labelText: gettext('Mobile code'),
                     wlcElement: 'block_phoneCode',
                     common: {
                         placeholder: gettext('Mobile code'),
                     },
-                    locked: true,
                     name: 'phoneCode',
                     validators: ['required'],
                     options: 'phoneCodes',
@@ -66,7 +64,6 @@ export const smsVerificationFormConfig: IFormWrapperCParams = {
                     },
                     wlcElement: 'block_phoneNumber',
                     name: 'phoneNumber',
-                    locked: true,
                     validators: [
                         'required',
                     ],
@@ -103,7 +100,6 @@ export const smsVerificationFormCodeConfig: IFormWrapperCParams = {
                 },
                 wlcElement: 'block_sms-code',
                 name: 'code',
-                locked: true,
                 validators: ['required',
                     {
                         name: 'minLength',

@@ -454,6 +454,8 @@ export namespace FormElements {
         params: {
             theme: 'vertical',
             name: ['birthDay', 'birthMonth', 'birthYear'],
+            validators: ['required'],
+            locked: true,
         },
     };
 

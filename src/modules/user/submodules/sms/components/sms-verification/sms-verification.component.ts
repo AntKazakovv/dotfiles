@@ -69,7 +69,7 @@ export class SmsVerificationComponent extends UserActionsAbstract<Params.ISmsVer
     protected resendChecker: Subscription;
     protected phoneCode: string;
     protected phoneNumber: string;
-    protected formData: IValidateData;
+    protected formDataValidate: IValidateData;
     protected smsToken: string;
 
     constructor(
@@ -128,7 +128,7 @@ export class SmsVerificationComponent extends UserActionsAbstract<Params.ISmsVer
      */
     public async submitCode(form: UntypedFormGroup): Promise<boolean> {
         const smsCode = form.value.code;
-        if (!smsCode ) {
+        if (!smsCode) {
             form.markAllAsTouched();
             return false;
         }
@@ -175,8 +175,8 @@ export class SmsVerificationComponent extends UserActionsAbstract<Params.ISmsVer
                         this.userService = await this.injectionService.getService<UserService>('user.user-service');
                     }
 
-                    await this.userService.validateRegistration(this.formData);
-                    await this.finishUserReg(this.formData.data);
+                    await this.userService.validateRegistration(this.formDataValidate);
+                    await this.finishUserReg(this.formDataValidate.data);
                 }
 
             } else {
@@ -231,12 +231,12 @@ export class SmsVerificationComponent extends UserActionsAbstract<Params.ISmsVer
 
     protected createFormData(): void {
         const formValues = this.configService.get<IRegFormDataForConfig>('regFormData');
-        this.formData = formValues.form;
-        this.formData.data['phoneCode'] = this.phoneCode;
-        this.formData.data['phoneNumber'] = this.phoneNumber;
-        this.formData.data['phoneVerified'] = true;
-        this.formData.fields.push('phoneCode');
-        this.formData.fields.push('phoneNumber');
+        this.formDataValidate = formValues.form;
+        this.formDataValidate.data['phoneCode'] = this.phoneCode;
+        this.formDataValidate.data['phoneNumber'] = this.phoneNumber;
+        this.formDataValidate.data['phoneVerified'] = true;
+        this.formDataValidate.fields.push('phoneCode');
+        this.formDataValidate.fields.push('phoneNumber');
     }
 
     protected showError(): void {

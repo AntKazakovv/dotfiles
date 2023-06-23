@@ -109,6 +109,10 @@ export type TFormCompositeComponent<T extends string> = {
 export interface IFormWrapperCParams extends IWrapperCParams {
     components: IFormComponent[];
     validators?: ValidatorType[];
+    /**
+     * if true inputs disables when it 'required' and it's locked is undefined
+     */
+    isStrictLocked?: boolean;
 }
 
 @Component({
@@ -404,7 +408,10 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
             _each(component.params.validators, (validator) => {
                 this.getValidator(validator, asyncValidators, validators);
 
-                if (validator === 'required' && _isUndefined(component.params.locked)) {
+                if (validator === 'required'
+                    && _isUndefined(component.params.locked)
+                    && this.$params.isStrictLocked)
+                {
                     component.params.locked = true;
                 }
             });

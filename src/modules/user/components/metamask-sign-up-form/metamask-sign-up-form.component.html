@@ -2,5 +2,6 @@
     [config]="config"
     [ngSubmit]="ngSubmit.bind(this)"
     [errors]="errors$.asObservable()"
-    [formData]="formData">
+    [formData]="formData"
+    (form$)="getForm($event)">
 </div>

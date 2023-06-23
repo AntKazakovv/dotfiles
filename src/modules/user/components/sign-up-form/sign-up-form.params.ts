@@ -36,7 +36,13 @@ export const defaultParams: ISignUpFormCParams = {
 export const signUpFormConfig: IFormWrapperCParams = {
     class: 'wlc-form-wrapper',
     components: [
-        FormElements.email,
+        {
+            name: FormElements.email.name,
+            params: {
+                ...FormElements.email.params,
+                locked: false,
+            },
+        },
         FormElements.registrationPasswordNew,
         FormElements.currency,
         FormElements.promocode,
@@ -64,8 +70,20 @@ export const signUpFormConfig: IFormWrapperCParams = {
 export const signUpWithLoginFormConfig: IFormWrapperCParams = {
     class: 'wlc-form-wrapper',
     components: [
-        FormElements.email,
-        FormElements.login,
+        {
+            name: FormElements.email.name,
+            params: {
+                ...FormElements.email.params,
+                locked: false,
+            },
+        },
+        {
+            name: FormElements.login.name,
+            params: {
+                ...FormElements.login.params,
+                locked: false,
+            },
+        },
         FormElements.registrationPasswordNew,
         FormElements.currency,
         FormElements.promocode,
@@ -92,13 +110,37 @@ export const signUpWithLoginFormConfig: IFormWrapperCParams = {
 
 export const twoStepsFormConfig = {
     components: [
-        FormElements.lastName,
-        FormElements.firstName,
-        FormElements.country,
+        {
+            name: FormElements.lastName.name,
+            params: {
+                ...FormElements.lastName.params,
+                locked: false,
+            },
+        },
+        {
+            name: FormElements.firstName.name,
+            params: {
+                ...FormElements.firstName.params,
+                locked: false,
+            },
+        },
+        {
+            name: FormElements.country.name,
+            params: {
+                ...FormElements.country.params,
+                locked: false,
+            },
+        },
         FormElements.city,
         FormElements.address,
         FormElements.postalCode,
-        FormElements.birthDate,
+        {
+            name: FormElements.birthDate.name,
+            params: {
+                ...FormElements.birthDate.params,
+                locked: false,
+            },
+        },
         FormElements.terms,
         FormElements.signUp,
         {

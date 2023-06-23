@@ -11,7 +11,6 @@ import {
     ConfigService,
     EventService,
     LogService,
-    IIndexing,
     IFormWrapperCParams,
     UserActionsAbstract,
     InjectionService,
@@ -34,7 +33,6 @@ import * as Params from './social-sign-up-form.params';
 export class SocialSignUpFormComponent extends UserActionsAbstract<Params.ISocialSignUpFormCParams> implements OnInit {
     public config: IFormWrapperCParams;
     public override $params: Params.ISocialSignUpFormCParams;
-    public formData: BehaviorSubject<IIndexing<unknown>>;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISocialSignUpFormCParams,

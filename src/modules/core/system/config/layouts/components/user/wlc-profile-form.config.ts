@@ -24,6 +24,7 @@ const insertLogin = (useLogin: boolean): IFormComponent | null => {
 export namespace wlcProfileForm {
     export const generateFirstProfileConfig = (useLogin: boolean): IFormWrapperCParams => {
         return {
+            isStrictLocked: true,
             components: [
                 {
                     name: 'core.wlc-wrapper',
@@ -190,6 +191,7 @@ export namespace wlcProfileForm {
 
     export const generateDefaultProfileConfig = (useLogin: boolean): IFormWrapperCParams => {
         return {
+            isStrictLocked: true,
             components: [
                 {
                     name: 'user.wlc-email-field',
@@ -347,6 +349,7 @@ export namespace wlcProfileForm {
         params: <IProfileFormCParams>{
             config: <IFormWrapperCParams>{
                 class: 'wlc-form-wrapper',
+                isStrictLocked: true,
                 components: [
                     {
                         name: 'core.wlc-wrapper',

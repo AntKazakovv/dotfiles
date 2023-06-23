@@ -61,9 +61,9 @@ export class EmailVerificationNotificationComponent extends AbstractComponent im
 
         this.configService.get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
             .pipe(
-                takeUntil(this.$destroy),
                 filter(v => !!v?.idUser),
                 tap((profile: UserProfile) => this.setVerificationState(profile)),
+                takeUntil(this.$destroy),
             )
             .subscribe();
 

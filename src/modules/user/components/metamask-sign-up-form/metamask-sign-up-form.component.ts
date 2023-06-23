@@ -38,7 +38,6 @@ export class MetamaskSignUpFormComponent
 
     public config: IFormWrapperCParams;
     public override $params: Params.IMetamaskSignUpFormCParams;
-    public formData: BehaviorSubject<IIndexing<unknown>>;
     public errors$: BehaviorSubject<IIndexing<string>> = new BehaviorSubject(null);
 
     constructor(

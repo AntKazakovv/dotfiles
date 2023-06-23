@@ -6,11 +6,7 @@ import {
 } from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
 
-import {
-    BehaviorSubject,
-    debounceTime,
-    takeUntil,
-} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 import _each from 'lodash-es/each';
 import _some from 'lodash-es/some';
 import _filter from 'lodash-es/filter';
@@ -68,7 +64,6 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
 
     public config: IFormWrapperCParams;
     public override $params: Params.ISignUpFormCParams;
-    public formData: BehaviorSubject<IIndexing<unknown>>;
     public errors$: BehaviorSubject<IIndexing<string>> = new BehaviorSubject(null);
     private isTwoSteps: boolean;
 
@@ -92,14 +87,15 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
 
     public override ngOnInit(): void {
         super.ngOnInit();
-        this.config = _cloneDeep(this.$params.formConfig);
+
         this.isTwoSteps = this.configService.get<boolean>('$modules.user.params.twoSteps')
         || !!this.configService.get<IMGAConfig>('$modules.core.components["wlc-license"].mga');
 
-        if(this.isTwoSteps) {
+        if (this.isTwoSteps) {
             this.addModifiers('two-steps');
         }
 
+        this.config = _cloneDeep(this.$params.formConfig);
         if (!this.config) {
             this.config = this.configService.get<boolean>('$base.site.useLogin')
                 ? _cloneDeep(Params.signUpWithLoginFormConfig)
@@ -131,22 +127,14 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
             UserHelper.modifyFormByLicense(data);
         }
 
+
         if (this.configService.get<boolean>('$base.profile.smsVerification.use')
             || this.isTwoSteps
         ) {
-            const formValues = this.configService.get<IRegFormDataForConfig>('regFormData');
             _each(this.config.components, (item) => {
                 if (item.name === 'core.wlc-button' && item.params?.common?.text && !this.isSecondStep()) {
                     item.params.common.text = gettext('Next');
                 }
-                _each(formValues?.form?.data, (value, key) => {
-                    if (item.params.name === key) {
-                        item.params.value = value;
-                    }
-                    if (Array.isArray(item.params.name) && item.params[key]) {
-                        item.params[key].value = value;
-                    }
-                });
             });
         }
 
@@ -224,22 +212,6 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         }
     }
 
-    /**
-     * get form for saving data by configService
-     * @param form
-     * @returns {void}
-     */
-    public getForm(form: UntypedFormGroup): void {
-        form.valueChanges
-            .pipe(
-                debounceTime(500),
-                takeUntil(this.$destroy),
-            )
-            .subscribe(() => {
-                this.saveFormData(form);
-            });
-    }
-
     protected async checkRegisterPromocode(form: UntypedFormGroup): Promise<boolean> {
         const promocodeControl = form.get('registrationPromoCode');
         const currencyControl = form.get('currency');
@@ -294,18 +266,6 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
             return;
         }
         this.eventService.emit({name: StepsEvents.Next});
-    }
-
-    protected saveFormData(form: UntypedFormGroup): void {
-        const formData = _merge(
-            this.configService.get<IRegFormDataForConfig>('regFormData')?.form,
-            this.formDataPreparation(form),
-        );
-
-        this.configService.set<object>({
-            name: 'regFormData',
-            value: {form: formData},
-        });
     }
 
     protected isSecondStep(): boolean {

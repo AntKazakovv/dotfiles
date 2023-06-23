@@ -1,7 +1,9 @@
 <div *ngIf="!codeSended"
     wlc-form-wrapper
     [config]="config"
-    [ngSubmit]="sendCode.bind(this)"></div>
+    [ngSubmit]="sendCode.bind(this)"
+    (form$)="getForm($event)"
+    [formData]="formData"></div>
 <div *ngIf="codeSended" class="{{$class}}__code">
     <div
         wlc-form-wrapper

@@ -94,6 +94,15 @@ export class StepsComponent extends AbstractComponent implements OnInit {
             this.previousStep();
         }, this.$destroy);
 
+        this.eventService.subscribe({name: 'hide.bs.modal'}, (name: string) => {
+            if (name === 'signup') {
+                this.configService.set<object>({
+                    name: 'regFormData',
+                    value: {},
+                });
+            }
+        }, this.$destroy);
+
         if (this.$params.stepsNames.includes('signUpBonuses')) {
             this.eventService.filter({name: 'EMPTY_REGISTER_BONUSES'}, this.$destroy)
                 .pipe(first())

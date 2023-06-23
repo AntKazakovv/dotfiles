@@ -157,6 +157,9 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
                     break;
                 }
                 case 'phoneCode': {
+                    if (this.control.value) {
+                        break;
+                    }
                     this.configService.get<BehaviorSubject<ICountry[]>>('countries')
                         .pipe(first((v) => !!v.length))
                         .subscribe(data => {
