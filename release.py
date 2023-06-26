@@ -218,16 +218,9 @@ def get_remote_tag():
     return remote_tag
 
 
-#Создание тэгов
+# Создание тэгов
 def make_tag(branch = None):
     print(Fore.YELLOW + "Making new tag..." + Fore.RESET)
-
-# Очистка временной директории
-def clean_temp():
-    print(Fore.YELLOW + "Clean temp folder" + Fore.RESET)
-    subprocess.run(["rm", "-rf", temp_folder])
-    print(Fore.GREEN + "Done" + Fore.RESET)
-
     if branch == None:
         new_tag = ".".join([str(k) for k in change_version(action, parse_version(get_version()))])
     else:
@@ -246,6 +239,13 @@ def clean_temp():
 
     print(Fore.GREEN + f"Done! New tag is {new_tag}" + Fore.RESET)
     return new_tag
+
+
+# Очистка временной директории
+def clean_temp():
+    print(Fore.YELLOW + "Clean temp folder" + Fore.RESET)
+    subprocess.run(["rm", "-rf", temp_folder])
+    print(Fore.GREEN + "Done" + Fore.RESET)
 
 
 # Удаление локального тега движка
@@ -312,7 +312,7 @@ def del_remote_tag():
             start()
 
 
-#Проверка на соответствие шаблону
+# Проверка на соответствие шаблону
 def check_format(version):
 
     release_pattern = r'^\d+\.\d+\.\d+$'
@@ -500,7 +500,7 @@ def update_language_pack(branch):
     print(Fore.GREEN + "Done. Dependency of language pack updated to the latest version!" + Fore.RESET)
 
 
-#Создание релиза
+# Создание релиза
 def make_release(action, branch):
 
     if branch == "develop":
