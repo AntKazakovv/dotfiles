@@ -104,7 +104,7 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
 
                                 setTimeout(() => {
                                     this.setValidators(`+${+(country.phoneCode)}`);
-                                    this.cdr.detectChanges();
+                                    this.cdr.markForCheck();
                                 });
                             }
                         });
@@ -115,19 +115,6 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
                 }
                 this.$params.phoneNumber.control.updateValueAndValidity({onlySelf: true});
             }));
-
-        this.$params.phoneCode?.control?.valueChanges
-            .pipe(takeUntil(this.$destroy))
-            .subscribe(val => {
-                if (val) {
-                    this.setValidators(val);
-
-                    this.configService.set({
-                        name: 'phoneCode',
-                        value: val,
-                    });
-                }
-            });
 
         this.$params.phoneNumber?.control?.valueChanges
             .pipe(
@@ -196,7 +183,7 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
         this.$params.phoneCode = _clone(this.$params.phoneCode);
         this.$params.phoneNumber = _clone(this.$params.phoneNumber);
 
-        this.cdr.detectChanges();
+        this.cdr.markForCheck();
     }
 
     protected provideParams(): void {
