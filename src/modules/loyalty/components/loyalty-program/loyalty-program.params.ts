@@ -1,8 +1,8 @@
 import {
     CustomType,
     IComponentParams,
+    ISliderCParams,
 } from 'wlc-engine/modules/core';
-import {ISliderCParams} from 'wlc-engine/modules/promo/components/slider/slider.params';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;

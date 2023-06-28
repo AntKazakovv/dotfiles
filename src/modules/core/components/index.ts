@@ -77,3 +77,9 @@ export {HistoryNameComponent} from './table/components/history-name/history-name
 export {INoContentCParams} from './no-content/no-content.params';
 export {OfflinePageComponent} from './offline-page/offline-page.component';
 export {TooltipComponent} from './tooltip/tooltip.component';
+export {SliderComponent} from './slider/slider.component';
+export {
+    ISliderCParams,
+    ISlide,
+    ISwiperEvent,
+} from './slider/slider.params';

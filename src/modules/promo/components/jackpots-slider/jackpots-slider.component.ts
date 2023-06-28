@@ -19,16 +19,14 @@ import {
     AbstractComponent,
     ConfigService,
     InjectionService,
+    ISlide,
+    SliderHelper,
+    ISliderCssProps,
 } from 'wlc-engine/modules/core';
 import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
 import {JackpotModel} from 'wlc-engine/modules/games';
 import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import {JackpotComponent} from 'wlc-engine/modules/promo/components/jackpot/jackpot.component';
-import {ISlide} from 'wlc-engine/modules/promo/components/slider/slider.params';
-import {
-    SliderHelper,
-    ISliderCssProps,
-} from 'wlc-engine/modules/promo/system/helpers/slider.helper';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import * as Params from './jackpots-slider.params';

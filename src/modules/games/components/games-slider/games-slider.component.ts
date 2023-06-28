@@ -25,17 +25,14 @@ import {
     DeviceType,
     ModalService,
     AbstractComponent,
-    IWrapperCParams,
-} from 'wlc-engine/modules/core';
-import {
     ISlide,
     ISliderCParams,
-} from 'wlc-engine/modules/promo';
+    ISwiperEvent,
+} from 'wlc-engine/modules/core';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {GameThumbComponent} from 'wlc-engine/modules/games/components/game-thumb/game-thumb.component';
 import {IGameThumbCParams} from 'wlc-engine/modules/games/components/game-thumb/game-thumb.params';
 import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
-import {ISwiperEvent} from 'wlc-engine/modules/promo/components/slider/slider.params';
 
 import * as Params from './games-slider.params';
 
@@ -55,7 +52,7 @@ export class GamesSliderComponent extends AbstractComponent implements OnInit {
     public isActive: boolean = false;
     public mockGamesList: Game[] = [];
     public gamesList: Game[] = [];
-    public sliderConfig: IWrapperCParams;
+    public sliderConfig: ISliderCParams;
 
     protected readonly sliderEvents$ = new Subject<ISwiperEvent>();
 
@@ -137,18 +134,10 @@ export class GamesSliderComponent extends AbstractComponent implements OnInit {
 
     protected setSliderConfig(): void {
         this.sliderConfig = {
-            class: `${this.$class}__wrapper`,
-            components: [
-                {
-                    name: 'promo.wlc-slider',
-                    params: <ISliderCParams>{
-                        ...this.$params.sliderParams,
-                        class: `${this.$class}__slider`,
-                        slides: this.slides,
-                        events: this.sliderEvents$,
-                    },
-                },
-            ],
+            ...this.$params.sliderParams,
+            class: `${this.$class}__slider`,
+            slides: this.slides,
+            events: this.sliderEvents$,
         };
 
         this.cdr.markForCheck();

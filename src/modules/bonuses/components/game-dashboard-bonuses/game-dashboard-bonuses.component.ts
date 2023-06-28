@@ -23,13 +23,10 @@ import {
     DeviceOrientation,
     ActionService,
     IResizeEvent,
-    IWrapperCParams,
-} from 'wlc-engine/modules/core';
-import {
     ISlide,
     ISliderCParams,
     SliderComponent,
-} from 'wlc-engine/modules/promo';
+} from 'wlc-engine/modules/core';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
 import {BonusesFilterType} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
@@ -57,8 +54,8 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
     public slides: ISlide[] = [];
     public override $params: Params.IGameDashboardBonusesCParams;
 
-    public defaultSliderConfig: IWrapperCParams = {components: []};
-    public landscapeSliderConfig: IWrapperCParams = {components: []};
+    public defaultSliderConfig: ISliderCParams = {};
+    public landscapeSliderConfig: ISliderCParams = {};
 
     protected filter: BonusesFilterType = 'all';
 
@@ -141,29 +138,15 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
     }
 
     protected initSliderComponents(): void {
-        this.defaultSliderConfig = {
-            components: [
-                {
-                    name: 'promo.wlc-slider',
-                    params: _merge<ISliderCParams, ISliderCParams>(
-                        this.$params.defaultSliderParams,
-                        {slides: this.slides},
-                    ),
-                },
-            ],
-        };
+        this.defaultSliderConfig = _merge<ISliderCParams, ISliderCParams>(
+            this.$params.defaultSliderParams,
+            {slides: this.slides},
+        );
 
-        this.landscapeSliderConfig = {
-            components: [
-                {
-                    name: 'promo.wlc-slider',
-                    params: _merge<ISliderCParams, ISliderCParams>(
-                        this.$params.landscapeSliderParams,
-                        {slides: this.slides},
-                    ),
-                },
-            ],
-        };
+        this.landscapeSliderConfig = _merge<ISliderCParams, ISliderCParams>(
+            this.$params.landscapeSliderParams,
+            {slides: this.slides},
+        );
     }
 
     /**

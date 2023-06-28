@@ -27,16 +27,12 @@ import {
     AbstractComponent,
     GlobalHelper,
     ActionService,
-} from 'wlc-engine/modules/core';
-import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
-import {
-    SliderHelper,
-    ISliderCssProps,
-} from 'wlc-engine/modules/promo/system/helpers/slider.helper';
-import {
     ISlide,
     ISliderCParams,
-} from 'wlc-engine/modules/promo/components/slider/slider.params';
+    SliderHelper,
+    ISliderCssProps,
+} from 'wlc-engine/modules/core';
+import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
 import {WinnersService} from 'wlc-engine/modules/promo/system/services/winners/winners.service';
 import {WinnerModel} from 'wlc-engine/modules/promo/system/models/winner.model';
 import {WinnerComponent} from 'wlc-engine/modules/promo/components/winner/winner.component';

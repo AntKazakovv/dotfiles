@@ -61,12 +61,10 @@ import {
     CardLoadingAnimation,
     GlobalHelper,
     IWrapperCParams,
-    IFormWrapperCParams,
-} from 'wlc-engine/modules/core';
-import {
     ISlide,
     ISliderCParams,
-} from 'wlc-engine/modules/promo';
+    ResizedEventModel,
+} from 'wlc-engine/modules/core';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
@@ -75,7 +73,6 @@ import {GamesFilterServiceEvents} from 'wlc-engine/modules/games/system/services
 import {GameThumbComponent} from 'wlc-engine/modules/games/components/game-thumb/game-thumb.component';
 import {GamesFilterService} from 'wlc-engine/modules/games/system/services/games-filter.service';
 import {IGameThumbCParams} from 'wlc-engine/modules/games/components/game-thumb/game-thumb.params';
-import {ResizedEventModel} from 'wlc-engine/modules/core';
 
 import {
     GamesCatalogService,
@@ -125,8 +122,8 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
     // the swiper navigation buttons will lose their binding
     public navigationId: string = _random(10000000).toString(16);
 
-    public gamesSliderConfig: IWrapperCParams = {components: []};
-    public gamePlaceholdersSliderConfig: IWrapperCParams = {components: []};
+    public gamesSliderConfig: ISliderCParams = {};
+    public gamePlaceholdersSliderConfig: ISliderCParams = {};
     public bannerSliderConfig: IWrapperCParams = {components: []};
 
     protected gamesRows: number = 1;
@@ -849,15 +846,8 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
         }
     }
 
-    protected createConfigSliders(slides: ISlide[]): IFormWrapperCParams {
-        return {
-            components: [
-                {
-                    name: 'promo.wlc-slider',
-                    params: <ISliderCParams>_merge({slides}, this.$params.showAsSwiper?.sliderParams),
-                },
-            ],
-        };
+    protected createConfigSliders(slides: ISlide[]): ISliderCParams {
+        return _merge({slides}, this.$params.showAsSwiper?.sliderParams);
     }
 
     protected initGameSliders(): void {

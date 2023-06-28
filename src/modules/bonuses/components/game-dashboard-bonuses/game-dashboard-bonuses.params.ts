@@ -1,5 +1,8 @@
-import {IComponentParams, CustomType} from 'wlc-engine/modules/core';
-import {ISliderCParams} from 'wlc-engine/modules/promo';
+import {
+    IComponentParams,
+    CustomType,
+    ISliderCParams,
+} from 'wlc-engine/modules/core';
 import {TBonusSortOrder} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 
 export type Type = 'default' | CustomType;

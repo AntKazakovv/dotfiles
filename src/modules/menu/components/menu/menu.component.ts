@@ -57,11 +57,9 @@ import {
     InjectionService,
     GlobalHelper,
     IWrapperCParams,
-} from 'wlc-engine/modules/core';
-import {
     ISlide,
     ISliderCParams,
-} from 'wlc-engine/modules/promo/components/slider/slider.params';
+} from 'wlc-engine/modules/core';
 import {TIconExtension} from 'wlc-engine/modules/menu/system/interfaces/menu.interface';
 import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
 import {TextDataModel} from 'wlc-engine/modules/static/system/models/textdata.model';
@@ -680,7 +678,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         this.sliderConfig = {
             components: [
                 {
-                    name: 'promo.wlc-slider',
+                    name: 'core.wlc-slider',
                     params: this.sliderParams,
                 },
             ],

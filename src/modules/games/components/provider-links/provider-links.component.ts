@@ -23,14 +23,11 @@ import {
     ConfigService,
     EventService,
     GlobalHelper,
-    IWrapperCParams,
     ModalService,
     ColorThemeService,
-} from 'wlc-engine/modules/core';
-import {
     ISlide,
     ISliderCParams,
-} from 'wlc-engine/modules/promo';
+} from 'wlc-engine/modules/core';
 import {
     GamesCatalogService,
 } from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
@@ -60,7 +57,7 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
     public sliderParams: ISliderCParams = {
         swiper: {},
     };
-    public sliderConfig: IWrapperCParams;
+    public sliderConfig: ISliderCParams;
 
     protected $itemsChanges = new BehaviorSubject<IconModel[]>([]);
     protected modalLinkParams: Params.IProviderLinksCParams;
@@ -183,15 +180,8 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
 
     protected initSliderConfig(): void {
         this.sliderConfig = {
-            components: [
-                {
-                    name: 'promo.wlc-slider',
-                    params: <ISliderCParams>{
-                        ...this.sliderParams,
-                        slides: this.slides,
-                    },
-                },
-            ],
+            slides: this.slides,
+            ...this.sliderParams,
         };
     }
 

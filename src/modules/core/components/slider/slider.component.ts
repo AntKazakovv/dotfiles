@@ -39,11 +39,11 @@ import {SwiperComponent} from 'swiper/angular';
 import {NavigationOptions} from 'swiper/types';
 
 import {
-    AbstractComponent,
     ConfigService,
     ActionService,
     TUnknownFunction,
 } from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {WinnersService} from 'wlc-engine/modules/promo/system/services/winners/winners.service';
 
 import * as Params from './slider.params';

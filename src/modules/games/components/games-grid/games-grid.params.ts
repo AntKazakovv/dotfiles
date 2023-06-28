@@ -5,6 +5,7 @@ import {
     IComponentParams,
     IButtonCParams,
     CustomType,
+    ISliderCParams,
 } from 'wlc-engine/modules/core';
 import {
     TFreeRoundGames,
@@ -19,10 +20,7 @@ import {
 import {
     ITournamentGames,
 } from 'wlc-engine/modules/tournaments';
-import {
-    IBannersSliderCParams,
-    ISliderCParams,
-} from 'wlc-engine/modules/promo';
+import {IBannersSliderCParams} from 'wlc-engine/modules/promo';
 
 export type ComponentTheme = 'default' | 'swiper' | 'preview' | 'mobile-app-swiper' | CustomType;
 export type ComponentType = 'default' | 'search' | 'swiper';

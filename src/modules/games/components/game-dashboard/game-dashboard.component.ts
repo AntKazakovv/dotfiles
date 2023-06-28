@@ -51,11 +51,9 @@ import {
     IResizeEvent,
     GlobalHelper,
     AppType,
-} from 'wlc-engine/modules/core';
-import {
     ISlide,
     ISliderCParams,
-} from 'wlc-engine/modules/promo';
+} from 'wlc-engine/modules/core';
 import {
     IUserStatsCParams,
     UserProfile,
@@ -180,7 +178,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
     public userStatsConfig: IWrapperCParams = {components: []};
     public userStatsWithoutDepositConfig: IWrapperCParams = {components: []};
     public loyaltyProgressConfig: IWrapperCParams = {components: []};
-    public sliderConfig: IWrapperCParams = {components: []};
+    public sliderConfig: ISliderCParams = {};
 
     protected breakpoints: IIndexing<number> = {
         backdropLabel: 680,
@@ -828,13 +826,8 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
      */
     protected loadSliderComponent(): void {
         this.sliderConfig = {
-            components: [{
-                name: 'promo.wlc-slider',
-                params: <ISliderCParams>{
-                    slides: this.lastPlayedGamesSlides,
-                    ...this.lastPlayedSwiper,
-                },
-            }],
+            slides: this.lastPlayedGamesSlides,
+            ...this.lastPlayedSwiper,
         };
     }
 }

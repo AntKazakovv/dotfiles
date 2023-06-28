@@ -11,8 +11,8 @@ import {
     AbstractComponent,
     ConfigService,
     EventService,
+    ISlide,
 } from 'wlc-engine/modules/core';
-import {ISlide} from 'wlc-engine/modules/promo/components/slider/slider.params';
 import {BannersService} from 'wlc-engine/modules/promo/system/services';
 import {BannerModel} from 'wlc-engine/modules/promo/system/models/banner.model';
 import {BannerComponent} from 'wlc-engine/modules/promo/components/banner/banner.component';

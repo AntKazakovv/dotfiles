@@ -1,11 +1,13 @@
-import {IComponentParams} from 'wlc-engine/modules/core/system/interfaces/config.interface';
+import {
+    IComponentParams,
+    ISliderCParams,
+    IMenuOptions,
+    ICounterCParams,
+    IIndexing,
+} from 'wlc-engine/modules/core';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
-import {ISliderCParams} from 'wlc-engine/modules/promo';
 import {TIconExtension} from 'wlc-engine/modules/menu/system/interfaces/menu.interface';
 import {ICategoryMenuCParams} from 'wlc-engine/modules/menu/components/category-menu/category-menu.params';
-import {IMenuOptions} from 'wlc-engine/modules/core/system/interfaces/menu.interface';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
-import {ICounterCParams} from 'wlc-engine/modules/core/components/counter/counter.params';
 import {Observable} from 'rxjs';
 
 export interface MenuConfigItemsGroup {

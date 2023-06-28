@@ -11,6 +11,12 @@ import {
 
 import {UIRouterGlobals} from '@uirouter/core';
 
+import _union from 'lodash-es/union';
+import _merge from 'lodash-es/merge';
+import _each from 'lodash-es/each';
+import _filter from 'lodash-es/filter';
+import _random from 'lodash-es/random';
+
 import {
     AbstractComponent,
     IMixedParams,
@@ -19,12 +25,10 @@ import {
     EventService,
     GlobalHelper,
     IWrapperCParams,
-} from 'wlc-engine/modules/core';
-import {SliderComponent} from 'wlc-engine/modules/promo/components/slider/slider.component';
-import {
     ISlide,
     ISliderCParams,
-} from 'wlc-engine/modules/promo/components/slider/slider.params';
+    SliderComponent,
+} from 'wlc-engine/modules/core';
 import {
     Tournament,
     TournamentsService,
@@ -33,12 +37,6 @@ import {TournamentComponent} from '../tournament/tournament.component';
 import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
 
 import * as Params from 'wlc-engine/modules/tournaments/components/tournament-list/tournament-list.params';
-
-import _union from 'lodash-es/union';
-import _merge from 'lodash-es/merge';
-import _each from 'lodash-es/each';
-import _filter from 'lodash-es/filter';
-import _random from 'lodash-es/random';
 
 @Component({
     selector: '[wlc-tournament-list]',
@@ -70,8 +68,8 @@ export class TournamentListComponent
     public isAuth: boolean;
     public noContentParams: INoContentCParams;
 
-    public dashboardSliderConfig: IWrapperCParams = {components: []};
-    public bannerSliderConfig: IWrapperCParams = {components: []};
+    public dashboardSliderConfig: ISliderCParams = {};
+    public bannerSliderConfig: ISliderCParams = {};
     public navigationId: string = _random(10000000).toString(16);
     public emptyInProfileConfig: IWrapperCParams;
     protected indexOfSelectedTournament: number;
@@ -268,28 +266,13 @@ export class TournamentListComponent
 
     protected initSliderComponents(): void {
         this.bannerSliderConfig = {
-            components: [
-                {
-                    name: 'promo.wlc-slider',
-                    params: <ISliderCParams>{
-                        type: 'banner',
-                        slides: this.slides,
-                        ...this.sliderParams,
-                    },
-                },
-            ],
+            slides: this.slides,
+            ...this.sliderParams,
         };
 
         this.dashboardSliderConfig = {
-            components: [
-                {
-                    name: 'promo.wlc-slider',
-                    params: <ISliderCParams>{
-                        slides: this.slides,
-                        ...this.sliderParams,
-                    },
-                },
-            ],
+            slides: this.slides,
+            ...this.sliderParams,
         };
     }
 }

@@ -19,9 +19,9 @@ import {
     ConfigService,
     EventService,
     ModalService,
+    SliderComponent,
 } from 'wlc-engine/modules/core';
 import {ButtonComponent} from 'wlc-engine/modules/core/components/button/button.component';
-import {SliderComponent} from 'wlc-engine/modules/promo';
 import {IBonus} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
@@ -193,6 +193,7 @@ describe('LootboxModalComponent', (): void => {
 
         await component.ngOnInit();
         await component.btnClick();
+
         component.onSlideChangeTransitionEnd();
 
         expect(component.title).toEqual('Congratulations!');

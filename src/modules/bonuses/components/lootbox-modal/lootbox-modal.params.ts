@@ -1,8 +1,8 @@
 import {
     IComponentParams,
     CustomType,
+    ISliderCParams,
 } from 'wlc-engine/modules/core';
-import {ISliderCParams} from 'wlc-engine/modules/promo';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 
 export type Type = 'default' | CustomType;

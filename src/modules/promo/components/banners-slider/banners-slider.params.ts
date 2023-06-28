@@ -1,8 +1,8 @@
 import {
     IComponentParams,
     CustomType,
-} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ISliderCParams} from 'wlc-engine/modules/promo/components/slider/slider.params';
+    ISliderCParams,
+} from 'wlc-engine/modules/core';
 import {IBannersFilter} from 'wlc-engine/modules/promo/system/services/banners/banners.service';
 import {IBannerCParams} from './../banner/banner.params';
 

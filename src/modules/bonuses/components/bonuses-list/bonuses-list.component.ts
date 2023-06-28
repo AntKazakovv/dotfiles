@@ -41,12 +41,10 @@ import {
     ActionService,
     INoContentCParams,
     IIndexing,
-} from 'wlc-engine/modules/core';
-import {
-    ISliderCParams,
     ISlide,
+    ISliderCParams,
     SliderComponent,
-} from 'wlc-engine/modules/promo';
+} from 'wlc-engine/modules/core';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
 import {IBonusItemCParams} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';

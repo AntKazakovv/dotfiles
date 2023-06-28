@@ -13,7 +13,6 @@ import {StaticModule} from 'wlc-engine/modules/static/static.module';
 import {
     WinnersSliderComponent,
     WinnerComponent,
-    SliderComponent,
     JackpotsSliderComponent,
     JackpotComponent,
     BannersSliderComponent,
@@ -38,7 +37,6 @@ export const components = {
     'wlc-cash-out-time': CashOutTimeComponent,
     'wlc-jackpot': JackpotComponent,
     'wlc-jackpots-slider': JackpotsSliderComponent,
-    'wlc-slider': SliderComponent,
     'wlc-winners-slider': WinnersSliderComponent,
     'wlc-top-rated': TopRatedComponent,
 };
@@ -50,7 +48,6 @@ export const components = {
         CashOutTimeComponent,
         JackpotComponent,
         JackpotsSliderComponent,
-        SliderComponent,
         WinnerComponent,
         WinnersSliderComponent,
         TopRatedComponent,
@@ -74,7 +71,6 @@ export const components = {
         CashOutTimeComponent,
         JackpotsSliderComponent,
         JackpotComponent,
-        SliderComponent,
         WinnerComponent,
         WinnersSliderComponent,
         TopRatedComponent,

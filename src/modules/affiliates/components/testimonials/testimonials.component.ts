@@ -16,13 +16,13 @@ import _get from 'lodash-es/get';
 import {
     AbstractComponent,
     ConfigService,
-    IWrapperCParams,
+    ISlide,
+    ISliderCParams,
 } from 'wlc-engine/modules/core';
 import {
     StaticService,
     TextDataModel,
 } from 'wlc-engine/modules/static';
-import {ISlide} from 'wlc-engine/modules/promo';
 
 import * as Params from './testimonials.params';
 
@@ -36,7 +36,7 @@ export class TestimonialsComponent extends AbstractComponent implements OnInit {
     @Input() public slug: string;
     @ViewChild('tesimonial') tplTestimonial: TemplateRef<ElementRef>;
 
-    public sliderConfig: IWrapperCParams = {};
+    public sliderConfig: ISliderCParams = {};
     public slides: ISlide[] = [];
     public ready: boolean = false;
     public override $params: Params.ITestimonialsCParams;
@@ -110,15 +110,8 @@ export class TestimonialsComponent extends AbstractComponent implements OnInit {
         }
 
         this.sliderConfig = {
-            components: [
-                {
-                    name: 'promo.wlc-slider',
-                    params: {
-                        swiper: this.$params.sliderParams || {},
-                        slides: this.slides,
-                    },
-                },
-            ],
+            swiper: this.$params.sliderParams || {},
+            slides: this.slides,
         };
     }
 }

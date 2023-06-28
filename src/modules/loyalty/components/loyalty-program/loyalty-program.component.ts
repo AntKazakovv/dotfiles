@@ -19,13 +19,10 @@ import {
     ActionService,
     ConfigService,
     DeviceType,
-    IWrapperCParams,
     ModalService,
-} from 'wlc-engine/modules/core';
-import {
     ISlide,
     ISliderCParams,
-} from 'wlc-engine/modules/promo';
+} from 'wlc-engine/modules/core';
 import {LoyaltyLevelComponent} from 'wlc-engine/modules/loyalty/components/loyalty-level/loyalty-level.component';
 import {ILoyaltyLevelCParams} from 'wlc-engine/modules/loyalty/components/loyalty-level/loyalty-level.params';
 import {LoyaltyLevelsService} from 'wlc-engine/modules/loyalty/system/services/loyalty-levels/loyalty-levels.service';
@@ -46,7 +43,7 @@ export class LoyaltyProgramComponent extends AbstractComponent implements OnInit
     public isAuth: boolean;
     public slides: ISlide[] = [];
     public isMobile: boolean = false;
-    public sliderConfig: IWrapperCParams;
+    public sliderConfig: ISliderCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILoyaltyProgramCParams,
@@ -143,15 +140,8 @@ export class LoyaltyProgramComponent extends AbstractComponent implements OnInit
 
     protected initSliderComponent(): void {
         this.sliderConfig = {
-            components: [
-                {
-                    name: 'promo.wlc-slider',
-                    params: <ISliderCParams>{
-                        slides: this.slides,
-                        ...this.$params.sliderParams,
-                    },
-                },
-            ],
+            slides: this.slides,
+            ...this.$params.sliderParams,
         };
     }
 }

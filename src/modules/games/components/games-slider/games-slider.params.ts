@@ -2,9 +2,9 @@ import Swiper from 'swiper';
 import {
     IComponentParams,
     CustomType,
-} from 'wlc-engine/modules/core/system/classes/abstract.component';
+    ISliderCParams,
+} from 'wlc-engine/modules/core';
 import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
-import {ISliderCParams} from 'wlc-engine/modules/promo';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;

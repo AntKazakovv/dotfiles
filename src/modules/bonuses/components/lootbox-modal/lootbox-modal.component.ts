@@ -21,11 +21,9 @@ import {
     EventService,
     IPushMessageParams,
     NotificationEvents,
-} from 'wlc-engine/modules/core';
-import {
     ISlide,
     SliderComponent,
-} from 'wlc-engine/modules/promo';
+} from 'wlc-engine/modules/core';
 import {ThemeMod as BtnThemeMod} from 'wlc-engine/modules/core/components/button/button.params';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
