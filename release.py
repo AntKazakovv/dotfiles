@@ -490,11 +490,12 @@ def update_language_pack(branch):
     print(Fore.GREEN + "Done" + Fore.RESET)
 
     print(Fore.YELLOW + "Update language pack to the last version" + Fore.RESET)
+    subprocess.run(["npm", "cache", "clean", "-f"])
     subprocess.run(["npm", "update", "@egamings/wlc-engine-translate", "-f"])
     print(Fore.GREEN + "Done" + Fore.RESET)
 
     print(Fore.YELLOW + "Commit and push changes..." + Fore.RESET)
-    subprocess.run(["git", "add", "."])
+    subprocess.run(["git", "add", "package-lock.json"])
     subprocess.run(["git", "commit", "-m", "SCR #123456 - update: language pack to the last version"])
     subprocess.run(["git", "push", "origin", f"HEAD:{branch}"])
     print(Fore.GREEN + "Done" + Fore.RESET)
@@ -513,8 +514,7 @@ def make_release(action, branch):
         If you want make and update language pack - input (1).
         If you want just update language pack - input (2).
         If you don`t want anything - input nothing.
-        Your choise:
-        """ + Fore.RESET))
+        Your choise: """ + Fore.RESET))
 
         if update_language == "1" or update_language == "2":
 
