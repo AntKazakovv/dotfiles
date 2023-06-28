@@ -328,7 +328,7 @@ export class LimitationService {
             this.intervalChecker = null;
             this.modalService.showModal({
                 id: 'reality-check-info',
-                modalTitle: gettext('Reality check!'),
+                modalTitle: gettext('Activity check!'),
                 withoutPadding: true,
                 componentName: 'user.wlc-reality-check-info',
                 componentParams: {

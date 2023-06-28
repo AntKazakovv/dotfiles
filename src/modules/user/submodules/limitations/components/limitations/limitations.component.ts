@@ -257,7 +257,7 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
         if (this.userService.userProfile.extProfile.realityCheckTime && this.limitationService.realityCheckEnabled) {
             limits.push({
                 type: 'realityChecker',
-                typeText: gettext('Reality checker'),
+                typeText: gettext('Activity checker'),
                 amountValue: {
                     valueType: 'realityChecker',
                     value: this.userService.userProfile.extProfile.realityCheckTime,

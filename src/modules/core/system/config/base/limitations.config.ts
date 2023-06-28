@@ -14,7 +14,7 @@ export const limitType: TIndexingLimitTypeItems = {
         value: 'MaxLossSum',
     },
     realityChecker: {
-        title: gettext('Reality checker'),
+        title: gettext('Activity checker'),
         value: 'realityChecker',
     },
     timeOut: {
