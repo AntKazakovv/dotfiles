@@ -509,13 +509,25 @@ def update_language_pack(branch):
 def make_release(action, branch):
 
     if branch == "develop":
-        update_language = input((Fore.YELLOW + "Do you want to update language pack version? (y/n): " + Fore.RESET))
+        update_language = input((Fore.YELLOW + """
+        If you want make and update language pack - input (1).
+        If you want just update language pack - input (2).
+        If you don`t want anything - input nothing.
+        Your choise:
+        """ + Fore.RESET))
 
-        if update_language == "y":
-            make_translate_release("master")
-            print(Fore.YELLOW + "Waiting for the jenkins job to complete... Check your self, please" + Fore.RESET)
-            time.sleep(20)
-            print(Fore.YELLOW + "Should be done!" + Fore.RESET)
+        if update_language == "1" or update_language == "2":
+
+            if update_language == "1":
+
+                make_translate_release("master")
+                print(Fore.YELLOW + "Waiting for the jenkins job to complete... Check your self, please" + Fore.RESET)
+                time.sleep(20)
+                job = input(Fore.YELLOW + "If jankins job is done press 'y': " + Fore.RESET)
+
+                if job == "y":
+                    print(Fore.YELLOW + "Done!" + Fore.RESET)
+
             update_language_pack(branch)
 
     print(Fore.YELLOW + "Checkout to the remote branch" + Fore.RESET)
