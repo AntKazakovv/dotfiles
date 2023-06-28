@@ -3,7 +3,8 @@
     class="{{$class}}-wrapper">
 
     <div class="container-{{$class}}-button">
-        <button class="{{$class}}-button" (click)="openChat()">
+        <button class="{{$class}}-button"
+                (click)="isChatOpen ? closeChat() : openChat()">
             <img class="{{$class}}-button__icon" src="{{$params.common.iconPath}}">
             <p class="{{$class}}-button__text">{{'Online chat' | translate}}</p>
         </button>

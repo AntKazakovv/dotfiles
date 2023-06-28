@@ -5,6 +5,7 @@ import {
     Inject,
     Renderer2,
     Input,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 
 import {
@@ -28,12 +29,11 @@ import {DeadsimplechatService} from 'wlc-engine/modules/deadsimplechat/system/se
 
 import * as Params from './deadsimplechat.params';
 
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-deadsimplechat]',
     templateUrl: './deadsimplechat.component.html',
     styleUrls: ['./styles/deadsimplechat.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DeadsimplechatComponent extends AbstractComponent implements OnInit {
     @Input() protected iconPath: string;
@@ -43,6 +43,7 @@ export class DeadsimplechatComponent extends AbstractComponent implements OnInit
     public zIndexLiveChat: string = '';
     public roomId: string;
     public liveChatExist: boolean = false;
+    public isChatOpen: boolean = false;
 
     constructor(
         @Inject(DOCUMENT) protected document: Document,
@@ -99,6 +100,8 @@ export class DeadsimplechatComponent extends AbstractComponent implements OnInit
     }
 
     public closeChat(): void {
+        this.isChatOpen = false;
+
         this.document.getElementById('chat-wrapper').style.right = '-360px';
         this.document.getElementById('chat-wrapper').style.top = '';
         this.document.getElementById('chat-wrapper').style.left = '';
@@ -109,6 +112,8 @@ export class DeadsimplechatComponent extends AbstractComponent implements OnInit
     }
 
     public openChat(): void {
+        this.isChatOpen = true;
+
         this.document.getElementById('chat-wrapper').style.right = '6px';
 
         if (this.liveChatExist) {
