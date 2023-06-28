@@ -34,13 +34,13 @@ import _isArray from 'lodash-es/isArray';
 import _filter from 'lodash-es/filter';
 import _find from 'lodash-es/find';
 import _toNumber from 'lodash-es/toNumber';
-import _size from 'lodash-es/size';
 import _union from 'lodash-es/union';
 import _forEach from 'lodash-es/forEach';
 import _intersectionBy from 'lodash-es/intersectionBy';
 import _uniqBy from 'lodash-es/uniqBy';
 import _reduce from 'lodash-es/reduce';
 import _first from 'lodash-es/first';
+import _intersection from 'lodash-es/intersection';
 
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers';
 import {ICategorySettings} from 'wlc-engine/modules/core/system/interfaces/categories.interface';
@@ -735,40 +735,68 @@ export class GamesCatalogService {
     }
 
     public getTournamentGames(data: ITournamentGames): Game[] {
-        let games = this.getGameList({
-            ids: _size(data.Games) ? data.Games : null,
-            categories: _map(data.Categories, (id) => {
-                return GamesHelper.getCategoryById(id)?.menuId;
-            }),
-            excludeCategories: _map(data.CategoriesBL, (id) => {
-                return GamesHelper.getCategoryById(id)?.menuId;
-            }),
-            merchants: data.Merchants,
-            excludeMerchants: data.MerchantsBL,
-            includeSportsbooks: true,
-        });
+        const games = this.getGameList();
+        const filteredList: Game[] = [];
 
-        if (data.GamesBL.length) {
-            games = _filter(games, ({ID}) => {
-                return !_includes(data.GamesBL, ID);
-            });
+        if (!data.Merchants.length && !data.MerchantsBL.length
+            && !data.Categories.length && !data.CategoriesBL.length
+            && !data.Games.length && !data.GamesBL.length
+        ) {
+
+            if (this.useSeparateSorts) {
+                GamesHelper.sortGamesGeneral(games, this.sorts, {
+                    sortSetting: this.gamesCatalog.gamesSeparateSortSetting,
+                    country: this.configService.get('appConfig.country'),
+                    language: this.translateService.currentLang || 'en',
+                });
+            } else {
+                GamesHelper.sortGames(games, {
+                    sortSetting: this.gamesCatalog.gamesSortSetting,
+                    country: this.configService.get('appConfig.country'),
+                    language: this.translateService.currentLang || 'en',
+                });
+            }
+            return games;
         }
 
+        _forEach(games, (game: Game) => {
+
+            //check game in black-list
+            if ((data.MerchantsBL.length && _includes(data.MerchantsBL, game.merchantID))
+                || (data.CategoriesBL.length && _intersection(data.CategoriesBL, game.categoryID).length)
+                || (data.GamesBL.length && _includes(data.GamesBL, game.ID))
+            ) {
+                return;
+            }
+
+            if (!data.Merchants.length && !data.Categories.length && !data.Games.length) {
+                filteredList.push(game);
+                return;
+            }
+
+            //check game in white-list
+            if ((data.Merchants.length && _includes(data.Merchants, game.merchantID))
+                || (data.Categories.length && _intersection(data.Categories, game.categoryID).length)
+                || (data.Games.length && _includes(data.Games, game.ID))
+            ) {
+                filteredList.push(game);
+            }
+        });
+
         if (this.useSeparateSorts) {
-            GamesHelper.sortGamesGeneral(games, this.sorts, {
+            GamesHelper.sortGamesGeneral(filteredList, this.sorts, {
                 sortSetting: this.gamesCatalog.gamesSeparateSortSetting,
                 country: this.configService.get('appConfig.country'),
                 language: this.translateService.currentLang || 'en',
             });
         } else {
-            GamesHelper.sortGames(games, {
+            GamesHelper.sortGames(filteredList, {
                 sortSetting: this.gamesCatalog.gamesSortSetting,
                 country: this.configService.get('appConfig.country'),
                 language: this.translateService.currentLang || 'en',
             });
         }
-
-        return games;
+        return filteredList;
     }
 
     /**
