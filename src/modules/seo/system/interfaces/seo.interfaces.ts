@@ -19,7 +19,11 @@ export interface IStateChild {
     data: IStateData;
 }
 
+export interface IPageStateData {
+    [state: string]: IStateDataWithChild;
+}
 export interface IStateDataWithChild extends IStateData {
+    // Note: there is no mistake in the field name. The name gets from the plugin's response.
     childred?: IStateChild[];
 }
 

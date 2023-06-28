@@ -7,17 +7,16 @@ import {
 } from '@angular/platform-browser';
 import {TranslateService} from '@ngx-translate/core';
 import {
+    StateParams,
     StateService,
     TransitionService,
     UIRouterGlobals,
 } from '@uirouter/core';
 
-import {EventService} from 'wlc-engine/modules/core';
-
-import _get from 'lodash-es/get';
 import _isString from 'lodash-es/isString';
 import _find from 'lodash-es/find';
-import _isEmpty from 'lodash-es/isEmpty';
+import _forOwn from 'lodash-es/forOwn';
+import _mapValues from 'lodash-es/mapValues';
 
 import {
     GamesHelper,
@@ -25,46 +24,50 @@ import {
 } from 'wlc-engine/modules/games';
 import {
     IIndexing,
-    DataService,
     IData,
+    DataService,
     ConfigService,
     CachingService,
     InjectionService,
+    EventService,
+    LogService,
 } from 'wlc-engine/modules/core';
 import {
     IGameStateData,
     IStateData,
+    IPageStateData,
     IStateDataWithChild,
 } from 'wlc-engine/modules/seo/system/interfaces/seo.interfaces';
 
-type MetaTagKey = string;
+import {Game} from 'wlc-engine/modules/games';
 
-type OpenGraphKey = string;
-
-type MetaTagInfo = [MetaTagKey, OpenGraphKey];
+type TMetaTagsKey = keyof IStateData;
+type TMetaTagsValues = Record<TMetaTagsKey, string>;
+type TMetaTagsMap = Record<TMetaTagsKey, string[]>;
 
 @Injectable({
     providedIn: 'root',
 })
 export class SeoService {
-    public seo: IIndexing<IStateDataWithChild> = {};
-    public seoGames: IGameStateData[] = [];
+    private useService: boolean;
+    private useForPages: boolean = true;
+    private useForGames: boolean = true;
 
-    protected metaTags: MetaTagInfo[] = [
-        ['title', 'opengraph_title'],
-        ['og:title', 'opengraph_title'],
-        ['og:image', 'opengraph_image'],
-        ['keywords', 'opengraph_keywords'],
-        ['og:keywords', 'opengraph_keywords'],
-        ['description', 'opengraph_desc'],
-    ];
+    private pageStates: IPageStateData = {};
+    private gameStates: IGameStateData[] = [];
+
+    private metaTagsMap: TMetaTagsMap = {
+        opengraph_title: ['title', 'og:title'],
+        opengraph_desc: ['description', 'og:description'],
+        opengraph_keywords: ['keywords', 'og:keywords'],
+        opengraph_image: ['og:image'],
+    };
 
     private siteName: string = '';
     private gamesCatalogService: GamesCatalogService;
     private rewritingLanguages: IIndexing<string>;
 
     constructor(
-        private configService: ConfigService,
         private translateService: TranslateService,
         private stateService: StateService,
         private router: UIRouterGlobals,
@@ -75,185 +78,250 @@ export class SeoService {
         private dataService: DataService,
         private injectionService: InjectionService,
         private eventService: EventService,
+        private logService: LogService,
+        configService: ConfigService,
     ) {
+        this.useService = Boolean(configService.get<boolean>('$base.useSeo'));
+        if (!this.useService) {
+            return;
+        }
+
+        this.siteName = configService.get('$base.site.name');
+        this.rewritingLanguages = configService.get('$base.rewritingWpLanguages');
         this.init();
     }
 
+    public get use(): boolean {
+        return this.useService && (this.useForPages || this.useForGames);
+    }
+
     /**
-     * set title by seo
+     * Updates from seo data the title tag only. Without other meta tags.
      */
     public setTitle(): void {
-        this.seoHandler(true);
+        if (!this.use) {
+            return;
+        }
+
+        this.updateSeo(true);
     }
 
     protected async init(): Promise<void> {
-        this.rewritingLanguages = this.configService.get<IIndexing<string>>('$base.rewritingWpLanguages');
-        await this.getSeoData();
-        this.siteName = this.configService.get<string>('$base.site.name');
-        this.meta.addTags(this.metaTags.map(([name]) => ({
-            name,
-            content: '',
-        })));
+        this.initMetaTags();
 
-        this.seoHandler();
+        await Promise.all([
+            this.getPagesSeoData(),
+            this.getGamesSeoData(),
+        ]);
+
+        this.updateSeo();
 
         this.transition.onSuccess({}, () => {
-            this.seoHandler();
+            this.updateSeo();
         });
 
         this.eventService.subscribe({name: 'BETRADAR_URL_CHANGE'}, ({name, url}) => {
-            this.setMetaTags(false, name, url);
+            this.setPageMetaTags(false, name, url);
         });
     }
 
     /**
-     * Gets seo data from wordpress plugin 'Seo Softgamings'.
-     * Two different requests for usual seo data and for gameplay state.
+     * Requests, caches and returns seo data for non-game pages from wordpress plugin 'Seo Softgamings'.
+     *
+     * @returns seo data for non-game pages.
      */
-    protected async getSeoData(): Promise<void> {
-        try {
-            if (!await this.cachingService.get('seo-pages')) {
-                await this.dataService.request<IData<string | IIndexing<IStateDataWithChild>>>(
-                    {
-                        name: 'seo',
-                        system: 'seo-pages',
-                        type: 'GET',
-                        fullUrl: '/content//wp-json/seo-plugin/v1/seo-data',
-                        params: {
-                            lang: this.getLanguageCode(),
-                        },
-                    },
-                ).then((data: IData<string | IIndexing<IStateDataWithChild>>) => {
-                    // for backward compatibility
-                    if (_isString(data.data)) {
-                        this.seo = JSON.parse(data.data);
-                    } else {
-                        this.seo = data.data;
-                    }
-                });
-                await this.cachingService.set<IIndexing<IStateDataWithChild>>('seo-pages', this.seo);
-            } else {
-                this.seo = await this.cachingService.get('seo-pages');
-            }
+    protected async getPagesSeoData(): Promise<IPageStateData> {
+        const cache: IPageStateData = await this.cachingService.get('seo-pages');
+        if (cache) {
+            return cache;
+        }
 
-            if (!await this.cachingService.get('seo-games')) {
-                await this.dataService.request<IData<string | IGameStateData[]>>(
-                    {
-                        name: 'seo',
-                        system: 'seo-pages',
-                        type: 'GET',
-                        fullUrl: '/content//wp-json/seo-plugin/v1/seo-data-games',
-                        params: {
-                            lang: this.getLanguageCode(),
-                        },
-                    },
-                ).then((data) => {
-                    // for backward compatibility
-                    if (_isString(data.data)) {
-                        this.seoGames = JSON.parse(data.data);
-                    } else {
-                        this.seoGames = data.data;
-                    }
-                });
-                await this.cachingService.set('seo-games', this.seoGames);
-            } else {
-                this.seoGames = await this.cachingService.get('seo-games');
-            }
-        } catch (e) {
-            //
+        try {
+            const result = await this.dataService.request<IData<string | IPageStateData>>({
+                name: 'seo',
+                system: 'seo-pages',
+                type: 'GET',
+                fullUrl: '/content//wp-json/seo-plugin/v1/seo-data',
+                params: {
+                    lang: this.getLanguageCode(),
+                },
+            }).then((data: IData<string | IPageStateData>) => {
+                if (typeof (data) !== 'object') {
+                    return {};
+                }
+                // for backward compatibility
+                if (_isString(data.data)) {
+                    return JSON.parse(data.data) ?? {};
+                }
+                return data.data ?? {};
+            });
+
+            await this.cachingService.set<IPageStateData>('seo-pages', result);
+        } catch (err: any) {
+            this.useForPages = false;
+            this.logService.sendLog({
+                code: '7.0.2',  // Error - incorrect data format
+                data: err,
+                from: {
+                    service: 'SeoService',
+                    method: 'getPagesSeoData',
+                },
+            });
+        }
+
+        return {};
+    }
+
+    /**
+     * Requests, caches and returns seo data for game pages from wordpress plugin 'Seo Softgamings'
+     *
+     * @returns seo data for game pages.
+     */
+    protected async getGamesSeoData(): Promise<IGameStateData[]> {
+        const cache: IGameStateData[] = await this.cachingService.get('seo-games');
+        if (cache) {
+            return cache;
+        }
+
+        try {
+            const result = await this.dataService.request<string | IGameStateData[]>({
+                name: 'seo',
+                system: 'seo-games',
+                type: 'GET',
+                fullUrl: '/content//wp-json/seo-plugin/v1/seo-data-games',
+                params: {
+                    lang: this.getLanguageCode(),
+                },
+            }).then((data: IData<string | IGameStateData[]>): IGameStateData[] => {
+                if (typeof (data) !== 'object') {
+                    return [];
+                }
+                // for backward compatibility
+                if (_isString(data.data)) {
+                    const resultData: unknown = JSON.parse(data.data);
+                    return (Array.isArray(resultData)) ? resultData : [];
+                }
+                return (Array.isArray(data.data)) ? data.data : [];
+            });
+
+            await this.cachingService.set<IGameStateData>('seo-games', result);
+        } catch (err: any) {
+            this.useForGames = false;
+            this.logService.sendLog({
+                code: '7.0.2',  // Error - incorrect data format
+                data: err,
+                from: {
+                    service: 'SeoService',
+                    method: 'getGamesSeoData',
+                },
+            });
+        }
+
+        return [];
+    }
+
+    /**
+     * Update seo for page or game
+     * @param {boolean} [titleOnly=false] Update only Title tag (w/o meta tags)
+     */
+    protected updateSeo(titleOnly: boolean = false): void {
+        if (this.router.current.name === 'app.gameplay') {
+            this.setGameMetaTag(titleOnly);
+        } else {
+            this.setPageMetaTags(titleOnly);
         }
     }
 
-    protected setMetaTags(onlyTitle?: boolean, state?: string, url?: string): void {
-        if (_isEmpty(this.seo)) {
-            return;
-        }
-
+    protected setPageMetaTags(titleOnly: boolean, state?: string, url?: string): void {
         const currentState = state || this.router.current.name;
-        const currentLang = this.getLanguageCode();
-        let seoState = this.seo[currentState === 'app.catalog.child' ? 'app.catalog' : currentState]
-            || this.seo['app.home'];
+        const currentSeoState: string = currentState === 'app.catalog.child' ? 'app.catalog' : currentState;
+        let stateSeo: IStateDataWithChild = this.pageStates?.[currentSeoState] || this.pageStates?.['app.home'];
 
-        if (_isEmpty(seoState)) {
+        if (!stateSeo) {
             return;
         }
 
-        if (seoState?.childred?.length) {
+        if (stateSeo.childred?.length) {
             const currentUrl = url || this.stateService.href(this.router.current);
-            const nested = _find(seoState.childred, (item) => currentUrl.endsWith('/' + item.page));
+            const nested = _find(stateSeo.childred, (item) => currentUrl.endsWith('/' + item.page));
             if (nested) {
-                seoState = nested.data;
+                stateSeo = nested.data;
             }
         }
 
-        this.titleService.setTitle(
-            _get(seoState,
-                `opengraph_title.${currentLang}`, this.siteName),
-        );
-
-        if (onlyTitle) {
-            return;
-        }
-
-        this.updateMetaTags(seoState, currentLang);
+        const metaValues: TMetaTagsValues = this.getMetaValues(stateSeo);
+        this.updateMetaTags(metaValues, titleOnly);
     }
 
     /**
      * Method uses only on app.gameplay state and takes information for SeoGames request;
      */
-    protected async setGamesMetaTag(onlyTitle?: boolean): Promise<void> {
-        if (this.router.current.name === 'app.gameplay') {
-            if (!this.seoGames?.length) {
-                return;
-            }
-            this.gamesCatalogService = await this.injectionService
-                .getService<GamesCatalogService>('games.games-catalog-service');
-            const currentLang = this.getLanguageCode();
-            const params = this.router.params;
-            const gameSeo = this.seoGames.find((el) => {
-                return el['merchantID'] === params.merchantId &&
-                    el['launchCode'] === params.launchCode;
-            });
-            if (!gameSeo) {
-                return;
-            }
-            const merchantName = GamesHelper.getMerchantAliasById(+gameSeo['merchantID']);
-            const game = this.gamesCatalogService.getGame(+gameSeo['merchantID'], gameSeo['launchCode']);
-
-            for (const key in gameSeo) {
-                if (gameSeo[key][currentLang]) {
-                    gameSeo[key][currentLang] = gameSeo[key][currentLang]
-                        .replace('[merchant]', merchantName)
-                        .replace('[game]', game.name[currentLang] || game.name['en']);
-                }
-            }
-
-            this.titleService.setTitle(_get(gameSeo, `opengraph_title.${currentLang}`, this.siteName));
-            if (onlyTitle) {
-                return;
-            }
-
-            this.updateMetaTags(gameSeo, currentLang);
+    protected async setGameMetaTag(titleOnly: boolean): Promise<void> {
+        const params: StateParams = this.router.params;
+        const gameSeo: IGameStateData = _find(this.gameStates, (el: IGameStateData): boolean => {
+            return (el.merchantID === params.merchantId) && (el.launchCode === params.launchCode);
+        });
+        if (!gameSeo) {
+            return;
         }
+
+        this.gamesCatalogService ??= await this.injectionService
+            .getService<GamesCatalogService>('games.games-catalog-service');
+        const merchantId: number = Number(gameSeo.merchantID);
+        const merchantName: string = GamesHelper.getMerchantAliasById(merchantId);
+        const game: Game = this.gamesCatalogService.getGame(merchantId, gameSeo.launchCode);
+        if (!game) {
+            return;
+        }
+
+        const metaValues: TMetaTagsValues = this.getGameMetaValues(gameSeo, merchantName, game);
+        this.updateMetaTags(metaValues, titleOnly);
     }
 
-    protected seoHandler(onlyTitle?: boolean): void {
-        if (this.router.current.name === 'app.gameplay') {
-            this.setGamesMetaTag(onlyTitle);
-        } else {
-            this.setMetaTags(onlyTitle);
-        }
+    protected initMetaTags(): void {
+        _forOwn(this.metaTagsMap, (metaValues: string[]) => {
+            this.meta.addTags(
+                metaValues.map((meta: string) => ({name: meta, content: ''})),
+            );
+        });
     }
 
-    protected updateMetaTags(state: IStateData, currentLang: string): void {
-        for (const [name, key] of this.metaTags) {
-            if (state[key]) {
+    protected updateMetaTags(metaValues: TMetaTagsValues, titleOnly: boolean): void {
+        this.titleService.setTitle(metaValues.opengraph_title);
+        if (titleOnly) {
+            return;
+        }
+
+        _forOwn(this.metaTagsMap, (values: string[], key: TMetaTagsKey) => {
+            values.forEach((meta: string) => {
                 this.meta.updateTag({
-                    name,
-                    content: state[key][currentLang] || state[key]['en'] || '',
+                    name: meta,
+                    content: metaValues[key] || '',
                 });
-            }
-        }
+            });
+        });
+    }
+
+    private getMetaValues(stateData: IStateData): TMetaTagsValues {
+        const currentLang: string = this.getLanguageCode();
+        const result = {} as TMetaTagsValues;
+
+        _forOwn(this.metaTagsMap, (values: string[], key: TMetaTagsKey) => {
+            result[key] = stateData[key]?.[currentLang] || stateData[key]?.['en'] || '';
+        });
+
+        result.opengraph_title ||= this.siteName;
+        return result;
+    }
+
+    private getGameMetaValues(gameStateData: IGameStateData, merchant: string, game: Game): TMetaTagsValues {
+        const currentLang: string = this.getLanguageCode();
+        const result: TMetaTagsValues = this.getMetaValues(gameStateData);
+
+        return _mapValues(result, (value: string) => {
+            return value.replace('[merchant]', merchant)
+                .replace('[game]', game.name[currentLang] || game.name['en']);
+        });
     }
 
     private getLanguageCode(): string {

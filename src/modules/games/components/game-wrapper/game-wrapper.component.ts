@@ -191,6 +191,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     };
 
     protected merchantWalletService: MerchantWalletService;
+    protected seoService: SeoService | null = null;
 
     constructor(
         @Inject('injectParams') protected injectParams: IGameWrapperCParams,
@@ -274,23 +275,22 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     }
 
     public async ngAfterViewInit(): Promise<void> {
-        let seoService: SeoService | null = null;
         if (this.configService.get<boolean>('$base.useSeo')) {
-            seoService = await this.injectionService.getService<SeoService>('seo.seo-service');
+            this.seoService = await this.injectionService.getService<SeoService>('seo.seo-service');
         }
 
         this.showDashboardBtn = true;
         this.initStartResizeParams();
         this.initFullPageIframeSize();
-        if (!this.configService.get<boolean>('$base.useSeo')) {
+        if (!this.seoService?.use) {
             this.titleService.setTitle(`${this.gameTitle} | ${this.configService.get<boolean>('$base.site.name')}`);
         }
 
         this.titleObserver = new MutationObserver(() => {
             this.titleObserver.disconnect();
             this.titleObserver = null;
-            if (this.configService.get<boolean>('$base.useSeo')) {
-                seoService.setTitle();
+            if (this.seoService?.use) {
+                this.seoService.setTitle();
             } else {
                 this.titleService.setTitle(`${this.gameTitle} | ${this.configService.get<boolean>('$base.site.name')}`);
             }
@@ -381,7 +381,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         if (this.iframeObserver) {
             this.iframeObserver?.disconnect();
         }
-        if (!this.configService.get<boolean>('$base.useSeo')) {
+        if (!this.seoService?.use) {
             this.titleService.setTitle(this.savedSiteName);
         }
         if (this.titleObserver) {
