@@ -344,20 +344,25 @@ def clone_project(project_repo):
 # Пуш ветки проекта
 def push_branch(branch, tag = None, project = None):
     print(Fore.YELLOW + "Pushing changes to the remote branch" + Fore.RESET)
+    subprocess.run(["git", "add", "."], cwd = temp_folder)
+
     if project == "translate":
-        subprocess.run(["git", "tag", "-a", new_tag, "-m", f"Release @egamings/wlc-engine-translate {new_tag} version"], cwd = temp_folder)
+        subprocess.run(["git", "commit", "-m", f"Release @egamings/wlc-engine-translate {tag} version"], cwd = temp_folder)
+        subprocess.run(["git", "tag", "-a", tag, "-m", f"Release @egamings/wlc-engine-translate {tag} version"], cwd = temp_folder)
 
     else:
         engine_version = get_version()
-        print(Fore.YELLOW + "Update project" + Fore.RESET)
-        subprocess.run(["git", "add", "."], cwd = temp_folder)
         subprocess.run(["git", "commit", "-m", f"SCR #0 - project up {engine_version}"], cwd = temp_folder)
 
-        if tag == None:
-            subprocess.run(["git", "push", "origin", branch, "--force-with-lease"], cwd = temp_folder)
-        else:
+        if tag:
             subprocess.run(["git", "tag", "-a", tag, "-m", f"SCR #0 - project up {engine_version}"], cwd = temp_folder)
-            subprocess.run(["git", "push", "origin", branch, "--force-with-lease", "--follow-tags"], cwd = temp_folder)
+
+    if tag:
+        subprocess.run(["git", "push", "origin", branch, "--force-with-lease", "--follow-tags"], cwd = temp_folder)
+    else:
+        subprocess.run(["git", "push", "origin", branch, "--force-with-lease"], cwd = temp_folder)
+
+
 
     print(Fore.GREEN + "Done" + Fore.RESET)
 
@@ -465,7 +470,7 @@ def make_hotfix():
 
 
 # Создание релиза переводов
-def make_translate_release(action, branch):
+def make_translate_release(branch, action ="patch"):
     clean_temp()
     clone_project("git@wlcgitlab.egamings.com:wlc/wlc-engine-translate.git")
     check_branch(branch, temp_folder)
@@ -730,9 +735,8 @@ def release_manager():
         start()
 
     elif choice =="8":
-        action = "patch"
         branch = "master"
-        make_translate_release(action, branch)
+        make_translate_release(branch)
         print(Fore.GREEN + "Language release created!" + Fore.RESET)
         start()
 
