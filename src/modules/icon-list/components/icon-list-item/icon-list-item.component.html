@@ -1,4 +1,4 @@
-<ng-container [ngSwitch]="icon.template">
+<ng-container *ngIf="icon" [ngSwitch]="icon.template">
     <a class="{{$class}}__wrp"
         *ngSwitchCase="'sref'"
         [uiSref]="icon.sref"

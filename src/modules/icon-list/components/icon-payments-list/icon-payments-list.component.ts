@@ -113,11 +113,14 @@ export class IconPaymentsListComponent extends IconListAbstract<Params.IIconPaym
      * @returns {void}
      **/
     protected updateList(): void {
-        if (this.$params.exclude?.includes('all')) {
-            this.payments = [];
-        } else {
-            this.payments = _filter(this.payments, (item: IPaysystem) =>
-                !_includes(this.$params.exclude, item.Name.toLowerCase()));
+        if (this.$params.exclude) {
+            if (this.$params.exclude?.includes('all')) {
+                this.payments = [];
+            } else {
+                this.$params.exclude = this.$params.exclude.map(item => item.toLowerCase());
+                this.payments = _filter(this.payments, (item: IPaysystem) =>
+                    !_includes(this.$params.exclude, item.Name.toLowerCase()));
+            }
         }
 
         _each(this.$params.include, (name) => {

@@ -7,6 +7,7 @@ import {
     ViewEncapsulation,
     SimpleChanges,
     OnChanges,
+    ChangeDetectorRef,
 } from '@angular/core';
 
 import {
@@ -14,6 +15,8 @@ import {
     ConfigService,
     LogService,
 } from 'wlc-engine/modules/core';
+import {FilesService} from 'wlc-engine/modules/core/system/services/files/files.service';
+import {IFile} from 'wlc-engine/modules/core/system/services/files/files.service';
 import {IconModel} from 'wlc-engine/modules/icon-list/system/models/icon-list-item.model';
 
 import * as Params from './icon-list-item.params';
@@ -36,18 +39,24 @@ export class IconListItemComponent extends AbstractComponent implements OnInit, 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IIconListItemCParams,
         configService: ConfigService,
+        cdr: ChangeDetectorRef,
         protected logService: LogService,
+        protected fileService: FilesService,
     ) {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, configService);
+        }, configService, cdr);
     }
 
-    public override ngOnInit(): void {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         if (!this.icon) {
+            if (this.$params.icon.showAs === 'img') {
+                this.$params.icon.image = await this.getIconPath();
+            }
             this.icon = this.$params.icon;
+            this.cdr.markForCheck();
         }
     }
 
@@ -68,4 +77,9 @@ export class IconListItemComponent extends AbstractComponent implements OnInit, 
         });
     }
 
+    protected async getIconPath(): Promise<string> {
+        const localPath = this.$params.icon.image.replace('/gstatic/', '/');
+        const file: IFile = await this.fileService.getFile(localPath);
+        return file.url;
+    }
 }

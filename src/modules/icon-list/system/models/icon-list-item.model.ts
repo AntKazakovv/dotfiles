@@ -137,6 +137,10 @@ export class IconModel extends AbstractModel<IIconParams> {
         return GlobalHelper.proxyUrl(this.data.iconUrl);
     }
 
+    public set image(path: string) {
+        this.data.iconUrl = path;
+    }
+
     public get imageHover(): string {
         return GlobalHelper.proxyUrl(this.data.iconHoverUrl);
     }
