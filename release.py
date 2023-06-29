@@ -507,9 +507,11 @@ def make_release(action, branch):
 
     if branch == "develop":
         update_language = input((Fore.YELLOW + """
-        If you want make and update language pack - input (1).
-        If you want just update language pack - input (2).
-        If you don`t want anything - input nothing.
+        ------------------------------------------------------
+        (1) If you want make and update language pack
+        (2) If you want just update language pack
+        (nothing) If you don`t want anything
+        ------------------------------------------------------
         Your choise: """ + Fore.RESET))
 
         if update_language == "1" or update_language == "2":
