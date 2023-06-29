@@ -112,7 +112,9 @@ export class SeoService {
         await Promise.all([
             this.getPagesSeoData(),
             this.getGamesSeoData(),
-        ]);
+        ]).then((value) => {
+            [this.pageStates, this.gameStates] = value;
+        });
 
         this.updateSeo();
 
@@ -136,8 +138,10 @@ export class SeoService {
             return cache;
         }
 
+        let result: IPageStateData = {};
+
         try {
-            const result = await this.dataService.request<IData<string | IPageStateData>>({
+            result = await this.dataService.request<IData<string | IPageStateData>>({
                 name: 'seo',
                 system: 'seo-pages',
                 type: 'GET',
@@ -169,7 +173,7 @@ export class SeoService {
             });
         }
 
-        return {};
+        return result;
     }
 
     /**
@@ -183,8 +187,10 @@ export class SeoService {
             return cache;
         }
 
+        let result: IGameStateData[] = [];
+
         try {
-            const result = await this.dataService.request<string | IGameStateData[]>({
+            result = await this.dataService.request<string | IGameStateData[]>({
                 name: 'seo',
                 system: 'seo-games',
                 type: 'GET',
@@ -217,7 +223,7 @@ export class SeoService {
             });
         }
 
-        return [];
+        return result;
     }
 
     /**

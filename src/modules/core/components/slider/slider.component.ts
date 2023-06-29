@@ -154,7 +154,7 @@ export class SliderComponent extends AbstractComponent
     }
 
     public initEmptySlidesCount(): void {
-        if (!this.slides.length) {
+        if (!this.slides?.length) {
             this.emptySlidesCount = 0;
             return;
         }
