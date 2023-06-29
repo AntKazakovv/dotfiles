@@ -62,15 +62,15 @@ export const $modules = {
                         alt: '...',
                     },
                     {
-                        iconUrl: '/gstatic/safety-icons/ssl.jpeg',
+                        iconUrl: '//agstatic.com/safety-icons/ssl.jpeg',
                         alt: 'SSL Encryption',
                     },
                     {
-                        iconUrl: '/gstatic/safety-icons/gamcare.png',
+                        iconUrl: '//agstatic.com/safety-icons/gamcare.png',
                         alt: 'GAMCARE',
                     },
                     {
-                        iconUrl: '/gstatic/safety-icons/gambling_therapy.png',
+                        iconUrl: '//agstatic.com/safety-icons/gambling_therapy.png',
                         alt: 'Gambling Therapy',
                     },
                 ],
@@ -134,15 +134,15 @@ export const $modules = {
                         alt: '...',
                     },
                     {
-                        iconUrl: '/gstatic/safety-icons/ssl.jpeg',
+                        iconUrl: '//agstatic.com/safety-icons/ssl.jpeg',
                         alt: 'SSL Encryption',
                     },
                     {
-                        iconUrl: '/gstatic/safety-icons/gamcare.png',
+                        iconUrl: '//agstatic.com/safety-icons/gamcare.png',
                         alt: 'GAMCARE',
                     },
                     {
-                        iconUrl: '/gstatic/safety-icons/gambling_therapy.png',
+                        iconUrl: '//agstatic.com/safety-icons/gambling_therapy.png',
                         alt: 'Gambling Therapy',
                     },
                 ],

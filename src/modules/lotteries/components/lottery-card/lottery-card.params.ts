@@ -28,8 +28,8 @@ export const defaultParams: ILotteryCardCParams = {
         limit: 3,
     },
     images: {
-        noContent: '/gstatic/wlc/lotteries/no-content.png',
-        imageMainFallback: '/gstatic/wlc/lotteries/main-fallback.svg',
+        noContent: '//agstatic.com/wlc/lotteries/no-content.png',
+        imageMainFallback: '//agstatic.com/wlc/lotteries/main-fallback.svg',
     },
     texts: {
         noContentTitle: gettext('There are no active lotteries at the moment'),

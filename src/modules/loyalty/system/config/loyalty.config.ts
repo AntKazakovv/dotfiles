@@ -1,3 +1,4 @@
+import {GlobalHelper} from 'wlc-engine/modules/core';
 import {ILoyaltyConfig} from '../interfaces/interfaces';
 
 export const loyaltyConfig: ILoyaltyConfig = {
@@ -5,6 +6,6 @@ export const loyaltyConfig: ILoyaltyConfig = {
         programTitle: gettext('Loyalty Program'),
         iconsDirPath: '/loyalty-program',
         iconsExtension: 'png',
-        iconFallback: '/loyalty-program/loyalty-fallback.png',
+        iconFallback: GlobalHelper.gstaticUrl + '/loyalty-program/loyalty-fallback.png',
     },
 };

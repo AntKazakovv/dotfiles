@@ -26,7 +26,7 @@ export interface IResultWheelCParams extends IComponentParams<ComponentTheme, Co
 }
 
 export const animationParams: ILottieAnimationCParams = {
-    jsonUrl: '/gstatic/wlc/wheel/animations/confetti.json',
+    jsonUrl: '//agstatic.com/wlc/wheel/animations/confetti.json',
     loop: true,
 };
 

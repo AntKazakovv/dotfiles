@@ -46,12 +46,6 @@ module.exports = function(config) {
         port: 9876,
         colors: true,
         logLevel: config.LOG_ERROR,
-        proxies: {
-            '/gstatic/': {
-                'target': 'https://static.egamings.com/',
-                'changeOrigin': true,
-            },
-        },
         browsers: ['WlcChromeHeadless'],
         customLaunchers: {
             WlcChromeHeadless: {

@@ -21,6 +21,7 @@ import {
     LanguageSelectorComponent,
 } from './language-selector.component';
 import {WINDOW_PROVIDER} from 'wlc-engine/modules/app/system';
+import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers';
 
 @Pipe({
     name: 'translate',
@@ -52,6 +53,7 @@ describe('LanguageSelectorComponent', () => {
         code: 'en',
         label: 'English',
     };
+
     const LANGUAGES_LIST: ILanguage[] = [
         {
             code: 'ru',
@@ -92,7 +94,7 @@ describe('LanguageSelectorComponent', () => {
         type: 'click',
         common: {
             flags: {
-                path: '/gstatic/wlc/flags/1x1/',
+                path: '/wlc/flags/1x1/',
                 dim: 'svg',
                 replace: {
                     en: 'gb',
@@ -128,6 +130,7 @@ describe('LanguageSelectorComponent', () => {
         TranslateServiceSpy.get.and.returnValue(new Observable());
         TranslateServiceSpy.getLangs.and.returnValue(LANGUAGES_LIST.map((l) => l.code));
         TranslateServiceSpy.use.and.returnValue(new Observable());
+        GlobalHelper.customGstaticUrl = '';
 
         await TestBed.configureTestingModule({
             imports: [

@@ -5,10 +5,10 @@ export const bonusesConfig: IBonusesModule = {
     useIconBonusImage: true,
     unitedPageBonuses: false,
     useNewImageSources: false,
-    defaultIconPath: '/gstatic/bonuses/icons/',
+    defaultIconPath: '//agstatic.com/bonuses/icons/',
     defaultIconExtension: 'svg',
-    fallBackIconPath: '/gstatic/bonuses/icons/default.svg',
-    showOnlyIconPath: '/gstatic/wlc/bonuses/lock.svg',
+    fallBackIconPath: '//agstatic.com/bonuses/icons/default.svg',
+    showOnlyIconPath: '//agstatic.com/wlc/bonuses/lock.svg',
     components: {
         'wlc-bonuses-list': {
             noContent: {

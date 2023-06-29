@@ -23,7 +23,7 @@ export interface ICuracaoConfig {
     url?: string;
     /**
      * use curacao shield icon
-     * if true, then use '/gstatic/wlc/icons/curacao-egaming-logo.png' as image
+     * if true, then use '//agstatic.com/wlc/icons/curacao-egaming-logo.png' as image
      */
     icon?: string | true;
     /**

@@ -23,4 +23,6 @@ export interface ISiteConfig {
     languages?: ISiteLanguages;
     /** Use jwt token (JSON Web Token) for user authorization */
     useJwtToken?: boolean;
+    /** Сustom gstatic url on the project */
+    gstaticUrl?: string;
 }

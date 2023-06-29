@@ -565,7 +565,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     protected cryptoIterator(system: PaymentSystem): IIconParams {
         return {
             showAs: 'img',
-            iconUrl: `gstatic/wlc/icons/currencies/${system.cryptoTicker?.toLowerCase() || 'def'}.svg`,
+            iconUrl: `/wlc/icons/currencies/${system.cryptoTicker?.toLowerCase() || 'def'}.svg`,
             alt: system.cryptoTicker || system.name,
         };
     }

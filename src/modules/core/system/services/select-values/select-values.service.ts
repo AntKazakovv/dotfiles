@@ -359,7 +359,7 @@ export class SelectValuesService {
             iso = _get(this.configSelectWithIcon.isoByPhoneCode, `+${country.phoneCode}`, country.iso2);
         }
 
-        return `/gstatic/wlc/flags/4x3/${iso}.svg`;
+        return `${GlobalHelper.gstaticUrl}/wlc/flags/4x3/${iso}.svg`;
     }
 
     /**

@@ -18,7 +18,7 @@ export interface IWaitingResultsCParams extends IComponentParams<ComponentTheme,
 }
 
 export const animationParams: ILottieAnimationCParams = {
-    jsonUrl: '/gstatic/wlc/prize-wheel/animations/chest.json',
+    jsonUrl: '//agstatic.com/wlc/prize-wheel/animations/chest.json',
     loop: true,
 };
 

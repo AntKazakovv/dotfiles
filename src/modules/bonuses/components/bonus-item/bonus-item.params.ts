@@ -1,6 +1,7 @@
 import {
     IComponentParams,
     CustomType,
+    GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {IBonusModalCParams} from 'wlc-engine/modules/bonuses/components/bonus-modal/bonus-modal.params';
@@ -84,8 +85,8 @@ export const defaultParams: IBonusItemCParams = {
     moduleName: 'bonuses',
     componentName: 'wlc-bonus-item',
     class: 'wlc-bonus-item',
-    blankBonusImage: '/gstatic/wlc/bonuses/blank-bonus-decor.png',
-    dummyBonusImage: '/gstatic/wlc/bonuses/bonus-dummy.svg',
+    blankBonusImage: GlobalHelper.gstaticUrl + '/wlc/bonuses/blank-bonus-decor.png',
+    dummyBonusImage: GlobalHelper.gstaticUrl + '/wlc/bonuses/bonus-dummy.svg',
     common: {
         showAdditionalImage: false,
         showBonusTag: true,

@@ -16,5 +16,5 @@ export interface ILatestBetsItemCParams extends IComponentParams<Theme, Type, Th
 
 export const defaultParams: ILatestBetsItemCParams = {
     class: 'wlc-latest-bets-item',
-    fallBackIconPath: '/gstatic/wlc/latest-bets/fallback.svg',
+    fallBackIconPath: '//agstatic.com/wlc/latest-bets/fallback.svg',
 };
