@@ -15,29 +15,25 @@ projects = [
         # Devcasino
         "id": "1",
         "repository": "git@wlcgitlab.egamings.com:wlcdevcasino/web.git",
-        "local_path": "~/Projects/src/wlc_devcasino/",
         "branches": ["develop", "master", "scr1-profile", "scr1-var1", "scr1-var2", "scr2-var1", "scr2-var2", "scr1-kiosk", "scr2-kiosk", "scr1-aff"]
     },
     {
         # Kiosk
         "id": "2",
         "repository": "git@wlcgitlab.egamings.com:wlcdevcasinokiosk/web.git",
-        "local_path": "~/Projects/src/wlc_devcasino_kiosk/",
         "branches": ["develop", "scr1-var1", "scr1-var2"]
     },
     {
         # Sportsbook
         "id": "3",
         "repository": "git@wlcgitlab.egamings.com:sportsbook/enginesportsbooks.git",
-        "local_path": "~/Projects/src/wlc_enginesportsbooks/",
         "branches": ["develop"]
     },
     {
         # Catcasino
         "id": "4",
-        "repository": "git@wlcgitlab.egamings.com:tkcatcasino/web.git.git",
-        "local_path": "~/Projects/src/tk_catcasino/",
-        "branches": ["+scr0-pretest"]
+        "repository": "git@wlcgitlab.egamings.com:tkcatcasino/web.git",
+        "branches": ["scr0-pretest"]
     },
 ]
 
@@ -377,7 +373,7 @@ def clean_temp():
 # Очистка кэша npm
 def clear_npm_cache():
     print(Fore.YELLOW + "Clean npm cache" + Fore.RESET)
-    subprocess.call(["./node16.sh", "wlc-engine", "npm", "cache", "clear", "-f"], cwd = os.path.expanduser("~/Projects/wlc-docker"))
+    subprocess.call(["./node18.sh", "wlc-engine", "npm", "cache", "clear", "-f"], cwd = os.path.expanduser("~/Projects/wlc-docker"))
     print(Fore.GREEN + "Done" + Fore.RESET)
 
 
@@ -390,7 +386,7 @@ def update_npm(project_folder = None):
     print(Fore.GREEN + "Done" + Fore.RESET)
 
     print(Fore.YELLOW + "Update npm dependencies" + Fore.RESET)
-    subprocess.call(["./node16.sh", f"wlc-engine/{folder}", "npm", "i"], cwd = os.path.expanduser("~/Projects/wlc-docker"))
+    subprocess.call(["./node18.sh", f"wlc-engine/{folder}", "npm", "i"], cwd = os.path.expanduser("~/Projects/wlc-docker"))
     print(Fore.GREEN + "Done" + Fore.RESET)
 
 
@@ -621,7 +617,7 @@ def update_projects(projects):
     ---------------------------------------
     """ + Fore.RESET)
 
-    choise_list = list(filter(None, input(Fore.YELLOW + "Write your choise:" + Fore.RESET).split(" ")))
+    choise_list = list(filter(None, input(Fore.YELLOW + "Write your choise: " + Fore.RESET).split(" ")))
 
     if "0" in choise_list or len(choise_list) == 0:
         projects = projects
@@ -649,7 +645,7 @@ def update_projects(projects):
 
         for branch in project["branches"]:
 
-            if branch in ["develop"] or ["+scr0-pretest"]:
+            if branch in ["develop"] or branch in ["scr0-pretest"]:
                 subprocess.run(["git", "checkout", branch], cwd = temp_folder)
                 set_version(engine_version, "project")
 
@@ -674,6 +670,7 @@ def update_projects(projects):
                     push_branch(branch)
 
         clean_temp()
+
 
 
 # Менеджер релиза
