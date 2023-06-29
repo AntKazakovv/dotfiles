@@ -12,7 +12,7 @@ Component params:
 
 **titlePrefix** - `Continue with` by default. The text which title attribute starts with.
 
-**iconPath** - Relative gstatc path for icons. Default is `gstatic/wlc/icons/social/oauth/`, search icons by network id and svg extension. Be responsible, end path with slash.
+**iconPath** - Relative gstatc path for icons. Default is `//agstatic.com/wlc/icons/social/oauth/`, search icons by network id and svg extension. Be responsible, end path with slash.
 
 **replaceConfig** - Replace networks config. By default, only rename google+ to google.
 - `key` - is id of network (from bootstrap request).

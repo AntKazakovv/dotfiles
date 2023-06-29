@@ -110,6 +110,8 @@ export interface IRequestMethod {
         success?: string;
         fail?: string;
     };
+    /** request without credential */
+    withoutCredential?: boolean;
 }
 
 export const dataServiceHooks: IIndexing<string> = {
@@ -522,7 +524,7 @@ export class DataService {
             }),
             map((response: IData | HttpResponse<IData>): IData => {
                 let data: IData;
-                
+
                 if (response instanceof HttpResponse && response.body) {
                     data = response.body;
                 } else if ((response as IData).data) {
@@ -730,7 +732,7 @@ export class DataService {
         return this.http.request<IData>(method.type, url, {
             params: requestParams,
             body: requestBody,
-            withCredentials: true,
+            withCredentials: !method.withoutCredential,
             observe: 'response',
         });
     }

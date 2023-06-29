@@ -41,7 +41,7 @@ export class LootboxPrizeComponent extends AbstractComponent implements OnInit {
         if (this.$params.prize.imageOther?.length) {
             this.$params.iconPath = this.$params.prize.imageOther;
         } else {
-            this.$params.iconPath = `/gstatic/bonuses/icons/lootbox.${this.configService.get<string>(
+            this.$params.iconPath = `//agstatic.com/bonuses/icons/lootbox.${this.configService.get<string>(
                 '$bonuses.defaultIconExtension')}`;
         };
 

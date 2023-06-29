@@ -25,7 +25,7 @@
 ```image``` - указывает url изображения, которое будет использовано в качестве основного изображения для 404 страницы.
 Путь к изображению в проекте указывается относительно каталога **root/static/images**.
 
-По умолчанию используется изображение *gstatic/wlc/icons/404-error.svg*
+По умолчанию используется изображение *//agstatic.com/wlc/icons/404-error.svg*
 <br />
 <img src="../../../../docs/assets/core/error-page/error-page_param_image.png">
 <br />

@@ -25,9 +25,9 @@ export const defaultParams: IFeelingLuckyButtonCParams = {
     actionText: gettext('Random game'),
     actionTextIcon: '/wlc/icons/arrow-right.svg',
     animateSprite: {
-        imageUrl: '/gstatic/sprites/dice-sprite.png',
+        imageUrl: '//agstatic.com/sprites/dice-sprite.png',
     },
     actionType: 'random-game',
     useSprite: false,
-    iconUrl: '/gstatic/wlc/four-elements/dice-icon.png',
+    iconUrl: '//agstatic.com/wlc/four-elements/dice-icon.png',
 };

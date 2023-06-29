@@ -360,14 +360,15 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
         const gameId = this.game.ID;
 
         if (!gameName) return;
-        let mediaPath = `/gstatic/games/${merchantName}/`;
+
+        let mediaPath = `${GlobalHelper.gstaticUrl}/games/${merchantName}/`;
 
         const verticalGamesInProject: number[] = this.configService.get('$games.idVerticalGames') || [];
 
         if (this.$params.type === 'vertical') {
             verticalGamesInProject.includes(gameId) ?
                 mediaPath = this.configService.get<string>('$games.verticalImagesPath')
-                : mediaPath = '/gstatic/vertical-thumbs/';
+                : mediaPath = GlobalHelper.gstaticUrl + '/vertical-thumbs/';
         }
 
         const path = mediaPath + gameName

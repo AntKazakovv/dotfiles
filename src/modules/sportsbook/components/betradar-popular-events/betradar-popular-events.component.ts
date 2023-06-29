@@ -104,7 +104,7 @@ export class BetradarPopularEventsComponent extends AbstractComponent implements
     }
 
     /**
-     * Get image path (from gstatic or project directory)
+     * Get image path (from agstatic or project directory)
      *
      * @param {BetradarGameModel} game
      * @param {number} slideIndex

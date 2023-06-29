@@ -151,6 +151,7 @@ import {interceptors} from 'wlc-engine/modules/core/system/interceptors/intercep
 import {HlSubstrPipe} from './pipes/hlsubstr.pipe';
 import {SafeValuePipe} from './pipes/safe-value.pipe';
 import {TruncatePipe} from './pipes/truncate.pipe';
+import {ProxyStaticUrlPipe} from './pipes/proxy-static-url.pipe';
 //  -- PIPES IMPORTS END  --;
 
 //  -- CONFIGS IMPORTS STARTS--;
@@ -348,6 +349,7 @@ export const services = {
         NotificationThreadComponent,
         ParallaxMovementDirective,
         PromocodeLinkComponent,
+        ProxyStaticUrlPipe,
         RadioButtonsComponent,
         RatingComponent,
         ScrollbarComponent,
@@ -426,6 +428,7 @@ export const services = {
         NgTemplateNameDirective,
         ParallaxMovementDirective,
         PromocodeLinkComponent,
+        ProxyStaticUrlPipe,
         RadioButtonsComponent,
         RatingComponent,
         ScrollbarComponent,

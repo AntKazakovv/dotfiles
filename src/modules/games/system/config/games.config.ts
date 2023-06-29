@@ -99,9 +99,9 @@ export const gamesConfig: IGamesConfig = {
     useVideoThumbs: {
         use: true,
     },
-    defaultThumbsConfigUrl: '/gstatic/games/default-thumb.json',
-    verticalThumbsConfigUrl: '/gstatic/vertical-thumbs/vertical-thumb.json',
-    verticalImagesPath: '/gstatic/vertical-thumbs/',
+    defaultThumbsConfigUrl: '//agstatic.com/games/default-thumb.json',
+    verticalThumbsConfigUrl: '//agstatic.com/vertical-thumbs/vertical-thumb.json',
+    verticalImagesPath: '//agstatic.com/vertical-thumbs/',
     sportsbookMerchants: [958, 972, 993, 962, 937, 903, 922, 908, 893],
     components: {
         'wlc-total-jackpot': {

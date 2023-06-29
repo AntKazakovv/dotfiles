@@ -55,7 +55,7 @@ export class IconListItemComponent extends AbstractComponent implements OnInit, 
 
             if (
                 this.$params.icon.showAs === 'img'
-                && this.$params.icon.image.includes('/gstatic/')
+                && this.$params.icon.image.includes('//agstatic.com/')
             ) {
                 this.$params.icon.image = await this.getIconPath();
             }
@@ -82,7 +82,7 @@ export class IconListItemComponent extends AbstractComponent implements OnInit, 
     }
 
     protected async getIconPath(): Promise<string> {
-        const localPath = this.$params.icon.image.replace('/gstatic/', '/');
+        const localPath = this.$params.icon.image.replace('//agstatic.com/', '/');
         const file: IFile = await this.fileService.getFile(localPath);
         return file.url;
     }

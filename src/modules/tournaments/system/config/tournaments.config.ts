@@ -38,9 +38,9 @@ export const tournamentsConfig: ITournamentsModule = {
     prizePodium: {
         useOnDetail: false,
         images: {
-            1: '/gstatic/wlc/tournaments/podium/01.png',
-            2: '/gstatic/wlc/tournaments/podium/02.png',
-            3: '/gstatic/wlc/tournaments/podium/03.png',
+            1: '//agstatic.com/wlc/tournaments/podium/01.png',
+            2: '//agstatic.com/wlc/tournaments/podium/02.png',
+            3: '//agstatic.com/wlc/tournaments/podium/03.png',
         },
     },
     bonusRewardText: gettext('The reward is given through a bonus'),

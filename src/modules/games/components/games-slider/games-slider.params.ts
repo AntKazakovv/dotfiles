@@ -1,4 +1,5 @@
 import Swiper from 'swiper';
+import {GlobalHelper} from 'wlc-engine/modules/core';
 import {
     IComponentParams,
     CustomType,
@@ -178,5 +179,5 @@ export const defaultParams: IGamesSliderCParams = {
             },
         },
     },
-    iconUrl: '/gstatic/images/games-slider.png',
+    iconUrl: GlobalHelper.gstaticUrl + '/images/games-slider.png',
 };

@@ -250,7 +250,7 @@ export class Game extends AbstractModel<IGame> {
     public getImage(size?: TGameImageSize, extension: string = ''): string {
 
         let image = this.image;
-        if (size && this.image.indexOf('/gstatic') === 0) {
+        if (size && this.image.indexOf('//agstatic') === 0) {
             const replaceVal: string = (size === 640) ? '/$1' : `/${size}/$1`;
             image = image.replace(/\/\d+\/(.+)$/, replaceVal);
         }

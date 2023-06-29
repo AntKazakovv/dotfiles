@@ -37,12 +37,18 @@ import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/n
 import {sanitizeHTMLTags} from 'wlc-engine/modules/core/constants/regexp.constants';
 import {environment} from 'wlc-engine/system/environments/environment';
 import {OrientationLockType} from 'wlc-engine/modules/games';
+import imagesList from 'wlc-src/staticImagesList.json';
 
 interface IParams extends IComponentParams<string, string, string> {
     noContent?: IIndexing<INoContentCParams> | IIndexing<IIndexing<INoContentCParams>>,
 }
 
 export class GlobalHelper {
+    static gstaticUrl: string = '//agstatic.com';
+    static staticUrl: string = '/static/images';
+    static mobileAppStaticUrl: string = '/app-static/images';
+    static staticImagesList: Set<string> = new Set(imagesList);
+
     public static mobileAppConfig: TMobileApp = environment.mobileApp;
 
     public static mobileAppApiUrl: string = environment.mobileApp?.apiUrl;
@@ -415,15 +421,50 @@ export class GlobalHelper {
         if (!url) {
             return '';
         }
-        if (!GlobalHelper.mobileAppApiUrl || url.indexOf('/') !== 0 || url.indexOf('app-static/') >= 0) {
+
+        if (GlobalHelper.isMobileApp()) {
+
+            if (url.indexOf('/') !== 0 || url.indexOf('app-static/') >= 0) {
+                return url;
+            }
+
+            return GlobalHelper.mobileAppApiUrl + url;
+        }
+
+        if (url.startsWith('http')
+            || url.startsWith(GlobalHelper.gstaticUrl)
+            || url.startsWith(GlobalHelper.mobileAppStaticUrl)
+        ) {
             return url;
         }
-        return GlobalHelper.mobileAppApiUrl + url;
+
+        if (!url.startsWith('/')) {
+            url = '/' + url;
+        }
+
+        if (url.startsWith(GlobalHelper.staticUrl) || url.startsWith(GlobalHelper.mobileAppStaticUrl)) {
+            return url;
+        }
+
+        if (url.startsWith('/gstatic')) {
+            url = url.replace('/gstatic', '');
+        }
+
+        if (GlobalHelper.staticImagesList.has(url)) {
+            url = (GlobalHelper.isMobileApp()
+                ? GlobalHelper.mobileAppStaticUrl
+                : GlobalHelper.staticUrl) + url;
+        } else {
+            url = GlobalHelper.gstaticUrl + url;
+        }
+
+        return url;
     }
+
 
     public static proxyLinks(content: string): string {
         if (!GlobalHelper.mobileAppApiUrl) {
-            return content;
+            return content.replace(/\/gstatic/g, GlobalHelper.gstaticUrl);
         }
         const result = content.replace(/\/(gstatic|static)/g, GlobalHelper.mobileAppApiUrl + '/' + '$1');
         return result.replace(/\/app-static/g, '/static');

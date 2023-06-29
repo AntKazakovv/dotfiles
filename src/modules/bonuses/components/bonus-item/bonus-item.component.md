@@ -8,8 +8,8 @@ export const defaultParams: IBonusItemCParams = {
     moduleName: 'bonuses',
     componentName: 'wlc-bonus-item',
     class: 'wlc-bonus-item',
-    blankBonusImage: '/gstatic/wlc/bonuses/blank-bonus-decor.png',
-    dummyBonusImage: '/gstatic/wlc/bonuses/bonus-dummy.svg',
+    blankBonusImage: '//agstatic.com/wlc/bonuses/blank-bonus-decor.png',
+    dummyBonusImage: '//agstatic.com/wlc/bonuses/bonus-dummy.svg',
     common: {
         showAdditionalImage: false,
         showBonusTag: true,

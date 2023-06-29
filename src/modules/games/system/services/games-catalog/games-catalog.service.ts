@@ -1275,6 +1275,7 @@ export class GamesCatalogService {
             fullUrl: this.configService.get<string>('$games.defaultThumbsConfigUrl'),
             type: 'GET',
             noUseLang: true,
+            withoutCredential: true,
         });
 
         this.dataService.registerMethod({
@@ -1284,6 +1285,7 @@ export class GamesCatalogService {
             fullUrl: this.configService.get<string>('$games.verticalThumbsConfigUrl'),
             type: 'GET',
             noUseLang: true,
+            withoutCredential: true,
         });
     }
 

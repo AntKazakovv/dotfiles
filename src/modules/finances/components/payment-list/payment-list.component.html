@@ -59,9 +59,9 @@
         <span *ngSwitchCase="'crypto-list'"
             wlc-icon
             class="{{$class}}__btn-modal-image"
-            [fallback]="'gstatic/wlc/icons/currencies/def.svg'"
+            [fallback]="'/wlc/icons/currencies/def.svg' | proxyStaticUrl"
             [showSvgAsImg]="true"
-            [iconUrl]="'wlc/icons/currencies/' + currentSystem.cryptoTicker + '.svg' | lowercase">
+            [iconUrl]="itemsMap.get(currentSystem.id).image">
         </span>
         <span *ngSwitchDefault
             wlc-icon-list-item
@@ -141,7 +141,7 @@
             wlc-icon
             [showSvgAsImg]="true"
             [iconUrl]="'wlc/icons/currencies/' + currentSystem.cryptoTicker + '.svg' | lowercase"
-            [fallback]="'gstatic/wlc/icons/currencies/def.svg'">
+            [fallback]="'//agstatic.com/wlc/icons/currencies/def.svg'">
         </span>
     </div>
 </ng-template>
@@ -160,11 +160,11 @@
             [attr.data-wlc-element]="'block_payment-item-name'"
             (click)="selectPayment(system)"
             type="button">
-            <span class="{{$class}}__icon"
+            <span class="{{$class}}__icon {{itemsMap.get(system.id).image}}"
                 wlc-icon
                 [showSvgAsImg]="true"
-                [iconUrl]="'wlc/icons/currencies/' + system.cryptoTicker + '.svg' | lowercase"
-                [fallback]="'gstatic/wlc/icons/currencies/def.svg'"
+                [iconUrl]="itemsMap.get(system.id).image"
+                [fallback]="'/wlc/icons/currencies/def.svg' | proxyStaticUrl"
             ></span>
             <span class="{{$class}}__name">{{system.name}}</span>
             <span *ngIf="system.cryptoTicker" class="{{$class}}__ticker">{{system.cryptoTicker}}</span>
