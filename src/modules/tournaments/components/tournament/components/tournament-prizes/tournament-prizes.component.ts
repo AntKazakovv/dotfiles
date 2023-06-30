@@ -77,7 +77,7 @@ export class TournamentPrizesComponent
     }
 
     public get toggleButtonText(): string {
-        return this.isExpanded ? gettext('Show less') : gettext('Show more');
+        return this.isExpanded ? gettext('Show less') : gettext('Show all');
     }
 
     public toggleRows(): void {
