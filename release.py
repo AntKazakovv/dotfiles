@@ -632,13 +632,14 @@ def update_projects(projects):
     for project in projects:
         clean_temp()
         clone_project(project["repository"])
+        project_version = get_version("project")
 
-        if project["id"] == "1" and check_format(engine_version) == "release":
-            print(Fore.YELLOW + f"Making stable release {engine_version} branches" + Fore.RESET)
+        if project["id"] == "1" and check_format(project_version) == "release":
+            print(Fore.YELLOW + f"Making stable release {project_version} branches" + Fore.RESET)
 
             for branch in project["branches"]:
-                if branch == "develop":
-                    stable_branch = engine_version.replace(".", "-")
+                if branch in ["develop"]:
+                    stable_branch = project_version.replace(".", "-")
                     make_stable_branch(branch, stable_branch)
 
                 elif branch != "develop" and branch != "master":
