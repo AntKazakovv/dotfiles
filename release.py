@@ -437,7 +437,7 @@ def check_branch(branch, project_folder = None):
 
 
 # Создание хотфикс ветки
-def make_hotfix():
+def make_hotfix(action):
     date = get_date()
     ticket = input(Fore.YELLOW + "Insert hotfix ticket number please (example 430178): " + Fore.RESET)
     engine_version = input(Fore.YELLOW + "Insert engine version for hotfix (example 1.39.0): " + Fore.RESET)
@@ -723,7 +723,7 @@ def release_manager():
 
     elif choice == "4":
         action = "hotfix"
-        make_hotfix()
+        make_hotfix(action)
         print(Fore.GREEN + "Hotfix created!" + Fore.RESET)
         start()
 
