@@ -449,7 +449,7 @@ def make_hotfix(action):
     changed = input(Fore.YELLOW + "When you add all the changes to the branch, enter 'y': " + Fore.RESET)
 
     if changed.lower() == "y":
-        new_tag = make_tag()
+        new_tag = ".".join([str(k) for k in change_version(action, parse_version(get_version()))])
         print(Fore.YELLOW + "Commiting all changes..." + Fore.RESET)
         subprocess.run(["git", "add", "."])
         subprocess.run(["git", "commit", "-m", f"SCR #{ticket} - Engine hotfix from {engine_version} version"])
