@@ -25,4 +25,8 @@ $themeDefault: map-merge((
     'actionTextOpacity':  (
         1024: 1,
     ),
+    'tournamentsWinsMaxWidth': (
+        375: 180px,
+        560: 100%,
+    ),
 ), $customThemeDefault);

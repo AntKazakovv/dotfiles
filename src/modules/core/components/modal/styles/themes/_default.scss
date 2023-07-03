@@ -321,6 +321,16 @@
             }
         }
     }
+
+    &.wlc-modal--tournament-history-wins {
+
+        .wlc-modal {
+
+            &__dialog--md-extra {
+                @include bm.get-mq-map('max-width', $themeDefault, 'historyWinsModalMaxWidth');
+            }
+        }
+    }
 }
 
 body.modal-open {

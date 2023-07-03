@@ -1,4 +1,13 @@
-import {ITournamentAbstract} from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
+import {
+    ITotalFounds,
+    ITournamentAbstract,
+    ITournamentPrize,
+} from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
+
+export interface ITournamentWinsParams {
+    history?: boolean,
+    wins?: ITournamentPrize[],
+}
 
 export interface ITournamentHistory extends ITournamentAbstract {
     BetsAmount: string;
@@ -6,6 +15,7 @@ export interface ITournamentHistory extends ITournamentAbstract {
     End: string | null;
     Place: string | null;
     Start: string;
+    TotalWins: ITotalFounds;
     Win: string | null;
     WinningSpreadCount: number;
     WinsAmount: string;

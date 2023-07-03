@@ -51,6 +51,13 @@
                     }
                 }
 
+                &.wlc-table__cell--win {
+
+                    .wlc-tournament-prizes-row__values {
+                        @include bm.get-mq-map('max-width', $themeDefault, 'tournamentsWinsMaxWidth');
+                    }
+                }
+
                 @include mq.min(1024) {
                     vertical-align: ef.get-value($themeDefault, 'cellVerticalAlign');
                 }

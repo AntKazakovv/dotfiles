@@ -14,12 +14,10 @@
             <span class="user-login">{{'Player' | translate}}</span>
         </div>
         <div class="{{$class}}__cell item-points" title="{{pointsTitle | translate}}">{{pointsTitle | translate}}</div>
-        <div *ngIf="paramInclude('themeMod', 'history')" class="{{$class}}__cell item-win">
+        <div *ngIf="paramInclude('themeMod', 'history')" 
+            class="{{$class}}__cell item-win"
+            [class.right]="$params.common?.tournament.target === 'bonus'">
             <span class="win-text">{{'Win' | translate}}</span>
-            <span wlc-currency
-                  [currency]="currency"
-                  [showIconOnly]="true">
-            </span>
         </div>
     </div>
 
@@ -45,8 +43,15 @@
 
                     <ng-container *ngTemplateOutlet="deltaValue; context: {$implicit: win}"></ng-container>
                 </span>
-                <span *ngIf="paramInclude('themeMod', 'history')" class="{{$class}}__cell item-win">
-                    {{getCurrencyValue(win)}}
+                <span *ngIf="paramInclude('themeMod', 'history')" 
+                    class="{{$class}}__cell item-win"
+                    [class.right]="$params.common?.tournament.target === 'bonus'">
+                    <div wlc-tournament-prizes-row
+                         class="{{$class}}__prizepool"
+                         [inlineParams]="{theme: 'default'}"
+                         [prizes]="win.TotalWinsLB"
+                    >
+                    </div>
                 </span>
             </div>
             <div *ngIf="winsRest.length && paramExclude('themeMod', 'history')" class="delimetr"></div>
@@ -62,8 +67,15 @@
 
                     <ng-container *ngTemplateOutlet="deltaValue; context: {$implicit: win}"></ng-container>
                 </span>
-                <span *ngIf="paramInclude('themeMod', 'history')" class="{{$class}}__cell item-win">
-                    {{getCurrencyValue(win)}}
+                <span *ngIf="paramInclude('themeMod', 'history')" 
+                    class="{{$class}}__cell item-win"
+                    [class.right]="$params.common?.tournament.target === 'bonus'">
+                    <div wlc-tournament-prizes-row
+                         class="{{$class}}__prizepool"
+                         [inlineParams]="{theme: 'default'}"
+                         [prizes]="win.TotalWinsLB"
+                    >
+                    </div>
                 </span>
             </div>
         </div>
@@ -79,6 +91,7 @@
             (click)="showAllWins()">
     </button>
 </div>
+
 <ng-template #noData>
     <div *ngIf="isReady" class="{{$class}}__nocontent">{{'No tournament wins available' | translate}}</div>
     <div *ngIf="!isReady" class="{{$class}}__nocontent">

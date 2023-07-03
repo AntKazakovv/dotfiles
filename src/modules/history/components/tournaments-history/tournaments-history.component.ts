@@ -25,6 +25,7 @@ import {
     ActionService,
     DeviceType,
     ProfileType,
+    InjectionService,
 } from 'wlc-engine/modules/core';
 import {
     HistoryFilterService,
@@ -34,6 +35,7 @@ import {
     IHistoryFilterValue,
 } from 'wlc-engine/modules/core/system/interfaces/history-filter.interface';
 import {HistoryService} from 'wlc-engine/modules/history/system/services/history.service';
+import {TournamentsService} from 'wlc-engine/modules/tournaments/system/services/tournaments/tournaments.service';
 import {TournamentHistory} from 'wlc-engine/modules/history';
 import {tournamentConfig} from 'wlc-engine/modules/core/system/config/history.config';
 
@@ -55,6 +57,7 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
     public tournaments$: BehaviorSubject<TournamentHistory[]> = new BehaviorSubject([]);
     protected filterValue: TTournamentsFilter = 'all';
     protected allTournaments: TournamentHistory[] = [];
+    protected tournamentsService: TournamentsService;
 
     constructor(
         @Inject('injectParams') protected params: Params.ITournamentsHistoryCParams,
@@ -64,6 +67,7 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
         protected historyFilterService: HistoryFilterService,
         configService: ConfigService,
         protected actionService: ActionService,
+        protected injectionService: InjectionService,
     ) {
         super(
             <IMixedParams<Params.ITournamentsHistoryCParams>>{
@@ -74,6 +78,8 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
 
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
+        this.tournamentsService ??= await this.injectionService.getService('tournaments.tournaments-service');
+        const profileType: ProfileType = this.configService.get<ProfileType>('$base.profile.type') || 'default';
         await this.historyService.queryHistory(true, 'tournamentsHistory');
         this.showFilter = this.actionService.getDeviceType() === DeviceType.Desktop;
 
@@ -85,20 +91,18 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
         this.historyFilterService.setAllFilters('tournaments', {
             filterValue: this.filterValue,
         });
-        this.prepareTableParams();
+        this.tableData = {
+            theme: this.$params.transactionTableTheme || 'default',
+            themeMod: profileType,
+            head: Params.tournamentsHistoryTableHeadConfig,
+            rows: this.tournaments$,
+            switchWidth: profileType === 'first' ? 1200 : 1024,
+        };
+
         this.tournaments$.next(this.tournamentsFilter());
+
         this.ready = true;
         this.cdr.detectChanges();
-    }
-
-    protected prepareTableParams(): void {
-        const profileType: ProfileType = this.configService.get<ProfileType>('$base.profile.type') || 'default';
-        this.tableData = this.$params.tableConfig;
-        this.tableData.themeMod = profileType;
-        this.tableData.rows = this.tournaments$;
-        this.tableData.switchWidth ??= profileType === 'first'
-            ? 1200
-            : 1024;
     }
 
     protected tournamentsFilter(): TournamentHistory[] {

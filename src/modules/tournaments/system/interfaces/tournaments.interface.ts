@@ -139,6 +139,9 @@ export interface ITournamentPlace {
     points?: number;
     BestWinToBetRatio: string;
     delta?: number;
+    Target?: string;
+    TotalWins?: ITotalFounds;
+    TotalWinsLB?: ITournamentPrize[];
 }
 
 export interface ITournamentUser {

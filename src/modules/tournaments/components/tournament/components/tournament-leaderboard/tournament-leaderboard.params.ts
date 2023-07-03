@@ -2,10 +2,7 @@ import {
     CustomType,
     IComponentParams,
 } from 'wlc-engine/modules/core';
-import {
-    Tournament,
-    ThumbType,
-} from 'wlc-engine/modules/tournaments';
+import {ThumbType} from 'wlc-engine/modules/tournaments';
 import {TournamentHistory} from 'wlc-engine/modules/history/system/models/tournament-history/tournament-history.model';
 
 export type ComponentTheme = 'default' | CustomType;
@@ -19,7 +16,7 @@ export interface ITournamentLeaderboardCParams extends IComponentParams<Componen
     modifiers?: Modifiers[];
     common?: {
         customMod?: CustomMod;
-        tournament?: Tournament | TournamentHistory;
+        tournament?: TournamentHistory;
         type?: ComponentType;
         limit?: number;
         showAllBtn?: boolean;

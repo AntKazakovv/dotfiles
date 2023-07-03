@@ -38,6 +38,7 @@ export class TournamentPrizesRowComponent extends AbstractComponent implements O
         configService: ConfigService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
+        if ('history' in this.injectParams) this.prizes = this.injectParams.wins;
     }
 
     public override ngOnInit(): void {
@@ -46,7 +47,7 @@ export class TournamentPrizesRowComponent extends AbstractComponent implements O
 
     public getDigitsInfo(currency: string): string {
         if (this.$params.useSmartDemicals) {
-            return CurrenciesInfo.specialCurrencies.has(currency) ? '1-0-0': '1-2-2';
+            return CurrenciesInfo.specialCurrencies.has(currency) ? '1-0-0' : '1-2-2';
         } else {
             return '1-0-0';
         }

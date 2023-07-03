@@ -101,9 +101,9 @@
                     display: block;
                     width: 100%;
                     height: auto;
-                    overflow: hidden;
                     text-align: var(--lb-head-align, left);
                     text-overflow: ellipsis;
+                    overflow: hidden;
 
                     &:first-child {
                         padding: var(--lb-head-padding-first, var(--lb-cell-padding-first));
@@ -236,6 +236,19 @@
 
                 &:nth-child(odd) {
                     background: ef.get-value($themeDefaultModHistory, 'rowSecondaryBg');
+                }
+
+                &.user[class] {
+                    background: ef.get-value($themeDefault, 'rowUserBg');
+                }
+
+                .item-win.right {
+                    justify-content: end;
+                    text-align: right;
+
+                    .win-text {
+                        margin: ef.get-value($themeDefault, 'winBonusTextMargin');
+                    }
                 }
             }
 

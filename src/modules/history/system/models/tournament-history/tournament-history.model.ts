@@ -7,6 +7,8 @@ import {
 import {takeUntil} from 'rxjs/operators';
 import _assign from 'lodash-es/assign';
 import _each from 'lodash-es/each';
+import _isEmpty from 'lodash-es/isEmpty';
+import _reduce from 'lodash-es/reduce';
 import _toNumber from 'lodash-es/toNumber';
 import _toString from 'lodash-es/toString';
 import _uniqBy from 'lodash-es/uniqBy';
@@ -14,6 +16,7 @@ import _uniqBy from 'lodash-es/uniqBy';
 import {
     AbstractModel,
     ConfigService,
+    CurrenciesInfo,
     GlobalHelper,
     IFromLog,
 } from 'wlc-engine/modules/core';
@@ -21,10 +24,15 @@ import {
     ITournamentHistory,
 } from 'wlc-engine/modules/history/system/interfaces/tournament-history/tournament-history.interface';
 import {HistoryService} from 'wlc-engine/modules/history/system/services/history.service';
-import {ITopTournamentUsers} from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
+import {
+    ITopTournamentUsers,
+    ITournamentPrize,
+    TCurrency,
+} from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
 import {ITournamentPlace} from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
 
 export class TournamentHistory extends AbstractModel<ITournamentHistory> {
+    public tournamentWins: ITournamentPrize[];
     protected userCurrency: string;
     protected useUsersCurrency: boolean = false;
 
@@ -36,6 +44,7 @@ export class TournamentHistory extends AbstractModel<ITournamentHistory> {
     ) {
         super({from: _assign({model: 'TournamentHistory'}, from)});
         this.data = data;
+        this.prepareTournamentWins();
     }
 
     public get place(): string | number {
@@ -179,8 +188,60 @@ export class TournamentHistory extends AbstractModel<ITournamentHistory> {
     protected getUserLogin(item: ITournamentPlace): string {
         if (item.FirstName?.length && item.LastName?.length) {
             return item.FirstName + ' ' + item.LastName.substring(0, 1);
-        } else {
+        } else if (item.Email) {
             return item.Email.substring(0, 6) + '***';
         }
+    }
+
+    protected prepareTournamentWins(): void {
+        const wins: TCurrency = (this.target === 'bonus' && !_isEmpty(this.data.TotalWins.Currency))
+            ? this.data.TotalWins.Currency
+            : this.totalWins;
+        this.tournamentWins = this.transformWins(wins);
+    }
+
+    protected get totalWins(): number {
+        return _toNumber(this.targetDefaultCurrency === 'EUR'
+            ? this.data.TotalWins.EUR
+            : this.data.Win,
+        );
+    }
+
+    private transformWins(rawWinRow: TCurrency): ITournamentPrize[] {
+        const wins: ITournamentPrize[] = [];
+        const tournamentCurrency: string = this.targetDefaultCurrency;
+
+        if (typeof rawWinRow === 'object') {
+            const moneyWin: number = _toNumber(rawWinRow[tournamentCurrency]);
+            const specialCurrencies: ReadonlySet<String> = CurrenciesInfo.specialCurrencies;
+            const specialWins: ITournamentPrize[] = _reduce(Array.from(specialCurrencies),
+                (result: ITournamentPrize[], currency: string) => {
+                    if (rawWinRow[currency]) {
+                        const value: number = currency === 'FB'
+                            ? _toNumber(rawWinRow[currency][tournamentCurrency])
+                            : _toNumber(rawWinRow[currency]);
+
+                        if (value) {
+                            result.push({currency, value});
+                        }
+                    }
+                    return result;
+                }, []);
+
+            if (moneyWin) {
+                wins.push({
+                    currency: tournamentCurrency,
+                    value: moneyWin,
+                });
+            }
+
+            wins.push(...specialWins);
+        } else {
+            wins.push({
+                currency: tournamentCurrency,
+                value: _toNumber(rawWinRow),
+            });
+        }
+        return wins;
     }
 }

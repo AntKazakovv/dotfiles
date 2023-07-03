@@ -443,4 +443,8 @@ $themeDefault: map-merge((
     'lootboxModalBodyBg': ef.static('wlc/bonuses/lootbox/lootbox-modal-bg.jpg') no-repeat center,
     'lootboxModalBodyBgSize': cover,
     // lootbox-modal
+
+    // history-wins-modal
+    'historyWinsModalMaxWidth': 650px,
+    // history-wins-modal
 ), $customThemeDefault);
