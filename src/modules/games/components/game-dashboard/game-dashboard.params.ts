@@ -81,7 +81,7 @@ export const dashboardTabs: IGameDashboardTab[] = [
     {
         id: 'bonuses',
         iconPath: '/wlc/game-dashboard/bonuses.svg',
-        label: gettext('My Bonuses'),
+        label: gettext('My bonuses'),
         updateOnOpen: true,
     },
     {

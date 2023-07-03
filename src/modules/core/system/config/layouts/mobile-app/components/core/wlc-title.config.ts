@@ -241,7 +241,7 @@ export namespace wlcTitle {
         name: 'core.wlc-title',
         params: {
             customMod: ['profile', 'profile-bonuses'],
-            mainText: gettext('My Bonuses'),
+            mainText: gettext('My bonuses'),
             wlcElement: 'header_user-bonuses',
         },
     };
@@ -253,7 +253,7 @@ export namespace wlcTitle {
             components: [
                 {
                     name: 'core.wlc-title',
-                    params:  <ITitleCParams>{
+                    params: <ITitleCParams>{
                         customMod: ['profile'],
                         mainText: gettext('Market'),
                         wlcElement: 'header_store',
@@ -270,7 +270,7 @@ export namespace wlcTitle {
             components: [
                 {
                     name: 'core.wlc-title',
-                    params:  <ITitleCParams>{
+                    params: <ITitleCParams>{
                         customMod: ['profile'],
                         mainText: gettext('Loyalty'),
                         wlcElement: 'header_loyalty',
@@ -282,7 +282,7 @@ export namespace wlcTitle {
 
     export const profileStoreV1: ILayoutComponent = {
         name: 'core.wlc-title',
-        params:  <ITitleCParams>{
+        params: <ITitleCParams>{
             customMod: ['profile'],
             mainText: gettext('Store'),
             wlcElement: 'header_store',
@@ -297,7 +297,7 @@ export namespace wlcTitle {
             components: [
                 {
                     name: 'core.wlc-title',
-                    params:  <ITitleCParams>{
+                    params: <ITitleCParams>{
                         customMod: ['profile'],
                         mainText: gettext('Levels'),
                         wlcElement: 'header_loyalty',
