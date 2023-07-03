@@ -154,7 +154,7 @@ export const regFormStepTopComponents = {
                     common: {
                         dynamicText: {
                             text: gettext('The chosen bonus:'),
-                            textDefault: gettext('Without Bonus'),
+                            textDefault: gettext('Without bonus'),
                             param: ChosenBonusSetParams.ChosenBonus + '.name',
                         },
                     },
