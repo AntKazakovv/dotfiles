@@ -11,16 +11,10 @@ export namespace wlcStoreList {
                         0: {
                             itemPerPage: 3,
                         },
-                        720: {
+                        640: {
                             itemPerPage: 4,
                         },
-                        1024: {
-                            itemPerPage: 6,
-                        },
-                        1366: {
-                            itemPerPage: 8,
-                        },
-                        1630: {
+                        720: {
                             itemPerPage: 6,
                         },
                     },

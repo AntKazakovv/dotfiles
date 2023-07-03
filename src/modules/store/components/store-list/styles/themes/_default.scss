@@ -3,6 +3,8 @@
     &:host {
 
         .wlc-store-list__list {
+            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'gridTemplateColumns');
+
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -15,7 +17,6 @@
             @include mq.min(720) {
                 display: grid;
                 grid-gap: ef.get-value($themeDefault, 'gridGap');
-                grid-template-columns: repeat(auto-fill, minmax(ef.get-value($themeDefault, 'minItemWidth'), 1fr));
 
                 > div {
                     margin-bottom: 0;
@@ -24,10 +25,6 @@
                 &.first {
                     grid-template-columns: repeat(auto-fill, minmax(ef.get-value($themeDefault, 'minItemWidthFirst'), 1fr));
                 }
-            }
-
-            @include mq.min(1630) {
-                grid-template-columns: repeat(auto-fill, minmax(ef.get-value($themeDefault, 'minItemWidthDesktop'), 1fr));
             }
         }
 
