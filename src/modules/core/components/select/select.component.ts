@@ -10,6 +10,7 @@ import {
     HostListener,
     ElementRef,
     ViewChild,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 import {
     animate,
@@ -62,8 +63,6 @@ import * as Params from './select.params';
  * }
  *
  */
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-select]',
     templateUrl: './select.component.html',
@@ -80,6 +79,7 @@ import * as Params from './select.params';
             ]),
         ]),
     ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectComponent extends AbstractComponent implements OnInit, OnChanges, AfterViewInit {
 
@@ -205,7 +205,6 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
                         this.searchInput.nativeElement.focus();
                     }
                     this.openDropdown();
-                    this.cdr.detectChanges();
                 });
 
             setTimeout(() => {
@@ -219,7 +218,6 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
     public override ngOnChanges(changes: SimpleChanges): void {
         if (this.$params) {
             super.ngOnChanges(changes);
-            this.cdr.detectChanges();
         }
     }
 
@@ -507,8 +505,6 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
                     this.control.setValue(this.clearedValue);
                     this.clearedValue = null;
                 }
-
-                this.cdr.detectChanges();
             });
     }
 
