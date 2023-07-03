@@ -1,6 +1,6 @@
 import {
-    GlobalHelper,
     ILayoutComponent,
+    GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {
     IFormWrapperCParams,
@@ -13,6 +13,8 @@ import {IProfileFormCParams} from 'wlc-engine/modules/user';
 import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
 import {ProhibitedPatterns} from 'wlc-engine/modules/core/constants/regexp.constants';
 import {ITwoFactorAuthProfileBlockCParams} from 'wlc-engine/modules/user/submodules/two-factor-auth/';
+
+import _cloneDeep from 'lodash-es/cloneDeep';
 
 const insertLogin = (useLogin: boolean): IFormComponent | null => {
     if (useLogin) {
@@ -85,7 +87,7 @@ export namespace wlcProfileForm {
                                 },
                             },
                             GlobalHelper.mergeConfig(
-                                FormElements.countryAndState,
+                                _cloneDeep(FormElements.countryAndState),
                                 {
                                     params: {
                                         theme: 'vertical',
