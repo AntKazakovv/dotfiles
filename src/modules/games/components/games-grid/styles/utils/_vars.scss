@@ -101,7 +101,6 @@ $customCommonStyles: () !default;
 $commonStyles: map-merge((
     'moreButtonMargin': (
         375: ef.size(4) 0 0,
-        1200: ef.size(8) 0 0,
     ),
 
     'providersMoreButtonMargin': (
