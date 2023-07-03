@@ -87,6 +87,13 @@
             .wlc-footer-lang {
                 @include bm.get-mq-map('justify-self', $theme1Footer, 'affFooterLangJustifySelf');
             }
+
+            .wlc-license {
+
+                &__apg-seal {
+                    display: none;
+                }
+            }
         }
     }
 

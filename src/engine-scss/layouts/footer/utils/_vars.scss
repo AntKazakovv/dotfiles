@@ -452,7 +452,10 @@ $theme2Footer: map-merge((
     ),
 
     //language selector margin with affiliate button
-    'languageMarginWithAffBtn': ef.size(8) auto,
+    'languageMarginWithAffBtn': (
+        375: 0 auto,
+        900: ef.size(8) auto,
+    ),
 
     'footerPostMenuLoaderPosition': (
         320: relative,

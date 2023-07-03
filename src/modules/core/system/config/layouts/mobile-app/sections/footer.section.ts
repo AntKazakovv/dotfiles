@@ -64,14 +64,12 @@ export namespace footer {
             componentLib.wlcPostMenu.footerFirst,
             componentLib.wlcLogo.footerFirst,
             componentLib.wlcSocialIcons.compact,
-            componentLib.wlcButton.affRedirectLink,
             componentLib.wlcLicense.def,
             {
                 name: 'core.wlc-wrapper',
                 params: {
                     class: 'wlc-footer-disclaimer',
                     components: [
-                        componentLib.wlcDisclaimer.def,
                         componentLib.wlcCopyright.def,
                     ],
                 },
@@ -238,7 +236,6 @@ export namespace footer {
                             params: {
                                 class: 'footer-bottom__left',
                                 components: [
-                                    componentLib.wlcButton.affRedirectLink,
                                     {
                                         name: 'core.wlc-wrapper',
                                         display: {
@@ -261,7 +258,6 @@ export namespace footer {
                             params: {
                                 class: 'footer-bottom__right',
                                 components: [
-                                    componentLib.wlcDisclaimer.def,
                                     componentLib.wlcCopyright.def,
                                 ],
                             },

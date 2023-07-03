@@ -173,6 +173,10 @@
     &.wlc-sections__footer--theme-with-aff {
 
         .footer-bottom {
+            display: flex;
+            flex-direction: column;
+            grid-gap: 5px;
+            align-items: center;
 
             &__left {
                 @include bm.get-mq-map('margin', $theme2Footer, 'btnsLeftMargin');
@@ -193,6 +197,14 @@
 
         .footer-language-selector {
             @include bm.get-mq-map('margin', $theme2Footer, 'languageMarginWithAffBtn');
+        }
+
+        .wlc-license {
+            gap: 0;
+
+            &__apg-seal {
+                display: none;
+            }
         }
     }
 }
