@@ -66,7 +66,7 @@ export const financesConfig: IFinancesConfig = {
                                 options: '^.*$',
                             },
                         ],
-                        systems:['mifinity_acct2acct'],
+                        systems: ['mifinity_acct2acct'],
                     },
                 ],
             },
@@ -74,9 +74,9 @@ export const financesConfig: IFinancesConfig = {
                 settings: [
                     {
                         tooltip: gettext('Please combine the 5 digit Branch number e.g.' +
-                        ' “27370” with the 3 digit Financial institution number e.g. “001” ;' +
-                        ' and the account number digit Account number e.g. “91011112”,' +
-                        ' then you send to Inpay “273700019101112”. Please do not use Dash.'),
+                            ' “27370” with the 3 digit Financial institution number e.g. “001” ;' +
+                            ' and the account number digit Account number e.g. “91011112”,' +
+                            ' then you send to Inpay “273700019101112”. Please do not use Dash.'),
                         validators: [
                             {
                                 name: 'pattern',
@@ -92,12 +92,12 @@ export const financesConfig: IFinancesConfig = {
                             },
                         ],
                         countries: ['can'],
-                        systems:['inpay_withdraw'],
+                        systems: ['inpay_withdraw'],
                     },
                     {
                         tooltip: gettext('Please combine branch code/BSB with the 7 account number and' +
-                        ' 3 digit suffix. E.g. 6 digit BSB e.g. “020432”, Account number “6781299”,' +
-                        ' Suffix “001” then you send to Inpay “0204326781299001”. Please do not use Dash.'),
+                            ' 3 digit suffix. E.g. 6 digit BSB e.g. “020432”, Account number “6781299”,' +
+                            ' Suffix “001” then you send to Inpay “0204326781299001”. Please do not use Dash.'),
                         validators: [
                             {
                                 name: 'pattern',
@@ -113,11 +113,11 @@ export const financesConfig: IFinancesConfig = {
                             },
                         ],
                         countries: ['nzl'],
-                        systems:['inpay_withdraw'],
+                        systems: ['inpay_withdraw'],
                     },
                     {
                         tooltip: gettext('Please enter 11 digit numbers of CPF from RG ID card.' +
-                        ' Please do not use Dash.'),
+                            ' Please do not use Dash.'),
                         validators: [
                             {
                                 name: 'pattern',
@@ -133,7 +133,7 @@ export const financesConfig: IFinancesConfig = {
                             },
                         ],
                         countries: ['bra'],
-                        systems:['pagsmile_brazil'],
+                        systems: ['pagsmile_brazil'],
                     },
                 ],
             },
@@ -155,7 +155,7 @@ export const financesConfig: IFinancesConfig = {
                                 options: 11,
                             },
                         ],
-                        systems:['paycos_k3_mobile_commerce'],
+                        systems: ['paycos_k3_mobile_commerce'],
                     },
                 ],
             },
@@ -168,7 +168,7 @@ export const financesConfig: IFinancesConfig = {
                                 options: '^[0-9:]*$',
                             },
                         ],
-                        systems:['paycos_k3_mobile_commerce'],
+                        systems: ['paycos_k3_mobile_commerce'],
                     },
                 ],
             },
@@ -185,10 +185,17 @@ export const financesConfig: IFinancesConfig = {
                                 options: 11,
                             },
                         ],
-                        systems:['runpay'],
+                        systems: ['runpay'],
                     },
                 ],
             },
         },
+    },
+    transactionHistoryAlert: {
+        show: false,
+        title: 'Didn\'t receive a deposit?',
+        text: 'On average, a deposit can be received up to 15 minutes, ' +
+            'if funds are not credited to your balance during this period, be ' +
+            'sure to write to the support chat.',
     },
 };

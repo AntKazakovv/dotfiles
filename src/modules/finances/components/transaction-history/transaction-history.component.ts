@@ -5,6 +5,7 @@ import {
     Inject,
     ChangeDetectionStrategy,
 } from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
 
 import {BehaviorSubject} from 'rxjs';
 import {
@@ -41,6 +42,7 @@ import {
     FinancesService,
 } from 'wlc-engine/modules/finances/system/services/finances/finances.service';
 import {Transaction} from 'wlc-engine/modules/finances/system/models/transaction-history.model';
+import {ITransactionHistoryAlert} from 'wlc-engine/modules/finances/system/interfaces';
 
 import * as Params from './transaction-history.params';
 
@@ -60,6 +62,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
     public endDateInput: IDatepickerCParams = endDate;
     public transaction$: BehaviorSubject<Transaction[]> = new BehaviorSubject([]);
     public filterSelect: ISelectCParams<TTransactionFilter> = config.filterSelect;
+    public alertConfig: ITransactionHistoryAlert;
 
     protected filterValue: TTransactionFilter = 'all';
     protected startDate: DateTime = DateTime.local();
@@ -74,6 +77,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
         protected historyFilterService: HistoryFilterService,
         configService: ConfigService,
         protected actionService: ActionService,
+        protected translateService: TranslateService,
     ) {
         super(
             <IMixedParams<Params.ITransactionHistoryCParams>>{
@@ -103,6 +107,8 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
         });
         this.setMinMaxDate();
         this.setSubscription();
+
+        this.alertConfig = this.configService.get<ITransactionHistoryAlert>('$finances.transactionHistoryAlert');
 
         this.transaction$.next(this.transactionFilter());
         this.prepareTableParams();
@@ -245,5 +251,13 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
                 this.showFilter = type === DeviceType.Desktop;
                 this.cdr.detectChanges();
             });
+    }
+
+    protected getAlertTitle(): string {
+        return this.translateService.instant(gettext(this.alertConfig.title));
+    }
+
+    protected getAlertText(): string {
+        return this.translateService.instant(gettext(this.alertConfig.text));
     }
 }

@@ -7,6 +7,11 @@
             min-height: ef.get-value($themeDefault, 'sectionLoaderMinHeight');
         }
 
+        .wlc-transaction-history__alert {
+            max-width: ef.get-value($themeDefault, 'alertMaxWidth');
+            margin: ef.get-value($themeDefault, 'alertMargin');
+        }
+
         .wlc-transaction-history__filter {
             @include bm.get-mq-map('margin', $themeDefault, 'filterMargin');
             @include bm.get-mq-map('gap', $themeDefault, 'filterGap');

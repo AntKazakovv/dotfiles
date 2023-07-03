@@ -35,6 +35,13 @@ export interface IFinancesConfig {
      * Additional & required fields settings config
      */
     fieldsSettings?: IFieldsSettings;
+    transactionHistoryAlert?: ITransactionHistoryAlert;
+}
+
+export interface ITransactionHistoryAlert {
+    show: boolean,
+    title?: string,
+    text?: string,
 }
 
 export interface IFieldsSettings {

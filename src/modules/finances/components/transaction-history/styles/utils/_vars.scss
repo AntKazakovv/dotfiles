@@ -5,6 +5,8 @@ $themeDefault: map-merge((
         1024: ef.size(4) 0 0,
     ),
     'sectionLoaderMinHeight': 400px,
+    'alertMaxWidth': 100%,
+    'alertMargin': 0 0 ef.size(4),
     'filterMargin': (
         1024: 0 0 ef.size(4),
     ),

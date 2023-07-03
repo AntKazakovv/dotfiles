@@ -1,4 +1,12 @@
 <ng-container *ngIf="ready; else preloader">
+    <div *ngIf="this.alertConfig.show"
+        wlc-alert
+        [level]="'warning'"
+        class="{{$class}}__alert"
+        [title]="getAlertTitle()"
+        [text]="getAlertText()">
+    </div>
+
     <div *ngIf="showFilter" class="{{$class}}__filter">
         <div wlc-datepicker [inlineParams]="startDateInput"></div>
         <div wlc-datepicker [inlineParams]="endDateInput"></div>

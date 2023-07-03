@@ -24,6 +24,7 @@ export interface ITransactionHistoryRangeParams {
     type: string,
     historyType: string,
 }
+
 export interface ITransactionHistoryCParams extends IComponentParams<Theme, Type, ThemeMod> {
     filterType?: 'select' | 'button';
     tableConfig?: ITableCParams,
