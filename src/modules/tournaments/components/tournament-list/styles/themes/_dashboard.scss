@@ -12,6 +12,7 @@
                 width: auto;
                 margin: ef.get-value($themeDashboard, 'containerMargin');
                 padding: ef.get-value($themeDashboard, 'containerPadding');
+                overflow: visible;
 
                 ::ng-deep {
 

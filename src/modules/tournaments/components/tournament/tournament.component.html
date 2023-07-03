@@ -34,17 +34,22 @@
     </div>
 </ng-template>
 
+<ng-template #infoBtn>
+    <div class="{{$class}}__more-icon">
+        <div wlc-icon
+             class="icon-btn"
+             wlcElement="button_terms"
+             iconPath="/wlc/icons/info.svg"
+             (click)="readMore({selector: ''})">
+        </div>
+    </div>
+</ng-template>
+
 <ng-template #dashboard>
     <div class="{{$class}}__container" [class.selected]="isTournamentSelected">
+        <ng-container [ngTemplateOutlet]="infoBtn" *ngIf="isTournamentSelected"></ng-container>
         <div class="{{$class}}__img-container" *ngIf="!isTournamentSelected">
-            <div class="{{$class}}__more-icon">
-                <div wlc-icon
-                    class="icon-btn"
-                    wlcElement="button_terms"
-                    iconPath="/wlc/icons/info.svg"
-                    (click)="readMore({selector: ''})">
-                </div>
-            </div>
+            <ng-container [ngTemplateOutlet]="infoBtn"></ng-container>
             <img [wlc-fallback]="tournament.fallbackImageDashboard"
                  [src]="tournament.imageDashboard"
                  class="{{$class}}__image"
