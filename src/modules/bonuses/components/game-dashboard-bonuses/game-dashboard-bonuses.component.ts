@@ -26,6 +26,7 @@ import {
     ISlide,
     ISliderCParams,
     SliderComponent,
+    IWrapperCParams,
 } from 'wlc-engine/modules/core';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
@@ -54,8 +55,8 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
     public slides: ISlide[] = [];
     public override $params: Params.IGameDashboardBonusesCParams;
 
-    public defaultSliderConfig: ISliderCParams = {};
-    public landscapeSliderConfig: ISliderCParams = {};
+    public defaultSliderConfig: IWrapperCParams = {components: []};
+    public landscapeSliderConfig: IWrapperCParams = {components: []};
 
     protected filter: BonusesFilterType = 'all';
 
@@ -138,15 +139,30 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
     }
 
     protected initSliderComponents(): void {
-        this.defaultSliderConfig = _merge<ISliderCParams, ISliderCParams>(
-            this.$params.defaultSliderParams,
-            {slides: this.slides},
-        );
 
-        this.landscapeSliderConfig = _merge<ISliderCParams, ISliderCParams>(
-            this.$params.landscapeSliderParams,
-            {slides: this.slides},
-        );
+        this.defaultSliderConfig = {
+            components: [
+                {
+                    name: 'core.wlc-slider',
+                    params: _merge<ISliderCParams, ISliderCParams>(
+                        this.$params.defaultSliderParams,
+                        {slides: this.slides},
+                    ),
+                },
+            ],
+        };
+
+        this.landscapeSliderConfig = {
+            components: [
+                {
+                    name: 'core.wlc-slider',
+                    params: _merge<ISliderCParams, ISliderCParams>(
+                        this.$params.landscapeSliderParams,
+                        {slides: this.slides},
+                    ),
+                },
+            ],
+        };
     }
 
     /**

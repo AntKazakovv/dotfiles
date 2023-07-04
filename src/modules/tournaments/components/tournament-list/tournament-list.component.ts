@@ -68,8 +68,8 @@ export class TournamentListComponent
     public isAuth: boolean;
     public noContentParams: INoContentCParams;
 
-    public dashboardSliderConfig: ISliderCParams = {};
-    public bannerSliderConfig: ISliderCParams = {};
+    public dashboardSliderConfig: IWrapperCParams = {components: []};
+    public bannerSliderConfig: IWrapperCParams = {components: []};
     public navigationId: string = _random(10000000).toString(16);
     public emptyInProfileConfig: IWrapperCParams;
     protected indexOfSelectedTournament: number;
@@ -266,13 +266,28 @@ export class TournamentListComponent
 
     protected initSliderComponents(): void {
         this.bannerSliderConfig = {
-            slides: this.slides,
-            ...this.sliderParams,
+            components: [
+                {
+                    name: 'core.wlc-slider',
+                    params: <ISliderCParams>{
+                        type: 'banner',
+                        slides: this.slides,
+                        ...this.sliderParams,
+                    },
+                },
+            ],
         };
 
         this.dashboardSliderConfig = {
-            slides: this.slides,
-            ...this.sliderParams,
+            components: [
+                {
+                    name: 'core.wlc-slider',
+                    params: <ISliderCParams>{
+                        slides: this.slides,
+                        ...this.sliderParams,
+                    },
+                },
+            ],
         };
     }
 }

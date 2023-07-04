@@ -27,6 +27,7 @@ import {
     ColorThemeService,
     ISlide,
     ISliderCParams,
+    IWrapperCParams,
 } from 'wlc-engine/modules/core';
 import {
     GamesCatalogService,
@@ -57,7 +58,7 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
     public sliderParams: ISliderCParams = {
         swiper: {},
     };
-    public sliderConfig: ISliderCParams;
+    public sliderConfig: IWrapperCParams;
 
     protected $itemsChanges = new BehaviorSubject<IconModel[]>([]);
     protected modalLinkParams: Params.IProviderLinksCParams;
@@ -180,8 +181,15 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
 
     protected initSliderConfig(): void {
         this.sliderConfig = {
-            slides: this.slides,
-            ...this.sliderParams,
+            components: [
+                {
+                    name: 'core.wlc-slider',
+                    params: <ISliderCParams>{
+                        ...this.sliderParams,
+                        slides: this.slides,
+                    },
+                },
+            ],
         };
     }
 

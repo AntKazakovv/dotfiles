@@ -64,6 +64,7 @@ import {
     ISlide,
     ISliderCParams,
     ResizedEventModel,
+    IFormWrapperCParams,
 } from 'wlc-engine/modules/core';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
@@ -122,8 +123,8 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
     // the swiper navigation buttons will lose their binding
     public navigationId: string = _random(10000000).toString(16);
 
-    public gamesSliderConfig: ISliderCParams = {};
-    public gamePlaceholdersSliderConfig: ISliderCParams = {};
+    public gamesSliderConfig: IWrapperCParams = {components: []};
+    public gamePlaceholdersSliderConfig: IWrapperCParams = {components: []};
     public bannerSliderConfig: IWrapperCParams = {components: []};
 
     protected gamesRows: number = 1;
@@ -846,8 +847,15 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
         }
     }
 
-    protected createConfigSliders(slides: ISlide[]): ISliderCParams {
-        return _merge({slides}, this.$params.showAsSwiper?.sliderParams);
+    protected createConfigSliders(slides: ISlide[]): IFormWrapperCParams {
+        return {
+            components: [
+                {
+                    name: 'core.wlc-slider',
+                    params: <ISliderCParams>_merge({slides}, this.$params.showAsSwiper?.sliderParams),
+                },
+            ],
+        };
     }
 
     protected initGameSliders(): void {

@@ -101,7 +101,18 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             themeMod: this.$params.themeMod,
         });
 
-        this.initMenuParams();
+        if (this.$params.common?.useSliderNavigation) {
+            _assign(this.$params.menuParams, {
+                sliderParams: {
+                    swiper: {
+                        navigation: {
+                            nextEl: '.wlc-category-menu__control--next',
+                            prevEl: '.wlc-category-menu__control--prev',
+                        },
+                    },
+                },
+            });
+        }
 
         this.menuSettings = await this.menuService.getFundistMenuSettings('categoryMenu');
 

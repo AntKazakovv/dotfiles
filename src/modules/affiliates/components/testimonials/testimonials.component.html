@@ -2,7 +2,7 @@
     <div class="{{$class}}__header" *ngIf="$params.title">{{$params.title | translate}}</div>
     <div *ngIf="slides.length; else noData"
         class="{{$class}}__content"
-        wlc-slider
+        wlc-wrapper
         [inlineParams]="sliderConfig"></div>
 </ng-container>
 

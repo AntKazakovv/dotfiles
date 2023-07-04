@@ -178,7 +178,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
     public userStatsConfig: IWrapperCParams = {components: []};
     public userStatsWithoutDepositConfig: IWrapperCParams = {components: []};
     public loyaltyProgressConfig: IWrapperCParams = {components: []};
-    public sliderConfig: ISliderCParams = {};
+    public sliderConfig: IWrapperCParams = {components: []};
 
     protected breakpoints: IIndexing<number> = {
         backdropLabel: 680,
@@ -826,8 +826,13 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
      */
     protected loadSliderComponent(): void {
         this.sliderConfig = {
-            slides: this.lastPlayedGamesSlides,
-            ...this.lastPlayedSwiper,
+            components: [{
+                name: 'core.wlc-slider',
+                params: <ISliderCParams>{
+                    slides: this.lastPlayedGamesSlides,
+                    ...this.lastPlayedSwiper,
+                },
+            }],
         };
     }
 }

@@ -159,34 +159,30 @@
             </ng-container>
         </ng-container>
 
+        <ng-container *ngIf="showGameSlides else: preloaderForSlider">
+            <div wlc-wrapper
+                class="{{$class}}__games-slider"
+                [inlineParams]="gamesSliderConfig"
+                (wlc-resized)="onResize($event)">
+            </div>
+        </ng-container>
+
         <!-- The button block should be located after the swiper block to hide the button block
         if the number of games is less than or equal to the number of slots in the grid  -->
         <div *ngIf="$params.showAsSwiper?.useNavigation"
              class="{{$class}}__swiper-buttons-container"
              slot-container-end>
-           <div class="{{$class}}__swiper-buttons">
-               <button wlc-icon
-                       class="wlc-swiper-button-prev"
-                       iconPath="/wlc/icons/arrow.svg"
-                       [class]="'wlc-swiper-button-prev-' + navigationId"></button>
-               <button wlc-icon
-                       class="wlc-swiper-button-next"
-                       iconPath="/wlc/icons/arrow.svg"
-                       [class]="'wlc-swiper-button-next-' + navigationId"></button>
-           </div>
-       </div>
-
-        <ng-container *ngIf="isReadyOrUsePlaceholder else: preloader">
-            <ng-container *ngIf="hasGames; else: noGames">
-                <ng-container *ngIf="showGameSlides; else sliderPlaceholders">
-                    <div wlc-slider
-                         class="{{$class}}__games-slider"
-                         [inlineParams]="gamesSliderConfig"
-                         (wlc-resized)="onResize($event)">
-                    </div>
-                </ng-container>
-            </ng-container>
-        </ng-container>
+             <div class="{{$class}}__swiper-buttons">
+                <button wlc-icon
+                    class="wlc-swiper-button-prev"
+                    iconPath="/wlc/icons/arrow.svg"
+                    [class]="'wlc-swiper-button-prev-' + navigationId"></button>
+                <button wlc-icon
+                    class="wlc-swiper-button-next"
+                    iconPath="/wlc/icons/arrow.svg"
+                    [class]="'wlc-swiper-button-next-' + navigationId"></button>
+            </div>
+        </div>
     </div>
 
     <div
@@ -292,7 +288,7 @@
 </ng-template>
 
 <ng-template #sliderPlaceholders>
-    <div wlc-slider
+    <div wlc-wrapper
         class="{{$class}}__games-slider"
         [inlineParams]="gamePlaceholdersSliderConfig"
         (wlc-resized)="onResize($event)">

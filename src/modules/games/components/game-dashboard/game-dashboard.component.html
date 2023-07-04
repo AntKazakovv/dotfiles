@@ -136,7 +136,7 @@
     <ng-container *ngIf="lastPlayedGamesReady; else preloader">
         <ng-container *ngIf="lastPlayedGamesSlides.length > 0">
             <div *ngIf="isMobile && landscapeOrientation"
-                 wlc-slider
+                 wlc-wrapper
                  class="{{$class}}__games-slider"
                  [inlineParams]="sliderConfig"></div>
 
