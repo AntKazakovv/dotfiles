@@ -54,7 +54,7 @@ export const defaultParams: IProviderGamesCParams = {
         gamesRows: 2,
         byState: false,
         showProgressBar: true,
-        title: gettext('All Games'),
+        title: gettext('All games'),
         moreBtn: {
             hide: false,
             lazy: false,
