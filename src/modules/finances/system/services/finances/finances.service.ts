@@ -1,10 +1,21 @@
 import {
+    Inject,
     Injectable,
     Injector,
 } from '@angular/core';
 
 import {TranslateService} from '@ngx-translate/core';
-import {BehaviorSubject} from 'rxjs';
+import {
+    BehaviorSubject,
+    Subscription,
+} from 'rxjs';
+import {
+    distinctUntilChanged,
+    filter,
+    first,
+    map,
+} from 'rxjs/operators';
+import _assign from 'lodash-es/assign';
 import _find from 'lodash-es/find';
 import _forEach from 'lodash-es/forEach';
 import _merge from 'lodash-es/merge';
@@ -21,8 +32,11 @@ import {
     NotificationEvents,
     LogService,
 } from 'wlc-engine/modules/core';
+import {Deferred} from 'wlc-engine/modules/core/system/classes/deferred.class';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 import {
     LanguageChangeEvents,
+    UserInfo,
     UserProfile,
 } from 'wlc-engine/modules/user';
 import {TAdditionalParams} from 'wlc-engine/modules/finances/system/interfaces/finances.interface';
@@ -43,6 +57,22 @@ import {
 } from 'wlc-engine/modules/finances/system/interfaces/piq-cashier.interface';
 import {cryptoInvoiceSystem} from 'wlc-engine/modules/finances/system/constants/crypto-invoices.constants';
 import {FinancesHelper} from 'wlc-engine/modules/finances/system/helpers/finances.helper';
+import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
+import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
+
+type TUserDepositCountsInfo = Pick<UserInfo, 'depositsCount'>;
+
+type TPaymentStatus = 'PAYMENT_SUCCESS' | 'PAYMENT_PENDING';
+export type TPaymentStatusAll = TPaymentStatus | 'PAYMENT_FAIL';
+
+export interface IPaymentPostMessage {
+    eventType: TPaymentStatusAll;
+    eventData: {
+        amount: string;
+        transactionId: string;
+        type?: string;
+    }
+}
 
 interface IQueries {
     amount: number;
@@ -56,6 +86,7 @@ export class FinancesService {
 
     private systems: PaymentSystem[] = [];
     private isPaymentsFetch: boolean = false;
+    private emitDepositStatus$: Subscription;
 
     constructor(
         protected dataService: DataService,
@@ -66,6 +97,7 @@ export class FinancesService {
         protected configService: ConfigService,
         protected modalService: ModalService,
         protected logService: LogService,
+        @Inject(WINDOW) private window: Window,
     ) {
         this.registerMethods();
 
@@ -81,7 +113,6 @@ export class FinancesService {
         this.eventService.subscribe({name: LanguageChangeEvents.ChangeLanguage}, () => {
             this.fetchPaymentSystems();
         });
-
     }
 
     public get paymentSystems(): PaymentSystem[] {
@@ -317,17 +348,18 @@ export class FinancesService {
         additionalFields: object,
     ): Promise<any> {
         try {
-            const result: IData<string> = await this.dataService.request({
-                name: 'prestep',
-                system: 'finances',
-                url: '/deposits/prestep',
-                type: 'POST',
-            },
-            {
-                systemId,
-                amount,
-                additional: additionalFields,
-            });
+            const result: IData<string> = await this.dataService.request(
+                {
+                    name: 'prestep',
+                    system: 'finances',
+                    url: '/deposits/prestep',
+                    type: 'POST',
+                },
+                {
+                    systemId,
+                    amount,
+                    additional: additionalFields,
+                });
             return result.data;
         } catch (error) {
             this.logService.sendLog({
@@ -336,6 +368,176 @@ export class FinancesService {
             });
             throw error;
         }
+    }
+
+    public async checkOpenIframe(
+        type: TPaymentStatus,
+        depositInIframe: boolean,
+        initialPath?: IIndexing<string>,
+    ): Promise<void> {
+
+        if (depositInIframe && GlobalHelper.isIframe(this.window)) {
+
+            const postMessage: Partial<IPaymentPostMessage> = {
+                eventType: type,
+            };
+
+            if (type === 'PAYMENT_SUCCESS') {
+                postMessage.eventData = {
+                    amount: initialPath.amount,
+                    transactionId: initialPath.tid,
+                };
+            }
+
+            try {
+                this.window.parent?.postMessage(postMessage, '*');
+            } catch (error) {
+                this.logService.sendLog({code: '17.0.0', data: error});
+            }
+        } else {
+            if (type === 'PAYMENT_SUCCESS') {
+                this.onPaymentSuccess(initialPath);
+            } else {
+                this.onPaymentPending();
+            }
+        }
+    }
+
+    @CustomHook('finances', 'financesServiceOnPaymentFail')
+    public onPaymentFail(): void {
+        const userProfile$ = this.configService.get<BehaviorSubject<UserProfile>>(
+            {name: '$user.userProfile$'},
+        );
+        userProfile$.pipe(first((profile) => !!profile)).subscribe(() => {
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'error',
+                    title: gettext('Payment failed'),
+                    message: [
+                        gettext('Unfortunately your payment didn\'t go through.'
+                            + ' An e-mail with detailed information has been sent to your e-mail address.'
+                            + ' If you have any questions, please don\'t hesitate to contact us.'),
+                    ],
+                    wlcElement: 'notification_deposit-error',
+                },
+            });
+        });
+    }
+
+    @CustomHook('finances', 'financesServiceOnPaymentSuccess')
+    public onPaymentSuccess(initialPath: IIndexing<string>): void {
+        const userProfile$ = this.configService.get<BehaviorSubject<UserProfile>>(
+            {name: '$user.userProfile$'},
+        );
+
+        userProfile$.pipe(first((profile) => !!profile)).subscribe((profile) => {
+
+            this.configService.get<Deferred<null>>({name: 'firstLanguageReady'})
+                .promise
+                .then(() => {
+                    const type = initialPath.type?.toLowerCase();
+                    const message: string[] = [
+                        (type === 'withdraw')
+                            ? this.translateService.instant(gettext('Withdraw request has been successfully sent!'))
+                            : this.translateService.instant(gettext('Deposit completed successfully')),
+                    ];
+
+                    if (initialPath.amount) {
+                        const currencyElement = `<span wlc-currency [value]="${initialPath.amount}" `
+                            + `[currency]="'${profile.currency}'"></span>`;
+
+                        if (type === 'withdraw') {
+                            message.push(
+                                this.translateService.instant(gettext('Withdraw sum')) + ` ${currencyElement}`,
+                            );
+                        } else {
+                            message.push(
+                                `${currencyElement} `
+                                + this.translateService.instant(
+                                    gettext('were successfully deposited in your account.'),
+                                ),
+                            );
+                        }
+                    }
+
+                    const paymentMessage = {
+                        name: NotificationEvents.PushMessage,
+                        data: <IPushMessageParams>{
+                            type: 'success',
+                            title: gettext('Payment success'),
+                            displayAsHTML: true,
+                            wlcElement: 'notification_deposit-success',
+                            message,
+                        },
+                    };
+
+                    if (type === 'withdraw') {
+                        _assign(paymentMessage.data,
+                            {
+                                title: gettext('Withdraw'),
+                                wlcElement: 'notification_withdraw-success',
+                                message,
+                            });
+                    } else {
+                        if (!this.emitDepositStatus$) {
+                            this.emitDepositStatus$ = this.dataService.flow
+                                .pipe(
+                                    filter(
+                                        (data: IData): boolean => {
+                                            return data.system === 'user'
+                                                && data.code === 200
+                                                && data.name === 'userInfo'
+                                                && data.data.loyalty.DepositsCount > 0;
+                                        }),
+                                    map((data: IData): TUserDepositCountsInfo =>
+                                        ({depositsCount: Number(data.data.loyalty.DepositsCount)})),
+                                    distinctUntilChanged(
+                                        (prev: TUserDepositCountsInfo, curr: TUserDepositCountsInfo): boolean => {
+                                            return prev.depositsCount === curr.depositsCount;
+                                        }))
+                                .subscribe((data: TUserDepositCountsInfo): void => {
+                                    if (data.depositsCount === 1) {
+                                        this.eventService.emit({
+                                            name: 'FIRST_DEPOSIT_COMPLETE',
+                                            data: {
+                                                amount: initialPath.amount,
+                                                currency: profile.currency,
+                                            },
+                                        });
+                                    };
+
+                                    this.eventService.emit({
+                                        name: 'DEPOSIT_COMPLETE',
+                                        data: {
+                                            depositsCount: data.depositsCount,
+                                            amount: initialPath.amount,
+                                            currency: profile.currency,
+                                        },
+                                    });
+                                });
+                        }
+                    };
+
+                    this.eventService.emit(paymentMessage);
+                });
+        });
+    }
+
+    @CustomHook('finances', 'financesServiceOnPaymentPending')
+    private onPaymentPending(): void {
+        this.eventService.emit({
+            name: NotificationEvents.PushMessage,
+            data: <IPushMessageParams>{
+                type: 'info',
+                title: gettext('Payment pending'),
+                message: [
+                    gettext('Transaction is in the pending status.'
+                        + ' If everything goes as expected, your funds soon will reach the gaming balance.'),
+                ],
+                wlcElement: 'notification_deposit-pending',
+            },
+        });
     }
 
     private async cancelInvoice(systemId: number): Promise<void> {

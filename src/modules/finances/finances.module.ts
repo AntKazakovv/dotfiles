@@ -53,6 +53,10 @@ export const components = {
     'wlc-clear-amount-button': ClearAmountButtonComponent,
 };
 
+export const services = {
+    'finances-service': FinancesService,
+};
+
 @NgModule({
     imports: [
         UIRouterModule,

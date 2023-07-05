@@ -21,19 +21,14 @@ import {
     Subscription,
 } from 'rxjs';
 import {
-    distinctUntilChanged,
-    first,
     map,
     takeWhile,
-    filter,
 } from 'rxjs/operators';
 import _isString from 'lodash-es/isString';
 import _toNumber from 'lodash-es/toNumber';
 import _forEach from 'lodash-es/forEach';
-import _assign from 'lodash-es/assign';
 
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
-import {Deferred} from 'wlc-engine/modules/core/system/classes/deferred.class';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {DeviceType} from 'wlc-engine/modules/core/system/models/device.model';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
@@ -51,9 +46,11 @@ import {IRedirect} from 'wlc-engine/modules/core/system/interfaces/core.interfac
 import {CachingService} from 'wlc-engine/modules/core/system/services/caching/caching.service';
 import {ColorThemeService} from 'wlc-engine/modules/core/system/services/color-theme/color-theme.service';
 import {
-    UserProfile,
+    FinancesService,
+    IPaymentPostMessage,
+} from 'wlc-engine/modules/finances';
+import {
     UserService,
-    UserInfo,
     IEmailVerifyData,
 } from 'wlc-engine/modules/user';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
@@ -72,10 +69,6 @@ import {
 } from 'wlc-engine/modules/core/system/interfaces/base-config/popup.interface';
 
 export type ScrollPositionType = 'start' | 'end' | 'center' | 'nearest';
-
-type TPaymentStatus = 'PAYMENT_SUCCESS' | 'PAYMENT_PENDING';
-type TPaymentStatusAll = TPaymentStatus | 'PAYMENT_FAIL';
-type TUserDepositCountsInfo = Pick<UserInfo, 'depositsCount'>;
 
 export interface IScrollOptions {
     position: ScrollPositionType;
@@ -104,15 +97,6 @@ export interface IResizeEvent {
     event: Event;
 }
 
-export interface IPaymentPostMessage {
-    eventType: TPaymentStatusAll;
-    eventData: {
-        amount: string;
-        transactionId: string;
-        type?: string;
-    }
-}
-
 @Injectable({
     providedIn: 'root',
 })
@@ -120,13 +104,14 @@ export class ActionService {
 
     public device: DeviceModel;
 
+    protected financesService: FinancesService;
+
     private deviceTypeSubject: BehaviorSubject<DeviceType> = new BehaviorSubject(null);
     private windowResizeSubject: Subject<IResizeEvent> = new Subject();
     private breakpoints: IDeviceBreakpoints;
     private renderer: Renderer2;
     private scrollTop: number;
     private depositInIframe: boolean = false;
-    private emitDepositStatus$: Subscription;
     private scrollableElements$: IIndexing<Observable<number>> = {};
 
     constructor(
@@ -238,14 +223,17 @@ export class ActionService {
                 }
                 break;
             case 'PAYMENT_SUCCESS': {
-                this.checkDeposit('PAYMENT_SUCCESS', initialPath);
+                await this.injectFinancesService();
+                this.financesService.checkOpenIframe('PAYMENT_SUCCESS', this.depositInIframe, initialPath);
                 break;
             }
             case 'PAYMENT_PENDING':
-                this.checkDeposit('PAYMENT_PENDING');
+                await this.injectFinancesService();
+                this.financesService.checkOpenIframe('PAYMENT_PENDING', this.depositInIframe);
                 break;
             case 'PAYMENT_FAIL':
-                this.onPaymentFail();
+                await this.injectFinancesService();
+                this.financesService.onPaymentFail();
                 break;
             case 'SET_NEW_PASSWORD':
                 this.setNewPassword(initialPath);
@@ -338,9 +326,9 @@ export class ActionService {
                                         texts: {
                                             fromLink: this.translateService.instant(
                                                 gettext('Congratulations! You activated bonus'))
-                                                    + ` ${bonus.name}! `
-                                                    + this.translateService.instant(
-                                                        gettext('Bonus successfully added to the Bonuses page.')),
+                                                + ` ${bonus.name}! `
+                                                + this.translateService.instant(
+                                                    gettext('Bonus successfully added to the Bonuses page.')),
                                         },
                                     });
                                     break;
@@ -351,9 +339,9 @@ export class ActionService {
                                         texts: {
                                             fromLink: this.translateService.instant(
                                                 gettext('Congratulations! You have got bonus'))
-                                                    + ` ${bonus.name}! `
-                                                    + this.translateService.instant(
-                                                        gettext('Bonus successfully added to the Bonuses page.')),
+                                                + ` ${bonus.name}! `
+                                                + this.translateService.instant(
+                                                    gettext('Bonus successfully added to the Bonuses page.')),
                                         },
                                     });
                                     break;
@@ -473,6 +461,12 @@ export class ActionService {
         }
     }
 
+    public async injectFinancesService() {
+        if (!this.financesService) {
+            this.financesService = await this.injectionService.getService('finances.finances-service');
+        }
+    }
+
     protected onEmailUnsubscribe() {
         this.emailUnsubscribe().then(() => {
             this.eventService.emit({
@@ -521,170 +515,6 @@ export class ActionService {
         }
     }
 
-    private async checkDeposit(type: TPaymentStatus, initialPath?: IIndexing<string>): Promise<void> {
-        await this.configService.ready;
-
-        if (this.depositInIframe && GlobalHelper.isIframe(this.window)) {
-
-            const postMessage: Partial<IPaymentPostMessage> = {
-                eventType: type,
-            };
-
-            if (type === 'PAYMENT_SUCCESS') {
-                postMessage.eventData = {
-                    amount: initialPath.amount,
-                    transactionId: initialPath.tid,
-                };
-            }
-
-            try {
-                this.window.parent?.postMessage(postMessage, '*');
-            } catch (error) {
-                this.logService.sendLog({code: '17.0.0', data: error});
-            }
-        } else {
-            if (type === 'PAYMENT_SUCCESS') {
-                this.onPaymentSuccess(initialPath);
-            } else {
-                this.onPaymentPending();
-            }
-        }
-    }
-
-    private onPaymentFail(): void {
-        const userProfile$ = this.configService.get<BehaviorSubject<UserProfile>>(
-            {name: '$user.userProfile$'},
-        );
-        userProfile$.pipe(first((profile) => !!profile)).subscribe(() => {
-            this.eventService.emit({
-                name: NotificationEvents.PushMessage,
-                data: <IPushMessageParams>{
-                    type: 'error',
-                    title: gettext('Payment failed'),
-                    message: [
-                        gettext('Unfortunately your payment didn\'t go through.'
-                            + ' An e-mail with detailed information has been sent to your e-mail address.'
-                            + ' If you have any questions, please don\'t hesitate to contact us.'),
-                    ],
-                    wlcElement: 'notification_deposit-error',
-                },
-            });
-        });
-    }
-
-    private onPaymentPending(): void {
-        this.eventService.emit({
-            name: NotificationEvents.PushMessage,
-            data: <IPushMessageParams>{
-                type: 'info',
-                title: gettext('Payment pending'),
-                message: [
-                    gettext('Transaction is in the pending status.'
-                        + ' If everything goes as expected, your funds soon will reach the gaming balance.'),
-                ],
-                wlcElement: 'notification_deposit-pending',
-            },
-        });
-    }
-
-    private onPaymentSuccess(initialPath: IIndexing<string>): void {
-        const userProfile$ = this.configService.get<BehaviorSubject<UserProfile>>(
-            {name: '$user.userProfile$'},
-        );
-
-        userProfile$.pipe(first((profile) => !!profile)).subscribe((profile) => {
-
-            this.configService.get<Deferred<null>>({name: 'firstLanguageReady'})
-                .promise
-                .then(() => {
-                    const type = initialPath.type?.toLowerCase();
-                    const message: string[] = [
-                        (type === 'withdraw')
-                            ? this.translateService.instant('Withdraw request has been successfully sent!')
-                            : this.translateService.instant('Deposit completed successfully'),
-                    ];
-
-                    if (initialPath.amount) {
-                        const currencyElement = `<span wlc-currency [value]="${initialPath.amount}" `
-                            + `[currency]="'${profile.currency}'"></span>`;
-
-                        if (type === 'withdraw') {
-                            message.push(
-                                this.translateService.instant('Withdraw sum') + ` ${currencyElement}`,
-                            );
-                        } else {
-                            message.push(
-                                `${currencyElement} `
-                                + this.translateService.instant(
-                                    gettext('were successfully deposited in your account.'),
-                                ),
-                            );
-                        }
-                    }
-
-                    const paymentMessage = {
-                        name: NotificationEvents.PushMessage,
-                        data: <IPushMessageParams>{
-                            type: 'success',
-                            title: gettext('Payment success'),
-                            displayAsHTML: true,
-                            wlcElement: 'notification_deposit-success',
-                            message,
-                        },
-                    };
-
-                    if (type === 'withdraw') {
-                        _assign(paymentMessage.data,
-                            {
-                                title: gettext('Withdraw'),
-                                wlcElement: 'notification_withdraw-success',
-                                message,
-                            });
-                    } else {
-                        if (!this.emitDepositStatus$) {
-                            this.emitDepositStatus$ = this.dataService.flow
-                                .pipe(
-                                    filter(
-                                        (data: IData): boolean => {
-                                            return data.system === 'user'
-                                                && data.code === 200
-                                                && data.name === 'userInfo'
-                                                && data.data.loyalty.DepositsCount > 0;
-                                        }),
-                                    map((data: IData): TUserDepositCountsInfo =>
-                                        ({depositsCount: Number(data.data.loyalty.DepositsCount)})),
-                                    distinctUntilChanged(
-                                        (prev: TUserDepositCountsInfo, curr: TUserDepositCountsInfo): boolean => {
-                                            return prev.depositsCount === curr.depositsCount;
-                                        }))
-                                .subscribe((data: TUserDepositCountsInfo): void => {
-                                    if (data.depositsCount === 1) {
-                                        this.eventService.emit({
-                                            name: 'FIRST_DEPOSIT_COMPLETE',
-                                            data: {
-                                                amount: initialPath.amount,
-                                                currency: profile.currency,
-                                            },
-                                        });
-                                    };
-
-                                    this.eventService.emit({
-                                        name: 'DEPOSIT_COMPLETE',
-                                        data: {
-                                            depositsCount: data.depositsCount,
-                                            amount: initialPath.amount,
-                                            currency: profile.currency,
-                                        },
-                                    });
-                                });
-                        }
-                    };
-
-                    this.eventService.emit(paymentMessage);
-                });
-        });
-    }
-
     private getStyleNumValue(elem: HTMLElement, style: string): number {
         return _toNumber(this.window.getComputedStyle(elem)[style].replace(/[^\d\.\-]/g, ''));
     }
@@ -725,7 +555,7 @@ export class ActionService {
         this.depositInIframe = this.configService.get<boolean>('$base.finances.depositInIframe');
 
         if (this.depositInIframe) {
-            fromEvent(this.window, 'message').subscribe((event: MessageEvent<IPaymentPostMessage>) => {
+            fromEvent(this.window, 'message').subscribe(async (event: MessageEvent<IPaymentPostMessage>) => {
                 if (event.data) {
                     const message: IPaymentPostMessage = event.data;
 
@@ -733,9 +563,11 @@ export class ActionService {
                         this.modalService.closeAllModals();
 
                         if (message.eventType === 'PAYMENT_SUCCESS') {
-                            this.onPaymentSuccess(message.eventData);
+                            await this.injectFinancesService();
+                            this.financesService.onPaymentSuccess(message.eventData);
                         } else if (message.eventType === 'PAYMENT_FAIL') {
-                            this.onPaymentFail();
+                            await this.injectFinancesService();
+                            this.financesService.onPaymentFail();
                         }
                     }
                 }

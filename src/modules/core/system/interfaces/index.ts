@@ -19,3 +19,4 @@ export {IInteractiveText} from './base-config/interactiveText.interface';
 export * from './app-config.interface';
 export * from './animate-buttons.interface';
 export * from './history-filter.interface';
+export * from './decorators.interface';

@@ -24,6 +24,7 @@ import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {NgxWebstorageModule} from 'ngx-webstorage';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {WINDOW_PROVIDER} from 'wlc-engine/modules/app/system/tokens/window';
+import {CustomModule} from 'wlc-src/custom/custom.module';
 
 export function loadConfig(config: ConfigService) {
     return config.load();
@@ -31,6 +32,7 @@ export function loadConfig(config: ConfigService) {
 
 export class GlobalDeps {
     public static logService: LogService;
+    public static configService: ConfigService;
 }
 
 @NgModule({
@@ -53,7 +55,7 @@ export class GlobalDeps {
 
                 return {
                     state: 'app.error',
-                    params:{locale},
+                    params: {locale},
                 };
             },
         }),
@@ -69,6 +71,7 @@ export class GlobalDeps {
             },
         }),
         CoreModule,
+        CustomModule,
         NgxWebstorageModule.forRoot(),
         ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
         ModalModule.forRoot(),
@@ -85,6 +88,7 @@ export class GlobalDeps {
     ],
     exports: [
         CoreModule,
+        CustomModule,
         UIRouterModule,
         TranslateModule,
     ],
@@ -97,17 +101,18 @@ export class AppModule {
         location: Location,
         protected actionService: ActionService,
         private logService: LogService,
+        private configService: ConfigService,
     ) {
         this.parseInitPath(location.path());
         GlobalDeps.logService = this.logService;
+        GlobalDeps.configService = this.configService;
     }
 
     protected parseInitPath(path: string): void {
         if (path.includes('message')
             || path.includes('error')
             || path.includes('promocode')
-            || path.includes('popup'))
-        {
+            || path.includes('popup')) {
             this.initialPath = {};
             const values: string[] = path.split('?')?.[1]?.split('&') || [];
 
