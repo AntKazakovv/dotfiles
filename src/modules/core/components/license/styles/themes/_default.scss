@@ -45,6 +45,10 @@
             path {
                 fill: ef.get-value($themeDefault, 'iconColor');
             }
+
+            path:not(:first-child) {
+                fill: ef.get-value($themeDefault, 'iconAgeColor');
+            }
         }
     }
 }

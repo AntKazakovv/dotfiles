@@ -2,6 +2,7 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'gap': ef.size(3),
     'iconColor': ef.get('mainColors', main),
+    'iconAgeColor': var(--mc-baseMain),
     'apgSealWidth': 45px,
     'ageRestrictionsWidth': 45px,
     'ageRestrictionsMargin': 0 auto,
@@ -12,5 +13,3 @@ $themeDefault: map-merge((
     'curacaoHeight':50px,
     'curacaoIconMaxHeight': 47px,
 ), $customThemeDefault);
-
-

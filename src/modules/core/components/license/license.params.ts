@@ -37,10 +37,12 @@ export interface ILicenseCParams extends IComponentParams<ComponentTheme, Compon
     apgSeal?: IApgSealConfig;
     mga?: IMGAConfig;
     curacao?: ICuracaoConfig;
+    iconPathAge?: string;
 }
 
 export const defaultParams: ILicenseCParams = {
     class: 'wlc-license',
     moduleName: 'core',
     componentName: 'wlc-license',
+    iconPathAge: '/wlc/icons/age-restrictions-18.svg',
 };
