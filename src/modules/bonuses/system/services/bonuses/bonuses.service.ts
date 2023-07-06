@@ -270,7 +270,7 @@ export class BonusesService {
                 case 'deposit':
                     return this.isCatalogAllowOrSelectedOrActive(bonus)
                         && (this.isNotPromoOrSelectedOrActive(bonus) || this.isPromocodeEntered(bonus))
-                        && this.depEvents.indexOf(bonus.event) !== -1;
+                        && (this.depEvents.indexOf(bonus.event) !== -1 && !inventoried);
                 case 'reg':
                     return this.isCatalogAllowOrSelectedOrActive(bonus)
                         && (this.isNotPromoOrSelectedOrActive(bonus) || this.isPromocodeEntered(bonus))
