@@ -1,0 +1,38 @@
+.wlc-two-factor-auth-code--theme-default:host {
+
+    ::ng-deep {
+
+        .wlc-text-block {
+
+            &__title {
+                @include bm.get-mq-map('font-size', $themeDefault, 'titleFontSize');
+                margin: ef.get-value($themeDefault, 'titleMargin');
+            }
+        }
+
+        .wlc-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .wlc-input {
+            margin: ef.get-value($themeDefault, 'fieldMargin');
+        }
+
+        .wlc-btn {
+            margin: ef.get-value($themeDefault, 'btnMargin');
+        }
+    }
+
+    &::ng-deep {
+
+        .wlc-two-factor-auth-code {
+
+            &__description {
+                @include bm.get-mq-map('margin', $themeDefault, 'textMargin');
+                font-size: ef.get-value($themeDefault, 'textFontSize');
+                text-align: ef.get-value($themeDefault, 'textAlign');
+            }
+        }
+    }
+}

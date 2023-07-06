@@ -115,6 +115,7 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
                 defaultParams: Params.generateDefaultParams(
                     configService.get<ProfileType>('$base.profile.type'),
                     configService.get<boolean>('$base.site.useLogin'),
+                    configService.get<boolean>('appConfig.siteconfig.Enable2FAGoogle'),
                 ),
             },
             eventService,

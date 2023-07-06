@@ -27,6 +27,16 @@ $themeDefault: map-merge((
         1420: 'ThirdTitle',
     ),
     'descColor': var(--mc-baseMain),
+    'infoTextStyle': 'PrimaryText',
+    'infoTextColor': var(--mc-baseOpacity),
+    'infoTextMargin': (
+        375: ef.size(1) 0 0 0,
+    ),
+    'successInfoTextColor': var(--mc-success),
+    'successIconMargin': 0 0 0 5px,
+    'successIconTransform': translateY(-2px),
+    'iconWidth': 17px,
+    'iconHeight': 15px,
     'switcherArea': switcher,
     'switcherPadding': 0,
     'labelDirection': row,
@@ -56,4 +66,3 @@ $themeDefault: map-merge((
     'btnDeskBorderRadius': 0,
     'btnDeskBoxShadow': none,
 ), $customThemeDefault);
-

@@ -15,14 +15,18 @@ export interface IProfileFormCParams extends IComponentParams<ComponentTheme, Co
     useProfileBlocks: boolean;
 }
 
-export const generateDefaultParams = (profile: ProfileType, useLogin: boolean): IProfileFormCParams => {
+export const generateDefaultParams = (
+    profile: ProfileType,
+    useLogin: boolean,
+    use2FAGoogle: boolean,
+): IProfileFormCParams => {
     return {
         class: 'wlc-profile-form',
         componentName: 'wlc-profile-form',
         moduleName: 'user',
         useProfileBlocks: false,
         config: profile === 'first'
-            ? wlcProfileForm.generateFirstProfileConfig(useLogin)
+            ? wlcProfileForm.generateFirstProfileConfig(useLogin, use2FAGoogle)
             : wlcProfileForm.generateDefaultProfileConfig(useLogin),
     };
 };

@@ -8,10 +8,14 @@ import {
 } from '@angular/core';
 import {UntypedFormControl} from '@angular/forms';
 
+import {BehaviorSubject} from 'rxjs';
 import {
     takeUntil,
     first,
     distinct,
+    filter,
+    map,
+    distinctUntilChanged,
 } from 'rxjs/operators';
 
 import {
@@ -24,11 +28,16 @@ import {
     NotificationEvents,
     IPushMessageParams,
     IFormComponent,
+    InjectionService,
 } from 'wlc-engine/modules/core';
 import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
 import {IAddProfileInfoCParams} from 'wlc-engine/modules/user/components/add-profile-info/add-profile-info.params';
+import {
+    TwoFactorAuthService,
+} from 'wlc-engine/modules/user/submodules/two-factor-auth/system/services/two-factor-auth/two-factor-auth.service';
+import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 
 import * as Params from './profile-blocks.params';
 
@@ -50,6 +59,15 @@ export class ProfileBlocksComponent extends AbstractComponent implements OnInit 
         },
     };
     public isDefaultUser: boolean = false;
+    public use2FAGoogle: boolean = false;
+    public get ready(): boolean {
+        return this.ready2FA && !!this.use2FAGoogle;
+    };
+    public enabled2FAGoogle: boolean;
+    public lockLink: boolean = false;
+
+    protected twoFactorAuthService?: TwoFactorAuthService;
+    protected ready2FA: boolean = false;
 
     constructor(
         @Inject('injectParams') protected params: Params.IProfileBlocksCParams,
@@ -58,6 +76,7 @@ export class ProfileBlocksComponent extends AbstractComponent implements OnInit 
         protected modalService: ModalService,
         configService: ConfigService,
         protected eventService: EventService,
+        protected injectionService: InjectionService,
     ) {
         super(
             {injectParams: params, defaultParams: Params.defaultParams},
@@ -80,6 +99,13 @@ export class ProfileBlocksComponent extends AbstractComponent implements OnInit 
         ).subscribe((profile: UserProfile): void => {
             this.toggleBtn.control.setValue(profile.emailAgree);
         });
+        this.use2FAGoogle = this.configService.get<boolean>('appConfig.siteconfig.Enable2FAGoogle');
+        if (this.use2FAGoogle) {
+            this.twoFactorAuthService = await this.injectionService
+                .getService<TwoFactorAuthService>('two-factor-auth.two-factor-auth-service');
+            await this.setStatus2FAGoogle();
+            this.initSubscribers();
+        }
     }
 
     /**
@@ -167,5 +193,42 @@ export class ProfileBlocksComponent extends AbstractComponent implements OnInit 
     ): Params.IFieldComponentParams {
         componentParams.params.validators = newValidators;
         return componentParams;
+    }
+
+    protected openModalEnable2FA(): void {
+        this.twoFactorAuthService.openModalEnable();
+    }
+
+    protected openModalDisable2FA(): void {;
+        this.twoFactorAuthService.openModalDisable(() => this.setLockLink(true));
+    }
+
+    protected async setStatus2FAGoogle(): Promise<void> {
+        const data = await this.twoFactorAuthService.getTwoFactorAuthUserInfo();
+        this.enabled2FAGoogle = data.enabled2FAGoogle;
+        this.ready2FA = true;
+        this.cdr.markForCheck();
+    }
+
+    protected setLockLink(value: boolean): void {
+        this.lockLink = value;
+        this.cdr.markForCheck();
+    }
+
+    protected initSubscribers(): void {
+        this.eventService.subscribe({
+            name: 'ENABLE_2FA_GOOGLE',
+        }, () => {
+            this.setLockLink(true);
+        }, this.$destroy);
+        this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'}).pipe(
+            filter((v) => !!v),
+            map((v) => v.enabled2FAGoogle),
+            distinctUntilChanged(),
+            takeUntil(this.$destroy),
+        ).subscribe((enabled2FAGoogle: boolean) => {
+            this.enabled2FAGoogle = enabled2FAGoogle;
+            this.setLockLink(false);
+        });
     }
 }

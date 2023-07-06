@@ -54,6 +54,8 @@ export interface IUserInfo {
     /*Tags*/
     Tags?: IIndexing<string>;
     wallets?: IWalletObj;
+    enabled2FAGoogle?: boolean;
+    notify2FAGoogle?: boolean;
 }
 
 export interface IUserProfile {

@@ -61,6 +61,32 @@
                         @include text.get-text-style(ef.get-value($themeDefault, 'descTextStyle', 1420), null);
                     }
                 }
+
+                &-information {
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'infoTextStyle'),
+                        ef.get-value($themeDefault, 'infoTextColor'),
+                    );
+                    margin: ef.get-value($themeDefault, 'infoTextMargin');
+
+                    &-success {
+                        display: flex;
+                        color: ef.get-value($themeDefault, 'successInfoTextColor');
+
+                        &__icon {
+                            margin: ef.get-value($themeDefault, 'successIconMargin');
+                            transform: ef.get-value($themeDefault, 'successIconTransform');
+
+                            ::ng-deep {
+
+                                svg {
+                                    width: ef.get-value($themeDefault, 'iconWidth');
+                                    height: ef.get-value($themeDefault, 'iconHeight');
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
             &-switcher {

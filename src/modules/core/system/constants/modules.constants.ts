@@ -37,7 +37,8 @@ export type TModuleName =
     | 'gambling-ban'
     | 'seo'
     | 'aml'
-    | 'multi-wallet';
+    | 'multi-wallet'
+    | 'two-factor-auth';
 
 type IFunctionImportModule = (name: TModuleName, callback: Function) => unknown;
 
@@ -236,5 +237,10 @@ export const modulesApp: Record<TModuleName, IFunctionImportModule> = {
         const m = await import('wlc-engine/modules/multi-wallet/multi-wallet.module');
         callback(name, m);
         return m.MultiWalletModule;
+    },
+    'two-factor-auth': async (name: TModuleName, callback: Function) => {
+        const m = await import('wlc-engine/modules/user/submodules/two-factor-auth/two-factor-auth.module');
+        callback(name, m);
+        return m.TwoFactorAuthModule;
     },
 } as const;

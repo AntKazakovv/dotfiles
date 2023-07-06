@@ -1,0 +1,22 @@
+<div wlc-text-block
+     [textBlockTitle]="$params.title"
+     [textBlockSubtitle]="$params.subtitle">
+</div>
+<div class="{{$class}}__qr">
+    <img class="{{$class}}__qr-image"
+         [src]="imgUrl">
+</div>
+<div class="{{$class}}__description">
+     {{$params.description | translate}}
+</div>
+<div class="{{$class}}__input">
+    <div wlc-input [inlineParams]="inputParams"></div>
+</div>
+<div class="{{$class}}__button">
+     <button
+        wlc-button
+        [text]="'Next'"
+        (click)="openModal()"
+        [wlcElement]="'button_next'">
+     </button>
+</div>

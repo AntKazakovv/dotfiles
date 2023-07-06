@@ -42,6 +42,12 @@
                     }
                 }
 
+                &--text-block {
+                    @include bm.get-mq-map('padding', $mainInfoThemeV1, 'profileFormTitlePadding');
+                    @include bm.get-mq-map('margin', $mainInfoThemeV1, 'profileFormTitleMargin');
+                    @include bm.get-mq-map('font-size', $mainInfoThemeV1, 'profileFormTitleFontSize');
+                }
+
                 .wlc-title {
                     @include bm.get-mq-map('padding', $mainInfoThemeV1, 'profileFormTitlePadding');
                     @include bm.get-mq-map('margin', $mainInfoThemeV1, 'profileFormTitleMargin');

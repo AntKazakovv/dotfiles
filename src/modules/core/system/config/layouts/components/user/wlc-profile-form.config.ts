@@ -12,6 +12,7 @@ import {
 import {IProfileFormCParams} from 'wlc-engine/modules/user';
 import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
 import {ProhibitedPatterns} from 'wlc-engine/modules/core/constants/regexp.constants';
+import {ITwoFactorAuthProfileBlockCParams} from 'wlc-engine/modules/user/submodules/two-factor-auth/';
 
 const insertLogin = (useLogin: boolean): IFormComponent | null => {
     if (useLogin) {
@@ -21,8 +22,17 @@ const insertLogin = (useLogin: boolean): IFormComponent | null => {
     return null;
 };
 
+const securityBlock: IFormComponent = {
+    name: 'two-factor-auth.wlc-two-factor-auth-profile-block',
+    params: <ITwoFactorAuthProfileBlockCParams>{},
+};
+
+const insertSecurityBlock = (use2FAGoogle: boolean): IFormComponent | null => {
+    return use2FAGoogle ? securityBlock : null;
+};
+
 export namespace wlcProfileForm {
-    export const generateFirstProfileConfig = (useLogin: boolean): IFormWrapperCParams => {
+    export const generateFirstProfileConfig = (useLogin: boolean, use2FAGoogle: boolean): IFormWrapperCParams => {
         return {
             isStrictLocked: true,
             components: [
@@ -143,6 +153,7 @@ export namespace wlcProfileForm {
                         ],
                     },
                 },
+                insertSecurityBlock(use2FAGoogle),
                 {
                     name: 'core.wlc-wrapper',
                     blockName: 'password-block',

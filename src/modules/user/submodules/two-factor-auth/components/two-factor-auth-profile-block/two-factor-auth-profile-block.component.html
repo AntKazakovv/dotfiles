@@ -1,0 +1,48 @@
+<div class="{{$class}}--header">
+    <div class="{{$class}}--title__main">
+        {{'Security' | translate}}
+    </div>
+</div>
+<div class="{{$class}}--body">
+    <div class="{{$class}}--title">
+        <div class="{{$class}}--title__main">
+            {{'Google Authenticator' | translate}}
+        </div>
+        <div class="{{$class}}--title__description">
+            {{'Protect your account and transactions.' | translate}}
+        </div>
+    </div>
+    <ng-template [ngIf]="enabled2FAGoogle" [ngIfElse]="notLinked">
+        <div class="{{$class}}--information {{$class}}--information__success">
+            {{'Enabled' | translate}}
+            <div class="{{$class}}--information__success__icon"
+                 wlc-icon iconUrl="/wlc/icons/verified-icon.svg">
+            </div>
+        </div>
+    </ng-template>
+    <ng-template [ngIf]="enabled2FAGoogle" [ngIfElse]="enable">
+        <button wlc-button
+                text="Disable"
+                themeMod="secondary"
+                wlcElement="button_google-auth"
+                [disabled]="lockButton"
+                typeAttr="button"
+                (click)="openModalDisable2FA()">
+        </button>
+    </ng-template>
+</div>
+
+<ng-template #notLinked>
+    <div class="{{$class}}--information">
+        {{'Not linked' | translate}}
+    </div>
+</ng-template>
+<ng-template #enable>
+    <button wlc-button
+        text="Enable"
+        wlcElement="button_google-auth"
+        [disabled]="lockButton"
+        typeAttr="button"
+        (click)="openModalEnable2FA()">
+    </button>
+</ng-template>

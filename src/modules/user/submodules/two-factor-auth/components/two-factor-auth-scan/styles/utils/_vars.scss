@@ -1,0 +1,30 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'titleMargin': (
+        375: 0 0 ef.size(10),
+        560: 0 0 ef.size(6),
+    ),
+    'titleFontSize': (
+        375: 1.6rem,
+        900: 2.4rem,
+    ),
+    'subtitleFont': bold,
+    'subtitleMargin': (
+        375: 0 ef.size(4) ef.size(4),
+        900: 0 ef.size(9) ef.size(4),
+    ),
+    'subtitleFontSize': (
+        375: 1.4rem,
+        900: 1.6rem,
+    ),
+    'qrMargin': 0 0 ef.size(4),
+    'inputMargin': (
+        375: 0 ef.size(2) ef.size(8),
+        900: 0 ef.size(7) ef.size(8),
+    ),
+    'textAlign': center,
+    'textMargin': 0 0 ef.size(4),
+    'textColor': var(--mc-baseOpacity),
+    'textFontSize': ef.get('font', 'PrimaryText'),
+    'btnMargin': 0 0 ef.size(6),
+), $customThemeDefault);

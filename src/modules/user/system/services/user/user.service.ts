@@ -209,6 +209,7 @@ export class UserService {
         );
         this.profile = new UserProfile({service: 'UserService', method: 'constructor'});
 
+        this.showTwoFactorAuthModal();
         this.eventService.subscribe({
             name: 'USER_INFO',
         }, (info: IData<IUserInfo>) => {
@@ -274,6 +275,7 @@ export class UserService {
             this.isAuth$.next(true);
             this.isAuthenticated = true;
             this.configService.set({name: '$user.isAuthenticated', value: true});
+            this.showTwoFactorAuthModal();
             this.fetchUserProfile().then(async () => {
                 this._isMetamaskUser = this.userProfile.type === 'metamask';
                 if (this.configService.get('$base.profile.limitations.use')) {
@@ -413,9 +415,15 @@ export class UserService {
 
         const loginData: TLoginData = _isString(login) ? {login, password} : login;
 
-        const response = this.dataService.request<IIndexing<any>>('user/userLogin', loginData);
+        const result = this.dataService.request<IIndexing<any>>('user/userLogin', loginData);
         this.logService.sendLog({code: '1.2.5'});
-        response.catch((error) => {
+        result.then((res) => {
+            if (res.code === 231) {
+                this.loginWithTwoFactorAuth(res.data.authKey);
+            } else {
+                this.eventService.emit({name: 'LOGIN'});
+            }
+        }).catch((error) => {
 
             if (this.configService.get<boolean>('$base.site.useXNonce')) {
                 this.dataService.deleteNonceFromLocalStorage();
@@ -446,7 +454,7 @@ export class UserService {
                 },
             });
         });
-        return response;
+        return result;
     }
 
     public logout(): void {
@@ -569,6 +577,14 @@ export class UserService {
             return response;
         } catch (error) {
             return error;
+        }
+    }
+
+    public async fetchUserInfo(): Promise<void> {
+        try {
+            await this.dataService.request('user/userInfo');
+        } catch (error) {
+            this.logService.sendLog({code: '1.3.3'});
         }
     }
 
@@ -905,14 +921,6 @@ export class UserService {
         });
     }
 
-    private async fetchUserInfo(): Promise<void> {
-        try {
-            await this.dataService.request('user/userInfo');
-        } catch (error) {
-            //
-        }
-    }
-
     private startUserInfoFetcher(): void {
         this.userInfoHandler = this.dataService.subscribe('user/userInfo', (userInfo) => {
             if (!userInfo || this.userInfoHandler.closed) {
@@ -973,7 +981,7 @@ export class UserService {
             url: '/auth',
             type: 'PUT',
             events: {
-                success: 'LOGIN',
+                success: 'LOGIN_SUCCESS',
                 fail: 'LOGIN_ERROR',
             },
         });
@@ -1182,4 +1190,23 @@ export class UserService {
         this.idleService.init();
     }
 
+    private async showTwoFactorAuthModal(): Promise<void> {
+        if (this.configService.get<boolean>('appConfig.siteconfig.Enable2FAGoogle')) {
+            const userInfo: UserInfo = await firstValueFrom(
+                this.configUserInfo$
+                    .pipe(
+                        first((userInfo: UserInfo): boolean => !!userInfo?.idUser),
+                    ),
+            );
+            if (userInfo.notify2FAGoogle) {
+                this.modalService.showModal('two-factor-auth-info');
+            }
+        }
+    }
+
+    private loginWithTwoFactorAuth(data: string[]): void {
+        if (Array.isArray(data) && data.length === 1) {
+            this.modalService.showModal('two-factor-auth-code', {authKey: data[0]});
+        }
+    }
 }

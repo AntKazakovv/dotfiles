@@ -331,6 +331,16 @@
             }
         }
     }
+
+    &[class*='two-factor-auth-'] {
+
+        .wlc-modal {
+
+            &__back-btn-text {
+                @include bm.get-mq-map('display', $themeDefault, 'restoreBtnTextDisplay');
+            }
+        }
+    }
 }
 
 body.modal-open {

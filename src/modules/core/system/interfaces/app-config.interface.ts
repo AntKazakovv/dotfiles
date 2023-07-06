@@ -139,6 +139,7 @@ export interface ISiteConfig {
     License: string;
     // Current version T&C. Set in the backend config
     termsOfService?: string;
+    Enable2FAGoogle?: boolean;
 }
 
 export interface ISiteconfigLanguage {

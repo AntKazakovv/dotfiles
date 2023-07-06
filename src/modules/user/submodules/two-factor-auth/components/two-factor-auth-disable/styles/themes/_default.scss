@@ -1,0 +1,34 @@
+.wlc-two-factor-auth-disable--theme-default:host {
+
+    ::ng-deep {
+
+        .wlc-text-block {
+
+            &__title {
+                @include bm.get-mq-map('font-size', $themeDefault, 'titleFontSize');
+                margin: ef.get-value($themeDefault, 'titleMargin');
+            }
+
+            &__subtitle {
+                @include bm.get-mq-map('margin', $themeDefault, 'subtitleMargin');
+                font-weight: ef.get-value($themeDefault, 'subtitleFont');
+                font-size: ef.get-value($themeDefault, 'subtitleFontSize');
+            }
+        }
+    }
+
+    .wlc-two-factor-auth-disable {
+
+        &__description {
+            margin: ef.get-value($themeDefault, 'textMargin');
+            color: ef.get-value($themeDefault, 'textColor');
+            font-size: ef.get-value($themeDefault, 'textFontSize');
+            text-align: ef.get-value($themeDefault, 'textAlign');
+        }
+
+        &__message {
+            font-size: ef.get-value($themeDefault, 'textFontSize');
+            text-align: ef.get-value($themeDefault, 'textAlign');
+        }
+    }
+}

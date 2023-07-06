@@ -1,0 +1,49 @@
+.wlc-two-factor-auth-info--theme-default:host {
+
+    ::ng-deep {
+
+        .wlc-text-block {
+
+            &__title {
+                @include bm.get-mq-map('font-size', $themeDefault, 'titleFontSize');
+                @include bm.get-mq-map('margin', $themeDefault, 'titleMargin');
+            }
+
+            &__subtitle {
+                @include bm.get-mq-map('margin', $themeDefault, 'subtitleMargin');
+                @include bm.get-mq-map('font-size', $themeDefault, 'subtitleFontSize');
+                font-weight: ef.get-value($themeDefault, 'subtitleFont');
+            }
+        }
+    }
+
+    .wlc-two-factor-auth-info {
+
+        &__actions {
+            display: flex;
+            gap: ef.get-value($themeDefault, 'actionsGap');
+            justify-content: center;
+            margin: ef.get-value($themeDefault, 'actionsMargin');
+
+            .wlc-btn {
+                @include bm.get-mq-map('width', $themeDefault, 'btnWidth');
+                height: ef.get-value($themeDefault, 'btnHeight');
+                background: ef.get-value($themeDefault, 'btnBgColor');
+                border-radius: ef.get-value($themeDefault, 'btnRadius');
+            }
+        }
+
+        &__description {
+            @include bm.get-mq-map('margin', $themeDefault, 'textMargin');
+            color: ef.get-value($themeDefault, 'textColor');
+            font-size: ef.get-value($themeDefault, 'textFontSize');
+            text-align: ef.get-value($themeDefault, 'textAlign');
+        }
+
+        &__button {
+            display: flex;
+            justify-content: center;
+            margin: ef.get-value($themeDefault, 'btnMargin');
+        }
+    }
+}

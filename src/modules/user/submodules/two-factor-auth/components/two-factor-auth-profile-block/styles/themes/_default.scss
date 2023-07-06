@@ -1,0 +1,70 @@
+.wlc-two-factor-auth-profile-block--theme-default:host {
+
+    padding: ef.get-value($themeDefault, 'blockPadding');
+    border-bottom: ef.get-value($themeDefault, 'blockBorderBottom');
+
+    .wlc-two-factor-auth-profile-block {
+
+        &--header {
+
+            .wlc-two-factor-auth-profile-block--title__main {
+                margin: ef.get-value($themeDefault, 'titleMargin');
+                font-weight: ef.get-value($themeDefault, 'titleFont');
+                font-size: ef.get-value($themeDefault, 'titleFontSize');
+                line-height: 1.1;
+            }
+        }
+
+        &--body {
+            @include bm.get-mq-map('flex-direction', $themeDefault, 'bodyFlexDirection');
+            @include bm.get-mq-map('align-items', $themeDefault, 'bodyAlignItems');
+            display: flex;
+            justify-content: space-between;
+            margin: ef.get-value($themeDefault, 'bodyMargin');
+
+            .wlc-two-factor-auth-profile-block {
+
+                &--title {
+
+                    &__main {
+                        margin: ef.get-value($themeDefault, 'subtitleMargin');
+                        font-weight: ef.get-value($themeDefault, 'subtitleFont');
+                        font-size: ef.get-value($themeDefault, 'subtitleFontSize');
+                    }
+
+                    &__description {
+                        font-size: ef.get-value($themeDefault, 'descriptionFontSize');
+                    }
+                }
+
+                &--information {
+                    @include bm.get-mq-map('margin', $themeDefault, 'infoTextMargin');
+                    color: ef.get-value($themeDefault, 'infoTextColor');
+                    font-size: ef.get-value($themeDefault, 'infoTextFontSize');
+
+                    &__success {
+                        display: flex;
+                        color: ef.get-value($themeDefault, 'successInfoTextColor');
+
+                        &__icon {
+                            margin: ef.get-value($themeDefault, 'successIconMargin');
+                            transform: ef.get-value($themeDefault, 'successIconTransform');
+
+                            ::ng-deep {
+
+                                svg {
+                                    width: ef.get-value($themeDefault, 'iconWidth');
+                                    height: ef.get-value($themeDefault, 'iconHeight');
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .wlc-btn {
+                align-self: center;
+            }
+        }
+    }
+}

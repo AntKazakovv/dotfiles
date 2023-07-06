@@ -238,6 +238,14 @@ export class UserInfo extends AbstractModel<IUserInfo> {
         return this.data.validationLevel;
     }
 
+    public get enabled2FAGoogle(): boolean {
+        return this.data?.enabled2FAGoogle;
+    }
+
+    public get notify2FAGoogle(): boolean {
+        return this.data?.notify2FAGoogle;
+    }
+
     public override set data(data: IUserInfo) {
         super.data = _cloneDeep(data);
         if (this.data && this.separateLoyalty) {

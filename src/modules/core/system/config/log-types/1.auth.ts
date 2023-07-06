@@ -302,4 +302,24 @@ export const errorTypes: ILogTypes = {
         // Error generation fingerprint hash
         level: 'error',
     },
+    '1.10.0': {
+        // Error generation secret code google 2FA
+        level: 'error',
+    },
+    '1.10.1': {
+        // Error enable google 2FA
+        level: 'error',
+    },
+    '1.10.2': {
+        // Error login with google 2FA
+        level: 'error',
+    },
+    '1.10.3': {
+        // Error disabling notifications google 2FA
+        level: 'error',
+    },
+    '1.10.4': {
+        // Error disable google 2FA
+        level: 'error',
+    },
 };

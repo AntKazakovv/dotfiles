@@ -1,0 +1,37 @@
+<div wlc-text-block
+     [textBlockTitle]="$params.title"
+     [textBlockSubtitle]="$params.subtitle">
+</div>
+<div class="{{$class}}__actions">
+     <a [href]="hrefAppStore"
+        target="_blank"
+        rel="nofollow noopener">
+          <button wlc-button
+               wlcElement="button_app-store"
+               [iconPath]="$params.iconPath.appStore">
+          </button>
+     </a>
+     <a [href]="hrefGooglePlay"
+        target="_blank"
+        rel="nofollow noopener">
+          <button wlc-button
+               wlcElement="button_google-play"
+               [iconPath]="$params.iconPath.googlePlay">
+          </button>
+     </a>
+</div>
+<div class="{{$class}}__description">
+     {{$params.description | translate}}
+</div>
+<div class="{{$class}}__button">
+     <button
+        wlc-button
+        [text]="'Next'"
+        (click)="this.twoFactorAuthService.openModalScan()"
+        [wlcElement]="'button_next'">
+     </button>
+</div>
+<div wlc-link-block
+    *ngIf="notify2FAGoogle"
+    [inlineParams]="$params.linkBlockParams">
+</div>

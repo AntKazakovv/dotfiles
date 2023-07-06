@@ -450,6 +450,56 @@ export const MODALS_LIST: IModalList = {
             size: 'md',
         },
     },
+    'two-factor-auth-info': {
+        config: {
+            id: 'two-factor-auth-info',
+            modifier: 'two-factor-auth-info',
+            componentName: 'two-factor-auth.wlc-two-factor-auth-info',
+            showFooter: false,
+            dismissAll: true,
+            ignoreBackdropClick: true,
+            backdrop: 'static',
+        },
+    },
+    'two-factor-auth-scan': {
+        config: {
+            id: 'two-factor-auth-scan',
+            modifier: 'two-factor-auth-scan',
+            componentName: 'two-factor-auth.wlc-two-factor-auth-scan',
+            showFooter: false,
+            useBackButton: true,
+            backButtonText: gettext('Back'),
+            backButtonModal: 'two-factor-auth-info',
+            dismissAll: true,
+            ignoreBackdropClick: true,
+            backdrop: 'static',
+        },
+    },
+    'two-factor-auth-finish': {
+        config: {
+            id: 'two-factor-auth-finish',
+            modifier: 'two-factor-auth-finish',
+            componentName: 'two-factor-auth.wlc-two-factor-auth-finish',
+            showFooter: false,
+            useBackButton: true,
+            backButtonText: gettext('Back'),
+            backButtonModal: 'two-factor-auth-scan',
+            dismissAll: true,
+            ignoreBackdropClick: true,
+            backdrop: 'static',
+        },
+    },
+    'two-factor-auth-code': {
+        config: {
+            id: 'two-factor-auth-code',
+            modifier: 'two-factor-auth-code',
+            componentName: 'two-factor-auth.wlc-two-factor-auth-code',
+            showFooter: false,
+            dismissAll: true,
+            ignoreBackdropClick: true,
+            backdrop: 'static',
+        },
+    },
 };
 
 export const RESTRICT_MODAL: IIndexing<IRestrictModalOption> = {
