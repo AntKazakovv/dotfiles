@@ -196,19 +196,6 @@
                     .wlc-amount-limit__wrap {
                         grid-area: limits;
                     }
-
-
-                    &--with-amounts {
-                        @include bm.get-mq-map('grid-template-areas', $themeDefault, 'formWithAmountsGridAreas');
-
-                        .wlc-input--amount {
-                            grid-area: amount;
-                        }
-
-                        .wlc-amount-limit__wrap {
-                            grid-area: limits;
-                        }
-                    }
                 }
 
                 .wlc-input,
@@ -221,14 +208,8 @@
                     word-break: break-all;
                 }
 
-                .wlc-checkbox--rules,
                 .wlc-btn--submit,
-                .wlc-field-container {
-                    @include bm.get-mq-map('grid-column-start', $themeDefault, 'formInputOneLineGridColumnStart');
-                    @include bm.get-mq-map('grid-column-end', $themeDefault, 'formInputOneLineGridColumnEnd');
-                }
-
-                .wlc-btn .wlc-btn--submit {
+                .wlc-btn--deposit {
                     @include bm.get-mq-map('justify-self', $themeDefault, 'formSubmitJustifySelf');
                     margin: ef.get-value($themeDefault, 'formSubmitMargin');
                 }

@@ -79,39 +79,26 @@ $themeDefault: map-merge((
 
     // Forms
     'formInputMaxWidth': (
-        480: 330px,
-        900: 288px,
+        480: 288px,
     ),
-    'formInputMaxWidthBreakpoint': 480,
-    'formInputOneLineGridColumnStart': (
-        640: 1,
-    ),
-    'formInputOneLineGridColumnEnd': (
-        640: 2,
-        900: 3,
-        1024: 4,
-        1366: 5,
-    ),
+
     'formAdditionalGridTemplateColumns': (
         375: 1fr,
-        900: repeat(2, minmax(max-content, 288px)),
-        1024: repeat(3, 288px),
-        1366: repeat(4, minmax(max-content, 288px)),
     ),
     'formGap': ef.size(2),
     'fieldContaninerGap': ef.size(2),
     'fieldGap': ef.size(2),
     'fieldContaninerMaxWidth': (
-        320: 100%,
-        480: 330px,
+        375: 100%,
+        480: 288px,
     ),
     'fieldContaninerGrid': minmax(288px, 1fr),
     'fieldContaninerGridAreas': (
-        320: 'amount' 'limits' 'clear',
+        375: 'amount' 'limits' 'clear',
         900: 'amount clear' 'limits limits',
     ),
     'formSubmitJustifySelf': (
-        320: center,
+        375: center,
         900: left,
     ),
     'formSubmitMargin': ef.size(4) 0 0,
@@ -121,13 +108,8 @@ $themeDefault: map-merge((
     ),
 
     // Form with preselected amounts
-    'formWithAmountsGridAreas': (
-        320: 'amounts' 'amount' 'limits' 'clear',
-        900: 'amounts amounts' 'amount clear' 'limits limits',
-    ),
     'additionalFieldsTemplateColumns': (
-        320: repeat(1, minmax(288px, 1fr)),
-        900: repeat(2, minmax(288px, 1fr)),
+        375: repeat(1, minmax(288px, 1fr)),
     ),
     'additionalFieldsGap': ef.size(2),
 
