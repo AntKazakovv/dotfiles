@@ -62,6 +62,8 @@ export class Bonus extends AbstractModel<IBonus> {
     public showOnlyIcon: string;
     public disabledBy: null | keyof typeof disabledReasons = null;
     public static userCurrency: string;
+    public static depositCurrency: string;
+
     public readonly descriptionClean: string;
     public readonly termsClean: string;
     public readonly nameClean: string;
@@ -594,7 +596,7 @@ export class Bonus extends AbstractModel<IBonus> {
      * @returns {number} bonus min deposit
      */
     public get minDeposit(): number {
-        return _toNumber(this.amountMin?.[Bonus.userCurrency]) ||
+        return _toNumber(this.amountMin?.[Bonus.depositCurrency ?? Bonus.userCurrency]) ||
             _toNumber(this.amountMin?.EUR) ||
             _toNumber(this.conditions?.AmountMin?.Currency) ||
             _toNumber(this.conditions?.AmountMin?.EUR) || 0;
@@ -604,7 +606,7 @@ export class Bonus extends AbstractModel<IBonus> {
      * @returns {number} bonus max deposit
      */
     public get maxDeposit(): number {
-        return _toNumber(this.amountMax?.[Bonus.userCurrency]) ||
+        return _toNumber(this.amountMax?.[Bonus.depositCurrency ?? Bonus.userCurrency]) ||
             _toNumber(this.amountMax?.EUR) ||
             _toNumber(this.conditions?.AmountMax?.Currency) ||
             _toNumber(this.conditions?.AmountMax?.EUR) || 0;
@@ -707,7 +709,7 @@ export class Bonus extends AbstractModel<IBonus> {
             case 'lootbox':
                 return (resultsTarget as IBonusResultValueLootbox).Value;
             default:
-                return _round(_toNumber(resultsTarget.Value[Bonus.userCurrency]))
+                return _round(_toNumber(resultsTarget.Value[Bonus.depositCurrency ?? Bonus.userCurrency]))
                     || _round(_toNumber((resultsTarget as IBonusResultValueDefault).Value?.Currency))
                     || _round(_toNumber((resultsTarget as IBonusResultValueDefault).Value?.EUR))
                     || _round(_toNumber(resultsTarget.Value));
@@ -718,7 +720,7 @@ export class Bonus extends AbstractModel<IBonus> {
      * @returns {string} currency value
      */
     public get currencyValue(): string {
-        return Bonus.userCurrency;
+        return Bonus.depositCurrency ?? Bonus.userCurrency;
     }
 
 

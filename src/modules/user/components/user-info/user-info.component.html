@@ -1,11 +1,14 @@
 <div class="{{$class}}__content">
-    <div class="{{$class}}-short"
+    <div *ngIf="!isMultiWallet"
          wlc-user-stats
+         class="{{$class}}-short"
          [type]="'short'">
     </div>
-
+    <div *ngIf="isMultiWallet"
+         wlc-wallets
+         [inlineParams]="multiWalletParams"></div>
     <button
-        *ngIf="$params.button?.use"
+        *ngIf="$params.button?.use && !isMultiWallet"
         wlc-button
         class="wlc-btn-deposit"
         [wlcElement]="'button_deposit'"

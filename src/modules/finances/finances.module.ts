@@ -36,6 +36,7 @@ import {ClearAmountButtonComponent}
 import {GlobalHelper} from 'wlc-engine/modules/core';
 import {financesConfig} from './system/config/finances.config';
 import {IFinancesConfig} from './system/interfaces/finances.interface';
+import {MultiWalletModule} from 'wlc-engine/modules/multi-wallet/multi-wallet.module';
 import * as $config from 'wlc-config/index';
 
 import _get from 'lodash-es/get';
@@ -67,6 +68,7 @@ export const services = {
         ReactiveFormsModule,
         TranslateModule,
         IconListModule,
+        MultiWalletModule,
     ],
     declarations: [
         PaymentMessageComponent,

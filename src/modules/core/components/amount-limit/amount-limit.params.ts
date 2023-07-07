@@ -10,6 +10,7 @@ export interface IAmountLimitCParams extends IComponentParams<ComponentTheme, Co
     minValue?: number;
     maxValue?: number;
     showLimits?: boolean | ILimits;
+    currency?: string;
 }
 
 export interface ILimits {

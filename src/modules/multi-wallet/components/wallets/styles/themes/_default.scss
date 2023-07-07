@@ -1,0 +1,217 @@
+$selector: '.wlc-wallets';
+#{$selector}--theme-default:host {
+
+    @include bm.get-mq-map('position', $themeDefault, 'position');
+    @include bm.get-mq-map('max-width', $themeDefault, 'dropdownMaxWidth');
+    @include bm.get-mq-map('margin', $themeDefault, 'margin');
+
+    #{$selector} {
+
+        &__container {
+            display: flex;
+            align-items: center;
+            background: var(--wlc-wallets-container-bg, #{ef.get-value($themeDefault, 'dropdownBg')});
+            border-radius: var(--wlc-wallets-container-radius, #{ef.get-value($themeDefault, 'dropdownBorderRadius')});
+        }
+
+        &__btn-deposit {
+            @include bm.get-mq-map('padding', $themeDefault, 'depositBtnPadding');
+            z-index: 1;
+            display: flex;
+            min-width: 0;
+        }
+
+        &__search {
+            width: ef.get-value($themeDefault, 'searchWidth');
+            margin: ef.get-value($themeDefault, 'searchMargin');
+            padding: ef.get-value($themeDefault, 'searchPadding');
+        }
+
+        &__dropdown-btn {
+            --wlc-icon-width: #{ef.get-value($themeDefault, 'iconSize')};
+            --wlc-icon-height: #{ef.get-value($themeDefault, 'iconSize')};
+
+            @include bm.get-mq-map('padding', $themeDefault, 'dropdownPadding');
+
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'dropdownFontStyle', 375),
+                ef.get-value($themeDefault, 'dropdownTextColor'),
+            );
+            display: flex;
+            gap: var(--wlc-wallets-dd-btn-gap, #{ef.get-value($themeDefault, 'dropdownGap')});
+            align-items: center;
+            justify-content: space-between;
+            line-height: 1;
+            cursor: pointer;
+
+            #{$selector}__currency {
+                --wlc-icon-width: #{ef.get-value($themeDefault, 'financeIconSize')};
+                --wlc-icon-height: #{ef.get-value($themeDefault, 'financeIconSize')};
+                width: 100%;
+
+                #{$selector}__name {
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'dropdownNameFontStyle'),
+                        ef.get-value($themeDefault, 'dropdownTextColor'),
+                    );
+                    gap: ef.get-value($themeDefault, 'financeDropdownCurrencyGap');
+                    align-items: center;
+                }
+
+                @include bm.hover() {
+                    background: transparent;
+                }
+            }
+
+            .arrow::ng-deep {
+                --wlc-icon-width: #{ef.get-value($themeDefault, 'arrowIconSize')};
+                --wlc-icon-height: #{ef.get-value($themeDefault, 'arrowIconSize')};
+
+                @include bm.transition(transform);
+                margin: ef.get-value($themeDefault, 'dropdownArrowMargin');
+                color: ef.get-value($themeDefault, 'dropdownArrowFill');
+
+                svg {
+                    fill: currentColor;
+                }
+            }
+
+            &.isOpened {
+
+                .arrow::ng-deep {
+                    color: ef.get-value($themeDefault, 'dropdownArrowFillOpened');
+                    transform: rotate(180deg);
+                }
+            }
+
+            @include bm.hover {
+
+                .arrow::ng-deep {
+                    color: ef.get-value($themeDefault, 'dropdownArrowFillHover');
+                }
+            }
+
+            @include mq.min(1200) {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'dropdownFontStyle', 1200),
+                    ef.get-value($themeDefault, 'dropdownTextColor'),
+                );
+            }
+        }
+
+        &__content {
+            @include bm.get-mq-map('width', $themeDefault, 'contentWidth');
+            @include bm.get-mq-map('right', $themeDefault, 'contentRight');
+            @include bm.get-mq-map('top', $themeDefault, 'contentTop');
+            position: absolute;
+            z-index: ef.get-value($themeDefault, 'contentZIndex');
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            max-height: ef.get-value($themeDefault, 'contentHeight');
+            padding: ef.get-value($themeDefault, 'contentPadding');
+            background: ef.get-value($themeDefault, 'contentBg');
+            box-shadow: ef.get-value($themeDefault, 'contentBoxShadow');
+            border-radius: ef.get-value($themeDefault, 'contenBorderRadius');
+
+            hr {
+                width: ef.get-value($themeDefault, 'hrWidth');
+                height: ef.get-value($themeDefault, 'hrHeight');
+                margin: ef.get-value($themeDefault, 'hrMargin');
+                background: ef.get-value($themeDefault, 'hrBackground');
+                opacity: 1;
+            }
+        }
+
+        &__list {
+            @include bm.scrollbar($themeDefault);
+            overflow-y: auto;
+            width: ef.get-value($themeDefault, 'listWidth');
+            padding: ef.get-value($themeDefault, 'listPadding');
+
+            #{$selector}__currency {
+                height: ef.get-value($themeDefault, 'currencyHeight');
+                margin: ef.get-value($themeDefault, 'currencyMargin');
+                border-radius: ef.get-value($themeDefault, 'currencyBorderRadius');
+                padding: ef.get-value($themeDefault, 'currencyPadding');
+
+                &.select {
+                    border: ef.get-value($themeDefault, 'selectCurrencyBorder');
+                    box-shadow: ef.get-value($themeDefault, 'selectCurrencyBoxShadow');
+                }
+            }
+        }
+
+        &__currency {
+            --wlc-icon-width: #{ef.get-value($themeDefault, 'iconSize')};
+            --wlc-icon-height: #{ef.get-value($themeDefault, 'iconSize')};
+
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'currencyFontStyle'),
+                null,
+            );
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            line-height: 1;
+
+            @include bm.hover() {
+                background: ef.get-value($themeDefault, 'currencyBgHover');
+            }
+        }
+
+
+        &__name {
+            display: flex;
+            gap: ef.get-value($themeDefault, 'currencyNameGap');
+        }
+
+        &__hide-wallets {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'hideFontStyle'),
+                null,
+            );
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        &__not-found {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'notFoundFontStyle'),
+                null,
+            );
+            padding: ef.get-value($themeDefault, 'searchPadding');
+            text-align: center;
+        }
+    }
+
+
+    &#{$selector}--rounding {
+        --wlc-wallets-container-radius: #{ef.get-value($themeDefault, 'dropdownBorderRadiusRounding')};
+    }
+
+    &#{$selector}--theme-mod-finances {
+        --wlc-wallets-container-bg: #{ef.get-value($themeDefault, 'financeDropdownBg')};
+        --wlc-wallets-dd-btn-gap: #{ef.get-value($themeDefault, 'financeDropdownGap')};
+        position: relative;
+
+        #{$selector} {
+
+            &__container {
+                flex-direction: column;
+                align-items: unset;
+            }
+
+            &__content {
+                right: ef.get-value($themeDefault, 'financeContentRight');
+            }
+
+            &__dropdown-btn {
+                padding: ef.get-value($themeDefault, 'financeDropdownPadding');
+            }
+        }
+    }
+}

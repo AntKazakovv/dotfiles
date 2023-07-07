@@ -1,0 +1,99 @@
+<div class="{{$class}}__container">
+    <div
+        *ngIf="isShowWalletSelector"
+        wlc-click-outside
+        [isOpened]="isOpened"
+        (clickOutside)="clickOutside()">
+        <div
+            class="{{$class}}__dropdown-btn"
+            [class.isOpened]="isOpened"
+            (click)="onOpen()">
+            <ng-container
+                *ngIf="isFinance; else base"
+                [ngTemplateOutlet]="currency"
+                [ngTemplateOutletContext]="{$implicit: currentWallet}"></ng-container>
+            <span
+                wlc-icon
+                class="arrow"
+                iconPath="/wlc/icons/arrow.svg"
+                wlcElement="icon_arrow"></span>
+        </div>
+        <ng-container *ngTemplateOutlet="content"></ng-container>
+    </div>
+
+    <button
+        *ngIf="$params.showDepositBtn"
+        wlc-button
+        class="{{$class}}__btn-deposit"
+        [inlineParams]="$params.depositBtnParams"
+        (click)="toDeposit()"></button>
+</div>
+<ng-template #base>
+    <span>
+        {{currentWallet.balance}}
+    </span>
+    <span
+        wlc-icon
+        class="currency"
+        iconPath="{{getIconUrl(currentWallet.currency)}}"
+        wlcElement="icon_currency"></span>
+</ng-template>
+<ng-template #content>
+    <div
+        *ngIf="isOpened"
+        class="{{$class}}__content">
+
+        <div
+            wlc-search-field
+            class="{{$class}}__search"
+            (searchQueryEmit)="setSearchQuery($event)"></div>
+
+        <div class="{{$class}}__list">
+            <div
+                *ngFor="let item of walletList"
+                (click)="onSelectWallet(item)">
+                <ng-container
+                    [ngTemplateOutlet]="currency"
+                    [ngTemplateOutletContext]="{$implicit: item}"
+                ></ng-container>
+            </div>
+        </div>
+
+        <span
+            *ngIf="isShowNotFound"
+            class="{{$class}}__not-found">
+            {{this.$params.notFoundText}}
+        </span>
+
+        <ng-template [ngIf]="!isFinance">
+            <hr/>
+            <div class="{{$class}}__hide-wallets">
+                <span>{{$params.hideWalletText}}</span>
+                <div
+                    wlc-checkbox
+                    [inlineParams]="toggleBtn"
+                ></div>
+            </div>
+        </ng-template>
+
+    </div>
+</ng-template>
+
+<ng-template #currency let-item>
+    <div class="{{$class}}__currency"
+         [class.select]="item.currency === currentWallet.currency">
+        <div class="{{$class}}__name">
+            <div class="{{$class}}__icon">
+               <span
+                   wlc-icon
+                   class="currency"
+                   iconPath="{{getIconUrl(item.currency)}}"
+                   wlcElement="icon_currency"></span>
+            </div>
+            {{item.currency}}
+        </div>
+        <span class="{{$class}}__value">
+            {{item.balance}}
+        </span>
+    </div>
+</ng-template>

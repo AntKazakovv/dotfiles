@@ -36,7 +36,8 @@ export type TModuleName =
     | 'external-services'
     | 'gambling-ban'
     | 'seo'
-    | 'aml';
+    | 'aml'
+    | 'multi-wallet';
 
 type IFunctionImportModule = (name: TModuleName, callback: Function) => unknown;
 
@@ -230,5 +231,10 @@ export const modulesApp: Record<TModuleName, IFunctionImportModule> = {
         const m = await import('wlc-engine/modules/aml/aml.module');
         callback(name, m);
         return m.AmlModule;
+    },
+    'multi-wallet': async (name: TModuleName, callback: Function) => {
+        const m = await import('wlc-engine/modules/multi-wallet/multi-wallet.module');
+        callback(name, m);
+        return m.MultiWalletModule;
     },
 } as const;

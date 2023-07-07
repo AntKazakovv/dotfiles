@@ -5,7 +5,7 @@ import _assign from 'lodash-es/assign';
 import _isString from 'lodash-es/isString';
 import _cloneDeep from 'lodash-es/cloneDeep';
 import _isNil from 'lodash-es/isNil';
-
+import _toNumber from 'lodash-es/toNumber';
 import {
     IFreeRound,
     ILoyalty,
@@ -21,10 +21,15 @@ import {
     EventService,
     IFromLog,
 } from 'wlc-engine/modules/core/system/services';
+import {
+    ISelectedWallet,
+    IWalletObj,
+} from 'wlc-engine/modules/multi-wallet/system/interfaces/wallet.interface';
 
 export class UserInfo extends AbstractModel<IUserInfo> {
 
     public separateLoyalty: boolean = false;
+    public static currency: string = '';
     protected $loyaltyData: ILoyalty = {} as ILoyalty;
 
     constructor(
@@ -44,11 +49,23 @@ export class UserInfo extends AbstractModel<IUserInfo> {
     }
 
     public get availableWithdraw(): number {
-        return this.data?.availableWithdraw;
+        return this.getWalletAvailableWithdraw(UserInfo.currency) ?? this.data?.availableWithdraw;
     }
 
     public get balance(): number {
-        return this.data?.balance;
+        return this.getWalletBalance(UserInfo.currency) ?? this.data?.balance;
+    }
+
+    public getAvailableWithdrawForSelectWallet(selectedWallet: ISelectedWallet): number {
+        if (selectedWallet) {
+            return this.getWalletAvailableWithdraw(selectedWallet.walletCurrency);
+        } else return this.availableWithdraw;
+    }
+
+    public getBalanceForSelectWallet(selectedWallet: ISelectedWallet): number {
+        if (selectedWallet) {
+            return this.getWalletBalance(selectedWallet.walletCurrency);
+        } else return this.balance;
     }
 
     public get blockByLocation(): boolean {
@@ -145,7 +162,7 @@ export class UserInfo extends AbstractModel<IUserInfo> {
     }
 
     public get realBalance(): number {
-        return this.balance - this.bonusBalance;
+        return _toNumber(this.wallets[UserInfo.currency]?.balance) ?? this.balance - this.bonusBalance;
     }
 
     public get level(): number {
@@ -246,6 +263,10 @@ export class UserInfo extends AbstractModel<IUserInfo> {
         return this.data?.Tags || {};
     }
 
+    public get wallets(): IWalletObj {
+        return this.data?.wallets;
+    }
+
     protected override checkData(): void {
         //TODO AFTER RELEASE 13.11.2020
         /*if (!this.data?.status) {
@@ -253,5 +274,13 @@ export class UserInfo extends AbstractModel<IUserInfo> {
                 name: 'USER_STATUS_DISABLE',
             });
         }*/
+    }
+
+    private getWalletBalance(currency: string): number {
+        return _toNumber(this.wallets[currency]?.balance) ?? 0;
+    }
+
+    private getWalletAvailableWithdraw(currency: string): number {
+        return _toNumber(this.wallets[currency]?.availableWithdraw) ?? 0;
     }
 }

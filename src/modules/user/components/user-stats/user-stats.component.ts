@@ -132,6 +132,14 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
                 ...Params.shownUserStatsConfig[field],
                 value: _get(this.userStats, Params.shownUserStatsConfig[field].path),
             };
+
+            if (field === 'bonusBalance') {
+                shownUserStats[field] = {
+                    ...shownUserStats[field],
+                    currency: this.userService.userProfile.originalCurrency,
+                    modification: 'customCurrency',
+                };
+            }
         });
         this.shownUserStats = shownUserStats;
         this.cdr.detectChanges();

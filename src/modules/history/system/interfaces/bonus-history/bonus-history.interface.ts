@@ -12,6 +12,7 @@ export interface IBonusHistory extends IBonusBase {
     PaySystems: null;
     Start: string;
     SubscribeDate: string;
+    Currency: string;
 }
 
 export type TBonusesHistory = IBonusHistory[];

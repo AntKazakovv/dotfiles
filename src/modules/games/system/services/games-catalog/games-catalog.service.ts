@@ -104,6 +104,11 @@ import {
     GamesSortEnum,
     SortTypeEnum,
 } from 'wlc-engine/modules/games/system/interfaces/sorts.enums';
+import {
+    UserService,
+} from 'wlc-engine/modules/user';
+import {WalletsService} from 'wlc-engine/modules/multi-wallet/system/services';
+import {ISelectedWallet} from 'wlc-engine/modules/multi-wallet/system/interfaces';
 
 export interface ILaunchGameModal {
     show: boolean;
@@ -466,9 +471,25 @@ export class GamesCatalogService {
      * @returns {Promise<ILaunchInfo>}
      */
     public async getLaunchParams(options: IGameParams): Promise<ILaunchInfo> {
+        const isMultiWallet: boolean = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
+        let currentWallet: ISelectedWallet = null;
+
+        if (isMultiWallet) {
+            const userService: UserService =
+                await this.injectionService.getService<UserService>('user.user-service');
+            currentWallet = userService.userProfile.extProfile.currentWallet;
+            if (!currentWallet.walletId) {
+                const walletsService: WalletsService =
+                    await this.injectionService.getService<WalletsService>('multi-wallet.wallet-service');
+                const id: string = await walletsService.addWallet(currentWallet.walletCurrency);
+                currentWallet.walletId = id ? _toNumber(id) : null;
+            }
+        }
+
         return (await this.dataService.request('games/gameLaunchParams', {
             ...options,
             demo: options.demo ? 1 : 0,
+            wallet: currentWallet?.walletId,
         }) as IData).data;
     }
 

@@ -1,0 +1,95 @@
+.wlc-search-field--theme-default:host {
+    --wlc-icon-width: #{ef.get-value($themeDefault, 'searchIconSize')};
+    --wlc-icon-height: #{ef.get-value($themeDefault, 'searchIconSize')};
+
+    .not-shown {
+        position: relative;
+        display: none;
+    }
+
+    &.wlc-search-field--theme-mod-mobile-app:host {
+
+        .wlc-search-field {
+
+            &__icon {
+                right: unset;
+                left: ef.get-value($themeDefault, 'searchIconRightMobileApp');
+            }
+
+            &__clear {
+                right: unset;
+                left: ef.get-value($themeDefault, 'clearButtonRightIndentMobileApp');
+            }
+
+            &__input {
+                padding: ef.get-value($themeDefault, 'inputPaddingMobileApp');
+                border-radius: ef.get-value($themeDefault, 'borderRadiusMobileApp');
+            }
+        }
+    }
+
+    .wlc-search-field {
+        position: relative;
+        display: ef.get-value($themeDefault, 'fieldDisplay');
+        color: ef.get-value($themeDefault, 'inputColor');
+        line-height: ef.get-value($themeDefault, 'lineHeight');
+
+        &__input {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'inputTextStyle'),
+                ef.get-value($themeDefault, 'inputColor')
+            );
+            width: ef.get-value($themeDefault, 'inputWidth');
+            height: ef.get-value($themeDefault, 'inputHeight');
+            padding: ef.get-value($themeDefault, 'inputPadding');
+            border-radius: ef.get-value($themeDefault, 'inputRadius');
+            border: ef.get-value($themeDefault, 'inputBorder');
+            background: ef.get-value($themeDefault, 'inputBackground');
+            -webkit-appearance: none; /* stylelint-disable-line */
+
+            &:focus {
+                outline: none;
+            }
+
+            &::-webkit-search-cancel-button {
+                display: none;
+            }
+
+            &::-ms-clear {
+                display: none;
+            }
+        }
+
+        &__clear {
+            @include bm.transition(opacity);
+            position: absolute;
+            top: ef.get-value($themeDefault, 'iconTop');
+            right: ef.get-value($themeDefault, 'clearButtonRight');
+            height: ef.get-value($themeDefault, 'clearButtonHeight');
+            color: ef.get-value($themeDefault, 'searchIconColor');
+            font-size: ef.get-value($themeDefault, 'clearButtonFontSize');
+            background: ef.get-value($themeDefault, 'backgroundClear');
+            transform: ef.get-value($themeDefault, 'translateY');
+            opacity: ef.get-value($themeDefault, 'opacity');
+            appearance: none;
+            border: none;
+
+            &:focus {
+                outline: none;
+            }
+
+            @include bm.hover {
+                color: ef.get-value($themeDefault, 'searchIconColorHover');
+            }
+        }
+
+        &__icon {
+            position: absolute;
+            top: ef.get-value($themeDefault, 'iconTop');
+            right: ef.get-value($themeDefault, 'searchIconRight');
+            color: ef.get-value($themeDefault, 'searchIconColor');
+            transform: ef.get-value($themeDefault, 'searchIconTranslateY');
+            cursor: pointer;
+        }
+    }
+}

@@ -1,0 +1,20 @@
+<label class="{{$class}}">
+    <input
+        class="{{$class}}__input"
+        placeholder="{{$params.placeholder}}"
+        data-wlc-element="input_search"
+        (input)="inputHandler($event)"
+        [(ngModel)]="searchQuery">
+    <button
+        wlc-icon
+        class="{{$class}}__clear"
+        iconPath="/wlc/icons/close.svg"
+        [class.not-shown]="showClear"
+        (click)="clearSearch()"></button>
+    <span
+        wlc-icon
+        class="{{$class}}__icon"
+        iconPath="/wlc/icons/search.svg"
+        [class.not-shown]="showSearch"></span>
+</label>
+

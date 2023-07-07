@@ -255,7 +255,8 @@ export class ConfigService {
         this.set<boolean>({name: '$user.isAuthenticated', value: this.global.appConfig.loggedIn});
         this.set<BehaviorSubject<boolean>>({
             name: '$user.isAuth$',
-            value: new BehaviorSubject(this.global.appConfig.loggedIn)});
+            value: new BehaviorSubject(this.global.appConfig.loggedIn),
+        });
         if (
             this.get<number>('appConfig.siteconfig.fastRegistration')
             && this.get<boolean>('appConfig.siteconfig.registerGeneratePassword')
@@ -346,6 +347,7 @@ export class ConfigService {
     }
 
     private addLayoutConfig(params: IParamsLayoutConfig): ILayoutsConfig {
+        const isMultiWallet = this.get<boolean>('appConfig.siteconfig.isMultiWallet');
         const mergedLayouts: ILayoutsConfig =
             params.profile.type === 'first'
                 ? _mergeWith($layouts, $profileFirstLayouts)
@@ -387,6 +389,10 @@ export class ConfigService {
                     $panelsLayouts: $panelsLayoutsMobileApp,
                 };
             default:
+                if (isMultiWallet) {
+                    mergedLayouts['app'].sections.header =
+                        sectionsLib.header.universalWithMultiWallet;
+                }
                 return {
                     $layouts: mergedLayouts,
                     $panelsLayouts,

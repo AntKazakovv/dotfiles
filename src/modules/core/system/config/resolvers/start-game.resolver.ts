@@ -454,15 +454,15 @@ class StartGameHandler {
      * @returns {Promise}
      */
     private async checkUserBalance(): Promise<void> {
+        await this.configService.ready;
         const deferred = new Deferred<void>();
-
         const skipCheckBalance: boolean = this.configService.get<boolean>('$games.run.skipCheckBalance');
+
         if (skipCheckBalance) {
             deferred.resolve();
             return deferred.promise;
         }
 
-        await this.configService.ready;
         await this.injectionService.getService<BonusesService>('user.user-service');
 
         const userInfo: UserInfo = await firstValueFrom(
@@ -471,14 +471,13 @@ class StartGameHandler {
                     first((userInfo: UserInfo): boolean => !!userInfo?.idUser),
                 ),
         );
-
         if (userInfo.balance > 0) {
             deferred.resolve();
             return deferred.promise;
         }
         const merchantFreeRound = _find(userInfo.freeRounds, (freeRound: IFreeRound): boolean => {
             return ((this.game.merchantID === +freeRound.IDMerchant) ||
-            (this.game.subMerchantID === +freeRound.IDMerchant))
+                    (this.game.subMerchantID === +freeRound.IDMerchant))
                 && +freeRound.Count
                 && freeRound.Games.includes(this.game.launchCode);
         });

@@ -62,9 +62,12 @@ export class UserProfile extends AbstractModel<IUserProfile> {
     public get stateCode(): string {
         return this.data.stateCode;
     }
+    public get originalCurrency(): string {
+        return this.data.currency || 'EUR';
+    }
 
     public get currency(): string {
-        return this.data.currency || 'EUR';
+        return this.extProfile.currentWallet?.walletCurrency ?? this.originalCurrency;
     }
 
     public get email(): string {

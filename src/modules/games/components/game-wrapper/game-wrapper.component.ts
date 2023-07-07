@@ -970,6 +970,14 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             this.cdr.markForCheck();
         }, this.$destroy);
 
+        if (this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet')) {
+            this.eventService.subscribe({
+                name: 'PROFILE_UPDATE',
+            }, () => {
+                this.stateService.reload();
+            }, this.$destroy);
+        }
+
         this.eventService.subscribe({
             name: GameDashboardEvents.CLOSED,
         }, () => {

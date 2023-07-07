@@ -190,7 +190,7 @@
 </ng-template>
 
 <ng-template #catsMenu>
-    <div *ngIf="tagsMenuConfig"
+    <div *ngIf="tagsMenuConfig && systems.length"
         class="{{$class}}__categories {{$class}}__categories--{{catMenuTypeMain}}"
         wlc-wrapper
         [inlineParams]="tagsMenuConfig">
@@ -230,7 +230,7 @@
                 {{'To display all available payment systems, specify your country on the' | translate}}
                 {{' '}}
             </span>
-            <a [uiSref]="'app.profile.main.info'" class="{{$class}}__account-settings-link">{{'Account Settings' | translate}}</a> 
+            <a [uiSref]="'app.profile.main.info'" class="{{$class}}__account-settings-link">{{'Account Settings' | translate}}</a>
             <span>
                 {{' '}}
                 {{'page.' | translate}}
@@ -243,7 +243,7 @@
             </div>
         </div>
     </ng-container>
-    
+
     <ng-template #emptyPaysystems>
         <div class="{{$class}}__notification">
             <span>

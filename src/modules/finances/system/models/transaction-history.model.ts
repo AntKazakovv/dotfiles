@@ -19,6 +19,7 @@ export interface ITransaction {
     System: string;
     Canceled?: boolean;
     AllowCancelation?: string;
+    Currency?: string;
 }
 
 export interface ITransactionEx extends ITransaction {
@@ -130,6 +131,10 @@ export class Transaction extends AbstractModel<ITransactionEx> {
 
     public get requireConfirmation(): boolean {
         return this.amount < 0 && this.statusCode === 90;
+    }
+
+    public get currency(): string {
+        return this.data.Currency;
     }
 
     public setStatus(status?: number | string): void {

@@ -65,6 +65,10 @@ export class BonusHistoryItemModel extends AbstractModel<IBonusHistory> {
         return this.data.ID;
     }
 
+    public get currency(): string {
+        return this.data.Currency;
+    }
+
     protected modifyData(historyItem: any): any {
         switch (historyItem.Status) {
             case '-100': {

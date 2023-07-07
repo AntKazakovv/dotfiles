@@ -35,7 +35,6 @@ import {
 import {Deferred} from 'wlc-engine/modules/core/system/classes/deferred.class';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {
-    LanguageChangeEvents,
     UserInfo,
     UserProfile,
 } from 'wlc-engine/modules/user';
@@ -57,6 +56,10 @@ import {
 } from 'wlc-engine/modules/finances/system/interfaces/piq-cashier.interface';
 import {cryptoInvoiceSystem} from 'wlc-engine/modules/finances/system/constants/crypto-invoices.constants';
 import {FinancesHelper} from 'wlc-engine/modules/finances/system/helpers/finances.helper';
+import {
+    ISelectedWallet,
+    WalletsService,
+} from 'wlc-engine/modules/multi-wallet';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 
@@ -85,7 +88,6 @@ export class FinancesService {
     public paymentSystems$: BehaviorSubject<PaymentSystem[]> = new BehaviorSubject(undefined);
 
     private systems: PaymentSystem[] = [];
-    private isPaymentsFetch: boolean = false;
     private emitDepositStatus$: Subscription;
 
     constructor(
@@ -104,14 +106,6 @@ export class FinancesService {
         this.translateService.onLangChange.subscribe(() => {
             this.paymentSystems$.next(undefined);
             this.systems = [];
-        });
-
-        this.eventService.subscribe({name: 'LOGIN'}, () => {
-            this.fetchPaymentSystems();
-        });
-
-        this.eventService.subscribe({name: LanguageChangeEvents.ChangeLanguage}, () => {
-            this.fetchPaymentSystems();
         });
     }
 
@@ -132,7 +126,17 @@ export class FinancesService {
         amount: number,
         additionalFields: TAdditionalParams,
         cssVariables: string,
+        wallet: ISelectedWallet = null,
     ): Promise<any> {
+
+        if (wallet && !wallet.walletId) {
+            const walletsService: WalletsService =
+                await this.injectionService.getService<WalletsService>('multi-wallet.wallet-service');
+            const id: string = await walletsService.addWallet(wallet.walletCurrency);
+            if (!id) return;
+            wallet.walletId = Number(id);
+        }
+
         return await this.balanceAction(
             systemId,
             amount,
@@ -140,6 +144,7 @@ export class FinancesService {
             'deposit',
             'finances/deposits',
             cssVariables,
+            wallet,
         );
     }
 
@@ -148,6 +153,7 @@ export class FinancesService {
         amount: number,
         additionalFields: IIndexing<string | number>,
         cssVariables: string,
+        wallet: ISelectedWallet = null,
     ): Promise<any> {
         return await this.balanceAction(
             systemId,
@@ -156,6 +162,7 @@ export class FinancesService {
             'withdraw',
             'finances/postWithdrawal',
             cssVariables,
+            wallet,
         );
     }
 
@@ -218,22 +225,13 @@ export class FinancesService {
         return (await this.dataService.request<IData>('finances/transactions', params)).data as Transaction[];
     }
 
-    public async fetchPaymentSystems(): Promise<PaymentSystem[]> {
-
-        if (this.isPaymentsFetch) {
-            return;
-        }
-
-        this.isPaymentsFetch = true;
-
+    public async fetchPaymentSystems(currency: string = ''): Promise<PaymentSystem[]> {
         this.systems =
-            this.createPaymentSystems((await this.dataService.request<IData>('finances/paymentSystems'))
+            this.createPaymentSystems((await this.dataService.request<IData>('finances/paymentSystems', {currency}))
                 .data as IPaymentSystem[]);
 
         // TODO delete when will be completed #247624
         this.systems = this.systems.filter(system => !system.alias.includes('helper'));
-
-        this.isPaymentsFetch = false;
 
         this.paymentSystems$.next(this.paymentSystems);
         return this.paymentSystems;
@@ -573,6 +571,7 @@ export class FinancesService {
         method: TPaymentsMethods,
         requestName: string,
         cssVariables: string,
+        wallet: ISelectedWallet,
     ): Promise<any> {
         try {
             const currentSystem = this.getSystemById(systemId);
@@ -588,11 +587,23 @@ export class FinancesService {
                 return [PIQCashierResponse];
             }
 
-            const res = await this.dataService.request<IData>(requestName, {
-                systemId,
-                amount,
-                additional: additionalFields,
-            });
+            let res: IData;
+
+            if (wallet) {
+                res = await this.dataService.request<IData>(requestName, {
+                    systemId,
+                    amount,
+                    additional: additionalFields,
+                    walletCurrency: wallet.walletCurrency,
+                    wallet: wallet.walletId,
+                });
+            } else {
+                res = await this.dataService.request<IData>(requestName, {
+                    systemId,
+                    amount,
+                    additional: additionalFields,
+                });
+            }
             return res.data;
         } catch (error) {
             error.sytemId = systemId;

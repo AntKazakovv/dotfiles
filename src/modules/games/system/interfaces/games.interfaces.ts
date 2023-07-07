@@ -361,6 +361,7 @@ export interface IGameParams {
     gameId: string;
     lang?: string;
     returnUrl?: string;
+    wallet?: string;
 }
 
 export interface ICustomGameParams {

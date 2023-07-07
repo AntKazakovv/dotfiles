@@ -63,6 +63,9 @@ export namespace CurrenciesInfo {
         'EGLD',
         'BUSD',
         'LB1', // Lebanon (non standard country currency)
+        'MATIC',
+        'PWETH',
+        'PUSDT',
     ]);
 
     /** Special currencis, such as loyalty points, free spins, experience points and free bets */
@@ -220,6 +223,19 @@ export namespace CurrenciesInfo {
         },
         // Lebanon (non standard country currency)
         LB1: {
+            icon: '',
+            literalAs: 'BTC',
+        },
+        // Polygon (MATIC) is an Ethereum token that powers the Polygon network to scale Ethereum.
+        MATIC: {
+            icon: '',
+            literalAs: 'BTC',
+        },
+        PWETH: {
+            icon: '',
+            literalAs: 'BTC',
+        },
+        PUSDT: {
             icon: '',
             literalAs: 'BTC',
         },

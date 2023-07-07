@@ -24,6 +24,8 @@ import {
     AppType,
     IWrapperCParams,
 } from 'wlc-engine/modules/core';
+import {WalletsParams} from 'wlc-engine/modules/multi-wallet/components/wallets/wallets.params';
+
 import * as Params from './user-info.params';
 
 @Component({
@@ -54,11 +56,14 @@ export class UserInfoComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IUserInfoCParams;
     public override $params: Params.IUserInfoCParams;
     public isOpened: boolean;
+
+    public isMultiWallet: boolean;
     public dropdownBtnActive: boolean;
     public hasNotifier: boolean;
     public notifierConfig: IWrapperCParams;
 
     public internalMailsNotifierConfig: IWrapperCParams = Params.internalMailsNotifierConfig;
+    public multiWalletParams: WalletsParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IUserInfoCParams,
@@ -75,6 +80,8 @@ export class UserInfoComponent extends AbstractComponent implements OnInit {
         super.ngOnInit(this.inlineParams);
 
         this.hasNotifier = this.configService.get<boolean>('$base.profile.messages.use');
+
+        this.isMultiWallet = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
 
         this.notifierConfig = {
             components: [
@@ -95,6 +102,17 @@ export class UserInfoComponent extends AbstractComponent implements OnInit {
             this.dropdownBtnActive = false;
             this.cdr.markForCheck();
         }, this.$destroy);
+        this.multiWalletParams = {
+            showDepositBtn: this.$params.button.use,
+            depositBtnParams: {
+                common: {
+                    sref: this.$params.button.sref,
+                    text: this.$params.button.text,
+                    animation: this.$params.button.animate,
+                },
+            },
+
+        };
     }
 
     public toggle(): void {

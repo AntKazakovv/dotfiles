@@ -275,4 +275,39 @@ export namespace header {
             componentLib.wlcButton.mobileKioskLogin,
         ],
     };
+    export const universalWithMultiWallet: ILayoutSectionConfig = {
+        replaceConfig: true,
+        order: 0,
+        theme: 'universal',
+        modifiers: ['with-balance-info'],
+        container: true,
+        components: [
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'header__left',
+                    components: [
+                        componentLib.wlcButton.burger,
+                        componentLib.wlcLogo.header,
+                    ],
+                },
+            },
+            componentLib.wlcMainMenu.header,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'header__right',
+                    components: [
+                        componentLib.wlcLoginSignup.header,
+                        componentLib.wlcUserInfo.header,
+                        componentLib.wlcMultiWallet.userMultiWallet,
+                        componentLib.wlcLanguageSelector.bottomLeft2,
+                        componentLib.wlcButton.searchV2,
+                        componentLib.wlcButton.mobileLoginBtn,
+                        componentLib.wlcButton.mobileSignupBtn,
+                    ],
+                },
+            },
+        ],
+    };
 }

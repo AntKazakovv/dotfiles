@@ -67,6 +67,7 @@ export interface IInputCParams extends IComponentParams<ComponentTheme, Componen
     icon?: string;
     clipboard?: boolean;
     showCurrency?: boolean;
+    currency?: string;
     prohibitedPattern?: RegExp;
     maskOptions?: IMask.AnyMaskedOptions;
     numeric?: INumericInputOptions,

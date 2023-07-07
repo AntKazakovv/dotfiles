@@ -21,6 +21,12 @@
         }
         display: grid;
         align-items: center;
+
+        .wlc-multiWallet {
+            display: flex;
+            gap: ef.get-value($theme, 'headerMultiWalletGap');
+            align-items: center;
+        }
     }
 
     .wlc-logo {
@@ -154,6 +160,21 @@
                     fill: ef.get-value($theme, 'headerDepositBtnInnerFillColor');
                 }
             }
+
+            &.wlc-wallets__btn-deposit {
+                width: ef.get-value($theme, 'headerMultiWalletDepositIconSize');
+                height: ef.get-value($theme, 'headerMultiWalletDepositIconSize');
+                margin: ef.get-value($theme, 'headerMultiWalletDepositBtnMargin');
+
+                &.wlc-btn--theme-default[class] {
+                    background-image: none;
+                }
+
+                svg {
+                    width: ef.get-value($theme, 'headerMultiWalletDepositIconSize');
+                    fill: ef.get-value($theme, 'headerMultiWalletDepositBtnFill');
+                }
+            }
         }
 
         &--user {
@@ -264,6 +285,13 @@
 
                 &.wlc-btn--theme-mod-secondary.wlc-btn--mobile-login {
                     min-width: ef.get-value($theme, 'withBalanceBtnSecondaryWidth');
+                }
+
+                &--deposit {
+
+                    &.wlc-wallets__btn-deposit {
+                        height: ef.get-value($theme, 'headerMultiWalletBtnHeight');
+                    }
                 }
             }
 

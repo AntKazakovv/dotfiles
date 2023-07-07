@@ -53,6 +53,7 @@ import {
 import {
     PasswordConfirmationFormComponent,
 } from 'wlc-engine/modules/user/components/password-confirmation-form/password-confirmation-form.component';
+import {MultiWalletModule} from 'wlc-engine/modules/multi-wallet/multi-wallet.module';
 
 export const services = {
     'user-service': UserService,
@@ -129,6 +130,7 @@ export const components = {
         CoreModule,
         TranslateModule,
         UIRouterModule,
+        MultiWalletModule,
     ],
     providers: [
         DataService,

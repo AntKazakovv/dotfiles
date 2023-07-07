@@ -96,3 +96,4 @@ export * from './history/wlc-tournaments-history.config';
 
 export * from './rates/wlc-rates-currency.config';
 export * from './achievements/wlc-achievements-list.config';
+export * from './multi-wallet/multi-wallet.config';

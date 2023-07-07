@@ -1,4 +1,8 @@
 import {TColorTheme} from 'wlc-engine/modules/core/system/interfaces/base-config/color-theme-switching.config';
+import {
+    ISelectedWallet,
+    IWalletObj,
+} from 'wlc-engine/modules/multi-wallet/system/interfaces/wallet.interface';
 
 import {
     IIndexing,
@@ -49,6 +53,7 @@ export interface IUserInfo {
     toSWlcVersion: TSQLDate;
     /*Tags*/
     Tags?: IIndexing<string>;
+    wallets?: IWalletObj;
 }
 
 export interface IUserProfile {
@@ -123,6 +128,7 @@ export interface IExtProfile {
     colorTheme?: TColorTheme;
     pep?: PepStatus;
     nick?: string;
+    currentWallet?: ISelectedWallet;
 }
 
 export interface IExtProfilePaymentSystems {

@@ -1,0 +1,102 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'position': (
+        375: unset,
+        480: relative,
+    ),
+    'margin': (
+        1200: 0 ef.size(4),
+    ),
+    'depositBtnPadding': (
+        375: 0,
+        1200: ef.size(1) ef.size(4),
+    ),
+    'depositIconSize': ef.size(6),
+    'depositBtnMargin': 2px 2px 0,
+    'depositBtnFill': var(--mc-buttonColor),
+
+    'arrowIconSize': ef.size(2),
+
+    'dropdownMaxWidth': (
+        375: 100%,
+        560: 420px,
+    ),
+    'dropdownPadding': (
+        375: ef.size(1) ef.size(2),
+        1200: ef.size(2) ef.size(3),
+    ),
+    // base text style
+    'dropdownFontStyle': (
+        375: 'CaptionTextBold',
+        1200:'ButtonText',
+    ),
+    'dropdownBorderRadius': ef.get('radius', 'biger'),
+    'dropdownArrowMargin': 0 0 0 ef.size(1),
+    'dropdownArrowFill': var(--fc-arrowColor),
+    'dropdownArrowFillOpened': var(--mc-baseMain),
+    'dropdownArrowFillHover': var(--mc-baseMain),
+    'dropdownTextColor': inherit,
+    // theme mod base
+    'dropdownGap': ef.size(1),
+
+    'financeDropdownGap': ef.size(3),
+    'financeDropdownCurrencyGap': ef.size(3),
+    'financeDropdownBg': var(--mc-bg),
+    'financeIconSize': ef.size(6),
+    'financeDropdownPadding': ef.size(3),
+    // finance text style
+    'dropdownNameFontStyle': 'ThirdTitleBold',
+    'dropdownBg': var(--mc-bg700),
+
+    'contentTop': (
+        375: calc(100%),
+        480: calc(100% + #{ef.size(2)}),
+    ),
+    'contentRight': (
+        375: 0,
+        480: ef.size(-4),
+    ),
+    'financeContentRight': 0,
+    'contentWidth': (
+        375: 100%,
+        480: 420px,
+    ),
+    'contentBoxShadow': ef.get('shadow', 'lg'),
+    'contentPadding': ef.size(4) 0 ef.size(4) ef.size(4),
+    'searchPadding': 0 ef.size(4) 0 0,
+    'contentBg': var(--mc-bgModal),
+    'contenBorderRadius': ef.get('radius', 'biger'),
+    'contentZIndex': 10,
+    'contentHeight': 451px,
+
+    'listWidth': 100%,
+    'listPadding': 0 ef.size(3) 0 0,
+
+    'scrollbarTrackBg': var(--mc-bg700),
+    'scrollbarThumbBg': var(--mc-bg100),
+
+    'hrMargin': ef.size(2) ef.size(4) ef.size(2) 0,
+    'hrWidth': calc(100% - ef.size(4)),
+    'hrHeight': 1px,
+    'hrBackground': var(--mc-bg300),
+    'hideFontStyle': 'PrimaryText',
+    'notFoundFontStyle': 'ThirdTitle',
+
+    'searchMargin': 0 0 ef.size(2),
+    'searchWidth': calc(100% - #{ef.size(1)}),
+
+    // currency in list
+    'iconSize': ef.size(3),
+    'currencyFontStyle': 'PrimaryTextBold',
+    'currencyHeight': ef.size(7),
+    'currencyBorderRadius': ef.get('radius', 'biger'),
+    'currencyMargin': 0 0 ef.size(1),
+    'currencyPadding': 0 ef.size(2),
+    'currencyBgHover': var(--mc-bg700),
+    'selectCurrencyBorder': 2px solid var(--mc-main),
+    'selectCurrencyBoxShadow': 0 4px 4px rgba(0, 0, 0, 0.25),
+    'currencyNameGap': ef.size(1),
+    'iconMargin': 0 0 2px,
+    // currency in list
+
+), $customThemeDefault);

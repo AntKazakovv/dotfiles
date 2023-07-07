@@ -99,6 +99,14 @@ import {
     BonusItemComponentEvents,
 } from 'wlc-engine/modules/bonuses';
 
+import {
+    ISelectedWallet,
+    WalletsService,
+    WalletHelper,
+    IWallet,
+} from 'wlc-engine/modules/multi-wallet';
+import {IAmountLimitCParams} from 'wlc-engine/modules/core/components/amount-limit/amount-limit.params';
+import {WalletsParams} from 'wlc-engine/modules/multi-wallet/components/wallets/wallets.params';
 import * as Params from './deposit-withdraw.params';
 
 type TCryptoInfo = 'msg1' | 'msg2' | 'msg3';
@@ -122,8 +130,9 @@ export class DepositWithdrawComponent
     public title: string = gettext('Deposit');
     public additionalParams: IIndexing<IPaymentAdditionalParam> = {};
     public formData$: BehaviorSubject<TFormData> = new BehaviorSubject(null);
-    public userTotalBonus: number;
+    public userTotalBalance: number;
     public userAvailableWithdraw: number;
+    public currentCurrency: string;
     public lastSucceedPaymentMethod: Promise<number | null>;
     public listConfig: IPaymentListCParams = {
         paymentType: 'deposit',
@@ -137,6 +146,7 @@ export class DepositWithdrawComponent
         noSelectedButton: null,
         buttonText: gettext('Show all cryptocurrencies'),
     };
+
     public invoiceSystems: PaymentSystem[] = [];
     public parentSystem: PaymentSystem = null;
     /** Defines if crypto invoice payment chosen */
@@ -157,11 +167,14 @@ export class DepositWithdrawComponent
     public showErrorHosledLoad: boolean = false;
     public hiddenPaymentInfo: boolean;
     public isLastMethodExisting: boolean;
-    
+
     protected amountControl: UntypedFormControl;
     protected clearAmountButton = _cloneDeep(FormElements.clearAmountButton);
     protected preselectedAmounts: number[] = [];
     protected formObject: UntypedFormGroup;
+
+    public isFetchingSystems: boolean = true;
+
     protected inProgress: boolean = false;
     protected userService: UserService;
 
@@ -187,7 +200,16 @@ export class DepositWithdrawComponent
     private isDeposit: boolean;
     private useScroll: boolean = false;
 
+    private isMultiWallet: boolean = false;
+    private selectedWallet: ISelectedWallet;
+    private walletsParams: WalletsParams;
     private additionalFieldsConfig: IIndexing<IAdditionalFieldConfig>;
+
+    private walletsReady: Promise<void> = new Promise((resolve: () => void): void => {
+        this.$resolveWallets = resolve;
+    });
+
+    private $resolveWallets: () => void;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IDepositWithdrawCParams,
@@ -201,6 +223,7 @@ export class DepositWithdrawComponent
         injectionService: InjectionService,
         logService: LogService,
         protected actionService: ActionService,
+        protected walletsService: WalletsService,
         @Inject(DOCUMENT) protected document: Document,
         @Inject(WINDOW) private window: Window,
     ) {
@@ -221,6 +244,17 @@ export class DepositWithdrawComponent
         this.isLastMethodExisting = (this.isDeposit
                 && this.configService.get<boolean>('$finances.lastSucceedDepositMethod.use'))
             || (!this.isDeposit && this.configService.get<boolean>('$finances.lastSucceedWithdrawMethod.use'));
+
+        this.isMultiWallet = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
+
+        if (this.isMultiWallet) {
+            this.steps.add(Params.PaymentSteps.wallet);
+            this.walletsParams = {
+                themeMod: 'finances',
+                hideWalletsWithZeroBalance: !this.isDeposit,
+            };
+        }
+
         if (this.useBonuses && this.isDeposit) {
             this.steps.add(Params.PaymentSteps.bonus);
             this.bonusesListParams = {
@@ -246,11 +280,18 @@ export class DepositWithdrawComponent
             });
 
         this.initSubscribers();
+
+        if (this.isMultiWallet) {
+            await this.walletsReady;
+        }
+
         this.updateFormConfig();
         this.initThemeToggleListener();
+
         if (this.isLastMethodExisting) {
             this.lastSucceedPaymentMethod = this.financesService.getLastSucceedPaymentMethod(this.isDeposit);
         }
+
         if (!this.isDeposit) {
             this.title = gettext('Withdrawal');
             this.listConfig.paymentType = 'withdraw';
@@ -262,8 +303,8 @@ export class DepositWithdrawComponent
                     if (!userInfo) {
                         return;
                     }
-                    this.userTotalBonus = userInfo.balance;
-                    this.userAvailableWithdraw = userInfo.availableWithdraw;
+                    this.userTotalBalance = userInfo.getBalanceForSelectWallet(this.selectedWallet);
+                    this.userAvailableWithdraw = userInfo.getAvailableWithdrawForSelectWallet(this.selectedWallet);
                     this.cdr.markForCheck();
                 });
         }
@@ -273,14 +314,45 @@ export class DepositWithdrawComponent
             this.$params.timerParams,
         );
 
-        await this.financesService.fetchPaymentSystems();
+        await this.financesService.fetchPaymentSystems(this.selectedWallet?.walletCurrency);
     }
 
     public override ngOnDestroy(): void {
         super.ngOnDestroy();
         if (this.useBonuses) {
             this.configService.set({name: 'chosenPaySystem', value: null});
+            Bonus.depositCurrency = null;
         }
+    }
+
+    public async onWalletChange(wallet: ISelectedWallet): Promise<void> {
+        this.isFetchingSystems = true;
+        Bonus.depositCurrency = wallet.walletCurrency;
+        this.bonusesListParams = _assign({}, this.bonusesListParams);
+        const selectedWallet: IWallet =
+            WalletHelper.createCurrentWallet(this.userService.userInfo.wallets, wallet.walletCurrency);
+        this.userTotalBalance = Number(selectedWallet.balance);
+        this.userAvailableWithdraw = Number(selectedWallet.availableWithdraw);
+        this.currentCurrency = wallet.walletCurrency;
+        this.selectedWallet = wallet;
+        this.dropCurrentSystem();
+        await this.financesService.fetchPaymentSystems(wallet.walletCurrency);
+        setTimeout(() => {
+            this.isFetchingSystems = false;
+        }, 0);
+    }
+
+    public async onCurrentWallet(currentWallet: ISelectedWallet): Promise<void> {
+        this.selectedWallet = currentWallet;
+        Bonus.depositCurrency = currentWallet.walletCurrency;
+        this.currentCurrency = currentWallet.walletCurrency;
+
+        if (!this.userService) {
+            this.userService = await this.injectionService.getService<UserService>('user.user-service');
+        }
+
+        this.$resolveWallets();
+        this.cdr.markForCheck();
     }
 
     public onCryptoInvoiceExpires(): void {
@@ -466,6 +538,7 @@ export class DepositWithdrawComponent
                 form.value.amount,
                 this.getAdditionalParams() || {},
                 this.cssVariables,
+                this.selectedWallet,
             );
 
             if (saveProfile) {
@@ -485,7 +558,7 @@ export class DepositWithdrawComponent
             const currencyIcon = `
                 <span wlc-currency
                     [value]="${form.value.amount}"
-                    [currency]="'${this.userProfile.currency}'"
+                    [currency]="'${this.currentCurrency ?? this.userProfile.currency}'"
                 ><span>`;
 
             this.pushNotification({
@@ -514,7 +587,7 @@ export class DepositWithdrawComponent
                 this.modalService.hideModal('data-is-processing');
             }
             this.inProgress = false;
-            this.financesService.fetchPaymentSystems();
+            this.financesService.fetchPaymentSystems(this.selectedWallet?.walletCurrency);
         }
     }
 
@@ -622,6 +695,10 @@ export class DepositWithdrawComponent
         return this.currentSystem && this.cryptoCheck && !this.isCryptoInvoices;
     }
 
+    public get showDividerInPaymentSystems(): boolean {
+        return !!this.parentSystem || !!this.currentSystem || !this.hiddenPaymentInfo;
+    }
+
     public get dateExpire(): DateTime {
         return DateTime.fromISO((this.currentSystem?.message as IPaymentMessage)?.dateEnd);
     }
@@ -641,6 +718,7 @@ export class DepositWithdrawComponent
                 amount || this.currentSystem.depositMin,
                 {...params, bonusId: this.currentBonus?.id || null},
                 this.cssVariables,
+                this.selectedWallet,
             );
 
             if (saveProfile && !isPregeneration) {
@@ -703,7 +781,7 @@ export class DepositWithdrawComponent
             }
 
             if (!isPregeneration) {
-                this.financesService.fetchPaymentSystems();
+                this.financesService.fetchPaymentSystems(this.selectedWallet?.walletCurrency);
             }
         }
     }
@@ -972,7 +1050,7 @@ export class DepositWithdrawComponent
     }
 
     protected onProfileUpdate(): void {
-        this.financesService.fetchPaymentSystems();
+        this.financesService.fetchPaymentSystems(this.selectedWallet?.walletCurrency);
     }
 
     protected async onPaymentSystemChange(system: PaymentSystem): Promise<void> {
@@ -1173,6 +1251,7 @@ export class DepositWithdrawComponent
     }
 
     protected updateFormConfig(): void {
+
         if (!this.usePrestep || !this.isPrestepComplete) {
             this.prestepFormConfig = null;
             this.formConfig = null;
@@ -1184,12 +1263,15 @@ export class DepositWithdrawComponent
         const isDepInvoice: boolean = this.isDeposit && !!(this.currentSystem?.message as IPaymentMessage)?.dateEnd;
 
         // amount
-        const hideAmount: boolean = this.isDeposit && this.disableAmount && !this.currentSystem.cryptoInvoices;
+        const hideAmount: boolean = this.isDeposit && this.disableAmount && !this.currentSystem?.cryptoInvoices;
 
         if (!hideAmount && !this.isPrestepComplete) {
             let amount = _cloneDeep(FormElements.amount);
             let showLimits = false;
 
+            if (this.isMultiWallet) {
+                amount.params.currency = this.currentCurrency;
+            }
             if (this.currentSystem && !this.isInvoicePending) {
 
                 _forEach(amount.params.validators, (val: IValidatorSettings | string) => {
@@ -1213,6 +1295,16 @@ export class DepositWithdrawComponent
 
             amount.params.locked = isDepInvoice;
 
+            const limitParams: IAmountLimitCParams = {
+                minValue: amount.params.validators
+                    .find((val) => val['name'] && val['name'] === 'min')['options'],
+                maxValue: amount.params.validators
+                    .find((val) => val['name'] && val['name'] === 'max')['options'],
+                showLimits,
+            };
+            if (this.isMultiWallet) {
+                limitParams.currency = this.currentCurrency;
+            }
             const fieldWrap = {
                 name: 'core.wlc-wrapper',
                 params: {
@@ -1228,13 +1320,7 @@ export class DepositWithdrawComponent
                     components: [
                         {
                             name: 'core.wlc-amount-limit',
-                            params: {
-                                minValue: amount.params.validators
-                                    .find((val) => val['name'] && val['name'] === 'min')['options'],
-                                maxValue: amount.params.validators
-                                    .find((val) => val['name'] && val['name'] === 'max')['options'],
-                                showLimits,
-                            },
+                            params: limitParams,
                         },
                     ],
                 },
@@ -1370,7 +1456,7 @@ export class DepositWithdrawComponent
     }
 
     protected get userCountry(): string {
-        return this.userProfile.countryCode || '';
+        return this.userProfile?.countryCode || '';
     }
 
     protected checkAdditionalFieldSettings(field: string): IAdditionalFieldSettings {

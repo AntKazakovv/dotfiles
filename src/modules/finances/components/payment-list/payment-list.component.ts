@@ -89,6 +89,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     @Input() public availableSystems: number[];
     @Input() public userCountry: string;
     @Input() protected lastSucceedMethod: Promise<number | null>;
+    @Input() protected isFetchingSystems: boolean = false;
     @Input() protected inlineParams: Params.IPaymentListCParams;
     @ViewChild('list') protected list: TemplateRef<any>;
 
@@ -178,6 +179,10 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     public override ngOnChanges(changes: SimpleChanges): void {
         if (changes['availableSystems'] && this.$params) {
             this.updatePaySystemsStatus();
+        }
+
+        if (changes['isFetchingSystems']) {
+            this.ready = !this.isFetchingSystems;
         }
 
         if (changes['currentSystem']) {
@@ -441,7 +446,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
             }],
         };
 
-        if (!this.tagsControl.value) {
+        if (!this.tagsControl.value && this.tags.length) {
             this.tagsControl.markAsTouched();
             this.tagsControl.patchValue(this.tags[0][0], {
                 emitEvent: true,

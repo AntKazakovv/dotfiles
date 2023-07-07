@@ -1,3 +1,8 @@
 <div class="{{$class}}" *ngIf="$params.showLimits">
-    (<span wlc-currency [value]="limits.min"></span> - <span wlc-currency [value]="limits.max"></span>)
+    (<span wlc-currency
+           [value]="limits.min"
+           [currency]="$params.currency"></span>
+    - <span wlc-currency
+            [value]="limits.max"
+            [currency]="$params.currency"></span>)
 </div>

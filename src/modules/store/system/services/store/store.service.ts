@@ -265,7 +265,7 @@ export class StoreService {
             const bonusesService: BonusesService = await this.injectionService
                 .getService<BonusesService>('bonuses.bonuses-service');
             const storeBonuses: Bonus[] = bonusesService.storeBonuses.length ?
-                bonusesService.storeBonuses : 
+                bonusesService.storeBonuses :
                 await bonusesService.queryBonuses<Bonus>(false, 'store');
 
             for (const itemData of data.Items) {
@@ -357,6 +357,7 @@ export class StoreService {
 
         this.eventService.subscribe([
             {name: 'STORE_ITEM_BUY_SUCCEEDED'},
+            {name: 'PROFILE_UPDATE'},
         ], () => {
             this.updateSubscribers();
         });
