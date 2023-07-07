@@ -197,7 +197,7 @@ $themeDefault: map-merge((
     'btnFont': 'PrimaryText',
     'btnColor': var(--mc-baseMain),
     'btnPadding': (
-        375: 8px 35px,
+        375: 8px 25px 8px 35px,
         900: 10px 30px 10px 35px,
     ),
     'btnBorderRadius': ef.get('radius', 'biger'),

@@ -10,7 +10,7 @@ export namespace wlcButton {
             class: 'wlc-btn wlc-btn-merch',
             common: {
                 iconPath: '/wlc/icons/filter-merchants.svg',
-                text: 'All providers',
+                text: gettext('Providers'),
                 event: {
                     name: 'SHOW_MODAL',
                     data: 'searchWithOpenedProviders',
