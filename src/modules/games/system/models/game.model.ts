@@ -32,6 +32,7 @@ import {
 
 export class Game extends AbstractModel<IGame> {
     public ID: number;
+    public tableID: string;
     public name: IIndexing<string>;
     public categoryID: number[];
     public sortPerLanguage: IIndexing<number>;
@@ -89,6 +90,7 @@ export class Game extends AbstractModel<IGame> {
 
         // Object.assign(this, data);
         this.ID = _toNumber(data.ID);
+        this.tableID = data.TableID;
         this.aspectRatio = data.AR;
         this.name = data.Name;
         this.categoryID = _map(data.CategoryID, (id: string) => {

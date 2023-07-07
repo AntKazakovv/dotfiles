@@ -10,6 +10,7 @@ import {IFromLog} from 'wlc-engine/modules/core';
 
 import _assign from 'lodash-es/assign';
 import _toString from 'lodash-es/toString';
+import _toNumber from 'lodash-es/toNumber';
 
 export class WinnerModel extends AbstractModel<IWinnerData> {
 
@@ -56,8 +57,12 @@ export class WinnerModel extends AbstractModel<IWinnerData> {
         return this.data.GameID;
     }
 
+    public get gameTableId(): number {
+        return this.data.GameTableID && _toNumber(this.data.GameTableID);
+    }
+
     public get game(): Game {
-        return this.gamesCatalogService.getGameById(this.gameId);
+        return this.gamesCatalogService.getGameById(this.gameId, this.gameTableId);
     }
 
     protected override checkData(): void {

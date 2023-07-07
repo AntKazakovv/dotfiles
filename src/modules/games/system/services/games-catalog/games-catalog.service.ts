@@ -903,8 +903,8 @@ export class GamesCatalogService {
         return this.gamesCatalog.getGame(merchantId, launchCode, isSportsbook, byAllGames);
     }
 
-    public getGameById(id: number): Game {
-        return this.gamesCatalog.getGameById(id);
+    public getGameById(id: number, tableId?: number): Game {
+        return this.gamesCatalog.getGameById(id,tableId);
     }
 
     /**

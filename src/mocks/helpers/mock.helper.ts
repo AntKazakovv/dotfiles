@@ -16,7 +16,7 @@ export class MockHelper {
      *  Get random game ID
      *  @returns {Promise<number>} - game ID
      */
-    public static async getRandomGameID(): Promise<number> {
+    public static async getRandomGameID(table: boolean = false): Promise<number> {
 
         if (!this.games) {
             const cache = await this.getCacheKey(`/api/v1/games|${this.lang}`);
@@ -25,7 +25,7 @@ export class MockHelper {
 
         if (this.games?.length) {
             const index = GlobalHelper.randomNumber(0, this.games.length);
-            return +this.games[index].ID;
+            return table ? +this.games[index].TableID : +this.games[index].ID;
         }
 
         return datatype.number({

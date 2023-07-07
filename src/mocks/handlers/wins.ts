@@ -28,6 +28,7 @@ export const winsHandler = async (req: MockedRequest, res: ResponseComposition<a
         for (let i = 0; i < 10; i++) {
             data.push({
                 GameID: await MockHelper.getRandomGameID(),
+                GameTableID: await MockHelper.getRandomGameID(true),
                 AmountEUR: datatype.number(),
                 Amount: datatype.number(),
                 Date: DateTime

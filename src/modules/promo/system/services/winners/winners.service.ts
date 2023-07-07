@@ -60,6 +60,7 @@ export interface IWinnerData {
     CountryIso3: string;
     Date: string;
     GameID: number;
+    GameTableID?: number;
     ID?: string;
     Name: string;
 };

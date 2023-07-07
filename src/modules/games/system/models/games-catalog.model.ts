@@ -528,8 +528,11 @@ export class GamesCatalog extends AbstractModel<IGames> {
      * @param {string} id
      * @returns {Game}
      */
-    public getGameById(id: number): Game {
-        return _find(this.availableGames, {ID: id});
+    public getGameById(id: number, tableId?: number): Game {
+        return _find(
+            this.availableGames,
+            tableId ? {tableID: `${id}:${tableId}`} : {ID: id},
+        );
     }
 
     /**
