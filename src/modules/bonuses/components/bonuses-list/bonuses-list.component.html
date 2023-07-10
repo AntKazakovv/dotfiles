@@ -86,12 +86,20 @@
                      (slideChangeTransitionEnd$)="onSlideChange($event)">
                     <div *ngIf="showNavigation" slot-container-end>
                         <div class="container swiper-button-container">
-                            <button wlc-icon
-                                    class="wlc-swiper-button-prev"
-                                    iconPath="/wlc/icons/arrow.svg"></button>
-                            <button wlc-icon
-                                    class="wlc-swiper-button-next"
-                                    iconPath="/wlc/icons/arrow.svg"></button>
+                            <button
+                                data-wlc-element="wlc-button-prev"
+                                class="wlc-swiper-button-prev">
+                                    <span
+                                        wlc-icon
+                                        iconPath="/wlc/icons/arrow.svg"></span>
+                            </button>
+                            <button
+                                data-wlc-element="wlc-button-next"
+                                class="wlc-swiper-button-next">
+                                    <span
+                                        wlc-icon
+                                        iconPath="/wlc/icons/arrow.svg"></span>
+                            </button>
                         </div>
                     </div>
                 </div>
