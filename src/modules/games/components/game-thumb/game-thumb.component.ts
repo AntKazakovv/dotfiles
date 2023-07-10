@@ -345,14 +345,19 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
     public getMediaContent(type: Params.MediaType, format: string[]): Params.IMediaContent[] {
         const gameName = this.game.name?.en;
         const merchantName = this.game.getMerchantName();
+        const gameId = this.game.ID;
 
         if (!gameName) return;
-
         let mediaPath = `/gstatic/games/${merchantName}/`;
 
-        if(this.$params.type === 'vertical') {
-            mediaPath = this.configService.get<string>('$games.verticalImagesPath');
+        const verticalGamesInProject: number[] = this.configService.get('$games.idVerticalGames');
+
+        if (this.$params.type === 'vertical') {
+            verticalGamesInProject.includes(gameId) ?
+                mediaPath = this.configService.get<string>('$games.verticalImagesPath')
+                : mediaPath = '/gstatic/vertical-thumbs/';
         }
+
         const path = mediaPath + gameName
             .toLowerCase()
             .replace(/[&\/:\\|]/g, '')
