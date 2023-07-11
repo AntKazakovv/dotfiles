@@ -10,11 +10,14 @@ export type ComponentTheme = 'default' | 'default-banner' | CustomType;
 export type ComponentType = 'default' | CustomType;
 export type ComponentThemeMod = 'default' | CustomType;
 
+export type showNavigationOnParams = 'mobile' | 'desktop';
+
 export interface IBannersSliderCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     filter?: IBannersFilter;
     banner?: IBannerCParams,
     sliderParams?: ISliderCParams;
     hideNavigation?: boolean;
+    showNavigationOn?: showNavigationOnParams,
 };
 
 export const defaultParams: IBannersSliderCParams = {

@@ -1,5 +1,4 @@
 .swiper-pagination {
-    @include bm.get-mq-map('display', $themeDefaultPagination, 'swiperPagiDisplay');
     position: absolute;
     z-index: ef.get-value($themeDefaultPagination, 'swiperPagiZindex');
     text-align: center;
@@ -8,6 +7,18 @@
 
     &.swiper-pagination-hidden {
         opacity: 0;
+    }
+
+    &.swiper-pagination-disabled {
+        display: none;
+    }
+
+    &.desktop {
+        @include bm.get-mq-map('display', $themeDefaultPagination, 'swiperDisplayDesktop');
+    }
+
+    &.mobile {
+        @include bm.get-mq-map('display', $themeDefaultPagination, 'swiperDisplayMobile');
     }
 }
 

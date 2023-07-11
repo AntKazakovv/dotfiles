@@ -12,6 +12,14 @@ $themeDefaultNavigation: map-merge((
     'swiperNaviArrowSize': math.div(40px, 3),
     'swiperNaviArrowColor': ef.get('mainColors', 'baseMain'),
     'swiperNaviArrowColorHover': var(--mc-bg),
+    'swiperNaviDisplayDesktop': (
+        375: none,
+        768: flex,
+    ),
+    'swiperNaviDisplayMobile': (
+        375: flex,
+        768: none,
+    ),
     'buttonShadow': none,
     'buttonShadowHover': none,
     'buttonBorder': none,
@@ -21,10 +29,6 @@ $themeDefaultNavigation: map-merge((
 $customThemeDefaultPagination: () !default;
 // Pagination
 $themeDefaultPagination: map-merge((
-    'swiperPagiDisplay': (
-        375: block,
-        768: none,
-    ),
     'swiperPagiZindex': 10,
     'swiperPagiBottom': 10px,
     'swiperPagiVerticalAside': 10px,
@@ -50,6 +54,14 @@ $themeDefaultPagination: map-merge((
     'swiperPagiTranslateX': translateX(-50%),
     'swiperWithEarsPagiTranslateX': translateX(-50%),
     'paddingPagiContainer': ef.size(8),
+    'swiperDisplayDesktop': (
+        375: none,
+        768: block,
+    ),
+    'swiperDisplayMobile': (
+        375: block,
+        768: none,
+    ),
 ), $customThemeDefaultPagination);
 
 $customThemeDefaultBanner: () !default;

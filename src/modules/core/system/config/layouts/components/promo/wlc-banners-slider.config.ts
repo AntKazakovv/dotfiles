@@ -18,8 +18,7 @@ export namespace wlcBannersSlider {
                         prevEl: '.wlc-slider--theme-default-banner .wlc-swiper-button-prev',
                     },
                     pagination: {
-                        enable: true,
-                        clickable: true,
+                        modifierClass: 'mobile swiper-pagination-',
                     },
                     autoplay: {
                         delay: 10000,
@@ -27,6 +26,7 @@ export namespace wlcBannersSlider {
                     lazy: true,
                 },
             },
+            showNavigationOn: 'desktop',
         },
     };
 
@@ -51,8 +51,7 @@ export namespace wlcBannersSlider {
                         prevEl: '.wlc-slider--theme-default-banner .wlc-swiper-button-prev',
                     },
                     pagination: {
-                        enable: true,
-                        clickable: true,
+                        modifierClass: 'mobile swiper-pagination-',
                     },
                     autoplay: {
                         delay: 10000,
@@ -65,6 +64,7 @@ export namespace wlcBannersSlider {
                     },
                 },
             },
+            showNavigationOn: 'desktop',
         },
     };
 
@@ -84,13 +84,16 @@ export namespace wlcBannersSlider {
                         nextEl: '.wlc-slider--theme-default-banner .wlc-swiper-button-next',
                         prevEl: '.wlc-slider--theme-default-banner .wlc-swiper-button-prev',
                     },
-                    pagination: false,
+                    pagination: {
+                        modifierClass: 'mobile swiper-pagination-',
+                    },
                     autoplay: {
                         delay: 10000,
                     },
                     lazy: true,
                 },
             },
+            showNavigationOn: 'desktop',
         },
     };
 

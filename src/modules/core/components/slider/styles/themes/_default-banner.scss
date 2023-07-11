@@ -13,20 +13,24 @@
     .swiper-button-container {
         @include bm.get-mq-map('bottom', $themeDefaultBanner, 'bottomGap');
 
-        display: none;
+        position: absolute;
+        left: ef.get-value($themeDefaultPagination, 'swiperPagiContainerAbsoluteLeft');
+        z-index: ef.get-value($themeDefaultPagination, 'swiperPagiZindex');
+        display: ef.get-value($themeDefaultPagination, 'swiperPagiContainerDisplay');
+        justify-content: ef.get-value($themeDefaultPagination, 'swiperPagiContainerAlign');
+        transform: ef.get-value($themeDefaultPagination, 'swiperPagiTranslateX');
+        pointer-events: none;
 
-        @include mq.min(768) {
-            position: absolute;
-            left: ef.get-value($themeDefaultPagination, 'swiperPagiContainerAbsoluteLeft');
-            z-index: ef.get-value($themeDefaultPagination, 'swiperPagiZindex');
-            display: ef.get-value($themeDefaultPagination, 'swiperPagiContainerDisplay');
-            justify-content: ef.get-value($themeDefaultPagination, 'swiperPagiContainerAlign');
-            transform: ef.get-value($themeDefaultPagination, 'swiperPagiTranslateX');
-            pointer-events: none;
+        * {
+            pointer-events: initial;
+        }
 
-            * {
-                pointer-events: initial;
-            }
+        &.desktop {
+            @include bm.get-mq-map('display', $themeDefaultNavigation, 'swiperNaviDisplayDesktop');
+        }
+
+        &.mobile {
+            @include bm.get-mq-map('display', $themeDefaultNavigation, 'swiperNaviDisplayMobile');
         }
     }
 
@@ -34,16 +38,6 @@
 
         .swiper-button-container {
             @include bm.get-mq-map('max-width', $themeDefaultBanner, 'containerMaxWidth');
-
-            @include mq.min(768) {
-                position: absolute;
-                left: ef.get-value($themeDefaultPagination, 'swiperPagiContainerAbsoluteLeft');
-                z-index: ef.get-value($themeDefaultPagination, 'swiperPagiZindex');
-                display: ef.get-value($themeDefaultPagination, 'swiperPagiContainerDisplay');
-                justify-content: ef.get-value($themeDefaultPagination, 'swiperPagiContainerAlign');
-                transform: ef.get-value($themeDefaultPagination, 'swiperPagiTranslateX');
-                pointer-events: none;
-            }
         }
 
         .banner,
