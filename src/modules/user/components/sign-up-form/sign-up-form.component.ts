@@ -89,7 +89,8 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         super.ngOnInit();
 
         this.isTwoSteps = this.configService.get<boolean>('$modules.user.params.twoSteps')
-        || !!this.configService.get<IMGAConfig>('$modules.core.components["wlc-license"].mga');
+            || !!this.configService.get<IMGAConfig>('$modules.core.components["wlc-license"].mga')
+            || this.configService.get<string>('appConfig.license') === 'romania';
 
         if (this.isTwoSteps) {
             this.addModifiers('two-steps');
@@ -104,7 +105,12 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
 
         if (this.isTwoSteps) {
             if (this.isSecondStep()) {
-                this.config = _cloneDeep(Params.twoStepsFormConfig);
+                if (this.configService.get<string>('appConfig.license') === 'romania') {
+                    this.config = _cloneDeep(Params.twoStepsFormConfigRomania);
+                } else {
+                    this.config = _cloneDeep(Params.twoStepsFormConfig);
+                }
+
                 const data = {
                     shift: 1,
                     config: this.config,

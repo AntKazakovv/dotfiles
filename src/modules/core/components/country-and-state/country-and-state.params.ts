@@ -12,7 +12,7 @@ import {TFormCompositeComponent} from 'wlc-engine/modules/core/components/form-w
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
 
-export type TDependentFields = 'stateCode' | 'cpf';
+export type TDependentFields = 'stateCode' | 'cpf' | 'cnp';
 
 export interface ICountryAndStateCParams extends
     IComponentParams<ComponentTheme, ComponentType, string>,
@@ -21,6 +21,7 @@ export interface ICountryAndStateCParams extends
     countryCode: ISelectCParams;
     stateCode: ISelectCParams;
     cpf: IInputCParams;
+    cnp: IInputCParams;
 }
 
 
@@ -54,4 +55,5 @@ export const defaultParams: Partial<ICountryAndStateCParams> = {
         customMod: ['state'],
     },
     cpf: _cloneDeep(FormElements.cpf.params),
+    cnp: _cloneDeep(FormElements.cnp.params),
 };

@@ -60,7 +60,9 @@ export class StepsComponent extends AbstractComponent implements OnInit {
     public override ngOnInit(): void {
         this.setThemeMod();
         super.ngOnInit();
-        if (this.configService.get<IMGAConfig>('$modules.core.components["wlc-license"].mga')) {
+        if (this.configService.get<IMGAConfig>('$modules.core.components["wlc-license"].mga')
+            || this.configService.get<string>('appConfig.license') === 'romania'
+        ) {
             this.$params.stepsNames.push('signUpFormTwoSteps');
         }
 

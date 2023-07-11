@@ -64,6 +64,14 @@
     }
 }
 
+@mixin checkboxEmailAgreeStyles($map) {
+    margin: ef.get-value($themeDefault, 'checkboxEmailAgreeMargin');
+
+    .wlc-checkbox__label {
+        position: relative;
+    }
+}
+
 @mixin selectStyles($map) {
 
     .wlc-select__field,

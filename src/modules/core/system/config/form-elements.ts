@@ -290,10 +290,6 @@ export namespace FormElements {
                     name: 'countryCode',
                     validators: 'required',
                 },
-                {
-                    name: 'cpf',
-                    validators: ['required', FormValidators.cpfPattern],
-                },
             ],
         },
     };
@@ -749,6 +745,27 @@ export namespace FormElements {
             maskOptions: {
                 mask: '000.000.000-00',
                 overwrite: true,
+            },
+            locked: true,
+        },
+    };
+
+    export const cnp: IFormComponent = {
+        name: 'core.wlc-input',
+        params: <IInputCParams>{
+            name: 'cpf',
+            customMod: ['cnp'],
+            wlcElement: 'block_cnp',
+            common: {
+                placeholder: '____________',
+                separateLabel: gettext('CNP'),
+            },
+            validators: [
+                'required',
+                FormValidators.cnpPattern,
+            ],
+            maskOptions: {
+                mask: '0000000000000',
             },
             locked: true,
         },

@@ -7,6 +7,8 @@ import {IValidatorSettings} from '../../validation/validation.service';
 export class FormValidators {
     static cpfPatternRegex = /^(?:\d{3}\.){2}\d{3}\-\d{2}$/;
     static regExpRegex = /(<\?)|(\?>)|(<\/?(.*)>)/gi;
+    static readonly cnpPatternRegex = /\b[1-9]\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])/.source
+        + /(?:0[1-9]|[1-3]\d|4[0-6]|51|52)\d{4}\b/.source;
 
     static get cpfPattern(): IValidatorSettings {
         return {
@@ -45,4 +47,12 @@ export class FormValidators {
             options: '',
         };
     };
+
+    static get cnpPattern(): IValidatorSettings {
+        return {
+            name: 'pattern',
+            options: FormValidators.cnpPatternRegex,
+            text: gettext('CNP format is incorrect'),
+        };
+    }
 }

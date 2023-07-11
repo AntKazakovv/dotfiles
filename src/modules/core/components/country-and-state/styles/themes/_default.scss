@@ -5,7 +5,8 @@
         ::ng-deep {
 
             .wlc-input--cpf,
-            .wlc-select--state {
+            .wlc-select--state,
+            .wlc-input--cnp {
 
                 margin-top: ef.get-value($themeDefault, 'formRowGap');
 

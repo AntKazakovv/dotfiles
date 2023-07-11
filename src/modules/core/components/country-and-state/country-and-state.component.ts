@@ -6,6 +6,7 @@ import {
     Input,
     OnInit,
 } from '@angular/core';
+import {ValidatorFn} from '@angular/forms';
 
 import {
     BehaviorSubject,
@@ -18,16 +19,22 @@ import {
     takeUntil,
 } from 'rxjs/operators';
 import _isEmpty from 'lodash-es/isEmpty';
+import _cloneDeep from 'lodash-es/cloneDeep';
+import _isObject from 'lodash-es/isObject';
 
 import {
     ConfigService,
     IIndexing,
+    IInputCParams,
     IState,
+    IValidatorListItem,
+    ValidationService,
+    ValidatorType,
 } from 'wlc-engine/modules/core';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-
 import * as Params from './country-and-state.params';
 
+const listCountryForCpfFields: string[] = ['bra', 'rou'];
 
 /**
  * @description Using cpf field requires `$base.profile.autoFields.cpf.use` setting to be `true` (`false` by default)
@@ -42,10 +49,6 @@ import * as Params from './country-and-state.params';
                 {
                     name: 'countryCode',
                     validators: 'required',
-                },
-                {
-                    name: 'cpf',
-                    validators: ['required', FormValidators.cpf],
                 },
             ],
         },
@@ -66,10 +69,6 @@ import * as Params from './country-and-state.params';
                     name: 'stateCode',
                     validators: 'required',
                 },
-                {
-                    name: 'cpf',
-                    validators: ['required', FormValidators.cpf],
-                },
             ],
         },
     }
@@ -84,10 +83,6 @@ import * as Params from './country-and-state.params';
                 {
                     name: 'countryCode',
                     validators: 'required',
-                },
-                {
-                    name: 'cpf',
-                    validators: ['required', FormValidators.cpf],
                 },
             ],
         },
@@ -106,18 +101,31 @@ export class CountryAndStateComponent extends AbstractComponent implements OnIni
     public showState: boolean = false;
     public showCpf: boolean = false;
     protected states: IIndexing<IState[]> = {};
-    protected useCpf: boolean = this.configService.get<boolean>('$base.profile.autoFields.cpf.use');
+    protected useCpf: boolean = false;
+    protected defaultCpfParams: IInputCParams;
+    protected defaultCnpParams: IInputCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ICountryAndStateCParams,
         configService: ConfigService,
         cdr: ChangeDetectorRef,
+        protected validationService: ValidationService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+
+        this.defaultCpfParams = this.$params.cpf;
+        this.defaultCnpParams = this.$params.cnp;
+
+        if (this.configService.get<boolean>('$base.profile.autoFields.cpf.use')
+            || this.configService.get<string>('appConfig.license') === 'romania'
+        ) {
+            this.useCpf = true;
+        }
+
         this.provideParams();
         this.setListeners();
         this.checkUserData();
@@ -140,7 +148,6 @@ export class CountryAndStateComponent extends AbstractComponent implements OnIni
     }
 
     protected setListeners(): void {
-
         this.configService.get<BehaviorSubject<IIndexing<IState[]>>>('states')
             .pipe(
                 filter((states) => !_isEmpty(states)),
@@ -175,6 +182,17 @@ export class CountryAndStateComponent extends AbstractComponent implements OnIni
                     this.cdr.markForCheck();
                 });
         }
+
+        this.$params.cpf.control.statusChanges
+            .pipe(
+                distinctUntilChanged(),
+                takeUntil(this.$destroy),
+            )
+            .subscribe(() => {
+                if (!this.showCpf && this.$params.cpf.control.enabled) {
+                    this.toggleFieldRequired('cpf', this.showCpf);
+                }
+            });
     }
 
     protected updateStates(countryCode: string): void {
@@ -197,10 +215,42 @@ export class CountryAndStateComponent extends AbstractComponent implements OnIni
 
     protected updateCpf(countryCode: string): void {
         if (this.useCpf && this.$params.cpf.control) {
-            this.showCpf = countryCode === 'bra';
+            this.showCpf = listCountryForCpfFields.includes(countryCode);
+
+            if (this.showCpf) {
+                const formControl = this.$params.cpf.control;
+
+                if (countryCode === 'bra' && this.configService.get<boolean>('$base.profile.autoFields.cpf.use')) {
+                    this.$params.cpf = _cloneDeep(this.defaultCpfParams);
+                } else if (countryCode === 'rou' && this.configService.get<string>('appConfig.license') === 'romania') {
+                    this.$params.cpf = _cloneDeep(this.defaultCnpParams);
+                }
+
+                this.$params.cpf.control = formControl;
+                this.$params.cpf.control.clearValidators();
+                this.$params.cpf.control.setValidators(this.getValidators(this.$params.cpf.validators));
+                this.$params.cpf.control.updateValueAndValidity({emitEvent: false});
+            }
+
             this.toggleFieldRequired('cpf', this.showCpf);
             this.cdr.markForCheck();
         }
+    }
+
+    protected getValidators(validators: ValidatorType[]): ValidatorFn[] {
+        const listValidators: ValidatorFn[] = [];
+        validators.forEach((validator: ValidatorType) => {
+            let validationRule: IValidatorListItem;
+            if (_isObject(validator)) {
+                validationRule = _cloneDeep(this.validationService.getValidator(validator.name));
+                validationRule.validator = validationRule.validator(validator.options);
+            } else {
+                validationRule = this.validationService.getValidator(validator);
+            }
+            listValidators.push(validationRule.validator);
+        });
+
+        return listValidators;
     }
 
     protected toggleFieldRequired(field: Params.TDependentFields, show: boolean): void {
@@ -211,7 +261,7 @@ export class CountryAndStateComponent extends AbstractComponent implements OnIni
         }
 
         if (show) {
-            if (!control.value && control.disabled) {
+            if ((!control.value && control.disabled) || this.$params[field].locked === false) {
                 control.enable();
             }
         } else {

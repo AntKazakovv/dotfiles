@@ -160,3 +160,71 @@ export const twoStepsFormConfig = {
         },
     ],
 };
+
+export const twoStepsFormConfigRomania = {
+    components: [
+        {
+            ...FormElements.countryAndState,
+            params: {
+                ...FormElements.countryAndState.params,
+                countryCode: {
+                    value: 'rou',
+                },
+                cnp: {
+                    locked: false,
+                },
+            },
+        },
+        {
+            name: FormElements.firstName.name,
+            params: {
+                ...FormElements.firstName.params,
+                locked: false,
+            },
+        },
+        {
+            name: FormElements.lastName.name,
+            params: {
+                ...FormElements.lastName.params,
+                locked: false,
+            },
+        },
+        {
+            name: FormElements.birthDate.name,
+            params: {
+                ...FormElements.birthDate.params,
+                locked: false,
+            },
+        },
+        FormElements.gender,
+        FormElements.city,
+        FormElements.address,
+        FormElements.postalCode,
+        {
+            ...FormElements.mobilePhone,
+            params: {
+                ...FormElements.mobilePhone.params,
+                locked: false,
+            },
+        },
+        FormElements.terms,
+        FormElements.age,
+        FormElements.emailAgree,
+        FormElements.signUp,
+        {
+            name: 'core.wlc-link-block',
+            params: {
+                wlcElement: 'button_login-modal',
+                common: {
+                    subtitle: gettext('Already have an account?'),
+                    link: gettext('Login now'),
+                    actionParams: {
+                        modal: {
+                            name: 'login',
+                        },
+                    },
+                },
+            },
+        },
+    ],
+};

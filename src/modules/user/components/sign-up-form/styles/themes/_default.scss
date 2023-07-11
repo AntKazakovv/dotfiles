@@ -62,6 +62,10 @@
             @include checkboxAgeStyles($themeDefault);
         }
 
+        .wlc-checkbox--email-agree {
+            @include checkboxEmailAgreeStyles($themeDefault);
+        }
+
         .wlc-select[wlc-select] {
             @include selectStyles($themeDefault);
         }
@@ -92,10 +96,6 @@
             .wlc-select {
                 grid-column: initial;
             }
-        }
-
-        .wlc-checkbox--email-agree {
-            margin: ef.get-value($themeDefault, 'checkboxEmailAgreeMargin');
         }
     }
 

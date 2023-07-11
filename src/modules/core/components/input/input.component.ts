@@ -14,11 +14,13 @@ import {
 } from '@angular/core';
 import {UntypedFormControl} from '@angular/forms';
 
+import {IMaskDirective} from 'angular-imask';
 import {
     distinctUntilChanged,
     filter,
     takeUntil,
 } from 'rxjs/operators';
+import _isEqual from 'lodash-es/isEqual';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
@@ -62,6 +64,8 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
 
     @Input() protected inlineParams: Params.IInputCParams;
     @ViewChild('input') input: ElementRef;
+    @ViewChild('imask', {read: IMaskDirective})
+    protected imask: IMaskDirective<IMask.AnyMaskedOptions>;
 
     public override $params: Params.IInputCParams;
     public control: UntypedFormControl;
@@ -122,6 +126,13 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
             super.ngOnChanges(changes);
             this.$params = _clone(this.$params);
             this.setUseAutoCompleteFix();
+
+            if (this.$params.maskOptions
+                && !_isEqual(this.$params.maskOptions, changes.inlineParams.previousValue.maskOptions)
+            ) {
+                this.imask.maskRef.updateOptions(this.$params.maskOptions);
+            }
+
             this.cdr.markForCheck();
         }
     }
