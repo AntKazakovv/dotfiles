@@ -1,0 +1,139 @@
+.wlc-banner--theme-wolf-banner:host {
+
+    ::ng-deep {
+
+        .banner {
+            @include bm.get-mq-map('min-height', $themeWolfBanner, 'bannerHeight');
+            @include bm.get-mq-map('padding', $themeWolfBanner, 'bannerPadding');
+
+            position: relative;
+            display: flex;
+            flex-direction: ef.get-value($themeWolfBanner, 'bannerDirections');
+            align-items: ef.get-value($themeWolfBanner, 'bannerAlignItems');
+            text-align: left;
+            text-decoration: none;
+            background: ef.get-value($themeWolfBanner, 'bannerBackground');
+            background-repeat: no-repeat;
+            background-size: cover;
+            overflow: hidden;
+            border-radius: ef.get-value($themeWolfBanner, 'bannerRadius');
+            cursor: pointer;
+
+            * {
+                z-index: 2;
+            }
+
+            &:before {
+                @include bm.transition(opacity);
+                content: '';
+
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: ef.get-value($themeWolfBanner, 'backdropZindex');
+
+                width: 100%;
+                height: 100%;
+                background: var(--wlc-banner-backdrop-bg, #{ef.get-value($themeWolfBanner, 'backdropColor')});
+                opacity: 0;
+            }
+
+            &__title {
+                @include text.get-text-style(
+                    ef.get-value($themeWolfBanner, 'titleFont', 375),
+                    ef.get-value($themeWolfBanner, 'titleColor')
+                );
+                @include bm.get-mq-map('margin', $themeWolfBanner, 'titleMargin');
+                @include bm.get-mq-map('max-width', $themeWolfBanner, 'textMaxWidth');
+                @include bm.lineClamp(2);
+
+                z-index: ef.get-value($themeWolfBanner, 'textZindex');
+
+                @include mq.min(1630) {
+                    @include text.get-text-style(ef.get-value($themeWolfBanner, 'titleFont', 1200), null);
+                }
+            }
+
+            &__description {
+                @include text.get-text-style(
+                    ef.get-value($themeWolfBanner, 'descriptionFont', 375),
+                    ef.get-value($themeWolfBanner, 'descriptionColor')
+                );
+                @include bm.get-mq-map('max-width', $themeWolfBanner, 'descriptionMaxWidth');
+                @include bm.lineClamp(2);
+
+                z-index: ef.get-value($themeWolfBanner, 'textZindex');
+
+                @include mq.min(1630) {
+                    @include text.get-text-style(ef.get-value($themeWolfBanner, 'descriptionFont', 1200), null);
+                }
+            }
+
+            &__description-bottom {
+                @include text.get-text-style(
+                    ef.get-value($themeWolfBanner, 'descriptionBottomFont', 375),
+                    ef.get-value($themeWolfBanner, 'descriptionBottomColor')
+                );
+
+                z-index: ef.get-value($themeWolfBanner, 'textZindex');
+                text-shadow: ef.get-value($themeWolfBanner, 'textContentShadow');
+
+                @include mq.min(1630) {
+                    @include text.get-text-style(ef.get-value($themeWolfBanner, 'descriptionBottomFont', 1630), null);
+                }
+            }
+
+            &__decor {
+                position: absolute;
+                z-index: ef.get-value($themeWolfBanner, 'decorZindex');
+                display: flex;
+                align-items: end;
+                object-position: initial;
+                height: 100%;
+
+                img {
+                    display: block;
+                    width: 100%;
+                    max-height: 100%;
+                    object-fit: contain;
+                    object-position: right;
+                    will-change: transform;
+                }
+
+                &--right {
+                    right: 0;
+                    bottom: 0;
+                }
+            }
+
+            &--center {
+                align-items: center;
+                text-align: center;
+
+                .wlc-btn[wlc-button] {
+                    @include bm.get-mq-map('margin', $themeWolfBanner, 'centerButtonMargin');
+                }
+            }
+
+            &--right {
+                align-items: flex-end;
+                text-align: right;
+
+                .wlc-btn[wlc-button] {
+                    @include bm.get-mq-map('margin', $themeWolfBanner, 'rightButtonMargin');
+                }
+            }
+
+            .wlc-slider--theme-mod-wide & {
+                @include bm.get-mq-map('min-height', $modWide, 'height');
+            }
+
+            @include bm.hover {
+
+                &:before {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}

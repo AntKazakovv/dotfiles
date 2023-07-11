@@ -25,3 +25,10 @@ $themePlusOne: map-merge((
     'bannerPadding': 0 ef.size(8),
     'winnersSliderMargin': ef.size(13) ef.size(7) ef.size(7),
 ), $customThemePlusOne);
+
+$customThemeBannerSectionWolf: () !default;
+$themeBannerSectionWolf: map-merge((
+    'bannerSectionMargin': (
+        375: 0 0 ef.size(4),
+    ),
+), $customThemeBannerSectionWolf);

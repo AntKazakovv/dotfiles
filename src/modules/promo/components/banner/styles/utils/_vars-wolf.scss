@@ -1,0 +1,77 @@
+$customThemeWolfBanner: () !default;
+$themeWolfBanner: map-merge((
+    'bannerBackground': var(--mc-bg700),
+    'bannerHeight': (
+        375: 137px,
+        1200: 200px
+    ),
+    'bannerPadding': (
+        375: ef.size(4),
+        1630: ef.size(4),
+    ),
+    'bannerAlignItems': flex-start,
+    'bannerDirections': column,
+    'bannerRadius': ef.get('radius', 'biger'),
+
+    'titleColor': ef.get('mainColors', 'baseMain'),
+    'titleFont': (
+        375: 'ThirdTitleBold',
+        1200: 'QoteTextBold',
+    ),
+    'titleMargin': (
+        375: 0 0 ef.size(3),
+        1200: 0 0 ef.size(4),
+    ),
+    'textMaxWidth': (
+        375: 60%,
+        900: 70%,
+    ),
+
+    'descriptionFont': (
+        375: 'CaptionText',
+        1200: 'PrimaryText',
+    ),
+    'descriptionColor': ef.get('mainColors', 'baseMain'),
+
+    'descriptionBottomFont': (
+        375: 'PrimaryText',
+        1630: 'PrimaryText',
+    ),
+    'descriptionBottomColor': #ffe600,
+    'descriptionMaxWidth': (
+        375: 60%,
+        900: 70%,
+    ),
+
+    'textZindex': 2,
+
+    'decorZindex': 0,
+
+    'buttonMargin': (
+        375: ef.size(6) auto 0,
+        768: ef.size(8) auto 0 0,
+    ),
+    'centerButtonMargin': (
+        375: ef.size(6) auto 0,
+    ),
+    'rightButtonMargin': (
+        375: ef.size(6) auto 0,
+        768: ef.size(8) 0 0 auto,
+    ),
+
+    'rightBannerTextAlign': (
+        375: center,
+        768: right,
+    ),
+    'backdropColor': var(--mc-baseContrast-o2),
+    'banner1DefaultColor': (
+        375: ef.get('mainColors', 'baseMain'),
+        1024: ef.get('mainColors', 'bg'),
+    ),
+    'banner1ColorShadow': (
+        375: (1px 1px 2px ef.get('mainColors', 'bg'), 0 0 1em ef.get('mainColors', 'bg')),
+        1024: (1px 1px 2px ef.get('mainColors', 'baseMain'), 0 0 1em ef.get('mainColors', 'baseMain'))
+    ),
+    'backdropZindex': 1,
+    'bgObjectPos': right,
+), $customThemeWolfBanner);

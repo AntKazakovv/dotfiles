@@ -1,0 +1,44 @@
+$customThemeWolfPagination: () !default;
+// Pagination
+$themeWolfPagination: map-merge((
+    'swiperPagiDisplay': (
+        375: block,
+        768: none,
+    ),
+    'swiperPagiZindex': 10,
+    'swiperPagiBottom': ef.size(2),
+    'swiperPagiVerticalAside': ef.size(2),
+    'swiperPagiBulletWidth': 8px,
+    'swiperPagiBulletHeight': 8px,
+    'swiperPagiBulletColor': var(--mc-baseOpacity),
+    'swiperPagiBulletColorActive': var(--mc-baseMain),
+    'swiperPagiBulletWidthActive': 8px,
+    'swiperPagiBulletHeightActive': 8px,
+    'swiperPagiBulletBorderRadius': 50%,
+    'swiperPagiBulletTransition': all ef.get('time', 'main'),
+    'swiperPagiBulletDynamicSize': 12px,
+    'swiperPagiBulletMarginHorizontal': 0 4px,
+    'swiperPagiBulletMarginVertical': 6px 0,
+    'swiperPagiProgressbarBg': var(--mc-buttonColor),
+    'swiperPagiProgressbarBorderRadius': 4px,
+    'swiperPagiProgressbarBgFill': var(--mc-baseOpacity),
+    'swiperPagiProgressbarHeight': 4px,
+    'swiperPagiContainerDisplay': (
+        375: none,
+        1200: flex,
+    ),
+    'swiperPagiContainerAlign': flex-end,
+    'swiperPagiContainerAbsoluteLeft': 0,
+    'swiperPagiContainerPadding': 60px,
+    'swiperPagiPadding': ef.size(4),
+    'swiperWithEarsPagiTranslateX': translateX(-50%),
+    'swiperContainertMargin': (
+        375: 0 ef.size(3),
+        640: 0,
+    ),
+    'containerBorderRadius': ef.size(2),
+    'paddingPagiContainer': ef.size(8),
+    'bottomGap': (
+        375: 0,
+    ),
+), $customThemeWolfPagination);

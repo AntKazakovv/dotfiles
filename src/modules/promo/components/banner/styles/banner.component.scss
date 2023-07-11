@@ -4,5 +4,7 @@
 @use 'engine-scss/functions' as ef;
 
 @import './utils/vars';
+@import './utils/vars-wolf';
 
 @import './themes/default-banner';
+@import './themes/wolf-banner';

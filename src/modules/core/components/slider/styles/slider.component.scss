@@ -5,6 +5,7 @@
 @use 'engine-scss/mixins/text' as text;
 
 @import './utils/vars';
+@import './utils/vars-wolf';
 
 @import 'swiper/scss';
 @import 'swiper/scss/a11y';
@@ -21,6 +22,7 @@
 @import './elements/pagination';
 
 @import './themes/default-banner';
+@import './themes/wolf-banner';
 
 .wlc-slider {
 

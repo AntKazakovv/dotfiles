@@ -1,0 +1,49 @@
+.wlc-slider--theme-wolf-banner {
+    position: relative;
+
+    &.container {
+
+        .swiper-button-container {
+            right: 1%;
+            left: initial;
+            transform: initial;
+        }
+    }
+
+    .swiper-button-container {
+        @include bm.get-mq-map('bottom', $themeWolfPagination, 'bottomGap');
+        @include bm.get-mq-map('display', $themeWolfPagination, 'swiperPagiContainerDisplay');
+        position: absolute;
+        left: ef.get-value($themeWolfPagination, 'swiperPagiContainerAbsoluteLeft');
+        z-index: ef.get-value($themeWolfPagination, 'swiperPagiZindex');
+        display: ef.get-value($themeWolfPagination, 'swiperPagiContainerDisplay');
+        justify-content: ef.get-value($themeWolfPagination, 'swiperPagiContainerAlign');
+        padding: ef.get-value($themeWolfPagination, 'swiperPagiPadding');
+        transform: ef.get-value($themeWolfPagination, 'swiperPagiTranslateX');
+        pointer-events: none;
+
+        * {
+            pointer-events: initial;
+        }
+    }
+
+    .swiper {
+        @include bm.get-mq-map('padding', $themeWolfPagination, 'swiperContainertMargin');
+    }
+}
+
+.container {
+
+    & > .wlc-slider--theme-wolf-banner {
+        border-radius: ef.get-value($themeWolfPagination, 'containerBorderRadius');
+        transform: scale3d(1, 1, 1); //fix border radius bug on ios
+
+        .banner,
+        .swiper-button-container {
+
+            .swiper-button-disabled {
+                display: flex;
+            }
+        }
+    }
+}
