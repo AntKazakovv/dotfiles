@@ -85,7 +85,7 @@ export class ChatService {
     };
 
     protected selfOId: Set<string> = new Set([]);
-    protected userChanged$: Subject<any> = new Subject();
+    protected userChanged$: BehaviorSubject<any> = new BehaviorSubject(null);
     protected chatStatus$: BehaviorSubject<'connecting' | null> = new BehaviorSubject(null);
     protected fixedPanelPos: TFixedPanelPos;
 
@@ -564,7 +564,7 @@ export class ChatService {
                 this.userData['status'] = ocId;
                 this.userData['nickname'] = nickname;
 
-                const author = user.getChild('actor')?.attrs.nick;
+                const author: string = user.getChild('actor')?.attrs.nick;
                 const reason = user.getChild('reason')?.children;
                 this.selfOId.add(ocId);
                 this.userChanged$.next(author ? {author, reason} : null);
