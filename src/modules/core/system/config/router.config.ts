@@ -30,7 +30,7 @@ import {AppType} from 'wlc-engine/modules/core/system/interfaces/base-config/app
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 import {TermsAcceptService} from 'wlc-engine/modules/user';
 
-export function routerConfigFn(router: UIRouter, injector: Injector) {
+export function routerConfigFn(router: UIRouter, injector: Injector): void {
     const configService: ConfigService = injector.get(ConfigService);
     const eventService: EventService = injector.get(EventService);
     const stateHistoryService: StateHistoryService = injector.get(StateHistoryService);

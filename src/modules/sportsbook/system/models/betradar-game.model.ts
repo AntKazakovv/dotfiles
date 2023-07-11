@@ -170,7 +170,7 @@ export class BetradarGameModel extends AbstractModel<IBetradarGame> {
         });
     }
 
-    protected async init() {
+    protected async init() : Promise<void> {
         this.market = new MarketModel(
             {parentModel: 'BetradarGameModel', method: 'init'},
             this.data,

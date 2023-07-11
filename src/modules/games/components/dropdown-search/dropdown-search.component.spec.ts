@@ -109,5 +109,5 @@ class SearchFieldComponent {
 class SpyScrollbarComponent {
     @Input() showClearIcon;
     @Input() inlineParams;
-    public setProgress() {}
+    public setProgress(): void {}
 }

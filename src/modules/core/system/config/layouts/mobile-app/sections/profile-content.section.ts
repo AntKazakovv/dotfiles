@@ -6,7 +6,7 @@ import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/fo
 
 import * as componentLib from '../components';
 
-const profileDefaultLoyaltyType = (isSingleLevels: boolean) => {
+const profileDefaultLoyaltyType = (isSingleLevels: boolean): ILayoutSectionConfig => {
     return {
         container: true,
         modifiers: isSingleLevels ? ['single-levels'] : null,

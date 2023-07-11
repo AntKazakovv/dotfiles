@@ -18,6 +18,7 @@ import {
     ConfigService,
     ActionService,
     LogService,
+    IData,
 } from 'wlc-engine/modules/core/system/services';
 import {CustomHookService} from 'wlc-src/custom/custom-hook.service';
 import {Location} from '@angular/common';
@@ -26,7 +27,7 @@ import {NgxWebstorageModule} from 'ngx-webstorage';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {WINDOW_PROVIDER} from 'wlc-engine/modules/app/system/tokens/window';
 
-export function loadConfig(config: ConfigService) {
+export function loadConfig(config: ConfigService): Promise<IData> | Promise<unknown> {
     return config.load();
 }
 
@@ -80,7 +81,7 @@ export class GlobalDeps {
         ConfigService,
         {
             provide: APP_INITIALIZER,
-            useFactory: (config: ConfigService) => () => config.load(),
+            useFactory: (config: ConfigService) => () => void config.load(),
             deps: [ConfigService],
             multi: true,
         },

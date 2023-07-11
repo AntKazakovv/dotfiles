@@ -3,7 +3,7 @@ import {Compiler, COMPILER_OPTIONS, CompilerFactory} from '@angular/core';
 import {JitCompilerFactory} from '@angular/platform-browser-dynamic';
 import {DynamicHtmlComponent} from 'wlc-engine/modules/compiler/components/dynamic-html/dynamic-html.component';
 
-export function createCompiler(compilerFactory: CompilerFactory) {
+export function createCompiler(compilerFactory: CompilerFactory): Compiler {
     return compilerFactory.createCompiler();
 }
 

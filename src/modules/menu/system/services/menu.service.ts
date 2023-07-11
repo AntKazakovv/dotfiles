@@ -97,7 +97,7 @@ export class MenuService {
      *
      * @param {IMenuItem[]} items
      */
-    private prepareMenuItems(items: IMenuItem[]) {
+    private prepareMenuItems(items: IMenuItem[]): IMenuItem[] {
         return _reduce(items, (items: IMenuItem[], item: IMenuItem) => {
             if (item.type === 'dropdown') {
                 item.items = this.prepareMenuItems(item.items);

@@ -78,16 +78,16 @@ export class SelectValuesService {
 
     private constantValues: TConstantValues = {};
     private optionFunctions = new Map<string, () => TConstantValue>([
-        ['currencies', () => this.prepareCurrency()],
-        ['countries', () => this.configService.get<TConstantValue>('countries')],
-        ['countryStates', () => this.configService.get<TConstantValue>('countryStates')],
-        ['phoneCodes', () => this.getPhoneCodes()],
-        ['genders', () => this.getGendersList()],
-        ['birthDay', () => this.dayList],
-        ['birthMonth', () => this.getDateList('months')],
-        ['birthYear', () => this.getDateList('years')],
-        ['pep', () => this.getPepList()],
-        ['merchants', () => this.getMerchantsList()],
+        ['currencies', (): TConstantValue => this.prepareCurrency()],
+        ['countries', (): TConstantValue => this.configService.get<TConstantValue>('countries')],
+        ['countryStates', (): TConstantValue => this.configService.get<TConstantValue>('countryStates')],
+        ['phoneCodes', (): TConstantValue => this.getPhoneCodes()],
+        ['genders', (): TConstantValue => this.getGendersList()],
+        ['birthDay', (): BehaviorSubject<Params.ISelectOptions[]> => this.dayList],
+        ['birthMonth', (): TConstantValue => this.getDateList('months')],
+        ['birthYear', (): TConstantValue => this.getDateList('years')],
+        ['pep', (): TConstantValue => this.getPepList()],
+        ['merchants', (): TConstantValue => this.getMerchantsList()],
     ]);
     private _daysInMonth: BehaviorSubject<number> = new BehaviorSubject(31);
 

@@ -21,7 +21,7 @@ const socialRegisterResolver = (): ResolveTypes => {
             stateService: StateService,
             transition: Transition,
             injectionService: InjectionService,
-        ) => {
+        ): Promise<void> => {
 
             const userService = await injectionService.getService<UserService>('user.user-service');
 

@@ -57,7 +57,7 @@ export class DeadsimplechatComponent extends AbstractComponent implements OnInit
         this.init();
     }
 
-    public init() {
+    public init(): void {
         this.liveChatExist = this.configService.get<boolean>('$base.livechat');
         this.eventService.subscribe({name: 'CHAT_USER_RESPONSE'}, () => {
             this.ready$.next(true);

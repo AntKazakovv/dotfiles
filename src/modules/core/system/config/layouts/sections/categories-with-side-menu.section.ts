@@ -1,4 +1,8 @@
 import {IWrapperCParams} from 'wlc-engine/modules/core';
+import {
+    ILayoutSectionConfig,
+    ILayoutComponent,
+} from 'wlc-engine/modules/core';
 import * as componentLib from '../components';
 import {ICategoryMenuCParams} from 'wlc-engine/modules/menu';
 
@@ -12,7 +16,7 @@ export const getGamesGridConfig = (
     title: string,
     category: string,
     link: string = 'app.catalog',
-) => {
+): ILayoutComponent => {
     return {
         name: 'games.wlc-games-grid',
         params: {
@@ -45,7 +49,7 @@ export const getGamesGridConfig = (
 
 export const sideMenuHome = {
 
-    getCatalog: (gameCategories?: IGamesGridConfig[]) => {
+    getCatalog: (gameCategories?: IGamesGridConfig[]): ILayoutSectionConfig => {
 
         const gridComponents = (gameCategories)
             ? gameCategories.map(item => getGamesGridConfig(item.title, item.category, item.link))

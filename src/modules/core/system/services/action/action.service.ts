@@ -207,7 +207,7 @@ export class ActionService {
                     const config = await this.layoutService
                         .generateFullConfigWithLayouts(initialPath.slim !== 'true');
 
-                    const stringify = (obj: unknown, window: Window) => {
+                    const stringify = (obj: unknown, window: Window): string => {
                         const stack = new WeakSet();
                         const replacer = function (this: unknown, key: string, value: unknown): unknown {
                             try {
@@ -378,13 +378,13 @@ export class ActionService {
         }
     }
 
-    public async injectFinancesService() {
+    public async injectFinancesService(): Promise<void> {
         if (!this.financesService) {
             this.financesService = await this.injectionService.getService('finances.finances-service');
         }
     }
 
-    protected onEmailUnsubscribe() {
+    protected onEmailUnsubscribe(): void {
         this.emailUnsubscribe().then(() => {
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,

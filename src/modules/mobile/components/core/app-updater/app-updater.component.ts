@@ -35,7 +35,7 @@ export class AppUpdaterComponent
     extends AbstractComponent
     implements OnInit {
 
-    @HostBinding('hidden') get hidden() {
+    @HostBinding('hidden') get hidden(): boolean {
         return this.isHidden;
     };
 

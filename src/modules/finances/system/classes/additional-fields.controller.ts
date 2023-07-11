@@ -85,7 +85,7 @@ export class AdditionalFieldsControllerM implements IAdditionalFieldsControllerM
         }
     }
 
-    private setFieldValue(key: string, field: IPaymentAdditionalParam) {
+    private setFieldValue(key: string, field: IPaymentAdditionalParam): void {
         if (!field.skipsaving) {
             if (['firstName', 'lastName'].includes(key)) {
                 field.value = _get(this.userProfile$.getValue(), key, '');

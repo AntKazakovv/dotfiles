@@ -164,7 +164,7 @@ export const regFormStepTopComponents = {
     },
 };
 
-const getTwoStepsForm = (isSecondProfile: boolean) => {
+const getTwoStepsForm = (isSecondProfile: boolean): IStepConfig => {
     const form: IStepConfig = {
         name: 'core.wlc-wrapper',
         class: 'wlc-steps__container wlc-steps__container--sign-up',

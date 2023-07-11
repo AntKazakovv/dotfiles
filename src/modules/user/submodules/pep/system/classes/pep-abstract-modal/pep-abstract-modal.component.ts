@@ -88,7 +88,7 @@ export abstract class PepAbstractModalComponent extends AbstractComponent implem
         const modal = this.getModal();
 
         if (modal) {
-            modal.goBack = async () => {
+            modal.goBack = async (): Promise<void> => {
                 modal.closeReason = 'goBack';
                 this.modalService.closeAllModals();
 

@@ -12,7 +12,10 @@ import {SwiperModule} from 'swiper/angular';
 import {
     LottieModule,
     LottieCacheModule,
+
 } from 'ngx-lottie';
+import {LottiePlayer} from 'lottie-web';
+
 import {TooltipModule} from 'ngx-bootstrap/tooltip';
 import {TranslateModule} from '@ngx-translate/core';
 import {UIRouterModule} from '@uirouter/angular';
@@ -152,8 +155,8 @@ import * as $config from 'wlc-config/index';
 
 import _get from 'lodash-es/get';
 
-export function playerFactory() {
-    return import('lottie-web/build/player/lottie_svg');
+export function playerFactory(): LottiePlayer {
+    return import('lottie-web/build/player/lottie_svg') as unknown as LottiePlayer;
 }
 
 export const moduleConfig =

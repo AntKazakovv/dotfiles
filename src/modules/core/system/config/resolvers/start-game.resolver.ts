@@ -432,7 +432,7 @@ class StartGameHandler {
     /**
      * Checks for unauthorized users
      */
-    private checksForUnauthorized() {
+    private checksForUnauthorized(): void {
         if (!this.isDemo) {
             this.stateService.go('app.home', this.transition.params()).finally(() => {
 

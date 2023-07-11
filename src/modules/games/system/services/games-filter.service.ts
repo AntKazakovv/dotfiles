@@ -216,7 +216,7 @@ export class GamesFilterService {
      * @param {string} filterName
      * @param {string} sortField
      */
-    public sort(filterName: string, sortField: string) {
+    public sort(filterName: string, sortField: string): void {
         this.eventService.emit({
             name: GamesFilterServiceEvents.FILTER_SORT,
             from: filterName,

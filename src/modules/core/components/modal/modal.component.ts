@@ -284,7 +284,7 @@ export class WlcModalComponent extends AbstractComponent
         });
     }
 
-    protected eventHandler(type: string, callback: () => void) {
+    protected eventHandler(type: string, callback: () => void): void {
         if (type === this.modalService.events.MODAL_HIDDEN) {
             const reason: string = this.modalDirect.dismissReason || this.closeReason ||
                 ProcessEventsDescriptions.noReason;

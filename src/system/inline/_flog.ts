@@ -78,7 +78,7 @@ export class WlcFlog {
     }
 
     private addListeners(): void {
-        this.eventListeners.beforeunload = () => {
+        this.eventListeners.beforeunload = (): void => {
             this.send({
                 code: '0.0.10',
                 duration: (new Date().getTime() - this.startTime.getTime()) / 1000,
@@ -130,6 +130,6 @@ export class WlcFlog {
     }
 }
 
-(() => {
+((): void => {
     Object.assign(window, {WlcFlog: new WlcFlog()});
 })();

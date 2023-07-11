@@ -83,7 +83,7 @@ export class IconComponent extends AbstractComponent implements OnInit, OnChange
         this.imageError.emit();
     }
 
-    protected async getIconHtml() {
+    protected async getIconHtml(): Promise<void> {
         let file: IFile;
 
         if (this.iconName) {

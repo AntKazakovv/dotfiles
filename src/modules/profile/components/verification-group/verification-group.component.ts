@@ -71,7 +71,7 @@ export class VerificationGroupComponent extends AbstractComponent implements OnI
             });
     }
 
-    public override ngOnChanges() {
+    public override ngOnChanges(): void {
         this.switchLoader();
     }
 

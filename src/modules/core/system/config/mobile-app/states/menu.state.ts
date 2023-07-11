@@ -21,7 +21,7 @@ const itemResolver = {
     resolveFn: async (
         configService: ConfigService,
         transition: Transition,
-    ) => {
+    ): Promise<void> => {
         await configService.ready;
 
         const itemId: string = transition.targetState().params().item;

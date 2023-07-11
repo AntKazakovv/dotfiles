@@ -398,7 +398,7 @@ export class DataService {
 
     }
 
-    protected addToSocketQueue(requestId: number, method: string, params?: any) {
+    protected addToSocketQueue(requestId: number, method: string, params?: any): void {
         this.socketQueue.push(
             {
                 requestId,
@@ -408,7 +408,7 @@ export class DataService {
         );
     }
 
-    protected processSocketQueue() {
+    protected processSocketQueue(): void {
         while (this.socketQueue.length) {
             const request = this.socketQueue.shift();
             this.socketRequest$(request.requestId, request.method, request.params);

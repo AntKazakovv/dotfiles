@@ -112,7 +112,7 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
      *
      * @param {IStore} store Store info
      */
-    protected initStore(store: IStore) {
+    protected initStore(store: IStore): void {
         if (store) {
             this.store = store;
 

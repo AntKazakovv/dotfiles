@@ -21,7 +21,7 @@ export const signin: Ng2StateDeclaration = {
                 configService: ConfigService,
                 stateService: StateService,
                 transition: Transition,
-            ) => {
+            ): Promise<unknown> => {
                 const result = new Deferred();
 
                 await configService.ready;

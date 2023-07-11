@@ -443,7 +443,7 @@ export class TournamentsService {
         }
     }
 
-    private setSubscribers() {
+    private setSubscribers(): void {
 
         this.configService.get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
             .subscribe((userProfile) => {

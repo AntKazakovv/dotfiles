@@ -56,7 +56,7 @@ type TValueTransformer = (value: string) => string;
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputComponent extends AbstractComponent implements OnInit, OnChanges, AfterViewInit {
-    @HostBinding('hidden') get hidden() {
+    @HostBinding('hidden') get hidden(): boolean {
         return !!this.$params?.isHidden?.();
     };
 

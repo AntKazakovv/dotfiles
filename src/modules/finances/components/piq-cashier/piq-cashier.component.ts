@@ -134,7 +134,7 @@ export class PIQCashierComponent
         this.cdr.markForCheck();
     }
 
-    protected requestStyles(filePath: string, errorCallback: () => Observable<string>) {
+    protected requestStyles(filePath: string, errorCallback: () => Observable<string>): Observable<string> {
         return this.httpClient.get(filePath, {responseType: 'text'})
             .pipe(
                 catchError((error: string): Observable<string> => {

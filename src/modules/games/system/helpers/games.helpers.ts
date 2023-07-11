@@ -513,7 +513,7 @@ export class GamesHelper {
      * @param {(number | string | undefined)} b index
      * @returns {number} position
      */
-    public static defaultComparerFn(a: number | string | undefined, b: number | string | undefined) {
+    public static defaultComparerFn(a: number | string | undefined, b: number | string | undefined): number {
         const aNilOrZero = _isNil(a) || a == 0;
         const bNilOrZero = _isNil(b) || b == 0;
         if (aNilOrZero && !bNilOrZero) {
@@ -526,7 +526,8 @@ export class GamesHelper {
         return 0;
     }
 
-    private static getSorter(direction: TSortDirection, sortBy: ISortByFunction<Pick<Game, 'ID'>>) {
+    private static getSorter(direction: TSortDirection, sortBy: ISortByFunction<Pick<Game, 'ID'>>)
+    : ISortByObjectSorter<Pick<Game, 'ID'>> {
         const sorter = {
             comparer: GamesHelper.defaultComparerFn,
         } as unknown as ISortByObjectSorter<Pick<Game, 'ID'>>;

@@ -330,7 +330,7 @@ export class StoreService {
         });
     }
 
-    private setSubscribers() {
+    private setSubscribers(): void {
         this.configService
             .get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
             .subscribe((userProfile) => {

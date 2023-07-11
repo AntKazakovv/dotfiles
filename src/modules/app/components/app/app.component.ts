@@ -479,7 +479,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
         await this.injectionService.getService<CommonChatService>('livechat.common-chat-service');
     }
 
-    private setTransitionHooks() {
+    private setTransitionHooks(): void {
         this.transition.onSuccess({}, (transition: Transition): void => {
             this.eventService.emit({
                 name: 'TRANSITION_SUCCESS',

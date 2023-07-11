@@ -23,19 +23,19 @@ export type TComponentMod = 'skeleton' | 'default';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MessageComponent extends AbstractChatComponent implements OnInit {
-    @HostBinding('class.read') protected get read() {
+    @HostBinding('class.read') protected get read(): boolean {
         return this.message?.read;
     }
 
-    @HostBinding('class.unread') protected get unread() {
+    @HostBinding('class.unread') protected get unread(): boolean {
         return !this.message?.read;
     }
 
-    @HostBinding('class.in') protected get in() {
+    @HostBinding('class.in') protected get in(): boolean {
         return this.message?.direction === Direction.in;
     }
 
-    @HostBinding('class.out') protected get out() {
+    @HostBinding('class.out') protected get out(): boolean {
         return this.message?.direction === Direction.out;
     }
 

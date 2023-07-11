@@ -384,7 +384,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
         this.foundItems = _cloneDeep(_filter(this.$params.items, option => !!option.title.toString().match(regExp)));
 
         if (this.searchText) {
-            const sortFn = (obj: ISelectOptions) => obj.title.toString().match(regExp)?.index;
+            const sortFn = (obj: ISelectOptions): number => obj.title.toString().match(regExp)?.index;
             this.foundItems = _sortBy(this.foundItems, sortFn);
             this.getSelectedItemIndex();
         }
@@ -518,7 +518,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
      * @method filterCurrencyByCountry
      * @returns {void} void
      */
-    public filterCurrencyByCountry() {
+    public filterCurrencyByCountry(): void {
         this.eventService.subscribe({
             name: 'SELECT_CHOSEN_COUNTRYCODE',
         }, (data: Params.ISelectOptions) => {

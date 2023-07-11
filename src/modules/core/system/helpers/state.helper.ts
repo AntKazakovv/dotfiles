@@ -3,6 +3,7 @@ import {
     StateDeclaration,
     ResolveTypes,
     StateService,
+    TargetState,
 } from '@uirouter/core';
 import {first} from 'rxjs/operators';
 import {LazyLoadResult} from '@uirouter/core/lib/state/interface';
@@ -27,7 +28,7 @@ export type TPageNameHandler = (transition: Transition) => string;
 
 export class StateHelper {
 
-    public static async onStateEnter(trans: Transition) {
+    public static async onStateEnter(trans: Transition): Promise<TargetState | void> {
         const params = trans.params();
         const config = trans.injector().get(ConfigService);
 
@@ -196,14 +197,14 @@ export class StateHelper {
      * @param param Name of key
      * @param value Value
      */
-    public static setStateData<T>(state: Ng2StateDeclaration, param: string, value: T) {
+    public static setStateData<T>(state: Ng2StateDeclaration, param: string, value: T): void {
         if (!state.data) {
             state.data = {};
         }
         state.data[param] = value;
     }
 
-    public static pageNameResolver = (pageNameHandler: TPageNameHandler) => {
+    public static pageNameResolver = (pageNameHandler: TPageNameHandler): ResolveTypes => {
         return {
             token: 'pageName',
             deps: [

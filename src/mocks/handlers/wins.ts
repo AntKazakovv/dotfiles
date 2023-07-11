@@ -7,6 +7,7 @@ import {
 import {DateTime} from 'luxon';
 import {
     MockedRequest,
+    MockedResponse,
     ResponseComposition,
     RestContext,
 } from 'msw';
@@ -14,7 +15,10 @@ import {
 import {MockHelper} from 'wlc-engine/mocks/helpers/mock.helper';
 import {IWinnerData} from 'wlc-engine/modules/promo';
 
-export const winsHandler = async (req: MockedRequest, res: ResponseComposition<any>, ctx: RestContext) => {
+export const winsHandler = async (
+    req: MockedRequest,
+    res: ResponseComposition<any>,
+    ctx: RestContext): Promise<MockedResponse<IWinnerData[]>> => {
     let result;
 
     try {

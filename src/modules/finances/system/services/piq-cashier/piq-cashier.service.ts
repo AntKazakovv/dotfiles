@@ -259,7 +259,7 @@ export class PIQCashierService {
         this.showError(error);
     }
 
-    private showError(error?: string) {
+    private showError(error?: string): void {
         this.eventService.emit({
             name: NotificationEvents.PushMessage,
             data: {

@@ -137,7 +137,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
         }
     }
 
-    public override ngOnChanges(changes) {
+    public override ngOnChanges(changes): void {
 
         if (!this.ready) {
             return;

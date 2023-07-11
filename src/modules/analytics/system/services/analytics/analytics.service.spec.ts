@@ -77,7 +77,7 @@ describe('AnalyticsService', () => {
         let result = {};
         let testEvent: ITagEvent = analyticsConfig.tags[0].events[0];
 
-        window.fbq = (eventType: TFacebookPixelEventType | TGtagEventType, eventName: string) => {
+        window.fbq = (eventType: TFacebookPixelEventType | TGtagEventType, eventName: string): void => {
             result = {
                 eventType,
                 eventName,

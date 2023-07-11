@@ -33,12 +33,12 @@ export class TranslateFallbackHttpLoader implements TranslateLoader {
     }
 }
 
-export function HttpLoaderFactory(http: HttpClient) {
+export function HttpLoaderFactory(http: HttpClient): TranslateFallbackHttpLoader {
     return new TranslateFallbackHttpLoader(http, './static/languages/', `.json?v=${WLC_VERSION}`);
 }
 
 export class MissingTranslationService implements MissingTranslationHandler {
-    handle(params: MissingTranslationHandlerParams) {
+    handle(params: MissingTranslationHandlerParams): string {
         return params.key;
     }
 }

@@ -174,7 +174,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
         );
     }
 
-    public override async ngOnInit() {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
         this.prepareParams();
         this.initForm();

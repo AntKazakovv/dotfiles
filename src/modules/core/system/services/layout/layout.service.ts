@@ -333,7 +333,7 @@ export class LayoutService {
     }
 
     private getLayoutConfig$(type: LayoutsType, state: string, params?: IIndexing<any>): ILayoutStateConfig {
-        const mergeExtendsLayout = () => {
+        const mergeExtendsLayout = (): ILayoutStateConfig => {
             if (this.layouts[type][state]?.extends) {
                 return _cloneDeep(_extend(
                     _cloneDeep(this.layouts[type][state]),

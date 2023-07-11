@@ -10,7 +10,7 @@ import {RecaptchaService} from './recaptcha.service';
 import {ConfigService} from 'wlc-engine/modules/core';
 
 class GRecaptcha {
-    execute = () => new Promise(resolve => resolve('test-token'));
+    execute = (): Promise<any> => new Promise(resolve => resolve('test-token'));
 }
 
 describe('RecaptchaService', () => {

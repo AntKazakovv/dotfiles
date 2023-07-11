@@ -25,7 +25,7 @@ const providerResolver = {
         stateService: StateService,
         injectionService: InjectionService,
         transition: Transition,
-    ) => {
+    ): Promise<void> => {
         const gamesCatalogService = await injectionService
             .getService<GamesCatalogService>('games.games-catalog-service');
 

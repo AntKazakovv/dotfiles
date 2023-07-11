@@ -5,6 +5,7 @@ import {
 import {DateTime} from 'luxon';
 import {
     MockedRequest,
+    MockedResponse,
     ResponseComposition,
     RestContext,
 } from 'msw';
@@ -15,7 +16,7 @@ export const tournamentsHandler = async (
     req: MockedRequest,
     res: ResponseComposition<any>,
     ctx: RestContext,
-) => {
+): Promise<MockedResponse<ITournament[]>> => {
 
     let result;
 

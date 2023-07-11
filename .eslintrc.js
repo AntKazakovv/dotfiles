@@ -68,6 +68,13 @@ module.exports = {
         'quotes': ['error', 'single'],
         'max-len': ['error', {code: 120}],
         '@typescript-eslint/no-unused-vars': 'error',
+        '@typescript-eslint/explicit-function-return-type': [
+            'error',
+            {
+                allowConciseArrowFunctionExpressionsStartingWithVoid: true,
+                allowExpressions: true,
+            },
+        ],
         '@typescript-eslint/object-curly-spacing': ['error', 'never'],
         'import/no-cycle': 'error',
     },

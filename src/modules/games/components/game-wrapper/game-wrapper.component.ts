@@ -306,7 +306,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         });
     }
 
-    @HostListener('window:resize') onWResize() {
+    @HostListener('window:resize') onWResize(): void {
         if (this.$params) {
             this.setGameWindowSize();
         }
@@ -671,7 +671,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     /**
      * Return from game
      */
-    protected returnToPrevState() {
+    protected returnToPrevState(): void {
         // TODO add return to prev state
         this.router.stateService.go('app.home');
     }

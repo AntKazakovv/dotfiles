@@ -187,7 +187,7 @@ export class MenuHelper {
      * @param {string} defaultState Default state for menu items, if it is not specified in the article params
      * @returns {IMenuItem[]}
      */
-    public static getItemsByWpPosts(options: IGetItemsByWpPosts) {
+    public static getItemsByWpPosts(options: IGetItemsByWpPosts): Params.IMenuItem[] {
         const wpItems: TextDataModel[] = _sortBy(options.posts, (item) => item.sortOrder);
         const menuItems: Params.IMenuItem[] = [];
 

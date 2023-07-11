@@ -1174,7 +1174,7 @@ export class DepositWithdrawComponent
         this.cdr.markForCheck();
     }
 
-    protected requestStyles(filePath: string, errorCallback: () => Observable<string>) {
+    protected requestStyles(filePath: string, errorCallback: () => Observable<string>): Observable<string> {
         return this.httpClient.get(filePath, {responseType: 'text'})
             .pipe(
                 catchError((error: string): Observable<string> => {
@@ -1198,7 +1198,7 @@ export class DepositWithdrawComponent
 
         this.currentSystem.resetHostedFields();
 
-        const formCallbackHandler = (formData: IHostedFormData) => {
+        const formCallbackHandler = (formData: IHostedFormData): void => {
             if (!formData.errors || _isEmpty(formData.errors)) {
                 this.currentSystem.validateHostedFields();
                 this.depositAction(this.formObject.value.amount, formData as IIndexing<string>);
@@ -1209,7 +1209,7 @@ export class DepositWithdrawComponent
             }
         };
 
-        const formHasLoadedCallbackHandler = () => {
+        const formHasLoadedCallbackHandler = (): void => {
             this.currentSystem.loadedHostedFields();
             this.isLoadingHostedFields = false;
             this.cdr.markForCheck();

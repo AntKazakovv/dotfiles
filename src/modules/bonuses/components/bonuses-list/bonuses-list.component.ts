@@ -403,7 +403,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         }
     }
 
-    protected checkBonuses() {
+    protected checkBonuses(): void {
         this.bonuses = _filter(this.bonuses, (bonus: Bonus) => _isObject(bonus));
     }
 
@@ -573,7 +573,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
     /**
      * Set bonuses filter from params or by condition and subscribe to bonuses observer
      */
-    private setFilterAndSubscribeBonuses() {
+    private setFilterAndSubscribeBonuses(): void {
         this.ready$.next(false);
 
         this.filter = this.$params.common?.filter;
@@ -605,7 +605,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
      * Handle bonuses list is ready or not,
      * if theme is 'reg-first' or 'partial' set config and emit event if bonus list is empty for registration form
      */
-    private subscribeOnReady() {
+    private subscribeOnReady(): void {
         this.ready$.pipe(takeUntil(this.$destroy)).subscribe((isReady: boolean) => {
             if (this.params.theme === 'reg-first' || this.$params.theme === 'partial') {
                 const minLength = this.$params.common?.useBlankBonus ? 1 : 0;

@@ -42,7 +42,7 @@ export class InteractiveTextService {
         return this.interactiveText[randomIndex];
     }
 
-    private init() {
+    private init(): void {
         this.interactiveText = this.prepareInteractiveText();
 
         this.router.transitionService.onSuccess({}, () => {

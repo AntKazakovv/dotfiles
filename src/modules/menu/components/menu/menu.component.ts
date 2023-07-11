@@ -329,7 +329,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
      * @param {IMenuItemParamsModal} item Modal params
      * @returns {Promise<void>}
      */
-    public async openModal(item: Params.IMenuItemParamsModal) {
+    public async openModal(item: Params.IMenuItemParamsModal): Promise<void> {
         const {name, params} = item.params.modal;
         if (name) {
             this.modalService.showModal(name, params || {});

@@ -174,7 +174,7 @@ export class ModalService {
             const callback = modalConfig.onModalHide;
             let hideWasCalled: boolean = false;
 
-            modalConfig.onModalHide = () => {
+            modalConfig.onModalHide = (): void => {
                 if (!hideWasCalled) {
                     hideWasCalled = true;
                     callback();
@@ -419,7 +419,7 @@ export class ModalService {
      *
      * @private
      */
-    private notificationError(message: string, wlcElement: string) {
+    private notificationError(message: string, wlcElement: string): void {
         this.eventService.emit({
             name: NotificationEvents.PushMessage,
             data: <IPushMessageParams>{

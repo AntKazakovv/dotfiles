@@ -120,7 +120,7 @@ export class TableComponent extends AbstractComponent implements OnInit {
             const componentsLoadPromises: Promise<unknown>[] = [];
             _uniq(columnWithComponent.map((item) => item.component)).forEach(async (component) => {
                 componentsLoadPromises.push(
-                    (async () => {
+                    (async (): Promise<void> => {
                         const componentClass = await this.injectionService.loadComponent(component);
                         _each(columnWithComponent, (item) => {
                             if (item.component === component) {

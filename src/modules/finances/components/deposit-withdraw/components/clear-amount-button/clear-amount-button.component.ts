@@ -21,7 +21,7 @@ import * as Params from './clear-amount-button.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClearAmountButtonComponent extends AbstractComponent implements OnInit {
-    @HostBinding('class.hidden') public get hidden() {
+    @HostBinding('class.hidden') public get hidden(): boolean {
         return this.$params.isAmountEmpty;
     }
 

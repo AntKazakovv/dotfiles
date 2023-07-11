@@ -22,7 +22,7 @@ export class PostModel {
         this.acf = post?.acf;
     }
 
-    public getIntroText(limit = 120) {
+    public getIntroText(limit = 120): string {
         return this.description.substr(0, limit) + ((this.description.length > limit) ? '...' : '');
     }
 }

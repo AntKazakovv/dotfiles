@@ -55,7 +55,7 @@ export class TooltipComponent extends AbstractComponent implements OnInit {
         this.iconPath = `/wlc/icons/${this.$params.iconName}.svg`;
     }
 
-    @HostListener('click', ['$event']) stopPropagation(event: MouseEvent) {
+    @HostListener('click', ['$event']) stopPropagation(event: MouseEvent): void {
         event.preventDefault();
         event.stopPropagation();
     }

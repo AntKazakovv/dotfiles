@@ -168,7 +168,7 @@ export class BodyClassService {
             });
     }
 
-    private addFixedPanelClasses(pos: TFixedPanelPos, state?: TFixedPanelState) {
+    private addFixedPanelClasses(pos: TFixedPanelPos, state?: TFixedPanelState): void {
         const panelConfig = this._fixedPanelConfig.panels[pos];
         const inClass = `${BodyClassPrefix.fixedPanel}${pos}-in`;
         const isCompactView = this.window.innerWidth < panelConfig.breakpoints.expand;

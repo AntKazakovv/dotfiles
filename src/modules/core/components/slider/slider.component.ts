@@ -404,7 +404,7 @@ export class SliderComponent extends AbstractComponent
         }
     }
 
-    protected fillSequence(realSequence: number[], slides: number) {
+    protected fillSequence(realSequence: number[], slides: number): number[] {
         let result: number[] = [];
         while (result.length < slides) {
             result = result.concat(realSequence);

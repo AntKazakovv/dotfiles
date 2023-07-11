@@ -107,10 +107,10 @@ const appState: Ng2StateDeclaration = {
         {
             token: 'lang',
             deps: [ConfigService],
-            resolveFn: async (config: ConfigService) => {
+            resolveFn: async (config: ConfigService): Promise<string> => {
                 await config.ready;
 
-                const bootstrapLang = config.get({
+                const bootstrapLang: string = config.get({
                     name: 'currentLanguage',
                     storageType: 'localStorage',
                 }) || config.get<string>('appConfig.language');

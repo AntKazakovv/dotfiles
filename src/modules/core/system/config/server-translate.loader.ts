@@ -6,7 +6,7 @@ import {readFileSync} from 'fs';
 import {join} from 'path';
 import {Observable} from 'rxjs';
 
-export function serverTranslateFactory() {
+export function serverTranslateFactory(): ServerTranslateLoader {
     return new ServerTranslateLoader();
 }
 

@@ -69,7 +69,7 @@ export class PepSelectComponent extends AbstractComponent implements OnInit {
     protected async showInfoModal(): Promise<void> {
         const {config} = MODALS_LIST['pepInfo'];
 
-        config.onModalHidden = async () => {
+        config.onModalHidden = async (): Promise<void> => {
             const shouldStatusBeCancelled = component.closeReason === '';
 
             if (shouldStatusBeCancelled) {

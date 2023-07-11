@@ -57,7 +57,7 @@ export class CatalogBuilder {
         injectionService: InjectionService,
         hooksService: HooksService,
         sorts?: IIndexing<IAllSortsItemResponse>,
-    ) {
+    ): Catalog {
         const merchants = this.merchantsBuilder
             ? this.merchantsBuilder.build(configService, translateService)
             : new MerchantsBuilder().build(configService, translateService);

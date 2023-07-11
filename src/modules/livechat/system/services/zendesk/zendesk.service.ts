@@ -174,7 +174,7 @@ export class ZendeskService extends LivechatAbstract<ILivechatZendeskConfig> {
 
         this.window.zESettings = this.options.zESettings || {};
 
-        script.onload = () => {
+        script.onload = (): void => {
             this.window.zE('webWidget:on', 'chat:connected', () => {
                 this.chatState$.next(ChatState.loaded);
                 this.window.zE(

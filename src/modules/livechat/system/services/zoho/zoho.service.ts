@@ -109,7 +109,7 @@ export class ZohoChatService extends LivechatAbstract<ILivechatZohoConfig> {
      */
     public rerunWidget(): void {
         if (this.chatIsLoaded()) {
-            this.window.$zoho.salesiq.ready = () => {
+            this.window.$zoho.salesiq.ready = (): void => {
                 this.window.$zoho.salesiq.language(this.lang);
                 if (this.options.setUserDetails) {
                     this.setUserDetails();
@@ -178,7 +178,7 @@ export class ZohoChatService extends LivechatAbstract<ILivechatZohoConfig> {
         this.window.$zoho.salesiq ||= {
             widgetcode: this.options.code,
             values: {},
-            ready: function(){},
+            ready: function(): void {},
         };
         const script = this.document.createElement('script');
         script.id = 'zsiqscript';
@@ -213,11 +213,11 @@ export class ZohoChatService extends LivechatAbstract<ILivechatZohoConfig> {
             subtree: true,
         });
 
-        script.onerror = () => {
+        script.onerror = (): void => {
             chatObserver.disconnect();
         };
 
-        this.window.$zoho.salesiq.ready = () => {
+        this.window.$zoho.salesiq.ready = (): void => {
             this.chatLoaded$.pipe(
                 first((val: boolean) => val),
             ).subscribe(() => {

@@ -27,7 +27,7 @@ export class TournamentPrizesRowComponent extends AbstractComponent implements O
     @Input() public prizes: ITournamentPrize[] = [];
     @Input() protected inlineParams: Params.ITournamentPrizesRowCParams;
 
-    @HostBinding('class') get sizeModifier() {
+    @HostBinding('class') get sizeModifier(): string {
         return this.prizes.length < 4 ? 'size-lg' : 'size-default';
     }
 

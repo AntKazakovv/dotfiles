@@ -81,11 +81,11 @@ export class LicenseComponent extends AbstractComponent implements OnInit {
         script.src = `https://${this.$params.apgSeal.sealId}.snippet.antillephone.com/apg-seal.js`;
 
         if (this.$params.apgSeal.sealDomain !== location.host) {
-            script.onload = () => {
+            script.onload = (): void => {
                 this.replaceHost();
                 this.checkLicenseValue();
             };
-            script.onerror = () => {
+            script.onerror = (): void => {
                 this.logService.sendLog({code: '4.0.4'});
             };
         }
@@ -103,7 +103,7 @@ export class LicenseComponent extends AbstractComponent implements OnInit {
         item.setAttribute(attr, item.getAttribute(attr).replace(location.host, this.$params.apgSeal.sealDomain));
     }
 
-    protected checkLicenseValue() {
+    protected checkLicenseValue(): void {
         const licenseTag = this.document.getElementById('apg-seal-container');
         const licenseImgSrc = licenseTag?.querySelector('img')?.src;
 

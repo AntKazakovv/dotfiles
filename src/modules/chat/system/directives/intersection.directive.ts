@@ -61,7 +61,7 @@ export class IntersectionDirective implements OnInit, OnDestroy {
             observer.observe(this.el.nativeElement);
 
             return {
-                unsubscribe() {
+                unsubscribe(): void {
                     observer.disconnect();
                 },
             };

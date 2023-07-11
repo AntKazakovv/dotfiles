@@ -99,7 +99,7 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
             template: this.extractBodyFromString(html),
             selector: `${this.tag || 'div'}[wlc-dynamic]`,
         })(class {
-            ngOnInit() {
+            ngOnInit(): void {
             }
         });
 

@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-globals */
 
 /* smoothscroll v0.4.4 - 2019 - Dustan Kasten, Jeremias Menichelli - MIT License */
-export const polyfill = (d: HTMLDocument) => {
+export const polyfill = (d: HTMLDocument): void => {
     // aliases
     const w = window;
 
@@ -146,7 +146,7 @@ export const polyfill = (d: HTMLDocument) => {
      * @param {Node} el
      * @returns {Node} el
      */
-    function findScrollableParent(el) {
+    function findScrollableParent(el): Element {
         while (el !== d.body && isScrollable(el) === false) {
             el = el.parentNode || el.host;
         }
@@ -160,7 +160,7 @@ export const polyfill = (d: HTMLDocument) => {
      * @param {Object} context
      * @returns {undefined}
      */
-    function step(context) {
+    function step(context): void {
         const time = now();
         let elapsed = (time - context.startTime) / SCROLL_TIME;
 
@@ -189,7 +189,7 @@ export const polyfill = (d: HTMLDocument) => {
      * @param {Number} y
      * @returns {undefined}
      */
-    function smoothScroll(el, x, y) {
+    function smoothScroll(el, x, y): void {
         let scrollable;
         let startX;
         let startY;

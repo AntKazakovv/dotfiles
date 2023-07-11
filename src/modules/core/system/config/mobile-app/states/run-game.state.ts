@@ -33,7 +33,7 @@ export const runGameState: Ng2StateDeclaration = {
                 injectionService: InjectionService,
                 translateService: TranslateService,
                 transition: Transition,
-            ) => {
+            ): Promise<void> => {
                 const gamesCatalogService = await injectionService
                     .getService<GamesCatalogService>('games.games-catalog-service');
 

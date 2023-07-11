@@ -193,7 +193,7 @@ export class TournamentLeaderboardComponent
         this.addModifiers(modifiers);
     }
 
-    protected getRestLimit(userIndex?: number) {
+    protected getRestLimit(userIndex?: number): void {
         if (this.winsRest.length > this.restLimit) {
             const dIndex = this.winsRest.length - this.restLimit;
             if (userIndex === -1 || (userIndex + 3) <= this.restLimit || !_isNumber(userIndex)) {

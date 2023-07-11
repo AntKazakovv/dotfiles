@@ -91,7 +91,7 @@ export class LogService {
      * @returns {IDurationWaiter} Waiter
      */
     public durationWaiter(log: ILogObj, threshold: number = 30): IDurationWaiter {
-        const init = () => {
+        const init = (): IDurationWaiter => {
             threshold = _get(logTypes[log.code], 'threshold', threshold);
 
             const startTime = Date.now(),
@@ -145,7 +145,7 @@ export class LogService {
      * @returns {() => void} Handler to prevent send log
      */
     public waiter(log: ILogObj, timeout: number = 3000): TWaiter {
-        const start = () => {
+        const start = (): TWaiter => {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             let res: TWaiter = (v?: unknown): void => {
             };
@@ -183,7 +183,7 @@ export class LogService {
             stopTimeout();
         });
 
-        const stopTimeout = () => {
+        const stopTimeout = (): void => {
             clearTimeout(timeoutHandler);
             destroyListener();
             this.window.removeEventListener('onbeforeunload', stopTimeout);
