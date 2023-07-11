@@ -424,8 +424,6 @@
         <div *ngIf="bonus.wageringTotal && !bonus.isExpired" class="{{$class}}__progress">
             <div class="{{$class}}__remaning">
                 <span wlc-currency [value]="bonus.wageringLeft"></span>
-                {{'of'| translate}}
-                <span wlc-currency [value]="bonus.wageringTotal"></span>
                 {{'remaining' | translate}}
             </div>
             <div class="{{$class}}__progressbar">
