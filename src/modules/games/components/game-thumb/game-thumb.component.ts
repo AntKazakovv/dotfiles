@@ -350,7 +350,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
         if (!gameName) return;
         let mediaPath = `/gstatic/games/${merchantName}/`;
 
-        const verticalGamesInProject: number[] = this.configService.get('$games.idVerticalGames');
+        const verticalGamesInProject: number[] = this.configService.get('$games.idVerticalGames') || [];
 
         if (this.$params.type === 'vertical') {
             verticalGamesInProject.includes(gameId) ?
