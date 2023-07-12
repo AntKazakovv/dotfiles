@@ -45,7 +45,7 @@
                     </div>
 
                     <div *ngSwitchDefault class="{{$class}}__cell-content">
-                        {{item.getValue(col, $index + indexFactor) | translate}}
+                        {{getValue(item.getValue(col, $index + indexFactor)) | translate}}
                     </div>
                 </ng-container>
 
@@ -98,7 +98,7 @@
                     </div>
 
                     <div *ngSwitchDefault class="{{$class}}__cell-content">
-                        {{item.getValue(col, $index) | translate}}
+                        {{getValue(item.getValue(col, $index)) | translate}}
                     </div>
                 </ng-container>
             </div>

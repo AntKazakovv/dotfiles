@@ -21,7 +21,10 @@ import {
     TableAppearanceAnimation,
     IPaginateOutput,
 } from 'wlc-engine/modules/core';
-import {TableRowModel} from './table-row.model';
+import {
+    TableRowModel,
+    Currency,
+} from './table-row.model';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import * as Params from './table.params';
@@ -31,6 +34,7 @@ import _filter from 'lodash-es/filter';
 import _isObject from 'lodash-es/isObject';
 import _uniq from 'lodash-es/uniq';
 import _sortBy from 'lodash-es/sortBy';
+import _isString from 'lodash-es/isString';
 
 @Component({
     selector: '[wlc-table]',
@@ -199,6 +203,10 @@ export class TableComponent extends AbstractComponent implements OnInit {
 
         this.setPaginatedRowsModifier();
         this.toggled = !this.toggled;
+    }
+
+    protected getValue(item: string | Currency): string {
+        return _isString(item) ? item : item.value;
     }
 
     private createTableRow(rows: unknown[]): TableRowModel[] {

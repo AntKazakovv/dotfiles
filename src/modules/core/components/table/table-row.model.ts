@@ -5,8 +5,8 @@ import * as Params from './table.params';
 import _get from 'lodash-es/get';
 import _isString from 'lodash-es/isString';
 
-type Currency = {
-    value: string | number;
+export type Currency = {
+    value: string;
     currency: string;
 }
 
@@ -42,7 +42,7 @@ export class TableRowModel {
                 }
 
             case 'component':
-                const currency = _get(this.data, 'currency');
+                const currency = _get(this.data, 'currency') ?? _get(this.data, 'Currency');
                 if (col.component === 'core.wlc-currency' && currency) {
                     defaultValue = {
                         value: <string>defaultValue,

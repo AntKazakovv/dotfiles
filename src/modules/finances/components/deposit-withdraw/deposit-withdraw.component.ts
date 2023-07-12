@@ -167,14 +167,14 @@ export class DepositWithdrawComponent
     public showErrorHosledLoad: boolean = false;
     public hiddenPaymentInfo: boolean;
     public isLastMethodExisting: boolean;
+    public isFetchingSystems: boolean = true;
+    public walletsParams: WalletsParams;
+    public selectedWallet: ISelectedWallet;
 
     protected amountControl: UntypedFormControl;
     protected clearAmountButton = _cloneDeep(FormElements.clearAmountButton);
     protected preselectedAmounts: number[] = [];
     protected formObject: UntypedFormGroup;
-
-    public isFetchingSystems: boolean = true;
-
     protected inProgress: boolean = false;
     protected userService: UserService;
 
@@ -201,8 +201,6 @@ export class DepositWithdrawComponent
     private useScroll: boolean = false;
 
     private isMultiWallet: boolean = false;
-    private selectedWallet: ISelectedWallet;
-    private walletsParams: WalletsParams;
     private additionalFieldsConfig: IIndexing<IAdditionalFieldConfig>;
 
     private walletsReady: Promise<void> = new Promise((resolve: () => void): void => {
