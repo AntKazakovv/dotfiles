@@ -1,5 +1,6 @@
 import {
     ChangeDetectionStrategy,
+    ChangeDetectorRef,
     Component,
     HostBinding,
     Input,
@@ -9,7 +10,7 @@ import {
 import {AbstractChatComponent} from 'wlc-engine/modules/chat/system/classes/component.abstract.class';
 import {
     Direction,
-    IMessage,
+    INewMsg,
 } from 'wlc-engine/modules/chat/system/interfaces';
 import {ChatHelper} from 'wlc-engine/modules/chat/system/classes/chat.helper';
 
@@ -39,12 +40,14 @@ export class MessageComponent extends AbstractChatComponent implements OnInit {
     }
 
     @Input() public mod: TComponentMod = 'default';
-    @Input() public message!: IMessage;
+    @Input() public message!: INewMsg;
 
     public avatar!: string;
     public moderator: boolean = false;
 
-    constructor() {
+    constructor(
+        protected cdr: ChangeDetectorRef,
+    ) {
         super('wlc-message');
     }
 
@@ -63,6 +66,7 @@ export class MessageComponent extends AbstractChatComponent implements OnInit {
                 this.moderator = true;
             }
         }
+        this.cdr.markForCheck();
     }
 
 }

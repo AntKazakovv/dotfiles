@@ -30,6 +30,7 @@ import {ChatService} from 'wlc-engine/modules/chat/system/services/chat.service'
 import {
     Direction,
     IMessage,
+    INewMsg,
 } from 'wlc-engine/modules/chat/system/interfaces';
 import {TempAdapterService} from 'wlc-engine/modules/chat/system/services/temp-adapter.service';
 import {DOMEvent} from 'wlc-engine/modules/chat/system/interfaces';
@@ -45,7 +46,7 @@ export class ChatWrapperComponent extends AbstractChatComponent implements OnIni
 
     public chatConnected: boolean = false;
     public skeletons: number[] = new Array(20);
-    public buffer$: BehaviorSubject<IMessage[]> = new BehaviorSubject([]);
+    public buffer$: BehaviorSubject<INewMsg[]> = new BehaviorSubject([]);
 
     protected start: number = 0;
     protected end: number = this.chatListService.messages.length;
@@ -99,19 +100,27 @@ export class ChatWrapperComponent extends AbstractChatComponent implements OnIni
             switchMap((visible: boolean) => visible ? this.chatListService.messages$ : EMPTY),
             takeUntil(this.destroy$),
         ).subscribe((message: IMessage) => {
-            if (!this.chatConnected || !this.scrollUp) {
-                message.read = true;
-            }
 
-            if (message.direction === Direction.out || (!this.scrollUp))  {
-                message.read = true;
-                this.scrollToEnd();
+            if (message.type === 'retract' || message.type === 'replace') {
+                //TODO: заставить обновляться буффер при типе replace #494430
+                this.updateBuffer(false, true);
+
             } else {
-                this.updateBuffer(this.scrollUp, true);
-            }
 
-            if (this.chatConnected) {
-                this.chatListService.countUnread();
+                if (!this.chatConnected || !this.scrollUp) {
+                    message.read = true;
+                }
+
+                if (message.direction === Direction.out || (!this.scrollUp))  {
+                    message.read = true;
+                    this.scrollToEnd();
+                } else {
+                    this.updateBuffer(this.scrollUp, true);
+                }
+
+                if (this.chatConnected) {
+                    this.chatListService.countUnread();
+                }
             }
         });
 
@@ -165,11 +174,11 @@ export class ChatWrapperComponent extends AbstractChatComponent implements OnIni
 
     }
 
-    public trackByFn(index: number, msg: IMessage): string {
+    public trackByFn(index: number, msg: INewMsg): string {
         return msg.id;
     }
 
-    public intersectingHandler(isIntersecting: boolean, msg: IMessage): void {
+    public intersectingHandler(isIntersecting: boolean, msg: INewMsg): void {
         this.markAsRead(isIntersecting, msg);
 
         if (isIntersecting && msg) {
@@ -178,7 +187,7 @@ export class ChatWrapperComponent extends AbstractChatComponent implements OnIni
     }
 
     /** Sets property `read: true` for message in viewport */
-    protected markAsRead(isIntersecting: boolean, msg: IMessage): void {
+    protected markAsRead(isIntersecting: boolean, msg: INewMsg): void {
         if (isIntersecting && msg.read !== true) {
             msg.read = true;
             this.chatListService.countUnread();

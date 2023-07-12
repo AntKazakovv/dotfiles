@@ -36,17 +36,33 @@ export interface IStanza extends Element {
     name: string;
 }
 
-export interface IMessage {
+export interface IMessageGeneral {
+    type: 'new' | 'retract' | 'replace',
+    id?: string,
+}
+
+export interface INewMsg extends IMessageGeneral {
+    type: 'new',
     direction: Direction;
     body: string;
     datetime: Date;
     ocId?: string;
-    id?: string;
     from?: IContact;
     hash?: string;
     read?: boolean;
     show?: boolean;
 }
+
+export interface IRetractMsg extends Required<IMessageGeneral> {
+    type: 'retract',
+}
+
+export interface IReplaceMsg extends Required<IMessageGeneral> {
+    type: 'replace',
+    body: string,
+}
+
+export type IMessage = INewMsg | IRetractMsg | IReplaceMsg;
 
 export enum Direction {
     in = 'in',

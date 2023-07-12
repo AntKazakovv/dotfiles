@@ -5,7 +5,10 @@ import {
     switchMap,
 } from 'rxjs';
 
-import {IMessage} from 'wlc-engine/modules/chat/system/interfaces';
+import {
+    IMessage,
+    INewMsg,
+} from 'wlc-engine/modules/chat/system/interfaces';
 import {ChatService} from 'wlc-engine/modules/chat/system/services/chat.service';
 import {ChatHelper} from 'wlc-engine/modules/chat/system/classes/chat.helper';
 import {RoomModel} from 'wlc-engine/modules/chat/system/classes/room.model';
@@ -24,7 +27,7 @@ export class ChatListService {
             .pipe(switchMap((room: RoomModel) => room.messageStore.messages$));
     }
 
-    public addMessage(message: IMessage): void {
+    public addMessage(message: INewMsg): void {
         if (!message.id) {
             message.id = ChatHelper.id();
         }
@@ -32,8 +35,8 @@ export class ChatListService {
         this.chatService.activeRoom.messageStore.addMessage(message);
     }
 
-    public get messages(): IMessage[] {
-        return this.chatService.activeRoom.messageStore.messages;
+    public get messages(): INewMsg[] {
+        return this.chatService.activeRoom.messageStore.newMessages;
     }
 
     public get messages$(): Observable<IMessage> {
@@ -50,14 +53,14 @@ export class ChatListService {
 
     public countUnread(): void {
         this._unreadCounter$.next(
-            this.messages.filter((msg: IMessage) => {
+            this.messages.filter((msg: INewMsg) => {
                 return !msg.read;
             }).length,
         );
     }
 
     public readAllMessages(): void {
-        this.messages.forEach((msg: IMessage) => {
+        this.messages.forEach((msg: INewMsg) => {
             msg.read = true;
         });
 

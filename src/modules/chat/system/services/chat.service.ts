@@ -47,8 +47,14 @@ import {NicknameFormComponent} from
 import {DialogService} from 'wlc-engine/modules/chat/system/services/dialog.service';
 import {IChatCredentials} from './temp-adapter.service';
 import {TempAdapterService} from 'wlc-engine/modules/chat/system/services/temp-adapter.service';
-import {Direction, IMessage, IStanza} from './../interfaces/index';
 import {TFixedPanelPos} from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
+import {
+    Direction,
+    INewMsg,
+    IRetractMsg,
+    IReplaceMsg,
+    IStanza,
+} from './../interfaces/index';
 
 export interface IContact {
     nickname: string;
@@ -493,12 +499,19 @@ export class ChatService {
 
         // chat message data
         const ocId = stanza.getChild('occupant-id')?.attrs.id;
+        const delayEl = stanza.getChild('delay');
+        const from = parseJid(stanza.attrs.from);
+        const body = stanza.getChildText('body')?.trim();
+        const mucUser = stanza.getChild('x', mucUserNs)?.getChild('item');
+        const mod = stanza.getChild('apply-to')?.getChild('moderated');
+        const applyId = stanza.getChild('apply-to')?.attrs.id;
+        let contact: IContact;
+
         if (ocId) {
-            const delayEl = stanza.getChild('delay');
-            const from = parseJid(stanza.attrs.from);
-            const body = stanza.getChildText('body')?.trim();
-            const mucUser = stanza.getChild('x', mucUserNs)?.getChild('item');
-            let contact: IContact;
+            const retract = stanza.getChild('apply-to')?.getChild('retract');
+            const originId = stanza.getChild('origin-id')?.attrs.id;
+            const id = originId ?? stanza.getChild('stanza-id')?.attrs.id;
+            const replace = stanza.getChild('replace');
 
             if (!this.rooms.get(from.local)?.contacts.get(ocId)) {
                 const role = this.moderatorsList.some(user => user.ocid === ocId) ?
@@ -512,18 +525,42 @@ export class ChatService {
                 contact = this.rooms.get(from.local)?.contacts.get(ocId);
             }
 
-            if (from?.resource && body) {
-                const message: IMessage = {
+            if (from?.resource && body && !replace) {
+                const message: INewMsg = {
+                    type: 'new',
                     ocId: ocId,
                     // history has date, new messages - no
                     datetime: delayEl ? new Date(delayEl?.attrs.stamp) : new Date(),
                     body: body,
                     direction: this.selfOId.has(ocId) ? Direction.out : Direction.in,
-                    id: stanza.attrs.id,
+                    id: id,
                     from: contact,
                     read: this.roomConnected$.getValue() !== 'connected',
+                    show: true,
                 };
                 this.rooms.get(from.local)?.messageStore.addMessage(message);
+            }
+
+            if (retract) {
+                this.retractMsg(applyId, from.local);
+            }
+
+            if (replace) {
+                const message: IReplaceMsg = {
+                    type: 'replace',
+                    id: replace.attrs.id,
+                    body: body,
+                };
+
+                this.rooms.get(from.local)?.messageStore.replaceMessage(message);
+            }
+        }
+
+        if (mod) {
+            const retract = stanza.getChild('apply-to')?.getChild('moderated')?.getChild('retract');
+
+            if (retract) {
+                this.retractMsg(applyId, from.local);
             }
         }
     }
@@ -586,5 +623,14 @@ export class ChatService {
             this.roomConnected$.next('disconnected');
             console.error(stanza);
         }
+    }
+
+    protected retractMsg(id: string, local: string): void {
+        const message: IRetractMsg = {
+            type: 'retract',
+            id: id,
+        };
+
+        this.rooms.get(local)?.messageStore.deleteMessage(message);
     }
 }
