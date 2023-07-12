@@ -8,13 +8,10 @@ import {
     TemplateRef,
     ViewChild,
     ElementRef,
+    OnDestroy,
 } from '@angular/core';
 
-import {Subject} from 'rxjs';
-import {
-    takeUntil,
-    filter,
-} from 'rxjs/operators';
+import {takeUntil} from 'rxjs/operators';
 import _map from 'lodash-es/map';
 import _merge from 'lodash-es/merge';
 
@@ -37,6 +34,10 @@ import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses
 import {BonusesFilterType} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {BonusItemComponent} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.component';
 import {IBonusItemCParams} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';
+import {
+    BonusesListController,
+    IBonusesListController,
+} from 'wlc-engine/modules/bonuses/system/classes/bonuses-list.controller';
 
 import * as Params from './game-dashboard-bonuses.params';
 
@@ -46,7 +47,7 @@ import * as Params from './game-dashboard-bonuses.params';
     styleUrls: ['./styles/game-dashboard-bonuses.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GameDashboardBonusesComponent extends AbstractComponent implements OnInit, AfterViewInit {
+export class GameDashboardBonusesComponent extends AbstractComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @ViewChild(SliderComponent) public slider: SliderComponent;
     @ViewChild('bonus') tplBonus: TemplateRef<ElementRef>;
@@ -63,6 +64,7 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
     public landscapeSliderConfig: IWrapperCParams = {components: []};
 
     protected filter: BonusesFilterType = 'all';
+    protected bonusesListController: IBonusesListController;
 
     constructor(
         @Inject('injectParams') protected params: Params.IGameDashboardBonusesCParams,
@@ -77,6 +79,11 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
                 injectParams: params,
                 defaultParams: Params.defaultParams,
             }, configService, cdr);
+
+        this.bonusesListController = new BonusesListController(
+            this.bonusesService,
+            this.configService,
+        );
     }
 
     public override ngOnInit(): void {
@@ -86,6 +93,11 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
         this.setDeviceModificators();
 
         this.initEventHandlers();
+    }
+
+    public override ngOnDestroy(): void {
+        super.ngOnDestroy();
+        this.bonusesListController.destroy();
     }
 
     public ngAfterViewInit(): void {
@@ -103,32 +115,27 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
      * Init bonuses
      */
     protected initBonuses(): void {
-        const ready$: Subject<boolean> = new Subject();
-        ready$.pipe(
-            filter((isReady: boolean) => isReady),
-            takeUntil(this.$destroy),
-        ).subscribe((): void => {
-            this.isReady = true;
-            this.cdr.markForCheck();
-        });
+        this.isReady = false;
+        this.bonusesListController.ready$
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((ready: boolean): void => {
+                this.bonuses = this.bonusesListController.bonuses;
 
-        this.bonusesService.getSubscribe({
-            useQuery: true,
-            ready$: ready$,
-            observer: {
-                next: (bonuses: Bonus[]) => {
-                    if (bonuses) {
-                        this.bonuses = this.bonusesService.sortBonuses(
-                            this.bonusesService.filterBonuses(bonuses, this.filter),
-                            this.$params.sortOrder,
-                        );
-                        this.bonusesToSlides(this.bonuses, true);
-                        this.initSliderComponents();
-                    }
-                },
+                if (this.bonuses.length) {
+                    this.bonusesToSlides(this.bonuses, true);
+                    this.initSliderComponents();
+                }
+                this.isReady = ready;
+                this.cdr.detectChanges();
+            });
+
+        this.bonusesListController.getBonuses({
+            subscribeParams: {
+                useQuery: true,
+                type: 'any',
             },
-            type: 'any',
-            until: this.$destroy,
+            filter: this.filter,
+            sort: this.$params.sortOrder,
         });
     }
 

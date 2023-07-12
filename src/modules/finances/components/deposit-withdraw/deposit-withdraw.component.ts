@@ -185,7 +185,7 @@ export class DepositWithdrawComponent
 
             const bonusesService = await this.injectionService
                 .getService<BonusesService>('bonuses.bonuses-service');
-            bonusesService.getSubscribe({
+            const bonusesSubscription = bonusesService.getSubscribe({
                 type: 'any',
                 useQuery: true,
                 observer: {
@@ -200,13 +200,14 @@ export class DepositWithdrawComponent
                                     {
                                         name: 'bonuses.wlc-deposit-bonuses',
                                         params: {
-                                            bonuses: bonuses,
+                                            bonuses: depositBonuses,
                                         },
                                     },
                                 ],
                             };
                         }
                         Params.PaymentSteps.bonus.$resolve();
+                        bonusesSubscription.unsubscribe();
                     },
                 },
             });

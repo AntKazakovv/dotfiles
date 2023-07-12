@@ -26,7 +26,6 @@ import _merge from 'lodash-es/merge';
 import _union from 'lodash-es/union';
 import _each from 'lodash-es/each';
 import _filter from 'lodash-es/filter';
-import _isObject from 'lodash-es/isObject';
 import _cloneDeep from 'lodash-es/cloneDeep';
 
 import {
@@ -54,14 +53,20 @@ import {
     RecommendedListEvents,
 } from 'wlc-engine/modules/bonuses/components/recommended-bonuses/recommended-bonuses.params';
 import {
+    BonusesListController,
+    IBonusesListController,
+} from 'wlc-engine/modules/bonuses/system/classes/bonuses-list.controller';
+import {
     BonusesFilterType,
     BonusItemComponentEvents,
     ChosenBonusSetParams,
     ChosenBonusType,
     IBonus,
+    RestType,
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 
 import * as Params from './bonuses-list.params';
+
 @Component({
     selector: '[wlc-bonuses-list]',
     templateUrl: './bonuses-list.component.html',
@@ -105,6 +110,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, A
     protected chosenBonusIndex: number = 0;
     protected ready$: Subject<boolean> = new Subject();
     protected filter?: BonusesFilterType;
+    protected bonusesListController: IBonusesListController;
 
     constructor(
         @Inject('injectParams') protected params: Params.IBonusesListCParams,
@@ -122,6 +128,11 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, A
                 injectParams: params,
                 defaultParams: Params.defaultParams,
             }, configService, cdr);
+
+        this.bonusesListController = new BonusesListController(
+            this.bonusesService,
+            this.configService,
+        );
     }
 
     public override async ngOnInit(): Promise<void> {
@@ -161,7 +172,8 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, A
             this.sliderParams.swiper = _cloneDeep(this.$params.common?.swiper);
         }
 
-        this.setFilterAndSubscribeBonuses();
+        this.setFilters();
+        this.subscribeBonuses();
         this.setSubscription();
         this.bonusBg;
     }
@@ -175,6 +187,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, A
     public override ngOnDestroy(): void {
         super.ngOnDestroy();
         this.unchooseBonuses();
+        this.bonusesListController.destroy();
     }
 
     public get isAuthAndBonusesLength(): boolean {
@@ -250,27 +263,6 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, A
         this.paginatedBonuses = value.paginatedItems as Bonus[];
         this.itemsPerPage = value.event.itemsPerPage;
         this.cdr.detectChanges();
-    }
-
-    /**
-     * Filter bonuses by group
-     *
-     * @returns Bonus[] - filtered bonuses
-     */
-    public filterBonusesByGroup(): Bonus[] {
-        let bonuses: Bonus[] = [];
-
-        if (this.$params.common?.filterByGroup === 'Promo') {
-            const isAuth: boolean = this.configService.get<boolean>('$user.isAuthenticated');
-
-            bonuses = _filter(this.bonuses, (bonus: Bonus): boolean =>
-                bonus.data.Group === this.$params.common?.filterByGroup || bonus.showInPromotions(isAuth));
-        } else {
-            bonuses = _filter(this.bonuses, (bonus: Bonus): boolean =>
-                bonus.data.Group === this.$params.common?.filterByGroup);
-        }
-
-        return bonuses;
     }
 
     protected setSubscription(): void {
@@ -390,15 +382,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, A
         this.cdr.detectChanges();
     }
 
-    protected sortBonuses(): Bonus[] {
-        if (!this.bonuses.length) return;
-
-        return this.bonusesService.sortBonuses(this.bonuses, this.$params.common?.sortOrder);
-    }
-
     protected prepareBonuses(): void {
-        this.bonuses = this.sortBonuses();
-        this.checkBonuses();
 
         if (this.$params.common?.restType === 'active') {
             this.eventService.emit({
@@ -406,20 +390,12 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, A
                 data: this.bonuses.length,
             });
         }
-        this.cdr.detectChanges();
 
-        if (this.$params.common?.filterByGroup) {
-            if (this.$params.common.useRecommendedBonuses) {
-                this.prepareRecommendedBonuses();
-                return;
-            }
-
-            this.bonuses = this.filterBonusesByGroup();
+        if (this.$params.common?.useRecommendedBonuses && this.$params.common.filterByGroup) {
+            this.prepareRecommendedBonuses();
         }
-    }
 
-    protected checkBonuses(): void {
-        this.bonuses = _filter(this.bonuses, (bonus: Bonus) => _isObject(bonus));
+        this.cdr.detectChanges();
     }
 
     protected chooseBonusByPosition(pos: number): void {
@@ -464,8 +440,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, A
     }
 
     protected onGetBonuses(bonuses: Bonus[]): void {
-        this.paginatedBonuses = this.bonuses = this.bonusesService
-            .filterBonuses(bonuses, this?.filter);
+        this.paginatedBonuses = this.bonuses = bonuses;
         const chosenBonus = this.configService.get<ChosenBonusType>(ChosenBonusSetParams.ChosenBonus);
 
         if (chosenBonus?.id) {
@@ -582,9 +557,43 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, A
     /**
      * Set bonuses filter from params or by condition and subscribe to bonuses observer
      */
-    private setFilterAndSubscribeBonuses(): void {
+    private subscribeBonuses(): void {
+        this.isReady = false;
         this.ready$.next(false);
 
+        const restType: RestType = this.$params.common?.restType;
+        const hasFilteredBonuses: boolean = this.bonusesService.hasFilteredBonuses(this.filter, restType);
+
+        this.bonusesListController.getBonuses({
+            subscribeParams: {
+                useQuery: this.$params.common?.useQuery || !hasFilteredBonuses,
+                type: restType,
+            },
+            filter: this.filter,
+            sort: this.$params.common?.sortOrder,
+            filterByGroup: this.$params.common?.filterByGroup,
+        });
+
+        this.bonusesListController.ready$
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((ready: boolean): void => {
+                this.ready$.next(ready);
+                this.isReady = ready;
+            });
+
+        this.bonusesListController.bonuses$.pipe(
+            takeUntil(this.$destroy),
+        ).subscribe((bonuses: Bonus[]): void => {
+            this.onGetBonuses(bonuses);
+
+            if (hasFilteredBonuses) {
+                this.ready$.next(true);
+                this.isReady = true;
+            }
+        });
+    }
+
+    private setFilters(): void {
         this.filter = this.$params.common?.filter;
 
         if (this.filter === 'main') {
@@ -594,25 +603,6 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, A
                 this.filter = 'all';
             }
         }
-
-        const hasFilteredBonuses = this.bonusesService.hasFilteredBonuses(
-            this.filter,
-            this.$params.common?.restType);
-
-        this.bonusesService.getSubscribe({
-            useQuery: this.$params.common.useQuery || !hasFilteredBonuses,
-            observer: {
-                next: (bonuses: Bonus[]) => {
-                    this.onGetBonuses(bonuses || []);
-                    if (hasFilteredBonuses) {
-                        this.ready$.next(true);
-                    }
-                },
-            },
-            type: this.$params.common?.restType,
-            until: this.$destroy,
-            ready$: !hasFilteredBonuses ? this.ready$ : null,
-        });
     }
 
     /**

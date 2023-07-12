@@ -277,7 +277,8 @@ export class BonusesService {
                 case 'reg':
                     return this.isCatalogAllowOrSelectedOrActive(bonus)
                         && (this.isNotPromoOrSelectedOrActive(bonus) || this.isPromocodeEntered(bonus))
-                        && this.regEvents.indexOf(bonus.event) !== -1;
+                        && this.regEvents.indexOf(bonus.event) !== -1
+                        && !bonus.showOnly;
                 case 'main':
                     return !active && (!hasPromoCode || selected || this.isPromocodeEntered(bonus))
                         && (allowCatalog || selected)

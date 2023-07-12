@@ -35,6 +35,10 @@ import {BonusesService} from 'wlc-engine/modules/bonuses/system/services';
 import {BonusItemComponentEvents} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {IBlankBonusParams} from 'wlc-engine/modules/bonuses/components/bonuses-list/bonuses-list.params';
 import {IBonusItemCParams} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';
+import {
+    BonusesListController,
+    IBonusesListController,
+} from 'wlc-engine/modules/bonuses/system/classes/bonuses-list.controller';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import * as Params from './deposit-bonuses.params';
@@ -61,6 +65,7 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
     protected isMobile: boolean = this.configService.get<DeviceModel>('device').isMobile;
     protected firstInit: boolean = true;
     protected paymentsAutoSelect: boolean = false;
+    protected bonusesListController: IBonusesListController;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IDepositBonusesCParams,
@@ -72,6 +77,11 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
         @Inject(WINDOW) private window: Window,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+
+        this.bonusesListController = new BonusesListController(
+            this.bonusesService,
+            this.configService,
+        );
     }
 
     public override ngOnInit(): void {
@@ -87,6 +97,13 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
             ...Params.defBlankBonusParams,
             ...this.$params.blankBonus,
         };
+
+        this.bonusesListController.ready$
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((ready) => {
+                this.ready = ready;
+                this.cdr.markForCheck();
+            });
 
         this.eventService.subscribe({
             name: 'select_system',
@@ -235,13 +252,18 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
         if (this.$params.bonuses?.length) {
             processBonuses(this.$params.bonuses);
         } else {
-            this.bonusesService.getSubscribe({
-                type: 'any',
-                useQuery: true,
-                ready$: errorCatcher$,
-                observer: {
-                    next: processBonuses,
+            this.bonusesListController.getBonuses({
+                subscribeParams: {
+                    type: 'any',
+                    useQuery: true,
                 },
+                filter: this.$params.filter,
+            });
+
+            this.bonusesListController.bonuses$.pipe(
+                takeUntil(this.$destroy),
+            ).subscribe((bonuses: Bonus[]): void => {
+                processBonuses(bonuses);
             });
         }
     }
@@ -264,11 +286,10 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
     }
 
     protected processBonusesResponse(bonuses: Bonus[]): void {
+        this.ready = true;
         if (bonuses.length) {
-            this.bonuses = _filter(
-                this.bonusesService.filterBonuses(bonuses, this.$params.filter),
-                {isActive: false, showOnly: false},
-            );
+            this.bonuses = _filter(bonuses, {isActive: false, showOnly: false});
+
             const activeBonuses: Bonus[] = this.bonusesService.filterBonuses(bonuses, 'active');
 
             if (activeBonuses.some((bonus: Bonus) => !bonus.allowStack)) {
@@ -298,7 +319,6 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
             }
         }
 
-        this.ready = true;
         this.cdr.markForCheck();
     }
 
