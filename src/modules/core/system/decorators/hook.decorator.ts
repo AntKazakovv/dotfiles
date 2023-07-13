@@ -1,4 +1,4 @@
-import _has from 'lodash-es/has';
+/*import _has from 'lodash-es/has';
 
 import {GlobalDeps} from 'wlc-engine/modules/app/app.module';
 import {IReplaceHook} from 'wlc-engine/modules/core';
@@ -22,4 +22,4 @@ export function CustomHook(module: string, method: string) {
             }
         }
     };
-};
+};*/

@@ -24,7 +24,6 @@ import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {NgxWebstorageModule} from 'ngx-webstorage';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {WINDOW_PROVIDER} from 'wlc-engine/modules/app/system/tokens/window';
-import {CustomModule} from 'wlc-src/custom/custom.module';
 
 export function loadConfig(config: ConfigService) {
     return config.load();
@@ -71,7 +70,6 @@ export class GlobalDeps {
             },
         }),
         CoreModule,
-        CustomModule,
         NgxWebstorageModule.forRoot(),
         ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
         ModalModule.forRoot(),
@@ -88,7 +86,6 @@ export class GlobalDeps {
     ],
     exports: [
         CoreModule,
-        CustomModule,
         UIRouterModule,
         TranslateModule,
     ],
