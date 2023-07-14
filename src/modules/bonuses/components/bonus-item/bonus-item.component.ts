@@ -181,6 +181,9 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
         } else if (this.$params.theme === 'mini') {
             imageUrl = this.bonus.imageDeposit;
 
+        } else if (this.$params.theme === 'reg-first') {
+            imageUrl = this.bonus.imageReg;
+
         } else if (this.asProfileTypeFirst) {
             imageUrl = this.bonus.imageProfileFirst;
 
