@@ -5,6 +5,7 @@ import {
     Input,
     ChangeDetectorRef,
     ElementRef,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 
@@ -45,12 +46,11 @@ export interface ITotalJackpotCurrency {
  * }
  *
  */
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-total-jackpot]',
     templateUrl: './total-jackpot.component.html',
     styleUrls: ['./styles/total-jackpot.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TotalJackpotComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.ITotalJackpotCParams;
