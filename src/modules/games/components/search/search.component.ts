@@ -159,6 +159,13 @@ export class SearchComponent extends AbstractComponent implements OnInit {
                 || this.router.globals.transitionHistory.peekTail().$from().name === 'app.gameplay'
             ) {
                 this.initFromCache();
+            } else {
+                const isReady: Subscription = this.gamesFilterService.$gamesFilterSubsIsReady.subscribe((): void => {
+                    setTimeout(() => {
+                        this.setFilter();
+                    }, 0);
+                    isReady.unsubscribe();
+                });
             }
         }
 
