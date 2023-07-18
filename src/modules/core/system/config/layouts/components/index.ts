@@ -11,7 +11,6 @@ export * from './core/wlc-title.config';
 export * from './core/wlc-error-page.config';
 export * from './core/wlc-offline-page.config';
 export * from './core/wlc-something-wrong-page.config';
-export * from './core/wlc-plug.config';
 export * from './core/wlc-social-icons.config';
 export * from './core/wlc-login-signup.config';
 export * from './core/wlc-theme-toggler.config';

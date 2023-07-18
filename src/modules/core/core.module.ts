@@ -109,7 +109,6 @@ import {TooltipComponent} from './components/tooltip/tooltip.component';
 import {WlcModalComponent} from './components/modal';
 import {WlcNoContentComponent} from './components/no-content/no-content.component';
 import {WlcPaginationComponent} from './components/pagination/pagination.component';
-import {PlugComponent} from './components/plug/plug.component';
 import {WrapperComponent} from 'wlc-engine/modules/core/components';
 import {ThemeTogglerComponent} from './components/theme-toggler/theme-toggler.component';
 import {AlertComponent} from './components/alert/alert.component';
@@ -198,7 +197,6 @@ export const components = {
     'wlc-modal': WlcModalComponent,
     'wlc-no-content': WlcNoContentComponent,
     'wlc-pagination': WlcPaginationComponent,
-    'wlc-plug': PlugComponent,
     'wlc-radio-buttons': RadioButtonsComponent,
     'wlc-scroll-up': ScrollUpComponent,
     'wlc-rating': RatingComponent,
@@ -332,7 +330,6 @@ export const services = {
         NgTemplateNameDirective,
         NotificationThreadComponent,
         ParallaxMovementDirective,
-        PlugComponent,
         RadioButtonsComponent,
         RatingComponent,
         ScrollbarComponent,
@@ -405,7 +402,6 @@ export const services = {
         LottieAnimationComponent,
         NgTemplateNameDirective,
         ParallaxMovementDirective,
-        PlugComponent,
         RadioButtonsComponent,
         RatingComponent,
         ScrollbarComponent,
