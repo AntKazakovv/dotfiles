@@ -4,6 +4,7 @@ import {
     OnInit,
     Input,
     ChangeDetectorRef,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 import {UntypedFormControl} from '@angular/forms';
 import {
@@ -25,12 +26,12 @@ import _kebabCase from 'lodash-es/kebabCase';
  * }
  *
  */
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
+
 @Component({
     selector: '[wlc-textarea]',
     templateUrl: './textarea.component.html',
     styleUrls: ['./styles/textarea.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TextareaComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.ITextareaCParams;
