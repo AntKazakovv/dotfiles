@@ -21,7 +21,7 @@ export const defaultParams: IFeelingLuckyButtonCParams = {
     moduleName: 'games',
     componentName: 'wlc-lucky-button',
     theme: 'default',
-    text: gettext('Feeling Lucky?'),
+    text: gettext('Feeling lucky?'),
     actionText: gettext('Random game'),
     actionTextIcon: '/wlc/icons/arrow-right.svg',
     animateSprite: {
