@@ -50,7 +50,7 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
     public userPoints: number = 0;
     public userExpPoints: number = 0;
     public itemTheme: Params.Theme = 'default';
-
+    public isMultiWallet: boolean;
     protected itemsPerPage: number = 0;
     protected store: IStore;
 
@@ -92,6 +92,7 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
                 this.initStore(this.store);
             }
         }, this.$destroy);
+        this.isMultiWallet = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
     }
 
     /**

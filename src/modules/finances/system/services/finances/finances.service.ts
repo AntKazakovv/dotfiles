@@ -86,7 +86,6 @@ interface IQueries {
 export class FinancesService {
 
     public paymentSystems$: BehaviorSubject<PaymentSystem[]> = new BehaviorSubject(undefined);
-
     private systems: PaymentSystem[] = [];
     private emitDepositStatus$: Subscription;
 

@@ -63,6 +63,7 @@ import {
     IAddProfileInfoCParams,
     UserHelper,
     UserProfile,
+    UserService,
 } from 'wlc-engine/modules/user';
 import {AddProfileInfoComponent} from 'wlc-engine/modules/user/components/add-profile-info';
 
@@ -463,7 +464,7 @@ class StartGameHandler {
             return deferred.promise;
         }
 
-        await this.injectionService.getService<BonusesService>('user.user-service');
+        const userService = await this.injectionService.getService<UserService>('user.user-service');
 
         const userInfo: UserInfo = await firstValueFrom(
             this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'})
@@ -471,7 +472,13 @@ class StartGameHandler {
                     first((userInfo: UserInfo): boolean => !!userInfo?.idUser),
                 ),
         );
-        if (userInfo.balance > 0) {
+
+        const isMultiWallet: boolean = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
+
+        const walletBalance = isMultiWallet
+            && !!userInfo?.getWalletBalance(userService?.userProfile.extProfile.currentWallet.walletCurrency);
+
+        if (!!userInfo.balance || walletBalance) {
             deferred.resolve();
             return deferred.promise;
         }

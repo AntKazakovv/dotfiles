@@ -31,6 +31,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {
     UserInfo,
+    UserProfile,
     UserService,
 } from 'wlc-engine/modules/user';
 
@@ -109,15 +110,15 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
             walletCurrency: this.currentWallet.currency,
             walletId: this.currentWallet.walletId ?? null,
         });
-
         this.isOpened = false;
         this.cdr.markForCheck();
 
         if (this.isFinance) return;
 
-        const userProfile = this.userService.userProfile;
+        const userProfile: UserProfile = this.userService.userProfile;
+        UserInfo.currency = item.currency;
+        this.userService.userInfo$.next(this.userService.userInfo);
 
-        UserInfo.currency  = item.currency;
         userProfile.extProfile.currentWallet = {
             walletCurrency: this.currentWallet.currency,
             walletId: this.currentWallet.walletId,
@@ -174,6 +175,15 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
                         walletCurrency: this.currentWallet.currency,
                         walletId: this.currentWallet.walletId ?? null,
                     });
+                    this.cdr.markForCheck();
+                }
+            });
+
+        this.userService.userInfo$.pipe(
+            takeUntil(this.$destroy))
+            .subscribe((userInfo: UserInfo) => {
+                if (userInfo) {
+                    this.currentWallet.balance = userInfo.getWalletBalance(this.currentWallet.currency).toFixed(2);
                     this.cdr.markForCheck();
                 }
             });

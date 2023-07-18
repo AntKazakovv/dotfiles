@@ -25,6 +25,7 @@ interface IScope {
 })
 export class StoreItemInfoComponent extends AbstractComponent {
     public override $params: Params.IStoreItemInfoCParams;
+    public isMultiWallet: boolean;
 
     public get scope(): IScope {
         return {
@@ -41,5 +42,11 @@ export class StoreItemInfoComponent extends AbstractComponent {
                 injectParams,
                 defaultParams: Params.defaultParams,
             }, configService);
+        this.isMultiWallet = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
+    }
+
+    public get showMultyWalletWarning(): boolean {
+        return this.isMultiWallet
+            && (this.$params.storeItem.type === 'Money' || this.$params.storeItem.type === 'MoneyBonus');
     }
 }

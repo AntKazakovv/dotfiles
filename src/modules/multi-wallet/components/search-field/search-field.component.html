@@ -1,7 +1,7 @@
 <label class="{{$class}}">
     <input
         class="{{$class}}__input"
-        placeholder="{{$params.placeholder}}"
+        placeholder="{{$params.placeholder | translate}}"
         data-wlc-element="input_search"
         (input)="inputHandler($event)"
         [(ngModel)]="searchQuery">

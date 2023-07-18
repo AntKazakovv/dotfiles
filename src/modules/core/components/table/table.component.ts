@@ -34,7 +34,6 @@ import _filter from 'lodash-es/filter';
 import _isObject from 'lodash-es/isObject';
 import _uniq from 'lodash-es/uniq';
 import _sortBy from 'lodash-es/sortBy';
-import _isString from 'lodash-es/isString';
 
 @Component({
     selector: '[wlc-table]',
@@ -206,7 +205,7 @@ export class TableComponent extends AbstractComponent implements OnInit {
     }
 
     protected getValue(item: string | Currency): string {
-        return _isString(item) ? item : item.value;
+        return _isObject(item) ? item.value : item;
     }
 
     private createTableRow(rows: unknown[]): TableRowModel[] {

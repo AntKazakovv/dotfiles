@@ -196,6 +196,11 @@ export interface IPrizeRow {
     prize: ITournamentPrize[];
     place?: number;
 }
+export interface IJoinTournamentParams {
+    ID: number;
+    Selected: number;
+    wallet?: number;
+}
 
 export type RestType = 'active' | 'history' | 'any';
 export type ThumbType = 'default' | 'dashboard' | 'banner' | 'active' | 'profile' | 'available';

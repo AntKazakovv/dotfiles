@@ -62,13 +62,13 @@
         <span
             *ngIf="isShowNotFound"
             class="{{$class}}__not-found">
-            {{this.$params.notFoundText}}
+            {{this.$params.notFoundText | translate}}
         </span>
 
         <ng-template [ngIf]="!isFinance">
             <hr/>
             <div class="{{$class}}__hide-wallets">
-                <span>{{$params.hideWalletText}}</span>
+                <span>{{$params.hideWalletText | translate}}</span>
                 <div
                     wlc-checkbox
                     [inlineParams]="toggleBtn"

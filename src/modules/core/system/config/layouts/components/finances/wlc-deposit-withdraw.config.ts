@@ -57,6 +57,7 @@ export namespace wlcDepositWithdraw {
                     display: {
                         before: 899,
                         after: 640,
+                        isMultyWallet: false,
                     },
                     params: {
                         class: 'wlc-user-stats-wrapper__grid',

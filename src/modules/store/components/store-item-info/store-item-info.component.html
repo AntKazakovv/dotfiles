@@ -7,6 +7,10 @@
         class="{{$class}}__alert-block"
         [title]="'This product will become available for purchase when you have no active bonuses left.' | translate">
     </div>
+    <span *ngIf="showMultyWalletWarning"
+          class="{{$class}}__multy-wallet">
+        {{$params.multyWalletWarning | translate}}
+    </span>
     <div class="{{$class}}__description"
         wlc-dynamic-html
         [html]="$params.description"

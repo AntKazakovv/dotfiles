@@ -161,4 +161,8 @@ export class StoreItem extends AbstractModel<IStoreItem> {
     public get isAvailable(): number {
         return _toNumber(this.data.IsItemAvailable);
     }
+
+    public get type(): string {
+        return this.data.Type;
+    }
 }

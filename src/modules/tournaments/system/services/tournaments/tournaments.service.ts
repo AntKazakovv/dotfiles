@@ -41,6 +41,7 @@ import {
     ITournamentUserStats,
     ITopTournamentUsers,
     ITournamentUser,
+    IJoinTournamentParams,
 } from '../../interfaces/tournaments.interface';
 import {UserProfile} from 'wlc-engine/modules/user';
 
@@ -237,10 +238,16 @@ export class TournamentsService {
      * @returns {Tournament} Tournament object
      */
     public async joinTournament(tournament: Tournament): Promise<Tournament> {
-        const params = {ID: tournament.id, Selected: 1};
-
+        const params: IJoinTournamentParams = {ID: tournament.id, Selected: 1};
         try {
             this.isProcessed$.next(true);
+
+            const isMultiWallet: boolean = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
+
+            if (isMultiWallet) {
+                params.wallet = this.profile.extProfile.currentWallet.walletId;
+            }
+
             const response: IData = await this.dataService.request({
                 name: 'tournamentSubscribe',
                 system: 'tournaments',

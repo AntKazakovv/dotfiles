@@ -16,6 +16,8 @@ export interface IStoreItemInfoCParams extends IComponentParams<Theme, Type, The
     /** Use alert or not */
     isDisabled: boolean,
     storeItem: StoreItem,
+    // TODO is a temporary solution
+    multyWalletWarning?: string;
 }
 
 export const defaultParams: Partial<IStoreItemInfoCParams> = {
@@ -25,4 +27,5 @@ export const defaultParams: Partial<IStoreItemInfoCParams> = {
     title: '',
     description: '',
     isDisabled: false,
+    multyWalletWarning: gettext('Please note that some transactions are processed only through your main wallet.'),
 };

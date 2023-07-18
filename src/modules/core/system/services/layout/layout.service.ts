@@ -256,6 +256,11 @@ export class LayoutService {
                     result = result
                         && element.display.auth === this.configService.get<boolean>('$user.isAuthenticated');
                 }
+                if (result && !_isUndefined(element.display?.isMultyWallet)) {
+                    result = result
+                        && element.display?.isMultyWallet === this.configService
+                            .get<boolean>('appConfig.siteconfig.isMultiWallet');
+                }
             }
             return result;
         });

@@ -49,11 +49,11 @@ export class UserInfo extends AbstractModel<IUserInfo> {
     }
 
     public get availableWithdraw(): number {
-        return this.getWalletAvailableWithdraw(UserInfo.currency) ?? this.data?.availableWithdraw;
+        return UserInfo.currency ? this.getWalletAvailableWithdraw(UserInfo.currency) : this.data?.availableWithdraw;
     }
 
     public get balance(): number {
-        return this.getWalletBalance(UserInfo.currency) ?? this.data?.balance;
+        return UserInfo.currency ? this.getWalletBalance(UserInfo.currency) : this.data?.balance;
     }
 
     public getAvailableWithdrawForSelectWallet(selectedWallet: ISelectedWallet): number {
@@ -162,7 +162,7 @@ export class UserInfo extends AbstractModel<IUserInfo> {
     }
 
     public get realBalance(): number {
-        return _toNumber(this.wallets[UserInfo.currency]?.balance) ?? this.balance - this.bonusBalance;
+        return UserInfo.currency ? this.getWalletBalance(UserInfo.currency) : this.balance - this.bonusBalance;
     }
 
     public get level(): number {
@@ -276,11 +276,11 @@ export class UserInfo extends AbstractModel<IUserInfo> {
         }*/
     }
 
-    private getWalletBalance(currency: string): number {
-        return _toNumber(this.wallets[currency]?.balance) ?? 0;
+    public getWalletBalance(currency: string): number {
+        return this.wallets[currency]?.balance ? _toNumber(this.wallets[currency]?.balance) : 0;
     }
 
     private getWalletAvailableWithdraw(currency: string): number {
-        return _toNumber(this.wallets[currency]?.availableWithdraw) ?? 0;
+        return this.wallets[currency]?.availableWithdraw ? _toNumber(this.wallets[currency]?.availableWithdraw) : 0;
     }
 }

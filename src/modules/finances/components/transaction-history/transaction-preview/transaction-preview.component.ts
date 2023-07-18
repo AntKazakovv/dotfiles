@@ -26,7 +26,7 @@ export class TransactionPreviewComponent extends AbstractComponent implements On
     public override $params: Params.ITransactionPreviewParams;
     public date: string;
     public amount: number;
-
+    public currency: string;
     constructor(
         @Inject('injectParams') protected params: Params.ITransactionPreviewParams,
         cdr: ChangeDetectorRef,
@@ -45,5 +45,6 @@ export class TransactionPreviewComponent extends AbstractComponent implements On
         super.ngOnInit();
         this.date = GlobalHelper.toLocalTime(this.$params.transaction.dateISO, 'ISO', 'HH:mm:ss dd-MM-yyyy');
         this.amount = this.$params.transaction.amount;
+        this.currency = this.$params.transaction.currency;
     }
 }

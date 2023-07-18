@@ -38,5 +38,10 @@
                 text-align: left;
             }
         }
+
+        .wlc-store-list__alert-block {
+            max-width: 100%;
+            padding: ef.get-value($themeDefault, 'alertPadding');
+        }
     }
 }

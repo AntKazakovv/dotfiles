@@ -357,7 +357,6 @@ export class StoreService {
 
         this.eventService.subscribe([
             {name: 'STORE_ITEM_BUY_SUCCEEDED'},
-            {name: 'PROFILE_UPDATE'},
         ], () => {
             this.updateSubscribers();
         });

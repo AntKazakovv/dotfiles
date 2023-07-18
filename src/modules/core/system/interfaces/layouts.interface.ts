@@ -98,6 +98,8 @@ export interface IDisplayConfig {
     auth?: boolean;
     /** display component only if there is a parameter in the config */
     configProperty?: string;
+    // TODO is a temporary consequence of hiding wlc-user-stats-balance from the deposit for allowed tablets
+    isMultyWallet?: boolean
 }
 
 export interface IParamsLayoutConfig {

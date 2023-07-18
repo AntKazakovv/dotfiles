@@ -1,4 +1,10 @@
 <div class="{{$class}}__content" data-wlc-element="wlc-store">
+    <div *ngIf="isMultiWallet"
+         wlc-alert
+         class="{{$class}}__alert-block"
+         [level]="'warning'"
+         [title]="'Please note that some transactions are processed only through your main wallet.' | translate">
+    </div>
     <div *ngIf="paginatedStoreItems?.length && isReady; else: noItems"
          class="{{$class}}__list"
          [class.first]="isProfileFirst">
