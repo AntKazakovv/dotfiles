@@ -1,5 +1,6 @@
 import {
     AfterViewInit,
+    ChangeDetectionStrategy,
     Component,
     ElementRef,
     Inject,
@@ -37,12 +38,11 @@ import * as Params from './banner.params';
  *     },
  * }
  */
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-banner]',
     templateUrl: './banner.component.html',
     styleUrls: ['./styles/banner.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BannerComponent extends AbstractComponent implements OnInit, AfterViewInit {
     public override $params: Params.IBannerCParams;
