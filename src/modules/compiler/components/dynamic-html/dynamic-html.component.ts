@@ -13,6 +13,7 @@ import {
     OnDestroy,
     ViewContainerRef,
     EventEmitter,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
@@ -20,11 +21,10 @@ import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper
 
 import _each from 'lodash-es/each';
 
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-dynamic-html]',
     templateUrl: './dynamic-html.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
     /**
