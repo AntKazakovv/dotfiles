@@ -3,6 +3,7 @@ import {
     Inject,
     OnInit,
     Input,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 
 import {
@@ -22,12 +23,11 @@ import * as Params from './recaptcha-policy.params';
  * }
  *
  */
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-recaptcha-policy]',
     templateUrl: './recaptcha-policy.component.html',
     styleUrls: ['./styles/recaptcha-policy.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RecaptchaPolicyComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IRecaptchaPolicyCParams;
