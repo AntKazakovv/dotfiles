@@ -12,6 +12,7 @@ import {
     OnDestroy,
     AfterViewInit,
     Input,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 import {
@@ -113,13 +114,12 @@ export interface IGameWrapperHookIframeShown {
     mobile: boolean;
 }
 
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-game-wrapper]',
     templateUrl: './game-wrapper.component.html',
     styleUrls: ['./styles/game-wrapper.component.scss'],
     encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GameWrapperComponent extends AbstractComponent implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild('wrp', {read: ViewContainerRef, static: false}) wrp: ViewContainerRef;
