@@ -4,6 +4,7 @@ import {
     OnInit,
     Input,
     ChangeDetectorRef,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 import {
     TransitionService,
@@ -34,12 +35,11 @@ import _get from 'lodash-es/get';
  * }
  *
  */
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-info-page]',
     templateUrl: './info-page.component.html',
     styleUrls: ['./styles/info-page.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InfoPageComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IInfoPageCParams;
@@ -62,7 +62,7 @@ export class InfoPageComponent extends AbstractComponent implements OnInit {
         this.config = this.$params.config;
         this.transition.onSuccess({}, () => {
             this.setChildParams();
-            this.cdr.detectChanges();
+            this.cdr.markForCheck();
         });
 
         this.setChildParams();
