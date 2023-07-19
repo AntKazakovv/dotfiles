@@ -5,6 +5,7 @@ import {
     Input,
     ChangeDetectorRef,
     HostBinding,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {StateService} from '@uirouter/core';
@@ -33,12 +34,11 @@ import * as Params from './play-game-for-real.params';
  * }
  *
  */
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-play-game-for-real]',
     templateUrl: './play-game-for-real.component.html',
     styleUrls: ['./styles/play-game-for-real.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PlayGameForRealComponent extends SignInFormAbstract<Params.IPlayGameForRealCParams> implements OnInit {
     @Input() public inlineParams: Params.IPlayGameForRealCParams;
