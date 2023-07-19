@@ -237,13 +237,6 @@ def make_tag(branch = None):
     return new_tag
 
 
-# Очистка временной директории
-def clean_temp():
-    print(Fore.YELLOW + "Clean temp folder" + Fore.RESET)
-    subprocess.run(["rm", "-rf", temp_folder])
-    print(Fore.GREEN + "Done" + Fore.RESET)
-
-
 # Удаление локального тега движка
 def del_local_tag():
     engine_version = get_version()
@@ -449,7 +442,7 @@ def make_hotfix(action):
     changed = input(Fore.YELLOW + "When you add all the changes to the branch, enter 'y': " + Fore.RESET)
 
     if changed.lower() == "y":
-        new_tag = ".".join([str(k) for k in change_version(action, parse_version(get_version()))])
+        new_tag = make_tag()
         print(Fore.YELLOW + "Commiting all changes..." + Fore.RESET)
         subprocess.run(["git", "add", "."])
         subprocess.run(["git", "commit", "-m", f"SCR #{ticket} - Engine hotfix from {engine_version} version"])
@@ -534,7 +527,7 @@ def make_release(action, branch):
     print(Fore.GREEN + "Done" + Fore.RESET)
 
     print(Fore.YELLOW + "Making new engine tag..." + Fore.RESET)
-    new_tag = ".".join([str(k) for k in change_version(action, parse_version(get_version()))])
+    new_tag = make_tag()
     set_version(new_tag)
     print(Fore.GREEN + f"Done. New tag is {new_tag}" + Fore.RESET)
 
@@ -742,7 +735,7 @@ def release_manager():
         action = "deltag"
         del_local_tag()
         del_remote_tag()
-        old_version = ".".join([str(k) for k in change_version(action, parse_version(get_version()))])
+        old_version = make_tag()
         set_version(old_version)
         start()
 
