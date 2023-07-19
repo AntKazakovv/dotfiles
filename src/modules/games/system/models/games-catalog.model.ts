@@ -477,22 +477,19 @@ export class GamesCatalog extends AbstractModel<IGames> {
      * @returns {CategoryModel[]} Sorted category list
      */
     public sortCategories(categories: CategoryModel[]): CategoryModel[] {
-        const useSortByLang: boolean = !!_find(categories, (category: CategoryModel): boolean => !!category.sortByLang);
-        if (useSortByLang) {
-            return _orderBy(
-                categories,
-                [
-                    (category: CategoryModel): number | null => category.sortByLang || null,
-                    (category: CategoryModel): number => category.sort || 0,
-                ],
-                [
-                    'asc',
-                    'desc',
-                ],
-            );
-        } else {
-            return _orderBy(categories, (category: CategoryModel) => category.sort || 0, 'desc');
-        }
+        return _orderBy(
+            categories,
+            [
+                (category: CategoryModel) => category.sortByLang || null,
+                (category: CategoryModel) => category.operatorSort || 0,
+                (category: CategoryModel) => category.globalSort || 0,
+            ],
+            [
+                'asc',
+                'desc',
+                'desc',
+            ],
+        );
     }
 
     /**

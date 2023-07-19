@@ -154,6 +154,14 @@ export class CategoryModel extends AbstractModel<ICategory> {
         return this.defaultSort;
     }
 
+    public get globalSort(): number {
+        return +this.data.CSort || 0;
+    }
+
+    public get operatorSort(): number {
+        return +this.data.CSubSort || 0;
+    }
+
     /**
      * Value of sort by currently used language
      *
