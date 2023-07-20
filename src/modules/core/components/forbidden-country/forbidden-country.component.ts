@@ -1,6 +1,7 @@
 import {
     Component,
     Inject,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 
 import {
@@ -10,12 +11,11 @@ import {
 
 import * as Params from './forbidden-country.params';
 
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-forbidden-country]',
     templateUrl: './forbidden-country.component.html',
     styleUrls: ['./styles/forbidden-country.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ForbiddenCountryComponent extends AbstractComponent {
     public override $params: Params.IForbiddenCountryParams;
