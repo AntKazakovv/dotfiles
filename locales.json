@@ -17,6 +17,7 @@
     "en-ph": {"code": "en-ph", "label": "Philippines", "locale": "en_PH"},
     "ph": {"code": "ph", "label": "Philippines", "locale": "en_PH"},
     "es": {"code": "es", "label": "Spanish", "locale": "es_ES"},
+    "es-mx": {"code": "es-mx", "label": "Spanish", "locale": "es_MX"},
     "sp": {"code": "sp", "label": "Spanish", "locale": "es_SP"},
     "fa": {"code": "fa", "label": "Persian", "locale": "fa_FA"},
     "fi": {"code": "fi", "label": "Suomi", "locale": "fi_FI"},
