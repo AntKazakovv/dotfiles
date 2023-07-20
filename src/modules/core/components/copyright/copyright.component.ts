@@ -3,6 +3,7 @@ import {
     Inject,
     OnInit,
     Input,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core';
@@ -18,12 +19,12 @@ import * as Params from './copyright.params';
  * }
  *
  */
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
+
 @Component({
     selector: '[wlc-copyright]',
     templateUrl: './copyright.component.html',
     styleUrls: ['./styles/copyright.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CopyrightComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.ICopyrightCParams;
