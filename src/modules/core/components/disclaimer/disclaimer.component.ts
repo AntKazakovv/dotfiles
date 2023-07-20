@@ -3,6 +3,7 @@ import {
     Inject,
     OnInit,
     Input,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {takeUntil} from 'rxjs/operators';
@@ -21,12 +22,12 @@ import {defaultParams, IDisclaimerCParams} from './disclaimer.params';
  * }
  *
  */
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
+
 @Component({
     selector: '[wlc-disclaimer]',
     templateUrl: './disclaimer.component.html',
     styleUrls: ['./styles/disclaimer.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DisclaimerComponent extends AbstractComponent implements OnInit {
     public override $params: IDisclaimerCParams;
