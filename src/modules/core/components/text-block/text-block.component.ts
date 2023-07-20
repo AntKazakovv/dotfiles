@@ -3,6 +3,7 @@ import {
     Input,
     Inject,
     OnInit,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 import {
     AbstractComponent,
@@ -22,12 +23,12 @@ import * as Params from './text-block.params';
  * }
  *
  */
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
+
 @Component({
     selector: '[wlc-text-block]',
     templateUrl: './text-block.component.html',
     styleUrls: ['./styles/text-block.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TextBlockComponent extends AbstractComponent implements OnInit {
     @Input() public inlineParams: Params.ITextBlockCParams;
