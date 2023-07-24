@@ -249,6 +249,13 @@
                     .win-text {
                         margin: ef.get-value($themeDefault, 'winBonusTextMargin');
                     }
+
+                    ::ng-deep {
+
+                        .wlc-tournament-prizes-row__values {
+                            justify-content: ef.get-value($themeDefault, 'winJustifyContent');
+                        }
+                    }
                 }
             }
 

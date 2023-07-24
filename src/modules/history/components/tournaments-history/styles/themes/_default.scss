@@ -55,6 +55,7 @@
 
                     .wlc-tournament-prizes-row__values {
                         @include bm.get-mq-map('max-width', $themeDefault, 'tournamentsWinsMaxWidth');
+                        @include bm.get-mq-map('justify-content', $themeDefault, 'tournamentsWinsJustifyContent');
                     }
                 }
 

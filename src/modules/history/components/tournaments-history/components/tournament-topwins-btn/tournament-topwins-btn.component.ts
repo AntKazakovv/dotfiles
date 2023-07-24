@@ -67,7 +67,7 @@ export class TournamentTopwinsBtnComponent extends AbstractComponent implements 
             closeBtnText: gettext('Ok'),
             scrollable: false,
             wlcElement: 'tournament_wins_history',
-            size: this.$params.tournament.tournamentWins.length > 2 ? 'md-extra' : 'md',
+            size: this.$params.tournament.target === 'bonus' ? 'md-extra' : 'md',
         });
     }
 }

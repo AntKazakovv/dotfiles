@@ -8,7 +8,6 @@ import {takeUntil} from 'rxjs/operators';
 import _assign from 'lodash-es/assign';
 import _each from 'lodash-es/each';
 import _isEmpty from 'lodash-es/isEmpty';
-import _reduce from 'lodash-es/reduce';
 import _toNumber from 'lodash-es/toNumber';
 import _toString from 'lodash-es/toString';
 import _uniqBy from 'lodash-es/uniqBy';
@@ -16,7 +15,6 @@ import _uniqBy from 'lodash-es/uniqBy';
 import {
     AbstractModel,
     ConfigService,
-    CurrenciesInfo,
     GlobalHelper,
     IFromLog,
 } from 'wlc-engine/modules/core';
@@ -197,7 +195,7 @@ export class TournamentHistory extends AbstractModel<ITournamentHistory> {
         const wins: TCurrency = (this.target === 'bonus' && !_isEmpty(this.data.TotalWins.Currency))
             ? this.data.TotalWins.Currency
             : this.totalWins;
-        this.tournamentWins = this.transformWins(wins);
+        this.tournamentWins = this.historyService.transformWins(wins, this.targetDefaultCurrency);
     }
 
     protected get totalWins(): number {
@@ -205,43 +203,5 @@ export class TournamentHistory extends AbstractModel<ITournamentHistory> {
             ? this.data.TotalWins.EUR
             : this.data.Win,
         );
-    }
-
-    private transformWins(rawWinRow: TCurrency): ITournamentPrize[] {
-        const wins: ITournamentPrize[] = [];
-        const tournamentCurrency: string = this.targetDefaultCurrency;
-
-        if (typeof rawWinRow === 'object') {
-            const moneyWin: number = _toNumber(rawWinRow[tournamentCurrency]);
-            const specialCurrencies: ReadonlySet<String> = CurrenciesInfo.specialCurrencies;
-            const specialWins: ITournamentPrize[] = _reduce(Array.from(specialCurrencies),
-                (result: ITournamentPrize[], currency: string) => {
-                    if (rawWinRow[currency]) {
-                        const value: number = currency === 'FB'
-                            ? _toNumber(rawWinRow[currency][tournamentCurrency])
-                            : _toNumber(rawWinRow[currency]);
-
-                        if (value) {
-                            result.push({currency, value});
-                        }
-                    }
-                    return result;
-                }, []);
-
-            if (moneyWin) {
-                wins.push({
-                    currency: tournamentCurrency,
-                    value: moneyWin,
-                });
-            }
-
-            wins.push(...specialWins);
-        } else {
-            wins.push({
-                currency: tournamentCurrency,
-                value: _toNumber(rawWinRow),
-            });
-        }
-        return wins;
     }
 }

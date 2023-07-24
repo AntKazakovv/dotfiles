@@ -29,4 +29,8 @@ $themeDefault: map-merge((
         375: 180px,
         560: 100%,
     ),
+    'tournamentsWinsJustifyContent': (
+        375: end,
+        560: center,
+    ),
 ), $customThemeDefault);

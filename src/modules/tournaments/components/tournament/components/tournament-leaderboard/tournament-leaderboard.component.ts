@@ -8,9 +8,9 @@ import {
 } from '@angular/core';
 
 import _findIndex from 'lodash-es/findIndex';
+import _forEach from 'lodash-es/forEach';
 import _isEmpty from 'lodash-es/isEmpty';
 import _isNumber from 'lodash-es/isNumber';
-import _reduce from 'lodash-es/reduce';
 import _toNumber from 'lodash-es/toNumber';
 import _union from 'lodash-es/union';
 
@@ -20,6 +20,7 @@ import {
     IMixedParams,
     ConfigService,
     ModalService,
+    InjectionService,
 } from 'wlc-engine/modules/core';
 import {
     Tournament,
@@ -29,8 +30,8 @@ import {
     ITournamentLeaderboardCParams,
     ITournamentPrize,
 } from 'wlc-engine/modules/tournaments';
+import {HistoryService} from 'wlc-engine/modules/history/system/services/history.service';
 import {TournamentHistory} from 'wlc-engine/modules/history/system/models/tournament-history/tournament-history.model';
-import {CurrenciesInfo} from 'wlc-engine/modules/core/constants/currencies-info.constants';
 
 import * as Params from './tournament-leaderboard.params';
 
@@ -65,14 +66,18 @@ export class TournamentLeaderboardComponent
     public currency: string = 'EUR';
     public pointsTitle: string = gettext('Points');
     public isMaxWinBetRatio: boolean = false;
+    public isHistory: boolean = false;
+    public isTargetBonus: boolean = false;
 
     protected restLimit: number;
+    protected historyService: HistoryService;
 
     constructor(
         @Inject('injectParams') protected params: Params.ITournamentLeaderboardCParams,
         cdr: ChangeDetectorRef,
         configService: ConfigService,
         protected modalService: ModalService,
+        protected injectionService: InjectionService,
     ) {
         super(
             <IMixedParams<Params.ITournamentLeaderboardCParams>>{
@@ -81,7 +86,7 @@ export class TournamentLeaderboardComponent
             }, configService, cdr);
     }
 
-    public override ngOnInit(): void {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit(GlobalHelper.prepareParams(this,
             ['tournament', 'type', 'theme', 'themeMod', 'customMod', 'limit', 'showAllBtn', 'useListHead']));
         this.prepareModifiers();
@@ -105,6 +110,16 @@ export class TournamentLeaderboardComponent
             this.isMaxWinBetRatio = true;
             this.pointsTitle = gettext('Coefficient');
         }
+
+        if (this.paramInclude('themeMod', 'history')) {
+            this.isHistory = true;
+        }
+
+        if (this.$params.common?.tournament.target === 'bonus') {
+            this.isTargetBonus = true;
+        }
+
+        this.historyService ??= await this.injectionService.getService('history.history-service');
 
         this.isReady = false;
         this.tournament?.getWinnersSubscribe(
@@ -163,50 +178,11 @@ export class TournamentLeaderboardComponent
         const wins: TCurrency = (win.Target === 'bonus' && !_isEmpty(win.TotalWins.Currency))
             ? win.TotalWins.Currency
             : this.totalWins(win);
-
-        return this.transformWins(wins);
+        return this.historyService.transformWins(wins, this.currency);
     }
 
     protected totalWins(win: ITournamentPlace): number | string {
         return _toNumber(this.currency === 'EUR' ? win.WinEUR : win.Win);
-    }
-
-    private transformWins(rawWinRow: TCurrency): ITournamentPrize[] {
-        const wins: ITournamentPrize[] = [];
-        const tournamentCurrency: string = this.currency;
-
-        if (typeof rawWinRow === 'object') {
-            const moneyWin: number = _toNumber(rawWinRow[tournamentCurrency]);
-            const specialCurrencies: ReadonlySet<String> = CurrenciesInfo.specialCurrencies;
-            const specialWins: ITournamentPrize[] = _reduce(Array.from(specialCurrencies),
-                (result: ITournamentPrize[], currency: string) => {
-                    if (rawWinRow[currency]) {
-                        const value: number = currency === 'FB'
-                            ? _toNumber(rawWinRow[currency][tournamentCurrency])
-                            : _toNumber(rawWinRow[currency]);
-
-                        if (value) {
-                            result.push({currency, value});
-                        }
-                    }
-                    return result;
-                }, []);
-
-            if (moneyWin) {
-                wins.push({
-                    currency: tournamentCurrency,
-                    value: moneyWin,
-                });
-            }
-
-            wins.push(...specialWins);
-        } else {
-            wins.push({
-                currency: tournamentCurrency,
-                value: _toNumber(rawWinRow),
-            });
-        }
-        return wins;
     }
 
     protected prepareModifiers(): void {
@@ -236,11 +212,11 @@ export class TournamentLeaderboardComponent
     protected getWins(result: ITopTournamentUsers): void {
         this.wins = this.tournament.getTopArray(result);
 
-        if (this.paramInclude('themeMod', 'history')) {
-            for (let i = 0; i < this.wins.length; i++) {
-                let winLB = this.getCurrencyValue(this.wins[i]);
+        if (this.isHistory) {
+            _forEach(this.wins, (win, i) => {
+                let winLB = this.getCurrencyValue(win);
                 this.wins[i].TotalWinsLB = winLB;
-            }
+            });
         }
 
         if (this.wins?.length) {

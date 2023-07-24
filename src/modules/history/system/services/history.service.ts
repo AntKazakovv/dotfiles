@@ -15,9 +15,12 @@ import {
 import _filter from 'lodash-es/filter';
 import _isNil from 'lodash-es/isNil';
 import _map from 'lodash-es/map';
+import _toNumber from 'lodash-es/toNumber';
+import _reduce from 'lodash-es/reduce';
 
 import {
     ConfigService,
+    CurrenciesInfo,
     DataService,
     EventService,
     IData,
@@ -37,6 +40,8 @@ import {
 } from 'wlc-engine/modules/history/system/interfaces/tournament-history/tournament-history.interface';
 import {
     ITopTournamentUsers,
+    ITournamentPrize,
+    TCurrency,
 } from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
 
 interface IBonusesData extends IData {
@@ -276,6 +281,42 @@ export class HistoryService {
         } catch (error) {
             this.logService.sendLog({code: '13.0.2', data: error});
         }
+    }
+
+    public transformWins(rawWinRow: TCurrency, tournamentCurrency: string): ITournamentPrize[] {
+        const wins: ITournamentPrize[] = [];
+
+        if (typeof rawWinRow === 'object') {
+            const moneyWin: number = _toNumber(rawWinRow[tournamentCurrency]);
+            const specialWins: ITournamentPrize[] = _reduce(Array.from(CurrenciesInfo.specialCurrencies),
+                (result: ITournamentPrize[], currency: string) => {
+                    if (rawWinRow[currency]) {
+                        const value: number = currency === 'FB'
+                            ? _toNumber(rawWinRow[currency][tournamentCurrency])
+                            : _toNumber(rawWinRow[currency]);
+
+                        if (value) {
+                            result.push({currency, value});
+                        }
+                    }
+                    return result;
+                }, []);
+
+            if (moneyWin) {
+                wins.push({
+                    currency: tournamentCurrency,
+                    value: moneyWin,
+                });
+            }
+
+            wins.push(...specialWins);
+        } else {
+            wins.push({
+                currency: tournamentCurrency,
+                value: _toNumber(rawWinRow),
+            });
+        }
+        return wins;
     }
 
     private modifyTournaments(

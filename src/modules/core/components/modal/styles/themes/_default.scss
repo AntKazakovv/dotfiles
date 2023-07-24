@@ -327,7 +327,7 @@
         .wlc-modal {
 
             &__dialog--md-extra {
-                @include bm.get-mq-map('max-width', $themeDefault, 'historyWinsModalMaxWidth');
+                max-width: ef.get-value($themeDefault, 'historyWinsModalMaxWidth');
             }
         }
     }

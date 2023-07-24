@@ -79,6 +79,7 @@ $themeDefault: map-merge((
 
     'winTextMargin': 0 3px 0 0,
     'winBonusTextMargin': 0 10px 0 0,
+    'winJustifyContent': end,
 ), $customThemeDefault);
 
 $customThemeModCompact: () !default;
