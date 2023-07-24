@@ -38,6 +38,16 @@ module.exports = {
         'no-console': ['error', {allow: ['warn', 'error']}],
         'no-debugger': 'error',
         'semi': ['error', 'always'],
+        'no-restricted-imports': [
+            'error', {
+                'patterns': [
+                    {
+                        'group': ['lodash/*'],
+                        'message': 'Lodash import should be done from lodash-es',
+                    }
+                ]
+            }
+        ],
         'comma-dangle': ['error', 'always-multiline'],
         'indent': ['error', 4, {
             'SwitchCase': 1,

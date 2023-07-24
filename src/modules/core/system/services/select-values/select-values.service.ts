@@ -30,7 +30,7 @@ import _merge from 'lodash-es/merge';
 import _get from 'lodash-es/get';
 import _cloneDeep from 'lodash-es/cloneDeep';
 import _has from 'lodash-es/has';
-import _includes from 'lodash/includes';
+import _includes from 'lodash-es/includes';
 
 import {UserProfile} from 'wlc-engine/modules/user';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';

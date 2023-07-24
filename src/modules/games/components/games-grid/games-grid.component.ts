@@ -48,7 +48,7 @@ import _isInteger from 'lodash-es/isInteger';
 import _ceil from 'lodash-es/ceil';
 import _random from 'lodash-es/random';
 import _set from 'lodash-es/set';
-import _differenceBy from 'lodash/differenceBy';
+import _differenceBy from 'lodash-es/differenceBy';
 import {SwiperOptions} from 'swiper';
 
 import {

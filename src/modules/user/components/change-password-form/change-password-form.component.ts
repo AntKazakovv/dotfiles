@@ -14,7 +14,7 @@ import _isArray from 'lodash-es/isArray';
 import _isEmpty from 'lodash-es/isEmpty';
 import _isObject from 'lodash-es/isObject';
 import _isString from 'lodash-es/isString';
-import _toString from 'lodash/toString';
+import _toString from 'lodash-es/toString';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
