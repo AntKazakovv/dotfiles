@@ -225,7 +225,7 @@ export class SearchComponent extends AbstractComponent implements OnInit {
                 merchantsList = merchantsList.concat(category.merchants);
             });
             this.merchants = _sortBy(_uniqBy(merchantsList, 'id'), (merchant) => {
-                return merchant.name;
+                return merchant.alias;
             });
         } else {
             this.getMerchants();
