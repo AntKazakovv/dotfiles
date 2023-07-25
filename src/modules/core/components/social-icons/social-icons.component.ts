@@ -32,6 +32,10 @@ export class SocialIconsComponent extends AbstractComponent implements OnInit {
         super.ngOnInit();
         _merge(this.$params.socials, this.configService.get<Params.ISocialItem[]>('$base.contacts.socials') || []);
         this.$params.socials = _sortBy(this.$params.socials, (item) => item.order);
+
+        if(this.$params.iconsType === 'color'){
+            this.$params.iconPath = '/wlc/icons/social/color/';
+        }
     }
 
     public getIconPath(item: Params.ISocialItem): string {
