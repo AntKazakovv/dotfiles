@@ -650,7 +650,7 @@ export namespace FormElements {
         params: <IInputCParams>{
             theme: 'vertical',
             common: {
-                placeholder: gettext('__.__.__.___.__'),
+                placeholder: '__.__.__.___.__',
                 separateLabel: gettext('National Registration Number'),
             },
             locked: true,
@@ -735,7 +735,7 @@ export namespace FormElements {
             customMod: ['cpf'],
             wlcElement: 'block_cpf',
             common: {
-                placeholder: gettext('___.___.___-__'),
+                placeholder: '___.___.___-__',
                 separateLabel: gettext('CPF'),
             },
             validators: [
