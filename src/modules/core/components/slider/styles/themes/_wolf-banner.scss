@@ -29,6 +29,11 @@
 
     .swiper {
         @include bm.get-mq-map('padding', $themeWolfPagination, 'swiperContainertMargin');
+        @include bm.get-mq-map('overflow', $themeWolfPagination, 'swiperContainertOverflow');
+
+        .swiper-slide {
+            @include bm.get-mq-map('max-width', $themeWolfPagination, 'swiperSlideMaxWidth');
+        }
     }
 }
 

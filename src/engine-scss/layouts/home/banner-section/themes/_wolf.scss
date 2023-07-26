@@ -1,7 +1,4 @@
 .wlc-sections__banner-wolf {
     @include bm.get-mq-map('margin', $themeBannerSectionWolf, 'bannerSectionMargin');
-
-    &-mob {
-        @include bm.get-mq-map('margin', $themeBannerSectionWolf, 'bannerSectionMargin');
-    }
+    overflow: hidden;
 }

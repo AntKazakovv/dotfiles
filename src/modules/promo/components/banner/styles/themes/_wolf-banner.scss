@@ -49,7 +49,7 @@
 
                 z-index: ef.get-value($themeWolfBanner, 'textZindex');
 
-                @include mq.min(1630) {
+                @include mq.min(1200) {
                     @include text.get-text-style(ef.get-value($themeWolfBanner, 'titleFont', 1200), null);
                 }
             }

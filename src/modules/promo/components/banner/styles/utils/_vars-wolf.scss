@@ -2,8 +2,7 @@ $customThemeWolfBanner: () !default;
 $themeWolfBanner: map-merge((
     'bannerBackground': var(--mc-bg700),
     'bannerHeight': (
-        375: 137px,
-        1200: 200px
+        375: 150px
     ),
     'bannerPadding': (
         375: ef.size(4),
@@ -15,12 +14,11 @@ $themeWolfBanner: map-merge((
 
     'titleColor': ef.get('mainColors', 'baseMain'),
     'titleFont': (
-        375: 'ThirdTitleBold',
-        1200: 'QoteTextBold',
+        375: 'PrimaryTextBold',
+        1200: 'ThirdTitleBold',
     ),
     'titleMargin': (
-        375: 0 0 ef.size(3),
-        1200: 0 0 ef.size(4),
+        375: 0 0 ef.size(2),
     ),
     'textMaxWidth': (
         375: 60%,

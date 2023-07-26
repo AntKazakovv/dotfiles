@@ -25,7 +25,6 @@ $themeWolfPagination: map-merge((
     'swiperPagiProgressbarHeight': 4px,
     'swiperPagiContainerDisplay': (
         375: none,
-        1200: flex,
     ),
     'swiperPagiContainerAlign': flex-end,
     'swiperPagiContainerAbsoluteLeft': 0,
@@ -33,8 +32,15 @@ $themeWolfPagination: map-merge((
     'swiperPagiPadding': ef.size(4),
     'swiperWithEarsPagiTranslateX': translateX(-50%),
     'swiperContainertMargin': (
-        375: 0 ef.size(3),
-        640: 0,
+        375: 0,
+    ),
+    'swiperContainertOverflow': (
+        375: visible,
+        1200: hidden,
+    ),
+    'swiperSlideMaxWidth' : (
+        375: 385px,
+        1200: unset,
     ),
     'containerBorderRadius': ef.size(2),
     'paddingPagiContainer': ef.size(8),
