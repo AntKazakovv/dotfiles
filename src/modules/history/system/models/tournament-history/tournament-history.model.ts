@@ -167,7 +167,7 @@ export class TournamentHistory extends AbstractModel<ITournamentHistory> {
             }
 
             if (!item.UserLogin?.length) {
-                item.UserLogin = this.getUserLogin(item);
+                item.UserLogin = item.ScreenName;
             }
         });
 
@@ -181,14 +181,6 @@ export class TournamentHistory extends AbstractModel<ITournamentHistory> {
         }
 
         return useDefaultCurrency ? 'EUR' : this.userCurrency;
-    }
-
-    protected getUserLogin(item: ITournamentPlace): string {
-        if (item.FirstName?.length && item.LastName?.length) {
-            return item.FirstName + ' ' + item.LastName.substring(0, 1);
-        } else if (item.Email) {
-            return item.Email.substring(0, 6) + '***';
-        }
     }
 
     protected prepareTournamentWins(): void {

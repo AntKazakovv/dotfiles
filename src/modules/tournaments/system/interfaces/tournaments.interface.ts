@@ -136,6 +136,7 @@ export interface ITournamentPlace {
     UserLogin: string;
     Win: string;
     WinEUR?: string;
+    ScreenName?: string;
     points?: number;
     BestWinToBetRatio: string;
     delta?: number;

@@ -234,19 +234,11 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
             }
 
             if (!item.UserLogin?.length) {
-                item.UserLogin = this.getUserLogin(item);
+                item.UserLogin = item.ScreenName;
             }
         });
 
         return _uniqBy(topWin, 'IDUser');
-    }
-
-    protected getUserLogin(item: ITournamentPlace): string {
-        if (item.FirstName?.length && item.LastName?.length) {
-            return item.FirstName + ' ' + item.LastName.substring(0, 1);
-        } else {
-            return item.Email.substring(0, 6) + '***';
-        }
     }
 
     /**
