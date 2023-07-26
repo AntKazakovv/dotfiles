@@ -3,6 +3,7 @@
 import os
 import re
 import json
+import git
 import subprocess
 import datetime
 import time
@@ -15,7 +16,7 @@ projects = [
         # Devcasino
         "id": "1",
         "repository": "git@wlcgitlab.egamings.com:wlcdevcasino/web.git",
-        "branches": ["develop", "master", "scr1-profile", "scr1-var1", "scr1-var2", "scr2-var1", "scr2-var2", "scr1-kiosk", "scr2-kiosk", "scr1-aff"]
+        "branches": ["develop", "master", "scr1-profile", "scr1-var1", "scr1-var2", "scr2-var1", "scr2-var2", "scr3-wolf1" "scr1-kiosk", "scr2-kiosk", "scr1-aff"]
     },
     {
         # Kiosk
@@ -211,6 +212,9 @@ def get_local_tag():
 # Получение удаленного тега движка
 def get_remote_tag():
     remote_tag = list(filter(None, subprocess.check_output(["git", "ls-remote", "--exit-code", "--refs", "--sort=version:refname", "--tags", "origin"], text=True).split("\n")))[-1].split("/")[-1]
+    # origin_remote = git.Repo().remote("origin")
+    # remote_tag = origin_remote.refs
+    # print(remote_tag)
     return remote_tag
 
 
@@ -351,8 +355,6 @@ def push_branch(branch, tag = None, project = None):
     else:
         subprocess.run(["git", "push", "origin", branch, "--force-with-lease"], cwd = temp_folder)
 
-
-
     print(Fore.GREEN + "Done" + Fore.RESET)
 
 
@@ -443,13 +445,23 @@ def make_hotfix(action):
 
     if changed.lower() == "y":
         new_tag = make_tag(action)
-        print(Fore.YELLOW + "Commiting all changes..." + Fore.RESET)
-        subprocess.run(["git", "add", "."])
-        subprocess.run(["git", "commit", "-m", f"SCR #{ticket} - Engine hotfix from {engine_version} version"])
-        subprocess.run(["git", "tag", "-a", new_tag, "-m", f"Release @egamings/wlc-engine {new_tag}"])
+        try:
+            print(Fore.YELLOW + "Commiting all changes..." + Fore.RESET)
+            subprocess.run(["git", "add", "."])
+            subprocess.run(["git", "commit", "-m", f"SCR #{ticket} - Engine hotfix from {engine_version} version"])
+            print(Fore.YELLOW + "Pushing all changes" + Fore.RESET)
+            subprocess.run(["git", "push", "origin", branch], capture_output=True, text=True, check=True)
+            print(Fore.YELLOW + result.stdout + Fore.RESET)
 
-        print(Fore.YELLOW + "Pushing all changes and tag..." + Fore.RESET)
-        subprocess.run(["git", "push", "origin", branch, "--follow-tags"])
+            print(Fore.YELLOW + "Making new tag..." + Fore.RESET)
+            subprocess.run(["git", "tag", "-a", new_tag, "-m", f"Release @egamings/wlc-engine {new_tag}"])
+            print(Fore.YELLOW + "Pushing new tag..." + Fore.RESET)
+            subprocess.run(["git", "push", "origin", new_tag], capture_output=True, text=True, check=True)
+            print(Fore.YELLOW + result.stdout + Fore.RESET)
+
+        except subprocess as e:
+            print(Fore.RED + e.stderr + Fore.RESET)
+
         print(Fore.GREEN + "Done!" + Fore.RESET)
     else:
         error_message()
@@ -632,7 +644,7 @@ def update_projects(projects):
 
             for branch in project["branches"]:
                 if branch in ["develop"]:
-                    stable_branch = project_version.replace(".", "-")
+                    stable_branch = "scr" + project_version.replace(".", "-")
                     make_stable_branch(branch, stable_branch)
 
                 elif branch != "develop" and branch != "master":
@@ -754,6 +766,9 @@ def release_manager():
 
     elif choice == "0":
         print(Fore.GREEN + "Good job. Bye bye. :-)" + Fore.RESET)
+
+    elif choice == "t":
+        print(get_remote_tag())
 
     else:
         error_message()
