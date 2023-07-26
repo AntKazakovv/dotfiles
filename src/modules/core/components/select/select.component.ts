@@ -192,6 +192,10 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
 
         this.getSelectedItemIndex();
         this.translateItems();
+
+        this.control.statusChanges
+            .pipe(takeUntil(this.$destroy))
+            .subscribe(() => this.cdr.markForCheck());
     }
 
     public ngAfterViewInit(): void {
@@ -583,7 +587,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
         this.eventService.subscribe({
             name: 'SELECT_CHOSEN_COUNTRYCODE',
         }, (data: Params.ISelectOptions) => {
-            this.updateLegalAgeByCountry(data.value.toString());
+            this.updateLegalAgeByCountry(data?.value.toString());
         }, this.$destroy);
     }
 
