@@ -275,6 +275,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     }
 
     public async ngAfterViewInit(): Promise<void> {
+
         if (this.configService.get<boolean>('$base.useSeo')) {
             this.seoService = await this.injectionService.getService<SeoService>('seo.seo-service');
         }
@@ -282,6 +283,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         this.showDashboardBtn = true;
         this.initStartResizeParams();
         this.initFullPageIframeSize();
+
         if (!this.seoService?.use) {
             this.titleService.setTitle(`${this.gameTitle} | ${this.configService.get<boolean>('$base.site.name')}`);
         }
@@ -289,6 +291,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         this.titleObserver = new MutationObserver(() => {
             this.titleObserver.disconnect();
             this.titleObserver = null;
+
             if (this.seoService?.use) {
                 this.seoService.setTitle();
             } else {
@@ -604,7 +607,9 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                 elementNewWidth = elementHeight * this.aspectRatioCoefficient;
 
                 this.renderer.setStyle(gameWrapper, 'height', elementHeight + 'px');
-                this.renderer.setStyle(gameWrapper, 'maxWidth', elementNewWidth + 'px');
+                this.$params.calcWidth ?
+                    this.renderer.setStyle(gameWrapper, 'maxWidth', elementNewWidth + 'px')
+                    : this.renderer.setStyle(gameWrapper, 'maxWidth', '100%');
                 this.renderer.setStyle(this.footer.nativeElement, 'maxWidth', elementNewWidth + 'px');
             } else {
                 this.renderer.setStyle(gameWrapper, 'height', '100%');

@@ -15,6 +15,7 @@ export interface IGameWrapperCParams extends IComponentParams<Theme, Type, Theme
     gameParams: ICustomGameParams;
     type?: Type;
     dashboardSide?: DashboardSide,
+    calcWidth?: boolean,
 }
 
 export const defaultParams: IGameWrapperCParams = {
@@ -31,4 +32,5 @@ export const defaultParams: IGameWrapperCParams = {
     },
     wlcElement: 'section_game-play-container',
     dashboardSide: 'right',
+    calcWidth: true,
 };
