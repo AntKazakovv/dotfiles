@@ -67,14 +67,14 @@ export const defaultParams: IPaymentListCParams = {
     asModal: '(max-width: 479px)',
     showTable: undefined,
     modalSize: 'md',
-    modalTitle: gettext('Choose payment option'),
+    modalTitle: gettext('Select a payment method'),
     hideModalOnSelect: true,
     showSelectedInButton: true,
     chosenMethodText: gettext('The chosen payment method:'),
     noSelectedButton: {
         use: true,
         icon: 'wlc/icons/empty-paysystem.svg',
-        title: gettext('Choose payment method.'),
+        title: gettext('Select a payment method'),
         subtitle: gettext('Show all methods'),
     },
 };

@@ -60,7 +60,7 @@ export namespace PaymentSteps {
 
     export const paymentSystem: IPaymentStep = {
         template: 'systems',
-        title: gettext('Choose payment method'),
+        title: gettext('Select a payment method'),
     };
 
     export const paymentInfo: IPaymentStep = {
