@@ -233,6 +233,7 @@
         --ls-curr-flag-size: #{ef.get-value($themeDefaultModLog, 'currentFlagSize')};
         --ls-curr-flag-margin-right: #{ef.get-value($themeDefaultModLog, 'currentFlagMargin')};
         --ls-curr-flag-justify-self: initial;
+        --ls-curr-padding: #{ef.get-value($themeDefaultModLog, 'currentPaddingModLong')};
         --ls-dropdown-margin: #{ef.get-value($themeDefaultModLog, 'dropdownMarginOpened')};
         --ls-dropdown-width: 100%;
         --ls-list-bg: #{ef.get-value($themeDefaultModLog, 'dropdownBgModLong')};
@@ -256,7 +257,7 @@
 
                 grid-template-columns: var(--ls-curr-columns);
                 min-height: ef.get-value($themeDefaultModLog, 'currentMinHeight');
-                padding: ef.get-value($themeDefaultModLog, 'currentPaddingModLong');
+                padding: var(--ls-curr-padding);
 
                 background: var(--ls-curr-bg);
                 border-radius: ef.get-value($themeDefaultModLog, 'currentBorderRadiusModLong');
@@ -378,6 +379,7 @@
         }
 
         &.wlc-language-selector--compact {
+            --ls-curr-padding: #{ef.get-value($themeDefaultModLog, 'compactCurrPadding')};
             --ls-dropdown-width: #{ef.get-value($themeDefaultModLog, 'ddPopupWidth')};
             --ls-dropdown-pos-top: auto;
             --ls-dropdown-pos-bottom: 100%;

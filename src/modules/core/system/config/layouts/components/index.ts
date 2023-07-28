@@ -50,6 +50,7 @@ export * from './menu/wlc-profile-menu.config';
 export * from './menu/wlc-mobile-menu.config';
 export * from './menu/wlc-post-menu.config';
 export * from './menu/wlc-sticky-footer.config';
+export * from './menu/wlc-panel-menu.config';
 
 export * from './games/wlc-dropdown-search.config';
 export * from './games/wlc-game-wrapper.config';

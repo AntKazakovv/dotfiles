@@ -36,6 +36,22 @@ export const menuConfig: IMenuConfig = {
             use: true,
         },
     },
+    panelMenu: {
+        items: [
+            'panel-menu:home',
+            'panel-menu:categories',
+            'panel-menu:promotions',
+            'panel-menu:tournaments',
+        ],
+        itemsInfo: [
+            'panel-menu:contacts',
+            'panel-menu:info',
+        ],
+        icons: {
+            folder: 'wlc/icons/european/v3',
+            use: true,
+        },
+    },
     mobileMenu: {
         items: [
             'mobile-menu:categories',

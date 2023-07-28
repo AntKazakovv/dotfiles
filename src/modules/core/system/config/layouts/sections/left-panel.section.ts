@@ -317,4 +317,18 @@ export namespace leftPanel {
             },
         ],
     };
+
+    export const mobileThemeModWolf: IPanelSectionConfig = {
+        replaceConfig: true,
+        theme: 'left',
+        themeMod: 'wolf',
+        display: {
+            before: 1023,
+        },
+        components: [
+            componentLib.wlcPanelMenu.fixedBurgerThemeWolf,
+            componentLib.wlcPanelMenu.fixedBurgerInfoThemeWolf,
+            componentLib.wlcLanguageSelector.menuThemeWolf,
+        ],
+    };
 }

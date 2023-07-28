@@ -4,6 +4,7 @@ import {
     ChangeDetectionStrategy,
     Inject,
     ChangeDetectorRef,
+    Optional,
 } from '@angular/core';
 
 import {
@@ -30,6 +31,7 @@ export class LogoComponent extends AbstractComponent implements OnInit {
     public siteLink: string = '';
 
     constructor(
+        @Optional()
         @Inject('injectParams') protected componentParams: Params.ILogoCParams,
         configService: ConfigService,
         cdr: ChangeDetectorRef,

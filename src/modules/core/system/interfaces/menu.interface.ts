@@ -4,11 +4,13 @@ export type MenuItemType = 'category' | 'page' | 'dropdown';
 export type MenuItemDevice = 'desktop' | 'mobile' | 'all';
 
 export interface IMenu {
-    mainMenu?: IMenuOptions,
-    categoryMenu?: IMenuOptions,
-    mobileMenu?: IMenuOptions,
-    burgerMenu?: IMenuOptions,
-    stickyFooter?: IMenuOptions,
+    mainMenu?: IMenuOptions;
+    categoryMenu?: IMenuOptions;
+    mobileMenu?: IMenuOptions;
+    burgerMenu?: IMenuOptions;
+    stickyFooter?: IMenuOptions;
+    panelMenu?: IMenuOptions;
+    panelMenuInfo?: IMenuOptions;
 }
 
 export interface IMenuOptions {

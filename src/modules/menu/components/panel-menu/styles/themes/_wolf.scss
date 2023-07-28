@@ -1,0 +1,260 @@
+::ng-deep {
+
+    .wlc-tooltip-wolf {
+        margin: ef.get-value($panelMenuThemeWolf, 'tooltipMargin');
+
+        .tooltip-inner {
+            padding: ef.get-value($panelMenuThemeWolf, 'tooltipInnerPadding');
+        }
+    }
+}
+
+.wlc-panel-menu--theme-wolf:host {
+    --pm-menu-margin: #{ef.get-value($panelMenuThemeWolf, 'menuMargin')};
+    --pm-link-background: #{ef.get-value($panelMenuThemeWolf, 'linkBg')};
+    --pm-dropdown-link-background: #{ef.get-value($panelMenuThemeWolf, 'ddLinkBg')};
+    --pm-dropdown-active-icon-fill: #{ef.get-value($panelMenuThemeWolf, 'linkIconFill')};
+    --pm-link-padding: #{ef.get-value($panelMenuThemeWolf, 'linkPadding')};
+    --pm-link-icon-margin: #{ef.get-value($panelMenuThemeWolf, 'linkIconMargin')};
+    --pm-link-arrow: block;
+    --pm-link-justify-content: start;
+    --pm-link-hover: #{ef.get-value($panelMenuThemeWolf, 'linkHover')};
+    --pm-link-text-display: block;
+    --pm-icon-width: auto;
+    --pm-link-icon-width: #{ef.get-value($panelMenuThemeWolf, 'linkIconWidth')};
+    --pm-link-icon-width: #{ef.get-value($panelMenuThemeWolf, 'linkIconHeight')};
+
+    margin: var(--pm-menu-margin);
+
+    &.wlc-panel-menu--compact {
+        --pm-menu-margin: #{ef.get-value($panelMenuThemeWolf, 'menuMarginCompact')};
+        --pm-link-background: #{ef.get-value($panelMenuThemeWolf, 'linkBgCompact')};
+        --pm-dropdown-link-background: #{ef.get-value($panelMenuThemeWolf, 'ddLinkBgCompact')};
+        --pm-dropdown-active-icon-fill: #{ef.get-value($panelMenuThemeWolf, 'linkIconActiveFill')};
+        --pm-link-padding: #{ef.get-value($panelMenuThemeWolf, 'linkPaddingCompact')};
+        --pm-link-icon-margin: #{ef.get-value($panelMenuThemeWolf, 'linkIconMarginCompact')};
+        --pm-link-arrow: none;
+        --pm-link-justify-content: center;
+        --pm-link-hover: none;
+        --pm-link-text-display: none;
+        --pm-icon-width: 100%;
+    }
+
+    .wlc-panel-menu__content {
+
+        ::ng-deep {
+
+            .wlc-icon {
+                width: var(--pm-icon-width);
+
+                img,
+                svg {
+                    display: block;
+                    max-width: 100%;
+                    max-height: 100%;
+                }
+
+                svg path,
+                svg {
+                    fill: ef.get-value($panelMenuThemeWolf, 'linkIconFill');
+                }
+            }
+
+            .wlc-menu {
+                display: grid;
+                gap: ef.get-value($panelMenuThemeWolf, 'ddListGap');
+
+                .wlc-menu__item {
+
+                    .wlc-menu__link {
+                        @include bm.transition(all);
+
+                        @include text.get-text-style(
+                            ef.get-value($panelMenuThemeWolf, 'linkFontSize'),
+                            ef.get-value($panelMenuThemeWolf, 'linkColor'),
+                        );
+
+                        display: flex;
+                        justify-content: var(--pm-link-justify-content);
+
+                        min-height: ef.get-value($panelMenuThemeWolf, 'linkMinHeight');
+                        padding: var(--pm-link-padding);
+                        background: var(--pm-link-background);
+                        border-radius: ef.get-value($panelMenuThemeWolf, 'linkBorderRadius');
+                        cursor: pointer;
+
+                        &.active {
+                            color: ef.get-value($panelMenuThemeWolf, 'linkActiveColor');
+                            font-weight: ef.get-value($panelMenuThemeWolf, 'linkActiveFontWeight');
+
+                            svg path,
+                            svg {
+                                fill: ef.get-value($panelMenuThemeWolf, 'linkIconActiveFill');
+                            }
+                        }
+
+                        svg path,
+                        svg {
+                            width: ef.get-value($panelMenuThemeWolf, 'linkIconWidth');
+                            height: ef.get-value($panelMenuThemeWolf, 'linkIconHeight');
+                        }
+
+                        .wlc-menu__icon {
+                            display: inherit;
+                            margin: var(--pm-link-icon-margin);
+                        }
+
+                        .wlc-menu__icon-arrow {
+                            display: var(--pm-link-arrow);
+                            margin-left: auto;
+
+                            svg {
+                                width: ef.get-value($panelMenuThemeWolf, 'linkIconArrowWidth');
+                                height: ef.get-value($panelMenuThemeWolf, 'linkIconArrowHeight');
+                            }
+                        }
+
+                        @include bm.hover {
+                            color: ef.get-value($panelMenuThemeWolf, 'linkHoverColor');
+                            background: var(--pm-link-hover);
+                        }
+                    }
+
+                    &--dropdown {
+                        position: relative;
+
+                        @include bm.hover {
+
+                            .wlc-menu__submenu--hover {
+                                display: block;
+                            }
+                        }
+                    }
+
+                    &--dropdown.active {
+                        border-radius: ef.get-value($panelMenuThemeWolf, 'linkBorderRadius');
+
+                        &.wlc-menu__item > .wlc-menu__link {
+                            background: var(--pm-dropdown-link-background);
+                            border-bottom-left-radius: 0;
+                            border-bottom-right-radius: 0;
+
+                            svg path,
+                            svg {
+                                fill: var(--pm-dropdown-active-icon-fill);
+                            }
+                        }
+
+                        .wlc-menu__icon-arrow {
+                            transform: rotate(180deg);
+
+                            svg path,
+                            svg {
+                                fill: ef.get-value($panelMenuThemeWolf, 'linkIconActiveFill');
+                            }
+                        }
+
+                        .wlc-menu__submenu {
+                            gap: ef.get-value($panelMenuThemeWolf, 'ddListGap');
+                            padding: ef.get-value($panelMenuThemeWolf, 'ddPadding');
+
+                            .wlc-menu__link {
+                                background: ef.get-value($panelMenuThemeWolf, 'ddLinkBg');
+
+                                &.active {
+                                    color: ef.get-value($panelMenuThemeWolf, 'ddActiveLinkColor');
+                                    background: ef.get-value($panelMenuThemeWolf, 'ddActiveLinkBg');
+                                    border-radius: ef.get-value($panelMenuThemeWolf, 'linkBorderRadius');
+                                }
+
+                                @include bm.hover {
+                                    color: ef.get-value($panelMenuThemeWolf, 'ddHoverLinkColor');
+                                    background: ef.get-value($panelMenuThemeWolf, 'ddHoverLinkBg');
+                                    border-radius: ef.get-value($panelMenuThemeWolf, 'linkBorderRadius');
+                                }
+                            }
+
+                            .wlc-menu__icon {
+                                margin: ef.get-value($panelMenuThemeWolf, 'ddIconMargin');
+                            }
+                        }
+                    }
+
+                    .wlc-menu__submenu {
+                        display: grid;
+                        overflow: hidden;
+                        margin: 0;
+                        padding-right: ef.get-value($panelMenuThemeWolf, 'ddPadding');
+                        padding-left: ef.get-value($panelMenuThemeWolf, 'ddPadding');
+                        background: var(--pm-dropdown-link-background);
+                        border-top-left-radius: 0;
+                        border-top-right-radius: 0;
+                        border-bottom-left-radius: ef.get-value($panelMenuThemeWolf, 'linkBorderRadius');
+                        border-bottom-right-radius: ef.get-value($panelMenuThemeWolf, 'linkBorderRadius');
+
+                        .wlc-menu__item {
+
+                            .wlc-menu__link {
+                                padding: ef.get-value($panelMenuThemeWolf, 'ddLinkPadding');
+                                background: none;
+                                border-radius: 0;
+                            }
+                        }
+                    }
+                }
+
+                &__submenu--hover {
+                    position: absolute;
+                    top: 0;
+                    left: ef.get-value($panelMenuThemeWolf, 'ddHoverSubmenuLeft');
+                    display: none;
+                    width: min-content;
+                    min-width: ef.get-value($panelMenuThemeWolf, 'ddHoverMinWidth');
+                    padding: ef.get-value($panelMenuThemeWolf, 'ddHoverSubmenuPadding');
+
+                    .wlc-menu__list {
+                        background: ef.get-value($panelMenuThemeWolf, 'ddBg');
+                        border-radius: ef.get-value($panelMenuThemeWolf, 'linkBorderRadius');
+
+                        .wlc-menu__item {
+                            @include menuArrow($panelMenuThemeWolf);
+
+                            position: relative;
+                            padding: ef.get-value($panelMenuThemeWolf, 'ddHoverItemPadding');
+                        }
+
+                        .wlc-menu__link {
+                            align-items: center;
+                            justify-content: start;
+                            padding: ef.get-value($panelMenuThemeWolf, 'ddHoverLinkPadding');
+                            background: none;
+                            border-radius: ef.get-value($panelMenuThemeWolf, 'linkBorderRadius');
+
+                            .wlc-menu__icon {
+                                width: ef.get-value($panelMenuThemeWolf, 'linkIconWidth');
+                                height: ef.get-value($panelMenuThemeWolf, 'linkIconHeight');
+                                margin: ef.get-value($panelMenuThemeWolf, 'linkIconMargin');
+                            }
+
+                            &.active {
+                                background: ef.get-value($panelMenuThemeWolf, 'linkActive');
+
+                                @include bm.hover {
+                                    background: ef.get-value($panelMenuThemeWolf, 'linkHover');
+                                }
+                            }
+
+                            @include bm.hover {
+                                background: ef.get-value($panelMenuThemeWolf, 'linkHover');
+                            }
+                        }
+
+                        .wlc-menu__link-text {
+                            display: block;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

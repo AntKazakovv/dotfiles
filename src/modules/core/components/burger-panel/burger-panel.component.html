@@ -41,7 +41,7 @@
 </ng-template>
 
 <ng-template #headerDefault>
-    <div *ngIf="$params.showHeader; else close" class="{{$class}}__header" [class.no-menu]="!headerMenuConfig">
+    <div *ngIf="$params.showHeader; else close" class="{{$class}}__header" [class.two-columns]="!headerMenuConfig">
         <div class="{{$class}}__title">
             {{title | translate}}
         </div>
@@ -53,7 +53,13 @@
 </ng-template>
 
 <ng-template #headerLeftTypeFixed>
-    <div class="{{$class}}__header">
+    <div class="{{$class}}__header"
+        [class.two-columns]="isShowLogo">
+        <div *ngIf="isShowLogo"
+            wlc-logo
+            class="{{$class}}__logo">
+        </div>
+
         <button class="{{$class}}__btn-expand {{$class}}__btn-expand--{{fixedPanelState}}"
             (click)="toggleFixedPanel(true)">
             <span wlc-icon

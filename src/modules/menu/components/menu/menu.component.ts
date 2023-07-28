@@ -165,6 +165,10 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
      * @param {IMenuItemsGroup} item Menu items dropdown
      */
     public toggleDropdown(item: Params.IMenuItemsGroup): void {
+        if (this.$params.dropdowns?.expandableOnHover) {
+            return;
+        }
+
         if (!this.$params.dropdowns?.expandableOnClick) {
             if (item.parent.type === 'sref') {
                 this.router.stateService.go(
@@ -631,9 +635,11 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
 
             await Promise.all(requests).then((data: TextDataModel[][]) => {
                 let posts: TextDataModel[] = _flatten<TextDataModel>(data);
-                if (_has(item, 'params.wp.exclude')) {
+
+                if (_has(item, 'params.wp.exclude') || _has(item, 'parent.params.wp.exclude')) {
                     posts = _filter(posts, (post: TextDataModel): boolean => {
-                        return !_includes(_get(item, 'params.wp.exclude'), post.slug);
+                        const slugs = _get(item, 'params.wp.exclude') || _get(item, 'parent.params.wp.exclude');
+                        return !_includes(slugs, post.slug);
                     });
                 }
 
@@ -642,11 +648,22 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
                     defaultItemState: wpParams.defaultState,
                     defaultItemType: wpParams.defaultType,
                     wlcElementPrefix: `link_${this.$params.type}_`,
+                    iconFolder: wpParams.iconFolder,
+                    disableTooltip: wpParams.disableTooltip,
                 });
 
                 if (item.type === 'group') {
                     _set(item, 'items', subItems);
                     useExpand = true;
+
+                    if (wpParams.parentAsLink && (item as IMenuItemsGroup).parent) {
+                        const parentParams = {
+                            ...(item as IMenuItemsGroup).parent.params,
+                            state: subItems[0].params.state,
+                        };
+
+                        _set(item, 'parent.params', parentParams);
+                    }
                 }
 
                 if (wpParams.replace) {

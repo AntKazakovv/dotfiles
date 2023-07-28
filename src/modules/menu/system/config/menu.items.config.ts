@@ -10,6 +10,10 @@ import {wlcBurgerPanelHeaderMenuItemsGlobal} from './burger-panel-header-menu.it
 import {wlcStickyFooterItemsGlobal} from 'wlc-engine/modules/menu/system/config/sticky-footer.items';
 import {wlcMobileFooterMenuItemsGlobal} from 'wlc-engine/modules/menu/system/config/mobile-footer-menu.config';
 import {wlcAffiliatesMenuItemsGlobal} from 'wlc-engine/modules/affiliates';
+import {
+    wlcPanelMenuItemGroupsGlobal,
+    wlcPanelMenuItemsGlobal,
+} from 'wlc-engine/modules/menu/system/config/panel-menu.config';
 
 export const wlcMenuItemsGlobal: Params.IMenuItemsGlobal = {
     ...wlcMainMenuItemsGlobal,
@@ -20,8 +24,10 @@ export const wlcMenuItemsGlobal: Params.IMenuItemsGlobal = {
     ...wlcBurgerPanelHeaderMenuItemsGlobal,
     ...wlcStickyFooterItemsGlobal,
     ...wlcMobileFooterMenuItemsGlobal,
+    ...wlcPanelMenuItemsGlobal,
 };
 
 export const wlcMenuItemGroupsGlobal: Params.IMenuItemGroupsGlobal = {
     ...wlcMobileMenuItemGroupsGlobal,
+    ...wlcPanelMenuItemGroupsGlobal,
 };

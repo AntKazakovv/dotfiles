@@ -60,6 +60,22 @@ export namespace fixedPanel {
         ],
     };
 
+    export const leftThemeModWolf: IPanelSectionConfig = {
+        replaceConfig: true,
+        theme: 'left',
+        type: 'fixed',
+        themeMod: 'wolf',
+        showLogo: true,
+        display: {
+            after: 1024,
+        },
+        components: [
+            componentLib.wlcPanelMenu.fixedBurgerThemeWolf,
+            componentLib.wlcPanelMenu.fixedBurgerInfoThemeWolf,
+            componentLib.wlcLanguageSelector.menuThemeWolf,
+        ],
+    };
+
     export const rightChat: IPanelSectionConfig = {
         replaceConfig: true,
         theme: 'right',

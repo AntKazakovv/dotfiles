@@ -105,6 +105,211 @@ export const fundistSettings: IMenu = {
             },
         ],
     },
+    panelMenuInfo: {
+        items: [
+            {
+                type: 'page',
+                id: 'contacts',
+                name: {
+                    en: 'Contact us',
+                },
+                order: 10,
+                device: 'all',
+            },
+            {
+                type: 'page',
+                id: 'info',
+                order: 20,
+                device: 'all',
+            },
+        ],
+    },
+    panelMenu: {
+        items: [
+            {
+                type: 'page',
+                id: 'home',
+                name: {
+                    en: 'Home Page',
+                },
+                order: 10,
+                device: 'all',
+            },
+            {
+                type: 'page',
+                id: 'favourites',
+                name: {
+                    en: 'My favourites',
+                },
+                order: 20,
+                device: 'all',
+            },
+            {
+                type: 'page',
+                id: 'lastplayed',
+                name: {
+                    en: 'Last played',
+                },
+                order: 30,
+                device: 'all',
+            },
+            {
+                type: 'dropdown',
+                id: 'allgames',
+                name: {
+                    en: 'All games',
+                },
+                order: 40,
+                items: [
+                    {
+                        type: 'category',
+                        id: 'livecasino',
+                        name: {
+                            en: 'Live Casino',
+                        },
+                        order: 50,
+                        device: 'all',
+                    },
+                    {
+                        type: 'category',
+                        id: 'casino',
+                        name: {
+                            en: 'Casino',
+                        },
+                        order: 60,
+                        device: 'all',
+                    },
+                    {
+                        type: 'category',
+                        id: 'new',
+                        name: {
+                            en: 'New games',
+                        },
+                        order: 70,
+                        device: 'all',
+                    },
+                    {
+                        type: 'category',
+                        id: 'popular',
+                        name: {
+                            en: 'Popular',
+                        },
+                        order: 80,
+                        device: 'all',
+                    },
+                    {
+                        type: 'category',
+                        id: 'megawaysglobal',
+                        name: {
+                            en: 'Megaways',
+                        },
+                        order: 90,
+                        device: 'all',
+                    },
+                    {
+                        type: 'category',
+                        id: 'bonusbuyglobal',
+                        name: {
+                            en: 'Bonus buy',
+                        },
+                        order: 100,
+                        device: 'all',
+                    },
+                    {
+                        type: 'category',
+                        id: 'jackpots',
+                        name: {
+                            en: 'Jackpots',
+                        },
+                        order: 110,
+                        device: 'all',
+                    },
+                    {
+                        type: 'category',
+                        id: 'virtualsports',
+                        name: {
+                            en: 'Virtual Sports',
+                        },
+                        order: 120,
+                        device: 'all',
+                    },
+                    {
+                        type: 'category',
+                        id: 'baccarat',
+                        name: {
+                            en: 'Baccarat',
+                        },
+                        order: 130,
+                        device: 'all',
+                    },
+                    {
+                        type: 'category',
+                        id: 'slots',
+                        name: {
+                            en: 'Slots',
+                        },
+                        order: 140,
+                        device: 'all',
+                    },
+                    {
+                        type: 'category',
+                        id: 'pokerglobal',
+                        name: {
+                            en: 'Poker',
+                        },
+                        order: 150,
+                        device: 'all',
+                    },
+                    {
+                        type: 'category',
+                        id: 'tablegames',
+                        name: {
+                            en: 'Table games',
+                        },
+                        order: 160,
+                        device: 'all',
+                    },
+                    {
+                        type: 'category',
+                        id: 'blackjacks',
+                        name: {
+                            en: 'Blackjacks',
+                        },
+                        order: 170,
+                        device: 'all',
+                    },
+                    {
+                        type: 'category',
+                        id: 'rouletteglobal',
+                        name: {
+                            en: 'Roulette',
+                        },
+                        order: 180,
+                        device: 'all',
+                    },
+                ],
+                device: 'all',
+            },
+            {
+                type: 'page',
+                id: 'sportbook',
+                order: 50,
+                device: 'all',
+            },
+            {
+                type: 'page',
+                id: 'promotions',
+                order: 60,
+                device: 'all',
+            },
+            {
+                type: 'page',
+                id: 'tournaments',
+                order: 70,
+                device: 'all',
+            },
+        ],
+    },
     mobileMenu: {
         items: [
             {

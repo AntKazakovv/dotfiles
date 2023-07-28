@@ -2,7 +2,7 @@ import {IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.
 import {TFixedPanelPos} from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
 
 
-export type ThemeType = 'default' | 'mobile-app';
+export type ThemeType = 'default' | 'mobile-app' | 'wolf';
 export type ThemeModType = 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right' | 'long';
 export type ComponentType = 'click' | 'hover' | 'compact';
 
@@ -15,6 +15,7 @@ export interface ICurrentLangCParams {
 export interface ILanguageSelectorDropdownCParams {
     hideFlag?: boolean;
     hideLang?: boolean;
+    expandableOnHover?: boolean;
 }
 
 export interface ILanguageSelectorCParams extends IComponentParams<ThemeType, ComponentType, ThemeModType> {
@@ -42,6 +43,7 @@ export interface ILanguageSelectorCParams extends IComponentParams<ThemeType, Co
     compactMod?: boolean;
     fixedPanelPosition?: TFixedPanelPos;
     useTooltip?: boolean;
+    defaultIcon?: string;
 }
 
 export const defaultParams: ILanguageSelectorCParams = {

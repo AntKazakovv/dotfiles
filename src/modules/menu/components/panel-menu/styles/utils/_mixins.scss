@@ -1,0 +1,15 @@
+@mixin menuArrow($config) {
+
+    &:first-child {
+
+        &:before {
+            content: '';
+            position: absolute;
+            top: ef.get-value($config, 'arrowMenuTop');
+            left: ef.get-value($config, 'arrowMenuLeft');
+            border-right: ef.get-value($config, 'arrowMenuSize') solid transparent;
+            border-bottom: ef.get-value($config, 'arrowMenuSize') solid ef.get-value($config, 'ddBg');
+            transform: rotate(45deg);
+        }
+    }
+}

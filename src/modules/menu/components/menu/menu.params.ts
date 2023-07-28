@@ -31,7 +31,8 @@ export type MenuType = 'main-menu'
     | 'footer:about'
     | 'affiliates-menu'
     | 'sticky-footer'
-    | 'burger-panel-header-menu';
+    | 'burger-panel-header-menu'
+    | 'panel-menu';
 export type ItemType =
     | 'sref'
     | 'anchor'
@@ -66,6 +67,10 @@ export interface IMenuItemParamsWp {
     exclude?: string[];
     /** replace button with buttons for each post slug */
     replace?: boolean;
+    iconFolder?: string;
+    disableTooltip?: boolean;
+    /** the first child link is set to the parent */
+    parentAsLink?: boolean
 }
 
 export interface IMenuItemParamsState {
@@ -146,6 +151,7 @@ export interface IMenuItem {
     sort?: number;
     /** no translate item name */
     noTranslate?: boolean;
+    disableTooltip?: boolean;
 }
 
 export interface IMenuItemsGroup {
@@ -164,11 +170,18 @@ export interface IMenuDropdowns {
     expandByStates?: IStateForExpand[];
     /** expand menu dropdowns by click or by opened state */
     expandableOnClick: boolean;
+    /** expand menu dropdowns by hover */
+    expandableOnHover?: boolean;
 }
 
 export interface IStateForExpand {
     name: string;
     params?: IIndexing<string | number>;
+}
+
+export interface ITooltipConfig {
+    use?: boolean;
+    containerClass?: string;
 }
 
 export interface IMenuCParams extends IComponentParams<MenuTheme, MenuType, string> {
@@ -199,7 +212,7 @@ export interface IMenuCParams extends IComponentParams<MenuTheme, MenuType, stri
     expandOnStart?: boolean;
     /** Menu dropdowns options */
     dropdowns?: IMenuDropdowns;
-    useTooltip?: boolean;
+    tooltip?: ITooltipConfig;
 }
 
 export interface IMenuItemsGlobal {

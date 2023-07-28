@@ -70,6 +70,15 @@ export namespace wlcLanguageSelector {
         },
     };
 
+    export const menuThemeWolf: ILayoutComponent = {
+        name: 'core.wlc-language-selector',
+        params: <ILanguageSelectorCParams>{
+            theme: 'wolf',
+            compactMod: true,
+            defaultIcon: 'wlc/icons/european/v3/language.svg',
+        },
+    };
+
     export const footerThemeFirst: ILayoutComponent = {
         name: 'core.wlc-language-selector',
         params: <ILanguageSelectorCParams>{

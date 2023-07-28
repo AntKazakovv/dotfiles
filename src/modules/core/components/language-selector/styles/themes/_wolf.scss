@@ -1,0 +1,257 @@
+.wlc-language-selector--theme-wolf:host {
+    --ls-margin: #{ef.get-value($themeWolf, 'margin')};
+    --ls-link-justify-content: start;
+    --ls-link-padding: #{ef.get-value($themeWolf, 'linkPadding')};
+    --ls-link-background: #{ef.get-value($themeWolf, 'linkBg')};
+    --ls-link-hover: #{ef.get-value($themeWolf, 'linkHover')};
+    --ls-link-icon-margin: #{ef.get-value($themeWolf, 'linkIconMargin')};
+    --ls-link-arrow: block;
+    --ls-link-text-display: block;
+    --ls-icon-width: auto;
+
+    position: relative;
+    padding: ef.get-value($themeWolf, 'padding');
+
+    &.wlc-language-selector--state-compact {
+        --ls-margin: #{ef.get-value($themeWolf, 'marginCompact')};
+        --ls-link-justify-content: center;
+        --ls-link-padding: #{ef.get-value($themeWolf, 'linkPaddingCompact')};
+        --ls-link-background: #{ef.get-value($themeWolf, 'linkBgCompact')};
+        --ls-link-icon-margin: #{ef.get-value($themeWolf, 'linkIconMarginCompact')};
+        --ls-link-hover: none;
+        --ls-link-arrow: none;
+        --ls-link-text-display: none;
+        --ls-icon-width: 100%;
+    }
+
+    .wlc-language-selector {
+
+        &__dropdown--hover {
+            position: absolute;
+            top: 0;
+            left: ef.get-value($themeWolf, 'ddHoverSubmenuLeft');
+            display: none;
+            width: min-content;
+            min-width: ef.get-value($themeWolf, 'ddHoverLangMinWidth');
+            padding: ef.get-value($themeWolf, 'ddHoverSubmenuPadding');
+
+            .wlc-language-selector {
+
+                &__list {
+                    gap: 0;
+                    padding: 0;
+                    background: ef.get-value($themeWolf, 'ddBg');
+                    border-radius: ef.get-value($themeWolf, 'linkBorderRadius');
+                }
+
+                &__link {
+
+                    &-flag {
+                        width: ef.get-value($themeWolf, 'ddHoverLangIconWidth');
+                        height: ef.get-value($themeWolf, 'ddHoverLangIconHeight');
+                        margin: 0;
+
+                        @include bm.hover {
+                            border: 2px solid ef.get-value($themeWolf, 'ddHoverLangLinkBorderColor');
+                        }
+                    }
+
+                    &--active {
+
+                        .wlc-language-selector__link {
+                            background: ef.get-value($themeWolf, 'ddHoverLangLinkActiveBg');
+                        }
+                    }
+                }
+
+                &__item {
+                    position: relative;
+
+                    &:first-child {
+
+                        &:before {
+                            content: '';
+                            position: absolute;
+                            top: ef.get-value($themeWolf, 'arrowMenuTop');
+                            left: ef.get-value($themeWolf, 'arrowMenuLeft');
+                            border-right: ef.get-value($themeWolf, 'arrowMenuSize') solid transparent;
+                            border-bottom: ef.get-value($themeWolf, 'arrowMenuSize') solid ef.get-value($themeWolf, 'ddBg');
+                            transform: rotate(45deg);
+                        }
+                    }
+                }
+            }
+        }
+
+        &__dropdown {
+            margin: var(--ls-margin);
+            visibility: hidden;
+            opacity: 0;
+
+            .wlc-language-selector {
+
+                &__list {
+                    display: grid;
+                    gap: ef.get-value($themeWolf, 'ddListGap');
+                    padding: ef.get-value($themeWolf, 'ddPadding');
+                    background: ef.get-value($themeWolf, 'ddLinkBg');
+                    border-bottom-left-radius: ef.get-value($themeWolf, 'linkBorderRadius');
+                    border-bottom-right-radius: ef.get-value($themeWolf, 'linkBorderRadius');
+                }
+
+                &__link {
+
+                    &--active {
+                        background: ef.get-value($themeWolf, 'ddActiveLinkBg');
+                    }
+
+                    @include bm.hover {
+                        color: ef.get-value($themeWolf, 'linkHoverColor');
+                        background: ef.get-value($themeWolf, 'ddHoverLinkBg');
+                    }
+                }
+
+                &__item--active {
+
+                    .wlc-language-selector__link {
+                        background: ef.get-value($themeWolf, 'ddHoverLinkBg');
+                    }
+                }
+            }
+        }
+
+        &__link {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'linkFontSize'),
+                ef.get-value($themeWolf, 'linkColor'),
+            );
+
+            display: flex;
+            align-items: center;
+            min-height: ef.get-value($themeWolf, 'linkMinHeight');
+            padding: ef.get-value($themeWolf, 'ddLanguagesLinkPadding');
+            border-radius: ef.get-value($themeWolf, 'linkBorderRadius');
+            text-decoration: none;
+
+            &-flag {
+                box-sizing: content-box;
+                border: 2px solid ef.get-value($themeWolf, 'ddLanguagesLinkBorderColor');
+                width: ef.get-value($themeWolf, 'ddLanguagesIconWidth');
+                height: ef.get-value($themeWolf, 'ddLanguagesIconHeight');
+                margin: ef.get-value($themeWolf, 'ddLanguagesIconMargin');
+                border-radius: 50%;
+                overflow: hidden;
+
+                img {
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+
+        &__item--active {
+
+            .wlc-language-selector__link {
+                color: ef.get-value($themeWolf, 'linkActiveColor');
+                font-weight: ef.get-value($themeWolf, 'linkActiveFontWeight');
+
+                &-flag {
+                    border: 2px solid ef.get-value($themeWolf, 'ddHoverLangLinkBorderColor');
+                }
+            }
+        }
+
+        &__current {
+            display: flex;
+            align-items: center;
+            justify-content: var(--ls-link-justify-content);
+            min-height: ef.get-value($themeWolf, 'linkMinHeight');
+            margin: var(--ls-margin);
+            padding: var(--ls-link-padding);
+            background: var(--ls-link-background);
+            border-radius: ef.get-value($themeWolf, 'linkBorderRadius');
+            cursor: pointer;
+
+            &--opened {
+                border-top-left-radius: ef.get-value($themeWolf, 'linkBorderRadius');
+                border-top-right-radius: ef.get-value($themeWolf, 'linkBorderRadius');
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+                background: ef.get-value($themeWolf, 'ddLinkBg');
+
+                .wlc-language-selector__current-arrow {
+                    transform: rotate(180deg);
+
+                    svg,
+                    path {
+                        fill: ef.get-value($themeWolf, 'linkIconActiveFill');
+                    }
+                }
+
+                &.wlc-language-selector__current {
+
+                    @include bm.hover {
+                        background: ef.get-value($themeWolf, 'ddLinkBg');
+                    }
+                }
+            }
+
+            &-arrow {
+                display: var(--ls-link-arrow);
+                margin-left: auto;
+
+                ::ng-deep {
+
+                    svg path,
+                    svg {
+                        width: ef.get-value($themeWolf, 'linkIconArrowWidth');
+                        height: ef.get-value($themeWolf, 'linkIconArrowHeight');
+                        vertical-align: middle;
+                        fill: ef.get-value($themeWolf, 'linkIconFill');
+                    }
+                }
+            }
+
+            &-lang {
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'linkFontSize'),
+                    ef.get-value($themeWolf, 'linkColor'),
+                );
+
+                display: var(--ls-link-text-display);
+            }
+
+            @include bm.hover {
+                background: var(--ls-link-hover);
+
+                .wlc-language-selector__current-lang {
+                    color: ef.get-value($themeWolf, 'linkHoverColor');
+                }
+            }
+        }
+
+        &__icon {
+            width: auto;
+            margin: var(--ls-link-icon-margin);
+
+            ::ng-deep {
+
+                svg path,
+                svg {
+                    display: block;
+                    width: ef.get-value($themeWolf, 'linkIconWidth');
+                    height: ef.get-value($themeWolf, 'linkIconHeight');
+                    fill: ef.get-value($themeWolf, 'linkIconFill');
+                }
+            }
+        }
+    }
+
+    @include bm.hover {
+
+        .wlc-language-selector__dropdown--hover {
+            display: block;
+        }
+    }
+}

@@ -68,6 +68,7 @@ export class FloatPanelsComponent extends AbstractComponent implements OnInit {
         'useScroll',
         'display',
         'showClose',
+        'showLogo',
     ];
 
     constructor(

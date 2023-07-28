@@ -1,5 +1,6 @@
 import _forEach from 'lodash-es/forEach';
 import _filter from 'lodash-es/filter';
+import _isNil from 'lodash-es/isNil';
 
 import {MenuHelper} from 'wlc-engine/modules/menu';
 import {CategoryMenuComponent} from 'wlc-engine/modules/menu/components/category-menu/category-menu.component';
@@ -7,6 +8,7 @@ import {TCustomizableFn} from 'wlc-engine/modules/menu/components/category-menu/
 
 // TODO change this after #479773
 export const initAsDropdownDefault: TCustomizableFn  = function (this: CategoryMenuComponent): void {
+    const useIconsParentItem: boolean = !_isNil(this.$params.menuParams.dropdowns.expandableOnHover);
     const parentCategories = this.gamesCatalogService.getParentCategories();
     let dropdownMenu = [];
 
@@ -17,7 +19,7 @@ export const initAsDropdownDefault: TCustomizableFn  = function (this: CategoryM
             lang: this.translateService.currentLang,
             icons: {
                 folder: this.iconsFolder,
-                disable: true,
+                disable: !useIconsParentItem,
             },
         });
     }
@@ -28,7 +30,7 @@ export const initAsDropdownDefault: TCustomizableFn  = function (this: CategoryM
             lang: this.translateService.currentLang,
             icons: {
                 folder: this.iconsFolder,
-                disable: true,
+                disable: !useIconsParentItem,
             },
         });
         if (category.childCategories.length) {

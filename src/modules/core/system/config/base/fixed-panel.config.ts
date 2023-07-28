@@ -6,8 +6,8 @@ export const fixedPanelConfig: IFixedPanelConfig = {
         left: {
             compactModByDefault: false,
             sizes: {
-                full: 250,
-                compact: 60,
+                full: 230,
+                compact: 48,
                 gap: 15,
             },
             breakpoints: {

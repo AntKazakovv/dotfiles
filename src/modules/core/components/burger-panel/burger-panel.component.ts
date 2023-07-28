@@ -186,6 +186,10 @@ export class BurgerPanelComponent extends AbstractComponent
         return animationState;
     }
 
+    public get isShowLogo(): boolean {
+        return this.$params.showLogo && this.fixedPanelStore$?.getValue().left !== 'compact';
+    }
+
     public get useBackdrop(): boolean {
         return this.fixedPanelConfig?.useBackdrop
             && this.fixedPanelState === 'expanded'

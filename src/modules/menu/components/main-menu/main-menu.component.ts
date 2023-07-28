@@ -185,7 +185,7 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
             )
             .subscribe((store: TFixedPanelStore) => {
                 const state: TFixedPanelState = store[this.$params.fixedPanelPosition];
-                this.$params.menuParams.useTooltip = state === 'compact';
+                this.$params.menuParams.tooltip.use = state === 'compact';
                 this.$params.menuParams = _clone(this.$params.menuParams);
                 this.cdr.markForCheck();
             });

@@ -40,7 +40,7 @@
                [uiParams]="item.params?.state?.params"
                [uiOptions]="item.params?.state?.options"
                [attr.data-wlc-element]="item.wlcElement"
-               [attr.title]="!$params.useTooltip ? menuItemName(item) : null"
+               [attr.title]="!$params.tooltip?.use ? menuItemName(item) : null"
                uiSrefActive="active">
 
                 <span *ngIf="$params.theme === 'first'"
@@ -51,10 +51,10 @@
                       class="{{$class}}__icon"
                       [iconPath]="getIcon(item)"
                       [fallback]="getIconFallback(item)"
-                      [tooltip]="$params.useTooltip && menuItemName(item)"
+                      [tooltip]="$params.tooltip?.use && !item.disableTooltip && menuItemName(item)"
                       container="body"
-                      containerClass="wlc-tooltip--compact"
                       boundariesElement="viewport"
+                      containerClass="wlc-tooltip--compact {{$params.tooltip?.containerClass}}"
                       placement="right"></span>
                 <span class="{{$class}}__link-text">
                     <span>{{menuItemName(item)}}</span>
@@ -116,7 +116,7 @@
                   class="{{$class}}__icon"
                   [iconPath]="getIcon(item)"
                   [fallback]="getIconFallback(item)"
-                  [tooltip]="$params.useTooltip && menuItemName(item)"
+                  [tooltip]="$params.tooltip?.use && !item.disableTooltip && menuItemName(item)"
                   container="body"
                   containerClass="wlc-tooltip--compact"
                   boundariesElement="viewport"
@@ -198,29 +198,59 @@
 
 <ng-template #dropdown let-item="item">
     <div class="{{$class}}__item {{$class}}__item--dropdown {{$class}}__item--{{item.parent.class}}"
-         [ngClass]="{'active': item.expand}">
-        <span *ngIf="item.icon"
-              wlc-icon
-              class="{{$class}}__icon"
-              [iconPath]="getIcon(item)"
-              [fallback]="getIconFallback(item)">
-        </span>
+        [ngClass]="{'active': item.expand}">
+
         <a class="{{$class}}__link"
-           [attr.data-wlc-element]="item.wlcElement || item.parent.wlcElement"
-           (click)="toggleDropdown(item)">
-            {{menuItemName(item.parent)}}
+            [uiSref]="$params.dropdowns?.expandableOnHover && item.parent?.params?.state?.name"
+            [uiParams]="$params.dropdowns?.expandableOnHover && item.parent?.params?.state?.params"
+            [attr.data-wlc-element]="item.wlcElement || item.parent.wlcElement"
+            (click)="toggleDropdown(item)">
+
+            <span *ngIf="item.icon"
+                wlc-icon
+                class="{{$class}}__icon"
+                [iconPath]="getIcon(item)"
+                [fallback]="getIconFallback(item)">
+            </span>
+
+           <span *ngIf="item.parent?.icon"
+                wlc-icon
+                class="{{$class}}__icon"
+                [iconPath]="getIcon(item.parent)"
+                [fallback]="getIconFallback(item.parent)">
+            </span>
+
+            <div class="{{$class}}__link-text">
+                {{menuItemName(item.parent)}}
+            </div>
+
             <span wlc-icon
-                  class="{{$class}}__icon-arrow"
-                  iconPath="/wlc/icons/arrow.svg">
+                class="{{$class}}__icon-arrow"
+                iconPath="/wlc/icons/arrow.svg">
             </span>
         </a>
-        <div class="{{$class}}__submenu"
-             [@toggle]="item.expand ? 'opened' : 'closed'">
+
+        <div *ngIf="!$params.dropdowns?.expandableOnHover"
+            class="{{$class}}__submenu"
+            [@toggle]="item.expand ? 'opened' : 'closed'">
             <ng-container *ngFor="let item of item.items">
-                <ng-container [ngTemplateOutlet]="menuItem"
-                              [ngTemplateOutletContext]="{item: item}">
+                <ng-container
+                    [ngTemplateOutlet]="menuItem"
+                    [ngTemplateOutletContext]="{item: item}">
                 </ng-container>
             </ng-container>
+        </div>
+
+        <div *ngIf="$params.dropdowns?.expandableOnHover"
+            class="{{$class}}__submenu--hover">
+            <div class="{{$class}}__list">
+                <ng-container *ngFor="let item of item.items">
+                    <ng-container
+                        [ngTemplateOutlet]="menuItem"
+                        [ngTemplateOutletContext]="{item: item}">
+                    </ng-container>
+                </ng-container>
+            </div>
         </div>
     </div>
 </ng-template>

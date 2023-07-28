@@ -35,6 +35,7 @@ export interface IBurgerPanelCParams extends IComponentParams<string, BurgerPane
         use?: boolean;
         onlyMobile?: boolean;
     };
+    showLogo?: boolean;
 }
 
 export const defaultParams: IBurgerPanelCParams = {

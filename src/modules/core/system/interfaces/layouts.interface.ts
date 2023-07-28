@@ -53,6 +53,7 @@ export interface ILayoutSectionConfig {
     modify?: ILayoutModifyItem[];
     modifiers?: string[];
     theme?: string;
+    themeMod?: string;
     order?: number;
     wlcElement?: string;
     display?: IDisplayConfig;
@@ -72,6 +73,7 @@ export interface IPanelSectionConfig extends ILayoutSectionConfig {
         /** display component before this window width */
         before?: number;
     };
+    showLogo?: boolean;
 }
 
 export interface ILayoutModifyItem {

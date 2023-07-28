@@ -50,6 +50,8 @@ export interface IGetItemsByWpPosts {
     defaultItemType: Params.WpItemType,
     hrefBasePath?: string;
     wlcElementPrefix?: string;
+    iconFolder?: string;
+    disableTooltip?: boolean;
 }
 
 export interface IGetHrefItemBasePath {
@@ -67,6 +69,9 @@ export interface IParseConfigOptions {
         /** fallback icon if the main one cannot be loaded */
         fallback?: string;
     },
+    tooltip?: {
+        submenuDisable?: true,
+    },
     /** hide category menu */
     notUseCategoryMenu?: boolean;
 }
@@ -74,6 +79,9 @@ export interface IParseConfigOptions {
 export interface IParseSettingsOptions {
     isAuth: boolean;
     wlcElementPrefix?: string;
+    parentWithIcon?: boolean;
+    /** the first child link is set to the parent */
+    parentAsLink?: boolean;
 }
 
 export class MenuHelper {
@@ -207,6 +215,15 @@ export class MenuHelper {
                 params: params,
                 wlcElement: wlcElement,
             };
+
+            if (options.iconFolder) {
+                menuItem.icon = `${options.iconFolder}/${wpItem.slug}`;
+            }
+
+            if (options.disableTooltip) {
+                menuItem.disableTooltip = true;
+            }
+
             menuItems.push(menuItem);
         });
         return menuItems;
@@ -283,6 +300,11 @@ export class MenuHelper {
                         const itemData: Params.IMenuItem = _isObject(item)
                             ? _cloneDeep(item) as Params.IMenuItem
                             : _cloneDeep(globalItemsConfig[item]);
+
+                        if (options.tooltip?.submenuDisable) {
+                            itemData.disableTooltip = true;
+                        }
+
                         MenuHelper.setIcon(itemData, iconsFolder, disableIcons, iconsFallback);
                         return itemData;
                     }) || [];
@@ -398,6 +420,23 @@ export class MenuHelper {
                     name: item.name[lang] || item.name['en'],
                     type: 'sref',
                 };
+
+                if (options.parentWithIcon) {
+                    parentItem.icon = item.id;
+                    parentItem.iconUrl = item.iconUrl;
+
+                    if (options.parentAsLink) {
+                        parentItem.params = {
+                            state: {
+                                name: 'app.catalog',
+                                params: {
+                                    category: item.items[0]?.id,
+                                },
+                            },
+                        };
+                    }
+                }
+
                 const dropdownItem: MenuConfigItemsGroup = {
                     type: 'group',
                     parent: parentItem,

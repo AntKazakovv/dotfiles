@@ -38,6 +38,10 @@ export interface ICategoryMenuSettings extends IMenuSettings {
     }
 }
 
+export interface IPanelMenuSettings extends IMenuSettings {
+    itemsInfo?: MenuConfigItem[];
+};
+
 export interface IAffiliatesMenuSettings {
     items?: MenuConfigItem[];
 }
@@ -58,6 +62,7 @@ export interface IMenuConfig {
     mainMenuKiosk?: IMenuSettings;
     categoryMenu?: ICategoryMenuSettings;
     mobileMenu?: IMobileMenuSettings;
+    panelMenu?: IPanelMenuSettings;
     profileMenu?: IProfileMenuSettings;
     profileFirstMenu?: IProfileMenuSettings;
     profileFirstMenuUnitedBonuses?: IProfileMenuSettings;

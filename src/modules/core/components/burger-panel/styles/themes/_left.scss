@@ -34,6 +34,32 @@
         visibility: visible;
     }
 
+    &.wlc-burger-panel--theme-mod-wolf {
+        --bp-padding: #{ef.get-value($themeLeftFixed, 'panelPadding')};
+
+        .wlc-burger-panel {
+
+            &__header,
+            &__content {
+                background: map-get($themeLeft, 'panelWolfBackground');
+            }
+        }
+
+        &.wlc-burger-panel--view-compact {
+
+            .wlc-burger-panel__content {
+                overflow: visible;
+
+                ::ng-deep {
+
+                    .wlc-panel-menu--type-info {
+                        margin: map-get($themeLeft, 'paneWolfInfoMarginCompact');
+                    }
+                }
+            }
+        }
+    }
+
     ::ng-deep {
 
         .wlc-logo {
@@ -283,6 +309,7 @@
         --bp-login-margin: #{ef.get-value($themeLeftFixed, 'loginMargin')};
         --bp-login-padding: #{ef.get-value($themeLeftFixed, 'loginPadding')};
         --bp-login-bg: #{ef.get-value($themeLeftFixed, 'loginBg')};
+        --bp-expand-btn-justify-self: end;
         --bp-expand-icon-transform: #{ef.get-value($themeLeftFixed, 'expandIconTransform')};
         --bp-transition: none;
         --bp-main-menu-margin: #{ef.get-value($themeLeftFixed, 'mainMenuMargin')};
@@ -304,6 +331,7 @@
         }
 
         &.wlc-burger-panel--view-compact {
+            --bp-header-padding: #{ef.get-value($themeLeftFixed, 'headerPaddingCompact')};
             --bp-login-display: #{ef.get-value($themeLeftFixed, 'loginDisplayCompact')};
             --bp-postmenu-display: #{ef.get-value($themeLeftFixed, 'postmenuDisplayCompact')};
             --bp-menu-link-text-display: #{ef.get-value($themeLeftFixed, 'menuLinkTextDisplayCompact')};
@@ -318,12 +346,13 @@
             --bp-userdeposit-display: #{ef.get-value($themeLeftFixed, 'userDepositDisplayCompact')};
             --bp-lang-max-width: #{ef.get-value($themeLeftFixed, 'langMaxWidthCompact')};
             --bp-lang-margin: #{ef.get-value($themeLeftFixed, 'langMarginCompact')};
+            --bp-expand-btn-justify-self: #{ef.get-value($themeLeftFixed, 'expandBtnJustifySelfCompact')};
         }
 
         .wlc-burger-panel {
 
             &__btn-expand {
-                justify-self: end;
+                justify-self: var(--bp-expand-btn-justify-self);
                 padding: ef.get-value($themeLeftFixed, 'btnExpandPadding');
                 color: ef.get-value($themeLeftFixed, 'btnExpandColor');
                 background: ef.get-value($themeLeftFixed, 'btnExpandBg');

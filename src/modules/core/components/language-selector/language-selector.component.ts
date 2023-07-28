@@ -31,6 +31,7 @@ import {
     map,
 } from 'rxjs/operators';
 import _find from 'lodash-es/find';
+import _isNil from 'lodash-es/isNil';
 
 import {
     ConfigService,
@@ -74,10 +75,12 @@ export {ILanguageSelectorCParams} from './language-selector.params';
                 transform: '*',
             })),
             state('opened', style({
+                height: '*',
                 opacity: 1,
                 visibility: 'visible',
             })),
             state('closed', style({
+                height: 0,
                 opacity: 0,
                 visibility: 'hidden',
                 pointerEvents: 'none',
@@ -269,6 +272,10 @@ export class LanguageSelectorComponent
         return this.availableLanguages.length <= this.$params.countLangFromDropdown;
     }
 
+    public get isShowLangByThemeWolf(): boolean {
+        return !_isNil(this.$params.dropdown?.expandableOnHover);
+    }
+
     /**
      * Checks themeMod parameter, returns true if it is 'long'.
      *
@@ -405,6 +412,10 @@ export class LanguageSelectorComponent
             hideFlag: false,
             hideLang: isCompact,
         };
+
+        if (this.$params.theme === 'wolf') {
+            dropdownConfig.expandableOnHover = isCompact;
+        }
 
         if (isCompact) {
             this.addModifiers('state-compact');
