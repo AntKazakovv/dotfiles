@@ -86,9 +86,10 @@ $customThemeModCompact: () !default;
 $themeModCompact: map-merge((
     'itemColumns': 50px 1fr 1fr,
     'itemMargin': 0 ef.size(2),
-    'cellPaddingFirst': ef.size(2) 0 ef.size(2) ef.size(2),
-    'cellPaddingLast': ef.size(2) ef.size(2) ef.size(2) 0,
+    'cellPaddingFirst': 0 0 0 ef.size(2),
+    'cellPaddingLast': 0 ef.size(2) 0 0,
     'headPaddingFirst': 0,
+    'headPaddingLast': 0 ef.size(2) 0 0,
 ), $customThemeModCompact);
 
 $customThemeDefaultModHistory: () !default;

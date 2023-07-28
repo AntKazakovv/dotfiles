@@ -3,7 +3,7 @@
         class="{{$class}}__val {{$class}}--{{prize.currency.toLowerCase()}}">
         <span *ngIf="prize.value; else noValue"
             wlc-currency
-            [digitsInfo]="getDigitsInfo(prize.currency)"
+            [digitsInfo]="isTornamentHistory ? null : getDigitsInfo(prize.currency)"
             [value]="prize.value"
             [currency]="prize.currency">
         </span>

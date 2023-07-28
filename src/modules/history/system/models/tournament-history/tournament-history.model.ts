@@ -199,7 +199,7 @@ export class TournamentHistory extends AbstractModel<ITournamentHistory> {
     }
 
     protected get totalWins(): number {
-        return _toNumber(this.targetDefaultCurrency === 'EUR'
+        return Number(this.targetDefaultCurrency === 'EUR'
             ? this.data.TotalWins.EUR
             : this.data.Win,
         );

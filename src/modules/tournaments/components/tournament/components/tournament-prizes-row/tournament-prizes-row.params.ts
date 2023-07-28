@@ -5,7 +5,7 @@ import {
 import {ITournamentPrize} from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
 
 export type ComponentTheme = 'default' | CustomType;
-export type ComponentType = 'default' | CustomType;
+export type ComponentType = 'default' | 'history' | CustomType;
 export type ComponentThemeMod = 'default' | 'one-line' | CustomType;
 
 export interface ITournamentPrizesRowCParams

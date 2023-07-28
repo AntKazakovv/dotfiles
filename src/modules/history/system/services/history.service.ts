@@ -313,9 +313,10 @@ export class HistoryService {
         } else {
             wins.push({
                 currency: tournamentCurrency,
-                value: _toNumber(rawWinRow),
+                value: Number(rawWinRow),
             });
         }
+
         return wins;
     }
 

@@ -191,6 +191,18 @@
         --lb-cell-padding-first: #{ef.get-value($themeModCompact, 'cellPaddingFirst')};
         --lb-cell-padding-last: #{ef.get-value($themeModCompact, 'cellPaddingLast')};
         --lb-head-padding-first: #{ef.get-value($themeModCompact, 'headPaddingFirst')};
+        --lb-head-padding-last: #{ef.get-value($themeModCompact, 'headPaddingLast')};
+
+        .wlc-tournament-leaderboard__cell {
+
+            &:first-child {
+                padding: ef.get-value($themeModCompact, 'cellPaddingFirst');
+            }
+
+            &:last-child {
+                padding: ef.get-value($themeModCompact, 'cellPaddingLast');
+            }
+        }
     }
 
     .wlc-body--theme-alt & {

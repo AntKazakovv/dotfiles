@@ -24,8 +24,8 @@ import * as Params from './tournament-prizes-row.params';
 })
 
 export class TournamentPrizesRowComponent extends AbstractComponent implements OnInit {
-    @Input() protected inlineParams: Params.ITournamentPrizesRowCParams;
     @Input() public prizes: ITournamentPrize[] = [];
+    @Input() protected inlineParams: Params.ITournamentPrizesRowCParams;
 
     @HostBinding('class') get sizeModifier() {
         return this.prizes.length < 4 ? 'size-lg' : 'size-default';
@@ -39,6 +39,10 @@ export class TournamentPrizesRowComponent extends AbstractComponent implements O
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
         if ('history' in this.injectParams) this.prizes = this.injectParams.wins;
+    }
+
+    public get isTornamentHistory(): boolean {
+        return 'history' in this.injectParams || this.inlineParams?.type === 'history';
     }
 
     public override ngOnInit(): void {
