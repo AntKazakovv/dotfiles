@@ -48,6 +48,7 @@ import {ColorThemeService} from 'wlc-engine/modules/core/system/services/color-t
 import {
     FinancesService,
     IPaymentPostMessage,
+    TPaymentStatusAll,
 } from 'wlc-engine/modules/finances';
 import {
     UserService,
@@ -223,17 +224,14 @@ export class ActionService {
                 }
                 break;
             case 'PAYMENT_SUCCESS': {
-                await this.injectFinancesService();
-                this.financesService.checkOpenIframe('PAYMENT_SUCCESS', this.depositInIframe, initialPath);
+                this.checkDeposit('PAYMENT_SUCCESS', initialPath);
                 break;
             }
             case 'PAYMENT_PENDING':
-                await this.injectFinancesService();
-                this.financesService.checkOpenIframe('PAYMENT_PENDING', this.depositInIframe);
+                this.checkDeposit('PAYMENT_PENDING');
                 break;
             case 'PAYMENT_FAIL':
-                await this.injectFinancesService();
-                this.financesService.onPaymentFail();
+                this.checkDeposit('PAYMENT_FAIL');
                 break;
             case 'SET_NEW_PASSWORD':
                 this.setNewPassword(initialPath);
@@ -515,6 +513,38 @@ export class ActionService {
         }
     }
 
+    private async checkDeposit(type: TPaymentStatusAll, initialPath?: IIndexing<string>): Promise<void> {
+        await this.configService.ready;
+        await this.injectFinancesService();
+
+        if (type === 'PAYMENT_FAIL') this.financesService.onPaymentFail();
+
+        if (this.depositInIframe && GlobalHelper.isIframe(this.window)) {
+            const postMessage: Partial<IPaymentPostMessage> = {
+                eventType: type,
+            };
+
+            if (type === 'PAYMENT_SUCCESS') {
+                postMessage.eventData = {
+                    amount: initialPath.amount,
+                    transactionId: initialPath.tid,
+                };
+            }
+
+            try {
+                this.window.parent?.postMessage(postMessage, '*');
+            } catch (error) {
+                this.logService.sendLog({code: '17.0.0', data: error});
+            }
+        } else {
+            if (type === 'PAYMENT_SUCCESS') {
+                this.financesService.onPaymentSuccess(initialPath);
+            } else {
+                this.financesService.onPaymentPending();
+            }
+        }
+    }
+
     private getStyleNumValue(elem: HTMLElement, style: string): number {
         return _toNumber(this.window.getComputedStyle(elem)[style].replace(/[^\d\.\-]/g, ''));
     }
@@ -555,7 +585,7 @@ export class ActionService {
         this.depositInIframe = this.configService.get<boolean>('$base.finances.depositInIframe');
 
         if (this.depositInIframe) {
-            fromEvent(this.window, 'message').subscribe(async (event: MessageEvent<IPaymentPostMessage>) => {
+            fromEvent(this.window, 'message').subscribe((event: MessageEvent<IPaymentPostMessage>) => {
                 if (event.data) {
                     const message: IPaymentPostMessage = event.data;
 
@@ -563,11 +593,9 @@ export class ActionService {
                         this.modalService.closeAllModals();
 
                         if (message.eventType === 'PAYMENT_SUCCESS') {
-                            await this.injectFinancesService();
-                            this.financesService.onPaymentSuccess(message.eventData);
+                            this.checkDeposit(message.eventType, message.eventData);
                         } else if (message.eventType === 'PAYMENT_FAIL') {
-                            await this.injectFinancesService();
-                            this.financesService.onPaymentFail();
+                            this.checkDeposit(message.eventType);
                         }
                     }
                 }

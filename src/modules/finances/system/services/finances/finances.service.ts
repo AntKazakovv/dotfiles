@@ -60,7 +60,6 @@ import {
     ISelectedWallet,
     WalletsService,
 } from 'wlc-engine/modules/multi-wallet';
-import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 //import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 
 type TUserDepositCountsInfo = Pick<UserInfo, 'depositsCount'>;
@@ -367,39 +366,6 @@ export class FinancesService {
         }
     }
 
-    public async checkOpenIframe(
-        type: TPaymentStatus,
-        depositInIframe: boolean,
-        initialPath?: IIndexing<string>,
-    ): Promise<void> {
-
-        if (depositInIframe && GlobalHelper.isIframe(this.window)) {
-
-            const postMessage: Partial<IPaymentPostMessage> = {
-                eventType: type,
-            };
-
-            if (type === 'PAYMENT_SUCCESS') {
-                postMessage.eventData = {
-                    amount: initialPath.amount,
-                    transactionId: initialPath.tid,
-                };
-            }
-
-            try {
-                this.window.parent?.postMessage(postMessage, '*');
-            } catch (error) {
-                this.logService.sendLog({code: '17.0.0', data: error});
-            }
-        } else {
-            if (type === 'PAYMENT_SUCCESS') {
-                this.onPaymentSuccess(initialPath);
-            } else {
-                this.onPaymentPending();
-            }
-        }
-    }
-
     //@CustomHook('finances', 'financesServiceOnPaymentFail')
     public onPaymentFail(): void {
         const userProfile$ = this.configService.get<BehaviorSubject<UserProfile>>(
@@ -522,7 +488,7 @@ export class FinancesService {
     }
 
     //@CustomHook('finances', 'financesServiceOnPaymentPending')
-    private onPaymentPending(): void {
+    public onPaymentPending(): void {
         this.eventService.emit({
             name: NotificationEvents.PushMessage,
             data: <IPushMessageParams>{
