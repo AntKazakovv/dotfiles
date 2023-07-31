@@ -42,6 +42,7 @@ export class MessageComponent extends AbstractChatComponent implements OnInit {
     @Input() public message!: IMessage;
 
     public avatar!: string;
+    public moderator: boolean = false;
 
     constructor() {
         super('wlc-message');
@@ -57,6 +58,10 @@ export class MessageComponent extends AbstractChatComponent implements OnInit {
             this.avatar = `https://ui-avatars.com/api/?name=${name}&background=${bg}&color=${color}`;
 
             this.addMod(this.message.from.role);
+
+            if (this.message.from.role === 'moderator') {
+                this.moderator = true;
+            }
         }
     }
 

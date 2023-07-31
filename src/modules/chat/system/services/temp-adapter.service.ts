@@ -141,6 +141,15 @@ export class TempAdapterService {
         this.configService.saveFixedPanelState(pos, state);
     }
 
+    public getUserInfo(room: string, role: string): Promise<IData> {
+        return this.dataService.request({
+            name: 'moderators',
+            system: 'chat',
+            url: '/chat/userinfo',
+            type: 'POST',
+        }, {Room: room, Role: role});
+    }
+
     protected init(): void {
 
         if (this.nicknameType === 'login') {

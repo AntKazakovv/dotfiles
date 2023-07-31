@@ -9,7 +9,8 @@
     </div>
     <div class="{{$class}}__main">
         <div class="{{$class}}__nickname">
-            {{message.from.nickname}}
+            <span>{{message.from.nickname}}</span>
+            <span *ngIf="moderator" class="{{$class}}__tag">{{'Moderator' | translate}}</span>
         </div>
         <div class="{{$class}}__bubble">
             <div class="{{$class}}__body">{{message.body}}</div>

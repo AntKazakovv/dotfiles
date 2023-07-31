@@ -60,6 +60,7 @@ export type TConnectionStatus = 'disconnected' | 'connected' | 'failed';
 @Injectable({providedIn: 'root'})
 export class ChatService {
     public readonly roomList: RoomModel[] = [];
+    public readonly moderatorsList: IContact[] = [];
     public readonly tabVisibility$: Observable<boolean> = fromEvent(this.document, 'visibilitychange')
         .pipe(map(() => this.document.visibilityState === 'visible'), startWith(true));
     public readonly messageFail$: Subject<void> = new Subject();
@@ -246,7 +247,6 @@ export class ChatService {
 
         this.prepareRooms();
         this.setActiveRoom();
-
         this.subscribeStanzaStream();
         this.subscribeClientStatus();
         this.subscribeIsAuthStatus();
@@ -263,6 +263,7 @@ export class ChatService {
             this.fixedPanelPos = fixedPanelPosition;
             this.useInFixedPanel = true;
         }
+        await this.getModerators();
     }
 
     /**
@@ -395,6 +396,31 @@ export class ChatService {
         }
     }
 
+    protected async getModerators(): Promise<void> {
+
+        try {
+            const res = await this.tas.getUserInfo(this.activeRoom.address, 'moderator');
+
+            for (const item of res.data) {
+                const user: IContact = {
+                    'nickname': item.Login,
+                    'jid': item.JID,
+                    'role': item.Role,
+                    'ocid': item.OccupantID,
+                };
+                this.moderatorsList.push(user);
+            }
+        } catch (error) {
+            // eslint-disable-next-line no-console
+            console.error(
+                '%c error',
+                'background: black; color: chartreuse; font-size: 14px',
+                error);
+            throw error;
+        }
+
+    }
+
     /**
      * Init XMPP client with user data
      * @param username specific login got by request
@@ -473,9 +499,11 @@ export class ChatService {
             let contact: IContact;
 
             if (!this.rooms.get(from.local)?.contacts.get(ocId)) {
+                const role = this.moderatorsList.some(user => user.ocid === ocId) ?
+                    'moderator' : mucUser?.attrs.role;
                 this.rooms.get(from.local)?.contacts.set(ocId, contact = {
                     nickname: from.resource,
-                    role: mucUser?.attrs.role,
+                    role: role,
                     jid: mucUser ? parseJid(mucUser?.attrs.jid) : null,
                 });
             } else {

@@ -52,16 +52,26 @@
         }
     }
 
-    // &.wlc-message--moderator {
+    &.wlc-message--moderator {
 
-    //     .wlc-message__nickname {
-    //         --name-color: #{helpers.get-prop('msgNameColorModerator')};
+        .wlc-message__nickname {
+            --name-color: #{helpers.get-prop('msgNameColorModerator')};
+            display: flex;
+            align-items: flex-start;
+        }
 
-    //         &:before {
-    //             content: '\1F451  ';
-    //         }
-    //     }
-    // }
+        .wlc-message__tag {
+            display: flex;
+            align-items: center;
+            margin-left: helpers.get-prop('msgMarginLeftTagModerator');
+            padding: helpers.get-prop('msgPaddingTagModerator');
+            color: helpers.get-prop('msgColorTagModerator');
+            font-weight: helpers.get-prop('msgFontWeightTagModerator');
+            font-size: helpers.get-prop('msgFontSizeTagModerator');
+            background: helpers.get-prop('msgBgTagModerator');
+            border-radius: helpers.get-prop('msgRadiusTagModerator');
+        }
+    }
 
     &.unread {
         --bubble-bg: #{helpers.get-prop('msgBubbleBgUnread')};
@@ -70,6 +80,9 @@
     .wlc-message {
 
         &__main {
+            display: grid;
+            grid-auto-flow: row;
+            justify-items: start;
             min-width: 1px;
         }
 
