@@ -6,7 +6,10 @@ $themeActive: map-merge((
 
     'itemMaxWidth': (
         375: 320px,
+        480: 340px,
         560: unset,
+        768: 640px,
+        1024: unset
     ),
 
     'itemMargin': 0 auto,

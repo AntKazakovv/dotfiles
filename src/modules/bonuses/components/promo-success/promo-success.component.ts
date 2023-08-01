@@ -50,15 +50,9 @@ export class PromoSuccessComponent
     public btnClickHandler(): void {
         this.modalService.hideModal('promo-success');
 
-        if (this.$params.status === 'notSelected') {
+        if (this.$params.status === 'notSelected' && this.$params.redirectPath) {
 
-            if (this.configService.get<boolean>('$bonuses.unitedPageBonuses')) {
-                this.router.stateService.go('app.profile.loyalty-bonuses.all');
-            } else {
-                if (this.$params.redirectPath) {
-                    this.router.stateService.go(this.$params.redirectPath);
-                }
-            }
+            this.router.stateService.go(this.$params.redirectPath);
         }
     }
 }

@@ -286,7 +286,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         class: 'active-bonus',
         params: {
             state: {
-                name: 'app.profile.loyalty-bonuses.all',
+                name: 'app.profile.loyalty-bonuses.main',
                 params: {},
             },
         },

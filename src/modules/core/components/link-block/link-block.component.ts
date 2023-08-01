@@ -77,12 +77,7 @@ export class LinkBlockComponent
             this.modalService.showModal(data.modal.name);
         } else if (data.url) {
 
-            if (data.url.path === 'app.profile.loyalty-bonuses.main' &&
-                this.configService.get<boolean>('$bonuses.unitedPageBonuses')) {
-                this.router.stateService.go('app.profile.loyalty-bonuses.all');
-            } else {
-                this.router.stateService.go(data.url.path, data.url.params);
-            }
+            this.router.stateService.go(data.url.path, data.url.params);
 
         } else if (data.event) {
             this.eventService.emit({

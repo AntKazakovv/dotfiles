@@ -560,12 +560,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
     }
 
     public goTo(path: string): void {
-        if (path === 'app.profile.loyalty-bonuses.main' &&
-            this.configService.get<boolean>('$bonuses.unitedPageBonuses')) {
-            this.router.stateService.go('app.profile.loyalty-bonuses.all');
-        } else {
-            this.router.stateService.go(path);
-        }
+        this.router.stateService.go(path);
     }
 
     /**

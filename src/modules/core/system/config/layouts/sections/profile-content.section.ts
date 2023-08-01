@@ -357,7 +357,7 @@ export namespace profileContent {
                             params: {
                                 class: 'wlc-profile-content__header underlined',
                                 components: [
-                                    componentLib.wlcTitle.offers,
+                                    componentLib.wlcTitle.bonuses,
                                 ],
                             },
                             display: {
@@ -376,6 +376,25 @@ export namespace profileContent {
                                             components: [
                                                 componentLib.wlcEnterPromocode.hideTitle,
                                             ],
+                                        },
+                                    },
+                                    {
+                                        ...componentLib.wlcBonusesList.activeFirstWithNoBonusItem,
+                                        display: {
+                                            configProperty: '$bonuses.unitedPageBonuses',
+                                        },
+                                    },
+                                    {
+                                        name: 'core.wlc-wrapper',
+                                        params: {
+                                            class: 'wlc-profile-content__header--second',
+                                            components: [
+                                                componentLib.wlcTitle.offers,
+
+                                            ],
+                                        },
+                                        display: {
+                                            configProperty: '$bonuses.unitedPageBonuses',
                                         },
                                     },
                                     componentLib.wlcBonusesList.mainFirst,
@@ -445,80 +464,6 @@ export namespace profileContent {
             },
         ],
     });
-
-    export const profileBonusesAllTypeFirst: ILayoutSectionConfig = {
-        container: true,
-        theme: 'first',
-        components: [
-            componentLib.wlcProfileMenu.defTypeFirst,
-            componentLib.wlcProfileMenu.subMenuV1,
-            {
-                name: 'core.wlc-wrapper',
-                params: {
-                    class: 'wlc-profile-content',
-                    components: [
-                        {
-                            name: 'core.wlc-wrapper',
-                            params: {
-                                class: 'wlc-profile-content__header underlined',
-                                components: [
-                                    {
-                                        name: 'core.wlc-title',
-                                        params: {
-                                            customMod: ['profile'],
-                                            mainText: gettext('Bonuses'),
-                                            wlcElement: 'header_bonuses',
-                                        },
-                                    },
-                                ],
-                            },
-                            display: {
-                                after: 1200,
-                            },
-                        },
-                        {
-                            name: 'core.wlc-wrapper',
-                            params: {
-                                class: 'wlc-profile-content__promocode',
-                                components: [
-                                    {
-                                        name: 'bonuses.wlc-enter-promocode',
-                                        params: {
-                                            class: 'all-type wlc-enter-promocode',
-                                            theme: 'clear',
-                                            common: {
-                                                showTitle: false,
-                                            },
-                                        },
-                                    },
-                                ],
-                            },
-                        },
-                        {
-                            name: 'core.wlc-wrapper',
-                            params: {
-                                class: 'wlc-profile-content__body',
-                                components: [
-                                    componentLib.wlcBonusesList.activeFirstWithNoBonusItem,
-                                    {
-                                        name: 'core.wlc-wrapper',
-                                        params: {
-                                            class: 'wlc-profile-content__header--second',
-                                            components: [
-                                                componentLib.wlcTitle.offers,
-
-                                            ],
-                                        },
-                                    },
-                                    componentLib.wlcBonusesList.mainFirstWithNoOffersImage,
-                                ],
-                            },
-                        },
-                    ],
-                },
-            },
-        ],
-    };
 
     export const profileBonusesInventory: ILayoutSectionConfig = {
         container: true,
