@@ -276,7 +276,7 @@ export class Bonus extends AbstractModel<IBonus> {
 
     public get group(): string {
         if (this.hasPromoCode) {
-            return gettext('Promocode');
+            return gettext('Promo code');
         }
         if (this._isReg) {
             return gettext('Welcome bonus');

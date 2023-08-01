@@ -82,7 +82,7 @@ export class EnterPromocodeComponent extends AbstractComponent implements OnInit
         const promocode = this.enterPromocodeInput.control.value;
 
         if (!promocode) {
-            this.showErrorNotification(gettext('Enter promocode'));
+            this.showErrorNotification(gettext('Enter promo code'));
             return;
         }
 
