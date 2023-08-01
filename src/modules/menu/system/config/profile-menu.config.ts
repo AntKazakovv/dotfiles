@@ -44,7 +44,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     },
 
     'profile-menu:account-settings': {
-        name: gettext('Account Settings'),
+        name: gettext('Profile'),
         class: 'account-settings',
         type: 'sref',
         icon: 'account-settings',
@@ -65,7 +65,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
     },
     'profile-first-menu:account-settings': {
-        name: gettext('Account Settings'),
+        name: gettext('Profile'),
         class: 'account-settings',
         type: 'sref',
         icon: 'account-settings',

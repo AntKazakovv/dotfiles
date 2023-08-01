@@ -264,7 +264,7 @@ export const wlcSidebarMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
     },
     'sidebar-menu:account-settings': {
-        name: gettext('Account settings'),
+        name: gettext('Profile'),
         type: 'sref',
         auth: true,
         class: 'my-account',

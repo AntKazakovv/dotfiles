@@ -357,7 +357,7 @@ export const MODALS_LIST: IModalList = {
         config: {
             id: 'profile-blocks',
             componentName: 'user.wlc-profile-blocks',
-            modalTitle: gettext('User Settings'),
+            modalTitle: gettext('Profile'),
             showFooter: false,
             size: 'md',
         },
