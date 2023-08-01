@@ -37,7 +37,9 @@ import {
     tempUser,
 } from 'wlc-engine/modules/chat/system/constants/core.constants';
 import {WINDOW} from 'wlc-engine/modules/app/system';
-import {XMPPAdapterService} from 'wlc-engine/modules/chat/system/services/xmpp-adapter.service';
+import {
+    XMPPAdapterService,
+} from 'wlc-engine/modules/chat/system/services/xmpp-adapter.service';
 import {RoomModel} from 'wlc-engine/modules/chat/system/classes/room.model';
 import {ChatConfigService} from 'wlc-engine/modules/chat/system/services/chat-config.service';
 import {NicknameFormComponent} from
@@ -204,7 +206,7 @@ export class ChatService {
      * Send message to room from current active user
      * @param message text
      */
-    public sendMsgToRoom(message: string): Observable<boolean> {
+    public sendMsgToRoom(message: string): Observable<boolean | 'error'> {
         return this.xmppService.send(this.activeRoom.address, message)
             .pipe(tap(v => !v && this.messageFail$.next()));
     }
@@ -521,7 +523,6 @@ export class ChatService {
                     from: contact,
                     read: this.roomConnected$.getValue() !== 'connected',
                 };
-
                 this.rooms.get(from.local)?.messageStore.addMessage(message);
             }
         }

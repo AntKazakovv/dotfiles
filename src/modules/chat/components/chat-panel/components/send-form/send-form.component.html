@@ -1,6 +1,11 @@
 <form class="{{$class}}__form"
     [formGroup]="form"
     (ngSubmit)="submitHandler()">
+    <div wlc-chat-tooltip
+        [outsideClick]="true"
+        [text]="errorText$"
+        [showTime]="tooltipTimer"
+        [state]="tooltipState$"></div>
     <div wlc-emoji
         [isOpened]="emojiPanelState$"
         (chooseEmojiEvent)="addEmoji($event)">

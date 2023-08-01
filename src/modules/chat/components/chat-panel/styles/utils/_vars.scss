@@ -285,4 +285,23 @@ $chatConfig: map-merge((
     'epItemRadius': 3px,
     'epItemBgHover': transparent,
     'epItemTransformHover': scale(1.2),
+
+    //Tooltip
+    'tooltipMargin': 0 0 45px,
+    'tooltipMaxWidth': calc(100% - 30px),
+    'tooltipMaxHeight': 150px,
+    'tooltipPadding': 5px,
+    'tooltipRadius': 10px,
+    'tooltipBorder': 5px solid transparent,
+    'tooltipScrollWidth': 5px,
+    'tooltipScrollBg': transparent,
+    'tooltipScrollThumbColor': var(--mc-baseOpacity),
+    'tooltipScrollThumbRadius': 10px,
+    'tooltipBg': var(--mc-bg100),
+    'tooltipShadow': 0 4px 10px rgba(0, 0, 0, 0.5),
+    'tooltipFontSize': 14px,
+    'tooltipTextColor': var(--mc-baseMain),
+    'tooltipArrowWidth': 1.2rem,
+    'tooltipArrowHeight': 0.7rem,
+    'tooltipArrowBottom': -8px,
 ), $customChatConfig);

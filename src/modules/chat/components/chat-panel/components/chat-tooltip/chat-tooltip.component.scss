@@ -1,0 +1,55 @@
+@use '../../styles/utils/helpers' as helpers;
+
+.wlc-chat-tooltip:host {
+
+    ::ng-deep {
+
+        .bs-popover-top {
+            position: absolute;
+            max-width: helpers.get-prop('tooltipMaxWidth');
+            margin: helpers.get-prop('tooltipMargin');
+        }
+
+        .popover-content {
+            max-height: helpers.get-prop('tooltipMaxHeight');
+            padding: helpers.get-prop('tooltipPadding');
+            color: helpers.get-prop('tooltipTextColor');
+            font-size: helpers.get-prop('tooltipFontSize');
+            background: helpers.get-prop('tooltipBg');
+            border-radius: helpers.get-prop('tooltipRadius');
+            box-shadow: helpers.get-prop('tooltipShadow');
+            border: helpers.get-prop('tooltipBorder');
+            overflow-y: auto;
+            scrollbar-color: helpers.get-prop('tooltipScrollThumbColor') helpers.get-prop('tooltipScrollBg');
+            scrollbar-width: thin;
+
+            &::-webkit-scrollbar {
+                width: helpers.get-prop('tooltipScrollWidth');
+                background-color: helpers.get-prop('tooltipScrollBg');
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background-color: helpers.get-prop('tooltipScrollThumbColor');
+                border-radius: helpers.get-prop('tooltipScrollThumbRadius');
+            }
+        }
+
+        .popover-arrow {
+            position: absolute;
+            bottom: helpers.get-prop('tooltipArrowBottom');
+            display: block;
+            width: helpers.get-prop('tooltipArrowWidth');
+            height: helpers.get-prop('tooltipArrowHeight');
+
+            &:before {
+                content: '';
+                position: absolute;
+                border-color: transparent;
+                border-style: solid;
+                top: -1px;
+                border-width: helpers.get-prop('tooltipArrowHeight') (helpers.get-prop('tooltipArrowWidth') * 0.5) 0;
+                border-top-color: helpers.get-prop('tooltipBg');
+            }
+        }
+    }
+}

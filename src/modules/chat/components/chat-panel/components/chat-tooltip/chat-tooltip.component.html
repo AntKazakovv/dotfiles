@@ -1,0 +1,12 @@
+
+<div [popover]="tooltipText"
+    [outsideClick]="outsideClick"
+    (onShown)="onShown()"
+    (onTextHover)="onTextHover()"
+    (onTextLeave)="onTextLeave()"
+    #pop="bs-popover">
+</div>
+
+<ng-template #tooltipText>
+    {{text | async | translate}}
+</ng-template>

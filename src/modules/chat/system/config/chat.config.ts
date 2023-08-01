@@ -57,6 +57,10 @@ export interface IChatConfig {
         /** Disable appending chat panel to body (use if chat inside fixed panel) */
         fixedPanelPosition?: TFixedPanelPos;
     };
+    /**
+     * Error message display duration
+     */
+    errorTimer?: number;
 }
 
 export type TEmojiList = [string, string][];
@@ -112,4 +116,5 @@ export const chatConfig: IChatConfig = {
         ['slot_machine', '🎰'],
         // ['woman_beard', '🧔‍♀️'],
     ],
+    errorTimer: 5000,
 };

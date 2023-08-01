@@ -42,6 +42,10 @@
             grid-area: textarea;
             resize: none;
             overflow: hidden;
+
+            &--fake {
+                word-break: break-word;
+            }
         }
 
         &__counter {

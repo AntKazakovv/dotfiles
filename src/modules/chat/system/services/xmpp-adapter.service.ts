@@ -30,14 +30,16 @@ import {tempUser} from 'wlc-engine/modules/chat/system/constants/core.constants'
 
 export type TChatStatus = 'offline' | 'online' | 'reconnecting' | 'disconnected' | 'failed';
 
+export type TMessageErrors = 'error' | 'wait-error';
+
 export interface IMsgQueueElem {
     msg: string;
     user: string;
     room: string;
     timestamp: number;
     waiter?: {
-        $: Subject<boolean>;
-        cb: () => Observable<boolean>;
+        $: Subject<boolean | 'error'>;
+        cb: () => Observable<boolean | 'error'>;
     };
 }
 
@@ -47,11 +49,20 @@ export class XMPPAdapterService {
     public userJid: JID;
 
     protected stanzas$: Subject<IStanza> = new Subject();
+    protected errors$: Subject<string> = new Subject();
     protected status$: BehaviorSubject<TChatStatus> = new BehaviorSubject('offline');
     protected roomConnected$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     protected pingResolver$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     protected pingId!: string;
     protected msgQueue: Map<string, IMsgQueueElem> = new Map();
+    protected errorTypes: {[key: string]: string} = {
+        wait: gettext('You have tried to send too many messages ' +
+            'in a short amount of time. Please try again later.'),
+        modify: gettext('You have used profanity in your message. ' +
+            'Please rephrase the message and send it again without using prohibited words.'),
+        link: gettext('Sending links in the chat is prohibited. Please abide by the rules.'),
+        default: gettext('Something went wrong. Please try again later.'),
+    };
 
     constructor(
         @Inject(WINDOW) protected window: Window,
@@ -66,6 +77,10 @@ export class XMPPAdapterService {
 
     public get clientStatus$(): Observable<TChatStatus> {
         return this.status$.asObservable();
+    }
+
+    public get errorText$(): Observable<string> {
+        return this.errors$.asObservable();
     }
 
     public get clientStatus(): TChatStatus {
@@ -89,8 +104,8 @@ export class XMPPAdapterService {
      * @param message
      * @returns
      */
-    public send(roomAddress: string, message: string): Observable<boolean> {
-        const waiter$ = new Subject<boolean>();
+    public send(roomAddress: string, message: string): Observable<boolean | 'error'> {
+        const waiter$ = new Subject<boolean | 'error'>();
         const id = ChatHelper.id();
 
         const msgQueueEl: IMsgQueueElem = {
@@ -161,18 +176,19 @@ export class XMPPAdapterService {
             });
 
             this.client.on('stanza', (stanza: IStanza) => {
-                if (stanza.attrs.id
-                    && stanza.attrs.id === this.pingId
-                    && stanza.attrs.type === 'result') {
+                const id = stanza.attrs.id;
+
+                if (id && id === this.pingId && stanza.attrs.type === 'result') {
                     this.pingResolver$.next(true);
                 }
 
-                if (stanza.is('message') && !stanza.getChild('delay')) {
-                    const id = stanza.attrs.id;
-                    if (this.msgQueue.has(id)) {
-                        this.msgQueue.get(id).waiter.$.next(true);
-                        this.msgQueue.delete(id);
+                if (stanza.is('message') && this.msgQueue.has(id)) {
+                    if (stanza.getChild('error')) {
+                        this.msgQueue.get(id).waiter.$.next('error');
+                        this.errorTypeHandler(stanza.getChild('error').attrs.type);
                     }
+                    this.msgQueue.get(id).waiter.$.next(true);
+                    this.msgQueue.delete(id);
                 }
 
                 this.ngZone.run(() => {
@@ -240,6 +256,12 @@ export class XMPPAdapterService {
     protected onOnlineJid(jid: JID): void {
         this.userJid = jid;
         this.status$.next('online');
+    }
+
+    public errorTypeHandler(type: string): void {
+        const error = this.errorTypes[type] ?? this.errorTypes.default;
+
+        this.errors$.next(error);
     }
 
     public checkPing(): Observable<boolean> {

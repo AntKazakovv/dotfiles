@@ -1,3 +1,4 @@
+import {DOCUMENT} from '@angular/common';
 import {
     UntypedFormGroup,
     UntypedFormControl,
@@ -11,6 +12,7 @@ import {
     ElementRef,
     OnInit,
     ViewChild,
+    Inject,
 } from '@angular/core';
 
 import {
@@ -22,13 +24,20 @@ import {
 } from 'rxjs';
 
 import {AbstractChatComponent} from 'wlc-engine/modules/chat/system/classes/component.abstract.class';
-import {XMPPAdapterService} from 'wlc-engine/modules/chat/system/services/xmpp-adapter.service';
+import {
+    XMPPAdapterService,
+    TMessageErrors,
+} from 'wlc-engine/modules/chat/system/services/xmpp-adapter.service';
 import {TempAdapterService} from 'wlc-engine/modules/chat/system/services/temp-adapter.service';
 import {ChatListService} from 'wlc-engine/modules/chat/system/services/chat-list.service';
 import {
     ChatService,
     TConnectionStatus,
 } from 'wlc-engine/modules/chat/system/services/chat.service';
+import {
+    TTooltipState,
+} from 'wlc-engine/modules/chat/components/chat-panel/components/chat-tooltip/chat-tooltip.component';
+import {ChatConfigService} from 'wlc-engine/modules/chat/system/services/chat-config.service';
 
 @Component({
     selector: '[wlc-send-form]',
@@ -45,17 +54,22 @@ export class SendFormComponent extends AbstractChatComponent implements OnInit {
         ]),
     });
     public emojiPanelState$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    public errorText$:  BehaviorSubject<string> = new BehaviorSubject(null);
+    public tooltipState$: BehaviorSubject<TTooltipState> = new BehaviorSubject(null);
+    public tooltipTimer: number = this.config.base.errorTimer;
 
     protected isConnected: boolean = false;
     protected cursorPosition: number = 0;
 
     constructor(
         public tas: TempAdapterService,
+        @Inject(DOCUMENT) protected document: Document,
         protected chatService: ChatService,
         protected chatListService: ChatListService,
         protected cdr: ChangeDetectorRef,
         protected xmppService: XMPPAdapterService,
         protected elementRef: ElementRef,
+        private config: ChatConfigService,
     ) {
         super('wlc-send-form');
     }
@@ -78,6 +92,13 @@ export class SendFormComponent extends AbstractChatComponent implements OnInit {
         });
 
         this.keyPressSubscription();
+
+        this.xmppService.errorText$.pipe(
+            takeUntil(this.destroy$),
+        ).subscribe((text: string) => {
+            this.tooltipToggle(text);
+
+        });
     }
 
     public get nickname(): string {
@@ -92,20 +113,26 @@ export class SendFormComponent extends AbstractChatComponent implements OnInit {
         if (this.form.valid && this.form.controls.message.value?.trim()) {
             this.form.disable();
 
-            this.chatService.sendMsgToRoom(this.form.controls['message'].value)
-                .pipe(takeUntil(this.destroy$))
-                .subscribe((isSent: boolean) => {
-                    if (isSent) {
-                        this.form.controls['message'].setValue(null);
-                    }
+            if (this.linksCheck(this.form.controls['message'].value)) {
+                this.xmppService.errorTypeHandler('link');
+                this.form.enable();
+            } else {
+                this.chatService.sendMsgToRoom(this.form.controls['message'].value)
+                    .pipe(takeUntil(this.destroy$))
+                    .subscribe((status: boolean | TMessageErrors) => {
 
-                    this.form.enable();
-                    this.textarea.nativeElement.focus();
-                    this.cdr.markForCheck();
-                });
+                        if (status === true) {
+                            this.form.controls['message'].setValue(null);
+                        }
 
-            if (this.emojiPanelState$.getValue()) {
-                this.emojiPanelState$.next(false);
+                        this.form.enable();
+                        this.textarea.nativeElement.focus();
+                        this.cdr.markForCheck();
+                    });
+
+                if (this.emojiPanelState$.getValue()) {
+                    this.emojiPanelState$.next(false);
+                }
             }
         }
     }
@@ -135,5 +162,17 @@ export class SendFormComponent extends AbstractChatComponent implements OnInit {
             event.preventDefault();
             this.submitHandler();
         });
+    }
+
+    protected tooltipToggle(text: string): void {
+        this.errorText$.next(text);
+        this.tooltipState$.next('opened');
+    }
+
+    protected linksCheck(message: string): boolean {
+        const pattern: RegExp = new RegExp(/(https?:\/\/)|(?:www\.)?/.source
+            + /[\w#%\+.:=@~-]{2,256}\.[\d()A-Za-z]{2,6}\b/.source
+            + /[\w#%&()\+.\/:=?@~-]*/.source);
+        return pattern.test(message);
     }
 }

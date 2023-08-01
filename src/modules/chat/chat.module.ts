@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TranslateModule} from '@ngx-translate/core';
+import {PopoverModule} from 'ngx-bootstrap/popover';
 import {
     FormsModule,
     ReactiveFormsModule,
@@ -24,6 +25,7 @@ import {MessageComponent} from './components/chat-panel/components/message/messa
 import {DialogComponent} from './components/chat-panel/components/dialog/dialog.component';
 import {NicknameFormComponent} from './components/chat-panel/components/nickname-form/nickname-form.component';
 import {EmojiComponent} from './components/chat-panel/components/emoji/emoji.component';
+import {ChatTooltipComponent} from './components/chat-panel/components/chat-tooltip/chat-tooltip.component';
 
 import {IntersectionDirective} from './system/directives/intersection.directive';
 
@@ -60,6 +62,7 @@ export const components = {
         BrowserModule,
         BrowserAnimationsModule,
         TranslateModule,
+        PopoverModule.forRoot(),
     ],
     declarations: [
         AlertComponent,
@@ -78,6 +81,7 @@ export const components = {
         DialogComponent,
         NicknameFormComponent,
         IntersectionDirective,
+        ChatTooltipComponent,
     ],
     providers: [
         ChatService,
