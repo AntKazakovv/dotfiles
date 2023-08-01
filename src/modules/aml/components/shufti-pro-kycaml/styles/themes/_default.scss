@@ -14,9 +14,13 @@
             display: flex;
             gap: ef.get-value($themeDefault, 'statusGap');
             align-items: ef.get-value($themeDefault, 'statusAlignItems');
-            justify-content: ef.get-value($themeDefault, 'statusJustifyContent');
             max-width: ef.get-value($themeDefault, 'statusMaxWidth');
             padding: ef.get-value($themeDefault, 'statusPadding');
+
+            &--verify {
+                flex-wrap: wrap;
+                max-width: 100%;
+            }
 
             ::ng-deep {
 
@@ -26,7 +30,7 @@
                 }
             }
 
-            &-not-secure {
+            .not-secure {
 
                 ::ng-deep {
 
@@ -36,7 +40,7 @@
                 }
             }
 
-            &-secure {
+            .secure {
 
                 ::ng-deep {
 
@@ -80,6 +84,22 @@
                     width: ef.get-value($themeDefault, 'errorIconWidth');
                     height: ef.get-value($themeDefault, 'errorIconHeight');
                     fill: ef.get-value($themeDefault, 'errorColor');
+                }
+            }
+        }
+    }
+
+    &.wlc-shufti-pro-kycaml--failed {
+
+        .wlc-shufti-pro-kycaml__status {
+
+            .not-secure {
+
+                ::ng-deep {
+
+                    svg {
+                        fill: ef.get-value($themeDefault, 'failedColor');
+                    }
                 }
             }
         }

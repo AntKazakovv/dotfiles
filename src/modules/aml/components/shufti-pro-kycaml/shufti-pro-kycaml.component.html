@@ -1,32 +1,24 @@
 
-<ng-container
-    *ngIf="ready || error; else preloader"
-    [ngSwitch]="validationLevel">
+<ng-container *ngIf="ready || error; else preloader">
 
-    <ng-container *ngSwitchCase="'not-secure'">
-        <div class="{{$class}}__status {{$class}}__status-not-secure"
-            data-wlc-element="shufti-pro-kycaml-not-secure">
+    <div class="{{$class}}__status {{$class}}__status--verify">
+
+        <ng-container *ngIf="secure; else unsecureIcon">
             <div wlc-icon
-                class="icon-btn"
-                iconPath="/wlc/icons/status/not-secure.svg"
-                wlcElement="not-secure-icon">
+                class="icon-btn secure"
+                iconPath="/wlc/icons/status/secure.svg">
             </div>
-
-            {{'Verification is not passed yet.' | translate}}
-        </div>
-    </ng-container>
-
-    <div *ngSwitchCase="'secure'"
-        class="{{$class}}__status {{$class}}__status-secure"
-        data-wlc-element="shufti-pro-kycaml-secure">
-
-        <div wlc-icon
-            class="icon-btn"
-            iconPath="/wlc/icons/status/secure.svg"
-            wlcElement="not-secure-icon">
-        </div>
-
-        {{'Verification is passed successfully.' | translate}}
+        </ng-container>
+        <span>
+            {{statusText | translate}}
+        </span>
+        <ng-container *ngIf="showBtn">
+            <button wlc-button
+                text="Start verification"
+                typeAttr="button"
+                (click)="requestSession()">
+            </button>
+        </ng-container>
     </div>
 
     <div *ngIf="error"
@@ -43,13 +35,13 @@
     </div>
 </ng-container>
 
-<ng-container *ngIf="ready">
+<ng-container *ngIf="verify$ | async">
     <ng-container [ngSwitch]="data.service">
         <ng-container *ngSwitchCase="'SumSub'">
             <div class="{{$class}}__iframe-container" #sumsubwebsdk></div>
         </ng-container>
 
-        <ng-container *ngSwitchCaseDefault>
+        <ng-container *ngSwitchDefault>
             <iframe *ngIf="url"
                 class="{{$class}}__iframe"
                 allow="camera"
@@ -62,4 +54,11 @@
 
 <ng-template #preloader>
     <div wlc-loader></div>
+</ng-template>
+
+<ng-template #unsecureIcon>
+    <div wlc-icon
+        class="icon-btn not-secure"
+        iconPath="/wlc/icons/status/not-secure.svg">
+    </div>
 </ng-template>

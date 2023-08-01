@@ -19,9 +19,6 @@ import {
     timer,
 } from 'rxjs';
 import {
-    distinctUntilChanged,
-    filter,
-    map,
     takeUntil,
 } from 'rxjs/operators';
 
@@ -29,13 +26,12 @@ import {
     AbstractComponent,
     ConfigService,
     LogService,
-    TUserValidationLevel,
 } from 'wlc-engine/modules/core';
 import {
     ShuftiProKycamlService,
     IKycamlData,
+    statusDesc,
 } from 'wlc-engine/modules/aml/system/services/shufti-pro-kycaml/shufti-pro-kycaml.service';
-import {UserInfo} from 'wlc-engine/modules/user';
 
 import * as Params from './shufti-pro-kycaml.params';
 
@@ -53,13 +49,12 @@ export class ShuftiProKycamlComponent extends AbstractComponent implements OnIni
 
     public data: IKycamlData;
     public url: SafeResourceUrl;
-    public get ready(): boolean {
-        return this._ready && !!this.validationLevel;
-    };
-    public validationLevel: TUserValidationLevel;
+    public ready: boolean = false;
+    public showBtn: boolean = false;
     public error: boolean = false;
-
-    protected _ready: boolean = false;
+    public verify$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    public statusText!: string;
+    public secure: boolean = false;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IShuftiProKycamlCParams,
@@ -78,13 +73,12 @@ export class ShuftiProKycamlComponent extends AbstractComponent implements OnIni
 
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.injectParams);
-
-        this.initSubscriber();
     }
 
     public async ngAfterViewInit(): Promise<void> {
         try {
             this.data = await this.shuftiProKycamlService.getKycamlData();
+            this.statusHandler(this.data.status);
             await this.processData();
             this.setReady();
         } catch (error) {
@@ -102,21 +96,18 @@ export class ShuftiProKycamlComponent extends AbstractComponent implements OnIni
         }
     }
 
-    protected setReady(): void {
-        this._ready = true;
+    public async requestSession(): Promise<void> {
+        this.data = await this.shuftiProKycamlService.createData();
+        this.verify$.next(true);
+        await this.processData();
+
+        this.showBtn = false;
         this.cdr.markForCheck();
     }
 
-    protected initSubscriber(): void {
-        this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'}).pipe(
-            filter((v) => !!v),
-            map((v) => v.validationLevel),
-            distinctUntilChanged(),
-            takeUntil(this.$destroy),
-        ).subscribe((validationLevel) => {
-            this.validationLevel = validationLevel;
-            this.cdr.markForCheck();
-        });
+    protected setReady(): void {
+        this.ready = true;
+        this.cdr.markForCheck();
     }
 
     protected async processData(): Promise<void> {
@@ -167,4 +158,31 @@ export class ShuftiProKycamlComponent extends AbstractComponent implements OnIni
         }
     }
 
+    protected statusHandler(status: string | null): void {
+
+        this.statusText = status ? statusDesc[status] : statusDesc['uncommitted'];
+
+        switch (status) {
+
+            case null:
+            case 'retry':
+            case 'deleted':
+                this.showBtn = true;
+                break;
+
+            case 'failed':
+                this.addModifiers('failed');
+                break;
+
+            case 'uncommitted':
+                this.verify$.next(true);
+                break;
+
+            case 'completed':
+                this.secure = true;
+                this.cdr.markForCheck();
+                break;
+
+        }
+    }
 }

@@ -5,13 +5,13 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'notSecureColor': var(--mc-warning),
     'secureColor': var(--mc-success),
+    'failedColor': var(--mc-error),
     'iconWidth': ef.size(4),
     'iconHeight': ef.size(4),
     'statusMaxWidth': 350px,
     'statusPadding': ef.size(2),
     'statusGap': ef.size(4),
     'statusAlignItems': center,
-    'statusJustifyContent': justify-content,
     'statusFlexDirection': (
         375: row,
     ),

@@ -3,12 +3,23 @@ import {Injectable} from '@angular/core';
 import {
     DataService,
     IData,
+    IIndexing,
 } from 'wlc-engine/modules/core';
 
 export interface IKycamlData {
     url: string;
     service: 'SumSub' | 'ShuftiPro';
+    status: string;
 }
+
+export const statusDesc: IIndexing<string> = {
+    uncommitted: gettext('Verification is not passed yet'),
+    processing: gettext('The documents are being processed'),
+    completed: gettext('The documents have been verified successfully'),
+    failed: gettext('Verification has been declined'),
+    retry: gettext('Verification has been declined. Please try again'),
+    deleted: gettext('Time for uploading documents has expired'),
+};
 
 @Injectable()
 export class ShuftiProKycamlService {
@@ -21,16 +32,16 @@ export class ShuftiProKycamlService {
 
         const res = await this.getData();
 
-        const system = res?.service;
-        const url = res?.url || (await this.createData()).url;
-
-        if (!url) {
-            throw new Error('Iframe url was not received');
+        if (!res) {
+            return;
         }
 
+        const {service, url, status} = res;
+
         return {
-            service: system,
-            url: url,
+            service,
+            url,
+            status,
         };
     }
 
