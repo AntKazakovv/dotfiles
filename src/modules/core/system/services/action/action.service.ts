@@ -375,7 +375,7 @@ export class ActionService {
                         name: NotificationEvents.PushMessage,
                         data: <IPushMessageParams>{
                             type: 'error',
-                            title: gettext('Promocode error'),
+                            title: gettext('Promo code error'),
                             message: gettext('No voucher found'),
                             wlcElement: 'notification_promocode-error',
                         },
@@ -386,7 +386,7 @@ export class ActionService {
         } catch (error) {
             this.showErrorNotification(
                 error.errors || error,
-                gettext('Promocode error'),
+                gettext('Promo code error'),
             );
         }
     }

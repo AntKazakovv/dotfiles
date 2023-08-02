@@ -122,7 +122,7 @@ export class EnterPromocodeComponent extends AbstractComponent implements OnInit
         }
     }
 
-    protected showErrorNotification(message: string, title: string = gettext('Promocode error')): void {
+    protected showErrorNotification(message: string, title: string = gettext('Promo code error')): void {
         this.eventService.emit({
             name: NotificationEvents.PushMessage,
             data: <IPushMessageParams>{

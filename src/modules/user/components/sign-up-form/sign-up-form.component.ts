@@ -241,7 +241,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
                 name: NotificationEvents.PushMessage,
                 data: <IPushMessageParams>{
                     type: 'error',
-                    title: gettext('Promocode error'),
+                    title: gettext('Promo code error'),
                     message: error.errors || error.message || error,
                     wlcElement: 'notification_promocode-error',
                 },

@@ -45,12 +45,12 @@ export const defaultParams: IPromoSuccessCParams = {
     title: gettext('Promo code'),
     iconPath: '/wlc/decors/promo-success.svg',
     texts: {
-        selected: gettext('Congratulations your promo code is activated! Bonus subscribed ' +
-        'and waiting for activation'),
-        active: gettext('Congratulations your promo code is activated! Bonus is activated. ' +
+        selected: gettext('Congratulations, your promo code has been activated! A bonus is subscribed ' +
+        'and awaiting activation'),
+        active: gettext('Congratulations, your promo code has been activated! A bonus is activated. ' +
         'You can start wagering it'),
-        notSelected: gettext('Congratulations your promo code is activated! Bonus added ' +
-        'to the Bonuses page and waiting for subscription'),
+        notSelected: gettext('Congratulations, your promo code has been activated! A bonus has been added ' +
+        'to the Bonuses page and is awaiting subscription'),
         fromLink: '',
     },
     btnTexts: {
