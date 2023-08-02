@@ -16,7 +16,7 @@ projects = [
         # Devcasino
         "id": "1",
         "repository": "git@wlcgitlab.egamings.com:wlcdevcasino/web.git",
-        "branches": ["develop", "master", "scr1-profile", "scr1-var1", "scr1-var2", "scr2-var1", "scr2-var2", "scr3-wolf1" "scr1-kiosk", "scr2-kiosk", "scr1-aff"]
+        "branches": ["develop", "master", "scr1-profile", "scr1-var1", "scr1-var2", "scr2-var1", "scr2-var2", "scr3-wolf1", "scr1-kiosk", "scr2-kiosk", "scr1-aff"]
     },
     {
         # Kiosk
@@ -583,7 +583,7 @@ def change_core_version(project):
     print(Fore.GREEN + "Done" + Fore.RESET)
 
     update_composer()
-    new_tag = make_tag(action, branch)
+    new_tag = make_tag(None, branch)
 
     print(Fore.YELLOW + "Update project" + Fore.RESET)
     subprocess.run(["git", "add", "."], cwd = temp_folder)
@@ -721,9 +721,10 @@ def release_manager():
 
     elif choice == "3":
         action = "patch"
+        branch = "master"
         check_branch(branch)
         print(Fore.YELLOW + "Patch process starting..." + Fore.RESET)
-        make_release(action)
+        make_release(action, branch)
         start()
 
     elif choice == "4":
@@ -738,7 +739,6 @@ def release_manager():
         start()
 
     elif choice == "6":
-        action = "core"
         change_core_version(projects["id" == "1"])
         print(Fore.GREEN + "WLC Core updated!" + Fore.RESET)
         start()
@@ -758,7 +758,6 @@ def release_manager():
         start()
 
     elif choice == "9":
-        action = "language"
         branch = "develop"
         update_language_pack(branch)
         print(Fore.GREEN + "Language pack updated!" + Fore.RESET)
