@@ -3,27 +3,19 @@ import {
     Component,
     OnInit,
     Inject,
-    Renderer2,
     Input,
     ChangeDetectionStrategy,
 } from '@angular/core';
 
-import {
-    Subject,
-    asyncScheduler,
-} from 'rxjs';
-import {
-    takeUntil,
-    throttleTime,
-    first,
-} from 'rxjs/operators';
+import {TranslateService} from '@ngx-translate/core';
+
+import {Subject} from 'rxjs';
 
 import {
     AbstractComponent,
     ConfigService,
     EventService,
     IMixedParams,
-    GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {DeadsimplechatService} from 'wlc-engine/modules/deadsimplechat/system/services/deadsimplechat.service';
 
@@ -43,6 +35,7 @@ export class DeadsimplechatComponent extends AbstractComponent implements OnInit
     public zIndexLiveChat: string = '';
     public roomId: string;
     public liveChatExist: boolean = false;
+    public iframeSrc: string;
     public isChatOpen: boolean = false;
 
     constructor(
@@ -51,7 +44,7 @@ export class DeadsimplechatComponent extends AbstractComponent implements OnInit
         protected deadsimplechatService: DeadsimplechatService,
         configService: ConfigService,
         protected eventService: EventService,
-        protected renderer: Renderer2,
+        protected translate: TranslateService,
     ) {
         super(<IMixedParams<Params.IDeadsimplechatCParams>>{
             injectParams: params,
@@ -68,30 +61,9 @@ export class DeadsimplechatComponent extends AbstractComponent implements OnInit
         this.liveChatExist = this.configService.get<boolean>('$base.livechat');
         this.eventService.subscribe({name: 'CHAT_USER_RESPONSE'}, () => {
             this.ready$.next(true);
-            const iframe: HTMLIFrameElement = this.document.createElement('iframe');
             this.roomId = this.$params.common.roomId || this.deadsimplechatService.chatRoom.roomId;
-            // eslint-disable-next-line max-len
-            iframe.src = `https://deadsimplechat.com/${this.roomId}?username=${this.deadsimplechatService.userResponse.username}`;
-            iframe.style.width = '100%';
-            iframe.style.height = '100%';
-
-            GlobalHelper.createMutationObserver(
-                document.body,
-                {
-                    childList: true,
-                    subtree: true,
-                })
-                .pipe(
-                    first(),
-                    throttleTime(600, asyncScheduler, {trailing: true}),
-                    takeUntil(this.$destroy),
-                )
-                .subscribe(() => {
-                    const container: Element = document.querySelector('.wlc-deadsimplechat-wrapper__body');
-                    if (container) {
-                        this.renderer.appendChild(container, iframe);
-                    }
-                });
+            this.iframeSrc =
+            `https://deadsimplechat.com/${this.roomId}?username=${this.deadsimplechatService.userResponse.username}`;
         }, this.$destroy);
 
         this.eventService.subscribe({name: 'LOGOUT'}, () => {

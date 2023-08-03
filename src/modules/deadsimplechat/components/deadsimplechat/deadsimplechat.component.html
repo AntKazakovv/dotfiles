@@ -16,5 +16,6 @@
         </button>
     </div>
     <div class="{{$class}}-wrapper__body">
+        <iframe [src]="iframeSrc | safeValue:'resourceUrl'"></iframe>
     </div>
 </div>

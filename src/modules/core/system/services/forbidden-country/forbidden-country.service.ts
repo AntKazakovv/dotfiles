@@ -10,8 +10,12 @@ import {
     BehaviorSubject,
     Subscription,
     firstValueFrom,
+    asyncScheduler,
 } from 'rxjs';
-import {first} from 'rxjs/operators';
+import {
+    first,
+    throttleTime,
+} from 'rxjs/operators';
 
 import {
     ConfigService,
@@ -22,13 +26,13 @@ import {
     IModalParams,
     ModalService,
 } from 'wlc-engine/modules/core/system/services/modal/modal.service';
+import {GlobalHelper} from 'wlc-engine/modules/core';
 
 @Injectable({
     providedIn: 'root',
 })
 export class ForbiddenCountryService {
     private forbiddenModalRemove$: Subscription;
-    private listenerForForbiddenModal: MutationObserver;
 
     constructor(
         private configService: ConfigService,
@@ -61,29 +65,32 @@ export class ForbiddenCountryService {
     }
 
     private setForbiddenModalEventListeners(): void {
-        this.listenerForForbiddenModal = new MutationObserver(() => {
-            if (!this.forbiddenModalRemove$) {
-                const element = this.document.querySelector('.wlc-modal--forbidden-country');
+        const updateForbiddenThrottleTime: number = 1000;
 
-                if (element) {
-                    this.forbiddenModalRemove$ = fromEvent(element, 'DOMNodeRemoved')
-                        .subscribe(() => {
-                            this.forbiddenModalRemove$.unsubscribe();
-                            this.listenerForForbiddenModal.disconnect();
-                            this.forbiddenModalRemove$ = null;
-                            this.modalService.closeAllModals();
-                            return this.showModal();
-                        });
-                }
-            }
-        });
-
-        this.listenerForForbiddenModal.observe(
-            this.document.querySelector('body'),
+        GlobalHelper.createMutationObserver(
+            this.document.body,
             {
                 childList: true,
-            },
-        );
+                subtree: true,
+            })
+            .pipe(
+                throttleTime(updateForbiddenThrottleTime, asyncScheduler, {trailing: true}),
+            )
+            .subscribe(() => {
+                if (!this.forbiddenModalRemove$) {
+                    const element = this.document.querySelector('.wlc-modal--forbidden-country');
+
+                    if (element) {
+                        this.forbiddenModalRemove$ = fromEvent(element, 'DOMNodeRemoved')
+                            .subscribe(() => {
+                                this.forbiddenModalRemove$.unsubscribe();
+                                this.forbiddenModalRemove$ = null;
+                                this.modalService.closeAllModals();
+                                return this.showModal();
+                            });
+                    }
+                }
+            });
     }
 
     private async getForbiddenCountryParams(): Promise<IForbiddenCountryParams> {
