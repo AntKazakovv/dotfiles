@@ -214,12 +214,18 @@ export class NotificationService {
         });
     }
 
-    public disableDismissTimer(notification: INotification): void {
-        notification.dismissTimer.unsubscribe();
+    public disableDismissTimer(targetId: number): void {
+        const target = _find(this.notifications, {id: targetId});
+        if (target) {
+            target.dismissTimer.unsubscribe();
+        }
     }
 
-    public resetDismissTimer(notification: INotification): void {
-        notification.dismissTimer = this.createDismissTimer(notification.id, notification.dismissTime);
+    public resetDismissTimer(targetId: number): void {
+        const target = _find(this.notifications, {id: targetId});
+        if (target && target.threadAnimationState !== 'dismiss') {
+            target.dismissTimer = this.createDismissTimer(target.id, target.dismissTime);
+        }
     }
 
     private async init(): Promise<void> {

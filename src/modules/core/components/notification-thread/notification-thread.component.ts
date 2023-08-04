@@ -66,11 +66,11 @@ export class NotificationThreadComponent extends AbstractComponent {
     }
 
     public disableDismissTimer(notification: INotification): void {
-        this.notificationService.disableDismissTimer(notification);
+        this.notificationService.disableDismissTimer(notification.id);
     }
 
     public resetDismissTimer(notification: INotification): void {
-        this.notificationService.resetDismissTimer(notification);
+        this.notificationService.resetDismissTimer(notification.id);
     }
 
     constructor (
