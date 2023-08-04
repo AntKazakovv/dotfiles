@@ -454,6 +454,7 @@ export namespace FormElements {
     export const submit: IFormComponent = {
         name: 'core.wlc-button',
         params: <IButtonCParams>{
+            wlcElement: 'profile_form_submit-btn',
             modifiers: ['submit'],
             common: {
                 typeAttr: 'submit',

@@ -41,6 +41,7 @@ export namespace wlcProfileForm {
                 {
                     name: 'core.wlc-wrapper',
                     params: <IWrapperCParams>{
+                        wlcElement: 'profile_form_main',
                         class: 'wlc-profile-form__block wlc-profile-form__block--main',
                         components: [
                             {
@@ -77,6 +78,7 @@ export namespace wlcProfileForm {
                 {
                     name: 'core.wlc-wrapper',
                     params: <IWrapperCParams>{
+                        wlcElement: 'profile_form_location',
                         class: 'wlc-profile-form__block wlc-profile-form__block--location',
                         components: [
                             {
@@ -115,6 +117,7 @@ export namespace wlcProfileForm {
                 {
                     name: 'core.wlc-wrapper',
                     params: <IWrapperCParams>{
+                        wlcElement: 'profile_form_banking-information',
                         class: 'wlc-profile-form__block wlc-profile-form__block--banking',
                         components: [
                             {
@@ -160,6 +163,7 @@ export namespace wlcProfileForm {
                     name: 'core.wlc-wrapper',
                     blockName: 'password-block',
                     params: <IWrapperCParams>{
+                        wlcElement: 'profile_form_password',
                         class: 'wlc-profile-form__block wlc-profile-form__block--password',
                         components: [
                             {
@@ -186,6 +190,7 @@ export namespace wlcProfileForm {
                 {
                     name: 'core.wlc-wrapper',
                     params: <IWrapperCParams>{
+                        wlcElement: 'profile_form_submit',
                         class: 'wlc-profile-form__block wlc-profile-form__block--submit',
                         components: [
                             FormElements.submit,
