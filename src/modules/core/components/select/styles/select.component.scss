@@ -64,6 +64,7 @@
             &.ng-touched {
 
                 &.ng-invalid {
+                    color: var(--fc-placeholderColor);
                     background: ef.get-value($baseSettings, 'errorsBgColor');
                     border-color: ef.get-value($baseSettings, 'errorsBorderColor');
                 }
