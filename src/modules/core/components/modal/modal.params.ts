@@ -60,7 +60,7 @@ export const MODALS_LIST: IModalList = {
         config: {
             id: 'login',
             modifier: 'login-sign-up',
-            modalTitle: gettext('Login now!'),
+            modalTitle: gettext('Login now'),
             component: TabSwitcherComponent,
             size: 'as',
             showFooter: false,
@@ -98,7 +98,7 @@ export const MODALS_LIST: IModalList = {
         config: {
             id: 'signup',
             modifier: 'login-sign-up',
-            modalTitle: gettext('Sign up now!'),
+            modalTitle: gettext('Sign up now'),
             component: TabSwitcherComponent,
             size: 'as',
             showFooter: false,
