@@ -522,8 +522,15 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                     this.isSingleBonus = false;
                 }
             }
+            this.addModifiers(`count-${bonuses.length}-bonus`);
+            if (this.$params.themeMod === 'with-ears' && bonuses.length > 1) {
+                this.sliderParams.swiper = {
+                    ...this.sliderParams.swiper,
+                    slidesOffsetBefore: 15,
+                    slidesOffsetAfter: 15,
+                };
+            }
         }
-
         this.cdr.detectChanges();
     }
 

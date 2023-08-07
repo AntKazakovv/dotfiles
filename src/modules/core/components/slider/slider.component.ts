@@ -154,24 +154,12 @@ export class SliderComponent extends AbstractComponent
     }
 
     public initEmptySlidesCount(): void {
-        if (!this.slides?.length) {
-            this.emptySlidesCount = 0;
-            return;
-        }
 
         const {swiper} = this.$params;
-        if (this.isAutoSlidesAndColumnMode()) {
-            if (_isNumber(swiper?.slidesPerView) && swiper?.grid?.rows) {
-                const groupCount: number = swiper.slidesPerView * swiper.grid.rows;
-                const fullFilledSlides: number = Math.floor(this.slides.length / groupCount);
-                this.emptySlidesCount = groupCount - (this.slides.length - (groupCount * fullFilledSlides));
-            }
-        } else if (_get(swiper, 'grid.rows', 1) === 1
-            && !swiper?.loop
-            && _isNumber(swiper?.slidesPerView)
-            && this.slides.length < swiper.slidesPerView
-        ) {
-            this.emptySlidesCount = swiper.slidesPerView - this.slides.length;
+        if (_isNumber(swiper?.slidesPerView) && swiper.grid?.rows) {
+            const groupCount: number = swiper.slidesPerView * swiper.grid.rows;
+            const fullFilledSlides: number = Math.floor(this.slides.length / groupCount);
+            this.emptySlidesCount = groupCount - (this.slides.length - groupCount * fullFilledSlides);
         } else {
             this.emptySlidesCount = 0;
         }

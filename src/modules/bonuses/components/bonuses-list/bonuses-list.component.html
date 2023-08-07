@@ -16,7 +16,8 @@
                  (paginationOnChange)="paginationOnChange($event)">
             </div>
         </div>
-        <div *ngIf="$params.type === 'swiper'" class="{{$class}}__list-wrapper">
+        <div *ngIf="$params.type === 'swiper'"
+             class="{{$class}}__list-wrapper">
             <ng-container *ngIf="bonuses?.length && isReady; else: noBonuses">
                 <div wlc-slider
                      class="{{$class}}__slider"

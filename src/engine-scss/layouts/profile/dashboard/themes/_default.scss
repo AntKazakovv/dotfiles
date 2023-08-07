@@ -52,7 +52,10 @@
 
     .wlc-bonuses-list {
         grid-area: bonuses;
-        max-width: ef.get-value($dashboardThemeDefault, 'bonusesListMaxWidth');
+
+        &:not(.wlc-bonuses-list--theme-mod-with-ears) {
+            max-width: ef.get-value($dashboardThemeDefault, 'bonusesListMaxWidth');
+        }
 
         &.wlc-bonuses-list--type-swiper {
 

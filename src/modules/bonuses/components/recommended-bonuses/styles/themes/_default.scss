@@ -14,42 +14,44 @@
         .wlc-bonuses-list {
 
             &--type-swiper {
-                @include bm.get-mq-map('max-width', $themeDefault, 'sliderMaxWidth');
+                max-width: ef.get-value($themeDefault, 'sliderMaxWidth');
 
-                .wlc-bonus-item--theme-default .wlc-bonus-item__content {
-                    min-width: ef.get-value($themeDefault, 'baseSliderWidth');
-                }
-
-                .wlc-bonuses-list__list-wrapper .swiper .swiper-slide {
-                    width: ef.get-value($themeDefault, 'baseSliderWidth');
-                }
-
-                .wlc-bonuses-list__content .wlc-bonuses-list__list-wrapper
                 .swiper.swiper-initialized {
                     @include bm.get-mq-map('margin', $themeDefault, 'swiperContainerMargin');
                     @include bm.get-mq-map('padding', $themeDefault, 'swiperContainerPadding');
-
-
-                    .swiper-wrapper[class] {
-                        justify-content: ef.get-value($themeDefault, 'swiperContainerJustifyContent');
-                    }
                 }
 
                 &.wlc-bonuses-list--theme-mod-with-ears {
+                    @include bm.get-mq-map('margin', $themeDefault, 'listWithEarsMargin');
                     max-width: unset;
+
+                    .swiper-wrapper {
+                        @include bm.get-mq-map('margin', $themeDefault, 'swiperMargin');
+                    }
+
+                    .wlc-bonus-item--theme-default {
+                        width: 100%;
+                    }
 
                     .wlc-bonuses-list__content .wlc-bonuses-list__list-wrapper
                     .swiper-container.swiper-container-initialized {
                         margin: 0;
                     }
 
-                    &:not(.single-bonus-swiper) {
-                        margin: 0;
+                    &.wlc-bonuses-list--count-1-bonus {
+                        @include bm.get-mq-map('margin', $themeDefault, 'sliderMargin');
+
+                        .swiper-wrapper {
+                            @include bm.get-mq-map('margin', $themeDefault, 'swiperMargin');
+                        }
                     }
                 }
 
-                &:not(.single-bonus-swiper) {
-                    @include bm.get-mq-map('margin', $themeDefault, 'sliderMargin');
+                &:not(.wlc-bonuses-list--theme-mod-with-ears) {
+
+                    &:not(.wlc-bonuses-list--count-1-bonus) {
+                        @include bm.get-mq-map('margin', $themeDefault, 'sliderMargin');
+                    }
                 }
             }
 

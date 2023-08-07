@@ -87,7 +87,20 @@
             }
         }
 
+        &:not(
+        .single-bonus-swiper,
+        .wlc-bonuses-list--theme-promo-home,
+        .wlc-bonuses-list--theme-promo,
+        .wlc-bonuses-list--theme-partial) {
+            @include bm.get-mq-map('margin', $themeDefault, 'sliderMargin');
+            @include bm.get-mq-map('width', $themeDefault, 'sliderWidth');
+        }
+
         &.wlc-bonuses-list--theme-mod-with-ears {
+
+            &:not(.wlc-bonuses-list--count-1-bonus) {
+                margin: ef.get-value($themeDefault, 'marginListWithEars');
+            }
 
             .wlc-bonuses-list__list-wrapper {
 
@@ -95,11 +108,33 @@
                     max-width: unset;
 
                     .swiper {
-                        overflow: visible;
 
                         .swiper-slide {
                             @include bm.get-mq-map('width', $themeDefault, 'slideWidth');
                         }
+                    }
+                }
+            }
+        }
+    }
+
+    &.wlc-bonuses-list--count-1-bonus:host {
+
+        .wlc-bonuses-list__list-wrapper {
+            @include bm.get-mq-map('margin', $themeDefault, 'singleBonusMargin');
+            @include bm.get-mq-map('padding', $themeDefault, 'singleBonusPadding');
+
+            ::ng-deep {
+
+                .swiper {
+
+                    .swiper-wrapper {
+                        @include bm.get-mq-map('justify-content', $themeDefault, 'singleBonusJustify');
+                    }
+
+                    .swiper-slide {
+                        @include bm.get-mq-map('justify-content', $themeDefault, 'singleBonusJustify');
+                        flex-shrink: unset;
                     }
                 }
             }

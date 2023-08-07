@@ -1,15 +1,17 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'sliderMaxWidth': (
-        375: 320px,
-        640: 100%,
+    'listWithEarsMargin': (
+        375: 0 ef.size(-5) 0,
+        640: 0 ef.size(-3) 0,
+        1024: 0 ef.size(-6) 0,
+        1630: 0 ef.size(-8) 0,
     ),
+    'sliderMaxWidth': 100%,
     'sliderMargin': (
         375: 0 auto,
         640: 0 ef.size(3) 0,
         1024: 0,
     ),
-
     'titleFontStyle': 'ThirdTitleBold',
     'titleColor': var(--mc-baseMain),
     'titleMargin': (
@@ -18,9 +20,7 @@ $themeDefault: map-merge((
     'titleTextAlign': (
         375: left,
     ),
-
     'baseSliderWidth': 260px,
-
     'swiperContainerPadding': 0,
     'swiperContainerMargin': (
         375: 0 ef.size(2),
@@ -28,12 +28,15 @@ $themeDefault: map-merge((
         1024: 0 ef.size(3),
         1200: 0,
     ),
-    'swiperContainerJustifyContent': left,
     'swiperBtnsDisplay': flex,
     'swiperBtnsPos': (
         375: ef.size(-1),
         640: ef.size(-4),
         1024: 0,
         1200: ef.size(-4),
+    ),
+    'swiperMargin':(
+        1200: 0 0 0 ef.size(3),
+        1630: 0 0 0 ef.size(4),
     ),
 ), $customThemeDefault);

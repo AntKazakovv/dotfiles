@@ -4,7 +4,16 @@ $themeDefault: map-merge((
     'minItemWidth': 280px,
     'minItemWidthDesktop': 320px,
     'marginList': 0 auto,
-
+    'marginListWithEars': 0 ef.size(-3) 0,
+    'sliderMargin': (
+        375: 0 auto,
+        640: 0 ef.size(3) 0,
+        1024: 0,
+    ),
+    'sliderWidth': (
+        375: 100%,
+        640: inherit,
+    ),
     'gridColumn': (
         375: 1fr,
         640: 1fr 1fr,
@@ -50,6 +59,18 @@ $themeDefault: map-merge((
     'slideWidth': (
         375: 300px,
         768: 305px,
+    ),
+    'singleBonusJustify': (
+        375: center,
+        640: flex-start,
+    ),
+    'singleBonusMargin': (
+        375: none,
+        640: 0,
+    ),
+    'singleBonusPadding': (
+        320: 0 0 0 ef.size(2),
+        640: 0,
     )
 ), $customThemeDefault);
 
