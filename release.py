@@ -448,19 +448,20 @@ def make_hotfix(action):
         try:
             print(Fore.YELLOW + "Commiting all changes..." + Fore.RESET)
             subprocess.run(["git", "add", "."])
-            subprocess.run(["git", "commit", "-m", f"SCR #{ticket} - Engine hotfix from {engine_version} version"])
+            subprocess.run(["git", "commit", "-m", f"SCR #{ticket} - fix: Engine hotfix from {engine_version} version"])
             print(Fore.YELLOW + "Pushing all changes" + Fore.RESET)
-            subprocess.run(["git", "push", "origin", branch], capture_output=True, text=True, check=True)
-            print(Fore.YELLOW + result.stdout + Fore.RESET)
+            output = subprocess.run(["git", "push", "origin", branch], check=True)
+            print(Fore.GREEN + "New commit pushed!" + Fore.RESET)
 
             print(Fore.YELLOW + "Making new tag..." + Fore.RESET)
             subprocess.run(["git", "tag", "-a", new_tag, "-m", f"Release @egamings/wlc-engine {new_tag}"])
             print(Fore.YELLOW + "Pushing new tag..." + Fore.RESET)
-            subprocess.run(["git", "push", "origin", new_tag], capture_output=True, text=True, check=True)
-            print(Fore.YELLOW + result.stdout + Fore.RESET)
+            output = subprocess.run(["git", "push", "origin", new_tag], check=True)
+            print(Fore.GREEN + "New tag pushed!" + Fore.RESET)
 
-        except subprocess as e:
-            print(Fore.RED + e.stderr + Fore.RESET)
+        except subprocess.CalledProcessError as e:
+            print(Fore.RED + "Command failed with exit code:", e.returncode, Fore.RESET)
+            print(Fore.RED + "Error:", e, Fore.RESET)
 
         print(Fore.GREEN + "Done!" + Fore.RESET)
     else:
