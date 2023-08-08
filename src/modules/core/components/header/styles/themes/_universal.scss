@@ -1,0 +1,72 @@
+.wlc-header--theme-universal:host {
+    @include bm.get-mq-map('--h-gap', $themeUniversal, 'headerGridGap');
+
+    @include headerBase($themeUniversal);
+
+    &::ng-deep {
+
+        .wlc-header {
+
+            &__left,
+            &__right {
+                display: flex;
+                align-items: center;
+
+                > * {
+
+                    &:not(.wlc-logo) {
+                        margin-right: calc(var(--h-gap) * 0.5);
+                        margin-left: calc(var(--h-gap) * 0.5);
+                    }
+                }
+            }
+
+            &__base {
+                @include bm.get-mq-map('display', $themeUniversal, 'baseDisplay');
+                position: relative;
+                min-width: 0;
+            }
+        }
+
+
+        .wlc-main-menu {
+            min-width: 0;
+        }
+
+        .wlc-body--layout-fixed-panel-left &,
+        .wlc-body--layout-fixed-panel-right & {
+            margin-right: calc(-1 * var(--fp-size-gap));
+            margin-left: calc(-1 * var(--fp-size-gap));
+        }
+    }
+
+    &.wlc-header--theme-mod-with-balance-info {
+        @include headerWithBalanceInfo($themeUniversal);
+
+        &::ng-deep {
+
+            .wlc-btn-burger {
+                margin: 0;
+            }
+
+            @include mq.max(1200) {
+
+                .wlc-header {
+
+                    &__left,
+                    &__right {
+                        gap: ef.get-value($themeUniversal, 'withBalanceElementsGap');
+
+                        > * {
+
+                            &:not(.wlc-logo) {
+                                margin-right: 0;
+                                margin-left: 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

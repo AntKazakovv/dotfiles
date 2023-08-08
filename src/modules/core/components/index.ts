@@ -69,6 +69,7 @@ export {IScrollUpParams} from './scroll-up/scroll-up.params';
 export {ScrollUpComponent} from './scroll-up/scroll-up.component';
 export {CounterComponent} from './counter/counter.component';
 export {ICounterCParams} from './counter/counter.params';
+export {IHeaderCParams} from './header/header.params';
 export {
     IHistoryNameItem,
     IHistoryNameParams,

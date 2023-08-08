@@ -1,0 +1,119 @@
+$customThemeUniversal: () !default;
+$themeUniversal: map-merge((
+    //base
+    'headerMargin': (
+        320: 0 0 ef.size(2),
+        560: 0 0 ef.size(4),
+    ),
+    'headerBurgerBtnMargin': 0 auto 0 0,
+    'headerBurgerBtnWidth': ef.size(6),
+    'headerBurgerBtnTextAlign': (
+        1024: center
+    ),
+    'headerSearchBtnMargin': 0,
+    'headerContainerDesktopWidth': (
+        1200: 100%
+    ),
+    'headerContainerDesktopMaxWidth': (
+        1200: 1920px
+    ),
+    'headerContainerDesktopMargin': (
+        1200: 0 auto
+    ),
+    'headerGapColumns': ef.size(8),
+    'headerGridColumns': (
+        375: 1fr auto,
+        1366: auto 1fr auto,
+    ),
+    'headerGridGap': (
+        375: ef.size(2),
+        480: ef.size(4),
+    ),
+    'headerMinHeight': (
+        375: 70px,
+        1630: 100px,
+    ),
+    'headerPadding': (
+        375: 0,
+        1200: 0 ef.size(2),
+    ),
+    'headerBackground': transparent,
+    'headerGlobalPadding': ef.size(3),
+    'headerLogoMargin': (
+        375: 0 auto,
+        1024: 0 0 0 ef.size(2),
+    ),
+    'headerLogoMaxWidth': (
+        375: 144px,
+    ),
+    'headerSvgLogoWidth': (
+        375: auto,
+    ),
+    'headerSvgLogoHeight': 100%,
+    'headerSvgLogoMaxHeight': 50%,
+    'headerSvgLogoMargin': 0 auto,
+    'headerSvgBtn': var(--mc-baseOpacity),
+    'headerSvgBtnSize': ef.size(8),
+    'headerDepositBtnMargin': 0 ef.size(2) 0 0,
+    'headerDepositBtnRadius': 50%,
+    'headerDepositBtnFill': var(--mc-main),
+    'headerDepositBtnFillColor': ef.get('mainColors', 'baseMain'),
+    'headerLoginBtnFillColor': var(--mc-baseOpacity),
+    'headerUserBtnRadius': 50%,
+    'headerUserBtnFill': var(--mc-secondary),
+    'headerSvgBtnHover': var(--mc-baseMain),
+    'headerUserBtnInnerFillColor': ef.get('mainColors', 'baseMain'),
+    'headerLoginBtnTabletPadding': (
+        1200: ef.size(1) ef.size(2),
+        1366: ef.size(1) ef.size(4)
+    ),
+    'headerLoginJustifyContent': flex-end,
+    'headerUserInfoJustifyContent': flex-end,
+
+    'withBalanceBackground': var(--mc-bg700),
+    'withBalanceLogoBackground': var(--mc-bg),
+    'withBalanceBtnBackground': var(--mc-bg500),
+    'withBalanceMarginBottom': ef.size(6),
+    'withBalanceContainerHeight': ef.size(10),
+    'withBalanceBtnHeight': ef.size(7),
+    'withBalanceBtnSecondaryWidth': fit-content,
+    'withBalanceBtnGridGap': 0,
+    'withBalanceBurgerSvgSize': 22px,
+    'withBalanceBtnSvgSize': ef.size(6),
+    'withBalanceElementsGap': ef.size(1),
+    'withBalanceLogoMargin': 0 ef.size(2),
+    'withBalanceLogoWidth': (
+        375: auto,
+    ),
+
+    'logoImgHeight': null,
+    'logoImgAlignItems': center,
+    'logoImgJustifyContent': center,
+    'logoObjPosition': center,
+    'searchBtnTransformOnHover': rotate(30deg),
+    'searchBtnDisplay': flex,
+    'searchBtnJustifyContent': center,
+    'searchBtnAlignItems': center,
+    'searchIconDisplay': flex,
+    'searchIconJustifyContent': center,
+    'searchIconAlignItems': center,
+    'baseDisplay': (
+        375: none,
+        1366: block
+    ),
+), $customThemeUniversal);
+
+$customStickyHeader: () !default;
+$stickyHeader: map-merge((
+    'headerBackground': var(--mc-bg),
+    'headerMinHeight': (
+        375: 60px,
+        1024: 70px,
+        1630: 100px
+    ),
+    'transformCoef': (
+        375: 1,
+        1630: 0.7,
+    ),
+    'transition': transform 0.3s ease-in-out,
+), $customStickyHeader);

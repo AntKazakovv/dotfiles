@@ -1,0 +1,295 @@
+@mixin headerBase($theme) {
+
+    @include bm.transition;
+
+    background: ef.get-value($theme, 'headerBackground');
+
+    @if (ef.get-value($theme, 'headerBackground') != transparent) {
+        @include bm.get-mq-map('margin', $theme, 'headerMargin');
+    }
+
+    .container {
+        @include bm.get-mq-map('width', $theme, 'headerContainerDesktopWidth');
+        @include bm.get-mq-map('max-width', $theme, 'headerContainerDesktopMaxWidth');
+        @include bm.get-mq-map('min-height', $theme, 'headerMinHeight');
+        @include bm.get-mq-map('grid-template-columns', $theme, 'headerGridColumns');
+        @include bm.get-mq-map('gap', $theme, 'headerGridGap');
+        @include bm.get-mq-map('margin', $theme, 'headerContainerDesktopMargin');
+        @include bm.transition;
+
+        @if (ef.get('baseVariables', 'useWide') == false) {
+            @include bm.get-mq-map('padding', $theme, 'headerPadding');
+        }
+        display: grid;
+        align-items: center;
+    }
+
+    &::ng-deep {
+
+        .wlc-logo {
+            @include bm.get-mq-map('width', $theme, 'headerLogoMaxWidth');
+            @include bm.get-mq-map('margin', $theme, 'headerLogoMargin');
+
+            &__image {
+                @include bm.get-mq-map('height', $theme, 'logoImgHeight');
+
+                display: flex;
+                align-items: ef.get-value($theme, 'logoImgAlignItems');
+                justify-content: ef.get-value($theme, 'logoImgJustifyContent');
+            }
+
+            img,
+            svg {
+                @include bm.get-mq-map('width', $theme, 'headerSvgLogoWidth');
+                height: ef.get-value($theme, 'headerSvgLogoHeight');
+                max-height: ef.get-value($theme, 'headerSvgLogoMaxHeight');
+                margin: ef.get-value($theme, 'headerSvgLogoMargin');
+
+                object-fit: contain;
+                object-position: ef.get-value($theme, 'logoObjPosition');
+            }
+        }
+
+        .wlc-login-signup {
+            justify-content: ef.get-value($theme, 'headerLoginJustifyContent');
+
+            .wlc-btn {
+                @include bm.get-mq-map('padding', $theme, 'headerLoginBtnTabletPadding');
+            }
+        }
+
+        .wlc-btn {
+
+            &-burger {
+                @include bm.get-mq-map('text-align', $theme, 'headerBurgerBtnTextAlign');
+
+                width: ef.get-value($theme, 'headerBurgerBtnWidth');
+                margin: ef.get-value($theme, 'headerBurgerBtnMargin');
+            }
+
+            &-search {
+                @include bm.transition(transform);
+                display: ef.get-value($theme, 'searchBtnDisplay');
+                align-items: ef.get-value($theme, 'searchBtnAlignItems');
+                justify-content: ef.get-value($theme, 'searchBtnJustifyContent');
+                margin: ef.get-value($theme, 'headerSearchBtnMargin');
+
+                &__text,
+                .wlc-icon,
+                .wlc-icon-content {
+                    display: ef.get-value($theme, 'searchIconDisplay');
+                    align-items: ef.get-value($theme, 'searchIconAlignItems');
+                    justify-content: ef.get-value($theme, 'searchIconJustifyContent');
+                }
+
+                @include bm.hover {
+                    transform: ef.get-value($theme, 'searchBtnTransformOnHover');
+                }
+            }
+
+            &-burger,
+            &-search {
+
+                svg,
+                rect {
+                    @include bm.transition(fill);
+
+                    fill: ef.get-value($theme, 'headerSvgBtn');
+                }
+
+                @include bm.hover {
+
+                    svg,
+                    rect {
+
+                        fill: ef.get-value($theme, 'headerSvgBtnHover');
+                    }
+                }
+            }
+
+            &-login,
+            &-signup,
+            &-user {
+                display: flex;
+                margin-left: auto;
+
+                .wlc-icon {
+                    width: ef.get-value($theme, 'headerSvgBtnSize');
+                    height: ef.get-value($theme, 'headerSvgBtnSize');
+
+                    svg {
+                        width: ef.get-value($theme, 'headerSvgBtnSize');
+                        height: ef.get-value($theme, 'headerSvgBtnSize');
+                    }
+                }
+            }
+
+            &-login,
+            &-signup {
+
+                .wlc-icon {
+
+                    svg {
+
+                        path,
+                        rect {
+                            fill: ef.get-value($theme, 'headerSvgBtn');
+                        }
+                    }
+                }
+            }
+
+            &--mobile-login[class] {
+                justify-self: ef.get-value($theme, 'loginBtnJustifySelf');
+                padding: ef.get-value($theme, 'loginBtnPadding');
+                white-space: ef.get-value($theme, 'loginBtnWhiteSpace');
+            }
+
+            &--deposit {
+                margin: ef.get-value($theme, 'headerDepositBtnMargin');
+                border-radius: ef.get-value($theme, 'headerDepositBtnRadius');
+
+                svg {
+                    fill: ef.get-value($theme, 'headerDepositBtnFill');
+
+                    path,
+                    rect {
+                        fill: ef.get-value($theme, 'headerDepositBtnInnerFillColor');
+                    }
+                }
+            }
+
+            &--user {
+                border-radius: ef.get-value($theme, 'headerUserBtnRadius');
+
+                svg {
+                    fill: ef.get-value($theme, 'headerUserBtnFill');
+
+                    path,
+                    rect {
+                        fill: ef.get-value($theme, 'headerUserBtnInnerFillColor');
+                    }
+                }
+            }
+        }
+
+        .wlc-user-info {
+
+            &__content {
+                justify-content: ef.get-value($theme, 'headerUserInfoJustifyContent');
+            }
+        }
+    }
+
+    &.wlc-header--theme-mod-toggler {
+
+        .container {
+            @include bm.get-mq-map('grid-template-columns', $theme, 'gridColsToggler');
+        }
+    }
+}
+
+@mixin stickyHeader() {
+    $classSticky: 'wlc-body--sticky-header';
+
+    .#{$classSticky} & {
+        @include bm.get-mq-map('--sticky-transform-coef', $stickyHeader, 'transformCoef');
+
+        position: sticky;
+        top: 0;
+        left: 0;
+        width: 100%;
+
+        background: none;
+        transform: translate3d(0, 0, 0);
+        transition: ef.get-value($stickyHeader, 'transition');
+
+        &:before {
+            content: '';
+
+            position: absolute;
+            top: -1px;
+            bottom: 0;
+            left: 0;
+            z-index: 0;
+
+            display: block;
+            width: 100%;
+
+            background: ef.get-value($stickyHeader, 'headerBackground');
+            transform: scale3d(1, var(--sticky-scale-val, 1), 1);
+            transform-origin: top;
+            transition: inherit;
+        }
+
+        .container {
+            @include bm.get-mq-map('min-height', $stickyHeader, 'headerMinHeight');
+
+            position: relative;
+            z-index: 1;
+            transform: translate3d(0, var(--sticky-translate-val, 0), 0);
+            transition: inherit;
+        }
+    }
+
+    .#{$classSticky}-scrolling & {
+        --sticky-scale-val: var(--sticky-transform-coef, 1);
+        --sticky-translate-val: calc((var(--sticky-transform-coef) - 1) * 50%);
+    }
+
+    .#{$classSticky}-down & {
+        transform: translate3d(0, -100%, 0);
+
+        @media (pointer: fine) {
+            transform: unset;
+        }
+    }
+}
+
+
+@mixin headerWithBalanceInfo($theme) {
+
+    @include mq.max(1200) {
+
+        margin-bottom: ef.get-value($theme, 'withBalanceMarginBottom');
+        background: ef.get-value($theme, 'withBalanceBackground');
+
+        .container {
+            min-height: ef.get-value($theme, 'withBalanceContainerHeight');
+
+            &::ng-deep {
+
+                .wlc-logo {
+                    @include bm.get-mq-map('width', $theme, 'withBalanceLogoWidth');
+                    margin: ef.get-value($theme, 'withBalanceLogoMargin');
+                }
+
+                .wlc-btn {
+                    grid-column-gap: ef.get-value($theme, 'withBalanceBtnGridGap');
+                    height: ef.get-value($theme, 'withBalanceBtnHeight');
+
+                    &.wlc-btn--theme-mod-secondary.wlc-btn--mobile-login {
+                        min-width: ef.get-value($theme, 'withBalanceBtnSecondaryWidth');
+                    }
+                }
+
+                .wlc-btn-burger {
+
+                    svg {
+                        width: ef.get-value($theme, 'withBalanceBurgerSvgSize');
+                        height: ef.get-value($theme, 'withBalanceBurgerSvgSize');
+                    }
+                }
+
+                .wlc-btn--deposit,
+                .wlc-btn--user {
+
+                    svg {
+                        width: ef.get-value($theme, 'withBalanceBtnSvgSize');
+                        height: ef.get-value($theme, 'withBalanceBtnSvgSize');
+                    }
+                }
+            }
+        }
+    }
+}

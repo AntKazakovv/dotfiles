@@ -121,6 +121,7 @@ import {
     SomethingWrongPageComponent,
 } from 'wlc-engine/modules/core/components/something-wrong-page/something-wrong-page.component';
 import {PromocodeLinkComponent} from 'wlc-engine/modules/core/components/promocode-link/promocode-link.component';
+import {HeaderComponent} from './components/header/header.component';
 // -- COMPONENTS IMPORTS END  --;
 
 //  -- DIRECTIVES IMPORTS STARTS--;
@@ -190,6 +191,7 @@ export const components = {
     'wlc-form-wrapper': FormWrapperComponent,
     'wlc-history-name': HistoryNameComponent,
     'wlc-history-filter': HistoryFilterComponent,
+    'wlc-header': HeaderComponent,
     'wlc-icon': IconComponent,
     'wlc-info-page': InfoPageComponent,
     'wlc-input': InputComponent,
@@ -321,6 +323,7 @@ export const services = {
         HistoryNameComponent,
         HistoryFilterComponent,
         HistoryFilterFormComponent,
+        HeaderComponent,
         IconComponent,
         InfoPageComponent,
         InputComponent,
@@ -399,6 +402,7 @@ export const services = {
         FormControlComponent,
         FormWrapperComponent,
         HistoryNameComponent,
+        HeaderComponent,
         IconComponent,
         InfoPageComponent,
         InputComponent,

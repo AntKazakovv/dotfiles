@@ -1,0 +1,25 @@
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/engine.variables' as ev;
+@use 'sass:list';
+
+@import './utils/vars';
+@import './utils/mixins';
+@import './themes/universal';
+
+.wlc-header:host {
+    @include stickyHeader();
+
+    position: relative;
+    z-index: 100;
+
+    .container {
+
+        .wlc-deadsimplechat {
+            position: absolute;
+        }
+    }
+}
+
