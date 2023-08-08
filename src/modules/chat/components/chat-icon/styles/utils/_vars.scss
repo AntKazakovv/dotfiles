@@ -2,8 +2,8 @@ $customConfig: () !default;
 $config: map-merge((
     'width': 40px,
     'height': 40px,
-    'color': var(--mc-baseMain),
-    'colorHover': var(--mc-baseMain),
+    'color': var(--mc-baseThird-locked, var(--mc-baseMain-locked)),
+    'colorHover': var(--mc-baseThird-locked, var(--mc-baseMain-locked)),
     'bg': var(--mc-main),
     'bgHover': var(--mc-main-l10),
     'radius': 50%,
@@ -16,5 +16,5 @@ $config: map-merge((
     'counterWidth': 2.4em,
     'counterHeight': 2.4em,
     'counterFontSize': 10px,
-    'counterColor': var(--mc-baseMain),
+    'counterColor': var(--mc-baseThird-locked, var(--mc-baseMain-locked)),
 ), $customConfig);

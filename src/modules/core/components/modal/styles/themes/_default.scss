@@ -11,11 +11,14 @@
         }
 
         &__title {
-            @include text.get-text-style(ef.get-value($themeDefault, 'titleFontSize', 320), ef.get-value($themeDefault, 'titleColor'));
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'titleFontSize', 320),
+                ef.get-value($themeDefault, 'titleColor')
+            );
             margin: ef.get-value($themeDefault, 'titleMargin');
 
             @include mq.min(768) {
-                @include text.get-text-style(ef.get-value($themeDefault, 'titleFontSize', 768));
+                @include text.get-text-style(ef.get-value($themeDefault, 'titleFontSize', 768), null);
             }
         }
 
@@ -58,7 +61,10 @@
 
             &__title {
                 @include bm.get-mq-map('display', $themeDefault, 'loginSignUpTitleDisplay');
-                @include text.get-text-style(ef.get-value($themeDefault, 'loginSignUpTitleStyle'), ef.get-value($themeDefault, 'loginSignUpTitleColor'));
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'loginSignUpTitleStyle'),
+                    ef.get-value($themeDefault, 'loginSignUpTitleColor')
+                );
                 text-align: ef.get-value($themeDefault, 'loginSignUpTitleAlign');
             }
 
@@ -66,10 +72,13 @@
                 padding: 0;
 
                 .wlc-text-block__title {
-                    @include text.get-text-style(ef.get-value($themeDefault, 'loginSignUpTextFontSize', 320), ef.get-value($themeDefault, 'loginSignUpTextColor'));
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'loginSignUpTextFontSize', 320),
+                        ef.get-value($themeDefault, 'loginSignUpTextColor')
+                    );
 
                     @include mq.min(768) {
-                        @include text.get-text-style(ef.get-value($themeDefault, 'loginSignUpTextFontSize', 768));
+                        @include text.get-text-style(ef.get-value($themeDefault, 'loginSignUpTextFontSize', 768), null);
                     }
                 }
             }

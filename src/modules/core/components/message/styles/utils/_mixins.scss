@@ -90,7 +90,7 @@
         @include mq.min(900) {
             @include text.get-text-style(
                 ef.get-value($themeDefault, 'headingStyle', 900),
-                ef.get-value($themeDefault, 'headingColor'),
+                null
             );
         }
     }

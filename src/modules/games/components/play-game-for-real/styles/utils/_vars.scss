@@ -11,7 +11,7 @@ $themeDefault: map-merge((
     'titleMargin': 0 auto ef.size(2) auto,
     'titleMarginMobile': 0 auto ef.size(6) auto,
     'titleFontSize': 'QoteTextBold',
-    'titleFontSizeMobile': 'ThirdTitleBold',
+    'titleColor': var(--mc-baseSecond, var(--mc-baseMain)),
     'restoreLinkMargin': 0 0 ef.size(8) 0,
     'gameTitleMargin': ef.size(8) 0,
     'linkBlockMargin': ef.size(4) 0 0 0,
@@ -29,7 +29,7 @@ $themeDefault: map-merge((
     ),
 
     'textBlockSubtitleFont': 'ThirdTitleBold',
-    'textBlockSubtitleFontColor': var(--mc-baseMain),
+    'textBlockSubtitleFontColor': var(--mc-baseSecond, var(--mc-baseMain)),
 
     'captchaMargin': 0 0 ef.size(2),
     'captchaInputMargin': 0 0 ef.size(7),

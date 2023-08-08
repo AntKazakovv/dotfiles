@@ -59,8 +59,8 @@ $gamesCategoriesDefault: map-merge((
     'buttonSearchBgHover': var(--mc-main),
     'buttonSearchIconFill': var(--mc-main),
     'buttonSearchColor': var(--mc-baseMain),
-    'buttonSearchColorHover': ef.get('mainColors', 'baseMain'),
-    'buttonSearchIconFillHover': ef.get('mainColors', 'baseMain'),
+    'buttonSearchColorHover': var(--mc-baseThird-locked, var(--mc-baseMain-locked)),
+    'buttonSearchIconFillHover': var(--mc-baseThird-locked, var(--mc-baseMain-locked)),
     'buttonSearchIconMargin': ef.size(2),
     'buttonMerchWidthDS': (
         1200: 210px,

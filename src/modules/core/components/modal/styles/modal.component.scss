@@ -87,13 +87,15 @@
     }
 
     &__title {
-        @include text.get-text-style(ef.get-value($hostModal, 'titleFontSizeMobile'), ef.get-value($hostModal, 'titleColor'));
+        @include text.get-text-style(
+            ef.get-value($hostModal, 'titleFontSizeMobile'),
+            ef.get-value($hostModal, 'titleColor')
+        );
         @include bm.lineClamp(2);
         width: ef.get-value($hostModal, 'titleWidth');
         max-width: ef.get-value($hostModal, 'titleMaxWidth');
         margin: ef.get-value($hostModal, 'titleMargin');
         padding: ef.get-value($hostModal, 'titlePadding');
-        color: ef.get-value($hostModal, 'titleColor');
         text-align: center;
 
         &--back-btn {
@@ -103,7 +105,7 @@
         }
 
         @include mq.min(560) {
-            @include text.get-text-style(ef.get-value($hostModal, 'titleFontSize'), ef.get-value($hostModal, 'titleColor'));
+            @include text.get-text-style(ef.get-value($hostModal, 'titleFontSize'), null);
         }
     }
 

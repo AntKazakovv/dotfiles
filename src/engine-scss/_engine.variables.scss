@@ -408,7 +408,7 @@ $tooltip-arrow-height: 0.7rem !default;
 $tooltip-arrow-color: var(--mc-bg100) !default;
 $tooltip-max-width: 170px !default;
 $tooltip-bg: var(--mc-bg100) !default;
-$tooltip-color: var(--mc-baseMain) !default;
+$tooltip-color: var(--mc-baseThird, var(--mc-baseMain)) !default;
 $tooltip-border-radius: map-get($radius, 'biger') !default;
 $tooltip-box-shadow: map-get($shadows, 'sm') !default;
 $tooltip-bg-error: var(--mc-error) !default;

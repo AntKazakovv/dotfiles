@@ -33,9 +33,9 @@ $themeDefault: map-merge((
     ),
     'btnActiveAfterTransform': translateY(-30%) rotate(45deg),
     'btnBackgroundActive': var(--mc-main),
-    'btnColorActive':ef.get('mainColors', 'baseMain'),
-    'btnArrowColorActive': ef.get('mainColors', 'baseMain'),
-    'btnIconColorActive': ef.get('mainColors', 'baseMain'),
+    'btnColorActive': var(--mc-baseThird-locked, var(--mc-baseMain-locked)),
+    'btnArrowColorActive': var(--mc-baseThird-locked, var(--mc-baseMain-locked)),
+    'btnIconColorActive': var(--mc-baseThird-locked, var(--mc-baseMain-locked)),
     'btnIconSizeActive': 18px,
 
     'btnCounterMarginLeft': ef.size(1),
@@ -157,7 +157,7 @@ $themeDefault: map-merge((
         375: 'ThirdTitleBold' ,
         1200: 'QoteTextBold',
     ),
-    'searchModalHeaderFontColor': var(--mc-baseMain),
+    'searchModalHeaderFontColor': var(--mc-baseSecond, var(--mc-baseMain)),
     'searchModalHeaderBorderBottom': (
         375: 2px solid var(--mc-baseOpacity),
         560: none,
@@ -202,7 +202,7 @@ $themeDefault: map-merge((
     ),
     'btnBorderRadius': ef.get('radius', 'biger'),
     'btnFontActive': 'PrimaryText',
-    'btnColorHover': ef.get('mainColors', 'baseMain'),
+    'btnColorHover': var(--mc-baseThird-locked, var(--mc-baseMain-locked)),
 
     'heightBtn': ef.size(8),
     'modalPaddingSearch': (

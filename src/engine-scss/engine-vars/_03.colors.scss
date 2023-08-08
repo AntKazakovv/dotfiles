@@ -38,6 +38,10 @@ $mainColors: map-merge((
     'warning': #ffa756,
     'disabled': #c4c4c4,
     'black': #000,
+    // new color variables for wolf theme and further
+    'baseSecond': null,
+    'baseThird': null,
+    'buttonText': null,
 ), $customMainColors);
 
 /// Основные цвета для альтернативной цветовой схемы
@@ -63,6 +67,10 @@ $mainColorsAlt: map-merge((
     'success': #45c195,
     'warning': #ffa756,
     'disabled': #c4c4c4,
+    // new color variables for wolf theme and further
+    'baseSecond': null,
+    'baseThird': null,
+    'buttonText': null,
 ), $customMainColorsAlt);
 
 /// Цвета ui элементов из дизайна.

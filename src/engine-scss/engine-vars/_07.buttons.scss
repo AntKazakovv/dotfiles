@@ -14,16 +14,16 @@ $buttonSettings: map-merge((
     // Font
     'fontSize': map-get($font, 'less'),
     'fontWeight': bold,
-    'fontColor': map-get($mainColors, 'baseMain'), // Locked color
-    'fontColorActive': var(--mc-baseMain),
-    'fontColorSecondary': var(--mc-baseMain),
-    'fontColorSecondaryHover': var(--mc-baseMain),
-    'fontColorActiveSecondary': var(--mc-baseMain),
+    'fontColor': var(--mc-buttonText-locked, var(--mc-baseMain-locked)),
+    'fontColorActive': var(--mc-buttonText, var(--mc-baseMain)),
+    'fontColorSecondary': var(--mc-buttonText, var(--mc-baseMain)),
+    'fontColorSecondaryHover': var(--mc-buttonText, var(--mc-baseMain)),
+    'fontColorActiveSecondary': var(--mc-buttonText, var(--mc-baseMain)),
     // Transform
     'textTransform': initial,
     // Background
     'background': var(--mc-buttonColor),
-    'backgroundHover': var(--mc-buttonColor-l20),
+    'backgroundHover': var(--mc-buttonColor-l20, var(--mc-buttonColor)),
     'backgroundSecondary': transparent,
     'backgroundSecondaryHover': var(--mc-secondary-o2),
     'backgroundSecondaryActive': var(--mc-buttonColor),

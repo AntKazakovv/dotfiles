@@ -378,7 +378,7 @@ $btnsLayout: map-merge((
     'btnsAlignItemsCirc': end,
     'btnsNoDemoGridRowsCircle': auto ef.size(8),
     'btnsNoDemoAlignItemsCirc': end,
-    'verticalBtnDemoColor': var(--mc-baseMain),
+    'verticalBtnDemoColor': var(--mc-buttonText, var(--mc-baseMain)),
 ), $customBtnsLayout);
 
 /*

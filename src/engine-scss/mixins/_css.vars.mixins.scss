@@ -87,13 +87,21 @@
     #{$sel} {
         @each $name, $val in $map {
 
-            @if (type-of($val) == 'color') {
-                $baseName: #{$prefix}-#{$name};
+            $baseName: #{$prefix}-#{$name};
 
+            @if ($val) {
                 #{--}#{$baseName}: #{$val};
 
-                @include generateTones($baseName, $val, $tones);
-                @include generateOpacities($baseName, $val, $opacities);
+                @if (type-of($val) == 'color') {
+
+                    // Generate locked colors
+                    @if ($sel == ':root') {
+                        #{--}#{$baseName}-locked: $val;
+                    }
+
+                    @include generateTones($baseName, $val, $tones);
+                    @include generateOpacities($baseName, $val, $opacities);
+                }
             }
         }
     }

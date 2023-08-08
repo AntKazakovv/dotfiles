@@ -121,7 +121,7 @@ $hostModal: map-merge((
         768: 'QoteTextBold',
     ),
     'titleMargin': 0,
-    'titleColor': var(--mc-baseMain),
+    'titleColor': var(--mc-baseSecond, var(--mc-baseMain)),
     'titleWidth': 100%,
     'titleMaxWidth': 100%,
     'titlePadding': 0 ef.size(5),
@@ -262,7 +262,7 @@ $themeDefault: map-merge((
         768: 'QoteTextBold',
     ),
     'titleMargin': 0,
-    'titleColor': var(--mc-baseMain),
+    'titleColor': var(--mc-baseSecond, var(--mc-baseMain)),
 
     // loginSignUp modal modifier
     'loginSignUpModalWrapperPadding': (
@@ -299,9 +299,9 @@ $themeDefault: map-merge((
         320: ef.get('font', 'ThirdTitleBold'),
         768: ef.get('font', 'QoteTextBold'),
     ),
-    'loginSignUpTextColor': var(--mc-baseMain),
+    'loginSignUpTextColor': var(--mc-baseSecond, var(--mc-baseMain)),
     'loginSignUpTitleStyle': 'ThirdTitleBold',
-    'loginSignUpTitleColor': var(--mc-baseMain),
+    'loginSignUpTitleColor': var(--mc-baseSecond, var(--mc-baseMain)),
     'loginSignUpTitleAlign': center,
 
     'loginSignUpDialogHeight': (

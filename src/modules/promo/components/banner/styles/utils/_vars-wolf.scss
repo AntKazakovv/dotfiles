@@ -12,7 +12,7 @@ $themeWolfBanner: map-merge((
     'bannerDirections': column,
     'bannerRadius': ef.get('radius', 'biger'),
 
-    'titleColor': ef.get('mainColors', 'baseMain'),
+    'titleColor': var(--mc-baseThird-locked, var(--mc-baseMain-locked)),
     'titleFont': (
         375: 'PrimaryTextBold',
         1200: 'ThirdTitleBold',
@@ -29,7 +29,7 @@ $themeWolfBanner: map-merge((
         375: 'CaptionText',
         1200: 'PrimaryText',
     ),
-    'descriptionColor': ef.get('mainColors', 'baseMain'),
+    'descriptionColor': var(--mc-baseThird-locked, var(--mc-baseMain-locked)),
 
     'descriptionBottomFont': (
         375: 'PrimaryText',

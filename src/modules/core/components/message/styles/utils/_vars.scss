@@ -30,7 +30,7 @@ $themeDefault: map-merge((
         900: 50px,
     ),
     modalIconMargin: ef.size(8),
-    headingColor: var(--mc-baseMain),
+    headingColor: var(--mc-baseSecond, var(--mc-baseMain)),
     messageColor: var(--mc-baseMain),
     headingStyle: (
         375: 'ThirdTitleBold',
