@@ -62,6 +62,7 @@ export class SeoService {
         opengraph_keywords: ['keywords', 'og:keywords'],
         opengraph_image: ['og:image'],
     };
+    private opengraphRegexp: RegExp = /^og:/i;
 
     private siteName: string = '';
     private gamesCatalogService: GamesCatalogService;
@@ -287,7 +288,9 @@ export class SeoService {
     protected initMetaTags(): void {
         _forOwn(this.metaTagsMap, (metaValues: string[]) => {
             this.meta.addTags(
-                metaValues.map((meta: string) => ({name: meta, content: ''})),
+                metaValues.map((meta: string) =>
+                    this.opengraphRegexp.test(meta) ? {property: meta, content: ''} : {name: meta, content: ''},
+                ),
             );
         });
     }
@@ -301,7 +304,7 @@ export class SeoService {
         _forOwn(this.metaTagsMap, (values: string[], key: TMetaTagsKey) => {
             values.forEach((meta: string) => {
                 this.meta.updateTag({
-                    name: meta,
+                    [this.opengraphRegexp.test(meta) ? 'property' : 'name']: meta,
                     content: metaValues[key] || '',
                 });
             });
