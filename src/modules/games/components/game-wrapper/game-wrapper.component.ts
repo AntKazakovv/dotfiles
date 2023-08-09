@@ -118,6 +118,7 @@ export interface IGameWrapperHookEvalScript {
 export interface IGameWrapperHookIframeShown {
     iframe: HTMLElement;
     mobile: boolean;
+    launchInfo: ILaunchInfo;
 }
 
 @Component({
@@ -257,7 +258,6 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             this.gamesCatalogService.getFavouriteGames();
             await this.openActiveGame();
             this.cdr.detectChanges();
-            this.initStartResizeParams();
         } else {
             this.logService.sendLog({code: '3.0.4', data: {gameParams: this.gameParams}});
             this.setError({
@@ -544,6 +544,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                 this.hooksService.run<IGameWrapperHookIframeShown>(gameWrapperHooks.iframeShown, {
                     iframe: iframe,
                     mobile: this.isMobile,
+                    launchInfo: this.launchInfo,
                 });
                 this.iframe = iframe;
                 const iframeAttrHeight = this.iframe.getAttribute('height');
@@ -771,10 +772,10 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
 
             this.launchInfo = launchInfo;
             if (this.checkLaunch(launchInfo)) {
-                //this.launchInfo.gameScript = await this.getGameScript(this.launchInfo.gameScript);
                 if (this.configService.get<boolean>('appConfig.mobile')) {
                     this.useOrNotMobileIframe();
                 }
+
                 this.gameHtml = this.domSanitizer
                     .bypassSecurityTrustHtml(launchInfo.gameHtml)?.['changingThisBreaksApplicationSecurity'];
                 this.cdr.markForCheck();
@@ -1073,6 +1074,9 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             {
                 hooksService: this.hooksService,
                 disableHooks: this.$destroy,
+                window: this.window,
+                document: this.document,
+                renderer: this.renderer,
             },
         );
     }

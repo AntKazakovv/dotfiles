@@ -88,7 +88,7 @@
     <ng-container *ngIf="isReady">
         <ng-container *ngIf="useMobileIframe; else gameWithHtml">
             <div #gameContainer
-                 id="egamings_container"
+                 id="game_container"
                  class="{{$class}}__game-container {{$class}}__game-container-{{game.merchantName}}"
                  [class.mobile]="mobileGame">
             </div>
@@ -100,6 +100,7 @@
     <div *ngIf="isReady;"
          wlc-dynamic-html
          #gameContainer
+         id="game_container"
          class="{{$class}}__game-container {{$class}}__game-container-{{game.merchantName}}"
          [class.mobile]="mobileGame"
          [html]="gameHtml"
