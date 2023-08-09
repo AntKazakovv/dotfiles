@@ -17,8 +17,7 @@
         --bs-tooltip-color: #{$tooltip-color};
     }
 
-    &.show,
-    &.in {
+    &.show {
         opacity: $tooltip-opacity;
     }
 

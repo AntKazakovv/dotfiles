@@ -377,8 +377,7 @@
         opacity: 0;
     }
 
-    &.show,
-    &.in {
+    &.show {
         @include bm.get-mq-map('opacity', $hostModal, 'backdropOpacity');
     }
 
@@ -395,7 +394,7 @@
             background: ef.get-value($hostModal, 'backdropSignUpBackground');
         }
 
-        .wlc-modal--login-sign-up + &.in {
+        .wlc-modal--login-sign-up + &.show {
             opacity: 1;
         }
     }

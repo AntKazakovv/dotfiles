@@ -135,7 +135,7 @@
             .modal-backdrop {
                 @include bm.transition(opacity, 0s);
 
-                &.in {
+                &.show {
                     @include bm.transition(opacity);
                 }
             }
@@ -158,7 +158,7 @@
                 .modal-backdrop {
                     @include bm.transition(opacity, 0s);
 
-                    &.in {
+                    &.show {
                         @include bm.transition(opacity, 0s);
                     }
                 }

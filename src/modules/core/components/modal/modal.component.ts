@@ -13,7 +13,10 @@ import {
     ChangeDetectionStrategy,
 } from '@angular/core';
 import {takeUntil} from 'rxjs/operators';
-import {ModalDirective} from 'ngx-bootstrap/modal';
+import {
+    ModalDirective,
+    ModalOptions,
+} from 'ngx-bootstrap/modal';
 
 import {
     Deferred,
@@ -28,7 +31,6 @@ import {
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {
     IModalOptions,
-    IModalBsOptions,
 } from 'wlc-engine/modules/core/components/modal/modal.interface';
 import {defaultParams} from 'wlc-engine/modules/core/components/modal/modal.params';
 import {WINDOW} from 'wlc-engine/modules/app/system';
@@ -56,7 +58,7 @@ import {
  * @param {ModalDirective} modalDirect Modal component from ngx bootstrap package
  * @param {IModalOptions} $params Component parameters
  * @param {Injector} inject Angular Injector class.
- * @param {IModalBsOptions} bsOptions Bootstrap modal config.
+ * @param {ModalOptions} bsOptions Bootstrap modal config.
  */
 @Component({
     selector: '[wlc-modal-window]',
@@ -73,7 +75,7 @@ export class WlcModalComponent extends AbstractComponent
     public override $params: IModalOptions;
     public dialogClasses: string[] = [];
     public inject: Injector;
-    public bsOptions: IModalBsOptions = {};
+    public bsOptions: ModalOptions = {};
     public closeReason: string = '';
 
     protected $ready: Deferred<void> = new Deferred();

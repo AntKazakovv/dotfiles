@@ -4,44 +4,17 @@ import {
     TemplateRef,
     Injector,
 } from '@angular/core';
+
+import {ModalOptions} from 'ngx-bootstrap/modal';
+
 import {WlcModalComponent} from './index';
 import {IComponentParams} from 'wlc-engine/modules/core/system/interfaces/config.interface';
 import {IButtonCParams} from 'wlc-engine/modules/core/components';
 
 /**
- * Modal options from bootstrap documentation
- */
-export interface IModalBsOptions {
-    /**
-     * If `true`, the backdrop element will be created for a given modal.
-     *
-     * Alternatively, specify `'static'` for a backdrop which doesn't close the modal on click.
-     *
-     * Default value is `true`.
-     */
-    backdrop?: boolean | 'static';
-    /**
-     * If `true`, closes the modal when escape key is pressed
-     */
-    keyboard?: boolean;
-    /**
-     * If `true`, shows the modal when initialized
-     */
-    show?: boolean;
-    /**
-     * If `true`, puts the focus on the modal when initialized
-     */
-    focus?: boolean;
-    /**
-     * If `true`, click by backdrop will be ignored
-     */
-    ignoreBackdropClick?: boolean;
-}
-
-/**
  * Extended options for implementation
  */
-export interface IModalConfig extends IModalBsOptions {
+export interface IModalConfig extends ModalOptions {
     /**
      * ID of modal window, also uses as mofificator for class `modal`
      */
