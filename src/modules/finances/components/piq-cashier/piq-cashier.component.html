@@ -2,7 +2,7 @@
 
 <div *ngIf="!requiredFieldsKeys.length"
     id="wlc-piq-cashier"
-    class="{{$class}}" 
+    class="{{$class}}"
     [hidden]="!ready">
 </div>
 
@@ -16,7 +16,7 @@
         class="{{$class}}__fields-error"
         data-wlc-element="add_required_fields">
         <p class="{{$class}}__fields-message">
-            {{'Payment method is not available. Please, add the following info' | translate}}:
+            {{'Payment method is not available. Please, add the following info:' | translate}}
         </p>
         <ul class="{{$class}}__fields-ul">
             <li *ngFor="let item of requiredFieldsKeys"
