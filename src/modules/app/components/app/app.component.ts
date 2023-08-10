@@ -170,8 +170,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
     public override async ngOnInit(): Promise<void> {
         this.setMobileAppHandlers();
 
-        const depositInIframe = this.configService.get<boolean>('$base.finances.depositInIframe');
-        if (depositInIframe && GlobalHelper.isIframe(this.window) && this.checkAllowedReferrers()) {
+        if (GlobalHelper.isIframe(this.window) && this.checkAllowedReferrers()) {
             return;
         }
 

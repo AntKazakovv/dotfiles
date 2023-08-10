@@ -117,7 +117,6 @@ export class ActionService {
     private breakpoints: IDeviceBreakpoints;
     private renderer: Renderer2;
     private scrollTop: number;
-    private depositInIframe: boolean = false;
     private scrollableElements$: IIndexing<Observable<number>> = {};
 
     constructor(
@@ -441,8 +440,7 @@ export class ActionService {
         await this.configService.ready;
         await this.injectFinancesService();
 
-        if (this.depositInIframe && GlobalHelper.isIframe(this.window)) {
-
+        if (GlobalHelper.isIframe(this.window)) {
             try {
                 this.window.parent?.postMessage(initialPath, '*');
             } catch (error) {
@@ -539,20 +537,17 @@ export class ActionService {
                 });
         });
         this.deviceTypeSubject.next(this.getDeviceType());
-        this.depositInIframe = this.configService.get<boolean>('$base.finances.depositInIframe');
 
-        if (this.depositInIframe) {
-            fromEvent(this.window, 'message').subscribe((event: MessageEvent<IPaymentPostMessage>) => {
-                if (event.data) {
-                    const eventData: IPaymentPostMessage = event.data;
+        fromEvent(this.window, 'message').subscribe((event: MessageEvent<IPaymentPostMessage>) => {
+            if (event.data) {
+                const eventData: IPaymentPostMessage = event.data;
 
-                    if (['PAYMENT_SUCCESS', 'PAYMENT_PENDING', 'PAYMENT_FAIL'].includes(eventData.message)) {
-                        this.modalService.closeAllModals();
-                        this.checkPaymentMessage(eventData);
-                    }
+                if (['PAYMENT_SUCCESS', 'PAYMENT_PENDING', 'PAYMENT_FAIL'].includes(eventData.message)) {
+                    this.modalService.closeAllModals();
+                    this.checkPaymentMessage(eventData);
                 }
-            });
-        }
+            }
+        });
 
         const landingAdress: string = this.configService.get<string>('$base.site.landingUrl');
 

@@ -25,7 +25,6 @@ export interface IMetamaskConfig {
 }
 
 export interface IFinancesConfig {
-    depositInIframe?: boolean;
     /**
      * Config for cashier payments
      */

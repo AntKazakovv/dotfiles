@@ -130,7 +130,6 @@ export class DepositWithdrawComponent
         super.ngOnInit();
 
         this.hiddenPaymentInfo = this.configService.get<boolean>('$finances.paymentInfo.hiddenPaymentInfo');
-
         this.useBonuses = this.configService.get<boolean>('$finances.bonusesInDeposit.use');
         this.isDeposit = this.$params.mode === 'deposit';
         this.showBonuses = this.useBonuses && this.isDeposit;

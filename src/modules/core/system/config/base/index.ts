@@ -27,7 +27,6 @@ export const $base: IBaseConfig = {
     useSeo: false,
     finances: {
         redirectAfterDepositBonus: false,
-        depositInIframe: true,
         piqCashier: {
             blockBrowserNavigation: true,
             fetchConfig: false,

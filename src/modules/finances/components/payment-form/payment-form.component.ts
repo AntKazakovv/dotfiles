@@ -173,8 +173,6 @@ export class PaymentFormComponent
     private isPrestepComplete: boolean = false;
     private usePrestep: boolean = false;
     private userProfile: UserProfile;
-    private depositInIframe: boolean;
-    private isShowIframe: boolean;
     private cssVariables: string;
     private prestepAmount: number = 0;
 
@@ -205,7 +203,6 @@ export class PaymentFormComponent
         this.isDeposit = this.mode === 'deposit';
         this.isMultiWallet = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
         this.additionalFieldsConfig = this.configService.get('$finances.fieldsSettings.additional');
-        this.depositInIframe = this.configService.get<boolean>('$base.finances.depositInIframe');
         this.configService
             .get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
             .pipe(takeUntil(this.$destroy))
@@ -446,7 +443,7 @@ export class PaymentFormComponent
             await this.saveProfile();
 
             if (response[0] === 'redirect') {
-                this.window.location.replace(response[1]);
+                this.checkAppearance(response);
                 return;
             } else if (response[0] === 'POST') {
                 this.addFormToBodyAndSubmit(response);
@@ -1152,7 +1149,7 @@ export class PaymentFormComponent
         const formSubmit: HTMLFormElement = this.createForm(response);
         this.document.body.appendChild(formSubmit);
 
-        if (!this.isShowIframe) {
+        if (this.currentSystem.appearance !== 'iframe') {
             formSubmit.submit();
         }
     }
@@ -1185,7 +1182,7 @@ export class PaymentFormComponent
 
         form.style.display = 'none';
 
-        if (this.isShowIframe) {
+        if (this.currentSystem.appearance === 'iframe') {
             form.target = 'deposit_frame';
             this.showIFrame(form);
         } else if (this.currentSystem.appearance === 'newtab') {
@@ -1213,7 +1210,7 @@ export class PaymentFormComponent
             showFooter: false,
             dismissAll: true,
             backdrop: 'static',
-            modalTitle: gettext('Deposit'),
+            modalTitle: this.isDeposit ? gettext('Deposit') : gettext('Withdraw'),
             onModalShown: () => form.submit(),
         };
 
@@ -1346,7 +1343,6 @@ export class PaymentFormComponent
         amount: number,
         params: TAdditionalParams,
     ): Promise<boolean> {
-        this.isShowIframe = this.depositInIframe && this.currentSystem.appearance === 'iframe';
 
         const isPregeneration: boolean = this.currentSystem.isPregeneration;
 
@@ -1373,13 +1369,7 @@ export class PaymentFormComponent
                     this.showDepositResponse(response[1], response[0]);
                     return;
                 } else if (response[0] === 'redirect') {
-                    if (this.currentSystem.appearance === 'newtab') {
-                        this.window.open(response[1], '_blank');
-                    } else if (this.isShowIframe) {
-                        this.addFormToBodyAndSubmit(response);
-                    } else {
-                        this.window.location.replace(response[1]);
-                    }
+                    this.checkAppearance(response);
                     return;
                 } else if (response[0] === 'markup_redirect') {
                     this.pushNotification({
@@ -1422,6 +1412,20 @@ export class PaymentFormComponent
             if (!isPregeneration) {
                 this.financesService.fetchPaymentSystems(this.wallet?.walletCurrency);
             }
+        }
+    }
+
+    private checkAppearance(response: any): void {
+        switch(this.currentSystem.appearance) {
+            case 'newtab':
+                this.window.open(response[1], '_blank');
+                break;
+            case 'iframe':
+                this.addFormToBodyAndSubmit(response);
+                break;
+            default:
+                this.window.location.replace(response[1]);
+                break;
         }
     }
 }
