@@ -1,6 +1,7 @@
 import {
     Component, Inject, Input,
     OnInit,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 import {
     AbstractComponent,
@@ -10,12 +11,11 @@ import * as Params from 'wlc-engine/modules/core/components/amount-limit/amount-
 
 import _isObject from 'lodash-es/isObject';
 
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-amount-limit]',
     templateUrl: './amount-limit.component.html',
     styleUrls: ['./styles/amount-limit.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AmountLimitComponent extends AbstractComponent implements OnInit {
     @Input() public inlineParams: Params.IAmountLimitCParams;
