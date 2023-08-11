@@ -1,6 +1,7 @@
 import {
     AfterViewInit,
     ChangeDetectionStrategy,
+    ChangeDetectorRef,
     Component,
     ElementRef,
     Inject,
@@ -57,9 +58,10 @@ export class BannerComponent extends AbstractComponent implements OnInit, AfterV
         configService: ConfigService,
         protected logService: LogService,
         protected element: ElementRef,
+        cdr: ChangeDetectorRef,
         @Inject(DOCUMENT) protected document: Document,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
 
@@ -83,6 +85,7 @@ export class BannerComponent extends AbstractComponent implements OnInit, AfterV
             return;
         }
         this.$params.banner = this.bannersService.getBanners(this.$params.filter).shift();
+        this.cdr.markForCheck();
     }
 
     protected startVideo(): void {
