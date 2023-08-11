@@ -2,6 +2,7 @@ import {
     Component,
     Inject,
     OnInit,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 
 import {
@@ -13,12 +14,11 @@ import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import * as Params from './offline-page.params';
 
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-offline-page]',
     templateUrl: './offline-page.component.html',
     styleUrls: ['./styles/offline-page.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OfflinePageComponent extends AbstractComponent implements OnInit {
 
