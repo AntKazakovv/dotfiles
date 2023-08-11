@@ -212,10 +212,18 @@ def get_local_tag():
 # Получение удаленного тега движка
 def get_remote_tag():
     remote_tag = list(filter(None, subprocess.check_output(["git", "ls-remote", "--exit-code", "--refs", "--sort=version:refname", "--tags", "origin"], text=True).split("\n")))[-1].split("/")[-1]
-    # origin_remote = git.Repo().remote("origin")
-    # remote_tag = origin_remote.refs
-    # print(remote_tag)
     return remote_tag
+
+
+def search_remote_tag(tag_to_find):
+    remote_tag_list = list(filter(None, subprocess.check_output(["git", "ls-remote", "--exit-code", "--refs", "--sort=version:refname", "--tags", "origin"], text=True).split("\n")))
+    for tag in remote_tag_list:
+        tag_list = [tag.split("/")[-1] for tag in remote_tag_list]
+        for tag in tag_list:
+            if tag == tag_to_find:
+                return true
+            else:
+                return false
 
 
 # Создание тэгов
@@ -223,6 +231,12 @@ def make_tag(action, branch = None):
     print(Fore.YELLOW + "Making new tag..." + Fore.RESET)
     if branch == None:
         new_tag = ".".join([str(k) for k in change_version(action, parse_version(get_version()))])
+
+        if action == "hotfix":
+            find_tag = search_remote_tag(new_tag)
+            if find_tag == true:
+                new_tag = ".".join([str(k) for k in change_version(action, parse_version(new_tag))])
+                # TODO Дописать как надо.
     else:
         if branch == "develop":
             base_tag = "test-" + get_date()
@@ -768,7 +782,7 @@ def release_manager():
         print(Fore.GREEN + "Good job. Bye bye. :-)" + Fore.RESET)
 
     elif choice == "t":
-        print(get_remote_tag())
+        print(search_remote_tag())
 
     else:
         error_message()
