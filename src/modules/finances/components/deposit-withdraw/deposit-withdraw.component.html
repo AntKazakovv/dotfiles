@@ -37,9 +37,11 @@
 </ng-template>
 
 <ng-template #default>
-    <ng-container *ngFor="let step of steps; index as $index">
-        <ng-container [ngTemplateOutlet]="stepTpl"
-                      [ngTemplateOutletContext]="{$implicit: step, index: $index}"></ng-container>
+    <ng-container *ngIf="ready; else preloader">
+        <ng-container *ngFor="let step of steps; index as $index">
+            <ng-container [ngTemplateOutlet]="stepTpl"
+                          [ngTemplateOutletContext]="{$implicit: step, index: $index}"></ng-container>
+        </ng-container>
     </ng-container>
 </ng-template>
 
@@ -64,13 +66,10 @@
 </ng-template>
 
 <ng-template #wallets>
-    <ng-container *ngIf="!selectedWallet"
-                  [ngTemplateOutlet]="preloader"></ng-container>
     <div wlc-wallets
          class="{{$class}}__wallets"
          [inlineParams]="walletsParams"
-         (changeWalletEmit)="onWalletChange($event)"
-         (currentWalletEmit)="onCurrentWallet($event)"></div>
+         (changeWalletEmit)="onWalletChange($event)"></div>
     <div *ngIf="showDividerInPaymentSystems" class="{{$class}}__divider"></div>
 </ng-template>
 

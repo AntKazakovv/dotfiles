@@ -223,22 +223,27 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
             this.ready = true;
             this.cdr.markForCheck();
         });
+        const processBonuses = (bonuses: Bonus[]): void => {
+            this.processBonusesResponse(bonuses);
 
-        this.bonusesService.getSubscribe({
-            type: 'any',
-            useQuery: true,
-            ready$: errorCatcher$,
-            observer: {
-                next: (bonuses: Bonus[]): void => {
-                    this.processBonusesResponse(bonuses || []);
+            if (this.firstInit && (!this.paymentsAutoSelect || this.currentPaySystemId)) {
+                this.firstInit = false;
+                this.setAutoSelect();
+            }
+        };
 
-                    if ((!this.paymentsAutoSelect || this.currentPaySystemId) && this.firstInit) {
-                        this.firstInit = false;
-                        this.setAutoSelect();
-                    }
+        if (this.$params.bonuses?.length) {
+            processBonuses(this.$params.bonuses);
+        } else {
+            this.bonusesService.getSubscribe({
+                type: 'any',
+                useQuery: true,
+                ready$: errorCatcher$,
+                observer: {
+                    next: processBonuses,
                 },
-            },
-        });
+            });
+        }
     }
 
     protected updateBonusesStatus(): void {
@@ -251,8 +256,8 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
 
             if (bonus.disabledBy === null || bonus.disabledBy === 1) {
                 bonus.disabledBy = !this.currentPaySystemId
-                    || !bonus.paySystems.length
-                    || bonus.paySystems.includes(this.currentPaySystemId)
+                || !bonus.paySystems.length
+                || bonus.paySystems.includes(this.currentPaySystemId)
                     ? null : 1;
             }
         });

@@ -64,7 +64,6 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
 
     @Input() protected inlineParams: Params.WalletsParams;
     @Output() public changeWalletEmit: EventEmitter<ISelectedWallet> = new EventEmitter();
-    @Output() public currentWalletEmit: EventEmitter<ISelectedWallet> = new EventEmitter();
 
     public override $params: Params.WalletsParams;
 
@@ -122,7 +121,27 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
         this.ratesService =
             await this.injectionService.getService<RatesCurrencyService>('rates.rates-currency-service');
 
-        await this.initWalletSelector();
+        if (this.userService.userInfo) {
+            this.initSelector();
+        } else {
+            this.userService.userInfo$.pipe(
+                first((v) => !!v?.idUser),
+                takeUntil(this.$destroy))
+                .subscribe((userInfo: UserInfo): void => {
+                    this.initSelector(userInfo);
+                });
+        }
+
+        this.userService.userInfo$.pipe(
+            filter(v => !!v?.idUser),
+            takeUntil(this.$destroy))
+            .subscribe((userInfo: UserInfo) => {
+                this.currentWallet.balance = userInfo.getWalletBalance(this.currentWallet.currency)
+                    .toFixed(2);
+                this.walletCurrency = this.displayedCurrency;
+                this.balance = this.displayedBalance;
+                this.cdr.detectChanges();
+            });
 
         this.eventService.subscribe(
             {name: 'CLOSE_MODAL'},
@@ -258,64 +277,46 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
         this.cdr.markForCheck();
     }
 
-    private async initWalletSelector(): Promise<void> {
-        this.userService.userInfo$.pipe(
-            first((v) => !!v?.idUser),
-            takeUntil(this.$destroy))
-            .subscribe(async (userInfo: UserInfo): Promise<void> => {
+    private async initSelector(userInfo: UserInfo = this.userService.userInfo): Promise<void> {
+        this.currentWallet =
+            WalletHelper.createCurrentWallet(
+                userInfo.wallets,
+                this.userService.userProfile.selectedCurrency,
+            );
 
-                this.currentWallet =
-                    WalletHelper.createCurrentWallet(
-                        userInfo.wallets,
-                        this.userService.userProfile.selectedCurrency,
-                    );
+        if (this.userService.userProfile.extProfile.conversionCurrency) {
+            this.settingsParams.walletSettings = this.userService.userProfile.extProfile.conversionCurrency;
+        } else {
+            this.settingsParams.walletSettings = {
+                hideWalletsWithZeroBalance: false,
+                conversionInFiat: false,
+                currency: null,
+            };
+        }
 
-                if (this.userService.userProfile.extProfile.conversionCurrency) {
-                    this.settingsParams.walletSettings = this.userService.userProfile.extProfile.conversionCurrency;
-                } else {
-                    this.settingsParams.walletSettings = {
-                        hideWalletsWithZeroBalance: false,
-                        conversionInFiat: false,
-                        currency: null,
-                    };
-                }
+        WalletHelper.conversionCurrency = this.settingsParams.walletSettings.currency;
+        WalletHelper.currencies = this.userService.userProfile.unusedCurrencies;
 
-                WalletHelper.conversionCurrency = this.settingsParams.walletSettings.currency;
-                WalletHelper.currencies = this.userService.userProfile.unusedCurrencies;
-                await this.updateConversionCoefficient();
+        if (!this.isFinance) {
+            await this.updateConversionCoefficient();
+        }
 
-                if (!this.currentWallet?.walletId && this.$params.hideWalletsWithZeroBalance) {
-                    await this.filterWallets();
-                    this.currentWallet = this.walletList[0];
-                }
-                UserInfo.currency = this.userService.userProfile.selectedCurrency;
+        if (!this.currentWallet?.walletId && this.$params.hideWalletsWithZeroBalance) {
+            await this.filterWallets();
+            this.currentWallet = this.walletList[0];
+        }
+        UserInfo.currency = this.userService.userProfile.selectedCurrency;
 
-                this.isShowWalletSelector = true;
-                this.walletCurrency = this.displayedCurrency;
-                this.currentWalletEmit.emit({
-                    walletCurrency: this.currentWallet.currency,
-                    walletId: this.currentWallet.walletId ?? null,
-                });
-                this.cdr.markForCheck();
+        this.isShowWalletSelector = true;
+        this.walletCurrency = this.displayedCurrency;
+        this.cdr.markForCheck();
 
-                const hour: number = 1000 * 60 * 60;
+        const hour: number = 1000 * 60 * 60;
 
-                interval(hour)
-                    .pipe(takeUntil(this.$destroy))
-                    .subscribe((): void => {
-                        this.updateConversionCoefficient();
-                    });
-            });
-
-        this.userService.userInfo$.pipe(
-            filter(v => !!v?.idUser),
-            takeUntil(this.$destroy))
-            .subscribe((userInfo: UserInfo) => {
-                this.currentWallet.balance = userInfo.getWalletBalance(this.currentWallet.currency)
-                    .toFixed(2);
-                this.walletCurrency = this.displayedCurrency;
-                this.balance = this.displayedBalance;
-                this.cdr.detectChanges();
+        interval(hour)
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((): void => {
+                this.updateConversionCoefficient();
             });
     }
 

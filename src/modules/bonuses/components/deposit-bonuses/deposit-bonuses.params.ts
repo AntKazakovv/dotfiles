@@ -4,6 +4,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {IBonusItemCParams} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';
 import {IBlankBonusParams} from 'wlc-engine/modules/bonuses/components/bonuses-list/bonuses-list.params';
+import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | 'swiper' | CustomType;
@@ -62,7 +63,7 @@ export interface IDepositBonusesCParams extends IComponentParams<ComponentTheme,
          */
         notEmptyTitle?: string;
     };
-
+    bonuses?: Bonus [];
 };
 
 export const defaultParams: IDepositBonusesCParams = {

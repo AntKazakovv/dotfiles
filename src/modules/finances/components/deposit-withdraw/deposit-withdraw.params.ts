@@ -47,6 +47,8 @@ export {depositForm, depositFormCrypto, withdrawForm} from 'wlc-engine/modules/f
 export interface IPaymentStep {
     template: string;
     title: string;
+    ready?: Promise<void>;
+    $resolve?: () => void;
 }
 
 export namespace PaymentSteps {

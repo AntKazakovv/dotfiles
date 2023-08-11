@@ -6,10 +6,6 @@ import {
     ChangeDetectorRef,
     OnDestroy,
 } from '@angular/core';
-import {
-    UntypedFormControl,
-    UntypedFormGroup,
-} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {DOCUMENT} from '@angular/common';
 
@@ -18,13 +14,14 @@ import {
     BehaviorSubject,
 } from 'rxjs';
 import {
+    first,
     takeUntil,
 } from 'rxjs/operators';
 import _assign from 'lodash-es/assign';
 import _merge from 'lodash-es/merge';
+import _map from 'lodash-es/map';
 
 import {
-    IIndexing,
     IMixedParams,
     ConfigService,
     EventService,
@@ -33,10 +30,7 @@ import {
     ActionService,
     AbstractComponent,
 } from 'wlc-engine/modules/core';
-import {
-    IPaymentAdditionalParam,
-    PaymentSystem,
-} from 'wlc-engine/modules/finances/system/models/payment-system.model';
+import {PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services/finances/finances.service';
 import {IPaymentListCParams} from 'wlc-engine/modules/finances/components/payment-list/payment-list.params';
 
@@ -47,6 +41,7 @@ import {
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {
     Bonus,
+    BonusesService,
     BonusItemComponentEvents,
 } from 'wlc-engine/modules/bonuses';
 
@@ -55,9 +50,8 @@ import {
     WalletsService,
 } from 'wlc-engine/modules/multi-wallet';
 import {WalletsParams} from 'wlc-engine/modules/multi-wallet/components/wallets/wallets.params';
-import * as Params from './deposit-withdraw.params';
 
-type TFormData = IIndexing<string | number | boolean>;
+import * as Params from './deposit-withdraw.params';
 
 @Component({
     selector: '[wlc-deposit-withdraw]',
@@ -68,15 +62,9 @@ type TFormData = IIndexing<string | number | boolean>;
 export class DepositWithdrawComponent
     extends AbstractComponent
     implements OnInit, OnDestroy {
-    public showModalCryptoPayment: boolean = true;
     public override $params: Params.IDepositWithdrawCParams;
-    public cryptoCheck: boolean = false; // move to payment-form
     public currentSystem: PaymentSystem;
-    public disableAmount: boolean = false;
     public title: string = gettext('Deposit');
-    public additionalParams: IIndexing<IPaymentAdditionalParam> = {};
-    public formData$: BehaviorSubject<TFormData> = new BehaviorSubject(null);
-    public userTotalBalance: number;
     public lastSucceedPaymentMethod: Promise<number | null>;
     public listConfig: IPaymentListCParams = {
         paymentType: 'deposit',
@@ -91,12 +79,10 @@ export class DepositWithdrawComponent
         buttonText: gettext('Show all cryptocurrencies'),
     };
 
-    public invoiceSystems: PaymentSystem[] = [];
     public parentSystem: PaymentSystem = null;
     /** Defines if crypto invoice payment chosen */
     public isCryptoInvoices: boolean = false;
 
-    public isShowHostedBlock: boolean = false;
     public steps: Set<Params.IPaymentStep> = new Set();
 
     public useBonuses: boolean = false;
@@ -105,28 +91,18 @@ export class DepositWithdrawComponent
     public availableSystems: number[] = [];
     public currentBonus: Bonus;
     public isWaitingResponse: boolean = false; // move to payment-form
-    public showErrorHosledLoad: boolean = false;
     public hiddenPaymentInfo: boolean;
     public isLastMethodExisting: boolean;
     public isFetchingSystems: boolean = true;
     public walletsParams: WalletsParams;
     public selectedWallet: ISelectedWallet;
     public isMultiWallet: boolean = false;
-
-    protected amountControl: UntypedFormControl;
-    protected formObject: UntypedFormGroup;
-    protected inProgress: boolean = false;
+    public ready: boolean = false;
     protected userService: UserService;
 
     private userProfile: UserProfile;
     private isDeposit: boolean;
     private useScroll: boolean = false;
-
-    private walletsReady: Promise<void> = new Promise((resolve: () => void): void => {
-        this.$resolveWallets = resolve;
-    });
-
-    private $resolveWallets: () => void;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IDepositWithdrawCParams,
@@ -165,28 +141,82 @@ export class DepositWithdrawComponent
         this.isMultiWallet = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
 
         if (this.isMultiWallet) {
+            this.userService = await this.injectionService.getService<UserService>('user.user-service');
+
+            Params.PaymentSteps.wallet.ready = new Promise((resolve: () => void): void => {
+                Params.PaymentSteps.wallet.$resolve = resolve;
+            });
+            const walletInit = (): void => {
+                this.selectedWallet = this.userService.userProfile.extProfile.currentWallet;
+                Bonus.depositCurrency = this.selectedWallet.walletCurrency;
+                Params.PaymentSteps.wallet.$resolve();
+            };
+
+            if (this.userService.userInfo) {
+                walletInit();
+            } else {
+                this.userService.userInfo$.pipe(
+                    first((v) => !!v?.idUser),
+                    takeUntil(this.$destroy))
+                    .subscribe((): void => {
+                        walletInit();
+                    });
+            }
+
             this.steps.add(Params.PaymentSteps.wallet);
             this.walletsParams = {
                 themeMod: 'finances',
                 hideWalletsWithZeroBalance: !this.isDeposit,
             };
-            await this.walletsReady;
         }
 
         if (this.showBonuses) {
+
+            Params.PaymentSteps.bonus.ready = new Promise((resolve: () => void): void => {
+                Params.PaymentSteps.bonus.$resolve = resolve;
+            });
+
             this.steps.add(Params.PaymentSteps.bonus);
-            this.bonusesListParams = {
-                components: [
-                    {
-                        name: 'bonuses.wlc-deposit-bonuses',
-                        params: {},
+
+            this.eventService.subscribe({name: 'BONUSES_FETCH_FAILED'}, (): void => {
+                Params.PaymentSteps.bonus.$resolve();
+                this.steps.delete(Params.PaymentSteps.bonus);
+            });
+
+            const bonusesService = await this.injectionService
+                .getService<BonusesService>('bonuses.bonuses-service');
+            bonusesService.getSubscribe({
+                type: 'any',
+                useQuery: true,
+                observer: {
+                    next: (bonuses: Bonus[]): void => {
+                        const depositBonuses = bonusesService.filterBonuses(bonuses, 'deposit');
+
+                        if (depositBonuses.length) {
+
+                            this.bonusesListParams = {
+                                components: [
+                                    {
+                                        name: 'bonuses.wlc-deposit-bonuses',
+                                        params: {
+                                            bonuses: bonuses,
+                                        },
+                                    },
+                                ],
+                            };
+                        }
+                        Params.PaymentSteps.bonus.$resolve();
                     },
-                ],
-            };
+                },
+            });
         }
 
         /** Готовим параметры (пока только для второй темы) */
         this.prepareParams();
+
+        Params.PaymentSteps.paymentSystem.ready = new Promise((resolve: () => void): void => {
+            Params.PaymentSteps.paymentSystem.$resolve = resolve;
+        });
 
         this.steps.add(Params.PaymentSteps.paymentSystem);
         if (!this.hiddenPaymentInfo) {
@@ -210,11 +240,22 @@ export class DepositWithdrawComponent
             this.title = gettext('Withdrawal');
             this.listConfig.paymentType = 'withdraw';
 
-            this.userService = await this.injectionService.getService<UserService>('user.user-service');
+            this.userService ??= await this.injectionService.getService<UserService>('user.user-service');
 
         }
 
-        await this.financesService.fetchPaymentSystems(this.selectedWallet?.walletCurrency);
+        Promise.all(_map(Array.from(this.steps), async (step: Params.IPaymentStep) => await step.ready))
+            .then(() => {
+                this.ready = true;
+                this.cdr.markForCheck();
+            });
+
+        await Params.PaymentSteps.wallet.ready;
+        this.financesService.fetchPaymentSystems(this.selectedWallet?.walletCurrency)
+            .finally(() => {
+                this.isFetchingSystems = false;
+                Params.PaymentSteps.paymentSystem.$resolve();
+            });
     }
 
     public override ngOnDestroy(): void {
@@ -241,18 +282,6 @@ export class DepositWithdrawComponent
         setTimeout(() => {
             this.isFetchingSystems = false;
         }, 0);
-    }
-
-    public async onCurrentWallet(currentWallet: ISelectedWallet): Promise<void> {
-        this.selectedWallet = currentWallet;
-        Bonus.depositCurrency = currentWallet.walletCurrency;
-
-        if (!this.userService) {
-            this.userService = await this.injectionService.getService<UserService>('user.user-service');
-        }
-
-        this.$resolveWallets();
-        this.cdr.markForCheck();
     }
 
     public get showDividerInPaymentSystems(): boolean {
