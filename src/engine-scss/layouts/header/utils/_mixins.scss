@@ -71,7 +71,6 @@
         }
 
         &-search {
-            @include bm.transition(transform);
             display: ef.get-value($theme, 'searchBtnDisplay');
             align-items: ef.get-value($theme, 'searchBtnAlignItems');
             justify-content: ef.get-value($theme, 'searchBtnJustifyContent');
@@ -86,7 +85,11 @@
             }
 
             @include bm.hover {
-                transform: ef.get-value($theme, 'searchBtnTransformOnHover');
+
+                svg,
+                rect {
+                    transform: ef.get-value($theme, 'searchBtnTransformOnHover');
+                }
             }
         }
 
@@ -95,8 +98,7 @@
 
             svg,
             rect {
-                @include bm.transition(fill);
-
+                @include bm.transition(all);
                 fill: ef.get-value($theme, 'headerSvgBtn');
             }
 

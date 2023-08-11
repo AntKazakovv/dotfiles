@@ -15,5 +15,12 @@
         .wlc-deadsimplechat {
             position: absolute;
         }
+
+        .wlc-btn {
+
+            &-search {
+                overflow: visible;
+            }
+        }
     }
 }
