@@ -1,16 +1,10 @@
 import {
     IIndexing,
-    //IReplaceHook,
     ValidatorType,
 } from 'wlc-engine/modules/core';
 import {IPaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
 
 export interface IFinancesConfig {
-    /*customHooks?: {
-        financesServiceOnPaymentFail?: IReplaceHook,
-        financesServiceOnPaymentSuccess?: IReplaceHook,
-        financesServiceOnPaymentPending?: IReplaceHook,
-    };*/
     fastDeposit: IFastDeposit;
     payment?: IPaySystemAutoSelect;
     paymentInfo?: IPaymentInfo;

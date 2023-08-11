@@ -60,7 +60,7 @@ import {
     ISelectedWallet,
     WalletsService,
 } from 'wlc-engine/modules/multi-wallet';
-//import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
+import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 
 type TUserDepositCountsInfo = Pick<UserInfo, 'depositsCount'>;
 
@@ -363,7 +363,7 @@ export class FinancesService {
         }
     }
 
-    //@CustomHook('finances', 'financesServiceOnPaymentFail')
+    @CustomHook('finances', 'financesServiceOnPaymentFail')
     public onPaymentFail(): void {
         const userProfile$ = this.configService.get<BehaviorSubject<UserProfile>>(
             {name: '$user.userProfile$'},
@@ -484,7 +484,7 @@ export class FinancesService {
         });
     }
 
-    //@CustomHook('finances', 'financesServiceOnPaymentPending')
+    @CustomHook('finances', 'financesServiceOnPaymentPending')
     public onPaymentPending(): void {
         this.eventService.emit({
             name: NotificationEvents.PushMessage,

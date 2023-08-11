@@ -1,20 +1,18 @@
-/*import _has from 'lodash-es/has';
-
 import {GlobalDeps} from 'wlc-engine/modules/app/app.module';
 import {IReplaceHook} from 'wlc-engine/modules/core';
 
-export function CustomHook(module: string, method: string) {
+export function CustomHook(moduleName: string, methodName: string) {
 
     return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
 
-        const params: string = `\$${module}.customHooks.${method}`;
+        const params: string = `customHookConfig.${moduleName}.${methodName}`;
         const customHooks: IReplaceHook = GlobalDeps.configService.get(params);
         const originalMethod = descriptor.value;
 
         if (customHooks) {
-            if (_has(customHooks, 'replace')) {
+            if (customHooks.replace) {
                 descriptor.value = customHooks['replace'];
-            } else if (_has(customHooks, 'final')) {
+            } else if (customHooks.final) {
                 descriptor.value = function (...args) {
                     originalMethod.apply(this, args);
                     customHooks['final']();
@@ -22,4 +20,4 @@ export function CustomHook(module: string, method: string) {
             }
         }
     };
-};*/
+}

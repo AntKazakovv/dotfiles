@@ -5,3 +5,11 @@ export interface IBaseHook {
 export interface IReplaceHook extends Partial<IBaseHook> {
     replace?: () => void,
 }
+
+export interface ICustomHookConfig {
+    finances?: {
+        financesServiceOnPaymentFail?: IReplaceHook,
+        financesServiceOnPaymentSuccess?: IReplaceHook,
+        financesServiceOnPaymentPending?: IReplaceHook,
+    }
+}

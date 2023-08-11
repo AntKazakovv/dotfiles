@@ -19,6 +19,7 @@ import {
     ActionService,
     LogService,
 } from 'wlc-engine/modules/core/system/services';
+import {CustomHookService} from 'wlc-src/custom/custom-hook.service';
 import {Location} from '@angular/common';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {NgxWebstorageModule} from 'ngx-webstorage';
@@ -97,6 +98,7 @@ export class AppModule {
     constructor(
         location: Location,
         protected actionService: ActionService,
+        protected customHookService: CustomHookService,
         private logService: LogService,
         private configService: ConfigService,
     ) {
