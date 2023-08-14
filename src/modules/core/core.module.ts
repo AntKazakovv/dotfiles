@@ -122,6 +122,7 @@ import {
 } from 'wlc-engine/modules/core/components/something-wrong-page/something-wrong-page.component';
 import {PromocodeLinkComponent} from 'wlc-engine/modules/core/components/promocode-link/promocode-link.component';
 import {HeaderComponent} from './components/header/header.component';
+import {TabsComponent} from './components/tabs/tabs.component';
 // -- COMPONENTS IMPORTS END  --;
 
 //  -- DIRECTIVES IMPORTS STARTS--;
@@ -225,6 +226,7 @@ export const components = {
     'wlc-title': TitleComponent,
     'wlc-tooltip': TooltipComponent,
     'wlc-wrapper': WrapperComponent,
+    'wlc-tabs': TabsComponent,
 };
 
 export const services = {
@@ -371,6 +373,7 @@ export const services = {
         WrapperComponent,
         WlcLetDirective,
         ResizedDirective,
+        TabsComponent,
     ],
     exports: [
         AlertComponent,
@@ -448,6 +451,7 @@ export const services = {
         WrapperComponent,
         WlcLetDirective,
         ResizedDirective,
+        TabsComponent,
     ],
 })
 export class CoreModule {

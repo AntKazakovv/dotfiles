@@ -112,6 +112,7 @@ export interface IUserProfile {
     message?: string;
     /** Metamask signature */
     signature?: string;
+    skipEmailVerification?: boolean;
 }
 
 export type TUserType = 'metamask' | 'default';

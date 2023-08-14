@@ -1,0 +1,7 @@
+<ng-container *ngFor="let tab of $params.tabs">
+    <div class="{{$class}}__item"
+        [class.active]="isTabActive(tab.value)"
+        (click)="select(tab.value)">
+        {{tab.title | translate}}
+    </div>
+</ng-container>

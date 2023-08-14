@@ -1,0 +1,10 @@
+$customThemeRounding: () !default;
+$themeRounding: map-merge((
+    'tabsBg': var(--mc-bg),
+    'tabsPadding': 3px,
+    'borderRadius': 100px,
+
+    'tabPadding': 4px 38px,
+    'tabActiveBg': var(--mc-bg100),
+    'tabActiveFontWeight': bold,
+), $customThemeRounding);

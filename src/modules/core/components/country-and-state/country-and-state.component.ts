@@ -168,6 +168,17 @@ export class CountryAndStateComponent extends AbstractComponent implements OnIni
                 this.updateCpf(countryCode);
             });
 
+        this.$params.cpf.control.statusChanges
+            .pipe(
+                distinctUntilChanged(),
+                takeUntil(this.$destroy),
+            )
+            .subscribe(() => {
+                if (!this.showCpf && this.$params.cpf.control.enabled) {
+                    this.toggleFieldRequired('cpf', this.showCpf);
+                }
+            });
+
         if (this.$params.stateCode.control || (this.$params.cpf.control && this.useCpf)) {
             merge(
                 this.$params.countryCode.control.statusChanges,

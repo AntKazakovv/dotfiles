@@ -97,10 +97,10 @@ export abstract class UserActionsAbstract<T> extends AbstractComponent implement
             });
     }
 
-    protected async finishUserReg(formValue: unknown): Promise<void> {
+    protected async finishUserReg(formValue: unknown, skipEmailVerification?: boolean): Promise<void> {
         this.userService.setProfileData(formValue);
         await this.userService.createUserProfile(this.userService.userProfile.data);
-        this.userService.finishRegistration();
+        this.userService.finishRegistration(skipEmailVerification);
     }
 
     protected showRegError(
@@ -161,7 +161,7 @@ export abstract class UserActionsAbstract<T> extends AbstractComponent implement
         return false;
     }
 
-    protected formDataPreparation(form: UntypedFormGroup): IValidateData {
+    protected formDataPreparation(form: UntypedFormGroup, skipEmailVerification?: boolean): IValidateData {
         const formValues: IIndexing<number | string | boolean> = form.getRawValue();
 
         if (!form.controls.hasOwnProperty('passwordRepeat')) {
@@ -177,6 +177,10 @@ export abstract class UserActionsAbstract<T> extends AbstractComponent implement
         if (formValues.nick && _isString(formValues.nick)) {
             extProfile.nick = formValues.nick;
             delete formValues.nick;
+        }
+
+        if (skipEmailVerification) {
+            formValues.skipEmailVerification = true;
         }
 
         const formData: IValidateData = {

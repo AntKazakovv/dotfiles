@@ -24,6 +24,11 @@ export interface ISignUpFormCParams extends IComponentParams<ComponentTheme, Com
      * Uses only for two steps
      */
     formType?: 'secondStep' | null;
+    /**
+     * Disable email confirmation. Same as fastRegistration.
+     * Can be used when registering by login.
+     */
+    skipEmailVerification?: boolean;
 }
 
 export const defaultParams: ISignUpFormCParams = {

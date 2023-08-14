@@ -190,7 +190,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
             if (!await this.checkConfirmation(form)) {
                 return false;
             }
-            let regData = this.formDataPreparation(form);
+            let regData = this.formDataPreparation(form, this.$params.skipEmailVerification);
             if (this.isTwoSteps && this.isSecondStep()) {
                 regData = _merge(this.configService.get<IRegFormDataForConfig>('regFormData')?.form, regData);
             }
@@ -201,7 +201,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
             }
 
             await this.userService.validateRegistration(regData);
-            await this.finishUserReg(regData.data);
+            await this.finishUserReg(regData.data, this.$params.skipEmailVerification);
 
             return true;
         } catch (error) {

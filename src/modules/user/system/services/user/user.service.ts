@@ -770,7 +770,7 @@ export class UserService {
         return this.dataService.request('user/deviceRegistration', {code, login});
     }
 
-    public finishRegistration(): void {
+    public finishRegistration(skipEmailVerification?: boolean): void {
 
         const isFastRegistration = this.configService.get<number>('appConfig.siteconfig.fastRegistration');
         const hideEmailExistence = this.configService.get<boolean>('appConfig.hideEmailExistence');
@@ -778,7 +778,7 @@ export class UserService {
             gettext('Your account has been registered.'),
         ];
 
-        if (isFastRegistration) {
+        if (isFastRegistration || skipEmailVerification) {
             this.eventService.emit({name: 'LOGIN'});
 
             if (!hideEmailExistence) {
