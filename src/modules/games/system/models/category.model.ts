@@ -36,6 +36,11 @@ export class CategoryModel extends AbstractModel<ICategory> {
      * Hidden category or not. Hidden categories used for seaching games, but not show in user interface
      */
     public isHidden: boolean;
+    /**
+     * An individual engine sort that takes precedence over other sorts. Сan be specified
+     * specific categories and acts first. After it, other types of sorting apply to categories
+     */
+    public primarySort: number = 0;
 
     private static currentLanguage: string;
     private static _country: string;
@@ -397,6 +402,13 @@ export class CategoryModel extends AbstractModel<ICategory> {
         this._slug = (this.data.Slug.toLowerCase() || this.data.menuId.toLowerCase())
             .replace(/\./g, '-');
         this.defaultSort = +this.data.CSubSort || +this.data.CSort || 0;
+
+        if (this.isFavourites && !this.primarySort) {
+            this.primarySort = 999998;
+        } else if (this.isLastPlayed && !this.primarySort) {
+            this.primarySort = 999999;
+        }
+
         try {
             this.tagsData = JSON.parse(this.data.Tags.join(','));
             this.usedMenu = this.tagsData.menu || '';
