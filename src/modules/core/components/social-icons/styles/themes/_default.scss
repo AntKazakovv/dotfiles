@@ -55,15 +55,8 @@ $selector: '.wlc-social-icons';
             }
 
             &__link {
-                @include bm.get-mq-map('width', $themeDefault, 'compactIconSize');
-                @include bm.get-mq-map('height', $themeDefault, 'compactIconSize');
-
-                ::ng-deep {
-
-                    svg {
-                        @include bm.get-mq-map('transform', $themeDefault, 'compactSvgTransform');
-                    }
-                }
+                @include bm.get-mq-map('--wlc-icon-width', $themeDefault, 'compactIconSize');
+                @include bm.get-mq-map('--wlc-icon-height', $themeDefault, 'compactIconSize');
             }
         }
     }

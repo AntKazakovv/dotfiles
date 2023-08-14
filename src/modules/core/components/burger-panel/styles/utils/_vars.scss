@@ -21,6 +21,9 @@ $themeDefault: map-merge((
     'panelLinksItemPadding': 0 ef.size(1) ef.size(1),
     'panelLinksColor': var(--mc-baseMain),
     'panelLinkDecoration': none,
+    'panelLinksDisplay': inline-flex,
+    'panelLinksAlignItems': center,
+
     'panelFontSize': (
         900: ef.get('font', 'biger'),
         1200: ef.get('font', 'PrimaryText'),
@@ -110,6 +113,13 @@ $themeDefault: map-merge((
     'panelSearchColorHover': var(--mc-baseMain),
 
     'backdropBg': var(--mc-bg-o6),
+
+    'iconDisplay': flex,
+    'iconAlignItems': center,
+    'iconJustifyContent': center,
+    'iconWidth': 36px,
+    'iconHeight': 36px,
+    'iconMargin': 0 ef.size(1) 0 0,
 ), $customThemeDefault);
 
 $customThemeLeft: () !default;

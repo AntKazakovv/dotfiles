@@ -136,6 +136,8 @@
 
                 &::placeholder {
                     color: ef.get-value($themeDefault, 'searchInputColor');
+                    //fix Firefox
+                    opacity: 1;
                 }
             }
         }

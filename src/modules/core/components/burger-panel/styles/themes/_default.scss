@@ -103,6 +103,9 @@
 
             position: relative;
 
+            display: ef.get-value($themeDefault, 'panelLinksDisplay');
+            align-items: ef.get-value($themeDefault, 'panelLinksAlignItems');
+
             color: ef.get-value($themeDefault, 'panelLinksColor');
             white-space: nowrap;
             text-decoration: ef.get-value($themeDefault, 'panelLinkDecoration');
@@ -144,6 +147,15 @@
                     opacity: 1;
                 }
             }
+        }
+
+        .wlc-menu__icon {
+            display: ef.get-value($themeDefault, 'iconDisplay');
+            align-items: ef.get-value($themeDefault, 'iconAlignItems');
+            justify-content: ef.get-value($themeDefault, 'iconJustifyContent');
+            width: ef.get-value($themeDefault, 'iconWidth');
+            height: ef.get-value($themeDefault, 'iconHeight');
+            margin: ef.get-value($themeDefault, 'iconMargin');
         }
 
         .wlc-burger-panel__user-deposit {

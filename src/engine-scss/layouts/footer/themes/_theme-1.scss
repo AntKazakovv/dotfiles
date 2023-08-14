@@ -10,6 +10,16 @@
 
     .wlc-social-icons {
         grid-area: social;
+
+        &.wlc-social-icons--theme-mod-compact[data-wlc-element] {
+
+            .wlc-social-icons {
+
+                &__list[class] {
+                    @include bm.get-mq-map('margin', $theme1Footer, 'compactListMargin');
+                }
+            }
+        }
     }
 
     .wlc-license {
@@ -38,6 +48,7 @@
         @include bm.get-mq-map('display', $theme1Footer, 'footerContainerDisplay');
 
         @include bm.get-mq-map('grid-template-columns', $theme1Footer, 'footerContainerGridColumns');
+        @include bm.get-mq-map('grid-template-rows', $theme1Footer, 'footerContainerGridRows');
         @include bm.get-mq-map('column-gap', $theme1Footer, 'footerContainerColumnGap');
         @include bm.get-mq-map('justify-items', $theme1Footer, 'footerContainerJustifyItems');
 
@@ -60,6 +71,7 @@
 
         .container {
             @include bm.get-mq-map('grid-template-areas', $theme1Footer, 'footerContainerGridAreasWithAffBtn');
+            @include bm.get-mq-map('grid-template-rows', $theme1Footer, 'footerContainerGridRowsWithAffBtn');
 
             .wlc-btn {
 
