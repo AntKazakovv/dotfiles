@@ -33,6 +33,7 @@ import {GlobalHelper} from 'wlc-engine/modules/core';
 })
 export class ForbiddenCountryService {
     private forbiddenModalRemove$: Subscription;
+    private listenerForForbiddenModal: Subscription;
 
     constructor(
         private configService: ConfigService,
@@ -67,7 +68,7 @@ export class ForbiddenCountryService {
     private setForbiddenModalEventListeners(): void {
         const updateForbiddenThrottleTime: number = 1000;
 
-        GlobalHelper.createMutationObserver(
+        this.listenerForForbiddenModal = GlobalHelper.createMutationObserver(
             this.document.body,
             {
                 childList: true,
@@ -86,6 +87,7 @@ export class ForbiddenCountryService {
                                 this.forbiddenModalRemove$.unsubscribe();
                                 this.forbiddenModalRemove$ = null;
                                 this.modalService.closeAllModals();
+                                this.listenerForForbiddenModal.unsubscribe();
                                 return this.showModal();
                             });
                     }
