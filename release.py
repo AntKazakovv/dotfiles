@@ -215,15 +215,22 @@ def get_remote_tag():
     return remote_tag
 
 
-def search_remote_tag(tag_to_find):
-    remote_tag_list = list(filter(None, subprocess.check_output(["git", "ls-remote", "--exit-code", "--refs", "--sort=version:refname", "--tags", "origin"], text=True).split("\n")))
-    for tag in remote_tag_list:
-        tag_list = [tag.split("/")[-1] for tag in remote_tag_list]
-        for tag in tag_list:
-            if tag == tag_to_find:
-                return true
-            else:
-                return false
+# Проверка на наличие тега
+def tag_duplicate_checking(action, tag_to_find):
+    remote_ref_list = list(filter(None, subprocess.check_output(["git", "ls-remote", "--exit-code", "--refs", "--sort=version:refname", "--tags", "origin"], text=True).split("\n")))
+
+    for ref in remote_ref_list:
+        remote_tag_list = [ref.split("/")[-1] for ref in remote_ref_list]
+
+    tag_exists = any(tag_to_find in tag for tag in remote_tag_list)
+
+    if tag_exists:
+        new_tag = ".".join([str(k) for k in change_version(action, parse_version(tag_to_find))])
+
+    while new_tag in remote_tag_list:
+        new_tag = ".".join([str(k) for k in change_version(action, parse_version(new_tag))])
+
+    return new_tag
 
 
 # Создание тэгов
@@ -233,10 +240,8 @@ def make_tag(action, branch = None):
         new_tag = ".".join([str(k) for k in change_version(action, parse_version(get_version()))])
 
         if action == "hotfix":
-            find_tag = search_remote_tag(new_tag)
-            if find_tag == true:
-                new_tag = ".".join([str(k) for k in change_version(action, parse_version(new_tag))])
-                # TODO Дописать как надо.
+            new_tag = tag_duplicate_checking(action, new_tag)
+
     else:
         if branch == "develop":
             base_tag = "test-" + get_date()
