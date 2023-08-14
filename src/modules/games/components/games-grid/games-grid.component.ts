@@ -454,7 +454,13 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
                     from: this.filterName,
                 },
             ], (filter: IGamesFilterData) => {
-                this.onFilterChanged(filter);
+                this.onFilterChanged(filter).finally(() => {
+                    if (this.games.length) {
+                        this.hideEmptyComponent = false;
+                    } else if (!this.games.length && this.$params.hideEmpty) {
+                        this.hideEmptyComponent = true;
+                    }
+                });
             }, this.$destroy);
             this.gamesFilterService.$gamesFilterSubsIsReady.next();
         }
