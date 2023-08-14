@@ -227,6 +227,15 @@ export class LimitationService {
             const result: IData<ISelfExclusionSingleData> = await this.dataService
                 .request('limit/setExclusion', params);
             if (result.data?.type === 'queue') {
+                let time: string = '';
+                const dateTimeFromSQL: DateTime = DateTime.fromSQL(result.data.date);
+
+                if (dateTimeFromSQL.isValid) {
+                    time = dateTimeFromSQL.toFormat('LL.dd.yyyy HH:mm');
+                } else {
+                    time = DateTime.local().plus({days: 1}).toFormat('LL.dd.yyyy');
+                }
+
                 this.eventService.emit({
                     name: NotificationEvents.PushMessage,
                     data: <IPushMessageParams>{
@@ -236,7 +245,7 @@ export class LimitationService {
                             ? gettext('The limit was successfully added and will be applied on')
                             : gettext('The limit will be removed on')),
                         messageContext: {
-                            time: DateTime.local().plus({days: 1}).toFormat('LL.dd.yyyy'),
+                            time,
                         },
                         wlcElement: 'notification_set-self-exclusion-info',
                     },
