@@ -21,6 +21,6 @@ export const defaultParams: IBetradarDailyMatchCParams = {
     theme: 'default',
     themeMod: 'default',
     title: gettext('Match of the day'),
-    openMatchText: gettext('See match online'),
+    openMatchText: gettext('Watch'),
     fallbackImagesDir: '/static/images/daily-match/',
 };
