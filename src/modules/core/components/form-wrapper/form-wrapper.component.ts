@@ -69,6 +69,7 @@ import {
     IWrapperCParams,
     WrapperComponent,
 } from 'wlc-engine/modules/core/components/wrapper/wrapper.component';
+import {FormValidators} from 'wlc-engine/modules/core/system/services/validation/validators';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 
 export interface IControls extends IIndexing<UntypedFormControl> {
@@ -372,20 +373,6 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
 
             const validators: ValidatorFn[] = [];
             const asyncValidators: AsyncValidatorFn[] = [];
-            const tagReg = {
-                name: 'regExp',
-                text: 'Such constructions are prohibited',
-                options: /(<\?)|(\?>)|(<\/?(.*)>)/gi,
-            };
-            const maxLength = {
-                name: 'maxLength',
-                text: gettext('The field must be no more than 55 characters long'),
-                options: 55,
-            };
-            const emojiReg = {
-                name: 'regexpEmoji',
-                text: 'Such constructions are prohibited',
-            };
 
             if (!component.params.validators) {
                 component.params.validators = [];
@@ -393,13 +380,13 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
 
             switch (component.name) {
                 case 'core.wlc-input':
-                    component.params.validators.push(tagReg, emojiReg);
+                    component.params.validators.push(FormValidators.tagReg, FormValidators.emojiReg);
                     if (!_find(component.params.validators, {name: 'maxLength'})) {
-                        component.params.validators.push(maxLength);
+                        component.params.validators.push(FormValidators.maxLength);
                     }
                     break;
                 case 'core.wlc-textarea':
-                    component.params.validators.push(tagReg, emojiReg);
+                    component.params.validators.push(FormValidators.tagReg, FormValidators.emojiReg);
                     break;
                 default:
                     break;

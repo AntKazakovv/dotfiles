@@ -116,6 +116,7 @@ import {LottieAnimationComponent} from './components/lottie-animation/lottie-ani
 import {
     SomethingWrongPageComponent,
 } from 'wlc-engine/modules/core/components/something-wrong-page/something-wrong-page.component';
+import {PromocodeLinkComponent} from 'wlc-engine/modules/core/components/promocode-link/promocode-link.component';
 // -- COMPONENTS IMPORTS END  --;
 
 //  -- DIRECTIVES IMPORTS STARTS--;
@@ -197,6 +198,7 @@ export const components = {
     'wlc-modal': WlcModalComponent,
     'wlc-no-content': WlcNoContentComponent,
     'wlc-pagination': WlcPaginationComponent,
+    'wlc-promocode-link': PromocodeLinkComponent,
     'wlc-radio-buttons': RadioButtonsComponent,
     'wlc-scroll-up': ScrollUpComponent,
     'wlc-rating': RatingComponent,
@@ -330,6 +332,7 @@ export const services = {
         NgTemplateNameDirective,
         NotificationThreadComponent,
         ParallaxMovementDirective,
+        PromocodeLinkComponent,
         RadioButtonsComponent,
         RatingComponent,
         ScrollbarComponent,
@@ -402,6 +405,7 @@ export const services = {
         LottieAnimationComponent,
         NgTemplateNameDirective,
         ParallaxMovementDirective,
+        PromocodeLinkComponent,
         RadioButtonsComponent,
         RatingComponent,
         ScrollbarComponent,

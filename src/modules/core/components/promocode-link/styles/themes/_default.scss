@@ -1,0 +1,35 @@
+.wlc-promocode-link--theme-default {
+
+    &:host {
+
+        ::ng-deep {
+
+            display: grid;
+        }
+    }
+}
+
+::ng-deep {
+
+    .wlc-steps__main {
+
+        .wlc-sign-up-form {
+
+            .wlc-promocode-link--theme-mod-default {
+
+                .wlc-link-block {
+                    @include bm.get-mq-map('padding-left', $themeDefault, 'linkBlockPaddingLeft');
+                    position: inherit;
+
+                    &__text {
+                        justify-content: ef.get-value($themeDefault, 'linkBlockJustifyContent');
+                    }
+
+                    .wlc-icon {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}

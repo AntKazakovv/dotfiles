@@ -32,6 +32,7 @@ export interface IActionParams {
     event?: {
         name?: string,
     }
+    callback?: () => void,
 }
 
 export const defaultParams: ILinkBlockCParams = {

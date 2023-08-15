@@ -1,0 +1,8 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'linkBlockPaddingLeft': (
+        375: 5px,
+        900: 0,
+    ),
+    'linkBlockJustifyContent': left,
+), $customThemeDefault);

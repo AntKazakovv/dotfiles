@@ -8,7 +8,7 @@ import {
     ISelectCParams,
 } from 'wlc-engine/modules/core';
 import {
-    IClearAmountButtonCParams, 
+    IClearAmountButtonCParams,
     IPreselectedAmountsCParams,
 } from 'wlc-engine/modules/finances';
 import {ProhibitedPatterns} from 'wlc-engine/modules/core/constants';
@@ -551,6 +551,23 @@ export namespace FormElements {
             },
             validators: ['required'],
             name: 'currency',
+        },
+    };
+
+    export const promocodeWithLink: IFormComponent = {
+        name: 'core.wlc-promocode-link',
+        params: {
+            name: ['registrationPromoCode'],
+            validatorsField: [
+                {
+                    name: 'registrationPromoCode',
+                    validators: [
+                        FormValidators.tagReg,
+                        FormValidators.maxLength,
+                        FormValidators.emojiReg,
+                    ],
+                },
+            ],
         },
     };
 

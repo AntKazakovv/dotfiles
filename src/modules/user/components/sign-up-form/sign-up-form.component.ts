@@ -232,8 +232,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
             if (result) {
                 return true;
             } else {
-                promocodeControl.setErrors({promocode: true});
-                return false;
+                throw new Error('Unknown promo code');
             }
         } catch (error) {
             promocodeControl.setErrors({promocode: true});

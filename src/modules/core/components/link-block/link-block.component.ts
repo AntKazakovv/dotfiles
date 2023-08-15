@@ -83,6 +83,8 @@ export class LinkBlockComponent
             this.eventService.emit({
                 name: data.event.name,
             });
+        } else if (data.callback) {
+            data.callback();
         }
     }
 

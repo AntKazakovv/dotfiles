@@ -1,0 +1,9 @@
+<div wlc-link-block
+    *ngIf="!showPromoCode"
+    class="wlc-link-block--promocode"
+    [inlineParams]="$params.linkPromoCode">
+</div>
+<div wlc-input
+    *ngIf="showPromoCode"
+    [inlineParams]="$params.registrationPromoCode">
+</div>
