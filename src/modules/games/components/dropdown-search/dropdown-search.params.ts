@@ -44,13 +44,5 @@ export const defaultParams: IDropdownSearchCParams = {
             theme: 'horizontal',
         },
     },
-    scrollbarParams: {
-        swiperOptions: {
-            scrollbar: {
-                draggable: true,
-                snapOnRelease: false,
-            },
-        },
-    },
 };
 

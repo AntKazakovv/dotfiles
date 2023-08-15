@@ -97,7 +97,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
         this._gamesList = games;
         this.prepareGrid();
     };
-    @Input() protected $swiperProgress: Subject<number>;
+    @Input() protected scrollHost: ElementRef;
 
     @ViewChild('gameList') protected gameListElement: ElementRef;
     @ViewChild('gameItem') protected gameItem: ElementRef;
@@ -890,32 +890,21 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
 
     private initLazyLoading(): void {
         if (this.useLazy) {
-            if (this.$swiperProgress) {
-                this.$swiperProgress
-                    .pipe(
-                        filter((value: number): boolean => value >= 0.98),
-                        tap((): void => this.setLazyLoadingTrue()),
-                        throttleTime(this.lazyTimeout),
-                        takeUntil(this.$untilBreakpointOrDestroy),
-                    )
-                    .subscribe((): void => {
-                        this.loadMoreGames();
-                    });
-            } else {
-                const scrollEvent = (this.actionService.scrollableElement('appContent')
-                    || fromEvent(this.window, 'scroll')) as Observable<Event>;
+            const scrollEvent = this.scrollHost
+                ? fromEvent(this.scrollHost.nativeElement, 'scroll')
+                : (this.actionService.scrollableElement('appContent')
+                || fromEvent(this.window, 'scroll')) as Observable<Event>;
 
-                scrollEvent
-                    .pipe(
-                        filter((): boolean => this.lazyLoadPositionFilter()),
-                        tap((): void => this.setLazyLoadingTrue()),
-                        throttleTime(this.lazyTimeout),
-                        takeUntil(this.$untilBreakpointOrDestroy),
-                    )
-                    .subscribe((): void => {
-                        this.loadMoreGames();
-                    });
-            }
+            scrollEvent
+                .pipe(
+                    filter((): boolean => this.lazyLoadPositionFilter()),
+                    tap((): void => this.setLazyLoadingTrue()),
+                    throttleTime(this.lazyTimeout),
+                    takeUntil(this.$untilBreakpointOrDestroy),
+                )
+                .subscribe((): void => {
+                    this.loadMoreGames();
+                });
         }
     }
 }

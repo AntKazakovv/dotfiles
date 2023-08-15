@@ -9,13 +9,6 @@ import {
 } from '@angular/core';
 
 import {
-    fromEvent,
-    Subject,
-    takeUntil,
-    takeWhile,
-} from 'rxjs';
-
-import {
     AbstractComponent,
     ConfigService,
     EventService,
@@ -24,7 +17,6 @@ import {
     GamesFilterService,
     GamesFilterServiceEvents,
 } from 'wlc-engine/modules/games/system/services/games-filter.service';
-import {ScrollbarComponent} from 'wlc-engine/modules/core/components/scrollbar/scrollbar.component';
 import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
 import {ISearchFieldCParams} from 'wlc-engine/modules/games/components/search-field/search-field.params';
@@ -42,7 +34,6 @@ import {
 })
 export class DropdownSearchComponent extends AbstractComponent implements OnInit {
 
-    @ViewChild(ScrollbarComponent) protected scrollbar: ScrollbarComponent;
     @ViewChild('searchContainer') protected searchContainer: ElementRef;
 
     public ready: boolean = false;
@@ -55,7 +46,6 @@ export class DropdownSearchComponent extends AbstractComponent implements OnInit
         excludeMerchants: [],
     };
     public searchFieldParams: ISearchFieldCParams;
-    public $swiperProgress: Subject<number> = new Subject();
     public override $params: IDropdownSearchCParams;
 
     constructor(
@@ -65,6 +55,7 @@ export class DropdownSearchComponent extends AbstractComponent implements OnInit
         protected gamesCatalogService: GamesCatalogService,
         protected gamesFilterService: GamesFilterService,
         cdr: ChangeDetectorRef,
+        protected host: ElementRef,
     ) {
         super({
             injectParams: injectParams,
@@ -97,15 +88,6 @@ export class DropdownSearchComponent extends AbstractComponent implements OnInit
     public clickOnTheSearchField(): void {
         if(!this.isOpened) {
             this.isOpened = true;
-
-            fromEvent(this.searchContainer.nativeElement, 'mousewheel')
-                .pipe(
-                    takeWhile((): boolean => this.isOpened),
-                    takeUntil(this.$destroy),
-                )
-                .subscribe((event: Event): void => {
-                    event.preventDefault();
-                });
         }
     }
 
@@ -127,21 +109,10 @@ export class DropdownSearchComponent extends AbstractComponent implements OnInit
     public setSearchQuery(query: string): void {
         this.filters.searchQuery = query;
         this.setFilter();
-        this.scrollbar.setProgress(0);
 
         if (this.filters.searchQuery) {
             this.isOpened = true;
         }
-    }
-
-    /**
-     * Passes swiper progress to wlc-games-grid
-     *
-     * @param value {number} - Swiper progress (from 0 to 1)
-     * @return void
-     */
-    public setSwiperProgress(value: number): void {
-        this.$swiperProgress.next(value);
     }
 
     protected initSearchListener(): void {

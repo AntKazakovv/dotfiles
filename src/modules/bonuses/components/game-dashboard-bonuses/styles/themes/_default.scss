@@ -16,17 +16,6 @@
             height: ef.get-value($themeDefault, 'bonusWrpHeight');
         }
 
-        .wlc-scrollbar--theme-default {
-
-            .wlc-scrollbar__container {
-                padding: ef.get-value($themeDefault, 'scrollbarPadding');
-            }
-
-            .swiper-vertical > .swiper-scrollbar {
-                right: ef.get-value($themeDefault, 'scrollbarPosition');
-            }
-        }
-
         .swiper {
 
             &-button {

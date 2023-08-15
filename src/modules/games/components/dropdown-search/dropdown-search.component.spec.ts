@@ -78,15 +78,6 @@ describe('DropdownSearchComponent', () => {
         component.setSearchQuery('string');
         expect(component.isOpened).toBeTrue();
     });
-
-    it('-> checking the setSwiperProgress method', async () => {
-        await component.ngOnInit();
-        component.setSwiperProgress(0.5);
-        component.$swiperProgress.subscribe((value: number): void => {
-            expect(value).toBe(0.5);
-        });
-        component.$swiperProgress.complete();
-    });
 });
 
 @Directive({selector: '[wlc-click-outside]'})
@@ -96,7 +87,7 @@ class ClickOutsideDirective {
 
 @Component({selector: '[wlc-games-grid]'})
 class GamesGridComponent {
-    @Input() $swiperProgress;
+    @Input() scrollHost;
     @Input() inlineParams;
 }
 

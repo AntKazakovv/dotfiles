@@ -1,13 +1,5 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'zIndex': 30,
-
-    'scrollbarSize': ef.size(1),
-    'scrollbarStretchSize': 98%,
-    'scrollbarPadding': 3px,
-    'scrollbarBackground': var(--mc-bg700),
-    'scrollbarBorderRadius': ef.get('radius', 'biger'),
-
-    'draggerBackground': var(--mc-bg100),
-    'draggerBorderRadius': ef.get('radius', 'biger'),
+    'scrollbarTrackBg': var(--mc-bg700),
+    'scrollbarThumbBg': var(--mc-bg100),
 ), $customThemeDefault);

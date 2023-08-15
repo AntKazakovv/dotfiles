@@ -1,76 +1,11 @@
 .wlc-scrollbar--theme-default:host {
 
-    .wlc-scrollbar {
+    &[class] {
+        @include bm.scrollbar($themeDefault);
 
-        &__container {
-            width: 100%;
-            height: 100%;
-        }
-    }
-
-    ::ng-deep {
-
-        .swiper-slide {
-            position: relative;
-
-            box-sizing: border-box;
-
-            height: auto;
-        }
-
-        .swiper-scrollbar {
-            position: absolute;
-
-            background: ef.get-value($themeDefault, 'scrollbarBackground');
-            border-radius: 10px;
-
-            /* stylelint-disable */
-            -ms-touch-action: none;
-            /* stylelint-enable */
-
-            .swiper-scrollbar-drag {
-                position: relative;
-                top: 0;
-                left: 0;
-
-                width: 100%;
-                height: 100%;
-
-                background: ef.get-value($themeDefault, 'draggerBackground');
-                border-radius: ef.get-value($themeDefault, 'draggerBorderRadius');
-            }
-
-            &.swiper-scrollbar-cursor-drag {
-                cursor: move;
-            }
-
-            &.swiper-scrollbar-lock {
-                display: none;
-            }
-        }
-
-        .swiper-horizontal > .swiper-scrollbar {
-            position: absolute;
-            bottom: ef.get-value($themeDefault, 'scrollbarPadding');
-            left: (100% - ef.get-value($themeDefault, 'scrollbarStretchSize')) * 0.5;
-            z-index: ef.get-value($themeDefault, 'zIndex');
-
-            width: ef.get-value($themeDefault, 'scrollbarStretchSize');
-            height: ef.get-value($themeDefault, 'scrollbarSize');
-        }
-
-        .swiper-vertical > .swiper-scrollbar {
-            position: absolute;
-            top: (100% - ef.get-value($themeDefault, 'scrollbarStretchSize')) * 0.5;
-            right: ef.get-value($themeDefault, 'scrollbarPadding');
-            z-index: ef.get-value($themeDefault, 'zIndex');
-
-            width: ef.get-value($themeDefault, 'scrollbarSize');
-            height: ef.get-value($themeDefault, 'scrollbarStretchSize');
-
-            .wlc-burger-panel--theme-left & {
-                right: 0;
-            }
-        }
+        overflow-y: auto;
+        overflow-x: hidden;
+        overscroll-behavior: contain;
+        scroll-behavior: smooth;
     }
 }

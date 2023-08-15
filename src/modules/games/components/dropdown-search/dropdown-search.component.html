@@ -12,13 +12,11 @@
         (searchQueryEmit)="setSearchQuery($event)"
         (click)="clickOnTheSearchField()">
     </div>
-    <div wlc-scrollbar
-        [inlineParams]="$params.scrollbarParams"
-        (swiperProgress)="setSwiperProgress($event)">
-        <div wlc-games-grid 
+    <div wlc-scrollbar [inlineParams]="$params.scrollbarParams" #scrollbar>
+        <div wlc-games-grid
             class="{{$class}}__games-grid"
             [hidden]="!filters.searchQuery || !isOpened"
-            [$swiperProgress]="$swiperProgress"
+            [scrollHost]="scrollbar.host"
             [inlineParams]="$params.gamesGridParams">
         </div>
     </div>

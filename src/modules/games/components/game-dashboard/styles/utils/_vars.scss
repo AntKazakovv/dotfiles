@@ -67,12 +67,13 @@ $themeDefault: map-merge((
 
     'fontStylePoints': 'SignText',
 
-    'scrollbarPadding': 0 15px 0 0,
+    'scrollbarPadding': 0 ef.size(2),
+    'scrollbarMargin': 0 ef.size(-2),
 
     'merchantBalanceMargin': ef.size(6) 0 0,
 
     'profileHeight': calc(100% - 64px),
-    'profilePadding': ef.size(4) ef.size(1) ef.size(4) ef.size(4),
+    'profilePadding': ef.size(4),
 
     'userStatsBtnMargin': ef.size(4) auto ef.size(8),
 

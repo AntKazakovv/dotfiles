@@ -1,8 +1,1 @@
-<swiper class="wlc-scrollbar__container" [config]="$params.swiperOptions">
-    <ng-template swiperSlide>
-        <div class="{{$class}}__slide"
-            (wlc-resized)="contentResizeHandler()">
-            <ng-content></ng-content>
-        </div>
-    </ng-template>
-</swiper>
+<ng-content></ng-content>
