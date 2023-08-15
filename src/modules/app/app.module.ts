@@ -119,8 +119,34 @@ export class AppModule {
                     this.initialPath[parts[0]] = parts[1];
                 }
 
+                if (this.initialPath.hasOwnProperty('praxis_transaction_status')) {
+                    this.checkPraxisTransactionStatus();
+                };
+
                 this.actionService.processMessages(this.initialPath);
             }
+        }
+    }
+
+    protected checkPraxisTransactionStatus(): void {
+        switch (this.initialPath['praxis_transaction_status']) {
+            case 'initialized':
+            case 'pending':
+            case 'authorized':
+                this.initialPath['message'] = 'PAYMENT_PENDING';
+                break;
+            case 'approved':
+                this.initialPath['message'] = 'PAYMENT_SUCCESS';
+                break;
+            case 'rejected':
+            case 'cancelled':
+            case 'error':
+                this.initialPath['message'] = 'PAYMENT_FAIL';
+                break;
+            case 'partial_refund':
+            case 'refund':
+                this.initialPath['message'] = '';
+                break;
         }
     }
 }
