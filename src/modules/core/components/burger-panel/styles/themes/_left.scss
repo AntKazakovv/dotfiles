@@ -277,6 +277,20 @@
                     width: ef.get-value($themeLeft, 'themeTogglerSeparatorWidth');
                     margin: ef.get-value($themeLeft, 'themeTogglerSeparatorMargin');
                 }
+
+                &--theme-alternative {
+                    --tt-margin: #{ef.get-value($themeLeft, 'alernativeThemeTogglerMargin')};
+                    --tt-padding: #{ef.get-value($themeLeft, 'alernativeThemeTogglerPadding')};
+
+                    &:before {
+                        content: none;
+                    }
+
+                    &.wlc-theme-toggler--compact {
+                        --tt-margin: 0;
+                        --tt-padding: 0;
+                    }
+                }
             }
         }
 
@@ -284,7 +298,7 @@
             display: flex;
             flex-direction: column;
             align-items: ef.get-value($themeLeft, 'themeTogglerAlignItems');
-            padding: ef.get-value($themeLeft, 'themeTogglerPadding');
+            padding: var(--tt-padding, #{ef.get-value($themeLeft, 'themeTogglerPadding')});
         }
 
         .wlc-scrollbar {

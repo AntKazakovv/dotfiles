@@ -181,6 +181,11 @@ $themeLeft: map-merge((
     'themeTogglerAlignItems': center,
     'themeTogglerSeparatorWidth': 100%,
     'themeTogglerSeparatorMargin': 0 auto ef.size(8),
+    'alernativeThemeTogglerMargin':(
+        375: ef.size(1) 0,
+        900: 0,
+    ),
+    'alernativeThemeTogglerPadding': 0 ef.size(4),
 
     'postmenuLinkMinHeight': ef.size(8),
 ), $customThemeLeft);

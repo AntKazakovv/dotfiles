@@ -112,3 +112,29 @@ $themeLong: map-merge((
     'iconAltTransform': translateX(50%) rotate(105deg),
     'iconAltTransformActive': translateX(0) rotate(0),
 ), $customThemeLong);
+
+$themeAlternative: map-merge((
+    'width': 100%,
+    'switchGap': 3px,
+    'switchWidth': 100%,
+
+    'activeButtonTextColor': var(--mc-baseMain),
+    'activeButttonFontWeight': bold,
+    'activeButtonBg': var(--mc-bg700-l5),
+    'buttonBg': var(--mc-bg700),
+    'activeButtonBgAlt': var(--mc-bg700-d5),
+
+    'buttonTextStyle': 'CaptionText',
+    'buttonTextColor': var(--mc-baseMain-o6),
+    'buttonGap': ef.size(2),
+    'buttonWidth': 100%,
+    'buttonHeight': ef.size(8),
+    'buttonPadding': ef.size(2),
+    'buttonBorderRadius': ef.size(2),
+    'buttonAlignItems': center,
+    'iconSize': ef.size(3),
+
+    'hrWith': calc(100% - ef.size(2)),
+    'hrBackgroundColor': var(--mc-baseOpacity),
+    'hrMargin': 0,
+), $customThemeLong);

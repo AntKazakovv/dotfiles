@@ -7,7 +7,12 @@ import {
     ChangeDetectorRef,
 } from '@angular/core';
 
-import {takeUntil} from 'rxjs';
+import {
+    BehaviorSubject,
+    takeUntil,
+} from 'rxjs';
+import {map} from 'rxjs/operators';
+import _isUndefined from 'lodash-es/isUndefined';
 
 import {
     AbstractComponent,
@@ -15,6 +20,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {ColorThemeService} from 'wlc-engine/modules/core/system/services/color-theme/color-theme.service';
 import {TColorTheme} from 'wlc-engine/modules/core/system/interfaces/base-config/color-theme-switching.config';
+import {TFixedPanelStore} from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
 
 import * as Params from './theme-toggler.params';
 
@@ -77,19 +83,44 @@ export class ThemeTogglerComponent extends AbstractComponent implements OnInit {
             this.cdr.markForCheck();
         });
 
-        this.leftIcon = '/wlc/icons/theme-toggler-default.svg';
-        this.rightIcon = '/wlc/icons/theme-toggler-alt.svg';
+        this.leftIcon = this.$params.theme === 'alternative'
+            ? '/wlc/icons/dark.svg' : '/wlc/icons/theme-toggler-default.svg';
+        this.rightIcon = this.$params.theme === 'alternative'
+            ? '/wlc/icons/light.svg' : '/wlc/icons/theme-toggler-alt.svg';
 
         if (this.$params.type === 'inverse') {
-            this.leftIcon = '/wlc/icons/theme-toggler-alt.svg';
-            this.rightIcon = '/wlc/icons/theme-toggler-default.svg';
+            this.leftIcon = this.$params.theme === 'alternative'
+                ? '/wlc/icons/light.svg' : '/wlc/icons/theme-toggler-alt.svg';
+            this.rightIcon = this.$params.theme === 'alternative'
+                ? '/wlc/icons/dark.svg' : '/wlc/icons/theme-toggler-default.svg';
         }
+        this.configService.get<BehaviorSubject<TFixedPanelStore>>('fixedPanelStore$')?.pipe(
+            map((store: TFixedPanelStore): boolean => store['left'] === 'compact'),
+            takeUntil(this.$destroy),
+        ).subscribe((isCompact: boolean) => {
+            this.$params.compactMod = isCompact;
+
+            if (isCompact) {
+                this.addModifiers('compact');
+            } else {
+                this.removeModifiers('compact');
+            }
+
+            this.cdr.markForCheck();
+        });
     }
 
     /**
      * It is fired by click on the toggler and emits change color theme event
      */
-    public toggleThemeHandler(): void {
-        this.colorThemeService.toggleColorTheme(true);
+    public toggleThemeHandler(status?: TColorTheme): void {
+        if(!_isUndefined(status)) {
+
+            if (this.status && status === 'alt' || !this.status && status === 'default') {
+                return;
+            }
+            this.status = !this.status;
+        }
+        this.colorThemeService.toggleColorTheme(true, status);
     }
 }

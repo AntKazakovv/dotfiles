@@ -1,21 +1,68 @@
-
 <label class="{{$class}}__label" title="{{$params.title | translate}}">
-    <span *ngIf="$params.theme === 'long'"
-          class="{{$class}}__caption">{{$params.title | translate}}</span>
-    <input class="{{$class}}__checkbox"
+    <ng-container [ngSwitch]="$params.theme">
+        <ng-container [ngTemplateOutlet]="alternative" *ngSwitchCase="'alternative'"></ng-container>
+        <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
+    </ng-container>
+</label>
+
+<ng-template #default>
+    <span
+        *ngIf="$params.theme === 'long'"
+        class="{{$class}}__caption">{{$params.title | translate}}</span>
+    <input
+        class="{{$class}}__checkbox"
         type="checkbox"
         [(ngModel)]="status"
         (ngModelChange)="toggleThemeHandler()">
-
-        <span class="{{$class}}__switcher"
-                [class.active]="status">
-        <span wlc-icon
-                class="{{$class}}__icon {{$class}}__icon--alt"
-                [iconPath]="leftIcon">
+    <span
+        class="{{$class}}__switcher"
+        [class.active]="status">
+        <span
+            wlc-icon
+            class="{{$class}}__icon {{$class}}__icon--alt"
+            [iconPath]="leftIcon">
         </span>
-        <span wlc-icon
-                class="{{$class}}__icon {{$class}}__icon--default"
-                [iconPath]="rightIcon">
+        <span
+            wlc-icon
+            class="{{$class}}__icon {{$class}}__icon--default"
+            [iconPath]="rightIcon">
         </span>
     </span>
-</label>
+</ng-template>
+
+<ng-template #alternative>
+    <div
+        class="{{$class}}__switcher">
+        <div
+            class="{{$class}}__btn"
+            [class.active]="!status"
+            [tooltip]="$params.compactMod && $params.darkTitle | translate"
+            (click)="toggleThemeHandler('default')"
+            container="body"
+            containerClass="wlc-tooltip--compact"
+            boundariesElement="viewport"
+            placement="right">
+            <span
+                wlc-icon
+                class="{{$class}}__icon"
+                [iconPath]="leftIcon"></span>
+            <span *ngIf="!this.$params.compactMod">{{$params.darkTitle | translate}}</span>
+        </div>
+        <hr *ngIf="this.$params.compactMod"/>
+        <div
+            class="{{$class}}__btn"
+            [class.active]="status"
+            [tooltip]="$params.compactMod && $params.lightTitle | translate"
+            (click)="toggleThemeHandler('alt')"
+            container="body"
+            containerClass="wlc-tooltip--compact"
+            boundariesElement="viewport"
+            placement="right">
+            <span
+                wlc-icon
+                class="{{$class}}__icon"
+                [iconPath]="rightIcon"></span>
+            <span *ngIf="!this.$params.compactMod">{{$params.lightTitle | translate}}</span>
+        </div>
+    </div>
+</ng-template>

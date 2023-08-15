@@ -1,0 +1,78 @@
+.wlc-theme-toggler--theme-alternative:host {
+    --tt-switcher-flex-direction: row;
+    --tt-switcher-justify-content: flex-start;
+
+    width: ef.get-value($themeAlternative, 'width');
+
+    .wlc-theme-toggler {
+
+        &__switcher {
+            flex-direction: var(--tt-switcher-flex-direction);
+            gap: ef.get-value($themeAlternative, 'switchGap');
+            width: ef.get-value($themeAlternative, 'switchWidth');
+
+            hr {
+                width: ef.get-value($themeAlternative, 'hrWith');
+                margin: ef.get-value($themeAlternative, 'hrMargin');
+                background-color: ef.get-value($themeAlternative, 'hrBackgroundColor');
+            }
+        }
+
+        &__btn {
+            @include text.get-text-style(
+                ef.get-value($themeAlternative, 'buttonTextStyle'),
+                ef.get-value($themeAlternative, 'buttonTextColor')
+            );
+            display: flex;
+            gap: ef.get-value($themeAlternative, 'buttonGap');
+            align-items: ef.get-value($themeAlternative, 'buttonAlignItems');
+            justify-content: var(--tt-switcher-justify-content);
+            width: ef.get-value($themeAlternative, 'buttonWidth');
+            height: ef.get-value($themeAlternative, 'buttonHeight');
+            padding: ef.get-value($themeAlternative, 'buttonPadding');
+            border-radius: ef.get-value($themeAlternative, 'buttonBorderRadius');
+            background: var(--tt-switcher-btn-bg, #{ef.get-value($themeAlternative, 'buttonBg')});
+
+            &.active {
+                color: ef.get-value($themeAlternative, 'activeButtonTextColor');
+                font-weight: ef.get-value($themeAlternative, 'activeButttonFontWeight');
+                background: var(--tt-switcher-active-btn-bg, #{ef.get-value($themeAlternative, 'activeButtonBg')});
+            }
+
+            @include bm.hover() {
+                color: ef.get-value($themeAlternative, 'activeButtonTextColor');
+            }
+        }
+
+        &__icon {
+            width: ef.get-value($themeAlternative, 'iconSize');
+            height: ef.get-value($themeAlternative, 'iconSize');
+
+            ::ng-deep {
+
+                svg {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+
+        &__label {
+            width: ef.get-value($themeAlternative, 'switchWidth');
+        }
+    }
+
+    &.wlc-theme-toggler--compact[class] {
+        --tt-switcher-flex-direction: column;
+        --tt-switcher-dark-background: transparent;
+        --tt-switcher-light-background: transparent;
+        --tt-switcher-justify-content: center;
+        --tt-switcher-active-btn-bg: transparent;
+        --tt-switcher-btn-bg: transparent;
+    }
+
+    @include bm.colorThemeAlt {
+        --tt-switcher-active-btn-bg: #{ef.get-value($themeAlternative, 'activeButtonBgAlt')};
+    }
+}
+

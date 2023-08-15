@@ -237,6 +237,19 @@ export namespace leftPanel {
         ],
     };
 
+    export const leftThemeTogglerAlt: IPanelSectionConfig = {
+        replaceConfig: true,
+        theme: 'left',
+        modifiers: ['theme-toggler'],
+        display: {
+            after: 1024,
+        },
+        components: [
+            ...left.components,
+            componentLib.wlcThemeToggler.alternative,
+        ],
+    };
+
     export const option3: IPanelSectionConfig = {
         replaceConfig: true,
         theme: 'option3',
@@ -329,6 +342,28 @@ export namespace leftPanel {
             componentLib.wlcPanelMenu.fixedBurgerThemeWolf,
             componentLib.wlcPanelMenu.fixedBurgerInfoThemeWolf,
             componentLib.wlcLanguageSelector.menuThemeWolf,
+        ],
+    };
+
+    export const mobileThemeTogglerAlt: IPanelSectionConfig = {
+        replaceConfig: true,
+        theme: 'mobile',
+        modifiers: ['theme-toggler'],
+        display: {
+            before: 1023,
+        },
+        components: [
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    components: [
+                        componentLib.wlcLoginSignup.burgerPanel,
+                        componentLib.wlcMobileMenu.vertical,
+                        componentLib.wlcLanguageSelector.long,
+                        componentLib.wlcThemeToggler.alternative,
+                    ],
+                },
+            },
         ],
     };
 }

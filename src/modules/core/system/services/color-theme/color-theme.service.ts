@@ -6,6 +6,7 @@ import {Meta} from '@angular/platform-browser';
 
 import {first} from 'rxjs/operators';
 import {BehaviorSubject} from 'rxjs';
+import _isUndefined from 'lodash-es/isUndefined';
 
 import {
     UserService,
@@ -49,8 +50,13 @@ export class ColorThemeService {
      *
      * @param {boolean} needToSave - if true, color theme will saved to localstore and profile (for authorized users)
      */
-    public toggleColorTheme(needToSave: boolean): void {
-        const theme = this.appColorTheme$.getValue() === 'default' ? 'alt' : 'default';
+    public toggleColorTheme(needToSave: boolean, status?: TColorTheme): void {
+        let theme: TColorTheme = status;
+
+        if (_isUndefined(status)) {
+            theme = this.appColorTheme$.getValue() === 'default' ? 'alt' : 'default';
+        }
+
         this.appColorTheme$.next(theme);
 
         this.colorThemeChangeHandler(theme, needToSave);
@@ -158,10 +164,12 @@ export class ColorThemeService {
                 },
             }, {updatePartial: true});
         } catch (error) {
-            this.logService.sendLog({code: '1.1.26', data: error, from: {
-                service: 'ColorThemeService',
-                method: 'saveColorThemeToProfile',
-            }});
+            this.logService.sendLog({
+                code: '1.1.26', data: error, from: {
+                    service: 'ColorThemeService',
+                    method: 'saveColorThemeToProfile',
+                },
+            });
         }
     }
 }
