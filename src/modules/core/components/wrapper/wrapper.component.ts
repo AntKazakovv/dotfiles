@@ -84,12 +84,6 @@ export class WrapperComponent extends LayoutComponent implements OnInit, OnChang
     public override async ngOnInit(): Promise<void> {
         this.prepareParams();
 
-        if (this.$params.smartSection) {
-            this.initSmartSection();
-        }
-
-        this.setHostClass();
-
         await this.initComponents();
         this.initReady = true;
     }
@@ -99,12 +93,17 @@ export class WrapperComponent extends LayoutComponent implements OnInit, OnChang
         if (this.initReady) {
             this.prepareParams();
             this.initComponents();
-
         }
     }
 
     protected prepareParams(): void {
         this.$params = _merge(this.inlineParams, this.inline, this.params);
+
+        if (this.$params.smartSection) {
+            this.initSmartSection();
+        }
+
+        this.setHostClass();
     }
 
     protected setHostClass(): void {
