@@ -26,20 +26,20 @@
 
             <div wlc-timer
                 class="{{$class}}__header-info-timer"
-                [value]="$params.common.tournament?.stateDateTournament"
+                [value]="$params.parentInstance.tournament.stateDateTournament"
                 [text]="getTimerText()"
                 (timerEnds)="updateTournaments()">
             </div>
 
             <div *ngIf="tournament.isTournamentStarts" class="{{$class}}__header-info--buttons">
-                <button *ngIf="!isTournamentSelected"
+                <button *ngIf="tournament.canJoin"
                         wlc-button
                         class="{{$class}}__header-info--button"
                         [attr.type]="'button'"
                         [text]="$params.common?.btnSubscribeText"
                         (click)="joinTournament()"></button>
 
-                <button *ngIf="isTournamentSelected && tournament.selected"
+                <button *ngIf="tournament.isSelected"
                         wlc-button
                         class="{{$class}}__header-info--button"
                         [attr.type]="'button'"

@@ -44,14 +44,17 @@ import * as Params from './tournament-detail.params';
 })
 export class TournamentDetailComponent extends AbstractComponent implements
     OnInit, AfterViewInit, OnDestroy, OnChanges {
-    @Input() public tournament: Tournament;
     @Input() public inlineParams: Params.ITournamentDetailCParams;
+    @Input() public type: Params.Type;
+    @Input() public theme: Params.Theme;
+    @Input() public themeMod: Params.ThemeMod;
+    @Input() public customMod: Params.CustomMod;
     @Input() public parentInstance: TournamentComponent;
 
     public override $params: Params.ITournamentDetailCParams;
     public isReady: boolean = false;
+    public tournament: Tournament;
     public tournamentProcessing: boolean = false;
-    public isTournamentSelected: boolean = false;
     public menuParams: MenuParams.IMenuCParams;
     public gamesGridConfig = Params.gamesGridConfig;
     public menuConfig: IWrapperCParams = {components: []};
@@ -97,8 +100,8 @@ export class TournamentDetailComponent extends AbstractComponent implements
             .pipe(takeUntil(this.$destroy))
             .subscribe((pending) => {
                 this.tournamentProcessing = pending;
-                this.isTournamentSelected = this.$params.parentInstance.isTournamentSelected;
-                this.tournament = this.$params.common.tournament;
+                this.tournament = this.$params.parentInstance.tournament;
+
                 this.prepareTournament();
                 this.cdr.markForCheck();
             });
@@ -134,7 +137,7 @@ export class TournamentDetailComponent extends AbstractComponent implements
      * Returns text description for timer
      * */
     public getTimerText(): string {
-        return this.$params.common.tournament?.isTournamentStarts
+        return this.tournament.isTournamentStarts
             ? this.$params.common?.timerTextAfterStart
             : this.$params.common?.timerTextBeforeStart;
     }

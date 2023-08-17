@@ -17,7 +17,6 @@ import _filter from 'lodash-es/filter';
 import _extend from 'lodash-es/extend';
 import _isObject from 'lodash-es/isObject';
 import _get from 'lodash-es/get';
-import _some from 'lodash-es/some';
 import _isNil from 'lodash-es/isNil';
 import _map from 'lodash-es/map';
 
@@ -76,10 +75,6 @@ export class TournamentsService {
     ) {
         this.registerMethods();
         this.setSubscribers();
-    }
-
-    public get isTournamentSelected(): boolean {
-        return _some(this.tournaments, tournament => tournament.isSelected);
     }
 
     /**
@@ -323,6 +318,9 @@ export class TournamentsService {
             const res: IData<ITournament[]> = await this.dataService.request(
                 'tournaments/tournaments', queryParams,
             );
+            Tournament.selectedTournaments = false;
+            Tournament.hasAllowStack = false;
+
             const result = this.modifyTournaments(res.data);
             tournaments = this.checkForbid(result, type);
 

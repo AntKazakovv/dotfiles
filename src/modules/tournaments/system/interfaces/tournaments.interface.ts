@@ -74,6 +74,7 @@ export interface IWinningSpread {
 }
 
 export interface ITournament extends ITournamentAbstract {
+    AllowStack: '0' | '1' | '2';
     CurrentTime: number;
     Ends: string;
     Games: ITournamentGames;

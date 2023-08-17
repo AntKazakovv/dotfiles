@@ -1,5 +1,6 @@
 import {
-    ChangeDetectionStrategy, ChangeDetectorRef,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
     Component,
     Inject,
     Input,
@@ -36,17 +37,18 @@ export class TournamentBannerComponent
     @Input() public theme: Params.ComponentTheme;
     @Input() public themeMod: Params.ThemeMod;
     @Input() public customMod: Params.CustomMod;
-    @Input() public tournament: Tournament;
     @Input() public parentInstance: TournamentComponent;
     @Input() public actionParams: Params.IActionParams;
     @Input() public isAlternative: boolean;
 
     public override $params: Params.ITournamentBannerCParams;
-    public isTournamentSelected: boolean;
-    public isProcessed: boolean = false;
+    public tournament: Tournament;
     public pending: boolean = false;
     public isAuth: boolean = false;
+    public showJoin: boolean = false;
     public backgroundImgUrl: string = '';
+
+    private isProcessed: boolean = false;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITournamentBannerCParams,
@@ -63,21 +65,19 @@ export class TournamentBannerComponent
 
     public override ngOnInit(): void {
         super.ngOnInit(GlobalHelper.prepareParams(this,
-            ['tournament', 'type', 'theme', 'themeMod', 'customMod', 'parentInstance', 'actionParams']));
+            ['tournament', 'type', 'theme', 'themeMod', 'customMod', 'actionParams']));
 
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
-        this.isTournamentSelected = this.tournamentsService.isTournamentSelected;
-
         this.checkParentInstance();
 
         this.tournamentsService.isProcessed$.pipe(takeUntil(this.$destroy))
             .subscribe(value => {
                 this.isProcessed = value;
-                this.isTournamentSelected = this.tournamentsService.isTournamentSelected;
                 this.cdr.markForCheck();
             });
 
-        this.backgroundImgUrl = this.isAlternative ? this.$params.tournament.imageOther : this.$params.tournament.image;
+        this.showJoin = !this.isProcessed && this.tournament.canJoin;
+        this.backgroundImgUrl = this.isAlternative ? this.tournament.imageOther : this.tournament.image;
     }
 
     /**
@@ -90,7 +90,7 @@ export class TournamentBannerComponent
     protected checkParentInstance(): void {
         if (!this.parentInstance) return;
 
-        this.$params.tournament = this.parentInstance.tournament;
+        this.tournament = this.parentInstance.tournament;
         this.setSubscription();
     }
 
@@ -98,7 +98,6 @@ export class TournamentBannerComponent
         this.parentInstance.pending$.pipe(takeUntil(this.$destroy))
             .subscribe((pending) => {
                 this.pending = pending;
-                this.isTournamentSelected = this.parentInstance.isTournamentSelected;
                 this.cdr.markForCheck();
             });
     }

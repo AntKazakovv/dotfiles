@@ -2,8 +2,8 @@
      [style]="{backgroundImage: 'url(' + backgroundImgUrl + ')'}">
     <div class="{{$class}}__tag">{{'Tournaments' | translate}}</div>
     <div class="{{$class}}__status"
-         [class.active]="$params.tournament.isSelected">
-         {{$params.tournament.tag | translate}}
+         [class.active]="tournament.isSelected">
+         {{tournament.tag | translate}}
     </div>
     <div class="{{$class}}__more-icon" >
         <div wlc-icon
@@ -15,24 +15,24 @@
     </div>
     <div class="{{$class}}__body">
         <h2 class="{{$class}}__body-title"
-            [title]="$params.tournament.name"
+            [title]="tournament.name"
         >
-            {{$params.tournament.name}}
+            {{tournament.name}}
         </h2>
         <div class="{{$class}}__timer-block"
              wlc-tournament-smart-info
              (timerEnds)="updateTournaments()"
-             [tournament]="$params.tournament">
+             [tournament]="tournament">
         </div>
 
         <div class="{{$class}}__description"
-             [title]="$params.tournament?.descriptionClean">
-            <p [innerHtml]="$params.tournament?.descriptionSafeHTML | safeValue:'html'"></p>
+             [title]="tournament.descriptionClean">
+            <p [innerHtml]="tournament.descriptionSafeHTML | safeValue:'html'"></p>
         </div>
 
         <div class="buttons-wrap">
             <button
-                *ngIf="!isProcessed && !isTournamentSelected && $params.tournament.isTournamentStarts"
+                *ngIf="showJoin"
                 wlc-button
                 text="Join"
                 (click)="joinToTournament()">
@@ -47,7 +47,7 @@
         </div>
         <div *ngIf="!isAlternative"
              class="{{$class}}__body-decor"
-             [style]="{backgroundImage: 'url(' + $params.tournament.imageOther + ')'}"
+             [style]="{backgroundImage: 'url(' + tournament.imageOther + ')'}"
         ></div>
     </div>
 </div>

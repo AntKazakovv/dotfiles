@@ -452,33 +452,6 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         wlcElement: 'link_current-tournaments',
     },
 
-    'profile-menu:tournaments-active': {
-        name: gettext('Active tournaments'),
-        type: 'sref',
-        icon: 'active-tournaments',
-        class: 'tournaments-active',
-        params: {
-            state: {
-                name: 'app.profile.loyalty-tournaments.active',
-                params: {},
-            },
-        },
-        wlcElement: 'link_active-tournaments',
-    },
-    'profile-first-menu:tournaments-active': {
-        name: gettext('Active tournaments'),
-        type: 'sref',
-        icon: 'active-tournaments',
-        class: 'tournaments-active',
-        params: {
-            state: {
-                name: 'app.profile.loyalty-tournaments.active',
-                params: {},
-            },
-        },
-        wlcElement: 'link_active-tournaments',
-    },
-
     'profile-menu:tournaments-history': {
         name: gettext('Tournaments history'),
         type: 'sref',

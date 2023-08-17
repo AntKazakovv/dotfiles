@@ -26,6 +26,8 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
     public hasGames: boolean = false;
     public prizePool: ITournamentPrize[];
     public prizeTable: IPrizeRow[];
+    public static selectedTournaments: boolean = false;
+    public static hasAllowStack: boolean = false;
 
     private _id: number;
 
@@ -41,6 +43,13 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
             configService,
             tournamentsService,
         );
+        if (this.isSelected) {
+            Tournament.selectedTournaments = true;
+
+            if (this.allowStack !== '0') {
+                Tournament.hasAllowStack = true;
+            }
+        }
     }
 
     public override set data(data: ITournament) {
@@ -57,9 +66,24 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
         return super.data;
     }
 
+    public get canJoin(): boolean {
+        if (Tournament.selectedTournaments) {
+            if (Tournament.hasAllowStack) {
+                return !this.isSelected && this.allowStack !== '0' && this.isTournamentStarts;
+            } else {
+                return false;
+            }
+        }
+        return this.isTournamentStarts;
+    }
+
     // default
     public get currentTime(): number {
         return this.data.CurrentTime;
+    }
+
+    public get allowStack(): string {
+        return this.data.AllowStack;
     }
 
     public get ends(): string {

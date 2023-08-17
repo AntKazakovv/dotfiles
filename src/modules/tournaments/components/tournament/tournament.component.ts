@@ -51,9 +51,7 @@ import _union from 'lodash-es/union';
     styleUrls: ['./styles/tournament.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TournamentComponent
-    extends AbstractComponent
-    implements OnInit {
+export class TournamentComponent extends AbstractComponent implements OnInit {
 
     @Input() public inlineParams: Params.ITournamentCParams;
     @Input() public type: Params.ComponentType;
@@ -65,7 +63,6 @@ export class TournamentComponent
 
     public override $params: Params.ITournamentCParams;
     public isAuth: boolean;
-    public isTournamentSelected: boolean;
     public instance: TournamentComponent;
     public pending$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     public detailParams: ITournamentDetailCParams;
@@ -101,12 +98,7 @@ export class TournamentComponent
         }
 
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
-        this.isTournamentSelected = this.tournamentsService.isTournamentSelected;
         this.instance = this;
-
-        if (this.type === 'active') {
-            this.isTournamentSelected = true;
-        }
 
         this.prepareActionParams();
 
@@ -273,13 +265,11 @@ export class TournamentComponent
 
     protected async joinTournament(): Promise<void> {
         try {
-            this.isTournamentSelected = false;
             this.pending$.next(true);
 
             const tournament = await this.tournamentsService.joinTournament(this.tournament);
 
             if (tournament) {
-                this.isTournamentSelected = true;
                 this.tournament = tournament;
                 this.cdr.markForCheck();
             }
@@ -294,7 +284,6 @@ export class TournamentComponent
             this.pending$.next(true);
             const tournament = await this.tournamentsService.leaveTournament(this.tournament);
             if (tournament) {
-                this.isTournamentSelected = false;
                 this.tournament = tournament;
                 this.cdr.markForCheck();
             }

@@ -59,7 +59,7 @@
 
         <div class="buttons-wrap">
             <button
-                *ngIf="!isProcessed && !isTournamentSelected && tournament.isTournamentStarts"
+                *ngIf="showJoin"
                 wlc-button
                 text="Join"
                 (click)="joinToTournament()">
@@ -142,7 +142,7 @@
 
         <div class="buttons-wrap">
             <button
-                *ngIf="!isProcessed && !isTournamentSelected && tournament.isTournamentStarts"
+                *ngIf="showJoin"
                 wlc-button
                 text="Join"
                 (click)="joinToTournament()">

@@ -45,11 +45,12 @@ export class TournamentPromoComponent extends AbstractComponent implements OnIni
 
     public override $params: Params.ITournamentPromoCParams;
     public tournament: Tournament;
-    public isTournamentSelected: boolean;
     public rowLimit: number = PRIMARY_ROW_LIMIT;
     public pending: boolean = false;
-    public isProcessed: boolean = false;
     public isAuth: boolean = false;
+    public showJoin: boolean = false;
+
+    private isProcessed: boolean = false;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITournamentPromoCParams,
@@ -68,17 +69,16 @@ export class TournamentPromoComponent extends AbstractComponent implements OnIni
         super.ngOnInit(GlobalHelper.prepareParams(this,
             ['tournament', 'type', 'theme', 'themeMod', 'customMod', 'actionParams']));
 
-        this.isTournamentSelected = this.tournamentsService.isTournamentSelected;
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
-
         this.checkParentInstance();
 
         this.tournamentsService.isProcessed$.pipe(takeUntil(this.$destroy))
             .subscribe(value => {
                 this.isProcessed = value;
-                this.isTournamentSelected = this.tournamentsService.isTournamentSelected;
                 this.cdr.markForCheck();
             });
+
+        this.showJoin = !this.isProcessed && this.tournament.canJoin;
     }
 
     public joinToTournament(): void {
@@ -121,7 +121,6 @@ export class TournamentPromoComponent extends AbstractComponent implements OnIni
         this.parentInstance.pending$.pipe(takeUntil(this.$destroy))
             .subscribe((pending) => {
                 this.pending = pending;
-                this.isTournamentSelected = this.parentInstance.isTournamentSelected;
                 this.cdr.markForCheck();
             });
     }

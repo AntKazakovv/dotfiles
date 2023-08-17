@@ -22,14 +22,13 @@
 
 <ng-template #active>
     <div wlc-tournament-detail
-         [tournament]="$params.common.tournament"
          [parentInstance]="instance">
     </div>
 </ng-template>
 
 <ng-template #detail>
     <div wlc-tournament-detail
-         [tournament]="$params.common.tournament"
+         [theme]="'default'"
          [parentInstance]="instance">
     </div>
 </ng-template>
@@ -46,9 +45,9 @@
 </ng-template>
 
 <ng-template #dashboard>
-    <div class="{{$class}}__container" [class.selected]="isTournamentSelected">
-        <ng-container [ngTemplateOutlet]="infoBtn" *ngIf="isTournamentSelected"></ng-container>
-        <div class="{{$class}}__img-container" *ngIf="!isTournamentSelected">
+    <div class="{{$class}}__container" [class.selected]="tournament.isSelected">
+        <ng-container [ngTemplateOutlet]="infoBtn" *ngIf="tournament.isSelected"></ng-container>
+        <div class="{{$class}}__img-container" *ngIf="!tournament.isSelected">
             <ng-container [ngTemplateOutlet]="infoBtn"></ng-container>
             <img [wlc-fallback]="tournament.fallbackImageDashboard"
                  [src]="tournament.imageDashboard"
@@ -68,14 +67,14 @@
                     ? 'Time remaining'
                     : 'Coming soon'">
         </div>
-        <div *ngIf="!isTournamentSelected && tournament.description?.length"
+        <div *ngIf="!tournament.isSelected && tournament.description?.length"
              class="{{$class}}__description-block"
         >
             <p class="{{$class}}__description"
                [innerHtml]="tournament.descriptionClean"
             ></p>
         </div>
-        <div *ngIf="!isTournamentSelected && tournament.isTournamentStarts" class="{{$class}}__btns">
+        <div *ngIf="!tournament.isSelected && tournament.isTournamentStarts" class="{{$class}}__btns">
             <button
                 wlc-button
                 [text]="'Join'"
@@ -83,7 +82,7 @@
                 (click)="join()">
             </button>
         </div>
-        <ng-container *ngIf="isTournamentSelected">
+        <ng-container *ngIf="tournament.isSelected">
             <div class="{{$class}}__header">{{'Leaderboard' | translate}}</div>
             <div
                 wlc-tournament-leaderboard

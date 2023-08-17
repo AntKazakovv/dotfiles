@@ -31,6 +31,7 @@ export const tournamentsHandler = async (
             data.push({
                 ID: datatype.number(),
                 Series: '',
+                AllowStack: '0',
                 Name: lorem.sentence(2),
                 Description: lorem.paragraph(),
                 Selected: datatype.number(),

@@ -17,6 +17,7 @@ import _each from 'lodash-es/each';
 import _filter from 'lodash-es/filter';
 import _random from 'lodash-es/random';
 import _get from 'lodash-es/get';
+import _sortBy from 'lodash-es/sortBy';
 
 import {
     AbstractComponent,
@@ -58,7 +59,7 @@ export class TournamentListComponent
 
     public override $params: Params.ITournamentListCParams;
     public isTournamentSelected: boolean;
-    public activeTournament: Tournament;
+    public activeTournaments: Tournament[] = [];
     public tournaments: Tournament[] = [];
     public paginatedTournaments: Tournament[] = [];
     public isReady: boolean = false;
@@ -153,7 +154,7 @@ export class TournamentListComponent
         this.eventService.subscribe(
             {name: 'TOURNAMENT_LEAVE_SUCCEEDED'},
             () => {
-                this.saveDataOfSelectedTournament(this.tournaments);
+                this.saveDataOfSelectedTournaments(this.tournaments);
                 this.cdr.markForCheck();
             },
             this.$destroy,
@@ -177,10 +178,10 @@ export class TournamentListComponent
             useQuery: true,
             observer: {
                 next: (tournaments: Tournament[]) => {
-                    this.indexOfSelectedTournament = null;
 
-                    this.saveDataOfSelectedTournament(tournaments);
-                    this.replaceTournaments(tournaments);
+                    tournaments = _sortBy(tournaments, tournament => !tournament.isSelected);
+
+                    this.saveDataOfSelectedTournaments(tournaments);
 
                     if (this.uiRouter.params.tournamentId) {
                         tournaments = _filter(
@@ -206,30 +207,15 @@ export class TournamentListComponent
         });
     }
 
-    protected replaceTournaments(tournaments: Tournament[]): void {
-        if (this.indexOfSelectedTournament < 0) return;
+    protected saveDataOfSelectedTournaments(tournaments: Tournament[]): void {
+        this.activeTournaments = [];
 
-        tournaments.unshift(...tournaments.splice(this.indexOfSelectedTournament, 1));
-    }
-
-    protected saveDataOfSelectedTournament(tournaments: Tournament[]): void {
-        let tournamentSelected = false;
-        _each(tournaments, (tournament, index) => {
+        _each(tournaments, (tournament) => {
             if (tournament.isSelected) {
-                tournamentSelected = true;
                 this.isTournamentSelected = true;
-                this.activeTournament = tournament;
-                this.indexOfSelectedTournament = index;
-
-                return false;
+                this.activeTournaments.push(tournament);
             }
         });
-
-        if (!tournamentSelected) {
-            this.isTournamentSelected = false;
-            this.activeTournament = null;
-            this.indexOfSelectedTournament = -1;
-        }
     }
 
     protected prepareModifiers(): void {

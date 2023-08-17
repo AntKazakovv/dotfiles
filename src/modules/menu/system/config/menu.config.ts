@@ -154,7 +154,6 @@ export const menuConfig: IMenuConfig = {
                 type: 'group',
                 items: [
                     'profile-first-menu:tournaments-current',
-                    'profile-first-menu:tournaments-active',
                     'profile-first-menu:tournaments-history',
                 ],
             },
@@ -233,7 +232,6 @@ export const menuConfig: IMenuConfig = {
                 type: 'group',
                 items: [
                     'profile-first-menu:tournaments-current',
-                    'profile-first-menu:tournaments-active',
                     'profile-first-menu:tournaments-history',
                 ],
             },
