@@ -1090,7 +1090,8 @@ export class DepositWithdrawComponent
 
         this.timerParams.common.noDays = !DateHelper.dayExists(this.dateExpire);
         this.timerParams.common.noHours = !DateHelper.hoursExists(this.dateExpire);
-        if (this.currentSystem.isPregeneration && !this.currentSystem.message) {
+
+        if (this.isDeposit && this.currentSystem.isPregeneration && !this.currentSystem.message) {
             this.isWaitingResponse = true;
             await this.depositAction(0, {bonusId: null});
         }
