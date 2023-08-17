@@ -126,7 +126,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
         });
         this.section = this.currentConfig.sections[this.sectionName];
 
-        if (this.section.smartSection) {
+        if (this.section?.smartSection) {
             this.initSmartSection();
         }
 
