@@ -1,0 +1,144 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'baseDisplay': flex,
+    'baseFlexDirection': column,
+    'baseGap': ef.size(2),
+    'basePaddingBottom': (
+        375: ef.size(3) ef.size(3) ef.size(9),
+        900: 0 ef.size(6) ef.size(6),
+    ),
+    'baseBackground': var(--mc-bg700),
+    'baseBorderRadius': ef.get('radius', 'biger') ef.get('radius', 'biger') 0 0,
+    // footer-menu
+    'footerMenuFlexDirection': (
+        375: column,
+        900: row,
+    ),
+    'footerMenuJustifyContent': center,
+    'footerMenuAlignItems': center,
+    'footerMenuPadding': (
+        375: ef.size(3),
+        900: ef.size(3) ef.size(5),
+    ),
+    'footerMenuBg': var(--mc-bg700),
+    'footerBorderBottom': 1px solid #303e64,
+    // footer post menu
+    'footerPostMenuDirection': column,
+    'footerPostMenuJustify': center,
+    'footerPostMenuAlignItems': center,
+    'footerPostMenuMargin': (
+        900: 0,
+    ),
+    'footerPostMenuWidth': (
+        375: 100%,
+        900: auto,
+    ),
+    //footer post menu grid
+    'footerPostMenuGridGap': (
+        375: ef.size(2),
+        900: ef.size(3),
+        1200: ef.size(6),
+        1630: ef.size(12),
+    ),
+    'footerPostMenuGridColumns': (
+        375: 1fr,
+        640: 1fr 1fr,
+        900: 1fr,
+    ),
+    'footerPostMenuGridAutoFlow': (
+        900: column,
+    ),
+    //footer post menu item
+    'footerPostMenuItemAlignment': (
+        375: center,
+    ),
+    'footerPostMenuItemWhiteSpace': (
+        900: nowrap,
+    ),
+    //footer post menu link
+    'footerPostMenuLinkColor': var(--mc-baseMain),
+
+    // footer bottom
+    'footerBottomDisplay': (
+        375: flex,
+    ),
+    'footerBottomLeftJustify': flex-start,
+    'footerBottomLeftFlex': 0 1 100%,
+    'footerBottomFlexDirection': (
+        375: column,
+        768: row,
+    ),
+    'footerBottomCenterDirections': column,
+    'footerBottomCenterAlign': center,
+    'footerBottomCenterMinWidth': fit-content,
+    'footerBottomRightJustify': flex-end,
+    'footerBottomRightFlex': 0 1 100%,
+    'footerBottomGap': (
+        375: ef.size(6),
+        768: 0,
+    ),
+    'footerBottomAlignItems': (
+        375: center,
+        900: flex-start,
+    ),
+    'footerBottomJustifyContent': space-between,
+    'footerBottomMargin': (
+        375: ef.size(4) 0 0,
+    ),
+    'footerBottomRightMargin': (
+        375: 0,
+    ),
+    'footerBottomMaxWidth': (
+        375: 100%,
+        1420: 1420px
+    ),
+
+    // disclamer
+    'disclaimerTextAlign': center,
+    // copyright
+    'copyrightTextAlign': center,
+    'copyrightMargin': ef.size(3) 0 0,
+    // icon list merchants
+    'iconListMerchantsPadding': ef.size(2) ef.size(5),
+    'iconListMerchantsMargin': (
+        375: 0 auto,
+    ),
+    // icon list payments
+    'iconListPaymentsMargin': (
+        375: 0 auto,
+    ),
+    // icon list safety
+    'iconPaymentsBackground': var(--mc-bg500),
+    'iconPaymentsPadding': ef.size(3) ef.size(7),
+    'iconPaymentsRadius': ef.get('radius', 'biger'),
+    // icon list wrapper
+    'iconListWrapperMargin': (
+        375: -8px 0,
+        1630: -16px 0,
+    ),
+    // language selector
+    'themeTogglerMargin': (
+        375: 0 0 0 ef.size(3),
+        1200: 0 0 0 ef.size(6),
+        1630: 0 0 0 ef.size(8),
+    ),
+    //language selector margin with affiliate button
+    'footerPostMenuLoaderPosition': (
+        320: relative,
+        900: absolute,
+    ),
+    'footerPostMenuLoaderPosTop': (
+        320: 0,
+        900: ef.size(-10),
+    ),
+    'footerPostMenuLoaderPosLeft': (
+        320: 0,
+        900: ef.size(-10),
+    ),
+    'footerPostMenuLoaderWidth': (
+        320: ef.size(10),
+    ),
+    'footerPostMenuLoaderHeight': (
+        320: ef.size(10),
+    ),
+), $customThemeDefault);

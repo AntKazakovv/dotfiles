@@ -4,4 +4,7 @@ $themeDefault: map-merge((
     'logoMaxWidth': 100%,
     // footer theme first
     'ffLogoWidth': 120px,
+    // footer theme Wolf
+    'logoWidthWolf': 170px,
+    'logoMarginWolf': 0 auto,
 ), $customThemeDefault);

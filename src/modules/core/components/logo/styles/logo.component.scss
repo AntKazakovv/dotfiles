@@ -7,6 +7,18 @@
     &.wlc-logo--theme-mod-footer-first {
         width: ef.get-value($themeDefault, 'ffLogoWidth');
     }
+
+    &.wlc-logo--theme-mod-footer-wolf {
+        width: ef.get-value($themeDefault, 'logoWidthWolf');
+
+        ::ng-deep {
+
+            img,
+            svg {
+                margin: ef.get-value($themeDefault, 'logoMarginWolf');
+            }
+        }
+    }
 }
 
 .wlc-logo__image::ng-deep {

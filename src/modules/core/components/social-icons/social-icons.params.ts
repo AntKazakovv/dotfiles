@@ -3,7 +3,7 @@ import {
     CustomType,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
 
-export type ComponentTheme = 'default';
+export type ComponentTheme = 'default' | 'wolf';
 export type ComponentType = 'default';
 export type ComponentThemeMod = 'default' | 'colored' | CustomType;
 

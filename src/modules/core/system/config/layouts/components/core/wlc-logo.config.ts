@@ -41,4 +41,10 @@ export namespace wlcLogo {
             after: 768,
         },
     };
+    export const footerWolf: ILayoutComponent = {
+        name: 'core.wlc-logo',
+        params: {
+            themeMod: 'footer-wolf',
+        },
+    };
 }

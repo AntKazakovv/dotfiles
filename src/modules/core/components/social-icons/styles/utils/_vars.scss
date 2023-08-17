@@ -81,3 +81,32 @@ $themeColored: map-merge((
 
     'iconsListLinkSvgColor': var(--mc-baseMain),
 ), $customThemeColored);
+
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'iconsListDisplay': (
+        375: flex,
+        900: grid,
+    ),
+    'iconsListTemplateColumns': (
+        900: repeat(4, 1fr)
+    ),
+    'iconsListGap': (
+        375: ef.size(8)
+    ),
+    'iconsListJustifyContent': (
+        375: center,
+        900: null,
+    ),
+
+    'iconsListLinkSize': ef.size(8),
+    'iconsListLinkBg': var(--mc-baseMain),
+    'iconsListPathFill': var(--mc-bg700),
+    'iconsListLinkBgHover': var(--mc-main),
+    'iconsListLinkBorderRadius': 100%,
+
+    'iconsListLinkSvgSize': ef.size(6),
+    'iconsListLinkSvgColor': var(--mc-bg),
+
+    'iconSize': ef.size(6),
+), $customThemeWolf);

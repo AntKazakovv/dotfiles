@@ -1,0 +1,165 @@
+.wlc-footer--theme-default:host {
+
+    .wlc-footer__base {
+        display: ef.get-value($themeDefault, 'baseDisplay');
+        flex-direction: ef.get-value($themeDefault, 'baseFlexDirection');
+        gap: ef.get-value($themeDefault, 'baseGap');
+    }
+
+    &::ng-deep {
+
+        .container {
+            @include bm.get-mq-map('padding', $themeDefault, 'basePaddingBottom');
+            background: ef.get-value($themeDefault, 'baseBackground');
+            border-radius: ef.get-value($themeDefault, 'baseBorderRadius');
+        }
+
+        .footer-menu {
+            @include bm.get-mq-map('flex-direction', $themeDefault, 'footerMenuFlexDirection');
+            @include bm.get-mq-map('justify-content', $themeDefault, 'footerMenuJustifyContent');
+            @include bm.get-mq-map('align-items', $themeDefault, 'footerMenuAlignItems');
+            @include bm.get-mq-map('padding', $themeDefault, 'footerMenuPadding');
+
+            display: flex;
+            width: 100%;
+            border-bottom: ef.get-value($themeDefault, 'footerBorderBottom');
+            background: ef.get-value($themeDefault, 'footerMenuBg');
+
+            .wlc-post-menu[wlc-post-menu] {
+                @include bm.get-mq-map('flex-direction', $themeDefault, 'footerPostMenuDirection');
+                @include bm.get-mq-map('justify-content', $themeDefault, 'footerPostMenuJustify');
+                @include bm.get-mq-map('align-items', $themeDefault, 'footerPostMenuAlignItems');
+                @include bm.get-mq-map('width', $themeDefault, 'footerPostMenuWidth');
+                @include bm.get-mq-map('margin', $themeDefault, 'footerPostMenuMargin');
+
+                position: relative;
+                display: flex;
+
+                .wlc-post-menu {
+
+                    &__items {
+                        @include bm.get-mq-map('grid-template-columns', $themeDefault, 'footerPostMenuGridColumns');
+                        @include bm.get-mq-map('grid-auto-flow', $themeDefault, 'footerPostMenuGridAutoFlow');
+                        @include bm.get-mq-map('gap', $themeDefault, 'footerPostMenuGridGap');
+                    }
+
+                    .wlc-menu {
+
+                        &__link {
+                            color: ef.get-value($themeDefault, 'footerPostMenuLinkColor');
+                        }
+                    }
+                }
+
+                &.wlc-post-menu--without-swiper {
+
+                    .wlc-menu {
+
+                        &__item {
+                            @include bm.get-mq-map('text-align', $themeDefault, 'footerPostMenuItemAlignment');
+                            @include bm.get-mq-map('white-space', $themeDefault, 'footerPostMenuItemWhiteSpace');
+                        }
+                    }
+                }
+            }
+
+            .wlc-loader[wlc-loader] {
+                @include bm.get-mq-map('position', $themeDefault, 'footerPostMenuLoaderPosition');
+                @include bm.get-mq-map('top', $themeDefault, 'footerPostMenuLoaderPosTop');
+                @include bm.get-mq-map('left', $themeDefault, 'footerPostMenuLoaderPosLeft');
+                @include bm.get-mq-map('width', $themeDefault, 'footerPostMenuLoaderWidth');
+                @include bm.get-mq-map('height', $themeDefault, 'footerPostMenuLoaderHeight');
+
+                .wlc-loader__element {
+                    @include bm.get-mq-map('width', $themeDefault, 'footerPostMenuLoaderWidth');
+                    @include bm.get-mq-map('height', $themeDefault, 'footerPostMenuLoaderHeight');
+                }
+            }
+        }
+
+        .footer-bottom {
+            @include bm.get-mq-map('display', $themeDefault, 'footerBottomDisplay');
+            @include bm.get-mq-map('flex-direction', $themeDefault, 'footerBottomFlexDirection');
+            @include bm.get-mq-map('align-items', $themeDefault, 'footerBottomAlignItems');
+            @include bm.get-mq-map('justify-content', $themeDefault, 'footerBottomJustifyContent');
+            @include bm.get-mq-map('margin', $themeDefault, 'footerBottomMargin');
+            @include bm.get-mq-map('max-width', $themeDefault, 'footerBottomMaxWidth');
+            @include bm.get-mq-map('gap', $themeDefault, 'footerBottomGap');
+            width: 100%;
+
+            &__left {
+                display: flex;
+                flex: ef.get-value($themeDefault, 'footerBottomLeftFlex');
+                justify-content: ef.get-value($themeDefault, 'footerBottomLeftJustify');
+            }
+
+            &__center {
+                display: flex;
+                flex-direction: ef.get-value($themeDefault, 'footerBottomCenterDirections');
+                align-items: ef.get-value($themeDefault, 'footerBottomCenterAlign');
+                min-width: ef.get-value($themeDefault, 'footerBottomCenterMinWidth');
+            }
+
+            &__right {
+                @include bm.get-mq-map('margin', $themeDefault, 'footerBottomRightMargin');
+                display: flex;
+                flex: ef.get-value($themeDefault, 'footerBottomRightFlex');
+                justify-content: ef.get-value($themeDefault, 'footerBottomRightJustify');
+            }
+        }
+
+        .footer-disclaimer {
+
+            .wlc-disclaimer--theme-default {
+
+                .wlc-disclaimer__text {
+                    text-align: ef.get-value($themeDefault, 'disclaimerTextAlign');
+                }
+            }
+        }
+
+        .footer-theme-toggler {
+            @include bm.get-mq-map('margin', $themeDefault, 'themeTogglerMargin');
+        }
+
+        .wlc-copyright[wlc-copyright] {
+            margin: ef.get-value($themeDefault, 'copyrightMargin');
+
+            > .wlc-copyright__text {
+                text-align: ef.get-value($themeDefault, 'copyrightTextAlign');
+            }
+        }
+
+        .wlc-social-icons[wlc-social-icons] {
+
+            .wlc-social-icons__list {
+                margin: 0;
+            }
+        }
+
+        .wlc-icon-merchants-list {
+            padding: ef.get-value($themeDefault, 'iconListMerchantsPadding');
+        }
+
+        .wlc-icon-payments-list {
+            padding: ef.get-value($themeDefault, 'iconPaymentsPadding');
+            background: ef.get-value($themeDefault, 'iconPaymentsBackground');
+            border-radius: ef.get-value($themeDefault, 'iconPaymentsRadius');
+        }
+
+        .wlc-icon-list {
+
+            &--theme-merchants {
+                @include bm.get-mq-map('margin', $themeDefault, 'iconListMerchantsMargin');
+            }
+
+            &--theme-payments {
+                @include bm.get-mq-map('margin', $themeDefault, 'iconListPaymentsMargin');
+            }
+
+            .wlc-icon-list__wrapper {
+                @include bm.get-mq-map('margin', $themeDefault, 'iconListWrapperMargin');
+            }
+        }
+    }
+}

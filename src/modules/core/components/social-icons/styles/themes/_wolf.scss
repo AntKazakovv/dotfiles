@@ -1,0 +1,42 @@
+$selector: '.wlc-social-icons';
+
+.wlc-social-icons--theme-wolf:host {
+
+    #{$selector}__list {
+        @include bm.get-mq-map('display', $themeWolf, 'iconsListDisplay');
+        @include bm.get-mq-map('grid-template-columns', $themeWolf, 'iconsListTemplateColumns');
+        @include bm.get-mq-map('gap', $themeWolf, 'iconsListGap');
+        @include bm.get-mq-map('justify-content', $themeWolf, 'iconsListJustifyContent');
+
+        flex-wrap: wrap;
+
+        &:empty {
+            margin: 0;
+        }
+    }
+
+    #{$selector}__link {
+        --wlc-icon-width: #{ef.get-value($themeWolf, 'iconSize')};
+        --wlc-icon-height: #{ef.get-value($themeWolf, 'iconSize')};
+
+        @include bm.transition();
+
+        width: ef.get-value($themeWolf, 'iconSize');
+        height: ef.get-value($themeWolf, 'iconSize');
+        color: ef.get-value($themeWolf, 'iconsListLinkBg');
+
+        ::ng-deep {
+
+            svg {
+
+                path {
+                    fill: ef.get-value($themeWolf, 'iconsListPathFill');
+                }
+            }
+        }
+
+        @include bm.hover {
+            color: ef.get-value($themeWolf, 'iconsListLinkBgHover');
+        }
+    }
+}

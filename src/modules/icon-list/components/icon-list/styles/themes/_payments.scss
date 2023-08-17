@@ -94,10 +94,27 @@
                 @include bm.get-mq-map('max-width', $themePayments, 'iconMaxWidth');
                 @include bm.get-mq-map('max-height', $themePayments, 'iconMaxHeight');
                 @include bm.get-mq-map('fill', $themePayments, 'iconFill');
+                overflow: hidden;
 
                 g {
                     clip-path: none;
                 }
+            }
+        }
+    }
+
+    &.wlc-icon-list--theme-mod-wolf {
+
+        .wlc-icon-list {
+
+            &__wrapper {
+                flex-wrap: ef.get-value($themePayments, 'wrapperFlexWrapWolf');
+                justify-content: ef.get-value($themePayments, 'wrapperFlexJustifyWolf');
+            }
+
+            &__item,
+            &-item {
+                @include bm.get-mq-map('padding', $themePayments, 'iconPaddingWolf');
             }
         }
     }

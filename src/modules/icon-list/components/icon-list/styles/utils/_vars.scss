@@ -115,6 +115,14 @@ $themePayments: map-merge((
     'scrollableShadowBgRight': linear-gradient(90deg, var(--mc-bg-o0) 0, var(--mc-bg) 35%),
     'scrollbarTrackBg': var(--mc-bg700),
     'scrollbarThumbBg': var(--mc-bg100),
+
+    'wrapperFlexWrapWolf': wrap,
+    'iconPaddingWolf': (
+        375: ef.size(2) ef.size(3),
+        900: ef.size(2) ef.size(4),
+        1630: ef.size(4),
+    ),
+    'wrapperFlexJustifyWolf': center,
 ), $customThemePayments);
 
 // ~~ theme SAFETY

@@ -117,6 +117,7 @@ import {WrapperComponent} from 'wlc-engine/modules/core/components';
 import {ThemeTogglerComponent} from './components/theme-toggler/theme-toggler.component';
 import {AlertComponent} from './components/alert/alert.component';
 import {LottieAnimationComponent} from './components/lottie-animation/lottie-animation.component';
+import {FooterComponent} from './components/footer/footer.components';
 import {
     SomethingWrongPageComponent,
 } from 'wlc-engine/modules/core/components/something-wrong-page/something-wrong-page.component';
@@ -227,6 +228,7 @@ export const components = {
     'wlc-tooltip': TooltipComponent,
     'wlc-wrapper': WrapperComponent,
     'wlc-tabs': TabsComponent,
+    'wlc-footer': FooterComponent,
 };
 
 export const services = {
@@ -322,6 +324,7 @@ export const services = {
         ForbiddenCountryComponent,
         FormControlComponent,
         FormWrapperComponent,
+        FooterComponent,
         HistoryNameComponent,
         HistoryFilterComponent,
         HistoryFilterFormComponent,
@@ -404,6 +407,7 @@ export const services = {
         ForbiddenCountryComponent,
         FormControlComponent,
         FormWrapperComponent,
+        FooterComponent,
         HistoryNameComponent,
         HeaderComponent,
         IconComponent,

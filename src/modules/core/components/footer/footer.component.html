@@ -1,0 +1,11 @@
+<ng-container *ngIf="$params.container;else content">
+    <div class="container">
+        <ng-container *ngTemplateOutlet="content"></ng-container>
+    </div>
+</ng-container>
+
+<ng-template #content>
+    <div class="{{$class}}__base" wlc-wrapper
+         [inlineParams]="$params.config"
+    ></div>
+</ng-template>
