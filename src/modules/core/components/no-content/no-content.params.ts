@@ -4,7 +4,7 @@ import {
     IComponentParams,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
 
-export type TComponentTheme = 'default' | CustomType;
+export type TComponentTheme = 'default' | 'promotions' | CustomType;
 export type TComponentType = 'default' | CustomType;
 export type TComponentThemeMod = 'default' | CustomType;
 
@@ -20,6 +20,7 @@ export interface INoContentCParams extends IComponentParams<TComponentTheme, TCo
         useBtn?: boolean,
         sref?: string,
         srefParams?: RawParams,
+        text?: string,
     },
     /*set link config, and where it should redirect*/
     link?: {
@@ -31,6 +32,12 @@ export interface INoContentCParams extends IComponentParams<TComponentTheme, TCo
     bgImage?: string,
     /*set decor image of empty content*/
     decorImage?: string,
+    decorParams?: {
+        /** Params for using decor inside content block */
+        useDecorInside?: boolean;
+        /** use decor picture inline (for svg pictures only) */
+        useInline?: boolean;
+    },
 }
 
 export const defaultParams: INoContentCParams = {
@@ -41,6 +48,7 @@ export const defaultParams: INoContentCParams = {
         useBtn: true,
         sref: 'app.catalog',
         srefParams: {category: 'casino'},
+        text: gettext('Play'),
     },
     link: {
         useLink: false,

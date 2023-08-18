@@ -15,6 +15,21 @@ export const bonusesConfig: IBonusesModule = {
                     title: gettext('New bonuses will appear very soon.'),
                     text: gettext('Cheer yourself up with our new and popular games.'),
                 },
+                'promo': {
+                    theme: 'promotions',
+                    title: gettext('New bonuses will appear very soon.'),
+                    text: gettext('Cheer yourself up with our new and popular games.'),
+                    decorImage: '/wlc/icons/no-data/nodata_bonuses.svg',
+                    decorParams: {
+                        useDecorInside: true,
+                        useInline: true,
+                    },
+                    redirectBtn: {
+                        useBtn: true,
+                        sref: 'app.catalog',
+                        text: gettext('Play'),
+                    },
+                },
             },
         },
     },

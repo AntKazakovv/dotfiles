@@ -12,7 +12,7 @@
         }
 
         .wlc-bonuses-list__nocontent {
-            text-align: ef.get-value($themePromo, 'noContentTextAlign');
+            margin: ef.get-value($themePromo, 'noContentMargin');
         }
 
         .wlc-bonuses-list__to-profile {

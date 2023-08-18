@@ -143,3 +143,62 @@ $tournamentList: map-merge((
         1024: 385px,
     )
 ), $customTournamentList);
+
+
+$customThemePromotions: () !default;
+$themePromotions: map-merge((
+    'maxWidth': 900px,
+    'margin': 0 auto,
+
+    'wrapperPadding': 0,
+    'wrapperBg': none,
+
+    'contentFlexDir': (
+        375: column-reverse,
+        640: row,
+    ),
+    'contentAlign': (
+        375: center,
+    ),
+    'contentJustify': (
+        375: space-between,
+    ),
+    'contentPadding': (
+        375: ef.size(5) ef.size(4),
+        640: ef.size(5),
+        1630: ef.size(6),
+    ),
+    'contentGap': (
+        375: ef.size(4),
+        640: ef.size(8),
+    ),
+    'contentRadius': ef.get('radius', 'biger'),
+    'contentBg': var(--mc-bg700),
+
+    'decorFlex': (
+        375: 0 1 100%,
+    ),
+    'decorJustify': (
+        375: center,
+    ),
+    'decorMaxWidth': (
+        375: 100%,
+    ),
+
+    'textBlockFlex': (
+        375: 1 0 60%,
+    ),
+    'textBlockTextAlign': (
+        375: center,
+    ),
+
+    'descrTextStyle': 'ThirdTitle',
+    'descrColor': inherit,
+
+    'buttonWrapMargin': (
+        375: ef.size(8) 0 0,
+        640: ef.size(4) 0 0,
+        1630: ef.size(8) 0 0,
+    ),
+    'buttonWrapJustify': center,
+), $customThemePromotions);

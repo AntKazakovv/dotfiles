@@ -46,12 +46,4 @@ export const defaultParams: ITournamentListCParams = {
         },
     },
     isAlternative: false,
-    noContent: {
-        active: {
-            text: gettext('No active tournaments'),
-        },
-        default: {
-            text: gettext('No tournaments available'),
-        },
-    },
 };

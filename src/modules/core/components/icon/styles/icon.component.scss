@@ -1,3 +1,7 @@
+@use 'engine-scss/engine.variables' as ev;
+
+@import './utils/mixins';
+
 .wlc-icon {
 
     svg {
@@ -9,6 +13,8 @@
 .wlc-icon-spin {
     animation: loadingCircle 1s linear infinite;
 }
+
+@include makeFillHelpers($colors: ev.$mainColors, $colorPrefix: 'mc');
 
 @keyframes loadingCircle {
 

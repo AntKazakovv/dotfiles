@@ -16,6 +16,7 @@ import _merge from 'lodash-es/merge';
 import _each from 'lodash-es/each';
 import _filter from 'lodash-es/filter';
 import _random from 'lodash-es/random';
+import _get from 'lodash-es/get';
 
 import {
     AbstractComponent,
@@ -107,7 +108,9 @@ export class TournamentListComponent
 
         this.subscribeOnTournamentLeave();
         this.subscribeOnErrorGettingTournaments();
-        this.noContentParams = GlobalHelper.getNoContentParams(this.$params, this.$class, this.configService);
+        this.noContentParams =
+            GlobalHelper.getNoContentParams(this.$params, this.$class, this.configService, false, true);
+
         this.emptyInProfileConfig = {
             components: [
                 {
@@ -130,9 +133,8 @@ export class TournamentListComponent
     }
 
     public get noContentText(): string {
-        return this.$params.theme === 'active'
-            ? this.$params.noContent.active.text
-            : this.$params.noContent.default.text;
+        const noContentParams: INoContentCParams = _get(this.$params.noContent, this.$params.theme);
+        return noContentParams ? noContentParams.text : this.noContentParams.text;
     }
 
     /**

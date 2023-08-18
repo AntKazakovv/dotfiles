@@ -8,6 +8,30 @@ export const tournamentsConfig: ITournamentsModule = {
                     title: gettext('Tournaments are coming soon.'),
                     text: gettext('In the meantime, show off your real skills in our casino!'),
                 },
+                'default': {
+                    theme: 'promotions',
+                    title: gettext('Tournaments are coming soon.'),
+                    text: gettext('In the meantime, show off your real skills in our casino!'),
+                    decorImage: '/wlc/icons/no-data/nodata_tournaments.svg',
+                    decorParams: {
+                        useDecorInside: true,
+                        useInline: true,
+                    },
+                    redirectBtn: {
+                        useBtn: true,
+                        sref: 'app.catalog',
+                        text: gettext('Play'),
+                    },
+                },
+                'active': {
+                    text: gettext('No active tournaments'),
+                },
+                'available': {
+                    text: gettext('No tournaments available'),
+                },
+                'dashboard': {
+                    text: gettext('No tournaments available'),
+                },
             },
         },
     },

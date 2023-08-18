@@ -1,0 +1,16 @@
+/// Make helper classes for wlc-icon component. This classes can be used inside svg-icons for dynamic set fill color
+///
+/// @param {map} $colors - map with colors (ev.mainColors)
+/// @param {string} $colorPrefix - prefix for css-color-var (mc)
+///
+/// @example .wlc-icon-fill-mc-main { fill: var(--mc-main); }
+
+@mixin makeFillHelpers($colors, $colorPrefix) {
+
+    @each $name, $color in $colors {
+
+        .wlc-icon-fill-#{$colorPrefix}-#{$name} {
+            fill: var(--#{$colorPrefix}-#{$name}, #{$color});
+        }
+    }
+}

@@ -4,36 +4,56 @@
 <ng-container *ngIf="!loading; else preloader">
     <div class="{{$class}}__body">
         <div class="{{$class}}__content">
-            <h5 *ngIf="$params.title"
-                class="{{$class}}__title">
-                {{$params.title | translate}}
-            </h5>
-            <p *ngIf="$params.text"
-                class="{{$class}}__text">
-                {{$params.text | translate}}
-                <a *ngIf="$params.link.useLink"
-                    class="{{$class}}__text-link"
-                    [uiSref]="$params.link.uiSref"
-                    [uiParams]="$params.link.uiParams"
-                    >{{'Play' | translate}}!
-                </a>
-            </p>
+            <div class="{{$class}}__text-block">
+                <h5 *ngIf="$params.title"
+                    class="{{$class}}__title">
+                    {{$params.title | translate}}
+                </h5>
+                <p *ngIf="$params.text"
+                    class="{{$class}}__text">
+                    {{$params.text | translate}}
+                    <a *ngIf="$params.link.useLink"
+                        class="{{$class}}__text-link"
+                        [uiSref]="$params.link.uiSref"
+                        [uiParams]="$params.link.uiParams">
+                        {{'Play' | translate}}!
+                    </a>
+                </p>
+            </div>
+            <div *ngIf="$params.decorParams?.useDecorInside"
+                class="{{$class}}__decor">
+                <ng-container [ngTemplateOutlet]="decor"></ng-container>
+            </div>
+
         </div>
 
         <div *ngIf="$params.redirectBtn.useBtn"
             class="{{$class}}__button-wrap">
             <button
                 wlc-button
-                text="Play"
+                [text]="$params.redirectBtn.text"
                 [sref]="$params.redirectBtn.sref"
                 [srefParams]="$params.redirectBtn.srefParams"
             ></button>
         </div>
     </div>
-    <img *ngIf="$params.decorImage" class="{{$class}}-decor" src="{{$params.decorImage}}"/>
+    <ng-container *ngIf="!$params.decorParams?.useDecorInside" [ngTemplateOutlet]="decor"></ng-container>
     </ng-container>
 </div>
 
 <ng-template #preloader>
     <div wlc-loader></div>
+</ng-template>
+
+<ng-template #decor>
+    <ng-container *ngIf="$params.decorImage">
+        <div *ngIf="$params.decorParams?.useInline; else decorImg"
+            wlc-icon
+            [iconPath]="$params.decorImage">
+        </div>
+    </ng-container>
+</ng-template>
+
+<ng-template #decorImg>
+    <img class="{{$class}}-decor" src="{{$params.decorImage}}" alt=""/>
 </ng-template>

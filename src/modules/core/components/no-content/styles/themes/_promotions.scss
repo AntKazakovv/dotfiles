@@ -1,0 +1,65 @@
+.wlc-no-content--theme-promotions:host {
+    width: 100%;
+    max-width: ef.get-value($themePromotions, 'maxWidth');
+    margin: ef.get-value($themePromotions, 'margin');
+
+    .wlc-no-content {
+
+        &__wrapper {
+            padding: ef.get-value($themePromotions, 'wrapperPadding');
+            background: ef.get-value($themePromotions, 'wrapperBg');
+        }
+
+        &__body {
+            display: block;
+            max-width: 100%;
+        }
+
+        &__content {
+            @include bm.get-mq-map('flex-direction', $themePromotions, 'contentFlexDir');
+            @include bm.get-mq-map('align-items', $themePromotions, 'contentAlign');
+            @include bm.get-mq-map('justify-content', $themePromotions, 'contentJustify');
+            @include bm.get-mq-map('padding', $themePromotions, 'contentPadding');
+            @include bm.get-mq-map('gap', $themePromotions, 'contentGap');
+
+            display: flex;
+            border-radius: ef.get-value($themePromotions, 'contentRadius');
+            background: var(--wlc-promo-nocontent-bg, #{ef.get-value($themePromotions, 'contentBg')});
+        }
+
+        &__text-block {
+            @include bm.get-mq-map('flex', $themePromotions, 'textBlockFlex');
+            @include bm.get-mq-map('text-align', $themePromotions, 'textBlockTextAlign');
+        }
+
+        &__text {
+            @include text.get-text-style(
+                ef.get-value($themePromotions, 'descrTextStyle'),
+                ef.get-value($themePromotions, 'descrColor')
+            );
+        }
+
+        &__decor {
+            @include bm.get-mq-map('justify-content', $themePromotions, 'decorJustify');
+            @include bm.get-mq-map('flex', $themePromotions, 'decorFlex');
+            @include bm.get-mq-map('max-width', $themePromotions, 'decorMaxWidth');
+
+            display: flex;
+        }
+
+        &__button-wrap {
+            @include bm.get-mq-map('margin', $themePromotions, 'buttonWrapMargin');
+
+            display: flex;
+            justify-content: ef.get-value($themePromotions, 'buttonWrapJustify');
+        }
+
+        &-decor,
+        .wlc-icon {
+            position: static;
+            display: block;
+            width: initial;
+            max-width: 100%;
+        }
+    }
+}
