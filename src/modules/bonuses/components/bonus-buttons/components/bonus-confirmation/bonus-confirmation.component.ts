@@ -9,6 +9,7 @@ import {
 
 import {
     AbstractComponent,
+    ConfigService,
     IMixedParams,
 } from 'wlc-engine/modules/core';
 import {BonusCancellationInfo} from 'wlc-engine/modules/bonuses/system/models';
@@ -41,13 +42,14 @@ export class BonusConfirmationComponent extends AbstractComponent implements OnI
     constructor(
         @Inject('injectParams') protected injectParams: Params.IBonusConfirmationParams,
         protected bonusesService: BonusesService,
+        configService: ConfigService,
         cdr: ChangeDetectorRef,
     ) {
         super(
             <IMixedParams<Params.IBonusConfirmationParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
-            }, null, cdr);
+            }, configService, cdr);
     }
 
     public override async ngOnInit(): Promise<void> {

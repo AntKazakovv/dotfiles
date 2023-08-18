@@ -20,7 +20,7 @@ export interface WalletsParams extends IComponentParams<Theme, ComponentType, st
 
 export const defaultParams: WalletsParams = {
     class: 'wlc-wallets',
-    moduleName: 'user',
+    moduleName: 'multi-wallet',
     componentName: 'wlc-wallets',
     hideWalletText: gettext('Hide zero balances'),
     notFoundText: gettext('Sorry, but nothing was found. Check the spelling or try a different name.'),

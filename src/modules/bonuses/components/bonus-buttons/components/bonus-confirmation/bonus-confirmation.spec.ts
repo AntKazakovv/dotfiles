@@ -10,6 +10,7 @@ import {
 } from 'ng-mocks';
 
 import {
+    ConfigService,
     CurrencyComponent,
     IconComponent,
 } from 'wlc-engine/modules/core';
@@ -30,7 +31,7 @@ describe('BonusConfirmationComponent', () => {
     let injectParams: Params.IBonusConfirmationParams;
     let bonusesServiceSpy: jasmine.SpyObj<BonusesService>;
     let bonusInfoSpy: jasmine.SpyObj<BonusCancellationInfo>;
-
+    let configServiceSpy: jasmine.SpyObj<ConfigService>;
     beforeEach(() => {
         bonusesServiceSpy = jasmine.createSpyObj(
             'BonusesService',
@@ -67,6 +68,10 @@ describe('BonusConfirmationComponent', () => {
                 {
                     provide: BonusesService,
                     useValue: bonusesServiceSpy,
+                },
+                {
+                    provide: ConfigService,
+                    useValue: configServiceSpy,
                 },
             ],
         }).compileComponents();
