@@ -25,8 +25,8 @@
         *ngIf="$params.showDepositBtn"
         wlc-button
         class="{{$class}}__btn-deposit"
-        [inlineParams]="$params.depositBtnParams"
-        (click)="toDeposit()"></button>
+        [wlcElement]="'button_deposit'"
+        [inlineParams]="$params.depositBtnParams"></button>
 </div>
 <ng-template #base>
     <span>

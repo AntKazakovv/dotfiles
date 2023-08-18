@@ -476,7 +476,7 @@ class StartGameHandler {
         const isMultiWallet: boolean = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
 
         const walletBalance = isMultiWallet
-            && !!userInfo?.getWalletBalance(userService?.userProfile.extProfile.currentWallet.walletCurrency);
+            && !!userInfo?.getWalletBalance(userService?.userProfile.extProfile.currentWallet?.walletCurrency);
 
         if (!!userInfo.balance || walletBalance) {
             deferred.resolve();

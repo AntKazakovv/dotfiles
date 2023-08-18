@@ -10,7 +10,6 @@ import {
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
 
-import {StateService} from '@uirouter/core';
 import _orderBy from 'lodash-es/orderBy';
 import _filter from 'lodash-es/filter';
 import _assign from 'lodash-es/assign';
@@ -81,7 +80,6 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
         protected override cdr: ChangeDetectorRef,
         protected userService: UserService,
         protected override configService: ConfigService,
-        protected stateService: StateService,
         protected eventService: EventService,
     ) {
         super(
@@ -150,10 +148,6 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
 
     public clickOutside(): void {
         this.isOpened = false;
-    }
-
-    public toDeposit(): void {
-        this.stateService.go(this.$params.depositBtnParams.common.sref);
     }
 
     private initWalletSelector(): void {
