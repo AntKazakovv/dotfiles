@@ -135,6 +135,7 @@ import {ParallaxMovementDirective} from './directives/parallax-movement.directiv
 import {AuthDirective} from './directives/auth.directive';
 import {WlcLetDirective} from './directives/wlcLet.directive';
 import {ResizedDirective} from 'wlc-engine/modules/core/directives/resized.directive';
+import {LinkDirective} from './directives/link.directive';
 //  -- DIRECTIVES IMPORTS END  --;
 
 // -- INTERCEPTOR IMPORTS STARTS --;
@@ -324,6 +325,7 @@ export const services = {
         LayoutComponent,
         LicenseComponent,
         LinkBlockComponent,
+        LinkDirective,
         LoaderComponent,
         LoginSignupComponent,
         LogoComponent,
@@ -399,6 +401,7 @@ export const services = {
         LayoutComponent,
         LicenseComponent,
         LinkBlockComponent,
+        LinkDirective,
         LoaderComponent,
         LoginSignupComponent,
         LogoComponent,
