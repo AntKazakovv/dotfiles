@@ -82,7 +82,7 @@ $themeDefault: map-merge((
         480: 288px,
     ),
 
-    'formAdditionalGridTemplateColumns': (
+    'formTemplateColumns': (
         375: 1fr,
     ),
     'formGap': ef.size(2),
@@ -109,7 +109,13 @@ $themeDefault: map-merge((
 
     // Form with preselected amounts
     'additionalFieldsTemplateColumns': (
-        375: repeat(1, minmax(288px, 1fr)),
+        375: 1fr,
+        900: repeat(2, 288px),
+    ),
+    'additionalFieldsMaxWidth': (
+        375: 100%,
+        480: 288px,
+        900: 100%,
     ),
     'additionalFieldsGap': ef.size(2),
 

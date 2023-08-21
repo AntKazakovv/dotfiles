@@ -173,7 +173,7 @@
             ::ng-deep {
 
                 .wlc-form {
-                    @include bm.get-mq-map('grid-template-columns', $themeDefault, 'formAdditionalGridTemplateColumns');
+                    @include bm.get-mq-map('grid-template-columns', $themeDefault, 'formTemplateColumns');
                     @include bm.get-mq-map('justify-items', $themeDefault, 'formJustifyItems');
 
                     display: grid;
@@ -216,8 +216,10 @@
 
                 .wlc-additional-fields {
                     @include bm.get-mq-map('grid-template-columns', $themeDefault, 'additionalFieldsTemplateColumns');
+                    @include bm.get-mq-map('max-width', $themeDefault, 'additionalFieldsMaxWidth');
                     display: grid;
                     gap: ef.get-value($themeDefault, 'additionalFieldsGap');
+                    width: 100%;
                 }
             }
         }
