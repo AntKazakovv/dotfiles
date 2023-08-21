@@ -60,7 +60,7 @@ export const defaultParams: ITournamentDetailCParams = {
         gamesSectionTitle: gettext('Games'),
         prizepoolSectionTitle: gettext('Prize pool'),
         leaderboardSectionTitle: gettext('Leaderboard'),
-        btnSubscribeText: gettext('Join now'),
+        btnSubscribeText: gettext('Join'),
         btnUnsubscribeText: gettext('Leave'),
         backLinkText: gettext('Back'),
         timerTextAfterStart: gettext('Time remaining'),
