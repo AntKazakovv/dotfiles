@@ -314,7 +314,7 @@ export const defaultParams: IGamesGridCParams = {
     btnLoadMore: {
         common: {
             wlcElement: 'button_load-more-games',
-            text: gettext('Load more games'),
+            text: gettext('Show more'),
         },
     },
     searchFilterName: 'page',

@@ -154,7 +154,7 @@ export class GamesCatalogComponent extends AbstractComponent implements OnInit {
                         },
                         btnLoadMore: {
                             common: {
-                                text: gettext('Load more'),
+                                text: gettext('Show more'),
                             },
                         },
                     };
