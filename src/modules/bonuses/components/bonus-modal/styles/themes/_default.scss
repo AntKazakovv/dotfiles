@@ -48,21 +48,12 @@
 
         &__btns {
             @include bm.get-mq-map('flex-direction', $themeDefault, 'btnWrapFlexDirection');
+            @include bm.get-mq-map('gap', $themeDefault, 'btnGap');
             @include bm.get-mq-map('width', $themeDefault, 'btnWrapWidth');
             @include bm.get-mq-map('margin', $themeDefault, 'btnWrapMargin');
 
             display: ef.get-value($themeDefault, 'btnWrapDisplay');
             justify-content: ef.get-value($themeDefault, 'btnWrapJustifyContent');
-
-            ::ng-deep {
-
-                button {
-
-                    &:first-child {
-                        @include bm.get-mq-map('margin', $themeDefault, 'btnMargin');
-                    }
-                }
-            }
         }
 
         &__icon {
