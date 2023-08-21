@@ -33,13 +33,13 @@ export class RatesCurrencyComponent extends AbstractComponent implements OnInit 
     public ratesList: RateCurrencyModel[];
     private hour: number = 1000 * 60 * 60;
     private rates: ICoupleCurrency[];
-    private ngZone: NgZone;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IRatesCurrencyParams,
         configService: ConfigService,
         cdr: ChangeDetectorRef,
         protected ratesService: RatesCurrencyService,
+        private ngZone: NgZone,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
