@@ -53,7 +53,6 @@ import {ColorThemeService} from 'wlc-engine/modules/core/system/services/color-t
 import {
     FinancesService,
     IPaymentPostMessage,
-    TPaymentStatusAll,
 } from 'wlc-engine/modules/finances';
 import {
     UserService,
@@ -235,15 +234,20 @@ export class ActionService {
                     a.click();
                 }
                 break;
-            case 'PAYMENT_SUCCESS': {
-                this.checkDeposit('PAYMENT_SUCCESS', initialPath);
-                break;
-            }
+            case 'PAYMENT_SUCCESS':
             case 'PAYMENT_PENDING':
-                this.checkDeposit('PAYMENT_PENDING');
-                break;
             case 'PAYMENT_FAIL':
-                this.checkDeposit('PAYMENT_FAIL');
+                const paymentMessage: IPaymentPostMessage = {message: initialPath.message};
+
+                if (initialPath.amount) {
+                    paymentMessage.amount = initialPath.amount;
+                }
+
+                if (initialPath.tid) {
+                    paymentMessage.tid = initialPath.tid;
+                }
+
+                this.checkPaymentMessage(paymentMessage);
                 break;
             case 'SET_NEW_PASSWORD':
                 this.setNewPassword(initialPath);
@@ -525,34 +529,29 @@ export class ActionService {
         }
     }
 
-    private async checkDeposit(type: TPaymentStatusAll, initialPath?: IIndexing<string>): Promise<void> {
+    private async checkPaymentMessage(initialPath: IPaymentPostMessage): Promise<void> {
         await this.configService.ready;
         await this.injectFinancesService();
 
-        if (type === 'PAYMENT_FAIL') this.financesService.onPaymentFail();
-
         if (this.depositInIframe && GlobalHelper.isIframe(this.window)) {
-            const postMessage: Partial<IPaymentPostMessage> = {
-                eventType: type,
-            };
-
-            if (type === 'PAYMENT_SUCCESS') {
-                postMessage.eventData = {
-                    amount: initialPath.amount,
-                    transactionId: initialPath.tid,
-                };
-            }
 
             try {
-                this.window.parent?.postMessage(postMessage, '*');
+                this.window.parent?.postMessage(initialPath, '*');
             } catch (error) {
                 this.logService.sendLog({code: '17.0.0', data: error});
             }
         } else {
-            if (type === 'PAYMENT_SUCCESS') {
-                this.financesService.onPaymentSuccess(initialPath);
-            } else {
-                this.financesService.onPaymentPending();
+            switch(initialPath.message) {
+                case 'PAYMENT_SUCCESS': {
+                    this.financesService.onPaymentSuccess(initialPath);
+                    break;
+                }
+                case 'PAYMENT_PENDING':
+                    this.financesService.onPaymentPending();
+                    break;
+                case 'PAYMENT_FAIL':
+                    this.financesService.onPaymentFail();
+                    break;
             }
         }
     }
@@ -637,16 +636,11 @@ export class ActionService {
         if (this.depositInIframe) {
             fromEvent(this.window, 'message').subscribe((event: MessageEvent<IPaymentPostMessage>) => {
                 if (event.data) {
-                    const message: IPaymentPostMessage = event.data;
+                    const eventData: IPaymentPostMessage = event.data;
 
-                    if (['PAYMENT_SUCCESS', 'PAYMENT_PENDING', 'PAYMENT_FAIL'].includes(message.eventType)) {
+                    if (['PAYMENT_SUCCESS', 'PAYMENT_PENDING', 'PAYMENT_FAIL'].includes(eventData.message)) {
                         this.modalService.closeAllModals();
-
-                        if (message.eventType === 'PAYMENT_SUCCESS') {
-                            this.checkDeposit(message.eventType, message.eventData);
-                        } else if (message.eventType === 'PAYMENT_FAIL') {
-                            this.checkDeposit(message.eventType);
-                        }
+                        this.checkPaymentMessage(eventData);
                     }
                 }
             });

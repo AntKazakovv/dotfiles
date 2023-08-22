@@ -68,12 +68,9 @@ type TPaymentStatus = 'PAYMENT_SUCCESS' | 'PAYMENT_PENDING';
 export type TPaymentStatusAll = TPaymentStatus | 'PAYMENT_FAIL';
 
 export interface IPaymentPostMessage {
-    eventType: TPaymentStatusAll;
-    eventData: {
-        amount: string;
-        transactionId: string;
-        type?: string;
-    }
+    message: TPaymentStatusAll;
+    amount?: string;
+    tid?: string;
 }
 
 interface IQueries {
@@ -389,7 +386,7 @@ export class FinancesService {
     }
 
     //@CustomHook('finances', 'financesServiceOnPaymentSuccess')
-    public onPaymentSuccess(initialPath: IIndexing<string>): void {
+    public onPaymentSuccess(initialPath: IPaymentPostMessage): void {
         const userProfile$ = this.configService.get<BehaviorSubject<UserProfile>>(
             {name: '$user.userProfile$'},
         );
@@ -399,7 +396,7 @@ export class FinancesService {
             this.configService.get<Deferred<null>>({name: 'firstLanguageReady'})
                 .promise
                 .then(() => {
-                    const type = initialPath.type?.toLowerCase();
+                    const type = initialPath.message?.toLowerCase();
                     const message: string[] = [
                         (type === 'withdraw')
                             ? this.translateService.instant(gettext('Withdraw request has been successfully sent!'))
