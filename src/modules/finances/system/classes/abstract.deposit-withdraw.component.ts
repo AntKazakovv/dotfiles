@@ -95,6 +95,11 @@ export abstract class AbstractDepositWithdrawComponent<T extends {mode: TPayment
             delete this.requiredFields['stateCode'];
         }
 
+        if (this.requiredFieldsKeys.includes('cpf') && this.requiredFieldsKeys.includes('countryCode')) {
+            this.requiredFieldsKeys = this.requiredFieldsKeys.filter((field) => field !== 'cpf');
+            delete this.requiredFields['cpf'];
+        }
+
         if (this.requiredFieldsKeys?.length) {
             const fields: IFormComponent[] = _transform(
                 this.requiredFields,

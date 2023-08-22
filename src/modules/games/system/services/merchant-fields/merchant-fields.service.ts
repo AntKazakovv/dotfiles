@@ -112,6 +112,10 @@ export class MerchantFieldsService {
             emptyFields = emptyFields.filter((field) => field !== 'stateCode');
         }
 
+        if (emptyFields.includes('cpf') && emptyFields.includes('countryCode')) {
+            emptyFields = emptyFields.filter((field) => field !== 'cpf');
+        }
+
         return emptyFields;
     }
 }
