@@ -12,7 +12,6 @@ import {
     firstValueFrom,
 } from 'rxjs';
 import {
-    filter,
     first,
     map,
 } from 'rxjs/operators';
@@ -41,6 +40,7 @@ import {
     InjectionService,
     IMGAConfig,
     IValidateData,
+    WebsocketService,
 } from 'wlc-engine/modules/core';
 import {
     IProcessEventData,
@@ -61,13 +61,15 @@ import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 import {LimitationService} from 'wlc-engine/modules/user/submodules/limitations';
 import {IdleService} from 'wlc-engine/modules/user/system/services/idle/idle.service';
-import {TermsAcceptService} from 'wlc-engine/modules/user/system/services/terms/terms-accept.service';
 import {
     ILoginWithPhoneData,
     ILogoutConfirm,
     IUserPasswordPost,
     IEmailVerifyData,
 } from 'wlc-engine/modules/user/system/interfaces/user.interface';
+import {IWSLoyalty} from 'wlc-engine/modules/loyalty/system/interfaces/interfaces';
+import {WebSocketEvents} from 'wlc-engine/modules/core/system/services/websocket/websocket.service';
+import {AchievementsService} from 'wlc-engine/modules/loyalty/submodules/achievements';
 
 export enum LanguageChangeEvents {
     ChangeLanguage = 'CHANGE_LANGUAGE'
@@ -159,6 +161,7 @@ export class UserService {
     public userInfo$: BehaviorSubject<UserInfo> = new BehaviorSubject(null);
     private configUserProfile$: BehaviorSubject<UserProfile> = this.configService.get({name: '$user.userProfile$'});
     private configUserInfo$: BehaviorSubject<UserInfo> = this.configService.get({name: '$user.userInfo$'});
+    private useAchievements: boolean;
 
     private limitationService: LimitationService;
     private idleService: IdleService;
@@ -166,6 +169,8 @@ export class UserService {
     private metamaskService: MetamaskService;
     private isMetaMaskPending: boolean = false;
     private _isMetamaskUser: boolean = false;
+    private achievementsService: AchievementsService;
+    private dataLoyaltyUserSub: Subscription;
 
     constructor(
         public translateService: TranslateService,
@@ -176,7 +181,7 @@ export class UserService {
         private modalService: ModalService,
         private injectionService: InjectionService,
         private stateService: StateService,
-        private termsAccept: TermsAcceptService,
+        private webSocketService: WebsocketService,
         @Inject(WINDOW) private window: Window,
     ) {
         this.init();
@@ -184,7 +189,10 @@ export class UserService {
 
     public async init(): Promise<void> {
         await this.configService.ready;
+        this.isAuth$ ??= this.configService.get('$user.isAuth$');
         this.isAuthenticated = this.configService.get('$user.isAuthenticated');
+        this.useAchievements = this.configService.get<boolean>('$base.profile.achievements.use');
+
         this.userProfile$.subscribe((profile) => {
             this.configUserProfile$.next(profile);
         });
@@ -210,6 +218,12 @@ export class UserService {
         this.profile = new UserProfile({service: 'UserService', method: 'constructor'});
 
         this.showTwoFactorAuthModal();
+
+        if (this.useAchievements) {
+            this.achievementsService ??= await this.injectionService
+                .getService<AchievementsService>('achievements.achievement-service');
+        }
+
         this.eventService.subscribe({
             name: 'USER_INFO',
         }, (info: IData<IUserInfo>) => {
@@ -223,7 +237,7 @@ export class UserService {
 
             if (this.info.socketsData) {
                 this.info.separateLoyalty = true;
-                this.dataService.setSocketUrl(this.info.socketsData);
+                this.webSocketService.addWsEndPointConfig('wsc2',this.info.socketsData);
             }
         });
 
@@ -241,20 +255,15 @@ export class UserService {
             this.userProfile$.next(this.profile);
         });
 
-        this.eventService.subscribe({name: 'SOCKET_CONNECT', status: 'success'}, () => {
-            this.dataService.socketRequest('loyalty.get');
+        this.eventService.subscribe({name: 'SOCKET_CONNECT', status: 'success'}, (data) => {
+            if (this.isAuth$.getValue() && data === 'wsc2') {
+                this.webSocketService.sendToWebsocket('wsc2', WebSocketEvents.SEND.LOYALTY);
+            }
         });
 
-        this.dataService.flow
-            .pipe(filter(
-                (data) => {
-                    return data.system === 'socket'
-                        && (
-                            data.name === 'loyalty-get'
-                            || data.name === 'loyalty-UserInfo'
-                        );
-                }))
-            .subscribe((data) => {
+        this.dataLoyaltyUserSub = this.webSocketService.getMessages(
+            {endPoint: 'wsc2', event: WebSocketEvents.RECEIVE.LOYALTY_GET})
+            .subscribe((data: IWSLoyalty) => {
                 this.info.loyalty = data.data;
                 this.userInfo$.next(this.info);
                 this.eventService.emit({
@@ -303,6 +312,9 @@ export class UserService {
                     });
                 }
             });
+            if (this.useAchievements) {
+                this.achievementsService.setAchievementsSubscription();
+            }
         });
 
         this.eventService.subscribe({
@@ -362,6 +374,10 @@ export class UserService {
                 this.bonusService = await this.injectionService.getService<BonusesService>('bonuses.bonuses-service');
                 this.bonusService.queryBonuses(true, 'any');
             }
+        }
+
+        if (this.useAchievements && this.isAuth$.getValue()) {
+            this.achievementsService.setAchievementsSubscription();
         }
     }
 
@@ -510,6 +526,7 @@ export class UserService {
                 value: null,
             });
         }
+        this.dataLoyaltyUserSub.unsubscribe();
     }
 
     public createUserProfile(userProfile: IUserProfile): Promise<IIndexing<any>> {

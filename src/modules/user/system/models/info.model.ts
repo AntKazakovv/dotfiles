@@ -10,11 +10,12 @@ import {
     IFreeRound,
     ILoyalty,
     IUserInfo,
-    ISocketsData,
     TUserValidationLevel,
     IBonusesBalance,
     IIndexing,
 } from 'wlc-engine/modules/core/system/interfaces';
+import {IWebSocketConfig} from 'wlc-engine/modules/core/system/interfaces/websocket.interface';
+
 import {TranslateService} from '@ngx-translate/core';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {
@@ -132,7 +133,7 @@ export class UserInfo extends AbstractModel<IUserInfo> {
         return this.data?.pincode;
     }
 
-    public get socketsData(): ISocketsData {
+    public get socketsData(): IWebSocketConfig {
         return _isString(this.data?.socketsData) ? null : this.data?.socketsData;
     }
 

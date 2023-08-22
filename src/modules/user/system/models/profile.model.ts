@@ -8,12 +8,12 @@ import {
     PepStatus,
     TUserType,
     IExtProfile,
-    ISocketsData,
     IUserProfile,
 } from 'wlc-engine/modules/core';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {IFromLog} from 'wlc-engine/modules/core';
 
+import {IWebSocketConfig} from 'wlc-engine/modules/core/system/interfaces/websocket.interface';
 export class UserProfile extends AbstractModel<IUserProfile> {
 
     constructor(
@@ -174,7 +174,7 @@ export class UserProfile extends AbstractModel<IUserProfile> {
         return this.data.oddsStyle;
     }
 
-    public get socketData(): ISocketsData {
+    public get socketData(): IWebSocketConfig {
         return _isString(this.data.socketsData) ? null : this.data.socketsData;
     }
 

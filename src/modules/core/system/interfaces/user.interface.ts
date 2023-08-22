@@ -8,8 +8,8 @@ import {
     IIndexing,
     ILoyalty,
     IFreeRound,
-    ISocketsData,
 } from './index';
+import {IWebSocketConfig} from './websocket.interface';
 
 export type TUserValidationLevel = 'not-secure' | 'secure';
 
@@ -39,7 +39,7 @@ export interface IUserInfo {
      */
     firstSession: boolean;
     status: number;
-    socketsData?: ISocketsData | '',
+    socketsData?: IWebSocketConfig | '',
     freerounds: IFreeRound[];
     validationLevel?: TUserValidationLevel;
     /** Info about last accepted T&C */
@@ -101,7 +101,7 @@ export interface IUserProfile {
     passwordRepeat?: string;
     password?: string;
     oddsStyle?: string;
-    socketsData?: ISocketsData | '';
+    socketsData?: IWebSocketConfig | '';
     /**
      * User type
      */

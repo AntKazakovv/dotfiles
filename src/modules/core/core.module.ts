@@ -44,6 +44,7 @@ import {
     AppConfigModel,
     HistoryFilterService,
     FingerprintService,
+    WebsocketService,
 } from './system/services';
 // -- SERVICES IMPORTS END  --;
 
@@ -265,6 +266,7 @@ export const services = {
         FingerprintService,
         ColorThemeService,
         HistoryFilterService,
+        WebsocketService,
         ...interceptors,
         {
             provide: MODAL_CONFIG_DEFAULT_OVERRIDE,

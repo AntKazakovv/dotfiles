@@ -10,26 +10,36 @@ import _includes from 'lodash-es/includes';
 import _map from 'lodash-es/map';
 import _reject from 'lodash-es/reject';
 
+import {Subscription} from 'rxjs';
+
 import {
     DataService,
+    EventService,
     IData,
+    IPushMessageParams,
     LogService,
+    WebsocketService,
+    NotificationEvents,
 } from 'wlc-engine/modules/core';
 import {
     IAchievement,
     IModifier,
+    IWSAchievement,
 } from 'wlc-engine/modules/loyalty/submodules/achievements/system/interfaces/achievement.interface';
+import {WebSocketEvents} from 'wlc-engine/modules/core/system/services/websocket/websocket.service';
 import {AchievementModel} from 'wlc-engine/modules/loyalty/submodules/achievements/system/models/achievement.model';
 
 @Injectable({
     providedIn: 'root',
 })
 export class AchievementsService {
-
+    private dataAchievementSub: Subscription;
     constructor(
         protected dataService: DataService,
         protected logService: LogService,
         protected translateService: TranslateService,
+        private webSocketService: WebsocketService,
+        private eventService: EventService,
     ){
         this.init();
     }
@@ -52,12 +62,36 @@ export class AchievementsService {
         }
     }
 
+    public setAchievementsSubscription(): void {
+        this.dataAchievementSub = this.webSocketService.getMessages(
+            {endPoint:'wsc2', event: WebSocketEvents.RECEIVE.ACHIEVEMENTS}).subscribe(
+            {
+                next: (message: IWSAchievement) => {
+                    const achName = JSON.parse(message.data.achievement_name);
+
+                    this.eventService.emit({
+                        name: NotificationEvents.PushMessage,
+                        data: <IPushMessageParams>{
+                            type: 'success',
+                            title: gettext('Achievement received'),
+                            message: achName[(this.translateService.currentLang || 'en')],
+                        },
+                    });
+                },
+            },
+        );
+    }
+
     protected init(): void {
         AchievementModel.currentLang = this.translateService.currentLang || 'en';
         this.translateService.onLangChange.subscribe(({lang}: LangChangeEvent) => {
             if (AchievementModel.currentLang !== lang) {
                 AchievementModel.currentLang = lang;
             }
+        });
+
+        this.eventService.subscribe({name: 'LOGOUT'}, () => {
+            this.dataAchievementSub.unsubscribe();
         });
     }
 

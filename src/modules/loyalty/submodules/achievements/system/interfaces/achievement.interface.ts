@@ -36,3 +36,19 @@ export interface IAchievement {
     ProgressDetails?: IAchievementProgressDetails;
     Status?: '0' | '1';
 }
+
+export interface IWSAchievementData {
+    timestamp?: string,
+    Node?: number,
+    action?: string,
+    achievement_id?: number,
+    user_id?: number,
+    achievement_name?: string,
+}
+
+export interface IWSAchievement {
+    status?: string,
+    system?: string,
+    event?: string,
+    data?: IWSAchievementData,
+}

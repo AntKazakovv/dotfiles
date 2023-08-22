@@ -47,12 +47,14 @@ import {
     ILogObj,
     LogService,
 } from 'wlc-engine/modules/core/system/services/log/log.service';
+
 import {
     IIndexing,
-    ISocketsData,
 } from 'wlc-engine/modules/core/system/interfaces';
+
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {ConfigService} from 'wlc-engine/modules/core/system/services';
+import {IWebSocketConfig} from 'wlc-engine/modules/core/system/interfaces/websocket.interface';
 
 export interface IData<T = any> {
     status: 'success' | 'error';
@@ -312,7 +314,7 @@ export class DataService {
      * Set socket url by socketsData from profile
      * @param socketsData
      */
-    public setSocketUrl(socketsData?: ISocketsData): void {
+    public setSocketUrl(socketsData?: IWebSocketConfig): void {
 
         // TODO: just for test, remove after fundist & wlc_core release
         if (this.window.location.host.match(/localhost$/)

@@ -52,3 +52,5 @@ export {
     FingerprintService,
     TFingerprintConfigKeys,
 } from './fingerprint/fingerprint.service';
+
+export {WebsocketService} from './websocket/websocket.service';

@@ -33,12 +33,6 @@ export interface IRedirect {
     profile?: profileRedirectType;
 }
 
-export interface ISocketsData {
-    api: string;
-    server: string;
-    token: string;
-}
-
 export interface IRedirectAfterLoad {
     /**
      * state where will the redirect be made

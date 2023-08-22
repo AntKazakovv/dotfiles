@@ -13,6 +13,10 @@ export const components = {
     'wlc-achievement-list': AchievementListComponent,
 };
 
+export const services = {
+    'achievement-service': AchievementsService,
+};
+
 @NgModule({
     imports: [
         CoreModule,
