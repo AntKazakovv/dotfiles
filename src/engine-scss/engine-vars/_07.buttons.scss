@@ -49,8 +49,8 @@ $buttonSettings: map-merge((
     'borderSecondaryActiveHover': 2px solid var(--mc-buttonColor),
     'borderColorRead': var(--mc-baseOpacity),
     //Padding
-    'padding': size-func(1) size-func(4),
-    'gap': size-func(1),
+    'padding': size-func(1) size-func(2),
+    'gap': initial,
     // Animation
     'time': 0.3s,
     'radiusRoundingTheme': 100px,
