@@ -332,6 +332,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     protected override prepareParams(): void {
         this.$params = _merge(this.config, this.params);
         this.$params.components = this.filterNullComponents(this.$params.components);
+        this.setHostClass();
     }
 
     private initForm(): void {
