@@ -40,6 +40,9 @@
         }
 
         &__decor {
+            --wlc-icon-width: #{ef.get-value($themePromotions, 'decorIconWidth')};
+            --wlc-icon-height: #{ef.get-value($themePromotions, 'decorIconHeight')};
+
             @include bm.get-mq-map('justify-content', $themePromotions, 'decorJustify');
             @include bm.get-mq-map('flex', $themePromotions, 'decorFlex');
             @include bm.get-mq-map('max-width', $themePromotions, 'decorMaxWidth');
