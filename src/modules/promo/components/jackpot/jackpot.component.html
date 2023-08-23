@@ -1,10 +1,12 @@
+<ng-container [ngSwitch]="$params.theme">
+    <ng-container [ngTemplateOutlet]="vertical" *ngSwitchCase="'vertical'"></ng-container>
+    <ng-container [ngTemplateOutlet]="one" *ngSwitchDefault></ng-container>
+</ng-container>
+
 <ng-template #one>
     <div class="{{$class}}__wrapper" (click)="startGame($event)">
         <div class="{{$class}}__block {{$class}}__block--left">
-            <img class="{{$class}}__image"
-                 loading="lazy"
-                 [attr.src]="$params.data.gameImage"
-                 [attr.alt]="$params.data.gameName">
+            <ng-container [ngTemplateOutlet]="gamePicture"></ng-container>
         </div>
 
         <div class="{{$class}}__block {{$class}}__block--right">
@@ -13,13 +15,48 @@
                 <span wlc-currency
                       [value]="$params.data.amount"
                       [currency]="$params.data.currency"
-                      digitsInfo="0-0-0"
-                ></span>
+                      digitsInfo="0-0-0">
+                </span>
             </div>
         </div>
     </div>
 </ng-template>
 
-<ng-container [ngSwitch]="$params.theme">
-    <ng-container [ngTemplateOutlet]="one" *ngSwitchDefault></ng-container>
-</ng-container>
+<ng-template #vertical>
+    <div class="{{$class}}__wrapper" (click)="startGame($event)">
+        <div class="{{$class}}__block {{$class}}__block--left">
+            <ng-container [ngTemplateOutlet]="gamePicture"></ng-container>
+        </div>
+
+        <div class="{{$class}}__block {{$class}}__block--right">
+            <button class="{{$class}}__game"
+                type="button"
+                [attr.title]="[$params.data.gameName]"
+                (click)="startGame($event)">
+                <span class="{{$class}}__game-name">{{$params.data.gameName}}</span>
+                <span wlc-icon
+                    class="{{$class}}__game-arrow"
+                    [wlcElement]="'button_game_play_item-{{$class}}-wins'"
+                    iconPath="/wlc/decors/winner-arrow.svg">
+                </span>
+            </button>
+            <div class="{{$class}}__amount">
+                <span wlc-currency
+                    [value]="$params.data.amount"
+                    [currency]="$params.data.currency"
+                    digitsInfo="0-0-0">
+                </span>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #gamePicture>
+    <div class="{{$class}}__picture">
+        <img class="{{$class}}__image"
+             wlc-fallback
+             loading="lazy"
+             [src]="gameImage"
+             [attr.alt]="$params.data.gameName">
+    </div>
+</ng-template>

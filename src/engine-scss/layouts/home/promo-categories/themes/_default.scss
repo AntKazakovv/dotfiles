@@ -7,20 +7,24 @@
         display: grid;
     }
 
-    .wlc-winners-slider__wrapper {
+    .wlc-winners-slider__wrapper,
+    .wlc-jackpots-slider__wrapper {
         height: 100%;
     }
 
-    .wlc-winners-slider[class] {
+    .wlc-winners-slider[class],
+    .wlc-jackpots-slider[class] {
         @include bm.get-mq-map('grid-column', $themePromoCategories, 'winnersSliderGridColumn');
         @include bm.get-mq-map('min-height', $themePromoCategories, 'winnersSliderMinHeight');
 
-        .wlc-winners-slider__wrapper[class] {
+        .wlc-winners-slider__wrapper[class],
+        .wlc-jackpots-slider__wrapper[class] {
             max-width: 100%;
             padding: ef.get-value($themePromoCategories, 'winnersSliderPadding');
         }
 
-        .wlc-winners-slider__title[class] {
+        .wlc-winners-slider__title[class],
+        .wlc-jackpots-slider__title[class] {
             @include bm.get-mq-map('margin', $themePromoCategories, 'winnersSliderMargin');
         }
 

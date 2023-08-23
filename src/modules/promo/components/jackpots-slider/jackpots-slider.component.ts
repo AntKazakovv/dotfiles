@@ -12,6 +12,8 @@ import {
 import {takeUntil} from 'rxjs/operators';
 
 import SwiperCore, {SwiperOptions} from 'swiper';
+import _assign from 'lodash-es/assign';
+import _clone from 'lodash-es/clone';
 import _map from 'lodash-es/map';
 
 import {
@@ -22,6 +24,7 @@ import {
     ISlide,
     SliderHelper,
     ISliderCssProps,
+    ISliderCParams,
 } from 'wlc-engine/modules/core';
 import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
 import {JackpotModel} from 'wlc-engine/modules/games';
@@ -43,6 +46,9 @@ export class JackpotsSliderComponent extends AbstractComponent implements OnInit
     public slides: ISlide[] = [];
     public ready: boolean = false;
     public override $params: Params.IJackpotsSliderCParams;
+    public sliderParams: ISliderCParams = {
+        swiper: {},
+    };
     public noContentParams: INoContentCParams;
 
     protected useCssProps: boolean = false;
@@ -66,6 +72,7 @@ export class JackpotsSliderComponent extends AbstractComponent implements OnInit
 
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
+        this.prepareSliderParams();
         this.gamesCatalogService = await this.injectionService.getService('games.games-catalog-service');
         this.noContentParams = GlobalHelper.getNoContentParams(this.$params, this.$class, this.configService);
         this.initListener();
@@ -91,12 +98,12 @@ export class JackpotsSliderComponent extends AbstractComponent implements OnInit
     }
 
     protected initBreakpoints(): void {
-        this.useCssProps = true;
-        if (this.$params.sliderParams.swiper.direction === 'vertical') {
-            const activeBreakpoint = SliderHelper.getActiveBreakpoint(this.$params.sliderParams.swiper, this.window);
+        if (this.sliderParams.swiper.direction === 'vertical') {
+            this.useCssProps = true;
+            const activeBreakpoint = SliderHelper.getActiveBreakpoint(this.sliderParams.swiper, this.window);
             this.setCssProperties({
-                ...this.$params.sliderParams.swiper,
-                ...this.$params.sliderParams.swiper.breakpoints?.[activeBreakpoint],
+                ...this.sliderParams.swiper,
+                ...this.sliderParams.swiper.breakpoints?.[activeBreakpoint],
             });
         }
     }
@@ -110,7 +117,6 @@ export class JackpotsSliderComponent extends AbstractComponent implements OnInit
     }
 
     protected responseToSlides(response: JackpotModel[]): void {
-
         this.slides = _map(response, item => ({
             component: JackpotComponent,
             componentParams: {
@@ -121,6 +127,30 @@ export class JackpotsSliderComponent extends AbstractComponent implements OnInit
 
         if (!this.ready) {
             this.ready = true;
+        }
+
+        this.cdr.markForCheck();
+    }
+
+    protected prepareSliderParams(): void {
+        let swiper: SwiperOptions = _clone(Params.swiperParamsDefault[this.$params.theme]);
+
+        if (this.$params.sliderParams) {
+            swiper = _assign({}, swiper, this.$params.sliderParams);
+        }
+
+        if (swiper.spaceBetween) {
+            this.renderer.setStyle(
+                this.element.nativeElement,
+                '--wlc-jackpot-slider-slide-gap',
+                swiper.spaceBetween + 'px',
+            );
+        }
+
+        this.sliderParams.swiper = swiper;
+
+        if (GlobalHelper.isMobileApp()) {
+            this.sliderParams.useStartTimeout = true;
         }
 
         this.cdr.markForCheck();

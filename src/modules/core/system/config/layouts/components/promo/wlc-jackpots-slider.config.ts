@@ -3,13 +3,22 @@ import {IJackpotsSliderCParams} from 'wlc-engine/modules/promo/components/jackpo
 
 export namespace wlcJackpotsSlider {
 
+    export const def: ILayoutComponent = {
+        name: 'promo.wlc-jackpots-slider',
+        params: <IJackpotsSliderCParams>{
+            theme: 'vertical',
+            wlcElement: 'wlc-jackpots-slider',
+            title: 'Jackpots',
+        },
+    };
+
     export const one: ILayoutComponent = {
         name: 'promo.wlc-jackpots-slider',
         params: <IJackpotsSliderCParams>{
+            theme: '1',
+            wlcElement: 'wlc-jackpots-slider',
             sliderParams: {
-                swiper: {
-                    slidesPerView: 4,
-                },
+                slidesPerView: 4,
             },
         },
     };

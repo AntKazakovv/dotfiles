@@ -1,0 +1,56 @@
+.wlc-jackpots-slider--theme-vertical:host {
+    position: relative;
+
+    .wlc-jackpots-slider {
+
+        &__wrapper {
+            max-width: ef.get-value($themeVertical, 'wrapperMaxWidth');
+            height: ef.get-value($themeVertical, 'sliderWrapperHeight');
+            background: ef.get-value($themeVertical, 'wrapperBackground');
+            border-radius: ef.get-value($themeVertical, 'wrapperBorderRadius');
+            overflow: hidden;
+
+            @if (ef.get('baseVariables', 'useWide') == true) {
+                max-width: ef.get-value($themeVertical, 'wrapperWideMaxWidth');
+            } @else {
+                max-width: ef.get-value($themeVertical, 'wrapperMaxWidth');
+            }
+        }
+
+        &__loader {
+            @include bm.get-mq-map('height', $themeVertical, 'loaderHeight');
+        }
+
+        &__title {
+            @include bm.get-mq-map('padding', $themeVertical, 'titlePadding');
+            @include text.get-text-style('ThirdTitleBold', ef.get-value($themeVertical, 'titleColor'));
+            position: ef.get-value($themeVertical, 'titlePosition');
+            top: ef.get-value($themeVertical, 'titleTop');
+            left: ef.get-value($themeVertical, 'titleLeft');
+            z-index: ef.get-value($themeVertical, 'titleZIndex');
+            background: ef.get-value($themeVertical, 'titleBackground');
+            border-radius: ef.get-value($themeVertical, 'titleBorderRadius');
+        }
+
+        &__slider {
+            @include bm.get-mq-map('height', $themeVertical, 'sliderHeight');
+            @include bm.get-mq-map('margin', $themeVertical, 'wrapperMargin');
+
+            ::ng-deep {
+
+                .swiper {
+                    height: 100%;
+                    overflow-x: visible;
+
+                    @if ef.get-value($themeVertical, 'sliderShadowPadding') {
+                        height: calc(100% + #{ef.get-value($themeVertical, 'sliderShadowPadding')});
+                        margin-bottom: -1 * ef.get-value($themeVertical, 'sliderShadowPadding');
+                        margin-left: -1 * ef.get-value($themeVertical, 'sliderShadowPadding');
+                        padding-bottom: ef.get-value($themeVertical, 'sliderShadowPadding');
+                        padding-left: ef.get-value($themeVertical, 'sliderShadowPadding');
+                    }
+                }
+            }
+        }
+    }
+}

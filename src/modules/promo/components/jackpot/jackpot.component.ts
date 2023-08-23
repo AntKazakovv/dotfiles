@@ -44,6 +44,11 @@ export class JackpotComponent extends AbstractComponent implements OnInit {
         );
     }
 
+    public get gameImage(): string {
+        const RawImageUrl = this.$params.data.gameImage;
+        return '//' + RawImageUrl.slice(RawImageUrl.indexOf('agstatic'));
+    }
+
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         this.gamesCatalogService = await this.injectionService.getService('games.games-catalog-service');

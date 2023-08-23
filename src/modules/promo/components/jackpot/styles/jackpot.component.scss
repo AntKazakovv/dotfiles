@@ -3,5 +3,7 @@
 @use 'engine-scss/functions' as ef;
 
 @import './utils/vars';
+@import './utils/mixins';
 
 @import './themes/1';
+@import './themes/vertical';

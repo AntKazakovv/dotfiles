@@ -13,6 +13,8 @@ $theme1: map-merge((
     'iconShadow': 0 4px 5px rgba(ef.get('mainColors', 'baseContrast'), 0.7),
     'iconAspectRatio': #{1/1},
     'iconBorderRadius': ef.size(2),
+    'iconBorder': none,
+    'iconPseudoPaddingTop': 100%,
     'userColor': var(--mc-baseMain),
     'gameColor': var(--mc-baseMain),
     'amountColor': var(--mc-main),
@@ -21,3 +23,45 @@ $theme1: map-merge((
     'gameBorderBottomInactive': 1px solid transparent,
     'gameBorderBottomActive': 1px solid var(--mc-baseMain),
 ), $customTheme1);
+
+$customThemeVertical: () !default;
+$themeVertical: map-merge((
+    'rightBackground': var(--mc-bg),
+    'rightBorderRadius': ef.get('radius', 'biger'),
+    'rightPadding': ef.size(1) ef.size(2),
+), $customThemeVertical);
+
+$customJackpotBase: () !default;
+$jackpotBase: map-merge((
+    'wrapperGap': ef.size(4),
+    'wrapperTemplateCols': auto 1fr,
+    'wrapperTemplateAreas': 'picture details',
+    'wrapperAlignItems': center,
+
+    'iconWidth': 60px,
+    'iconBorderRadius': ef.get('radius', 'biger'),
+    'iconBorder': none,
+    'iconShadow': 0 4px 5px rgba(ef.get('mainColors', 'baseContrast'), 0.7),
+    'iconPseudoPaddingTop': 100%,
+
+    'rightGridTemplateColumns': auto 1fr,
+    'rightGridTemplateAreas': 'amount amount' 'game game',
+    'rightColumnGap': ef.size(2),
+
+    'gameTextStyle': 'ThirdTitleBold',
+    'gameColor': var(--mc-baseMain),
+    'gameAlignItems': center,
+    'gameJustifyContent': space-between,
+    'gamePadding': 0,
+    'gameTextAlign': left,
+    'gameBorder': 1px solid transparent,
+    'gameArrowWidth': 16px,
+    'gameArrowColor': var(--mc-secondary),
+    'gameArrowMargin': 0 0 0 ef.size(2),
+    'gameHoverColor': currentColor,
+    'gameHoverBorderColor': currentColor,
+    'gameHoverArrowColor': var(--mc-secondary-l20),
+
+    'amountTextStyle': 'ThirdTitle',
+    'amountColor': var(--mc-baseMain),
+), $customJackpotBase);

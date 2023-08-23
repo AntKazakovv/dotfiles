@@ -1,0 +1,97 @@
+.wlc-jackpot--theme-vertical:host {
+
+    .wlc-jackpot {
+
+        &__wrapper {
+            position: relative;
+            display: grid;
+            grid-template-areas: ef.get-value($jackpotBase, 'wrapperTemplateAreas');
+            grid-template-columns: ef.get-value($jackpotBase, 'wrapperTemplateCols');
+            gap: ef.get-value($jackpotBase, 'wrapperGap');
+            align-items: ef.get-value($jackpotBase, 'wrapperAlignItems');
+            max-width: 100%;
+        }
+
+        &__block {
+
+            &--left {
+                grid-area: picture;
+            }
+
+            &--right {
+                display: grid;
+                grid-area: details;
+                grid-template-areas: ef.get-value($jackpotBase, 'rightGridTemplateAreas');
+                grid-template-columns: ef.get-value($jackpotBase, 'rightGridTemplateColumns');
+                min-width: 0;
+                padding: ef.get-value($themeVertical, 'rightPadding');
+                column-gap: ef.get-value($jackpotBase, 'rightColumnGap');
+                background: ef.get-value($themeVertical, 'rightBackground');
+                border-radius: ef.get-value($themeVertical, 'rightBorderRadius');
+            }
+        }
+
+        &__picture {
+            @include picture($jackpotBase);
+        }
+
+        &__image {
+            @include image();
+        }
+
+        &__game {
+            @include text.get-text-style(
+                ef.get-value($jackpotBase, 'gameTextStyle'),
+                ef.get-value($jackpotBase, 'gameColor')
+            );
+            display: flex;
+            grid-area: game;
+            align-items: ef.get-value($jackpotBase, 'gameAlignItems');
+            justify-content: ef.get-value($jackpotBase, 'gameJustifyContent');
+            max-width: 100%;
+            padding: ef.get-value($jackpotBase, 'gamePadding');
+            text-align: ef.get-value($jackpotBase, 'gameTextAlign');
+            text-decoration: none;
+            background: transparent;
+            border: none;
+
+            &:focus {
+                outline: none;
+            }
+
+            &-name {
+                @include bm.transition(border-color);
+                @include bm.lineClamp(1);
+                border-bottom: ef.get-value($jackpotBase, 'gameBorder');
+            }
+
+            &-arrow {
+                @include bm.transition(color);
+                width: ef.get-value($jackpotBase, 'gameArrowWidth');
+                margin: ef.get-value($jackpotBase, 'gameArrowMargin');
+                color: ef.get-value($jackpotBase, 'gameArrowColor');
+            }
+
+            @include bm.hover() {
+                color: ef.get-value($jackpotBase, 'gameHoverColor');
+
+                .wlc-jackpot__game-name {
+                    border-bottom-color: ef.get-value($jackpotBase, 'gameHoverBorderColor');
+                }
+
+                .wlc-jackpot__game-arrow {
+                    color: ef.get-value($jackpotBase, 'gameHoverArrowColor');
+                }
+            }
+        }
+
+        &__amount {
+            @include text.get-text-style(
+                ef.get-value($jackpotBase, 'amountTextStyle'),
+                ef.get-value($jackpotBase, 'amountColor')
+            );
+            grid-area: amount;
+            white-space: nowrap;
+        }
+    }
+}
