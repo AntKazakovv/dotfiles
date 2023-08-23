@@ -72,8 +72,8 @@ export class WinnerComponent extends AbstractComponent implements OnInit {
         return this.$params.winner.game.name[this.translateService.currentLang] || this.$params.winner.game.name.en;
     }
 
-    public get name(): string {
-        return this.$params.winner.name;
+    public get screenName(): string {
+        return this.$params.winner.screenName;
     }
 
     public get amount(): number {

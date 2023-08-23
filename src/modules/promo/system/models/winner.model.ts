@@ -49,8 +49,8 @@ export class WinnerModel extends AbstractModel<IWinnerData> {
         return DateTime.fromISO(this.data.Date);
     }
 
-    public get name(): string {
-        return this.data.Name;
+    public get screenName(): string {
+        return this.data.ScreenName;
     }
 
     public get gameId(): number {

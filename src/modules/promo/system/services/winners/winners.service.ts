@@ -62,7 +62,7 @@ export interface IWinnerData {
     GameID: number;
     GameTableID?: number;
     ID?: string;
-    Name: string;
+    ScreenName: string;
 };
 
 export type TWinnersData = IWinnerData[];

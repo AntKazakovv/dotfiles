@@ -39,7 +39,7 @@ export const winsHandler = async (req: MockedRequest, res: ResponseComposition<a
                         second: datatype.number(60),
                     })
                     .toFormat('yyyy-MM-dd HH:mm:ss'),
-                Name: fake('{{name.firstName}} *****'),
+                ScreenName: fake('{{name.firstName}} *****'),
                 Currency: finance.currencyCode(),
                 CountryIso2: address.countryCode('alpha-2').toLowerCase(),
                 CountryIso3: address.countryCode('alpha-3').toLowerCase(),
