@@ -54,6 +54,7 @@ export class TimerComponent extends AbstractComponent implements OnInit, OnChang
     @Input() public countUp: boolean;
     @Input() public noDays: boolean;
     @Input() public noHours: boolean;
+    @Input() public theme: Params.ComponentTheme;
     @Input() public themeMod: Params.ThemeMod;
     @Input() protected inlineParams: Params.ITimerCParams;
 
@@ -84,7 +85,7 @@ export class TimerComponent extends AbstractComponent implements OnInit, OnChang
     }
 
     public override ngOnInit(): void {
-        const inputProperties: string[] = ['value', 'text', 'noCountDown', 'countUp', 'noDays', 'noHours'];
+        const inputProperties: string[] = ['value', 'text', 'noCountDown', 'countUp', 'noDays', 'noHours', 'theme'];
         super.ngOnInit(_merge(
             {},
             this.inlineParams,
@@ -98,6 +99,10 @@ export class TimerComponent extends AbstractComponent implements OnInit, OnChang
                     this.cdr.detectChanges();
                 });
         }
+        if (this.$params.theme === 'wolf') {
+            this.$params.dividers.units = '';
+        }
+
         this.isInited = true;
     }
 

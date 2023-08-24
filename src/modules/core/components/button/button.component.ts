@@ -131,6 +131,10 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
                     }
                 });
         }
+
+        if (this.$params.theme === 'theme-wolf-link') {
+            this.$params.common.iconPath = this.$params.wolfBtnIcon;
+        }
     }
 
     public override ngOnChanges(changes) {

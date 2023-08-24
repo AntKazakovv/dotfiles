@@ -1,5 +1,6 @@
 <ng-container [ngSwitch]="$params.theme">
     <ng-container *ngSwitchCase="'one-line'" [ngTemplateOutlet]="themeOneLine"></ng-container>
+    <ng-container *ngSwitchCase="'wolf'" [ngTemplateOutlet]="themeWolf"></ng-container>
     <ng-container *ngSwitchDefault [ngTemplateOutlet]="themeDefault"></ng-container>
 </ng-container>
 
@@ -27,7 +28,7 @@
             <span class="text">{{$params.acronyms.minutes | translate}}</span>
         </div>
         <div class="time-text__divider">{{$params.dividers.units}}</div>
-        <div class="time-text__item time-text__item--days">
+        <div class="time-text__item time-text__item--seconds">
             <span class="value">{{seconds}}</span>
             <ng-container *ngIf="$params.dividers.text">{{$params.dividers.text}}</ng-container>
             <span class="text">{{$params.acronyms.seconds | translate}}</span>
@@ -59,5 +60,15 @@
                 <span *ngIf="$params.common.text" class="{{$class}}__text">{{$params.common.text | translate}}</span>
             </div>
             <ng-container [ngTemplateOutlet]="countdown"></ng-container>
+    </div>
+</ng-template>
+
+<ng-template #themeWolf>
+    <div class="{{$class}}__content" data-wlc-element="block_timer">
+        <div class="{{$class}}__timer-text">
+            <div class="secondary-text">{{$params.common?.text | translate}}:</div>
+            <div *ngIf="$params.common.noCountDown" class="time-text">{{$params.common.value}}</div>
+            <ng-container *ngIf="!$params.common.noCountDown" [ngTemplateOutlet]="countdown"></ng-container>
+        </div>
     </div>
 </ng-template>

@@ -1,0 +1,43 @@
+.wlc-timer--theme-wolf:host {
+
+    .wlc-timer {
+
+        &__timer-text {
+
+            .secondary-text {
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'titleTextStyle'),
+                    ef.get-value($themeWolf, 'titleColor')
+                );
+                margin: ef.get-value($themeWolf, 'titleMargin');
+                text-align: center;
+            }
+
+            .time-text--countdown {
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'timerTextStyle'),
+                    ef.get-value($themeWolf, 'timerColor')
+                );
+                display: flex;
+                justify-content: ef.get-value($themeWolf, 'timerJustifyContent');
+
+                .time-text__item {
+                    padding: ef.get-value($themeWolf, 'itemPadding');
+
+                    .value {
+                        display: inline-flex;
+                        justify-content: center;
+                        width: ef.get-value($themeWolf, 'itemValueWidth');
+                        padding: ef.get-value($themeWolf, 'itemValuePadding');
+                        background: ef.get-value($themeWolf, 'itemValueBg');
+                        border-radius: ef.get-value($themeWolf, 'itemValueBorderRadius');
+                    }
+
+                    .text {
+                        padding: ef.get-value($themeWolf, 'itemTextpadding');
+                    }
+                }
+            }
+        }
+    }
+}

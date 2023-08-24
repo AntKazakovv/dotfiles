@@ -2,7 +2,7 @@ import {IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.
 import {DateTime} from 'luxon';
 
 export type ModeType = 'default';
-export type ComponentTheme = 'default' | 'one-line';
+export type ComponentTheme = 'default' | 'one-line' | 'wolf';
 export type ComponentType = 'default';
 export type AutoModifiersType = ComponentTheme | ModeType;
 export type ManualModifiersType = '';

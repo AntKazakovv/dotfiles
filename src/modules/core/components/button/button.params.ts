@@ -12,8 +12,8 @@ import {
 } from 'wlc-engine/modules/core/system/interfaces/animate-buttons.interface';
 
 export type Type = 'default' | 'resolved' | 'rejected' | 'pending' | 'disabled' | CustomType;
-export type Theme = 'default' | 'skew' | 'rounding' | 'circled' | 'borderless' | 'icon' | 'cleared' | 'resolve'
-    | CustomType;
+export type Theme = 'default' | 'skew' | 'rounding' | 'circled' | 'borderless' | 'icon' | 'cleared' |
+    'resolve' | 'theme-wolf-link' | CustomType;
 export type Size = 'default' | 'small' | 'big' | CustomType;
 export type ThemeMod = 'default' | 'secondary' | 'readmore' | 'textonly' | CustomType;
 export type Index = number | string | null;
@@ -55,6 +55,7 @@ export interface IButtonCParams extends IComponentParams<Theme, Type, ThemeMod> 
         animation?: TButtonAnimation;
         selectorScroll?: string;
     };
+    wolfBtnIcon?: string;
 }
 
 export const defaultParams: IButtonCParams = {
@@ -65,4 +66,5 @@ export const defaultParams: IButtonCParams = {
     common: {
         size: 'default',
     },
+    wolfBtnIcon: 'wlc/icons/arrow.svg',
 };
