@@ -104,6 +104,7 @@ module.exports = function buildTask() {
             'build:domainBalancer',
             'build:sw-fix',
             'build:copyHeadFile',
+            'build:copyLocalesFile',
             'build:modifyIndexFile',
             'build:loader-css',
             'build:piq-cashier-css',

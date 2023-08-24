@@ -37,6 +37,21 @@ module.exports = function preBuildTask() {
         }
     };
 
+    const makeLocalesSymlink = () => {
+        if (fs.existsSync(this.params.paths.locales)) {
+            fs.unlinkSync(this.params.paths.locales);
+        }
+
+        const {locales, localesFile, languagesDev, languagesPack} = this.params.paths;
+
+        const languagesDir = fs.existsSync(`${languagesDev}/${localesFile}`)
+            ? languagesDev
+            : languagesPack;
+
+        fs.symlinkSync(`${languagesDir}/${localesFile}`, locales);
+        this.addToGitIgnore('/', '', localesFile);
+    };
+
     /**
      * Create symlink to the index.html file in the src directory
      */
@@ -323,6 +338,7 @@ module.exports = function preBuildTask() {
         makeDistDirectory();
         makeTempDirectory();
         makeIndexHtmlSymlink();
+        makeLocalesSymlink();
         makeWlcEngineSymlink();
         makeSrcIndexHtmlSymlink();
         makePolyfillsSymlink();

@@ -39,6 +39,19 @@ module.exports = function postBuildTask() {
         cb();
     });
 
+    task('build:copyLocalesFile', (cb) => {
+        const {locales, localesFile, languagesPack} = this.params.paths;
+
+        if (fs.existsSync(locales)) {
+            fs.unlinkSync(locales);
+        }
+
+        fs.copyFile(`${languagesPack}/${localesFile}}`, locales, (err) => {
+            if (err) throw err;
+        });
+        cb();
+    });
+
     task('build:modifyIndexFile', (cb) => {
         const path = `${this.params.paths.dist}/index.html`;
         fs.readFile(path, 'utf8', (err, data) => {
