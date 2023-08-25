@@ -502,7 +502,7 @@ export class DepositWithdrawComponent
         }
     }
 
-    public async deposit(saveProfile: boolean = true): Promise<boolean> {
+    public async deposit(): Promise<boolean> {
         this.inProgress = true;
         this.modalService.showModal('data-is-processing');
 
@@ -522,11 +522,11 @@ export class DepositWithdrawComponent
             return true;
         } else {
             const amount: number = this.isPrestepComplete ? this.prestepAmount : this.formObject.value.amount;
-            return await this.depositAction(amount, this.getAdditionalParams(), saveProfile);
+            return await this.depositAction(amount, this.getAdditionalParams());
         }
     }
 
-    public async withdraw(form: UntypedFormGroup, saveProfile: boolean = false): Promise<boolean> {
+    public async withdraw(form: UntypedFormGroup): Promise<boolean> {
         this.modalService.showModal('data-is-processing');
         this.inProgress = true;
 
@@ -539,9 +539,7 @@ export class DepositWithdrawComponent
                 this.selectedWallet,
             );
 
-            if (saveProfile) {
-                await this.saveProfile();
-            }
+            await this.saveProfile();
 
             if (response[0] === 'redirect') {
                 this.window.location.replace(response[1]);
@@ -704,7 +702,6 @@ export class DepositWithdrawComponent
     private async depositAction(
         amount: number,
         params: TAdditionalParams,
-        saveProfile: boolean = true,
     ): Promise<boolean> {
         this.isShowIframe = this.depositInIframe && this.currentSystem.appearance === 'iframe';
 
@@ -719,7 +716,7 @@ export class DepositWithdrawComponent
                 this.selectedWallet,
             );
 
-            if (saveProfile && !isPregeneration) {
+            if (!isPregeneration) {
                 await this.saveProfile();
             }
 
