@@ -131,6 +131,30 @@ $themeDefault: map-merge((
     'infoIconHeight': 20px,
     'infoIconFill': var(--mc-baseOpacity),
     'infoIconFillHover': var(--mc-baseMain),
+
+    'prizeDescIconContainerPosition': absolute,
+    'prizeDescIconContainerTop': 5px,
+    'prizeDescIconContainerRight': 5px,
+    'prizeDescIconContainerLeft': null,
+    'prizeDescIconContainerBottom': null,
+    'prizeDescIconContainerWidth': (
+        375: 16px,
+        1024: 24px,
+    ),
+    'prizeDescIconContainerHeight': (
+        375: 16px,
+        1024: 24px,
+    ),
+    'prizeDescIconContainerBgColor': var(--mc-secondary),
+    'prizeDescIconContainerBorderRadius': (
+        375: ef.get('radius', 'small'),
+        1024: ef.get('radius', 'main'),
+    ),
+    'prizeDescIconContainerBorderPadding': (
+        375: 3px,
+        1024: 5px,
+    ),
+
 ), $customThemeDefault);
 
 $customThemeModal: () !default;
@@ -138,6 +162,7 @@ $themeModal: map-merge((
     'achievementGridAreas': (
         'image      '
         'name       '
+        'prizeDescription'
         'description'
         'progress   '
         'button     '
@@ -197,4 +222,15 @@ $themeModal: map-merge((
     'dateTextAlign': center,
     'dateTextStyle': 'CaptionText',
     'dateColor': var(--mc-baseOpacity),
+
+    'prizeDescIconContainerPosition': null,
+    'prizeDescIconContainerTop': null,
+    'prizeDescIconContainerRight': null,
+    'prizeDescIconContainerLeft': null,
+    'prizeDescIconContainerBottom': null,
+    'prizeDescIconContainerWidth': 24px,
+    'prizeDescIconContainerHeight': 24px,
+    'prizeDescIconContainerBgColor': var(--mc-secondary),
+    'prizeDescIconContainerBorderRadius': ef.get('radius', 'main'),
+    'prizeDescIconContainerBorderPadding': 5px,
 ), $customThemeModal);

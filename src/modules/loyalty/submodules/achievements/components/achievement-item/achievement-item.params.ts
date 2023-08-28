@@ -25,6 +25,10 @@ export interface IAchievementItemCParams extends IComponentParams<Theme, Type, T
      * Show progress in achievement
      */
     showProgress?: boolean;
+    /**
+     * Prize icon in top right angle
+     */
+    prizeIconPath?: string;
 }
 
 export const defaultParams: IAchievementItemCParams = {
@@ -89,6 +93,12 @@ export const defaultParams: IAchievementItemCParams = {
             },
             wlcElement: 'button_withdraw',
         },
+        Empty: {
+            theme: 'cleared',
+            common: {/* filled in code */},
+            wlcElement: 'button_empty',
+        },
     },
+    prizeIconPath: 'wlc/achievements/prizeIcon.svg',
     showProgress: true,
 };

@@ -18,6 +18,7 @@ export type Size = 'default' | 'small' | 'big' | CustomType;
 export type ThemeMod = 'default' | 'secondary' | 'readmore' | 'textonly' | CustomType;
 export type Index = number | string | null;
 export type AutoModifiers = Theme | Size | ThemeMod | 'loading';
+export type THrefTarget = '_self' | '_blank' | '_parent' | '_top';
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
 export type TButtonAnimation = {
@@ -47,6 +48,7 @@ export interface IButtonCParams extends IComponentParams<Theme, Type, ThemeMod> 
         event?: EventType | EventType[];
         /** href link for button */
         href?: string;
+        hrefTarget?: THrefTarget;
         sref?: string;
         srefParams?: RawParams;
         typeAttr?: string;

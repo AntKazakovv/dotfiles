@@ -1,6 +1,13 @@
 import {IIndexing} from 'wlc-engine/modules/core';
 
-export type TAchievementTarget = 'Bet' | 'Deposit' | 'GroupWins' | 'Login' | 'Verification' | 'Win' | 'Withdrawal';
+export type TAchievementTarget = 'Bet'
+                                | 'Deposit'
+                                | 'GroupWins'
+                                | 'Login'
+                                | 'Verification'
+                                | 'Win'
+                                | 'Withdrawal'
+                                | 'Empty';
 
 export interface IAchievementProgressDetails {
     Current: string;
@@ -24,14 +31,17 @@ export interface IModifier {
 };
 
 export interface IAchievement {
+    ActionTitle: string | IIndexing<string>;
+    ActionUrl: string;
     Description: string | IIndexing<string>;
+    EndDate?: string | null;
     GroupName: string | IIndexing<string>;
     ID: string;
     IDGroup: string;
     ImageActive: string;
     ImageNotActive: string;
     Name: string | IIndexing<string>;
-    EndDate?: string | null;
+    PrizeDescription: string | IIndexing<string>;
     Progress?: string;
     ProgressDetails?: IAchievementProgressDetails;
     Status?: '0' | '1';

@@ -17,9 +17,11 @@ export type TStatus = 'not-started' | 'in-progress' | 'received';
 
 export class AchievementModel extends AbstractModel<IAchievement> {
     public static currentLang: string;
-    private _name: string;
+    private _actionTitle: string;
     private _description: string;
     private _groupName: string;
+    private _name: string;
+    private _prizeDescription: string;
 
     constructor(
         from: IFromLog,
@@ -29,7 +31,17 @@ export class AchievementModel extends AbstractModel<IAchievement> {
         this.data = data;
         this._name = this.getCurrentLangText(this.data.Name);
         this._description = this.getCurrentLangText(this.data.Description);
+        this._prizeDescription = this.getCurrentLangText(this.data.PrizeDescription);
         this._groupName = this.getCurrentLangText(this.data.GroupName);
+        this._actionTitle = this.getCurrentLangText(this.data.ActionTitle);
+    }
+
+    public get actionTitle(): string {
+        return this._actionTitle;
+    }
+
+    public get actionUrl(): string {
+        return this.data.ActionUrl;
     }
 
     public get id(): number {
@@ -42,6 +54,10 @@ export class AchievementModel extends AbstractModel<IAchievement> {
 
     public get description(): string {
         return this._description;
+    }
+
+    public get prizeDescription(): string {
+        return this._prizeDescription;
     }
 
     public get groupId(): number {

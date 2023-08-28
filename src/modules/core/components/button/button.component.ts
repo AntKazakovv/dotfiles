@@ -171,7 +171,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
                     } else if (this.$params.common?.sref) {
                         this.stateService.go(this.$params.common.sref, this.$params.common.srefParams);
                     } else if (this.$params.common?.href) {
-                        this.window.open(this.$params.common?.href, '_blank');
+                        this.window.open(this.$params.common?.href, this.$params.common?.hrefTarget || '_blank');
                     }
                 });
         }

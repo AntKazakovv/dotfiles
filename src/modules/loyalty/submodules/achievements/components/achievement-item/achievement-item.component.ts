@@ -50,7 +50,31 @@ export class AchievementItemComponent extends AbstractComponent implements OnIni
         super.ngOnInit(this.inlineParams);
         this.achievement = this.$params.achievement;
         this.showProgress = this.$params.showProgress && !this.achievement.isReceived;
-        this.buttonParams = this.$params.buttonParams?.[this.achievement.progressTarget];
+
+        if (this.$params.buttonParams) {
+            if (this.achievement.progressTarget in this.$params.buttonParams) {
+                this.buttonParams = this.$params.buttonParams[this.achievement.progressTarget];
+            } else if (this.achievement.actionUrl && this.achievement.actionTitle) {
+                this.buttonParams = this.$params.buttonParams.Empty;
+            } else {
+                this.buttonParams = null;
+            }
+        }
+
+        if (this.buttonParams) {
+            if (this.achievement.actionTitle) {
+                this.buttonParams.common.text = this.achievement.actionTitle;
+            }
+            if (this.achievement.actionUrl) {
+                this.buttonParams.common.sref = null;
+                this.buttonParams.common.href = '/' + AchievementModel.currentLang +
+                    (this.achievement.actionUrl.startsWith('/')
+                        ? this.achievement.actionUrl
+                        : '/' + this.achievement.actionUrl);
+                this.buttonParams.common.hrefTarget = '_self';
+            }
+        }
+
         this.showButton = !this.achievement.isReceived && !!this.buttonParams;
     }
 

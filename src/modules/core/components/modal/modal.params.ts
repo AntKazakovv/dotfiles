@@ -330,6 +330,9 @@ export const MODALS_LIST: IModalList = {
                     Withdrawal: {
                         theme: 'default',
                     },
+                    Empty: {
+                        theme: 'default',
+                    },
                 },
             },
             showFooter: false,

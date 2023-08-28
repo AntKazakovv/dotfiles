@@ -10,6 +10,14 @@
             @include imageCommonStyles($themeDefault);
         }
 
+        &__prize-description-icon-container {
+            @include prizeDescIconContainerCommonStyles($themeDefault);
+        }
+
+        &__prize-description-icon {
+            @include prizeDescIconCommonStyles($themeDefault);
+        }
+
         &__progress {
             @include progressCommonStyles($themeDefault);
         }
@@ -25,12 +33,17 @@
         &__button {
             @include bm.get-mq-map('grid-area', $themeDefault, 'buttonArea');
             @include bm.get-mq-map('margin', $themeDefault, 'buttonMargin');
+            max-width: 100%;
 
             .wlc-btn {
                 @include text.get-text-style(
                     ef.get-value($themeDefault, 'buttonTextStyle'),
                     ef.get-value($themeDefault, 'buttonColor')
                 );
+
+                max-width: 100%;
+                text-wrap: nowrap;
+                text-overflow: ellipsis;
 
                 @include bm.hover {
                     color: ef.get-value($themeDefault, 'buttonColorHover');

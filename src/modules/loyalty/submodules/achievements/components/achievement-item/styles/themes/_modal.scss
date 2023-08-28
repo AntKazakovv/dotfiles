@@ -10,6 +10,14 @@
             @include imageCommonStyles($themeModal);
         }
 
+        &__prize-description-icon-container {
+            @include prizeDescIconContainerCommonStyles($themeModal);
+        }
+
+        &__prize-description-icon {
+            @include prizeDescIconCommonStyles($themeModal);
+        }
+
         &__progress {
             @include progressCommonStyles($themeModal);
         }
