@@ -7,6 +7,7 @@ import {
 } from '@uirouter/core';
 import {TranslateService} from '@ngx-translate/core';
 
+import {MockService} from 'ng-mocks';
 import {
     BehaviorSubject,
     Observable,
@@ -26,6 +27,7 @@ import {
     IData,
 } from 'wlc-engine/modules/core/system/services/data/data.service';
 import {ActionService} from './action.service';
+import {BonusesService} from 'wlc-engine/modules/bonuses';
 
 declare const viewport;
 
@@ -129,6 +131,10 @@ describe('ActionService', () => {
                 {
                     provide: ModalService,
                     useValue: modalServiceSpy,
+                },
+                {
+                    provide: BonusesService,
+                    useValue: MockService(BonusesService),
                 },
                 {
                     provide: UIRouter,

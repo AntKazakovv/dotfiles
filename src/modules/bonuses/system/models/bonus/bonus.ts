@@ -104,11 +104,11 @@ export class Bonus extends AbstractModel<IBonus> {
             this.showOnlyIcon = GlobalHelper.proxyUrl(Bonus.bonusesConfig.showOnlyIconPath);
         }
 
-        if (Bonus.bonusesConfig.useNewImageSources && this.data.Image_other) {
+        if (Bonus.bonusesConfig?.useNewImageSources && this.data.Image_other) {
             this.icon = GlobalHelper.proxyUrl(this.data.Image_other);
         } else if (this.viewTarget) {
-            this.icon = GlobalHelper.proxyUrl(Bonus.bonusesConfig.defaultIconPath + this.viewTarget + '.'
-                + Bonus.bonusesConfig.defaultIconExtension );
+            this.icon = GlobalHelper.proxyUrl(Bonus.bonusesConfig?.defaultIconPath + this.viewTarget + '.'
+                + Bonus.bonusesConfig?.defaultIconExtension );
         }
 
         this._fallBackIconPath = this.configService.get<string>('$bonuses.fallBackIconPath');

@@ -21,7 +21,6 @@ import {
     Subject,
     fromEvent,
     Observable,
-    Subscription,
 } from 'rxjs';
 import {
     map,
@@ -60,10 +59,7 @@ import {
 } from 'wlc-engine/modules/user';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {WINDOW} from 'wlc-engine/modules/app/system';
-import {
-    Bonus,
-    BonusesService,
-} from 'wlc-engine/modules/bonuses';
+import {BonusesService} from 'wlc-engine/modules/bonuses';
 import {
     DataService,
     IData,
@@ -126,6 +122,7 @@ export class ActionService {
 
     constructor(
         private injector: Injector,
+        private bonusesService: BonusesService,
         private configService: ConfigService,
         private eventService: EventService,
         private layoutService: LayoutService,
@@ -272,10 +269,11 @@ export class ActionService {
                 break;
         }
 
-        this.processPromocode(initialPath);
+        if (initialPath.promocode) {
+            this.bonusesService.processPromocode(initialPath.promocode);
+        }
 
         this.openPopup(initialPath);
-
     }
 
     /**
@@ -297,101 +295,6 @@ export class ActionService {
             if (modalParams?.auth !== !isAuth) {
                 this.modalService.showModal(modalParams?.config);
             }
-        }
-    }
-
-    /**
-     * Subscribes bonus with promocode from URL
-     *
-     * @param {IIndexing<string>} initialPath
-     * @returns {Promise<void>}
-     */
-    public async processPromocode(initialPath: IIndexing<string>): Promise<void> {
-        const bonusesService: BonusesService = await this.injectionService
-            .getService<BonusesService>('bonuses.bonuses-service');
-        const promocodeCacheKey: string = bonusesService.dbPromoUrl;
-
-        await this.configService.ready;
-
-        if (initialPath.promocode) {
-            await this.cachingService.set<string>(
-                promocodeCacheKey,
-                initialPath.promocode,
-                true,
-                7 * 24 * 60 * 60 * 1000, // 7 days
-            );
-        }
-        try {
-            await bonusesService.checkPromoBonus();
-
-            if (await this.cachingService.get(promocodeCacheKey)) {
-                if (bonusesService.promoBonus) {
-                    if (this.configService.get<boolean>('$user.isAuthenticated')) {
-                        const bonus: Bonus = await bonusesService.subscribeBonus(bonusesService.promoBonus, false);
-                        if (bonus) {
-
-                            switch (bonus.event) {
-                                case 'sign up':
-                                case 'registration':
-                                case 'verification':
-                                    this.modalService.showModal('promoSuccess', {
-                                        title: gettext('Bonus success'),
-                                        status: 'fromLink',
-                                        texts: {
-                                            fromLink: this.translateService.instant(
-                                                gettext('Congratulations! You activated bonus'))
-                                                + ` ${bonus.name}! `
-                                                + this.translateService.instant(
-                                                    gettext('Bonus successfully added to the Bonuses page.')),
-                                        },
-                                    });
-                                    break;
-                                default:
-                                    this.modalService.showModal('promoSuccess', {
-                                        title: gettext('Bonus success'),
-                                        status: 'fromLink',
-                                        texts: {
-                                            fromLink: this.translateService.instant(
-                                                gettext('Congratulations! You have got bonus'))
-                                                + ` ${bonus.name}! `
-                                                + this.translateService.instant(
-                                                    gettext('Bonus successfully added to the Bonuses page.')),
-                                        },
-                                    });
-                                    break;
-                            }
-                            this.cachingService.clear(promocodeCacheKey);
-                        }
-                    } else {
-                        const subscription: Subscription = this.eventService.subscribe([
-                            {name: 'LOGIN'},
-                        ], (): void => {
-                            this.processPromocode(initialPath).then((): void => {
-                                subscription.unsubscribe();
-                            });
-                        });
-                        if (!this.modalService.getActiveModal('signup')) {
-                            this.modalService.showModal('login');
-                        }
-                    }
-                } else {
-                    this.eventService.emit({
-                        name: NotificationEvents.PushMessage,
-                        data: <IPushMessageParams>{
-                            type: 'error',
-                            title: gettext('Promo code error'),
-                            message: gettext('No voucher found'),
-                            wlcElement: 'notification_promocode-error',
-                        },
-                    });
-                    this.cachingService.clear(promocodeCacheKey);
-                }
-            }
-        } catch (error) {
-            this.showErrorNotification(
-                error.errors || error,
-                gettext('Promo code error'),
-            );
         }
     }
 
