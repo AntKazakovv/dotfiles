@@ -12,6 +12,8 @@ $customTime: () !default;
 $customModalSize: () !default;
 $customVars: () !default;
 $customBaseVariables: () !default;
+$custom-container-max-widths: () !default;
+$custom-container-max-widths-wide: () !default;
 
 $baseVariables: map-merge((
     // Possible to add image background to body:
@@ -143,8 +145,8 @@ $grid-breakpoints: (
 /// @prop {Size} 1366 [1336px] - 1366px - 1419px
 /// @prop {Size} 1420 [1390px] - 1420px - 1629px
 /// @prop {Size} 1630 [1600px] - 1630px и выше
-$dummy: ();
-$container-max-widths: (
+$dummy: map-merge((), $custom-container-max-widths);
+$container-max-widths: map-merge((
     375: calc(100% - 30px),
     480: 450px,
     560: 530px,
@@ -155,13 +157,13 @@ $container-max-widths: (
     1024: 994px,
     1200: 1170px,
     1630: 1600px
-);
+), $custom-container-max-widths);
 
-$dummy: ();
-$container-max-widths-wide: (
+$dummy: map-merge((), $custom-container-max-widths-wide);
+$container-max-widths-wide: ((
     320: 100%,
     1630: 1920px,
-);
+), $custom-container-max-widths-wide);
 
 /// Глобальные настройки профиля:
 ///
