@@ -1,17 +1,28 @@
 $customThemeIconsCompact: () !default;
 $themeIconsCompact: map-merge((
-    'menuContentPading': 0 ef.size(1),
+    'menuBg': (
+        375: var(--mc-bg700),
+        768: transparent,
+    ),
+    'menuBorderRadius': (
+        375: ef.get('radius', 'biger'),
+        768: 0,
+    ),
+    'menuContentPading': (
+        375: 0 ef.size(2),
+        768: 0 ef.size(1),
+    ),
     'linkHeight': (
         375: 60px,
         1200: 80px,
     ),
     'linkPadding': (
-        375: 0 ef.size(2),
+        375: 0,
+        768: 0 ef.size(2),
         1200: 0 ef.size(3),
         1630: 0 ef.size(4),
     ),
     'linkTextStyle': 'PrimaryText',
-    'linkBg': null,
     'linkBgHover': var(--mc-bg300-o6),
     'linkBgActive': null,
     'linkColor': var(--mc-baseMain),
@@ -34,13 +45,28 @@ $themeIconsCompact: map-merge((
     'animeIconScale': 1.25,
 
     // Mod underline
+    'underlineMenuBg': (
+        375: transparent,
+    ),
+    'underlineMenuContentPading': (
+        375: 0,
+    ),
     'underlineItemPadding': (
-        375: 0 ef.size(2),
+        375: 0,
+        768: 0 ef.size(2),
         1200: 0 ef.size(3),
         1630: 0 ef.size(4),
     ),
+    'underlineLinkTextStyle': (
+        375: 'CaptionText',
+        768: 'PrimaryText'
+    ),
     'underlineLinkPadding': 13px 0 12px,
     'underlineLinkTransform': uppercase,
+    'underlineIconSize': (
+        375: 18px,
+        768: 20px,
+    ),
     'underlineHeight': 3px,
     'underlineBg': var(--mc-main),
     'underlineTransform': scaleX(0.5),
@@ -49,20 +75,44 @@ $themeIconsCompact: map-merge((
     'underlineTransition': all 0.5s cubic-bezier(0.6, 0.1, 0.05, 1.5),
     'underlineRadius': ef.get('radius', 'small'),
     'underlineOffset': 0,
+    'underlineDisplay': (
+        375: none,
+        768: block,
+    ),
 
     // Slider shadows and controls
-
+    'controlsDisplay': (
+        375: flex,
+    ),
     'controlWidth': 30px,
     'controlHeight': 100%,
+    'controlArrowDisplay': (
+        375: none,
+        768: block,
+    ),
     'controlArrowColor': var(--mc-baseMain),
     'controlArrowColorHover': var(--mc-main),
     'controlPrevSvgTransform': rotate(90deg),
     'controlNextSvgTransform': rotate(-90deg),
-    'controlNextMargin': 0 0 0 auto,
+    'controlNextMargin': (
+        375: 0 10px 0 auto,
+        768: 0 0 0 auto,
+    ),
     'controlPrevJustifyContent': flex-start,
-    'controlPrevMargin': 0 auto 0 0,
+    'controlPrevMargin': (
+        375: 0 auto 0 10px,
+        768: 0 auto 0 0,
+    ),
     'controlNextJustifyContent': flex-end,
     'controlTransition': all 0.3s ease-out,
-    'controlBg': linear-gradient(90deg, var(--mc-bg700) 65%, var(--mc-bg700-o0) 100%),
-    'underlineControlBg': linear-gradient(90deg, var(--mc-bg) 65%, var(--mc-bg-o0) 100%),
+    'controlBg': (
+        375: linear-gradient(90deg, var(--mc-bg700), var(--mc-bg700-o0)),
+        768: linear-gradient(90deg, var(--mc-bg700) 65%, var(--mc-bg700-o0) 100%),
+    ),
+    'underlineControlBg': (
+        375: linear-gradient(90deg, var(--mc-bg), var(--mc-bg-o0)),
+        768: linear-gradient(90deg, var(--mc-bg) 65%, var(--mc-bg-o0) 100%),
+    ),
+    'underlineСontrolNextMargin': 0 0 0 auto,
+    'underlineСontrolPrevMargin': 0 auto 0 0,
 ), $customThemeIconsCompact);

@@ -4,7 +4,18 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'menuContentPading': 0 ef.size(1),
+    'menuBg': (
+        375: var(--mc-bg700),
+        768: transparent,
+    ),
+    'menuBorderRadius': (
+        375: ef.get('radius', 'biger'),
+        768: 0,
+    ),
+    'menuContentPading': (
+        375: 0 ef.size(2),
+        768: 0 ef.size(1),
+    ),
     'gapSize': (
         375: ef.size(2),
         1024: ef.size(6),
@@ -14,10 +25,11 @@ $themeDefault: map-merge((
     'paddingSize': ef.size(4),
     'menuGag': ef.size(1),
     'linkPadding': (
-        375: 8px ef.size(3) ef.size(1),
+        375: ef.size(3) ef.size(1),
+        768: 8px ef.size(3) ef.size(1),
         1024: 8px ef.size(4) ef.size(1),
     ),
-    'linkTextPadding': ef.size(1),
+    'linkTextPadding': ef.size(1) 0,
     'linkActiveWeight': bold,
     'linkFont': 'PrimaryText',
     'linkColor': var(--mc-baseMain),
@@ -25,6 +37,10 @@ $themeDefault: map-merge((
     'linkColorActive': var(--mc-main),
     'linkDecoration': none,
 
+    'underlineDisplay': (
+        375: none,
+        768: block,
+    ),
     'underlineColor': var(--mc-main),
     'underlineHeight': 3px,
     'underlineOffset': -3px,
@@ -35,17 +51,33 @@ $themeDefault: map-merge((
     'underlineTransition': all 0.5s cubic-bezier(0.6, 0.1, 0.05, 1.5),
 
     //Controls
+    'controlsDisplay': (
+        375: flex,
+    ),
     'controlWidth': 30px,
     'controlHeight': 100%,
     'controlPadding': ef.size(1),
+    'controlArrowDisplay': (
+        375: none,
+        768: block,
+    ),
     'controlArrowColor': var(--mc-baseMain),
     'controlArrowColorHover': var(--mc-main),
     'controlPrevSvgTransform': rotate(90deg),
     'controlNextSvgTransform': rotate(-90deg),
-    'controlNextMargin': 0 0 0 auto,
+    'controlNextMargin': (
+        375: 0 10px 0 auto,
+        768: 0 0 0 auto,
+    ),
     'controlPrevJustifyContent': flex-start,
-    'controlPrevMargin': 0 auto 0 0,
+    'controlPrevMargin': (
+        375: 0 auto 0 10px,
+        768: 0 auto 0 0,
+    ),
     'controlNextJustifyContent': flex-end,
     'controlTransition': all 0.3s ease-out,
-    'controlBg': linear-gradient(90deg, var(--mc-bg700) 65%, var(--mc-bg700-o0) 100%),
+    'controlBg': (
+        375: linear-gradient(90deg, var(--mc-bg700), var(--mc-bg700-o0)),
+        768: linear-gradient(90deg, var(--mc-bg700) 65%, var(--mc-bg700-o0) 100%),
+    ),
 ), $customThemeDefault);

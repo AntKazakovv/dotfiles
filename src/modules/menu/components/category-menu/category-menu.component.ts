@@ -101,7 +101,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
         });
 
         if (this.$params.common?.useSliderNavigation) {
-            _assign(this.$params.menuParams, {
+            _merge(this.$params.menuParams, {
                 sliderParams: {
                     swiper: {
                         navigation: {
@@ -256,21 +256,6 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
         this.inited = true;
 
         this.cdr.markForCheck();
-    }
-
-    protected initMenuParams(): void {
-        if (this.$params.common?.useSliderNavigation) {
-            _merge(this.$params.menuParams, {
-                sliderParams: {
-                    swiper: {
-                        navigation: {
-                            nextEl: '.wlc-category-menu__control--next',
-                            prevEl: '.wlc-category-menu__control--prev',
-                        },
-                    },
-                },
-            });
-        }
     }
 
     protected getSpecialCategories(): CategoryModel[] {

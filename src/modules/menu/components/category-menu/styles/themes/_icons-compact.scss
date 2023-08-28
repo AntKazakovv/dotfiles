@@ -1,5 +1,8 @@
 .wlc-category-menu--theme-icons-compact:host {
+    @include bm.get-mq-map('background', $themeIconsCompact, 'menuBg');
+    @include bm.get-mq-map('border-radius', $themeIconsCompact, 'menuBorderRadius');
     width: 100%;
+    overflow: hidden;
 
     ::ng-deep {
         @include menuControls($themeIconsCompact);
@@ -7,20 +10,19 @@
         .wlc-category-menu {
 
             &__content {
-                padding: ef.get-value($themeIconsCompact, 'menuContentPading');
+                @include bm.get-mq-map('padding', $themeIconsCompact, 'menuContentPading');
             }
         }
 
         .wlc-menu {
 
-            &__item {
-                padding: ef.get-value($themeIconsCompact, 'itemPadding');
-            }
-
             &__link {
                 @include bm.get-mq-map('height', $themeIconsCompact, 'linkHeight');
                 @include bm.get-mq-map('padding', $themeIconsCompact, 'linkPadding');
-                @include text.get-text-style(ef.get-value($themeIconsCompact, 'linkTextStyle'), ef.get-value($themeIconsCompact, 'linkColor'));
+                @include text.get-text-style(
+                    ef.get-value($themeIconsCompact, 'linkTextStyle'),
+                    ef.get-value($themeIconsCompact, 'linkColor')
+                );
                 @include bm.transition('all');
 
                 position: relative;
@@ -89,15 +91,28 @@
     }
 
     &.wlc-category-menu--theme-mod-underlined {
+        @include bm.get-mq-map('background', $themeIconsCompact, 'underlineMenuBg');
 
         ::ng-deep {
 
             .wlc-category-menu {
 
+                &__content {
+                    @include bm.get-mq-map('padding', $themeIconsCompact, 'underlineMenuContentPading');
+                }
+
                 &__control {
 
+                    &--prev {
+                        margin: ef.get-value($themeIconsCompact, 'underlineСontrolPrevMargin');
+                    }
+
+                    &--next {
+                        margin: ef.get-value($themeIconsCompact, 'underlineСontrolNextMargin');
+                    }
+
                     &:before {
-                        background: ef.get-value($themeIconsCompact, 'underlineControlBg');
+                        @include bm.get-mq-map('background', $themeIconsCompact, 'underlineControlBg');
                     }
                 }
             }
@@ -109,19 +124,24 @@
                 }
 
                 &__link {
+                    @include text.get-text-style(
+                        ef.get-value($themeIconsCompact, 'underlineLinkTextStyle'),
+                        null
+                    );
                     height: auto;
                     padding: ef.get-value($themeIconsCompact, 'underlineLinkPadding');
+
+                    line-height: 1;
                     text-transform: ef.get-value($themeIconsCompact, 'underlineLinkTransform');
                     background: none;
 
                     &:before {
+                        @include bm.get-mq-map('display', $themeIconsCompact, 'underlineDisplay');
                         content: '';
 
                         position: absolute;
                         bottom: ef.get-value($themeIconsCompact, 'underlineOffset');
                         left: 0;
-
-                        display: block;
                         width: 100%;
                         height: ef.get-value($themeIconsCompact, 'underlineHeight');
 
@@ -150,6 +170,24 @@
                                 opacity: 1;
                             }
                         }
+                    }
+
+                    @include mq.min(768) {
+                        @include text.get-text-style(
+                            ef.get-value($themeIconsCompact, 'underlineLinkTextStyle', 768),
+                            null
+                        );
+                        line-height: 1;
+                    }
+                }
+
+                &__icon {
+                    @include bm.get-mq-map('width', $themeIconsCompact, 'underlineIconSize');
+                    @include bm.get-mq-map('height', $themeIconsCompact, 'underlineIconSize');
+
+                    svg {
+                        @include bm.get-mq-map('width', $themeIconsCompact, 'underlineIconSize');
+                        @include bm.get-mq-map('height', $themeIconsCompact, 'underlineIconSize');
                     }
                 }
             }

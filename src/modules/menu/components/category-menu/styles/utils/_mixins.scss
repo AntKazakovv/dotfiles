@@ -3,11 +3,11 @@
     .wlc-category-menu {
 
         &__controls {
+            @include bm.get-mq-map('display', $config, 'controlsDisplay');
             position: absolute;
             top: 0;
             left: 0;
             z-index: 10;
-            display: flex;
             align-items: center;
             justify-content: space-between;
             width: 100%;
@@ -30,6 +30,7 @@
             pointer-events: initial;
 
             &:before {
+                @include bm.get-mq-map('background', $config, 'controlBg');
                 content: '';
                 position: absolute;
                 top: 0;
@@ -38,7 +39,6 @@
                 display: block;
                 width: 100%;
                 height: 100%;
-                background: ef.get-value($config, 'controlBg');
             }
 
             &:disabled {
@@ -46,7 +46,7 @@
             }
 
             .wlc-icon {
-                display: block;
+                @include bm.get-mq-map('display', $config, 'controlArrowDisplay');
                 line-height: 1;
                 transform: ef.get-value($config, 'controlArrowTransform');
             }
@@ -58,14 +58,14 @@
 
             &--prev {
                 --wlc-category-menu-svg-transform: #{ef.get-value($config, 'controlPrevSvgTransform')};
+                @include bm.get-mq-map('margin', $config, 'controlPrevMargin');
                 justify-content: ef.get-value($config, 'controlPrevJustifyContent');
-                margin: ef.get-value($config, 'controlPrevMargin');
             }
 
             &--next {
                 --wlc-category-menu-svg-transform: #{ef.get-value($config, 'controlNextSvgTransform')};
+                @include bm.get-mq-map('margin', $config, 'controlNextMargin');
                 justify-content: ef.get-value($config, 'controlNextJustifyContent');
-                margin: ef.get-value($config, 'controlNextMargin');
 
                 &:before {
                     transform: scaleX(-1);

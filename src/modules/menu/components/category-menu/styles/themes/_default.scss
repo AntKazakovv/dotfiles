@@ -1,5 +1,8 @@
 .wlc-category-menu--theme-default:host {
+    @include bm.get-mq-map('background', $themeDefault, 'menuBg');
+    @include bm.get-mq-map('border-radius', $themeDefault, 'menuBorderRadius');
     width: 100%;
+    overflow: hidden;
 
     ::ng-deep {
         @include menuControls($themeDefault);
@@ -7,22 +10,17 @@
         .wlc-category-menu {
 
             &__content {
-                padding: ef.get-value($themeDefault, 'menuContentPading');
+                @include bm.get-mq-map('padding', $themeDefault, 'menuContentPading');
             }
         }
 
         .wlc-menu {
             @include bm.get-mq-map('grid-gap', $themeDefault, 'gapSize');
-
             display: block;
             grid-auto-columns: auto;
             grid-auto-flow: column;
             align-items: center;
             width: 100%;
-
-            &__item {
-                padding: ef.get-value($themeDefault, 'itemPadding');
-            }
 
             &__link {
                 @include text.get-text-style(ef.get-value($themeDefault, 'linkFont'), ef.get-value($themeDefault, 'linkColor'));
@@ -37,11 +35,11 @@
                     padding: ef.get-value($themeDefault, 'linkTextPadding');
 
                     &:before {
+                        @include bm.get-mq-map('display', $themeDefault, 'underlineDisplay');
                         content: '';
                         position: absolute;
                         bottom: ef.get-value($themeDefault, 'underlineOffset');
                         left: 0;
-                        display: block;
                         width: 100%;
                         height: ef.get-value($themeDefault, 'underlineHeight');
                         background: ef.get-value($themeDefault, 'underlineColor');

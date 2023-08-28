@@ -27,7 +27,8 @@ $gamesCategoriesDefault: map-merge((
     ),
     'gamesCategoriesAlign': center,
     'gamesTemplateColumnsGap': (
-        375: ef.size(4),
+        375: ef.size(2),
+        768: ef.size(4),
     ),
     'sectionRadius': (
         375: 0,
@@ -91,7 +92,7 @@ $withIcons: map-merge((
     'merchButtonIconFillHover': currentColor,
 
     'sectionGap': (
-        768: ef.size(4),
+        375: ef.size(4),
     ),
     'sectionGapDropdownSearch': (
         1200: ef.size(2),

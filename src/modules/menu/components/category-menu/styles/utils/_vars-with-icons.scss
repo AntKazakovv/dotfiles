@@ -1,12 +1,15 @@
 $customWithIcons: () !default;
 $withIcons: map-merge((
-    'menuContentPading': 0 ef.size(1),
+    'menuContentPading': (
+        375: 0,
+        900: 0 ef.size(2),
+    ),
     'menuGag': ef.size(2),
     'iconDirection': column,
     'iconAlign': center,
     'menuItemColor': var(--mc-baseMain),
     'menuItemPadding': (
-        375: ef.size(3) 0 0,
+        375: ef.size(2) 0 0,
         1630: ef.size(4) 0 0,
     ),
     'menuItemMargin': (
@@ -21,9 +24,16 @@ $withIcons: map-merge((
     'linkDecoration': none,
     'linkTransform': null,
     'linkTransformHover': translateY(-5px),
-    'linkTransformActive': translateY(-5px),
+    'linkTransformActive': (
+        375: none,
+        900: translateY(-5px),
+    ),
     'linkTransition': all 0.25s ease-out,
-    'linkWidth': 130px,
+    'linkWidth': (
+        375: 90px,
+        900: 100px,
+        1630: 130px,
+    ),
 
     'menuIconFlexDirection': column,
     'menuIconAlignItems': center,
@@ -72,24 +82,47 @@ $withIcons: map-merge((
 
     // theme-mod big-icons
     'bigMenuPadding': (
-        375: ef.size(1) 0 0,
+        375: 0,
+        900: ef.size(1) 0 0,
         1630: 0,
     ),
-
+    'bigMenuLinkWidth': (
+        375: 80px,
+        900: 100px,
+        1630: 130px,
+    ),
     'bigIconSize': (
-        375: 60px,
-        1630: 70px,
+        375: 50px,
+        900: 70px,
     ),
     'bigIconTransformOrigin': bottom,
     'bigIconTransformHover': translateY(-5px),
-    'bigIconTransformActive': scale(1.15),
+    'bigIconTransformActive': (
+        375: none,
+        900: scale(1.15),
+    ),
+    'bigLinkTextStyle': (
+        375: 'CaptionText',
+        900: 'PrimaryText',
+    ),
+    'bigLinkTextStyleActive': (
+        375: 'CaptionTextBold',
+        900: 'PrimaryTextBold',
+    ),
     'bigLinkTransformHover': none,
     'bigLinkTransformActive': none,
 
     // Slider controls
+    'controlsDisplay': (
+        375: flex,
+    ),
     'controlWidth': 30px,
     'controlHeight': 100%,
     'controlPadding': ef.size(1),
+    'controlArrowDisplay': (
+        375: none,
+        900: block,
+    ),
     'controlArrowColor': var(--mc-baseMain),
     'controlArrowColorHover': var(--mc-main),
     'controlTransition': all 0.3s ease-out,
@@ -99,10 +132,17 @@ $withIcons: map-merge((
     'controlPrevJustifyContent': flex-start,
     'controlPrevMargin': 0 auto 0 0,
     'controlNextJustifyContent': flex-end,
-    'controlBg': linear-gradient(90deg, var(--mc-bg) 65%, var(--mc-bg-o0) 100%),
+    'controlBg': (
+        375: linear-gradient(90deg, var(--mc-bg), var(--mc-bg-o0)),
+        900: linear-gradient(90deg, var(--mc-bg) 65%, var(--mc-bg-o0) 100%),
+    ),
     'controlArrowTransform': translateY(-7px),
     'controlArrowTransformModBig': (
         375: translateY(ef.size(1)),
         1630: none,
+    ),
+    'bigIconControlWidth': (
+        375: 40px,
+        900: 30px,
     ),
 ), $customWithIcons);

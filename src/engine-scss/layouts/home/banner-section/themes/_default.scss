@@ -3,6 +3,6 @@
 
     + .wlc-sections__categories,
     + .wlc-sections__banner-promotion {
-        margin: ef.get-value($themeBannerSection, 'sectionMargin');
+        @include bm.get-mq-map('margin', $themeBannerSection, 'sectionMargin');
     }
 }

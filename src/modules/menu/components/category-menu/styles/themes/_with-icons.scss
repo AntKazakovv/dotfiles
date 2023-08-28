@@ -7,7 +7,7 @@
         .wlc-category-menu {
 
             &__content {
-                padding: ef.get-value($withIcons, 'menuContentPading');
+                @include bm.get-mq-map('padding', $withIcons, 'menuContentPading');
             }
         }
 
@@ -18,12 +18,15 @@
             }
 
             &__link {
-                @include text.get-text-style(ef.get-value($withIcons, 'linkTextStyle'), ef.get-value($withIcons, 'linkColor'));
+                @include text.get-text-style(
+                    ef.get-value($withIcons, 'linkTextStyle'),
+                    ef.get-value($withIcons, 'linkColor')
+                );
+                @include bm.get-mq-map('width', $withIcons, 'linkWidth');
 
                 display: flex;
                 flex-direction: ef.get-value($withIcons, 'iconDirection');
                 align-items: ef.get-value($withIcons, 'iconAlign');
-                width: ef.get-value($withIcons, 'linkWidth');
 
                 text-transform: ef.get-value($themeDefault, 'linkTransform');
                 text-decoration: ef.get-value($themeDefault, 'linkDecoration');
@@ -38,8 +41,11 @@
                 }
 
                 &.active {
-                    @include text.get-text-style(ef.get-value($withIcons, 'linkTextStyleActive'), ef.get-value($withIcons, 'linkColorActive'));
-                    transform: ef.get-value($withIcons, 'linkTransformActive');
+                    @include text.get-text-style(
+                        ef.get-value($withIcons, 'linkTextStyleActive'),
+                        ef.get-value($withIcons, 'linkColorActive')
+                    );
+                    @include bm.get-mq-map('transform', $withIcons, 'linkTransformActive');
 
                     .wlc-menu__icon {
                         color: ef.get-value($withIcons, 'menuIconInnerFillActive');
@@ -146,6 +152,7 @@
         ::ng-deep {
 
             .wlc-category-menu__control {
+                @include bm.get-mq-map('width', $withIcons, 'bigIconControlWidth');
 
                 .wlc-icon {
                     @include bm.get-mq-map('transform', $withIcons, 'controlArrowTransformModBig');
@@ -155,12 +162,28 @@
             .wlc-menu {
 
                 &__link {
+                    @include bm.get-mq-map('width', $withIcons, 'bigMenuLinkWidth');
+                    @include text.get-text-style(
+                        ef.get-value($withIcons, 'bigLinkTextStyle'),
+                        null
+                    );
 
                     &.active {
+                        @include text.get-text-style(
+                            ef.get-value($withIcons, 'bigLinkTextStyleActive'),
+                            null
+                        );
                         transform: ef.get-value($withIcons, 'bigLinkTransformActive');
 
                         .wlc-menu__icon {
-                            transform: ef.get-value($withIcons, 'bigIconTransformActive');
+                            @include bm.get-mq-map('transform', $withIcons, 'bigIconTransformActive');
+                        }
+
+                        @include mq.min(900) {
+                            @include text.get-text-style(
+                                ef.get-value($withIcons, 'bigLinkTextStyleActive', 900),
+                                null
+                            );
                         }
                     }
 
@@ -173,6 +196,13 @@
                                 transform: ef.get-value($withIcons, 'bigIconTransformHover');
                             }
                         }
+                    }
+
+                    @include mq.min(900) {
+                        @include text.get-text-style(
+                            ef.get-value($withIcons, 'bigLinkTextStyle', 900),
+                            null
+                        );
                     }
                 }
 
