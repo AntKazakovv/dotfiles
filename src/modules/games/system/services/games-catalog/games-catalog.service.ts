@@ -68,12 +68,14 @@ import {
     IGames,
     IJackpot,
 } from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
+import {Catalog} from 'wlc-engine/modules/games/system/classes/catalog';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
 import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
+import {catalogArch1} from 'wlc-engine/modules/games/system/config/catalog/v1';
+import {catalogArch2} from 'wlc-engine/modules/games/system/config/catalog/v2';
 import {SpecialCategoriesGamesSlug} from 'wlc-engine/modules/games/system/config/games.config';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
-import {GamesCatalog} from 'wlc-engine/modules/games/system/models/games-catalog.model';
 import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
 import {
     IPlayGameForRealCParams,
@@ -109,6 +111,8 @@ import {
 } from 'wlc-engine/modules/user';
 import {WalletsService} from 'wlc-engine/modules/multi-wallet/system/services';
 import {ISelectedWallet} from 'wlc-engine/modules/multi-wallet/system/interfaces';
+import {CatalogBuilder} from 'wlc-engine/modules/games/system/builders/catalog.builder';
+import {MenuService} from 'wlc-engine/modules/menu';
 
 export interface ILaunchGameModal {
     show: boolean;
@@ -141,12 +145,8 @@ export class GamesCatalogService {
     public idDefVideos: number[] = [];
     public idVerticalVideos: number[] = [];
     private searchBySpecialCats: boolean = true;
-    private gamesCatalog: GamesCatalog;
+    private gamesCatalog: Catalog;
     private onlyAuthSpecial: string[] = ['lastplayed', 'favourites', 'last-played'];
-    private categoryMenus: string[] = [
-        'main-menu',
-        'category-menu',
-    ];
     private deviceType: DeviceType;
     private verticalThumbsConfig: IVideoThumbsConfig;
     private defaultThumbsConfig: IVideoThumbsConfig;
@@ -209,12 +209,26 @@ export class GamesCatalogService {
             this.loadGameSorts(GamesSortEnum.All);
         }
 
-        forkJoin(fetches).subscribe(({games, sorts}) => {
+        forkJoin(fetches).subscribe(async ({games, sorts}) => {
             if (sorts) {
                 this.sorts = this.sortsToDict(sorts.data.data);
             }
-            this.gamesCatalog = new GamesCatalog(
-                {service: 'GamesCatalogService', method: 'init'},
+
+            const menuService: MenuService = await this.injectionService.getService<MenuService>('menu.menu-service');
+            const existMenuSettings = await menuService.existFundistMenuSettings();
+            const categorySettings = this.configService.get('appConfig.categories')
+                || this.configService.get('$games.fundist.defaultCategorySettings.use');
+
+            let catalogBuilder = this.configService.get<CatalogBuilder>('$games.catalogBuilder');
+            if (!catalogBuilder) {
+                if (categorySettings && existMenuSettings) {
+                    catalogBuilder = catalogArch2;
+                } else {
+                    catalogBuilder = catalogArch1;
+                }
+            }
+
+            this.gamesCatalog = catalogBuilder.build(
                 games.data.data,
                 this,
                 this.translateService,
@@ -225,6 +239,7 @@ export class GamesCatalogService {
                 this.hooksService,
                 this.sorts,
             );
+
             this.gamesCatalog.ready.then(() => {
                 if (!this.gamesCatalog.getGameList().length) {
                     this.logService.sendLog({
@@ -505,9 +520,9 @@ export class GamesCatalogService {
         let games = [];
         if (!this.catalogOpened()) {
             games = this.getGameList();
-        } else if (parentCategory?.slug == 'lastplayed') {
+        } else if (parentCategory?.slug == 'lastplayed' || childCategory?.slug == 'lastplayed') {
             games = await this.getLastGames();
-        } else if (parentCategory?.slug == 'favourites') {
+        } else if (parentCategory?.slug == 'favourites'  || childCategory?.slug == 'favourites') {
             games = await this.getFavouriteGames();
         } else if (this.useRealJackpots && parentCategory?.slug == 'jackpots') {
             games = await this.getJackpotGames();
@@ -548,8 +563,8 @@ export class GamesCatalogService {
         if (this.catalogOpened()) {
             const parentCategory = this.getParentCategoryByState();
             const categoryList = this.getCategoriesByParentId(parentCategory.id);
-            const newCategory = this.getCategoryBySlug('new');
-            const popularCategory = this.getCategoryBySlug('popular');
+            const newCategory = this.getCategoryBySlug('new', parentCategory.slug);
+            const popularCategory = this.getCategoryBySlug('popular', parentCategory.slug);
             if (newCategory) {
                 categoryList.push(newCategory);
             }
@@ -557,8 +572,8 @@ export class GamesCatalogService {
                 categoryList.push(popularCategory);
             }
             if (auth || this.configService.get<boolean>('$user.isAuthenticated')) {
-                const favouritesCategory = this.getCategoryBySlug('favourites');
-                const lastplayedCategory = this.getCategoryBySlug('lastplayed');
+                const favouritesCategory = this.getCategoryBySlug('favourites', parentCategory.slug);
+                const lastplayedCategory = this.getCategoryBySlug('lastplayed', parentCategory.slug);
                 if (favouritesCategory) {
                     categoryList.push(favouritesCategory);
                 }
@@ -566,7 +581,7 @@ export class GamesCatalogService {
                     categoryList.push(lastplayedCategory);
                 }
             }
-            return this.sortCategories(categoryList);
+            return this.sortCategories(_uniqBy(categoryList, 'slug'));
         }
     }
 
@@ -626,7 +641,14 @@ export class GamesCatalogService {
     public getChildCategoryByState(): CategoryModel {
         if (this.catalogOpened()) {
             const categorySlug: string = this.uiRouter.params?.childCategory;
-            return this.getCategoryBySlug(categorySlug);
+            // TODO refactor after #479773
+            if (this.gamesCatalog.architectureVersion === 3) {
+                return _find(this.gamesCatalog.getCategoriesBySlugs([categorySlug]), (category: CategoryModel) => {
+                    return category.parentCategory?.slug === this.uiRouter.params?.category;
+                });
+            } else {
+                return this.getCategoryBySlug(categorySlug);
+            }
         }
     }
 
@@ -636,8 +658,20 @@ export class GamesCatalogService {
      * @param {string | string[]} slug
      * @returns {CategoryModel}
      */
-    public getCategoryBySlug(slug: string | string[]): CategoryModel {
-        return this.gamesCatalog.getCategoryBySlug(slug);
+    public getCategoryBySlug(slug: string | string[], parentCategorySlug?: string): CategoryModel {
+        // TODO refactor after #479773
+        if (parentCategorySlug && this.gamesCatalog.architectureVersion === 3) {
+            return _find(
+                this.gamesCatalog.getCategoriesBySlugs(_isArray(slug) ? slug : [slug]),
+                (category: CategoryModel) => {
+                    return parentCategorySlug
+                        ? category.parentCategory?.slug === parentCategorySlug
+                        : category.slug === slug;
+                },
+            );
+        } else {
+            return this.gamesCatalog.getCategoryBySlug(slug);
+        }
     }
 
     /**
@@ -1180,6 +1214,7 @@ export class GamesCatalogService {
     }
 
     protected catalogCriteria({name}: StateObject): boolean {
+        // TODO refactor after #479773
         return 'app.catalog.child' === name && !this.gamesCatalog.defaultCategoryArchitecture;
     }
 

@@ -9,6 +9,7 @@ import {ICategoryBlock} from 'wlc-engine/modules/core/system/interfaces/categori
 import {TotalJackpotNoContentByThemeType} from 'wlc-engine/modules/games/components/total-jackpot/total-jackpot.params';
 import {ICacheSettings} from 'wlc-engine/modules/games/system/interfaces/cache.interface';
 import {TGamesSortDirections} from 'wlc-engine/modules/games/system/interfaces/sorts.interfaces';
+import {CatalogBuilder} from 'wlc-engine/modules/games/system/builders/catalog.builder';
 
 export type TScreenOrientation = Extract<OrientationLockType, 'portrait' | 'landscape'>;
 
@@ -21,6 +22,15 @@ export type TDisableDemoFor = 'all' | 'auth';
 export type TGameSortFeature = 'sortPerCountry' | 'sortPerLanguage' | 'sortPerCategory';
 
 export interface IGamesConfig {
+    /**
+     * Option to set the directory architecture in the project.
+     *
+     * Use already prepared architectures and modify them:
+     * - catalogArch1
+     * - catalogArch2
+     * - catalogArch3
+     */
+    catalogBuilder?: CatalogBuilder;
     fundist?: IFundist;
     sportsbookMerchants?: number[];
     run?: IRunGameOptions;
@@ -347,11 +357,6 @@ export interface ILastPlayedGame {
 export interface IAvailableItem {
     id: string;
     value: string;
-}
-
-export interface ISupportedItem {
-    value: string;
-    title: string;
 }
 
 export interface IGameParams {

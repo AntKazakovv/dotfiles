@@ -14,13 +14,12 @@ import {TranslateService} from '@ngx-translate/core';
 import _set from 'lodash-es/set';
 import _clone from 'lodash-es/clone';
 import _assign from 'lodash-es/assign';
-import _forEach from 'lodash-es/forEach';
 import _has from 'lodash-es/has';
 import _trim from 'lodash-es/trim';
 import _concat from 'lodash-es/concat';
-import _find from 'lodash-es/find';
 import _filter from 'lodash-es/filter';
 import _merge from 'lodash-es/merge';
+import _bind from 'lodash-es/bind';
 
 import {
     AbstractComponent,
@@ -251,19 +250,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             }
 
             this.$params.menuParams.items = _concat(menuItems, this.$params.menuParams.items as MenuParams.IMenuItem[]);
-            if (!this.menuSettings) {
-                if (this.gamesCatalogService.catalogOpened()) {
-                    const parentInMenu: boolean = !!_find(this.categories, (category) => {
-                        return this.parentCategory.slug === category.slug;
-                    });
-                    if (!parentInMenu) {
-                        this.$params.menuParams.items.unshift(this.getAllGamesBtn());
-                    }
-                }
-                if (this.useLobbyBtn) {
-                    this.$params.menuParams.items.unshift(this.getLobbyBtn());
-                }
-            }
+            this.addAdditionalButtons();
         }
         this.$params.menuParams = _clone(this.$params.menuParams);
         this.inited = true;
@@ -345,55 +332,15 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
         };
     }
 
+    protected addAdditionalButtons(): void {
+        _bind(this.$params.customizableFn.addAdditionalButtons, this)();
+    }
+
     /**
      * Init as dropdown menu
      */
     protected initAsDropdown(): void {
-        const parentCategories = this.gamesCatalogService.getParentCategories();
-        let dropdownMenu = [];
-
-        const specialCategories = this.getSpecialCategories();
-        if (specialCategories.length) {
-            dropdownMenu = MenuHelper.getItemsForCategories({
-                categories: specialCategories,
-                lang: this.translateService.currentLang,
-                icons: {
-                    folder: this.iconsFolder,
-                    disable: true,
-                },
-            });
-        }
-
-        _forEach(parentCategories, (category) => {
-            const menuItems = MenuHelper.getItemsForCategories({
-                categories: [category],
-                lang: this.translateService.currentLang,
-                icons: {
-                    folder: this.iconsFolder,
-                    disable: true,
-                },
-            });
-            if (category.childCategories.length) {
-                const childItems = MenuHelper.getItemsForCategories({
-                    categories: category.childCategories,
-                    lang: this.translateService.currentLang,
-                    icons: {
-                        folder: this.iconsFolder,
-                        disable: !this.useIcons,
-                        fallback: this.fallBackIcon,
-                    },
-                });
-                dropdownMenu.push({
-                    parent: menuItems[0],
-                    items: childItems,
-                    type: 'group',
-                });
-            } else if (menuItems[0]) {
-                dropdownMenu.push(menuItems[0]);
-            }
-        });
-
-        this.$params.menuParams.items = dropdownMenu;
+        _bind(this.$params.customizableFn.initAsDropdown, this)();
     }
 
     protected iconPath(iconName: string): string {

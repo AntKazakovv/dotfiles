@@ -3,7 +3,20 @@ import {
     CustomType,
 } from 'wlc-engine/modules/core';
 import {TIconExtension} from 'wlc-engine/modules/menu';
+import {CategoryMenuComponent} from 'wlc-engine/modules/menu/components/category-menu/category-menu.component';
+import {initAsDropdownDefault} from 'wlc-engine/modules/menu/components/category-menu/customizable/init-as-dropdown';
+import {
+    addAdditionalButtonsDefault,
+} from 'wlc-engine/modules/menu/components/category-menu/customizable/add-additinal-buttons';
+
 import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
+
+export type TCustomizableFn = (this: CategoryMenuComponent) => void;
+
+export interface ICustomizableFn {
+    initAsDropdown?: TCustomizableFn;
+    addAdditionalButtons?: TCustomizableFn;
+}
 
 export type Type = 'default' | 'dropdown' | CustomType;
 export type Theme = 'default' | 'dropdown' | 'with-icons' | 'icons-compact' | 'mobile-app' | CustomType;
@@ -26,6 +39,7 @@ export interface ICategoryMenuCParams extends IComponentParams<Theme, Type, Them
     };
     type?: Type,
     menuParams?: MenuParams.IMenuCParams,
+    customizableFn?: ICustomizableFn;
 }
 
 export const defaultParams: ICategoryMenuCParams = {
@@ -55,5 +69,9 @@ export const defaultParams: ICategoryMenuCParams = {
         dropdowns: {
             expandableOnClick: true,
         },
+    },
+    customizableFn: {
+        initAsDropdown: initAsDropdownDefault,
+        addAdditionalButtons: addAdditionalButtonsDefault,
     },
 };

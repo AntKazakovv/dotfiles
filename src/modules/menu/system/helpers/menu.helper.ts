@@ -175,6 +175,7 @@ export class MenuHelper {
                 class: category.slug,
                 wlcElement: (params.wlcElementPrefix || 'link_game-categories-') + category.slug,
                 params: itemParams,
+                auth: category.authRequired ? true : null,
             };
         });
     }
