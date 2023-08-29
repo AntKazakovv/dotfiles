@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {TranslateModule} from '@ngx-translate/core';
 
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
+import {HistoryModule} from 'wlc-engine/modules/history/history.module';
 
 // components
 import {
@@ -39,6 +40,7 @@ export const services = {
     ],
     imports: [
         CoreModule,
+        HistoryModule,
         TranslateModule,
     ],
     exports: [
