@@ -117,7 +117,7 @@ export abstract class SignInFormAbstract<T extends IAbstractSignInFormCParams<un
 
         try {
             form.disable();
-            await this.signIn(form.value);
+            await this.signIn(form.getRawValue());
 
             if (this.stateService.is('app.signin')) {
                 this.stateService.go('app.home');
