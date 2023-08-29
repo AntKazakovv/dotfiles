@@ -59,7 +59,7 @@ export const betHistoryTableHeadConfig: ITableCol[] = [
 ];
 
 export const defaultParams: IBetHistoryCParams = {
-    moduleName: 'profile',
+    moduleName: 'history',
     componentName: 'wlc-bet-history',
     class: 'wlc-bet-history',
     tableConfig: {
