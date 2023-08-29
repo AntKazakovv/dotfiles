@@ -52,7 +52,11 @@ export class IconListItemComponent extends AbstractComponent implements OnInit, 
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         if (!this.icon) {
-            if (this.$params.icon.showAs === 'img') {
+
+            if (
+                this.$params.icon.showAs === 'img'
+                && this.$params.icon.image.includes('/gstatic/')
+            ) {
                 this.$params.icon.image = await this.getIconPath();
             }
             this.icon = this.$params.icon;
