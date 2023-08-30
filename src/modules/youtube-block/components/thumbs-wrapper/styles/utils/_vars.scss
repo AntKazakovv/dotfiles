@@ -1,0 +1,99 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'wrapperMaxWidth': (
+        375: 100%,
+        1200: ef.get('container', 1200),
+        1630: ef.get('container', 1630),
+    ),
+    'wrapperMargin': (
+        375: 0 auto,
+    ),
+    'wrapperBg': (
+        375: linear-gradient(180deg, #1bd87d 0%, #3290ff 77.08%),
+    ),
+    'wrapperRadius': (
+        1200: ef.size(2),
+    ),
+    'contentPadding': (
+        375: ef.size(4),
+        768: ef.size(6) ef.size(4),
+        1024: ef.size(6),
+        1200: ef.size(6) ef.size(15) ef.size(10),
+    ),
+    'contentGap': (
+        375: ef.size(4),
+        900: ef.size(6),
+        1200: ef.size(9),
+    ),
+    'titleJustifyContent': center,
+    'titleColor': ef.get('mainColors', 'baseMain'),
+    'titleTextStyle': (
+        375: 'QoteTextBoldSmaller',
+        768: 'QoteTextBold',
+        1630: 'PromoTitle',
+    ),
+
+    'decorFill': ef.get('mainColors', 'baseMain'),
+    'decor1': (
+        'width': (
+            375: 30px,
+            768: 35px,
+            900: 40px,
+            1200: 45px,
+            1630: 60px,
+        ),
+        'height': (
+            375: 30px,
+            768: 35px,
+            900: 40px,
+            1200: 45px,
+            1630: 60px,
+        ),
+        'top': (
+            375: ef.size(4),
+            768: ef.size(6),
+        ),
+        'left': (
+            375: 6%,
+            768: 5%,
+            1200: 6%,
+            1630: 5%,
+        ),
+    ),
+    'decor2': (
+        'width': (
+            375: 30px,
+            768: 35px,
+            900: 40px,
+            1200: 45px,
+            1630: 60px,
+        ),
+        'height': (
+            375: 30px,
+            768: 35px,
+            900: 40px,
+            1200: 45px,
+            1630: 60px,
+        ),
+        'top': (
+            375: ef.size(4),
+            768: ef.size(6),
+        ),
+        'right': (
+            375: 6%,
+            768: 5%,
+            1200: 6%,
+            1630: 5%,
+        ),
+    ),
+
+    'swiperOverflow': (
+        375: visible,
+        1200: hidden,
+    ),
+
+    'modalBodyPadding': (
+        1200: ef.size(4) ef.size(8) ef.size(8),
+        1630: ef.size(4) ef.size(13) ef.size(13),
+    ),
+), $customThemeDefault);

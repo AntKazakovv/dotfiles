@@ -39,7 +39,8 @@ export type TModuleName =
     | 'seo'
     | 'aml'
     | 'multi-wallet'
-    | 'two-factor-auth';
+    | 'two-factor-auth'
+    | 'youtube-block';
 
 type IFunctionImportModule = (name: TModuleName, callback: Function) => unknown;
 
@@ -248,5 +249,10 @@ export const modulesApp: Record<TModuleName, IFunctionImportModule> = {
         const m = await import('wlc-engine/modules/user/submodules/two-factor-auth/two-factor-auth.module');
         callback(name, m);
         return m.TwoFactorAuthModule;
+    },
+    'youtube-block': async (name: TModuleName, callback: Function) => {
+        const m = await import('wlc-engine/modules/youtube-block/youtube-block.module');
+        callback(name, m);
+        return m.YoutubeBlockModule;
     },
 } as const;

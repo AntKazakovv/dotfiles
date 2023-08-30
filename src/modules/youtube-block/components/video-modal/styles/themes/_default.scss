@@ -1,0 +1,6 @@
+.wlc-video-modal--theme-default:host {
+
+    iframe {
+        aspect-ratio: ef.get-value($themeDefault, 'iframeRatio');
+    }
+}

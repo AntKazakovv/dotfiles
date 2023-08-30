@@ -1,0 +1,29 @@
+<ng-container *ngIf="!!items?.length">
+    <div class="{{$class}}__bg"></div>
+    <div class="{{$class}}__decor {{$class}}__decor--1">
+        <span wlc-icon
+            [iconPath]="$params.decor1Path"
+        ></span>
+    </div>
+    <div class="{{$class}}__decor {{$class}}__decor--2">
+        <span wlc-icon
+            [iconPath]="$params.decor2Path"
+        ></span>
+    </div>
+
+    <div class="{{$class}}__content"
+        data-wlc-element="youtube_wrapper_content">
+        <div class="{{$class}}__title"
+            data-wlc-element="youtube_wrapper_title"
+            wlc-title
+            [mainText]="$params.title"></div>
+        <div
+            class="{{$class}}__thumbs"
+            wlc-thumb-list
+            [thumbs]="items"
+            [events$]="events$"
+            [inlineParams]="$params.thumbListParams">
+        </div>
+
+    </div>
+</ng-container>
