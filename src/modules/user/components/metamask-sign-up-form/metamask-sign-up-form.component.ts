@@ -72,6 +72,7 @@ export class MetamaskSignUpFormComponent
             this.formData = new BehaviorSubject(this.$params.formData);
         }
     }
+
     /**
      * Handle form-wrapper submit event
      * @param {FormGroup} form `FormGroup`

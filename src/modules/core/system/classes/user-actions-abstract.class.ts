@@ -35,6 +35,7 @@ import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interf
 import {
     IRegFormDataForConfig,
     UserService,
+    UserHelper,
 } from 'wlc-engine/modules/user';
 import {
     ChosenBonusSetParams,
@@ -71,7 +72,13 @@ export abstract class UserActionsAbstract<T> extends AbstractComponent implement
 
     public override ngOnInit(inlineParams?: IComponentParams<unknown, unknown, unknown>): void {
         super.ngOnInit(inlineParams);
+        UserHelper.restrictRegistration(this.configService, this.eventService);;
         this.getFormDataFromCash();
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    public beforeSubmit(form?: UntypedFormGroup): boolean | Promise<boolean> {
+        return !UserHelper.restrictRegistration(this.configService, this.eventService);
     }
 
     /**

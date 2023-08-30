@@ -25,6 +25,7 @@ import {
     ISocialConnectedList,
     ISocialUserDataResponse,
 } from '../../interfaces';
+import {UserHelper} from 'wlc-engine/modules/user/system/helpers/user.helper';
 
 @Injectable({providedIn: 'root'})
 export class SocialService {
@@ -79,6 +80,9 @@ export class SocialService {
      * @param params request params
      */
     public async socialRegisterComplete(params: Partial<IUserProfile>): Promise<void> {
+        if (UserHelper.restrictRegistration(this.configService, this.eventService)) {
+            return;
+        }
         try {
             await this.dataService.request(
                 {

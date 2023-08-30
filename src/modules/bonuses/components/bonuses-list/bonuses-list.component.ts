@@ -609,19 +609,17 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         this.ready$.pipe(takeUntil(this.$destroy)).subscribe((isReady: boolean) => {
             if (this.params.theme === 'reg-first' || this.$params.theme === 'partial') {
                 const minLength = this.$params.common?.useBlankBonus ? 1 : 0;
-                const isEmptyRegBonuses = isReady && this.bonuses.length <= minLength;
+                if (isReady) {
+                    const isEmptyRegBonuses = this.bonuses.length <= minLength;
+                    this.configService.set<boolean>({name: 'EMPTY_REGISTER_BONUSES', value: isEmptyRegBonuses});
+                    this.eventService.emit({name: 'EMPTY_REGISTER_BONUSES', data: isEmptyRegBonuses});
 
-                this.configService.set<boolean>({name: 'EMPTY_REGISTER_BONUSES', value: isEmptyRegBonuses});
-
-                if (isEmptyRegBonuses) {
-                    this.eventService.emit({name: 'EMPTY_REGISTER_BONUSES'});
-                }
-
-                if (isReady && this.$params.theme === 'reg-first') {
-                    if (!this.bonuses.length) {
-                        this.setCheckboxValue(true);
-                    } else if (this.checkBoxParams.control.value) {
-                        this.setCheckboxValue(false);
+                    if (this.$params.theme === 'reg-first') {
+                        if (!this.bonuses.length) {
+                            this.setCheckboxValue(true);
+                        } else if (this.checkBoxParams.control.value) {
+                            this.setCheckboxValue(false);
+                        }
                     }
                 }
             }

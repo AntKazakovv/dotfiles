@@ -12,9 +12,11 @@ import {
     AbstractComponent,
     ConfigService,
     EventService,
+    IEvent,
     IIndexing,
 } from 'wlc-engine/modules/core';
 import {IMGAConfig} from 'wlc-engine/modules/core/components/license/license.params';
+import {UserHelper} from 'wlc-engine/modules/user/system/helpers/user.helper';
 
 import * as Params from 'wlc-engine/modules/core/components/steps/steps.params';
 
@@ -108,8 +110,12 @@ export class StepsComponent extends AbstractComponent implements OnInit {
         if (this.$params.stepsNames.includes('signUpBonuses')) {
             this.eventService.filter({name: 'EMPTY_REGISTER_BONUSES'}, this.$destroy)
                 .pipe(first())
-                .subscribe(() => {
-                    this.eventService.emit({name: Params.StepsEvents.Next});
+                .subscribe((data: IEvent<boolean>) => {
+                    if (data.data){
+                        this.eventService.emit({name: Params.StepsEvents.Next});
+                    } else if (this.stepList.length > 1 ) {
+                        UserHelper.restrictRegistration(this.configService, this.eventService);
+                    }
                 });
         }
     }

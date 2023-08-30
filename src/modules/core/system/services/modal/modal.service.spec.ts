@@ -93,19 +93,6 @@ describe('ModalService', () => {
         expect(modalService.getActiveModal(existingModalId)).toEqual(modalService['activeModals'][index]);
     });
 
-    it('-> showModal with restricted modals should call notificationError', async () => {
-        const restrictedModal = modalService['restrictModal']['signup'];
-        modalService['notificationError'] = jasmine.createSpy();
-
-        configServiceSpy.get.withArgs(restrictedModal.baseConfigKey).and.returnValue(restrictedModal.baseConfigValue);
-        await modalService.showModal('signup');
-
-        expect(modalService['notificationError']).toHaveBeenCalledWith(
-            restrictedModal.message,
-            restrictedModal.wlcElement,
-        );
-    });
-
     it('-> showModal with modal id from modalList should call openModal', async () => {
         modalService['openModal'] = jasmine.createSpy();
         await modalService.showModal('login');

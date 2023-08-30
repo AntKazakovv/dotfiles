@@ -1,11 +1,9 @@
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {LoaderComponent} from 'wlc-engine/modules/core/components/loader/loader.component';
 import {TabSwitcherComponent} from 'wlc-engine/modules/core/components/tab-switcher/tab-switcher.component';
 import {
     IModalConfig,
     IModalList,
     IModalOptions,
-    IRestrictModalOption,
 } from './index';
 
 import {phrases as pepPhrases} from 'wlc-engine/modules/user/submodules/pep';
@@ -502,14 +500,5 @@ export const MODALS_LIST: IModalList = {
             ignoreBackdropClick: true,
             backdrop: 'static',
         },
-    },
-};
-
-export const RESTRICT_MODAL: IIndexing<IRestrictModalOption> = {
-    'signup': {
-        baseConfigKey: '$base.site.restrictRegistration',
-        baseConfigValue: true,
-        message: gettext('Sorry, registration is disabled.'),
-        wlcElement: 'registration-is-disabled',
     },
 };

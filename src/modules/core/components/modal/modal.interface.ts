@@ -248,17 +248,6 @@ export interface IActiveModal {
     ref: ComponentRef<WlcModalComponent>;
 }
 
-export interface IRestrictModalOption {
-    /** Key from $base config */
-    baseConfigKey: string;
-    /** Value from $base config */
-    baseConfigValue: unknown;
-    /** Message for modal */
-    message: string;
-    /** Just wlc element */
-    wlcElement: string;
-}
-
 export type TModalOptionAuth = boolean | 'any';
 
 /** State config */

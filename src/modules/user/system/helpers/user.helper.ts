@@ -2,9 +2,17 @@ import _findLastIndex from 'lodash-es/findLastIndex';
 import _set from 'lodash-es/set';
 import _find from 'lodash-es/find';
 
-import {IFormWrapperCParams} from 'wlc-engine/modules/core';
+import {
+    IFormWrapperCParams,
+    NotificationEvents,
+    GlobalHelper,
+} from 'wlc-engine/modules/core';
+import {
+    ConfigService,
+    EventService,
+    IPushMessageParams,
+} from 'wlc-engine/modules/core/system/services';
 import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
-import {GlobalHelper} from 'wlc-engine/modules/core';
 import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 
 interface IDataForModification{
@@ -113,5 +121,28 @@ export class UserHelper {
 
             data.config.components = components;
         }
+    }
+
+    /**
+     * Push message about registration restriction
+     *
+     * @returns boolean
+     */
+    public static restrictRegistration(
+        configService: ConfigService,
+        eventService: EventService,
+    ): boolean {
+        const restrictReg = configService.get<boolean>('$base.site.restrictRegistration');
+        if (restrictReg) {
+            eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'error',
+                    message: gettext('Sorry, registration is disabled.'),
+                    wlcElement: 'registration-is-disabled',
+                },
+            });
+        }
+        return restrictReg;
     }
 }

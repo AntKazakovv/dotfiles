@@ -70,6 +70,7 @@ import {
 import {IWSLoyalty} from 'wlc-engine/modules/loyalty/system/interfaces/interfaces';
 import {WebSocketEvents} from 'wlc-engine/modules/core/system/services/websocket/websocket.service';
 import {AchievementsService} from 'wlc-engine/modules/loyalty/submodules/achievements';
+import {UserHelper} from 'wlc-engine/modules/user/system/helpers/user.helper';
 
 export enum LanguageChangeEvents {
     ChangeLanguage = 'CHANGE_LANGUAGE'
@@ -530,6 +531,9 @@ export class UserService {
     }
 
     public createUserProfile(userProfile: IUserProfile): Promise<IIndexing<any>> {
+        if (UserHelper.restrictRegistration(this.configService, this.eventService)) {
+            throw new Error(gettext('Sorry, registration is disabled.'));
+        }
         this.prepareCreateProfile(userProfile);
         const queryParams: ICreateProfileQueryParams = {};
 

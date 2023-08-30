@@ -166,7 +166,10 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
      * @param form
      * @returns {Promise}
      */
-    public beforeSubmit(form: UntypedFormGroup): Promise<boolean> {
+    public override beforeSubmit(form: UntypedFormGroup): boolean | Promise<boolean> {
+        if (!super.beforeSubmit()) {
+            return false;
+        }
         return this.checkRegisterPromocode(form);
     }
 
