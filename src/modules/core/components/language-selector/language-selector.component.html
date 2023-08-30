@@ -9,6 +9,7 @@
              class="{{$class}}__item {{$class}}__item--{{lang.code}}"
              [ngClass]="[lang.code === currentLanguage.code ? $class + '__item--active': '']"
              [tooltip]="$params.useTooltip && lang.label"
+             boundariesElement="viewport"
              container="body"
              containerClass="wlc-tooltip--compact"
              placement="right">
@@ -42,6 +43,7 @@
          [tooltip]="$params.useTooltip && currentLanguage.label"
          container="body"
          containerClass="wlc-tooltip--compact"
+         boundariesElement="viewport"
          placement="right"
          #langContainer
     >
@@ -78,6 +80,7 @@
                  [tooltip]="$params.useTooltip && lang.label"
                  container="body"
                  containerClass="wlc-tooltip--compact"
+                 boundariesElement="viewport"
                  placement="right">
 
                 <a href="/{{lang.code}}"
