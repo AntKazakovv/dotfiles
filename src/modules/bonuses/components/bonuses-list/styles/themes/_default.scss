@@ -126,7 +126,7 @@
 
             ::ng-deep {
 
-                .swiper {
+                .swiper:host(.wlc-steps) {
 
                     .swiper-wrapper {
                         @include bm.get-mq-map('justify-content', $themeDefault, 'singleBonusJustify');
