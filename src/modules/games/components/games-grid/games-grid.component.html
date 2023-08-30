@@ -15,7 +15,7 @@
                 class="{{$class}}__bg"
                 [style.background-image]="'url(' + $params.urlPreviewCategoryBg + ')'">
             </div>
-            <ng-container [ngTemplateOutlet]="blockTitle"></ng-container>
+            <ng-container [ngTemplateOutlet]="blockDefaultTitle"></ng-container>
 
             <ng-container *ngIf="showDesktopLink">
                 <ng-container [ngTemplateOutlet]="showAllBtn"></ng-container>
@@ -72,12 +72,6 @@
         [hidden]="hideEmptyComponent">
 
         <div *ngIf="showDefaultHeader" class="{{$class}}__header">
-            <span *ngIf="$params.titleIcon?.name"
-                wlc-icon
-                class="{{$class}}__title-icon"
-                [iconPath]="$params.titleIcon?.name"
-                [fallback]="$params.titleIcon.fallback">
-            </span>
 
             <ng-container [ngTemplateOutlet]="blockTitle"></ng-container>
 
@@ -142,12 +136,6 @@
 
 <ng-template #swiper>
     <div class="{{$class}}__content" [hidden]="hideEmptyComponent">
-        <span *ngIf="$params.titleIcon?.name"
-            wlc-icon
-            class="{{$class}}__title-icon"
-            [iconPath]="$params.titleIcon?.name"
-            [fallback]="$params.titleIcon.fallback">
-        </span>
         <ng-container [ngTemplateOutlet]="blockTitle"></ng-container>
 
         <ng-container
@@ -227,7 +215,7 @@
             [iconPath]="$params.titleIcon.name">
         </span>
 
-        <ng-container [ngTemplateOutlet]="blockTitle"></ng-container>
+        <ng-container [ngTemplateOutlet]="blockDefaultTitle"></ng-container>
 
         <ng-container
             *ngIf="showDesktopLink; then showAllLink">
@@ -295,7 +283,7 @@
     </div>
 </ng-template>
 
-<ng-template #blockTitle>
+<ng-template #blockDefaultTitle>
     <div *ngIf="$params.showTitle"
         wlc-title
         class="{{$class}}__title"
@@ -304,6 +292,26 @@
         [mainLink]="$params.showAllLink?.sref || $params.showAllLink?.link"
         [mainParams]="$params.showAllLink?.params || {}">
     </div>
+</ng-template>
+<ng-template #blockTitle>
+    <ng-container *ngIf="$params.showTitle">
+        <ng-container *ngIf="$params.showAllLink?.useAsTitle; else blockSectionTitle">
+            <a wlc-section-title
+                [text]="title"
+                [iconPath]="$params.titleIcon?.name"
+                [iconFallback]="$params.titleIcon?.fallback"
+                [uiSref]="$params.showAllLink?.sref || $params.showAllLink?.link"
+                [uiParams]="$params.showAllLink?.params || {}">
+            </a>
+        </ng-container>
+    </ng-container>
+    <ng-template #blockSectionTitle>
+        <div wlc-section-title
+            [text]="title"
+            [iconPath]="$params.titleIcon?.name"
+            [iconFallback]="$params.titleIcon?.fallback">
+        </div>
+    </ng-template>
 </ng-template>
 
 <ng-template #showAllBtn>

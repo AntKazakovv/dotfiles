@@ -1,0 +1,13 @@
+<span *ngIf="iconPath"
+    wlc-icon
+    class="{{$class}}__icon"
+    [iconPath]="iconPath"
+    [fallback]="iconFallback">
+</span>
+<span class="{{$class}}__content">
+    {{text | translate}}
+    <span *ngIf="useTitleLink"
+        wlc-icon
+        [iconPath]="$params.arrowLinkIconPath">
+    </span>
+</span>

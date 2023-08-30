@@ -26,6 +26,11 @@ IAbstractIconsListParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     linkText?: string;
     sliderParams?: ISliderCParams;
     defaultLinkSref?: string;
+    titleIconPath?: string;
+    /**
+     * Use link in title
+     */
+    useTitleLink?: boolean;
 };
 
 export const defaultParams: IProviderLinksCParams = {

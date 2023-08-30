@@ -1,0 +1,63 @@
+a.wlc-section-title--theme-default:host {
+    text-decoration: none;
+
+    .wlc-section-title__content {
+        @include bm.transition(color, 0.3s);
+        color: ef.get-value($themeDefault, 'titleColorLink');
+
+        ::ng-deep {
+
+            .wlc-icon {
+                @include bm.transition(opacity, 0.3s);
+                opacity: 0;
+
+                svg {
+                    fill: ef.get-value($themeDefault, 'iconLinkColor');
+                }
+            }
+        }
+    }
+
+    @include bm.hover {
+
+        .wlc-section-title__content {
+            color: ef.get-value($themeDefault, 'titleColorLinkHover');
+
+            .wlc-icon {
+                opacity: 1;
+            }
+        }
+    }
+}
+
+.wlc-section-title--theme-default:host {
+    display: flex;
+    align-items: center;
+
+    .wlc-section-title {
+
+        &__content {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'titleFontStyle'),
+                ef.get-value($themeDefault, 'titleColor')
+            );
+        }
+
+        &__icon {
+            --wlc-icon-width: #{ef.get-value($themeDefault, 'titleIconSize')};
+            --wlc-icon-height: #{ef.get-value($themeDefault, 'titleIconSize')};
+            margin: ef.get-value($themeDefault, 'titleIconMargin');
+
+            ::ng-deep {
+
+                .wlc-icon-content {
+                    display: flex;
+
+                    svg {
+                        fill: ef.get-value($themeDefault, 'titleIconFill');
+                    }
+                }
+            }
+        }
+    }
+}

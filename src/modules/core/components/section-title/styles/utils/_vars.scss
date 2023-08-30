@@ -1,0 +1,24 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'titleFontStyle': 'QoteTextBold',
+    'titleColor': var(--mc-baseMain),
+    'titleColorLink': var(--mc-baseOpacity),
+    'titleColorLinkHover': var(--mc-baseMain),
+    'iconLinkColor': var(--mc-baseMain),
+
+    'titleIconMargin': 0 ef.size(2) 0 0,
+    'titleIconSize': 24px,
+    'titleIconFill': var(--mc-baseMain),
+), $customThemeDefault);
+
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'titleFontStyle': 'ThirdTitle',
+    'titleColor': var(--mc-baseMain),
+    'titleColorHover': var(--mc-baseThird),
+
+    'titleIconMargin': 0 ef.size(2) 0 0,
+    'titleIconSize': 16px,
+    'titleIconFill': var(--mc-baseMain),
+    'titleIconFillBase': currentColor,
+), $customThemeWolf);

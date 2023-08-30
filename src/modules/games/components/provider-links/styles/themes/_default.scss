@@ -64,10 +64,6 @@
             @include bm.get-mq-map('grid-column', $themeDefault, 'loaderColumn');
         }
 
-        &__title {
-            text-align: ef.get-value($themeDefault, 'titleAlignment');
-        }
-
         &__slider,
         &__wrapper {
             grid-area: ef.get-value($themeDefault, 'wrapperSliderGridArea');

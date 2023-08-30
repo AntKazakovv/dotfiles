@@ -9,10 +9,6 @@
             row-gap: ef.get-value($themeSwiper, 'swiperGridRowGap');
         }
 
-        &__title-icon {
-            grid-area: title-icon;
-        }
-
         &__list {
             @include list();
             grid-area: games-grid;
@@ -20,14 +16,6 @@
 
         &__item {
             @include item();
-        }
-
-        &__title {
-            display: ef.get-value($themeSwiper, 'titleDisplay');
-            grid-area: title;
-            align-items: ef.get-value($themeSwiper, 'titleAlignItems');
-            align-self: ef.get-value($themeSwiper, 'titleAlignSelf');
-            min-height: ef.get-value($themeSwiper, 'titleMinHeight');
         }
 
         &__swiper-buttons-container {

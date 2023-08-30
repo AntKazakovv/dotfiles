@@ -1,7 +1,19 @@
-<h2 *ngIf="$params.type !== 'default'"
-    class="{{$class}}__title"
-    wlc-title
-    mainText="Providers"></h2>
+<ng-container *ngIf="$params.type !== 'default'">
+    <ng-container *ngIf="$params.useTitleLink; else blockSectionTitle">
+        <a wlc-section-title
+            [text]="'Providers'"
+            [iconPath]="$params?.titleIconPath"
+            href="#"
+            (click)="showAllProviders(); $event.preventDefault();">
+        </a>
+    </ng-container>
+</ng-container>
+<ng-template #blockSectionTitle>
+    <div wlc-section-title
+        [text]="'Providers'"
+        [iconPath]="$params?.titleIconPath">
+    </div>
+</ng-template>
 
 <ng-container [ngSwitch]="$params.type">
     <ng-container *ngSwitchCase="'slider'" [ngTemplateOutlet]="slider"></ng-container>
@@ -48,6 +60,11 @@
 </ng-template>
 
 <ng-template #mobileList>
+    <h2 *ngIf="$params.type !== 'default'"
+        class="{{$class}}__title"
+        wlc-title
+        mainText="Providers">
+    </h2>
     <div class="{{$class}}__wrapper">
         <ng-container *ngFor="let item of items | slice:0:4"
                       [ngTemplateOutlet]="iconItem"

@@ -97,6 +97,7 @@ import {RadioButtonsComponent} from './components/radio-buttons/radio-buttons.co
 import {RatingComponent} from './components/rating/rating.component';
 import {ScrollbarComponent} from './components/scrollbar/scrollbar.component';
 import {ScrollUpComponent} from 'wlc-engine/modules/core/components/scroll-up/scroll-up.component';
+import {SectionTitleComponent} from 'wlc-engine/modules/core/components/section-title/section-title.component';
 import {SelectComponent} from './components/select/select.component';
 import {SliderComponent} from './components/slider/slider.component';
 import {SocialIconsComponent} from './components/social-icons/social-icons.component';
@@ -203,6 +204,7 @@ export const components = {
     'wlc-radio-buttons': RadioButtonsComponent,
     'wlc-scroll-up': ScrollUpComponent,
     'wlc-rating': RatingComponent,
+    'wlc-section-title': SectionTitleComponent,
     'wlc-select': SelectComponent,
     'wlc-slider': SliderComponent,
     'wlc-social-icons': SocialIconsComponent,
@@ -349,6 +351,7 @@ export const services = {
         TooltipComponent,
         HlSubstrPipe,
         SafeValuePipe,
+        SectionTitleComponent,
         TruncatePipe,
         ValueLengthDirective,
         WlcModalComponent,
@@ -407,6 +410,7 @@ export const services = {
         RatingComponent,
         ScrollbarComponent,
         ScrollUpComponent,
+        SectionTitleComponent,
         SelectComponent,
         SliderComponent,
         SocialIconsComponent,

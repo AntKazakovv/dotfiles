@@ -341,7 +341,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
         this.gamesRowsLoaded = 0;
         this.games = await this.getGames();
         this.title = this.$params.title || this.gamesCatalogService.getGamesTitleByState() || this.categoryTitle;
-
+        this.initTitleIcon();
         if (this.$params.theme === 'swiper' || this.$params.theme === 'mobile-app-swiper') {
             // if we use a class field to this.$params.showAsSwiper.sliderParams.swiper.navigation,
             // the swiper navigation buttons will lose their binding

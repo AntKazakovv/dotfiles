@@ -12,11 +12,6 @@ $themeSwiper: map-merge((
         1024: 0 ef.size(4) 0 auto,
     ),
 
-    'titleAlignSelf': center,
-    'titleDisplay': flex,
-    'titleAlignItems': center,
-    'titleMinHeight': ef.size(8),
-
     'swiperNoContentGridRow': #{'2/3'},
     'swiperNoContentGridColumn': #{'1/-1'},
 

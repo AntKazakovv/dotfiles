@@ -1,0 +1,55 @@
+a.wlc-section-title--theme-wolf:host {
+    text-decoration: none;
+
+    .wlc-section-title {
+
+        &__icon,
+        &__content {
+            @include bm.transition(color, 0.3s);
+        }
+    }
+
+    @include bm.hover {
+
+        .wlc-section-title {
+
+            &__icon,
+            &__content {
+                color: ef.get-value($themeWolf, 'titleColorHover');
+            }
+        }
+    }
+}
+
+.wlc-section-title--theme-wolf:host {
+    display: flex;
+    align-items: center;
+
+    .wlc-section-title {
+
+        &__content {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'titleFontStyle'),
+                ef.get-value($themeWolf, 'titleColor')
+            );
+        }
+
+        &__icon {
+            --wlc-icon-width: #{ef.get-value($themeWolf, 'titleIconSize')};
+            --wlc-icon-height: #{ef.get-value($themeWolf, 'titleIconSize')};
+            margin: ef.get-value($themeWolf, 'titleIconMargin');
+            color: ef.get-value($themeWolf, 'titleIconFill');
+
+            ::ng-deep {
+
+                .wlc-icon-content {
+                    display: flex;
+
+                    svg {
+                        fill: ef.get-value($themeWolf, 'titleIconFillBase');
+                    }
+                }
+            }
+        }
+    }
+}
