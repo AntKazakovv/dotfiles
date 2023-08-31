@@ -6,6 +6,7 @@ import {
     ViewChild,
     ElementRef,
     ChangeDetectorRef,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 import {UntypedFormControl} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
@@ -32,12 +33,12 @@ import * as Params from './datepicker.params';
  * }
  *
  */
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
+
 @Component({
     selector: '[wlc-datepicker]',
     templateUrl: './datepicker.component.html',
     styleUrls: ['./styles/datepicker.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DatepickerComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IDatepickerCParams;
@@ -131,6 +132,11 @@ export class DatepickerComponent extends AbstractComponent implements OnInit {
         }
 
         this.control.markAllAsTouched();
+        this.cdr.markForCheck();
+    }
+
+    public toggleCalendar(): void {
+        this.dp.toggleCalendar();
         this.cdr.markForCheck();
     }
 }

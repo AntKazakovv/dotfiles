@@ -1,5 +1,5 @@
 <ng-template #default>
-    <label (click)="dp.toggleCalendar()" class="{{$class}}__label">{{$params.label | translate}}</label>
+    <label (click)="toggleCalendar()" class="{{$class}}__label">{{$params.label | translate}}</label>
     <div class="{{$class}}__container">
         <input class="{{$class}}__input"
                #dp="angular-mydatepicker"
@@ -17,7 +17,7 @@
         <span wlc-icon
               class="{{$class}}__icon"
               [iconPath]="$params.iconPath"
-              (click)="dp.toggleCalendar()"
+              (click)="toggleCalendar()"
         ></span>
     </div>
     <div class="{{$class}}-status"
