@@ -55,6 +55,11 @@
             color: ef.get-value($themeVertical, 'inputPlaceholderColor');
         }
 
+        &:focus {
+            outline: none;
+            border-color: ef.get-value($themeVertical, 'borderColorActive');
+        }
+
         &.ng-touched {
 
             &.ng-invalid {
