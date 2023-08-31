@@ -182,7 +182,7 @@ export class ProfileMenuService {
         let marketItemIndex: number = _findIndex(this.profileMenuConfig, (item: MenuParams.MenuConfigItem): boolean => {
             if (_isString(item)) {
                 const menuItem = Config.wlcProfileMenuItemsGlobal[item];
-                return menuItem.type === 'market';
+                return menuItem?.type === 'market';
             } else {
                 if (_has(item, 'parent')) {
                     return (item as MenuParams.MenuConfigItemsGroup).parent == 'profile-menu:market';

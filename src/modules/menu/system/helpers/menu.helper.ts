@@ -249,11 +249,16 @@ export class MenuHelper {
         const iconsFolder: string = _trim(options?.icons?.folder, '/');
         const iconsFallback: string = options?.icons?.fallback;
 
-        return _map(config, (configMenuItem: MenuConfigItem) => {
+        return _reduce(config, (acc: MenuItemObjectType[], configMenuItem: MenuConfigItem): MenuItemObjectType[] => {
             if (_isString(configMenuItem)) {
                 const menuItem: Params.IMenuItem = _cloneDeep(globalItemsConfig[configMenuItem]);
                 MenuHelper.setIcon(menuItem, iconsFolder, disableIcons, iconsFallback);
-                return menuItem;
+
+                if (menuItem) {
+                    acc.push(menuItem);
+                }
+
+                return acc;
             } else {
                 if (_has(configMenuItem, 'parent')) {
                     const item = configMenuItem as MenuConfigItemsGroup;
@@ -282,18 +287,24 @@ export class MenuHelper {
                         return itemData;
                     }) || [];
 
-                    return {
+                    acc.push({
                         parent: parent,
-                        items: items,
+                        items: items.filter((item) => item),
                         type: 'group',
-                    };
+                    });
+                    return acc;
                 } else {
                     const item: Params.IMenuItem = _cloneDeep(configMenuItem as Params.IMenuItem);
                     MenuHelper.setIcon(item, iconsFolder, disableIcons, iconsFallback);
-                    return item;
+
+                    if (item) {
+                        acc.push(item);
+                    }
+
+                    return acc;
                 }
             }
-        });
+        }, []);
     }
 
     /**
