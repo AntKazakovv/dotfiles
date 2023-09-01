@@ -156,6 +156,7 @@ import {ICoreConfig} from './system/interfaces/core.interface';
 import * as $config from 'wlc-config/index';
 
 import _get from 'lodash-es/get';
+import {TagComponent} from 'wlc-engine/modules/core/components/tag/tag.component';
 
 export function playerFactory(): LottiePlayer {
     return import('lottie-web/build/player/lottie_svg') as unknown as LottiePlayer;
@@ -212,6 +213,7 @@ export const components = {
     'wlc-steps': StepsComponent,
     'wlc-tab-switcher': TabSwitcherComponent,
     'wlc-table': TableComponent,
+    'wlc-tag': TagComponent,
     'wlc-theme-toggler': ThemeTogglerComponent,
     'wlc-text-block': TextBlockComponent,
     'wlc-textarea': TextareaComponent,
@@ -345,6 +347,7 @@ export const services = {
         StepsComponent,
         TabSwitcherComponent,
         TableComponent,
+        TagComponent,
         ThemeTogglerComponent,
         TextBlockComponent,
         TextareaComponent,

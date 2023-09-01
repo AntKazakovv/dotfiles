@@ -1,0 +1,10 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'textStyle': 'SignText',
+    'textColor': var(--mc-baseThird-locked),
+    'gap': ef.size(1),
+    'minHeight': 18px,
+    'padding': 0 ef.size(2),
+    'radius': ef.get('radius', 'biger'),
+    'iconSize': 12px,
+), $customThemeDefault);

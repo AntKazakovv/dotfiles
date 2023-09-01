@@ -1,0 +1,14 @@
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/functions' as ef;
+
+@import './utils/vars';
+
+@import './themes/default';
+
+.wlc-tag:host {
+    max-width: 100%;
+    line-height: 1;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    background-color: var(--wlc-tag-bg, var(--mc-secondary));
+}

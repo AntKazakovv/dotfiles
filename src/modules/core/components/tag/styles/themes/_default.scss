@@ -1,0 +1,30 @@
+.wlc-tag--theme-default:host {
+    --wlc-icon-width: #{ef.get-value($themeDefault, 'iconSize')};
+    --wlc-icon-height: #{ef.get-value($themeDefault, 'iconSize')};
+
+    @include text.get-text-style(
+        ef.get-value($themeDefault, 'textStyle'),
+        ef.get-value($themeDefault, 'textColor')
+    );
+
+    display: inline-flex;
+    gap: ef.get-value($themeDefault, 'gap');
+    align-items: center;
+    min-height: ef.get-value($themeDefault, 'minHeight');
+    padding: ef.get-value($themeDefault, 'padding');
+    border-radius: ef.get-value($themeDefault, 'radius');
+    line-height: 1;
+
+    .wlc-tag {
+
+        &__icon {
+            display: block;
+            width: var(--wlc-icon-width);
+            height: var(--wlc-icon-height);
+
+            &:empty {
+                display: none;
+            }
+        }
+    }
+}
