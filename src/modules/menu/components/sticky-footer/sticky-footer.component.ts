@@ -19,9 +19,9 @@ import {
     IMixedParams,
 } from 'wlc-engine/modules/core';
 
-import {MenuHelper} from'wlc-engine/modules/menu/system/helpers/menu.helper';
+import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {TIconExtension} from'wlc-engine/modules/menu/system/interfaces/menu.interface';
+import {TIconExtension} from 'wlc-engine/modules/menu/system/interfaces/menu.interface';
 import {IMenuOptions} from 'wlc-engine/modules/core/system/interfaces/menu.interface';
 import {MenuService} from 'wlc-engine/modules/menu/system/services/menu.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
@@ -97,12 +97,25 @@ export class StickyFooterComponent extends AbstractComponent implements OnInit, 
             _set(this.$params, 'menuParams.common.icons.extension', extension);
         }
 
-        this.$params.menuParams.items = MenuHelper.parseMenuConfig(this.menuConfig, Config.wlcStickyFooterItemsGlobal, {
-            icons: {
-                folder: this.iconsFolder,
-                disable: !this.useIcons,
-            },
-        });
+        if (this.$params.items?.length) {
+            this.$params.menuParams.items = MenuHelper.parseMenuConfig(
+                this.$params.items as any, Config.wlcStickyFooterItemsGlobal, {
+                    icons: {
+                        folder: this.iconsFolder,
+                        disable: !this.useIcons,
+                    },
+                });
+        } else {
+            this.$params.menuParams.items = MenuHelper.parseMenuConfig(
+                this.menuConfig,
+                Config.wlcStickyFooterItemsGlobal, {
+                    icons: {
+                        folder: this.iconsFolder,
+                        disable: !this.useIcons,
+                    },
+                });
+        }
+
         this.$params.menuParams = _cloneDeep(this.$params.menuParams);
         this.cdr.detectChanges();
     }
