@@ -100,6 +100,7 @@ import {ScrollUpComponent} from 'wlc-engine/modules/core/components/scroll-up/sc
 import {SectionTitleComponent} from 'wlc-engine/modules/core/components/section-title/section-title.component';
 import {SelectComponent} from './components/select/select.component';
 import {SliderComponent} from './components/slider/slider.component';
+import {SliderNavigationComponent} from './components/slider-navigation/slider-navigation.component';
 import {SocialIconsComponent} from './components/social-icons/social-icons.component';
 import {StepsComponent} from './components/steps/steps.component';
 import {TabSwitcherComponent} from './components/tab-switcher/tab-switcher.component';
@@ -209,6 +210,7 @@ export const components = {
     'wlc-section-title': SectionTitleComponent,
     'wlc-select': SelectComponent,
     'wlc-slider': SliderComponent,
+    'wlc-slider-navigation': SliderNavigationComponent,
     'wlc-social-icons': SocialIconsComponent,
     'wlc-steps': StepsComponent,
     'wlc-tab-switcher': TabSwitcherComponent,
@@ -343,6 +345,7 @@ export const services = {
         ScrollUpComponent,
         SelectComponent,
         SliderComponent,
+        SliderNavigationComponent,
         SocialIconsComponent,
         StepsComponent,
         TabSwitcherComponent,
@@ -419,6 +422,7 @@ export const services = {
         SectionTitleComponent,
         SelectComponent,
         SliderComponent,
+        SliderNavigationComponent,
         SocialIconsComponent,
         StepsComponent,
         TabSwitcherComponent,

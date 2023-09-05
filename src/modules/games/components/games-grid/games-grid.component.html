@@ -160,15 +160,10 @@
         <div *ngIf="$params.showAsSwiper?.useNavigation"
              class="{{$class}}__swiper-buttons-container"
              slot-container-end>
-             <div class="{{$class}}__swiper-buttons">
-                <button wlc-icon
-                    class="wlc-swiper-button-prev"
-                    iconPath="/wlc/icons/arrow.svg"
-                    [class]="'wlc-swiper-button-prev-' + navigationId"></button>
-                <button wlc-icon
-                    class="wlc-swiper-button-next"
-                    iconPath="/wlc/icons/arrow.svg"
-                    [class]="'wlc-swiper-button-next-' + navigationId"></button>
+            <div wlc-slider-navigation
+                class="{{$class}}__swiper-buttons"
+                [classPrev]="'wlc-swiper-button-prev-' + navigationId"
+                [classNext]="'wlc-swiper-button-next-' + navigationId">
             </div>
         </div>
     </div>

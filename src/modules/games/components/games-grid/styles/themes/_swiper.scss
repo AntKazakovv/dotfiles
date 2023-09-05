@@ -23,8 +23,11 @@
             grid-area: swiper-buttons;
             pointer-events: none;
 
-            [class*='wlc-swiper-button'] {
-                pointer-events: initial;
+            ::ng-deep {
+
+                [class*='wlc-swiper-button'] {
+                    pointer-events: initial;
+                }
             }
         }
 

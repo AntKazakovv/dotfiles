@@ -1,0 +1,26 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'swiperNaviZindex': 10,
+    'swiperNaviAside': ef.size(2),
+    'swiperNaviTop': 50%,
+    'swiperNaviButtonSize': ef.size(8),
+    'swiperNaviButtonBorderRadius': ef.get('radius', 'biger'),
+
+    'buttonShadow': none,
+    'buttonShadowHover': none,
+    'buttonBorder': none,
+    'buttonBorderHover': none,
+
+    'buttonGap': (
+        375: ef.size(2),
+    ),
+    'buttonBg': var(--mc-buttonColor),
+    'buttonBgHover': var(--mc-buttonColor-l20),
+    'buttonBgDisabled': var(--mc-baseOpacity),
+
+    'iconFill': ef.get('mainColors', 'baseMain'),
+    'iconFillDisabled': ef.get('mainColors', 'baseMain'),
+    'iconFillHover': ef.get('mainColors', 'baseMain'),
+    'buttonBorderRadius': ef.size(2),
+    'buttonSize': ef.size(8),
+), $customThemeDefault);

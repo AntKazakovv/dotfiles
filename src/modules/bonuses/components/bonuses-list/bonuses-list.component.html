@@ -27,12 +27,10 @@
                 </div>
 
                 <div *ngIf="showNavigation" slot-container-end>
-                    <button wlc-icon
-                            class="wlc-swiper-button-prev swiper-button-prev"
-                            iconPath="/wlc/icons/arrow.svg"></button>
-                    <button wlc-icon
-                            class="wlc-swiper-button-next swiper-button-next"
-                            iconPath="/wlc/icons/arrow.svg"></button>
+                    <div wlc-slider-navigation
+                        [classPrev]="'swiper-button-prev'"
+                        [classNext]="'swiper-button-next'">
+                    </div>
                 </div>
             </ng-container>
         </div>
@@ -54,14 +52,7 @@
     </ng-container>
 
     <div *ngIf="showNavigation" slot-container-end>
-        <div class="{{$class}}__slider-pagination">
-            <button wlc-icon
-                    class="wlc-swiper-button-prev"
-                    iconPath="/wlc/icons/arrow.svg"></button>
-            <button wlc-icon
-                    class="wlc-swiper-button-next"
-                    iconPath="/wlc/icons/arrow.svg"></button>
-        </div>
+        <div wlc-slider-navigation class="{{$class}}__slider-pagination"></div>
     </div>
 </ng-template>
 
@@ -85,18 +76,7 @@
                      [inlineParams]="sliderParams"
                      (slideChangeTransitionEnd$)="onSlideChange($event)">
                     <div *ngIf="showNavigation" slot-container-end>
-                        <div class="container swiper-button-container">
-                            <button wlc-icon
-                                    [wlcElement]="'wlc-button-prev'"
-                                    class="wlc-swiper-button-prev"
-                                    iconPath="/wlc/icons/arrow.svg">
-                            </button>
-                            <button wlc-icon
-                                    [wlcElement]="'wlc-button-next'"
-                                    class="wlc-swiper-button-next"
-                                    iconPath="/wlc/icons/arrow.svg">
-                            </button>
-                        </div>
+                            <div wlc-slider-navigation class="container swiper-button-container"></div>
                     </div>
                 </div>
             </ng-container>
@@ -131,12 +111,10 @@
                 </div>
 
                 <div *ngIf="showNavigation" slot-container-end>
-                    <button wlc-icon
-                            class="wlc-swiper-button-prev swiper-button-prev"
-                            iconPath="/wlc/icons/arrow.svg"></button>
-                    <button wlc-icon
-                            class="wlc-swiper-button-next swiper-button-next"
-                            iconPath="/wlc/icons/arrow.svg"></button>
+                    <div wlc-slider-navigation
+                        [classPrev]="'swiper-button-prev'"
+                        [classNext]="'swiper-button-next'">
+                    </div>
                 </div>
             </ng-container>
         </div>

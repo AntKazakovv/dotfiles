@@ -11,15 +11,11 @@
              wlc-wrapper
              [inlineParams]="landscapeSliderConfig">
         </div>
-        <div *ngIf="isDesktopAndSlidesLength" slot-container-end>
-            <button wlc-icon
-                class="wlc-game-dashboard-bonuses-nav swiper-button-prev wlc-swiper-button-prev"
-                iconPath="/wlc/icons/arrow.svg">
-            </button>
-            <button wlc-icon
-                class="wlc-game-dashboard-bonuses-nav swiper-button-next wlc-swiper-button-next"
-                iconPath="/wlc/icons/arrow.svg">
-            </button>
+        <div *ngIf="isDesktopAndSlidesLength" slot-container-end class="{{$class}}__nav">
+            <div wlc-slider-navigation
+                [classPrev]="'wlc-game-dashboard-bonuses-nav swiper-button-prev wlc-swiper-button-prev'"
+                [classNext]="'wlc-game-dashboard-bonuses-nav swiper-button-next wlc-swiper-button-next'">
+            </div>
         </div>
     </div>
 </ng-container>

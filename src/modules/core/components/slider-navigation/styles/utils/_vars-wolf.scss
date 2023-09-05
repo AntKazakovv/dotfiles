@@ -1,0 +1,26 @@
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'swiperNaviZindex': 10,
+    'swiperNaviAside': 10px,
+    'swiperNaviTop': 50%,
+    'swiperNaviButtonSize': 40px,
+    'arrowSize': 12px,
+    'iconFill': currentColor,
+    'buttonShadow': none,
+    'buttonShadowHover': none,
+    'buttonBorder': none,
+    'buttonBorderHover': none,
+
+    'buttonGap': (
+        375: 10px,
+    ),
+    'buttonBg': var(--mc-bg700),
+    'buttonBgHover': var(--mc-bg700),
+    'buttonBgDisabled': var(--mc-bg700),
+
+    'iconColor': var(--mc-baseMain),
+    'iconColorDisabled': var(--mc-baseMain-o4),
+    'iconColorHover': var(--mc-baseThird),
+    'buttonBorderRadius': ef.get('radius', 'big'),
+    'buttonSize': 24px,
+), $customThemeWolf);

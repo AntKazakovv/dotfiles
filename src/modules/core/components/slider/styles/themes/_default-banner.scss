@@ -26,11 +26,11 @@
         }
 
         &.desktop {
-            @include bm.get-mq-map('display', $themeDefaultNavigation, 'swiperNaviDisplayDesktop');
+            @include bm.get-mq-map('display', $themeDefaultBanner, 'swiperNaviDisplayDesktop');
         }
 
         &.mobile {
-            @include bm.get-mq-map('display', $themeDefaultNavigation, 'swiperNaviDisplayMobile');
+            @include bm.get-mq-map('display', $themeDefaultBanner, 'swiperNaviDisplayMobile');
         }
     }
 

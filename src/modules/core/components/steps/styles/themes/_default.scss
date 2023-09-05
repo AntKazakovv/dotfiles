@@ -17,13 +17,6 @@
 
                 .wlc-bonuses-list__list-wrapper .wlc-bonuses-list__slider {
 
-                    .swiper-button-next,
-                    .swiper-button-prev {
-                        top: ef.get-value($themeDefault, 'swiperControlsTopPos');
-                        display: flex;
-                        transform: none;
-                    }
-
                     .swiper {
                         padding: ef.get-value($themeDefault, 'swiperContainerPadding');
                     }

@@ -16,35 +16,39 @@
             height: ef.get-value($themeDefault, 'bonusWrpHeight');
         }
 
-        .swiper {
+        .wlc-game-dashboard-bonuses__nav {
 
-            &-button {
+            .swiper {
 
-                &-next,
-                &-prev {
-                    top: ef.get-value($themeDefault, 'buttonTop');
+                &-button {
 
-                    &:after {
-                        display: none;
+                    &-next,
+                    &-prev {
+                        top: ef.get-value($themeDefault, 'buttonTop');
+                        margin-top: 0;
+
+                        &:after {
+                            display: none;
+                        }
+                    }
+
+                    &-next {
+                        right: ef.get-value($themeDefault, 'buttonPosition');
+                    }
+
+                    &-prev {
+                        left: ef.get-value($themeDefault, 'buttonPosition');
                     }
                 }
 
-                &-next {
-                    right: ef.get-value($themeDefault, 'buttonPosition');
+                &-slide {
+                    position: relative;
+                    box-sizing: border-box;
                 }
 
-                &-prev {
-                    left: ef.get-value($themeDefault, 'buttonPosition');
+                &-pagination {
+                    bottom: ef.get-value($themeDefault, 'paginationBottom');
                 }
-            }
-
-            &-slide {
-                position: relative;
-                box-sizing: border-box;
-            }
-
-            &-pagination {
-                bottom: ef.get-value($themeDefault, 'paginationBottom');
             }
         }
     }

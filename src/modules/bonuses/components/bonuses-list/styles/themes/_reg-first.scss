@@ -25,9 +25,12 @@
 
         pointer-events: none;
 
-        .wlc-swiper-button-prev,
-        .wlc-swiper-button-next {
-            pointer-events: all;
+        ::ng-deep {
+
+            .wlc-swiper-button-prev,
+            .wlc-swiper-button-next {
+                pointer-events: all;
+            }
         }
     }
 

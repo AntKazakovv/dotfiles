@@ -1,0 +1,90 @@
+.wlc-slider-navigation--theme-default:host {
+
+    ::ng-deep {
+
+        .wlc-swiper-button-prev,
+        .wlc-swiper-button-next {
+            @include bm.transition(background);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: ef.get-value($themeDefault, 'buttonSize');
+            height: ef.get-value($themeDefault, 'buttonSize');
+
+            color: ef.get-value($themeDefault, 'iconFill');
+            background: ef.get-value($themeDefault, 'buttonBg');
+            outline: none;
+            border-radius: ef.get-value($themeDefault, 'buttonBorderRadius');
+            border: ef.get-value($themeDefault, 'buttonBorder');
+            box-shadow: ef.get-value($themeDefault, 'buttonShadow');
+
+            svg {
+                fill: currentColor;
+            }
+
+            &.swiper-button-disabled {
+                color: ef.get-value($themeDefault, 'iconFillDisabled');
+                background: ef.get-value($themeDefault, 'buttonBgDisabled');
+                cursor: default;
+            }
+
+            @include bm.hover {
+
+                &:not(.swiper-button-disabled) {
+                    color: ef.get-value($themeDefault, 'iconFillHover');
+                    background: ef.get-value($themeDefault, 'buttonBgHover');
+                    border: ef.get-value($themeDefault, 'buttonBorderHover');
+                    box-shadow: ef.get-value($themeDefault, 'buttonShadowHover');
+                }
+            }
+        }
+
+        .wlc-swiper-button-prev {
+            @include bm.get-mq-map('margin-right', $themeDefault, 'buttonGap');
+
+            .wlc-icon-content {
+                transform: rotate(90deg);
+            }
+        }
+
+        .wlc-swiper-button-next {
+
+            .wlc-icon-content {
+                transform: rotate(-90deg);
+            }
+        }
+
+        .swiper-button-prev,
+        .swiper-button-next {
+            position: absolute;
+            top: ef.get-value($themeDefault, 'swiperNaviTop');
+            z-index: ef.get-value($themeDefault, 'swiperNaviZindex');
+            margin-top: calc(-1 * #{ef.get-value($themeDefault, 'swiperNaviButtonSize')} / 2);
+        }
+
+        .swiper-button-prev,
+        .swiper-rtl .swiper-button-next {
+            right: auto;
+            left: ef.get-value($themeDefault, 'swiperNaviAside');
+
+            &:after {
+                content: 'prev';
+            }
+        }
+
+        .swiper-button-next,
+        .swiper-rtl .swiper-button-prev {
+            right: ef.get-value($themeDefault, 'swiperNaviAside');
+            left: auto;
+
+            &:after {
+                content: 'next';
+            }
+        }
+
+        .swiper-button-lock {
+            display: none;
+        }
+    }
+}

@@ -26,17 +26,10 @@
                      [inlineParams]="dashboardSliderConfig">
                 </div>
                 <div slot-container-end *ngIf="slides.length > 1" class="{{$class}}__nav">
-                    <div class="container swiper-button-container">
-                        <button wlc-icon
-                                class="wlc-swiper-button-prev"
-                                iconPath="/wlc/icons/arrow.svg"
-                                [class]="'wlc-swiper-button-prev-' + navigationId">
-                        </button>
-                        <button wlc-icon
-                                class="wlc-swiper-button-next"
-                                iconPath="/wlc/icons/arrow.svg"
-                                [class]="'wlc-swiper-button-next-' + navigationId">
-                        </button>
+                    <div wlc-slider-navigation
+                        class="container swiper-button-container"
+                        [classPrev]="'wlc-swiper-button-prev-' + navigationId"
+                        [classNext]="'wlc-swiper-button-next-' + navigationId">
                     </div>
                 </div>
             </ng-container>
@@ -65,17 +58,10 @@
         </ng-container>
     </ng-container>
     <div slot-container-end *ngIf="slides.length > 1">
-        <div class="container swiper-button-container">
-            <button wlc-icon
-                    class="wlc-swiper-button-prev"
-                    iconPath="/wlc/icons/arrow.svg"
-                    [class]="'wlc-swiper-button-prev-' + navigationId">
-            </button>
-            <button wlc-icon
-                    class="wlc-swiper-button-next"
-                    iconPath="/wlc/icons/arrow.svg"
-                    [class]="'wlc-swiper-button-next-' + navigationId">
-            </button>
+        <div wlc-slider-navigation
+            class="container swiper-button-container"
+            [classPrev]="'wlc-swiper-button-prev-' + navigationId"
+            [classNext]="'wlc-swiper-button-next-' + navigationId">
         </div>
     </div>
 </ng-template>

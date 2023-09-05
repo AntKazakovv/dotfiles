@@ -30,18 +30,9 @@
                 text="{{$params.linkText | translate}}"
                 (click)="showAllProviders()">
             </button>
-
-            <div slot-container-start class="{{$class}}__slider-navigation">
-                <button wlc-icon
-                    class="wlc-swiper-button-prev"
-                    iconPath="/wlc/icons/arrow.svg">
-                </button>
-                <button wlc-icon
-                    class="wlc-swiper-button-next"
-                    iconPath="/wlc/icons/arrow.svg">
-                </button>
+            <div slot-container-start>
+                <div wlc-slider-navigation class="{{$class}}__slider-navigation"></div>
             </div>
-
             <div wlc-wrapper
                 class="{{$class}}__slider"
                 [inlineParams]="sliderConfig">

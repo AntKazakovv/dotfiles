@@ -1,31 +1,3 @@
-$customThemeDefaultNavigation: () !default;
-// Navigation
-$themeDefaultNavigation: map-merge((
-    'swiperNaviZindex': 10,
-    'swiperNaviAside': 10px,
-    'swiperNaviTop': 50%,
-    'swiperNaviButtonSize': 40px,
-    'swiperNaviButtonBorderRadius': ef.get('radius', 'biger'),
-    'swiperNaviButtonBg': var(--mc-baseOpacity),
-    'swiperNaviButtonBgHover': var(--mc-main-l20),
-    'swiperNaviButtonTransition': all 0.3s linear,
-    'swiperNaviArrowSize': math.div(40px, 3),
-    'swiperNaviArrowColor': ef.get('mainColors', 'baseMain'),
-    'swiperNaviArrowColorHover': var(--mc-bg),
-    'swiperNaviDisplayDesktop': (
-        375: none,
-        768: flex,
-    ),
-    'swiperNaviDisplayMobile': (
-        375: flex,
-        768: none,
-    ),
-    'buttonShadow': none,
-    'buttonShadowHover': none,
-    'buttonBorder': none,
-    'buttonBorderHover': none,
-), $customThemeDefaultNavigation);
-
 $customThemeDefaultPagination: () !default;
 // Pagination
 $themeDefaultPagination: map-merge((
@@ -69,12 +41,6 @@ $themeDefaultBanner: map-merge((
     'bottomGap': (
         375: ef.size(4),
     ),
-    'buttonGap': (
-        375: 10px,
-    ),
-    'buttonBg': var(--mc-buttonColor),
-    'buttonBgHover': var(--mc-buttonColor-l20),
-    'buttonBgDisabled': var(--mc-baseOpacity),
     'buttonShadow': none,
     'buttonShadowHover': none,
     'buttonBorder': none,
@@ -90,11 +56,14 @@ $themeDefaultBanner: map-merge((
         375: calc(100% - 30px),
         1366: 80%,
     ),
-    'paddingAnimateContainer': (
-        450: 0 ef.size(2) ,
-        768: 0 ef.size(8),
+    'swiperNaviDisplayDesktop': (
+        375: none,
+        768: flex,
     ),
-    'dashboardContainerPadding': 0 ef.size(2),
+    'swiperNaviDisplayMobile': (
+        375: flex,
+        768: none,
+    ),
 ), $customThemeDefaultBanner);
 
 $customThemeShowAll: () !default;
