@@ -25,8 +25,8 @@
 
 <ng-template #textBlockSubtitle>
     <h3 class="wlc-text-block__subtitle">
-        <ng-container *ngFor="let text of $params.common.textBlockSubtitle">
+        <span *ngFor="let text of $params.common.textBlockSubtitle">
             {{text | translate}}
-        </ng-container>
+        </span>
     </h3>
 </ng-template>

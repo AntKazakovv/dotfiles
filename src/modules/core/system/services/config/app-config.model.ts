@@ -252,6 +252,13 @@ export class AppConfigModel extends AbstractModel<IBootstrap> {
         return this.data.countryAgeBan;
     }
 
+    /**
+     * @returns {boolean} is sms config enabled
+     */
+    public get smsEnabled(): boolean {
+        return this.data.smsEnabled;
+    }
+
     protected override checkData(): void {
         super.checkData();
 

@@ -1,0 +1,76 @@
+.wlc-transfer--theme-default:host {
+
+    &::ng-deep {
+
+        .wlc-text-block {
+
+            &__subtitle,
+            &__text {
+                @include bm.get-mq-map('margin', $themeDefault, 'textMargin');
+                @include bm.get-mq-map('text-align', $themeDefault, 'textAlign');
+                max-width: ef.get-value($themeDefault, 'textBlocksMaxWidth');
+            }
+
+            &__head {
+                @include bm.get-mq-map('margin', $themeDefault, 'textHeadersMargin');
+            }
+
+            &__subtitle {
+                @include text.get-text-style(ef.get-value($themeDefault, 'subtitleFont'), ef.get-value($themeDefault, 'subtitleFontColor'));
+
+                span:first-child {
+                    @include bm.get-mq-map('display', $themeDefault, 'subtitleNumberDisplay');
+                }
+            }
+
+            &__text {
+                @include text.get-text-style(ef.get-value($themeDefault, 'textFont'), ef.get-value($themeDefault, 'textFontColor'));
+            }
+        }
+
+        .wlc-alert {
+            margin-bottom: ef.get-value($themeDefault, 'alertMarginBottom');
+        }
+
+        .wlc-input {
+            @include bm.get-mq-map('margin', $themeDefault, 'formsMargin');
+            max-width: ef.get-value($themeDefault, 'formsMaxWidth');
+        }
+
+        .wlc-amount-limit {
+            @include bm.get-mq-map('margin', $themeDefault, 'limitsMargin');
+            max-width: ef.get-value($themeDefault, 'formsMaxWidth');
+
+            .wlc-currency {
+                font-size: 1rem;
+            }
+        }
+
+        .wlc-divider {
+            @include bm.get-mq-map('display', $themeDefault, 'dividerDisplay');
+
+            width: ef.get-value($themeDefault, 'dividerWidth');
+            height: ef.get-value($themeDefault, 'dividerHeight');
+            margin: ef.get-value($themeDefault, 'dividerMargin');
+            background: ef.get-value($themeDefault, 'dividerBg');
+            border-radius: ef.get-value($themeDefault, 'dividerRadius');
+        }
+
+        .wlc-radio-buttons {
+
+            .wlc-radio-buttons__wrapper {
+
+                .wlc-radio-buttons__elems {
+                    @include bm.get-mq-map('margin', $themeDefault, 'radioBtnsMargin');
+                    @include bm.get-mq-map('justify-content', $themeDefault, 'radioBtnsAlign');
+                    display: flex;
+                    max-width: ef.get-value($themeDefault, 'formsMaxWidth');
+                }
+            }
+        }
+
+        .wlc-btn {
+            @include bm.get-mq-map('margin', $themeDefault, 'buttonMargin');
+        }
+    }
+}

@@ -37,6 +37,9 @@ export interface IProfileConfig {
             use: boolean;
         },
     },
+    transfers?: {
+        use: boolean;
+    },
     socials?: {
         use: boolean;
         usePage?: boolean;

@@ -385,4 +385,13 @@ export namespace wlcTitle {
             wlcElement: 'header_cashback',
         },
     };
+
+    export const profileTransfer: ILayoutComponent = {
+        name: 'core.wlc-title',
+        params: <ITitleCParams>{
+            customMod: ['profile'],
+            mainText: gettext('Gift for a friend'),
+            wlcElement: 'header_transfer',
+        },
+    };
 }

@@ -99,6 +99,12 @@ export const $profileLayouts: IPanelsConfig = {
             'profile-content': sectionsLib.profileContent.profileWithdraw,
         },
     },
+    'app.profile.cash.transfer': {
+        extends: 'app.profile',
+        sections: {
+            'profile-content': sectionsLib.profileContent.profileTransfer,
+        },
+    },
     'app.profile.cash.transactions': {
         extends: 'app.profile',
         sections: {

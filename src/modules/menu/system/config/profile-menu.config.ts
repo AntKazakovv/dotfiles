@@ -719,6 +719,33 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
     },
 
+    'profile-menu:cash-transfer': {
+        name: gettext('Gift for a friend'),
+        type: 'sref',
+        icon: 'transfer',
+        class: 'transfer',
+        wlcElement: 'link_transfer',
+        params: {
+            state: {
+                name: 'app.profile.cash.transfer',
+                params: {},
+            },
+        },
+    },
+    'profile-first-menu:cash-transfer': {
+        name: gettext('Gift for a friend'),
+        type: 'sref',
+        icon: 'transfer',
+        class: 'transfer',
+        wlcElement: 'link_transfer',
+        params: {
+            state: {
+                name: 'app.profile.cash.transfer',
+                params: {},
+            },
+        },
+    },
+
     'profile-menu:transaction-history': {
         name: gettext('Transactions history'),
         type: 'sref',
@@ -1289,6 +1316,14 @@ export const profileMenuFilter: ProfileMenuParams.IProfileMenuFilter[] = [
     {
         config: '$base.profile.dashboard.use',
         item: 'profile-first-menu:dashboard',
+    },
+    {
+        config: '$base.profile.transfers.use',
+        item: 'profile-menu:cash-transfer',
+    },
+    {
+        config: '$base.profile.transfers.use',
+        item: 'profile-first-menu:cash-transfer',
     },
     {
         config: '$base.profile.socials.usePage',

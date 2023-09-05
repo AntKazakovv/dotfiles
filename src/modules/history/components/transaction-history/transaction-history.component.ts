@@ -62,13 +62,14 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
     public startDateInput: IDatepickerCParams = startDate;
     public endDateInput: IDatepickerCParams = endDate;
     public transaction$: BehaviorSubject<Transaction[]> = new BehaviorSubject([]);
-    public filterSelect: ISelectCParams<TTransactionFilter> = config.filterSelect;
+    public filterSelect: ISelectCParams<TTransactionFilter>;
     public alertConfig: ITransactionHistoryAlert;
 
     protected filterValue: TTransactionFilter = 'all';
     protected startDate: DateTime = DateTime.local();
     protected endDate: DateTime = DateTime.local();
     protected allTransactions: Transaction[] = [];
+    protected transfersEnabled: boolean;
 
     constructor(
         @Inject('injectParams') protected params: Params.ITransactionHistoryCParams,
@@ -89,6 +90,8 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
 
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
+        this.transfersEnabled = this.configService.get<boolean>('$base.profile.transfers.use');
+        this.filterSelect = this.transfersEnabled ? config.filterSelectTransfer : config.filterSelect;
         this.allTransactions = await this.historyService.getTransactionList();
 
         if (this.allTransactions.length) {
@@ -132,7 +135,14 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
 
         if (this.filterValue !== 'all') {
             result = _filter(result, (item: Transaction): boolean => {
-                return (this.filterValue === 'deposit') ? item.amount > 0 : item.amount < 0;
+                switch (this.filterValue) {
+                    case 'deposit':
+                        return item.amount > 0;
+                    case 'withdraw':
+                        return item.amount < 0;
+                    case 'transfer':
+                        return item.system === 'Gift';
+                }
             });
         }
 

@@ -663,6 +663,72 @@ export namespace profileContent {
         ],
     };
 
+    export const profileTransfer: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__top',
+                    components: [
+                        componentLib.wlcTitle.profileTransfer,
+                    ],
+                },
+            },
+            componentLib.wlcTransfer.def,
+        ],
+    };
+
+    export const profileTransferTypeFirst: ILayoutSectionConfig = {
+        container: true,
+        theme: 'first',
+        components: [
+            componentLib.wlcProfileMenu.defTypeFirst,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__header',
+                    components: [
+                        componentLib.wlcTitle.cash,
+                    ],
+                },
+                display: {
+                    before: 1199,
+                },
+            },
+            componentLib.wlcProfileMenu.subMenuV1,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content',
+                    components: [
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__header',
+                                components: [
+                                    componentLib.wlcTitle.profileTransfer,
+                                ],
+                            },
+                            display: {
+                                after: 1200,
+                            },
+                        },
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__body',
+                                components: [
+                                    componentLib.wlcTransfer.def,
+                                ],
+                            },
+                        },
+                    ],
+                },
+            },
+        ],
+    };
+
     export const profileTransactions: ILayoutSectionConfig = {
         container: true,
         usePreloader: true,

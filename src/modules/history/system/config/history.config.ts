@@ -51,6 +51,33 @@ export namespace transactionConfig {
             },
         ],
     };
+
+    export const filterSelectTransfer: ISelectCParams<TTransactionFilter> = {
+        name: 'filterValue',
+        labelText: gettext('Sort by'),
+        common: {
+            placeholder: gettext('Type'),
+        },
+        control: new UntypedFormControl('all'),
+        items: [
+            {
+                value: 'all',
+                title: gettext('All'),
+            },
+            {
+                value: 'deposit',
+                title: gettext('Deposit'),
+            },
+            {
+                value: 'withdraw',
+                title: gettext('Withdrawal'),
+            },
+            {
+                value: 'transfer',
+                title: gettext('Gift for a friend'),
+            },
+        ],
+    };
 }
 
 export namespace betConfig {

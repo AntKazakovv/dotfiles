@@ -1,0 +1,61 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    // Text
+    'subtitleFont': 'ThirdTitle',
+    'subtitleFontColor': var(--mc-baseMain),
+    'subtitleNumberDisplay': (
+        375: none,
+        900: inline,
+    ),
+    'textFont': 'PrimaryText',
+    'textFontColor': var(--mc-baseMain),
+    'textBlocksMaxWidth': 390px,
+    'textAlign': (
+        375: center,
+        900: left,
+    ),
+    'textHeadersMargin': (
+        375: 0 0 ef.size(2) 0,
+        900: 0 0 ef.size(4) 0,
+    ),
+    'textMargin': (
+        375: 0 auto,
+        900: 0,
+    ),
+
+    // Info block
+    'alertMarginBottom': ef.size(4),
+
+    // Divider
+    'dividerMargin': ef.size(4) 0,
+    'dividerBg': var(--mc-baseOpacity),
+    'dividerHeight': 2px,
+    'dividerWidth': 100%,
+    'dividerRadius': ef.get('radius', 'biger'),
+    'dividerDisplay': (
+        375: block,
+    ),
+
+    // forms
+    'formsMaxWidth': 335px,
+    'formsMargin': (
+        375: 0 auto,
+        900: 0,
+    ),
+    'limitsMargin': (
+        375: ef.size(1) auto 0,
+        900: ef.size(1) 0 0,
+    ),
+    'radioBtnsMargin': (
+        375: ef.size(4) auto 0,
+        900: ef.size(4) 0 0,
+    ),
+    'radioBtnsAlign': (
+        375: space-around,
+        900: space-between,
+    ),
+    'buttonMargin': (
+        375: ef.size(8) auto 0,
+        900: ef.size(8) 0 0,
+    ),
+), $customThemeDefault);

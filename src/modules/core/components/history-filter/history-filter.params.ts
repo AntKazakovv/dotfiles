@@ -67,6 +67,41 @@ export namespace formConfig {
         ],
     };
 
+    export const transactionWithTransfer: IFormWrapperCParams = {
+        class: 'wlc-transaction-transfer',
+        components: [
+            {
+                name: 'core.wlc-text-block',
+                params: <ITextBlockCParams>{
+                    common: {
+                        textBlockTitle: gettext('Filter'),
+                    },
+                },
+            },
+            {
+                name: 'core.wlc-select',
+                params: transactionConfig.filterSelectTransfer,
+            },
+            {
+                name: 'core.wlc-datepicker',
+                params: startDate,
+            },
+            {
+                name: 'core.wlc-datepicker',
+                params: endDate,
+            },
+            {
+                name: 'core.wlc-button',
+                params: <IButtonCParams>{
+                    name: 'submit',
+                    common: {
+                        text: gettext('Save'),
+                    },
+                },
+            },
+        ],
+    };
+
     export const bet: IFormWrapperCParams = {
         class: 'wlc-bet-filters',
         components: [

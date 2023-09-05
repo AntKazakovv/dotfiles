@@ -1,0 +1,10 @@
+<ng-container *ngIf="ready; else preloader">
+    <div wlc-form-wrapper
+        [config]="formConfig"
+        [ngSubmit]="sendTransferData.bind(this)"
+        (form$)="getForm($event)"></div>
+</ng-container>
+
+<ng-template #preloader>
+    <div wlc-loader></div>
+</ng-template>

@@ -2,7 +2,7 @@ import {BehaviorSubject} from 'rxjs';
 import {DateTime} from 'luxon';
 import {TSortDirection} from 'wlc-engine/modules/core';
 
-export type TTransactionFilter = 'all' | 'deposit' | 'withdraw';
+export type TTransactionFilter = 'all' | 'deposit' | 'withdraw' | 'transfer';
 export type TTournamentsFilter = 'all' | '-95' | '-99' | '99' | '100' | '0' | '1';
 export type TBonusFilter = 'all' | '-100' | '-99' | '100';
 

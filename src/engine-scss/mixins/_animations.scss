@@ -95,3 +95,22 @@
         transform: rotate(360deg);
     }
 }
+
+@keyframes bounceInCheck {
+
+    0% {
+        transform: scale(0.5);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    70% {
+        transform: scale(0.9);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}

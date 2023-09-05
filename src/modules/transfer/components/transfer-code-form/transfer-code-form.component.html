@@ -1,0 +1,7 @@
+<div class="{{$class}}__text">{{'Please enter the received confirmation code' | translate}}</div>
+<div
+    class="{{$class}}__form"
+    wlc-form-wrapper
+    [config]="$params.formConfig"
+    [ngSubmit]="$params.onSubmit.bind(this)"
+></div>

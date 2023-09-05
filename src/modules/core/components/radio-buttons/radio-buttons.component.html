@@ -4,13 +4,15 @@
     <div class="{{$class}}__elems">
         <label class="{{$class}}__group"
             *ngFor="let item of $params.items"
+            [class.disabled]="item.disabled"
             [ngClass]="{'active': item.value === control.value}">
 
             <input class="{{$class}}__radio"
                 [attr.name]="$params.name"
                 (change)="changeHandler(item)"
                 type="radio"
-                [attr.data-wlc-element]="'wlc-radio-buttons__' + item.value">
+                [attr.data-wlc-element]="'wlc-radio-buttons__' + item.value"
+                [disabled]="item.disabled">
 
             <span class="{{$class}}__text">{{item.title | translate}}</span>
         </label>

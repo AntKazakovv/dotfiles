@@ -556,7 +556,7 @@ export class DepositWithdrawComponent
                 <span wlc-currency
                     [value]="${form.value.amount}"
                     [currency]="'${this.currentCurrency ?? this.userProfile.currency}'"
-                ><span>`;
+                ></span>`;
 
             this.pushNotification({
                 type: 'success',

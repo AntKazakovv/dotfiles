@@ -125,12 +125,21 @@ export class HistoryFilterComponent extends AbstractComponent implements OnInit,
         this.cdr.markForCheck();
     }
 
+    protected getFormConfig(): IFormWrapperCParams {
+        if (this.$params.config === 'transaction') {
+            return this.configService.get<boolean>('$base.profile.transfers.use') ?
+                Params.formConfig.transactionWithTransfer :
+                Params.formConfig.transaction;
+        }
+        return Params.formConfig[this.$params.config];
+    }
+
     protected createFormConfig(): IFormWrapperCParams {
         const isHistoryFilter = (formData: IHistoryFilter | IHistoryFilterValue): formData is IHistoryFilter => {
             return _has(formData, 'startDate') || _has(formData, 'endDate');
         };
         const formData: IHistoryFilter | IHistoryFilterValue = this.formData.getValue() || this.defaultFormData;
-        let formConfig = Params.formConfig[this.$params.config];
+        let formConfig: IFormWrapperCParams = this.getFormConfig();
 
         if (!this.formData.getValue()) {
             this.formData.next(this.defaultFormData);

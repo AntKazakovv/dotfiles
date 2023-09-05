@@ -25,6 +25,7 @@ import {errorTypes as intercomLogs} from './23.intercom';
 import {errorTypes as emailLogs} from './24.email';
 import {errorTypes as kycamlLogs} from './25.kycaml';
 import {errorTypes as ratesLogs} from './26.rates';
+import {errorTypes as transferLogs} from './27.transfer';
 
 export const defaultLogMethods: TLogMethods[] = ['flog'];
 export const defaultLogLevel: TLogLevel = 'log';
@@ -96,4 +97,5 @@ export const logTypes: ILogTypes = Object.assign(
     emailLogs,
     kycamlLogs,
     ratesLogs,
+    transferLogs,
 );

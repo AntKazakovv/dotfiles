@@ -89,6 +89,7 @@ export const menuConfig: IMenuConfig = {
             },
             'profile-menu:cash-deposit',
             'profile-menu:cash-withdrawal',
+            'profile-menu:cash-transfer',
             {
                 parent: 'profile-menu:history',
                 type: 'group',
@@ -163,6 +164,7 @@ export const menuConfig: IMenuConfig = {
                 items: [
                     'profile-first-menu:cash-deposit',
                     'profile-first-menu:cash-withdrawal',
+                    'profile-first-menu:cash-transfer',
                     'profile-first-menu:transaction-history',
                     'profile-first-menu:cashback-rewards',
                 ],

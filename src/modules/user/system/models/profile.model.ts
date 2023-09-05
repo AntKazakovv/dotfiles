@@ -75,7 +75,7 @@ export class UserProfile extends AbstractModel<IUserProfile> {
     }
 
     public get emailVerified(): boolean {
-        return !!this.data.emailVerified;
+        return !!(+this.data.emailVerified);
     }
 
     public get emailAgree(): boolean {
@@ -134,8 +134,8 @@ export class UserProfile extends AbstractModel<IUserProfile> {
         return _toString(this.data.phoneNumber);
     }
 
-    public get phoneVerified(): string | boolean {
-        return this.data.phoneVerified;
+    public get phoneVerified(): boolean {
+        return !!(+this.data.phoneVerified);
     }
 
     public get postalCode(): string {

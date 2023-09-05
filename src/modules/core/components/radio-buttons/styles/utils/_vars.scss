@@ -11,6 +11,22 @@ $themeDefault: map-merge((
     'titlePadding': 0 0 0 10px,
     'elemsColumns': minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr),
     'elemsGap': 10px,
+
+    //radio buttons
+    'radioSize': 25px,
+    'radioPointSize': 11px,
+    'radioGridGap': 8px,
+    'radioBackground': var(--fc-inputBg),
+    'radioBackgroundChecked': var(--fc-inputBg),
+    'radioBorder': 2px solid var(--fc-borderColor),
+    'radioBorderDisabled': var(--fc-borderColor),
+    'radioBorderColorHover': var(--mc-buttonColor),
+    'radioBorderColorChecked': var(--mc-buttonColor),
+    'radioPointColor': var(--mc-buttonColor),
+    'radioBorderRadius': 50%,
+    'radioPointBorderRadius': 50%,
+    'radioTextFont': 'PrimaryText',
+    'radioTextFontColor': var(--mc-baseMain),
 ), $customThemeDefault);
 
 $customThemeButton: () !default;

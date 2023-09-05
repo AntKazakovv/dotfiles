@@ -26,6 +26,7 @@ export interface IRadioButtonsCParams<V = unknown> extends IComponentParams<Them
 export interface IRadioButtonOption<V = unknown> {
     value: V;
     title: string;
+    disabled?: boolean;
 };
 
 export const defaultParams: Partial<IRadioButtonsCParams> = {

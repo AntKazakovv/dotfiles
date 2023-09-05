@@ -98,6 +98,12 @@ export const $profileFirstLayouts: ILayoutsConfig = {
             'profile-content': sectionsLib.profileContent.profileWithdrawTypeFirst,
         },
     },
+    'app.profile.cash.transfer': {
+        extends: 'app.profile',
+        sections: {
+            'profile-content': sectionsLib.profileContent.profileTransferTypeFirst,
+        },
+    },
     'app.profile.cash.transactions': {
         extends: 'app.profile',
         sections: {

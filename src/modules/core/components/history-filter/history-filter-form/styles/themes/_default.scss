@@ -1,14 +1,14 @@
 .wlc-history-filter-form--theme-default:host {
-    @include bm.get-mq-map('max-width', $themeDefault, 'formMaxWidth');
-    margin: ef.get-value($themeDefault, 'formMargin');
 
     ::ng-deep {
 
         .wlc-form {
+            @include bm.get-mq-map('max-width', $themeDefault, 'formMaxWidth');
             display: grid;
             grid-template-columns: ef.get-value($themeDefault, 'formTemplateColumns');
             align-items: ef.get-value($themeDefault, 'formAlignItems');
             justify-content: ef.get-value($themeDefault, 'formJustifyContent');
+            margin: ef.get-value($themeDefault, 'formMargin');
             column-gap: ef.get-value($themeDefault, 'formColumnGap');
             row-gap: ef.get-value($themeDefault, 'formRowGap');
 
@@ -18,6 +18,15 @@
 
             > .wlc-datepicker {
                 grid-column: ef.get-value($themeDefault, 'colunnHalf');
+            }
+        }
+
+        .wlc-transaction-transfer {
+
+            .wlc-form {
+                @include bm.get-mq-map('max-width', $themeDefault, 'formTransferMaxWidth');
+                @include bm.get-mq-map('grid-template-areas', $themeDefault, 'formTemplateTransferAreas');
+                @include bm.get-mq-map('grid-template-columns', $themeDefault, 'formTemplateTransferColumns');
             }
         }
 

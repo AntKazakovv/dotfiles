@@ -3,15 +3,16 @@
     .wlc-radio-buttons {
 
         &__title {
-            @include text.get-text-style('SignText', ef.get-value($themeButton, 'titleColor'));
-            width: ef.get-value($themeButton, 'titleWidth');
-            padding: ef.get-value($themeButton, 'titlePadding');
+            @include text.get-text-style(ef.get-value($themeDefault, 'titleTextStyle'), ef.get-value($themeDefault, 'titleColor'));
+            width: ef.get-value($themeDefault, 'titleWidth');
+            padding: ef.get-value($themeDefault, 'titlePadding');
         }
 
         &__elems {
             display: grid;
             grid-gap: ef.get-value($themeDefault, 'elemsGap');
             grid-template-columns: ef.get-value($themeDefault, 'elemsColumns');
+            align-items: center;
         }
 
         &__group {
@@ -19,12 +20,72 @@
 
             &.active {
                 cursor: default;
+
+                .wlc-radio-buttons__text {
+
+                    &:before {
+                        background: ef.get-value($themeDefault, 'radioBackgroundChecked');
+                        border-color: ef.get-value($themeDefault, 'radioBorderColorChecked');
+                    }
+
+                    &:after {
+                        transform: scale(1);
+                        animation: bounceInCheck 0.5s forwards;
+                    }
+                }
+            }
+
+            &.disabled {
+                cursor: not-allowed;
+                opacity: 0.5;
+
+                .wlc-radio-buttons__text {
+                    @include bm.hover {
+
+                        &:before {
+                            border-color: ef.get-value($themeDefault, 'radioBorderDisabled');
+                        }
+                    }
+                }
             }
         }
 
         &__text {
+            @include text.get-text-style(ef.get-value($themeDefault, 'radioTextFont'), ef.get-value($themeDefault, 'radioTextFontColor'));
+            position: relative;
+            display: grid;
+            grid-gap: ef.get-value($themeDefault, 'radioGridGap');
             grid-column: 2;
-            text-align: center;
+            grid-template-columns: ef.get-value($themeDefault, 'radioSize') 1fr;
+            align-items: center;
+
+            &:before {
+                @include bm.transition();
+                content: '';
+                width: ef.get-value($themeDefault, 'radioSize');
+                height: ef.get-value($themeDefault, 'radioSize');
+                background: ef.get-value($themeDefault, 'radioBackground');
+                border: ef.get-value($themeDefault, 'radioBorder');
+                border-radius: ef.get-value($themeDefault, 'radioBorderRadius');
+            }
+
+            &:after {
+                content: '';
+                position: absolute;
+                left: math.div(ef.get-value($themeDefault, 'radioSize') - ef.get-value($themeDefault, 'radioPointSize'), 2);
+                width: ef.get-value($themeDefault, 'radioPointSize');
+                height: ef.get-value($themeDefault, 'radioPointSize');
+                background: ef.get-value($themeDefault, 'radioPointColor');
+                border-radius: ef.get-value($themeDefault, 'radioPointBorderRadius');
+                transform: scale(0);
+            }
+
+            @include bm.hover {
+
+                &:before {
+                    border-color: ef.get-value($themeDefault, 'radioBorderColorHover');
+                }
+            }
         }
 
         &__radio {
