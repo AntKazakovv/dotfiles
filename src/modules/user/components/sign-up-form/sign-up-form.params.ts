@@ -167,6 +167,7 @@ export const twoStepsFormConfigRomania = {
             ...FormElements.countryAndState,
             params: {
                 ...FormElements.countryAndState.params,
+                locked: false,
                 countryCode: {
                     value: 'rou',
                 },
