@@ -475,7 +475,7 @@ export namespace wlcButton {
         name: 'core.wlc-button',
         params: {
             common: {
-                text: gettext('Register'),
+                text: gettext('Sign up'),
                 event: {
                     name: 'SHOW_MODAL',
                     data: 'signup',

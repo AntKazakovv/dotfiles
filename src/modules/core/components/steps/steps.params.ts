@@ -47,7 +47,7 @@ export interface IStepsParams extends IComponentParams<Theme, Type, ThemeMod> {
 }
 
 const textBlockHeaderParams = {
-    textBlockTitle: gettext('Register'),
+    textBlockTitle: gettext('Sign up'),
     titleDynamicText: {
         textDefault: '',
         param: 'regStepsCounter',
