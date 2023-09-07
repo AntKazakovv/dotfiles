@@ -1,0 +1,51 @@
+.wlc-error-page--theme-wolf:host {
+    @include bm.get-mq-map('--wlc-icon-width', $themeWolf, 'imageWidth');
+    @include bm.get-mq-map('margin', $themeWolf, 'pageMargin');
+    @include bm.get-mq-map('gap', $themeWolf, 'pageGap');
+    @include bm.get-mq-map('height', $themeWolf, 'pageHeight');
+    border-radius: ef.get-value($themeWolf, 'pageRadius');
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: ef.get-value($themeWolf, 'pageMaxWidth');
+    background: {
+        image: ef.get-value($themeWolf, 'pageBgImg');
+        position: ef.get-value($themeWolf, 'pageBgPos');
+        color: ef.get-value($themeWolf, 'pageBgColor');
+        size: ef.get-value($themeWolf, 'pageBgSize');
+        repeat: ef.get-value($themeWolf, 'pageBgRepeat');
+    };
+
+    .wlc-error-page__message {
+
+        h2 {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'titleStyle'),
+                ef.get-value($themeWolf, 'titleColor')
+            );
+            @include bm.get-mq-map('max-width', $themeWolf, 'titleMaxWidth');
+            text-align: ef.get-value($themeWolf, 'titleAlign');
+        }
+
+        p {
+            display: ef.get-value($themeWolf, 'textDisplay');
+        }
+    }
+
+    .wlc-error-page__link {
+        @include bm.transition();
+        @include text.get-text-style(
+            ef.get-value($themeWolf, 'linkStyle'),
+            ef.get-value($themeWolf, 'linkColor')
+        );
+        position: relative;
+        border-bottom: ef.get-value($themeWolf, 'linkBorder');
+        text-decoration: ef.get-value($themeWolf, 'linkDecoration');
+
+        @include bm.hover {
+            color: ef.get-value($themeWolf, 'linkColorHover');
+            border-bottom-color: ef.get-value($themeWolf, 'linkColorHover');
+        }
+    }
+}

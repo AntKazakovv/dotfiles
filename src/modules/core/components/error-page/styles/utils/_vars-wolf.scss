@@ -1,0 +1,45 @@
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'pageMargin': (
+        375: ef.size(5) auto ef.size(8),
+        900: ef.size(5) auto ef.size(10),
+    ),
+    'pageGap': (
+        375: ef.size(2),
+        1024: ef.size(3),
+    ),
+    'pageRadius': ef.size(2),
+    'pageMaxWidth': 840px,
+    'pageHeight': (
+        375: 400px,
+        1024: 530px,
+    ),
+
+    'pageBgImg': url('https://agstatic.com/wlc/icons/404-error-wolf-bg.jpg'),
+    'pageBgPos': center,
+    'pageBgColor': transparent,
+    'pageBgSize': cover,
+    'pageBgRepeat': no-repeat,
+
+    'imageWidth': (
+        375: 160px,
+        1024: 260px,
+    ),
+
+    'titleStyle': 'ThirdTitleBold',
+    'titleColor': var(--mc-baseThird),
+    'titleMaxWidth': (
+        375: 160px,
+    ),
+    'titleAlign': center,
+    'textDisplay': none,
+
+    'linkStyle': 'ButtonText',
+    'linkColor': var(--mc-secondary),
+    'linkColorHover': var(--mc-baseThird),
+    'linkDecoration': none,
+    'linkBorder': 1px solid var(--mc-secondary),
+
+    'underlineBg': var(--mc-secondary),
+    'underlineHeight': 1px,
+), $customThemeWolf);

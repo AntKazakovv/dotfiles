@@ -2,7 +2,7 @@ import {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/class
 import {IIndexing} from 'wlc-engine/modules/core';
 
 export type Type = 'default' | CustomType;
-export type Theme = 'default' | CustomType;
+export type Theme = 'default' | 'wolf' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
