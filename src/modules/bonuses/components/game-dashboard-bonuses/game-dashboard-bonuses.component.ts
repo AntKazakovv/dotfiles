@@ -10,7 +10,11 @@ import {
     ElementRef,
 } from '@angular/core';
 
-import {takeUntil} from 'rxjs/operators';
+import {Subject} from 'rxjs';
+import {
+    takeUntil,
+    filter,
+} from 'rxjs/operators';
 import _map from 'lodash-es/map';
 import _merge from 'lodash-es/merge';
 
@@ -99,8 +103,18 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
      * Init bonuses
      */
     protected initBonuses(): void {
+        const ready$: Subject<boolean> = new Subject();
+        ready$.pipe(
+            filter((isReady: boolean) => isReady),
+            takeUntil(this.$destroy),
+        ).subscribe((): void => {
+            this.isReady = true;
+            this.cdr.markForCheck();
+        });
+
         this.bonusesService.getSubscribe({
             useQuery: true,
+            ready$: ready$,
             observer: {
                 next: (bonuses: Bonus[]) => {
                     if (bonuses) {
@@ -110,8 +124,6 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
                         );
                         this.bonusesToSlides(this.bonuses, true);
                         this.initSliderComponents();
-                        this.isReady = true;
-                        this.cdr.markForCheck();
                     }
                 },
             },
