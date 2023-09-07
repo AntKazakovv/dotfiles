@@ -1,7 +1,7 @@
 import {PageChangedEvent} from 'ngx-bootstrap/pagination';
 import {CustomType, IComponentParams} from 'wlc-engine/modules/core';
 
-export type ComponentTheme = 'default' | CustomType;
+export type ComponentTheme = 'default' | 'wolf' | CustomType;
 export type ComponentType = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 
@@ -23,5 +23,7 @@ export interface IPaginateOutput<T = unknown> {
 }
 
 export const defaultParams: IPaginationCParams = {
+    moduleName: 'core',
+    componentName: 'wlc-pagination',
     class: 'wlc-pagination',
 };

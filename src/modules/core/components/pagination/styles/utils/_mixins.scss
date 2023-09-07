@@ -1,0 +1,13 @@
+/// Simple way to center a block
+///
+/// @name flexCentered
+///
+/// @param {string} $type [flex] - display property
+/// @param {time} $vertical [center] - cross axis
+/// @param {string} $horizontal [center] - main axis
+
+@mixin flexCentered($type: flex, $vertical: center, $horizontal: center) {
+    display: #{$type};
+    align-items: #{$vertical};
+    justify-content: #{$horizontal};
+}

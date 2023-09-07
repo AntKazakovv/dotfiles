@@ -1,0 +1,108 @@
+.wlc-pagination--theme-wolf {
+
+    &:host {
+        @include bm.get-mq-map('margin', $themeWolf, 'wolfMargin');
+
+        ::ng-deep {
+
+            .pagination {
+                @include flexCentered();
+                margin: ef.get-value($themeWolf, 'paginationMargin');
+                padding: ef.get-value($themeWolf, 'paginationPadding');
+                list-style-type: none;
+
+                .page-item {
+                    margin: ef.get-value($themeWolf, 'paginationItemMargin');
+
+                    &:first-child {
+                        margin: ef.get-value($themeWolf, 'paginationItemMarginFirst');
+                    }
+
+                    &:last-child {
+                        margin: ef.get-value($themeWolf, 'paginationItemMarginLast');
+                    }
+                }
+
+                &-prev,
+                &-next {
+                    @include bm.transition(all);
+                    color: ef.get-value($themeWolf, 'paginaitonItemInnerFill');
+                    background: ef.get-value($themeWolf, 'paginationItemBg');
+                    border-radius: ef.get-value($themeWolf, 'paginationItemRadius');
+
+                    .wlc-btn,
+                    .page-link {
+                        color: inherit;
+                    }
+
+                    .wlc-btn {
+                        @include flexCentered();
+                        width: ef.get-value($themeWolf, 'paginationItemSize');
+                        height: ef.get-value($themeWolf, 'paginationItemSize');
+                    }
+
+                    svg {
+                        fill: currentColor;
+                    }
+
+                    &.disabled {
+                        color: ef.get-value($themeWolf, 'paginationItemInnerFillDisabled');
+                        background: ef.get-value($themeWolf, 'paginationItemBgDisabled');
+
+                        .wlc-btn {
+                            cursor: auto;
+                        }
+                    }
+
+                    &:not(.disabled) {
+
+                        @include bm.hover {
+                            color: ef.get-value($themeWolf, 'paginationItemInnerFillHover');
+                            background: ef.get-value($themeWolf, 'paginationItemBgHover');
+                        }
+                    }
+                }
+
+                &-next {
+
+                    .wlc-btn {
+                        transform: rotate(-90deg);
+                    }
+                }
+
+                &-prev {
+
+                    .wlc-btn {
+                        transform: rotate(90deg);
+                    }
+                }
+
+                &-page {
+
+                    .page-link {
+                        @include flexCentered();
+                        @include bm.transition(all);
+                        @include text.get-text-style(ef.get-value($themeWolf, 'paginationItemText'), ef.get-value($themeWolf, 'paginationItemColor'));
+                        min-width: ef.get-value($themeWolf, 'paginationItemMinWidth');
+                        height: ef.get-value($themeWolf, 'paginationItemSize');
+                        padding: ef.get-value($themeWolf, 'paginationItemPadding');
+                        text-decoration: none;
+
+                        @include bm.hover {
+                            color: ef.get-value($themeWolf, 'paginationItemColorHover');
+                        }
+                    }
+
+                    &.active {
+
+                        .page-link {
+                            color: ef.get-value($themeWolf, 'paginationItemColorActive');
+                            font-weight: bold;
+                            cursor: default;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

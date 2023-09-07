@@ -1,0 +1,29 @@
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'wolfMargin': (
+        320: ef.size(4) auto ef.size(2),
+        1024: ef.size(6) auto ef.size(3),
+    ),
+    'paginationMargin': ef.size(2) auto,
+    'paginationPadding': 0,
+
+    'paginationItemMargin': 0 ef.size(2),
+    'paginationItemMarginFirst': 0 ef.size(5) 0 0,
+    'paginationItemMarginLast': 0 0 0 ef.size(5),
+    'paginationItemRadius': 0,
+    'paginationItemBg': transparent,
+    'paginationItemBgHover': transparent,
+    'paginationItemBgDisabled': transparent,
+    'paginationItemPadding': 0 ef.size(2),
+    'paginationItemSize': 24px,
+    'paginationItemMinWidth': 24px,
+
+    'paginationItemColor': var(--fc-labelColor),
+    'paginationItemColorHover': var(--mc-baseThird),
+    'paginationItemColorActive': var(--mc-baseSecond),
+    'paginationItemText': 'PrimaryText',
+
+    'paginaitonItemInnerFill': var(--mc-baseThird),
+    'paginationItemInnerFillHover': var(--mc-baseThird),
+    'paginationItemInnerFillDisabled': var(--mc-baseThird-o4),
+), $customThemeWolf);

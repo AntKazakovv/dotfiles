@@ -1,16 +1,13 @@
 .wlc-pagination--theme-default {
 
     &:host {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        @include flexCentered();
 
         ::ng-deep {
 
             .pagination {
                 @include bm.get-mq-map('margin', $themeDefault, 'paginationMargin');
-                display: flex;
-                align-items: center;
+                @include flexCentered(flex, center, null);
                 padding: ef.get-value($themeDefault, 'paginationPadding');
                 list-style-type: none;
 
@@ -25,7 +22,6 @@
                 &-prev,
                 &-next {
                     @include bm.transition(all);
-
                     color: ef.get-value($themeDefault, 'pageItemInnerFill');
                     background: ef.get-value($themeDefault, 'activePaginationArrowColor');
                     border-radius: ef.get-value($themeDefault, 'pageItemRadius');
@@ -37,9 +33,7 @@
                     }
 
                     .wlc-btn {
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
+                        @include flexCentered();
                         width: ef.get-value($themeDefault, 'pageItemWidth');
                         height: ef.get-value($themeDefault, 'pageItemHeight');
                     }
