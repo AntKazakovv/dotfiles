@@ -56,11 +56,13 @@ export const catalogChildState: Ng2StateDeclaration = {
         const injectionService: InjectionService = transition.injector().get(InjectionService);
         const gamesCatalogService: GamesCatalogService = await injectionService
             .getService('games.games-catalog-service');
-        const categorySlug: string = transition.params().childCategory;
 
         await gamesCatalogService.ready;
 
-        const category: CategoryModel = gamesCatalogService.getCategoryBySlug(categorySlug);
+        const category: CategoryModel = gamesCatalogService.getCategoryBySlug(
+            transition.params().childCategory,
+            transition.params().category,
+        );
         if (!category?.parentCategory) {
             StateHelper.goToErrorPage(transition);
             return;

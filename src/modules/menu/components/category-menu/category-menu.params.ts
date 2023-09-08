@@ -4,10 +4,6 @@ import {
 } from 'wlc-engine/modules/core';
 import {TIconExtension} from 'wlc-engine/modules/menu';
 import {CategoryMenuComponent} from 'wlc-engine/modules/menu/components/category-menu/category-menu.component';
-import {initAsDropdownDefault} from 'wlc-engine/modules/menu/components/category-menu/customizable/init-as-dropdown';
-import {
-    addAdditionalButtonsDefault,
-} from 'wlc-engine/modules/menu/components/category-menu/customizable/add-additinal-buttons';
 
 import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
 
@@ -69,9 +65,5 @@ export const defaultParams: ICategoryMenuCParams = {
         dropdowns: {
             expandableOnClick: true,
         },
-    },
-    customizableFn: {
-        initAsDropdown: initAsDropdownDefault,
-        addAdditionalButtons: addAdditionalButtonsDefault,
     },
 };

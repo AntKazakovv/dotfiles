@@ -41,6 +41,12 @@ import {
     TIconExtension,
     MenuService,
 } from 'wlc-engine/modules/menu';
+import {
+    addAdditionalButtonsDefault,
+    addAdditionalButtonsV2,
+    initAsDropdownDefault,
+    initAsDropdownV2,
+} from './customizable';
 
 import * as Config from 'wlc-engine/modules/menu/system/config/category-menu.config';
 import * as Params from './category-menu.params';
@@ -318,14 +324,26 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
     }
 
     protected addAdditionalButtons(): void {
-        _bind(this.$params.customizableFn.addAdditionalButtons, this)();
+        if (this.$params.customizableFn?.addAdditionalButtons) {
+            _bind(this.$params.customizableFn.addAdditionalButtons, this)();
+        } else if (this.gamesCatalogService.architectureVersion === 3) {
+            _bind(addAdditionalButtonsV2, this)();
+        } else {
+            _bind(addAdditionalButtonsDefault, this)();
+        }
     }
 
     /**
      * Init as dropdown menu
      */
     protected initAsDropdown(): void {
-        _bind(this.$params.customizableFn.initAsDropdown, this)();
+        if (this.$params.customizableFn?.initAsDropdown) {
+            _bind(this.$params.customizableFn.initAsDropdown, this)();
+        } else if (this.gamesCatalogService.architectureVersion === 3) {
+            _bind(initAsDropdownV2, this)();
+        } else {
+            _bind(initAsDropdownDefault, this)();
+        }
     }
 
     protected iconPath(iconName: string): string {

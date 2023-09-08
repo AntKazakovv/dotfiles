@@ -113,6 +113,7 @@ import {WalletsService} from 'wlc-engine/modules/multi-wallet/system/services';
 import {ISelectedWallet} from 'wlc-engine/modules/multi-wallet/system/interfaces';
 import {CatalogBuilder} from 'wlc-engine/modules/games/system/builders/catalog.builder';
 import {MenuService} from 'wlc-engine/modules/menu';
+import {ICategoriesSettings} from 'wlc-engine/modules/games/system/builders/categories.builder';
 
 export interface ILaunchGameModal {
     show: boolean;
@@ -341,6 +342,10 @@ export class GamesCatalogService {
         observer: (pragmaticData: PragmaticLiveModel) => void,
     ): Promise<Subscription> {
         return this.pragmaticPlayLiveService?.subscribe(game, until, observer);
+    }
+
+    public get architectureVersion(): ICategoriesSettings['architectureVersion'] {
+        return this.gamesCatalog.architectureVersion;
     }
 
     /**
