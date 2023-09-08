@@ -172,22 +172,19 @@ export class Categories {
             return this.settings.sortFn(categories);
         }
 
-        const useSortByLang: boolean = !!_find(categories, (category: CategoryModel): boolean => !!category.sortByLang);
-        if (useSortByLang) {
-            return _orderBy(
-                categories,
-                [
-                    (category: CategoryModel) => category.sortByLang || null,
-                    (category: CategoryModel) => category.sort || 0,
-                ],
-                [
-                    'asc',
-                    'desc',
-                ],
-            );
-        } else {
-            return _orderBy(categories, (category: CategoryModel) => category.sort || 0, 'desc');
-        }
+        return _orderBy(
+            categories,
+            [
+                (category: CategoryModel) => category.sortByLang || null,
+                (category: CategoryModel) => category.operatorSort || 0,
+                (category: CategoryModel) => category.globalSort || 0,
+            ],
+            [
+                'asc',
+                'desc',
+                'desc',
+            ],
+        );
     }
 
     public prepareCategoriesList(options: IPrepareCategoriesListOptions): CategoryModel[] {
