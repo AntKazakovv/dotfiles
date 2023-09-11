@@ -64,7 +64,7 @@ import {ThemeToDirectory} from 'wlc-engine/modules/core/system/config/base/icons
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {IMenuCParams} from 'wlc-engine/modules/menu/components/menu/menu.params';
 import {FinancesHelper} from 'wlc-engine/modules/finances/system/helpers/finances.helper';
-
+import * as DepositWithdrawParams from '../deposit-withdraw/deposit-withdraw.params';
 import * as Params from './payment-list.params';
 
 interface IPaymentsIterator extends IMerchantsPaymentsIterator {
@@ -94,6 +94,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     @Input() protected lastSucceedMethod: Promise<number | null>;
     @Input() protected isFetchingSystems: boolean = false;
     @Input() protected inlineParams: Params.IPaymentListCParams;
+    @Input() protected parentTheme: DepositWithdrawParams.Theme;
     @ViewChild('list') protected list: TemplateRef<any>;
 
     public override $params: Params.IPaymentListCParams;
@@ -153,7 +154,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         this.isCryptoInvoices = this.isDeposit && this.$params.theme === 'crypto-list';
         this.tagsConfig = this.configService.get<IPaySystemCategories>('$finances.paySystemCategories');
         this.useTags = this.tagsConfig.use
-            && (this.isDeposit || this.tagsConfig.desktopMenuType === 'group')
+            && (this.isDeposit || this.parentTheme === 'second')
             && this.$params.theme !== 'crypto-list';
         this.useScroll = this.configService.get<boolean>('$finances.usePaySystemScroll');
 
@@ -166,7 +167,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
             this.catMenuTypeMain = this.tagsConfig.desktopMenuType
                 || (this.configService.get('$base.profile.type') === 'first' ? 'select' : 'menu');
 
-            this.isGroupingByBlocks = this.tagsConfig.desktopMenuType === 'group';
+            this.isGroupingByBlocks = this.parentTheme === 'second';
 
             this.tagsControl.valueChanges.pipe(
                 tap(() => this.onTagChange()),

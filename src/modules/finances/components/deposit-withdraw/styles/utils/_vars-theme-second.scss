@@ -109,4 +109,8 @@ $themeSecond: map-merge((
     'itemGridGap': ef.size(4) 0,
     'itemBorderBottom': 1px solid var(--mc-baseOpacity),
     'itemPadding': ef.size(1) 0,
+
+    'paymentMsgGridColumns': 1fr,
+    'paymentMsgQrMinHeight': 200px,
+    'paymentMsgTextOrder': 1,
 ), $customThemeSecond);

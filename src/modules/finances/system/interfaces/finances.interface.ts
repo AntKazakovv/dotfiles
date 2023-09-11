@@ -109,7 +109,7 @@ export interface IPaySystemCategories {
     categoriesConfig?: Partial<Record<TPaySystemTagAll, IPaySystemTag>>;
 }
 
-export type TPaySystemsSwitcher = 'select' | 'menu' | 'group';
+export type TPaySystemsSwitcher = 'select' | 'menu';
 
 export interface IPaySystemTag {
     name: string;

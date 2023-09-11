@@ -164,6 +164,18 @@
             }
         }
 
+        .wlc-payment-message--theme-default {
+            grid-template-columns: ef.get-value($themeSecond, 'paymentMsgGridColumns');
+
+            .wlc-payment-message__qr[class] {
+                min-height: ef.get-value($themeSecond, 'paymentMsgQrMinHeight');
+            }
+
+            .wlc-payment-message__text {
+                order: ef.get-value($themeSecond, 'paymentMsgTextOrder');
+            }
+        }
+
         .wlc-amount-limit--theme-default[class] {
             margin: ef.get-value($themeSecond, 'amountLimitMargin');
         }
