@@ -125,9 +125,10 @@
     <div *ngIf="requiredFieldsKeys.length"
          class="{{$class}}__fields"
          data-wlc-element="add_required_fields">
+
          <div wlc-alert
             [level]="'error'"
-            [title]="'Payment method is not available. Please, add the following info' | translate">
+            [title]="'Payment method is not available. Please, add the following info:' | translate">
 
             <ul>
                 <li *ngFor="let item of requiredFieldsKeys"
