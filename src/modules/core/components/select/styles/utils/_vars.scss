@@ -47,7 +47,7 @@ $baseSettings: map-merge((
     'dropdownTextStyle': ef.get('form', 'inputTextStyle'),
     'dropdownItemBgActive': var(--fc-inputBg-d20),
     'dropdownItemColorActive': ef.get('form', 'inputColor'),
-    'dropdownItemBgHover': var(--fc-inputBg-d20),
+    'dropdownItemBgHover': var(--fc-inputBg-d10),
     'dropdownItemColorHover': ef.get('form', 'inputColor'),
     'iconWidth': ef.get('form', 'iconWidth'),
     'iconHeight': ef.get('form', 'iconHeight'),
