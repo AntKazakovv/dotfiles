@@ -60,11 +60,6 @@
 </ng-template>
 
 <ng-template #mobileList>
-    <h2 *ngIf="$params.type !== 'default'"
-        class="{{$class}}__title"
-        wlc-title
-        mainText="Providers">
-    </h2>
     <div class="{{$class}}__wrapper">
         <ng-container *ngFor="let item of items | slice:0:4"
                       [ngTemplateOutlet]="iconItem"
