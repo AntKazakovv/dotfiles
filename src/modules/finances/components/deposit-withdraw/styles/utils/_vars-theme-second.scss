@@ -29,8 +29,8 @@ $themeSecond: map-merge((
     ),
 
     'editProfileBtnMargin': (
-        375: ef.size(6) auto 0,
-        900: ef.size(6) 0 0,
+        375: ef.size(4) auto 0,
+        900: ef.size(4) 0 0,
     ),
 
     'contentMargin': (
@@ -51,8 +51,7 @@ $themeSecond: map-merge((
     'formTemplateColumns': 1fr,
     'formGap': ef.size(4),
     'formJustifyItems': (
-        375: initial,
-        480: center,
+        375: center,
         768: start,
     ),
     'formInputMaxWidth': (
@@ -113,4 +112,6 @@ $themeSecond: map-merge((
     'paymentMsgGridColumns': 1fr,
     'paymentMsgQrMinHeight': 200px,
     'paymentMsgTextOrder': 1,
+
+    'fieldsMargin': 0 0 ef.size(4),
 ), $customThemeSecond);

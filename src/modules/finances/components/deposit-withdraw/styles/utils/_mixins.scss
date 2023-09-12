@@ -69,3 +69,11 @@
         }
     }
 }
+
+@mixin cashFields($config) {
+    margin: ef.get-value($config, 'fieldsMargin');
+
+    &:last-child {
+        margin: 0;
+    }
+}

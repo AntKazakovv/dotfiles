@@ -59,6 +59,7 @@
 
         &__fields {
             @include bm.get-mq-map('--wlc-alert-margin', $themeDefault, 'alertMargin');
+            @include cashFields($themeDefault);
         }
 
         &__edit-profile-btn {

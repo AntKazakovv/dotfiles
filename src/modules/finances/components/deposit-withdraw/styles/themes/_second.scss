@@ -99,6 +99,10 @@
             }
         }
 
+        &__fields {
+            @include cashFields($themeSecond);
+        }
+
         &__divider {
             display: var(--cash-divider-display, block);
             width: 100%;
