@@ -22,7 +22,6 @@ import {
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
     Bonus,
-    BonusesFilterType,
     BonusesService,
 } from 'wlc-engine/modules/bonuses';
 import {InternalMailsService} from 'wlc-engine/modules/internal-mails';
@@ -63,8 +62,7 @@ export class CounterComponent extends AbstractComponent implements OnInit {
         await this.configService.ready;
 
         switch (this.$params.type) {
-            case ('bonuses-main'):
-            case ('bonuses-all'):
+            case ('bonuses-main' || 'bonuses-all'):
                 const bonusesService = await this.injectionService
                     .getService<BonusesService>('bonuses.bonuses-service');
 
@@ -73,16 +71,8 @@ export class CounterComponent extends AbstractComponent implements OnInit {
                     observer: {
                         next: (bonuses: Bonus[]) => {
                             if (bonuses) {
-                                let filter: BonusesFilterType = null;
-
-                                if (this.$params.type === 'bonuses-main') {
-                                    filter = 'main';
-                                } else if (this.$params.type === 'bonuses-all') {
-                                    filter = 'all';
-                                }
-
-                                bonuses = filter ?
-                                    bonusesService.filterBonuses(bonuses, filter):
+                                bonuses = this.$params.type === 'bonuses-main' ?
+                                    bonusesService.filterBonuses(bonuses, 'main'):
                                     bonuses;
                                 this.hidden = !bonuses.length && this.$params.hideIfZero;
                                 this.count = bonuses.length;
