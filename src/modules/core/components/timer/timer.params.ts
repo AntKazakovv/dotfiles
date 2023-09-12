@@ -18,6 +18,7 @@ export interface ITimerCParams extends IComponentParams<ComponentTheme, Componen
         countUp?: boolean;
         noDays?: boolean;
         noHours?: boolean;
+        serverDateUTC?: number;
     };
     /** Acronyms for time units */
     acronyms?: {

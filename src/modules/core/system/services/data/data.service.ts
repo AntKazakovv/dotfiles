@@ -6,6 +6,8 @@ import {
     HttpClient,
     HttpParams,
     HttpErrorResponse,
+    HttpHeaders,
+    HttpResponse,
 } from '@angular/common/http';
 import {TranslateService} from '@ngx-translate/core';
 
@@ -64,6 +66,7 @@ export interface IData<T = any> {
     errors?: string[];
     source?: string;
     data?: T;
+    headers?: HttpHeaders;
 }
 
 export type RestMethodType = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
@@ -478,52 +481,61 @@ export class DataService {
 
                                 return throwError(error);
                             }),
-                        ))).pipe(catchError((error: HttpErrorResponse): Observable<IData | never> => {
+                        )))
+                        .pipe(catchError((error: HttpErrorResponse): Observable<HttpResponse<IData | never>> => {
+                            if (_isFunction(method.onError)) {
+                                method.onError(error);
+                            }
 
-                        if (_isFunction(method.onError)) {
-                            method.onError(error);
-                        }
+                            if (method.retries?.fallbackUrl) {
+                                notCacheStaticData = false;
+                                this.sendLog('0.0.14', method, error.message || error.status);
 
-                        if (method.retries?.fallbackUrl) {
-                            notCacheStaticData = false;
-                            this.sendLog('0.0.14', method, error.message || error.status);
+                                return this.httpRequest(
+                                    method,
+                                    method.retries.fallbackUrl,
+                                    requestParams,
+                                    requestBody,
+                                ).pipe(
+                                    catchError((e: HttpErrorResponse): Observable<never> => {
+                                        this.emitRequestFail('0.0.15', method, e);
+                                        return throwError(e.error || e);
+                                    }),
+                                );
+                            }
 
-                            return this.httpRequest(
-                                method,
-                                method.retries.fallbackUrl,
-                                requestParams,
-                                requestBody,
-                            ).pipe(
-                                catchError((e: HttpErrorResponse): Observable<never> => {
-                                    this.emitRequestFail('0.0.15', method, e);
-                                    return throwError(e.error || e);
-                                }),
-                            );
-                        }
+                            this.emitRequestFail('0.0.15', method, error);
 
-                        this.emitRequestFail('0.0.15', method, error);
+                            this.replaceErrors(error);
 
-                        this.replaceErrors(error);
-
-                        const errData: IData = {
-                            name: method.name,
-                            system: method.system,
-                            status: 'error',
-                            code: error.status,
-                            errors: error.error,
-                        };
-                        this.flow$.next(errData);
-                        method.subject?.next(errData);
-                        return throwError(errData.errors || error);
-                    }));
+                            const errData: IData = {
+                                name: method.name,
+                                system: method.system,
+                                status: 'error',
+                                code: error.status,
+                                errors: error.error,
+                            };
+                            this.flow$.next(errData);
+                            method.subject?.next(errData);
+                            return throwError(errData.errors || error);
+                        }));
             }),
-            map((data: IData): IData => {
+            map((response: IData | HttpResponse<IData>): IData => {
+                let data: IData;
+                
+                if (response instanceof HttpResponse && response.body) {
+                    data = response.body;
+                } else if ((response as IData).data) {
+                    data = (response as IData).data;
+                }
+
                 let responseData: IData;
 
                 if (_get(data, 'status') && (_get(data, 'data') || _get(data, 'errors'))) {
                     responseData = data;
                     responseData.system = data.system || method.system;
                     responseData.name = data.name || method.name;
+                    responseData.headers = response.headers;
                 } else {
                     responseData = data.errors ?
                         {
@@ -535,6 +547,7 @@ export class DataService {
                             status: 'success',
                             name: method.name,
                             system: method.system,
+                            headers: response.headers,
                             data,
                         };
                 }
@@ -713,11 +726,12 @@ export class DataService {
         url: string,
         requestParams: {lang: string} & RequestParamsType,
         requestBody: string | FormData,
-    ): Observable<IData> {
+    ): Observable<HttpResponse<IData>> {
         return this.http.request<IData>(method.type, url, {
             params: requestParams,
             body: requestBody,
             withCredentials: true,
+            observe: 'response',
         });
     }
 

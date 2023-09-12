@@ -127,7 +127,7 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
     protected bonusesToSlides(bonuses: Bonus[], scroll: boolean = false): void {
         this.slides = _map(bonuses, (bonus: Bonus): ISlide => ({
             component: BonusItemComponent,
-            componentParams: <IBonusItemCParams> {
+            componentParams: <IBonusItemCParams>{
                 bonus,
                 theme: 'long',
             },

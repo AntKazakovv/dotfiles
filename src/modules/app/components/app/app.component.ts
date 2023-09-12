@@ -8,6 +8,7 @@ import {
     AfterViewInit,
     ViewChild,
     ElementRef,
+    HostListener,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 import {TranslateService} from '@ngx-translate/core';
@@ -57,6 +58,7 @@ import {
     BodyClassService,
     IHooksConfig,
     HooksService,
+    TimerService,
 } from 'wlc-engine/modules/core';
 import {
     ILivechatConfig,
@@ -94,16 +96,16 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
     public isMobileApp: boolean = GlobalHelper.isMobileApp();
 
     public get headerSection(): SectionModel {
-        return _find(this.sections, (v)=> v.name === 'nav-header');
+        return _find(this.sections, (v) => v.name === 'nav-header');
     }
 
     public get navSection(): SectionModel {
-        return _find(this.sections, (v)=> v.name === 'nav-footer');
+        return _find(this.sections, (v) => v.name === 'nav-footer');
     }
 
     public get sectionsList(): SectionModel[] {
         if (this.isMobileApp) {
-            return this.sections.filter((v)=> !_includes(['nav-header', 'nav-footer'], v.name));
+            return this.sections.filter((v) => !_includes(['nav-header', 'nav-footer'], v.name));
         }
         return this.sections;
     }
@@ -131,6 +133,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
         protected modalService: ModalService,
         protected bodyClassService: BodyClassService,
         protected bannerService: BannersService,
+        protected timerService: TimerService,
         private transition: TransitionService,
         private meta: Meta,
         private logService: LogService,
@@ -153,6 +156,15 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
         this.initHookHandlers();
         this.launchGamblingBanFeature();
         this.enableSeo();
+    }
+
+    @HostListener('document:visibilitychange', ['$event'])
+    public visibilityChange(): void {
+        if (document.hidden) {
+            this.timerService.rememberLastCount();
+        } else {
+            this.timerService.updateCountAfterDocumentHidden();
+        }
     }
 
     public override async ngOnInit(): Promise<void> {
@@ -228,6 +240,8 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
         fromEvent(this.window, 'resize').pipe(filter(() => !this.testViewPort)).subscribe(() => {
             this.updateMetaTag();
         });
+
+        if (!this.timerService.startedCount) this.timerService.startCount();
     }
 
     public ngAfterViewInit(): void {
@@ -252,7 +266,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
     private setMobileAppHandlers(): void {
         if (GlobalHelper.isMobileApp()) {
 
-            if(
+            if (
                 !this.configService.get({
                     name: 'welcomeWasShown',
                     storageType: 'localStorage',

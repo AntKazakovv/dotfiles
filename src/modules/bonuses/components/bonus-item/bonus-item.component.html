@@ -420,7 +420,9 @@
              wlc-timer
              text="{{'Time remaining' | translate}}"
              [value]="bonus.expirationTimeLuxon"
-             (timerEnds)="updateBonuses()"></div>
+             (timerEnds)="updateBonuses()"
+             [serverDateUTC]="bonus.serverTime">
+        </div>
         <div *ngIf="bonus.wageringTotal && !bonus.isExpired" class="{{$class}}__progress">
             <div class="{{$class}}__remaning">
                 <span wlc-currency [value]="bonus.wageringLeft"></span>

@@ -24,6 +24,7 @@ import {
     GlobalHelper,
     ConfigService,
     DateHelper,
+    TimerService,
 } from 'wlc-engine/modules/core';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes';
 
@@ -56,6 +57,7 @@ export class TimerComponent extends AbstractComponent implements OnInit, OnChang
     @Input() public noHours: boolean;
     @Input() public theme: Params.ComponentTheme;
     @Input() public themeMod: Params.ThemeMod;
+    @Input() public serverDateUTC: number;
     @Input() protected inlineParams: Params.ITimerCParams;
 
     @Output() public timerEnds = new EventEmitter();
@@ -75,25 +77,35 @@ export class TimerComponent extends AbstractComponent implements OnInit, OnChang
     private reg: RegExp = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/;
     private intervalSub: Subscription;
     private isInited: boolean = false;
+    private timeDifference: number;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITimerCParams,
         configService: ConfigService,
+        protected timerService: TimerService,
         cdr: ChangeDetectorRef,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
     public override ngOnInit(): void {
-        const inputProperties: string[] = ['value', 'text', 'noCountDown', 'countUp', 'noDays', 'noHours', 'theme'];
+        const inputProperties: string[] = [
+            'value', 'text', 'noCountDown', 'countUp', 'noDays', 'noHours', 'theme', 'useDateUTC', 'serverDateUTC',
+        ];
         super.ngOnInit(_merge(
             {},
             this.inlineParams,
             GlobalHelper.prepareParams(this, inputProperties),
         ));
+
+        if (this.serverDateUTC && (this.serverDateUTC !== this.timerService.lastServerDateUTC)) {
+            this.timerService.updateCount(this.serverDateUTC);
+        }
+
         if (this.checkValueFormat()) {
             this.getTimeDifference();
-            this.intervalSub = interval(DateHelper.milliSecondsInSecond).pipe(takeUntil(this.$destroy))
+            this.intervalSub = interval(DateHelper.milliSecondsInSecond)
+                .pipe(takeUntil(this.$destroy))
                 .subscribe(() => {
                     this.getTimeDifference();
                     this.cdr.detectChanges();
@@ -127,18 +139,25 @@ export class TimerComponent extends AbstractComponent implements OnInit, OnChang
     }
 
     private getTimeDifference(): void {
-
-        let timeDifference = this.valueFormat.toMillis() - DateTime.local().toMillis();
-
-        if (timeDifference < 0 && this.countUp) {
-            timeDifference *= -1;
+        if (this.serverDateUTC) {
+            if (this.timerService.timeCounter) {
+                this.timeDifference = this.valueFormat.toMillis() - this.timerService.timeCounter;
+            } else {
+                return;
+            }
+        } else {
+            this.timeDifference = this.valueFormat.toMillis() - DateTime.local().toMillis();
         }
 
-        if (timeDifference > 0) {
-            this.allocateTimeUnits(timeDifference);
+        if (this.timeDifference < 0 && this.countUp) {
+            this.timeDifference *= -1;
         }
 
-        if (this.intervalSub && timeDifference <= 0 && !this.countUp) {
+        if (this.timeDifference > 0) {
+            this.allocateTimeUnits(this.timeDifference);
+        }
+
+        if (this.intervalSub && this.timeDifference <= 0 && !this.countUp) {
             setTimeout(() => {
                 this.timerEnds.emit();
             }, 1000);

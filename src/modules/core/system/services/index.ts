@@ -53,3 +53,4 @@ export {
 } from './fingerprint/fingerprint.service';
 
 export {WebsocketService} from './websocket/websocket.service';
+export {TimerService} from './timer/timer.service';

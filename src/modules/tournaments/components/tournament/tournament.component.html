@@ -65,7 +65,8 @@
                 : tournament.startsLuxon"
              [text]="tournament.isTournamentStarts
                     ? 'Time remaining'
-                    : 'Coming soon'">
+                    : 'Coming soon'"
+             [serverDateUTC]="tournament.serverTime">
         </div>
         <div *ngIf="!tournament.isSelected && tournament.description?.length"
              class="{{$class}}__description-block"

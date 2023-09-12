@@ -13,6 +13,7 @@ import _isArray from 'lodash-es/isArray';
 import _isObject from 'lodash-es/isObject';
 import _toString from 'lodash-es/toString';
 import _isString from 'lodash-es/isString';
+import _isNil from 'lodash-es/isNil';
 import _isNumber from 'lodash-es/isNumber';
 import _toNumber from 'lodash-es/toNumber';
 import _round from 'lodash-es/round';
@@ -76,6 +77,7 @@ export class Bonus extends AbstractModel<IBonus> {
     // TODO: This is array orders of wagering from fundist, need automatically.
     private static bonusTargetsOrder = ['balance', 'freerounds', 'loyalty', 'experience'];
     private static bonusesConfig: IBonusesModule;
+    private static _serverTimeUTC: number = null;
     private _isChoose: boolean = false;
     private _isReg: boolean;
     private _isDep: boolean;
@@ -88,6 +90,7 @@ export class Bonus extends AbstractModel<IBonus> {
         protected cachingService: CachingService,
     ) {
         super({from: _assign({model: 'Bonus'}, from)});
+
         this.data = this.modifyData(data);
 
         if (!Bonus.bonusesConfig) {
@@ -112,6 +115,12 @@ export class Bonus extends AbstractModel<IBonus> {
         }
 
         this._fallBackIconPath = this.configService.get<string>('$bonuses.fallBackIconPath');
+    }
+
+    public static set serverTime(time: number) {
+        if (!_isNil(time)) {
+            Bonus._serverTimeUTC = time;
+        }
     }
 
     public override set data(data: IBonus) {
@@ -837,6 +846,10 @@ export class Bonus extends AbstractModel<IBonus> {
         }
 
         return '';
+    }
+
+    public get serverTime(): number | null {
+        return Bonus._serverTimeUTC;
     }
 
     /**

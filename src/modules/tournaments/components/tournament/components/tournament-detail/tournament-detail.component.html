@@ -23,12 +23,12 @@
                class="{{$class}}__header-info--description"
                [innerHtml]="tournament.descriptionClean">
             </p>
-
             <div wlc-timer
                 class="{{$class}}__header-info-timer"
                 [value]="$params.parentInstance.tournament.stateDateTournament"
                 [text]="getTimerText()"
-                (timerEnds)="updateTournaments()">
+                (timerEnds)="updateTournaments()"
+                [serverDateUTC]="tournament.serverTime">
             </div>
 
             <div *ngIf="tournament.isTournamentStarts" class="{{$class}}__header-info--buttons">

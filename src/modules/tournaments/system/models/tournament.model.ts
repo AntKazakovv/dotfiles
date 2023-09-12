@@ -4,6 +4,7 @@ import _assign from 'lodash-es/assign';
 import _toNumber from 'lodash-es/toNumber';
 import _map from 'lodash-es/map';
 import _reduce from 'lodash-es/reduce';
+import _isNil from 'lodash-es/isNil';
 
 import {
     ConfigService,
@@ -30,6 +31,7 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
     public static hasAllowStack: boolean = false;
 
     private _id: number;
+    private static _serverTimeUTC: number = null;
 
     constructor(
         from: IFromLog,
@@ -49,6 +51,12 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
             if (this.allowStack !== '0') {
                 Tournament.hasAllowStack = true;
             }
+        }
+    }
+
+    public static set serverTime(time: number) {
+        if (!_isNil(time)) {
+            Tournament._serverTimeUTC = time;
         }
     }
 
@@ -189,7 +197,7 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
      * @returns {string} tournament fee currency
      */
     public get feeCurrency(): string {
-        const  realCurrency: string = this.useUsersCurrency ? this.userCurrency : 'EUR';
+        const realCurrency: string = this.useUsersCurrency ? this.userCurrency : 'EUR';
         return (this.feeType === 'loyalty') ? 'LP' : realCurrency;
     }
 
@@ -278,6 +286,10 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
             : this.isTournamentStarts
                 ? 'Available'
                 : 'Coming soon';
+    }
+
+    public get serverTime(): number | null {
+        return Tournament._serverTimeUTC;
     }
 
     protected setAvailabilityGames(): void {

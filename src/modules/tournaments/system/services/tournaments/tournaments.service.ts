@@ -321,7 +321,7 @@ export class TournamentsService {
             Tournament.selectedTournaments = false;
             Tournament.hasAllowStack = false;
 
-            const result = this.modifyTournaments(res.data);
+            const result = this.modifyTournaments(res.data, Date.parse(res.headers.get('Date')));
             tournaments = this.checkForbid(result, type);
 
             switch (type) {
@@ -419,12 +419,13 @@ export class TournamentsService {
 
         return tournaments;
     }
-
+    
     private modifyTournaments(
         data: ITournament[],
+        tournamentsServerTime: number,
     ): Tournament[] {
         if (data?.length) {
-
+            Tournament.serverTime = tournamentsServerTime;
             const queryTournaments = _map<ITournament, Tournament>(
                 data as ITournament[],
                 (item: ITournament) => {

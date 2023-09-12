@@ -4,6 +4,7 @@ import {
     TestBed,
     tick,
 } from '@angular/core/testing';
+import {HttpHeaders} from '@angular/common/http';
 import {
     HttpClientTestingModule,
     HttpTestingController,
@@ -269,6 +270,7 @@ describe('DataService', () => {
                 status: 'success',
                 name: 'test123',
                 system: 'test123',
+                headers: new HttpHeaders(),
                 data: {},
             },
         });
@@ -289,7 +291,7 @@ describe('DataService', () => {
         expect(eventServiceSpy.emit).toHaveBeenCalledTimes(2);
     }));
 
-    it('-> getMethodSubscribe: checking the receipt of a subscription',  () => {
+    it('-> getMethodSubscribe: checking the receipt of a subscription', () => {
         registerTestMethod({
             fullUrl: 'http://test.test/',
         });

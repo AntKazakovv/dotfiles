@@ -37,12 +37,12 @@
                     [prizes]="tournament.prizePool"
                     >
                 </div>
-
                 <div wlc-timer
                      class="{{$class}}-timer"
                      [value]="tournament.stateDateTournament"
                      [text]="getTimerText()"
-                     (timerEnds)="updateTournaments()">
+                     (timerEnds)="updateTournaments()"
+                     [serverDateUTC]="tournament.serverTime">
                 </div>
                 <div wlc-tournament-prizes
                      class="{{$class}}-prizes"
@@ -120,7 +120,8 @@
                      class="{{$class}}-timer"
                      [value]="tournament.stateDateTournament"
                      [text]="getTimerText()"
-                     (timerEnds)="updateTournaments()">
+                     (timerEnds)="updateTournaments()"
+                     [serverDateUTC]="tournament.serverTime">
                 </div>
                 <div wlc-tournament-prizes
                      class="{{$class}}-prizes"

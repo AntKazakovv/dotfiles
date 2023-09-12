@@ -638,7 +638,9 @@ export class BonusesService {
             }
 
             const bonuses: Bonus[] = _orderBy(
-                this.checkForbid(await this.modifyBonuses((res as IData<IBonus[]>).data)),
+                this.checkForbid(await this.modifyBonuses(
+                    (res as IData<IBonus[]>).data, 
+                    Date.parse(res.headers.get('Date')))),
                 'weight',
                 'desc',
             );
@@ -871,10 +873,11 @@ export class BonusesService {
         }
     }
 
-    private async modifyBonuses(data: IBonus[]): Promise<Bonus[]> {
+    private async modifyBonuses(data: IBonus[], bonusesServerTime: number): Promise<Bonus[]> {
         const queryBonuses: Bonus[] = [];
 
         if (data?.length) {
+            Bonus.serverTime = bonusesServerTime;
             for (const bonusData of data) {
                 const bonus: Bonus = new Bonus(
                     {service: 'BonusesService', method: 'modifyBonuses'},

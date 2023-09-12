@@ -1,10 +1,10 @@
 <div class="{{$class}}__content" *ngIf="tournament; else: noData">
-
     <div wlc-timer
         class="{{$class}}__timer-block"
         [value]="tournament.stateDateTournament"
         [text]="getTimerText()"
-        (timerEnds)="updateTournaments()">
+        (timerEnds)="updateTournaments()"
+        [serverDateUTC]="tournament.serverTime">
     </div>
     <div class="{{$class}}__delimiter"></div>
     <div class="{{$class}}__prize-block">
