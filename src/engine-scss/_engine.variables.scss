@@ -339,7 +339,7 @@ $tagConfig: map-merge((
 
 $customHlSubstr: () !default;
 $hlSubstr: map-merge((
-    'fontStyle': 'PrimaryTextBold',
+    'fontStyle': 'ThirdTitleBold',
     'textColor': var(--fc-textColor),
 ), $customHlSubstr);
 
