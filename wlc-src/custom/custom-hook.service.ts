@@ -16,44 +16,31 @@ export class CustomHookService {
         this.init();
     }
 
-    /** 
-     * Don't change init method!
-     * Only if you want to change 'final' to 'replace' in customHookConfig.
-     * 'final': customMethod - will run after main method
-     * 'replace': customMethod - will replace main method
+    /**
+     * Don't change init method! Only if you want to fill customHookConfig.
+     * final: will run after main method, replace: will replace main method.
+     * 
+     * Config example:
+     * 
+     * let customHookConfig: ICustomHookConfig = {
+     *     finances: {
+     *         financesServiceOnPaymentPending: {
+     *             final: this.customMethod,
+     *         },
+     *         financesServiceOnPaymentFail: {
+     *             replace: this.customMethod,
+     *         },
+     *     },
+     * };
      */
     public async init() {
         await this.configService.ready;
 
-        let customHookConfig: ICustomHookConfig = {
-            finances: {
-                financesServiceOnPaymentPending: {
-                    final: this.customOnPaymentPending,
-                },
-                financesServiceOnPaymentSuccess: {
-                    final: this.customOnPaymentSuccess,
-                },
-                financesServiceOnPaymentFail: {
-                    final: this.customOnPaymentFailed,
-                },
-            },
-        };
+        let customHookConfig: ICustomHookConfig = {};
 
         this.configService.set({
             name: 'customHookConfig',
             value: customHookConfig,
         });
-    }
-
-    public customOnPaymentPending() {
-        // create custom method
-    }
-
-    public customOnPaymentSuccess() {
-        // create custom method
-    }
-
-    public customOnPaymentFailed() {
-        // create custom method
     }
 }

@@ -377,7 +377,7 @@ export class FinancesService {
         });
     }
 
-    //@CustomHook('finances', 'financesServiceOnPaymentSuccess')
+    @CustomHook('finances', 'financesServiceOnPaymentSuccess')
     public onPaymentSuccess(initialPath: IPaymentPostMessage): void {
         const userProfile$ = this.configService.get<BehaviorSubject<UserProfile>>(
             {name: '$user.userProfile$'},
