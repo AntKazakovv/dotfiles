@@ -16,8 +16,8 @@ import {
 import {TBonusSortOrder} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 
 export type Type = 'default' | 'swiper' | CustomType;
-export type Theme = 'active' | 'default' | 'partial' | 'promo' | 'promo-home' | 'reg-first' | CustomType;
-export type ThemeMod = 'default' | 'with-image' | 'with-ears' | CustomType;
+export type Theme = 'active' | 'default' | 'partial' | 'promo' | 'promo-home' | 'reg-first' | 'wolf' | CustomType;
+export type ThemeMod = 'default' | 'with-image' | 'with-ears' | 'wolf' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;

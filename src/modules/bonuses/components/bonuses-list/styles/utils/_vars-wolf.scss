@@ -1,0 +1,12 @@
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'bonusItemWidth': (
+        375: 320px,
+        560: 410px,
+        1366: 100%,
+    ),
+    'bonusItemWidthVertical': (
+        375: 300px,
+        1366: 100%,
+    ),
+), $customThemeWolf);

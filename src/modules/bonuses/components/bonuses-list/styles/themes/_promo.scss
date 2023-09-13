@@ -1,13 +1,13 @@
 .wlc-bonuses-list--theme-promo {
 
     &:host {
+        @include bm.get-mq-map('--wlc-bl-promo-grid-columns', $themePromo, 'listColumns');
 
         .wlc-bonuses-list__list {
             @include bm.get-mq-map('grid-gap', $themePromo, 'gridGap');
-            @include bm.get-mq-map('grid-template-columns', $themePromo, 'listColumns');
 
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: var(--wlc-bl-promo-grid-columns, 1fr);
             justify-items: center;
         }
 
@@ -17,6 +17,10 @@
 
         .wlc-bonuses-list__to-profile {
             @include bm.get-mq-map('margin', $themePromo, 'marginBtnGoToProfile');
+        }
+
+        &.wlc-bonuses-list--theme-mod-wolf {
+            @include bm.get-mq-map('--wlc-bl-promo-grid-columns', $themePromo, 'listColumnsWolf');
         }
     }
 }

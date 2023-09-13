@@ -6,7 +6,7 @@ export type ComponentTheme = 'default' | 'one-line' | 'wolf';
 export type ComponentType = 'default';
 export type AutoModifiersType = ComponentTheme | ModeType;
 export type ManualModifiersType = '';
-/** Small ThemeMod is used only with the one-line Theme */
+/** Small ThemeMod is used with one-line and wolf themes */
 export type ThemeMod = 'default' | 'count-up' | 'light' | 'small' | string;
 export type ModifiersType = AutoModifiersType & ManualModifiersType & string;
 

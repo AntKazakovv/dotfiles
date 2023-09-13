@@ -4,6 +4,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {IBonusModalCParams} from 'wlc-engine/modules/bonuses/components/bonus-modal/bonus-modal.params';
+import {Size} from 'wlc-engine/modules/core/components/button/button.params';
 
 export type Type = 'default' | CustomType;
 export type Theme = 'active'
@@ -16,12 +17,15 @@ export type Theme = 'active'
     | 'reg-first'
     | 'modal'
     | 'mini' // deposit mini items
+    | 'wolf'
     | CustomType;
 export type ThemeMod = 'default'
     | 'active'
     | 'chip-v2'
     | 'with-image'
     | 'simple' // simple preview on button, use with theme `mini`.
+    | 'horizontal' // wolf and further mode
+    | 'vertical' // wolf and further mode
     | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
@@ -66,7 +70,15 @@ export interface IBonusItemCParams extends IComponentParams<Theme, Type, ThemeMo
     hideBonusBottom?: boolean;
     /** Use bg image on mobile partial theme */
     usePartialMobileImage?: boolean;
+    buttonsParams?: {
+        /** Size of buttons inside the bonus item */
+        size?: Size;
+        hideButtons?: boolean;
+    };
+    buttonsSize?: Size;
 }
+
+export type TBonusClickAction = 'showDescription' | string;
 
 export const defaultParams: IBonusItemCParams = {
     moduleName: 'bonuses',

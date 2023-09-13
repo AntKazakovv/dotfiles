@@ -6,6 +6,7 @@ import {
 } from 'rxjs';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {BonusesListNoContentByThemeType} from 'wlc-engine/modules/bonuses/components/bonuses-list/bonuses-list.params';
+import {ITagCommon, ITagList} from 'wlc-engine/modules/core/components/tag/tag.params';
 
 export interface IBonusesModule {
     /** Flag for change filter from 'main' to 'all' into Dashboard/Bonuses. Usability only for 2.0 Profile. **/
@@ -55,6 +56,7 @@ export interface IBonusesModule {
             noContent: BonusesListNoContentByThemeType,
         },
     };
+    tagsConfig?: ITagList<TBonusTagKey>;
 }
 
 export type TBonusEvent =
@@ -95,6 +97,21 @@ export interface IBonusResultValue {
     Coins?: string;
     ReleaseWagering?: string;
     WageringType?: string;
+}
+
+export type TBonusTagKey = 'unavailable'
+    | 'active'
+    | 'lootbox'
+    | 'inventoried'
+    | 'subscribed'
+    | 'promocode'
+    | 'welcome'
+    | 'processing'
+    | '';
+
+export interface IBonusesTags {
+    useIcons: boolean;
+    tagList?: Partial<Record<TBonusTagKey, ITagCommon>>;
 }
 
 export interface IBonusResultValueDefault extends IBonusResultValue {

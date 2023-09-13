@@ -64,6 +64,7 @@ import {BurgerPanelComponent} from './components/burger-panel/burger-panel.compo
 import {ButtonComponent} from './components/button/button.component';
 import {CountryAndStateComponent} from './components/country-and-state/country-and-state.component';
 import {CheckboxComponent} from './components/checkbox/checkbox.component';
+import {ContactUsPageComponent} from 'wlc-engine/modules/core/components/contact-us-page/contact-us-page.component';
 import {CopyrightComponent} from './components/copyright/copyright.component';
 import {CounterComponent} from './components/counter/counter.component';
 import {CurrencyComponent} from 'wlc-engine/modules/core/components/currency/currency.component';
@@ -124,6 +125,7 @@ import {
 import {PromocodeLinkComponent} from 'wlc-engine/modules/core/components/promocode-link/promocode-link.component';
 import {HeaderComponent} from './components/header/header.component';
 import {TabsComponent} from './components/tabs/tabs.component';
+import {TagComponent} from 'wlc-engine/modules/core/components/tag/tag.component';
 // -- COMPONENTS IMPORTS END  --;
 
 //  -- DIRECTIVES IMPORTS STARTS--;
@@ -159,8 +161,6 @@ import {ICoreConfig} from './system/interfaces/core.interface';
 import * as $config from 'wlc-config/index';
 
 import _get from 'lodash-es/get';
-import {TagComponent} from 'wlc-engine/modules/core/components/tag/tag.component';
-import {ContactUsPageComponent} from 'wlc-engine/modules/core/components/contact-us-page/contact-us-page.component';
 
 export function playerFactory(): LottiePlayer {
     return import('lottie-web/build/player/lottie_svg') as unknown as LottiePlayer;
@@ -438,6 +438,7 @@ export const services = {
         StepsComponent,
         TabSwitcherComponent,
         TableComponent,
+        TagComponent,
         ThemeTogglerComponent,
         TextBlockComponent,
         TextareaComponent,

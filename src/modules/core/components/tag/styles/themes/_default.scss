@@ -14,6 +14,22 @@
     padding: ef.get-value($themeDefault, 'padding');
     border-radius: ef.get-value($themeDefault, 'radius');
     line-height: 1;
+    overflow: hidden;
+
+    &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+
+        display: block;
+        width: 100%;
+        height: 100%;
+
+        background-color: var(--wlc-tag-bg, var(--mc-secondary));
+        opacity: ef.get-value($themeDefault, 'bgOpacity');
+    }
 
     .wlc-tag {
 

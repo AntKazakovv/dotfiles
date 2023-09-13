@@ -6,9 +6,9 @@
 @import './themes/default';
 
 .wlc-tag:host {
+    position: var(--wlc-tag-position, relative);
     max-width: 100%;
     line-height: 1;
     white-space: nowrap;
     text-overflow: ellipsis;
-    background-color: var(--wlc-tag-bg, var(--mc-secondary));
 }

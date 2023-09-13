@@ -87,6 +87,10 @@ $buttonSettings: map-merge((
     'disabledSecondaryShadowHover': none,
     'disabledSecondaryBorder': 2px solid var(--mc-secondary-o6),
     'disabledSecondaryBorderHover': 2px solid var(--mc-secondary-o6),
+    //size md
+    'heightMd': 30px,
+    'paddingMd': 0 size-func(3),
+    'textStyleMd': 'CaptionTextBold',
 ), $customButtonSettings);
 
 $customTableBtnBlock: () !default;

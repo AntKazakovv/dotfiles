@@ -51,6 +51,7 @@ export const defaultParams: IBonusButtonsCParams = {
             wlcElement: 'button_subscribe',
         },
         unsubscribeBtnParams: {
+            themeMod: 'secondary',
             common: {
                 text: gettext('Unsubscribe'),
                 typeAttr: 'button',
@@ -58,11 +59,62 @@ export const defaultParams: IBonusButtonsCParams = {
             wlcElement: 'button_unsubscribe',
         },
         cancelBtnParams: {
+            themeMod: 'secondary',
             common: {
                 text: gettext('Cancel'),
                 typeAttr: 'button',
             },
             wlcElement: 'button_cancel',
+        },
+        inventoriedBtnParams: {
+            common: {
+                text: gettext('Take'),
+                typeAttr: 'button',
+            },
+        },
+        closeBtnParams: {
+            themeMod: 'secondary',
+            common: {
+                text: gettext('Close'),
+                typeAttr: 'button',
+            },
+        },
+        chooseBtnParams: {
+            common: {
+                text: gettext('Choose'),
+                typeAttr: 'button',
+            },
+        },
+        depBtnParams: {
+            common: {
+                text: gettext('Deposit'),
+                typeAttr: 'button',
+            },
+        },
+        playBtnParams: {
+            common: {
+                text: gettext('Play'),
+                typeAttr: 'button',
+            },
+        },
+        readMoreBtnParams: {
+            themeMod: 'secondary',
+            common: {
+                text: gettext('Read more'),
+                typeAttr: 'button',
+            },
+        },
+        regBtnParams: {
+            common: {
+                text: gettext('Sign up'),
+                typeAttr: 'button',
+            },
+        },
+        openLootboxBtnParams: {
+            common: {
+                text: gettext('Open'),
+                typeAttr: 'button',
+            },
         },
     },
 };

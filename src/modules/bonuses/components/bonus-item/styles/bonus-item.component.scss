@@ -1,3 +1,4 @@
+@use 'sass:math';
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/mixins/base.mixins' as bm;
@@ -18,3 +19,4 @@
 @import './themes/mini';
 @import './themes/modal';
 @import './themes/show-only';
+@import './themes/wolf';

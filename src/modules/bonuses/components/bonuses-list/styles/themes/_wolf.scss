@@ -1,0 +1,31 @@
+.wlc-bonuses-list--theme-wolf:host {
+
+    &.wlc-bonuses-list--type-swiper {
+        @include bm.get-mq-map('--wlc-bi-width', $themeWolf, 'bonusItemWidth');
+
+        ::ng-deep {
+
+            .wlc-swiper-button-prev[class],
+            .wlc-swiper-button-next[class] {
+                display: none;
+            }
+
+            .wlc-bonus-item--theme-mod-vertical {
+                @include bm.get-mq-map('--wlc-bi-width', $themeWolf, 'bonusItemWidthVertical');
+            }
+
+            .swiper-slide {
+                width: auto;
+            }
+        }
+
+        .wlc-bonuses-list {
+
+            &__list-wrapper {
+                width: 100%;
+                min-width: 0;
+                max-width: 100%;
+            }
+        }
+    }
+}

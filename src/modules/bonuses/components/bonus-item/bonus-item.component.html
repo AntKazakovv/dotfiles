@@ -8,8 +8,74 @@
     <ng-container [ngTemplateOutlet]="active" *ngSwitchCase="'active'"></ng-container>
     <ng-container [ngTemplateOutlet]="modal" *ngSwitchCase="'modal'"></ng-container>
     <ng-container [ngTemplateOutlet]="mini" *ngSwitchCase="'mini'"></ng-container>
+    <ng-container [ngTemplateOutlet]="wolf" *ngSwitchCase="'wolf'"></ng-container>
     <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
 </ng-container>
+
+<!-- New templates begin (for wolf and further) -->
+<ng-template #wolf>
+    <div class="{{$class}}__wrapper"
+        [class.disabled]="bonus.isDisabled || bonus.showOnly"
+        [class.has-timer]="hasTimer"
+        (click)="bonusClickHadler($event, 'showDescription')">
+        <ng-container [ngTemplateOutlet]="bonusContent"></ng-container>
+        <ng-container [ngTemplateOutlet]="bonusVisual"></ng-container>
+    </div>
+</ng-template>
+
+<ng-template #bonusContent>
+    <div class="{{$class}}__content">
+        <div class="{{$class}}__tags">
+            <ng-container
+                *ngIf="tagConfig"
+                [ngTemplateOutlet]="bonusTagComponent">
+            </ng-container>
+        </div>
+        <h4 class="{{$class}}__title"
+            data-wlc-element="bonus_title-name"
+            [innerHTML]="bonus.nameClean | translate">
+        </h4>
+        <ng-container *ngIf="showDescription" [ngTemplateOutlet]="description"></ng-container>
+        <div *ngIf="hasTimer"
+             class="{{$class}}__timer"
+             wlc-timer
+             text="{{'Time remaining' | translate}}"
+             [value]="bonus.expirationTimeLuxon"
+             [theme]="'wolf'"
+             [themeMod]="'small'"
+             (timerEnds)="updateBonuses()"></div>
+        <div class="{{$class}}__bottom" *ngIf="!hideButtons || bonus.showOnly">
+            <ng-container *ngIf="!bonus.showOnly else iconLocked" [ngTemplateOutlet]="bonusButtons"></ng-container>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #iconLocked>
+    <div class="{{$class}}__locked">
+        <span
+            wlc-icon
+            iconUrl="/wlc/icons/theme-wolf/interface/locked.svg">
+        </span>
+    </div>
+</ng-template>
+
+<ng-template #bonusVisual>
+    <div class="{{$class}}__visual">
+        <div class="{{$class}}__visual-bg"
+            [style]="{backgroundImage: bonusBg}">
+        </div>
+        <div class="{{$class}}__visual-content">
+            <div class="{{$class}}__info">
+                <span wlc-icon [iconUrl]="'/wlc/icons/theme-wolf/interface/info.svg'"></span>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #bonusTagComponent>
+    <span wlc-tag [inline]="tagConfig"></span>
+</ng-template>
+<!-- New templates end -->
 
 <ng-template #mini>
     <div class="{{$class}}__content"
@@ -399,7 +465,7 @@
     <div *ngIf="$params.common?.showBonusTag && !!bonus.tag"
          class="{{$class}}__tag"
          data-wlc-element="bonus_type-title">
-        {{bonus.tag | translate}}
+        {{bonusCaption | translate}}
     </div>
 </ng-template>
 
@@ -409,7 +475,8 @@
          [bonus]="bonus"
          [bonusItemTheme]="$params.theme"
          [isChooseBtn]="isChooseBtn"
-         [readMoreClick]="openDescription">
+         [readMoreClick]="openDescription"
+         [size]="buttonSize">
     </div>
 </ng-template>
 

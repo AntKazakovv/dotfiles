@@ -84,6 +84,9 @@ $themePromo: map-merge((
         375: 1fr,
         1200: repeat(2, 1fr),
     ),
+    'listColumnsWolf': (
+        375: repeat(auto-fill, minmax(320px, 1fr)),
+    ),
     'minItemWidth': 280px,
     'minItemWidth900': 600px,
     'minItemWidth1200': 400px,

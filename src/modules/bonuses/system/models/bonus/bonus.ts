@@ -39,6 +39,7 @@ import {
     IBonusResultValueDefault,
     IBonusResultValue,
     IBonusWagerGamesFilter,
+    TBonusTagKey,
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
 
@@ -808,36 +809,40 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     /**
-     * @returns {string} bonus tag
+     * @returns {TBonusTagKey} bonus tag
      */
-    public get tag(): string {
+    public get tag(): TBonusTagKey {
 
         if (this.showOnly) {
-            return gettext('Unavailable');
+            return 'unavailable';
         }
 
         if (this.isActive) {
-            return gettext('Active');
+            return 'active';
         }
 
         if (this.isLootbox) {
-            return gettext('Loot box');
+            return 'lootbox';
         }
 
         if (this.inventoried) {
-            return gettext('Inventoried');
+            return 'inventoried';
         }
 
         if (this.isSubscribed) {
-            return gettext('Subscribed');
+            return 'subscribed';
         }
 
         if (this.hasPromoCode) {
-            return gettext('Promo code');
+            return 'promocode';
         }
 
         if (this.isWelcomeBonus) {
-            return gettext('Welcome');
+            return 'welcome';
+        }
+
+        if (this.isDisabled) {
+            return 'processing';
         }
 
         return '';

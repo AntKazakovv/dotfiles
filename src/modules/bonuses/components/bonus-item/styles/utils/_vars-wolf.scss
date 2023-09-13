@@ -1,0 +1,80 @@
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'cardInnerShadow': ef.get('baseVariables', 'cardInnerShadow'),
+    'cardMaxWidth': 100%,
+    'cardBg': linear-gradient(180deg, #414ec9 0%, #2217a5 100%),
+
+    'visualWidth': (
+        375: 45%,
+        560: 35%,
+    ),
+    'visualMinWidth': 170px,
+    'visualMaxWidth': 205px,
+    'visualRatio': math.div(19, 17) * 100%, // 17:19
+    'visualMask': ef.static('bonuses/wolf/masks/bonus-image-mask-h.svg'),
+    'visualMaskPosition': top left,
+    'visualFallbackBg': var(--mc-bg300),
+    'visualContentPadding': ef.size(4),
+
+    'bgMaskSize': cover,
+    'bgPosition': center,
+    'bgSize': cover,
+    'tagsMinHeight': 18px,
+
+    'contentWidth': 50%,
+    'contentGap': ef.size(2),
+    'contentPadding': ef.size(5) ef.size(1) ef.size(5) ef.size(5),
+    'contentAlign': start,
+    'contentTextAlign': left,
+
+    'titleTextStyle': 'PlaceholderTextBold',
+    'titleColor': var(--mc-baseThird),
+    'titleLineClamp': 3,
+    'titleLineClampShort': 2,
+
+    'descrTextStyle': 'CaptionText',
+    'descrColor': var(--mc-baseThird),
+    'descrLineClamp': 3,
+
+    'btnsJustify': start,
+    'btnsMargin': 0 ef.size(-1),
+
+    'infoSize': 24px,
+    'infoDisplay': flex,
+    'infoMargin': 0,
+    'infoIconSize': 20px,
+    'infoIconColor': var(--mc-baseThird),
+    'infoIconColorHover': var(--mc-baseThird),
+    'infoBg': var(--mc-baseSecond-o2),
+    'infoBgHover': var(--mc-baseSecond-o4),
+    'infoRadius': ef.get('radius', 'big'),
+
+    'lockedIconSize': 24px,
+    'lockedIconColor': var(--mc-baseOpacity-o6),
+
+    'overlayBg': #000,
+    'overlayBlendMode': overlay,
+    'overlayOpacityHover': 0.2,
+
+    'disabledFilter': grayscale(100%),
+    'disabledOverlayBg': #0047ff,
+    'disabledOverlayOpacity': 0.15,
+    'disabledOverlayBlendMode': normal,
+), $customThemeWolf);
+
+$customWolfModVertical: ();
+$wolfModVertical: map-merge((
+    'cardBg': linear-gradient(180deg, #414ec9 50%, #2217a5 100%),
+    'visualRatio': 75%, // 4:3
+    'visualContentPadding': ef.size(4),
+    'visualMask':  ef.static('bonuses/wolf/masks/bonus-image-mask-v.svg'),
+    'visualMaskPosition': center bottom,
+    'contentMargin': ef.size(-10) 0 0,
+    'contentPadding': ef.size(5),
+    'contentAlign': start,
+    'contentTextAlign': left,
+    'bgPosition': center,
+    'btnsJustify': start,
+    'titleLineClamp': 2,
+), $customWolfModVertical);
+

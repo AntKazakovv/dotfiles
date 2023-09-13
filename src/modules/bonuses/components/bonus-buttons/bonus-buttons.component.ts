@@ -13,6 +13,8 @@ import {
 } from '@angular/core';
 
 import {UIRouter} from '@uirouter/core';
+import _map from 'lodash-es/forEach';
+import _merge from 'lodash-es/merge';
 
 import {
     AbstractComponent,
@@ -28,6 +30,7 @@ import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses
 import {SportsbookService} from 'wlc-engine/modules/sportsbook';
 import {BonusItemComponentEvents} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {Theme as BonusItemTheme} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';
+import {Size} from 'wlc-engine/modules/core/components/button/button.params';
 
 import * as Params from './bonus-buttons.params';
 
@@ -43,6 +46,7 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
     @Input() public isInsideModal: boolean = false;
     @Input() public readMoreClick: () => Promise<void>;
     @Input() public isShowUnsubscribe: boolean = false;
+    @Input() public size: Size;
     @Output() public showGames = new EventEmitter<void>();
 
     @ViewChild('cancelModal') public tplModal: TemplateRef<ElementRef>;
@@ -73,6 +77,10 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
     public override ngOnInit(): void {
         super.ngOnInit();
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
+
+        if (this.size) {
+            this.addButtonsSize();
+        }
 
         this.eventService.subscribe([
             {name: 'LOGIN'},
@@ -254,6 +262,12 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
             this.modalService.hideModal(id);
             this.componentWillBeDestroyedNow = true;
         }
+    }
+
+    protected addButtonsSize(): void {
+        this.$params.btnsParams = _map(this.$params.btnsParams, (btnParams) => {
+            return _merge(btnParams, {common: {size: this.size}});
+        });
     }
 
     private async playActionHandler(): Promise<void> {

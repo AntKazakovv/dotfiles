@@ -32,9 +32,15 @@ import {
     BonusItemComponentEvents,
     ChosenBonusSetParams,
     ChosenBonusType,
+    IBonusesTags,
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
+import {
+    ITagCParams,
+    ITagCommon,
+} from 'wlc-engine/modules/core/components/tag/tag.params';
 import {LootboxPrizeModel} from 'wlc-engine/modules/bonuses/system/models/lootbox-prize/lootbox-prize.model';
 import {IBonusModalCParams} from 'wlc-engine/modules/bonuses/components/bonus-modal/bonus-modal.params';
+import {Size} from 'wlc-engine/modules/core/components/button/button.params';
 
 import * as Params from './bonus-item.params';
 
@@ -56,6 +62,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
     public useIconBonusImage: boolean;
     public asProfileTypeFirst: boolean;
     public bonus: Bonus;
+    public tagConfig: ITagCParams;
 
     constructor(
         @Inject('injectParams') protected params: Params.IBonusItemCParams,
@@ -129,6 +136,10 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
                 .subscribe((): void => {
                     this.cdr.detectChanges();
                 });
+
+            if (this.bonus.tag) { // TODO: remove theme condition in further
+                this.prepareTagConfig();
+            }
         }
     }
 
@@ -149,6 +160,22 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
         if (this.$params.theme === 'reg-first' && this.bonus.isChoose) {
             return gettext('Selected');
         }
+    }
+
+    public get showDescription(): boolean {
+        return this.$params.themeMod === 'vertical' && !this.bonus.isActive;
+    }
+
+    public get hideButtons(): boolean {
+        return !!this.$params.buttonsParams?.hideButtons;
+    }
+
+    public get buttonSize(): Size {
+        return this.$params.buttonsParams?.size || 'default';
+    }
+
+    public get hasTimer(): boolean {
+        return this.bonus.isActive && !this.bonus.isExpired;
     }
 
     /**
@@ -183,6 +210,11 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
 
         } else if (this.$params.theme === 'reg-first') {
             imageUrl = this.bonus.imageReg;
+
+        } else if (this.$params.theme === 'wolf') {
+            imageUrl = this.params.themeMod === 'vertical'
+                ? this.bonus.imagePromo
+                : this.bonus.image;
 
         } else if (this.asProfileTypeFirst) {
             imageUrl = this.bonus.imageProfileFirst;
@@ -222,6 +254,17 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
         return this.bonus.imagePromo;
     }
 
+    public bonusClickHadler($event: MouseEvent, action: Params.TBonusClickAction): void {
+
+        if (($event.target as HTMLElement).closest('.wlc-btn')) {
+            return;
+        }
+
+        if (action === 'showDescription') {
+            this.openDescription($event);
+        }
+    }
+
     /**
      * Open bonus modal
      *
@@ -237,7 +280,10 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
             bonusItemTheme: this.$params.theme,
         }, this.$params.bonusModalParams || {});
 
-        if (this.$params.theme  === 'preview' || this.$params.theme === 'reg-first') {
+        if (this.$params.buttonsParams?.hideButtons
+            || this.$params.theme  === 'preview'
+            || this.$params.theme === 'reg-first'
+        ) {
             modalParams.hideBonusButtons = true;
         }
 
@@ -315,6 +361,26 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
         return (!this.asProfileTypeFirst && this.useIconBonusImage)
             || (this.$params.theme === 'partial' && !_includes(this.$params?.modifiers, 'mobile-reg'))
             || this.bonus.showOnly;
+    }
+
+    public get bonusCaption(): string {
+        return this.tagConfig?.common.caption || '';
+    }
+
+    protected prepareTagConfig(): void {
+        const moduleTagsConfig: IBonusesTags = this.configService.get<IBonusesTags>('$bonuses.tagsConfig');
+        const tagCommon: ITagCommon = moduleTagsConfig.tagList[this.bonus.tag];
+
+        if (tagCommon) {
+
+            if (!moduleTagsConfig.useIcons) {
+                tagCommon.iconUrl = null;
+            }
+
+            this.tagConfig = {
+                common: tagCommon,
+            };
+        }
     }
 
     protected prepareModifiers(): void {

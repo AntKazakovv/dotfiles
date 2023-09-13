@@ -7,4 +7,5 @@ $themeDefault: map-merge((
     'padding': 0 ef.size(2),
     'radius': ef.get('radius', 'biger'),
     'iconSize': 12px,
+    'bgOpacity': 0.8,
 ), $customThemeDefault);

@@ -1,43 +1,53 @@
 .wlc-timer--theme-wolf:host {
 
-    .wlc-timer {
+    .secondary-text {
+        @include text.get-text-style(
+            ef.get-value($themeWolf, 'titleTextStyle'),
+            ef.get-value($themeWolf, 'titleColor')
+        );
+        margin: ef.get-value($themeWolf, 'titleMargin');
+        text-align: var(--wlc-timer-caption-align, center);
+    }
 
-        &__timer-text {
+    .time-text--countdown {
+        @include text.get-text-style(
+            ef.get-value($themeWolf, 'timerTextStyle'),
+            ef.get-value($themeWolf, 'timerColor')
+        );
+        display: flex;
+        justify-content: ef.get-value($themeWolf, 'timerJustifyContent');
+    }
 
-            .secondary-text {
-                @include text.get-text-style(
-                    ef.get-value($themeWolf, 'titleTextStyle'),
-                    ef.get-value($themeWolf, 'titleColor')
-                );
-                margin: ef.get-value($themeWolf, 'titleMargin');
-                text-align: center;
-            }
+    .time-text__item {
+        padding: ef.get-value($themeWolf, 'itemPadding');
 
-            .time-text--countdown {
-                @include text.get-text-style(
-                    ef.get-value($themeWolf, 'timerTextStyle'),
-                    ef.get-value($themeWolf, 'timerColor')
-                );
-                display: flex;
-                justify-content: ef.get-value($themeWolf, 'timerJustifyContent');
+        .value {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: var(--wlc-timer-val-width, #{ef.get-value($themeWolf, 'itemValueWidth')});
+            height: var(--wlc-timer-val-height, #{ef.get-value($themeWolf, 'itemValueHeight')});
+            padding: var(--wlc-timer-val-padding, #{ef.get-value($themeWolf, 'itemValuePadding')});
+            background: var(--wlc-timer-val-bg, #{ef.get-value($themeWolf, 'itemValueBg')});
+            border-radius: ef.get-value($themeWolf, 'itemValueBorderRadius');
+        }
 
-                .time-text__item {
-                    padding: ef.get-value($themeWolf, 'itemPadding');
+        .text {
+            padding: ef.get-value($themeWolf, 'itemTextpadding');
+        }
+    }
 
-                    .value {
-                        display: inline-flex;
-                        justify-content: center;
-                        width: ef.get-value($themeWolf, 'itemValueWidth');
-                        padding: ef.get-value($themeWolf, 'itemValuePadding');
-                        background: ef.get-value($themeWolf, 'itemValueBg');
-                        border-radius: ef.get-value($themeWolf, 'itemValueBorderRadius');
-                    }
+    &.wlc-timer--theme-mod-small {
+        --wlc-timer-val-width: #{ef.get-value($themeWolf, 'itemValueWidthSm')};
+        --wlc-timer-val-height: #{ef.get-value($themeWolf, 'itemValueHeightSm')};
+        --wlc-timer-val-padding: #{ef.get-value($themeWolf, 'itemValuePaddingSm')};
 
-                    .text {
-                        padding: ef.get-value($themeWolf, 'itemTextpadding');
-                    }
-                }
-            }
+        .time-text--countdown {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'timerTextStyleSm'),
+                null,
+            );
+            line-height: 1;
         }
     }
 }
