@@ -46,7 +46,7 @@ module.exports = function postBuildTask() {
             fs.unlinkSync(locales);
         }
 
-        fs.copyFile(`${languagesPack}/${localesFile}}`, locales, (err) => {
+        fs.copyFile(`${languagesPack}/${localesFile}`, locales, (err) => {
             if (err) throw err;
         });
         cb();
