@@ -577,9 +577,14 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         this.ready$.next(false);
 
         this.filter = this.$params.common?.filter;
-        this.filter = this.filter === 'main' && this.configService.get<boolean>('$bonuses.unitedPageBonuses')
-            ? 'united'
-            : this.filter;
+
+        if (this.filter === 'main') {
+            if (this.configService.get<boolean>('$bonuses.unitedPageBonuses')) {
+                this.filter = 'united';
+            } else if (this.configService.get<boolean>('$bonuses.showAllInProfile')) {
+                this.filter = 'all';
+            }
+        }
 
         const hasFilteredBonuses = this.bonusesService.hasFilteredBonuses(
             this.filter,

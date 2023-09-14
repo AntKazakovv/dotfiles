@@ -1,6 +1,7 @@
 import {IBonusesModule} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 
 export const bonusesConfig: IBonusesModule = {
+    showAllInProfile: false,
     useIconBonusImage: true,
     unitedPageBonuses: false,
     useNewImageSources: false,

@@ -8,6 +8,8 @@ import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {BonusesListNoContentByThemeType} from 'wlc-engine/modules/bonuses/components/bonuses-list/bonuses-list.params';
 
 export interface IBonusesModule {
+    /** Flag for change filter from 'main' to 'all' into Dashboard/Bonuses. Usability only for 2.0 Profile. **/
+    showAllInProfile?: boolean;
     /** combining Active bonuses and Offers into My bonuses **/
     unitedPageBonuses?: boolean;
     useIconBonusImage?: boolean;
