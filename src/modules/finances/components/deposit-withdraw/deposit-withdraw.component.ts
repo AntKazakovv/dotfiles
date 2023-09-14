@@ -112,7 +112,7 @@ import * as Params from './deposit-withdraw.params';
 type TCryptoInfo = 'msg1' | 'msg2' | 'msg3';
 type THostedStyles = 'current' | 'def' | 'alt';
 type TFormData = IIndexing<string | number | boolean>;
-type TModalType = 'markup' | 'info';
+type TModalType = 'markup' | 'info' | 'message';
 
 @Component({
     selector: '[wlc-deposit-withdraw]',
@@ -877,15 +877,25 @@ export class DepositWithdrawComponent
         });
     }
 
-    protected showDepositResponse(params: IPaymentMessage, type: string): void {
+    protected showDepositResponse(params: IPaymentMessage | string, type: TModalType): void {
         this.currentSystem.message = params;
         this.cdr.detectChanges();
 
-        if (this.showModalCryptoPayment) {
-            this.modalService.showModal(
-                this.getPaymentMessageModalConfig(type === 'markup' ? 'markup' : 'info', !!params.dateEnd),
-            );
+        let modalType: TModalType = 'info';
+        let isInvoice: boolean = true;
+
+        if (type === 'message' || 'markup') {
+            modalType = type;
         }
+
+        if (typeof params !== 'string') {
+            isInvoice = !!params.dateEnd;
+        }
+
+        this.modalService.showModal(
+            this.getPaymentMessageModalConfig(modalType, isInvoice),
+        );
+
 
         if (type === 'message'
             && (typeof (params) !== 'string')

@@ -4,6 +4,7 @@
     <ng-container [ngTemplateOutlet]="payToAddressWithAmount" *ngSwitchCase="'pay_to_address_with_amount'"></ng-container>
     <ng-container [ngTemplateOutlet]="payToBank" *ngSwitchCase="'pay_to_bank'"></ng-container>
     <ng-container [ngTemplateOutlet]="htmlForm" *ngSwitchCase="'html'"></ng-container>
+    <ng-container [ngTemplateOutlet]="textForm" *ngSwitchCase="'text'"></ng-container>
     <ng-container [ngTemplateOutlet]="payViaInvoice" *ngSwitchCase="'pay_via_invoice'"></ng-container>
 </ng-container>
 
@@ -77,6 +78,15 @@
             [html]="html"
             [canUseScriptTag]="true">
         </div>
+    </div>
+</ng-template>
+
+<ng-template #textForm>
+    <div *ngIf="modalText.length"
+        class="{{$class}}__text-form">
+        <p *ngFor="let text of modalText">
+            {{text}}
+        </p>
     </div>
 </ng-template>
 

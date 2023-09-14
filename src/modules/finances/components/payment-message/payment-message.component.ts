@@ -41,6 +41,7 @@ import * as Params from './payment-message.params';
 import {DateHelper} from '../../../core';
 
 export type TMessageType = 'html'
+    | 'text'
     | 'pay_to_bank'
     | 'pay_to_xaddress'
     | 'pay_to_address_with_amount'
@@ -76,6 +77,7 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
     public inputParamsMemo: IInputCParams;
     public imageLoaded: boolean = false;
     public html: string;
+    public modalText: string[];
     public parseAmount: string;
     public parseRate: string;
     public cryptoAmount: string;
@@ -172,6 +174,11 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
     }
 
     protected prepareMessage(): void {
+
+        if (typeof(this.message) === 'string') {
+            this.type = 'text';
+            this.modalText = (this.message as string).split('\n');
+        }
 
         if (this.message.translate === 'pay_to_bank') {
             this.type = 'pay_to_bank';
