@@ -269,6 +269,8 @@ module.exports = function messagesTask() {
         'message:front_pot_to_po',
         'message:temp_front_po',
         'message:po_to_json',
+        'message:temp_back_po',
+        'message:po_to_mo',
         'clean:temp',
     ));
 
