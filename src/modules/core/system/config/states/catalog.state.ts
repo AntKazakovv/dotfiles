@@ -13,6 +13,21 @@ import {StateHelper} from 'wlc-engine/modules/core/system/helpers/state.helper';
 
 export const catalogState: Ng2StateDeclaration = {
     url: '/catalog/:category',
+    resolve: [
+        StateHelper.forAuthenticatedResolver(async (
+            transition: Transition,
+            injectionService: InjectionService,
+        ) => {
+            const gamesCatalogService: GamesCatalogService = await injectionService
+                .getService('games.games-catalog-service');
+            const categorySlug: string = transition.params().category;
+
+            await gamesCatalogService.ready;
+
+            const category: CategoryModel = gamesCatalogService.getCategoryBySlug(categorySlug);
+            return category.isLastPlayed || category.isFavourites;
+        }),
+    ],
     onEnter: async (transition: Transition) => {
         const injectionService: InjectionService = transition.injector().get(InjectionService);
         const gamesCatalogService: GamesCatalogService = await injectionService

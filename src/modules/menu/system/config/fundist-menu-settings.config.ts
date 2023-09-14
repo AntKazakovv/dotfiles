@@ -178,7 +178,6 @@ export const fundistSettings: IMenu = {
                         order: 80,
                         device: 'all',
                     },
-
                     {
                         type: 'category',
                         id: 'megawaysglobal',

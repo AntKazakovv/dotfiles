@@ -26,6 +26,11 @@ import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interf
 
 export type TPageNameHandler = (transition: Transition) => string;
 
+export type TAuthResolverTrigger = (
+    transition: Transition,
+    injectionService: InjectionService,
+) => Promise<boolean>;
+
 export class StateHelper {
 
     public static async onStateEnter(trans: Transition): Promise<TargetState | void> {
@@ -70,7 +75,7 @@ export class StateHelper {
         };
     }
 
-    public static forAuthenticatedResolver(): ResolveTypes {
+    public static forAuthenticatedResolver(trigger?: TAuthResolverTrigger): ResolveTypes {
         return {
             token: 'forAuthenticated',
             deps: [
@@ -90,6 +95,17 @@ export class StateHelper {
                 translateService: TranslateService,
             ) => {
                 const result = new Deferred();
+
+                if (trigger) {
+                    const apply: boolean = await trigger(
+                        transition,
+                        injectionService,
+                    );
+                    if (!apply) {
+                        result.resolve();
+                        return result.promise;
+                    }
+                }
 
                 translateService.stream('currentLang')
                     .pipe(first())

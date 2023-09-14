@@ -25,6 +25,7 @@ import {
     IHelperGetItemsForCategories,
     IHelperGetItemsParams,
     ItemType,
+    IMenuItemsGroup,
 } from 'wlc-engine/modules/menu/components/menu/menu.params';
 import {
     wlcMenuItemsGlobal,
@@ -84,43 +85,17 @@ export class MenuHelper {
      * @returns {MenuItemObjectType[]}
      */
     public static getItems(params: IHelperGetItemsParams): MenuItemObjectType[] {
-
-        let resultList: MenuItemObjectType[] = [];
-
-        _map(params.items, (item: MenuItemType) => {
+        let resultList: MenuItemObjectType[] = _map(_cloneDeep(params.items), (item: MenuItemType) => {
             if (_isString(item)) {
                 const menuItem = _get(wlcMenuItemsGlobal, item);
                 if (menuItem) {
-                    resultList.push(_get(wlcMenuItemsGlobal, item));
+                    return _get(wlcMenuItemsGlobal, item);
                 }
             } else if (_isObject(item)) {
-                resultList.push(item);
+                return item;
             }
         });
-
-        resultList = _filter(resultList, (item) => {
-            switch (_get(item, 'device')) {
-                case 'mobile':
-                    return params.isMobile;
-                case 'desktop':
-                    return !params.isMobile;
-                default:
-                    return true;
-            }
-        });
-
-        resultList = _filter(resultList, (item) => {
-            switch (_get(item, 'auth')) {
-                case true:
-                    return params.isAuth;
-                case false:
-                    return !params.isAuth;
-                default:
-                    return true;
-            }
-        });
-
-        return resultList;
+        return MenuHelper.filterItems(resultList, params);
     }
 
     /**
@@ -470,5 +445,37 @@ export class MenuHelper {
             }
             return items;
         }, []);
+    }
+
+    protected static filterItems(items: MenuItemObjectType[], params: IHelperGetItemsParams): MenuItemObjectType[] {
+        _forEach(items, (item) => {
+            if (item.type === 'group') {
+                const groupItem: IMenuItemsGroup = item as IMenuItemsGroup;
+                groupItem.items = MenuHelper.filterItems(groupItem.items, params);
+            }
+        });
+
+        let resultList = _filter(items, (item) => {
+            switch (_get(item, 'device')) {
+                case 'mobile':
+                    return params.isMobile;
+                case 'desktop':
+                    return !params.isMobile;
+                default:
+                    return true;
+            }
+        });
+
+        resultList = _filter(resultList, (item) => {
+            switch (_get(item, 'auth')) {
+                case true:
+                    return params.isAuth;
+                case false:
+                    return !params.isAuth;
+                default:
+                    return true;
+            }
+        });
+        return resultList;
     }
 }
