@@ -1,6 +1,7 @@
 import {
     Inject,
     Injectable,
+    NgZone,
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {DateTime} from 'luxon';
@@ -10,10 +11,13 @@ import {
     Subscription,
     BehaviorSubject,
     firstValueFrom,
+    interval,
 } from 'rxjs';
 import {
     first,
     map,
+    takeWhile,
+    tap,
 } from 'rxjs/operators';
 import _assign from 'lodash-es/assign';
 import _each from 'lodash-es/each';
@@ -22,6 +26,7 @@ import _set from 'lodash-es/set';
 import _merge from 'lodash-es/merge';
 import _isString from 'lodash-es/isString';
 import _get from 'lodash-es/get';
+import _isUndefined from 'lodash-es/isUndefined';
 
 import {
     DataService,
@@ -66,11 +71,14 @@ import {
     ILogoutConfirm,
     IUserPasswordPost,
     IEmailVerifyData,
+    IWSUserBalance,
+    IWSDataUserBalance,
 } from 'wlc-engine/modules/user/system/interfaces/user.interface';
 import {IWSLoyalty} from 'wlc-engine/modules/loyalty/system/interfaces/interfaces';
 import {WebSocketEvents} from 'wlc-engine/modules/core/system/services/websocket/websocket.service';
 import {AchievementsService} from 'wlc-engine/modules/loyalty/submodules/achievements';
 import {UserHelper} from 'wlc-engine/modules/user/system/helpers/user.helper';
+import {IWSData} from 'wlc-engine/modules/core/system/interfaces/websocket.interface';
 
 export enum LanguageChangeEvents {
     ChangeLanguage = 'CHANGE_LANGUAGE'
@@ -172,6 +180,7 @@ export class UserService {
     private _isMetamaskUser: boolean = false;
     private achievementsService: AchievementsService;
     private dataLoyaltyUserSub: Subscription;
+    private wsBalanceData: IWSDataUserBalance = null;
 
     constructor(
         public translateService: TranslateService,
@@ -183,6 +192,7 @@ export class UserService {
         private injectionService: InjectionService,
         private stateService: StateService,
         private webSocketService: WebsocketService,
+        private ngZone: NgZone,
         @Inject(WINDOW) private window: Window,
     ) {
         this.init();
@@ -234,11 +244,11 @@ export class UserService {
             }
 
             this.info.data = info?.data;
-            this.userInfo$.next(this.info);
+            this.setUserInfo();
 
             if (this.info.socketsData) {
                 this.info.separateLoyalty = true;
-                this.webSocketService.addWsEndPointConfig('wsc2',this.info.socketsData);
+                this.webSocketService.addWsEndPointConfig('wsc2', this.info.socketsData);
             }
         });
 
@@ -246,7 +256,7 @@ export class UserService {
             name: 'UPDATE_ACCEPTED_TERMS',
         }, (value: IUserInfo['toSVersion']) => {
             this.info.toSVersion = value;
-            this.userInfo$.next(this.info);
+            this.setUserInfo();
         });
 
         this.eventService.subscribe([
@@ -259,14 +269,17 @@ export class UserService {
         this.eventService.subscribe({name: 'SOCKET_CONNECT', status: 'success'}, (data) => {
             if (this.isAuth$.getValue() && data === 'wsc2') {
                 this.webSocketService.sendToWebsocket('wsc2', WebSocketEvents.SEND.LOYALTY);
+                if (this.configService.get('$base.profile.webSockets.userBalance.use')) {
+                    this.startWSUserBalance();
+                }
             }
         });
 
         this.dataLoyaltyUserSub = this.webSocketService.getMessages(
-            {endPoint: 'wsc2', event: WebSocketEvents.RECEIVE.LOYALTY_GET})
+            {endPoint: 'wsc2', events: [WebSocketEvents.RECEIVE.LOYALTY_GET]})
             .subscribe((data: IWSLoyalty) => {
                 this.info.loyalty = data.data;
-                this.userInfo$.next(this.info);
+                this.setUserInfo();
                 this.eventService.emit({
                     name: 'USER_INFO',
                     data: this.info,
@@ -495,7 +508,7 @@ export class UserService {
             this.translateService,
             this.eventService,
         );
-        this.userInfo$.next(this.info);
+        this.setUserInfo();
         this.profile = new UserProfile({service: 'UserService', method: 'constructor'});
         this.userProfile$.next(this.profile);
 
@@ -982,6 +995,116 @@ export class UserService {
                 this.userInfoHandler.unsubscribe();
             });
         }
+    }
+
+    private startWSUserBalance(): void {
+        this.webSocketService.sendToWebsocket('wsc2', WebSocketEvents.SEND.USER_INFO);
+
+        let lastTimeGetUserWSBalance: number = 0;
+        let isErrorWSUserBalance: boolean = false;
+        let sentRequestsWithoutResponse: number = 1;
+        let setTimeoutRefreshData: NodeJS.Timeout;
+        let setTimeoutUpdateUserInfo: NodeJS.Timeout;
+        let sendUserInfoIntervalSub: Subscription;
+
+        this.ngZone.runOutsideAngular(() => {
+            sendUserInfoIntervalSub = interval(10000)
+                .pipe(takeWhile(() => isErrorWSUserBalance === false))
+                .subscribe(() => {
+                    if (sentRequestsWithoutResponse > 1) {
+                        this.info.bonusBalanceWS = null;
+                        isErrorWSUserBalance = true;
+                        this.setUserInfo();
+                    }
+                });
+        });
+
+
+        const wsUserInfoSub: Subscription = this.webSocketService.getMessages(
+            {
+                endPoint: 'wsc2',
+                events: [WebSocketEvents.RECEIVE.USER_BALANCE, WebSocketEvents.RECEIVE.USER],
+                eventFilterFunc: this.checkWSBalanceDelay,
+            })
+            .pipe(
+                tap((data: IWSUserBalance) => {
+                    if (data.status === 'error') {
+                        isErrorWSUserBalance = true;
+                        this.info.bonusBalanceWS = null;
+                        this.setUserInfo();
+                    }
+                }),
+                takeWhile((data: IWSUserBalance) => data.status !== 'error'),
+            )
+            .subscribe((data: IWSUserBalance) => {
+                if (!_isUndefined(data.data.Balance) || !_isUndefined(data.data.BonusBalance)) {
+                    if (setTimeoutUpdateUserInfo) {
+                        clearTimeout(setTimeoutUpdateUserInfo);
+                    }
+
+                    if (setTimeoutRefreshData) {
+                        clearTimeout(setTimeoutRefreshData);
+                    }
+
+                    this.ngZone.runOutsideAngular(() => {
+                        setTimeoutUpdateUserInfo = setTimeout(() => {
+                            const nowTime = DateTime.now().toSeconds();
+                            if (nowTime - lastTimeGetUserWSBalance > 1 && data.data.Balance !== this.userInfo.balance) {
+                                this.setUserInfo();
+                            }
+                        }, 1500);
+
+                        setTimeoutRefreshData = setTimeout(() => {
+                            const nowTime = DateTime.now().toSeconds();
+                            if (nowTime - lastTimeGetUserWSBalance >= 10) {
+                                this.webSocketService.sendToWebsocket('wsc2', WebSocketEvents.SEND.USER_INFO);
+                                sentRequestsWithoutResponse++;
+                            }
+                        }, 10000);
+                    });
+
+                    this.wsBalanceData = _assign(this.wsBalanceData, data.data);
+                    lastTimeGetUserWSBalance = DateTime.now().toSeconds();
+
+                    if (data.event === WebSocketEvents.RECEIVE.USER) {
+                        sentRequestsWithoutResponse--;
+                    }
+                }
+            });
+
+        const authSub: Subscription = this.isAuth$
+            .subscribe((auth: boolean) => {
+                if (!auth) {
+                    this.wsBalanceData = null;
+                    sendUserInfoIntervalSub.unsubscribe();
+                    wsUserInfoSub.unsubscribe();
+                    authSub.unsubscribe();
+                    if (isErrorWSUserBalance) {
+                        isErrorWSUserBalance = false;
+                    }
+                }
+            });
+    }
+
+    private setUserInfo(): void {
+        if (this.wsBalanceData) {
+            const bonusBalance: number = this.wsBalanceData.BonusBalance || 0;
+            const userBalance: number = Number(this.wsBalanceData.Balance) || 0;
+            this.info.balance = userBalance + bonusBalance;
+            this.info.bonusBalanceWS = bonusBalance;
+        }
+
+        this.userInfo$.next(this.info);
+    }
+
+    private checkWSBalanceDelay(event: IWSData): boolean {
+        if (event.data?.timestamp) {
+            const eventTimeSeconds = DateTime.fromSQL(event.data.timestamp, {zone: 'utc'}).toSeconds();
+            const nowTimeSeconds = DateTime.now().toSeconds();
+            return nowTimeSeconds - eventTimeSeconds < 3;
+        }
+
+        return true;
     }
 
     private registerMethods(): void {

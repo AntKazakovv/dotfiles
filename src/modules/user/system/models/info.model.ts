@@ -6,6 +6,7 @@ import _isString from 'lodash-es/isString';
 import _cloneDeep from 'lodash-es/cloneDeep';
 import _isNil from 'lodash-es/isNil';
 import _toNumber from 'lodash-es/toNumber';
+import _isNumber from 'lodash-es/isNumber';
 import {
     IFreeRound,
     ILoyalty,
@@ -31,6 +32,7 @@ export class UserInfo extends AbstractModel<IUserInfo> {
 
     public separateLoyalty: boolean = false;
     public static currency: string = '';
+    public bonusBalanceWS: number = null;
     protected $loyaltyData: ILoyalty = {} as ILoyalty;
 
     constructor(
@@ -51,6 +53,10 @@ export class UserInfo extends AbstractModel<IUserInfo> {
 
     public get availableWithdraw(): number {
         return UserInfo.currency ? this.getWalletAvailableWithdraw(UserInfo.currency) : this.data?.availableWithdraw;
+    }
+
+    public set balance(balance: number) {
+        this.data.balance = balance;
     }
 
     public get balance(): number {
@@ -146,12 +152,18 @@ export class UserInfo extends AbstractModel<IUserInfo> {
      * @returns {number}
      */
     public get bonusBalance(): number {
-        return _isNil(this.bonusesBalance)
-            ? 0
-            : _reduce((this.bonusesBalance),
-                (accumulator: number, bonusBalance: IBonusesBalance): number => {
-                    return accumulator + Number(_get(bonusBalance, 'Balance', 0));
-                }, 0);
+        if (_isNumber(this.bonusBalanceWS)) {
+            return this.bonusBalanceWS;
+        }
+
+        if (_isNil(this.bonusesBalance)) {
+            return 0;
+        }
+
+        return _reduce((this.bonusesBalance),
+            (accumulator: number, bonusBalance: IBonusesBalance): number => {
+                return accumulator + Number(_get(bonusBalance, 'Balance', 0));
+            }, 0);
     }
 
     /**

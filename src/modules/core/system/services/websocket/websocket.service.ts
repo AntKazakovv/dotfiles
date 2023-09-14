@@ -28,7 +28,10 @@ import {
     IWSRequestParams,
     IWSData,
 } from 'wlc-engine/modules/core/system/interfaces/websocket.interface';
-import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {
+    EventService,
+    IEvent,
+} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {DataService} from 'wlc-engine/modules/core/system/services/data/data.service';
 
@@ -92,7 +95,8 @@ export class WebsocketService {
             return this.endPointToWebsocket.get(params.endPoint).pipe(
                 filter((message: IWSData) => {
                     if (message.event && message.status !== 'error') {
-                        return (message.event === params.event);
+                        return params.events.includes(message.event)
+                            && (params.eventFilterFunc ? params.eventFilterFunc(message) : true);
                     } else {
                         return true;
                     }
@@ -104,7 +108,7 @@ export class WebsocketService {
                     },
                 ),
                 catchError((error, caught) => {
-                    return merge(caught, this.activateRestApi(params.event).pipe(catchError(() => EMPTY)));
+                    return merge(caught, this.activateRestApi(params.events).pipe(catchError(() => EMPTY)));
                 }),
                 tap((message: IWSData) => {
                     if (!message.code && this.isRestApiWork) {
@@ -192,7 +196,11 @@ export class WebsocketService {
             {name: 'LOGIN'},
             {name: 'LOGOUT'}])
             .subscribe({
-                next: () => {
+                next: (event: IEvent<unknown>) => {
+                    if (event.name === 'LOGOUT') {
+                        this.endPointToWebsocket.forEach((ws: WebSocketSubject<IIndexing<any>>) => ws.complete());
+                    }
+
                     this.endPointToConfig.clear();
                     this.endPointToWebsocket.clear();
                 },
@@ -211,13 +219,13 @@ export class WebsocketService {
         };
     }
 
-    private activateRestApi(event: string): Observable<any> {
+    private activateRestApi(events: string[]): Observable<any> {
         this.isRestApiWork = true;
-        return this.getReserveMsgFromRestApi(event);
+        return this.getReserveMsgFromRestApi(events);
     }
 
-    private getReserveMsgFromRestApi(event: string): Observable<unknown> {
-        return WSToRestAPIReserve[event] ? from(this.dataService.request(WSToRestAPIReserve[event])): EMPTY;
+    private getReserveMsgFromRestApi(events: string[]): Observable<unknown> {
+        return WSToRestAPIReserve[events[0]] ? from(this.dataService.request(WSToRestAPIReserve[events[0]])): EMPTY;
     }
 
     private getId(): number {

@@ -26,3 +26,27 @@ export interface ILoginWithPhoneData {
     phoneNumber: string;
     password: string;
 }
+
+export interface IWSUserBalance {
+    data: IWSDataUserBalance;
+    event: string;
+    status: string;
+    requestId: number;
+    system: string;
+}
+
+export interface IWSDataUserBalance {
+    Balance: number | string;
+    BonusBalance: number;
+    IDUser: string;
+    Login: string;
+    Currency?: string;
+    ParentCurrency?: string;
+    IDParent?: number;
+    IsWallet?: number;
+    timestamp?: string;
+    timestamp_ms?: number;
+    dwh_event_id?: string;
+    odb_event_id?: number;
+    Node?: number;
+}

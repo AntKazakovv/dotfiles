@@ -5,6 +5,11 @@ export const profileConfig: IProfileConfig = {
     messages: {
         use: false,
     },
+    webSockets: {
+        userBalance: {
+            use: true,
+        },
+    },
     smsVerification: {
         use: false,
         useInProfile: false,

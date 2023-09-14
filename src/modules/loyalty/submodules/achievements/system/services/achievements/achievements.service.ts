@@ -64,7 +64,7 @@ export class AchievementsService {
 
     public setAchievementsSubscription(): void {
         this.dataAchievementSub = this.webSocketService.getMessages(
-            {endPoint:'wsc2', event: WebSocketEvents.RECEIVE.ACHIEVEMENTS}).subscribe(
+            {endPoint:'wsc2', events: [WebSocketEvents.RECEIVE.ACHIEVEMENTS]}).subscribe(
             {
                 next: (message: IWSAchievement) => {
                     const achName = JSON.parse(message.data.achievement_name);

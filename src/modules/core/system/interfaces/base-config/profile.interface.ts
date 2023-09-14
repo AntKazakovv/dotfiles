@@ -16,6 +16,7 @@ export interface IProfileConfig {
          */
         use: boolean;
     },
+    webSockets?: IWebSockets,
     smsVerification?: ISmsVerification,
     verification?: IVerification,
     limitations?: ILimitationsConfig,
@@ -79,6 +80,12 @@ export interface IProfileConfig {
 
 export interface IFundistUserId {
     use: boolean;
+}
+
+export interface IWebSockets {
+    userBalance: {
+        use: boolean;
+    }
 }
 
 export interface IVerification {

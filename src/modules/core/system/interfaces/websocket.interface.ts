@@ -12,8 +12,9 @@ export interface IWebSocketConfig {
 
 export interface IWSRequestParams {
     endPoint: TWSEndPoint;
+    events: string[];
     system?: string;
-    event: string;
+    eventFilterFunc?: (message: IWSData) => boolean;
 }
 
 export interface IWSMessage<T> {
