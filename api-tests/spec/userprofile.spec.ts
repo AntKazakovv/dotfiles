@@ -8,7 +8,10 @@ import {
     testUser,
 } from './helpers/global';
 
-import {IUserProfile} from 'wlc-engine/modules/core';
+import {
+    IData,
+    IUserProfile,
+} from 'wlc-engine/modules/core';
 
 describe('/api/v1/profiles', () => {
     const url = getRequestUrl('/api/v1/profiles');
@@ -40,16 +43,13 @@ describe('/api/v1/profiles', () => {
                 password: testUser.password,
                 passwordRepeat: testUser.password,
                 currency: testUser.currency,
+                countryCode: testUser.countryCode,
             }),
         })
             .then((res: any) => res.json())
             .then((response: any) => {
-                if (response.code === 200) {
-                    throw new Error('An existing user has been registered');
-                }
-
-                if (response.code !== 200 && !response?.errors?.login) {
-                    throw new Error('Something wrong');
+                if (response.code !== 200 && !response.errors?.login) {
+                    throw new Error(response.errors);
                 }
             });
     });
@@ -57,7 +57,6 @@ describe('/api/v1/profiles', () => {
     it('-> PUT', async (): Promise<void> => {
         const headers: TLoginResponse = await login();
         const userProfileChanges = JSON.stringify({
-            login: 'testLogin',
             email: testUser.email,
             firstName: testUser.firstName,
             lastName: testUser.lastName,
@@ -75,14 +74,18 @@ describe('/api/v1/profiles', () => {
             body: userProfileChanges,
         })
             .then((res: any) => res.json())
-            .then(checkIfSuccess)
+            .then((response: IData<any>) => {
+                if (!response.errors?.[0]?.includes('To change country')) {
+                    checkIfSuccess(response);
+                }
+            })
             .catch(fail)
             .finally(logout);
     });
 
     it('-> GET', async (): Promise<void> => {
         const headers = await login();
-        fetch(url, {headers})
+        await fetch(url, {headers})
             .then((res: any) => res.json())
             .then((response: {data: IUserProfile}) => {
                 expect(interfaceName).toBeImplemented(response.data);

@@ -1,3 +1,7 @@
+import _assign from 'lodash-es/assign';
+import _entries from 'lodash-es/entries';
+import _reduce from 'lodash-es/reduce';
+
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {IFromLog} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {
@@ -16,8 +20,6 @@ import {
     IBootstrapMenuItem,
     IMobileApp,
 } from 'wlc-engine/modules/core/system/interfaces';
-
-import _assign from 'lodash-es/assign';
 
 export class AppConfigModel extends AbstractModel<IBootstrap> {
 
@@ -40,7 +42,18 @@ export class AppConfigModel extends AbstractModel<IBootstrap> {
      * @returns {IIndexing<ICategorySettings>} settings of each category
      */
     public get categories(): IIndexing<ICategorySettings> {
-        return this.data.categories;
+        if (this.data.categories && _entries(this.data.categories).some(([, value]) => Array.isArray(value))) {
+            return _reduce(_entries(this.data.categories), (acc, current) => {
+                acc[current[0]] = current[1];
+
+                if (Array.isArray(current[1])) {
+                    acc[current[0]] = {};
+                }
+                return acc;
+            }, {});
+        }
+
+        return this.data.categories as IIndexing<ICategorySettings>;
     }
 
     /**
@@ -91,6 +104,10 @@ export class AppConfigModel extends AbstractModel<IBootstrap> {
      * @returns {IIndexing<string>} footer text for each language
      */
     public get footerText(): IIndexing<string> {
+        if (Array.isArray(this.data.footerText)) {
+            return {};
+        }
+
         return this.data.footerText;
     }
 

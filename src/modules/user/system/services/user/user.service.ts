@@ -926,6 +926,7 @@ export class UserService {
     protected prepareCreateProfile(userProfile: IUserProfile): void {
         if (this.configService.get('$base.profile.limitations.use')
             && this.configService.get('$base.profile.limitations.autoApplyRealityChecker')
+            && !Array.isArray(userProfile.extProfile)
             && !userProfile.extProfile?.realityCheckTime
         ) {
             _set(userProfile, 'extProfile.realityCheckTime', 30);

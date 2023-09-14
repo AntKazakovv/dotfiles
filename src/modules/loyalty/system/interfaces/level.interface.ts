@@ -1,3 +1,5 @@
+import {IIndexing} from 'wlc-engine/modules/core';
+
 export interface ILevel {
     /*
     * Level num
@@ -10,7 +12,7 @@ export interface ILevel {
     /*
     *  Points current level
     * */
-    CurrentLevelPoints: string,
+    CurrentLevelPoints?: string,
     /*
     *  Points next level
     * */
@@ -26,9 +28,9 @@ export interface ILevel {
     /*
     * Level points
     * */
-    Image: string | null,
+    Image: string | IIndexing<string> | null,
     /*
     * Level description
     * */
-    Description: string | null,
+    Description: string | IIndexing<string> | null,
 }

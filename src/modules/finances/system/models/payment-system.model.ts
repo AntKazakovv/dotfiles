@@ -36,11 +36,13 @@ import {
     AdditionalFieldsControllerM,
 } from 'wlc-engine/modules/finances/system/classes/additional-fields.controller';
 
-export type FilterType = TPaymentsMethods | 'Deposits' | 'Withdraws' | 'all' | 'All';
+export type FilterType = TPaymentsMethods | 'Deposits' | 'Withdraws' | 'withdraw' | 'all' | 'All';
 
 export interface IHostedFormData extends IIndexing<string | IIndexing<string>> {
     errors?: IIndexing<string>;
 }
+
+export type TPaymentSystems = IPaymentSystem[];
 
 export interface IPaymentSystem {
     additional: string;
@@ -100,7 +102,7 @@ export interface IHostedField {
 
 export interface IPaymentAdditionalParam {
     label: string;
-    showfor: FilterType;
+    showfor?: FilterType;
     name?: string;
     skipsaving?: string;
     optional?: string;
@@ -110,6 +112,7 @@ export interface IPaymentAdditionalParam {
     value?: string;
     prestep?: string;
 }
+
 export interface IPaymentAdditionalParamEx extends Omit<IPaymentAdditionalParam,'skipsaving' | 'optional' | 'prestep'> {
     skipsaving?: number;
     optional?: number;

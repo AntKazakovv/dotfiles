@@ -1,13 +1,15 @@
+import {Response} from 'node-fetch';
+
 import {IData} from 'wlc-engine/modules/core';
 
-const projectUrl = process.env.PROJECT_URL || 'https://test-devcasino.egamings.com';
+const projectUrl = process.env.PROJECT_URL || 'https://qa-coretest.egamings.com';
 
 export const testUser = {
     email: 'test@test.com',
     password: 'Test123!',
     firstName: 'John',
     lastName: 'Silver',
-    currency: 'EUR',
+    currency: 'RUB',
     countryCode: 'rus',
 };
 
@@ -19,26 +21,39 @@ export const getRequestUrl = (request: string): string => {
     return projectUrl + request;
 };
 
+let cookieCache: string = '';
 export const login = async (): Promise<TLoginResponse> => {
-    const login = await fetch(getRequestUrl('/api/v1/auth'), {
-        method: 'PUT',
-        body: JSON.stringify({
-            login: process.env.USER || testUser.email,
-            password: process.env.PASS || testUser.password,
-        }),
-    });
+    if (cookieCache) {
+        return {cookie: cookieCache};
+    }
 
-    const cookie: string = login.headers.raw()['set-cookie'].map((entry: string) => {
+    let login = await loginRequest();
+
+    if (login.status !== 200) {
+        if (login.status !== 403) {
+            login.json().then((response: IData) => console.warn(response));
+        } else {
+            const response = await createUser();
+            if (response.status === 200) {
+                login = await loginRequest();
+            } else {
+                response.json().then((response: IData) => console.warn(response));
+            }
+        }
+    }
+
+    cookieCache = login.headers.raw()['set-cookie'].map((entry: string) => {
         const parts = entry.split(';');
         return parts[0];
     }).join(';');
 
     return {
-        cookie,
+        cookie: cookieCache,
     };
 };
 
-export const logout = () => {
+export const logout = (): Promise<Response> => {
+    cookieCache = '';
     return fetch(getRequestUrl('/api/v1/auth'), {
         method: 'DELETE',
     });
@@ -71,4 +86,27 @@ export const fetchWithRetryNoAuth = async <T>(url: string, interfaceName: string
     } else {
         return res.json();
     }
+};
+
+const loginRequest = (): Promise<Response> => {
+    return fetch(getRequestUrl('/api/v1/auth'), {
+        method: 'PUT',
+        body: JSON.stringify({
+            login: testUser.email,
+            password: testUser.password,
+        }),
+    });
+};
+
+const createUser = (): Promise<Response> => {
+    return fetch(getRequestUrl('/api/v1/profiles'), {
+        method: 'POST',
+        body: JSON.stringify({
+            email: testUser.email,
+            password: testUser.password,
+            passwordRepeat: testUser.password,
+            currency: testUser.currency,
+            countryCode: testUser.countryCode,
+        }),
+    });
 };

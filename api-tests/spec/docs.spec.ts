@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
+import {Response} from 'node-fetch';
 import FormData from 'form-data';
 
 import {
@@ -193,7 +194,7 @@ describe('/api/v1/docs/', () => {
             .catch(fail);
     });
 
-    const sendDocFile = async () => {
+    const sendDocFile = (): Promise<Response> => {
         const docsSendFileFormData = new FormData();
         const docsSendFileUrl = getRequestUrl(docsUrl + 'send-file');
         const docsSendFilePath = path.resolve(__dirname, './assets/images/doc.jpg');

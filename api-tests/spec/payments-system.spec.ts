@@ -1,9 +1,11 @@
+import {IData} from 'wlc-engine/modules/core';
 import {
     fetch,
     getRequestUrl,
     login,
     logout,
 } from './helpers/global';
+import {TPaymentSystems} from 'wlc-engine/modules/finances';
 
 describe('/api/v1/paymentSystems', () => {
     const url = getRequestUrl('/api/v1/paymentSystems');
@@ -12,7 +14,7 @@ describe('/api/v1/paymentSystems', () => {
     it('-> IPaymentSystem unauth', async (): Promise<void> => {
         await fetch(url)
             .then((res: any) => res.json())
-            .then((response: {data: unknown}) => {
+            .then((response: IData<TPaymentSystems>) => {
                 expect(interfaceName).toBeImplemented(response.data);
             })
             .catch((err: unknown) => fail(err))
@@ -23,7 +25,7 @@ describe('/api/v1/paymentSystems', () => {
         const headers = await login();
         await fetch(url, {headers})
             .then((res: any) => res.json())
-            .then((response: {data: unknown}) => {
+            .then((response: IData<TPaymentSystems>) => {
                 expect(interfaceName).toBeImplemented(response.data);
             })
             .catch((err: unknown) => fail(err))

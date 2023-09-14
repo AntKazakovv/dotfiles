@@ -13,7 +13,7 @@ export interface ITransaction {
     AmountEur: number | string;
     Date: string;
     DateISO: string;
-    ID: string;
+    ID: string | number;
     Note: string;
     Status: number | string;
     System: string;

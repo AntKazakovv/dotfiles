@@ -11,13 +11,13 @@ export interface IBootstrapMenuItem {
 
 export interface IBootstrap {
     banners: IIndexing<IBanner[]>;
-    categories?: IIndexing<ICategorySettings>;
+    categories?: IIndexing<ICategorySettings | []>;
     country: string;
     country2: string;
     countryLangs: string[];
     countryRestricted: boolean;
     env: TEnv;
-    footerText: IIndexing<string>;
+    footerText: IIndexing<string> | [];
     hideEmailExistence: boolean;
     ignoreProvidersForGameCatalog?: boolean;
     language: string;
@@ -39,7 +39,7 @@ export interface IBootstrap {
     games?: IGames;
     menuSettings?: IMenu;
     showProfileMenu?: boolean; // TODO Does it need?
-    countryAgeBan: IIndexing<number>;
+    countryAgeBan?: IIndexing<number>;
 }
 
 export type TEnv = 'dev' | 'qa' | 'test' | 'prod';
@@ -100,9 +100,9 @@ export interface ISiteConfig {
     currencies: IIndexing<ICurrency>;
     depositOnlyFullUserData: string; //TODO Should be number
     exclude_countries: string[];
-    fastRegistration: number;
+    fastRegistration: number | boolean;
     force_exclude_countries: string; //TODO Should be number
-    languages: IIndexing<ISiteconfigLanguage>;
+    languages: IIndexing<ISiteconfigLanguage> | [];
     /**
      * @deprecated use $games.merchantNameAliasesMap
      *
@@ -121,18 +121,18 @@ export interface ISiteConfig {
      * where KEY is merchant.menuId
     **/
     merchantNameAliasesMap?: IIndexing<string>;
-    paymentText: IIndexing<string>;
+    paymentText: IIndexing<string> | [];
     payment_systems: IPaysystem[];
     /**
      * Generate user password and send on email after registration
      */
-    registerGeneratePassword: boolean;
+    registerGeneratePassword: boolean | 1 | 0;
     /**
      * Dont check password on edit profile on first session
      */
     skipPassCheckOnFirstSession?: TBooleanOptional;
     systemsGamePlayInfo: IIndexing<IGamePlayInfo>;
-    LastWins?: string;
+    LastWins?: string | null;
     RestrictMoneyGames?: number;
     RestrictRegistration?: number;
     // Project type from fundist

@@ -3,6 +3,7 @@ import {
     Type,
     Provider,
 } from '@angular/core';
+
 import {
     BehaviorSubject,
     fromEvent,
@@ -13,18 +14,6 @@ import {
     DateTime,
     DateTimeOptions,
 } from 'luxon';
-
-import {
-    IComponentParams,
-    IDisplayConfig,
-    IIndexing,
-} from 'wlc-engine/modules/core/system/interfaces';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {IButtonCParams} from 'wlc-engine/modules/core/components/button/button.params';
-import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
-import {sanitizeHTMLTags} from 'wlc-engine/modules/core/constants/regexp.constants';
-import {environment} from 'wlc-engine/system/environments/environment';
-
 import _size from 'lodash-es/size';
 import _get from 'lodash-es/get';
 import _isArray from 'lodash-es/isArray';
@@ -36,6 +25,18 @@ import _assign from 'lodash-es/assign';
 import _reverse from 'lodash-es/reverse';
 import _replace from 'lodash-es/replace';
 import _forEach from 'lodash-es/forEach';
+
+import {
+    IComponentParams,
+    IDisplayConfig,
+    IIndexing,
+} from 'wlc-engine/modules/core/system/interfaces';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {IButtonCParams} from 'wlc-engine/modules/core/components/button/button.params';
+import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
+import {sanitizeHTMLTags} from 'wlc-engine/modules/core/constants/regexp.constants';
+import {environment} from 'wlc-engine/system/environments/environment';
+import {OrientationLockType} from 'wlc-engine/modules/games';
 
 interface IParams extends IComponentParams<string, string, string> {
     noContent?: IIndexing<INoContentCParams> | IIndexing<IIndexing<INoContentCParams>>,

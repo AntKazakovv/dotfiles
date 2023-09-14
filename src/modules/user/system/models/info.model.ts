@@ -308,6 +308,10 @@ export class UserInfo extends AbstractModel<IUserInfo> {
     }
 
     public get tags(): IIndexing<string> {
+        if (Array.isArray(this.data.Tags)) {
+            return {};
+        }
+
         return this.data?.Tags || {};
     }
 

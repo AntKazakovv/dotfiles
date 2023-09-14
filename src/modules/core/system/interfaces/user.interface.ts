@@ -55,7 +55,7 @@ export interface IUserInfo {
     toSWlcVersion: TSQLDate;
     transfersAllowed: boolean;
     /*Tags*/
-    Tags?: IIndexing<string>;
+    Tags?: IIndexing<string> | [];
     wallets?: IWalletObj;
     enabled2FAGoogle?: boolean;
     notify2FAGoogle?: boolean;
@@ -80,7 +80,7 @@ export interface IUserProfile {
     currentPassword?: string;
     email?: string;
     emailVerified?: string;
-    extProfile?: IExtProfile;
+    extProfile?: IExtProfile | [];
     emailAgree?: boolean;
     firstName?: string;
     gender?: string;

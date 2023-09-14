@@ -3,6 +3,7 @@ import {
     TestBed,
 } from '@angular/core/testing';
 
+import {TranslateService} from '@ngx-translate/core';
 import {MockComponent} from 'ng-mocks';
 
 import {TooltipComponent} from 'wlc-engine/modules/core';
@@ -16,6 +17,7 @@ import {
 describe('LevelNameComponent', () => {
     let component: LevelNameComponent;
     let fixture: ComponentFixture<LevelNameComponent>;
+    let translateServiceSpy: jasmine.SpyObj<TranslateService>;
     let nativeElement: HTMLElement;
 
     const testLevel: LoyaltyLevelModel = new LoyaltyLevelModel({
@@ -30,7 +32,8 @@ describe('LevelNameComponent', () => {
         ConfirmPoints: '100',
         Image: '',
         Description: 'Description',
-    }, false);
+    }, false, translateServiceSpy);
+
     const injectParams: ILevelNameParams = {
         wlcElement: 'test-wlc-element',
         theme: 'default',

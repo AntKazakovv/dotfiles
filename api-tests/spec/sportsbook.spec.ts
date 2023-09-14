@@ -2,6 +2,7 @@ import {IData} from 'wlc-engine/modules/core';
 import {
     fetchWithRetryNoAuth,
     getRequestUrl,
+    printWarn,
 } from './helpers/global';
 import {IBetradarGame} from 'wlc-engine/modules/sportsbook';
 import {IPopularEventsData} from 'wlc-engine/modules/sportsbook';
@@ -15,7 +16,11 @@ describe('/api/v1/sportsbook', () => {
     it('-> IBetradarGame', async (): Promise<void> => {
         try {
             const response = await fetchWithRetryNoAuth<IData<IBetradarGame>>(url, interfaceDailyName);
-            expect(interfaceDailyName).toBeImplemented(response.data);
+            if (!response.data) {
+                printWarn('Sportsbook turned off');
+            } else {
+                expect(interfaceDailyName).toBeImplemented(response.data);
+            }
         } catch (err: unknown) {
             fail(err);
         }
@@ -24,7 +29,11 @@ describe('/api/v1/sportsbook', () => {
     it('-> IPopularEventsData', async (): Promise<void> => {
         try {
             const response = await fetchWithRetryNoAuth<IData<IPopularEventsData>>(url2, interfacePopularName);
-            expect(interfacePopularName).toBeImplemented(response.data);
+            if (!response.data) {
+                printWarn('Sportsbook turned off');
+            } else {
+                expect(interfacePopularName).toBeImplemented(response.data);
+            }
         } catch (err: unknown) {
             fail(err);
         }

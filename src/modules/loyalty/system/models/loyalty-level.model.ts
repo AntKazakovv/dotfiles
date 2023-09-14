@@ -1,5 +1,8 @@
+import {TranslateService} from '@ngx-translate/core';
+
 import _toNumber from 'lodash-es/toNumber';
 import _assign from 'lodash-es/assign';
+import _isObject from 'lodash-es/isObject';
 
 import {
     AbstractModel,
@@ -13,6 +16,7 @@ export class LoyaltyLevelModel extends AbstractModel<ILevel> {
         from: IFromLog,
         data: ILevel,
         public readonly isLast: boolean,
+        protected translate: TranslateService,
     ) {
         super({from: _assign({model: 'LoyaltyLevelModel'}, from)});
         this.data = data;
@@ -31,6 +35,10 @@ export class LoyaltyLevelModel extends AbstractModel<ILevel> {
      * @returns {string}
      */
     public get image(): string {
+        if (_isObject(this.data.Image)) {
+            return this.data.Image[this.translate.currentLang];
+        }
+
         return this.data.Image;
     }
 
@@ -39,6 +47,10 @@ export class LoyaltyLevelModel extends AbstractModel<ILevel> {
      * @returns {string}
      */
     public get description(): string {
+        if (_isObject(this.data.Description)) {
+            return this.data.Description[this.translate.currentLang];
+        }
+
         return this.data.Description;
     }
 

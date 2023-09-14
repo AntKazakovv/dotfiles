@@ -1,5 +1,6 @@
 import {
     checkIfSuccess,
+    login,
     logout,
 } from './helpers/global';
 import {Response} from 'node-fetch';
@@ -9,6 +10,7 @@ import {IData} from 'wlc-engine/modules/core';
 describe('/api/v1/auth userLogout', () => {
 
     it('-> Successful exit', async (): Promise<void> => {
+        await login();
         await logout()
             .then((res: Response) => res.json())
             .then((res: IData<any>) => {
@@ -19,6 +21,7 @@ describe('/api/v1/auth userLogout', () => {
     });
 
     it('-> Check delete cookie', async (): Promise<void> => {
+        await login();
         const result: Response = await logout();
         const cookies: string[] = result.headers.raw()['set-cookie'].map((entry: string) => {
             const parts = entry.split(';');

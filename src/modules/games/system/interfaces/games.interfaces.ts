@@ -11,6 +11,10 @@ import {ICacheSettings} from 'wlc-engine/modules/games/system/interfaces/cache.i
 import {TGamesSortDirections} from 'wlc-engine/modules/games/system/interfaces/sorts.interfaces';
 import {CatalogBuilder} from 'wlc-engine/modules/games/system/builders/catalog.builder';
 
+/** This type is copied from typescript. It will be removed in version 5.2 */
+export type OrientationLockType = 'any' | 'landscape' | 'landscape-primary' | 'landscape-secondary' | 'natural'
+    | 'portrait' | 'portrait-primary' | 'portrait-secondary';
+
 export type TScreenOrientation = Extract<OrientationLockType, 'portrait' | 'landscape'>;
 
 /**

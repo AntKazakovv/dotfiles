@@ -5,6 +5,10 @@ jasmine.getEnv().addReporter(
     new SpecReporter({
         spec: {
             displayPending: true,
+            displayDuration: true,
+        },
+        suite: {
+            displayNumber: true,
         },
     }),
 );

@@ -41,6 +41,7 @@ import _uniqBy from 'lodash-es/uniqBy';
 import _reduce from 'lodash-es/reduce';
 import _first from 'lodash-es/first';
 import _intersection from 'lodash-es/intersection';
+import _some from 'lodash-es/some';
 
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers';
 import {ICategorySettings} from 'wlc-engine/modules/core/system/interfaces/categories.interface';
@@ -833,7 +834,7 @@ export class GamesCatalogService {
             //check game in white-list
             if ((data.Merchants.length && _includes(data.Merchants, game.merchantID))
                 || (data.Categories.length && _intersection(data.Categories, game.categoryID).length)
-                || (data.Games.length && _includes(data.Games, game.ID))
+                || (data.Games.length && _some(data.Games, (gameId: number[] | string[]) => Number(gameId) === game.ID))
             ) {
                 filteredList.push(game);
             }

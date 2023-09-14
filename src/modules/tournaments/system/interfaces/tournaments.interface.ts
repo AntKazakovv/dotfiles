@@ -24,7 +24,7 @@ export interface ITournamentsComponents {
 export interface ITournamentGames {
     Categories: number[];
     CategoriesBL: number[];
-    Games: number[];
+    Games: number[] | string[];
     GamesBL: number[];
     Merchants: number[];
     MerchantsBL: number[];
@@ -49,8 +49,8 @@ export interface ITournamentAbstract {
     Image_promo?: string;
     Image_other?: string;
     Name: string;
-    WinnerBy: 'bets' | 'wins' | 'turnovers' | 'turnovers_loose' | 'max_win' | 'fr' | 'max_app_winbet_ratio';
-    WinToBetRatio: string;
+    WinnerBy: TWinnerBy;
+    WinToBetRatio: string | null;
     Terms: string;
     Target: TTournamentTarget;
     Status: string;
@@ -61,10 +61,11 @@ export interface ITournamentAbstract {
     StatusText?: string;
 }
 
-export type TCurrency = string | number | Record<string, number>;
+export type TCurrency = string | number | Record<string, number> | IIndexing<string | number>
+    | IIndexing<IIndexing<number | string> | string | number> | [];
 
 export interface ITotalFounds {
-    EUR: string;
+    EUR: string | number;
     Currency: TCurrency;
 }
 
@@ -75,7 +76,7 @@ export interface IWinningSpread {
 }
 
 export interface ITournament extends ITournamentAbstract {
-    AllowStack: '0' | '1' | '2';
+    AllowStack: '0' | '1' | '2' | null;
     OnlyForLevels: string[];
     ShowOnly?: number;
     CurrentTime: number;
@@ -92,8 +93,8 @@ export interface ITournament extends ITournamentAbstract {
     Type: 'absolute' | 'relative';
     Value: string;
     WinningSpread: IWinningSpread;
-    AdditionalFreerounds: IAdditionalFreeSpins;
-    LTID: number;
+    AdditionalFreerounds?: IAdditionalFreeSpins;
+    LTID?: number;
 }
 
 export interface ITopTournamentUsers {
@@ -254,3 +255,5 @@ export enum TournamentEvents {
     buyFreeSpins = 'BUY_FREE_SPINS',
 }
 
+export type TWinnerBy = 'bets' | 'wins' | 'turnovers' | 'turnovers_loose' | 'max_win' | 'fr'
+    | 'max_app_winbet_ratio' | 'winbet_ratio'

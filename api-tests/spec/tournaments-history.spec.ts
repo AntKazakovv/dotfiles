@@ -19,7 +19,7 @@ describe('/api/v1/tournaments?type=history', () => {
 
     it('-> ITournamentHistory', async (): Promise<void> => {
         const headers = await login();
-        fetch(historyUrl, {headers})
+        await fetch(historyUrl, {headers})
             .then((res: Response) => res.json())
             .then((response: IData<ITournamentHistory[]>) => {
                 if (response.code !== 200) {

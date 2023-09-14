@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 
+import {TranslateService} from '@ngx-translate/core';
 import _map from 'lodash-es/map';
 import _isObject from 'lodash-es/isObject';
 import _values from 'lodash-es/values';
@@ -25,6 +26,7 @@ export class LoyaltyLevelsService {
         protected logService: LogService,
         private configService: ConfigService,
         private dataService: DataService,
+        private translate: TranslateService,
     ) {
         this.registerMethods();
     }
@@ -109,6 +111,7 @@ export class LoyaltyLevelsService {
                 {service: 'LoyaltyLevelsService', method: 'modifyLevels'},
                 level,
                 isLastLevel,
+                this.translate,
             );
         });
     }

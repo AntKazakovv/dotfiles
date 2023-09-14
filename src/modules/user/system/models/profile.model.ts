@@ -109,6 +109,10 @@ export class UserProfile extends AbstractModel<IUserProfile> {
     }
 
     public get extProfile(): IExtProfile {
+        if (Array.isArray(this.data.extProfile)) {
+            return {};
+        }
+
         return this.data.extProfile || {};
     }
 
@@ -205,6 +209,10 @@ export class UserProfile extends AbstractModel<IUserProfile> {
     }
 
     public get pep(): boolean | null {
+        if (Array.isArray(this.data.extProfile)) {
+            return null;
+        }
+
         const value: PepStatus = this.data.extProfile?.pep;
 
         return _isNil(value)
@@ -213,6 +221,10 @@ export class UserProfile extends AbstractModel<IUserProfile> {
     }
 
     public get nick(): string {
+        if (Array.isArray(this.data.extProfile)) {
+            return '';
+        }
+
         return this.data.extProfile.nick;
     }
 

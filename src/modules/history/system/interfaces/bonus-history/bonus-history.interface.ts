@@ -11,6 +11,7 @@ export interface IBonusHistory extends IBonusBase {
     FreeroundWagering: string;
     PaySystems: null;
     Start: string;
+    End: string | null;
     SubscribeDate: string;
     Currency: string;
 }

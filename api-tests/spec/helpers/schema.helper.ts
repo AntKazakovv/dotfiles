@@ -17,6 +17,7 @@ const globalGenerator: SchemaGenerator = tjs.createGenerator({
 });
 
 beforeAll(() => {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
     jasmine.addMatchers({
         toBeImplemented: () => {
             return {
@@ -24,9 +25,8 @@ beforeAll(() => {
                     const schema = globalGenerator.createSchema(interfaceName) as Schema;
                     const validateResult = new Validator().validate(response, schema);
 
-                    if (process.env.API_DEBUG && validateResult.errors.length) {
-                        // eslint-disable-next-line no-console
-                        console.log(validateResult.errors);
+                    if (validateResult.errors.length) {
+                        console.warn(validateResult.errors);
                     }
 
                     return {

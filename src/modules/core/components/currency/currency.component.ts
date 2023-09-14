@@ -254,9 +254,9 @@ export class CurrencyComponent
         if (_isNil(this.$params.value) || _isNaN(this.$params.value)) {
             this.addModifiers('is-error');
             this.isError = true;
-        } else if (this.$params.value > 0) {
+        } else if (Number(this.$params.value) > 0) {
             this.addModifiers('above-zero');
-        } else if (this.$params.value < 0) {
+        } else if (Number(this.$params.value) < 0) {
             this.addModifiers('less-zero');
         }
     }

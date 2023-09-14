@@ -1,17 +1,33 @@
 {
     "spec_dir": "spec",
     "spec_files": [
+        "**/terms-accept.spec.ts",
+
         "**/bootstrap.spec.ts",
-        "**/games.spec.ts",
-        "**/jackpots.spec.ts",
-        "**/levels.spec.ts",
-        "**/wins.spec.ts",
-        "**/topWins.spec.ts",
-        "**/user-logout.spec.ts",
-        "**/sportsbook.spec.ts",
         "**/countries.spec.ts",
         "**/states.spec.ts",
-        "**/userprofile.spec.ts"
+
+        "**/games.spec.ts",
+        "**/sportsbook.spec.ts",
+        "**/favourites.spec.ts",
+
+        "**/jackpots.spec.ts",
+        "**/wins.spec.ts",
+        "**/topWins.spec.ts",
+        "**/levels.spec.ts",
+        "**/docs.spec.ts",
+
+        "**/bethistory.spec.ts",
+        "**/bonushistory.spec.ts",
+        "**/tournament.spec.ts",
+        "**/tournaments-history.spec.ts",
+        "**/transaction-history.spec.ts",
+        "**/payments-system.spec.ts",
+
+        "**/user-logout.spec.ts",
+        "**/userinfo.spec.ts",
+        "**/userprofile.spec.ts",
+        "**/user-password.spec.ts"
     ],
     "helpers": [
         "helpers/**/*.helper.ts"

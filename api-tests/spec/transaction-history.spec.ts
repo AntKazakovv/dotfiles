@@ -5,7 +5,7 @@ import {
     logout,
 } from './helpers/global';
 
-import {ITransaction} from 'wlc-engine/modules/finances';
+import {ITransaction} from 'wlc-engine/modules/history';
 import {IData} from 'wlc-engine/modules/core';
 
 describe('/api/v1/transactions', () => {
