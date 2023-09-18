@@ -160,7 +160,7 @@ $container-max-widths: map-merge((
 ), $custom-container-max-widths);
 
 $dummy: map-merge((), $custom-container-max-widths-wide);
-$container-max-widths-wide: ((
+$container-max-widths-wide: map-merge((
     320: 100%,
     1630: 1920px,
 ), $custom-container-max-widths-wide);
