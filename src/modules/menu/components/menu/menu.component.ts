@@ -114,6 +114,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     @ViewChild('event') tplEvent: TemplateRef<ElementRef>;
     @ViewChild('scroll') tplScroll: TemplateRef<ElementRef>;
     @ViewChild('srefWithParent') srefWithParent: ViewContainerRef;
+    @ViewChild('content') tplContent: TemplateRef<ElementRef>;
 
     @Input() protected inlineParams: Params.IMenuCParams;
 

@@ -108,6 +108,20 @@ export const wlcStickyFooterItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
         wlcElement: 'link_sticky-footer-nav-signup',
     },
+    'sticky-footer:search': {
+        name: gettext('Search'),
+        type: 'event',
+        class: 'search',
+        icon: 'search',
+        sort: 0,
+        params: {
+            event: {
+                name: 'SHOW_MODAL',
+                data: 'search',
+            },
+        },
+        wlcElement: 'link_sticky-footer-nav-search',
+    },
     'sticky-footer:profile': {
         name: gettext('Profile'),
         type: 'event',
@@ -122,5 +136,24 @@ export const wlcStickyFooterItemsGlobal: MenuParams.IMenuItemsGlobal = {
             },
         },
         wlcElement: 'link_sticky-footer-nav-profile',
+    },
+    'sticky-footer:chat': {
+        name: gettext('Chat'),
+        type: 'content',
+        class: 'chat',
+        sort: 0,
+        auth: true,
+        params: {
+            content: {
+                components: [
+                    {
+                        name: 'chat.wlc-chat-icon',
+                        params: {
+                            theme: 'wolf',
+                        },
+                    },
+                ],
+            },
+        },
     },
 };

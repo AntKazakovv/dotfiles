@@ -4,6 +4,7 @@ import {
     IMenuOptions,
     ICounterCParams,
     IIndexing,
+    IWrapperCParams,
 } from 'wlc-engine/modules/core';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
 import {TIconExtension} from 'wlc-engine/modules/menu/system/interfaces/menu.interface';
@@ -46,7 +47,8 @@ export type ItemType =
     | 'wordpress'
     | 'categories'
     | 'market'
-    | 'action';
+    | 'action'
+    | 'content';
 export type WpItemType = 'sref' | 'href';
 export type IMenuTarget = '_blank' | '_self' | '_parent' | '_top';
 export type MenuTheme = 'default' | 'submenu' | string;
@@ -119,6 +121,7 @@ export interface IMenuItemParams {
     wp?: IMenuItemParamsWp;
     event?: IMenuItemParamsEvent;
     action?: IMenuItemParamsAction;
+    content?: IWrapperCParams;
 }
 
 export interface IMenuItemParamsAction {

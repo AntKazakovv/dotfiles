@@ -167,9 +167,9 @@
            (click)="openModal(item)">
             {{menuItemName(item)}}
             <span *ngIf="useArrows"
-                wlc-icon
-                class="{{$class}}__icon-arrow"
-                iconPath="{{menuItemArrow(item)}}">
+                  wlc-icon
+                  class="{{$class}}__icon-arrow"
+                  iconPath="{{menuItemArrow(item)}}">
             </span>
         </a>
     </div>
@@ -178,7 +178,7 @@
 <ng-template #event let-item="item">
     <div class="{{$class}}__item {{$class}}__item--event {{$class}}__item--{{item.class}}">
         <a class="{{$class}}__link"
-        (click)="eventEmit(item.params?.event)">
+           (click)="eventEmit(item.params?.event)">
 
             <span *ngIf="item.icon"
                   wlc-icon
@@ -257,7 +257,8 @@
 
 <ng-template #full let-item="item">
     <div class="{{$class}}__item {{$class}}__item--dropdown active {{$class}}__item--{{item.class}}">
-        <span class="{{$class}}__icon" *ngIf="item.icon" wlc-icon [iconPath]="getIcon(item)" [fallback]="getIconFallback(item)">
+        <span class="{{$class}}__icon" *ngIf="item.icon" wlc-icon [iconPath]="getIcon(item)"
+              [fallback]="getIconFallback(item)">
         </span>
         <a class="{{$class}}__link"
            [attr.data-wlc-element]="item.wlcElement || item.parent.wlcElement">{{menuItemName(item.parent)}}
@@ -292,9 +293,9 @@
 <ng-template #action let-item="item">
     <div class="{{$class}}__item {{$class}}__item--event {{$class}}__item--{{item.class}}">
         <a class="{{$class}}__link"
-            role="button"
-            [class.active]="item.params.action?.isActive | async"
-            (click)="item.params.action.emit()">
+           role="button"
+           [class.active]="item.params.action?.isActive | async"
+           (click)="item.params.action.emit()">
 
             <span *ngIf="item.icon"
                   wlc-icon
@@ -305,6 +306,17 @@
                 <span>{{menuItemName(item)}}</span>
             </span>
         </a>
+    </div>
+</ng-template>
+
+<ng-template #content let-item="item">
+    <div class="{{$class}}__link">
+         <span class="{{$class}}__icon">
+             <span wlc-wrapper [inlineParams]="item.params?.content"></span>
+         </span>
+        <span class="{{$class}}__link-text">
+                <span>{{menuItemName(item)}}</span>
+        </span>
     </div>
 </ng-template>
 
@@ -349,6 +361,11 @@
         </ng-container>
         <ng-container *ngSwitchCase="'action'">
             <ng-container [ngTemplateOutlet]="action"
+                          [ngTemplateOutletContext]="{item: item}">
+            </ng-container>
+        </ng-container>
+        <ng-container *ngSwitchCase="'content'">
+            <ng-container [ngTemplateOutlet]="content"
                           [ngTemplateOutletContext]="{item: item}">
             </ng-container>
         </ng-container>

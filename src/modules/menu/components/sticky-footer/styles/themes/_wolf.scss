@@ -1,0 +1,73 @@
+.wlc-sticky-footer--theme-wolf:host {
+
+    ::ng-deep {
+
+        .wlc-menu {
+            background: ef.get-value($themeWolf, 'background');
+            border-top: ef.get-value($themeWolf, 'border-top');
+
+            &[data-wlc-element] {
+                min-height: ef.get-value($themeWolf, 'menuMinHeight');
+            }
+
+            &__link {
+                @include text.get-text-style(ef.get-value($themeWolf, 'menuTextStyle'), ef.get-value($themeWolf, 'menuTextColor'));
+
+                position: relative;
+                display: ef.get-value($themeWolf, 'itemDisplay');
+                flex-direction: ef.get-value($themeWolf, 'itemFlexDir');
+                align-items: ef.get-value($themeWolf, 'itemAlignItems');
+                justify-content: ef.get-value($themeWolf, 'itemJustifyContent');
+                height: ef.get-value($themeWolf, 'itemHeight');
+                padding: ef.get-value($themeWolf, 'itemPadding');
+                text-decoration: none;
+
+                &.active {
+
+                    .wlc-menu__link-text {
+                        color: ef.get-value($themeWolf, 'itemDecorColor');
+                    }
+
+                    .wlc-icon {
+                        color: ef.get-value($themeWolf, 'itemDecorColor');
+                    }
+                }
+            }
+
+            .wlc-icon {
+                color: ef.get-value($themeWolf, 'menuIconColor');
+                line-height: 1;
+
+                svg {
+                    width: ef.get-value($themeWolf, 'menuIconWidth');
+                    height: ef.get-value($themeWolf, 'menuIconHeight');
+                }
+            }
+        }
+    }
+
+    &.wlc-sticky-footer--theme-mod-hiddenText {
+
+        ::ng-deep {
+
+            .wlc-menu__link-text {
+                display: none;
+            }
+
+            .wlc-menu {
+
+                &__link {
+                    justify-content: ef.get-value($themeWolf, 'itemJustifyContentHiddenText');
+                }
+
+                .wlc-icon {
+
+                    svg {
+                        width: ef.get-value($themeWolf, 'menuIconWidthHiddenText');
+                        height: ef.get-value($themeWolf, 'menuIconHeightHiddenText');
+                    }
+                }
+            }
+        }
+    }
+}

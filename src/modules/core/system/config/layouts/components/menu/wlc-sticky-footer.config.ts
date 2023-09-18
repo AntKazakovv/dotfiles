@@ -30,4 +30,24 @@ export namespace wlcStickyFooter {
             theme: 'static-circle',
         },
     };
+/**
+ * Wolf wlc-sticky-footer theme
+ */
+    export const wolf: ILayoutComponent = {
+        name: 'menu.wlc-sticky-footer',
+        params: {
+            theme: 'wolf',
+        },
+    };
+
+/**
+ * Wolf wlc-sticky-footer theme
+ */
+    export const wolfHiddenText: ILayoutComponent = {
+        name: 'menu.wlc-sticky-footer',
+        params: {
+            theme: 'wolf',
+            themeMod: 'hiddenText',
+        },
+    };
 }
