@@ -94,7 +94,6 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
         }
 
         this.setMinMaxDate();
-        this.setSubscription();
 
         this.historyFilterService.setAllFilters('bet', {
             filterValue: this.filterValue,
@@ -102,7 +101,9 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
             startDate: this.startDate,
             endDate: this.endDate,
         });
+
         this.prepareTableParams();
+        this.setSubscription();
     }
 
     protected prepareTableParams(): void {
