@@ -16,4 +16,6 @@ export interface IWinnerCParams extends IComponentParams<WinnerTheme, WinnerType
 
 export const defaultParams: Partial<IWinnerCParams> = {
     class: 'wlc-winner',
+    moduleName: 'promo',
+    componentName: 'wlc-winner',
 };
