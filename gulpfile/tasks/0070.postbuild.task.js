@@ -42,13 +42,14 @@ module.exports = function postBuildTask() {
     task('build:copyLocalesFile', (cb) => {
         const {locales, localesFile, languagesPack} = this.params.paths;
 
-        if (fs.existsSync(locales)) {
+        try {
+            fs.lstatSync(locales);
             fs.unlinkSync(locales);
+        } catch (err) {
+            //
         }
 
-        fs.copyFile(`${languagesPack}/${localesFile}`, locales, (err) => {
-            if (err) throw err;
-        });
+        fs.copyFileSync(`${languagesPack}/${localesFile}`, locales);
         cb();
     });
 
