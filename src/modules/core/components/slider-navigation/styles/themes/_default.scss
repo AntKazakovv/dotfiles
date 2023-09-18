@@ -27,15 +27,30 @@
                 color: ef.get-value($themeDefault, 'iconFillDisabled');
                 background: ef.get-value($themeDefault, 'buttonBgDisabled');
                 cursor: default;
+
+                &:before {
+                    display: none;
+                }
             }
 
             @include bm.hover {
 
                 &:not(.swiper-button-disabled) {
-                    color: ef.get-value($themeDefault, 'iconFillHover');
-                    background: ef.get-value($themeDefault, 'buttonBgHover');
-                    border: ef.get-value($themeDefault, 'buttonBorderHover');
                     box-shadow: ef.get-value($themeDefault, 'buttonShadowHover');
+                }
+            }
+
+
+            @if (type-of(ef.get('mainColors', 'buttonColor')) != 'color' and ef.get('baseVariables', 'useGradientButtons')) {
+                @include button.gradientBtnOverlay($themeDefault);
+            } @else {
+                @include bm.hover {
+
+                    &:not(.swiper-button-disabled) {
+                        color: ef.get-value($themeDefault, 'iconFillHover');
+                        background: ef.get-value($themeDefault, 'buttonBgHover');
+                        border: ef.get-value($themeDefault, 'buttonBorderHover');
+                    }
                 }
             }
         }

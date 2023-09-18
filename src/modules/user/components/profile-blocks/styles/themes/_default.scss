@@ -112,6 +112,10 @@
                     width: ef.get-value($themeDefault, 'btnWidth');
                     overflow: ef.get-value($themeDefault, 'btnOverflow');
 
+                    &:before {
+                        display: none;
+                    }
+
                     .wlc-btn__text {
                         @include bm.transition(color);
                         @include text.get-text-style(

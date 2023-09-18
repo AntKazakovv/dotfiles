@@ -23,4 +23,9 @@ $themeDefault: map-merge((
     'iconFillHover': ef.get('mainColors', 'baseMain'),
     'buttonBorderRadius': ef.size(2),
     'buttonSize': ef.size(8),
+
+    // Gradient button
+    'gradientOverlayBg': #000,
+    'gradientOverlayOpacity': 0.4,
+    'gradientOverlayMixBlend': overlay,
 ), $customThemeDefault);

@@ -64,6 +64,10 @@ $themeDefaultBanner: map-merge((
         375: flex,
         768: none,
     ),
+    // Gradient button
+    'gradientOverlayBg': #000,
+    'gradientOverlayOpacity': 0.4,
+    'gradientOverlayMixBlend': overlay,
 ), $customThemeDefaultBanner);
 
 $customThemeShowAll: () !default;

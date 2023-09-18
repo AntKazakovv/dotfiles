@@ -32,9 +32,41 @@
     }
 
     @include bm.hover {
-        background: ef.get-value($themeDefault, 'backgroundHover');
         box-shadow: ef.get-value($themeDefault, 'shadowHover');
-        border: ef.get-value($themeDefault, 'borderDefaultHover');
+    }
+
+    @if (type-of(ef.get('mainColors', 'buttonColor')) != 'color' and ef.get('baseVariables', 'useGradientButtons')) {
+        @include gradientBtnOverlay($themeDefault);
+    } @else {
+        @include bm.hover {
+            background: ef.get-value($themeDefault, 'backgroundHover');
+            border: ef.get-value($themeDefault, 'borderDefaultHover');
+        }
+    }
+}
+
+@mixin gradientBtnOverlay($config) {
+    position: relative;
+
+    &:before {
+        @include bm.transition(opacity);
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+        background-color: ef.get-value($config, 'gradientOverlayBg');
+        opacity: 0;
+        mix-blend-mode: ef.get-value($config, 'gradientOverlayMixBlend');
+    }
+
+    @include bm.hover {
+
+        &:before {
+            opacity: ef.get-value($config, 'gradientOverlayOpacity');
+        }
     }
 }
 

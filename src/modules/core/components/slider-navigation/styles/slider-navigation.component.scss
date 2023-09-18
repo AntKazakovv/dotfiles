@@ -1,6 +1,7 @@
 @use 'sass:math';
 @use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/functions' as ef;
+@use 'modules/core/components/button/styles/utils/mixins' as button;
 
 @import './utils/vars';
 @import './utils/vars-wolf';

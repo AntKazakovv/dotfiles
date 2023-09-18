@@ -91,6 +91,10 @@ $buttonSettings: map-merge((
     'heightMd': 30px,
     'paddingMd': 0 size-func(3),
     'textStyleMd': 'CaptionTextBold',
+    // Gradient button
+    'gradientOverlayBg': #000,
+    'gradientOverlayOpacity': 0.4,
+    'gradientOverlayMixBlend': overlay,
 ), $customButtonSettings);
 
 $customTableBtnBlock: () !default;
