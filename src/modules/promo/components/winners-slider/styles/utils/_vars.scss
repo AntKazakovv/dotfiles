@@ -108,7 +108,7 @@ $themeTransparent: map-merge((
     // slider
     'sliderHeight': calc((var(--wlc-winner-slider-slide-height, 100px) + var(--wlc-winner-slider-slide-gap, 10px)) * var(--wlc-winner-slider-slides-per-view, 4)),
     'sliderShadowPadding': 10px, // `false` or [space between slides]px
-), $customThemeVertical);
+), $customThemeTransparent);
 
 $customTheme1: () !default;
 $theme1: map-merge((

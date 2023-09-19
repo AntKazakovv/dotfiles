@@ -94,7 +94,7 @@ $themeTransparent: map-merge((
     // game
     'gameArrowColor': var(--mc-secondary),
     'gameHoverArrowColor': var(--mc-secondary-l20),
-), $customThemeVertical);
+), $customThemeTransparent);
 
 $customTheme1: () !default;
 $theme1: map-merge((

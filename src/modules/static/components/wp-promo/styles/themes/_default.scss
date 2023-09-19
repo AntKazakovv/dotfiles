@@ -41,7 +41,7 @@
             @include bm.get-mq-map('height', $themeDefault, 'contentHeight');
             @include bm.get-mq-map('align-items', $themeDefault, 'contentAlignItems');
             @include bm.get-mq-map('padding', $themeDefault, 'contentPadding');
-            @include bm.get-mq-map('text-align', $themeDefault, 'contentPadding');
+            @include bm.get-mq-map('text-align', $themeDefault, 'contentTextAlign');
 
             display: ef.get-value($themeDefault, 'contentDisplay');
             flex-direction: ef.get-value($themeDefault, 'contentDirection');
