@@ -225,10 +225,10 @@ def tag_duplicate_checking(action, tag_to_find):
     tag_exists = any(tag_to_find in tag for tag in remote_tag_list)
 
     if tag_exists:
-        new_tag = ".".join([str(k) for k in change_version(action, parse_version(tag_to_find))])
+        while tag_to_find in remote_tag_list:
+            tag_to_find = ".".join([str(k) for k in change_version(action, parse_version(tag_to_find))])
 
-    while new_tag in remote_tag_list:
-        new_tag = ".".join([str(k) for k in change_version(action, parse_version(new_tag))])
+    new_tag = tag_to_find
 
     return new_tag
 
@@ -787,7 +787,7 @@ def release_manager():
         print(Fore.GREEN + "Good job. Bye bye. :-)" + Fore.RESET)
 
     elif choice == "t":
-        print(search_remote_tag())
+        print(make_tag("hotfix"))
 
     else:
         error_message()
