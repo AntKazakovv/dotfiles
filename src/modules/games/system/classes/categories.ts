@@ -175,11 +175,15 @@ export class Categories {
         return _orderBy(
             categories,
             [
+                (category: CategoryModel) => {
+                    return category.primarySort || null;
+                },
                 (category: CategoryModel) => category.sortByLang || null,
                 (category: CategoryModel) => category.operatorSort || 0,
                 (category: CategoryModel) => category.globalSort || 0,
             ],
             [
+                'asc',
                 'asc',
                 'desc',
                 'desc',
