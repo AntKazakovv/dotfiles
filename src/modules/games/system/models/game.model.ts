@@ -221,18 +221,20 @@ export class Game extends AbstractModel<IGame> {
      */
     public restrictedByBonuses(bonuses: Bonus[]): boolean {
         for (const bonus of bonuses) {
-            const gamesWhiteList = bonus.gamesList(true),
-                gamesBlackList = bonus.gamesList(false),
-                categoriesWhiteList = bonus.categoriesList(true),
-                categoriesBlackList = bonus.categoriesList(false);
+            if (bonus.isActive) {
+                const gamesWhiteList = bonus.gamesList(true),
+                    gamesBlackList = bonus.gamesList(false),
+                    categoriesWhiteList = bonus.categoriesList(true),
+                    categoriesBlackList = bonus.categoriesList(false);
 
-            const inBlackList: boolean = _includes(gamesBlackList, this.ID) ||
-                _intersection(categoriesBlackList, this.categoryID).length > 0;
-            const notInWhiteList: boolean = gamesWhiteList.length && !_includes(gamesWhiteList, this.ID) ||
-                categoriesWhiteList.length && !_intersection(categoriesWhiteList, this.categoryID).length;
+                const inBlackList: boolean = _includes(gamesBlackList, this.ID) ||
+                    _intersection(categoriesBlackList, this.categoryID).length > 0;
+                const notInWhiteList: boolean = gamesWhiteList.length && !_includes(gamesWhiteList, this.ID) ||
+                    categoriesWhiteList.length && !_intersection(categoriesWhiteList, this.categoryID).length;
 
-            if (inBlackList || notInWhiteList) {
-                return true;
+                if (inBlackList || notInWhiteList) {
+                    return true;
+                }
             }
         }
         return false;
