@@ -124,7 +124,7 @@ export const transferFormConfigTop: IFormWrapperCParams = {
             name: 'core.wlc-text-block',
             params: <ITextBlockCParams>{
                 common: {
-                    textBlockSubtitle: ['2.', gettext('Transfer amount')],
+                    textBlockSubtitle: ['2.', gettext('Amount')],
                 },
             },
         },

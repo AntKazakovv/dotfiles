@@ -96,7 +96,11 @@ export class TransferComponent extends AbstractComponent implements OnInit {
                 this.cdr.markForCheck();
             }
         } catch (error) {
-            this.showMessage(_concat(error.errors), true);
+            if (error.errors) {
+                this.showMessage(_concat(error.errors), true);
+            } else {
+                this.showMessage(gettext('Something went wrong. Please contact with support service.'), true);
+            }
         }
     }
 
@@ -165,7 +169,7 @@ export class TransferComponent extends AbstractComponent implements OnInit {
             return true;
         } catch (error) {
             if (_find(error.errors, (item: string) => item === 'code_not_found')) {
-                this.showMessage([gettext('Verification code is not correct')], true);
+                this.showMessage([gettext('The code you entered is incorrect')], true);
                 form.enable();
                 form.controls.code.setErrors({'wrong-sms-code': true});
             } else {
@@ -206,10 +210,11 @@ export class TransferComponent extends AbstractComponent implements OnInit {
 
     private getInfoConfig(bonusInfo: Bonus): void {
         Params.infoBlock.params.title
-            =  this.translateService.instant(gettext('The bonus'))
-            + ` "${bonusInfo.name}"`
-            + this.translateService.instant(gettext(' will be available to your friend as a gift. '
-            + 'The bonus has to be wagered with a multiplier')) + ` "${bonusInfo.multiplier}".`;
+            =  this.translateService.instant(
+                gettext('The following bonus will be available as a gift for your friend:'))
+            + ` "${bonusInfo.name}". `
+            + this.translateService.instant(gettext('The bonus has to be wagered with the following multiplier:'))
+            + ` "${bonusInfo.results.balance.ReleaseWagering}".`;
     }
 
     private getMainFormConfig(): void {
@@ -226,7 +231,7 @@ export class TransferComponent extends AbstractComponent implements OnInit {
 
     private getAmountConfig(): IFormComponent {
         const amountConfig: IFormComponent = _cloneDeep(FormElements.amount);
-        amountConfig.params.common.placeholder = gettext('Transfer amount');
+        amountConfig.params.common.placeholder = gettext('Amount');
         const limits: ITransferLimits = {
             min: +this.transferParams.MinOnce || 1,
             max: +this.transferParams.MaxOnce || 10000,
