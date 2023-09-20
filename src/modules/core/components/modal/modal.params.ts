@@ -170,7 +170,7 @@ export const MODALS_LIST: IModalList = {
             id: 'password-confirmation',
             modifier: 'password-confirmation',
             componentName: 'user.wlc-password-confirmation-form',
-            modalTitle: gettext('Password confirmation'),
+            modalTitle: gettext('Confirm password'),
             size: 'md',
             showFooter: false,
             dismissAll: true,
