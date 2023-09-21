@@ -1,0 +1,74 @@
+.wlc-enter-promocode--theme-wolf:host {
+    border-radius: ef.get-value($themeWolf, 'wrapperRadius');
+    overflow: hidden;
+
+    .wlc-enter-promocode {
+        width: ef.get-value($themeWolf, 'baseWidth');
+        height: ef.get-value($themeWolf, 'baseHeight');
+
+        &__container {
+            @include bm.get-mq-map('padding', $themeWolf, 'containerPadding');
+            @include bm.get-mq-map('min-height', $themeWolf, 'containerMinHeight');
+
+            display: flex;
+            flex-direction: ef.get-value($themeWolf, 'containerFlexDirection');
+            align-items: ef.get-value($themeWolf, 'containerAlignItems');
+            justify-content: ef.get-value($themeWolf, 'containerJustifyContent');
+
+            height: ef.get-value($themeWolf, 'containerHeight');
+
+            background: ef.get-value($themeWolf, 'containerBackground');
+        }
+
+        &__title {
+            @include bm.get-mq-map('margin', $themeWolf, 'titleMargin');
+            @include text.get-text-style(ef.get-value($themeWolf, 'titleFontStyle'), ef.get-value($themeWolf, 'titleColor'));
+        }
+
+        &__description {
+            @include text.get-text-style(ef.get-value($themeWolf, 'descriptionFontStyle'), ef.get-value($themeWolf, 'descriptionColor'));
+            margin: ef.get-value($themeWolf, 'descriptionMargin');
+        }
+
+        &__control {
+            @include bm.get-mq-map('max-width', $themeWolf, 'controlMaxWidth');
+
+            position: relative;
+            width: ef.get-value($themeWolf, 'controlWidth');
+
+            ::ng-deep {
+
+                .wlc-input--theme-default {
+                    width: ef.get-value($themeWolf, 'inputWidth');
+                }
+            }
+        }
+
+        &__btn {
+            @include enterPromocodeButton($themeWolf);
+        }
+    }
+
+    ::ng-deep {
+
+        .wlc-input.wlc-input--promocode {
+
+            .wlc-input__input input[id]:disabled {
+                color: ef.get-value($themeWolf, 'inputColor');
+
+                background: ef.get-value($themeWolf, 'inputBackground');
+                -webkit-text-fill-color: ef.get-value($themeWolf, 'inputColor');
+
+                opacity: ef.get-value($themeWolf, 'inputOpacity'); // for ios
+            }
+
+            input {
+                text-transform: ef.get-value($themeWolf, 'inputTextTransform');
+
+                &::placeholder {
+                    text-transform: none;
+                }
+            }
+        }
+    }
+}

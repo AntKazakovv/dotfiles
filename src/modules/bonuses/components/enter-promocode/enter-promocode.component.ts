@@ -21,6 +21,7 @@ import {
     ModalService,
     IPushMessageParams,
     NotificationEvents,
+    ConfigService,
 } from 'wlc-engine/modules/core';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
@@ -50,11 +51,12 @@ export class EnterPromocodeComponent extends AbstractComponent implements OnInit
         protected bonusesService: BonusesService,
         protected eventService: EventService,
         protected modalService: ModalService,
+        configService: ConfigService,
     ) {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        });
+        }, configService);
     }
 
     public enterPromocodeInput: IInputCParams = {
@@ -62,7 +64,7 @@ export class EnterPromocodeComponent extends AbstractComponent implements OnInit
         theme: 'default',
         customMod: 'promocode',
         common: {
-            placeholder: gettext('Enter promo code'),
+            placeholder: '',
             useLabel: false,
         },
         control: new UntypedFormControl(''),
@@ -70,6 +72,7 @@ export class EnterPromocodeComponent extends AbstractComponent implements OnInit
 
     public override ngOnInit(): void {
         super.ngOnInit(GlobalHelper.prepareParams(this, ['title']));
+        this.enterPromocodeInput.common.placeholder = this.$params.common.placeholder;
     }
 
     public override ngOnDestroy(): void {

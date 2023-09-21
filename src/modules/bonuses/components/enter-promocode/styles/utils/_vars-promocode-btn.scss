@@ -1,0 +1,26 @@
+$customThemePromocodeBtn: () !default;
+$themePromocodeBtn: map-merge((
+    'btnPosition': absolute,
+    'btnBasePosition': 0,
+    'btnRightPosition': 4px,
+    'btnSize': 32px,
+    'btnBackground': var(--mc-main),
+    'btnBackgroundHover': var(--mc-main-l5),
+    'btnBackgroundPending': var(--mc-main-l5),
+    'btnRadius': ef.get('radius', 'main'),
+
+    'btnIconSize': 13px,
+    'btnIconFill': ef.get('mainColors', 'baseMain'),
+
+    'btnTextSize': 16px,
+    'btnTextBorder': 2px solid var(--mc-baseMain),
+    'btnTextRadius': 50px,
+    'btnTextLineHeight': 0,
+
+    'btnAlignItems': center,
+    'btnJustifyContent': center,
+    'btnMargin': auto,
+
+    'btnPendingAlignItems': center,
+    'btnPendingJustifyContent': center,
+), $customThemePromocodeBtn);

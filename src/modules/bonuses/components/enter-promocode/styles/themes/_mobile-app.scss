@@ -34,7 +34,7 @@
         }
 
         &__btn {
-            @include enterPromocodeButton();
+            @include enterPromocodeButton($themePromocodeBtn);
         }
     }
 

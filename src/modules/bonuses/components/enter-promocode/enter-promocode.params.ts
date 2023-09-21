@@ -3,13 +3,17 @@ import {
     IComponentParams,
 } from 'wlc-engine/modules/core';
 
-export type ComponentTheme = 'default' | 'mobile-app' |  CustomType;
-export type ComponentType = 'default' | CustomType;
+export type Theme = 'default' | 'wolf' | 'mobile-app' |  CustomType;
+export type Type = 'default' | CustomType;
 
-export interface IEnterPromocodeCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
+export interface IEnterPromocodeCParams extends IComponentParams<Theme, Type, string> {
     common?: {
         title?: string,
         showTitle?: boolean,
+        description?: string,
+        showDescription: boolean,
+        placeholder: string,
+        btnIconPath: string,
     };
 }
 
@@ -20,5 +24,8 @@ export const defaultParams: IEnterPromocodeCParams = {
     common: {
         showTitle: true,
         title: gettext('Have a promo code?'),
+        showDescription: false,
+        placeholder: gettext('Enter promo code'),
+        btnIconPath: '/wlc/icons/enter-arrow.svg',
     },
 };

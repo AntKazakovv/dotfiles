@@ -1,0 +1,21 @@
+$customThemeClear: () !default;
+$themeClear: map-merge(map-merge($base, (
+    'width': 100%,
+    'maxWidth': (
+        375: 100%,
+        480: 300px,
+        640: 320px,
+        768: 640px,
+    ),
+    'maxWidthAllType': (
+        375: 100%,
+        480: 320px,
+        560: 100%,
+        640: 320px,
+        768: 640px,
+    ),
+    'controlMaxWidth': (
+        375: 100%,
+        640: 320px,
+    ),
+)), $customThemeClear);

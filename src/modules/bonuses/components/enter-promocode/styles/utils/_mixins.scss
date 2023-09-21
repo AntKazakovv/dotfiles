@@ -1,44 +1,26 @@
-@mixin enterPromocodeButton(
-    $position: absolute,
-    $btnBasePosition: ef.get-value($themePromocodeBtn, 'btnBasePosition'),
-    $btnRightPosition: ef.get-value($themePromocodeBtn, 'btnRightPosition'),
-    $btnAlignItems: ef.get-value($themePromocodeBtn, 'btnAlignItems'),
-    $btnJustifyContent: ef.get-value($themePromocodeBtn, 'btnJustifyContent'),
-    $btnSize: ef.get-value($themePromocodeBtn, 'btnSize'),
-    $margin: ef.get-value($themePromocodeBtn, 'btnMargin'),
-    $background: ef.get-value($themePromocodeBtn, 'btnBackground'),
-    $borderRadius: ef.get-value($themePromocodeBtn, 'btnRadius'),
-    $btnTextLineHeight: ef.get-value($themePromocodeBtn, 'btnTextLineHeight'),
-    $btnIconSize: ef.get-value($themePromocodeBtn, 'btnIconSize'),
-    $btnIconFill: ef.get-value($themePromocodeBtn, 'btnIconFill'),
-    $btnBackgroundHover: ef.get-value($themePromocodeBtn, 'btnBackgroundHover'),
-    $btnPendingAlignItems: ef.get-value($themePromocodeBtn, 'btnPendingAlignItems'),
-    $btnPendingJustifyContent: ef.get-value($themePromocodeBtn, 'btnPendingJustifyContent'),
-    $btnBackgroundPending: ef.get-value($themePromocodeBtn, 'btnBackgroundPending'),
-    $btnTextBorder: ef.get-value($themePromocodeBtn, 'btnTextBorder'),
-    $btnTextRadius: ef.get-value($themePromocodeBtn, 'btnTextRadius')
-) {
+@mixin enterPromocodeButton($config) {
+
     @include bm.transition(background);
 
-    position: $position;
+    position: ef.get-value($config, 'btnPosition');
 
-    @if ($position == 'absolute') {
-        top: $btnBasePosition;
-        right: $btnRightPosition;
-        bottom: $btnBasePosition;
+    @if (ef.get-value($config, 'btnPosition') == 'absolute') {
+        top: ef.get-value($config, 'btnBasePosition'),;
+        right: ef.get-value($config, 'btnRightPosition');
+        bottom: ef.get-value($config, 'btnBasePosition');
     }
 
     display: flex;
-    align-items: $btnAlignItems;
-    justify-content: $btnJustifyContent;
+    align-items: ef.get-value($config, 'btnAlignItems');
+    justify-content: ef.get-value($config, 'btnJustifyContent');
 
-    width: $btnSize;
-    height: $btnSize;
+    width: ef.get-value($config, 'btnSize');
+    height: ef.get-value($config, 'btnSize');
 
-    margin: $margin;
+    margin: ef.get-value($config, 'btnMargin');
 
-    background: $background;
-    border-radius: $borderRadius;
+    background: ef.get-value($config, 'btnBackground');
+    border-radius: ef.get-value($config, 'btnRadius');
 
     ::ng-deep {
 
@@ -46,35 +28,35 @@
         .wlc-btn__text * {
             display: inline-block;
 
-            line-height: $btnTextLineHeight;
+            line-height: ef.get-value($config, 'btnTextLineHeight');
         }
 
         svg {
-            width: $btnIconSize;
-            height: $btnIconSize;
+            width: ef.get-value($config, 'btnIconSize');
+            height: ef.get-value($config, 'btnIconSize');
 
             * {
-                fill: $btnIconFill;
+                fill: ef.get-value($config, 'btnIconFill');
             }
         }
     }
 
     &.pending {
         display: flex;
-        align-items: $btnPendingAlignItems;
-        justify-content: $btnPendingJustifyContent;
+        align-items: ef.get-value($config, 'btnPendingAlignItems');
+        justify-content: ef.get-value($config, 'btnPendingJustifyContent');
 
-        background: $btnBackgroundPending;
+        background: ef.get-value($config, 'btnBackgroundPending');
 
         ::ng-deep {
 
             .wlc-btn__text {
-                width: $btnIconSize;
-                height: $btnIconSize;
+                width: ef.get-value($config, 'btnIconSize');
+                height: ef.get-value($config, 'btnIconSize');
 
-                border: $btnTextBorder;
+                border: ef.get-value($config, 'btnTextBorder');
                 border-left-color: transparent;
-                border-radius: $btnTextRadius;
+                border-radius: ef.get-value($config, 'btnTextRadius');
 
                 animation: spin 1s infinite linear;
             }
@@ -86,6 +68,6 @@
     }
 
     @include bm.hover {
-        background: $btnBackgroundHover;
+        background: ef.get-value($config, 'btnBackgroundHover');
     }
 }

@@ -1,0 +1,60 @@
+$customThemeWolf: () !default;
+$themeWolf: map-merge(map-merge($base, (
+    'wrapperRadius': ef.get('radius', 'main'),
+    'containerPadding': (
+        375: ef.size(5) ef.size(5),
+        768: ef.size(5) ef.size(5),
+        1024: ef.size(5) ef.size(5),
+        1630: ef.size(5) ef.size(5),
+    ),
+    'containerBackground': linear-gradient(312deg, #5255e5 3.27%, #001248 86.2%),
+    'containerMinHeight': (
+        375: 155px,
+        1366: initial,
+    ),
+    'containerAlignItems': start,
+
+    'titleFontStyle': 'PlaceholderTextBold',
+    'titleColor': var(--mc-baseThird),
+    'titleMargin': (
+        375: 0 0 ef.size(2),
+        900: 0 0 ef.size(2),
+        1630: 0 0 ef.size(2),
+    ),
+
+    'descriptionFontStyle': 'CaptionText',
+    'descriptionColor': var(--mc-baseThird),
+    'descriptionMargin': 0 0 ef.size(8),
+
+    'controlMaxWidth': (
+        375: 315px,
+        560: none,
+    ),
+
+    'inputWidth': calc(100% - 50px),
+
+    // Button styles
+    'btnPosition': absolute,
+    'btnBasePosition': 0,
+    'btnRightPosition': 0,
+    'btnSize': 40px,
+    'btnBackground': linear-gradient(180deg, #2cbeff 0%, #0085ff 100%),
+    'btnBackgroundHover': linear-gradient(180deg, #2CBEFF 0%, #0085FF 100%),
+    'btnBackgroundPending': linear-gradient(180deg, #2CBEFF 0%, #0085FF 100%),
+    'btnRadius': ef.get('radius', 'main'),
+
+    'btnIconSize': 24px,
+    'btnIconFill': var(--mc-baseThird),
+
+    'btnTextSize': 16px,
+    'btnTextBorder': 2px solid var(--mc-baseMain),
+    'btnTextRadius': 50px,
+    'btnTextLineHeight': 0,
+
+    'btnAlignItems': center,
+    'btnJustifyContent': center,
+    'btnMargin': auto,
+
+    'btnPendingAlignItems': center,
+    'btnPendingJustifyContent': center,
+)), $customThemeWolf);
