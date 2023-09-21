@@ -556,6 +556,7 @@ export class UserService {
         }
         this.prepareCreateProfile(userProfile);
         const queryParams: ICreateProfileQueryParams = {};
+        const isFastRegistration = this.configService.get<number>('appConfig.siteconfig.fastRegistration');
 
         if (userProfile.phoneCode && userProfile.phoneNumber && !userProfile.login && !userProfile.email) {
             queryParams.smsLogin = 1;
@@ -574,7 +575,9 @@ export class UserService {
         }, userProfile);
 
         this.logService.sendLog({code: '1.1.25'});
-        this.sendFlogAfterFastRegistration();
+        if (isFastRegistration) {
+            this.sendFlogAfterFastRegistration();
+        }
         response.catch((error: unknown) => {
             this.logService.sendRequestLog({
                 coreLog: {code: '1.1.23'},
@@ -1009,21 +1012,16 @@ export class UserService {
     }
 
     private sendFlogAfterFastRegistration(): void {
-        const isFastRegistration = this.configService.get<number>('appConfig.siteconfig.fastRegistration');
-
-        if (isFastRegistration) {
-            this.userInfoHandler = this.eventService.subscribe({
-                name: 'USER_INFO',
-            }, (info: IData) => {
-
-                if (info?.code === 200) {
-                    this.logService.sendLog({code: '1.1.28'});
-                } else {
-                    this.logService.sendLog({code: '1.1.27'});
-                }
-                this.userInfoHandler.unsubscribe();
-            });
-        }
+        const userInfoSubscribe = this.eventService.subscribe({
+            name: 'USER_INFO',
+        }, (info: IData<IUserInfo>) => {
+            if (info?.code === 200) {
+                this.logService.sendLog({code: '1.1.28'});
+            } else {
+                this.logService.sendLog({code: '1.1.27'});
+            }
+            userInfoSubscribe.unsubscribe();
+        });
     }
 
     private startWSUserBalance(): void {
