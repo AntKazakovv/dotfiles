@@ -29,8 +29,10 @@
             }
 
             &__link {
-                @include text.get-text-style(ef.get-value($themeDefault, 'textStyle'), ef.get-value($themeDefault, 'textColor'));
-                @include bm.get-mq-map('font-size', $themeDefault, 'fontSize');
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'textStyle', 375),
+                    ef.get-value($themeDefault, 'textColor')
+                );
                 display: flex;
                 align-items: ef.get-value($themeDefault, 'linkAlignItems');
                 text-decoration: ef.get-value($themeDefault, 'textDecoration');
@@ -43,6 +45,14 @@
 
                 @include bm.hover {
                     color: ef.get-value($themeDefault, 'textColorHover');
+                }
+
+                @include mq.min(1024) {
+                    @include text.get-text-style(ef.get-value($themeDefault, 'textStyle', 1024), null);
+                }
+
+                @include mq.min(1420) {
+                    @include text.get-text-style(ef.get-value($themeDefault, 'textStyle', 1420), null);
                 }
             }
         }
@@ -97,6 +107,38 @@
                             height: ef.get-value($themeDefault, 'underlineHeight');
                         }
                     }
+                }
+            }
+        }
+    }
+
+    &.wlc-main-menu--theme-mod-wolf {
+
+        ::ng-deep {
+
+            .wlc-menu {
+
+                &__item {
+                    display: flex;
+                    align-items: center;
+                    height: 100%;
+                }
+
+                &__link {
+
+                    &.active {
+                        @include text.get-text-style(ef.get-value($themeDefault, 'fontSizeActiveWolf'), ef.get-value($themeDefault, 'textColorHoverWolf'));
+                    }
+
+                    @include bm.hover {
+                        color: ef.get-value($themeDefault, 'textColorHoverWolf');
+                    }
+                }
+
+                &__icon {
+                    width: ef.get-value($themeDefault, 'iconWidthWolf');
+                    height: ef.get-value($themeDefault, 'iconHeightWolf');
+                    margin: ef.get-value($themeDefault, 'iconMarginWolf');
                 }
             }
         }

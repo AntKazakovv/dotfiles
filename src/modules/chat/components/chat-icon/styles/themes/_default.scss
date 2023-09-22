@@ -1,0 +1,46 @@
+.wlc-chat-icon--theme-default:host {
+
+    .wlc-chat-icon {
+
+        &__button {
+            @include bm.transition;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: ef.get-value($themeDefault, 'buttonWidth');
+            height: ef.get-value($themeDefault, 'buttonHeight');
+            padding: ef.get-value($themeDefault, 'buttonPadding');
+            border: ef.get-value($themeDefault, 'buttonBorder');
+            color: ef.get-value($themeDefault, 'buttonColor');
+            background: ef.get-value($themeDefault, 'buttonBg');
+            border-radius: ef.get-value($themeDefault, 'buttonRadius');
+
+            .ch-icon-chat {
+                width: 100%;
+                height: 100%;
+                overflow: initial;
+            }
+
+            &:hover {
+                background: map-get($themeDefault, 'buttonBgHover');
+            }
+        }
+
+        &__counter {
+            position: absolute;
+            top: ef.get-value($themeDefault, 'counterTop');
+            right: ef.get-value($themeDefault, 'counterRight');
+            bottom: auto;
+            left: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: ef.get-value($themeDefault, 'counterWidth');
+            height: ef.get-value($themeDefault, 'counterHeight');
+            font-size: ef.get-value($themeDefault, 'counterFontSize');
+            background: ef.get-value($themeDefault, 'counterBg');
+            border-radius: ef.get-value($themeDefault, 'counterRadius');
+        }
+    }
+}

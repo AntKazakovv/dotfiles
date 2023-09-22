@@ -4,9 +4,9 @@ import {
     CustomType,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
 
+export type ComponentTheme = 'default' | 'wolf' | CustomType;
+export type ComponentThemeMod = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
-export type ThemeType = 'default' | CustomType;
-export type ThemeModType = 'default' | CustomType;
 
 export type IActionNameType = 'login' | 'signup' | 'changePassword';
 export type IActionType = 'login' | 'signup' | 'changePassword' | 'url' | 'modal';
@@ -19,7 +19,7 @@ export type IButtonCParams = {
     animate?: TButtonAnimation;
 };
 
-export interface ILoginSignupCParams extends IComponentParams<ThemeType, ComponentType, ThemeModType> {
+export interface ILoginSignupCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     login?: IButtonCParams;
     signup?: IButtonCParams;
     changePassword?: IButtonCParams;

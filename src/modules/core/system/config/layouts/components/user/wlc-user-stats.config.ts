@@ -45,4 +45,15 @@ export namespace wlcUserStats {
             type: 'mobile',
         },
     };
+
+    export const wolf: ILayoutComponent = {
+        name: 'user.wlc-user-stats',
+        display: {
+            auth: true,
+        },
+        params: {
+            theme: 'wolf',
+            type: 'wolf',
+        },
+    };
 }

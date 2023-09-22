@@ -1,0 +1,37 @@
+.wlc-chat-icon--theme-wolf-header:host {
+
+    .wlc-chat-icon {
+
+        &__item {
+            --wlc-icon-width: #{ef.get-value($themeWolfHeader, 'iconWidth')};
+            --wlc-icon-height: #{ef.get-value($themeWolfHeader, 'iconHeight')};
+
+            @include bm.transition();
+
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: ef.get-value($themeWolfHeader, 'itemWidth');
+            height: ef.get-value($themeWolfHeader, 'itemHeight');
+            color: ef.get-value($themeWolfHeader, 'itemColor');
+            background: ef.get-value($themeWolfHeader, 'itemBg');
+            border-radius: ef.get-value($themeWolfHeader, 'itemRadius');
+            cursor: pointer;
+
+            @include bm.hover {
+                color: ef.get-value($themeWolfHeader, 'itemColorHover');
+            }
+        }
+
+        &__counter {
+            position: absolute;
+            top: ef.get-value($themeWolfHeader, 'counterTop');
+            right: ef.get-value($themeWolfHeader, 'counterRight');
+            width: ef.get-value($themeWolfHeader, 'counterWidth');
+            height: ef.get-value($themeWolfHeader, 'counterHeight');
+            border-radius: ef.get-value($themeWolfHeader, 'counterRadius');
+            background: ef.get-value($themeWolfHeader, 'counterBg');
+        }
+    }
+}

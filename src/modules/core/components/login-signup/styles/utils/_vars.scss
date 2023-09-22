@@ -4,3 +4,10 @@ $themeDefault: map-merge((
     'loginTemplateAreas': 'login sign',
     'loginTemplateAreasMobile': 'sign' 'login',
 ), $customThemeDefault);
+
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'gap': ef.size(4),
+    'loginTemplateAreas': 'sign login',
+    'loginTemplateAreasMobile': 'sign' 'login',
+), $customThemeWolf);

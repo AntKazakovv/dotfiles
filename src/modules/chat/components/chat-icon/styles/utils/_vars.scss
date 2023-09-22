@@ -1,20 +1,53 @@
-$customConfig: () !default;
-$config: map-merge((
-    'width': 40px,
-    'height': 40px,
-    'color': var(--mc-baseThird-locked, var(--mc-baseMain-locked)),
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'buttonWidth': 40px,
+    'buttonHeight': 40px,
+    'buttonColor': var(--mc-baseThird-locked, var(--mc-baseMain-locked)),
     'colorHover': var(--mc-baseThird-locked, var(--mc-baseMain-locked)),
-    'bg': var(--mc-main),
-    'bgHover': var(--mc-main-l10),
-    'radius': 50%,
-    'border': none,
+    'buttonBg': var(--mc-main),
+    'buttonBgHover': var(--mc-main-l10),
+    'buttonRadius': 50%,
+    'buttonBorder': none,
+    'buttonPadding': ef.size(1),
     'borderHover': none,
+
     'shadow': none,
     'shadowHover': none,
     'counterBg': var(--mc-main-d20),
+    'counterTop': ef.size(-2),
+    'counterRight': ef.size(-2),
     'counterRadius': 50%,
     'counterWidth': 2.4em,
     'counterHeight': 2.4em,
     'counterFontSize': 10px,
     'counterColor': var(--mc-baseThird-locked, var(--mc-baseMain-locked)),
-), $customConfig);
+), $customThemeDefault);
+
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'counterTop': -3px,
+    'counterRight': 0,
+    'counterWidth': 5px,
+    'counterHeight': 5px,
+    'counterRadius': 50%,
+    'counterBg': var(--mc-secondary),
+), $customThemeWolf);
+
+$customThemeWolfHeader: () !default;
+$themeWolfHeader: map-merge((
+    'iconWidth': 24px,
+    'iconHeight': 24px,
+    'itemWidth': 40px,
+    'itemHeight': 40px,
+    'itemColor': var(--fc-iconColor),
+    'itemColorHover': var(--mc-baseThird),
+    'itemBg': var(--fc-inputBg),
+    'itemRadius': ef.get('radius', 'main'),
+
+    'counterTop': 8px,
+    'counterRight': 8px,
+    'counterWidth': 5px,
+    'counterHeight': 5px,
+    'counterRadius': 50%,
+    'counterBg': var(--mc-secondary),
+), $customThemeWolfHeader);

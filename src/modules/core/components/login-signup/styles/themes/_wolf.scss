@@ -1,0 +1,26 @@
+.wlc-login-signup--theme-wolf:host {
+    display: grid;
+    grid-auto-columns: auto;
+    grid-auto-flow: column;
+    grid-gap: ef.get-value($themeWolf, 'gap');
+    grid-template-areas: ef.get-value($themeWolf, 'loginTemplateAreas');
+    align-items: center;
+
+    .wlc-burger-panel--left-mobile & {
+        grid-template-areas: ef.get-value($themeWolf, 'loginTemplateAreasMobile');
+    }
+
+    &::ng-deep {
+
+        .wlc-btn--type-default {
+
+            &[data-wlc-element='button_login-modal'] {
+                grid-area: login;
+            }
+
+            &[data-wlc-element='button_register-modal'] {
+                grid-area: sign;
+            }
+        }
+    }
+}

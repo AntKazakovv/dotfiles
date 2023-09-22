@@ -1,10 +1,4 @@
-<ng-container *ngIf="$params.container; else content">
-    <div class="container">
-        <ng-container *ngTemplateOutlet="content"></ng-container>
-    </div>
-</ng-container>
-
-<ng-template #content>
+<div [ngClass]="{'container': $params.container}" class="{{$class}}__item">
     <div *ngIf="config.left" class="{{$class}}__left" wlc-wrapper
          [inlineParams]="config.left"
     ></div>
@@ -16,4 +10,5 @@
     <div *ngIf="config.right" class="{{$class}}__right" wlc-wrapper
          [inlineParams]="config.right"
     ></div>
-</ng-template>
+</div>
+

@@ -64,3 +64,29 @@ $dashboardWithoutStore: map-merge((
     ),
     'userStatsBalanceBg': var(--mc-bg300),
 ), $customDashboardWithoutStore);
+
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'valueTextStyle': 'CaptionTextBold',
+    'valueTextColor': var(--mc-buttonText),
+
+    'balanceDisplay': flex,
+    'balanceAlignItems': center,
+    'balanceJustifyContent': center,
+    'balanceWidth': fit-content,
+    'balanceHeight': 40px,
+
+    'balanceMinWidth': 75px,
+    'balancePadding': ef.size(2) ef.size(2),
+    'balanceTextAlign': center,
+    'balanceBackground': var(--mc-bg500),
+    'balanceRadius': ef.get('radius', 'main'),
+    'btnMargin': 0,
+
+    'depositHeight': 40px,
+    'depositWidth': 40px,
+    'depositRadius': ef.get('radius', 'main'),
+    'depositBg': var(--mc-buttonColor),
+    'depositBgBefore': var(--mc-black-o2),
+    'depositColor': var(--mc-baseThird),
+), $customThemeDefault);

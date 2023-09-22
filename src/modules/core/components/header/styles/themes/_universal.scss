@@ -1,6 +1,5 @@
 .wlc-header--theme-universal:host {
     @include bm.get-mq-map('--h-gap', $themeUniversal, 'headerGridGap');
-
     @include headerBase($themeUniversal);
 
     &::ng-deep {
@@ -13,11 +12,8 @@
                 align-items: center;
 
                 > * {
-
-                    &:not(.wlc-logo) {
-                        margin-right: calc(var(--h-gap) * 0.5);
-                        margin-left: calc(var(--h-gap) * 0.5);
-                    }
+                    margin-right: calc(var(--h-gap) * 0.5);
+                    margin-left: calc(var(--h-gap) * 0.5);
                 }
             }
 
@@ -64,6 +60,86 @@
                                 margin-left: 0;
                             }
                         }
+                    }
+                }
+            }
+        }
+    }
+
+    &.wlc-header--theme-mod-wolf {
+
+        .wlc-header {
+
+            &__left {
+                margin: 0 calc(var(--h-gap) * -0.5);
+            }
+
+            &__right {
+                margin: 0 calc(var(--h-gap) * -0.5);
+            }
+
+            &__item {
+                @include bm.get-mq-map('grid-template-columns', $themeUniversal, 'headerGridColumnsWolf');
+                @include bm.get-mq-map('min-height', $themeUniversal, 'headerMinHeightWolf');
+            }
+
+            &__base {
+                @include bm.get-mq-map('display', $themeUniversal, 'baseDisplayWolf');
+
+                justify-content: ef.get-value($themeUniversal, 'baseJustifyContentWolf');
+            }
+        }
+
+
+        &::ng-deep {
+
+            .wlc-logo {
+                width: ef.get-value($themeUniversal, 'searchWidthLogoWolf');
+                margin-right: calc(var(--h-gap) * 0.5);
+                margin-left: calc(var(--h-gap) * 0.5);
+
+                &__image {
+                    justify-content: ef.get-value($themeUniversal, 'searchJustifyContentLogoWolf');
+                }
+            }
+
+            .wlc-btn-search {
+                @include text.get-text-style(
+                    ef.get-value($themeUniversal, 'searchFontWolf'),
+                    ef.get-value($themeUniversal, 'searchColorWolf')
+                );
+                min-width: ef.get-value($themeUniversal, 'searchMinWidthWolf');
+                height: ef.get-value($themeUniversal, 'searchHeightWolf');
+                padding: ef.get-value($themeUniversal, 'searchPaddingWolf');
+                background: ef.get-value($themeUniversal, 'searchBgWolf');
+                border-radius: ef.get-value($themeUniversal, 'searchBorderWolf');
+
+                &--search-min {
+                    width: ef.get-value($themeUniversal, 'searchWidthWolfMin');
+                    min-width: ef.get-value($themeUniversal, 'searchWidthWolfMin');
+
+                    .wlc-btn-search__text {
+                        justify-content: ef.get-value($themeUniversal, 'searchTextJustifyContentWolfMin');
+                        width: ef.get-value($themeUniversal, 'searchWidthWolfMin');
+                        font-size: 0;
+                    }
+                }
+
+                svg {
+                    fill: ef.get-value($themeUniversal, 'searchSvgFillWolf');
+                }
+
+                &__text {
+                    display: ef.get-value($themeUniversal, 'searchTextDisplayWolf');
+                    justify-content: ef.get-value($themeUniversal, 'searchTextJustifyContentWolf');
+                    width: ef.get-value($themeUniversal, 'searchTextWidthWolf');
+                }
+
+                @include bm.hover {
+                    transform: none;
+
+                    svg {
+                        fill: ef.get-value($themeUniversal, 'searchSvgFillHoverWolf');
                     }
                 }
             }

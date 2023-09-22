@@ -7,19 +7,19 @@ import {
     MenuParams,
 } from 'wlc-engine/modules/menu';
 
-export type Type = 'default' | 'burger-menu' | CustomType;
-export type Theme = 'default' | CustomType;
-export type ThemeMod = 'default' | 'fixed-burger' | CustomType;
-export type AutoModifiers = Theme | ThemeMod;
+export type ComponentTheme = 'default' | CustomType;
+export type ComponentThemeMod = 'default' | 'fixed-burger' | 'wolf' | CustomType;
+export type ComponentType = 'default' | 'burger-menu' | CustomType;
+export type AutoModifiers = ComponentTheme | ComponentThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
 
-export interface IMainMenuCParams extends IComponentParams<Theme, Type, ThemeMod> {
+export interface IMainMenuCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     modifiers?: Modifiers[];
     common?: {
         useSwiperNavigation?: boolean;
         useSwiper?: boolean;
-        themeMod?: ThemeMod;
+        themeMod?: ComponentThemeMod;
         icons?: {
             folder?: string,
             use?: boolean,

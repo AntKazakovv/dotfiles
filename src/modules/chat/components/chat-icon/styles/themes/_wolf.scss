@@ -1,0 +1,19 @@
+.wlc-chat-icon--theme-wolf:host {
+
+    .wlc-chat-icon {
+
+        &__item {
+            position: relative;
+        }
+
+        &__counter {
+            position: absolute;
+            top: ef.get-value($themeWolf, 'counterTop');
+            right: ef.get-value($themeWolf, 'counterRight');
+            width: ef.get-value($themeWolf, 'counterWidth');
+            height: ef.get-value($themeWolf, 'counterHeight');
+            border-radius: ef.get-value($themeWolf, 'counterRadius');
+            background: ef.get-value($themeWolf, 'counterBg');
+        }
+    }
+}

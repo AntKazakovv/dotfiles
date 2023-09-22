@@ -1,0 +1,52 @@
+.wlc-user-stats--theme-wolf:host {
+
+    .wlc-user-stats__content {
+        @include text.get-text-style(ef.get-value($themeWolf, 'valueTextStyle'), ef.get-value($themeWolf, 'valueTextColor'));
+        display: ef.get-value($themeWolf, 'balanceDisplay');
+        align-items: ef.get-value($themeWolf, 'balanceAlignItems');
+        justify-content: ef.get-value($themeWolf, 'balanceJustifyContent');
+        width: ef.get-value($themeWolf, 'balanceWidth');
+        height: ef.get-value($themeWolf, 'balanceHeight');
+        background: ef.get-value($themeWolf, 'balanceBackground');
+        border-radius: ef.get-value($themeWolf, 'balanceRadius');
+
+        .wlc-btn--deposit {
+            position: relative;
+            width: ef.get-value($themeWolf, 'depositWidth');
+            height: ef.get-value($themeWolf, 'depositHeight');
+            margin: ef.get-value($themeWolf, 'btnMargin');
+            color: ef.get-value($themeWolf, 'depositColor');
+            background: ef.get-value($themeWolf, 'depositBg');
+            border-radius: ef.get-value($themeWolf, 'depositRadius');
+
+            &:before {
+                @include bm.transition(opacity);
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: ef.get-value($themeWolf, 'depositWidth');
+                height: ef.get-value($themeWolf, 'depositHeight');
+                background: ef.get-value($themeWolf, 'depositBgBefore');
+                opacity: 0;
+            }
+        }
+
+        @include bm.hover {
+
+            .wlc-btn--deposit {
+
+                &:before {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    .wlc-user-stats-balance {
+        min-width: ef.get-value($themeWolf, 'balanceMinWidth');
+        padding: ef.get-value($themeWolf, 'balancePadding');
+        text-align: ef.get-value($themeWolf, 'balanceTextAlign');
+        background: unset;
+    }
+}

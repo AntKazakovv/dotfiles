@@ -106,6 +106,24 @@ export namespace wlcButton {
         },
     };
 
+    export const searchWolf: ILayoutComponent = {
+        name: 'core.wlc-button',
+        display: {
+            after: 1200,
+        },
+        params: {
+            class: 'wlc-btn wlc-btn-search',
+            common: {
+                iconPath: '/wlc/icons/search.svg',
+                text: 'Search',
+                event: {
+                    name: 'SHOW_MODAL',
+                    data: 'search',
+                },
+            },
+        },
+    };
+
     export const searchInPanel: ILayoutComponent = {
         name: 'core.wlc-button',
         display: {

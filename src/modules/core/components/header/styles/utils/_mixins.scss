@@ -8,27 +8,39 @@
         @include bm.get-mq-map('margin', $theme, 'headerMargin');
     }
 
-    .container {
+    .wlc-header__item {
         @include bm.get-mq-map('width', $theme, 'headerContainerDesktopWidth');
-        @include bm.get-mq-map('max-width', $theme, 'headerContainerDesktopMaxWidth');
         @include bm.get-mq-map('min-height', $theme, 'headerMinHeight');
         @include bm.get-mq-map('grid-template-columns', $theme, 'headerGridColumns');
         @include bm.get-mq-map('gap', $theme, 'headerGridGap');
         @include bm.get-mq-map('margin', $theme, 'headerContainerDesktopMargin');
         @include bm.transition;
 
-        @if (ef.get('baseVariables', 'useWide') == false) {
-            @include bm.get-mq-map('padding', $theme, 'headerPadding');
-        }
         display: grid;
         align-items: center;
+    }
+
+    &:not(.wlc-header--theme-mod-wolf) {
+
+        .wlc-header__item {
+            @if (ef.get('baseVariables', 'useWide') == false) {
+                @include bm.get-mq-map('padding', $theme, 'headerPadding');
+            }
+
+            &.container {
+                @include bm.get-mq-map('max-width', $theme, 'headerContainerDesktopMaxWidth');
+            }
+        }
     }
 
     &::ng-deep {
 
         .wlc-logo {
-            @include bm.get-mq-map('width', $theme, 'headerLogoMaxWidth');
-            @include bm.get-mq-map('margin', $theme, 'headerLogoMargin');
+
+            &[data-wlc-element] {
+                @include bm.get-mq-map('width', $theme, 'headerLogoMaxWidth');
+                @include bm.get-mq-map('margin', $theme, 'headerLogoMargin');
+            }
 
             &__image {
                 @include bm.get-mq-map('height', $theme, 'logoImgHeight');
@@ -222,13 +234,26 @@
             transition: inherit;
         }
 
-        .container {
+        .container,
+        .wlc-header__item {
             @include bm.get-mq-map('min-height', $stickyHeader, 'headerMinHeight');
 
             position: relative;
             z-index: 1;
             transform: translate3d(0, var(--sticky-translate-val, 0), 0);
             transition: inherit;
+        }
+    }
+
+    .#{$classSticky} &.wlc-header--theme-mod-wolf {
+
+        &:before {
+            transform: unset;
+        }
+
+        .wlc-header__item {
+            @include bm.get-mq-map('min-height', $stickyHeader, 'headerMinHeightWolf');
+            transform: none;
         }
     }
 
@@ -240,6 +265,10 @@
     .#{$classSticky}-down & {
         transform: translate3d(0, -100%, 0);
 
+        &.wlc-header--theme-mod-wolf {
+            transform: unset;
+        }
+
         @media (pointer: fine) {
             transform: unset;
         }
@@ -250,9 +279,6 @@
 @mixin headerWithBalanceInfo($theme) {
 
     @include mq.max(1200) {
-
-        margin-bottom: ef.get-value($theme, 'withBalanceMarginBottom');
-        background: ef.get-value($theme, 'withBalanceBackground');
 
         .container {
             min-height: ef.get-value($theme, 'withBalanceContainerHeight');

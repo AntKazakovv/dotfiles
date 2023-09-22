@@ -6,7 +6,7 @@ import * as componentLib from 'wlc-engine/modules/core/system/config/layouts/com
 
 export type ModeType = 'default';
 export type ComponentTheme = 'universal';
-export type ThemeMode = 'with-balance-info' | 'toggler';
+export type ComponentThemeMode = 'with-balance-info' | 'toggler' | 'wolf';
 export type ComponentType = 'default';
 export type AutoModifiersType = ComponentTheme | ModeType;
 export type ManualModifiersType = '';
@@ -18,7 +18,7 @@ export interface IHeaderConfig {
     right?: IWrapperCParams;
 }
 
-export interface IHeaderCParams extends IComponentParams<ComponentTheme, ComponentType, ThemeMode> {
+export interface IHeaderCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMode> {
     config?: IHeaderConfig;
     container?: boolean;
 }
@@ -52,3 +52,4 @@ export const defaultParams: IHeaderCParams = {
         },
     },
 };
+

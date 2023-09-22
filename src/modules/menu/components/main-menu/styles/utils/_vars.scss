@@ -17,14 +17,13 @@ $themeDefault: map-merge((
     'swiperShadowOnProgress': #{8px 0 5px -5px var(--mc-baseOpacity), -8px 0 5px -5px var(--mc-baseOpacity)},
     'swiperPadding': 0 2px,
     'textTransform': uppercase,
-    'textStyle': 'ThirdTitle',
     'textColor': var(--mc-baseMain),
     'textColorHover': var(--mc-main),
     'textDecoration': none,
-    'fontSize': (
-        375: ef.get('font', 'SignText'),
-        1024: ef.get('font', 'PrimaryText'),
-        1420: ef.get('font', 'ThirdTitle'),
+    'textStyle': (
+        375: 'SignText',
+        1024: 'PrimaryText',
+        1420: 'ThirdTitle',
     ),
     'fontWeightActive': 700,
     'letterSpacing': 1px,
@@ -51,4 +50,11 @@ $themeDefault: map-merge((
     'controlNextJustifyContent': flex-end,
     'controlTransition': all 0.3s ease-out,
     'controlBg': linear-gradient(90deg, var(--mc-bg) 65%, var(--mc-bg-o0) 100%),
+
+    //Wolf
+    'fontSizeActiveWolf': 'PlaceholderTextBold',
+    'iconWidthWolf': 16px,
+    'iconHeightWolf': 16px,
+    'iconMarginWolf':  0 ef.size(2) 0 0,
+    'textColorHoverWolf': var(--mc-baseThird),
 ), $customThemeDefault);

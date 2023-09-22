@@ -1,4 +1,5 @@
 import {
+    Inject,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -6,6 +7,12 @@ import {
     OnInit,
     OnDestroy,
 } from '@angular/core';
+
+import {
+    AbstractComponent,
+    LogService,
+    ConfigService,
+} from 'wlc-engine/modules/core';
 
 import {
     Observable,
@@ -16,24 +23,33 @@ import {
 import {ChatListService} from 'wlc-engine/modules/chat/system/services/chat-list.service';
 import {ChatService} from 'wlc-engine/modules/chat/system/services/chat.service';
 
+import * as Params from './chat-icon.params';
+
 @Component({
     selector: '[wlc-chat-icon]',
     templateUrl: './chat-icon.component.html',
     styleUrls: ['./styles/chat-icon.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChatIconComponent implements OnInit, OnDestroy {
-    @HostBinding('class.wlc-chat-icon') public $class = 'wlc-chat-icon';
-
+export class ChatIconComponent extends AbstractComponent implements OnInit, OnDestroy {
+    @HostBinding('class.wlc-chat-icon') public override $class: string = 'wlc-chat-icon';
     protected destroy$: Subject<void> = new Subject();
 
+    public override $params: Params.IChatIconCParams;
+
     constructor(
+        @Inject('injectParams') protected injectParams: Params.IChatIconCParams,
         protected chatService: ChatService,
         protected chatListService: ChatListService,
-        protected cdr: ChangeDetectorRef,
-    ) {}
+        cdr: ChangeDetectorRef,
+        protected logService: LogService,
+        configService: ConfigService,
+    ) {
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+    }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
+        super.ngOnInit();
         this.chatListService.messages$
             .pipe(takeUntil(this.destroy$))
             .subscribe(() => {
@@ -42,7 +58,7 @@ export class ChatIconComponent implements OnInit, OnDestroy {
             });
     }
 
-    public ngOnDestroy(): void {
+    public override ngOnDestroy(): void {
         this.destroy$.next();
         this.destroy$.complete();
     }

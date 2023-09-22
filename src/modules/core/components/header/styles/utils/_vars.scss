@@ -33,6 +33,7 @@ $themeUniversal: map-merge((
         375: 70px,
         1630: 100px,
     ),
+
     'headerPadding': (
         375: 0,
         1200: 0 ef.size(2),
@@ -44,7 +45,8 @@ $themeUniversal: map-merge((
         1024: 0 0 0 ef.size(2),
     ),
     'headerLogoMaxWidth': (
-        375: 144px,
+        375: auto,
+        1200: 144px,
     ),
     'headerSvgLogoWidth': (
         375: auto,
@@ -101,6 +103,40 @@ $themeUniversal: map-merge((
         375: none,
         1366: block
     ),
+
+    // Wolf
+    'headerMinHeightWolf': (
+        375: 60px,
+    ),
+    'headerGridColumnsWolf': (
+        375: 1fr auto,
+        1200: minmax(0, max-content) minmax(min-content, 1fr) auto,
+    ),
+
+    'baseDisplayWolf': (
+        375: none,
+        1200: flex,
+    ),
+    'baseJustifyContentWolf': center,
+
+    'searchWidthLogoWolf': 80px,
+    'searchJustifyContentLogoWolf': flex-start,
+    'searchFontWolf': 'ThirdTitle',
+    'searchColorWolf': var(--fc-labelColor),
+    'searchBgWolf': var(--fc-inputBg),
+    'searchBorderWolf': ef.get('radius', 'main'),
+    'searchMinWidthWolf': 200px,
+    'searchWidthWolfMin': 40px,
+    'searchHeightWolf': 40px,
+    'searchPaddingWolf': ef.size(2),
+
+    'searchSvgFillWolf': var(--fc-iconColor),
+    'searchSvgFillHoverWolf': var(--mc-baseThird),
+
+    'searchTextDisplayWolf': flex,
+    'searchTextWidthWolf': 100%,
+    'searchTextJustifyContentWolf': space-between,
+    'searchTextJustifyContentWolfMin': center,
 ), $customThemeUniversal);
 
 $customStickyHeader: () !default;
@@ -116,4 +152,8 @@ $stickyHeader: map-merge((
         1630: 0.7,
     ),
     'transition': transform 0.3s ease-in-out,
+
+    'headerMinHeightWolf': (
+        375: 60px,
+    ),
 ), $customStickyHeader);
