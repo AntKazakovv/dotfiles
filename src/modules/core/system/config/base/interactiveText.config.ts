@@ -3,7 +3,7 @@ import {IInteractiveText} from 'wlc-engine/modules/core/system/interfaces/base-c
 export const interactiveTextConfig: IInteractiveText[] = [
     {
         title: gettext('Do you want more promo content?'),
-        text: gettext('See all bonuses'),
+        text: gettext('Show all bonuses'),
         actionParams: {
             url: {
                 path: 'app.profile.loyalty-bonuses.main',
