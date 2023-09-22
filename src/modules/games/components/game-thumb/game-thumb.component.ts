@@ -105,6 +105,8 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
         return this.game?.merchantID === 913 && !!this.pragmaticDGA;
     }
 
+    public pplTheme: 'default' | 'hidden' = 'default';
+
     protected deviceType: DeviceType;
     protected mediaFormatTypes: IIndexing<string>;
     protected currentLanguage: string;
@@ -145,6 +147,10 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
         this.favoriteIcon = this.$params?.themeMod === 'wolf'
             ? '/wlc/icons/favorite-wolf.svg'
             : '/wlc/icons/favourite.svg';
+
+        if (this.$params.common?.pplMoreIcon?.use) {
+            this.pplTheme = 'hidden';
+        }
 
         this.init();
     }
@@ -322,11 +328,11 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
      */
     public startGame(demo: boolean, modal: boolean, $event: Event): void {
         $event.stopPropagation();
-
         this.gamesCatalogService.launchGame(this.game, {
             demo,
             modal: {
                 show: modal,
+                showPplInfo: this.hasPragmaticDGA,
             },
         });
     }
@@ -381,6 +387,14 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
     public merchantIconErrorHolder(): void {
         this.merchantIconPath = '';
         this.removeModifiers('merchant-icon');
+    }
+
+    public showGameInfo(): void {
+        this.addModifiers('ppl-show');
+    }
+
+    public hideGameInfo(): void {
+        this.removeModifiers('ppl-show');
     }
 
     /**

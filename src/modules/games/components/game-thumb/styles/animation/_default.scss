@@ -34,6 +34,21 @@
         }
     }
 
+    &.wlc-game-thumb--ppl-show {
+
+        @include bm.hover {
+
+            .wlc-game-thumb {
+
+                &__ppl,
+                &__ppl-limits {
+                    opacity: 1;
+                    pointer-events: auto;
+                }
+            }
+        }
+    }
+
     @include bm.hover {
 
         .wlc-game-thumb {

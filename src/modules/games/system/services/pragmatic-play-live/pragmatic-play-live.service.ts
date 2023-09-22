@@ -204,7 +204,6 @@ export class PragmaticPlayLiveService {
     }
 
     private onMessage(data: PragmaticLiveData): void {
-
         if (data.tableId && this.subscribed[data.tableId].subscribers) {
             const pragmaticData = new PragmaticLiveModel(
                 {

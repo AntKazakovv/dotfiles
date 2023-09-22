@@ -46,6 +46,7 @@
 
         &__img,
         &__desc,
+        &__ppl-more-block,
         &__desc:before {
             position: absolute;
             top: 0;
@@ -73,6 +74,7 @@
         &__desc {
             @include bm.get-mq-map('display', $themeDefault, 'descDisplay');
             @include bm.transition(opacity);
+            z-index: ef.get-value($themeDefault, 'descZIndex');
             grid-template-rows: ef.get-value($themeDefault, 'descGridRows');
             padding: ef.get-value($themeDefault, 'descPadding');
 
@@ -142,8 +144,8 @@
                 @include bm.get-mq-map('width', $themeDefault, 'merchantsBlockW');
                 @include bm.get-mq-map('height', $themeDefault, 'merchantsBlockH');
                 position: absolute;
-                top: ef.get-value($themeDefault, 'merchantsPostion');
-                right: ef.get-value($themeDefault, 'merchantsPostion');
+                top: ef.get-value($themeDefault, 'merchantsPosition');
+                right: ef.get-value($themeDefault, 'merchantsPosition');
                 z-index: 10;
                 display: flex;
                 align-items: center;
@@ -196,44 +198,31 @@
 
         &__ppl {
             @include bm.transition(all);
-            position: absolute;
-            bottom: ef.get-value($themeDefault, 'pplPosition');
-            z-index: 1;
-            width: ef.get-value($themeDefault, 'pplWidth');
-            background: ef.get-value($themeDefault, 'pplBg');
 
             &-limits {
                 @include bm.transition(all);
                 @include text.get-text-style(ef.get-value($themeDefault, 'pplLimitsText'));
 
-                position: absolute;
-                top: ef.get-value($themeDefault, 'pplLimitsPosition');
-                left: ef.get-value($themeDefault, 'pplLimitsPosition');
-                z-index: 10;
-                padding: ef.get-value($themeDefault, 'pplLimitsPadding');
-                background: ef.get-value($themeDefault, 'pplBg');
-                border-radius: ef.get-value($themeDefault, 'pplLimitsRadius');
+                &.default {
+                    position: absolute;
+                    top: ef.get-value($themeDefault, 'pplLimitsPosition');
+                    left: ef.get-value($themeDefault, 'pplLimitsPosition');
+                    z-index: 10;
+                    padding: ef.get-value($themeDefault, 'pplLimitsPadding');
+                    background: ef.get-value($themeDefault, 'pplBg');
+                    border-radius: ef.get-value($themeDefault, 'pplLimitsRadius');
+                }
             }
 
             &-info {
                 @include text.get-text-style(ef.get-value($themeDefault, 'pplTextStyle', 375));
                 display: flex;
-                align-items: ef.get-value($themeDefault, 'pplInfoAlign');
-                justify-content: ef.get-value($themeDefault, 'pplInfoJustify');
-                min-height: ef.get-value($themeDefault, 'pplInfoHeight');
-                padding: ef.get-value($themeDefault, 'pplInfoPadding');
-
-                &--no-available-place {
-                    justify-content: flex-end;
-                }
 
                 &-item {
                     @include bm.get-mq-map('min-width', $themeDefault, 'pplItemMin');
                     display: flex;
-                    align-items: ef.get-value($themeDefault, 'pplItemAlign');
 
                     .wlc-icon {
-                        margin: ef.get-value($themeDefault, 'pplItemMargin');
                         line-height: 0;
 
                         ::ng-deep {
@@ -262,20 +251,28 @@
 
             &-results {
                 display: flex;
+                align-items: ef.get-value($themeDefault, 'pplResultsBlockAlign');
 
                 &-item {
-                    @include text.get-text-style(ef.get-value($themeDefault, 'pplResultTextStyle'));
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'pplResultTextStyle'),
+                        ef.get-value($themeDefault, 'pplResultTextColor')
+                    );
                     display: flex;
                     align-items: ef.get-value($themeDefault, 'pplResultsAlign');
                     justify-content: ef.get-value($themeDefault, 'pplResultsJustify');
                     width: ef.get-value($themeDefault, 'pplResultsSize');
                     height: ef.get-value($themeDefault, 'pplResultsSize');
-                    border: ef.get-value($themeDefault, 'pplResultBorder');
+                    border-radius: ef.get-value($themeDefault, 'pplResultRadius');
+                    margin-right: ef.get-value($themeDefault, 'pplResultMarginR');
 
                     &:first-child {
                         width: ef.get-value($themeDefault, 'pplResultsFirstSize');
                         height: ef.get-value($themeDefault, 'pplResultsFirstSize');
-                        margin: ef.get-value($themeDefault, 'pplResultsFirstMargin');
+                    }
+
+                    &--black {
+                        background-color: ef.get-value($themeDefault, 'pplItemBlack');
                     }
 
                     &--red {
@@ -289,6 +286,93 @@
                     &--blue {
                         background-color: ef.get-value($themeDefault, 'pplItemBlue');
                     }
+                }
+            }
+
+            &-more-block {
+                @include bm.transition(opacity);
+                @include bm.get-mq-map('display', $themeDefault, 'pplMoreBlockDisplay');
+                z-index: ef.get-value($themeDefault, 'pplMoreBlockZIndex');
+                grid-auto-rows: max-content;
+                gap: ef.get-value($themeDefault, 'pplMoreBlockGap');
+                padding: ef.get-value($themeDefault, 'pplMoreBlockPadding');
+                background: ef.get-value($themeDefault, 'pplMoreBlockBg');
+                opacity: 0;
+
+                .wlc-game-thumb__name {
+                    max-width: ef.get-value($themeDefault, 'pplMoreNameMaxWidth');
+                }
+
+                .wlc-game-thumb__ppl-info-text,
+                .wlc-game-thumb__ppl-limits {
+                    font-weight: ef.get-value($themeDefault, 'pplMoreTextWeight');
+                }
+            }
+
+            &-more-icon {
+                @include bm.get-mq-map('display', $themeDefault, 'pplMoreIconDisplay');
+
+                position: absolute;
+                top: ef.get-value($themeDefault, 'pplMoreIconTop');
+                right: ef.get-value($themeDefault, 'pplMoreIconRight');
+                z-index: ef.get-value($themeDefault, 'pplMoreIconZIndex');
+                color: ef.get-value($themeDefault, 'pplMoreIconColor');
+                line-height: 1;
+
+                ::ng-deep {
+
+                    svg {
+                        fill: currentColor;
+                    }
+                }
+
+                @include bm.hover {
+                    color: ef.get-value($themeDefault, 'pplMoreIconColorHover');
+                }
+            }
+
+            &.default {
+                position: absolute;
+                bottom: ef.get-value($themeDefault, 'pplPosition');
+                z-index: 1;
+                width: ef.get-value($themeDefault, 'pplWidth');
+                padding: ef.get-value($themeDefault, 'pplPadding');
+                background: ef.get-value($themeDefault, 'pplBg');
+
+                .wlc-game-thumb__ppl-info {
+                    align-items: ef.get-value($themeDefault, 'pplItemAlign');
+                    justify-content: ef.get-value($themeDefault, 'pplInfoJustify');
+
+                    &--no-available-place {
+                        justify-content: flex-end;
+                    }
+
+                    .wlc-icon {
+                        margin: ef.get-value($themeDefault, 'pplDefaultIconMargin');
+                    }
+                }
+
+                .wlc-game-thumb__ppl-results {
+                    margin: ef.get-value($themeDefault, 'pplDefaultResultsBlockMargin');
+                }
+            }
+
+            &.hidden {
+
+                .wlc-game-thumb__ppl-info {
+                    flex-direction: ef.get-value($themeDefault, 'pplHiddenInfoDirection');
+
+                    &-item {
+                        margin: ef.get-value($themeDefault, 'pplHiddenItemMargin');
+                    }
+
+                    .wlc-icon {
+                        margin: ef.get-value($themeDefault, 'pplHiddenIconMargin');
+                    }
+                }
+
+                .wlc-game-thumb__ppl-results {
+                    margin: ef.get-value($themeDefault, 'pplHiddenResultsBlockMargin');
                 }
             }
         }
@@ -312,6 +396,76 @@
             height: ef.get-value($themeDefault, 'jackpotHeight');
             padding: ef.get-value($themeDefault, 'jackpotPadding');
             background: ef.get-value($themeDefault, 'jackpotBg');
+        }
+    }
+
+    &.wlc-game-thumb--ppl-show {
+
+        &.wlc-game-thumb--theme-mod-default,
+        &.wlc-game-thumb--theme-mod-circle,
+        &.wlc-game-thumb--theme-mod-vertical {
+
+            .wlc-game-thumb__desc[class] {
+                opacity: 0;
+            }
+        }
+
+        .wlc-game-thumb {
+
+
+            &__ppl {
+
+                &-more-block {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    &.wlc-game-thumb--type-ppl-info {
+        margin: ef.get-value($themeDefaultPplInfo, 'margin');
+        background: ef.get-value($themeDefaultPplInfo, 'background');
+
+        .wlc-game-thumb {
+
+            &__title {
+                @include text.get-text-style(ef.get-value($themeDefaultPplInfo, 'titleStyle'), ef.get-value($themeDefaultPplInfo, 'titleColor'));
+            }
+
+            &__info {
+                margin: ef.get-value($themeDefaultPplInfo, 'infoMargin');
+            }
+
+            &__item {
+                @include text.get-text-style(ef.get-value($themeDefaultPplInfo, 'itemTextStyle'), ef.get-value($themeDefaultPplInfo, 'itemTextColor'));
+                display: flex;
+                align-items: ef.get-value($themeDefaultPplInfo, 'itemAlign');
+                justify-content: ef.get-value($themeDefaultPplInfo, 'itemJustifyContent');
+                min-height: ef.get-value($themeDefaultPplInfo, 'itemMinHeight');
+                margin: ef.get-value($themeDefaultPplInfo, 'itemMargin');
+                padding: ef.get-value($themeDefaultPplInfo, 'itemPadding');
+                background: ef.get-value($themeDefaultPplInfo, 'itemBg');
+
+                &:first-child {
+                    border-radius: ef.get-value($themeDefaultPplInfo, 'itemFirstChildRadius');
+                }
+
+                &:last-child {
+                    border-radius: ef.get-value($themeDefaultPplInfo, 'itemLastChildRadius');
+                }
+
+                @include bm.colorThemeAlt {
+                    background: ef.get-value($themeDefaultPplInfo, 'itemBgAlt');
+                }
+            }
+
+            &__item--results {
+
+                .wlc-game-thumb__item-value {
+                    display: flex;
+                    align-items: ef.get-value($themeDefaultPplInfo, 'resultsValueAlign');
+                }
+            }
         }
     }
 

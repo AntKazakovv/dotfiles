@@ -13,6 +13,7 @@ $themeDefault: map-merge((
     'placeholderBgImgSize': 50%,
 
     'descPadding': ef.size(2),
+    'descZIndex': 5,
     'descDisplay': (
         375: none,
         1024: grid,
@@ -62,10 +63,12 @@ $themeDefault: map-merge((
 
     'pplTextStyle': (
         375: 'SignText',
-        900: 'PrimaryText',
+        900: 'CaptionText',
     ),
+    'pplResultTextColor': ef.get('mainColors', 'baseMain'),
     'pplPosition': 0,
     'pplWidth': 100%,
+    'pplPadding': ef.size(1) ef.size(2),
     'pplBg': var(--mc-bg-o8),
     'pplLimitsText': 'CaptionText',
     'pplLimitsPadding': ef.size(1) ef.size(2),
@@ -75,34 +78,62 @@ $themeDefault: map-merge((
     'pplInfoAlign': center,
     'pplInfoJustify': space-between,
     'pplInfoHeight': 40px,
-    'pplInfoPadding': ef.size(1),
+
+    'pplHiddenInfoDirection': column,
 
     'pplItemAlign': center,
-    'pplItemMargin': 0 ef.size(1) 0,
-    'pplItemRed': #ea7561,
-    'pplItemGreen': #49afab,
-    'pplItemBlue': #679ed0,
+    'pplItemBlack': #000000,
+    'pplItemRed': #dd4747,
+    'pplItemGreen': #36b36f,
+    'pplItemBlue': #5081ff,
     'pplItemMin': (
         375: 40px,
         1200: 50px,
     ),
 
+    'pplHiddenItemMargin': 0 0 ef.size(2),
+
+    'pplDefaultIconMargin': 0 ef.size(1) 0,
+    'pplHiddenIconMargin': 0 ef.size(1) 0 0,
+
+    'pplResultsBlockAlign': center,
     'pplResultsAlign': center,
     'pplResultsJustify': center,
-    'pplResultsSize': 20px,
+    'pplResultsSize': ef.size(3),
     'pplResultTextStyle': 'SignText',
-    'pplResultBorder': 1px solid var(--mc-bg100),
+    'pplResultRadius': 3px,
+    'pplResultMarginR': 2px,
 
-    'pplResultsFirstSize': 24px,
-    'pplResultsFirstMargin': -2px 0,
+    'pplDefaultResultsBlockMargin': 0 0 ef.size(1),
+    'pplHiddenResultsBlockMargin': 0 0 ef.size(2),
 
-    'pplIconWidth': (
-        320: 15px,
-        900: 20px,
+    'pplResultsFirstSize': ef.size(4),
+
+    'pplIconWidth': 14px,
+    'pplIconColor': var(--mc-baseMain),
+
+    'pplMoreIconDisplay': (
+        375: none,
+        1024: block,
     ),
-    'pplIconColor': var(--mc-main),
+    'pplMoreIconTop': ef.size(2),
+    'pplMoreIconRight': ef.size(2),
+    'pplMoreIconZIndex': 5,
+    'pplMoreIconColor': var(--mc-baseMain-o6),
+    'pplMoreIconColorHover': var(--mc-baseMain),
 
-    'merchantsPostion': 0,
+    'pplMoreBlockDisplay': (
+        375: none,
+        1024: grid,
+    ),
+    'pplMoreBlockBg': var(--mc-bg700-o8),
+    'pplMoreBlockZIndex': 4,
+    'pplMoreBlockPadding': ef.size(2),
+    'pplMoreBlockGap': ef.size(2),
+    'pplMoreNameMaxWidth': 200px,
+    'pplMoreTextWeight': bold,
+
+    'merchantsPosition': 0,
     'merchantsPadding': ef.size(1),
     'merchantsBg': var(--mc-bg-o8),
     'merchantsRadius': 0 ef.get('radius', 'biger'),
@@ -389,6 +420,30 @@ $btnsLayout: map-merge((
     'btnsNoDemoGridRowsWolf': 1fr,
     'btnsNoDemoAlignItemsWolf': center,
 ), $customBtnsLayout);
+
+$customThemeDefaultPplInfo: () !default;
+$themeDefaultPplInfo: map-merge((
+    'background': none,
+    'margin': ef.size(8) 0 0,
+
+    'titleStyle': 'ButtonText',
+    'titleColor': var(--mc-baseMain),
+
+    'infoMargin': ef.size(2) 0 0,
+    'itemBg': #1e2630,
+    'itemBgAlt': #e5eaf2,
+    'itemTextStyle': 'CaptionText',
+    'itemTextColor': var(--mc-baseMain),
+    'itemJustifyContent': space-between,
+    'itemAlign': center,
+    'itemMinHeight': ef.size(6),
+    'itemPadding': 0 ef.size(2),
+    'itemMargin': 1px,
+    'itemFirstChildRadius': 4px 4px 0 0,
+    'itemLastChildRadius': 0 0 4px 4px,
+
+    'resultsValueAlign': center,
+), $customThemeDefaultPplInfo);
 
 /*
     set 'use': true, if you will be use custom animation

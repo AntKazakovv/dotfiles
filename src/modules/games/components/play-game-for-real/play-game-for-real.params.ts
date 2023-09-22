@@ -30,6 +30,7 @@ export interface IPlayGameForRealCParams extends IAbstractSignInFormCParams<Comp
         customModifiers?: CustomMod;
         game?: Game,
         disableDemo?: boolean;
+        showPplInfo?: boolean;
     };
     modifiers?: Modifiers[];
 }
@@ -50,6 +51,20 @@ export const Events: IIndexing<string> = {
     SIGN_UP: 'signUp@playGameForRealModal',
 };
 
+const insertPplInfo = (game: Game): IFormComponent => {
+
+    return {
+        name: 'games.wlc-game-thumb',
+        params: {
+            themeMod: 'default',
+            type: 'ppl-info',
+            common: {
+                game: game,
+            },
+        },
+    };
+};
+
 interface IPlayForRealParams {
     game: Game,
     disableDemo: boolean;
@@ -61,6 +76,7 @@ interface IPlayForRealParams {
     useLogin?: boolean;
     /** Hide items that are unnecessary for the kiosk */
     isKiosk?: boolean;
+    showPplInfo?: boolean;
 }
 
 export const templateSignUp = {
@@ -214,6 +230,7 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
             },
         },
         ...demoBtn,
+        params.showPplInfo ? insertPplInfo(params.game) : null,
     ];
 
     return {

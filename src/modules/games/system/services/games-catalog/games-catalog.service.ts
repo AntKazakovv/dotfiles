@@ -119,6 +119,7 @@ export interface ILaunchGameModal {
     show: boolean;
     deviceType?: DeviceType[];
     disableDemo?: boolean;
+    showPplInfo?: boolean;
 }
 
 export interface ILaunchGameParams {
@@ -1068,7 +1069,11 @@ export class GamesCatalogService {
                     params.modal.deviceType.includes(this.deviceType)
                 )
             ) {
-                this.showRunGameModal(game, (disableDemo || !game.hasDemo) ? true : params.modal.disableDemo);
+                this.showRunGameModal(
+                    game,
+                    (disableDemo || !game.hasDemo) ? true : params.modal.disableDemo,
+                    params.modal.showPplInfo,
+                );
                 return;
             }
 
@@ -1089,12 +1094,13 @@ export class GamesCatalogService {
         }
     }
 
-    public showRunGameModal(game: Game, disableDemo?: boolean): void {
+    public showRunGameModal(game: Game, disableDemo?: boolean, showPplInfo?: boolean): void {
 
         this.modalService.showModal<IPlayGameForRealCParams>('runGame', {
             common: {
                 game: game,
                 disableDemo: !!disableDemo,
+                showPplInfo: showPplInfo,
             },
         });
     }

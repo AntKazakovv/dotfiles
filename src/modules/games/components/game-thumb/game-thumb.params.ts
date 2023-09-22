@@ -9,6 +9,7 @@ import {Game} from 'wlc-engine/modules/games';
 import * as ButtonParams from 'wlc-engine/modules/core/components/button/button.params';
 
 export type Type = 'default'
+
     | 'modal'
     | 'vertical'
     | 'promo-widget'
@@ -17,6 +18,8 @@ export type Type = 'default'
     | 'promo-game'
     /** Only picture/video thumb, without any controls, title and hover-effects */
     | 'simple'
+    | 'circle-btn'
+    | 'ppl-info'
     | CustomType;
 export type Theme = 'default' | 'vertical' | 'promo-widget' | 'horizontal' | CustomType;
 export type ThemeMod = 'default' | 'vertical' | 'circle' | 'mobile-app' | 'wolf' | CustomType;
@@ -99,6 +102,10 @@ export interface IGameThumbCParams extends IComponentParams<Theme, Type, ThemeMo
         gameId?: number | number[];
         useMerchantName?: boolean,
         promoWidget?: IGamePromoWidget;
+        pplMoreIcon?: {
+            use?: boolean,
+            iconPath?: string,
+        },
         /**
          * merchant icon usage params
          */
@@ -149,6 +156,9 @@ export const defaultParams: IGameThumbCParams = {
         promoWidget: {
             title: gettext('New game'),
             gameCategory: 'new',
+        },
+        pplMoreIcon: {
+            iconPath: '/wlc/icons/info.svg',
         },
     },
     showJackpotAmount: false,

@@ -78,6 +78,7 @@ export class PlayGameForRealComponent extends SignInFormAbstract<Params.IPlayGam
             authenticated: this.configService.get<boolean>('$user.isAuthenticated'),
             useLogin: this.configService.get<boolean>('$base.site.useLogin'),
             isKiosk: this.configService.get<AppType>('$base.app.type') === 'kiosk',
+            showPplInfo: this.params.common?.showPplInfo,
         });
     }
 
