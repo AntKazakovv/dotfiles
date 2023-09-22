@@ -31,6 +31,6 @@ export const defaultParams: IStoreTitleCParams = {
     componentName: 'wlc-store-title',
     class: 'wlc-store-title',
     common: {
-        text: gettext('Market'),
+        text: gettext('Store'),
     },
 };

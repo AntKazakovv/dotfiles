@@ -255,7 +255,7 @@ export namespace wlcTitle {
                     name: 'core.wlc-title',
                     params: <ITitleCParams>{
                         customMod: ['profile'],
-                        mainText: gettext('Market'),
+                        mainText: gettext('Store'),
                         wlcElement: 'header_store',
                     },
                 },

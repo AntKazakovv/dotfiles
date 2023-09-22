@@ -119,7 +119,7 @@ export const wlcSidebarMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
     },
     'sidebar-menu:market': {
-        name: gettext('Market'),
+        name: gettext('Store'),
         type: 'sref',
         auth: true,
         icon: 'market',

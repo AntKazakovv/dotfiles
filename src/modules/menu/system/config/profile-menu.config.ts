@@ -480,7 +480,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     },
 
     'profile-menu:market': {
-        name: gettext('Market'),
+        name: gettext('Store'),
         type: 'title',
         icon: 'market',
         class: 'market',
@@ -494,7 +494,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     },
 
     'profile-menu:market-with-categories': {
-        name: gettext('Market'),
+        name: gettext('Store'),
         type: 'market',
         icon: 'market',
         class: 'market',
@@ -508,7 +508,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     },
 
     'profile-first-menu:market': {
-        name: gettext('Market'),
+        name: gettext('Store'),
         type: 'title',
         icon: 'market',
         class: 'market',
