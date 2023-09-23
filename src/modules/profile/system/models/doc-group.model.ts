@@ -173,11 +173,21 @@ export class DocGroupModel extends AbstractDocModel<IDocType> {
     }
 
     /**
-     * Doc type description
+     * Doc type full description
      *
      * @returns {string}
      */
-    public get description(): string {
-        return this.data.Description;
+    public get fullDescription(): string {
+        return this.data.FullDescription;
     }
+
+    /**
+     * Doc type short description
+     *
+     * @returns {string}
+     */
+    public get shortDescription(): string {
+        return this.data.ShortDescription;
+    }
+
 }

@@ -101,6 +101,10 @@ export class VerificationGroupComponent extends AbstractComponent implements OnI
         }
     }
 
+    public showFullDescription(): void {
+        this.verificationService.showModalFullDescription(this.currentDocGroup);
+    }
+
     /**
      * Delete document
      *

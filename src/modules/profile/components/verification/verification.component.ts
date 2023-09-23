@@ -152,6 +152,10 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
         this.cdr.markForCheck();
     }
 
+    public showFullDescription(): void {
+        this.verificationService.showModalFullDescription(this.currentDocGroup);
+    }
+
     /**
      * Upload file
      *

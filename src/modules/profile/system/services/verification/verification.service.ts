@@ -9,6 +9,7 @@ import {
     IData,
     NotificationEvents,
     LogService,
+    ModalService,
 } from 'wlc-engine/modules/core';
 import {DocModel} from 'wlc-engine/modules/profile/system/models/doc.model';
 import {
@@ -16,6 +17,7 @@ import {
     IDocType,
 } from 'wlc-engine/modules/profile/system/interfaces/verification.interface';
 import {CustomAsyncHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
+import {DocGroupModel} from 'wlc-engine/modules/profile/system/models/doc-group.model';
 
 @Injectable({
     providedIn: 'root',
@@ -26,6 +28,7 @@ export class VerificationService {
         private dataService: DataService,
         private eventService: EventService,
         private logService: LogService,
+        private modalService: ModalService,
     ) {
         this.init();
     }
@@ -175,6 +178,25 @@ export class VerificationService {
                 done(evt.target.result as string);
             };
             reader.readAsDataURL(file);
+        });
+    }
+
+    /**
+     * Shows a modal with a full description of the document
+     *
+     * @param {DocGroupModel} docGroup Selected document
+     * @returns {void}
+     */
+    public showModalFullDescription(docGroup: DocGroupModel): void {
+        this.modalService.showModal({
+            id: 'document-description',
+            modifier: 'document-description',
+            size: 'md',
+            showConfirmBtn: true,
+            confirmBtnText: 'Ok',
+            rejectBtnVisibility: false,
+            modalTitle: docGroup.name,
+            html: docGroup.fullDescription,
         });
     }
 

@@ -2,7 +2,8 @@ export interface IDocType {
     ID: string;
     Name: string;
     TypeKey: string;
-    Description?: string;
+    FullDescription?: string;
+    ShortDescription?: string;
 }
 
 export enum ValidationStatus {

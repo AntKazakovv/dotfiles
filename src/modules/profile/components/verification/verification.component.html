@@ -51,11 +51,19 @@
                     </span>
                 </p>
             </div>
-            <ul *ngIf="$params.requirements?.length" class="{{$class}}-requirements">
-                <li *ngFor="let requirement of $params.requirements"  class="{{$class}}-requirements__item">
-                    {{requirement | translate}}
-                </li>
-            </ul>
+
+            <div *ngIf="currentDocGroup.shortDescription; else requirements" class="{{$class}}-requirements">
+                {{currentDocGroup.shortDescription}}
+            </div>
+
+            <div *ngIf="currentDocGroup.fullDescription"
+                class="{{$class}}__description-full"
+                wlc-alert
+                level="info"
+                [title]="'Guidelines for documentation uploading' | translate"
+                (click)="showFullDescription()">
+            </div>
+
             <div class="{{$class}}__upload-docs">
                 <div *ngIf="!currentDocGroup.docs.length" class="{{$class}}__title">
                     {{'No uploaded documents' | translate}}
@@ -105,4 +113,12 @@
 
 <ng-template #loader>
     <div wlc-loader *ngIf="!loaded"></div>
+</ng-template>
+
+<ng-template #requirements>
+    <ul *ngIf="$params.requirements?.length" class="{{$class}}-requirements">
+        <li *ngFor="let requirement of $params.requirements"  class="{{$class}}-requirements__item">
+            {{requirement | translate}}
+        </li>
+    </ul>
 </ng-template>

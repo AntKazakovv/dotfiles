@@ -43,7 +43,7 @@ $themeDefault: map-merge((
     'docIconOffset': ef.size(1),
     'gridAreas': (
         375: 'select' 'dropzone' 'req-list' 'docs-list',
-        1024: 'select docs-list' 'dropzone docs-list' 'req-list docs-list',
+        1024: 'select docs-list' 'dropzone docs-list' 'req-list docs-list' 'description-full docs-list',
     ),
     'docsStatusAwaiting': var(--mc-warning),
     'docsStatusValidated': var(--mc-success),
@@ -124,4 +124,6 @@ $themeDefault: map-merge((
     'reqItemFontColor': var(--mc-baseMain),
     'markerColor': var(--mc-main),
 
+    'dfColor': var(--mc-main),
+    'dfColorHover': var(--mc-baseMain),
 ), $customThemeDefault);

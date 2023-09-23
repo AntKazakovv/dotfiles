@@ -34,6 +34,7 @@
 
         &__doc-type-wrp {
             display: ef.get-value($themeDefault, 'docTypeDisplay');
+            flex: ef.get-value($themeDefault, 'docTypeFlex');
             flex-direction: ef.get-value($themeDefault, 'docTypeDirection');
             align-items: ef.get-value($themeDefault, 'docTypeAlignItems');
 
@@ -119,10 +120,11 @@
             padding: ef.get-value($themeDefault, 'requiredPadding');
         }
 
-        &__description {
+        &__description-short {
             @include text.get-text-style(ef.get-value($themeDefault, 'textFont'), ef.get-value($themeDefault, 'color'));
 
-            padding: ef.get-value($themeDefault, 'descriptionPadding');
+            padding: ef.get-value($themeDefault, 'dsPadding');
+            text-align: ef.get-value($themeDefault, 'dsTextAlign');
         }
 
         &__dropzone {
@@ -192,6 +194,33 @@
 
             .wlc-btn-upload {
                 margin: ef.get-value($themeDefault, 'uploadMargin');
+            }
+        }
+
+        &__description-full {
+            margin: ef.get-value($themeDefault, 'dfMargin');
+            cursor: pointer;
+
+            ::ng-deep {
+
+                .wlc-alert {
+
+                    &__title {
+                        color: ef.get-value($themeDefault, 'dfColor');
+                        text-decoration: underline;
+                    }
+
+                    &__text {
+                        display: none;
+                    }
+                }
+
+                @include bm.hover {
+
+                    .wlc-alert__title {
+                        color: ef.get-value($themeDefault, 'dfColorHover');
+                    }
+                }
             }
         }
 

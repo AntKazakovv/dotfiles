@@ -152,6 +152,34 @@
                 }
             }
 
+            &__description-full {
+                grid-area: description-full;
+                max-width: inherit;
+                cursor: pointer;
+
+                ::ng-deep {
+
+                    .wlc-alert {
+
+                        &__title {
+                            color: ef.get-value($themeDefault, 'dfColor');
+                            text-decoration: underline;
+                        }
+
+                        &__text {
+                            display: none;
+                        }
+                    }
+
+                    @include bm.hover {
+
+                        .wlc-alert__title {
+                            color: ef.get-value($themeDefault, 'dfColorHover');
+                        }
+                    }
+                }
+            }
+
             &__text {
 
                 @include text.get-text-style(ef.get-value($themeDefault, 'subTitleFont'), ef.get-value($themeDefault, 'color'));
