@@ -117,7 +117,7 @@ export const shownUserStatsConfig: IIndexing<IUserStatsItemConfig> = {
         wlcElement: 'block_user-stat_deposit-count',
     },
     freespins: {
-        name: gettext('Freespins'),
+        name: gettext('Free spins'),
         path: 'freespins',
         wlcElement: 'block_user-stat_freespins-count',
     },
