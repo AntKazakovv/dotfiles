@@ -189,7 +189,7 @@ export namespace CurrenciesInfo {
         FB: {
             svg: '/currency/fb.svg',
             name: gettext('FB'),
-            description: gettext('Free Bets'),
+            description: gettext('Free bets'),
         },
         EP: {
             svg: '/currency/exp.svg',
