@@ -625,12 +625,13 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
             excludeMerchants: this.$params.filter['excludeMerchants'] || [],
             ids: this.$params.filter['ids'],
             searchQuery: this.$params.filter['searchQuery'],
+            parentCategory: this.$params.filter['parentCategory'] || '',
         };
 
         const cat = this.$params.filter['categories']?.[0] || this.$params.filter['category'] || '';
         await this.preloadSpecialGames(filter);
 
-        const category = this.gamesCatalogService.getCategoryBySlug(cat);
+        const category = this.gamesCatalogService.getCategoryBySlug(cat, this.$params.filter['parentCategory']);
         if (category) {
             const currentLang = this.router.stateService.params?.locale || 'en';
             this.categoryTitle = category.title[currentLang] || category.title['en'];

@@ -15,6 +15,10 @@ export type IGamesFilterData = {
      * Otherwise, the search will be performed on regular games
      */
     includeSportsbooks?: boolean;
+    /**
+     * Filter games by parent category. Use with categories.
+     */
+    parentCategory?: string;
 }
 
 export type TFilterCacheKeys = 'modal' | string;

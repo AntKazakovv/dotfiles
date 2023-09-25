@@ -161,6 +161,7 @@ export class Catalog {
         const gameIds = filter?.ids;
         const withFreeRounds = filter?.withFreeRounds;
         const includeSportsbooks = filter?.includeSportsbooks;
+        const parentCategory = filter?.parentCategory;
 
         let searchQuery = filter?.searchQuery || '';
         let gameList: Game[] = _concat(
@@ -169,7 +170,15 @@ export class Catalog {
         );
 
         if (includeCategories.length) {
-            const categories: CategoryModel[] = this.getCategoriesBySlugs(includeCategories);
+            let categories: CategoryModel[] = [];
+            if (parentCategory) {
+                categories = _filter(this.getCategoriesBySlugs(includeCategories), (category: CategoryModel) => {
+                    return category.parentCategory?.slug === parentCategory;
+                });
+            } else {
+                categories = this.getCategoriesBySlugs(includeCategories);
+            }
+
             gameList = this.getGamesByCategories(categories);
 
             if (!searchQuery && categories.length > 1) {
