@@ -370,9 +370,9 @@ export class BonusesService {
                                         texts: {
                                             fromLink: this.translateService.instant(
                                                 gettext('Congratulations! You activated bonus'))
-                                                    + ` ${bonus.name}! `
-                                                    + this.translateService.instant(
-                                                        gettext('Bonus successfully added to the Bonuses page.')),
+                                                + ` ${bonus.name}! `
+                                                + this.translateService.instant(
+                                                    gettext('Bonus successfully added to the Bonuses page.')),
                                         },
                                     });
                                     break;
@@ -383,9 +383,9 @@ export class BonusesService {
                                         texts: {
                                             fromLink: this.translateService.instant(
                                                 gettext('Congratulations! You have got bonus'))
-                                                    + ` ${bonus.name}! `
-                                                    + this.translateService.instant(
-                                                        gettext('Bonus successfully added to the Bonuses page.')),
+                                                + ` ${bonus.name}! `
+                                                + this.translateService.instant(
+                                                    gettext('Bonus successfully added to the Bonuses page.')),
                                         },
                                     });
                                     break;
@@ -527,6 +527,8 @@ export class BonusesService {
      * @returns {Bonus} bonus object
      */
     public async cancelBonus(bonus: Bonus): Promise<Bonus> {
+        const params = {LBID: bonus.LBID};
+
         try {
             const response: IData = await this.dataService.request({
                 name: 'bonusCancel',
@@ -538,7 +540,7 @@ export class BonusesService {
                     success: 'BONUS_CANCEL_SUCCEEDED',
                     fail: 'BONUS_CANCEL_FAILED',
                 },
-            });
+            }, params);
             this.showSuccess(gettext('The bonus has been cancelled'));
             return response.data;
         } catch (error) {
