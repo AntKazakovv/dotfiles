@@ -10,6 +10,7 @@ export type ComponentThemeMod = 'default' | CustomType;
 export interface IEmailVerificationNotificationCParams extends
     IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
         useButtonGoToMail?: boolean;
+        excludeStates?: string[]; // exclude states - notification will not shown
     };
 
 export const defaultParams: IEmailVerificationNotificationCParams = {

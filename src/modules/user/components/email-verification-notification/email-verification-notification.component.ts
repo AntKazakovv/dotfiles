@@ -15,6 +15,13 @@ import {
 } from 'rxjs/operators';
 
 import {
+    Transition,
+    UIRouter,
+} from '@uirouter/core';
+
+import _includes from 'lodash-es/includes';
+
+import {
     AbstractComponent,
     ConfigService,
     BodyClassService,
@@ -47,6 +54,7 @@ export class EmailVerificationNotificationComponent extends AbstractComponent im
         protected userService: UserService,
         protected bodyClassService: BodyClassService,
         protected eventService: EventService,
+        protected router: UIRouter,
         @Inject(WINDOW) protected window: Window,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
@@ -67,6 +75,7 @@ export class EmailVerificationNotificationComponent extends AbstractComponent im
             )
             .subscribe();
 
+        this.checkExcludeStates();
         this.eventService.subscribe({
             name: 'EMAIL_VERIFY',
         }, () => {
@@ -84,7 +93,7 @@ export class EmailVerificationNotificationComponent extends AbstractComponent im
             value: true,
             storageType: 'localStorage',
         });
-        this.stateCheck();
+        this.changeVisibility(this.getState());
     }
 
     protected goToMail(): void {
@@ -147,17 +156,18 @@ export class EmailVerificationNotificationComponent extends AbstractComponent im
             });
         }
 
-        this.stateCheck();
-
+        this.changeVisibility(this.getState());
     }
 
-    protected stateCheck(): void {
-        const state: boolean = this.configService.get({
+    protected getState(): boolean {
+        return this.configService.get({
             name: 'verified',
             storageType: 'localStorage',
         });
+    }
 
-        if (state) {
+    protected changeVisibility(hidden: boolean): void {
+        if (this.isExcludeStates() || hidden) {
             this.show$.next(false);
             this.removeModifiers('show');
             this.bodyClassService.removeClassByPrefix('wlc-body--notify');
@@ -166,5 +176,21 @@ export class EmailVerificationNotificationComponent extends AbstractComponent im
             this.bodyClassService.addModifier('wlc-body--notify');
             this.addModifiers('show');
         }
+    }
+
+    //excludes states functionality
+
+    protected isExcludeStates(): boolean {
+        return _includes(this.$params?.excludeStates, this.router.globals.current.name);
+    }
+
+    protected checkExcludeStates(): void {
+        this.router.transitionService.onSuccess({}, (transition: Transition) => {
+            const stateName: string = transition.targetState().name();
+
+            if (!this.getState()) {
+                this.changeVisibility(_includes(this.$params?.excludeStates, stateName));
+            }
+        });
     }
 }
