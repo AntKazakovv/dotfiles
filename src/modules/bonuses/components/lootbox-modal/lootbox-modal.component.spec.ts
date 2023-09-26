@@ -159,7 +159,7 @@ describe('LootboxModalComponent', (): void => {
         component.ngOnInit();
         flushMicrotasks();
 
-        expect(component.title).toEqual('Lootbox');
+        expect(component.title).toEqual('Loot box');
         expect(_trim(nativeElement.querySelector(`.${defaultParams.class}__desc`).textContent))
             .toEqual('Press the "Spin" button to randomly select one of the bonuses');
         expect(component.slides.length).toBe(defaultParams.totalSlides);
@@ -214,7 +214,7 @@ describe('LootboxModalComponent', (): void => {
 
         await component.btnClick();
 
-        expect(component.title).toEqual('Lootbox');
+        expect(component.title).toEqual('Loot box');
         expect(component.lootboxStatus).toEqual('error');
         expect(_trim(nativeElement.querySelector(`.${defaultParams.class}__desc`).textContent))
             .toEqual('Failed to claim, please try again later');

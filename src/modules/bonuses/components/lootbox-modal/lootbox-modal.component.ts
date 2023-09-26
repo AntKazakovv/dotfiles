@@ -46,7 +46,7 @@ export class LootboxModalComponent extends AbstractComponent implements OnInit {
     public slidesReady: boolean = false;
     public override $params: Params.ILootboxModalCParams;
     public slides: ISlide[] = [];
-    public title: string = gettext('Lootbox');
+    public title: string = gettext('Loot box');
     public lootboxStatus: TLootboxStatus = 'open';
     public btnDisabled: boolean = false;
     public btnText: string = gettext('Spin');

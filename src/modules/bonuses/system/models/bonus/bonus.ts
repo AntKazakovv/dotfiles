@@ -826,7 +826,7 @@ export class Bonus extends AbstractModel<IBonus> {
         }
 
         if (this.isLootbox) {
-            return gettext('Lootbox');
+            return gettext('Loot box');
         }
 
         if (this.inventoried) {
