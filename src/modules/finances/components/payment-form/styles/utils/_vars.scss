@@ -1,0 +1,118 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'alertMargin': (
+        375: 0 0 ef.size(4),
+        480: 0 auto ef.size(4),
+        900: 0 0 ef.size(4),
+    ),
+    'formGridColumns': (
+        375: 1fr,
+    ),
+    'formJustifyItems': (
+        480: center,
+        900: start,
+    ),
+    'formGap': ef.size(2),
+    'formInputMaxWidth': (
+        375: 306px,
+        480: 330px,
+    ),
+
+    'formMargin': (
+        480: 0 auto,
+        900: 0,
+    ),
+
+    'additionalFieldsWidth': (
+        375: 100%,
+        480: 330px,
+        900: 100%,
+    ),
+
+    'amountWrapperGap': ef.size(1) ef.size(2),
+    'amountWrapperWidth': (
+        375: unset,
+        480: 100%,
+    ),
+    'amountWrapperMaxWidth': (
+        480: 330px,
+    ),
+    'amountWrapperColumns': (
+        375: 1fr,
+        900: minmax(330px, 1fr),
+    ),
+    'amountWrapperAreas': (
+        375: 'amount' 'limits' 'clear',
+        900: 'amount clear' 'limits limits',
+    ),
+
+    'mainBtnMargin': ef.size(4) 0 0,
+    'mainBtnJustify': (
+        375: center,
+        900: start,
+    ),
+    'mainBtnWidth': (
+        375: min-content,
+    ),
+
+    'hostedFieldsIframeWidth': 100%,
+    'hostedFieldsIframeHeight': 65px,
+    'hostedFieldsJustifyItems': (
+        375: center,
+        900: start,
+    ),
+
+    'withdrawNameTextStyle': 'PrimaryText',
+    'withdrawValTextStyle': 'PrimaryTextBold',
+    'withdrawNameColor': inherit,
+    'withdrawValColor': inherit,
+    'withdrawItemGap': ef.size(4) 0,
+    'withdrawItemPadding': ef.size(1) 0,
+    'withdrawItemUnderline': 1px solid var(--mc-baseOpacity),
+    'itemPadding': ef.size(1) 0,
+    'withdrawMargin': (
+        375: 0 auto ef.size(4),
+        480: 0 auto ef.size(4),
+        900: 0 0 ef.size(4),
+    ),
+    'withdrawGridGap': (
+        375: 0,
+        900: ef.size(4) 0,
+    ),
+    'withdrawMaxWidth': (
+        375: 100%,
+        480: 330px,
+    ),
+
+    'timerMargin': (
+        375: 0 auto ef.size(4),
+        900: 0 0 ef.size(4),
+    ),
+    'timerJustify': (
+        375: center,
+        900: flex-start,
+    ),
+
+    // Invoice buttons
+    'btnsDirection': (
+        375: column,
+        900: row,
+    ),
+    'btnsAlignment': (
+        375: center,
+        900: flex-start,
+    ),
+    'btnsMargin': ef.size(2) ef.size(-2) ef.size(-2),
+    'btnMargin': ef.size(2),
+    'editBtnMargin': (
+        375: 0 auto,
+        900: 0,
+    ),
+
+    'dividerMargin': ef.size(6) 0,
+    'dividerBg': var(--mc-baseOpacity),
+    'dividerHeight': 2px,
+    'dividerWidth': 100%,
+    'dividerRadius': ef.get('radius', 'biger'),
+    'dividerCryptoMargin': ef.size(6) 0,
+), $customThemeDefault);

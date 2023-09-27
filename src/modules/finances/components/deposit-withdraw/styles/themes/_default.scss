@@ -26,7 +26,6 @@
         }
 
         &__step {
-            @include hostedFieldsStyles($themeDefault);
 
             &--1 {
                 @include bm.get-mq-map('background', $themeDefault, 'step1Bg');
@@ -53,108 +52,8 @@
             }
         }
 
-        &__withdraw {
-            @include withdrawInfo($themeDefault);
-        }
-
-        &__fields {
-            @include bm.get-mq-map('--wlc-alert-margin', $themeDefault, 'alertMargin');
-            @include cashFields($themeDefault);
-        }
-
-        &__edit-profile-btn {
-            @include bm.get-mq-map('margin', $themeDefault, 'editProfileBtnMargin');
-        }
-
-        &__message {
-            @include text.get-text-style(ef.get-value($themeDefault, 'messageTextStyle'), ef.get-value($themeDefault, 'messageTextColor'));
-            max-width: ef.get-value($themeDefault, 'messageMaxWidth');
-            margin: ef.get-value($themeDefault, 'messageMargin');
-        }
-
-        &__timer {
-            @include bm.get-mq-map('margin', $themeDefault, 'timerMargin');
-            @include bm.get-mq-map('justify-content', $themeDefault, 'timerJustify');
-            display: flex;
-        }
-
-        &__crypto-block {
-
-            & + .wlc-cash__divider {
-                margin: ef.get-value($themeDefault, 'dividerCryptoMargin');
-
-                @include mq.min(640) {
-                    display: block;
-                }
-            }
-        }
-
-        &__invoice-btns {
-            @include bm.get-mq-map('flex-direction', $themeDefault, 'btnsDirection');
-            @include bm.get-mq-map('align-items', $themeDefault, 'btnsAlignment');
-            display: flex;
-            flex-wrap: wrap;
-            margin: ef.get-value($themeDefault, 'btnsMargin');
-        }
-
-        &__invoice-btn {
-            margin: ef.get-value($themeDefault, 'btnMargin');
-        }
-
-        &__form {
-
-            ::ng-deep {
-
-                .wlc-form {
-                    @include bm.get-mq-map('grid-template-columns', $themeDefault, 'formTemplateColumns');
-                    @include bm.get-mq-map('justify-items', $themeDefault, 'formJustifyItems');
-
-                    display: grid;
-                    gap: ef.get-value($themeDefault, 'formGap');
-                    align-items: start;
-                }
-
-                .wlc-field-container {
-                    @include bm.get-mq-map('max-width', $themeDefault, 'fieldContaninerMaxWidth');
-                    @include bm.get-mq-map('grid-template-areas', $themeDefault, 'fieldContaninerGridAreas');
-                    display: grid;
-                    grid-template-columns: ef.get-value($themeDefault, 'fieldContaninerGrid');
-                    gap: ef.get-value($themeDefault, 'fieldContaninerGap');
-                    max-width: 100%;
-
-                    .wlc-input--amount {
-                        grid-area: amount;
-                    }
-
-                    .wlc-amount-limit__wrap {
-                        grid-area: limits;
-                    }
-                }
-
-                .wlc-input,
-                .wlc-select,
-                .wlc-checkbox {
-                    @include bm.get-mq-map('max-width', $themeDefault, 'formInputMaxWidth');
-                }
-
-                .wlc-select__dropdown {
-                    word-break: break-all;
-                }
-
-                .wlc-btn--submit,
-                .wlc-btn--deposit {
-                    @include bm.get-mq-map('justify-self', $themeDefault, 'formSubmitJustifySelf');
-                    margin: ef.get-value($themeDefault, 'formSubmitMargin');
-                }
-
-                .wlc-additional-fields {
-                    @include bm.get-mq-map('grid-template-columns', $themeDefault, 'additionalFieldsTemplateColumns');
-                    @include bm.get-mq-map('max-width', $themeDefault, 'additionalFieldsMaxWidth');
-                    display: grid;
-                    gap: ef.get-value($themeDefault, 'additionalFieldsGap');
-                    width: 100%;
-                }
-            }
+        &__alert {
+            @include bm.get-mq-map('margin', $themeDefault, 'alertMargin');
         }
     }
 

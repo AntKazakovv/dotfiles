@@ -1,0 +1,155 @@
+<div *ngIf="mode === 'withdraw'" class="{{$class}}__withdraw">
+    <div class="{{$class}}__withdraw-item">
+        <span class="name">{{'Total balance' | translate}}</span>
+        <span wlc-currency
+              class="value"
+              [value]="userTotalBalance"
+              [currency]="currentCurrency"></span>
+    </div>
+    <div class="{{$class}}__withdraw-item">
+        <span class="name">{{'Available for withdrawal' | translate}}</span>
+        <span wlc-currency class="value"
+              [value]="userAvailableWithdraw"
+              [currency]="currentCurrency"></span>
+    </div>
+</div>
+
+<div *ngIf="requiredFieldsKeys.length"
+    class="{{$class}}__fields"
+    data-wlc-element="add_required_fields">
+    <div wlc-alert
+        [level]="'error'"
+        [title]="'Payment method is not available. Please, add the following info' | translate">
+
+        <ul>
+            <li *ngFor="let item of requiredFieldsKeys"
+                [attr.data-wlc-element]="requiredFields[item].template">
+                {{requiredFields[item].label | translate}}
+            </li>
+        </ul>
+    </div>
+    <button wlc-button
+        class="{{$class}}__edit-btn"
+        text="Edit profile"
+        wlcElement="add_info"
+        (click)="editProfile()"></button>
+</div>
+
+<ng-container *ngIf="showPaymentMessage">
+    <div wlc-payment-message
+        class="{{$class}}__crypto-block"
+        [inlineParams]="paymentMessageParams"
+        [system]="currentSystem"
+        [minAmount]="minAmount"
+        [maxAmount]="maxAmount">
+    </div>
+
+    <div class="{{$class}}__divider"></div>
+</ng-container>
+
+<ng-container *ngIf="isInvoicePending">
+    <div class="{{$class}}__alert"
+        wlc-alert
+        [title]="'The deposit application is already open' | translate"
+        [text]="'If you have already sent the payment and see this message, it means that the payment has not yet been accepted by the network. Reload the page to update the status.' | translate"
+        [level]="'warning'">
+    </div>
+
+    <div class="{{$class}}__timer"
+        wlc-timer
+        [value]="dateExpire"
+        [inlineParams]="timerParams"
+        (timerEnds)="onCryptoInvoiceExpires()">
+    </div>
+</ng-container>
+
+<div *ngIf="isInvoiceExpired" class="{{$class}}__alert"
+    wlc-alert
+    [title]="'The deposit period for the issued invoice has expired.' | translate"
+    [level]="'warning'">
+</div>
+
+<div *ngIf="showCryptoInfo('msg1')"
+    wlc-alert
+    [level]="'error'"
+    [title]="'Before you can proceed with the deposit, you must read and accept the terms.' | translate">
+</div>
+
+<div *ngIf="showCryptoInfo('msg2')"
+    wlc-alert
+    [title]="'Please click the Deposit button to create your wallet address.' | translate">
+</div>
+
+<div *ngIf="showCryptoInfo('msg3')" wlc-alert>
+    <span title>
+        {{'After you click on the "Deposit" button, the crypto rate will be fixed for 30 minutes.' | translate}}
+        <br>
+        {{'A modal window with the address specified to send the full amount of cryptocurrency will be opened. The full amount will be credited to your balance.' | translate}}
+    </span>
+</div>
+
+<ng-container *ngIf="isWaitingResponse">
+    <div wlc-loader></div>
+</ng-container>
+
+<ng-container *ngIf="showErrorHostedLoad">
+    <div *ngIf="true"
+        class="{{$class}}__alert"
+        wlc-alert
+        [title]="'Loading error. Sorry, this method is not available.' | translate"
+        [level]="'error'">
+    </div>
+</ng-container>
+
+<ng-container *ngIf="readyToShow">
+    <div *ngIf="isShowHostedBlock" class="wlc-hosted-fields">
+        <div id="wlc-hosted-fields"
+            class="wlc-hosted-fields__container"
+            [hidden]="!currentSystem.hostedFields.loaded">
+        </div>
+        <div *ngIf="currentSystem.hostedFields.errors" class="{{$class}}__alert"
+            wlc-alert
+            [title]="'An error has occurred. Please check the entered data and try again' | translate"
+            [level]="'error'">
+        </div>
+        <div *ngIf="!currentSystem.hostedFields.loaded" wlc-loader></div>
+    </div>
+
+    <div wlc-form-wrapper
+        class="{{$class}}__form"
+        [config]="prestepFormConfig"
+        [ngSubmit]="sendPrestepForm.bind(this)">
+    </div>
+
+    <div wlc-form-wrapper
+        class="{{$class}}__form"
+        [config]="formConfig"
+        [formData]="formData$"
+        (form$)="setAmountSubscriber($event)"
+        [beforeSubmit]="formBeforeSubmit.bind(this)"
+        [ngSubmit]="sendForm.bind(this)">
+    </div>
+
+    <div *ngIf="isInvoicePending" class="{{$class}}__invoice-btns">
+        <button class="{{$class}}__invoice-btn"
+            wlc-button
+            [text]="'Open'"
+            (click)="openInvoicePaymentMessage()">
+        </button>
+        <button class="{{$class}}__invoice-btn"
+            wlc-button
+            [text]="'Cancel'"
+            [themeMod]="'secondary'"
+            (click)="cancelInvoiceHandler()">
+        </button>
+    </div>
+
+    <div *ngIf="isInvoiceExpired" class="{{$class}}__invoice-btns">
+        <button class="{{$class}}__invoice-btn"
+            wlc-button
+            [text]="'Create new invoice' | translate"
+            [themeMod]="'secondary'"
+            (click)="createNewInvoice()">
+        </button>
+    </div>
+</ng-container>

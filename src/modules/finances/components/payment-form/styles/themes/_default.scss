@@ -1,0 +1,209 @@
+.wlc-payment-form--theme-default:host {
+    @include bm.get-mq-map('--wlc-alert-margin', $themeDefault, 'alertMargin');
+    @include bm.get-mq-map('--wlc-pf-input-size', $themeDefault, 'formInputMaxWidth');
+    @include bm.get-mq-map('--wlc-pf-hosted-justify-items', $themeDefault, 'hostedFieldsJustifyItems');
+    @include bm.get-mq-map('margin', $themeDefault, 'formMargin');
+
+    min-width: 0;
+    max-width: 100%;
+
+    .wlc-payment-form {
+
+        &__withdraw {
+            @include bm.get-mq-map('max-width', $themeDefault, 'withdrawMaxWidth');
+            @include bm.get-mq-map('margin', $themeDefault, 'withdrawMargin');
+            @include bm.get-mq-map('gap', $themeDefault, 'withdrawGridGap');
+            display: grid;
+
+            &-item {
+                display: flex;
+                gap: ef.get-value($themeDefault, 'withdrawItemGap');
+                align-items: center;
+                justify-content: space-between;
+                padding: ef.get-value($themeDefault, 'withdrawItemPadding');
+                border-bottom: ef.get-value($themeDefault, 'withdrawItemUnderline');
+
+                .name {
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'withdrawNameTextStyle'),
+                        ef.get-value($themeDefault, 'withdrawNameColor')
+                    );
+                }
+
+                .value {
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'withdrawValTextStyle'),
+                        ef.get-value($themeDefault, 'withdrawValColor')
+                    );
+                }
+            }
+        }
+
+        &__timer {
+            @include bm.get-mq-map('margin', $themeDefault, 'timerMargin');
+            @include bm.get-mq-map('justify-content', $themeDefault, 'timerJustify');
+            display: flex;
+        }
+
+        &__divider {
+            display: block;
+            width: ef.get-value($themeDefault, 'dividerWidth');
+            height: ef.get-value($themeDefault, 'dividerHeight');
+            margin: ef.get-value($themeDefault, 'dividerMargin');
+            background: ef.get-value($themeDefault, 'dividerBg');
+            border-radius: ef.get-value($themeDefault, 'dividerRadius');
+        }
+
+        &__crypto-block {
+
+            & + .wlc-cash__divider {
+                margin: ef.get-value($themeDefault, 'dividerCryptoMargin');
+
+                @include mq.min(640) {
+                    display: block;
+                }
+            }
+        }
+
+        &__invoice-btns {
+            @include bm.get-mq-map('flex-direction', $themeDefault, 'btnsDirection');
+            @include bm.get-mq-map('align-items', $themeDefault, 'btnsAlignment');
+            display: flex;
+            flex-wrap: wrap;
+            margin: ef.get-value($themeDefault, 'btnsMargin');
+        }
+
+        &__invoice-btn {
+            margin: ef.get-value($themeDefault, 'btnMargin');
+        }
+
+        &__edit-btn {
+            @include bm.get-mq-map('margin', $themeDefault, 'editBtnMargin');
+        }
+    }
+
+    ::ng-deep {
+
+        .wlc-amount-wrapper {
+            @include bm.get-mq-map('width', $themeDefault, 'amountWrapperWidth');
+            @include bm.get-mq-map('max-width', $themeDefault, 'amountWrapperMaxWidth');
+            @include bm.get-mq-map('grid-template-areas', $themeDefault, 'amountWrapperAreas');
+            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'amountWrapperColumns');
+
+            display: grid;
+            gap: ef.get-value($themeDefault, 'amountWrapperGap');
+
+            .wlc-input--amount {
+                grid-area: amount;
+            }
+
+            .wlc-amount-limit__wrap {
+                grid-area: limits;
+                justify-self: start;
+                text-align: left;
+            }
+        }
+
+        .wlc-form {
+            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'formGridColumns');
+            @include bm.get-mq-map('justify-items', $themeDefault, 'formJustifyItems');
+
+            display: grid;
+            gap: ef.get-value($themeDefault, 'formGap');
+            align-items: start;
+        }
+
+        .wlc-input,
+        .wlc-select,
+        .wlc-checkbox {
+            width: 100%;
+            max-width: var(--wlc-pf-input-size);
+            text-align: left;
+        }
+
+        .wlc-select__dropdown {
+            word-break: break-all;
+        }
+
+        .wlc-additional-fields {
+            @include bm.get-mq-map('width', $themeDefault, 'additionalFieldsWidth');
+
+            display: grid;
+            grid-template-columns: repeat(auto-fill, var(--wlc-pf-input-size));
+            gap: ef.get-value($themeDefault, 'formGap');
+            min-width: 0;
+            max-width: calc(2.2 * var(--wlc-pf-input-size));
+        }
+
+        .wlc-btn--withdraw,
+        .wlc-btn--deposit {
+            @include bm.get-mq-map('width', $themeDefault, 'mainBtnWidth');
+            @include bm.get-mq-map('justify-self', $themeDefault, 'mainBtnJustify');
+
+            margin: ef.get-value($themeDefault, 'mainBtnMargin');
+            white-space: nowrap;
+        }
+    }
+
+    .wlc-hosted-fields {
+        display: grid;
+        justify-items: var(--wlc-pf-hosted-justify-items);
+
+        &__container {
+            @include bm.get-mq-map('max-width', $themeDefault, 'fieldContaninerMaxWidth');
+            width: 100%;
+            max-width: var(--wlc-pf-input-size);
+
+            ::ng-deep {
+
+                iframe {
+                    width: ef.get-value($themeDefault, 'hostedFieldsIframeWidth');
+                    height: ef.get-value($themeDefault, 'hostedFieldsIframeHeight');
+                    overflow: hidden;
+                }
+            }
+        }
+    }
+
+    &.wlc-payment-form--theme-mod-centered {
+
+        .wlc-payment-form {
+
+            &__invoice-btns,
+            &__timer {
+                justify-content: center;
+            }
+
+            &__crypto-block {
+                margin: 0 0 ef.get-value($themeDefault, 'formGap');
+            }
+
+            &__edit-btn {
+                margin: 0 auto;
+            }
+        }
+
+        ::ng-deep {
+
+            .wlc-form,
+            .wlc-additional-fields {
+                justify-content: center;
+                justify-items: center;
+            }
+
+            .wlc-preselected-amounts {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .wlc-btn--deposit {
+                justify-self: center;
+            }
+
+            .wlc-payment-message__clipboard {
+                display: flex;
+                justify-content: center;
+            }
+        }
+    }
+}

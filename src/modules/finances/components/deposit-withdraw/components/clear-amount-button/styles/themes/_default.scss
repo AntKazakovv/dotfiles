@@ -10,7 +10,7 @@
         display: none;
     }
 
-    .wlc-clear-amount-button {
+    .wlc-clear-amount-button__control {
         @include text.get-text-style(
             ef.get-value($themeDefault, 'btnText'),
             ef.get-value($themeDefault, 'btnTextColor')

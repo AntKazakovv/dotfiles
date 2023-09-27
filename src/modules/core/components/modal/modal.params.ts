@@ -501,4 +501,11 @@ export const MODALS_LIST: IModalList = {
             backdrop: 'static',
         },
     },
+    fastDeposit: {
+        config: {
+            id: 'fast-deposit-modal',
+            size: 'md',
+            showFooter: false,
+        },
+    },
 };

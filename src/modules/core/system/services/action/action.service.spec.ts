@@ -50,7 +50,7 @@ describe('ActionService', () => {
     configServiceSpy = jasmine.createSpyObj('ConfigService', ['load', 'get', 'set'], {
         ready: Promise.resolve(),
     });
-    eventServiceSpy = jasmine.createSpyObj('EventService',['emit']);
+    eventServiceSpy = jasmine.createSpyObj('EventService',['emit', 'subscribe']);
     translateServiceSpy = jasmine.createSpyObj('TranslateService', ['instant']);
     layoutServiceSpy = jasmine.createSpyObj('LayoutService', ['generateFullConfigWithLayouts']);
     stateServiceSpy = jasmine.createSpyObj('StateService', ['go']);

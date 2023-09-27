@@ -15,3 +15,10 @@
         fill: currentColor;
     }
 }
+
+@mixin buttonBase($config) {
+    border: ef.get-value($config, 'itemBorder');
+    color: ef.get-value($config, 'itemSvgColor');
+    background: ef.get-value($config, 'itemBg');
+    border-radius: ef.get-value($config, 'itemBorderRadius');
+}

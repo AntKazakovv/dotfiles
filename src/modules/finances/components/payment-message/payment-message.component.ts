@@ -67,6 +67,7 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
     @Input() public system: PaymentSystem;
     @Input() public minAmount: number;
     @Input() public maxAmount: number;
+    @Input() protected inlineParams: Params.IPaymentMessageCParams;
     public override $params: Params.IPaymentMessageCParams;
     public isError: boolean = false;
     public type: TMessageType | null;
@@ -134,7 +135,7 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
     }
 
     public override ngOnInit(): void {
-        super.ngOnInit();
+        super.ngOnInit(this.inlineParams);
         this.system = this.$params?.system || this.system;
         this.minAmount ??= this.$params?.minAmount;
         this.maxAmount ??= this.$params?.maxAmount;

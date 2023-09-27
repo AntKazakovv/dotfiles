@@ -1,0 +1,46 @@
+.wlc-fast-deposit--theme-default:host {
+    display: grid;
+    grid-template-areas: ef.get-value($themeDefault, 'templateAreas');
+    gap: ef.get-value($themeDefault, 'gap');
+    justify-items: ef.get-value($themeDefault, 'justifyItems');
+    text-align: ef.get-value($themeDefault, 'textAlign');
+
+    .wlc-fast-deposit {
+
+        &__descr {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'descrTextStyle'),
+                ef.get-value($themeDefault, 'descrColor'),
+            );
+        }
+
+        &__link {
+            @include bm.transition(color);
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'linkTextStyle'),
+                ef.get-value($themeDefault, 'linkColor'),
+            );
+            text-decoration: ef.get-value($themeDefault, 'linkTextDecoration');
+
+            ::ng-deep {
+
+                .wlc-icon {
+                    margin: ef.get-value($themeDefault, 'linkIconMargin');
+                    line-height: 1;
+                    vertical-align: ef.get-value($themeDefault, 'linkIconVertAlign');
+                }
+            }
+
+            @include bm.hover {
+                color: ef.get-value($themeDefault, 'linkColorHover');
+            }
+        }
+    }
+
+    ::ng-deep {
+
+        .wlc-alert {
+            text-align: left;
+        }
+    }
+}

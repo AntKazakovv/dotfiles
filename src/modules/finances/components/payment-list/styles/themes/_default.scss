@@ -36,13 +36,11 @@
         }
 
         &__button {
+            @include buttonBase($themeDefault);
             position: relative;
             width: ef.get-value($themeDefault, 'itemWidth');
             height: 100%;
-            border: ef.get-value($themeDefault, 'itemBorder');
-            color: ef.get-value($themeDefault, 'itemSvgColor');
-            background: ef.get-value($themeDefault, 'itemBg');
-            border-radius: ef.get-value($themeDefault, 'itemBorderRadius');
+
             cursor: pointer;
             transition: ef.get-value($themeDefault, 'itemTransition');
 
@@ -397,6 +395,53 @@
 
         @include mq.min(1200) {
             @include text.get-text-style(ef.get-value($themeDefault, 'descriptionFont', 1200), null);
+        }
+    }
+}
+
+.wlc-payment-list--type-fast-deposit:host {
+    @include buttonBase($themeDefault);
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: ef.get-value($themeDefault, 'logoItemWidth');
+    height: ef.get-value($themeDefault, 'logoItemHeight');
+    box-shadow: ef.get-value($themeDefault, 'itemBoxShadowActive');
+    border-color: ef.get-value($themeDefault, 'itemBorderColorActive');
+
+    ::ng-deep {
+
+        .wlc-payment-list {
+
+            &__logo {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'errorTextStyle'),
+                    ef.get-value($themeDefault, 'errorColor')
+                );
+            }
+
+            &-item__image,
+            &__crypto-logo {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                max-width: ef.get-value($themeDefault, 'logoMaxWidth');
+                max-height: ef.get-value($themeDefault, 'logoMaxHeight');
+                transform: translate(-50%, -50%);
+            }
+
+            &__crypto-logo {
+
+                img {
+                    width: ef.get-value($themeDefault, 'cryptoLogoSize');
+                    height: ef.get-value($themeDefault, 'cryptoLogoSize');
+                    object-fit: contain;
+                    object-position: center;
+                }
+            }
         }
     }
 }

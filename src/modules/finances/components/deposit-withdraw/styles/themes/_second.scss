@@ -1,6 +1,5 @@
 .wlc-cash--theme-second:host {
     @include bm.get-mq-map('--wlc-dep-btn-modal-maxwidth', $themeSecond, 'btnModalMaxWidth');
-    @include hostedFieldsStyles($themeSecond);
 
     .wlc-cash {
 
@@ -66,43 +65,6 @@
             }
         }
 
-        &__form {
-
-            ::ng-deep {
-
-                .wlc-form,
-                .wlc-additional-fields {
-                    @include bm.get-mq-map('justify-items', $themeSecond, 'formJustifyItems');
-
-                    display: grid;
-                    grid-template-columns: ef.get-value($themeSecond, 'formTemplateColumns');
-                    gap: ef.get-value($themeSecond, 'formGap');
-                }
-
-                .wlc-additional-fields,
-                .wlc-input,
-                .wlc-checkbox,
-                .wlc-field-container {
-                    @include bm.get-mq-map('max-width', $themeSecond, 'formInputMaxWidth');
-
-                    width: 100%;
-                }
-
-                .wlc-btn--deposit,
-                .wlc-btn--withdraw {
-                    margin: ef.get-value($themeSecond, 'formBtnDepositMargin');
-                }
-
-                .wlc-clear-amount-button {
-                    @include bm.get-mq-map('margin', $themeSecond, 'clearAmountBtnMargin');
-                }
-            }
-        }
-
-        &__fields {
-            @include cashFields($themeSecond);
-        }
-
         &__divider {
             display: var(--cash-divider-display, block);
             width: 100%;
@@ -113,25 +75,6 @@
             &--cryptoblock {
                 margin: ef.get-value($themeSecond, 'dividerMarginCrypto');
             }
-        }
-
-        &__timer {
-            margin: ef.get-value($themeSecond, 'timerMargin');
-        }
-
-        &__invoice-btns {
-            display: flex;
-            flex-wrap: wrap;
-            gap: ef.get-value($themeSecond, 'invoiceBtnsGap');
-            margin: ef.get-value($themeSecond, 'invoiceBtnsMargin');
-        }
-
-        &__edit-profile-btn {
-            @include bm.get-mq-map('margin', $themeSecond, 'editProfileBtnMargin');
-        }
-
-        &__withdraw {
-            @include withdrawInfo($themeSecond);
         }
     }
 
@@ -180,13 +123,24 @@
             }
         }
 
-        .wlc-amount-limit--theme-default[class] {
-            margin: ef.get-value($themeSecond, 'amountLimitMargin');
-        }
-
         .wlc-wallets--finances {
             max-width: 100%;
             margin: 0;
+        }
+
+        .wlc-payment-form--theme-default {
+
+            .wlc-amount-wrapper[class] {
+                grid-template-areas: unset;
+
+                > * {
+                    grid-area: unset;
+                }
+
+                .wlc-clear-amount-button__control {
+                    margin: ef.get-value($themeSecond, 'amountClearMargin');
+                }
+            }
         }
     }
 }

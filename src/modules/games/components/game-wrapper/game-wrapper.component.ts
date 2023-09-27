@@ -84,6 +84,10 @@ import {WINDOW} from 'wlc-engine/modules/app/system';
 import {IMerchantWalletPreviewCParams}
     from 'wlc-engine/modules/games/components/merchant-wallet/merchant-wallet-preview/merchant-wallet-preview.params';
 import * as Params from './game-wrapper.params';
+import {
+    IProcessEventData,
+    ProcessEvents,
+} from 'wlc-engine/modules/monitoring';
 interface IError {
     msg?: string;
     state?: string;
@@ -192,6 +196,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
 
     protected merchantWalletService: MerchantWalletService;
     protected seoService: SeoService | null = null;
+    protected isIframeDepositOpened: boolean = false;
 
     constructor(
         @Inject('injectParams') protected injectParams: IGameWrapperCParams,
@@ -272,6 +277,18 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                 this.$destroy);
         }
         this.screenfull = (await import('screenfull'))?.default;
+
+        this.eventService.subscribe({name: ProcessEvents.modalOpened}, (data: IProcessEventData)=> {
+            if (data.eventId === 'iframe-deposit') {
+                this.isIframeDepositOpened = true;
+            }
+        }, this.$destroy);
+
+        this.eventService.subscribe({name: ProcessEvents.modalClosed}, (data: IProcessEventData)=> {
+            if (data.eventId === 'iframe-deposit') {
+                this.isIframeDepositOpened = false;
+            }
+        }, this.$destroy);
     }
 
     public async ngAfterViewInit(): Promise<void> {
@@ -1029,7 +1046,9 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             }),
             takeUntil(this.$destroy),
         ).subscribe(() => {
-            this.closeGame();
+            if (!this.isIframeDepositOpened) {
+                this.closeGame();
+            }
         });
     }
 

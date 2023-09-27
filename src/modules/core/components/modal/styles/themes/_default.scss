@@ -350,6 +350,20 @@
             }
         }
     }
+
+    &.wlc-modal--fast-deposit-modal {
+
+        .wlc-modal__dialog {
+            background: ef.get-value($themeDefault, 'fastDepositModalBg');
+        }
+
+        + .modal-backdrop {
+
+            @include mq.max(560) {
+                background: ef.get-value($themeDefault, 'fastDepositModalBg');
+            }
+        }
+    }
 }
 
 body.modal-open {

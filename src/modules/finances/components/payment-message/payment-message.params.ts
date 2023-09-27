@@ -10,7 +10,7 @@ export type ComponentType = 'default' | CustomType;
 export type ComponentThemeMod = 'default' | 'modal' | CustomType;
 
 export interface IPaymentMessageCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
-    class: string;
+    class?: string;
     system?: PaymentSystem;
     minAmount?: number;
     maxAmount?: number;

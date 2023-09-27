@@ -18,9 +18,11 @@ import {PaymentListComponent} from './components/payment-list/payment-list.compo
 import {PaymentMessageComponent} from './components/payment-message/payment-message.component';
 import {PIQCashierComponent} from './components/piq-cashier/piq-cashier.component';
 import {IframeDepositComponent} from './components/iframe-deposit/iframe-deposit.component';
-import {PreselectedAmountsComponent} 
+import {FastDepositComponent} from './components/fast-deposit/fast-deposit.component';
+import {PaymentFormComponent} from './components/payment-form/payment-form.component';
+import {PreselectedAmountsComponent}
     from './components/deposit-withdraw/components/preselected-amounts/preselected-amounts.component';
-import {ClearAmountButtonComponent} 
+import {ClearAmountButtonComponent}
     from './components/deposit-withdraw/components/clear-amount-button/clear-amount-button.component';
 
 import {GlobalHelper} from 'wlc-engine/modules/core';
@@ -41,6 +43,8 @@ export const components = {
     'wlc-piq-cashier': PIQCashierComponent,
     'wlc-preselected-amounts': PreselectedAmountsComponent,
     'wlc-clear-amount-button': ClearAmountButtonComponent,
+    'wlc-payment-form': PaymentFormComponent,
+    'wlc-fast-deposit': FastDepositComponent,
 };
 
 export const services = {
@@ -67,6 +71,8 @@ export const services = {
         IframeDepositComponent,
         PreselectedAmountsComponent,
         ClearAmountButtonComponent,
+        PaymentFormComponent,
+        FastDepositComponent,
     ],
     providers: [
         FinancesService,

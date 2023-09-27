@@ -496,8 +496,6 @@ export class FinancesService {
         try {
             await this.dataService.request('finances/cancelDeposit', {systemId});
 
-            this.fetchPaymentSystems();
-
             this.pushNotification({
                 type: 'success',
                 title: gettext('Deposit'),
@@ -508,6 +506,12 @@ export class FinancesService {
             if (this.modalService.getActiveModal('payment-message')) {
                 this.modalService.hideModal('payment-message');
             }
+
+            await this.fetchPaymentSystems();
+
+            this.eventService.emit({
+                name: 'INVOICE_CANCELLED',
+            });
         } catch (error) {
             this.pushNotification({
                 type: 'error',

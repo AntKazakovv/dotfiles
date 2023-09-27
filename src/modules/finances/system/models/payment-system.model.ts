@@ -325,14 +325,6 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
         return this.data.name_withdraw || this.name;
     }
 
-    public get preselectedDepositAmounts(): number[] {
-        return _find(this.data.preselectedDepositAmounts, {'currency': this.userCurrency})?.amounts || [];
-    }
-
-    public get preselectedWithdrawAmounts(): number[] {
-        return _find(this.data.preselectedWithdrawAmounts, {'currency': this.userCurrency})?.amounts || [];
-    }
-
     public get required(): string[] {
         return this.data.required || [];
     }
@@ -371,6 +363,14 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
 
     public get isReadyHostedController(): Promise<boolean> {
         return this.hostedController.ready.promise;
+    }
+
+    public getPreselectedDepositAmounts(currency?: string): number[] {
+        return _find(this.data.preselectedDepositAmounts, {'currency': currency || this.userCurrency})?.amounts || [];
+    }
+
+    public getPreselectedWithdrawAmounts(currency?: string): number[] {
+        return _find(this.data.preselectedWithdrawAmounts, {'currency': currency || this.userCurrency})?.amounts || [];
     }
 
     public checkRequiredFields(type: TPaymentsMethods = 'deposit'): IIndexing<IFieldTemplate> {

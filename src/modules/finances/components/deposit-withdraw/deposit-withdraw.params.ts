@@ -22,7 +22,7 @@ export interface IDepositWithdrawCParams extends IComponentParams<Theme, Type, T
         themeMod?: ThemeMod;
     };
     /** Params for timer element */
-    timerParams?: ITimerCParams;
+    timerParams?: ITimerCParams; // move to payment-form
     /** Params for CryptoCurrencies list */
     cryptoListParams?: IPaymentListCParams;
 }
@@ -77,7 +77,7 @@ export namespace PaymentSteps {
     };
 }
 
-export const timerParams: ITimerCParams = {
+export const timerParams: ITimerCParams = { // move to payment-form
     theme: 'one-line',
     common: {
         noDays: true,

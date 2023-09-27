@@ -78,7 +78,7 @@ $themeDefault: map-merge(map-merge($common, (
     'itemBoxShadowHover': 0 0 5px var(--mc-main),
     'itemSvgColorHover': var(--mc-baseMain),
 
-    'itemBoxShadowActive': 0 0 14px var(--mc-main),
+    'itemBoxShadowActive': 0 0 8px var(--mc-main),
     'itemSvgColorActive': var(--mc-baseMain),
     'itemBorderColorActive': var(--mc-main),
 
@@ -173,6 +173,22 @@ $themeDefault: map-merge(map-merge($common, (
     'scrollableHeight': 350px,
     'scrollableMargin': 0 ef.size(-2),
     'scrollablePadding': 0 ef.size(2),
+    'notificationBg': var(--mc-bg500),
+    'notificationPadding': ef.size(2) ef.size(6) ef.size(2) ef.size(2),
+    'notificationWidth': (
+        320: 100%,
+        1200: 50%,
+    ),
+    'notificationRadius': ef.get('radius', 'small'),
+    'notificationIconColor': var(--mc-baseOpacity),
+    'notificationTextColor': var(--mc-baseMain),
+
+    // mod fast deposit
+    'logoItemWidth': 150px,
+    'logoItemHeight': 90px,
+    'logoMaxWidth': 80%,
+    'logoMaxHeight': 80%,
+    'cryptoLogoSize': 48px,
 )), $customThemeDefault);
 
 $customThemeCryptoList: () !default;

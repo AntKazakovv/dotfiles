@@ -1,0 +1,41 @@
+
+<ng-container *ngIf="!isFetchingSystems; else loader">
+
+    <ng-container *ngIf="paymentSystem; else error">
+        <div class="{{$class}}__descr">{{$params.textConfig.description | translate}} {{paymentSystem?.name}} </div>
+        <div class="{{$class}}__system">
+            <div wlc-payment-list
+                [inlineParams]="$params.paymentListParams"
+                [currentSystem]="paymentSystem"
+                ></div>
+        </div>
+
+        <div wlc-payment-form
+            class="{{$class}}__form"
+            [inlineParams]="$params.paymentFormParams"
+            [mode]="'deposit'"
+            [currentSystem]="paymentSystem">
+        </div>
+    </ng-container>
+    <div class="{{$class}}__footer">
+        <a class="{{$class}}__link"
+            href="{{depositUrl}}"
+            target="_blank">
+            <span class="{{$class}}__link-text">{{$params.linkParams?.text | translate}}</span>
+            <span *ngIf="$params.linkParams?.iconPath"
+                wlc-icon
+                [iconPath]="$params.linkParams.iconPath">
+            </span>
+        </a>
+    </div>
+</ng-container>
+
+<ng-template #error>
+    <div wlc-alert [level]="'warning'">
+        <span title>{{$params.textConfig.systemUnavailable | translate}}</span>
+    </div>
+</ng-template>
+
+<ng-template #loader>
+    <div wlc-loader></div>
+</ng-template>

@@ -7,7 +7,7 @@ import {TPaymentsMethods} from 'wlc-engine/modules/finances/system/interfaces';
 import {PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
 
 export type Theme = 'default' | 'crypto-list' | CustomType;
-export type Type = 'default' | 'children' | CustomType;
+export type Type = 'default' | 'children' | 'fast-deposit' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 
 export type IconsType = 'color' | 'black';

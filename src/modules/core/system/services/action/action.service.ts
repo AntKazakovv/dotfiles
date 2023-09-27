@@ -558,6 +558,18 @@ export class ActionService {
                 this.window.open(`${landingAdress}/${this.lang}`);
             });
         }
+
+        /** TODO: will be changed after release related task https://tracker.egamings.com/issues/498130 */
+        this.eventService.subscribe({
+            name: 'SHOW_FAST_DEPOSIT',
+        }, (): void => {
+            this.modalService.showModal({
+                id: 'fast-deposit-modal',
+                modalTitle: gettext('Deposit'),
+                showFooter: false,
+                componentName: 'finances.wlc-fast-deposit',
+            });
+        });
     }
 
     private createBreakpoints(): void {

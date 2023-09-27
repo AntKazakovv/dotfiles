@@ -5,12 +5,12 @@ import {
     Input,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
-    ViewChild,
     TemplateRef,
     ElementRef,
     AfterViewInit,
     OnChanges,
     SimpleChanges,
+    ViewChild,
 } from '@angular/core';
 import {UntypedFormControl} from '@angular/forms';
 import {
@@ -43,6 +43,7 @@ import {
     IWrapperCParams,
     MediaQueries,
     ColorThemeService,
+    TIconColorBg,
 } from 'wlc-engine/modules/core';
 import {
     IconModel,
@@ -528,29 +529,34 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         const showAs = iconsType === 'black' ? 'svg' : 'img';
 
         this.systems.forEach((item: PaymentSystem): void => {
-            this.itemsMap.set(item.id, new IconModel(
-                {
-                    component: 'PaymentListComponent',
-                    method: 'setPaymentsIconsList',
-                },
-                this.isCryptoInvoices
-                    ? this.cryptoIterator(item)
-                    : this.merchantsPaymentsIterator('payments', {
-                        showAs: showAs,
-                        wlcElement: 'block_payment-' + this.wlcElementTail(item.alias),
-                        nameForPath: item.alias,
-                        alt: item.name,
-                        colorIconBg: colorIconBg,
-                        imgPath: this.isDeposit
-                            ? item.image
-                            : (item.imageWithdraw || item.image),
-                        defaultImages: item.defaultImages,
-                        paymentType: this.$params.paymentType,
-                    }),
-            ));
+            this.itemsMap.set(item.id, this.setIcon(item, showAs, colorIconBg));
         });
 
         this.cdr.markForCheck();
+    }
+
+    protected setIcon(item: PaymentSystem, showAs: 'svg' | 'img', bg: TIconColorBg): IconModel {
+
+        return new IconModel(
+            {
+                component: 'PaymentListComponent',
+                method: 'setPaymentsIconsList',
+            },
+            this.isCryptoInvoices
+                ? this.cryptoIterator(item)
+                : this.merchantsPaymentsIterator('payments', {
+                    showAs: showAs,
+                    wlcElement: 'block_payment-' + this.wlcElementTail(item.alias),
+                    nameForPath: item.alias,
+                    alt: item.name,
+                    colorIconBg: bg,
+                    imgPath: this.isDeposit
+                        ? item.image
+                        : (item.imageWithdraw || item.image),
+                    defaultImages: item.defaultImages,
+                    paymentType: this.$params.paymentType,
+                }),
+        );
     }
 
     protected cryptoIterator(system: PaymentSystem): IIconParams {
@@ -636,7 +642,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
 
     protected updatePaySystemsStatus(): void {
         _forEach(this.systems, (system: PaymentSystem): void => {
-            system.disabledBy = !this.availableSystems.length
+            system.disabledBy = !this.availableSystems?.length
             || system.childrenSystems.length
             && !_every(system.childrenSystems, child => !_includes(this.availableSystems, child.id))
             || _includes(this.availableSystems, system.id)
