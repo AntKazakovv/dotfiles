@@ -6,7 +6,7 @@ import {ITournamentListCParams} from 'wlc-engine/modules/tournaments/components/
 
 export type Type = 'default' | CustomType;
 export type Theme = 'default' | CustomType;
-export type ThemeMod = 'default' | CustomType;
+export type ThemeMod = 'default' | 'wolf' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;

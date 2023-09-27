@@ -52,6 +52,22 @@
             min-width: auto;
         }
     }
+
+    @if ($layout == wolf) {
+        grid-template-rows: ef.get-value($btnsLayout, 'btnsGridRowsWolf');
+        grid-template-columns: ef.get-value($btnsLayout, 'btnsGridColumnsWolf');
+        align-items: ef.get-value($btnsLayout, 'btnsAlignItemsWolf');
+        justify-items: ef.get-value($btnsLayout, 'btnsJustifyItemsWolf');
+
+        &.no-demo {
+            grid-template-rows: ef.get-value($btnsLayout, 'btnsNoDemoGridRowsWolf');
+            align-items: ef.get-value($btnsLayout, 'btnsNoDemoAlignItemsWolf');
+        }
+
+        .wlc-btn {
+            min-width: auto;
+        }
+    }
 }
 
 @mixin alternateLogo($theme) {
@@ -69,7 +85,12 @@
     .wlc-game-thumb {
 
         &__buttons {
-            @include btnsLayout(circle);
+
+            @if ($opt == wolf) {
+                @include btnsLayout(wolf);
+            } @else {
+                @include btnsLayout(circle);
+            }
             @include bm.transition;
         }
     }
@@ -89,7 +110,6 @@
             &:before {
                 content: '';
                 position: absolute;
-
                 background: ef.get-value($themeDefaultModCircle, 'btnPlayIconBg');
                 background-repeat: no-repeat;
                 background-position: center;
@@ -160,6 +180,46 @@
                     left: ef.get-value($themeDefaultModCircle, 'btnPlayIconLeftVertical');
                     width: ef.get-value($themeDefaultModCircle, 'btnPlayIconWidthVertical');
                     height: ef.get-value($themeDefaultModCircle, 'btnPlayIconHeightVertical');
+                }
+            }
+        }
+    }
+
+    @if ($opt == wolf) {
+
+        .wlc-btn {
+
+            &--play {
+                width: ef.get-value($themeDefaultModWolf, 'btnPlaySize');
+                height: ef.get-value($themeDefaultModWolf, 'btnPlaySize');
+                border: ef.get-value($themeDefaultModWolf, 'btnPlayBorder');
+
+                &:before {
+                    left: ef.get-value($themeDefaultModWolf, 'btnPlayIconLeft');
+                    width: ef.get-value($themeDefaultModWolf, 'btnPlayIconWidth');
+                    height: ef.get-value($themeDefaultModWolf, 'btnPlayIconHeight');
+                }
+            }
+
+            &--demo {
+                height: auto;
+                padding: 0;
+
+                ::ng-deep {
+
+                    .wlc-btn__text[class] {
+                        color: ef.get-value($themeDefaultModWolf, 'btnDemoColor');
+                    }
+                }
+
+                @include bm.hover {
+
+                    ::ng-deep {
+
+                        .wlc-btn__text {
+                            color: ef.get-value($themeDefaultModWolf, 'btnDemoHoverColor');
+                        }
+                    }
                 }
             }
         }

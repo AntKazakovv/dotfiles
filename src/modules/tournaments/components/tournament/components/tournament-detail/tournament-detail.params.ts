@@ -38,6 +38,7 @@ export interface ITournamentDetailCParams extends IComponentParams<Theme, Type, 
         scrollToSelector?: string;
     };
     prizesParams?: ITournamentPrizesCParams;
+    gamesGridConfig?: IGamesGridCParams;
 }
 
 export const defaultParams: ITournamentDetailCParams = {
@@ -79,22 +80,13 @@ export const defaultParams: ITournamentDetailCParams = {
             useSmartDemicals: true,
         },
     },
-};
-
-export const gamesGridConfig: IWrapperCParams = {
-    class: '',
-    components: [
-        {
-            name: 'games.wlc-games-grid',
-            params:<IGamesGridCParams> {
-                gamesRows: 3,
-                usePlaceholders: true,
-                mobileSettings: {
-                    gamesRows: 3,
-                },
-                themeMod: 'tournament-detail',
-                thumbParams: {},
-            },
+    gamesGridConfig: {
+        gamesRows: 3,
+        usePlaceholders: true,
+        mobileSettings: {
+            gamesRows: 3,
         },
-    ],
+        themeMod: 'tournament-detail',
+        thumbParams: {},
+    },
 };

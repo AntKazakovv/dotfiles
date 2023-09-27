@@ -538,4 +538,24 @@
             }
         }
     }
+
+    &.wlc-game-dashboard--theme-mod-wolf {
+
+        .wlc-game-dashboard {
+
+            &__content--lastplayed {
+
+                .wlc-scrollbar {
+                    display: grid;
+                    grid-auto-rows: min-content;
+                    grid-template-columns: ef.get-value($themeDefault, 'wolfLastPlayedGridColumns');
+                    gap: ef.get-value($themeDefault, 'wolfLastPlayedGap');
+                }
+            }
+
+            &__game {
+                margin-bottom: 0;
+            }
+        }
+    }
 }

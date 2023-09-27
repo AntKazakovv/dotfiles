@@ -91,6 +91,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
     public videos: Params.IMediaContent[];
     public useWebp: boolean = true;
     public hasVideo: boolean = false;
+    public favoriteIcon!: string;
 
     /**
      * Pragmatic play live data model
@@ -140,6 +141,11 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
             this.cdr.markForCheck();
             return;
         }
+
+        this.favoriteIcon = this.$params?.themeMod === 'wolf'
+            ? '/wlc/icons/favorite-wolf.svg'
+            : '/wlc/icons/favourite.svg';
+
         this.init();
     }
 

@@ -113,6 +113,7 @@ export class GamesCatalogComponent extends AbstractComponent implements OnInit {
             });
 
             this.gameGrids = grids;
+
         } else if (this.gamesCatalogService.getFundistCategorySettings()) {
             const category: CategoryModel = this.gamesCatalogService.getChildCategoryByState()
                 || this.gamesCatalogService.getParentCategoryByState();
@@ -137,7 +138,7 @@ export class GamesCatalogComponent extends AbstractComponent implements OnInit {
                     const gameRows: number = _get(gameBlock, `settings.gameRows.${platformKey}`, 2);
                     const showType: string = _get(gameBlock, 'settings.showType');
 
-                    const gridParams: IGamesGridCParams = {
+                    const gridParams: IGamesGridCParams = _merge(_cloneDeep(this.$params.gamesGridParams), {
                         customMod: 'games-block-' + index,
                         gamesRows: gameRows,
                         gamesList: gameBlock.games,
@@ -157,7 +158,7 @@ export class GamesCatalogComponent extends AbstractComponent implements OnInit {
                                 text: gettext('Show more'),
                             },
                         },
-                    };
+                    });
 
                     if (showType === 'slide-arrows') {
                         gridParams.showAsSwiper = {
@@ -180,13 +181,13 @@ export class GamesCatalogComponent extends AbstractComponent implements OnInit {
                     if (this.isMobile) {
                         gridParams.moreBtn.cardView = false;
                     }
+
                     grids.push(gridParams);
                 });
 
                 this.gameGrids = grids;
             }
         }
-
         this.isReady = true;
         this.cdr.markForCheck();
     }

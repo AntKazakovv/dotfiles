@@ -56,7 +56,7 @@ export class TournamentDetailComponent extends AbstractComponent implements
     public tournament: Tournament;
     public tournamentProcessing: boolean = false;
     public menuParams: MenuParams.IMenuCParams;
-    public gamesGridConfig = Params.gamesGridConfig;
+    public gamesGrid: IWrapperCParams;
     public menuConfig: IWrapperCParams = {components: []};
     public usePodium: boolean;
     protected gamesCatalogService: GamesCatalogService;
@@ -87,6 +87,7 @@ export class TournamentDetailComponent extends AbstractComponent implements
     }
 
     public async ngAfterViewInit(): Promise<void> {
+
         this.gamesCatalogService = await this.injectionService
             .getService<GamesCatalogService>('games.games-catalog-service');
 
@@ -105,6 +106,15 @@ export class TournamentDetailComponent extends AbstractComponent implements
                 this.prepareTournament();
                 this.cdr.markForCheck();
             });
+
+        this.gamesGrid = {
+            components: [
+                {
+                    name: 'games.wlc-games-grid',
+                    params: this.$params.gamesGridConfig,
+                },
+            ],
+        };
     }
 
     public goTo(path: string, params: IIndexing<string> = {}): void {
@@ -145,8 +155,8 @@ export class TournamentDetailComponent extends AbstractComponent implements
     private prepareTournament(): void {
 
         if (this.tournament) {
-            _set(this.gamesGridConfig, 'components[0].params.tournamentGamesFilter', this.tournament.gamesFilterData);
-            _set(this.gamesGridConfig, 'components[0].params.tournamentFreeRoundGames', this.tournament.freeRoundGames);
+            _set(this.$params.gamesGridConfig, 'tournamentGamesFilter', this.tournament.gamesFilterData);
+            _set(this.$params.gamesGridConfig, 'tournamentFreeRoundGames', this.tournament.freeRoundGames);
 
             this.usePodium = this.configService.get<boolean>('$tournaments.prizePodium.useOnDetail')
                 && this.tournament.target !== 'bonus';

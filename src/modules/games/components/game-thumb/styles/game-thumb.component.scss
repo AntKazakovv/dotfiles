@@ -80,6 +80,37 @@
         }
     }
 
+    &.wlc-game-thumb--theme-mod-wolf {
+
+        .wlc-game-thumb__icon {
+            top: ef.get-value($themeDefaultModWolf, 'favoritePosition');
+            left: ef.get-value($themeDefaultModWolf, 'favoritePosition');
+            width: ef.get-value($themeDefaultModWolf, 'favoriteWidth');
+            height: ef.get-value($themeDefaultModWolf, 'favoriteHeight');
+            border-radius: ef.get-value($themeDefaultModWolf, 'favoriteRadius');
+            color: ef.get-value($themeDefaultModWolf, 'favoriteColor');
+
+            ::ng-deep {
+
+                svg {
+                    width: ef.get-value($themeDefaultModWolf, 'favoriteIconSize');
+                    height: ef.get-value($themeDefaultModWolf, 'favoriteIconSize');
+                }
+            }
+
+            &.active {
+                color: ef.get-value($themeDefaultModWolf, 'favoriteActiveColor');
+            }
+
+            &:not(.active) {
+
+                @include bm.hover {
+                    color: ef.get-value($themeDefaultModWolf, 'favoriteHoverColor');
+                }
+            }
+        }
+    }
+
     &.wlc-game-thumb--theme-default {
 
         .wlc-game-thumb__loader {

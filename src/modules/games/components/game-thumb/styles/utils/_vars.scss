@@ -168,8 +168,10 @@ $themeDefaultModCircle: map-merge((
     'btnPlayMargin': 0 auto,
     'btnPlaySize': 85px,
     'btnPlaySizeVertical': 115px,
+
     'btnPlayBorder': 5px solid ef.get('mainColors', 'baseMain'),
     'btnPlayBorderVertical': 7px solid ef.get('mainColors', 'baseMain'),
+
     'btnPlayRadius': 50%,
     'btnPlayTransform': none,
 
@@ -379,6 +381,13 @@ $btnsLayout: map-merge((
     'btnsNoDemoGridRowsCircle': auto ef.size(8),
     'btnsNoDemoAlignItemsCirc': end,
     'verticalBtnDemoColor': var(--mc-buttonText, var(--mc-baseMain)),
+
+    'btnsGridRowsWolf': repeat(2, auto),
+    'btnsGridColumnsWolf': 1fr,
+    'btnsJustifyItemsWolf': center,
+    'btnsAlignItemsWolf': end,
+    'btnsNoDemoGridRowsWolf': 1fr,
+    'btnsNoDemoAlignItemsWolf': center,
 ), $customBtnsLayout);
 
 /*
@@ -467,3 +476,32 @@ $promoGame: map-merge((
     'jackpotHeight': 65px,
     'jackpotPadding': 0 0 ef.size(6),
 ), $customPromoGame);
+
+$customThemeDefaultWolf: () !default;
+$themeDefaultModWolf: map-merge((
+    'descPadding': ef.size(4) 0,
+    'btnPlayBorder': 3px solid #fff,
+    'btnPlaySize': 50px,
+    'btnDemoColor': var(--mc-secondary),
+    'btnDemoHoverColor': var(--mc-baseThird),
+    'btnPlayIconLeft': calc(50% - 6px),
+    'btnPlayIconWidth': 15px,
+    'btnPlayIconHeight': 18px,
+    'btnsAndIconOpacity': 0,
+    'btnsAndIconOpacityHover': 1,
+    'favoritePosition': ef.size(1),
+    'favoriteWidth': ef.size(6),
+    'favoriteHeight': ef.size(6),
+    'favoriteRadius': ef.size(1),
+    'favoriteColor': ef.get('mainColors', 'baseMain'), // Locked color
+    'favoriteIconSize': ef.size(4),
+    'favoriteHoverColor': ef.get('mainColors', 'main'), // Locked color
+    'favoriteActiveColor': ef.get('mainColors', 'baseThird'), // Locked color
+    'controlsBg': var(--mc-black-o6),
+    'bgAspectRatio': '10/15',
+    'controlsPadding': 0,
+    'controlsAlignItems': center,
+    'btnsGridRowsVert': minmax(0, 1fr) minmax(0, 1fr),
+    'btnsAlignItemsVert': center,
+    'btnsGapVert': 0,
+), $customThemeDefaultWolf);

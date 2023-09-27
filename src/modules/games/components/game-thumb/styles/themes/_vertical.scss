@@ -228,6 +228,37 @@
         }
     }
 
+    &.wlc-game-thumb--theme-mod-wolf {
+
+        .wlc-game-thumb {
+
+            &__control {
+                @include circleButton(wolf);
+                align-items: ef.get-value($themeDefaultModWolf, 'controlsAlignItems');
+                padding: ef.get-value($themeDefaultModWolf, 'controlsPadding');
+                background: ef.get-value($themeDefaultModWolf, 'controlsBg');
+                transform: none;
+
+                .wlc-game-thumb__buttons {
+                    grid-template-rows: ef.get-value($themeDefaultModWolf, 'btnsGridRowsVert');
+                    gap: ef.get-value($themeDefaultModWolf, 'btnsGapVert');
+                    align-items: ef.get-value($themeDefaultModWolf, 'btnsAlignItemsVert');
+                }
+            }
+
+            &-media {
+
+                &__bg,
+                &__video {
+
+                    @supports (aspect-ratio: 1/1) {
+                        aspect-ratio: #{ef.get-value($themeDefaultModWolf, 'bgAspectRatio')};
+                    }
+                }
+            }
+        }
+    }
+
     @include bm.hover {
 
         .wlc-game-thumb {

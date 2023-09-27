@@ -124,6 +124,13 @@ export namespace contentGames {
         ],
     };
 
+    export const catalogWolf: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            componentLib.wlcGamesCatalog.wolf,
+        ],
+    };
+
     export const vertical: ILayoutSectionConfig = {
         container: true,
         components: [

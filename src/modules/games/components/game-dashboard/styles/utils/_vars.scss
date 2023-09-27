@@ -80,4 +80,7 @@ $themeDefault: map-merge((
     'bonusesTournamentsScrollbarContainerMargin': 0 ef.size(-4),
     'bonusesTournamentsScrollbarContainerPadding': 0 ef.size(4),
     'bonusesTournamentsScrollbarRight': ef.size(2),
+
+    'wolfLastPlayedGridColumns': repeat(auto-fill, minmax(110px, 1fr)),
+    'wolfLastPlayedGap': ef.size(3),
 ), $customThemeDefault);

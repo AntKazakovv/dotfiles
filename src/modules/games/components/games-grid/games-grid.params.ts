@@ -31,6 +31,8 @@ export type ComponentThemeMod = 'default'
     | 'centered-controls'
     | 'mobile-app-search'
     | 'all-link-secondary'
+    | 'wolf'
+    | 'wolf-tournament'
     | string;
 
 /**
