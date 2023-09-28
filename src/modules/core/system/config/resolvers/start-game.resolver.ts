@@ -66,6 +66,7 @@ import {
     UserService,
 } from 'wlc-engine/modules/user';
 import {AddProfileInfoComponent} from 'wlc-engine/modules/user/components/add-profile-info';
+import {AppType} from 'wlc-engine/modules/core/system/interfaces/base-config/app.interface';
 
 export interface IHookGameStartData {
     game: Game;
@@ -458,8 +459,9 @@ class StartGameHandler {
         await this.configService.ready;
         const deferred = new Deferred<void>();
         const skipCheckBalance: boolean = this.configService.get<boolean>('$games.run.skipCheckBalance');
+        const isKiosk: boolean = this.configService.get<AppType>('$base.app.type') === 'kiosk';
 
-        if (skipCheckBalance) {
+        if (skipCheckBalance || isKiosk) {
             deferred.resolve();
             return deferred.promise;
         }
