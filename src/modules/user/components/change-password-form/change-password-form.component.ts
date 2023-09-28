@@ -22,6 +22,7 @@ import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
 import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
 import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notification/notification.service';
+import {UserHelper} from 'wlc-engine/modules/user/system/helpers/user.helper';
 
 import * as Params from './change-password-form.params';
 
@@ -80,6 +81,10 @@ export class ChangePasswordFormComponent extends AbstractComponent implements On
             if (this.modalService.getActiveModal('change-password')) {
                 this.modalService.hideModal('change-password');
             }
+            UserHelper.showInformationModal(
+                this.modalService,
+                gettext('Your password has been successfully changed'),
+            );
             return true;
         } catch (error) {
 

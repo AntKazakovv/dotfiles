@@ -11,6 +11,7 @@ import {
     ConfigService,
     EventService,
     IPushMessageParams,
+    ModalService,
 } from 'wlc-engine/modules/core/system/services';
 import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
 import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
@@ -144,5 +145,23 @@ export class UserHelper {
             });
         }
         return restrictReg;
+    }
+
+    public static showInformationModal(modalService: ModalService, modalMessage: string): void {
+        modalService.showModal({
+            id: 'user-information',
+            modalTitle: gettext('Information'),
+            modifier: 'confirmation',
+            hideIcon: true,
+            showConfirmBtn: true,
+            confirmBtnText: gettext('Ok'),
+            rejectBtnVisibility: false,
+            modalMessage: [
+                modalMessage,
+                gettext('You have been logged out from all devices except the current one for security reasons'),
+            ],
+            textAlign: 'center',
+            dismissAll: true,
+        });
     }
 }

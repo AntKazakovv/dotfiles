@@ -32,6 +32,7 @@ import {
     ITwoFactorAuthResponse,
     ITwoFactorAuthUserInfo,
 } from 'wlc-engine/modules/user/submodules/two-factor-auth/system/interfaces/two-factor-auth.interface';
+import {UserHelper} from 'wlc-engine/modules/user/system/helpers/user.helper';
 
 @Injectable({providedIn: 'root'})
 export class TwoFactorAuthService {
@@ -148,6 +149,10 @@ export class TwoFactorAuthService {
             }
             this.userService.fetchUserInfo();
             this.hideActiveModal('two-factor-auth-finish');
+            UserHelper.showInformationModal(
+                this.modalService,
+                gettext('The authenticator is successfully connected'),
+            );
             return true;
         } catch (error) {
             const messages: string[] = [];
