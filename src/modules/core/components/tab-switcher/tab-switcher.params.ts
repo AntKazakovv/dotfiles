@@ -7,7 +7,7 @@ import {
     IComponentParams,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
 
-export type ComponentTheme = 'default' | CustomType;
+export type ComponentTheme = 'default' | 'wolf' | CustomType;
 export type ComponentType = 'default' | CustomType;
 export type ThemeMod = 'default' | 'with-banner' | 'first' | 'skip-bonus' | 'with-promo' | CustomType;
 

@@ -1,0 +1,37 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge(map-merge($base, (
+    'containerRadius': ef.get('radius', 'biger'),
+
+    'navMinHeight': 55px,
+
+    'navItemBackground': var(--mc-bg500),
+    'navItemPadding': ef.size(3),
+    'navItemActiveBackground': var(--mc-bg700),
+    'navItemActiveColor': var(--mc-baseMain),
+    'navItemStyle': 'ThirdTitle',
+    'navItemActiveStyle': 'ThirdTitleBold',
+    'navItemFirstRadius': ef.get('radius', 'biger') 0 0 0,
+    'navItemLastRadius':  0 ef.get('radius', 'biger') 0 0,
+
+    'bodyBackground': (
+        320: var(--mc-bg700),
+        900: transparent,
+    ),
+
+    'bodyRadius': 0 0 ef.get('radius', 'biger') ef.get('radius', 'biger'),
+)), $customThemeDefault);
+
+$customThemeWolf: () !default;
+$themeWolf: map-merge(map-merge($base, (
+    'containerRadius': ef.get('radius', 'main'),
+
+    'navMinHeight': 32px,
+    'navItemPadding': 0 ef.size(3) ef.size(3) ef.size(3),
+
+    'navItemActiveColor': var(--mc-baseThird),
+    'navItemStyle': 'PrimaryText',
+    'navItemActiveStyle': 'PrimaryTextBold',
+
+    'navItemBorder': 2px solid var(--fc-baseMain),
+    'navItemActiveBorder': 2px solid var(--mc-baseThird),
+)), $customThemeWolf);

@@ -1,0 +1,108 @@
+.wlc-tab-switcher--theme-wolf:host {
+    height: ef.get-value($themeWolf, 'height');
+
+    .wlc-tab-switcher {
+
+        &__container {
+            @include bm.get-mq-map('padding', $themeWolf, 'containerPadding');
+            height: ef.get-value($themeWolf, 'height');
+            border-radius: ef.get-value($themeWolf, 'containerRadius');
+            overflow: visible;
+        }
+
+        &-nav {
+            @include bm.get-mq-map('display', $themeWolf, 'navDisplay');
+            min-height: ef.get-value($themeWolf, 'navMinHeight');
+
+            &__item {
+                @include text.get-text-style(ef.get-value($themeWolf, 'navItemStyle'), ef.get-value($themeWolf, 'navItemColor'));
+                flex: ef.get-value($themeWolf, 'navItemFlex');
+                max-width: ef.get-value($themeWolf, 'navItemMaxWidth');
+                padding: ef.get-value($themeWolf, 'navItemPadding');
+                text-align: ef.get-value($themeWolf, 'navItemTextAlign');
+                border-bottom: ef.get-value($themeWolf, 'navItemBorder');
+                text-overflow: ellipsis;
+
+                overflow: hidden;
+                cursor: pointer;
+
+                &.active {
+                    @include text.get-text-style(ef.get-value($themeWolf, 'navItemActiveStyle'), ef.get-value($themeWolf, 'navItemActiveColor'));
+                    border-bottom: ef.get-value($themeWolf, 'navItemActiveBorder');
+                }
+            }
+        }
+
+        &-body {
+            height: calc(#{ef.get-value($themeWolf, 'bodyHeight')} - #{ef.get-value($themeWolf, 'navMinHeight')});
+
+            &__item {
+                display: none;
+                height: ef.get-value($themeWolf, 'bodyItemHeight');
+
+                &.active {
+                    display: block;
+                }
+
+                &--login {
+                    @include bm.get-mq-map('width', $themeWolf, 'loginBodyWidth');
+                    margin: ef.get-value($themeWolf, 'bodyItemLoginMargin');
+                    padding: ef.get-value($themeWolf, 'bodyItemLoginPadding');
+                }
+
+                &--signup {
+                    @include bm.get-mq-map('width', $themeWolf, 'signupBodyWidth');
+                }
+            }
+        }
+    }
+
+    &.wlc-tab-switcher--theme-mod-first,
+    &.wlc-tab-switcher--theme-mod-skip-bonus {
+
+        .wlc-tab-switcher {
+
+            &-body {
+
+                &__item {
+
+                    &--signup {
+                        @include bm.get-mq-map('width', $themeWolf, 'signupBodyWidthFirst');
+                    }
+                }
+            }
+        }
+    }
+
+    &.wlc-tab-switcher--theme-mod-with-promo {
+
+        .wlc-tab-switcher {
+
+            &-body {
+
+                &__item {
+
+                    &--signup {
+                        @include bm.get-mq-map('width', $themeWolf, 'signupBodyWidthPromo');
+                    }
+                }
+            }
+        }
+    }
+
+    &.wlc-tab-switcher--theme-mod-with-banner {
+
+        .wlc-tab-switcher {
+
+            &-body {
+
+                &__item {
+
+                    &--login {
+                        @include bm.get-mq-map('padding', $themeWolf, 'bodyItemLoginWithBannerPadding');
+                    }
+                }
+            }
+        }
+    }
+}
