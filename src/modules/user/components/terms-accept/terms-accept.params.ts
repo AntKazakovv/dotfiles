@@ -1,10 +1,15 @@
-import {IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {
+    CustomType,
+    IComponentParams,
+} from 'wlc-engine/modules/core';
 
-export interface ITermsAcceptCParams extends IComponentParams<string, string, string> {
-    source: 'router' | 'userinfo';
-}
+export type ComponentTheme = 'default' | CustomType;
+export type ComponentType = 'default' | CustomType;
+
+export interface ITermsAcceptCParams extends IComponentParams<ComponentTheme, ComponentType, string> {}
 
 export const defaultParams: ITermsAcceptCParams = {
     class: 'wlc-accept-terms',
-    source: 'userinfo',
+    moduleName: 'user',
+    componentName: 'wlc-accept-terms',
 };

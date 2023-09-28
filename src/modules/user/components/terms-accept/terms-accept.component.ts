@@ -74,11 +74,11 @@ export class AcceptTermsComponent extends AbstractComponent implements OnInit {
         this.modal?.closed.then((status) => {
             if (status !== 'accept') {
                 this.termsAcceptService.setModalTimeout();
-
-                if (this.$params.source === 'userinfo'
-                    && !this.termsAcceptService.checkState(this.uiRouter.current.name, this.uiRouter.current.params)) {
-                    this.stateService.go('app.home');
+                if (!this.termsAcceptService.checkState(this.uiRouter.current.name, this.uiRouter.current.params)) {
                     this.termsAcceptService.showDeniedNotify();
+                    setTimeout(() => {
+                        this.stateService.go('app.home');
+                    }, 500);
                 }
             }
         });

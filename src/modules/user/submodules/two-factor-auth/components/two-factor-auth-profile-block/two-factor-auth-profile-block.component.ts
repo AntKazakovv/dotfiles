@@ -73,8 +73,8 @@ export class TwoFactorAuthProfileBlockComponent extends AbstractComponent implem
     }
 
     protected async setStatus2FAGoogle(): Promise<void> {
-        const data = await this.twoFactorAuthService.getTwoFactorAuthUserInfo();
-        this.enabled2FAGoogle = data.enabled2FAGoogle;
+        const {enabled2FAGoogle} = await this.twoFactorAuthService.getUserInfo();
+        this.enabled2FAGoogle = enabled2FAGoogle;
         this.cdr.markForCheck();
     }
 

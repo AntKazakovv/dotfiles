@@ -8,11 +8,6 @@ import _keys from 'lodash-es/keys';
 import _each from 'lodash-es/each';
 import _includes from 'lodash-es/includes';
 import _isNil from 'lodash-es/isNil';
-import {
-    BehaviorSubject,
-    first,
-    firstValueFrom,
-} from 'rxjs';
 
 import {
     IRedirect,
@@ -23,12 +18,8 @@ import {
     StateHistoryService,
     IStateModalOption,
     ForbiddenCountryService,
-    ModalService,
-    InjectionService,
 } from 'wlc-engine/modules/core';
 import {AppType} from 'wlc-engine/modules/core/system/interfaces/base-config/app.interface';
-import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
-import {TermsAcceptService} from 'wlc-engine/modules/user';
 
 export function routerConfigFn(router: UIRouter, injector: Injector): void {
     const configService: ConfigService = injector.get(ConfigService);
@@ -86,40 +77,6 @@ export function routerConfigFn(router: UIRouter, injector: Injector): void {
 
         useCountryRestriction(injector, configService);
 
-        if (configService.get<string>('appConfig.siteconfig.termsOfService')) {
-            let termsAcceptService: TermsAcceptService;
-            const modalService: ModalService = injector.get(ModalService);
-            router.transitionService.onBefore({}, async (trans: Transition) => {
-                if (!termsAcceptService) {
-                    const injectionService = injector.get(InjectionService);
-                    termsAcceptService = await injectionService
-                        .getService<TermsAcceptService>('user.terms-accept-service');
-                    await injectionService.getService('user.user-service');
-                }
-                if (configService.get<boolean>('$user.isAuthenticated')
-                    && !termsAcceptService.checkState(trans.to().name, trans.params())
-                ) {
-                    const userInfo$ = configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'});
-                    const userInfo = userInfo$.value ?? await firstValueFrom(userInfo$.pipe(first((v) => !!v)));
-
-                    if (shouldTermsModalBeShown(modalService, userInfo)) {
-                        termsAcceptService.showDeniedNotify();
-
-                        const res = await modalService.showModal('accept-terms', {source: 'router'});
-                        await res.closed;
-                        if (res.closeReason !== 'accept') {
-                            trans.abort();
-                            if (!termsAcceptService.checkState(router.globals.current.name, router.globals.params)) {
-                                router.stateService.go('app.home', trans.params());
-                            }
-                        } else {
-                            router.stateService.reload();
-                        }
-                    }
-                }
-            });
-        }
-
         router.transitionService.onBefore({to: criteria}, (trans: Transition) => {
             if (profileType !== profileRedirectsMap?.[trans.to().name]) {
                 return router.stateService.target('app.error', trans.params());
@@ -169,12 +126,6 @@ export function routerConfigFn(router: UIRouter, injector: Injector): void {
             });
         });
     });
-}
-
-function shouldTermsModalBeShown(modalService: ModalService, userInfo: UserInfo): boolean {
-    return !userInfo.isTermsActual
-        && !userInfo.blockByLocation
-        && !modalService.getActiveModal('accept-terms');
 }
 
 async function useCountryRestriction(injector: Injector, configService: ConfigService): Promise<void> {

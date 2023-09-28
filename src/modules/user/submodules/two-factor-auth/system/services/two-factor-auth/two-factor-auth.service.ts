@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {
     BehaviorSubject,
+    Subscription,
     first,
     firstValueFrom,
 } from 'rxjs';
@@ -26,11 +27,11 @@ import {
 import {
     UserInfo,
     UserService,
+    TermsAcceptService,
 } from 'wlc-engine/modules/user';
 import {TMessageType} from 'wlc-engine/modules/core/components/message/message.params';
 import {
     ITwoFactorAuthResponse,
-    ITwoFactorAuthUserInfo,
 } from 'wlc-engine/modules/user/submodules/two-factor-auth/system/interfaces/two-factor-auth.interface';
 import {UserHelper} from 'wlc-engine/modules/user/system/helpers/user.helper';
 
@@ -38,7 +39,8 @@ import {UserHelper} from 'wlc-engine/modules/user/system/helpers/user.helper';
 export class TwoFactorAuthService {
 
     public secretCode: ITwoFactorAuthResponse;
-    protected userService: UserService;
+    private userService: UserService;
+    private userInfoSubscribe: Subscription;
 
     constructor(
         protected eventService: EventService,
@@ -50,27 +52,22 @@ export class TwoFactorAuthService {
     ) {}
 
     /**
-     * return enabled2FAGoogle and notify2FAGoogle from UserInfo
+     * return UserInfo
      *
-     * @return {ITwoFactorAuthUserInfo}
+     * @return {UserInfo}
      */
-    public async getTwoFactorAuthUserInfo(): Promise<ITwoFactorAuthUserInfo> {
+    public async getUserInfo(): Promise<UserInfo> {
         await this.configService.ready;
         if (!this.userService) {
             this.userService = await this.injectionService.getService<UserService>('user.user-service');
         }
         this.userService.fetchUserInfo();
-        const userInfo: UserInfo = await firstValueFrom(
+        return await firstValueFrom<UserInfo>(
             this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'})
                 .pipe(
                     first((userInfo: UserInfo): boolean => !!userInfo?.idUser),
                 ),
         );
-        const data: ITwoFactorAuthUserInfo = {
-            enabled2FAGoogle: userInfo.enabled2FAGoogle,
-            notify2FAGoogle: userInfo.notify2FAGoogle,
-        };
-        return data;
     }
 
     /**
@@ -84,10 +81,35 @@ export class TwoFactorAuthService {
     }
 
     /**
+     * show notification two factor auth google
+     *
+     */
+    public showNotification2FAGoogle(userInfo: UserInfo): void {
+        if (this.shouldModalBeShown(userInfo)) {
+            this.modalService.showModal('two-factor-auth-info');
+        } else {
+            this.listenUserInfo();
+        }
+    }
+
+    /**
      * open modal two-factor-auth-info
      *
      */
-    public openModalEnable(): void {
+    public async openModalEnable(): Promise<void> {
+        const userInfo = await this.getUserInfo();
+        if (!userInfo.isTermsActual) {
+            const termsAcceptService = await this.injectionService
+                .getService<TermsAcceptService>('user.terms-accept-service');
+            const reason = await termsAcceptService.openModalAndCheckReason();
+            if (reason !== 'accept') {
+                this.showNotification(
+                    gettext('You must accept the terms and conditions to complete this action.'),
+                    'error',
+                );
+                return;
+            }
+        }
         this.modalService.showModal('two-factor-auth-info');
     }
 
@@ -299,5 +321,23 @@ export class TwoFactorAuthService {
                 wlcElement: type ? 'google2fa-' + type : null,
             },
         });
+    }
+
+    private listenUserInfo(): void {
+        this.userInfoSubscribe = this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'})
+            .pipe(first((userInfo: UserInfo): boolean => !!userInfo?.idUser))
+            .subscribe((userInfo: UserInfo) => {
+                if (this.shouldModalBeShown(userInfo)) {
+                    this.userInfoSubscribe.unsubscribe();
+                    this.modalService.showModal('two-factor-auth-info');
+                }
+            });
+    }
+
+    private shouldModalBeShown(userInfo: UserInfo): boolean {
+        return userInfo.isTermsActual
+            && !userInfo.blockByLocation
+            && userInfo.notify2FAGoogle
+            && !this.modalService.getActiveModal('two-factor-auth-info');
     }
 }

@@ -56,8 +56,8 @@ export class TwoFactorAuthInfoComponent extends AbstractComponent implements OnI
     }
 
     protected async getNotify2FAGoogle(): Promise<void> {
-        const data = await this.twoFactorAuthService.getTwoFactorAuthUserInfo();
-        this.notify2FAGoogle = data.notify2FAGoogle;
+        const {notify2FAGoogle} = await this.twoFactorAuthService.getUserInfo();
+        this.notify2FAGoogle = notify2FAGoogle;
         this.cdr.markForCheck();
     }
 }

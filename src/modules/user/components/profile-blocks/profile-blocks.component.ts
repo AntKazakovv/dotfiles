@@ -204,8 +204,8 @@ export class ProfileBlocksComponent extends AbstractComponent implements OnInit 
     }
 
     protected async setStatus2FAGoogle(): Promise<void> {
-        const data = await this.twoFactorAuthService.getTwoFactorAuthUserInfo();
-        this.enabled2FAGoogle = data.enabled2FAGoogle;
+        const {enabled2FAGoogle} = await this.twoFactorAuthService.getUserInfo();
+        this.enabled2FAGoogle = enabled2FAGoogle;
         this.ready2FA = true;
         this.cdr.markForCheck();
     }

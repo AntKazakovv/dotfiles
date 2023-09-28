@@ -1,9 +1,13 @@
 import {Injectable} from '@angular/core';
-import {RawParams} from '@uirouter/core';
+import {
+    RawParams,
+    Transition,
+    UIRouter,
+} from '@uirouter/core';
 
 import {
     BehaviorSubject,
-    filter,
+    Subscription,
     first,
     firstValueFrom,
 } from 'rxjs';
@@ -15,6 +19,8 @@ import {
     EventService,
     HooksService,
     IData,
+    IEvent,
+    IHookHandlerDescriptor,
     IIndexing,
     IPushMessageParams,
     IUserInfo,
@@ -32,6 +38,10 @@ export class TermsAcceptService {
 
     private acceptModalId = 'accept-terms';
     private statesMap = new Map<string, IIndexing<unknown>>();
+    private userInfoSubscribe: Subscription;
+    private hookOnRequestMethod: IHookHandlerDescriptor;
+    private hookBeforeStartGame: IHookHandlerDescriptor;
+    private transitionOnBeforeDestroy: Function;
 
     constructor(
         protected configService: ConfigService,
@@ -40,10 +50,9 @@ export class TermsAcceptService {
         protected eventService: EventService,
         protected cachingService: CachingService,
         protected hooksService: HooksService,
+        protected router: UIRouter,
     ) {
-        if (this.configService.get<string>('appConfig.siteconfig.termsOfService')) {
-            this.init();
-        }
+        this.init();
     }
 
     /**
@@ -116,17 +125,29 @@ export class TermsAcceptService {
         });
     }
 
-    protected async shouldModalBeShown(userInfo: UserInfo): Promise<boolean> {
-        return !userInfo.isTermsActual
-            && !userInfo.blockByLocation
-            && !this.modalService.getActiveModal(this.acceptModalId)
-            && !await this.checkModalTimeout();
+    /**
+     * Open modal to the user that they must accept
+     * the terms and conditions to complete this action
+     */
+    public async openModalAndCheckReason(): Promise<string> {
+        const userInfo$ = this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'});
+        const userInfo = userInfo$.value ?? await firstValueFrom(userInfo$
+            .pipe(first((userInfo: UserInfo): boolean => !!userInfo?.idUser)));
+        if (this.shouldModalBeShown(userInfo)) {
+            const modal = await this.modalService.showModal(this.acceptModalId);
+            await modal.closed;
+            return modal.closeReason;
+        }
+        return 'accept';
     }
 
-    private init(): void {
-        this.hooksService.set<IHookRequestData>('dataService:requestMethod', this.onRequestMethod, this);
-        this.hooksService.set<IHookGameStartData>('beforeStartGame', this.beforeStartGame, this);
+    private shouldModalBeShown(userInfo: UserInfo): boolean {
+        return !userInfo.isTermsActual
+            && !userInfo.blockByLocation
+            && !this.modalService.getActiveModal(this.acceptModalId);
+    }
 
+    private async init(): Promise<void> {
         const states = this.configService.get<string[]>({name: '$base.termsAvailableStates'}) || [];
         for (let i = 0; i < states.length; i++) {
             const [state, paramsString] = states[i].split('?');
@@ -139,18 +160,76 @@ export class TermsAcceptService {
             }
             this.statesMap.set(state, params);
         }
+        if (await this.checkModalTimeout()) {
+            this.cachingService.clear('accept-terms-timeout');
+        }
+        this.setHook();
+        this.listenAuthEvents();
+        this.listenUserInfo();
+    }
 
-        this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'})
-            .pipe(filter((v) => !!v))
-            .subscribe(async (userInfo) => {
-                if (await this.shouldModalBeShown(userInfo)) {
+    private setHook(): void {
+        this.hookOnRequestMethod = this.hooksService
+            .set<IHookRequestData>('dataService:requestMethod', this.onRequestMethod, this);
+        this.hookBeforeStartGame = this.hooksService
+            .set<IHookGameStartData>('beforeStartGame', this.beforeStartGame, this);
+        this.transitionOnBeforeDestroy = this.onBeforeHook();
+    }
+
+    private onBeforeHook(): Function {
+        return this.router.transitionService.onBefore({}, async (trans: Transition) => {
+            if (!this.checkState(trans.to().name, trans.params())) {
+                const userInfo$ = this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'});
+                const userInfo = userInfo$.value ?? await firstValueFrom(userInfo$
+                    .pipe(first((userInfo: UserInfo): boolean => !!userInfo?.idUser)));
+                if (this.shouldModalBeShown(userInfo)) {
+                    this.showDeniedNotify();
+                    const modal = await this.modalService.showModal(this.acceptModalId);
+                    await modal.closed;
+                    if (modal.closeReason !== 'accept') {
+                        trans.abort();
+                    } else {
+                        this.router.stateService.reload();
+                    }
+                }
+            }
+        });
+    }
+
+    private listenAuthEvents(): void {
+        this.eventService.filter([
+            {name: 'LOGIN'},
+            {name: 'LOGOUT'},
+        ]).subscribe(async (event: IEvent<IData>) => {
+            if (await this.checkModalTimeout()) {
+                this.cachingService.clear('accept-terms-timeout');
+            }
+            switch (event.name) {
+                case 'LOGIN':
+                    this.listenUserInfo();
+                    this.setHook();
+                    break;
+                case 'LOGOUT':
+                    this.userInfoSubscribe.unsubscribe();
+                    this.transitionOnBeforeDestroy();
+                    this.hooksService.clear([this.hookBeforeStartGame, this.hookOnRequestMethod]);
+                    break;
+            }
+        });
+    }
+
+    private listenUserInfo(): void {
+        this.userInfoSubscribe = this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'})
+            .pipe(first((userInfo: UserInfo): boolean => !!userInfo?.idUser))
+            .subscribe(async (userInfo: UserInfo) => {
+                if (this.shouldModalBeShown(userInfo) && !await this.checkModalTimeout()) {
                     this.modalService.showModal(this.acceptModalId);
                 }
             });
     }
 
     private async beforeStartGame(data: IHookGameStartData): Promise<IHookGameStartData> {
-        if (!data.demo && this.configService.get<boolean>('$user.isAuthenticated')) {
+        if (!data.demo) {
             const reason = await this.openModalAndCheckReason();
             if (reason !== 'accept') {
                 data.result.reject(gettext('You must accept the terms and conditions to complete this action.'));
@@ -161,10 +240,6 @@ export class TermsAcceptService {
     }
 
     private async onRequestMethod({request, params}: IHookRequestData): Promise<IHookRequestData> {
-        if (!this.configService.get<boolean>('$user.isAuthenticated')) {
-            return {request, params};
-        }
-
         if (
             (request.type === 'POST'
                 && (request.url.match(/^\/bonuses\/\d*$/) || request.url.match(/^\/tournaments\/\d*$/)))
@@ -183,17 +258,6 @@ export class TermsAcceptService {
             }
         }
         return {request, params};
-    }
-
-    private async openModalAndCheckReason(): Promise<string> {
-        const userInfo$ = this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'});
-        const userInfo = userInfo$.value ?? await firstValueFrom(userInfo$.pipe(first((v) => !!v)));
-        if (!userInfo.isTermsActual) {
-            const modal = await this.modalService.showModal(this.acceptModalId, {source: 'router'});
-            await modal.closed;
-            return modal.closeReason;
-        }
-        return 'accept';
     }
 
     private async checkModalTimeout(): Promise<boolean> {

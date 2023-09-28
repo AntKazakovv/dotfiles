@@ -79,6 +79,10 @@ import {WebSocketEvents} from 'wlc-engine/modules/core/system/services/websocket
 import {AchievementsService} from 'wlc-engine/modules/loyalty/submodules/achievements';
 import {UserHelper} from 'wlc-engine/modules/user/system/helpers/user.helper';
 import {IWSData} from 'wlc-engine/modules/core/system/interfaces/websocket.interface';
+import {TermsAcceptService} from 'wlc-engine/modules/user/system/services/terms/terms-accept.service';
+import {
+    TwoFactorAuthService,
+} from 'wlc-engine/modules/user/submodules/two-factor-auth/system/services/two-factor-auth/two-factor-auth.service';
 
 export enum LanguageChangeEvents {
     ChangeLanguage = 'CHANGE_LANGUAGE'
@@ -181,6 +185,8 @@ export class UserService {
     private achievementsService: AchievementsService;
     private dataLoyaltyUserSub: Subscription;
     private wsBalanceData: IWSDataUserBalance = null;
+    private termsAcceptService: TermsAcceptService;
+    private twoFactorAuthService: TwoFactorAuthService;
 
     constructor(
         public translateService: TranslateService,
@@ -227,8 +233,6 @@ export class UserService {
             this.eventService,
         );
         this.profile = new UserProfile({service: 'UserService', method: 'constructor'});
-
-        this.showTwoFactorAuthModal();
 
         if (this.useAchievements) {
             this.achievementsService ??= await this.injectionService
@@ -298,6 +302,7 @@ export class UserService {
             this.isAuth$.next(true);
             this.isAuthenticated = true;
             this.configService.set({name: '$user.isAuthenticated', value: true});
+            this.setTermsAcceptService();
             this.showTwoFactorAuthModal();
             this.fetchUserProfile().then(async () => {
                 this._isMetamaskUser = this.userProfile.type === 'metamask';
@@ -369,6 +374,8 @@ export class UserService {
         });
 
         if (this.isAuthenticated) {
+            this.setTermsAcceptService();
+            this.showTwoFactorAuthModal();
             this.fetchUserProfile().then(async () => {
                 this._isMetamaskUser = this.userProfile.type === 'metamask';
                 if (this.configService.get('$base.profile.limitations.use')) {
@@ -1343,7 +1350,9 @@ export class UserService {
                     ),
             );
             if (userInfo.notify2FAGoogle) {
-                this.modalService.showModal('two-factor-auth-info');
+                this.twoFactorAuthService ??= await this.injectionService
+                    .getService<TwoFactorAuthService>('two-factor-auth.two-factor-auth-service');
+                this.twoFactorAuthService.showNotification2FAGoogle(userInfo);
             }
         }
     }
@@ -1351,6 +1360,13 @@ export class UserService {
     private loginWithTwoFactorAuth(data: string[]): void {
         if (Array.isArray(data) && data.length === 1) {
             this.modalService.showModal('two-factor-auth-code', {authKey: data[0]});
+        }
+    }
+
+    private async setTermsAcceptService(): Promise<void> {
+        if (this.configService.get<string>('appConfig.siteconfig.termsOfService')) {
+            this.termsAcceptService ??= await this.injectionService
+                .getService<TermsAcceptService>('user.terms-accept-service');
         }
     }
 }
