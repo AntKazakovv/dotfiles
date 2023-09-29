@@ -2,16 +2,6 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'userInfoShortMargin': 0 ef.size(4),
     'notifierMargin': 0 0 0 ef.size(4),
-    'userInfoDropdownBtnPadding': 5px 12px 5px 5px,
-    'userInfoDropdownBtnBorder': 2px solid var(--mc-baseOpacity),
-    'userInfoDropdownBtnBorderHover': 2px solid var(--mc-baseMain),
-    'userInfoDropdownBtnBorderActive': 2px solid var(--mc-main),
-    'userInfoDropdownBtnBorderRadius': ef.get('radius', 'biger'),
-    'userInfoDropdownArrowMargin': 0 0 0 32px,
-    'userInfoDropdownArrowFill': var(--fc-arrowColor),
-    'userInfoDropdownArrowFillHover': var(--mc-baseMain),
-    'userInfoDropdownArrowFillActive': var(--mc-main),
-    'userInfoDropdownBtnIconSize': ef.size(5),
     'userInfoDropdownTop': calc(100% + 10px),
     'userInfoDropdownRight': 0,
     'userInfoDropdownMinWidth': 270px,
@@ -19,20 +9,18 @@ $themeDefault: map-merge((
     'userInfoDropdownPadding': 10px,
     'userInfoDropdownBg': var(--mc-bgModal),
     'userInfoDropdownBorderRadius': ef.get('radius', 'biger'),
-    'userInfoGap': ef.size(2),
-
     'userInfoDepositBtnMargin': (
-        375:  0 ef.size(3) 0 0,
+        375: 0 ef.size(3) 0 0,
         1200: 0 ef.size(4) 0 0,
+    ),
+    'userInfoDepositBtnPadding': (
+        375: ef.size(1),
+        1200: ef.size(1) ef.size(4),
     ),
 
     'userInfoWrpMargin': 0 0 ef.size(2),
     'userInfoWrpStickyMargin': 0 0 ef.size(4),
 
-    'userInfoDepositBtnPadding': (
-        375: ef.size(1),
-        1200: ef.size(1) ef.size(4),
-    ),
     'userInfoDropdownIconFill': var(--mc-secondary),
     'userInfoDropdownIconInnerFill': ef.get('mainColors', 'baseMain'),
     'userInfoProfileBtnHeight': ef.get('buttonSettings', 'heightDefault'),
@@ -44,7 +32,6 @@ $themeDefault: map-merge((
     'userInfoProfileBtnIconMrgnRight': ef.size(4),
     'userInfoProfileBtnSvgHeight': 28px,
     'userInfoProfileBtnSvgWidth': 28px,
-    'userInfoProfileBtnSvgCircle': var(--mc-secondary),
     'userInfoProfileBtnFont': 'ButtonText',
     'userInfoProfileBtnTxtColor': ef.get('buttonSettings', 'fontColorSecondary'),
     'userInfoProfileBtnBorder': ef.get('buttonSettings', 'borderSecondary'),

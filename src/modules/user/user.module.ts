@@ -38,6 +38,7 @@ import {RestoreLinkComponent} from './components/restore-link/restore-link.compo
 import {RestorePasswordFormComponent} from './components/restore-password-form/restore-password-form.component';
 import {SignInFormComponent} from './components/sign-in-form/sign-in-form.component';
 import {SignUpFormComponent} from './components/sign-up-form/sign-up-form.component';
+import {UserIconComponent} from './components/user-icon/user-icon.component';
 import {UserInfoComponent} from './components/user-info/user-info.component';
 import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {UserNameComponent} from './components/user-name/user-name.component';
@@ -87,6 +88,7 @@ export const components = {
     'wlc-sign-up-form': SignUpFormComponent,
     'wlc-social-networks': SocialNetworksComponent,
     'wlc-social-sign-up-form': SocialSignUpFormComponent,
+    'wlc-user-icon': UserIconComponent,
     'wlc-user-info': UserInfoComponent,
     'wlc-user-name': UserNameComponent,
     'wlc-user-stats': UserStatsComponent,
@@ -120,6 +122,7 @@ export const components = {
         SignUpFormComponent,
         SocialNetworksComponent,
         SocialSignUpFormComponent,
+        UserIconComponent,
         UserInfoComponent,
         UserNameComponent,
         UserStatsComponent,
@@ -159,6 +162,7 @@ export const components = {
         SignUpFormComponent,
         SocialNetworksComponent,
         SocialSignUpFormComponent,
+        UserIconComponent,
         UserInfoComponent,
         UserNameComponent,
         UserStatsComponent,

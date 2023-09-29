@@ -150,9 +150,10 @@
             white-space: ef.get-value($theme, 'loginBtnWhiteSpace');
         }
 
-        &--deposit {
+        &--deposit.wlc-btn--deposit {
             margin: ef.get-value($theme, 'headerDepositBtnMargin');
             border-radius: ef.get-value($theme, 'headerDepositBtnRadius');
+            background-color: ef.get-value($theme, 'headerDepositBtnFill');
 
             svg {
                 fill: ef.get-value($theme, 'headerDepositBtnFill');
@@ -175,19 +176,6 @@
                 svg {
                     width: ef.get-value($theme, 'headerMultiWalletDepositIconSize');
                     fill: ef.get-value($theme, 'headerMultiWalletDepositBtnFill');
-                }
-            }
-        }
-
-        &--user {
-            border-radius: ef.get-value($theme, 'headerUserBtnRadius');
-
-            svg {
-                fill: ef.get-value($theme, 'headerUserBtnFill');
-
-                path,
-                rect {
-                    fill: ef.get-value($theme, 'headerUserBtnInnerFillColor');
                 }
             }
         }
@@ -294,6 +282,11 @@
                     &.wlc-wallets__btn-deposit {
                         height: ef.get-value($theme, 'headerMultiWalletBtnHeight');
                     }
+
+                    svg {
+                        width: ef.get-value($theme, 'withBalanceBtnSvgSize');
+                        height: ef.get-value($theme, 'withBalanceBtnSvgSize');
+                    }
                 }
             }
 
@@ -302,15 +295,6 @@
                 svg {
                     width: ef.get-value($theme, 'withBalanceBurgerSvgSize');
                     height: ef.get-value($theme, 'withBalanceBurgerSvgSize');
-                }
-            }
-
-            .wlc-btn--deposit,
-            .wlc-btn--user {
-
-                svg {
-                    width: ef.get-value($theme, 'withBalanceBtnSvgSize');
-                    height: ef.get-value($theme, 'withBalanceBtnSvgSize');
                 }
             }
         }

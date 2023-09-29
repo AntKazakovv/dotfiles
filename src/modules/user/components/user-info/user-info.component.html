@@ -6,7 +6,8 @@
     </div>
     <div *ngIf="isMultiWallet"
          wlc-wrapper
-         [inlineParams]="multiWalletParams"></div>
+         [inlineParams]="multiWalletParams">
+     </div>
     <button
         *ngIf="$params.button?.use && !isMultiWallet"
         wlc-button
@@ -14,35 +15,25 @@
         [wlcElement]="'button_deposit'"
         [text]="$params.button.text"
         [animation]="$params.button.animate"
-        (click)="depositAction()"
-    ></button>
+        (click)="depositAction()">
+     </button>
 
-    <div class="{{$class}}-dropdown"
-         data-wlc-element="block_user-stat-dropdown"
-         wlc-click-outside
-         [isOpened]="isOpened"
-         (clickOutside)="isOpened = false; dropdownBtnActive = false;"
-    >
-        <div class="{{$class}}-dropdown__btn"
-             (click)="toggle()"
-             [ngClass]="{active: dropdownBtnActive}">
-            <span wlc-icon
-                  class="user"
-                  iconPath="/wlc/icons/user-icon.svg"
-                  wlcElement="icon_user">
-            </span>
-            <span wlc-icon
-                  class="arrow"
-                  iconPath="/wlc/icons/arrow.svg"
-                  wlcElement="icon_arrow">
-            </span>
-        </div>
+     <div class="{{$class}}-dropdown"
+          data-wlc-element="block_user-stat-dropdown"
+          wlc-click-outside
+          [isOpened]="isOpened"
+          (clickOutside)="isOpened = false; dropdownBtnActive = false;">
 
-        <div class="{{$class}}-dropdown__content"
-             wlc-wrapper [inlineParams]="$params.dropdown"
-             [@toggle]="isOpened ? 'opened' : 'closed'">
-        </div>
-    </div>
+          <button wlc-user-icon
+               (click)="toggle()"
+               [ngClass]="{active: dropdownBtnActive}">
+          </button>
+
+          <div class="{{$class}}-dropdown__content"
+               wlc-wrapper [inlineParams]="$params.dropdown"
+               [@toggle]="isOpened ? 'opened' : 'closed'">
+          </div>
+     </div>
 
     <div *ngIf="hasNotifier"
          wlc-wrapper

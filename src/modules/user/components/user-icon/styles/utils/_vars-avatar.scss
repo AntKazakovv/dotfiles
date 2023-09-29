@@ -1,0 +1,10 @@
+$customThemeAvatar: () !default;
+$themeAvatar: map-merge((
+    'iconFill': var(--mc-baseMain),
+    'buttonSize': 40px,
+    'buttonBg': ef.get('buttonSettings', 'background'),
+    'buttonBgHover': var(--mc-baseMain),
+    'buttonBorderRadius': ef.get('buttonSettings', 'borderRadiusDefault'),
+    'buttonShadow': ef.get('buttonSettings', 'shadow'),
+    'buttonBorder': ef.get('buttonSettings', 'borderDefault'),
+), $customThemeAvatar);

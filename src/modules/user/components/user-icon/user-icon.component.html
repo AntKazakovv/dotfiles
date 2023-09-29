@@ -1,0 +1,13 @@
+<span [ngClass]="$params.showAsBtn ? $class + '__btn' : ''">
+    <span wlc-icon
+        class="{{$class}}__user"
+        [iconPath]="$params.iconPath"
+        wlcElement="wlc-icon-user">
+    </span>
+    <span *ngIf="showArrow"
+        wlc-icon
+        class="{{$class}}__arrow"
+        iconPath="/wlc/icons/arrow.svg"
+        wlcElement="icon_arrow">
+    </span>
+</span>

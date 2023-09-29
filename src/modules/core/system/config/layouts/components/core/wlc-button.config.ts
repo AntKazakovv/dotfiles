@@ -201,40 +201,32 @@ export namespace wlcButton {
     };
 
     export const userIconMobile: ILayoutComponent = {
-        name: 'core.wlc-button',
+        name: 'user.wlc-user-icon',
         display: {
             auth: true,
             before: 1199,
         },
         params: {
-            theme: 'cleared',
-            themeMod: 'secondary',
-            customMod: 'user',
-            common: {
-                iconPath: '/wlc/icons/user-icon.svg',
-                event: {
-                    name: 'PANEL_OPEN',
-                    data: 'right',
-                },
+            event: {
+                name: 'PANEL_OPEN',
+                data: 'right',
             },
+            showAsBtn: true,
         },
     };
 
     export const userIconKiosk: ILayoutComponent = {
-        name: 'core.wlc-button',
+        name: 'user.wlc-user-icon',
         display: {
             auth: true,
             before: 1199,
         },
         params: {
-            class: 'wlc-btn wlc-btn--user',
-            common: {
-                iconPath: '/wlc/icons/user-icon.svg',
-                event: {
-                    name: 'PANEL_OPEN',
-                    data: 'right',
-                },
+            event: {
+                name: 'PANEL_OPEN',
+                data: 'right',
             },
+            showAsBtn: true,
         },
     };
 
@@ -271,18 +263,13 @@ export namespace wlcButton {
                     },
                 },
                 {
-                    name: 'core.wlc-button',
+                    name: 'user.wlc-user-icon',
                     params: {
-                        theme: 'cleared',
-                        themeMod: 'secondary',
-                        customMod: 'user',
-                        common: {
-                            iconPath: '/wlc/icons/user-icon.svg',
-                            event: {
-                                name: 'PANEL_OPEN',
-                                data: 'right',
-                            },
+                        event: {
+                            name: 'PANEL_OPEN',
+                            data: 'right',
                         },
+                        showAsBtn: true,
                     },
                 },
             ],

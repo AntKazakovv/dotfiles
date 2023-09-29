@@ -1,0 +1,111 @@
+button.wlc-user-icon--theme-default:host {
+
+    @include bm.transition(border);
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    padding: ef.get-value($themeDefault, 'dropdownBtnPadding');
+    border: ef.get-value($themeDefault, 'dropdownBtnBorder');
+    border-radius: ef.get-value($themeDefault, 'dropdownBtnBorderRadius');
+    background-color: transparent;
+    cursor: pointer;
+
+    .wlc-user-icon__arrow::ng-deep {
+        @include bm.transition(all);
+        margin: ef.get-value($themeDefault, 'dropdownArrowMargin');
+        color: ef.get-value($themeDefault, 'dropdownArrowFill');
+
+        svg {
+            fill: currentColor;
+        }
+    }
+
+    &.active {
+        border: ef.get-value($themeDefault, 'dropdownBtnBorderActive');
+
+        .wlc-user-icon__arrow::ng-deep {
+            color: ef.get-value($themeDefault, 'dropdownArrowFillActive');
+            transform: rotate(180deg);
+
+            svg {
+                fill: currentColor;
+            }
+        }
+
+
+        @include bm.hover {
+            border: ef.get-value($themeDefault, 'dropdownBtnBorderActive');
+
+            .wlc-user-icon__arrow::ng-deep {
+                color: ef.get-value($themeDefault, 'dropdownArrowFillActive');
+                transform: rotate(180deg);
+
+                svg {
+                    fill: currentColor;
+                }
+            }
+        }
+    }
+
+    @include bm.hover {
+        border: ef.get-value($themeDefault, 'dropdownBtnBorderHover');
+
+        .wlc-user-icon__arrow::ng-deep {
+            color: ef.get-value($themeDefault, 'dropdownArrowFillHover');
+
+            svg {
+                fill: currentColor;
+            }
+        }
+    }
+}
+
+div.wlc-user-icon--theme-default:host {
+
+    .wlc-user-icon__btn {
+        display: block;
+        width: ef.get-value($themeDefault, 'buttonSize');
+        height: ef.get-value($themeDefault, 'buttonSize');
+
+        background: ef.get-value($themeDefault, 'buttonBg');
+        border-radius: ef.get-value($themeDefault, 'buttonBorderRadius');
+        box-shadow: ef.get-value($themeDefault, 'buttonShadow');
+        cursor: pointer;
+
+        .wlc-user-icon__user {
+            width: ef.get-value($themeDefault, 'buttonSize');
+            height: ef.get-value($themeDefault, 'buttonSize');
+        }
+    }
+}
+
+.wlc-user-icon--theme-default:host {
+
+    .wlc-user-icon {
+
+        &__btn {
+            display: flex;
+            align-items: center;
+        }
+
+        &__user::ng-deep {
+            display: block;
+            width: ef.get-value($themeDefault, 'dropdownBtnIconSize');
+            height: ef.get-value($themeDefault, 'dropdownBtnIconSize');
+
+            svg {
+                display: block;
+                width: 100%;
+                height: 100%;
+            }
+
+            circle {
+                fill: ef.get-value($themeDefault, 'dropdownIconFill');
+            }
+
+            path {
+                fill: ef.get-value($themeDefault, 'dropdownIconInnerFill');
+            }
+        }
+    }
+}
