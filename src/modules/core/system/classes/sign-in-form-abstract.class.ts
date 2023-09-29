@@ -136,10 +136,12 @@ export abstract class SignInFormAbstract<T extends IAbstractSignInFormCParams<un
                 await this.onCaptchaError(errors.captcha);
             } else if (error.code === 418) {
                 this.modalService.showModal('deviceRegistration', {login: email || login, password: password});
-
                 return false;
             } else {
                 errorMessage = errors;
+                if (this.captchaError) {
+                    this.removeCaptchaElements(form);
+                }
             }
 
             this.notificationLoginError(errorMessage);
@@ -187,18 +189,14 @@ export abstract class SignInFormAbstract<T extends IAbstractSignInFormCParams<un
         if (!this.captchaService) {
             this.captchaService = await this.injectionService.getService('captcha.captcha-service');
         }
-
-        this.addCaptchaElements();
-
+        if (!this.captchaError) {
+            this.addCaptchaElements();
+        }
         this.captchaError = true;
         this.captchaService.captchaImageUrl = error;
     }
 
     private addCaptchaElements(): void {
-        if (this.captchaError) {
-            return;
-        }
-
         const settings: ICaptchaInsertParams = this.$params.captchaInsertConfig;
         this.config.components.splice(
             settings.insertAfter, 0,
@@ -206,5 +204,15 @@ export abstract class SignInFormAbstract<T extends IAbstractSignInFormCParams<un
             settings.components.captchaInput,
         );
         this.config = _assign({}, this.config);
+    }
+
+    private removeCaptchaElements(form: UntypedFormGroup): void {
+        form.controls.captcha.setValue('');
+        form.controls.captcha.markAsUntouched();
+
+        const settings: ICaptchaInsertParams = this.$params.captchaInsertConfig;
+        this.config.components.splice(settings.insertAfter, 2);
+        this.config = _assign({}, this.config);
+        this.captchaError = false;
     }
 }
