@@ -4,5 +4,4 @@ $themeDefault: map-merge((
     'zindex': 999,
     'backdropBackground': var(--mc-bg-o8),
     'backdropBackgroundOpacity': var(--mc-bg-o0),
-    'backdropOverflow': scroll,
 ), $customThemeDefault);

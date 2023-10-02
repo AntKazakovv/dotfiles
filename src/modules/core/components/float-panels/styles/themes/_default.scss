@@ -24,7 +24,6 @@ $baseClass: 'wlc-float-panels';
             background: var(--fp-backdrop-background);
             visibility: var(--fp-backdrop-visibility, hidden);
             transition: ef.get-value($themeDefault, transition);
-            overflow-y: ef.get-value($themeDefault, 'backdropOverflow');
         }
 
         &--open {
