@@ -62,7 +62,7 @@ export const bonusHistoryTableHeadConfig: ITableCol[] = [
     },
     {
         key: 'FreeroundCount',
-        title: gettext('Freerounds'),
+        title: gettext('Free rounds'),
         type: 'text',
         order: 50,
         wlcElement: 'wlc-profile-table__cell_freerounds',
@@ -109,5 +109,3 @@ export const defaultParams: IBonusesHistoryCParams = {
         ],
     },
 };
-
-
