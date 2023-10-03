@@ -3,7 +3,7 @@ import {IPaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-
 export const cryptoInvoiceSystem: Readonly<IPaymentSystem> = {
     id: '-1',
     alias: 'paycryptos_invoices',
-    name: gettext('PayCryptos via Invoices'),
+    name: 'PayCryptos via Invoices',
     disable_amount: false,
     showfor: 'Deposits',
     appearance: 'replace',
