@@ -144,7 +144,7 @@
     }
 
     .wlc-sections__categories--theme-2 .games-categories--dropdown-search & {
-        top: ef.get-value($themeDefault, 'searchTopIconCat');
+        order: ef.get-value($themeDefault, 'searchOrderIconsCat');
         width: ef.get-value($themeDefault, 'searchWidthIconsCat');
 
         .wlc-dropdown-search__container {
