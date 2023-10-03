@@ -40,11 +40,11 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
     @Input() public isChooseBtn: boolean;
     @Input() public isInsideModal: boolean = false;
     @Input() public readMoreClick: ($event: MouseEvent) => Promise<void>;
-    @Input() public isShowUnsubscribe: boolean = false;
 
     @ViewChild('cancelModal') public tplModal: TemplateRef<ElementRef>;
     public override $params: Params.IBonusButtonsCParams;
     public isAuth: boolean;
+    public isDisableButtons: boolean;
 
     private static sportsbookService: SportsbookService;
 
@@ -82,30 +82,30 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
     }
 
     /**
-     * Determines show or not the play button in template
+     * High Order Function for disable all buttons when some of them in action
      *
-     * @returns {boolean}
+     * @param handler event handler
+     * @param args event handler params
+     *
+     * @returns {void}
      */
-    public get isShowPlayBtn(): boolean {
-        return ((this.bonus.isSubscribed && !this.bonus.isDeposit) || this.bonus.isActive)
-            && !this.bonus.inventoried;
+    public async clickHandleHof(handler: Params.TClickHandler, ...args: unknown[]): Promise<void>  {
+        if (handler) {
+            this.isDisableButtons = true;
+            await handler.bind(this, ...args)();
+            this.isDisableButtons = false;
+            this.cdr.markForCheck();
+        }
     }
+
     /**
-     * Determines show or not the unsubscribe button in template
+     * Determines show or not the unsubscribe button in template.
+     * Not shown in the inventory bonuses cards, but shown inside modal of them.
      *
      * @returns {boolean}
      */
     public get isShowUnsubscribeBtn(): boolean {
-        return this.bonus.canUnsubscribe && (!this.bonus.inventoried || this.isShowUnsubscribe);
-    }
-
-    /**
-     * Determines show or not the deposit button in template
-     *
-     * @returns {boolean}
-     */
-    public get isShowDepositBtn(): boolean {
-        return this.bonus.canUnsubscribe && this.bonus.isDeposit && !this.bonus.inventoried;
+        return this.bonus.canUnsubscribe && (!this.bonus.inventoried || this.isInsideModal);
     }
 
     /**
@@ -116,8 +116,6 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
 
         if (bonus) {
             this.bonus = bonus;
-
-            this.redrawingThemeLong();
         }
     }
 
@@ -133,8 +131,6 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
             this.bonus = bonus;
             this.bonusesService.clearPromoBonus();
             this.hideActiveModal('bonus-modal');
-
-            this.redrawingThemeLong();
 
             if (bonus.event === 'deposit' &&
                 this.configService.get<boolean>('$base.finances.redirectAfterDepositBonus')) {
@@ -170,8 +166,6 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
                 this.$params.btnsParams.cancelBtnParams.pending$?.next(false);
                 if (bonus) {
                     this.bonus = bonus;
-
-                    this.redrawingThemeLong();
                 }
             },
             dismissAll: true,
@@ -189,8 +183,6 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
         if (bonus) {
             this.bonus = bonus;
             this.hideActiveModal('bonus-modal');
-
-            this.redrawingThemeLong();
         }
     }
 
@@ -251,17 +243,6 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
     protected hideActiveModal(id: string): void {
         if (this.modalService.getActiveModal(id)) {
             this.modalService.hideModal(id);
-        }
-    }
-
-    /**
-     * Redraw component, if theme long
-     *
-     * @param {void}
-     */
-    protected redrawingThemeLong(): void {
-        if (this.bonusItemTheme === 'long') {
-            this.cdr.markForCheck();
         }
     }
 

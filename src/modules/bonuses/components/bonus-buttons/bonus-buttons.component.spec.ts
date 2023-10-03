@@ -42,12 +42,15 @@ describe('BonusButtonsComponent', () => {
             'name': 'Super bonus',
             'description': 'Super bonus for you',
             'terms': 'Simple test',
-            'canSubscribe': false,
-            'inventoried': false,
-            'canUnsubscribe': false,
-            'isActive': false,
-            'isDeposit': false,
             'showOnly': false,
+            'canSubscribe': false,
+            'canInventory': false,
+            'canUnsubscribe': false,
+            'canLeave': false,
+            'canReadMore': false,
+            'canDeposit': false,
+            'canPlay': false,
+            'canOpen': false,
         });
         injectParams = {
             theme: 'default',
@@ -149,13 +152,13 @@ describe('BonusButtonsComponent', () => {
     });
 
     it('-> checking for the presence of an inventoriedBtn', () => {
-        resetProp('inventoried', true);
+        resetProp('canInventory', true);
         component.ngOnInit();
         component.bonusItemTheme = 'default';
         component.isAuth = true;
         fixture.detectChanges();
 
-        expect(nativeElement.querySelector('button[text="Take"]')).toBeTruthy();
+        expect(nativeElement.querySelector('button[wlcelement="button_take"]')).toBeTruthy();
     });
 
     it('-> checking for the presence of an unsubscribeBtn', () => {
@@ -163,20 +166,41 @@ describe('BonusButtonsComponent', () => {
         component.ngOnInit();
         component.bonusItemTheme = 'default';
         component.isAuth = true;
-        component.isShowUnsubscribe = true;
+        component.isInsideModal = true;
         fixture.detectChanges();
 
         expect(nativeElement.querySelector('button[wlcelement="button_unsubscribe"]')).toBeTruthy();
     });
 
     it('-> checking for the presence of an leaveBtn', () => {
-        resetProp('isActive', true);
+        resetProp('canLeave', true);
         component.ngOnInit();
         component.bonusItemTheme = 'default';
         component.isAuth = true;
         fixture.detectChanges();
 
         expect(nativeElement.querySelector('button[wlcelement="button_leave"]')).toBeTruthy();
+    });
+
+    it('-> checking for the presence of an openBtn', () => {
+        resetProp('canOpen', true);
+        component.ngOnInit();
+        component.bonusItemTheme = 'default';
+        component.isAuth = true;
+        fixture.detectChanges();
+
+        expect(nativeElement.querySelector('button[wlcelement="button_open-lootbox"]')).toBeTruthy();
+    });
+
+    it('-> checking for the presence of an readMoreBtn', () => {
+        resetProp('canReadMore', true);
+        component.ngOnInit();
+        component.bonusItemTheme = 'default';
+        component.isAuth = true;
+        component.isInsideModal = false;
+        fixture.detectChanges();
+
+        expect(nativeElement.querySelector('button[wlcelement="button_read-more"]')).toBeTruthy();
     });
 
     it('-> checking for the presence of an chooseBonusBtn', () => {
@@ -186,32 +210,29 @@ describe('BonusButtonsComponent', () => {
         component.isChooseBtn = true;
         fixture.detectChanges();
 
-        expect(nativeElement.querySelector('button[text="Choose"]')).toBeTruthy();
+        expect(nativeElement.querySelector('button[wlcelement="button_choose"]')).toBeTruthy();
     });
 
     it('-> checking for the presence of an actionDepositBtn', () => {
-        resetProp('canUnsubscribe', true);
-        resetProp('isDeposit', true);
-        resetProp('inventoried', false);
+        resetProp('canDeposit', true);
         component.ngOnInit();
         component.$params.useActionButtons = true;
         component.bonusItemTheme = 'promo';
         component.isAuth = true;
         fixture.detectChanges();
 
-        expect(nativeElement.querySelector('button[text="Deposit"]')).toBeTruthy();
+        expect(nativeElement.querySelector('button[wlcelement="button_deposit"]')).toBeTruthy();
     });
 
     it('-> checking for the presence of an actionPlayBtn', () => {
-        resetProp('canUnsubscribe', true);
-        resetProp('isActive', true);
+        resetProp('canPlay', true);
         component.ngOnInit();
         component.$params.useActionButtons = true;
         component.bonusItemTheme = 'promo';
         component.isAuth = true;
         fixture.detectChanges();
 
-        expect(nativeElement.querySelector('button[text="Play"]')).toBeTruthy();
+        expect(nativeElement.querySelector('button[wlcelement="button_play"]')).toBeTruthy();
     });
 
     it('-> checking for the presence of an actionRegisterBtn', () => {
@@ -219,7 +240,7 @@ describe('BonusButtonsComponent', () => {
         component.bonusItemTheme = 'promo';
         fixture.detectChanges();
 
-        expect(nativeElement.querySelector('button[text="Sign up"]')).toBeTruthy();
+        expect(nativeElement.querySelector('button[wlcelement="button_register"]')).toBeTruthy();
     });
 
     it('-> checking for the presence of an registrationBtn', () => {
@@ -227,7 +248,7 @@ describe('BonusButtonsComponent', () => {
         component.bonusItemTheme = 'long';
         fixture.detectChanges();
 
-        expect(nativeElement.querySelector('button[text="Sign up"]')).toBeTruthy();
+        expect(nativeElement.querySelector('button[wlcelement="button_register"]')).toBeTruthy();
     });
 
     it('-> checking for the Read more button represence for showOnly bonus', () => {
@@ -236,7 +257,7 @@ describe('BonusButtonsComponent', () => {
         component.isInsideModal = false;
         fixture.detectChanges();
 
-        expect(nativeElement.querySelector('button[text="Read more"]')).toBeTruthy();
+        expect(nativeElement.querySelector('button[wlcelement="button_read-more"]')).toBeTruthy();
     });
 
     it('-> checking for the Close button inside modal represence for showOnly bonus', () => {
@@ -245,6 +266,6 @@ describe('BonusButtonsComponent', () => {
         component.isInsideModal = true;
         fixture.detectChanges();
 
-        expect(nativeElement.querySelector('button[text="Close"]')).toBeTruthy();
+        expect(nativeElement.querySelector('button[wlcelement="button_close"]')).toBeTruthy();
     });
 });

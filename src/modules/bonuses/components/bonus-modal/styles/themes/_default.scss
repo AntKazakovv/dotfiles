@@ -144,4 +144,11 @@
     .wlc-bonus-item {
         overflow: initial;
     }
+
+    ::ng-deep {
+
+        .wlc-bonus-buttons__button-close:not(:first-of-type) {
+            display: none;
+        }
+    }
 }

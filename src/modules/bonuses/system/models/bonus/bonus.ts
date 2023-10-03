@@ -566,19 +566,6 @@ export class Bonus extends AbstractModel<IBonus> {
         return this.status == 1 && this.selected && !this.active;
     }
 
-    /**
-     * @returns {boolean} is can subscribe bonus
-     */
-    public get canSubscribe(): boolean {
-        return this.status == 1 && !this.selected && !this.active && !this.inventoried;
-    }
-
-    /**
-     * @returns {boolean} is can unsubscribe bonus
-     */
-    public get canUnsubscribe(): boolean {
-        return this.isSubscribed || this.inventoried;
-    }
 
     /**
      * @returns {boolean} is bonus disabled
@@ -856,6 +843,62 @@ export class Bonus extends AbstractModel<IBonus> {
 
     public get serverTime(): number | null {
         return Bonus._serverTimeUTC;
+    }
+
+    /**
+     * @returns {boolean} can the bonus be played
+     */
+    public get canPlay(): boolean {
+        return ((this.isSubscribed && !this.isDeposit) || this.isActive) && !this.inventoried;
+    }
+
+    /**
+     * @returns {boolean} can the bonus be unsubscribed
+     */
+    public get canUnsubscribe(): boolean {
+        return this.isSubscribed || this.inventoried;
+    }
+
+    /**
+     * @returns {boolean} can the bonus be subscribed
+     */
+    public get canSubscribe(): boolean {
+        return this.status == 1 && !this.selected && !this.active && !this.inventoried;
+    }
+
+    /**
+     * @returns {boolean} can the bonus be deposited
+     */
+    public get canDeposit(): boolean {
+        return this.isSubscribed && this.isDeposit && !this.inventoried;
+    }
+
+    /**
+     * @returns {boolean} can the bonus be inventoried
+     */
+    public get canInventory(): boolean {
+        return this.inventoried && !this.isLootbox;
+    }
+
+    /**
+     * @returns {boolean} can the bonus be leaved
+     */
+    public get canLeave(): boolean {
+        return this.isActive && !this.disableCancel;
+    }
+
+    /**
+     * @returns {boolean} can read more about bonus
+     */
+    public get canReadMore(): boolean {
+        return this.isActive && this.disableCancel;
+    }
+
+    /**
+     * @returns {boolean} can the bonus be opened
+     */
+    public get canOpen(): boolean {
+        return this.isLootbox && this.inventoried;
     }
 
     /**

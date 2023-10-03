@@ -5,7 +5,7 @@
             text="Read more"
             typeAttr="button"
             wlcElement="button_read-more"
-            (click)="readMoreClick($event)">
+            (click)="clickHandleHof(readMoreClick, $event)">
     </button>
     <button *ngIf="isInsideModal"
             wlc-button
@@ -13,7 +13,7 @@
             text="Close"
             typeAttr="button"
             wlcElement="button_close"
-            (click)="action('close')">
+            (click)="clickHandleHof(action, 'close')">
     </button>
 </ng-container>
 
@@ -32,8 +32,10 @@
         <ng-container [ngTemplateOutlet]="inventoriedBtn"></ng-container>
         <ng-container [ngTemplateOutlet]="openLootbox"></ng-container>
         <ng-container [ngTemplateOutlet]="unsubscribeBtn"></ng-container>
+        <ng-container [ngTemplateOutlet]="readMoreBtn"></ng-container>
         <ng-container [ngTemplateOutlet]="leaveBtn"></ng-container>
         <ng-container [ngTemplateOutlet]="chooseBonusBtn"></ng-container>
+        <ng-container [ngTemplateOutlet]="closeBtn"></ng-container>
     </ng-container>
     <ng-container *ngIf="$params.useActionButtons" [ngTemplateOutlet]="actionRegisterBtn"></ng-container>
 </ng-template>
@@ -60,6 +62,7 @@
             <ng-container [ngTemplateOutlet]="openLootbox"></ng-container>
             <ng-container [ngTemplateOutlet]="unsubscribeBtn"></ng-container>
         </ng-container>
+        <ng-container [ngTemplateOutlet]="closeBtn"></ng-container>
     </ng-container>
     <ng-container [ngTemplateOutlet]="registrationBtn"></ng-container>
 </ng-template>
@@ -68,18 +71,20 @@
     <button *ngIf="bonus.canSubscribe"
             wlc-button
             wlcElement="button_subscribe"
+            [disabled]="isDisableButtons"
             [inlineParams]="$params.btnsParams.subscribeBtnParams"
-            (click)="join()">
+            (click)="clickHandleHof(join)">
     </button>
 </ng-template>
 
 <ng-template #inventoriedBtn>
-    <button *ngIf="bonus.inventoried && !bonus.isLootbox"
+    <button *ngIf="bonus.canInventory"
             wlc-button
             text="Take"
             typeAttr="button"
             wlcElement="button_take"
-            (click)="getInventory()">
+            [disabled]="isDisableButtons"
+            (click)="clickHandleHof(getInventory)">
     </button>
 </ng-template>
 
@@ -88,49 +93,78 @@
             wlc-button
             themeMod="secondary"
             wlcElement="button_unsubscribe"
+            [disabled]="isDisableButtons"
             [inlineParams]="$params.btnsParams.unsubscribeBtnParams"
-            (click)="unsubscribe()">
+            (click)="clickHandleHof(unsubscribe)">
     </button>
 </ng-template>
 
 <ng-template #leaveBtn>
-    <button *ngIf="bonus.isActive"
+    <button *ngIf="bonus.canLeave"
             wlc-button
             themeMod="secondary"
             wlcElement="button_leave"
+            [disabled]="isDisableButtons"
             [inlineParams]="$params.btnsParams.cancelBtnParams"
-            (click)="leave()">
+            (click)="clickHandleHof(leave)">
+    </button>
+</ng-template>
+
+<ng-template #readMoreBtn>
+    <button *ngIf="bonus.canReadMore && !isInsideModal"
+            wlc-button
+            themeMod="secondary"
+            text="Read more"
+            typeAttr="button"
+            wlcElement="button_read-more"
+            [disabled]="isDisableButtons"
+            (click)="clickHandleHof(readMoreClick, $event)">
+    </button>
+</ng-template>
+
+<ng-template #closeBtn>
+    <button *ngIf="isInsideModal"
+            wlc-button
+            class="{{$class}}__button-close"
+            themeMod="secondary"
+            text="Close"
+            typeAttr="button"
+            wlcElement="button_close"
+            [disabled]="isDisableButtons"
+            (click)="clickHandleHof(action, 'close')">
     </button>
 </ng-template>
 
 <ng-template #chooseBonusBtn>
     <button *ngIf="isChooseBtn"
             wlc-button
-            [disabled]="bonus.isChoose"
             text="Choose"
             typeAttr="button"
             wlcElement="button_choose"
-            (click)="chooseBonus()">
+            [disabled]="bonus.isChoose || isDisableButtons"
+            (click)="clickHandleHof(chooseBonus)">
     </button>
 </ng-template>
 
 <ng-template #actionDepositBtn>
-    <button *ngIf="isShowDepositBtn"
+    <button *ngIf="bonus.canDeposit"
             wlc-button
             text="Deposit"
             typeAttr="button"
             wlcElement="button_deposit"
-            (click)="action('deposit')">
+            [disabled]="isDisableButtons"
+            (click)="clickHandleHof(action, 'deposit')">
     </button>
 </ng-template>
 
 <ng-template #actionPlayBtn>
-    <button *ngIf="isShowPlayBtn"
+    <button *ngIf="bonus.canPlay"
             wlc-button
             text="Play"
             typeAttr="button"
             wlcElement="button_play"
-            (click)="action('play')">
+            [disabled]="isDisableButtons"
+            (click)="clickHandleHof(action, 'play')">
     </button>
 </ng-template>
 
@@ -140,7 +174,8 @@
             text="Sign up"
             typeAttr="button"
             wlcElement="button_register"
-            (click)="action('register')">
+            [disabled]="isDisableButtons"
+            (click)="clickHandleHof(action, 'register')">
     </button>
 </ng-template>
 
@@ -150,17 +185,19 @@
             text="Sign up"
             typeAttr="button"
             wlcElement="button_register"
-            (click)="registration()">
+            [disabled]="isDisableButtons"
+            (click)="clickHandleHof(registration)">
     </button>
 </ng-template>
 
 <ng-template #openLootbox>
-    <button *ngIf="bonus.isLootbox && bonus.inventoried"
+    <button *ngIf="bonus.canOpen"
             wlc-button
-            text="{{'Open' | translate}}"
+            text="Open"
             typeAttr="button"
             wlcElement="button_open-lootbox"
-            (click)="action('openLootbox')">
+            [disabled]="isDisableButtons"
+            (click)="clickHandleHof(action, 'openLootbox')">
     </button>
 </ng-template>
 <ng-template #cancelModal>

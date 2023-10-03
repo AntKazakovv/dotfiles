@@ -7,6 +7,7 @@ import {
 export type Type = 'default' | CustomType;
 export type Theme = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
+export type TClickHandler = (...args: unknown[]) => Promise<void> | void;
 
 export interface ILinkParams {
     state: string;

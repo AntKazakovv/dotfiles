@@ -240,6 +240,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
         if (this.$params.theme  === 'preview' || this.$params.theme === 'reg-first') {
             modalParams.hideBonusButtons = true;
         }
+
         if (this.bonus.isLootbox) {
             const lootboxPrizes: LootboxPrizeModel[] = await this.bonusesService.getLootboxPrizes(this.bonus);
 

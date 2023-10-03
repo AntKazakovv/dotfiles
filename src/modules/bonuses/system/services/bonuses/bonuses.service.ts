@@ -1125,7 +1125,7 @@ export class BonusesService {
                 break;
 
             case 'subscribe':
-                if (bonus.isInventory) {
+                if (!bonus.isInventory) {
                     bonus.data.Inventoried = 1;
                 }
                 break;
