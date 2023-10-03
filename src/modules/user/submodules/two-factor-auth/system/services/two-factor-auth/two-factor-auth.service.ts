@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {
     BehaviorSubject,
     Subscription,
+    filter,
     first,
     firstValueFrom,
 } from 'rxjs';
@@ -325,7 +326,7 @@ export class TwoFactorAuthService {
 
     private listenUserInfo(): void {
         this.userInfoSubscribe = this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'})
-            .pipe(first((userInfo: UserInfo): boolean => !!userInfo?.idUser))
+            .pipe(filter((userInfo: UserInfo): boolean => !!userInfo?.idUser))
             .subscribe((userInfo: UserInfo) => {
                 if (this.shouldModalBeShown(userInfo)) {
                     this.userInfoSubscribe.unsubscribe();

@@ -8,6 +8,7 @@ import {
 import {
     BehaviorSubject,
     Subscription,
+    filter,
     first,
     firstValueFrom,
 } from 'rxjs';
@@ -220,7 +221,7 @@ export class TermsAcceptService {
 
     private listenUserInfo(): void {
         this.userInfoSubscribe = this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'})
-            .pipe(first((userInfo: UserInfo): boolean => !!userInfo?.idUser))
+            .pipe(filter((userInfo: UserInfo): boolean => !!userInfo?.idUser))
             .subscribe(async (userInfo: UserInfo) => {
                 if (this.shouldModalBeShown(userInfo) && !await this.checkModalTimeout()) {
                     this.modalService.showModal(this.acceptModalId);
