@@ -487,8 +487,6 @@ def make_hotfix(action):
         error_message()
         make_hotfix()
 
-    # TODO Нет проверки на наличие созданного тега. Также нужна проверка на наличие изменений при коммите. Если их нет - заново попросить внести их
-
 
 # Создание релиза переводов
 def make_translate_release(branch, action ="patch"):
@@ -498,6 +496,7 @@ def make_translate_release(branch, action ="patch"):
 
     print(Fore.YELLOW + "Making new engine tag..." + Fore.RESET)
     new_tag = ".".join([str(k) for k in change_version(action, parse_version(get_version("translate")))])
+    # new_tag = make_tag(action)
     set_version(new_tag, "translate")
     push_branch(branch, new_tag, "translate")
     clean_temp()
