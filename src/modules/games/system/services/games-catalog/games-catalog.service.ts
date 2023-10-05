@@ -727,7 +727,7 @@ export class GamesCatalogService {
     }
 
     public getCategoriesByMerchatName(merchantName: string): CategoryModel[] {
-        return _filter(this.gamesCatalog.getCategories(), (category: CategoryModel): boolean => {
+        return _filter(this.gamesCatalog.getAvailableCategories(), (category: CategoryModel): boolean => {
             return !!_find(category.merchants, {'name': merchantName});
         });
     }
