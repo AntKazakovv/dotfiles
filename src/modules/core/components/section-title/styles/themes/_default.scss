@@ -1,5 +1,6 @@
 a.wlc-section-title--theme-default:host {
     text-decoration: none;
+    cursor: pointer;
 
     .wlc-section-title__content {
         @include bm.transition(color, 0.3s);

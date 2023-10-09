@@ -191,14 +191,9 @@ export class GlobalHelper {
     }
 
     /**
-     * @ngdoc method
-     * @name prepareParams
-     * @param {unknown} instance of class
-     * @param {string[]} inputProperties array of @Input properties
-     * @returns {T} inline params
-     * @description
+     * @deprecated use GlobalHelper.prepareCParams
      *
-     * prepare component params
+     * Will be removed
      */
     public static prepareParams<T>(instance: unknown, inputProperties: string[] = []): T {
         const inlineParams: any = _mergeWith({
@@ -212,6 +207,28 @@ export class GlobalHelper {
         });
 
         return _keys(inlineParams.common).length ? inlineParams : null;
+    }
+
+    /**
+     * @ngdoc method
+     * @name prepareCParams
+     * @param {unknown} instance of class
+     * @param {string[]} inputProperties array of @Input properties
+     * @returns {T} inline params
+     * @description
+     *
+     * prepare component params
+     */
+    public static prepareCParams<T>(instance: unknown, inputProperties: string[] = []): T {
+        const inlineParams: any = instance['inlineParams'] || {};
+
+        _forEach(inputProperties, property => {
+            if (!_isUndefined(_get(instance, property))) {
+                inlineParams[property] = _get(instance, property);
+            }
+        });
+
+        return _keys(inlineParams).length ? inlineParams : null;
     }
 
     /**
