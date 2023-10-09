@@ -38,6 +38,7 @@ import {
     IBonusResultValueDefault,
     IBonusResultValue,
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
+import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
 
 const disabledReasons = {
     // Apply to deposit bonuses which paySystems array isn't empty and
@@ -64,7 +65,6 @@ export class Bonus extends AbstractModel<IBonus> {
     public disabledBy: null | keyof typeof disabledReasons = null;
     public static userCurrency: string;
     public static depositCurrency: string;
-
     public readonly descriptionClean: string;
     public readonly termsClean: string;
     public readonly nameClean: string;
@@ -507,7 +507,7 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     public get wageringLeft(): number {
-        return _toNumber(this.data.WageringLeft);
+        return _toNumber(this.data.WageringLeft) * WalletHelper.coefficientOriginalCurrencyСonversion;
     }
 
     public get wageringTo(): string {

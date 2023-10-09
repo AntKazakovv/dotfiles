@@ -9,8 +9,10 @@ import {
     IData,
     DataService,
     LogService,
+    InjectionService,
 } from 'wlc-engine/modules/core';
 import {IBet} from 'wlc-engine/modules/profile/system/interfaces/bet.interfaces';
+import {HistoryHelper} from 'wlc-engine/modules/history/system/helpers';
 
 interface IBetRequestParams {
     endDate: string;
@@ -25,12 +27,14 @@ interface IGetBetsParams {
 
 @Injectable({providedIn: 'root'})
 export class BetService {
+
     private allBets: IBet[] = [];
     private wasFirstRequest: boolean = false;
 
     constructor(
         protected dataService: DataService,
         private logService: LogService,
+        private injectionService: InjectionService,
     ) {
         this.registerMethods();
     }
@@ -89,7 +93,8 @@ export class BetService {
     private async requestBetsList(params: IBetRequestParams): Promise<IBet[]> {
         try {
             const response: IData<IBet[]> = await this.dataService.request<IData>('profile/bets', params);
-            return response.data;
+            const bets: IBet[] = await HistoryHelper.conversionCurrency<IBet>(this.injectionService, response.data);
+            return bets;
         } catch (error) {
             this.logService.sendLog({code: '22.0.0', data: error});
         }

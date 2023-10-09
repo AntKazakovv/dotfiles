@@ -461,7 +461,7 @@ export class PaymentFormComponent
             const currencyIcon = `
                 <span wlc-currency
                     [value]="${form.value.amount}"
-                    [currency]="'${this.currentCurrency ?? this.userProfile.currency}'"
+                    [currency]="'${this.currentCurrency ?? this.userProfile.selectedCurrency}'"
                 ><span>`;
 
             this.pushNotification({
@@ -956,7 +956,7 @@ export class PaymentFormComponent
     protected preparePreselectedAmounts(data: number[]): IFormComponent {
         const component: IFormComponent = _cloneDeep(FormElements.preselectedAmounts);
         component.params.amounts = data;
-        component.params.currency = this.wallet?.walletCurrency || this.userProfile.currency;
+        component.params.currency = this.wallet?.walletCurrency || this.userProfile.selectedCurrency;
 
         return component;
     }

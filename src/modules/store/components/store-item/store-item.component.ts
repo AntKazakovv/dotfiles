@@ -11,6 +11,8 @@ import {
 
 import _union from 'lodash-es/union';
 import _isArray from 'lodash-es/isArray';
+import _toNumber from 'lodash-es/toNumber';
+
 import {
     AbstractComponent,
     IMixedParams,
@@ -21,6 +23,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {StoreItem} from 'wlc-engine/modules/store/system/models/store-item';
 import {StoreService} from 'wlc-engine/modules/store/system/services';
+import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
 import * as Params from './store-item.params';
 
 @Component({
@@ -109,7 +112,8 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
     };
 
     public get valueStore(): number {
-        return _isArray(this.storeItem.bonus.value) ? 0 : this.storeItem.bonus.value;
+        return _isArray(this.storeItem.bonus.value) ? 0
+            : _toNumber(this.storeItem.bonus.results.balance.Value['EUR']) * WalletHelper.coefficientСonversionEUR;
     }
 
     protected prepareModifiers(): void {

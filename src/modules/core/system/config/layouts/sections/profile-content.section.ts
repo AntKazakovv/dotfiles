@@ -537,7 +537,6 @@ export namespace profileContent {
                 },
             },
             componentLib.wlcDepositWithdraw.submenu,
-            componentLib.wlcDepositWithdraw.balanceAdaptive,
             componentLib.wlcDepositWithdraw.deposit,
         ],
     };
@@ -582,7 +581,6 @@ export namespace profileContent {
                             params: {
                                 class: 'wlc-profile-content__body',
                                 components: [
-                                    componentLib.wlcDepositWithdraw.balanceAdaptive,
                                     componentLib.wlcDepositWithdraw.deposit,
                                 ],
                             },
@@ -607,7 +605,6 @@ export namespace profileContent {
                 },
             },
             componentLib.wlcDepositWithdraw.submenu,
-            componentLib.wlcDepositWithdraw.balanceAdaptive,
             componentLib.wlcDepositWithdraw.withdraw,
         ],
     };
@@ -652,7 +649,6 @@ export namespace profileContent {
                             params: {
                                 class: 'wlc-profile-content__body',
                                 components: [
-                                    componentLib.wlcDepositWithdraw.balanceAdaptive,
                                     componentLib.wlcDepositWithdraw.withdraw,
                                 ],
                             },

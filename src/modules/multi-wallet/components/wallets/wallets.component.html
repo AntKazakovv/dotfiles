@@ -28,16 +28,16 @@
         [wlcElement]="'button_deposit'"
         [inlineParams]="$params.depositBtnParams"></button>
 </div>
+
 <ng-template #base>
-    <span>
-        {{currentWallet.balance}}
-    </span>
+    <span>{{balance}}</span>
     <span
         wlc-icon
         class="currency"
-        iconPath="{{getIconUrl(currentWallet.currency)}}"
+        iconPath="{{getCurrencyIconUrl(walletCurrency)}}"
         wlcElement="icon_currency"></span>
 </ng-template>
+
 <ng-template #content>
     <div
         *ngIf="isOpened"
@@ -48,31 +48,46 @@
             class="{{$class}}__search"
             (searchQueryEmit)="setSearchQuery($event)"></div>
 
-        <div class="{{$class}}__list">
+        <button *ngIf="!isFinance"
+                wlc-button
+                class="{{$class}}__filter-button"
+                attr.aria-label="{{$params.filterText | translate}}"
+                [attr.type]="'button'"
+                theme="custom"
+                iconPath="/wlc/icons/filter.svg"
+                (click)="showFiltersModal()">
+        </button>
+
+        <div *ngIf="walletListRead" class="{{$class}}__list">
             <div
                 *ngFor="let item of walletList"
-                (click)="onSelectWallet(item)">
+                (click)="onChangingWallet(item)">
                 <ng-container
                     [ngTemplateOutlet]="currency"
                     [ngTemplateOutletContext]="{$implicit: item}"
                 ></ng-container>
             </div>
+
         </div>
+
+        <div wlc-loader *ngIf="!walletListRead"></div>
 
         <span
             *ngIf="isShowNotFound"
             class="{{$class}}__not-found">
             {{this.$params.notFoundText | translate}}
         </span>
-
-        <ng-template [ngIf]="!isFinance">
+        <ng-template [ngIf]="!isFinance && walletListRead">
             <hr/>
-            <div class="{{$class}}__hide-wallets">
-                <span>{{$params.hideWalletText | translate}}</span>
-                <div
-                    wlc-checkbox
-                    [inlineParams]="toggleBtn"
-                ></div>
+            <div
+                class="{{$class}}__settings"
+                (click)="showSettingsModal()">
+                 <span
+                     wlc-icon
+                     class="currency"
+                     iconPath="/wlc/icons/payments.svg"
+                     wlcElement="icon_wallet-settings"></span>
+                <span class="{{$class}}__settings-text">{{$params.settingsText | translate}}</span>
             </div>
         </ng-template>
 
@@ -87,7 +102,7 @@
                <span
                    wlc-icon
                    class="currency"
-                   iconPath="{{getIconUrl(item.currency)}}"
+                   iconPath="{{getCurrencyIconUrl(item.currency)}}"
                    wlcElement="icon_currency"></span>
             </div>
             {{item.currency}}

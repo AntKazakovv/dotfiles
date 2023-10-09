@@ -1,0 +1,74 @@
+.wlc-filters--theme-default:host {
+    @include bm.get-mq-map('height', $themeDefault, 'modalHeight');
+    display: flex;
+    flex-direction: column;
+    gap: ef.get-value($themeDefault, 'modalBodyGap');
+    align-items: ef.get-value($themeDefault, 'modalBodyAlign');
+    border-radius: ef.get-value($themeDefault, 'modalBodyBorderRadius');
+    overflow: hidden;
+
+    .wlc-filters {
+
+        &__list {
+            @include bm.scrollbar($themeDefault);
+            @include bm.get-mq-map('height', $themeDefault, 'listHeight');
+
+            overflow-y: auto;
+            width: ef.get-value($themeDefault, 'listHeight');
+        }
+
+        &__currency {
+            --wlc-icon-width: #{ef.get-value($themeDefault, 'iconSize')};
+            --wlc-icon-height: #{ef.get-value($themeDefault, 'iconSize')};
+
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'currencyFontStyle'),
+                ef.get-value($themeDefault, 'currencyTextColor'),
+            );
+
+            display: flex;
+            align-items: ef.get-value($themeDefault, 'currencyAlign');
+            justify-content: ef.get-value($themeDefault, 'currencyJustifyContent');
+
+            width: ef.get-value($themeDefault, 'currencyWidth');
+            height: ef.get-value($themeDefault, 'currencyHeight');
+            padding: ef.get-value($themeDefault, 'currencyPadding');
+            line-height: 1;
+        }
+
+        &__left {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'currencyFontStyle'),
+                ef.get-value($themeDefault, 'currencyTextColor'),
+            );
+            display: flex;
+            gap: ef.get-value($themeDefault, 'leftGap');
+        }
+
+        &__right {
+            display: flex;
+            align-items: ef.get-value($themeDefault, 'rightAlign');
+        }
+    }
+}
+
+::ng-deep {
+
+    .wlc-modal--wallet-filters {
+
+        .wlc-modal {
+
+            &__dialog {
+                @include bm.get-mq-map('height', $themeDefault, 'modalHeight');
+            }
+
+            &__body {
+                padding: ef.get-value($themeDefault, 'modalBodyPadding');
+            }
+
+            &__footer {
+                padding: ef.get-value($themeDefault, 'modalFooterPadding');
+            }
+        }
+    }
+}

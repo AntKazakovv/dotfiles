@@ -12,6 +12,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {IFromLog} from 'wlc-engine/modules/core';
+import {ICurrencyFilter} from 'wlc-engine/modules/multi-wallet';
 
 import {IWebSocketConfig} from 'wlc-engine/modules/core/system/interfaces/websocket.interface';
 export class UserProfile extends AbstractModel<IUserProfile> {
@@ -62,12 +63,37 @@ export class UserProfile extends AbstractModel<IUserProfile> {
     public get stateCode(): string {
         return this.data.stateCode;
     }
+
     public get originalCurrency(): string {
         return this.data.currency || 'EUR';
     }
 
+    public get bonusCurrency(): string {
+        return this.isConversionInFiat ? this.conversionCurrency : this.originalCurrency;
+    }
+
     public get currency(): string {
+        return this.isConversionInFiat ? this.conversionCurrency : this.selectedCurrency;
+    }
+
+    public get conversionCurrency(): string {
+        return this.extProfile?.conversionCurrency?.currency;
+    }
+
+    public get isConversionInFiat(): boolean {
+        return !!this.extProfile?.conversionCurrency?.conversionInFiat;
+    }
+
+    public get hideWalletsWithZeroBalance(): boolean {
+        return this.extProfile?.conversionCurrency?.hideWalletsWithZeroBalance;
+    }
+
+    public get selectedCurrency(): string {
         return this.extProfile.currentWallet?.walletCurrency ?? this.originalCurrency;
+    }
+
+    public get unusedCurrencies(): ICurrencyFilter [] {
+        return this.extProfile.unusedCurrencies;
     }
 
     public get email(): string {

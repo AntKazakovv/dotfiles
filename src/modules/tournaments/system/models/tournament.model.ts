@@ -22,6 +22,7 @@ import {
 import {TournamentsService} from 'wlc-engine/modules/tournaments/system/services/tournaments/tournaments.service';
 import {AbstractTournamentModel} from 'wlc-engine/modules/tournaments/system/models/abstract-tournament.model';
 import {CurrenciesInfo} from 'wlc-engine/modules/core/constants/currencies-info.constants';
+import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
 
 export class Tournament extends AbstractTournamentModel<ITournament> {
     public hasGames: boolean = false;
@@ -344,7 +345,7 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
             if (moneyPrize) {
                 prizes.push({
                     currency: tournamentCurrency,
-                    value: moneyPrize,
+                    value: moneyPrize * WalletHelper.coefficientСonversionEUR,
                 });
             }
 
@@ -352,7 +353,7 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
         } else {
             prizes.push({
                 currency: tournamentCurrency,
-                value: _toNumber(rawPrizeRow),
+                value: _toNumber(rawPrizeRow) * WalletHelper.coefficientСonversionEUR,
             });
         }
         return prizes;

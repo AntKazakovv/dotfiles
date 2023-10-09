@@ -563,6 +563,7 @@ export class BonusesService {
             });
 
             const bonusInfo: IBonusCanceledInfo = response.data[loyaltyBonusId];
+
             if (bonusInfo) {
                 return new BonusCancellationInfo(bonusInfo);
             } else throw new Error();
@@ -639,7 +640,7 @@ export class BonusesService {
 
             const bonuses: Bonus[] = _orderBy(
                 this.checkForbid(await this.modifyBonuses(
-                    (res as IData<IBonus[]>).data, 
+                    (res as IData<IBonus[]>).data,
                     Date.parse(res.headers.get('Date')))),
                 'weight',
                 'desc',

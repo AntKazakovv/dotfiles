@@ -1,7 +1,9 @@
 import {TColorTheme} from 'wlc-engine/modules/core/system/interfaces/base-config/color-theme-switching.config';
 import {
+    ICurrencyFilter,
     ISelectedWallet,
     IWalletObj,
+    IWalletsSettings,
 } from 'wlc-engine/modules/multi-wallet/system/interfaces/wallet.interface';
 
 import {
@@ -132,6 +134,10 @@ export interface IExtProfile {
     pep?: PepStatus;
     nick?: string;
     currentWallet?: ISelectedWallet;
+    /** Сurrency into which all amounts will be converted */
+    conversionCurrency?: IWalletsSettings;
+    /** Currencies not showing in wallet selector*/
+    unusedCurrencies?: ICurrencyFilter[];
 }
 
 export interface IExtProfilePaymentSystems {

@@ -32,6 +32,7 @@ import {
     ISelectCParams,
 } from 'wlc-engine/modules/core';
 import {ITransactionHistoryAlert, financesConfig} from 'wlc-engine/modules/finances';
+import {MultiWalletEvents} from 'wlc-engine/modules/multi-wallet';
 
 import {
     transactionConfig as config,
@@ -198,6 +199,13 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
                 this.showFilter = type === DeviceType.Desktop;
                 this.cdr.detectChanges();
             });
+
+        this.eventService.subscribe([
+            {name: MultiWalletEvents.CurrencyConversionChanged},
+        ], async (): Promise<void> => {
+            this.allTransactions = await this.historyService.getTransactionList();
+            this.transaction$.next(this.transactionFilter());
+        }, this.$destroy);
     }
 
     protected filterHandlers(): void {

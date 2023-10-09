@@ -5,4 +5,8 @@ export const errorTypes: ILogTypes = {
         // Error when wallet is not created
         level: 'error',
     },
+    '23.0.1': {
+        // Сurrency conversion failed
+        level: 'error',
+    },
 };

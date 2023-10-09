@@ -1,0 +1,76 @@
+$selector: '.wlc-settings';
+
+#{$selector}--theme-default:host {
+
+    #{$selector} {
+
+        &__currencies {
+            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'currenciesTemplateColumns');
+            display: grid;
+            gap: ef.get-value($themeDefault, 'currenciesGap');
+            width: ef.get-value($themeDefault, 'currenciesWidth');
+        }
+
+        &__currency {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'currencyTextStyle', 375),
+                ef.get-value($themeDefault, 'currencyTextColor'),
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: ef.get-value($themeDefault, 'currencyMaxWidth');
+            padding: ef.get-value($themeDefault, 'currencyPadding');
+            border-radius: ef.get-value($themeDefault, 'currencyBorderRadius');
+            border: ef.get-value($themeDefault, 'currencyBorder');
+            cursor: pointer;
+
+            &.active {
+                border-color: ef.get-value($themeDefault, 'currencyActiveBorderColor');
+            }
+        }
+
+        &__hide-wallets,
+        &__view-fiat {
+
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'hideTextStyle'),
+                ef.get-value($themeDefault, 'hideTextColor'),
+            );
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: ef.get-value($themeDefault, 'toggleWidth');
+            margin: ef.get-value($themeDefault, 'toggleMargin');
+
+            .wlc-checkbox--theme-default.wlc-checkbox--type-toggle::ng-deep {
+
+                .wlc-checkbox__label {
+                    padding: ef.get-value($themeDefault, 'checkboxPadding');
+                }
+            }
+        }
+
+        &__description {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'hideTextStyle'),
+                ef.get-value($themeDefault, 'hideTextColor'),
+            );
+        }
+
+        &__alert-block {
+            --wlc-alert-max-width: #{ef.get-value($themeDefault, 'widthAlert')};
+            --wlc-alert-margin: #{ef.get-value($themeDefault, 'marginAlert')};
+        }
+    }
+}
+
+::ng-deep {
+
+    .wlc-modal--wallet-settings {
+
+        .wlc-modal__footer {
+            padding: ef.get-value($themeDefault, 'modalFooterPadding');
+        }
+    }
+}

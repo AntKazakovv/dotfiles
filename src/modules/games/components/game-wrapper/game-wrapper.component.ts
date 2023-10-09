@@ -74,6 +74,7 @@ import {
     ResizedEventModel,
 } from 'wlc-engine/modules/core';
 import {SeoService} from 'wlc-engine/modules/seo';
+import {MultiWalletEvents} from 'wlc-engine/modules/multi-wallet/system/interfaces';
 import {MerchantWalletService} from 'wlc-engine/modules/games/system/services/merchant-wallet/merchant-wallet.service';
 import {
     BetGamesHooks,
@@ -83,11 +84,12 @@ import {IGameWrapperCParams} from './game-wrapper.params';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {IMerchantWalletPreviewCParams}
     from 'wlc-engine/modules/games/components/merchant-wallet/merchant-wallet-preview/merchant-wallet-preview.params';
-import * as Params from './game-wrapper.params';
 import {
     IProcessEventData,
     ProcessEvents,
 } from 'wlc-engine/modules/monitoring';
+import * as Params from './game-wrapper.params';
+
 interface IError {
     msg?: string;
     state?: string;
@@ -994,7 +996,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
 
         if (this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet')) {
             this.eventService.subscribe({
-                name: 'PROFILE_UPDATE',
+                name: MultiWalletEvents.WalletChanged,
             }, () => {
                 this.stateService.reload();
             }, this.$destroy);

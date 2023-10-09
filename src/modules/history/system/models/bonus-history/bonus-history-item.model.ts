@@ -1,4 +1,6 @@
 import _assign from 'lodash-es/assign';
+import _toString from 'lodash-es/toString';
+import _toNumber from 'lodash-es/toNumber';
 
 import {
     AbstractModel,
@@ -6,6 +8,7 @@ import {
     GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {IBonusHistory} from 'wlc-engine/modules/history/system/interfaces/bonus-history/bonus-history.interface';
+import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
 
 export class BonusHistoryItemModel extends AbstractModel<IBonusHistory> {
 
@@ -30,7 +33,7 @@ export class BonusHistoryItemModel extends AbstractModel<IBonusHistory> {
     }
 
     public get Balance(): string {
-        return this.data.Balance;
+        return _toString(_toNumber(this.data.Balance) * WalletHelper.coefficientOriginalCurrencyСonversion);
     }
 
     public get LoyaltyPoints(): string {
@@ -66,7 +69,7 @@ export class BonusHistoryItemModel extends AbstractModel<IBonusHistory> {
     }
 
     public get currency(): string {
-        return this.data.Currency;
+        return WalletHelper.conversionCurrency ?? this.data.Currency;
     }
 
     protected modifyData(historyItem: any): any {

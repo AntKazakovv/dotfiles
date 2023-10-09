@@ -5,7 +5,7 @@
          [type]="'short'">
     </div>
     <div *ngIf="isMultiWallet"
-         wlc-wallets
+         wlc-wrapper
          [inlineParams]="multiWalletParams"></div>
     <button
         *ngIf="$params.button?.use && !isMultiWallet"

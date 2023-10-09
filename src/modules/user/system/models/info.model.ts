@@ -5,8 +5,9 @@ import _assign from 'lodash-es/assign';
 import _isString from 'lodash-es/isString';
 import _cloneDeep from 'lodash-es/cloneDeep';
 import _isNil from 'lodash-es/isNil';
-import _toNumber from 'lodash-es/toNumber';
 import _isNumber from 'lodash-es/isNumber';
+import _toNumber from 'lodash-es/toNumber';
+
 import {
     IFreeRound,
     ILoyalty,
@@ -27,6 +28,7 @@ import {
     ISelectedWallet,
     IWalletObj,
 } from 'wlc-engine/modules/multi-wallet/system/interfaces/wallet.interface';
+import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
 
 export class UserInfo extends AbstractModel<IUserInfo> {
 
@@ -60,7 +62,8 @@ export class UserInfo extends AbstractModel<IUserInfo> {
     }
 
     public get balance(): number {
-        return UserInfo.currency ? this.getWalletBalance(UserInfo.currency) : this.data?.balance;
+        return (UserInfo.currency ? this.getWalletBalance(UserInfo.currency) :
+            this.data?.balance) * WalletHelper.coefficientСonversion;
     }
 
     public getAvailableWithdrawForSelectWallet(selectedWallet: ISelectedWallet): number {
@@ -153,7 +156,7 @@ export class UserInfo extends AbstractModel<IUserInfo> {
      */
     public get bonusBalance(): number {
         if (_isNumber(this.bonusBalanceWS)) {
-            return this.bonusBalanceWS;
+            return this.bonusBalanceWS * WalletHelper.coefficientOriginalCurrencyСonversion;
         }
 
         if (_isNil(this.bonusesBalance)) {
@@ -163,7 +166,7 @@ export class UserInfo extends AbstractModel<IUserInfo> {
         return _reduce((this.bonusesBalance),
             (accumulator: number, bonusBalance: IBonusesBalance): number => {
                 return accumulator + Number(_get(bonusBalance, 'Balance', 0));
-            }, 0);
+            }, 0) * WalletHelper.coefficientOriginalCurrencyСonversion;
     }
 
     /**
@@ -175,7 +178,9 @@ export class UserInfo extends AbstractModel<IUserInfo> {
     }
 
     public get realBalance(): number {
-        return UserInfo.currency ? this.getWalletBalance(UserInfo.currency) : this.balance - this.bonusBalance;
+        return UserInfo.currency
+            ? this.getWalletBalance(UserInfo.currency) * WalletHelper.coefficientСonversion
+            : this.balance - this.bonusBalance;
     }
 
     public get level(): number {
@@ -298,10 +303,11 @@ export class UserInfo extends AbstractModel<IUserInfo> {
     }
 
     public getWalletBalance(currency: string): number {
-        return this.wallets[currency]?.balance ? _toNumber(this.wallets[currency]?.balance) : 0;
+        return this.wallets && this.wallets[currency]?.balance ? _toNumber(this.wallets[currency]?.balance) : 0;
     }
 
     private getWalletAvailableWithdraw(currency: string): number {
-        return this.wallets[currency]?.availableWithdraw ? _toNumber(this.wallets[currency]?.availableWithdraw) : 0;
+        return this.wallets && this.wallets[currency]?.availableWithdraw
+            ? _toNumber(this.wallets[currency]?.availableWithdraw) : 0;
     }
 }

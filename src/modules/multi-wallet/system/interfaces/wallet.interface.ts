@@ -1,6 +1,6 @@
 export interface IWallet {
-    currency: string;
-    balance: string | number;
+    currency?: string;
+    balance?: string | number;
     availableWithdraw?: string;
     walletId?: number;
     freerounds?: any[];
@@ -26,4 +26,37 @@ export interface IGettingWallet {
 export interface ISelectedWallet {
     walletCurrency: string;
     walletId?: number;
+}
+
+export interface IWalletsSettings {
+    hideWalletsWithZeroBalance?: boolean;
+    conversionInFiat?: boolean;
+    currency?: string;
+}
+
+export interface ICurrencyConversion {
+    /**
+     * Currency from which conversion is required. Value must be in uppercase.
+     */
+    currencyFrom: string;
+    /**
+     * Currency to be converted. Value must be in uppercase.
+     */
+    currencyTo: string;
+
+    /**
+     * Conversion result
+     */
+    estimatedAmount?: number;
+}
+
+export interface ICurrencyFilter {
+    name: string;
+    code: string;
+    isUsed: boolean;
+}
+
+export enum MultiWalletEvents {
+    CurrencyConversionChanged = 'CHANGE_CURRENCY_CONVERSION',
+    WalletChanged = 'CHANGE_WALLET',
 }

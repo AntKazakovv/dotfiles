@@ -38,6 +38,7 @@ import {HistoryService} from 'wlc-engine/modules/history/system/services/history
 import {TournamentsService} from 'wlc-engine/modules/tournaments/system/services/tournaments/tournaments.service';
 import {TournamentHistory} from 'wlc-engine/modules/history';
 import {tournamentConfig} from 'wlc-engine/modules/history/system/config/history.config';
+import {MultiWalletEvents} from 'wlc-engine/modules/multi-wallet';
 
 import * as Params from './tournaments-history.params';
 
@@ -141,6 +142,7 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
             .pipe(takeUntil(this.$destroy))
             .subscribe((value: TournamentHistory[]): void => {
                 this.allTournaments = value;
+                this.tournaments$.next(this.tournamentsFilter());
             });
 
         this.filterHandlers();
@@ -151,6 +153,12 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
                 this.showFilter = type === DeviceType.Desktop;
                 this.cdr.detectChanges();
             });
+
+        this.eventService.subscribe([
+            {name: MultiWalletEvents.CurrencyConversionChanged},
+        ], (): void => {
+            this.historyService.queryHistory(true, 'tournamentsHistory');
+        }, this.$destroy);
     }
 
     protected filterHandlers(): void {

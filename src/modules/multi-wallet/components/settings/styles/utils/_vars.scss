@@ -1,0 +1,30 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'currenciesTemplateColumns': (
+        375: repeat(6, 50px),
+        560: repeat(8, 46px),
+    ),
+    'currenciesGap': ef.size(2),
+    'currenciesWidth': 100%,
+    'currencyTextStyle': 'CaptionTextBold',
+    'currencyTextColor': inherit,
+    'currencyPadding': ef.size(2),
+    'currencyBorderRadius': ef.get('radius', 'biger'),
+    'currencyBorder': 2px solid var(--mc-bg300),
+    'currencyActiveBorderColor': var(--mc-main),
+    'currencyMaxWidth': 46px,
+
+    'hideTextStyle': 'PrimaryText',
+    'hideTextColor': inherit,
+
+    'toggleWidth': 100%,
+    'toggleMargin': 0 0 ef.size(2),
+
+    'checkboxPadding': 0,
+
+    'marginAlert': ef.size(4) 0,
+    'widthAlert': 100%,
+
+    'modalFooterPadding': 0 ef.size(6) ef.size(17),
+
+), $customThemeDefault);

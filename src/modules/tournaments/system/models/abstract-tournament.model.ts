@@ -22,6 +22,7 @@ import {ITournamentAbstract} from 'wlc-engine/modules/tournaments/system/interfa
 import {ITopTournamentUsers} from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
 import {TournamentsService} from 'wlc-engine/modules/tournaments/system/services/tournaments/tournaments.service';
 import {ITournamentPlace} from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
+import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
 
 export abstract class AbstractTournamentModel<T extends ITournamentAbstract> extends AbstractModel<T> {
     protected userCurrency: string;
@@ -41,9 +42,9 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
             .replace(/<style([\S\s]*?)>([\S\s]*?)<\/style>/g, '')
             .replace('<br>', '\n')
             .replace(/<[^>]*>/g, '');
-        this.userCurrency = this.configService.
-            get<BehaviorSubject<UserProfile>>('$user.userProfile$').getValue()?.currency
-            && this.configService.get('$user.isAuthenticated')
+        this.userCurrency = this.configService
+            .get<BehaviorSubject<UserProfile>>('$user.userProfile$').getValue()?.currency
+        && this.configService.get('$user.isAuthenticated')
             ? this.configService.get<BehaviorSubject<UserProfile>>('$user.userProfile$').getValue()?.currency
             : this.configService.get<string>('$base.defaultCurrency');
         this.useUsersCurrency = this.configService.get<boolean>('$base.tournaments.useUsersCurrency');
@@ -120,9 +121,9 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
         if (this.feeType === 'loyalty') {
             return _toNumber(this.data.FeeAmount) || 0;
         } else {
-            return _toNumber(this.data.FeeAmount['Currency']) ||
+            return (_toNumber(this.data.FeeAmount['Currency']) ||
                 _toNumber(this.data.FeeAmount[this.userCurrency]) ||
-                _toNumber(this.data.FeeAmount['EUR']);
+                _toNumber(this.data.FeeAmount['EUR'])) * WalletHelper.coefficientСonversionEUR;
         }
     }
 
@@ -166,7 +167,7 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
      * @returns {string} tournament target currency loyalty or EUR
      */
     public get targetDefaultCurrency(): string {
-        return this.checkTargetCurrency(!this.useUsersCurrency);
+        return WalletHelper.conversionCurrency ?? this.checkTargetCurrency(!this.useUsersCurrency);
     }
 
     /** @returns {string} currency formatting config */

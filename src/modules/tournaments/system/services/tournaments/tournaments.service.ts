@@ -31,6 +31,7 @@ import {
     IForbidBanned,
     IPushMessageParams,
     NotificationEvents,
+    InjectionService,
 } from 'wlc-engine/modules/core';
 import {
     ITournament,
@@ -43,6 +44,11 @@ import {
     IJoinTournamentParams,
 } from '../../interfaces/tournaments.interface';
 import {UserProfile} from 'wlc-engine/modules/user';
+import {
+    MultiWalletEvents,
+    WalletHelper,
+} from 'wlc-engine/modules/multi-wallet';
+import {RatesCurrencyService} from 'wlc-engine/modules/rates';
 
 interface ITournamentData extends IData {
     data?: ITournament;
@@ -66,12 +72,14 @@ export class TournamentsService {
     private useForbidUserFields = this.configService.get<boolean>('$loyalty.useForbidUserFields');
     private winLimit = this.configService.get<number>('$tournaments.winLimit') || 10;
     private winnersLimit: IIndexing<number> = {};
+    private ratesService: RatesCurrencyService;
 
     constructor(
         private dataService: DataService,
         private eventService: EventService,
         private configService: ConfigService,
         private logService: LogService,
+        private injectionService: InjectionService,
     ) {
         this.registerMethods();
         this.setSubscribers();
@@ -318,9 +326,10 @@ export class TournamentsService {
             const res: IData<ITournament[]> = await this.dataService.request(
                 'tournaments/tournaments', queryParams,
             );
+
             Tournament.selectedTournaments = false;
             Tournament.hasAllowStack = false;
-
+            await this.setConversionFactor();
             const result = this.modifyTournaments(res.data, Date.parse(res.headers.get('Date')));
             tournaments = this.checkForbid(result, type);
 
@@ -391,6 +400,18 @@ export class TournamentsService {
         this.updateSubscribers();
     }
 
+    private async setConversionFactor(): Promise<void> {
+
+        if (WalletHelper.conversionCurrency) {
+            this.ratesService ??=
+                await this.injectionService.getService<RatesCurrencyService>('rates.rates-currency-service');
+            WalletHelper.coefficientСonversionEUR = await this.ratesService.getRate(
+                {currencyFrom: 'EUR', currencyTo: WalletHelper.conversionCurrency},
+            );
+        }
+
+    }
+
     private registerMethods(): void {
         this.dataService.registerMethod({
             name: 'tournaments',
@@ -419,7 +440,7 @@ export class TournamentsService {
 
         return tournaments;
     }
-    
+
     private modifyTournaments(
         data: ITournament[],
         tournamentsServerTime: number,
@@ -451,6 +472,12 @@ export class TournamentsService {
                 this.profile = userProfile;
             });
 
+        this.eventService.subscribe([
+            {name: MultiWalletEvents.CurrencyConversionChanged},
+        ], () => {
+            this.updateTournaments();
+        });
+
         this.subjects.tournaments$.subscribe({
             next: (tournaments: Tournament[]) => {
                 this.eventService.emit({
@@ -475,6 +502,7 @@ export class TournamentsService {
             {name: 'PROFILE_UPDATE'},
             {name: 'TOURNAMENT_JOIN_SUCCEEDED'},
             {name: 'TOURNAMENT_LEAVE_SUCCEEDED'},
+            {name: MultiWalletEvents.CurrencyConversionChanged},
         ], () => {
             this.updateSubscribers();
         });

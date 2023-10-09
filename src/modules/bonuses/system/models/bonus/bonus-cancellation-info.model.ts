@@ -1,11 +1,15 @@
+import _assign from 'lodash-es/assign';
+import _toString from 'lodash-es/toString';
+import _toNumber from 'lodash-es/toNumber';
 import {
     AbstractModel,
     IFromLog,
 } from 'wlc-engine/modules/core';
 import {IBonusCanceledInfo} from 'wlc-engine/modules/bonuses';
-import _assign from 'lodash-es/assign';
+import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
 
 export class BonusCancellationInfo extends AbstractModel<IBonusCanceledInfo> {
+
     constructor(
         data: IBonusCanceledInfo,
         from?: IFromLog,
@@ -15,11 +19,11 @@ export class BonusCancellationInfo extends AbstractModel<IBonusCanceledInfo> {
     }
 
     public get bonusBalanceDecrease(): string {
-        return this.data.BurnOnBonusBalance;
+        return _toString(_toNumber(this.data.BurnOnBonusBalance) * WalletHelper.coefficientOriginalCurrencyСonversion);
     }
 
     public get realBalanceDecrease(): string {
-        return this.data.BurnOnRealBalance;
+        return  _toString(_toNumber(this.data.BurnOnRealBalance) * WalletHelper.coefficientOriginalCurrencyСonversion);
     }
 
     public get realBalanceIncrease(): string {
@@ -31,7 +35,7 @@ export class BonusCancellationInfo extends AbstractModel<IBonusCanceledInfo> {
     }
 
     public get currency(): string {
-        return this.data.Currency;
+        return WalletHelper.conversionCurrency ?? this.data.Currency;
     }
 
 }

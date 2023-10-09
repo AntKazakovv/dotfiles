@@ -15,6 +15,7 @@ import {
 } from '../interfaces/store.interface';
 import {StoreService} from '../services';
 import {Bonus} from 'wlc-engine/modules/bonuses';
+import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
 
 export class StoreItem extends AbstractModel<IStoreItem> {
     public bonus: Bonus;
@@ -66,6 +67,10 @@ export class StoreItem extends AbstractModel<IStoreItem> {
 
     public get id(): number {
         return _toNumber(this.data.ID);
+    }
+
+    public get currency(): string {
+        return WalletHelper.conversionCurrency ?? 'EUR';
     }
 
     public get image(): string {

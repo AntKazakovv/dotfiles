@@ -1,0 +1,21 @@
+<span class="{{$class}}__description">{{$params.descriptionText | translate}}</span>
+<div class="{{$class}}__list">
+    <div
+        *ngFor="let currency of $params.currencies"
+        class="{{$class}}__currency">
+        <div class="{{$class}}__left">
+              <span
+                  wlc-icon
+                  class="{{$class}}__icon"
+                  iconPath="{{getIconUrl(currency.code)}}"
+                  wlcElement="icon_currency"></span>
+            {{currency.name}}
+        </div>
+        <div class="{{$class}}__right">
+            {{currency.code}}
+            <div
+                wlc-checkbox
+                [inlineParams]="createCheckboxParams(currency)"></div>
+        </div>
+    </div>
+</div>

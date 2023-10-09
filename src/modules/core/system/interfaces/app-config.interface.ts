@@ -91,6 +91,7 @@ export interface ICurrency {
     ID?: string | number,
     ExRate?: string,
     registration?: boolean,
+    IsCryptoCurrency?: boolean,
 }
 
 export type TBooleanOptional = boolean | '' | 0 | 1;

@@ -37,6 +37,7 @@ $themeDefault: map-merge((
     'dropdownArrowFillOpened': var(--mc-baseMain),
     'dropdownArrowFillHover': var(--mc-baseMain),
     'dropdownTextColor': inherit,
+
     // theme mod base
     'dropdownGap': ef.size(1),
 
@@ -45,6 +46,10 @@ $themeDefault: map-merge((
     'financeDropdownBg': var(--mc-bg),
     'financeIconSize': ef.size(6),
     'financeDropdownPadding': ef.size(3),
+    'financeDropdownTemplateAreas': '\'search\' \'list\'',
+    'financeDropdownTemplateColumns': auto,
+    'financeSearchPaddings': 0 ef.size(4) 0 0,
+
     // finance text style
     'dropdownNameFontStyle': 'ThirdTitleBold',
     'dropdownBg': var(--mc-bg700),
@@ -64,27 +69,28 @@ $themeDefault: map-merge((
     ),
     'contentBoxShadow': ef.get('shadow', 'lg'),
     'contentPadding': ef.size(4) 0 ef.size(4) ef.size(4),
-    'searchPadding': 0 ef.size(4) 0 0,
     'contentBg': var(--mc-bgModal),
     'contenBorderRadius': ef.get('radius', 'biger'),
     'contentZIndex': 10,
-    'contentHeight': 451px,
+    'contentHeight': 476px,
+    'contentTemplateAreas': 'search filter' 'list list' 'hr hr' 'settings settings',
+    'contentTemplateColumns': auto 40px,
+    'contentGap': ef.size(4),
 
     'listWidth': 100%,
-    'listPadding': 0 ef.size(3) 0 0,
-
+    'listPadding': 0 ef.size(4) 0 0,
+    'listMaxHeight': 315px,
     'scrollbarTrackBg': var(--mc-bg700),
     'scrollbarThumbBg': var(--mc-bg100),
 
-    'hrMargin': ef.size(2) ef.size(4) ef.size(2) 0,
+    'hrMargin': 0,
     'hrWidth': calc(100% - ef.size(4)),
     'hrHeight': 1px,
     'hrBackground': var(--mc-bg300),
-    'hideFontStyle': 'PrimaryText',
     'notFoundFontStyle': 'ThirdTitle',
 
-    'searchMargin': 0 0 ef.size(2),
     'searchWidth': calc(100% - #{ef.size(1)}),
+    'searchPaddings': 0,
 
     // currency in list
     'iconSize': ef.size(3),
@@ -100,4 +106,13 @@ $themeDefault: map-merge((
     'iconMargin': 0 0 2px,
     // currency in list
 
+    'settingsTextFontStyle': 'PrimaryTextBold',
+    'settingsTextColor': inherit,
+    'settingsColor': var(--mc-main),
+    'settingsGap': ef.size(4),
+    'settingsIconSize': 16px,
+    'notFoundPaddings': 0 ef.size(4) 0 0,
+
+    'filterMargin': 0 ef.size(4) 0 0,
+    'filterColor':  var(--mc-main),
 ), $customThemeDefault);

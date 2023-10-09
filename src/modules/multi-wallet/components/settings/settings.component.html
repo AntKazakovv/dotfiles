@@ -1,0 +1,37 @@
+<div class="{{$class}}__hide-wallets">
+    <span>{{$params.hideWalletText | translate}}</span>
+    <div
+        wlc-checkbox
+        [inlineParams]="$params.toggleHideZero"
+    ></div>
+</div>
+
+<hr/>
+
+<div class="{{$class}}__view-fiat">
+    <span>{{$params.viewFiatText | translate}}</span>
+    <div
+        wlc-checkbox
+        [inlineParams]="$params.toggleViewFiat"
+    ></div>
+</div>
+
+
+<span class="{{$class}}__description">{{$params.descriptionText | translate}}</span>
+
+<div
+    wlc-alert
+    class="{{$class}}__alert-block"
+    [level]="'info'"
+    [title]="$params.infoBlockText | translate">
+</div>
+
+<div class="{{$class}}__currencies">
+    <div
+        *ngFor="let currency of $params.currencies"
+        class="{{$class}}__currency"
+        [class.active]="$params.walletSettings.currency === currency"
+        (click)="onCurrencyChange(currency)">
+        {{currency}}
+    </div>
+</div>

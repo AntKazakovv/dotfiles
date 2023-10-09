@@ -109,7 +109,6 @@ import {
 import {
     UserService,
 } from 'wlc-engine/modules/user';
-import {WalletsService} from 'wlc-engine/modules/multi-wallet/system/services';
 import {ISelectedWallet} from 'wlc-engine/modules/multi-wallet/system/interfaces';
 import {CatalogBuilder} from 'wlc-engine/modules/games/system/builders/catalog.builder';
 import {MenuService} from 'wlc-engine/modules/menu';
@@ -498,12 +497,6 @@ export class GamesCatalogService {
             const userService: UserService =
                 await this.injectionService.getService<UserService>('user.user-service');
             currentWallet = userService.userProfile.extProfile.currentWallet;
-            if (!currentWallet.walletId) {
-                const walletsService: WalletsService =
-                    await this.injectionService.getService<WalletsService>('multi-wallet.wallet-service');
-                const id: string = await walletsService.addWallet(currentWallet.walletCurrency);
-                currentWallet.walletId = id ? _toNumber(id) : null;
-            }
         }
 
         return (await this.dataService.request('games/gameLaunchParams', {

@@ -31,6 +31,7 @@ import {
     TSortDirection,
     IIndexing,
 } from 'wlc-engine/modules/core';
+import {MultiWalletEvents} from 'wlc-engine/modules/multi-wallet';
 import {IHistoryFilter} from 'wlc-engine/modules/history/system/interfaces/history-filter.interface';
 import {
     betConfig,
@@ -192,6 +193,13 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
     }
 
     protected setSubscription(): void {
+        this.eventService.subscribe([
+            {name: MultiWalletEvents.CurrencyConversionChanged},
+        ], async (): Promise<void> => {
+            const bets: IBet[] = await this.getBets(true);
+            this.bets$.next(bets);
+        }, this.$destroy);
+
         this.historyFilterService.getFilter('bet')
             .pipe(
                 filter((filter: IHistoryFilter) => !!filter),

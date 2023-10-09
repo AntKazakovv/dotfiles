@@ -9,22 +9,24 @@ export type ComponentType = 'default' | CustomType;
 export type WalletsThemeMod = 'finances';
 
 export interface WalletsParams extends IComponentParams<Theme, ComponentType, string> {
-    hideWalletText?: string;
     notFoundText?: string;
     depositBtnParams?: IButtonCParams;
     showDepositBtn?: boolean;
     themeMod?: WalletsThemeMod;
     depositIconPath?: string;
     hideWalletsWithZeroBalance?: boolean;
+    filterText?: string;
+    settingsText?: string;
 }
 
 export const defaultParams: WalletsParams = {
     class: 'wlc-wallets',
     moduleName: 'multi-wallet',
     componentName: 'wlc-wallets',
-    hideWalletText: gettext('Hide zero balances'),
     notFoundText: gettext('Sorry, but nothing was found. Check the spelling or try a different name.'),
     showDepositBtn: false,
     hideWalletsWithZeroBalance: false,
     theme: 'default',
+    filterText: gettext('Filter'),
+    settingsText: gettext('Wallet settings'),
 };

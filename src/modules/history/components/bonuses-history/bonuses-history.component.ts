@@ -35,6 +35,8 @@ import {
     HistoryFilterService,
     BonusHistoryItemModel,
 } from 'wlc-engine/modules/history';
+import {MultiWalletEvents} from 'wlc-engine/modules/multi-wallet';
+
 import * as Params from './bonuses-history.params';
 
 @Component({
@@ -140,6 +142,7 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
             .pipe(takeUntil(this.$destroy))
             .subscribe((bonuses: BonusHistoryItemModel[]): void => {
                 this.allBonuses = bonuses;
+                this.bonuses$.next(this.bonusesFilter());
                 this.cdr.detectChanges();
             });
 
@@ -151,6 +154,11 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
                 this.showFilter = type === DeviceType.Desktop;
                 this.cdr.detectChanges();
             });
+        this.eventService.subscribe([
+            {name: MultiWalletEvents.CurrencyConversionChanged},
+        ], async (): Promise<void> => {
+            await this.historyService.queryHistory(true, 'bonusesHistory');
+        }, this.$destroy);
     }
 
     protected filterHandlers(): void {

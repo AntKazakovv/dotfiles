@@ -1,11 +1,21 @@
 import _assign from 'lodash-es/assign';
 import _toNumber from 'lodash-es/toNumber';
 import {
+    ICurrencyFilter,
     IWallet,
-    IWalletObj,
+    IWalletObj, IWalletsSettings,
 } from 'wlc-engine/modules/multi-wallet';
+import {IIndexing} from 'wlc-engine/modules/core';
 
 export class WalletHelper {
+    public static coefficientOriginalCurrencyСonversion: number = 1;
+    public static coefficientСonversion: number = 1;
+    public static coefficientСonversionEUR: number = 1;
+    public static conversionCurrency: string;
+    public static rates: IIndexing<number> = {};
+    public static currencies: ICurrencyFilter[];
+    public static walletSettings: IWalletsSettings;
+
     public static createCurrentWallet(
         wallets: IWalletObj,
         currency: string,

@@ -7,9 +7,13 @@ import {WalletsComponent} from './components/wallets/wallets.component';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {WalletsService} from 'wlc-engine/modules/multi-wallet/system/services/wallets.service';
 import {SearchFieldComponent} from 'wlc-engine/modules/multi-wallet/components/search-field/search-field.component';
+import {SettingsComponent} from './components/settings/settings.component';
+import {FiltersComponent} from './components/filters/filters.component';
 
 export const components = {
     'wlc-wallets': WalletsComponent,
+    'wlc-settings': SettingsComponent,
+    'wlc-filters': FiltersComponent,
 };
 export const services = {
     'wallet-service': WalletsService,
@@ -19,6 +23,8 @@ export const services = {
     declarations: [
         WalletsComponent,
         SearchFieldComponent,
+        SettingsComponent,
+        FiltersComponent,
     ],
 
     imports: [
@@ -32,6 +38,8 @@ export const services = {
     ],
     exports: [
         WalletsComponent,
+        SettingsComponent,
+        FiltersComponent,
     ],
 })
 

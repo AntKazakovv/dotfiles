@@ -1,12 +1,12 @@
-import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {DateTime} from 'luxon';
-import {IFromLog} from 'wlc-engine/modules/core';
-
 import _assign from 'lodash-es/assign';
 import _toNumber from 'lodash-es/toNumber';
 import _isString from 'lodash-es/isString';
 import _isUndefined from 'lodash-es/isUndefined';
 import _find from 'lodash-es/find';
+
+import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
+import {IFromLog} from 'wlc-engine/modules/core';
 
 export interface ITransaction {
     Amount: number | string;
@@ -65,6 +65,8 @@ export const transactionsStatuses: ITransactionStatus[] = [
 export class Transaction extends AbstractModel<ITransactionEx> {
     public cancelProgress: boolean = false;
     public confirmProgress: boolean = false;
+    public coefficientConvertion: number = 1;
+    private _currency: string;
 
     constructor(
         from: IFromLog,
@@ -77,7 +79,7 @@ export class Transaction extends AbstractModel<ITransactionEx> {
     }
 
     public get amount(): number {
-        return +this.data.Amount;
+        return +this.data.Amount * this.coefficientConvertion;
     }
 
     public get date(): DateTime {
@@ -134,7 +136,11 @@ export class Transaction extends AbstractModel<ITransactionEx> {
     }
 
     public get currency(): string {
-        return this.data.Currency;
+        return this._currency ?? this.data.Currency;
+    }
+
+    public set currency(value: string) {
+        this._currency = value;
     }
 
     public setStatus(status?: number | string): void {

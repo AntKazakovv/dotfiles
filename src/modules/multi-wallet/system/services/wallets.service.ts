@@ -1,12 +1,17 @@
 import {Injectable} from '@angular/core';
+
+import _toNumber from 'lodash-es/toNumber';
+
 import {
     DataService,
     EventService,
     IData,
+    InjectionService,
     IPushMessageParams,
     LogService,
     NotificationEvents,
 } from 'wlc-engine/modules/core';
+import {UserService} from 'wlc-engine/modules/user';
 import {ICreatedWallet} from 'wlc-engine/modules/multi-wallet/system/interfaces/wallet.interface';
 
 @Injectable({
@@ -14,21 +19,41 @@ import {ICreatedWallet} from 'wlc-engine/modules/multi-wallet/system/interfaces/
 })
 export class WalletsService {
 
+    private userService: UserService;
+
     constructor(
         private dataService: DataService,
-        private eventService: EventService,
         private logService: LogService,
-    ) {}
+        private injectionService: InjectionService,
+        private eventService: EventService,
+    ) {
+    }
 
     public async addWallet(currency: string): Promise<string> {
         try {
 
             const response: IData<ICreatedWallet> = await this.dataService.request({
                 name: 'addWallet',
-                system: 'user',
+                system: 'multi-wallet',
                 url: '/wallets',
                 type: 'POST',
             }, {currency});
+            this.userService ??= await this.injectionService
+                .getService<UserService>('user.user-service');
+
+            if (this.userService.userProfile.currency === currency) {
+                await this.userService.updateProfile(
+                    {
+                        extProfile: {
+                            currentWallet: {
+                                walletCurrency: currency,
+                                walletId: _toNumber(response.data.walletId),
+                            },
+                        },
+                    },
+                    {updatePartial: true},
+                );
+            }
 
             return response.data.walletId;
         } catch (error) {

@@ -22,9 +22,44 @@ $selector: '.wlc-wallets';
         }
 
         &__search {
+            grid-area: search;
             width: ef.get-value($themeDefault, 'searchWidth');
-            margin: ef.get-value($themeDefault, 'searchMargin');
-            padding: ef.get-value($themeDefault, 'searchPadding');
+            padding: var(--wlc-wallets-search-paddings, ef.get-value($themeDefault, 'searchPaddings'));
+        }
+
+        &__filter-button {
+            grid-area: filter;
+            margin: ef.get-value($themeDefault, 'filterMargin');
+            color: ef.get-value($themeDefault, 'filterColor');
+        }
+
+        &__settings {
+            --wlc-icon-width: #{ef.get-value($themeDefault, 'settingsIconSize')};
+            --wlc-icon-height: #{ef.get-value($themeDefault, 'settingsIconSize')};
+
+            display: flex;
+            grid-area: settings;
+            gap: ef.get-value($themeDefault, 'settingsGap');
+            align-items: baseline;
+            justify-content: center;
+            color: ef.get-value($themeDefault, 'settingsColor');
+            cursor: pointer;
+
+            ::ng-deep {
+
+                .wlc-icon {
+                    line-height: 1;
+                }
+            }
+        }
+
+        &__settings-text {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'settingsTextFontStyle', 375),
+                ef.get-value($themeDefault, 'settingsTextColor'),
+            );
+
+            line-height: 1;
         }
 
         &__dropdown-btn {
@@ -105,17 +140,20 @@ $selector: '.wlc-wallets';
             @include bm.get-mq-map('top', $themeDefault, 'contentTop');
             position: absolute;
             z-index: ef.get-value($themeDefault, 'contentZIndex');
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-areas: var(--wlc-wallets-content-template-areas, ef.get-value($themeDefault, 'contentTemplateAreas'));
+            grid-template-columns: var(--wlc-wallets-content-template-columns, ef.get-value($themeDefault, 'contentTemplateColumns'));
+            gap: ef.get-value($themeDefault, 'contentGap');
             align-items: center;
-            justify-content: center;
             max-height: ef.get-value($themeDefault, 'contentHeight');
+
             padding: ef.get-value($themeDefault, 'contentPadding');
             background: ef.get-value($themeDefault, 'contentBg');
             box-shadow: ef.get-value($themeDefault, 'contentBoxShadow');
             border-radius: ef.get-value($themeDefault, 'contenBorderRadius');
 
             hr {
+                grid-area: hr;
                 width: ef.get-value($themeDefault, 'hrWidth');
                 height: ef.get-value($themeDefault, 'hrHeight');
                 margin: ef.get-value($themeDefault, 'hrMargin');
@@ -126,8 +164,10 @@ $selector: '.wlc-wallets';
 
         &__list {
             @include bm.scrollbar($themeDefault);
+            grid-area: list;
             overflow-y: auto;
             width: ef.get-value($themeDefault, 'listWidth');
+            max-height: ef.get-value($themeDefault, 'listMaxHeight');
             padding: ef.get-value($themeDefault, 'listPadding');
 
             #{$selector}__currency {
@@ -161,21 +201,9 @@ $selector: '.wlc-wallets';
             }
         }
 
-
         &__name {
             display: flex;
             gap: ef.get-value($themeDefault, 'currencyNameGap');
-        }
-
-        &__hide-wallets {
-            @include text.get-text-style(
-                ef.get-value($themeDefault, 'hideFontStyle'),
-                null,
-            );
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
         }
 
         &__not-found {
@@ -183,11 +211,11 @@ $selector: '.wlc-wallets';
                 ef.get-value($themeDefault, 'notFoundFontStyle'),
                 null,
             );
-            padding: ef.get-value($themeDefault, 'searchPadding');
+            grid-area: list;
+            padding: ef.get-value($themeDefault, 'notFoundPaddings');
             text-align: center;
         }
     }
-
 
     &#{$selector}--rounding {
         --wlc-wallets-container-radius: #{ef.get-value($themeDefault, 'dropdownBorderRadiusRounding')};
@@ -196,6 +224,9 @@ $selector: '.wlc-wallets';
     &#{$selector}--theme-mod-finances {
         --wlc-wallets-container-bg: #{ef.get-value($themeDefault, 'financeDropdownBg')};
         --wlc-wallets-dd-btn-gap: #{ef.get-value($themeDefault, 'financeDropdownGap')};
+        --wlc-wallets-content-template-areas: #{ef.get-value($themeDefault, 'financeDropdownTemplateAreas')};
+        --wlc-wallets-content-template-columns: #{ef.get-value($themeDefault, 'financeDropdownTemplateColumns')};
+        --wlc-wallets-search-paddings: #{ef.get-value($themeDefault, 'financeSearchPaddings')};
         position: relative;
 
         #{$selector} {

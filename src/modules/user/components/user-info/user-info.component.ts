@@ -24,7 +24,6 @@ import {
     AppType,
     IWrapperCParams,
 } from 'wlc-engine/modules/core';
-import {WalletsParams} from 'wlc-engine/modules/multi-wallet/components/wallets/wallets.params';
 
 import * as Params from './user-info.params';
 
@@ -63,7 +62,7 @@ export class UserInfoComponent extends AbstractComponent implements OnInit {
     public notifierConfig: IWrapperCParams;
 
     public internalMailsNotifierConfig: IWrapperCParams = Params.internalMailsNotifierConfig;
-    public multiWalletParams: WalletsParams;
+    public multiWalletParams: IWrapperCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IUserInfoCParams,
@@ -103,15 +102,21 @@ export class UserInfoComponent extends AbstractComponent implements OnInit {
             this.cdr.markForCheck();
         }, this.$destroy);
         this.multiWalletParams = {
-            showDepositBtn: this.$params.button.use,
-            depositBtnParams: {
-                common: {
-                    sref: this.$params.button.sref,
-                    text: this.$params.button.text,
-                    animation: this.$params.button.animate,
+            components: [
+                {
+                    name: 'multi-wallet.wlc-wallets',
+                    params: {
+                        showDepositBtn: this.$params.button.use,
+                        depositBtnParams: {
+                            common: {
+                                sref: this.$params.button.sref,
+                                text: this.$params.button.text,
+                                animation: this.$params.button.animate,
+                            },
+                        },
+                    },
                 },
-            },
-
+            ],
         };
     }
 

@@ -25,6 +25,7 @@ import {
     EventService,
     IData,
     IIndexing,
+    InjectionService,
     LogService,
 } from 'wlc-engine/modules/core';
 import {
@@ -48,6 +49,9 @@ import {
     ITransaction,
     ITransactionRequestParams,
 } from 'wlc-engine/modules/history/system/models/transaction-history/transaction-history.model';
+import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
+import {HistoryHelper} from 'wlc-engine/modules/history/system/helpers';
+import {RatesCurrencyService} from 'wlc-engine/modules/rates';
 
 interface IBonusesData extends IData {
     data?: TBonusesHistory;
@@ -87,8 +91,10 @@ export class HistoryService {
     private winnersSubjects: IIndexing<BehaviorSubject<ITopTournamentUsers>> = {};
     private winLimit = this.configService.get<number>('$tournaments.winLimit') || 10;
     private winnersLimit: IIndexing<number> = {};
+    private ratesService: RatesCurrencyService;
 
     constructor(
+        private injectionService: InjectionService,
         private configService: ConfigService,
         private dataService: DataService,
         private eventService: EventService,
@@ -143,9 +149,23 @@ export class HistoryService {
                 const res: IData<ITournamentHistory[]> = await this.dataService.request(
                     'tournaments/tournaments', queryParams,
                 );
+
+                if (WalletHelper.conversionCurrency) {
+
+                    this.ratesService ??=
+                        await this.injectionService.getService<RatesCurrencyService>('rates.rates-currency-service');
+
+                    WalletHelper.coefficientСonversionEUR = await this.ratesService.getRate(
+                        {
+                            currencyFrom: 'EUR',
+                            currencyTo: WalletHelper.conversionCurrency,
+                        },
+                    );
+                }
+
                 let tournaments = this.modifyTournaments(res.data);
 
-                publicSubject ? this.subjects.tournamentsHistory$.next(tournaments as TournamentHistory[]) : null;
+                publicSubject ? this.subjects.tournamentsHistory$.next(tournaments) : null;
                 return tournaments as T[];
             } catch (error) {
                 this.logService.sendLog({code: '13.0.0', data: error});
@@ -159,7 +179,12 @@ export class HistoryService {
     }
 
     public async getTransactionList(params: ITransactionRequestParams = {}): Promise<Transaction[]> {
-        return (await this.dataService.request<IData>('finances/transactions', params)).data as Transaction[];
+        let transactions: Transaction[] = (await this.dataService.request<IData>('finances/transactions', params))
+            .data as Transaction[];
+
+        transactions = await HistoryHelper.conversionCurrency<Transaction>(this.injectionService, transactions);
+
+        return transactions;
     }
 
     public getObserver<T extends BonusHistoryItemModel | TournamentHistory>(
@@ -220,7 +245,6 @@ export class HistoryService {
         this.translateService.onLangChange.subscribe((): void => {
             this.updateSubscribers();
         });
-
         this.subjects.tournamentsHistory$.subscribe({
             next: (tournaments: TournamentHistory[]) => {
                 this.eventService.emit({
@@ -324,27 +348,50 @@ export class HistoryService {
                             : _toNumber(rawWinRow[currency]);
 
                         if (value) {
-                            result.push({currency, value});
+                            let prize: ITournamentPrize = {currency, value};
+
+                            if (WalletHelper.conversionCurrency) {
+                                prize = {
+                                    currency: WalletHelper.conversionCurrency,
+                                    value: value * WalletHelper.coefficientСonversionEUR,
+                                };
+                            }
+                            result.push(prize);
                         }
                     }
                     return result;
                 }, []);
 
             if (moneyWin) {
-                wins.push({
+                let prize: ITournamentPrize = {
                     currency: tournamentCurrency,
                     value: moneyWin,
-                });
-            }
+                };
 
+                if (WalletHelper.conversionCurrency) {
+                    prize = {
+                        currency: WalletHelper.conversionCurrency,
+                        value: moneyWin * WalletHelper.coefficientСonversionEUR,
+                    };
+                }
+
+                wins.push(prize);
+            }
             wins.push(...specialWins);
         } else {
-            wins.push({
+            let prize: ITournamentPrize = {
                 currency: tournamentCurrency,
                 value: Number(rawWinRow),
-            });
-        }
+            };
 
+            if (WalletHelper.conversionCurrency) {
+                prize = {
+                    currency: WalletHelper.conversionCurrency,
+                    value: Number(rawWinRow) * WalletHelper.coefficientСonversionEUR,
+                };
+            }
+            wins.push(prize);
+        }
         return wins;
     }
 

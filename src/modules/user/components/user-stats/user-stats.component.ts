@@ -136,7 +136,7 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
             if (field === 'bonusBalance') {
                 shownUserStats[field] = {
                     ...shownUserStats[field],
-                    currency: this.userService.userProfile.originalCurrency,
+                    currency: this.userService.userProfile.bonusCurrency,
                     modification: 'customCurrency',
                 };
             }
