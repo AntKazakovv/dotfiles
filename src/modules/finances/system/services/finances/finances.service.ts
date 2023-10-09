@@ -66,6 +66,7 @@ export interface IPaymentPostMessage {
     message: TPaymentStatusAll;
     amount?: string;
     tid?: string;
+    type?: string;
 }
 
 interface IQueries {
@@ -388,7 +389,7 @@ export class FinancesService {
             this.configService.get<Deferred<null>>({name: 'firstLanguageReady'})
                 .promise
                 .then(() => {
-                    const type = initialPath.message?.toLowerCase();
+                    const type = initialPath.type?.toLowerCase();
                     const message: string[] = [
                         (type === 'withdraw')
                             ? this.translateService.instant(gettext('Withdraw request has been successfully sent!'))

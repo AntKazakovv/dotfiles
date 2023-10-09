@@ -244,6 +244,10 @@ export class ActionService {
                     paymentMessage.tid = initialPath.tid;
                 }
 
+                if (initialPath.type) {
+                    paymentMessage.type = initialPath.type;
+                }
+
                 this.checkPaymentMessage(paymentMessage);
                 break;
             case 'SET_NEW_PASSWORD':
