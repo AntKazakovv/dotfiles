@@ -166,7 +166,7 @@ describe('InternalMailsComponent', (): void => {
         expect(nativeElement.querySelector('[wlc-table]')).not.toEqual(jasmine.anything());
     }));
 
-    it('-> check wlc-table after mailsReady with mails$.langth !== 0', fakeAsync((): void => {
+    it('-> check wlc-table after mailsReady with invalid data', fakeAsync((): void => {
         setup();
         internalMailsServiceStub.mailsReady.resolve();
         flushMicrotasks();
@@ -175,7 +175,7 @@ describe('InternalMailsComponent', (): void => {
 
         expect(nativeElement.querySelector('[wlc-loader]')).not.toEqual(jasmine.anything());
         expect(nativeElement.querySelector(`${defaultParams.class}__empty`)).not.toEqual(jasmine.anything());
-        expect(nativeElement.querySelector('[wlc-table]')).toEqual(jasmine.anything());
+        expect(nativeElement.querySelector('[wlc-table]')).not.toEqual(jasmine.anything());
     }));
 
     it('-> check 2 wlc-datepickers on desktop', fakeAsync((): void => {

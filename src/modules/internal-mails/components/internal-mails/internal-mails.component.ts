@@ -51,7 +51,6 @@ import * as Params from './internal-mails.params';
 export class InternalMailsComponent extends AbstractComponent implements OnInit {
     public ready: boolean = false;
     public override $params: Params.IInternalMailsCParams;
-    public internalMailsCount: number = 0;
     public showFilter: boolean = false;
     public startDateInput: IDatepickerCParams = _cloneDeep(startDate);
     public endDateInput: IDatepickerCParams = _cloneDeep(endDate);
@@ -144,7 +143,6 @@ export class InternalMailsComponent extends AbstractComponent implements OnInit 
             .pipe(takeUntil(this.$destroy))
             .subscribe((mails: InternalMailModel[]): void => {
                 this.allMails = mails;
-                this.internalMailsCount = mails.length;
 
                 if (!this.ready) {
                     this.initFilters();
