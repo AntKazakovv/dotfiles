@@ -117,7 +117,8 @@ $themeLeft: map-merge((
     'panelWidth': 290px,
     'panelBackground': var(--mc-bgModal),
     'panelWolfBackground': var(--mc-bg700),
-    'paneWolfInfoMarginCompact': ef.size(5) 0 0,
+    'panelWolfPadding': 0 ef.size(2),
+    'panelWolfItemMargin': ef.size(5) 0 0,
     'loginBtnBg': var(--mc-bg),
     'menuLinksColor': var(--mc-baseMain),
 

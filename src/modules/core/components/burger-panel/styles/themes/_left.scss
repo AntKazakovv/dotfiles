@@ -43,17 +43,41 @@
             &__content {
                 background: map-get($themeLeft, 'panelWolfBackground');
             }
+
+            &__content {
+                padding: map-get($themeLeft, 'panelWolfPadding');
+            }
+        }
+
+        &.wlc-burger-panel--view-expanded,
+        &.wlc-burger-panel--left-mobile {
+
+            .wlc-burger-panel {
+
+                &__content {
+
+                    ::ng-deep {
+
+                        .wlc-panel-menu,
+                        .wlc-social-icons {
+                            margin: map-get($themeLeft, 'panelWolfItemMargin');
+                        }
+                    }
+                }
+            }
         }
 
         &.wlc-burger-panel--view-compact {
 
             .wlc-burger-panel__content {
                 overflow: visible;
+                padding: 0;
 
                 ::ng-deep {
 
-                    .wlc-panel-menu--type-info {
-                        margin: map-get($themeLeft, 'paneWolfInfoMarginCompact');
+                    .wlc-panel-menu--type-info,
+                    .wlc-social-icons {
+                        margin: map-get($themeLeft, 'panelWolfItemMargin');
                     }
                 }
             }

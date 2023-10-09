@@ -1,5 +1,19 @@
 $selector: '.wlc-social-icons';
 
+::ng-deep {
+
+    .wlc-burger-panel--view-expanded,
+    .wlc-burger-panel--left-mobile {
+        --si-menu-flex-direction: initial;
+        --si-menu-margin: #{ef.get-value($themeWolf, 'menuIconListMargin')};
+    }
+
+    .wlc-burger-panel--view-compact {
+        --si-menu-flex-direction: column;
+        --si-menu-margin: 0;
+    }
+}
+
 .wlc-social-icons--theme-wolf:host {
 
     #{$selector}__list {
@@ -37,6 +51,18 @@ $selector: '.wlc-social-icons';
 
         @include bm.hover {
             color: ef.get-value($themeWolf, 'iconsListLinkBgHover');
+        }
+    }
+
+    &#{$selector}--theme-mod-menu {
+
+        #{$selector}__list {
+            display: flex;
+            flex-direction: var(--si-menu-flex-direction);
+            gap: ef.get-value($themeWolf, 'menuIconListGap');
+            align-items: center;
+            justify-content: space-between;
+            margin: var(--si-menu-margin);
         }
     }
 }

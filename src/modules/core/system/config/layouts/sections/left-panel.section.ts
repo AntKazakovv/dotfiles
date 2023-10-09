@@ -342,6 +342,7 @@ export namespace leftPanel {
             componentLib.wlcPanelMenu.fixedBurgerThemeWolf,
             componentLib.wlcPanelMenu.fixedBurgerInfoThemeWolf,
             componentLib.wlcLanguageSelector.menuThemeWolf,
+            componentLib.wlcSocialIcons.menuThemeWolf,
         ],
     };
 

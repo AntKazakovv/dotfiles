@@ -418,16 +418,18 @@ export class LanguageSelectorComponent
         }
 
         if (isCompact) {
+            this.removeModifiers('state-expanded');
             this.addModifiers('state-compact');
             useTooltip = true;
         } else {
             this.removeModifiers('state-compact');
+            this.addModifiers('state-expanded');
         }
 
         this.$params.currentLang = currentLangConfig;
         this.$params.dropdown = dropdownConfig;
         this.$params.useTooltip = useTooltip;
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
     }
 
     protected setDropdownPosition(): void {

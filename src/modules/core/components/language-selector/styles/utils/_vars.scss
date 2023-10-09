@@ -125,7 +125,6 @@ $themeDefaultModLog: map-merge((
 
 $customThemeWolf: () !default;
 $themeWolf: map-merge((
-    'margin': 0 ef.size(2),
     'padding': ef.size(1) 0 0,
 
     'linkBg': var(--mc-bg300),

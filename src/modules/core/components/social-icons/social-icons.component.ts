@@ -4,13 +4,14 @@ import {
     OnInit,
     ChangeDetectionStrategy,
 } from '@angular/core';
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core';
-
-import * as Params from './social-icons.params';
 
 import _merge from 'lodash-es/merge';
 import _sortBy from 'lodash-es/sortBy';
+
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+
+import * as Params from './social-icons.params';
 
 @Component({
     selector: '[wlc-social-icons]',
@@ -33,7 +34,7 @@ export class SocialIconsComponent extends AbstractComponent implements OnInit {
         _merge(this.$params.socials, this.configService.get<Params.ISocialItem[]>('$base.contacts.socials') || []);
         this.$params.socials = _sortBy(this.$params.socials, (item) => item.order);
 
-        if(this.$params.iconsType === 'color'){
+        if (this.$params.iconsType === 'color') {
             this.$params.iconPath = '/wlc/icons/social/color/';
         }
     }

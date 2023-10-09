@@ -10,7 +10,6 @@
 }
 
 .wlc-panel-menu--theme-wolf:host {
-    --pm-menu-margin: #{ef.get-value($panelMenuThemeWolf, 'menuMargin')};
     --pm-link-background: #{ef.get-value($panelMenuThemeWolf, 'linkBg')};
     --pm-dropdown-link-background: #{ef.get-value($panelMenuThemeWolf, 'ddLinkBg')};
     --pm-dropdown-active-icon-fill: #{ef.get-value($panelMenuThemeWolf, 'linkIconFill')};
@@ -24,10 +23,7 @@
     --pm-link-icon-width: #{ef.get-value($panelMenuThemeWolf, 'linkIconWidth')};
     --pm-link-icon-width: #{ef.get-value($panelMenuThemeWolf, 'linkIconHeight')};
 
-    margin: var(--pm-menu-margin);
-
     &.wlc-panel-menu--compact {
-        --pm-menu-margin: #{ef.get-value($panelMenuThemeWolf, 'menuMarginCompact')};
         --pm-link-background: #{ef.get-value($panelMenuThemeWolf, 'linkBgCompact')};
         --pm-dropdown-link-background: #{ef.get-value($panelMenuThemeWolf, 'ddLinkBgCompact')};
         --pm-dropdown-active-icon-fill: #{ef.get-value($panelMenuThemeWolf, 'linkIconActiveFill')};

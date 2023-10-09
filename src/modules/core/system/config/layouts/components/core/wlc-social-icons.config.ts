@@ -15,4 +15,19 @@ export namespace wlcSocialIcons {
             themeMod: 'compact',
         },
     };
+
+    export const wolf: ILayoutComponent = {
+        name: 'core.wlc-social-icons',
+        params: {
+            theme: 'wolf',
+        },
+    };
+
+    export const menuThemeWolf: ILayoutComponent = {
+        name: 'core.wlc-social-icons',
+        params: {
+            theme: 'wolf',
+            themeMod: 'menu',
+        },
+    };
 }

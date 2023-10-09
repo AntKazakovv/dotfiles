@@ -1,27 +1,26 @@
 .wlc-language-selector--theme-wolf:host {
-    --ls-margin: #{ef.get-value($themeWolf, 'margin')};
     --ls-link-justify-content: start;
     --ls-link-padding: #{ef.get-value($themeWolf, 'linkPadding')};
-    --ls-link-background: #{ef.get-value($themeWolf, 'linkBg')};
     --ls-link-hover: #{ef.get-value($themeWolf, 'linkHover')};
     --ls-link-icon-margin: #{ef.get-value($themeWolf, 'linkIconMargin')};
     --ls-link-arrow: block;
-    --ls-link-text-display: block;
     --ls-icon-width: auto;
 
     position: relative;
     padding: ef.get-value($themeWolf, 'padding');
 
     &.wlc-language-selector--state-compact {
-        --ls-margin: #{ef.get-value($themeWolf, 'marginCompact')};
         --ls-link-justify-content: center;
         --ls-link-padding: #{ef.get-value($themeWolf, 'linkPaddingCompact')};
         --ls-link-background: #{ef.get-value($themeWolf, 'linkBgCompact')};
         --ls-link-icon-margin: #{ef.get-value($themeWolf, 'linkIconMarginCompact')};
         --ls-link-hover: none;
         --ls-link-arrow: none;
-        --ls-link-text-display: none;
         --ls-icon-width: 100%;
+    }
+
+    &.wlc-language-selector--state-expanded {
+        --ls-link-background: #{ef.get-value($themeWolf, 'linkBg')};
     }
 
     .wlc-language-selector {
@@ -84,7 +83,6 @@
         }
 
         &__dropdown {
-            margin: var(--ls-margin);
             visibility: hidden;
             opacity: 0;
 
@@ -167,7 +165,6 @@
             align-items: center;
             justify-content: var(--ls-link-justify-content);
             min-height: ef.get-value($themeWolf, 'linkMinHeight');
-            margin: var(--ls-margin);
             padding: var(--ls-link-padding);
             background: var(--ls-link-background);
             border-radius: ef.get-value($themeWolf, 'linkBorderRadius');
@@ -218,8 +215,6 @@
                     ef.get-value($themeWolf, 'linkFontSize'),
                     ef.get-value($themeWolf, 'linkColor'),
                 );
-
-                display: var(--ls-link-text-display);
             }
 
             @include bm.hover {

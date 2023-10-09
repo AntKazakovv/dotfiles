@@ -1,6 +1,5 @@
 $customPanelMenuThemeWolf: () !default;
 $panelMenuThemeWolf: map-merge((
-    'menuMargin': ef.size(5) ef.size(2) 0,
     'linkBg': var(--mc-bg300),
     'linkBorderRadius': ef.get('radius', 'main'),
     'linkPadding': 0 ef.size(4),
@@ -37,7 +36,6 @@ $panelMenuThemeWolf: map-merge((
     'ddHoverSubmenuLeft': 48px,
     'ddHoverSubmenuPadding': 0 0 0 ef.size(2),
 
-    'menuMarginCompact': 0,
     'linkBgCompact': none,
     'linkPaddingCompact': 0,
     'linkIconMarginCompact': 0,
