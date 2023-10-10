@@ -344,14 +344,8 @@ export class PaymentFormComponent
             case 'msg1':
                 return !this.isCryptoInvoices
                     && !this.cryptoCheck
-                    && this.currentSystem?.isPayCryptosV2
-                    && this.$params.showPaymentRules;
+                    && this.currentSystem?.isPayCryptosV2;
             case 'msg2':
-                return !this.isCryptoInvoices
-                    && !this.cryptoCheck
-                    && this.currentSystem?.isPayCryptosV2
-                    && !this.$params.showPaymentRules;
-            case 'msg3':
                 return this.isCryptoInvoices
                     && !(this.currentSystem?.message as IPaymentMessage)?.dateEnd;
         }
@@ -532,7 +526,7 @@ export class PaymentFormComponent
         }
     }
 
-    public formBeforeSubmit(form: UntypedFormGroup): boolean {
+    public formBeforeSubmit(): boolean {
         const notificationTitle = this.isDeposit ? gettext('Deposit') : gettext('Withdraw');
         if (!this.currentSystem) {
             this.pushNotification({
@@ -548,18 +542,6 @@ export class PaymentFormComponent
                 title: notificationTitle,
                 message: gettext('You must fill required profile fields'),
                 wlcElement: 'notification_deposit-fields-error',
-            });
-            return false;
-        } else if (this.isDeposit
-            && this.$params.showPaymentRules
-            && this.emptyOnlyField(form, 'paymentRules')
-        ) {
-            form.controls.paymentRules.markAsTouched();
-            this.pushNotification({
-                type: 'error',
-                title: notificationTitle,
-                message: gettext('You must agree to the payment system terms'),
-                wlcElement: 'notification_deposit-terms-error',
             });
             return false;
         } else {
@@ -674,7 +656,7 @@ export class PaymentFormComponent
                 this.cdr.detectChanges();
             }
 
-            if (this.currentSystem.isPregeneration && !this.currentSystem.message) {
+            if (this.isDeposit && this.currentSystem.isPregeneration && !this.currentSystem.message) {
                 this.isWaitingResponse = true;
                 await this.depositAction(0, {bonusId: null});
             }
@@ -834,11 +816,6 @@ export class PaymentFormComponent
 
             if (lastAccount) {
                 formComponents.push(lastAccount);
-            }
-
-            // rules
-            if (this.isDeposit && this.$params.showPaymentRules && (!this.usePrestep || this.isPrestepComplete)) {
-                formComponents.push(FormElements.rules);
             }
 
             // button
@@ -1426,6 +1403,7 @@ export class PaymentFormComponent
             }
 
             this.inProgress = false;
+            this.isWaitingResponse = false;
 
             if (this.isInvoicePending) {
                 this.updateFormConfig();

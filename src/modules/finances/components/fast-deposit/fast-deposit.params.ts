@@ -35,7 +35,6 @@ export const defaultParams: IFastDepositCParams = {
     paymentFormParams: {
         mode: 'deposit',
         themeMod: 'centered',
-        showPaymentRules: true,
         hideClearAmountButton: true,
         paymentMessageParams: {
             themeMod: 'modal',

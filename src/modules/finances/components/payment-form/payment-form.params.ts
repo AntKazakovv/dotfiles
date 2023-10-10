@@ -17,7 +17,6 @@ export interface IPaymentFormCParams extends IComponentParams<ComponentTheme, Co
     additionalFieldsWrapperParams?: IFormComponent;
     limitsWrapperParams?: IFormComponent;
     paymentSystem?: PaymentSystem;
-    showPaymentRules?: boolean;
     hideClearAmountButton?: boolean;
     paymentMessageParams?: Partial<IPaymentMessageCParams>;
     /** Params for timer element */
@@ -47,7 +46,6 @@ export const defaultParams: IPaymentFormCParams = {
     class: 'wlc-payment-form',
     componentName: 'wlc-payment-form',
     moduleName: 'finances',
-    showPaymentRules: true,
     mode: 'deposit',
     limitsWrapperParams: {
         name: 'core.wlc-wrapper',
