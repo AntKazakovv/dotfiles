@@ -3,7 +3,7 @@ import * as componentLib from '../components';
 
 export namespace youtubeBlockSection {
     export const home: ILayoutSectionConfig = {
-        container: true,
+        container: false,
         components: [
             componentLib.wlcYoutubeBlock.def,
         ],
