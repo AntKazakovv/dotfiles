@@ -3,12 +3,23 @@ import {
     Component,
     OnInit,
     Inject,
-    HostListener,
+    NgZone,
+    ChangeDetectorRef,
+    ElementRef,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
+
+import {
+    fromEvent,
+    takeUntil,
+    throttleTime,
+} from 'rxjs';
+
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ActionService} from 'wlc-engine/modules/core';
+import {WINDOW} from 'wlc-engine/modules/app/system';
+
 import * as Params from './scroll-up.params';
 
 @Component({
@@ -27,16 +38,36 @@ export class ScrollUpComponent extends AbstractComponent implements OnInit {
         @Inject('injectParams') protected injectParams: Params.IScrollUpParams,
         configService: ConfigService,
         protected actionService: ActionService,
+        protected elRef: ElementRef,
+        private ngZone: NgZone,
+        cdr: ChangeDetectorRef,
         @Inject(DOCUMENT) private document: Document,
+        @Inject(WINDOW) private window: Window,
     ){
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, configService);
+        }, configService, cdr);
     }
 
     public override ngOnInit(): void {
         super.ngOnInit();
+
+        if (!this.$params.showButton) {
+            this.elRef.nativeElement.remove();
+            return;
+        }
+        this.ngZone.runOutsideAngular(() => {
+            fromEvent(this.window, 'scroll').pipe(
+                throttleTime(150),
+                takeUntil(this.$destroy),
+            ).subscribe(() => {
+                this.ngZone.run(() => {
+                    this.onWindowScroll();
+                    this.cdr.markForCheck();
+                });
+            });
+        });
     }
 
     public scrollToTop():void {
@@ -47,11 +78,6 @@ export class ScrollUpComponent extends AbstractComponent implements OnInit {
                 this.disabledButton = true;
             }, 1000);
         }
-    }
-
-    @HostListener('window:scroll')
-    protected onScroll():void {
-        this.onWindowScroll();
     }
 
     protected onWindowScroll():void {
