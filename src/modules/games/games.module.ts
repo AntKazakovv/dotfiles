@@ -140,6 +140,7 @@ export const services = {
         CategoryPreviewComponent,
         ProviderLinksComponent,
         ProviderGamesComponent,
+        ProgressBarComponent,
         MerchantWalletExrateComponent,
         MerchantWalletFormComponent,
         MerchantWalletInfoComponent,

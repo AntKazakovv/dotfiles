@@ -41,20 +41,26 @@
 </ng-template>
 
 <ng-template #headerDefault>
-    <div *ngIf="$params.showHeader; else close" class="{{$class}}__header" [class.two-columns]="!headerMenuConfig">
-        <div *ngIf="isShowLogo"
-            wlc-logo
-            class="{{$class}}__logo">
+    <ng-template *ngIf="$params.themeMod !== 'wolf'; else wolf">
+        <div *ngIf="$params.showHeader; else close"
+            class="{{$class}}__header"
+            [class.two-columns]="!headerMenuConfig">
+
+            <div *ngIf="isShowLogo"
+                wlc-logo
+                class="{{$class}}__logo">
+            </div>
+
+            <div *ngIf="!isShowLogo"
+                class="{{$class}}__title">
+                {{title | translate}}
+            </div>
+
+            <div *ngIf="headerMenuConfig" class="{{$class}}__header-menu">
+                <div wlc-wrapper [inlineParams]="headerMenuConfig"></div>
+            </div>
         </div>
-        <div *ngIf="!isShowLogo"
-            class="{{$class}}__title">
-            {{title | translate}}
-        </div>
-        <div *ngIf="headerMenuConfig" class="{{$class}}__header-menu">
-            <div wlc-wrapper [inlineParams]="headerMenuConfig"></div>
-        </div>
-        <ng-container [ngTemplateOutlet]="close"></ng-container>
-    </div>
+    </ng-template>
 </ng-template>
 
 <ng-template #headerLeftTypeFixed>
@@ -69,6 +75,21 @@
             (click)="toggleFixedPanel(true)">
             <span wlc-icon
                 iconPath="/wlc/icons/burger-expand.svg"
+            ></span>
+        </button>
+    </div>
+</ng-template>
+
+<ng-template #wolf>
+    <div class="{{$class}}__header two-columns">
+        <div wlc-logo
+            class="{{$class}}__logo">
+        </div>
+
+        <button class="{{$class}}__btn-expand {{$class}}__btn-expand--expanded">
+            <span wlc-icon
+                iconPath="/wlc/icons/burger-expand.svg"
+                (click)="closePanel()"
             ></span>
         </button>
     </div>

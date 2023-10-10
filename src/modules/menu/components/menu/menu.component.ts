@@ -13,7 +13,9 @@ import {
     AfterContentChecked,
     ElementRef,
     ViewContainerRef,
+    Renderer2,
 } from '@angular/core';
+import {DOCUMENT} from '@angular/common';
 import {TranslateService} from '@ngx-translate/core';
 import {
     animate,
@@ -116,6 +118,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     @ViewChild('scroll') tplScroll: TemplateRef<ElementRef>;
     @ViewChild('srefWithParent') srefWithParent: ViewContainerRef;
     @ViewChild('content') tplContent: TemplateRef<ElementRef>;
+    @ViewChild('subMenuHover') subMenuHover: ElementRef<HTMLElement>;
 
     @Input() protected inlineParams: Params.IMenuCParams;
 
@@ -146,6 +149,8 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         protected injectionService: InjectionService,
         protected translateService: TranslateService,
         protected router: UIRouter,
+        protected renderer: Renderer2,
+        @Inject(DOCUMENT) protected document: Document,
     ) {
         super(
             <IMixedParams<Params.IMenuCParams>>{
@@ -234,6 +239,27 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
 
         this.lang = this.configService.get<string>('currentLanguage') || 'en';
         this.initEventHandlers();
+    }
+
+    public setScrollHoverMenu(): void {
+        const menuHoverRect = this.subMenuHover?.nativeElement.getBoundingClientRect();
+
+        if (!parseFloat(this.subMenuHover.nativeElement.style.height)) {
+            this.renderer.setStyle(this.subMenuHover.nativeElement, 'height', `${menuHoverRect.height}px`);
+        }
+
+        const documentHeight = this.document.documentElement.clientHeight;
+
+        let maxHeight: string = 'none';
+        let overflow: string = 'auto';
+
+        if (parseFloat(this.subMenuHover.nativeElement.style.height) > documentHeight - menuHoverRect.y) {
+            maxHeight = `${documentHeight - menuHoverRect.y - 30}px`;
+            overflow = 'hidden auto';
+        }
+
+        this.renderer.setStyle(this.subMenuHover.nativeElement, 'max-height', maxHeight);
+        this.renderer.setStyle(this.subMenuHover.nativeElement, 'overflow', overflow);
     }
 
     /**

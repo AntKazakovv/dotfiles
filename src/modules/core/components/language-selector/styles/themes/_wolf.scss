@@ -84,6 +84,7 @@
 
         &__dropdown {
             visibility: hidden;
+            overflow: hidden;
             opacity: 0;
 
             .wlc-language-selector {

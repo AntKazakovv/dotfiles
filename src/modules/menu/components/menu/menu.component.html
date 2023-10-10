@@ -198,10 +198,11 @@
 
 <ng-template #dropdown let-item="item">
     <div class="{{$class}}__item {{$class}}__item--dropdown {{$class}}__item--{{item.parent.class}}"
-        [ngClass]="{'active': item.expand}">
+        [ngClass]="{'active': item.expand}"
+        (mouseenter)="$params.dropdowns?.expandableOnHover && setScrollHoverMenu()">
 
         <a class="{{$class}}__link"
-            [uiSref]="$params.dropdowns?.expandableOnHover && item.parent?.params?.state?.name"
+            [uiSref]="$params.dropdowns?.expandableOnHover ? item.parent?.params?.state?.name : '#'"
             [uiParams]="$params.dropdowns?.expandableOnHover && item.parent?.params?.state?.params"
             [attr.data-wlc-element]="item.wlcElement || item.parent.wlcElement"
             (click)="toggleDropdown(item)">
@@ -243,7 +244,8 @@
 
         <div *ngIf="$params.dropdowns?.expandableOnHover"
             class="{{$class}}__submenu--hover">
-            <div class="{{$class}}__list">
+            <div class="{{$class}}__list"
+                #subMenuHover>
                 <ng-container *ngFor="let item of item.items">
                     <ng-container
                         [ngTemplateOutlet]="menuItem"

@@ -55,6 +55,7 @@
             .wlc-burger-panel {
 
                 &__content {
+                    scrollbar-gutter: stable;
 
                     ::ng-deep {
 
@@ -63,6 +64,11 @@
                             margin: map-get($themeLeft, 'panelWolfItemMargin');
                         }
                     }
+                }
+
+                &__logo {
+                    justify-content: start;
+                    margin: 0;
                 }
             }
         }
@@ -80,6 +86,13 @@
                         margin: map-get($themeLeft, 'panelWolfItemMargin');
                     }
                 }
+            }
+        }
+
+        &.wlc-burger-panel--left-mobile {
+
+            .wlc-burger-panel {
+                @include btnExpand();
             }
         }
     }
@@ -388,35 +401,7 @@
 
         .wlc-burger-panel {
 
-            &__btn-expand {
-                justify-self: var(--bp-expand-btn-justify-self);
-                padding: ef.get-value($themeLeftFixed, 'btnExpandPadding');
-                color: ef.get-value($themeLeftFixed, 'btnExpandColor');
-                background: ef.get-value($themeLeftFixed, 'btnExpandBg');
-                border: ef.get-value($themeLeftFixed, 'btnExpandBorder');
-                transition: ef.get-value($themeLeftFixed, 'btnExpandTransition');
-
-                ::ng-deep {
-
-                    svg {
-                        width: ef.get-value($themeLeftFixed, 'btnExpandIconSize');
-                        height: ef.get-value($themeLeftFixed, 'btnExpandIconSize');
-                        transform: var(--bp-expand-icon-transform);
-                        transition: ef.get-value($themeLeftFixed, 'btnExpandIconTransition');
-                        fill: currentColor;
-                    }
-                }
-
-                &--expanded {
-                    --bp-expand-icon-transform: #{ef.get-value($themeLeftFixed, 'expandIconTransformExpanded')};
-                }
-
-                @include bm.hover {
-                    color: ef.get-value($themeLeftFixed, 'btnExpandColorHover');
-                    background: ef.get-value($themeLeftFixed, 'btnExpandBgHover');
-                    border: ef.get-value($themeLeftFixed, 'btnExpandBorderHover');
-                }
-            }
+            @include btnExpand();
         }
 
         ::ng-deep {

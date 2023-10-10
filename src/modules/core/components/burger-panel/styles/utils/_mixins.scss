@@ -9,3 +9,37 @@
 
     background: ef.get-value($themeLeft, 'separatorColor');
 }
+
+
+@mixin btnExpand() {
+
+    &__btn-expand {
+        justify-self: var(--bp-expand-btn-justify-self, end);
+        padding: ef.get-value($themeLeftFixed, 'btnExpandPadding');
+        color: ef.get-value($themeLeftFixed, 'btnExpandColor');
+        background: ef.get-value($themeLeftFixed, 'btnExpandBg');
+        border: ef.get-value($themeLeftFixed, 'btnExpandBorder');
+        transition: ef.get-value($themeLeftFixed, 'btnExpandTransition');
+
+        ::ng-deep {
+
+            svg {
+                width: ef.get-value($themeLeftFixed, 'btnExpandIconSize');
+                height: ef.get-value($themeLeftFixed, 'btnExpandIconSize');
+                transform: var(--bp-expand-icon-transform);
+                transition: ef.get-value($themeLeftFixed, 'btnExpandIconTransition');
+                fill: currentColor;
+            }
+        }
+
+        &--expanded {
+            --bp-expand-icon-transform: #{ef.get-value($themeLeftFixed, 'expandIconTransformExpanded')};
+        }
+
+        @include bm.hover {
+            color: ef.get-value($themeLeftFixed, 'btnExpandColorHover');
+            background: ef.get-value($themeLeftFixed, 'btnExpandBgHover');
+            border: ef.get-value($themeLeftFixed, 'btnExpandBorderHover');
+        }
+    }
+}
