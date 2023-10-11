@@ -70,6 +70,8 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
     protected readonly today: DateTime = DateTime.local().endOf('day');
     protected allBets: IBet[] = [];
 
+    private isMultiWallet: boolean;
+
     constructor(
         @Inject('injectParams') protected params: Params.IBetHistoryCParams,
         cdr: ChangeDetectorRef,
@@ -88,6 +90,8 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
 
     public override ngOnInit(): void {
         super.ngOnInit();
+
+        this.isMultiWallet = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
         this.showFilter = this.actionService.getDeviceType() === DeviceType.Desktop;
 
         if (this.showFilter) {
@@ -217,7 +221,7 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
                     return;
                 }
 
-                const dateChange: boolean = changedData.startDate || changedData.endDate;
+                const dateChange: boolean = this.isMultiWallet || changedData.startDate || changedData.endDate;
 
                 if (dateChange) {
                     this.startDateInput.control.setValue(this.startDate = data.startDate);

@@ -279,10 +279,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
 
                 WalletHelper.conversionCurrency = this.settingsParams.walletSettings.currency;
                 WalletHelper.currencies = this.userService.userProfile.unusedCurrencies;
-
-                if (this.isConvert()) {
-                    await this.updateConversionCoefficient();
-                }
+                await this.updateConversionCoefficient();
 
                 if (!this.currentWallet?.walletId && this.$params.hideWalletsWithZeroBalance) {
                     await this.filterWallets();
