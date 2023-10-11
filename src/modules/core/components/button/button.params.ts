@@ -13,7 +13,7 @@ import {
 
 export type Type = 'default' | 'resolved' | 'rejected' | 'pending' | 'disabled' | CustomType;
 export type Theme = 'default' | 'skew' | 'rounding' | 'circled' | 'borderless' | 'icon' | 'cleared' |
-    'resolve' | 'theme-wolf-link' | CustomType;
+    'resolve' | 'theme-wolf-link' | 'wolf-rounded' | CustomType;
 export type Size = 'default' | 'small' | 'big' | CustomType;
 export type ThemeMod = 'default' | 'secondary' | 'readmore' | 'textonly' | CustomType;
 export type Index = number | string | null;
@@ -30,6 +30,10 @@ export type TButtonAnimation = {
 export type EventType = {
     name: string;
     data?: unknown;
+}
+export type CounterType = {
+    use?: boolean;
+    value?: number;
 }
 
 export interface IButtonCParams extends IComponentParams<Theme, Type, ThemeMod> {
@@ -52,6 +56,7 @@ export interface IButtonCParams extends IComponentParams<Theme, Type, ThemeMod> 
         sref?: string;
         srefParams?: RawParams;
         typeAttr?: string;
+        counter?: CounterType;
         wlcElement?: string;
         /** Set animation to button */
         animation?: TButtonAnimation;

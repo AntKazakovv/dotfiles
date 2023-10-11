@@ -111,6 +111,11 @@
         &__btn {
             @include bm.get-mq-map('margin', $themeDefault, 'sliderButtonMargin');
             grid-area: ef.get-value($themeDefault, 'sliderButtonGridArea');
+
+            &.wlc-btn--theme-wolf-rounded {
+                @include bm.get-mq-map('margin', $themeDefault, 'sliderWolfRoundedBtnMargin');
+                grid-area: navigation;
+            }
         }
     }
 

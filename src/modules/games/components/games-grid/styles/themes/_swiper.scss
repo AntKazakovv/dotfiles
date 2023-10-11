@@ -7,6 +7,11 @@
             grid-template-areas: ef.get-value($themeSwiper, 'swiperGridAreas');
             grid-template-columns: ef.get-value($themeSwiper, 'swiperGridColumns');
             row-gap: ef.get-value($themeSwiper, 'swiperGridRowGap');
+
+            &.wolf-all {
+                grid-template-areas: ef.get-value($themeSwiper, 'swiperGridAreasWolfAll');
+                grid-template-columns: ef.get-value($themeSwiper, 'swiperGridColumnsWolfAll');
+            }
         }
 
         &__list {
@@ -39,6 +44,11 @@
         &__show-all-btn,
         &__link {
             grid-area: show-all;
+        }
+
+        &__wolf-all {
+            @include bm.get-mq-map('margin', $themeSwiper, 'swiperWolfAllBtnMargin');
+            grid-area: wolf-all;
         }
 
         &__games-slider {

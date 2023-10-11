@@ -82,6 +82,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
     @Input() protected size: Params.Size;
     @Input() protected icon: string;
     @Input() protected iconPath: string;
+    @Input() protected counter: Params.CounterType;
     @Input() protected index: Params.Index;
     @Input() protected wlcElement: string;
     @Input() protected animation: Params.TButtonAnimation;
@@ -196,6 +197,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
             'typeAttr',
             'animation',
             'selectorScroll',
+            'counter',
         ];
         const inlineParams: Params.IButtonCParams = {
             common: {},

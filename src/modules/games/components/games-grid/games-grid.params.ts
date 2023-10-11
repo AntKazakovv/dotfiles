@@ -66,6 +66,10 @@ export interface IGamesGridShowAllLink {
      */
     showAsBtn?: boolean;
     /**
+     * showAllButton using wolf-rounded button theme, available on games-grid swiper theme
+     */
+    wolfAllBtn?: boolean;
+    /**
      * Position of showAllLink/showAllButton on swiper theme
      */
     position?: 'top' | 'bottom';

@@ -26,8 +26,8 @@
         <ng-container *ngIf="items.length; else noSlides">
             <button class="{{$class}}__btn"
                 wlc-button
+                [inlineParams]="$params.btnParams"
                 [attr.type]="'button'"
-                text="{{$params.linkText | translate}}"
                 (click)="showAllProviders()">
             </button>
             <div slot-container-start>

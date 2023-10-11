@@ -135,7 +135,9 @@
 </ng-template>
 
 <ng-template #swiper>
-    <div class="{{$class}}__content" [hidden]="hideEmptyComponent">
+    <div class="{{$class}}__content"
+        [class.wolf-all]="$params.showAllLink?.wolfAllBtn"
+        [hidden]="hideEmptyComponent">
         <ng-container [ngTemplateOutlet]="blockTitle"></ng-container>
 
         <ng-container
@@ -145,6 +147,11 @@
                 then showAllBtn;
                 else showAllLink">
             </ng-container>
+        </ng-container>
+
+        <ng-container
+            *ngIf="this.$params.showAllLink?.wolfAllBtn && games.length"
+            [ngTemplateOutlet]="wolfAllBtn">
         </ng-container>
 
         <ng-container *ngIf="showGameSlides else: preloaderForSlider">
@@ -315,6 +322,17 @@
         [text]="$params.showAllLink.text"
         [uiSref]="$params.showAllLink.sref || $params.showAllLink.link"
         [uiParams]="$params.showAllLink.params || {}">
+    </button>
+</ng-template>
+
+<ng-template #wolfAllBtn>
+    <button wlc-button
+        class="{{$class}}__wolf-all"
+        [theme]="'wolf-rounded'"
+        [counter]="btnCounter"
+        [text]="$params.showAllLink?.text"
+        [uiSref]="$params.showAllLink?.sref || $params.showAllLink?.link"
+        [uiParams]="$params.showAllLink?.params || {}">
     </button>
 </ng-template>
 

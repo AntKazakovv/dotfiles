@@ -1,6 +1,7 @@
 import {
     CustomType,
     ISliderCParams,
+    IButtonCParams,
 } from 'wlc-engine/modules/core';
 import {IAbstractIconsListParams} from 'wlc-engine/modules/icon-list/system/classes/icon-list-abstract.class';
 
@@ -23,7 +24,9 @@ export type ComponentThemeMod = 'default' | 'inside-modal' | 'mobile-custom' | '
  */
 export interface IProviderLinksCParams extends
 IAbstractIconsListParams<ComponentTheme, ComponentType, ComponentThemeMod> {
+    /** @deprecated use btnParams.common.text */
     linkText?: string;
+    btnParams?: IButtonCParams;
     sliderParams?: ISliderCParams;
     defaultLinkSref?: string;
     titleIconPath?: string;
@@ -40,8 +43,12 @@ export const defaultParams: IProviderLinksCParams = {
     iconsType: 'black',
     colorIconBg: 'dark',
     type: 'slider',
-    linkText: gettext('Show all'),
     defaultLinkSref: 'app.providers',
+    btnParams: {
+        common: {
+            text: gettext('Show all'),
+        },
+    },
     sliderParams: {
         swiper: {
             spaceBetween: 15,

@@ -79,6 +79,10 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.prepareModalLinkParams();
+
+        if (this.$params.linkText) {
+            this.$params.btnParams.common.text = this.$params.linkText;
+        }
     }
 
     public async ngAfterViewInit(): Promise<void> {

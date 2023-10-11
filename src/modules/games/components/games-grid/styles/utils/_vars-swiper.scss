@@ -2,7 +2,9 @@ $customThemeSwiper: () !default;
 $themeSwiper: map-merge((
     'swiperDisplay': grid,
     'swiperGridAreas': 'title-icon title swiper-buttons show-all' 'games-grid games-grid games-grid games-grid',
+    'swiperGridAreasWolfAll': 'title-icon title wolf-all swiper-buttons' 'games-grid games-grid games-grid games-grid',
     'swiperGridColumns': auto auto minmax(0, 1fr) auto,
+    'swiperGridColumnsWolfAll': repeat(3, auto),
     'swiperGridRowGap': ef.size(4),
 
     'swiperButtonsColumns': auto auto,
@@ -30,4 +32,7 @@ $themeSwiper: map-merge((
         1200: block,
     ),
     'ccButtonContainerAlignSelf': center,
+    'swiperWolfAllBtnMargin': (
+        375: 0 ef.size(3) 0 0,
+    )
 ), $customThemeSwiper);

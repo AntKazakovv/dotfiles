@@ -12,3 +12,8 @@
       class="{{$class}}__pending"
       [iconPath]="$params.pendingIconPath"
 ></span>
+
+<span *ngIf="$params.common?.counter?.use"
+      class="{{$class}}__counter">
+      {{$params.common.counter.value}}
+</span>

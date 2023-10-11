@@ -12,8 +12,12 @@ export namespace providers {
                     theme: 'mobile-app-swiper',
                     iconsType: 'color',
                     colorIconBg: 'dark',
-                    linkText: 'All',
                     defaultLinkSref: 'app.providers.item',
+                    btnParams: {
+                        common: {
+                            text: 'All',
+                        },
+                    },
                     sliderParams: {
                         useStartTimeout: false,
                         slideShowAll: {

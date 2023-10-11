@@ -41,3 +41,15 @@ $themeWolf: map-merge((
     'iconSize': 12px,
     'iconMargin': 0 0 0 ef.size(1),
 ), $customThemeWolf);
+
+$customThemeWolfRounded: () !default;
+$themeWolfRounded: map-merge((
+    'bg': var(--mc-bg700),
+    'radius': 60px,
+    'fontStyle': 'CaptionText',
+    'fontColor': var(--mc-baseMain),
+    'fontColorHover': var(--mc-baseThird),
+    'minWidth': 70px,
+    'padding': 3px ef.size(3),
+    'counterMargin': 0 0 0 5px,
+), $customThemeWolfRounded);

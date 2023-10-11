@@ -1,0 +1,33 @@
+.wlc-btn--theme-wolf-rounded:host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: ef.get-value($themeWolfRounded, 'minWidth');
+    padding: ef.get-value($themeWolfRounded, 'padding');
+    background: ef.get-value($themeWolfRounded, 'bg');
+    border-radius: ef.get-value($themeWolfRounded, 'radius');
+
+    .wlc-btn {
+
+        &__text,
+        &__counter {
+            @include text.get-text-style (
+                ef.get-value($themeWolfRounded, 'fontStyle'),
+                ef.get-value($themeWolfRounded, 'fontColor'),
+            );
+            @include bm.transition(color);
+        }
+
+        &__counter {
+            margin: ef.get-value($themeWolfRounded, 'counterMargin');
+        }
+    }
+
+    @include bm.hover {
+
+        .wlc-btn__text,
+        .wlc-btn__counter {
+            color: ef.get-value($themeWolfRounded, 'fontColorHover');
+        }
+    }
+}

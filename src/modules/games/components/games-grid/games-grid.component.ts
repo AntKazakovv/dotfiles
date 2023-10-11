@@ -66,6 +66,7 @@ import {
     ResizedEventModel,
     IFormWrapperCParams,
 } from 'wlc-engine/modules/core';
+import {CounterType} from 'wlc-engine/modules/core/components/button/button.params';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
@@ -122,6 +123,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
     // We have to calculate the ID here, because if we calculate it in the prepareGrid,
     // the swiper navigation buttons will lose their binding
     public navigationId: string = _random(10000000).toString(16);
+    public btnCounter: CounterType;
 
     public gamesSliderConfig: IWrapperCParams = {components: []};
     public gamePlaceholdersSliderConfig: IWrapperCParams = {components: []};
@@ -140,6 +142,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
     protected jackpotsLoaded: boolean = false;
     protected isClickedLoadMoreBtn: boolean = false;
     protected useLazyAfterClick: boolean = false;
+    protected categoryAmount: number = 0;
     protected $isReady: Subject<void> = new Subject<void>();
 
     private _gamesList: Game[];
@@ -282,13 +285,15 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
     public get showBottomLink(): boolean {
         return this.$params.showAllLink?.use &&
             this.$params.showAllLink?.position === 'bottom' &&
-            !this.$params.showAllLink.titleLinkOnly;
+            !this.$params.showAllLink.titleLinkOnly &&
+            !this.$params.showAllLink?.wolfAllBtn;
     }
 
     public get showTopLink(): boolean {
         return this.$params.showAllLink?.use &&
             this.$params.showAllLink?.position === 'top' &&
-            !this.$params.showAllLink.titleLinkOnly;
+            !this.$params.showAllLink.titleLinkOnly &&
+            !this.$params.showAllLink?.wolfAllBtn;
     }
 
     public get showDesktopLink(): boolean {
@@ -340,6 +345,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
         this.isReady = false;
         this.gamesRowsLoaded = 0;
         this.games = await this.getGames();
+        this.categoryAmount = this.games.length;
         this.title = this.$params.title || this.gamesCatalogService.getGamesTitleByState() || this.categoryTitle;
         this.initTitleIcon();
         if (this.$params.theme === 'swiper' || this.$params.theme === 'mobile-app-swiper') {
@@ -369,6 +375,13 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
                     ),
                 };
             });
+
+            if (this.$params.showAllLink?.wolfAllBtn && this.$params.showAllLink.useCounter) {
+                this.btnCounter = {
+                    use: true,
+                    value: this.categoryAmount,
+                };
+            }
 
             this.gamesSliderConfig = this.createConfigSliders(this.gameSlides);
 

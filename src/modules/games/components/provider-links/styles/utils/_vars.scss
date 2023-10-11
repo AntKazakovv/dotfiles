@@ -84,6 +84,8 @@ $themeDefault: map-merge((
     'buttonMarginAdaptive': ef.size(2) auto 0,
 
     'errorLineHeight': 1.15,
+
+    'sliderWolfRoundedBtnMargin': 0 ef.size(3) 0 0,
 ), $customThemeDefault);
 
 $customMobileApp: () !default;
