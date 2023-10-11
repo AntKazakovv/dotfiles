@@ -503,12 +503,12 @@ export class ChatService {
         const from = parseJid(stanza.attrs.from);
         const body = stanza.getChildText('body')?.trim();
         const mucUser = stanza.getChild('x', mucUserNs)?.getChild('item');
-        const mod = stanza.getChild('apply-to')?.getChild('moderated');
         const applyId = stanza.getChild('apply-to')?.attrs.id;
+        const retract = stanza.getChild('apply-to')?.getChild('retract') ||
+            stanza.getChild('apply-to')?.getChild('moderated')?.getChild('retract');
         let contact: IContact;
 
         if (ocId) {
-            const retract = stanza.getChild('apply-to')?.getChild('retract');
             const originId = stanza.getChild('origin-id')?.attrs.id;
             const id = originId ?? stanza.getChild('stanza-id')?.attrs.id;
             const replace = stanza.getChild('replace');
@@ -541,14 +541,11 @@ export class ChatService {
                 this.rooms.get(from.local)?.messageStore.addMessage(message);
             }
 
-            if (retract) {
-                this.retractMsg(applyId, from.local);
-            }
-
             if (replace) {
                 const message: IReplaceMsg = {
                     type: 'replace',
-                    id: replace.attrs.id,
+                    id: originId,
+                    repId: replace.attrs.id,
                     body: body,
                 };
 
@@ -556,12 +553,8 @@ export class ChatService {
             }
         }
 
-        if (mod) {
-            const retract = stanza.getChild('apply-to')?.getChild('moderated')?.getChild('retract');
-
-            if (retract) {
-                this.retractMsg(applyId, from.local);
-            }
+        if (retract) {
+            this.retractMsg(applyId, from.local);
         }
     }
 

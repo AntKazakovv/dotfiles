@@ -34,7 +34,6 @@ export class MessageStore {
     }
 
     public deleteMessage(message: IRetractMsg): void {
-
         if (!this.newMessages.some(msg => msg?.id === message?.id)) {
             return;
         }
@@ -46,17 +45,25 @@ export class MessageStore {
     }
 
     public replaceMessage(message: IReplaceMsg): void {
+        let i: number;
 
-        if (!this.newMessages.some(msg => msg?.id === message?.id)) {
+        if (this.newMessages.some(msg => msg?.repId === message?.repId)) {
+
+            i = this.newMessages.findIndex(msg => msg?.repId === message?.repId);
+        } else if (this.newMessages.some(msg => msg?.id === message?.repId)) {
+
+            i = this.newMessages.findIndex(msg => msg?.id === message?.repId);
+        } else {
             return;
         }
 
-        const i: number = this.newMessages.findIndex(msg => msg?.id === message?.id);
         const msg: INewMsg = _cloneDeep(this.newMessages[i]);
 
         msg.body = message.body;
+        msg.repId = message.repId;
+        msg.id = message.id;
         this.newMessages[i] = msg;
-        this.messageIdToMessage.set(message.id, msg);
+        this.messageIdToMessage.set(message.repId, msg);
         this.messages$.next(message);
     }
 

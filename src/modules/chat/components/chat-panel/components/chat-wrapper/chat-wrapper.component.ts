@@ -101,10 +101,11 @@ export class ChatWrapperComponent extends AbstractChatComponent implements OnIni
             takeUntil(this.destroy$),
         ).subscribe((message: IMessage) => {
 
-            if (message.type === 'retract' || message.type === 'replace') {
-                //TODO: заставить обновляться буффер при типе replace #494430
+            if (message.type === 'retract') {
                 this.updateBuffer(false, true);
 
+            } else if (message.type === 'replace') {
+                this.updateBuffer(false, false, true);
             } else {
 
                 if (!this.chatConnected || !this.scrollUp) {
@@ -199,7 +200,7 @@ export class ChatWrapperComponent extends AbstractChatComponent implements OnIni
      * @param up - true if direction is up
      * @param newMsg - true if method called from message adding event
      */
-    protected updateBuffer(up: boolean, newMsg: boolean = false): void {
+    protected updateBuffer(up: boolean, newMsg: boolean = false, replaceMsg?: boolean): void {
         const oldStart: number = this.start, oldEnd: number = this.end;
 
         if (up) {
@@ -227,7 +228,7 @@ export class ChatWrapperComponent extends AbstractChatComponent implements OnIni
 
         this.start = this.start < 0 ? 0 : this.start;
 
-        if (oldStart !== this.start || oldEnd !== this.end) {
+        if (replaceMsg || oldStart !== this.start || oldEnd !== this.end) {
             this.buffer$.next(
                 this.chatListService.messages.slice(this.start - this.end),
             );

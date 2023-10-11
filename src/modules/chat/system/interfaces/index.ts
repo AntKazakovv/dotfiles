@@ -51,6 +51,7 @@ export interface INewMsg extends IMessageGeneral {
     hash?: string;
     read?: boolean;
     show?: boolean;
+    repId?: string;
 }
 
 export interface IRetractMsg extends Required<IMessageGeneral> {
@@ -60,6 +61,7 @@ export interface IRetractMsg extends Required<IMessageGeneral> {
 export interface IReplaceMsg extends Required<IMessageGeneral> {
     type: 'replace',
     body: string,
+    repId: string,
 }
 
 export type IMessage = INewMsg | IRetractMsg | IReplaceMsg;
