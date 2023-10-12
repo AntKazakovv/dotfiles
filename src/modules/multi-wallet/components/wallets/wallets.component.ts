@@ -249,7 +249,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
         });
 
         await this.updateConversionCoefficient(WalletHelper.walletSettings);
-        this.settingsParams.walletSettings = WalletHelper.walletSettings;
+        this.settingsParams.walletSettings = _assign({}, WalletHelper.walletSettings);
         this.$coefficientResolve();
         this.isShowNotFound = this.searchQuery && !this.walletList.length;
         this.cdr.markForCheck();
@@ -352,12 +352,12 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
                     balance: '0.00',
                 };
                 wallet = wallets[currency];
-            } else return;
+            }
 
             const currentCurrencyUnused: ICurrencyFilter = WalletHelper.currencies
                 ?.find((item: ICurrencyFilter) => item.code === currency);
 
-            if (wallet && !currentCurrencyUnused) {
+            if (wallet.balance && !currentCurrencyUnused) {
                 this.walletList.push(wallet);
             }
 
@@ -399,10 +399,8 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
     }
 
     private sortWallets(wallets: IWallet[]): IWallet[] {
-        return _orderBy(
-            wallets,
-            ['isReal', 'walletId', 'currency'], ['desc', 'asc'],
-        ).sort((currency: IWallet) => currency.currency === this.currentWallet.currency ? -1 : 1);
+        return _orderBy(wallets, ['walletId', 'currency'])
+            .sort((currency: IWallet) => currency.currency === this.currentWallet.currency ? -1 : 1);
     }
 
     private async updateConversionCoefficient(
@@ -433,10 +431,14 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
             WalletHelper.conversionCurrency = null;
         }
 
-        await this.userService.updateProfile(
-            {extProfile: {conversionCurrency: settings}},
-            {updatePartial: true},
-        );
+        if (this.settingsParams.walletSettings.conversionInFiat !== settings.conversionInFiat
+            || this.settingsParams.walletSettings.currency !== settings.currency
+            || this.settingsParams.walletSettings.hideWalletsWithZeroBalance !== settings.hideWalletsWithZeroBalance) {
+            await this.userService.updateProfile(
+                {extProfile: {conversionCurrency: settings}},
+                {updatePartial: true},
+            );
+        }
 
         this.userService.userInfo$.next(this.userService.userInfo);
 

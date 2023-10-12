@@ -170,6 +170,7 @@ export class DepositWithdrawComponent
                 themeMod: 'finances',
                 hideWalletsWithZeroBalance: !this.isDeposit,
             };
+            await this.walletsReady;
         }
 
         if (this.showBonuses) {
@@ -200,10 +201,6 @@ export class DepositWithdrawComponent
             });
 
         this.initSubscribers();
-
-        if (this.isMultiWallet) {
-            await this.walletsReady;
-        }
 
         if (this.isLastMethodExisting) {
             this.lastSucceedPaymentMethod = this.financesService.getLastSucceedPaymentMethod(this.isDeposit);
