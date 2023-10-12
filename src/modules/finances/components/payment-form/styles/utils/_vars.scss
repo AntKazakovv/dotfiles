@@ -14,7 +14,7 @@ $themeDefault: map-merge((
     ),
     'formGap': ef.size(2),
     'formInputMaxWidth': (
-        375: 306px,
+        375: 100%,
         480: 330px,
     ),
 
@@ -31,8 +31,7 @@ $themeDefault: map-merge((
 
     'amountWrapperGap': ef.size(1) ef.size(2),
     'amountWrapperWidth': (
-        375: unset,
-        480: 100%,
+        375: 100%,
     ),
     'amountWrapperMaxWidth': (
         480: 330px,
