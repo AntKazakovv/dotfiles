@@ -43,7 +43,7 @@ export class RecaptchaService {
     /**
      * Set recaptcha site_key from response headers x-recaptcha
      */
-    public set setToken(recaptchaSiteKey) {
+    public set setToken(recaptchaSiteKey: string) {
         this.recaptchaSiteKey = recaptchaSiteKey;
         if (!this.document.getElementById('recaptcha-script')) {
             this.init();
