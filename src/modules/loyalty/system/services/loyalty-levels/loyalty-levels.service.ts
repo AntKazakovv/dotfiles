@@ -7,6 +7,7 @@ import {
     LogService,
     IData,
     IIndexing,
+    ConfigService,
 } from 'wlc-engine/modules/core';
 import {ILevel} from 'wlc-engine/modules/loyalty/system/interfaces';
 import {LoyaltyLevelModel} from 'wlc-engine/modules/loyalty/system/models';
@@ -19,6 +20,7 @@ export class LoyaltyLevelsService {
 
     constructor(
         protected logService: LogService,
+        private configService: ConfigService,
         private dataService: DataService,
     ) {
         this.registerMethods();
@@ -49,6 +51,22 @@ export class LoyaltyLevelsService {
         } catch (error) {
             return [];
         }
+    }
+
+    /**
+     * Get loyalty level icon by level
+     */
+    public getLevelIcon(level: number): string {
+        const imagesDirPath = this.configService.get<string>('$loyalty.loyalty.iconsDirPath');
+        const imageExtension = this.configService.get<string>('$loyalty.loyalty.iconsExtension');
+        return `${imagesDirPath}/${level}.${imageExtension}`;
+    }
+
+    /**
+     * Get loyalty level fallback icon
+     */
+    public getLevelIconFallback(): string {
+        return this.configService.get<string>('$loyalty.loyalty.iconFallback');
     }
 
     private registerMethods(): void {

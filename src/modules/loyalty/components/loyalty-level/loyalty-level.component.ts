@@ -23,6 +23,7 @@ export class LoyaltyLevelComponent extends AbstractComponent implements OnInit {
 
     public override $params: Params.ILoyaltyLevelCParams;
     public levelTitle: string;
+    public fallbackImage: string;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILoyaltyLevelCParams,
@@ -41,5 +42,7 @@ export class LoyaltyLevelComponent extends AbstractComponent implements OnInit {
         if (this.$params.titleAs) {
             this.levelTitle = this.$params.name;
         }
+
+        this.fallbackImage = this.configService.get<string>('$loyalty.loyalty.iconFallback');
     }
 }

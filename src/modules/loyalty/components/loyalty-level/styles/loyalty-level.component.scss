@@ -2,5 +2,10 @@
 @use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/mixins/base.mixins' as bm;
 
+@import './utils/mixins';
+
 @import './utils/vars';
+@import './utils/vars-wolf';
+
 @import './themes/default';
+@import './themes/wolf';

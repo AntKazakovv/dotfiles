@@ -20,11 +20,13 @@
         }
 
         &__icon {
+            --wlc-icon-width: 100%;
+            --wlc-icon-height: 100%;
+
             width: ef.get-value($themeDefault, 'iconWidth');
             max-width: ef.get-value($themeDefault, 'iconMaxWidth');
             height: ef.get-value($themeDefault, 'iconHeight');
             max-height: ef.get-value($themeDefault, 'iconMaxHeight');
-            object-fit: ef.get-value($themeDefault, 'iconObjectFit');
         }
 
         &__title {

@@ -1,21 +1,54 @@
-<div class="{{$class}}__image"
-     [ngClass]="{'custom-image': $params.image}">
-    <img class="{{$class}}__icon {{$class}}__icon--{{$params.level}}"
-         loading="lazy"
-         [src]="$params.image"
-         [wlc-fallback]="$params.fallbackImage"
-         >
-</div>
-<div class="{{$class}}__title">
-     {{levelTitle}}
-     <ng-container *ngIf="!levelTitle">{{$params.level}} {{'Level' | translate}}</ng-container>
-</div>
-<div class="{{$class}}__description"
-     [innerHTML]="$params.description"></div>
-<div class="{{$class}}__points">
-     <span>{{$params.points}}</span>
-     <span wlc-currency
-           class="value"
-           currency="LP"
-           [showIconOnly]="true"></span>
-</div>
+<ng-container [ngSwitch]="$params.theme">
+    <ng-container [ngTemplateOutlet]="wolf" *ngSwitchCase="'wolf'"></ng-container>
+    <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
+</ng-container>
+
+<ng-template #default>
+    <div class="{{$class}}__image"
+         [ngClass]="{'custom-image': $params.image}">
+        <div wlc-icon
+             class="{{$class}}__icon {{$class}}__icon--{{$params.level}}"
+             [iconPath]="$params.image"
+             [fallback]="fallbackImage">
+        </div>
+    </div>
+    <div class="{{$class}}__title">
+        {{levelTitle}}
+        <ng-container *ngIf="!levelTitle">{{$params.level}} {{'Level' | translate}}</ng-container>
+    </div>
+    <div class="{{$class}}__description"
+         [innerHTML]="$params.description"></div>
+    <div class="{{$class}}__points">
+        <span>{{$params.points}}</span>
+        <span wlc-currency
+              class="value"
+              currency="LP"
+              [showIconOnly]="true"></span>
+    </div>
+</ng-template>
+
+<ng-template #wolf>
+    <div class="{{$class}}__container"
+         [class.active]="$params.isUserLevel"
+         [ngClass]="$params.isUserLevel ? $class + '__container--' + $params.level : ''">
+        <div class="{{$class}}__image"
+             [ngClass]="{'custom-image': $params.image}">
+            <div wlc-icon
+                 class="{{$class}}__icon {{$class}}__icon--{{$params.level}}"
+                 [iconPath]="$params.image"
+                 [fallback]="fallbackImage">
+            </div>
+        </div>
+        <div class="{{$class}}__content">
+            <span class="{{$class}}__level">{{$params.level}}&nbsp;{{$params.name}}</span>
+            <div class="{{$class}}__points">
+                <span>{{$params.points}}</span>
+                <span wlc-currency
+                      class="{{$class}}__currency"
+                      currency="LP"
+                      [showIconOnly]="true"></span>
+            </div>
+        </div>
+    </div>
+</ng-template>
+

@@ -1,0 +1,53 @@
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'wrapperMargin': 0 auto,
+    'wrapperDisplay': grid,
+    'wrapperDirection': column,
+    'wrapperAlignItems': center,
+    'wrapperPadding': (
+        320: ef.size(4),
+        900: ef.size(4) ef.size(6) ef.size(5),
+    ),
+    'wrapperBackground': var(--mc-bg700),
+    'wrapperBorderRadius': ef.get('radius', 'main'),
+    'wrapperOverflow': hidden,
+
+    'headerMargin': (
+        320: 0 0 ef.size(2) 0,
+        900: 0 0 ef.size(6) 0,
+    ),
+    'headerDisplay': flex,
+    'headerDirection': row,
+    'headerJustify': space-between,
+    'headerAlign': center,
+
+    'titleFont': (
+        320:'PrimaryTextBold',
+        900: 'QoteTextBoldSmaller'
+    ),
+    'titleFontColor': var(--mc-baseThird),
+
+    'btnWrappDisplay': flex,
+    'btnWrappDirection': row,
+    'btnWrappJustify': center,
+
+    'navBtnsDisplay': (
+        320: none,
+        900: flex,
+    ),
+    'navBtnsDirection': row,
+    'navBtnsBg': var(--mc-bg500),
+    'navBtnsMarginLeft': ef.size(3),
+
+    'swiperOverflow': (
+        320: visible,
+        900: hidden,
+    ),
+
+    'slideWidth': (
+        320: 150px,
+        900: initial,
+    ),
+
+    'nodataTextAlign': center,
+), $customThemeWolf);

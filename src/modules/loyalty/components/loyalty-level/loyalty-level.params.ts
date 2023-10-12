@@ -3,7 +3,7 @@ import {
     IComponentParams,
 } from 'wlc-engine/modules/core';
 
-export type ComponentTheme = 'default' | CustomType;
+export type ComponentTheme = 'default' | 'wolf' | CustomType;
 
 export type ComponentType = 'default' | CustomType;
 
@@ -29,13 +29,13 @@ export interface ILoyaltyLevelCParams extends IComponentParams<ComponentTheme, C
      */
     image: string,
     /**
-     * Path to image will be shown if primary image isn't loaded
-     */
-    fallbackImage?: string,
-    /**
      * Defines what should be shown as a title
      */
     titleAs?: boolean,
+    /**
+     * Level matches to user level
+     */
+    isUserLevel?: boolean,
 };
 
 export const defaultParams: Partial<ILoyaltyLevelCParams> = {
@@ -43,5 +43,4 @@ export const defaultParams: Partial<ILoyaltyLevelCParams> = {
     componentName: 'wlc-loyalty-level',
     class: 'wlc-loyalty-level',
     titleAs: false,
-    fallbackImage: '/gstatic/loyalty-program/loyalty-fallback.png',
 };

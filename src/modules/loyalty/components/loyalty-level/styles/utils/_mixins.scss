@@ -1,0 +1,36 @@
+/// Helper for set individual color for each level icon.
+/// Mixin only set gradient to self and background-color to :after
+///
+/// @name applyColorGradientEffect
+/// @param {string} $defaultColor - defaultColor if map hasn't color for this level
+/// @param {string} $lightness - lightness(%) of first part of gradient (second part - transparent)
+/// @param {string} $gradientHeight - height(%) of first part of gradient
+///
+@mixin applyGradientEffect($defaultColor, $colorsMap, $lightness: -45%, $gradientHeight: 40%) {
+
+    @include applyGradientEffectForColor($defaultColor, $lightness, $gradientHeight);
+
+    @each $key, $value in $colorsMap {
+
+        @if type-of($value) != color and type-of($defaultColor) == color {
+            $value: $defaultColor;
+        }
+
+        &--#{$key}:first-of-type {
+            @include applyGradientEffectForColor($value, $lightness, $gradientHeight);
+        }
+    }
+}
+
+/// Using only into applyGradientEffect mixin
+@mixin applyGradientEffectForColor($color, $lightness: -45%, $gradientHeight: 40%) {
+
+    @if type-of($color) == color {
+
+        background-image: linear-gradient(0deg, scale-color($color, $lightness: $lightness) 0%, transparent $gradientHeight);
+
+        &:after {
+            background-color: $color;
+        }
+    }
+}

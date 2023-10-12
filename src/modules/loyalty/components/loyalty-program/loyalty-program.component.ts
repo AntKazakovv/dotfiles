@@ -7,12 +7,16 @@ import {
 } from '@angular/core';
 
 import {UIRouter} from '@uirouter/core';
+import {BehaviorSubject} from 'rxjs';
 import {
     distinctUntilChanged,
     filter,
+    first,
+    map,
     takeUntil,
 } from 'rxjs/operators';
 import _map from 'lodash-es/map';
+import _merge from 'lodash-es/merge';
 
 import {
     AbstractComponent,
@@ -21,13 +25,16 @@ import {
     DeviceType,
     ModalService,
     ISlide,
-    ISliderCParams,
     IWrapperCParams,
 } from 'wlc-engine/modules/core';
 import {LoyaltyLevelComponent} from 'wlc-engine/modules/loyalty/components/loyalty-level/loyalty-level.component';
 import {ILoyaltyLevelCParams} from 'wlc-engine/modules/loyalty/components/loyalty-level/loyalty-level.params';
 import {LoyaltyLevelsService} from 'wlc-engine/modules/loyalty/system/services/loyalty-levels/loyalty-levels.service';
 import {LoyaltyLevelModel} from 'wlc-engine/modules/loyalty/system/models/loyalty-level.model';
+import {
+    UserInfo,
+    UserService,
+} from 'wlc-engine/modules/user';
 
 import * as Params from './loyalty-program.params';
 
@@ -40,8 +47,8 @@ import * as Params from './loyalty-program.params';
 export class LoyaltyProgramComponent extends AbstractComponent implements OnInit {
     public override $params: Params.ILoyaltyProgramCParams;
     public levels: LoyaltyLevelModel[] = [];
+    public userLevel: string | null = null;
     public ready = false;
-    public isAuth: boolean;
     public slides: ISlide[] = [];
     public isMobile: boolean = false;
     public sliderConfig: IWrapperCParams;
@@ -50,25 +57,42 @@ export class LoyaltyProgramComponent extends AbstractComponent implements OnInit
         @Inject('injectParams') protected injectParams: Params.ILoyaltyProgramCParams,
         cdr: ChangeDetectorRef,
         configService: ConfigService,
-        protected loyaltyLevelsService: LoyaltyLevelsService,
-        protected modalService: ModalService,
-        protected actionService: ActionService,
-        protected router: UIRouter,
+        private actionService: ActionService,
+        private loyaltyLevelsService: LoyaltyLevelsService,
+        private modalService: ModalService,
+        private router: UIRouter,
+        private userService: UserService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({
+            injectParams,
+            defaultParams: Params.defaultParams,
+        }, configService, cdr);
     }
 
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
 
-        await this.configService.ready;
-        this.isAuth = this.configService.get('$user.isAuthenticated');
-        this.$params.title ??= this.configService.get<string>('$loyalty.loyalty.programTitle');
-        this.levels = (await this.loyaltyLevelsService.getLoyaltyLevelsSafely()).splice(0, this.$params.levelsLimit);
-        this.initSlides();
-        this.watchForOrientation();
-        this.initSliderComponent();
+        const sliderTheme = (this.$params.theme in Params.sliderDefaultParams) ? this.$params.theme : 'default';
+        this.$params.sliderParams = _merge(
+            Params.sliderDefaultParams[sliderTheme],
+            this.$params.sliderParams,
+        );
 
+        await this.configService.ready;
+        this.$params.title ??= this.configService.get<string>('$loyalty.loyalty.programTitle');
+        this.levels = await this.loyaltyLevelsService.getLoyaltyLevelsSafely();
+
+        switch (this.$params.theme) {
+            case 'wolf':
+                this.watchForUserAuth();
+                break;
+            case 'default':
+            default:
+                this.levels = this.levels.splice(0, this.$params.levelsLimit);
+                this.watchForOrientation();
+        }
+
+        this.initSlides();
         this.ready = true;
         this.cdr.detectChanges();
     }
@@ -106,20 +130,14 @@ export class LoyaltyProgramComponent extends AbstractComponent implements OnInit
      * @returns {ILoyaltyLevelCParams} `inlineParams` for `[wlc-loyalty-level]` component
      */
     public getLoyaltyLevelParams(level: LoyaltyLevelModel, idx: number): ILoyaltyLevelCParams {
-        let imagePath: string = '';
-
-        if (level.image) {
-            imagePath = level.image;
-        } else if (this.$params.imagePath) {
-            imagePath = `${this.$params.imagePath}${level.level}.${this.$params.imageType}`;
-        }
-
         return {
+            theme: this.$params.theme,
             name: level.name,
             level: String(level.level),
             points: this.setLoyaltyPoints(idx),
             description: level.description,
-            image: imagePath,
+            image: level.image || this.loyaltyLevelsService.getLevelIcon(level.level),
+            isUserLevel: String(level.level) === this.userLevel,
         };
     }
 
@@ -139,17 +157,31 @@ export class LoyaltyProgramComponent extends AbstractComponent implements OnInit
             });
     }
 
-    protected initSliderComponent(): void {
-        this.sliderConfig = {
-            components: [
-                {
-                    name: 'core.wlc-slider',
-                    params: <ISliderCParams>{
-                        slides: this.slides,
-                        ...this.$params.sliderParams,
-                    },
-                },
-            ],
-        };
+    /**
+     * Watches for user login/logout for detect user level changes
+     */
+    protected watchForUserAuth(): void {
+        this.configService.get<BehaviorSubject<boolean>>('$user.isAuth$')
+            .pipe(
+                distinctUntilChanged(),
+                takeUntil(this.$destroy),
+            ).subscribe((isAuth) => {
+                if (isAuth) {
+                    this.userService.userInfo$.pipe(
+                        first((userInfo: UserInfo) => !!userInfo?.loyalty?.Level),
+                        map((userInfo: UserInfo) => userInfo.loyalty.Level),
+                        takeUntil(this.$destroy),
+                    ).subscribe((level) => {
+                        this.userLevel = level;
+                        this.initSlides();
+                        this.cdr.markForCheck();
+                    });
+                } else {
+                    if (this.userLevel === null) return;
+                    this.userLevel = null;
+                    this.initSlides();
+                    this.cdr.markForCheck();
+                }
+            });
     }
 }

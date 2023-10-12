@@ -1,23 +1,53 @@
-<div *ngIf="ready; else preloader" class="{{$class}}__wrapper">
-    <div class="{{$class}}__title">{{$params.title | translate}}</div>
-    <div class="{{$class}}__container">
-        <div class="{{$class}}__container-decor">
-            <div class="{{$class}}__decor-left"
-                 [ngStyle]="{backgroundImage: 'url(' + $params.decorLeftPath + ')'}"></div>
-            <div class="{{$class}}__decor-right"
-                 [ngStyle]="{backgroundImage: 'url(' + $params.decorRightPath + ')'}"></div>
+<ng-container [ngSwitch]="$params.theme">
+    <ng-container [ngTemplateOutlet]="wolf" *ngSwitchCase="'wolf'"></ng-container>
+    <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
+</ng-container>
+
+<ng-template #default>
+    <div *ngIf="ready; else preloader" class="{{$class}}__wrapper">
+        <div class="{{$class}}__title">{{$params.title | translate}}</div>
+        <div class="{{$class}}__container">
+            <div class="{{$class}}__container-decor">
+                <div class="{{$class}}__decor-left"
+                     [ngStyle]="{backgroundImage: 'url(' + $params.decorLeftPath + ')'}"></div>
+                <div class="{{$class}}__decor-right"
+                     [ngStyle]="{backgroundImage: 'url(' + $params.decorRightPath + ')'}"></div>
+            </div>
+            <ng-container *ngIf="levels.length; else noData">
+                <ng-container *ngIf="isMobile then loyaltyLevelsSlider else desktopLoyaltyLevels"></ng-container>
+                <div class="{{$class}}__btn-wrapper">
+                    <button wlc-button
+                            [text]="'Read more'"
+                            [themeMod]="'secondary'"
+                            (click)="readMore()"></button>
+                </div>
+            </ng-container>
         </div>
-        <ng-container *ngIf="levels.length; else noData">
-            <ng-container *ngIf="isMobile then mobileLoyaltyLevels else desktopLoyaltyLevels"></ng-container>
+    </div>
+</ng-template>
+
+<ng-template #wolf>
+    <div *ngIf="ready; else preloader" class="{{$class}}__wrapper">
+        <div class="{{$class}}__header">
+            <div class="{{$class}}__title">{{$params.title | translate}}</div>
             <div class="{{$class}}__btn-wrapper">
                 <button wlc-button
-                        [text]="'Read more'"
-                        [themeMod]="'secondary'"
-                        (click)="readMore()"></button>
+                        [text]="'All'"
+                        (click)="readMore()">
+                </button>
+                <div slot-container-start>
+                    <div wlc-slider-navigation
+                         class="{{$class}}__navigation-btns">
+                    </div>
+                </div>
             </div>
-        </ng-container>
+        </div>
+
+        <div class="{{$class}}__container">
+            <ng-container [ngTemplateOutlet]="levels.length ? loyaltyLevelsSlider : noData"></ng-container>
+        </div>
     </div>
-</div>
+</ng-template>
 
 <ng-template #noData>
     <div class="{{$class}}-nodata">{{$params.emptyStateText | translate}}</div>
@@ -37,10 +67,12 @@
     </div>
 </ng-template>
 
-<ng-template #mobileLoyaltyLevels>
+<ng-template #loyaltyLevelsSlider>
     <div class="container">
-        <div wlc-wrapper
-        class="{{$class}}__slider"
-        [inlineParams]="sliderConfig"></div>
+        <div wlc-slider
+             class="{{$class}}__slider"
+             [slides]="slides"
+             [inlineParams]="$params.sliderParams">
+        </div>
     </div>
 </ng-template>

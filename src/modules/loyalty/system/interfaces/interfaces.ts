@@ -6,6 +6,18 @@ export interface ILoyaltyConfig {
          * Change loyalty-program & loyalty-info title
         */
         programTitle?: string;
+        /**
+         * Path to levels images.
+         */
+        iconsDirPath?: string;
+        /**
+         * Extenstion of levels images(.png, .svg, .jpg ...).
+         */
+        iconsExtension?: string;
+        /**
+         * Path to image will be shown if primary image isn't loaded
+         */
+        iconFallback?: string;
     },
 };
 

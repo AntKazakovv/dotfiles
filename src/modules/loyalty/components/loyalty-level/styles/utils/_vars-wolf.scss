@@ -1,0 +1,75 @@
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'rootDisplay': flex,
+    'rootFlexDirection': column,
+    'rootAlignItems': center,
+    'rootHeight': (
+        320: 130px,
+        900: 170px,
+    ),
+    'rootBorderRadius': ef.get('radius', 'biger'),
+
+    'decorHeight': (
+        320: 120px,
+        900: 144px,
+    ),
+    'decorBg': linear-gradient(180deg, var(--mc-bg500) 50%, var(--mc-bg500-l20) 100%),
+
+    'bottomLineHeight': (
+        320: 2px,
+        900: 4px,
+    ),
+
+    'imageWidth': auto,
+    'imageHeight': (
+        320: 60px,
+        900: 100px,
+    ),
+    'imageDisplay': flex,
+    'imageAlignItems': flex-start,
+    'imageJustifyContent': center,
+
+    'iconWidth': 100%,
+    'iconHeight': 100%,
+
+    'currencyIconHeight': 10px,
+
+    'contentDisplay': flex,
+    'contentDirection': column,
+    'contentJustufy': flex-end,
+    'contentAlign': center,
+    'contentPadding': ef.size(2) ef.size(2) ef.size(4),
+    'contentLevelFont': 'CaptionTextBold',
+    'contentPointsFont': 'SignText',
+    'contentFontColor': var(--mc-baseSecond),
+    'contentFontColorActive': var(--mc-baseThird),
+    'contentTextAlign': center,
+
+    /// Конфиг для формирования подсветки уровней
+    ///
+    /// Цвет, указанный в 'bottomLineColorCustom' - переопределяет дефолтный для заданного уровня.
+    ///
+    /// @name loyaltyLevelColors
+    ///
+    /// @prop {bottomLineDefaultColor} - дефолтный цвет подсветки
+    /// @prop {bottomLineCustomColors} - кастомные цвета, ключ - номер уровня, значение - цвет
+    ///
+    /// ПРИМЕР:
+    /// 'bottomLineColorsCustom': (
+    ///     '1': red,
+    ///     '2': green,
+    ///     '3': blue,
+    ///     '7': #ffb8d1,
+    ///     '999': #45c195,
+    /// ),
+    'bottomLineDefaultColor': #f209eb,
+    'bottomLineCustomColors': (
+        '1': #ffb800,
+        '2': #00cbff,
+        '3': #ff3d00,
+        '4': #2094ff,
+        '5': #ff7e23,
+        '6': #3be380,
+        '7': #f209eb,
+    ),
+), $customThemeWolf);
