@@ -35,4 +35,11 @@ export class WalletHelper {
         currentWallet.balance = _toNumber(currentWallet.balance).toFixed(2);
         return currentWallet;
     }
+
+    public static conversionReset(): void {
+        WalletHelper.coefficientСonversion = 1;
+        WalletHelper.coefficientOriginalCurrencyСonversion = 1;
+        WalletHelper.coefficientСonversionEUR = 1;
+        WalletHelper.conversionCurrency = null;
+    }
 }

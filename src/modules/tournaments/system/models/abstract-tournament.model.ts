@@ -43,9 +43,9 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
             .replace('<br>', '\n')
             .replace(/<[^>]*>/g, '');
         this.userCurrency = this.configService
-            .get<BehaviorSubject<UserProfile>>('$user.userProfile$').getValue()?.currency
+            .get<BehaviorSubject<UserProfile>>('$user.userProfile$').getValue()?.originalCurrency
         && this.configService.get('$user.isAuthenticated')
-            ? this.configService.get<BehaviorSubject<UserProfile>>('$user.userProfile$').getValue()?.currency
+            ? this.configService.get<BehaviorSubject<UserProfile>>('$user.userProfile$').getValue()?.originalCurrency
             : this.configService.get<string>('$base.defaultCurrency');
         this.useUsersCurrency = this.configService.get<boolean>('$base.tournaments.useUsersCurrency');
     }
@@ -167,7 +167,7 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
      * @returns {string} tournament target currency loyalty or EUR
      */
     public get targetDefaultCurrency(): string {
-        return WalletHelper.conversionCurrency ?? this.checkTargetCurrency(!this.useUsersCurrency);
+        return this.checkTargetCurrency(!this.useUsersCurrency);
     }
 
     /** @returns {string} currency formatting config */

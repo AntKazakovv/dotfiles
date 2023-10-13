@@ -400,6 +400,7 @@ export class TournamentsService {
         this.updateSubscribers();
     }
 
+    //TODO нужно удалить при рефактринге
     private async setConversionFactor(): Promise<void> {
 
         if (WalletHelper.conversionCurrency) {

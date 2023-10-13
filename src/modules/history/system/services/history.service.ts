@@ -149,7 +149,7 @@ export class HistoryService {
                 const res: IData<ITournamentHistory[]> = await this.dataService.request(
                     'tournaments/tournaments', queryParams,
                 );
-
+                //TODO нужно удалить при рефакторинге
                 if (WalletHelper.conversionCurrency) {
 
                     this.ratesService ??=

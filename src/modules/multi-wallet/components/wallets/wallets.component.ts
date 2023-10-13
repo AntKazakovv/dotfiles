@@ -136,6 +136,9 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
             },
             this.$destroy,
         );
+        this.eventService.subscribe({name: 'LOGOUT'}, (): void => {
+            WalletHelper.conversionReset();
+        });
     }
 
     public get displayedBalance(): string {
@@ -155,7 +158,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
         );
         this.isOpened = false;
 
-        if (this.settingsParams.walletSettings.conversionInFiat) {
+        if (this.settingsParams.walletSettings.conversionInFiat && !this.isFinance) {
             await this.updateConversionCoefficient();
         }
 
@@ -424,11 +427,19 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
                 });
             }
 
+            if (this.currentWallet.currency === 'EUR') {
+                WalletHelper.coefficientСonversionEUR = WalletHelper.coefficientСonversion;
+            } else if (this.userService.userProfile.originalCurrency === 'EUR') {
+                WalletHelper.coefficientСonversionEUR = WalletHelper.coefficientOriginalCurrencyСonversion;
+            } else {
+                WalletHelper.coefficientСonversionEUR = await this.ratesService.getRate({
+                    currencyFrom: 'EUR',
+                    currencyTo: settings.currency,
+                });
+            }
+
         } else {
-            WalletHelper.coefficientСonversion = 1;
-            WalletHelper.coefficientOriginalCurrencyСonversion = 1;
-            WalletHelper.coefficientСonversionEUR = 1;
-            WalletHelper.conversionCurrency = null;
+            WalletHelper.conversionReset();
         }
 
         if (this.settingsParams.walletSettings.conversionInFiat !== settings.conversionInFiat

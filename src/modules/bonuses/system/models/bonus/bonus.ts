@@ -111,7 +111,7 @@ export class Bonus extends AbstractModel<IBonus> {
             this.icon = GlobalHelper.proxyUrl(this.data.Image_other);
         } else if (this.viewTarget) {
             this.icon = GlobalHelper.proxyUrl(Bonus.bonusesConfig?.defaultIconPath + this.viewTarget + '.'
-                + Bonus.bonusesConfig?.defaultIconExtension );
+                + Bonus.bonusesConfig?.defaultIconExtension);
         }
 
         this._fallBackIconPath = this.configService.get<string>('$bonuses.fallBackIconPath');
@@ -539,8 +539,8 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     /**
-    * @returns {boolean} is bonus expire
-    */
+     * @returns {boolean} is bonus expire
+     */
     public get isExpired(): boolean {
         return this.status === -99 && this.active;
     }
@@ -720,7 +720,9 @@ export class Bonus extends AbstractModel<IBonus> {
             default:
                 return _round(_toNumber(resultsTarget.Value[Bonus.depositCurrency ?? Bonus.userCurrency]))
                     || _round(_toNumber((resultsTarget as IBonusResultValueDefault).Value?.Currency))
+                    * WalletHelper.coefficientOriginalCurrencyСonversion
                     || _round(_toNumber((resultsTarget as IBonusResultValueDefault).Value?.EUR))
+                    * WalletHelper.coefficientСonversionEUR
                     || _round(_toNumber(resultsTarget.Value));
         }
     }

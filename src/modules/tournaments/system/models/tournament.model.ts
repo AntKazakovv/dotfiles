@@ -344,7 +344,7 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
 
             if (moneyPrize) {
                 prizes.push({
-                    currency: tournamentCurrency,
+                    currency: WalletHelper.conversionCurrency ?? tournamentCurrency,
                     value: moneyPrize * WalletHelper.coefficientСonversionEUR,
                 });
             }
@@ -352,7 +352,7 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
             prizes.push(...specialPrizes);
         } else {
             prizes.push({
-                currency: tournamentCurrency,
+                currency: WalletHelper.conversionCurrency ?? tournamentCurrency,
                 value: _toNumber(rawPrizeRow) * WalletHelper.coefficientСonversionEUR,
             });
         }

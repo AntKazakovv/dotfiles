@@ -48,11 +48,7 @@ import {
 } from 'wlc-engine/modules/store/system/interfaces/store.interface';
 import {StoreItem} from 'wlc-engine/modules/store/system/models/store-item';
 import {StoreCategory} from 'wlc-engine/modules/store/system/models/store-category';
-import {
-    MultiWalletEvents,
-    WalletHelper,
-} from 'wlc-engine/modules/multi-wallet';
-import {RatesCurrencyService} from 'wlc-engine/modules/rates';
+import {MultiWalletEvents} from 'wlc-engine/modules/multi-wallet';
 
 interface IRequestParams {
     type?: string;
@@ -71,7 +67,6 @@ export class StoreService {
     private orders$: BehaviorSubject<IStoreOrder[]> = new BehaviorSubject(null);
     private profile: UserProfile;
     private useForbidUserFields = this.configService.get<boolean>('$loyalty.useForbidUserFields');
-    private ratesService: RatesCurrencyService;
 
     constructor(
         private dataService: DataService,
@@ -130,18 +125,6 @@ export class StoreService {
      */
     public async getStore(publicSubject: boolean): Promise<IStore> {
         try {
-
-            if (WalletHelper.conversionCurrency) {
-
-                this.ratesService ??=
-                    await this.injectionService.getService<RatesCurrencyService>('rates.rates-currency-service');
-
-                WalletHelper.coefficientСonversionEUR = await this.ratesService.getRate({
-                    currencyFrom: 'EUR',
-                    currencyTo: WalletHelper.conversionCurrency,
-                });
-            }
-
             const res: IData = await this.dataService.request('store/store', {});
             let result = await this.modifyStoreResponse(res.data);
             result = this.checkForbid(result);
@@ -376,6 +359,7 @@ export class StoreService {
         this.eventService.subscribe([
             {name: 'STORE_ITEM_BUY_SUCCEEDED'},
             {name: MultiWalletEvents.CurrencyConversionChanged},
+            {name: MultiWalletEvents.WalletChanged},
         ], () => {
             this.updateSubscribers();
         });
