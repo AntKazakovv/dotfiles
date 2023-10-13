@@ -745,7 +745,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
     protected getWlcSuffix(): string {
         if (this.$params.filter) {
             return _reduce(_keys(this.$params.filter).sort(), (res, item) => {
-                res.push(item + '-' + this.$params.filter[item]);
+                res.push(item + '-' + this.$params.filter['item']);
                 return res;
             }, []).join('-');
 
@@ -780,7 +780,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
 
     protected initTitleIcon(): void {
         if (this.$params.titleIcon?.byCategory) {
-            const category: string =
+            const category: string | string[] =
                 this.$params.category?.slug ||
                 this.$params.filter?.['categories']?.[0] ||
                 this.$params.filter?.['category'] ||

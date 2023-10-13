@@ -6,10 +6,16 @@ export type IGamesFilterData = {
     ids?: number[] | null;
     searchQuery?: string | null;
     categories?: string[];
+    category?: string;
+    item?: string;
     merchants?: number[];
     excludeCategories?: string[];
     excludeMerchants?: number[];
     withFreeRounds?: boolean;
+    name?: string,
+    byCategory?: boolean;
+    folder?: string;
+    fallback?: string;
     /**
      * Game search should include sportsbooks if true.
      * Otherwise, the search will be performed on regular games

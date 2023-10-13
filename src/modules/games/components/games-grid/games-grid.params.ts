@@ -35,22 +35,6 @@ export type ComponentThemeMod = 'default'
     | 'wolf-tournament'
     | string;
 
-/**
- * TODO remove this interface after fix in GamesGrid configuration in project layouts
- * @deprecated use `IGamesFilterData` instead
- */
-export interface IGamesFilterEasy {
-    category?: string;
-}
-
-export interface IGamesGridTitleIcon {
-    name?: string,
-    byCategory?: boolean;
-    folder?: string;
-    fallback?: string;
-}
-
-
 export interface IGamesGridShowAllLink {
     use?: boolean;
     /**
@@ -177,7 +161,7 @@ export interface IGamesGridCParams extends IComponentParams<ComponentTheme, Comp
      *
      * If no one filter is defined, or `filter` is empty, games list contains all the games.
      */
-    filter?: IGamesFilterData | IGamesFilterEasy;
+    filter?: IGamesFilterData;
     /**
      * Defines if `title` will be visible. `true` by default.
      */
@@ -210,7 +194,7 @@ export interface IGamesGridCParams extends IComponentParams<ComponentTheme, Comp
      * @param {string} folder base folder for icon. By default uses param `$menu.categoryMenu.icons.folder`.
      * @param {string} fallback fallback icon, if icon not be founded and loaded
      */
-    titleIcon?: IGamesGridTitleIcon;
+    titleIcon?: IGamesFilterData;
     /**
      * Set of parameters for banner in the grid. Undefined by default.
      */
