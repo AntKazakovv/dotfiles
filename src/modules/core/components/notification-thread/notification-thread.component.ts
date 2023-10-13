@@ -3,6 +3,8 @@ import {
     Component,
     ElementRef,
     HostBinding,
+    Renderer2,
+    OnInit,
     Inject,
     Optional,
     QueryList,
@@ -46,18 +48,13 @@ const SHIFT_EASING: string = 'ease-in-out';
         ]),
     ],
 })
-export class NotificationThreadComponent extends AbstractComponent {
+export class NotificationThreadComponent extends AbstractComponent implements OnInit {
 
     @ViewChildren('notification')
     public threadItemList: QueryList<ElementRef<HTMLLIElement>>;
 
     @HostBinding('attr.aria-label')
     public readonly label: string = 'Notifications';
-
-    @HostBinding('style.z-index')
-    public get zIndex(): number {
-        return this.$params.zIndex;
-    };
 
     public override $params: Params.INotificationParams;
 
@@ -74,6 +71,8 @@ export class NotificationThreadComponent extends AbstractComponent {
     }
 
     constructor (
+        protected renderer: Renderer2,
+        protected hostElement: ElementRef,
         protected notificationService: NotificationService,
         configService: ConfigService,
         @Inject('injectParams')
@@ -82,4 +81,12 @@ export class NotificationThreadComponent extends AbstractComponent {
     ) {
         super({injectParams: params, defaultParams: notificationService.$params}, configService);
     }
+
+    public override ngOnInit(): void {
+        super.ngOnInit();
+        this.renderer.setStyle(
+            this.hostElement.nativeElement,
+            'z-index',
+            this.$params.zIndex);
+    };
 }
