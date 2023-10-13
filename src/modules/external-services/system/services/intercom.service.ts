@@ -97,7 +97,7 @@ export class IntercomService {
 
     protected loadIntercom(): void {
         this.window.intercomSettings = {
-            api_base: 'https://api-iam.intercom.io',
+            api_base: this.config.apiBase || 'https://api-iam.intercom.io',
             app_id: this.config.appId,
         };
 
@@ -144,7 +144,11 @@ export class IntercomService {
 
     protected bootIntercom(options = {}): void {
         try {
-            this.window.Intercom('boot', {app_id: this.config.appId, ...options});
+            this.window.Intercom('boot', {
+                api_base: this.config.apiBase || 'https://api-iam.intercom.io',
+                app_id: this.config.appId,
+                ...options,
+            });
         } catch (error) {
             this.logService.sendLog({code: '23.0.1', data: error});
         }
