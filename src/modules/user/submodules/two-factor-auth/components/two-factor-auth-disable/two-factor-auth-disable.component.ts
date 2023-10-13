@@ -29,7 +29,6 @@ export class TwoFactorAuthDisableComponent extends AbstractComponent implements 
         @Inject('injectParams') protected injectParams: Params.ITwoFactorAuthDisableCParams,
         configService: ConfigService,
         cdr: ChangeDetectorRef,
-
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }

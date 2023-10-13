@@ -49,7 +49,7 @@ export class TwoFactorAuthFinishComponent extends AbstractComponent implements O
     public async ngSubmit(form: UntypedFormGroup): Promise<boolean> {
         const securityCode: string = form.value.securityCode;
         form.disable();
-        const res = await this.twoFactorAuthService.enable2faGoogle(securityCode);
+        const res: boolean = await this.twoFactorAuthService.enable2FAGoogle(securityCode);
         form.enable();
         return res;
     }

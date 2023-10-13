@@ -5,7 +5,6 @@ import {
     Input,
 } from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
-import {StateService} from '@uirouter/core';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
@@ -46,7 +45,6 @@ export class NewPasswordFormComponent extends AbstractComponent {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.INewPasswordFormCParams,
-        protected stateService: StateService,
         protected userService: UserService,
         protected modalService: ModalService,
         protected eventService: EventService,
@@ -71,23 +69,6 @@ export class NewPasswordFormComponent extends AbstractComponent {
             }
 
             await this.userService.restoreNewPassword(newPassword, repeatPassword, code);
-
-            if (this.configService.get<boolean>('$base.site.useJwtToken')) {
-                this.modalService.showModal('login');
-            } else {
-                this.stateService.go('app.home');
-                this.eventService.emit({name: 'LOGIN'});
-            }
-
-            this.eventService.emit({
-                name: NotificationEvents.PushMessage,
-                data: <IPushMessageParams>{
-                    type: 'success',
-                    title: gettext('Password reset'),
-                    message: gettext('Password has been changed!'),
-                    wlcElement: 'notification_password-change-success',
-                },
-            });
 
             if (this.modalService.getActiveModal('new-password')) {
                 this.modalService.hideModal('new-password');

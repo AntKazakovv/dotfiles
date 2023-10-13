@@ -311,7 +311,7 @@ export const errorTypes: ILogTypes = {
         level: 'error',
     },
     '1.10.2': {
-        // Error login with google 2FA
+        // Error enter 2FA google code
         level: 'error',
     },
     '1.10.3': {

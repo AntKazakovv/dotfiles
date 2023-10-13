@@ -15,6 +15,7 @@ export interface ITwoFactorAuthCodeCParams extends IComponentParams<Theme, Type,
     description?: string;
     config?: IFormWrapperCParams;
     authKey?: string;
+    responseCode?: number;
 }
 
 export const defaultParams: ITwoFactorAuthCodeCParams = {

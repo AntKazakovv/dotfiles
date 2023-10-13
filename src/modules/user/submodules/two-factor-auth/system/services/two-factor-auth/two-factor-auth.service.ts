@@ -33,6 +33,7 @@ import {
 import {TMessageType} from 'wlc-engine/modules/core/components/message/message.params';
 import {
     ITwoFactorAuthResponse,
+    ITwoFactorEnterCodeData,
 } from 'wlc-engine/modules/user/submodules/two-factor-auth/system/interfaces/two-factor-auth.interface';
 import {UserHelper} from 'wlc-engine/modules/user/system/helpers/user.helper';
 
@@ -44,12 +45,12 @@ export class TwoFactorAuthService {
     private userInfoSubscribe: Subscription;
 
     constructor(
-        protected eventService: EventService,
-        protected logService: LogService,
-        protected injectionService: InjectionService,
-        protected dataService: DataService,
-        protected configService: ConfigService,
-        protected modalService: ModalService,
+        private eventService: EventService,
+        private logService: LogService,
+        private injectionService: InjectionService,
+        private dataService: DataService,
+        private configService: ConfigService,
+        private modalService: ModalService,
     ) {}
 
     /**
@@ -140,7 +141,7 @@ export class TwoFactorAuthService {
             textAlign: 'center',
             onConfirm: async () => {
                 callback();
-                await this.disable2faGoogle();
+                await this.disable2FAGoogle();
             },
             dismissAll: true,
         });
@@ -151,7 +152,7 @@ export class TwoFactorAuthService {
      *
      * @param {string} code2FA
      */
-    public async enable2faGoogle(code2FA: string): Promise<boolean> {
+    public async enable2FAGoogle(code2FA: string): Promise<boolean> {
         try {
             await this.dataService.request(
                 {
@@ -196,23 +197,32 @@ export class TwoFactorAuthService {
     }
 
     /**
-     * 2FA auth request
+     * enter 2FA google code request
      *
      * @param {string} authKey
      * @param {string} code2FA
+     * @param {number} responseCode
      */
-    public async login2faGoogle(authKey: string, code2FA: string): Promise<boolean> {
-        const data = {authKey, code2FA};
+    public async enter2FAGoogleCode(authKey: string, code2FA: string, responseCode: number): Promise<boolean> {
+        const data: ITwoFactorEnterCodeData = {authKey, code2FA};
         try {
-            await this.dataService.request(
-                {
-                    name: 'authByGoogle2fa',
-                    system: 'twoFactorAuth',
-                    url: '/authBy/google2fa',
-                    type: 'POST',
-                },
-                data,
-            );
+            switch (responseCode) {
+                case 231:
+                    this.authRequest(data);
+                    break;
+                case 232:
+                    this.restoreNewPasswordRequest(data);
+                    this.eventService.emit({
+                        name: NotificationEvents.PushMessage,
+                        data: <IPushMessageParams>{
+                            type: 'success',
+                            title: gettext('Password reset'),
+                            message: gettext('Password has been changed!'),
+                            wlcElement: 'notification_password-change-success',
+                        },
+                    });
+                    break;
+            }
             this.eventService.emit({name: 'LOGIN'});
             this.hideActiveModal('two-factor-auth-code');
             return true;
@@ -267,7 +277,7 @@ export class TwoFactorAuthService {
      * 2FA disable request
      *
      */
-    private async disable2faGoogle(): Promise<void> {
+    private async disable2FAGoogle(): Promise<void> {
         try {
             await this.dataService.request({
                 name: 'auth2faGoogleDel',
@@ -340,5 +350,29 @@ export class TwoFactorAuthService {
             && !userInfo.blockByLocation
             && userInfo.notify2FAGoogle
             && !this.modalService.getActiveModal('two-factor-auth-info');
+    }
+
+    private async authRequest(data: ITwoFactorEnterCodeData): Promise<IData<any>> {
+        return await this.dataService.request(
+            {
+                name: 'authByGoogle2fa',
+                system: 'twoFactorAuth',
+                url: '/authBy/google2fa',
+                type: 'POST',
+            },
+            data,
+        );
+    }
+
+    private async restoreNewPasswordRequest(data: ITwoFactorEnterCodeData): Promise<IData<any>> {
+        return await this.dataService.request(
+            {
+                name: 'restoreNewPasswordByGoogle2fa',
+                system: 'twoFactorAuth',
+                url: '/userPassword/google2fa',
+                type: 'PUT',
+            },
+            data,
+        );
     }
 }

@@ -28,7 +28,6 @@ import * as Params from './two-factor-auth-code.params';
 export class TwoFactorAuthCodeComponent extends AbstractComponent implements OnInit {
 
     @Input() public inlineParams: Params.ITwoFactorAuthCodeCParams;
-    @Input() public authKey: string;
     public override $params: Params.ITwoFactorAuthCodeCParams;
     public errors$: BehaviorSubject<Record<string, string>> = new BehaviorSubject(null);
     public config: IFormWrapperCParams;
@@ -43,7 +42,6 @@ export class TwoFactorAuthCodeComponent extends AbstractComponent implements OnI
 
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
-        this.authKey ??= this.$params.authKey;
     }
 
     /**
@@ -54,7 +52,11 @@ export class TwoFactorAuthCodeComponent extends AbstractComponent implements OnI
     public async ngSubmit(form: UntypedFormGroup): Promise<boolean> {
         const code2FA: string = form.value.code2FA;
         form.disable();
-        const res = await this.twoFactorAuthService.login2faGoogle(this.authKey, code2FA);
+        const res: boolean = await this.twoFactorAuthService.enter2FAGoogleCode(
+            this.$params.authKey,
+            code2FA,
+            this.$params.responseCode,
+        );
         form.enable();
         return res;
     }

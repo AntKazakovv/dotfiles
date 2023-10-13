@@ -456,7 +456,7 @@ export class UserService {
         this.logService.sendLog({code: '1.2.5'});
         result.then((res) => {
             if (res.code === 231) {
-                this.loginWithTwoFactorAuth(res.data.authKey);
+                this.enterTwoFactorAuthCode(res.data.authKey, res.code);
             } else {
                 this.eventService.emit({name: 'LOGIN'});
             }
@@ -697,7 +697,29 @@ export class UserService {
 
     public restoreNewPassword(newPassword: string, repeatPassword: string, code: string): Promise<IIndexing<any>> {
         const params = {newPassword, repeatPassword, code};
-        return this.dataService.request('user/restoreNewPassword', params);
+        const result = this.dataService.request<IIndexing<any>>('user/restoreNewPassword', params);
+        result.then((res) => {
+            if (res.code === 232) {
+                this.enterTwoFactorAuthCode(res.data.authKey, res.code);
+            } else {
+                if (this.configService.get<boolean>('$base.site.useJwtToken')) {
+                    this.modalService.showModal('login');
+                } else {
+                    this.stateService.go('app.home');
+                    this.eventService.emit({name: 'LOGIN'});
+                }
+                this.eventService.emit({
+                    name: NotificationEvents.PushMessage,
+                    data: <IPushMessageParams>{
+                        type: 'success',
+                        title: gettext('Password reset'),
+                        message: gettext('Password has been changed!'),
+                        wlcElement: 'notification_password-change-success',
+                    },
+                });
+            }
+        });
+        return result;
     }
 
     public validateRestoreCode(code: string = ''): Promise<IIndexing<any>> {
@@ -1357,9 +1379,9 @@ export class UserService {
         }
     }
 
-    private loginWithTwoFactorAuth(data: string[]): void {
+    private enterTwoFactorAuthCode(data: string[], code: number): void {
         if (Array.isArray(data) && data.length === 1) {
-            this.modalService.showModal('two-factor-auth-code', {authKey: data[0]});
+            this.modalService.showModal('two-factor-auth-code', {authKey: data[0], responseCode: code});
         }
     }
 
