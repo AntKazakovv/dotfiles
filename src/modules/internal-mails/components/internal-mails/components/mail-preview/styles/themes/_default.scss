@@ -17,6 +17,14 @@
             width: ef.get-value($themeDefault, 'mailIconSize');
             height: ef.get-value($themeDefault, 'mailIconSize');
             text-align: ef.get-value($themeDefault, 'mailIconAlign');
+
+            ::ng-deep {
+
+                .wlc-icon-content svg path {
+                    fill: currentColor;
+                    fill-opacity: 1;
+                }
+            }
         }
 
         &__from {

@@ -42,6 +42,7 @@ $themeDefault: map-merge((
         375: ef.size(13) ef.size(3) ef.size(6),
         1200: ef.size(13) ef.size(7) ef.size(8),
     ),
+    'nodataColor': var(--mc-baseMain-locked),
 ), $customThemeDefault);
 
 $customSlidersWinnersTheme1: () !default;

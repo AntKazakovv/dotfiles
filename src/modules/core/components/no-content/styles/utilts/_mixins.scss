@@ -34,7 +34,10 @@
         }
 
         &__title {
-            @include text.get-text-style(ef.get-value($themeDefault, 'nodataBodyTitleFontSize'));
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'nodataBodyTitleFontSize'),
+                ef.get-value($themeDefault, 'nodataColor')
+            );
         }
 
         &__text {
