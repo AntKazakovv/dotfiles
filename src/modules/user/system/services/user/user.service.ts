@@ -5,7 +5,10 @@ import {
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {DateTime} from 'luxon';
-import {StateService} from '@uirouter/core';
+import {
+    StateService,
+    UIRouter,
+} from '@uirouter/core';
 
 import {
     Subscription,
@@ -197,6 +200,7 @@ export class UserService {
         private modalService: ModalService,
         private injectionService: InjectionService,
         private stateService: StateService,
+        private router: UIRouter,
         private webSocketService: WebsocketService,
         private ngZone: NgZone,
         @Inject(WINDOW) private window: Window,
@@ -555,6 +559,8 @@ export class UserService {
         this.prepareCreateProfile(userProfile);
         const queryParams: ICreateProfileQueryParams = {};
         const isFastRegistration = this.configService.get<number>('appConfig.siteconfig.fastRegistration');
+
+        userProfile.registrationURL = this.router.urlService.config.host();
 
         if (userProfile.phoneCode && userProfile.phoneNumber && !userProfile.login && !userProfile.email) {
             queryParams.smsLogin = 1;
