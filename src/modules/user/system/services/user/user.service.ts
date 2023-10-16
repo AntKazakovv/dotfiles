@@ -111,6 +111,11 @@ interface IRegistrationCompleteData {
     useJwt?: boolean,
 }
 
+interface ISetNewPasswordData {
+    password: string;
+    newPassword: string
+}
+
 type TLoginData = TMetamaskData | ILoginPasswordData | ILoginWithPhoneData;
 
 type ProfileParamsWithMetamask = IUserProfile & TMetamaskData & Pick<IUserProfile, 'type'>;
@@ -149,7 +154,7 @@ export type TUpdateProfileRes = IData<{result: boolean}> & {errors?: string[] | 
  * Return type for `setNewPassword` method by `UserService`
  */
 
-export type TSetNewPasswordRes = IData<Record<'result', string>>;
+export type TSetNewPasswordRes = IData<Record<'result', string>> & {errors?: string[] | IIndexing<string> | null};
 
 @Injectable({
     providedIn: 'root',
@@ -728,10 +733,14 @@ export class UserService {
     }
 
     public async setNewPassword(password: string, newPassword: string): Promise<TSetNewPasswordRes> {
-        const params = {password, newPassword};
-        const response: TSetNewPasswordRes = await this.dataService.request('user/newPassword', params);
+        try {
+            const params: ISetNewPasswordData = {password, newPassword};
+            const response: TSetNewPasswordRes = await this.dataService.request('user/newPassword', params);
 
-        return response;
+            return response;
+        } catch (error) {
+            return error;
+        }
     }
 
     public changePhone(phoneCode: string, phoneNumber: string): void {
