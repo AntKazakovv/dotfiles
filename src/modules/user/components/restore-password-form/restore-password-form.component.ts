@@ -7,8 +7,6 @@ import {
 } from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
 
-import _cloneDeep from 'lodash-es/cloneDeep';
-
 import {
     IFormWrapperCParams,
     AbstractComponent,
@@ -45,7 +43,7 @@ import * as Params from './restore-password-form.params';
 export class RestorePasswordFormComponent extends AbstractComponent implements OnInit {
 
     public override $params: Params.IRestorePasswordFormCParams;
-    public config: IFormWrapperCParams = _cloneDeep(Params.restorePasswordFormConfig);
+    public config: IFormWrapperCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IRestorePasswordFormCParams,
@@ -65,7 +63,9 @@ export class RestorePasswordFormComponent extends AbstractComponent implements O
         super.ngOnInit();
 
         if (this.configService.get<boolean>('$base.profile.smsVerification.useRestorePassword')) {
-            this.config = _cloneDeep(Params.restorePasswordWithPhoneFormConfig);
+            this.config = this.$params.restorePasswordFormConfigs.withPhone;
+        } else {
+            this.config = this.$params.restorePasswordFormConfigs.default;
         }
     }
 

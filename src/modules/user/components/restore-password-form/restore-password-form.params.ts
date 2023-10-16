@@ -18,15 +18,15 @@ export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
 
 export interface IRestorePasswordFormCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
+    restorePasswordFormConfigs: {
+        default: IFormWrapperCParams;
+        withPhone: IFormWrapperCParams;
+    };
     common?: {
         customModifiers?: CustomMod;
     };
     modifiers?: Modifiers[];
 }
-
-export const defaultParams: IRestorePasswordFormCParams = {
-    class: 'wlc-restore-password-form',
-};
 
 export const restorePasswordFormConfig: IFormWrapperCParams = {
     class: 'wlc-form-wrapper',
@@ -147,4 +147,14 @@ export const restorePasswordWithPhoneFormConfig: IFormWrapperCParams = {
             },
         },
     ],
+};
+
+export const defaultParams: IRestorePasswordFormCParams = {
+    componentName: 'wlc-restore-password-form',
+    moduleName: 'user',
+    class: 'wlc-restore-password-form',
+    restorePasswordFormConfigs: {
+        default: restorePasswordFormConfig,
+        withPhone: restorePasswordWithPhoneFormConfig,
+    },
 };
