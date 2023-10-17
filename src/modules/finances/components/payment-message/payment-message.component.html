@@ -78,6 +78,10 @@
             [html]="html"
             [canUseScriptTag]="true">
         </div>
+        <div
+            *ngIf="message.copyItem?.length"
+            wlc-input
+            [inlineParams]="getInputParams('copyEmail')"></div>
     </div>
 </ng-template>
 

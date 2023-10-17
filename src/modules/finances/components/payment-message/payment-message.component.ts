@@ -47,7 +47,7 @@ export type TMessageType = 'html'
     | 'pay_to_address_with_amount'
     | 'pay_via_invoice';
 
-type TInputName = 'address' | 'invoice' | 'xadress' | 'memo' | 'tag' | 'cryptoAmount';
+type TInputName = 'address' | 'invoice' | 'xadress' | 'memo' | 'tag' | 'cryptoAmount' | 'copyEmail';
 
 interface IPatchOptions {
     onlySelf?: boolean;
@@ -301,6 +301,10 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
                 inputParams.common.placeholder = this.translateService.instant('Converted crypto amount')
                     + ` (${this.cryptoCurrency})`;
                 inputParams.control = new UntypedFormControl(this.cryptoAmount);
+                break;
+
+            case 'copyEmail':
+                inputParams.control = new UntypedFormControl(this.message.copyItem);
                 break;
             default :
                 inputParams.common.placeholder = gettext('Wallet casino');

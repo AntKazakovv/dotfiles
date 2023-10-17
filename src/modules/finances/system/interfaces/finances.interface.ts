@@ -166,6 +166,7 @@ export interface IPaymentMessage {
     x_address?: string;
     html?: string;
     scripts?: string[];
+    copyItem?: string;
     rate?: string;
     memo?: string;
     /** Deposit amount in crypto currency (deposit via invoices) */
