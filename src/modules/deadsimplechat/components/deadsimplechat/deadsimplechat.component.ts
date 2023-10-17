@@ -32,11 +32,11 @@ export class DeadsimplechatComponent extends AbstractComponent implements OnInit
 
     public ready$: Subject<boolean> = new Subject();
     public override $params: Params.IDeadsimplechatCParams;
-    public zIndexLiveChat: string = '';
-    public roomId: string;
-    public liveChatExist: boolean = false;
     public iframeSrc: string;
-    public isChatOpen: boolean = false;
+    protected isWindowOpen: boolean = false;
+    protected zIndexLiveChat: string = '';
+    protected roomId: string;
+    protected liveChatExist: boolean = false;
 
     constructor(
         @Inject(DOCUMENT) protected document: Document,
@@ -71,26 +71,17 @@ export class DeadsimplechatComponent extends AbstractComponent implements OnInit
         });
     }
 
-    public closeChat(): void {
-        this.isChatOpen = false;
+    protected toggleChat(): void {
+        this.isWindowOpen = !this.isWindowOpen;
 
-        this.document.getElementById('chat-wrapper').style.right = '-360px';
-        this.document.getElementById('chat-wrapper').style.top = '';
-        this.document.getElementById('chat-wrapper').style.left = '';
-
-        if (this.liveChatExist) {
-            this.document.getElementById('chat-widget-container').style.zIndex = this.zIndexLiveChat;
-        }
-    }
-
-    public openChat(): void {
-        this.isChatOpen = true;
-
-        this.document.getElementById('chat-wrapper').style.right = '6px';
-
-        if (this.liveChatExist) {
+        if (this.isWindowOpen
+            && this.liveChatExist
+            && this.document.getElementById('chat-widget-container'))
+        {
             this.zIndexLiveChat = this.document.getElementById('chat-widget-container')?.style.zIndex;
             this.document.getElementById('chat-widget-container').style.zIndex = '0';
+        } else if (this.liveChatExist && this.document.getElementById('chat-widget-container')) {
+            this.document.getElementById('chat-widget-container').style.zIndex = this.zIndexLiveChat;
         }
     }
 }

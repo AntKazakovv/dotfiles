@@ -8,6 +8,10 @@
     transition: all 0.7s ease-out;
     border: ef.get-value($themeDefault, 'windowBorder');
 
+    &.open {
+        right: ef.get-value($themeDefault, 'openPosRight');
+    }
+
     .container-wlc-deadsimplechat-button {
         transform: rotate(90deg);
 

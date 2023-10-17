@@ -2,6 +2,7 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     //Window
     'shiftRight': -360px,
+    'openPosRight': 6px,
     'windowWidth': 360px,
     'windowHeight': 95vh,
     'windowBkgColor': #ffffff,
