@@ -44,11 +44,8 @@ import {
     IJoinTournamentParams,
 } from '../../interfaces/tournaments.interface';
 import {UserProfile} from 'wlc-engine/modules/user';
-import {
-    MultiWalletEvents,
-    WalletHelper,
-} from 'wlc-engine/modules/multi-wallet';
-import {RatesCurrencyService} from 'wlc-engine/modules/rates';
+import {MultiWalletEvents} from 'wlc-engine/modules/multi-wallet';
+import {AbstractTournamentModel} from '../../models/abstract-tournament.model';
 
 interface ITournamentData extends IData {
     data?: ITournament;
@@ -72,7 +69,6 @@ export class TournamentsService {
     private useForbidUserFields = this.configService.get<boolean>('$loyalty.useForbidUserFields');
     private winLimit = this.configService.get<number>('$tournaments.winLimit') || 10;
     private winnersLimit: IIndexing<number> = {};
-    private ratesService: RatesCurrencyService;
 
     constructor(
         private dataService: DataService,
@@ -312,6 +308,8 @@ export class TournamentsService {
     ): Promise<Tournament[]> {
         let tournaments: Tournament[] = [];
         const queryParams: IQueryParams = {};
+        AbstractTournamentModel.useUsersCurrency =
+            this.configService.get<boolean>('$base.tournaments.useUsersCurrency');
 
         if (type === 'active' || type === 'history') {
             queryParams.type = type;
@@ -329,7 +327,6 @@ export class TournamentsService {
 
             Tournament.selectedTournaments = false;
             Tournament.hasAllowStack = false;
-            await this.setConversionFactor();
             const result = this.modifyTournaments(res.data, Date.parse(res.headers.get('Date')));
             tournaments = this.checkForbid(result, type);
 
@@ -398,19 +395,6 @@ export class TournamentsService {
      */
     public updateTournaments(): void {
         this.updateSubscribers();
-    }
-
-    //TODO нужно удалить при рефактринге
-    private async setConversionFactor(): Promise<void> {
-
-        if (WalletHelper.conversionCurrency) {
-            this.ratesService ??=
-                await this.injectionService.getService<RatesCurrencyService>('rates.rates-currency-service');
-            WalletHelper.coefficientСonversionEUR = await this.ratesService.getRate(
-                {currencyFrom: 'EUR', currencyTo: WalletHelper.conversionCurrency},
-            );
-        }
-
     }
 
     private registerMethods(): void {

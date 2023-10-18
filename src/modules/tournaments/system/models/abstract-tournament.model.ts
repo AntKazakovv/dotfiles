@@ -25,9 +25,9 @@ import {ITournamentPlace} from 'wlc-engine/modules/tournaments/system/interfaces
 import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
 
 export abstract class AbstractTournamentModel<T extends ITournamentAbstract> extends AbstractModel<T> {
+    public static useUsersCurrency: boolean = false;
     protected userCurrency: string;
     protected $descriptionClean: string;
-    protected useUsersCurrency: boolean = false;
 
     constructor(
         params: IAbstractModelParams,
@@ -47,7 +47,6 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
         && this.configService.get('$user.isAuthenticated')
             ? this.configService.get<BehaviorSubject<UserProfile>>('$user.userProfile$').getValue()?.originalCurrency
             : this.configService.get<string>('$base.defaultCurrency');
-        this.useUsersCurrency = this.configService.get<boolean>('$base.tournaments.useUsersCurrency');
     }
 
     public get points(): number {
@@ -167,7 +166,7 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
      * @returns {string} tournament target currency loyalty or EUR
      */
     public get targetDefaultCurrency(): string {
-        return this.checkTargetCurrency(!this.useUsersCurrency);
+        return this.checkTargetCurrency(!AbstractTournamentModel.useUsersCurrency);
     }
 
     /** @returns {string} currency formatting config */

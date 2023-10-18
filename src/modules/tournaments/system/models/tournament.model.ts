@@ -151,6 +151,7 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
     public get pointsLimitMin(): number {
         return _toNumber(this.data.PointsLimitMin);
     }
+
     public get qualified(): number {
         return this.data.Qualified;
     }
@@ -198,7 +199,7 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
      * @returns {string} tournament fee currency
      */
     public get feeCurrency(): string {
-        const realCurrency: string = this.useUsersCurrency ? this.userCurrency : 'EUR';
+        const realCurrency: string = AbstractTournamentModel.useUsersCurrency ? this.userCurrency : 'EUR';
         return (this.feeType === 'loyalty') ? 'LP' : realCurrency;
     }
 
@@ -345,7 +346,9 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
             if (moneyPrize) {
                 prizes.push({
                     currency: WalletHelper.conversionCurrency ?? tournamentCurrency,
-                    value: moneyPrize * WalletHelper.coefficientСonversionEUR,
+                    value: moneyPrize * (AbstractTournamentModel.useUsersCurrency
+                        ? WalletHelper.coefficientOriginalCurrencyСonversion
+                        : WalletHelper.coefficientСonversionEUR),
                 });
             }
 
@@ -353,7 +356,9 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
         } else {
             prizes.push({
                 currency: WalletHelper.conversionCurrency ?? tournamentCurrency,
-                value: _toNumber(rawPrizeRow) * WalletHelper.coefficientСonversionEUR,
+                value: _toNumber(rawPrizeRow) * (AbstractTournamentModel.useUsersCurrency
+                    ? WalletHelper.coefficientOriginalCurrencyСonversion
+                    : WalletHelper.coefficientСonversionEUR),
             });
         }
         return prizes;
