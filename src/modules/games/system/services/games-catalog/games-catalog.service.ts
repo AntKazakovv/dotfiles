@@ -113,6 +113,7 @@ import {ISelectedWallet} from 'wlc-engine/modules/multi-wallet/system/interfaces
 import {CatalogBuilder} from 'wlc-engine/modules/games/system/builders/catalog.builder';
 import {MenuService} from 'wlc-engine/modules/menu';
 import {ICategoriesSettings} from 'wlc-engine/modules/games/system/builders/categories.builder';
+import {IBonusWagerGamesFilter} from 'wlc-engine/modules/bonuses/system/interfaces';
 
 export interface ILaunchGameModal {
     show: boolean;
@@ -850,6 +851,40 @@ export class GamesCatalogService {
             });
         }
         return filteredList;
+    }
+
+    public getBonusGames(filter: IBonusWagerGamesFilter): Game[] {
+        let games: Game[] = [];
+
+        if (!filter.hasRestrictedGames && filter.idGames.length) {
+            games = this.getGameList({ids: filter.idGames}); // allowed games
+        } else {
+            games = this.getGameList({
+                merchants: filter.idMerchants,
+            });
+
+            if (filter.idCategories.length) {
+
+                if (filter.hasRestrictedCategories) {
+                    games = this.gamesCatalog.filterGamesByCategoriesIds(games, filter.idCategories);
+                } else {
+                    games = this.gamesCatalog.filterGamesByCategoriesIds(games, filter.idCategories, 'include');
+                }
+            }
+
+            if (filter.hasRestrictedGames && filter.idGames.length) {
+                games = _filter(games, (game: Game) => {
+                    return !_includes(filter.idGames, game.ID);
+                });
+            }
+
+        }
+        return games;
+    }
+
+    /** Filters and returns games which user will receive free rounds */
+    public getBonusFreeRoundGames(gameIds: number[]): Game[] {
+        return this.getGameList({ids: gameIds});
     }
 
     /**

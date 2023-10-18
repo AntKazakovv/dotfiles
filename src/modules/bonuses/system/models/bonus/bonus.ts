@@ -16,6 +16,7 @@ import _isString from 'lodash-es/isString';
 import _isNil from 'lodash-es/isNil';
 import _isNumber from 'lodash-es/isNumber';
 import _toNumber from 'lodash-es/toNumber';
+import _reduce from 'lodash-es/reduce';
 import _round from 'lodash-es/round';
 
 import {
@@ -37,6 +38,7 @@ import {
     IBonusResultValueLootbox,
     IBonusResultValueDefault,
     IBonusResultValue,
+    IBonusWagerGamesFilter,
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
 
@@ -845,6 +847,47 @@ export class Bonus extends AbstractModel<IBonus> {
         return Bonus._serverTimeUTC;
     }
 
+    public get idGames(): number[] {
+        return _isObject(this.data.IDGames)
+            ? _map(_keys(this.data.IDGames), (id: string) => _toNumber(id))
+            : [];
+    }
+
+    public get idCategories(): number[] {
+        return _isObject(this.data.IDCategories)
+            ? _map(_keys(this.data.IDCategories), (id: string) => _toNumber(id))
+            : [];
+    }
+
+    public get gamesRestrictType(): number {
+        return _toNumber(this.data.GamesRestrictType);
+    }
+
+    public get categoriesRestrictType(): number {
+        return _toNumber(this.data.CategoriesRestrictType);
+    }
+
+    public get idMerchants(): number[] {
+        return _map(this.data.IDMerchants, (id: string) => _toNumber(id));
+    }
+
+    public get freeroundGameIds(): number[] {
+        return _reduce(this.results.freerounds?.FreeroundGames, (acc: number[], current: number[]) => {
+            acc.push(...current);
+            return acc;
+        }, []);
+    }
+
+    public getGamesFilter(): IBonusWagerGamesFilter {
+        return {
+            idMerchants: this.idMerchants,
+            hasRestrictedGames: !this.gamesRestrictType,
+            idGames: this.idGames,
+            hasRestrictedCategories: !this.categoriesRestrictType,
+            idCategories: this.idCategories,
+        };
+    }
+
     /**
      * @returns {boolean} can the bonus be played
      */
@@ -1089,11 +1132,7 @@ export class Bonus extends AbstractModel<IBonus> {
      * @returns {number[]}
      */
     public gamesList(whiteList: boolean): number[] {
-        return Number(this.data.GamesRestrictType) === Number(whiteList)
-            ? _map(_keys(this.data.IDGames), (id: string) => {
-                return _toNumber(id);
-            })
-            : [];
+        return _toNumber(this.data.GamesRestrictType) === _toNumber(whiteList) ? this.idGames : [];
     }
 
     /**
@@ -1105,9 +1144,7 @@ export class Bonus extends AbstractModel<IBonus> {
     public categoriesList(whiteList: boolean): number[] {
         const restrictType = whiteList ? '1' : '0';
         return this.data.CategoriesRestrictType === restrictType
-            ? _map(_keys(this.data.IDCategories), (id: string) => {
-                return _toNumber(id);
-            })
+            ? this.idCategories
             : [];
     }
 

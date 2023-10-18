@@ -1,14 +1,29 @@
-import {IComponentParams} from 'wlc-engine/modules/core/system/interfaces/config.interface';
+import {IWrapperCParams} from 'wlc-engine/modules/core/components/wrapper/wrapper.component';
+import {
+    CustomType,
+    IComponentParams,
+} from 'wlc-engine/modules/core/system/interfaces/config.interface';
+
+export type ThemeMod =
+    'default' |
+    /** simple mod - without content top border. Different colors also */
+    'simple'
+    | CustomType;
 
 export interface IAccordionData {
     /** Title item */
     title: string;
+    /** Description/subtitle, shows under title */
+    description?: string;
     /** Content item */
-    content: string[];
+    content?: string[];
+    /** Use it for showing another components inside accordion panel */
+    wrapper?: IWrapperCParams;
     /** Expand item */
     expand?: boolean;
 }
 export interface IAccordionCParams extends IComponentParams<string, string, string> {
+    themeMod?: ThemeMod;
     /** Accordion item */
     items?: IAccordionData[];
     /** Collapse all items */
@@ -28,5 +43,5 @@ export interface IAccordionCParams extends IComponentParams<string, string, stri
 export const defaultParams: IAccordionCParams = {
     class: 'wlc-accordion',
     moduleName: 'core',
-    titleIconPath: '/wlc/icons/thin-arrow.svg',
+    titleIconPath: '/wlc/icons/arrow.svg',
 };

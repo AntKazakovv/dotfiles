@@ -23,6 +23,7 @@
         <ng-container [ngTemplateOutlet]="promo" *ngSwitchCase="'promo'"></ng-container>
         <ng-container [ngTemplateOutlet]="promo" *ngSwitchCase="'promo-home'"></ng-container>
         <ng-container [ngTemplateOutlet]="long" *ngSwitchCase="'long'"></ng-container>
+        <ng-container [ngTemplateOutlet]="modal" *ngSwitchCase="'modal'"></ng-container>
     </ng-container>
 </ng-template>
 
@@ -65,6 +66,21 @@
         <ng-container [ngTemplateOutlet]="closeBtn"></ng-container>
     </ng-container>
     <ng-container [ngTemplateOutlet]="registrationBtn"></ng-container>
+</ng-template>
+
+<ng-template #modal>
+    <ng-container *ngIf="isAuth">
+        <ng-container [ngTemplateOutlet]="subscribeBtn"></ng-container>
+        <ng-container [ngTemplateOutlet]="inventoriedBtn"></ng-container>
+        <ng-container [ngTemplateOutlet]="openLootbox"></ng-container>
+        <ng-container *ngIf="$params.useActionButtons">
+            <ng-container [ngTemplateOutlet]="actionDepositBtn"></ng-container>
+            <ng-container [ngTemplateOutlet]="actionPlayBtn"></ng-container>
+        </ng-container>
+        <ng-container [ngTemplateOutlet]="unsubscribeBtn"></ng-container>
+        <ng-container [ngTemplateOutlet]="leaveBtn"></ng-container>
+    </ng-container>
+    <ng-container *ngIf="$params.useActionButtons" [ngTemplateOutlet]="actionRegisterBtn"></ng-container>
 </ng-template>
 
 <ng-template #subscribeBtn>

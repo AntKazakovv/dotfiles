@@ -125,17 +125,6 @@
                             ef.get-value($themeDefault, 'rewardsContentColor'),
                         );
                     }
-
-                    &__title-icon {
-
-                        ::ng-deep {
-
-                            .wlc-icon-content {
-                                width: ef.get-value($themeDefault, 'rewardsTitleIconWidth');
-                                height: ef.get-value($themeDefault, 'rewardsTitleIconHeight');
-                            }
-                        }
-                    }
                 }
             }
         }

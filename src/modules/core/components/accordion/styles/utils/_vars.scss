@@ -21,10 +21,7 @@ $themeDefault: map-merge((
     'titleIconColorActive': var(--mc-baseMain),
     'titleMinHeight': ef.size(10),
     'titleFontWeightActive': bold,
-    'titleIconSize': (
-        375: ef.size(3),
-        768: ef.size(4),
-    ),
+    'titleIconSize': 13px,
     'titleIconTransform': rotateZ(180deg),
     'contentTextStyle': (
         320: 'PrimaryText',
@@ -45,5 +42,19 @@ $themeDefault: map-merge((
 
     'paddingSize': ef.size(3),
     'time': ef.get('time', 'main'),
+
+    'itemHeaderGap': ef.size(4),
+    'itemHeaderPadding': ef.size(2) ef.size(4),
+    'itemTitleTextStyle': 'ThirdTitleBold',
+    'itemTitleColor': inherit,
+    'itemDescrTextStyle': 'PrimaryText',
+    'itemDescrColor': inherit,
+
+    // mod simple
+    'simpleItemBg': var(--mc-bg700),
+    'simpleItemBgHover': var(--mc-bg700-l5),
+    'simpleItemBgActive': var(--mc-bg700),
+    'simpleContentHr': none,
+    'simpleContentWrpPaddingTop': ef.size(2),
 ), $customThemeDefault);
 

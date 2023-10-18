@@ -5,9 +5,11 @@ import {
     Inject,
     OnInit,
     Input,
+    Output,
     ViewChild,
     TemplateRef,
     ElementRef,
+    EventEmitter,
 } from '@angular/core';
 
 import {UIRouter} from '@uirouter/core';
@@ -39,7 +41,9 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
     @Input() public bonusItemTheme: BonusItemTheme;
     @Input() public isChooseBtn: boolean;
     @Input() public isInsideModal: boolean = false;
-    @Input() public readMoreClick: ($event: MouseEvent) => Promise<void>;
+    @Input() public readMoreClick: () => Promise<void>;
+    @Input() public isShowUnsubscribe: boolean = false;
+    @Output() public showGames = new EventEmitter<void>();
 
     @ViewChild('cancelModal') public tplModal: TemplateRef<ElementRef>;
     public override $params: Params.IBonusButtonsCParams;
@@ -116,10 +120,11 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
      * Get inventory bonus
      */
     public async getInventory(): Promise<void> {
-        const bonus = await this.bonusesService.takeInventory(this.bonus);
+        const bonus: Bonus = await this.bonusesService.takeInventory(this.bonus);
 
         if (bonus) {
             this.bonus = bonus;
+            this.hideActiveModal('bonus-modal');
         }
     }
 
@@ -265,10 +270,11 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
                 }
                 break;
             default:
-                this.router.stateService.go(
-                    this.$params.promoLinks?.play?.state || 'app.catalog',
-                    this.$params.promoLinks?.play?.params || {category: 'casino'},
-                );
+                if (this.bonusItemTheme !== 'modal') {
+                    this.readMoreClick();
+                } else {
+                    this.showGames.emit();
+                }
                 break;
         }
     }

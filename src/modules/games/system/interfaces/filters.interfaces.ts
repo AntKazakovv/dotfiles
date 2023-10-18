@@ -57,3 +57,5 @@ export interface ICategoryMenuItem extends ICategory {
     favourites?: boolean;
     default?: boolean;
 }
+
+export type TGamesFilterMod = 'exclude' | 'include';

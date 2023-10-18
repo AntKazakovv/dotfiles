@@ -52,7 +52,10 @@ import {
     IGameBlock,
     ISortCategories,
 } from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
-import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
+import {
+    IGamesFilterData,
+    TGamesFilterMod,
+} from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
 import {MenuService} from 'wlc-engine/modules/menu/system/services/menu.service';
 import {IAllSortsItemResponse} from 'wlc-engine/modules/games/system/interfaces/sorts.interfaces';
 import {GlobalDeps} from 'wlc-engine/modules/app/app.module';
@@ -208,13 +211,7 @@ export class Catalog {
                 }
             });
 
-            gameList = gameList.filter((item: Game): boolean => {
-                let rv = true;
-                for (const exclCategoryId of exclCategoryIds) {
-                    rv = rv && (!_includes(item.categoryID, exclCategoryId));
-                }
-                return rv;
-            });
+            gameList = this.filterGamesByCategoriesIds(gameList, exclCategoryIds);
         }
 
         if (includeMerchants.length) {
@@ -521,6 +518,34 @@ export class Catalog {
                 game.isFavourite = true;
             }
         });
+    }
+
+    /** Filters games list by categories Ids
+     *
+     * @param {Game[]} games
+     * @param {number[]} catIds
+     * @param {TGamesFilterMod} mod - exclude filtering, if undefined
+     */
+    public filterGamesByCategoriesIds(games: Game[], catIds: number[], mod?: TGamesFilterMod): Game[] {
+
+        switch (mod) {
+            case 'include':
+                return games.filter((item: Game): boolean => {
+                    let rv: boolean = false;
+                    for (const id of catIds) {
+                        rv = rv || _includes(item.categoryID, id);
+                    }
+                    return rv;
+                });
+            default:
+                return games.filter((item: Game): boolean => {
+                    let rv: boolean = true;
+                    for (const exclCategoryId of catIds) {
+                        rv = rv && (!_includes(item.categoryID, exclCategoryId));
+                    }
+                    return rv;
+                });
+        }
     }
 
     protected sendLog(logObj: ILogObj): void {

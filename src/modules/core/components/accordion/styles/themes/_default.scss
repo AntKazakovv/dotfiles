@@ -25,13 +25,40 @@
         }
 
         &__item {
-            background: ef.get-value($themeDefault, 'itemBackground');
+            background: var(--wlc-accord-item-bg, #{ef.get-value($themeDefault, 'itemBackground')});
             transition: all ef.get-value($themeDefault, 'time');
             overflow: hidden;
             border-radius: ef.get-value($themeDefault, 'itemBorderRadius');
 
+            &-header {
+                display: grid;
+                grid-template-columns: 1fr auto;
+                gap: ef.get-value($themeDefault, 'itemHeaderGap');
+                align-items: center;
+                padding: ef.get-value($themeDefault, 'itemHeaderPadding');
+                cursor: pointer;
+
+                &-content {
+                    min-width: 0;
+                }
+            }
+
+            &-title {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'itemTitleTextStyle'),
+                    ef.get-value($themeDefault, 'itemTitleColor'),
+                );
+            }
+
+            &-descr {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'itemDescrTextStyle'),
+                    ef.get-value($themeDefault, 'itemDescrColor'),
+                );
+            }
+
             &.expanded {
-                background: ef.get-value($themeDefault, 'itemBackgroundActive');
+                background: var(--wlc-accord-item-bg-active, #{ef.get-value($themeDefault, 'itemBackgroundActive')});
 
                 .wlc-accordion__title-text {
                     color: ef.get-value($themeDefault, 'titleIconColorActive');
@@ -47,7 +74,7 @@
             }
 
             @include bm.hover {
-                background: ef.get-value($themeDefault, 'itemBackgroundActive');
+                background: var(--wlc-accord-item-bg-hover, #{ef.get-value($themeDefault, 'itemBackgroundActive')});
 
                 .wlc-accordion__title-text {
                     color: ef.get-value($themeDefault, 'titleIconColorActive');
@@ -74,7 +101,7 @@
                 );
                 flex-grow: 1;
                 padding-right: ef.get-value($themeDefault, 'paddingSize');
-                transition: all ef.get-value($themeDefault, 'time');
+                transition: color ef.get-value($themeDefault, 'time');
 
                 @include mq.min(768) {
                     @include text.get-text-style(ef.get-value($themeDefault, 'titleTextStyle', 768), null);
@@ -82,25 +109,19 @@
             }
 
             &-icon {
+                --wlc-icon-width: #{ef.get-value($themeDefault, 'titleIconSize')};
+                --wlc-icon-height: #{ef.get-value($themeDefault, 'titleIconSize')};
+
+                display: flex;
                 flex-grow: 0;
-                transition: all ef.get-value($themeDefault, 'time');
+                line-height: 1;
+                transition: transform ef.get-value($themeDefault, 'time');
 
                 ::ng-deep {
 
-                    .wlc-icon-content {
-                        @include bm.get-mq-map('width', $themeDefault, 'titleIconSize');
-                        @include bm.get-mq-map('height', $themeDefault, 'titleIconSize');
-                        display: flex;
-                    }
-
-                    svg {
-                        width: 100%;
-                        height: auto;
-
-                        path {
-                            transition: all ef.get-value($themeDefault, 'time');
-                            fill: ef.get-value($themeDefault, 'titleIconColor');
-                        }
+                    svg path {
+                        transition: fill ef.get-value($themeDefault, 'time');
+                        fill: ef.get-value($themeDefault, 'titleIconColor');
                     }
                 }
             }
@@ -117,10 +138,10 @@
                     ef.get-value($themeDefault, 'contentTextStyle', 320),
                     ef.get-value($themeDefault, 'contentFontColor'),
                 );
-                border-top: ef.get-value($themeDefault, 'contentTopBorder');
+                border-top: var(--wlc-accord-content-hr, ef.get-value($themeDefault, 'contentTopBorder'));
                 padding: {
-                    top: ef.get-value($themeDefault, 'paddingSize');
-                    bottom: ef.get-value($themeDefault, 'paddingSize');
+                    top: var(--wlc-accord-content-wrp-padding-top, #{ef.get-value($themeDefault, 'paddingSize')});
+                    bottom: var(--wlc-accord-content-wrp-padding-btm, #{ef.get-value($themeDefault, 'paddingSize')});
                 };
 
                 &_text {
@@ -137,5 +158,18 @@
                 margin: ef.get-value($themeDefault, 'contentItemMargin');
             }
         }
+
+        &__wrapper {
+            padding: ef.size(2) 0 ef.size(4);
+        }
+    }
+
+    &.wlc-accordion--theme-mod-simple {
+        --wlc-accord-item-bg: #{ef.get-value($themeDefault, 'simpleItemBg')};
+        --wlc-accord-item-bg-hover: #{ef.get-value($themeDefault, 'simpleItemBgHover')};
+        --wlc-accord-item-bg-active: #{ef.get-value($themeDefault, 'simpleItemBgActive')};
+        --wlc-accord-content-hr: #{ef.get-value($themeDefault, 'simpleContentHr')};
+        --wlc-accord-content-wrp-padding-top: #{ef.get-value($themeDefault, 'simpleContentWrpPaddingTop')};
+        --wlc-accord-content-wrp-padding-btm: #{ef.get-value($themeDefault, 'paddingSize')};
     }
 }

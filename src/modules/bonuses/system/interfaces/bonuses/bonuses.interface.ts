@@ -103,6 +103,7 @@ export interface IBonusResultValueDefault extends IBonusResultValue {
 
 export interface IBonusResultValueFreerounds extends IBonusResultValue {
     Value?: string;
+    FreeroundGames?: Record<string, number[]>
 }
 
 export interface IBonusResultValueLootbox extends IBonusResultValue {
@@ -182,6 +183,7 @@ export interface IBonus extends IBonusBase {
     GamesRestrictType?: string;
     IDCategories: string[];
     IDGames: string[];
+    IDMerchants?: string[];
     IDPiFilter: string;
     Inventoried: number;
     IsInventory: string;
@@ -319,4 +321,17 @@ export interface IBonusCanceledInfo {
      * Value currency
      */
     Currency: string;
+}
+
+export interface IBonusFreeRoundGames {
+    merchant: string;
+    games: number[];
+}
+
+export interface IBonusWagerGamesFilter {
+    hasRestrictedGames: boolean;
+    hasRestrictedCategories: boolean;
+    idGames?: number[];
+    idCategories?: number[];
+    idMerchants?: number[];
 }

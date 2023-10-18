@@ -548,6 +548,10 @@
         }
     }
 
+    &.wlc-game-thumb--type-simple {
+        cursor: pointer;
+    }
+
     @include bm.hover {
 
         .wlc-game-thumb__jackpot {

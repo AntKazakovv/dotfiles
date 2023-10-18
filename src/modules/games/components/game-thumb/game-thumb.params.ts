@@ -8,8 +8,16 @@ import {
 import {Game} from 'wlc-engine/modules/games';
 import * as ButtonParams from 'wlc-engine/modules/core/components/button/button.params';
 
-export type Type = 'default' | 'modal' | 'vertical' | 'promo-widget' | 'games-slider' | 'horizontal' | 'promo-game'
- | CustomType;
+export type Type = 'default'
+    | 'modal'
+    | 'vertical'
+    | 'promo-widget'
+    | 'games-slider'
+    | 'horizontal'
+    | 'promo-game'
+    /** Only picture/video thumb, without any controls, title and hover-effects */
+    | 'simple'
+    | CustomType;
 export type Theme = 'default' | 'vertical' | 'promo-widget' | 'horizontal' | CustomType;
 export type ThemeMod = 'default' | 'vertical' | 'circle' | 'mobile-app' | 'wolf' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;

@@ -33,6 +33,8 @@ export type ComponentThemeMod = 'default'
     | 'all-link-secondary'
     | 'wolf'
     | 'wolf-tournament'
+    /** Use it with simple game thumb. Shows little (120-150px) thumbs with little gaps, auto-filled columns */
+    | 'simple'
     | string;
 
 export interface IGamesGridShowAllLink {

@@ -363,6 +363,39 @@
         }
     }
 
+    &.wlc-games-grid--theme-mod-simple {
+
+        .wlc-games-grid {
+
+            &__list {
+                @include bm.get-mq-map('grid-template-columns', $themeDefault, 'simpleGridColumns');
+                gap: ef.get-value($themeDefault, 'simpleGap');
+            }
+
+            &__more {
+
+                ::ng-deep {
+
+                    .wlc-btn--theme-default.wlc-btn--theme-mod-textonly {
+                        margin: ef.get-value($themeDefault, 'simpleBtnTextOnlyMargin');
+
+                        .wlc-btn__text {
+                            color: ef.get-value($themeDefault, 'simpleBtnTextOnlyColor');
+                        }
+
+                        @include bm.hover {
+                            border-color: ef.get-value($themeDefault, 'simpleBtnTextOnlyBorderColor');
+
+                            .wlc-btn__text {
+                                color: ef.get-value($themeDefault, 'simpleBtnTextOnlyColorHover');
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     &.wlc-games-grid--theme-mod-wolf-tournament {
 
         .wlc-games-grid {

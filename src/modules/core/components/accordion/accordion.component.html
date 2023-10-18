@@ -15,18 +15,23 @@
             <div *ngFor="let item of items"
                 class="{{$class}}__item"
                 [class.expanded]="item.expand">
-                <div class="{{$class}}__title"
-                    (click)="expandToggle(item)">
-                    <div class="{{$class}}__title-text">{{item.title}}</div>
-                    <div wlc-icon
-                         class="{{$class}}__title-icon"
-                         [iconPath]="$params.titleIconPath">
-                    </div>
-                </div>
+                <ng-container *ngIf="item.description;">
+                    <ng-container *ngTemplateOutlet="itemHeaderFull; context: {$implicit: item}"></ng-container>
+                </ng-container>
+                <ng-container *ngIf="!item.description;">
+                    <ng-container *ngTemplateOutlet="itemHeaderBase; context: {$implicit: item}"></ng-container>
+                </ng-container>
+
                 <div class="{{$class}}__content"
                     [@toggle]="item.expand ? 'opened' : 'closed'">
-                    <div class="{{$class}}__content-wrp"
-                         [innerHTML]="item.content">
+                    <div *ngIf="item.content"
+                        class="{{$class}}__content-wrp"
+                        [innerHTML]="item.content">
+                    </div>
+                    <div *ngIf="item.wrapper"
+                        wlc-wrapper
+                        class="{{$class}}__content-wrp"
+                        [inlineParams]="item.wrapper">
                     </div>
                 </div>
             </div>
@@ -42,6 +47,33 @@
 
     </ng-container>
 </ng-container>
+
+<ng-template #itemHeaderBase let-item>
+    <div class="{{$class}}__title"
+        (click)="expandToggle(item)">
+        <div class="{{$class}}__title-text">{{item.title | translate}}</div>
+        <ng-container [ngTemplateOutlet]="arrow"></ng-container>
+    </div>
+</ng-template>
+
+<ng-template #itemHeaderFull let-item>
+    <div class="{{$class}}__item-header" (click)="expandToggle(item)">
+        <div class="{{$class}}__item-header-content">
+            <div class="{{$class}}__item-title">{{item.title | translate}}</div>
+            <div class="{{$class}}__item-descr">{{item.description | translate}}</div>
+        </div>
+        <div class="{{$class}}__header-control">
+            <ng-container [ngTemplateOutlet]="arrow"></ng-container>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #arrow>
+    <div wlc-icon
+        class="{{$class}}__title-icon"
+        [iconPath]="$params.titleIconPath">
+    </div>
+</ng-template>
 
 <ng-template #preloader>
     <div wlc-loader></div>

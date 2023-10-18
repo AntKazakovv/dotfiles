@@ -229,8 +229,8 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
      *
      * @returns {Promise<void>}
      */
-    public async openDescription($event: MouseEvent): Promise<void> {
-        $event.stopPropagation();
+    public async openDescription($event?: MouseEvent): Promise<void> {
+        $event?.stopPropagation();
 
         const modalParams: IBonusModalCParams = _merge({
             bonus: this.bonus,

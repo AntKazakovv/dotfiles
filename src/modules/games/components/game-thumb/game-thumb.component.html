@@ -6,6 +6,7 @@
         <ng-container [ngTemplateOutlet]="thumbImg" *ngSwitchCase="'games-slider'"></ng-container>
         <ng-container [ngTemplateOutlet]="typeHorizontal" *ngSwitchCase="'horizontal'"></ng-container>
         <ng-container [ngTemplateOutlet]="typePromoGame" *ngSwitchCase="'promo-game'"></ng-container>
+        <ng-container [ngTemplateOutlet]="typeSimple" *ngSwitchCase="'simple'"></ng-container>
         <ng-container [ngTemplateOutlet]="typeDefault" *ngSwitchDefault></ng-container>
     </ng-container>
 </ng-container>
@@ -203,6 +204,16 @@
         [value]="game.jackpotAmount.amount"
         [currency]="game.jackpotAmount.currency"
     >
+    </div>
+</ng-template>
+
+<ng-template #typeSimple>
+    <div class="{{$class}}-media"
+        title="{{name}}"
+        (click)="startGame(false, true, $event)">
+        <ng-container *ngIf="!hasVideo; else videoTemplate">
+            <ng-container [ngTemplateOutlet]="thumbImg"></ng-container>
+        </ng-container>
     </div>
 </ng-template>
 
