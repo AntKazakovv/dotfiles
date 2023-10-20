@@ -16,6 +16,7 @@ import {
     IWrapperCParams,
     IIndexing,
     EventService,
+    ModalService,
 } from 'wlc-engine/modules/core';
 import {
     SportsbookService,
@@ -51,6 +52,7 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
             new DigitainHooks({
                 hooksService: this.hooksService,
                 disableHooks: this.$destroy,
+                modalService: this.modalService,
                 router: this.router,
                 window: this.window,
             });
@@ -80,6 +82,7 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
         configService: ConfigService,
         protected eventService: EventService,
         protected hooksService: HooksService,
+        protected modalService: ModalService,
         protected router: UIRouter,
         @Inject(WINDOW) protected window: Window,
     ) {

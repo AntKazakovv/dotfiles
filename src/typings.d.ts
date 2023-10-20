@@ -170,6 +170,10 @@ declare interface Window extends TAnalyticMethod {
      * Use callback that was triggered after changing navigation inside sportsbook iframe
      */
     digitainOnNavigate?: TDigitainOnNavigate;
+    /**
+     * Digitain login handler
+     */
+    digitainOnLogin?: () => void;
     mobileDigitainApp?: IMobileDigitainApp;
     ethereum?: {
         request: (prams: {method: string, params?: any[]}) => any;

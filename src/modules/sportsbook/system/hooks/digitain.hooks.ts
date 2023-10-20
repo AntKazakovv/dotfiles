@@ -10,6 +10,7 @@ import _lowerFirst from 'lodash-es/lowerFirst';
 import {
     AbstractHook,
     IIndexing,
+    ModalService,
 } from 'wlc-engine/modules/core';
 import {
     gameWrapperHooks,
@@ -20,8 +21,9 @@ import {ISportsbookHook} from 'wlc-engine/modules/sportsbook/system/interfaces/s
 type IntegrationMode = 'mobile' | 'desktop';
 
 export interface IDigitainHooksParams extends ISportsbookHook {
-    router: UIRouter,
-    window: Window,
+    modalService: ModalService;
+    router: UIRouter;
+    window: Window;
 }
 
 export class DigitainHooks extends AbstractHook {
@@ -59,6 +61,7 @@ export class DigitainHooks extends AbstractHook {
         }
 
         this.initNavigation(data);
+        this.loginButtonHandler(data);
 
         if (this.integrationMode === 'mobile') {
             this.destroyMobileDigitain();
@@ -170,6 +173,17 @@ export class DigitainHooks extends AbstractHook {
                 });
             };
         }
+    }
+
+    protected loginButtonHandler(data: IGameWrapperHookLaunchInfo): void {
+        data.launchInfo.gameScript = data.launchInfo.gameScript.replace('SportLogin',
+            'digitainOnLogin');
+        data.launchInfo.gameScript = data.launchInfo.gameScript.replace('"token":',
+            '"login": window.digitainOnLogin,"token":');
+
+        this.params.window.digitainOnLogin = () => {
+            this.params.modalService.showModal('login');
+        };
     }
 
     /**
