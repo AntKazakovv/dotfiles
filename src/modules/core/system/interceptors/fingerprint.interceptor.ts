@@ -27,6 +27,7 @@ export class FingerprintInterceptor implements HttpInterceptor {
         'auth',
         'profiles',
         'trustDevices',
+        'authBy/google2fa',
     ] as const;
 
     constructor(
@@ -59,7 +60,7 @@ export class FingerprintInterceptor implements HttpInterceptor {
 
     protected isUrlForFingerprint(req: HttpRequest<IData>): boolean {
         return this._urlForFingerprint.some((url: string) => {
-            return req.url.includes(`/api/v1/${url}`) && configUrlForFingerprint[url]?.includes(req.method);
+            return req.url === `/api/v1/${url}` && configUrlForFingerprint[url]?.includes(req.method);
         });
     }
 }
