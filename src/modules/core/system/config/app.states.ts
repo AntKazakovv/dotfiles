@@ -47,7 +47,6 @@ let states = {
     'app.profile.loyalty-bonuses.system': States.profileBonusesSystemState,
     'app.profile.loyalty-tournaments': States.profileTournamentsState,
     'app.profile.loyalty-tournaments.main': States.profileTournamentsMainState,
-    'app.profile.loyalty-tournaments.active': States.profileTournamentsActiveState,
     'app.profile.loyalty-tournaments.history': States.profileTournamentsHistoryState,
     'app.profile.loyalty-tournaments.detail': States.profileTournamentsDetailState,
     'app.profile.loyalty-store': States.profileStoreState,

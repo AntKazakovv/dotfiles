@@ -69,12 +69,6 @@ export const $profileLayouts: IPanelsConfig = {
             'profile-content': sectionsLib.profileContent.profileTournaments,
         },
     },
-    'app.profile.loyalty-tournaments.active': {
-        extends: 'app.profile',
-        sections: {
-            'profile-content': sectionsLib.profileContent.profileTournamentsDetail,
-        },
-    },
     'app.profile.loyalty-tournaments.history': {
         extends: 'app.profile',
         sections: {

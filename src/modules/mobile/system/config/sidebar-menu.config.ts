@@ -105,19 +105,6 @@ export const wlcSidebarMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
             },
         },
     },
-    'sidebar-menu:active-tournaments': {
-        name: gettext('Active tournaments'),
-        type: 'sref',
-        auth: true,
-        icon: 'active-tournaments',
-        class: 'tournaments-active',
-        params: {
-            state: {
-                name: 'app.profile.loyalty-tournaments.active',
-                params: {},
-            },
-        },
-    },
     'sidebar-menu:market': {
         name: gettext('Store'),
         type: 'sref',

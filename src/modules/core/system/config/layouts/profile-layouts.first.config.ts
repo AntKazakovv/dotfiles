@@ -68,12 +68,6 @@ export const $profileFirstLayouts: ILayoutsConfig = {
             'profile-content': sectionsLib.profileContent.profileTournamentsTypeFirst,
         },
     },
-    'app.profile.loyalty-tournaments.active': {
-        extends: 'app.profile',
-        sections: {
-            'profile-content': sectionsLib.profileContent.profileTournamentsActiveTypeFirst,
-        },
-    },
     'app.profile.loyalty-tournaments.history': {
         extends: 'app.profile',
         sections: {

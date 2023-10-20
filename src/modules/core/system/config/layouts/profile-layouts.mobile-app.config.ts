@@ -82,13 +82,6 @@ export const $profileMobileAppLayouts: IPanelsConfig = {
             'profile-content': sectionsLib.profileContent.profileTournaments,
         },
     },
-    'app.profile.loyalty-tournaments.active': {
-        title: gettext('Active tournaments'),
-        extends: 'app.profile',
-        sections: {
-            'profile-content': sectionsLib.profileContent.profileTournamentsDetail,
-        },
-    },
     'app.profile.loyalty-tournaments.history': {
         title: gettext('Tournaments history'),
         extends: 'app.profile',

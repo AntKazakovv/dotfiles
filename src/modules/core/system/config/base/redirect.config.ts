@@ -10,7 +10,6 @@ export const redirectsConfig: IRedirectConfig = {
         state: 'app.profile.cash.deposit',
     },
     profileRedirects: {
-        'app.profile.loyalty-tournaments.active': 'first',
         'app.profile.loyalty-bonuses.active': 'first',
     },
     states: {

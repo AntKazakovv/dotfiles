@@ -5,10 +5,14 @@ import {Transition} from '@uirouter/core';
 
 import {StoreService} from 'wlc-engine/modules/store/system/services/store/store.service';
 import {StoreCategory} from 'wlc-engine/modules/store/system/models/store-category';
+import {StateHelper} from 'wlc-engine/modules/core/system/helpers';
 
 export const profileStoreState: Ng2StateDeclaration = {
     abstract: true,
     url: '/loyalty-store',
+    resolve: [
+        StateHelper.profileStateResolver('$base.profile.store.use'),
+    ],
 };
 
 export const profileStoreMain: Ng2StateDeclaration = {
