@@ -176,8 +176,7 @@ export class DigitainHooks extends AbstractHook {
     }
 
     protected loginButtonHandler(data: IGameWrapperHookLaunchInfo): void {
-        data.launchInfo.gameScript = data.launchInfo.gameScript.replace('SportLogin',
-            'digitainOnLogin');
+        data.launchInfo.gameScript = data.launchInfo.gameScript.replace(/SportLogin/g, 'digitainOnLogin');
         data.launchInfo.gameScript = data.launchInfo.gameScript.replace('"token":',
             '"login": window.digitainOnLogin,"token":');
 
