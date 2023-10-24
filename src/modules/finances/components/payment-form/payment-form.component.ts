@@ -211,6 +211,7 @@ export class PaymentFormComponent
                 if (userProfile) {
                     this.userProfile$.next(userProfile);
                     this.userProfile = userProfile;
+                    this.currentCurrency = userProfile.currency;
                 }
             });
 
