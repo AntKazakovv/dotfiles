@@ -19,7 +19,10 @@ import {ICountry} from 'wlc-engine/modules/core/system/interfaces/fundist.interf
 import {IInputCParams} from 'wlc-engine/modules/core/components/input/input.params';
 import {ISelectCParams} from 'wlc-engine/modules/core/components/select/select.params';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
-import {SelectValuesService} from 'wlc-engine/modules/core/system/services/select-values/select-values.service';
+import {
+    IPhoneLimits,
+    SelectValuesService,
+} from 'wlc-engine/modules/core/system/services/select-values/select-values.service';
 import {ValidationService} from 'wlc-engine/modules/core/system/services/validation/validation.service';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {UserProfile} from 'wlc-engine/modules/user';
@@ -30,6 +33,7 @@ import * as Params from './phone-field.params';
 
 import _find from 'lodash-es/find';
 import _clone from 'lodash-es/clone';
+import _merge from 'lodash-es/merge';
 
 @Component({
     selector: '[wlc-phone-field]',
@@ -46,6 +50,7 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
     public useVerificationBtn: boolean = false;
     protected autoCodePhone: ISelectOptions;
     protected profileType: ProfileType;
+    protected phoneLimits: IPhoneLimits;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IPhoneFieldCParams,
@@ -68,6 +73,10 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
 
         const tempPhoneCode = this.configService.get('phoneCode');
         const tempPhoneNumber = this.configService.get('phoneNumber');
+
+        this.phoneLimits = _merge(
+            this.selectValues.getPhoneLimitsDefault(),
+            this.configService.get('$base.forms.customPhoneLimits'));
 
         this.setValidators('default');
 
@@ -116,6 +125,21 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
                 this.$params.phoneNumber.control.updateValueAndValidity({onlySelf: true});
             }));
 
+        this.$params.phoneCode?.control?.valueChanges
+            .pipe(
+                filter((val: string) => !!val),
+                distinctUntilChanged(),
+                takeUntil(this.$destroy),
+            )
+            .subscribe((val: string) => {
+                this.setValidators(val);
+
+                this.configService.set({
+                    name: 'phoneCode',
+                    value: val,
+                });
+            });
+
         this.$params.phoneNumber?.control?.valueChanges
             .pipe(
                 distinctUntilChanged(),
@@ -158,7 +182,7 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
     }
 
     protected setValidators(value: string): void {
-        const lengths = this.selectValues.getPhoneLimitsDefault()[value];
+        const lengths = this.phoneLimits[value];
         const min = lengths?.minLength || 6;
         const max = lengths?.maxLength || 13;
 
