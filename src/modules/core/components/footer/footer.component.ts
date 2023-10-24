@@ -1,4 +1,5 @@
 import {
+    ChangeDetectionStrategy,
     Component,
     Inject,
     OnInit,
@@ -17,6 +18,7 @@ import * as Params from './footer.params';
     selector: '[wlc-footer]',
     templateUrl: './footer.component.html',
     styleUrls: ['./styles/footer.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FooterComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IFooterCParams;

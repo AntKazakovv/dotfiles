@@ -117,7 +117,7 @@ import {WrapperComponent} from 'wlc-engine/modules/core/components';
 import {ThemeTogglerComponent} from './components/theme-toggler/theme-toggler.component';
 import {AlertComponent} from './components/alert/alert.component';
 import {LottieAnimationComponent} from './components/lottie-animation/lottie-animation.component';
-import {FooterComponent} from './components/footer/footer.components';
+import {FooterComponent} from './components/footer/footer.component';
 import {
     SomethingWrongPageComponent,
 } from 'wlc-engine/modules/core/components/something-wrong-page/something-wrong-page.component';
