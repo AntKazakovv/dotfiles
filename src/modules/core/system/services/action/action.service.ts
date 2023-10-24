@@ -69,6 +69,9 @@ import {
     IPopupModalItem,
 } from 'wlc-engine/modules/core/system/interfaces/base-config/popup.interface';
 
+declare type StringProps<T> = {[key in keyof T as T[key] extends string ? key:never]: T[key]};
+declare type CSSStyleStringProps = keyof StringProps<CSSStyleDeclaration>;
+
 export type ScrollPositionType = 'start' | 'end' | 'center' | 'nearest';
 
 export interface IScrollOptions {
@@ -462,7 +465,7 @@ export class ActionService {
         }
     }
 
-    private getStyleNumValue(elem: HTMLElement, style: string): number {
+    private getStyleNumValue(elem: HTMLElement, style: CSSStyleStringProps): number {
         return _toNumber(this.window.getComputedStyle(elem)[style].replace(/[^\d\.\-]/g, ''));
     }
 
