@@ -720,6 +720,10 @@ export class UserService {
                         wlcElement: 'notification_password-change-success',
                     },
                 });
+                UserHelper.showInformationModal(
+                    this.modalService,
+                    gettext('Your password has been successfully changed'),
+                );
             }
         });
         return result;

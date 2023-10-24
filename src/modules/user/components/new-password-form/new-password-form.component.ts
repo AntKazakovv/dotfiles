@@ -16,7 +16,6 @@ import {
     ConfigService,
     DataService,
 } from 'wlc-engine/modules/core';
-import {UserHelper} from 'wlc-engine/modules/user/system/helpers/user.helper';
 
 import * as Params from './new-password-form.params';
 
@@ -73,10 +72,6 @@ export class NewPasswordFormComponent extends AbstractComponent {
             if (this.modalService.getActiveModal('new-password')) {
                 this.modalService.hideModal('new-password');
             }
-            UserHelper.showInformationModal(
-                this.modalService,
-                gettext('Your password has been successfully changed'),
-            );
             return true;
         } catch (error) {
             if (this.configService.get<boolean>('$base.site.useXNonce')) {

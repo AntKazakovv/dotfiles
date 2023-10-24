@@ -208,10 +208,10 @@ export class TwoFactorAuthService {
         try {
             switch (responseCode) {
                 case 231:
-                    this.authRequest(data);
+                    await this.authRequest(data);
                     break;
                 case 232:
-                    this.restoreNewPasswordRequest(data);
+                    await this.restoreNewPasswordRequest(data);
                     this.eventService.emit({
                         name: NotificationEvents.PushMessage,
                         data: <IPushMessageParams>{
@@ -221,6 +221,10 @@ export class TwoFactorAuthService {
                             wlcElement: 'notification_password-change-success',
                         },
                     });
+                    UserHelper.showInformationModal(
+                        this.modalService,
+                        gettext('Your password has been successfully changed'),
+                    );
                     break;
             }
             this.eventService.emit({name: 'LOGIN'});
