@@ -19,9 +19,15 @@ export interface ILimitationsConfig {
     * Enable/disable limitations
     */
     use: boolean;
-    autoApplyRealityChecker?: boolean;
+    realityChecker?: IRealityChecker;
     /**
     * Allows you to include some types of limits
     */
     limitTypes?: ILimitationTypeItem[];
+}
+
+export interface IRealityChecker {
+    autoApply?: boolean;
+    /** Time in minutes */
+    period?: number;
 }

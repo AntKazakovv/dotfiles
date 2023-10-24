@@ -123,7 +123,8 @@ export class LimitationService {
     public async initRealityChecker(userProfile$: BehaviorSubject<UserProfile>, force?: boolean): Promise<void> {
         if (this.realityCheckEnabled) {
             userProfile$.pipe(filter((v) => !!v)).subscribe((userProfile) => {
-                this.checkPeriod = (parseInt(userProfile.extProfile.realityCheckTime) || 30) * 60 * 1000;
+                const defaultPeriod: number = this.configService.get('$base.profile.limitations.realityChecker.period');
+                this.checkPeriod = (parseInt(userProfile.extProfile.realityCheckTime) || defaultPeriod) * 60 * 1000;
             });
 
             this.loginTime = this.configService.get<number>({

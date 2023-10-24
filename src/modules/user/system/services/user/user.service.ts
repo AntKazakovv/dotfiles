@@ -936,11 +936,15 @@ export class UserService {
 
     protected prepareCreateProfile(userProfile: IUserProfile): void {
         if (this.configService.get('$base.profile.limitations.use')
-            && this.configService.get('$base.profile.limitations.autoApplyRealityChecker')
+            && this.configService.get('$base.profile.limitations.realityChecker.autoApply')
             && !Array.isArray(userProfile.extProfile)
             && !userProfile.extProfile?.realityCheckTime
         ) {
-            _set(userProfile, 'extProfile.realityCheckTime', 30);
+            _set(
+                userProfile,
+                'extProfile.realityCheckTime',
+                this.configService.get('$base.profile.limitations.realityChecker.period'),
+            );
         }
 
         if (this.configService.get('$base.turnOnSendEmailNotificationInRegister')) {

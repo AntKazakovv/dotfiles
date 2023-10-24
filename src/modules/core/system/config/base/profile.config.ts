@@ -22,7 +22,10 @@ export const profileConfig: IProfileConfig = {
     },
     limitations: {
         use: false,
-        autoApplyRealityChecker: true,
+        realityChecker: {
+            autoApply: true,
+            period: 30,
+        },
         limitTypes: [
             limitType.MaxDepositSum,
             limitType.MaxBetSum,
