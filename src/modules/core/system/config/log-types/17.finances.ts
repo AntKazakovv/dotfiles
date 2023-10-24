@@ -47,4 +47,8 @@ export const errorTypes: ILogTypes = {
         // Error getting code for mobile commerce kz
         level: 'error',
     },
+    '17.5.0': {
+        // Error getting commissions
+        level: 'error',
+    },
 };

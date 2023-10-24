@@ -1,0 +1,37 @@
+.wlc-tax-info--theme-default:host {
+    width: ef.get-value($themeDefault, 'width');
+    max-width: var(--wlc-tax-info-size, #{ef.get-value($themeDefault, 'width')});
+
+    .wlc-tax-info {
+
+        &__list {
+            display: grid;
+            gap: var(--wlc-tax-info-gap, #{ef.get-value($themeDefault, 'gap')});
+            padding: ef.get-value($themeDefault, 'padding');
+            border-radius: var(--wlc-tax-info-radius, #{ef.get-value($themeDefault, 'radius')});
+            background: var(--wlc-tax-info-bg, #{ef.get-value($themeDefault, 'bg')});
+        }
+
+        &__item {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: ef.get-value($themeDefault, 'itemGap');
+            min-width: 0;
+            text-align: ef.get-value($themeDefault, 'itemTextAlign');
+
+            &-caption {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'itemCaptionTextStyle'),
+                    ef.get-value($themeDefault, 'itemCaptionColor')
+                );
+            }
+
+            &-val {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'itemValTextStyle'),
+                    ef.get-value($themeDefault, 'itemValColor')
+                );
+            }
+        }
+    }
+}

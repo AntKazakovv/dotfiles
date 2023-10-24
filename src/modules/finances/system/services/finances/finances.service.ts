@@ -38,13 +38,17 @@ import {
     UserInfo,
     UserProfile,
 } from 'wlc-engine/modules/user';
-import {TAdditionalParams} from 'wlc-engine/modules/finances/system/interfaces/finances.interface';
+import {
+    ITaxData,
+    TAdditionalParams,
+} from 'wlc-engine/modules/finances/system/interfaces/finances.interface';
 import {PIQCashierService} from 'wlc-engine/modules/finances/system/services/piq-cashier/piq-cashier.service';
 import {
     PaymentSystem,
     IPaymentSystem,
     FilterType,
 } from 'wlc-engine/modules/finances/system/models/payment-system.model';
+import {TaxModel} from 'wlc-engine/modules/finances/system/models/tax.model';
 import {
     PIQCashierResponse,
     TPaymentsMethods,
@@ -78,6 +82,7 @@ interface IQueries {
 export class FinancesService {
 
     public paymentSystems$: BehaviorSubject<PaymentSystem[]> = new BehaviorSubject(undefined);
+    public taxes: TaxModel;
     private systems: PaymentSystem[] = [];
     private emitDepositStatus$: Subscription;
 
@@ -325,6 +330,26 @@ export class FinancesService {
                 data: error,
             });
             return null;
+        }
+    }
+
+    public async getTaxes(locale: string = 'romanian'): Promise<TaxModel> {
+        try {
+            const result: IData<ITaxData> = await this.dataService.request(
+                {
+                    name: 'commissions',
+                    system: 'finances',
+                    url: `/commissions/${locale}`,
+                    type: 'GET',
+                },
+            );
+            this.taxes = new TaxModel(result.data);
+            return this.taxes;
+        } catch (error) {
+            this.logService.sendLog({
+                code: '17.5.0',
+                data: error,
+            });
         }
     }
 

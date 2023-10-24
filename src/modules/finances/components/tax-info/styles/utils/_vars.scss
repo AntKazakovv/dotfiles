@@ -1,0 +1,16 @@
+$customThemeDefault: () !default;
+
+$themeDefault: map-merge((
+    'width': 100%,
+    'gap': ef.size(2),
+    'padding': ef.size(2),
+    'radius': ef.get('radius', 'main'),
+    'bg': var(--mc-bg500),
+
+    'itemGap': ef.size(2),
+    'itemCaptionTextStyle': 'CaptionText',
+    'itemCaptionColor': inherit,
+    'itemValTextStyle': 'CaptionTextBold',
+    'itemValColor': inherit,
+    'itemTextAlign': left,
+), $customThemeDefault);

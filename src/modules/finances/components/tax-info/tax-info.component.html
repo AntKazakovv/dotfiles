@@ -1,0 +1,22 @@
+<ng-container *ngIf="!isError">
+    <div class="{{$class}}__list">
+        <div class="{{$class}}__item">
+            <div class="{{$class}}__item-caption">
+                {{'Tax' | translate}}
+            </div>
+            <div class="{{$class}}__item-val">
+                <div wlc-currency [value]="tax">
+
+                </div>
+            </div>
+        </div>
+        <div class="{{$class}}__item">
+            <div class="{{$class}}__item-caption">
+                {{'Total amount' | translate}}
+            </div>
+            <div class="{{$class}}__item-val">
+                <div wlc-currency [value]="totalAmount"></div>
+            </div>
+        </div>
+    </div>
+</ng-container>

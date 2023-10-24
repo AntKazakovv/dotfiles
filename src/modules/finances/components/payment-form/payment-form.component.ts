@@ -22,7 +22,9 @@ import {
 } from 'rxjs';
 import {
     catchError,
+    distinctUntilChanged,
     takeUntil,
+    throttleTime,
 } from 'rxjs/operators';
 
 import _assign from 'lodash-es/assign';
@@ -68,7 +70,10 @@ import {
     ColorThemeValues,
     ValidatorType,
 } from 'wlc-engine/modules/core';
-import {UserInfo, UserService} from 'wlc-engine/modules/user';
+import {
+    UserInfo,
+    UserService,
+} from 'wlc-engine/modules/user';
 import {DateTime} from 'luxon';
 import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
 
@@ -166,6 +171,11 @@ export class PaymentFormComponent
         def: '/static/css/piq.cashier.css',
         alt: null,
     };
+    protected isRomanianLicense: boolean = false;
+    protected commissionsInfoConfig: IFormComponent = {
+        name: 'finances.wlc-tax-info',
+        params: {},
+    };
 
     private additionalFieldsConfig: IIndexing<IAdditionalFieldConfig>;
     private isDeposit: boolean;
@@ -204,6 +214,8 @@ export class PaymentFormComponent
         this.isMultiWallet = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
         this.additionalFieldsConfig = this.configService.get('$finances.fieldsSettings.additional');
         this.usePreselectedSummation = this.configService.get<boolean>('$finances.preselectButtons.summationMode');
+        this.isRomanianLicense = this.configService.get<string>('appConfig.license') === 'romania';
+
         this.configService
             .get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
             .pipe(takeUntil(this.$destroy))
@@ -212,13 +224,18 @@ export class PaymentFormComponent
                     this.userProfile$.next(userProfile);
                     this.userProfile = userProfile;
                     this.currentCurrency = userProfile.currency;
+
+                    if (this.showCommissions) {
+                        this.initCommissions();
+                        this.updateFormConfig();
+                    }
                 }
             });
 
         this.initSubscribers();
 
         if (!this.isDeposit) {
-            this.userService = await this.injectionService.getService<UserService>('user.user-service');
+            this.userService ??= await this.injectionService.getService<UserService>('user.user-service');
             this.userService.userInfo$
                 .pipe(takeUntil(this.$destroy))
                 .subscribe((userInfo: UserInfo): void => {
@@ -279,6 +296,12 @@ export class PaymentFormComponent
 
     public get dateExpire(): DateTime {
         return DateTime.fromISO((this.currentSystem?.message as IPaymentMessage)?.dateEnd);
+    }
+
+    public get showCommissions(): boolean {
+        return this.isRomanianLicense
+            && this.userProfile?.selectedCurrency === 'RON'
+            && this.userProfile.countryCode === 'rou';
     }
 
     public get minAmount(): number {
@@ -514,15 +537,22 @@ export class PaymentFormComponent
     public setAmountSubscriber(form: UntypedFormGroup): void {
         this.amountControl = <UntypedFormControl>form.controls['amount'];
         if (this.amountControl) {
-            this.amountControl.valueChanges.subscribe(val => {
-                if (val === '') {
-                    this.eventService.emit({name: 'AMOUNT_IS_EMPTY'});
-                    this.clearAmountButton.params.isAmountEmpty = true;
-                } else {
-                    this.eventService.emit({name: 'AMOUNT_NOT_EMPTY'});
-                    this.clearAmountButton.params.isAmountEmpty = false;
-                }
-            });
+            this.amountControl.valueChanges
+                .pipe(
+                    distinctUntilChanged(),
+                    throttleTime(200, null, {leading: false, trailing: true}),
+                    takeUntil(this.$destroy),
+                ).subscribe(val => {
+                    if (val === '') {
+                        this.eventService.emit({name: 'AMOUNT_IS_EMPTY'});
+                        this.clearAmountButton.params.isAmountEmpty = true;
+                    } else {
+                        this.eventService.emit({name: 'AMOUNT_NOT_EMPTY'});
+                        this.clearAmountButton.params.isAmountEmpty = false;
+                    }
+
+                    this.formData$.next({amount: val});
+                });
             this.formData$.next({amount: `${form.value.amount}`});
         }
     }
@@ -594,6 +624,15 @@ export class PaymentFormComponent
 
     public cancelInvoiceHandler(): void {
         this.financesService.cancelInvoiceHandler(this.currentSystem?.id);
+    }
+
+    protected async initCommissions(): Promise<void> {
+        const params = {
+            mode: this.mode,
+            formData$: this.formData$,
+        };
+
+        _set(this.commissionsInfoConfig, 'params', params);
     }
 
     protected initSubscribers(): void {
@@ -804,6 +843,10 @@ export class PaymentFormComponent
             const amountFieldWrap: IFormComponent = this.prepareAmountFieldConfig(isDepInvoice);
 
             formComponents.push(amountFieldWrap);
+
+            if (this.showCommissions) {
+                formComponents.push(this.commissionsInfoConfig);
+            }
         }
 
         if (!isDepInvoice) {

@@ -1,4 +1,6 @@
 .wlc-payment-form--theme-default:host {
+    --wlc-tax-info-size: var(--wlc-pf-input-size);
+
     @include bm.get-mq-map('--wlc-alert-margin', $themeDefault, 'alertMargin');
     @include bm.get-mq-map('--wlc-pf-input-size', $themeDefault, 'formInputMaxWidth');
     @include bm.get-mq-map('--wlc-pf-hosted-justify-items', $themeDefault, 'hostedFieldsJustifyItems');

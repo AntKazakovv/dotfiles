@@ -222,3 +222,20 @@ export interface IPreselectedButtonsConfig {
 };
 
 export type TPaySystemParams = Partial<Pick<IPaymentSystem, 'image' | 'description' | 'name'>>;
+
+export interface ITaxItem {
+    /** Top limit for current taxes */
+    max_amount?: string;
+    /** Fixed tax for part of sum */
+    tax_amount?: string;
+    /** Tax size in percents for (sum - fixedSum) */
+    tax_percent: string;
+    /** Part of sum with fixed tax (related to tax_amount field) */
+    fixedSum?: number;
+}
+
+export interface ITaxData {
+    withdraw: Record<string, ITaxItem>;
+    deposit: Record<string, ITaxItem>;
+    currency: string;
+}

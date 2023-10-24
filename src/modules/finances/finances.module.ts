@@ -11,6 +11,7 @@ import {
 } from './system/services';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {IconListModule} from 'wlc-engine/modules/icon-list/icon-list.module';
+import {TaxInfoComponent} from './components/tax-info/tax-info.component';
 import {CompilerModule} from 'wlc-engine/modules/compiler';
 import {TranslateModule} from '@ngx-translate/core';
 import {DepositWithdrawComponent} from './components/deposit-withdraw/deposit-withdraw.component';
@@ -37,6 +38,7 @@ export const moduleConfig =
     GlobalHelper.mergeConfig<IFinancesConfig>(financesConfig, _get($config, '$finances', {}));
 
 export const components = {
+    'wlc-tax-info': TaxInfoComponent,
     'wlc-deposit-withdraw': DepositWithdrawComponent,
     'wlc-payment-list': PaymentListComponent,
     'wlc-iframe-deposit': IframeDepositComponent,
@@ -73,6 +75,7 @@ export const services = {
         ClearAmountButtonComponent,
         PaymentFormComponent,
         FastDepositComponent,
+        TaxInfoComponent,
     ],
     providers: [
         FinancesService,
