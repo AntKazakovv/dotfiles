@@ -4,7 +4,7 @@ $themeSwiper: map-merge((
     'swiperGridAreas': 'title-icon title swiper-buttons show-all' 'games-grid games-grid games-grid games-grid',
     'swiperGridAreasWolfAll': 'title-icon title wolf-all swiper-buttons' 'games-grid games-grid games-grid games-grid',
     'swiperGridColumns': auto auto minmax(0, 1fr) auto,
-    'swiperGridColumnsWolfAll': repeat(3, auto),
+    'swiperGridColumnsWolfAll': auto 1fr auto auto,
     'swiperGridRowGap': ef.size(4),
 
     'swiperButtonsColumns': auto auto,

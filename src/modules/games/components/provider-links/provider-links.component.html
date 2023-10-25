@@ -60,7 +60,7 @@
     <button class="{{$class}}__btn"
             wlc-button
             [attr.type]="'button'"
-            text="{{$params.linkText | translate}}"
+            [inlineParams]="$params.btnParams"
             (click)="showAllProviders()">
     </button>
 </ng-template>

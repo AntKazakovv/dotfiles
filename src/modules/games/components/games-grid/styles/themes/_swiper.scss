@@ -11,6 +11,11 @@
             &.wolf-all {
                 grid-template-areas: ef.get-value($themeSwiper, 'swiperGridAreasWolfAll');
                 grid-template-columns: ef.get-value($themeSwiper, 'swiperGridColumnsWolfAll');
+                align-items: center;
+
+                .wlc-games-grid__swiper-buttons-container {
+                    margin: 0;
+                }
             }
         }
 

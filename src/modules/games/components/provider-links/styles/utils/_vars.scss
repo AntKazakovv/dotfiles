@@ -85,7 +85,10 @@ $themeDefault: map-merge((
 
     'errorLineHeight': 1.15,
 
-    'sliderWolfRoundedBtnMargin': 0 ef.size(3) 0 0,
+    'sliderWolfRoundedBtnMargin': (
+        375: 0,
+        768: 0 ef.size(3) 0 0,
+    ),
 ), $customThemeDefault);
 
 $customMobileApp: () !default;
