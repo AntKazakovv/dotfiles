@@ -13,8 +13,6 @@ import {
     takeUntil,
 } from 'rxjs';
 
-import _isUndefined from 'lodash-es/isUndefined';
-
 import {
     AbstractComponent,
     EventService,
@@ -48,9 +46,6 @@ export class UserIconComponent extends AbstractComponent implements OnInit, Afte
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.showArrow = this.elementRef.nativeElement.tagName === 'BUTTON' && this.$params.theme !== 'avatar';
-        if (_isUndefined(this.$params.showAsBtn)) {
-            this.$params.showAsBtn = this.elementRef.nativeElement.tagName === 'BUTTON';
-        }
         if (this.$params.useDefaultAvatar && this.$params.theme === 'avatar') {
             this.$params.iconPath = Params.defaultAvatar;
         }

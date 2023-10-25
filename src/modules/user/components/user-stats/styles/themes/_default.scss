@@ -167,6 +167,8 @@
 
             .wlc-btn--deposit {
                 margin: ef.get-value($themeDefault, 'btnMarginMobile');
+                border-radius: ef.get-value($themeDefault, 'btnRadiusMobile');
+                background: none;
             }
         }
 

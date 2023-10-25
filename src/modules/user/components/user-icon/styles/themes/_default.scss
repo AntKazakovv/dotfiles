@@ -64,17 +64,15 @@ div.wlc-user-icon--theme-default:host {
 
     .wlc-user-icon__btn {
         display: block;
-        width: ef.get-value($themeDefault, 'buttonSize');
-        height: ef.get-value($themeDefault, 'buttonSize');
-
         background: ef.get-value($themeDefault, 'buttonBg');
         border-radius: ef.get-value($themeDefault, 'buttonBorderRadius');
         box-shadow: ef.get-value($themeDefault, 'buttonShadow');
-        cursor: pointer;
 
-        .wlc-user-icon__user {
-            width: ef.get-value($themeDefault, 'buttonSize');
-            height: ef.get-value($themeDefault, 'buttonSize');
+        ::ng-deep .wlc-icon {
+
+            path {
+                fill: ef.get-value($themeDefault, 'dropdownIconInnerFill');
+            }
         }
     }
 }

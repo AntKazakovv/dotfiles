@@ -1,4 +1,15 @@
-<span [ngClass]="$params.showAsBtn ? $class + '__btn' : ''">
+<ng-template [ngIf]="$params.showAsBtn" [ngIfElse]="default">
+    <button wlc-button
+        class="{{$class}}__btn"
+        theme='cleared'
+        themeMod='secondary'
+        customMod='user'
+        [animation]="$params.animation"
+        [iconPath]="$params.iconPath">
+    </button>
+</ng-template>
+
+<ng-template #default>
     <span wlc-icon
         class="{{$class}}__user"
         [iconPath]="$params.iconPath"
@@ -10,4 +21,4 @@
         iconPath="/wlc/icons/arrow.svg"
         wlcElement="icon_arrow">
     </span>
-</span>
+</ng-template>

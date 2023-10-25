@@ -1,6 +1,7 @@
 import {
     IComponentParams,
     CustomType,
+    TButtonAnimation,
 } from 'wlc-engine/modules/core';
 
 export type ComponentTheme = 'default' | 'avatar' | CustomType;
@@ -17,6 +18,7 @@ export interface IUserIconCParams extends IComponentParams<ComponentTheme, Compo
     iconPath?: string,
     showAsBtn?: boolean;
     useDefaultAvatar?: boolean;
+    animation?: TButtonAnimation;
 };
 
 export const defaultParams: IUserIconCParams = {
