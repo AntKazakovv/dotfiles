@@ -101,7 +101,7 @@ export class AdditionalFieldsControllerM implements IAdditionalFieldsControllerM
             parsParam: any;
 
         try {
-            parsParam = eval(param);
+            parsParam = JSON.parse(param);
         } catch {
             parsParam = param;
         }

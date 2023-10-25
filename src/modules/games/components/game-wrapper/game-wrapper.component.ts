@@ -467,7 +467,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             disable: false,
         });
         if (!result.disable) {
-            eval(this.launchInfo?.gameScript);
+            (new Function(this.launchInfo?.gameScript))();
         }
     }
 

@@ -77,6 +77,8 @@ module.exports = {
         ],
         '@typescript-eslint/object-curly-spacing': ['error', 'never'],
         'import/no-cycle': 'error',
+        'no-eval': 'error',
+        'no-implied-eval': 'error',
     },
     overrides: [
         {
