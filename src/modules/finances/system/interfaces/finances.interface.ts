@@ -3,6 +3,7 @@ import {
     ValidatorType,
 } from 'wlc-engine/modules/core';
 import {IPaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
+import {TPaymentsMethods} from 'wlc-engine/modules/finances/system/interfaces/piq-cashier.interface';
 
 export interface IFinancesConfig {
     fastDeposit: IFastDeposit;
@@ -40,12 +41,36 @@ export interface ITransactionHistoryAlert {
     text?: string,
 }
 
+export type IAmountCustomValidators = Record<TPaymentsMethods, ValidatorType[]>
+
 export interface IFieldsSettings {
     /**
      * Additional fields settings
      * `key` - key of additional field
      */
     additional?: IIndexing<IAdditionalFieldConfig>;
+    amount?: {
+        /** Custom validators for amount field.
+         * How to use:
+         * 1. Define your custom validation function in $base.forms.customValidators
+         * 2. Set name of your custom function in $finances.fieldSettings.amount
+         * 3. Add translates for new errors
+         *
+         * @example
+         * // $base.forms
+         * customValidators: {
+         *     customValidationFnDep: (control) => {
+         *        return (Number(control.value) % 10) ? {'multiple': true} : null;
+         *     },
+         * }
+         *
+         * // $finances.fieldsSettings.amount
+         * customValidators: {
+         *      deposit: ['customValidationFnDep']
+         * }
+        */
+        customValidators?: Partial<IAmountCustomValidators>;
+    }
 }
 
 export interface IAdditionalFieldConfig {

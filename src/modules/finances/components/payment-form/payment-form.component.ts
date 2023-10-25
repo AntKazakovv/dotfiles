@@ -66,6 +66,7 @@ import {
     IModalConfig,
     DateHelper,
     ColorThemeValues,
+    ValidatorType,
 } from 'wlc-engine/modules/core';
 import {UserInfo, UserService} from 'wlc-engine/modules/user';
 import {DateTime} from 'luxon';
@@ -90,7 +91,6 @@ import {
 } from 'wlc-engine/modules/finances/system/models';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services/finances/finances.service';
 
-import * as Params from './payment-form.params';
 import {Bonus} from 'wlc-engine/modules/bonuses';
 import {ISelectOptions} from 'wlc-engine/modules/profile';
 import {IAmountLimitCParams} from 'wlc-engine/modules/core/components/amount-limit/amount-limit.params';
@@ -103,6 +103,8 @@ import {
     AbstractDepositWithdrawComponent,
 } from 'wlc-engine/modules/finances/system/classes/abstract.deposit-withdraw.component';
 import {IPaymentMessageCParams} from 'wlc-engine/modules/finances/components/payment-message/payment-message.params';
+
+import * as Params from './payment-form.params';
 
 type TCryptoInfo = 'msg1' | 'msg2' | 'msg3';
 type THostedStyles = 'current' | 'def' | 'alt';
@@ -944,6 +946,13 @@ export class PaymentFormComponent
         let showLimits: boolean = false;
 
         _set(amount, 'params.currency', this.currentCurrency);
+
+        const customValidators: ValidatorType[] =
+            this.configService.get<ValidatorType[]>(`$finances.fieldsSettings.amount.customValidators[${this.mode}]`);
+
+        if (customValidators) {
+            amount.params.validators.push(...customValidators);
+        }
 
         if (this.currentSystem && !this.isInvoicePending) {
             this.setAmountValidators(amount);
