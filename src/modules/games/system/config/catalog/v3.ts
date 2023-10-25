@@ -91,9 +91,26 @@ export const catalogArch3 = new CatalogBuilder()
 
                     _forEach(childCategories, (category: CategoryModel): void => {
                         if (category.isHidden) {
-                            hiddenCategories.push(category);
+                            const newChildCategory: CategoryModel = _cloneDeep(category);
+
+                            const games = _filter(options.availableGames, (game: Game) => {
+                                if (parentCategory.slug === 'casino') {
+                                    return _includes(game.categoryID, category.id)
+                                        && !_includes(game.categoryID, livecasinoCategory?.id);
+                                } else {
+                                    return _includes(game.categoryID, category.id)
+                                        && _includes(game.categoryID, parentCategory.id);
+                                }
+                            });
+
+                            if (games.length) {
+                                newChildCategory.setGames(games);
+                            }
+
+                            hiddenCategories.push(newChildCategory);
                             return;
                         }
+
                         if (category.isFavourites || category.isLastPlayed) {
                             const newChildCategory: CategoryModel = _cloneDeep(category);
                             newChildCategory.setParentCategory(parentCategory);
@@ -105,7 +122,7 @@ export const catalogArch3 = new CatalogBuilder()
                         const games = _filter(options.availableGames, (game: Game) => {
                             if (parentCategory.slug === 'casino') {
                                 return _includes(game.categoryID, category.id)
-                                    && !_includes(game.categoryID, livecasinoCategory.id);
+                                    && !_includes(game.categoryID, livecasinoCategory?.id);
                             } else {
                                 return _includes(game.categoryID, category.id)
                                     && _includes(game.categoryID, parentCategory.id);

@@ -25,7 +25,7 @@ export const catalogState: Ng2StateDeclaration = {
             await gamesCatalogService.ready;
 
             const category: CategoryModel = gamesCatalogService.getCategoryBySlug(categorySlug);
-            return category.isLastPlayed || category.isFavourites;
+            return category?.isLastPlayed || category?.isFavourites;
         }),
     ],
     onEnter: async (transition: Transition) => {
