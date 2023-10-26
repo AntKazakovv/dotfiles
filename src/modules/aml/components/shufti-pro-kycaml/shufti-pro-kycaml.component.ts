@@ -97,12 +97,17 @@ export class ShuftiProKycamlComponent extends AbstractComponent implements OnIni
     }
 
     public async requestSession(): Promise<void> {
-        this.data = await this.shuftiProKycamlService.createData();
-        this.verify$.next(true);
-        await this.processData();
 
-        this.showBtn = false;
-        this.cdr.markForCheck();
+        this.data = await this.shuftiProKycamlService.createData();
+
+        if (this.data) {
+            this.verify$.next(true);
+            await this.processData();
+            this.showBtn = false;
+            this.cdr.markForCheck();
+        } else {
+            this.error = true;
+        }
     }
 
     protected setReady(): void {
@@ -111,6 +116,10 @@ export class ShuftiProKycamlComponent extends AbstractComponent implements OnIni
     }
 
     protected async processData(): Promise<void> {
+
+        if (!this.data?.service) {
+            return;
+        }
 
         switch (this.data.service) {
             case 'SumSub':

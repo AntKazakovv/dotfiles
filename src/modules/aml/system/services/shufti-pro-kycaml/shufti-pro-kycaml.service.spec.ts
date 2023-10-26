@@ -2,7 +2,10 @@ import {TestBed} from '@angular/core/testing';
 
 import {MockService} from 'ng-mocks';
 
-import {DataService} from 'wlc-engine/modules/core';
+import {
+    DataService,
+    EventService,
+} from 'wlc-engine/modules/core';
 import {ShuftiProKycamlService} from './shufti-pro-kycaml.service';
 
 describe('ShuftiProKycamlService', () => {
@@ -14,6 +17,10 @@ describe('ShuftiProKycamlService', () => {
                 {
                     provide: DataService,
                     useValue: MockService(DataService),
+                },
+                {
+                    provide: EventService,
+                    useValue: MockService(EventService),
                 },
                 ShuftiProKycamlService,
             ],

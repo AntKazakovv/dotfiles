@@ -36,7 +36,7 @@
 </ng-container>
 
 <ng-container *ngIf="verify$ | async">
-    <ng-container [ngSwitch]="data.service">
+    <ng-container [ngSwitch]="data?.service">
         <ng-container *ngSwitchCase="'SumSub'">
             <div class="{{$class}}__iframe-container" #sumsubwebsdk></div>
         </ng-container>
