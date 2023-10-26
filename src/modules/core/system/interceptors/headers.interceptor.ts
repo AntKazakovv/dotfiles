@@ -89,7 +89,7 @@ export class HeadersInterceptor implements HttpInterceptor {
                 (event) => {
                     if (event instanceof HttpResponse
                         && this.useJwtToken
-                        && req.url.includes('/api/v1/auth')
+                        && (req.url === '/api/v1/auth' || req.url === '/api/v1/auth/refreshToken')
                     ) {
                         const jwtToken: string = _get(event, 'body.data.result.jwtToken', '');
                         const jwtRefreshToken: string = _get(event, 'body.data.result.refreshToken', '');

@@ -456,6 +456,7 @@ export class DataService {
             method.retries.count = _reverse(method.retries.count);
         }
         let countLength = method.retries.count.length;
+        let jwtRetriesCount = 1;
         let notCacheStaticData = true;
 
         return preloadData$.pipe(
@@ -482,31 +483,38 @@ export class DataService {
                                 }
 
                                 if (error.status === 401
-                                    && this.configService.get<boolean>('$base.site.useJwtToken')) {
+                                    && this.configService.get<boolean>('$base.site.useJwtToken')
+                                ) {
+                                    if (jwtRetriesCount > 0) {
+                                        jwtRetriesCount--;
 
-                                    const jwtRefreshToken: string = this.configService.get({
-                                        name: 'jwtAuthRefreshToken',
-                                        storageType: 'localStorage',
-                                    });
+                                        const jwtRefreshToken: string = this.configService.get({
+                                            name: 'jwtAuthRefreshToken',
+                                            storageType: 'localStorage',
+                                        });
 
-                                    if (jwtRefreshToken) {
+                                        if (jwtRefreshToken) {
 
-                                        return from(this.request({
-                                            name: 'refreshJwtToken',
-                                            system: 'user',
-                                            url: '/auth/refreshToken',
-                                            type: 'PUT',
-                                            events: {
-                                                success: 'REFRESH_JWT_TOKEN',
-                                                fail: 'REFRESH_JWT_TOKEN_ERROR',
-                                            },
-                                        }, {token: jwtRefreshToken})).pipe(
-                                            catchError(() => of('')),
-                                            map(() => error),
-                                        );
+                                            return from(this.request({
+                                                name: 'refreshJwtToken',
+                                                system: 'user',
+                                                url: '/auth/refreshToken',
+                                                type: 'PUT',
+                                                events: {
+                                                    success: 'REFRESH_JWT_TOKEN',
+                                                    fail: 'REFRESH_JWT_TOKEN_ERROR',
+                                                },
+                                            }, {token: jwtRefreshToken})).pipe(
+                                                catchError(() => {
+                                                    this.configService.updateJwtTokens(null, null);
+                                                    return of('');
+                                                }),
+                                                map(() => error),
+                                            );
+                                        }
                                     }
+                                    this.configService.updateJwtTokens(null, null);
                                 }
-
                                 return throwError(error);
                             }),
                         )))
