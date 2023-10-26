@@ -6,7 +6,11 @@ import {
     OnDestroy,
     OnInit,
 } from '@angular/core';
-import {UIRouter} from '@uirouter/core';
+
+import {
+    StateService,
+    UIRouter,
+} from '@uirouter/core';
 
 import {
     AbstractComponent,
@@ -84,6 +88,7 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
         protected hooksService: HooksService,
         protected modalService: ModalService,
         protected router: UIRouter,
+        protected stateService: StateService,
         @Inject(WINDOW) protected window: Window,
     ) {
         super(
@@ -177,9 +182,9 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
             {name: 'LOGIN'},
             {name: 'LOGOUT'},
         ], () => {
-            this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
-            this.initGameConfig();
-            this.cdr.detectChanges();
+            setTimeout(()=> {
+                this.stateService.reload();
+            }, 0);
         }, this.$destroy);
     }
 }

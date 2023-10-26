@@ -21,13 +21,7 @@ import _includes from 'lodash-es/includes';
 import _union from 'lodash-es/union';
 import _toNumber from 'lodash-es/toNumber';
 import _isEmpty from 'lodash-es/isEmpty';
-import _cloneDeep from 'lodash-es/cloneDeep';
 
-import {
-    formFieldTemplates,
-    FormElements,
-} from 'wlc-engine/modules/core/system/config/form-elements';
-import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {HooksService} from 'wlc-engine/modules/core/system/services/hooks/hooks.service';
@@ -44,7 +38,6 @@ import {Deferred} from 'wlc-engine/modules/core/system/classes/deferred.class';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {IFreeRound} from 'wlc-engine/modules/core/system/interfaces/loyalty.interface';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
-import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 import {
     Bonus,
     BonusesService,
@@ -55,18 +48,14 @@ import {
     IDisablePlayRealByCountry,
     IGamesFilterData,
     IPlayGameForRealCParams,
-    MerchantFieldsService,
     GamesCatalogService,
 } from 'wlc-engine/modules/games';
 import {
     UserInfo,
-    IAddProfileInfoCParams,
-    UserHelper,
-    UserProfile,
     UserService,
 } from 'wlc-engine/modules/user';
-import {AddProfileInfoComponent} from 'wlc-engine/modules/user/components/add-profile-info';
 import {AppType} from 'wlc-engine/modules/core/system/interfaces/base-config/app.interface';
+import {BaseGamesHandler} from './games-handler.base';
 
 export interface IHookGameStartData {
     game: Game;
@@ -97,10 +86,8 @@ export const startGameResolver: ResolveTypes = {
         Transition,
         EventService,
         InjectionService,
-        GamesFilterService,
         StateHistoryService,
         HooksService,
-        ActionService,
     ],
     resolveFn: (
         configService: ConfigService,
@@ -111,10 +98,8 @@ export const startGameResolver: ResolveTypes = {
         transition: Transition,
         eventService: EventService,
         injectionService: InjectionService,
-        gamesFilterService: GamesFilterService,
         stateHistoryService: StateHistoryService,
         hooksService: HooksService,
-        actionService: ActionService,
     ) => {
         return new StartGameHandler(
             configService,
@@ -125,47 +110,55 @@ export const startGameResolver: ResolveTypes = {
             transition,
             eventService,
             injectionService,
-            gamesFilterService,
             stateHistoryService,
             hooksService,
-            actionService,
         ).result.promise;
     },
 };
 
-class StartGameHandler {
+class StartGameHandler extends BaseGamesHandler {
     public result = new Deferred();
-    private isDemo: boolean = false;
-    private authenticated: boolean = false;
-    private realPlayDisabled: boolean = false;
-    private realPlayDisabledByCountry: boolean = false;
-    private checkProfileRequiredFields: boolean = false;
-    private merchantId: number;
-    private game: Game;
-    private filterCacheCleared$ = new Deferred();
-    private gamesCatalogService: GamesCatalogService;
-    private merchantFieldsService: MerchantFieldsService;
-    private merchantsWithOwnWallet: number[];
-    private previousState: StateObject;
+    protected isDemo: boolean = false;
+    protected authenticated: boolean = false;
+    protected realPlayDisabled: boolean = false;
+    protected realPlayDisabledByCountry: boolean = false;
+    protected checkProfileRequiredFields: boolean = false;
+    protected game: Game;
+    protected filterCacheCleared$ = new Deferred();
+    protected gamesCatalogService: GamesCatalogService;
+    protected gamesFilterService: GamesFilterService;
+    protected merchantsWithOwnWallet: number[];
+    protected previousState: StateObject;
 
     constructor(
-        private configService: ConfigService,
-        private logService: LogService,
-        private stateService: StateService,
-        private router: UIRouter,
-        private modalService: ModalService,
-        private transition: Transition,
-        private eventService: EventService,
-        private injectionService: InjectionService,
-        private gamesFilterService: GamesFilterService,
-        private stateHistoryService: StateHistoryService,
-        private hooksService: HooksService,
-        private actionService: ActionService,
+        configService: ConfigService,
+        protected logService: LogService,
+        protected stateService: StateService,
+        protected router: UIRouter,
+        modalService: ModalService,
+        transition: Transition,
+        protected eventService: EventService,
+        injectionService: InjectionService,
+        protected stateHistoryService: StateHistoryService,
+        protected hooksService: HooksService,
     ) {
-        this.init();
+        super(
+            configService,
+            modalService,
+            transition,
+            injectionService,
+        );
     }
 
-    private async init(): Promise<void> {
+    protected override async init(): Promise<void> {
+        await super.init();
+
+        this.modalProfileInfo.onModalHide = () => {
+            if (!this.router.globals.current.name) {
+                this.stateService.go('app.home', this.transition.params());
+            }
+        };
+
         const params = this.transition.params();
         if (!_isEmpty(params.demo) && params.demo !== 'true') {
             this.stateService.go(this.transition.to(), _assign({}, params, {demo: null}));
@@ -177,8 +170,8 @@ class StartGameHandler {
         await this.configService.ready;
         this.gamesCatalogService = await this.injectionService
             .getService<GamesCatalogService>('games.games-catalog-service');
-        this.merchantFieldsService = await this.injectionService
-            .getService<MerchantFieldsService>('games.merchant-fields-service');
+        this.gamesFilterService = await this.injectionService
+            .getService<GamesFilterService>('games.games-filter-service');
 
         try {
             await this.gamesCatalogService.ready;
@@ -299,7 +292,6 @@ class StartGameHandler {
         this.realPlayDisabled = !!(this.configService.get<boolean>('$games.realPlay.disable')
             || this.configService.get<boolean>('appConfig.siteconfig.RestrictMoneyGames'));
         this.checkProfileRequiredFields = this.configService.get<boolean>('$games.run.checkProfileRequiredFields');
-        this.merchantId = _toNumber(this.transition.params().merchantId);
         this.merchantsWithOwnWallet = this.configService.get<number[]>('$games.merchantWallet.availableMerchants');
         this.setRealPlayDisabledByCountry();
     }
@@ -531,67 +523,6 @@ class StartGameHandler {
             return false;
         }
         return game.restrictedByBonuses(activeBonuses);
-    }
-
-    /**
-     * Check user fields
-     *
-     * @returns {Promise}
-     */
-    private checkUserFields(): Promise<void> {
-        const defered = new Deferred<void>();
-
-        this.merchantFieldsService.checkRequiredFields(this.merchantId).then((): void => {
-            defered.resolve();
-        }, async (emptyFields: string[]): Promise<void> => {
-            const components: IFormComponent[] = [];
-
-            if (emptyFields.length > 1) {
-                emptyFields.sort((a, b) => formFieldTemplates[a].displayOrder - formFieldTemplates[b].displayOrder);
-            }
-
-            emptyFields.forEach((field) => {
-                const templateName: string = formFieldTemplates[field]?.template;
-                const component: IFormComponent = _cloneDeep(FormElements[templateName]);
-                UserHelper.setValidatorRequired(templateName, component);
-                components.push(component);
-            });
-
-            const userProfile: UserProfile = await firstValueFrom(
-                this.configService.get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
-                    .pipe(first(v => !!v?.idUser)),
-            );
-            if (!await this.configService.get<Promise<boolean>>('$user.skipPasswordOnFirstUserSession')
-                && userProfile.type !== 'metamask'
-            ) {
-                components.push(FormElements.password);
-            }
-
-            components.push(FormElements.submit);
-
-            this.modalService.showModal({
-                id: 'add-profile-info',
-                modifier: 'add-profile-info',
-                component: AddProfileInfoComponent,
-                componentParams: <IAddProfileInfoCParams>{
-                    formConfig: {
-                        components,
-                    },
-                    redirect: {
-                        success: {
-                            to: this.transition.$to(),
-                            params: this.transition.params(),
-                        },
-                    },
-                },
-                showFooter: false,
-                dismissAll: true,
-                backdrop: 'static',
-            });
-
-            defered.reject(RejectReason.EmptyRequiredFields);
-        });
-        return defered.promise;
     }
 
     private showErrorNotification(

@@ -4,15 +4,17 @@ import {
     Ng2StateDeclaration,
     Transition,
 } from '@uirouter/angular';
+
+import {sportsbookResolver} from 'wlc-engine/modules/core/system/config/resolvers';
 import {
     IIndexing,
     InjectionService,
 } from 'wlc-engine/modules/core';
+
 import {
     SportsbookService,
     ISportsbookSettings,
 } from 'wlc-engine/modules/sportsbook';
-
 import _assign from 'lodash-es/assign';
 
 const getCustomState = (sportsbookId: string): Ng2StateDeclaration => {
@@ -34,6 +36,9 @@ export const sportsbookIdByState: IIndexing<string> = {
 
 export const sportsbookState: Ng2StateDeclaration = {
     url: '/sportsbook/:page/:page2/:page3/:page4/:page5/:page6/:page7',
+    resolve: [
+        sportsbookResolver,
+    ],
     params: {
         page: {
             value: '',

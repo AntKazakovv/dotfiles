@@ -239,7 +239,9 @@ export class TermsAcceptService {
 
     private onBeforeHook(): Function {
         return this.router.transitionService.onBefore({}, async (trans: Transition) => {
-            if (!this.checkState(trans.to().name, trans.params())) {
+            if (this.configService.get<boolean>('$user.isAuthenticated')
+                && !this.checkState(trans.to().name, trans.params())
+            ) {
                 const userInfo: UserInfo = await firstValueFrom(
                     this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'})
                         .pipe(first((userInfo: UserInfo): boolean => !!userInfo?.idUser)),

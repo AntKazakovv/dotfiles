@@ -50,6 +50,7 @@ import {FavouriteButtonComponent} from './components/favourite-button/favourite-
 import * as $config from 'wlc-config/index';
 
 import {GamesSliderComponent} from './components/games-slider/games-slider.component';
+import {GamesFilterService} from 'wlc-engine/modules/games/system/services/games-filter.service';
 
 export const moduleConfig =
     GlobalHelper.mergeConfig<IGamesConfig>(gamesConfig, _get($config, '$games', {}));
@@ -82,6 +83,7 @@ export const services = {
     'games-catalog-service': GamesCatalogService,
     'merchant-fields-service': MerchantFieldsService,
     'merchant-wallet-service': MerchantWalletService,
+    'games-filter-service': GamesFilterService,
 };
 
 @NgModule({
