@@ -51,10 +51,10 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
     public showFilter: boolean = false;
     public override $params: Params.IBonusesHistoryCParams;
     public tableData: ITableCParams;
-    public filterSelect: ISelectCParams<TBonusFilter> = bonusesConfig.filterSelect;
+    public filterSelect: ISelectCParams<keyof typeof TBonusFilter> = bonusesConfig.filterSelect;
     public bonuses$: BehaviorSubject<BonusHistoryItemModel[]> = new BehaviorSubject([]);
 
-    protected filterValue: TBonusFilter = 'all';
+    protected filterValue: keyof typeof TBonusFilter = 'all';
     protected allBonuses: BonusHistoryItemModel[] = [];
     protected historyFilterService: HistoryFilterService;
 
@@ -126,13 +126,13 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
         this.historyFilterService.getFilter('bonus')
             .pipe(
                 filter(
-                    (data: IHistoryFilterValue<TBonusFilter>): boolean => {
+                    (data: IHistoryFilterValue<keyof typeof TBonusFilter>): boolean => {
                         return !!data && this.filterValue !== data.filterValue;
                     },
                 ),
                 takeUntil(this.$destroy),
             )
-            .subscribe((data: IHistoryFilterValue<TBonusFilter>): void => {
+            .subscribe((data: IHistoryFilterValue<keyof typeof TBonusFilter>): void => {
                 this.filterSelect.control.setValue(this.filterValue = data.filterValue);
                 this.bonuses$.next(this.bonusesFilter());
                 this.cdr.detectChanges();
@@ -164,11 +164,11 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
     protected filterHandlers(): void {
         this.filterSelect.control.valueChanges
             .pipe(
-                filter((filterValue: TBonusFilter): boolean => this.filterValue !== filterValue),
+                filter((filterValue: keyof typeof TBonusFilter): boolean => this.filterValue !== filterValue),
                 takeWhile(() => this.showFilter),
                 takeUntil(this.$destroy),
             )
-            .subscribe((filterValue: TBonusFilter): void => {
+            .subscribe((filterValue: keyof typeof TBonusFilter): void => {
                 this.historyFilterService.setFilter('bonus', {
                     filterValue: this.filterValue = filterValue,
                 });

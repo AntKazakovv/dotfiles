@@ -25,7 +25,7 @@ export class HistoryFilterService {
         transaction: new BehaviorSubject<IHistoryFilter<TTransactionFilter>>(null),
         bet: new BehaviorSubject<IHistoryFilter>(null),
         tournaments: new BehaviorSubject<IHistoryFilterValue<TTournamentsFilter>>(null),
-        bonus: new BehaviorSubject<IHistoryFilterValue<TBonusFilter>>(null),
+        bonus: new BehaviorSubject<IHistoryFilterValue<typeof TBonusFilter>>(null),
         mails: new BehaviorSubject<IHistoryFilter>(null),
     };
     protected historyDefault: IHistoryDefault = {

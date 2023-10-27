@@ -155,7 +155,7 @@ export namespace tournamentConfig {
 }
 
 export namespace bonusesConfig {
-    export const filterSelect: ISelectCParams<TBonusFilter> = {
+    export const filterSelect: ISelectCParams<keyof typeof TBonusFilter> = {
         name: 'filterValue',
         common: {
             placeholder: gettext('Sort by'),
@@ -177,8 +177,32 @@ export namespace bonusesConfig {
                 title: gettext('Canceled'),
             },
             {
-                value: '100',
-                title: gettext('Wagered'),
+                value: '90',
+                title: gettext('Canceled (insufficient balance)'),
+            },
+            {
+                value: '-102',
+                title: gettext('Not used'),
+            },
+            {
+                value: '-50',
+                title: gettext('Canceled by administrator'),
+            },
+            {
+                value: '-101',
+                title: gettext('Unsubscribed'),
+            },
+            {
+                value: '0',
+                title: gettext('Subscribed'),
+            },
+            {
+                value: '1',
+                title: gettext('Activated'),
+            },
+            {
+                value: '2',
+                title: gettext('Inventoried'),
             },
         ],
     };

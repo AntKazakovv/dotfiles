@@ -1,3 +1,5 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+
 :host {
 
     .wlc-history-name {
@@ -7,6 +9,10 @@
 
             .wlc-table--table & {
                 display: none;
+            }
+
+            @include mq.max(640) {
+                text-align: right;
             }
         }
     }

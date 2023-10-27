@@ -8,6 +8,7 @@ import {
     GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {IBonusHistory} from 'wlc-engine/modules/history/system/interfaces/bonus-history/bonus-history.interface';
+import {TBonusFilter} from 'wlc-engine/modules/history/system/interfaces/history-filter.interface';
 import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
 
 export class BonusHistoryItemModel extends AbstractModel<IBonusHistory> {
@@ -73,20 +74,7 @@ export class BonusHistoryItemModel extends AbstractModel<IBonusHistory> {
     }
 
     protected modifyData(historyItem: any): any {
-        switch (historyItem.Status) {
-            case '-100': {
-                historyItem.StatusName = 'Expired';
-                break;
-            }
-            case '-99': {
-                historyItem.StatusName = 'Canceled';
-                break;
-            }
-            case '100': {
-                historyItem.StatusName = 'Wagered';
-                break;
-            }
-        }
+        historyItem.StatusName = TBonusFilter[historyItem.Status];
 
         return historyItem;
     }
