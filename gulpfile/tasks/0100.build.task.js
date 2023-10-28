@@ -85,6 +85,7 @@ module.exports = function buildTask() {
     });
 
     task('dev', series(
+        'check-manifest',
         'build:prepare',
         'prepare:dev',
         'build:symlinkHeadFile',
