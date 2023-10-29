@@ -18,6 +18,20 @@ declare interface ISentryConfig {
     project?: string;
 }
 
+/*
+     * Betradar parameters for navigation to the window object.
+     * These parameters will be used when loading iframe page.
+     */
+declare interface IBetradar {
+    SPORTSBOOK_URL_PATH?: string[],
+    SPORTSBOOK_URL_QUERY_PARAMS?: {
+        [key: string]: string;
+    },
+    SPORTSBOOK_CUSTOM_CSS?: string,
+    SPORTSBOOK_CUSTOM_CONFIG?: string,
+    SPORTSBOOK_THEME?: string,
+}
+
 declare interface IDigitainNavigateEvent {
     /** id of selected match game */
     targetId: number;
@@ -130,7 +144,7 @@ declare namespace universalLinks {
     }
 }
 
-declare interface Window extends TAnalyticMethod {
+declare interface Window extends TAnalyticMethod, IBetradar {
     WLC_VERSION: number;
     WLC_ENV?: string;
     WLC_FORBIDDEN?: boolean;
