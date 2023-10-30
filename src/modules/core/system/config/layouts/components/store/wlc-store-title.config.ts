@@ -30,6 +30,9 @@ export namespace wlcStoreTitle {
                         customMod: ['profile'],
                         wlcElement: 'header_store',
                         type: 'store-category',
+                        common: {
+                            text: gettext('All goods'),
+                        },
                     },
                 },
             ],
