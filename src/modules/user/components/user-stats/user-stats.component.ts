@@ -42,7 +42,7 @@ export interface IUserStatsItem extends Params.IUserStatsItemConfig {
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserStatsComponent extends AbstractComponent implements OnInit, OnDestroy {
-    @Input() public type: string = 'default';
+    @Input() public type: Params.ComponentType = 'default';
     @Input() public useDepositBtn: boolean = true;
     @Input() public inlineParams: Params.IUserStatsCParams;
     public override $params: Params.IUserStatsCParams;
@@ -121,6 +121,9 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
     protected prepareParams(): Params.IUserStatsCParams {
         if (this.injectParams?.type) {
             this.type = this.injectParams.type;
+        }
+        if (this.inlineParams?.type) {
+            this.type = this.inlineParams.type;
         }
         return this.inlineParams;
     }

@@ -6,7 +6,7 @@ import {IIndexing} from 'wlc-engine/modules/core';
 import * as ButtonParams from 'wlc-engine/modules/core/components/button/button.params';
 
 export type ComponentTheme = 'default' | 'wolf' | CustomType;
-export type ComponentType = 'default' | CustomType;
+export type ComponentType = 'default' | 'short' | 'mobile' | 'store' | 'wolf' | CustomType;
 export type ComponentThemeMod = 'default' | 'mobile-app' | CustomType;
 
 export interface IUserStatsCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {

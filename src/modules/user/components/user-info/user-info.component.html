@@ -2,7 +2,7 @@
     <div *ngIf="!isMultiWallet"
          wlc-user-stats
          class="{{$class}}-short"
-         [type]="'short'">
+         [inlineParams]="$params.userStatsParams">
     </div>
     <div *ngIf="isMultiWallet"
          wlc-wrapper

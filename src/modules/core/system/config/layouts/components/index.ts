@@ -29,6 +29,7 @@ export * from './user/wlc-user-name.config';
 export * from './user/wlc-user-limitations.config';
 export * from './user/wlc-social.config';
 export * from './user/wlc-sign-in-page-form.config';
+export * from './user/wlc-user-icon.config';
 
 export * from './promo/wlc-banners-slider.config';
 export * from './promo/wlc-slider.config';

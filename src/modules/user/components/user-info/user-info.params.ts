@@ -4,6 +4,7 @@ import {
     TButtonAnimation,
     ILayoutComponent,
 } from 'wlc-engine/modules/core';
+import {IUserStatsCParams} from 'wlc-engine/modules/user/components/user-stats/user-stats.params';
 
 export type ComponentTheme = 'default' | 'sticky' | CustomType;
 export type ComponentType = 'default' | CustomType;
@@ -20,6 +21,7 @@ export interface IUserInfoCParams extends IComponentParams<ComponentTheme, Compo
         components: ILayoutComponent[]
     }
     button?: IUserInfoButton,
+    userStatsParams?: IUserStatsCParams,
 }
 
 export const defaultParams: IUserInfoCParams = {
@@ -27,6 +29,9 @@ export const defaultParams: IUserInfoCParams = {
     moduleName: 'user',
     componentName: 'wlc-user-info',
     wlcElement: 'block_user-stat',
+    userStatsParams: {
+        type: 'short',
+    },
     button: {
         use: true,
         sref: 'app.profile.cash.deposit',
@@ -71,6 +76,9 @@ export const stickyThemeParams: IUserInfoCParams = {
     moduleName: 'user',
     componentName: 'wlc-user-info',
     wlcElement: 'block_user-stat',
+    userStatsParams: {
+        type: 'short',
+    },
     button: {
         use: true,
         sref: 'app.profile.cash.deposit',
@@ -112,6 +120,9 @@ export const kioskParams: IUserInfoCParams = {
     moduleName: 'user',
     componentName: 'wlc-user-info',
     wlcElement: 'block_user-stat',
+    userStatsParams: {
+        type: 'short',
+    },
     button: {
         use: false,
     },

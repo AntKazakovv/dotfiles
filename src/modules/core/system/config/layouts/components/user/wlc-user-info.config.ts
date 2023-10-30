@@ -36,4 +36,21 @@ export namespace wlcUserInfo {
             after: 1200,
         },
     };
+
+    export const headerWolf: ILayoutComponent = {
+        name: 'user.wlc-user-info',
+        params: <IUserInfoCParams> {
+            userStatsParams: {
+                theme: 'wolf',
+                type: 'wolf',
+            },
+            button: {
+                use: false,
+            },
+        },
+        display: {
+            auth: true,
+            after: 1200,
+        },
+    };
 }

@@ -199,55 +199,6 @@ export namespace wlcButton {
         },
     };
 
-    export const userIcon: ILayoutComponent = {
-        name: 'core.wlc-button',
-        display: {
-            auth: true,
-            before: 1023,
-        },
-        params: {
-            class: 'wlc-btn wlc-btn-user',
-            common: {
-                iconPath: '/wlc/icons/user-icon.svg',
-                sref: 'app.profile.cash.deposit',
-                event: {
-                    name: 'PANEL_OPEN',
-                    data: 'right',
-                },
-            },
-        },
-    };
-
-    export const userIconMobile: ILayoutComponent = {
-        name: 'user.wlc-user-icon',
-        display: {
-            auth: true,
-            before: 1199,
-        },
-        params: {
-            event: {
-                name: 'PANEL_OPEN',
-                data: 'right',
-            },
-            showAsBtn: true,
-        },
-    };
-
-    export const userIconKiosk: ILayoutComponent = {
-        name: 'user.wlc-user-icon',
-        display: {
-            auth: true,
-            before: 1199,
-        },
-        params: {
-            event: {
-                name: 'PANEL_OPEN',
-                data: 'right',
-            },
-            showAsBtn: true,
-        },
-    };
-
     export const profileButton: ILayoutComponent = {
         name: 'core.wlc-button',
         params: {

@@ -17,6 +17,14 @@
 
     .wlc-user-icon__btn {
         @extend %container;
+
+        ::ng-deep .wlc-icon {
+
+            svg,
+            path {
+                fill: currentColor;
+            }
+        }
     }
 }
 

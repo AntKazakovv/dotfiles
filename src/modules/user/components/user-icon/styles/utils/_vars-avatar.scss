@@ -1,6 +1,6 @@
 $customThemeAvatar: () !default;
 $themeAvatar: map-merge((
-    'iconFill': var(--mc-baseMain),
+    'iconFill': var(--mc-baseThird, #fff),
     'buttonSize': 40px,
     'buttonBg': ef.get('buttonSettings', 'background'),
     'buttonBgHover': var(--mc-baseMain),
