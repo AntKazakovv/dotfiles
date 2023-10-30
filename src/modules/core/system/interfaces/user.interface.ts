@@ -53,6 +53,7 @@ export interface IUserInfo {
     };
     /** Need to accept version of T&C */
     toSWlcVersion: TSQLDate;
+    transfersAllowed: boolean;
     /*Tags*/
     Tags?: IIndexing<string>;
     wallets?: IWalletObj;

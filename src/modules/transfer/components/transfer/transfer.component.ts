@@ -8,10 +8,11 @@ import {
 import {UntypedFormGroup} from '@angular/forms';
 
 import {TranslateService} from '@ngx-translate/core';
+import {StateService} from '@uirouter/core';
 import {BehaviorSubject} from 'rxjs';
 import {
     distinctUntilChanged,
-    map,
+    filter,
     takeUntil,
 } from 'rxjs/operators';
 import _find from 'lodash-es/find';
@@ -22,31 +23,30 @@ import _concat from 'lodash-es/concat';
 
 import {
     AbstractComponent,
-    EventService,
     ConfigService,
+    EventService,
     IFormWrapperCParams,
-    ModalService,
+    IInputCParams,
     IPushMessageParams,
-    NotificationEvents,
+    ITextBlockCParams,
     IValidatorSettings,
+    ModalService,
+    NotificationEvents,
 } from 'wlc-engine/modules/core';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
 import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
-import {
-    UserInfo,
-} from 'wlc-engine/modules/user';
+import {UserInfo} from 'wlc-engine/modules/user';
 import {TransferService} from 'wlc-engine/modules/transfer/system/services';
 import {
-    ITransferSendDataParams,
-    ITransferParams,
-    ITransferResponse,
+    TransferByEnum,
     ITransferLimits,
+    ITransferResponse,
+    ITransferSendDataParams,
 } from 'wlc-engine/modules/transfer/system/interfaces';
-import {
-    ITransferCodeFormCParams,
-    TransferCodeFormComponent,
-} from '../transfer-code-form/transfer-code-form.component';
+import {ITransferCodeFormCParams, TransferCodeFormComponent} from '../transfer-code-form/transfer-code-form.component';
+import {TransferModel} from 'wlc-engine/modules/transfer/system/models';
+
 import * as Params from './transfer.params';
 
 @Component({
@@ -63,7 +63,7 @@ export class TransferComponent extends AbstractComponent implements OnInit {
 
     private mainForm: UntypedFormGroup;
     private userBalance: number;
-    private transferParams: ITransferParams;;
+    private transfer: TransferModel;
     private smsEnabled: boolean;
 
     constructor(
@@ -74,6 +74,7 @@ export class TransferComponent extends AbstractComponent implements OnInit {
         protected modalService: ModalService,
         protected transferService: TransferService,
         protected translateService: TranslateService,
+        protected stateService: StateService,
     ) {
         super({
             injectParams: params,
@@ -86,21 +87,24 @@ export class TransferComponent extends AbstractComponent implements OnInit {
         this.smsEnabled = this.configService.get<boolean>('appConfig.smsEnabled');
         this.userDataSetSubscribers();
         try {
-            const result: ITransferParams = await this.transferService.getParams();
+            const transfer: TransferModel = await this.transferService.getTransferData();
             const bonusInfo: Bonus = await this.transferService.getBonusInfo();
-            if (result && bonusInfo) {
-                this.transferParams = result;
+            if (transfer && bonusInfo) {
+                this.transfer = transfer;
                 this.getInfoConfig(bonusInfo);
                 this.getMainFormConfig();
                 this.ready = true;
                 this.cdr.markForCheck();
             }
         } catch (error) {
-            if (error.errors) {
+            const isGiftsAllowed = this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'})
+                .getValue()?.transfersAllowed;
+            if (error.errors && isGiftsAllowed) {
                 this.showMessage(_concat(error.errors), true);
             } else {
                 this.showMessage(gettext('Something went wrong. Please contact with support service.'), true);
             }
+            this.goToDashboard();
         }
     }
 
@@ -113,9 +117,9 @@ export class TransferComponent extends AbstractComponent implements OnInit {
      */
     public async sendTransferData(form: UntypedFormGroup): Promise<boolean> {
         const params: ITransferSendDataParams = {
-            email: form.value.email || null,
+            email: form.value.recipient || null,
             amount: form.value.amount || null,
-            type: form.value.type || null,
+            type: form.value.type || 'email',
         };
         if (_find(params, (item: number | string): boolean => !item)) {
             form.markAllAsTouched();
@@ -128,8 +132,14 @@ export class TransferComponent extends AbstractComponent implements OnInit {
         form.disable();
         try {
             const response: ITransferResponse = await this.transferService.sendData(params);
-            if (response) {
+            if (response && !this.transfer.disableConfirmation) {
                 this.openCodeForm();
+            } else {
+                this.resetMainForm();
+                this.showMessage(
+                    this.translateService.instant(gettext('A gift for a friend has been successfully sent.' +
+                        ' The gift is available in a friend\'s bonus offers.')),
+                );
             }
             return true;
         } catch (error) {
@@ -199,12 +209,14 @@ export class TransferComponent extends AbstractComponent implements OnInit {
     private userDataSetSubscribers(): void {
         this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'})
             .pipe(
-                map((item: UserInfo): number => item?.realBalance),
-                distinctUntilChanged(),
+                filter((userInfo: UserInfo) => !!userInfo),
+                distinctUntilChanged((previous: UserInfo, current: UserInfo) =>
+                    previous.realBalance === current.realBalance,
+                ),
                 takeUntil(this.$destroy),
             )
-            .subscribe((balance: number): void => {
-                this.userBalance = balance;
+            .subscribe((userInfo: UserInfo): void => {
+                this.userBalance = userInfo.realBalance;
             });
     }
 
@@ -220,21 +232,74 @@ export class TransferComponent extends AbstractComponent implements OnInit {
     private getMainFormConfig(): void {
         const formConfig: IFormWrapperCParams = _cloneDeep(Params.transferFormConfigTop);
         formConfig.components.push(
-            this.getAmountConfig(),
-            Params.transferDivider,
-            ...Params.transferLastStepText,
-            this.getRadioBtnsConfig(),
-            Params.transferButton,
+            ...this.getRecipientsConfig(),
+            ...this.getAmountConfig(),
+            ...(this.transfer.disableConfirmation ?
+                [Params.submitButton] :
+                this.getConfirmationConfig()
+            ),
         );
         this.formConfig = formConfig;
     }
 
-    private getAmountConfig(): IFormComponent {
+    private getRecipientsConfig(): IFormComponent[] {
+        let recipientField = '';
+        let recipientValidator = '';
+        let recipientExampleValue = '';
+
+        switch (this.transfer.transferBy) {
+            case TransferByEnum.EMAIL:
+                recipientField = 'e-mail';
+                recipientValidator = 'email';
+                recipientExampleValue = 'example@mail.com';
+                break;
+            case TransferByEnum.ID:
+                recipientField = 'ID';
+                recipientValidator = 'userId';
+                recipientExampleValue = '';
+                break;
+            case TransferByEnum.EMAIL_OR_ID:
+            default:
+                recipientField = 'e-mail or ID';
+                recipientValidator = 'emailOrUserId';
+                recipientExampleValue = '';
+        }
+
+        return [
+            {
+                name: 'core.wlc-text-block',
+                params: <ITextBlockCParams>{
+                    common: {
+                        textBlockSubtitle: ['1.', gettext(`Enter the recipient\'s ${recipientField}`)],
+                    },
+                },
+            },
+            {
+                name: 'core.wlc-input',
+                params: <IInputCParams>{
+                    theme: 'vertical',
+                    common: {
+                        placeholder: gettext(`Recipient\’s ${recipientField}`),
+                    },
+                    locked: true,
+                    name: 'recipient',
+                    validators: [
+                        'required',
+                        recipientValidator,
+                    ],
+                    exampleValue: recipientExampleValue,
+                    wlcElement: 'block_recipient',
+                },
+            },
+        ];
+    }
+
+    private getAmountConfig(): IFormComponent[] {
         const amountConfig: IFormComponent = _cloneDeep(FormElements.amount);
         amountConfig.params.common.placeholder = gettext('Amount');
         const limits: ITransferLimits = {
-            min: +this.transferParams.MinOnce || 1,
-            max: +this.transferParams.MaxOnce || 10000,
+            min: this.transfer.minOnce,
+            max: this.transfer.maxOnce,
         };
 
         _forEach(amountConfig.params.validators, (val: IValidatorSettings | string): void => {
@@ -245,37 +310,53 @@ export class TransferComponent extends AbstractComponent implements OnInit {
             }
         });
 
-        return {
-            name: 'core.wlc-wrapper',
-            params: {
-                class: 'wlc-field-container',
-                components: [
-                    amountConfig,
-                    {
-                        name: 'core.wlc-wrapper',
-                        params: {
-                            class: 'wlc-amount-limit__wrap',
-                            components: [
-                                {
-                                    name: 'core.wlc-amount-limit',
-                                    params: {
-                                        minValue: limits.min,
-                                        maxValue: limits.max,
-                                        showLimits: true,
+        return [
+            Params.transferDivider,
+            Params.amountTitle,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-field-container',
+                    components: [
+                        amountConfig,
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-amount-limit__wrap',
+                                components: [
+                                    {
+                                        name: 'core.wlc-amount-limit',
+                                        params: {
+                                            minValue: limits.min,
+                                            maxValue: limits.max,
+                                            showLimits: true,
+                                        },
                                     },
-                                },
-                            ],
+                                ],
+                            },
                         },
-                    },
-                ],
+                    ],
+                },
             },
-        };
+        ];
     }
 
-    private getRadioBtnsConfig(): IFormComponent {
-        const radioConfig: IFormComponent = _cloneDeep(Params.transferRadioBtns);
-        radioConfig.params.items[1].disabled = !this.smsEnabled;
-        return radioConfig;
+    private getConfirmationConfig(): IFormComponent[] {
+        return [
+            Params.transferDivider,
+            {
+                name: 'core.wlc-text-block',
+                params: <ITextBlockCParams>{
+                    common: {
+                        textBlockSubtitle: ['3.', gettext('Confirmation')],
+                        textBlockText: gettext('To confirm this gift for a friend, we will send a verification code ' +
+                            `to your e-mail address${this.smsEnabled ? ' or phone number.' : '.'}`),
+                    },
+                },
+            },
+            ...(this.smsEnabled ? Params.transferRadioBtns : []),
+            Params.transferButton,
+        ];
     }
 
     private showMessage(text: string | string[], isError?: boolean): void {
@@ -292,7 +373,7 @@ export class TransferComponent extends AbstractComponent implements OnInit {
     }
 
     private resetMainForm(): void {
-        this.mainForm.controls.email.setValue('');
+        this.mainForm.controls.recipient.setValue('');
         this.mainForm.controls.amount.setValue('');
         this.mainForm.markAsUntouched();
     }
@@ -301,5 +382,9 @@ export class TransferComponent extends AbstractComponent implements OnInit {
         if (this.modalService.getActiveModal('transfer-code')) {
             this.modalService.hideModal('transfer-code');
         }
+    }
+
+    public goToDashboard(): void {
+        this.stateService.go('app.profile.dashboard');
     }
 }

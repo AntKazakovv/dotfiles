@@ -293,6 +293,10 @@ export class UserInfo extends AbstractModel<IUserInfo> {
         return this.data?.wallets;
     }
 
+    public get transfersAllowed(): boolean {
+        return this.data.transfersAllowed;
+    }
+
     protected override checkData(): void {
         //TODO AFTER RELEASE 13.11.2020
         /*if (!this.data?.status) {

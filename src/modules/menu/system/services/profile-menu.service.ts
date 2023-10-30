@@ -14,6 +14,13 @@ import _filter from 'lodash-es/filter';
 import _find from 'lodash-es/find';
 import _findIndex from 'lodash-es/findIndex';
 import _forEach from 'lodash-es/forEach';
+import {
+    BehaviorSubject,
+    firstValueFrom,
+} from 'rxjs';
+import {
+    filter,
+} from 'rxjs/operators';
 
 import {
     ConfigService,
@@ -39,6 +46,7 @@ import {
 } from 'wlc-engine/modules/store';
 import {Deferred} from 'wlc-engine/modules/core/system/classes/deferred.class';
 import {StoreCategory} from 'wlc-engine/modules/store/system/models/store-category';
+import {UserInfo} from 'wlc-engine/modules/user';
 
 import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
 import * as Config from 'wlc-engine/modules/menu/system/config/profile-menu.config';
@@ -61,7 +69,6 @@ export class ProfileMenuService {
     protected tabsMenu: IMenuItem[];
     protected subMenu: IIndexing<IMenuItem[]> = {};
     protected dropdownMenu: MenuItemObjectType[] = [];
-    protected useStore: boolean;
 
     constructor(
         protected configService: ConfigService,
@@ -234,12 +241,17 @@ export class ProfileMenuService {
      * @returns {Promise<void>}
      */
     protected async init(): Promise<void> {
-        this.initConfig();
-        this.useStore = this.configService.get<boolean>('$base.profile.store.use');
 
-        if (this.useStore) {
+        this.initConfig();
+
+        if (this.configService.get<boolean>('$base.profile.store.use')) {
             await this.prepareMarket();
         }
+
+        if (this.configService.get('$base.profile.transfers.use')) {
+            await this.prepareTransfer();
+        }
+
         this.readyStatus.resolve();
     }
 
@@ -247,6 +259,7 @@ export class ProfileMenuService {
      * Init config of menu
      */
     protected initConfig(): void {
+
         if (this.configService.get('$base.app.type') === 'kiosk') {
             this.profileMenuConfig =
                 this.configService.get<MenuParams.MenuConfigItem[]>('$menu.profileKioskMenu.items');
@@ -294,6 +307,40 @@ export class ProfileMenuService {
                 sum.push(item);
                 return sum;
             }, []);
+    }
+
+    protected async prepareTransfer(): Promise<void> {
+        const userInfo = await firstValueFrom(this.configService
+            .get<BehaviorSubject<UserInfo>>('$user.userInfo$')
+            .pipe(
+                filter((userInfo: UserInfo): boolean => !!userInfo),
+            ),
+        );
+
+        if (!userInfo.transfersAllowed) {
+            this.profileMenuConfig = _filter(this.profileMenuConfig, (item: MenuParams.MenuConfigItem) => {
+                if (_isString(item)) {
+                    const menuItem = Config.wlcProfileMenuItemsGlobal[item];
+                    return menuItem?.params?.state?.name !== 'app.profile.cash.transfer';
+                } else if ('parent' in item) {
+                    item.items = _filter(
+                        item.items,
+                        (childItem) => {
+                            if (_isString(childItem)) {
+                                const menuItem = Config.wlcProfileMenuItemsGlobal[childItem];
+                                return menuItem?.params?.state?.name !== 'app.profile.cash.transfer';
+                            }
+                        },
+                    );
+                    return !!item.items.length;
+                }
+            });
+
+            this.configService.set({
+                name: '$base.profile.transfers.use',
+                value: false,
+            });
+        }
     }
 
 }

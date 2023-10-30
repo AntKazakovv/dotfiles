@@ -16,3 +16,5 @@ gettext('validator-passwordMaxlength');
 gettext('validator-configPassword');
 gettext('validator-emailOrPhone');
 gettext('validator-tooManyRequests');
+gettext('validator-userId');
+gettext('validator-emailOrUserId');

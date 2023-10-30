@@ -34,7 +34,7 @@ describe('ValidationService', () => {
         'emailUnique', 'emailExist', 'loginUnique', 'password', 'requiredTrue',
         'minLength', 'maxLength', 'max', 'min', 'numberDecimal', 'pattern', 'allowLettersOnly', 'matchingFields',
         'email', 'onlyLetters', 'regExp', 'regexpEmoji', 'newPassword', 'required', 'loginEmail', 'login',
-        'passwordLength', 'emailOrPhone',
+        'passwordLength', 'emailOrPhone', 'userId', 'emailOrUserId',
     ];
 
     beforeEach(() => {

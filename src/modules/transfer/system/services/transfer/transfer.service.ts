@@ -13,9 +13,10 @@ import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {IBonus} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {
     ITransferSendDataParams,
-    ITransferParams,
+    ITransfer,
     ITransferResponse,
 } from 'wlc-engine/modules/transfer/system/interfaces';
+import {TransferModel} from 'wlc-engine/modules/transfer/system/models';
 
 @Injectable({
     providedIn: 'root',
@@ -35,14 +36,31 @@ export class TransferService {
      *
      * @return {Promise} response server response
      */
-    public async getParams(): Promise<ITransferParams> {
+    public async getTransferData(): Promise<TransferModel> {
         try {
-            const response: IData<ITransferParams> = await this.dataService.request('transfer/get');
-            return response.data;
+            const response: IData<ITransfer> = await this.dataService.request('transfer/get');
+            return this.modifyTransfer(response.data);
         } catch(error) {
             this.logService.sendLog({code: '27.0.2', data: error});
             return Promise.reject(error);
         }
+    }
+
+    /**
+     * Prepares transferModel from back-end data
+     *
+     * @returns {TransferModel} TransferModel object
+     *
+     */
+    private modifyTransfer(data: ITransfer): TransferModel {
+        if (!data) {
+            return;
+        }
+
+        return new TransferModel(
+            {service: 'TransferService', method: 'modifyTransfer'},
+            data,
+        );
     }
 
     /**
