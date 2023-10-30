@@ -407,7 +407,8 @@ export class ActionService {
                     type: 'error',
                     title: gettext('Unsubscribe not completed'),
                     message: [
-                        gettext('Error occured during unsibscribe'),
+                        gettext('An error has occurred. ' +
+                        'Log in to the site to unsubscribe from the mailing and try again'),
                     ],
                 },
             });
