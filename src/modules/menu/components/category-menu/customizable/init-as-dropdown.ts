@@ -2,7 +2,10 @@ import _forEach from 'lodash-es/forEach';
 import _filter from 'lodash-es/filter';
 import _isNil from 'lodash-es/isNil';
 
-import {MenuHelper} from 'wlc-engine/modules/menu';
+import {
+    MenuHelper,
+    MenuParams,
+} from 'wlc-engine/modules/menu';
 import {CategoryMenuComponent} from 'wlc-engine/modules/menu/components/category-menu/category-menu.component';
 import {TCustomizableFn} from 'wlc-engine/modules/menu/components/category-menu/category-menu.params';
 
@@ -85,7 +88,6 @@ export const initAsDropdownV2: TCustomizableFn = function (this: CategoryMenuCom
             },
         });
     }
-
     _forEach(parentCategories, (category): void => {
         const menuItems = MenuHelper.getItemsForCategories({
             categories: [category],
@@ -107,6 +109,12 @@ export const initAsDropdownV2: TCustomizableFn = function (this: CategoryMenuCom
                     fallback: this.fallBackIcon,
                 },
             });
+
+            if (this.gamesCatalogService.architectureVersion === 3) {
+                const allGamesBtn: MenuParams.IMenuItem = this.getAllGamesBtn(false, category);
+                childItems.unshift(allGamesBtn);
+            }
+
             dropdownMenu.push({
                 parent: menuItems[0],
                 items: childItems,

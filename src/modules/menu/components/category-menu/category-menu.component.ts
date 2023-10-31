@@ -280,9 +280,13 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
      * Get btn 'All games'
      *
      * @param {boolean} withoutParams Without params settings
+     * @param {CategoryModel} category category
      * @returns {IMenuItem}
      */
-    protected getAllGamesBtn(withoutParams: boolean = false): MenuParams.IMenuItem {
+    protected getAllGamesBtn(
+        withoutParams: boolean = false,
+        category: CategoryModel = this.parentCategory,
+    ): MenuParams.IMenuItem {
         const item: MenuParams.IMenuItem = {
             name: gettext('All games'),
             type: 'sref',
@@ -294,7 +298,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
                     name: 'app.catalog',
                     activeEq: true,
                     params: {
-                        category: this.parentCategory ? this.parentCategory.slug : '',
+                        category: category ? category.slug : '',
                     },
                     options: {
                         reload: false,

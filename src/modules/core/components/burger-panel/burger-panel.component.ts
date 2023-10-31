@@ -251,7 +251,7 @@ export class BurgerPanelComponent extends AbstractComponent
             this.animeType += '-default';
         }
 
-        this.eventService.subscribe({name: 'TRANSITION_ENTER'}, () => {
+        this.eventService.subscribe({name: 'TRANSITION_SUCCESS'}, () => {
             this.closePanel();
         }, this.$destroy);
 
