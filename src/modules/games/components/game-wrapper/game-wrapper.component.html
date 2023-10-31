@@ -26,6 +26,7 @@
                 <ng-container [ngTemplateOutlet]="buttonClose"></ng-container>
             </div>
 
+            <div *ngIf="game.admID" class="{{$class}}__adm-id">{{game.admID}}</div>
             <ng-container [ngTemplateOutlet]="gameWrapper"></ng-container>
         </div>
         <div class="{{$class}}__footer" #footer></div>

@@ -444,7 +444,7 @@ export interface IGame {
     SortPerCategory: IIndexing<number> | [];
     SubMerchantID: string | null;
     CustomSort: ICustomSort | [];
-
+    AdmID?: string;
     Description?: IIndexing<string> | string[];
     MobileAndroidUrl?: string;
     MobileWindowsUrl?: string;

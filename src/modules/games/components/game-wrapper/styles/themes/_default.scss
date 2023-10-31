@@ -112,6 +112,15 @@
                 height: 100% !important;
             }
         }
+
+        &__adm-id {
+            @include text.get-text-style(ef.get-value($themeDefault, 'admIdText'), ef.get-value($themeDefault, 'admIdTextColor'));
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: ef.get-value($themeDefault, 'admIdPadding');
+            background: ef.get-value($themeDefault, 'admIdBg');
+        }
     }
 
     &.wlc-game-wrapper--mobile {

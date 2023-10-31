@@ -53,6 +53,8 @@ export class Game extends AbstractModel<IGame> {
     public sortPerCategory: IIndexing<number>;
     public launchMerchantID: number;
     public isVisibilityChangeCurrency: boolean = false;
+    public initialCurrency: string;
+    public admID?: string;
 
     protected url: string;
     protected isRestricted: boolean;
@@ -84,6 +86,7 @@ export class Game extends AbstractModel<IGame> {
         this.launchCode = data.LaunchCode;
         this.merchantID = _toNumber(data.MerchantID);
         this.subMerchantID = _toNumber(data.SubMerchantID);
+        this.admID = data.AdmID;
         this.launchMerchantID = this.subMerchantID && _find(Game._enabledMerchants, {id: this.subMerchantID})
             ? this.subMerchantID
             : this.merchantID;
