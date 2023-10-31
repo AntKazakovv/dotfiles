@@ -26,4 +26,5 @@ export const defaultParams: IUserIconCParams = {
     componentName: 'wlc-user-icon',
     moduleName: 'user',
     iconPath: '/wlc/icons/user-icon.svg',
+    theme: 'default',
 };
