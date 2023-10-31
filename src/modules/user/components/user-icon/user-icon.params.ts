@@ -4,7 +4,7 @@ import {
     TButtonAnimation,
 } from 'wlc-engine/modules/core';
 
-export type ComponentTheme = 'default' | 'avatar' | CustomType;
+export type ComponentTheme = 'default' | 'avatar' | 'wolf' | CustomType;
 export type ComponentType = 'default' | CustomType;
 export type ComponentThemeMod = 'default' | CustomType;
 export type EventType = {

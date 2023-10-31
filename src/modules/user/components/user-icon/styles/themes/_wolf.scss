@@ -1,9 +1,9 @@
-.wlc-user-icon--theme-avatar:host {
+.wlc-user-icon--theme-wolf:host {
 
-    @include container($themeAvatar);
+    @include container($themeWolf);
 
     .wlc-user-icon__btn {
-        @include container($themeAvatar);
+        @include container($themeWolf);
 
         ::ng-deep .wlc-icon {
 
@@ -15,7 +15,7 @@
     }
 }
 
-button.wlc-user-icon--theme-avatar:host {
+button.wlc-user-icon--theme-wolf:host {
 
     @include mq.min(1200) {
 
@@ -25,15 +25,15 @@ button.wlc-user-icon--theme-avatar:host {
             content: '';
             width: 100%;
             height: 100%;
-            background: ef.get-value($themeAvatar, 'buttonBgHover');
-            border-radius: ef.get-value($themeAvatar, 'buttonBorderRadius');
+            background: ef.get-value($themeWolf, 'buttonBgHover');
+            border-radius: ef.get-value($themeWolf, 'buttonBorderRadius');
             opacity: 0;
         }
 
         @include bm.hover {
 
             &:before {
-                opacity: 0.2;
+                opacity: 1;
             }
         }
     }

@@ -1,0 +1,12 @@
+@mixin container($config) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: ef.get-value($config, 'buttonSize');
+    height: ef.get-value($config, 'buttonSize');
+    color: ef.get-value($config, 'iconFill');
+    background: ef.get-value($config, 'buttonBg');
+    border-radius: ef.get-value($config, 'buttonBorderRadius');
+    border: ef.get-value($config, 'buttonBorder');
+    box-shadow: ef.get-value($config, 'buttonShadow');
+}

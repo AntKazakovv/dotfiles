@@ -3,8 +3,19 @@ $themeAvatar: map-merge((
     'iconFill': var(--mc-baseThird, #fff),
     'buttonSize': 40px,
     'buttonBg': ef.get('buttonSettings', 'background'),
-    'buttonBgHover': var(--mc-baseMain),
+    'buttonBgHover': var(--mc-baseThird, #fff),
     'buttonBorderRadius': ef.get('buttonSettings', 'borderRadiusDefault'),
     'buttonShadow': ef.get('buttonSettings', 'shadow'),
     'buttonBorder': ef.get('buttonSettings', 'borderDefault'),
 ), $customThemeAvatar);
+
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'iconFill': var(--mc-baseThird, #fff),
+    'buttonSize': 40px,
+    'buttonBg': ef.get('buttonSettings', 'background'),
+    'buttonBgHover': var(--mc-black-o2),
+    'buttonBorderRadius': ef.get('buttonSettings', 'borderRadiusDefault'),
+    'buttonShadow': ef.get('buttonSettings', 'shadow'),
+    'buttonBorder': ef.get('buttonSettings', 'borderDefault'),
+), $customThemeWolf);

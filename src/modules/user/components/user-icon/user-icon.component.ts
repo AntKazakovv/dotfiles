@@ -45,8 +45,8 @@ export class UserIconComponent extends AbstractComponent implements OnInit, Afte
 
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-        this.showArrow = this.elementRef.nativeElement.tagName === 'BUTTON' && this.$params.theme !== 'avatar';
-        if (this.$params.useDefaultAvatar && this.$params.theme === 'avatar') {
+        this.showArrow = this.elementRef.nativeElement.tagName === 'BUTTON' && this.$params.theme === 'default';
+        if (this.$params.useDefaultAvatar && this.$params.theme !== 'default') {
             this.$params.iconPath = Params.defaultAvatar;
         }
     }
