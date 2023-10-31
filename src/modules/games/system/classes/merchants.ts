@@ -2,6 +2,7 @@ import {
     TranslateService,
 } from '@ngx-translate/core';
 
+import {BehaviorSubject} from 'rxjs';
 import _filter from 'lodash-es/filter';
 import _includes from 'lodash-es/includes';
 import _union from 'lodash-es/union';
@@ -26,8 +27,7 @@ export class Merchants {
         protected configService: ConfigService,
         protected translateService: TranslateService,
     ) {
-        this.disabledMerchantsOptions = this.configService.get('$games.merchants.disable');
-        this.setDisabledMerchants();
+        this.init();
     }
 
     public setMerchants(merchants: MerchantModel[]): void {
@@ -62,10 +62,24 @@ export class Merchants {
             this.disabledMerchants = this.disabledMerchantsOptions.byDefault;
         }
 
-        if (!this.configService.get<boolean>('$user.isAuthenticated')
-            && this.disabledMerchantsOptions?.forUnauthorisedUsers
-        ) {
-            this.disabledMerchants = _union(this.disabledMerchants, this.disabledMerchantsOptions.forUnauthorisedUsers);
+        if (this.disabledMerchantsOptions?.forUnauthorisedUsers) {
+            this.configService.get<BehaviorSubject<boolean>>('$user.isAuth$')
+                .subscribe((isAuth: boolean) => {
+                    if (isAuth) {
+                        this.disabledMerchants = this.disabledMerchants.filter((merchant) => {
+                            return !this.disabledMerchantsOptions.forUnauthorisedUsers.includes(merchant);
+                        });
+                    } else {
+                        this.disabledMerchants = _union(
+                            this.disabledMerchants, this.disabledMerchantsOptions.forUnauthorisedUsers,
+                        );
+                    }
+                });
         }
+    }
+
+    protected init(): void {
+        this.disabledMerchantsOptions = this.configService.get('$games.merchants.disable');
+        this.setDisabledMerchants();
     }
 }
