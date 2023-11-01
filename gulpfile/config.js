@@ -116,7 +116,6 @@ const defaultLangs = {
     'ja': {'code': 'ja', 'label': 'Japanese', 'locale': 'ja_JP'},
     'ka': {'code': 'ka', 'label': 'Georgia', 'locale': 'ka'},
     'ko': {'code': 'ko', 'label': 'Korean', 'locale': 'ko_KR'},
-    'kr': {'code': 'ko', 'label': 'Korean', 'locale': 'ko_KR'},
     'kk': {'code': 'kk', 'label': 'Kazakh', 'locale': 'kk_KZ'},
     'kg': {'code': 'kg', 'label': 'Kyrgyzstan', 'locale': 'ru_KG'},
     'mn': {'code': 'mn', 'label': 'Mongolian', 'locale': 'mn_MN'},
