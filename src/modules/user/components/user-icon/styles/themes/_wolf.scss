@@ -13,6 +13,10 @@
             }
         }
     }
+
+    .wlc-user-icon__user {
+        flex-shrink: 0;
+    }
 }
 
 button.wlc-user-icon--theme-wolf:host {
