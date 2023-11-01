@@ -2,7 +2,7 @@ import {IFinancesConfig} from '../interfaces/finances.interface';
 
 export const financesConfig: IFinancesConfig = {
     fastDeposit: {
-        use: false,
+        gamePlayShowLimit: 3,
     },
     paymentInfo: {
         autoScroll: false,

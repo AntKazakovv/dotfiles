@@ -172,7 +172,10 @@ export type TPaySystemTag = 'recommended'
 export type TPaySystemTagAll = TPaySystemTag | 'other';
 
 export interface IFastDeposit {
-    use: boolean;
+    /** How many times show fast deposit modal per single game session */
+    gamePlayShowLimit?: number;
+    /** @deprecated - fast deposit logic will be managed by Fundist */
+    use?: boolean;
 }
 
 export type TTranslate = 'pay_to_address' | 'pay_to_bank' | 'html';

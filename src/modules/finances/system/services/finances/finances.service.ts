@@ -31,6 +31,7 @@ import {
     IPushMessageParams,
     NotificationEvents,
     LogService,
+    IBalanceLimit,
 } from 'wlc-engine/modules/core';
 import {Deferred} from 'wlc-engine/modules/core/system/classes/deferred.class';
 import {WINDOW} from 'wlc-engine/modules/app/system';
@@ -84,6 +85,14 @@ export class FinancesService {
 
     public paymentSystems$: BehaviorSubject<PaymentSystem[]> = new BehaviorSubject(undefined);
     public taxes: TaxModel;
+
+    protected fastDepLimit: number;
+    protected fastDepCurrency: string;
+    protected fastDepCheckStarted: boolean = false;
+    protected needForFastDep: boolean = true;
+    protected fastDepShowLimit: number;
+    protected fastDepShowedCount: number;
+
     private systems: PaymentSystem[] = [];
     private emitDepositStatus$: Subscription;
 
@@ -517,6 +526,60 @@ export class FinancesService {
                 wlcElement: 'notification_deposit-pending',
             },
         });
+    }
+
+    public async checkForAutoFastDep(): Promise<Subscription> {
+        this.fastDepShowLimit = this.configService.get('$finances.fastDeposit.gamePlayShowLimit');
+        this.fastDepShowedCount = 0;
+        this.fastDepCheckStarted = false;
+        this.needForFastDep = true;
+
+        const profile: BehaviorSubject<UserProfile>
+            = this.configService.get<BehaviorSubject<UserProfile>>('$user.userProfile$');
+        const currency: string = profile?.getValue().currency || 'EUR';
+        const lastSucceedDepMethod: number = await this.getLastSucceedPaymentMethod(true);
+
+        if (currency !== this.fastDepCurrency) {
+            this.updateFastDepLimits(currency);
+        }
+
+        if (lastSucceedDepMethod) {
+            return this.configService.get<BehaviorSubject<UserInfo>>('$user.userInfo$')
+                .pipe(
+                    map(({realBalance}) => {
+                        if (realBalance > this.fastDepLimit) {
+                            this.needForFastDep = true;
+                        }
+                        return realBalance;
+                    }),
+                    distinctUntilChanged(),
+                )
+                .subscribe((balance: number): void => {
+                    if (!this.fastDepCheckStarted) {
+                        this.fastDepCheckStarted = true;
+                        return;
+                    }
+
+                    if (this.needForFastDep
+                        && balance <= this.fastDepLimit
+                        && this.fastDepShowedCount < this.fastDepShowLimit
+                    ) {
+                        this.eventService.emit({name: 'SHOW_FAST_DEPOSIT'});
+                        this.fastDepShowedCount++;
+                        this.needForFastDep = false;
+                    }
+                });
+        }
+    }
+
+    protected updateFastDepLimits(currency: string): void {
+        const limits: IBalanceLimit[]
+            = this.configService.get<IBalanceLimit[]>('appConfig.siteconfig.MinimalBalanceNotifications');
+        const currencyId: number = this.configService.getCurrencyIdByName(currency);
+        const limit: IBalanceLimit = _find(limits, (lim: IBalanceLimit) => lim.currencyId === currencyId);
+
+        this.fastDepCurrency = currency;
+        this.fastDepLimit = limit ? limit.value : 0;
     }
 
     private async cancelInvoice(systemId: number): Promise<void> {

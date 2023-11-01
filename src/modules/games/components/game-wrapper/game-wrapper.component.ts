@@ -25,7 +25,11 @@ import {
     RawParams,
     StateService,
 } from '@uirouter/core';
-import {fromEvent} from 'rxjs';
+
+import {
+    Subscription,
+    fromEvent,
+} from 'rxjs';
 import {
     filter,
     map,
@@ -90,6 +94,8 @@ import {
 } from 'wlc-engine/modules/monitoring';
 import {IChoiceCurrencyParams} from 'wlc-engine/modules/multi-wallet/components/choice-currency/choice-currency.params';
 import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
+import {FinancesService} from 'wlc-engine/modules/finances';
+
 import * as Params from './game-wrapper.params';
 
 interface IError {
@@ -205,6 +211,8 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     protected merchantWalletService: MerchantWalletService;
     protected seoService: SeoService | null = null;
     protected isIframeDepositOpened: boolean = false;
+    protected fastDepSubscription: Subscription;
+    protected financesService: FinancesService;
 
     constructor(
         @Inject('injectParams') protected injectParams: IGameWrapperCParams,
@@ -304,6 +312,12 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                 this.isIframeDepositOpened = false;
             }
         }, this.$destroy);
+
+        if (this.isAuth && this.configService.get<boolean>('appConfig.siteconfig.EnableMinimalBalanceNotifications')) {
+            this.financesService ??= await this.injectionService.getService('finances.finances-service');
+
+            this.fastDepSubscription = await this.financesService.checkForAutoFastDep();
+        }
     }
 
     public async ngAfterViewInit(): Promise<void> {
@@ -424,6 +438,9 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         }
         if (this.merchantWalletService) {
             this.merchantWalletService.endMerchantWalletGame();
+        }
+        if (this.fastDepSubscription) {
+            this.fastDepSubscription.unsubscribe();
         }
     }
 
