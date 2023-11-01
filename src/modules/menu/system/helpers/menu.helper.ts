@@ -93,7 +93,7 @@ export class MenuHelper {
      * @returns {MenuItemObjectType[]}
      */
     public static getItems(params: IHelperGetItemsParams): MenuItemObjectType[] {
-        let resultList: MenuItemObjectType[] = _map(_cloneDeep(params.items), (item: MenuItemType) => {
+        let resultList: MenuItemObjectType[] = _map(params.items, (item: MenuItemType) => {
             if (_isString(item)) {
                 const menuItem = _get(wlcMenuItemsGlobal, item);
                 if (menuItem) {

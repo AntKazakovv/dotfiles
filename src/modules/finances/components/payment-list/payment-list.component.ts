@@ -63,7 +63,10 @@ import {
 import {PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
 import {ThemeToDirectory} from 'wlc-engine/modules/core/system/config/base/icons.config';
 import {WINDOW} from 'wlc-engine/modules/app/system';
-import {IMenuCParams} from 'wlc-engine/modules/menu/components/menu/menu.params';
+import {
+    IMenuCParams,
+    IMenuItem,
+} from 'wlc-engine/modules/menu/components/menu/menu.params';
 import {FinancesHelper} from 'wlc-engine/modules/finances/system/helpers/finances.helper';
 import * as DepositWithdrawParams from '../deposit-withdraw/deposit-withdraw.params';
 import * as Params from './payment-list.params';
@@ -439,7 +442,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
                 name: 'menu.wlc-menu',
                 params: <IMenuCParams>{
                     theme: 'submenu',
-                    items: this.tags.map(([tag, title]) => {
+                    items: this.tags.map(([tag, title]): IMenuItem => {
                         return {
                             name: title,
                             class: `tag-${tag}`,
