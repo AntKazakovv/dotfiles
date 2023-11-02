@@ -63,23 +63,12 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         wlcElement: 'link_main-nav-promo',
     },
     'main-menu:contacts': {
-        name: gettext('Contact Us'),
-        type: 'sref',
-        class: 'contacts',
-        icon: 'info',
-        params: {
-            state: {
-                name: 'app.contacts',
-                params: {
-                    slug: 'feedback',
-                },
-            },
-            href: {
-                url: '/contacts/feedback/',
-                baseSiteUrl: true,
-            },
-        },
-        wlcElement: 'link_main-nav-contuctus',
+        ...commonMenuItems.contacts,
+        wlcElement: 'link_main-nav-contacts',
+    },
+    'main-menu:contact-us': {
+        ...commonMenuItems.contactUs,
+        wlcElement: 'link_main-nav-contactUs',
     },
     'main-menu:lottery': {
         name: gettext('Lottery'),

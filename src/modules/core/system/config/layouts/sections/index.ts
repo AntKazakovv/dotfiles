@@ -3,6 +3,7 @@ export * from './footer.section';
 export * from './banner-section.section';
 export * from './categories.section';
 export * from './content.section';
+export * from './contact-us.section';
 export * from './content-games.section';
 export * from './profile-menu.section';
 export * from './profile-content.section';

@@ -1,0 +1,154 @@
+.wlc-contact-us-page--theme-default:host {
+    @include bm.get-mq-map('margin', $themeDefault, 'margin');
+
+    .wlc-contact-us-page__header {
+        @include text.get-text-style(
+            ef.get-value($themeDefault, 'headerTextStyle'),
+            ef.get-value($themeDefault, 'headerColor')
+        );
+        @include bm.get-mq-map('text-align', $themeDefault, 'headerTextAlign');
+
+        margin: ef.get-value($themeDefault, 'headerMargin');
+    }
+
+    .wlc-contact-us-page__feedback {
+        @include bm.get-mq-map('gap', $themeDefault, 'feedbackGap');
+        @include bm.get-mq-map('grid-template-areas', $themeDefault, 'feedbackGridAreas');
+        display: grid;
+
+        max-width: ef.get-value($themeDefault, 'feedbackMaxWidth');
+        margin: 0 auto;
+
+        &--contacts {
+            @include bm.get-mq-map('gap', $themeDefault, 'contactsBlockGap');
+            display: grid;
+            grid-area: contacts;
+            grid-template-areas: ef.get-value($themeDefault, 'contactsGridAreas');
+            grid-template-rows: ef.get-value($themeDefault, 'contactsGridRows');
+            align-items: baseline;
+        }
+
+        &--visual {
+            position: relative;
+            grid-area: visual;
+            box-shadow: ef.get-value($themeDefault, 'visualBoxShadow');
+            border-radius: ef.get-value($themeDefault, 'borderRadius');
+
+            &:before {
+                @include bm.get-mq-map('padding-bottom', $themeDefault, 'visualPaddingBottom');
+                content: '';
+                display: block;
+                width: 100%;
+            }
+        }
+
+        &--logo {
+            @include bm.get-mq-map('top', $themeDefault, 'logoTop');
+            @include bm.get-mq-map('left', $themeDefault, 'logoLeft');
+            position: absolute;
+        }
+
+        &--background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            width: 100%;
+            height: 100%;
+            border-radius: ef.get-value($themeDefault, 'borderRadius');
+            object-fit: cover;
+            object-position: ef.get-value($themeDefault, 'objectPosition');
+        }
+
+        &--info {
+            @include bm.get-mq-map('gap', $themeDefault, 'contactsGap');
+
+            display: grid;
+            grid-area: info;
+            grid-template-areas: ef.get-value($themeDefault, 'infoGridAreas');
+
+            padding: ef.get-value($themeDefault, 'infoPadding');
+
+            border-radius: ef.get-value($themeDefault, 'borderRadius');
+            background: ef.get-value($themeDefault, 'background');
+        }
+
+        &--form {
+            grid-area: form;
+
+            padding: ef.get-value($themeDefault, 'formPadding');
+            border-radius: ef.get-value($themeDefault, 'borderRadius');
+            background: ef.get-value($themeDefault, 'background');
+
+            ::ng-deep {
+
+                .wlc-form {
+                    display: grid;
+                    gap: ef.get-value($themeDefault, 'formGap');
+
+                    .wlc-btn {
+                        margin: 0 auto;
+                    }
+                }
+
+                .wlc-textarea--theme-default {
+
+                    .wlc-textarea__textarea {
+
+                        &--message {
+                            min-height: 80px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .wlc-contact-us-page-details__item {
+
+        &--phone,
+        &--time,
+        &--email {
+            @include bm.get-mq-map('padding', $themeDefault, 'detailsPadding');
+        }
+
+        &--phone {
+            grid-area: phone;
+        }
+
+        &--time {
+            grid-area: time;
+        }
+
+        &--email {
+            grid-area: email;
+        }
+
+        &--title,
+        &--value {
+            display: block;
+        }
+
+        &--title {
+            @include cm.labelStyle(false, true);
+            margin-bottom: ef.get-value($themeDefault, 'marginBottom');
+            cursor: default;
+        }
+
+        &--value {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'contactsTextStyle'),
+                ef.get-value($themeDefault, 'contactsContentColor')
+            );
+            max-width: 100%;
+            overflow: hidden;
+            text-decoration: none;
+            word-break: break-all;
+            transition: ef.get-value($themeDefault, 'transition');
+
+            @include bm.hover {
+                color: ef.get-value($themeDefault, 'contactsContentColorHover');
+            }
+        }
+    }
+}

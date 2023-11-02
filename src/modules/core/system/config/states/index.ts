@@ -3,6 +3,7 @@ export * from './catalog.state';
 export * from './home.state';
 export * from './pages.state';
 export * from './contacts.state';
+export * from './contact-us-page.state';
 export * from './promotions.state';
 export * from './error-page.state';
 export * from './offline.state';

@@ -123,6 +123,10 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
         if (!useTournaments) {
             this.menuConfig = _pull(this.menuConfig, 'main-menu:tournaments');
         }
+        this.menuConfig = _pull(
+            this.menuConfig,
+            this.configService.get('$base.contacts.separatedPage') ? 'main-menu:contacts' : 'main-menu:contact-us',
+        );
     }
 
     protected initMenu(): void {

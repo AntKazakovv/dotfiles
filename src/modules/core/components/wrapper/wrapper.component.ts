@@ -126,7 +126,7 @@ export class WrapperComponent extends LayoutComponent implements OnInit, OnChang
         this.allComponents$.length = 0;
 
         for (const el of this.$params?.components) {
-            const configProperty = el.display?.configProperty;
+            const configProperty = el && el.display?.configProperty;
             if (!_isUndefined(configProperty) &&
                 !this.configService.get<unknown>(configProperty)
             ) {

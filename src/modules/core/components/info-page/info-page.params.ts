@@ -23,35 +23,33 @@ export interface IInfoPageCParams extends IComponentParams<ComponentTheme, Compo
     customConfig?: IIndexing<ILayoutComponent[]>;
 }
 
-export const defaultParams: IInfoPageCParams = {
-    class: 'wlc-info-page',
-    moduleName: 'core',
-    componentName: 'wlc-info-page',
-    useFaqAccordion: false,
-    config: {
+const contacts: ILayoutComponent = {
+    name: 'menu.wlc-menu',
+    params: {
+        theme: 'contacts',
+        items: [
+            {
+                name: 'Contact Us',
+                type: 'sref',
+                params: {
+                    state: {
+                        name: 'app.contacts',
+                        params: {
+                            slug: 'feedback',
+                        },
+                    },
+                },
+            },
+        ],
+    },
+};
+
+export const generateConfig = (isSeparatedPage?: boolean): IInfoPageConfig => {
+    return {
         menu: {
             class: 'wlc-info-page__menu',
             components: [
-                {
-                    name: 'menu.wlc-menu',
-                    params: {
-                        theme: 'contacts',
-                        items: [
-                            {
-                                name: 'Contact Us',
-                                type: 'sref',
-                                params: {
-                                    state: {
-                                        name: 'app.contacts',
-                                        params: {
-                                            slug: 'feedback',
-                                        },
-                                    },
-                                },
-                            },
-                        ],
-                    },
-                },
+                isSeparatedPage ? null : contacts,
                 {
                     name: 'menu.wlc-post-menu',
                     params: {
@@ -69,5 +67,12 @@ export const defaultParams: IInfoPageCParams = {
         content: {
             class: 'wlc-info-page__content',
         },
-    },
+    };
+};
+
+export const defaultParams: IInfoPageCParams = {
+    class: 'wlc-info-page',
+    moduleName: 'core',
+    componentName: 'wlc-info-page',
+    useFaqAccordion: false,
 };

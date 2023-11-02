@@ -108,4 +108,38 @@ export namespace commonMenuItems {
         },
     };
 
+    export const contactUs: MenuParams.IMenuItem = {
+        name: gettext('Contact Us'),
+        type: 'sref',
+        class: 'contactUs',
+        icon: 'contactUs',
+        params: {
+            state: {
+                name: 'app.contact-us',
+            },
+            href: {
+                url: '/contact-us/',
+                baseSiteUrl: true,
+            },
+        },
+    };
+
+    export const contacts: MenuParams.IMenuItem = {
+        name: gettext('Contact Us'),
+        type: 'sref',
+        class: 'contacts',
+        icon: 'info',
+        params: {
+            state: {
+                name: 'app.contacts',
+                params: {
+                    slug: 'feedback',
+                },
+            },
+            href: {
+                url: '/contacts:slug',
+                baseSiteUrl: true,
+            },
+        },
+    };
 }

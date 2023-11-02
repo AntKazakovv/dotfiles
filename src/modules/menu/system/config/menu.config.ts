@@ -12,6 +12,7 @@ export const menuConfig: IMenuConfig = {
             'main-menu:promotions',
             'main-menu:tournaments',
             'main-menu:contacts',
+            'main-menu:contact-us',
         ],
         icons: {
             folder: 'wlc/icons/european/v1',

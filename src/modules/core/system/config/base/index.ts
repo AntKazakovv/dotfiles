@@ -63,6 +63,7 @@ export const $base: IBaseConfig = {
         'app.profile.kycaml',
         'app.providers',
         'app.gameplay?demo=true',
+        'app.contact-us',
     ],
     errorsReplacerMap: {
         'AML verification in progress': {

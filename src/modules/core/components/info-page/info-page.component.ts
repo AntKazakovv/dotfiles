@@ -49,8 +49,8 @@ export class InfoPageComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected params: Params.IInfoPageCParams,
-        private uiRouter: UIRouterGlobals,
-        private transition: TransitionService,
+        protected uiRouter: UIRouterGlobals,
+        protected transition: TransitionService,
         cdr: ChangeDetectorRef,
         configService: ConfigService,
     ) {
@@ -59,7 +59,7 @@ export class InfoPageComponent extends AbstractComponent implements OnInit {
 
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-        this.config = this.$params.config;
+        this.config = Params.generateConfig(this.configService.get<boolean>('$base.contacts.separatedPage'));
         this.transition.onSuccess({}, () => {
             this.setChildParams();
             this.cdr.markForCheck();

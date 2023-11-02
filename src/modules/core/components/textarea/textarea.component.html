@@ -4,7 +4,7 @@
         <ng-container *ngIf="isFieldRequired()">*</ng-container>
     </label>
     <div class="{{$class}}__textarea">
-        <textarea name="{{$params.name}}"
+        <textarea name="{{$params.name}}" class="{{$class}}__textarea--message"
                   [attr.id]="$params.id || $params.name"
                   [attr.data-wlc-element]='fieldWlcElement'
                   [attr.maxlength]="$params.common.maxlength"

@@ -161,6 +161,7 @@ import * as $config from 'wlc-config/index';
 
 import _get from 'lodash-es/get';
 import {TagComponent} from 'wlc-engine/modules/core/components/tag/tag.component';
+import {ContactUsPageComponent} from 'wlc-engine/modules/core/components/contact-us-page/contact-us-page.component';
 
 export function playerFactory(): LottiePlayer {
     return import('lottie-web/build/player/lottie_svg') as unknown as LottiePlayer;
@@ -180,6 +181,7 @@ export const components = {
     'wlc-country-and-state': CountryAndStateComponent,
     'wlc-checkbox': CheckboxComponent,
     'wlc-copyright': CopyrightComponent,
+    'wlc-contact-us-page': ContactUsPageComponent,
     'wlc-counter': CounterComponent,
     'wlc-currency': CurrencyComponent,
     'wlc-datepicker': DatepickerComponent,
@@ -320,6 +322,7 @@ export const services = {
         SomethingWrongPageComponent,
         FallbackImgDirective,
         FeedbackFormComponent,
+        ContactUsPageComponent,
         FloatPanelsComponent,
         ForbiddenCountryComponent,
         FormControlComponent,

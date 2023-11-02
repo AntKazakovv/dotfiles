@@ -1,0 +1,53 @@
+<div class="{{$class}}__header" data-wlc-element="title_contact-details">{{'Contact Us' | translate}}</div>
+
+<div class="{{$class}}__feedback">
+    <div class="{{$class}}__feedback--contacts">
+        <div class="{{$class}}__feedback--visual">
+            <img class="{{$class}}__feedback--background" src="{{$params.imgPath}}">
+            <div wlc-logo class="{{$class}}__feedback--logo"></div>
+        </div>
+        <div class="{{$class}}__feedback--info">
+            <div *ngIf="contactsConfig.phone"
+                class="{{$class}}-details__item--phone"
+                data-wlc-element="block_phone">
+
+                <span class="{{$class}}-details__item--title">{{'Phone' | translate}}</span>
+                <a class="{{$class}}-details__item--value"
+                    href="tel:{{contactsConfig.phone}}"
+                    data-wlc-element="link_phone">{{contactsConfig.phone}}</a>
+            </div>
+            <div *ngIf="contactsConfig.estResTime && contactsConfig.timeUnits"
+                class="{{$class}}-details__item--time"
+                data-wlc-element="block_response-time">
+
+                <span class="{{$class}}-details__item--title">{{'Estimated response time' | translate}}</span>
+                <span class="{{$class}}-details__item--value">
+                    {{contactsConfig.estResTime}} {{contactsConfig.timeUnits | translate}}
+                </span>
+            </div>
+            <div *ngIf="contactsConfig.email"
+                class="{{$class}}-details__item--email"
+                data-wlc-element="block_email">
+
+                <span class="{{$class}}-details__item--title">{{'E-mail' | translate}}</span>
+                <a class="{{$class}}-details__item--value"
+                    href="mailto:{{contactsConfig.email}}"
+                    data-wlc-element="link_email">{{contactsConfig.email}}</a>
+                </div>
+            <div *ngIf="contactsConfig.additionalInfo"
+                class="{{$class}}-details__item"
+                data-wlc-element="block_additional_info">
+
+                <span>{{contactsConfig.additionalInfo.label | translate}}</span>
+                <span>{{contactsConfig.additionalInfo.text | translate}}</span>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="config"
+        class="{{$class}}__feedback--form"
+        wlc-form-wrapper
+        [config]="config"
+        [ngSubmit]="ngSubmit.bind(this)"
+        [formData]="formData$"
+    ></div>
+</div>

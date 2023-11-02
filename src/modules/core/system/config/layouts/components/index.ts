@@ -1,5 +1,6 @@
 export * from './core/wlc-button.config';
 export * from './core/wlc-counter.config';
+export * from './core/wlc-contact-us.config';
 export * from './core/wlc-language-selector.config';
 export * from './core/wlc-logo.config';
 export * from './core/wlc-disclaimer.config';

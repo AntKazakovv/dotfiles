@@ -22,6 +22,8 @@ export interface IContactsConfig {
     additionalInfo?: IAdditionalInfo;
      /** translating content by language's code */
     translate?: TContactsTranslate;
+    /**Move contacts to a separate page. */
+    separatedPage?: boolean;
 }
 
 type lang = string;

@@ -120,6 +120,12 @@ export const $layouts: ILayoutsConfig = {
             'info-page': sectionsLib.infoPage.contacts,
         },
     },
+    'app.contact-us': {
+        extends: 'app',
+        sections: {
+            'contact-us': sectionsLib.contactUs.contactUs,
+        },
+    },
     'app.pages': {
         extends: 'app',
         sections: {

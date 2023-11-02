@@ -23,6 +23,7 @@ let states = {
     'app.gameplay': States.gamePlayState,
     'app.pages': States.pagesState,
     'app.contacts': States.contactsState,
+    'app.contact-us': States.contactUsState,
     'app.promotions': States.promotionsState,
     'app.sportsbook': States.sportsbookState,
     'app.betradar': States.betradarState,
