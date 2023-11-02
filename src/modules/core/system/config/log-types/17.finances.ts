@@ -51,4 +51,8 @@ export const errorTypes: ILogTypes = {
         // Error getting commissions
         level: 'error',
     },
+    '17.6.0': {
+        // Error getting transactions history
+        level: 'error',
+    },
 };

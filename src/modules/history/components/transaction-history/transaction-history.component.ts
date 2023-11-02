@@ -15,8 +15,6 @@ import {
 } from 'rxjs/operators';
 import {DateTime} from 'luxon';
 import _filter from 'lodash-es/filter';
-import _last from 'lodash-es/last';
-import _first from 'lodash-es/first';
 import _merge from 'lodash-es/merge';
 
 import {
@@ -57,6 +55,7 @@ import * as Params from './transaction-history.params';
 export class TransactionHistoryComponent extends AbstractComponent implements OnInit {
 
     public ready: boolean = false;
+    public pending: boolean = false;
     public showFilter: boolean = false;
     public override $params: Params.ITransactionHistoryCParams;
     public tableData: ITableCParams;
@@ -65,10 +64,11 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
     public transaction$: BehaviorSubject<Transaction[]> = new BehaviorSubject([]);
     public filterSelect: ISelectCParams<TTransactionFilter>;
     public alertConfig: ITransactionHistoryAlert;
+    public reportIntervalExceeded: boolean = false;
 
     protected filterValue: TTransactionFilter = 'all';
-    protected startDate: DateTime = DateTime.local();
     protected endDate: DateTime = DateTime.local();
+    protected startDate: DateTime = this.endDate.minus({month: 1}).startOf('day');
     protected allTransactions: Transaction[] = [];
     protected transfersEnabled: boolean;
 
@@ -93,12 +93,11 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
         super.ngOnInit();
         this.transfersEnabled = this.configService.get<boolean>('$base.profile.transfers.use');
         this.filterSelect = this.transfersEnabled ? config.filterSelectTransfer : config.filterSelect;
-        this.allTransactions = await this.historyService.getTransactionList();
-
-        if (this.allTransactions.length) {
-            this.startDate = DateTime.fromISO(_last(this.allTransactions).dateISO, {zone: 'utc'}).toLocal();
-            this.endDate = DateTime.fromISO(_first(this.allTransactions).dateISO, {zone: 'utc'}).toLocal();
-        }
+        this.allTransactions = await this.historyService.getTransactionList(
+            {
+                startDate: this.startDate,
+                endDate: this.endDate,
+            }, true);
 
         this.showFilter = this.actionService.getDeviceType() === DeviceType.Desktop;
 
@@ -181,10 +180,19 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
                 filter((data: IHistoryFilter<TTransactionFilter>): boolean => !!data),
                 takeUntil(this.$destroy),
             )
-            .subscribe((data: IHistoryFilter<TTransactionFilter>): void => {
+            .subscribe(async (data: IHistoryFilter<TTransactionFilter>): Promise<void> => {
                 this.filterSelect.control.setValue(this.filterValue = data.filterValue);
-                this.startDateInput.control.setValue(this.startDate = data.startDate);
-                this.endDateInput.control.setValue(this.endDate = data.endDate);
+                const {startDate, endDate} = data;
+                const datesChanged = (
+                    startDate?.toMillis() !== this.startDate.toMillis()
+                    || endDate?.toMillis() !== this.endDate.toMillis()
+                );
+                if (datesChanged) {
+                    this.startDateInput.control.setValue(data.startDate);
+                    this.endDateInput.control.setValue(data.endDate);
+                    await this.changeDateHandler(startDate, endDate);
+                }
+
                 this.setMinMaxDate();
                 this.transaction$.next(this.transactionFilter());
                 this.cdr.detectChanges();
@@ -202,7 +210,11 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
         this.eventService.subscribe([
             {name: MultiWalletEvents.CurrencyConversionChanged},
         ], async (): Promise<void> => {
-            this.allTransactions = await this.historyService.getTransactionList();
+            this.allTransactions = await this.historyService.getTransactionList(
+                {
+                    startDate: this.startDate,
+                    endDate: this.endDate,
+                }, false);
             this.transaction$.next(this.transactionFilter());
         }, this.$destroy);
     }
@@ -226,9 +238,11 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
                 takeWhile(() => this.showFilter),
                 takeUntil(this.$destroy),
             )
-            .subscribe((startDate: DateTime): void => {
-                this.historyFilterService.setFilter('transaction', {startDate: this.startDate = startDate});
+            .subscribe(async (startDate: DateTime): Promise<void> => {
+                await this.changeDateHandler(startDate, this.endDate);
+                this.pending = true;
                 this.transaction$.next(this.transactionFilter());
+                this.pending = false;
                 this.cdr.detectChanges();
             });
 
@@ -238,9 +252,11 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
                 takeWhile(() => this.showFilter),
                 takeUntil(this.$destroy),
             )
-            .subscribe((endDate: DateTime): void => {
-                this.historyFilterService.setFilter('transaction', {endDate: this.endDate = endDate});
+            .subscribe(async (endDate: DateTime): Promise<void> => {
+                await this.changeDateHandler(this.startDate, endDate);
+                this.pending = true;
                 this.transaction$.next(this.transactionFilter());
+                this.pending = false;
                 this.cdr.detectChanges();
             });
 
@@ -253,11 +269,11 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
             this.$destroy,
         ).subscribe({
             next: async (): Promise<void> => {
-                this.allTransactions = await this.historyService.getTransactionList();
-                if (this.allTransactions.length) {
-                    this.startDate = DateTime.fromISO(_last(this.allTransactions).dateISO, {zone: 'utc'}).toLocal();
-                    this.endDate = DateTime.fromISO(_first(this.allTransactions).dateISO, {zone: 'utc'}).toLocal();
-                }
+                this.allTransactions = await this.historyService.getTransactionList(
+                    {
+                        startDate: this.startDate,
+                        endDate: this.endDate,
+                    }, true);
                 this.setMinMaxDate();
                 this.transaction$.next(this.transactionFilter());
                 this.cdr.detectChanges();
@@ -278,5 +294,35 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
 
     protected getAlertText(): string {
         return this.translateService.instant(gettext(this.alertConfig.text));
+    }
+
+    protected async changeDateHandler(startDate: DateTime, endDate: DateTime): Promise<void> {
+        const isStartDateEarlier: boolean = startDate?.toMillis() < this.startDate.toMillis();
+        const isEndDateLater: boolean = endDate?.toMillis() > this.endDate.toMillis();
+
+        if (isStartDateEarlier && !isEndDateLater) {
+            this.startDate = startDate;
+        } else if (isEndDateLater && !isStartDateEarlier) {
+            this.endDate = endDate;
+        } else {
+            this.startDate = startDate;
+            this.endDate = endDate;
+        }
+
+        const newFilterValue: IHistoryFilter<TTransactionFilter> = {startDate: startDate, endDate: endDate};
+        this.historyFilterService.setFilter('transaction', newFilterValue);
+        const intervalExceeded: boolean = endDate.startOf('day').minus({days: 90}) > startDate;
+
+        if ((isStartDateEarlier || isEndDateLater)
+            || (intervalExceeded !== this.reportIntervalExceeded)) {
+            this.pending = true;
+            this.allTransactions = await this.historyService.getTransactionList(
+                {
+                    startDate: this.startDate,
+                    endDate: this.endDate,
+                }, true);
+            this.reportIntervalExceeded = intervalExceeded;
+            this.pending = false;
+        }
     }
 }

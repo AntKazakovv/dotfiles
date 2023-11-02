@@ -27,10 +27,6 @@ export interface ITransactionEx extends ITransaction {
     type?: 'Debit' | 'Credit'
 }
 
-export interface ITransactionRequestParams {
-    endDate?: string;
-    startDate?: string;
-}
 
 export interface ITransactionStatus {
     code: string;

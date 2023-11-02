@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 
+import {DateTime} from 'luxon';
 import {
     BehaviorSubject,
     interval,
@@ -27,6 +28,8 @@ import {
     IIndexing,
     InjectionService,
     LogService,
+    NotificationEvents,
+    IPushMessageParams,
 } from 'wlc-engine/modules/core';
 import {
     IBonusHistory,
@@ -47,8 +50,8 @@ import {
 import {
     Transaction,
     ITransaction,
-    ITransactionRequestParams,
 } from 'wlc-engine/modules/history/system/models/transaction-history/transaction-history.model';
+import {rangeExceededMsg} from 'wlc-engine/modules/history/system/constants/history.constants';
 import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
 import {HistoryHelper} from 'wlc-engine/modules/history/system/helpers';
 import {RatesCurrencyService} from 'wlc-engine/modules/rates';
@@ -65,6 +68,15 @@ interface ISubjects {
 interface IQueryParams {
     type?: string;
     event?: string;
+}
+
+interface IGetTransactionsParams {
+    startDate: DateTime;
+    endDate: DateTime;
+}
+interface ITransactionRequestParams {
+    startDate?: string;
+    endDate?: string;
 }
 
 type RestType = 'bonusesHistory' | 'tournamentsHistory';
@@ -87,6 +99,8 @@ export class HistoryService {
         bonusesHistory$: new BehaviorSubject(null),
         tournamentsHistory$: new BehaviorSubject(null),
     };
+    private allTransactions: Transaction[] = [];
+    private isFirstTransactionsRequest: boolean = true;
 
     private winnersSubjects: IIndexing<BehaviorSubject<ITopTournamentUsers>> = {};
     private winLimit = this.configService.get<number>('$tournaments.winLimit') || 10;
@@ -178,13 +192,30 @@ export class HistoryService {
         }
     }
 
-    public async getTransactionList(params: ITransactionRequestParams = {}): Promise<Transaction[]> {
-        let transactions: Transaction[] = (await this.dataService.request<IData>('finances/transactions', params))
-            .data as Transaction[];
+    /**
+     * @param {IGetTransactionsParams} params optional params for getting transactions. 
+     * If no params provided, wlc-core sends 100 last transactions
+     * @returns {Promise<Transaction[]} list of transactions
+     */
+    public async getTransactionList(params?: IGetTransactionsParams, isNeedRequest?: boolean): Promise<Transaction[]> {
 
-        transactions = await HistoryHelper.conversionCurrency<Transaction>(this.injectionService, transactions);
+        if (!params && !isNeedRequest) {
+            return await this.requestTransactionsList(); 
+        }
 
-        return transactions;
+        const startDateUTC: DateTime = params.startDate.startOf('day').toUTC();
+        const endDateUTC: DateTime = params.endDate.endOf('day').toUTC();
+        if (isNeedRequest || this.isFirstTransactionsRequest) {
+            this.allTransactions = await this.requestTransactionsList({
+                startDate: startDateUTC.toFormat('y-LL-dd\'\T\'HH:mm:ss'),
+                endDate: endDateUTC.toFormat('y-LL-dd\'\T\'HH:mm:ss'),
+            });
+
+            if (this.isFirstTransactionsRequest) {
+                this.isFirstTransactionsRequest = false;
+            }
+        }
+        return this.allTransactions;
     }
 
     public getObserver<T extends BonusHistoryItemModel | TournamentHistory>(
@@ -200,73 +231,6 @@ export class HistoryService {
         }
 
         return (flow$ as BehaviorSubject<T[]>).asObservable();
-    }
-
-    private registerMethods(): void {
-
-        this.dataService.registerMethod({
-            name: 'bonuses',
-            system: 'bonuses',
-            url: '/bonuses',
-            type: 'GET',
-        });
-
-        this.dataService.registerMethod({
-            name: 'tournaments',
-            system: 'tournaments',
-            url: '/tournaments',
-            type: 'GET',
-        });
-
-        this.dataService.registerMethod({
-            name: 'transactions',
-            system: 'finances',
-            url: '/transactions',
-            type: 'GET',
-            events: {
-                success: 'TRANSACTIONS',
-                fail: 'TRANSACTIONS_ERROR',
-            },
-            mapFunc: this.createTransaction.bind(this),
-        });
-    }
-
-    private setSubscribers(): void {
-
-        this.subjects.bonusesHistory$.subscribe({
-            next: (bonuses: BonusHistoryItemModel[]) => {
-                this.eventService.emit({
-                    name: 'BONUSES_FETCH_HISTORY_SUCCESS',
-                    data: bonuses,
-                });
-            },
-        });
-
-        this.translateService.onLangChange.subscribe((): void => {
-            this.updateSubscribers();
-        });
-        this.subjects.tournamentsHistory$.subscribe({
-            next: (tournaments: TournamentHistory[]) => {
-                this.eventService.emit({
-                    name: 'TOURNAMENTS_FETCH_HISTORY_SUCCESS',
-                    data: tournaments,
-                });
-            },
-        });
-    }
-
-    private updateSubscribers(): void {
-
-        if (this.subjects.bonusesHistory$.observers.length > 1) {
-            this.queryHistory(true, 'bonusesHistory');
-        }
-    }
-
-    private createTransaction(data: ITransaction[]): Transaction[] {
-        return data.map((item) => new Transaction(
-            {service: 'HistoryService', method: 'createTransaction'},
-            item,
-        ));
     }
 
     public getWinnersSubjects(
@@ -417,5 +381,101 @@ export class HistoryService {
                 (item: TournamentHistory) => item.status !== -1,
             );
         }
+    }
+
+    private async requestTransactionsList(params: ITransactionRequestParams = {}): Promise<Transaction[]> {
+        try {
+            const response: IData<Transaction[]> = await this.dataService
+                .request<IData>('finances/transactions', params);
+            const transactions: Transaction[] = await HistoryHelper
+                .conversionCurrency<Transaction>(this.injectionService, response.data);
+            return transactions;
+        } catch (error) {
+            if (error.code === 400 && error.errors.length === 1 && error.errors[0] === rangeExceededMsg) {
+                this.eventService.emit({
+                    name: NotificationEvents.PushMessage,
+                    data: <IPushMessageParams>{
+                        type: 'error',
+                        title: 'Error',
+                        message: rangeExceededMsg,
+                        wlcElement: 'notification_transaction-history',
+                    },
+                });
+                return [];
+            } else {
+                this.logService.sendLog({
+                    code: '17.6.0',
+                    data: error,
+                });
+                throw error;
+            }
+        }
+    }
+
+    private registerMethods(): void {
+
+        this.dataService.registerMethod({
+            name: 'bonuses',
+            system: 'bonuses',
+            url: '/bonuses',
+            type: 'GET',
+        });
+
+        this.dataService.registerMethod({
+            name: 'tournaments',
+            system: 'tournaments',
+            url: '/tournaments',
+            type: 'GET',
+        });
+
+        this.dataService.registerMethod({
+            name: 'transactions',
+            system: 'finances',
+            url: '/transactions',
+            type: 'GET',
+            events: {
+                success: 'TRANSACTIONS',
+                fail: 'TRANSACTIONS_ERROR',
+            },
+            mapFunc: this.createTransaction.bind(this),
+        });
+    }
+
+    private setSubscribers(): void {
+
+        this.subjects.bonusesHistory$.subscribe({
+            next: (bonuses: BonusHistoryItemModel[]) => {
+                this.eventService.emit({
+                    name: 'BONUSES_FETCH_HISTORY_SUCCESS',
+                    data: bonuses,
+                });
+            },
+        });
+
+        this.translateService.onLangChange.subscribe((): void => {
+            this.updateSubscribers();
+        });
+        this.subjects.tournamentsHistory$.subscribe({
+            next: (tournaments: TournamentHistory[]) => {
+                this.eventService.emit({
+                    name: 'TOURNAMENTS_FETCH_HISTORY_SUCCESS',
+                    data: tournaments,
+                });
+            },
+        });
+    }
+
+    private updateSubscribers(): void {
+
+        if (this.subjects.bonusesHistory$.observers.length > 1) {
+            this.queryHistory(true, 'bonusesHistory');
+        }
+    }
+
+    private createTransaction(data: ITransaction[]): Transaction[] {
+        return data.map((item) => new Transaction(
+            {service: 'HistoryService', method: 'createTransaction'},
+            item,
+        ));
     }
 }

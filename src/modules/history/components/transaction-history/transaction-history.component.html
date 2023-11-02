@@ -15,13 +15,24 @@
 
     <div wlc-history-range [inlineParams]="$params.historyRangeParams"></div>
 
-    <div *ngIf="transaction$.value.length; else empty"
-         wlc-table
-         [inlineParams]="tableData"></div>
+    <div *ngIf="!pending; else preloader" class="{{$class}}__table">
+        <div *ngIf="transaction$.value.length; else empty"
+            wlc-table
+            [inlineParams]="tableData">
+        </div>
+    </div>
+
 </ng-container>
 
 <ng-template #empty>
-    <div wlc-wrapper [inlineParams]="$params.emptyConfig"></div>
+    <div *ngIf="!reportIntervalExceeded; else reportInterval" 
+        wlc-wrapper 
+        [inlineParams]="$params.emptyConfig">
+    </div>
+</ng-template>
+
+<ng-template #reportInterval>
+    <div wlc-wrapper [inlineParams]="$params.rangeExceededConfig"></div>
 </ng-template>
 
 <ng-template #preloader>
