@@ -140,7 +140,7 @@ export class IdleService {
                 filter(((el: string): boolean => !this.document.hidden && el === 'IFRAME')),
             ),
         ).subscribe((event: StorageEvent | PointerEvent | MouseEvent): void => {
-            if (event['key'] === 'ngx-webstorage|idle-logout') {
+            if ((event as StorageEvent)['key'] === 'ngx-webstorage|idle-logout') {
                 this.logout();
             } else {
                 this.runTimer();

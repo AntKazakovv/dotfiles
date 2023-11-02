@@ -23,7 +23,6 @@ import {
     tap,
 } from 'rxjs/operators';
 import _assign from 'lodash-es/assign';
-import _each from 'lodash-es/each';
 import _keys from 'lodash-es/keys';
 import _set from 'lodash-es/set';
 import _merge from 'lodash-es/merge';
@@ -397,9 +396,7 @@ export class UserService {
     }
 
     public setProfileData(formData: IUserProfile): void {
-        _each(_keys(formData), (field) => {
-            this.profile.data[field] = formData[field];
-        });
+        this.profile.data = formData;
 
         this.userProfile$.next(this.profile);
     }

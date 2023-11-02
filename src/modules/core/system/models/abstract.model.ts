@@ -3,6 +3,7 @@ import {IFromLog, ILogObj} from 'wlc-engine/modules/core';
 
 import _keys from 'lodash-es/keys';
 import _merge from 'lodash-es/merge';
+import _assign from 'lodash-es/assign';
 
 export interface IAbstractModelParams {
     from: IFromLog;
@@ -26,7 +27,7 @@ export abstract class AbstractModel<T> {
 
     public set data(data: T) {
         if (data) {
-            this.objectData = data;
+            this.objectData = _assign(this.objectData, data);
             this.checkData();
             this.dataReady = true;
         } else {
