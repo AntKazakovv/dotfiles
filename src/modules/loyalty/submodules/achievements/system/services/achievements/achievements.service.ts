@@ -74,7 +74,9 @@ export class AchievementsService {
                         data: <IPushMessageParams>{
                             type: 'success',
                             title: gettext('Achievement received'),
-                            message: achName[(this.translateService.currentLang || 'en')],
+                            message: achName[(this.translateService.currentLang)]?.length
+                                ? achName[(this.translateService.currentLang)]
+                                : achName[('en')],
                         },
                     });
                 },
