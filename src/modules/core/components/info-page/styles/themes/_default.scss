@@ -1,4 +1,6 @@
 .wlc-info-page--theme-default:host {
+    --wlc-accord-item-bg: #{ef.get-value($themeDefault, 'accordItemBg')};
+
     @include bm.get-mq-map('grid-template-columns', $themeDefault, 'columns');
 
     display: grid;

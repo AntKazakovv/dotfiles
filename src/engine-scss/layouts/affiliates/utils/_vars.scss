@@ -1,7 +1,7 @@
 $customAffSectionsDefault: () !default;
 $affSectionsDefault: map-merge((
     'anchorsBg': (
-        375:  var(--mc-bg100),
+        375:  var(--mc-bg700),
     ),
     'anchorsPadding': ef.size(2) 0,
 
@@ -12,7 +12,7 @@ $affSectionsDefault: map-merge((
     'comissionPadding': 0 0 ef.size(8),
 
     'descrBg': (
-        375: var(--mc-bg300),
+        375: var(--mc-bg700),
     ),
     'descrPadding': ef.size(8) 0,
 
@@ -98,7 +98,7 @@ $themeDefaultDigits: map-merge((
         375: ef.size(2),
         1200: ef.size(3),
     ),
-    'itemBg': var(--mc-bg300),
+    'itemBg': var(--mc-bg700),
     'itemRadius': ef.get('radius', 'biger'),
     'itemTextAlign': center,
     'itemPadding': (

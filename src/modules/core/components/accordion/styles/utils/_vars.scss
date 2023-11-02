@@ -36,7 +36,7 @@ $themeDefault: map-merge((
     'contentItemMargin': ef.size(3) 0 0,
 
     'itemsGapSize': ef.size(2),
-    'itemBackground': var(--mc-bg300),
+    'itemBackground': var(--mc-bg700),
     'itemBackgroundActive': var(--mc-main),
     'itemBorderRadius': ef.get('radius', 'biger'),
 

@@ -1,5 +1,6 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
+    'accordItemBg': var(--mc-bg300),
     'menuDisplay': (
         375: none,
         900: block,
