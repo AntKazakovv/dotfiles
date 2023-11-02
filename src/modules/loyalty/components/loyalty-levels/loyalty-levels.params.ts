@@ -15,8 +15,10 @@ export type ThemeMod = 'default' | CustomType;
 
 export interface ILoyaltyLevelTableCParams extends IComponentParams<Theme, Type, ThemeMod> {
     filterType?: 'select' | 'button',
-    /** wlc-profile-no-content params */
+    /** wlc-profile-no-content params **/
     emptyConfig?: IWrapperCParams;
+    /** array of ITableCol keys to be excluded from table **/
+    excludedHeadKeys?: string[],
 }
 
 export const defaultParams: ILoyaltyLevelTableCParams = {
@@ -33,6 +35,7 @@ export const defaultParams: ILoyaltyLevelTableCParams = {
             },
         ],
     },
+    excludedHeadKeys: [],
 };
 
 export const loyaltyTableHeadConfig: ITableCol[] = [

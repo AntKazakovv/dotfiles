@@ -2,7 +2,10 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'levelNameDisplay': flex,
     'levelNameAlignItems': center,
-    'levelNameJustifyContent': center,
+    'levelNameJustifyContent': (
+        320: flex-start,
+        1024: center,
+    ),
     'levelNameHasDescMargin': (
         1024: 0 -18px 0 0
     ),

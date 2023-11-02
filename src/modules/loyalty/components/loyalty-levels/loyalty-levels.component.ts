@@ -7,9 +7,11 @@ import {
 } from '@angular/core';
 
 import {BehaviorSubject} from 'rxjs';
+import _filter from 'lodash-es/filter';
 
 import {
     AbstractComponent,
+    ConfigService,
     IMixedParams,
     ITableCParams,
 } from 'wlc-engine/modules/core';
@@ -28,20 +30,12 @@ export class LoyaltyLevelsComponent extends AbstractComponent implements OnInit 
     public ready = false;
     public override $params: Params.ILoyaltyLevelTableCParams;
     public levels: BehaviorSubject<LoyaltyLevelModel[]> = new BehaviorSubject([]);
-
-    public tableData: ITableCParams = {
-        themeMod: 'mobile-cards',
-        pagination: {
-            use: false,
-            breakpoints: null,
-        },
-        head: Params.loyaltyTableHeadConfig,
-        rows: this.levels,
-    };
+    public tableData: ITableCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILoyaltyLevelTableCParams,
         cdr: ChangeDetectorRef,
+        configService: ConfigService,
         protected loyaltyLevelsService: LoyaltyLevelsService,
     )
     {
@@ -49,12 +43,25 @@ export class LoyaltyLevelsComponent extends AbstractComponent implements OnInit 
             <IMixedParams<Params.ILoyaltyLevelTableCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
-            }, null, cdr);
+            }, configService, cdr);
     }
 
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
         this.levels.next(await this.loyaltyLevelsService.getLoyaltyLevelsSafely());
+        this.tableData = {
+            themeMod: 'mobile-cards',
+            pagination: {
+                use: false,
+                breakpoints: null,
+            },
+            head: this.$params.excludedHeadKeys.length
+                ? _filter(
+                    Params.loyaltyTableHeadConfig,
+                    (tableHead) => !this.$params.excludedHeadKeys.includes(tableHead.key))
+                : Params.loyaltyTableHeadConfig,
+            rows: this.levels,
+        };
         this.ready = true;
         this.cdr.detectChanges();
     }
