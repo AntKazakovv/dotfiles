@@ -23,12 +23,13 @@
         .wlc-app {
             padding-left: var(--fp-left-padding, 0);
         }
-    }
 
-    &:not(.wlc-body--fp-right) {
+        &:not(.wlc-body--fp-right),
+        &.wlc-body--fp-right-nopadding {
 
-        @include mq.min(1366) {
-            padding-right: var(--fp-left-size-gap);
+            .wlc-app {
+                padding-right: var(--fp-left-size-gap, 0);
+            }
         }
     }
 }
@@ -46,14 +47,15 @@
     &:not(.wlc-body--fp-right-nopadding) {
 
         .wlc-app {
-            padding-right: var(--fp-right-padding);
+            padding-right: var(--fp-right-padding, 0);
         }
-    }
 
-    &:not(.wlc-body--fp-left) {
+        &:not(.wlc-body--fp-left),
+        &.wlc-body--fp-left-nopadding {
 
-        @include mq.min(1366) {
-            padding-left: var(--fp-right-size-gap);
+            .wlc-app {
+                padding-left: var(--fp-right-size-gap, 0);
+            }
         }
     }
 }
