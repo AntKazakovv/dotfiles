@@ -89,7 +89,8 @@ export abstract class AbstractDepositWithdrawComponent<T extends {mode: TPayment
 
         if (this.requiredFieldsKeys.includes('stateCode')
             && (this.requiredFieldsKeys.includes('countryCode') || (profile.countryCode
-                && !this.configService.get<BehaviorSubject<IState[]>>('states').getValue()[profile.countryCode]))
+            && !this.configService.get<BehaviorSubject<IState[]>>('states')
+                .getValue()[profile.countryCode as keyof IState[]]))
         ) {
             this.requiredFieldsKeys = this.requiredFieldsKeys.filter((field) => field !== 'stateCode');
             delete this.requiredFields['stateCode'];
@@ -104,8 +105,8 @@ export abstract class AbstractDepositWithdrawComponent<T extends {mode: TPayment
             const fields: IFormComponent[] = _transform(
                 this.requiredFields,
                 (result: IFormComponent[], item: IFieldTemplate) => {
-                    if (FormElements[item.template]) {
-                        const component: IFormComponent = FormElements[item.template];
+                    if (FormElements[item.template as keyof typeof FormElements]) {
+                        const component: IFormComponent = FormElements[item.template as keyof typeof FormElements];
                         UserHelper.setValidatorRequired(item.template, component);
                         result.push(component);
                     } else {

@@ -526,7 +526,7 @@ export class FinancesService {
     private async balanceAction(
         systemId: number,
         amount: number,
-        additionalFields: object,
+        additionalFields: TAdditionalParams,
         method: TPaymentsMethods,
         requestName: string,
         cssVariables: string,

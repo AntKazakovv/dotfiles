@@ -199,7 +199,8 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
     }
 
     public get cryptoTicker(): string {
-        return aliasTickerMap[this.alias] || (this.message as IPaymentMessage)?.wallet_currency;
+        return aliasTickerMap[this.alias as keyof typeof aliasTickerMap]
+            || (this.message as IPaymentMessage)?.wallet_currency;
     }
 
     public get userCurrency(): string {
