@@ -48,4 +48,20 @@
             }
         }
     }
+
+    .wlc-form-wrapper {
+
+        &.disabled {
+
+            &::ng-deep {
+
+                .wlc-btn {
+
+                    &--restore {
+                        @include button.disabled();
+                    }
+                }
+            }
+        }
+    }
 }

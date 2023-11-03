@@ -4,7 +4,7 @@
         typeAttr="button"
         text="Verify"
         theme="resolve"
-        [disabled]="buttonDisabled"
+        [class.disabled]="waitMailVerification$ | async"
         (click)="sendLink()"
         [wlcElement]="'verify-email-btn'">
 </button>

@@ -9,6 +9,10 @@ import {
 import {UntypedFormControl} from '@angular/forms';
 
 import {
+    Observable,
+} from 'rxjs';
+
+import {
     takeUntil,
     filter,
 } from 'rxjs/operators';
@@ -21,6 +25,7 @@ import {
     NotificationEvents,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
+import {TimeLimitService} from 'wlc-engine/modules/user/system/services/time-limit/time-limit.service';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 
 import * as Params from './email-field.params';
@@ -36,7 +41,6 @@ export class EmailFieldComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams!: Params.IEmailFieldCParams;
     public override $params!: Params.IEmailFieldCParams;
     public verificationBtn: boolean = false;
-    public buttonDisabled: boolean = false;
     public emailControl!: UntypedFormControl;
     public isVerified!: boolean;
     protected profileEmail!: string;
@@ -47,9 +51,13 @@ export class EmailFieldComponent extends AbstractComponent implements OnInit {
         configService: ConfigService,
         protected userService: UserService,
         protected eventService: EventService,
+        protected timeLimitService: TimeLimitService,
         cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({
+            injectParams,
+            defaultParams: Params.defaultParams,
+        }, configService, cdr);
     }
 
     public override ngOnInit(): void {
@@ -85,9 +93,12 @@ export class EmailFieldComponent extends AbstractComponent implements OnInit {
      */
     public sendLink(): void {
         this.profileEmail = this.emailControl.value;
+        const wait: boolean = this.timeLimitService.waitMailVerification;
 
-        if (this.emailControl.valid || this.isExisted) {
+        if ((this.emailControl.valid || this.isExisted) && !wait) {
             this.mailVerify();
+        } else if (wait) {
+            this.timeLimitService.showNotification();
         } else {
             const message: string = this.emailControl.errors?.required
                 ? gettext('Email is empty')
@@ -105,9 +116,12 @@ export class EmailFieldComponent extends AbstractComponent implements OnInit {
         }
     }
 
+    public get waitMailVerification$(): Observable<boolean> {
+        return this.timeLimitService.waitMailVerification$;
+    }
+
     protected async mailVerify(): Promise<void> {
         try {
-            this.buttonDisabled = true;
             await this.userService.emailVerification();
 
             this.eventService.emit({
@@ -121,6 +135,7 @@ export class EmailFieldComponent extends AbstractComponent implements OnInit {
                     wlcElement: 'notification_email-verification-link-sending-success',
                 },
             });
+            this.timeLimitService.setTime('mailVerification');
         } catch (error) {
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,
@@ -131,8 +146,6 @@ export class EmailFieldComponent extends AbstractComponent implements OnInit {
                     wlcElement: 'notification_email-verification-link-sending-error',
                 },
             });
-        } finally {
-            this.buttonDisabled = false;
         }
     }
 }

@@ -133,3 +133,16 @@
         color: ef.get-value($themeDefault, 'fontColor');
     }
 }
+
+//disabled-like btn but able to react on clicks
+@mixin disabled {
+    background: ef.get-value($themeDefault, 'disabledBg');
+    box-shadow: ef.get-value($themeDefault, 'disabledShadow');
+    cursor: not-allowed;
+    opacity: ef.get-value($themeDefault, 'disabledOpacity');
+    border: ef.get-value($themeDefault, 'disabledBorder');
+
+    .wlc-btn__text {
+        color: ef.get-value($themeDefault, 'disabledColorHover');
+    }
+}

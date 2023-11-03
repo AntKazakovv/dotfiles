@@ -8,6 +8,10 @@
             .wlc-input[class] {
                 @include bm.get-mq-map('grid-template-columns', $themeDefault, 'defUnverifiedInputColumns');
             }
+
+            .wlc-btn.disabled {
+                @include button.disabled();
+            }
         }
     }
 }
@@ -21,6 +25,10 @@
 
             .wlc-input[class] {
                 @include bm.get-mq-map('grid-template-columns', $themeDefault, 'vertUnverifiedInputColumns');
+            }
+
+            .wlc-btn.disabled {
+                @include button.disabled();
             }
         }
     }

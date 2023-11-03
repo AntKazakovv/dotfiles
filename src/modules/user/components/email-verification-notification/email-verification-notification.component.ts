@@ -7,7 +7,11 @@ import {
     OnDestroy,
 } from '@angular/core';
 
-import {BehaviorSubject} from 'rxjs';
+import {
+    BehaviorSubject,
+    Observable,
+} from 'rxjs';
+
 import {
     filter,
     tap,
@@ -31,6 +35,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
+import {TimeLimitService} from 'wlc-engine/modules/user/system/services/time-limit/time-limit.service';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 
 import * as Params from './email-verification-notification.params';
@@ -55,6 +60,7 @@ export class EmailVerificationNotificationComponent extends AbstractComponent im
         protected bodyClassService: BodyClassService,
         protected eventService: EventService,
         protected router: UIRouter,
+        protected timeLimitService: TimeLimitService,
         @Inject(WINDOW) protected window: Window,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
@@ -87,6 +93,19 @@ export class EmailVerificationNotificationComponent extends AbstractComponent im
         this.logoutHandler();
     }
 
+    public sendVerificationLink(): void {
+
+        if (!this.timeLimitService.waitMailVerification) {
+            this.mailVerify();
+        } else {
+            this.timeLimitService.showNotification();
+        }
+    }
+
+    public get waitMailVerification$(): Observable<boolean> {
+        return this.timeLimitService.waitMailVerification$;
+    }
+
     protected close(): void {
         this.configService.set({
             name: 'verified',
@@ -102,7 +121,7 @@ export class EmailVerificationNotificationComponent extends AbstractComponent im
         this.window.open('https://' + mail);
     }
 
-    protected async sendVerificationLink(): Promise<void> {
+    protected async mailVerify(): Promise<void> {
         try {
             await this.userService.emailVerification();
 
@@ -117,6 +136,7 @@ export class EmailVerificationNotificationComponent extends AbstractComponent im
                     wlcElement: 'notification_email-verification-link-sending-success',
                 },
             });
+            this.timeLimitService.setTime('mailVerification');
         } catch (error) {
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,

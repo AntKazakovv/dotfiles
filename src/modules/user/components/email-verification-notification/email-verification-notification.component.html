@@ -14,6 +14,7 @@
     <div class="{{$class}}__link-wrp"
         [class.without-btn]="!$params.useButtonGoToMail">
         <a class="{{$class}}__verification-link"
+            [class.disabled]="waitMailVerification$ | async"
             (click)="sendVerificationLink()">
             {{'Send again' | translate}}
         </a>

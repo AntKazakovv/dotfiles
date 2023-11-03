@@ -58,6 +58,10 @@
             @include text.get-text-style(ef.get-value($themeDefault, 'linkTextStyle'), ef.get-value($themeDefault, 'linkTextColor'));
             cursor: pointer;
 
+            &.disabled {
+                cursor: not-allowed;
+            }
+
             @include bm.hover {
                 text-decoration: none;
             }

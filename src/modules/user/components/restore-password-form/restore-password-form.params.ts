@@ -26,6 +26,8 @@ export interface IRestorePasswordFormCParams extends IComponentParams<ComponentT
         customModifiers?: CustomMod;
     };
     modifiers?: Modifiers[];
+    // timer to disable repeated request to get restore link, in milliseconds, default 5 min
+    requestTimer: number,
 }
 
 export const restorePasswordFormConfig: IFormWrapperCParams = {
@@ -157,4 +159,5 @@ export const defaultParams: IRestorePasswordFormCParams = {
         default: restorePasswordFormConfig,
         withPhone: restorePasswordWithPhoneFormConfig,
     },
+    requestTimer: 300000,
 };
