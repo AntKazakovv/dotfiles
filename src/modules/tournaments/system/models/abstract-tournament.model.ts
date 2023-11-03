@@ -18,10 +18,12 @@ import {
     IAbstractModelParams,
 } from 'wlc-engine/modules/core';
 import {UserProfile} from 'wlc-engine/modules/user';
-import {ITournamentAbstract} from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
-import {ITopTournamentUsers} from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
+import {
+    ITopTournamentUsers,
+    ITournamentAbstract,
+    ITournamentPlace,
+} from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
 import {TournamentsService} from 'wlc-engine/modules/tournaments/system/services/tournaments/tournaments.service';
-import {ITournamentPlace} from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
 import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
 
 export abstract class AbstractTournamentModel<T extends ITournamentAbstract> extends AbstractModel<T> {
@@ -120,10 +122,13 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
         if (this.feeType === 'loyalty') {
             return _toNumber(this.data.FeeAmount) || 0;
         } else {
-            return (_toNumber(this.data.FeeAmount['Currency']) ||
-                _toNumber(this.data.FeeAmount[this.userCurrency]) ||
-                _toNumber(this.data.FeeAmount['EUR'])) * WalletHelper.coefficientСonversionEUR;
+            return _toNumber(this.data.FeeAmount[this.tournamentsService.profile.selectedCurrency]
+                ?? this.data.FeeAmount['Currency']);
         }
+    }
+
+    public get feeAmountConversion(): number {
+        return this.feeAmount * WalletHelper.coefficientСonversion;
     }
 
     public get id(): number {

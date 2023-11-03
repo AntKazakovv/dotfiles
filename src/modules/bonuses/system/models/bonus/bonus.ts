@@ -507,7 +507,7 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     public get wageringLeft(): number {
-        return _toNumber(this.data.WageringLeft) * WalletHelper.coefficientOriginalCurrencyСonversion;
+        return _toNumber(this.data.WageringLeft);
     }
 
     public get wageringTo(): string {

@@ -14,6 +14,7 @@ import {
     skipWhile,
     takeUntil,
 } from 'rxjs/operators';
+import _union from 'lodash-es/union';
 
 import {
     AbstractComponent,
@@ -23,6 +24,8 @@ import {
     ModalService,
 } from 'wlc-engine/modules/core';
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
+import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
+
 import {Tournament} from 'wlc-engine/modules/tournaments/system/models/tournament.model';
 import {TournamentsService} from 'wlc-engine/modules/tournaments/system/services/tournaments/tournaments.service';
 import {
@@ -42,8 +45,6 @@ import {
 } from 'wlc-engine/modules/tournaments/components/tournament/components/tournament-promo/tournament-promo.params';
 
 import * as Params from 'wlc-engine/modules/tournaments/components/tournament/tournament.params';
-
-import _union from 'lodash-es/union';
 
 @Component({
     selector: '[wlc-tournament]',
@@ -68,6 +69,7 @@ export class TournamentComponent extends AbstractComponent implements OnInit {
     public detailParams: ITournamentDetailCParams;
     public actionParams: IActionParams = null;
     protected userInfo: UserInfo;
+    private isMultiWallet: boolean;
 
     constructor(
         @Inject('injectParams') protected params: Params.ITournamentCParams,
@@ -99,16 +101,20 @@ export class TournamentComponent extends AbstractComponent implements OnInit {
 
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         this.instance = this;
-
+        this.isMultiWallet = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
         this.prepareActionParams();
 
         this.getUserInfo();
     }
 
-    public join(): void {
+    public async join(): Promise<void> {
         if (!this.isAuth) {
             this.modalService.showModal('signup');
             return;
+        }
+
+        if (this.isMultiWallet) {
+            await WalletHelper.readyMultiWallet;
         }
         this.checkSubscribeConditions(this.tournament);
     }
@@ -151,7 +157,7 @@ export class TournamentComponent extends AbstractComponent implements OnInit {
     }
 
     protected showConditionModal(
-        tournament: Tournament,
+        feeAmount: number,
         userBalance: number,
         feeCurrency: string,
         modalTitle: string,
@@ -164,11 +170,12 @@ export class TournamentComponent extends AbstractComponent implements OnInit {
             component: TournamentConditionComponent,
             componentParams: <ITournamentConditionCParams>{
                 common: {
-                    feeAmount: tournament?.feeAmount,
+                    feeAmount: feeAmount,
                     userBalance,
                     feeCurrency,
                     text: modalMessage,
                     actionType,
+                    userCurrency: this.tournamentsService.profile.bonusCurrency,
                 },
             },
             modalTitle,
@@ -188,9 +195,9 @@ export class TournamentComponent extends AbstractComponent implements OnInit {
     public checkSubscribeConditions(tournament: Tournament): void {
         if (tournament.feeAmount === 0) {
             this.joinTournament();
-        } else if (tournament.feeType === 'balance' && this.userInfo?.realBalance >= tournament.feeAmount) {
+        } else if (tournament.feeType === 'balance' && this.userInfo?.originalRealBalance >= tournament.feeAmount) {
             this.showConditionModal(
-                tournament,
+                tournament.feeAmountConversion,
                 this.userInfo?.realBalance,
                 tournament.feeCurrency,
                 gettext('Subscribe'),
@@ -199,16 +206,16 @@ export class TournamentComponent extends AbstractComponent implements OnInit {
             );
         } else if (tournament.feeType === 'loyalty' && +this.userInfo?.loyalty.Balance >= tournament.feeAmount) {
             this.showConditionModal(
-                tournament,
+                tournament.feeAmount,
                 +this.userInfo?.loyalty.Balance,
                 tournament.feeCurrency,
                 gettext('Subscribe'),
                 gettext('Let\'s play?'),
                 'join',
             );
-        } else if (tournament.feeType === 'balance' && this.userInfo?.realBalance < tournament.feeAmount) {
+        } else if (tournament.feeType === 'balance' && this.userInfo?.originalRealBalance < tournament.feeAmount) {
             this.showConditionModal(
-                tournament,
+                tournament.feeAmountConversion,
                 this.userInfo?.realBalance,
                 tournament.feeCurrency,
                 gettext('You can`t subscribe'),
@@ -217,7 +224,7 @@ export class TournamentComponent extends AbstractComponent implements OnInit {
             );
         } else if (tournament.feeType === 'loyalty' && +this.userInfo?.loyalty.Balance < tournament.feeAmount) {
             this.showConditionModal(
-                tournament,
+                tournament.feeAmount,
                 +this.userInfo?.loyalty.Balance,
                 tournament.feeCurrency,
                 gettext('You can`t subscribe'),

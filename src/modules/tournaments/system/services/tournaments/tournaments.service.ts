@@ -57,6 +57,7 @@ interface ITournamentData extends IData {
 export class TournamentsService {
     public tournaments: Tournament[] = [];
     public isProcessed$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    public profile: UserProfile = {} as UserProfile;
 
     private subjects = {
         tournaments$: new BehaviorSubject<Tournament[]>(null),
@@ -65,7 +66,6 @@ export class TournamentsService {
 
     private winnersSubjects: IIndexing<BehaviorSubject<ITopTournamentUsers>> = {};
 
-    private profile: UserProfile = {} as UserProfile;
     private useForbidUserFields = this.configService.get<boolean>('$loyalty.useForbidUserFields');
     private winLimit = this.configService.get<number>('$tournaments.winLimit') || 10;
     private winnersLimit: IIndexing<number> = {};

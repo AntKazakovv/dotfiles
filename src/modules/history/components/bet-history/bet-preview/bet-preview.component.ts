@@ -30,6 +30,7 @@ export class BetPreviewComponent extends AbstractComponent implements OnInit {
     public override $params: Params.IBetPreviewParams;
     public date: string;
     public amount: number;
+    public currency: string;
 
     constructor(
         @Inject('injectParams') protected params: Params.IBetPreviewParams,
@@ -54,6 +55,6 @@ export class BetPreviewComponent extends AbstractComponent implements OnInit {
             (this.window.innerWidth < 480) ? this.$params.dateFormat.mobile : this.$params.dateFormat.desktop,
         );
         this.amount = +this.$params.bet.Amount;
-
+        this.currency = this.$params.bet.Currency;
     }
 }

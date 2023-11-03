@@ -15,7 +15,11 @@ export class WalletHelper {
     public static rates: IIndexing<number> = {};
     public static currencies: ICurrencyFilter[];
     public static walletSettings: IWalletsSettings;
+    public static readyMultiWallet: Promise<void> = new Promise((resolve: () => void): void => {
+        WalletHelper.$resolveMultiWallet = resolve;
+    });
 
+    public static $resolveMultiWallet: () => void;
     public static createCurrentWallet(
         wallets: IWalletObj,
         currency: string,

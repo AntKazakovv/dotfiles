@@ -155,8 +155,12 @@ export class UserInfo extends AbstractModel<IUserInfo> {
      * @returns {number}
      */
     public get bonusBalance(): number {
+        return this.originalBonusBalance * WalletHelper.coefficientOriginalCurrencyСonversion;
+    }
+
+    public get originalBonusBalance(): number {
         if (_isNumber(this.bonusBalanceWS)) {
-            return this.bonusBalanceWS * WalletHelper.coefficientOriginalCurrencyСonversion;
+            return this.bonusBalanceWS;
         }
 
         if (_isNil(this.bonusesBalance)) {
@@ -166,7 +170,7 @@ export class UserInfo extends AbstractModel<IUserInfo> {
         return _reduce((this.bonusesBalance),
             (accumulator: number, bonusBalance: IBonusesBalance): number => {
                 return accumulator + Number(_get(bonusBalance, 'Balance', 0));
-            }, 0) * WalletHelper.coefficientOriginalCurrencyСonversion;
+            }, 0);
     }
 
     /**
@@ -181,6 +185,12 @@ export class UserInfo extends AbstractModel<IUserInfo> {
         return UserInfo.currency
             ? this.getWalletBalance(UserInfo.currency) * WalletHelper.coefficientСonversion
             : this.balance - this.bonusBalance;
+    }
+
+    public get originalRealBalance(): number {
+        return UserInfo.currency
+            ? this.getWalletBalance(UserInfo.currency)
+            : this.data?.balance - this.originalBonusBalance;
     }
 
     public get level(): number {

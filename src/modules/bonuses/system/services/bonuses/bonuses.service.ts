@@ -37,6 +37,7 @@ import _isEqual from 'lodash-es/isEqual';
 import _isUndefined from 'lodash-es/isUndefined';
 import _keys from 'lodash-es/keys';
 import _forEach from 'lodash-es/forEach';
+import _toString from 'lodash-es/toString';
 
 import {
     UserProfile,
@@ -106,6 +107,7 @@ export class BonusesService {
     public promoBonus: Bonus = null;
     public dbPromoUrl: string = 'promocode';
     public bonuses: Bonus[] = [];
+    public profile: UserProfile;
 
     protected activeBonuses: Bonus[] = [];
     protected lootboxPrizes: LootboxPrizeModel[] = [];
@@ -120,7 +122,6 @@ export class BonusesService {
         store$: new BehaviorSubject(null),
     };
 
-    private profile: UserProfile;
     private useForbidUserFields = this.configService.get<boolean>('$loyalty.useForbidUserFields');
     private depEvents = ['deposit', 'deposit first', 'deposit repeated', 'deposit sum'];
     private regEvents = ['deposit first', 'registration', 'verification'];
@@ -1227,8 +1228,11 @@ export class BonusesService {
      * @return {void}
      */
     private showMessageBonusBalance(balance: string): void {
-        const currencyElement = `<span wlc-currency [value]="${balance}" `
-            + `[currency]="'${this.profile.currency}'"></span>`;
+        const currencyElement =
+            `<span
+                wlc-currency
+                [value]="${_toString(_toNumber(balance))}"
+                [currency]="'${this.profile.originalCurrency}'"></span>`;
         this.eventService.emit({
             name: NotificationEvents.PushMessage,
             data: <IPushMessageParams>{

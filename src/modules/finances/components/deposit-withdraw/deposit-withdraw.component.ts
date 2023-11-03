@@ -166,7 +166,7 @@ export class DepositWithdrawComponent
             this.steps.add(Params.PaymentSteps.wallet);
             this.walletsParams = {
                 themeMod: 'finances',
-                hideWalletsWithZeroBalance: !this.isDeposit,
+                hideVirtualWallets: !this.isDeposit,
             };
         }
 

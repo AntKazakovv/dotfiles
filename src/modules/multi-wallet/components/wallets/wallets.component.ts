@@ -142,19 +142,6 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
                 this.balance = this.displayedBalance;
                 this.cdr.detectChanges();
             });
-
-        this.eventService.subscribe(
-            {name: 'CLOSE_MODAL'},
-            (modalId: string): void => {
-                if (modalId === 'wallet-filters') {
-                    this.userService.updateProfile(
-                        {extProfile: {unusedCurrencies: WalletHelper.currencies}},
-                        {updatePartial: true},
-                    );
-                }
-            },
-            this.$destroy,
-        );
         this.eventService.subscribe({name: 'LOGOUT'}, (): void => {
             WalletHelper.conversionReset();
         });
@@ -241,7 +228,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
             componentName: 'multi-wallet.wlc-settings',
             componentParams: this.settingsParams,
             showConfirmBtn: true,
-            confirmBtnText: gettext('Ok'),
+            confirmBtnText: gettext('Save'),
             rejectBtnVisibility: false,
             textAlign: 'center',
             dismissAll: true,
@@ -262,6 +249,10 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
             textAlign: 'center',
             showConfirmBtn: false,
             dismissAll: true,
+            onModalHide: () => this.userService.updateProfile(
+                {extProfile: {unusedCurrencies: WalletHelper.currencies}},
+                {updatePartial: true},
+            ),
         });
     }
 
@@ -301,7 +292,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
             await this.updateConversionCoefficient();
         }
 
-        if (!this.currentWallet?.walletId && this.$params.hideWalletsWithZeroBalance) {
+        if (!this.currentWallet?.walletId && this.$params.hideVirtualWallets) {
             await this.filterWallets();
             this.currentWallet = this.walletList[0];
         }
@@ -310,6 +301,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
         this.isShowWalletSelector = true;
         this.walletCurrency = this.displayedCurrency;
         this.cdr.markForCheck();
+        WalletHelper.$resolveMultiWallet();
 
         const hour: number = 1000 * 60 * 60;
 
@@ -350,7 +342,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
                     wallet.balance = (coefficient * _toNumber(wallet.balance)).toFixed(2);
                 }
 
-            } else if (!this.$params.hideWalletsWithZeroBalance) {
+            } else if (!this.$params.hideVirtualWallets) {
                 wallets[currency] = {
                     currency: currency,
                     balance: '0.00',
@@ -388,16 +380,29 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
         await this.createWalletsArray();
         const searchCondition = (currency: IWallet): boolean =>
             currency.currency.toLowerCase().includes(this.searchQuery.toLowerCase());
-        const zeroBalanceCondition: boolean =
-            (this.settingsParams.walletSettings?.hideWalletsWithZeroBalance && !this.searchQuery.length)
-            || this.$params.hideWalletsWithZeroBalance;
 
-        this.walletList = zeroBalanceCondition
-            ? this.sortWallets(
+        const zeroBalanceCondition: boolean = this.settingsParams.walletSettings?.hideWalletsWithZeroBalance
+            && !this.searchQuery.length && !this.isFinance;
+
+        if (zeroBalanceCondition) {
+            this.walletList = this.sortWallets(
                 _filter(this.walletList, (currency: IWallet) => searchCondition(currency)
                     && (currency.currency === this.currentWallet.currency || currency.balance !== '0.00'),
                 ),
-            ) : this.sortWallets(_filter(this.walletList, (currency: IWallet) => searchCondition(currency)));
+            );
+
+        } else if (this.$params.hideVirtualWallets) {
+            this.walletList = this.sortWallets(_filter(this.walletList, (currency: IWallet) =>
+                searchCondition(currency) && !!currency.walletId));
+
+        } else {
+            this.walletList = this.sortWallets(_filter(this.walletList, (currency: IWallet) =>
+                searchCondition(currency)));
+        }
+
+        if (!this.walletList.length && !this.searchQuery.length) {
+            this.walletList.push(this.userService.userInfo.wallets[this.userService.userProfile.originalCurrency]);
+        }
         this.walletListRead = true;
         this.cdr.markForCheck();
     }
