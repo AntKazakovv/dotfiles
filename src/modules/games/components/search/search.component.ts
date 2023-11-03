@@ -178,7 +178,6 @@ export class SearchComponent extends AbstractComponent implements OnInit {
         this.getCategories();
         this.getMerchants();
         this.initSearchListener();
-        this.initActiveFilters();
 
         this.ready = true;
         this.cdr.detectChanges();
@@ -353,14 +352,6 @@ export class SearchComponent extends AbstractComponent implements OnInit {
             query,
             this.$params.easyThemeParams.showMerchantsFirst,
         );
-    }
-
-    protected initActiveFilters(): void {
-        const activeCategory = this.childCategory || this.parentCategory;
-
-        if (activeCategory) {
-            this.chooseCategory(activeCategory);
-        }
     }
 
     protected initSearchListener(): void {
