@@ -1,4 +1,4 @@
-<ng-container [ngSwitch]="$params.theme">
+<ng-container *ngIf="ready; else preloader" [ngSwitch]="$params.theme">
     <ng-container [ngTemplateOutlet]="second" *ngSwitchCase="'second'"></ng-container>
     <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
 </ng-container>
@@ -24,7 +24,7 @@
                 <p class="{{$class}}__step-title">{{'Select a cryptocurrency' | translate}}</p>
                 <ng-container [ngTemplateOutlet]="cryptoInvoiceSystems"></ng-container>
             </div>
-            <div *ngIf="showBonuses" class="{{$class}}__step {{$class}}__step--bonuses">
+            <div *ngIf="bonusesExist && showBonuses" class="{{$class}}__step {{$class}}__step--bonuses">
                 <p class="{{$class}}__step-title">{{'Select a bonus' | translate}}</p>
                 <ng-container [ngTemplateOutlet]="bonuses"></ng-container>
             </div>
@@ -37,11 +37,9 @@
 </ng-template>
 
 <ng-template #default>
-    <ng-container *ngIf="ready; else preloader">
-        <ng-container *ngFor="let step of steps; index as $index">
-            <ng-container [ngTemplateOutlet]="stepTpl"
-                          [ngTemplateOutletContext]="{$implicit: step, index: $index}"></ng-container>
-        </ng-container>
+    <ng-container *ngFor="let step of steps; index as $index">
+        <ng-container [ngTemplateOutlet]="stepTpl"
+                      [ngTemplateOutletContext]="{$implicit: step, index: $index}"></ng-container>
     </ng-container>
 </ng-template>
 

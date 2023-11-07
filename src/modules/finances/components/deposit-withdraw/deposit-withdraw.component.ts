@@ -98,6 +98,7 @@ export class DepositWithdrawComponent
     public selectedWallet: ISelectedWallet;
     public isMultiWallet: boolean = false;
     public ready: boolean = false;
+    public bonusesExist: boolean = false;
     protected userService: UserService;
 
     private userProfile: UserProfile;
@@ -191,15 +192,16 @@ export class DepositWithdrawComponent
                 observer: {
                     next: (bonuses: Bonus[]): void => {
                         const depositBonuses = bonusesService.filterBonuses(bonuses, 'deposit');
+                        this.bonusesExist = !!depositBonuses.length;
 
-                        if (depositBonuses.length) {
+                        if (this.bonusesExist) {
 
                             this.bonusesListParams = {
                                 components: [
                                     {
                                         name: 'bonuses.wlc-deposit-bonuses',
                                         params: {
-                                            bonuses: bonuses,
+                                            bonuses: depositBonuses,
                                         },
                                     },
                                 ],
@@ -250,7 +252,9 @@ export class DepositWithdrawComponent
                 this.cdr.markForCheck();
             });
 
-        await Params.PaymentSteps.wallet.ready;
+        if (this.isMultiWallet) {
+            await Params.PaymentSteps.wallet.ready;
+        }
         this.financesService.fetchPaymentSystems(this.selectedWallet?.walletCurrency)
             .finally(() => {
                 this.isFetchingSystems = false;
