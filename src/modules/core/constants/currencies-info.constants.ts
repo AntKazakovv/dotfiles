@@ -1,6 +1,9 @@
 export namespace CurrenciesInfo {
 
     export interface ICurrencyFormat {
+        /**
+         * ASCII Decimal array of character codes
+         */
         readonly code?: readonly number[];
         readonly symbol?: readonly number[];
         readonly narrowSymbol?: readonly number[];
@@ -66,6 +69,7 @@ export namespace CurrenciesInfo {
         'MATIC',
         'PWETH',
         'PUSDT',
+        'MBNB',
     ]);
 
     /** Special currencis, such as loyalty points, free spins, experience points and free bets */
@@ -238,6 +242,10 @@ export namespace CurrenciesInfo {
         PUSDT: {
             icon: '',
             literalAs: 'BTC',
+        },
+        MBNB: {
+            icon: '',
+            code: [77, 66, 78, 66],
         },
     };
 }
