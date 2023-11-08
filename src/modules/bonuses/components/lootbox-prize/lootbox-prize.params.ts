@@ -25,5 +25,4 @@ export const defaultParams: Partial<ILootboxPrizeCParams> = {
     moduleName: 'bonuses',
     componentName: 'wlc-lootbox-prize',
     class: 'wlc-lootbox-prize',
-    iconPath: '/bonuses/icons/lootbox.svg',
 };

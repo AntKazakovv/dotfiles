@@ -144,12 +144,12 @@ describe('LootboxPrizeComponent', (): void => {
 
     it('-> icon block on default profile', (): void => {
         setup();
-        expect(nativeElement.querySelector('[wlc-icon]')).toEqual(jasmine.anything());
+        expect(nativeElement.querySelector(`.${defaultParams.class}__icon`)).toEqual(jasmine.anything());
     });
 
     it('-> the absence of a icon block on first profile', (): void => {
         setup({isProfileFirst: true, image: true});
-        expect(nativeElement.querySelector('[wlc-icon]')).not.toEqual(jasmine.anything());
+        expect(nativeElement.querySelector(`.${defaultParams.class}__icon`)).not.toEqual(jasmine.anything());
     });
 });
 

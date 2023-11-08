@@ -69,6 +69,15 @@ export class LootboxPrizeModel extends AbstractModel<ILootboxPrize> {
     }
 
     /**
+     * get image other
+     *
+     * @returns {string}
+     */
+    public get imageOther(): string {
+        return this.data.Image_other || '';
+    }
+
+    /**
      * get description
      *
      * @returns {string}

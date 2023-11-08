@@ -7,17 +7,17 @@ $themeDefault: map-merge((
 
     'shadowBg': linear-gradient(0deg, var(--mc-bgModal) 0%, var(--mc-bgModal-o0) 95%),
 
-    'iconPadding': (
-        375: ef.size(3) ef.size(1) ef.size(1),
-        480: ef.size(3) ef.size(1) ef.size(2),
-        560: ef.size(4) ef.size(1) ef.size(2),
-        640: ef.size(7) ef.size(1) ef.size(2),
+    'iconMargin': (
+        375: ef.size(3) auto ef.size(1),
+        480: ef.size(3) auto ef.size(2),
+        560: ef.size(4) auto ef.size(2),
+        640: ef.size(7) auto ef.size(2),
     ),
-    'iconJustifyContent': center,
     'iconSize': (
         375: 50px,
         480: 80px,
     ),
+    'iconRadius': 50%,
     'nameHeight': (
         375: 25px,
         480: 35px

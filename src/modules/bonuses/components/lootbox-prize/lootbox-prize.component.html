@@ -10,11 +10,15 @@
     </div>
 </div>
 
-<span *ngIf="!isProfileFirst"
-      wlc-icon
-      class="{{$class}}__icon"
-      [iconPath]="$params.iconPath">
-</span>
+<div *ngIf="!isProfileFirst"
+    class="{{$class}}__icon">
+    <img class="{{$class}}__icon-sign"
+        draggable="false"
+        loading="lazy"
+        alt="bonus icon"
+        [src]="$params.iconPath"
+        (imageError)="imageErrorLoad()">
+</div>
 
 <h4 class="{{$class}}__name"
     data-wlc-element="lootbox-prize_name">

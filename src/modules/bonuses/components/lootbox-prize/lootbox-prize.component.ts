@@ -38,10 +38,23 @@ export class LootboxPrizeComponent extends AbstractComponent implements OnInit {
     public override ngOnInit(): void {
         super.ngOnInit();
         this.isProfileFirst = this.configService.get<string>('$base.profile.type') === 'first';
-        this.$params.iconPath = `/bonuses/icons/lootbox.${this.configService.get<string>(
-            '$bonuses.defaultIconExtension')}`;
+        if (this.$params.prize.imageOther?.length) {
+            this.$params.iconPath = this.$params.prize.imageOther;
+        } else {
+            this.$params.iconPath = `/gstatic/bonuses/icons/lootbox.${this.configService.get<string>(
+                '$bonuses.defaultIconExtension')}`;
+        };
+
         this.prepareModifiers();
     }
+
+    /**
+     * detectChanges after image loading error
+     * @returns {void}
+     */
+    public imageErrorLoad(): void {
+        this.cdr.detectChanges();
+    };
 
     /**
      * Get bg image by profile
