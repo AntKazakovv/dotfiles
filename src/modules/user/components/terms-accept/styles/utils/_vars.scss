@@ -1,5 +1,3 @@
-@use 'engine-scss/functions' as ef;
-
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'paddingBottom': ef.size(2),
@@ -10,3 +8,20 @@ $themeDefault: map-merge((
     'formGap': ef.size(8),
     'formMarginTop': ef.size(8),
 ), $customThemeDefault);
+
+$customThemeExtended: () !default;
+$themeExtended: map-merge((
+    'paddingBottom': ef.size(2),
+    'textFontSize': (
+        375: 1.4rem,
+        560: 1.6rem,
+    ),
+    'linkColor': var(--mc-main),
+    'linkHoverColor': var(--mc-baseMain),
+    'formPadding':(
+        375: ef.size(4) ef.size(4) 0,
+        560: ef.size(5) 28px 0,
+    ),
+    'formGap': ef.size(1),
+    'btnMargin': ef.size(5),
+), $customThemeExtended);

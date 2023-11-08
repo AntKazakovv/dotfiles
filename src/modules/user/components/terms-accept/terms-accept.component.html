@@ -1,16 +1,26 @@
-<div class="{{$class}}__text">
-    {{'To continue using the site, you must agree with the updated' | translate}}
-    <span class="{{$class}}__link" (click)="showModal()">{{'Terms and Conditions|nominative' | translate}}</span>.
-    {{'If you are not ready to accept the Terms and Conditions, you can request a' | translate}}
-    <a uiSref="app.profile.cash.withdraw">{{'withdrawal' | translate}}</a>
-    {{'or' | translate}}
-    <a uiSref="app.contacts" [uiParams]="{slug: 'feedback'}">{{'contact us' | translate}}</a>.
+<ng-container [ngSwitch]="$params.theme">
+    <ng-container *ngSwitchCase="'extended'" [ngTemplateOutlet]="extended"></ng-container>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
+</ng-container>
+<div wlc-form-wrapper
+    [config]="config"
+    [ngSubmit]="ngSubmit.bind(this)">
 </div>
 
-<div class="{{$class}}__form">
-    <div wlc-checkbox [inlineParams]="checkBoxParams"></div>
-    <button wlc-button
-        [text]="buttonText"
-        (click)="accept()">
-    </button>
-</div>
+<ng-template #default>
+    <div class="{{$class}}__text">
+        {{'To continue using the site, you must agree with the updated' | translate}}
+        <span class="{{$class}}__link" (click)="showModal()">{{'Terms and Conditions|nominative' | translate}}</span>.
+        {{'If you are not ready to accept the Terms and Conditions, you can request a' | translate}}
+        <a uiSref="app.profile.cash.withdraw">{{'withdrawal' | translate}}</a>
+        {{'or' | translate}}
+        <a uiSref="app.contacts" [uiParams]="{slug: 'feedback'}">{{'contact us' | translate}}</a>.
+    </div>
+</ng-template>
+<ng-template #extended>
+    <div class="{{$class}}__text">
+        {{'To continue using the site, you must agree the points listed below' | translate}}.
+        {{'If you are not ready to confirm the information, you can' | translate}}
+        <a uiSref="app.contacts" [uiParams]="{slug: 'feedback'}">{{'contact us' | translate}}</a>.
+    </div>
+</ng-template>

@@ -45,4 +45,17 @@ export interface IRegistrationConfig {
      *  }
      */
     usePromoBanner?: boolean;
+    /**
+     * Required checkbox names for registration
+     *
+     *  @example:
+     *  registration: {
+     *      requiredRegisterCheckboxNames: [
+     *          'ageConfirmed',
+     *          'agreeWithSelfExcluded',
+     *          'agreedWithTermsAndConditions',
+     *      ],
+     *  }
+     */
+    requiredRegisterCheckboxNames?: string[];
 }

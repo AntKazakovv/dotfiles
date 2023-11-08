@@ -230,7 +230,6 @@ export class UserService {
         this.info = new UserInfo(
             {service: 'UserService', method: 'constructor'},
             this.translateService,
-            this.eventService,
         );
         this.profile = new UserProfile({service: 'UserService', method: 'constructor'});
 
@@ -513,7 +512,6 @@ export class UserService {
         this.info = new UserInfo(
             {service: 'UserService', method: 'constructor'},
             this.translateService,
-            this.eventService,
         );
         this.setUserInfo();
         this.profile = new UserProfile({service: 'UserService', method: 'constructor'});

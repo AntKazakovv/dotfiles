@@ -90,4 +90,11 @@ export const $base: IBaseConfig = {
             },
         },
     },
+    registration: {
+        requiredRegisterCheckboxNames: [
+            'ageConfirmed',
+            'agreeWithSelfExcluded',
+            'agreedWithTermsAndConditions',
+        ],
+    },
 };

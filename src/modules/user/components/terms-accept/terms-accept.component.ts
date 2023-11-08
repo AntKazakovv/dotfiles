@@ -6,7 +6,8 @@ import {
     ChangeDetectionStrategy,
     Optional,
 } from '@angular/core';
-import {UntypedFormControl} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
+
 import {
     StateService,
     UIRouterGlobals,
@@ -15,14 +16,17 @@ import {
 import {
     AbstractComponent,
     ModalService,
-    ICheckboxCParams,
     WlcModalComponent,
     EventService,
     NotificationEvents,
     IPushMessageParams,
     ConfigService,
+    IFormWrapperCParams,
 } from 'wlc-engine/modules/core';
-import {TermsAcceptService} from 'wlc-engine/modules/user/system/services';
+import {
+    TermsAcceptService,
+    IValidateData,
+} from 'wlc-engine/modules/user/system/services/terms/terms-accept.service';
 
 import * as Params from './terms-accept.params';
 
@@ -36,22 +40,7 @@ export class AcceptTermsComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.ITermsAcceptCParams;
 
     public override $params: Params.ITermsAcceptCParams;
-    public checkBoxParams: ICheckboxCParams = {
-        name: 'agreedWithTermsAndConditions',
-        checkboxType: 'legal-modal',
-        textWithLink: {
-            prefix: gettext('I agree with'),
-            linkText: gettext('Terms and Conditions'),
-            slug: 'terms-and-conditions',
-        },
-        control: new UntypedFormControl(),
-        wlcElement: 'block_terms-checkbox',
-        common: {
-            customModifiers: 'terms',
-        },
-    };
-
-    private loading: boolean = false;
+    public config: IFormWrapperCParams;
 
     constructor(
         @Inject('injectParams')
@@ -70,7 +59,7 @@ export class AcceptTermsComponent extends AbstractComponent implements OnInit {
 
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
-
+        this.config = Params.termsAcceptFormConfig(this.$params.requiredCheckbox);
         this.modal?.closed.then((status) => {
             if (status !== 'accept') {
                 this.termsAcceptService.setModalTimeout();
@@ -78,18 +67,10 @@ export class AcceptTermsComponent extends AbstractComponent implements OnInit {
                     this.termsAcceptService.showDeniedNotify();
                     setTimeout(() => {
                         this.stateService.go('app.home');
-                    }, 500);
+                    }, 250);
                 }
             }
         });
-    }
-
-    /**
-     * If the checkbox is checked, the button text is "Ok", otherwise it's "Close"
-     * @returns {string} 'Ok' or 'Close'
-     */
-    public get buttonText(): string {
-        return this.checkBoxParams.control.value ? gettext('Ok') : gettext('Close');
     }
 
     /**
@@ -99,41 +80,29 @@ export class AcceptTermsComponent extends AbstractComponent implements OnInit {
         this.modalService.showModal('staticText', {slug: 'terms-and-conditions', parseAsPlainHTML: true});
     }
 
-    /**
-     * Process click Ok button (accept or not T&C)
-     *
-     * @returns {Promise<void>}
-     */
-    public async accept(): Promise<void> {
-        if (this.loading) {
-            return;
-        }
-
-        if (this.checkBoxParams.control.value) {
-            try {
-                this.loading = true;
-                await this.termsAcceptService.accept();
-                if (this.modal) {
-                    this.modal.closeReason = 'accept';
-                    this.modal.closeModal(this.modal.$params.config.id);
-                }
-            } catch (error) {
-                this.eventService.emit({
-                    name: NotificationEvents.PushMessage,
-                    data: <IPushMessageParams>{
-                        type: 'error',
-                        title: gettext('Error'),
-                        message: gettext('Something went wrong. Please try again later.'),
-                        wlcElement: 'notification_accept-error',
-                    },
-                });
-            } finally {
-                this.loading = false;
-            }
-        } else {
+    public async ngSubmit(form: UntypedFormGroup): Promise<boolean> {
+        try {
+            form.disable();
+            const data: IValidateData = form.getRawValue();
+            await this.termsAcceptService.accept(data);
             if (this.modal) {
+                this.modal.closeReason = 'accept';
                 this.modal.closeModal(this.modal.$params.config.id);
             }
+            return true;
+        } catch (error) {
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'error',
+                    title: gettext('Error'),
+                    message: gettext('Something went wrong. Please try again later.'),
+                    wlcElement: 'notification_accept-error',
+                },
+            });
+            return false;
+        } finally {
+            form.enable();
         }
     }
 }

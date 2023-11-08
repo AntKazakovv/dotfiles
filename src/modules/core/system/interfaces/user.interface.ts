@@ -59,6 +59,9 @@ export interface IUserInfo {
     wallets?: IWalletObj;
     enabled2FAGoogle?: boolean;
     notify2FAGoogle?: boolean;
+    ageConfirmed?: boolean;
+    agreeWithSelfExcluded?: boolean;
+    agreedWithTermsAndConditions?: boolean;
 }
 
 export interface IUserProfile {
@@ -116,6 +119,9 @@ export interface IUserProfile {
     /** Metamask signature */
     signature?: string;
     skipEmailVerification?: boolean;
+    ageConfirmed?: boolean;
+    agreeWithSelfExcluded?: boolean;
+    agreedWithTermsAndConditions?: boolean;
 }
 
 export type TUserType = 'metamask' | 'default';

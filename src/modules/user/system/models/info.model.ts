@@ -7,6 +7,7 @@ import _cloneDeep from 'lodash-es/cloneDeep';
 import _isNil from 'lodash-es/isNil';
 import _isNumber from 'lodash-es/isNumber';
 import _toNumber from 'lodash-es/toNumber';
+import _isUndefined from 'lodash-es/isUndefined';
 
 import {
     IFreeRound,
@@ -21,7 +22,7 @@ import {IWebSocketConfig} from 'wlc-engine/modules/core/system/interfaces/websoc
 import {TranslateService} from '@ngx-translate/core';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {
-    EventService,
+    ConfigService,
     IFromLog,
 } from 'wlc-engine/modules/core/system/services';
 import {
@@ -40,7 +41,6 @@ export class UserInfo extends AbstractModel<IUserInfo> {
     constructor(
         from: IFromLog,
         protected translateService: TranslateService,
-        protected eventService: EventService,
     ) {
         super({from: _assign({model: 'UserInfo'}, from)});
     }
@@ -274,6 +274,18 @@ export class UserInfo extends AbstractModel<IUserInfo> {
         return this.data?.notify2FAGoogle;
     }
 
+    public get ageConfirmed(): boolean {
+        return this.data?.ageConfirmed;
+    }
+
+    public get agreeWithSelfExcluded(): boolean {
+        return this.data?.agreeWithSelfExcluded;
+    }
+
+    public get agreedWithTermsAndConditions(): boolean {
+        return this.data?.agreedWithTermsAndConditions;
+    }
+
     public override set data(data: IUserInfo) {
         super.data = _cloneDeep(data);
         if (this.data && this.separateLoyalty) {
@@ -323,5 +335,14 @@ export class UserInfo extends AbstractModel<IUserInfo> {
     private getWalletAvailableWithdraw(currency: string): number {
         return this.wallets && this.wallets[currency]?.availableWithdraw
             ? _toNumber(this.wallets[currency]?.availableWithdraw) : 0;
+    }
+
+    public getRequiredRegisterCheckbox(configService: ConfigService): string[] {
+        const checkboxNames = configService.get<string[]>(
+            {name: '$base.registration.requiredRegisterCheckboxNames'}) || [];
+        return checkboxNames.reduce((acc: string[], key) => {
+            if(!_isUndefined(this.data?.[key])) return [...acc, key];
+            return acc;
+        }, []);
     }
 }

@@ -1,0 +1,44 @@
+.wlc-accept-terms--theme-extended:host {
+
+    padding-bottom: ef.get-value($themeExtended, 'paddingBottom');
+
+    .wlc-accept-terms {
+
+        &__text {
+            @include bm.get-mq-map('font-size', $themeExtended, 'textFontSize');
+            text-align: center;
+        }
+
+        &__link {
+            color: ef.get-value($themeExtended, 'linkColor');
+            text-decoration: underline;
+            cursor: pointer;
+
+            @include bm.hover {
+                color: ef.get-value($themeExtended, 'linkHoverColor');
+            }
+        }
+    }
+
+    &::ng-deep {
+
+        .wlc-form {
+            @include bm.get-mq-map('padding', $themeExtended, 'formPadding');
+            display: flex;
+            flex-direction: column;
+            gap: ef.get-value($themeExtended, 'formGap');
+
+            &::ng-deep {
+
+                .wlc-checkbox__link {
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        .wlc-btn {
+            align-self: center;
+            margin-top: ef.get-value($themeExtended, 'btnMargin');
+        }
+    }
+}

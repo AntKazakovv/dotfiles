@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+
 import {
     RawParams,
     Transition,
@@ -23,14 +24,20 @@ import {
     IEvent,
     IHookHandlerDescriptor,
     IIndexing,
+    IModalParams,
     IPushMessageParams,
     IUserInfo,
+    InjectionService,
     ModalService,
     NotificationEvents,
+    WlcModalComponent,
 } from 'wlc-engine/modules/core';
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 import {IHookRequestData} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {IHookGameStartData} from 'wlc-engine/modules/core/system/config/resolvers';
+import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
+
+export type IValidateData = Pick<IUserInfo, 'ageConfirmed' | 'agreeWithSelfExcluded' | 'agreedWithTermsAndConditions'>;
 
 @Injectable({
     providedIn: 'root',
@@ -43,6 +50,26 @@ export class TermsAcceptService {
     private hookOnRequestMethod: IHookHandlerDescriptor;
     private hookBeforeStartGame: IHookHandlerDescriptor;
     private transitionOnBeforeDestroy: Function;
+    private userService: UserService;
+
+    private readonly acceptDefaultModalConfig: IModalParams = {
+        id: this.acceptModalId,
+        componentName: 'user.wlc-accept-terms',
+        componentParams: {},
+        modalTitle: gettext('Acceptance of new Terms & Conditions'),
+        showFooter: false,
+        dismissAll: true,
+    };
+    private readonly acceptExtendedModalConfig: IModalParams = {
+        id: this.acceptModalId,
+        componentName: 'user.wlc-accept-terms',
+        modalTitle: gettext('User information update'),
+        showFooter: false,
+        dismissAll: true,
+        componentParams: {
+            theme: 'extended',
+        },
+    };
 
     constructor(
         protected configService: ConfigService,
@@ -51,6 +78,7 @@ export class TermsAcceptService {
         protected eventService: EventService,
         protected cachingService: CachingService,
         protected hooksService: HooksService,
+        protected injectionService: InjectionService,
         protected router: UIRouter,
     ) {
         this.init();
@@ -61,21 +89,32 @@ export class TermsAcceptService {
      *
      * @returns {Promise<void>}
      */
-    public async accept(): Promise<void> {
-        const res = await this.dataService.request<IData<IUserInfo['toSVersion']>>({
-            name: 'acceptTermsOfService',
-            system: 'user',
-            url: '/acceptTermsOfService',
-            type: 'POST',
-            params: {},
-        });
+    public async accept(data: IValidateData): Promise<void> {
+        if (await this.isRequireCheckbox()) {
+            this.userService??= await this.injectionService.getService<UserService>('user.user-service');
 
+            await this.userService.updateProfile(
+                {
+                    ageConfirmed: data.ageConfirmed,
+                    agreeWithSelfExcluded: data.agreeWithSelfExcluded,
+                    agreedWithTermsAndConditions: data.agreedWithTermsAndConditions,
+                },
+                {updatePartial: true},
+            );
+        } else {
+            const res = await this.dataService.request<IData<IUserInfo['toSVersion']>>({
+                name: 'acceptTermsOfService',
+                system: 'user',
+                url: '/acceptTermsOfService',
+                type: 'POST',
+                params: {},
+            });
+            this.eventService.emit(({
+                name: 'UPDATE_ACCEPTED_TERMS',
+                data: res.data,
+            }));
+        }
         this.cachingService.clear('accept-terms-timeout');
-
-        this.eventService.emit(({
-            name: 'UPDATE_ACCEPTED_TERMS',
-            data: res.data,
-        }));
     }
 
     /**
@@ -131,25 +170,46 @@ export class TermsAcceptService {
      * the terms and conditions to complete this action
      */
     public async openModalAndCheckReason(): Promise<string> {
-        const userInfo$ = this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'});
-        const userInfo = userInfo$.value ?? await firstValueFrom(userInfo$
-            .pipe(first((userInfo: UserInfo): boolean => !!userInfo?.idUser)));
-        if (this.shouldModalBeShown(userInfo)) {
-            const modal = await this.modalService.showModal(this.acceptModalId);
+        const userInfo: UserInfo = await firstValueFrom(
+            this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'})
+                .pipe(first((userInfo: UserInfo): boolean => !!userInfo?.idUser)),
+        );
+        if (await this.shouldModalBeShown(userInfo)) {
+            const modal = await this.showModal(userInfo);
             await modal.closed;
             return modal.closeReason;
         }
         return 'accept';
     }
 
-    private shouldModalBeShown(userInfo: UserInfo): boolean {
-        return !userInfo.isTermsActual
+    private async shouldModalBeShown(userInfo: UserInfo): Promise<boolean> {
+        return (await this.isRequireCheckbox(userInfo) || !userInfo.isTermsActual)
             && !userInfo.blockByLocation
             && !this.modalService.getActiveModal(this.acceptModalId);
     }
 
+    private async isRequireCheckbox(userInfo?: UserInfo): Promise<boolean> {
+        if (!userInfo) {
+            userInfo = await firstValueFrom(
+                this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'})
+                    .pipe(first((userInfo: UserInfo): boolean => !!userInfo?.idUser)),
+            );
+        }
+        const requiredCheckbox: string[] = userInfo.getRequiredRegisterCheckbox(this.configService);
+        if (requiredCheckbox.length) {
+            return requiredCheckbox.some((key: string) => userInfo[key] === false);
+        }
+        return false;
+    }
+
     private async init(): Promise<void> {
-        const states = this.configService.get<string[]>({name: '$base.termsAvailableStates'}) || [];
+        let states = this.configService.get<string[]>({name: '$base.termsAvailableStates'}) || [];
+        if (await this.isRequireCheckbox()) {
+            states = states.filter((state: string) => {
+                return state !== 'app.profile.cash.withdraw';
+            });
+        }
+
         for (let i = 0; i < states.length; i++) {
             const [state, paramsString] = states[i].split('?');
             const params: IIndexing<unknown> = {};
@@ -180,12 +240,13 @@ export class TermsAcceptService {
     private onBeforeHook(): Function {
         return this.router.transitionService.onBefore({}, async (trans: Transition) => {
             if (!this.checkState(trans.to().name, trans.params())) {
-                const userInfo$ = this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'});
-                const userInfo = userInfo$.value ?? await firstValueFrom(userInfo$
-                    .pipe(first((userInfo: UserInfo): boolean => !!userInfo?.idUser)));
-                if (this.shouldModalBeShown(userInfo)) {
+                const userInfo: UserInfo = await firstValueFrom(
+                    this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'})
+                        .pipe(first((userInfo: UserInfo): boolean => !!userInfo?.idUser)),
+                );
+                if (await this.shouldModalBeShown(userInfo)) {
                     this.showDeniedNotify();
-                    const modal = await this.modalService.showModal(this.acceptModalId);
+                    const modal = await this.showModal(userInfo);
                     await modal.closed;
                     if (modal.closeReason !== 'accept') {
                         trans.abort();
@@ -223,8 +284,8 @@ export class TermsAcceptService {
         this.userInfoSubscribe = this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'})
             .pipe(filter((userInfo: UserInfo): boolean => !!userInfo?.idUser))
             .subscribe(async (userInfo: UserInfo) => {
-                if (this.shouldModalBeShown(userInfo) && !await this.checkModalTimeout()) {
-                    this.modalService.showModal(this.acceptModalId);
+                if (await this.shouldModalBeShown(userInfo) && !await this.checkModalTimeout()) {
+                    this.showModal(userInfo);
                 }
             });
     }
@@ -263,5 +324,16 @@ export class TermsAcceptService {
 
     private async checkModalTimeout(): Promise<boolean> {
         return !!await this.cachingService.get<number>('accept-terms-timeout');
+    }
+
+    private async showModal(userInfo: UserInfo): Promise<WlcModalComponent> {
+        if (await this.isRequireCheckbox(userInfo)) {
+            return await this.modalService.showModal(
+                this.acceptExtendedModalConfig,
+                {requiredCheckbox: userInfo.getRequiredRegisterCheckbox(this.configService)},
+            );
+        } else {
+            return await this.modalService.showModal(this.acceptDefaultModalConfig);
+        }
     }
 }
