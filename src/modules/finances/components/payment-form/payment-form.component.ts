@@ -360,7 +360,11 @@ export class PaymentFormComponent
      */
     public showCryptoInfo(msg: TCryptoInfo): boolean {
 
-        if (!this.isDeposit || !this.currentSystem) {
+        if (!this.isDeposit
+            || !this.currentSystem
+            || this.currentSystem.id < 0
+            || this.requiredFieldsKeys.length
+        ) {
             return false;
         }
 
