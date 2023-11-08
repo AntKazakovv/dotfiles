@@ -359,3 +359,8 @@ export interface IBonusWagerGamesFilter {
     idCategories?: number[];
     idMerchants?: number[];
 }
+
+export type IPromoCodeInfo = {
+    bonusId: number;
+    promoCode: string;
+};

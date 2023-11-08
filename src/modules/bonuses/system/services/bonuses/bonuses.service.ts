@@ -75,6 +75,7 @@ import {
     ILootboxPrize,
     IBonusCanceledInfo,
     RequestType,
+    IPromoCodeInfo,
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {LootboxPrizeModel} from 'wlc-engine/modules/bonuses/system/models/lootbox-prize/lootbox-prize.model';
 import {BonusCancellationInfo} from '../../models/bonus/bonus-cancellation-info.model';
@@ -116,6 +117,8 @@ export class BonusesService {
     protected promocodeFetchSubscriber: Subscription = {} as Subscription;
     protected promocodeFetchData: IData = {} as IData;
 
+    private promoBonusIdCacheKey: string = 'promo-bonus-id';
+    private bonusesCacheExpTime: number = 7 * 24 * 60 * 60 * 1000;
     private subjects: ISubjects = {
         bonuses$: new BehaviorSubject(null),
         active$: new BehaviorSubject(null),
@@ -353,9 +356,8 @@ export class BonusesService {
             promocodeCacheKey,
             promoCode,
             true,
-            7 * 24 * 60 * 60 * 1000, // 7 days
+            this.bonusesCacheExpTime,
         );
-
         try {
             await this.checkPromoBonus();
 
@@ -780,6 +782,16 @@ export class BonusesService {
         });
     }
 
+    public async getPromoCodeInfo(): Promise<IPromoCodeInfo> {
+        const bonusId = await this.cachingService.get<number>(this.promoBonusIdCacheKey);
+        const promoCode = await this.cachingService.get<string>(this.dbPromoUrl);
+
+        if (promoCode && bonusId) {
+            return {bonusId, promoCode};
+        }
+    }
+
+
     /**
      * Sorts bonuses according to sort order
      * @param {Bonus[]} bonuses bonuses array
@@ -1100,7 +1112,13 @@ export class BonusesService {
         ], (bonus: Bonus): void => {
             if (bonus) {
                 this.promoBonus = bonus;
-                this.cachingService.set(this.dbPromoUrl, this.promoBonus.promoCode, true, 24 * 60 * 60 * 100);
+                this.cachingService.set(this.dbPromoUrl, this.promoBonus.promoCode, true, this.bonusesCacheExpTime);
+                this.cachingService.set<number>(
+                    this.promoBonusIdCacheKey,
+                    this.promoBonus.id,
+                    true,
+                    this.bonusesCacheExpTime,
+                );
             }
         });
 

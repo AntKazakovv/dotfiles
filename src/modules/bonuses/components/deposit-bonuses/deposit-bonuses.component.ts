@@ -19,6 +19,7 @@ import _merge from 'lodash-es/merge';
 import _isObject from 'lodash-es/isObject';
 import _filter from 'lodash-es/filter';
 import _map from 'lodash-es/map';
+import _find from 'lodash-es/find';
 
 import {
     AbstractComponent,
@@ -41,6 +42,7 @@ import {BonusesService} from 'wlc-engine/modules/bonuses/system/services';
 import {
     BonusItemComponentEvents,
     IBonus,
+    IPromoCodeInfo,
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {BonusItemComponent} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.component';
 import {IBonusItemCParams} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';
@@ -77,6 +79,8 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
     protected paymentsAutoSelect: boolean = false;
     protected bonusesListController: IBonusesListController;
 
+    private promoCodeInfo: IPromoCodeInfo;
+
     constructor(
         @Inject('injectParams') protected injectParams: Params.IDepositBonusesCParams,
         configService: ConfigService,
@@ -94,7 +98,7 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
         );
     }
 
-    public override ngOnInit(): void {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
 
         this.autoSelect = this.configService.get('$finances.bonusesInDeposit.autoSelect.use')
@@ -126,6 +130,7 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
         }, this.$destroy);
 
         this.followBreakpoints();
+        this.promoCodeInfo = await this.bonusesService.getPromoCodeInfo();
         this.getBonuses();
 
         if (this.configService.get<boolean>('$finances.useDepositPromoCode') && this.$params.disableBonuses$) {
@@ -365,6 +370,10 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
             if (this.$params.type === 'swiper') {
                 this.bonusesToSlides();
             }
+
+            if (this.promoCodeInfo) {
+                this.setPromoCodeInfo();
+            }
         }
 
         this.cdr.markForCheck();
@@ -418,6 +427,20 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
             this.enableBonuses();
             this.processBonusesResponse(this.bonuses);
         }
+    }
+
+    protected setPromoCodeInfo(): void {
+        const promoCodeBonus: Bonus = _find(this.bonuses, (bonus) => bonus.id === this.promoCodeInfo.bonusId);
+
+        if (!promoCodeBonus) {
+            return;
+        }
+
+        /* TODO: refactor here and there:
+         * src/modules/bonuses/system/services/bonuses/bonuses.service.ts (getBonusesByCode method)
+         * src/modules/bonuses/system/models/bonus/bonus.ts (promoCode getter)
+         */
+        promoCodeBonus.data.PromoCode = this.promoCodeInfo.promoCode;
     }
 
     protected processPaySystemChange(paySystem?: PaymentSystem): void {

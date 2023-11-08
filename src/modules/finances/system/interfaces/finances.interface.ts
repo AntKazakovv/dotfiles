@@ -237,7 +237,7 @@ export interface IAutoSelectByDevice<T> {
 
 export type TAdditionalParams = IIndexing<string | number> & {
     bonusId?: number;
-    promoCode?: string;
+    bonusCode?: string;
 };
 
 export interface ICryptoInvoicesParams {
