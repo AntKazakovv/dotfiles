@@ -47,6 +47,7 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
     public isDisableButtons: boolean;
 
     private static sportsbookService: SportsbookService;
+    private componentWillBeDestroyedNow: boolean = false;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IBonusButtonsCParams,
@@ -93,8 +94,11 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
         if (handler) {
             this.isDisableButtons = true;
             await handler.bind(this, ...args)();
-            this.isDisableButtons = false;
-            this.cdr.markForCheck();
+
+            if (!this.componentWillBeDestroyedNow) {
+                this.isDisableButtons = false;
+                this.cdr.markForCheck();
+            }
         }
     }
 
@@ -243,6 +247,7 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
     protected hideActiveModal(id: string): void {
         if (this.modalService.getActiveModal(id)) {
             this.modalService.hideModal(id);
+            this.componentWillBeDestroyedNow = true;
         }
     }
 
