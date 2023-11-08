@@ -1049,7 +1049,7 @@ export class UserService {
     private startWSUserBalance(): void {
         this.webSocketService.sendToWebsocket('wsc2', WebSocketEvents.SEND.USER_INFO);
 
-        let lastTimeGetUserWSBalance: number = 0;
+        let lastTimeGetUserWSBalance: number = null;
         let isErrorWSUserBalance: boolean = false;
         let sentRequestsWithoutResponse: number = 1;
         let setTimeoutRefreshData: NodeJS.Timeout;
@@ -1058,16 +1058,16 @@ export class UserService {
 
         this.ngZone.runOutsideAngular(() => {
             sendUserInfoIntervalSub = interval(10000)
-                .pipe(takeWhile(() => isErrorWSUserBalance === false))
                 .subscribe(() => {
-                    if (sentRequestsWithoutResponse > 1) {
-                        this.info.bonusBalanceWS = null;
-                        isErrorWSUserBalance = true;
-                        this.setUserInfo();
+                    if (!isErrorWSUserBalance
+                        && sentRequestsWithoutResponse >= 1
+                        && (!lastTimeGetUserWSBalance
+                            || DateTime.now().toSeconds() - lastTimeGetUserWSBalance > 15)
+                    ) {
+                        setErrorWS();
                     }
                 });
         });
-
 
         const wsUserInfoSub: Subscription = this.webSocketService.getMessages(
             {
@@ -1078,9 +1078,7 @@ export class UserService {
             .pipe(
                 tap((data: IWSUserBalance) => {
                     if (data.status === 'error') {
-                        isErrorWSUserBalance = true;
-                        this.info.bonusBalanceWS = null;
-                        this.setUserInfo();
+                        setErrorWS();
                     }
                 }),
                 takeWhile((data: IWSUserBalance) => data.status !== 'error'),
@@ -1093,6 +1091,10 @@ export class UserService {
 
                     if (setTimeoutRefreshData) {
                         clearTimeout(setTimeoutRefreshData);
+                    }
+
+                    if (isErrorWSUserBalance) {
+                        isErrorWSUserBalance = false;
                     }
 
                     this.ngZone.runOutsideAngular(() => {
@@ -1133,6 +1135,13 @@ export class UserService {
                     }
                 }
             });
+
+        const setErrorWS = (): void => {
+            isErrorWSUserBalance = true;
+            this.info.bonusBalanceWS = null;
+            this.wsBalanceData = null;
+            this.setUserInfo();
+        };
     }
 
     private setUserInfo(): void {
@@ -1150,7 +1159,7 @@ export class UserService {
         if (event.data?.timestamp) {
             const eventTimeSeconds = DateTime.fromSQL(event.data.timestamp, {zone: 'utc'}).toSeconds();
             const nowTimeSeconds = DateTime.now().toSeconds();
-            return nowTimeSeconds - eventTimeSeconds < 3;
+            return nowTimeSeconds - eventTimeSeconds < 5;
         }
 
         return true;
