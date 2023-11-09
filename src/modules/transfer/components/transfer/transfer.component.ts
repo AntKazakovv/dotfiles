@@ -12,7 +12,7 @@ import {StateService} from '@uirouter/core';
 import {BehaviorSubject} from 'rxjs';
 import {
     distinctUntilChanged,
-    filter,
+    map,
     takeUntil,
 } from 'rxjs/operators';
 import _find from 'lodash-es/find';
@@ -209,14 +209,12 @@ export class TransferComponent extends AbstractComponent implements OnInit {
     private userDataSetSubscribers(): void {
         this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'})
             .pipe(
-                filter((userInfo: UserInfo) => !!userInfo),
-                distinctUntilChanged((previous: UserInfo, current: UserInfo) =>
-                    previous.realBalance === current.realBalance,
-                ),
+                map((item: UserInfo): number => item?.realBalance),
+                distinctUntilChanged(),
                 takeUntil(this.$destroy),
             )
-            .subscribe((userInfo: UserInfo): void => {
-                this.userBalance = userInfo.realBalance;
+            .subscribe((balance: number): void => {
+                this.userBalance = balance;
             });
     }
 
