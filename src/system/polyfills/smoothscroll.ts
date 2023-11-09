@@ -1,5 +1,20 @@
 /* eslint-disable no-restricted-globals */
 
+declare type TAxis = 'X' | 'Y';
+
+declare interface IContext {
+    scrollable: Element | (Window & typeof globalThis),
+    method: (this: {
+        scrollLeft: number;
+        scrollTop: number;
+    } | (Window & typeof globalThis), x: number, y: number) => void,
+    startTime: number,
+    startX: number,
+    startY: number,
+    x: number,
+    y: number,
+};
+
 /* smoothscroll v0.4.4 - 2019 - Dustan Kasten, Jeremias Menichelli - MIT License */
 export const polyfill = (d: HTMLDocument): void => {
     // aliases
@@ -120,8 +135,8 @@ export const polyfill = (d: HTMLDocument): void => {
      * @param {String} axis
      * @returns {Boolean}
      */
-    function canOverflow(el: Element, axis: string): boolean {
-        const overflowValue = w.getComputedStyle(el, null)['overflow' + axis];
+    function canOverflow(el: Element, axis: TAxis): boolean {
+        const overflowValue = w.getComputedStyle(el, null)[`overflow${axis}`];
 
         return overflowValue === 'auto' || overflowValue === 'scroll';
     }
@@ -146,9 +161,14 @@ export const polyfill = (d: HTMLDocument): void => {
      * @param {Node} el
      * @returns {Node} el
      */
-    function findScrollableParent(el): Element {
+    function findScrollableParent(el: Element): Element {
         while (el !== d.body && isScrollable(el) === false) {
-            el = el.parentNode || el.host;
+            if (el.parentElement) {
+                el = el.parentElement;
+            } else {
+                const shadowRoot: ShadowRoot = el.getRootNode() as ShadowRoot;
+                el = shadowRoot.host;
+            }
         }
 
         return el;
@@ -160,7 +180,7 @@ export const polyfill = (d: HTMLDocument): void => {
      * @param {Object} context
      * @returns {undefined}
      */
-    function step(context): void {
+    function step(context: IContext): void {
         const time = now();
         let elapsed = (time - context.startTime) / SCROLL_TIME;
 
@@ -189,7 +209,7 @@ export const polyfill = (d: HTMLDocument): void => {
      * @param {Number} y
      * @returns {undefined}
      */
-    function smoothScroll(el, x, y): void {
+    function smoothScroll(el: Element, x: number, y: number): void {
         let scrollable;
         let startX;
         let startY;
