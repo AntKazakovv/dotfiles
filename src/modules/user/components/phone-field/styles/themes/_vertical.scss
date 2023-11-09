@@ -16,6 +16,17 @@
                     display: none;
                 }
             }
+
+            .wlc-select {
+
+                .wlc-select__label {
+                    display: flex;
+                }
+
+                .wlc-select__field {
+                    padding: ef.get-value($themeDefault, 'selectPaddingVertical');
+                }
+            }
         }
     }
 }

@@ -4,7 +4,8 @@ $themeDefault: map-merge((
     'templateColumns': minmax(0, 1fr),
     'templateColumnsVertical': 1fr 2fr,
     'paddingVertical': 0 ef.size(2),
-    'marginVertical': 0 0 ef.size(3) 0,
+    'marginVertical': 0 0 ef.size(3),
+    'selectPaddingVertical': ef.size(1) ef.size(7) ef.size(1) ef.size(2),
 ), $customThemeDefault);
 
 $customThemeMobileApp: () !default;
