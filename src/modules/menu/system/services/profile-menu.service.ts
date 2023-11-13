@@ -318,23 +318,7 @@ export class ProfileMenuService {
         );
 
         if (!userInfo.transfersAllowed) {
-            this.profileMenuConfig = _filter(this.profileMenuConfig, (item: MenuParams.MenuConfigItem) => {
-                if (_isString(item)) {
-                    const menuItem = Config.wlcProfileMenuItemsGlobal[item];
-                    return menuItem?.params?.state?.name !== 'app.profile.cash.transfer';
-                } else if ('parent' in item) {
-                    item.items = _filter(
-                        item.items,
-                        (childItem) => {
-                            if (_isString(childItem)) {
-                                const menuItem = Config.wlcProfileMenuItemsGlobal[childItem];
-                                return menuItem?.params?.state?.name !== 'app.profile.cash.transfer';
-                            }
-                        },
-                    );
-                    return !!item.items.length;
-                }
-            });
+            this.profileMenuConfig = this.removeMenuItemsByState(this.profileMenuConfig, 'app.profile.cash.transfer');
 
             this.configService.set({
                 name: '$base.profile.transfers.use',
@@ -343,4 +327,19 @@ export class ProfileMenuService {
         }
     }
 
+    private removeMenuItemsByState(items: MenuParams.MenuConfigItem[], state: string): MenuParams.MenuConfigItem[] {
+        return _filter(items, (item: MenuParams.MenuConfigItem) => {
+            if (_isString(item)) {
+                const menuItem: IMenuItem = Config.wlcProfileMenuItemsGlobal[item];
+                return menuItem?.params?.state?.name !== state;
+            } else if ((item as IMenuItem)?.params?.state?.name) {
+                return (item as IMenuItem).params.state.name !== state;
+            } else if('parent' in item) {
+                item.items = this.removeMenuItemsByState(item.items, state);
+                return !!item.items.length;
+            } else {
+                return false;
+            }
+        });
+    }
 }
