@@ -166,9 +166,7 @@ export class TournamentHistory extends AbstractModel<ITournamentHistory> {
                 item.delta = Math.abs(this.winToBetRatio - _toNumber(item.BestWinToBetRatio));
             }
 
-            if (!item.UserLogin?.length) {
-                item.UserLogin = item.ScreenName;
-            }
+            item.UserLogin = item.ScreenName;
         });
 
         return _uniqBy(topWin, 'IDUser');

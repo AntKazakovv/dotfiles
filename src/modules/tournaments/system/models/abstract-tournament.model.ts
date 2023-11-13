@@ -237,10 +237,7 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
             if (isBestWinToBetRatio) {
                 item.delta = Math.abs(this.winToBetRatio - _toNumber(item.BestWinToBetRatio));
             }
-
-            if (!item.UserLogin?.length) {
-                item.UserLogin = item.ScreenName;
-            }
+            item.UserLogin = item.ScreenName;
         });
 
         return _uniqBy(topWin, 'IDUser');
