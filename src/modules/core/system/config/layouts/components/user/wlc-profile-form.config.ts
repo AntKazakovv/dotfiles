@@ -13,6 +13,9 @@ import {IProfileFormCParams} from 'wlc-engine/modules/user';
 import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
 import {ProhibitedPatterns} from 'wlc-engine/modules/core/constants/regexp.constants';
 import {ITwoFactorAuthProfileBlockCParams} from 'wlc-engine/modules/user/submodules/two-factor-auth/';
+import {
+    IEmailSubscriptionProfileBlockCParams,
+} from 'wlc-engine/modules/user/components/email-subscription-profile-block/email-subscription-profile-block.params';
 
 import _cloneDeep from 'lodash-es/cloneDeep';
 
@@ -154,6 +157,26 @@ export namespace wlcProfileForm {
                                     ...FormElements.ibanNumber.params,
                                     validators: null,
                                 },
+                            },
+                        ],
+                    },
+                },
+                {
+                    name: 'core.wlc-wrapper',
+                    params: <IWrapperCParams>{
+                        wlcElement: 'profile_form_subscriptions',
+                        class: 'wlc-profile-form__block wlc-profile-form__block--subscriptions',
+                        components: [
+                            {
+                                name: 'core.wlc-title',
+                                params: {
+                                    mainText: gettext('Subscriptions'),
+                                    wlcElement: 'header_edit-subscriptions',
+                                },
+                            },
+                            {
+                                name: 'user.wlc-email-subscription-profile-block',
+                                params: <IEmailSubscriptionProfileBlockCParams>{},
                             },
                         ],
                     },

@@ -1,39 +1,41 @@
-<div class="{{$class}}--header">
-    <div class="{{$class}}--title__main">
+<div class="{{$class}}__header">
+    <div class="{{$class}}__title-main">
         {{'Security' | translate}}
     </div>
 </div>
-<div class="{{$class}}--body">
-    <div class="{{$class}}--title">
-        <div class="{{$class}}--title__main">
+<div class="{{$class}}__body">
+    <div class="{{$class}}__block">
+        <div class="{{$class}}__title-main">
             {{'Google Authenticator' | translate}}
         </div>
-        <div class="{{$class}}--title__description">
+        <div class="{{$class}}__title-description">
             {{'Protect your account and transactions.' | translate}}
         </div>
     </div>
     <ng-template [ngIf]="enabled2FAGoogle" [ngIfElse]="notLinked">
-        <div class="{{$class}}--information {{$class}}--information__success">
+        <div class="{{$class}}__information {{$class}}__information--success">
             {{'Enabled' | translate}}
-            <div class="{{$class}}--information__success__icon"
+            <div class="{{$class}}__information-success-icon"
                  wlc-icon iconUrl="/wlc/icons/verified-icon.svg">
             </div>
         </div>
     </ng-template>
-    <ng-template [ngIf]="enabled2FAGoogle" [ngIfElse]="enable">
-        <button wlc-button
-                text="Disable"
-                themeMod="secondary"
-                wlcElement="button_google-auth"
-                [disabled]="lockButton"
-                typeAttr="button"
-                (click)="openModalDisable2FA()">
-        </button>
-    </ng-template>
+    <div class="{{$class}}__btn-block">
+        <ng-template [ngIf]="enabled2FAGoogle" [ngIfElse]="enable">
+            <button wlc-button
+                    text="Disable"
+                    themeMod="secondary"
+                    wlcElement="button_google-auth"
+                    [disabled]="lockButton"
+                    typeAttr="button"
+                    (click)="openModalDisable2FA()">
+            </button>
+        </ng-template>
+    </div>
 </div>
 
 <ng-template #notLinked>
-    <div class="{{$class}}--information">
+    <div class="{{$class}}__information">
         {{'Not linked' | translate}}
     </div>
 </ng-template>

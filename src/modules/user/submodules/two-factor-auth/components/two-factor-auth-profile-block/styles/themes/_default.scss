@@ -5,9 +5,9 @@
 
     .wlc-two-factor-auth-profile-block {
 
-        &--header {
+        &__header {
 
-            .wlc-two-factor-auth-profile-block--title__main {
+            .wlc-two-factor-auth-profile-block__title-main {
                 margin: ef.get-value($themeDefault, 'titleMargin');
                 font-weight: ef.get-value($themeDefault, 'titleFont');
                 font-size: ef.get-value($themeDefault, 'titleFontSize');
@@ -15,50 +15,54 @@
             }
         }
 
-        &--body {
-            @include bm.get-mq-map('flex-direction', $themeDefault, 'bodyFlexDirection');
+        &__body {
             @include bm.get-mq-map('align-items', $themeDefault, 'bodyAlignItems');
-            display: flex;
-            justify-content: space-between;
+            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'bodyColumns');
+            display: grid;
             margin: ef.get-value($themeDefault, 'bodyMargin');
 
             .wlc-two-factor-auth-profile-block {
 
-                &--title {
+                &__title {
 
-                    &__main {
+                    &-main {
                         margin: ef.get-value($themeDefault, 'subtitleMargin');
                         font-weight: ef.get-value($themeDefault, 'subtitleFont');
                         font-size: ef.get-value($themeDefault, 'subtitleFontSize');
                     }
 
-                    &__description {
+                    &-description {
                         font-size: ef.get-value($themeDefault, 'descriptionFontSize');
                     }
                 }
 
-                &--information {
+                &__information {
                     @include bm.get-mq-map('margin', $themeDefault, 'infoTextMargin');
+                    @include bm.get-mq-map('justify-self', $themeDefault, 'infoJustifySelf');
                     color: ef.get-value($themeDefault, 'infoTextColor');
                     font-size: ef.get-value($themeDefault, 'infoTextFontSize');
 
-                    &__success {
+                    &--success {
                         display: flex;
                         color: ef.get-value($themeDefault, 'successInfoTextColor');
+                    }
 
-                        &__icon {
-                            margin: ef.get-value($themeDefault, 'successIconMargin');
-                            transform: ef.get-value($themeDefault, 'successIconTransform');
+                    &-success-icon {
+                        margin: ef.get-value($themeDefault, 'successIconMargin');
+                        transform: ef.get-value($themeDefault, 'successIconTransform');
 
-                            ::ng-deep {
+                        ::ng-deep {
 
-                                svg {
-                                    width: ef.get-value($themeDefault, 'iconWidth');
-                                    height: ef.get-value($themeDefault, 'iconHeight');
-                                }
+                            svg {
+                                width: ef.get-value($themeDefault, 'iconWidth');
+                                height: ef.get-value($themeDefault, 'iconHeight');
                             }
                         }
                     }
+                }
+
+                &__btn-block {
+                    @include bm.get-mq-map('justify-self', $themeDefault, 'btnJustifySelf');
                 }
             }
 

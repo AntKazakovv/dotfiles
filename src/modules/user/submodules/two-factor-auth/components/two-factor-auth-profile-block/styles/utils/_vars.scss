@@ -5,13 +5,13 @@ $themeDefault: map-merge((
     'titleMargin': 0 0 ef.size(4),
     'titleFont': bold,
     'titleFontSize': 1.6rem,
-    'bodyFlexDirection': (
-        375: column,
-        900: row,
-    ),
     'bodyAlignItems': (
         375: flex-start,
         900: center,
+    ),
+    'bodyColumns': (
+        375: 1fr,
+        900: repeat(3, 1fr),
     ),
     'bodyMargin': 0 0 ef.size(4),
     'subtitleMargin': 0 0 ef.size(2),
@@ -22,11 +22,19 @@ $themeDefault: map-merge((
         375: ef.size(2) 0 ef.size(4) 0,
         900: 0,
     ),
+    'infoJustifySelf': (
+        375: start,
+        900: center,
+    ),
     'infoTextColor': var(--mc-baseOpacity),
     'infoTextFontSize': ef.get('font', 'PrimaryText'),
     'successInfoTextColor': var(--mc-success),
     'successIconMargin': 0 0 0 5px,
     'successIconTransform': translateY(-2px),
-    'iconWidth': 17px,
+    'iconWidth': 15px,
     'iconHeight': 15px,
+    'btnJustifySelf': (
+        375: center,
+        900: end,
+    ),
 ), $customThemeDefault);
