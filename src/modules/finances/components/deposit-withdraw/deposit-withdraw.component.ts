@@ -201,7 +201,7 @@ export class DepositWithdrawComponent
                                     {
                                         name: 'bonuses.wlc-deposit-bonuses',
                                         params: {
-                                            bonuses: depositBonuses,
+                                            bonuses: bonuses,
                                         },
                                     },
                                 ],
