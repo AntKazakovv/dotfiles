@@ -328,11 +328,14 @@ export class SelectValuesService {
             )
             .subscribe((gamesCatalogService) => {
                 gamesCatalogService.ready.then(() => {
-                    const merchantsList = _sortBy(gamesCatalogService.getAvailableMerchants(), 'name')
-                        .map((item): Params.ISelectOptions<string> => ({
-                            title: item.name,
-                            value: item.name,
-                        }));
+                    const merchantsList: Params.ISelectOptions<string>[] = _sortBy(
+                        gamesCatalogService.getAvailableMerchants(),
+                        'alias',
+                    ).map((item): Params.ISelectOptions<string> => ({
+                        title: item.alias,
+                        value: item.alias,
+                    }));
+
                     merchantsList.unshift({
                         title: gettext('All'),
                         value: 'all',

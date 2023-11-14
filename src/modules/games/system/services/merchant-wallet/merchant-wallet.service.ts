@@ -211,7 +211,7 @@ export class MerchantWalletService {
                     name: NotificationEvents.PushMessage,
                     data: <IPushMessageParams>{
                         type: 'error',
-                        title: this.merchant.name,
+                        title: this.merchant.alias,
                         message: _isArray(error.errors)
                             ? error.errors
                             : gettext('Error getting merchant wallet balance.'),
@@ -290,7 +290,7 @@ export class MerchantWalletService {
                 name: NotificationEvents.PushMessage,
                 data: <IPushMessageParams>{
                     type: 'error',
-                    title: this.merchant.name,
+                    title: this.merchant.alias,
                     message: [
                         gettext('Withdrawal is unavailable due to zero balance on merchant wallet.'),
                     ],
