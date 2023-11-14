@@ -149,7 +149,7 @@ export class DepositWithdrawComponent
             });
             const walletInit = (): void => {
                 this.selectedWallet = this.userService.userProfile.extProfile.currentWallet;
-                Bonus.depositCurrency = this.selectedWallet.walletCurrency;
+                Bonus.depositCurrency = this.selectedWallet?.walletCurrency;
                 Params.PaymentSteps.wallet.$resolve();
             };
 
