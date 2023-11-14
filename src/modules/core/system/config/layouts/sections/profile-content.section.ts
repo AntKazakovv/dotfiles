@@ -1,4 +1,5 @@
 import {
+    ILayoutComponent,
     ILayoutSectionConfig,
     ITitleCParams,
 } from 'wlc-engine/modules/core';
@@ -183,6 +184,17 @@ const generateProfileFirst = (useFundistUserId: boolean): ILayoutSectionConfig =
         },
     ],
 });
+
+const dashboardPromoSection: ILayoutComponent = {
+    name: 'core.wlc-wrapper',
+    params: <IWrapperCParams>{
+        class: 'wlc-dashboard__promo',
+        components: [
+            componentLib.wlcEnterPromocode.def,
+            componentLib.wlcSeeAllBonuses.def,
+        ],
+    },
+};
 
 export namespace profileContent {
     export const empty: ILayoutSectionConfig = {
@@ -826,14 +838,21 @@ export namespace profileContent {
             {
                 name: 'core.wlc-wrapper',
                 params: {
-                    class: 'wlc-dashboard-grid',
+                    class: 'wlc-dashboard__top',
                     components: [
                         componentLib.wlcDashboardLoyaltyBlock.def,
                         componentLib.wlcDashboardExchange.def,
-                        componentLib.wlcTitle.profileDashboardBonuses,
+                    ],
+                },
+            },
+            componentLib.wlcTitle.profileDashboardBonuses,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-dashboard__bottom',
+                    components: [
                         ...componentLib.wlcBonusesList.generateDashboardConfig(bonusesListSwiperWithEars),
-                        componentLib.wlcEnterPromocode.def,
-                        componentLib.wlcSeeAllBonuses.def,
+                        dashboardPromoSection,
                     ],
                 },
             },
@@ -856,19 +875,34 @@ export namespace profileContent {
             {
                 name: 'core.wlc-wrapper',
                 params: {
-                    class: 'wlc-dashboard-grid without-store',
+                    class: 'wlc-dashboard-grid',
                     components: [
-                        componentLib.wlcDashboardLoyaltyBlock.def,
                         {
-                            name: 'user.wlc-user-stats',
+                            name: 'core.wlc-wrapper',
                             params: {
-                                useDepositBtn: false,
+                                class: 'wlc-dashboard__top without-store',
+                                components: [
+                                    componentLib.wlcDashboardLoyaltyBlock.def,
+                                    {
+                                        name: 'user.wlc-user-stats',
+                                        params: {
+                                            useDepositBtn: false,
+                                        },
+                                    },
+                                ],
                             },
                         },
                         componentLib.wlcTitle.profileDashboardBonuses,
-                        componentLib.wlcBonusesList.dashboard,
-                        componentLib.wlcEnterPromocode.def,
-                        componentLib.wlcSeeAllBonuses.def,
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-dashboard__bottom',
+                                components: [
+                                    componentLib.wlcBonusesList.dashboard,
+                                    dashboardPromoSection,
+                                ],
+                            },
+                        },
                     ],
                 },
             },

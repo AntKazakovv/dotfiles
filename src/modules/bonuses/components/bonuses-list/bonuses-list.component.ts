@@ -153,6 +153,10 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, A
 
         this.subscribeOnReady();
 
+        /**
+         * TODO: на рефакторинг: сделать что-то с параметрами слайдера
+         * чтобы не приходилось в параметрах отдельных конфигов дублировать без нужды breakpoints
+         */
         if (this.$params.type === 'swiper') {
             this.sliderParams.swiper = _cloneDeep(this.$params.common?.swiper);
         }
@@ -356,6 +360,10 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, A
             modifiers = _union(modifiers, this.$params.common.customModifiers.split(' '));
         }
         this.addModifiers(modifiers);
+
+        if (this.$params.placement) {
+            this.addModifiers(this.$params.placement);
+        }
     }
 
     protected bonusesToSlides(bonuses: Bonus[], scroll?: boolean): void {
@@ -493,30 +501,15 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, A
 
         if (this.$params.type === 'swiper' && this.bonuses.length) {
             this.bonusesToSlides(this.bonuses);
+
             if (!this.configService.get<boolean>('$user.isAuthenticated')) {
                 if (this.bonuses.length <= 1) {
                     this.sliderParams.swiper = _merge<SwiperOptions, SwiperOptions>({}, {
                         navigation: false,
-                        slidesPerView: 'auto',
+                        slidesPerView: 1,
                         spaceBetween: 0,
                         allowTouchMove: false,
-                        breakpoints: {
-                            320: {
-                                spaceBetween: 0,
-                                followFinger: false,
-                            },
-                            720: {
-                                spaceBetween: 0,
-                                followFinger: false,
-                            },
-                            1024: {
-                                spaceBetween: 0,
-                                followFinger: true,
-                            },
-                            1200: {
-                                spaceBetween: 0,
-                            },
-                        },
+                        breakpoints: null,
                     });
                     this.isSingleBonus = true;
                 } else {
@@ -529,15 +522,24 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, A
                     this.isSingleBonus = false;
                 }
             }
-            this.addModifiers(`count-${bonuses.length}-bonus`);
-            if (this.$params.themeMod === 'with-ears' && bonuses.length > 1) {
-                this.sliderParams.swiper = {
-                    ...this.sliderParams.swiper,
-                    slidesOffsetBefore: 15,
-                    slidesOffsetAfter: 15,
-                };
+
+            const placement: Params.TBonusesListPlacement = this.$params.placement;
+
+            if (bonuses.length === 1 && (placement === 'profile-dashboard' || placement === 'profile-recommended')) {
+                this.$params = _merge(this.$params, {
+                    themeMod: 'default',
+                    type: 'default',
+                    common: {
+                        ...this.$params.common,
+                        swiper: null,
+                    }});
+                this.sliderParams = null;
+                this.setModifiers(this.$params.placement);
             }
+
+            this.addModifiers(`count-${bonuses.length}-bonus`);
         }
+
         this.cdr.detectChanges();
     }
 

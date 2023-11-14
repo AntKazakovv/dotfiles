@@ -1,9 +1,16 @@
 .wlc-recommended-bonuses--theme-default:host {
+    @include bm.get-mq-map('--wlc-bl-prev-button-offset', $themeDefault, 'swiperBtnsPos');
+    @include bm.get-mq-map('--wlc-bl-next-button-offset', $themeDefault, 'swiperBtnsPos');
+    @include bm.get-mq-map('--wlc-bl-swiper-btn-display', $themeDefault, 'swiperBtnsDisplay');
+    @include bm.get-mq-map('--wlc-bl-swiper-margin', $themeDefault, 'swiperContainerMargin');
 
     .wlc-recommended-bonuses {
 
         &__title {
-            @include text.get-text-style(ef.get-value($themeDefault, 'titleFontStyle'), ef.get-value($themeDefault, 'titleColor'));
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'titleFontStyle'),
+                ef.get-value($themeDefault, 'titleColor')
+            );
             @include bm.get-mq-map('margin', $themeDefault, 'titleMargin');
             @include bm.get-mq-map('text-align', $themeDefault, 'titleTextAlign');
         }
@@ -12,68 +19,34 @@
     ::ng-deep {
 
         .wlc-bonuses-list {
+            max-width: ef.get-value($themeDefault, 'sliderMaxWidth');
 
-            &--type-swiper {
-                max-width: ef.get-value($themeDefault, 'sliderMaxWidth');
-
-                .swiper.swiper-initialized {
-                    @include bm.get-mq-map('margin', $themeDefault, 'swiperContainerMargin');
-                    @include bm.get-mq-map('padding', $themeDefault, 'swiperContainerPadding');
-                }
-
-                &.wlc-bonuses-list--theme-mod-with-ears {
-                    @include bm.get-mq-map('margin', $themeDefault, 'listWithEarsMargin');
-                    max-width: unset;
-
-                    .swiper-wrapper {
-                        @include bm.get-mq-map('margin', $themeDefault, 'swiperMargin');
-                    }
-
-                    .wlc-bonus-item--theme-default {
-                        width: 100%;
-                    }
-
-                    .wlc-bonuses-list__content .wlc-bonuses-list__list-wrapper
-                    .swiper-container.swiper-container-initialized {
-                        margin: 0;
-                    }
-
-                    &.wlc-bonuses-list--count-1-bonus {
-                        @include bm.get-mq-map('margin', $themeDefault, 'sliderMargin');
-
-                        .swiper-wrapper {
-                            @include bm.get-mq-map('margin', $themeDefault, 'swiperMargin');
-                        }
-                    }
-                }
-
-                &:not(.wlc-bonuses-list--theme-mod-with-ears) {
-
-                    &:not(.wlc-bonuses-list--count-1-bonus) {
-                        @include bm.get-mq-map('margin', $themeDefault, 'sliderMargin');
-                    }
-                }
+            .swiper.swiper-initialized {
+                @include bm.get-mq-map('padding', $themeDefault, 'swiperContainerPadding');
+                margin: var(--wlc-bl-swiper-margin);
             }
 
-            &--theme-default.wlc-bonuses-list--type-swiper .wlc-bonuses-list__list-wrapper {
+            .wlc-bonus-item {
+                width: 100%;
+            }
 
-                .swiper {
-                    @include bm.get-mq-map('padding', $themeDefault, 'swiperContainerPadding');
-                }
+            &.wlc-bonuses-list--count-1-bonus {
+                --wlc-bl-swiper-margin: 0;
+                --wlc-bl-wrapper-margin: 0;
+            }
 
-                .swiper-button-prev {
-                    @include bm.get-mq-map('display', $themeDefault, 'swiperBtnsDisplay');
-                    @include bm.get-mq-map('left', $themeDefault, 'swiperBtnsPos');
-                }
+            &.wlc-bonuses-list--theme-mod-with-ears {
+                --wlc-bl-wrapper-width: unset;
+                --wlc-bl-wrapper-margin: 0;
+                --wlc-bl-swiper-margin: 0;
 
-                .swiper-button-next {
-                    @include bm.get-mq-map('display', $themeDefault, 'swiperBtnsDisplay');
-                    @include bm.get-mq-map('right', $themeDefault, 'swiperBtnsPos');
-                }
+                @include bm.get-mq-map('--wlc-bl-slide-width', $themeDefault, 'bonusItemWidthEars');
+            }
 
-                .wlc-slider--type-default[data-wlc-element]:not(.wlc-slider--overflow) + .ng-star-inserted .swiper-button-disabled,
-                .wlc-slider--type-default:not(.wlc-slider--overflow) .swiper-button-disabled {
-                    display: none;
+            &:not(.wlc-bonuses-list--theme-mod-with-ears) {
+
+                &:not(.wlc-bonuses-list--count-1-bonus) {
+                    @include bm.get-mq-map('margin', $themeDefault, 'sliderMargin');
                 }
             }
         }

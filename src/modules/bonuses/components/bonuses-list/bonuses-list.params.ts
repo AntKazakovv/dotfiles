@@ -22,6 +22,11 @@ export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
 export type BonusesListNoContentByThemeType = Partial<Record<Theme, INoContentCParams>>;
+export type TBonusesListPlacement = 'profile-dashboard'
+    | 'profile-recommended'
+    | 'reg'
+    | 'reg-first'
+    | 'home-promo';
 
 export interface IBonusesListCParams extends IComponentParams<Theme, Type, ThemeMod> {
     modifiers?: Modifiers[];
@@ -64,6 +69,7 @@ export interface IBonusesListCParams extends IComponentParams<Theme, Type, Theme
     itemsParams?: IBonusItemCParams,
     /** is bonuses list in profile */
     inProfile?: boolean,
+    placement?: TBonusesListPlacement;
     /** wlc-profile-no-content params */
     emptyInProfileConfig?: IWrapperCParams,
 }

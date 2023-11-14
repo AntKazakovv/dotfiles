@@ -24,6 +24,24 @@
     }
 }
 
+.app-profile-loyalty-bonuses-active-state {
+
+    .container {
+        overflow: hidden;
+    }
+
+    @include mq.min(1200) {
+
+        .container {
+            overflow: initial;
+        }
+
+        .wlc-profile-content {
+            overflow: hidden;
+        }
+    }
+}
+
 .wlc-profile-content__header--second {
     margin: ef.get-value($bonusesThemeFirst, 'secondHeaderMargin');
 }

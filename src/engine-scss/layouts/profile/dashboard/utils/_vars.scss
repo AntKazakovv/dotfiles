@@ -1,102 +1,64 @@
 $dashboardInfoThemeDefault: () !default;
 $dashboardThemeDefault: map-merge((
-    'gridTemplateColumns': (
-        320: minmax(0, 1fr),
-        768: 1fr 1fr,
-        1024: repeat(6, 1fr),
-    ),
-    'gridTemplateRows': (
-        320: auto,
-    ),
-    'gridTemplateAreas': (
-        320: 'loyalty' 'exchange' 'bonuses-title' 'bonuses' 'promocode' 'see-all-bonuses',
-        768:
-        'loyalty loyalty'
-        'exchange exchange'
-        'bonuses-title bonuses-title'
-        'bonuses bonuses'
-        'promocode see-all-bonuses',
-        1024:
-        'loyalty loyalty exchange exchange exchange exchange'
-        'promocode promocode see-all-bonuses see-all-bonuses see-all-bonuses see-all-bonuses'
-        'bonuses-title bonuses-title bonuses-title bonuses-title bonuses-title bonuses-title'
-        'bonuses bonuses bonuses bonuses bonuses bonuses',
-        1366:
-        'loyalty loyalty loyalty exchange exchange exchange'
-        'bonuses-title bonuses-title bonuses-title bonuses-title bonuses-title bonuses-title'
-        'bonuses bonuses bonuses bonuses promocode promocode'
-        'bonuses bonuses bonuses bonuses see-all-bonuses see-all-bonuses',
-    ),
     'gridGap': (
-        320: ef.size(2),
-        1200: ef.size(3),
+        320: ef.size(4),
+        1024: ef.size(3),
         1630: ef.size(8),
-    ),
-
-    'gridTemplateAreasWithoutStore': (
-        320: 'loyalty' 'user-stats' 'bonuses-title' 'bonuses' 'promocode' 'see-all-bonuses',
-        768:
-        'loyalty loyalty'
-        'user-stats user-stats'
-        'bonuses-title bonuses-title'
-        'bonuses bonuses'
-        'promocode see-all-bonuses',
-        1024:
-        'loyalty loyalty loyalty loyalty user-stats user-stats'
-        'promocode promocode see-all-bonuses see-all-bonuses see-all-bonuses see-all-bonuses'
-        'bonuses-title bonuses-title bonuses-title bonuses-title bonuses-title bonuses-title'
-        'bonuses bonuses bonuses bonuses bonuses bonuses',
-        1366:
-        'loyalty loyalty loyalty loyalty user-stats user-stats'
-        'bonuses-title bonuses-title bonuses-title bonuses-title bonuses-title bonuses-title'
-        'bonuses bonuses bonuses bonuses promocode promocode'
-        'bonuses bonuses bonuses bonuses see-all-bonuses see-all-bonuses',
     ),
 
     'logoutSvgMargin': 0 0 0 ef.size(1),
 
     'titleMargin': (
-        1024: 0 0 -5px,
-        1630: 0 0 -20px,
-    ),
-
-    'singleBonusGridArea': unset,
-    'singleBonusGridRow': #{'4/6'},
-    'singleBonusGridColumn': #{'1/3'},
-    'singleBonusGridMargin': 0,
-
-    'singleBonusPromocodeGridArea': unset,
-    'singleBonusPromocodeGridRow': #{'4/5'},
-    'singleBonusPromocodeGridColumn': #{'3/5'},
-
-    'singleBonusLinkGridArea': unset,
-    'singleBonusLinkGridRow': #{'5/6'},
-    'singleBonusLinkGridColumn': #{'3/5'},
-    'singleBonusWrapperPadding': 0,
-
-    'bonusesListMaxWidth': 100%,
-
-    'swiperContainerPadding': (
-        375: 0 ef.size(4),
-        1024: 0,
-        1366: 0 ef.size(4) 0 0,
-        1630: 0,
-    ),
-    'swiperContainerPaddingWithEars': 0,
-
-    'swiperButtonRight': (
-        720: 0,
-        1024: ef.size(-4),
-        1366: 0,
-        1630: ef.size(-4),
-    ),
-    'swiperButtonLeft': (
-        720: 0,
-        1024: ef.size(-4),
+        375: ef.size(4) 0 ef.size(2),
     ),
 
     'topDisplay': (
         375: flex,
         640: block,
+    ),
+
+    'sectTopColumns': (
+        375: 1fr,
+        1024: repeat(3, 1fr),
+        1366: repeat(2, 1fr),
+    ),
+    'sectTopAreas': (
+        375: 'loyalty' 'exchange',
+        1024: 'loyalty exchange exchange',
+        1366: 'loyalty exchange',
+    ),
+
+    'sectTopColumnsWithoutStore': (
+        375: 1fr,
+        1024: repeat(3, 1fr),
+        1366: repeat(3, 1fr),
+    ),
+    'sectTopAreasWithoutStore': (
+        375: 'loyalty' 'exchange',
+        1024: 'loyalty loyalty exchange',
+        1366: 'loyalty loyalty exchange',
+    ),
+    'sectBottomColumns': (
+        375: 1fr,
+        1366: repeat(3, 1fr),
+    ),
+    'sectPromoColumns': (
+        375: 1fr,
+        768: repeat(2, 1fr),
+        1024: repeat(3, 1fr),
+        1366: 1fr,
+    ),
+    'sectPromoAreas': (
+        375: 'promocode' 'link-block',
+        768: 'promocode link-block',
+        1024: 'promocode link-block link-block',
+        1366: 'promocode' 'link-block',
+    ),
+
+    'bonusesListColSpan': (
+        1366: span 2,
+    ),
+    'bonusesListColSpanSingle': (
+        375: span 1,
     ),
 ), $dashboardInfoThemeDefault);

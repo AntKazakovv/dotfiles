@@ -1,143 +1,127 @@
-.wlc-bonuses-list--theme-default {
+.wlc-bonuses-list--theme-default:host {
+    @include bm.get-mq-map('--wlc-bl-columns', $themeDefault, 'gridColumn');
+    @include bm.get-mq-map('--wlc-bl-list-max-width', $themeDefault, 'widthList');
 
-    &:host {
+    .wlc-bonuses-list__list {
+        display: grid;
+        grid-template-columns: var(--wlc-bl-columns);
+        gap: var(--wlc-bl-gap, #{ef.get-value($themeDefault, 'gridGap')});
+        justify-items: var(--wlc-bl-justify, center);
+        max-width: var(--wlc-bl-list-max-width);
+        margin: var(--wlc-bonuses-list-margin, #{ef.get-value($themeDefault, 'marginList')});
 
-        .wlc-bonuses-list__list {
-            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'gridColumn');
-            @include bm.get-mq-map('max-width', $themeDefault, 'widthList');
-
-            display: grid;
-            grid-gap: ef.get-value($themeDefault, 'gridGap');
-            justify-items: center;
-            margin: ef.get-value($themeDefault, 'marginList');
-
-            .wlc-sections__profile-content--theme-first & {
-                @include bm.get-mq-map('grid-template-columns', $themeDefault, 'gridColumnProfileThemeFirst');
-            }
+        .wlc-sections__profile-content--theme-first & {
+            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'gridColumnProfileThemeFirst');
         }
+    }
 
-        .wlc-bonuses-list__nocontent {
-            @include bm.get-mq-map('text-align', $themeDefault, 'alignNoContent');
-        }
+    &.wlc-bonuses-list--count-1-bonus {
+        @include bm.get-mq-map('--wlc-bonuses-list-margin', $themeDefault, 'marginListSingle');
+    }
+
+    .wlc-bonuses-list__nocontent {
+        @include bm.get-mq-map('text-align', $themeDefault, 'alignNoContent');
     }
 }
 
-.wlc-bonuses-list--type-swiper {
+.wlc-bonuses-list--theme-default.wlc-bonuses-list--type-swiper {
 
     &:host {
+        @include bm.get-mq-map('--wlc-bl-wrapper-width', $themeDefault, 'swiperWidthWrapper');
+        @include bm.get-mq-map('--wlc-bl-swiper-btn-display', $themeDefault, 'swiperButtonDisplay');
 
-        &.single-bonus-swiper {
+        min-width: 0;
 
-            .wlc-bonuses-list__content .wlc-bonuses-list__list-wrapper {
+        .wlc-bonuses-list {
+
+            &__list-wrapper {
+                position: relative;
+                max-width: var(--wlc-bl-wrapper-width);
+                margin: var(--wlc-bl-wrapper-margin, 0 auto);
+                padding: var(--wlc-bl-wrapper-padding, 0);
 
                 ::ng-deep {
 
-                    .swiper {
-                        @include bm.get-mq-map('padding', $themeDefault, 'sliderPadding');
+                    .swiper-button-next,
+                    .swiper-button-prev {
+                        display: var(--wlc-bl-swiper-btn-display);
 
-                        .swiper-wrapper {
-                            @include bm.get-mq-map('display', $themeDefault, 'sliderDispley');
-
-                            justify-content: flex-start;
+                        &:after {
+                            display: none;
                         }
+                    }
+
+                    .swiper-button-next {
+                        right: var(--wlc-bl-next-button-offset, 0);
+                    }
+
+                    .swiper-button-prev {
+                        left: var(--wlc-bl-prev-button-offset, 0);
+                    }
+
+                    .swiper {
+                        overflow: var(--wlc-bl-swiper-overflow, hidden);
 
                         .swiper-slide {
-                            @include bm.get-mq-map('width', $themeDefault, 'bonusWidthFirst');
+                            display: flex;
+                            justify-content: var(--wlc-bl-slide-justify, center);
+                            width: var(--wlc-bl-slide-width, auto);
                         }
                     }
                 }
             }
-        }
 
-        .wlc-bonuses-list__list-wrapper {
-            @include bm.get-mq-map('max-width', $themeDefault, 'swiperWidthWrapper');
+            &__slider {
 
-            position: relative;
-            margin: 0 auto;
+                &:not(.wlc-slider--overflow) {
 
-            ::ng-deep {
-
-                .swiper-button-next {
-                    @include bm.get-mq-map('display', $themeDefault, 'swiperButtonDisplay');
-
-                    right: 0;
-
-                    &:after {
-                        display: none;
-                    }
-                }
-
-                .swiper-button-prev {
-                    @include bm.get-mq-map('display', $themeDefault, 'swiperButtonDisplay');
-
-                    left: 0;
-
-                    &:after {
-                        display: none;
-                    }
-                }
-
-                .swiper {
-
-                    .swiper-slide {
-                        display: flex;
-                        justify-content: center;
+                    + .ng-star-inserted {
+                        --wlc-bl-swiper-btn-display: none;
                     }
                 }
             }
         }
 
-        &:not(
-        .single-bonus-swiper,
-        .wlc-bonuses-list--theme-promo-home,
-        .wlc-bonuses-list--theme-promo,
-        .wlc-bonuses-list--theme-partial) {
-            @include bm.get-mq-map('margin', $themeDefault, 'sliderMargin');
-            @include bm.get-mq-map('width', $themeDefault, 'sliderWidth');
+        &.wlc-bonuses-list--count-1-bonus {
+            --wlc-bl-slide-justify: flex-start;
         }
 
         &.wlc-bonuses-list--theme-mod-with-ears {
 
-            &:not(.wlc-bonuses-list--count-1-bonus) {
-                margin: ef.get-value($themeDefault, 'marginListWithEars');
-            }
-
-            .wlc-bonuses-list__list-wrapper {
-
-                ::ng-deep {
-                    max-width: unset;
-
-                    .swiper {
-
-                        .swiper-slide {
-                            @include bm.get-mq-map('width', $themeDefault, 'slideWidth');
-                        }
-                    }
-                }
+            &[class*='wlc-bonuses-list--count-'] {
+                --wlc-bl-wrapper-margin: 0;
+                --wlc-bl-swiper-overflow: visible;
             }
         }
     }
+}
 
-    &.wlc-bonuses-list--count-1-bonus:host {
+/* Profile-dashboard only styles*/
+.wlc-bonuses-list--profile-dashboard:host {
+    @include bm.get-mq-map('--wlc-bl-wrapper-padding', $themeDefault, 'pdListWrapperPadding');
+    @include bm.get-mq-map('--wlc-bl-prev-button-offset', $themeDefault, 'pdSwiperBtnPrevOffset');
+    @include bm.get-mq-map('--wlc-bl-next-button-offset', $themeDefault, 'pdSwiperBtnNextOffset');
 
-        .wlc-bonuses-list__list-wrapper {
-            @include bm.get-mq-map('margin', $themeDefault, 'singleBonusMargin');
-            @include bm.get-mq-map('padding', $themeDefault, 'singleBonusPadding');
+    &.wlc-bonuses-list--theme-mod-with-ears {
+        --wlc-bl-wrapper-padding: 0;
 
-            ::ng-deep {
+        @include bm.get-mq-map('--wlc-bl-slide-width', $themeDefault, 'slideWidth');
+    }
 
-                .swiper {
+    &.wlc-bonuses-list--count-1-bonus {
+        --wlc-bl-wrapper-padding: 0;
+        --wlc-bl-list-max-width: 100%;
 
-                    .swiper-wrapper {
-                        @include bm.get-mq-map('justify-content', $themeDefault, 'singleBonusJustify');
-                    }
+        @include bm.get-mq-map('--wlc-bl-gap', $themeDefault, 'pdGapSingle');
+        @include bm.get-mq-map('--wlc-bl-columns', $themeDefault, 'pdSingleListColumns');
+        @include bm.get-mq-map('--wlc-bl-justify', $themeDefault, 'pdSingleJustify');
 
-                    .swiper-slide {
-                        @include bm.get-mq-map('justify-content', $themeDefault, 'singleBonusJustify');
-                        flex-shrink: unset;
-                    }
-                }
-            }
+        margin: 0;
+
+        .wlc-bonus-item--theme-default {
+            @include bm.get-mq-map('max-width', $themeDefault, 'bonusWidthDefault');
+
+            width: 100%;
         }
     }
 }

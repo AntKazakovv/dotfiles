@@ -1,21 +1,5 @@
 .app-profile-dashboard-state {
-
-    .wlc-sections__profile-content {
-
-        .wlc-dashboard-grid {
-            @include bm.get-mq-map('grid-template-columns', $dashboardThemeDefault, 'gridTemplateColumns');
-            @include bm.get-mq-map('grid-template-rows', $dashboardThemeDefault, 'gridTemplateRows');
-            @include bm.get-mq-map('grid-template-areas', $dashboardThemeDefault, 'gridTemplateAreas');
-            @include bm.get-mq-map('grid-gap', $dashboardThemeDefault, 'gridGap');
-
-            position: relative;
-            display: grid;
-
-            &.without-store {
-                @include bm.get-mq-map('grid-template-areas', $dashboardThemeDefault, 'gridTemplateAreasWithoutStore');
-            }
-        }
-    }
+    @include bm.get-mq-map('--profile-dashboard-gap', $dashboardThemeDefault, 'gridGap');
 
     .wlc-profile-content__top {
         @include bm.get-mq-map('display', $dashboardThemeDefault, 'topDisplay');
@@ -31,14 +15,14 @@
 
     .wlc-title--profile-bonuses {
         @include bm.get-mq-map('margin', $dashboardThemeDefault, 'titleMargin');
-        grid-area: bonuses-title;
     }
 
     .wlc-loyalty-block {
         grid-area: loyalty;
     }
 
-    .wlc-exchange {
+    .wlc-exchange,
+    .wlc-user-stats:not(.wlc-exchange__info) {
         grid-area: exchange;
     }
 
@@ -47,66 +31,53 @@
     }
 
     .wlc-link-block {
-        grid-area: see-all-bonuses;
+        grid-area: link-block;
     }
 
-    .wlc-bonuses-list {
-        grid-area: bonuses;
+    .wlc-dashboard__top,
+    .wlc-dashboard__bottom,
+    .wlc-dashboard__promo {
+        display: grid;
+        gap: var(--profile-dashboard-gap);
+    }
 
-        &:not(.wlc-bonuses-list--theme-mod-with-ears) {
-            max-width: ef.get-value($dashboardThemeDefault, 'bonusesListMaxWidth');
+    .wlc-dashboard__top {
+        @include bm.get-mq-map('grid-template-columns', $dashboardThemeDefault, 'sectTopColumns');
+        @include bm.get-mq-map('grid-template-areas', $dashboardThemeDefault, 'sectTopAreas');
+
+        &.without-store {
+            @include bm.get-mq-map('grid-template-columns', $dashboardThemeDefault, 'sectTopColumnsWithoutStore');
+            @include bm.get-mq-map('grid-template-areas', $dashboardThemeDefault, 'sectTopAreasWithoutStore');
         }
+    }
 
-        &.wlc-bonuses-list--type-swiper {
+    .wlc-dashboard__bottom {
+        @include bm.get-mq-map('grid-template-columns', $dashboardThemeDefault, 'sectBottomColumns');
+    }
 
-            .wlc-bonuses-list__list-wrapper {
-                @include bm.get-mq-map('padding', $dashboardThemeDefault, 'swiperContainerPadding');
+    .wlc-dashboard__promo {
+        @include bm.get-mq-map('grid-template-columns', $dashboardThemeDefault, 'sectPromoColumns');
+        @include bm.get-mq-map('grid-template-areas', $dashboardThemeDefault, 'sectPromoAreas');
+        @include bm.get-mq-map('grid-column', $dashboardThemeDefault, 'sectPromoColSpan');
+    }
 
-                .swiper[class] {
-                    padding: 0;
-                }
+    .wlc-bonuses-list--profile-dashboard {
+        @include bm.get-mq-map('grid-column', $dashboardThemeDefault, 'bonusesListColSpan');
 
-                .swiper-button-prev[class] {
-                    @include bm.get-mq-map('left', $dashboardThemeDefault, 'swiperButtonLeft');
-                }
+        &.wlc-bonuses-list--count-1-bonus {
+            @include bm.get-mq-map('grid-column', $dashboardThemeDefault, 'bonusesListColSpanSingle');
 
-                .swiper-button-next[class] {
-                    @include bm.get-mq-map('right', $dashboardThemeDefault, 'swiperButtonRight');
-                }
+            + .wlc-dashboard__promo {
+                @include bm.get-mq-map('grid-template-areas', $dashboardThemeDefault, 'sectPromoAreasSingle');
+                @include bm.get-mq-map('grid-column', $dashboardThemeDefault, 'sectPromoColSpanSingle');
             }
+        }
+    }
 
-            &.wlc-bonuses-list--theme-mod-with-ears {
+    .wlc-sections__profile-content {
 
-                .wlc-bonuses-list__list-wrapper {
-                    padding: ef.get-value($dashboardThemeDefault, 'swiperContainerPaddingWithEars');
-                }
-            }
-
-            &.single-bonus-swiper {
-
-                .wlc-bonuses-list__list-wrapper {
-                    padding: ef.get-value($dashboardThemeDefault, 'singleBonusWrapperPadding');
-                }
-
-                @include mq.min(1024) {
-                    grid-area: ef.get-value($dashboardThemeDefault, 'singleBonusGridArea');
-                    grid-row: ef.get-value($dashboardThemeDefault, 'singleBonusGridRow');
-                    grid-column: ef.get-value($dashboardThemeDefault, 'singleBonusGridColumn');
-                    margin: ef.get-value($dashboardThemeDefault, 'singleBonusGridMargin');
-
-                    & ~ .wlc-enter-promocode {
-                        grid-area: ef.get-value($dashboardThemeDefault, 'singleBonusPromocodeGridArea');
-                        grid-row: ef.get-value($dashboardThemeDefault, 'singleBonusPromocodeGridRow');
-                        grid-column: ef.get-value($dashboardThemeDefault, 'singleBonusPromocodeGridColumn');
-                    }
-
-                    & ~ .wlc-link-block {
-                        grid-area: ef.get-value($dashboardThemeDefault, 'singleBonusLinkGridArea');
-                        grid-row: ef.get-value($dashboardThemeDefault, 'singleBonusLinkGridRow');
-                        grid-column: ef.get-value($dashboardThemeDefault, 'singleBonusLinkGridColumn');
-                    }
-                }
-            }
+        .container {
+            overflow: hidden;
         }
     }
 }

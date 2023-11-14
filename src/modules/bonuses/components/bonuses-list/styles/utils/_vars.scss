@@ -4,15 +4,9 @@ $themeDefault: map-merge((
     'minItemWidth': 280px,
     'minItemWidthDesktop': 320px,
     'marginList': 0 auto,
-    'marginListWithEars': 0 ef.size(-3) 0,
-    'sliderMargin': (
+    'marginListSingle': (
         375: 0 auto,
-        640: 0 ef.size(3) 0,
-        1024: 0,
-    ),
-    'sliderWidth': (
-        375: 100%,
-        640: inherit,
+        640: 0,
     ),
     'gridColumn': (
         375: 1fr,
@@ -29,23 +23,12 @@ $themeDefault: map-merge((
         375: center,
         1024: left,
     ),
-    'bonusWidthFirst': (
-        375: 300px,
-        1024: auto,
-    ),
     'swiperWidthWrapper': (
         480: 340px,
         640: unset,
         768: 650px,
         900: 665px,
         1024: unset,
-    ),
-    'sliderPadding': (
-        720: 0
-    ),
-    'sliderDispley': (
-        375: flex,
-        1024: block,
     ),
     'swiperButtonDisplay': (
         375: flex,
@@ -60,18 +43,43 @@ $themeDefault: map-merge((
         375: 300px,
         768: 305px,
     ),
-    'singleBonusJustify': (
+
+    // profile-dashboard only
+    'pdListWrapperPadding': (
+        375: 0 ef.size(4),
+        1024: 0,
+        1366: 0 ef.size(4) 0 0,
+        1630: 0,
+    ),
+    'pdSwiperBtnPrevOffset': (
+        720: 0,
+        1024: ef.size(-4),
+    ),
+    'pdSwiperBtnNextOffset': (
+        720: 0,
+        1024: ef.size(-4),
+        1366: 0,
+        1630: ef.size(-4),
+    ),
+    'bonusWidthDefault': (
+        375: 330px,
+        640: 290px,
+        768: 100%,
+    ),
+    'pdSingleJustify': (
         375: center,
         640: flex-start,
     ),
-    'singleBonusMargin': (
-        375: none,
-        640: 0,
+    'pdSingleListColumns': (
+        375: 1fr,
+        768: repeat(2, 1fr),
+        1024: repeat(3, 1fr),
+        1366: 1fr,
     ),
-    'singleBonusPadding': (
-        320: 0 0 0 ef.size(2),
-        640: 0,
-    )
+    'pdGapSingle': (
+        375: ef.size(4),
+        640: ef.size(3),
+    ),
 ), $customThemeDefault);
 
 $customThemePromo: () !default;

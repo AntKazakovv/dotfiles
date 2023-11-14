@@ -184,6 +184,7 @@ export namespace wlcBonusesList {
         params: <IBonusesListCParams>{
             type: 'swiper',
             wlcElement: 'block_bonuses-main',
+            placement: 'profile-dashboard',
             common: {
                 useQuery: true,
                 sortOrder: ['active', 'inventory', 'promocode', 'subscribe'],
@@ -245,6 +246,7 @@ export namespace wlcBonusesList {
             type: 'swiper',
             wlcElement: 'block_bonuses-main',
             themeMod: 'with-ears',
+            placement: 'profile-dashboard',
             hideNavigation: true,
             common: {
                 useQuery: true,

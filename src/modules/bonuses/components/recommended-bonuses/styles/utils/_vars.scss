@@ -1,11 +1,5 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'listWithEarsMargin': (
-        375: 0 ef.size(-5) 0,
-        640: 0 ef.size(-3) 0,
-        1024: 0 ef.size(-6) 0,
-        1630: 0 ef.size(-8) 0,
-    ),
     'sliderMaxWidth': 100%,
     'sliderMargin': (
         375: 0 auto,
@@ -21,11 +15,10 @@ $themeDefault: map-merge((
         375: left,
     ),
     'baseSliderWidth': 260px,
-    'swiperContainerPadding': 0,
     'swiperContainerMargin': (
         375: 0 ef.size(2),
         640: 0,
-        1024: 0 ef.size(3),
+        1024: 0 ef.size(4),
         1200: 0,
     ),
     'swiperBtnsDisplay': flex,
@@ -35,8 +28,9 @@ $themeDefault: map-merge((
         1024: 0,
         1200: ef.size(-4),
     ),
-    'swiperMargin':(
-        1200: 0 0 0 ef.size(3),
-        1630: 0 0 0 ef.size(4),
-    ),
+
+    'bonusItemWidthEars': (
+        375: 285px,
+        1024: 310px,
+    )
 ), $customThemeDefault);

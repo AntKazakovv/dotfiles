@@ -34,6 +34,7 @@ export namespace wlcRecommendedBonuses {
                 theme: 'default',
                 inProfile: true,
                 wlcElement: 'block_bonuses-main',
+                placement: 'profile-recommended',
                 itemsParams: {
                     themeMod: 'with-image',
                     common: {
@@ -102,6 +103,7 @@ export namespace wlcRecommendedBonuses {
                 theme: 'default',
                 wlcElement: 'block_bonuses-main',
                 themeMod: 'with-ears',
+                placement: 'profile-recommended',
                 hideNavigation: true,
                 itemsParams: {
                     themeMod: 'with-image',
@@ -118,46 +120,23 @@ export namespace wlcRecommendedBonuses {
                     swiper: {
                         navigation: false,
                         pagination: false,
-                        spaceBetween: 20,
+                        spaceBetween: 10,
+                        slidesPerView: 'auto',
+                        followFinger: false,
                         breakpoints: {
                             320: {
-                                slidesPerView: 1.1,
-                                spaceBetween: 10,
-                                followFinger: false,
-                            },
-                            480: {
-                                slidesPerView: 1.35,
-                                spaceBetween: 10,
-                                followFinger: false,
-                            },
-                            560: {
-                                slidesPerView: 1.6,
-                                spaceBetween: 10,
-                                followFinger: false,
+                                slidesPerView: 'auto',
                             },
                             640: {
-                                slidesPerView: 2.1,
-                                spaceBetween: 10,
-                                followFinger: false,
-                            },
-                            768: {
-                                slidesPerView: 2.2,
-                                spaceBetween: 10,
-                                followFinger: false,
-                            },
-                            900: {
-                                slidesPerView: 2.6,
-                                spaceBetween: 10,
-                                followFinger: false,
+                                slidesPerView: 'auto',
                             },
                             1024: {
-                                slidesPerView: 2.1,
+                                slidesPerView: 'auto',
                                 spaceBetween: 20,
                                 followFinger: true,
                             },
                             1200: {
-                                slidesPerView: 3.1,
-                                spaceBetween: 10,
+                                slidesPerView: 'auto',
                             },
                         },
                     },
