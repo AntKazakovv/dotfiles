@@ -46,16 +46,6 @@
             padding: ef.get-value($themeDefault, 'infoBlockPadding');
         }
 
-        &__btns {
-            @include bm.get-mq-map('flex-direction', $themeDefault, 'btnWrapFlexDirection');
-            @include bm.get-mq-map('gap', $themeDefault, 'btnGap');
-            @include bm.get-mq-map('width', $themeDefault, 'btnWrapWidth');
-            @include bm.get-mq-map('margin', $themeDefault, 'btnWrapMargin');
-
-            display: ef.get-value($themeDefault, 'btnWrapDisplay');
-            justify-content: ef.get-value($themeDefault, 'btnWrapJustifyContent');
-        }
-
         &__icon {
             @include bm.get-mq-map('width', $themeDefault, 'iconSize');
             @include bm.get-mq-map('height', $themeDefault, 'iconSize');

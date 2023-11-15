@@ -1,0 +1,82 @@
+.wlc-accordion--theme-wolf:host {
+
+    .wlc-accordion {
+
+        &__item {
+            @include bm.transition(background);
+
+            margin: ef.get-value($themeWolf, 'itemMargin');
+            border-radius: ef.get-value($themeWolf, 'itemRadius');
+            background: var(--wlc-acc-item-bg, #{ef.get-value($themeWolf, 'itemBg')});
+            overflow: hidden;
+
+            &.expanded {
+                --wlc-acc-title-color: #{ef.get-value($themeWolf, 'titleColorActive')};
+                --wlc-acc-title-padding: #{ef.get-value($themeWolf, 'titlePaddingActive')};
+                --wlc-acc-item-bg: #{ef.get-value($themeWolf, 'itemBgActive')};
+                --wlc-acc-arrow-transform: scaleY(-1);
+            }
+
+            &.first {
+                margin: 0;
+            }
+
+            @include bm.hover {
+
+                &:not(.expanded) {
+                    --wlc-acc-item-bg: #{ef.get-value($themeWolf, 'itemBgHover')};
+                }
+            }
+        }
+
+        &__title {
+            @include bm.transition(all);
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'titleTextStyle'),
+                var(--wlc-acc-title-color, #{ef.get-value($themeWolf, 'titleColor')}),
+            );
+
+            display: grid;
+            grid-template-columns: var(--wlc-acc-title-grid-columns, #{ef.get-value($themeWolf, 'titleGridColumns')});
+            gap: ef.size(2);
+            padding: var(--wlc-acc-title-padding, #{ef.get-value($themeWolf, 'titlePadding')});
+            cursor: pointer;
+            will-change: padding, color;
+        }
+
+        &__title-icon {
+            --wlc-icon-width: #{ef.get-value($themeWolf, 'itemArrowSize')};
+            --wlc-icon-height: #{ef.get-value($themeWolf, 'itemArrowSize')};
+
+            @include bm.transition(all);
+
+            transform: var(--wlc-acc-arrow-transform, scaleY(1));
+
+            ::ng-deep {
+
+                svg {
+                    fill: ef.get-value($themeWolf, 'itemArrowFillBase');
+                }
+            }
+        }
+
+        &__content {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'contentTextStyle'),
+                var(--wlc-acc-content-color, #{ef.get-value($themeWolf, 'contentColor')}),
+            );
+            padding: var(--wlc-acc-content-padding, #{ef.get-value($themeWolf, 'contentPadding')});
+            border-top: var(--wlc-acc-content-divider, #{ef.get-value($themeWolf, 'contentDivider')});
+            background: var(--wlc-acc-content-bg, #{ef.get-value($themeWolf, 'contentBg')});
+        }
+
+        &__header-title {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'headerTextStyle'),
+                var(--wlc-acc-title-color, #{ef.get-value($themeWolf, 'headerColor')}),
+            );
+            margin: ef.get-value($themeWolf, 'headerMargin');
+            text-align: var(--wlc-acc-title-align, #{ef.get-value($themeWolf, 'headerTextAlign')});
+        }
+    }
+}

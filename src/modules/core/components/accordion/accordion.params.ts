@@ -10,6 +10,8 @@ export type ThemeMod =
     'simple'
     | CustomType;
 
+export type TAccordionTheme = 'default' | 'wolf' | CustomType;
+
 export interface IAccordionData {
     /** Title item */
     title: string;

@@ -37,9 +37,11 @@ import * as Params from './bonus-buttons.params';
 @Component({
     selector: '[wlc-bonus-buttons]',
     templateUrl: './bonus-buttons.component.html',
+    styleUrls: ['./styles/bonus-buttons.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BonusButtonsComponent extends AbstractComponent implements OnInit {
+    @Input() public inlineParams: Partial<Params.IBonusButtonsCParams>;
     @Input() public bonus: Bonus;
     @Input() public bonusItemTheme: BonusItemTheme;
     @Input() public isChooseBtn: boolean;
@@ -75,7 +77,7 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
     }
 
     public override ngOnInit(): void {
-        super.ngOnInit();
+        super.ngOnInit(this.inlineParams);
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
 
         if (this.size) {
@@ -121,7 +123,7 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
      * @returns {boolean}
      */
     public get isShowUnsubscribeBtn(): boolean {
-        return this.bonus.canUnsubscribe && (!this.bonus.inventoried || this.isInsideModal);
+        return this.bonus.canUnsubscribe && (!this.bonus.inventoried || this.$params.isInsideModal);
     }
 
     /**

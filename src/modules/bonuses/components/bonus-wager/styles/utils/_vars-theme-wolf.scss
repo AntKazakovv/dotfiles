@@ -1,0 +1,14 @@
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'gap': ef.size(1),
+
+    'progressHeight': 6px,
+    'progressRadius': ef.get('radius', 'big'),
+    'progressBg': var(--mc-bg300),
+    'progressCurrentBg': var(--mc-main),
+    'progressCurrentShadow': null,
+
+    'captionTextStyle': 'SignTextBold',
+    'captionColor': inherit,
+    'captionTextAlign': center,
+), $customThemeWolf);

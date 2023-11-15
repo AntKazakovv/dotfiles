@@ -14,6 +14,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {AccordionComponent} from 'wlc-engine/modules/core/components/accordion/accordion.component';
 import {GamesCatalogService} from 'wlc-engine/modules/games';
+import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
 
 import {BonusModalComponent} from './bonus-modal.component';
 
@@ -29,6 +30,7 @@ describe('BonusModalComponent', () => {
     let defaultParams: Params.IBonusModalCParams = Params.defaultParams;
     let injectionServiceSpy: jasmine.SpyObj<InjectionService>;
     let gamesCatalogServiceSpy: jasmine.SpyObj<GamesCatalogService>;
+    let bonusesServiceSpy: jasmine.SpyObj<BonusesService>;
 
     beforeEach(() => {
         configServiceSpy = jasmine.createSpyObj('ConfigService', ['get']);
@@ -42,6 +44,7 @@ describe('BonusModalComponent', () => {
             'getService': async () => gamesCatalogServiceSpy,
         });
 
+        bonusesServiceSpy = jasmine.createSpyObj('BonusesService', ['getLootboxPrizes']);
 
         bonusSpy = jasmine.createSpyObj<Bonus>('bonus', [
             'getGamesFilter',
@@ -79,6 +82,10 @@ describe('BonusModalComponent', () => {
                 {
                     provide: InjectionService,
                     useValue: injectionServiceSpy,
+                },
+                {
+                    provide: BonusesService,
+                    useValue: bonusesServiceSpy,
                 },
             ],
         }).compileComponents();

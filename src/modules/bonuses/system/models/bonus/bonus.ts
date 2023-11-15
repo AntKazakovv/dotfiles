@@ -42,6 +42,7 @@ import {
     TBonusTagKey,
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
+import {LootboxPrizeModel} from 'wlc-engine/modules/bonuses/system/models/lootbox-prize/lootbox-prize.model';
 
 const disabledReasons = {
     // Apply to deposit bonuses which paySystems array isn't empty and
@@ -66,6 +67,7 @@ export class Bonus extends AbstractModel<IBonus> {
     public icon: string;
     public showOnlyIcon: string;
     public disabledBy: null | keyof typeof disabledReasons = null;
+    public lootBoxRewards: LootboxPrizeModel[];
     public static userCurrency: string;
     public static depositCurrency: string;
     public readonly descriptionClean: string;

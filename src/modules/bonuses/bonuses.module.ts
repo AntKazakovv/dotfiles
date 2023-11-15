@@ -23,6 +23,7 @@ import {PromoSuccessComponent} from 'wlc-engine/modules/bonuses/components/promo
 import {
     RecommendedBonusesComponent,
 } from 'wlc-engine/modules/bonuses/components/recommended-bonuses/recommended-bonuses.component';
+import {BonusWagerComponent} from 'wlc-engine/modules/bonuses/components/bonus-wager/bonus-wager.component';
 import {DepositBonusesComponent} from 'wlc-engine/modules/bonuses/components/deposit-bonuses/deposit-bonuses.component';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
 import {GlobalHelper} from 'wlc-engine/modules/core';
@@ -47,6 +48,7 @@ export const components = {
     'wlc-promo-success': PromoSuccessComponent,
     'wlc-recommended-bonuses': RecommendedBonusesComponent,
     'wlc-deposit-bonuses': DepositBonusesComponent,
+    'wlc-bonus-wager': BonusWagerComponent,
 };
 
 export const services = {
@@ -67,6 +69,7 @@ export const services = {
         RecommendedBonusesComponent,
         DepositBonusesComponent,
         BonusConfirmationComponent,
+        BonusWagerComponent,
     ],
     imports: [
         CommonModule,
@@ -90,6 +93,7 @@ export const services = {
         LootboxPrizeComponent,
         PromoSuccessComponent,
         RecommendedBonusesComponent,
+        BonusWagerComponent,
     ],
 })
 

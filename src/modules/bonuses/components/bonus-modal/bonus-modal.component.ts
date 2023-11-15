@@ -8,12 +8,14 @@ import {
 
 import {Subject} from 'rxjs';
 import _set from 'lodash-es/set';
+import _map from 'lodash-es/map';
 import _merge from 'lodash-es/merge';
 
 import {
     Game,
     GamesCatalogService,
 } from 'wlc-engine/modules/games';
+
 import {
     AbstractComponent,
     IMixedParams,
@@ -23,6 +25,8 @@ import {
     IAccordionCParams,
 } from 'wlc-engine/modules/core';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
+import {LootboxPrizeModel} from 'wlc-engine/modules/bonuses/system/models';
+import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
 
 import * as Params from './bonus-modal.params';
 
@@ -39,6 +43,8 @@ export class BonusModalComponent extends AbstractComponent implements OnInit {
     public gamesAccordion: IAccordionCParams;
     public isLoadingGames: boolean = false;
     public expandGames$: Subject<void> = new Subject();
+    public isRewardsLoading: boolean = false;
+    public bonusRewards: IAccordionCParams;
 
     protected gamesCatalogService: GamesCatalogService;
     protected bonusGamesAccordion: IAccordionData;
@@ -49,6 +55,7 @@ export class BonusModalComponent extends AbstractComponent implements OnInit {
         cdr: ChangeDetectorRef,
         configService: ConfigService,
         protected injectionService: InjectionService,
+        protected bonusesService: BonusesService,
     ) {
         super(
             <IMixedParams<Params.IBonusModalCParams>>{
@@ -75,6 +82,35 @@ export class BonusModalComponent extends AbstractComponent implements OnInit {
         if (this.bonus.showOnly) {
             this.addModifiers('show-only');
         }
+
+        if (this.bonus.isLootbox) {
+            this.prepareRewards();
+        }
+    }
+
+    /** Active block is showing only for actual active and lootbox bonuses */
+    public get showActiveBlock(): boolean {
+        return (this.bonus.isActive || this.bonus.isLootbox) && !this.bonus.isExpired;
+    }
+
+    protected async prepareRewards(): Promise<void> {
+        this.isRewardsLoading = true;
+        this.bonus.lootBoxRewards ??= await this.bonusesService.getLootboxPrizes(this.bonus);
+
+        const rewardsItems: IAccordionData[] = _map(this.bonus.lootBoxRewards,
+            ((bonus: LootboxPrizeModel): IAccordionData => {
+                return {
+                    title: bonus.name,
+                    content: [bonus.descriptionClean, bonus.termsClean],
+                };
+            }));
+
+        this.bonusRewards = _merge(this.$params.rewardsParams, {
+            items: rewardsItems,
+        });
+
+        this.isRewardsLoading = false;
+        this.cdr.markForCheck();
     }
 
     public get isLootbox(): boolean {

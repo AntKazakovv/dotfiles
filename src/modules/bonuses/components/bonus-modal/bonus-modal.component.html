@@ -1,54 +1,118 @@
-<div class="{{$class}}__wrapper">
-    <div class="{{$class}}__info-wrapper">
-        <div class="{{$class}}__image-block"
-            data-wlc-element="bonus_image"
-            [style.backgroundImage]="bonusBgUrl">
-            <div wlc-bonus-item [inlineParams]="{bonus, theme: 'modal'}"></div>
-        </div>
-        <div class="{{$class}}__info-block">
-            <h4 class="{{$class}}__name" data-wlc-element="bonus_title-name">{{bonus.name}}</h4>
-            <div class="{{$class}}__desc-block">
-                <div *ngIf="bonus.description"
-                    class="{{$class}}__description"
-                    data-wlc-element="bonus_description-name">
-                    <div wlc-dynamic-html
-                         [html]="bonus.description"
-                         [parseAsPlainHTML]="true">
-                    </div>
-                </div>
-                <div *ngIf="bonus.terms"
-                    class="{{$class}}__terms"
-                    data-wlc-element="bonus_terms-name">
-                    <div wlc-dynamic-html
-                         [html]="bonus.terms"
-                         [parseAsPlainHTML]="true">
-                    </div>
-                </div>
+<ng-container [ngSwitch]="$params.theme">
+    <ng-container *ngSwitchCase="'wolf'" [ngTemplateOutlet]="themeWolf"></ng-container>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="themeDefault"></ng-container>
+</ng-container>
+
+<ng-template #themeDefault>
+    <div class="{{$class}}__wrapper">
+        <div class="{{$class}}__info-wrapper">
+            <div class="{{$class}}__image-block"
+                data-wlc-element="bonus_image"
+                [style.backgroundImage]="bonusBgUrl">
+                <div wlc-bonus-item [inlineParams]="{bonus, theme: 'modal'}"></div>
             </div>
-            <div *ngIf="!$params.hideBonusButtons"
-                wlc-bonus-buttons
-                class="{{$class}}__btns"
-                [bonus]="bonus"
-                [isInsideModal]="true"
-                [bonusItemTheme]="'modal'"
-                [isShowUnsubscribe]="true"
-                (showGames)="expandGames()"></div>
-            <div *ngIf="!isLootbox" class="{{$class}}__games">
-                <ng-container *ngIf="!isLoadingGames; else loader">
-                    <div wlc-accordion
-                        [inlineParams]="gamesAccordion"
-                        [expand$]="expandGames$"></div>
-                </ng-container>
-            </div>
-            <div *ngIf="$params.accordionParams?.items?.length"
-                wlc-accordion
-                class="{{$class}}__possible-rewards"
-                [inlineParams]="$params.accordionParams">
+            <div class="{{$class}}__info-block">
+                <h4 class="{{$class}}__name" data-wlc-element="bonus_title-name">{{bonus.name}}</h4>
+                <div class="{{$class}}__desc-block">
+                    <ng-container [ngTemplateOutlet]="descr"></ng-container>
+                    <ng-container [ngTemplateOutlet]="terms"></ng-container>
+                </div>
+                <ng-container [ngTemplateOutlet]="buttons"></ng-container>
+                <ng-container [ngTemplateOutlet]="games"></ng-container>
+                <ng-container *ngIf="bonus.isLootbox" [ngTemplateOutlet]="rewards"></ng-container>
             </div>
         </div>
     </div>
-</div>
+</ng-template>
+
+<ng-template #themeWolf>
+    <div class="{{$class}}__top"
+        data-wlc-element="bonus_image"
+        [style.backgroundImage]="bonusBgUrl"></div>
+    <div class="{{$class}}__content">
+        <h4 class="{{$class}}__name" data-wlc-element="bonus_title-name">{{bonus.name}}</h4>
+
+
+        <ng-container [ngTemplateOutlet]="active"></ng-container>
+        <ng-container [ngTemplateOutlet]="descr"></ng-container>
+        <ng-container [ngTemplateOutlet]="terms"></ng-container>
+        <ng-container [ngTemplateOutlet]="games"></ng-container>
+        <ng-container *ngIf="bonus.isLootbox" [ngTemplateOutlet]="rewards"></ng-container>
+        <ng-container [ngTemplateOutlet]="buttons"></ng-container>
+    </div>
+</ng-template>
+
+<ng-template #games>
+    <div *ngIf="!isLootbox" class="{{$class}}__games">
+        <ng-container *ngIf="!isLoadingGames; else loader">
+            <div wlc-accordion
+                [inlineParams]="gamesAccordion"
+                [expand$]="expandGames$"></div>
+        </ng-container>
+    </div>
+</ng-template>
+
+<ng-template #active>
+    <div *ngIf="showActiveBlock" class="{{$class}}__active">
+        <div class="{{$class}}__timer">
+            <div wlc-timer
+                text="{{'Time remaining' | translate}}"
+                [value]="bonus.expirationTimeLuxon"
+                [serverDateUTC]="bonus.serverTime">
+            </div>
+        </div>
+
+        <div *ngIf="bonus.wageringTotal" class="{{$class}}__progress">
+            <div wlc-bonus-wager [inlineParams]="{theme: $params.theme}" [bonus]="bonus"></div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #descr>
+    <div *ngIf="bonus.description"
+        class="{{$class}}__description"
+        data-wlc-element="bonus_description-name">
+        <div wlc-dynamic-html
+            [html]="bonus.description"
+            [parseAsPlainHTML]="true">
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #terms>
+    <div *ngIf="bonus.terms"
+        class="{{$class}}__terms"
+        data-wlc-element="bonus_terms-name">
+        <div wlc-dynamic-html
+            [html]="bonus.terms"
+            [parseAsPlainHTML]="true">
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #buttons>
+    <div *ngIf="!$params.hideBonusButtons" class="{{$class}}__btns">
+        <div wlc-bonus-buttons
+            [inlineParams]="{
+                theme: 'modal',
+                isInsideModal: true,
+            }"
+            [bonus]="bonus"
+            [bonusItemTheme]="'modal'"
+            [isShowUnsubscribe]="true"
+            (showGames)="expandGames()">
+        </div>
+    </div>
+</ng-template>
 
 <ng-template #loader>
     <div wlc-loader></div>
+</ng-template>
+
+<ng-template #rewards>
+    <div *ngIf="!isRewardsLoading; else loader" class="{{$class}}__possible-rewards">
+        <div wlc-accordion
+            class="{{$class}}__possible-rewards"
+            [inlineParams]="bonusRewards"></div>
+    </div>
 </ng-template>

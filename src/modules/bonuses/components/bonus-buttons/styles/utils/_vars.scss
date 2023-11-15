@@ -1,0 +1,21 @@
+$customThemeModal: () !default;
+$themeModal: map-merge((
+    'btnsFlexDir': (
+        375: column,
+        560: row
+    ),
+    'btnsGap': (
+        375: ef.size(2),
+        560: ef.size(4),
+    ),
+    'btnsWidth': (
+        375: max-content,
+        560: 100%
+    ),
+    'btnsMargin': (
+        375: 0 auto,
+        560: 0,
+    ),
+    'btnsDisplay': flex,
+    'btnsJustify': center,
+), $customThemeModal);

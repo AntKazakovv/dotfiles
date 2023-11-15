@@ -14,7 +14,6 @@ import {takeUntil} from 'rxjs/operators';
 import _union from 'lodash-es/union';
 import _merge from 'lodash-es/merge';
 import _get from 'lodash-es/get';
-import _map from 'lodash-es/map';
 import _includes from 'lodash-es/includes';
 import _isArray from 'lodash-es/isArray';
 
@@ -38,7 +37,6 @@ import {
     ITagCParams,
     ITagCommon,
 } from 'wlc-engine/modules/core/components/tag/tag.params';
-import {LootboxPrizeModel} from 'wlc-engine/modules/bonuses/system/models/lootbox-prize/lootbox-prize.model';
 import {IBonusModalCParams} from 'wlc-engine/modules/bonuses/components/bonus-modal/bonus-modal.params';
 import {Size} from 'wlc-engine/modules/core/components/button/button.params';
 
@@ -285,22 +283,6 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
             || this.$params.theme === 'reg-first'
         ) {
             modalParams.hideBonusButtons = true;
-        }
-
-        if (this.bonus.isLootbox) {
-            const lootboxPrizes: LootboxPrizeModel[] = await this.bonusesService.getLootboxPrizes(this.bonus);
-
-            modalParams.accordionParams = {
-                title: gettext('Possible rewards'),
-                titleIconPath: '/wlc/icons/arrow.svg',
-                collapseAll: true,
-                items: _map(lootboxPrizes, ((bonus) => {
-                    return {
-                        title: bonus.name,
-                        content: [bonus.descriptionClean, bonus.termsClean],
-                    };
-                })),
-            };
         }
 
         this.modalService.showModal('bonusModal', modalParams);

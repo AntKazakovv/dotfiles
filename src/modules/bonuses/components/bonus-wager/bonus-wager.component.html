@@ -1,0 +1,25 @@
+<ng-container [ngSwitch]="$params.theme">
+    <ng-container *ngSwitchCase="'wolf'" [ngTemplateOutlet]="themeWolf"></ng-container>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="themeDefault"></ng-container>
+</ng-container>
+
+<ng-template #themeDefault>
+    <!-- TODO: create default theme and use it in bonus-item.component -->
+</ng-template>
+
+<ng-template #themeWolf>
+    <div class="{{$class}}__caption">
+        <span wlc-currency
+            [value]="wagering"
+            [currency]="currency"></span>
+            /
+        <span wlc-currency
+            [value]="wageringTotal"
+            [currency]="currency"></span>
+    </div>
+    <ng-container [ngTemplateOutlet]="progress"></ng-container>
+</ng-template>
+
+<ng-template #progress>
+    <div class="{{$class}}__progress" style="--wlc-wager-progress: {{progressPercent}}"></div>
+</ng-template>

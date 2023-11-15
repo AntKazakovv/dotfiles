@@ -12,8 +12,10 @@
         </div>
 
         <ng-container *ngIf="items?.length">
-            <div *ngFor="let item of items"
+            <div *ngFor="let item of items; first as isFirst; last as isLast"
                 class="{{$class}}__item"
+                [class.first]="isFirst"
+                [class.last]="isLast"
                 [class.expanded]="item.expand">
                 <ng-container *ngIf="item.description;">
                     <ng-container *ngTemplateOutlet="itemHeaderFull; context: {$implicit: item}"></ng-container>

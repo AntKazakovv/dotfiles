@@ -1,0 +1,9 @@
+.wlc-bonus-buttons--theme-modal:host {
+    @include bm.get-mq-map('flex-direction', $themeModal, 'btnsFlexDir');
+    @include bm.get-mq-map('gap', $themeModal, 'btnsGap');
+    @include bm.get-mq-map('width', $themeModal, 'btnsWidth');
+    @include bm.get-mq-map('margin', $themeModal, 'btnsMargin');
+
+    display: ef.get-value($themeModal, 'btnsDisplay');
+    justify-content: ef.get-value($themeModal, 'btnsJustify');
+}

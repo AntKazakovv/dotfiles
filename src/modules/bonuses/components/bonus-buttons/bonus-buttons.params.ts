@@ -5,7 +5,7 @@ import {
 } from 'wlc-engine/modules/core';
 
 export type Type = 'default' | CustomType;
-export type Theme = 'default' | CustomType;
+export type Theme = 'default' | 'modal' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 export type TClickHandler = (...args: unknown[]) => Promise<void> | void;
 
@@ -24,6 +24,7 @@ export interface IBonusButtonsCParams extends IComponentWithPendingBtns<Theme, T
         /** Play settings*/
         play?: ILinkParams;
     };
+    isInsideModal?: boolean;
 }
 
 export const defaultParams: IBonusButtonsCParams = {

@@ -10,7 +10,7 @@ import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {Theme as BonusItemTheme} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';
 
 export type Type = 'default' | CustomType;
-export type Theme = 'default' | CustomType;
+export type Theme = 'default' | 'wolf' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 
 export interface IBonusModalCParams extends IComponentParams<Theme, Type, ThemeMod> {
@@ -30,6 +30,8 @@ export interface IBonusModalCParams extends IComponentParams<Theme, Type, ThemeM
     freeroundGamesCommon?: IAccordionData;
     /** Params for games grid */
     gamesGridWrapperParams?: IWrapperCParams;
+    /** Possible rewards accordion params */
+    rewardsParams?: IAccordionCParams;
 }
 
 export const defaultParams: IBonusModalCParams = {
@@ -70,5 +72,10 @@ export const defaultParams: IBonusModalCParams = {
                 },
             },
         ],
+    },
+    rewardsParams: {
+        title: gettext('Possible rewards'),
+        titleIconPath: '/wlc/icons/arrow.svg',
+        collapseAll: true,
     },
 };

@@ -1,0 +1,100 @@
+.wlc-bonus-modal--theme-wolf:host {
+    --wlc-bm-content-width: #{ef.get-value($themeWolf, 'contentWidth')}; // for all content
+    --wlc-bm-content-width--thin: #{ef.get-value($themeWolf, 'contentWidthThin')}; // for thin sections
+    --wlc-bm-content-width--wide: #{ef.get-value($themeWolf, 'contentWidthWide')}; // for wide section (games)
+    --wlc-bm-radius-base: #{ef.get-value($themeWolf, 'radiusBase')};
+
+    .wlc-bonus-modal {
+
+        &__top {
+            background: ef.get-value($themeWolf, 'topBgColor');
+            background-position: ef.get-value($themeWolf, 'topBgPos');
+            background-size: ef.get-value($themeWolf, 'topBgSize');
+
+            &:before {
+                content: '';
+                display: block;
+                width: 100%;
+                padding-bottom: ef.get-value($themeWolf, 'topRatio');
+            }
+        }
+
+        &__content {
+            @include bm.get-mq-map('padding', $themeWolf, 'contentPadding');
+
+            display: grid;
+            gap: ef.get-value($themeWolf, 'contentGap');
+            justify-items: center;
+
+            > * {
+                min-width: 0;
+            }
+        }
+
+        &__name,
+        &__description,
+        &__terms,
+        &__buttons,
+        &__possible-rewards,
+        &__games {
+            width: 100%;
+            max-width: var(--wlc-bm-content-width);
+        }
+
+        &__name {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'nameTextStyle', 375),
+                ef.get-value($themeWolf, 'nameColor')
+            );
+            text-align: ef.get-value($themeWolf, 'nameTextAlign');
+
+            @include mq.min(560) {
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'nameTextStyle', 560),
+                    null
+                );
+            }
+        }
+
+        &__description {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'descrTextStyle'),
+                ef.get-value($themeWolf, 'descrColor')
+            );
+            order: ef.get-value($themeWolf, 'descrOrder');
+        }
+
+        &__terms {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'termsTextStyle'),
+                ef.get-value($themeWolf, 'termsColor')
+            );
+            order: ef.get-value($themeWolf, 'termsOrder');
+            padding: ef.get-value($themeWolf, 'termsPadding');
+            background: ef.get-value($themeWolf, 'termsBg');
+            border-radius: var(--wlc-bm-radius-base);
+        }
+
+        &__active {
+            display: grid;
+            gap: ef.get-value($themeWolf, 'activeGap');
+            justify-items: center;
+            order: ef.get-value($themeWolf, 'activeOrder');
+            width: 100%;
+            max-width: var(--wlc-bm-content-width--thin);
+            padding: ef.get-value($themeWolf, 'activePadding');
+            background: ef.get-value($themeWolf, 'activeBg');
+            border-radius: var(--wlc-bm-radius-base);
+        }
+
+        &__progress {
+            width: 100%;
+            max-width: ef.get-value($themeWolf, 'progressMaxWidth');
+        }
+
+        &__btns {
+            order: ef.get-value($themeWolf, 'btnsOrder');
+            margin: ef.get-value($themeWolf, 'btnsMargin');
+        }
+    }
+}
