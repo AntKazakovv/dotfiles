@@ -3,6 +3,8 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/mixins/base.mixins' as bm;
 
-@import './utils/vars';
+@import './utils/vars-default';
+@import './utils/vars-wolf';
 
 @import './themes/default';
+@import './themes/wolf';

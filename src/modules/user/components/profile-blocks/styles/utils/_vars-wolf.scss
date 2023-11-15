@@ -1,0 +1,80 @@
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'hostDisplay': grid,
+    'hostGap': (
+        375: ef.size(8),
+        1024: ef.size(6),
+    ),
+    'hostColumns': 1fr,
+    'hostHeight': max-content,
+    'hostPadding': (
+        375: 0,
+        1024: ef.size(6),
+    ),
+    'hostRadiius': (
+        375: 0,
+        1024: ef.size(2),
+    ),
+    'hostBg': (
+        375: transparent,
+        1024: var(--mc-bg500),
+    ),
+
+    'blockDisplay': grid,
+    'blockColumns': 1fr,
+    'blockGap': (
+        375: ef.size(8),
+        1024: ef.size(6),
+    ),
+
+    'itemGap': ef.size(2),
+    'itemPadding': (
+        375: 0 0 ef.size(8) 0,
+        1024: 0 0 ef.size(6) 0,
+    ),
+    'itemElemBg': var(--mc-bg300),
+
+    'notifTitleMargin': 0,
+    'notifLastPadding': (
+        375: 0 0 ef.size(8) 0,
+        1024: 0 0 ef.size(6) 0,
+    ),
+
+    'titleMainTextStyle': 'PrimaryText',
+    'titleMainColor': var(--mc-baseMain),
+    'titleMainMargin': (
+        375: 0,
+    ),
+
+    'successInfoTextColor': var(--mc-success),
+    'successIconMargin': 0 0 0 ef.size(3),
+    'iconSize': 15px,
+
+    'switcherLabelDirection': row,
+    'switcherLabelPadding': 0,
+    'switcherElemWidth': 40px,
+    'switcherElemHeight': 20px,
+    'switcherElemBg': var(--mc-bg300),
+    'switcherElemSize': 15px,
+    'switcherElemOffset': 2px,
+
+    'btnDeskDisplay': block,
+    'btnWidth': max-content,
+    'btnDeskMinWidth': auto,
+    'btnDeskHeight': auto,
+    'btnDeskPadding': 0,
+    'btnDeskBackground': none,
+    'btnDeskBorder': none,
+    'btnDeskBorderRadius': 0,
+    'btnDeskBoxShadow': none,
+    'btnOverflow': initial,
+    'btnTextStyle': 'ButtonText',
+    'btnColor': (
+        375: var(--mc-main),
+    ),
+    'btnTextDisplay': flex,
+    'btnTextJustify': center,
+    'btnIconMargin': 0 0 0 ef.size(1),
+    'btnIconTransform': rotate(-90deg),
+    'btnColorHover': var(--mc-baseMain),
+), $customThemeWolf);

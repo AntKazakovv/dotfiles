@@ -1,0 +1,166 @@
+.wlc-profile-blocks--theme-wolf:host {
+    @include bm.get-mq-map('background', $themeWolf, 'hostBg');
+    @include bm.get-mq-map('padding', $themeWolf, 'hostPadding');
+    @include bm.get-mq-map('border-radius', $themeWolf, 'hostRadiius');
+    @include bm.get-mq-map('row-gap', $themeWolf, 'hostGap');
+    display: ef.get-value($themeWolf, 'hostDisplay');
+    grid-template-columns: ef.get-value($themeWolf, 'hostColumns');
+    height: ef.get-value($themeWolf, 'hostHeight');
+
+    .wlc-profile-blocks {
+
+        &__block {
+            @include bm.get-mq-map('row-gap', $themeWolf, 'blockGap');
+            display: ef.get-value($themeWolf, 'blockDisplay');
+            grid-template-columns: ef.get-value($themeWolf, 'blockColumns');
+        }
+
+        &__item {
+            @include bm.get-mq-map('padding', $themeWolf, 'itemPadding');
+            position: relative;
+            display: flex;
+            flex-wrap: nowrap;
+            gap: ef.get-value($themeWolf, 'itemGap');
+            align-items: flex-start;
+            justify-content: space-between;
+
+            &:before {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                height: 2px;
+                background: ef.get-value($themeWolf, 'itemElemBg');
+                border-radius: 4px;
+            }
+
+            &:last-child {
+                padding: 0;
+
+                &:before {
+                    display: none;
+                }
+            }
+
+            &--notification {
+
+                .wlc-profile-blocks {
+
+                    &__item {
+
+                        &-title-main {
+                            margin: ef.get-value($themeWolf, 'notifTitleMargin');
+                        }
+                    }
+                }
+            }
+
+            &-title {
+                display: flex;
+
+                &-main {
+                    @include text.get-text-style(
+                        ef.get-value($themeWolf, 'titleMainTextStyle'),
+                        ef.get-value($themeWolf, 'titleMainColor')
+                    );
+                    margin: ef.get-value($themeWolf, 'titleMainMargin');
+                }
+
+                &-information {
+                    display: none;
+
+                    &-success {
+                        display: flex;
+                        align-items: center;
+                        color: ef.get-value($themeWolf, 'successInfoTextColor');
+
+                        &__icon {
+                            margin: ef.get-value($themeWolf, 'successIconMargin');
+                            line-height: 1;
+
+                            ::ng-deep {
+
+                                svg {
+                                    width: ef.get-value($themeWolf, 'iconSize');
+                                    height: ef.get-value($themeWolf, 'iconSize');
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            &-switcher {
+                display: flex;
+
+                ::ng-deep {
+
+                    .wlc-checkbox[wlc-checkbox] {
+
+                        .wlc-checkbox__label {
+                            flex-direction: ef.get-value($themeWolf, 'switcherLabelDirection');
+                            padding: ef.get-value($themeWolf, 'switcherLabelPadding');
+                        }
+
+                        .wlc-checkbox__elem {
+                            width: ef.get-value($themeWolf, 'switcherElemWidth');
+                            height: ef.get-value($themeWolf, 'switcherElemHeight');
+                            background: ef.get-value($themeWolf, 'switcherElemBg');
+
+                            &.checked:before {
+                                left: calc(100% - #{ef.get-value($themeWolf, 'switcherElemSize')} - #{ef.get-value($themeWolf, 'switcherElemOffset')});
+                            }
+
+                            &:before {
+                                width: ef.get-value($themeWolf, 'switcherElemSize');
+                                height: ef.get-value($themeWolf, 'switcherElemSize');
+                            }
+                        }
+                    }
+                }
+            }
+
+            ::ng-deep {
+
+                .wlc-btn[wlc-button] {
+                    display: ef.get-value($themeWolf, 'btnDeskDisplay');
+                    width: ef.get-value($themeWolf, 'btnWidth');
+                    min-width: ef.get-value($themeWolf, 'btnDeskMinWidth');
+                    height: ef.get-value($themeWolf, 'btnDeskHeight');
+                    padding: ef.get-value($themeWolf, 'btnDeskPadding');
+                    background: ef.get-value($themeWolf, 'btnDeskBackground');
+                    border: ef.get-value($themeWolf, 'btnDeskBorder');
+                    border-radius: ef.get-value($themeWolf, 'btnDeskBorderRadius');
+                    box-shadow: ef.get-value($themeWolf, 'btnDeskBoxShadow');
+                    overflow: ef.get-value($themeWolf, 'btnOverflow');
+
+                    .wlc-btn__text {
+                        @include bm.transition(color);
+                        @include text.get-text-style(
+                            ef.get-value($themeWolf, 'btnTextStyle'),
+                            ef.get-value($themeWolf, 'btnColor', 375)
+                        );
+                        display: ef.get-value($themeWolf, 'btnTextDisplay');
+                        justify-content: ef.get-value($themeWolf, 'btnTextJustify');
+                    }
+
+                    .wlc-icon {
+                        margin: ef.get-value($themeWolf, 'btnIconMargin');
+                        transform: ef.get-value($themeWolf, 'btnIconTransform');
+
+                        svg {
+                            fill: currentColor;
+                        }
+                    }
+
+                    @include bm.hover {
+
+                        .wlc-btn__text {
+                            color: ef.get-value($themeWolf, 'btnColorHover');
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
