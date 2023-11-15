@@ -1,12 +1,68 @@
-<div *ngIf="$params.theme == 'default'"
-    class="{{$class}}__content container"
-    (wlc-resized)="onResize($event)">
+<ng-container [ngSwitch]="$params.theme">
+    <ng-container [ngTemplateOutlet]="fullscreen" *ngSwitchCase="'fullscreen-game-frame'"></ng-container>
+    <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
+</ng-container>
+
+<ng-template #default>
+    <div class="{{$class}}__content container"
+         (resized)="onResize($event)">
+
+        <ng-container [ngTemplateOutlet]="gameHeader"></ng-container>
+
+        <div class="{{$class}}__game-area" #wrp>
+            <div *ngIf="!isReady"
+                 wlc-loader
+                 class="{{$class}}__preloader">
+            </div>
+
+            <div wlc-game-dashboard
+                 [opened]="openDashboard"
+                 [isMerchantWallet]="isMerchantWallet"
+                 [dashboardSide]="$params.dashboardSide"
+            ></div>
+
+            <div *ngIf="isMobile && enableGameHeader" class="{{$class}}__game-header">
+                <ng-container [ngTemplateOutlet]="gameName"></ng-container>
+                <ng-container [ngTemplateOutlet]="buttonClose"></ng-container>
+            </div>
+
+            <ng-container [ngTemplateOutlet]="gameWrapper"></ng-container>
+        </div>
+        <div class="{{$class}}__footer" #footer></div>
+    </div>
+</ng-template>
+
+<ng-template #fullscreen>
+    <div class="{{$class}}__content"
+         (resized)="onResize($event)">
+
+        <div *ngIf="!isSportsbook && !isMobile"
+             class="container">
+            <ng-container [ngTemplateOutlet]="gameHeader"></ng-container>
+        </div>
+
+        <div class="{{$class}}__game-area" #wrp>
+            <div *ngIf="!isReady"
+                 wlc-loader
+                 class="{{$class}}__preloader" >
+            </div>
+            <div *ngIf="!isSportsbook"
+                 wlc-game-dashboard
+                 [opened]="openDashboard">
+            </div>
+            <ng-container [ngTemplateOutlet]="gameWrapper"></ng-container>
+        </div>
+    </div>
+</ng-template>
+
+
+<ng-template #gameHeader>
     <div class="{{$class}}__header" #header data-wlc-element="block_game-play-title">
         <div class="{{$class}}__btn-left"
              *ngIf="dashboardSideView('left')">
             <div class="icon-btn">
                 <div wlc-checkbox
-                    [inlineParams]="dashboardBtn">
+                     [inlineParams]="dashboardBtn">
                 </div>
             </div>
         </div>
@@ -44,45 +100,7 @@
             <ng-container [ngTemplateOutlet]="buttonClose"></ng-container>
         </div>
     </div>
-
-    <div class="{{$class}}__game-area" #wrp>
-        <div *ngIf="!isReady"
-             wlc-loader
-             class="{{$class}}__preloader">
-        </div>
-
-        <div wlc-game-dashboard
-            [opened]="openDashboard"
-            [isMerchantWallet]="isMerchantWallet"
-            [dashboardSide]="$params.dashboardSide"
-        ></div>
-
-        <div *ngIf="isMobile && enableGameHeader" class="{{$class}}__game-header">
-            <ng-container [ngTemplateOutlet]="gameName"></ng-container>
-            <ng-container [ngTemplateOutlet]="buttonClose"></ng-container>
-        </div>
-
-        <ng-container [ngTemplateOutlet]="gameWrapper"></ng-container>
-    </div>
-    <div class="{{$class}}__footer" #footer></div>
-</div>
-
-<div *ngIf="$params.theme == 'fullscreen-game-frame'"
-    class="{{$class}}__content"
-    (wlc-resized)="onResize($event)">
-    <div class="{{$class}}__header" #header data-wlc-element="block_game-play-title">
-        <div class="container">
-            <div class="{{$class}}__merchant-balance" *ngIf="isReady && isAuth">
-                <div wlc-merchant-wallet-preview [inlineParams]="headerMerchantWalletPreview"></div>
-            </div>
-        </div>
-    </div>
-    <div class="{{$class}}__game-area" #wrp>
-        <div *ngIf="!isReady" wlc-loader class="{{$class}}__preloader">
-        </div>
-        <ng-container [ngTemplateOutlet]="gameWrapper"></ng-container>
-    </div>
-</div>
+</ng-template>
 
 <ng-template #gameWrapper>
     <div
@@ -104,14 +122,16 @@
 
 <ng-template #gameWithHtml>
     <div *ngIf="isReady;"
-         wlc-dynamic-html
-         #gameContainer
-         id="game_container"
          class="{{$class}}__game-container {{$class}}__game-container-{{game.merchantName}}"
-         [class.mobile]="mobileGame"
-         [html]="gameHtml"
-         [canUseScriptTag]="true"
-         (htmlRendered)="onGameHtmlRendered()">
+         id="game_container"
+         [class.mobile]="mobileGame">
+
+        <div wlc-dynamic-html
+             #gameContainer
+             [html]="gameHtml"
+             [canUseScriptTag]="true"
+             (htmlRendered)="onGameHtmlRendered()">
+        </div>
     </div>
 </ng-template>
 

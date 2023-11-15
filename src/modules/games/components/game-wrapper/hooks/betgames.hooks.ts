@@ -1,6 +1,10 @@
 import {Subject} from 'rxjs';
-import {AbstractHook} from 'wlc-engine/modules/core/system/classes';
-import {HooksService} from 'wlc-engine/modules/core/system/services';
+
+import {
+    AbstractHook,
+    HooksService,
+} from 'wlc-engine/modules/core';
+
 import {
     gameWrapperHooks,
     IGameWrapperHookIframeShown,

@@ -35,6 +35,8 @@ export interface IGamesConfig {
      * - catalogArch3
      */
     catalogBuilder?: CatalogBuilder;
+    /** Games stretched to full screen */
+    fullScreenView?: IGameFullScreenView;
     fundist?: IFundist;
     sportsbookMerchants?: number[];
     run?: IRunGameOptions;
@@ -535,6 +537,13 @@ export interface IMerchantWalletSystemConfig {
 export interface IGameJackpotAmount {
     amount: number;
     currency: string;
+}
+
+export interface IGameFullScreenView {
+    /** use or not */
+    use: boolean;
+    /** for which merchants to apply */
+    merchants: number[];
 }
 
 export interface IGameMerchants {

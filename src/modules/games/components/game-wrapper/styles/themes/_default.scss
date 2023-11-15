@@ -31,132 +31,20 @@
     }
 
     .wlc-game-wrapper {
-
-        &__game-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: ef.get-value($themeDefault, 'gameHeaderPadding');
-            background: ef.get-value($themeDefault, 'gameHeaderBg');
-
-            h2 {
-                @include text.get-text-style(ef.get-value($themeDefault, 'titleFontSize'), ef.get-value($themeDefault, 'titleColor'));
-            }
-
-            .wlc-icon {
-
-                svg {
-                    fill: none;
-                    stroke: ef.get-value($themeDefault, 'iconsColorMob');
-
-                    line {
-                        stroke: ef.get-value($themeDefault, 'iconsColorMob');
-                    }
-                }
-            }
-        }
+        @include gameHeader($themeDefault);
+        @include mobileGameHeader($themeDefault);
+        @include preloader;
 
         &__content {
             margin: ef.get-value($themeDefault, 'contentMargin');
-        }
-
-        &__preloader {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            margin: 0 auto;
-            transform: translate(-50%, -50%);
-        }
-
-        &__header {
-            @include flexBlock;
-
-            padding: ef.get-value($themeDefault, 'headerPaddings') 0;
-            background: ef.get-value($themeDefault, 'headerBg');
-
-            h2 {
-                max-width: 50%;
-                margin: ef.get-value($themeDefault, 'headerMargin');
-                color: ef.get-value($themeDefault, 'headerColor');
-                white-space: nowrap;
-                text-overflow: ellipsis;
-                overflow: hidden;
-            }
         }
 
         &__footer {
             @include flexBlock;
         }
 
-        &__btn-left {
-            margin: ef.get-value($themeDefault, 'btnLeftMargin');
-        }
-
-        &__btn-right {
-            display: flex;
-            align-items: center;
-
-            .wlc-icon {
-                margin-left: ef.get-value($themeDefault, 'iconsGap');
-                cursor: pointer;
-
-
-                &.icon-btn:not(.active) {
-                    @include bm.transition(all);
-                    opacity: ef.get-value($themeDefault, 'buttonOpacity');
-
-                    @include bm.hover {
-                        opacity: ef.get-value($themeDefault, 'buttonOpacityHover');
-                    }
-                }
-
-                svg {
-
-                    @include bm.transition(all);
-                    width: ef.get-value($themeDefault, 'iconsWidth');
-                    height: ef.get-value($themeDefault, 'iconsHeight');
-                    fill: none;
-                    stroke: ef.get-value($themeDefault, 'iconsColor');
-                    stroke-width: ef.get-value($themeDefault, 'iconsStroke');
-                }
-
-                &.wlc-icon--favourite {
-
-                    path {
-                        fill: none;
-                    }
-
-                    &.active {
-
-                        svg {
-                            stroke: ef.get-value($themeDefault, 'iconsColorActive');
-
-                            path {
-                                fill: ef.get-value($themeDefault, 'iconsColorActive');
-                            }
-                        }
-                    }
-                }
-
-                @include bm.hover {
-
-                    svg {
-                        stroke: ef.get-value($themeDefault, 'iconsColorHover');
-
-                        line {
-                            stroke: ef.get-value($themeDefault, 'iconsColorHover');
-                        }
-                    }
-                }
-            }
-        }
-
-        &__btn-center {
-            display: flex;
-            gap: ef.get-value($themeDefault, 'btnCenterGap');
-            align-items: center;
-            justify-content: start;
-            width: 100%;
+        &__game-container {
+            height: 100%;
         }
 
         &__game-area {

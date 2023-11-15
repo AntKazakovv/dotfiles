@@ -8,6 +8,15 @@ export enum SpecialCategoriesGamesSlug {
 }
 
 export const gamesConfig: IGamesConfig = {
+    fullScreenView: {
+        use: true,
+        merchants: [
+            974,
+            900,
+            985,
+            883,
+        ],
+    },
     fundist: {
         defaultCategorySettings: {
             use: false,

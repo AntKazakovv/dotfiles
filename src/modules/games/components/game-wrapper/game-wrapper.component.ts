@@ -10,6 +10,7 @@ import {
     ViewEncapsulation,
     HostListener,
     OnDestroy,
+    OnChanges,
     AfterViewInit,
     Input,
     ChangeDetectionStrategy,
@@ -83,6 +84,8 @@ import {MerchantWalletService} from 'wlc-engine/modules/games/system/services/me
 import {
     BetGamesHooks,
     EvoGamesHooks,
+    GoldenraceHooks,
+    KironHooks,
 } from './hooks';
 import {IGameWrapperCParams} from './game-wrapper.params';
 import {WINDOW} from 'wlc-engine/modules/app/system';
@@ -136,7 +139,7 @@ export interface IGameWrapperHookIframeShown {
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GameWrapperComponent extends AbstractComponent implements OnInit, OnDestroy, AfterViewInit {
+export class GameWrapperComponent extends AbstractComponent implements OnInit, OnDestroy, OnChanges, AfterViewInit {
     @ViewChild('wrp', {read: ViewContainerRef, static: false}) wrp: ViewContainerRef;
     @ViewChild('header') header: ElementRef;
     @ViewChild('footer') footer: ElementRef;
@@ -156,7 +159,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     public isKiosk: boolean;
     public gameTitle: string;
     public openDashboard: boolean = true;
-    public showDashboardBtn: boolean = false;
+    public showDashboardBtn: boolean = true;
     public mobileGame: boolean = this.configService.get<boolean>('appConfig.mobile');
     public dashboardBtn: ICheckboxCParams = {
         name: 'game-dashboard',
@@ -169,6 +172,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         },
     };
     public isMobile: boolean = false;
+    public isSportsbook: boolean = false;
     public enableGameHeader: boolean;
     public isMerchantWallet: boolean;
     public headerMerchantWalletPreview: IMerchantWalletPreviewCParams = {
@@ -197,6 +201,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     protected savedSiteName: string;
     protected oldWindowWidth: number;
     protected screenfull: IScreenfull;
+    protected disableIframeDefaultResize: boolean = false;
     protected hooksByMerchant: IIndexing<Function> = {
         '990': () => {
             new BetGamesHooks({
@@ -206,6 +211,28 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         },
         '999': this.createEvoHooks.bind(this),
         '998': this.createEvoHooks.bind(this),
+        '985': () => {
+            new GoldenraceHooks({
+                hooksService: this.hooksService,
+                disableHooks: this.$destroy,
+            }, this.window);
+            this.disableIframeDefaultResize = true;
+        },
+        '974': () => {
+            new KironHooks({
+                hooksService: this.hooksService,
+                disableHooks: this.$destroy,
+            }, this.window);
+        },
+        '958': () => {
+            this.changeBreakpointProperty('(min-width: 1024px)', (matches: boolean) => {
+                this.disableIframeDefaultResize = !matches;
+                if (this.iframe) {
+                    this.iframe.style.minHeight = null;
+                    this.iframe.style.height = null;
+                }
+            });
+        },
     };
 
     protected merchantWalletService: MerchantWalletService;
@@ -253,16 +280,31 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         this.dashboardBtn.textSide = this.$params.dashboardSide === 'right' ? 'left' : 'right';
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         this.isKiosk = this.configService.get<AppType>('$base.app.type') === 'kiosk';
+        this.isSportsbook = this.$params.gameParams?.isSportsbook;
+
+        if (this.isSportsbook) {
+            this.addModifiers('sportsbook');
+        }
         this.locale = this.router.stateService.params?.locale || 'en';
         this.gameParams = this.getGameParams();
-        this.initEventHandlers();
         this.savedSiteName = this.titleService.getTitle();
+        this.disableIframeDefaultResize = this.$params.gameParams?.disableIframeDefaultResize;
 
         this.enableGameHeader = this.configService.get<boolean>('$games.mobile.showGameHeader.byDefault')
             || _includes(
                 this.configService.get<number[]>('$games.mobile.showGameHeader.merchants'),
                 this.gameParams.merchantId,
             );
+
+        if (this.configService.get<boolean>('$games.fullScreenView.use')) {
+            const merchants: number[] = this.configService.get<number[]>('$games.fullScreenView.merchants') || [];
+
+            if (_includes(merchants, this.gameParams.merchantId)) {
+                const oldTheme: string = this.$params.theme;
+                this.$params.theme = 'fullscreen-game-frame';
+                this.removeModifiers('theme-' + oldTheme);
+            }
+        }
 
         this.game = this.getGame();
         this.gameTitle = this.game.name[this.locale] || this.game.name['en'] || '';
@@ -301,6 +343,8 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         }
         this.screenfull = (await import('screenfull'))?.default;
 
+        this.initEventHandlers();
+
         this.eventService.subscribe({name: ProcessEvents.modalOpened}, (data: IProcessEventData) => {
             if (data.eventId === 'iframe-deposit') {
                 this.isIframeDepositOpened = true;
@@ -326,7 +370,6 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             this.seoService = await this.injectionService.getService<SeoService>('seo.seo-service');
         }
 
-        this.showDashboardBtn = true;
         this.initStartResizeParams();
         this.initFullPageIframeSize();
 
@@ -380,6 +423,10 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
      * Open game on full screen
      */
     public openOnFullscreen(): void {
+        if (!this.iframe) {
+            this.iframe = this.wrp.element.nativeElement.querySelector('#egamings_container iframe');
+        }
+
         const container: HTMLElement = this.iframe
             ? this.iframe
             : this.wrp.element.nativeElement.querySelector('#egamings_container');
@@ -516,7 +563,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     }
 
     protected initFullPageIframeSize(): void {
-        if (this.$params.gameParams?.disableIframeDefaultResize) {
+        if (this.disableIframeDefaultResize) {
             return;
         }
         if (this.$params.theme === 'fullscreen-game-frame' && this.hostElement) {
@@ -532,6 +579,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                     this.iframeObserver = new MutationObserver(() => {
                         this.setFullPageIframeSize();
                     });
+
                     this.iframeObserver.observe(iframe, {
                         attributes: true,
                         attributeFilter: ['height'],
@@ -546,7 +594,8 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     }
 
     protected setFullPageIframeSize(): void {
-        if (this.$params.gameParams?.disableIframeDefaultResize) {
+        // return;
+        if (this.disableIframeDefaultResize || this.isSportsbook) {
             return;
         }
 
@@ -567,6 +616,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                     height = null;
                 }
             }
+
             this.renderer.setStyle(iframe, 'height', height);
         }
     }
@@ -636,7 +686,6 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             this.renderer.setStyle(gameWrapper, 'height', '100%');
             this.renderer.setStyle(gameWrapper, 'maxWidth', '100%');
         } else if (!this.realMobile || (this.realMobile && this.windowWidthChanged())) {
-
             const iframeHeight: string = this.iframe?.getAttribute('height');
             if (iframeHeight && iframeHeight !== '100%') {
                 this.renderer.setStyle(gameWrapper, 'height', iframeHeight + 'px');
@@ -1119,5 +1168,16 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                 renderer: this.renderer,
             },
         );
+    }
+
+    protected changeBreakpointProperty(mediaQuery: string, handler: (matches: boolean) => void): void {
+        const breakpoint = this.window.matchMedia(mediaQuery);
+        handler(breakpoint.matches);
+
+        GlobalHelper.mediaQueryObserver(breakpoint)
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((event: MediaQueryListEvent) => {
+                handler(event.matches);
+            });
     }
 }

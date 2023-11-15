@@ -9,25 +9,58 @@
 
     .wlc-game-wrapper {
 
-        &__header {
-            margin: ef.get-value($themeFullscreenGameFrame, 'headerMargin');
+        @include gameHeader($themeFullscreenGameFrame);
+        @include mobileGameHeader($themeFullscreenGameFrame);
+        @include preloader;
+
+        &__content {
+            min-height: ef.get-value($themeFullscreenGameFrame, 'contentMinHeight');
         }
 
         &__game-area,
         &__content {
             height: 100%;
         }
+    }
 
-        &__content {
-            min-height: ef.get-value($themeFullscreenGameFrame, 'contentMinHeight');
-        }
+    &.wlc-game-wrapper--mobile:not(.wlc-game-wrapper--sportsbook) {
 
-        &__preloader {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            margin: 0 auto;
-            transform: translate(-50%, -50%);
+        .wlc-game-wrapper {
+
+            &__content {
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: map-get($themeFullscreenGameFrame, 'mobileZIndex');
+                width: 100vw;
+                height: 100vh;
+                background: ef.get-value($themeFullscreenGameFrame, 'mobileContentBg');
+            }
+
+            &__game-container {
+                height: 100%;
+
+                iframe {
+                    height: 100%;
+                }
+            }
+
+            &__game-area {
+
+                div[wlc-dynamic] {
+                    height: 100%;
+
+                    div {
+                        height: 100%;
+                    }
+                }
+
+                iframe,
+                object {
+                    width: 100% !important;
+                    height: 100% !important;
+                }
+            }
         }
     }
 }

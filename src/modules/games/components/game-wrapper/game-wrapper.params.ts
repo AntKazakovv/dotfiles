@@ -12,7 +12,7 @@ export type Modifiers = AutoModifiers | CustomMod | null;
 export interface IGameWrapperCParams extends IComponentParams<Theme, Type, ThemeMod> {
     updateOnWindowResize?: boolean;
     padding?: number;
-    gameParams: ICustomGameParams;
+    gameParams?: ICustomGameParams;
     type?: Type;
     dashboardSide?: DashboardSide,
     calcWidth?: boolean,

@@ -5,3 +5,135 @@
     margin-right: auto;
     margin-left: auto;
 }
+
+@mixin gameHeader($theme) {
+
+    &__header {
+
+        @include flexBlock;
+
+        margin: ef.get-value($theme, 'headerMargin');
+        padding: ef.get-value($theme, 'headerPaddings') 0;
+        background: ef.get-value($theme, 'headerBg');
+
+        h2 {
+            max-width: 50%;
+            margin: ef.get-value($theme, 'headerMargin');
+            color: ef.get-value($theme, 'headerColor');
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+    }
+
+    &__btn-left {
+        margin: ef.get-value($theme, 'btnLeftMargin');
+    }
+
+    &__btn-right {
+        display: flex;
+        align-items: center;
+
+        .wlc-icon {
+            margin-left: ef.get-value($theme, 'iconsGap');
+            cursor: pointer;
+
+            &.icon-btn:not(.active) {
+                @include bm.transition(all);
+                opacity: ef.get-value($theme, 'buttonOpacity');
+
+                @include bm.hover {
+                    opacity: ef.get-value($theme, 'buttonOpacityHover');
+                }
+            }
+
+            svg {
+
+                @include bm.transition(all);
+                width: ef.get-value($theme, 'iconsWidth');
+                height: ef.get-value($theme, 'iconsHeight');
+                fill: none;
+                stroke: ef.get-value($theme, 'iconsColor');
+                stroke-width: ef.get-value($theme, 'iconsStroke');
+            }
+
+            &.wlc-icon--favourite {
+
+                path {
+                    fill: none;
+                }
+
+                &.active {
+
+                    svg {
+                        stroke: ef.get-value($theme, 'iconsColorActive');
+
+                        path {
+                            fill: ef.get-value($theme, 'iconsColorActive');
+                        }
+                    }
+                }
+            }
+
+            @include bm.hover {
+
+                svg {
+                    stroke: ef.get-value($theme, 'iconsColorHover');
+
+                    line {
+                        stroke: ef.get-value($theme, 'iconsColorHover');
+                    }
+                }
+            }
+        }
+    }
+}
+
+@mixin mobileGameHeader($theme) {
+
+    &__game-header {
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: ef.get-value($theme, 'gameHeaderMargin');
+        padding: ef.get-value($theme, 'gameHeaderPadding');
+        background: ef.get-value($theme, 'gameHeaderBg');
+
+        h2 {
+            @include text.get-text-style(ef.get-value($theme, 'titleFontSize'), ef.get-value($theme, 'titleColor'));
+        }
+
+        .wlc-icon {
+
+            svg {
+                fill: none;
+                stroke: ef.get-value($theme, 'iconsColorMob');
+
+                line {
+                    stroke: ef.get-value($theme, 'iconsColorMob');
+                }
+            }
+        }
+    }
+
+    &__btn-center {
+        display: flex;
+        gap: ef.get-value($themeDefault, 'btnCenterGap');
+        align-items: center;
+        justify-content: start;
+        width: 100%;
+    }
+}
+
+@mixin preloader {
+
+    &__preloader {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: 0 auto;
+        transform: translate(-50%, -50%);
+    }
+}
+
