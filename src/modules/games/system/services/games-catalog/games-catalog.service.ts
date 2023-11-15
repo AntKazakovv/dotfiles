@@ -114,6 +114,7 @@ import {CatalogBuilder} from 'wlc-engine/modules/games/system/builders/catalog.b
 import {MenuService} from 'wlc-engine/modules/menu';
 import {ICategoriesSettings} from 'wlc-engine/modules/games/system/builders/categories.builder';
 import {IBonusWagerGamesFilter} from 'wlc-engine/modules/bonuses/system/interfaces';
+import {IInteractiveText} from 'wlc-engine/modules/core';
 
 export interface ILaunchGameModal {
     show: boolean;
@@ -886,6 +887,39 @@ export class GamesCatalogService {
     /** Filters and returns games which user will receive free rounds */
     public getBonusFreeRoundGames(gameIds: number[]): Game[] {
         return this.getGameList({ids: gameIds});
+    }
+
+    /**
+     * Checks interactive game
+     * @param item IInteractiveText
+     * @returns boolean
+     */
+    public checkInteractiveGame(item: IInteractiveText): boolean {
+        const categories = this.getAvailableCategories();
+
+        if (item.actionParams && item.actionParams.url.path === 'app.catalog') {
+            if (this.architectureVersion === 3) {
+                const categoriesBySlug = categories
+                    .filter((category) => category.slug === item.actionParams.url.params.category);
+                if (categoriesBySlug?.length) {
+                    item.actionParams.url.path = 'app.catalog.child';
+                    item.actionParams.url.params.childCategory = item.actionParams.url.params.category;
+                    if (categoriesBySlug.some((category) => category.parentCategory?.slug === 'casino')) {
+                        item.actionParams.url.params.category = 'casino';
+                    } else {
+                        item.actionParams.url.params.category = categoriesBySlug[0].parentCategory.slug;
+                    }
+                } else {
+                    return false;
+                }
+            } else {
+                return categories.some((category) => category.slug === item.actionParams.url.params.category);
+            }
+        }
+
+        if (item.actionParams && item.actionParams.url.path === 'app.catalog.child') {
+            return categories.some((category) => category.slug === item.actionParams.url.params.childCategory);
+        }
     }
 
     /**

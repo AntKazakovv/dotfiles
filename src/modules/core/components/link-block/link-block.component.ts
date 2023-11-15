@@ -58,13 +58,14 @@ export class LinkBlockComponent
         }, configService, cdr);
     }
 
-    public override ngOnInit(): void {
+    public override async ngOnInit(): Promise<void> {
         const inputProperties: string[] = [
             'title', 'subtitle', 'link', 'actionParams', 'useInteractiveText', 'useLinkButton',
         ];
         super.ngOnInit(GlobalHelper.prepareParams(this, inputProperties));
 
         if (this.$params.common.useInteractiveText) {
+            await this.interactiveTextService.ready;
             this.setInteractiveText();
             this.subscribeForInteractiveText();
         }
