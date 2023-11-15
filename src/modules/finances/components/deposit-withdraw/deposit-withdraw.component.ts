@@ -142,28 +142,22 @@ export class DepositWithdrawComponent
 
         if (this.isMultiWallet) {
             this.userService = await this.injectionService.getService<UserService>('user.user-service');
-
             Params.PaymentSteps.wallet.ready = new Promise((resolve: () => void): void => {
                 Params.PaymentSteps.wallet.$resolve = resolve;
             });
-            const walletInit = (): void => {
-                this.selectedWallet = this.userService.userProfile.extProfile.currentWallet;
-                Bonus.depositCurrency = this.selectedWallet?.walletCurrency;
-                Params.PaymentSteps.wallet.$resolve();
-            };
+            this.steps.add(Params.PaymentSteps.wallet);
 
             if (this.userService.userInfo) {
-                walletInit();
+                Params.PaymentSteps.wallet.$resolve();
             } else {
                 this.userService.userInfo$.pipe(
                     first((v) => !!v?.idUser),
                     takeUntil(this.$destroy))
                     .subscribe((): void => {
-                        walletInit();
+                        Params.PaymentSteps.wallet.$resolve();
                     });
             }
 
-            this.steps.add(Params.PaymentSteps.wallet);
             this.walletsParams = {
                 themeMod: 'finances',
                 hideVirtualWallets: !this.isDeposit,
@@ -175,7 +169,6 @@ export class DepositWithdrawComponent
             Params.PaymentSteps.bonus.ready = new Promise((resolve: () => void): void => {
                 Params.PaymentSteps.bonus.$resolve = resolve;
             });
-
             this.steps.add(Params.PaymentSteps.bonus);
 
             this.eventService.subscribe({name: 'BONUSES_FETCH_FAILED'}, (): void => {
@@ -194,7 +187,6 @@ export class DepositWithdrawComponent
                         this.bonusesExist = !!depositBonuses.length;
 
                         if (this.bonusesExist) {
-
                             this.bonusesListParams = {
                                 components: [
                                     {
@@ -205,6 +197,8 @@ export class DepositWithdrawComponent
                                     },
                                 ],
                             };
+                        } else {
+                            this.steps.delete(Params.PaymentSteps.bonus);
                         }
                         Params.PaymentSteps.bonus.$resolve();
                         bonusesSubscription.unsubscribe();
@@ -212,13 +206,14 @@ export class DepositWithdrawComponent
                 },
             });
         }
-
         /** Готовим параметры (пока только для второй темы) */
         this.prepareParams();
 
-        Params.PaymentSteps.paymentSystem.ready = new Promise((resolve: () => void): void => {
-            Params.PaymentSteps.paymentSystem.$resolve = resolve;
-        });
+        if (!this.isMultiWallet) {
+            Params.PaymentSteps.paymentSystem.ready = new Promise((resolve: () => void): void => {
+                Params.PaymentSteps.paymentSystem.$resolve = resolve;
+            });
+        }
 
         this.steps.add(Params.PaymentSteps.paymentSystem);
         if (!this.hiddenPaymentInfo) {
@@ -246,19 +241,18 @@ export class DepositWithdrawComponent
 
         }
 
+        if (!this.isMultiWallet) {
+            this.financesService.fetchPaymentSystems()
+                .finally(() => {
+                    this.isFetchingSystems = false;
+                    Params.PaymentSteps.paymentSystem.$resolve();
+                });
+        }
+
         Promise.all(_map(Array.from(this.steps), async (step: Params.IPaymentStep) => await step.ready))
             .then(() => {
                 this.ready = true;
                 this.cdr.markForCheck();
-            });
-
-        if (this.isMultiWallet) {
-            await Params.PaymentSteps.wallet.ready;
-        }
-        this.financesService.fetchPaymentSystems(this.selectedWallet?.walletCurrency)
-            .finally(() => {
-                this.isFetchingSystems = false;
-                Params.PaymentSteps.paymentSystem.$resolve();
             });
     }
 

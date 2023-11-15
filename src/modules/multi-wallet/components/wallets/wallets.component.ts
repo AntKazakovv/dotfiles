@@ -299,7 +299,6 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
             };
         }
 
-        WalletHelper.conversionCurrency = this.settingsParams.walletSettings.currency;
         WalletHelper.currencies = this.userService.userProfile.unusedCurrencies;
 
         if (!this.isFinance) {
@@ -310,6 +309,11 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
             await this.filterWallets();
             this.currentWallet = this.walletList[0];
         }
+
+        this.changeWalletEmit.emit({
+            walletId: this.currentWallet.walletId,
+            walletCurrency: this.currentWallet.currency});
+
         UserInfo.currency = this.userService.userProfile.selectedCurrency;
 
         this.isShowWalletSelector = true;
