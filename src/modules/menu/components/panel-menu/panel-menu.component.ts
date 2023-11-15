@@ -48,9 +48,7 @@ import * as Params from './panel-menu.params';
 })
 export class PanelMenuComponent extends AbstractComponent implements OnInit {
 
-    public isReady: boolean = false;
     public override $params: Params.IPanelMenuCParams;
-    public menuParams: MenuParams.IMenuCParams;
 
     protected menuConfig: MenuParams.MenuConfigItem[];
     protected menuSettings: IMenuOptions;
@@ -81,6 +79,10 @@ export class PanelMenuComponent extends AbstractComponent implements OnInit {
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
 
+        if (this.fixedPanelStore$.getValue().left === 'compact') {
+            this.addModifiers('compact');
+        }
+
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         this.configService.get<boolean>('appConfig.mobile');
 
@@ -88,7 +90,6 @@ export class PanelMenuComponent extends AbstractComponent implements OnInit {
         this.initMenu();
         this.initEventHandlers();
 
-        this.isReady = true;
         this.cdr.markForCheck();
     }
 
@@ -124,19 +125,7 @@ export class PanelMenuComponent extends AbstractComponent implements OnInit {
     }
 
     protected initMenu(): void {
-        this.menuParams = {
-            type: 'panel-menu',
-            theme: this.$params.theme,
-            themeMod: this.$params.themeMod,
-            dropdowns: {
-                expandableOnClick: true,
-            },
-            tooltip: {
-                containerClass: 'wlc-tooltip-wolf',
-            },
-        };
-
-        this.menuParams.items = MenuHelper.parseMenuConfig(this.menuConfig, Config.wlcPanelMenuItemsGlobal, {
+        this.$params.menuParams.items = MenuHelper.parseMenuConfig(this.menuConfig, Config.wlcPanelMenuItemsGlobal, {
             icons: {
                 folder: this.$params.icons?.folder,
                 disable: !this.$params.icons?.use,
@@ -146,7 +135,7 @@ export class PanelMenuComponent extends AbstractComponent implements OnInit {
             },
         });
 
-        MenuHelper.configureCategories(this.menuParams.items, {
+        MenuHelper.configureCategories(this.$params.menuParams.items, {
             type: 'dropdown',
             theme: 'dropdown',
             themeMod: 'vertical',
@@ -165,15 +154,15 @@ export class PanelMenuComponent extends AbstractComponent implements OnInit {
             },
         });
 
-        this.menuParams = _clone(this.menuParams);
-
-        this.cdr.detectChanges();
+        this.$params.menuParams = _clone(this.$params.menuParams);
     }
 
     /**
      * Init event handlers
      */
     protected initEventHandlers(): void {
+        let defaultValueExpandOnStart: boolean = this.$params.menuParams.expandOnStart;
+
         this.configService.get<BehaviorSubject<boolean>>('$user.isAuth$')
             .pipe(takeUntil(this.$destroy))
             .subscribe((value) => {
@@ -183,20 +172,25 @@ export class PanelMenuComponent extends AbstractComponent implements OnInit {
         this.fixedPanelStore$
             .pipe(takeUntil(this.$destroy))
             .subscribe((store: TFixedPanelStore) => {
-                this.menuParams.tooltip.use = store.left === 'compact';
+                this.$params.menuParams.tooltip.use = store.left === 'compact';
+
+                if (defaultValueExpandOnStart) {
+                    this.$params.menuParams.expandOnStart = store.left !== 'compact';
+                }
+
                 const isExpandableOnHover = store.left === 'compact' && !this.isMobile;
 
-                const categoriesItemMenu = this.menuParams.items
+                const categoriesItemMenu = this.$params.menuParams.items
                     .find((item) => (item as MenuParams.IMenuItem).type === 'categories') as MenuParams.IMenuItem;
                 if (categoriesItemMenu) {
                     _set(categoriesItemMenu, 'params.categories.componentParams.menuParams.dropdowns', {
                         expandableOnHover: isExpandableOnHover,
                     });
                 } else {
-                    this.menuParams.dropdowns.expandableOnHover = isExpandableOnHover;
+                    this.$params.menuParams.dropdowns.expandableOnHover = isExpandableOnHover;
                 }
 
-                this.menuParams = _clone(this.menuParams);
+                this.$params.menuParams = _clone(this.$params.menuParams);
 
                 if (store.left === 'compact') {
                     this.addModifiers('compact');

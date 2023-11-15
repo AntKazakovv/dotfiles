@@ -2,6 +2,7 @@ import {
     IComponentParams,
     CustomType,
 } from 'wlc-engine/modules/core';
+import {IMenuCParams} from 'wlc-engine/modules/menu/components/menu/menu.params';
 
 export type Type = 'info' | CustomType;
 export type Theme = 'default' | 'wolf' | CustomType;
@@ -17,10 +18,20 @@ export interface IPanelMenuCParams extends IComponentParams<Theme, Type, ThemeMo
         folder?: string;
         use?: boolean;
     },
+    menuParams?: IMenuCParams;
 };
 
 export const defaultParams: IPanelMenuCParams = {
     moduleName: 'menu',
     componentName: 'wlc-panel-menu',
     class: 'wlc-panel-menu',
+    menuParams: {
+        type: 'panel-menu',
+        dropdowns: {
+            expandableOnClick: true,
+        },
+        tooltip: {
+            containerClass: 'wlc-tooltip-wolf',
+        },
+    },
 };

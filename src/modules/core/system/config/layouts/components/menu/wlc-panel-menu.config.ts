@@ -11,9 +11,6 @@ export namespace wlcPanelMenu {
                 folder: 'wlc/icons/european/v3',
                 use: true,
             },
-            dropdowns: {
-                expandableOnClick: true,
-            },
         },
     };
 
@@ -26,9 +23,6 @@ export namespace wlcPanelMenu {
             icons: {
                 folder: 'wlc/icons/european/v3',
                 use: true,
-            },
-            dropdowns: {
-                expandableOnClick: true,
             },
         },
     };
