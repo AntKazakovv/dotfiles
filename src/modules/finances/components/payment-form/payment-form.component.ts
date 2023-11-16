@@ -151,7 +151,7 @@ export class PaymentFormComponent
     protected isCryptoInvoices: boolean = false;
     protected currentCurrency: string;
     protected currency: string;
-    protected preselectedAmounts: number[] = [];
+    protected usePreselectedSummation: boolean = false;
     protected isLoadingHostedFields: boolean = false;
     protected formObject: UntypedFormGroup;
     protected inProgress: boolean = false;
@@ -203,6 +203,7 @@ export class PaymentFormComponent
         this.isDeposit = this.mode === 'deposit';
         this.isMultiWallet = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
         this.additionalFieldsConfig = this.configService.get('$finances.fieldsSettings.additional');
+        this.usePreselectedSummation = this.configService.get<boolean>('$finances.preselectButtons.summationMode');
         this.configService
             .get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
             .pipe(takeUntil(this.$destroy))
@@ -599,7 +600,15 @@ export class PaymentFormComponent
         this.eventService.subscribe(
             {name: 'SELECT_AMOUNT'},
             (data: any): void => {
-                this.formData$.next({amount: `${data.amount}`});
+                if (!this.amountControl.touched) {
+                    this.amountControl.markAsTouched();
+                }
+
+                const sum = this.usePreselectedSummation
+                    ? (Number(this.amountControl.value) * 100 + data.amount * 100) / 100
+                    : data.amount;
+
+                this.formData$.next({amount: `${sum}`});
             }, this.$destroy);
 
         this.eventService.subscribe(
@@ -786,7 +795,9 @@ export class PaymentFormComponent
             }
 
             if (preselectedAmountsData.length) {
-                const preselected: IFormComponent = this.preparePreselectedAmounts(preselectedAmountsData);
+                const preselected: IFormComponent = this.preparePreselectedAmounts(
+                    preselectedAmountsData,
+                    this.usePreselectedSummation);
                 formComponents.push(preselected);
             }
 
@@ -930,9 +941,10 @@ export class PaymentFormComponent
         return settings;
     }
 
-    protected preparePreselectedAmounts(data: number[]): IFormComponent {
+    protected preparePreselectedAmounts(data: number[], usePreselectedSummation: boolean): IFormComponent {
         const component: IFormComponent = _cloneDeep(FormElements.preselectedAmounts);
         component.params.amounts = data;
+        component.params.summationMode = usePreselectedSummation;
         component.params.currency = this.wallet?.walletCurrency || this.userProfile.selectedCurrency;
 
         return component;
@@ -1252,7 +1264,6 @@ export class PaymentFormComponent
         this.cryptoCheck = false;
         this.disableAmount = false;
         this.additionalParams = {};
-        this.preselectedAmounts = [];
 
         this.updateFormConfig();
         this.formData$.next({

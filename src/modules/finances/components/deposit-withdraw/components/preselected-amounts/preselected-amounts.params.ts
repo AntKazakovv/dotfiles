@@ -10,6 +10,7 @@ export type ThemeMod = 'default' | CustomType;
 export interface IPreselectedAmountsCParams extends IComponentParams<Theme, Type, ThemeMod> {
     amounts: number[];
     currency: string;
+    summationMode: boolean;
 }
 
 export const defaultParams: IPreselectedAmountsCParams = {
@@ -18,4 +19,5 @@ export const defaultParams: IPreselectedAmountsCParams = {
     class: 'wlc-preselected-amounts',
     amounts: [],
     currency: '',
+    summationMode: false,
 };

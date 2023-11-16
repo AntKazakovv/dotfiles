@@ -33,6 +33,10 @@ export interface IFinancesConfig {
     transactionHistoryAlert?: ITransactionHistoryAlert;
     /** Add scrollbar if true (for second theme of deposit-withdraw) */
     usePaySystemScroll?: boolean;
+    /**
+     * Config for preselected amount buttons both in deposit and withdraw
+     */
+    preselectButtons?: IPreselectedButtonsConfig;
 }
 
 export interface ITransactionHistoryAlert {
@@ -211,6 +215,10 @@ export type TAdditionalParams = IIndexing<string | number> & {
 
 export interface ICryptoInvoicesParams {
     paySystemParams?: TPaySystemParams;
+};
+
+export interface IPreselectedButtonsConfig {
+    summationMode: boolean;
 };
 
 export type TPaySystemParams = Partial<Pick<IPaymentSystem, 'image' | 'description' | 'name'>>;
