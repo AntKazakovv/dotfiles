@@ -612,14 +612,13 @@ export class UserService {
                 url: '/profiles',
                 type: options.updatePartial ? 'PATCH' : 'PUT',
                 events: {
-                    success: 'PROFILE_UPDATE',
                     fail: 'PROFILE_UPDATE_ERROR',
                 },
             }, requestParams);
 
             if (response.data?.result) {
                 _merge(this.profile.data, updates);
-                this.userProfile$.next(this.userProfile);
+                this.eventService.emit({name: 'PROFILE_UPDATE'});
             }
 
             return response;

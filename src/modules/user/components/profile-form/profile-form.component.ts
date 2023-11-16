@@ -8,13 +8,17 @@ import {
 } from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
 
-import {BehaviorSubject} from 'rxjs';
+import {
+    BehaviorSubject,
+    filter,
+} from 'rxjs';
 import _assign from 'lodash-es/assign';
 import _isObject from 'lodash-es/isObject';
 import _forEach from 'lodash-es/forEach';
 import _remove from 'lodash-es/remove';
 import _get from 'lodash-es/get';
 import _cloneDeep from 'lodash-es/cloneDeep';
+import _isUndefined from 'lodash-es/isUndefined';
 
 import {
     AppType,
@@ -38,6 +42,7 @@ import {
     TSetNewPasswordRes,
     TUpdateProfileRes,
 } from 'wlc-engine/modules/user/system/services/user/user.service';
+import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 
 import * as Params from './profile-form.params';
 
@@ -94,7 +99,8 @@ type TSaveChangesRes = TUpdateProfileRes | TSetNewPasswordRes;
 export class ProfileFormComponent extends ProfileFormAbstract implements OnInit {
     @Input() protected inlineParams: Params.IProfileFormCParams;
     public override $params: Params.IProfileFormCParams;
-    public userProfile = this.userService.userProfile$;
+    public userProfile$: BehaviorSubject<UserProfile | null> = new BehaviorSubject<UserProfile | null>(null);
+    public statusPep: boolean | null = null;
     public errors$: BehaviorSubject<IIndexing<string>> = new BehaviorSubject(null);
     public ready: boolean = false;
     public formConfig: IFormWrapperCParams;
@@ -127,6 +133,20 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         await this.configService.ready;
+
+        this.userService.userProfile$
+            .pipe(
+                filter((userProfile: UserProfile): boolean => !!userProfile?.idUser),
+                filter((userProfile: UserProfile): boolean => {
+                    if (!_isUndefined(userProfile['pep']) && (userProfile['pep'] !== this.statusPep)) {
+                        this.statusPep = userProfile['pep'];
+                        return false;
+                    }
+                    return true;
+                }),
+            ).subscribe((userProfile: UserProfile) => {
+                this.userProfile$.next(userProfile);
+            });
 
         await this.userService.fetchUserProfile();
 

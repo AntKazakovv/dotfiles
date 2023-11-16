@@ -2,7 +2,7 @@
      <div wlc-form-wrapper
           class="{{$class}}__form"
           [config]="formConfig"
-          [formData]="userProfile"
+          [formData]="userProfile$"
           [ngSubmit]="ngSubmit.bind(this)"
           [errors]="errors$.asObservable()"
           [beforeSubmit]="beforeSubmit.bind(this)"
