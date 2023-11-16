@@ -120,6 +120,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
         this.userService = await this.injectionService.getService<UserService>('user.user-service');
         this.ratesService =
             await this.injectionService.getService<RatesCurrencyService>('rates.rates-currency-service');
+        UserInfo.currency = this.userService.userProfile.selectedCurrency;
 
         if (this.userService.userInfo) {
             this.initSelector();
@@ -313,8 +314,6 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
         this.changeWalletEmit.emit({
             walletId: this.currentWallet.walletId,
             walletCurrency: this.currentWallet.currency});
-
-        UserInfo.currency = this.userService.userProfile.selectedCurrency;
 
         this.isShowWalletSelector = true;
         this.walletCurrency = this.displayedCurrency;
