@@ -31,6 +31,6 @@ export const defaultParams: ISearchFieldCParams = {
     placeholder: 'Search for games',
     searchQueryFromCache: '',
     searchFrom: 'page',
-    focus: false,
+    focus: true,
     debounceTime: 500,
 };
