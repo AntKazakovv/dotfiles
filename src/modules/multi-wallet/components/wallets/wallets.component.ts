@@ -275,6 +275,20 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
                 this.userService.userProfile.selectedCurrency,
             );
 
+        if (!this.userService.userProfile.extProfile.currentWallet && !this.isFinance) {
+            this.userService.updateProfile(
+                {
+                    extProfile: {
+                        currentWallet: {
+                            walletCurrency: this.currentWallet.currency,
+                            walletId: this.currentWallet.walletId,
+                        },
+                    },
+                },
+                {updatePartial: true},
+            );
+        }
+
         if (this.userService.userProfile.extProfile.conversionCurrency) {
             this.settingsParams.walletSettings = this.userService.userProfile.extProfile.conversionCurrency;
         } else {
