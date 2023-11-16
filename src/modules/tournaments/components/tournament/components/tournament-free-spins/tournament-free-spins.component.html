@@ -1,0 +1,64 @@
+<span
+    *ngIf="availablePackagesCount || $params.themeMod !=='dashboard'"
+    class="{{$class}}__title">{{$params.title | translate}}</span>
+
+<ng-template [ngIf]="$params.themeMod !=='dashboard'">
+    <div class="{{$class}}__free-rounds">
+        <div class="{{$class}}__row">
+            <span>{{$params.balanceText | translate}}</span>
+            <div class="{{$class}}__packages">
+                <ng-template [ngIf]="availablePackagesCount">
+                    <div
+                        *ngFor="let item of availablePackages"
+                        class="{{$class}}__packages-item"></div>
+                </ng-template>
+                <ng-template [ngIf]="$params.freeSpins.Used">
+                    <div
+                        *ngFor="let item of usedPackages"
+                        class="{{$class}}__packages-item--used"></div>
+                </ng-template>
+            </div>
+        </div>
+        <hr/>
+        <div class="{{$class}}__row">
+            <span>{{$params.freeSpinsText | translate}}</span>
+            {{$params.freeSpins.FreeroundsInPackage}}
+        </div>
+        <hr/>
+    </div>
+</ng-template>
+
+<button
+    *ngIf="availablePackagesCount"
+    wlc-button
+    [attr.type]="'button'"
+    [text]="$params.buttonText | translate"
+    (click)="buy()">
+</button>
+
+<ng-template #freeSpinsModal>
+    <div
+        wlc-icon
+        class="{{$class}}__icon"
+        iconPath="{{$params.modalIconPath}}"></div>
+    <div class="{{$class}}__text-block">{{'Are you sure?' | translate}}</div>
+    <div class="{{$class}}__text-block">
+        {{$params.title | translate}}
+        {{$params.textClickBuy | translate}}
+    </div>
+    <div class="{{$class}}__text-block">
+        {{$params.textFreeRoundsInPackage | translate}}
+        {{$params.freeSpins.FreeroundsInPackage}}.
+    </div>
+    <div class="{{$class}}__text-block">
+        {{$params.textDebitedBalance | translate}}
+        <div
+            wlc-currency
+            [value]="buyPrice"
+            [currency]="userService.userProfile.currency"></div>.
+    </div>
+    <div class="{{$class}}__text-block">
+        {{$params.textAvailableReplenishments | translate}}
+        {{this.availablePackages.length}}
+    </div>
+</ng-template>

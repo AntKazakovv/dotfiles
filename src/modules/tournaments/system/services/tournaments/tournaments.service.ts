@@ -42,6 +42,8 @@ import {
     ITopTournamentUsers,
     ITournamentUser,
     IJoinTournamentParams,
+    TournamentEvents,
+    IBuyFreeSpinsParams,
 } from '../../interfaces/tournaments.interface';
 import {UserProfile} from 'wlc-engine/modules/user';
 import {MultiWalletEvents} from 'wlc-engine/modules/multi-wallet';
@@ -350,6 +352,27 @@ export class TournamentsService {
         }
     }
 
+    public async buyFreeRoundsPackage(tournamentId: number, params: IBuyFreeSpinsParams): Promise<void>  {
+        try {
+            const isMultiWallet: boolean = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
+
+            if (isMultiWallet) {
+                params.wallet = this.profile.extProfile.currentWallet.walletId;
+            }
+            const response: IData = await this.dataService.request({
+                name: 'buyFreeRoundsPackage',
+                system: 'tournaments',
+                url: `/tournaments/${tournamentId}`,
+                type: 'POST',
+                events: {
+                    success: TournamentEvents.buyFreeSpins,
+                },
+            }, params);
+            return response.data;
+        } catch (error) {
+            this.showError(gettext('Free spins'), error?.errors);
+        }
+    }
     /**
      * Get user stats
      *
@@ -395,6 +418,18 @@ export class TournamentsService {
      */
     public updateTournaments(): void {
         this.updateSubscribers();
+    }
+
+    public showError(title: string, errors: string[]): void {
+        this.eventService.emit({
+            name: NotificationEvents.PushMessage,
+            data: <IPushMessageParams>{
+                type: 'error',
+                title,
+                message: errors,
+                wlcElement: 'notification_tournament-error',
+            },
+        });
     }
 
     private registerMethods(): void {
@@ -488,20 +523,9 @@ export class TournamentsService {
             {name: 'TOURNAMENT_JOIN_SUCCEEDED'},
             {name: 'TOURNAMENT_LEAVE_SUCCEEDED'},
             {name: MultiWalletEvents.CurrencyConversionChanged},
+            {name: TournamentEvents.buyFreeSpins},
         ], () => {
             this.updateSubscribers();
-        });
-    }
-
-    private showError(title: string, errors: string[]): void {
-        this.eventService.emit({
-            name: NotificationEvents.PushMessage,
-            data: <IPushMessageParams>{
-                type: 'error',
-                title,
-                message: errors,
-                wlcElement: 'notification_tournament-error',
-            },
         });
     }
 

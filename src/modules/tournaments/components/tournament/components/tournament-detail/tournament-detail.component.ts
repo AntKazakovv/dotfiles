@@ -30,7 +30,7 @@ import {GamesCatalogService} from 'wlc-engine/modules/games';
 import {Tournament} from 'wlc-engine/modules/tournaments/system/models/tournament.model';
 import {TournamentsService} from 'wlc-engine/modules/tournaments/system/services/tournaments/tournaments.service';
 import {TournamentComponent} from 'wlc-engine/modules/tournaments/components/tournament/tournament.component';
-
+import {ITournamenFreeSpinsParams} from '../tournament-free-spins/tournament-free-spins.params';
 
 import * as Params from './tournament-detail.params';
 
@@ -59,6 +59,7 @@ export class TournamentDetailComponent extends AbstractComponent implements
     public gamesGrid: IWrapperCParams;
     public menuConfig: IWrapperCParams = {components: []};
     public usePodium: boolean;
+    public freeSpinsParams: ITournamenFreeSpinsParams;
     protected gamesCatalogService: GamesCatalogService;
 
     constructor(
@@ -102,7 +103,14 @@ export class TournamentDetailComponent extends AbstractComponent implements
             .subscribe((pending) => {
                 this.tournamentProcessing = pending;
                 this.tournament = this.$params.parentInstance.tournament;
-
+                this.freeSpinsParams = {
+                    freeSpins: this.tournament.freeRounds,
+                    tournamentId: this.tournament.id,
+                    buyParams: {
+                        ltid: this.tournament.LTID,
+                        merchant: this.tournament.merchant,
+                    },
+                };
                 this.prepareTournament();
                 this.cdr.markForCheck();
             });

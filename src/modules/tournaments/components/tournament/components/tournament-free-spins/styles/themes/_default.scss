@@ -1,0 +1,101 @@
+$selector: '.wlc-tournament-free-spins';
+
+#{$selector}--theme-default:host {
+    @include bm.get-mq-map('padding', $themeDefault, 'padding');
+    display: grid;
+    width: var(--wlc-tournament-free-spins-width, #{ef.get-value($themeDefault, 'width')});
+    margin: var(--wlc-tournament-free-spins-margin, #{ef.get-value($themeDefault, 'margin')});
+    background: var(--wlc-tournament-free-spins-bg, #{ef.get-value($themeDefault, 'background')});
+    border-radius: ef.get-value($themeDefault, 'radius');
+
+    #{$selector} {
+
+        &__title {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'titleTextStyle'),
+                ef.get-value($themeDefault, 'titleTextColor')
+            );
+            text-align: ef.get-value($themeDefault, 'titleTextAlign');
+        }
+
+        &__row {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'rowTextStyle'),
+                ef.get-value($themeDefault, 'rowTextColor')
+            );
+            display: flex;
+            justify-content: ef.get-value($themeDefault, 'rowJustifyContent');
+        }
+
+        &__free-rounds {
+            margin: ef.get-value($themeDefault, 'freeRoundsMargin');
+        }
+
+        &__packages-item,
+        &__packages-item--used {
+            width: ef.get-value($themeDefault, 'packageSize');
+            height: ef.get-value($themeDefault, 'packageSize');
+            background: ef.get-value($themeDefault, 'availableBg');
+            border-radius: ef.get-value($themeDefault, 'packageBorderRadius');
+
+            &--used {
+                background: ef.get-value($themeDefault, 'notAvailableBg');
+            }
+        }
+
+        &__packages {
+            display: flex;
+            flex-direction: ef.get-value($themeDefault, 'packagesFlexDirection');
+            gap: ef.get-value($themeDefault, 'packagesGap');
+        }
+    }
+
+    .wlc-btn {
+        justify-self: ef.get-value($themeDefault, 'btnJustifySelf');
+    }
+
+    hr {
+        margin: ef.get-value($themeDefault, 'hrMargin');
+        border: ef.get-value($themeDefault, 'hrBorder');
+        border-radius: ef.get-value($themeDefault, 'hrRadius');
+    }
+
+    &#{$selector}--theme-mod-dashboard {
+        --wlc-tournament-free-spins-bg: #{ef.get-value($themeDefault, 'dashboardBackground')};
+        --wlc-tournament-free-spins-width: #{ef.get-value($themeDefault, 'dashboardWidth')};
+        --wlc-tournament-free-spins-margin: #{ef.get-value($themeDefault, 'dashboardMargin')};
+
+        padding: ef.get-value($themeDefault, 'dashboardPadding');
+
+        #{$selector}__title {
+            margin: ef.get-value($themeDefault, 'dashboardTitleMargin');
+        }
+    }
+}
+
+::ng-deep {
+
+    .wlc-modal--free-spins-buy {
+
+        #{$selector} {
+
+            &__text-block {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'modalTextStyle'),
+                    ef.get-value($themeDefault, 'modalTextColor')
+                );
+                margin: ef.get-value($themeDefault, 'modalMargin');
+                text-align: ef.get-value($themeDefault, 'modalAlign');
+
+                :last-child {
+                    margin: ef.get-value($themeDefault, 'modalBottomMargin');
+                }
+            }
+
+            &__icon {
+                margin: ef.get-value($themeDefault, 'modalIconMargin');
+                text-align: ef.get-value($themeDefault, 'modalAlign');
+            }
+        }
+    }
+}

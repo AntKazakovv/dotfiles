@@ -43,6 +43,16 @@ export const tournamentsHandler = async (
                 PointsLimit: datatype.number().toString(),
                 PointsLimitMin: datatype.number().toString(),
                 FeeType: 'balance',
+                AdditionalFreerounds: {
+                    Packages: 4,
+                    Used: 2,
+                    FreeroundsInPackage: 100,
+                    Price: {
+                        'EUR': '100',
+                        Currency: 120,
+                    },
+                },
+                LTID: 58226600,
                 FeeAmount: {
                     EUR: datatype.number().toString(),
                     Currency: datatype.number().toString(),
@@ -75,7 +85,9 @@ export const tournamentsHandler = async (
                     CategoriesBL: [],
                     MerchantsBL: [],
                 },
-                FreeroundGames: '',
+                FreeroundGames: {
+                    NetEnt: 'All',
+                },
                 RemainingTime: datatype.number(),
                 CurrentTime: datatype.number(),
                 TotalFounds: {

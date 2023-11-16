@@ -1,7 +1,9 @@
 import {NgModule} from '@angular/core';
-
 import {CommonModule} from '@angular/common';
+
 import {TranslateModule} from '@ngx-translate/core';
+import _get from 'lodash-es/get';
+
 import {CoreModule} from '../core/core.module';
 import {
     TournamentsService,
@@ -39,7 +41,8 @@ import {GlobalHelper} from 'wlc-engine/modules/core';
 import {tournamentsConfig} from './system/config/tournaments.config';
 import * as $config from 'wlc-config/index';
 
-import _get from 'lodash-es/get';
+import {TournamentFreeSpinsComponent} from
+    './components/tournament/components/tournament-free-spins/tournament-free-spins.component';
 
 export const moduleConfig =
     GlobalHelper.mergeConfig<ITournamentsModule>(tournamentsConfig, _get($config, '$tournaments', {}));
@@ -62,6 +65,7 @@ export const components = {
         TournamentBannerComponent,
         TournamentSmartInfoComponent,
         TournamentPrizesRowComponent,
+        TournamentFreeSpinsComponent,
     ],
     imports: [
         CommonModule,

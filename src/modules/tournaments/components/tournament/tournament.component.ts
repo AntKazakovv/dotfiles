@@ -43,6 +43,7 @@ import {
 import {
     IActionParams,
 } from 'wlc-engine/modules/tournaments/components/tournament/components/tournament-promo/tournament-promo.params';
+import {ITournamenFreeSpinsParams} from '../tournament/components/tournament-free-spins/tournament-free-spins.params';
 
 import * as Params from 'wlc-engine/modules/tournaments/components/tournament/tournament.params';
 
@@ -68,6 +69,7 @@ export class TournamentComponent extends AbstractComponent implements OnInit {
     public pending$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     public detailParams: ITournamentDetailCParams;
     public actionParams: IActionParams = null;
+    public freeSpinsParams: ITournamenFreeSpinsParams;
     protected userInfo: UserInfo;
     private isMultiWallet: boolean;
 
@@ -102,6 +104,17 @@ export class TournamentComponent extends AbstractComponent implements OnInit {
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         this.instance = this;
         this.isMultiWallet = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
+
+        this.freeSpinsParams = {
+            freeSpins: this.tournament.freeRounds,
+            tournamentId: this.tournament.id,
+            buyParams: {
+                ltid: this.tournament.LTID,
+                merchant: this.tournament.merchant,
+            },
+            themeMod: 'dashboard',
+        };
+
         this.prepareActionParams();
 
         this.getUserInfo();

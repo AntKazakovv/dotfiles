@@ -7,6 +7,8 @@
     </p>
 </div>
 
+<p *ngIf="tournament.winnerBy === 'fr'" class="{{$class}}__descr">{{$params.common?.freeSpinsText | translate}}</p>
+
 <div *ngIf="wins?.length && isReady; else: noData" class="{{$class}}__container">
     <div *ngIf="$params.common?.useListHead" class="{{$class}}__item {{$class}}__item--head">
         <div class="{{$class}}__cell item-place" title="{{'Place' | translate}}">{{'Place' | translate}}</div>
@@ -14,7 +16,7 @@
             <span class="user-login">{{'Player' | translate}}</span>
         </div>
         <div class="{{$class}}__cell item-points" title="{{pointsTitle | translate}}">{{pointsTitle | translate}}</div>
-        <div *ngIf="isHistory" 
+        <div *ngIf="isHistory"
             class="{{$class}}__cell item-win"
             [class.right]="isTargetBonus">
             <span class="win-text">{{'Win' | translate}}</span>
@@ -43,7 +45,7 @@
 
                     <ng-container *ngTemplateOutlet="deltaValue; context: {$implicit: win}"></ng-container>
                 </span>
-                <span *ngIf="isHistory" 
+                <span *ngIf="isHistory"
                     class="{{$class}}__cell item-win"
                     [class.right]="isTargetBonus">
                     <div wlc-tournament-prizes-row
@@ -67,7 +69,7 @@
 
                     <ng-container *ngTemplateOutlet="deltaValue; context: {$implicit: win}"></ng-container>
                 </span>
-                <span *ngIf="isHistory" 
+                <span *ngIf="isHistory"
                     class="{{$class}}__cell item-win"
                     [class.right]="isTargetBonus">
                     <div wlc-tournament-prizes-row

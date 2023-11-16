@@ -89,6 +89,8 @@ export interface ITournament extends ITournamentAbstract {
     Type: 'absolute' | 'relative';
     Value: string;
     WinningSpread: IWinningSpread;
+    AdditionalFreerounds: IAdditionalFreeSpins;
+    LTID: number;
 }
 
 export interface ITopTournamentUsers {
@@ -204,7 +206,37 @@ export interface IJoinTournamentParams {
     wallet?: number;
 }
 
+export interface IAdditionalFreeSpins {
+    /**
+     * Total number of free spins packages that can be purchased (taken from the Tournament settings)
+     * Max - 5.
+     */
+    Packages: number;
+    /**
+     * Number of packages consumed. Packages - Used, we get the number of packages available for purchase
+     */
+    Used: number;
+    /**
+     * Number of free rounds in one package
+     */
+    FreeroundsInPackage: number;
+    /**
+     * Package price in various currencies
+     */
+    Price: ITotalFounds;
+}
+
+export interface IBuyFreeSpinsParams {
+    ltid: number,
+    merchant: string;
+    wallet?: number;
+}
+
 export type RestType = 'active' | 'history' | 'any';
 export type ThumbType = 'default' | 'dashboard' | 'banner' | 'active' | 'profile' | 'available';
 export type ActionType = 'join' | 'leave';
 export type TTournamentTarget = 'balance' | 'loyalty' | 'bonus';
+
+export enum TournamentEvents {
+    buyFreeSpins = 'BUY_FREE_SPINS',
+}

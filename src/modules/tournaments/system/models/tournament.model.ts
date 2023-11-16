@@ -5,6 +5,7 @@ import _toNumber from 'lodash-es/toNumber';
 import _map from 'lodash-es/map';
 import _reduce from 'lodash-es/reduce';
 import _isNil from 'lodash-es/isNil';
+import _isObject from 'lodash-es/isObject';
 
 import {
     ConfigService,
@@ -13,6 +14,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {TFreeRoundGames} from 'wlc-engine/modules/core/system/interfaces/fundist.interface';
 import {
+    IAdditionalFreeSpins,
     IPrizeRow,
     ITournament,
     ITournamentGames,
@@ -292,6 +294,19 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
 
     public get serverTime(): number | null {
         return Tournament._serverTimeUTC;
+    }
+
+    public get freeRounds(): IAdditionalFreeSpins {
+        return this.data.AdditionalFreerounds;
+    }
+
+    public get LTID(): number {
+        return this.data.LTID;
+    }
+
+    public get merchant(): string {
+        return _isObject(this.data.FreeroundGames) ? Object.keys(this.data.FreeroundGames)[0]
+            : this.data.FreeroundGames;
     }
 
     protected setAvailabilityGames(): void {

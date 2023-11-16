@@ -23,6 +23,7 @@ export interface ITournamentLeaderboardCParams extends IComponentParams<Componen
         useListHead?: boolean;
         useMainCurrency?: boolean;
         winbetRatioText?: string;
+        freeSpinsText?: string;
     };
     /**
      * this option is used how to display the name in leaderboard (it can be shown userId or userLogin for example)
@@ -38,5 +39,6 @@ export const defaultParams: ITournamentLeaderboardCParams = {
     common: {
         useMainCurrency: false,
         winbetRatioText: gettext('The winner is considered by the closest approximation to the coefficient:'),
+        freeSpinsText: gettext('Leaderboard is updated according to the results of free rounds package completion'),
     },
 };
