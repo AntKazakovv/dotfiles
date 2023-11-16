@@ -137,3 +137,33 @@
         }
     }
 }
+
+//Base styles for tournament lock-btn
+
+@mixin lockBtn() {
+    --wlc-icon-width: #{ef.get-value(ev.$tournamentLockBtn, 'lockBtnIconSize')};
+    --wlc-icon-height: #{ef.get-value(ev.$tournamentLockBtn, 'lockBtnIconSize')};
+
+    @include text.get-text-style(
+        ef.get-value(ev.$tournamentLockBtn, 'lockBtnFontStyle'),
+        ef.get-value(ev.$tournamentLockBtn, 'lockBtnFontColor'),
+    );
+    @include bm.get-mq-map('height', ev.$tournamentLockBtn, 'lockBtnHeight');
+
+    display: inline-flex;
+    gap: ef.get-value(ev.$tournamentLockBtn, 'lockBtnGap');
+    align-items: center;
+    padding: ef.get-value(ev.$tournamentLockBtn, 'lockBtnPadding');
+    background: ef.get-value(ev.$tournamentLockBtn, 'lockBtnBg');
+    border-radius: ef.get-value(ev.$tournamentLockBtn, 'lockBtnBorderRadius');
+
+    .lock-btn__icon {
+
+        ::ng-deep {
+
+            .wlc-icon-content {
+                display: flex;
+            }
+        }
+    }
+}

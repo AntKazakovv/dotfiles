@@ -12,7 +12,7 @@
                 {{$params.common?.backLinkText  | translate}}
             </a>
             <span class="{{$class}}__header-info--status"
-                  [ngClass]="tournament.selected ? 'status-active' : 'status-avaliable'">
+                [ngClass]="tagClass">
             {{tournament.tag | translate}}
         </span>
         </div>
@@ -32,7 +32,7 @@
             </div>
 
             <div *ngIf="tournament.isTournamentStarts" class="{{$class}}__header-info--buttons">
-                <button *ngIf="tournament.canJoin"
+                <button *ngIf="tournament.canJoin && !tournament.onlyForLevels"
                         wlc-button
                         class="{{$class}}__header-info--button"
                         [attr.type]="'button'"
@@ -57,6 +57,16 @@
          [inlineParams]="menuConfig">
     </div>
 
+    <div *ngIf="tournament.onlyForLevels"
+        class="{{$class}}__levels">
+        <h4 class="{{$class}}__levels-title">
+            {{$params.common.levelsTitle | translate}}
+        </h4>
+        <div class="{{$class}}__levels-text">
+            <span>{{$params.common.levelsText | translate}}</span>
+            <span>{{availableLevels}}</span>
+        </div>
+    </div>
     <div class="{{$class}}__prizes-block">
         <div *ngIf="tournament.selected" class="{{$class}}__leaderboard">
             <div class="{{$class}}__leaderboard-head">

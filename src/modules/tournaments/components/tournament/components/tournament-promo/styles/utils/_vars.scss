@@ -75,12 +75,14 @@ $themeDefault: map-merge((
 
     'tagFontStyle': ef.get('tagConfig', 'textStyle'),
     'tagColor': ef.get('tagConfig', 'color'),
-    'tagColorActive': ef.get('tagConfig', 'colorActive'),
     'tagMargin': 0 0 ef.size(4),
     'tagTextPadding': ef.get('tagConfig', 'padding'),
     'tagTextBorderRadius': ef.get('tagConfig', 'radius'),
     'tagTextBackground': ef.get('tagConfig', 'bg'),
+    'tagColorActive': ef.get('tagConfig', 'colorActive'),
     'tagActiveBackground': ef.get('tagConfig', 'bgActive'),
+    'tagColorUnavailable': ef.get('tagConfig', 'colorUnavailable'),
+    'tagBackgroundUnavailable': ef.get('tagConfig', 'bgUnavailable'),
 
     'titleFontStyle': 'ThirdTitleBold',
     'titleFontStyleDesk': 'PromoTitle',
@@ -121,14 +123,9 @@ $themeDefault: map-merge((
         375: 150px,
         900: 110px,
     ),
+    'btnsGap': ef.size(4),
     'btnsGridColumnGap': 0,
     'btnsPadding': ef.size(1) ef.size(3),
-    'firstBtnColumnMargin': (
-        375: 0 0 ef.size(4),
-        480: 0 ef.size(4) 0 0,
-        720: 0 0 ef.size(4),
-        900: 0 ef.size(4) 0 0,
-    ),
     'btnsWrapJustify': (
         375: center,
         900: initial

@@ -2,7 +2,7 @@
      [style]="{backgroundImage: 'url(' + backgroundImgUrl + ')'}">
     <div class="{{$class}}__tag">{{'Tournaments' | translate}}</div>
     <div class="{{$class}}__status"
-         [class.active]="tournament.isSelected">
+         [ngClass]="tagClass">
          {{tournament.tag | translate}}
     </div>
     <div class="{{$class}}__more-icon" >
@@ -31,12 +31,14 @@
         </div>
 
         <div class="buttons-wrap">
-            <button
-                *ngIf="showJoin"
-                wlc-button
-                text="Join"
-                (click)="joinToTournament()">
-            </button>
+            <ng-container *ngIf="showJoin">
+                <button *ngIf="!tournament.onlyForLevels; else lockBtn"
+                    class="join-btn"
+                    wlc-button
+                    text="Join"
+                    (click)="joinToTournament()">
+                </button>
+            </ng-container>
             <button
                 wlc-button
                 themeMod="secondary"
@@ -52,3 +54,12 @@
     </div>
 </div>
 <div *ngIf="pending" class="{{$class}}__loader"></div>
+
+<ng-template #lockBtn>
+    <div class="{{$class}}__lock-btn">
+        <span wlc-icon
+            class="lock-btn__icon"
+            iconPath="/wlc/icons/lock-icon.svg"></span>
+        <span class="lock-btn__text">{{lockBtnText | translate}}</span>
+    </div>
+</ng-template>

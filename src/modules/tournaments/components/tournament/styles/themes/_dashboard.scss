@@ -56,6 +56,10 @@
             align-items: center;
             height: 100%;
 
+            .wlc-tournament__lock-btn {
+                @include cm.lockBtn;
+            }
+
             &.selected {
 
                 .wlc-tournament__more-icon {

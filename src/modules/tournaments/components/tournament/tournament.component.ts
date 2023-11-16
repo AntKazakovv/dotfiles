@@ -69,7 +69,10 @@ export class TournamentComponent extends AbstractComponent implements OnInit {
     public pending$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     public detailParams: ITournamentDetailCParams;
     public actionParams: IActionParams = null;
+    public showJoin: boolean = false;
+    public lockBtnText: string;
     public freeSpinsParams: ITournamenFreeSpinsParams;
+
     protected userInfo: UserInfo;
     private isMultiWallet: boolean;
 
@@ -104,6 +107,10 @@ export class TournamentComponent extends AbstractComponent implements OnInit {
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         this.instance = this;
         this.isMultiWallet = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
+        this.showJoin = this.tournament.canJoin;
+        if (this.tournament.onlyForLevels) {
+            this.lockBtnText = this.configService.get('$tournaments.lockBtnText');
+        }
 
         this.freeSpinsParams = {
             freeSpins: this.tournament.freeRounds,

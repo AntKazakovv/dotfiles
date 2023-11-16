@@ -64,6 +64,11 @@
             color: ef.get-value($themeDefault, 'statusTagColorActive');
             background: ef.get-value($themeDefault, 'statusTagActiveBackground');
         }
+
+        &.unavailable {
+            color: ef.get-value($themeDefault, 'statusTagColorUnavailable');
+            background: ef.get-value($themeDefault, 'statusTagBackgroundUnavailable');
+        }
     }
 
     &__more-icon {
@@ -150,6 +155,11 @@
         @include bm.lineClamp(map-get($themeDefault, 'descriptionClamp'));
     }
 
+    &__lock-btn {
+        @include cm.lockBtn;
+        @include bm.get-mq-map('max-width', $themeDefault, 'lockBtnMaxWidth');
+    }
+
     ::ng-deep {
 
         .wlc-icon {
@@ -165,6 +175,7 @@
         @include bm.get-mq-map('padding', $themeDefault, 'btnsWrapPadding');
 
         display: flex;
+        gap: ef.get-value($themeDefault, 'btnsGap');
         justify-content: ef.get-value($themeDefault, 'btnsWrapAlign');
         min-height: ef.get-value($themeDefault, 'btnsWrapMinHeight');
         margin: ef.get-value($themeDefault, 'btnsWrapMargin');
@@ -174,14 +185,12 @@
             grid-column-gap: ef.get-value($themeDefault, 'btnsGridColumnGap');
 
             min-width: ef.get-value($themeDefault, 'btnsMinWidth');
-            margin: ef.get-value($themeDefault, 'btnsMargin');
             padding: ef.get-value($themeDefault, 'btnsPadding');
+        }
 
-            &:last-child {
-                margin-right: 0;
-            }
+        &:has(.join-btn, .wlc-tournament-banner__lock-btn) {
 
-            &--theme-mod-read {
+            .wlc-btn--theme-mod-read {
                 @include bm.get-mq-map('display', $themeDefault, 'btnsDisplay');
             }
         }

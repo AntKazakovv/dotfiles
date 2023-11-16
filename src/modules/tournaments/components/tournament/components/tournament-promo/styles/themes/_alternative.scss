@@ -14,6 +14,35 @@
             background: ef.get-value($themeAlternative, 'containerBackground');
 
             border-radius: ef.get-value($themeAlternative, 'containerRadius');
+
+            &.unavailable {
+                @include bm.get-mq-map('grid-template-columns', $themeAlternative,
+                'containerUnavailableGridTemplateColumns');
+                @include bm.get-mq-map('grid-template-areas', $themeAlternative, 'containerUnavailableGridTemplateAreas');
+
+                .wlc-tournament-promo {
+
+                    &__image-block {
+                        @include bm.get-mq-map('grid-area', $themeAlternative, 'imageBlockUnavailableGridArea');
+                    }
+
+                    &__tag {
+
+                        &--desk {
+                            @include bm.get-mq-map('display', $themeAlternative, 'tagUnavailableDisplayDesk');
+                        }
+
+                        &--mobile {
+                            @include bm.get-mq-map('display', $themeAlternative, 'tagUnavailableDisplay');
+                            @include bm.get-mq-map('margin', $themeAlternative, 'tagUnavailableMargin');
+                        }
+                    }
+
+                    &__description {
+                        @include bm.lineClamp(3);
+                    }
+                }
+            }
         }
 
         &__image-block {
@@ -103,7 +132,10 @@
             line-height: 0;
 
             &-text {
-                @include text.get-text-style(ef.get-value($themeAlternative, 'tagFontStyle'), ef.get-value($themeAlternative, 'tagColor'));
+                @include text.get-text-style(
+                    ef.get-value($themeAlternative, 'tagFontStyle'),
+                    ef.get-value($themeAlternative, 'tagColor')
+                );
 
                 display: inline-block;
                 padding: ef.get-value($themeAlternative, 'tagTextPadding');
@@ -114,6 +146,11 @@
                 &.active {
                     color: ef.get-value($themeAlternative, 'tagColorActive');
                     background: ef.get-value($themeAlternative, 'tagActiveBackground');
+                }
+
+                &.unavailable {
+                    color: ef.get-value($themeDefault, 'tagColorUnavailable');
+                    background: ef.get-value($themeDefault, 'tagBackgroundUnavailable');
                 }
             }
 
@@ -245,6 +282,11 @@
                 animation: ef.get-value($themeAlternative, 'loaderAfterAnimation');
             }
         }
+
+        &__lock-btn {
+            @include cm.lockBtn;
+            @include bm.get-mq-map('max-width', $themeAlternative, 'lockBtnMaxWidth');
+        }
     }
 
     ::ng-deep {
@@ -264,18 +306,18 @@
         }
 
         .buttons-wrap {
-            @include bm.get-mq-map('justify-content', $themeAlternative, 'btnsWrapAlign');
             @include bm.get-mq-map('padding', $themeAlternative, 'btnsWrapPadding');
             @include bm.get-mq-map('flex-direction', $themeAlternative, 'btnsWrapperFlexDirection');
+            @include bm.get-mq-map('justify-self', $themeAlternative, 'btnsWrapJustifySelf');
 
             display: flex;
             grid-area: btns;
-            align-items: center;
+            gap: ef.get-value($themeAlternative, 'btnsGap');
+            align-self: end;
             margin: ef.get-value($themeAlternative, 'btnsWrapMargin');
 
             & > .wlc-btn {
                 @include bm.get-mq-map('min-width', $themeAlternative, 'btnsMinWidthColumn');
-                @include bm.get-mq-map('margin', $themeAlternative, 'firstBtnColumnMargin');
 
                 grid-column-gap: ef.get-value($themeAlternative, 'btnsGridColumnGap');
                 padding: ef.get-value($themeAlternative, 'btnsPadding');

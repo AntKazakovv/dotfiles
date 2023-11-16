@@ -15,6 +15,36 @@ $themeAlternative: map-merge((
         1024: 'image info board' 'image btns board',
     ),
 
+    'containerUnavailableGridTemplateColumns': (
+        375: minmax(290px, 1fr),
+        768: minmax(320px, 1fr) 290px,
+        1024: minmax(320px, 1fr) 250px,
+        1630: 350px minmax(320px, 1fr) 250px,
+    ),
+    'containerUnavailableGridTemplateAreas': (
+        375: 'info' 'board' 'btns',
+        768: 'info board' 'btns board',
+        1630: 'image info board' 'image btns board',
+    ),
+    'imageBlockUnavailableGridArea': (
+        375: image,
+        768: info,
+        1630: image,
+    ),
+    'tagUnavailableDisplayDesk': (
+        375: none,
+        1630: block,
+    ),
+    'tagUnavailableDisplay': (
+        375: block,
+        1630: none,
+    ),
+    'tagUnavailableMargin': (
+        375: 0 0 ef.size(4),
+        768: 0 0 ef.size(2),
+        1024: 0 0 ef.size(1),
+    ),
+
     'containerHeight': (
         320: auto,
         768: 260px,
@@ -71,7 +101,6 @@ $themeAlternative: map-merge((
 
     'tagFontStyle': ef.get('tagConfig', 'textStyle'),
     'tagColor': ef.get('tagConfig', 'color'),
-    'tagColorActive': ef.get('tagConfig', 'colorActive'),
     'tagMargin': (
         320: 0 0 ef.size(4),
         768: 0 0 ef.size(2),
@@ -80,7 +109,10 @@ $themeAlternative: map-merge((
     'tagTextPadding': ef.get('tagConfig', 'padding'),
     'tagTextBorderRadius': ef.get('tagConfig', 'radius'),
     'tagTextBackground': ef.get('tagConfig', 'bg'),
+    'tagColorActive': ef.get('tagConfig', 'colorActive'),
     'tagActiveBackground': ef.get('tagConfig', 'bgActive'),
+    'tagColorUnavailable': ef.get('tagConfig', 'colorUnavailable'),
+    'tagBackgroundUnavailable': ef.get('tagConfig', 'bgUnavailable'),
     'tagZIndex': 2,
     'tagDisplayDesk': (
         320: none,
@@ -103,7 +135,7 @@ $themeAlternative: map-merge((
     ),
 
     'descriptionFontStyle': 'PrimaryText',
-    'descriptionFontStyleDesk': 'ThirdTitle',
+    'descriptionFontStyleDesk': 'PrimaryText',
     'descriptionColor': (
         375: ef.get('mainColors', 'baseMain'),
         900: var(--mc-baseMain),
@@ -114,6 +146,10 @@ $themeAlternative: map-merge((
     'btnsWrapAlign': (
         320: center,
         768: flex-start,
+    ),
+    'btnsWrapJustifySelf': (
+        375: center,
+        768: start,
     ),
     'btnsWrapPadding': (
         320: 0 ef.size(6) ef.size(4),
@@ -129,10 +165,7 @@ $themeAlternative: map-merge((
     ),
     'btnsGridColumnGap': 0,
     'btnsPadding': ef.size(1) ef.size(3),
-    'firstBtnColumnMargin': (
-        320: 0 0 ef.size(4) 0,
-        480: 0 ef.size(4) 0 0,
-    ),
+    'btnsGap': ef.size(4),
     'prizesMargin': ef.size(2) auto,
     'prizesPadding': 0 0 ef.size(3),
     'prizesDisplay': (
@@ -162,6 +195,13 @@ $themeAlternative: map-merge((
     'loaderAfterBorderColor': var(--mc-main),
     'loaderAfterRadius': 50%,
     'loaderAfterAnimation': spin 1s infinite linear,
+
+    'lockBtnMaxWidth': (
+        375: none,
+        480: 185px,
+        560: none,
+        1630: 185px,
+    ),
 
     'linkBlockColor': var(--mc-main),
     'linkBlockColorHover': ef.get('mainColors', 'baseMain'), // Locked color

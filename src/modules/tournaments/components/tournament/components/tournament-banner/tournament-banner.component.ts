@@ -47,6 +47,8 @@ export class TournamentBannerComponent
     public isAuth: boolean = false;
     public showJoin: boolean = false;
     public backgroundImgUrl: string = '';
+    public lockBtnText: string;
+    public tagClass: string;
 
     private isProcessed: boolean = false;
 
@@ -77,6 +79,10 @@ export class TournamentBannerComponent
             });
 
         this.showJoin = !this.isProcessed && this.tournament.canJoin;
+        this.tagClass = this.tournament.tag.toLowerCase();
+        if (this.tournament.onlyForLevels) {
+            this.lockBtnText = this.configService.get('$tournaments.lockBtnText');
+        }
         this.backgroundImgUrl = this.isAlternative ? this.tournament.imageOther : this.tournament.image;
     }
 

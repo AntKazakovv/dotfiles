@@ -14,6 +14,7 @@ import {UIRouter} from '@uirouter/core';
 
 import {takeUntil} from 'rxjs/operators';
 import _set from 'lodash-es/set';
+import _join from 'lodash-es/join';
 
 import {
     AbstractComponent,
@@ -59,7 +60,10 @@ export class TournamentDetailComponent extends AbstractComponent implements
     public gamesGrid: IWrapperCParams;
     public menuConfig: IWrapperCParams = {components: []};
     public usePodium: boolean;
+    public availableLevels: string;
+    public tagClass: string;
     public freeSpinsParams: ITournamenFreeSpinsParams;
+
     protected gamesCatalogService: GamesCatalogService;
 
     constructor(
@@ -114,6 +118,10 @@ export class TournamentDetailComponent extends AbstractComponent implements
                 this.prepareTournament();
                 this.cdr.markForCheck();
             });
+        this.tagClass = this.tournament.tag.toLowerCase();
+        if (this.tournament.onlyForLevels) {
+            this.availableLevels = _join(this.tournament.onlyForLevels.reverse(), ', ');
+        }
 
         this.gamesGrid = {
             components: [
@@ -202,6 +210,16 @@ export class TournamentDetailComponent extends AbstractComponent implements
                 },
             ],
         };
+
+        if (this.tournament.onlyForLevels) {
+            this.menuParams.items.unshift({
+                name: this.$params.common.levelsTitle,
+                type: 'scroll',
+                params: {
+                    scroll: '.wlc-tournament-detail__levels',
+                },
+            });
+        }
 
         if (this.tournament.selected) {
             this.menuParams.items.unshift({

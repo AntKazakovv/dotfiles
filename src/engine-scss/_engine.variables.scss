@@ -335,6 +335,7 @@ $tagConfig: map-merge((
     'bgUnavailable': map-get($mainColors, 'bg300'),
     'color': map-get($mainColors, 'baseMain'),
     'colorActive': map-get($mainColors, 'baseMain'),
+    'colorUnavailable': map-get($mainColors, 'baseMain'),
 ), $customTagConfig);
 
 $customHlSubstr: () !default;

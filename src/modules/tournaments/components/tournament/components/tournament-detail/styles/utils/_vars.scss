@@ -61,9 +61,12 @@ $themeDefault: map-merge((
 
     'headerStatusRadius':  ef.get('tagConfig', 'radius'),
     'headerStatusBgAvaliable':  ef.get('tagConfig', 'bg'),
-    'headerStatusBgActive': ef.get('tagConfig', 'bgActive'),
     'headerStatusColorAvaliable': ef.get('tagConfig', 'color'),
     'headerStatusColorActive': ef.get('tagConfig', 'colorActive'),
+    'headerStatusBgActive': ef.get('tagConfig', 'bgActive'),
+    'headerStatusColorUnavailable': ef.get('tagConfig', 'colorUnavailable'),
+    'headerStatusBgUnavailable': ef.get('tagConfig', 'bgUnavailable'),
+
     'headerStatusPadding': (
         320: ef.get('tagConfig', 'padding'),
     ),
@@ -95,6 +98,17 @@ $themeDefault: map-merge((
     'anchorsMenuLinkTextDecoration': none,
     'anchorsMenuLinkPadding': 0 ef.size(2),
 
+    'levelsPadding': ef.size(4) 0 ef.size(6),
+    'levelsBg': var(--mc-bg500),
+    'levelsTitleStyle': 'QoteTextBold',
+    'levelsTitleColor': var(--mc-baseMain),
+    'levelsTitleMargin': 0 0 ef.size(4),
+    'levelsTextStyle': 'PrimaryText',
+    'levelsTextColor': var(--mc-baseMain),
+    'levelTextMaxWidth': (
+        375: 335px,
+    ),
+
     'leaderboardBg': var(--mc-bg),
     'leaderboardBgAlt': var(--bg500-o4),
     'leaderboardJustifyItems': center,
@@ -118,6 +132,7 @@ $themeDefault: map-merge((
 
     'prizesBlockPadding': ef.size(4) 0 0,
     'prizesBg': var(--mc-bg500),
+
     'prizepoolTemplateAreas': (
         320: 'PPTitle' 'PPAmount',
     ),
@@ -129,6 +144,7 @@ $themeDefault: map-merge((
     ),
     'prizepoolJustifyContent': center,
     'prizepoolBg': transparent,
+    'prizepoolBgHasLevels': var(--mc-bg),
     'prizepoolTitleStyle': 'QoteTextBold',
     'prizepoolTitleColor': var(--mc-baseMain),
     'prizepoolTitleSelf': center,

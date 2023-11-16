@@ -88,6 +88,12 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
         return this.isTournamentStarts;
     }
 
+    public get onlyForLevels(): string[] {
+        if (!!this.data.ShowOnly) {
+            return this.data.OnlyForLevels;
+        }
+    }
+
     // default
     public get currentTime(): number {
         return this.data.CurrentTime;
@@ -287,9 +293,11 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
     public get tag(): string {
         return this.isSelected
             ? 'Active'
-            : this.isTournamentStarts
-                ? 'Available'
-                : 'Coming soon';
+            : !this.isTournamentStarts
+                ? 'Coming soon'
+                : this.onlyForLevels
+                    ? 'Unavailable'
+                    : 'Available';
     }
 
     public get serverTime(): number | null {

@@ -65,13 +65,18 @@ $themeDefault: map-merge((
         375: 450px,
     ),
     'descriptionClamp': 3,
+
+    'lockBtnMaxWidth': (
+        375: 185px,
+        480: none,
+    ),
     'btnsWrapAlign': flex-start,
     'btnsWrapMinHeight': 40px,
     'btnsWrapMargin': auto 0 0,
     'btnsMinWidth': 110px,
     'btnsGridColumnGap': 0,
     'btnsPadding': ef.size(1) ef.size(3),
-    'btnsMargin': 0 ef.size(4) 0 0,
+    'btnsGap': ef.size(4),
     'btnsDisplay': (
         375: none,
         560: grid,
@@ -129,7 +134,10 @@ $themeDefault: map-merge((
     'statusTagFontStyle': ef.get('tagConfig', 'textStyle'),
     'statusTagTextPadding': ef.get('tagConfig', 'padding'),
     'statusTagTextBorderRadius': ef.get('tagConfig', 'radius'),
+    'statusTagColor': ef.get('tagConfig', 'color'),
     'statusTagTextBackground': ef.get('tagConfig', 'bg'),
+    'statusTagColorActive': ef.get('tagConfig', 'colorActive'),
     'statusTagActiveBackground': ef.get('tagConfig', 'bgActive'),
-    'statusTagColor': ef.get('mainColors', 'baseMain'),
+    'statusTagColorUnavailable': ef.get('tagConfig', 'colorUnavailable'),
+    'statusTagBackgroundUnavailable': ef.get('tagConfig', 'bgUnavailable'),
 ), $customThemeDefault);

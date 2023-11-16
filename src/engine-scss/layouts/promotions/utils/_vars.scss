@@ -9,4 +9,8 @@ $promotionsThemeDefault: map-merge((
         375: 0 0 ef.size(4),
     ),
     'btnMargin': 0 auto ef.size(8) auto,
+    'lockBtnMaxWidth': (
+        375: none,
+        1630: 185px,
+    ),
 ), $customPromotionsThemeDefault);

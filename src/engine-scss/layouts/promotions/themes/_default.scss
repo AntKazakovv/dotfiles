@@ -34,5 +34,15 @@
                 font-size: ef.get-value($promotionsThemeDefault, 'titleFontSize');
             }
         }
+
+        .wlc-tournament-list--theme-default {
+
+            .wlc-tournament-promo--theme-default {
+
+                .wlc-tournament-promo__lock-btn {
+                    @include bm.get-mq-map('max-width', $promotionsThemeDefault, 'lockBtnMaxWidth');
+                }
+            }
+        }
     }
 }

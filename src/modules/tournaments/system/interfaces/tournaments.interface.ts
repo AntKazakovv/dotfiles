@@ -75,6 +75,8 @@ export interface IWinningSpread {
 
 export interface ITournament extends ITournamentAbstract {
     AllowStack: '0' | '1' | '2';
+    OnlyForLevels: string[];
+    ShowOnly?: number;
     CurrentTime: number;
     Ends: string;
     Games: ITournamentGames;
@@ -126,6 +128,7 @@ export interface ITournamentsModule {
     prizePodium?: IPrizePodium;
     /** Description for tooltip in prizeboard, when tournament target is bonus */
     bonusRewardText?: string;
+    lockBtnText?: string;
 }
 
 export interface ITournamentPlace {

@@ -33,6 +33,7 @@ export const tournamentsHandler = async (
                 ID: datatype.number(),
                 Series: '',
                 AllowStack: '0',
+                OnlyForLevels: ['all'],
                 Name: lorem.sentence(2),
                 Description: lorem.paragraph(),
                 Selected: datatype.number(),

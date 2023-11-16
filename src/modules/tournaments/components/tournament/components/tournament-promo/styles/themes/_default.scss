@@ -132,6 +132,11 @@
                     color: ef.get-value($themeDefault, 'tagColorActive');
                     background: ef.get-value($themeDefault, 'tagActiveBackground');
                 }
+
+                &.unavailable {
+                    color: ef.get-value($themeDefault, 'tagColorUnavailable');
+                    background: ef.get-value($themeDefault, 'tagBackgroundUnavailable');
+                }
             }
         }
 
@@ -245,6 +250,10 @@
                 animation: ef.get-value($themeDefault, 'loaderAfterAnimation');
             }
         }
+
+        &__lock-btn {
+            @include cm.lockBtn;
+        }
     }
 
     ::ng-deep {
@@ -265,17 +274,12 @@
 
             display: flex;
             grid-area: btns;
+            gap: ef.get-value($themeDefault, 'btnsGap');
             align-self: ef.get-value($themeDefault, 'btnsAlignSelf');
 
             & > .wlc-btn {
-                @include bm.get-mq-map('margin', $themeDefault, 'firstBtnColumnMargin');
-
                 grid-column-gap: ef.get-value($themeDefault, 'btnsGridColumnGap');
                 padding: ef.get-value($themeDefault, 'btnsPadding');
-
-                &:last-child {
-                    margin: 0;
-                }
             }
         }
     }

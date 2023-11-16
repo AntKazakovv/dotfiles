@@ -76,12 +76,14 @@
             ></p>
         </div>
         <div *ngIf="!tournament.isSelected && tournament.isTournamentStarts" class="{{$class}}__btns">
-            <button
-                wlc-button
-                [text]="'Join'"
-                [wlcElement]="'button_tournament_join'"
-                (click)="join()">
-            </button>
+            <ng-container *ngIf="showJoin">
+                <button *ngIf="!tournament.onlyForLevels; else lockBtn"
+                    wlc-button
+                    text="Join"
+                    [wlcElement]="'button_tournament_join'"
+                    (click)="join()">
+                </button>
+            </ng-container>
         </div>
         <ng-container *ngIf="tournament.isSelected">
             <div class="{{$class}}__header">{{'Leaderboard' | translate}}</div>
@@ -110,3 +112,12 @@
     <ng-container [ngTemplateOutlet]="dashboard" *ngSwitchCase="'dashboard'"></ng-container>
     <ng-container [ngTemplateOutlet]="promo" *ngSwitchDefault></ng-container>
 </ng-container>
+
+<ng-template #lockBtn>
+    <div class="{{$class}}__lock-btn">
+        <span wlc-icon
+            class="lock-btn__icon"
+            iconPath="/wlc/icons/lock-icon.svg"></span>
+        <span class="lock-btn__text">{{lockBtnText | translate}}</span>
+    </div>
+</ng-template>

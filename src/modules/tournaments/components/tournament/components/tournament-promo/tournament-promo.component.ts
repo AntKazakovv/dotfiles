@@ -49,6 +49,8 @@ export class TournamentPromoComponent extends AbstractComponent implements OnIni
     public pending: boolean = false;
     public isAuth: boolean = false;
     public showJoin: boolean = false;
+    public lockBtnText: string;
+    public tagClass: string;
 
     private isProcessed: boolean = false;
 
@@ -77,8 +79,12 @@ export class TournamentPromoComponent extends AbstractComponent implements OnIni
                 this.isProcessed = value;
                 this.cdr.markForCheck();
             });
-
         this.showJoin = !this.isProcessed && this.tournament.canJoin;
+
+        if (this.tournament.onlyForLevels) {
+            this.lockBtnText = this.configService.get('$tournaments.lockBtnText');
+        }
+        this.tagClass = this.tournament.tag.toLowerCase();
     }
 
     public joinToTournament(): void {

@@ -82,9 +82,14 @@ $selector: '.wlc-tournament-detail';
                 color: ef.get-value($themeDefault, 'headerStatusColorAvaliable');
                 background: ef.get-value($themeDefault, 'headerStatusBgAvaliable');
 
-                &.status-active {
+                &.active {
                     color: ef.get-value($themeDefault, 'headerStatusColorActive');
                     background: ef.get-value($themeDefault, 'headerStatusBgActive');
+                }
+
+                &.unavailable {
+                    color: ef.get-value($themeDefault, 'headerStatusColorUnavailable');
+                    background: ef.get-value($themeDefault, 'headerStatusBgUnavailable');
                 }
             }
 
@@ -159,6 +164,33 @@ $selector: '.wlc-tournament-detail';
                         color: ef.get-value($themeDefault, 'anchorsMenuLinkTextColorHover');
                     }
                 }
+            }
+        }
+
+        #{$selector}__levels {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: ef.get-value($themeDefault, 'levelsPadding');
+            background: ef.get-value($themeDefault, 'levelsBg');
+
+            &-title {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'levelsTitleStyle'),
+                    ef.get-value($themeDefault, 'levelsTitleColor')
+                );
+                margin: ef.get-value($themeDefault, 'levelsTitleMargin');
+            }
+
+            &-text {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'levelsTextStyle'),
+                    ef.get-value($themeDefault, 'levelsTextColor')
+                );
+                @include bm.get-mq-map('max-width', $themeDefault, 'levelsTextMaxWidth');
+                display: flex;
+                flex-direction: column;
+                align-items: center;
             }
         }
 
@@ -306,6 +338,13 @@ $selector: '.wlc-tournament-detail';
             }
         }
 
+        &:has(#{$selector}__levels) {
+
+            #{$selector}__prizepool {
+                @include bm.get-mq-map('background', $themeDefault, 'prizepoolBgHasLevels');
+            }
+        }
+
         .wlc-sections__profile-content--theme-first & {
 
             #{$selector} {
@@ -326,6 +365,13 @@ $selector: '.wlc-tournament-detail';
 
                 &__games {
                     background: ef.get-value($themeDefault, 'gamesBgV1');
+                }
+            }
+
+            &:has(#{$selector}__levels) {
+
+                #{$selector}__prizepool {
+                    @include bm.get-mq-map('background', $themeDefault, 'prizepoolBgHasLevels');
                 }
             }
         }

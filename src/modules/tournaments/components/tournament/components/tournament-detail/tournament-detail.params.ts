@@ -25,6 +25,8 @@ export interface ITournamentDetailCParams extends IComponentParams<Theme, Type, 
         noTournamentText?: string;
         rulesSectionTitle?: string;
         gamesSectionTitle?: string;
+        levelsTitle?: string;
+        levelsText?: string;
         prizepoolSectionTitle?: string;
         leaderboardSectionTitle?: string;
         btnSubscribeText?: string;
@@ -59,6 +61,8 @@ export const defaultParams: ITournamentDetailCParams = {
         noTournamentText: gettext('No tournament'),
         rulesSectionTitle: gettext('Rules'),
         gamesSectionTitle: gettext('Games'),
+        levelsTitle: gettext('Levels'),
+        levelsText: gettext('Available for the following levels:'),
         prizepoolSectionTitle: gettext('Prize pool'),
         leaderboardSectionTitle: gettext('Leaderboard'),
         btnSubscribeText: gettext('Join'),

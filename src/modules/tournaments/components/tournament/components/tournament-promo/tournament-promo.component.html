@@ -13,7 +13,7 @@
             <div class="{{$class}}__inner">
                 <div class="{{$class}}__tag">
                     <span class="{{$class}}__tag-text"
-                          [class.active]="tournament.isSelected"
+                        [ngClass]="tagClass"
                     >{{tournament.tag | translate}}</span>
                 </div>
                 <h3 class="{{$class}}__title">{{tournament.name}}</h3>
@@ -58,12 +58,13 @@
         </div>
 
         <div class="buttons-wrap">
-            <button
-                *ngIf="showJoin"
-                wlc-button
-                text="Join"
-                (click)="joinToTournament()">
-            </button>
+            <ng-container *ngIf="showJoin">
+                <button *ngIf="!tournament.onlyForLevels; else lockBtn"
+                    wlc-button
+                    text="Join"
+                    (click)="joinToTournament()">
+                </button>
+            </ng-container>
             <button
                 wlc-button
                 themeMod="secondary"
@@ -77,11 +78,13 @@
 </ng-template>
 
 <ng-template #alternative>
-    <div *ngIf="tournament" class="{{$class}}__container">
+    <div *ngIf="tournament"
+        class="{{$class}}__container"
+        [ngClass]="tagClass">
         <div class="{{$class}}__image-block">
             <div class="{{$class}}__tag {{$class}}__tag--desk">
                 <span class="{{$class}}__tag-text"
-                      [class.active]="tournament.isSelected"
+                    [ngClass]="tagClass"
                 >{{tournament.tag | translate}}</span>
             </div>
             <img [wlc-fallback]="tournament.fallbackImagePromo"
@@ -97,7 +100,7 @@
             <div class="{{$class}}__inner">
                 <div class="{{$class}}__tag {{$class}}__tag--mobile">
                     <span class="{{$class}}__tag-text"
-                          [class.active]="tournament.isSelected"
+                        [ngClass]="tagClass"
                     >{{tournament.tag | translate}}</span>
                 </div>
                 <h3 class="{{$class}}__title">{{tournament.name}}</h3>
@@ -142,12 +145,13 @@
         </div>
 
         <div class="buttons-wrap">
-            <button
-                *ngIf="showJoin"
-                wlc-button
-                text="Join"
-                (click)="joinToTournament()">
-            </button>
+            <ng-container *ngIf="showJoin">
+                <button *ngIf="!tournament.onlyForLevels; else lockBtn"
+                    wlc-button
+                    text="Join"
+                    (click)="joinToTournament()">
+                </button>
+            </ng-container>
             <button
                 wlc-button
                 themeMod="secondary"
@@ -162,4 +166,13 @@
 
 <ng-template #noData>
     <div wlc-loader></div>
+</ng-template>
+
+<ng-template #lockBtn>
+    <div class="{{$class}}__lock-btn">
+        <span wlc-icon
+            class="lock-btn__icon"
+            [iconPath]="'/wlc/icons/lock-icon.svg'"></span>
+        <span class="lock-btn__text">{{lockBtnText | translate}}</span>
+    </div>
 </ng-template>

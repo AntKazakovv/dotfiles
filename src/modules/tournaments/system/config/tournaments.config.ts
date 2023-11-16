@@ -44,4 +44,5 @@ export const tournamentsConfig: ITournamentsModule = {
         },
     },
     bonusRewardText: gettext('The reward is given through a bonus'),
+    lockBtnText: gettext('Unavailable for current level'),
 };
