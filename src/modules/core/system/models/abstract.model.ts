@@ -16,7 +16,7 @@ export abstract class AbstractModel<T> {
     constructor(private $params: IAbstractModelParams) {
     }
 
-    public get data(): T {
+    public get data(): T | null {
         if (this.dataReady) {
             return this.objectData;
         } else {
@@ -40,7 +40,7 @@ export abstract class AbstractModel<T> {
 
         if (!keys) {
             this.sendLog({code: '7.0.1'});
-        } else if (keys === 1 && this.objectData['data']) {
+        } else if (keys === 1 && this.objectData['data' as keyof T]) {
             this.sendLog({code: '7.0.2'});
         }
     };

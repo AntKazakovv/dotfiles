@@ -138,7 +138,7 @@ export class CurrencyModel extends AbstractModel<ICurrencyOptions>{
      * @param intlParts parts from Intl
      */
     protected formatToCryptocurrency(parts: Intl.NumberFormatPart[]): Intl.NumberFormatPart[] {
-        return _reduce(parts, (acc, part) => {
+        return _reduce(parts, (acc: Intl.NumberFormatPart[], part : Intl.NumberFormatPart) => {
             if (part.type === 'currency') {
                 part.value = this.getCryptocurrencyIndicator();
             } else if (part.type === 'fraction') {
