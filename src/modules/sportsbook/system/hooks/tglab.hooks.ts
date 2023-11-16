@@ -1,12 +1,14 @@
 import {
-    Transition,
     UIRouter,
 } from '@uirouter/core';
+import {
+    interval,
+    Subscription,
+} from 'rxjs';
 
-import {first} from 'rxjs/operators';
-import _includes from 'lodash-es/includes';
-
-import {AbstractHook} from 'wlc-engine/modules/core/system/classes/abstract.hook';
+import {
+    AbstractHook,
+} from 'wlc-engine/modules/core';
 import {
     gameWrapperHooks,
     IGameWrapperHookLaunchInfo,
@@ -20,7 +22,7 @@ export interface ITglabHooksParams extends ISportsbookHook {
 
 export class TglabHooks extends AbstractHook {
 
-    protected inplayOpened: boolean = false;
+    protected initSubscription: Subscription;
 
     constructor(
         protected override params: ITglabHooksParams,
@@ -34,36 +36,32 @@ export class TglabHooks extends AbstractHook {
 
     protected init(): void {
         this.setHook<IGameWrapperHookLaunchInfo>(gameWrapperHooks.launchInfo, this.launchInfoHook, this);
-        this.navigationHandler();
     }
 
     protected launchInfoHook(data: IGameWrapperHookLaunchInfo): IGameWrapperHookLaunchInfo {
-        if (this.params.router.globals.current.name === 'app.tglab') {
-            data.launchInfo.gameScript = data.launchInfo.gameScript.replace(/\/sportsbook/g,
-                '/tglab');
-        }
+        const path = this.params.router.globals.current.name === 'app.tglab' ? 'tglab' : 'sportsbook';
+        const lang = this.params.router.stateService.params?.locale || 'en';
+
+        data.launchInfo.gameHtml = data.launchInfo.gameHtml.replace('<sb-web-launch',
+            `<sb-web-launch initializible="true" pre-live-path="${lang}/${path}" live-path="${lang}/${path}/in-play/"`);
+
+        this.initSubscription = interval(500).subscribe(() => {
+            if (this.params.window['SB_LAUNCH_ACTIONS']) {
+                this.initSubscription.unsubscribe();
+                try {
+                    this.params.window['SB_LAUNCH_ACTIONS'].destroy();
+                } catch {}
+                this.params.window['SB_LAUNCH_ACTIONS'].init();
+            }
+        });
         return data;
     }
 
-    protected navigationHandler(): void {
-        const transitionUnsubscribe: Function = this.params.router.transitionService
-            .onSuccess({}, (transition: Transition): void => {
-                if (!this.params.window.externalSBPageSwitch) {
-                    return;
-                }
-
-                if (_includes(['inplay', 'in-play'], transition.params().page) && !this.inplayOpened) {
-                    this.inplayOpened = true;
-                    this.params.window.externalSBPageSwitch(2);
-                } else if (this.inplayOpened) {
-                    this.inplayOpened = false;
-                    this.params.window.externalSBPageSwitch(1);
-                }
-
-            });
-
-        this.params.disableHooks.pipe(first()).subscribe(() => {
-            transitionUnsubscribe();
-        });
+    protected override onDisableHooks(): void {
+        super.onDisableHooks();
+        this.initSubscription.unsubscribe();
+        if (this.params.window['SB_LAUNCH_ACTIONS']) {
+            this.params.window['SB_LAUNCH_ACTIONS'].destroy();
+        }
     }
 }
