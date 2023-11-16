@@ -24,6 +24,7 @@
     }
 
     @include bm.hover {
+        background: ef.get-value($themeWolfRounded, 'bgHover');
 
         .wlc-btn__text,
         .wlc-btn__counter {

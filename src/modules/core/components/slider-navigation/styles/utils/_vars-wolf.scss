@@ -14,9 +14,9 @@ $themeWolf: map-merge((
     'buttonGap': (
         375: 10px,
     ),
-    'buttonBg': var(--mc-bg700),
-    'buttonBgHover': var(--mc-bg700),
-    'buttonBgDisabled': var(--mc-bg700),
+    'buttonBg': var(--mc-bg500-o6),
+    'buttonBgHover': var(--mc-bg500),
+    'buttonBgDisabled': var(--mc-bg500-o4),
 
     'iconColor': var(--mc-baseMain),
     'iconColorDisabled': var(--mc-baseMain-o4),

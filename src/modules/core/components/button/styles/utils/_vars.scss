@@ -44,7 +44,8 @@ $themeWolf: map-merge((
 
 $customThemeWolfRounded: () !default;
 $themeWolfRounded: map-merge((
-    'bg': var(--mc-bg700),
+    'bg': var(--mc-bg500-o6),
+    'bgHover': var(--mc-bg500),
     'radius': 60px,
     'fontStyle': 'CaptionText',
     'fontColor': var(--mc-baseMain),

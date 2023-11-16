@@ -1,5 +1,6 @@
 import {
     CustomType,
+    IButtonCParams,
     IComponentParams,
     ISliderCParams,
 } from 'wlc-engine/modules/core';
@@ -25,6 +26,7 @@ export interface ILoyaltyProgramCParams extends IComponentParams<ComponentTheme,
      * Options overriding slider behavior
      */
     sliderParams?: ISliderCParams;
+    btnParams?: IButtonCParams;
 };
 
 export const sliderDefaultParams: TSliderDefaultParams = {
@@ -81,4 +83,12 @@ export const defaultParams: ILoyaltyProgramCParams = {
     decorRightPath: '/gstatic/loyalty-program/decor/right-decor.png',
     levelsLimit: 4,
     emptyStateText: gettext('An error has occurred while loading data. Please try again later.'),
+    btnParams: {
+        common: {
+            text: gettext('Read More'),
+            typeAttr: 'button',
+        },
+        themeMod: 'secondary',
+        wlcElement: 'button_loyalty-program',
+    },
 };
