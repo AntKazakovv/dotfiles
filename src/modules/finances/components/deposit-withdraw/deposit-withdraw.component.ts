@@ -104,6 +104,9 @@ export class DepositWithdrawComponent
     public isMultiWallet: boolean = false;
     public ready: boolean = false;
     public bonusesExist: boolean = false;
+    public useDepositPromoCode: boolean = false;
+    public appliedPromoCode$: BehaviorSubject<Bonus> = new BehaviorSubject(null);
+
     protected userService: UserService;
 
     private userProfile: UserProfile;
@@ -143,6 +146,7 @@ export class DepositWithdrawComponent
         this.useBonuses = this.configService.get<boolean>('$finances.bonusesInDeposit.use');
         this.isDeposit = this.$params.mode === 'deposit';
         this.showBonuses = this.useBonuses && this.isDeposit;
+        this.useDepositPromoCode = this.isDeposit && this.configService.get<boolean>('$finances.useDepositPromoCode');
 
         this.isLastMethodExisting = (this.isDeposit
                 && this.configService.get<boolean>('$finances.lastSucceedDepositMethod.use'))
@@ -204,6 +208,7 @@ export class DepositWithdrawComponent
                                         name: 'bonuses.wlc-deposit-bonuses',
                                         params: {
                                             bonuses: depositBonuses,
+                                            disableBonuses$: this.appliedPromoCode$,
                                         },
                                     },
                                 ],
@@ -297,6 +302,11 @@ export class DepositWithdrawComponent
         return !!this.parentSystem || !!this.currentSystem || !this.hiddenPaymentInfo;
     }
 
+    public onPromoCodeChanged(bonus: Bonus): void {
+        this.appliedPromoCode$.next(bonus);
+        this.setCurrentBonus(bonus, false);
+    }
+
     private prepareParams(): void {
         this.cryptoListConfig = _merge(this.cryptoListConfig, this.$params.cryptoListParams);
     }
@@ -325,10 +335,26 @@ export class DepositWithdrawComponent
                 {name: BonusItemComponentEvents.deposit},
                 {name: BonusItemComponentEvents.blank},
             ], (bonus?: Bonus): void => {
-                this.currentBonus = bonus;
-                this.availableSystems = bonus?.paySystems || [];
+                this.setCurrentBonus(bonus, this.useDepositPromoCode);
             }, this.$destroy);
         }
+    }
+
+    /**
+     * Set current bonus
+     * @param {Bonus} [bonus] - selected bonus
+     * @param {boolean} [checkPromoCode] - if true, overrides current bonus from $appliedPromoCode$
+     */
+    protected setCurrentBonus(bonus?: Bonus, checkPromoCode?: boolean): void {
+        let currentBonus: Bonus = bonus;
+
+        if (checkPromoCode) {
+            const promoCodeBonus: Bonus = this.appliedPromoCode$.getValue();
+            currentBonus = promoCodeBonus ? promoCodeBonus : bonus;
+        }
+
+        this.currentBonus = currentBonus;
+        this.availableSystems = currentBonus?.paySystems || [];
     }
 
     protected onProfileUpdate(): void {

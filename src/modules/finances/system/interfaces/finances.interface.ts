@@ -37,6 +37,11 @@ export interface IFinancesConfig {
      * Config for preselected amount buttons both in deposit and withdraw
      */
     preselectButtons?: IPreselectedButtonsConfig;
+    /**
+     * If true, promocode form adds to deposit form.
+     * For now, works only with second template
+     * */
+    useDepositPromoCode?: boolean;
 }
 
 export interface ITransactionHistoryAlert {
@@ -210,7 +215,8 @@ export interface IAutoSelectByDevice<T> {
 }
 
 export type TAdditionalParams = IIndexing<string | number> & {
-    bonusId?: number | null;
+    bonusId?: number;
+    promoCode?: string;
 };
 
 export interface ICryptoInvoicesParams {

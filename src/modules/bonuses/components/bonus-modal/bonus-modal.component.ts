@@ -113,6 +113,10 @@ export class BonusModalComponent extends AbstractComponent implements OnInit {
         this.cdr.markForCheck();
     }
 
+    public get showAlerts(): boolean {
+        return !!(this.$params.alerts && this.$params.alerts.length);
+    }
+
     public get isLootbox(): boolean {
         return this.bonus.target === 'lootbox';
     }

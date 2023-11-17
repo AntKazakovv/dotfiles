@@ -1,0 +1,127 @@
+.wlc-deposit-promocode--theme-default:host {
+    display: flex;
+    flex-direction: column;
+    align-items: var(--wlc-dep-promocode-align, start);
+
+    .wlc-deposit-promocode {
+
+        &__link {
+            @include bm.transition(color);
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'linkTextStyle'),
+                ef.get-value($themeDefault, 'linkColor')
+            );
+
+            display: inline-flex;
+            gap: ef.get-value($themeDefault, 'linkGap');
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+
+            &-arrow {
+                --wlc-icon-width: #{ef.get-value($themeDefault, 'linkArrowSize')};
+                --wlc-icon-height: #{ef.get-value($themeDefault, 'linkArrowSize')};
+
+                display: ef.get-value($themeDefault, 'linkArrowDisplay');
+                line-height: var(--wlc-icon-height);
+            }
+
+            @include bm.hover {
+                color: ef.get-value($themeDefault, 'linkColorHover');
+            }
+        }
+
+        &__results {
+            display: flex;
+            flex-direction: var(--wlc-dep-promocode-results-dir, row);
+            gap: ef.get-value($themeDefault, 'resultsGap');
+            align-items: var(--wlc-dep-promocode-align, start);
+            margin: ef.get-value($themeDefault, 'resultsMargin');
+        }
+
+        &__bonus {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: ef.get-value($themeDefault, 'bonusGap');
+            align-items: baseline;
+            margin: ef.get-value($themeDefault, 'bonusMargin');
+            text-align: var(--wlc-dep-promocode-bonus-align, left);
+
+            &-name {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'bonusNameTextStyle'),
+                    ef.get-value($themeDefault, 'bonusNameColor')
+                );
+                display: inline;
+            }
+
+            &-info {
+                --wlc-icon-height: #{ef.get-value($themeDefault, 'bonusInfoSize')};
+                --wlc-icon-width: #{ef.get-value($themeDefault, 'bonusInfoSize')};
+
+                @include bm.transition(color);
+
+                display: inline-block;
+                min-width: var(--wlc-icon-width);
+                min-height: var(--wlc-icon-height);
+                color: ef.get-value($themeDefault, 'bonusInfoColor');
+                line-height: 1;
+                cursor: pointer;
+
+                @include bm.hover {
+                    color: ef.get-value($themeDefault, 'bonusInfoColorHover');
+                }
+            }
+        }
+
+        &__clear {
+
+            ::ng-deep {
+
+                .wlc-btn[class] {
+
+                    .wlc-btn__text {
+                        color: ef.get-value($themeDefault, 'clearBtnColor');
+                    }
+
+                    @include bm.hover {
+                        border-color: ef.get-value($themeDefault, 'clearBtnBorderColorHover');
+
+                        .wlc-btn__text {
+                            color: ef.get-value($themeDefault, 'clearBtnColorHover');
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+::ng-deep {
+
+    .wlc-deposit-promocode {
+
+        &__modal-form {
+            display: grid;
+            grid-template-columns: ef.get-value($themeDefault, 'modalFormGridColumns');
+            gap: ef.get-value($themeDefault, 'modalFormGap');
+            justify-items: ef.get-value($themeDefault, 'modalFormJustifyItems');
+            padding: ef.get-value($themeDefault, 'modalFormPadding');
+        }
+
+        &__input {
+            @include bm.get-mq-map('width', $themeDefault, 'modalFormInputSize');
+
+            ::ng-deep {
+
+                .wlc-input__input {
+                    text-transform: ef.get-value($themeDefault, 'inputTextTransform');
+
+                    &::placeholder {
+                        text-transform: initial;
+                    }
+                }
+            }
+        }
+    }
+}

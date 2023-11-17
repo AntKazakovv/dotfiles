@@ -7,6 +7,9 @@ import {
     ITimerCParams,
 } from 'wlc-engine/modules/core';
 import {IButtonCParams} from 'wlc-engine/modules/core/components/button/button.component';
+import {
+    IDepositPromoCodeCParams,
+} from 'wlc-engine/modules/finances/components/deposit-withdraw/components/deposit-promocode/deposit-promocode.params';
 import {IPaymentListCParams} from 'wlc-engine/modules/finances/components/payment-list/payment-list.params';
 import {TPaymentsMethods} from 'wlc-engine/modules/finances/system/interfaces';
 
@@ -29,6 +32,7 @@ export interface IDepositWithdrawCParams extends IComponentParams<Theme, Type, T
     cryptoListParams?: IPaymentListCParams;
     /** Array for sorting steps. */
     stepsOrder?: Array<Exclude<TStepTplName, 'wallets'>>;
+    depositPromoCodeParams?: IDepositPromoCodeCParams;
 }
 
 export const defaultParams: IDepositWithdrawCParams = {

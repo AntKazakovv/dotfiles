@@ -27,6 +27,12 @@
             <div *ngIf="bonusesExist && showBonuses" class="{{$class}}__step {{$class}}__step--bonuses">
                 <p class="{{$class}}__step-title">{{'Select a bonus' | translate}}</p>
                 <ng-container [ngTemplateOutlet]="bonuses"></ng-container>
+
+                <div *ngIf="useDepositPromoCode" class="{{$class}}__promocode">
+                    <div wlc-deposit-promocode
+                        [inlineParams]="$params.depositPromoCodeParams"
+                        (promoCodeAppliedEvent)="onPromoCodeChanged($event)"></div>
+                </div>
             </div>
             <div class="{{$class}}__step {{$class}}__step--paymentinfo">
                 <p class="{{$class}}__step-title">{{'Payment information' | translate}}</p>

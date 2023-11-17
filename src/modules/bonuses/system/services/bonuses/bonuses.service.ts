@@ -413,15 +413,7 @@ export class BonusesService {
                         }
                     }
                 } else {
-                    this.eventService.emit({
-                        name: NotificationEvents.PushMessage,
-                        data: <IPushMessageParams>{
-                            type: 'error',
-                            title: gettext('Promo code error'),
-                            message: gettext('No voucher found'),
-                            wlcElement: 'notification_promocode-error',
-                        },
-                    });
+                    this.showPromoCodeError();
                     this.cachingService.clear(promocodeCacheKey);
                 }
             }
@@ -431,6 +423,18 @@ export class BonusesService {
                 gettext('Promo code error'),
             );
         }
+    }
+
+    public showPromoCodeError(): void {
+        this.eventService.emit({
+            name: NotificationEvents.PushMessage,
+            data: <IPushMessageParams>{
+                type: 'error',
+                title: gettext('Promo code error'),
+                message: gettext('No voucher found'),
+                wlcElement: 'notification_promocode-error',
+            },
+        });
     }
 
     /**

@@ -63,10 +63,18 @@
             &--paymentinfo {
                 --wlc-alert-margin: #{ef.get-value($themeSecond, 'paymentInfoAlertMargin')};
             }
+
+            &--bonuses {
+                --cash-divider-order: 100;
+
+                display: flex;
+                flex-direction: column;
+            }
         }
 
         &__divider {
             display: var(--cash-divider-display, block);
+            order: var(--cash-divider-order, initial);
             width: 100%;
             height: ef.get-value($themeSecond, 'dividerSize');
             margin: ef.get-value($themeSecond, 'dividerMargin');
@@ -75,6 +83,13 @@
             &--cryptoblock {
                 margin: ef.get-value($themeSecond, 'dividerMarginCrypto');
             }
+        }
+
+        &__promocode {
+            @include bm.get-mq-map('--wlc-dep-promocode-align', $themeSecond, 'promoCodeAlign');
+            @include bm.get-mq-map('--wlc-dep-promocode-results-dir', $themeSecond, 'promoCodeResultsDir');
+            @include bm.get-mq-map('--wlc-dep-promocode-bonus-align', $themeSecond, 'promoCodeBonusAlign');
+            margin: ef.get-value($themeSecond, 'promoCodeMargin');
         }
     }
 

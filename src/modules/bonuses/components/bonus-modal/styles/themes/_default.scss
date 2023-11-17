@@ -118,6 +118,18 @@
                 }
             }
         }
+
+        &__alerts {
+            --wlc-alert-max-width: 100%;
+
+            @include bm.get-mq-map('max-width', $themeDefault, 'alertsSize');
+
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: ef.get-value($themeDefault, 'alertsGap');
+            width: 100%;
+            margin: ef.get-value($themeDefault, 'alertsMargin');
+        }
     }
 
     .wlc-bonus-item {

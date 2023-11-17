@@ -30,7 +30,10 @@ import {
     IAutoSelectByDevice,
     PaymentSystem,
 } from 'wlc-engine/modules/finances';
-import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
+import {
+    Bonus,
+    disabledReasons,
+} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services';
 import {BonusItemComponentEvents} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {IBlankBonusParams} from 'wlc-engine/modules/bonuses/components/bonuses-list/bonuses-list.params';
@@ -118,6 +121,14 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
 
         this.followBreakpoints();
         this.getBonuses();
+
+        if (this.configService.get<boolean>('$finances.useDepositPromoCode') && this.$params.disableBonuses$) {
+            this.$params.disableBonuses$
+                .pipe(takeUntil(this.$destroy))
+                .subscribe((bonus?: Bonus): void => {
+                    this.processPromoCodeBonus(bonus);
+                });
+        }
     }
 
     /**
@@ -171,10 +182,7 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
         }
 
         if (clearSame && bonus?.isChoose) {
-            this.blankBonus.isChoose = true;
-            this.currentBonus = null;
-            this.updateBonusesStatus();
-            this.eventService.emit({name: BonusItemComponentEvents.blank, data: null});
+            this.chooseBlankBonus();
         } else {
             this.blankBonus.isChoose = !bonus;
             this.currentBonus = bonus || null;
@@ -213,6 +221,20 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
                 iconMoreBtn: null,
             },
         }, this.$params.itemParams || {});
+    }
+
+    /**
+     * Choose blank bonus
+     * @param {boolean} [silent=false] - event not emits if true
+     */
+    protected chooseBlankBonus(silent: boolean = false): void {
+        this.blankBonus.isChoose = true;
+        this.currentBonus = null;
+        this.updateBonusesStatus();
+
+        if (!silent) {
+            this.eventService.emit({name: BonusItemComponentEvents.blank, data: null});
+        }
     }
 
     protected getAutoSelectedBonus(): Bonus | null {
@@ -293,9 +315,7 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
             const activeBonuses: Bonus[] = this.bonusesService.filterBonuses(bonuses, 'active');
 
             if (activeBonuses.some((bonus: Bonus) => !bonus.allowStack)) {
-                _forEach(this.bonuses, (bonus: Bonus): void => {
-                    bonus.disabledBy = 2;
-                });
+                this.disableBonuses(2);
             } else if (activeBonuses.some((bonus: Bonus) => bonus.allowStack)) {
                 _forEach(this.bonuses, (bonus: Bonus): void => {
                     if (!bonus.allowStack) {
@@ -320,6 +340,29 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
         }
 
         this.cdr.markForCheck();
+    }
+
+    protected disableBonuses(reason: keyof typeof disabledReasons): void {
+        _forEach(this.bonuses, (bonus: Bonus): void => {
+            bonus.disabledBy = reason;
+        });
+    }
+
+    protected enableBonuses(): void {
+        _forEach(this.bonuses, (bonus: Bonus): void => {
+            bonus.disabledBy = null;
+        });
+    }
+
+    protected processPromoCodeBonus(bonus?: Bonus): void {
+        if (bonus) {
+            this.chooseBlankBonus(true);
+            this.disableBonuses(4);
+            this.cdr.markForCheck();
+        } else {
+            this.enableBonuses();
+            this.processBonusesResponse(this.bonuses);
+        }
     }
 
     protected processPaySystemChange(paySystem?: PaymentSystem): void {

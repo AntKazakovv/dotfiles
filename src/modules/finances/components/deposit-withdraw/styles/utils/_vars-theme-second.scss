@@ -65,4 +65,18 @@ $themeSecond: map-merge((
     'paymentMsgTextOrder': 1,
 
     'amountClearMargin': 0 ef.size(2),
+
+    'promoCodeMargin': ef.size(4) 0 0,
+    'promoCodeAlign': (
+        375: center,
+        900: flex-start,
+    ),
+    'promoCodeBonusAlign': (
+        375: center,
+        900: left,
+    ),
+    'promoCodeResultsDir': (
+        375: column,
+        900: row,
+    ),
 ), $customThemeSecond);

@@ -1,3 +1,5 @@
+import {BehaviorSubject} from 'rxjs';
+
 import {
     IComponentParams,
     CustomType,
@@ -64,6 +66,10 @@ export interface IDepositBonusesCParams extends IComponentParams<ComponentTheme,
         notEmptyTitle?: string;
     };
     bonuses?: Bonus [];
+    /**
+     * Behavior subject for disable/enable bonuses in bonus-list
+     */
+    disableBonuses$?: BehaviorSubject<Bonus>;
 };
 
 export const defaultParams: IDepositBonusesCParams = {

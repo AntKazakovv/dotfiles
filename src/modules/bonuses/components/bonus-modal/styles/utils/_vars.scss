@@ -71,4 +71,13 @@ $themeDefault: map-merge((
     'rewardsTitleColor': var(--mc-baseMain),
     'rewardsContentStyle': 'PrimaryText',
     'rewardsContentColor': var(--mc-baseMain),
+    'rewardsTitleIconWidth': 13px,
+    'rewardsTitleIconHeight': ef.size(2),
+
+    'alertsGap': ef.size(4),
+    'alertsSize': (
+        375: 100%,
+        480: 330px,
+    ),
+    'alertsMargin': 0 auto,
 ), $customThemeDefault);

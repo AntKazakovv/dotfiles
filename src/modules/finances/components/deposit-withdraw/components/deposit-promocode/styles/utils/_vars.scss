@@ -1,0 +1,35 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'linkTextStyle': 'PrimaryTextBold',
+    'linkColor': var(--mc-main),
+    'linkColorHover': var(--mc-baseMain),
+    'linkArrowSize': ef.size(2),
+    'linkArrowDisplay': initial,
+    'linkGap': ef.size(1),
+
+    'bonusGap': ef.size(2),
+    'bonusMargin': ef.size(2) 0 0,
+    'bonusNameTextStyle': 'PrimaryText',
+    'bonusNameColor': var(--mc-baseMain),
+    'bonusInfoSize': 15px,
+    'bonusInfoColor': var(--mc-baseOpacity),
+    'bonusInfoColorHover': var(--mc-baseMain),
+
+    'resultsGap': ef.size(2),
+    'resultsMargin': ef.size(2) 0 0,
+
+    'modalFormGridColumns': 1fr,
+    'modalFormGap': ef.size(8),
+    'modalFormPadding': 0 0 ef.size(2),
+    'modalFormJustifyItems': center,
+    'modalFormInputSize': (
+        375: 100%,
+        480: 330px,
+    ),
+
+    'clearBtnColor': var(--mc-main),
+    'clearBtnColorHover': var(--mc-baseMain),
+    'clearBtnBorderColorHover': transparent,
+
+    'inputTextTransform': uppercase,
+), $customThemeDefault);

@@ -1,0 +1,33 @@
+<div class="{{$class}}__link"
+    (click)="clickHandler()">
+        <span class="{{$class}}__link-text">{{'Have a promo code?' | translate}}</span>
+        <span class="{{$class}}__link-arrow">
+            <span wlc-icon [iconPath]="'/wlc/icons/arrow-right.svg'"></span>
+        </span>
+    </div>
+<div *ngIf="isBonusApplied" class="{{$class}}__results">
+    <div class="{{$class}}__bonus">
+        <span class="{{$class}}__bonus-name">{{bonus.name}}</span>
+        <span class="{{$class}}__bonus-info" (click)="showBonusModal()">
+            <span wlc-icon [iconPath]="'/wlc/icons/info.svg'"></span>
+        </span>
+    </div>
+    <div class="{{$class}}__clear">
+        <button
+            wlc-button
+            [inlineParams]="$params.clearBtnParams"
+            (click)="resetPromoCode()"></button>
+    </div>
+</div>
+
+<ng-template #modalForm>
+    <div class="{{$class}}__modal-form">
+        <div class="{{$class}}__input"
+            wlc-input
+            [inlineParams]="$params.inputParams"
+            (keydown.enter)="processPromoCode()"></div>
+        <button wlc-button
+            [inlineParams]="$params.submitBtnParams"
+            (click)="processPromoCode()"></button>
+    </div>
+</ng-template>

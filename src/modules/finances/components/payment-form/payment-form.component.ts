@@ -1408,7 +1408,10 @@ export class PaymentFormComponent
             const response = await this.financesService.deposit(
                 this.currentSystem.id,
                 amount || this.currentSystem.depositMin,
-                {...params, bonusId: this.bonus?.id || null},
+                {...params,
+                    bonusId: this.bonus?.id,
+                    bonusCode: this.bonus?.promoCode,
+                },
                 this.cssVariables,
                 this.wallet,
             );

@@ -21,6 +21,8 @@ import {PIQCashierComponent} from './components/piq-cashier/piq-cashier.componen
 import {IframeDepositComponent} from './components/iframe-deposit/iframe-deposit.component';
 import {FastDepositComponent} from './components/fast-deposit/fast-deposit.component';
 import {PaymentFormComponent} from './components/payment-form/payment-form.component';
+import {DepositPromocodeComponent}
+    from './components/deposit-withdraw/components/deposit-promocode/deposit-promocode.component';
 import {PreselectedAmountsComponent}
     from './components/deposit-withdraw/components/preselected-amounts/preselected-amounts.component';
 import {ClearAmountButtonComponent}
@@ -47,6 +49,7 @@ export const components = {
     'wlc-clear-amount-button': ClearAmountButtonComponent,
     'wlc-payment-form': PaymentFormComponent,
     'wlc-fast-deposit': FastDepositComponent,
+    'wlc-deposit-promocode': DepositPromocodeComponent,
 };
 
 export const services = {
@@ -76,6 +79,7 @@ export const services = {
         PaymentFormComponent,
         FastDepositComponent,
         TaxInfoComponent,
+        DepositPromocodeComponent,
     ],
     providers: [
         FinancesService,

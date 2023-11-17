@@ -12,6 +12,7 @@
                 <div wlc-bonus-item [inlineParams]="{bonus, theme: 'modal'}"></div>
             </div>
             <div class="{{$class}}__info-block">
+                <ng-container [ngTemplateOutlet]="alerts"></ng-container>
                 <h4 class="{{$class}}__name" data-wlc-element="bonus_title-name">{{bonus.name}}</h4>
                 <div class="{{$class}}__desc-block">
                     <ng-container [ngTemplateOutlet]="descr"></ng-container>
@@ -31,8 +32,7 @@
         [style.backgroundImage]="bonusBgUrl"></div>
     <div class="{{$class}}__content">
         <h4 class="{{$class}}__name" data-wlc-element="bonus_title-name">{{bonus.name}}</h4>
-
-
+        <ng-container [ngTemplateOutlet]="alerts"></ng-container>
         <ng-container [ngTemplateOutlet]="active"></ng-container>
         <ng-container [ngTemplateOutlet]="descr"></ng-container>
         <ng-container [ngTemplateOutlet]="terms"></ng-container>
@@ -114,5 +114,13 @@
         <div wlc-accordion
             class="{{$class}}__possible-rewards"
             [inlineParams]="bonusRewards"></div>
+    </div>
+</ng-template>
+
+<ng-template #alerts>
+    <div *ngIf="showAlerts" class="{{$class}}__alerts">
+        <div *ngFor="let alert of $params.alerts"
+            wlc-alert
+            [title]="alert.title | translate"></div>
     </div>
 </ng-template>

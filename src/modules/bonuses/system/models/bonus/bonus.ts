@@ -44,7 +44,7 @@ import {
 import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
 import {LootboxPrizeModel} from 'wlc-engine/modules/bonuses/system/models/lootbox-prize/lootbox-prize.model';
 
-const disabledReasons = {
+export const disabledReasons = {
     // Apply to deposit bonuses which paySystems array isn't empty and
     // don't contains current payment system
     1: gettext('This bonus is not available for '
@@ -60,6 +60,9 @@ const disabledReasons = {
     3: gettext('Blocked by an active bonus. '
         + 'You have to wager active bonus first '
         + 'or cancel it to claim new bonus.'),
+    // Apply if user entered promo code on deposit page
+    4: gettext('Blocked by a promo code bonus. '
+        + 'You must cancel the promo code bonus in order to receive a new bonus'),
 };
 
 export class Bonus extends AbstractModel<IBonus> {

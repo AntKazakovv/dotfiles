@@ -8,6 +8,7 @@ import {
 import {IGamesGridCParams} from 'wlc-engine/modules/games';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {Theme as BonusItemTheme} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';
+import {IAlertCParams} from 'wlc-engine/modules/core/components/alert/alert.params';
 
 export type Type = 'default' | CustomType;
 export type Theme = 'default' | 'wolf' | CustomType;
@@ -32,6 +33,8 @@ export interface IBonusModalCParams extends IComponentParams<Theme, Type, ThemeM
     gamesGridWrapperParams?: IWrapperCParams;
     /** Possible rewards accordion params */
     rewardsParams?: IAccordionCParams;
+    /** Param to pass alert into bonus-modal */
+    alerts?: IAlertCParams[];
 }
 
 export const defaultParams: IBonusModalCParams = {
