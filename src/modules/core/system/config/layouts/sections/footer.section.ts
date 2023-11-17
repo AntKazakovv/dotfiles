@@ -255,6 +255,7 @@ export namespace footer {
                                 class: 'footer-bottom__right',
                                 components: [
                                     componentLib.wlcDisclaimer.def,
+                                    componentLib.wlcRecaptchaPolicy.def,
                                     componentLib.wlcCopyright.def,
                                 ],
                             },
