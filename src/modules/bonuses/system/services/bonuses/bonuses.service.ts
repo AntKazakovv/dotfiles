@@ -845,36 +845,34 @@ export class BonusesService {
                     : this.configService.get<string>('$base.defaultCurrency') || 'EUR';
             });
 
-        if (this.configService.get<boolean>('$base.finances.redirectAfterDepositBonus')) {
-            this.configService
-                .get<BehaviorSubject<UserInfo>>('$user.userInfo$')
-                .pipe(
-                    filter((userInfo: UserInfo): boolean => !!userInfo && this.hasBonuses),
-                    map((userInfo: UserInfo): TUserLoyaltyInfo =>
-                        ({bonusesBalance: userInfo.bonusesBalance, freeRounds: userInfo.freeRounds})),
-                    distinctUntilChanged((
-                        prev: {
-                            bonusesBalance: UserInfo['bonusesBalance'],
-                            freeRounds: UserInfo['freeRounds'],
-                        },
-                        curr: {
-                            bonusesBalance: UserInfo['bonusesBalance'],
-                            freeRounds: UserInfo['freeRounds'],
-                        }): boolean => {
-                        return (
-                            _isEqual(curr.bonusesBalance, prev.bonusesBalance)
-                            && _isEqual(curr.freeRounds, prev.freeRounds)
-                        );
-                    }),
-                )
-                .subscribe((userLoyaltyInfo: TUserLoyaltyInfo): void => {
-                    this.checkNewActiveBonuses(userLoyaltyInfo.bonusesBalance);
+        this.configService
+            .get<BehaviorSubject<UserInfo>>('$user.userInfo$')
+            .pipe(
+                filter((userInfo: UserInfo): boolean => !!userInfo && this.hasBonuses),
+                map((userInfo: UserInfo): TUserLoyaltyInfo =>
+                    ({bonusesBalance: userInfo.bonusesBalance, freeRounds: userInfo.freeRounds})),
+                distinctUntilChanged((
+                    prev: {
+                        bonusesBalance: UserInfo['bonusesBalance'],
+                        freeRounds: UserInfo['freeRounds'],
+                    },
+                    curr: {
+                        bonusesBalance: UserInfo['bonusesBalance'],
+                        freeRounds: UserInfo['freeRounds'],
+                    }): boolean => {
+                    return (
+                        _isEqual(curr.bonusesBalance, prev.bonusesBalance)
+                        && _isEqual(curr.freeRounds, prev.freeRounds)
+                    );
+                }),
+            )
+            .subscribe((userLoyaltyInfo: TUserLoyaltyInfo): void => {
+                this.checkNewActiveBonuses(userLoyaltyInfo.bonusesBalance);
 
-                    if (userLoyaltyInfo.freeRounds) {
-                        this.checkNewFreeRoundGames(userLoyaltyInfo.freeRounds);
-                    }
-                });
-        }
+                if (userLoyaltyInfo.freeRounds) {
+                    this.checkNewFreeRoundGames(userLoyaltyInfo.freeRounds);
+                }
+            });
     }
 
     private async modifyBonuses(data: IBonus[], bonusesServerTime: number): Promise<Bonus[]> {
@@ -1262,7 +1260,7 @@ export class BonusesService {
             name: NotificationEvents.PushMessage,
             data: <IPushMessageParams>{
                 type: 'success',
-                title: gettext('Bonus is available'),
+                title: gettext('Free Spins'),
                 wlcElement: 'notification_bonus-freespins-game',
                 themeMod: 'with-games',
                 message: gettext('Free spins available: {{count}}\n Play until: {{date}}'),
