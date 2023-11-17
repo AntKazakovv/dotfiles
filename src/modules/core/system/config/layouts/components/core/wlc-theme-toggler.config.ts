@@ -29,10 +29,19 @@ export namespace wlcThemeToggler {
             theme: 'long',
         },
     };
+
     export const alternative: ILayoutComponent = {
         name: 'core.wlc-theme-toggler',
         params: <IThemeTogglerCParams>{
             theme: 'alternative',
+        },
+    };
+
+    export const themeModWolf: ILayoutComponent = {
+        name: 'core.wlc-theme-toggler',
+        params: <IThemeTogglerCParams>{
+            theme: 'alternative',
+            themeMod: 'wolf',
         },
     };
 }

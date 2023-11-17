@@ -21,14 +21,13 @@ import {
 } from '@angular/animations';
 
 import {
-    BehaviorSubject,
+    Observable,
     fromEvent,
     merge,
 } from 'rxjs';
 import {
     takeUntil,
     throttleTime,
-    map,
 } from 'rxjs/operators';
 import _find from 'lodash-es/find';
 import _isNil from 'lodash-es/isNil';
@@ -40,6 +39,8 @@ import {
     AbstractComponent,
     LogService,
     GlobalHelper,
+    ActionService,
+    DeviceType,
 } from 'wlc-engine/modules/core';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 
@@ -108,8 +109,8 @@ export class LanguageSelectorComponent
     public hasSingleLang: boolean = false;
     public isDropdownAtTop: boolean = false;
 
-    private modToggled: boolean = false;
-    private defaultThemeMod: 'default' | Params.ThemeModType;
+    protected modToggled: boolean = false;
+    protected defaultThemeMod: 'default' | Params.ThemeModType;
 
     @Input() protected inlineParams: Params.ILanguageSelectorCParams;
 
@@ -121,6 +122,7 @@ export class LanguageSelectorComponent
         protected elementRef: ElementRef,
         protected modalService: ModalService,
         protected logService: LogService,
+        protected actionService: ActionService,
         @Inject(WINDOW) private window: Window,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
@@ -386,12 +388,14 @@ export class LanguageSelectorComponent
         this.addModifiers('compact');
         this.setDropdownPosition();
 
-        this.configService.get<BehaviorSubject<TFixedPanelStore>>('fixedPanelStore$')?.pipe(
-            map((store: TFixedPanelStore): boolean => store[this.$params.fixedPanelPosition] === 'compact'),
-            takeUntil(this.$destroy),
-        ).subscribe((isCompact: boolean) => {
-            this.updateCompactState(isCompact);
-        });
+        this.configService.get<Observable<[DeviceType, TFixedPanelStore]>>('changesFixedPanel$')
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((value: [DeviceType, TFixedPanelStore]) => {
+                const isCompact: boolean = value[1][this.$params.fixedPanelPosition] === 'compact';
+                const isMobile = value[0] !== DeviceType.Desktop;
+
+                this.updateCompactState(isCompact ? isCompact && !isMobile : isCompact);
+            });
 
         fromEvent(this.window, 'resize')
             .pipe(

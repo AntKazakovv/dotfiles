@@ -137,4 +137,12 @@ $themeAlternative: map-merge((
     'hrWith': calc(100% - ef.size(2)),
     'hrBackgroundColor': var(--mc-baseOpacity),
     'hrMargin': 0,
+
+    'activeButtonTextColorWolf': var(--mc-baseThird, var(--mc-baseMain)),
+    'activeButtonBgWolf': var(--mc-bg100),
+    'iconWidthWolf': ef.size(4),
+    'buttonBgWolf': var(--mc-bg300),
+    'switchGapWolf': ef.size(1),
+    'buttonHeightWolf': ef.size(10),
+    'buttonPaddingWolf': ef.size(3),
 ), $customThemeLong);

@@ -42,6 +42,22 @@ export const wlcPanelMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
         wlcElement: 'link_main-nav-contuctus',
     },
+    'panel-menu:contact-us': {
+        name: gettext('Contact Us'),
+        type: 'sref',
+        class: 'contacts',
+        icon: 'contact-us',
+        params: {
+            state: {
+                name: 'app.contact-us',
+            },
+            href: {
+                url: '/contact-us',
+                baseSiteUrl: true,
+            },
+        },
+        wlcElement: 'link_main-nav-contuctus',
+    },
     'panel-menu:info': {
         name: gettext('Info'),
         type: 'wordpress',

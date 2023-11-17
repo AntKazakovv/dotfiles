@@ -69,10 +69,38 @@
         --tt-switcher-justify-content: center;
         --tt-switcher-active-btn-bg: transparent;
         --tt-switcher-btn-bg: transparent;
+
+        --tt-switcher-active-btn-bg-wolf: transparent;
+        --tt-switcher-btn-bg-wolf: transparent;
+    }
+
+    &.wlc-theme-toggler--theme-mod-wolf {
+        --tt-switcher-active-btn-bg-wolf: #{ef.get-value($themeAlternative, 'activeButtonBgWolf')};
+
+        .wlc-theme-toggler {
+
+            &__btn {
+                height: ef.get-value($themeAlternative, 'buttonHeightWolf');
+                padding: ef.get-value($themeAlternative, 'buttonPaddingWolf');
+                background: var(--tt-switcher-btn-bg-wolf, #{ef.get-value($themeAlternative, 'buttonBgWolf')});
+
+                &.active {
+                    color: ef.get-value($themeAlternative, 'activeButtonTextColorWolf');
+                    background: var(--tt-switcher-active-btn-bg-wolf);
+                }
+            }
+
+            &__icon {
+                width: ef.get-value($themeAlternative, 'iconWidthWolf');
+            }
+
+            &__switcher {
+                gap: ef.get-value($themeAlternative, 'switchGapWolf');
+            }
+        }
     }
 
     @include bm.colorThemeAlt {
         --tt-switcher-active-btn-bg: #{ef.get-value($themeAlternative, 'activeButtonBgAlt')};
     }
 }
-

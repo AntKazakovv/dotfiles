@@ -5,7 +5,7 @@ import {
 
 export type ComponentTheme = 'default' | 'long' | 'alternative' | CustomType;
 export type ComponentType = 'default' | 'inverse' | CustomType;
-export type ComponentThemeMod = 'default' | 'vertical' | 'compact' | CustomType;
+export type ComponentThemeMod = 'default' | 'vertical' | 'compact' | 'wolf' | CustomType;
 
 export interface IThemeTogglerCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     /**

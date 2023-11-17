@@ -12,6 +12,8 @@ import {
 
 import {
     BehaviorSubject,
+    Observable,
+    combineLatest,
     firstValueFrom,
 } from 'rxjs';
 import {
@@ -38,6 +40,7 @@ import {LogService} from 'wlc-engine/modules/core/system/services/log/log.servic
 import {SelectValuesService} from 'wlc-engine/modules/core/system/services/select-values/select-values.service';
 import {
     DeviceModel,
+    DeviceType,
     IDeviceConfig,
 } from 'wlc-engine/modules/core/system/models/device.model';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
@@ -77,6 +80,7 @@ import {
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
 import {
     TFixedPanelStore,
     TFixedPanelPos,
@@ -330,6 +334,14 @@ export class ConfigService {
         this.set<BehaviorSubject<TFixedPanelStore>>({
             name: 'fixedPanelStore$',
             value: new BehaviorSubject({}),
+        });
+
+        this.set<Observable<[DeviceType, TFixedPanelStore]>>({
+            name: 'changesFixedPanel$',
+            value: combineLatest([
+                this.injector.get(ActionService).deviceType(),
+                this.get<BehaviorSubject<TFixedPanelStore>>('fixedPanelStore$'),
+            ]),
         });
     }
 

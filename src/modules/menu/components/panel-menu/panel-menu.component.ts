@@ -13,6 +13,7 @@ import _pull from 'lodash-es/pull';
 import _set from 'lodash-es/set';
 import {
     BehaviorSubject,
+    Observable,
     takeUntil,
 } from 'rxjs';
 
@@ -53,7 +54,6 @@ export class PanelMenuComponent extends AbstractComponent implements OnInit {
     protected menuConfig: MenuParams.MenuConfigItem[];
     protected menuSettings: IMenuOptions;
     protected isAuth: boolean;
-    protected isMobile: boolean = false;
     protected fixedPanelStore$ = this.configService.get<BehaviorSubject<TFixedPanelStore>>('fixedPanelStore$');
 
     constructor(
@@ -96,6 +96,13 @@ export class PanelMenuComponent extends AbstractComponent implements OnInit {
     protected async initConfig(): Promise<void> {
         if (this.$params.type === 'info') {
             this.menuSettings = _cloneDeep(await this.menuService.getFundistMenuSettings('panelMenuInfo'));
+            if (this.configService.get<boolean>('$base.contacts.separatedPage')) {
+                this.menuSettings.items.forEach((item) => {
+                    if (item.id === 'contacts') {
+                        item.id = 'contact-us';
+                    }
+                });
+            }
         } else {
             this.menuSettings = _cloneDeep(await this.menuService.getFundistMenuSettings('panelMenu'));
         }
@@ -169,16 +176,17 @@ export class PanelMenuComponent extends AbstractComponent implements OnInit {
                 this.isAuth = value;
             });
 
-        this.fixedPanelStore$
+        this.configService.get<Observable<[DeviceType, TFixedPanelStore]>>('changesFixedPanel$')
             .pipe(takeUntil(this.$destroy))
-            .subscribe((store: TFixedPanelStore) => {
-                this.$params.menuParams.tooltip.use = store.left === 'compact';
+            .subscribe((value: [DeviceType, TFixedPanelStore]) => {
+                const isMobile = value[0] !== DeviceType.Desktop;
+                const isExpandableOnHover = value[1].left === 'compact' && !isMobile;
+                this.$params.menuParams.tooltip.use = value[1].left === 'compact';
 
                 if (defaultValueExpandOnStart) {
-                    this.$params.menuParams.expandOnStart = store.left !== 'compact';
+                    this.$params.menuParams.expandOnStart = value[1].left !== 'compact';
                 }
 
-                const isExpandableOnHover = store.left === 'compact' && !this.isMobile;
 
                 const categoriesItemMenu = this.$params.menuParams.items
                     .find((item) => (item as MenuParams.IMenuItem).type === 'categories') as MenuParams.IMenuItem;
@@ -192,19 +200,13 @@ export class PanelMenuComponent extends AbstractComponent implements OnInit {
 
                 this.$params.menuParams = _clone(this.$params.menuParams);
 
-                if (store.left === 'compact') {
+                if (value[1].left === 'compact' && !isMobile) {
                     this.addModifiers('compact');
                 } else {
                     this.clearModifiers();
                 }
 
                 this.cdr.detectChanges();
-            });
-
-        this.actionService.deviceType()
-            .pipe(takeUntil(this.$destroy))
-            .subscribe((type: DeviceType) => {
-                this.isMobile = type !== DeviceType.Desktop;
             });
     }
 }

@@ -347,6 +347,22 @@ export namespace leftPanel {
         ],
     };
 
+    export const mobileThemeModWolfThemeToggler: IPanelSectionConfig = {
+        replaceConfig: true,
+        theme: 'left',
+        themeMod: 'wolf',
+        display: {
+            before: 1023,
+        },
+        components: [
+            componentLib.wlcPanelMenu.fixedBurgerThemeWolf,
+            componentLib.wlcPanelMenu.fixedBurgerInfoThemeWolf,
+            componentLib.wlcLanguageSelector.menuThemeWolf,
+            componentLib.wlcThemeToggler.themeModWolf,
+            componentLib.wlcSocialIcons.menuThemeWolf,
+        ],
+    };
+
     export const mobileThemeTogglerAlt: IPanelSectionConfig = {
         replaceConfig: true,
         theme: 'mobile',

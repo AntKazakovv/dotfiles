@@ -11,6 +11,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {TooltipModule} from 'ngx-bootstrap/tooltip';
 
 import {Observable} from 'rxjs';
+import {MockService} from 'ng-mocks';
 
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
@@ -22,6 +23,7 @@ import {
 } from './language-selector.component';
 import {WINDOW_PROVIDER} from 'wlc-engine/modules/app/system';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers';
+import {ActionService} from 'wlc-engine/modules/core/system/services';
 
 @Pipe({
     name: 'translate',
@@ -156,6 +158,10 @@ describe('LanguageSelectorComponent', () => {
                 {
                     provide: TranslateService,
                     useValue: TranslateServiceSpy,
+                },
+                {
+                    provide: ActionService,
+                    useValue: MockService(ActionService),
                 },
                 WINDOW_PROVIDER,
             ],

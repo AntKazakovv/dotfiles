@@ -8,15 +8,16 @@ import {
 } from '@angular/core';
 
 import {
-    BehaviorSubject,
+    Observable,
     takeUntil,
 } from 'rxjs';
-import {map} from 'rxjs/operators';
 import _isUndefined from 'lodash-es/isUndefined';
 
 import {
     AbstractComponent,
+    ActionService,
     ConfigService,
+    DeviceType,
 } from 'wlc-engine/modules/core';
 import {ColorThemeService} from 'wlc-engine/modules/core/system/services/color-theme/color-theme.service';
 import {TColorTheme} from 'wlc-engine/modules/core/system/interfaces/base-config/color-theme-switching.config';
@@ -70,6 +71,7 @@ export class ThemeTogglerComponent extends AbstractComponent implements OnInit {
         @Inject('injectParams') protected injectParams: Params.IThemeTogglerCParams,
         configService: ConfigService,
         protected colorThemeService: ColorThemeService,
+        protected actionService: ActionService,
         cdr: ChangeDetectorRef,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
@@ -94,20 +96,23 @@ export class ThemeTogglerComponent extends AbstractComponent implements OnInit {
             this.rightIcon = this.$params.theme === 'alternative'
                 ? '/wlc/icons/dark.svg' : '/wlc/icons/theme-toggler-default.svg';
         }
-        this.configService.get<BehaviorSubject<TFixedPanelStore>>('fixedPanelStore$')?.pipe(
-            map((store: TFixedPanelStore): boolean => store['left'] === 'compact'),
-            takeUntil(this.$destroy),
-        ).subscribe((isCompact: boolean) => {
-            this.$params.compactMod = isCompact;
 
-            if (isCompact) {
-                this.addModifiers('compact');
-            } else {
-                this.removeModifiers('compact');
-            }
+        this.configService.get<Observable<[DeviceType, TFixedPanelStore]>>('changesFixedPanel$')
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((value: [DeviceType, TFixedPanelStore]) => {
+                const isMobile = value[0] !== DeviceType.Desktop;
+                const isCompact: boolean = value[1]['left'] === 'compact';
 
-            this.cdr.markForCheck();
-        });
+                this.$params.compactMod = isCompact ? isCompact && !isMobile : isCompact;
+
+                if (isCompact && !isMobile) {
+                    this.addModifiers('compact');
+                } else {
+                    this.removeModifiers('compact');
+                }
+
+                this.cdr.markForCheck();
+            });
     }
 
     /**

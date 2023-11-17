@@ -456,7 +456,7 @@ export class BurgerPanelComponent extends AbstractComponent
 
     protected setFixedPanelCssVars(): void {
         const root: HTMLElement = this.document.documentElement;
-        const isVisiblePanel: boolean = this.document.body.clientWidth >= this.fixedPanelConfig.breakpoints.display;
+        const isVisiblePanel: boolean = this.window.innerWidth >= this.fixedPanelConfig.breakpoints.display;
         if (root) {
             _forEach(this.fixedPanelConfig.sizes, (val, key) => {
                 const value = isVisiblePanel ? `${val}px` : null;
