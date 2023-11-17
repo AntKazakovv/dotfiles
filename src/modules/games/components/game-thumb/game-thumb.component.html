@@ -169,7 +169,11 @@
 </ng-template>
 
 <ng-template #typeDefault>
-    <ng-container [ngTemplateOutlet]="media"></ng-container>
+    <div class="{{$class}}-media" (click)="startGame(false, true, $event)">
+        <ng-container *ngIf="!hasVideo; else videoTemplate">
+            <ng-container [ngTemplateOutlet]="thumbImg"></ng-container>
+        </ng-container>
+    </div>
     <div class="{{$class}}__desc">
         <div class="{{$class}}__title">
             <ng-container [ngTemplateOutlet]="thumbName"></ng-container>
@@ -210,43 +214,6 @@
         class="{{$class}}__jackpot"
         [value]="game.jackpotAmount.amount"
         [currency]="game.jackpotAmount.currency">
-    </div>
-</ng-template>
-
-<ng-template #typeCircleBtn>
-    <ng-container [ngTemplateOutlet]="media"></ng-container>
-    <div class="{{$class}}__desc">
-        <div *ngIf="$params.themeMod !== 'wolf'"
-            class="{{$class}}__title">
-            <ng-container [ngTemplateOutlet]="thumbName"></ng-container>
-            <span *ngIf="$params?.common?.useMerchantName"
-                  class="{{$class}}__merchant"
-                  data-wlc-element="block_game-thumb-alias">
-                {{game.merchantAlias}}
-            </span>
-        </div>
-        <ng-container [ngTemplateOutlet]="buttonFavourite"></ng-container>
-        <ng-container [ngTemplateOutlet]="buttonsPlayDemo"></ng-container>
-    </div>
-    <div *ngIf="showMerchantIcon; else merchantName"
-         class="{{$class}}__merchants-block">
-        <img class="{{$class}}__merchants-icon"
-            loading="lazy"
-            [src]="merchantIconPath"
-            wlc-fallback
-            (imageError)="merchantIconErrorHolder()">
-    </div>
-    <ng-container
-        *ngIf="hasPragmaticDGA"
-        [ngTemplateOutlet]="pragmaticPlayLive">
-    </ng-container>
-    <div
-        *ngIf="$params.showJackpotAmount && game.jackpotAmount"
-        wlc-currency
-        class="{{$class}}__jackpot"
-        [value]="game.jackpotAmount.amount"
-        [currency]="game.jackpotAmount.currency"
-    >
     </div>
 </ng-template>
 

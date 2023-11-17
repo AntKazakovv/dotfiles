@@ -18,7 +18,6 @@ export type Type = 'default'
     | 'promo-game'
     /** Only picture/video thumb, without any controls, title and hover-effects */
     | 'simple'
-    | 'circle-btn'
     | 'ppl-info'
     | CustomType;
 export type Theme = 'default' | 'vertical' | 'promo-widget' | 'horizontal' | CustomType;
