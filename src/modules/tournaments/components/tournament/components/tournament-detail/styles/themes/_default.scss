@@ -222,7 +222,6 @@ $selector: '.wlc-tournament-detail';
 
         #{$selector}__prizes-block {
             @include bm.get-mq-map('background', $themeDefault, 'prizesBg');
-            padding: ef.get-value($themeDefault, 'prizesBlockPadding');
         }
 
         #{$selector}__prizepool {
