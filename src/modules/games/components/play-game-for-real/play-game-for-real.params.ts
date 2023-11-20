@@ -212,15 +212,6 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
 
     const forAuthenticated = [
         {
-            name: 'games.wlc-game-thumb',
-            params: {
-                type: 'modal',
-                common: {
-                    game: params.game,
-                },
-            },
-        },
-        {
             name: 'core.wlc-text-block',
             params: <ITextBlockCParams>{
                 common: {
@@ -242,6 +233,15 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
                 },
             },
         } : null,
+        {
+            name: 'games.wlc-game-thumb',
+            params: {
+                type: 'modal',
+                common: {
+                    game: params.game,
+                },
+            },
+        },
         {
             name: 'core.wlc-button',
             params: <IButtonCParams>{

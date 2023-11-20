@@ -45,6 +45,10 @@
 
         .wlc-btn {
             margin: ef.get-value($themeDefault, 'btnMargin');
+
+            &--theme-mod-default {
+                margin: ef.get-value($themeDefault, 'btnDefaultMargin');
+            }
         }
 
         .wlc-text-block--theme-mod-game-title {
