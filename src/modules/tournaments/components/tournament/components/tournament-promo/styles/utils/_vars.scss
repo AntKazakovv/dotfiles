@@ -147,7 +147,10 @@ $themeDefault: map-merge((
     'loaderAfterBorderColor': var(--mc-main),
     'loaderAfterRadius': 50%,
     'loaderAfterAnimation': spin 1s infinite linear,
-
+    'lockBtnMaxWidth': (
+        480: 185px,
+        560: none,
+    ),
     'linkBlockColor': var(--mc-main),
     'linkBlockColorHover': ef.get('mainColors', 'baseMain'), // Locked color
 

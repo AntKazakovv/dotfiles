@@ -253,6 +253,7 @@
 
         &__lock-btn {
             @include cm.lockBtn;
+            @include bm.get-mq-map('max-width', $themeDefault, 'lockBtnMaxWidth');
         }
     }
 
