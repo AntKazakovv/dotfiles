@@ -5,6 +5,7 @@ import {BehaviorSubject} from 'rxjs';
 import {
     ConfigService,
     EventService,
+    WebsocketService,
 } from 'wlc-engine/modules/core';
 import {PragmaticPlayLiveService} from './pragmatic-play-live.service';
 
@@ -12,6 +13,7 @@ describe('PragmaticPlayLiveService', () => {
     let service: PragmaticPlayLiveService;
     let configServiceSpy: jasmine.SpyObj<ConfigService>;
     let eventServiceSpy: jasmine.SpyObj<EventService>;
+    let webSocketServiceSpy: jasmine.SpyObj<WebsocketService>;
 
     beforeEach(() => {
         eventServiceSpy = jasmine.createSpyObj('EventService', ['subscribe']);
@@ -23,6 +25,7 @@ describe('PragmaticPlayLiveService', () => {
             },
         );
         configServiceSpy.get.and.returnValue(new BehaviorSubject(''));
+        webSocketServiceSpy = jasmine.createSpyObj('WebsocketService', ['addWsEndPointConfig', 'getMessages']);
 
         TestBed.configureTestingModule({
             providers: [
@@ -33,6 +36,10 @@ describe('PragmaticPlayLiveService', () => {
                 {
                     provide: EventService,
                     useValue: eventServiceSpy,
+                },
+                {
+                    provide: WebsocketService,
+                    useValue: webSocketServiceSpy,
                 },
                 PragmaticPlayLiveService,
             ],

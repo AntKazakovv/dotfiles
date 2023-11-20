@@ -26,7 +26,7 @@ import {
     IWSMessage,
     IWebSocketConfig,
     IWSRequestParams,
-    IWSData,
+    IWSConsumerData,
 } from 'wlc-engine/modules/core/system/interfaces/websocket.interface';
 import {
     EventService,
@@ -34,9 +34,10 @@ import {
 } from 'wlc-engine/modules/core/system/services/event/event.service';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {DataService} from 'wlc-engine/modules/core/system/services/data/data.service';
+import {PragmaticLiveData} from 'wlc-engine/modules/games/system/models/pragmatic-live.model';
 
 export type TWSEndPoint = string | 'wsc2' | 'pragmatic';
-
+export type TWSMessage = IWSConsumerData | PragmaticLiveData;
 
 /** This object contains a match between the name of the event
  *  from websocket and endpoint from the rest api,
@@ -89,12 +90,12 @@ export class WebsocketService {
      *
      * @returns {Observable} data
      */
-    public getMessages(params: IWSRequestParams): Observable<IWSData> {
+    public getMessages<T extends TWSMessage>(params: IWSRequestParams): Observable<T> {
         this.createSocket(params.endPoint);
-
         if (this.endPointToWebsocket.has(params.endPoint)) {
             return this.endPointToWebsocket.get(params.endPoint).pipe(
-                filter((message: IWSData) => {
+                filter((message: IWSConsumerData) => {
+
                     if (message.event && message.status !== 'error') {
                         return params.events.includes(message.event)
                             && (params.eventFilterFunc ? params.eventFilterFunc(message) : true);
@@ -111,17 +112,17 @@ export class WebsocketService {
                 catchError((error, caught) => {
                     return merge(caught, this.activateRestApi(params.events).pipe(catchError(() => EMPTY)));
                 }),
-                tap((message: IWSData) => {
+                tap((message: IWSConsumerData) => {
                     if (!message.code && this.isRestApiWork) {
                         this.isRestApiWork = false;
                     }
                 }),
-            );
+            ) as Observable<T>;
         } else {
             return this.eventService.filter({name: 'SOCKET_CONNECT', status: 'success'}).pipe(
                 filter((msg) => msg.data === params.endPoint),
                 take(1),
-                switchMap(() => this.getMessages(params) as Observable<IWSData>),
+                switchMap(() => this.getMessages(params) as Observable<T>),
             );
         }
     }
@@ -134,12 +135,9 @@ export class WebsocketService {
      *
      * @returns {void}
      */
-    public sendToWebsocket(endPoint: TWSEndPoint, method?: string): number {
+    public sendToWebsocket(endPoint: TWSEndPoint, method?: string, payload?: unknown): number {
         const requestId = this.getId();
-        const data: IWSMessage<unknown> = {
-            requestId,
-            method,
-        };
+        const data: IWSMessage<unknown> = method ? {requestId, method} : payload;
 
         if (this.endPointToWebsocket.has(endPoint)) {
             this.endPointToWebsocket.get(endPoint).next({...data});

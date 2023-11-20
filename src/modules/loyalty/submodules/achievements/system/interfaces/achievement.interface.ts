@@ -65,10 +65,3 @@ export interface IWSAchievementData {
     user_id?: number,
     achievement_name?: string,
 }
-
-export interface IWSAchievement {
-    status?: string,
-    system?: string,
-    event?: string,
-    data?: IWSAchievementData,
-}

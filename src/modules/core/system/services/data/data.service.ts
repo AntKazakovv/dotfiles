@@ -56,7 +56,6 @@ import {
 
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {ConfigService} from 'wlc-engine/modules/core/system/services';
-import {IWebSocketConfig} from 'wlc-engine/modules/core/system/interfaces/websocket.interface';
 
 export interface IData<T = any> {
     status: 'success' | 'error';
@@ -130,12 +129,6 @@ interface IRegisteredMethod extends IRequestMethod {
     intervalSubscribe?: Subscription;
 }
 
-interface ISocketQueue {
-    requestId: number;
-    method: string;
-    params?: any;
-}
-
 interface IErrorReplacerParams {
     text: string;
     supportEmail?: boolean;
@@ -160,17 +153,8 @@ export class DataService {
     }
 
     private flow$: Subject<IData> = new Subject<IData>();
-    private socket: WebSocket;
     private apiList: {[key: string]: IRegisteredMethod} = {};
-
     private urlPrefix = '/api/v1';
-
-    private socketUrl = '';
-
-    private requestId: number = 0;
-    private socketQueue: ISocketQueue[] = [];
-    private socketOpen: boolean = false;
-
     private errorReplacerMap!: TErrorReplacerMap;
 
     constructor(
@@ -316,57 +300,6 @@ export class DataService {
     }
 
     /**
-     * Set socket url by socketsData from profile
-     * @param socketsData
-     */
-    public setSocketUrl(socketsData?: IWebSocketConfig): void {
-
-        // TODO: just for test, remove after fundist & wlc_core release
-        if (this.window.location.host.match(/localhost$/)
-            || this.window.location.host.match(/^qa-/)
-            || this.window.location.host.match(/qa\.egamings\.com$/)) {
-            socketsData.server = 'wss://wsqa.egamings.com/ws';
-        }
-
-        const socketUrl = `${socketsData.server}?token=${socketsData.token}&api=${socketsData.api}`;
-
-        if (this.socketUrl !== socketUrl) {
-            if (this.socket) {
-                this.socket.close();
-            }
-
-            this.socketUrl = socketUrl;
-            this.socketConnect();
-        }
-    }
-
-    /**
-     * Request to the socket
-     *
-     * @param {string} method
-     * @param {unknown} params
-     *
-     * @returns {number} requestId
-     */
-    public socketRequest(method: string, params?: unknown): number {
-        const requestId = ++this.requestId;
-        if (this.socketOpen) {
-            this.socketRequest$(requestId, method, params);
-        } else {
-            this.addToSocketQueue(requestId, method, params);
-        }
-        return requestId;
-    }
-
-    /**
-     * Close the socket
-     */
-    public closeSocket(): void {
-        this.socket?.close();
-        this.socketUrl = null;
-    }
-
-    /**
      * Add nonce to localstorage
      *
      *
@@ -394,36 +327,8 @@ export class DataService {
     }
 
     protected async init(): Promise<void> {
-        if (this.socketUrl) {
-            this.socketConnect();
-        }
-
         await this.configService.ready;
         this.errorReplacerMap = this.configService.get<TErrorReplacerMap>('$base.errorsReplacerMap');
-
-    }
-
-    protected addToSocketQueue(requestId: number, method: string, params?: any): void {
-        this.socketQueue.push(
-            {
-                requestId,
-                method,
-                params,
-            },
-        );
-    }
-
-    protected processSocketQueue(): void {
-        while (this.socketQueue.length) {
-            const request = this.socketQueue.shift();
-            this.socketRequest$(request.requestId, request.method, request.params);
-        }
-    }
-
-    protected socketRequest$(requestId: number, method: string, params?: any): void {
-        this.socket.send(JSON.stringify({
-            requestId, method, params,
-        }));
     }
 
     protected request$<T>(method: IRegisteredMethod, params?: RequestParamsType): Observable<IData | T> {
@@ -678,66 +583,6 @@ export class DataService {
         return method.type === 'GET'
             && _has(this.window.wlcPreload, method.preload)
             && _get(this.window.wlcPreload, `${method.preload}['fulfilled']`, true);
-    }
-
-    private socketConnect(): void {
-        this.socket = new WebSocket(this.socketUrl);
-        this.socket.onopen = () => {
-            this.socketOpen = true;
-            this.eventService.emit({
-                name: 'SOCKET_CONNECT',
-                status: 'success',
-            });
-            this.processSocketQueue();
-            this.setSocketHandlers();
-        };
-    }
-
-    private setSocketHandlers(): void {
-        this.socket.addEventListener('close', () => {
-            this.socketOpen = false;
-            this.socket = null;
-            this.onSocketClose();
-        });
-        this.socket.addEventListener('message', (event: MessageEvent) => {
-            this.onSocketMessage(event);
-        });
-        this.socket.addEventListener('error', (event: Event) => {
-            this.onSocketError(event);
-        });
-    }
-
-    private onSocketClose(): void {
-        this.socketUrl && setTimeout(() => {
-            this.socketConnect();
-        }, 5000);
-    }
-
-    private onSocketMessage(event: MessageEvent): void {
-        try {
-            const data = JSON.parse(event.data);
-            data.name = `${data.system}-${data.event}`;
-            data.system = 'socket';
-            this.flow$.next(data);
-        } catch (error) {
-            this.flow$.next({
-                system: 'websocket',
-                name: 'error',
-                status: 'error',
-                code: '0.1.1',
-                errors: error,
-            });
-        }
-    }
-
-    private onSocketError(event: Event): void {
-        this.flow$.next({
-            system: 'websocket',
-            name: 'error',
-            status: 'error',
-            code: '0.1.2',
-            data: event,
-        });
     }
 
     private restorePreloadedData<T>(method: IRegisteredMethod, data: T): Observable<IData> {

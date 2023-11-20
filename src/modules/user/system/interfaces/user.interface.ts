@@ -29,14 +29,6 @@ export interface ILoginWithPhoneData {
     password: string;
 }
 
-export interface IWSUserBalance {
-    data: IWSDataUserBalance;
-    event: string;
-    status: string;
-    requestId: number;
-    system: string;
-}
-
 export interface IWSDataUserBalance {
     Balance: number | string;
     BonusBalance: number;

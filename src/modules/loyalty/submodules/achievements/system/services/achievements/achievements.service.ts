@@ -32,13 +32,14 @@ import {
     IAchievement,
     IAchievementGroup,
     IModifier,
-    IWSAchievement,
+    IWSAchievementData,
 } from 'wlc-engine/modules/loyalty/submodules/achievements/system/interfaces/achievement.interface';
 import {WebSocketEvents} from 'wlc-engine/modules/core/system/services/websocket/websocket.service';
 import {
     AchievementModel,
     AchievementGroupModel,
 } from 'wlc-engine/modules/loyalty/submodules/achievements';
+import {IWSConsumerData} from 'wlc-engine/modules/core/system/interfaces/websocket.interface';
 
 @Injectable({
     providedIn: 'root',
@@ -123,7 +124,7 @@ export class AchievementsService {
             endPoint: 'wsc2', events: [WebSocketEvents.RECEIVE.ACHIEVEMENTS],
         }).subscribe(
             {
-                next: (message: IWSAchievement) => {
+                next: (message: IWSConsumerData<IWSAchievementData>) => {
                     const achName = JSON.parse(message.data.achievement_name);
 
                     this.eventService.emit({

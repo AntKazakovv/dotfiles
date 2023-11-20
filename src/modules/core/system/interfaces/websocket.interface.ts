@@ -1,4 +1,3 @@
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import{TWSEndPoint} from 'wlc-engine/modules/core/system/services/websocket/websocket.service';
 
 export interface IWebSocketConfig {
@@ -12,9 +11,9 @@ export interface IWebSocketConfig {
 
 export interface IWSRequestParams {
     endPoint: TWSEndPoint;
-    events: string[];
+    events?: string[];
     system?: string;
-    eventFilterFunc?: (message: IWSData) => boolean;
+    eventFilterFunc?: (message: IWSConsumerData) => boolean;
 }
 
 export interface IWSMessage<T> {
@@ -23,10 +22,10 @@ export interface IWSMessage<T> {
     params?: T;
 }
 
-export interface IWSData {
+export interface IWSConsumerData<T = any> {
     status?: string;
     system?: string;
     event?: string;
-    data?: IIndexing<any>;
+    data?: T;
     code?: string;
 }

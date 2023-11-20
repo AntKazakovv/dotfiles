@@ -78,14 +78,13 @@ import {
     ILoginWithPhoneData,
     IUserPasswordPost,
     IEmailVerifyData,
-    IWSUserBalance,
     IWSDataUserBalance,
 } from 'wlc-engine/modules/user/system/interfaces/user.interface';
 import {IWSLoyalty} from 'wlc-engine/modules/loyalty/system/interfaces/interfaces';
 import {WebSocketEvents} from 'wlc-engine/modules/core/system/services/websocket/websocket.service';
 import {AchievementsService} from 'wlc-engine/modules/loyalty/submodules/achievements';
 import {UserHelper} from 'wlc-engine/modules/user/system/helpers/user.helper';
-import {IWSData} from 'wlc-engine/modules/core/system/interfaces/websocket.interface';
+import {IWSConsumerData} from 'wlc-engine/modules/core/system/interfaces/websocket.interface';
 import {TermsAcceptService} from 'wlc-engine/modules/user/system/services/terms/terms-accept.service';
 import {
     TwoFactorAuthService,
@@ -532,7 +531,6 @@ export class UserService {
         this.isAuthenticated = false;
         this.configService.set({name: '$user.isAuthenticated', value: false});
 
-        this.dataService.closeSocket();
         this.stopUserInfoFetcher();
 
         this.info = new UserInfo(
@@ -1121,14 +1119,14 @@ export class UserService {
                 eventFilterFunc: this.filterEventWSBalance.bind(this),
             })
             .pipe(
-                tap((data: IWSUserBalance) => {
+                tap((data: IWSConsumerData<IWSDataUserBalance>) => {
                     if (data.status === 'error') {
                         setErrorWS();
                     }
                 }),
-                takeWhile((data: IWSUserBalance) => data.status !== 'error'),
+                takeWhile((data: IWSConsumerData<IWSDataUserBalance>) => data.status !== 'error'),
             )
-            .subscribe((data: IWSUserBalance) => {
+            .subscribe((data: IWSConsumerData<IWSDataUserBalance>) => {
                 if (!_isUndefined(data.data.Balance) || !_isUndefined(data.data.BonusBalance)) {
                     if (setTimeoutUpdateUserInfo) {
                         clearTimeout(setTimeoutUpdateUserInfo);
@@ -1226,7 +1224,7 @@ export class UserService {
         }
     }
 
-    private filterEventWSBalance(event: IWSData): boolean {
+    private filterEventWSBalance(event: IWSConsumerData): boolean {
         let filterResult: boolean = true;
 
         if (event.event === WebSocketEvents.RECEIVE.USER_BALANCE) {

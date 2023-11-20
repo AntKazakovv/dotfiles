@@ -12,8 +12,8 @@ import {
 import {
     ConfigService,
     EventService,
-    Deferred,
     IIndexing,
+    WebsocketService,
 } from 'wlc-engine/modules/core';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {
@@ -41,12 +41,9 @@ interface ISubscribedGame {
 })
 export class PragmaticPlayLiveService {
 
-    private connected: boolean = false;
-    private connectReady = new Deferred();
-    private connectInProgress: boolean = false;
-    private websocket: WebSocket = null;
     private subscribed: IIndexing<ISubscribedGame> = {};
     private currency: string = 'EUR';
+    private wsPragmaticSub: Subscription;
 
     private readonly apiUrl: string;
     private readonly casinoId: string;
@@ -54,6 +51,7 @@ export class PragmaticPlayLiveService {
     constructor(
         private configService: ConfigService,
         private eventService: EventService,
+        private websocketService: WebsocketService,
     ) {
         const settings = this.configService.get<IPragmaticPlaySettings>('pragmaticPlaySettings');
         this.apiUrl = settings?.dgaUrl;
@@ -76,7 +74,7 @@ export class PragmaticPlayLiveService {
             .subscribe(async (currency) => {
                 this.currency = currency;
                 if (this.hasSubscribers()) {
-                    this.disconnect();
+                    this.wsPragmaticSub.unsubscribe();
                 }
             });
 
@@ -84,7 +82,7 @@ export class PragmaticPlayLiveService {
             () => {
                 this.currency = this.configService.get<string>('$base.defaultCurrency');
                 if (this.hasSubscribers()) {
-                    this.disconnect();
+                    this.wsPragmaticSub.unsubscribe();
                 }
             },
         );
@@ -106,13 +104,7 @@ export class PragmaticPlayLiveService {
         if (game.merchantID !== 913) {
             return;
         }
-
-        if (!this.connected && !this.connectInProgress) {
-            this.connect();
-        }
-
-        await this.connectReady.promise;
-
+        this.connect();
         const tableId = game.launchCode;
 
         if (!this.subscribed[tableId]) {
@@ -150,43 +142,23 @@ export class PragmaticPlayLiveService {
     }
 
     private async connect(): Promise<void> {
-        if (this.connectInProgress || !this.apiUrl) {
+        if (!this.apiUrl) {
             return;
         }
-
-        this.connectInProgress = true;
-
         await this.configService.ready;
 
-        if (this.websocket !== null && this.websocket.readyState !== 3) {
-            this.websocket.close();
-        }
-        this.websocket = new WebSocket(this.apiUrl);
-
-        this.websocket.onopen = () => {
-            this.onWsOpen();
-        };
-        this.websocket.onclose = () => {
-            this.onWsClose();
-        };
-        this.websocket.onmessage = (event: MessageEvent) => {
-            this.onWsMessage(event);
-        };
-        this.websocket.onerror = () => {
-            this.onWsError();
-        };
+        this.websocketService.addWsEndPointConfig('pragmatic', {server2: this.apiUrl});
+        this.wsPragmaticSub = this.websocketService.getMessages(
+            {
+                endPoint: 'pragmatic',
+            })
+            .subscribe((data: PragmaticLiveData) => {
+                this.onMessage(data);
+            });
+        this.onWsOpen();
     }
 
-    private async disconnect(): Promise<void> {
-        await this.connectReady.promise;
-        this.websocket?.close();
-    }
-
-    private send(message: string): void {
-        this.websocket.send(message);
-    }
-
-    private async makeSubscribe(tableId: string): Promise<void> {
+    private makeSubscribe(tableId: string): void {
         const subscribeMessage = {
             type: 'subscribe',
             key: tableId,
@@ -194,12 +166,12 @@ export class PragmaticPlayLiveService {
             currency: this.currency,
         };
 
-        this.send(JSON.stringify(subscribeMessage));
+        this.websocketService.sendToWebsocket('pragmatic', null, subscribeMessage);
     }
 
     private makeUnSubscribe(): void {
         if (!this.hasSubscribers()) {
-            this.disconnect();
+            this.wsPragmaticSub.unsubscribe();
         }
     }
 
@@ -224,10 +196,6 @@ export class PragmaticPlayLiveService {
     }
 
     private onWsOpen(): void {
-        this.connected = true;
-        this.connectInProgress = false;
-        this.connectReady.resolve();
-
         _each(this.subscribed, (item, tableId) => {
             if (item?.subscribers) {
                 this.makeSubscribe(tableId);
@@ -235,31 +203,7 @@ export class PragmaticPlayLiveService {
         });
     }
 
-    private onWsClose(): void {
-        this.connected = false;
-        this.connectInProgress = false;
-        this.connectReady = new Deferred();
-        this.websocket = null;
-        if (this.hasSubscribers()) {
-            this.connect();
-        }
-    }
-
-    private onWsMessage(event: MessageEvent): void {
-        try {
-            const data = JSON.parse(event.data);
-            this.onMessage(data);
-        } catch (error) {
-            //
-        }
-
-    }
-
     private hasSubscribers(): boolean {
         return !!_find(this.subscribed, (item) => !!item?.subscribers);
-    }
-
-    private onWsError(): void {
-        // TODO: maybe need some errors process, but i don't know which
     }
 }
