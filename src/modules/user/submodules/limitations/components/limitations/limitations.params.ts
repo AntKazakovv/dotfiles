@@ -7,6 +7,7 @@ import {
     ProhibitedPatterns,
     CustomType,
     IComponentParams,
+    IFormComponent,
 } from 'wlc-engine/modules/core';
 import {
     LimitValueComponent,
@@ -85,26 +86,33 @@ export const limitType = {
     },
 };
 
-export const limitAmount = {
-    name: 'core.wlc-input',
-    params: <IInputCParams>{
-        name: 'limitAmount',
-        customMod: ['amount'],
-        theme: 'vertical',
-        showCurrency: true,
-        common: {
-            placeholder: gettext('Amount'),
-            customModifiers: 'right-shift',
-            type: 'number',
+export const limitAmount = (useZeroBalance: boolean): IFormComponent => {
+    const limitAmountConfig = {
+        name: 'core.wlc-input',
+        params: <IInputCParams>{
+            name: 'limitAmount',
+            customMod: ['amount'],
+            theme: 'vertical',
+            showCurrency: true,
+            common: {
+                placeholder: gettext('Amount'),
+                customModifiers: 'right-shift',
+                type: 'number',
+            },
+            wlcElement: 'limit_amount',
+            validators: [
+                'required',
+            ],
+            locked: false,
+            prohibitedPattern: ProhibitedPatterns.notAmountSymbols,
         },
-        wlcElement: 'limit_amount',
-        validators: [
-            'required',
-            'numberDecimal',
-        ],
-        locked: false,
-        prohibitedPattern: ProhibitedPatterns.notAmountSymbols,
-    },
+    };
+
+    if (!useZeroBalance) {
+        limitAmountConfig.params.validators.push('numberDecimal');
+    }
+
+    return limitAmountConfig;
 };
 
 export const limitPeriod = {

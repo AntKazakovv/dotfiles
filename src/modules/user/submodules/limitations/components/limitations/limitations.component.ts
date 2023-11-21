@@ -13,6 +13,7 @@ import {first} from 'rxjs/operators';
 import _each from 'lodash-es/each';
 import _set from 'lodash-es/set';
 import _size from 'lodash-es/size';
+import _isNil from 'lodash-es/isNil';
 
 import {
     AbstractComponent,
@@ -31,6 +32,7 @@ import {
 } from 'wlc-engine/modules/user/submodules/limitations/system/services/limitation/limitation.service';
 import {
     ILimitationTypeItem,
+    TLimitationType,
 } from 'wlc-engine/modules/user/submodules/limitations/system/interfaces/limitations.interface';
 
 import * as Params from './limitations.params';
@@ -47,21 +49,14 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
     public override $params: Params.ILimitationsCParams;
     public loading: boolean = true;
 
-    public formConfig: IFormWrapperCParams = {
-        class: 'wlc-form-wrapper',
-        components: [
-            Params.limitType,
-            Params.limitAmount,
-            Params.limitPeriod,
-            Params.submitBtn,
-        ],
-    };
+    public formConfig: IFormWrapperCParams;
 
     public formData = new BehaviorSubject({});
     public limits: BehaviorSubject<any[]> = new BehaviorSubject([]);
 
     protected pending: boolean = false;
     protected form: UntypedFormGroup;
+    protected useZeroBalance: boolean = null;
 
     public tableData: ITableCParams = {
         head: Params.tableConfig,
@@ -83,12 +78,23 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         this.patchLimitTypeItems();
-        await this.getLimits();
+        await this.setLimits();
+
+        this.formConfig = {
+            class: 'wlc-form-wrapper',
+            components: [
+                Params.limitType,
+                Params.limitAmount(this.useZeroBalance),
+                Params.limitPeriod,
+                Params.submitBtn,
+            ],
+        };
+
         this.eventService.subscribe({name: 'remove_exclusion'}, () => {
-            this.getLimits();
+            this.setLimits();
         }, this.$destroy);
 
-        this.eventService.subscribe({name: 'SELECT_CHOSEN_LIMITTYPE'}, (data: ISelectOptions) => {
+        this.eventService.subscribe({name: 'SELECT_CHOSEN_LIMITTYPE'}, (data: ISelectOptions<TLimitationType>) => {
             switch (data.value) {
                 case 'realityChecker':
                     this.formConfig = {
@@ -115,7 +121,9 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
                         class: this.formConfig.class,
                         components: [
                             Params.limitType,
-                            Params.limitAmount,
+                            Params.limitAmount(
+                                this.isTypeLimitationsForZeroBalance(data.value) ? this.useZeroBalance : null,
+                            ),
                             Params.limitPeriod,
                             Params.submitBtn,
                         ],
@@ -144,7 +152,9 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
             case 'MaxDepositSum':
             case 'MaxBetSum':
             case 'MaxLossSum':
-                if (!+form.value.limitAmount) {
+                if (!+form.value.limitAmount && (!this.useZeroBalance ||
+                    (this.useZeroBalance && !this.isTypeLimitationsForZeroBalance(form.value.limitType)))
+                ) {
                     this.eventService.emit({
                         name: NotificationEvents.PushMessage,
                         data: <IPushMessageParams>{
@@ -233,7 +243,7 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
                 break;
         }
 
-        await this.getLimits();
+        await this.setLimits();
         this.pending = false;
         return true;
     }
@@ -250,7 +260,11 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
         }
     }
 
-    protected async getLimits(): Promise<void> {
+    protected isTypeLimitationsForZeroBalance(type: TLimitationType): boolean {
+        return type === 'MaxDepositSum' || type === 'MaxBetSum';
+    }
+
+    protected async setLimits(): Promise<void> {
         this.loading = true;
         const limits = [];
         await this.userService.userProfile$.pipe(first((v) => !!v)).toPromise();
@@ -266,8 +280,13 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
         }
 
         const selfExclusion = await this.limitationService.getUserSelfExclusion();
+
+        if (_isNil(this.useZeroBalance) && selfExclusion.ZeroLimits) {
+            this.useZeroBalance = true;
+        }
+
         _each(selfExclusion, (item, key) => {
-            if (Params.limitTypeTexts[key] && item !== '0') {
+            if (Params.limitTypeTexts[key] && (item !== '0' || this.useZeroBalance)) {
                 limits.push({
                     type: key,
                     typeText: Params.limitTypeTexts[key],

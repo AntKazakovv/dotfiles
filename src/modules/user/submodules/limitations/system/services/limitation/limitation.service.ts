@@ -20,12 +20,13 @@ import {
     IPushMessageParams,
     NotificationEvents,
 } from 'wlc-engine/modules/core';
-
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
+import {TLimitationType} from 'wlc-engine/modules/user/submodules/limitations/system/interfaces/limitations.interface';
 
 export interface ISelfExclusion {
     Currency: string;
     LimitsDate: string;
+    ZeroLimits: boolean;
     MaxDepositSumDay?: string;
     MaxDepositSumWeek?: string;
     MaxDepositSumMonth?: string;
@@ -281,16 +282,9 @@ export class LimitationService {
      *
      * @return {Promise}
      */
-    public async removeUserSelfExclusion(type?: string): Promise<void> {
+    public async removeUserSelfExclusion(limit?: TLimitationType): Promise<void> {
         try {
-            if (type) {
-                await this.setUserSelfExclusion({
-                    type: type,
-                    value: 0,
-                });
-            } else {
-                await this.dataService.request('limit/removeExclusion');
-            }
+            await this.dataService.request('limit/removeExclusion', {limit});
         } catch (error) {
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,
