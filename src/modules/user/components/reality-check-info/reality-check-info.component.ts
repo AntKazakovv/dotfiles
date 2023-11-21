@@ -37,6 +37,7 @@ export class RealityCheckInfoComponent extends AbstractComponent implements OnIn
             this.showClose = checked;
         },
     };
+    protected dateRegExp = /(?<y>\d{4})-(?<m>\d{1,2})-(?<d>\d{1,2}) (?<hour>\d{1,2}):(?<min>\d{1,2}):(?<sec>\d{1,2})/;
 
     constructor(
         @Inject('injectParams') protected params: Params.IRealityCheckInfoCParams,
@@ -48,7 +49,7 @@ export class RealityCheckInfoComponent extends AbstractComponent implements OnIn
 
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
-        this.playTime = DateTime.fromJSDate(new Date(this.$params.FromTime + ' UTC')).toFormat('yyyy-LL-dd HH:mm:ss');
+        this.playTime = DateTime.fromJSDate(this.getLocalDate()).toFormat('yyyy-LL-dd HH:mm:ss');
     }
 
     public override ngOnDestroy(): void {
@@ -71,5 +72,24 @@ export class RealityCheckInfoComponent extends AbstractComponent implements OnIn
         } catch (error) {
             //
         }
+    }
+
+    protected getLocalDate(): Date {
+        const date: Date = this.getDateFromString();
+        date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+        return date;
+    }
+
+    protected getDateFromString(): Date {
+        const dateGroups = this.$params.FromTime.match(this.dateRegExp).groups;
+        const dateInfo = {
+            year: Number(dateGroups.y),
+            month: Number(dateGroups.m) - 1,
+            day: Number(dateGroups.d),
+            hour: Number(dateGroups.hour),
+            min: Number(dateGroups.min),
+            sec: Number(dateGroups.sec),
+        };
+        return new Date(dateInfo.year, dateInfo.month, dateInfo.day, dateInfo.hour, dateInfo.min, dateInfo.sec);
     }
 }
