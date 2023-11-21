@@ -308,11 +308,19 @@ export namespace wlcTitle {
     };
 
     export const profileAchievements: ILayoutComponent = {
-        name: 'core.wlc-title',
-        params: <ITitleCParams>{
-            customMod: ['profile'],
-            mainText: gettext('Achievements'),
-            wlcElement: 'header_achievements',
+        name: 'core.wlc-wrapper',
+        params: {
+            class: 'wlc-profile-content__top',
+            components: [
+                {
+                    name: 'core.wlc-title',
+                    params: <ITitleCParams>{
+                        customMod: ['profile'],
+                        mainText: gettext('Achievements'),
+                        wlcElement: 'header_achievements',
+                    },
+                },
+            ],
         },
     };
 

@@ -128,7 +128,7 @@ export const $profileFirstLayouts: ILayoutsConfig = {
             'profile-content': sectionsLib.profileContent.profileLoyaltyLevelsTypeFirstSingle,
         },
     },
-    'app.profile.achievements': {
+    'app.profile.achievements.main': {
         extends: 'app.profile',
         sections: {
             'profile-content': sectionsLib.profileContent.profileAchievementsTypeFirst,

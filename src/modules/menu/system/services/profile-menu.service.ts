@@ -47,6 +47,10 @@ import {
 import {Deferred} from 'wlc-engine/modules/core/system/classes/deferred.class';
 import {StoreCategory} from 'wlc-engine/modules/store/system/models/store-category';
 import {UserInfo} from 'wlc-engine/modules/user';
+import {
+    AchievementGroupModel,
+    AchievementsService,
+} from 'wlc-engine/modules/loyalty/submodules/achievements';
 
 import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
 import * as Config from 'wlc-engine/modules/menu/system/config/profile-menu.config';
@@ -236,6 +240,61 @@ export class ProfileMenuService {
     }
 
     /**
+     * Prepare profile achievements
+     */
+    protected async prepareAchievements(): Promise<void> {
+        let achievementItemIndex: number = _findIndex(
+            this.profileMenuConfig,
+            (item: MenuParams.MenuConfigItem): boolean => {
+                if (_isString(item)) {
+                    const menuItem: IMenuItem = Config.wlcProfileMenuItemsGlobal[item];
+
+                    return menuItem?.type === 'achievement';
+                } else {
+                    if (_has(item, 'parent')) {
+                        return (item as MenuParams.MenuConfigItemsGroup).parent == 'profile-menu:achievements';
+                    }
+
+                    return item.type === 'achievement';
+                }
+            },
+        );
+
+        if (achievementItemIndex !== -1) {
+            const achievementsService: AchievementsService =
+                await this.injectionService.getService('achievements.achievement-service');
+            const groups: AchievementGroupModel[] = await achievementsService.getGroups();
+
+            const menuItems: MenuParams.IMenuItem[] = _map(
+                groups,
+                (group: AchievementGroupModel): IMenuItem => {
+                    return {
+                        name: group.name,
+                        noTranslate: !group.isCommon,
+                        type: 'sref',
+                        icon: 'achievement-group',
+                        class: 'achievement-group',
+                        wlcElement: 'link_cc-profile-menu_achievements-group',
+                        params: {
+                            state: {
+                                name: 'app.profile.achievements.main',
+                                params: {
+                                    group: group.isCommon ? undefined : group.id,
+                                },
+                            },
+                        },
+                    };
+                });
+
+            this.profileMenuConfig[achievementItemIndex] = {
+                parent: 'profile-menu:achievements',
+                type: 'group',
+                items: menuItems,
+            };
+        }
+    }
+
+    /**
      * Init profile menu
      *
      * @returns {Promise<void>}
@@ -250,6 +309,10 @@ export class ProfileMenuService {
 
         if (this.configService.get('$base.profile.transfers.use')) {
             await this.prepareTransfer();
+        }
+
+        if (this.configService.get<boolean>('$base.profile.achievements.use')) {
+            await this.prepareAchievements();
         }
 
         this.readyStatus.resolve();

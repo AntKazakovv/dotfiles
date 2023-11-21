@@ -1109,7 +1109,6 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         params: {
             state: {
                 parent: [
-                    'app.profile.achievements',
                     'app.profile.loyalty-level',
                 ],
                 name: 'app.profile.loyalty-level',
@@ -1119,39 +1118,49 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     },
 
     'profile-menu:loyalty': profileLoyaltyMenuItem,
-
     'profile-menu:loyalty-level-single': {
         ...profileLoyaltyMenuItem,
         name: gettext('Levels'),
     },
-
     'profile-menu:loyalty-level': profileLoyaltyMenuItem,
-
     'profile-first-menu:loyalty-level': profileLoyaltyMenuItem,
 
     'profile-menu:achievements': {
         name: gettext('Achievements'),
-        type: 'sref',
+        type: 'title',
         icon: 'achievements',
         class: 'achievements',
-        wlcElement: 'link_achievements',
+        wlcElement: 'link_cc-profile-menu_achievements',
         params: {
             state: {
-                name: 'app.profile.achievements',
+                name: 'app.profile.achievements.main',
                 params: {},
             },
         },
     },
-
     'profile-first-menu:achievements': {
         name: gettext('Achievements'),
-        type: 'sref',
+        type: 'title',
         icon: 'achievements',
         class: 'achievements',
-        wlcElement: 'link_achievements',
+        wlcElement: 'link_cc-profile-menu_achievements',
         params: {
             state: {
-                name: 'app.profile.achievements',
+                parent: 'app.profile.achievements',
+                name: 'app.profile.achievements.main',
+                params: {},
+            },
+        },
+    },
+    'profile-menu:achievements-with-groups': {
+        name: gettext('Achievements'),
+        type: 'achievement',
+        icon: 'achievements',
+        class: 'achievements',
+        wlcElement: 'link_cc-profile-menu_achievements',
+        params: {
+            state: {
+                name: 'app.profile.achievements.main',
                 params: {},
             },
         },

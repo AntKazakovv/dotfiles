@@ -19,7 +19,6 @@ export class AchievementModel extends AbstractModel<IAchievement> {
     public static currentLang: string;
     private _actionTitle: string;
     private _description: string;
-    private _groupName: string;
     private _name: string;
     private _prizeDescription: string;
 
@@ -32,7 +31,6 @@ export class AchievementModel extends AbstractModel<IAchievement> {
         this._name = this.getCurrentLangText(this.data.Name);
         this._description = this.getCurrentLangText(this.data.Description);
         this._prizeDescription = this.getCurrentLangText(this.data.PrizeDescription);
-        this._groupName = this.getCurrentLangText(this.data.GroupName);
         this._actionTitle = this.getCurrentLangText(this.data.ActionTitle);
     }
 
@@ -62,10 +60,6 @@ export class AchievementModel extends AbstractModel<IAchievement> {
 
     public get groupId(): number {
         return _toNumber(this.data.IDGroup);
-    }
-
-    public get groupName(): string {
-        return this._groupName;
     }
 
     public get isReceived(): boolean {

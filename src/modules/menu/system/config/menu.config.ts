@@ -96,12 +96,12 @@ export const menuConfig: IMenuConfig = {
                 ],
             },
             'profile-menu:market-with-categories',
+            'profile-menu:achievements-with-groups',
             {
                 parent: 'profile-menu:loyalty-section',
                 type: 'group',
                 items: [
                     'profile-menu:loyalty-level-single',
-                    'profile-menu:achievements',
                 ],
             },
             'profile-menu:cash-deposit',
@@ -201,12 +201,12 @@ export const menuConfig: IMenuConfig = {
                 ],
             },
             'profile-menu:market-with-categories',
+            'profile-menu:achievements-with-groups',
             {
                 parent: 'profile-menu:loyalty-section',
                 type: 'group',
                 items: [
                     'profile-menu:loyalty-level-single',
-                    'profile-first-menu:achievements',
                 ],
             },
         ],
@@ -278,12 +278,12 @@ export const menuConfig: IMenuConfig = {
                 ],
             },
             'profile-menu:market-with-categories',
+            'profile-menu:achievements-with-groups',
             {
                 parent: 'profile-menu:loyalty-section',
                 type: 'group',
                 items: [
                     'profile-menu:loyalty-level-single',
-                    'profile-first-menu:achievements',
                 ],
             },
         ],

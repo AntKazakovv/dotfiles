@@ -8,7 +8,7 @@
         </div>
         <div wlc-pagination
              theme="default"
-             [items]="achievements"
+             [items]="achievementsFromActiveGroup"
              [settings]="$params.pagination"
              (paginationOnChange)="paginationOnChange($event)">
         </div>
@@ -17,7 +17,7 @@
 
 <ng-template #defaultWithoutPagination>
     <div class="{{$class}}__list">
-        <div *ngFor="let achievement of achievements"
+        <div *ngFor="let achievement of achievementsFromActiveGroup"
              wlc-achievement-item
              [inlineParams]="{achievement: achievement}">
         </div>

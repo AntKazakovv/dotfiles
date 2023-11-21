@@ -1191,7 +1191,7 @@ export namespace profileContent {
     export const profileAchievements: ILayoutSectionConfig = {
         container: true,
         components: [
-            componentLib.wlcTitle.profileLoyalty,
+            componentLib.wlcAchievementTitle.def,
             componentLib.wlcProfileMenu.submenu,
             componentLib.wlcAchievementsList.def,
         ],
@@ -1207,7 +1207,7 @@ export namespace profileContent {
                 params: {
                     class: 'wlc-profile-content__header',
                     components: [
-                        componentLib.wlcTitle.profileLoyalty,
+                        componentLib.wlcAchievementTitle.def,
                     ],
                 },
                 display: {
@@ -1225,7 +1225,7 @@ export namespace profileContent {
                             params: {
                                 class: 'wlc-profile-content__header underlined',
                                 components: [
-                                    componentLib.wlcTitle.profileAchievements,
+                                    componentLib.wlcAchievementTitle.group,
                                 ],
                             },
                             display: {

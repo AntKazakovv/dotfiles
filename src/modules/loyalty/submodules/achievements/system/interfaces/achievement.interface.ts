@@ -28,14 +28,18 @@ export interface IModifier {
      * Values of field used for modification
      */
     values: (number | string)[];
-};
+}
+
+export interface IAchievementData {
+    achievements: IAchievement[],
+    groups: IAchievementGroup[],
+}
 
 export interface IAchievement {
     ActionTitle: string | IIndexing<string>;
     ActionUrl: string;
     Description: string | IIndexing<string>;
     EndDate?: string | null;
-    GroupName: string | IIndexing<string>;
     ID: string;
     IDGroup: string;
     ImageActive: string;
@@ -45,6 +49,12 @@ export interface IAchievement {
     Progress?: string;
     ProgressDetails?: IAchievementProgressDetails;
     Status?: '0' | '1';
+}
+
+export interface IAchievementGroup {
+    ID: string,
+    Name: string | IIndexing<string>,
+    Weight: string,
 }
 
 export interface IWSAchievementData {

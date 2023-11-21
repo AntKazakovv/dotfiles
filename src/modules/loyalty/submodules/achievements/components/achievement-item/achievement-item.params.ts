@@ -32,7 +32,7 @@ export interface IAchievementItemCParams extends IComponentParams<Theme, Type, T
 }
 
 export const defaultParams: IAchievementItemCParams = {
-    moduleName: 'loyalty',
+    moduleName: 'achievements',
     componentName: 'wlc-achievement-item',
     class: 'wlc-achievement-item',
     buttonParams: {

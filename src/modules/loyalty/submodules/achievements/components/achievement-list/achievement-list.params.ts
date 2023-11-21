@@ -8,6 +8,7 @@ import {IModifier} from 'wlc-engine/modules/loyalty/submodules/achievements/syst
 export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
+export type TOrder = 'asc' | 'desc';
 
 export interface IAchievementListCParams extends IComponentParams<Theme, Type, ThemeMod> {
     /**
@@ -18,10 +19,18 @@ export interface IAchievementListCParams extends IComponentParams<Theme, Type, T
      * Params for pagination
      */
     pagination?: IPagination;
+    /**
+     * Achievements order value
+     */
+    achievementsOrder?: TOrder;
+    /**
+     * Is need hide received achievements
+     */
+    hideReceived?: boolean;
 }
 
 export const defaultParams: IAchievementListCParams = {
-    moduleName: 'loyalty',
+    moduleName: 'achievements',
     componentName: 'wlc-achievement-list',
     class: 'wlc-achievement-list',
     modifier: {
@@ -41,4 +50,6 @@ export const defaultParams: IAchievementListCParams = {
             },
         },
     },
+    hideReceived: false,
+    achievementsOrder: 'desc',
 };
