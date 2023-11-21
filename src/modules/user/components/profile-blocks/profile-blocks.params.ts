@@ -51,7 +51,7 @@ export const defaultParams: IProfileBlocksCParams = {
         title: gettext('Banking information'),
         subtitle: gettext('You can add your banking information here.'),
         buttonParams: {
-            wlcElement: 'button_change-password',
+            wlcElement: 'button_add-banking-info',
             common: {
                 text: gettext('Add info'),
                 iconPath: 'wlc/icons/arrow.svg',
