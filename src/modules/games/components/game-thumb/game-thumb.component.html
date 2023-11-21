@@ -174,7 +174,8 @@
         </ng-container>
     </div>
     <div class="{{$class}}__desc">
-        <div class="{{$class}}__title">
+        <div *ngIf="$params.themeMod !== 'wolf'"
+            class="{{$class}}__title">
             <ng-container [ngTemplateOutlet]="thumbName"></ng-container>
             <span *ngIf="$params?.common?.useMerchantName"
                   class="{{$class}}__merchant"

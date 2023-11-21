@@ -12,8 +12,8 @@ export interface IPragmaticResult {
 
 export enum TBaccarat {
     'TIE' = 'green',
-    'PLAYER_WIN' = 'red',
-    'BANKER_WIN' = 'blue',
+    'PLAYER_WIN' = 'blue',
+    'BANKER_WIN' = 'red',
 }
 
 export type TWinner = 'TIE' | 'PLAYER_WIN' | 'BANKER_WIN';
