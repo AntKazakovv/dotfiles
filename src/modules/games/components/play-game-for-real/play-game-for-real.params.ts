@@ -227,6 +227,7 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
             name: 'games.wlc-game-thumb',
             params: {
                 type: 'modal',
+                themeMod: 'default',
                 common: {
                     game: params.game,
                 },

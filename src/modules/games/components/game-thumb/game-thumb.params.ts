@@ -16,12 +16,13 @@ export type Type = 'default'
     | 'games-slider'
     | 'horizontal'
     | 'promo-game'
+    | 'external-title'
     /** Only picture/video thumb, without any controls, title and hover-effects */
     | 'simple'
     | 'ppl-info'
     | CustomType;
 export type Theme = 'default' | 'vertical' | 'promo-widget' | 'horizontal' | CustomType;
-export type ThemeMod = 'default' | 'vertical' | 'circle' | 'mobile-app' | 'wolf' | CustomType;
+export type ThemeMod = 'default' | 'vertical' | 'circle' | 'mobile-app' | 'wolf' | 'external-title' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;

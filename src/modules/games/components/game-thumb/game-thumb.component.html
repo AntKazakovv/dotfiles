@@ -8,6 +8,7 @@
         <ng-container [ngTemplateOutlet]="typePromoGame" *ngSwitchCase="'promo-game'"></ng-container>
         <ng-container [ngTemplateOutlet]="typePplInfo" *ngSwitchCase="'ppl-info'"></ng-container>
         <ng-container [ngTemplateOutlet]="typeSimple" *ngSwitchCase="'simple'"></ng-container>
+        <ng-container [ngTemplateOutlet]="typeExternalTitle" *ngSwitchCase="'external-title'"></ng-container>
         <ng-container [ngTemplateOutlet]="typeDefault" *ngSwitchDefault></ng-container>
     </ng-container>
 </ng-container>
@@ -115,6 +116,13 @@
             <ng-container [ngTemplateOutlet]="buttonsPlayDemo"></ng-container>
         </div>
         <ng-container [ngTemplateOutlet]="buttonFavourite"></ng-container>
+    </div>
+    <div *ngIf="$params.themeMod == 'external-title'" class="{{$class}}__title">
+        <ng-container [ngTemplateOutlet]="thumbName"></ng-container>
+        <span class="{{$class}}__merchant"
+              data-wlc-element="block_game-thumb-alias">
+              {{game.merchantAlias}}
+        </span>
     </div>
 </ng-template>
 
@@ -288,6 +296,48 @@
         <ng-container *ngIf="!hasVideo; else videoTemplate">
             <ng-container [ngTemplateOutlet]="thumbImg"></ng-container>
         </ng-container>
+    </div>
+</ng-template>
+
+<ng-template #typeExternalTitle>
+    <div class="{{$class}}__card">
+        <div class="{{$class}}-media" (click)="startGame(false, true, $event)">
+            <ng-container *ngIf="!hasVideo; else videoTemplate">
+                <ng-container [ngTemplateOutlet]="thumbImg"></ng-container>
+            </ng-container>
+        </div>
+        <div class="{{$class}}__desc">
+            <ng-container [ngTemplateOutlet]="buttonFavourite"></ng-container>
+            <ng-container [ngTemplateOutlet]="buttonsPlayDemo"></ng-container>
+        </div>
+        <div *ngIf="showMerchantIcon; else merchantName"
+            class="{{$class}}__merchants-block">
+            <img wlc-fallback
+                 class="{{$class}}__merchants-icon"
+                 loading="lazy"
+                 [src]="merchantIconPath"
+                 (imageError)="merchantIconErrorHolder()">
+        </div>
+        <ng-container *ngIf="hasPragmaticDGA">
+            <div class="{{$class}}__ppl-more-block">
+                <ng-container [ngTemplateOutlet]="thumbName"></ng-container>
+                <ng-container [ngTemplateOutlet]="pragmaticPlayLive"></ng-container>
+            </div>
+            <ng-container [ngTemplateOutlet]="pplMoreIcon"></ng-container>
+        </ng-container>
+        <div *ngIf="$params.showJackpotAmount && game.jackpotAmount"
+             wlc-currency
+             class="{{$class}}__jackpot"
+             [value]="game.jackpotAmount.amount"
+             [currency]="game.jackpotAmount.currency">
+        </div>
+    </div>
+    <div class="{{$class}}__title">
+        <ng-container [ngTemplateOutlet]="thumbName"></ng-container>
+        <span class="{{$class}}__merchant"
+              data-wlc-element="block_game-thumb-alias">
+              {{game.merchantAlias}}
+        </span>
     </div>
 </ng-template>
 

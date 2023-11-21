@@ -4,8 +4,11 @@ $themeDefault: map-merge((
         375: pointer,
         1024: unset,
     ),
+    'thumbBgColor': var(--mc-bg-d10),
+    'thumbBgImg': url('/static/images/logo.svg'),
+    'thumbBgImgSize': 50%,
     'thumbAspectRatio': '4/3',
-    'thumbBorderRadius': ef.get('radius', 'biger'),
+    'thumbRadius': ef.get('radius', 'biger'),
 
     'placeholderBgColor': var(--mc-bg-d10),
     'placeholderBgImg': url('/static/images/logo.svg'),
@@ -256,6 +259,25 @@ $themeDefaultBottom: map-merge((
     'iconOpacity': 0,
     'iconOpacityHover': 1,
 ), $customThemeDefaultBottom);
+
+$customThemeDefaultModExternalTitle: () !default;
+$themeDefaultModExternalTitle: map-merge((
+    'titlePadding': ef.size(2) 0 0,
+    'titleAlignItems': flex-start,
+    'titleTextAlign': left,
+    'nameTextStyle': (
+        375: 'CaptionTextBold',
+        1200: 'ThirdTitleBold',
+    ),
+    'nameColor': var(--mc-baseMain),
+
+    'merchantTextStyle': (
+        375: 'CaptionText',
+        1200: 'PrimaryText',
+    ),
+    'merchantColor': var(--mc-baseMain-o6),
+    'transformRadius': ef.get('radius', 'biger'),
+), $customThemeDefaultModExternalTitle);
 
 $customThemeDefaultModMobile: () !default;
 $themeDefaultModMobile: map-merge((

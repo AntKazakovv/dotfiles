@@ -123,6 +123,7 @@ export class GamesSliderComponent extends AbstractComponent implements OnInit {
                     component: GameThumbComponent,
                     componentParams: <IGameThumbCParams>{
                         theme: 'default',
+                        themeMod: 'default',
                         type: 'games-slider',
                         common: {game},
                     },

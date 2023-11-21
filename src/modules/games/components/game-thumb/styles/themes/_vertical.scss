@@ -228,6 +228,56 @@
         }
     }
 
+    &.wlc-game-thumb--theme-mod-external-title {
+        border-radius: unset;
+
+        .wlc-game-thumb {
+
+            &__transform {
+                position: relative;
+                overflow: hidden;
+                border-radius: ef.get-value($themeDefaultModExternalTitle, 'transformRadius');
+            }
+
+            &__name {
+                @include bm.lineClamp(1);
+                @include text.get-text-style(
+                    ef.get-value($themeDefaultModExternalTitle, 'nameTextStyle'),
+                    ef.get-value($themeDefaultModExternalTitle, 'nameColor')
+                );
+                display: block;
+
+                @include mq.min(1200) {
+
+                    @include text.get-text-style(
+                        ef.get-value($themeDefaultModExternalTitle, 'nameTextStyle', 1200),
+                        ef.get-value($themeDefaultModExternalTitle, 'nameColor')
+                    );
+                }
+            }
+
+            &__merchant {
+                @include text.get-text-style(
+                    ef.get-value($themeDefaultModExternalTitle, 'merchantTextStyle'),
+                    ef.get-value($themeDefaultModExternalTitle, 'merchantColor')
+                );
+                display: block;
+
+                @include mq.min(1200) {
+
+                    @include text.get-text-style(
+                        ef.get-value($themeDefaultModExternalTitle, 'merchantTextStyle', 1200),
+                        ef.get-value($themeDefaultModExternalTitle, 'merchantColor')
+                    );
+                }
+            }
+
+            &__title {
+                padding: ef.get-value($themeDefaultModExternalTitle, 'titlePadding');
+            }
+        }
+    }
+
     &.wlc-game-thumb--theme-mod-wolf {
 
         .wlc-game-thumb {

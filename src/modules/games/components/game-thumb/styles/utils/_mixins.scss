@@ -233,3 +233,25 @@
         @include bm.get-mq-map('top', $config, 'jackpotPosTop');
     }
 }
+
+@mixin baseCardStyle() {
+    position: relative;
+    overflow: hidden;
+    border-radius: ef.get-value($themeDefault, 'thumbRadius');
+    background: {
+        position: center;
+        color: ef.get-value($themeDefault, 'thumbBgColor');
+        image: ef.get-value($themeDefault, 'thumbBgImg');
+        size: ef.get-value($themeDefault, 'thumbBgImgSize');
+        repeat: no-repeat;
+    }
+
+    @supports (aspect-ratio: 1/1) {
+        aspect-ratio: #{ef.get-value($themeDefault, 'thumbAspectRatio')};
+    }
+
+    @supports not (aspect-ratio: 1/1) {
+        @include bm.aspect-ratio-padding(ef.get-value($themeDefault, 'thumbAspectRatio'));
+        height: 0;
+    }
+}

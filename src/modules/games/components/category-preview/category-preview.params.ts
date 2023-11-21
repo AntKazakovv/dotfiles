@@ -1,4 +1,5 @@
 import {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {IGameThumbCParams} from 'wlc-engine/modules/games';
 
 export type Type = 'default' | CustomType;
 export type Theme = 'default' | CustomType;
@@ -7,6 +8,7 @@ export type ThemeMod = 'default' | CustomType;
 export interface ICategoryPreviewCParams extends IComponentParams<Theme, Type, ThemeMod> {
     categories?: string[];
     categoriesCount?: number;
+    thumbParams?: IGameThumbCParams,
 }
 
 export const defaultParams: ICategoryPreviewCParams = {
@@ -14,4 +16,8 @@ export const defaultParams: ICategoryPreviewCParams = {
     categories: ['new', 'popular', 'livecasino',
         'megawaysglobal', 'bonusbuyglobal', 'jackpots', 'slots', 'tablegames', 'blackjacks', 'blackjack'],
     categoriesCount: 3,
+    thumbParams: {
+        themeMod: 'default',
+        type: 'default',
+    },
 };

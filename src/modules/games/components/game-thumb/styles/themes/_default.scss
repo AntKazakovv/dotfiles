@@ -2,25 +2,7 @@
     @include alternateLogo($themeDefault);
 
     @include bm.get-mq-map('cursor', $themeDefault, 'thumbCursor');
-    position: relative;
-    overflow: hidden;
-    border-radius: ef.get-value($themeDefault, 'thumbBorderRadius');
-    background: {
-        position: center;
-        color: ef.get-value($themeDefault, 'placeholderBgColor');
-        image: ef.get-value($themeDefault, 'placeholderBgImg');
-        size: ef.get-value($themeDefault, 'placeholderBgImgSize');
-        repeat: no-repeat;
-    }
-
-    @supports (aspect-ratio: 1/1) {
-        aspect-ratio: #{ef.get-value($themeDefault, 'thumbAspectRatio')};
-    }
-
-    @supports not (aspect-ratio: 1/1) {
-        @include bm.aspect-ratio-padding(ef.get-value($themeDefault, 'thumbAspectRatio'));
-        height: 0;
-    }
+    @include baseCardStyle();
 
     .wlc-body--browser-safari & {
         -webkit-mask-image: -webkit-radial-gradient(white, black); /* stylelint-disable-line */
@@ -413,7 +395,8 @@
         &.wlc-game-thumb--theme-mod-default,
         &.wlc-game-thumb--theme-mod-circle,
         &.wlc-game-thumb--theme-mod-vertical,
-        &.wlc-game-thumb--theme-mod-wolf {
+        &.wlc-game-thumb--theme-mod-wolf,
+        &.wlc-game-thumb--theme-mod-external-title {
 
             .wlc-game-thumb__desc[class] {
                 opacity: 0;
@@ -843,6 +826,60 @@
 
     &.wlc-game-thumb--type-simple {
         cursor: pointer;
+    }
+
+    &.wlc-game-thumb--theme-mod-external-title {
+        aspect-ratio: unset;
+        background: none;
+        border-radius: unset;
+
+        .wlc-game-thumb {
+
+            &__card {
+                @include baseCardStyle();
+            }
+
+            &__desc {
+                align-items: end;
+            }
+
+            &__name {
+                @include bm.lineClamp(1);
+                @include text.get-text-style(
+                    ef.get-value($themeDefaultModExternalTitle, 'nameTextStyle'),
+                    ef.get-value($themeDefaultModExternalTitle, 'nameColor')
+                );
+
+                @include mq.min(1200) {
+
+                    @include text.get-text-style(
+                        ef.get-value($themeDefaultModExternalTitle, 'nameTextStyle', 1200),
+                        ef.get-value($themeDefaultModExternalTitle, 'nameColor')
+                    );
+                }
+            }
+
+            &__merchant {
+                @include text.get-text-style(
+                    ef.get-value($themeDefaultModExternalTitle, 'merchantTextStyle'),
+                    ef.get-value($themeDefaultModExternalTitle, 'merchantColor')
+                );
+
+                @include mq.min(1200) {
+
+                    @include text.get-text-style(
+                        ef.get-value($themeDefaultModExternalTitle, 'merchantTextStyle', 1200),
+                        ef.get-value($themeDefaultModExternalTitle, 'merchantColor')
+                    );
+                }
+            }
+
+            &__title {
+                align-items: ef.get-value($themeDefaultModExternalTitle, 'titleAlignItems');
+                padding: ef.get-value($themeDefaultModExternalTitle, 'titlePadding');
+                text-align: ef.get-value($themeDefaultModExternalTitle, 'titleTextAlign');
+            }
+        }
     }
 
     @include bm.hover {
