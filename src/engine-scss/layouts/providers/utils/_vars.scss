@@ -1,0 +1,13 @@
+$customProvidersThemeWolf: () !default;
+$providersThemeWolf: map-merge((
+    'providersInfoMargin': (
+        375: -40px 0 ef.size(8),
+        768: -40px 0 ef.size(10),
+    ),
+    'providersTitlePostMargin': (
+        375: ef.size(4) 0,
+        768: ef.size(6) 0 ef.size(5),
+    ),
+    'infoTextColor': var(--mc-baseSecond, var(--mc-baseMain)),
+    'infoTextFontStyle': 'ThirdTitleBold',
+), $customProvidersThemeWolf);

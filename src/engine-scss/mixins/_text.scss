@@ -44,6 +44,10 @@
         @include QoteTextBoldTight;
     } @else if ($style == 'PlaceholderTextBold') {
         @include PlaceholderTextBold;
+    } @else if ($style == 'SecondTitle') {
+        @include SecondTitle;
+    } @else if ($style == 'SecondTitleBold') {
+        @include SecondTitleBold;
     }
 }
 
@@ -91,6 +95,12 @@
     line-height: 1.45;
 }
 
+@mixin SecondTitle {
+    font-weight: ef.get('fontWeight', 'SecondTitle');
+    font-size: ef.get('font', 'SecondTitle');
+    line-height: 1.45;
+}
+
 @mixin ScreamTitle {
     font-weight: ef.get('fontWeight', 'ScreamTitle');
     font-size: ef.get('font', 'ScreamTitle');
@@ -120,6 +130,12 @@
 @mixin ThirdTitleBold {
     font-weight: ef.get('fontWeight', 'ThirdTitleBold');
     font-size: ef.get('font', 'ThirdTitleBold');
+    line-height: 1.45;
+}
+
+@mixin SecondTitleBold {
+    font-weight: ef.get('fontWeight', 'SecondTitleBold');
+    font-size: ef.get('font', 'SecondTitleBold');
     line-height: 1.45;
 }
 

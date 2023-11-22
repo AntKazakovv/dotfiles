@@ -31,7 +31,10 @@
 </div>
 
 <ng-template #noData>
-    <div class="{{$class}}__no-data">{{'No data' | translate}}</div>
+    <div *ngIf="!$params.noContent.hide"
+        class="{{$class}}__no-data">
+        {{$params.noContent.text | translate}}
+    </div>
 </ng-template>
 
 <ng-template #preloader>

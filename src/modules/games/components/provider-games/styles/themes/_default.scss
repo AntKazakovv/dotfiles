@@ -111,4 +111,77 @@
             }
         }
     }
+
+    &.wlc-provider-games--theme-mod-wolf {
+        padding: ef.get-value($themeDefault, 'containerPaddingWolf');
+
+        .wlc-provider-games {
+
+            &__header {
+                margin: ef.get-value($themeDefault, 'headerMarginWolf');
+            }
+
+            &__title {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'headerTitleFontStyleWolf'),
+                    ef.get-value($themeDefault, 'headerTitleColorWolf')
+                );
+
+                @include mq.max(560) {
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'headerTitleMobileFontStyleWolf'),
+                        ef.get-value($themeDefault, 'headerTitleColorWolf')
+                    );
+                }
+            }
+
+            &__subtitle {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'headerSubTitleFontStyleWolf'),
+                    ef.get-value($themeDefault, 'headerSubTitleColorWolf')
+                );
+
+                margin: 0;
+            }
+
+            &-logo {
+                width: auto;
+                margin: ef.get-value($themeDefault, 'headerLogoMarginWolf');
+                background: none;
+
+                ::ng-deep {
+
+                    .wlc-provider-games-logo {
+                        max-height: ef.get-value($themeDefault, 'headerLogoImageHeightWolf');
+
+                        &__image {
+                            height: ef.get-value($themeDefault, 'headerLogoImageHeightWolf');
+                        }
+
+                        &__wrp {
+                            position: relative;
+                            padding: 0;
+                        }
+
+                        &__error {
+                            @include text.get-text-style(
+                                ef.get-value($themeDefault, 'headerLogoErrorFontStyleWolf'),
+                                ef.get-value($themeDefault, 'headerTitleColorWolf')
+                            );
+                            line-height: normal;
+                        }
+                    }
+                }
+
+                .wlc-provider-games-logo__wrp {
+                    position: relative;
+                    display: block;
+                }
+
+                &:before {
+                    content: none;
+                }
+            }
+        }
+    }
 }

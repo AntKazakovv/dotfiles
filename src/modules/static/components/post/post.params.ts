@@ -7,6 +7,11 @@ export interface IDownloadPdf {
     iconPath?: string;
 }
 
+export interface INoContent {
+    text?: string;
+    hide?: boolean;
+}
+
 export interface IPostCParams extends IComponentParams<string, string, string> {
     modifiers?: ModifiersType[];
     slug?: string;
@@ -24,6 +29,7 @@ export interface IPostCParams extends IComponentParams<string, string, string> {
     /** Download PDF config */
     downloadPdf?: IDownloadPdf;
     canUseScriptTag?: boolean;
+    noContent?: INoContent;
 }
 
 export const defaultParams: IPostCParams = {
@@ -31,5 +37,9 @@ export const defaultParams: IPostCParams = {
     parseAsPlainHTML: false,
     downloadPdf: {
         iconPath: '/wlc/icons/download-pdf.svg',
+    },
+    noContent: {
+        text: gettext('No data'),
+        hide: false,
     },
 };

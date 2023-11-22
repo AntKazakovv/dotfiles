@@ -755,6 +755,10 @@ export class GamesCatalogService {
         return this.gamesCatalog.getMerchantByName(name);
     }
 
+    public getMerchantByAlias(name: string): MerchantModel {
+        return this.gamesCatalog.getMerchantByAlias(name);
+    }
+
     public getAvailableCategories(): CategoryModel[] {
         return this.gamesCatalog.getAvailableCategories();
     }

@@ -13,6 +13,7 @@ import {
     StateService,
 } from '@uirouter/core';
 
+import {TranslateService} from '@ngx-translate/core';
 import {BehaviorSubject} from 'rxjs';
 import _times from 'lodash-es/times';
 import _sortedUniqBy from 'lodash-es/sortedUniqBy';
@@ -35,6 +36,8 @@ import {
 import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
 import {gamesEvents} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {IconModel} from 'wlc-engine/modules/icon-list/system/models/icon-list-item.model';
+import {Game} from 'wlc-engine/modules/games/system/models';
+
 import * as Params from './provider-links.params';
 
 @Component({
@@ -70,6 +73,7 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
         protected gamesCatalogService: GamesCatalogService,
         protected modalService: ModalService,
         protected eventService: EventService,
+        protected translate: TranslateService,
         colorThemeService: ColorThemeService,
         cdr: ChangeDetectorRef,
     ) {
@@ -94,7 +98,7 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
     }
 
     public showAllProviders(): void {
-        if (GlobalHelper.isMobileApp()) {
+        if (GlobalHelper.isMobileApp() || this.$params.redirectToPage) {
             this.stateService.go('app.providers');
             return;
         }
@@ -108,6 +112,22 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
             component: ProviderLinksComponent,
             componentParams: this.modalLinkParams,
         });
+    }
+
+    public getInfoText(icon: IconModel): string {
+        if (this.$params.themeMod === 'wolf') {
+            const merchant: MerchantModel = this.gamesCatalogService.getMerchantByAlias(icon.alt);
+
+            const games: Game[] = this.gamesCatalogService.getGameList({
+                merchants: [merchant.id],
+            });
+
+            if (games.length) {
+                return games.length + ' ' + this.translate.instant('games');
+            }
+        }
+
+        return null;
     }
 
     /**

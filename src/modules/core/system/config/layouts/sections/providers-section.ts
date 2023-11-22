@@ -16,6 +16,40 @@ export namespace providers {
         ],
     };
 
+    export const linksThemeModWolf: ILayoutSectionConfig = {
+        container: true,
+        theme: 'wolf',
+        components: [
+            {
+                name: 'games.wlc-provider-links',
+                params: <IProviderLinksCParams>{
+                    type: 'default',
+                    themeMod: 'wolf',
+                    iconsType: 'color',
+                    colorIconBg: 'dark',
+                },
+            },
+        ],
+    };
+
+    export const linksInfoThemeWolf: ILayoutSectionConfig = {
+        container: true,
+        theme: 'wolf',
+        components: [
+            {
+                name: 'static.wlc-post',
+                params: {
+                    showTitle: true,
+                    hideWithoutData: true,
+                    slug: 'providers',
+                    noContent: {
+                        hide: true,
+                    },
+                },
+            },
+        ],
+    };
+
     export const games: ILayoutSectionConfig = {
         container: true,
         components: [
@@ -24,6 +58,39 @@ export namespace providers {
                 params: <IProviderGamesCParams>{
                     iconType: 'color',
                     colorIconBg: 'dark',
+                },
+            },
+        ],
+    };
+
+    export const gamesThemeModWolf: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            {
+                name: 'games.wlc-provider-games',
+                params: <IProviderGamesCParams>{
+                    themeMod: 'wolf',
+                    showWithoutCategories: true,
+                    iconType: 'color',
+                    colorIconBg: 'dark',
+                    gamesGridCategoryParams: {
+                        themeMod: 'wolf',
+                        usePlaceholders: true,
+                        showTitle: false,
+                        showProgressBar: false,
+                        gamesRows: 2,
+                        byState: false,
+                        hideEmpty: true,
+                        moreBtn: {
+                            hide: false,
+                            lazy: false,
+                            lazyTimeout: 1000,
+                            scrollToEnd: false,
+                        },
+                        btnLoadMore: {
+                            theme: 'theme-wolf-link',
+                        },
+                    },
                 },
             },
         ],

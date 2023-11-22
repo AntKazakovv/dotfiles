@@ -1,15 +1,8 @@
 <ng-container *ngIf="ready; else loading">
     <div class="{{$class}}__header">
-        <div class="{{$class}}__logo"
-            wlc-icon-list-item
-            [attr.data-wlc-element]="icon.wlcElement"
-            [icon]="icon"
-            [inlineParams]="{class: $class + '-logo'}">
-        </div>
-
-        <ng-container *ngIf="$params.type !== 'mobile-app'">
-            <p class="{{$class}}__subtitle">{{'Provider' | translate}}</p>
-            <h1 class="{{$class}}__title">{{provider.alias | translate}}</h1>
+        <ng-container [ngSwitch]="$params.themeMod">
+            <ng-container *ngSwitchCase="'wolf'" [ngTemplateOutlet]="headerThemeModWolf"></ng-container>
+            <ng-container *ngSwitchDefault [ngTemplateOutlet]="headerDefault"></ng-container>
         </ng-container>
     </div>
 
@@ -23,4 +16,31 @@
     <div class="{{$class}}__loader" wlc-loader></div>
 </ng-template>
 
+<ng-template #headerDefault>
+    <div class="{{$class}}__logo"
+        wlc-icon-list-item
+        [attr.data-wlc-element]="icon.wlcElement"
+        [icon]="icon"
+        [inlineParams]="{class: $class + '-logo'}">
+    </div>
 
+    <ng-container *ngIf="$params.type !== 'mobile-app'">
+        <p class="{{$class}}__subtitle">{{'Provider' | translate}}</p>
+        <h1 class="{{$class}}__title">{{provider.alias | translate}}</h1>
+    </ng-container>
+</ng-template>
+
+<ng-template #headerThemeModWolf>
+    <h1 class="{{$class}}__title">{{provider.alias | translate}}</h1>
+
+    <div class="{{$class}}__logo"
+        wlc-icon-list-item
+        [attr.data-wlc-element]="icon.wlcElement"
+        [icon]="icon"
+        [inlineParams]="{class: $class + '-logo'}">
+    </div>
+
+    <div class="{{$class}}__subtitle">
+        {{'All' | translate}}: {{getGamesCount()}}
+    </div>
+</ng-template>

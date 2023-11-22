@@ -176,6 +176,13 @@ export const $layouts: ILayoutsConfig = {
     'app.providers': {
         extends: 'app',
         sections: {
+            'providers': sectionsLib.providers.linksThemeModWolf,
+            'providers-info': sectionsLib.providers.linksInfoThemeWolf,
+        },
+    },
+    'app.providers.item': {
+        extends: 'app',
+        sections: {
             'providers-games': sectionsLib.providers.games,
             'providers': sectionsLib.providers.slider,
         },

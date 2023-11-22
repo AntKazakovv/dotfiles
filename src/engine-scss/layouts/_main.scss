@@ -11,6 +11,7 @@
 @import './sticky-footer/sticky-footer';
 @import './fixed-panel/fixed-panel.layout';
 @import './mobile-app/mobile-app';
+@import './providers/providers';
 
 @include lm.init-layout-gap(ev.$layoutGap);
 

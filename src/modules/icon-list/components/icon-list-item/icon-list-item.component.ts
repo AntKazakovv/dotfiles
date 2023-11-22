@@ -33,6 +33,7 @@ export class IconListItemComponent extends AbstractComponent implements OnInit, 
     @Input() protected inlineParams: Params.IIconListItemCParams;
     @Input() protected logImageErrorChild: Params.TIconErrorCode;
     @Input() public icon: IconModel;
+    @Input() public infoText: string;
 
     public override $params: Params.IIconListItemCParams;
 

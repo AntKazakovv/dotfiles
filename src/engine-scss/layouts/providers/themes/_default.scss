@@ -1,0 +1,25 @@
+.wlc-sections__providers {
+
+    &-info.wlc-sections__providers-info--theme-wolf {
+        @include bm.get-mq-map('margin', $providersThemeWolf, 'providersInfoMargin');
+
+        .container {
+
+            .wlc-post {
+                color: ef.get-value($providersThemeWolf, 'infoTextColor');
+
+                .wlc-title {
+                    @include bm.get-mq-map('margin', $providersThemeWolf, 'providersTitlePostMargin');
+
+                    .wlc-title__main {
+                        @include text.get-text-style(
+                            ef.get-value($providersThemeWolf, 'infoTextFontStyle'),
+                            ef.get-value($providersThemeWolf, 'infoTextColor')
+                        );
+                        text-align: center;
+                    }
+                }
+            }
+        }
+    }
+}

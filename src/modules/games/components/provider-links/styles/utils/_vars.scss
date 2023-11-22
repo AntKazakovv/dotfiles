@@ -89,6 +89,37 @@ $themeDefault: map-merge((
         375: 0,
         768: 0 ef.size(3) 0 0,
     ),
+
+    'wrapperTemplateWolf': (
+        375: repeat(auto-fit, minmax(170px, 1fr)),
+        768: repeat(auto-fit, minmax(200px, 1fr)),
+    ),
+    'wrapperGapWolf': (
+        375: ef.size(2),
+        768: ef.size(6),
+    ),
+    'linkItemWolfBorderRadius': ef.get('radius', 'main'),
+    'linkItemHoverWolfBackground': var(--mc-bg500),
+    'linkItemInfoWolfFontStyle': 'CaptionText',
+    'linkItemInfoMobileWolfFontStyle': 'SignText',
+    'linkItemInfoWolfColor': var(--mc-baseMain),
+    'linkItemInfoWolfMargin': ef.size(3) 0 0,
+    'titleWolfFontStyle': 'SecondTitleBold',
+    'titleMobileWolfFontStyle': 'ThirdTitleBold',
+    'titleWolfColor': var(--mc-baseSecond),
+    'titleWolfMargin': (
+        375: ef.size(2) 0,
+        768: 0 0 ef.size(6),
+    ),
+    'linkItemWolfHeight': 140px,
+    'linkItemImageWolfWidth': (
+        375: 140px,
+        768: 160px,
+    ),
+    'linkItemImageWolfHeight': (
+        375: 60px,
+        768: 70px,
+    )
 ), $customThemeDefault);
 
 $customMobileApp: () !default;

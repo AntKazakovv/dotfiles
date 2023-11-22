@@ -40,6 +40,17 @@ $themeDefault: map-merge((
     // TODO remove after come up with color icons
     'logoColorBackground': #777,
     'logoColorFilter': contrast(1.5),
+
+    'containerPaddingWolf': 0,
+    'headerMarginWolf': 0 0 ef.size(6),
+    'headerTitleColorWolf': var(--mc-baseSecond, var(--mc-baseMain)),
+    'headerTitleFontStyleWolf': 'SecondTitleBold',
+    'headerTitleMobileFontStyleWolf': 'ThirdTitleBold',
+    'headerSubTitleColorWolf': var(--mc-baseMain),
+    'headerSubTitleFontStyleWolf': 'PrimaryText',
+    'headerLogoMarginWolf': ef.size(3) 0,
+    'headerLogoImageHeightWolf': 70px,
+    'headerLogoErrorFontStyleWolf': 'PromoTitle',
 ), $customThemeDefault);
 
 

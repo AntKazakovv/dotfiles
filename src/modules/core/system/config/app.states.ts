@@ -77,6 +77,7 @@ let states = {
     'app.offline': States.offlineState,
     'app.tournaments': States.tournamentsState,
     'app.providers': States.providersState,
+    'app.providers.item': States.providersItemState,
     'app.user-social-register': States.userSocialRegister,
     'app.signup': States.signUpState,
     'app.login': States.loginState,

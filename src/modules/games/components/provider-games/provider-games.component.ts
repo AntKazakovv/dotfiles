@@ -73,6 +73,12 @@ export class ProviderGamesComponent extends AbstractComponent implements OnInit 
         this.initListeners();
     }
 
+    public getGamesCount(): number {
+        return this.gamesCatalogService.getGameList({
+            merchants: [this.provider.id],
+        })?.length || 0;
+    }
+
     protected async getProviderByState(): Promise<void> {
         await this.gamesCatalogService.ready;
 
@@ -113,67 +119,82 @@ export class ProviderGamesComponent extends AbstractComponent implements OnInit 
                 },
             });
         } else {
+            const gamesGridParams: IGamesGridCParams = _cloneDeep(this.$params.gamesGridCategoryParams);
 
-            this.gamesGridList = categories.map((category: CategoryModel): IGamesGridCParams => {
-
-                let gamesGridParams = _cloneDeep(this.$params.gamesGridCategoryParams);
-
-                if (this.$params.type === 'mobile-app') {
-                    const categoryModel = this.gamesCatalogService.getCategoryBySlug(category.slug);
-
-                    if (categoryModel) {
-                        let sref: string = '',
-                            category: string = '',
-                            childCategory: string = '';
-
-                        if (!categoryModel.isParent) {
-                            sref = 'app.catalog.child';
-                            category = categoryModel.parentCategory.slug;
-                            childCategory = categoryModel.slug;
-                        } else {
-                            sref = 'app.catalog';
-                            category = categoryModel.slug;
-                        }
-
-                        if (gamesGridParams.showAllLink.use) {
-                            if (!gamesGridParams.showAllLink.params) {
-                                gamesGridParams.showAllLink.params = {};
-                            }
-
-                            gamesGridParams.showAllLink.params = _merge(
-                                gamesGridParams.showAllLink.params,
-                                this.router.globals.params,
-                            );
-
-                            if (!gamesGridParams.showAllLink.sref) {
-                                gamesGridParams.showAllLink.sref = sref;
-                            }
-                            gamesGridParams.showAllLink.params.category = category;
-                            gamesGridParams.showAllLink.params.childCategory = childCategory;
-                        }
-
-                        if (gamesGridParams.showAsSwiper?.sliderParams?.slideShowAll) {
-
-                            if (!gamesGridParams.showAsSwiper.sliderParams.slideShowAll.sref) {
-                                gamesGridParams.showAsSwiper.sliderParams.slideShowAll.sref = sref;
-                            }
-
-                            gamesGridParams.showAsSwiper.sliderParams.slideShowAll.srefParams = {
-                                category: category,
-                                childCategory: childCategory,
-                            };
-                        }
-                    }
-                }
-
-                return {
+            if (this.$params.showWithoutCategories) {
+                this.gamesGridList = [{
                     ...gamesGridParams,
                     filter: {
-                        categories: [category.slug],
+                        categories: categories.map((category) => category.slug),
                         merchants: [this.provider.id],
                     },
-                };
-            });
+                }];
+            } else {
+                this.gamesGridList = categories.map((category: CategoryModel): IGamesGridCParams => {
+                    if (this.$params.type === 'mobile-app') {
+                        const categoryModel: CategoryModel = this.gamesCatalogService.getCategoryBySlug(category.slug);
+
+                        if (categoryModel) {
+                            let sref: string = '',
+                                category: string = '',
+                                childCategory: string = '';
+
+                            if (!categoryModel.isParent) {
+                                sref = 'app.catalog.child';
+                                category = categoryModel.parentCategory.slug;
+                                childCategory = categoryModel.slug;
+                            } else {
+                                sref = 'app.catalog';
+                                category = categoryModel.slug;
+                            }
+
+                            if (gamesGridParams.showAllLink.use) {
+                                if (!gamesGridParams.showAllLink.params) {
+                                    gamesGridParams.showAllLink.params = {};
+                                }
+
+                                gamesGridParams.showAllLink.params = _merge(
+                                    gamesGridParams.showAllLink.params,
+                                    this.router.globals.params,
+                                );
+
+                                if (!gamesGridParams.showAllLink.sref) {
+                                    gamesGridParams.showAllLink.sref = sref;
+                                }
+                                gamesGridParams.showAllLink.params.category = category;
+                                gamesGridParams.showAllLink.params.childCategory = childCategory;
+                            }
+
+                            if (gamesGridParams.showAsSwiper?.sliderParams?.slideShowAll) {
+
+                                if (!gamesGridParams.showAsSwiper.sliderParams.slideShowAll.sref) {
+                                    gamesGridParams.showAsSwiper.sliderParams.slideShowAll.sref = sref;
+                                }
+
+                                gamesGridParams.showAsSwiper.sliderParams.slideShowAll.srefParams = {
+                                    category: category,
+                                    childCategory: childCategory,
+                                };
+                            }
+                        }
+                    }
+
+                    if (this.$params.themeMod === 'wolf') {
+                        gamesGridParams.btnLoadMore = {
+                            theme: 'theme-wolf-link',
+                        };
+                        gamesGridParams.showProgressBar = false;
+                    }
+
+                    return {
+                        ...gamesGridParams,
+                        filter: {
+                            categories: [category.slug],
+                            merchants: [this.provider.id],
+                        },
+                    };
+                });
+            }
         }
 
         this.ready = true;

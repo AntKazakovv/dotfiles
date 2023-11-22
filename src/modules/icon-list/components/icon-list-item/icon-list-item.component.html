@@ -9,6 +9,11 @@
             [ngTemplateOutlet]="itemTemplate"
             [ngTemplateOutletContext]="{item: icon}">
         </ng-container>
+
+        <div *ngIf="infoText"
+            class="{{$class}}__info">
+            {{infoText}}
+        </div>
     </a>
 
     <a class="{{$class}}__wrp"

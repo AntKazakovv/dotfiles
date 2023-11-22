@@ -7,7 +7,7 @@ import {IGamesGridCParams} from 'wlc-engine/modules/games/components/games-grid/
 
 export type ComponentTheme = 'default' | 'mobile-app' | CustomType;
 export type ComponentType = 'default' | 'mobile-app' | CustomType;
-export type ComponentThemeMod = 'default' | CustomType;
+export type ComponentThemeMod = 'default' | 'wolf' | CustomType;
 
 /**
  * Globally set preferences in modules config
@@ -30,6 +30,8 @@ export interface IProviderGamesCParams extends IComponentParams<ComponentTheme, 
     iconType?: 'color' | 'black';
     /** Apply one of two types of colored icons (works only with colored) */
     colorIconBg?: TIconColorBg;
+    /** Displays games without dividing into categories */
+    showWithoutCategories?: boolean;
 };
 
 export const defaultParams: IProviderGamesCParams = {

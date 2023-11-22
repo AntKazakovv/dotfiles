@@ -61,6 +61,7 @@ export const $base: IBaseConfig = {
         'app.profile.verification',
         'app.profile.kycaml',
         'app.providers',
+        'app.providers.item',
         'app.gameplay?demo=true',
         'app.contact-us',
     ],

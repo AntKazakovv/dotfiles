@@ -58,6 +58,90 @@
         }
     }
 
+    &.wlc-provider-links--theme-mod-wolf {
+
+        .wlc-provider-links {
+
+            &__wrapper {
+                @include bm.get-mq-map('gap', $themeDefault, 'wrapperGapWolf');
+                @include bm.get-mq-map('grid-template-columns', $themeDefault, 'wrapperTemplateWolf');
+
+                ::ng-deep {
+
+                    .wlc-provider-links-item {
+                        height: ef.get-value($themeDefault, 'linkItemWolfHeight');
+
+                        &__wrp {
+                            display: flex;
+                            flex-direction: column;
+                        }
+
+                        &__image {
+                            @include bm.get-mq-map('width', $themeDefault, 'linkItemImageWolfWidth');
+                            @include bm.get-mq-map('height', $themeDefault, 'linkItemImageWolfHeight');
+                            max-width: max-content;
+                        }
+
+                        &__error {
+                            @include bm.get-mq-map('height', $themeDefault, 'linkItemImageWolfHeight');
+                            display: flex;
+                            align-items: center;
+                        }
+
+                        &__info {
+                            @include text.get-text-style(
+                                ef.get-value($themeDefault, 'linkItemInfoWolfFontStyle'),
+                                ef.get-value($themeDefault, 'linkItemInfoWolfColor')
+                            );
+                            margin: ef.get-value($themeDefault, 'linkItemInfoWolfMargin');
+
+                            @include mq.max(560) {
+                                @include text.get-text-style(
+                                    ef.get-value($themeDefault, 'linkItemInfoMobileWolfFontStyle'),
+                                    ef.get-value($themeDefault, 'linkItemInfoWolfColor')
+                                );
+                            }
+                        }
+                    }
+                }
+            }
+
+            &-item {
+                border-radius: ef.get-value($themeDefault, 'linkItemWolfBorderRadius');
+
+                @include bm.hover {
+                    background: ef.get-value($themeDefault, 'linkItemHoverWolfBackground');
+                    box-shadow: none;
+                    transform: none;
+                    transition: none;
+                }
+            }
+        }
+
+        ::ng-deep {
+
+            .wlc-section-title {
+                justify-content: center;
+
+                .wlc-section-title__content {
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'titleWolfFontStyle'),
+                        ef.get-value($themeDefault, 'titleWolfColor')
+                    );
+
+                    @include bm.get-mq-map('margin', $themeDefault, 'titleWolfMargin');
+
+                    @include mq.max(560) {
+                        @include text.get-text-style(
+                            ef.get-value($themeDefault, 'titleMobileWolfFontStyle'),
+                            ef.get-value($themeDefault, 'titleWolfColor')
+                        );
+                    }
+                }
+            }
+        }
+    }
+
     .wlc-provider-links {
 
         &__loader {

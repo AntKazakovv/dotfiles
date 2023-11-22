@@ -7,7 +7,7 @@ import {IAbstractIconsListParams} from 'wlc-engine/modules/icon-list/system/clas
 
 export type ComponentTheme = 'default' | 'mobile-app' | 'mobile-app-swiper' | CustomType;
 export type ComponentType = 'default' | 'slider' | 'mobile' | CustomType;
-export type ComponentThemeMod = 'default' | 'inside-modal' | 'mobile-custom' | 'adaptive' | CustomType;
+export type ComponentThemeMod = 'default' | 'inside-modal' | 'mobile-custom' | 'adaptive' | 'wolf' | CustomType;
 
 /**
  * Globally set preferences in modules config
@@ -34,6 +34,7 @@ IAbstractIconsListParams<ComponentTheme, ComponentType, ComponentThemeMod> {
      * Use link in title
      */
     useTitleLink?: boolean;
+    redirectToPage?: boolean;
 };
 
 export const defaultParams: IProviderLinksCParams = {
@@ -43,7 +44,7 @@ export const defaultParams: IProviderLinksCParams = {
     iconsType: 'black',
     colorIconBg: 'dark',
     type: 'slider',
-    defaultLinkSref: 'app.providers',
+    defaultLinkSref: 'app.providers.item',
     btnParams: {
         common: {
             text: gettext('Show all'),

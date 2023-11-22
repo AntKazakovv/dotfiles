@@ -1,4 +1,4 @@
-<ng-container *ngIf="$params.type !== 'default'">
+<ng-container *ngIf="$params.type !== 'default' || ($params.type === 'default' && $params.themeMod === 'wolf')">
     <ng-container *ngIf="$params.useTitleLink; else blockSectionTitle">
         <a wlc-section-title
             [text]="'Providers'"
@@ -70,6 +70,7 @@
         [attr.data-wlc-element]="item.wlcElement"
         wlc-icon-list-item
         [icon]="item"
+        [infoText]="getInfoText(item)"
         [inlineParams]='{class: $class + "-item"}'
         ></div>
 </ng-template>
