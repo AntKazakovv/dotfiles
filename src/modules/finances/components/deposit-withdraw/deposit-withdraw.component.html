@@ -15,7 +15,7 @@
                 <ng-container [ngTemplateOutlet]="wallets"></ng-container>
             </div>
             <div class="{{$class}}__step {{$class}}__step--paysystems">
-                <p class="{{$class}}__step-title">{{'Choose payment method' | translate}}</p>
+                <p class="{{$class}}__step-title">{{'Select a payment method' | translate}}</p>
                 <ng-container [ngTemplateOutlet]="systems"></ng-container>
             </div>
         </div>
@@ -39,7 +39,7 @@
 <ng-template #default>
     <ng-container *ngFor="let step of steps; index as $index">
         <ng-container [ngTemplateOutlet]="stepTpl"
-                      [ngTemplateOutletContext]="{$implicit: step, index: $index}"></ng-container>
+            [ngTemplateOutletContext]="{$implicit: step, index: $index}"></ng-container>
     </ng-container>
 </ng-template>
 
@@ -47,7 +47,7 @@
     <div class="{{$class}}__step {{$class}}__step--{{index + 1}}">
         <div class="{{$class}}__subtitle">
             <div class="{{$class}}__subtitle-name {{$class}}__{{step.template}}"><span>{{index + 1}}
-                .</span> {{step.title | translate}}</div>
+                    .</span> {{step.title | translate}}</div>
         </div>
 
         <ng-container [ngSwitch]="step.template">
@@ -56,7 +56,7 @@
             <ng-container *ngSwitchCase="'paymentInfo'" [ngTemplateOutlet]="paymentInfo"></ng-container>
             <ng-container *ngSwitchCase="'bonuses'" [ngTemplateOutlet]="bonuses"></ng-container>
             <ng-container *ngSwitchCase="'cryptoInvoiceSystems'"
-                          [ngTemplateOutlet]="cryptoInvoiceSystems"></ng-container>
+                [ngTemplateOutlet]="cryptoInvoiceSystems"></ng-container>
             <ng-container *ngSwitchDefault [ngTemplateOutlet]="empty"></ng-container>
         </ng-container>
 
@@ -64,52 +64,34 @@
 </ng-template>
 
 <ng-template #wallets>
-    <div wlc-wallets
-         class="{{$class}}__wallets"
-         [inlineParams]="walletsParams"
-         (changeWalletEmit)="onWalletChange($event)"></div>
+    <div wlc-wallets class="{{$class}}__wallets" [inlineParams]="walletsParams"
+        (changeWalletEmit)="onWalletChange($event)"></div>
     <div *ngIf="showDividerInPaymentSystems" class="{{$class}}__divider"></div>
 </ng-template>
 
 <ng-template #systems>
-    <div wlc-payment-list
-         data-wlc-element="block_payment-list"
-         [isFetchingSystems]="isFetchingSystems"
-         [lastSucceedMethod]="lastSucceedPaymentMethod"
-         [inlineParams]="listConfig"
-         [availableSystems]="availableSystems"
-         [userCountry]="userCountry"
-         [currentSystem]="parentSystem || currentSystem"
-         [parentTheme]="$params.theme">
+    <div wlc-payment-list data-wlc-element="block_payment-list" [isFetchingSystems]="isFetchingSystems"
+        [lastSucceedMethod]="lastSucceedPaymentMethod" [inlineParams]="listConfig" [availableSystems]="availableSystems"
+        [userCountry]="userCountry" [currentSystem]="parentSystem || currentSystem" [parentTheme]="$params.theme">
     </div>
     <div *ngIf="showDividerInPaymentSystems" class="{{$class}}__divider"></div>
 </ng-template>
 
 <ng-template #bonuses>
-    <div wlc-wrapper
-         [inlineParams]="bonusesListParams">
+    <div wlc-wrapper [inlineParams]="bonusesListParams">
     </div>
     <div class="{{$class}}__divider"></div>
 </ng-template>
 
 <ng-template #cryptoInvoiceSystems>
-    <div class="{{$class}}__crypto-list"
-         wlc-payment-list
-         [lastSucceedMethod]="lastSucceedPaymentMethod"
-         [currentSystem]="currentSystem"
-         [inlineParams]="cryptoListConfig"
-         [availableSystems]="availableSystems"
-    ></div>
+    <div class="{{$class}}__crypto-list" wlc-payment-list [lastSucceedMethod]="lastSucceedPaymentMethod"
+        [currentSystem]="currentSystem" [inlineParams]="cryptoListConfig" [availableSystems]="availableSystems"></div>
     <div *ngIf="currentSystem" class="{{$class}}__divider"></div>
 </ng-template>
 
 <ng-template #paymentInfo>
-    <div wlc-payment-form
-        [mode]="$params.mode"
-        [currentSystem]="currentSystem"
-        [bonus]="currentBonus"
-        [wallet]="selectedWallet"
-    ></div>
+    <div wlc-payment-form [mode]="$params.mode" [currentSystem]="currentSystem" [bonus]="currentBonus"
+        [wallet]="selectedWallet"></div>
 
     <ng-container *ngIf="isWaitingResponse">
         <div wlc-loader></div>
