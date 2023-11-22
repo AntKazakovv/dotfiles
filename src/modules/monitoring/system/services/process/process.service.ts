@@ -112,7 +112,7 @@ export class ProcessService {
             return null;
         }
 
-        const replaceComparatorIdWithFunc = (obj: Object): void => {
+        const replaceComparatorIdWithFunc = (obj: IIndexing<any>): void => {
             const keys: string[] = _keys(obj);
             if (!keys.length) {
                 return;
@@ -129,7 +129,7 @@ export class ProcessService {
                     replaceComparatorIdWithFunc(obj[key]);
                 }
             });
-            
+
         };
         replaceComparatorIdWithFunc(remoteConfig);
         return remoteConfig;
@@ -282,7 +282,7 @@ export class ProcessService {
      */
     protected checkTriggerEventData(trigger: IEvent<IProcessEventData>, data: IProcessEventData): boolean {
         if (!trigger.data) { return true; }
-        return trigger.data.comparator ? 
+        return trigger.data.comparator ?
             trigger.data.comparator(trigger.data, data) :
             trigger.data.eventId === data?.eventId;
     }
@@ -371,7 +371,7 @@ export class ProcessService {
 
         this.createTimer(processName, afterStartEvents);
     }
-    
+
     protected unsubscribeSubscriptionsByTypes(processName: string, types: TProcessSubscribeEvent[]): void {
         _each(types, (type: TProcessSubscribeEvent): void => {
             _each(

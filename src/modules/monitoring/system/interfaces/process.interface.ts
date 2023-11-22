@@ -22,6 +22,7 @@ export interface IProcessConfig {
     failAfterTimer?: number;
     successAfterTimer?: number;
     stopAfterTimer?: number;
+    restartAfterTimer?: number;
     relaunchAfterFail?: boolean;
     relaunchAfterSuccess?: boolean;
     relaunchAfterStop?: boolean;

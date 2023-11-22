@@ -82,7 +82,7 @@ const comparatorSignupRestart: TComparatorFn = (
 /**
  * Map of comparator functions for remote config
  */
-export const comparatorMap = {
+export const comparatorMap: Record<string, TComparatorFn>= {
     'comparatorShowModal': comparatorShowModal,
     'comparatorModalClosed': comparatorModalClosed,
     'comparatorLoginFail': comparatorLoginFail,
