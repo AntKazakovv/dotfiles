@@ -274,6 +274,7 @@
             @include bm.get-mq-map('padding', $themeDefault, 'btnsWrapPadding');
 
             display: flex;
+            flex-wrap: wrap;
             grid-area: btns;
             gap: ef.get-value($themeDefault, 'btnsGap');
             align-self: ef.get-value($themeDefault, 'btnsAlignSelf');
