@@ -17,18 +17,10 @@ import {
     configUrlForFingerprint,
     FingerprintService,
     IData,
-    TFingerprintConfigKeys,
 } from 'wlc-engine/modules/core/system/services';
 
 @Injectable()
 export class FingerprintInterceptor implements HttpInterceptor {
-
-    private readonly _urlForFingerprint: Readonly<TFingerprintConfigKeys[]> = [
-        'auth',
-        'profiles',
-        'trustDevices',
-        'authBy/google2fa',
-    ] as const;
 
     constructor(
         private fingerprintService: FingerprintService,
@@ -59,7 +51,7 @@ export class FingerprintInterceptor implements HttpInterceptor {
     }
 
     protected isUrlForFingerprint(req: HttpRequest<IData>): boolean {
-        return this._urlForFingerprint.some((url: string) => {
+        return Object.keys(configUrlForFingerprint).some((url: string) => {
             return req.url === `/api/v1/${url}` && configUrlForFingerprint[url]?.includes(req.method);
         });
     }
