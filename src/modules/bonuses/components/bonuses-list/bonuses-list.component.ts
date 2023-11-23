@@ -1,4 +1,5 @@
 import {
+    AfterViewInit,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -68,7 +69,7 @@ import * as Params from './bonuses-list.params';
     preserveWhitespaces: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BonusesListComponent extends AbstractComponent implements OnInit, OnDestroy {
+export class BonusesListComponent extends AbstractComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @Input() protected type: Params.Type;
     @Input() protected theme: Params.Theme;
@@ -159,6 +160,12 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         this.setFilterAndSubscribeBonuses();
         this.setSubscription();
         this.bonusBg;
+    }
+
+    public ngAfterViewInit(): void {
+        if (this.$params.type === 'swiper') {
+            this.sliderParams = _cloneDeep(this.sliderParams);
+        }
     }
 
     public override ngOnDestroy(): void {
