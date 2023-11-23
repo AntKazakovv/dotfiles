@@ -43,6 +43,7 @@ $baseVariables: map-merge((
 @import './engine-vars/06.profile';
 @import './engine-vars/07.buttons';
 @import './engine-vars/08.layout';
+@import './engine-vars/09.datepicker';
 
 /// Размеры отступов на сайте.
 /// Здесь перечислены все возможные отступы и поля для всех стандартных элементов на сайте.
@@ -415,7 +416,6 @@ $tooltip-color: var(--mc-baseThird, var(--mc-baseMain)) !default;
 $tooltip-border-radius: map-get($radius, 'biger') !default;
 $tooltip-box-shadow: map-get($shadows, 'sm') !default;
 $tooltip-bg-error: var(--mc-error) !default;
-
 
 /// Globar settings scrollbar
 /// @name scrollbarConfig

@@ -1,0 +1,15 @@
+$customDatepickerVars: () !default;
+$datepickerVars: map-merge((
+    'datepickerBg': var(--fc-inputBg),
+    'datepickerHoverBg': var(--mc-main-d10),
+    'datepickerColor': var(--fc-textColor),
+    'datepickerHoverColor': var(--fc-inputBg),
+    'datepickerCurrentDayColor': var(--mc-main),
+    'datepickerActiveColor': var(--mc-main),
+    'datepickerBorderRadius': map-get($radius, 'biger'),
+    'datepickerBoxShadow': 0 24px 48px rgba(0, 0, 0, 0.2),
+    'datepickerDisabledColor': var(--mc-disabled),
+    'datepickerSelectedDayColor': var(--fc-inputBg),
+    'datepickerCellBorderRadius': 50%,
+    'datepickerFontWeight': 700,
+), $customDatepickerVars);

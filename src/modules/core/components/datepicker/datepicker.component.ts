@@ -4,17 +4,23 @@ import {
     OnInit,
     Input,
     ViewChild,
-    ElementRef,
     ChangeDetectorRef,
     ChangeDetectionStrategy,
 } from '@angular/core';
 import {UntypedFormControl} from '@angular/forms';
+
+import {takeUntil} from 'rxjs';
+
+import {IMaskDirective} from 'angular-imask';
 import {TranslateService} from '@ngx-translate/core';
 import {
-    IMyDefaultMonth,
-    AngularMyDatePickerDirective,
-    IMyDateModel,
-} from 'angular-mydatepicker';
+    BsDaterangepickerDirective,
+    BsLocaleService,
+} from 'ngx-bootstrap/datepicker';
+
+import {defineLocale} from 'ngx-bootstrap/chronos';
+import * as locales from 'ngx-bootstrap/locale';
+
 import {DateTime} from 'luxon';
 
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
@@ -42,13 +48,14 @@ import * as Params from './datepicker.params';
 })
 export class DatepickerComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IDatepickerCParams;
-    @ViewChild('mask') mask: ElementRef;
-    @ViewChild(AngularMyDatePickerDirective) dp: AngularMyDatePickerDirective;
+    @ViewChild(BsDaterangepickerDirective) dp: BsDaterangepickerDirective;
+    @ViewChild('imask', {read: IMaskDirective})
+    protected imask: IMaskDirective<IMask.AnyMaskedOptions>;
+
     public override $params: Params.IDatepickerCParams;
     public control: UntypedFormControl;
-    public locale: string;
-    public defaultMonth: IMyDefaultMonth;
-    public dpModel: IMyDateModel;
+    public bsValue: Date = new Date();
+    protected locale: string;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IDatepickerCParams,
@@ -56,6 +63,7 @@ export class DatepickerComponent extends AbstractComponent implements OnInit {
         protected translateService: TranslateService,
         cdr: ChangeDetectorRef,
         protected eventService: EventService,
+        protected localeService: BsLocaleService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
@@ -63,50 +71,33 @@ export class DatepickerComponent extends AbstractComponent implements OnInit {
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.locale = this.translateService.currentLang;
+        const dpLocale: Params.ILocale = this.$params.locales[this.locale] || this.$params.locales['en'];
+        defineLocale(dpLocale.name, locales[dpLocale.config]);
+        this.localeService.use(dpLocale.name);
         this.control = this.$params.control || new UntypedFormControl('');
-        const disableSince = this.$params.datepickerOptions.disableSince;
 
-        this.control.valueChanges.subscribe((date: DateTime): void => {
-            this.dpModel = {
-                isRange: false,
-                singleDate: {
-                    jsDate: date.toJSDate(),
-                },
-            };
-        });
+        this.control.valueChanges
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((date: DateTime): void => {
+                this.bsValue = date.toJSDate();
+            });
 
         if (this.control.value) {
-            this.dpModel = {
-                isRange: false,
-                singleDate: {
-                    jsDate: (this.control.value as DateTime).toJSDate(),
-                },
-            };
+            this.bsValue = (this.control.value as DateTime).toJSDate();
             this.control.markAsTouched();
         }
-
-        this.defaultMonth = this.$params.defaultMonth || {
-            defMonth: !!disableSince
-                ? DateTime.fromObject(disableSince).toFormat('LL/yyyy')
-                : DateTime.local().toFormat('LL/yyyy'),
-            overrideSelection: false,
-        };
 
         if (this.$params.event?.subscribe) {
             this.eventService.subscribe<DateTime>({name: this.$params.event.subscribe}, (date: DateTime): void => {
                 switch (this.$params.event.subscribe) {
                     case 'CHANGE_START_DATE': {
-                        const {day, month, year} = date.minus({day: 1}).toObject();
-                        this.dp.parseOptions({
-                            disableUntil: {day, month, year},
-                        });
+                        const {day, month, year} = date.toObject();
+                        this.$params.datepickerOptions.minDate = new Date(year, month - 1, day);
                         break;
                     }
                     case 'CHANGE_END_DATE': {
-                        const {day, month, year} = date.plus({day: 1}).toObject();
-                        this.dp.parseOptions({
-                            disableSince: {day, month, year},
-                        });
+                        const {day, month, year} = date.toObject();
+                        this.$params.datepickerOptions.maxDate = new Date(year, month - 1, day);
                         break;
                     }
                 }
@@ -114,29 +105,37 @@ export class DatepickerComponent extends AbstractComponent implements OnInit {
         }
     }
 
-    public onDateChanged(date: IMyDateModel): void {
-        this.mask.nativeElement.mask.updateValue();
-        let dateTime = DateTime.fromJSDate(date.singleDate?.jsDate);
+    public onDateChanged(date: Date): void {
+        if (this.imask) {
+            this.imask.maskRef.updateValue();
+        }
+
+        let dateTime = DateTime.fromJSDate(date);
 
         if (this.$params.name === 'endDate') {
             dateTime = dateTime.endOf('day');
         }
 
-        this.control.setValue(dateTime);
+        if (this.checkRange(date)) {
 
-        if (this.$params.event?.emit) {
-            this.eventService.emit({
-                name: this.$params.event.emit,
-                data: dateTime,
-            });
+            this.control.setValue(dateTime);
+
+            if (this.$params.event?.emit) {
+                this.eventService.emit({
+                    name: this.$params.event.emit,
+                    data: dateTime,
+                });
+            }
         }
 
         this.control.markAllAsTouched();
         this.cdr.markForCheck();
     }
 
-    public toggleCalendar(): void {
-        this.dp.toggleCalendar();
-        this.cdr.markForCheck();
+
+    public checkRange(dateTime: Date): boolean {
+        return dateTime <= this.$params.datepickerOptions.maxDate
+            && (!this.$params.datepickerOptions.minDate
+            || dateTime >= this.$params.datepickerOptions.minDate);
     }
 }

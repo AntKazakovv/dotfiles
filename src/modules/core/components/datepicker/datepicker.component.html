@@ -1,23 +1,21 @@
 <ng-template #default>
-    <label (click)="toggleCalendar()" class="{{$class}}__label">{{$params.label | translate}}</label>
+    <label (click)="dp.toggle()" class="{{$class}}__label">{{$params.label | translate}}</label>
     <div class="{{$class}}__container">
         <input class="{{$class}}__input"
-               #dp="angular-mydatepicker"
-               #mask
-               angular-mydatepicker
+               #dp="bsDatepicker"
+               #imask
+               bsDatepicker
                name="{{$params.name}}"
-               [options]="$params.datepickerOptions"
-               [wlc-input-mask]="$any($params.maskOptions)"
-               (dateChanged)="onDateChanged($event)"
-               [locale]="locale"
-               [defaultMonth]="defaultMonth"
+               [bsConfig]="$params.datepickerOptions"
+               [imask]="$params.maskOptions"
+               (bsValueChange)="onDateChanged($event)"
                inputmode="numeric"
-               [(ngModel)]="dpModel"
+               [(bsValue)]="bsValue"
         />
         <span wlc-icon
               class="{{$class}}__icon"
               [iconPath]="$params.iconPath"
-              (click)="toggleCalendar()"
+              (click)="dp.toggle()"
         ></span>
     </div>
     <div class="{{$class}}-status"

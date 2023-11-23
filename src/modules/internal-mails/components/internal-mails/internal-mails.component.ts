@@ -97,25 +97,25 @@ export class InternalMailsComponent extends AbstractComponent implements OnInit 
     }
 
     protected setMinMaxDate(): void {
-        const disableSince: ToObjectOutput = this.endDate.plus({day: 1}).toObject();
-        const disableUntil: ToObjectOutput = this.startDate.minus({day: 1}).toObject();
+        const disableSince: ToObjectOutput = this.endDate.toObject();
+        const disableUntil: ToObjectOutput = this.startDate.toObject();
 
         this.startDateInput.control.setValue(this.startDate);
         this.endDateInput.control.setValue(this.endDate);
-        this.startDateInput.datepickerOptions = {
-            disableSince: {
-                year: disableSince.year,
-                month: disableSince.month,
-                day: disableSince.day,
-            },
-        };
-        this.endDateInput.datepickerOptions = {
-            disableUntil: {
-                year: disableUntil.year,
-                month: disableUntil.month,
-                day: disableUntil.day,
-            },
-        };
+
+        if (this.startDateInput.datepickerOptions) {
+            this.startDateInput.datepickerOptions.minDate = new Date(
+                disableSince.year,
+                disableSince.month - 1,
+                disableSince.day,
+            );
+
+            this.startDateInput.datepickerOptions.maxDate = new Date(
+                disableUntil.year,
+                disableUntil.month - 1,
+                disableUntil.day,
+            );
+        }
     }
 
     protected initFilters(): void {

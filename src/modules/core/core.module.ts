@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 
 import {HammerModule} from '@angular/platform-browser';
-import {AngularMyDatePickerModule} from 'angular-mydatepicker';
+import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ModalModule, MODAL_CONFIG_DEFAULT_OVERRIDE} from 'ngx-bootstrap/modal';
@@ -130,7 +130,6 @@ import {TabsComponent} from './components/tabs/tabs.component';
 import {NgTemplateNameDirective} from './directives/template-name/template-name.directive';
 import {ClickOutsideDirective} from './directives/click-outside.directive';
 import {FallbackImgDirective} from './directives/fallback-img/fallback-img.directive';
-import {InputMaskDirective} from './directives/input-mask.directive';
 import {ClampDirective} from './directives/clamp.directive';
 import {CopyToClipboardDirective} from './directives/copy-to-clipboard.directive';
 import {DragNDropDirective} from 'wlc-engine/modules/core/directives/drag-n-drop/drag-n-drop.directive';
@@ -251,7 +250,7 @@ export const services = {
         ModalModule,
         TooltipModule.forRoot(),
         PaginationModule.forRoot(),
-        AngularMyDatePickerModule,
+        BsDatepickerModule.forRoot(),
         CompilerModule,
         MonitoringModule,
         LottieModule.forRoot({player: playerFactory}),
@@ -335,7 +334,6 @@ export const services = {
         IconComponent,
         InfoPageComponent,
         InputComponent,
-        InputMaskDirective,
         LanguageSelectorComponent,
         LayoutComponent,
         LicenseComponent,
@@ -416,7 +414,6 @@ export const services = {
         IconComponent,
         InfoPageComponent,
         InputComponent,
-        InputMaskDirective,
         LanguageSelectorComponent,
         LayoutComponent,
         LicenseComponent,

@@ -41,16 +41,7 @@
 
 ---
 
-`datepickerOptions` - опции, описанные в интерфейсе IAngularMyDpOptions. Полный список и примеры доступны по <a href="https://github.com/kekeh/angular-mydatepicker#options-attribute" target="_blank">ссылке</a>.
-
----
-
-
-
-`defaultMonth` - если значение присутствует, при открытии календаря он позиционируется на месяце и году, указанных в данном параметре.
-Пример: `'08/2019'`, `'08-2019'`.
-
-Подробности и примеры использования см. по <a href="https://github.com/kekeh/angular-mydatepicker#defaultmonth-attribute" target="_blank">ссылке</a >
+`datepickerOptions` - опции, описанные в интерфейсе BsDatepickerConfig. Полный список и примеры доступны по <a href="https://valor-software.com/ngx-bootstrap/#/components/datepicker?tab=overview" target="_blank">ссылке</a>.
 
 ---
 
@@ -65,12 +56,14 @@ component: {
         iconPath: 'wlc/icons/custom-icon.svg',
         label: 'From:',
         datepickerOptions: {
-            dateFormat: 'mm.dd.yy',
-            disableSince: {
-                year: 2019,
-                month: 12,
-                day: 31,
-            },
+            dateInputFormat: 'DD.MM.YYYY',
+            showWeekNumbers: false,
+            customTodayClass: 'today',
+            maxDate: new Date(),
+            monthTitle: 'MMM',
+            monthLabel: 'MMM',
+            selectFromOtherMonth: true,
+            keepDatesOutOfRules: true,
         },
     },
 },
@@ -94,5 +87,3 @@ component: {
 <div class="tab-pane fade" id="c-english">
 
 # English
-
-
