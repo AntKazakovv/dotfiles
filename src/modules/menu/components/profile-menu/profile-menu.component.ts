@@ -19,8 +19,8 @@ import _merge from 'lodash-es/merge';
 import {
     AbstractComponent,
     ActionService,
-    EventService,
     AppType,
+    EventService,
     DeviceType,
     IMixedParams,
     ProfileType,
@@ -150,6 +150,13 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit, O
 
         switch (this.$params.type) {
             case 'tabs':
+                if (Params.defaultMenuParams[this.$params.type]?.menuParams) {
+                    _merge(this.menuParams, Params.defaultMenuParams[this.$params.type].menuParams);
+
+                    if (Params.defaultMenuParams[this.$params.type]?.menuParams.common?.useSwiper) {
+                        this.addModifiers('swiper');
+                    }
+                }
                 this.menuParams.items = await this.profileMenuService.getTabsMenu(menuOptions);
                 iconsKey = 'icons';
                 break;

@@ -27,6 +27,10 @@
 
     .swiper {
         max-height: 100%;
+
+        .wlc-profile-menu--type-tabs & {
+            overflow: clip visible; // fix swiper profile menu tabs
+        }
     }
 
     .swiper-slide {

@@ -15,6 +15,11 @@
 }
 
 .wlc-profile-menu--theme-default.wlc-profile-menu--type-tabs:host {
+    position: relative;
+
+    ::ng-deep {
+        @include menuControls($themeDefault);
+    }
 
     .wlc-menu--theme-default {
         @include bm.get-mq-map('grid-gap', $themeDefault, 'profileMenuGap');
@@ -37,6 +42,7 @@
                             width: 100%;
                             height: ef.get-value($themeDefault, 'profileMenuBgBeforeHeight');
                             background: ef.get-value($themeDefault, 'profileMenuBg');
+                            pointer-events: none;
                         }
 
                         &.active {
@@ -120,6 +126,17 @@
             grid-auto-columns: auto;
             grid-auto-flow: column;
             align-items: center;
+        }
+    }
+
+    &.wlc-profile-menu--swiper {
+
+        ::ng-deep {
+
+            .wlc-menu {
+                display: block;
+                width: 100%;
+            }
         }
     }
 }

@@ -27,13 +27,19 @@ export interface ISliderNavigation {
     use?: boolean;
 }
 
-export interface ISubMenu {
+export interface ITabsMenu {
     menuParams: MenuParams.IMenuCParams;
     /** Use slider arrows for menu or not */
     sliderNavigation?: ISliderNavigation;
 }
 
+export interface ISubMenu {
+    menuParams: MenuParams.IMenuCParams;
+    /** Use slider arrows for menu or not */
+    sliderNavigation?: ISliderNavigation;
+}
 export interface IMenuParams {
+    tabs: ITabsMenu;
     submenu: ISubMenu;
 }
 
@@ -42,6 +48,8 @@ export interface IProfileMenuCParams extends IComponentParams<Theme, Type, Theme
     common?: {
         themeMod?: ThemeMod;
         useArrow?: boolean;
+        useSliderNavigation?: boolean;
+        useSwiper?: boolean;
         icons?: {
             folder?: string;
             use?: boolean;
@@ -50,6 +58,26 @@ export interface IProfileMenuCParams extends IComponentParams<Theme, Type, Theme
 }
 
 export const defaultMenuParams: IMenuParams = {
+    tabs: {
+        sliderNavigation: {
+            use: true,
+            forDevice: 'any',
+        },
+        menuParams: {
+            common: {
+                useSwiper: true,
+            },
+            sliderParams: {
+                swiper: {
+                    spaceBetween: 5,
+                    navigation: {
+                        nextEl: '.wlc-profile-menu__control--next',
+                        prevEl: '.wlc-profile-menu__control--prev',
+                    },
+                },
+            },
+        },
+    },
     submenu: {
         sliderNavigation: {
             use: true,
@@ -76,5 +104,4 @@ export const defaultParams: IProfileMenuCParams = {
     moduleName: 'menu',
     componentName: 'wlc-profile-menu',
     class: 'wlc-profile-menu',
-    type: 'tabs',
 };

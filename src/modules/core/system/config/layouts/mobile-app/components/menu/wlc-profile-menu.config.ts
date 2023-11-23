@@ -3,7 +3,13 @@ import {ILayoutComponent} from 'wlc-engine/modules/core';
 export namespace wlcProfileMenu {
     export const def: ILayoutComponent = {
         name: 'menu.wlc-profile-menu',
+        display: {
+            after: 900,
+        },
         params: {
+            common: {
+                useSliderNavigation: true,
+            },
         },
     };
 
