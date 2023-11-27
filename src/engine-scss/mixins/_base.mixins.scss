@@ -230,5 +230,7 @@
         height: 100%;
         box-shadow: ef.get-value($config, 'cardInnerShadow');
         pointer-events: none;
+        border-radius: inherit;
     }
 }
+

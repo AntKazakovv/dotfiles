@@ -1,0 +1,74 @@
+<ng-container *ngIf="pending$ | async; else content" [ngTemplateOutlet]="loader">
+</ng-container>
+
+<ng-template #content>
+    <ng-container *ngIf="lottery; else noContent">
+        <div class="{{$class}}__wrapper">
+            <ng-container *ngTemplateOutlet="decor; context: {$implicit: lottery}"></ng-container>
+            <div class="{{$class}}__main">
+                <p class="{{$class}}__name">{{lottery.name}}</p>
+
+                <p *ngIf="!lottery.isEnded" class="{{$class}}__dates">{{lottery.datesFormatted}}</p>
+                <p *ngIf="lottery.isEnded" class="{{$class}}__dates">
+                    {{'Ended' | translate}}: {{lottery.dateEndFormatted}}
+                </p>
+
+                <div *ngIf="!lottery.isEnded" class="{{$class}}__timer">
+                    <div wlc-timer
+                        [inlineParams]="{theme: $params.themeMod}"
+                        [value]="lottery.dateEnd"
+                        [text]="lottery.timerText"
+                        (timerEnds)="updateView()"></div>
+                </div>
+
+                <div *ngIf="showTicketsCounter" class="{{$class}}__tickets">
+                    {{$params.texts.ticketsCaption | translate}} {{lottery.ticketsCount}}
+                </div>
+
+                <div class="{{$class}}__buttons {{$class}}__buttons--desktop">
+                    <ng-container *ngTemplateOutlet="buttons; context: {$implicit: lottery}"></ng-container>
+                </div>
+            </div>
+            <div class="{{$class}}__prizes">
+                <div wlc-lottery-prizes
+                    [inlineParams]="prizesParams"
+                    [lottery]="lottery"></div>
+            </div>
+            <div class="{{$class}}__buttons {{$class}}__buttons--mobile">
+                <ng-container *ngTemplateOutlet="buttons; context: {$implicit: lottery}"></ng-container>
+            </div>
+        </div>
+    </ng-container>
+</ng-template>
+
+<ng-template #buttons let-lottery>
+    <div wlc-lottery-buttons
+        [lottery]="lottery"
+        [update$]="update$"></div>
+</ng-template>
+
+<ng-template #decor let-lottery>
+    <div class="{{$class}}__decor">
+        <img class="{{$class}}__img"
+            [wlc-fallback]="$params.images.imageMainFallback"
+            src="{{lottery.imageMain}}"
+            alt="{{lottery.name}}"/>
+    </div>
+</ng-template>
+
+<ng-template #noContent>
+    <div class="{{$class}}__nocontent">
+        <div class="{{$class}}__decor">
+            <img class="{{$class}}__img" src="{{$params.images.noContent}}" alt=""/>
+        </div>
+        <div class="{{$class}}__nocontent-details">
+            <p class="{{$class}}__nocontent-title">{{$params.texts.noContentTitle | translate}}</p>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #loader>
+    <div class="{{$class}}__loader">
+        <div wlc-loader></div>
+    </div>
+</ng-template>

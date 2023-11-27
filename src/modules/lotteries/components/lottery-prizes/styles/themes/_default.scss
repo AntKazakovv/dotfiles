@@ -1,0 +1,56 @@
+.wlc-lottery-prizes--theme-default:host {
+    @include text.get-text-style(
+        ef.get-value($themeDefault, 'commonTextStyle'),
+        ef.get-value($themeDefault, 'commonColor')
+    );
+
+    .wlc-lottery-prizes {
+
+        &__row {
+            position: relative;
+
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: ef.get-value($themeDefault, 'rowGap');
+            padding: ef.get-value($themeDefault, 'rowPadding');
+
+            background: var(--wlc-lp-row-bg, #{ef.get-value($themeDefault, 'rowBg')});
+
+            &:after {
+                content: '';
+
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+
+                display: block;
+                width: ef.get-value($themeDefault, 'rowBorderWidth');
+                height: ef.get-value($themeDefault, 'rowBorderHeight');
+
+                background: ef.get-value($themeDefault, 'rowBorderBg');
+                transform: translate(-50%, 0);
+            }
+        }
+
+        &__col {
+
+            &--prize {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'prizeTextStyle'),
+                    ef.get-value($themeDefault, 'prizeColor')
+                );
+                text-align: ef.get-value($themeDefault, 'prizeTextAlign');
+            }
+        }
+
+        &__prize-item {
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        &__prize-divider {
+            display: inline-block;
+            margin: 0 ef.size(1);
+        }
+    }
+}

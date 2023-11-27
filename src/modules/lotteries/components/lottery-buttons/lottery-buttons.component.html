@@ -1,0 +1,18 @@
+<ng-container>
+    <ng-container [ngTemplateOutlet]="btnDeposit"></ng-container>
+    <ng-container [ngTemplateOutlet]="btnReadMore"></ng-container>
+</ng-container>
+
+<ng-template #btnReadMore>
+    <button wlc-button
+        wlcElement="button_lottery_readmore"
+        [inlineParams]="$params.btnsParams.readMore"
+        (click)="showDetails()"></button>
+</ng-template>
+
+<ng-template #btnDeposit>
+    <button *ngIf="showDepositBtn"
+        wlc-button
+        wlcElement="button_lottery_deposit"
+        [inlineParams]="$params.btnsParams.deposit"></button>
+</ng-template>

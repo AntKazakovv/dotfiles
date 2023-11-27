@@ -1,0 +1,137 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'cardTextStyle': 'PrimaryTextBold',
+    'cardColor': var(--mc-baseMain),
+    'cardBgDefault': var(--mc-bg700),
+    'cardBg': radial-gradient(148.85% 200.96% at 70.62% 50%, #6300e2 0%, #8435e9 100%),
+    'cardMinHeight': (
+        375: 445px,
+        768: 400px,
+    ),
+    'cardRadius': ef.get('radius', 'biger'),
+
+    'wrapperGridColumns': (
+        375: 1fr,
+        1024: repeat(3, minmax(0, 1fr)),
+    ),
+    'wrapperPadding': (
+        375: 0 ef.size(4) ef.size(4),
+        1024: 0,
+    ),
+    'wrapperGap': ef.size(4),
+
+    'decorWidth': (
+        375: 140px,
+        1024: 500px,
+    ),
+    'decorHeight': (
+        375: 125px,
+        1024: 100%,
+    ),
+    'decorAlignSelf': (
+        375: start,
+        1024: center,
+    ),
+    'decorImgPosBottom': (
+        375: 0,
+        1024: 50%,
+    ),
+    'decorImgFit': (
+        375: cover,
+    ),
+    'decorImgObjPos': (
+        375: center,
+    ),
+    'decorImgMaxHeight': (
+        375: initial,
+    ),
+    'decorImgTransform': (
+        375: translate(-50%, 0),
+        1024: translate(-50%, 50%),
+    ),
+
+    'mainPadding': (
+        375: 0,
+        1024: ef.size(4) 0,
+    ),
+    'mainGap': ef.size(4),
+
+    'nameTextStyle': (
+        375: 'ThirdTitleBold',
+        1024: 'PromoTitle',
+    ),
+    'nameColor': var(--mc-baseMain),
+    'nameClamp': 2,
+
+    'prizesMaxWidth': 300px,
+    'prizesPadding': (
+        375: 0 ef.size(3),
+    ),
+
+    'timerMinWidth': 250px,
+    'timerMaxWidth': 100%,
+
+    'btnsMargin': (
+        375: 0
+    ),
+    'btnsDesktopDisplay': (
+        375: none,
+        1024: block,
+    ),
+    'btnsMobileDisplay': (
+        1024: none,
+    ),
+
+    'noContentBg': var(--mc-bg700),
+    'noContentGridColumns': (
+        375: 1fr,
+        1024: 1fr minmax(0, 2fr),
+    ),
+    'noContentTextAlign': (
+        375: center,
+        1024: left,
+    ),
+    'noContentHeight': (
+        375: 185px,
+        1024: 400px,
+    ),
+    'noContentMainPadding': (
+        375: 0 ef.size(4) ef.size(4),
+        1024: 0 ef.size(4) 0 0,
+    ),
+    'noContentGap': (
+        375: 0,
+        1024: ef.size(4),
+    ),
+    'noContentTextStyle': 'PrimaryTextBold',
+    'noContentColor': var(--ma-base-third, var(--mc-baseMain)),
+    'noContentPadding': (
+        375: 0 0 ef.size(4),
+        1024: 0 ef.size(4) 0 0,
+    ),
+
+    // Wolf mode
+    'cardMinHeightWolf': (
+        375: 445px,
+        1024: 250px,
+    ),
+    'mainGapWolf': ef.size(2),
+    'decorWidthWolf': (
+        375: 140px,
+        1024: 375px,
+    ),
+    'btnsMarginWolf': (
+        1024: ef.size(3) 0 0,
+    ),
+    'noContentHeightWolf': (
+        375: 185px,
+        1024: 250px,
+    ),
+    'cardTextStyleWolf': 'CaptionTextBold',
+    'cardColorWolf': var(--mc-baseThird),
+    'nameTextStyleWolf': (
+        375: 'ThirdTitleBold',
+        1024: 'QoteTextBold',
+    ),
+    'nameColorWolf': var(--mc-baseThird),
+), $customThemeDefault);

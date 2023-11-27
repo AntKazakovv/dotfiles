@@ -1,0 +1,26 @@
+<div class="{{$class}}__wrapper">
+    <div class="{{$class}}__row {{$class}}__row--head">
+        <div class="{{$class}}__col {{$class}}__col--place">{{'Place' | translate}}</div>
+        <div class="{{$class}}__col {{$class}}__col--prize">{{'Prize' | translate}}</div>
+    </div>
+    <div *ngFor="let prize of prizeTable" class="{{$class}}__row">
+        <div class="{{$class}}__col {{$class}}__col--place">{{prize.place}}</div>
+        <div class="{{$class}}__col {{$class}}__col--prize">
+            <span *ngIf="prize.type === 'goods';" class="{{$class}}__value">{{prize.value}}</span>
+
+            <ng-container *ngIf="prize.type === 'bonus'"
+                [ngTemplateOutlet]="bonusPrize"
+                [ngTemplateOutletContext]="{$implicit: prize.value}"></ng-container>
+        </div>
+    </div>
+</div>
+
+<ng-template #bonusPrize let-bonusPrize>
+    <span *ngFor="let prize of bonusPrize; first as isFirst" class="{{$class}}__prize-item">
+        <span *ngIf="!isFirst && $params.divider" class="{{$class}}__prize-divider">{{$params.divider}}</span>
+        <span
+            wlc-currency
+            [value]="prize.value"
+            [currency]="prize.currency"></span>
+    </span>
+</ng-template>

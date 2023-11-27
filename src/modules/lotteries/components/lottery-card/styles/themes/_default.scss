@@ -1,0 +1,169 @@
+.wlc-lottery-card--theme-default:host {
+    --wlc-lc-bg: #{ef.get-value($themeDefault, 'cardBgDefault')};
+
+    @include bm.get-mq-map('--wlc-lc-min-height', $themeDefault, 'cardMinHeight');
+    @include bm.get-mq-map('--wlc-lc-decor-width', $themeDefault, 'decorWidth');
+    @include bm.get-mq-map('--wlc-lc-decor-height', $themeDefault, 'decorHeight');
+    @include bm.get-mq-map('--wlc-lc-btns-margin', $themeDefault, 'btnsMargin');
+    @include bm.get-mq-map('--wlc-lc-nocontent-height', $themeDefault, 'noContentHeight');
+    @include bm.get-mq-map('--wlc-lc-main-padding', $themeDefault, 'mainPadding');
+
+
+    @include text.get-text-style(
+        ef.get-value($themeDefault, 'cardTextStyle'),
+        ef.get-value($themeDefault, 'cardColor')
+    );
+
+    border-radius: ef.get-value($themeDefault, 'cardRadius');
+    overflow: hidden;
+
+    .wlc-lottery-card {
+
+        &__wrapper {
+            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'wrapperGridColumns');
+            @include bm.get-mq-map('padding', $themeDefault, 'wrapperPadding');
+
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: ef.get-value($themeDefault, 'wrapperGap');
+            min-height: var(--wlc-lc-min-height);
+            background: ef.get-value($themeDefault, 'cardBg');
+            overflow: hidden;
+        }
+
+        &__decor {
+            @include bm.get-mq-map('align-self', $themeDefault, 'decorAlignSelf');
+
+            position: relative;
+            justify-self: center;
+            width: var(--wlc-lc-decor-width);
+            max-width: 100%;
+            height: var(--wlc-lc-decor-height);
+            overflow: hidden;
+        }
+
+        &__img {
+            @include bm.get-mq-map('bottom', $themeDefault, 'decorImgPosBottom');
+            @include bm.get-mq-map('max-height', $themeDefault, 'decorImgMaxHeight');
+            @include bm.get-mq-map('transform', $themeDefault, 'decorImgTransform');
+            @include bm.get-mq-map('object-fit', $themeDefault, 'decorImgFit');
+            @include bm.get-mq-map('object-position', $themeDefault, 'decorImgObjPos');
+
+            position: absolute;
+            left: 50%;
+            max-width: 100%;
+        }
+
+        &__main {
+            display: grid;
+            gap: var(--wlc-lc-main-gap, #{ef.get-value($themeDefault, 'mainGap')});
+            align-self: center;
+            justify-items: center;
+            padding: var(--wlc-lc-main-padding);
+            text-align: var(--wlc-lc-main-text-align, center);
+        }
+
+        &__name {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'nameTextStyle'),
+                ef.get-value($themeDefault, 'nameColor')
+            );
+            @include bm.lineClamp(map-get($themeDefault, 'nameClamp'));
+
+            @include mq.min(1024) {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'nameTextStyle', 1024),
+                    null
+                );
+            }
+        }
+
+        &__prizes {
+            @include bm.get-mq-map('padding', $themeDefault, 'prizesPadding');
+
+            align-self: center;
+            justify-self: center;
+            width: 100%;
+            max-width: ef.get-value($themeDefault, 'prizesMaxWidth');
+        }
+
+        &__timer {
+            width: max-content;
+            min-width: ef.get-value($themeDefault, 'timerMinWidth');
+            max-width: ef.get-value($themeDefault, 'timerMaxWidth');
+        }
+
+        &__buttons {
+            width: 100%;
+            margin: var(--wlc-lc-btns-margin);
+
+            &--mobile {
+                @include bm.get-mq-map('display', $themeDefault, 'btnsMobileDisplay');
+            }
+
+            &--desktop {
+                @include bm.get-mq-map('display', $themeDefault, 'btnsDesktopDisplay');
+            }
+        }
+
+        &__loader {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: var(--wlc-lc-min-height);
+            background: var(--wlc-lc-bg);
+        }
+
+        &__nocontent {
+            @include bm.get-mq-map('--wlc-lc-main-padding', $themeDefault, 'noContentMainPadding');
+            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'noContentGridColumns');
+            @include bm.get-mq-map('gap', $themeDefault, 'noContentGap');
+
+            display: grid;
+            min-height: var(--wlc-lc-nocontent-height);
+            background: var(--wlc-lc-bg);
+
+            &-details {
+                @include bm.get-mq-map('padding', $themeDefault, 'noContentPadding');
+                @include bm.get-mq-map('text-align', $themeDefault, 'noContentTextAlign');
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'noContentTextStyle'),
+                    ef.get-value($themeDefault, 'noContentColor')
+                );
+                align-self: center;
+            }
+        }
+    }
+
+    &.wlc-lottery-card--theme-mod-wolf {
+        --wlc-lc-main-gap: #{ef.get-value($themeDefault, 'mainGapWolf')};
+
+        @include bm.get-mq-map('--wlc-lc-min-height', $themeDefault, 'cardMinHeightWolf');
+        @include bm.get-mq-map('--wlc-lc-decor-width', $themeDefault, 'decorWidthWolf');
+        @include bm.get-mq-map('--wlc-lc-btns-margin', $themeDefault, 'btnsMarginWolf');
+        @include bm.get-mq-map('--wlc-lc-nocontent-height', $themeDefault, 'noContentHeightWolf');
+
+        @include bm.cardInnerShadow();
+        @include text.get-text-style(
+            ef.get-value($themeDefault, 'cardTextStyleWolf'),
+            ef.get-value($themeDefault, 'cardColorWolf')
+        );
+
+        .wlc-lottery-card {
+
+            &__name {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'nameTextStyleWolf'),
+                    ef.get-value($themeDefault, 'nameColorWolf')
+                );
+
+                @include mq.min(1024) {
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'nameTextStyleWolf', 1024),
+                        null
+                    );
+                }
+            }
+        }
+    }
+}
