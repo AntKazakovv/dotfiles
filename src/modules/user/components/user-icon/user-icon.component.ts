@@ -13,10 +13,13 @@ import {
     takeUntil,
 } from 'rxjs';
 
+import _merge from 'lodash-es/merge';
+
 import {
     AbstractComponent,
     EventService,
     ConfigService,
+    IButtonCParams,
 } from 'wlc-engine/modules/core';
 
 import * as Params from './user-icon.params';
@@ -45,10 +48,7 @@ export class UserIconComponent extends AbstractComponent implements OnInit, Afte
 
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-        this.showArrow = this.elementRef.nativeElement.tagName === 'BUTTON' && this.$params.theme === 'default';
-        if (this.$params.useDefaultAvatar && this.$params.theme !== 'default') {
-            this.$params.iconPath = Params.defaultAvatar;
-        }
+        this.prepareParams();
     }
 
     public ngAfterViewInit(): void {
@@ -59,5 +59,27 @@ export class UserIconComponent extends AbstractComponent implements OnInit, Afte
                     this.eventService.emit(this.$params.event);
                 });
         }
+    }
+
+    protected prepareParams(): void {
+        this.showArrow = this.elementRef.nativeElement.tagName === 'BUTTON' && this.$params.theme === 'default';
+        if (this.$params.useDefaultAvatar && this.$params.theme !== 'default') {
+            this.$params.iconPath = Params.defaultAvatar;
+        }
+        if (this.$params.showAsBtn) {
+            this.$params.buttonParams = this.mergeButtonParams();
+        }
+    }
+
+    protected mergeButtonParams(): IButtonCParams {
+        return _merge(
+            {
+                common: {
+                    iconPath: this.$params.iconPath,
+                },
+            },
+            Params.defaultButtonParams,
+            this.$params.buttonParams || {},
+        );
     }
 }

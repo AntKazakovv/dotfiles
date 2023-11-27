@@ -21,24 +21,12 @@
 
 button.wlc-user-icon--theme-wolf:host {
 
-    @include mq.min(1200) {
+    @include hoverBefore($themeWolf);
+
+    @include bm.hover {
 
         &:before {
-            @include bm.absoluteCentering();
-            @include bm.transition(opacity);
-            content: '';
-            width: 100%;
-            height: 100%;
-            background: ef.get-value($themeWolf, 'buttonBgHover');
-            border-radius: ef.get-value($themeWolf, 'buttonBorderRadius');
-            opacity: 0;
-        }
-
-        @include bm.hover {
-
-            &:before {
-                opacity: 1;
-            }
+            opacity: 1;
         }
     }
 }

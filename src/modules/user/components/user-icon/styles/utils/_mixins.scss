@@ -2,11 +2,25 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: ef.get-value($config, 'buttonSize');
-    height: ef.get-value($config, 'buttonSize');
+    width: ef.get-value($config, 'btnSize');
+    height: ef.get-value($config, 'btnSize');
     color: ef.get-value($config, 'iconFill');
-    background: ef.get-value($config, 'buttonBg');
-    border-radius: ef.get-value($config, 'buttonBorderRadius');
-    border: ef.get-value($config, 'buttonBorder');
-    box-shadow: ef.get-value($config, 'buttonShadow');
+    background: ef.get-value($config, 'btnBg');
+    border: ef.get-value($config, 'btnBorder');
+    border-radius: ef.get-value($config, 'btnRadius');
+    box-shadow: ef.get-value($config, 'btnShadow');
+}
+
+@mixin hoverBefore($config) {
+
+    &:before {
+        @include bm.absoluteCentering();
+        @include bm.transition(opacity);
+        content: '';
+        width: 100%;
+        height: 100%;
+        background: ef.get-value($config, 'btnBgHover');
+        border-radius: ef.get-value($config, 'btnRadius');
+        opacity: 0;
+    }
 }

@@ -21,23 +21,66 @@
 
 button.wlc-user-icon--theme-avatar:host {
 
-    @include mq.min(1200) {
+    @include hoverBefore($themeAvatar);
+
+    @include bm.hover {
 
         &:before {
-            @include bm.absoluteCentering();
-            @include bm.transition(opacity);
-            content: '';
-            width: 100%;
-            height: 100%;
-            background: ef.get-value($themeAvatar, 'buttonBgHover');
-            border-radius: ef.get-value($themeAvatar, 'buttonBorderRadius');
-            opacity: 0;
+            opacity: 0.2;
+        }
+    }
+}
+
+.wlc-btn-profile--theme-avatar:host {
+
+    .wlc-btn-profile__btn {
+        @include bm.get-mq-map('height', $themeAvatar, 'btnHeight');
+        @include bm.transition;
+
+        min-width: ef.get-value($themeAvatar, 'btnMinWidth');
+        padding: ef.get-value($themeAvatar, 'btnPadding');
+        border-radius: ef.get-value($themeAvatar, 'btnRadius');
+        background-color: ef.get-value($themeAvatar, 'profileBtnBg');
+
+        ::ng-deep {
+
+            .wlc-btn__text {
+                @include text.get-text-style(
+                    ef.get-value($themeAvatar, 'btnFont'),
+                    ef.get-value($themeAvatar, 'btnFontColor')
+                );
+                display: flex;
+                flex-direction: ef.get-value($themeAvatar, 'btnFlexDir');
+                gap: ef.get-value($themeAvatar, 'btnGap');
+                align-items: ef.get-value($themeAvatar, 'btnAlignItems');
+                justify-content: ef.get-value($themeAvatar, 'btnJustifyContent');
+            }
+
+            .wlc-icon {
+                @include hoverBefore($themeAvatar);
+
+                position: relative;
+                width: ef.get-value($themeAvatar, 'iconWidth');
+                height: ef.get-value($themeAvatar, 'iconHeight');
+                color: ef.get-value($themeAvatar, 'iconFill');
+                border-radius: ef.get-value($themeAvatar, 'btnRadius');
+                background-color: ef.get-value($themeAvatar, 'iconBg');
+
+                svg,
+                path {
+                    fill: currentColor;
+                }
+            }
         }
 
         @include bm.hover {
+            background-color: ef.get-value($themeAvatar, 'profileBtnBgHover');
 
-            &:before {
-                opacity: 0.2;
+            ::ng-deep .wlc-icon {
+
+                &:before {
+                    opacity: 0.2;
+                }
             }
         }
     }

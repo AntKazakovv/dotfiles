@@ -200,13 +200,15 @@ export namespace wlcButton {
     };
 
     export const profileButton: ILayoutComponent = {
-        name: 'core.wlc-button',
+        name: 'user.wlc-user-icon',
         params: {
-            class: 'wlc-btn wlc-btn-profile',
-            common: {
-                text: gettext('My Profile'),
-                iconPath: '/wlc/icons/user-icon.svg',
-                sref: 'app.profile.dashboard',
+            showAsBtn: true,
+            class: 'wlc-btn-profile',
+            buttonParams: {
+                common: {
+                    text: gettext('My Profile'),
+                    sref: 'app.profile.dashboard',
+                },
             },
         },
     };

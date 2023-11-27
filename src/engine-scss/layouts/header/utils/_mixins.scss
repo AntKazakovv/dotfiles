@@ -27,6 +27,10 @@
             gap: ef.get-value($theme, 'headerMultiWalletGap');
             align-items: center;
         }
+
+        .wlc-btn--deposit {
+            background-color: ef.get-value($theme, 'headerDepositBtnFill');
+        }
     }
 
     .wlc-logo {
@@ -150,10 +154,9 @@
             white-space: ef.get-value($theme, 'loginBtnWhiteSpace');
         }
 
-        &--deposit.wlc-btn--deposit {
+        &--deposit {
             margin: ef.get-value($theme, 'headerDepositBtnMargin');
             border-radius: ef.get-value($theme, 'headerDepositBtnRadius');
-            background-color: ef.get-value($theme, 'headerDepositBtnFill');
 
             svg {
                 fill: ef.get-value($theme, 'headerDepositBtnFill');

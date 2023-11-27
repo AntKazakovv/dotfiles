@@ -4,16 +4,16 @@ button.wlc-user-icon--theme-default:host {
     display: flex;
     flex-shrink: 0;
     align-items: center;
-    padding: ef.get-value($themeDefault, 'dropdownBtnPadding');
-    border: ef.get-value($themeDefault, 'dropdownBtnBorder');
-    border-radius: ef.get-value($themeDefault, 'dropdownBtnBorderRadius');
+    padding: ef.get-value($themeDefault, 'btnPadding');
+    border: ef.get-value($themeDefault, 'btnBorder');
+    border-radius: ef.get-value($themeDefault, 'headerBtnRadius');
     background-color: transparent;
     cursor: pointer;
 
     .wlc-user-icon__arrow::ng-deep {
         @include bm.transition(all);
-        margin: ef.get-value($themeDefault, 'dropdownArrowMargin');
-        color: ef.get-value($themeDefault, 'dropdownArrowFill');
+        margin: ef.get-value($themeDefault, 'arrowMargin');
+        color: ef.get-value($themeDefault, 'arrowFill');
 
         svg {
             fill: currentColor;
@@ -21,10 +21,10 @@ button.wlc-user-icon--theme-default:host {
     }
 
     &.active {
-        border: ef.get-value($themeDefault, 'dropdownBtnBorderActive');
+        border: ef.get-value($themeDefault, 'btnBorderActive');
 
         .wlc-user-icon__arrow::ng-deep {
-            color: ef.get-value($themeDefault, 'dropdownArrowFillActive');
+            color: ef.get-value($themeDefault, 'arrowFillActive');
             transform: rotate(180deg);
 
             svg {
@@ -34,10 +34,10 @@ button.wlc-user-icon--theme-default:host {
 
 
         @include bm.hover {
-            border: ef.get-value($themeDefault, 'dropdownBtnBorderActive');
+            border: ef.get-value($themeDefault, 'btnBorderActive');
 
             .wlc-user-icon__arrow::ng-deep {
-                color: ef.get-value($themeDefault, 'dropdownArrowFillActive');
+                color: ef.get-value($themeDefault, 'arrowFillActive');
                 transform: rotate(180deg);
 
                 svg {
@@ -48,10 +48,10 @@ button.wlc-user-icon--theme-default:host {
     }
 
     @include bm.hover {
-        border: ef.get-value($themeDefault, 'dropdownBtnBorderHover');
+        border: ef.get-value($themeDefault, 'btnBorderHover');
 
         .wlc-user-icon__arrow::ng-deep {
-            color: ef.get-value($themeDefault, 'dropdownArrowFillHover');
+            color: ef.get-value($themeDefault, 'arrowFillHover');
 
             svg {
                 fill: currentColor;
@@ -64,14 +64,14 @@ div.wlc-user-icon--theme-default:host {
 
     .wlc-user-icon__btn {
         display: block;
-        background: ef.get-value($themeDefault, 'buttonBg');
-        border-radius: ef.get-value($themeDefault, 'buttonBorderRadius');
-        box-shadow: ef.get-value($themeDefault, 'buttonShadow');
+        background: ef.get-value($themeDefault, 'btnBg');
+        border-radius: ef.get-value($themeDefault, 'btnRadius');
+        box-shadow: ef.get-value($themeDefault, 'btnShadow');
 
         ::ng-deep .wlc-icon {
 
             path {
-                fill: ef.get-value($themeDefault, 'dropdownIconInnerFill');
+                fill: ef.get-value($themeDefault, 'iconInnerFill');
             }
         }
     }
@@ -88,8 +88,8 @@ div.wlc-user-icon--theme-default:host {
 
         &__user::ng-deep {
             display: block;
-            width: ef.get-value($themeDefault, 'dropdownBtnIconSize');
-            height: ef.get-value($themeDefault, 'dropdownBtnIconSize');
+            width: ef.get-value($themeDefault, 'iconWidth');
+            height: ef.get-value($themeDefault, 'iconHeight');
 
             svg {
                 display: block;
@@ -98,12 +98,57 @@ div.wlc-user-icon--theme-default:host {
             }
 
             circle {
-                fill: ef.get-value($themeDefault, 'dropdownIconFill');
+                fill: ef.get-value($themeDefault, 'iconFill');
             }
 
             path {
-                fill: ef.get-value($themeDefault, 'dropdownIconInnerFill');
+                fill: ef.get-value($themeDefault, 'iconInnerFill');
             }
+        }
+    }
+}
+
+.wlc-btn-profile--theme-default:host {
+
+    .wlc-btn-profile__btn {
+        @include bm.get-mq-map('height', $themeDefault, 'profileBtnHeight');
+        @include bm.transition;
+
+        min-width: ef.get-value($themeDefault, 'profileBtnMinWidth');
+        padding: ef.get-value($themeDefault, 'profileBtnPadding');
+        border: ef.get-value($themeDefault, 'profileBtnBorder');
+        border-radius: ef.get-value($themeDefault, 'profileBtnRadius');
+
+        ::ng-deep {
+
+            .wlc-btn__text {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'profileBtnFont'),
+                    ef.get-value($themeDefault, 'profileBtnFontColor')
+                );
+                display: flex;
+                flex-direction: ef.get-value($themeDefault, 'profileBtnFlexDir');
+                gap: ef.get-value($themeDefault, 'profileBtnGap');
+                align-items: ef.get-value($themeDefault, 'profileBtnAlignItems');
+                justify-content: ef.get-value($themeDefault, 'profileBtnJustifyContent');
+            }
+
+            svg {
+                width: ef.get-value($themeDefault, 'profileBtnIconWidth');
+                height: ef.get-value($themeDefault, 'profileBtnIconHeight');
+            }
+
+            circle {
+                fill: ef.get-value($themeDefault, 'iconFill');
+            }
+
+            path {
+                fill: ef.get-value($themeDefault, 'iconInnerFill');
+            }
+        }
+
+        @include bm.hover {
+            border: ef.get-value($themeDefault, 'profileBtnHoverBorder');
         }
     }
 }

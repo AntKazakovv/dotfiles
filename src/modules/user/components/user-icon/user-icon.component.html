@@ -1,11 +1,7 @@
 <ng-template [ngIf]="$params.showAsBtn" [ngIfElse]="default">
     <button wlc-button
         class="{{$class}}__btn"
-        theme='cleared'
-        themeMod='secondary'
-        customMod='user'
-        [animation]="$params.animation"
-        [iconPath]="$params.iconPath">
+        [inlineParams]="$params.buttonParams">
     </button>
 </ng-template>
 

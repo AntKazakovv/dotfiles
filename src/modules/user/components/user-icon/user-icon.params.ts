@@ -1,7 +1,7 @@
 import {
     IComponentParams,
     CustomType,
-    TButtonAnimation,
+    IButtonCParams,
 } from 'wlc-engine/modules/core';
 
 export type ComponentTheme = 'default' | 'avatar' | 'wolf' | CustomType;
@@ -16,9 +16,15 @@ export const defaultAvatar: string = '/wlc/icons/icon_default-avatar.svg';
 export interface IUserIconCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     event?: EventType;
     iconPath?: string,
+    /**
+     * userIcon use as button
+     */
     showAsBtn?: boolean;
+    /**
+     * Params for button (if userIcon use showAsBtn = true)
+     */
+    buttonParams?: IButtonCParams;
     useDefaultAvatar?: boolean;
-    animation?: TButtonAnimation;
 };
 
 export const defaultParams: IUserIconCParams = {
@@ -27,4 +33,10 @@ export const defaultParams: IUserIconCParams = {
     moduleName: 'user',
     iconPath: '/wlc/icons/user-icon.svg',
     theme: 'default',
+};
+
+export const defaultButtonParams: IButtonCParams = {
+    theme: 'cleared',
+    themeMod: 'secondary',
+    customMod: 'user',
 };

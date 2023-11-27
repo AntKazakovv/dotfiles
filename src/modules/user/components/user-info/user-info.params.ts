@@ -92,13 +92,15 @@ export const stickyThemeParams: IUserInfoCParams = {
                     class: 'wlc-user-info__wrp sticky',
                     components: [
                         {
-                            name: 'core.wlc-button',
+                            name: 'user.wlc-user-icon',
                             params: {
-                                class: 'wlc-btn wlc-btn-profile',
-                                common: {
-                                    iconPath: '/wlc/icons/user-icon.svg',
-                                    text: gettext('My Profile'),
-                                    sref: 'app.profile.dashboard',
+                                showAsBtn: true,
+                                class: 'wlc-btn-profile',
+                                buttonParams: {
+                                    common: {
+                                        text: gettext('My Profile'),
+                                        sref: 'app.profile.dashboard',
+                                    },
                                 },
                             },
                         },
@@ -134,13 +136,15 @@ export const kioskParams: IUserInfoCParams = {
                     class: 'wlc-user-info__wrp',
                     components: [
                         {
-                            name: 'core.wlc-button',
+                            name: 'user.wlc-user-icon',
                             params: {
-                                class: 'wlc-btn wlc-btn-profile',
-                                common: {
-                                    iconPath: '/wlc/icons/user-icon.svg',
-                                    text: gettext('My Profile'),
-                                    sref: 'app.profile.main.info',
+                                showAsBtn: true,
+                                class: 'wlc-btn-profile',
+                                buttonParams: {
+                                    common: {
+                                        text: gettext('My Profile'),
+                                        sref: 'app.profile.main.info',
+                                    },
                                 },
                             },
                         },
