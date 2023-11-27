@@ -1,8 +1,11 @@
-import {IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {
+    CustomType,
+    IComponentParams,
+} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {DateTime} from 'luxon';
 
 export type ModeType = 'default';
-export type ComponentTheme = 'default' | 'one-line' | 'wolf';
+export type ComponentTheme = 'default' | 'one-line' | 'wolf' | CustomType;
 export type ComponentType = 'default';
 export type AutoModifiersType = ComponentTheme | ModeType;
 export type ManualModifiersType = '';
