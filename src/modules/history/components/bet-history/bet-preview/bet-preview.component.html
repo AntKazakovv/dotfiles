@@ -1,12 +1,6 @@
 <span class="{{$class}}__time">{{date}}</span>
-<div class="{{$class}}__amount">
-    <span wlc-currency
-          class="{{$class}}__currency"
-          [value]="amount"
-          [showValueOnly]="true"
-    ></span>
-    <span wlc-icon
-          class="{{$class}}__currency-icon"
-          [iconPath]="getIconUrl(currency)"
-    ></span>
-</div>
+<span wlc-currency
+      class="{{$class}}__amount"
+      [value]="amount"
+      [currency]="currency"
+></span>

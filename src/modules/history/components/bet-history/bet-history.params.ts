@@ -39,7 +39,6 @@ export const betHistoryTableHeadConfig: ITableCol[] = [
         key: 'Amount',
         title: gettext('Amount'),
         type: 'amount',
-        currencyUseIcon: true,
         order: 20,
         wlcElement: 'wlc-profile-table__cell_amount',
     },

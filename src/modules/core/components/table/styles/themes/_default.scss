@@ -150,18 +150,6 @@ $selector: '.wlc-table';
             .wlc-sections__profile-content--theme-first & {
                 @include bm.get-mq-map('grid-template-columns', $themeDefault, 'rowTemplateColumnsFirstProfile');
             }
-
-            ::ng-deep {
-
-                .wlc-bet-preview {
-
-                    &__time {
-                        @include bm.get-mq-map('white-space', $themeDefault, 'betTimeWhiteSpace');
-                        @include bm.get-mq-map('max-width', $themeDefault, 'betTimeMaxWidth');
-                        @include bm.get-mq-map('text-align', $themeDefault, 'betTimeTextAlign');
-                    }
-                }
-            }
         }
 
         #{$selector}__row {
@@ -298,25 +286,6 @@ $selector: '.wlc-table';
                 justify-self: end;
                 font-weight: bold;
                 text-align: end;
-
-                ::ng-deep {
-
-                    .wlc-currency-wrapper {
-                        display: ef.get-value($themeDefault, 'currencyWrpDisplay');
-                        gap: ef.get-value($themeDefault, 'currencyWrpGap');
-                        align-items: ef.get-value($themeDefault, 'currencyWrpAlignItems');
-                        justify-content: ef.get-value($themeDefault, 'currencyWrpJustifyContent');
-
-                        .wlc-icon {
-
-                            svg {
-                                width: ef.get-value($themeDefault, 'currencyIconSize');
-                                height: ef.get-value($themeDefault, 'currencyIconSize');
-                                transform: translateY(-1px);
-                            }
-                        }
-                    }
-                }
             }
         }
 
