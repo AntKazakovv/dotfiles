@@ -64,6 +64,13 @@ export const loyaltyTableHeadConfig: ITableCol[] = [
         type: 'text',
         order: 40,
         wlcElement: 'wlc-profile-table__cell_experience',
+        mapValue: (item: LoyaltyLevelModel): string => {
+            if (item.isLast && !item.nextLevelPoints) {
+                return `${item.currentLevelPoints}+`;
+            } else {
+                return `${item.nextLevelPoints}`;
+            }
+        },
     },
     {
         key: 'confirmPoints',

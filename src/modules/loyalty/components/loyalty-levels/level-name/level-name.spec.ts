@@ -24,12 +24,13 @@ describe('LevelNameComponent', () => {
     }, {
         Level: '1',
         Name: 'Level 1',
+        CurrentLevelPoints: '50',
         NextLevelPoints: '120',
         Coef: '1',
         ConfirmPoints: '100',
         Image: '',
         Description: 'Description',
-    });
+    }, false);
     const injectParams: ILevelNameParams = {
         wlcElement: 'test-wlc-element',
         theme: 'default',

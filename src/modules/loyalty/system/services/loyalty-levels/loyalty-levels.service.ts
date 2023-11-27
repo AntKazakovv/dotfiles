@@ -1,6 +1,9 @@
 import {Injectable} from '@angular/core';
 
 import _map from 'lodash-es/map';
+import _isObject from 'lodash-es/isObject';
+import _values from 'lodash-es/values';
+import _toNumber from 'lodash-es/toNumber';
 
 import {
     DataService,
@@ -35,6 +38,11 @@ export class LoyaltyLevelsService {
     public async getLoyaltyLevels(): Promise<LoyaltyLevelModel[]> {
         try {
             const response: IData = await this.dataService.request('loyalty/levels');
+
+            if (_isObject(response.data)) {
+                response.data = _values(response.data);
+            }
+
             return this.modifyLevels(response.data);
         } catch (error) {
             this.logService.sendLog({code: '16.0.0', data: error});
@@ -81,18 +89,27 @@ export class LoyaltyLevelsService {
 
     /**
      * Prepares loyalty levels from back-end data
+     * Calculated CurrentLevelPoints property
      *
      * @returns {LoyaltyLevelModel[]} array of loyalty levels
      *
      */
     private modifyLevels(data: ILevel[]): LoyaltyLevelModel[] {
-        if (!data) {
-            return;
-        }
+        return _map(data, (level: ILevel, index: number): LoyaltyLevelModel => {
 
-        return _map(data, level => new LoyaltyLevelModel(
-            {service: 'LoyaltyLevelsService', method: 'modifyLevels'},
-            level,
-        ));
+            if (index && _toNumber(data[index - 1].NextLevelPoints)) {
+                level.CurrentLevelPoints = data[index - 1].NextLevelPoints;
+            } else {
+                level.CurrentLevelPoints = '0';
+            }
+
+            const isLastLevel: boolean = (data.length - 1) === index;
+
+            return new LoyaltyLevelModel(
+                {service: 'LoyaltyLevelsService', method: 'modifyLevels'},
+                level,
+                isLastLevel,
+            );
+        });
     }
 }

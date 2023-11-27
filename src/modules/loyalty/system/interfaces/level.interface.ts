@@ -8,9 +8,13 @@ export interface ILevel {
     * */
     Name: string | null,
     /*
+    *  Points current level
+    * */
+    CurrentLevelPoints: string,
+    /*
     *  Points next level
     * */
-    NextLevelPoints: string,
+    NextLevelPoints?: string,
     /*
     * Points coefficient
     * */

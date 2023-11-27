@@ -12,6 +12,7 @@ export class LoyaltyLevelModel extends AbstractModel<ILevel> {
     constructor(
         from: IFromLog,
         data: ILevel,
+        public readonly isLast: boolean,
     ) {
         super({from: _assign({model: 'LoyaltyLevelModel'}, from)});
         this.data = data;
@@ -50,11 +51,19 @@ export class LoyaltyLevelModel extends AbstractModel<ILevel> {
     }
 
     /**
+     * Points to current level
+     * @returns {number}
+     */
+    public get currentLevelPoints(): number {
+        return _toNumber(this.data.CurrentLevelPoints) || 0;
+    }
+
+    /**
      * Points to next level
      * @returns {number}
      */
     public get nextLevelPoints(): number {
-        return _toNumber(this.data.NextLevelPoints);
+        return _toNumber(this.data.NextLevelPoints) || 0;
     }
 
     /**
