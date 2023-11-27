@@ -14,6 +14,8 @@ export type Theme = 'default' | 'second' | CustomType;
 export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 
+export type TStepTplName = 'wallets' | 'bonuses' | 'systems' | 'paymentInfo' | 'cryptoInvoiceSystems';
+
 export interface IDepositWithdrawCParams extends IComponentParams<Theme, Type, ThemeMod> {
     mode: TPaymentsMethods;
     /** show/hide payment rules checkbox */
@@ -25,6 +27,8 @@ export interface IDepositWithdrawCParams extends IComponentParams<Theme, Type, T
     timerParams?: ITimerCParams; // move to payment-form
     /** Params for CryptoCurrencies list */
     cryptoListParams?: IPaymentListCParams;
+    /** Array for sorting steps. */
+    stepsOrder?: Array<Exclude<TStepTplName, 'wallets'>>;
 }
 
 export const defaultParams: IDepositWithdrawCParams = {
@@ -33,6 +37,7 @@ export const defaultParams: IDepositWithdrawCParams = {
     mode: 'deposit',
     class: 'wlc-cash',
     showPaymentRules: true,
+    stepsOrder: ['systems', 'cryptoInvoiceSystems', 'bonuses', 'paymentInfo'],
 };
 
 export interface IAdditionalFields {
@@ -45,7 +50,7 @@ export type FieldType = IInputCParams | IButtonCParams | ICheckboxCParams;
 export {depositForm, depositFormCrypto, withdrawForm} from 'wlc-engine/modules/finances/system/config';
 
 export interface IPaymentStep {
-    template: string;
+    template: TStepTplName;
     title: string;
     ready?: Promise<void>;
     $resolve?: () => void;

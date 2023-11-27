@@ -20,6 +20,11 @@ import {
 import _assign from 'lodash-es/assign';
 import _merge from 'lodash-es/merge';
 import _map from 'lodash-es/map';
+import _uniq from 'lodash-es/uniq';
+import _remove from 'lodash-es/remove';
+import _each from 'lodash-es/each';
+import _find from 'lodash-es/find';
+import _indexOf from 'lodash-es/indexOf';
 
 import {
     IMixedParams,
@@ -83,7 +88,7 @@ export class DepositWithdrawComponent
     /** Defines if crypto invoice payment chosen */
     public isCryptoInvoices: boolean = false;
 
-    public steps: Set<Params.IPaymentStep> = new Set();
+    public steps: Array<Params.IPaymentStep> = [];
 
     public useBonuses: boolean = false;
     public showBonuses: boolean = false;
@@ -104,6 +109,7 @@ export class DepositWithdrawComponent
     private userProfile: UserProfile;
     private isDeposit: boolean;
     private useScroll: boolean = false;
+    private stepsOrder: Params.TStepTplName[] = [];
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IDepositWithdrawCParams,
@@ -129,6 +135,10 @@ export class DepositWithdrawComponent
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
 
+        if (this.$params.stepsOrder && this.$params.theme !== 'second') {
+            this.prepareStepsOrdering();
+        }
+
         this.hiddenPaymentInfo = this.configService.get<boolean>('$finances.paymentInfo.hiddenPaymentInfo');
         this.useBonuses = this.configService.get<boolean>('$finances.bonusesInDeposit.use');
         this.isDeposit = this.$params.mode === 'deposit';
@@ -145,7 +155,7 @@ export class DepositWithdrawComponent
             Params.PaymentSteps.wallet.ready = new Promise((resolve: () => void): void => {
                 Params.PaymentSteps.wallet.$resolve = resolve;
             });
-            this.steps.add(Params.PaymentSteps.wallet);
+            this.addStep(Params.PaymentSteps.wallet, true);
 
             if (this.userService.userInfo) {
                 Params.PaymentSteps.wallet.$resolve();
@@ -169,11 +179,12 @@ export class DepositWithdrawComponent
             Params.PaymentSteps.bonus.ready = new Promise((resolve: () => void): void => {
                 Params.PaymentSteps.bonus.$resolve = resolve;
             });
-            this.steps.add(Params.PaymentSteps.bonus);
+
+            this.addStep(Params.PaymentSteps.bonus);
 
             this.eventService.subscribe({name: 'BONUSES_FETCH_FAILED'}, (): void => {
                 Params.PaymentSteps.bonus.$resolve();
-                this.steps.delete(Params.PaymentSteps.bonus);
+                this.deleteStep(Params.PaymentSteps.bonus);
             });
 
             const bonusesService = await this.injectionService
@@ -198,7 +209,7 @@ export class DepositWithdrawComponent
                                 ],
                             };
                         } else {
-                            this.steps.delete(Params.PaymentSteps.bonus);
+                            this.deleteStep(Params.PaymentSteps.bonus);
                         }
                         Params.PaymentSteps.bonus.$resolve();
                         bonusesSubscription.unsubscribe();
@@ -215,9 +226,9 @@ export class DepositWithdrawComponent
             });
         }
 
-        this.steps.add(Params.PaymentSteps.paymentSystem);
+        this.addStep(Params.PaymentSteps.paymentSystem);
         if (!this.hiddenPaymentInfo) {
-            this.steps.add(Params.PaymentSteps.paymentInfo);
+            this.addStep(Params.PaymentSteps.paymentInfo);
         }
 
         this.configService
@@ -351,23 +362,23 @@ export class DepositWithdrawComponent
         if (this.isCryptoInvoices) {
 
             if (this.currentSystem.isParent) {
-                this.steps.delete(Params.PaymentSteps.paymentInfo);
-                this.steps.add(Params.PaymentSteps.cryptoInvoices);
+                this.deleteStep(Params.PaymentSteps.paymentInfo);
+                this.addStep(Params.PaymentSteps.cryptoInvoices);
 
                 if (this.useScroll) {
                     this.actionService.scrollTo(`.${this.$params.class}__cryptoInvoiceSystems`,
                         {position: 'center'});
                 }
             } else {
-                this.steps.add(Params.PaymentSteps.paymentInfo);
+                this.addStep(Params.PaymentSteps.paymentInfo);
                 if (this.useScroll) {
                     this.actionService.scrollTo(`.${this.$params.class}__paymentInfo`,
                         {position: 'center'});
                 }
             }
         } else {
-            this.steps.delete(Params.PaymentSteps.cryptoInvoices);
-            this.steps.add(Params.PaymentSteps.paymentInfo);
+            this.deleteStep(Params.PaymentSteps.cryptoInvoices);
+            this.addStep(Params.PaymentSteps.paymentInfo);
             if (this.useScroll) {
                 this.actionService.scrollTo(`.${this.$params.class}__paymentInfo`,
                     {position: 'center'});
@@ -380,10 +391,10 @@ export class DepositWithdrawComponent
     protected dropCurrentSystem(): void {
         if (this.parentSystem && !this.currentSystem) {
             this.parentSystem = null;
-            this.steps.delete(Params.PaymentSteps.cryptoInvoices);
-            this.steps.add(Params.PaymentSteps.paymentInfo);
+            this.deleteStep(Params.PaymentSteps.cryptoInvoices);
+            this.addStep(Params.PaymentSteps.paymentInfo);
         } else if (this.parentSystem && this.currentSystem?.cryptoInvoices) {
-            this.steps.delete(Params.PaymentSteps.paymentInfo);
+            this.deleteStep(Params.PaymentSteps.paymentInfo);
         }
 
         this.cdr.markForCheck();
@@ -391,5 +402,59 @@ export class DepositWithdrawComponent
 
     protected get userCountry(): string {
         return this.userProfile?.countryCode || '';
+    }
+
+    private prepareStepsOrdering(): void {
+        this.stepsOrder.push('wallets', ...(_uniq(this.$params.stepsOrder)));
+
+        const availableSteps: Params.IPaymentStep[] = Object.values(Params.PaymentSteps);
+        if (this.stepsOrder.length < availableSteps.length) {
+            _each(availableSteps, ({template}): void => {
+                if (_indexOf(this.stepsOrder, template) < 0) {
+                    this.stepsOrder.push(template);
+                }
+            });
+        }
+    }
+
+    private findStepByTpl(tpl: Params.TStepTplName): Params.IPaymentStep {
+        return _find(this.steps, ({template}):boolean => template === tpl);
+    }
+
+    /**
+     * @param step
+     * @param prepend - insert step at the start of steps array (used for wallets)
+     */
+    private addStep(step: Params.IPaymentStep, prepend?: boolean): void {
+        if (this.findStepByTpl(step.template)) {
+            return;
+        }
+
+        if (prepend) {
+            this.steps.unshift(step);
+        } else {
+            this.steps.push(step);
+        }
+
+        if (this.steps.length > 1 && !prepend) {
+            this.sortSteps();
+        }
+    }
+
+    private deleteStep(step: Params.IPaymentStep): void {
+        _remove(this.steps, (current: Params.IPaymentStep): boolean => current.template === step.template);
+    }
+
+    private sortSteps(): void {
+        const steps: Params.IPaymentStep[] = [];
+
+        _each(this.stepsOrder, (stepTpl: Params.TStepTplName): void => {
+            const step: Params.IPaymentStep = this.findStepByTpl(stepTpl);
+            if (step) {
+                steps.push(step);
+            }
+        });
+
+        this.steps = steps;
     }
 }
