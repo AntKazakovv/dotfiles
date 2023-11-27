@@ -111,6 +111,14 @@
                         }
                     }
 
+                    .wlc-select[class] {
+                        grid-template-columns: ef.get-value($mainInfoThemeV1, 'phoneSelectTemplateColumns');
+
+                        .wlc-select__label {
+                            white-space: nowrap;
+                        }
+                    }
+
                     .wlc-input[class],
                     .wlc-select[class] {
 

@@ -62,18 +62,24 @@
 
             .wlc-birth-field {
                 @include bm.get-mq-map('grid-template-columns', $mainInfoThemeDefault, 'birthColumns');
+                @include bm.get-mq-map('align-items', $mainInfoThemeDefault, 'birthAlignItems');
 
                 .wlc-select[class] {
                     grid-template-columns: ef.get-value($mainInfoThemeDefault, 'birthSelectColumns');
 
                     &:first-child {
                         @include bm.get-mq-map('grid-template-columns', $mainInfoThemeDefault, 'birthSelectSize');
+
+                        .wlc-select__label {
+                            @include bm.get-mq-map('white-space', $mainInfoThemeDefault, 'birthLabelWhiteSpace');
+                        }
                     }
                 }
             }
 
             .wlc-phone-field {
                 @include bm.get-mq-map('grid-template-columns', $mainInfoThemeDefault, 'phoneTemplateColumns');
+                @include bm.get-mq-map('align-items', $mainInfoThemeDefault, 'phoneAlignItems');
 
                 .wlc-select[class] {
                     @include bm.get-mq-map('grid-gap', $mainInfoThemeDefault, 'phoneGap');
@@ -81,6 +87,10 @@
 
                     .wlc-tooltip {
                         display: none;
+                    }
+
+                    .wlc-select__label {
+                        @include bm.get-mq-map('white-space', $mainInfoThemeDefault, 'phoneLabelWhiteSpace');
                     }
                 }
 

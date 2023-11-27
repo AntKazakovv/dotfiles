@@ -8,10 +8,10 @@
 
         ::ng-deep {
 
-            .wlc-select--day.wlc-select--theme-mod-default {
+            .wlc-select--theme-vertical {
+                grid-template-columns: ef.get-value($themeVertical, 'selectTemplateColumns');
 
                 .wlc-select__label {
-                    margin-right: ef.get-value($themeVertical, 'labelMarginRight');
                     overflow: visible;
                     white-space: nowrap;
                 }
