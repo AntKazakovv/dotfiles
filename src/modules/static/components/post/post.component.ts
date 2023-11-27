@@ -57,6 +57,10 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
      */
     @Input() public shouldClearStyles: boolean;
     @Input() public useTitle: boolean = true;
+    /**
+     * if true - enable manual script tag add to component
+     */
+    @Input() public canUseScriptTag?: boolean;
     @Input() protected slug: string;
     @Input() protected inlineParams: Params.IPostCParams;
 
@@ -91,6 +95,7 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
         this.parseAsPlainHTML ??= this.$params.parseAsPlainHTML;
         this.withoutCompilation ??= this.$params.withoutCompilation;
         this.shouldClearStyles ??= this.$params.shouldClearStyles;
+        this.canUseScriptTag ??= this.$params.canUseScriptTag;
         try {
             this.defaultSlug = this.slug || this.$params.slug || this.uiRouter.params.slug;
             this.generatedSlug = this.getGeneratedSlug();

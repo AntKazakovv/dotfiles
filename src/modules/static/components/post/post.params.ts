@@ -23,6 +23,7 @@ export interface IPostCParams extends IComponentParams<string, string, string> {
     shouldClearStyles?: boolean;
     /** Download PDF config */
     downloadPdf?: IDownloadPdf;
+    canUseScriptTag?: boolean;
 }
 
 export const defaultParams: IPostCParams = {
