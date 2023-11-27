@@ -44,8 +44,8 @@ export const defaultParams: IGameDashboardCParams = {
     class: 'wlc-game-dashboard',
     common: {
         tournamentsListParams: {
-            type: 'swiper',
-            theme: 'dashboard',
+            type: 'dashboard',
+            themeMod: 'swiper',
             common: {
                 restType: 'any',
                 thumbType: 'dashboard',

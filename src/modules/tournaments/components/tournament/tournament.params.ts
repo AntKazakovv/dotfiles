@@ -4,11 +4,10 @@ import {
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
     Tournament,
-    ThumbType,
 } from 'wlc-engine/modules/tournaments';
 
-export type ComponentTheme = 'default' | 'dashboard' | 'active' | 'available' | 'banner' | 'detail' | CustomType;
-export type ComponentType = ThumbType | CustomType;
+export type ComponentTheme = 'default' | 'wolf' | CustomType;
+export type ComponentType = 'dashboard' | 'active' | 'available' | 'banner' | 'detail' | CustomType;
 export type ThemeMod = 'default' | CustomMod;
 export type AutoModifiers = ComponentTheme | ThemeMod;
 export type CustomMod = string;

@@ -1,0 +1,184 @@
+.wlc-tournament-banner--theme-wolf:host {
+
+    @include bm.get-mq-map('min-height', $themeWolf, 'minHeight');
+    position: relative;
+    height: ef.get-value($themeWolf, 'baseHeight');
+
+    .wlc-tournament-banner {
+        position: relative;
+        max-width: ef.get-value($themeWolf, 'tournamentMaxWidth');
+        height: ef.get-value($themeWolf, 'baseHeight');
+
+        border-radius: ef.get-value($themeWolf, 'tournamentRadius');
+
+        background-color: ef.get-value($themeWolf, 'tournamentBg');
+        background-repeat: no-repeat;
+        background-size: cover;
+
+        overflow: hidden;
+        cursor: pointer;
+
+        &:before {
+            @include bm.transition(opacity);
+
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: ef.get-value($themeWolf, 'backdropZindex');
+
+            width: 100%;
+            height: 100%;
+            background: var(--wlc-banner-backdrop-bg, #{ef.get-value($themeWolf, 'backdropBg')});
+            opacity: 0;
+        }
+
+        &__body {
+            @include bm.get-mq-map('padding', $themeWolf, 'bodyPadding');
+
+            position: relative;
+            z-index: ef.get-value($themeWolf, 'bodyZIndex');
+            display: flex;
+            flex-direction: ef.get-value($themeWolf, 'bodyFlexDirection');
+            align-items: ef.get-value($themeWolf, 'bodyAlignItems');
+            justify-content: ef.get-value($themeWolf, 'bodyJustifyContent');
+
+            height: ef.get-value($themeWolf, 'baseHeight');
+
+            > *:not(.wlc-tournament-banner__body-decor) {
+                position: relative;
+                z-index: ef.get-value($themeWolf, 'bodyNestedZIindex');
+            }
+
+            &-decor {
+                @include bm.get-mq-map('background-position', $themeWolf, 'decorBgPosition');
+                @include bm.get-mq-map('background-size', $themeWolf, 'decorBgSize');
+                @include bm.get-mq-map('right', $themeWolf, 'decorPositionRight');
+
+                position: absolute;
+                top: ef.get-value($themeWolf, 'decorPositionTop');
+                bottom: ef.get-value($themeWolf, 'decorPositionBottom');
+                z-index: ef.get-value($themeWolf, 'decorZIindex');
+
+                width: ef.get-value($themeWolf, 'decorWidth');
+                background-repeat: no-repeat;
+            }
+
+            ::ng-deep {
+
+                .wlc-tournament-banner-timer {
+
+                    & .wlc-timer__timer-text {
+
+                        .secondary-text {
+                            text-align: left;
+                        }
+                    }
+                }
+            }
+        }
+
+        &__title {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'titleFontSize'),
+                ef.get-value($themeWolf, 'titleColor')
+            );
+            @include bm.lineClamp(map-get($themeWolf, 'titleClamp'));
+            @include bm.get-mq-map('max-width', $themeWolf, 'titleMaxWidth');
+            margin: ef.get-value($themeWolf, 'titleMargin');
+
+            @include mq.min(768) {
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'titleFontSize', 768),
+                    null
+                );
+            }
+        }
+
+        &__prizepool {
+
+            ::ng-deep {
+
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'prizepoolFontSize'),
+                    ef.get-value($themeWolf, 'prizepoolColor')
+                );
+
+                .wlc-tournament-prizes-row__values {
+                    padding: ef.get-value($themeWolf, 'prizepoolPadding');
+                    background: ef.get-value($themeWolf, 'prizepoolBg');
+
+                    .wlc-currency {
+                        display: inline-flex;
+                        align-items: center;
+                    }
+                }
+            }
+        }
+
+        ::ng-deep {
+
+            .wlc-icon {
+
+                &-content {
+                    display: block;
+                    line-height: 0;
+                }
+            }
+        }
+
+        &__loader {
+            position: absolute;
+            top: ef.get-value($themeWolf, 'loaderPosition');
+            right: ef.get-value($themeWolf, 'loaderPosition');
+            bottom: ef.get-value($themeWolf, 'loaderPosition');
+            left: ef.get-value($themeWolf, 'loaderPosition');
+            z-index: ef.get-value($themeWolf, 'loaderZIndex');
+
+            display: flex;
+            align-items: ef.get-value($themeWolf, 'loaderAlignItems');
+            justify-content: ef.get-value($themeWolf, 'loaderJustifyContent');
+
+            border-radius: ef.get-value($themeWolf, 'loaderRadius');
+            background: ef.get-value($themeWolf, 'loaderBachround');
+
+            &:before {
+                content: '';
+
+                position: absolute;
+                top: ef.get-value($themeWolf, 'loaderBeforePosition');
+                right: ef.get-value($themeWolf, 'loaderBeforePosition');
+                bottom: ef.get-value($themeWolf, 'loaderBeforePosition');
+                left: ef.get-value($themeWolf, 'loaderBeforePosition');
+
+                width: ef.get-value($themeWolf, 'loaderBeforeSize');
+                height: ef.get-value($themeWolf, 'loaderBeforeSize');
+
+                margin: ef.get-value($themeWolf, 'loaderBeforeMargin');
+
+                background: ef.get-value($themeWolf, 'loaderBeforeBackground');
+
+                border-radius: ef.get-value($themeWolf, 'loaderBeforeRadius');
+            }
+
+            &:after {
+                content: '';
+
+                width: ef.get-value($themeWolf, 'loaderAfterSize');
+                height: ef.get-value($themeWolf, 'loaderAfterSize');
+
+                border: 4px solid ef.get-value($themeWolf, 'loaderAfterBorderColor');
+                border-left-color: transparent;
+                border-radius: ef.get-value($themeWolf, 'loaderAfterRadius');
+                animation: ef.get-value($themeWolf, 'loaderAfterAnimation');
+            }
+        }
+
+        @include bm.hover() {
+
+            &:before {
+                opacity: 1;
+            }
+        }
+    }
+}

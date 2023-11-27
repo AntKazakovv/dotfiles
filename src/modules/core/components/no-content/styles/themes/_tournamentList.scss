@@ -1,20 +1,33 @@
 .wlc-no-content--wlc-tournament-list:host {
     @include baseNoContent();
 
-    &.wlc-no-content--theme-banner {
+    &.wlc-no-content--theme-default {
+
+        &.wlc-no-content--type-banner {
+
+            .wlc-no-content {
+
+                &__wrapper {
+                    @include bm.get-mq-map('min-height', $tournamentList, 'nodataWrapperMinHeight');
+
+                    &:before {
+                        @include linearGradient();
+                    }
+
+                    .wlc-loader {
+                        @include bm.absoluteCentering;
+                    }
+                }
+            }
+        }
+    }
+
+    &.wlc-no-content--theme-wolf {
 
         .wlc-no-content {
 
             &__wrapper {
-                @include bm.get-mq-map('min-height', $tournamentList, 'nodataWrapperMinHeight');
-
-                &:before {
-                    @include linearGradient();
-                }
-
-                .wlc-loader {
-                    @include bm.absoluteCentering;
-                }
+                border-radius: ef.get-value($tournamentList, 'nodataWolfWrapperRadius');
             }
         }
     }

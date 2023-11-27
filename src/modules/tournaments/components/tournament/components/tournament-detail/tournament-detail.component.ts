@@ -4,8 +4,6 @@ import {
     Component,
     Inject,
     Input,
-    OnChanges,
-    OnDestroy,
     OnInit,
     AfterViewInit,
     ViewEncapsulation,
@@ -31,6 +29,11 @@ import {GamesCatalogService} from 'wlc-engine/modules/games';
 import {Tournament} from 'wlc-engine/modules/tournaments/system/models/tournament.model';
 import {TournamentsService} from 'wlc-engine/modules/tournaments/system/services/tournaments/tournaments.service';
 import {TournamentComponent} from 'wlc-engine/modules/tournaments/components/tournament/tournament.component';
+import {ITournamentTags} from 'wlc-engine/modules/tournaments';
+import {
+    ITagCParams,
+    ITagCommon,
+} from 'wlc-engine/modules/core/components/tag/tag.params';
 import {ITournamenFreeSpinsParams} from '../tournament-free-spins/tournament-free-spins.params';
 
 import * as Params from './tournament-detail.params';
@@ -44,10 +47,10 @@ import * as Params from './tournament-detail.params';
     encapsulation: ViewEncapsulation.None,
 })
 export class TournamentDetailComponent extends AbstractComponent implements
-    OnInit, AfterViewInit, OnDestroy, OnChanges {
+    OnInit, AfterViewInit {
     @Input() public inlineParams: Params.ITournamentDetailCParams;
-    @Input() public type: Params.Type;
-    @Input() public theme: Params.Theme;
+    @Input() public type: Params.ComponentType;
+    @Input() public theme: Params.ComponentTheme;
     @Input() public themeMod: Params.ThemeMod;
     @Input() public customMod: Params.CustomMod;
     @Input() public parentInstance: TournamentComponent;
@@ -55,20 +58,20 @@ export class TournamentDetailComponent extends AbstractComponent implements
     public override $params: Params.ITournamentDetailCParams;
     public isReady: boolean = false;
     public tournament: Tournament;
-    public tournamentProcessing: boolean = false;
+    public pending: boolean = false;
     public menuParams: MenuParams.IMenuCParams;
     public gamesGrid: IWrapperCParams;
     public menuConfig: IWrapperCParams = {components: []};
     public usePodium: boolean;
     public availableLevels: string;
     public tagClass: string;
+    public tagConfig: ITagCParams;
     public freeSpinsParams: ITournamenFreeSpinsParams;
 
     protected gamesCatalogService: GamesCatalogService;
 
     constructor(
-        @Inject('injectParams')
-        protected injectParams: Params.ITournamentDetailCParams,
+        @Inject('injectParams') protected injectParams: Params.ITournamentDetailCParams,
         configService: ConfigService,
         protected tournamentsService: TournamentsService,
         protected modalService: ModalService,
@@ -80,10 +83,7 @@ export class TournamentDetailComponent extends AbstractComponent implements
             <IMixedParams<Params.ITournamentDetailCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
-            },
-            configService,
-            cdr,
-        );
+            }, configService, cdr);
     }
 
     public override ngOnInit(): void {
@@ -105,7 +105,7 @@ export class TournamentDetailComponent extends AbstractComponent implements
         this.$params.parentInstance.pending$
             .pipe(takeUntil(this.$destroy))
             .subscribe((pending) => {
-                this.tournamentProcessing = pending;
+                this.pending = pending;
                 this.tournament = this.$params.parentInstance.tournament;
                 this.freeSpinsParams = {
                     freeSpins: this.tournament.freeRounds,
@@ -131,6 +131,27 @@ export class TournamentDetailComponent extends AbstractComponent implements
                 },
             ],
         };
+
+        if (this.$params.theme === 'wolf') {
+            this.$params.prizesParams.theme = 'wolf';
+            _set(this.gamesGrid, 'components[0].params.btnLoadMore.theme', 'theme-wolf-link');
+
+            if (this.tournament.tag) {
+                const moduleTagsConfig = this.configService.get<ITournamentTags>('$tournaments.tagsConfig');
+                const tagCommon: ITagCommon = moduleTagsConfig.tagList[this.tournament.tag];
+
+                if (tagCommon) {
+
+                    if (!moduleTagsConfig.useIcons) {
+                        tagCommon.iconUrl = null;
+                    }
+
+                    this.tagConfig = {
+                        common: tagCommon,
+                    };
+                };
+            }
+        }
     }
 
     public goTo(path: string, params: IIndexing<string> = {}): void {
@@ -157,15 +178,6 @@ export class TournamentDetailComponent extends AbstractComponent implements
                 this.router.stateService.go('app.profile.loyalty-tournaments.main');
             }
         }
-    }
-
-    /**
-     * Returns text description for timer
-     * */
-    public getTimerText(): string {
-        return this.tournament.isTournamentStarts
-            ? this.$params.common?.timerTextAfterStart
-            : this.$params.common?.timerTextBeforeStart;
     }
 
     private prepareTournament(): void {

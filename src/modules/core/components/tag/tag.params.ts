@@ -3,7 +3,7 @@ import {
     CustomType,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
 
-export type ComponentTheme = 'default' | CustomType;
+export type ComponentTheme = 'default' | 'flag' | CustomType;
 export type ComponentType = 'default'  | CustomType;
 export type ComponentThemeMod = 'default' | CustomType;
 
@@ -15,6 +15,7 @@ export interface ITagCommon {
     caption: string;
     bg?: string;
     iconUrl?: string;
+    flagIconUrl?: string;
 }
 
 export interface ITagCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
@@ -27,5 +28,6 @@ export const defaultParams: ITagCParams = {
     moduleName: 'core',
     common: {
         caption: '',
+        flagIconUrl: '/wlc/icons/theme-wolf/flag.svg',
     },
 };

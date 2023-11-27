@@ -1,20 +1,22 @@
 <ng-container [ngSwitch]="$params.theme">
-    <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
-    <ng-container [ngTemplateOutlet]="alternative" *ngSwitchCase="'alternative'"></ng-container>
+    <ng-container *ngSwitchCase="'wolf'" [ngTemplateOutlet]="themeWolf"></ng-container>
+    <ng-container *ngSwitchCase="'alternative'" [ngTemplateOutlet]="alternative"></ng-container>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
 </ng-container>
 
 <ng-template #default>
     <div *ngIf="tournament" class="{{$class}}__container">
         <div class="{{$class}}__info">
-            <img [wlc-fallback]="tournament.fallbackImagePromo"
-                 [src]="tournament.imagePromo"
-                 class="{{$class}}__image {{$class}}__image--mobile"
-                 loading="lazy">
+            <img class="{{$class}}__image {{$class}}__image--mobile"
+                loading="lazy"
+                [wlc-fallback]="tournament.fallbackImagePromo"
+                [src]="tournament.imagePromo">
             <div class="{{$class}}__inner">
                 <div class="{{$class}}__tag">
                     <span class="{{$class}}__tag-text"
-                        [ngClass]="tagClass"
-                    >{{tournament.tag | translate}}</span>
+                        [ngClass]="tagClass">
+                        {{tournament.tag | translate}}
+                    </span>
                 </div>
                 <h3 class="{{$class}}__title">{{tournament.name}}</h3>
                 <div class="{{$class}}__description">
@@ -23,10 +25,10 @@
             </div>
         </div>
         <div class="{{$class}}__board">
-            <img [wlc-fallback]="tournament.fallbackImagePromo"
-                 [src]="tournament.imagePromo"
-                 class="{{$class}}__image {{$class}}__image--desk"
-                 loading="lazy">
+            <img class="{{$class}}__image {{$class}}__image--desk"
+                loading="lazy"
+                [wlc-fallback]="tournament.fallbackImagePromo"
+                [src]="tournament.imagePromo">
             <div class="{{$class}}__inner">
                 <h4 class="{{$class}}__board-title">
                     {{'Prize pool' | translate}}
@@ -34,26 +36,25 @@
                 <div wlc-tournament-prizes-row
                     class="{{$class}}__prizepool"
                     [inlineParams]="{theme: 'default'}"
-                    [prizes]="tournament.prizePool"
-                    >
+                    [prizes]="tournament.prizePool">
                 </div>
                 <div wlc-timer
-                     class="{{$class}}-timer"
-                     [value]="tournament.stateDateTournament"
-                     [text]="getTimerText()"
-                     (timerEnds)="updateTournaments()"
-                     [serverDateUTC]="tournament.serverTime">
+                    class="{{$class}}-timer"
+                    [value]="tournament.stateDateTournament"
+                    [text]="tournament.timerText"
+                    [serverDateUTC]="tournament.serverTime"
+                    (timerEnds)="updateTournaments()">
                 </div>
                 <div wlc-tournament-prizes
-                     class="{{$class}}-prizes"
-                     [tournament]="tournament">
+                    class="{{$class}}-prizes"
+                    [tournament]="tournament">
                 </div>
 
                 <span *ngIf="tournament.prizeTable.length > rowLimit"
-                      wlc-link-block
-                      link="Show all"
-                      (click)="readMore(true)"
-                ></span>
+                    wlc-link-block
+                    link="Show all"
+                    (click)="readMore(true)">
+                </span>
             </div>
         </div>
 
@@ -65,10 +66,82 @@
                     (click)="joinToTournament()">
                 </button>
             </ng-container>
-            <button
-                wlc-button
+            <button wlc-button
                 themeMod="secondary"
-                [text]="'Read more'"
+                text="Read more"
+                (click)="readMore()">
+            </button>
+        </div>
+
+        <div *ngIf="pending" class="{{$class}}__loader"></div>
+    </div>
+</ng-template>
+
+<ng-template #themeWolf>
+    <div *ngIf="tournament" class="{{$class}}__container">
+        <div class="{{$class}}__info">
+            <img class="{{$class}}__image {{$class}}__image--mobile"
+                loading="lazy"
+                [wlc-fallback]="tournament.fallbackImagePromo"
+                [src]="tournament.imagePromo">
+            <div class="{{$class}}__inner">
+                <span wlc-tag
+                    class="{{$class}}__tag"
+                    [inline]="tagConfig">
+                </span>
+                <h3 class="{{$class}}__title">{{tournament.name}}</h3>
+                <div class="{{$class}}__description">
+                    <div [innerHtml]="tournament.descriptionSafeHTML | safeValue:'html'"></div>
+                </div>
+            </div>
+        </div>
+        <div class="{{$class}}__board">
+            <img class="{{$class}}__image {{$class}}__image--desk"
+                loading="lazy"
+                [wlc-fallback]="tournament.fallbackImagePromo"
+                [src]="tournament.imagePromo">
+            <div class="{{$class}}__inner">
+                <h4 class="{{$class}}__board-title">
+                    {{'Prize pool' | translate}}
+                </h4>
+                <div class="{{$class}}__prizepool"
+                    wlc-tournament-prizes-row
+                    [inlineParams]="{theme: 'wolf', themeMod: 'short-line'}"
+                    [prizes]="tournament.prizePool">
+                </div>
+
+                <div wlc-timer
+                    class="{{$class}}-timer"
+                    theme="wolf"
+                    [value]="tournament.stateDateTournament"
+                    [text]="tournament.timerText"
+                    (timerEnds)="updateTournaments()">
+                </div>
+                <div wlc-tournament-prizes
+                    class="{{$class}}-prizes"
+                    [inlineParams]="{theme: 'wolf'}"
+                    [tournamentType]="'promo'"
+                    [tournament]="tournament">
+                </div>
+
+                <button *ngIf="tournament.prizeTable.length > rowLimit"
+                    wlc-button
+                    theme="theme-wolf-link"
+                    text="See all prizes"
+                    (click)="readMore(true)">
+                </button>
+            </div>
+        </div>
+
+        <div class="buttons-wrap">
+            <button *ngIf="showJoin"
+                wlc-button
+                text="Join now"
+                (click)="joinToTournament()">
+            </button>
+            <button wlc-button
+                themeMod="secondary"
+                text="Read more"
                 (click)="readMore()">
             </button>
         </div>
@@ -84,24 +157,26 @@
         <div class="{{$class}}__image-block">
             <div class="{{$class}}__tag {{$class}}__tag--desk">
                 <span class="{{$class}}__tag-text"
-                    [ngClass]="tagClass"
-                >{{tournament.tag | translate}}</span>
+                    [ngClass]="tagClass">
+                    {{tournament.tag | translate}}
+                </span>
             </div>
-            <img [wlc-fallback]="tournament.fallbackImagePromo"
-                 [src]="tournament.image"
-                 class="{{$class}}__image {{$class}}__image--desk"
-                 loading="lazy">
+            <img class="{{$class}}__image {{$class}}__image--desk"
+                loading="lazy"
+                [wlc-fallback]="tournament.fallbackImagePromo"
+                [src]="tournament.image">
         </div>
         <div class="{{$class}}__info">
-            <img [wlc-fallback]="tournament.fallbackImagePromo"
-                 [src]="tournament.image"
-                 class="{{$class}}__image {{$class}}__image--mobile"
-                 loading="lazy">
+            <img class="{{$class}}__image {{$class}}__image--mobile"
+                loading="lazy"
+                [wlc-fallback]="tournament.fallbackImagePromo"
+                [src]="tournament.image">
             <div class="{{$class}}__inner">
                 <div class="{{$class}}__tag {{$class}}__tag--mobile">
                     <span class="{{$class}}__tag-text"
-                        [ngClass]="tagClass"
-                    >{{tournament.tag | translate}}</span>
+                        [ngClass]="tagClass">
+                        {{tournament.tag | translate}}
+                    </span>
                 </div>
                 <h3 class="{{$class}}__title">{{tournament.name}}</h3>
                 <div class="{{$class}}__description">
@@ -111,35 +186,29 @@
         </div>
         <div class="{{$class}}__board">
             <div class="{{$class}}__inner">
-                <h4 class="{{$class}}__board-title">
-                    {{'Prize pool' | translate}}
-                    <div wlc-tournament-prizes-row
-                        class="{{$class}}__prizepool"
-                        [inlineParams]="{theme: 'default'}"
-                        [prizes]="tournament.prizePool">
-                </div>
-                </h4>
+                <h4 class="{{$class}}__board-title">{{'Prize pool' | translate}}</h4>
+
                 <div wlc-timer
-                     class="{{$class}}-timer"
-                     [value]="tournament.stateDateTournament"
-                     [text]="getTimerText()"
-                     (timerEnds)="updateTournaments()"
-                     [serverDateUTC]="tournament.serverTime">
+                    class="{{$class}}-timer"
+                    [value]="tournament.stateDateTournament"
+                    [text]="tournament.timerText"
+                    [serverDateUTC]="tournament.serverTime">
+                    (timerEnds)="updateTournaments()"
                 </div>
                 <div wlc-tournament-prizes
-                     class="{{$class}}-prizes"
-                     [themeMod]="'compact'"
-                     [tournament]="tournament">
+                    class="{{$class}}-prizes"
+                    [themeMod]="'compact'"
+                    [tournament]="tournament">
                 </div>
                 <div wlc-tournament-prizes
-                     class="{{$class}}-prizes-mobile"
-                     [tournament]="tournament">
+                    class="{{$class}}-prizes-mobile"
+                    [tournament]="tournament">
                 </div>
 
                 <span *ngIf="tournament.winningSpreadByPercent.length > rowLimit"
-                      wlc-link-block
-                      link="Show all"
-                      (click)="readMore(true)"
+                    wlc-link-block
+                    link="Show all"
+                    (click)="readMore(true)"
                 ></span>
             </div>
         </div>
@@ -152,10 +221,9 @@
                     (click)="joinToTournament()">
                 </button>
             </ng-container>
-            <button
-                wlc-button
+            <button wlc-button
                 themeMod="secondary"
-                [text]="'Read more'"
+                text="Read more"
                 (click)="readMore()">
             </button>
         </div>

@@ -168,6 +168,12 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
         return this.data.RemainingTime;
     }
 
+    public get timerText(): string {
+        return this.isTournamentStarts
+            ? this.configService.get<string>('$tournaments.timerTextAfterStart')
+            : this.configService.get<string>('$tournaments.timerTextBeforeStart');
+    }
+
     public get repeat(): string {
         return this.data.Repeat;
     }

@@ -1,5 +1,23 @@
-<span *ngIf="tagConfig.iconUrl"
-    wlc-icon
-    class="{{$class}}__icon"
-    [iconUrl]="tagConfig.iconUrl"></span>
-<span class="{{$class}}__caption">{{tagConfig.caption | translate}}</span>
+<ng-container [ngSwitch]="$params.theme" *ngIf="tagConfig.iconUrl">
+    <ng-container *ngSwitchCase="'flag'" [ngTemplateOutlet]="flag"></ng-container>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
+</ng-container>
+
+<ng-template #default>
+    <span wlc-icon
+        class="{{$class}}__icon"
+        [iconUrl]="tagConfig.iconUrl">
+    </span>
+    <span class="{{$class}}__caption">{{tagConfig.caption | translate}}</span>
+</ng-template>
+
+<ng-template #flag>
+    <span class="{{$class}}__icon-flag"
+        wlc-icon
+        iconPath={{tagConfig.flagIconUrl}}>
+    </span>
+    <span class="{{$class}}__icon"
+        wlc-icon
+        [iconUrl]="tagConfig.iconUrl">
+    </span>
+</ng-template>

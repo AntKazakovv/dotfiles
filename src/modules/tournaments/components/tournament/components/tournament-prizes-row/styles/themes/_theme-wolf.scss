@@ -1,0 +1,35 @@
+.wlc-tournament-prizes-row--theme-wolf:host {
+    --wlc-icon-width: 16px;
+    --wlc-icon-height: 16px;
+
+    .wlc-tournament-prizes-row {
+
+        &__values {
+            display: inline-block;
+            color: ef.get-value($themeWolf, 'valuesColor');
+            white-space: nowrap;
+            background: transparent;
+            border-radius: ef.get-value($themeWolf, 'valuesRadius');
+        }
+
+        &__val {
+
+            &:not(:first-child) {
+
+                &:before {
+                    content: ef.get-value($themeWolf, 'dividerContent');
+                    display: inline-block;
+                    margin: ef.get-value($themeWolf, 'dividerMargin');
+                }
+            }
+        }
+
+        &__rest-icon {
+
+            .wlc-icon {
+                display: inline-block;
+                transform: translateY(-2px);
+            }
+        }
+    }
+}

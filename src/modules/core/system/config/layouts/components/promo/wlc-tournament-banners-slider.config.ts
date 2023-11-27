@@ -10,8 +10,8 @@ export namespace wlcTournamentBannersSlider {
                 {
                     name: 'tournaments.wlc-tournament-list',
                     params: <ITournamentListCParams>{
-                        type: 'swiper',
-                        theme: 'banner',
+                        type: 'banner',
+                        themeMod: 'swiper',
                         common: {
                             thumbType: 'banner',
                             swiper: <SwiperOptions>{
@@ -20,6 +20,36 @@ export namespace wlcTournamentBannersSlider {
                                 pagination: false,
                                 lazy: true,
                                 followFinger: false,
+                            },
+                        },
+                    },
+                },
+            ],
+        },
+    };
+
+    export const wolf: ILayoutComponent = {
+        name: 'core.wlc-wrapper',
+        params: {
+            components: [
+                {
+                    name: 'tournaments.wlc-tournament-list',
+                    params: <ITournamentListCParams>{
+                        type: 'banner',
+                        themeMod: 'swiper',
+                        common: {
+                            thumbType: 'banner',
+                            swiper: <SwiperOptions>{
+                                slidesPerView: 1.1,
+                                spaceBetween: 12,
+                                pagination: false,
+                                lazy: true,
+                                followFinger: true,
+                                breakpoints: {
+                                    560: {
+                                        slidesPerView: 1,
+                                    },
+                                },
                             },
                         },
                     },

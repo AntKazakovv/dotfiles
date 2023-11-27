@@ -9,3 +9,13 @@ $themeDefault: map-merge((
     'iconSize': 12px,
     'bgOpacity': 0.8,
 ), $customThemeDefault);
+
+$customThemeFlag: () !default;
+$themeFlag: map-merge((
+    'flagTagTopPos': 0,
+    'flagTagLeftPos': ef.size(5),
+    'flagTagTextPadding': 2px,
+    'flagWidth': 24px,
+    'flagHeight': 28px,
+    'iconSize': 20px,
+), $customThemeFlag);

@@ -54,7 +54,7 @@ export class TournamentSmartInfoComponent extends AbstractComponent implements O
     public override ngOnInit(): void {
         super.ngOnInit(GlobalHelper.prepareParams(this,
             ['tournament', 'type',
-                'theme', 'themeMod', 'customMod', 'prizePoolText', 'timerTextBeforeStart', 'timerTextAfterStart']));
+                'theme', 'themeMod', 'customMod', 'prizePoolText']));
     }
 
     /**
@@ -63,13 +63,5 @@ export class TournamentSmartInfoComponent extends AbstractComponent implements O
     public updateTournaments(): void {
         this.timerEnds.emit();
         this.cdr.detectChanges();
-    }
-
-    /**
-     * get timer text from its state
-     */
-    public getTimerText(): string {
-        return this.tournament.isTournamentStarts ? this.$params.common?.timerTextAfterStart :
-            this.$params.common?.timerTextBeforeStart;
     }
 }

@@ -1,16 +1,15 @@
 <ng-container [ngSwitch]="$params.theme">
-    <ng-container [ngTemplateOutlet]="podium" *ngSwitchCase="'podium'"></ng-container>
-    <ng-container [ngTemplateOutlet]="long" *ngSwitchCase="'long'" ></ng-container>
-    <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
+    <ng-container *ngSwitchCase="'podium'" [ngTemplateOutlet]="podium"></ng-container>
+    <ng-container *ngSwitchCase="'long'" [ngTemplateOutlet]="long"></ng-container>
+    <ng-container *ngSwitchCase="'wolf'" [ngTemplateOutlet]="wolf"></ng-container>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
 </ng-container>
 
 <ng-template #default>
     <div class="{{$class}}__container">
         <ng-container [ngTemplateOutlet]="prizesHead"></ng-container>
         <div class="{{$class}}__body">
-            <div
-                *ngFor="let row of prizesTable"
-                class="{{$class}}__row">
+            <div *ngFor="let row of prizesTable" class="{{$class}}__row">
                 <div class="{{$class}}__col {{$class}}__col--place">
                     <span class="{{$class}}__body-text">
                         <span class="{{$class}}__body-place">{{row.place}}</span>
@@ -19,13 +18,20 @@
                 </div>
                 <div class="{{$class}}__col {{$class}}__col--prize">
                     <span wlc-tournament-prizes-row
-                          [inlineParams]="{themeMod: 'one-line'}"
-                          [prizes]="row.prize">
+                        [inlineParams]="{themeMod: 'one-line'}"
+                        [prizes]="row.prize">
                     </span>
                 </div>
             </div>
         </div>
     </div>
+</ng-template>
+
+<ng-template #wolf>
+    <ng-container [ngSwitch]="tournamentType">
+        <ng-container *ngSwitchCase="'promo'" [ngTemplateOutlet]="wolfPromoTable"></ng-container>
+        <ng-container *ngSwitchDefault [ngTemplateOutlet]="wolfDetailTable"></ng-container>
+    </ng-container>
 </ng-template>
 
 <ng-template #podium>
@@ -38,12 +44,67 @@
             </div>
             <div class="{{$class}}__item-caption">
                 <span wlc-currency
-                  [value]="tournament?.winningSpread[i]"
-                  [digitsInfo]="'1-0-0'"
-                  [currency]="tournament.targetDefaultCurrency">
+                    [value]="tournament?.winningSpread[i]"
+                    [digitsInfo]="'1-0-0'"
+                    [currency]="tournament.targetDefaultCurrency">
                 </span>
             </div>
         </div>
+    </div>
+</ng-template>
+
+<ng-template #wolfPromoTable>
+    <div class="{{$class}}__container">
+        <ng-container [ngTemplateOutlet]="prizesHead"></ng-container>
+        <div class="{{$class}}__body">
+            <div *ngFor="let row of prizesTable"
+                class="{{$class}}__row">
+                <div class="{{$class}}__col {{$class}}__col--place">
+                    <span class="{{$class}}__body-text">
+                        <span class="{{$class}}__body-place">{{row.place}}</span>
+                        <span wlc-icon iconPath="/wlc/icons/cup.svg"></span>
+                    </span>
+                </div>
+                <div class="{{$class}}__col {{$class}}__col--prize">
+                    <span wlc-tournament-prizes-row
+                        [inlineParams]="{theme: 'wolf', themeMod: 'short-line'}"
+                        [prizes]="row.prize">
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #wolfDetailTable>
+    <div class="{{$class}}__container">
+        <ng-container [ngTemplateOutlet]="prizesHead"></ng-container>
+        <div class="{{$class}}__body">
+            <div *ngFor="let row of tournament.prizeTable | slice:0:rowLimit; index as i;"
+                class="{{$class}}__row"
+                [class.top]="i < 3">
+                <div class="{{$class}}__col {{$class}}__col--place">
+                    <span class="{{$class}}__body-text">
+                        <span class="{{$class}}__body-place">{{row.place}}</span>
+                    </span>
+                </div>
+                <div class="{{$class}}__col {{$class}}__col--prize">
+                    <span wlc-tournament-prizes-row
+                        [inlineParams]="{theme: 'wolf'}"
+                        [prizes]="row.prize">
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="useShowMoreButton" class="{{$class}}__controls">
+        <button wlc-button
+            [theme]="btnTheme"
+            [class.active]="isExpanded"
+            [attr.type]="'button'"
+            [text]="toggleButtonText"
+            (click)="toggleRows()">
+        </button>
     </div>
 </ng-template>
 
@@ -51,8 +112,8 @@
     <ng-container [ngTemplateOutlet]="prizesHead"></ng-container>
     <div class="{{$class}}__body">
         <div *ngFor="let row of tournament.prizeTable | slice:0:rowLimit; index as i;"
-             class="{{$class}}__row"
-             [class.top]="i < 3">
+            class="{{$class}}__row"
+            [class.top]="i < 3">
             <div class="{{$class}}__col {{$class}}__col--place">
                 <span class="{{$class}}__body-text">
                     <span class="{{$class}}__body-place">{{row.place}}</span>
@@ -73,8 +134,7 @@
         </div>
     </div>
     <div *ngIf="useShowMoreButton" class="{{$class}}__controls">
-        <button
-            wlc-button
+        <button wlc-button
             [attr.type]="'button'"
             [text]="toggleButtonText"
             (click)="toggleRows()">

@@ -21,8 +21,6 @@ export interface ITournamentSmartInfoCParams extends IComponentParams<ComponentT
         customMod?: CustomMod;
         tournament?: Tournament;
         type?: ComponentType;
-        timerTextAfterStart?: string,
-        timerTextBeforeStart?: string,
         prizePoolText?: string,
     };
 }
@@ -32,8 +30,6 @@ export const defaultParams: ITournamentSmartInfoCParams = {
     class: 'wlc-tournament-smart-info',
     componentName: 'wlc-tournament-smart-info',
     common: {
-        timerTextAfterStart: gettext('Time remaining'),
-        timerTextBeforeStart: gettext('Coming soon'),
         prizePoolText: gettext('Prize pool'),
     },
 };

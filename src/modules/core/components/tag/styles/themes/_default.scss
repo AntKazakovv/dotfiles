@@ -37,10 +37,45 @@
             display: block;
             width: var(--wlc-icon-width);
             height: var(--wlc-icon-height);
+        }
 
-            &:empty {
-                display: none;
-            }
+        &:empty {
+            display: none;
         }
     }
 }
+
+.wlc-tag--theme-flag:host {
+    --wlc-icon-width: #{ef.get-value($themeFlag, 'flagWidth')};
+    --wlc-icon-height: #{ef.get-value($themeFlag, 'flagHeight')};
+
+    position: absolute;
+    top: ef.get-value($themeFlag, 'flagTagTopPos');
+    left: ef.get-value($themeFlag, 'flagTagLeftPos');
+    z-index: 10;
+    display: grid;
+    grid-template-areas: 'icon';
+    align-items: center;
+    justify-items: center;
+    width: var(--wlc-icon-width);
+    height: var(--wlc-icon-height);
+    padding: ef.get-value($themeFlag, 'flagTagPadding');
+    color: var(--wlc-tag-bg, var(--mc-secondary));
+
+    .wlc-tag {
+
+        &__icon-flag {
+            grid-area: icon;
+        }
+
+        &__icon {
+            --wlc-icon-width: #{ef.get-value($themeFlag, 'iconSize')};
+            --wlc-icon-height: #{ef.get-value($themeFlag, 'iconSize')};
+
+            grid-area: icon;
+            width: var(--wlc-icon-width);
+            height: var(--wlc-icon-height);
+        }
+    }
+}
+

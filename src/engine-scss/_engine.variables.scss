@@ -418,6 +418,10 @@ $tooltip-border-radius: map-get($radius, 'biger') !default;
 $tooltip-box-shadow: map-get($shadows, 'sm') !default;
 $tooltip-bg-error: var(--mc-error) !default;
 
+$currency-tooltip-text-style: 'CaptionTextBold' !default;
+$currency-tooltip-color: var(--mc-lightColor, var(--mc-baseMain)) !default;
+$currency-tooltip-radius: map-get($radius, 'main') !default;
+
 /// Globar settings scrollbar
 /// @name scrollbarConfig
 /// @prop {Size} size [8px]

@@ -1,35 +1,40 @@
-<div
-    *ngIf="isReady && tournament; else: noData"
-    class="{{$class}}__content"
-    [ngClass]="{'selected': tournament.selected, 'coming-soon': !tournament.isTournamentStarts}">
-    <div
-        class="{{$class}}__header-info"
-        [ngStyle]="{'backgroundImage': 'url(' + tournament.imageDescription + ')'}">
-        <div class="{{$class}}__header-info-wrap">
-            <a class="{{$class}}__header-info--back-link"
-               (click)="goTo('app.profile.loyalty-tournaments.main')">
-                <span wlc-icon iconPath="/wlc/icons/arrow.svg"></span>
-                {{$params.common?.backLinkText  | translate}}
-            </a>
-            <span class="{{$class}}__header-info--status"
-                [ngClass]="tagClass">
-            {{tournament.tag | translate}}
-        </span>
-        </div>
-        <div class="{{$class}}__header-info-inner">
-            <h3 class="{{$class}}__header-info--title">{{tournament.name}}</h3>
+<ng-container [ngSwitch]="$params.theme">
+    <ng-container *ngSwitchCase="'wolf'" [ngTemplateOutlet]="themeWolf"></ng-container>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
+</ng-container>
 
-            <p *ngIf="tournament.description"
-               class="{{$class}}__header-info--description"
-               [innerHtml]="tournament.descriptionClean">
-            </p>
-            <div wlc-timer
-                class="{{$class}}__header-info-timer"
-                [value]="$params.parentInstance.tournament.stateDateTournament"
-                [text]="getTimerText()"
-                (timerEnds)="updateTournaments()"
-                [serverDateUTC]="tournament.serverTime">
+<ng-template #default>
+    <div *ngIf="isReady && tournament; else: noData"
+        class="{{$class}}__content"
+        [ngClass]="{'selected': tournament.selected, 'coming-soon': !tournament.isTournamentStarts}">
+        <div class="{{$class}}__header-info"
+            [ngStyle]="{'backgroundImage': 'url(' + tournament.imageDescription + ')'}">
+            <div class="{{$class}}__header-info-tag">
+                <a class="{{$class}}__header-info--back-link"
+                    (click)="goTo('app.profile.loyalty-tournaments.main')">
+                    <span wlc-icon iconPath="/wlc/icons/arrow.svg"></span>
+                    {{$params.common?.backLinkText  | translate}}
+                </a>
+                <span class="{{$class}}__header-info--status"
+                    [ngClass]="tagClass">
+                    {{tournament.tag | translate}}
+                </span>
             </div>
+            <div class="{{$class}}__header-info-inner">
+                <h3 class="{{$class}}__header-info--title">{{tournament.name}}</h3>
+
+                <p *ngIf="tournament.description && $params.theme === 'default'"
+                    class="{{$class}}__header-info--description"
+                    [innerHtml]="tournament.descriptionClean">
+                </p>
+                <div wlc-timer
+                    class="{{$class}}__header-info-timer"
+                    [value]="tournament.stateDateTournament"
+                    [theme]="'default'"
+                    [text]="tournament.timerText"
+                    [serverDateUTC]="tournament.serverTime">
+                    (timerEnds)="updateTournaments()"
+                </div>
 
             <div *ngIf="tournament.isTournamentStarts" class="{{$class}}__header-info--buttons">
                 <button *ngIf="tournament.canJoin && !tournament.onlyForLevels"
@@ -37,25 +42,26 @@
                         class="{{$class}}__header-info--button"
                         [attr.type]="'button'"
                         [text]="$params.common?.btnSubscribeText"
-                        (click)="joinTournament()"></button>
+                        (click)="joinTournament()">
+                    </button>
 
-                <button *ngIf="tournament.isSelected"
+                    <button *ngIf="tournament.isSelected"
                         wlc-button
                         class="{{$class}}__header-info--button"
                         [attr.type]="'button'"
                         themeMod="secondary"
                         [text]="$params.common?.btnUnsubscribeText"
                         (click)="leaveTournament()">
-                </button>
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div *ngIf="menuParams"
-         wlc-wrapper
-         class="{{$class}}__anchors"
-         [inlineParams]="menuConfig">
-    </div>
+        <div *ngIf="menuParams"
+            wlc-wrapper
+            class="{{$class}}__anchors"
+            [inlineParams]="menuConfig">
+        </div>
 
     <div *ngIf="tournament.onlyForLevels"
         class="{{$class}}__levels">
@@ -75,14 +81,15 @@
                 </h4>
             </div>
 
-            <div wlc-tournament-leaderboard
-                 class="{{$class}}__leaderboard-table"
-                 [tournament]="tournament"
-                 [limit]="8"
-                 [showAllBtn]="true"
-                 [useListHead]="true">
+                <div wlc-tournament-leaderboard
+                    class="{{$class}}__leaderboard-table"
+                    [tournament]="tournament"
+                    [theme]="'default'"
+                    [limit]="8"
+                    [showAllBtn]="true"
+                    [useListHead]="true">
+                </div>
             </div>
-        </div>
 
         <div
             *ngIf="tournament?.freeRounds"
@@ -100,55 +107,185 @@
             </div>
         </div>
 
-        <div *ngIf="usePodium" class="{{$class}}__podium">
-             <div wlc-tournament-prizes
-                [inlineParams]="{theme: 'podium'}"
-                [tournament]="tournament">
+            <div *ngIf="usePodium" class="{{$class}}__podium">
+                <div wlc-tournament-prizes
+                    [inlineParams]="{theme: 'podium'}"
+                    [tournament]="tournament">
+                </div>
+            </div>
+
+            <div class="{{$class}}__prizeboard">
+                <div *ngIf="tournament.prizeTable.length; else empty"
+                    wlc-tournament-prizes
+                    [inlineParams]="$params.prizesParams"
+                    [tournament]="tournament">
+                </div>
+
+                <ng-template #empty>
+                    <div wlc-wrapper [inlineParams]="$params.emptyConfig"></div>
+                </ng-template>
+            </div>
+        </div>
+        <div class="{{$class}}__games">
+            <h4 class="{{$class}}__games--title">
+                {{$params.common?.gamesSectionTitle | translate}}
+            </h4>
+            <div wlc-wrapper
+                class="{{$class}}__games-list"
+                [inlineParams]="gamesGrid">
             </div>
         </div>
 
-        <div class="{{$class}}__prizeboard">
-            <div *ngIf="tournament.prizeTable.length; else empty"
-                wlc-tournament-prizes
-                [inlineParams]="$params.prizesParams"
-                [tournament]="tournament">
+        <div *ngIf="tournament.terms || tournament.description" class="{{$class}}__rules">
+            <h4 class="{{$class}}__rules--title">
+                {{$params.common?.rulesSectionTitle | translate}}
+            </h4>
+
+            <div class="{{$class}}__rules--descr"
+                [innerHTML]="tournament.descriptionSafeHTML | safeValue:'html'">
             </div>
 
-            <ng-template #empty>
-                <div wlc-wrapper [inlineParams]="$params.emptyConfig"></div>
-            </ng-template>
-        </div>
-    </div>
-    <div class="{{$class}}__games">
-        <h4 class="{{$class}}__games--title">
-            {{$params.common?.gamesSectionTitle | translate}}
-        </h4>
-        <div wlc-wrapper
-             class="{{$class}}__games-list"
-             [inlineParams]="gamesGrid">
-        </div>
-    </div>
-
-    <div *ngIf="tournament.terms || tournament.description" class="{{$class}}__rules">
-        <h4 class="{{$class}}__rules--title">
-            {{$params.common?.rulesSectionTitle | translate}}
-        </h4>
-
-        <div
-            class="{{$class}}__rules--descr"
-            [innerHTML]="tournament.descriptionSafeHTML | safeValue:'html'">
+            <div class="{{$class}}__rules--terms"
+                [innerHTML]="tournament.termsSafeHTML | safeValue:'html'">
+            </div>
         </div>
 
-        <div
-            class="{{$class}}__rules--terms"
-            [innerHTML]="tournament.termsSafeHTML | safeValue:'html'">
+        <div *ngIf="pending" class="{{$class}}__loader">
+            <span class="{{$class}}__loader-elem"></span>
         </div>
     </div>
+</ng-template>
 
-    <div *ngIf="tournamentProcessing" class="{{$class}}__loader">
-        <span class="{{$class}}__loader-elem"></span>
+<ng-template #themeWolf>
+    <div *ngIf="isReady && tournament; else: noData" class="{{$class}}__content">
+        <div class="{{$class}}__header-info"
+            [ngStyle]="{'backgroundImage': 'url(' + tournament.imageDescription + ')'}">
+            <div class="{{$class}}__header-info-tag">
+                <a class="{{$class}}__header-info--back-link"
+                    (click)="goTo('app.profile.loyalty-tournaments.main')">
+                    <span wlc-icon iconPath="/wlc/icons/arrow.svg"></span>
+                    {{$params.common?.backLinkText  | translate}}
+                </a>
+                <span wlc-tag
+                    class="{{$class}}__header-info--status"
+                    [inline]="tagConfig">
+                </span>
+            </div>
+            <div class="{{$class}}__header-info-inner">
+                <h3 class="{{$class}}__header-info--title">{{tournament.name}}</h3>
+
+                <div wlc-timer
+                    class="{{$class}}__header-info-timer"
+                    [value]="tournament.stateDateTournament"
+                    [theme]="'wolf'"
+                    [text]="tournament.timerText"
+                    [serverDateUTC]="tournament.serverTime">
+                    (timerEnds)="updateTournaments()"
+                </div>
+
+                <div *ngIf="tournament.isTournamentStarts" class="{{$class}}__header-info--buttons">
+                    <button *ngIf="tournament.canJoin"
+                        wlc-button
+                        class="{{$class}}__header-info--button"
+                        [attr.type]="'button'"
+                        [text]="$params.common?.btnSubscribeText"
+                        (click)="joinTournament()">
+                    </button>
+
+                    <button *ngIf="tournament.isSelected"
+                        wlc-button
+                        class="{{$class}}__header-info--button"
+                        [attr.type]="'button'"
+                        themeMod="secondary"
+                        [text]="$params.common?.btnUnsubscribeText"
+                        (click)="leaveTournament()">
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="{{$class}}__prizes-block">
+            <div *ngIf="tournament.selected" class="{{$class}}__leaderboard">
+                <div class="{{$class}}__leaderboard-head">
+                    <h4 class="{{$class}}__leaderboard-title">
+                        {{$params.common?.leaderboardSectionTitle | translate}}
+                    </h4>
+                </div>
+
+                <div wlc-tournament-leaderboard
+                    class="{{$class}}__leaderboard-table"
+                    [tournament]="tournament"
+                    [theme]="'wolf'"
+                    [limit]="8"
+                    [showAllBtn]="true"
+                    [useListHead]="true">
+                </div>
+            </div>
+
+            <div class="{{$class}}__prizepool">
+                <h4 class="{{$class}}__prizepool-title">
+                    {{$params.common?.prizepoolSectionTitle | translate}}
+                </h4>
+                <div wlc-tournament-prizes-row
+                    class="{{$class}}__prizepool-amount"
+                    [inlineParams]="{theme: $params.theme}"
+                    [prizes]="tournament.prizePool">
+                </div>
+            </div>
+
+            <p *ngIf="tournament.description"
+                class="{{$class}}__info--description"
+                [innerHtml]="tournament.descriptionClean">
+            </p>
+
+            <div *ngIf="usePodium" class="{{$class}}__podium">
+                <div wlc-tournament-prizes
+                    [inlineParams]="{theme: 'podium'}"
+                    [tournament]="tournament">
+                </div>
+            </div>
+
+            <div class="{{$class}}__prizeboard">
+                <div *ngIf="tournament.prizeTable.length; else empty"
+                    wlc-tournament-prizes
+                    [inlineParams]="$params.prizesParams"
+                    [tournament]="tournament">
+                </div>
+
+                <ng-template #empty>
+                    <div wlc-wrapper [inlineParams]="$params.emptyConfig"></div>
+                </ng-template>
+            </div>
+        </div>
+        <div class="{{$class}}__games">
+            <h4 class="{{$class}}__games--title">
+                {{$params.common?.gamesSectionTitle | translate}}
+            </h4>
+            <div wlc-wrapper
+                class="{{$class}}__games-list"
+                [inlineParams]="gamesGrid">
+            </div>
+        </div>
+
+        <div *ngIf="tournament.terms || tournament.description" class="{{$class}}__rules">
+            <h4 class="{{$class}}__rules--title">
+                {{$params.common?.rulesSectionTitle | translate}}
+            </h4>
+
+            <div class="{{$class}}__rules--descr"
+                [innerHTML]="tournament.descriptionSafeHTML | safeValue:'html'">
+            </div>
+
+            <div class="{{$class}}__rules--terms"
+                [innerHTML]="tournament.termsSafeHTML | safeValue:'html'">
+            </div>
+        </div>
+
+        <div *ngIf="pending" class="{{$class}}__loader">
+            <span class="{{$class}}__loader-elem"></span>
+        </div>
     </div>
-</div>
+</ng-template>
 
 <ng-template #noData>
     <div *ngIf="isReady" class="{{$class}}__nocontent">{{$params.common?.noTournamentText | translate}}</div>

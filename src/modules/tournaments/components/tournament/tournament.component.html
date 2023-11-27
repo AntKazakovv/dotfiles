@@ -1,78 +1,78 @@
 <ng-template #promo>
     <div wlc-tournament-promo
-         [actionParams]="{modal: {}, selector: '.wlc-tournament-detail__prizepool'}"
-         [type]="$params.common.type"
-         [parentInstance]="instance"></div>
+        [theme]="$params.theme"
+        [actionParams]="{modal: {}, selector: '.wlc-tournament-detail__prizepool'}"
+        [parentInstance]="instance">
+    </div>
 </ng-template>
 
 <ng-template #banner>
     <div wlc-tournament-banner
-         [actionParams]="{modal: {}, selector: '.wlc-tournament-detail__prizepool'}"
-         [parentInstance]="instance"
-         [isAlternative]="$params.isAlternative"></div>
+        [theme]="$params.theme"
+        [actionParams]="{modal: {}, selector: '.wlc-tournament-detail__prizepool'}"
+        [parentInstance]="instance"
+        [isAlternative]="$params.isAlternative">
+    </div>
 </ng-template>
 
 <ng-template #available>
     <div wlc-tournament-promo
-         [actionParams]="actionParams"
-         [theme]="isAlternative ? 'alternative' : 'default'"
-         [customMod]="$params.common?.customMod"
-         [parentInstance]="instance"></div>
+        [theme]="isAlternative ? 'alternative' : $params.theme"
+        [actionParams]="actionParams"
+        [customMod]="$params.common?.customMod"
+        [parentInstance]="instance">
+    </div>
 </ng-template>
 
 <ng-template #active>
     <div wlc-tournament-detail
-         [parentInstance]="instance">
+        [theme]="$params.theme"
+        [parentInstance]="instance">
     </div>
 </ng-template>
 
 <ng-template #detail>
     <div wlc-tournament-detail
-         [theme]="'default'"
-         [parentInstance]="instance">
+        [theme]="$params.theme"
+        [parentInstance]="instance">
     </div>
 </ng-template>
 
 <ng-template #infoBtn>
     <div class="{{$class}}__more-icon">
         <div wlc-icon
-             class="icon-btn"
-             wlcElement="button_terms"
-             iconPath="/wlc/icons/info.svg"
-             (click)="readMore({selector: ''})">
+            class="icon-btn"
+            wlcElement="button_terms"
+            iconPath="/wlc/icons/info.svg"
+            (click)="readMore({selector: ''})">
         </div>
     </div>
 </ng-template>
 
 <ng-template #dashboard>
     <div class="{{$class}}__container" [class.selected]="tournament.isSelected">
-        <ng-container [ngTemplateOutlet]="infoBtn" *ngIf="tournament.isSelected"></ng-container>
-        <div class="{{$class}}__img-container" *ngIf="!tournament.isSelected">
+        <ng-container *ngIf="tournament.isSelected" [ngTemplateOutlet]="infoBtn"></ng-container>
+        <div *ngIf="!tournament.isSelected" class="{{$class}}__img-container">
             <ng-container [ngTemplateOutlet]="infoBtn"></ng-container>
-            <img [wlc-fallback]="tournament.fallbackImageDashboard"
-                 [src]="tournament.imageDashboard"
-                 class="{{$class}}__image"
-                 loading="lazy">
+            <img class="{{$class}}__image"
+                loading="lazy"
+                [wlc-fallback]="tournament.fallbackImageDashboard"
+                [src]="tournament.imageDashboard">
             <h3 class="{{$class}}__title">
                 <span>{{tournament.name}}</span>
             </h3>
         </div>
         <div wlc-timer
-             class="{{$class}}__timer"
-             (timerEnds)="updateTournaments()"
-             [value]="tournament.isTournamentStarts
-                ? tournament.endsLuxon
-                : tournament.startsLuxon"
-             [text]="tournament.isTournamentStarts
-                    ? 'Time remaining'
-                    : 'Coming soon'"
-             [serverDateUTC]="tournament.serverTime">
+            class="{{$class}}__timer"
+            [theme]="$params.theme"
+            [value]="tournament.stateDateTournament"
+            [text]="tournament.timerText"
+            [serverDateUTC]="tournament.serverTime"
+            (timerEnds)="updateTournaments()">
         </div>
-        <div *ngIf="!tournament.isSelected && tournament.description?.length"
-             class="{{$class}}__description-block"
-        >
+        <div *ngIf="!tournament.isSelected && tournament.description?.length" class="{{$class}}__description-block">
             <p class="{{$class}}__description"
-               [innerHtml]="tournament.descriptionClean"
+                [innerHtml]="tournament.descriptionClean"
             ></p>
         </div>
         <div *ngIf="!tournament.isSelected && tournament.isTournamentStarts" class="{{$class}}__btns">
@@ -87,9 +87,9 @@
         </div>
         <ng-container *ngIf="tournament.isSelected">
             <div class="{{$class}}__header">{{'Leaderboard' | translate}}</div>
-            <div
-                wlc-tournament-leaderboard
+            <div wlc-tournament-leaderboard
                 class="{{$class}}__board"
+                [theme]="$params.theme"
                 [themeMod]="'compact'"
                 [tournament]="tournament"
                 [limit]="8"
@@ -105,12 +105,12 @@
 </ng-template>
 
 <ng-container [ngSwitch]="$params?.type">
-    <ng-container [ngTemplateOutlet]="active" *ngSwitchCase="'active'"></ng-container>
-    <ng-container [ngTemplateOutlet]="available" *ngSwitchCase="'available'"></ng-container>
-    <ng-container [ngTemplateOutlet]="detail" *ngSwitchCase="'detail'"></ng-container>
-    <ng-container [ngTemplateOutlet]="banner" *ngSwitchCase="'banner'"></ng-container>
-    <ng-container [ngTemplateOutlet]="dashboard" *ngSwitchCase="'dashboard'"></ng-container>
-    <ng-container [ngTemplateOutlet]="promo" *ngSwitchDefault></ng-container>
+    <ng-container *ngSwitchCase="'active'" [ngTemplateOutlet]="active"></ng-container>
+    <ng-container *ngSwitchCase="'available'" [ngTemplateOutlet]="available"></ng-container>
+    <ng-container *ngSwitchCase="'detail'" [ngTemplateOutlet]="detail"></ng-container>
+    <ng-container *ngSwitchCase="'banner'" [ngTemplateOutlet]="banner"></ng-container>
+    <ng-container *ngSwitchCase="'dashboard'" [ngTemplateOutlet]="dashboard"></ng-container>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="promo"></ng-container>
 </ng-container>
 
 <ng-template #lockBtn>

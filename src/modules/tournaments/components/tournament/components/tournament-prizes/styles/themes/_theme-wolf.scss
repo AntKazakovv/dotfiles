@@ -1,0 +1,74 @@
+.wlc-tournament-prizes--theme-wolf:host {
+
+    .wlc-tournament-prizes {
+
+        &__col--place {
+            margin: ef.get-value($themeWolf, 'placeMargin');
+        }
+
+        &__container {
+            max-width: ef.get-value($themeWolf, 'containerMaxWidth');
+            margin: ef.get-value($themeWolf, 'containerMargin');
+            border-radius: ef.get-value($themeWolf, 'containerRadius');
+            background: ef.get-value($themeWolf, 'containerBg');
+
+            &:has(+ .wlc-tournament-prizes__controls) {
+                border-radius: ef.get-value($themeWolf, 'containerRadius') ef.get-value($themeWolf, 'containerRadius') 0 0;
+
+                .wlc-tournament-prizes__body {
+
+                    .wlc-tournament-prizes__row {
+
+                        &:last-child {
+                            border-bottom: ef.get-value($themeWolf, 'rowBorderBottom');
+                        }
+                    }
+                }
+            }
+        }
+
+        &__row {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'prizesTextStyle'),
+                ef.get-value($themeWolf, 'prizesTextColor')
+            );
+            display: flex;
+            align-items: ef.get-value($themeWolf, 'rowAlignItems');
+            justify-content: ef.get-value($themeWolf, 'rowJustifyContent');
+            padding: ef.get-value($themeWolf, 'rowPadding');
+            border-bottom: ef.get-value($themeWolf, 'rowBorderBottom');
+        }
+
+        &__body {
+
+            .wlc-tournament-prizes__row {
+
+                &:last-child {
+                    border-bottom: none;
+                }
+
+                .wlc-tournament-prizes__col--prize {
+                    @include text.get-text-style(
+                        ef.get-value($themeWolf, 'valueTextStyle'),
+                        ef.get-value($themeWolf, 'valueTextColor')
+                    );
+                }
+            }
+        }
+
+        &__controls {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            max-width: ef.get-value($themeWolf, 'containerMaxWidth');
+            margin: ef.get-value($themeWolf, 'containerMargin');
+            background: ef.get-value($themeWolf, 'containerBg');
+            border-radius: 0 0 ef.get-value($themeWolf, 'containerRadius') ef.get-value($themeWolf, 'containerRadius');
+
+            & button {
+                padding: ef.get-value($themeWolf, 'btnPadding');
+            }
+        }
+    }
+}

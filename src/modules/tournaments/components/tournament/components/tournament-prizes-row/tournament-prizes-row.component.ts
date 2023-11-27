@@ -27,6 +27,9 @@ export class TournamentPrizesRowComponent extends AbstractComponent implements O
     @Input() public prizes: ITournamentPrize[] = [];
     @Input() protected inlineParams: Params.ITournamentPrizesRowCParams;
 
+    public mainCurrency: ITournamentPrize[] = [];
+    public restCurrency: ITournamentPrize[] = [];
+
     @HostBinding('class') get sizeModifier(): string {
         return this.prizes.length < 4 ? 'size-lg' : 'size-default';
     }
@@ -47,6 +50,18 @@ export class TournamentPrizesRowComponent extends AbstractComponent implements O
 
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+
+        if (this.$params.themeMod === 'short-line' && this.prizes.length > 2) {
+            this.prizes.forEach((prize, i) => {
+                if (i === 0) {
+                    this.mainCurrency.push(prize);
+                } else {
+                    this.restCurrency.push(prize);
+                }
+            });
+        } else {
+            this.mainCurrency = this.prizes;
+        }
     }
 
     public getDigitsInfo(currency: string): string {

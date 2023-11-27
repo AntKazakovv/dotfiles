@@ -1,0 +1,137 @@
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'detailBorderBottom': 2px solid var(--mc-bg500),
+
+    'headerInfoPadding': ef.size(4) 0 0,
+    'headerInfoMinHeight': (
+        375: 300px,
+        768: 345px
+    ),
+    'headerInfoBg': var(--mc-bg500),
+    'headerInfoBgPosition': center,
+    'headerInfoBgSize': cover,
+    'headerInfoRadius': (
+        560: ef.get('radius', 'main') ef.get('radius', 'main') 0 0,
+    ),
+
+    'headerTagMargin': 0 0 ef.size(8),
+    'headerInnerMaxWidth': (
+        375: 260px,
+        900: 490px,
+    ),
+    'headerInnerMargin': (
+        375: 0 auto,
+    ),
+
+    'headerBackLinkTop': (
+        375: 0,
+        768: 4px,
+    ),
+    'headerBackLinkLeft': (
+        375: 16px,
+    ),
+    'headerBackLinkTextStyle': 'PrimaryTextBold',
+    'headerBackLinkTextColor': var(--mc-secondary),
+    'headerBackLinkTextColorActive': var(--mc-lightColor),
+    'headerBackLinkDecoration': none,
+    'headerBackLinkIconTransform': rotate(90deg),
+    'headerBackLinkIconColor': currentColor,
+    'headerBackLinkMaxWidth': ef.size(12),
+
+    'headerTitleJustifySelf': center,
+    'headerTitleTextAlign': center,
+    'headerTitleTextStyle': (
+        375: 'ThirdTitleBold',
+        900: 'QoteTextBoldSmaller'
+    ),
+    'headerTitleTextColor': var(--mc-lightColor),
+    'headerTitleMargin': 0 0 ef.size(3),
+
+    'headerDescTextStyle': 'CaptionText',
+    'headerDescColor': var(--mc-baseMain),
+    'headerDescMargin': 0 0 ef.size(3),
+    'headerDescTextAlign': center,
+
+    'headerTimerMargin': (
+        375: 0 0 ef.size(8),
+    ),
+    'headerButtonJustifyContent': center,
+
+    'leaderboardBg': transparent,
+    'leaderboardJustifyItems': center,
+    'leaderboardPadding': (
+        375: ef.size(4),
+        900: ef.size(4) ef.size(4) ef.size(8),
+    ),
+    'leaderboardColumnWidth': (
+        375: 1fr,
+    ),
+    'leaderboardGap': (
+        375: ef.size(2),
+    ),
+    'leaderboardTitleStyle':'QoteTextBoldSmaller',
+    'leaderboardTitleColor': var(--mc-lightColor),
+
+    'leaderboardHeadAlign': (
+        375: center,
+    ),
+    'leaderboardTableMaxWidth': 500px,
+
+    'prizesBg': var(--mc-bgModal),
+
+    'prizepoolMargin': ef.size(4) auto ef.size(1),
+    'prizepoolTitleStyle': 'QoteTextBoldSmaller',
+    'prizepoolTitleColor': var(--mc-lightColor),
+
+    'prizepoolAmoutTextStyle': 'ThirdTitleBold',
+    'prizepoolAmoutTextColor': var(--mc-lightColor),
+
+    'prizepoolAmoutTextStyleLG': 'PromoTitle',
+
+    'prizepoolIconSizeLg': ef.size(8),
+    'infoTextStyle': 'CaptionText',
+    'infoTextColor': var(--mc-baseMain),
+    'infoWidth': (
+        375: 260px,
+        900: 330px,
+    ),
+    'infoMargin': 0 auto ef.size(4),
+    'prizeboardColumnWidth': (
+        375: 100%,
+        900: 500px,
+    ),
+    'prizeboardPadding': (
+        320: 0 ef.size(4) ef.size(4),
+        768: 0 0 ef.size(8),
+    ),
+    'prizeboardJustifyContent': center,
+    'prizeboardBg': var(--mc-bgModal),
+
+    'gamesPadding': (
+        320: ef.size(4) ef.size(3),
+        768: ef.size(4),
+    ),
+    'gamesTitleStyle': 'QoteTextBoldSmaller',
+    'gamesTitleColor': var(--mc-lightColor),
+    'gamesTitleAlign': center,
+    'gamesBg': var(--mc-bgModal),
+    'gamesMoreBtn': ef.size(4) 0 0,
+
+    'rulesColumnWidth': (
+        320: 100%,
+        768: 600px,
+    ),
+    'rulesGap': (
+        375: ef.size(3) 0,
+        1024: ef.size(4) 0,
+    ),
+    'rulesPadding': ef.size(4),
+    'rulesJustifyContent': center,
+    'rulesBg': var(--mc-bgModal),
+    'rulesTitleStyle': 'QoteTextBoldSmaller',
+    'rulesTitleColor': var(--mc-lightColor),
+    'rulesTitleAlign': center,
+    'rulesTextStyle': 'PrimaryText',
+    'rulesTextColor': var(--mc-baseMain),
+    'rulesAlign': center,
+), $customThemeWolf);

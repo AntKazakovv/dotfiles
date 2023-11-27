@@ -6,7 +6,10 @@ import {
     Input,
     OnInit,
 } from '@angular/core';
+
 import {takeUntil} from 'rxjs/operators';
+import _set from 'lodash-es/set';
+
 import {
     AbstractComponent,
     ConfigService,
@@ -17,11 +20,14 @@ import {
     Tournament,
     TournamentsService,
     TournamentComponent,
+    ITournamentTags,
 } from 'wlc-engine/modules/tournaments';
+import {
+    ITagCParams,
+    ITagCommon,
+} from 'wlc-engine/modules/core/components/tag/tag.params';
 
 import * as Params from './tournament-banner.params';
-
-import _set from 'lodash-es/set';
 
 @Component({
     selector: '[wlc-tournament-banner]',
@@ -49,6 +55,7 @@ export class TournamentBannerComponent
     public backgroundImgUrl: string = '';
     public lockBtnText: string;
     public tagClass: string;
+    public tagConfig: ITagCParams;
 
     private isProcessed: boolean = false;
 
@@ -84,6 +91,22 @@ export class TournamentBannerComponent
             this.lockBtnText = this.configService.get('$tournaments.lockBtnText');
         }
         this.backgroundImgUrl = this.isAlternative ? this.tournament.imageOther : this.tournament.image;
+
+        if (this.$params.theme === 'wolf' && this.tournament.tag) {
+
+            const moduleTagsConfig = this.configService.get<ITournamentTags>('$tournaments.tagsConfig');
+            const tagCommon: ITagCommon = moduleTagsConfig.tagList[this.tournament.tag];
+
+            if (tagCommon) {
+
+                if (!moduleTagsConfig.useIcons) {
+                    tagCommon.iconUrl = null;
+                }
+                this.tagConfig = {
+                    common: tagCommon,
+                };
+            };
+        }
     }
 
     /**

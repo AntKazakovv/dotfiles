@@ -1,74 +1,99 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'containerGridTemplateColumns': (
-        320: 1fr,
+        375: 1fr,
         720: 1fr 1fr,
         900: repeat(auto-fill, minmax(650px, 1fr)),
+    ),
+    'containerGridTemplateColumnsAlternative': (
+        375: 1fr,
+        768: repeat(auto-fill, minmax(650px, 1fr)),
     ),
     'containerMargin': (
         375: 0 0 ef.size(6) 0,
         900: 0 0 ef.size(4) 0,
         1630: 0 0 ef.size(8) 0,
     ),
-    'containerGap': ef.size(3),
-), $customThemeDefault);
+    'containerGap': ef.size(4),
 
-$customThemeDashboard: () !default;
-$themeDashboard: map-merge((
-    'containerHeight': 100%,
-    'titleTextStyle': 'ThirdTitleBold',
-    'titleColor': var(--mc-baseMain),
-    'headerMargin': 0 0 ef.size(3) 0,
-    'swiperNavTop': 100px,
-    'swiperNavLeft': 0,
-    'fillColor': var(--mc-baseMain),
-), $customThemeDashboard);
+    'dashboardContainerHeight': 100%,
+    'dashboardTitleTextStyle': 'ThirdTitleBold',
+    'dashboardTitleColor': var(--mc-baseMain),
+    'dashboardHeaderMargin': 0 0 ef.size(3) 0,
+    'dashboardSwiperNavTop': 100px,
+    'dashboardSwiperNavLeft': 0,
 
-$customThemeBanner: () !default;
-$themeBanner: map-merge((
-    'tournamentMaxWidth': (
+    'bannerTournamentMaxWidth': (
         320: 100%,
         1024: 490px,
         1200: 690px,
         1630: 1060px,
     ),
-    'tournamentBottomPosition': (
+    'bannerTournamentBottomPosition': (
         320: ef.size(6),
         1024: ef.size(8),
     ),
-    'tournamentRightPosition': (
+    'bannerTournamentRightPosition': (
         320: ef.size(4),
         1024: ef.size(8),
     ),
-    'listRadius': ef.get('radius', 'biger'),
+    'bannerListRadius': ef.get('radius', 'biger'),
 
-    'tagTopPosition': 0,
-    'tagLeftPosition': 0,
-    'tagPadding': (
+    'bannerTagTopPosition': 0,
+    'bannerTagLeftPosition': 0,
+    'bannerTagPadding': (
         375: ef.size(2),
     ),
-    'tagBg': ef.get('mainColors', 'main'),
-    'tagMinWidth': 140px,
-    'tagTextAlign': center,
-    'tagBorderRadius': ef.size(2) 0 ef.size(2) 0,
-    'tagColor': ef.get('mainColors', 'baseMain'),
-), $customThemeBanner);
+    'bannerTagBg': ef.get('mainColors', 'main'),
+    'bannerTagMinWidth': 140px,
+    'bannerTagTextAlign': center,
+    'bannerTagRadius': ef.size(2) 0 ef.size(2) 0,
+    'bannerTagColor': ef.get('mainColors', 'baseMain'),
 
-$customThemeAvailable: () !default;
-$themeAvailable: map-merge((
-    'itemMargin': 0 0 ef.size(4) 0,
-), $customThemeAvailable);
-
-$customThemeActive: () !default;
-$themeActive: map-merge((
-
-), $customThemeActive);
-
-$customNoContent: () !default;
-$noContent: map-merge((
     'noContentMargin': 80px 0 140px 0,
     'noContentMarginBtn': ef.size(8) 0 0 0,
     'noContentDisplay': flex,
     'noContentFDirection': column,
     'noContentAlignItems': center,
-), $customNoContent);
+), $customThemeDefault);
+
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'containerGridTemplateColumns': (
+        320: 1fr,
+        720: 1fr 1fr,
+        900: repeat(auto-fill, minmax(550px, 1fr)),
+        1630: repeat(auto-fill, minmax(600px, 1fr)),
+    ),
+    'containerGap': ef.size(6),
+    'containerMargin': (
+        375: 0 0 ef.size(6) 0,
+        900: 0 0 ef.size(4) 0,
+        1630: 0 0 ef.size(8) 0,
+    ),
+    'swiperBtnBottomPosition': (
+        320: ef.size(6),
+        1024: ef.size(8),
+    ),
+    'swiperBtnRightPosition': (
+        320: ef.size(4),
+        1024: ef.size(8),
+    ),
+    'swiperBtnDisplay': (
+        375: none,
+        560: flex,
+    ),
+    'swiperOverflow': (
+        375: visible,
+        560: hidden,
+    ),
+    'tagRightPos': (
+        375: 60px,
+        560: 20px,
+    ),
+    'tagPadding': ef.size(1) ef.size(3),
+    'tagRadius': ef.get('radius', 'main'),
+    'tagBg': var(--mc-main),
+    'tagTextStyle': 'CaptionTextBold',
+    'tagColor': var(--mc-baseThird),
+), $customThemeWolf);

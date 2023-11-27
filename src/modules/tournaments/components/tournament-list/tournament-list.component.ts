@@ -97,7 +97,7 @@ export class TournamentListComponent
         this.prepareModifiers();
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         this.isReady = false;
-        if (this.$params.type === 'swiper') {
+        if (this.$params.themeMod === 'swiper') {
             this.sliderParams.swiper = this.$params.common?.swiper;
             this.sliderParams.swiper.navigation = {
                 nextEl: '.wlc-swiper-button-next-' + this.navigationId,
@@ -192,7 +192,7 @@ export class TournamentListComponent
 
                     this.paginatedTournaments = this.tournaments = tournaments;
 
-                    if (this.$params.type === 'swiper' && this.tournaments?.length) {
+                    if (this.$params.themeMod === 'swiper' && this.tournaments?.length) {
                         this.tournamentsToSlides(true);
                     }
 
@@ -232,7 +232,7 @@ export class TournamentListComponent
                 component: TournamentComponent,
                 componentParams: _merge(
                     {theme: this.$params.theme},
-                    {type: this.$params.common?.thumbType},
+                    {type: this.$params.type},
                     {tournament},
                     {isAlternative: this.$params.isAlternative},
                     {wlcElement: 'block_tournament'},

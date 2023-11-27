@@ -142,7 +142,8 @@ $tournamentList: map-merge((
         320: 325px,
         768: 370px,
         1024: 385px,
-    )
+    ),
+    'nodataWolfWrapperRadius': ef.get('radius', 'main'),
 ), $customTournamentList);
 
 

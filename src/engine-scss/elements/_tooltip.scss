@@ -11,6 +11,27 @@
     word-wrap: break-word;
     opacity: 0;
 
+    &.currency-tooltip {
+        @include text.get-text-style(#{$currency-tooltip-text-style}, #{$currency-tooltip-color});
+        max-width: none;
+
+        & .tooltip-inner {
+            border-radius: $currency-tooltip-radius;
+
+            & > span {
+
+                &:not(:first-child) {
+
+                    &:before {
+                        content: '+';
+                        display: inline-block;
+                        margin: 0 ef.size(1);
+                    }
+                }
+            }
+        }
+    }
+
     &.wlc-tooltip__bs-tooltip--error,
     &.tooltip-error {
         --bs-tooltip-bg-color: #{$tooltip-bg-error};

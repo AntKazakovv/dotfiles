@@ -28,7 +28,7 @@
 
 @mixin homePromoTournaments($map) {
 
-    .wlc-tournament-list.wlc-tournament-list--theme-banner {
+    .wlc-tournament-list.wlc-tournament-list--theme-default {
 
         .swiper-button-container {
             @include bm.get-mq-map('display', $map, 'tournamentSliderButtonDisplay');

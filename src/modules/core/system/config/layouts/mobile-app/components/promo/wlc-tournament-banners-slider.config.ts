@@ -10,8 +10,8 @@ export namespace wlcTournamentBannersSlider {
                 {
                     name: 'tournaments.wlc-tournament-list',
                     params: <ITournamentListCParams>{
-                        type: 'swiper',
-                        theme: 'banner',
+                        type: 'banner',
+                        themeMod: 'swiper',
                         common: {
                             thumbType: 'banner',
                             swiper: <SwiperOptions>{

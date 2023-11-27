@@ -8,6 +8,8 @@ import {
 } from '@angular/core';
 
 import {takeUntil} from 'rxjs/operators';
+import _set from 'lodash-es/set';
+import _cloneDeep from 'lodash-es/cloneDeep';
 
 import {
     AbstractComponent,
@@ -15,19 +17,19 @@ import {
     GlobalHelper,
     IMixedParams,
 } from 'wlc-engine/modules/core';
-
 import {
     Tournament,
     TournamentsService,
     PRIMARY_ROW_LIMIT,
     TournamentComponent,
+    ITournamentTags,
 } from 'wlc-engine/modules/tournaments';
+import {
+    ITagCParams,
+    ITagCommon,
+} from 'wlc-engine/modules/core/components/tag/tag.params';
 
 import * as Params from './tournament-promo.params';
-
-import _set from 'lodash-es/set';
-import _cloneDeep from 'lodash-es/cloneDeep';
-
 @Component({
     selector: '[wlc-tournament-promo]',
     templateUrl: './tournament-promo.component.html',
@@ -49,8 +51,9 @@ export class TournamentPromoComponent extends AbstractComponent implements OnIni
     public pending: boolean = false;
     public isAuth: boolean = false;
     public showJoin: boolean = false;
-    public lockBtnText: string;
     public tagClass: string;
+    public tagConfig: ITagCParams;
+    public lockBtnText: string;
 
     private isProcessed: boolean = false;
 
@@ -85,6 +88,22 @@ export class TournamentPromoComponent extends AbstractComponent implements OnIni
             this.lockBtnText = this.configService.get('$tournaments.lockBtnText');
         }
         this.tagClass = this.tournament.tag.toLowerCase();
+
+        if (this.$params.theme === 'wolf' && this.tournament.tag) {
+            const moduleTagsConfig = this.configService.get<ITournamentTags>('$tournaments.tagsConfig');
+            const tagCommon: ITagCommon = moduleTagsConfig.tagList[this.tournament.tag];
+
+            if (tagCommon) {
+
+                if (!moduleTagsConfig.useIcons) {
+                    tagCommon.iconUrl = null;
+                }
+
+                this.tagConfig = {
+                    common: tagCommon,
+                };
+            };
+        }
     }
 
     public joinToTournament(): void {
@@ -105,15 +124,6 @@ export class TournamentPromoComponent extends AbstractComponent implements OnIni
             _set(params, 'selector', '');
         }
         this.parentInstance?.readMore(params);
-    }
-
-    /**
-     * get timer text from its state
-     */
-    public getTimerText(): string {
-        return this.tournament?.isTournamentStarts
-            ? this.$params.common?.timerTextAfterStart
-            : this.$params.common?.timerTextBeforeStart;
     }
 
     protected checkParentInstance(): void {

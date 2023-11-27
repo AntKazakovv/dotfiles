@@ -1,5 +1,5 @@
-$customThemeDashboard: () !default;
-$themeDashboard: map-merge((
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
     'moreIconDisplay': flex,
     'moreIconAlignItems': center,
     'moreIconJustifyContent': center,
@@ -13,12 +13,12 @@ $themeDashboard: map-merge((
     'moreIconContent': 100%,
 
     'gap': ef.size(2),
-    'gapNoSelect': ef.size(4),
+    'blockGapNoSelect': ef.size(4),
     'buttonWrapperMargin': ef.size(5) 0 0 0,
     'timerFontSize': ef.get('font', 'PrimaryText'),
     'headerFontSize': ef.get('font', 'ThirdTitle'),
     'rowBg': var(--mc-bg),
-    'borderRadius': ef.size(2),
+    'blocksRadius': ef.size(2),
     'titleBg': linear-gradient(180deg, var(--mc-bg-o0) 0%, var(--mc-bg) 67%),
     'titlePadding': ef.size(4) ef.size(5),
     'descrFontSize': 1.2rem,
@@ -33,4 +33,4 @@ $themeDashboard: map-merge((
     'leaderboardBg': var(--mc-bg),
     'leaderboardListBg': none,
     'leaderboardListBgTop': none,
-), $customThemeDashboard);
+), $customThemeDefault);

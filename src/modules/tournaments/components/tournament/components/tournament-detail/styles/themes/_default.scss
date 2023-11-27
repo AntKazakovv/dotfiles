@@ -24,12 +24,12 @@ $selector: '.wlc-tournament-detail';
             display: grid;
             overflow: hidden;
 
-            &-wrap {
+            &-tag {
                 position: relative;
                 text-align: center;
             }
 
-            &-wrap,
+            &-tag,
             &-inner {
                 @include bm.get-mq-map('grid-template-columns', $themeDefault, 'headerColumnInnerWidth');
                 @include bm.get-mq-map('row-gap', $themeDefault, 'defaultRowGap');

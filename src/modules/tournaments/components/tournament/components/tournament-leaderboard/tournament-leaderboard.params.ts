@@ -5,7 +5,7 @@ import {
 import {ThumbType} from 'wlc-engine/modules/tournaments';
 import {TournamentHistory} from 'wlc-engine/modules/history/system/models/tournament-history/tournament-history.model';
 
-export type ComponentTheme = 'default' | CustomType;
+export type ComponentTheme = 'default' | 'wolf' | CustomType;
 export type ComponentType = ThumbType | CustomType;
 export type ThemeMod = 'default' | 'history' | 'tournament-detail' | CustomMod;
 export type AutoModifiers = ComponentTheme | ThemeMod;

@@ -45,4 +45,26 @@ export const tournamentsConfig: ITournamentsModule = {
     },
     bonusRewardText: gettext('The reward is given through a bonus'),
     lockBtnText: gettext('Unavailable for current level'),
+    tagsConfig: {
+        useIcons: true,
+        tagList: {
+            'Active': {
+                caption: gettext('Active'),
+                bg: '#5321a4',
+                iconUrl: '/wlc/icons/theme-wolf/active.svg',
+            },
+            'Available': {
+                caption: gettext('Available'),
+                bg: '#00a3ff',
+                iconUrl: '/wlc/icons/theme-wolf/available.svg',
+            },
+            'Coming soon': {
+                caption: gettext('Coming soon'),
+                bg: '#ff9900',
+                iconUrl: '/wlc/icons/theme-wolf/coming-soon.svg',
+            },
+        },
+    },
+    timerTextAfterStart: gettext('Time remaining'),
+    timerTextBeforeStart: gettext('Coming soon'),
 };

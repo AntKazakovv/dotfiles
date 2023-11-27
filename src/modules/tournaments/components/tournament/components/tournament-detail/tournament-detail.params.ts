@@ -8,14 +8,14 @@ import {ITournamentPrizesCParams} from '../tournament-prizes/tournament-prizes.p
 import {TournamentComponent} from 'wlc-engine/modules/tournaments/components/tournament/tournament.component';
 import {Tournament} from 'wlc-engine/modules/tournaments/system/models/tournament.model';
 
-export type Type = 'default' | CustomType;
-export type Theme = 'default' | CustomType;
+export type ComponentTheme = 'default' | 'wolf' | CustomType;
+export type ComponentType = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
-export type AutoModifiers = Theme | ThemeMod;
+export type AutoModifiers = ComponentTheme | ThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
-
-export interface ITournamentDetailCParams extends IComponentParams<Theme, Type, ThemeMod> {
+export type TournamentStatus = 'active' | 'available' | 'coming-soon';
+export interface ITournamentDetailCParams extends IComponentParams<ComponentTheme, ComponentType, ThemeMod> {
     modifiers?: Modifiers[];
     parentInstance?: TournamentComponent;
     /** wlc-profile-no-content params */
@@ -32,8 +32,6 @@ export interface ITournamentDetailCParams extends IComponentParams<Theme, Type, 
         btnSubscribeText?: string;
         btnUnsubscribeText?: string;
         backLinkText?: string;
-        timerTextAfterStart?: string;
-        timerTextBeforeStart?: string;
         statusAvaliableText?: string;
         statusActiveText?: string;
         prizePoolText?: string;
@@ -47,6 +45,7 @@ export const defaultParams: ITournamentDetailCParams = {
     moduleName: 'tournaments',
     componentName: 'wlc-tournament-detail',
     class: 'wlc-tournament-detail',
+    theme: 'default',
     emptyConfig: {
         components: [
             {
@@ -68,8 +67,6 @@ export const defaultParams: ITournamentDetailCParams = {
         btnSubscribeText: gettext('Join'),
         btnUnsubscribeText: gettext('Leave'),
         backLinkText: gettext('Back'),
-        timerTextAfterStart: gettext('Time remaining'),
-        timerTextBeforeStart: gettext('Coming soon'),
         statusAvaliableText: gettext('Available'),
         statusActiveText: gettext('Active'),
         prizePoolText: gettext('Prize pool'),

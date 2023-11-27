@@ -178,9 +178,8 @@ $modAvailable: map-merge((
     ),
 
     'containerHeight': (
-        375: auto,
-        900: 380px,
-        1630: 400px,
+        375: 100%,
+        900: 400px,
     ),
 
     'infoPadding': (

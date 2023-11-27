@@ -1,0 +1,59 @@
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'containerMaxWidth': 100%,
+    'containerMargin': 0 auto,
+
+    'wrapperBg': transparent,
+    'wrapperRadius': 0 0 ef.get('radius', 'biger') ef.get('radius', 'biger'),
+
+    'descrStyle': 'PrimaryText',
+    'descrColor': inherit,
+    'descrMargin': (
+        375: 0 0 ef.size(4),
+    ),
+    'descrAlign': center,
+
+    'firstCellTextColor': var(--mc-baseSecond),
+    'firstCellPadding': (
+        375: ef.size(1) 0 ef.size(1) ef.size(4),
+    ),
+    'lastCellPadding': (
+        375: ef.size(1) ef.size(4) ef.size(1) 0,
+    ),
+
+    'listGridTemplateColumns': 1fr,
+    'listBg': var(--mc-bg700),
+    'listBgTop': none,
+    'listRadius': ef.get('radius', 'biger'),
+    'listRadiusWithBtn': ef.get('radius', 'biger') ef.get('radius', 'biger') 0 0,
+    'itemTextStyle': 'CaptionText',
+    'itemTextStyleTop': 'CaptionText',
+    'itemColor': var(--mc-baseSecond),
+    'itemGridTemplate': repeat(3, 1fr),
+    'itemMargin': (
+        375: 0 ef.size(2),
+        900: 0 ef.size(3),
+    ),
+    'itemHeight': 24px,
+    'itemRowBg': transparent,
+
+    'btnTextStyle': 'CaptionTextBold',
+    'btnTextColor': var(--mc-secondary),
+    'btnTextColorHover': var(--mc-baseThird, var(--mc-baseMain)),
+    'btnHeight': 30px,
+    'btnRadius': 0 0 ef.get('radius', 'biger') ef.get('radius', 'biger'),
+
+    'topBg': var(--mc-bg700),
+    'topRadius': ef.get('radius', 'biger'),
+    'topRadiusWithHead': 0 0 ef.get('radius', 'biger') ef.get('radius', 'biger'),
+    'topMargin': 0 0 ef.size(1),
+
+    'cellPadding': ef.size(1) 0,
+    'cellBorderBottom': 1px solid var(--mc-bg300),
+
+    'headBg': var(--mc-bg700),
+    'headRadius': ef.get('radius', 'biger') ef.get('radius', 'biger') 0 0,
+    'headTextColot': var(--mc-baseSecond),
+    'userBg': linear-gradient(180deg, var(--mc-main-o0) 0%, var(--mc-main-o4) 100%),
+    'userBorderBottom': 2px solid var(--mc-main),
+), $customThemeWolf);

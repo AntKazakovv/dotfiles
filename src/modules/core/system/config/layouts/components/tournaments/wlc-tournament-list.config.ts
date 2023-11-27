@@ -5,7 +5,7 @@ export namespace wlcTournamentList {
     export const def: ILayoutComponent = {
         name: 'tournaments.wlc-tournament-list',
         params: <ITournamentListCParams>{
-            theme: 'default',
+            type: 'default',
             useNoTournamentsBtn: true,
         },
     };
@@ -13,7 +13,7 @@ export namespace wlcTournamentList {
     export const available: ILayoutComponent = {
         name: 'tournaments.wlc-tournament-list',
         params: {
-            theme: 'available',
+            type: 'available',
             common: {
                 thumbType: 'available',
                 customMod: 'available',
@@ -24,7 +24,7 @@ export namespace wlcTournamentList {
     export const availableFirst: ILayoutComponent = {
         name: 'tournaments.wlc-tournament-list',
         params: {
-            theme: 'available',
+            type: 'available',
             inProfile: true,
             common: {
                 thumbType: 'available',
@@ -44,7 +44,7 @@ export namespace wlcTournamentList {
     export const active: ILayoutComponent = {
         name: 'tournaments.wlc-tournament-list',
         params: {
-            theme: 'active',
+            type: 'active',
             inProfile: true,
             common: {
                 thumbType: 'active',
@@ -57,7 +57,7 @@ export namespace wlcTournamentList {
     export const detail: ILayoutComponent = {
         name: 'tournaments.wlc-tournament-list',
         params: {
-            theme: 'detail',
+            type: 'detail',
             common: {
                 thumbType: 'detail',
                 customMod: 'detail',

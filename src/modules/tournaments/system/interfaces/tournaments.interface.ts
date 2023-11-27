@@ -13,6 +13,7 @@ import {Tournament} from '../models/tournament.model';
 import {
     TournamentsListNoContentByThemeType,
 } from 'wlc-engine/modules/tournaments/components/tournament-list/tournament-list.params';
+import {ITagCommon, ITagList} from 'wlc-engine/modules/core/components/tag/tag.params';
 
 export interface ITournamentsComponents {
     'wlc-tournament-list'?: {
@@ -128,6 +129,9 @@ export interface ITournamentsModule {
     prizePodium?: IPrizePodium;
     /** Description for tooltip in prizeboard, when tournament target is bonus */
     bonusRewardText?: string;
+    tagsConfig?: ITagList<TTournamentTagKey>;
+    timerTextAfterStart?: string;
+    timerTextBeforeStart?: string;
     lockBtnText?: string;
 }
 
@@ -209,6 +213,11 @@ export interface IJoinTournamentParams {
     wallet?: number;
 }
 
+export interface ITournamentTags {
+    useIcons: boolean;
+    tagList?: Partial<Record<TTournamentTagKey, ITagCommon>>;
+}
+
 export interface IAdditionalFreeSpins {
     /**
      * Total number of free spins packages that can be purchased (taken from the Tournament settings)
@@ -239,7 +248,9 @@ export type RestType = 'active' | 'history' | 'any';
 export type ThumbType = 'default' | 'dashboard' | 'banner' | 'active' | 'profile' | 'available';
 export type ActionType = 'join' | 'leave';
 export type TTournamentTarget = 'balance' | 'loyalty' | 'bonus';
+export type TTournamentTagKey = 'Active' | 'Available' | 'Coming soon' | '';
 
 export enum TournamentEvents {
     buyFreeSpins = 'BUY_FREE_SPINS',
 }
+

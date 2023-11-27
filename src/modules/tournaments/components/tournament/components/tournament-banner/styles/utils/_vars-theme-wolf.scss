@@ -1,0 +1,75 @@
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'minHeight': (
+        375: 220px,
+        900: 250px,
+    ),
+    'baseHeight': 100%,
+    'tournamentMaxWidth': 100%,
+    'tournamentRadius': ef.get('radius', 'main'),
+    'tournamentBg': var(--mc-bg700),
+    'backdropBg': var(--mc-baseContrast-o2),
+    'backdropZindex': 1,
+
+    'titleClamp': 2,
+    'titleFontSize': (
+        375: 'ThirdTitleBold',
+        768: 'QoteTextBoldSmaller',
+    ),
+    'titleColor': var(--mc-baseThird, var(--mc-baseMain)),
+    'titleMargin': 0 0 ef.size(2),
+    'titleMaxWidth': (
+        375: 180px,
+        768: 300px,
+    ),
+
+    'decorBgSize': (
+        375: contain,
+    ),
+
+    'decorBgPosition': (
+        375: right center,
+    ),
+    'decorPositionTop': 0,
+    'decorPositionBottom': 0,
+    'decorPositionRight': (
+        375: -50px,
+        560: 0,
+        900: -50px,
+        1200: 0,
+    ),
+    'decorZIindex': 1,
+    'decorWidth': 50%,
+
+    'prizepoolFontSize': 'QoteTextBoldSmaller',
+    'prizepoolColor': var(--mc-baseThird, var(--mc-baseMain)),
+    'prizepoolPadding': ef.size(1) ef.size(3),
+    'prizepoolBg': var(--mc-bg700-o4),
+
+    'bodyPadding': (
+        375: ef.size(11) 0 ef.size(6) ef.size(4),
+        1024: ef.size(12) 0 ef.size(5) ef.size(5),
+    ),
+
+    'bodyFlexDirection': column,
+    'bodyAlignItems': flex-start,
+    'bodyJustifyContent': space-between,
+    'bodyZIndex': 2,
+    'bodyNestedZIindex': 2,
+
+    'loaderZIndex': 10,
+    'loaderPosition': 0,
+    'loaderBachround': var(--mc-disabled-o6),
+    'loaderRadius': ef.get('radius', 'biger'),
+    'loaderAlignItems': center,
+    'loaderJustifyContent': center,
+    'loaderBeforePosition': 0,
+    'loaderBeforeSize': 60px,
+    'loaderBeforeMargin': auto,
+    'loaderBeforeBackground': var(--mc-bg-o8),
+    'loaderBeforeRadius': 50%,
+    'loaderAfterSize': 50px,
+    'loaderAfterBorderColor': var(--mc-main),
+    'loaderAfterRadius': 50%,
+    'loaderAfterAnimation': spin 1s infinite linear,
+), $customThemeWolf);

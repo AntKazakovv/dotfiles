@@ -1,0 +1,116 @@
+.wlc-tournament-list--theme-wolf:host {
+    @include bm.get-mq-map('margin', $themeWolf, 'containerMargin');
+    position: relative;
+
+    .wlc-tournament-list__container {
+        @include bm.get-mq-map('grid-template-columns', $themeWolf, 'containerGridTemplateColumns');
+        display: grid;
+        grid-gap: ef.get-value($themeWolf, 'containerGap');
+    }
+
+    &.wlc-tournament-list--type-banner {
+        position: relative;
+        min-width: 0;
+        max-width: 100%;
+        height: 100%;
+
+        .swiper-button-container {
+            @include bm.get-mq-map('display', $themeWolf, 'swiperBtnDisplay');
+            @include bm.get-mq-map('right', $themeWolf, 'swiperBtnRightPosition');
+            @include bm.get-mq-map('bottom', $themeWolf, 'swiperBtnBottomPosition');
+
+            position: absolute;
+            z-index: 22;
+            align-items: center;
+            width: auto;
+        }
+
+        .wlc-tournament-list {
+
+            &__tag,
+            &-nocontent__tag {
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'tagTextStyle'),
+                    ef.get-value($themeWolf, 'tagColor'),
+                );
+                @include bm.get-mq-map('right', $themeWolf, 'tagRightPos');
+                position: absolute;
+                top: -6px;
+                z-index: 10;
+                padding: ef.get-value($themeWolf, 'tagPadding');
+                border-radius: ef.get-value($themeWolf, 'tagRadius');
+                background: ef.get-value($themeWolf, 'tagBg');
+            }
+
+            &__slider {
+                height: 100%;
+
+                ::ng-deep {
+
+                    .swiper {
+                        @include bm.get-mq-map('overflow', $themeWolf, 'swiperOverflow');
+                    }
+
+                    .swiper,
+                    .swiper-wrapper,
+                    .wlc-slider {
+                        height: 100%;
+                    }
+                }
+            }
+        }
+    }
+
+    &.wlc-tournament-list--type-dashboard {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        height: ef.get-value($themeDefault, 'dashboardContainerHeight');
+
+        .wlc-tournament-list {
+
+            &__header {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'dashboardTitleTextStyle'),
+                    ef.get-value($themeDefault, 'dashboardTitleColor')
+                );
+                @include bm.lineClamp(1);
+                margin: ef.get-value($themeDefault, 'dashboardHeaderMargin');
+                text-align: center;
+            }
+
+            &__nav {
+
+                ::ng-deep {
+
+                    .wlc-swiper-button {
+
+                        &-prev,
+                        &-next {
+                            position: absolute;
+                            top: ef.get-value($themeDefault, 'dashboardSwiperNavTop');
+                            left: ef.get-value($themeDefault, 'dashboardSwiperNavLeft');
+                            z-index: 100;
+                        }
+
+                        &-next {
+                            right: ef.get-value($themeDefault, 'dashboardSwiperNavLeft');
+                            left: auto;
+                        }
+                    }
+                }
+            }
+
+            &__slider {
+                height: 100%;
+
+                ::ng-deep {
+
+                    .swiper {
+                        height: 100%;
+                    }
+                }
+            }
+        }
+    }
+}

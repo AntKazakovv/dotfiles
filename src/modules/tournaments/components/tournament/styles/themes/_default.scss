@@ -1,0 +1,191 @@
+.wlc-tournament--theme-default:host {
+
+    &.wlc-tournament--type-dashboard {
+        // Leaderbord vars
+        --lb-wrapper-bg: #{ef.get-value($themeDefault, 'leaderboardBg')};
+        --lb-list-bg: #{ef.get-value($themeDefault, 'leaderboardBg')};
+        --lb-list-bg-top: #{ef.get-value($themeDefault, 'leaderboardBg')};
+
+        height: 100%;
+
+        .wlc-tournament {
+
+            &__more-icon {
+                position: absolute;
+                top: ef.get-value($themeDefault, 'moreIconTop');
+                right: ef.get-value($themeDefault, 'moreIconRight');
+                z-index: 2;
+
+                .wlc-icon {
+                    position: relative;
+                    display: ef.get-value($themeDefault, 'moreIconDisplay');
+                    align-items: ef.get-value($themeDefault, 'moreIconAlignItems');
+                    justify-content: ef.get-value($themeDefault, 'moreIconJustifyContent');
+                    width: ef.get-value($themeDefault, 'moreIconSize');
+                    height: ef.get-value($themeDefault, 'moreIconSize');
+                    cursor: pointer;
+
+                    ::ng-deep {
+
+                        .wlc-icon-content {
+                            display: flex;
+                            width: ef.get-value($themeDefault, 'moreIconContent');
+                        }
+
+                        svg {
+                            @include bm.transition(fill);
+                            width: 100%;
+                            fill: ef.get-value($themeDefault, 'moreIconColor');
+                        }
+                    }
+
+                    @include bm.hover {
+
+                        ::ng-deep {
+
+                            svg {
+                                fill: ef.get-value($themeDefault, 'moreIconColorHover');
+                            }
+                        }
+                    }
+                }
+            }
+
+            &__container {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                height: 100%;
+
+                .wlc-tournament__lock-btn {
+                    @include cm.lockBtn;
+                }
+
+                &.selected {
+
+                    .wlc-tournament__more-icon {
+                        top: ef.get-value($themeDefault, 'moreIconSelectedTop');
+                        right: ef.get-value($themeDefault, 'moreIconSelectedRight');
+
+                        ::ng-deep {
+
+                            .wlc-icon-content {
+                                display: flex;
+                                width: 100%;
+                                height: 100%;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &__img-container {
+                position: relative;
+                z-index: 1;
+                width: ef.get-value($themeDefault, 'blocksSize');
+                height: ef.get-value($themeDefault, 'blocksSize');
+                min-height: ef.get-value($themeDefault, 'blocksSize');
+                margin-bottom: ef.get-value($themeDefault, 'blockGapNoSelect');
+                overflow: hidden;
+                border-radius: ef.get-value($themeDefault, 'blocksRadius');
+            }
+
+            &__image {
+                position: absolute;
+                top: 50%;
+                left: 0;
+                width: 100%;
+                transform: translateY(-50%);
+            }
+
+            &__title {
+                position: absolute;
+                top: 33%;
+                right: 0;
+                bottom: -1px;
+                left: 0;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                width: 100%;
+                padding: ef.get-value($themeDefault, 'titlePadding');
+                font-weight: bold;
+                background: ef.get-value($themeDefault, 'titleBg');
+
+                span {
+                    @include bm.lineClamp(2);
+
+                    width: 100%;
+                    font-size: ef.get-value($themeDefault, 'headerFontSize');
+                    line-height: 1.5;
+                    text-align: center;
+                }
+            }
+
+            &__timer {
+                width: ef.get-value($themeDefault, 'blocksSize');
+                margin: 0 auto;
+
+                &.wlc-timer::ng-deep {
+
+                    .wlc-timer__timer-text {
+                        font-size: ef.get-value($themeDefault, 'timerFontSize');
+                    }
+                }
+            }
+
+            &__description {
+                @include bm.lineClamp(2);
+                @include text.get-text-style(ef.get-value($themeDefault, 'descrTextStyle'), ef.get-value($themeDefault, 'descrColor'));
+
+                white-space: pre-line;
+            }
+
+            &__description-block {
+                @include bm.transition(opacity);
+
+                width: ef.get-value($themeDefault, 'blocksSize');
+                min-width: 0;
+                margin-top: ef.get-value($themeDefault, 'blockGapNoSelect');
+                padding: ef.get-value($themeDefault, 'descrPadding');
+                border-radius: ef.get-value($themeDefault, 'blocksRadius');
+                background: ef.get-value($themeDefault, 'rowBg');
+            }
+
+            &__btns {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: ef.get-value($themeDefault, 'buttonWrapperMargin');
+            }
+
+            &__board {
+                width: ef.get-value($themeDefault, 'blocksSize');
+                padding: ef.get-value($themeDefault, 'gap') 0 ef.get-value($themeDefault, 'gap') 0;
+            }
+
+            &__header {
+                @include text.get-text-style(ef.get-value($themeDefault, 'titleTextStyle'), ef.get-value($themeDefault, 'titleColor'));
+                @include bm.lineClamp(1);
+                margin: ef.get-value($themeDefault, 'headerMargin');
+                text-align: center;
+            }
+        }
+    }
+
+    &.wlc-tournament--type-banner {
+        height: 100%;
+    }
+
+    &.wlc-tournament--type-available {
+        height: 100%;
+    }
+}
+
+.wlc-tournament--theme-wolf:host {
+
+    &.wlc-tournament--type-banner {
+        height: 100%;
+    }
+}

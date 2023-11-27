@@ -144,7 +144,16 @@
 
         .wlc-modal__footer {
             @include bm.get-mq-map('padding', $themeDefault, 'tournamentDetailFooterPadding');
+            @include bm.get-mq-map('border-radius', $themeDefault, 'tournamentDetailRadius');
             background: ef.get-value($themeDefault, 'tournamentDetailFooterBg');
+        }
+
+        &:has(.wlc-tournament-detail--theme-wolf) {
+
+            .wlc-modal__footer {
+                @include bm.get-mq-map('border-radius', $themeDefault, 'tournamentDetailRadiusWolf');
+                background: ef.get-value($themeDefault, 'tournamentDetailFooterBgWolf');
+            }
         }
 
         .wlc-modal__header--headless {

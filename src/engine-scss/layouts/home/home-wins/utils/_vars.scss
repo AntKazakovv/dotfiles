@@ -10,6 +10,10 @@ $themeHomeWins: map-merge((
         1024: ef.size(3),
         1630: ef.size(4),
     ),
+    'homeWinsOverflow': (
+        375: hidden,
+        900: visible,
+    ),
     'homeWinsRowGap': (
         375: ef.size(4),
     ),

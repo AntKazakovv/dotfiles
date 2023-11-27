@@ -1,0 +1,275 @@
+.wlc-tournament-promo--theme-wolf:host {
+    @include bm.get-mq-map('height', $themeWolf, 'containerHeight');
+
+    .wlc-tournament-promo {
+        @include bm.get-mq-map('height', $themeWolf, 'containerHeight');
+
+        &__container {
+            @include bm.get-mq-map('grid-template-columns', $themeWolf, 'containerGridTemplateColumns');
+            @include bm.get-mq-map('grid-template-areas', $themeWolf, 'containerGridTemplateAreas');
+
+            @include bm.get-mq-map('height', $themeWolf, 'containerHeight');
+
+            @include bm.get-mq-map('background', $themeWolf, 'containerBg');
+            @include bm.get-mq-map('grid-template-rows', $themeWolf, 'containerGridTemplateRow');
+
+            position: relative;
+            display: grid;
+            overflow: hidden;
+
+            border-radius: ef.get-value($themeWolf, 'containerRadius');
+        }
+
+        &__info {
+            @include bm.get-mq-map('padding', $themeWolf, 'infoPadding');
+            @include bm.get-mq-map('background', $themeWolf, 'infoBg');
+
+            position: relative;
+            grid-area: info;
+        }
+
+        &__prizepool {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'prizepoolTextStyle'),
+                ef.get-value($themeWolf, 'prizepoolColor')
+            );
+            margin: ef.get-value($themeWolf, 'prizepoolMargin');
+            text-align: ef.get-value($themeWolf, 'prizepoolTextAlign');
+
+            ::ng-deep {
+
+                .wlc-tournament-prizes-row {
+
+                    &__values {
+                        padding: ef.get-value($themeWolf, 'prizesRowValuePadding');
+                        background: ef.get-value($themeWolf, 'prizesRowValueBg');
+                    }
+
+                    &__rest-icon {
+
+                        .wlc-tournament-prizes-row__icon {
+
+                            span svg {
+                                width: ef.get-value($themeWolf, 'iconSize');
+                                height: ef.get-value($themeWolf, 'iconSize');
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &__board {
+            @include bm.get-mq-map('padding', $themeWolf, 'boardPadding');
+            @include bm.get-mq-map('background', $themeWolf, 'boardBg');
+            position: relative;
+
+            display: flex;
+            flex-direction: column;
+            grid-area: board;
+            justify-content: flex-start;
+
+            &-title {
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'boardTitleFontStyle', 375),
+                    ef.get-value($themeWolf, 'boardTitleColor')
+                );
+
+                text-align: ef.get-value($themeWolf, 'prizepoolTextAlign');
+            }
+
+            ::ng-deep {
+
+                .wlc-link-block {
+
+                    .wlc-btn[class] {
+                        color: ef.get-value($themeWolf, 'linkBlockColor');
+
+                        .wlc-icon {
+                            color: ef.get-value($themeWolf, 'linkBlockColor');
+                        }
+
+                        @include bm.hover {
+
+                            .wlc-icon {
+                                color: ef.get-value($themeWolf, 'linkBlockColorHover');
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+        &__inner {
+            @include bm.get-mq-map('text-align', $themeWolf, 'textAlign');
+            position: relative;
+            z-index: ef.get-value($themeWolf, 'innerBlockZIndex');
+
+            ::ng-deep {
+
+                .wlc-btn {
+                    display: block;
+                    width: 100%;
+                    max-width: ef.get-value($themeWolf, 'prizesBtnMaxWidth');
+                    margin: ef.get-value($themeWolf, 'prizesBtnMargin');
+                    padding: ef.get-value($themeWolf, 'prizesBtnPadding');
+                    background: ef.get-value($themeWolf, 'prizesBtnBg');
+                    border-radius: ef.get-value($themeWolf, 'prizesBtnRadius');
+                }
+            }
+
+            &:has(.wlc-btn) {
+
+                ::ng-deep {
+
+                    .wlc-tournament-promo-prizes.wlc-tournament-prizes--theme-wolf {
+
+                        & .wlc-tournament-prizes {
+
+                            &__container {
+                                border-radius: ef.get-value($themeWolf, 'containerRadiusHasBtn');
+                            }
+
+                            &__body .wlc-tournament-prizes__row:last-child {
+                                border-bottom: ef.get-value($themeWolf, 'prizesRowBorder');
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &__tag {
+            margin: ef.get-value($themeWolf, 'tagMargin');
+        }
+
+        &__title {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'titleFontStyle'),
+                ef.get-value($themeWolf, 'titleColor')
+            );
+            @include bm.lineClamp(2);
+            margin: ef.get-value($themeWolf, 'titleMargin');
+
+            @include mq.min(900) {
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'titleFontStyle'),
+                    ef.get-value($themeWolf, 'titleColor', 900),
+                );
+            }
+        }
+
+        &__description {
+            @include bm.lineClamp(3);
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'descriptionFontStyle'),
+                ef.get-value($themeWolf, 'descriptionColor'),
+            );
+            @include bm.lineClamp(3);
+            margin: ef.get-value($themeWolf, 'descriptionMargin');
+        }
+
+        &__tag,
+        &__title,
+        &__description {
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        &__image {
+            position: absolute;
+            top: ef.get-value($themeWolf, 'imagePosition');
+            left: ef.get-value($themeWolf, 'imagePosition');
+            z-index: ef.get-value($themeWolf, 'imageZIndex');
+
+            width: ef.get-value($themeWolf, 'imageSize');
+            height: ef.get-value($themeWolf, 'imageSize');
+
+            object-fit: ef.get-value($themeWolf, 'imageObjectFit');
+            object-position: ef.get-value($themeWolf, 'imageObjectPosition');
+
+            &--desk {
+                @include bm.get-mq-map('display', $themeWolf, 'imageDisplayDesk');
+            }
+
+            &--mobile {
+                @include bm.get-mq-map('display', $themeWolf, 'imageDisplay');
+            }
+        }
+
+        &__loader {
+            position: absolute;
+            top: ef.get-value($themeWolf, 'loaderPosition');
+            right: ef.get-value($themeWolf, 'loaderPosition');
+            bottom: ef.get-value($themeWolf, 'loaderPosition');
+            left: ef.get-value($themeWolf, 'loaderPosition');
+            z-index: ef.get-value($themeWolf, 'loaderZIndex');
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: ef.get-value($themeWolf, 'loaderBg');
+            border-radius: ef.get-value($themeWolf, 'loaderRadius');
+
+            &:before {
+                content: '';
+                position: absolute;
+                top: ef.get-value($themeWolf, 'loaderBeforePosition');
+                right: ef.get-value($themeWolf, 'loaderBeforePosition');
+                bottom: ef.get-value($themeWolf, 'loaderBeforePosition');
+                left: ef.get-value($themeWolf, 'loaderBeforePosition');
+
+                width: ef.get-value($themeWolf, 'loaderBeforeSize');
+                height: ef.get-value($themeWolf, 'loaderBeforeSize');
+
+                margin: auto;
+
+                background: ef.get-value($themeWolf, 'loaderBeforeBg');
+
+                border-radius: ef.get-value($themeWolf, 'loaderBeforeRadius');
+            }
+
+            &:after {
+                content: '';
+                width: ef.get-value($themeWolf, 'loaderAfterSize');
+                height: ef.get-value($themeWolf, 'loaderAfterSize');
+
+                border: 4px solid ef.get-value($themeWolf, 'loaderAfterBorderColor');
+                border-left-color: transparent;
+                border-radius: ef.get-value($themeWolf, 'loaderAfterRadius');
+
+                animation: ef.get-value($themeWolf, 'loaderAfterAnimation');
+            }
+        }
+    }
+
+    ::ng-deep {
+
+        .wlc-tournament-promo-prizes {
+            margin: ef.get-value($themeWolf, 'prizesMargin');
+        }
+
+        .buttons-wrap {
+            @include bm.get-mq-map('align-items', $themeWolf, 'btnsWrapAlign');
+            @include bm.get-mq-map('flex-direction', $themeWolf, 'btnsWrapFlexDirection');
+            @include bm.get-mq-map('justify-self', $themeWolf, 'btnsWrapJustify');
+            @include bm.get-mq-map('padding', $themeWolf, 'btnsWrapPadding');
+
+            display: flex;
+            flex-wrap: wrap;
+            grid-area: btns;
+            gap: ef.get-value($themeWolf, 'btnsWrapGap');
+            align-self: ef.get-value($themeWolf, 'btnsWrapAlignSelf');
+
+            & > .wlc-btn {
+                grid-column-gap: ef.get-value($themeWolf, 'btnGridColumnGap');
+                padding: ef.get-value($themeWolf, 'btnPadding');
+            }
+        }
+    }
+}

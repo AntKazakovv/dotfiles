@@ -1,0 +1,140 @@
+.wlc-tournament-leaderboard--theme-wolf:host {
+    @include bm.get-mq-map('--lb-cell-padding-first', $themeWolf, 'firstCellPadding');
+    @include bm.get-mq-map('--lb-cell-padding-last', $themeWolf, 'lastCellPadding');
+
+    .wlc-tournament-leaderboard {
+
+        &__container {
+            max-width: ef.get-value($themeWolf, 'containerMaxWidth');
+            margin: ef.get-value($themeWolf, 'containerMargin');
+
+            &:has(.wlc-tournament-leaderboard__btn) {
+
+                .wlc-tournament-leaderboard__list:not(.wlc-tournament-leaderboard__list--top) {
+                    border-radius: ef.get-value($themeWolf, 'listRadiusWithBtn');
+
+                    .wlc-tournament-leaderboard__item:last-child:not(.user[class]) {
+
+                        .wlc-tournament-leaderboard__cell {
+                            border-bottom: ef.get-value($themeWolf, 'cellBorderBottom');
+                        }
+                    }
+                }
+            }
+
+            &:has(.wlc-tournament-leaderboard__item--head) {
+
+                .wlc-tournament-leaderboard__list--top {
+                    border-radius: ef.get-value($themeWolf, 'topRadiusWithHead');
+                }
+            }
+        }
+
+        &__wrapper {
+            background: ef.get-value($themeWolf, 'wrapperBg');
+            overflow: hidden;
+        }
+
+        &__descr {
+            @include bm.get-mq-map('margin', $themeWolf, 'descrMargin');
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'descrStyle'),
+                ef.get-value($themeWolf, 'descrColor')
+            );
+
+            text-align: ef.get-value($themeWolf, 'descrAlign');
+        }
+
+        &__list {
+            display: grid;
+            grid-template-columns: ef.get-value($themeWolf, 'listGridTemplateColumns');
+            background: ef.get-value($themeWolf, 'listBg');
+            border-radius: ef.get-value($themeWolf, 'listRadius');
+            overflow: hidden;
+
+            &--top {
+                margin: ef.get-value($themeWolf, 'topMargin');
+                background: ef.get-value($themeWolf, 'topBg');
+                border-radius: ef.get-value($themeWolf, 'topRadius');
+            }
+        }
+
+        &__btn::ng-deep {
+            width: 100%;
+            height: ef.get-value($themeWolf, 'btnHeight');
+            padding: 0;
+            background: ef.get-value($themeWolf, 'listBg');
+            border-radius: ef.get-value($themeWolf, 'btnRadius');
+
+            .wlc-btn__text {
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'btnTextStyle'),
+                    ef.get-value($themeWolf, 'btnTextColor'),
+                );
+
+                @include bm.hover() {
+                    color: ef.get-value($themeWolf, 'btnTextColorHover');
+                }
+            }
+        }
+
+        &__item {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'itemTextStyle'),
+                ef.get-value($themeWolf, 'itemColor')
+            );
+            @include bm.get-mq-map('margin', $themeWolf, 'itemmargin');
+            display: grid;
+            grid-template-columns: ef.get-value($themeWolf, 'itemGridTemplate');
+            min-height: ef.get-value($themeWolf, 'itemHeight');
+            background: ef.get-value($themeWolf, 'itemRowBg');
+
+            &.user[class] {
+
+                .wlc-tournament-leaderboard__cell {
+                    background: ef.get-value($themeWolf, 'userBg');
+                    border-bottom: ef.get-value($themeWolf, 'userBorderBottom');
+                }
+            }
+
+            &.last,
+            &:last-child {
+
+                .wlc-tournament-leaderboard__cell {
+                    border: none;
+                }
+            }
+
+            &--head {
+                @include bm.get-mq-map('background', $themeWolf, 'headBg');
+                border-radius: ef.get-value($themeWolf, 'headRadius');
+
+                .wlc-tournament-leaderboard__cell {
+                    color: ef.get-value($themeWolf, 'headTextColot');
+                }
+            }
+
+            .wlc-tournament-leaderboard__cell {
+                display: block;
+                width: 100%;
+                height: auto;
+                padding: ef.get-value($themeWolf, 'cellPadding');
+                overflow: hidden;
+                text-align: center;
+                text-overflow: ellipsis;
+                border-bottom: ef.get-value($themeWolf, 'cellBorderBottom');
+
+                &:first-child {
+                    padding: var(--lb-cell-padding-first);
+                    color: ef.get-value($themeWolf, 'firstCellTextColor');
+                    text-align: left;
+                }
+
+                &:last-child {
+                    padding: var(--lb-cell-padding-last);
+                    text-align: right;
+                }
+            }
+        }
+    }
+}

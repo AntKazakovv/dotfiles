@@ -2,15 +2,15 @@
     <div wlc-timer
         class="{{$class}}__timer-block"
         [value]="tournament.stateDateTournament"
-        [text]="getTimerText()"
-        (timerEnds)="updateTournaments()"
+        [text]="tournament.timerText"
         [serverDateUTC]="tournament.serverTime">
+        (timerEnds)="updateTournaments()"
     </div>
     <div class="{{$class}}__delimiter"></div>
     <div class="{{$class}}__prize-block">
         <div wlc-icon
-             class="{{$class}}__prize-block--icon"
-             iconPath="/wlc/icons/pool.svg">
+            class="{{$class}}__prize-block--icon"
+            iconPath="/wlc/icons/pool.svg">
         </div>
         <div class="{{$class}}__prize-block__text">
             <div class="{{$class}}__prize-block__text--subtitle">

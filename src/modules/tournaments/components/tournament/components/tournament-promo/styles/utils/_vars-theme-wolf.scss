@@ -1,0 +1,156 @@
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'containerRadius': ef.get('radius', 'main'),
+    'containerRadiusHasBtn': ef.get('radius', 'main') ef.get('radius', 'main') 0 0,
+    'containerBg': (
+        375: var(--mc-bg500),
+    ),
+    'containerGridTemplateColumns': (
+        375: minmax(290px, 1fr),
+        900: minmax(375px, 1fr) 340px,
+        1200: minmax(250px, 1fr) 300px,
+        1630: minmax(300px, 1fr) 300px,
+    ),
+    'containerGridTemplateRow': (
+        720: 226px auto auto,
+        900: initial
+    ),
+    'containerGridTemplateAreas': (
+        375: 'info' 'board' 'btns',
+        900: 'info board' 'btns board',
+    ),
+    'containerHeight': (
+        375: 100%,
+        900: 400px,
+    ),
+
+    'tagFontSize': 'SignText',
+    'tagColor': var(--mc-lightColor),
+    'tagPadding': 3px 8px 3px 24px ,
+    'tagMargin': 0 0 ef.size(4),
+    'tagRadius': ef.get('radius', 'large'),
+
+    'infoPadding': (
+        375: ef.size(4) ef.size(4) ef.size(6),
+        640: ef.size(6) ef.size(8) ef.size(8),
+    ),
+    'infoBg': (
+        375: var(--mc-bg300),
+        900: var(--mc-bg500),
+    ),
+
+    'boardPadding': (
+        375: ef.size(4) ef.size(6),
+        640: ef.size(4) ef.size(8),
+        1200: ef.size(6) ef.size(8),
+        1630: ef.size(6) ef.size(9),
+    ),
+    'boardTitleFontStyle': 'ThirdTitleBold',
+    'boardTitleColor': ef.get('mainColors', 'lightColor'),
+    'boardBg': (
+        375: var(--mc-bg500),
+        900: var(--mc-bg300),
+    ),
+
+    'innerBlockZIndex': 3,
+
+    'prizesBtnMaxWidth': 500px,
+    'prizesBtnMargin': 0 auto,
+    'prizesBtnPadding': 0 0 ef.size(1),
+    'prizesBtnBg': var(--mc-bg700),
+    'prizesBtnRadius': 0 0 ef.get('radius', 'main') ef.get('radius', 'main'),
+
+    'imageDisplayDesk': (
+        375: none,
+        900: block,
+    ),
+    'imageDisplay': (
+        375: block,
+        900: none,
+    ),
+    'imageSize': 100%,
+    'imagePosition': 0,
+    'imageZIndex': 1,
+    'imageObjectFit': cover,
+    'imageObjectPosition': center,
+
+    'textAlign': (
+        375: center,
+        900: left,
+    ),
+
+    'titleFontStyle': 'QoteTextBoldSmaller',
+    'titleColor': var(--mc-lightColor),
+    'titleMargin': 0 0 ef.size(4),
+    'prizepoolMargin': ef.size(1) 0 ef.size(2),
+    'prizepoolTextStyle': 'QoteTextBoldSmaller',
+    'prizepoolColor': var(--mc-baseMain),
+    'prizepoolTextAlign': center,
+
+    'prizesRowValuePadding': ef.size(1) ef.size(3),
+    'prizesRowValueBg': var(--mc-bg700-o6),
+    'prizesRowBorder': 1px solid var(--mc-bg300),
+
+    'iconSize': 24px,
+
+    'descriptionFontStyle': 'CaptionText',
+    'descriptionColor': var(--mc-lightColor),
+    'descriptionMargin': 0 0 ef.size(8),
+
+    'btnsWrapMargin': auto 0 0 0,
+    'btnsWrapAlign': (
+        900: flex-end,
+    ),
+    'btnsWrapPadding': (
+        375: 0 0 ef.size(4),
+        720: 0 0 ef.size(4),
+        900: 0 ef.size(4) ef.size(6),
+        1630: 0 ef.size(6) ef.size(6),
+    ),
+    'btnsWrapFlexDirection': (
+        375: column,
+        480: row,
+        720: column,
+        900: row,
+    ),
+    'btnsWrapGap': ef.size(4),
+    'btnsWrapJustify': (
+        375: center,
+        900: initial
+    ),
+    'btnsWrapAlignSelf': end,
+
+    'btnGridColumnGap': 0,
+    'btnPadding': ef.size(1) ef.size(3),
+
+    'prizesMargin': ef.size(2) auto 0,
+
+    'loaderZIndex': 10,
+    'loaderPosition': 0,
+    'loaderBg': var(--mc-disabled-o6),
+    'loaderRadius': ef.get('radius', 'biger'),
+
+    'loaderBeforePosition': 0,
+    'loaderBeforeSize': 60px,
+    'loaderBeforeBg': var(--mc-bg-o8),
+    'loaderBeforeRadius': 50%,
+
+    'loaderAfterSize': 50px,
+    'loaderAfterBorderColor': var(--mc-main),
+    'loaderAfterRadius': 50%,
+    'loaderAfterAnimation': spin 1s infinite linear,
+
+    'linkBlockColor': var(--mc-main),
+    'linkBlockColorHover': ef.get('mainColors', 'baseMain'), // Locked color
+
+    'boardTitleMargin': 0 0 ef.size(2) 0,
+
+    'modMobileGridTemplateColumns': (
+        375: minmax(260px, 1fr),
+        900: minmax(375px, 1fr) 340px,
+    ),
+    'modMobileBoardPadding': (
+        375: ef.size(4) ef.size(3),
+        640: ef.size(4) ef.size(8),
+    ),
+), $customThemeWolf);

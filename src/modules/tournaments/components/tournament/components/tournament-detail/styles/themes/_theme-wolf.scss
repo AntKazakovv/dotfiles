@@ -1,0 +1,230 @@
+$selector: '.wlc-tournament-detail';
+
+#{$selector} {
+
+    &--theme-wolf {
+        position: relative;
+
+        #{$selector}__header-info {
+            @include bm.get-mq-map('min-height', $themeWolf, 'headerInfoMinHeight');
+            @include bm.get-mq-map('background', $themeWolf, 'headerInfoBg');
+            @include bm.get-mq-map('background-position', $themeWolf, 'headerInfoBgPosition');
+            @include bm.get-mq-map('background-size', $themeWolf, 'headerInfoBgSize');
+            @include bm.get-mq-map('border-radius', $themeWolf, 'headerInfoRadius');
+            padding: ef.get-value($themeWolf, 'headerInfoPadding');
+
+            &-tag {
+                position: relative;
+                margin: ef.get-value($themeWolf, 'headerTagMargin');
+                text-align: center;
+            }
+
+            &-inner {
+                @include bm.get-mq-map('max-width', $themeWolf, 'headerInnerMaxWidth');
+                @include bm.get-mq-map('margin', $themeWolf, 'headerInnerMargin');
+            }
+
+            &--back-link {
+                @include bm.get-mq-map('top', $themeWolf, 'headerBackLinkTop');
+                @include bm.get-mq-map('left', $themeWolf, 'headerBackLinkLeft');
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'headerBackLinkTextStyle'),
+                    ef.get-value($themeWolf, 'headerBackLinkTextColor')
+                );
+                @include bm.get-mq-map('text-decoration', $themeWolf, 'headerBackLinkDecoration');
+                @include bm.transition(color);
+
+                position: absolute;
+                max-width: ef.get-value($themeWolf, 'headerBackLinkMaxWidth');
+
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+
+                cursor: pointer;
+
+                .wlc-icon {
+                    @include bm.get-mq-map('transform', $themeWolf, 'headerBackLinkIconTransform');
+                    display: inline-block;
+
+                    svg {
+                        fill: ef.get-value($themeWolf, 'headerBackLinkIconColor');
+                    }
+                }
+
+                @include bm.hover {
+                    color: ef.get-value($themeWolf, 'headerBackLinkTextColorActive');
+                }
+            }
+
+            &--title {
+                @include bm.get-mq-map('justify-self', $themeWolf, 'headerTitleJustifySelf');
+                @include bm.get-mq-map('text-align', $themeWolf, 'headerTitleTextAlign');
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'headerTitleTextStyle', 375),
+                    ef.get-value($themeWolf, 'headerTitleTextColor'),
+                );
+                margin: ef.get-value($themeWolf, 'headerTitleMargin');
+                word-break: break-word;
+
+                @include mq.min(900) {
+                    @include text.get-text-style(
+                        ef.get-value($themeWolf, 'headerTitleTextStyle', 900),
+                        null
+                    );
+                }
+            }
+
+            &--description {
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'headerDescTextStyle'),
+                    ef.get-value($themeWolf, 'headerDescColor'),
+                );
+                margin: ef.get-value($themeWolf, 'headerDescMargin');
+                text-align: ef.get-value($themeWolf, 'headerDescTextAlign');
+            }
+
+            &-timer {
+                @include bm.get-mq-map('margin', $themeWolf, 'headerTimerMargin');
+            }
+
+            &--buttons {
+                @include bm.get-mq-map('justify-content', $themeWolf, 'headerButtonJustifyContent');
+                display: flex;
+            }
+        }
+
+        #{$selector}__leaderboard {
+            @include bm.get-mq-map('padding', $themeWolf, 'leaderboardPadding');
+            @include bm.get-mq-map('grid-template-columns', $themeWolf, 'leaderboardColumnWidth');
+            @include bm.get-mq-map('row-gap', $themeWolf, 'leaderboardGap');
+            @include bm.get-mq-map('background', $themeWolf, 'leaderboardBg');
+
+            display: grid;
+            justify-items: ef.get-value($themeWolf, 'leaderboardJustifyItems');
+            border-bottom: ef.get-value($themeWolf, 'detailBorderBottom');
+
+            &-head {
+                @include bm.get-mq-map('text-align', $themeWolf, 'leaderboardHeadAlign');
+            }
+
+            &-title {
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'leaderboardTitleStyle'),
+                    ef.get-value($themeWolf, 'leaderboardTitleColor')
+                );
+            }
+
+            &-table {
+                width: 100%;
+                max-width: ef.get-value($themeWolf, 'leaderboardTableMaxWidth');
+            }
+        }
+
+        #{$selector}__prizes-block {
+            @include bm.get-mq-map('background', $themeWolf, 'prizesBg');
+        }
+
+        #{$selector}__prizepool {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: ef.get-value($themeWolf, 'prizepoolMargin');
+
+            &-title {
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'prizepoolTitleStyle'),
+                    ef.get-value($themeWolf, 'prizepoolTitleColor')
+                );
+            }
+
+            &-amount {
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'prizepoolAmoutTextStyle'),
+                    ef.get-value($themeWolf, 'prizepoolAmoutTextColor')
+                );
+
+                &.size-lg {
+                    --wlc-icon-width: ef.get-value($themeWolf, 'prizepoolIconSizeLg');
+                    --wlc-icon-height: ef.get-value($themeWolf, 'prizepoolIconSizeLg');
+
+                    @include text.get-text-style(
+                        ef.get-value($themeWolf, 'prizepoolAmoutTextStyleLG'),
+                        ef.get-value($themeWolf, 'prizepoolAmoutTextColor')
+                    );
+                }
+            }
+        }
+
+        #{$selector}__info--description {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'infoTextStyle'),
+                ef.get-value($themeWolf, 'infoTextColor')
+            );
+            @include bm.get-mq-map('width', $themeWolf, 'infoWidth');
+            margin: ef.get-value($themeWolf, 'infoMargin');
+        }
+
+        #{$selector}__prizeboard {
+            @include bm.get-mq-map('grid-template-columns', $themeWolf, 'prizeboardColumnWidth');
+            @include bm.get-mq-map('padding', $themeWolf, 'prizeboardPadding');
+            @include bm.get-mq-map('justify-content', $themeWolf, 'prizeboardJustifyContent');
+            @include bm.get-mq-map('background', $themeWolf, 'prizeboardBg');
+            display: grid;
+            border-bottom: ef.get-value($themeWolf, 'detailBorderBottom');
+        }
+
+        #{$selector}__games {
+            @include bm.get-mq-map('padding', $themeWolf, 'gamesPadding');
+            background: ef.get-value($themeWolf, 'gamesBg');
+            border-bottom: ef.get-value($themeWolf, 'detailBorderBottom');
+
+            &--title {
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'gamesTitleStyle'),
+                    ef.get-value($themeWolf, 'gamesTitleColor')
+                );
+                @include bm.get-mq-map('text-align', $themeWolf, 'gamesTitleAlign');
+            }
+        }
+
+        #{$selector}__rules {
+            @include bm.get-mq-map('grid-template-columns', $themeWolf, 'rulesColumnWidth');
+            @include bm.get-mq-map('justify-content', $themeWolf, 'rulesJustifyContent');
+            @include bm.get-mq-map('padding', $themeWolf, 'rulesPadding');
+            @include bm.get-mq-map('background', $themeWolf, 'rulesBg');
+            @include bm.get-mq-map('gap', $themeWolf, 'rulesGap');
+            display: grid;
+
+            &--title {
+
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'rulesTitleStyle'),
+                    ef.get-value($themeWolf, 'rulesTitleColor')
+                );
+                @include bm.get-mq-map('text-align', $themeWolf, 'rulesTitleAlign');
+                position: relative;
+            }
+
+            &--terms,
+            &--descr {
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'rulesTextStyle'),
+                    ef.get-value($themeWolf, 'rulesTextColor')
+                );
+                @include bm.get-mq-map('text-align', $themeWolf, 'rulesAlign');
+
+                &:empty {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    .wlc-games-grid--theme-default.wlc-games-grid {
+
+        .wlc-games-grid__list + .wlc-games-grid__more {
+            margin: ef.get-value($themeWolf, 'gamesMoreBtn');
+        }
+    }
+}

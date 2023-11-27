@@ -150,6 +150,7 @@ export class TournamentLeaderboardComponent
             modalTitle: this.tournament.name,
             component: TournamentLeaderboardComponent,
             componentParams: <ITournamentLeaderboardCParams>{
+                theme: this.$params.theme,
                 common: {
                     tournament: this.tournament,
                 },

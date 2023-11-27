@@ -1,15 +1,13 @@
 <ng-template #default>
-    <div class="{{$class}}__content"
-         data-wlc-element="block_tournaments-main">
-        <div class="{{$class}}__container"
-             *ngIf="tournaments?.length && isReady; else: noData"
-             data-wlc-element="block_tournament">
-            <div
+    <div class="{{$class}}__content" data-wlc-element="block_tournaments-main">
+        <div *ngIf="tournaments?.length && isReady; else: noData"
+            class="{{$class}}__container"
+            data-wlc-element="block_tournament">
+            <div *ngFor="let tournament of tournaments"
                 wlc-tournament
-                *ngFor="let tournament of tournaments"
-                [tournament]="tournament"
-                [type]="$params.common?.thumbType"
-                [theme]="$params.theme">
+                [type]="$params.type"
+                [theme]="$params.theme"
+                [tournament]="tournament">
             </div>
         </div>
     </div>
@@ -18,12 +16,10 @@
 <ng-template #dashboard>
     <div wlc-scrollbar class="{{$class}}__inner">
         <ng-container *ngIf="readyTournamentsAndSlides; else: noData">
-            <ng-container
-                *ngIf="!isTournamentSelected && $params.type === 'swiper'">
-
-                <div class="{{$class}}__slider"
-                     wlc-wrapper
-                     [inlineParams]="dashboardSliderConfig">
+            <ng-container *ngIf="!isTournamentSelected && $params.themeMod === 'swiper'">
+                <div wlc-wrapper
+                    class="{{$class}}__slider"
+                    [inlineParams]="dashboardSliderConfig">
                 </div>
                 <div slot-container-end *ngIf="slides.length > 1" class="{{$class}}__nav">
                     <div wlc-slider-navigation
@@ -34,13 +30,11 @@
                 </div>
             </ng-container>
             <ng-container *ngIf="isTournamentSelected">
-                <div class="{{$class}}__container-active"
-                     data-wlc-element="block_tournament_active_dashboard">
-                    <div
-                        wlc-tournament
-                        [tournament]="activeTournaments[0]"
+                <div class="{{$class}}__container-active" data-wlc-element="block_tournament_active_dashboard">
+                    <div wlc-tournament
                         type="dashboard"
-                        theme="dashboard">
+                        [theme]="$params.theme"
+                        [tournament]="activeTournaments[0]">
                     </div>
                 </div>
             </ng-container>
@@ -50,11 +44,15 @@
 
 <ng-template #banner>
     <ng-container *ngIf="tournaments?.length && slides.length; else noDataBanner">
-        <ng-container *ngIf="$params.type === 'swiper'">
-            <div class="{{$class}}__slider"
-                wlc-wrapper
-                [inlineParams]="bannerSliderConfig"
-            ></div>
+        <div *ngIf="$params.theme === 'wolf'"
+            class="{{$class}}__tag">
+            {{'Tournaments' | translate}}
+        </div>
+        <ng-container *ngIf="$params.themeMod === 'swiper'">
+            <div wlc-wrapper
+                class="{{$class}}__slider"
+                [inlineParams]="bannerSliderConfig">
+            </div>
         </ng-container>
     </ng-container>
     <div slot-container-end *ngIf="slides.length > 1">
@@ -68,65 +66,51 @@
 
 <ng-template #available>
     <div *ngIf="paginatedTournaments?.length && isReady; else: noData"
-         class="{{$class}}__container"
-         data-wlc-element="block_tournament">
-        <div
-            *ngFor="let tournament of paginatedTournaments"
-            class="{{$class}}__item">
-            <div
-                wlc-tournament
-                [tournament]="tournament"
-                [type]="$params.common?.thumbType"
+        class="{{$class}}__container"
+        data-wlc-element="block_tournament">
+        <div *ngFor="let tournament of paginatedTournaments" class="{{$class}}__item">
+            <div wlc-tournament
+                [type]="$params.type"
                 [theme]="$params.theme"
+                [tournament]="tournament"
                 [customMod]="$params.common?.customMod"
-                [isAlternative]="$params.isAlternative"
-            >
+                [isAlternative]="$params.isAlternative">
             </div>
         </div>
     </div>
     <div wlc-pagination
-         theme="default"
-         [items]="tournaments"
-         [settings]="$params.common?.pagination"
-         (paginationOnChange)="paginationOnChange($event)">
+        theme="default"
+        [items]="tournaments"
+        [settings]="$params.common?.pagination"
+        (paginationOnChange)="paginationOnChange($event)">
     </div>
 </ng-template>
 
 <ng-template #active>
-    <div
-        *ngIf="tournaments?.length && isReady; else: noData"
+    <div *ngIf="tournaments?.length && isReady; else: noData"
         class="{{$class}}__container"
         data-wlc-element="block_tournament">
-        <div
-            *ngFor="let tournament of tournaments"
-            class="{{$class}}__item">
-            <div
-                wlc-tournament
-                [tournament]="tournament"
-                [type]="$params.common?.thumbType"
+        <div *ngFor="let tournament of tournaments" class="{{$class}}__item">
+            <div wlc-tournament
+                [type]="$params.type"
                 [theme]="$params.theme"
-                [customMod]="$params.common?.customMod"
-            >
+                [tournament]="tournament"
+                [customMod]="$params.common?.customMod">
             </div>
         </div>
     </div>
 </ng-template>
 
 <ng-template #detail>
-    <div
-        *ngIf="tournaments?.length && isReady; else: noData"
+    <div *ngIf="tournaments?.length && isReady; else: noData"
         class="{{$class}}__container"
         data-wlc-element="block_tournament">
-        <div
-            *ngFor="let tournament of tournaments"
-            class="{{$class}}__item">
-            <div
-                wlc-tournament
-                [tournament]="tournament"
-                [type]="$params.common?.thumbType"
+        <div *ngFor="let tournament of tournaments" class="{{$class}}__item">
+            <div wlc-tournament
+                [type]="$params.type"
                 [theme]="$params.theme"
-                [customMod]="$params.common?.customMod"
-            >
+                [tournament]="tournament"
+                [customMod]="$params.common?.customMod">
             </div>
         </div>
     </div>
@@ -137,13 +121,12 @@
 
         <ng-container *ngIf="!$params.inProfile; else noDataInProfile">
 
-            <div *ngIf="$params.theme !== 'default'; else noDataDefault"
-                class="{{$class}}__nocontent">
+            <div *ngIf="$params.theme !== 'default'; else noDataDefault" class="{{$class}}__nocontent">
                 {{ 'No tournaments available' | translate}}
                 <button *ngIf="$params.useNoTournamentsBtn"
-                        wlc-button
-                        class="{{$class}}__nocontent-btn"
-                        [inlineParams]="$params.noTournamentsBtn">
+                    wlc-button
+                    class="{{$class}}__nocontent-btn"
+                    [inlineParams]="$params.noTournamentsBtn">
                 </button>
             </div>
         </ng-container>
@@ -151,9 +134,7 @@
 </ng-template>
 
 <ng-template #noDataDefault>
-    <div wlc-no-content
-        [inlineParams]="noContentParams">
-    </div>
+    <div wlc-no-content [inlineParams]="noContentParams"></div>
 </ng-template>
 
 <ng-template #noDataInProfile>
@@ -174,11 +155,11 @@
     </div>
 </ng-template>
 
-<ng-container [ngSwitch]="$params.theme">
-    <ng-container [ngTemplateOutlet]="active" *ngSwitchCase="'active'"></ng-container>
-    <ng-container [ngTemplateOutlet]="available" *ngSwitchCase="'available'"></ng-container>
-    <ng-container [ngTemplateOutlet]="dashboard" *ngSwitchCase="'dashboard'"></ng-container>
-    <ng-container [ngTemplateOutlet]="banner" *ngSwitchCase="'banner'"></ng-container>
-    <ng-container [ngTemplateOutlet]="detail" *ngSwitchCase="'detail'"></ng-container>
-    <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
+<ng-container [ngSwitch]="$params.type">
+    <ng-container *ngSwitchCase="'active'" [ngTemplateOutlet]="active"></ng-container>
+    <ng-container *ngSwitchCase="'available'" [ngTemplateOutlet]="available"></ng-container>
+    <ng-container *ngSwitchCase="'dashboard'" [ngTemplateOutlet]="dashboard"></ng-container>
+    <ng-container *ngSwitchCase="'banner'" [ngTemplateOutlet]="banner"></ng-container>
+    <ng-container *ngSwitchCase="'detail'" [ngTemplateOutlet]="detail"></ng-container>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
 </ng-container>

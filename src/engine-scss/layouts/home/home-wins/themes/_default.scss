@@ -1,4 +1,5 @@
 .wlc-sections__content-wins--theme-default {
+    @include bm.get-mq-map('overflow', $themeHomeWins, 'homeWinsOverflow');
 
     .wlc-home-wins {
         @include sm.homePromoWins($themeHomeWins, 'homeWins');

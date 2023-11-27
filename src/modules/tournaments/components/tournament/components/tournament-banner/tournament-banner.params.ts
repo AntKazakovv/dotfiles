@@ -9,7 +9,7 @@ import {
 } from 'wlc-engine/modules/tournaments';
 import {IIndexing} from 'wlc-engine/modules/core';
 
-export type ComponentTheme = 'default' | CustomType;
+export type ComponentTheme = 'default' | 'wolf' | CustomType;
 export type ComponentType = ThumbType | CustomType;
 export type ThemeMod = 'default' | CustomType;
 export type AutoModifiers = ComponentTheme | ThemeMod;
@@ -28,7 +28,7 @@ export interface ITournamentBannerCParams extends IComponentParams<ComponentThem
         themeMod?: ThemeMod;
         customMod?: CustomMod;
         type?: ComponentType;
-        actionParams?: IActionParams
+        actionParams?: IActionParams;
     }
 }
 

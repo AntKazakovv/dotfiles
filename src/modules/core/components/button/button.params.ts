@@ -62,7 +62,6 @@ export interface IButtonCParams extends IComponentParams<Theme, Type, ThemeMod> 
         animation?: TButtonAnimation;
         selectorScroll?: string;
     };
-    wolfBtnIcon?: string;
 }
 
 export const defaultParams: IButtonCParams = {
@@ -73,5 +72,4 @@ export const defaultParams: IButtonCParams = {
     common: {
         size: 'default',
     },
-    wolfBtnIcon: 'wlc/icons/arrow.svg',
 };

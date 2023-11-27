@@ -37,6 +37,7 @@ export class TournamentPrizesComponent
     @Input() public themeMod: Params.ThemeMod;
     @Input() public customMod: Params.CustomMod;
     @Input() public tournament: Tournament;
+    @Input() public tournamentType: 'promo' | 'detail';
 
     public override $params: Params.ITournamentPrizesCParams;
     public podiumImages: TPrizePodiumImages;
@@ -46,6 +47,7 @@ export class TournamentPrizesComponent
     public hasInfoColumn: boolean;
     public bonusRewardText: ITooltipCParams;
     public useShowMoreButton: boolean;
+    public btnTheme: Params.BtnTheme = 'default';
 
     private _initialRowLimit: number = 0;
 
@@ -74,6 +76,9 @@ export class TournamentPrizesComponent
         this.hasInfoColumn = this.tournament.target === 'bonus' && this.$params.theme === 'long';
         this.useShowMoreButton =
             this.$params.showMore?.use && this.tournament.prizeTable.length > this._initialRowLimit;
+        if (this.$params.theme === 'wolf') {
+            this.btnTheme = 'theme-wolf-link';
+        };
     }
 
     public get toggleButtonText(): string {
@@ -88,7 +93,7 @@ export class TournamentPrizesComponent
     protected prepareLimits(): void {
         this._initialRowLimit = this.$params.showMore?.rowLimit || Params.PRIMARY_ROW_LIMIT;
 
-        if (this.$params.theme === 'long') {
+        if (this.$params.theme === 'long' || this.$params.theme === 'wolf') {
             this.rowLimit = this.$params.showMore.use ? this._initialRowLimit : this.tournament.prizeTable.length;
         } else {
             this.rowLimit = this._initialRowLimit;

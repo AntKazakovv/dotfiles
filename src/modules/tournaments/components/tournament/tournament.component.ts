@@ -327,6 +327,7 @@ export class TournamentComponent extends AbstractComponent implements OnInit {
             component: TournamentDetailComponent,
             componentParams: <ITournamentDetailCParams>{
                 parentInstance: this.instance,
+                theme: this.$params.theme,
                 common: {
                     tournament: this.tournament,
                     scrollToSelector,

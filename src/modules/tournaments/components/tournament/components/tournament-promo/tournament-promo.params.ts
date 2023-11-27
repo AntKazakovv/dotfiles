@@ -9,7 +9,7 @@ import {
 import {TournamentComponent} from 'wlc-engine/modules/tournaments/components/tournament/tournament.component';
 import {IIndexing} from 'wlc-engine/modules/core';
 
-export type ComponentTheme = 'default' | 'alternative' | CustomType;
+export type ComponentTheme = 'default' | 'alternative' | 'wolf' | CustomType;
 export type ComponentType = ThumbType | CustomType;
 export type ThemeMod = 'default' | 'mobile-app' | CustomType;
 export type AutoModifiers = ComponentTheme | ThemeMod;
@@ -34,8 +34,6 @@ export interface ITournamentPromoCParams extends IComponentParams<ComponentTheme
         customMod?: CustomMod;
         type?: ComponentType;
         actionParams?: IActionParams
-        timerTextAfterStart?: string,
-        timerTextBeforeStart?: string,
     }
 }
 
@@ -54,8 +52,4 @@ export const defaultParams: ITournamentPromoCParams = {
     moduleName: 'tournaments',
     class: 'wlc-tournament-promo',
     componentName: 'wlc-tournament-promo',
-    common: {
-        timerTextAfterStart: gettext('Time remaining'),
-        timerTextBeforeStart: gettext('Coming soon'),
-    },
 };

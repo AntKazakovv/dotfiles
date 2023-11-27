@@ -345,6 +345,7 @@ export class GlobalHelper {
             {
                 parentComponentClass: componentClass,
                 theme: params.theme,
+                type: params.type,
                 themeMod: params.themeMod,
             },
             ignoreDefaultSettings ? {} : defaults,

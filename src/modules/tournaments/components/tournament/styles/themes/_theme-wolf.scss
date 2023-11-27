@@ -1,0 +1,203 @@
+.wlc-tournament--theme-wolf:host {
+
+    &.wlc-tournament--type-dashboard {
+        // Leaderbord vars
+        --lb-wrapper-bg: #{ef.get-value($themeWolf, 'leaderboardBg')};
+        --lb-list-bg: #{ef.get-value($themeWolf, 'leaderboardBg')};
+        --lb-list-bg-top: #{ef.get-value($themeWolf, 'leaderboardBg')};
+
+        height: 100%;
+
+        .wlc-tournament {
+
+            &__more-icon {
+                position: absolute;
+                top: ef.get-value($themeWolf, 'moreIconTop');
+                right: ef.get-value($themeWolf, 'moreIconRight');
+                z-index: 2;
+
+                .wlc-icon {
+                    position: relative;
+                    display: ef.get-value($themeWolf, 'moreIconDisplay');
+                    align-items: ef.get-value($themeWolf, 'moreIconAlignItems');
+                    justify-content: ef.get-value($themeWolf, 'moreIconJustifyContent');
+                    width: ef.get-value($themeWolf, 'moreIconSize');
+                    height: ef.get-value($themeWolf, 'moreIconSize');
+                    cursor: pointer;
+
+                    ::ng-deep {
+
+                        .wlc-icon-content {
+                            display: flex;
+                            width: ef.get-value($themeWolf, 'moreIconContent');
+                        }
+
+                        svg {
+                            @include bm.transition(fill);
+                            width: 100%;
+                            fill: ef.get-value($themeWolf, 'moreIconColor');
+                        }
+                    }
+
+                    @include bm.hover {
+
+                        ::ng-deep {
+
+                            svg {
+                                fill: ef.get-value($themeWolf, 'moreIconColorHover');
+                            }
+                        }
+                    }
+                }
+            }
+
+            &__container {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                height: 100%;
+
+                &.selected {
+
+                    .wlc-tournament__more-icon {
+                        top: ef.get-value($themeWolf, 'moreIconSelectedTop');
+                        right: ef.get-value($themeWolf, 'moreIconSelectedRight');
+
+                        ::ng-deep {
+
+                            .wlc-icon-content {
+                                display: flex;
+                                width: 100%;
+                                height: 100%;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &__img-container {
+                position: relative;
+                z-index: 1;
+                width: ef.get-value($themeWolf, 'blocksSize');
+                height: ef.get-value($themeWolf, 'blocksSize');
+                min-height: ef.get-value($themeWolf, 'blocksSize');
+                margin-bottom: ef.get-value($themeWolf, 'blockGapNoSelect');
+                overflow: hidden;
+                border-radius: ef.get-value($themeWolf, 'borderRadius');
+            }
+
+            &__image {
+                position: absolute;
+                top: 50%;
+                left: 0;
+                width: 100%;
+                transform: translateY(-50%);
+            }
+
+            &__title {
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'titleTextStyle'),
+                    ef.get-value($themeWolf, 'titleColor')
+                );
+                position: absolute;
+                top: 33%;
+                right: 0;
+                bottom: -1px;
+                left: 0;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                width: 100%;
+                padding: ef.get-value($themeWolf, 'titlePadding');
+
+                span {
+                    @include bm.lineClamp(2);
+
+                    width: 100%;
+                    line-height: 1.5;
+                    text-align: center;
+                }
+            }
+
+            &__timer {
+                width: ef.get-value($themeWolf, 'blocksSize');
+                margin: ef.get-value($themeWolf, 'timerMargin');
+
+                &.wlc-timer::ng-deep {
+
+                    .wlc-timer__timer-text {
+                        font-size: ef.get-value($themeWolf, 'timerFontSize');
+
+                        .time-text.time-text--countdown {
+
+                            .time-text__item {
+
+                                .value {
+                                    background: ef.get-value($themeWolf, 'timeValueBg');
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            &__description {
+                @include bm.lineClamp(2);
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'descrTextStyle'),
+                    ef.get-value($themeWolf, 'descrColor')
+                );
+                white-space: pre-line;
+            }
+
+            &__description-block {
+                @include bm.transition(opacity);
+
+                width: ef.get-value($themeWolf, 'blocksSize');
+                min-width: 0;
+                margin-top: ef.get-value($themeWolf, 'blockGapNoSelect');
+                padding: ef.get-value($themeWolf, 'descrPadding');
+                border-radius: ef.get-value($themeWolf, 'borderRadius');
+                background: ef.get-value($themeWolf, 'rowBg');
+            }
+
+            &__btns {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: ef.get-value($themeWolf, 'buttonWrapperMargin');
+            }
+
+            &__board {
+                width: ef.get-value($themeWolf, 'blocksSize');
+                padding: ef.get-value($themeWolf, 'gap') 0 ef.get-value($themeWolf, 'gap') 0;
+            }
+
+            &__header {
+                display: none;
+            }
+
+            &-leaderboard--theme-wolf {
+
+                ::ng-deep {
+
+                    .wlc-tournament-leaderboard__container {
+
+                        .wlc-tournament-leaderboard__item--head,
+                        .wlc-tournament-leaderboard__list {
+                            border-radius: 0;
+                        }
+
+                        &:has(.wlc-tournament-leaderboard__item--head) {
+
+                            .wlc-tournament-leaderboard__list--top {
+                                border-radius: 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

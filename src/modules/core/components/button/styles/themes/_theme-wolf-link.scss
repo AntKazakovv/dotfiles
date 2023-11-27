@@ -1,8 +1,5 @@
 .wlc-btn--theme-theme-wolf-link:host {
     --wlc-btn-link-color: #{ef.get-value($themeWolf, 'btnColor')};
-    --wlc-btn-icon-transform: none;
-    --wlc-icon-width: #{ef.get-value($themeWolf, 'iconSize')};
-    --wlc-icon-height: #{ef.get-value($themeWolf, 'iconSize')};
 
     .wlc-btn__text {
         @include text.get-text-style (
@@ -10,26 +7,8 @@
             var(--wlc-btn-link-color),
         );
 
-        .wlc-icon {
-
-            ::ng-deep {
-                margin: ef.get-value($themeWolf, 'iconMargin');
-                vertical-align: text-bottom;
-
-                svg {
-                    transform: var(--wlc-btn-icon-transform);
-                    transform-origin: center;
-                    fill: currentColor;
-                }
-            }
-        }
-
         @include bm.hover() {
             --wlc-btn-link-color: #{ef.get-value($themeWolf, 'btnColorHover')};
         }
-    }
-
-    &.active {
-        --wlc-btn-icon-transform: rotate(180deg);
     }
 }

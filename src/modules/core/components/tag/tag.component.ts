@@ -24,6 +24,7 @@ import * as Params from './tag.params';
 
 export class TagComponent extends AbstractComponent implements OnInit {
     @Input('inline') protected inlineParams: Params.ITagCParams;
+    @Input('theme') public theme: Params.ComponentTheme;
 
     public override $params: Params.ITagCParams;
     protected tagConfig: Params.ITagCommon;
@@ -39,7 +40,6 @@ export class TagComponent extends AbstractComponent implements OnInit {
 
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-
         this.tagConfig = this.$params.common;
 
         if (this.tagConfig.bg) {

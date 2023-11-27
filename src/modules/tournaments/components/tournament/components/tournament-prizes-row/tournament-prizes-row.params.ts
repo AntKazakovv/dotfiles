@@ -4,9 +4,9 @@ import {
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ITournamentPrize} from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
 
-export type ComponentTheme = 'default' | CustomType;
+export type ComponentTheme = 'default' | 'wolf' | CustomType;
 export type ComponentType = 'default' | 'history' | CustomType;
-export type ComponentThemeMod = 'default' | 'one-line' | CustomType;
+export type ComponentThemeMod = 'default' | 'one-line' | 'short-line' | CustomType;
 
 export interface ITournamentPrizesRowCParams
     extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
@@ -15,6 +15,7 @@ export interface ITournamentPrizesRowCParams
      */
     useSmartDemicals?: boolean;
     wins?: ITournamentPrize[];
+    shortLineIcon?: string;
 };
 
 export const defaultParams: ITournamentPrizesRowCParams = {
@@ -22,4 +23,5 @@ export const defaultParams: ITournamentPrizesRowCParams = {
     componentName: 'wlc-tournament-prizes-row',
     moduleName: 'tournaments',
     useSmartDemicals: false,
+    shortLineIcon: '/currency/icon-prizepool.svg',
 };
