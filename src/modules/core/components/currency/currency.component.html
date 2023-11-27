@@ -7,7 +7,7 @@
         <ng-container *ngIf="isNegative && !icon.minusBeforeCurrency">-</ng-container>
     </ng-container>
 
-    <ng-container *ngIf="!isError; else error">{{displayValue?.trim()}}</ng-container>
+    <ng-container *ngIf="!isError; else error">{{displayValue}}</ng-container>
 
     <ng-container *ngIf="icon?.placement === 'right'">
         <ng-container *ngTemplateOutlet="iconTpl;"></ng-container>

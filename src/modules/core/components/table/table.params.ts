@@ -49,4 +49,5 @@ export interface ITableCol {
     disableHideClass?: boolean;
     wlcElement?: string;
     description?: string,
+    currencyUseIcon?: boolean,
 }

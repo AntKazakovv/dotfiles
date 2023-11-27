@@ -69,6 +69,26 @@ $themeDefault: map-merge((
     'rowBackgroundMobCards': var(--mc-bg300),
     'rowMinHeightMobCards': ef.size(8),
     'cellFirstAlignMobCards': start,
+
+    'betTimeTextAlign': (
+        375: start,
+        768: center,
+    ),
+    'betTimeWhiteSpace': (
+        375: pre-wrap,
+        768: nowrap,
+    ),
+    'betTimeMaxWidth': (
+        375: 100px,
+        560: 100%
+    ),
+
+    // currency
+    'currencyWrpDisplay': flex,
+    'currencyWrpGap': 6px,
+    'currencyWrpAlignItems': center,
+    'currencyWrpJustifyContent': center,
+    'currencyIconSize': 13px,
 ), $customThemeDefault);
 
 $customThemeTournaments: () !default;

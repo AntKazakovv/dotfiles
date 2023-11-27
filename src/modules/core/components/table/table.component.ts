@@ -222,7 +222,11 @@ export class TableComponent extends AbstractComponent implements OnInit {
         this.head = _sortBy(this.$params.head.map((item: Params.ITableCol) => {
             if (item.type === 'amount') {
                 item.type = 'component';
-                item.component = 'core.wlc-currency';
+                if (item.currencyUseIcon) {
+                    item.component = 'core.wlc-wrapper';
+                } else {
+                    item.component = 'core.wlc-currency';
+                }
             }
             item.order = item.order || Number.MAX_SAFE_INTEGER;
             return item;
