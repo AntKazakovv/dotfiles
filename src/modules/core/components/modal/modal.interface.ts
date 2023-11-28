@@ -126,6 +126,10 @@ export interface IModalConfig extends ModalOptions {
      */
     showFooter?: boolean;
     /**
+     * if true then only forbidden modal in mobile backdrop opacity 0.65
+     */
+    forbiddenScreenMobile?: boolean;
+    /**
      * Action by click on confirm button. Modal closes after it.
      */
     onConfirm?: () => void;

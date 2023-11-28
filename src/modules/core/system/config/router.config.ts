@@ -28,6 +28,8 @@ export function routerConfigFn(router: UIRouter, injector: Injector): void {
 
     configService.ready.then(() => {
         const lang = configService.get<string>('appConfig.language') || 'en';
+        const modalScreenForbidden: boolean = configService.get<boolean>
+        ('$base.restrictions.country.fullScreenModal') || false;
         const profileType = configService.get<profileRedirectType>('$base.profile.type');
         const stateRedirects = configService.get<IIndexing<IRedirect>>('$base.redirects.states') || {};
         const profileRedirectsMap =
@@ -75,7 +77,7 @@ export function routerConfigFn(router: UIRouter, injector: Injector): void {
             });
         }
 
-        useCountryRestriction(injector, configService);
+        useCountryRestriction(injector, configService, modalScreenForbidden);
 
         router.transitionService.onBefore({to: criteria}, (trans: Transition) => {
             if (profileType !== profileRedirectsMap?.[trans.to().name]) {
@@ -128,11 +130,12 @@ export function routerConfigFn(router: UIRouter, injector: Injector): void {
     });
 }
 
-async function useCountryRestriction(injector: Injector, configService: ConfigService): Promise<void> {
+async function useCountryRestriction(injector: Injector, configService: ConfigService,
+    modalScreenForbidden: boolean): Promise<void> {
     if (isCountryRestrictionSettingEnabled(configService)) {
         const forbiddenCountryService = injector.get(ForbiddenCountryService);
         forbiddenCountryService.blockUrlChanging();
-        await forbiddenCountryService.showModal();
+        await forbiddenCountryService.showModal(modalScreenForbidden);
     }
 }
 

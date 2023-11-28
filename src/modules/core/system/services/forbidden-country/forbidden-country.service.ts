@@ -42,17 +42,19 @@ export class ForbiddenCountryService {
         @Inject(DOCUMENT) private document: Document,
     ) {}
 
-    public async showModal(): Promise<void> {
+    public async showModal(fullScreenMobileVal: boolean): Promise<void> {
         const modal: IModalParams = {
             id: 'forbidden-country',
             size: 'md',
             componentName: 'core.wlc-forbidden-country',
             componentParams: await this.getForbiddenCountryParams(),
             closeBtnVisibility: false,
-            ignoreBackdropClick: true,
+            ignoreBackdropClick: false,
             showFooter: false,
+            forbiddenScreenMobile: fullScreenMobileVal,
             backdrop: 'static',
             keyboard: false,
+            showConfirmBtn: false,
         };
         await this.modalService.showModal(modal);
 
@@ -88,7 +90,8 @@ export class ForbiddenCountryService {
                                 this.forbiddenModalRemove$ = null;
                                 this.modalService.closeAllModals();
                                 this.listenerForForbiddenModal.unsubscribe();
-                                return this.showModal();
+                                return this.showModal(this.configService.get<boolean>(
+                                    '$base.restrictions.country.fullScreenModal') || false);
                             });
                     }
                 }

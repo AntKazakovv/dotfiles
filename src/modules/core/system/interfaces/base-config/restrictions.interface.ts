@@ -7,6 +7,7 @@ export interface IRestrictionsConfig {
     country?: {
         /** Should be blocked site displaying with showing permanent restriction modal */
         use?: boolean,
+        fullScreenModal?: boolean,
         availableOnly?: string[];
     },
     gamblingBan?: IGamblingBanRestrictionConfig;

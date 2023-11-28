@@ -226,6 +226,10 @@ export class WlcModalComponent extends AbstractComponent
             modifiers.push(config.modifier);
         }
 
+        if (config.forbiddenScreenMobile) {
+            modifiers.push('full-screen-mobile');
+        }
+
         this.addModifiers(modifiers);
 
         if (config.size) {

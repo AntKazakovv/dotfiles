@@ -28,6 +28,26 @@
         }
     }
 
+    &--full-screen-mobile {
+        z-index: ef.get-value($hostModal, 'modalZIndexForbidden');
+
+        .wlc-modal__wrapper {
+
+            .wlc-modal__dialog {
+
+                @include mq.max(560) {
+                    margin: ef.get-value($hostModal, 'marginModalForbidden');
+                    border-radius: ef.get-value($hostModal, 'marginModalBorderRadius');
+                }
+            }
+        }
+    }
+
+    &--full-screen-mobile + .modal-backdrop.show {
+        background-color: ef.get-value($themeDefault, 'dialogBackground');
+        opacity: ef.get-value($hostModal, 'backdropOpacityModal');
+    }
+
     &--confirmation {
 
         .wlc-modal__header {
