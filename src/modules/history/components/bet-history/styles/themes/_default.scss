@@ -26,10 +26,28 @@
 
             .wlc-table__cell--first {
                 grid-template-columns: ef.get-value($themeDefault, 'firstCellColumns');
+                padding: ef.get-value($themeDefault, 'cellPadding');
 
                 .wlc-table__cell-label {
                     display: none;
                 }
+            }
+
+            .wlc-table__cell--Amount {
+
+                ::ng-deep {
+
+                    .wlc-currency {
+
+                        .wlc-currency__sign {
+                            display: none;
+                        }
+                    }
+                }
+            }
+
+            .wlc-table__cell {
+                @include bm.get-mq-map('width', $themeDefault, 'desktopCellWidth');
             }
         }
     }

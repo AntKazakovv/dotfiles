@@ -25,6 +25,6 @@ export const defaultParams: IBetPreviewParams = {
     class: 'wlc-bet-preview',
     dateFormat: {
         desktop: 'dd-MM-yyyy HH:mm:ss',
-        mobile: 'HH:mm dd-MM',
+        mobile: 'dd-MM-yyyy HH:mm:ss',
     },
 };

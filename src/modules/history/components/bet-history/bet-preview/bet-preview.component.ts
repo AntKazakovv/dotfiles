@@ -57,4 +57,8 @@ export class BetPreviewComponent extends AbstractComponent implements OnInit {
         this.amount = +this.$params.bet.Amount;
         this.currency = this.$params.bet.Currency;
     }
+
+    public getIconUrl(currency: string): string {
+        return `/wlc/icons/currencies/${currency.toLowerCase()}.svg`;
+    }
 }
