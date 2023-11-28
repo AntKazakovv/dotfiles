@@ -71,8 +71,8 @@ export const defaultMenuParams: IMenuParams = {
                 swiper: {
                     spaceBetween: 5,
                     navigation: {
-                        nextEl: '.wlc-profile-menu__control--next',
-                        prevEl: '.wlc-profile-menu__control--prev',
+                        nextEl: '.wlc-profile-menu--type-tabs .wlc-profile-menu__control--next',
+                        prevEl: '.wlc-profile-menu--type-tabs .wlc-profile-menu__control--prev',
                     },
                 },
             },
@@ -91,8 +91,8 @@ export const defaultMenuParams: IMenuParams = {
                 swiper: {
                     spaceBetween: 30,
                     navigation: {
-                        nextEl: '.wlc-profile-menu__control--next',
-                        prevEl: '.wlc-profile-menu__control--prev',
+                        nextEl: '.wlc-profile-menu--type-submenu .wlc-profile-menu__control--next',
+                        prevEl: '.wlc-profile-menu--type-submenu .wlc-profile-menu__control--prev',
                     },
                 },
             },

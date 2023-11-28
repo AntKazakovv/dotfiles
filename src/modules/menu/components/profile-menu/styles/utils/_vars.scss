@@ -25,6 +25,9 @@ $themeDefault: map-merge((
     'profileMenuAngleBgAlt': ef.get-value(ev.$profileSettings, 'profileTabAngleBgAlt'),
 
     //Controls
+    'controlsTop': 0,
+    'controlsLeft': 0,
+    'controlAlignItems': center,
     'controlWidth': 30px,
     'controlHeight': 100%,
     'controlPadding': ef.size(1),
@@ -38,6 +41,7 @@ $themeDefault: map-merge((
     'controlNextJustifyContent': flex-end,
     'controlTransition': all 0.3s ease-out,
     'controlBg': linear-gradient(90deg, var(--mc-bg) 65%, var(--mc-bg-o0) 100%),
+    'controlBgHeight': 100%,
 ), $customThemeDefault);
 
 $customDropdownThemeDefault: () !default;
@@ -82,7 +86,7 @@ $submenuProfileDefault: map-merge((
 
     'controlsTop': 0,
     'controlsLeft': 0,
-    'controlAlignItems': 'start',
+    'controlAlignItems': start,
     'controlWidth': 30px,
     'controlHeight': 100%,
     'controlPadding': 0,
@@ -96,6 +100,7 @@ $submenuProfileDefault: map-merge((
     'controlNextJustifyContent': flex-end,
     'controlTransition': all 0.3s ease-out,
     'controlBg': linear-gradient(90deg, var(--mc-bg700) 65%, var(--mc-bg700-o0) 100%),
+    'controlBgHeight': 90%,
     'controlVisibility': (
         375: hidden,
         900: visible,
