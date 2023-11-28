@@ -109,13 +109,11 @@ export class LoyaltyProgramComponent extends AbstractComponent implements OnInit
      * sets how many points you need to get to the next level
      */
     public setLoyaltyPoints(index: number): string {
-        return (
-            `${this.levels[index].currentLevelPoints}` +
-            `${this.levels[index].isLast ? 
-                this.levels[index].nextLevelPoints || '+' : 
-                ' - ' + this.levels[index].nextLevelPoints
-            }`
-        );
+        if (this.levels[index].isLast && !this.levels[index].nextLevelPoints) {
+            return `${this.levels[index].currentLevelPoints}+`;
+        } else {
+            return `${this.levels[index].currentLevelPoints} - ${this.levels[index].nextLevelPoints}`;
+        }
     }
 
     /**
