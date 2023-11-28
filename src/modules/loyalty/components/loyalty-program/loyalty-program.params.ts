@@ -85,7 +85,7 @@ export const defaultParams: ILoyaltyProgramCParams = {
     emptyStateText: gettext('An error has occurred while loading data. Please try again later.'),
     btnParams: {
         common: {
-            text: gettext('Read More'),
+            text: gettext('Read more'),
             typeAttr: 'button',
         },
         themeMod: 'secondary',
