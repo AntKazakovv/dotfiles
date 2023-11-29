@@ -744,8 +744,8 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
 
     protected getWlcSuffix(): string {
         if (this.$params.filter) {
-            return _reduce(_keys(this.$params.filter).sort(), (res, item) => {
-                res.push(item + '-' + this.$params.filter['item']);
+            return _reduce(_keys(this.$params.filter).sort(), (res, item: keyof IGamesFilterData) => {
+                res.push(item + '-' + this.$params.filter[item]);
                 return res;
             }, []).join('-');
 

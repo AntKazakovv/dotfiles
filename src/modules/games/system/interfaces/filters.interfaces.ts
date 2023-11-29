@@ -7,7 +7,6 @@ export type IGamesFilterData = {
     searchQuery?: string | null;
     categories?: string[];
     category?: string;
-    item?: string;
     merchants?: number[];
     excludeCategories?: string[];
     excludeMerchants?: number[];
