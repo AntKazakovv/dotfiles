@@ -431,6 +431,10 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
     ): Promise<void> {
         WalletHelper.rates = {};
 
+        if (!settings.currency?.length) {
+            settings.conversionInFiat = false;
+        }
+
         if (settings.conversionInFiat) {
             WalletHelper.conversionCurrency = settings.currency;
             WalletHelper.coefficientСonversion = await this.ratesService.getRate({
