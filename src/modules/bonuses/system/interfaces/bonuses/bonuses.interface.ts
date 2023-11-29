@@ -297,6 +297,7 @@ export type BonusesFilterType =
     | 'default';
 export type RestType = 'active' | 'lootboxPrizes' | 'store' | 'any';
 export type ActionType = 'inventory' | 'cancel' | 'expired' | 'subscribe' | 'unsubscribe';
+export type RequestType = RestType | ActionType | 'cancelInfo';
 
 interface IBlankBonus {
     id: null
