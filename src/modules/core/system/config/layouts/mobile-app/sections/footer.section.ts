@@ -72,6 +72,7 @@ export namespace footer {
                     class: 'wlc-footer-disclaimer',
                     components: [
                         componentLib.wlcDisclaimer.def,
+                        componentLib.wlcRecaptchaPolicy.def,
                         componentLib.wlcCopyright.def,
                     ],
                 },
