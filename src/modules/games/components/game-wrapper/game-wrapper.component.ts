@@ -258,6 +258,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             this.gamesCatalogService.getFavouriteGames();
             await this.openActiveGame();
             this.cdr.detectChanges();
+            this.initStartResizeParams();
         } else {
             this.logService.sendLog({code: '3.0.4', data: {gameParams: this.gameParams}});
             this.setError({
