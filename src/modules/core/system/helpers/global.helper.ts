@@ -338,18 +338,16 @@ export class GlobalHelper {
     ): INoContentCParams {
         const settingsFromParams: INoContentCParams = _get(params.noContent, params.theme);
         const defaultSettings = configService.get(`$${params.moduleName}.components.${params.componentName}.noContent`);
-        const defaults: INoContentCParams =
-            (useTypeForGettingProps ? _get(defaultSettings, params.type) : defaultSettings)['default'];
+        const defaults: INoContentCParams = _get(defaultSettings, useTypeForGettingProps ?  params.type : 'default');
 
         return _assign(
             {
                 parentComponentClass: componentClass,
                 theme: params.theme,
-                type: params.type,
                 themeMod: params.themeMod,
             },
             ignoreDefaultSettings ? {} : defaults,
-            (useTypeForGettingProps ? _get(defaultSettings, params.type) : defaultSettings)[params.theme],
+            _get(defaultSettings, useTypeForGettingProps ? params.type : params.theme),
             (settingsFromParams ? settingsFromParams : {}),
         );
     }

@@ -121,7 +121,7 @@
 
         <ng-container *ngIf="!$params.inProfile; else noDataInProfile">
 
-            <div *ngIf="$params.theme !== 'default'; else noDataDefault" class="{{$class}}__nocontent">
+            <div *ngIf="$params.type !== 'default'; else noDataDefault" class="{{$class}}__nocontent">
                 {{ 'No tournaments available' | translate}}
                 <button *ngIf="$params.useNoTournamentsBtn"
                     wlc-button

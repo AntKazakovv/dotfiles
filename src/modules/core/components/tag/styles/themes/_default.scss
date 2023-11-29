@@ -48,6 +48,7 @@
 .wlc-tag--theme-flag:host {
     --wlc-icon-width: #{ef.get-value($themeFlag, 'flagWidth')};
     --wlc-icon-height: #{ef.get-value($themeFlag, 'flagHeight')};
+    --wlc-tag-position: absolute;
 
     position: absolute;
     top: ef.get-value($themeFlag, 'flagTagTopPos');

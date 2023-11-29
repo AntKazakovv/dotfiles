@@ -110,7 +110,7 @@ export class TournamentListComponent
         this.subscribeOnTournamentLeave();
         this.subscribeOnErrorGettingTournaments();
         this.noContentParams =
-            GlobalHelper.getNoContentParams(this.$params, this.$class, this.configService, false, true);
+            GlobalHelper.getNoContentParams(this.$params, this.$class, this.configService, true, true);
 
         this.emptyInProfileConfig = {
             components: [

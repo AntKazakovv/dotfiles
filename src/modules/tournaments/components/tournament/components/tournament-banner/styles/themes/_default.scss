@@ -63,11 +63,11 @@
                 color: ef.get-value($themeDefault, 'statusTagColorActive');
                 background: ef.get-value($themeDefault, 'statusTagActiveBg');
             }
-        }
 
-        &.unavailable {
-            color: ef.get-value($themeDefault, 'statusTagColorUnavailable');
-            background: ef.get-value($themeDefault, 'statusTagBackgroundUnavailable');
+            &.unavailable {
+                color: ef.get-value($themeDefault, 'statusTagColorUnavailable');
+                background: ef.get-value($themeDefault, 'statusTagBgUnavailable');
+            }
         }
 
         &__more-icon {

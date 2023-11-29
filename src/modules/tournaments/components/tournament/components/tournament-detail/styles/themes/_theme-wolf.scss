@@ -13,6 +13,10 @@ $selector: '.wlc-tournament-detail';
             @include bm.get-mq-map('border-radius', $themeWolf, 'headerInfoRadius');
             padding: ef.get-value($themeWolf, 'headerInfoPadding');
 
+            &--status {
+                z-index: 9;
+            }
+
             &-tag {
                 position: relative;
                 margin: ef.get-value($themeWolf, 'headerTagMargin');

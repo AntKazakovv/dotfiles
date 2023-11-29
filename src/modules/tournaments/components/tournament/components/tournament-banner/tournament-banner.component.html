@@ -7,10 +7,10 @@
     <div class="{{$class}}" [style]="{backgroundImage: 'url(' + backgroundImgUrl + ')'}">
         <div class="{{$class}}__tag">{{'Tournaments' | translate}}</div>
         <div class="{{$class}}__status"
-            [ngClass]="tagClass">>
+            [ngClass]="tagClass">
             {{tournament.tag | translate}}
         </div>
-        <div class="{{$class}}__more-icon" >
+        <div class="{{$class}}__more-icon">
             <div wlc-icon
                 class="icon-btn"
                 iconPath="/wlc/icons/info.svg"
