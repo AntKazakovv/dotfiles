@@ -134,6 +134,9 @@ export class DatepickerComponent extends AbstractComponent implements OnInit {
 
 
     public checkRange(dateTime: Date): boolean {
+        this.$params.datepickerOptions.minDate?.setHours(0,0,0,0);
+        this.$params.datepickerOptions.maxDate?.setHours(23,59,59,999);
+
         return dateTime <= this.$params.datepickerOptions.maxDate
             && (!this.$params.datepickerOptions.minDate
             || dateTime >= this.$params.datepickerOptions.minDate);
