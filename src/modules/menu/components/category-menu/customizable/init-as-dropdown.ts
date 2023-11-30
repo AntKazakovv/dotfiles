@@ -112,6 +112,7 @@ export const initAsDropdownV2: TCustomizableFn = function (this: CategoryMenuCom
 
             if (this.gamesCatalogService.architectureVersion === 3) {
                 const allGamesBtn: MenuParams.IMenuItem = this.getAllGamesBtn(false, category);
+                allGamesBtn.params.state.options.reload = true;
                 childItems.unshift(allGamesBtn);
             }
 
