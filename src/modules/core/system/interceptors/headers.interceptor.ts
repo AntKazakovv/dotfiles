@@ -29,14 +29,17 @@ import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper
 @Injectable()
 export class HeadersInterceptor implements HttpInterceptor {
 
+    private useJwtToken: boolean = false;
+
     constructor(
         @Inject(WINDOW) private window: Window,
         private configService: ConfigService,
     ) {
+        this.useJwtToken = this.configService.get<boolean>('$base.site.useJwtToken');
     }
 
     public intercept(
-        req: HttpRequest<IData>,
+        req: HttpRequest<string>,
         next: HttpHandler,
     ): Observable<HttpEvent<IData>> {
 
@@ -54,12 +57,11 @@ export class HeadersInterceptor implements HttpInterceptor {
             });
         }
 
-        if (req.url.includes('/api/v1/')) {
+        if (req.url.includes('/api/v1/') && this.useJwtToken) {
             const jwtAuthToken: string = this.configService.get({
                 name: 'jwtAuthToken',
                 storageType: 'localStorage',
             });
-
             if (jwtAuthToken) {
                 req = req.clone({
                     headers: req.headers.set('Authorization', `Bearer ${jwtAuthToken}`),
@@ -67,40 +69,29 @@ export class HeadersInterceptor implements HttpInterceptor {
             }
         }
 
+        if (this.useJwtToken && req.url === '/api/v1/auth') {
+            req = req.clone({
+                params: req.params.set('useJwt', 1),
+            });
+            if (req.body) {
+                const body = JSON.parse(req.body);
+                body.useJwt = 1;
+
+                req = req.clone({
+                    body: JSON.stringify(body),
+                });
+            }
+        }
         return next.handle(req).pipe(
             tap (
                 (event) => {
-                    if (event instanceof HttpResponse && req.url.includes('/api/v1/auth')) {
+                    if (event instanceof HttpResponse
+                        && this.useJwtToken
+                        && req.url.includes('/api/v1/auth')
+                    ) {
                         const jwtToken: string = _get(event, 'body.data.result.jwtToken', '');
-                        const jwtRefreshToken = _get(event, 'body.data.result.refreshToken', '');
-
-                        if (jwtToken) {
-                            this.configService.set({
-                                name: 'jwtAuthToken',
-                                value: jwtToken,
-                                storageType: 'localStorage',
-                            });
-                        } else {
-                            this.configService.set({
-                                name: 'jwtAuthToken',
-                                value: jwtToken,
-                                storageClear: 'localStorage',
-                            });
-                        }
-
-                        if (jwtRefreshToken) {
-                            this.configService.set({
-                                name: 'jwtAuthRefreshToken',
-                                value: _get(event, 'body.data.result.refreshToken', ''),
-                                storageType: 'localStorage',
-                            });
-                        } else {
-                            this.configService.set({
-                                name: 'jwtAuthRefreshToken',
-                                value: _get(event, 'body.data.result.refreshToken', ''),
-                                storageClear: 'localStorage',
-                            });
-                        }
+                        const jwtRefreshToken: string = _get(event, 'body.data.result.refreshToken', '');
+                        this.configService.updateJwtTokens(jwtToken, jwtRefreshToken);
                     }
                 },
             ),

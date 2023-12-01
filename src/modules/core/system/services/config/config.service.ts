@@ -243,6 +243,21 @@ export class ConfigService {
         });
     }
 
+    public updateJwtTokens(jwtToken: string, jwtRefreshToken: string): void {
+        this.set({
+            name: 'jwtAuthToken',
+            value: jwtToken,
+            storageType: 'localStorage',
+            storageClear: !jwtToken ? 'localStorage' : null,
+        });
+        this.set({
+            name: 'jwtAuthRefreshToken',
+            value: jwtRefreshToken,
+            storageType: 'localStorage',
+            storageClear: !jwtRefreshToken ? 'localStorage' : null,
+        });
+    }
+
     private setGlobals(): void {
         this.set<BehaviorSubject<UserProfile>>({name: '$user.userProfile$', value: new BehaviorSubject(null)});
         this.set<BehaviorSubject<UserInfo>>({name: '$user.userInfo$', value: new BehaviorSubject(null)});

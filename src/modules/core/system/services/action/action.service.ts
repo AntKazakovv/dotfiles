@@ -31,6 +31,7 @@ import _toNumber from 'lodash-es/toNumber';
 import _forEach from 'lodash-es/forEach';
 import _assign from 'lodash-es/assign';
 import _isEmpty from 'lodash-es/isEmpty';
+import _get from 'lodash-es/get';
 
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
@@ -600,6 +601,12 @@ export class ActionService {
                 componentName: 'finances.wlc-fast-deposit',
             });
         });
+
+        if (this.configService.get<boolean>('$base.site.useJwtToken')
+            && this.configService.get<boolean>('$user.isAuthenticated')
+        ) {
+            this.eventService.emit({name: 'LOGIN'});
+        }
     }
 
     private createBreakpoints(): void {
@@ -666,11 +673,15 @@ export class ActionService {
         const useJwtToken = this.configService.get<boolean>('$base.site.useJwtToken');
 
         try {
-            if (!useJwtToken) {
-                this.modalService.showModal('registration-success');
+
+            const response = await userService.registrationComplete(initialPath.code);
+
+            if (useJwtToken) {
+                const jwtToken: string = _get(response, 'data.jwtToken', '');
+                const jwtRefreshToken: string = _get(response, 'data.refreshToken', '');
+                this.configService.updateJwtTokens(jwtToken, jwtRefreshToken);
             }
 
-            await userService.registrationComplete(initialPath.code);
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,
                 data: <IPushMessageParams>{
@@ -682,9 +693,7 @@ export class ActionService {
                 },
             });
 
-            if (!useJwtToken) {
-                this.eventService.emit({name: 'LOGIN'});
-            }
+            this.eventService.emit({name: 'LOGIN'});
 
             if (!isFastRegistration) {
                 this.logService.sendLog({code: '1.1.29'});
@@ -695,14 +704,10 @@ export class ActionService {
                 this.logService.sendLog({code: '1.1.30'});
             }
         } finally {
-            if (useJwtToken) {
-                this.modalService.showModal('login');
-            } else {
-                this.modalService.hideModal('registration-success');
-                const redirect = this.configService.get<IRedirect>('$base.redirects.registration');
-                if (redirect) {
-                    this.stateService.go(redirect.state, redirect.params || {});
-                }
+            this.modalService.hideModal('registration-success');
+            const redirect = this.configService.get<IRedirect>('$base.redirects.registration');
+            if (redirect) {
+                this.stateService.go(redirect.state, redirect.params || {});
             }
         }
     }

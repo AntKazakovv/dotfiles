@@ -104,6 +104,11 @@ interface ILoginPasswordData {
     password: string;
 }
 
+interface IRegistrationCompleteData {
+    code: string,
+    useJwt?: boolean,
+}
+
 type TLoginData = TMetamaskData | ILoginPasswordData | ILoginWithPhoneData;
 
 type ProfileParamsWithMetamask = IUserProfile & TMetamaskData & Pick<IUserProfile, 'type'>;
@@ -597,7 +602,13 @@ export class UserService {
     }
 
     public registrationComplete(code: string): Promise<IIndexing<any>> {
-        return this.dataService.request('user/registrationComplete', {code});
+        const data: IRegistrationCompleteData = {code};
+
+        if (this.configService.get<boolean>('$base.site.useJwtToken')) {
+            data.useJwt = true;
+        }
+
+        return this.dataService.request('user/registrationComplete', data);
     }
 
     public async updateProfile(updates: IUserProfile, options: IUpdateProfileOptions): Promise<TUpdateProfileRes> {

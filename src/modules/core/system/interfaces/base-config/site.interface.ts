@@ -21,4 +21,6 @@ export interface ISiteConfig {
     /** Use x-nonce on requests */
     useXNonce?: boolean;
     languages?: ISiteLanguages;
+    /** Use jwt token (JSON Web Token) for user authorization */
+    useJwtToken?: boolean;
 }
