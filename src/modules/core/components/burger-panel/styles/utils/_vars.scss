@@ -320,6 +320,8 @@ $themeLeftFixed: map-merge((
     'expandIconTransform': scaleX(1),
     'expandIconTransformExpanded': scaleX(-1),
     'expandBtnJustifySelfCompact': center,
+    'contentMargin': ef.size(5) ef.size(2) 0,
+    'contentMarginCompact': 0,
     'mainMenuMargin': ef.size(4) 0 0,
     'mainMenuMarginCompact': 0,
     'userInfoMargin': 0 ef.size(4) ef.size(4),

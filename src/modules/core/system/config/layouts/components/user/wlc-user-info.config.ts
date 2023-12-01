@@ -42,7 +42,7 @@ export namespace wlcUserInfo {
         params: <IUserInfoCParams> {
             userStatsParams: {
                 theme: 'wolf',
-                type: 'wolf',
+                type: 'header',
             },
             button: {
                 use: false,

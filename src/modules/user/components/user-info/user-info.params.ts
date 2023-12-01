@@ -31,6 +31,7 @@ export const defaultParams: IUserInfoCParams = {
     wlcElement: 'block_user-stat',
     userStatsParams: {
         type: 'short',
+        useIcons: false,
     },
     button: {
         use: true,
@@ -78,6 +79,7 @@ export const stickyThemeParams: IUserInfoCParams = {
     wlcElement: 'block_user-stat',
     userStatsParams: {
         type: 'short',
+        useIcons: false,
     },
     button: {
         use: true,
@@ -124,6 +126,7 @@ export const kioskParams: IUserInfoCParams = {
     wlcElement: 'block_user-stat',
     userStatsParams: {
         type: 'short',
+        useIcons: false,
     },
     button: {
         use: false,

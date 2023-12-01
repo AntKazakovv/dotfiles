@@ -30,4 +30,9 @@
             }
         }
     }
+
+    &-stats {
+        max-width: ef.get-value($themeDefault, 'userStatsMaxWidth');
+        margin: ef.get-value($themeDefault, 'userStatsMargin');
+    }
 }

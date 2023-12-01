@@ -1,23 +1,304 @@
-.wlc-user-stats--theme-wolf:host {
+
+.wlc-user-stats--theme-wolf.wlc-user-stats--type-default:host {
+    display: var(--us-display);
+    margin: var(--us-margin);
+
+    .wlc-user-stats {
+
+        &__content {
+            @include text.get-text-style(ef.get-value($themeWolf, 'valueTextStyle'), ef.get-value($themeWolf, 'valueTextColor'));
+            display: ef.get-value($themeWolf, 'balanceDisplay');
+            align-items: ef.get-value($themeWolf, 'balanceAlignItems');
+            justify-content: ef.get-value($themeWolf, 'balanceJustifyContent');
+            width: ef.get-value($themeWolf, 'balanceWidth');
+            height: ef.get-value($themeWolf, 'balanceHeight');
+            background: ef.get-value($themeWolf, 'balanceBackground');
+            border-radius: ef.get-value($themeWolf, 'balanceRadius');
+
+            .wlc-btn--deposit {
+                position: relative;
+                width: ef.get-value($themeWolf, 'depositWidth');
+                height: ef.get-value($themeWolf, 'depositHeight');
+                margin: ef.get-value($themeWolf, 'btnMargin');
+                color: ef.get-value($themeWolf, 'depositColor');
+                background: ef.get-value($themeWolf, 'depositBg');
+                border-radius: ef.get-value($themeWolf, 'depositRadius');
+
+                &:before {
+                    @include bm.transition(opacity);
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: ef.get-value($themeWolf, 'depositWidth');
+                    height: ef.get-value($themeWolf, 'depositHeight');
+                    background: ef.get-value($themeWolf, 'depositBgBefore');
+                    opacity: 0;
+                }
+            }
+
+            @include bm.hover {
+
+                .wlc-btn--deposit {
+
+                    &:before {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+
+        &-description-currency {
+            --wlc-icon-width: #{ef.get-value($themeWolf, 'svgIconInfoSize')};
+            --wlc-icon-height: #{ef.get-value($themeWolf, 'svgIconInfoSize')};
+            position: ef.get-value($themeWolf, 'iconDescriptionCurrencyPosition');
+            top: ef.get-value($themeWolf, 'iconTop');
+            right: ef.get-value($themeWolf, 'iconRigth');
+            z-index: ef.get-value($themeWolf, 'zIndex');
+            transform: ef.get-value($themeWolf, 'translateY');
+        }
+
+        &-balance {
+            @include bm.get-mq-map('background', $themeWolf, 'balanceBg');
+
+            width: 100%;
+            min-width: ef.get-value($themeWolf, 'balanceMinWidth');
+            padding: ef.get-value($themeWolf, 'balancePadding');
+            text-align: ef.get-value($themeWolf, 'balanceTextAlign');
+            border-radius: ef.get-value($themeWolf, 'balanceBorderRadius');
+
+            &--short {
+                @include bm.get-mq-map('background', $themeWolf, 'balanceShortBg');
+                min-width: ef.get-value($themeWolf, 'balanceShortMinWidth');
+                padding: ef.get-value($themeWolf, 'balanceShortPadding');
+
+                > div {
+                    border-bottom-color: ef.get-value($themeWolf, 'balanceShortBorderColor');
+                }
+            }
+
+            &__item {
+                @include bm.get-mq-map('border-bottom', $themeWolf, 'balanceItemBorder');
+
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: ef.get-value($themeWolf, 'balanceItemPadding');
+
+                &:last-child {
+                    border-bottom: none;
+                }
+
+                ::ng-deep {
+
+                    .wlc-currency--theme-default {
+
+                        .wlc-currency__sign--right {
+                            display: none;
+                        }
+                    }
+                }
+            }
+
+            .name {
+                @include text.get-text-style(ef.get-value($themeWolf, 'nameTextStyle'), ef.get-value($themeWolf, 'nameTextColor'));
+                flex: 0 1 auto;
+
+                .currency-icon {
+                    margin-right: ef.get-value($themeWolf, 'currencyIconMargin');
+                }
+            }
+
+            .value {
+                --wlc-icon-width: #{ef.get-value($themeWolf, 'loyaltyIconSize')};
+                --wlc-icon-height: #{ef.get-value($themeWolf, 'loyaltyIconSize')};
+                @include text.get-text-style(ef.get-value($themeWolf, 'valueTextStyle'), ef.get-value($themeWolf, 'valueTextColor'));
+                flex: 0 0 auto;
+                padding-left: 5px;
+
+                ::ng-deep {
+
+                    .wlc-icon {
+                        position: relative;
+                        bottom: 1px;
+                        display: inline-block;
+                    }
+                }
+            }
+
+            .name,
+            .value {
+                display: flex;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+
+            &--store {
+                @include bm.get-mq-map('margin', $themeWolf, 'storeMargin');
+                display: ef.get-value($themeWolf, 'storeDisplay');
+                flex-direction: ef.get-value($themeWolf, 'storeFlexDirection');
+                align-items: flex-end;
+                justify-content: ef.get-value($themeWolf, 'storeJustifyContent');
+                padding: ef.get-value($themeWolf, 'storePadding');
+                background: none;
+
+                .wlc-user-stats-balance__item {
+                    margin: ef.get-value($themeWolf, 'storeItemMargin');
+                    padding: 0;
+                    border-bottom: none;
+                    cursor: pointer;
+
+                    @include bm.hover {
+
+                        .value {
+                            color: ef.get-value($themeWolf, 'storeValueFontColorHover');
+                        }
+                    }
+                }
+
+                .value {
+                    @include bm.transition(color);
+                    @include text.get-text-style(
+                        ef.get-value($themeWolf, 'storeValueFont'),
+                        ef.get-value($themeWolf, 'storeValueFontColor')
+                    );
+                    display: ef.get-value($themeWolf, 'storeValueDisplay');
+                    padding-left: 0;
+
+                    ::ng-deep {
+
+                        .wlc-currency__sign--right {
+                            --wlc-icon-width: #{ef.get-value($themeWolf, 'loyaltyIconStoreSize')};
+                            --wlc-icon-height: #{ef.get-value($themeWolf, 'loyaltyIconStoreSize')};
+                            display: block;
+
+                            .wlc-icon {
+                                bottom: 0;
+                            }
+                        }
+                    }
+
+                    @include bm.hover {
+                        color: ef.get-value($themeWolf, 'storeValueColorHover');
+                    }
+                }
+            }
+
+            .wlc-btn--theme-default {
+                width: 100%;
+                height: ef.get-value($themeWolf, 'detailsHeight');
+                background: ef.get-value($themeWolf, 'detailsBackground');
+                border: ef.get-value($themeWolf, 'detailsBorder');
+                border-radius: ef.get-value($themeWolf, 'detailsBorderRadius');
+
+                ::ng-deep {
+
+                    .wlc-btn__text {
+                        @include text.get-text-style(ef.get-value($themeWolf, 'detailsTextStyle'), ef.get-value($themeWolf, 'detailsTextColor'));
+                        @include bm.transition(color);
+                    }
+                }
+
+                @include bm.hover {
+
+                    ::ng-deep {
+
+                        .wlc-btn__text {
+                            color: ef.get-value($themeWolf, 'detailsTextHoverColor');
+                        }
+                    }
+                }
+            }
+        }
+
+        &__btn {
+            padding: ef.get-value($themeWolf, 'btnPadding');
+        }
+    }
+
+    &.wlc-user-stats--type-mobile {
+
+        .wlc-user-stats__content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: fit-content;
+            margin-left: auto;
+            background: ef.get-value($themeWolf, 'balanceBackgroundMobile');
+            border-radius: ef.get-value($themeWolf, 'balanceRadiusMobile');
+
+            .wlc-btn--deposit {
+                margin: ef.get-value($themeWolf, 'btnMarginMobile');
+            }
+        }
+
+        .wlc-user-stats-balance {
+            @include text.get-text-style(ef.get-value($themeWolf, 'valueTextStyle'), ef.get-value($themeWolf, 'valueTextColor'));
+            width: auto;
+            padding: ef.get-value($themeWolf, 'balancePaddingMobile');
+            background: unset;
+        }
+    }
+
+    .wlc-dashboard-grid.without-store & {
+        grid-area: user-stats;
+
+        .wlc-user-stats {
+
+            &-balance {
+                @include bm.get-mq-map('padding', $dashboardWithoutStore, 'userStatsBalancePadding');
+                background: ef.get-value($dashboardWithoutStore, 'userStatsBalanceBg');
+            }
+
+            &-balance__item {
+                @include bm.get-mq-map('padding', $dashboardWithoutStore, 'userStatsBalanceItemPadding');
+            }
+        }
+    }
+
+    &.wlc-user-stats--theme-mod-mobile-app {
+
+        .wlc-user-stats-balance--store {
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    }
+
+    .wlc-burger-panel & {
+
+        .wlc-user-stats__content {
+
+            .wlc-user-stats-balance {
+
+                .wlc-user-stats-balance__item {
+                    padding: ef.get-value($themeWolf, 'balanceItemPaddingInBurger');
+                }
+            }
+        }
+    }
+}
+
+.wlc-user-stats--theme-wolf.wlc-user-stats--type-header:host {
 
     .wlc-user-stats__content {
-        @include text.get-text-style(ef.get-value($themeWolf, 'valueTextStyle'), ef.get-value($themeWolf, 'valueTextColor'));
-        display: ef.get-value($themeWolf, 'balanceDisplay');
-        align-items: ef.get-value($themeWolf, 'balanceAlignItems');
-        justify-content: ef.get-value($themeWolf, 'balanceJustifyContent');
-        width: ef.get-value($themeWolf, 'balanceWidth');
-        height: ef.get-value($themeWolf, 'balanceHeight');
-        background: ef.get-value($themeWolf, 'balanceBackground');
-        border-radius: ef.get-value($themeWolf, 'balanceRadius');
+        @include text.get-text-style(ef.get-value($themeWolfHeader, 'valueTextStyle'), ef.get-value($themeWolfHeader, 'valueTextColor'));
+        display: ef.get-value($themeWolfHeader, 'balanceDisplay');
+        align-items: ef.get-value($themeWolfHeader, 'balanceAlignItems');
+        justify-content: ef.get-value($themeWolfHeader, 'balanceJustifyContent');
+        width: ef.get-value($themeWolfHeader, 'balanceWidth');
+        height: ef.get-value($themeWolfHeader, 'balanceHeight');
+        background: ef.get-value($themeWolfHeader, 'balanceBackground');
+        border-radius: ef.get-value($themeWolfHeader, 'balanceRadius');
 
         .wlc-btn--deposit {
             position: relative;
-            width: ef.get-value($themeWolf, 'depositWidth');
-            height: ef.get-value($themeWolf, 'depositHeight');
-            margin: ef.get-value($themeWolf, 'btnMargin');
-            color: ef.get-value($themeWolf, 'depositColor');
-            background: ef.get-value($themeWolf, 'depositBg');
-            border-radius: ef.get-value($themeWolf, 'depositRadius');
+            width: ef.get-value($themeWolfHeader, 'depositWidth');
+            height: ef.get-value($themeWolfHeader, 'depositHeight');
+            margin: ef.get-value($themeWolfHeader, 'btnMargin');
+            color: ef.get-value($themeWolfHeader, 'depositColor');
+            background: ef.get-value($themeWolfHeader, 'depositBg');
+            border-radius: ef.get-value($themeWolfHeader, 'depositRadius');
 
             &:before {
                 @include bm.transition(opacity);
@@ -25,9 +306,9 @@
                 position: absolute;
                 top: 0;
                 left: 0;
-                width: ef.get-value($themeWolf, 'depositWidth');
-                height: ef.get-value($themeWolf, 'depositHeight');
-                background: ef.get-value($themeWolf, 'depositBgBefore');
+                width: ef.get-value($themeWolfHeader, 'depositWidth');
+                height: ef.get-value($themeWolfHeader, 'depositHeight');
+                background: ef.get-value($themeWolfHeader, 'depositBgBefore');
                 opacity: 0;
             }
         }
@@ -44,9 +325,9 @@
     }
 
     .wlc-user-stats-balance {
-        min-width: ef.get-value($themeWolf, 'balanceMinWidth');
-        padding: ef.get-value($themeWolf, 'balancePadding');
-        text-align: ef.get-value($themeWolf, 'balanceTextAlign');
+        min-width: ef.get-value($themeWolfHeader, 'balanceMinWidth');
+        padding: ef.get-value($themeWolfHeader, 'balancePadding');
+        text-align: ef.get-value($themeWolfHeader, 'balanceTextAlign');
         background: unset;
     }
 }

@@ -359,6 +359,10 @@
 
         &.wlc-burger-panel--view-expanded {
             --bp-width: var(--fp-left-size-full);
+
+            --pm-menu-margin: #{ef.get-value($themeLeftFixed, 'contentMargin')};
+            --us-display: block;
+            --us-margin: #{ef.get-value($themeLeftFixed, 'contentMargin')};
         }
 
         &.wlc-burger-panel--view-compact {
@@ -378,6 +382,9 @@
             --bp-lang-max-width: #{ef.get-value($themeLeftFixed, 'langMaxWidthCompact')};
             --bp-lang-margin: #{ef.get-value($themeLeftFixed, 'langMarginCompact')};
             --bp-expand-btn-justify-self: #{ef.get-value($themeLeftFixed, 'expandBtnJustifySelfCompact')};
+
+            --pm-menu-margin: #{ef.get-value($themeLeftFixed, 'contentMarginCompact')};
+            --us-display: none;
         }
 
         .wlc-burger-panel {

@@ -1,3 +1,9 @@
+<div *ngIf="$params.enableUserStats"
+     wlc-wrapper
+     class="{{$class}}-stats"
+     [inlineParams]="$params.userStatsConfig">
+</div>
+
 <div class="{{$class}}-description">
     <p class="{{$class}}-description__title">{{'What are these diamonds?' | translate}}</p>
     <p class="{{$class}}-description__text">

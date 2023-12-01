@@ -70,6 +70,7 @@ export namespace fixedPanel {
             after: 1024,
         },
         components: [
+            componentLib.wlcUserStats.wolfBurger,
             componentLib.wlcPanelMenu.fixedBurgerThemeWolf,
             componentLib.wlcPanelMenu.fixedBurgerInfoThemeWolf,
             componentLib.wlcLanguageSelector.menuThemeWolf,

@@ -14,4 +14,7 @@ $themeDefault: map-merge((
     'descriptionIconWidth': 15px,
     'descriptionIconHeight': 15px,
     'verticalAlignIcon': sub,
+
+    'userStatsMaxWidth': 330px,
+    'userStatsMargin': 0 auto ef.size(6),
 ), $customThemeDefault);

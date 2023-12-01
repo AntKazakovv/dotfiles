@@ -1,32 +1,20 @@
-$customThemeDefault: () !default;
-$themeDefault: map-merge((
-    'maxWidth': 270px,
-
+$customBase: () !default;
+$base: map-merge((
     'nameTextStyle': 'CaptionText',
     'nameTextColor': var(--mc-baseMain),
 
     'valueTextStyle': 'CaptionTextBold',
-    'valueTextColor': var(--mc-baseMain),
 
-    'balancePadding': ef.size(1) ef.size(3),
-    'balanceBorderRadius': ef.get('radius', 'biger'),
-    'balanceBg': (
-        375: var(--mc-bg),
-    ),
     'balanceShortPadding': 0,
     'balanceShortMinWidth': 180px,
     'balanceShortBg': none,
     'balanceShortBorderColor': var(--mc-baseOpacity),
-    'balanceItemPadding': 4px 0,
-    'balanceItemBorder': (
-        375: 2px solid var(--mc-baseOpacity),
-    ),
 
     'balancePaddingMobile': ef.size(1) ef.size(2),
     'balanceBackgroundMobile': var(--mc-bg500),
     'balanceRadiusMobile': ef.get('radius', 'large'),
     'btnMarginMobile': 0 3px 0 0,
-    'btnRadiusMobile': 50%,
+    'btnRadiusMobile': ef.get('radius', 'large'),
 
     'btnPadding': ef.size(1) ef.size(3),
     'btnMargin': ef.size(2) auto,
@@ -53,21 +41,47 @@ $themeDefault: map-merge((
     'iconTop': 50%,
     'iconRigth': 0,
     'iconDescriptionCurrencyPosition': absolute,
-), $customThemeDefault);
+), $customBase);
 
-$customDashboardWithoutStore: () !default;
-$dashboardWithoutStore: map-merge((
-    'userStatsBalancePadding': (
-        320: ef.size(4) ef.size(3),
+$customThemeDefault: () !default;
+$themeDefault: map-merge(map-merge($base, (
+    'maxWidth': 270px,
+    'valueTextColor': var(--mc-baseMain),
+    'balancePadding': ef.size(1) ef.size(3),
+    'balanceBorderRadius': ef.get('radius', 'biger'),
+    'balanceBg': (
+        375: var(--mc-bg),
     ),
-    'userStatsBalanceItemPadding': (
-        320: ef.size(1) 0,
+    'balanceItemPadding': 4px 0,
+    'balanceItemBorder': (
+        375: 2px solid var(--mc-baseOpacity),
     ),
-    'userStatsBalanceBg': var(--mc-bg300),
-), $customDashboardWithoutStore);
+)), $customThemeDefault);
 
 $customThemeWolf: () !default;
-$themeWolf: map-merge((
+$themeWolf: map-merge(map-merge($base, (
+    'valueTextColor': var(--mc-baseThird),
+    'balanceBorderRadius': ef.get('radius', 'main'),
+    'balanceBg': (
+        375: var(--mc-bg500),
+    ),
+    'balanceItemPadding': ef.size(2) ef.size(5),
+    'balanceItemPaddingInBurger': ef.size(2) ef.size(3),
+    'balanceItemBorder': (
+        375: 1px solid var(--mc-bg700),
+    ),
+    'currencyIconMargin': ef.size(2),
+    'detailsHeight': 30px,
+    'detailsBackground': none,
+    'detailsBorder': none,
+    'detailsBorderRadius': 0,
+    'detailsTextStyle': 'CaptionTextBold',
+    'detailsTextColor': var(--mc-secondary),
+    'detailsTextHoverColor': var(--mc-baseThird),
+)), $customThemeWolf);
+
+$customThemeWolfHeader: () !default;
+$themeWolfHeader: map-merge((
     'valueTextStyle': 'CaptionTextBold',
     'valueTextColor': var(--mc-buttonText),
 
@@ -90,4 +104,15 @@ $themeWolf: map-merge((
     'depositBg': var(--mc-buttonColor),
     'depositBgBefore': var(--mc-black-o2),
     'depositColor': var(--mc-baseThird),
-), $customThemeDefault);
+), $customThemeWolfHeader);
+
+$customDashboardWithoutStore: () !default;
+$dashboardWithoutStore: map-merge((
+    'userStatsBalancePadding': (
+        320: ef.size(4) ef.size(3),
+    ),
+    'userStatsBalanceItemPadding': (
+        320: ef.size(1) 0,
+    ),
+    'userStatsBalanceBg': var(--mc-bg300),
+), $customDashboardWithoutStore);

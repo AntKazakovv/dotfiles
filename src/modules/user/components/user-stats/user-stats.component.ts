@@ -7,19 +7,22 @@ import {
     ChangeDetectionStrategy,
     OnDestroy,
 } from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
+
 import {takeUntil} from 'rxjs/operators';
 import {StateService} from '@uirouter/core';
+import _isUndefined from 'lodash-es/isUndefined';
+import _each from 'lodash-es/each';
+import _get from 'lodash-es/get';
+
 import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {ModalService} from 'wlc-engine/modules/core/system/services';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
-import * as Params from './user-stats.params';
 
-import _isUndefined from 'lodash-es/isUndefined';
-import _each from 'lodash-es/each';
-import _get from 'lodash-es/get';
+import * as Params from './user-stats.params';
 
 export interface IUserStatsItem extends Params.IUserStatsItemConfig {
     value: string | number;
@@ -56,6 +59,7 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
         protected userService: UserService,
         cdr: ChangeDetectorRef,
         protected modalService: ModalService,
+        protected translateService: TranslateService,
         private stateService: StateService,
     ) {
         super(
@@ -128,11 +132,24 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
         return this.inlineParams;
     }
 
+    protected fieldName(field: string): string {
+        switch (this.$params.fieldsView) {
+            case 'abbreviation':
+                return Params.shownUserStatsConfig[field].abbreviation;
+            case 'fullWithAbbreviation':
+                return this.translateService.instant(Params.shownUserStatsConfig[field].name)
+                    + ' (' + Params.shownUserStatsConfig[field].abbreviation + ')';
+            default:
+                return this.translateService.instant(Params.shownUserStatsConfig[field].name);
+        }
+    }
+
     private fillUserStatsFields(): void {
         const shownUserStats: IIndexing<IUserStatsItem> = {};
         _each(this.$params.fields, (field) => {
             shownUserStats[field] = {
                 ...Params.shownUserStatsConfig[field],
+                name: this.fieldName(field),
                 value: _get(this.userStats, Params.shownUserStatsConfig[field].path),
             };
 

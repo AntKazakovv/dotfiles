@@ -19,7 +19,7 @@
         ></button>
     </ng-template>
 
-    <ng-template [ngSwitchCase]="'wolf'">
+    <ng-template [ngSwitchCase]="'header'">
         <div class="{{$class}}-balance {{$class}}-balance--mobile" data-wlc-element="block_info">
             <div class="{{$class}}-balance__item {{$class}}-balance__real" data-wlc-element="user-stat-balance_total">
                 <span class="value">
@@ -127,7 +127,14 @@
         >
             <ng-container [ngSwitch]="shownUserStats[item]?.modification">
 
-                <span class="name">{{shownUserStats[item]?.name | translate}}</span>
+                <span class="name">
+                    <div *ngIf="$params.useIcons"
+                         wlc-icon
+                         class="currency-icon"
+                         [iconPath]="shownUserStats[item]?.iconPath">
+                    </div>
+                    {{shownUserStats[item]?.name}}
+                </span>
                 <span class="value" *ngSwitchDefault>
                         {{(shownUserStats[item]?.value | number: '.0-2') || 'Loading' | translate}}
                     </span>
@@ -146,5 +153,12 @@
                     </span>
             </ng-container>
         </div>
+
+        <button *ngIf="$params.useDetailsBtn"
+            wlc-button
+            class="wlc-btn"
+            [text]="$params.detailsBtnText"
+            (click)="descriptionCasinosCurrency()">
+        </button>
     </div>
 </ng-template>

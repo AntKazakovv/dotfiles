@@ -52,8 +52,57 @@ export namespace wlcUserStats {
             auth: true,
         },
         params: {
+            useIcons: true,
+            fieldsView: 'fullWithAbbreviation',
             theme: 'wolf',
-            type: 'wolf',
+            useDetailsBtn: true,
+            useDepositBtn: false,
+        },
+    };
+
+    export const wolfBurger: ILayoutComponent = {
+        name: 'user.wlc-user-stats',
+        display: {
+            auth: true,
+        },
+        params: {
+            useIcons: true,
+            fieldsView: 'full',
+            theme: 'wolf',
+            useDetailsBtn: true,
+            useDepositBtn: false,
+        },
+    };
+
+    export const wolfDescription: ILayoutComponent = {
+        name: 'user.wlc-user-stats',
+        display: {
+            auth: true,
+        },
+        params: {
+            fields: [
+                'balance',
+                'bonusBalance',
+                'points',
+                'level',
+                'expPoints',
+            ],
+            useIcons: true,
+            fieldsView: 'fullWithAbbreviation',
+            theme: 'wolf',
+            useDetailsBtn: false,
+            useDepositBtn: false,
+        },
+    };
+
+    export const wolfHeader: ILayoutComponent = {
+        name: 'user.wlc-user-stats',
+        display: {
+            auth: true,
+        },
+        params: {
+            theme: 'wolf',
+            type: 'header',
         },
     };
 }
