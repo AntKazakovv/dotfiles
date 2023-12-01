@@ -11,13 +11,13 @@ docker login dockerproxy.egamings.com
 
 3. Находясь в директории с Dockerfile запустить:
 ```bash
-docker build -t drxa.egamings.com:5000/chromium-node:18 .
+docker build -t drxa.egamings.com/chromium-node:18 .
 ```
 точка в конце путь до Dockerfile, так что она тут не просто так
 
 4. Запушить его:
 ```bash
-docker push drxa.egamings.com:5000/chromium-node:18
+docker push drxa.egamings.com/chromium-node:18
 ```
 
 5. Указать его в image в .gitlab-ci.yml

@@ -1,10 +1,20 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'color': var(--mc-baseMain),
-    'margin': ef.size(1) 0,
-    'maxWidth': 275px,
-    'padding': ef.size(2) 12px,
-    'background': var(--mc-bg700),
+    'margin': (
+        320: ef.size(1) 0,
+        1024: ef.size(4) auto,
+    ),
+    'maxWidth': (
+        320: 275px,
+        1024: calc(100% - 40px),
+    ),
+    'minHeight': 40px,
+    'padding': ef.size(1) ef.size(2),
+    'background': (
+        320: var(--mc-bg),
+        1024: var(--mc-bg500),
+    ),
     'border': none,
     'display': flex,
     'alignItems': center,
@@ -12,11 +22,26 @@ $themeDefault: map-merge((
     'borderRadius': ef.get('radius', 'biger'),
 
     'colorHover': var(--mc-baseMain),
-    'backgroundHover': var(--mc-bg500),
+    'backgroundHover': var(--mc-bg500-l10),
 
     'iconColor': var(--mc-baseMain),
     'iconColorHover': var(--mc-baseMain),
     'iconMargin': 0 ef.size(1) 0 0,
     'iconWidth': 27px,
-    'iconHeight': 19px,
+    'iconHeight': 24px,
+
+    'compMaxWidth': 100%,
+    'compMargin': 0 auto 5px,
+
+    'compBtnWidth': 24px,
+    'compBtnHeight': 24px,
+    'compBtnMargin': 0 auto,
+    'compBtnPadding': 2px,
+    'compBtnBorderRadius': ef.get('radius', 'large'),
+    'compBtnHoverShadow': 0 0 0 4px var(--mc-main),
+
+    'compIconWidth': 20px,
+    'compIconHeight': 20px,
+    'compIconLineHeight': 1,
+    'compIconMargin': 0,
 ), $customThemeDefault);

@@ -1,15 +1,17 @@
 .wlc-livechat-button--theme-default:host {
+    @include bm.get-mq-map('max-width', $themeDefault, 'maxWidth');
+    @include bm.get-mq-map('margin', $themeDefault, 'margin');
 
     .wlc-livechat-button__button {
         @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'color'));
+        @include bm.get-mq-map('background', $themeDefault, 'background');
+        @include bm.transition(background);
         display: ef.get-value($themeDefault, 'display');
         align-items: ef.get-value($themeDefault, 'alignItems');
         justify-content: ef.get-value($themeDefault, 'justifyContent');
         width: 100%;
-        max-width: ef.get-value($themeDefault, 'maxWidth');
-        margin: ef.get-value($themeDefault, 'margin');
+        min-height: ef.get-value($themeDefault, 'minHeight');
         padding: ef.get-value($themeDefault, 'padding');
-        background: ef.get-value($themeDefault, 'background');
         border: ef.get-value($themeDefault, 'border');
         border-radius: ef.get-value($themeDefault, 'borderRadius');
 
@@ -29,5 +31,49 @@
         height: ef.get-value($themeDefault, 'iconHeight');
         margin: ef.get-value($themeDefault, 'iconMargin');
         color: ef.get-value($themeDefault, 'iconColor');
+    }
+
+    &.wlc-livechat-button--compact {
+
+        &.wlc-livechat-button--state-compact {
+            max-width: ef.get-value($themeDefault, 'compMaxWidth');
+            margin: ef.get-value($themeDefault, 'compMargin');
+
+            .wlc-livechat-button__button {
+                @include bm.transition(box-shadow);
+                width: ef.get-value($themeDefault, 'compBtnWidth');
+                height: ef.get-value($themeDefault, 'compBtnHeight');
+                min-height: auto;
+                margin: ef.get-value($themeDefault, 'compBtnMargin');
+                padding: ef.get-value($themeDefault, 'compBtnPadding');
+                border-radius: ef.get-value($themeDefault, 'compBtnBorderRadius');
+
+                @include bm.hover {
+                    @include bm.get-mq-map('background', $themeDefault, 'background');
+                    box-shadow: ef.get-value($themeDefault, 'compBtnHoverShadow');
+                }
+            }
+
+            .wlc-livechat-button__icon {
+                width: ef.get-value($themeDefault, 'compIconWidth');
+                height: ef.get-value($themeDefault, 'compIconHeight');
+                margin: ef.get-value($themeDefault, 'compIconMargin');
+
+                ::ng-deep {
+
+                    .wlc-icon-content {
+                        display: block;
+                        width: ef.get-value($themeDefault, 'compIconWidth');
+                        height: ef.get-value($themeDefault, 'compIconHeight');
+                        line-height: ef.get-value($themeDefault, 'compIconLineHeight');
+
+                        svg {
+                            width: ef.get-value($themeDefault, 'compIconWidth');
+                            height: ef.get-value($themeDefault, 'compIconHeight');
+                        }
+                    }
+                }
+            }
+        }
     }
 }

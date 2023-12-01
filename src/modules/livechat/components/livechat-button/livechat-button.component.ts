@@ -9,8 +9,10 @@ import {
     OnDestroy,
     Renderer2,
 } from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
 import {
     first,
+    map,
     takeUntil,
 } from 'rxjs/operators';
 
@@ -19,6 +21,7 @@ import {
     ConfigService,
     EventService,
 } from 'wlc-engine/modules/core';
+import {TFixedPanelStore} from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
 import {
     CommonChatService,
     ChatState,
@@ -46,6 +49,7 @@ export class LivechatButtonComponent extends AbstractComponent implements OnInit
     protected styles: HTMLElement;
     protected stylesId: string = 'livechat-styles';
     protected isChatStateWatch: boolean = false;
+    protected buttonText$: BehaviorSubject<string> = new BehaviorSubject('');
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILivechatButtonCParams,
@@ -61,6 +65,19 @@ export class LivechatButtonComponent extends AbstractComponent implements OnInit
 
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+
+        if (this.$params.compactMod) {
+            this.addModifiers('compact');
+
+            this.configService.get<BehaviorSubject<TFixedPanelStore>>('fixedPanelStore$')?.pipe(
+                map((store: TFixedPanelStore): boolean => store[this.$params.fixedPanelPosition] === 'compact'),
+                takeUntil(this.$destroy),
+            ).subscribe((isCompact: boolean) => {
+                this.updateCompactState(isCompact);
+            });
+        } else {
+            this.buttonText$.next(this.$params.buttonText);
+        }
 
         if (this.chatService.config.type) {
 
@@ -123,6 +140,16 @@ export class LivechatButtonComponent extends AbstractComponent implements OnInit
 
         if (this.$params.replaceDefault && !this.chatIsHide) {
             this.hideDefaultButton();
+        }
+    }
+
+    protected updateCompactState(isCompact: boolean): void {
+        if (isCompact) {
+            this.addModifiers('state-compact');
+            this.buttonText$.next('');
+        } else {
+            this.removeModifiers('state-compact');
+            this.buttonText$.next(this.$params.buttonText);
         }
     }
 

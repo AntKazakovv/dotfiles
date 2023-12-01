@@ -2,6 +2,7 @@ import {
     IComponentParams,
     CustomType,
 } from 'wlc-engine/modules/core';
+import {TFixedPanelPos} from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
@@ -20,6 +21,8 @@ export interface ILivechatButtonCParams extends IComponentParams<ComponentTheme,
      * Path for icon
      */
     iconPath?: string;
+    fixedPanelPosition?: TFixedPanelPos;
+    compactMod?: boolean;
 };
 
 export const defaultParams: ILivechatButtonCParams = {
@@ -28,5 +31,7 @@ export const defaultParams: ILivechatButtonCParams = {
     moduleName: 'livechat',
     replaceDefault: true,
     buttonText: gettext('Live Chat'),
-    iconPath: 'wlc/icons/livechat.svg',
+    iconPath: 'wlc/icons/livechat_new.svg',
+    fixedPanelPosition: 'left',
+    compactMod: false,
 };
