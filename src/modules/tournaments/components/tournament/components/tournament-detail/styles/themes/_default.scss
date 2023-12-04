@@ -5,6 +5,7 @@ $selector: '.wlc-tournament-detail';
 
     &--theme-default {
         position: relative;
+        z-index: 1;
 
         #{$selector}__header-info {
             @include bm.get-mq-map('grid-template-columns', $themeDefault, 'headerColumnWidth');

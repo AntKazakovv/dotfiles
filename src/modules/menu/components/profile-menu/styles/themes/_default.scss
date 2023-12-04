@@ -28,36 +28,6 @@
 
         ::ng-deep {
 
-            .wlc-menu__item {
-                overflow: initial;
-
-                &:first-child {
-
-                    .wlc-menu__link {
-
-                        &:after {
-                            content: '';
-                            top: 100%;
-                            left: 0;
-                            width: 100%;
-                            height: ef.get-value($themeDefault, 'profileMenuBgBeforeHeight');
-                            background: ef.get-value($themeDefault, 'profileMenuBg');
-                            pointer-events: none;
-                        }
-
-                        &.active {
-                            right: initial;
-                            left: 0;
-                        }
-
-                        @include bm.hover {
-                            right: initial;
-                            left: 0;
-                        }
-                    }
-                }
-            }
-
             .wlc-menu__link {
                 @include bm.transition(background);
                 @include bm.get-mq-map('padding', $themeDefault, 'profileMenuLinkPadding');
@@ -75,7 +45,6 @@
                 &:after {
                     @include bm.transition(opacity);
                     @include makeAngleBg(ef.get-value($themeDefault, 'profileMenuAngleBg'));
-
                     position: absolute;
                     bottom: -3px;
                     display: block;
@@ -132,6 +101,59 @@
     &.wlc-profile-menu--swiper {
 
         ::ng-deep {
+
+            .swiper-slide {
+
+                &:first-child,
+                &:last-child {
+
+                    .wlc-menu__link {
+
+                        &:after,
+                        &:before {
+                            content: '';
+                            top: 100%;
+                            left: 0;
+                            width: 100%;
+                            height: ef.get-value($themeDefault, 'profileMenuBgElemHeight');
+                            background: ef.get-value($themeDefault, 'profileMenuBg');
+                            pointer-events: none;
+                        }
+                    }
+                }
+
+                &:first-child {
+
+                    .wlc-menu__link {
+
+                        &.active {
+                            right: initial;
+                            left: 0;
+                        }
+
+                        @include bm.hover {
+                            right: initial;
+                            left: 0;
+                        }
+                    }
+                }
+
+                &:last-child {
+
+                    .wlc-menu__link {
+
+                        &.active {
+                            right: 0;
+                            left: initial;
+                        }
+
+                        @include bm.hover {
+                            right: 0;
+                            left: initial;
+                        }
+                    }
+                }
+            }
 
             .wlc-menu {
                 display: block;
