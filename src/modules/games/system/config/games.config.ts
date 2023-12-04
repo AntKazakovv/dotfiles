@@ -48,7 +48,7 @@ export const gamesConfig: IGamesConfig = {
         },
     },
     run: {
-        skipCheckBalance: false,
+        skipCheckBalance: true,
         checkProfileRequiredFields: true,
         checkActiveBonusRestriction: true,
     },
