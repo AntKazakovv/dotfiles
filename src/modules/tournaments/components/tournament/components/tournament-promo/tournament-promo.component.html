@@ -186,7 +186,14 @@
         </div>
         <div class="{{$class}}__board">
             <div class="{{$class}}__inner">
-                <h4 class="{{$class}}__board-title">{{'Prize pool' | translate}}</h4>
+                <h4 class="{{$class}}__board-title">
+                    {{'Prize pool' | translate}}
+                    <div wlc-tournament-prizes-row
+                        class="{{$class}}__prizepool"
+                        [inlineParams]="{theme: 'default'}"
+                        [prizes]="tournament.prizePool">
+                    </div>
+                </h4>
 
                 <div wlc-timer
                     class="{{$class}}-timer"

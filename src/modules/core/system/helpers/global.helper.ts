@@ -335,10 +335,20 @@ export class GlobalHelper {
         configService: ConfigService,
         useTypeForGettingProps?: boolean,
         ignoreDefaultSettings?: boolean,
+        onlyType?: boolean,
     ): INoContentCParams {
         const settingsFromParams: INoContentCParams = _get(params.noContent, params.theme);
         const defaultSettings = configService.get(`$${params.moduleName}.components.${params.componentName}.noContent`);
-        const defaults: INoContentCParams = _get(defaultSettings, useTypeForGettingProps ?  params.type : 'default');
+        const defaults: INoContentCParams =
+            (useTypeForGettingProps ? _get(defaultSettings, params.type) : defaultSettings)['default'];
+        let resultParams: INoContentCParams = {};
+
+        if (onlyType) {
+            resultParams = _get(defaultSettings, useTypeForGettingProps ? params.type : params.theme);
+        } else {
+            resultParams = (useTypeForGettingProps ? _get(defaultSettings, params.type)
+                : defaultSettings)[params.theme];
+        }
 
         return _assign(
             {
@@ -347,7 +357,7 @@ export class GlobalHelper {
                 themeMod: params.themeMod,
             },
             ignoreDefaultSettings ? {} : defaults,
-            _get(defaultSettings, useTypeForGettingProps ? params.type : params.theme),
+            resultParams,
             (settingsFromParams ? settingsFromParams : {}),
         );
     }
