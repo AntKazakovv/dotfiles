@@ -150,6 +150,8 @@ export interface IExtProfile {
     conversionCurrency?: IWalletsSettings;
     /** Currencies not showing in wallet selector*/
     unusedCurrencies?: ICurrencyFilter[];
+    /** Time to automatically log out profile without activity */
+    logoutTime?: number;
 }
 
 export interface IExtProfilePaymentSystems {

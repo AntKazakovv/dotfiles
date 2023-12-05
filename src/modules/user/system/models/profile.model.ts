@@ -208,6 +208,14 @@ export class UserProfile extends AbstractModel<IUserProfile> {
         return _isString(this.data.socketsData) ? null : this.data.socketsData;
     }
 
+    public get logoutTime(): number {
+        if (Array.isArray(this.data.extProfile)) {
+            return null;
+        }
+
+        return this.data.extProfile?.logoutTime || null;
+    }
+
     public get pep(): boolean | null {
         if (Array.isArray(this.data.extProfile)) {
             return null;

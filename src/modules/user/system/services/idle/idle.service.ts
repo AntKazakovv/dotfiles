@@ -29,10 +29,14 @@ import {EventService} from 'wlc-engine/modules/core/system/services/event/event.
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
 
+const oneMinute: number = 60000 as const;
+
 @Injectable({
     providedIn: 'root',
 })
 export class IdleService {
+
+    public isActivityAfterSendUserInfo: boolean = false;
 
     protected timer: ReturnType<typeof setTimeout>;
     protected timerSubscription: Subscription;
@@ -53,6 +57,21 @@ export class IdleService {
 
     public init(): void {
         this.config = this.configService.get<IIdleConfig>('$base.idle');
+
+        if (this.configService.get<string>('appConfig.license') === 'italy'
+            || this.configService.get('$base.profile.autoLogout.use')
+        ) {
+            this.config.idleTime = (this.userService.userProfile.logoutTime ?? 20) * oneMinute;
+            this.config.frequencyChecks = oneMinute / 20;
+            this.userService.userProfile$
+                .pipe(
+                    filter((profile) => !!profile.logoutTime),
+                    map((profile) => profile.logoutTime),
+                ).subscribe((idleTime: number) => {
+                    this.config.idleTime = idleTime * oneMinute;
+                });
+        }
+
         this.checkUserIdle();
         this.eventService.filter({name: 'LOGOUT'}).subscribe({
             next: () => {
@@ -115,14 +134,32 @@ export class IdleService {
     }
 
     private showModal(): void {
-        this.modalService.showModal({
-            id: 'idle-logout-info',
-            modalTitle: gettext('Info'),
-            modifier: 'info',
-            modalMessage: this.config.idleMessage,
-            textAlign: 'center',
-            dismissAll: true,
-        });
+        if (this.configService.get<string>('appConfig.license') === 'italy'
+            || this.configService.get('$base.profile.autoLogout.use')
+        ) {
+            this.modalService.showModal({
+                id: 'idle-auto-logout-info',
+                modalTitle: gettext('The session has expired'),
+                modifier: 'info',
+                modalMessage: gettext('You have been inactive on the site for longer than the set time'),
+                textAlign: 'center',
+                showFooter: true,
+                showConfirmBtn: true,
+                rejectBtnVisibility: false,
+                iconPath: '/wlc/icons/status/alert.svg',
+                confirmBtnText: gettext('Ok'),
+                dismissAll: true,
+            });
+        } else {
+            this.modalService.showModal({
+                id: 'idle-logout-info',
+                modalTitle: gettext('Info'),
+                modifier: 'info',
+                modalMessage: this.config.idleMessage,
+                textAlign: 'center',
+                dismissAll: true,
+            });
+        }
     }
 
     private createDefaultHandler(): void {
@@ -140,6 +177,7 @@ export class IdleService {
                 filter(((el: string): boolean => !this.document.hidden && el === 'IFRAME')),
             ),
         ).subscribe((event: StorageEvent | PointerEvent | MouseEvent): void => {
+            this.isActivityAfterSendUserInfo = true;
             if ((event as StorageEvent)['key'] === 'ngx-webstorage|idle-logout') {
                 this.logout();
             } else {

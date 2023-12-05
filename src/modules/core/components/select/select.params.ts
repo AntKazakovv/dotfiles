@@ -61,6 +61,7 @@ export interface ISelectOptions<V = unknown> {
      */
     icon?: string;
     note?: string;
+    context?: IIndexing<string>;
 }
 
 export interface ISelectOptionsWithIcon {

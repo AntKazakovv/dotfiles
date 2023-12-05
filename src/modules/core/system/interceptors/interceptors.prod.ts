@@ -9,6 +9,7 @@ import {FingerprintInterceptor} from 'wlc-engine/modules/core/system/interceptor
 import {CaptchaInterceptor} from 'wlc-engine/modules/core/system/interceptors/security/captcha.interceptors';
 import {RecaptchaInterceptor} from 'wlc-engine/modules/core/system/interceptors/security/recaptcha.interceptors';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
+import {IdleInterceptor} from 'wlc-engine/modules/core/system/interceptors/idle.interceptor';
 
 function initInterceptors(): Provider[] {
     const interceptors: Provider[] = [
@@ -40,6 +41,11 @@ function initInterceptors(): Provider[] {
         {
             provide: HTTP_INTERCEPTORS,
             useClass: RecaptchaInterceptor,
+            multi: true,
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: IdleInterceptor,
             multi: true,
         },
     ];

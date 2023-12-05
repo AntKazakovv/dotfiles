@@ -17,6 +17,7 @@ export type ComponentThemeMod = 'default' | 'overflow' | CustomType;
 
 export interface IAddProfileInfoCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     title?: string;
+    description?: string;
     formConfig: IFormWrapperCParams;
     formData?: BehaviorSubject<IIndexing<any>>;
     /* redirection when the modal window is filled correctly */

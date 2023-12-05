@@ -19,6 +19,7 @@ export const generateDefaultParams = (
     profile: ProfileType,
     useLogin: boolean,
     use2FAGoogle: boolean,
+    useAutoLogout: boolean,
 ): IProfileFormCParams => {
     return {
         class: 'wlc-profile-form',
@@ -26,7 +27,7 @@ export const generateDefaultParams = (
         moduleName: 'user',
         useProfileBlocks: false,
         config: profile === 'first'
-            ? wlcProfileForm.generateFirstProfileConfig(useLogin, use2FAGoogle)
+            ? wlcProfileForm.generateFirstProfileConfig(useLogin, use2FAGoogle, useAutoLogout)
             : wlcProfileForm.generateDefaultProfileConfig(useLogin),
     };
 };

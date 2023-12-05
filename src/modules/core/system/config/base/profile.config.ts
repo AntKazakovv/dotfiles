@@ -20,6 +20,10 @@ export const profileConfig: IProfileConfig = {
         maxDocsCount: 5,
         maxSize: 4,
     },
+    autoLogout: {
+        use: false,
+        timeList: [20, 25, 30, 35, 40, 45, 50, 55, 59],
+    },
     limitations: {
         use: false,
         realityChecker: {

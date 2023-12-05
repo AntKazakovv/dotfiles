@@ -2,13 +2,13 @@ export interface IIdleConfig {
     /**
      * Message text after logout
      */
-    idleMessage: string[];
+    idleMessage?: string[];
     /**
      * Time of inactivity after which logout will occur
      */
-    idleTime: number;
+    idleTime?: number;
     /**
      * Time Between Activity Checks
      */
-    frequencyChecks: number;
+    frequencyChecks?: number;
 }

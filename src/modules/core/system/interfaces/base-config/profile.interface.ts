@@ -41,6 +41,7 @@ export interface IProfileConfig {
     transfers?: {
         use: boolean;
     },
+    autoLogout?: IAutoLogout;
     socials?: {
         use: boolean;
         usePage?: boolean;
@@ -116,3 +117,11 @@ export interface IValidationPasswordRules {
 }
 
 export type ProfileType = 'default' | 'first';
+
+export interface IAutoLogout {
+    use: boolean;
+    /**
+    * Select value for logout time
+    */
+    timeList?: number[];
+}

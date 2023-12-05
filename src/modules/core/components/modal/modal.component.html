@@ -103,6 +103,11 @@
         class="modal-icon modal-icon--confirm"
         iconPath="/wlc/icons/status/confirm.svg">
     </div>
+    <div *ngIf="$params.config?.iconPath"
+        wlc-icon
+        class="modal-icon"
+        [iconPath]="$params.config.iconPath">
+    </div>
     <div *ngFor="let msg of $params.config.modalMessage"
         [attr.data-wlc-element]="$params.wlcElement + '-message'"
         [style]="{'text-align': $params.config.textAlign}"

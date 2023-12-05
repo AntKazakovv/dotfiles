@@ -1430,15 +1430,16 @@ export class UserService {
     }
 
     private async idleHandler(): Promise<void> {
-        if (!this.configService.get<IMGAConfig>('$modules.core.components["wlc-license"].mga')) {
-            return;
+        if (this.configService.get<IMGAConfig>('$modules.core.components["wlc-license"].mga')
+            || (this.configService.get<string>('appConfig.license') === 'italy'
+                || this.configService.get('$base.profile.autoLogout.use'))
+        ) {
+            if (!this.idleService) {
+                this.idleService = await this.injectionService
+                    .getService<IdleService>('user.idle-service');
+            }
+            this.idleService.init();
         }
-
-        if (!this.idleService) {
-            this.idleService = await this.injectionService
-                .getService<IdleService>('user.idle-service');
-        }
-        this.idleService.init();
     }
 
     private async showTwoFactorAuthModal(): Promise<void> {

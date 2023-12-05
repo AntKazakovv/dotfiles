@@ -72,6 +72,23 @@
             </div>
                 <ng-container *ngIf="enabled2FAGoogle then disable else enable"></ng-container>
         </div>
+
+        <div *ngIf="useAutoLogout"
+            class="{{$class}}__item"
+            data-wlc-element="block_edit-auto-logout">
+            <div class="{{$class}}__item-title">
+                <div class="{{$class}}__item-title-main">
+                    {{$params.profileBlockAutoLogout.title | translate}}
+                </div>
+                <div class="{{$class}}__item-title-description">
+                    {{$params.profileBlockAutoLogout.subtitle | translate}}
+                </div>
+            </div>
+            <button wlc-button
+                    [inlineParams]="$params.profileBlockAutoLogout.buttonParams"
+                    (click)="openModal('auto-logout')">
+            </button>
+        </div>
     </div>
 </ng-template>
 

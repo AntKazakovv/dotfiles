@@ -92,12 +92,13 @@ export class SelectValuesService {
         ['birthYear', (): TConstantValue => this.getDateList('years')],
         ['pep', (): TConstantValue => this.getPepList()],
         ['merchants', (): TConstantValue => this.getMerchantsList()],
+        ['logoutTime', (): TConstantValue => this.getLogoutTime()],
     ]);
     private _daysInMonth: BehaviorSubject<number> = new BehaviorSubject(31);
 
     constructor(
         protected configService: ConfigService,
-        private eventService: EventService,
+        protected eventService: EventService,
         protected injectionService: InjectionService,
     ) {
         this._daysInMonth.subscribe(() => {
@@ -107,7 +108,7 @@ export class SelectValuesService {
         if (this.configService.get('$base.forms.formElements.showIcon.use')
             || this.configService.get('$base.forms.formElements.showCountryNamesForPhoneCodes')
         ) {
-            this.prepareSelectWithDescription();
+            this.prepareSelectConfig();
         }
     }
 
@@ -163,7 +164,7 @@ export class SelectValuesService {
      * Returns a data list
      *
      * @param {TDateList} value days or months or years
-     * @returns {BehaviorSubject<Params.ISelectOptions[]}
+     * @returns {BehaviorSubject<Params.ISelectOptions[]>}
      */
     @CustomHook('core', 'selectValuesDateList')
     public getDateList(value: TDateList): TConstantValue {
@@ -424,30 +425,6 @@ export class SelectValuesService {
     }
 
     /**
-     * The method prepare config by select with icon and country name
-     *
-     * @returns {void}
-     */
-    private prepareSelectWithDescription(): void {
-        if (this.configService.get<boolean>('$base.forms.formElements.showIcon.use')) {
-            this.configSelectWithIcon = _cloneDeep(
-                this.configService.get<Params.ISelectOptionsWithIcon>('$base.forms.formElements.showIcon'),
-            );
-        }
-
-        this.isoByPhoneCode = _merge(
-            {
-                '+7': 'ru',
-                '+1': 'ca',
-                '+44': 'im',
-                '+61': 'au',
-                '+212': 'ma',
-            },
-            this.configService.get<IIndexing<string>>('$base.forms.formElements.isoByPhoneCode'),
-        );
-    }
-
-    /**
      * A method that subscribes to changing the country field and returns the states of the corresponding country
      *
      * @method getCountryStates
@@ -546,4 +523,42 @@ export class SelectValuesService {
     public setDaysInMonth(data: number): void {
         this._daysInMonth.next(data);
     }
+
+    private getLogoutTime(): TConstantValue {
+        return new BehaviorSubject(
+            this.configService.get<number[]>('$base.profile.autoLogout.timeList').map((time) => {
+                return {
+                    title: gettext('{{time}} min'),
+                    context: {
+                        time: time.toString(),
+                    },
+                    value: time,
+                };
+            }));
+    }
+
+    /**
+     * The method prepare config by select with icon and country name
+     *
+     * @returns {void}
+     */
+    private prepareSelectConfig(): void {
+        if (this.configService.get<boolean>('$base.forms.formElements.showIcon.use')) {
+            this.configSelectWithIcon = _cloneDeep(
+                this.configService.get<Params.ISelectOptionsWithIcon>('$base.forms.formElements.showIcon'),
+            );
+        }
+
+        this.isoByPhoneCode = _merge(
+            {
+                '+7': 'ru',
+                '+1': 'ca',
+                '+44': 'im',
+                '+61': 'au',
+                '+212': 'ma',
+            },
+            this.configService.get<IIndexing<string>>('$base.forms.formElements.isoByPhoneCode'),
+        );
+    }
+
 }

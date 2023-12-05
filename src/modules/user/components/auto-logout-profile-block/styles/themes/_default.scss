@@ -1,0 +1,22 @@
+.wlc-auto-logout-profile-block--theme-default:host {
+
+    @include text.get-text-style(
+        ef.get-value($themeDefault, 'textFontStyle'),
+        ef.get-value($themeDefault, 'textFontColor')
+    );
+    @include bm.get-mq-map('display', $themeDefault, 'display');
+    @include bm.get-mq-map('margin', $themeDefault, 'margin');
+
+    gap: ef.get-value($themeDefault, 'gap');
+    align-items: end;
+    justify-content: space-between;
+    width: 100%;
+    padding: ef.get-value($themeDefault, 'padding');
+
+    ::ng-deep {
+
+        .wlc-btn {
+            @include bm.get-mq-map('margin', $themeDefault, 'buttonMargin');
+        }
+    }
+}

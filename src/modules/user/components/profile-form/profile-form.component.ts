@@ -122,6 +122,8 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
                     configService.get<ProfileType>('$base.profile.type'),
                     configService.get<boolean>('$base.site.useLogin'),
                     configService.get<boolean>('appConfig.siteconfig.Enable2FAGoogle'),
+                    (configService.get<string>('appConfig.license') === 'italy'
+                        || configService.get('$base.profile.autoLogout.use')),
                 ),
             },
             eventService,

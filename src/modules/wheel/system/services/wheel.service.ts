@@ -515,7 +515,14 @@ export class WheelService {
         this.eventService.subscribe({
             name: 'LOGOUT',
         }, () => {
-            this.modalService.closeAllModals();
+            const listOpenModals: string[] = [
+                'gathering-participants', 'waiting-results', 'result-wheel',
+                'selection-winner', 'cancel-contest', 'create-wheel'];
+            listOpenModals.forEach((modalId: string) => {
+                if (this.modalService.getActiveModal(modalId)) {
+                    this.modalService.hideModal(modalId);
+                }
+            });
             this.participants = [];
             this.participants$.next(this.participants);
             this.eventsWheel$.next({name: 'deleteWidget'});

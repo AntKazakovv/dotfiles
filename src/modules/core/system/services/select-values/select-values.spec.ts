@@ -1,6 +1,9 @@
 import {TestBed} from '@angular/core/testing';
+
+import _each from 'lodash-es/each';
 import {BehaviorSubject} from 'rxjs';
 import {DateTime} from 'luxon';
+
 import {
     ConfigService,
     EventService,
@@ -17,8 +20,6 @@ import {
     IPhoneLimits,
 } from 'wlc-engine/modules/core/system/services/select-values/select-values.service';
 import {GamesCatalogService} from 'wlc-engine/modules/games/system/services';
-
-import _each from 'lodash-es/each';
 
 describe('SelectValuesService', () => {
 

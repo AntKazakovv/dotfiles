@@ -491,5 +491,15 @@ $themeDefault: map-merge((
     'recommendedBackdropOpacity': (
         375: 0.65,
     ),
-    // recommended-modal
+
+    // auto-logout
+    'autoLogoutTextModalStyle': 'PrimaryText',
+    'autoLogoutTextModalColor': var(--mc-baseMain),
+    // auto-logout
+
+    // auto-logout-info
+    'logoutInfoItalyIconPath': var(--mc-error),
+    'logoutInfoItalyTextModalStyle': 'PrimaryText',
+    'logoutInfoItalyTextModalColor': var(--mc-baseMain),
+    // auto-logout-info
 ), $customThemeDefault);

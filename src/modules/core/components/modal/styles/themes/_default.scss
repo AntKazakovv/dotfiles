@@ -405,6 +405,35 @@
             @include bm.get-mq-map('opacity', $themeDefault, 'recommendedBackdropOpacity');
         }
     }
+
+    &.wlc-modal--auto-logout {
+
+        .wlc-text-block__text {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'autoLogoutTextModalStyle'),
+                ef.get-value($themeDefault, 'autoLogoutTextModalColor')
+            );
+
+            text-align: center;
+        }
+    }
+
+    &.wlc-modal--idle-auto-logout-info {
+
+        .modal-icon {
+
+            svg {
+                fill: ef.get-value($themeDefault, 'logoutInfoItalyIconPath');
+            }
+        }
+
+        .modal-message {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'logoutInfoItalyTextModalStyle'),
+                ef.get-value($themeDefault, 'logoutInfoItalyTextModalColor')
+            );
+        }
+    }
 }
 
 body.modal-open {

@@ -30,6 +30,11 @@ export interface IProfileBlocksCParams extends IComponentParams<Theme, Type, The
         subtitle?: string,
         buttonParams?: IButtonCParams,
     };
+    profileBlockAutoLogout?: {
+        title?: string,
+        subtitle?: string,
+        buttonParams?: IButtonCParams,
+    };
 }
 
 export const defaultParams: IProfileBlocksCParams = {
@@ -54,6 +59,17 @@ export const defaultParams: IProfileBlocksCParams = {
             wlcElement: 'button_add-banking-info',
             common: {
                 text: gettext('Add info'),
+                iconPath: 'wlc/icons/arrow.svg',
+            },
+        },
+    },
+    profileBlockAutoLogout: {
+        title: gettext('Automatic logout'),
+        subtitle: gettext('You can set the time of automatic logout if you were inactive on the site'),
+        buttonParams: {
+            wlcElement: 'button_change-auto-logout',
+            common: {
+                text: gettext('Change'),
                 iconPath: 'wlc/icons/arrow.svg',
             },
         },

@@ -36,8 +36,38 @@ const insertSecurityBlock = (use2FAGoogle: boolean): IFormComponent | null => {
     return use2FAGoogle ? securityBlock : null;
 };
 
+const autoLogoutBlock: IFormComponent = {
+    name: 'core.wlc-wrapper',
+    blockName: 'auto-logout-block',
+    params: <IWrapperCParams>{
+        wlcElement: 'profile_form_auto-logout',
+        class: 'wlc-profile-form__block wlc-profile-form__block--auto-logout',
+        components: [
+            {
+                name: 'core.wlc-title',
+                params: {
+                    mainText: gettext('Automatic logout'),
+                    wlcElement: 'header_edit-auto-logout',
+                },
+            },
+            {
+                name: 'user.wlc-auto-logout-profile-block',
+                params: {},
+            },
+        ],
+    },
+};
+
+const insertAutoLogout = (isAutoLogout: boolean): IFormComponent | null => {
+    return isAutoLogout ? autoLogoutBlock : null;
+};
+
 export namespace wlcProfileForm {
-    export const generateFirstProfileConfig = (useLogin: boolean, use2FAGoogle: boolean): IFormWrapperCParams => {
+    export const generateFirstProfileConfig = (
+        useLogin: boolean,
+        use2FAGoogle: boolean,
+        useAutoLogout: boolean,
+    ): IFormWrapperCParams => {
         return {
             isStrictLocked: true,
             components: [
@@ -182,6 +212,7 @@ export namespace wlcProfileForm {
                     },
                 },
                 insertSecurityBlock(use2FAGoogle),
+                insertAutoLogout(useAutoLogout),
                 {
                     name: 'core.wlc-wrapper',
                     blockName: 'password-block',

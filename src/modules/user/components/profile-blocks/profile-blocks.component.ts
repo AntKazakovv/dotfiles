@@ -38,6 +38,7 @@ import {
     TwoFactorAuthService,
 } from 'wlc-engine/modules/user/submodules/two-factor-auth/system/services/two-factor-auth/two-factor-auth.service';
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
+import {UserHelper} from 'wlc-engine/modules/user/system/helpers/user.helper';
 
 import * as Params from './profile-blocks.params';
 
@@ -65,6 +66,7 @@ export class ProfileBlocksComponent extends AbstractComponent implements OnInit 
     };
     public enabled2FAGoogle: boolean;
     public lockLink: boolean = false;
+    public useAutoLogout: boolean = false;
 
     protected twoFactorAuthService?: TwoFactorAuthService;
     protected ready2FA: boolean = false;
@@ -105,6 +107,12 @@ export class ProfileBlocksComponent extends AbstractComponent implements OnInit 
                 .getService<TwoFactorAuthService>('two-factor-auth.two-factor-auth-service');
             await this.setStatus2FAGoogle();
             this.initSubscribers();
+        }
+
+        if (this.configService.get<string>('appConfig.license') === 'italy'
+            || this.configService.get('$base.profile.autoLogout.use')
+        ) {
+            this.useAutoLogout = true;
         }
     }
 
@@ -148,6 +156,10 @@ export class ProfileBlocksComponent extends AbstractComponent implements OnInit 
                     showFooter: false,
                     backdrop: true,
                 });
+                break;
+
+            case 'auto-logout':
+                UserHelper.showAutoLogoutFormModal(this.modalService, this.userService);
                 break;
         }
     }
@@ -199,7 +211,7 @@ export class ProfileBlocksComponent extends AbstractComponent implements OnInit 
         this.twoFactorAuthService.openModalEnable();
     }
 
-    protected openModalDisable2FA(): void {;
+    protected openModalDisable2FA(): void {
         this.twoFactorAuthService.openModalDisable(() => this.setLockLink(true));
     }
 

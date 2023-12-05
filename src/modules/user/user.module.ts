@@ -61,6 +61,9 @@ import {
 import {
     LogoutConfirmationComponent,
 } from 'wlc-engine/modules/user/components/logout-confirmation/logout-confirmation.component';
+import {
+    AutoLogoutProfileBlockComponent,
+} from 'wlc-engine/modules/user/components/auto-logout-profile-block/auto-logout-profile-block.component';
 
 export const services = {
     'user-service': UserService,
@@ -101,6 +104,7 @@ export const components = {
     'wlc-email-verification-notification': EmailVerificationNotificationComponent,
     'wlc-email-subscription-profile-block': EmailSubscriptionProfileBlockComponent,
     'wlc-logout-confirmation': LogoutConfirmationComponent,
+    'wlc-auto-logout-profile-block': AutoLogoutProfileBlockComponent,
 };
 
 @NgModule({
@@ -137,6 +141,7 @@ export const components = {
         EmailVerificationNotificationComponent,
         EmailSubscriptionProfileBlockComponent,
         LogoutConfirmationComponent,
+        AutoLogoutProfileBlockComponent,
     ],
     imports: [
         CommonModule,
@@ -179,6 +184,7 @@ export const components = {
         EmailVerificationNotificationComponent,
         EmailSubscriptionProfileBlockComponent,
         LogoutConfirmationComponent,
+        AutoLogoutProfileBlockComponent,
     ],
 })
 export class UserModule {

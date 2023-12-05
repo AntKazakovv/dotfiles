@@ -15,6 +15,8 @@ import {
 } from 'wlc-engine/modules/core/system/services';
 import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
 import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
+import {IAddProfileInfoCParams} from 'wlc-engine/modules/user/components/add-profile-info/add-profile-info.params';
+import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
 
 interface IDataForModification{
     shift: number;
@@ -162,6 +164,30 @@ export class UserHelper {
             ],
             textAlign: 'center',
             dismissAll: true,
+        });
+    }
+
+    public static showAutoLogoutFormModal(modalService: ModalService, userService: UserService): void {
+        modalService.showModal({
+            id: 'auto-logout',
+            modifier: 'auto-logout',
+            componentName: 'user.wlc-add-profile-info',
+            componentParams: <IAddProfileInfoCParams>{
+                title: gettext('Automatic logout'),
+                description: gettext(
+                    'You can set the time of automatic logout if you were inactive on the site',
+                ),
+                formConfig: {
+                    class: 'wlc-form-wrapper',
+                    components: [
+                        FormElements.logoutTime,
+                        FormElements.submit,
+                    ],
+                },
+                formData: userService.userProfile$,
+            },
+            showFooter: false,
+            backdrop: true,
         });
     }
 }

@@ -94,7 +94,7 @@ export interface IModalConfig extends ModalOptions {
      */
     hideIcon?: boolean;
     /**
-     * Icon path. `/wlc/icons/status/confirm.svg` by default
+     * Icon path.
      */
     iconPath?: string;
     /**

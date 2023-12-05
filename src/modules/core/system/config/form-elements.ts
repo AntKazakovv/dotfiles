@@ -555,6 +555,16 @@ export namespace FormElements {
         },
     };
 
+    export const logoutTime: IFormComponent = {
+        name: 'core.wlc-select',
+        params: {
+            labelText: gettext('User inactivity timeout'),
+            options: 'logoutTime',
+            wlcElement: 'block_logout-time',
+            name: 'logoutTime',
+        },
+    };
+
     export const promocodeWithLink: IFormComponent = {
         name: 'core.wlc-promocode-link',
         params: {

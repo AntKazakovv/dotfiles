@@ -83,7 +83,16 @@ export class AddProfileInfoComponent extends ProfileFormAbstract implements OnIn
         this.isPending = true;
         this.modalService.showModal('data-is-processing');
 
-        const response = await this.userService.updateProfile(form.value, {
+        const formValues: IIndexing<any> = _cloneDeep(form.value);
+
+        if (formValues.logoutTime) {
+            formValues.extProfile = {
+                logoutTime: formValues.logoutTime,
+            };
+            delete formValues.logoutTime;
+        }
+
+        const response = await this.userService.updateProfile(formValues, {
             updatePartial: true,
             isAfterDepositWithdraw: false,
             requestConfirmation: true,
