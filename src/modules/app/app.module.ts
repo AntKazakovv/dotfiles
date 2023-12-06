@@ -112,7 +112,6 @@ export class AppModule {
         if (queryParams.some(parameter => path.includes(parameter))) {
             this.initialPath = {};
             const values: string[] = path.split('?')?.[1]?.split('&') || [];
-
             if (values.length) {
                 for (const value of values) {
                     const parts: string[] = value.split('=');
@@ -122,7 +121,6 @@ export class AppModule {
                 if (this.initialPath.hasOwnProperty('praxis_transaction_status')) {
                     this.checkPraxisTransactionStatus();
                 };
-
                 this.actionService.processMessages(this.initialPath);
             }
         }

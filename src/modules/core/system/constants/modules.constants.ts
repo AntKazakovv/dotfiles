@@ -39,6 +39,7 @@ export type TModuleName =
     | 'gambling-ban'
     | 'seo'
     | 'aml'
+    | 'wheel'
     | 'multi-wallet'
     | 'two-factor-auth'
     | 'youtube-block';
@@ -260,5 +261,10 @@ export const modulesApp: Record<TModuleName, IFunctionImportModule> = {
         const m = await import('wlc-engine/modules/youtube-block/youtube-block.module');
         callback(name, m);
         return m.YoutubeBlockModule;
+    },
+    'wheel': async (name: TModuleName, callback: Function) => {
+        const m = await import('wlc-engine/modules/wheel/wheel.module');
+        callback(name, m);
+        return m.WheelModule;
     },
 } as const;

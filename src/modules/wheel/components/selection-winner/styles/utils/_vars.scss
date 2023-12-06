@@ -1,0 +1,85 @@
+$customConfig: () !default;
+$config: map-merge((
+    'titleFontStyle': (
+        375: 'ThirdTitleBold',
+        560: 'QoteTextBold',
+    ),
+    'amountFontStyle': (
+        375: 'QoteTextBold',
+        560: 'PromoTitle',
+    ),
+    'amountTitleFontStyle': (
+        375: 'PrimaryTextBold',
+        560: 'ThirdTitleBold',
+    ),
+    'amountTitleFontColor': var(--mc-baseMain),
+    'amountFontColor': var(--mc-baseMain),
+    'labelFontStyle': (
+        375: 'PrimaryText',
+        560: 'ThirdTitle',
+    ),
+    'labelFontColor': var(--mc-baseMain),
+    'numberParticipantsFontColor': var(--mc-baseMain),
+    'numberText': (
+        375: 'PrimaryText',
+        560: 'ThirdTitle',
+    ),
+    'numberTextColor': var(--mc-baseMain),
+    'listColumns': (
+        375: repeat(1, 1fr),
+        1200: repeat(1, 1fr),
+    ),
+    'variableShift': (
+        375: 225px,
+        768: 215px,
+    ),
+    'heightWinners': 100%,
+    'backgroundWinners': linear-gradient(180deg, #ffbe3d 0%, #feb633 0.01%, #fee6b6 29.69%, #ffe0a2 43.23%, #ffc665 58.33%, #ffac1b 72.4%, #ffc058 85.94%, #be842f 100%),
+    'borderRadiusWinners': ef.size(2),
+    'winnersWidth': (
+        375: 187px,
+        768: 225px,
+    ),
+    'arrowPosTop': 160%,
+    'arrowPosLeft': (
+        375: 42%,
+        768: 46%,
+    ),
+    'fadeBackgroundLeft': linear-gradient(270deg, rgba(21, 26, 34, 0) 42.54%, #151a22 100%),
+    'fadeBackgroundRight': linear-gradient(90deg, rgba(21, 26, 34, 0) 42.54%, #151a22 100%),
+    'fadeWidth': 120px,
+    'fadeHeight': calc(100% + 25px),
+    'drumWidth': 100%,
+    'drumPadding': ef.size(1) 0 ef.size(1) 0,
+    'posTopWinners': 6px,
+
+    'contestInfoDisplay': flex,
+    'contestInfoDir': column,
+    'contestInfoAlign': center,
+    'contestJustify': center,
+    'contestInfoGap': ef.size(4),
+    'contestInfoMargin': 0 0 ef.size(11) 0,
+
+    'amountInfoDisplay': flex,
+    'amountInfoDir': column,
+    'amountInfoWrap': nowrap,
+    'amountInfoAlign': center,
+    'amountInfoJustify': center,
+
+    'winnersInfoDisplay': flex,
+    'winnersInfoDir': column,
+    'winnersInfoWrap': nowrap,
+    'winnersInfoAlign': center,
+    'winnersInfoJustify': center,
+    'winnersInfoPosition': relative,
+
+    'drumLineDisplay': flex,
+    'drumLineDir': row,
+    'drumLineWidth': 100%,
+    'drumLineHeight': 60px,
+    'drumLineGap': ef.size(2),
+    'leftPosWinnersDesk': 101px,
+    'leftPosWinnersMobile': 85px,
+    'backgroundWinnersLeftLine': linear-gradient(180deg, #ffbe3d 0%, #feb633 0.01%, #fee6b6 29.69%, #ffe0a2 43.23%, #ffc665 58.33%, #ffac1b 72.4%, #ffc058 85.94%, #be842f 100%),
+    'backgroundWinnersRightLine': linear-gradient(180deg, #ffbe3d 0%, #feb633 0.01%, #fee6b6 29.69%, #ffe0a2 43.23%, #ffc665 58.33%, #ffac1b 72.4%, #ffc058 85.94%, #be842f 100%),
+), $customConfig);

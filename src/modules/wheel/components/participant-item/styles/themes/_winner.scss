@@ -1,0 +1,62 @@
+.wlc-participant-item--theme-winner:host {
+
+    .wlc-participant-item {
+
+        &__content {
+            display: ef.get-value($themeWinner, 'contentDisplay');
+            flex-direction: ef.get-value($themeWinner, 'contentFlexDir');
+            align-content: ef.get-value($themeWinner, 'contentAlign');
+            align-items: ef.get-value($themeWinner, 'contentAlign');
+            justify-content: ef.get-value($themeWinner, 'contentJustify');
+            width: ef.get-value($themeWinner, 'contentWidth');
+            height: ef.get-value($themeWinner, 'contentHeight');
+            padding: ef.get-value($themeWinner, 'contentPadding');
+            row-gap: ef.get-value($themeWinner, 'contentGap');
+            background: ef.get-value($themeWinner, 'ContentBkgColor');
+            border-radius: ef.get-value($themeWinner, 'contentBorderRadius');
+        }
+
+        &__avatar-wrapper {
+            border-radius: ef.get-value($themeWinner, 'AvatarBorderRadius');
+            overflow: hidden;
+        }
+
+        &__avatar {
+            width: ef.get-value($themeWinner, 'avatarWidth');
+            height: ef.get-value($themeWinner, 'avatarHeight');
+
+            ::ng-deep {
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+
+        &__name {
+            @include text.get-text-style(ef.get-value($themeWinner, 'nameFontStyle'), ef.get-value($themeWinner, 'nameFontColor'));
+            @include bm.lineClamp(1);
+            text-align: ef.get-value($themeWinner, 'textAlignName');
+        }
+
+        &__id {
+            @include text.get-text-style(ef.get-value($themeWinner, 'idFontStyle'), ef.get-value($themeWinner, 'idFontColor'));
+            text-align: ef.get-value($themeWinner, 'textAlignID');
+        }
+    }
+
+    &.wlc-participant-item--its-you {
+
+        .wlc-participant-item {
+
+            &__content {
+                background: ef.get-value($themeWinner, 'itsYouBackground');
+            }
+
+            &__id {
+                @include text.get-text-style(ef.get-value($themeWinner, 'idFontStyle'), ef.get-value($themeWinner, 'itsYouFontColorID'));
+            }
+        }
+    }
+}

@@ -9,7 +9,10 @@ import {
     Output,
     EventEmitter,
     SimpleChanges,
+    ElementRef,
+    Renderer2,
 } from '@angular/core';
+import {DOCUMENT} from '@angular/common';
 
 import {DateTime} from 'luxon';
 import {
@@ -50,6 +53,7 @@ import * as Params from './timer.params';
 })
 export class TimerComponent extends AbstractComponent implements OnInit, OnChanges {
     @Input() public value: string | DateTime;
+    @Input() public timeRemaining: number;
     @Input() public text: string;
     @Input() public noCountDown: boolean;
     @Input() public countUp: boolean;
@@ -68,6 +72,10 @@ export class TimerComponent extends AbstractComponent implements OnInit, OnChang
     public minutes: string = '00';
     public hours: string = '00';
     public days: string = '00';
+    //circle length, 2*Pi*R
+    protected fullCircle: number = 283;
+    protected initialValue: number;
+    protected afterCorrected: boolean = false;
 
     private valueFormat: DateTime;
     private secondsToDday: number;
@@ -81,6 +89,9 @@ export class TimerComponent extends AbstractComponent implements OnInit, OnChang
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITimerCParams,
+        @Inject(DOCUMENT) protected document: Document,
+        protected element: ElementRef,
+        protected renderer: Renderer2,
         configService: ConfigService,
         protected timerService: TimerService,
         cdr: ChangeDetectorRef,
@@ -134,7 +145,42 @@ export class TimerComponent extends AbstractComponent implements OnInit, OnChang
             return this.reg.test(this.$params.common?.value as string);
         } else {
             this.valueFormat = this.$params.common?.value as DateTime;
+
+            if (this.$params.theme === 'circle') {
+                this.initialValue = Math.ceil(this.valueFormat.toSeconds() - DateTime.local().toSeconds());
+            }
+
             return DateTime.isDateTime(this.$params.common?.value);
+        }
+    }
+
+    protected getCalculateFraction(): number {
+        let timeFraction: number = this.timeRemaining / this.initialValue;
+        timeFraction = Math.floor((timeFraction - (1 / this.initialValue) * (1 - timeFraction)) * this.fullCircle);
+        timeFraction = this.fullCircle - timeFraction;
+        this.afterCorrected = true;
+
+        return timeFraction;
+    }
+
+    protected setCircleDasharray(timeLeft: number): void {
+        let timeFraction: number = timeLeft / this.initialValue;
+        timeFraction = Math.floor((timeFraction - (1 / this.initialValue) * (1 - timeFraction)) * this.fullCircle);
+
+        this.afterCorrected
+            ? timeFraction
+            : timeFraction = timeFraction - this.getCalculateFraction();
+
+        const circleDasharray = `${timeFraction.toFixed(0)} ${this.fullCircle}`;
+        const timerCircle = this.element.nativeElement.querySelector('.wlc-timer__path-remaining');
+
+        if (timerCircle) {
+
+            if (timeFraction > 0) {
+                this.renderer.setAttribute(timerCircle, 'stroke-dasharray', circleDasharray);
+            } else {
+                this.renderer.setAttribute(timerCircle, 'display', 'none');
+            }
         }
     }
 
@@ -154,6 +200,14 @@ export class TimerComponent extends AbstractComponent implements OnInit, OnChang
         }
 
         if (this.timeDifference > 0) {
+
+            if (this.$params.theme === 'circle' && this.timeRemaining) {
+                this.timeDifference = this.timeDifference - ((this.initialValue - this.timeRemaining) * 1000);
+
+                if (this.timeDifference <= 0) {
+                    this.timeDifference = 0;
+                }
+            }
             this.allocateTimeUnits(this.timeDifference);
         }
 
@@ -163,6 +217,10 @@ export class TimerComponent extends AbstractComponent implements OnInit, OnChang
             }, 1000);
             this.intervalSub.unsubscribe();
             this.intervalSub = null;
+
+            if (this.$params.theme === 'circle') {
+                this.allocateTimeUnits(0);
+            }
         }
     }
 
@@ -177,5 +235,9 @@ export class TimerComponent extends AbstractComponent implements OnInit, OnChang
         this.minutes = ('0' + this.minutesToDday).slice(-2);
         this.hours = ('0' + this.hoursToDday).slice(-2);
         this.days = ('0' + this.daysToDday).slice(-2);
+
+        if (this.$params.theme === 'circle') {
+            this.setCircleDasharray(Math.ceil(timeDifference / DateHelper.milliSecondsInSecond));
+        }
     }
 }

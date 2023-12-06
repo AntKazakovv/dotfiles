@@ -74,3 +74,32 @@ $themeWolf: map-merge((
     'itemValueHeightSm': 16px,
     'itemValuePaddingSm': 0,
 ), $customThemeWolf);
+
+$customThemeCircle: () !default;
+$themeCircle: map-merge((
+    'timerTop': (
+        375: 28px,
+        560: 25%,
+    ),
+    'timerLeft': (
+        375: 25px,
+        560: 22%,
+    ),
+    'timerFontStyle': (
+        375: 'ThirdTitleBold',
+        560: 'QoteTextBold',
+    ),
+    'timerFontColor': var(--mc-secondary),
+    'pathWidth': 3px,
+    'pathElapsedColor': var(--mc-bg300),
+    'pathRemainingColor': var(--mc-secondary),
+    'timerWidth': (
+        375: 100px,
+        560: 140px,
+    ),
+    'timerHeight': (
+        375: 100px,
+        560: 140px,
+    ),
+    'marginBlockTimer': auto,
+), $customThemeCircle);

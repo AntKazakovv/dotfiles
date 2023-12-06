@@ -457,4 +457,17 @@ $themeDefault: map-merge((
     // history-wins-modal
 
     'fastDepositModalBg': var(--mc-bg700),
+
+    //wheel-modals
+    'resultWheelModalWidth': (
+        1024: 1000px,
+    ),
+    'raffleCancelModalWidth': (
+        1024: 1000px,
+    ),
+    'paddingSelectionWinnerModal': ef.size(6) 0 ef.size(8),
+    'paddingGatheringParticipantsModal': ef.size(6) 0,
+    'paddingSelectionWinner': ef.size(6) 0 ef.size(8),
+    'paddingResultWheelModal': ef.size(6),
+    //wheel-modals
 ), $customThemeDefault);

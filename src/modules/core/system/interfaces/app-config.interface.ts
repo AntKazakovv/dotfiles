@@ -142,6 +142,10 @@ export interface ISiteConfig {
     // Current version T&C. Set in the backend config
     termsOfService?: string;
     Enable2FAGoogle?: boolean;
+    // Enabled stream-wheel
+    StreamWheel?: boolean;
+    // Auto or button
+    StreamWheelCompletion?: string;
 }
 
 export interface ISiteconfigLanguage {

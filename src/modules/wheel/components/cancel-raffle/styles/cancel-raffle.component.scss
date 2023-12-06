@@ -1,0 +1,49 @@
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+
+@import './utils/vars';
+
+.wlc-cancel-raffle--theme-default:host {
+    display: flex;
+    flex-direction: ef.get-value($config, 'direction');
+    flex-wrap: ef.get-value($config, 'wrap');
+    align-content: ef.get-value($config, 'alignContent');
+    align-items: ef.get-value($config, 'alignItems');
+    justify-content: ef.get-value($config, 'justifyContent');
+
+    .wlc-cancel-raffle {
+
+        &__title {
+            @include text.get-text-style(ef.get-value($config, 'titleFontStyle', 375), ef.get-value($config, 'fontColor'));
+            text-align: ef.get-value($config, 'textTitleAlign');
+
+            @include mq.min(560) {
+                @include text.get-text-style(ef.get-value($config, 'titleFontStyle', 560), ef.get-value($config, 'fontColor'));
+            }
+        }
+
+        &__message {
+            @include text.get-text-style(ef.get-value($config, 'messageFontStyle', 375), ef.get-value($config, 'fontColor'));
+            margin: ef.get-value($config, 'marginMessage');
+            text-align: center;
+
+            @include mq.min(560) {
+                @include text.get-text-style(ef.get-value($config, 'messageFontStyle', 560), ef.get-value($config, 'fontColor'));
+            }
+        }
+
+        &__illustration {
+            margin: ef.get-value($config, 'marginIllustration');
+
+            ::ng-deep {
+
+                img {
+                    @include bm.get-mq-map('width', $config, 'illustrationWidth');
+                    @include bm.get-mq-map('height', $config, 'illustrationHeight');
+                }
+            }
+        }
+    }
+}

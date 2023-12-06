@@ -1,0 +1,91 @@
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+
+@import './utils/vars';
+
+.wlc-create-wheel--theme-default:host {
+
+    display: flex;
+
+    .wlc-create-wheel {
+
+        &__wrapper-illustration {
+            display: flex;
+            width: ef.get-value($config, 'widthWrapperIllustration');
+
+            @include mq.max(560) {
+                justify-content: center;
+                margin-top: ef.get-value($config, 'marginTopWrapperIllustration');
+            }
+        }
+
+        &__illustration {
+            @include bm.get-mq-map('top', $config, 'illustrationPosTop');
+            @include bm.get-mq-map('left', $config, 'illustrationPosLeft');
+
+            position: absolute;
+            z-index: 1;
+
+            ::ng-deep {
+
+                img {
+                    @include bm.get-mq-map('width', $config, 'illustrationWidth');
+                    @include bm.get-mq-map('height', $config, 'illustrationHeight');
+                }
+            }
+
+            @include mq.max(560) {
+                flex-direction: column-reverse;
+                align-items: center;
+            }
+        }
+
+        &__title {
+            @include text.get-text-style(ef.get-value($config, 'titleTextStyle'), ef.get-value($config, 'titleTextColor'));
+            margin: ef.get-value($config, 'titleMargin');
+            @include mq.max(560) {
+                text-align: center;
+            }
+        }
+
+        &__wrapper-form {
+
+            ::ng-deep {
+
+                .wlc-form-wrapper {
+
+                    .wlc-form {
+                        display: ef.get-value($config, 'formDisplay');
+                        grid-gap: ef.get-value($config, 'formGridGap');
+                        grid-template-columns: ef.get-value($config, 'formTemplateColumns');
+                        align-content: ef.get-value($config, 'formAlignContent');
+
+                        .wlc-input--amount {
+                            grid-column: span 2;
+                            width: ef.get-value($config, 'inputAmountWidth');
+                        }
+
+                        .wlc-select {
+                            grid-column: span 1;
+                        }
+
+                        .wlc-btn {
+                            margin: ef.get-value($config, 'btnMargin');
+
+                            @include mq.max(560) {
+                                grid-column: span 2;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @include mq.max(560) {
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+}

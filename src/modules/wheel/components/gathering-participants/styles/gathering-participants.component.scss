@@ -1,0 +1,119 @@
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+
+@import './utils/vars';
+
+.wlc-gathering-participants--theme-default:host {
+
+    .wlc-gathering-participants {
+
+        &__loader {
+            margin: ef.get-value($config, 'loaderMargin');
+        }
+
+        &__title {
+            @include text.get-text-style(ef.get-value($config, 'titleFontStyle', 375), ef.get-value($config, 'titleFontColor'));
+            text-align: ef.get-value($config, 'titleTextAlign');
+
+            @include mq.min(560) {
+                @include text.get-text-style(ef.get-value($config, 'titleFontStyle', 560), ef.get-value($config, 'titleFontColor'));
+            }
+        }
+
+        &__container {
+            @include bm.get-mq-map('flex-direction', $config, 'directionContainer');
+            @include bm.get-mq-map('margin', $config, 'marginContainer');
+            @include bm.get-mq-map('column-gap', $config, 'containerColumnGap');
+            @include bm.get-mq-map('grid-template-columns', $config, 'columnsContainer');
+            display: ef.get-value($config, 'displayContainer');
+            align-items: ef.get-value($config, 'alignItemsContainer');
+            justify-content: ef.get-value($config, 'justifyItemsContainer');
+            width: ef.get-value($config, 'widthContainer');
+            max-width: ef.get-value($config, 'maxWidthContainer');
+            row-gap: ef.get-value($config, 'containerRowGap');
+        }
+
+        &__number-participants--title,
+        &__amount--title {
+            @include text.get-text-style(ef.get-value($config, 'labelFontStyle', 375), ef.get-value($config, 'labelFontColor'));
+            text-align: center;
+            @include mq.min(560) {
+                @include text.get-text-style(ef.get-value($config, 'labelFontStyle', 560), ef.get-value($config, 'labelFontColor'));
+            }
+        }
+
+        &__number-participants--value,
+        &__amount--value {
+            @include text.get-text-style(ef.get-value($config, 'titleFontStyle', 375), ef.get-value($config, 'titleFontColor'));
+            text-align: ef.get-value($config, 'amountTextAlign');
+
+            @include mq.min(560) {
+                @include text.get-text-style(ef.get-value($config, 'titleFontStyle', 560), ef.get-value($config, 'titleFontColor'));
+            }
+        }
+
+        &__wrapper-btn {
+            display: ef.get-value($config, 'displayWrapperBtn');
+            flex-direction: ef.get-value($config, 'flexDirectionWrapperBtn');
+            flex-wrap: ef.get-value($config, 'flexWrapWrapperBtn');
+
+            align-content: ef.get-value($config, 'alignContentWrapWrapperBtn');
+            justify-content: ef.get-value($config, 'justifyContentWrapWrapperBtn');
+            margin: ef.get-value($config, 'marginWrapperBtn');
+
+            .wlc-btn {
+                min-width: ef.get-value($config, 'maxWidthWrapperBtn');
+                padding: ef.get-value($config, 'paddingWrapperBtn');
+
+                ::ng-deep {
+
+                    .wlc-btn__text {
+
+                        .wlc-icon {
+                            margin: ef.get-value($config, 'iconMargin');
+
+                            svg {
+                                fill: ef.get-value($config, 'fillCopySvg');
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &__divider {
+            @include bm.get-mq-map('display', $config, 'dividerDisplay');
+            width: ef.get-value($config, 'dividerWidth');
+            height: ef.get-value($config, 'dividerHeight');
+            margin: ef.get-value($config, 'dividerMargin');
+            background: ef.get-value($config, 'dividerBg');
+            border-radius: ef.get-value($config, 'dividerRadius');
+        }
+
+        &__title-table {
+            @include text.get-text-style(ef.get-value($config, 'titleTableText', 375), ef.get-value($config, 'titleFontColor'));
+            margin: 20px auto;
+            text-align: center;
+
+            @include mq.min(560) {
+                @include text.get-text-style(ef.get-value($config, 'titleTableText', 560), ef.get-value($config, 'titleFontColor'));
+            }
+        }
+
+        &__content {
+            height: ef.get-value($config, 'contentHeight');
+        }
+
+        &__list-wrapper {
+            @include bm.get-mq-map('grid-template-columns', $config, 'listColumns');
+            display: ef.get-value($config, 'displayListWrapper');
+            grid-gap: ef.get-value($config, 'gapListWrapper');
+            grid-template-columns: ef.get-value($config, 'gridColumnsListWrapper');
+            justify-items: ef.get-value($config, 'justifyItemsListWrapper');
+            max-height: ef.get-value($config, 'maxHeightListWrapper');
+            overflow: hidden;
+        }
+    }
+}

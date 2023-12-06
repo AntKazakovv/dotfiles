@@ -1,0 +1,306 @@
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+
+@import './utils/vars';
+
+.wlc-selection-winner--theme-default:host {
+
+    .wlc-selection-winner {
+
+        &__title {
+            @include text.get-text-style(ef.get-value($config, 'titleFontStyle', 375), ef.get-value($config, 'titleFontColor'));
+            text-align: center;
+
+            @include mq.min(560) {
+                @include text.get-text-style(ef.get-value($config, 'titleFontStyle', 560), ef.get-value($config, 'titleFontColor'));
+            }
+        }
+
+        &__contest-info {
+            display: ef.get-value($config, 'contestInfoDisplay');
+            flex-direction: ef.get-value($config, 'contestInfoDir');
+            align-items: ef.get-value($config, 'contestInfoAlign');
+            justify-content: ef.get-value($config, 'contestJustify');
+            row-gap: ef.get-value($config, 'contestInfoGap');
+            margin: ef.get-value($config, 'contestInfoMargin');
+        }
+
+        &__container-amount-info {
+            display: ef.get-value($config, 'amountInfoDisplay');
+            flex-direction: ef.get-value($config, 'amountInfoDir');
+            flex-wrap: ef.get-value($config, 'amountInfoWrap');
+            align-items: ef.get-value($config, 'amountInfoAlign');
+            justify-content: ef.get-value($config, 'amountInfoJustify');
+        }
+
+        &__container-winners-info {
+            position: ef.get-value($config, 'winnersInfoPosition');
+            display: ef.get-value($config, 'winnersInfoDisplay');
+            flex-direction: ef.get-value($config, 'winnersInfoDir');
+            flex-wrap: ef.get-value($config, 'winnersInfoWrap');
+            align-items: ef.get-value($config, 'winnersInfoAlign');
+            justify-content: ef.get-value($config, 'winnersInfoJustify');
+        }
+
+        &__amount--title {
+            @include text.get-text-style(ef.get-value($config, 'amountTitleFontStyle', 375), ef.get-value($config, 'amountTitleFontColor'));
+
+            @include mq.min(560) {
+                @include text.get-text-style(ef.get-value($config, 'amountTitleFontStyle', 560), ef.get-value($config, 'amountTitleFontColor'));
+            }
+        }
+
+        &__number-winners,
+        &__number-participants {
+            @include text.get-text-style(ef.get-value($config, 'numberText', 375), ef.get-value($config, 'numberTextColor'));
+
+            @include mq.min(560) {
+                @include text.get-text-style(ef.get-value($config, 'numberText', 560), ef.get-value($config, 'numberTextColor'));
+            }
+        }
+
+        &__amount--value {
+            @include text.get-text-style(ef.get-value($config, 'amountFontStyle', 375), ef.get-value($config, 'amountFontColor'));
+            text-align: center;
+
+            @include mq.min(560) {
+                @include text.get-text-style(ef.get-value($config, 'amountFontStyle', 560), ef.get-value($config, 'amountFontColor'));
+            }
+        }
+
+        &__content-first {
+            position: relative;
+
+            &:before {
+                @include bm.get-mq-map('width', $config, 'winnersWidth');
+                content: '';
+                position: absolute;
+                top: ef.get-value($config, 'posTopWinners');
+                left: calc(50% - #{ef.get-value($config, 'leftPosWinnersDesk')});
+                z-index: 2;
+                height: ef.get-value($config, 'heightWinners');
+                border-radius: ef.get-value($config, 'borderRadiusWinners');
+                background: ef.get-value($config, 'backgroundWinnersLeftLine'), ef.get-value($config, 'backgroundWinnersRightLine');
+                background-repeat: repeat-y;
+                background-position: top left, top right;
+                background-size: 10px 100%;
+
+                @include mq.max(768) {
+                    left: calc(50% - #{ef.get-value($config, 'leftPosWinnersMobile')});
+                }
+            }
+        }
+
+        &__content {
+            position: relative;
+            width: 100%;
+
+            &:before {
+                @include bm.get-mq-map('width', $config, 'winnersWidth');
+                content: '';
+                position: absolute;
+                top: ef.get-value($config, 'posTopWinners');
+                left: calc(50% - #{ef.get-value($config, 'leftPosWinnersDesk')});
+                z-index: -1;
+                height: ef.get-value($config, 'heightWinners');
+                background: ef.get-value($config, 'backgroundWinners');
+                border-radius: ef.get-value($config, 'borderRadiusWinners');
+
+                @include mq.max(768) {
+                    left: calc(50% - #{ef.get-value($config, 'leftPosWinnersMobile')});
+                }
+            }
+        }
+
+        &__drum {
+            position: relative;
+            width: ef.get-value($config, 'drumWidth');
+            padding: ef.get-value($config, 'drumPadding');
+            overflow: hidden;
+        }
+
+        &__fade-left {
+            position: absolute;
+            top: 0;
+            z-index: 3;
+            width: ef.get-value($config, 'fadeWidth');
+            height: ef.get-value($config, 'fadeHeight');
+            background: ef.get-value($config, 'fadeBackgroundLeft');
+        }
+
+        &__fade-right {
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 3;
+            width: ef.get-value($config, 'fadeWidth');
+            height: ef.get-value($config, 'fadeHeight');
+            background: ef.get-value($config, 'fadeBackgroundRight');
+        }
+
+        &__arrow {
+            @include bm.get-mq-map('left', $config, 'arrowPosLeft');
+            position: absolute;
+            top: ef.get-value($config, 'arrowPosTop');
+            z-index: 2;
+        }
+
+        &__drum-line {
+            display: ef.get-value($config, 'drumLineDisplay');
+            flex-direction: ef.get-value($config, 'drumLineDir');
+            width: ef.get-value($config, 'drumLineWidth');
+            height: ef.get-value($config, 'drumLineHeight');
+            margin: 10px 0 0 -22px;
+            column-gap: ef.get-value($config, 'drumLineGap');
+
+            &.drum-line0 {
+
+                &.animation-on {
+
+                    div {
+                        animation: scroll 5s ease-in-out forwards;
+                    }
+                }
+            }
+
+            &.drum-line1 {
+
+                &.animation-on {
+
+                    div {
+                        animation: scroll 5s 5s ease-in-out forwards;
+                    }
+                }
+            }
+
+            &.drum-line2 {
+
+                &.animation-on {
+
+                    div {
+                        animation: scroll 5s 10s ease-in-out forwards;
+                    }
+                }
+            }
+
+            &.drum-line3 {
+
+                &.animation-on {
+
+                    div {
+                        animation: scroll 5s 15s ease-in-out forwards;
+                    }
+                }
+            }
+
+            &.drum-line4 {
+
+                &.animation-on {
+
+                    div {
+                        animation: scroll 5s 20s ease-in-out forwards;
+                    }
+                }
+            }
+
+            &.drum-line5 {
+
+                &.animation-on {
+
+                    div {
+                        animation: scroll 5s 25s ease-in-out forwards;
+                    }
+                }
+            }
+
+            &.drum-line6 {
+
+                &.animation-on {
+
+                    div {
+                        animation: scroll 5s 30s ease-in-out forwards;
+                    }
+                }
+            }
+
+            &.drum-line7 {
+
+                &.animation-on {
+
+                    div {
+                        animation: scroll 5s 35s ease-in-out forwards;
+                    }
+                }
+            }
+
+            &.drum-line8 {
+
+                &.animation-on {
+
+                    div {
+                        animation: scroll 5s 40s ease-in-out forwards;
+                    }
+                }
+            }
+
+            &.drum-line9 {
+
+                &.animation-on {
+
+                    div {
+                        animation: scroll 5s 45s ease-in-out forwards;
+                    }
+                }
+            }
+
+            &.drum-line10 {
+
+                &.animation-on {
+
+                    div {
+                        animation: scroll 5s 50s ease-in-out forwards;
+                    }
+                }
+            }
+
+            @include mq.max(1024) {
+                margin: 10px 0 0 -87px;
+            }
+
+            @include mq.max(900) {
+                margin: 10px 0 0 -153px;
+            }
+
+            @include mq.max(768) {
+                margin: 10px 0 0 -92px;
+            }
+
+            @include mq.max(720) {
+                width: 187px;
+                margin: 10px 0 0 -133px;
+            }
+
+            @include mq.max(640) {
+                margin: 10px 0 0 -173px;
+            }
+
+            @include mq.max(560) {
+                margin: 10px auto 0;
+                transform: translate(-183%, 0%);
+            }
+        }
+
+        @keyframes scroll {
+
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(calc((215px * var(--shift))));
+            }
+        }
+    }
+}

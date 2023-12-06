@@ -1,0 +1,103 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/engine.variables' as ev;
+
+@import './utils/vars';
+
+.wlc-widget-wheel:host {
+
+    .wlc-widget-wheel {
+        position: fixed;
+        bottom: ef.get-value($config, 'posBot');
+        left: ef.get-value($config, 'posLeft');
+        display: ef.get-value($config, 'displayWidget');
+        flex-direction: ef.get-value($config, 'direction');
+        align-items: ef.get-value($config, 'widgetItemsAlign');
+        transition: ef.get-value($config, 'spin');
+
+        &.open-widget {
+            left: ef.get-value($config, 'posLeftOpen');
+        }
+
+        &__wrapper-button {
+            position: absolute;
+            display: ef.get-value($config, 'wrapperButtonDisplay');
+            flex-direction: ef.get-value($config, 'wrapperButtonDirection');
+            align-content: ef.get-value($config, 'buttonWrapperAlign');
+            align-items: ef.get-value($config, 'buttonWrapperAlignItems');
+            justify-content: ef.get-value($config, 'buttonWrapperJustify');
+            width: ef.get-value($config, 'buttonWrapperWidth');
+            height: ef.get-value($config, 'buttonWrapperHeight');
+            padding: ef.get-value($config, 'buttonWrapperPadding');
+            background-color: ef.get-value($config, 'borderWrapperColor');
+            border-radius: ef.get-value($config, 'borderRadius');
+        }
+
+        &__button {
+            width: ef.get-value($config, 'buttonWidth');
+            height: ef.get-value($config, 'buttonHeight');
+            background-color: ef.get-value($config, 'bgButton');
+            border-radius: ef.get-value($config, 'borderRadius');
+            cursor: pointer;
+
+            &:hover {
+                background-color: ef.get-value($config, 'bgButtonHover');
+            }
+
+            .wlc-widget-wheel__title-button {
+                @include text.get-text-style(ef.get-value($config, 'buttonTextStyle'));
+                margin: ef.get-value($config, 'buttonMargin');
+                text-align: ef.get-value($config, 'buttonTextAlign');
+            }
+
+            ::ng-deep {
+
+                .wlc-timer {
+                    background: none;
+
+                    .wlc-timer__content {
+
+                        padding: ef.get-value($config, 'timerPadding');
+                        background: none;
+
+                        .wlc-timer__clock-icon {
+                            display: none;
+                        }
+
+                        .wlc-timer__timer-text {
+                            margin: 0 auto;
+                        }
+                    }
+                }
+            }
+        }
+
+        &__roulette {
+            position: absolute;
+            left: ef.get-value($config, 'roulettePosLeft');
+            z-index: 1;
+            width: ef.get-value($config, 'widthRoulette');
+            cursor: pointer;
+            animation: 2s linear 0s normal none infinite running spin;
+        }
+
+        &__arrow {
+            position: absolute;
+            left: ef.get-value($config, 'arrowPosLeft');
+            z-index: 2;
+            cursor: pointer;
+        }
+
+        @keyframes spin {
+
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    }
+}

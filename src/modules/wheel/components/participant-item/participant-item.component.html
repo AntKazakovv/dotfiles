@@ -1,0 +1,19 @@
+<div class="{{$class}}__content">
+    <div class="{{$class}}__avatar-wrapper">
+        <div class="{{$class}}__avatar"
+            wlc-icon
+            [iconPath]="$params.participant.avatar">
+        </div>
+    </div>
+
+    <div class="{{$class}}__info">
+        <ng-container *ngIf="itsYou else name">
+            <div class="{{$class}}__name">{{'You' | translate}}</div>
+        </ng-container>
+        <div class="{{$class}}__id">ID:{{$params.participant.id}}</div>
+    </div>
+</div>
+
+<ng-template #name>
+    <div class="{{$class}}__name">{{$params.participant.name}}</div>
+</ng-template>

@@ -1,0 +1,18 @@
+<div class="{{$class}}__title">{{'Waiting for results' | translate}}</div>
+<div class="{{$class}}__message">{{'Wait for the announcement of the winners' | translate}}</div>
+<ng-container *ngIf="$params.animation.use else image">
+    <div class="{{$class}}__animations">
+        <div wlc-lottie-animation
+            [inlineParams]="animationParams">
+        </div>
+    </div>
+</ng-container>
+
+<ng-template #image>
+    <div class="{{$class}}__image-wrapper">
+        <div class="{{$class}}__image"
+            wlc-icon
+            [iconPath]="$params.imagePath">
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,106 @@
+$customConfig: () !default;
+$config: map-merge((
+    'displayContainerDef': grid,
+    'containerColumnsDef': (
+        375: 1fr,
+        900: 1fr 1fr,
+    ),
+
+    'wrapIllustrationDisplay': grid,
+    'wrapIllustrationAlign': center,
+    'wrapIllustrationJustify': center,
+
+    'resultInfoDisplay': flex,
+    'resultInfoDirection': column,
+    'resultInfoFlexWrp': wrap,
+    'resultInfoAlign': center,
+    'resultInfoWidth': 100%,
+    'resultInfoHeight': 100%,
+
+    'titleTextAlign': center,
+
+    'containerAmountDisplay': flex,
+    'containerAmountFlexDir': column,
+    'containerAmountWrap': nowrap,
+    'containerAmountAlign': center,
+    'containerAmountJustify': center,
+
+    'miniListDisplay': grid,
+    'miniListColumns': repeat(2, 1fr),
+    'oneWinnerDisplay': flex,
+    'oneWinnerJustify': center,
+
+    'threeWinnersDisplay': flex,
+    'threeWinnersDirection': row,
+    'threeWinnersWrp': wrap,
+    'threeWinnersAlign': center,
+    'threeWinnersJustify': space-evenly,
+
+    'bigListDisplay': grid,
+    'bigListColumns': repeat(2, 1fr),
+    'bigListGap': ef.size(2),
+
+    'miniContainerDisplay': (
+        375: flex,
+        900: grid,
+    ),
+
+    'miniContainerDirection': column-reverse,
+    'miniContainerRowGap': 80px,
+    'miniContainerAlign': center,
+
+    'titleTextStyle': 'QoteTextBold',
+    'titleTextColor': var(--mc-baseMain),
+    'titleFontStyle': (
+        375: 'ThirdTitleBold',
+        560: 'QoteTextBold',
+    ),
+    'labelFontStyle': (
+        375: 'PrimaryTextBold',
+        560: 'ThirdTitleBold',
+    ),
+    'labelFontColor': var(--mc-baseMain),
+    'amountFontStyle': (
+        375: 'QoteTextBold',
+        560: 'PromoTitle',
+    ),
+    'winnersTitleFontStyle': (
+        375: 'ThirdTitleBold',
+        560: 'PrimaryTextMobile',
+    ),
+    'winnersTitleFontColor': var(--mc-baseMain),
+    'amountFontColor': var(--mc-baseMain),
+    'numberParticipantsFontColor': var(--mc-baseMain),
+    'widthWrapperIllustration': (
+        375: 10px,
+        560: 100px,
+        900: 430px,
+    ),
+    'illustrationWidth': (
+        375: 270px,
+        900: 400px,
+        1024: 500px,
+    ),
+    'illustrationHeight': (
+        375: 220px,
+        900: 300px,
+        1024: 100%,
+    ),
+    'illustrationDisplay': (
+        375: none,
+        768: block,
+    ),
+    'columnGapWrapper': 0,
+    'columnGapWrapperBigWins': 0,
+    'marginWrapper': 10px,
+    'titleMargin': 0 0 20px 0,
+    'amountMargin': 0 0 20px 0,
+    'congMargin' : 20px 0,
+    'winnersTitleMargin': 0 0 20px 0,
+    'miniListGap': 10px,
+    'threeWinnersWidth': 290px,
+    'miniResultWheelImgWidth': 270px,
+    'miniResultWheelImgHeight': 280px,
+    'smallImgWidth': 170px,
+    'smallImgHeight': 144px,
+), $customConfig);

@@ -1,0 +1,55 @@
+.wlc-participant-item--theme-default:host {
+
+    .wlc-participant-item {
+
+        &__content {
+            @include bm.get-mq-map('width', $themeDefault, 'contentWidth');
+            display: ef.get-value($themeDefault, 'contentDisplay');
+            flex-direction: ef.get-value($themeDefault, 'contentDirection');
+            flex-wrap: ef.get-value($themeDefault, 'contentWrap');
+            align-content: ef.get-value($themeDefault, 'contentAlign');
+            align-items: ef.get-value($themeDefault, 'itemsAlign');
+            height: ef.get-value($themeDefault, 'contentHeight');
+            padding: ef.get-value($themeDefault, 'contentPadding');
+            column-gap: ef.get-value($themeDefault, 'contentGap');
+            background: ef.get-value($themeDefault, 'ContentBkgColor');
+            border-radius: ef.get-value($themeDefault, 'ContentBorderRadius');
+        }
+
+        &__avatar-wrapper {
+            border-radius: ef.get-value($themeDefault, 'AvatarBorderRadius');
+            overflow: hidden;
+        }
+
+        &__avatar {
+            width: ef.get-value($themeDefault, 'AvatarWidth');
+            height: ef.get-value($themeDefault, 'AvatarHeight');
+            background-position: ef.get-value($themeDefault, 'AvatarPosition');
+            background-size: ef.get-value($themeDefault, 'AvatarBkgSize');
+        }
+
+        &__name {
+            @include text.get-text-style(ef.get-value($themeDefault, 'nameFontStyle'), ef.get-value($themeDefault, 'nameFontColor'));
+            @include bm.lineClamp(1);
+            @include bm.get-mq-map('width', $themeDefault, 'nameWidth');
+        }
+
+        &__id {
+            @include text.get-text-style(ef.get-value($themeDefault, 'idFontStyle'), ef.get-value($themeDefault, 'idFontColor'));
+        }
+    }
+
+    &.wlc-participant-item--its-you {
+
+        .wlc-participant-item {
+
+            &__content {
+                background: ef.get-value($themeDefault, 'itsYouBackground');
+            }
+
+            &__id {
+                @include text.get-text-style(ef.get-value($themeDefault, 'idFontStyle'), ef.get-value($themeDefault, 'itsYouFontColorID'));
+            }
+        }
+    }
+}

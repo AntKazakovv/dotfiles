@@ -62,6 +62,9 @@ export interface IUserInfo {
     ageConfirmed?: boolean;
     agreeWithSelfExcluded?: boolean;
     agreedWithTermsAndConditions?: boolean;
+    allowAccessToAddStreamWheel?: boolean;
+    streamWheelOwner?: number;
+    streamWheelsParticipant?: number[];
 }
 
 export interface IUserProfile {

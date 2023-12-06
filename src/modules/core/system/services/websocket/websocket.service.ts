@@ -52,7 +52,7 @@ export const WSToRestAPIReserve: IIndexing<string> = {
 export const WebSocketEvents: IIndexing<IIndexing<string>> = {
     RECEIVE: {
         LATEST_BETS: 'publicgameaction',
-        STREAMWHEAL: 'streamwheel',
+        STREAMWHEEL: 'streamwheel',
         LOYALTY_GET: 'loyalty.loyalty.get',
         LOYALTY_USERINFO: 'UserInfo',
         USER: 'funcore.wlcinfo.user',

@@ -68,6 +68,7 @@ import {
     IPopupModalConfig,
     IPopupModalItem,
 } from 'wlc-engine/modules/core/system/interfaces/base-config/popup.interface';
+import {WheelService} from 'wlc-engine/modules/wheel';
 import {CustomAsyncHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 
 declare type StringProps<T> = {[key in keyof T as T[key] extends string ? key:never]: T[key]};
@@ -280,6 +281,8 @@ export class ActionService {
         }
 
         this.openPopup(initialPath);
+
+        this.joinToWheel(initialPath);
     }
 
     /**
@@ -391,6 +394,27 @@ export class ActionService {
         if (!this.financesService) {
             this.financesService = await this.injectionService.getService('finances.finances-service');
         }
+    }
+
+    /**
+     * Join to stream-wheel for id from query-parameter
+     *
+     * @param {IIndexing<string>} initialPath
+     * @returns {Promise<void>}
+     */
+    protected async joinToWheel(initialPath: IIndexing<string>): Promise<void> {
+        if (!initialPath.wheel) {
+            return;
+        }
+        await this.configService.ready;
+        const isAuth = this.configService.get('$user.isAuthenticated');
+
+        if (!isAuth) {
+            this.modalService.showModal('login');
+        }
+        const wheelService = await this.injectionService.getService<WheelService>('wheel.wheel-service');
+        await wheelService.getPrizeWheelUserInfo();
+        wheelService.joinUserToWheel(+initialPath.wheel);
     }
 
     protected onEmailUnsubscribe(): void {

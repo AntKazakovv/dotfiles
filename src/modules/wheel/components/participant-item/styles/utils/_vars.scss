@@ -1,0 +1,57 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'nameFontStyle': 'PrimaryTextBold',
+    'nameFontColor': var(--mc-baseMain),
+    'idFontStyle': 'CaptionText',
+    'idFontColor': var(--mc-baseOpacity),
+    //content
+    'contentDisplay': flex,
+    'contentDirection': row,
+    'contentWrap': nowrap,
+    'contentAlign': center,
+    'itemsAlign': center,
+    'contentWidth': (
+        375: 170px,
+        768: 205px,
+    ),
+    'contentHeight': ef.size(12),
+    'contentPadding': ef.size(2),
+    'contentGap': ef.size(2),
+    'ContentBkgColor': var(--mc-bg500),
+    'ContentBorderRadius': ef.size(2),
+    'itsYouBackground': #5daf36,
+    'itsYouFontColorID': #fff,
+    //avatar
+    'AvatarWidth': ef.size(8),
+    'AvatarHeight': ef.size(8),
+    'AvatarBorderRadius': ef.size(2),
+    'nameWidth': (
+        375: 100px,
+        768: 130px,
+    ),
+), $customThemeDefault);
+
+$customThemeWinner: () !default;
+$themeWinner: map-merge((
+    'contentDisplay': flex,
+    'contentFlexDir': column,
+    'contentAlign': center,
+    'contentJustify': space-around,
+    'contentWidth': 140px,
+    'contentHeight': 130px,
+    'contentPadding': ef.size(2),
+    'contentGap': ef.size(2),
+    'contentBorderRadius': ef.size(2),
+    'avatarWidth': 50px,
+    'avatarHeight': 50px,
+    'nameFontStyle': 'PrimaryTextBold',
+    'nameFontColor': var(--mc-baseMain),
+    'idFontStyle': 'CaptionText',
+    'idFontColor': var(--mc-baseOpacity),
+    'itsYouBackground': #5daf36,
+    'itsYouFontColorID': #fff,
+    'AvatarBorderRadius': ef.size(2),
+    'textAlignName': center,
+    'textAlignID': center,
+    'ContentBkgColor': var(--mc-bg500),
+), $customThemeWinner);

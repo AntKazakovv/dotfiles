@@ -5,7 +5,7 @@ import {
 import {DateTime} from 'luxon';
 
 export type ModeType = 'default';
-export type ComponentTheme = 'default' | 'one-line' | 'wolf' | CustomType;
+export type ComponentTheme = 'default' | 'one-line' | 'wolf' | 'circle' | CustomType;
 export type ComponentType = 'default';
 export type AutoModifiersType = ComponentTheme | ModeType;
 export type ManualModifiersType = '';
@@ -22,6 +22,7 @@ export interface ITimerCParams extends IComponentParams<ComponentTheme, Componen
         noDays?: boolean;
         noHours?: boolean;
         serverDateUTC?: number;
+        timeRemaining?: number;
     };
     /** Acronyms for time units */
     acronyms?: {

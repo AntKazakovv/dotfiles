@@ -1,0 +1,29 @@
+$customConfig: () !default;
+$config: map-merge((
+    'titleFontStyle': (
+        375: 'ThirdTitleBold',
+        560: 'QoteTextBold',
+    ),
+    'messageFontStyle': (
+        375: 'PrimaryTextBold',
+        560: 'ThirdTitleBold',
+    ),
+    'fontColor': var(--mc-baseMain),
+    'direction': column,
+    'wrap': nowrap,
+    'alignContent': center,
+    'alignItems': center,
+    'justifyContent': center,
+    'textTitleAlign': center,
+    'marginMessage': ef.size(4) 0 0,
+    'animationWidth': 350px,
+    'marginIllustration': ef.size(8) 0 ef.size(8) 0,
+    'illustrationWidth': (
+        375: 300px,
+        768: 600px,
+    ),
+    'illustrationHeight': (
+        375: 243px,
+        768: 480px,
+    ),
+), $customConfig);

@@ -1,0 +1,82 @@
+$customConfig: () !default;
+$config: map-merge((
+    'loaderMargin': ef.size(4) auto,
+    'titleFontStyle': (
+        375: 'ThirdTitleBold',
+        560: 'QoteTextBold',
+    ),
+    'labelFontStyle': (
+        375: 'PrimaryTextBold',
+        560: 'ThirdTitleBold',
+    ),
+    'labelFontColor': var(--mc-baseMain),
+    'numberParticipantsFontColor': var(--mc-baseMain),
+
+    // Divider
+    'dividerMargin': ef.size(4) 0 0,
+    'dividerBg': var(--mc-baseOpacity),
+    'dividerHeight': 1px,
+    'dividerWidth': 100%,
+    'dividerRadius': ef.get('radius', 'biger'),
+    'dividerCryptoMargin': ef.size(6) 0,
+    'dividerDisplay': (
+        375: block,
+    ),
+    'titleTableText': (
+        375: 'PrimaryText',
+        560: 'ThirdTitle',
+    ),
+    'listColumns': (
+        375: repeat(2, 1fr),
+        640: repeat(3, 1fr),
+        900: repeat(4, 1fr),
+    ),
+    'titleTextAlign': center,
+    'displayContainer': grid,
+    'directionContainer': (
+        375: column,
+        640: row,
+    ),
+    'widthContainer': 100%,
+    'maxWidthContainer': 700px,
+    'columnsContainer': (
+        375: 1fr,
+        640: 1fr 1fr 1fr,
+    ),
+    'wrapContainer': nowrap,
+    'alignItemsContainer': center,
+    'justifyItemsContainer': center,
+    'marginContainer': (
+        375: ef.size(5) 0 0 0,
+        640: ef.size(5) auto 0,
+    ),
+    'containerColumnGap': (
+        375: 25px,
+        768: 60px,
+    ),
+    'containerRowGap' : 10px,
+    'amountTextAlign': center,
+
+    //wrapper-btn
+    'displayWrapperBtn': flex,
+    'flexDirectionWrapperBtn': row,
+    'flexWrapWrapperBtn': nowrap,
+    'alignContentWrapWrapperBtn': center,
+    'justifyContentWrapWrapperBtn': center,
+    'marginWrapperBtn': ef.size(4) auto,
+    'maxWidthWrapperBtn': 130px,
+    'paddingWrapperBtn': 0 10px,
+    'iconMargin': 0 0 0 ef.size(2),
+    'fillCopySvg': #fff,
+    'widthBtnDetermineWinners': 200px,
+    //title-table
+    'marginTitleTable': ef.size(4) auto,
+    //content
+    'contentHeight': 200px,
+    //list-wrapper
+    'displayListWrapper': grid,
+    'gapListWrapper': ef.size(2),
+    // 'gridColumnsListWrapper': 1fr,
+    'justifyItemsListWrapper': center,
+    'maxHeightListWrapper': 100%,
+), $customConfig);

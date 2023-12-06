@@ -1,0 +1,37 @@
+<div *ngIf="enableWheel$ | async"
+    class="{{$class}}"
+    [class.open-widget]="shiftWidget$.value">
+
+    <div wlc-icon
+        class="{{$class}}__roulette"
+        [iconPath]="$params.rouletteIcon"
+        (click)="toggleWidget()">
+    </div>
+
+    <div wlc-icon
+        class="{{$class}}__arrow"
+        [iconPath]="$params.arrowIcon"
+        (click)="toggleWidget()">
+    </div>
+
+    <div class="{{$class}}__wrapper-button">
+        <div class="{{$class}}__button"
+            (click)="openWheel()">
+                <ng-container [ngSwitch]="template$ | async">
+                    <ng-container *ngSwitchCase="'title'" [ngTemplateOutlet]="title"></ng-container>
+                    <ng-container *ngSwitchCase="'timer'" [ngTemplateOutlet]="timer"></ng-container>
+                </ng-container>
+        </div>
+    </div>
+</div>
+
+<ng-template #title>
+    <div class="{{$class}}__title-button"> {{$params.text | translate}} </div>
+</ng-template>
+
+<ng-template #timer>
+    <div wlc-timer
+        [value]="timerValue"
+        [inlineParams]="timerParams">
+    </div>
+</ng-template>

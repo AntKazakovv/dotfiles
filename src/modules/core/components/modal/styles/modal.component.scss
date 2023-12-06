@@ -439,3 +439,53 @@
         padding: ef.get-value($themeDefault, 'loyaltyInfoBodyPadding');
     }
 }
+
+.wlc-modal--create-wheel {
+
+    .modal-dialog {
+        @include bm.get-mq-map('width', $themeDefault, 'createWheelModalWidth');
+        @include bm.get-mq-map('height', $themeDefault, 'createWheelModalHeight');
+        max-width: 1000px;
+    }
+}
+
+.wlc-modal--gathering-participants {
+
+    .modal-dialog {
+        @include bm.get-mq-map('width', $themeDefault, 'raffleCancelModalWidth');
+
+        .wlc-modal__body {
+            margin: 0 auto;
+            padding: ef.get-value($themeDefault, 'paddingGatheringParticipantsModal');
+        }
+    }
+}
+
+.wlc-modal--cancel-contest {
+
+    .modal-dialog {
+        @include bm.get-mq-map('width', $themeDefault, 'raffleCancelModalWidth');
+    }
+}
+
+.wlc-modal--selection-winner {
+
+    .modal-dialog {
+        @include bm.get-mq-map('width', $themeDefault, 'raffleCancelModalWidth');
+
+        .wlc-modal__body {
+            padding: ef.get-value($themeDefault, 'paddingSelectionWinner');
+        }
+    }
+}
+
+.wlc-modal--result-wheel {
+
+    .modal-dialog {
+        @include bm.get-mq-map('width', $themeDefault, 'resultWheelModalWidth');
+
+        .wlc-modal__body {
+            padding: ef.get-value($themeDefault, 'paddingResultWheelModal');
+        }
+    }
+}

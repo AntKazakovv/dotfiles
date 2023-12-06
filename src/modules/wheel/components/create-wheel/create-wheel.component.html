@@ -1,0 +1,13 @@
+<div class="{{$class}}__wrapper-illustration">
+    <div class="{{$class}}__illustration"
+        wlc-icon
+        [iconPath]="$params.pathIllustration"></div>
+</div>
+<div class="{{$class}}__wrapper-form">
+    <div class="{{$class}}__title">{{$params.titleModal | translate}}</div>
+    <div wlc-form-wrapper
+        [config]="configForm"
+        [ngSubmit]="ngSubmit.bind(this)"
+        [formData]="formData$"
+    ></div>
+</div>

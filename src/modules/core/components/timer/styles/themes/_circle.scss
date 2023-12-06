@@ -1,0 +1,51 @@
+.wlc-timer--theme-circle:host {
+    @include bm.get-mq-map('width', $themeCircle, 'timerWidth');
+    @include bm.get-mq-map('height', $themeCircle, 'timerHeight');
+    position: relative;
+    margin: ef.get-value($themeCircle, 'marginBlockTimer');
+
+    .wlc-timer {
+
+        &__circle {
+            fill: none;
+            stroke: none;
+        }
+
+        &__path-elapsed {
+            stroke-width: ef.get-value($themeCircle, 'pathWidth');
+            stroke: ef.get-value($themeCircle, 'pathElapsedColor');
+        }
+
+        &__label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            transform: translate(-50%, -50%);
+
+            .time-text {
+                @include text.get-text-style(ef.get-value($themeCircle, 'timerFontStyle', 375), ef.get-value($themeCircle, 'timerFontColor'));
+
+                @include mq.min(560) {
+                    @include text.get-text-style(ef.get-value($themeCircle, 'timerFontStyle', 560), ef.get-value($themeCircle, 'timerFontColor'));
+                }
+            }
+        }
+
+        &__path-remaining {
+            stroke-width: ef.get-value($themeCircle, 'pathWidth');
+            stroke-linecap: round;
+            transform: rotate(90deg);
+            transform-origin: center;
+            transition: 1s linear all;
+            stroke: ef.get-value($themeCircle, 'pathRemainingColor');
+        }
+
+        &__svg {
+            transform: scaleX(-1);
+        }
+    }
+}

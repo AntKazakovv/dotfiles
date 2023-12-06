@@ -323,6 +323,18 @@ export class UserInfo extends AbstractModel<IUserInfo> {
         return this.data.transfersAllowed;
     }
 
+    public get allowAccessToAddStreamWheel(): boolean {
+        return this.data?.allowAccessToAddStreamWheel;
+    }
+
+    public get streamWheelOwner(): number {
+        return this.data?.streamWheelOwner;
+    }
+
+    public get streamWheelsParticipant(): number[] {
+        return this.data?.streamWheelsParticipant;
+    }
+
     protected override checkData(): void {
         //TODO AFTER RELEASE 13.11.2020
         /*if (!this.data?.status) {

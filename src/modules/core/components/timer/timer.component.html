@@ -1,6 +1,7 @@
 <ng-container [ngSwitch]="$params.theme">
     <ng-container *ngSwitchCase="'one-line'" [ngTemplateOutlet]="themeOneLine"></ng-container>
     <ng-container *ngSwitchCase="'wolf'" [ngTemplateOutlet]="themeWolf"></ng-container>
+    <ng-container *ngSwitchCase="'circle'" [ngTemplateOutlet]="themeCircle"></ng-container>
     <ng-container *ngSwitchDefault [ngTemplateOutlet]="themeDefault"></ng-container>
 </ng-container>
 
@@ -69,6 +70,57 @@
             <div class="secondary-text">{{$params.common?.text | translate}}:</div>
             <div *ngIf="$params.common.noCountDown" class="time-text">{{$params.common.value}}</div>
             <ng-container *ngIf="!$params.common.noCountDown" [ngTemplateOutlet]="countdown"></ng-container>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #themeCircle>
+    <div class="{{$class}}">
+        <svg class="{{$class}}__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <g class="{{$class}}__circle">
+                <circle class="{{$class}}__path-elapsed" cx="50" cy="50" r="45" />
+                <path class="{{$class}}__path-remaining" stroke-dasharray="283"
+                    d="
+                    M 50, 50
+                    m -45, 0
+                    a 45,45 0 1,0 90,0
+                    a 45,45 0 1,0 -90,0
+                "></path>
+            </g>
+        </svg>
+        <span class="{{$class}}__label">
+            <ng-container [ngTemplateOutlet]="countdownCircle"></ng-container>
+        </span>
+    </div>
+</ng-template>
+
+
+<ng-template #countdownCircle>
+    <div class="time-text time-text--countdown">
+        <ng-container *ngIf="!$params.common.noHours">
+            <div class="time-text__item time-text__item--hours">
+                <span class="value">{{hours}}</span>
+                <span class="dividers-text">
+                    <ng-container *ngIf="$params.dividers.text">{{$params.dividers.text}}</ng-container>
+                </span>
+                <span class="text">{{$params.acronyms.hours | translate}}</span>
+            </div>
+            <div class="time-text__divider">{{$params.dividers.units}}</div>
+        </ng-container>
+        <div *ngIf="+minutes > 0" class="time-text__item time-text__item--minutes">
+            <span class="value">{{minutes}}</span>
+            <span class="dividers-text">
+                <ng-container *ngIf="$params.dividers.text">{{$params.dividers.text}}</ng-container>
+            </span>
+            <span class="text">{{$params.acronyms.minutes | translate}}</span>
+        </div>
+        <div class="time-text__divider">{{$params.dividers.units}}</div>
+        <div class="time-text__item time-text__item--days">
+            <span class="value">{{seconds}}</span>
+            <span class="dividers-text">
+                <ng-container *ngIf="$params.dividers.text">{{$params.dividers.text}}</ng-container>
+            </span>
+            <span class="text">{{$params.acronyms.seconds | translate}}</span>
         </div>
     </div>
 </ng-template>

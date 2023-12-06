@@ -1,0 +1,60 @@
+<div class="{{$class}}__title">{{'Waiting for results' | translate}}</div>
+<ng-container *ngIf="ready | async; else loading">
+    <div class="{{$class}}__container">
+        <div class="{{$class}}__number-participants">
+            <div class="{{$class}}__number-participants--title">{{'Number of participants' | translate}}</div>
+            <div class="{{$class}}__number-participants--value">{{participants$.value.length}}</div>
+        </div>
+            <div class="{{$class}}__timer-wrapper">
+                <div wlc-timer
+                    [value]="timerValue"
+                    [inlineParams]="timerParams"
+                    (timerEnds)="timerExpiry()">
+                </div>
+            </div>
+        <div class="{{$class}}__amount">
+            <div class="{{$class}}__amount--title">{{'Raffle amount' | translate}}</div>
+            <div class="{{$class}}__amount--value">
+                <span wlc-currency
+                    [value]="$params.dataWheel.amount"
+                    [currency]="$params.dataWheel.currency">
+                </span>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="params.isStreamer" class="{{$class}}__wrapper-btn">
+        <button
+            *ngIf="($params.completionByButton && (timerReady$ | async)); else: copyLinkBtn"
+            wlc-button
+            class = "btn-determine-winners"
+            themeMod="default"
+            [text]="'Determine the winners' | translate"
+            (click)="determineWinners()">
+        </button>
+    </div>
+    <div class="{{$class}}__divider"></div>
+    <div class="{{$class}}__title-table">{{'Last participants' | translate}}</div>
+
+    <div class="{{$class}}__content">
+        <div class="{{$class}}__list-wrapper">
+            <div *ngFor="let participant of participants$ | async"
+                wlc-participant-item
+                [inlineParams]="calcParticipantsInlineParams(participant)">
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<ng-template #loading>
+    <div wlc-loader class="{{$class}}__loader"></div>
+</ng-template>
+
+<ng-template #copyLinkBtn>
+    <button
+        wlc-button
+        themeMod="secondary"
+        iconPath="/wlc/icons/copy.svg"
+        [text]="'Copy link' | translate"
+        (click)="copyLink()">
+    </button>
+</ng-template>

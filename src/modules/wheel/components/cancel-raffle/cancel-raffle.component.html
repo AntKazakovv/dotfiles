@@ -1,0 +1,14 @@
+<div class="{{$class}}__title">{{'Raffle has been canceled' | translate}}</div>
+<div class="{{$class}}__message">{{'Not enough participants for the raffle' | translate}}</div>
+<div class="{{$class}}__illustration">
+    <div wlc-icon
+        [iconPath]="$params.pathIllustration">
+    </div>
+</div>
+
+<button
+    wlc-button
+    themeMod="default"
+    [text]="'Ok'"
+    (click)="close()">
+</button>

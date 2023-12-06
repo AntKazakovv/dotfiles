@@ -1,0 +1,39 @@
+<div class="{{$class}}__contest-info">
+    <div class="{{$class}}__title">{{'Selection of winners' | translate}}</div>
+    <div class="{{$class}}__container-amount-info">
+        <div class="{{$class}}__amount--title">{{'Raffle amount' | translate}}</div>
+        <div class="{{$class}}__amount--value">
+            <span
+                wlc-currency
+                [value]="$params.competitionAmount"
+                [currency]="$params.currency">
+            </span>
+        </div>
+    </div>
+    <div class="{{$class}}__container-winners-info">
+        <div class="{{$class}}__number-winners">{{'Number of winners: ' | translate}} {{$params.numberWinners}}</div>
+        <div class="{{$class}}__number-participants">{{'Selecting from' | translate}}
+            {{$params.numberParticipants}} {{'participants'| translate}}</div>
+        <div class="{{$class}}__arrow"
+            wlc-icon
+            [iconPath]="this.$params.arrowPath">
+        </div>
+    </div>
+</div>
+
+<div class="{{$class}}__content-first">
+<div class="{{$class}}__content">
+    <div class="{{$class}}__fade-left"></div>
+    <div class="{{$class}}__fade-right"></div>
+    <div class="{{$class}}__drum">
+        <div *ngFor="let drumLine of drumLines; index as i"
+            class="{{$class}}__drum-line">
+            <div *ngFor="let participant of participantsWH[i]"
+                wlc-participant-item
+                themeMod="default"
+                [inlineParams]="getParticipantsInlineParams(participant)">
+            </div>
+        </div>
+    </div>
+</div>
+</div>

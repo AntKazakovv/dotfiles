@@ -1,0 +1,59 @@
+<div class="{{$class}}__container">
+
+    <div class="{{$class}}__wrapper-illustration">
+        <div class="{{$class}}__illustration"
+            wlc-icon
+            [iconPath]="$params.pathIllustration"></div>
+    </div>
+    <div class="{{$class}}__result-info">
+        <div class="{{$class}}__title">{{'Results' | translate}}</div>
+        <ng-container *ngIf="!$params.isStreamer">
+            <ng-container *ngIf="$params.itsYou else noWin">
+                <div class="{{$class}}__congratulation">{{'Congratulations! You have won!' | translate}}</div>
+            </ng-container>
+        </ng-container>
+        <div class="{{$class}}__container-amount-info">
+            <div class="{{$class}}__amount--title">{{'Raffle amount' | translate}}</div>
+            <div wlc-currency
+                class="{{$class}}__amount--value"
+                [value]="$params.amountPrize"
+                [currency]="$params.currency">
+            </div>
+        </div>
+        <ng-container *ngIf="winners$.value.length > 1; else winner">
+            <div class="{{$class}}__winners-title">{{'Winners' | translate}}</div>
+        </ng-container>
+        <ng-container *ngIf="winners$.value.length <= 4; else bigList">
+            <div class="{{$class}}__mini-list"
+                [class.three-winners]="winners$.value.length === 3"
+                [class.one-winner]="winners$.value.length === 1">
+                <div *ngFor="let participant of winners$ | async"
+                    wlc-participant-item
+                    [inlineParams]="getWinnerInlineParams(participant)">
+                </div>
+            </div>
+        </ng-container>
+        <div *ngIf="$params.itsYou && $params.animation.use" class="{{$class}}__animation">
+            <div  wlc-lottie-animation
+                [inlineParams]="animationParams">
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #bigList>
+    <div class="{{$class}}__big-list">
+        <div *ngFor="let participant of winners$ | async"
+            wlc-participant-item
+            [inlineParams]="getDefaultInlineParams(participant)">
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #noWin>
+    <div class="{{$class}}__congratulation">{{'Unfortunately, you have not won' | translate}}</div>
+</ng-template>
+
+<ng-template #winner>
+    <div class="{{$class}}__winners-title">{{'Winner' | translate}}</div>
+</ng-template>
