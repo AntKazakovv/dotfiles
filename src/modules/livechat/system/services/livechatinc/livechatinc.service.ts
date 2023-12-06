@@ -33,6 +33,7 @@ import {
 } from 'wlc-engine/modules/user';
 import {
     ILivechatIncConfig,
+    ILivechatIncData,
     IUserDataLiveChatInc,
 } from 'wlc-engine/modules/livechat/system/interfaces/livechat.interface';
 import {
@@ -208,6 +209,14 @@ export class LivechatincService extends LivechatAbstract<ILivechatIncConfig> {
                 if (this.window.LiveChatWidget) {
                     this.openChat();
                 }
+            });
+        }
+
+        if (this.options.useTriggerMessage) {
+            this.eventService.subscribe([
+                {name: 'SEND_OPTIONAL_LIVECHAT_DATA'},
+            ], (liveChatIncData?: ILivechatIncData) => {
+                this.refreshDataCollection(liveChatIncData);
             });
         }
 
@@ -406,7 +415,7 @@ export class LivechatincService extends LivechatAbstract<ILivechatIncConfig> {
         }
     }
 
-    protected async refreshDataCollection(): Promise<void> {
+    protected async refreshDataCollection(liveChatIncData?: ILivechatIncData): Promise<void> {
 
         if (!this.userData) {
             await this.collectingUserData();
@@ -417,7 +426,11 @@ export class LivechatincService extends LivechatAbstract<ILivechatIncConfig> {
         this.userData.loyaltyLevel = `${this.userInfo.loyalty.Level}-${this.userInfo.loyalty.LevelName.en}`;
 
         if (this.window.LiveChatWidget) {
-            this.window.LiveChatWidget.call('set_session_variables', this.userData);
+            if (this.options.useTriggerMessage && liveChatIncData) {
+                this.window.LiveChatWidget.call('set_session_variables', _assign({}, this.userData, liveChatIncData));
+            } else {
+                this.window.LiveChatWidget.call('set_session_variables', this.userData);
+            }
         }
     }
 

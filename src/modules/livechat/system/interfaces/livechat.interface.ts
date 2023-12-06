@@ -115,6 +115,7 @@ export interface ILivechatIncConfig
         intervalSendParams?: number; //user params sending interval (in minutes), default 1 minute
         assignUsersByGroup?: ILiveChatGroups; //if you need to distribute users into groups by tags, or by loyalty level
         openChatOnContactUs?: boolean; //true - if need open livechat window on click "Contacts" link
+        useTriggerMessage?: boolean; //true - if we need to send data to live chat based on an event
     }
 
 
@@ -130,3 +131,7 @@ export interface ILivechatZohoConfig
         setUserDetails?: boolean; // if need complete user field (id)
         fundistProdLink?: string; // prod fundist link for set user details (www2.fundist.org)
     }
+
+export interface ILivechatIncData {
+    Deposit_delay?: boolean
+}
