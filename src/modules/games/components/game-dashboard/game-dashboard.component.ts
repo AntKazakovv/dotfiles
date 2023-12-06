@@ -799,7 +799,10 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
      */
     protected loadProfileComponents(): void {
         this.loyaltyProgressConfig = {
-            components: [{name: 'user.wlc-loyalty-progress'}],
+            components: [{
+                name: 'user.wlc-loyalty-progress',
+                params: this.$params.common.loyaltyProgressParams,
+            }],
         };
         this.userStatsConfig = {
             components: [{name: 'user.wlc-user-stats'}],

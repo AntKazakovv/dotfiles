@@ -39,7 +39,7 @@
                  [fallback]="fallbackImage">
             </div>
         </div>
-        <div class="{{$class}}__content">
+        <div *ngIf="!isCompactThemeMod" class="{{$class}}__content">
             <span class="{{$class}}__level">{{$params.level}}&nbsp;{{$params.name}}</span>
             <div class="{{$class}}__points">
                 <span>{{$params.points}}</span>

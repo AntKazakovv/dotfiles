@@ -16,42 +16,6 @@
         }
     }
 
-    &__all {
-        @include bm.get-mq-map('text-align', $themeDefault, 'allLinkAlign');
-        line-height: 1;
-
-        a {
-            @include text.get-text-style(ef.get-value($themeDefault, 'allLinkTextStyle'), ef.get-value($themeDefault, 'allLinkColor'));
-            text-decoration: none;
-
-            .wlc-icon::ng-deep {
-
-                .wlc-icon-content {
-                    display: inline-flex;
-                }
-
-                svg {
-                    transform: rotate(-90deg);
-
-                    fill: ef.get-value($themeDefault, 'allLinkColor');
-                }
-            }
-
-            @include bm.hover {
-                @include bm.transition(color);
-                color: ef.get-value($themeDefault, 'allLinkColorHover');
-
-                .wlc-icon::ng-deep {
-
-                    svg {
-                        @include bm.transition(fill);
-                        fill: ef.get-value($themeDefault, 'allLinkColorHover');
-                    }
-                }
-            }
-        }
-    }
-
     &__user-name {
         display: grid;
         grid-template-columns: ef.get-value($themeDefault, 'userGridColumns');

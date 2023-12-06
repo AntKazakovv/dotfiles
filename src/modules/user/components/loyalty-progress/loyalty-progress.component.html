@@ -1,24 +1,39 @@
-<div *wlcLet="levelData$ | async as levelData" class="{{$class}}__content"
-    data-wlc-element="block_game-play-info-exp-line">
-    <div class="{{$class}}__title" data-wlc-element="user-loyalty-title">
-        {{levelData.levelName}}
+<div *wlcLet="levelData$ | async as levelData"
+     class="{{$class}}__content"
+     data-wlc-element="block_game-play-info-exp-line">
+
+    <div *ngIf="levelData.wrapperParams"
+         wlc-wrapper
+         class="{{$class}}__loyalty-level-container"
+         [inlineParams]="levelData.wrapperParams">
     </div>
-    <div class="{{$class}}__line">
-        <div class="{{$class}}__line-current"
-             [ngStyle]="{'width' :  levelData.percentProgress + '%'}"></div>
-        <div class="{{$class}}__line-sum"></div>
-    </div>
-    <div class="{{$class}}__points" data-wlc-element="user-loyalty-points">
-        <div wlc-currency
-             class="{{$class}}__points-start"
-             currency=""
-             [showValueOnly]="true"
-             [value]="levelData.userPoints">
+
+    <div class="{{$class}}__info-container">
+        <div class="{{$class}}__title" data-wlc-element="user-loyalty-title">
+            <div class="{{$class}}__name">{{levelData.levelName}}</div>
+            <button *ngIf="$params.common.showLinkToLevels"
+                    wlc-button
+                    class="{{$class}}__all"
+                    [inlineParams]="$params.common.buttonParams">
+            </button>
         </div>
-        <div class="{{$class}}__points-end">
-            <ng-container *ngIf="levelData.percentProgress < 100; else maxLevel">
-                {{levelData.nextLevelPoints}}
-            </ng-container>
+        <div class="{{$class}}__line">
+            <div class="{{$class}}__line-current"
+                 [ngStyle]="{'width' :  levelData.percentProgress + '%'}"></div>
+            <div class="{{$class}}__line-sum"></div>
+        </div>
+        <div class="{{$class}}__points" data-wlc-element="user-loyalty-points">
+            <div wlc-currency
+                 class="{{$class}}__points-start"
+                 currency=""
+                 [showValueOnly]="true"
+                 [value]="levelData.userPoints">
+            </div>
+            <div class="{{$class}}__points-end">
+                <ng-container *ngIf="levelData.percentProgress < 100; else maxLevel">
+                    {{levelData.nextLevelPoints}}
+                </ng-container>
+            </div>
         </div>
     </div>
 </div>

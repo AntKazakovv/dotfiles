@@ -45,4 +45,8 @@ export class LoyaltyLevelComponent extends AbstractComponent implements OnInit {
 
         this.fallbackImage = this.configService.get<string>('$loyalty.loyalty.iconFallback');
     }
+
+    public get isCompactThemeMod(): boolean {
+        return this.$params.themeMod === 'compact';
+    }
 }

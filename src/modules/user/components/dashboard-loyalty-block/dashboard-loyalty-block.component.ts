@@ -22,6 +22,8 @@ import * as Params from './dashboard-loyalty-block.params';
 export class DashboardLoyaltyBlockComponent extends AbstractComponent implements OnInit, OnDestroy {
     @Input() protected inlineParams: Params.ILoyaltyBlockCParams;
 
+    public override $params: Params.ILoyaltyBlockCParams;
+
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILoyaltyBlockCParams,
         configService: ConfigService,

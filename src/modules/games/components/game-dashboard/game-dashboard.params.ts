@@ -3,6 +3,7 @@ import {
     CustomType,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ITournamentListCParams} from 'wlc-engine/modules/tournaments/components/tournament-list/tournament-list.params';
+import {ILoyaltyProgressCParams} from 'wlc-engine/modules/user';
 
 export type Type = 'default' | CustomType;
 export type Theme = 'default' | CustomType;
@@ -19,6 +20,7 @@ export interface IGameDashboardCParams extends IComponentParams<Theme, Type, The
     common?: {
         themeMod?: ThemeMod;
         tournamentsListParams?: ITournamentListCParams;
+        loyaltyProgressParams?: ILoyaltyProgressCParams;
     }
 }
 
@@ -56,6 +58,12 @@ export const defaultParams: IGameDashboardCParams = {
                     },
                     slidesPerView: 1,
                 },
+            },
+        },
+        loyaltyProgressParams: {
+            common: {
+                showLevelIcon: false,
+                showLinkToLevels: true,
             },
         },
     },

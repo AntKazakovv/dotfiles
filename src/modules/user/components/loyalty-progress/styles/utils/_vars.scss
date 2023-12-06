@@ -1,14 +1,32 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'contentMargin': 0,
-    'contentGap': ef.size(1),
-    'lineHeight': 7px,
-    'lineEmptyBg': var(--fc-inputBg),
-    'lineFillBg': var(--mc-main),
-    'lineBorderRadius': ef.get('radius', 'large'),
-    'levelNameColor': var(--mc-baseMain),
-    'levelPointsColor': var(--mc-baseMain),
-
-    'levelProgressFontSize': 'ButtonText',
-    'textLineHeight': 1,
+    'contentDisplay': flex,
+    'contentDirection': row,
+    'contentGap': ef.size(3),
+    //Icon container
+    'iconContainerWidth': 77px,
+    'iconContainerHeight': 66px,
+    'iconContainerBorderRadius': ef.get('radius', 'main'),
+    'iconContainerBg': var(--mc-bg500),
+    //Info container
+    'infoContainerDisplay': flex,
+    'infoContainerDirection': column,
+    'infoContainerJustify': center,
+    'infoContainerMargin': 0,
+    'infoContainerGap': ef.size(1),
+    //Info progress bar
+    'progressBarHeight': 6px,
+    'progressBarEmptyBg': var(--fc-inputBg),
+    'progressBarFillBg': var(--mc-main),
+    'progressBarBorderRadius': ef.get('radius', 'large'),
+    //Info data
+    'textItemsDisplay': inline-flex,
+    'textItemsJustify': space-between,
+    'textDisplay': inline-flex,
+    'textWrap': nowrap,
+    'textVerticalAlign': baseline,
+    'textColor': var(--mc-baseMain),
+    'textStyle': 'SignTextBold',
+    'linkColor': var(--mc-main),
+    'linkColorHover': var(--mc-baseThird, var(--mc-baseMain)),
 ), $customThemeDefault);

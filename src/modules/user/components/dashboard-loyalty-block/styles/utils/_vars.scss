@@ -12,14 +12,6 @@ $themeDefault: map-merge((
         1630: ef.size(3) 0 0,
     ),
 
-    'allLinkTextStyle': 'ButtonText',
-    'allLinkColor': var(--mc-main),
-    'allLinkColorHover': var(--mc-baseMain),
-    'allLinkAlign': (
-        375: center,
-        900: left,
-    ),
-
     'userGridColumns': 1fr auto,
     'userGridAlignItems': center,
     'userIconWidth': 15px,

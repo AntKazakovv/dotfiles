@@ -2,10 +2,7 @@
     <div wlc-user-name [userNameLength]="50"></div>
     <div wlc-logout [useText]="true"></div>
 </div>
-<div class="{{$class}}__loyalty" wlc-loyalty-progress></div>
-<div class="{{$class}}__all">
-    <a uiSref="app.profile.loyalty-level" data-wlc-element="link_loyalty-levels">
-        {{'All levels' | translate}}
-        <span wlc-icon iconPath="/wlc/icons/arrow.svg"></span>
-    </a>
+<div wlc-loyalty-progress
+     class="{{$class}}__loyalty"
+     [inlineParams]="$params.loyaltyProgressParams">
 </div>

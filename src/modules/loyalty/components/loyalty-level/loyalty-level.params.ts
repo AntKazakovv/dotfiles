@@ -4,7 +4,7 @@ import {
 } from 'wlc-engine/modules/core';
 
 export type ComponentTheme = 'default' | 'wolf' | CustomType;
-
+export type ComponentThemeMod = 'default' | 'compact' | CustomType;
 export type ComponentType = 'default' | CustomType;
 
 export interface ILoyaltyLevelCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
@@ -15,15 +15,15 @@ export interface ILoyaltyLevelCParams extends IComponentParams<ComponentTheme, C
     /**
      * Level name
      */
-    name: string,
+    name?: string,
     /**
      * Level scores count
      */
-    points: string,
+    points?: string,
     /**
      * Optional additional information
      */
-    description: string,
+    description?: string,
     /**
      * Primary image's source
      */

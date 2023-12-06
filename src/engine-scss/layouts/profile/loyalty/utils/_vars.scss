@@ -8,19 +8,19 @@ $loyaltyThemeV1: map-merge((
     ),
 
     'progressHeaderWidth': (
-        640: 300px,
+        640: 350px,
     ),
     'progressHeaderMaxWidth': (
-        640: 300px,
+        640: 350px,
     ),
 
     'progressBodyWidth': (
         375: 100%,
-        640: 300px,
+        640: 350px,
     ),
     'progressBodyMargin': (
-        375: 0 0 ef.size(4) auto,
-        1024: 0 0 0 auto,
+        375: 0 auto ef.size(4) 0,
+        1024: 0 auto ef.size(6) 0,
     ),
 
 ), $customLoyaltyThemeV1);
