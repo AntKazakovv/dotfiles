@@ -252,4 +252,5 @@ $themeDefault: map-merge((
         1630: 345px,
     ),
     'gamesBgV1': var(--mc-bg),
+    'contentBorderRadiusV1': 0 0 ef.get('radius', 'biger') ef.get('radius', 'biger'),
 ), $customThemeDefault);

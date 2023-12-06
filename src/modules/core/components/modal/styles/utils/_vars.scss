@@ -389,6 +389,7 @@ $themeDefault: map-merge((
         768: ef.size(4) 0 ef.size(8),
     ),
     'tournamentDetailRadius': (
+        375: 0,
         560: 0 0 ef.get('radius', 'biger') ef.get('radius', 'biger'),
     ),
 

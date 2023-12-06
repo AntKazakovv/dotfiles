@@ -315,7 +315,6 @@ $selector: '.wlc-tournament-detail';
             @include bm.get-mq-map('justify-content', $themeDefault, 'rulesJustifyContent');
             @include bm.get-mq-map('padding', $themeDefault, 'defaultPadding');
             @include bm.get-mq-map('background', $themeDefault, 'rulesBg');
-            @include bm.get-mq-map('border-radius', $themeDefault, 'rulesBorderRadius');
             @include bm.get-mq-map('gap', $themeDefault, 'rulesGap');
             display: grid;
 
@@ -358,6 +357,10 @@ $selector: '.wlc-tournament-detail';
 
                 &__content {
                     overflow: hidden;
+
+                    &:last-child {
+                        border-radius: ef.get-value($themeDefault, 'contentBorderRadiusV1');
+                    }
                 }
 
                 &__header-info {
