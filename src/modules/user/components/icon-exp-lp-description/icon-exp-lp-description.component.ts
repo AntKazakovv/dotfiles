@@ -19,6 +19,8 @@ import * as Params from './icon-exp-lp-description.params';
 })
 export class IconExpLpDescriptionComponent extends AbstractComponent implements OnInit {
     @Input() public inlineParams: Params.IIconExpLpDescriptionCParams;
+
+    public override $params: Params.IIconExpLpDescriptionCParams;
     public siteName: string;
 
     constructor(
