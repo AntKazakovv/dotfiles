@@ -48,7 +48,8 @@ export class BetService {
      * @returns {Promise<void>}
      */
     public async getBets(params: IGetBetsParams, needRequest: boolean): Promise<IBet[]> {
-        if (needRequest || !this.wasFirstRequest) {
+        
+        if (needRequest) {
             const startDateUTC: DateTime = params.startDate.startOf('day').toUTC(),
                 endDateUTC: DateTime = params.endDate.endOf('day').toUTC();
 

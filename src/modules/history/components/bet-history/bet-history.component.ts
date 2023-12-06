@@ -69,6 +69,7 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
     protected endDate: DateTime = DateTime.local().endOf('day');
     protected readonly today: DateTime = DateTime.local().endOf('day');
     protected allBets: IBet[] = [];
+    protected isFirstRequest: boolean = true;
 
     private isMultiWallet: boolean;
 
@@ -150,7 +151,11 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
      */
     protected async pushNewBetsList(needRequest: boolean): Promise<void> {
         this.awaiting = true;
-        this.bets$.next(await this.getBets(needRequest));
+        this.bets$.next(await this.getBets(this.isFirstRequest || needRequest));
+        
+        if (this.isFirstRequest) {
+            this.isFirstRequest = false;
+        }
         this.awaiting = false;
 
         if (!this.ready) {
