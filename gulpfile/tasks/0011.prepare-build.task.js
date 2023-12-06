@@ -209,7 +209,6 @@ module.exports = function preBuildTask() {
 
         const modulePath = 'custom/custom.module.ts';
         const statesConfigPath = 'custom/system/config/custom.states.ts';
-        const hookServicePath = 'custom/custom-hook.service.ts';
 
         fs.access(`${this.params.paths.src}/${modulePath}`, (err) => {
             if (err) {
@@ -232,19 +231,6 @@ module.exports = function preBuildTask() {
                 fs.copyFileSync(
                     `${this.params.paths.engine}/wlc-src/${statesConfigPath}`,
                     `${this.params.paths.src}/${statesConfigPath}`,
-                );
-            }
-        });
-
-        fs.access(`${this.params.paths.src}/${hookServicePath}`, (err) => {
-            if (err) {
-
-                const path = hookServicePath.split('/').slice(0, -1).join('/');
-                fs.mkdirSync(`${this.params.paths.src}/${path}/`, {recursive: true});
-
-                fs.copyFileSync(
-                    `${this.params.paths.engine}/wlc-src/${hookServicePath}`,
-                    `${this.params.paths.src}/${hookServicePath}`,
                 );
             }
         });

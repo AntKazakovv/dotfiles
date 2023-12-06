@@ -20,7 +20,6 @@ import {
     LogService,
     IData,
 } from 'wlc-engine/modules/core/system/services';
-import {CustomHookService} from 'wlc-src/custom/custom-hook.service';
 import {Location} from '@angular/common';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {NgxWebstorageModule} from 'ngx-webstorage';
@@ -99,20 +98,18 @@ export class AppModule {
     constructor(
         location: Location,
         protected actionService: ActionService,
-        protected customHookService: CustomHookService,
         private logService: LogService,
         private configService: ConfigService,
     ) {
-        this.parseInitPath(location.path());
         GlobalDeps.logService = this.logService;
         GlobalDeps.configService = this.configService;
+        this.parseInitPath(location.path());
     }
 
     protected parseInitPath(path: string): void {
-        if (path.includes('message')
-            || path.includes('error')
-            || path.includes('promocode')
-            || path.includes('popup')) {
+        const queryParams: string[] = this.configService.get('queryParams');
+
+        if (queryParams.some(parameter => path.includes(parameter))) {
             this.initialPath = {};
             const values: string[] = path.split('?')?.[1]?.split('&') || [];
 

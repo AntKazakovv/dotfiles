@@ -171,4 +171,5 @@ export interface IBaseConfig {
      *  },
      */
     popupByQuery?: IPopupConfig;
+    queryParams?: string[];
 }

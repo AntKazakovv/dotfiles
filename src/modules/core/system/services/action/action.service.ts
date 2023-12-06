@@ -68,10 +68,10 @@ import {
     IPopupModalConfig,
     IPopupModalItem,
 } from 'wlc-engine/modules/core/system/interfaces/base-config/popup.interface';
+import {CustomAsyncHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 
 declare type StringProps<T> = {[key in keyof T as T[key] extends string ? key:never]: T[key]};
 declare type CSSStyleStringProps = keyof StringProps<CSSStyleDeclaration>;
-
 export type ScrollPositionType = 'start' | 'end' | 'center' | 'nearest';
 
 export interface IScrollOptions {
@@ -125,7 +125,7 @@ export class ActionService {
     constructor(
         private injector: Injector,
         private bonusesService: BonusesService,
-        private configService: ConfigService,
+        protected configService: ConfigService,
         private eventService: EventService,
         private layoutService: LayoutService,
         private modalService: ModalService,
@@ -288,16 +288,19 @@ export class ActionService {
      * @param {IIndexing<string>} initialPath
      * @returns {Promise<void>}
      */
+    @CustomAsyncHook('core','actionServiceOnOpenPopup')
     public async openPopup(initialPath: IIndexing<string>): Promise<void> {
         if (!initialPath.popup) {
             return;
         }
         await this.configService.ready;
         const usePopup = this.configService.get<boolean>('$base.popupByQuery.use');
+
         if (usePopup) {
             const modalConfig = this.configService.get<IPopupModalConfig>('$base.popupByQuery.modals');
             const modalParams: IPopupModalItem = modalConfig[initialPath.popup];
             const isAuth = this.configService.get('$user.isAuthenticated');
+
             if (modalParams?.auth !== !isAuth) {
                 this.modalService.showModal(modalParams?.config);
             }

@@ -28,6 +28,7 @@ import _cloneDeep from 'lodash-es/cloneDeep';
 import _find from 'lodash-es/find';
 import _includes from 'lodash-es/includes';
 import _merge from 'lodash-es/merge';
+import _compact from 'lodash-es/compact';
 
 import {
     DataService,
@@ -246,6 +247,11 @@ export class ConfigService {
         this.set<BehaviorSubject<UserProfile>>({name: '$user.userProfile$', value: new BehaviorSubject(null)});
         this.set<BehaviorSubject<UserInfo>>({name: '$user.userInfo$', value: new BehaviorSubject(null)});
         this.set<boolean>({name: '$user.skipPasswordOnEditProfile', value: false});
+        this.set<string[]>({
+            name: 'queryParams',
+            value: _compact(wlcConfig.$base.queryParams.concat(appConfig.$base?.queryParams)),
+            freeze: true,
+        });
     }
 
     private prepareData(data: IBootstrap): void {

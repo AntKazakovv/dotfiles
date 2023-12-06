@@ -1,23 +1,30 @@
-import {GlobalDeps} from 'wlc-engine/modules/app/app.module';
-import {IReplaceHook} from 'wlc-engine/modules/core';
+import _get from 'lodash-es/get';
+import * as $config from 'wlc-config/index';
 
 export function CustomHook(moduleName: string, methodName: string) {
 
     return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+        const customHook: any = _get($config, `$hook.customHookConfig.${moduleName}.${methodName}`, null);
+        const originalMethod: Function = descriptor.value;
 
-        const params: string = `customHookConfig.${moduleName}.${methodName}`;
-        const customHooks: IReplaceHook = GlobalDeps.configService.get(params);
-        const originalMethod = descriptor.value;
+        if (customHook) {
+            descriptor.value = function (...args) {
+                return customHook.call(this, originalMethod.bind(this), ...args);
+            };
+        }
+    };
+}
 
-        if (customHooks) {
-            if (customHooks.replace) {
-                descriptor.value = customHooks['replace'];
-            } else if (customHooks.final) {
-                descriptor.value = function (...args) {
-                    originalMethod.apply(this, args);
-                    customHooks['final']();
-                };
-            }
+export function CustomAsyncHook(moduleName: string, methodName: string) {
+
+    return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+        const customHook: any = _get($config, `$hook.customHookConfig.${moduleName}.${methodName}`, null);
+        const originalMethod: Function = descriptor.value;
+
+        if (customHook) {
+            descriptor.value = async function (...args) {
+                return customHook.call(this, originalMethod.bind(this), ...args);
+            };
         }
     };
 }

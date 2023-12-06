@@ -56,6 +56,7 @@ export class AchievementsService {
         private uiRouter: UIRouter,
     ){
         this.init();
+        // console.log(this.testFunc('bar','foo'));
     }
 
     public async getAchievements(modifier?: IModifier): Promise<AchievementModel[]> {
@@ -212,7 +213,6 @@ export class AchievementsService {
                 });
                 result.push(...set);
             }
-
             return result;
         } else {
             return achievements;
