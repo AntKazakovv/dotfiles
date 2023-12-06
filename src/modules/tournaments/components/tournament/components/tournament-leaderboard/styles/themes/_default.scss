@@ -5,6 +5,7 @@
     @include bm.get-mq-map('--lb-item-columns', $themeDefault, 'itemGridTemplate');
     @include bm.get-mq-map('--lb-cell-padding-first', $themeDefault, 'firstCellPadding');
     @include bm.get-mq-map('--lb-cell-padding-last', $themeDefault, 'lastCellPadding');
+    @include bm.get-mq-map('--lb-btn-margin', $themeDefault, 'btnMargin');
 
     .wlc-tournament-leaderboard {
 
@@ -53,7 +54,7 @@
             grid-template-columns: var(--lb-item-columns);
             min-height: var(--lb-item-min-height, #{ef.get-value($themeDefault, 'itemHeight')});
             margin: var(--lb-item-margin);
-            background: ef.get-value($themeDefault, 'rowBg');
+            background: var(--lb-row-bg, #{ef.get-value($themeDefault, 'rowBg')});
             border-radius: var(--lb-item-radius, #{ef.get-value($themeDefault, 'itemRadius')});
 
             .item-user {
@@ -154,7 +155,7 @@
         }
 
         &__btn {
-            margin: ef.get-value($themeDefault, 'btnMargin');
+            margin: var(--lb-btn-margin);
         }
 
         &__nocontent {
@@ -186,27 +187,41 @@
     }
 
     &.wlc-tournament-leaderboard--theme-mod-compact {
+        --lb-wrapper-bg: #{ef.get-value($themeModCompact, 'wrapperBg')};
+        --lb-wrapper-padding: #{ef.get-value($themeModCompact, 'wrapperPadding')};
+        --lb-list-gap: #{ef.get-value($themeModCompact, 'listGap')};
+        --lb-list-padding: #{ef.get-value($themeModCompact, 'listPadding')};
+        --lb-list-bg: #{ef.get-value($themeModCompact, 'listBg')};
+        --lb-row-bg: #{ef.get-value($themeModCompact, 'rowBg')};
         --lb-item-columns: #{ef.get-value($themeModCompact, 'itemColumns')};
         --lb-item-margin: #{ef.get-value($themeModCompact, 'itemMargin')};
         --lb-cell-padding-first: #{ef.get-value($themeModCompact, 'cellPaddingFirst')};
         --lb-cell-padding-last: #{ef.get-value($themeModCompact, 'cellPaddingLast')};
         --lb-head-padding-first: #{ef.get-value($themeModCompact, 'headPaddingFirst')};
         --lb-head-padding-last: #{ef.get-value($themeModCompact, 'headPaddingLast')};
+        --lb-btn-margin: #{ef.get-value($themeModCompact, 'btnMargin')};
+
+        .wlc-tournament-leaderboard__list--top {
+            padding: ef.get-value($themeModCompact, 'listTopPadding');
+
+            .wlc-tournament-leaderboard__cell {
+
+                &:first-child {
+                    justify-content: ef.get-value($themeModCompact, 'cellJustifyFirstTop');
+                }
+            }
+        }
+
+        .wlc-tournament-leaderboard__item {
+            padding: ef.get-value($themeModCompact, 'itemPadding');
+        }
 
         .wlc-tournament-leaderboard__cell {
 
             &:first-child {
-                padding: ef.get-value($themeModCompact, 'cellPaddingFirst');
-            }
-
-            &:last-child {
-                padding: ef.get-value($themeModCompact, 'cellPaddingLast');
+                justify-content: ef.get-value($themeModCompact, 'cellJustifyFirst');
             }
         }
-    }
-
-    .wlc-body--theme-alt & {
-        --lb-wrapper-bg: #{ef.get-value($themeDefault, 'wrapperBgAlt')};
     }
 
     &.wlc-tournament-leaderboard--theme-mod-history {

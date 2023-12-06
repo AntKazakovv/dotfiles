@@ -86,14 +86,13 @@
             </ng-container>
         </div>
         <ng-container *ngIf="tournament.isSelected">
-            <div class="{{$class}}__header">{{'Leaderboard' | translate}}</div>
             <div wlc-tournament-leaderboard
                 class="{{$class}}__board"
                 [theme]="$params.theme"
                 [themeMod]="'compact'"
                 [tournament]="tournament"
                 [limit]="8"
-                [useListHead]="true"
+                [useListHead]="false"
                 [showAllBtn]="true">
             </div>
         </ng-container>

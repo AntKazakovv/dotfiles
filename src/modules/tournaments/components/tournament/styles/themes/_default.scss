@@ -5,6 +5,7 @@
         --lb-wrapper-bg: #{ef.get-value($themeDefault, 'leaderboardBg')};
         --lb-list-bg: #{ef.get-value($themeDefault, 'leaderboardBg')};
         --lb-list-bg-top: #{ef.get-value($themeDefault, 'leaderboardBg')};
+        --lb-block-size: #{ef.get-value($themeDefault, 'blocksSize')};
 
         height: 100%;
 
@@ -52,7 +53,6 @@
             }
 
             &__container {
-                position: relative;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
@@ -63,12 +63,18 @@
                 }
 
                 &.selected {
+                    --lb-block-size: #{ef.get-value($themeDefault, 'blocksSizeSelected')};
 
                     .wlc-tournament__more-icon {
                         top: ef.get-value($themeDefault, 'moreIconSelectedTop');
                         right: ef.get-value($themeDefault, 'moreIconSelectedRight');
 
                         ::ng-deep {
+
+                            .wlc-icon {
+                                width: ef.get-value($themeDefault, 'moreIconActiveSize');
+                                height: ef.get-value($themeDefault, 'moreIconActiveSize');
+                            }
 
                             .wlc-icon-content {
                                 display: flex;
@@ -83,9 +89,9 @@
             &__img-container {
                 position: relative;
                 z-index: 1;
-                width: ef.get-value($themeDefault, 'blocksSize');
-                height: ef.get-value($themeDefault, 'blocksSize');
-                min-height: ef.get-value($themeDefault, 'blocksSize');
+                width: var(--lb-block-size);
+                height: var(--lb-block-size);
+                min-height: var(--lb-block-size);
                 margin-bottom: ef.get-value($themeDefault, 'blockGapNoSelect');
                 overflow: hidden;
                 border-radius: ef.get-value($themeDefault, 'blocksRadius');
@@ -124,7 +130,7 @@
             }
 
             &__timer {
-                width: ef.get-value($themeDefault, 'blocksSize');
+                width: var(--lb-block-size);
                 margin: 0 auto;
 
                 &.wlc-timer::ng-deep {
@@ -145,9 +151,9 @@
             &__description-block {
                 @include bm.transition(opacity);
 
-                width: ef.get-value($themeDefault, 'blocksSize');
+                width: var(--lb-block-size);
                 min-width: 0;
-                margin-top: ef.get-value($themeDefault, 'blockGapNoSelect');
+                margin-top: ef.get-value($themeDefault, 'gap');
                 padding: ef.get-value($themeDefault, 'descrPadding');
                 border-radius: ef.get-value($themeDefault, 'blocksRadius');
                 background: ef.get-value($themeDefault, 'rowBg');
@@ -161,15 +167,8 @@
             }
 
             &__board {
-                width: ef.get-value($themeDefault, 'blocksSize');
+                width: var(--lb-block-size);
                 padding: ef.get-value($themeDefault, 'gap') 0 ef.get-value($themeDefault, 'gap') 0;
-            }
-
-            &__header {
-                @include text.get-text-style(ef.get-value($themeDefault, 'titleTextStyle'), ef.get-value($themeDefault, 'titleColor'));
-                @include bm.lineClamp(1);
-                margin: ef.get-value($themeDefault, 'headerMargin');
-                text-align: center;
             }
         }
     }

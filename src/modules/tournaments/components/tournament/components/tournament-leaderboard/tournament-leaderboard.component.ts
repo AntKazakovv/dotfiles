@@ -143,6 +143,10 @@ export class TournamentLeaderboardComponent
         return this.$params.common?.showAllBtn && this.wins.length > this.$params.common?.limit;
     }
 
+    public get compactThemeMod(): boolean {
+        return this.$params.themeMod === 'compact';
+    }
+
     public showAllWins(): void {
         this.modalService.showModal({
             id: 'tournament-wins-all',

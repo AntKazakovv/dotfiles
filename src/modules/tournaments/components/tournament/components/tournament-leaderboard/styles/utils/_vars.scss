@@ -75,7 +75,7 @@ $themeDefault: map-merge((
     'topIconWidth': 12px,
     'topIconBaseColor': currentColor, // set null if you need to use multicolor icon
     'topIconColor': var(--mc-baseOpacity),
-    'topIconUserColor': var(--mc-bg),
+    'topIconUserColor': var(--mc-baseMain),
 
     'winTextMargin': 0 3px 0 0,
     'winBonusTextMargin': 0 10px 0 0,
@@ -84,12 +84,28 @@ $themeDefault: map-merge((
 
 $customThemeModCompact: () !default;
 $themeModCompact: map-merge((
-    'itemColumns': 50px 1fr 1fr,
-    'itemMargin': 0 ef.size(2),
-    'cellPaddingFirst': 0 0 0 ef.size(2),
+    'wrapperBg': transparent,
+    'wrapperPadding': 0,
+
+    'listGap': 10px,
+    'listPadding': 10px 0,
+    'listTopPadding': 12px 0,
+    'listBg': transparent,
+
+    'rowBg': var(--mc-bg),
+    'itemColumns': 50px 1fr auto,
+    'itemPadding': 3px 20px 3px 15px,
+    'itemMargin': 0,
+
+    'cellJustifyFirst': center,
+    'cellJustifyFirstTop': space-around,
+    'cellPaddingFirst': 0,
     'cellPaddingLast': 0 ef.size(2) 0 0,
+
     'headPaddingFirst': 0,
     'headPaddingLast': 0 ef.size(2) 0 0,
+
+    'btnMargin': 0,
 ), $customThemeModCompact);
 
 $customThemeDefaultModHistory: () !default;

@@ -208,6 +208,7 @@ export class TournamentListComponent
     }
 
     protected saveDataOfSelectedTournaments(tournaments: Tournament[]): void {
+        this.isTournamentSelected = false;
         this.activeTournaments = [];
 
         _each(tournaments, (tournament) => {

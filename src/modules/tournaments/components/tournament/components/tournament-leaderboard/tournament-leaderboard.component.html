@@ -56,7 +56,7 @@
                     </div>
                 </span>
             </div>
-            <div *ngIf="winsRest.length && paramExclude('themeMod', 'history')" class="delimetr"></div>
+            <div *ngIf="winsRest.length && paramExclude('themeMod', ['history', 'compact'])" class="delimetr"></div>
         </div>
         <div *ngIf="winsRest.length" class="{{$class}}__list">
             <div *ngFor="let win of winsRest"
@@ -84,15 +84,10 @@
         </div>
     </div>
 
-    <button *ngIf="needShowBtn"
-        wlc-button
-        class="{{$class}}__btn"
-        text="Show all"
-        theme="default"
-        [attr.type]="'button'"
-        [wlcElement]="'button_show_all_wins'"
-        (click)="showAllWins()">
-    </button>
+    <ng-container *ngIf="needShowBtn">
+        <ng-container *ngIf="compactThemeMod" [ngTemplateOutlet]="linkButton"></ng-container>
+        <ng-container *ngIf="!compactThemeMod" [ngTemplateOutlet]="defaultButton"></ng-container>
+    </ng-container>
 </div>
 
 <ng-template #noData>
@@ -114,4 +109,24 @@
         placement="top">
         ({{win.delta | number: '.0-2'}})
     </span>
+</ng-template>
+
+<ng-template #defaultButton>
+    <button wlc-button
+            class="{{$class}}__btn"
+            text="Show all"
+            theme="default"
+            [attr.type]="'button'"
+            [wlcElement]="'button_show_all_wins'"
+            (click)="showAllWins()">
+    </button>
+</ng-template>
+
+<ng-template #linkButton>
+    <div *ngIf="needShowBtn"
+         wlc-link-block
+         class="{{$class}}__btn"
+         [link]="'Show all' | translate"
+         (click)="showAllWins()">
+    </div>
 </ng-template>
