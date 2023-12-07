@@ -771,6 +771,9 @@ export class UserService {
         if (updates?.phoneCode && !updates.phoneNumber) {
             updates.phoneCode = '';
         }
+        if (updates?.countryCode && !updates.stateCode) {
+            updates.stateCode = '';
+        }
 
         const requestParams = updatePartial
             ? _assign({}, updates, isAfterDepositWithdraw ? {isAfterDepositWithdraw} : {})
