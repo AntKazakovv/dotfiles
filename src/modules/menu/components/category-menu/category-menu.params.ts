@@ -15,7 +15,7 @@ export interface ICustomizableFn {
 }
 
 export type Type = 'default' | 'dropdown' | CustomType;
-export type Theme = 'default' | 'dropdown' | 'with-icons' | 'icons-compact' | 'mobile-app' | CustomType;
+export type Theme = 'default' | 'dropdown' | 'with-icons' | 'icons-compact' | 'mobile-app' | 'wolf' | CustomType;
 export type ThemeMod = 'default' | 'vertical' | 'underlined' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;

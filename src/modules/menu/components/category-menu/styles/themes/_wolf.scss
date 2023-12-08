@@ -1,0 +1,93 @@
+.wlc-category-menu--theme-wolf:host {
+    position: relative;
+    min-width: 0;
+
+    ::ng-deep {
+        @include menuControls($themeWolf);
+    }
+
+    .wlc-category-menu {
+
+        &__content {
+
+            &:before {
+                @include bm.get-mq-map('display', $themeWolf, 'menuBorderDisplay');
+                content: '';
+                position: absolute;
+                top: ef.get-value($themeWolf, 'menuBorderTop');
+                z-index: 13;
+                width: ef.get-value($themeWolf, 'menuBorderWidth');
+                height: ef.get-value($themeWolf, 'menuBorderHeight');
+                background: ef.get-value($themeWolf, 'menuBorderBg');
+            }
+        }
+
+        &__controls {
+
+            ::ng-deep {
+
+                .wlc-icon-content {
+                    display: flex;
+                }
+            }
+        }
+    }
+
+    .wlc-menu--theme-wolf {
+        @include bm.get-mq-map('padding', $themeWolf, 'menuPadding');
+
+        ::ng-deep {
+
+            .swiper {
+                z-index: 13;
+            }
+
+            .wlc-menu {
+                position: relative;
+
+                &__item {
+                    display: flex;
+                    align-items: center;
+
+                    svg {
+                        width: ef.get-value($themeWolf, 'menuIconWidth');
+                        height: ef.get-value($themeWolf, 'menuIconHeight');
+
+                        path {
+                            fill: currentColor;
+                        }
+                    }
+
+                    .wlc-icon-content {
+                        display: flex;
+                    }
+                }
+
+                &__link {
+                    @include text.get-text-style(ef.get-value($themeWolf, 'menuLinkTextStyle'), ef.get-value($themeWolf, 'menuLinkColor'));
+                    display: flex;
+                    align-items: center;
+                    padding: ef.get-value($themeWolf, 'menuItemPadding');
+                    line-height: 1;
+                    text-decoration: ef.get-value($themeWolf, 'menuLinkTxtDecor');
+
+                    &.active {
+                        color: ef.get-value($themeWolf, 'menuLinkActiveColor');
+                        font-weight: ef.get-value($themeWolf, 'menuLinkActiveWeight');
+                        border-bottom: ef.get-value($themeWolf, 'menuLinkBorderActive');
+                    }
+
+                    @include bm.hover {
+                        color: ef.get-value($themeWolf, 'menuLinkHoverColor');
+                    }
+                }
+
+                &__icon {
+                    width: ef.get-value($themeWolf, 'menuIconWidth');
+                    height: ef.get-value($themeWolf, 'menuIconHeight');
+                    margin: ef.get-value($themeWolf, 'menuIconMargin');
+                }
+            }
+        }
+    }
+}

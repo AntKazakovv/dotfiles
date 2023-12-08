@@ -1,6 +1,7 @@
 @import './vars-with-icons';
 @import './vars-icons-compact';
 @import './vars-dropdown';
+@import './vars-wolf';
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
@@ -75,7 +76,9 @@ $themeDefault: map-merge((
         768: 0 auto 0 0,
     ),
     'controlNextJustifyContent': flex-end,
+    'controlNextBgTransform': scaleX(-1),
     'controlTransition': all 0.3s ease-out,
+    'controlBgDisplay': block,
     'controlBg': (
         375: linear-gradient(90deg, var(--mc-bg700), var(--mc-bg700-o0)),
         768: linear-gradient(90deg, var(--mc-bg700) 65%, var(--mc-bg700-o0) 100%),

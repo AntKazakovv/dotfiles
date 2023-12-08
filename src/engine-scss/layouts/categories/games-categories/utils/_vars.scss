@@ -146,3 +146,20 @@ $withIcons: map-merge((
         900: ef.size(2) 0 0,
     ),
 ), $customWithIcons);
+
+$customGamesCategoriesWolf: () !default;
+$gamesCategoriesWolf: map-merge((
+    'sectionPadding': (
+        375: ef.size(2) 0 0,
+        1024: null,
+    ),
+    'sectionGap': ef.size(4),
+    'searchBtnHeight': ef.get('buttonSettings', 'heightDefault'),
+    'searchBtnPadding': 0 ef.size(4),
+    'searchBtnBg': var(--fc-inputBg),
+    'searchBtnRadius': ef.size(2),
+    'searchBtnTextStyle': 'PlaceholderText',
+    'searchBtnColor': var(--fc-placeholderColor),
+    'btnIconWidth': ef.size(5),
+    'btnIconHeight': ef.size(5),
+), $customGamesCategoriesWolf);

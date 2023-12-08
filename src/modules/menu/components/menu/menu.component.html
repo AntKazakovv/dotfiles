@@ -1,7 +1,8 @@
 <ng-template #sref let-item="item">
 
     <ng-container *ngIf="!item.params?.state?.parent">
-        <div class="{{$class}}__item {{$class}}__item--sref {{$class}}__item--{{item.class}}">
+        <div class="{{$class}}__item {{$class}}__item--sref {{$class}}__item--{{item.class}}"
+            [class.active]="isActive(item.params?.state)">
 
             <a *ngIf="item.params?.state?.activeEq"
                class="{{$class}}__link"
@@ -74,27 +75,34 @@
 
     <ng-container *ngIf="item.params?.state?.parent" #srefWithParent>
         <div class="{{$class}}__item {{$class}}__item--sref {{$class}}__item--{{item.class}}">
-            <span *ngIf="item.icon"
-                  wlc-icon
-                  class="{{$class}}__icon"
-                  [iconPath]="getIcon(item)"
-                  [fallback]="getIconFallback(item)">
-            </span>
             <a class="{{$class}}__link"
                [uiSref]="item.params?.state?.name"
                [uiParams]="item.params?.state?.params"
                [uiOptions]="item.params?.state?.options"
                [attr.data-wlc-element]="item.wlcElement"
                [class.active]="isActive(item.params?.state?.parent)">
-                {{menuItemName(item)}}
                 <span *ngIf="$params.theme === 'first'"
                       wlc-icon
                       class="{{$class}}__icon-active"
                       [iconUrl]="'/wlc/icons/menu-active.svg'"></span>
-                <span *ngIf="item.counterParams"
-                      wlc-counter
-                      [inlineParams]="item.counterParams"
-                ></span>
+                      <span wlc-icon
+                      class="{{$class}}__icon"
+                      [iconPath]="getIcon(item)"
+                      [fallback]="getIconFallback(item)"></span>
+                <span class="{{$class}}__link-text">
+                    <span class="{{$class}}__link-category-name">
+                        {{menuItemName(item)}}
+                    </span>
+                    <span *ngIf="item.counterParams"
+                            wlc-counter
+                            [inlineParams]="item.counterParams">
+                    </span>
+                    <span *ngIf="useArrows"
+                            wlc-icon
+                            class="{{$class}}__icon-arrow"
+                            iconPath="{{menuItemArrow(item)}}">
+                    </span>
+                </span>
             </a>
         </div>
     </ng-container>
@@ -329,10 +337,6 @@
                       [ngTemplateOutletContext]="{item: item}">
         </ng-container>
         <ng-container *ngSwitchCase="'sref'"
-                      [ngTemplateOutlet]="sref"
-                      [ngTemplateOutletContext]="{item: item}">
-        </ng-container>
-        <ng-container *ngSwitchCase="'title'"
                       [ngTemplateOutlet]="sref"
                       [ngTemplateOutletContext]="{item: item}">
         </ng-container>

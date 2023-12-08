@@ -1,0 +1,34 @@
+.wlc-sections__categories--theme-wolf {
+    @include bm.get-mq-map('padding', $gamesCategoriesWolf, 'sectionPadding');
+
+    .games-categories {
+        display: grid;
+        grid-auto-flow: row;
+        gap: ef.get-value($gamesCategoriesWolf, 'sectionGap');
+    }
+
+    .wlc-btn-search.wlc-btn {
+        @include bm.transition(all);
+        @include text.get-text-style(
+            ef.get-value($gamesCategoriesWolf, 'searchBtnTextStyle'),
+            ef.get-value($gamesCategoriesWolf, 'searchBtnColor'));
+        height: ef.get-value($gamesCategoriesWolf, 'searchBtnHeight');
+        padding: ef.get-value($gamesCategoriesWolf, 'searchBtnPadding');
+        background: ef.get-value($gamesCategoriesWolf, 'searchBtnBg');
+        border-radius: ef.get-value($gamesCategoriesWolf, 'searchBtnRadius');
+
+        > span {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            white-space: nowrap;
+        }
+
+        svg {
+            width: ef.get-value($gamesCategoriesWolf, 'btnIconWidth');
+            height: ef.get-value($gamesCategoriesWolf, 'btnIconHeight');
+            fill: currentColor;
+        }
+    }
+}

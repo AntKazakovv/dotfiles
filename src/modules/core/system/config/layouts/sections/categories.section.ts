@@ -154,4 +154,20 @@ export namespace categories {
             },
         ],
     };
+    export const wolfCatalog: ILayoutSectionConfig = {
+        container: true,
+        theme: 'wolf',
+        components: [
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'games-categories',
+                    components: [
+                        componentLib.wlcButton.searchBefore1024,
+                        componentLib.wlcCategoryMenu.categoriesWolf,
+                    ],
+                },
+            },
+        ],
+    };
 }

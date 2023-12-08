@@ -113,4 +113,32 @@ export namespace wlcCategoryMenu {
 
         },
     };
+    export const categoriesWolf: ILayoutComponent = {
+        name: 'menu.wlc-category-menu',
+        params: {
+            theme: 'wolf',
+            common: {
+                useSliderNavigation: true,
+                icons: {
+                    use: true,
+                    folder: 'wlc/icons/theme-wolf/categories',
+                },
+            },
+            menuParams: {
+                sliderParams: {
+                    swiper: {
+                        spaceBetween: 36,
+                        breakpoints: {
+                            375: {
+                                spaceBetween: 0,
+                            },
+                            900: {
+                                spaceBetween: 18,
+                            },
+                        },
+                    },
+                },
+            },
+        },
+    };
 }

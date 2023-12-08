@@ -117,6 +117,8 @@ $withIcons: map-merge((
         375: flex,
     ),
     'controlWidth': 30px,
+    'controlsMaxWidth': null,
+    'controlsTransform': null,
     'controlHeight': 100%,
     'controlPadding': ef.size(1),
     'controlArrowDisplay': (
@@ -132,6 +134,8 @@ $withIcons: map-merge((
     'controlPrevJustifyContent': flex-start,
     'controlPrevMargin': 0 auto 0 0,
     'controlNextJustifyContent': flex-end,
+    'controlNextBgTransform': scaleX(-1),
+    'controlBgDisplay': block,
     'controlBg': (
         375: linear-gradient(90deg, var(--mc-bg), var(--mc-bg-o0)),
         900: linear-gradient(90deg, var(--mc-bg) 65%, var(--mc-bg-o0) 100%),

@@ -468,7 +468,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
                         template = this.tplSref;
                         break;
                     case 'title':
-                        template = this.tplTitle;
+                        template = this.tplSref;
                         break;
                     case 'modal':
                         template = this.tplModal;
@@ -687,7 +687,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
                     if (wpParams.parentAsLink && (item as IMenuItemsGroup).parent) {
                         const parentParams = {
                             ...(item as IMenuItemsGroup).parent.params,
-                            state: subItems[0].params.state,
+                            state: subItems[0]?.params.state,
                         };
 
                         _set(item, 'parent.params', parentParams);
