@@ -31,7 +31,7 @@ $baseVariables: map-merge((
     'cardInnerShadow': inset 0 2px 0 0 rgba(255, 255, 255, 0.2),
     /// Настойка исользования градиента в бэкгарунд кнопки
     /// Ести true, для для бэкграунда кнопки используется градиент
-    'useGradientButtons': false,
+    'useGradientButtons': true,
 ), $customBaseVariables);
 
 @function size-func($value: 1, $units: 1px) {
