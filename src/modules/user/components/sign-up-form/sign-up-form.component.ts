@@ -22,8 +22,6 @@ import {
     StepsEvents,
     IIndexing,
     DataService,
-    IPushMessageParams,
-    NotificationEvents,
 } from 'wlc-engine/modules/core';
 import {
     UserActionsAbstract,
@@ -162,18 +160,6 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
     }
 
     /**
-     * method runs before sending and checks if the form is correct
-     * @param form
-     * @returns {Promise}
-     */
-    public override beforeSubmit(form: UntypedFormGroup): boolean | Promise<boolean> {
-        if (!super.beforeSubmit()) {
-            return false;
-        }
-        return this.checkRegisterPromocode(form);
-    }
-
-    /**
      * implementation of submit; in addition to validation and sending data, this method can switch next step
      * @param form
      * @returns {Promise}
@@ -218,54 +204,6 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
             return false;
         } finally {
             form.enable();
-        }
-    }
-
-    protected async checkRegisterPromocode(form: UntypedFormGroup): Promise<boolean> {
-        const promocodeControl = form.get('registrationPromoCode');
-        const currencyControl = form.get('currency');
-
-        if (!promocodeControl?.value || !currencyControl) {
-            return true;
-        }
-
-        promocodeControl.markAsPending();
-
-        try {
-            const result = await this.validationService.checkPromocode(
-                promocodeControl.value,
-                currencyControl.value,
-                form.get('countryCode')?.value || '',
-            );
-
-            if (result) {
-                return true;
-            } else {
-                throw new Error('Unknown promo code');
-            }
-        } catch (error) {
-            promocodeControl.setErrors({promocode: true});
-
-            this.eventService.emit({
-                name: NotificationEvents.PushMessage,
-                data: <IPushMessageParams>{
-                    type: 'error',
-                    title: gettext('Promo code error'),
-                    message: error.errors || error.message || error,
-                    wlcElement: 'notification_promocode-error',
-                },
-            });
-
-            this.logService.sendLog({
-                code: '2.1.2',
-                data: error,
-                from: {
-                    component: 'SignUpFormComponent',
-                    method: 'checkRegisterPromocode',
-                },
-            });
-
-            return false;
         }
     }
 

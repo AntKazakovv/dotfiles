@@ -76,8 +76,7 @@ export abstract class UserActionsAbstract<T> extends AbstractComponent implement
         this.getFormDataFromCash();
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    public beforeSubmit(form?: UntypedFormGroup): boolean | Promise<boolean> {
+    public beforeSubmit(): boolean {
         return !UserHelper.restrictRegistration(this.configService, this.eventService);
     }
 
