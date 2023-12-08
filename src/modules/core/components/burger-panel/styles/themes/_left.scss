@@ -362,7 +362,6 @@
 
             --pm-menu-margin: #{ef.get-value($themeLeftFixed, 'contentMargin')};
             --us-display: block;
-            --us-margin: #{ef.get-value($themeLeftFixed, 'contentMargin')};
         }
 
         &.wlc-burger-panel--view-compact {

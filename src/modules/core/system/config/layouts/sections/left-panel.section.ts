@@ -339,6 +339,7 @@ export namespace leftPanel {
             before: 1023,
         },
         components: [
+            componentLib.wlcUserStats.wolfBurger,
             componentLib.wlcPanelMenu.fixedBurgerThemeWolf,
             componentLib.wlcPanelMenu.fixedBurgerInfoThemeWolf,
             componentLib.wlcLanguageSelector.menuThemeWolf,
