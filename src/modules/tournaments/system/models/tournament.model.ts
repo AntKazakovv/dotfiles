@@ -376,8 +376,8 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
                 prizes.push({
                     currency: WalletHelper.conversionCurrency ?? tournamentCurrency,
                     value: moneyPrize * (AbstractTournamentModel.useUsersCurrency
-                        ? WalletHelper.coefficientOriginalCurrencyСonversion
-                        : WalletHelper.coefficientСonversionEUR),
+                        ? WalletHelper.coefficientOriginalCurrencyConversion
+                        : WalletHelper.coefficientConversionEUR),
                 });
             }
 
@@ -386,8 +386,8 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
             prizes.push({
                 currency: WalletHelper.conversionCurrency ?? tournamentCurrency,
                 value: _toNumber(rawPrizeRow) * (AbstractTournamentModel.useUsersCurrency
-                    ? WalletHelper.coefficientOriginalCurrencyСonversion
-                    : WalletHelper.coefficientСonversionEUR),
+                    ? WalletHelper.coefficientOriginalCurrencyConversion
+                    : WalletHelper.coefficientConversionEUR),
             });
         }
         return prizes;

@@ -28,7 +28,6 @@ import {
     AbstractComponent,
     ConfigService,
     EventService,
-    GlobalHelper,
     ICurrency,
     IIndexing,
     InjectionService,
@@ -85,6 +84,9 @@ export class WalletsComponent extends AbstractComponent implements OnInit, OnDes
     public balance: string = '';
     public walletCurrency: string = '';
     public hideSettings: boolean;
+
+
+    protected readonly walletHelper = WalletHelper;
 
     private searchQuery: string = '';
     private userService: UserService;
@@ -161,7 +163,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit, OnDes
     }
 
     public get displayedBalance(): string {
-        return this.isConvert() ? (_toNumber(this.currentWallet.balance) * WalletHelper.coefficientСonversion)
+        return this.isConvert() ? (_toNumber(this.currentWallet.balance) * WalletHelper.coefficientConversion)
             .toFixed(2) : <string>this.currentWallet.balance;
     }
 
@@ -219,11 +221,6 @@ export class WalletsComponent extends AbstractComponent implements OnInit, OnDes
         if (this.isOpened) {
             this.filterWallets();
         }
-    }
-
-    public getCurrencyIconUrl(currency: string): string {
-        const path: string = `/wlc/icons/currencies/${currency.toLowerCase()}.svg`;
-        return GlobalHelper.proxyUrl(path);
     }
 
     public async setSearchQuery($event: string): Promise<void> {
@@ -457,26 +454,26 @@ export class WalletsComponent extends AbstractComponent implements OnInit, OnDes
 
         if (settings.conversionInFiat) {
             WalletHelper.conversionCurrency = settings.currency;
-            WalletHelper.coefficientСonversion = await this.ratesService.getRate({
+            WalletHelper.coefficientConversion = await this.ratesService.getRate({
                 currencyFrom: this.currentWallet.currency,
                 currencyTo: settings.currency,
             });
 
-            WalletHelper.coefficientOriginalCurrencyСonversion = WalletHelper.coefficientСonversion;
+            WalletHelper.coefficientOriginalCurrencyConversion = WalletHelper.coefficientConversion;
 
             if (this.currentWallet.currency !== this.userService.userProfile.originalCurrency) {
-                WalletHelper.coefficientOriginalCurrencyСonversion = await this.ratesService.getRate({
+                WalletHelper.coefficientOriginalCurrencyConversion = await this.ratesService.getRate({
                     currencyFrom: this.userService.userProfile.originalCurrency,
                     currencyTo: settings.currency,
                 });
             }
 
             if (this.currentWallet.currency === 'EUR') {
-                WalletHelper.coefficientСonversionEUR = WalletHelper.coefficientСonversion;
+                WalletHelper.coefficientConversionEUR = WalletHelper.coefficientConversion;
             } else if (this.userService.userProfile.originalCurrency === 'EUR') {
-                WalletHelper.coefficientСonversionEUR = WalletHelper.coefficientOriginalCurrencyСonversion;
+                WalletHelper.coefficientConversionEUR = WalletHelper.coefficientOriginalCurrencyConversion;
             } else {
-                WalletHelper.coefficientСonversionEUR = await this.ratesService.getRate({
+                WalletHelper.coefficientConversionEUR = await this.ratesService.getRate({
                     currencyFrom: 'EUR',
                     currencyTo: settings.currency,
                 });

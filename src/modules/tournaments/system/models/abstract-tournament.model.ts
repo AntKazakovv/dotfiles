@@ -128,7 +128,7 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
     }
 
     public get feeAmountConversion(): number {
-        return this.feeAmount * WalletHelper.coefficientСonversion;
+        return this.feeAmount * WalletHelper.coefficientConversion;
     }
 
     public get id(): number {

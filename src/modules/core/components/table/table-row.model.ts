@@ -2,9 +2,11 @@ import {Injector} from '@angular/core';
 
 import _get from 'lodash-es/get';
 import _isString from 'lodash-es/isString';
+import _toString from 'lodash-es/toString';
 
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {IWrapperCParams} from 'wlc-engine/modules/core/components/wrapper/wrapper.component';
+import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
 
 import * as Params from './table.params';
 
@@ -57,7 +59,8 @@ export class TableRowModel {
                                 name: 'core.wlc-currency',
                                 params: {
                                     value: <string>defaultValue,
-                                    showValueOnly: true,
+                                    currency: WalletHelper.conversionCurrency ?? currency,
+                                    showValueOnly: !WalletHelper.conversionCurrency,
                                 },
                             },
                             {
@@ -92,5 +95,9 @@ export class TableRowModel {
 
     public getIconUrl(currency: string): string {
         return `/wlc/icons/currencies/${currency.toLowerCase()}.svg`;
+    }
+
+    public getAmount(col: Params.ITableCol): string {
+        return _toString(_get(this.data, col.key));
     }
 }

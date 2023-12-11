@@ -762,9 +762,9 @@ export class Bonus extends AbstractModel<IBonus> {
                 return _round(_toNumber((resultsTarget as IBonusResultValueDefault).Value[Bonus.depositCurrency
                         ?? Bonus.userCurrency]))
                     || _round(_toNumber((resultsTarget as IBonusResultValueDefault).Value?.Currency))
-                    * WalletHelper.coefficientOriginalCurrencyСonversion
+                    * WalletHelper.coefficientOriginalCurrencyConversion
                     || _round(_toNumber((resultsTarget as IBonusResultValueDefault).Value?.EUR))
-                    * WalletHelper.coefficientСonversionEUR
+                    * WalletHelper.coefficientConversionEUR
                     || _round(_toNumber(resultsTarget.Value));
         }
     }

@@ -13,7 +13,6 @@ import _filter from 'lodash-es/filter';
 import {
     AbstractComponent,
     ConfigService,
-    GlobalHelper,
     ICheckboxCParams,
 } from 'wlc-engine/modules/core';
 import {
@@ -33,6 +32,8 @@ export class FiltersComponent extends AbstractComponent implements OnInit {
     @Input() public inlineParams: Params.IFiltersParams;
     public override $params: Params.IFiltersParams;
 
+    protected readonly walletHelper = WalletHelper;
+
     constructor(
         @Inject('injectParams') protected injectParams: Params.IFiltersParams,
         protected override configService: ConfigService,
@@ -49,11 +50,6 @@ export class FiltersComponent extends AbstractComponent implements OnInit {
         super.ngOnInit(this.inlineParams);
     }
 
-    public getIconUrl(currency: string): string {
-        const path: string = `/wlc/icons/currencies/${currency.toLowerCase()}.svg`;
-        return GlobalHelper.proxyUrl(path);
-    }
-
     public createCheckboxParams(currency: ICurrencyFilter): ICheckboxCParams {
         return {
             control: new FormControl(currency.isUsed),
@@ -67,5 +63,4 @@ export class FiltersComponent extends AbstractComponent implements OnInit {
             type: 'toggle',
         };
     }
-
 }

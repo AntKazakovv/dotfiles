@@ -30,11 +30,16 @@
 </div>
 
 <ng-template #base>
-    <span>{{balance}}</span>
+     <span
+         wlc-currency
+         [value]="balance"
+         [currency]="settingsParams?.walletSettings.currency"
+         [showValueOnly]="!settingsParams?.walletSettings.conversionInFiat || isFinance"
+     ></span>
     <span
         wlc-icon
         class="currency"
-        iconPath="{{getCurrencyIconUrl(walletCurrency)}}"
+        iconPath="{{walletHelper.getCurrencyIconUrl(currentWallet.currency)}}"
         wlcElement="icon_currency"></span>
 </ng-template>
 
@@ -102,13 +107,17 @@
                <span
                    wlc-icon
                    class="currency"
-                   iconPath="{{getCurrencyIconUrl(item.currency)}}"
+                   iconPath="{{walletHelper.getCurrencyIconUrl(item.currency)}}"
                    wlcElement="icon_currency"></span>
             </div>
             {{item.currency}}
         </div>
-        <span class="{{$class}}__value">
-            {{item.balance}}
-        </span>
+        <span
+            wlc-currency
+            class="{{$class}}__value"
+            [value]="item.balance"
+            [currency]="walletCurrency"
+            [showValueOnly]="!settingsParams?.walletSettings.conversionInFiat || isFinance"
+   ></span>
     </div>
 </ng-template>

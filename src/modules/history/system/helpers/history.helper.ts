@@ -30,7 +30,6 @@ export class HistoryHelper {
                             currencyTo: WalletHelper.conversionCurrency,
                         },
                     );
-                    history.currency = WalletHelper.conversionCurrency;
                     history.coefficientConvertion = coefficient;
 
                 } else {
@@ -40,7 +39,6 @@ export class HistoryHelper {
                             currencyTo: WalletHelper.conversionCurrency,
                         },
                     );
-                    history.Currency = WalletHelper.conversionCurrency;
                     history.Amount = _toString(+(<IBet>history).Amount * coefficient);
                 }
                 return history;

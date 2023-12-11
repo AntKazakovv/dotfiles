@@ -19,11 +19,11 @@ export class BonusCancellationInfo extends AbstractModel<IBonusCanceledInfo> {
     }
 
     public get bonusBalanceDecrease(): string {
-        return _toString(_toNumber(this.data.BurnOnBonusBalance) * WalletHelper.coefficientOriginalCurrencyСonversion);
+        return _toString(_toNumber(this.data.BurnOnBonusBalance) * WalletHelper.coefficientOriginalCurrencyConversion);
     }
 
     public get realBalanceDecrease(): string {
-        return  _toString(_toNumber(this.data.BurnOnRealBalance) * WalletHelper.coefficientOriginalCurrencyСonversion);
+        return  _toString(_toNumber(this.data.BurnOnRealBalance) * WalletHelper.coefficientOriginalCurrencyConversion);
     }
 
     public get realBalanceIncrease(): string {

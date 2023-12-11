@@ -63,7 +63,7 @@ export class UserInfo extends AbstractModel<IUserInfo> {
 
     public get balance(): number {
         return (UserInfo.currency ? this.getWalletBalance(UserInfo.currency) :
-            this.data?.balance) * WalletHelper.coefficientСonversion;
+            this.data?.balance) * WalletHelper.coefficientConversion;
     }
 
     public getAvailableWithdrawForSelectWallet(selectedWallet: ISelectedWallet): number {
@@ -155,7 +155,7 @@ export class UserInfo extends AbstractModel<IUserInfo> {
      * @returns {number}
      */
     public get bonusBalance(): number {
-        return this.originalBonusBalance * WalletHelper.coefficientOriginalCurrencyСonversion;
+        return this.originalBonusBalance * WalletHelper.coefficientOriginalCurrencyConversion;
     }
 
     public get originalBonusBalance(): number {
@@ -183,7 +183,7 @@ export class UserInfo extends AbstractModel<IUserInfo> {
 
     public get realBalance(): number {
         return UserInfo.currency
-            ? this.getWalletBalance(UserInfo.currency) * WalletHelper.coefficientСonversion
+            ? this.getWalletBalance(UserInfo.currency) * WalletHelper.coefficientConversion
             : this.balance - this.bonusBalance;
     }
 

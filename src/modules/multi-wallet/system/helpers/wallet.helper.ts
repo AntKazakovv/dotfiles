@@ -3,14 +3,18 @@ import _toNumber from 'lodash-es/toNumber';
 import {
     ICurrencyFilter,
     IWallet,
-    IWalletObj, IWalletsSettings,
+    IWalletObj,
+    IWalletsSettings,
 } from 'wlc-engine/modules/multi-wallet';
-import {IIndexing} from 'wlc-engine/modules/core';
+import {
+    GlobalHelper,
+    IIndexing,
+} from 'wlc-engine/modules/core';
 
 export class WalletHelper {
-    public static coefficientOriginalCurrencyСonversion: number = 1;
-    public static coefficientСonversion: number = 1;
-    public static coefficientСonversionEUR: number = 1;
+    public static coefficientOriginalCurrencyConversion: number = 1;
+    public static coefficientConversion: number = 1;
+    public static coefficientConversionEUR: number = 1;
     public static conversionCurrency: string;
     public static rates: IIndexing<number> = {};
     public static currencies: ICurrencyFilter[];
@@ -41,9 +45,13 @@ export class WalletHelper {
     }
 
     public static conversionReset(): void {
-        WalletHelper.coefficientСonversion = 1;
-        WalletHelper.coefficientOriginalCurrencyСonversion = 1;
-        WalletHelper.coefficientСonversionEUR = 1;
+        WalletHelper.coefficientConversion = 1;
+        WalletHelper.coefficientOriginalCurrencyConversion = 1;
+        WalletHelper.coefficientConversionEUR = 1;
         WalletHelper.conversionCurrency = null;
+    }
+
+    public static getCurrencyIconUrl(currency: string): string {
+        return GlobalHelper.proxyUrl(`/wlc/icons/currencies/${currency.toLowerCase()}.svg`);
     }
 }

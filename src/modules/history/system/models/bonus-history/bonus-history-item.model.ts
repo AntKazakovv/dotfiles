@@ -34,7 +34,7 @@ export class BonusHistoryItemModel extends AbstractModel<IBonusHistory> {
     }
 
     public get Balance(): string {
-        return _toString(_toNumber(this.data.Balance) * WalletHelper.coefficientOriginalCurrencyСonversion);
+        return _toString(_toNumber(this.data.Balance) * WalletHelper.coefficientOriginalCurrencyConversion);
     }
 
     public get LoyaltyPoints(): string {

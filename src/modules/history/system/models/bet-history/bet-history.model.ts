@@ -3,7 +3,6 @@ import _assign from 'lodash-es/assign';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {IFromLog} from 'wlc-engine/modules/core';
 import {IBet} from 'wlc-engine/modules/profile/system/interfaces/bet.interfaces';
-import {WalletHelper} from 'wlc-engine/modules/multi-wallet/system/helpers';
 
 export class Bet extends AbstractModel<IBet> {
     constructor(
@@ -19,7 +18,7 @@ export class Bet extends AbstractModel<IBet> {
     }
 
     public get currency(): string {
-        return WalletHelper.conversionCurrency ?? this.data.Currency;
+        return this.data.Currency;
     }
 
     public get date(): string {

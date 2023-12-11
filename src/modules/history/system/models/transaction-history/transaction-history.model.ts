@@ -62,7 +62,6 @@ export class Transaction extends AbstractModel<ITransactionEx> {
     public cancelProgress: boolean = false;
     public confirmProgress: boolean = false;
     public coefficientConvertion: number = 1;
-    private _currency: string;
 
     constructor(
         from: IFromLog,
@@ -132,11 +131,7 @@ export class Transaction extends AbstractModel<ITransactionEx> {
     }
 
     public get currency(): string {
-        return this._currency ?? this.data.Currency;
-    }
-
-    public set currency(value: string) {
-        this._currency = value;
+        return this.data.Currency;
     }
 
     public setStatus(status?: number | string): void {

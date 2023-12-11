@@ -51,6 +51,7 @@ export const transactionTableHeadConfig: ITableCol[] = [
         type: 'amount',
         order: 20,
         wlcElement: 'wlc-profile-table__cell_amount',
+        currencyUseIcon: true,
     },
     {
         key: 'status',

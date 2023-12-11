@@ -7,9 +7,15 @@ import {
     ChangeDetectionStrategy,
     Injector,
 } from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
 
+import {BehaviorSubject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import _each from 'lodash-es/each';
+import _filter from 'lodash-es/filter';
+import _isObject from 'lodash-es/isObject';
+import _uniq from 'lodash-es/uniq';
+import _sortBy from 'lodash-es/sortBy';
+
 import {
     AbstractComponent,
     IMixedParams,
@@ -21,19 +27,10 @@ import {
     TableAppearanceAnimation,
     IPaginateOutput,
 } from 'wlc-engine/modules/core';
-import {
-    TTableValue,
-    TableRowModel,
-} from './table-row.model';
+import {TableRowModel} from './table-row.model';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import * as Params from './table.params';
-
-import _each from 'lodash-es/each';
-import _filter from 'lodash-es/filter';
-import _isObject from 'lodash-es/isObject';
-import _uniq from 'lodash-es/uniq';
-import _sortBy from 'lodash-es/sortBy';
 
 @Component({
     selector: '[wlc-table]',
@@ -202,10 +199,6 @@ export class TableComponent extends AbstractComponent implements OnInit {
 
         this.setPaginatedRowsModifier();
         this.toggled = !this.toggled;
-    }
-
-    protected getValue(item: TTableValue): string {
-        return _isObject(item) ? '' : item;
     }
 
     private createTableRow(rows: unknown[]): TableRowModel[] {

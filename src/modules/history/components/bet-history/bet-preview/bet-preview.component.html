@@ -3,10 +3,11 @@
     <span wlc-currency
           class="{{$class}}__currency"
           [value]="amount"
-          [showValueOnly]="true"
+          [currency]= "WalletHelper.conversionCurrency ?? currency"
+          [showValueOnly]="!WalletHelper.conversionCurrency"
     ></span>
     <span wlc-icon
           class="{{$class}}__currency-icon"
-          [iconPath]="getIconUrl(currency)"
+          [iconPath]="WalletHelper.getCurrencyIconUrl(currency)"
     ></span>
 </div>

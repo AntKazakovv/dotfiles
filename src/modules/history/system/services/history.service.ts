@@ -169,7 +169,7 @@ export class HistoryService {
                     this.ratesService ??=
                         await this.injectionService.getService<RatesCurrencyService>('rates.rates-currency-service');
 
-                    WalletHelper.coefficientСonversionEUR = await this.ratesService.getRate(
+                    WalletHelper.coefficientConversionEUR = await this.ratesService.getRate(
                         {
                             currencyFrom: 'EUR',
                             currencyTo: WalletHelper.conversionCurrency,
@@ -193,14 +193,14 @@ export class HistoryService {
     }
 
     /**
-     * @param {IGetTransactionsParams} params optional params for getting transactions. 
+     * @param {IGetTransactionsParams} params optional params for getting transactions.
      * If no params provided, wlc-core sends 100 last transactions
      * @returns {Promise<Transaction[]} list of transactions
      */
     public async getTransactionList(params?: IGetTransactionsParams, isNeedRequest?: boolean): Promise<Transaction[]> {
 
         if (!params && !isNeedRequest) {
-            return await this.requestTransactionsList(); 
+            return await this.requestTransactionsList();
         }
 
         const startDateUTC: DateTime = params.startDate.startOf('day').toUTC();
@@ -317,7 +317,7 @@ export class HistoryService {
                             if (WalletHelper.conversionCurrency) {
                                 prize = {
                                     currency: WalletHelper.conversionCurrency,
-                                    value: value * WalletHelper.coefficientСonversionEUR,
+                                    value: value * WalletHelper.coefficientConversionEUR,
                                 };
                             }
                             result.push(prize);
@@ -335,7 +335,7 @@ export class HistoryService {
                 if (WalletHelper.conversionCurrency) {
                     prize = {
                         currency: WalletHelper.conversionCurrency,
-                        value: moneyWin * WalletHelper.coefficientСonversionEUR,
+                        value: moneyWin * WalletHelper.coefficientConversionEUR,
                     };
                 }
 
@@ -351,7 +351,7 @@ export class HistoryService {
             if (WalletHelper.conversionCurrency) {
                 prize = {
                     currency: WalletHelper.conversionCurrency,
-                    value: Number(rawWinRow) * WalletHelper.coefficientСonversionEUR,
+                    value: Number(rawWinRow) * WalletHelper.coefficientConversionEUR,
                 };
             }
             wins.push(prize);
@@ -392,7 +392,7 @@ export class HistoryService {
             return transactions;
         } catch (error) {
             //TODO replace compare with error string from backend by handling this in front. Will be in SCR #544298
-            if (error.code === 400 
+            if (error.code === 400
                 && error.errors.length === 1
                 && error.errors[0] === 'Report interval is more than 90 days'
             ) {

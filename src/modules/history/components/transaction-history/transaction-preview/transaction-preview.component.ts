@@ -11,6 +11,7 @@ import {
 import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services/finances/finances.service';
 import {WINDOW} from 'wlc-engine/modules/app/system';
+import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
 
 import * as Params from './transaction-preview.params';
 
@@ -27,6 +28,9 @@ export class TransactionPreviewComponent extends AbstractComponent implements On
     public date: string;
     public amount: number;
     public currency: string;
+
+    protected readonly WalletHelper = WalletHelper;
+
     constructor(
         @Inject('injectParams') protected params: Params.ITransactionPreviewParams,
         cdr: ChangeDetectorRef,

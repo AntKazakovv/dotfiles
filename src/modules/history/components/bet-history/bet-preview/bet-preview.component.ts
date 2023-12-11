@@ -15,6 +15,7 @@ import {
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {BetService} from 'wlc-engine/modules/history/system/services/bet.service';
 import {WINDOW} from 'wlc-engine/modules/app/system';
+import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
 
 import * as Params from './bet-preview.params';
 
@@ -31,6 +32,8 @@ export class BetPreviewComponent extends AbstractComponent implements OnInit {
     public date: string;
     public amount: number;
     public currency: string;
+
+    protected readonly WalletHelper = WalletHelper;
 
     constructor(
         @Inject('injectParams') protected params: Params.IBetPreviewParams,
@@ -56,9 +59,5 @@ export class BetPreviewComponent extends AbstractComponent implements OnInit {
         );
         this.amount = +this.$params.bet.Amount;
         this.currency = this.$params.bet.Currency;
-    }
-
-    public getIconUrl(currency: string): string {
-        return `/wlc/icons/currencies/${currency.toLowerCase()}.svg`;
     }
 }
