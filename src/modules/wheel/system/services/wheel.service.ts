@@ -463,8 +463,12 @@ export class WheelService {
     }
 
     private async initSubscribers(): Promise<void> {
-        await this.getPrizeWheelUserInfo();
-        this.processingUserWheel();
+        const isAuth = this.configService.get<boolean>('$user.isAuthenticated');
+
+        if (isAuth) {
+            await this.getPrizeWheelUserInfo();
+            this.processingUserWheel();
+        }
 
         this.eventService.subscribe({
             name: 'LOGOUT',

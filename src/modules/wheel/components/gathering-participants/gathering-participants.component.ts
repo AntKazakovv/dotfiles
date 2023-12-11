@@ -128,7 +128,14 @@ export class GatheringParticipantsComponent extends AbstractComponent implements
     protected getLink(id: number): string {
         const site: string = this.configService.get<string>('appConfig.site');
         const lang: string = this.configService.get<string>('appConfig.language');
-        return `${site}/${lang}/loyalty?wheel=${id}`;
+        const page = this.configService.get<string>('$modules.wheel.pageForLinkWheel')
+            || null;
+
+        if (page) {
+            return `${site}/${lang}/${page}/?wheel=${id}`;
+        } else {
+            return `${site}/${lang}/?wheel=${id}`;
+        }
     }
 
     protected async copyLink(): Promise<void> {
