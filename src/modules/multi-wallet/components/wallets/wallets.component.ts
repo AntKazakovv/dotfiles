@@ -83,9 +83,10 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
     public walletListRead: boolean = false;
     public balance: string = '';
     public walletCurrency: string = '';
+    public hideSettings: boolean;
+
     private searchQuery: string = '';
     private userService: UserService;
-
     private changeConversionCoefficientReady: Promise<void>;
     private $coefficientResolve: () => void;
 
@@ -112,10 +113,15 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
 
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
-
+        this.hideSettings = this.configService.get<boolean>('$base.multiWallet.hideSettings');
         this.isFinance = this.$params.themeMod === 'finances';
+
         if (this.$params.themeMod) {
             this.addModifiers(this.$params.themeMod);
+        }
+
+        if (this.hideSettings) {
+            this.addModifiers('hide-settings');
         }
         this.userService = await this.injectionService.getService<UserService>('user.user-service');
         this.ratesService =
@@ -156,6 +162,10 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
     public get displayedCurrency(): string {
         return this.isConvert()
             ? this.settingsParams.walletSettings?.currency : this.currentWallet.currency;
+    }
+
+    public get showSettings(): boolean {
+        return !this.isFinance && this.walletListRead && !this.hideSettings;
     }
 
     public async onChangingWallet(item: IWallet): Promise<void> {

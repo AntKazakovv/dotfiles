@@ -245,4 +245,8 @@ $selector: '.wlc-wallets';
             }
         }
     }
+
+    &#{$selector}--hide-settings:not(#{$selector}--theme-mod-finances) {
+        --wlc-wallets-content-template-areas: #{ef.get-value($themeDefault, 'hideSettingsContentTemplateAreas')};
+    }
 }

@@ -74,6 +74,7 @@ $themeDefault: map-merge((
     'contentZIndex': 10,
     'contentHeight': 476px,
     'contentTemplateAreas': 'search filter' 'list list' 'hr hr' 'settings settings',
+    'hideSettingsContentTemplateAreas': '\'search filter\' \'list list\'',
     'contentTemplateColumns': auto 40px,
     'contentGap': ef.size(4),
 

@@ -77,7 +77,7 @@
             class="{{$class}}__not-found">
             {{this.$params.notFoundText | translate}}
         </span>
-        <ng-template [ngIf]="!isFinance && walletListRead">
+        <ng-template [ngIf]="showSettings">
             <hr/>
             <div
                 class="{{$class}}__settings"
