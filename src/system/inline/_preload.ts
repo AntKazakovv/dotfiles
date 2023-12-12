@@ -56,28 +56,6 @@ if (window.WlcHelper.usedPcEmulation()) {
     window.WlcCookie.delete('PC_EMULATION');
 }
 
-
-const url = new URL(window.location.href);
-const urlAuthToken = url.searchParams.get('token');
-const urlRefreshToken = url.searchParams.get('refresh');
-
-const jwtAuthToken = urlAuthToken
-    || window.localStorage.getItem('ngx-webstorage|jwtauthtoken')?.replace(/"/g, '');
-const jwtRefreshToken = urlRefreshToken
-    || window.localStorage.getItem('ngx-webstorage|jwtauthrefreshtoken')?.replace(/"/g, '');
-if (jwtAuthToken) {
-    window.localStorage.setItem('ngx-webstorage|jwtauthtoken', `"${jwtAuthToken}"`);
-    url.searchParams.delete('token');
-}
-if (jwtRefreshToken) {
-    window.localStorage.setItem('ngx-webstorage|jwtauthrefreshtoken', `"${jwtRefreshToken}"`);
-    url.searchParams.delete('refresh');
-}
-
-if (urlAuthToken) {
-    window.history.replaceState(null, '', url.href);
-}
-
 config.forEach((request) => {
     if (checkCache(request.url)) {
         return;
