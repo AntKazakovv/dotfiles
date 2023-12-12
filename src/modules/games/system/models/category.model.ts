@@ -99,6 +99,10 @@ export class CategoryModel extends AbstractModel<ICategory> {
         return this.slug === 'favourites';
     }
 
+    public get isRecommended(): boolean {
+        return this.slug === 'recommendations';
+    }
+
     public get isPopular(): boolean {
         return this.slug === 'popular';
     }
@@ -140,7 +144,7 @@ export class CategoryModel extends AbstractModel<ICategory> {
      * Required user authentication for show category or not
      */
     public get authRequired(): boolean {
-        return this.isLastPlayed || this.isFavourites;
+        return this.isLastPlayed || this.isFavourites || this.isRecommended;
     }
 
     /**
@@ -407,6 +411,8 @@ export class CategoryModel extends AbstractModel<ICategory> {
             this.primarySort = 999998;
         } else if (this.isLastPlayed && !this.primarySort) {
             this.primarySort = 999999;
+        } else if (this.isRecommended && !this.primarySort) {
+            this.primarySort = 1000000;
         }
 
         try {

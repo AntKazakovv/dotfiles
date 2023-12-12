@@ -24,6 +24,7 @@ import {gamesConfig} from './system/config/games.config';
 import {GamesGridComponent} from './components/games-grid/games-grid.component';
 import {GameThumbComponent} from './components/game-thumb/game-thumb.component';
 import {GameWrapperComponent} from './components/game-wrapper/game-wrapper.component';
+import {GameRecommendedComponent} from './components/game-recommended/game-recommended.component';
 import {SearchFieldComponent} from './components/search-field/search-field.component';
 import {SearchComponent} from './components/search/search.component';
 import {DropdownSearchComponent} from './components/dropdown-search/dropdown-search.component';
@@ -63,6 +64,7 @@ export const components = {
     'wlc-game-wrapper': GameWrapperComponent,
     'wlc-games-catalog': GamesCatalogComponent,
     'wlc-games-grid': GamesGridComponent,
+    'wlc-game-recommended': GameRecommendedComponent,
     'wlc-merchant-wallet-exrate': MerchantWalletExrateComponent,
     'wlc-merchant-wallet-form': MerchantWalletFormComponent,
     'wlc-merchant-wallet-info': MerchantWalletInfoComponent,
@@ -96,6 +98,7 @@ export const services = {
         GamesCatalogComponent,
         GamesGridComponent,
         GamesSliderComponent,
+        GameRecommendedComponent,
         PlayGameForRealComponent,
         RandomGameComponent,
         SearchFieldComponent,
@@ -131,6 +134,7 @@ export const services = {
     ],
     exports: [
         GamesGridComponent,
+        GameRecommendedComponent,
         GameWrapperComponent,
         GameThumbComponent,
         SearchFieldComponent,

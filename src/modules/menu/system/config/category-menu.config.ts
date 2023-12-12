@@ -9,4 +9,5 @@ export const wlcCategoryMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     },
     'category-menu:favourites': commonMenuItems.favourites,
     'category-menu:lastplayed': commonMenuItems.lastplayed,
+    'category-menu:recommendations': commonMenuItems.recommendations,
 };

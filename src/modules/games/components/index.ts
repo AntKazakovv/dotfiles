@@ -15,4 +15,6 @@ export {ITotalJackpotCParams} from './total-jackpot/total-jackpot.params';
 export {IProgressBarCParams} from './progress-bar/progress-bar.params';
 export {IProviderLinksCParams} from './provider-links/provider-links.params';
 export {LuckyButtonComponent} from './lucky-button/lucky-button.component';
+export {GameRecommendedComponent} from './game-recommended/game-recommended.component';
+export {IGameRecommendedCParams} from './game-recommended/game-recommended.params';
 export * from './merchant-wallet';

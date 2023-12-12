@@ -373,6 +373,38 @@
             }
         }
     }
+
+    &.wlc-modal--recommended-modal {
+
+        .wlc-modal {
+
+            &__wrapper {
+                height: ef.get-value($themeDefault, 'recommendedWrapperHeight');
+                padding: ef.get-value($themeDefault, 'recommendedWrapperPadding');
+            }
+
+            &__dialog {
+                min-height: ef.get-value($themeDefault, 'recommendedDialogHeight');
+                margin: ef.get-value($themeDefault, 'recommendedDialogMargin');
+                background: ef.get-value($themeDefault, 'recommendedDialogBg');
+                border-radius: 0;
+                border: 0;
+            }
+
+            &__body {
+                display: ef.get-value($themeDefault, 'recommendedBodyDisplay');
+                align-items: ef.get-value($themeDefault, 'recommendedBodyAlignItems');
+                justify-content: ef.get-value($themeDefault, 'recommendedBodyJustify');
+                width: ef.get-value($themeDefault, 'recommendedBodyWidth');
+                height: ef.get-value($themeDefault, 'recommendedBodyHeight');
+                background: ef.get-value($themeDefault, 'recommendedBodyBg');
+            }
+        }
+
+        & ~ .modal-backdrop {
+            @include bm.get-mq-map('opacity', $themeDefault, 'recommendedBackdropOpacity');
+        }
+    }
 }
 
 body.modal-open {

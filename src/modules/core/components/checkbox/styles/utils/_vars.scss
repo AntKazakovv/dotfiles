@@ -50,5 +50,9 @@ $themeDefault: map-merge((
     'toggleCircleBorderActive': none,
     'togglePaddingLeftText': 0,
     'togglePaddingRightText': ef.size(3),
-    'toggleFontStyle': 'ThirdTitleBold'
+    'toggleFontStyle': 'ThirdTitleBold',
+
+    'boldCheckboxTextFont': 'PrimaryTextBold',
+    'boldCheckboxTextFontColor': var(--mc-baseThird, var(--mc-baseMain)),
+    'boldCheckboxTextPadding': 0,
 ), $customThemeDefault);

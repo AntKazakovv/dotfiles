@@ -204,4 +204,12 @@
             }
         }
     }
+
+    &.wlc-checkbox--theme-mod-bold {
+
+        .wlc-checkbox__text {
+            @include text.get-text-style(ef.get-value($themeDefault, 'boldCheckboxTextFont'), ef.get-value($themeDefault, 'boldCheckboxTextFontColor'));
+            @include bm.get-mq-map('padding', $themeDefault, 'boldCheckboxTextPadding');
+        }
+    }
 }

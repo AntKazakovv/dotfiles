@@ -8,6 +8,9 @@ export const categorySettings: IIndexing<ICategorySettings> = {
     lastplayed: {
         view: 'all-games',
     },
+    recommendations: {
+        view: 'all-games',
+    },
     new: {
         view: 'all-games',
     },

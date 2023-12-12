@@ -355,6 +355,13 @@ export interface ILastPlayedGame {
     Image: string;
 }
 
+export interface IRecommendation {
+    gameId: string;
+    gameProviderId: string;
+    score: number;
+    recommendationId: string;
+}
+
 /**
  * INTERFACES
  */

@@ -50,6 +50,7 @@ export class Categories {
         'casino',
         'lastplayed',
         'favourites',
+        'recommendations',
         'last-played',
     ];
     public defaultParentCategories: string[] = [
@@ -98,6 +99,20 @@ export class Categories {
             Slug: 'casino',
             CSort: '0',
             CSubSort: '0',
+        },
+        {
+            ID: '-4',
+            Name: {
+                en: gettext('Suggested for you'),
+            },
+            Trans: {
+                en: gettext('Suggested for you'),
+            },
+            Tags: [],
+            menuId: 'recommendations',
+            Slug: 'recommendations',
+            CSort: '0',
+            CSubSort: '10000000',
         },
     ];
 
@@ -229,7 +244,9 @@ export class Categories {
 
         if (this.configService.get<AppType>('$base.app.type') === 'kiosk') {
             this.specialCategories = _filter(this.specialCategories, (category: ICategory) => {
-                return category.Slug !== 'lastplayed' && category.Slug !== 'favourites';
+                return category.Slug !== 'lastplayed'
+                    && category.Slug !== 'favourites'
+                    && category.Slug !== 'recommendations';
             });
         }
 

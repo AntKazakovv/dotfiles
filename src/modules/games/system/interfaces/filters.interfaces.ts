@@ -54,6 +54,7 @@ export interface ICategoryMenuItem extends ICategory {
     filters?: IGamesFilterData;
     lastPlayed?: boolean;
     favourites?: boolean;
+    recommendations?: boolean;
     default?: boolean;
 }
 
