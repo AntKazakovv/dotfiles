@@ -1,6 +1,6 @@
 .wlc-tournament-prizes-row--theme-wolf:host {
-    --wlc-icon-width: 16px;
-    --wlc-icon-height: 16px;
+    --wlc-icon-width: #{ef.get-value($themeWolf, 'iconSize')};
+    --wlc-icon-height: #{ef.get-value($themeWolf, 'iconSize')};
 
     .wlc-tournament-prizes-row {
 

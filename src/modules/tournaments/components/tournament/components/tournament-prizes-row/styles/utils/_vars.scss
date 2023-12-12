@@ -3,4 +3,6 @@ $themeDefault: map-merge((
     'dividerContent': '+',
     'dividerMargin': 0 ef.size(1),
     'valuesAlignment': center,
+    'iconSize': 16px,
+    'iconMargin': ef.size(1),
 ), $customThemeDefault);

@@ -1,4 +1,6 @@
 .wlc-tournament-prizes-row--theme-default:host {
+    --wlc-icon-width: #{ef.get-value($themeDefault, 'iconSize')};
+    --wlc-icon-height: #{ef.get-value($themeDefault, 'iconSize')};
 
     .wlc-tournament-prizes-row {
 
@@ -22,6 +24,15 @@
                     display: inline-block;
                     margin: ef.get-value($themeDefault, 'dividerMargin');
                 }
+            }
+        }
+
+        &__rest-icon {
+            margin-left: ef.get-value($themeDefault, 'iconMargin');
+
+            .wlc-tournament-prizes-row__icon {
+                display: inline-block;
+                transform: translateY(-2px);
             }
         }
     }
