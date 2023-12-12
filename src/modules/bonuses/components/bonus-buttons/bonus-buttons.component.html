@@ -19,12 +19,12 @@
 
 <ng-template #themeSwitcher>
     <ng-container [ngSwitch]="bonusItemTheme">
-        <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
-        <ng-container [ngTemplateOutlet]="promo" *ngSwitchCase="'promo'"></ng-container>
-        <ng-container [ngTemplateOutlet]="promo" *ngSwitchCase="'promo-home'"></ng-container>
-        <ng-container [ngTemplateOutlet]="long" *ngSwitchCase="'long'"></ng-container>
-        <ng-container [ngTemplateOutlet]="modal" *ngSwitchCase="'modal'"></ng-container>
-        <ng-container [ngTemplateOutlet]="wolf" *ngSwitchCase="'wolf'"></ng-container>
+        <ng-container *ngSwitchCase="'promo'" [ngTemplateOutlet]="promo"></ng-container>
+        <ng-container *ngSwitchCase="'promo-home'" [ngTemplateOutlet]="promo"></ng-container>
+        <ng-container *ngSwitchCase="'long'" [ngTemplateOutlet]="long"></ng-container>
+        <ng-container *ngSwitchCase="'modal'" [ngTemplateOutlet]="modal"></ng-container>
+        <ng-container *ngSwitchCase="'wolf'" [ngTemplateOutlet]="wolf"></ng-container>
+        <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
     </ng-container>
 </ng-template>
 

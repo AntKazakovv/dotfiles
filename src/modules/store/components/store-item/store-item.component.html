@@ -53,8 +53,8 @@
 <div class="{{$class}}__content" [class.noauth]="!isAuth">
     <div class="{{$class}}__wrapper">
         <ng-container [ngSwitch]="$params?.theme">
-            <ng-container [ngTemplateOutlet]="first" *ngSwitchCase="'first'"></ng-container>
-            <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
+            <ng-container *ngSwitchCase="'first'" [ngTemplateOutlet]="first"></ng-container>
+            <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
         </ng-container>
         <div class="{{$class}}__bottom">
             <div class="{{$class}}__info-block">

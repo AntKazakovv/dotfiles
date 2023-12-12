@@ -1,6 +1,6 @@
 <ng-container *ngIf="ready; else preloader" [ngSwitch]="$params.theme">
-    <ng-container [ngTemplateOutlet]="second" *ngSwitchCase="'second'"></ng-container>
-    <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
+    <ng-container *ngSwitchCase="'second'" [ngTemplateOutlet]="second"></ng-container>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
 </ng-container>
 
 <ng-template #preloader>

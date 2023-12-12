@@ -3,10 +3,10 @@
         <span class="{{$class}}__title">{{title | translate}}</span>
         <div class="{{$class}}__desc">
             <ng-container [ngSwitch]="lootboxStatus">
-                <ng-container [ngTemplateOutlet]="open" *ngSwitchCase="'open'"></ng-container>
-                <ng-container [ngTemplateOutlet]="spin" *ngSwitchCase="'spin'"></ng-container>
-                <ng-container [ngTemplateOutlet]="dropped" *ngSwitchCase="'dropped'"></ng-container>
-                <ng-container [ngTemplateOutlet]="error" *ngSwitchCase="'error'"></ng-container>
+                <ng-container *ngSwitchCase="'open'" [ngTemplateOutlet]="open"></ng-container>
+                <ng-container *ngSwitchCase="'spin'" [ngTemplateOutlet]="spin"></ng-container>
+                <ng-container *ngSwitchCase="'dropped'" [ngTemplateOutlet]="dropped"></ng-container>
+                <ng-container *ngSwitchCase="'error'" [ngTemplateOutlet]="error"></ng-container>
             </ng-container>
         </div>
     </div>

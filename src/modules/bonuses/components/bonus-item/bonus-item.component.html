@@ -1,15 +1,15 @@
 <ng-container *ngIf="!$params.dummy; else dummyTpl" [ngSwitch]="$params.theme">
-    <ng-container [ngTemplateOutlet]="partial" *ngSwitchCase="'partial'"></ng-container>
-    <ng-container [ngTemplateOutlet]="regFirst" *ngSwitchCase="'reg-first'"></ng-container>
-    <ng-container [ngTemplateOutlet]="preview" *ngSwitchCase="'preview'"></ng-container>
-    <ng-container [ngTemplateOutlet]="promo" *ngSwitchCase="'promo'"></ng-container>
-    <ng-container [ngTemplateOutlet]="promoHome" *ngSwitchCase="'promo-home'"></ng-container>
-    <ng-container [ngTemplateOutlet]="long" *ngSwitchCase="'long'"></ng-container>
-    <ng-container [ngTemplateOutlet]="active" *ngSwitchCase="'active'"></ng-container>
-    <ng-container [ngTemplateOutlet]="modal" *ngSwitchCase="'modal'"></ng-container>
-    <ng-container [ngTemplateOutlet]="mini" *ngSwitchCase="'mini'"></ng-container>
-    <ng-container [ngTemplateOutlet]="wolf" *ngSwitchCase="'wolf'"></ng-container>
-    <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
+    <ng-container *ngSwitchCase="'partial'" [ngTemplateOutlet]="partial"></ng-container>
+    <ng-container *ngSwitchCase="'reg-first'" [ngTemplateOutlet]="regFirst"></ng-container>
+    <ng-container *ngSwitchCase="'preview'" [ngTemplateOutlet]="preview"></ng-container>
+    <ng-container *ngSwitchCase="'promo'" [ngTemplateOutlet]="promo"></ng-container>
+    <ng-container *ngSwitchCase="'promo-home'" [ngTemplateOutlet]="promoHome"></ng-container>
+    <ng-container *ngSwitchCase="'long'" [ngTemplateOutlet]="long"></ng-container>
+    <ng-container *ngSwitchCase="'active'" [ngTemplateOutlet]="active"></ng-container>
+    <ng-container *ngSwitchCase="'modal'" [ngTemplateOutlet]="modal"></ng-container>
+    <ng-container *ngSwitchCase="'mini'" [ngTemplateOutlet]="mini"></ng-container>
+    <ng-container *ngSwitchCase="'wolf'" [ngTemplateOutlet]="wolf"></ng-container>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
 </ng-container>
 
 <!-- New templates begin (for wolf and further) -->

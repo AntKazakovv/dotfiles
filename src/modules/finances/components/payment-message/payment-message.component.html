@@ -1,11 +1,11 @@
 <ng-container *ngIf="!isError; else error" [ngSwitch]="type">
-    <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
-    <ng-container [ngTemplateOutlet]="payToXAddress" *ngSwitchCase="'pay_to_xaddress'"></ng-container>
-    <ng-container [ngTemplateOutlet]="payToAddressWithAmount" *ngSwitchCase="'pay_to_address_with_amount'"></ng-container>
-    <ng-container [ngTemplateOutlet]="payToBank" *ngSwitchCase="'pay_to_bank'"></ng-container>
-    <ng-container [ngTemplateOutlet]="htmlForm" *ngSwitchCase="'html'"></ng-container>
-    <ng-container [ngTemplateOutlet]="textForm" *ngSwitchCase="'text'"></ng-container>
-    <ng-container [ngTemplateOutlet]="payViaInvoice" *ngSwitchCase="'pay_via_invoice'"></ng-container>
+    <ng-container *ngSwitchCase="'pay_to_xaddress'" [ngTemplateOutlet]="payToXAddress"></ng-container>
+    <ng-container *ngSwitchCase="'pay_to_address_with_amount'" [ngTemplateOutlet]="payToAddressWithAmount"></ng-container>
+    <ng-container *ngSwitchCase="'pay_to_bank'" [ngTemplateOutlet]="payToBank"></ng-container>
+    <ng-container *ngSwitchCase="'html'" [ngTemplateOutlet]="htmlForm"></ng-container>
+    <ng-container *ngSwitchCase="'text'" [ngTemplateOutlet]="textForm"></ng-container>
+    <ng-container *ngSwitchCase="'pay_via_invoice'" [ngTemplateOutlet]="payViaInvoice"></ng-container>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
 </ng-container>
 
 <ng-template #default>

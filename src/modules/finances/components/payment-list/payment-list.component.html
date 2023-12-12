@@ -1,6 +1,6 @@
 <ng-container *ngIf="ready; else preloader" [ngSwitch]="$params.type">
-    <ng-container [ngTemplateOutlet]="fastDeposit" *ngSwitchCase="'fast-deposit'"></ng-container>
-    <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
+    <ng-container *ngSwitchCase="'fast-deposit'" [ngTemplateOutlet]="fastDeposit"></ng-container>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
 </ng-container>
 
 <ng-template #default>
@@ -84,20 +84,20 @@
             <!-- No data about speed :( -->
             <td class="{{$class}}__sys-td">{{currentSystem ? 'Instant' : '---' | translate}}</td>
         </tr>
-        <tr class="{{$class}}__sys-tr {{$class}}__sys-tr--limit"
-            [ngSwitch]="$params.paymentType">
+        <tr [ngSwitch]="$params.paymentType"
+            class="{{$class}}__sys-tr {{$class}}__sys-tr--limit">
             <th class="{{$class}}__sys-th">{{'Limit' | translate}}</th>
             <td *ngSwitchCase="'deposit'"
                 class="{{$class}}__sys-td"
                 [ngSwitch]="!!currentSystem">
-                <span *ngSwitchDefault>---</span>
                 <span *ngSwitchCase="true">{{currentSystem.depositMin}} - {{currentSystem.depositMax}}</span>
+                <span *ngSwitchDefault>---</span>
             </td>
             <td *ngSwitchCase="'withdraw'"
                 class="{{$class}}__sys-td"
                 [ngSwitch]="!!currentSystem">
-                <span *ngSwitchDefault>---</span>
                 <span *ngSwitchCase="true">{{currentSystem.withdrawMin}} - {{currentSystem.withdrawMax}}</span>
+                <span *ngSwitchDefault>---</span>
             </td>
         </tr>
         <tr class="{{$class}}__sys-tr {{$class}}__sys-tr--provider">
@@ -115,9 +115,9 @@
         <ng-container *ngIf="showNotifications" [ngTemplateOutlet]="notifications"></ng-container>
 
         <ul *ngIf="!isGroupingByBlocks; else groupList"
+            [ngSwitch]="$params.theme"
             class="{{$class}}__ul"
-            [@appearance]="ready && systems.length"
-            [ngSwitch]="$params.theme">
+            [@appearance]="ready && systems.length">
             <ng-container *ngSwitchCase="'crypto-list'" [ngTemplateOutlet]="cryptoList"></ng-container>
             <ng-container *ngSwitchDefault [ngTemplateOutlet]="defaultList"></ng-container>
         </ul>

@@ -1,6 +1,6 @@
 <ng-container [ngSwitch]="$params.type">
-    <ng-container [ngTemplateOutlet]="typeModal" *ngSwitchCase="'modal'"></ng-container>
-    <ng-container [ngTemplateOutlet]="typeDefault" *ngSwitchDefault></ng-container>
+    <ng-container *ngSwitchCase="'modal'" [ngTemplateOutlet]="typeModal"></ng-container>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="typeDefault"></ng-container>
 </ng-container>
 
 <!-- default -->
