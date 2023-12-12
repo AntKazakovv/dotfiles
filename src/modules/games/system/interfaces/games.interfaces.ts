@@ -113,6 +113,8 @@ export interface IGamesComponents {
 }
 
 export interface ICategories {
+    /** Enable recommended games category or not */
+    useRecommended?: boolean;
     useFundistJackpots?: boolean;
     exclude?: IExcludeCategories;
     /** settings for hide some categories
@@ -353,6 +355,13 @@ export type IFavourite = {
 export interface ILastPlayedGame {
     ID: string;
     Image: string;
+}
+
+export interface IRecommendedGame {
+    gameId: string;
+    gameProviderId: string;
+    score: number;
+    recommendationId: string;
 }
 
 /**

@@ -1,4 +1,8 @@
-import {Ng2StateDeclaration} from '@uirouter/angular';
+import {
+    Ng2StateDeclaration,
+} from '@uirouter/angular';
+
+import _toNumber from 'lodash-es/toNumber';
 
 import {startGameResolver} from 'wlc-engine/modules/core/system/config/resolvers';
 import {StateHelper} from 'wlc-engine/modules/core/system/helpers/state.helper';
@@ -7,10 +11,17 @@ import {
     ConfigService,
     ModalService,
 } from 'wlc-engine/modules/core/system/services';
+import {StateHistoryService} from 'wlc-engine/modules/core/system/services/state-history/state-history.service';
 import {
     GamesFilterService,
     TScreenOrientation,
+    GamesCatalogService,
 } from 'wlc-engine/modules/games';
+
+import {
+    dontShowRecommendedGames,
+    dontShowRecommendedGamesStorage,
+} from 'wlc-engine/modules/games/system/constants/recommended-games.constants';
 
 export const gamePlayState: Ng2StateDeclaration = {
     url: '/play/:merchantId/:launchCode?:demo',
@@ -34,8 +45,26 @@ export const gamePlayState: Ng2StateDeclaration = {
             GlobalHelper.appUnlockScreenOrientation();
         }
     },
-    onExit: ($transition) => {
+    onExit: async ($transition) => {
+        const configService: ConfigService = $transition.injector().get(ConfigService);
+        const gamesCatalogService: GamesCatalogService = $transition.injector().get(GamesCatalogService);
+        const stateHistoryService: StateHistoryService = $transition.injector().get(StateHistoryService);
+        const showRecommendedGames = !configService.get<boolean>({
+            name: dontShowRecommendedGames,
+            storageType: dontShowRecommendedGamesStorage,
+        });
+
         GlobalHelper.appLockScreenOrientation('portrait');
+
+        if (configService.get('$games.categories.useRecommended')
+            && showRecommendedGames
+            && configService.get('$user.isAuthenticated')
+            && $transition.$to().name !== 'app.profile.cash.deposit'
+        ) {
+
+            const {launchCode, merchantId} = stateHistoryService.getCurrentState().params;
+            gamesCatalogService.showRecommendedGamesModal(_toNumber(merchantId), launchCode);
+        }
 
         const gamesFilterService: GamesFilterService = $transition.injector().get(GamesFilterService);
 

@@ -280,6 +280,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
         if (this.isAuth) {
             specialCategories.push(this.gamesCatalogService.getCategoryBySlug('favourites'));
             specialCategories.push(this.gamesCatalogService.getCategoryBySlug('lastplayed'));
+            specialCategories.push(this.gamesCatalogService.getCategoryBySlug('recommendations'));
         }
         specialCategories.push(this.gamesCatalogService.getCategoryBySlug('new'));
         specialCategories.push(this.gamesCatalogService.getCategoryBySlug('popular'));

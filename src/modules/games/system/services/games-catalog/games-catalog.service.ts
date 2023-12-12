@@ -42,6 +42,7 @@ import _reduce from 'lodash-es/reduce';
 import _first from 'lodash-es/first';
 import _intersection from 'lodash-es/intersection';
 import _some from 'lodash-es/some';
+import _orderBy from 'lodash-es/orderBy';
 
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers';
 import {ICategorySettings} from 'wlc-engine/modules/core/system/interfaces/categories.interface';
@@ -81,6 +82,9 @@ import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filte
 import {
     IPlayGameForRealCParams,
 } from 'wlc-engine/modules/games/components/play-game-for-real/play-game-for-real.params';
+import {
+    IRecommendedGamesCParams,
+} from 'wlc-engine/modules/games/components/recommended-games/recommended-games.params';
 import {JackpotModel} from 'wlc-engine/modules/games/system/models/jackpot.model';
 import {PragmaticLiveModel} from 'wlc-engine/modules/games/system/models/pragmatic-live.model';
 import {
@@ -89,6 +93,7 @@ import {
     ILastPlayedGame,
     ILaunchInfo,
     IStartGameOptions,
+    IRecommendedGame,
     gamesEvents,
 } from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {Type as IGameThumbType} from 'wlc-engine/modules/games/components/game-thumb/game-thumb.params';
@@ -152,7 +157,7 @@ export class GamesCatalogService {
 
     private searchBySpecialCats: boolean = true;
     private gamesCatalog: Catalog;
-    private onlyAuthSpecial: string[] = ['lastplayed', 'favourites', 'last-played'];
+    private onlyAuthSpecial: string[] = ['lastplayed', 'favourites', 'last-played', 'recommendations'];
     private deviceType: DeviceType;
     private verticalThumbsConfig: IVideoThumbsConfig;
     private defaultThumbsConfig: IVideoThumbsConfig;
@@ -419,6 +424,30 @@ export class GamesCatalogService {
     }
 
     /**
+     * Get recommended games
+     *
+     * @returns {Promise<Game[]>} Recommended Games list
+     */
+    public async getRecommendedGames(merchantId?: number, launchCode?: string): Promise<Game[]> {
+        const gameID: number = merchantId && launchCode
+            ? this.getGame(merchantId, launchCode, false, true)?.ID
+            : null;
+
+        const game: Game[] = await this.loadSpecialCategoryGames<IRecommendedGame>(
+            'recommendations',
+            (item: IRecommendedGame) => item.gameId,
+            gameID ? {
+                gameId: gameID,
+                providerId: merchantId,
+            } : null,
+        );
+        return (game) ? game : await this.loadSpecialCategoryGames<IRecommendedGame>(
+            'recommendations',
+            (item: IRecommendedGame) => item.gameId,
+        );
+    }
+
+    /**
      * Get favorite games
      *
      * @returns {Promise<Game[]>}
@@ -536,6 +565,8 @@ export class GamesCatalogService {
             games = await this.getLastGames();
         } else if (parentCategory?.slug == 'favourites' || childCategory?.slug == 'favourites') {
             games = await this.getFavouriteGames();
+        } else if (parentCategory?.slug == 'recommendations' || childCategory?.slug == 'recommendations') {
+            games = await this.getRecommendedGames();
         } else if (this.useRealJackpots && parentCategory?.slug == 'jackpots') {
             games = await this.getJackpotGames();
         } else {
@@ -586,6 +617,10 @@ export class GamesCatalogService {
             if (auth || this.configService.get<boolean>('$user.isAuthenticated')) {
                 const favouritesCategory = this.getCategoryBySlug('favourites', parentCategory.slug);
                 const lastplayedCategory = this.getCategoryBySlug('lastplayed', parentCategory.slug);
+                const recommendedCategory = this.getCategoryBySlug('recommendations', parentCategory.slug);
+                if (recommendedCategory) {
+                    categoryList.push(recommendedCategory);
+                }
                 if (favouritesCategory) {
                     categoryList.push(favouritesCategory);
                 }
@@ -640,6 +675,7 @@ export class GamesCatalogService {
             return category.isParent
                 && !category.isLastPlayed
                 && !category.isFavourites
+                && !category.isRecommended
                 && !category.isNew
                 && !category.isPopular;
         });
@@ -1051,6 +1087,8 @@ export class GamesCatalogService {
             return await this.getLastGames();
         } else if (slug == 'favourites') {
             return await this.getFavouriteGames();
+        } else if (slug == 'recommendations') {
+            return await this.getRecommendedGames();
         } else {
             const category = this.getCategoryBySlug(slug);
             if (!category) {
@@ -1152,6 +1190,16 @@ export class GamesCatalogService {
                 showPplInfo: showPplInfo,
                 isLatestBetsWidget: false,
             },
+        });
+    }
+
+    public showRecommendedGamesModal(merchantID?: number, launchCode?: string): void {
+        this.getRecommendedGames(merchantID, launchCode).then((games) => {
+            this.modalService.showModal<IRecommendedGamesCParams>('recommendedModal', {
+                gamesGridParams: {
+                    gamesList: games.slice(0, 4),
+                },
+            });
         });
     }
 
@@ -1284,6 +1332,17 @@ export class GamesCatalogService {
         });
 
         this.dataService.registerMethod({
+            name: 'recommendations',
+            system: 'games',
+            url: '/recommendations',
+            type: 'GET',
+            events: {
+                success: gamesEvents.FETCH_RECOMMENDED_SUCCEEDED,
+                fail: gamesEvents.FETCH_RECOMMENDED_FAILED,
+            },
+        });
+
+        this.dataService.registerMethod({
             name: 'defaultThumbsConfig',
             system: 'games',
             cache: 480 * 60 * 1000,
@@ -1315,17 +1374,31 @@ export class GamesCatalogService {
      * @returns {Promise<void>}
      */
     private async loadSpecialCategoryGames<T>(
-        requestUrl: 'favorites' | 'lastGames',
+        requestUrl: 'favorites' | 'lastGames' | 'recommendations',
         getterProperty: (item: T) => string,
+        requestParams?: IIndexing<number | string>,
     ): Promise<Game[]> {
         if (this.configService.get('$user.isAuthenticated')) {
             try {
-                const data: IData = await this.dataService.request(`games/${requestUrl}`);
-                const gameIds: number[] = _map(data.data, (gameInfo: T) => {
+                const data: IData = await this.dataService.request(`games/${requestUrl}`, requestParams);
+                const gamesDate: T[] = (requestUrl === 'recommendations') ? data.data.values : data.data;
+                const gameIds: number[] = _map(gamesDate, (gameInfo: T) => {
                     return _toNumber(getterProperty(gameInfo));
                 });
-                const games: Game[] = (gameIds.length) ? this.getGameList({ids: gameIds}) : [];
+                let games: Game[] = (gameIds.length) ? this.getGameList({ids: gameIds}) : [];
                 const category: CategoryModel = this.getCategoryBySlug(SpecialCategoriesGamesSlug[requestUrl]);
+
+                if (requestUrl === 'recommendations') {
+                    const gamesScore = _reduce<IRecommendedGame, IIndexing<number>>(
+                    gamesDate as IRecommendedGame[],
+                    (result, value) => {
+                        result[value.gameId] = value.score;
+                        return result;
+                    }, {});
+                    games = _orderBy(games, function (game: Game) {
+                        return gamesScore[game.ID];
+                    }, 'desc');
+                }
                 category?.setGames(games);
                 return games;
             } catch (error) {

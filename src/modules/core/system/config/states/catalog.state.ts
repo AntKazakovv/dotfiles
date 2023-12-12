@@ -92,5 +92,5 @@ const authResolver = async (
 
     const category: CategoryModel = gamesCatalogService.getCategoryBySlug(categorySlug);
 
-    return category?.isLastPlayed || category?.isFavourites;
+    return category?.isLastPlayed || category?.isFavourites || category?.isRecommended;
 };

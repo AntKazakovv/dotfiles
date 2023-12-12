@@ -139,6 +139,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
     protected deviceType: DeviceType;
     protected lastPlayedLoaded: boolean = false;
     protected favoritesLoaded: boolean = false;
+    protected recommendedLoaded: boolean = false;
     protected jackpotsLoaded: boolean = false;
     protected isClickedLoadMoreBtn: boolean = false;
     protected useLazyAfterClick: boolean = false;
@@ -692,6 +693,11 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
         if (!this.favoritesLoaded && _includes(filter?.categories, 'favourites')) {
             await this.gamesCatalogService.getFavouriteGames();
             this.favoritesLoaded = true;
+        }
+
+        if (!this.recommendedLoaded && _includes(filter?.categories, 'recommendations')) {
+            await this.gamesCatalogService.getRecommendedGames();
+            this.recommendedLoaded = true;
         }
 
         if (!this.lastPlayedLoaded && _includes(filter?.categories, 'lastplayed')) {

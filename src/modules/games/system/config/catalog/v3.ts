@@ -73,6 +73,7 @@ export const catalogArch3 = new CatalogBuilder()
                         return !category.isParent
                             || category.isLastPlayed
                             || category.isFavourites
+                            || category.isRecommended
                             || category.isPopular
                             || category.isNew;
                     });
@@ -106,7 +107,7 @@ export const catalogArch3 = new CatalogBuilder()
                             return;
                         }
 
-                        if (category.isFavourites || category.isLastPlayed) {
+                        if (category.isFavourites || category.isLastPlayed || category.isRecommended) {
                             const newChildCategory: CategoryModel = _cloneDeep(category);
                             newChildCategory.setParentCategory(parentCategory);
                             availableChildCategories.push(newChildCategory);
