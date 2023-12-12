@@ -56,6 +56,8 @@ if (window.WlcHelper.usedPcEmulation()) {
     window.WlcCookie.delete('PC_EMULATION');
 }
 
+const jwtAuthToken = window.localStorage.getItem('ngx-webstorage|jwtauthtoken')?.replace(/"/g, '');
+
 config.forEach((request) => {
     if (checkCache(request.url)) {
         return;
