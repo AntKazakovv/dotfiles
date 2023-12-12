@@ -11,7 +11,6 @@ import {
     ConfigService,
     ColorThemeService,
     InjectionService,
-    GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {
     MerchantModel,
@@ -45,7 +44,7 @@ describe('IconMerchantsListComponent', () => {
             'Name': 'TomHorn',
             'IDParent': null,
             'Alias': 'TomHorn',
-            'Image': GlobalHelper + '/merchants/tomhorn.jpg',
+            'Image': '/gstatic/merchants/tomhorn.jpg',
             'menuId': 'tomhorn',
         }),
         new MerchantModel({}, {
@@ -53,7 +52,7 @@ describe('IconMerchantsListComponent', () => {
             'Name': 'PariPlay',
             'IDParent': null,
             'Alias': 'PariPlay',
-            'Image': GlobalHelper + '/merchants/pariplay.jpg',
+            'Image': '/gstatic/merchants/pariplay.jpg',
             'menuId': 'pariplay',
         }),
         new MerchantModel({}, {
@@ -61,7 +60,7 @@ describe('IconMerchantsListComponent', () => {
             'Name': 'Amatic',
             'IDParent': null,
             'Alias': 'Amatic',
-            'Image': GlobalHelper + '/merchants/amatic.jpg',
+            'Image': '/gstatic/merchants/amatic.jpg',
             'menuId': 'amatic',
         }),
         new MerchantModel({}, {
@@ -69,7 +68,7 @@ describe('IconMerchantsListComponent', () => {
             'Name': 'Ezugi',
             'IDParent': null,
             'Alias': 'Ezugi',
-            'Image': GlobalHelper + '/merchants/ezugi.jpg',
+            'Image': '/gstatic/merchants/ezugi.jpg',
             'menuId': 'ezugi',
         }),
         new MerchantModel({}, {
@@ -77,7 +76,7 @@ describe('IconMerchantsListComponent', () => {
             'Name': 'BetSoft',
             'IDParent': null,
             'Alias': 'BetSoft',
-            'Image': GlobalHelper + '/merchants/betsoft.jpg',
+            'Image': '/gstatic/merchants/betsoft.jpg',
             'menuId': 'betsoft',
         }),
     ];
@@ -95,7 +94,7 @@ describe('IconMerchantsListComponent', () => {
                 'Name': name,
                 'IDParent': null,
                 'Alias': name,
-                'Image': `${GlobalHelper.gstaticUrl}/merchants/${name.toLocaleLowerCase()}.jpg`,
+                'Image': `/gstatic/merchants/${name.toLocaleLowerCase()}.jpg`,
                 'menuId': name.toLocaleLowerCase(),
             }),
         });

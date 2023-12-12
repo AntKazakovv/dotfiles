@@ -1,7 +1,4 @@
-import {
-    GlobalHelper,
-    IComponentParams,
-} from 'wlc-engine/modules/core';
+import {IComponentParams} from 'wlc-engine/modules/core';
 import {IAnimateSpriteCParams} from 'wlc-engine/modules/core/components/animate-sprite/animate-sprite.params';
 import {IRatingCParams} from 'wlc-engine/modules/core/components/rating/rating.params';
 
@@ -31,8 +28,8 @@ export const defaultParams: ITopRatedCParams = {
     },
     text: gettext('Top rated 24/7 live chat support'),
     animateSprite: {
-        imageUrl: GlobalHelper.gstaticUrl + '/sprites/support-sprite.png',
+        imageUrl: '/gstatic/sprites/support-sprite.png',
     },
     useSprite: false,
-    iconUrl: GlobalHelper.gstaticUrl + '/wlc/four-elements/support-icon.png',
+    iconUrl: '/gstatic/wlc/four-elements/support-icon.png',
 };

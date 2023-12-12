@@ -12,7 +12,6 @@ import {DOCUMENT} from '@angular/common';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
-import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 
 import * as Params from './license.params';
 
@@ -64,7 +63,7 @@ export class LicenseComponent extends AbstractComponent implements OnInit {
             this.licenseType = 'curacao-icon';
             this.addModifiers('curacao-icon');
             this.$params.curacao.icon = _isString(this.$params.curacao.icon)
-                ? this.$params.curacao.icon : GlobalHelper.gstaticUrl + '/wlc/icons/curacao-egaming-logo.png';
+                ? this.$params.curacao.icon : '/gstatic/wlc/icons/curacao-egaming-logo.png';
 
             if (this.$params.curacao?.pdf) {
                 this.$params.curacao.pdf = _isString(this.$params.curacao.pdf)

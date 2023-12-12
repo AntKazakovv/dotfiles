@@ -5,7 +5,6 @@ import {CountUpOptions} from 'countup.js';
 import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
 import {IAnimateSpriteCParams} from 'wlc-engine/modules/core/components/animate-sprite/animate-sprite.params';
 import {IGamesGridCParams} from 'wlc-engine/modules/games/components/games-grid/games-grid.params';
-import {GlobalHelper} from 'wlc-engine/modules/core';
 
 
 export type ComponentTheme = 'default' | 'info' | 'games-inside' | CustomType;
@@ -57,9 +56,9 @@ export const defaultParams: ITotalJackpotCParams = {
         decimal: ',',
     },
     useSprite: false,
-    iconUrl: GlobalHelper.gstaticUrl + '/wlc/four-elements/jackpot-icon.png',
+    iconUrl: '/gstatic/wlc/four-elements/jackpot-icon.png',
     animateSprite: {
-        imageUrl: GlobalHelper.gstaticUrl + '/sprites/star-sprite.png',
+        imageUrl: '/gstatic/sprites/star-sprite.png',
     },
     title: gettext('Total Jackpot'),
     gamesGridParams: {

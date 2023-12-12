@@ -50,7 +50,7 @@ $themeDefault: map-merge((
     ),
     'imageContainerBackground': var(--mc-bg),
 
-    'imageContainerDecorBackground': no-repeat center/cover ef.static('wlc/achievements/background.png'),
+    'imageContainerDecorBackground': no-repeat center/cover url('/gstatic/wlc/achievements/background.png'),
     'imageContainerDecorFilter': grayscale(100%),
     'imageContainerDecorFilterReceived': initial,
 
@@ -176,7 +176,7 @@ $themeModal: map-merge((
     'imageContainerRadius': ef.get('radius', 'big'),
     'imageContainerBackground': var(--mc-bg),
 
-    'imageContainerDecorBackground': no-repeat center/cover ef.static('wlc/achievements/background.png'),
+    'imageContainerDecorBackground': no-repeat center/cover url('/gstatic/wlc/achievements/background.png'),
     'imageContainerDecorFilter': grayscale(100%),
     'imageContainerDecorFilterReceived': initial,
 

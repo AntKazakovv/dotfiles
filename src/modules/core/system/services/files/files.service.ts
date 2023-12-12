@@ -258,25 +258,16 @@ export class FilesService {
     }
 
     protected normalizeFileUrl(fileUrl: string): string {
-        if (fileUrl[0] !== '/') {
-            fileUrl = '/' + fileUrl;
-        }
-        if (fileUrl.startsWith(GlobalHelper.gstaticUrl)) {
-            fileUrl = fileUrl.replace(GlobalHelper.gstaticUrl, '');
-        }
-        if (fileUrl.startsWith('/gstatic')) {
-            fileUrl = fileUrl.replace('/gstatic', '');
-        }
-        return fileUrl;
+        return fileUrl[0] === '/' ? fileUrl : '/' + fileUrl;
     }
 
     protected getStaticFileUrl(location: LocationFileType, fileName: string): string {
         if (location === 'gstatic') {
-            return `${GlobalHelper.gstaticUrl}${fileName}`;
+            return `/gstatic${fileName}`;
         } else if (location === 'app-static') {
-            return `${GlobalHelper.mobileAppStaticUrl}${fileName}`;
+            return `/app-static/images${fileName}`;
         } else {
-            return `${GlobalHelper.staticUrl}${fileName}`;
+            return `/static/images${fileName}`;
         }
     }
 
@@ -299,10 +290,6 @@ export class FilesService {
         }
 
         try {
-            if (!url) {
-                throw new Error('No url');
-            }
-
             const res: HttpResponse<string> = await this.httpClient.request(
                 'GET',
                 GlobalHelper.proxyUrl(url),
@@ -315,7 +302,7 @@ export class FilesService {
                 },
             ).toPromise();
 
-            if (/<!doctype/gi.test(res.body)) {
+            if (_includes(res.body, '<!DOCTYPE')) {
                 return;
             }
 

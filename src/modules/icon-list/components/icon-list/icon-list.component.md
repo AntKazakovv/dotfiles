@@ -65,7 +65,7 @@ Component to display an icon list. It can be used in the following ways:
                     title: 'Go to Angular',
                 },
                 {
-                    iconUrl: '//agstatic.com/images/placeholder.png',
+                    iconUrl: '/gstatic/images/placeholder.png',
                     alt: 'Placeholder',
                 },
                 {

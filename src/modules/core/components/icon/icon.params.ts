@@ -17,7 +17,7 @@ export interface IIconCParams extends IComponentParams<string, string, string> {
      * An icon is searched for by 'folder / icon name'.
      * First locally in the engine and project using the $localFiles settings,
      * then in the folder root/static/images in project
-     * and finally in agstatic
+     * and finally in gstatic
      */
     iconPath?: string;
 }

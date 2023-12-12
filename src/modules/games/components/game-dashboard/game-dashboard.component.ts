@@ -212,7 +212,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
 
-        this.tutorialImage = GlobalHelper.proxyUrl('/wlc/game-dashboard/crown.png');
+        this.tutorialImage = GlobalHelper.proxyUrl('/gstatic/wlc/game-dashboard/crown.png');
 
         this.isKiosk = this.configService.get<AppType>('$base.app.type') === 'kiosk';
         this.tabs = this.isKiosk ? Params.dashboardTabsKiosk : Params.dashboardTabs;

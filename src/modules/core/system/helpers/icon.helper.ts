@@ -21,7 +21,7 @@ export class IconHelper {
         showAs: TIconShowAs,
         colorIconBg?: TIconColorBg,
     ): string {
-        const rootPath = showAs === 'svg' ? '' : GlobalHelper.gstaticUrl;
+        const rootPath = showAs === 'svg' ? '' : '/gstatic';
         const color = showAs === 'svg' ? 'black' : 'color';
         const colorBg = (color === 'color' && colorIconBg) ? 'color/' + colorIconBg : null;
 

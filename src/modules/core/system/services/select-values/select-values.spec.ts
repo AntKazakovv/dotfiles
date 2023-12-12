@@ -4,7 +4,6 @@ import {DateTime} from 'luxon';
 import {
     ConfigService,
     EventService,
-    GlobalHelper,
     ICountry,
     IIndexing,
     InjectionService,
@@ -43,7 +42,7 @@ describe('SelectValuesService', () => {
         {
             alias: 'AirDice',
             id: 905,
-            image: GlobalHelper.gstaticUrl + '/merchants/airdice.jpg',
+            image: '/gstatic/merchants/airdice.jpg',
             menuId: 'airdice',
             name: 'AirDice',
             parentId: 0,
@@ -51,7 +50,7 @@ describe('SelectValuesService', () => {
         {
             alias: 'ExtremeLive',
             id: 961,
-            image: GlobalHelper.gstaticUrl + '/merchants/extremelive.jpg',
+            image: '/gstatic/merchants/extremelive.jpg',
             menuId: 'extremelive',
             name: 'ExtremeLive',
             parentId: 0,
@@ -59,7 +58,7 @@ describe('SelectValuesService', () => {
         {
             alias: 'Apollo',
             id: 950,
-            image: GlobalHelper.gstaticUrl + '/merchants/apollo.jpg',
+            image: '/gstatic/merchants/apollo.jpg',
             menuId: 'apollo',
             name: 'Apollo',
             parentId: 0,
@@ -67,7 +66,7 @@ describe('SelectValuesService', () => {
         {
             alias: 'RevolverGaming',
             id: 902,
-            image: GlobalHelper.gstaticUrl + '/merchants/revolvergaming.jpg',
+            image: '/gstatic/merchants/revolvergaming.jpg',
             menuId: 'revolvergaming',
             name: 'RevolverGaming',
             parentId: 0,

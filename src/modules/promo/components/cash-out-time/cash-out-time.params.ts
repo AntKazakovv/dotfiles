@@ -1,7 +1,4 @@
-import {
-    GlobalHelper,
-    IComponentParams,
-} from 'wlc-engine/modules/core';
+import {IComponentParams} from 'wlc-engine/modules/core';
 import {IAnimateSpriteCParams} from 'wlc-engine/modules/core/components/animate-sprite/animate-sprite.params';
 
 export type ComponentTheme = string;
@@ -48,9 +45,9 @@ export const defaultParams: ICashOutTimeCParams = {
         to: 59,
     },
     useSprite: false,
-    iconUrl: GlobalHelper.gstaticUrl + '/wlc/four-elements/lightning-icon.png',
+    iconUrl: '/gstatic/wlc/four-elements/lightning-icon.png',
     animateSprite: {
-        imageUrl: GlobalHelper.gstaticUrl + '/sprites/lightning-sprite.png',
+        imageUrl: '/gstatic/sprites/lightning-sprite.png',
     },
     approximatelyTime: true,
 };

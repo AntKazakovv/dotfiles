@@ -1,4 +1,3 @@
-import {GlobalHelper} from 'wlc-engine/modules/core';
 import {
     CustomType,
     IComponentParams,
@@ -16,5 +15,5 @@ export const defaultParams: ILoyaltyInfoCParams = {
     moduleName: 'loyalty',
     componentName: 'wlc-loyalty-info',
     class: 'wlc-loyalty-info',
-    imagePath: GlobalHelper.gstaticUrl + '/loyalty-info/loyalty-info-bg.jpg',
+    imagePath: '/gstatic/loyalty-info/loyalty-info-bg.jpg',
 };

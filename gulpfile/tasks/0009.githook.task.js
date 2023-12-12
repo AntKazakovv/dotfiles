@@ -59,19 +59,6 @@ module.exports = function githookTask() {
             throw new Error('Want to add package-lock you do not.');
         }
 
-        const hasFileWithGstaticPath = this.execNativeShellSync(
-            'git diff --cached -G"/gstatic"',
-        );
-
-        if (hasFileWithGstaticPath) {
-            console.warn(
-                '-'.repeat(55) +
-                'Need to use agstatic instead of gstatic',
-                '-'.repeat(55),
-            );
-            process.exit(1);
-        }
-
         cb();
     });
 };

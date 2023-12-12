@@ -195,7 +195,7 @@ export class ProviderGamesComponent extends AbstractComponent implements OnInit 
                 showAs: showAs,
                 alt: alias,
                 wlcElement: wlcElement,
-                iconUrl: `${showAs === 'img' ? GlobalHelper.gstaticUrl : ''}${iconPath}`,
+                iconUrl: `${showAs === 'img' ? '/gstatic' : ''}${iconPath}`,
             },
         );
     }

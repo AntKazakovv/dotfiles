@@ -1,7 +1,4 @@
-import {
-    GlobalHelper,
-    IComponentWithPendingBtns,
-} from 'wlc-engine/modules/core';
+import {IComponentWithPendingBtns} from 'wlc-engine/modules/core';
 import {
     CustomType,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
@@ -31,8 +28,8 @@ export const defaultParams: IStoreItemCParams = {
     componentName: 'wlc-store-item',
     class: 'wlc-store-item',
     common: {
-        defaultPicPath: GlobalHelper.gstaticUrl + '/store/default.png',
-        defaultPicPathFirst: GlobalHelper.gstaticUrl + '/store/default1.png',
+        defaultPicPath: '/gstatic/store/default.png',
+        defaultPicPathFirst: '/gstatic/store/default1.png',
         iconFormat: 'svg',
     },
     btnsParams: {

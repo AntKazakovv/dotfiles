@@ -93,7 +93,7 @@ export class WinnerComponent extends AbstractComponent implements OnInit {
     }
 
     public get countryUrl(): string {
-        return GlobalHelper.proxyUrl(`/wlc/flags/4x3/${this.$params.winner.countryIso2}.svg`);
+        return GlobalHelper.proxyUrl(`/gstatic/wlc/flags/4x3/${this.$params.winner.countryIso2}.svg`);
     }
 
     public get date(): DateTime {

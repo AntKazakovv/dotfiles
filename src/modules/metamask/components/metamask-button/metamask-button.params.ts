@@ -10,7 +10,7 @@ export type ComponentThemeMod = 'default' | CustomType;
 
 export interface IMetamaskButtonCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     /**
-     * Path to metamask icon. By default, icon from agstatic is icon from metamask brand resources
+     * Path to metamask icon. By default, icon from gstatic is icon from metamask brand resources
      */
     iconPath?: string;
     /**

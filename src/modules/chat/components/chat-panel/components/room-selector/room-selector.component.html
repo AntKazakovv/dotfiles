@@ -6,7 +6,7 @@
     [class.opened]="isExpanded"
     [class.multiroom]="isMultiRoom">
     <img class="{{$class}}__flag"
-        [src]="activeRoom.image"
+        [src]="'gstatic/wlc/flags/1x1/' + activeRoom.imgKey + '.svg'"
         [alt]="activeRoom.id">
     <span class="{{$class}}__name">
         {{'Chat:' | translate}} {{activeRoom.name}}
@@ -35,7 +35,7 @@
         (click)="optionClickHandler($index)"
         tabindex="0">
         <img class="{{$class}}__flag"
-            [src]="room.image"
+            [src]="'gstatic/wlc/flags/1x1/' + room.imgKey + '.svg'"
             [alt]="room.id">
         <span class="{{$class}}__name">
             {{'Chat:' | translate}} {{room.name}}

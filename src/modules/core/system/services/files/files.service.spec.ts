@@ -9,7 +9,6 @@ import {localFiles} from 'wlc-engine/modules/core/system/config/files.config';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {FilesService} from './files.service';
-import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers';
 
 describe('FilesService', () => {
     let filesService: FilesService;
@@ -82,7 +81,7 @@ describe('FilesService', () => {
             expect(await filesService.getFileByUrl(file)).toEqual(jasmine.objectContaining({
                 key: file,
                 location: 'gstatic',
-                url: `${GlobalHelper.gstaticUrl}${file}`,
+                url: `/gstatic${file}`,
             }));
         });
     });

@@ -98,7 +98,7 @@ icon: 'static/images/custom_license_image.png' // ссылка на локаль
 icon: 'https://verification.curacao-egaming.com/validate.ashx?domain=devcasino.com', // гиперссылка на внешний ресурс
 ```
 
-Если переданное в параметр значение не является строковым, будет вставлено дефолтное изображение лицензии из файла **//agstatic.com/wlc/icons/curacao-egaming-logo.png**:
+Если переданное в параметр значение не является строковым, будет вставлено дефолтное изображение лицензии из файла **gstatic/wlc/icons/curacao-egaming-logo.png**:
 <br/><br/>
 <img src="../../../../docs/assets/core/license/curacao-egaming-logo.png">
 

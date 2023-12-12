@@ -1,7 +1,4 @@
-import {
-    CustomType,
-    GlobalHelper,
-} from 'wlc-engine/modules/core';
+import {CustomType} from 'wlc-engine/modules/core';
 import {IIconListCParams} from 'wlc-engine/modules/icon-list/components/icon-list/icon-list.params';
 import {IAbstractIconsListParams} from 'wlc-engine/modules/icon-list/system/classes/icon-list-abstract.class';
 
@@ -38,15 +35,15 @@ export const defaultParams: IIconSafetyListCParams = {
     },
     items: [
         {
-            iconUrl: GlobalHelper.gstaticUrl + '/safety-icons/ssl.jpeg',
+            iconUrl: '/gstatic/safety-icons/ssl.jpeg',
             alt: 'SSL Encryption',
         },
         {
-            iconUrl: GlobalHelper.gstaticUrl + '/safety-icons/gamcare.png',
+            iconUrl: '/gstatic/safety-icons/gamcare.png',
             alt: 'GAMCARE',
         },
         {
-            iconUrl: GlobalHelper.gstaticUrl + '/safety-icons/gambling_therapy.png',
+            iconUrl: '/gstatic/safety-icons/gambling_therapy.png',
             alt: 'Gambling Therapy',
         },
     ],

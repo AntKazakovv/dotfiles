@@ -160,7 +160,7 @@ export abstract class IconListAbstract<T> extends AbstractComponent {
         return name.toLowerCase().replace(/\s/g, '-').replace(/[^\dA-Za-z-]/g, '');
     }
 
-    /** On change color site theme method changes icons on another color from agstatic
+    /** On change color site theme method changes icons on another color from gstatic
      * Wont work with custom list which creates from "items" params
      **/
     protected subscribeOnToggleSiteTheme(themeChangeCallback: Function): void {

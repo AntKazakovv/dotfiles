@@ -79,8 +79,8 @@ export const defaultParams: ILoyaltyProgramCParams = {
     moduleName: 'loyalty',
     componentName: 'wlc-loyalty-program',
     class: 'wlc-loyalty-program',
-    decorLeftPath: '//agstatic.com/loyalty-program/decor/left-decor.png',
-    decorRightPath: '//agstatic.com/loyalty-program/decor/right-decor.png',
+    decorLeftPath: '/gstatic/loyalty-program/decor/left-decor.png',
+    decorRightPath: '/gstatic/loyalty-program/decor/right-decor.png',
     levelsLimit: 4,
     emptyStateText: gettext('An error has occurred while loading data. Please try again later.'),
     btnParams: {

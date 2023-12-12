@@ -54,7 +54,7 @@ export const defaultParams: ILanguageSelectorCParams = {
     type: 'click',
     common: {
         flags: {
-            path: '/wlc/flags/1x1/',
+            path: '/gstatic/wlc/flags/1x1/',
             dim: 'svg',
             replace: {
                 en: 'gb',
