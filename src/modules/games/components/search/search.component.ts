@@ -436,6 +436,7 @@ export class SearchComponent extends AbstractComponent implements OnInit {
                 if (!filterCache) {
                     this.setFilter();
                 } else {
+                    filterCache.searchQuery = null;
                     this.filters = {...filterCache};
                     this.searchQuery = this.filters.searchQuery;
                     this.gamesFilterService.set(this.gamesGridParams.searchFilterName, filterCache, true);
