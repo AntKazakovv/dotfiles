@@ -4,6 +4,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {IPaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
 import {TPaymentsMethods} from 'wlc-engine/modules/finances/system/interfaces/piq-cashier.interface';
+import {TAlertMod} from 'wlc-engine/modules/chat/components/chat-panel/components/alert/alert.component';
 
 export interface IFinancesConfig {
     fastDeposit: IFastDeposit;
@@ -42,6 +43,10 @@ export interface IFinancesConfig {
      * For now, works only with second template
      * */
     useDepositPromoCode?: boolean;
+    /**
+     * Notification for deposit and/or withdrawal
+     */
+    alerts?: IAlerts;
 }
 
 export interface ITransactionHistoryAlert {
@@ -245,3 +250,20 @@ export interface ITaxData {
     deposit: Record<string, ITaxItem>;
     currency: string;
 }
+
+export interface IAlertMessage {
+    title: string;
+    mod: TAlertMod;
+    description?: string;
+}
+
+export interface IAlerts {
+    deposit?: TAlertList;
+    withdraw?: TAlertList;
+}
+
+export type TAlertList = {
+    [key in TShowMode]?: IAlertMessage;
+}
+
+export type TShowMode = 'title' | 'wallets' | 'bonuses' | 'cryptoInvoiceSystems' | 'paymentInfo' | 'systems';

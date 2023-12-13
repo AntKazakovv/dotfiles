@@ -38,6 +38,7 @@ import {
 import {PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services/finances/finances.service';
 import {IPaymentListCParams} from 'wlc-engine/modules/finances/components/payment-list/payment-list.params';
+import {TAlertList} from '../../system/interfaces/finances.interface';
 
 import {
     UserProfile,
@@ -108,6 +109,7 @@ export class DepositWithdrawComponent
     public appliedPromoCode$: BehaviorSubject<Bonus> = new BehaviorSubject(null);
 
     protected userService: UserService;
+    protected alertInformation: TAlertList;
 
     private userProfile: UserProfile;
     private isDeposit: boolean;
@@ -146,6 +148,7 @@ export class DepositWithdrawComponent
         this.useBonuses = this.configService.get<boolean>('$finances.bonusesInDeposit.use');
         this.isDeposit = this.$params.mode === 'deposit';
         this.showBonuses = this.useBonuses && this.isDeposit;
+        this.alertInformation = this.configService.get<TAlertList>(`$finances.alerts.${this.$params.mode}`);
         this.useDepositPromoCode = this.isDeposit && this.configService.get<boolean>('$finances.useDepositPromoCode');
 
         this.isLastMethodExisting = (this.isDeposit
@@ -482,5 +485,9 @@ export class DepositWithdrawComponent
         });
 
         this.steps = steps;
+    }
+
+    protected showAlert(step: string): boolean {
+        return !!this.alertInformation && !!this.alertInformation[step];
     }
 }
