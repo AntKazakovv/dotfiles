@@ -30,6 +30,7 @@ import {
     NotificationEvents,
     IPushMessageParams,
 } from 'wlc-engine/modules/core/system/services/notification';
+import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 
 import * as Params from './input.params';
 
@@ -99,6 +100,7 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
         super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
+    @CustomHook('core', 'ngOnInitInput')
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.control = this.$params?.control;

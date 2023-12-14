@@ -47,6 +47,7 @@ import {ICurrency} from 'wlc-engine/modules/finances/system/interfaces/currencie
 import {
     GamesCatalogService,
 } from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
+import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 
 import * as Params from 'wlc-engine/modules/core/components/select/select.params';
 
@@ -367,6 +368,7 @@ export class SelectValuesService {
      * @param {ICountry[]} countries
      * @returns {ICountry[]}
      */
+    @CustomHook('core', 'selectValuesPrepareCountries')
     public prepareCountries(countries: ICountry[]): ICountry[] {
         let countryList = countries;
 

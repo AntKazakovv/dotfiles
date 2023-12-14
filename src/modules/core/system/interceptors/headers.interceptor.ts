@@ -25,6 +25,7 @@ import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
+import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 
 @Injectable()
 export class HeadersInterceptor implements HttpInterceptor {
@@ -32,12 +33,13 @@ export class HeadersInterceptor implements HttpInterceptor {
     private useJwtToken: boolean = false;
 
     constructor(
-        @Inject(WINDOW) private window: Window,
-        private configService: ConfigService,
+        @Inject(WINDOW) protected window: Window,
+        protected configService: ConfigService,
     ) {
         this.useJwtToken = this.configService.get<boolean>('$base.site.useJwtToken');
     }
 
+    @CustomHook('core', 'headersInterceptorIntercept')
     public intercept(
         req: HttpRequest<string>,
         next: HttpHandler,

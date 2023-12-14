@@ -82,6 +82,7 @@ import {
     TFixedPanelPos,
     TFixedPanelState,
 } from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
+import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 import * as sectionsLib from 'wlc-engine/modules/core/system/config/layouts/sections';
 
 export * from './app-config.model';
@@ -115,7 +116,7 @@ export class ConfigService {
         private localStorageService: LocalStorageService,
         private sessionStorageService: SessionStorageService,
         private eventService: EventService,
-        @Inject(WINDOW) private window: Window,
+        @Inject(WINDOW) protected window: Window,
     ) {
         this.setGlobals();
 
@@ -332,7 +333,8 @@ export class ConfigService {
         });
     }
 
-    private addSiteConfig(): void {
+    @CustomHook('core', 'configServiceAddSiteConfig')
+    protected addSiteConfig(): void {
         wlcConfig.$base.app.type = appConfig.$base.app.type || 'wlc';
         wlcConfig.$base.profile.type = appConfig.$base.profile?.type || 'default';
 
