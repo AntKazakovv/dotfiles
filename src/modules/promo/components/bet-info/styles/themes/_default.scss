@@ -1,0 +1,36 @@
+.wlc-bet-info {
+
+    &__item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: ef.get-value($themeDefault, 'betHeightTextBlock');
+        margin: ef.get-value($themeDefault, 'betTextMarginBottom');
+        background-color: ef.get-value($themeDefault, 'colorModalBet');
+
+        &:first-child {
+            border-radius: ef.get-value($themeDefault, 'betTextBorderTop');
+        }
+
+        &:last-child {
+            border-radius: ef.get-value($themeDefault, 'betTextBorderBot');
+        }
+    }
+
+    &__subtitle {
+        @include text.get-text-style(ef.get-value($themeDefault, 'betFontText'), ef.get-value($themeDefault, 'betTextColorLeft'));
+        padding: ef.get-value($themeDefault, 'betTextPaddingLeft');
+    }
+
+    &__value {
+        @include text.get-text-style(ef.get-value($themeDefault, 'betFontTextValue'), ef.get-value($themeDefault, 'betTextColorRight'));
+        padding: ef.get-value($themeDefault, 'betTextPaddingRight');
+    }
+
+    &__text {
+
+        &.win {
+            color: ef.get-value($themeDefault, 'betWinProfitColor');
+        }
+    }
+}

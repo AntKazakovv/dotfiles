@@ -1140,6 +1140,9 @@ export class GamesCatalogService {
                 game: game,
                 disableDemo: !!disableDemo,
                 showPplInfo: showPplInfo,
+                latestBetWidget: {
+                    isLatestBetsWidget: false,
+                },
             },
         });
     }

@@ -2,6 +2,7 @@ import _assign from 'lodash-es/assign';
 
 import {CustomType} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
+import {IBetInfoCParams} from 'wlc-engine/modules/promo/components/bet-info/bet-info.params';
 
 import {
     IFormWrapperCParams,
@@ -31,6 +32,7 @@ export interface IPlayGameForRealCParams extends IAbstractSignInFormCParams<Comp
         game?: Game,
         disableDemo?: boolean;
         showPplInfo?: boolean;
+        latestBetWidget?: ILatestBetWidget;
     };
     modifiers?: Modifiers[];
 }
@@ -65,6 +67,15 @@ const insertPplInfo = (game: Game): IFormComponent => {
     };
 };
 
+interface ILatestBetWidget {
+    isLatestBetsWidget?: boolean;
+    currency?: string,
+    amount?: string,
+    coefficient?: string,
+    profit?: string,
+    isWin?: boolean,
+}
+
 interface IPlayForRealParams {
     game: Game,
     disableDemo: boolean;
@@ -77,6 +88,8 @@ interface IPlayForRealParams {
     /** Hide items that are unnecessary for the kiosk */
     isKiosk?: boolean;
     showPplInfo?: boolean;
+    /**Hide items Bet-info in modal */
+    latestBetWidget?: ILatestBetWidget;
 }
 
 export const templateSignUp = {
@@ -198,6 +211,14 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
 
     const forAuthenticated = [
         {
+            name: 'core.wlc-text-block',
+            params: <ITextBlockCParams>{
+                common: {
+                    textBlockTitle: params.game.name['en'],
+                },
+            },
+        },
+        {
             name: 'games.wlc-game-thumb',
             params: {
                 type: 'modal',
@@ -206,15 +227,19 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
                 },
             },
         },
-        {
-            name: 'core.wlc-text-block',
-            params: <ITextBlockCParams>{
-                common: {
-                    themeMod: 'game-title',
-                    textBlockSubtitle: params.game.name['en'],
+        params.latestBetWidget.isLatestBetsWidget ? {
+            name: 'promo.wlc-bet-info',
+            params: <IBetInfoCParams>{
+                class: 'wlc-bet-info',
+                betInfo: {
+                    currency: params.latestBetWidget.currency,
+                    amount: params.latestBetWidget.amount,
+                    profit: params.latestBetWidget.profit,
+                    coefficient: params.latestBetWidget.coefficient,
+                    isWin: params.latestBetWidget.isWin,
                 },
             },
-        },
+        } : null,
         {
             name: 'core.wlc-button',
             params: <IButtonCParams>{

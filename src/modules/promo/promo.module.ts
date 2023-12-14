@@ -21,6 +21,10 @@ import {
     CashOutTimeComponent,
     TopRatedComponent,
 } from 'wlc-engine/modules/promo';
+import {LatestBetsComponent} from 'wlc-engine/modules/promo/components/latest-bets/latest-bets.component';
+import {LatestBetsItemComponent} from 'wlc-engine/modules/promo/components/latest-bets-item/latest-bets-item.component';
+import {BetInfoComponent} from 'wlc-engine/modules/promo/components/bet-info/bet-info.component';
+
 import {CompilerModule} from 'wlc-engine/modules/compiler';
 import {GlobalHelper} from '../core/system/helpers';
 import {promoConfig} from './system/config/promo.config';
@@ -39,6 +43,9 @@ export const components = {
     'wlc-jackpots-slider': JackpotsSliderComponent,
     'wlc-winners-slider': WinnersSliderComponent,
     'wlc-top-rated': TopRatedComponent,
+    'wlc-latest-bets': LatestBetsComponent,
+    'wlc-latest-bets-item': LatestBetsItemComponent,
+    'wlc-bet-info': BetInfoComponent,
 };
 
 @NgModule({
@@ -51,6 +58,9 @@ export const components = {
         WinnerComponent,
         WinnersSliderComponent,
         TopRatedComponent,
+        LatestBetsComponent,
+        LatestBetsItemComponent,
+        BetInfoComponent,
     ],
     imports: [
         CommonModule,
@@ -74,6 +84,9 @@ export const components = {
         WinnerComponent,
         WinnersSliderComponent,
         TopRatedComponent,
+        LatestBetsComponent,
+        LatestBetsItemComponent,
+        BetInfoComponent,
     ],
 })
 export class PromoModule {

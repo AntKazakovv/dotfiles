@@ -55,6 +55,14 @@
             }
         }
 
+        .wlc-game-thumb {
+            margin: ef.get-value($themeDefault, 'modalGameMarginBottom');
+        }
+
+        .wlc-bet-info {
+            margin: ef.get-value($themeDefault, 'modalBetInfoMarginBottom');
+        }
+
         .wlc-link-block {
             padding: ef.get-value($themeDefault, 'linkBlockMargin');
 

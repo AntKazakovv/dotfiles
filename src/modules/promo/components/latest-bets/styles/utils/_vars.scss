@@ -1,0 +1,67 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'latestBetsWidth': 100%,
+    'wrapperDisplay': flex,
+    'wrapperFlexDirection': column,
+    'wrapperPadding': ef.size(1),
+    'wrapperMargin': 0 0 ef.size(4),
+
+    'contentDisplay': table,
+    'contentBorderSpacing': 0 2px,
+    'contentBorderRadius': ef.size(2),
+    'contentPadding' 0 ef.size(2)
+
+    'headerDisplay': table-row,
+    'headerBorderRadius': ef.size(2),
+    'headerColor': var(--mc-baseOpacity),
+
+    'cellDisplay': table-cell,
+    'cellHiddenDisplay': (
+        375: none,
+        1200: table-cell,
+    ),
+    'cellPadding':  2px ef.size(2),
+    'cellTestAlign': center,
+    'cellVerticalAlign': middle,
+    'cellBackground': var(--mc-bgModal),
+
+    'filterDisplay':  (
+        375: table-caption,
+        1200: table-row,
+    ),
+
+    'blockButtonsDisplay':  (
+        375: flex,
+        1200: table-cell,
+    ),
+
+    'firstChildTextAlign': left,
+    'firstChildCellBorder': ef.size(2) 0 0 ef.size(2),
+    'lastChildCellBorder': 0 ef.size(2) ef.size(2) 0,
+    'firstChildTextPadding': 0 0 0 ef.size(6),
+    'lastChildTextAlign': right,
+    'lastChildWhiteSpace': nowrap,
+    'lastChildPadding': 0 ef.size(6) 0 0,
+
+    'blockButtonsMinWidth': 380px,
+    'blockButtonsMaxWidth': 100%,
+    'blockButtonsHeight': ef.size(10),
+    'blockButtonsBackground': var(--mc-bgModal),
+    'blockButtonsBorderRadius': ef.size(2),
+
+    'buttonLineHeight': 1.1,
+    'buttonHeight': ef.size(9),
+    'buttonColorNotActive': var(--mc-baseMain),
+    'buttonMaxWidth': 100%,
+    'buttonMinWidth': 169px,
+    'buttonBackground': transparent,
+    'buttonMargin': 3px,
+    'buttonPadding': ef.size(1) ef.size(2),
+    'buttonBorderRadius': ef.size(2),
+    'buttonActiveBackground': var(--mc-bg700),
+    'buttonHoverBackground': var(--mc-bg500),
+    'buttonFontStyle': 'CaptionTextBold',
+    'buttonTextColor': var(--mc-baseThird),
+
+    'iconMargin': 0 ef.size(3) 0 0,
+), $customThemeDefault);

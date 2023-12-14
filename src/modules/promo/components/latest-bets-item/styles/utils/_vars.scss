@@ -1,0 +1,72 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'itemDisplay': table-row,
+    'itemBorderRadius': ef.size(2),
+    'itemColor': var(--mc-bg700),
+
+    'gameButtonBackground': transparent,
+    'gameButtonDecoration': none,
+    'gameButtonBorder': none,
+    'gameButtonColor': var(--mc-baseMain),
+    'gameHeightThumb': 54px,
+
+    'cellDisplay': table-cell,
+    'cellHiddenDisplay': (
+        375: none,
+        1200: table-cell,
+    ),
+    'cellSvgWidth': 16px,
+    'cellPadding': (
+        375: 6px ef.size(2),
+        1200: 6px 2px,
+    ),
+    'cellMultiplierWidth': 200px,
+    'cellAmountWidth': 200px,
+    'cellGameWidth': 350px,
+    'cellUserWidth': 300px,
+    'cellProfitWidth': 110px,
+    'cellTextAlign': left,
+    'cellVerticalAlign': middle,
+    'cellBackground': var(--mc-bg700),
+    'cellFontSize': 16px,
+    'cellSvgCategoryWidth': ef.size(4),
+    'cellNameAlign': left,
+    'cellTextColor': var(--mc-baseSecond, var(--mc-baseMain)),
+    'cellFirstChildPadding': 2px,
+    'cellFirstChildBorderRadius': ef.size(2) 0 0 ef.size(2),
+    'cellLastChildBorderRadius': 0 ef.size(2) ef.size(2) 0,
+
+    'iconMargin': 0 ef.size(2) 0 0,
+    'iconFirstChildMargin': 0 ef.size(3) 0 0,
+    'iconSvgHeight': ef.size(5),
+    'iconMarginLeft': 0 0 0 8px,
+
+    'lossTextColor': #7b809a,
+    'winTextColor': var(--mc-success),
+
+    'mobilePaddingAmount': 0 ef.size(2) 0 0,
+
+    'titleColor': var(--mc-baseMain),
+    'titleFontStyle': 'CaptionText',
+    'titleFontSizeMobile': ef.size(2),
+    'titleAlignMobile': start,
+    'titleValueFontWeight': 400,
+    'titleValueFontSize': 14px,
+    'titleValueFontSizeMobile': 12px,
+    'titleValueStyle': 'PrimaryText',
+
+    'thumbHeight': ef.size(10),
+    'thumbBorderRadius': ef.size(2),
+    'thumbMargin': ef.size(3),
+
+    'ImgContainerWidth': ef.size(15),
+
+    'winBackground': var(--mc-success-o2),
+    'lossBackground': var(--mc-error-o2),
+
+    'profitBorderRadius': ef.size(2),
+    'profitPadding': 0 ef.size(2),
+    'profitTextAlign': center,
+    'profitValueColor': var(--mc-baseThird),
+
+), $customThemeDefault);

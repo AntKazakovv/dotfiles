@@ -1,0 +1,179 @@
+.wlc-latest-bets-item--theme-default {
+
+    &:host {
+
+        display: ef.get-value($themeDefault, 'itemDisplay');
+        border-radius: ef.get-value($themeDefault, 'itemBorderRadius');
+        color: ef.get-value($themeDefault, 'itemColor');
+
+        .wlc-latest-bets-item {
+
+            &__game {
+                display: flex;
+                align-items: center;
+                height: ef.get-value($themeDefault, 'gameHeightThumb');
+                padding: 0;
+                color: ef.get-value($themeDefault, 'gameButtonColor');
+                font-weight: 400;
+                text-decoration: ef.get-value($themeDefault, 'gameButtonDecoration');
+                background: ef.get-value($themeDefault, 'gameButtonBackground');
+                border: ef.get-value($themeDefault, 'gameButtonBorder');
+                cursor: ef.get-value($themeDefault, 'linkCursor');
+                transition: color 0.3s linear;
+
+                &:hover {
+                    color: var(--mc-main);
+                }
+
+                .wlc-latest-bets-item__img-container {
+                    width: ef.get-value($themeDefault, 'ImgContainerWidth');
+                }
+            }
+
+            &__title {
+                @include text.get-text-style(ef.get-value($themeDefault, 'titleFontStyle'), ef.get-value($themeDefault, 'titleColor'));
+
+                &-value {
+                    @include text.get-text-style(ef.get-value($themeDefault, 'titleValueStyle'), ef.get-value($themeDefault, 'cellTextColor'));
+                    display: flex;
+
+                    @include mq.max(560) {
+                        font-size: ef.get-value($themeDefault, 'titleValueFontSizeMobile');
+                    }
+                }
+
+                @include mq.max(560) {
+                    font-size: ef.get-value($themeDefault, 'titleFontSizeMobile');
+                    text-align: ef.get-value($themeDefault, 'titleAlignMobile');
+                }
+            }
+
+            &__link {
+
+                @include mq.max(560) {
+                    display: flex;
+                }
+            }
+
+            &__thumb {
+                height: ef.get-value($themeDefault, 'thumbHeight');
+                border-radius: ef.get-value($themeDefault, 'thumbBorderRadius');
+                margin-right: ef.get-value($themeDefault, 'thumbMargin');
+            }
+
+            &__cell {
+                display: ef.get-value($themeDefault, 'cellDisplay');
+                padding: ef.get-value($themeDefault, 'cellPadding');
+                color: ef.get-value($themeDefault, 'cellTextColor');
+                font-size: ef.get-value($themeDefault, 'cellFontSize');
+                text-align: ef.get-value($themeDefault, 'cellTextAlign');
+                vertical-align: ef.get-value($themeDefault, 'cellVerticalAlign');
+                background-color: ef.get-value($themeDefault, 'cellBackground');
+
+                .wlc-latest-bets-item__name {
+                    color: ef.get-value($themeDefault, 'cellTextColor');
+                    text-align: ef.get-value($themeDefault, 'cellNameAlign');
+                }
+
+                &--multiplier {
+                    width: ef.get-value($themeDefault, 'cellMultiplierWidth');
+                    color: ef.get-value($themeDefault, 'cellTextColor');
+                }
+
+                &--amount {
+                    width: ef.get-value($themeDefault, 'cellAmountWidth');
+                }
+
+                &--profit {
+                    width: ef.get-value($themeDefault, 'cellProfitWidth');
+
+                    @include mq.max(560) {
+
+                        .wlc-latest-bets-item__title {
+                            padding: ef.get-value($themeDefault, 'mobilePaddingAmount');
+                        }
+                    }
+                }
+
+                &--game {
+                    width: ef.get-value($themeDefault, 'cellUserWidth');
+                }
+
+                &--user {
+                    width: ef.get-value($themeDefault, 'cellUserWidth');
+                }
+
+
+                &:first-child {
+                    padding: ef.get-value($themeDefault, 'cellFirstChildPadding');
+                    text-align: ef.get-value($themeDefault, 'cellTextAlign');
+                    border-radius: ef.get-value($themeDefault, 'cellFirstChildBorderRadius');
+
+                    .wlc-icon::ng-deep {
+                        margin: ef.get-value($themeDefault, 'iconFirstChildMargin');
+
+                        svg {
+                            max-width: ef.get-value($themeDefault, 'cellSvgCategoryWidth');
+                            height: auto;
+
+                            path {
+                                fill: var(--mc-main);
+                            }
+                        }
+                    }
+                }
+
+                &:last-child {
+                    white-space: nowrap;
+                    border-radius: ef.get-value($themeDefault, 'cellLastChildBorderRadius');
+
+
+                    @include mq.max(1024) {
+                        text-align: right;
+                    }
+                }
+
+                &:not(:first-child):not(:last-child) {
+                    display: none;
+
+                    @include mq.min(1024) {
+                        display: table-cell;
+                    }
+                }
+            }
+
+            &__icon::ng-deep {
+                margin: ef.get-value($themeDefault, 'iconMarginLeft');
+
+                svg {
+                    max-width: ef.get-value($themeDefault, 'cellSvgWidth');
+                    height: auto;
+                }
+            }
+
+            &__profit-amount {
+                display: flex;
+
+                @include mq.max(1024) {
+                    justify-content: end;
+                }
+            }
+
+            &__profit-value {
+                display: block;
+                padding: ef.get-value($themeDefault, 'profitPadding');
+                color: ef.get-value($themeDefault, 'profitValueColor');
+                text-align: ef.get-value($themeDefault, 'profitTextAlign');
+                border-radius: ef.get-value($themeDefault, 'profitBorderRadius');
+
+                &.win {
+                    background: ef.get-value($themeDefault, 'winBackground');
+                }
+
+                &.loss {
+                    background: ef.get-value($themeDefault, 'lossBackground');
+                }
+            }
+        }
+    }
+}

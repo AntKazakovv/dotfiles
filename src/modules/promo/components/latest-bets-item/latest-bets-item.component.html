@@ -1,0 +1,83 @@
+<div class="{{$class}}__cell {{$class}}__cell--game">
+    <div class="{{$class}}__button-game">
+        <button class="{{$class}}__game"
+            type="button"
+            [attr.title]="[nameGame]"
+            (click)="showModal(game, betAmount, multiplier, profitAmount, currency, isWin)">
+            <div class="{{$class}}__img-container">
+                <img class="{{$class}}__thumb"
+                    [src]="imageGame"
+                    [wlc-fallback]="$params.fallBackIconPath">
+            </div>
+            <div class="{{$class}}__name">
+                <div class="{{$class}}__title">
+                    {{'Game' | translate}}
+                </div>
+                <div class="{{$class}}__title-value"
+                    [attr.data-wlc-element]="'name_game_item-' + nameGame">{{nameGame}}
+                </div>
+            </div>
+        </button>
+    </div>
+</div>
+
+<div class="{{$class}}__cell {{$class}}__cell--user">
+    <div class="{{$class}}__title">
+        {{'User' | translate}}
+    </div>
+    <div class="{{$class}}__title-value">
+        {{userName}}
+    </div>
+</div>
+
+<div class="{{$class}}__cell {{$class}}__cell--amount">
+    <div class="{{$class}}__title">
+        {{'Amount' | translate}}
+    </div>
+    <div class="{{$class}}__title-value">
+        <span wlc-currency
+            class="{{$class}}__currency"
+            [currency]="currency"
+            [value]="betAmount">
+        </span>
+    </div>
+</div>
+
+<div class="{{$class}}__cell {{$class}}__cell--multiplier">
+    <div class="{{$class}}__title">
+        {{'Coefficient' | translate}}
+    </div>
+    <div class="{{$class}}__title-value">
+        {{multiplier}}
+    </div>
+</div>
+
+<div class="{{$class}}__cell {{$class}}__cell--profit">
+    <div class="{{$class}}__title">
+        {{'Profit' | translate}}
+    </div>
+    <div class="{{$class}}__link">
+        <div class="{{$class}}__profit-amount {{$class}}__title-value">
+            <div *ngIf="isWin; else zerocredit">
+                <span class="{{$class}}__profit-value"  [ngClass]="isWin ? 'win' : 'loss'">+
+                    <span wlc-currency
+                        class="{{$class}}__currency"
+                        [currency]="currency"
+                        [showIconOnly]="true">
+                    </span>
+                    {{profitAmount}}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #zerocredit>
+    <span class="{{$class}}__profit-value" [ngClass]="isWin ? 'win' : 'loss'">-
+        <span wlc-currency
+            class="{{$class}}__currency"
+            [currency]="currency"
+            [showIconOnly]="true">
+            </span>
+            {{betAmount}}
+        </span>
+</ng-template>

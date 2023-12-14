@@ -10,3 +10,5 @@ export {BannersSliderComponent} from './banners-slider/banners-slider.component'
 export {BannerComponent} from './banner/banner.component';
 export {CashOutTimeComponent} from './cash-out-time/cash-out-time.component';
 export {TopRatedComponent} from './top-rated/top-rated.component';
+export {LatestBetsComponent} from './latest-bets/latest-bets.component';
+export {LatestBetsItemComponent} from './latest-bets-item/latest-bets-item.component';

@@ -181,4 +181,8 @@ export const errorTypes: ILogTypes = {
         //Error parse svg
         level: 'error',
     },
+    '0.10.0': {
+        //Latest Bets request error
+        level: 'error',
+    },
 };

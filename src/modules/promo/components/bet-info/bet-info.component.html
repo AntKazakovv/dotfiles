@@ -1,0 +1,60 @@
+<div *ngIf="$params.betInfo?.amount" class="{{$class}}__item" >
+    <h3
+        class="{{$class}}__subtitle">
+        {{'Amount' | translate}}
+    </h3>
+    <div class="{{$class}}__value">
+        <p class="{{$class}}__text">
+            <span
+                wlc-currency
+                class="{{$class}}__currency"
+                [currency]="$params.betInfo.currency"
+                [showIconOnly]="true">
+            </span>
+                {{$params.betInfo.amount}}
+        </p>
+    </div>
+</div>
+<div *ngIf="$params.betInfo.coefficient" class="{{$class}}__item" >
+    <h3
+        class="{{$class}}__subtitle">
+        {{'Coefficient' | translate}}
+    </h3>
+    <div class="{{$class}}__value">
+        <p class="{{$class}}_text">
+            {{$params.betInfo.coefficient}}{{'x'}}
+        </p>
+    </div>
+</div>
+<div class="{{$class}}__item" >
+    <h3
+        class="{{$class}}__subtitle">
+        {{'Profit' | translate}}
+    </h3>
+    <div *ngIf="$params.betInfo.isWin; else zerocredit" class="{{$class}}__value">
+        <p
+            class="{{$class}}__text"
+            [ngClass]="$params.betInfo.isWin ? 'win' : 'loss'">
+            <span
+                wlc-currency
+                class="{{$class}}__currency"
+                [currency]="$params.betInfo.currency"
+                [showIconOnly]="true">
+            </span>
+                {{$params.betInfo.profit}}
+        </p>
+    </div>
+</div>
+<ng-template #zerocredit>
+    <div class="{{$class}}__value">
+        <p class="{{$class}}__text">
+            {{'-'}}
+            <span wlc-currency
+                class="{{$class}}__currency"
+                [currency]="$params.betInfo.currency"
+                [showIconOnly]="true">
+            </span>
+            {{$params.betInfo.amount}}
+        </p>
+    </div>
+</ng-template>

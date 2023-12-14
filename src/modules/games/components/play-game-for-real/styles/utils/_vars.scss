@@ -16,6 +16,8 @@ $themeDefault: map-merge((
     'gameTitleMargin': ef.size(8) 0,
     'linkBlockMargin': ef.size(4) 0 0 0,
 
+    'modalBetInfoMarginBottom': 0 0 ef.size(6) 0,
+    'modalGameMarginBottom': 0 0 ef.size(2) 0,
     'modalBg': var(--mc-bgModal),
     'modalBorderRadius': ef.size(3),
     'colorTitle': var(--mc-baseMain),
@@ -23,7 +25,6 @@ $themeDefault: map-merge((
     'widthGameThumbImg': 100%,
 
     'linkBlockBtnMargin': 0 auto ef.size(2) auto,
-
     'textBlockHeadMargin': (
         320: ef.size(6) 0 ef.size(8),
     ),

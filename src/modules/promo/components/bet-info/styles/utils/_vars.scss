@@ -1,0 +1,19 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'betMarginBottomInfoPanel': ef.size(6),
+    'betTextColorLeft': var(--mc-baseMain),
+    'betTextColorRight': var(--mc-baseSecond, var(--mc-baseMain)),
+    'betGameMarginBottom': ef.size(2),
+    'betTextBorderTop': ef.size(2) ef.size(2) 0 0,
+    'betTextBorderBot': 0 0 ef.size(2) ef.size(2),
+    'betTextMarginBottom': 0 0 2px 0,
+    'betHeightTextBlock': ef.size(6),
+    'betTextPaddingLeft': 0 0 0 ef.size(4),
+    'betTextPaddingRight': 0 ef.size(4) 0 0,
+    'betFontText': 'CaptionText',
+    'betFontTextValue': 'CaptionTextBold',
+    'betBg': var(--mc-bgModal),
+    'betBorderRadius': ef.size(3),
+    'colorModalBet': var(--mc-bg700),
+    'betWinProfitColor': var(--mc-success),
+), $customThemeDefault);

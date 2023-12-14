@@ -1,0 +1,30 @@
+<ng-container *ngIf="ready | async; else preloader">
+    <div class="{{$class}}__wrapper">
+        <div class="{{$class}}__table">
+            <div class="{{$class}}__filter">
+                <div class="{{$class}}__block-buttons">
+                    <button *ngIf="ready" [ngClass]="{'active': !isFiltered}"
+                            class="{{$class}}__button"
+                            wlc-button
+                            (click)="betsFilter(false)"
+                            text="{{'Recent bets' | translate}}">
+                    </button>
+                    <button *ngIf="ready" [ngClass]="{'active': isFiltered}"
+                            class="{{$class}}__button"
+                            wlc-button
+                            (click)="betsFilter(true)"
+                            text="{{'Biggest bets' | translate}}">
+                    </button>
+                </div>
+            </div>
+            <div *ngFor="let bet of (allBets$ | async)"
+                wlc-latest-bets-item
+                [inlineParams]="prepareBetParams(bet)">
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<ng-template #preloader>
+    <div wlc-loader></div>
+</ng-template>
