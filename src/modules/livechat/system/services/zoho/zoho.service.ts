@@ -14,9 +14,12 @@ import {BehaviorSubject} from 'rxjs';
 import _includes from 'lodash-es/includes';
 import _reduce from 'lodash-es/reduce';
 
-import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {
+    EventService,
+    ConfigService,
+    ActionService,
+    LogService,
+} from 'wlc-engine/modules/core';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {ILivechatZohoConfig} from 'wlc-engine/modules/livechat/system/interfaces/livechat.interface';
 import {LivechatAbstract} from 'wlc-engine/modules/livechat/system/classes/livechatAbstract.class';
@@ -70,11 +73,12 @@ export class ZohoChatService extends LivechatAbstract<ILivechatZohoConfig> {
         @Inject(WINDOW) protected window: Window,
         eventService: EventService,
         configService: ConfigService,
+        actionService: ActionService,
         protected logService: LogService,
         protected translateService: TranslateService,
         router: UIRouter,
     ) {
-        super(document, eventService, router, configService);
+        super(document, eventService, router, configService, actionService);
     }
 
     /**
@@ -263,7 +267,7 @@ export class ZohoChatService extends LivechatAbstract<ILivechatZohoConfig> {
     /**
      * Check target transition state and close chat, if it's excludeStates in config
      */
-    protected override checkExcludeStates(): void {
+    protected override subscribeTransitionStates(): void {
         this.router.transitionService.onSuccess({}, (transition: Transition) => {
             const stateName: string = transition.targetState().name();
             if (_includes(this.options.excludeStates, stateName)) {

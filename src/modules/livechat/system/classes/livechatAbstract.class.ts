@@ -11,7 +11,12 @@ import {
 import {BehaviorSubject} from 'rxjs';
 import _includes from 'lodash-es/includes';
 
-import {EventService} from 'wlc-engine/modules/core';
+import {
+    EventService,
+    DeviceModel,
+    ActionService,
+    DeviceType,
+} from 'wlc-engine/modules/core';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {ILivechatConfig} from 'wlc-engine/modules/livechat/system/interfaces/livechat.interface';
 
@@ -46,12 +51,14 @@ export abstract class LivechatAbstract<T extends ILivechatConfig>  {
     public abstract canChatDestroy: boolean;
 
     protected options: T = this.configService.get<T>('$base.livechat');
+    protected isMobile: boolean = this.configService.get<DeviceModel>('device').isMobile;
 
     constructor(
         @Inject(DOCUMENT) protected document: Document,
         protected eventService: EventService,
         protected router: UIRouter,
         protected configService: ConfigService,
+        protected actionService: ActionService,
     ) {}
 
     /**
@@ -60,7 +67,7 @@ export abstract class LivechatAbstract<T extends ILivechatConfig>  {
     public init(): void {
         this.initChat();
         this.initEvents();
-        this.checkExcludeStates();
+        this.initSubscribes();
     }
 
     /**
@@ -118,6 +125,8 @@ export abstract class LivechatAbstract<T extends ILivechatConfig>  {
      */
     protected initChat(): void {}
 
+    protected reloadChat(): void {}
+
     /**
      * Chat open, close, toggle events subscriptions
      */
@@ -125,6 +134,18 @@ export abstract class LivechatAbstract<T extends ILivechatConfig>  {
         this.eventService.filter({name: 'LIVECHAT_TOGGLE'}).subscribe(() => this.toggleChat());
         this.eventService.filter({name: 'LIVECHAT_OPEN'}).subscribe(() => this.openChat());
         this.eventService.filter({name: 'LIVECHAT_CLOSE'}).subscribe(() => this.hideChat());
+    }
+
+    protected initSubscribes(): void {
+        this.subscribeTransitionStates();
+
+        if (this.options.excludeOnlyMobile) {
+            this.actionService.deviceType()
+                .subscribe((type: DeviceType) => {
+                    this.isMobile = type !== DeviceType.Desktop;
+                    this.checkCurrentState(this.router.globals.current.name);
+                });
+        }
     }
 
     /**
@@ -137,26 +158,51 @@ export abstract class LivechatAbstract<T extends ILivechatConfig>  {
     }
 
     /**
-     * Check target transition state and close chat, if it's excludeStates in config
+     * Check target transition state
      */
-    protected checkExcludeStates(): void {
+    protected subscribeTransitionStates(): void {
         this.router.transitionService.onSuccess({}, (transition: Transition) => {
             const stateName: string = transition.targetState().name();
-
-            if (_includes(this.options.excludeStates, stateName)) {
-                this.destroyWidget();
-                return;
-            }
-            if (!this.chatIsLoaded()) {
-                this.initChat();
-                if (!this.options.hidden && this.options.type === 'zendesk') {
-                    this.showWidget();
-                }
-                return;
-            }
-            if (this.options.type === 'verbox') {
-                this.rerunWidget();
-            }
+            this.checkCurrentState(stateName);
         });
+    }
+
+    /**
+     * check current state and close chat, if it's excludeStates in config
+    */
+    protected checkCurrentState(stateName: string): void {
+
+        if (_includes(this.options.excludeStates, stateName)
+            && ((this.options.excludeOnlyMobile && this.isMobile)
+                || !this.options.excludeOnlyMobile)
+        ) {
+            this.destroyChat(this.options.type);
+            return;
+        }
+
+        if (!this.chatIsLoaded()) {
+            this.initChat();
+            if (!this.options.hidden && this.options.type === 'zendesk') {
+                this.showWidget();
+            }
+            return;
+        }
+        if (this.options.type === 'verbox') {
+            this.rerunWidget();
+        }
+        if (this.options.type === 'chatra') {
+            this.showWidget();
+        }
+    }
+
+    protected destroyChat(type: string): void {
+        switch (type) {
+            case 'chatra':
+                this.hideChat();
+                break;
+            default:
+                this.destroyWidget();
+                break;
+        }
     }
 }

@@ -8,9 +8,12 @@ import {DOCUMENT} from '@angular/common';
 import {BehaviorSubject} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';import _get from 'lodash-es/get';
 
-import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {
+    EventService,
+    ConfigService,
+    ActionService,
+    LogService,
+} from 'wlc-engine/modules/core';
 import {
     ILivechatTawkConfig,
     ILiveChatTawkLangGroup,
@@ -33,11 +36,12 @@ export class TawkChatService extends LivechatAbstract<ILivechatTawkConfig> {
         @Inject(WINDOW) protected window: Window,
         eventService: EventService,
         configService: ConfigService,
+        actionService: ActionService,
         protected logService: LogService,
         router: UIRouter,
         protected translateService: TranslateService,
     ) {
-        super(document, eventService, router, configService);
+        super(document, eventService, router, configService, actionService);
     }
 
     /**
@@ -136,7 +140,7 @@ export class TawkChatService extends LivechatAbstract<ILivechatTawkConfig> {
     /**
     * Reload chat (re-init)
     */
-    public reloadChat(): void {
+    protected override reloadChat(): void {
         this.initChat();
     }
 

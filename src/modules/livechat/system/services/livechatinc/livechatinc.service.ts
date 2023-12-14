@@ -25,6 +25,7 @@ import {
     EventService,
     ConfigService,
     LogService,
+    ActionService,
 } from 'wlc-engine/modules/core';
 import {HistoryService} from 'wlc-engine/modules/history/system/services/history.service';
 import {
@@ -62,11 +63,12 @@ export class LivechatincService extends LivechatAbstract<ILivechatIncConfig> {
         protected historyService: HistoryService,
         eventService: EventService,
         configService: ConfigService,
+        actionService: ActionService,
         protected logService: LogService,
         router: UIRouter,
         protected translateService: TranslateService,
     ) {
-        super(document, eventService, router, configService);
+        super(document, eventService, router, configService, actionService);
     }
 
     /**

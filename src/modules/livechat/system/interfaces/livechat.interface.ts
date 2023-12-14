@@ -68,6 +68,7 @@ export interface ILivechatDefaultConfig {
     hidden?: boolean;
     showOnlyAuth?: boolean;
     excludeStates?: string[]; // exclude states - chat will not shown
+    excludeOnlyMobile?: boolean;
 }
 
 export interface ILiveChatTawkLangGroup {

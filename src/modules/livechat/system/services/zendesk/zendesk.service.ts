@@ -23,6 +23,7 @@ import {
     DataService,
     IData,
     IEvent,
+    ActionService,
 } from 'wlc-engine/modules/core';
 import {ILivechatZendeskConfig} from 'wlc-engine/modules/livechat/system/interfaces/livechat.interface';
 import {
@@ -56,11 +57,12 @@ export class ZendeskService extends LivechatAbstract<ILivechatZendeskConfig> {
         eventService: EventService,
         router: UIRouter,
         configService: ConfigService,
+        actionService: ActionService,
         private logService: LogService,
         private translateService: TranslateService,
         private dataService: DataService,
     ) {
-        super(document, eventService, router, configService);
+        super(document, eventService, router, configService, actionService);
     }
 
     /**

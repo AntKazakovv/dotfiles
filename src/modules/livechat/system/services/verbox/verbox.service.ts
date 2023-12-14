@@ -16,9 +16,12 @@ import {BehaviorSubject} from 'rxjs';
 import {filter} from 'rxjs/operators';
 import _isNull from 'lodash-es/isNull';
 
-import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {
+    EventService,
+    ConfigService,
+    ActionService,
+    LogService,
+} from 'wlc-engine/modules/core';
 import {ILivechatVerboxConfig} from 'wlc-engine/modules/livechat/system/interfaces/livechat.interface';
 import {LivechatAbstract} from 'wlc-engine/modules/livechat/system/classes/livechatAbstract.class';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
@@ -38,12 +41,13 @@ export class VerboxService extends LivechatAbstract<ILivechatVerboxConfig> {
         @Inject(WINDOW) protected window: Window,
         eventService: EventService,
         configService: ConfigService,
+        actionService: ActionService,
         protected logService: LogService,
         protected translateService: TranslateService,
         router: UIRouter,
         protected routerGlobals: UIRouterGlobals,
     ) {
-        super(document, eventService, router, configService);
+        super(document, eventService, router, configService, actionService);
     }
 
     /**

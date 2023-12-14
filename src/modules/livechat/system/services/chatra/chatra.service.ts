@@ -6,9 +6,12 @@ import {DOCUMENT} from '@angular/common';
 import {TranslateService} from '@ngx-translate/core';
 import {UIRouter} from '@uirouter/core';
 
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
-import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {
+    EventService,
+    ConfigService,
+    ActionService,
+    LogService,
+} from 'wlc-engine/modules/core';
 import {ILivechatChatraConfig} from 'wlc-engine/modules/livechat/system/interfaces/livechat.interface';
 import {LivechatAbstract} from 'wlc-engine/modules/livechat/system/classes/livechatAbstract.class';
 import {WINDOW} from 'wlc-engine/modules/app/system';
@@ -28,11 +31,12 @@ export class ChatraService extends LivechatAbstract<ILivechatChatraConfig> {
         @Inject(WINDOW) protected window: Window,
         eventService: EventService,
         configService: ConfigService,
+        actionService: ActionService,
         protected logService: LogService,
         protected translateService: TranslateService,
         router: UIRouter,
     ) {
-        super(document, eventService, router, configService);
+        super(document, eventService, router, configService, actionService);
     }
 
     /**
@@ -83,7 +87,8 @@ export class ChatraService extends LivechatAbstract<ILivechatChatraConfig> {
     /**
      * Reload chat (re-init)
      */
-    public reloadChat(): void {
+    protected override reloadChat(): void {
+        this.destroyWidget();
         this.initChat();
     }
 
@@ -93,6 +98,13 @@ export class ChatraService extends LivechatAbstract<ILivechatChatraConfig> {
     public destroyWidget(): void {
         if (this.window.Chatra) {
             this.window.Chatra('kill');
+            this.window.Chatra = null;
+        }
+    }
+
+    public override showWidget(): void {
+        if (this.window.Chatra) {
+            this.window.Chatra('show');
         }
     }
 
@@ -100,7 +112,9 @@ export class ChatraService extends LivechatAbstract<ILivechatChatraConfig> {
      * when we have showOnlyAuth in livechatConfig, init chat widget in login
      */
     public rerunWidget():void {
-        this.window.Chatra('restart');
+        if (!this.window.Chatra) {
+            this.window.Chatra('restart');
+        }
     }
 
     protected override initChat(): void {
