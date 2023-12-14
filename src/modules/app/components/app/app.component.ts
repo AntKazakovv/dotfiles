@@ -10,7 +10,10 @@ import {
     ElementRef,
     HostListener,
 } from '@angular/core';
-import {DOCUMENT} from '@angular/common';
+import {
+    DOCUMENT,
+    Location,
+} from '@angular/common';
 import {TranslateService} from '@ngx-translate/core';
 import {
     StateService,
@@ -137,6 +140,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
         private transition: TransitionService,
         private meta: Meta,
         private logService: LogService,
+        private location: Location,
         titleService: Title,
         @Inject(WINDOW) private window: Window,
         @Inject(DOCUMENT) private document: Document,
@@ -225,6 +229,10 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
                     },
                 });
                 this.window.WlcFlog?.setCompileSuccess();
+
+                if (this.configService.get('utm')) {
+                    this.location.replaceState(this.location.path(), this.configService.get('utm'));
+                }
             }
         });
 

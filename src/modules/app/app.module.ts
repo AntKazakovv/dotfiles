@@ -121,6 +121,11 @@ export class AppModule {
                 if (this.initialPath.hasOwnProperty('praxis_transaction_status')) {
                     this.checkPraxisTransactionStatus();
                 };
+
+                if (path.includes('utm_')) {
+                    this.configService.set({name: 'utm', value: path.slice(path.indexOf('?'), path.length)});
+                }
+
                 this.actionService.processMessages(this.initialPath);
             }
         }
