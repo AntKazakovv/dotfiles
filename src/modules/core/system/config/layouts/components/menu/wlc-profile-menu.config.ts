@@ -143,4 +143,19 @@ export namespace wlcProfileMenu {
             auth: true,
         },
     };
+
+    export const wolf: ILayoutComponent = {
+        name: 'menu.wlc-profile-menu',
+        params: {
+            theme: 'wolf',
+            themeMod: 'vertical',
+            type: 'dropdown',
+            common: {
+                useArrow: true,
+            },
+        },
+        display: {
+            auth: true,
+        },
+    };
 }

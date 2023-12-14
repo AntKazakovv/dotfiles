@@ -3,17 +3,20 @@
 
     .wlc-user-name {
 
-        &__email {
+        &__container {
             display: flex;
             align-items: center;
+        }
 
-            &-value {
-                @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'userStatsEmailValueColor'));
-                margin: ef.get-value($themeDefault, 'userStatsEmailValueMargin');
-                overflow: hidden;
-                white-space: nowrap;
-                text-overflow: ellipsis;
-            }
+        &__email-value {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'emailValueTextStyle'),
+                ef.get-value($themeDefault, 'emailValueColor'),
+            );
+            margin: ef.get-value($themeDefault, 'emailValueMargin');
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
     }
 }

@@ -2,7 +2,7 @@ $customThemeAvatar: () !default;
 $themeAvatar: map-merge((
     'btnSize': 40px,
     'btnBg': ef.get('buttonSettings', 'background'),
-    'btnBgHover': var(--mc-baseThird, #fff),
+    'btnBgHover': var(--mc-baseThird, var(--mc-baseMain-locked)),
     'btnRadius': ef.get('buttonSettings', 'borderRadiusDefault'),
     'btnBorder': ef.get('buttonSettings', 'borderDefault'),
     'btnShadow': ef.get('buttonSettings', 'shadow'),
@@ -18,14 +18,14 @@ $themeAvatar: map-merge((
     'btnJustifyContent': flex-end,
     'iconWidth': 40px,
     'iconHeight': 40px,
-    'iconFill': var(--mc-baseThird, #fff),
+    'iconFill': var(--mc-baseThird, var(--mc-baseMain-locked)),
     'iconBg' : var(--mc-buttonColor),
     'profileBtnBgHover': var(--mc-bg300),
 ), $customThemeAvatar);
 
 $customThemeWolf: () !default;
 $themeWolf: map-merge((
-    'iconFill': var(--mc-baseThird, #fff),
+    'iconFill': var(--mc-baseThird, var(--mc-baseMain-locked)),
     'btnSize': 40px,
     'btnBg': ef.get('buttonSettings', 'background'),
     'btnBgHover': var(--mc-black-o2),

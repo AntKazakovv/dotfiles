@@ -6,7 +6,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {IUserStatsCParams} from 'wlc-engine/modules/user/components/user-stats/user-stats.params';
 
-export type ComponentTheme = 'default' | 'sticky' | CustomType;
+export type ComponentTheme = 'default' | 'sticky' | 'wolf' | CustomType;
 export type ComponentType = 'default' | CustomType;
 
 export interface IUserInfoButton {

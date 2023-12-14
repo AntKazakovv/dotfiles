@@ -12,5 +12,7 @@ export interface ICounterCParams extends IComponentParams<Theme, Type, ThemeMod>
 }
 
 export const defaultParams: ICounterCParams = {
+    moduleName: 'core',
+    componentName: 'wlc-counter',
     class: 'wlc-counter',
 };

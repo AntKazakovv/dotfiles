@@ -16,6 +16,7 @@ export interface ILogoutCParams extends IComponentParams<ComponentTheme, Compone
      * set the text to be displayed in the logout modal
      */
     textMessage?: string;
+    iconPath?: string;
 }
 
 export const defaultParams: ILogoutCParams = {
@@ -23,4 +24,5 @@ export const defaultParams: ILogoutCParams = {
     componentName: 'wlc-logout',
     class: 'wlc-logout',
     textMessage: gettext('Are you sure?'),
+    iconPath: '/wlc/icons/logout.svg',
 };

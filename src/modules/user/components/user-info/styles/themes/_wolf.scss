@@ -1,0 +1,89 @@
+.wlc-user-info--theme-wolf:host {
+
+    .wlc-user-info {
+
+        &__content {
+            display: flex;
+            align-items: center;
+        }
+
+        &-short {
+            flex-shrink: 0;
+            margin: ef.get-value($themeWolf, 'userInfoShortMargin');
+        }
+
+        &-mails-notifier {
+            margin: ef.get-value($themeWolf, 'notifierMargin');
+        }
+
+        &-dropdown {
+            position: relative;
+
+            &__content {
+                position: absolute;
+                top: ef.get-value($themeWolf, 'userInfoDropdownTop');
+                right: ef.get-value($themeWolf, 'userInfoDropdownRight');
+                z-index: 10;
+                display: flex;
+                flex-direction: column;
+                gap: ef.get-value($themeWolf, 'userInfoDropdownGap');
+                align-items: center;
+                justify-content: center;
+                width: ef.get-value($themeWolf, 'userInfoDropdownWidth');
+                min-width: ef.get-value($themeWolf, 'userInfoDropdownWidth');
+                padding: ef.get-value($themeWolf, 'userInfoDropdownPadding');
+                background: ef.get-value($themeWolf, 'userInfoDropdownBg');
+                box-shadow: ef.get-value($themeWolf, 'userInfoDropdownBoxShadow');
+                border-radius: ef.get-value($themeWolf, 'userInfoDropdownBorderRadius');
+
+                ::ng-deep {
+
+                    .wlc-loyalty-progress {
+                        width: 100%;
+                    }
+
+                    .wlc-logout {
+                        width: 100%;
+
+                        .wlc-btn {
+                            @include bm.transition(background);
+                            display: flex;
+                            align-items: center;
+                            width: 100%;
+                            min-height: ef.get-value($themeWolf, 'btnMinHeight');
+                            margin: ef.get-value($themeWolf, 'btnMargin');
+                            padding: ef.get-value($themeWolf, 'btnPadding');
+                            background: ef.get-value($themeWolf, 'btnBg');
+                            border-radius: ef.get-value($themeWolf, 'btnRadius');
+
+                            .wlc-btn__text {
+                                @include text.get-text-style(
+                                    ef.get-value($themeWolf, 'btnFontStyle'),
+                                    ef.get-value($themeWolf, 'btnColor')
+                                );
+                                flex-direction: row-reverse;
+                                gap: ef.get-value($themeWolf, 'btnGap');
+
+                                svg path {
+                                    width: ef.get-value($themeWolf, 'iconWidth');
+                                    height: ef.get-value($themeWolf, 'iconHeight');
+                                    transition: none;
+                                    fill: currentColor;
+                                    stroke: none;
+                                }
+                            }
+
+                            @include bm.hover {
+                                background: ef.get-value($themeWolf, 'btnBgHover');
+
+                                .wlc-btn__text {
+                                    color: ef.get-value($themeWolf, 'btnColorHover');
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

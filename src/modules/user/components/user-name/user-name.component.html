@@ -1,14 +1,17 @@
 <ng-container [ngSwitch]="$params.type">
     <ng-template [ngSwitchCase]="'default'">
-        <div class="{{$class}}__email" data-wlc-element="block_user-stat-username">
+        <div class="{{$class}}__container" data-wlc-element="block_user-stat-username">
             <div wlc-user-icon
-                class="{{$class}}__email-icon"
+                class="{{$class}}__user-icon"
                 wlcElement="wlc-icon-user">
             </div>
 
             <div class="{{$class}}__email-value"
                  data-wlc-element="input_email">
                 {{displayedName$ | async | truncate: $params.userNameLength}}
+            </div>
+            <div *ngIf="$params.showUserId" class="{{$class}}__user-id">
+                {{userId}}
             </div>
         </div>
     </ng-template>

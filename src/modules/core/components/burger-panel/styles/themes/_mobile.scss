@@ -65,4 +65,78 @@
             margin: 0 0 ef.get-value($themeDefault, 'componentGap') 0;
         }
     }
+
+    &.wlc-burger-panel--theme-mod-wolf {
+
+        ::ng-deep {
+            --bp-padding: #{ef.get-value($themeMobileWolf, 'panelPadding')};
+            --bp-header-padding: #{ef.get-value($themeMobileWolf, 'panelHeaderPadding')};
+
+            width: map-get($themeMobileWolf, 'panelWidth');
+            max-width: map-get($themeMobileWolf, 'panelWidth');
+            background-color: map-get($themeMobileWolf, 'panelBackground');
+
+            .wlc-burger-panel {
+
+                &__header {
+                    border-bottom: map-get($themeMobileWolf, 'panelHeaderBorderBottom');
+                }
+
+                &__inner {
+                    padding: map-get($themeMobileWolf, 'panelContentPadding');
+                }
+            }
+
+            .wlc-user-info__wrp {
+                display: flex;
+                flex-direction: column;
+                gap: ef.get-value($themeMobileWolf, 'componentGap');
+                margin: ef.get-value($themeMobileWolf, 'componentGap') 0;
+            }
+
+            .wlc-loyalty-progress {
+                width: 100%;
+            }
+
+            .wlc-logout {
+                width: 100%;
+
+                .wlc-btn {
+                    @include bm.transition();
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+                    min-height: ef.get-value($themeMobileWolf, 'btnMinHeight');
+                    margin: ef.get-value($themeMobileWolf, 'btnMargin');
+                    padding: ef.get-value($themeMobileWolf, 'btnPadding');
+                    background: ef.get-value($themeMobileWolf, 'btnBg');
+                    border-radius: ef.get-value($themeMobileWolf, 'btnRadius');
+
+                    .wlc-btn__text {
+                        @include text.get-text-style(
+                            ef.get-value($themeMobileWolf, 'btnFontStyle'),
+                            ef.get-value($themeMobileWolf, 'btnColor')
+                        );
+                        flex-direction: row-reverse;
+                        gap: ef.get-value($themeMobileWolf, 'btnGap');
+
+                        svg path {
+                            width: ef.get-value($themeMobileWolf, 'iconWidth');
+                            height: ef.get-value($themeMobileWolf, 'iconHeight');
+                            fill: currentColor;
+                            stroke: none;
+                        }
+                    }
+
+                    @include bm.hover {
+                        background: ef.get-value($themeMobileWolf, 'btnBgHover');
+
+                        .wlc-btn__text {
+                            color: ef.get-value($themeMobileWolf, 'btnColorHover');
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

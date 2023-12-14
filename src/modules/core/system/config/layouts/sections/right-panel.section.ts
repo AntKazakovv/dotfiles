@@ -40,4 +40,41 @@ export namespace rightPanel {
             componentLib.wlcProfileMenu.vertical,
         ],
     };
+
+    export const rightThemeModWolf: IPanelSectionConfig = {
+        theme: 'mobile',
+        themeMod: 'wolf',
+        showLogo: true,
+        components: [
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-user-info__wrp',
+                    components: [
+                        componentLib.wlcUserName.wolf,
+                        {
+                            name: 'user.wlc-loyalty-progress',
+                            params: {
+                                common: {
+                                    showLevelIcon: false,
+                                    showLinkToLevels: true,
+                                },
+                            },
+                        },
+                    ],
+                },
+                display: {
+                    auth: true,
+                },
+            },
+            componentLib.wlcProfileMenu.wolf,
+            {
+                name: 'user.wlc-logout',
+                params: {
+                    useText: true,
+                    iconPath: 'wlc/icons/european/v3/logout.svg',
+                },
+            },
+        ],
+    };
 }

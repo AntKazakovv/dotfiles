@@ -46,7 +46,10 @@ $themeDefault: map-merge((
 
 $customDropdownThemeDefault: () !default;
 $themeDropdownDefault: map-merge((
-    'menuGag': 5px,
+    'menuGag': ef.size(1),
+    'iconMargin': 0 ef.size(2) 0 0,
+    'iconArrowMargin': 0 0 0 auto,
+    'iconArrowFill': var(--mc-baseOpacity),
     'activeTabLinkColor': ef.get('mainColors', 'baseMain'),
     'activeTabLinkBg': var(--mc-main),
     'linkPadding': 8px 12px,
@@ -59,13 +62,46 @@ $themeDropdownDefault: map-merge((
     'activeLinkBg': (
         375: var(--mc-bg500),
     ),
-    'linkFill': var(--mc-baseOpacity),
     'linkBorderRadius': ef.get('radius', 'biger'),
     'submenuBg': (
         375: var(--mc-bg),
     ),
     'activeLinkColor': var(--mc-baseMain),
 ), $customDropdownThemeDefault);
+
+$customDropdownThemeWolf: () !default;
+$themeDropdownWolf: map-merge((
+    'activeTabLinkColor': var(--mc-baseThird, var(--mc-baseMain)),
+    'activeTabLinkBg': var(--mc-bg),
+    'linkMaxHeight': 42px,
+    'linkPadding': ef.size(3),
+    'linkBorderRadius': ef.get('radius', 'main'),
+    'linkTextStyle': 'CaptionText',
+    'linkColor': var(--mc-baseMain),
+    'linkBg': (
+        375: var(--mc-bg300),
+    ),
+    'hoverLinkColor': var(--mc-baseSecond, var(--mc-baseMain)),
+    'hoverLinkBg': var(--mc-bg100),
+    'activeLinkTextStyle': 'CaptionTextBold',
+    'activeLinkColor': var(--mc-baseThird, var(--mc-baseMain)),
+    'activeLinkBg': (
+        375: var(--mc-bg100),
+    ),
+    'counterWidth': auto,
+    'counterMinWidth': ef.size(6),
+    'counterHeight': ef.size(5),
+    'counterPadding': 0 ef.size(1),
+    'counterBg': var(--mc-bg700),
+    'counterRadius': ef.get('radius', 'main'),
+    'submenuBg': (
+        375: var(--mc-bg),
+    ),
+    'submenuGap': ef.size(1),
+    'submenuMargin': 0,
+    'submenuPadding': ef.size(1),
+    'submenuRadius': 0 0 ef.get('radius', 'main') ef.get('radius', 'main'),
+), $customDropdownThemeWolf);
 
 $customSubmenuProfileDefault: () !default;
 $submenuProfileDefault: map-merge((

@@ -4,6 +4,6 @@
     [text]="$params.useText && 'Sign out'"
     wlcElement="link-logout"
     theme="icon"
-    iconPath="/wlc/icons/logout.svg"
+    [iconPath]="$params.iconPath"
     (click)="logout()"
 ></button>

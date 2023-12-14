@@ -307,6 +307,28 @@ $themeMobile: map-merge((
     'headerMenuItemBackground': var(--mc-bg700),
 ), $customThemeMobile);
 
+$customThemeMobileWolf: () !default;
+$themeMobileWolf: map-merge((
+    'panelWidth': 310px,
+    'panelPadding': ef.size(3),
+    'panelHeaderPadding': ef.size(2) 0,
+    'panelBackground': var(--mc-bg700),
+    'panelHeaderBorderBottom': 0,
+    'panelContentPadding': 0,
+    'componentGap': ef.size(2),
+    'btnMinHeight': 40px,
+    'btnMargin': ef.size(1) 0 0,
+    'btnPadding': 0 ef.size(3),
+    'btnBg': var(--mc-bg300),
+    'btnBgHover': var(--mc-bg100),
+    'btnRadius': ef.get('radius', 'main'),
+    'btnFontStyle': 'CaptionText',
+    'btnColor': var(--mc-baseMain),
+    'btnColorHover': var(--mc-baseSecond),
+    'btnGap': ef.size(2),
+    'iconWidth': 16px,
+    'iconHeight': 16px,
+), $customThemeMobileWolf);
 
 $customThemeLeftFixed: () !default;
 $themeLeftFixed: map-merge((

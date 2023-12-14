@@ -1,0 +1,141 @@
+.wlc-profile-menu--theme-wolf.wlc-profile-menu--type-dropdown {
+
+    &.wlc-profile-menu--theme-mod-vertical:host {
+
+        .wlc-menu {
+
+            ::ng-deep {
+
+                .wlc-menu {
+
+                    &__icon-arrow {
+                        color: ef.get-value($themeDropdownWolf, 'linkColor');
+                    }
+
+
+                    &__item {
+                        overflow: hidden;
+
+                        &.active {
+
+                            >.wlc-menu__link {
+                                @include bm.transition();
+                                color: ef.get-value($themeDropdownWolf, 'activeTabLinkColor');
+                                background: ef.get-value($themeDropdownWolf, 'activeTabLinkBg');
+                                border-bottom-left-radius: 0;
+                                border-bottom-right-radius: 0;
+
+                                .wlc-icon {
+                                    color: ef.get-value($themeDropdownWolf, 'activeTabLinkColor');
+                                }
+                            }
+                        }
+
+                        &--dropdown.active {
+
+                            .wlc-menu__submenu {
+                                gap: ef.get-value($themeDropdownWolf, 'submenuGap');
+                                padding: ef.get-value($themeDropdownWolf, 'submenuPadding');
+                            }
+                        }
+                    }
+
+                    &__link {
+                        @include bm.transition();
+                        @include text.get-text-style(
+                            ef.get-value($themeDropdownWolf, 'linkTextStyle'),
+                            ef.get-value($themeDropdownWolf, 'linkColor'),
+                        );
+                        @include bm.get-mq-map('background', $themeDropdownWolf, 'linkBg');
+                        z-index: 2;
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        width: 100%;
+                        max-height: ef.get-value($themeDropdownWolf, 'linkMaxHeight');
+                        padding: ef.get-value($themeDropdownWolf, 'linkPadding');
+                        text-decoration: none;
+                        cursor: pointer;
+                        border-radius: ef.get-value($themeDropdownWolf, 'linkBorderRadius');
+
+                        &-text {
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            width: 100%;
+
+                            .wlc-counter {
+                                @include text.get-text-style(
+                                    ef.get-value($themeDropdownWolf, 'activeLinkTextStyle'),
+                                    ef.get-value($themeDropdownWolf, 'linkColor'),
+                                );
+                                display: flex;
+                                align-items: center;
+                                width: ef.get-value($themeDropdownWolf, 'counterWidth');
+                                min-width: ef.get-value($themeDropdownWolf, 'counterMinWidth');
+                                height: ef.get-value($themeDropdownWolf, 'counterHeight');
+                                padding: ef.get-value($themeDropdownWolf, 'counterPadding');
+                                background: ef.get-value($themeDropdownWolf, 'counterBg');
+                                border-radius: ef.get-value($themeDropdownWolf, 'counterRadius');
+                            }
+                        }
+
+                        &.active {
+                            @include bm.transition();
+                            @include bm.get-mq-map('background', $themeDropdownWolf, 'activeLinkBg');
+                            @include text.get-text-style(
+                                ef.get-value($themeDropdownWolf, 'activeLinkTextStyle'),
+                                ef.get-value($themeDropdownWolf, 'activeLinkColor'),
+                            );
+                        }
+
+                        @include bm.hover {
+                            @include bm.transition();
+                            color: ef.get-value($themeDropdownWolf, 'hoverLinkColor');
+                            background: ef.get-value($themeDropdownWolf, 'hoverLinkBg');
+
+                            .wlc-icon {
+                                color: inherit;
+                            }
+                        }
+                    }
+
+                    &__submenu {
+                        @include bm.get-mq-map('background', $themeDropdownWolf, 'submenuBg');
+                        display: grid;
+                        margin: ef.get-value($themeDropdownWolf, 'submenuMargin');
+                        border-radius: ef.get-value($themeDropdownWolf, 'submenuRadius');
+
+                        .wlc-menu__item:first-child,
+                        .wlc-menu__item:last-child {
+
+                            .wlc-menu__link {
+                                border-radius: ef.get-value($themeDropdownWolf, 'linkBorderRadius');
+                            }
+                        }
+
+                        .wlc-menu__link {
+                            background: none;
+                            border-radius: ef.get-value($themeDropdownWolf, 'linkBorderRadius');
+
+                            &.active {
+                                @include bm.transition();
+                                @include bm.get-mq-map('background', $themeDropdownWolf, 'activeLinkBg');
+                                border-radius: ef.get-value($themeDropdownWolf, 'linkBorderRadius');
+                            }
+
+                            @include bm.hover {
+                                @include bm.transition();
+                                @include bm.get-mq-map('background', $themeDropdownWolf, 'activeLinkBg');
+                            }
+
+                            @media (hover: hover) {
+                                border-radius: ef.get-value($themeDropdownWolf, 'linkBorderRadius');
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -4,7 +4,7 @@ $themeDefault: map-merge((
     'notifierMargin': 0 0 0 ef.size(4),
     'userInfoDropdownTop': calc(100% + 10px),
     'userInfoDropdownRight': 0,
-    'userInfoDropdownMinWidth': 270px,
+    'userInfoDropdownWidth': 270px,
     'userInfoDropdownBoxShadow': ef.get('shadow', 'lg'),
     'userInfoDropdownPadding': 10px,
     'userInfoDropdownBg': var(--mc-bgModal),
@@ -20,3 +20,29 @@ $themeDefault: map-merge((
     'userInfoWrpMargin': 0 0 ef.size(2),
     'userInfoWrpStickyMargin': 0 0 ef.size(4),
 ), $customThemeDefault);
+
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'userInfoShortMargin': 0 ef.size(6),
+    'notifierMargin': 0 0 0 ef.size(4),
+    'userInfoDropdownTop': calc(100% + 10px),
+    'userInfoDropdownRight': 0,
+    'userInfoDropdownGap': ef.size(2),
+    'userInfoDropdownWidth': 310px,
+    'userInfoDropdownBoxShadow': ef.get('shadow', 'sm'),
+    'userInfoDropdownPadding': ef.size(3),
+    'userInfoDropdownBg': var(--mc-bg700),
+    'userInfoDropdownBorderRadius': ef.get('radius', 'main'),
+    'btnMinHeight': 40px,
+    'btnMargin': ef.size(-1) 0 0,
+    'btnPadding': 0 ef.size(3),
+    'btnBg': var(--mc-bg300),
+    'btnBgHover': var(--mc-bg100),
+    'btnRadius': ef.get('radius', 'main'),
+    'btnFontStyle': 'CaptionText',
+    'btnColor': var(--mc-baseMain),
+    'btnColorHover': var(--mc-baseSecond),
+    'btnGap': ef.size(2),
+    'iconWidth': 16px,
+    'iconHeight': 16px,
+), $customThemeWolf);

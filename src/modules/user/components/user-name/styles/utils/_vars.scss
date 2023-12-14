@@ -1,7 +1,19 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'userStatsEmailValueMargin': 0 ef.size(2),
-    'userStatsEmailValueColor': var(--mc-baseMain),
-    'iconFill': ef.get('mainColors', 'baseMain'),
-    'iconFillBg': var(--mc-secondary),
+    'emailValueMargin': 0 ef.size(2),
+    'emailValueTextStyle': 'PrimaryText',
+    'emailValueColor': var(--mc-baseMain),
 ), $customThemeDefault);
+
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'containerGap': ef.size(2),
+    'containerRadius': ef.size(2),
+    'containerBg': var(--mc-bg300),
+    'containerWidth': 100%,
+    'containerMaxWidth': 288px,
+    'emailValueTextStyle': 'CaptionTextBold',
+    'emailValueColor': var(--fc-textColor),
+    'userIdColor': var(--mc-success),
+    'userIdMargin': 0 ef.size(2) 0 auto,
+), $customThemeWolf);

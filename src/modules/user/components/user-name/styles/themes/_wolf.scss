@@ -1,0 +1,35 @@
+.wlc-user-name--theme-wolf:host {
+
+    width: 100%;
+
+    .wlc-user-name {
+
+        &__container {
+            display: flex;
+            flex-shrink: 0;
+            gap: ef.get-value($themeWolf, 'containerGap');
+            align-items: center;
+            width: ef.get-value($themeWolf, 'containerWidth');
+            max-width: ef.get-value($themeWolf, 'containerMaxWidth');
+            border-radius: ef.get-value($themeWolf, 'containerRadius');
+            background: ef.get-value($themeWolf, 'containerBg');
+        }
+
+        &__email-value {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'emailValueTextStyle'),
+                ef.get-value($themeWolf, 'emailValueColor'),
+            );
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        &__user-id {
+            @include text.get-text-style('SignText', ef.get-value($themeWolf, 'userIdColor'));
+            margin: ef.get-value($themeWolf, 'userIdMargin');
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    }
+}

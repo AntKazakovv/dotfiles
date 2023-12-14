@@ -1,11 +1,12 @@
 import {CustomType, IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 
-export type ComponentTheme = 'default' | 'mobile-app' | CustomType;
+export type ComponentTheme = 'default' | 'mobile-app' | 'wolf' | CustomType;
 export type ComponentType = 'default' | 'mobile-app' | CustomType;
 
 export interface IUserNameCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
     userNameLength?: number;
     showSvgAsImg?: boolean;
+    showUserId?: boolean;
 }
 
 export const defaultParams: IUserNameCParams = {

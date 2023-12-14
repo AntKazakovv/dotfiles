@@ -57,6 +57,7 @@ export class UserNameComponent extends AbstractComponent implements OnInit, OnDe
         skipWhile(v => !v),
         map(this.processDisplayName.bind(this)),
     );
+    protected userId: string;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IUserNameCParams,
@@ -95,7 +96,7 @@ export class UserNameComponent extends AbstractComponent implements OnInit, OnDe
         this.stateService.go('app.profile.main.info');
     }
 
-    protected processDisplayName({firstName, lastName, email}: UserProfile): string {
+    protected processDisplayName({firstName, lastName, email, idUser}: UserProfile): string {
         let name: string = gettext('User');
 
         if (firstName || lastName) {
@@ -103,7 +104,9 @@ export class UserNameComponent extends AbstractComponent implements OnInit, OnDe
         } else if (email) {
             name = email;
         }
-
+        if (this.$params.showUserId) {
+            this.userId = `ID: ${idUser}`;
+        }
         return name;
     }
 }
