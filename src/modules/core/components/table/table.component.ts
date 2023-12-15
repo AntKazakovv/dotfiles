@@ -22,7 +22,7 @@ import {
     IPaginateOutput,
 } from 'wlc-engine/modules/core';
 import {
-    Currency,
+    TTableValue,
     TableRowModel,
 } from './table-row.model';
 import {WINDOW} from 'wlc-engine/modules/app/system';
@@ -204,8 +204,8 @@ export class TableComponent extends AbstractComponent implements OnInit {
         this.toggled = !this.toggled;
     }
 
-    protected getValue(item: string | Currency): string {
-        return _isObject(item) ? item.value : item;
+    protected getValue(item: TTableValue): string {
+        return _isObject(item) ? '' : item;
     }
 
     private createTableRow(rows: unknown[]): TableRowModel[] {
