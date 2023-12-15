@@ -105,22 +105,8 @@ export class LotteriesService {
                 this.$resolve();
             });
 
-        if (this.isAuth) {
-            this.setUserLevel();
-        } else {
+        if (!this.isAuth) {
             this.$resolve();
         }
-    }
-
-    private setUserLevel(): void {
-        this.userInfo$ ??= this.configService.get<BehaviorSubject<UserInfo>>('$user.userInfo$');
-
-        this.userInfo$
-            .pipe(
-                filter((data: UserInfo) => data?.loyalty.Level !== this.userLevel),
-            )
-            .subscribe((userInfo: UserInfo): void => {
-                Lottery.userLevel = this.userLevel = userInfo.loyalty.Level;
-            });
     }
 };

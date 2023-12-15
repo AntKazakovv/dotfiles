@@ -10,8 +10,12 @@ import {
 import {
     BehaviorSubject,
     Subject,
-    takeUntil,
 } from 'rxjs';
+import {
+    filter,
+    map,
+    takeUntil,
+} from 'rxjs/operators';
 import _merge from 'lodash-es/merge';
 import _assign from 'lodash-es/assign';
 
@@ -26,6 +30,7 @@ import {LotteriesService} from 'wlc-engine/modules/lotteries/system/services/lot
 import {Lottery} from 'wlc-engine/modules/lotteries/system/models/lottery.model';
 
 import * as Params from './lottery-card.params';
+import {UserInfo} from 'wlc-engine/modules/user';
 
 @Component({
     selector: '[wlc-lottery-card]',
@@ -44,6 +49,8 @@ export class LotteryCardComponent extends AbstractComponent implements OnInit {
     public update$: Subject<void> = new Subject();
     public isAuth: boolean;
 
+    protected userLevel: number;
+
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILotteryCardCParams,
         protected override configService: ConfigService,
@@ -58,6 +65,8 @@ export class LotteryCardComponent extends AbstractComponent implements OnInit {
         super.ngOnInit(this.inlineParams);
 
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
+
+        this.watchForUserLevel();
 
         await this.getLottery();
 
@@ -87,6 +96,18 @@ export class LotteryCardComponent extends AbstractComponent implements OnInit {
     public updateView(): void {
         this.update$.next();
         this.cdr.markForCheck();
+    }
+
+    protected watchForUserLevel(): void {
+        this.configService.get<BehaviorSubject<UserInfo>>('$user.userInfo$')
+            .pipe(
+                map((data: UserInfo): number => Number(data?.loyalty?.Level)),
+                filter((level: number): boolean => level !== this.userLevel),
+                takeUntil(this.$destroy),
+            ).subscribe((level: number): void => {
+                Lottery.userLevel = this.userLevel = level;
+                this.updateView();
+            });
     }
 
     private setPrizesParams(): void {

@@ -6,8 +6,9 @@ import {LotteryPrizes} from 'wlc-engine/modules/lotteries/system/models/lottery-
 
 
 export class Lottery {
-    public static userLevel: string;
+    public static userLevel: number;
     public static userCurrency: string;
+    public readonly levels: Array<string | number>;
     public prizes: LotteryPrizes;
     private data: ILottery;
     private dateFormat: string = 'dd.MM.yyyy HH:mm';
@@ -16,6 +17,7 @@ export class Lottery {
         data: ILottery,
     ) {
         this.data = data;
+        this.levels = this.data.Levels.sort((a, b) => Number(a) - Number(b));
 
         this.init();
     }
@@ -34,10 +36,6 @@ export class Lottery {
 
     public get description(): string {
         return this.data.Description;
-    }
-
-    public get levels(): string[] {
-        return this.data.Levels;
     }
 
     public get price(): number {

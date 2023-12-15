@@ -57,11 +57,15 @@ export class LotteryPrizes {
         });
     }
 
+    // TODO: убрать лишнюю логику,
+    // когда бэк будет возвращать адекватные данные, в зависимости от текущей валюты пользователя
     private transformPrizes(data: TRawLotteryBonusPrize): TLotteryBonusPrize[] {
         const transformed: TLotteryBonusPrize[] = [];
         const moneyCurrency = this.userCurrency?.toUpperCase() || 'EUR';
 
-        transformed.push({currency: moneyCurrency, value: data[moneyCurrency]});
+        if (data[moneyCurrency]) {
+            transformed.push({currency: moneyCurrency, value: data[moneyCurrency]});
+        }
 
         _forEach(Array.from(CurrenciesInfo.specialCurrencies), (currency: string): void => {
             const value: string = data[currency];
