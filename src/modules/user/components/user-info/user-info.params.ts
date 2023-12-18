@@ -102,6 +102,7 @@ export const stickyThemeParams: IUserInfoCParams = {
                                     common: {
                                         text: gettext('My Profile'),
                                         sref: 'app.profile.dashboard',
+                                        iconPath: '/wlc/icons/icons_new/user-icon.svg',
                                     },
                                 },
                             },
@@ -147,6 +148,7 @@ export const kioskParams: IUserInfoCParams = {
                                     common: {
                                         text: gettext('My Profile'),
                                         sref: 'app.profile.main.info',
+                                        iconPath: '/wlc/icons/icons_new/user-icon.svg',
                                     },
                                 },
                             },

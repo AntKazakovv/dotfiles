@@ -23,5 +23,5 @@ export const defaultParams:  IFavouriteButtonCParams = {
     moduleName: 'games',
     componentName: 'wlc-favourite-button',
     class: 'wlc-favourite-button',
-    icon: '/wlc/icons/favourite.svg',
+    icon: '/wlc/icons/icons_new/favourite.svg',
 };

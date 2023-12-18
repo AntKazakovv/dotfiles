@@ -150,7 +150,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
 
         this.favoriteIcon = this.$params?.themeMod === 'wolf'
             ? '/wlc/icons/favorite-wolf.svg'
-            : '/wlc/icons/favourite.svg';
+            : '/wlc/icons/icons_new/star.svg';
 
         if (this.$params.common?.pplMoreIcon?.use || this.$params.type === 'external-title') {
             this.pplTheme = 'hidden';

@@ -121,16 +121,12 @@
         align-items: center;
         justify-content: center;
         padding: ef.get-value($themeDefault, 'dismissPadding');
+        color: get('closeIconColor');
         background-color: transparent;
         outline: none;
         cursor: pointer;
         opacity: 0.5;
         border: none;
-
-        ::ng-deep line {
-            @include bm.transition(stroke);
-            stroke: get('closeIconColor');
-        }
 
         ::ng-deep .wlc-icon-content {
             display: flex;

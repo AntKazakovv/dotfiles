@@ -172,7 +172,7 @@ export namespace wlcButton {
             class: 'wlc-btn wlc-btn-burger',
             wlcElement: 'wlc-btn-burger',
             common: {
-                iconPath: '/wlc/icons/burger.svg',
+                iconPath: '/wlc/icons/icons_new/burger.svg',
                 event: {
                     name: 'PANEL_OPEN',
                     data: 'left',
@@ -190,7 +190,7 @@ export namespace wlcButton {
             class: 'wlc-btn wlc-btn-burger',
             wlcElement: 'wlc-btn-burger',
             common: {
-                iconPath: '/wlc/icons/burger.svg',
+                iconPath: '/wlc/icons/icons_new/burger.svg',
                 event: {
                     name: 'PANEL_OPEN',
                     data: 'left',
@@ -208,7 +208,7 @@ export namespace wlcButton {
             class: 'wlc-btn wlc-btn-burger',
             wlcElement: 'wlc-btn-burger',
             common: {
-                iconPath: '/wlc/icons/burger.svg',
+                iconPath: '/wlc/icons/icons_new/burger.svg',
                 event: {
                     name: 'PANEL_OPEN',
                     data: 'left',
@@ -226,6 +226,7 @@ export namespace wlcButton {
                 common: {
                     text: gettext('My Profile'),
                     sref: 'app.profile.dashboard',
+                    iconPath: '/wlc/icons/icons_new/user-icon.svg',
                 },
             },
         },

@@ -24,5 +24,5 @@ export const defaultParams: ILogoutCParams = {
     componentName: 'wlc-logout',
     class: 'wlc-logout',
     textMessage: gettext('Are you sure?'),
-    iconPath: '/wlc/icons/logout.svg',
+    iconPath: '/wlc/icons/icons_new/logout.svg',
 };

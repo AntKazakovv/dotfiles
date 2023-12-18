@@ -47,6 +47,49 @@
             height: 100%;
         }
 
+        &__btn-left {
+            margin: ef.get-value($themeDefault, 'btnLeftMargin');
+        }
+
+        &__btn-right {
+            display: flex;
+            align-items: center;
+
+            .wlc-icon {
+                margin-left: ef.get-value($themeDefault, 'iconsGap');
+                cursor: pointer;
+
+                &.icon-btn:not(.active) {
+                    @include bm.transition(all);
+                }
+
+                svg {
+
+                    @include bm.transition(all);
+                    width: ef.get-value($themeDefault, 'iconsWidth');
+                    height: ef.get-value($themeDefault, 'iconsHeight');
+                    fill: ef.get-value($themeDefault, 'iconsColor');
+                }
+
+                &.wlc-icon--favourite {
+
+                    &.active {
+
+                        svg {
+                            fill: ef.get-value($themeDefault, 'iconsColorActive');
+                        }
+                    }
+                }
+
+                @include bm.hover {
+
+                    svg {
+                        fill: ef.get-value($themeDefault, 'iconsColorHover');
+                    }
+                }
+            }
+        }
+
         &__game-area {
             position: relative;
             margin-right: auto;

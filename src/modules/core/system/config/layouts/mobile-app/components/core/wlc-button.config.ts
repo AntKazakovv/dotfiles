@@ -118,7 +118,7 @@ export namespace wlcButton {
             class: 'wlc-btn wlc-btn-burger',
             wlcElement: 'wlc-btn-burger',
             common: {
-                iconPath: '/wlc/icons/burger.svg',
+                iconPath: '/wlc/icons/icons_new/burger.svg',
                 event: {
                     name: 'PANEL_OPEN',
                     data: 'left',
@@ -136,7 +136,7 @@ export namespace wlcButton {
             class: 'wlc-btn wlc-btn-burger',
             wlcElement: 'wlc-btn-burger',
             common: {
-                iconPath: '/wlc/icons/burger.svg',
+                iconPath: '/wlc/icons/icons_new/burger.svg',
                 event: {
                     name: 'PANEL_OPEN',
                     data: 'left',
@@ -154,7 +154,7 @@ export namespace wlcButton {
         params: {
             class: 'wlc-btn wlc-btn-user',
             common: {
-                iconPath: '/wlc/icons/user-icon.svg',
+                iconPath: '/wlc/icons/icons_new/user-icon.svg',
                 sref: 'app.profile.cash.deposit',
                 event: {
                     name: 'PANEL_OPEN',
@@ -173,7 +173,7 @@ export namespace wlcButton {
         params: {
             class: 'wlc-btn wlc-btn--user',
             common: {
-                iconPath: '/wlc/icons/user-icon.svg',
+                iconPath: '/wlc/icons/icons_new/user-icon.svg',
                 event: {
                     name: 'PANEL_OPEN',
                     data: 'right',
@@ -188,7 +188,7 @@ export namespace wlcButton {
             class: 'wlc-btn wlc-btn-profile',
             common: {
                 text: gettext('My Profile'),
-                iconPath: '/wlc/icons/user-icon.svg',
+                iconPath: '/wlc/icons/icons_new/user-icon.svg',
                 sref: 'app.profile.dashboard',
             },
         },
@@ -221,7 +221,7 @@ export namespace wlcButton {
                         themeMod: 'secondary',
                         customMod: 'user',
                         common: {
-                            iconPath: '/wlc/icons/user-icon.svg',
+                            iconPath: '/wlc/icons/icons_new/user-icon.svg',
                             event: {
                                 name: 'PANEL_OPEN',
                                 data: 'right',

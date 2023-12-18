@@ -53,7 +53,6 @@ $themeDefault: map-merge((
     'favouriteAlignItems': center,
     'favouriteJustifyContent': center,
     'favouriteTransformOrigin': center,
-    'favouriteSize': ef.size(6),
     'favouriteColor': ef.get('mainColors', 'baseOpacity'), // Locked color
     'favouriteActiveColor': ef.get('mainColors', 'main'), // Locked color
     'favouriteBackBg': ef.get('mainColors', 'bg300'), // Locked color

@@ -32,7 +32,7 @@ export const defaultParams: IUserIconCParams = {
     class: 'wlc-user-icon',
     componentName: 'wlc-user-icon',
     moduleName: 'user',
-    iconPath: '/wlc/icons/user-icon.svg',
+    iconPath: '/wlc/icons/icons_new/user-icon.svg',
     theme: 'default',
 };
 

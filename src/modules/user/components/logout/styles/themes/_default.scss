@@ -14,10 +14,9 @@
 
             .wlc-icon {
 
-                path {
+                svg {
                     @include bm.transition(all);
                     fill: ef.get-value($themeDefault, 'iconColor');
-                    stroke: ef.get-value($themeDefault, 'iconColor');
                 }
             }
         }
@@ -32,9 +31,8 @@
 
                 ::ng-deep {
 
-                    path {
+                    svg {
                         fill: ef.get-value($themeDefault, 'textColorHover');
-                        stroke: ef.get-value($themeDefault, 'textColorHover');
                     }
                 }
             }

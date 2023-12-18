@@ -322,6 +322,7 @@
         justify-content: center;
         width: ef.get-value($hostModal, 'closeSize');
         height: ef.get-value($hostModal, 'closeSize');
+        color: ef.get-value($hostModal, 'closeColor');
         transform: translateY(-50%);
         cursor: pointer;
         opacity: 0.4;
@@ -333,10 +334,6 @@
 
         span {
             display: flex;
-        }
-
-        line {
-            stroke: ef.get-value($hostModal, 'closeLineStroke');
         }
 
         @include bm.hover {

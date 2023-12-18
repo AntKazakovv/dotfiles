@@ -47,8 +47,6 @@
             }
 
             svg {
-                width: ef.get-value($themeDefault, 'favouriteSize');
-                height: ef.get-value($themeDefault, 'favouriteSize');
 
                 path {
                     @include bm.transition();

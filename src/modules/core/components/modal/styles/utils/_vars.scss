@@ -65,7 +65,7 @@ $hostModal: map-merge((
         768: 32px,
     ),
     'closeSize': 30px,
-    'closeLineStroke': var(--mc-baseMain),
+    'closeColor': var(--mc-baseMain),
 
     'modalBodyFlex': 1 1 auto,
     'modalHeaderColor': var(--mc-baseMain),
