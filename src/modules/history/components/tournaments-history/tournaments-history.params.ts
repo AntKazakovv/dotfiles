@@ -92,14 +92,14 @@ export const tournamentsHistoryTableHeadConfig: ITableCol[] = [
     },
     {
         key: 'start',
-        title: gettext('Start'),
+        title: gettext('Start date'),
         type: 'date',
         order: 50,
         wlcElement: 'wlc-profile-table__cell_started',
     },
     {
         key: 'end',
-        title: gettext('End'),
+        title: gettext('End date'),
         type: 'date',
         order: 50,
         wlcElement: 'wlc-profile-table__cell_ended',
