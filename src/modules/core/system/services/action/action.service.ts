@@ -674,6 +674,8 @@ export class ActionService {
 
         try {
 
+            this.modalService.showModal('registration-success');
+
             const response = await userService.registrationComplete(initialPath.code);
 
             if (useJwtToken) {
