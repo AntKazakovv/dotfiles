@@ -41,7 +41,7 @@
 </ng-template>
 
 <ng-template #headerDefault>
-    <ng-template *ngIf="$params.themeMod !== 'wolf'; else wolf">
+    <ng-container *ngIf="$params.themeMod !== 'wolf'; else wolf">
         <div *ngIf="$params.showHeader; else close"
             class="{{$class}}__header"
             [class.two-columns]="!headerMenuConfig">
@@ -59,8 +59,10 @@
             <div *ngIf="headerMenuConfig" class="{{$class}}__header-menu">
                 <div wlc-wrapper [inlineParams]="headerMenuConfig"></div>
             </div>
+
+            <ng-container [ngTemplateOutlet]="close"></ng-container>
         </div>
-    </ng-template>
+    </ng-container>
 </ng-template>
 
 <ng-template #headerLeftTypeFixed>
