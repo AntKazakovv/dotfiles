@@ -13,7 +13,13 @@ import {
     IMixedParams,
     ModalService,
 } from 'wlc-engine/modules/core';
-import {AchievementModel} from 'wlc-engine/modules/loyalty/submodules/achievements/system/models/achievement.model';
+import {
+    AchievementsService,
+} from 'wlc-engine/modules/loyalty/submodules/achievements/system/services/achievements/achievements.service';
+import {
+    AchievementModel,
+    AchievementGroupModel,
+} from 'wlc-engine/modules/loyalty/submodules/achievements/system/models';
 
 import * as Params from './achievement-item.params';
 
@@ -37,6 +43,7 @@ export class AchievementItemComponent extends AbstractComponent implements OnIni
         @Inject('injectParams') protected injectParams: Params.IAchievementItemCParams,
         configService: ConfigService,
         protected modalService: ModalService,
+        private achievementsService: AchievementsService,
     ) {
         super(
             <IMixedParams<Params.IAchievementItemCParams>>{
@@ -76,6 +83,11 @@ export class AchievementItemComponent extends AbstractComponent implements OnIni
         }
 
         this.showButton = !this.achievement.isReceived && !!this.buttonParams;
+    }
+
+    // MADE FOR CATS #548321
+    public get group(): AchievementGroupModel {
+        return this.achievementsService.getAchievementGroupById(this.achievement.groupId);
     }
 
     public openDescription(): void {

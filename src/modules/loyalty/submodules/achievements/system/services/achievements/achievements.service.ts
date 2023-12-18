@@ -54,7 +54,7 @@ export class AchievementsService {
         private webSocketService: WebsocketService,
         private eventService: EventService,
         private uiRouter: UIRouter,
-    ){
+    ) {
         this.init();
         // console.log(this.testFunc('bar','foo'));
     }
@@ -84,7 +84,7 @@ export class AchievementsService {
         }
     }
 
-    public async getGroups(): Promise<AchievementGroupModel[]>  {
+    public async getGroups(): Promise<AchievementGroupModel[]> {
         if (!this._groups.length) {
             await this.getAchievements();
         }
@@ -113,9 +113,15 @@ export class AchievementsService {
         );
     }
 
+    // MADE FOR CATS #548321
+    public getAchievementGroupById(id: number): AchievementGroupModel {
+        return _find(this._groups, (group) => id === group.id);
+    }
+
     public setAchievementsSubscription(): void {
-        this.dataAchievementSub = this.webSocketService.getMessages(
-            {endPoint:'wsc2', events: [WebSocketEvents.RECEIVE.ACHIEVEMENTS]}).subscribe(
+        this.dataAchievementSub = this.webSocketService.getMessages({
+            endPoint: 'wsc2', events: [WebSocketEvents.RECEIVE.ACHIEVEMENTS],
+        }).subscribe(
             {
                 next: (message: IWSAchievement) => {
                     const achName = JSON.parse(message.data.achievement_name);
@@ -187,7 +193,7 @@ export class AchievementsService {
         ));
     }
 
-    protected modifyAchievementArray (achievements: AchievementModel[], modifier: IModifier): AchievementModel[] {
+    protected modifyAchievementArray(achievements: AchievementModel[], modifier: IModifier): AchievementModel[] {
         if (modifier.type === 'order') {
             return this.orderAchievementArray(achievements, modifier);
         } else {
@@ -195,7 +201,7 @@ export class AchievementsService {
         }
     }
 
-    protected orderAchievementArray (achievements: AchievementModel[], modifier: IModifier): AchievementModel[] {
+    protected orderAchievementArray(achievements: AchievementModel[], modifier: IModifier): AchievementModel[] {
         if (modifier.field && modifier.values?.length) {
             let result: AchievementModel[] = [];
             let set: AchievementModel[];
