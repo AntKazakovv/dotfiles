@@ -309,10 +309,10 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
      */
     public isActive(state: string | string[], stateParams?: RawParams): boolean {
         if (_isString(state)) {
-            return this.stateService.includes(state, stateParams);
+            return this.stateService.is(state, stateParams);
         } else {
             return _reduce(state, (res: boolean, item: string): boolean => {
-                return res || this.stateService.includes(item, stateParams);
+                return res || this.stateService.is(item, stateParams);
             }, false);
         }
     }

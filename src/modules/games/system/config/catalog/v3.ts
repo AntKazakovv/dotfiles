@@ -65,11 +65,6 @@ export const catalogArch3 = new CatalogBuilder()
                         return category.isParent && _includes(['casino', 'livecasino'], category.slug);
                     });
 
-                const specialCategories: CategoryModel[] =
-                    _filter(options.allCategories, (category: CategoryModel) => {
-                        return category.isLastPlayed || category.isFavourites;
-                    });
-
                 const livecasinoCategory: CategoryModel =
                     options.getCategoryBySlug(['livecasino'], true);
 
@@ -142,7 +137,6 @@ export const catalogArch3 = new CatalogBuilder()
                 });
 
                 return _union(
-                    specialCategories,
                     parentCategories,
                     availableChildCategories,
                     hiddenCategories,

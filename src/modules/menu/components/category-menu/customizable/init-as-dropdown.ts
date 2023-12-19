@@ -72,10 +72,10 @@ export const initAsDropdownDefault: TCustomizableFn  = function (this: CategoryM
 // TODO change this after #479773
 export const initAsDropdownV2: TCustomizableFn = function (this: CategoryMenuComponent): void {
     const parentCategories = this.gamesCatalogService.getParentCategories();
-    let dropdownMenu = [];
+    let dropdownMenu: MenuParams.MenuItemType[] = [];
 
     const specialCategories = _filter(this.gamesCatalogService.getCategories(), (category) => {
-        return category.isParent && (category.isFavourites || category.isLastPlayed);
+        return category.parentCategory?.slug === 'casino' && (category.isFavourites || category.isLastPlayed);
     });
 
     if (specialCategories.length) {

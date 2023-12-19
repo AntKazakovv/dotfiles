@@ -18,14 +18,7 @@ export const catalogState: Ng2StateDeclaration = {
             transition: Transition,
             injectionService: InjectionService,
         ) => {
-            const gamesCatalogService: GamesCatalogService = await injectionService
-                .getService('games.games-catalog-service');
-            const categorySlug: string = transition.params().category;
-
-            await gamesCatalogService.ready;
-
-            const category: CategoryModel = gamesCatalogService.getCategoryBySlug(categorySlug);
-            return category?.isLastPlayed || category?.isFavourites;
+            return authResolver(injectionService, transition);
         }),
     ],
     onEnter: async (transition: Transition) => {
@@ -52,6 +45,14 @@ export const catalogState: Ng2StateDeclaration = {
 
 export const catalogChildState: Ng2StateDeclaration = {
     url: '/:childCategory',
+    resolve: [
+        StateHelper.forAuthenticatedResolver(async (
+            transition: Transition,
+            injectionService: InjectionService,
+        ) => {
+            return authResolver(injectionService, transition, true);
+        }),
+    ],
     onEnter: async (transition: Transition) => {
         const injectionService: InjectionService = transition.injector().get(InjectionService);
         const gamesCatalogService: GamesCatalogService = await injectionService
@@ -73,4 +74,23 @@ export const catalogChildState: Ng2StateDeclaration = {
         StateHelper.setStateData(state, 'categoryName',
             category.title[translateService.currentLang] || category.title['en']);
     },
+};
+
+const authResolver = async (
+    injectionService: InjectionService,
+    transition: Transition,
+    childState?: boolean,
+): Promise<boolean> => {
+    const gamesCatalogService: GamesCatalogService = await injectionService
+        .getService('games.games-catalog-service');
+
+    const categorySlug: string = childState
+        ? transition.params().childCategory
+        : transition.params().category;
+
+    await gamesCatalogService.ready;
+
+    const category: CategoryModel = gamesCatalogService.getCategoryBySlug(categorySlug);
+
+    return category?.isLastPlayed || category?.isFavourites;
 };
