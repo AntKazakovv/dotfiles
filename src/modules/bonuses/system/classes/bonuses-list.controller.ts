@@ -94,15 +94,33 @@ export class BonusesListController implements IBonusesListController {
     private filterBonusesByGroup(bonuses: Bonus[], group: string): Bonus[] {
         let filtered: Bonus[] = [];
 
-        if (group === 'Promo') {
-            const isAuth: boolean = this.configService.get<boolean>('$user.isAuthenticated');
+        switch (group) {
+            case 'Promo':
+                const isAuth: boolean = this.configService.get<boolean>('$user.isAuthenticated');
 
-            filtered = _filter(bonuses, (bonus: Bonus): boolean =>
-                bonus.data.Group === group && !bonus.hasPromoCode || bonus.showInPromotions(isAuth),
-            );
-        } else {
-            filtered = _filter(bonuses, (bonus: Bonus): boolean =>
-                bonus.data.Group === group);
+                filtered = _filter(bonuses, (bonus: Bonus): boolean =>
+                    bonus.data.Group.toLowerCase() === group.toLocaleLowerCase()
+                    && !bonus.hasPromoCode || bonus.showInPromotions(isAuth),
+                );
+                break;
+            case 'recommended':
+                filtered = _filter(bonuses, (bonus: Bonus): boolean =>
+                    bonus.data.Group.toLocaleLowerCase() === 'recommended'
+                    && bonus.status > 0
+                    && !bonus.isActive);
+
+                if (!filtered.length) {
+                    filtered = _filter(bonuses, (bonus: Bonus): boolean =>
+                        bonus.status > 0
+                        && !bonus.isActive
+                        && !bonus.inventoried
+                        && !bonus.showOnly);
+                }
+                break;
+            default:
+                filtered = _filter(bonuses, (bonus: Bonus): boolean =>
+                    bonus.data.Group.toLowerCase() === group.toLowerCase());
+                break;
         }
 
         return filtered;

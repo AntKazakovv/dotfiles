@@ -25,7 +25,6 @@ import _findIndex from 'lodash-es/findIndex';
 import _merge from 'lodash-es/merge';
 import _union from 'lodash-es/union';
 import _each from 'lodash-es/each';
-import _filter from 'lodash-es/filter';
 import _cloneDeep from 'lodash-es/cloneDeep';
 
 import {
@@ -391,10 +390,6 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, A
             });
         }
 
-        if (this.$params.common?.useRecommendedBonuses && this.$params.common.filterByGroup) {
-            this.prepareRecommendedBonuses();
-        }
-
         this.cdr.detectChanges();
     }
 
@@ -422,22 +417,6 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, A
         this.cdr.detectChanges();
     }
 
-    protected prepareRecommendedBonuses(): void {
-        let bonuses = _filter(this.bonuses, (bonus) =>
-            bonus.data.Group.toLocaleLowerCase() === this.$params.common.filterByGroup.toLocaleLowerCase()
-            && bonus.status > 0
-            && !bonus.isActive);
-
-        if (!bonuses.length) {
-            bonuses = _filter(this.bonuses, (bonus) =>
-                bonus.status > 0
-                && !bonus.isActive
-                && !bonus.inventoried
-                && !bonus.showOnly);
-        }
-
-        this.bonuses = bonuses;
-    }
 
     protected onGetBonuses(bonuses: Bonus[]): void {
         this.paginatedBonuses = this.bonuses = bonuses;
