@@ -31,6 +31,7 @@ $themeDefault: map-merge((
     'cellFontSize': 16px,
     'cellSvgCategoryWidth': ef.size(4),
     'cellNameAlign': left,
+    'cellNameWidth': 175px,
     'cellTextColor': var(--mc-baseSecond, var(--mc-baseMain)),
     'cellFirstChildPadding': 2px,
     'cellFirstChildBorderRadius': ef.size(2) 0 0 ef.size(2),
@@ -48,18 +49,18 @@ $themeDefault: map-merge((
 
     'titleColor': var(--mc-baseMain),
     'titleFontStyle': 'CaptionText',
-    'titleFontSizeMobile': ef.size(2),
+    'titleFontSizeMobile': 10px,
     'titleAlignMobile': start,
     'titleValueFontWeight': 400,
     'titleValueFontSize': 14px,
     'titleValueFontSizeMobile': 12px,
     'titleValueStyle': 'PrimaryText',
 
-    'thumbHeight': ef.size(10),
-    'thumbBorderRadius': ef.size(2),
+    'thumbHeight': 55px,
+    'thumbBorderRadius': 12px,
     'thumbMargin': ef.size(3),
 
-    'ImgContainerWidth': ef.size(15),
+    'ImgContainerWidth': 90px,
 
     'winBackground': var(--mc-success-o2),
     'lossBackground': var(--mc-error-o2),
@@ -67,6 +68,6 @@ $themeDefault: map-merge((
     'profitBorderRadius': ef.size(2),
     'profitPadding': 0 ef.size(2),
     'profitTextAlign': center,
-    'profitValueColor': var(--mc-baseThird),
+    'profitValueColor': var(--mc-baseThird, var(--mc-baseMain)),
 
 ), $customThemeDefault);

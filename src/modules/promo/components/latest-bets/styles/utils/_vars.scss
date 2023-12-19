@@ -3,7 +3,6 @@ $themeDefault: map-merge((
     'latestBetsWidth': 100%,
     'wrapperDisplay': flex,
     'wrapperFlexDirection': column,
-    'wrapperPadding': ef.size(1),
     'wrapperMargin': 0 0 ef.size(4),
 
     'contentDisplay': table,
@@ -51,7 +50,7 @@ $themeDefault: map-merge((
 
     'buttonLineHeight': 1.1,
     'buttonHeight': ef.size(9),
-    'buttonColorNotActive': var(--mc-baseMain),
+    'buttonFontSize': 14px,
     'buttonMaxWidth': 100%,
     'buttonMinWidth': 169px,
     'buttonBackground': transparent,
@@ -61,7 +60,8 @@ $themeDefault: map-merge((
     'buttonActiveBackground': var(--mc-bg700),
     'buttonHoverBackground': var(--mc-bg500),
     'buttonFontStyle': 'CaptionTextBold',
-    'buttonTextColor': var(--mc-baseThird),
+    'buttonTextColorActive': var(--mc-baseThird, var(--mc-baseMain)),
+    'buttonTextColor': var(--mc-baseMain),
 
     'iconMargin': 0 ef.size(3) 0 0,
 ), $customThemeDefault);

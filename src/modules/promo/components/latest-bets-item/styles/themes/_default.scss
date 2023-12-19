@@ -38,7 +38,11 @@
                     display: flex;
 
                     @include mq.max(560) {
+                        display: block;
                         font-size: ef.get-value($themeDefault, 'titleValueFontSizeMobile');
+                        overflow: hidden;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
                     }
                 }
 
@@ -73,6 +77,10 @@
                 .wlc-latest-bets-item__name {
                     color: ef.get-value($themeDefault, 'cellTextColor');
                     text-align: ef.get-value($themeDefault, 'cellNameAlign');
+
+                    @include mq.max(560) {
+                        width: ef.get-value($themeDefault, 'cellNameWidth');
+                    }
                 }
 
                 &--multiplier {

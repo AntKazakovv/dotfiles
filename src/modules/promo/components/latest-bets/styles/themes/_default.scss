@@ -10,7 +10,6 @@
                 display: ef.get-value($themeDefault, 'wrapperDisplay');
                 flex-direction: ef.get-value($themeDefault, 'wrapperFlexDirection');
                 margin: ef.get-value($themeDefault, 'wrapperMargin');
-                padding: ef.get-value($themeDefault, 'wrapperPadding');
             }
 
             &__table {
@@ -107,7 +106,8 @@
                 ::ng-deep {
 
                     .wlc-btn__text {
-                        @include text.get-text-style(ef.get-value($themeDefault, 'buttonFontStyle'), ef.get-value($themeDefault, 'buttonColorNotActive'));
+                        color: ef.get-value($themeDefault, 'buttonTextColor');
+                        font-size: ef.get-value($themeDefault, 'buttonFontSize');
                         line-height: ef.get-value($themeDefault, 'buttonLineHeight');
                     }
                 }
@@ -122,7 +122,7 @@
                     ::ng-deep {
 
                         .wlc-btn__text {
-                            color: ef.get-value($themeDefault, 'buttonTextColor');
+                            color: ef.get-value($themeDefault, 'buttonTextColorActive');
                         }
                     }
                 }
