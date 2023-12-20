@@ -176,8 +176,8 @@ export class SearchComponent extends AbstractComponent implements OnInit {
         this.parentCategory = this.gamesCatalogService.getParentCategoryByState();
         this.childCategory = this.gamesCatalogService.getChildCategoryByState();
 
-        this.getCategories();
-        this.getMerchants();
+        this.setCategories();
+        this.setMerchants();
         this.initSearchListener();
 
         this.ready = true;
@@ -198,7 +198,7 @@ export class SearchComponent extends AbstractComponent implements OnInit {
 
             this.filters.categories = [];
             this.selectedCategories = [];
-            this.getMerchants();
+            this.setMerchants();
             if (hasCurrentCategories) {
                 this.setFilter();
             }
@@ -216,10 +216,7 @@ export class SearchComponent extends AbstractComponent implements OnInit {
         }
 
         if (this.filters.categories.length) {
-            this.selectedCategories = _filter(this.categories, (category: CategoryModel) => {
-                return _includes(this.filters.categories, category.slug);
-            });
-
+            this.setSelectedCategories();
             let merchantsList: MerchantModel[] = [];
             _forEach(this.selectedCategories, (category) => {
                 merchantsList = merchantsList.concat(category.merchants);
@@ -228,7 +225,7 @@ export class SearchComponent extends AbstractComponent implements OnInit {
                 return merchant.alias;
             });
         } else {
-            this.getMerchants();
+            this.setMerchants();
         }
         this.setFilter();
     }
@@ -239,7 +236,7 @@ export class SearchComponent extends AbstractComponent implements OnInit {
 
             this.filters.merchants = [];
             this.selectedMerchants = [];
-            this.getCategories();
+            this.setCategories();
             if (hasCurrentMerchant) {
                 this.setFilter();
             }
@@ -260,11 +257,11 @@ export class SearchComponent extends AbstractComponent implements OnInit {
             this.selectedMerchants = _filter(this.merchants, (merchant: MerchantModel) => {
                 return _includes(this.filters.merchants, merchant.id);
             });
-            this.categories = _filter(this.gamesCatalogService.getCategoriesForFilter(), (category) => {
+            this.categories = _filter(this.getCategories(), (category: CategoryModel) => {
                 return category.hasSomeMerchant(this.selectedMerchants);
             });
         } else {
-            this.getCategories();
+            this.setCategories();
         }
         this.setFilter();
     }
@@ -389,11 +386,31 @@ export class SearchComponent extends AbstractComponent implements OnInit {
         );
     }
 
-    protected getCategories(): void {
-        this.categories = _uniqBy(this.gamesCatalogService.getCategoriesForFilter(), (item) => item.id);
+    protected getCategories(allCategories?: boolean): CategoryModel[] {
+        if (allCategories) {
+            return this.gamesCatalogService.getCategoriesForFilter();
+        } else {
+            return _uniqBy(this.gamesCatalogService.getCategoriesForFilter(), (item) => item.slug);
+        }
     }
 
-    protected getMerchants(): void {
+    protected setSelectedCategories(): void {
+        if (this.gamesCatalogService.architectureVersion === 3) {
+            this.selectedCategories = _filter(this.getCategories(true), (category: CategoryModel) => {
+                return _includes(this.filters.categories, category.slug);
+            });
+        } else {
+            this.selectedCategories = _filter(this.getCategories(), (category: CategoryModel) => {
+                return _includes(this.filters.categories, category.slug);
+            });
+        }
+    }
+
+    protected setCategories(): void {
+        this.categories = this.getCategories();
+    }
+
+    protected setMerchants(): void {
         const category = this.childCategory || this.parentCategory;
         let merchants;
         if (category && this.selectedCategories.length) {
