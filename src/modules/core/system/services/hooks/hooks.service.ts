@@ -5,12 +5,13 @@ import {
 
 import _bind from 'lodash-es/bind';
 import _forEach from 'lodash-es/forEach';
+import _findIndex from 'lodash-es/findIndex';
 
 export type HookHandler<T> = (data: T) => T | Promise<T>;
 
 export interface IHookHandlerDescriptor {
-    handlerIndex: number;
     name: string;
+    handler?: HookHandler<unknown>;
 }
 
 @Injectable({
@@ -39,10 +40,13 @@ export class HooksService {
         if (!this.hooks[name]) {
             this.hooks[name] = [];
         }
-        this.hooks[name].push(_bind(handler, context));
+
+        const _handler = _bind(handler, context);
+        this.hooks[name].push(_handler);
+
         return {
-            handlerIndex: this.hooks[name].length - 1,
             name: name,
+            handler: _handler,
         };
     }
 
@@ -75,8 +79,12 @@ export class HooksService {
     public clear(descriptors: IHookHandlerDescriptor[]): void {
         _forEach(descriptors, (descriptor: IHookHandlerDescriptor) => {
             const handlers = this.hooks[descriptor.name];
+
             if (handlers) {
-                handlers.splice(descriptor.handlerIndex, 1);
+                const index = _findIndex(this.hooks[descriptor.name], (handler) => {
+                    return handler === descriptor.handler;
+                });
+                handlers.splice(index, 1);
             }
         });
     }

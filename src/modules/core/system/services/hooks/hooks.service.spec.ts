@@ -34,6 +34,11 @@ describe('HooksService', () => {
             data.content = `${context.prefix}_${data.content}`;
             return data;
         },
+        'third': function (this: IHookContext, data: IHookData): IHookData {
+            const context: IHookContext = this;
+            data.content = `${context.prefix}_${data.content}`;
+            return data;
+        },
     };
 
     const hookTestContext: IHookContext = {
@@ -42,7 +47,7 @@ describe('HooksService', () => {
 
     const checkHookHandlerFormat = (handler: IHookHandlerDescriptor): void => {
         expect(handler).toEqual({
-            handlerIndex: handler.handlerIndex,
+            handler: handler.handler,
             name: handler.name,
         });
     };
@@ -90,7 +95,6 @@ describe('HooksService', () => {
 
     it('-> should clear hooks', () => {
         hooksService.clear([{
-            handlerIndex: 0,
             name: 'test',
         }]);
 
@@ -98,19 +102,30 @@ describe('HooksService', () => {
 
         const hookHandler1: IHookHandlerDescriptor = hooksService.set('test', hooks['first'], hookTestContext);
         const hookHandler2: IHookHandlerDescriptor = hooksService.set('test', hooks['second'], hookTestContext);
+        const hookHandler3: IHookHandlerDescriptor = hooksService.set('test', hooks['third'], hookTestContext);
+
+        expect(hooksService['hooks'].test.length).toBe(3);
+
+        hooksService.clear([hookHandler1]);
 
         expect(hooksService['hooks'].test.length).toBe(2);
-
-        hooksService.clear([hookHandler2]);
-
-        expect(hooksService['hooks'].test.length).toBe(1);
         expect(hooksService['hooks'].test[0]({
             content: 'text',
-        })).toEqual(_bind(hooks['first'], hookTestContext)({
+        })).toEqual(_bind(hooks['second'], hookTestContext)({
             content: 'text',
         }));
 
-        hooksService.clear([hookHandler1]);
+        hooksService.clear([hookHandler3]);
+
+        expect(hooksService['hooks'].test[0]({
+            content: 'text',
+        })).toEqual(_bind(hooks['second'], hookTestContext)({
+            content: 'text',
+        }));
+
+        expect(hooksService['hooks'].test.length).toBe(1);
+
+        hooksService.clear([hookHandler2]);
 
         expect(hooksService['hooks'].test.length).toBe(0);
     });
