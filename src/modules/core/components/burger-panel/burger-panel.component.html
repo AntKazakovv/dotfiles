@@ -88,11 +88,13 @@
             class="{{$class}}__logo">
         </div>
 
-        <button class="{{$class}}__btn-expand {{$class}}__btn-expand--expanded">
-            <span wlc-icon
-                iconPath="/wlc/icons/burger-expand.svg"
-                (click)="closePanel()"
-            ></span>
-        </button>
+        <ng-container *ngIf="$params.type === 'left'; else close">
+            <button class="{{$class}}__btn-expand {{$class}}__btn-expand--expanded">
+                <span wlc-icon
+                    iconPath="/wlc/icons/burger-expand.svg"
+                    (click)="closePanel()"
+                ></span>
+            </button>
+        </ng-container>
     </div>
 </ng-template>
