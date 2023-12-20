@@ -178,7 +178,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, A
     }
 
     public ngAfterViewInit(): void {
-        if (this.$params.type === 'swiper') {
+        if (this.$params.type === 'swiper' && !this.$params.hideNavigation) {
             this.sliderParams = _cloneDeep(this.sliderParams);
         }
     }
