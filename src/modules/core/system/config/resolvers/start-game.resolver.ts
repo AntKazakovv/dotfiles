@@ -441,6 +441,7 @@ class StartGameHandler {
                     common: {
                         game: this.game,
                         disableDemo: false,
+                        isLatestBetsWidget: false,
                     },
                 });
             });

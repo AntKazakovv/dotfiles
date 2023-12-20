@@ -32,7 +32,8 @@ export interface IPlayGameForRealCParams extends IAbstractSignInFormCParams<Comp
         game?: Game,
         disableDemo?: boolean;
         showPplInfo?: boolean;
-        latestBetWidget?: ILatestBetWidget;
+        latestBetWidgetParams?: ILatestBetWidget;
+        isLatestBetsWidget?: boolean;
     };
     modifiers?: Modifiers[];
 }
@@ -68,7 +69,6 @@ const insertPplInfo = (game: Game): IFormComponent => {
 };
 
 interface ILatestBetWidget {
-    isLatestBetsWidget?: boolean;
     currency?: string,
     amount?: string,
     coefficient?: string,
@@ -90,6 +90,7 @@ interface IPlayForRealParams {
     showPplInfo?: boolean;
     /**Hide items Bet-info in modal */
     latestBetWidget?: ILatestBetWidget;
+    isLatestBetWidget?: boolean;
 }
 
 export const templateSignUp = {
@@ -211,14 +212,6 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
 
     const forAuthenticated = [
         {
-            name: 'core.wlc-text-block',
-            params: <ITextBlockCParams>{
-                common: {
-                    textBlockTitle: params.game.name['en'],
-                },
-            },
-        },
-        {
             name: 'games.wlc-game-thumb',
             params: {
                 type: 'modal',
@@ -227,7 +220,16 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
                 },
             },
         },
-        params.latestBetWidget.isLatestBetsWidget ? {
+        {
+            name: 'core.wlc-text-block',
+            params: <ITextBlockCParams>{
+                common: {
+                    themeMod: 'game-title',
+                    textBlockSubtitle: params.game.name['en'],
+                },
+            },
+        },
+        params.isLatestBetWidget ? {
             name: 'promo.wlc-bet-info',
             params: <IBetInfoCParams>{
                 class: 'wlc-bet-info',

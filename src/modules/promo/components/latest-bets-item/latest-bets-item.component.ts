@@ -77,14 +77,14 @@ export class LatestBetsItemComponent extends AbstractComponent implements OnInit
             common: {
                 game: game,
                 disableDemo: false,
-                latestBetWidget: {
-                    isLatestBetsWidget: true,
+                latestBetWidgetParams: {
                     currency: currency,
                     amount: betAmount,
                     coefficient: coefficient,
                     profit: profitAmount === '0' ? betAmount : profitAmount,
                     isWin: isWin,
                 },
+                isLatestBetsWidget: true,
             },
         });
     }
