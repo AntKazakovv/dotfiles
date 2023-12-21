@@ -32,7 +32,7 @@ export interface IPlayGameForRealCParams extends IAbstractSignInFormCParams<Comp
         game?: Game,
         disableDemo?: boolean;
         showPplInfo?: boolean;
-        latestBetWidgetParams?: ILatestBetWidget;
+        latestBetsWidgetParams?: ILatestBetWidget;
         isLatestBetsWidget?: boolean;
     };
     modifiers?: Modifiers[];
@@ -89,8 +89,8 @@ interface IPlayForRealParams {
     isKiosk?: boolean;
     showPplInfo?: boolean;
     /**Hide items Bet-info in modal */
-    latestBetWidget?: ILatestBetWidget;
-    isLatestBetWidget?: boolean;
+    latestBetsWidgetParams?: ILatestBetWidget;
+    isLatestBetsWidget?: boolean;
 }
 
 export const templateSignUp = {
@@ -229,16 +229,16 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
                 },
             },
         },
-        params.isLatestBetWidget ? {
+        params.isLatestBetsWidget ? {
             name: 'promo.wlc-bet-info',
             params: <IBetInfoCParams>{
                 class: 'wlc-bet-info',
                 betInfo: {
-                    currency: params.latestBetWidget.currency,
-                    amount: params.latestBetWidget.amount,
-                    profit: params.latestBetWidget.profit,
-                    coefficient: params.latestBetWidget.coefficient,
-                    isWin: params.latestBetWidget.isWin,
+                    currency: params.latestBetsWidgetParams.currency,
+                    amount: params.latestBetsWidgetParams.amount,
+                    profit: params.latestBetsWidgetParams.profit,
+                    coefficient: params.latestBetsWidgetParams.coefficient,
+                    isWin: params.latestBetsWidgetParams.isWin,
                 },
             },
         } : null,

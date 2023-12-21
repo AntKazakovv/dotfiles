@@ -79,13 +79,13 @@ export class PlayGameForRealComponent extends SignInFormAbstract<Params.IPlayGam
             useLogin: this.configService.get<boolean>('$base.site.useLogin'),
             isKiosk: this.configService.get<AppType>('$base.app.type') === 'kiosk',
             showPplInfo: this.params.common?.showPplInfo,
-            isLatestBetWidget: this.params.common?.isLatestBetsWidget,
-            latestBetWidget: {
-                currency: this.params.common?.latestBetWidgetParams.currency,
-                amount: this.params.common?.latestBetWidgetParams.amount,
-                coefficient: this.params.common?.latestBetWidgetParams.coefficient,
-                profit: this.params.common?.latestBetWidgetParams.profit,
-                isWin: this.params.common?.latestBetWidgetParams.isWin,
+            isLatestBetsWidget: this.params.common?.isLatestBetsWidget,
+            latestBetsWidgetParams: {
+                currency: this.params.common?.latestBetsWidgetParams?.currency,
+                amount: this.params.common?.latestBetsWidgetParams?.amount,
+                coefficient: this.params.common?.latestBetsWidgetParams?.coefficient,
+                profit: this.params.common?.latestBetsWidgetParams?.profit,
+                isWin: this.params.common?.latestBetsWidgetParams?.isWin,
             },
         });
     }
