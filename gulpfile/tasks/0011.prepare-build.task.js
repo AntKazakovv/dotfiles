@@ -48,6 +48,14 @@ module.exports = function preBuildTask() {
             ? languagesDev
             : languagesPack;
 
+        try {
+            this.params.locales = JSON.parse(fs.readFileSync(
+                (fs.existsSync(`${languagesDev}/${localesFile}`) ? languagesDev : languagesPack)
+                + `/${localesFile}`,
+            ));
+        } catch (error) {
+            console.log(error);
+        }
         fs.symlinkSync(`${languagesDir}/${localesFile}`, locales);
         this.addToGitIgnore('/', '', localesFile);
     };

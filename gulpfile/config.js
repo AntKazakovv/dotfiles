@@ -8,16 +8,6 @@ module.exports = function config(root, bundleType, pathsConfig = {}) {
     const langsPack = './node_modules/@egamings/wlc-engine-translate';
     const localesFile = 'locales.json';
 
-    let locales;
-    try {
-        locales = JSON.parse(fs.readFileSync(
-            (fs.existsSync(`${langsDev}/${localesFile}`) ? langsDev : localesPack)
-            + `/${localesFile}`,
-        ));
-    } catch (error) {
-        locales = defaultLangs;
-    }
-
     return {
         isEngineBundle,
         isMobileAppBundle,
@@ -69,7 +59,7 @@ module.exports = function config(root, bundleType, pathsConfig = {}) {
                 'roots/siteconfig.php',
             ],
         },
-        locales: locales,
+        locales: defaultLangs,
         sassDocOptions: {
             dest: `${root}/docs/sassdoc`,
             verbose: true,
@@ -137,7 +127,7 @@ const defaultLangs = {
     'th': {'code': 'th', 'label': 'Thai', 'locale': 'th_TH'},
     'tr': {'code': 'tr', 'label': 'Turkish', 'locale': 'tr_TR'},
     'tt': {'code': 'tt', 'label': 'Tatar', 'locale': 'tt_RU'},
-    'ua': {'code': 'ua', 'label': 'Ukrainian', 'locale': 'ua_UA'},
+    'uk': {'code': 'uk', 'label': 'Ukrainian', 'locale': 'uk_UA'},
     'uz': {'code': 'uz', 'label': 'Uzbek', 'locale': 'uz_UZ'},
     'vi': {'code': 'vi', 'label': 'Vietnamese', 'locale': 'vi_VN'},
     'zh': {'code': 'zh', 'label': 'Chinese', 'locale': 'zh_ZH'},
