@@ -6,7 +6,8 @@ export type TLimitationType =
     | 'MaxLossSum'
     | 'realityChecker'
     | 'timeOut'
-    | 'selfExclusion';
+    | 'selfExclusion'
+    | 'accountClosure';
 
 export type TIndexingLimitTypeItems = IIndexing<ILimitationTypeItem>;
 

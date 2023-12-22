@@ -24,6 +24,8 @@ import {
 } from 'wlc-engine/modules/core';
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 
+const userInfoStatusDisable: number = 2 as const;
+
 @Injectable({
     providedIn: 'root',
 })
@@ -47,6 +49,9 @@ export class LicenseLimitationsService {
         switch (this.configService.get<string>('appConfig.license')) {
             case 'malta':
                 this.availableStatesList = this.configService.get({name: '$base.maltaSelfExclusionAvailableStates'});
+                break;
+            case 'romania':
+                this.availableStatesList = this.configService.get({name: '$base.romaniaSelfExclusionAvailableStates'});
                 break;
         }
 
@@ -115,7 +120,7 @@ export class LicenseLimitationsService {
         this.userInfoSubscribe = this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'})
             .pipe(filter((userInfo: UserInfo): boolean => !!userInfo?.idUser))
             .subscribe(async (userInfo: UserInfo) => {
-                if (userInfo.status === 2 && !this.checkState(this.uiRouter.current.name)) {
+                if (userInfo.status === userInfoStatusDisable && !this.checkState(this.uiRouter.current.name)) {
                     this.showTransitionDenied();
                     this.stateService.go('app.home');
                 }

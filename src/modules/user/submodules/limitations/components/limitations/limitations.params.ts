@@ -17,7 +17,6 @@ import {
 import {
     LimitCancelComponent,
 } from 'wlc-engine/modules/user/submodules/limitations/components/limit-cancel/limit-cancel.component';
-
 export {limitTypeTexts} from 'wlc-engine/modules/user/submodules/limitations/system/config/limitations.config';
 
 export type ComponentTheme = 'default' | CustomType;
@@ -215,36 +214,44 @@ export const timeOutPeriod = {
     },
 };
 
-export const selfExclusion: IFormComponent = {
-    name: 'core.wlc-select',
-    params: <ISelectCParams>{
-        name: 'selfExclusion',
-        labelText: gettext('Self exclusion'),
-        wlcElement: 'self-exclusion',
-        common: {
-            placeholder: gettext('Self exclusion'),
+export const selfExclusion = (isRomaniaLicense: boolean): IFormComponent => {
+    return {
+        name: 'core.wlc-select',
+        params: <ISelectCParams>{
+            name: 'selfExclusion',
+            labelText: gettext('Self exclusion'),
+            wlcElement: 'self-exclusion',
+            common: {
+                placeholder: gettext('Self exclusion'),
+            },
+            validators: ['required'],
+            locked: false,
+            items: [
+                {
+                    title: gettext('1 day'),
+                    value: 'day',
+                },
+                {
+                    title: gettext('1 week'),
+                    value: 'week',
+                },
+                {
+                    title: gettext('1 month'),
+                    value: 'month',
+                },
+                isRomaniaLicense ?
+                    {
+                        title: gettext('6 months'),
+                        value: '6months',
+                    }
+                    : null,
+                {
+                    title: gettext('Permanently'),
+                    value: 'permanently',
+                },
+            ],
         },
-        validators: ['required'],
-        locked: false,
-        items: [
-            {
-                title: gettext('1 day'),
-                value: 'day',
-            },
-            {
-                title: gettext('1 week'),
-                value: 'week',
-            },
-            {
-                title: gettext('1 month'),
-                value: 'month',
-            },
-            {
-                title: gettext('Permanently'),
-                value: 'permanently',
-            },
-        ],
-    },
+    };
 };
 
 export const limitTypesForMalta: ILimitationTypeItem[] = [
@@ -254,4 +261,10 @@ export const limitTypesForMalta: ILimitationTypeItem[] = [
     limitTypes.realityChecker,
     limitTypes.selfExclusion,
     limitTypes.timeOut,
+];
+
+export const limitTypesForRomania: ILimitationTypeItem[] = [
+    limitTypes.MaxDepositSum,
+    limitTypes.accountClosure,
+    limitTypes.selfExclusion,
 ];

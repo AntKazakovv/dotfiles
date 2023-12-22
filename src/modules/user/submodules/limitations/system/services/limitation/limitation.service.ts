@@ -229,41 +229,7 @@ export class LimitationService {
         try {
             const result: IData<ISelfExclusionSingleData> = await this.dataService
                 .request('limit/setExclusion', params);
-            if (result.data?.type === 'queue') {
-                let time: string = '';
-                const dateTimeFromSQL: DateTime = DateTime.fromSQL(result.data.date);
-
-                if (dateTimeFromSQL.isValid) {
-                    time = dateTimeFromSQL.toFormat('LL.dd.yyyy HH:mm');
-                } else {
-                    time = DateTime.local().plus({days: 1}).toFormat('LL.dd.yyyy');
-                }
-
-                this.eventService.emit({
-                    name: NotificationEvents.PushMessage,
-                    data: <IPushMessageParams>{
-                        type: 'success',
-                        title: gettext('User Limits'),
-                        message: (exclusion.value
-                            ? gettext('The limit was successfully added and will be applied on')
-                            : gettext('The limit will be removed on')),
-                        messageContext: {
-                            time,
-                        },
-                        wlcElement: 'notification_set-self-exclusion-info',
-                    },
-                });
-            } else if (result.status === 'success')  {
-                this.eventService.emit({
-                    name: NotificationEvents.PushMessage,
-                    data: <IPushMessageParams>{
-                        type: 'success',
-                        title: gettext('Profile updated successfully'),
-                        message: gettext('Your profile has been updated successfully'),
-                        wlcElement: 'notification_profile-update-success',
-                    },
-                });
-            }
+            this.showModalUpdateLimit(result, exclusion);
         } catch (error) {
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,
@@ -286,14 +252,16 @@ export class LimitationService {
      */
     public async removeUserSelfExclusion(limit?: TLimitationType): Promise<void> {
         try {
-            await this.dataService.request('limit/removeExclusion', {limit});
+            const result: IData<ISelfExclusionSingleData> =
+                await this.dataService.request('limit/removeExclusion', {limit});
+            this.showModalUpdateLimit(result);
         } catch (error) {
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,
                 data: <IPushMessageParams>{
                     type: 'error',
                     title: gettext('Error'),
-                    message: gettext('Error remove user self exclusion'),
+                    message: error.errors?.[0] || gettext('Error remove user self exclusion'),
                     wlcElement: 'notification_remove-self-exclusion-error',
                 },
             });
@@ -333,6 +301,22 @@ export class LimitationService {
                     title: gettext('Profile update failed'),
                     message: error.errors,
                     wlcElement: 'notification_self-exclusion-set-error',
+                },
+            });
+        }
+    }
+
+    public async requestAccountClosure(): Promise<void> {
+        try {
+            await this.dataService.request('limit/accountClosure');
+        } catch (error) {
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'error',
+                    title: gettext('Profile update failed'),
+                    message: error.errors,
+                    wlcElement: 'notification_account-closure-error',
                 },
             });
         }
@@ -387,6 +371,44 @@ export class LimitationService {
         }
     }
 
+    private showModalUpdateLimit(result: IData<ISelfExclusionSingleData>, exclusion?: ILimitationExclusion): void {
+        if (result.data?.type === 'queue') {
+            let time: string = '';
+            const dateTimeFromSQL: DateTime = DateTime.fromSQL(result.data.date);
+
+            if (dateTimeFromSQL.isValid) {
+                time = dateTimeFromSQL.toFormat('LL.dd.yyyy HH:mm');
+            } else {
+                time = DateTime.local().plus({days: 1}).toFormat('LL.dd.yyyy');
+            }
+
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'success',
+                    title: gettext('User Limits'),
+                    message: (exclusion?.value
+                        ? gettext('The limit was successfully added and will be applied on')
+                        : gettext('The limit will be removed on')),
+                    messageContext: {
+                        time,
+                    },
+                    wlcElement: 'notification_set-self-exclusion-info',
+                },
+            });
+        } else if (result.status === 'success')  {
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'success',
+                    title: gettext('Profile updated successfully'),
+                    message: gettext('Your profile has been updated successfully'),
+                    wlcElement: 'notification_profile-update-success',
+                },
+            });
+        }
+    }
+
     private registerMethod(): void {
         this.dataService.registerMethod({
             name: 'getExclusion',
@@ -412,6 +434,9 @@ export class LimitationService {
         this.dataService.registerMethod({
             name: 'removeExclusion',
             url: '/userSelfExclusion',
+            params: {
+                single: 1,
+            },
             type: 'DELETE',
             system: 'limit',
         });
@@ -429,6 +454,13 @@ export class LimitationService {
             url: '/profiles/self-exclusion',
             system: 'limit',
             type: 'PUT',
+        });
+
+        this.dataService.registerMethod({
+            name: 'accountClosure',
+            url: '/userSelfExclusion/accountClosure',
+            system: 'limit',
+            type: 'POST',
         });
     }
 

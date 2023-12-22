@@ -128,6 +128,8 @@ export interface IBaseConfig {
     termsAvailableStates?: string[];
     /** States are available with self-exclusion enabled for the Malta license */
     maltaSelfExclusionAvailableStates?: string[];
+    /** States are available with self-exclusion enabled for the Romanian license */
+    romaniaSelfExclusionAvailableStates?: string[];
     /** Set true to use submit button in forms and request buttons pending animation */
     useButtonPending?: boolean;
     forms?: IFormsConfig;

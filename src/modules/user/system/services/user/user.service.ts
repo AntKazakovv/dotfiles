@@ -66,7 +66,10 @@ import {
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
-import {LimitationService} from 'wlc-engine/modules/user/submodules/limitations';
+import {
+    LicenseLimitationsService,
+    LimitationService,
+} from 'wlc-engine/modules/user/submodules/limitations';
 import {IdleService} from 'wlc-engine/modules/user/system/services/idle/idle.service';
 import {
     ILoginWithPhoneData,
@@ -84,9 +87,6 @@ import {TermsAcceptService} from 'wlc-engine/modules/user/system/services/terms/
 import {
     TwoFactorAuthService,
 } from 'wlc-engine/modules/user/submodules/two-factor-auth/system/services/two-factor-auth/two-factor-auth.service';
-import {
-    LicenseLimitationsService,
-} from 'wlc-engine/modules/user/submodules/limitations/system/services/license-limitations/license-limitations.service';
 
 export enum LanguageChangeEvents {
     ChangeLanguage = 'CHANGE_LANGUAGE'
@@ -1448,7 +1448,9 @@ export class UserService {
     }
 
     private async setLicenseLimitationsService(): Promise<void> {
-        if (this.configService.get<string>('appConfig.license') === 'malta') {
+        if (this.configService.get<string>('appConfig.license') === 'malta'
+            || this.configService.get<string>('appConfig.license') === 'romania'
+        ) {
             this.licenseLimitationsService ??= await this.injectionService
                 .getService<LicenseLimitationsService>('limitations.license-limitations-service');
         }

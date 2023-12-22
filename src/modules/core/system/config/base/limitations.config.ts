@@ -25,4 +25,8 @@ export const limitType: TIndexingLimitTypeItems = {
         title: gettext('Self exclusion'),
         value: 'selfExclusion',
     },
+    accountClosure: {
+        title: gettext('Account closure'),
+        value: 'accountClosure',
+    },
 };

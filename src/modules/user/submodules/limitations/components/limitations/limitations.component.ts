@@ -14,6 +14,7 @@ import _each from 'lodash-es/each';
 import _set from 'lodash-es/set';
 import _size from 'lodash-es/size';
 import _isNil from 'lodash-es/isNil';
+import _cloneDeep from 'lodash-es/cloneDeep';
 
 import {
     AbstractComponent,
@@ -80,8 +81,6 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
 
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
-        this.patchLimitTypeItems();
-        await this.setLimits();
 
         this.formConfig = {
             class: 'wlc-form-wrapper',
@@ -92,57 +91,15 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
                 Params.submitBtn,
             ],
         };
+        this.patchLimitTypeItems();
+        await this.setLimits();
 
         this.eventService.subscribe({name: 'remove_exclusion'}, () => {
             this.setLimits();
         }, this.$destroy);
 
         this.eventService.subscribe({name: 'SELECT_CHOSEN_LIMITTYPE'}, (data: ISelectOptions<TLimitationType>) => {
-            switch (data.value) {
-                case 'realityChecker':
-                    this.formConfig = {
-                        class: this.formConfig.class,
-                        components: [
-                            Params.limitType,
-                            Params.realityCheckerPeriod,
-                            Params.submitBtn,
-                        ],
-                    };
-                    break;
-                case 'timeOut':
-                    this.formConfig = {
-                        class: this.formConfig.class,
-                        components: [
-                            Params.limitType,
-                            Params.timeOutPeriod,
-                            Params.submitBtn,
-                        ],
-                    };
-                    break;
-                case 'selfExclusion':
-                    this.formConfig = {
-                        class: this.formConfig.class,
-                        components: [
-                            Params.limitType,
-                            Params.selfExclusion,
-                            Params.submitBtn,
-                        ],
-                    };
-                    break;
-                default:
-                    this.formConfig = {
-                        class: this.formConfig.class,
-                        components: [
-                            Params.limitType,
-                            Params.limitAmount(
-                                this.isTypeLimitationsForZeroBalance(data.value) ? this.useZeroBalance : null,
-                            ),
-                            Params.limitPeriod,
-                            Params.submitBtn,
-                        ],
-                    };
-            }
-            this.formData.next(this.form.value);
+            this.setFormData(data);
         }, this.$destroy);
     }
 
@@ -269,11 +226,21 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
                     return false;
                 }
                 break;
+            case 'accountClosure':
+                try {
+                    await this.limitationService.requestAccountClosure();
+                } catch (error) {
+                    return false;
+                }
+                break;
             default:
                 break;
         }
 
-        await this.setLimits();
+        if (!['selfExclusion', 'accountClosure'].includes(form.value.limitType)) {
+            await this.setLimits();
+        }
+
         this.pending = false;
         return true;
     }
@@ -291,6 +258,12 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
 
         if (this.configService.get<string>('appConfig.license') === 'malta') {
             _set(Params, 'limitType.params.items', Params.limitTypesForMalta);
+        }
+
+        if (this.configService.get<string>('appConfig.license') === 'romania') {
+            _set(Params, 'limitType.params.items', Params.limitTypesForRomania);
+            const maxDepositSumType = Params.limitTypesForRomania.find((type) => type.value === 'MaxDepositSum');
+            this.setFormData(maxDepositSumType, maxDepositSumType.value);
         }
     }
 
@@ -350,5 +323,74 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
         this.limits.next(limits);
         this.loading = false;
         this.cdr.markForCheck();
+    }
+
+    protected setFormData(data: ISelectOptions<TLimitationType>, defaultValueLimitType?: string): void {
+        let limitType = _cloneDeep(Params.limitType);
+
+        if (defaultValueLimitType) {
+            limitType.params.value = defaultValueLimitType;
+        }
+
+        switch (data.value) {
+            case 'realityChecker':
+                this.formConfig = {
+                    class: this.formConfig.class,
+                    components: [
+                        limitType,
+                        Params.realityCheckerPeriod,
+                        Params.submitBtn,
+                    ],
+                };
+                break;
+            case 'timeOut':
+                this.formConfig = {
+                    class: this.formConfig.class,
+                    components: [
+                        limitType,
+                        Params.timeOutPeriod,
+                        Params.submitBtn,
+                    ],
+                };
+                break;
+            case 'selfExclusion':
+                const selfExclusion = Params.selfExclusion(this.configService.get('appConfig.license') === 'romania');
+                selfExclusion.params.items = selfExclusion.params.items.filter((v: ISelectOptions<unknown>) => !!v);
+
+                this.formConfig = {
+                    class: this.formConfig.class,
+                    components: [
+                        limitType,
+                        selfExclusion,
+                        Params.submitBtn,
+                    ],
+                };
+                break;
+            case 'accountClosure':
+                this.formConfig = {
+                    class: this.formConfig.class,
+                    components: [
+                        limitType,
+                        Params.submitBtn,
+                    ],
+                };
+                break;
+            default:
+                this.formConfig = {
+                    class: this.formConfig.class,
+                    components: [
+                        limitType,
+                        Params.limitAmount(
+                            this.isTypeLimitationsForZeroBalance(data.value) ? this.useZeroBalance : null,
+                        ),
+                        Params.limitPeriod,
+                        Params.submitBtn,
+                    ],
+                };
+        }
+
+        if (this.form?.value) {
+            this.formData.next(this.form.value);
+        }
     }
 }
