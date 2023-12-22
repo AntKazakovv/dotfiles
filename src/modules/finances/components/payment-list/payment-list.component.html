@@ -61,7 +61,7 @@
             class="{{$class}}__btn-modal-image"
             [fallback]="'/wlc/icons/currencies/def.svg' | proxyStaticUrl"
             [showSvgAsImg]="true"
-            [iconUrl]="itemsMap.get(currentSystem.id)?.image">
+            [iconUrl]="'wlc/icons/currencies/' + currentSystem.cryptoTicker + '.svg' | lowercase | proxyStaticUrl">
         </span>
         <span *ngSwitchDefault
             wlc-icon-list-item

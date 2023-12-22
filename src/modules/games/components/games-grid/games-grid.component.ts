@@ -792,7 +792,12 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
                     || this.configService.get<string>('$menu.categoryMenu.icons.folder');
                 const icon = folder ? `${folder}/${category}` : category;
                 this.$params.titleIcon.name = icon.split('.').length > 1 ? icon : `${icon}.svg`;
-                this.$params.titleIcon.fallback = `${folder}/plug.svg`;
+                if (folder[folder.length - 1] === '/') {
+                    this.$params.titleIcon.fallback = `${folder}plug.svg`;
+                } else {
+                    this.$params.titleIcon.fallback = `${folder}/plug.svg`;
+                }
+
             }
         }
 
