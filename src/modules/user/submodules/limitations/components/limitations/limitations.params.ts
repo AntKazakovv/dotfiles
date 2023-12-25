@@ -9,6 +9,8 @@ import {
     IFormComponent,
 } from 'wlc-engine/modules/core';
 import {ProhibitedPatterns} from 'wlc-engine/modules/core/constants';
+import {ILimitationTypeItem} from 'wlc-engine/modules/user/submodules/limitations/system/interfaces';
+import {limitType as limitTypes} from 'wlc-engine/modules/core/system/config/base/limitations.config';
 import {
     LimitValueComponent,
 } from 'wlc-engine/modules/user/submodules/limitations/components/limit-value/limit-value.component';
@@ -212,3 +214,44 @@ export const timeOutPeriod = {
         ],
     },
 };
+
+export const selfExclusion: IFormComponent = {
+    name: 'core.wlc-select',
+    params: <ISelectCParams>{
+        name: 'selfExclusion',
+        labelText: gettext('Self exclusion'),
+        wlcElement: 'self-exclusion',
+        common: {
+            placeholder: gettext('Self exclusion'),
+        },
+        validators: ['required'],
+        locked: false,
+        items: [
+            {
+                title: gettext('1 day'),
+                value: 'day',
+            },
+            {
+                title: gettext('1 week'),
+                value: 'week',
+            },
+            {
+                title: gettext('1 month'),
+                value: 'month',
+            },
+            {
+                title: gettext('Permanently'),
+                value: 'permanently',
+            },
+        ],
+    },
+};
+
+export const limitTypesForMalta: ILimitationTypeItem[] = [
+    limitTypes.MaxDepositSum,
+    limitTypes.MaxBetSum,
+    limitTypes.MaxLossSum,
+    limitTypes.realityChecker,
+    limitTypes.selfExclusion,
+    limitTypes.timeOut,
+];

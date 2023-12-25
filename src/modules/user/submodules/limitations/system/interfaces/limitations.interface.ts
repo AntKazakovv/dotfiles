@@ -5,7 +5,8 @@ export type TLimitationType =
     | 'MaxBetSum'
     | 'MaxLossSum'
     | 'realityChecker'
-    | 'timeOut';
+    | 'timeOut'
+    | 'selfExclusion';
 
 export type TIndexingLimitTypeItems = IIndexing<ILimitationTypeItem>;
 

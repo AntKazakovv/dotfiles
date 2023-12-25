@@ -21,4 +21,8 @@ export const limitType: TIndexingLimitTypeItems = {
         title: gettext('Time out'),
         value: 'timeOut',
     },
+    selfExclusion: {
+        title: gettext('Self exclusion'),
+        value: 'selfExclusion',
+    },
 };

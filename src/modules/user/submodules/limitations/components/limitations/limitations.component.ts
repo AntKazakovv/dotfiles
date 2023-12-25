@@ -116,6 +116,16 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
                         ],
                     };
                     break;
+                case 'selfExclusion':
+                    this.formConfig = {
+                        class: this.formConfig.class,
+                        components: [
+                            Params.limitType,
+                            Params.selfExclusion,
+                            Params.submitBtn,
+                        ],
+                    };
+                    break;
                 default:
                     this.formConfig = {
                         class: this.formConfig.class,
@@ -173,7 +183,7 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
                         value: form.value.limitAmount,
                     });
                 } catch (error) {
-                    //
+                    this.pending = false;
                     return false;
                 }
                 break;
@@ -239,6 +249,23 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
                     dismissAll: true,
                 });
                 return false;
+            case 'selfExclusion':
+                try {
+                    const result = await this.limitationService.setSelfExclusion(form.value.selfExclusion);
+                    this.eventService.emit({
+                        name: NotificationEvents.PushMessage,
+                        data: <IPushMessageParams>{
+                            type: 'success',
+                            title: gettext('Profile updated successfully'),
+                            message: result.data,
+                            wlcElement: 'notification_profile-update-success',
+                        },
+                    });
+                } catch (error) {
+                    this.pending = false;
+                    return false;
+                }
+                break;
             default:
                 break;
         }
@@ -257,6 +284,10 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
 
         if (_size(types)) {
             _set(Params, 'limitType.params.items', types);
+        }
+
+        if (this.configService.get<string>('appConfig.license') === 'malta') {
+            _set(Params, 'limitType.params.items', Params.limitTypesForMalta);
         }
     }
 
@@ -288,7 +319,7 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
         _each(selfExclusion, (item, key) => {
             if (Params.limitTypeTexts[key] && (item !== '0' || this.useZeroBalance)) {
                 limits.push({
-                    type: key,
+                    type: key === 'CoolOffTime' ? item : key,
                     typeText: Params.limitTypeTexts[key],
                     amountValue: {
                         valueType: key,

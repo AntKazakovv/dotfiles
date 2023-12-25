@@ -1,3 +1,18 @@
 .wlc-limit-cancel:host {
     display: inline-flex;
+
+    ::ng-deep {
+
+        .wlc-timer {
+            --wlc-timer-bg: none;
+            --wlc-timer-padding: 0;
+
+            .wlc-timer__content {
+
+                .wlc-icon {
+                    display: none;
+                }
+            }
+        }
+    }
 }

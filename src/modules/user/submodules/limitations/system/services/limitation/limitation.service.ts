@@ -26,6 +26,7 @@ import {TLimitationType} from 'wlc-engine/modules/user/submodules/limitations/sy
 export interface ISelfExclusion {
     Currency: string;
     LimitsDate: string;
+    CoolOffTime?: string;
     ZeroLimits: boolean;
     MaxDepositSumDay?: string;
     MaxDepositSumWeek?: string;
@@ -319,6 +320,24 @@ export class LimitationService {
         this.eventService.emit({name: 'USER_STATUS_DISABLE'});
     }
 
+    public async setSelfExclusion(period: string): Promise<IData<string>> {
+        try {
+            const result: IData<string> = await this.dataService.request('limit/selfExclusion', {period});
+            this.eventService.emit({name: 'remove_exclusion'});
+            return result;
+        } catch (error) {
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'error',
+                    title: gettext('Profile update failed'),
+                    message: error.errors,
+                    wlcElement: 'notification_self-exclusion-set-error',
+                },
+            });
+        }
+    }
+
     /**
      * Process reality check
      *
@@ -403,6 +422,13 @@ export class LimitationService {
             type: 'GET',
             system: 'limit',
             mapFunc: this.mapFunc,
+        });
+
+        this.dataService.registerMethod({
+            name: 'selfExclusion',
+            url: '/profiles/self-exclusion',
+            system: 'limit',
+            type: 'PUT',
         });
     }
 

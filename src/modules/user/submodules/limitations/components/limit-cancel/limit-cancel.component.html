@@ -1,4 +1,13 @@
-<button *ngIf="cancelable; else noCancel"
+<div *ngIf="useTimer"
+    wlc-timer
+    class="{{$class}}__timer"
+    [value]="timerValue"
+    (timerEnds)="timerEnds()">
+</div>
+
+<ng-container *ngIf="!useTimer">
+    <button
+        *ngIf="cancelable; else noCancel"
         wlc-button
         [attr.type]="'button'"
         themeMod="secondary"
@@ -6,7 +15,8 @@
         [type]="pending ? 'pending' : 'default'"
         [wlcElement]="'button_cancel'"
         (click)="cancel()">
-</button>
+    </button>
+</ng-container>
 
 <ng-template #noCancel>
     <div class="no-cancel">

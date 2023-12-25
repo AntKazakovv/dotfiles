@@ -4,7 +4,8 @@ import {TranslateModule} from '@ngx-translate/core';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 
 // -- SERVICES IMPORTS START --;
-import {LimitationService} from './system/services';
+import {LimitationService} from './system/services/limitation/limitation.service';
+import {LicenseLimitationsService} from './system/services/license-limitations/license-limitations.service';
 // -- SERVICES IMPORTS END  --;
 
 // -- COMPONENTS IMPORTS  --;
@@ -19,6 +20,7 @@ export const components = {
 
 export const services = {
     'limitation-service': LimitationService,
+    'license-limitations-service': LicenseLimitationsService,
 };
 
 @NgModule({
@@ -33,6 +35,7 @@ export const services = {
     ],
     providers: [
         LimitationService,
+        LicenseLimitationsService,
     ],
     exports: [
         LimitationsComponent,

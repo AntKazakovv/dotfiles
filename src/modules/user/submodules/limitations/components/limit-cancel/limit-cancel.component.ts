@@ -5,6 +5,8 @@ import {
     ChangeDetectionStrategy,
 } from '@angular/core';
 
+import {DateTime} from 'luxon';
+
 import {
     AbstractComponent,
     ModalService,
@@ -25,6 +27,9 @@ export class LimitCancelComponent extends AbstractComponent implements OnInit {
     public override $params: Params.ILimitCancelCParams;
     public cancelable: boolean = false;
     public pending: boolean = false;
+    public useTimer: boolean = false;
+
+    protected timerValue: DateTime = null;
 
     constructor(
         @Inject('injectParams') protected params: Params.ILimitCancelCParams,
@@ -39,6 +44,12 @@ export class LimitCancelComponent extends AbstractComponent implements OnInit {
 
         if (Params.limitCancelTypes.includes(this.$params.value)) {
             this.cancelable = true;
+        }
+
+        const dateTimeValue: DateTime = DateTime.fromSQL(this.$params.value, {zone: 'utc'});
+        if (dateTimeValue.isValid) {
+            this.timerValue = dateTimeValue;
+            this.useTimer = true;
         }
     }
 
@@ -68,6 +79,10 @@ export class LimitCancelComponent extends AbstractComponent implements OnInit {
             textAlign: 'center',
             onConfirm: async () => {
                 try {
+                    if (this.timerValue) {
+                        return await this.limitationService.setSelfExclusion('disable');
+                    }
+
                     return await this.limitationService.removeUserSelfExclusion(this.$params.value);
                 } catch (error) {
                     //
@@ -78,5 +93,10 @@ export class LimitCancelComponent extends AbstractComponent implements OnInit {
             },
             dismissAll: true,
         });
+    }
+
+    public timerEnds(): void {
+        this.useTimer = false;
+        this.cancelable = true;
     }
 }

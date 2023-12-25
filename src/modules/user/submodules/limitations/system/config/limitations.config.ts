@@ -10,4 +10,5 @@ export const limitTypeTexts: IIndexing<string> = {
     'MaxDepositSumMonth': gettext('Monthly deposit limit'),
     'MaxBetSumMonth': gettext('Monthly bet limit'),
     'MaxLossSumMonth': gettext('Monthly lost limit'),
+    'CoolOffTime': gettext('Self exclusion'),
 };

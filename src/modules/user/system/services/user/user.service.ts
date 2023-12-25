@@ -85,6 +85,9 @@ import {TermsAcceptService} from 'wlc-engine/modules/user/system/services/terms/
 import {
     TwoFactorAuthService,
 } from 'wlc-engine/modules/user/submodules/two-factor-auth/system/services/two-factor-auth/two-factor-auth.service';
+import {
+    LicenseLimitationsService,
+} from 'wlc-engine/modules/user/submodules/limitations/system/services/license-limitations/license-limitations.service';
 
 export enum LanguageChangeEvents {
     ChangeLanguage = 'CHANGE_LANGUAGE'
@@ -193,6 +196,7 @@ export class UserService {
     private dataLoyaltyUserSub: Subscription;
     private wsBalanceData: IWSDataUserBalance = null;
     private termsAcceptService: TermsAcceptService;
+    private licenseLimitationsService: LicenseLimitationsService;
     private twoFactorAuthService: TwoFactorAuthService;
 
     constructor(
@@ -309,6 +313,7 @@ export class UserService {
             this.isAuthenticated = true;
             this.configService.set({name: '$user.isAuthenticated', value: true});
             this.setTermsAcceptService();
+            this.setLicenseLimitationsService();
             this.showTwoFactorAuthModal();
             this.fetchUserProfile().then(async () => {
                 this._isMetamaskUser = this.userProfile.type === 'metamask';
@@ -356,6 +361,7 @@ export class UserService {
 
         if (this.isAuthenticated) {
             this.setTermsAcceptService();
+            this.setLicenseLimitationsService();
             this.showTwoFactorAuthModal();
             this.fetchUserProfile().then(async () => {
                 this._isMetamaskUser = this.userProfile.type === 'metamask';
@@ -1401,6 +1407,13 @@ export class UserService {
         if (this.configService.get<string>('appConfig.siteconfig.termsOfService')) {
             this.termsAcceptService ??= await this.injectionService
                 .getService<TermsAcceptService>('user.terms-accept-service');
+        }
+    }
+
+    private async setLicenseLimitationsService(): Promise<void> {
+        if (this.configService.get<string>('appConfig.license') === 'malta') {
+            this.licenseLimitationsService ??= await this.injectionService
+                .getService<LicenseLimitationsService>('limitations.license-limitations-service');
         }
     }
 }

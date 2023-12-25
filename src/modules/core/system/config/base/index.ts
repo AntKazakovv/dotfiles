@@ -65,6 +65,20 @@ export const $base: IBaseConfig = {
         'app.gameplay?demo=true',
         'app.contact-us',
     ],
+    maltaSelfExclusionAvailableStates: [
+        'app.home',
+        'app.error',
+        'app.contacts',
+        'app.contact-us',
+        'app.profile.cash.withdraw',
+        'app.profile.main.info',
+        'app.profile.verification',
+        'app.profile.loyalty-bonuses.history',
+        'app.profile.gamblings.bets',
+        'app.profile.cash.transactions',
+        'app.profile.loyalty-tournaments.history',
+        'app.profile.limitations',
+    ],
     errorsReplacerMap: {
         'AML verification in progress': {
             text: gettext('Please wait, Your account is being verified'),
