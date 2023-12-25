@@ -21,6 +21,7 @@ import {
     ConfigService,
     IFormWrapperCParams,
     ITimerCParams,
+    DataService,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
 import {WINDOW} from 'wlc-engine/modules/app/system';
@@ -49,6 +50,7 @@ export class DeviceRegistrationFormComponent extends AbstractComponent implement
         protected eventService: EventService,
         configService: ConfigService,
         protected logService: LogService,
+        protected dataService: DataService,
         cdr: ChangeDetectorRef,
         @Inject(WINDOW) private window: Window,
     ) {
@@ -93,6 +95,10 @@ export class DeviceRegistrationFormComponent extends AbstractComponent implement
         const regCode: number = _toNumber(form.controls.code.value);
 
         try {
+            if (this.configService.get<boolean>('$base.site.useXNonce')) {
+                this.dataService.setNonceToLocalStorage();
+            }
+
             form.disable();
             await this.userService.deviceRegistration(regCode, this.$params.login);
 
@@ -112,6 +118,10 @@ export class DeviceRegistrationFormComponent extends AbstractComponent implement
             this.eventService.emit({name: 'LOGIN'});
             return true;
         } catch (error) {
+            if (this.configService.get<boolean>('$base.site.useXNonce')) {
+                this.dataService.deleteNonceFromLocalStorage();
+            }
+
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,
                 data: <IPushMessageParams>{

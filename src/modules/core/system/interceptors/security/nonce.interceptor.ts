@@ -37,7 +37,7 @@ export class NonceInterceptor implements HttpInterceptor {
         if (this.configService.get<boolean>('$base.site.useXNonce')) {
             const xNonce: string = this.configService.get<string>({name: 'X-Nonce', storageType: 'localStorage'});
 
-            if (xNonce) {
+            if (xNonce && !req.url.includes('agstatic')) {
                 req = req.clone({
                     headers: req.headers.set('X-Nonce', xNonce),
                 });
