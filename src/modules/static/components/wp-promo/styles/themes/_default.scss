@@ -47,6 +47,12 @@
             flex-direction: ef.get-value($themeDefault, 'contentDirection');
             justify-content: ef.get-value($themeDefault, 'contentJustify');
             min-height: ef.get-value($themeDefault, 'contentMinHeight');
+
+            &--mobile {
+                position: absolute;
+                width: ef.get-value($themeDefault, 'mobilePromoBannerWidth');
+                height: ef.get-value($themeDefault, 'mobilePromoBannerHeight');
+            }
         }
 
         &__info {

@@ -13,6 +13,9 @@ $themeDefault: map-merge((
     ),
     'gridGap': ef.size(4),
 
+    'mobilePromoBannerWidth': 100%,
+    'mobilePromoBannerHeight': 100%,
+
     'wrapperBorderRadius': ef.get('radius', 'biger'),
     'wrapperWidth': 100%,
     'wrapperOverflow': hidden,

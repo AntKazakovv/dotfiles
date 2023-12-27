@@ -7,12 +7,16 @@ import {
     OnInit,
 } from '@angular/core';
 
+import {takeUntil} from 'rxjs';
+
 import {
     AbstractComponent,
+    ActionService,
     ConfigService,
     IMixedParams,
     LogService,
     ModalService,
+    DeviceType,
 } from 'wlc-engine/modules/core';
 import {WpPromoModel} from 'wlc-engine/modules/static/system/models/wp-promo.model';
 import {TextDataModel} from 'wlc-engine/modules/static/system/models/textdata.model';
@@ -36,6 +40,7 @@ export class WpPromoComponent extends AbstractComponent implements OnInit {
     @Input() public inlineParams: Params.IWpPromoCParams;
     public override $params: Params.IWpPromoCParams;
     public items: WpPromoModel[] = [];
+    public isMobileBanner: boolean = false;
     protected response: TextDataModel[];
 
     constructor(
@@ -46,6 +51,7 @@ export class WpPromoComponent extends AbstractComponent implements OnInit {
         protected staticService: StaticService,
         protected logService: LogService,
         protected eventService: EventService,
+        protected actionService: ActionService,
     ) {
         super(
             <IMixedParams<Params.IWpPromoCParams>>{
@@ -147,5 +153,12 @@ export class WpPromoComponent extends AbstractComponent implements OnInit {
             this.items = this.sortItemsBySortWeight(this.prepareItems(this.response));
             this.cdr.markForCheck();
         }, this.$destroy);
+
+        this.actionService.deviceType()
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((type: DeviceType): void => {
+                this.isMobileBanner = this.$params.themeMod === 'banner' && type === 'mobile';
+                this.cdr.markForCheck();
+            });
     }
 }

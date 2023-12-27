@@ -25,8 +25,11 @@
                 <h4 class="{{$class}}__name">{{item.title}}</h4>
                 <div class="{{$class}}__description">{{item.description}}</div>
             </div>
-
-            <div class="{{$class}}__btns">
+            <div *ngIf="isMobileBanner"
+                class="{{$class}}__content--mobile"
+                [uiSref]="item.buttonSref">
+            </div>
+            <div *ngIf="!isMobileBanner" class="{{$class}}__btns">
                 <button *ngIf="item.buttonText && item.buttonSref"
                         class="{{$class}}__button {{$class}}__button--first"
                         wlc-button
@@ -43,7 +46,6 @@
                 ></button>
             </div>
         </div>
-
         <img *ngIf="item.decorImageUrl"
             class="{{$class}}__decor"
             src="{{item.decorImageUrl}}"/>
