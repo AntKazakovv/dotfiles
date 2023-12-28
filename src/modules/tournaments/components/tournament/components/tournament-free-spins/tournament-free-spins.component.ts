@@ -67,7 +67,7 @@ export class TournamentFreeSpinsComponent extends AbstractComponent implements O
             modalTitle: gettext('Confirmation'),
             modifier: 'confirmation',
             showConfirmBtn: true,
-            confirmBtnText: gettext('Add'),
+            confirmBtnText: gettext('Buy now'),
             closeBtnParams: {
                 themeMod: 'secondary',
                 common: {

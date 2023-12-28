@@ -1302,6 +1302,8 @@ export class BonusesService {
                         this.stateService.go('app.gameplay', {
                             merchantId: game.merchantID,
                             launchCode: game.launchCode,
+                        }, {
+                            reload: true,
                         });
                     },
                 },

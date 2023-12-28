@@ -1,6 +1,6 @@
-<span
-    *ngIf="availablePackagesCount || $params.themeMod !=='dashboard'"
-    class="{{$class}}__title">{{$params.title | translate}}</span>
+<span *ngIf="availablePackagesCount || $params.themeMod !=='dashboard'"
+    class="{{$class}}__title">{{$params.title | translate}}
+</span>
 
 <ng-template [ngIf]="$params.themeMod !=='dashboard'">
     <div class="{{$class}}__free-rounds">
@@ -8,14 +8,14 @@
             <span>{{$params.balanceText | translate}}</span>
             <div class="{{$class}}__packages">
                 <ng-template [ngIf]="availablePackagesCount">
-                    <div
-                        *ngFor="let item of availablePackages"
-                        class="{{$class}}__packages-item"></div>
+                    <div *ngFor="let item of availablePackages"
+                        class="{{$class}}__packages-item">
+                    </div>
                 </ng-template>
                 <ng-template [ngIf]="$params.freeSpins.Used">
-                    <div
-                        *ngFor="let item of usedPackages"
-                        class="{{$class}}__packages-item--used"></div>
+                    <div *ngFor="let item of usedPackages"
+                        class="{{$class}}__packages-item--used">
+                    </div>
                 </ng-template>
             </div>
         </div>
@@ -28,8 +28,7 @@
     </div>
 </ng-template>
 
-<button
-    *ngIf="availablePackagesCount"
+<button *ngIf="availablePackagesCount"
     wlc-button
     [attr.type]="'button'"
     [text]="$params.buttonText | translate"
@@ -37,8 +36,7 @@
 </button>
 
 <ng-template #freeSpinsModal>
-    <div
-        wlc-icon
+    <div wlc-icon
         class="{{$class}}__icon"
         iconPath="{{$params.modalIconPath}}"></div>
     <div class="{{$class}}__text-block">{{'Are you sure?' | translate}}</div>
@@ -52,10 +50,10 @@
     </div>
     <div class="{{$class}}__text-block">
         {{$params.textDebitedBalance | translate}}
-        <div
-            wlc-currency
+        <div wlc-currency
             [value]="buyPrice"
-            [currency]="userService.userProfile.currency"></div>.
+            [currency]="userService.userProfile.currency">
+        </div>.
     </div>
     <div class="{{$class}}__text-block">
         {{$params.textAvailableReplenishments | translate}}
