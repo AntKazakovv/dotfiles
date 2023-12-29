@@ -54,6 +54,7 @@ export interface IPaymentListCParams extends IAbstractIconsListParams<Theme, Typ
     hideModalOnSelect?: boolean;
     chosenMethodText?: string;
     noSelectedButton?: INoSelectedButton;
+    ignoreAltTheme?: boolean;
 }
 
 export interface IPaymentsGroup {
@@ -78,6 +79,7 @@ export const defaultParams: IPaymentListCParams = {
     hideModalOnSelect: true,
     showSelectedInButton: true,
     chosenMethodText: gettext('The chosen payment method:'),
+    ignoreAltTheme: false,
     noSelectedButton: {
         use: true,
         icon: 'wlc/icons/empty-paysystem.svg',

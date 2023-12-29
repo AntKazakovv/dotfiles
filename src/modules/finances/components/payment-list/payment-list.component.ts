@@ -163,7 +163,9 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         this.useScroll = this.configService.get<boolean>('$finances.usePaySystemScroll');
 
         if (this.configService.get<boolean>('$base.colorThemeSwitching.use')
-            && this.$params.colorIconBg && this.$params.iconsType === 'color') {
+            && this.$params.colorIconBg
+            && this.$params.iconsType === 'color'
+            && !this.$params.ignoreAltTheme) {
             this.subscribeOnToggleSiteTheme(() => this.setPaymentsIconsList());
         }
 
