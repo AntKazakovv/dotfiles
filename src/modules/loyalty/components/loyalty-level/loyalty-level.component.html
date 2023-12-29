@@ -8,7 +8,7 @@
          [ngClass]="{'custom-image': $params.image}">
         <div wlc-icon
              class="{{$class}}__icon {{$class}}__icon--{{$params.level}}"
-             [iconPath]="$params.image"
+             [iconUrl]="$params.image"
              [fallback]="fallbackImage">
         </div>
     </div>
@@ -35,7 +35,7 @@
              [ngClass]="{'custom-image': $params.image}">
             <div wlc-icon
                  class="{{$class}}__icon {{$class}}__icon--{{$params.level}}"
-                 [iconPath]="$params.image"
+                 [iconUrl]="$params.image"
                  [fallback]="fallbackImage">
             </div>
         </div>

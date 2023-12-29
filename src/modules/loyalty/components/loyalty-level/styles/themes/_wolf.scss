@@ -66,6 +66,10 @@ $class: 'wlc-loyalty-level';
             max-width: ef.get-value($themeWolf, 'iconWidth');
             height: ef.get-value($themeWolf, 'iconHeight');
             max-height: ef.get-value($themeWolf, 'iconWidth');
+
+            ::ng-deep img {
+                object-fit: ef.get-value($themeWolf, 'iconObjectFit');
+            }
         }
 
         &__content {

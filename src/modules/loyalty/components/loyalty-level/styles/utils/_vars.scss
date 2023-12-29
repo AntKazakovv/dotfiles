@@ -21,10 +21,9 @@ $themeDefault: map-merge((
     'imageAlignItems': center,
     'imageJustifyContent': center,
 
-    'iconWidth': unset,
-    'iconMaxWidth': 100%,
-    'iconHeight': unset,
-    'iconMaxHeight': 100%,
+    'iconWidth': 100%,
+    'iconHeight': 100%,
+    'iconObjectFit': scale-down,
 
     'titlePadding': (
         320: ef.size(3) 0,

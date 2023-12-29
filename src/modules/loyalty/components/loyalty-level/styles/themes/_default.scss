@@ -20,13 +20,15 @@
         }
 
         &__icon {
-            --wlc-icon-width: 100%;
-            --wlc-icon-height: 100%;
+            --wlc-icon-width: #{ef.get-value($themeDefault, 'iconWidth')};
+            --wlc-icon-height: #{ef.get-value($themeDefault, 'iconHeight')};
 
             width: ef.get-value($themeDefault, 'iconWidth');
-            max-width: ef.get-value($themeDefault, 'iconMaxWidth');
             height: ef.get-value($themeDefault, 'iconHeight');
-            max-height: ef.get-value($themeDefault, 'iconMaxHeight');
+
+            ::ng-deep img {
+                object-fit: ef.get-value($themeDefault, 'iconObjectFit');
+            }
         }
 
         &__title {
