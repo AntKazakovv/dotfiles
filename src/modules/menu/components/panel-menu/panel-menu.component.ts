@@ -188,17 +188,17 @@ export class PanelMenuComponent extends AbstractComponent implements OnInit {
                 }
 
 
-                const categoriesItemMenu = this.$params.menuParams.items
+                let categoriesItemMenu = this.$params.menuParams.items
                     .find((item) => (item as MenuParams.IMenuItem).type === 'categories') as MenuParams.IMenuItem;
                 if (categoriesItemMenu) {
                     _set(categoriesItemMenu, 'params.categories.componentParams.menuParams.dropdowns', {
                         expandableOnHover: isExpandableOnHover,
                     });
+                    categoriesItemMenu.params.categories.componentParams =
+                        _cloneDeep(categoriesItemMenu.params.categories.componentParams);
                 } else {
                     this.$params.menuParams.dropdowns.expandableOnHover = isExpandableOnHover;
                 }
-
-                this.$params.menuParams = _clone(this.$params.menuParams);
 
                 if (value[1].left === 'compact' && !isMobile) {
                     this.addModifiers('compact');
@@ -206,6 +206,7 @@ export class PanelMenuComponent extends AbstractComponent implements OnInit {
                     this.clearModifiers();
                 }
 
+                this.$params.menuParams = _clone(this.$params.menuParams);
                 this.cdr.detectChanges();
             });
     }

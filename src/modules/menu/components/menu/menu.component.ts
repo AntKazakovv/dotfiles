@@ -241,6 +241,30 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         this.initEventHandlers();
     }
 
+    /**
+     * Gets the name of the menu item to track
+     *
+     * @param {number} index
+     * @param {MenuItemObjectType} item Menu item
+     * @returns {string} Item menu name
+     */
+    public trackByItemName(index: number, item: MenuItemObjectType): string {
+        if ((item as IMenuItemsGroup).parent) {
+            const itemsGroup: IMenuItemsGroup = item as IMenuItemsGroup;
+            if (_isObject(itemsGroup.parent.name)) {
+                return itemsGroup.parent.name['en'];
+            } else {
+                return itemsGroup.parent.name;
+            }
+        }
+
+        if (_isObject((item as IMenuItem).name)) {
+            return (item as IMenuItem).name['en'];
+        } else {
+            return (item as IMenuItem).name as string;
+        }
+    }
+
     public setScrollHoverMenu(): void {
         const menuHoverRect = this.subMenuHover?.nativeElement.getBoundingClientRect();
 

@@ -78,13 +78,15 @@ export const initAsDropdownV2: TCustomizableFn = function (this: CategoryMenuCom
         return category.parentCategory?.slug === 'casino' && (category.isFavourites || category.isLastPlayed);
     });
 
+    const iconsDisable = _isNil(this.$params.menuParams.dropdowns.expandableOnHover);
+
     if (specialCategories.length) {
         dropdownMenu = MenuHelper.getItemsForCategories({
             categories: specialCategories,
             lang: this.translateService.currentLang,
             icons: {
                 folder: this.iconsFolder,
-                disable: true,
+                disable: iconsDisable,
             },
         });
     }
@@ -94,7 +96,7 @@ export const initAsDropdownV2: TCustomizableFn = function (this: CategoryMenuCom
             lang: this.translateService.currentLang,
             icons: {
                 folder: this.iconsFolder,
-                disable: true,
+                disable: iconsDisable,
             },
         });
         if (category.childCategories.length) {
@@ -110,7 +112,7 @@ export const initAsDropdownV2: TCustomizableFn = function (this: CategoryMenuCom
                 },
             });
 
-            if (this.gamesCatalogService.architectureVersion === 3) {
+            if (this.gamesCatalogService.architectureVersion === 3 && this.isMobile) {
                 const allGamesBtn: MenuParams.IMenuItem = this.getAllGamesBtn(false, category);
                 allGamesBtn.params.state.options.reload = true;
                 childItems.unshift(allGamesBtn);

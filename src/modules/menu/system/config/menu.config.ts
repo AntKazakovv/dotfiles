@@ -46,7 +46,11 @@ export const menuConfig: IMenuConfig = {
         ],
         itemsInfo: [
             'panel-menu:contacts',
-            'panel-menu:info',
+            {
+                type: 'group',
+                parent: 'panel-menu:info',
+                items: [],
+            },
         ],
         icons: {
             folder: 'wlc/icons/european/v3',

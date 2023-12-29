@@ -346,7 +346,7 @@
 </div>
 
 <ng-container *ngIf="!$params.common?.useSwiper">
-    <ng-container *ngFor="let item of items">
+    <ng-container *ngFor="let item of items; trackBy: trackByItemName">
         <ng-container [ngTemplateOutlet]="menuItem"
                       [ngTemplateOutletContext]="{item: item}">
         </ng-container>

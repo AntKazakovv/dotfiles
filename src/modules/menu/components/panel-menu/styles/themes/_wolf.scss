@@ -199,6 +199,7 @@
 
                             .wlc-menu__link {
                                 padding: ef.get-value($panelMenuThemeWolf, 'ddLinkPadding');
+                                word-break: break-all;
                                 background: none;
                                 border-radius: 0;
                             }

@@ -20,6 +20,7 @@ import _concat from 'lodash-es/concat';
 import _filter from 'lodash-es/filter';
 import _merge from 'lodash-es/merge';
 import _bind from 'lodash-es/bind';
+import {takeUntil} from 'rxjs';
 
 import {
     AbstractComponent,
@@ -28,6 +29,8 @@ import {
     EventService,
     ConfigService,
     InjectionService,
+    DeviceType,
+    ActionService,
 } from 'wlc-engine/modules/core';
 import {
     CategoryModel,
@@ -76,6 +79,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
     protected fallBackIcon: string = 'plug';
     protected menuSettings: IMenuOptions;
     protected gamesCatalogService: GamesCatalogService;
+    protected isMobile: boolean = false;
 
     constructor(
         @Inject('injectParams') protected params: Params.ICategoryMenuCParams,
@@ -86,6 +90,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
         protected router: UIRouter,
         protected injectionService: InjectionService,
         protected menuService: MenuService,
+        protected actionService: ActionService,
     ) {
         super(
             <IMixedParams<Params.ICategoryMenuCParams>>{
@@ -189,6 +194,12 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             this.$params.menuParams.items = [];
             this.initMenu();
         }, this.$destroy);
+
+        this.actionService.deviceType()
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((type: DeviceType) => {
+                this.isMobile = type !== DeviceType.Desktop;
+            });
     }
 
     /**
