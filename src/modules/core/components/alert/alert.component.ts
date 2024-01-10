@@ -4,7 +4,11 @@ import {
     ChangeDetectionStrategy,
     Inject,
     Input,
+    SimpleChanges,
+    OnChanges,
 } from '@angular/core';
+
+import _get from 'lodash-es/get';
 
 import {
     AbstractComponent,
@@ -20,7 +24,7 @@ import * as Params from './alert.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
-export class AlertComponent extends AbstractComponent implements OnInit {
+export class AlertComponent extends AbstractComponent implements OnInit, OnChanges {
     @Input('title') public title: string;
     @Input('text') public text: string;
     @Input('level') protected level: Params.TLevel;
@@ -46,8 +50,16 @@ export class AlertComponent extends AbstractComponent implements OnInit {
         this.addModifiers(String(this.level));
     }
 
+    public override ngOnChanges(changes: SimpleChanges): void {
+        const level = _get(changes, 'level');
+
+        if (level?.previousValue && level.currentValue !== level.previousValue) {
+            this.removeModifiers(level.previousValue);
+            this.addModifiers(level.currentValue);
+        }
+    }
+
     public get levelIcon(): string {
         return Params.alertIcons[this.level];
     }
-
 }

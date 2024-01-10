@@ -57,4 +57,8 @@ export class SettingsComponent extends AbstractComponent implements OnInit {
         this.$params.walletSettings.currency = currency;
         this.cdr.markForCheck();
     }
+
+    public get showError (): boolean {
+        return !this.$params.walletSettings.currency?.length && this.$params.walletSettings.conversionInFiat;
+    }
 }

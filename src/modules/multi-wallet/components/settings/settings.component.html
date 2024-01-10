@@ -22,7 +22,7 @@
 <div
     wlc-alert
     class="{{$class}}__alert-block"
-    [level]="'info'"
+    [level]="this.showError ? 'error' : 'info'"
     [title]="$params.infoBlockText | translate">
 </div>
 
