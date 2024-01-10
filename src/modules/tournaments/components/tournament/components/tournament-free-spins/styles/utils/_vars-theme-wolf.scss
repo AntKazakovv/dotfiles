@@ -1,0 +1,46 @@
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'max-width': 500px,
+    'dashboardWidth': 260px,
+    'margin': 0 auto,
+    'dashboardMargin': 0,
+    'padding': (
+        375: ef.size(4),
+        560: ef.size(9) ef.size(4),
+    ),
+    'dashboardPadding': ef.size(8) 0 0,
+    'background': var(--mc-bg700),
+    'dashboardBackground': transparent,
+    'radius': ef.get('radius', 'biger'),
+
+    'modalTextStyle': 'PrimaryText',
+    'modalTextColor': inherit,
+    'modalMargin': 0 0 ef.size(4),
+    'modalBottomMargin': 0,
+    'modalAlign': center,
+    'modalIconMargin': 0 0 ef.size(6),
+
+    'titleTextStyle': 'PrimaryTextBold',
+    'titleTextColor': var(--mc-baseSecond),
+    'titleMargin': 0 auto,
+    'titleTextAlign': center,
+    'titleMaxWidth': 350px,
+    'dashboardTitleMargin': 0 0 ef.size(4),
+
+    'rowTextStyle': 'CaptionTextBold',
+    'rowTextColor': var(--mc-baseSecond),
+    'rowJustifyContent': space-between,
+
+    'freeRoundsMargin': ef.size(4) 0,
+    'btnJustifySelf': center,
+
+    'hrBackground': var(--mc-bg300),
+    'hrMargin': ef.size(1) 0,
+    'hrOpacity': 1,
+    'packageSize': 8px,
+    'packageBorderRadius': ef.get('radius', 'small'),
+    'packagesFlexDirection': row,
+    'packagesGap': 6px,
+    'notAvailableBg': var(--mc-bg500),
+    'availableBg': var(--mc-main),
+), $customThemeWolf);

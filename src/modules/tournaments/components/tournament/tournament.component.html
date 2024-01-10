@@ -96,10 +96,10 @@
                 [showAllBtn]="true">
             </div>
         </ng-container>
-        <div
-            *ngIf="tournament.freeRounds"
+        <div *ngIf="tournament.freeRounds"
             wlc-tournament-free-spins
-            [inlineParams]="freeSpinsParams"></div>
+            [inlineParams]="freeSpinsParams">
+        </div>
     </div>
 </ng-template>
 

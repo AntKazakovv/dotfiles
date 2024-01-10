@@ -91,10 +91,10 @@
                 </div>
             </div>
 
-        <div
-            *ngIf="tournament?.freeRounds"
+        <div *ngIf="tournament?.freeRounds"
             wlc-tournament-free-spins
-            [inlineParams]="freeSpinsParams"></div>
+            [inlineParams]="freeSpinsParams">
+        </div>
 
         <div class="{{$class}}__prizepool">
             <h4 class="{{$class}}__prizepool-title">
@@ -219,6 +219,12 @@
                     [limit]="8"
                     [showAllBtn]="true"
                     [useListHead]="true">
+                </div>
+            </div>
+
+            <div *ngIf="tournament?.freeRounds" class="{{$class}}__free-spins">
+                <div wlc-tournament-free-spins
+                    [inlineParams]="freeSpinsParams">
                 </div>
             </div>
 

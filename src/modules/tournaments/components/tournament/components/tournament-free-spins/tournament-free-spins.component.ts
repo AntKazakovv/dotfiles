@@ -28,6 +28,7 @@ import * as Params from './tournament-free-spins.params';
     styleUrls: ['./styles/tournament-free-spins.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
+
 export class TournamentFreeSpinsComponent extends AbstractComponent implements OnInit {
     @ViewChild('freeSpinsModal')
     public tplModal: TemplateRef<ElementRef>;

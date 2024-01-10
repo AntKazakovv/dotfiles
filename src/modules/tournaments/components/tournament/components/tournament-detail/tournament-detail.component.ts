@@ -108,6 +108,7 @@ export class TournamentDetailComponent extends AbstractComponent implements
                 this.pending = pending;
                 this.tournament = this.$params.parentInstance.tournament;
                 this.freeSpinsParams = {
+                    theme: this.$params.theme,
                     freeSpins: this.tournament.freeRounds,
                     tournamentId: this.tournament.id,
                     buyParams: {

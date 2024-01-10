@@ -7,14 +7,13 @@ import {
     IBuyFreeSpinsParams,
 } from 'wlc-engine/modules/tournaments';
 
-export type Type = 'default' | CustomType;
-export type Theme = 'default' | CustomType;
-export type ThemeMod = 'default' | 'dashboard' | CustomType;
-export type AutoModifiers = Theme | ThemeMod;
+export type ComponentType = 'default' | CustomType;
+export type ComponentTheme = 'default' | 'wolf' | CustomType;
+export type ComponentThemeMod = 'default' | 'dashboard' | CustomType;
+export type AutoModifiers = ComponentTheme | ComponentThemeMod;
 export type CustomMod = string;
-export type Modifiers = AutoModifiers | CustomMod | null;
 
-export interface ITournamenFreeSpinsParams extends IComponentParams<Theme, Type, ThemeMod> {
+export interface ITournamenFreeSpinsParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     title?: string;
     balanceText?: string;
     freeSpinsText?: string;

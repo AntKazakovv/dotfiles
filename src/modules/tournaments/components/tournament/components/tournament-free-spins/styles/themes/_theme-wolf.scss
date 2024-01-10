@@ -1,0 +1,104 @@
+$selector: '.wlc-tournament-free-spins';
+
+#{$selector}--theme-wolf:host {
+    @include bm.get-mq-map('padding', $themeWolf, 'padding');
+    display: grid;
+    max-width: ef.get-value($themeWolf, 'max-width');
+    margin: var(--wlc-tournament-free-spins-margin, #{ef.get-value($themeWolf, 'margin')});
+    background: var(--wlc-tournament-free-spins-bg, #{ef.get-value($themeWolf, 'background')});
+    border-radius: ef.get-value($themeWolf, 'radius');
+
+    #{$selector} {
+
+        &__title {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'titleTextStyle'),
+                ef.get-value($themeWolf, 'titleTextColor')
+            );
+            max-width: ef.get-value($themeWolf, 'titleMaxWidth');
+            margin: ef.get-value($themeWolf, 'titleMargin');
+            text-align: ef.get-value($themeWolf, 'titleTextAlign');
+        }
+
+        &__row {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'rowTextStyle'),
+                ef.get-value($themeWolf, 'rowTextColor')
+            );
+            display: flex;
+            justify-content: ef.get-value($themeWolf, 'rowJustifyContent');
+        }
+
+        &__free-rounds {
+            margin: ef.get-value($themeWolf, 'freeRoundsMargin');
+        }
+
+        &__packages-item,
+        &__packages-item--used {
+            width: ef.get-value($themeWolf, 'packageSize');
+            height: ef.get-value($themeWolf, 'packageSize');
+            background: ef.get-value($themeWolf, 'availableBg');
+            border-radius: ef.get-value($themeWolf, 'packageBorderRadius');
+
+            &--used {
+                background: ef.get-value($themeWolf, 'notAvailableBg');
+            }
+        }
+
+        &__packages {
+            display: flex;
+            flex-direction: ef.get-value($themeWolf, 'packagesFlexDirection');
+            gap: ef.get-value($themeWolf, 'packagesGap');
+        }
+    }
+
+    .wlc-btn {
+        justify-self: ef.get-value($themeWolf, 'btnJustifySelf');
+    }
+
+    hr {
+        margin: ef.get-value($themeWolf, 'hrMargin');
+        background: ef.get-value($themeWolf, 'hrBackground');
+        opacity: ef.get-value($themeWolf, 'hrOpacity');
+    }
+
+    &#{$selector}--theme-mod-dashboard {
+        --wlc-tournament-free-spins-bg: #{ef.get-value($themeWolf, 'dashboardBackground')};
+        --wlc-tournament-free-spins-margin: #{ef.get-value($themeWolf, 'dashboardMargin')};
+        width: ef.get-value($themeWolf, 'dashboardWidth');
+
+        padding: ef.get-value($themeWolf, 'dashboardPadding');
+
+        #{$selector}__title {
+            margin: ef.get-value($themeWolf, 'dashboardTitleMargin');
+            color: ef.get-value($themeWolf, 'titleTextColor');
+        }
+    }
+}
+
+::ng-deep {
+
+    .wlc-modal--free-spins-buy {
+
+        #{$selector} {
+
+            &__text-block {
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'modalTextStyle'),
+                    ef.get-value($themeWolf, 'modalTextColor')
+                );
+                margin: ef.get-value($themeWolf, 'modalMargin');
+                text-align: ef.get-value($themeWolf, 'modalAlign');
+
+                :last-child {
+                    margin: ef.get-value($themeWolf, 'modalBottomMargin');
+                }
+            }
+
+            &__icon {
+                margin: ef.get-value($themeWolf, 'modalIconMargin');
+                text-align: ef.get-value($themeWolf, 'modalAlign');
+            }
+        }
+    }
+}

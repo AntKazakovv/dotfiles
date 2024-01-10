@@ -129,6 +129,11 @@ $selector: '.wlc-tournament-detail';
             @include bm.get-mq-map('background', $themeWolf, 'prizesBg');
         }
 
+        #{$selector}__free-spins {
+            padding: ef.get-value($themeWolf, 'freeSpinsPadding');
+            border-bottom: ef.get-value($themeWolf, 'detailBorderBottom');
+        }
+
         #{$selector}__prizepool {
             display: flex;
             flex-direction: column;

@@ -60,8 +60,8 @@ $themeWolf: map-merge((
     'leaderboardBg': transparent,
     'leaderboardJustifyItems': center,
     'leaderboardPadding': (
-        375: ef.size(4),
-        900: ef.size(4) ef.size(4) ef.size(8),
+        375: ef.size(4) ef.size(6),
+        900: ef.size(5) ef.size(6),
     ),
     'leaderboardColumnWidth': (
         375: 1fr,
@@ -70,7 +70,7 @@ $themeWolf: map-merge((
         375: ef.size(2),
     ),
     'leaderboardTitleStyle':'QoteTextBoldSmaller',
-    'leaderboardTitleColor': var(--mc-lightColor),
+    'leaderboardTitleColor': var(--mc-baseSecond),
 
     'leaderboardHeadAlign': (
         375: center,
@@ -78,13 +78,14 @@ $themeWolf: map-merge((
     'leaderboardTableMaxWidth': 500px,
 
     'prizesBg': var(--mc-bgModal),
+    'freeSpinsPadding': ef.size(5) ef.size(6),
 
     'prizepoolMargin': ef.size(4) auto ef.size(1),
     'prizepoolTitleStyle': 'QoteTextBoldSmaller',
-    'prizepoolTitleColor': var(--mc-lightColor),
+    'prizepoolTitleColor': var(--mc-baseSecond),
 
     'prizepoolAmoutTextStyle': 'ThirdTitleBold',
-    'prizepoolAmoutTextColor': var(--mc-lightColor),
+    'prizepoolAmoutTextColor': var(--mc-baseSecond),
 
     'prizepoolAmoutTextStyleLG': 'PromoTitle',
 
@@ -101,8 +102,8 @@ $themeWolf: map-merge((
         900: 500px,
     ),
     'prizeboardPadding': (
-        320: 0 ef.size(4) ef.size(4),
-        768: 0 0 ef.size(8),
+        320: 0 ef.size(6) ef.size(4),
+        768: 0 ef.size(6) ef.size(8),
     ),
     'prizeboardJustifyContent': center,
     'prizeboardBg': var(--mc-bgModal),
@@ -112,7 +113,7 @@ $themeWolf: map-merge((
         768: ef.size(4),
     ),
     'gamesTitleStyle': 'QoteTextBoldSmaller',
-    'gamesTitleColor': var(--mc-lightColor),
+    'gamesTitleColor': var(--mc-baseSecond),
     'gamesTitleAlign': center,
     'gamesBg': var(--mc-bgModal),
     'gamesMoreBtn': ef.size(4) 0 0,
@@ -125,11 +126,11 @@ $themeWolf: map-merge((
         375: ef.size(3) 0,
         1024: ef.size(4) 0,
     ),
-    'rulesPadding': ef.size(4),
+    'rulesPadding': ef.size(4) ef.size(6),
     'rulesJustifyContent': center,
     'rulesBg': var(--mc-bgModal),
     'rulesTitleStyle': 'QoteTextBoldSmaller',
-    'rulesTitleColor': var(--mc-lightColor),
+    'rulesTitleColor': var(--mc-baseSecond),
     'rulesTitleAlign': center,
     'rulesTextStyle': 'PrimaryText',
     'rulesTextColor': var(--mc-baseMain),

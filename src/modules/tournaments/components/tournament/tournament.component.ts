@@ -113,6 +113,7 @@ export class TournamentComponent extends AbstractComponent implements OnInit {
         }
 
         this.freeSpinsParams = {
+            theme: this.$params.theme,
             freeSpins: this.tournament.freeRounds,
             tournamentId: this.tournament.id,
             buyParams: {
