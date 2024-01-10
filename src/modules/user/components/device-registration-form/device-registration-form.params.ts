@@ -46,12 +46,16 @@ export const deviceRegistrationFormConfig: IFormWrapperCParams = {
                 wlcElement: 'block_device-registration',
                 common: {
                     placeholder: gettext('Code'),
+                    autocomplete: 'off',
                 },
                 name: 'code',
                 exampleValue: gettext('Enter code'),
                 validators: [
                     'required',
                 ],
+                maskOptions: {
+                    mask: '000000',
+                },
             },
         },
         {
