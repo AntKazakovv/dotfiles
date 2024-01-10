@@ -1,6 +1,6 @@
 // -- MODULES IMPORTS START --;
 import {CommonModule} from '@angular/common';
-import {NgModule} from '@angular/core';
+import {NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
 import {HammerModule} from '@angular/platform-browser';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
@@ -8,7 +8,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ModalModule, MODAL_CONFIG_DEFAULT_OVERRIDE} from 'ngx-bootstrap/modal';
 import {PaginationModule} from 'ngx-bootstrap/pagination';
-import {SwiperModule} from 'swiper/angular';
 import {
     LottieModule,
     LottieCacheModule,
@@ -135,6 +134,7 @@ import {FallbackImgDirective} from './directives/fallback-img/fallback-img.direc
 import {ClampDirective} from './directives/clamp.directive';
 import {CopyToClipboardDirective} from './directives/copy-to-clipboard.directive';
 import {DragNDropDirective} from 'wlc-engine/modules/core/directives/drag-n-drop/drag-n-drop.directive';
+import {SwiperDirective} from 'wlc-engine/modules/core/directives/swiper.directive';
 import {ValueLengthDirective} from './directives/value-length.directive';
 import {ParallaxMovementDirective} from './directives/parallax-movement.directive';
 import {AuthDirective} from './directives/auth.directive';
@@ -246,7 +246,6 @@ export const services = {
         HammerModule,
         TranslateModule,
         FormsModule,
-        SwiperModule,
         ReactiveFormsModule,
         ModalModule,
         TooltipModule.forRoot(),
@@ -372,6 +371,7 @@ export const services = {
         SafeValuePipe,
         SectionTitleComponent,
         TruncatePipe,
+        SwiperDirective,
         ValueLengthDirective,
         WlcModalComponent,
         WlcNoContentComponent,
@@ -452,6 +452,7 @@ export const services = {
         TruncatePipe,
         HlSubstrPipe,
         SafeValuePipe,
+        SwiperDirective,
         ValueLengthDirective,
         WlcModalComponent,
         WlcNoContentComponent,
@@ -461,6 +462,7 @@ export const services = {
         ResizedDirective,
         TabsComponent,
     ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class CoreModule {
 }

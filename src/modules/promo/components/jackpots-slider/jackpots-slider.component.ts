@@ -11,7 +11,8 @@ import {
 } from '@angular/core';
 import {takeUntil} from 'rxjs/operators';
 
-import SwiperCore, {SwiperOptions} from 'swiper';
+import Swiper from 'swiper';
+import {SwiperOptions} from 'swiper/types/swiper-options';
 import _assign from 'lodash-es/assign';
 import _clone from 'lodash-es/clone';
 import _map from 'lodash-es/map';
@@ -82,7 +83,7 @@ export class JackpotsSliderComponent extends AbstractComponent implements OnInit
         this.initBreakpoints();
     }
 
-    public onSliderResize(swiper: SwiperCore): void {
+    public onSliderResize(swiper: Swiper): void {
         if (this.useCssProps) {
             this.setCssProperties(swiper.params);
         }

@@ -1,4 +1,4 @@
-import {SwiperOptions} from 'swiper';
+import {SwiperOptions} from 'swiper/types/swiper-options';
 
 import {
     CustomType,

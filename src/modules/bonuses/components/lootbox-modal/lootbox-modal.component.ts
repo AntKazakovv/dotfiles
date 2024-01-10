@@ -138,9 +138,9 @@ export class LootboxModalComponent extends AbstractComponent implements OnInit {
             this.addModifiers(this.lootboxStatus);
             this.cdr.detectChanges();
 
-            this.slider.swiper.swiperRef.enable();
-            this.slider.swiper.swiperRef.slideTo(this.$params.totalSlides);
-            this.slider.swiper.swiperRef.disable();
+            this.slider.swiper.enable();
+            this.slider.swiper.slideTo(this.$params.totalSlides);
+            this.slider.swiper.disable();
         } catch (error) {
             this.lootboxStatus = 'error';
             this.btnDisabled = false;

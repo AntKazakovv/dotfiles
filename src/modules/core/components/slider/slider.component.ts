@@ -20,23 +20,10 @@ import {
 } from '@angular/core';
 import {takeUntil} from 'rxjs/operators';
 
-import SwiperCore, {
-    EffectCoverflow,
-    EffectFade,
-    EffectCube,
-    EffectFlip,
-    Navigation,
-    Pagination,
-    Autoplay,
-    Mousewheel,
-    Scrollbar,
-    Swiper,
-    Grid,
-    SwiperOptions,
-    Virtual,
-} from 'swiper';
-import {SwiperComponent} from 'swiper/angular';
-import {NavigationOptions} from 'swiper/types';
+import Swiper from 'swiper';
+import {SwiperContainer} from 'swiper/element';
+import {SwiperOptions} from 'swiper/types/swiper-options';
+import {NavigationOptions} from 'swiper/types/modules/navigation';
 
 import {
     ConfigService,
@@ -63,20 +50,6 @@ import _isNumber from 'lodash-es/isNumber';
 import _times from 'lodash-es/times';
 import _toNumber from 'lodash-es/toNumber';
 
-SwiperCore.use([
-    EffectCoverflow,
-    EffectFade,
-    EffectCube,
-    EffectFlip,
-    Navigation,
-    Pagination,
-    Autoplay,
-    Mousewheel,
-    Scrollbar,
-    Grid,
-    Virtual,
-]);
-
 export type TSwiperSlideToEvent = (args: Parameters<Swiper['slideTo']>) => void;
 
 @Component({
@@ -89,16 +62,17 @@ export type TSwiperSlideToEvent = (args: Parameters<Swiper['slideTo']>) => void;
 export class SliderComponent extends AbstractComponent
     implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 
-    @ViewChild(SwiperComponent) public swiper: SwiperComponent;
     @ViewChild('slideShowAll') tplShowAll: TemplateRef<ElementRef>;
+    @ViewChild('swiperRef') swiperRef: ElementRef<SwiperContainer> | undefined;
 
     @Input() public slides: Params.ISlide[];
     @Input() protected inlineParams: Params.ISliderCParams;
 
-    @Output() protected handleBeforeResize: EventEmitter<SwiperCore> = new EventEmitter();
     @Output() public slideChangeTransitionEnd$ = new EventEmitter<Swiper>();
     @Output() public slideChangeTransitionStart$ = new EventEmitter<Swiper>();
+    @Output() protected handleBeforeResize: EventEmitter<Swiper> = new EventEmitter();
 
+    public swiper: Swiper;
     public sliderWrap: Element;
     public override $params: Params.ISliderCParams;
     public ready: boolean = false;
@@ -108,13 +82,13 @@ export class SliderComponent extends AbstractComponent
 
     protected observer: MutationObserver;
     protected readonly eventHandlers: Record<Params.SwiperEventName, TUnknownFunction> = {
-        start: () => this.swiper.swiperRef?.autoplay.start(),
-        stop: () => this.swiper.swiperRef?.autoplay.stop(),
-        enable: () => this.swiper.swiperRef?.enable(),
-        disable: () => this.swiper.swiperRef?.disable(),
+        start: () => this.swiper?.autoplay.start(),
+        stop: () => this.swiper?.autoplay.stop(),
+        enable: () => this.swiper?.enable(),
+        disable: () => this.swiper?.disable(),
         update: this.update.bind(this),
         scrollToStart: this.scrollToStart.bind(this),
-        slideTo: ((args) => this.swiper.swiperRef?.slideTo(...args)) as TSwiperSlideToEvent,
+        slideTo: ((args) => this.swiper?.slideTo(...args)) as TSwiperSlideToEvent,
     };
 
     private frozenSwiperParams: SwiperOptions;
@@ -177,6 +151,7 @@ export class SliderComponent extends AbstractComponent
 
     public afterViewInit(): void {
         this.ready = true;
+        this.swiper = this.swiperRef?.nativeElement.swiper;
         this.cdr.detectChanges();
 
         if (this.$params.slideShowAll?.use) {
@@ -241,7 +216,7 @@ export class SliderComponent extends AbstractComponent
     public onUpdate(): void {
         if (this.isAutoSlidesAndColumnMode()) {
             this.setSliderWrapper();
-            const slides: HTMLCollection = _get(this.sliderWrap, 'children');
+            const slides: HTMLElement[] = this.swiper?.slides;
             const firstSlide = (slides[0] as HTMLElement);
 
             _forEach(slides, (slide: HTMLElement) => {
@@ -252,12 +227,12 @@ export class SliderComponent extends AbstractComponent
     }
 
     public update(): void {
-        this.swiper.updateSwiper({});
-        this.updateProgressModifiers(this.swiper?.swiperRef);
+        this.swiper.update();
+        this.updateProgressModifiers(this.swiper);
     }
 
     public scrollToStart(): void {
-        this.swiper.swiperRef.slideTo(0, 0, false);
+        this.swiper.slideTo(0, 0, false);
     }
 
     public onResize(): void {
@@ -265,7 +240,7 @@ export class SliderComponent extends AbstractComponent
     }
 
     public onBeforeResize(): void {
-        this.handleBeforeResize.emit(this.swiper.swiperRef);
+        this.handleBeforeResize.emit(this.swiper);
     }
 
     public override ngOnDestroy(): void {
@@ -276,10 +251,10 @@ export class SliderComponent extends AbstractComponent
     }
 
     protected initNavigation(): void {
-        if (this.swiper.swiperRef.navigation) {
-            this.swiper.swiperRef.navigation.destroy();
-            this.swiper.swiperRef.navigation.init();
-            this.swiper.swiperRef.navigation.update();
+        if (this.swiper.navigation) {
+            this.swiper.navigation.destroy();
+            this.swiper.navigation.init();
+            this.swiper.navigation.update();
         }
     }
 
@@ -294,9 +269,8 @@ export class SliderComponent extends AbstractComponent
     }
 
     protected setSliderWrapper(): void {
-        const swiperContainer: HTMLElement = _get(this.swiper, 'elementRef.nativeElement');
         if (!this.sliderWrap) {
-            this.sliderWrap = swiperContainer.querySelector('.swiper-wrapper');
+            this.sliderWrap = this.swiperRef.nativeElement;
         }
     }
 
@@ -305,62 +279,62 @@ export class SliderComponent extends AbstractComponent
     }
 
     protected updateView(): void {
-        const swiperContainer: HTMLElement = _get(this.swiper, 'elementRef.nativeElement');
-        if (!this.sliderWrap) {
-            this.sliderWrap = swiperContainer.querySelector('.swiper-wrapper');
-        }
-        const slides: HTMLCollection = _get(this.sliderWrap, 'children');
-        const firstSlide = (slides[0] as HTMLElement);
+        this.setSliderWrapper();
+        const slides: HTMLElement[] = this.swiper?.slides;
+        if (slides) {
+            const firstSlide = (slides[0] as HTMLElement);
 
-        if (this.$params.slidesAspectRatio) {
-            const aspectCoef: string[] = this.$params.slidesAspectRatio.split('/');
-            if (aspectCoef.length === 2 && slides.length) {
-                const slideHeight: number = firstSlide.offsetHeight;
-                const slideWidth: number = slideHeight * (_toNumber(aspectCoef[0]) / _toNumber(aspectCoef[1]));
-                this.slideMaxWidth = slideWidth;
+            if (this.$params.slidesAspectRatio) {
+                const aspectCoef: string[] = this.$params.slidesAspectRatio.split('/');
+                if (aspectCoef.length === 2 && slides.length) {
+                    const slideHeight: number = firstSlide.offsetHeight;
+                    const slideWidth: number = slideHeight * (_toNumber(aspectCoef[0]) / _toNumber(aspectCoef[1]));
+                    this.slideMaxWidth = slideWidth;
 
-                _forEach(slides, (slide: HTMLElement) => {
-                    slide.style.width = `${slideWidth}px`;
-                    slide.style.maxWidth = `${slideWidth}px`;
-                });
+                    _forEach(slides, (slide: HTMLElement) => {
+                        slide.style.width = `${slideWidth}px`;
+                        slide.style.maxWidth = `${slideWidth}px`;
+                    });
+                }
             }
-        }
 
-        if (this.isAutoSlidesAndColumnMode()) {
-            this.emptySlidesCount = 0;
+            if (this.isAutoSlidesAndColumnMode()) {
+                this.emptySlidesCount = 0;
 
-            this.renderer.setStyle(this.sliderWrap, 'width', 'auto');
-            const swiperWidth: number = swiperContainer.offsetWidth;
+                this.renderer.setStyle(this.sliderWrap, 'width', 'auto');
+                const swiperContainer: HTMLElement = _get(this.swiperRef, 'nativeElement');
+                const swiperWidth: number = swiperContainer.offsetWidth;
 
-            const margin = parseInt(firstSlide.style.marginRight);
+                const margin = parseInt(firstSlide.style.marginRight);
 
-            const groupCount: number = this.$params.swiper.grid?.rows *
-                _ceil(swiperWidth / (firstSlide.offsetWidth + margin));
-            const floorGroupCount: number = this.$params.swiper.grid?.rows *
-                _floor(swiperWidth / (firstSlide.offsetWidth + margin));
-            const minGroup = _ceil(slides.length / this.$params.swiper.grid?.rows)
-                * this.$params.swiper.grid?.rows;
+                const groupCount: number = this.$params.swiper.grid?.rows *
+                    _ceil(swiperWidth / (firstSlide.offsetWidth + margin));
+                const floorGroupCount: number = this.$params.swiper.grid?.rows *
+                    _floor(swiperWidth / (firstSlide.offsetWidth + margin));
+                const minGroup = _ceil(slides.length / this.$params.swiper.grid?.rows)
+                    * this.$params.swiper.grid?.rows;
 
-            if (this.slides.length < floorGroupCount) {
-                this.emptySlidesCount = floorGroupCount - this.slides.length;
-            } else if (this.slides.length < groupCount) {
-                this.emptySlidesCount = groupCount - this.slides.length;
-            } else {
-                this.emptySlidesCount = minGroup - this.slides.length;
+                if (this.slides.length < floorGroupCount) {
+                    this.emptySlidesCount = floorGroupCount - this.slides.length;
+                } else if (this.slides.length < groupCount) {
+                    this.emptySlidesCount = groupCount - this.slides.length;
+                } else {
+                    this.emptySlidesCount = minGroup - this.slides.length;
+                }
+                this.fixSlidesSequence();
             }
-            this.fixSlidesSequence();
         }
 
         if (this.swiper) {
             setTimeout(() => {
-                if (_get(this.swiper.swiperRef, 'virtualSize', 0) > _get(this.swiper.swiperRef, 'size', 0)) {
+                if (_get(this.swiper, 'virtualSize', 0) > _get(this.swiper, 'size', 0)) {
                     this.addModifiers('overflow');
-                    _set(this.swiper, 'swiperRef.allowTouchMove', true);
+                    _set(this.swiper, 'allowTouchMove', true);
                 } else {
                     if (this.hasModifier('overflow')) {
                         this.removeModifiers('overflow');
                     }
-                    _set(this.swiper, 'swiperRef.allowTouchMove', false);
+                    _set(this.swiper, 'allowTouchMove', false);
                 }
             });
         }
@@ -413,28 +387,10 @@ export class SliderComponent extends AbstractComponent
     }
 
     protected initEventHandlers(): void {
-        this.actionService.windowResize()
-            .pipe(takeUntil(this.$destroy))
-            .subscribe(() => {
-                this.updateView();
-            });
-
-        this.swiper.s_progress.subscribe((swiper) => {
-            this.updateProgressModifiers(swiper[0]);
-        });
-
-        this.swiper.s_slideChangeTransitionEnd.pipe(takeUntil(this.$destroy))
-            .subscribe(() => {
-                this.slideChangeTransitionEnd$.emit(this.swiper.swiperRef);
-            });
-
-        this.swiper.s_slideChangeTransitionStart.pipe(takeUntil(this.$destroy))
-            .subscribe(() => {
-                this.slideChangeTransitionStart$.emit(this.swiper.swiperRef);
-            });
+        this.windowResizeHandler();
     }
 
-    protected updateProgressModifiers(swiper): void {
+    protected updateProgressModifiers(swiper: Swiper): void {
         if (!swiper) {
             return;
         }
@@ -453,21 +409,21 @@ export class SliderComponent extends AbstractComponent
     protected updateNavigation(navigation: NavigationOptions | boolean): void {
         setTimeout(() => {
             if (_isObject(navigation)) {
-                this.swiper.swiperRef.params.navigation = _merge<NavigationOptions, NavigationOptions>(
+                this.swiper.params.navigation = _merge<NavigationOptions, NavigationOptions>(
                     Params.defaultNavigationParams,
                     navigation,
                 );
             } else {
-                this.swiper.swiperRef.params.navigation = navigation;
+                this.swiper.params.navigation = navigation;
             }
 
-            if (this.swiper.swiperRef.params.slidesPerView == 'auto') {
-                this.swiper.swiperRef.params.slidesPerView = 1;
+            if (this.swiper.params.slidesPerView == 'auto') {
+                this.swiper.params.slidesPerView = 1;
             }
 
-            this.swiper.swiperRef.navigation.destroy();
-            this.swiper.swiperRef.navigation.init();
-            this.swiper.swiperRef.navigation.update();
+            this.swiper.navigation.destroy();
+            this.swiper.navigation.init();
+            this.swiper.navigation.update();
             this.cdr.markForCheck();
         });
     }

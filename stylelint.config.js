@@ -206,6 +206,7 @@ module.exports = {
         }],
         'selector-type-no-unknown': [true, {
             'message': 'Селектора такого на светлой стороне силы нет',
+            'ignoreTypes': ['swiper-container', 'swiper-container::part(container)'],
         }],
         'selector-max-empty-lines': [0, {
             'message': 'Пустые строки в селекторах недопустимы',

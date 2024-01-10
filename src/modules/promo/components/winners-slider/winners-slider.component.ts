@@ -15,8 +15,8 @@ import {
     takeUntil,
     debounceTime,
 } from 'rxjs/operators';
-import {SwiperOptions} from 'swiper';
-import SwiperCore from 'swiper';
+import {SwiperOptions} from 'swiper/types/swiper-options';
+import Swiper from 'swiper';
 
 import _merge from 'lodash-es/merge';
 import _clone from 'lodash-es/clone';
@@ -94,7 +94,7 @@ export class WinnersSliderComponent extends AbstractComponent implements OnInit,
         this.initBreakpoints();
     }
 
-    public onSliderResize(swiper: SwiperCore): void {
+    public onSliderResize(swiper: Swiper): void {
         if (this.useCssProps) {
             this.setCssProperties(swiper.params);
         }

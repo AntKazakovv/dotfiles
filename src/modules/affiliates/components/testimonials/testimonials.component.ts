@@ -106,7 +106,6 @@ export class TestimonialsComponent extends AbstractComponent implements OnInit {
 
         if (this.$params.sliderParams && this.slides.length <= 1) {
             this.$params.sliderParams.loop = false;
-            this.$params.sliderParams.loopedSlides = null;
         }
 
         this.sliderConfig = {

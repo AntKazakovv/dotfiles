@@ -5,7 +5,7 @@ import {
     IPagination,
 } from 'wlc-engine/modules/core';
 import {RestType, ThumbType} from 'wlc-engine/modules/tournaments';
-import {SwiperOptions} from 'swiper';
+import {SwiperOptions} from 'swiper/types/swiper-options';
 import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
 
 export type ComponentTheme = 'default' |  'wolf' | CustomType;

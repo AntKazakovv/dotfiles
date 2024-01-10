@@ -131,24 +131,31 @@
                 }
 
                 &-slide-active {
-                    box-shadow: ef.get-value($themeDefault, 'slideShadow');
-                    border-radius: ef.get-value($themeDefault, 'slideRadius');
-                    cursor: pointer;
-                    transition-duration: ef.get-value($themeDefault, 'transDuration');
-                    pointer-events: initial;
+
+                    .wlc-game-thumb {
+                        box-shadow: ef.get-value($themeDefault, 'slideShadow');
+                        border-radius: ef.get-value($themeDefault, 'slideRadius');
+                        cursor: pointer;
+                        transition-duration: ef.get-value($themeDefault, 'transDuration');
+                        pointer-events: initial;
+
+                        @include bm.hover {
+                            transform: scale(1.05);
+                        }
+                    }
 
                     .wlc-game-thumb__img {
                         opacity: 1;
                     }
-
-                    @include bm.hover {
-                        transform: scale(1.05);
-                    }
                 }
 
-                &-wrapper {
+                &-container {
                     transition: transform 0.4s linear;
                 }
+            }
+
+            swiper-container::part(container) {
+                overflow: visible;
             }
         }
     }

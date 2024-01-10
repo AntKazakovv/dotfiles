@@ -1,14 +1,18 @@
-<swiper [config]="$params.swiper"
+<swiper-container #swiperRef
+    wlc-swiper
+    class="swiper"
+    init="false"
+    [config]="$params.swiper"
     (update)="onUpdate()"
     (wlc-resized)="onResize()"
     (beforeResize)="onBeforeResize()">
 
-    <ng-template swiperSlide *ngFor="let n of slidesSequence">
+    <swiper-slide *ngFor="let n of slidesSequence" class="swiper-slide">
         <ng-container *ngIf="ready"
-                      [ngTemplateOutlet]="slide"
-                      [ngTemplateOutletContext]="{slide: slides[n]}">
+            [ngTemplateOutlet]="slide"
+            [ngTemplateOutletContext]="{slide: slides[n]}">
         </ng-container>
-    </ng-template>
+    </swiper-slide>
 
     <div slot="container-start">
         <ng-content select="[slot-container-start]"></ng-content>
@@ -16,24 +20,24 @@
     <div slot="container-end">
         <ng-content select="[slot-container-end]"></ng-content>
     </div>
-</swiper>
+</swiper-container>
 
 <ng-template #slide let-slide="slide">
     <ng-container [ngSwitch]="detectSlide(slide)">
         <ng-container *ngSwitchCase="'component'"
             [ngTemplateOutlet]="component"
-            [ngTemplateOutletContext]="{item: slide}"
-        ></ng-container>
+            [ngTemplateOutletContext]="{item: slide}">
+        </ng-container>
 
         <ng-container *ngSwitchCase="'templateRef'"
             [ngTemplateOutlet]="templateRef"
-            [ngTemplateOutletContext]="{item: slide}"
-        ></ng-container>
+            [ngTemplateOutletContext]="{item: slide}">
+        </ng-container>
 
         <ng-container *ngSwitchCase="'htmlString'"
             [ngTemplateOutlet]="html"
-            [ngTemplateOutletContext]="{item: slide}"
-        ></ng-container>
+            [ngTemplateOutletContext]="{item: slide}">
+        </ng-container>
     </ng-container>
 </ng-template>
 

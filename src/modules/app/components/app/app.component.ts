@@ -23,6 +23,7 @@ import {
     UIRouterGlobals,
 } from '@uirouter/core';
 import {Title, Meta} from '@angular/platform-browser';
+import {register as swiperRegister} from 'swiper/element/bundle';
 import {
     Subscription,
     fromEvent,
@@ -255,6 +256,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
         if (GlobalHelper.isMobileApp() && this.appContent?.nativeElement) {
             this.actionService.setScrollableElement(this.appContent.nativeElement, 'appContent');
         }
+        swiperRegister();
     }
 
     public trackBySectionName(index: number, section: SectionModel): string {

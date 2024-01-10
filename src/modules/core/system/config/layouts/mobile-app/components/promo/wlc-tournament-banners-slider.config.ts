@@ -1,5 +1,5 @@
 import {ILayoutComponent} from 'wlc-engine/modules/core';
-import {SwiperOptions} from 'swiper';
+import {SwiperOptions} from 'swiper/types/swiper-options';
 import {ITournamentListCParams} from 'wlc-engine/modules/tournaments';
 
 export namespace wlcTournamentBannersSlider {

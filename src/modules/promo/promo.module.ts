@@ -1,7 +1,6 @@
 import {CommonModule} from '@angular/common';
 import {UIRouterModule} from '@uirouter/angular';
 import {NgModule} from '@angular/core';
-import {SwiperModule} from 'swiper/angular';
 import {TranslateModule} from '@ngx-translate/core';
 
 import {
@@ -67,7 +66,6 @@ export const components = {
         UIRouterModule,
         CoreModule,
         StaticModule,
-        SwiperModule,
         TranslateModule,
         CompilerModule,
     ],

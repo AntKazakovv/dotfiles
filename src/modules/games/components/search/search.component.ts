@@ -132,7 +132,6 @@ export class SearchComponent extends AbstractComponent implements OnInit {
 
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
-        await this.gamesCatalogService.ready;
         if (this.$params.theme === 'easy') {
             this.lastQueries$ = this.gamesFilterService.lastQueries$;
             this.gamesGridParams = this.$params.easyThemeParams.searchGamesGrid;
@@ -172,6 +171,8 @@ export class SearchComponent extends AbstractComponent implements OnInit {
         if (this.$params.common?.openProvidersList) {
             this.togglePanel('merchants');
         }
+
+        await this.gamesCatalogService.ready;
         this.parentCategory = this.gamesCatalogService.getParentCategoryByState();
         this.childCategory = this.gamesCatalogService.getChildCategoryByState();
 

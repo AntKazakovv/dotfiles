@@ -1,4 +1,4 @@
-import {SwiperOptions} from 'swiper';
+import {SwiperOptions} from 'swiper/types/swiper-options';
 import {CustomType, IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 
 export type Type = 'default' | CustomType;

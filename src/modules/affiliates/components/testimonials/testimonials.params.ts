@@ -1,5 +1,5 @@
 import {IComponentParams} from 'wlc-engine/modules/core';
-import {SwiperOptions} from 'swiper';
+import {SwiperOptions} from 'swiper/types/swiper-options';
 
 export interface ITestimonialsCParams extends IComponentParams<string, string, string> {
     slug: string;

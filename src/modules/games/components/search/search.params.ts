@@ -131,85 +131,10 @@ const showAsSwiper: IShowAsSwiper = _merge(
             swiper: {
                 breakpoints: {
                     375: {
-                        grid: {
-                            rows: 2,
-                            fill: 'row',
-                        },
-                        followFinger: false,
-                    },
-                    560: {
-                        grid: {
-                            rows: 2,
-                            fill: 'row',
-                        },
-                        followFinger: false,
-                    },
-                    720: {
-                        grid: null,
                         followFinger: false,
                     },
                     1024: {
-                        grid: null,
                         followFinger: true,
-                    },
-                    1200: {
-                        grid: null,
-                    },
-                    1630: {
-                        grid: null,
-                    },
-                },
-            },
-        },
-    },
-);
-
-const swiperOptionsOnHideSecondBlock: IShowAsSwiper = _merge(
-    {},
-    defaultShowAsSwiper,
-    <IShowAsSwiper>{
-        sliderParams: {
-            swiper: {
-                breakpoints: {
-                    375: {
-                        grid: {
-                            rows: 3,
-                            fill: 'row',
-                        },
-                        followFinger: false,
-                    },
-                    560: {
-                        grid: {
-                            rows: 3,
-                            fill: 'row',
-                        },
-                        followFinger: false,
-                    },
-                    720: {
-                        grid: {
-                            rows: 2,
-                            fill: 'row',
-                        },
-                        followFinger: false,
-                    },
-                    1024: {
-                        grid: {
-                            rows: 2,
-                            fill: 'row',
-                        },
-                        followFinger: true,
-                    },
-                    1200: {
-                        grid: {
-                            rows: 2,
-                            fill: 'row',
-                        },
-                    },
-                    1630: {
-                        grid: {
-                            rows: 2,
-                            fill: 'row',
-                        },
                     },
                 },
             },
@@ -263,7 +188,7 @@ export const defaultParams: ISearchCParams = {
                 thumbParams,
                 showAsSwiper,
             },
-            swiperOptionsOnHideSecondBlock,
+            swiperOptionsOnHideSecondBlock: showAsSwiper,
         },
     },
 };

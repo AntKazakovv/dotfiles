@@ -49,7 +49,7 @@ import _ceil from 'lodash-es/ceil';
 import _random from 'lodash-es/random';
 import _set from 'lodash-es/set';
 import _differenceBy from 'lodash-es/differenceBy';
-import {SwiperOptions} from 'swiper';
+import {SwiperOptions} from 'swiper/types/swiper-options';
 
 import {
     AbstractComponent,

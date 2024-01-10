@@ -40,6 +40,15 @@
                 height: ef.get-value($theme1, 'bottomLineHeight');
                 background: ef.get-value($theme1, 'background');
             }
+
+            ::ng-deep {
+
+                .swiper {
+                    @include cm.sliderShadowPadding($theme1);
+                    height: 100%;
+                    overflow-x: visible;
+                }
+            }
         }
     }
 }

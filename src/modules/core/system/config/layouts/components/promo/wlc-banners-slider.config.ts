@@ -18,7 +18,8 @@ export namespace wlcBannersSlider {
                         prevEl: '.wlc-slider--theme-default-banner .wlc-swiper-button-prev',
                     },
                     pagination: {
-                        modifierClass: 'mobile swiper-pagination-',
+                        enable: true,
+                        clickable: true,
                     },
                     autoplay: {
                         delay: 10000,
@@ -44,14 +45,13 @@ export namespace wlcBannersSlider {
                     slidesPerView: 1,
                     spaceBetween: 20,
                     centeredSlides: true,
-                    loopedSlides: 2,
-                    loopAdditionalSlides: 3,
                     navigation: {
                         nextEl: '.wlc-slider--theme-default-banner .wlc-swiper-button-next',
                         prevEl: '.wlc-slider--theme-default-banner .wlc-swiper-button-prev',
                     },
                     pagination: {
-                        modifierClass: 'mobile swiper-pagination-',
+                        enable: true,
+                        clickable: true,
                     },
                     autoplay: {
                         delay: 10000,
@@ -85,7 +85,8 @@ export namespace wlcBannersSlider {
                         prevEl: '.wlc-slider--theme-default-banner .wlc-swiper-button-prev',
                     },
                     pagination: {
-                        modifierClass: 'mobile swiper-pagination-',
+                        enable: true,
+                        clickable: true,
                     },
                     autoplay: {
                         delay: 10000,

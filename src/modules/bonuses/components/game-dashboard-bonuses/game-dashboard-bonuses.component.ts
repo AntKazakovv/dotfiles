@@ -152,7 +152,7 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
             },
         }));
         if (this.slider?.swiper && scroll) {
-            this.slider.swiper.swiperRef.slideTo(0);
+            this.slider.swiper.slideTo(0);
         }
         this.cdr.detectChanges();
     }

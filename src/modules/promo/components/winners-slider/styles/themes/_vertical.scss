@@ -47,16 +47,9 @@
             ::ng-deep {
 
                 .swiper {
+                    @include cm.sliderShadowPadding($themeVertical);
                     height: 100%;
                     overflow-x: visible;
-
-                    @if ef.get-value($themeVertical, 'sliderShadowPadding') {
-                        height: calc(100% + #{ef.get-value($themeVertical, 'sliderShadowPadding')});
-                        margin-bottom: -1 * ef.get-value($themeVertical, 'sliderShadowPadding');
-                        margin-left: -1 * ef.get-value($themeVertical, 'sliderShadowPadding');
-                        padding-bottom: ef.get-value($themeVertical, 'sliderShadowPadding');
-                        padding-left: ef.get-value($themeVertical, 'sliderShadowPadding');
-                    }
                 }
             }
         }

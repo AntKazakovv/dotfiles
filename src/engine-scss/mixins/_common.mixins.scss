@@ -167,3 +167,15 @@
         }
     }
 }
+
+// Styles for components with slider shadow padding
+@mixin sliderShadowPadding($config) {
+
+    @if ef.get-value($config, 'sliderShadowPadding') {
+        height: calc(100% + #{ef.get-value($config, 'sliderShadowPadding')});
+        margin-bottom: -1 * ef.get-value($config, 'sliderShadowPadding');
+        margin-left: -1 * ef.get-value($config, 'sliderShadowPadding');
+        padding-bottom: ef.get-value($config, 'sliderShadowPadding');
+        padding-left: ef.get-value($config, 'sliderShadowPadding');
+    }
+}

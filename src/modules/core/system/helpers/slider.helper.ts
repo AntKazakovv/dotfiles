@@ -1,5 +1,5 @@
 import {Renderer2} from '@angular/core';
-import {SwiperOptions} from 'swiper';
+import {SwiperOptions} from 'swiper/types/swiper-options';
 
 import _forEach from 'lodash-es/forEach';
 import _keys from 'lodash-es/keys';

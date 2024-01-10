@@ -16,10 +16,8 @@ import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 import {UIRouter} from '@uirouter/core';
 
-import {
-    Swiper,
-    SwiperOptions,
-} from 'swiper';
+import Swiper from 'swiper';
+import {SwiperOptions} from 'swiper/types/swiper-options';
 import _find from 'lodash-es/find';
 import _findIndex from 'lodash-es/findIndex';
 import _merge from 'lodash-es/merge';
@@ -376,7 +374,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, A
             };
         });
         if (this.slider?.swiper && scroll) {
-            this.slider.swiper.swiperRef.slideTo(0);
+            this.slider.swiper.slideTo(0);
         }
         this.cdr.detectChanges();
     }
@@ -431,7 +429,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, A
 
                 if (this.$params.type === 'swiper') {
                     setTimeout(() => {
-                        this.slider?.swiper.swiperRef.slideTo(
+                        this.slider?.swiper.slideTo(
                             chosenBonusIndex,
                             this.$params.common.swiperManualTransitionDuration,
                         );

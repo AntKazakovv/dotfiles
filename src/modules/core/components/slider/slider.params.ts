@@ -6,11 +6,9 @@ import {
 import {RawParams} from '@uirouter/core';
 
 import {Subject} from 'rxjs';
-import {SwiperOptions} from 'swiper';
-import {
-    NavigationOptions,
-    Swiper,
-} from 'swiper/types';
+import {SwiperOptions} from 'swiper/types/swiper-options';
+import {NavigationOptions} from 'swiper/types/modules/navigation';
+import {Swiper} from 'swiper/types';
 
 import {
     CustomType,
@@ -59,8 +57,8 @@ export interface ISliderCParams extends IComponentParams<ComponentTheme, Compone
      */
     slides?: ISlide[];
     /**
-     * In parameters it takes the slick slider config (params.swiper).
-     * See more: [slick docs]{@link https://kenwheeler.github.io/slick/}.
+     * In parameters it takes the SwiperOptions (params.swiper).
+     * See more: [swiper docs]{@link https://swiperjs.com/types/interfaces/types_swiper_options.SwiperOptions}.
      */
     swiper?: SwiperOptions;
     /**

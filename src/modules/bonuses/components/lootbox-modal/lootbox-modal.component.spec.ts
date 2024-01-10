@@ -11,7 +11,6 @@ import {
 } from 'ng-mocks';
 import {TranslatePipe} from '@ngx-translate/core';
 
-import {SwiperComponent} from 'swiper/angular';
 import _trim from 'lodash-es/trim';
 import _assign from 'lodash-es/assign';
 
@@ -79,7 +78,6 @@ describe('LootboxModalComponent', (): void => {
             declarations: [
                 LootboxModalComponent,
                 MockComponent(SliderComponent),
-                MockComponent(SwiperComponent),
                 MockComponent(ButtonComponent),
                 MockPipe(TranslatePipe, (val) => val),
             ],
