@@ -57,8 +57,6 @@ export class SearchFieldComponent extends AbstractComponent implements OnInit {
             });
     }
 
-
-
     public emitSearch(query: string): void {
         this.searchQueryEmit.emit(query);
     }

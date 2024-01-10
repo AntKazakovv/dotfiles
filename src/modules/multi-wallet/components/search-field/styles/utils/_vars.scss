@@ -22,8 +22,9 @@ $themeDefault: map-merge((
     'searchIconTranslateY': translateY(-50%),
     'spaceBetweenIcons': 14px,
 
+    'inputPlaceholderColor': var(--fc-placeholderColor),
     'inputRadius': ef.get('form', 'inputBorderRadius'),
-    'inputBorder': none,
+    'inputBorder': ef.get('form', 'inputBorder'),
     'inputPadding': ef.size(2) ef.size(7) ef.size(2) ef.size(2),
     'inputPaddingCloseShowed': ef.size(2) ef.size(12) ef.size(2) ef.size(2),
     'inputBackground': ef.get('form', 'inputBackground'),

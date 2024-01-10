@@ -58,6 +58,10 @@
             &::-ms-clear {
                 display: none;
             }
+
+            &::placeholder {
+                color: ef.get-value($themeDefault, 'inputPlaceholderColor');
+            }
         }
 
         &__clear {
