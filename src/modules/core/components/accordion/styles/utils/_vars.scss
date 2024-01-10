@@ -4,9 +4,7 @@ $themeDefault: map-merge((
         320: 'ThirdTitleBold',
         768: 'QoteTextBold',
     ),
-    'headerFontSize': ef.get('font', 'biger'),
-    'headerFontWeight': bold,
-    'headerFontColor': var(--mc-baseMain),
+    'headerFontColor': var(--mc-baseSecond, --mc-baseMain),
     'headerPadding': 0 0 ef.size(4) 0,
 
     'titleTextStyle': (
@@ -37,7 +35,7 @@ $themeDefault: map-merge((
 
     'itemsGapSize': ef.size(2),
     'itemBackground': var(--mc-bg700),
-    'itemBackgroundActive': var(--mc-main),
+    'itemBackgroundActive': var(--mc-bg500),
     'itemBorderRadius': ef.get('radius', 'biger'),
 
     'paddingSize': ef.size(3),
@@ -57,4 +55,3 @@ $themeDefault: map-merge((
     'simpleContentHr': none,
     'simpleContentWrpPaddingTop': ef.size(2),
 ), $customThemeDefault);
-
