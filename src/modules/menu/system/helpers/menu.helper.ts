@@ -300,9 +300,9 @@ export class MenuHelper {
                                 options,
                             );
                             return {
-                                parent: item['parent'],
+                                parent: (item as MenuConfigItemsGroup)['parent'],
                                 items: dropdownItems,
-                            };
+                            } as IMenuItemsGroup;
                         }
 
                         const itemData: Params.IMenuItem = _isObject(item)

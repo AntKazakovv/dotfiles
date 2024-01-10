@@ -55,7 +55,7 @@ export class MenuService {
      * @param {string} menuId
      * @returns {Promise<IMenuOptions>}
      */
-    public async getFundistMenuSettings(menuId: string): Promise<IMenuOptions> {
+    public async getFundistMenuSettings(menuId: keyof IMenu): Promise<IMenuOptions> {
         await this.loadFundistMenuSettings();
 
         if (!this.menuSettingPrepared && this.menuSettings) {

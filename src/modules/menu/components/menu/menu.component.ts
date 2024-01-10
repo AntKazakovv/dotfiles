@@ -586,11 +586,11 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         return _map(
             items,
             (item: Params.MenuItemObjectType) => {
-                if (item['type'] === 'sref' && item['params']?.['href']) {
-                    (item as Params.IMenuItem).type = 'href';
+                if (item['type'] === 'sref' && (item as Params.IMenuItem).params?.['href']) {
+                    item.type = 'href';
                 }
 
-                if (item['items']) {
+                if ((item as Params.IMenuItemsGroup)['items']) {
                     (item as Params.IMenuItemsGroup).items =
                         (this.changeLinkForAffiliate((item as Params.IMenuItemsGroup).items) as Params.IMenuItem[]);
                 }

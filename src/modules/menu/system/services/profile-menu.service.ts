@@ -96,7 +96,7 @@ export class ProfileMenuService {
             const iconsFolder: string = options?.icons?.folder;
 
             this.tabsMenu = this.profileMenuConfig.map((item: MenuParams.MenuConfigItem) => {
-                let menuItem;
+                let menuItem: IMenuItem | undefined;
                 if (_isString(item)) {
                     menuItem = _cloneDeep(wlcProfileMenuItemsGlobal[item]);
                 } else if (_has(item, 'parent')) {
@@ -105,7 +105,7 @@ export class ProfileMenuService {
                         _isString(parent) ? wlcProfileMenuItemsGlobal[parent] : parent,
                     );
                 } else if (_has(item, 'name')) {
-                    menuItem = _cloneDeep(item);
+                    menuItem = _cloneDeep(item as IMenuItem);
                 }
                 MenuHelper.setIcon(menuItem, iconsFolder, disbaleIcons);
                 return menuItem;
