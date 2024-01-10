@@ -4,6 +4,7 @@ import {
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 import {UIRouter} from '@uirouter/core';
+
 import {
     fromEvent,
     Subject,
@@ -13,6 +14,14 @@ import {
     map,
     filter,
 } from 'rxjs/operators';
+import _get from 'lodash-es/get';
+import _find from 'lodash-es/find';
+import _findKey from 'lodash-es/findKey';
+import _set from 'lodash-es/set';
+import _isString from 'lodash-es/isString';
+import _isEmpty from 'lodash-es/isEmpty';
+import _forEach from 'lodash-es/forEach';
+
 import {
     IIndexing,
     ConfigService,
@@ -30,14 +39,6 @@ import {
 } from 'wlc-engine/modules/sportsbook';
 import {Game} from 'wlc-engine/modules/games';
 import {WINDOW} from 'wlc-engine/modules/app/system';
-
-import _get from 'lodash-es/get';
-import _find from 'lodash-es/find';
-import _findKey from 'lodash-es/findKey';
-import _set from 'lodash-es/set';
-import _isString from 'lodash-es/isString';
-import _isEmpty from 'lodash-es/isEmpty';
-import _forEach from 'lodash-es/forEach';
 
 interface IMessage {
     eventType: string;
@@ -241,7 +242,7 @@ export class SportsbookService {
 
                 if (!_get(msg, 'eventType')) {
                     return false;
-                };
+                }
                 return msg;
             }),
             filter((message: IMessage | boolean) => {

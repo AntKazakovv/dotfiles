@@ -114,16 +114,13 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
 
         if (this.settings) {
             if (this.settings.id === 'betradar') {
-
                 if (this.$params.ownLoader?.use) {
                     this.sportsbookService.onIframeMessage(BetradarEvents.loaded)
                         .subscribe(() => {
                             this.removeModifiers('show-loader');
                         });
                 }
-
-                this.betradarService.setBetradarParams();
-                this.betradarService.initNavigation(this.$destroy, this.cdr);
+                this.betradarService.initBetradar(this.$destroy, this.cdr);
             }
             this.initHooks();
             this.initGameConfig();

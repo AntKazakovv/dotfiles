@@ -1,4 +1,6 @@
 import {DateTime} from 'luxon';
+import _assign from 'lodash-es/assign';
+
 import {
     AbstractModel,
     IFromLog,
@@ -8,13 +10,11 @@ import {
     EventService,
 } from 'wlc-engine/modules/core';
 import {
-    IBetradarGame,
-} from 'wlc-engine/modules/sportsbook/system/interfaces';
+    IGame,
+} from 'wlc-engine/modules/sportsbook/system/interfaces/betradar/widgets.interface';
 import {MarketModel} from './market.model';
 
-import _assign from 'lodash-es/assign';
-
-export class BetradarGameModel extends AbstractModel<IBetradarGame> {
+export class BetradarGameModel extends AbstractModel<IGame> {
 
     public market: MarketModel;
     public issetTeamHomeLogo: boolean = true;
@@ -22,7 +22,7 @@ export class BetradarGameModel extends AbstractModel<IBetradarGame> {
 
     constructor(
         from: IFromLog,
-        data: IBetradarGame,
+        data: IGame,
         protected configService: ConfigService,
         protected eventService: EventService,
     ) {

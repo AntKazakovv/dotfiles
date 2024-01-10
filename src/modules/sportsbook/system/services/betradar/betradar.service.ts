@@ -7,33 +7,43 @@ import {
     StateService,
     UIRouterGlobals,
 } from '@uirouter/core';
-import {takeUntil} from 'rxjs/operators';
-import {
-    Subject,
-} from 'rxjs';
-import {IBetradar} from 'wlc-engine/modules/sportsbook';
-import {
-    ConfigService,
-    DataService,
-    EventService,
-    IData,
-} from 'wlc-engine/modules/core';
-import {
-    IBetradarGame,
-    IPopularEventsData,
-    IDailyMatchData,
-    IMessageDataLocationChange,
-} from 'wlc-engine/modules/sportsbook/system/interfaces/sportsbook.interface';
-import {BetradarGameModel} from 'wlc-engine/modules/sportsbook/system/models/betradar-game.model';
-import {SportsbookService} from 'wlc-engine/modules/sportsbook/system/services/sportsbook/sportsbook.service';
-import {WINDOW} from 'wlc-engine/modules/app/system';
 
+import {takeUntil} from 'rxjs/operators';
+import {Subject} from 'rxjs';
 import _get from 'lodash-es/get';
 import _forEach from 'lodash-es/forEach';
 import _set from 'lodash-es/set';
 import _merge from 'lodash-es/merge';
 
+import {
+    ConfigService,
+    DataService,
+    EventService,
+    ModalService,
+    LogService,
+    IData,
+} from 'wlc-engine/modules/core';
+
+import {
+    ILocationChange,
+    ErrorCodes,
+    IError,
+} from 'wlc-engine/modules/sportsbook/system/interfaces/betradar/events.interface';
+import {
+    IBetradarConfig,
+} from 'wlc-engine/modules/sportsbook/system/interfaces/betradar/sportsbook.interface';
+import {
+    IDailyMatchData,
+    IPopularEventsData,
+    IGame,
+} from 'wlc-engine/modules/sportsbook/system/interfaces/betradar/widgets.interface';
+
+import {BetradarGameModel} from 'wlc-engine/modules/sportsbook/system/models/betradar-game.model';
+import {SportsbookService} from 'wlc-engine/modules/sportsbook/system/services/sportsbook/sportsbook.service';
+import {WINDOW} from 'wlc-engine/modules/app/system';
+
 export const BetradarEvents = {
+    error: 'SPORTSBOOK_ERROR',
     scrollTop: 'SPORTSBOOK_SCROLL_TOP',
     loaded: 'SPORTSBOOK_LOADED',
     openPage: 'SPORTSBOOK_OPEN_PAGE',
@@ -56,6 +66,8 @@ export class BetradarService {
         protected sportsbookService: SportsbookService,
         protected configService: ConfigService,
         protected eventService: EventService,
+        protected modalService: ModalService,
+        protected logService: LogService,
         protected dataService: DataService,
         @Inject(WINDOW) private window: Window,
     ) {
@@ -63,10 +75,74 @@ export class BetradarService {
     }
 
     /**
+     * Init betradar sportsbook before run
+     *
+     * @param destroy Gameplay component destroy
+     * @param cdr Gameplay component ChangeDetector
+     */
+    public initBetradar(destroy: Subject<void>, cdr: ChangeDetectorRef): void {
+        this.setBetradarParams();
+        this.initNavigation(destroy, cdr);
+        this.initErrorHandlers(destroy);
+    }
+
+    /**
+     * Get daily match
+     *
+     * @returns {Promise<BetradarGameModel>}
+     */
+    public async getDailyMatch(): Promise<BetradarGameModel> {
+        try {
+            const response: IData<IDailyMatchData> = await this.dataService.request('betradarWidgets/dailyMatch');
+            if (response.data?.id) {
+                return new BetradarGameModel(
+                    {service: 'BetradarService', method: 'getDailyMatch'},
+                    response.data,
+                    this.configService,
+                    this.eventService,
+                );
+            }
+        } catch (error) {
+            this.logService.sendLog({
+                code: '29.1.0',
+                data: error,
+            });
+        }
+    }
+
+    /**
+     * Get popular events
+     *
+     * @returns {Promise<BetradarGameModel[]>}
+     */
+    public async getPopularEvents(): Promise<BetradarGameModel[]> {
+        const games: BetradarGameModel[] = [];
+        try {
+            const response: IData<IPopularEventsData> = await this.dataService.request('betradarWidgets/popularEvents');
+            if (response.data) {
+                _forEach(response.data.games, (game: IGame) => {
+                    games.push(new BetradarGameModel(
+                        {service: 'BetradarService', method: 'getPopularEvents'},
+                        game,
+                        this.configService,
+                        this.eventService,
+                    ));
+                });
+            }
+        } catch (error) {
+            this.logService.sendLog({
+                code: '29.1.1',
+                data: error,
+            });
+        }
+        return games;
+    }
+
+    /**
      * Saves parameters for navigation to the window object.
      * These parameters will be used when loading iframe page.
      */
-    public setBetradarParams(): void {
+    private setBetradarParams(): void {
         const urlParams: string[] = [];
         const stateParams = this.router.params;
 
@@ -90,7 +166,7 @@ export class BetradarService {
         });
         this.window['SPORTSBOOK_URL_QUERY_PARAMS'] = urlQueryParams;
 
-        const {cssFile, configFile, theme} = this.configService.get<IBetradar>('$sportsbook.betradar');
+        const {cssFile, configFile, theme} = this.configService.get<IBetradarConfig>('$sportsbook.betradar');
 
         if (cssFile) {
             this.window['SPORTSBOOK_CUSTOM_CSS'] = cssFile;
@@ -108,10 +184,10 @@ export class BetradarService {
      *
      * @param {Subject<void>} cancel
      */
-    public initNavigation(cancel: Subject<void>, cdr: ChangeDetectorRef): void {
+    private initNavigation(cancel: Subject<void>, cdr: ChangeDetectorRef): void {
         this.sportsbookService.onIframeMessage(BetradarEvents.locationChange)
             .pipe(takeUntil(cancel))
-            .subscribe((msg: IMessageDataLocationChange) => {
+            .subscribe((msg: ILocationChange) => {
                 const locationPath: string = _get(msg, 'path');
                 if (locationPath) {
                     _forEach(this.sportsbookService.urlPathParams, (param: string) => {
@@ -139,46 +215,21 @@ export class BetradarService {
     }
 
     /**
-     * Get daily match
+     * Init handler for sportsbook error messages
      *
-     * @returns {Promise<BetradarGameModel>}
+     * @param {Subject<void>} cancel
      */
-    public async getDailyMatch(): Promise<BetradarGameModel> {
-        const response: IData = await this.dataService.request('betradarWidgets/dailyMatch');
-        const data: IDailyMatchData = response.data;
-
-        if (data.id) {
-            return new BetradarGameModel(
-                {service: 'BetradarService', method: 'getDailyMatch'},
-                data,
-                this.configService,
-                this.eventService,
-            );
-        }
+    private initErrorHandlers(cancel: Subject<void>): void {
+        this.sportsbookService.onIframeMessage(BetradarEvents.error)
+            .pipe(takeUntil(cancel))
+            .subscribe((msg: IError) => {
+                if (msg.code === ErrorCodes.UnserNotAuthorized) {
+                    this.modalService.showModal('login');
+                }
+            });
     }
 
-    /**
-     * Get popular events
-     *
-     * @returns {Promise<BetradarGameModel[]>}
-     */
-    public async getPopularEvents(): Promise<BetradarGameModel[]> {
-        const response: IData = await this.dataService.request('betradarWidgets/popularEvents');
-        const data: IPopularEventsData = response.data;
-        const games: BetradarGameModel[] = [];
-
-        _forEach(data.games, (game: IBetradarGame) => {
-            games.push(new BetradarGameModel(
-                {service: 'BetradarService', method: 'getPopularEvents'},
-                game,
-                this.configService,
-                this.eventService,
-            ));
-        });
-        return games;
-    }
-
-    protected registerMethods(): void {
+    private registerMethods(): void {
         this.dataService.registerMethod({
             name: 'dailyMatch',
             url: '/sportsbook/widgets',
