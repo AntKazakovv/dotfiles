@@ -47,6 +47,10 @@ export interface IFinancesConfig {
      * Notification for deposit and/or withdrawal
      */
     alerts?: IAlerts;
+    /**
+     * The default initial amount from the "Preselected payment amount" field will be added to the amount entry form
+     */
+    useDefaultAmount?: boolean;
 }
 
 export interface ITransactionHistoryAlert {

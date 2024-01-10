@@ -44,6 +44,7 @@ import _max from 'lodash-es/max';
 import _min from 'lodash-es/min';
 import _merge from 'lodash-es/merge';
 import _set from 'lodash-es/set';
+import _sortBy from 'lodash-es/sortBy';
 
 import {
     ConfigService,
@@ -846,6 +847,10 @@ export class PaymentFormComponent
 
             const amountFieldWrap: IFormComponent = this.prepareAmountFieldConfig(isDepInvoice);
 
+            if (this.configService.get<boolean>('$finances.useDefaultAmount') && this.isDeposit) {
+                this.initDefaultAmount();
+            }
+
             formComponents.push(amountFieldWrap);
 
             if (this.showCommissions) {
@@ -1487,6 +1492,19 @@ export class PaymentFormComponent
             default:
                 this.window.location.replace(response[1]);
                 break;
+        }
+    }
+
+    private initDefaultAmount(): void {
+        const preselectedAmountsData: number[] = this.getPreselectedAmounts();
+
+        if (preselectedAmountsData.length) {
+
+            if (preselectedAmountsData.length >= 2) {
+                this.formData$.next({amount: `${_sortBy(preselectedAmountsData)[1]}`});
+            } else {
+                this.formData$.next({amount: `${preselectedAmountsData[0]}`});
+            }
         }
     }
 }
