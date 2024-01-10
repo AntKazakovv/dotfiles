@@ -198,9 +198,14 @@
 </ng-template>
 
 <ng-template #loader>
-    <div class="{{$class}}__nocontent">
-        <div wlc-loader></div>
+    <div *ngIf="$params.preloader?.use; else nocontent" class="{{$class}}__content">
+        <div wlc-preloader class="{{$class}}__list" [inlineParams]="$params.preloader.params"></div>
     </div>
+    <ng-template #nocontent>
+        <div class="{{$class}}__nocontent">
+            <div wlc-loader></div>
+        </div>
+    </ng-template>
 </ng-template>
 
 <ng-template #noItem let-img="img" let-text="text" let-description="description" let-button="button">

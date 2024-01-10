@@ -1,0 +1,161 @@
+.wlc-preloader--theme-default:host {
+
+    .wlc-preloader {
+
+        &__element {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+
+            &--color-first {
+                background: ef.get-value($themeDefault, 'colorFirst');
+
+                ::ng-deep {
+
+                    svg {
+                        fill: ef.get-value($themeDefault, 'colorFirst');
+                    }
+                }
+            }
+
+            &--color-second {
+                background: ef.get-value($themeDefault, 'colorSecond');
+
+                ::ng-deep {
+
+                    svg {
+                        fill: ef.get-value($themeDefault, 'colorSecond');
+                    }
+                }
+            }
+
+            &--color-third {
+                background: ef.get-value($themeDefault, 'colorThird');
+
+                ::ng-deep {
+
+                    svg {
+                        fill: ef.get-value($themeDefault, 'colorThird');
+                    }
+                }
+            }
+
+            &--block {
+                display: flex;
+                flex-direction: column;
+                gap: ef.get-value($themeDefault, 'blockGap');
+                align-items: center;
+                justify-content: space-evenly;
+
+                border-radius: ef.get-value($themeDefault, 'blockRadius');
+
+                &-footer {
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    gap: 45px;
+
+                    @include mq.max(560) {
+                        flex-direction: column;
+                        gap: 16px;
+                        border-radius: 0;
+                    }
+                }
+            }
+
+            &--line {
+                width: 5%;
+                min-width: 64px;
+                height: ef.get-value($themeDefault, 'lineHeight');
+                border-radius: ef.get-value($themeDefault, 'lineRadius');
+
+                &-footer {
+                    @include mq.max(560) {
+
+                        &:nth-child(odd) {
+                            min-width: 170px;
+                        }
+
+                        &:nth-child(even) {
+                            min-width: 250px;
+                        }
+                    }
+                }
+            }
+
+            &--title {
+                height: ef.get-value($themeDefault, 'titleHeight');
+                border-radius: ef.get-value($themeDefault, 'titleRadius');
+            }
+
+            &--circle {
+                width: ef.get-value($themeDefault, 'circleSize');
+                height: ef.get-value($themeDefault, 'circleSize');
+                border-radius: ef.get-value($themeDefault, 'circleRadius');
+            }
+
+            &--button {
+                width: ef.get-value($themeDefault, 'buttonWidth');
+                height: ef.get-value($themeDefault, 'buttonHeight');
+                border-radius: ef.get-value($themeDefault, 'buttonRadius');
+            }
+
+            &--icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                background: transparent;
+
+                ::ng-deep svg {
+                    width: 100%;
+                    height: 100%;
+                    animation: fade 1.5s infinite;
+                }
+            }
+
+            &--line,
+            &--title,
+            &--circle,
+            &--square,
+            &--button {
+
+                &:after {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    left: 0;
+                    z-index: 1;
+                    height: 100%;
+                    background: linear-gradient(90deg, ef.get-value($themeDefault, 'colorAnimationAside'), ef.get-value($themeDefault, 'colorAnimationCenter'), ef.get-value($themeDefault, 'colorAnimationAside'));
+                    transform: translateX(-100%);
+                    animation: loading 1.5s infinite;
+                }
+            }
+        }
+    }
+}
+
+@keyframes loading {
+
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes fade {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+        fill: ef.get-value($themeDefault, 'colorAnimation');
+    }
+}

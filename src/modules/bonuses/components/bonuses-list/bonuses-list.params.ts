@@ -14,6 +14,7 @@ import {
     BonusesFilterType,
 } from 'wlc-engine/modules/bonuses';
 import {TBonusSortOrder} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
+import {IPreloaderCParams} from 'wlc-engine/modules/core/components/preloader/preloader.params';
 
 export type Type = 'default' | 'swiper' | CustomType;
 export type Theme = 'active' | 'default' | 'partial' | 'promo' | 'promo-home' | 'reg-first' | 'wolf' | CustomType;
@@ -72,6 +73,12 @@ export interface IBonusesListCParams extends IComponentParams<Theme, Type, Theme
     placement?: TBonusesListPlacement;
     /** wlc-profile-no-content params */
     emptyInProfileConfig?: IWrapperCParams,
+    preloader?: {
+        /** use preloader or not */
+        use?: boolean;
+        /** wlc-preloader params */
+        params?: IPreloaderCParams;
+    }
 }
 
 export interface IBlankBonusParams {
@@ -135,5 +142,8 @@ export const defaultParams: IBonusesListCParams = {
                 },
             },
         ],
+    },
+    preloader: {
+        use: false,
     },
 };

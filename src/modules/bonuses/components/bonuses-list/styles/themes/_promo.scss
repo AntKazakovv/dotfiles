@@ -9,6 +9,149 @@
             display: grid;
             grid-template-columns: var(--wlc-bl-promo-grid-columns, 1fr);
             justify-items: center;
+
+            ::ng-deep {
+
+                .wlc-preloader__block--bonus {
+
+                    @include bm.get-mq-map('height', $preloaderPromo, 'elementHeight');
+                    flex-direction: row;
+                    gap: 0;
+
+                    &-mobile {
+                        gap: 0;
+
+                        .wlc-preloader__element--block {
+                            gap: 0;
+                            padding: ef.get-value($preloaderPromo, 'mobileBlockPadding');
+                            background: none;
+
+                            &:nth-child(1) {
+                                position: relative;
+
+                                .wlc-preloader__element--title {
+                                    width: ef.get-value($preloaderPromo, 'mobileTitleFirstWidth');
+                                    border-radius: ef.get-value($preloaderPromo, 'titleShortRadius');
+                                }
+
+                                .wlc-preloader__element--circle:nth-child(2) {
+                                    position: absolute;
+                                    top: ef.get-value($preloaderPromo, 'mobileBlockPadding');
+                                    right: ef.get-value($preloaderPromo, 'mobileBlockPadding');
+                                }
+
+                                .wlc-preloader__element--circle:nth-child(3) {
+                                    width: ef.get-value($preloaderPromo, 'circleSize');
+                                    height: ef.get-value($preloaderPromo, 'circleSize');
+                                    margin-top: ef.get-value($preloaderPromo, 'mobileCircleMargin');
+                                }
+                            }
+
+                            &:nth-child(2) {
+
+                                .wlc-preloader__element--title {
+                                    width: ef.get-value($preloaderPromo, 'mobileTitleSecondWidth');
+                                    height: ef.get-value($preloaderPromo, 'mobileTitleSecondHeight');
+                                }
+
+                                .wlc-preloader__element--button {
+                                    margin-top: ef.get-value($preloaderPromo, 'mobileButtonMargin');
+                                }
+                            }
+                        }
+
+                        @include mq.max(560) {
+                            width: ef.get-value($preloaderPromo, 'containerWidthSecond');
+                            height: ef.get-value($preloaderPromo, 'containerHeightSecond');
+                        }
+                    }
+
+                    .wlc-preloader__element--block {
+                        align-items: flex-start;
+                        justify-content: flex-start;
+                        height: 100%;
+                        border-radius: unset;
+
+                        &:nth-child(1) {
+                            gap: ef.get-value($preloaderPromo, 'elementsGap');
+                            width: ef.get-value($preloaderPromo, 'blockTextWidth');
+                            padding: ef.get-value($preloaderPromo, 'blockTextPadding');
+                            background: transparent;
+
+                            .wlc-preloader__element--title:nth-child(1) {
+                                width: ef.get-value($preloaderPromo, 'titleShortWidth');
+                                border-radius: ef.get-value($preloaderPromo, 'titleShortRadius');
+                                margin-bottom: ef.get-value($preloaderPromo, 'titleMarginBottom');
+                            }
+
+                            .wlc-preloader__element--title:nth-child(3) {
+                                width: ef.get-value($preloaderPromo, 'titleWidth');
+                                margin-bottom: ef.get-value($preloaderPromo, 'titleMarginBottom');
+                            }
+
+                            .wlc-preloader__element--line:nth-child(4) {
+                                width: ef.get-value($preloaderPromo, 'lineLongWidth');
+                            }
+
+                            .wlc-preloader__element--title:nth-child(2),
+                            .wlc-preloader__element--line:nth-child(5),
+                            .wlc-preloader__element--line:nth-child(6) {
+                                width: ef.get-value($preloaderPromo, 'lineWidth');
+                            }
+
+                            .wlc-preloader__element--button {
+                                margin-top: auto;
+                            }
+                        }
+
+                        &:nth-child(2) {
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: space-between;
+
+                            width: ef.get-value($preloaderPromo, 'blockImgWidth');
+                            padding: ef.get-value($preloaderPromo, 'blockImgPadding');
+
+                            .wlc-preloader__element--circle:nth-child(1) {
+                                width: ef.get-value($preloaderPromo, 'circleSize');
+                                height: ef.get-value($preloaderPromo, 'circleSize');
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &.wlc-bonuses-list--profile-type-first {
+
+            .wlc-bonuses-list__list {
+
+                ::ng-deep {
+
+                    .wlc-preloader__block--bonus-mobile {
+                        gap: 10px;
+
+                        .wlc-preloader__element--block {
+
+                            &:nth-child(1) {
+                                position: relative;
+                                justify-content: start;
+                                min-height: ef.get-value($preloaderPromo, 'mobileBlockHeight');
+                                background: ef.get-value($preloaderPromo, 'mobileBlockBackground');
+                                border-radius: ef.get-value($preloaderPromo, 'blockShortRadius');
+
+                                .wlc-preloader__element--circle:nth-child(3) {
+                                    display: none;
+                                }
+                            }
+                        }
+                        @include mq.max(560) {
+                            width: ef.get-value($preloaderPromo, 'containerWidthFirst');
+                            height: ef.get-value($preloaderPromo, 'containerHeightFirst');
+                        }
+                    }
+                }
+            }
         }
 
         .wlc-bonuses-list__nocontent {

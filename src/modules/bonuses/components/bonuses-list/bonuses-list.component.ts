@@ -172,7 +172,6 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, A
         this.setFilters();
         this.subscribeBonuses();
         this.setSubscription();
-        this.bonusBg;
     }
 
     public ngAfterViewInit(): void {
@@ -347,6 +346,9 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, A
         let modifiers: Params.Modifiers[] = [];
         if (this.$params.common?.customModifiers) {
             modifiers = _union(modifiers, this.$params.common.customModifiers.split(' '));
+        }
+        if (this.configService.get<string>('$base.profile.type') === 'first') {
+            modifiers.push('profile-type-first');
         }
         this.addModifiers(modifiers);
 

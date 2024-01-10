@@ -113,6 +113,7 @@ import {TooltipComponent} from './components/tooltip/tooltip.component';
 import {WlcModalComponent} from './components/modal';
 import {WlcNoContentComponent} from './components/no-content/no-content.component';
 import {WlcPaginationComponent} from './components/pagination/pagination.component';
+import {PreloaderComponent} from './components/preloader/preloader.component';
 import {WrapperComponent} from 'wlc-engine/modules/core/components';
 import {ThemeTogglerComponent} from './components/theme-toggler/theme-toggler.component';
 import {AlertComponent} from './components/alert/alert.component';
@@ -156,7 +157,6 @@ import {interceptors} from 'wlc-engine/modules/core/system/interceptors/intercep
 import {HlSubstrPipe} from './pipes/hlsubstr.pipe';
 import {SafeValuePipe} from './pipes/safe-value.pipe';
 import {TruncatePipe} from './pipes/truncate.pipe';
-import {ProxyStaticUrlPipe} from './pipes/proxy-static-url.pipe';
 //  -- PIPES IMPORTS END  --;
 
 //  -- CONFIGS IMPORTS STARTS--;
@@ -215,6 +215,7 @@ export const components = {
     'wlc-no-content': WlcNoContentComponent,
     'wlc-pagination': WlcPaginationComponent,
     'wlc-promocode-link': PromocodeLinkComponent,
+    'wlc-preloader': PreloaderComponent,
     'wlc-radio-buttons': RadioButtonsComponent,
     'wlc-scroll-up': ScrollUpComponent,
     'wlc-rating': RatingComponent,
@@ -359,7 +360,7 @@ export const services = {
         NotificationThreadComponent,
         ParallaxMovementDirective,
         PromocodeLinkComponent,
-        ProxyStaticUrlPipe,
+        PreloaderComponent,
         RadioButtonsComponent,
         RatingComponent,
         ScrollbarComponent,
@@ -445,7 +446,7 @@ export const services = {
         NgTemplateNameDirective,
         ParallaxMovementDirective,
         PromocodeLinkComponent,
-        ProxyStaticUrlPipe,
+        PreloaderComponent,
         RadioButtonsComponent,
         RatingComponent,
         ScrollbarComponent,

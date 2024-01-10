@@ -1,3 +1,4 @@
+import {IPreloaderCParams} from 'wlc-engine/modules/core/components/preloader/preloader.params';
 import {IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
 
@@ -39,10 +40,18 @@ export interface IPostMenuCParams extends IComponentParams<Theme, Type, ThemeMod
     /** css media breakpoints for use menu as html list */
     asListBp: string;
     /** base params for wlc-menu component */
-    menuParams: MenuParams.IMenuCParams,
+    menuParams: MenuParams.IMenuCParams;
+    preloader?: {
+        /** use preloader or not */
+        use?: boolean;
+        /** base params for wlc-preloader component */
+        params?: IPreloaderCParams;
+    }
 }
 
 export const defaultParams: IPostMenuCParams = {
+    moduleName: 'menu',
+    componentName: 'wlc-post-menu',
     class: 'wlc-post-menu',
     common: {
         useSlider: false,
@@ -81,5 +90,8 @@ export const defaultParams: IPostMenuCParams = {
                 },
             },
         },
+    },
+    preloader: {
+        use: false,
     },
 };

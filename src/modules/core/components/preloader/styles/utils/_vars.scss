@@ -1,0 +1,27 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'colorFirst': var(--mc-bg500),  //  element
+    'colorSecond': var(--mc-bg700), //  block | element's color for block №2?
+    'colorThird': var(--mc-bg300),  //  block №2
+
+    'colorAnimation': var(--mc-bg100),
+    'colorAnimationAside': var(--mc-bg100-o0),
+    'colorAnimationCenter': var(--mc-bg100-o2),
+
+    'lineHeight': 6px,
+    'lineRadius': ef.size(20),
+
+    'titleHeight': ef.size(4),
+    'titleRadius': ef.size(1),
+
+    'circleSize': 20px,
+    'circleRadius': 100%,
+
+    'buttonWidth': ef.size(22),
+    'buttonHeight': ef.size(8),
+    'buttonRadius': ef.size(2),
+
+    'blockRadius': ef.size(2),
+    'blockGap': ef.size(2),
+
+), $customThemeDefault);

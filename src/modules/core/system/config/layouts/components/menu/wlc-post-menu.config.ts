@@ -21,6 +21,21 @@ export namespace wlcPostMenu {
                     useSwiper: true,
                 },
             },
+            preloader: {
+                params: {
+                    block: {
+                        type: 'block',
+                        customClass: 'wlc-preloader__element--block-footer',
+                        elements: [
+                            {
+                                type: 'line',
+                                customClass: 'wlc-preloader__element--line-footer',
+                                amount: 5,
+                            },
+                        ],
+                    },
+                },
+            },
         },
     };
 

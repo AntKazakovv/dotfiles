@@ -1,0 +1,42 @@
+<div *ngIf="block.elements && !block.noContainer; else content"
+     [ngStyle]="block.styles"
+     class="{{$class}}__element
+            {{$class}}__element--block
+            {{$class}}__element--colorSecond
+            {{block.customClass}}"
+     >
+    <ng-container *ngTemplateOutlet="elements; context: {$implicit: block.elements}"></ng-container>
+</div>
+
+<ng-template #content>
+    <ng-container *ngTemplateOutlet="elements; context: {$implicit: block.elements}"></ng-container>
+</ng-template>
+
+<ng-template #elements let-data>
+   <div *ngFor="let item of data"
+        [class]="item.customClass"
+        [ngStyle]="item.styles"
+        [attr.equalsize]="item.equalSize"
+        #element>
+        <ng-container [ngSwitch]="item.type">
+            <ng-container *ngSwitchCase="'block'">
+                <ng-container *ngTemplateOutlet="elements; context: {$implicit: item.elements}"></ng-container>
+            </ng-container>
+            <ng-container *ngSwitchCase="'icon'">
+                <ng-container *ngTemplateOutlet="icon; context: {$implicit: item}"></ng-container>
+            </ng-container>
+            <ng-container  *ngSwitchDefault [ngTemplateOutlet]="blank">
+            </ng-container>
+        </ng-container>
+   </div>
+</ng-template>
+
+<ng-template #blank>
+</ng-template>
+
+<ng-template #icon let-data>
+    <div wlc-icon
+         [ngStyle]="data.styles"
+         iconPath="/wlc/icons/{{data.iconName}}.svg">
+    </div>
+</ng-template>

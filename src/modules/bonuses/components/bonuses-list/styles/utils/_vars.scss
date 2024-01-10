@@ -289,3 +289,47 @@ $noBonusItem: map-merge((
         375: 0 0 ef.size(3),
     ),
 ), $customNoBonusItem);
+
+
+$customPreloaderPromo: () !default;
+$preloaderPromo: map-merge((
+    'blockTextWidth': 57%,
+    'blockTextPadding': ef.size(4) ef.size(8),
+    'blockImgWidth': 43%,
+    'blockImgPadding': ef.size(4),
+
+    'titleMarginBottom': ef.size(6),
+    'titleShortWidth': 20%,
+    'titleShortRadius': 100px,
+    'blockShortRadius': 10px 10px 0 0,
+    'titleWidth': 44%,
+
+    'lineWidth': 66%,
+    'lineLongWidth': 77%,
+
+    'circleSize': 128px,
+
+    'elementHeight': (
+        320: 350px,
+        560: 250px,
+        720: 380px,
+        1200: 280px,
+        1630: 380px,
+    ),
+
+    'elementsGap': ef.size(3),
+
+    'mobileBlockPadding': ef.size(4),
+    'mobileBlockBackground': var(--mc-bg500),
+    'mobileBlockHeight': 220px,
+    'mobileTitleFirstWidth': 80px,
+    'mobileCircleMargin': 20px,
+    'mobileTitleSecondWidth': 200px,
+    'mobileTitleSecondHeight': 16px,
+    'mobileButtonMargin': 40px,
+
+    'containerWidthFirst': 315px,
+    'containerHeightFirst': 370px,
+    'containerWidthSecond': 315px,
+    'containerHeightSecond': 350px,
+), $customPreloaderPromo);
