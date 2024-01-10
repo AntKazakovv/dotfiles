@@ -82,7 +82,11 @@ export class StepsComponent extends AbstractComponent implements OnInit {
 
         this.stepList = this.prepareSteps();
 
-        this.currentStep = this.getStepParamByName(this.$params.startStepName)
+        const startStepName: string = this.configService.get('promoCode')
+            ? this.$params.promoStepName
+            : this.$params.startStepName;
+
+        this.currentStep = this.getStepParamByName(startStepName)
             || this.getStepParamByName(this.$params.stepsNames[0]);
 
         this.setStepsCounters();

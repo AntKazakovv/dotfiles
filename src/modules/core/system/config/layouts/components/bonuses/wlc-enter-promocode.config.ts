@@ -3,16 +3,10 @@ import {ILayoutComponent} from 'wlc-engine/modules/core';
 export namespace wlcEnterPromocode {
     export const def: ILayoutComponent = {
         name: 'bonuses.wlc-enter-promocode',
-        display: {
-            auth: true,
-        },
     };
 
     export const hideTitle: ILayoutComponent = {
         name: 'bonuses.wlc-enter-promocode',
-        display: {
-            auth: true,
-        },
         params: {
             theme: 'clear',
             common: {
@@ -24,7 +18,6 @@ export namespace wlcEnterPromocode {
     export const hideTitleV1: ILayoutComponent = {
         name: 'bonuses.wlc-enter-promocode',
         display: {
-            auth: true,
             after: 560,
         },
         params: {
@@ -37,9 +30,6 @@ export namespace wlcEnterPromocode {
 
     export const wolf: ILayoutComponent = {
         name: 'bonuses.wlc-enter-promocode',
-        display: {
-            auth: true,
-        },
         params: {
             theme: 'wolf',
             common: {

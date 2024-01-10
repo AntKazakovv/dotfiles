@@ -216,4 +216,23 @@ export abstract class UserActionsAbstract<T> extends AbstractComponent implement
         const formValues = this.configService.get<IRegFormDataForConfig>('regFormData');
         this.formData = new BehaviorSubject(formValues?.form?.data);
     }
+
+    protected setPromocode(formData: IIndexing<unknown>): IIndexing<unknown> {
+        const promocode: string = this.configService.get('promoCode');
+
+        if (!promocode) {
+            return formData;
+        }
+
+        const newFormData = {
+            ...formData,
+            'registrationPromoCode': promocode,
+        };
+        this.configService.set({
+            name: 'promoCode',
+            value: null,
+        });
+
+        return newFormData;
+    }
 }

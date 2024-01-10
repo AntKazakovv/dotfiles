@@ -14,6 +14,7 @@ export interface IEnterPromocodeCParams extends IComponentParams<Theme, Type, st
         showDescription: boolean,
         placeholder: string,
         btnIconPath: string,
+        signupModalName: string,
     };
 }
 
@@ -27,5 +28,6 @@ export const defaultParams: IEnterPromocodeCParams = {
         showDescription: false,
         placeholder: gettext('Enter promo code'),
         btnIconPath: '/wlc/icons/enter-arrow.svg',
+        signupModalName: 'signup',
     },
 };

@@ -154,6 +154,8 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
             }
         }
 
+        this.$params.formData = this.setPromocode(this.$params.formData);
+
         if (this.$params.formData) {
             this.formData = new BehaviorSubject(this.$params.formData);
         }

@@ -42,6 +42,7 @@ export interface IStepsParams extends IComponentParams<Theme, Type, ThemeMod> {
     stepsNames: string[],
     stepsConfig?: IIndexing<IStepConfig>,
     startStepName: string,
+    promoStepName: string,
     stepsConfigFirst?: IIndexing<IStepConfig>,
     stepsConfigWithoutBonus?: IIndexing<IStepConfig>,
 }
@@ -255,6 +256,7 @@ export const defaultParams: IStepsParams = {
     theme: 'signInUp',
     stepsNames: ['signUpBonuses', 'signUpForm'],
     startStepName: 'signUpBonuses',
+    promoStepName: 'signUpForm',
     stepsConfig: {
         'signUpBonuses': {
             name: 'core.wlc-wrapper',

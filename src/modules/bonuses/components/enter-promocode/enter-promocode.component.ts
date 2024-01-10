@@ -89,6 +89,11 @@ export class EnterPromocodeComponent extends AbstractComponent implements OnInit
             return;
         }
 
+        if (!this.configService.get<boolean>('$user.isAuthenticated')) {
+            this.nonAuthSubmit(promocode);
+            return;
+        }
+
         try {
             this.pending$.next(true);
 
@@ -135,5 +140,14 @@ export class EnterPromocodeComponent extends AbstractComponent implements OnInit
                 wlcElement: 'notification_promocode-error',
             },
         });
+    }
+
+    protected nonAuthSubmit(promocode: string): void {
+        this.configService.set({
+            name: 'promoCode',
+            value: promocode,
+        });
+
+        this.modalService.showModal(this.$params.common.signupModalName);
     }
 }
