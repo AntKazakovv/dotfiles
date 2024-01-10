@@ -1,0 +1,62 @@
+.wlc-subscriptions-modal--theme-default:host {
+
+    .wlc-subscriptions-modal {
+
+        &__container {
+            padding: ef.get-value($themeDefault, 'containerPadding');
+        }
+
+        &__title {
+            @include text.get-text-style(ef.get-value($themeDefault, 'titleFontSize', 320), ef.get-value($themeDefault, 'titleColor'));
+            @include bm.get-mq-map('padding', $themeDefault, 'titlePadding');
+            margin: ef.get-value($themeDefault, 'titleMargin');
+            text-align: ef.get-value($themeDefault, 'titleAlign');
+
+            @include mq.min(768) {
+                @include text.get-text-style(ef.get-value($themeDefault, 'titleFontSize', 768));
+            }
+        }
+
+        &__item {
+            display: ef.get-value($themeDefault, 'itemDisplay');
+            grid-template-areas: ef.get-value($themeDefault, 'itemAreas');
+            grid-template-columns: ef.get-value($themeDefault, 'itemColumns');
+            align-items: ef.get-value($themeDefault, 'itemAlign');
+            margin-bottom: ef.get-value($themeDefault, 'itemMarginBottom');
+
+            &-title {
+                grid-area: ef.get-value($themeDefault, 'titleArea');
+
+                &-main {
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'titleMainTextStyle'),
+                        ef.get-value($themeDefault, 'titleMainColor')
+                    );
+                    margin: ef.get-value($themeDefault, 'titleMainMargin');
+                }
+            }
+
+            &-switcher {
+                grid-area: ef.get-value($themeDefault, 'switcherArea');
+
+                .wlc-checkbox--theme-default {
+
+                    &.wlc-checkbox--type-toggle {
+
+                        ::ng-deep {
+
+                            .wlc-checkbox__label {
+                                flex-direction: ef.get-value($themeDefault, 'labelDirection');
+                                padding: ef.get-value($themeDefault, 'switcherPadding');
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &__btn {
+            margin: ef.get-value($themeDefault, 'btnMargin');
+        }
+    }
+}

@@ -12,10 +12,10 @@ import {BehaviorSubject} from 'rxjs';
 import {
     takeUntil,
     first,
-    distinct,
     filter,
     map,
     distinctUntilChanged,
+    distinctUntilKeyChanged,
 } from 'rxjs/operators';
 
 import {
@@ -42,6 +42,8 @@ import {UserHelper} from 'wlc-engine/modules/user/system/helpers/user.helper';
 
 import * as Params from './profile-blocks.params';
 
+type TFieldName = 'emailAgree' | 'smsAgree';
+
 @Component({
     selector: '[wlc-profile-blocks]',
     templateUrl: './profile-blocks.component.html',
@@ -51,14 +53,8 @@ import * as Params from './profile-blocks.params';
 export class ProfileBlocksComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IProfileBlocksCParams;
     public override $params: Params.IProfileBlocksCParams;
-    public toggleBtn: ICheckboxCParams = {
-        name: 'notification',
-        theme: 'toggle',
-        control: new UntypedFormControl(),
-        onChange: (checked: boolean): void => {
-            this.notificationToggle(checked);
-        },
-    };
+    public toggleEmailBtn: ICheckboxCParams = this.generateToggleBtn('notification-email', 'emailAgree');
+    public toggleSmsBtn: ICheckboxCParams = this.generateToggleBtn('notification-sms', 'smsAgree');
     public isDefaultUser: boolean = false;
     public use2FAGoogle: boolean = false;
     public get ready(): boolean {
@@ -96,11 +92,21 @@ export class ProfileBlocksComponent extends AbstractComponent implements OnInit 
         this.isDefaultUser = this.userService.userProfile.type === 'default';
 
         this.userService.userProfile$.pipe(
-            distinct((profile: UserProfile): boolean => profile.emailAgree),
+            filter((profile: UserProfile): boolean => !!profile),
+            distinctUntilKeyChanged('emailAgree'),
             takeUntil(this.$destroy),
         ).subscribe((profile: UserProfile): void => {
-            this.toggleBtn.control.setValue(profile.emailAgree);
+            this.toggleEmailBtn.control.setValue(profile.emailAgree);
         });
+
+        this.userService.userProfile$.pipe(
+            filter((profile: UserProfile): boolean => !!profile),
+            distinctUntilKeyChanged('smsAgree'),
+            takeUntil(this.$destroy),
+        ).subscribe((profile: UserProfile): void => {
+            this.toggleSmsBtn.control.setValue(profile.smsAgree);
+        });
+
         this.use2FAGoogle = this.configService.get<boolean>('appConfig.siteconfig.Enable2FAGoogle');
         if (this.use2FAGoogle) {
             this.twoFactorAuthService = await this.injectionService
@@ -169,15 +175,10 @@ export class ProfileBlocksComponent extends AbstractComponent implements OnInit 
      *
      * @param checked {boolean}
      */
-    protected async notificationToggle(checked: boolean): Promise<void> {
+    protected async notificationToggle(fieldName: TFieldName, checked: boolean): Promise<void> {
         try {
             await this.userService.updateProfile({
-                // for wlc_core old versions
-                extProfile: {
-                    dontSendEmail: !checked,
-                    sendEmail: checked,
-                },
-                emailAgree: checked,
+                [fieldName]: checked,
             }, {updatePartial: true});
         } catch (error) {
             this.eventService.emit({
@@ -242,5 +243,16 @@ export class ProfileBlocksComponent extends AbstractComponent implements OnInit 
             this.enabled2FAGoogle = enabled2FAGoogle;
             this.setLockLink(false);
         });
+    }
+
+    protected generateToggleBtn(toggleName: string, fieldName: TFieldName): ICheckboxCParams {
+        return {
+            name: toggleName,
+            theme: 'toggle',
+            control: new UntypedFormControl(),
+            onChange: (checked: boolean): void => {
+                this.notificationToggle(fieldName, checked);
+            },
+        };
     }
 }

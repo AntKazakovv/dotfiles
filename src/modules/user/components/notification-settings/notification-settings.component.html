@@ -1,0 +1,11 @@
+<div class="{{$class}}__title">
+    {{'Notification settings' | translate}}
+</div>
+<div class="{{$class}}__btn-block">
+    <button wlc-button
+        text="Change"
+        typeAttr="button"
+        [disabled]="lockButton"
+        (click)="showModalSubscription()">
+    </button>
+</div>

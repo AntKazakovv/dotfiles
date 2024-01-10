@@ -10,14 +10,8 @@
             mainText="{{'Subscriptions' | translate}}"
             mainTag="span"
         ></div>
-        <div class="{{$class}}__item {{$class}}__item--notification" data-wlc-element="block_subscriptions">
-            <div class="{{$class}}__item-title">
-                <div class="{{$class}}__item-title-main">{{'Notifications via e-mail' | translate}}</div>
-            </div>
-            <div class="{{$class}}__item-switcher">
-                <div wlc-checkbox [inlineParams]="toggleBtn"></div>
-            </div>
-        </div>
+        <ng-container [ngTemplateOutlet]="emailAgree"></ng-container>
+        <ng-container [ngTemplateOutlet]="smsAgree"></ng-container>
     </div>
 
     <div class="{{$class}}__block">
@@ -94,14 +88,8 @@
 
 <ng-template #wolf>
     <div class="{{$class}}__block">
-        <div class="{{$class}}__item {{$class}}__item--notification" data-wlc-element="block_subscriptions">
-            <div class="{{$class}}__item-title">
-                <div class="{{$class}}__item-title-main">{{'Notifications via e-mail' | translate}}</div>
-            </div>
-            <div class="{{$class}}__item-switcher">
-                <div wlc-checkbox [inlineParams]="toggleBtn"></div>
-            </div>
-        </div>
+        <ng-container [ngTemplateOutlet]="emailAgree"></ng-container>
+        <ng-container [ngTemplateOutlet]="smsAgree"></ng-container>
 
         <div *ngIf="isDefaultUser"
             class="{{$class}}__item"
@@ -182,4 +170,26 @@
         typeAttr="button"
         (click)="openModalDisable2FA()">
     </button>
+</ng-template>
+
+<ng-template #emailAgree>
+    <div class="{{$class}}__item {{$class}}__item--notification" data-wlc-element="block_subscription-mail">
+        <div class="{{$class}}__item-title">
+            <div class="{{$class}}__item-title-main">{{'Notifications via e-mail' | translate}}</div>
+        </div>
+        <div class="{{$class}}__item-switcher">
+            <div wlc-checkbox [inlineParams]="toggleEmailBtn"></div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #smsAgree>
+    <div class="{{$class}}__item {{$class}}__item--notification" data-wlc-element="block_subscription-sms">
+        <div class="{{$class}}__item-title">
+            <div class="{{$class}}__item-title-main">{{'Notifications via SMS' | translate}}</div>
+        </div>
+        <div class="{{$class}}__item-switcher">
+            <div wlc-checkbox [inlineParams]="toggleSmsBtn"></div>
+        </div>
+    </div>
 </ng-template>

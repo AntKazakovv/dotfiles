@@ -14,8 +14,8 @@ import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements'
 import {ProhibitedPatterns} from 'wlc-engine/modules/core/constants/regexp.constants';
 import {ITwoFactorAuthProfileBlockCParams} from 'wlc-engine/modules/user/submodules/two-factor-auth/';
 import {
-    IEmailSubscriptionProfileBlockCParams,
-} from 'wlc-engine/modules/user/components/email-subscription-profile-block/email-subscription-profile-block.params';
+    INotificationSettingsCParams,
+} from 'wlc-engine/modules/user/components/notification-settings/notification-settings.params';
 
 import _cloneDeep from 'lodash-es/cloneDeep';
 
@@ -205,8 +205,8 @@ export namespace wlcProfileForm {
                                 },
                             },
                             {
-                                name: 'user.wlc-email-subscription-profile-block',
-                                params: <IEmailSubscriptionProfileBlockCParams>{},
+                                name: 'user.wlc-notification-settings',
+                                params: <INotificationSettingsCParams>{},
                             },
                         ],
                     },

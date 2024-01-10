@@ -1,0 +1,23 @@
+.wlc-notification-settings--theme-default:host {
+    @include bm.get-mq-map('margin', $themeDefault, 'margin');
+    @include bm.get-mq-map('grid-template-columns', $themeDefault, 'gridColumns');
+    display: grid;
+    align-items: ef.get-value($themeDefault, 'alignItems');
+    width: 100%;
+    padding: ef.get-value($themeDefault, 'padding');
+
+    .wlc-notification-settings {
+
+        &__title {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'titleTextStyle'),
+                ef.get-value($themeDefault, 'titleColor')
+            );
+            @include bm.get-mq-map('margin', $themeDefault, 'titleMargin');
+        }
+
+        &__btn-block {
+            @include bm.get-mq-map('justify-self', $themeDefault, 'btnBlockJustifySelf');
+        }
+    }
+}

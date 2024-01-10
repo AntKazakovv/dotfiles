@@ -28,6 +28,7 @@
             &--notification {
                 grid-row-gap: ef.get-value($themeDefault, 'notifGap');
                 grid-template-columns: ef.get-value($themeDefault, 'notifColumns');
+                align-items: ef.get-value($themeDefault, 'notifAlignItems');
 
                 .wlc-profile-blocks {
 

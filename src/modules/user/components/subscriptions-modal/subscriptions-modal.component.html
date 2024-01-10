@@ -1,0 +1,27 @@
+<div class="{{$class}}__container">
+    <div class="{{$class}}__title">{{$params.title | translate}}</div>
+
+    <div class="{{$class}}__item">
+        <div class="{{$class}}__item-title">
+            <div class="{{$class}}__item-title-main">{{$params.emailText | translate}}</div>
+        </div>
+        <div class="{{$class}}__item-switcher">
+            <div wlc-checkbox [inlineParams]="toggleEmailBtn"></div>
+        </div>
+    </div>
+
+    <div class="{{$class}}__item">
+        <div class="{{$class}}__item-title">
+            <div class="{{$class}}__item-title-main">{{$params.smsText | translate}}</div>
+        </div>
+        <div class="{{$class}}__item-switcher">
+            <div wlc-checkbox [inlineParams]="toggleSmsBtn"></div>
+        </div>
+    </div>
+
+    <button
+        wlc-button
+        class="{{$class}}__btn"
+        [text]="$params.btnText"
+        (click)="onConfirm()"></button>
+</div>
