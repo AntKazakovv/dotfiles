@@ -144,6 +144,34 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
         }
     }
 
+    protected getUserBalance(): number {
+        if (this.userStats?.displayConsolidatedBalanceToStreamer) {
+            return Number(this.shownUserStats.balance?.value) + Number(this.shownUserStats.bonusBalance?.value);
+        } else {
+            return Number(this.shownUserStats.balance?.value);
+        }
+    }
+
+    protected getUserBonusBalance(): number {
+        if (this.userStats?.displayConsolidatedBalanceToStreamer) {
+            return 0;
+        } else {
+            return Number(this.shownUserStats.bonusBalance?.value);
+        }
+    }
+
+    protected getBalanceValueByField(field: string): number {
+        if (field === 'balance') {
+            return this.getUserBalance();
+        }
+
+        if (field === 'bonusBalance') {
+            return this.getUserBonusBalance();
+        }
+
+        return Number(this.shownUserStats[field]?.value);
+    }
+
     private fillUserStatsFields(): void {
         const shownUserStats: IIndexing<IUserStatsItem> = {};
         _each(this.$params.fields, (field) => {

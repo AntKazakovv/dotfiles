@@ -420,4 +420,8 @@ export class UserInfo extends AbstractModel<IUserInfo> {
             return acc;
         }, []);
     }
+
+    public get displayConsolidatedBalanceToStreamer(): boolean {
+        return this.data?.displayConsolidatedBalanceToStreamer;
+    };
 }

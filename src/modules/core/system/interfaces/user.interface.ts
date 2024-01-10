@@ -65,6 +65,7 @@ export interface IUserInfo {
     allowAccessToAddStreamWheel?: boolean;
     streamWheelOwner?: number;
     streamWheelsParticipant?: number[];
+    displayConsolidatedBalanceToStreamer?: boolean;
 }
 
 export interface IUserProfile {
