@@ -37,9 +37,9 @@ button.wlc-user-icon--theme-avatar:host {
         @include bm.get-mq-map('height', $themeAvatar, 'btnHeight');
         @include bm.transition;
 
-        min-width: ef.get-value($themeAvatar, 'btnMinWidth');
-        padding: ef.get-value($themeAvatar, 'btnPadding');
-        border-radius: ef.get-value($themeAvatar, 'btnRadius');
+        min-width: ef.get-value($themeAvatar, 'profileBtnMinWidth');
+        padding: ef.get-value($themeAvatar, 'profileBtnPadding');
+        border-radius: ef.get-value($themeAvatar, 'profileBtnRadius');
         background-color: ef.get-value($themeAvatar, 'profileBtnBg');
 
         ::ng-deep {
@@ -57,18 +57,27 @@ button.wlc-user-icon--theme-avatar:host {
             }
 
             .wlc-icon {
-                @include hoverBefore($themeAvatar);
-
                 position: relative;
                 width: ef.get-value($themeAvatar, 'iconWidth');
                 height: ef.get-value($themeAvatar, 'iconHeight');
                 color: ef.get-value($themeAvatar, 'iconFill');
-                border-radius: ef.get-value($themeAvatar, 'btnRadius');
+                border-radius: ef.get-value($themeAvatar, 'profileBtnRadius');
                 background-color: ef.get-value($themeAvatar, 'iconBg');
 
                 svg,
                 path {
                     fill: currentColor;
+                }
+
+                &:before {
+                    @include bm.absoluteCentering();
+                    @include bm.transition(opacity);
+                    content: '';
+                    width: 100%;
+                    height: 100%;
+                    background: ef.get-value($themeAvatar, 'btnBgHover');
+                    border-radius: ef.get-value($themeAvatar, 'profileBtnRadius');
+                    opacity: 0;
                 }
             }
         }

@@ -30,7 +30,7 @@ $themeDefault: map-merge((
         375: 'CaptionTextBold',
         1200:'ButtonText',
     ),
-    'dropdownBorderRadius': ef.get('radius', 'biger'),
+    'dropdownBorderRadius': ef.get('buttonSettings', 'borderRadiusDefault'),
     'dropdownBorderRadiusRounding': ef.get('radius', 'large'),
     'dropdownArrowMargin': 0 0 0 ef.size(1),
     'dropdownArrowFill': var(--fc-arrowColor),
@@ -52,7 +52,7 @@ $themeDefault: map-merge((
 
     // finance text style
     'dropdownNameFontStyle': 'ThirdTitleBold',
-    'dropdownBg': var(--mc-bg700),
+    'dropdownBg': var(--mc-bg500),
 
     'contentTop': (
         375: calc(100%),

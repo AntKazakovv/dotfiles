@@ -166,9 +166,12 @@
             border-radius: ef.get-value($themeDefault, 'balanceRadiusMobile');
 
             .wlc-btn--deposit {
+                width: ef.get-value($themeDefault, 'btnSizeMobile');
+                height: ef.get-value($themeDefault, 'btnSizeMobile');
                 margin: ef.get-value($themeDefault, 'btnMarginMobile');
                 border-radius: ef.get-value($themeDefault, 'btnRadiusMobile');
-                background: none;
+                color: ef.get-value($themeDefault, 'btnColorMobile');
+                background: ef.get-value($themeDefault, 'btnBgMobile');
             }
         }
 

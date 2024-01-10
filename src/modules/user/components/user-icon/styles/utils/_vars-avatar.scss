@@ -2,13 +2,14 @@ $customThemeAvatar: () !default;
 $themeAvatar: map-merge((
     'btnSize': 40px,
     'btnBg': ef.get('buttonSettings', 'background'),
-    'btnBgHover': var(--mc-baseThird, var(--mc-baseMain-locked)),
+    'btnBgHover': var(--mc-baseThird-locked, var(--mc-baseMain-locked)),
     'btnRadius': ef.get('buttonSettings', 'borderRadiusDefault'),
     'btnBorder': ef.get('buttonSettings', 'borderDefault'),
     'btnShadow': ef.get('buttonSettings', 'shadow'),
     'btnHeight': ef.get('buttonSettings', 'heightDefault'),
-    'btnMinWidth': 147px,
-    'btnPadding': 0 ef.size(5) 0 0,
+    'profileBtnMinWidth': 147px,
+    'profileBtnPadding': 0 ef.size(5) 0 0,
+    'profileBtnRadius': ef.get('radius', 'biger'),
     'profileBtnBg': var(--mc-bg500),
     'btnFont': 'ButtonText',
     'btnFontColor': ef.get('buttonSettings', 'fontColorSecondary'),
@@ -18,14 +19,14 @@ $themeAvatar: map-merge((
     'btnJustifyContent': flex-end,
     'iconWidth': 40px,
     'iconHeight': 40px,
-    'iconFill': var(--mc-baseThird, var(--mc-baseMain-locked)),
-    'iconBg' : var(--mc-buttonColor),
+    'iconFill': var(--mc-baseThird-locked, var(--mc-baseMain-locked)),
+    'iconBg': var(--mc-buttonColor),
     'profileBtnBgHover': var(--mc-bg300),
 ), $customThemeAvatar);
 
 $customThemeWolf: () !default;
 $themeWolf: map-merge((
-    'iconFill': var(--mc-baseThird, var(--mc-baseMain-locked)),
+    'iconFill': var(--mc-baseThird-locked, var(--mc-baseMain-locked)),
     'btnSize': 40px,
     'btnBg': ef.get('buttonSettings', 'background'),
     'btnBgHover': var(--mc-black-o2),

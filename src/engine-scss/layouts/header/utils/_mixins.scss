@@ -29,7 +29,8 @@
         }
 
         .wlc-btn--deposit {
-            background-color: ef.get-value($theme, 'headerDepositBtnFill');
+            color: ef.get-value($theme, 'headerDepositBtnColor');
+            background-color: ef.get-value($theme, 'headerDepositBtnBg');
         }
     }
 
@@ -158,15 +159,6 @@
             margin: ef.get-value($theme, 'headerDepositBtnMargin');
             border-radius: ef.get-value($theme, 'headerDepositBtnRadius');
 
-            svg {
-                fill: ef.get-value($theme, 'headerDepositBtnFill');
-
-                path,
-                rect {
-                    fill: ef.get-value($theme, 'headerDepositBtnInnerFillColor');
-                }
-            }
-
             &.wlc-wallets__btn-deposit {
                 width: ef.get-value($theme, 'headerMultiWalletDepositIconSize');
                 height: ef.get-value($theme, 'headerMultiWalletDepositIconSize');
@@ -178,7 +170,6 @@
 
                 svg {
                     width: ef.get-value($theme, 'headerMultiWalletDepositIconSize');
-                    fill: ef.get-value($theme, 'headerMultiWalletDepositBtnFill');
                 }
             }
         }

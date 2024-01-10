@@ -160,15 +160,6 @@
             &--deposit {
                 margin: ef.get-value($theme, 'headerDepositBtnMargin');
                 border-radius: ef.get-value($theme, 'headerDepositBtnRadius');
-
-                svg {
-                    fill: ef.get-value($theme, 'headerDepositBtnFill');
-
-                    path,
-                    rect {
-                        fill: ef.get-value($theme, 'headerDepositBtnInnerFillColor');
-                    }
-                }
             }
 
             &--user {
@@ -304,15 +295,6 @@
                     svg {
                         width: ef.get-value($theme, 'withBalanceBurgerSvgSize');
                         height: ef.get-value($theme, 'withBalanceBurgerSvgSize');
-                    }
-                }
-
-                .wlc-btn--deposit,
-                .wlc-btn--user {
-
-                    svg {
-                        width: ef.get-value($theme, 'withBalanceBtnSvgSize');
-                        height: ef.get-value($theme, 'withBalanceBtnSvgSize');
                     }
                 }
             }

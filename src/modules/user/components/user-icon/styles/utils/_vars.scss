@@ -16,7 +16,7 @@ $themeDefault: map-merge((
     'iconWidth': ef.size(5),
     'iconHeight': ef.size(5),
     'iconFill': var(--mc-secondary),
-    'iconInnerFill': var(--mc-baseMain),
+    'iconInnerFill': var(--mc-baseMain-locked),
 
     'profileBtnHeight': ef.get('buttonSettings', 'heightDefault'),
     'profileBtnMinWidth': 145px,

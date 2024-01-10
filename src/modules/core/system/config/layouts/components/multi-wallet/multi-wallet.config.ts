@@ -23,22 +23,17 @@ export namespace wlcMultiWallet {
                     },
                 },
                 {
-                    name: 'core.wlc-button',
+                    name: 'user.wlc-user-icon',
                     display: {
                         auth: true,
                         before: 1199,
                     },
                     params: {
-                        theme: 'cleared',
-                        themeMod: 'secondary',
-                        customMod: 'user',
-                        common: {
-                            iconPath: '/wlc/icons/user-icon.svg',
-                            event: {
-                                name: 'PANEL_OPEN',
-                                data: 'right',
-                            },
+                        event: {
+                            name: 'PANEL_OPEN',
+                            data: 'right',
                         },
+                        showAsBtn: true,
                     },
                 },
             ],

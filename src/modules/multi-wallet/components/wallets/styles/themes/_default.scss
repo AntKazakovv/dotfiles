@@ -102,7 +102,7 @@ $selector: '.wlc-wallets';
                 --wlc-icon-width: #{ef.get-value($themeDefault, 'arrowIconSize')};
                 --wlc-icon-height: #{ef.get-value($themeDefault, 'arrowIconSize')};
 
-                @include bm.transition(transform);
+                @include bm.transition();
                 margin: ef.get-value($themeDefault, 'dropdownArrowMargin');
                 color: ef.get-value($themeDefault, 'dropdownArrowFill');
 
