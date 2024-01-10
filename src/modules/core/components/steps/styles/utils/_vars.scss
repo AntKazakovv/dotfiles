@@ -78,6 +78,10 @@ $themeDefault: map-merge((
         320: flex,
         560: block,
     ),
+    'singupLinkBlockBottomDisplay': (
+        320: none,
+        900: block
+    ),
     'singupLinkBlockRightPos': 100%,
     'singupLinkBlockBottomPos': (
         320: ef.size(8),

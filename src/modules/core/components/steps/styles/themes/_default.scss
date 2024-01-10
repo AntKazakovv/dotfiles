@@ -131,6 +131,7 @@
                 align-items: ef.get-value($themeDefault, 'mainAlignItems');
 
                 .wlc-link-block {
+                    @include bm.get-mq-map('display', $themeDefault, 'singupLinkBlockBottomDisplay');
                     @include bm.get-mq-map('bottom', $themeDefault, 'singupLinkBlockBottomPos');
 
                     position: absolute;

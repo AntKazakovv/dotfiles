@@ -63,13 +63,8 @@ export class TabSwitcherComponent
     }
 
     public selectTab(selectedTab: Params.ITab): void {
-        // this.tabs.find(tab => tab.active === true).active = false;
-        // selectedTab.active = true;
-
-        //TODO пофиксить временно решение для переключения модалок, что бы отображался нужный заголовок
-        if (this.modalService.getActiveModal(selectedTab.modalId)?.id === selectedTab.modalId) return;
-
-        this.modalService.showModal(selectedTab.modalId);
+        this.tabs.find(tab => tab.active === true).active = false;
+        selectedTab.active = true;
     }
 
     protected applyConfig(): void {

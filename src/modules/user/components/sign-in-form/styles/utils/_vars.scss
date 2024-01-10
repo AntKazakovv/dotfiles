@@ -1,5 +1,10 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
+    'singupLinkBlockBottomDisplay': (
+        320: none,
+        900: block
+    ),
+
     'formMaxWidth': (
         320: 320px,
     ),

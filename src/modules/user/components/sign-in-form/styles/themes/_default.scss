@@ -72,6 +72,10 @@
                 @include bm.get-mq-map('margin', $themeDefault, 'btnMargin');
             }
         }
+
+        .wlc-link-block {
+            @include bm.get-mq-map('display', $themeDefault, 'singupLinkBlockBottomDisplay');
+        }
     }
 
     &.wlc-sign-in-form--theme-mod-with-banner {
