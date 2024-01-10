@@ -6,10 +6,10 @@ $themeWolf: map-merge((
     'containerMargin': 0 auto,
 
     'prizesTextStyle': 'CaptionText',
-    'prizesTextColor': var(--mc-baseSecond),
+    'prizesTextColor': var(--mc-baseMain),
 
     'valueTextStyle': 'CaptionTextBold',
-    'valueTextColor': var(--mc-baseMain),
+    'valueTextColor': var(--mc-baseSecond),
     'rowAlignItems': flex-start,
     'rowJustifyContent': space-between,
     'rowPadding': ef.size(1) ef.size(6),

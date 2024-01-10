@@ -62,14 +62,12 @@ $themeWolf: map-merge((
     'containerGridTemplateColumns': (
         320: 1fr,
         720: 1fr 1fr,
-        900: repeat(auto-fill, minmax(550px, 1fr)),
+        900: repeat(auto-fill, minmax(540px, 1fr)),
         1630: repeat(auto-fill, minmax(600px, 1fr)),
     ),
     'containerGap': ef.size(6),
     'containerMargin': (
-        375: 0 0 ef.size(6) 0,
-        900: 0 0 ef.size(4) 0,
-        1630: 0 0 ef.size(8) 0,
+        375: 0,
     ),
     'swiperBtnBottomPosition': (
         320: ef.size(6),

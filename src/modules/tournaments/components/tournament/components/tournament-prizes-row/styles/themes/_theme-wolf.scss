@@ -6,7 +6,6 @@
 
         &__values {
             display: inline-block;
-            color: ef.get-value($themeWolf, 'valuesColor');
             white-space: nowrap;
             background: transparent;
             border-radius: ef.get-value($themeWolf, 'valuesRadius');

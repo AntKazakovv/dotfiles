@@ -13,7 +13,7 @@ $themeWolf: map-merge((
     ),
     'descrAlign': center,
 
-    'firstCellTextColor': var(--mc-baseSecond),
+    'firstCellTextColor': var(--mc-baseMain),
     'firstCellPadding': (
         375: ef.size(1) 0 ef.size(1) ef.size(4),
     ),
@@ -53,7 +53,7 @@ $themeWolf: map-merge((
 
     'headBg': var(--mc-bg700),
     'headRadius': ef.get('radius', 'biger') ef.get('radius', 'biger') 0 0,
-    'headTextColot': var(--mc-baseSecond),
+    'headTextColot': var(--mc-baseMain),
     'userBg': linear-gradient(180deg, var(--mc-main-o0) 0%, var(--mc-main-o4) 100%),
     'userBorderBottom': 2px solid var(--mc-main),
 ), $customThemeWolf);
