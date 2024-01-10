@@ -188,7 +188,7 @@
             </div>
         </div>
 
-        <ng-container [ngTemplateOutlet]="moreIcon"></ng-container>
+        <ng-container *ngIf="!$params.useReadMoreBtnMode" [ngTemplateOutlet]="moreIcon"></ng-container>
     </div>
 </ng-template>
 
@@ -479,7 +479,8 @@
          [bonusItemTheme]="$params.theme"
          [isChooseBtn]="isChooseBtn"
          [readMoreClick]="openDescription.bind(this)"
-         [size]="buttonSize">
+         [size]="buttonSize"
+         [useReadMoreBtnMode]="useReadMoreBtnMode">
     </div>
 </ng-template>
 

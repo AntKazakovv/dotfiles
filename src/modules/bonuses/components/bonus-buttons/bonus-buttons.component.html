@@ -1,5 +1,5 @@
 <ng-container *ngIf="bonus.showOnly; else themeSwitcher">
-    <ng-container [ngTemplateOutlet]="readMoreBtn"></ng-container>
+    <ng-container *ngIf="isShowReadMoreBtn" [ngTemplateOutlet]="readMoreBtn"></ng-container>
     <ng-container [ngTemplateOutlet]="closeBtn"></ng-container>
 </ng-container>
 
@@ -22,7 +22,7 @@
         <ng-container [ngTemplateOutlet]="unsubscribeBtn"></ng-container>
         <ng-container [ngTemplateOutlet]="leaveBtn"></ng-container>
         <ng-container [ngTemplateOutlet]="chooseBonusBtn"></ng-container>
-        <ng-container [ngTemplateOutlet]="readMoreBtn"></ng-container>
+        <ng-container *ngIf="isShowReadMoreBtn" [ngTemplateOutlet]="readMoreBtn"></ng-container>
         <ng-container [ngTemplateOutlet]="closeBtn"></ng-container>
     </ng-container>
     <ng-container *ngIf="$params.useActionButtons" [ngTemplateOutlet]="actionRegisterBtn"></ng-container>
@@ -37,10 +37,10 @@
             <ng-container [ngTemplateOutlet]="actionDepositBtn"></ng-container>
             <ng-container [ngTemplateOutlet]="actionPlayBtn"></ng-container>
         </ng-container>
-        <ng-container [ngTemplateOutlet]="readMoreBtn"></ng-container>
         <ng-container [ngTemplateOutlet]="closeBtn"></ng-container>
     </ng-container>
     <ng-container *ngIf="$params.useActionButtons" [ngTemplateOutlet]="actionRegisterBtn"></ng-container>
+    <ng-container *ngIf="isShowReadMoreBtn" [ngTemplateOutlet]="readMoreBtn"></ng-container>
 </ng-template>
 
 <ng-template #long>
@@ -126,8 +126,7 @@
 </ng-template>
 
 <ng-template #readMoreBtn>
-    <button *ngIf="isShowReadMoreBtn"
-            wlc-button
+    <button wlc-button
             [attr.data-wlc-element]="$params.btnsParams.readMoreBtnParams.wlcElement"
             [inlineParams]="$params.btnsParams.readMoreBtnParams"
             [disabled]="isDisableButtons"

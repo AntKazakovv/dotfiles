@@ -143,8 +143,8 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
 
     public override ngOnChanges(change: SimpleChanges): void {
         if ((_get(this.$params, 'theme') === 'mini'
-                && (_get(this.inlineParams, 'bonus.id') !== _get(this, 'bonus.id')
-                    || _get(this.inlineParams, 'bonus.isChoose') !== _get(this, 'bonus.isChoose')))
+            && (_get(this.inlineParams, 'bonus.id') !== _get(this, 'bonus.id')
+                || _get(this.inlineParams, 'bonus.isChoose') !== _get(this, 'bonus.isChoose')))
             || (_get(this.$params, 'theme') === 'long' && change.inlineParams)) {
             this.ngOnInit();
         }
@@ -230,6 +230,10 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
         return imageUrl ? `url(${imageUrl})` : '';
     }
 
+    public get useReadMoreBtnMode(): boolean {
+        return this.$params.useReadMoreBtnMode && this.$params.theme === 'promo';
+    }
+
     /**
      * detectChanges after image loading error
      * @returns {void}
@@ -279,7 +283,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
         }, this.$params.bonusModalParams || {});
 
         if (this.$params.buttonsParams?.hideButtons
-            || this.$params.theme  === 'preview'
+            || this.$params.theme === 'preview'
             || this.$params.theme === 'reg-first'
         ) {
             modalParams.hideBonusButtons = true;

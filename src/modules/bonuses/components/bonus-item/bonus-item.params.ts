@@ -79,6 +79,7 @@ export interface IBonusItemCParams extends IComponentParams<Theme, Type, ThemeMo
     };
     buttonsSize?: Size;
     bonusUnavailableAlertParams?: IAlertCParams;
+    useReadMoreBtnMode?: boolean;
 }
 
 export type TBonusClickAction = 'showDescription' | string;

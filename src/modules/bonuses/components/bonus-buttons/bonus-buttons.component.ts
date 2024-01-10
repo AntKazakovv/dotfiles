@@ -52,6 +52,7 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit, 
     @Input() public isInsideModal: boolean;
     @Input() public readMoreClick: () => Promise<void>;
     @Input() public size: Size;
+    @Input() public useReadMoreBtnMode: boolean;
     @Output() public showGames = new EventEmitter<void>();
 
     @ViewChild('cancelModal') public tplModal: TemplateRef<ElementRef>;
@@ -135,7 +136,7 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit, 
      *
      * @returns {void}
      */
-    public async clickHandleHof(handler: Params.TClickHandler, ...args: unknown[]): Promise<void>  {
+    public async clickHandleHof(handler: Params.TClickHandler, ...args: unknown[]): Promise<void> {
         if (handler) {
             this.isDisableButtons = true;
             await handler.bind(this, ...args)();
@@ -153,7 +154,7 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit, 
      * @returns {boolean}
      */
     public get isShowReadMoreBtn(): boolean {
-        return this.isEmpty && !this.$params.isInsideModal;
+        return this.isEmpty && !this.$params.isInsideModal || this.useReadMoreBtnMode && !this.bonus.showOnly;
     }
 
     /**
