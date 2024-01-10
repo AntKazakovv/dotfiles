@@ -114,6 +114,7 @@ import {ICategoriesSettings} from 'wlc-engine/modules/games/system/builders/cate
 import {IBonusWagerGamesFilter} from 'wlc-engine/modules/bonuses/system/interfaces';
 import {IInteractiveText} from 'wlc-engine/modules/core';
 import {Games} from 'wlc-engine/modules/games/system/classes/games';
+import {GameLauncherService} from 'wlc-engine/modules/games/system/services/game-launcher/game-launcher.service';
 
 export interface ILaunchGameModal {
     show: boolean;
@@ -175,6 +176,7 @@ export class GamesCatalogService {
         protected logService: LogService,
         protected injector: Injector,
         protected injectionService: InjectionService,
+        protected gameLauncherService: GameLauncherService,
     ) {
         this.init();
     }
@@ -391,6 +393,7 @@ export class GamesCatalogService {
         const request = 'games/games';
         try {
             await this.dataService.request(request);
+            this.gameLauncherService.init();
         } catch (error) {
             this.logService.sendLog({
                 code: '3.0.0',

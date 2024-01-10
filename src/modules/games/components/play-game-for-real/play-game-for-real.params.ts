@@ -94,6 +94,7 @@ interface IPlayForRealParams {
     latestBetsWidgetParams?: ILatestBetWidget;
     isLatestBetsWidget?: boolean;
     gameThumbThemeMod?: string;
+    enableSocialMediaIcons?: boolean;
 }
 
 export const templateSignUp = {
@@ -156,6 +157,10 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
                     },
                 },
             },
+            params.enableSocialMediaIcons ? {
+                name: 'user.wlc-social-networks',
+                params: {},
+            }: null,
             params.useLogin ? FormElements.loginEmail : {
                 name: 'core.wlc-input',
                 params: <IInputCParams>{

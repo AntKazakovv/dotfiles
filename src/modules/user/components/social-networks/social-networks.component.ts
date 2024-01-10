@@ -19,9 +19,15 @@ import {
     EventService,
     InjectionService,
 } from 'wlc-engine/modules/core';
+import {IGameLaunch} from 'wlc-engine/modules/games/system/interfaces/game-launch.interface';
 import {SocialService} from 'wlc-engine/modules/user/system/services/social/social.service';
+import {GameLauncherService} from 'wlc-engine/modules/games/system/services/game-launcher/game-launcher.service';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
 import {WINDOW} from 'wlc-engine/modules/app/system';
+import {
+    GAME_LAUNCH_STORAGE_KEY,
+    GAME_LAUNCH_STORAGE_TYPE,
+} from 'wlc-engine/modules/games/system/constants/game-launch.constants';
 
 import * as Params from './social-networks.params';
 
@@ -54,6 +60,7 @@ export class SocialNetworksComponent extends AbstractComponent implements OnInit
         configService: ConfigService,
         protected eventService: EventService,
         protected injectionService: InjectionService,
+        protected gameLauncherService: GameLauncherService,
         cdr: ChangeDetectorRef,
         @Inject(WINDOW) protected window: Window,
     ) {
@@ -126,8 +133,23 @@ export class SocialNetworksComponent extends AbstractComponent implements OnInit
 
     protected async socialLogin(provider: string): Promise<void> {
         const url = await this.socialService.socialLogin(provider);
+
         if (url) {
+            this.confirmGameLaunchOnReload();
             this.window.location.href = url;
+        }
+    }
+
+    protected confirmGameLaunchOnReload(): void {
+        const gameLaunch: IGameLaunch = this.gameLauncherService.getFromStorage();
+
+        if (gameLaunch) {
+            this.configService.set<IGameLaunch>({
+                merge: true,
+                value: {merchantID: gameLaunch.merchantID, launchCode: gameLaunch.launchCode},
+                name: GAME_LAUNCH_STORAGE_KEY,
+                storageType: GAME_LAUNCH_STORAGE_TYPE,
+            });
         }
     }
 

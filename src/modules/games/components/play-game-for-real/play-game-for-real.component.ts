@@ -21,6 +21,10 @@ import {
     SignInFormAbstract,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user';
+import {
+    GAME_LAUNCH_STORAGE_KEY,
+    GAME_LAUNCH_STORAGE_TYPE,
+} from 'wlc-engine/modules/games/system/constants/game-launch.constants';
 
 import * as Params from './play-game-for-real.params';
 
@@ -87,16 +91,23 @@ export class PlayGameForRealComponent extends SignInFormAbstract<Params.IPlayGam
                 profit: this.params.common?.latestBetsWidgetParams?.profit,
                 isWin: this.params.common?.latestBetsWidgetParams?.isWin,
             },
+            enableSocialMediaIcons: this.isSocialMediaIconsEnabled,
         });
     }
 
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+        this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         this.onLoginSuccess();
         this.onPlayDemo();
         this.onPlayReal();
         this.onSignUp();
-        this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
+        this.scheduleGameLaunch();
+    }
+
+    protected get isSocialMediaIconsEnabled(): boolean {
+        return this.configService.get('$base.profile.socials.use')
+            || this.configService.get('appConfig.siteconfig.useMetamask');
     }
 
     /**
@@ -155,5 +166,17 @@ export class PlayGameForRealComponent extends SignInFormAbstract<Params.IPlayGam
                 this.modalService.showModal('signup');
             }, 1000);
         }, this.$destroy);
+    }
+
+    protected scheduleGameLaunch(): void {
+        const game = this.$params.common?.game;
+
+        if (!this.isAuth && game) {
+            this.configService.set({
+                value: {merchantID: game.merchantID, launchCode: game.launchCode},
+                name: GAME_LAUNCH_STORAGE_KEY,
+                storageType: GAME_LAUNCH_STORAGE_TYPE,
+            });
+        }
     }
 }

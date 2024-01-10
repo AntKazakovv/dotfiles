@@ -78,6 +78,10 @@
                 }
             }
         }
+
+        .wlc-social-networks {
+            margin: ef.get-value($themeDefault, 'socialNetworksMargin');
+        }
     }
 
     &.is-auth {

@@ -146,6 +146,7 @@ export interface ISiteConfig {
     StreamWheel?: boolean;
     // Auto or button
     StreamWheelCompletion?: string;
+    useMetamask?: boolean;
 }
 
 export interface ISiteconfigLanguage {

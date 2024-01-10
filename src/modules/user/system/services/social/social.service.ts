@@ -115,12 +115,6 @@ export class SocialService {
      * @returns url for social account connection
      */
     public async socialLogin(provider: string): Promise<string> {
-        // this.cachingService.set<number>(
-        //     'socialRegBonus',
-        //     this.configService.get<ChosenBonusType>(ChosenBonusSetParams.ChosenBonus)?.id,
-        //     true,
-        // );
-
         this.configService.set({
             name: 'socialRegBonus',
             value: this.configService.get<ChosenBonusType>(ChosenBonusSetParams.ChosenBonus)?.id,
