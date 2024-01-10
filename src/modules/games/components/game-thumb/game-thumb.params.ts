@@ -105,6 +105,7 @@ export interface IGameThumbCParams extends IComponentParams<Theme, Type, ThemeMo
             use?: boolean,
             iconPath?: string,
         },
+        pplResultsCount?: number;
         /**
          * merchant icon usage params
          */
@@ -157,8 +158,9 @@ export const defaultParams: IGameThumbCParams = {
             gameCategory: 'new',
         },
         pplMoreIcon: {
-            iconPath: '/wlc/icons/info.svg',
+            iconPath: 'wlc/icons/info.svg',
         },
+        pplResultsCount: 10,
     },
     showJackpotAmount: false,
 };

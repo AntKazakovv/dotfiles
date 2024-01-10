@@ -35,6 +35,7 @@ export interface IPlayGameForRealCParams extends IAbstractSignInFormCParams<Comp
         showPplInfo?: boolean;
         latestBetsWidgetParams?: ILatestBetWidget;
         isLatestBetsWidget?: boolean;
+        gameThumbThemeMod?: string;
     };
     modifiers?: Modifiers[];
 }
@@ -55,12 +56,12 @@ export const Events: IIndexing<string> = {
     SIGN_UP: 'signUp@playGameForRealModal',
 };
 
-const insertPplInfo = (game: Game): IFormComponent => {
+const insertPplInfo = (game: Game, themeMod: string): IFormComponent => {
 
     return {
         name: 'games.wlc-game-thumb',
         params: {
-            themeMod: 'default',
+            themeMod: themeMod,
             type: 'ppl-info',
             common: {
                 game: game,
@@ -92,6 +93,7 @@ interface IPlayForRealParams {
     /**Hide items Bet-info in modal */
     latestBetsWidgetParams?: ILatestBetWidget;
     isLatestBetsWidget?: boolean;
+    gameThumbThemeMod?: string;
 }
 
 export const templateSignUp = {
@@ -265,7 +267,7 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
             },
         },
         ...demoBtn,
-        params.showPplInfo ? insertPplInfo(params.game) : null,
+        params.showPplInfo ? insertPplInfo(params.game, params.gameThumbThemeMod) : null,
     ];
 
     return {

@@ -202,7 +202,8 @@
     <ng-container
         *ngIf="hasPragmaticDGA && $params.common?.pplMoreIcon?.use">
         <div class="{{$class}}__ppl-more-block">
-            <ng-container [ngTemplateOutlet]="thumbName"></ng-container>
+            <ng-container *ngIf="$params.themeMod !== 'wolf'"
+                [ngTemplateOutlet]="thumbName"></ng-container>
             <ng-container [ngTemplateOutlet]="pragmaticPlayLive"></ng-container>
         </div>
         <ng-container [ngTemplateOutlet]="pplMoreIcon"></ng-container>
@@ -218,11 +219,10 @@
 </ng-template>
 
 <ng-template #typePplInfo>
-    <span class="{{$class}}__title">
-        {{'More info' | translate}}
-    </span>
-
     <div class="{{$class}}__info">
+        <div class="{{$class}}__title">
+            {{'More info' | translate}}
+        </div>
         <div class="{{$class}}__item {{$class}}__item--provider">
             <span class="{{$class}}__item-title">
                 {{'Provider' | translate}}:
@@ -387,7 +387,7 @@
 
         <div *ngIf="pragmaticDGA.lastResult?.length"
              class="{{$class}}__ppl-results" >
-            <div *ngFor="let item of pragmaticDGA.lastResult"
+            <div *ngFor="let item of pplLastResults"
                  class="{{$class}}__ppl-results-item {{$class}}__ppl-results-item--{{item.type}}">
                 {{item.value}}
             </div>

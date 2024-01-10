@@ -223,6 +223,7 @@
                     display: flex;
 
                     .wlc-icon {
+                        color: ef.get-value($themeDefault, 'pplIconColor');
                         line-height: 0;
 
                         ::ng-deep {
@@ -231,7 +232,7 @@
                                 @include bm.get-mq-map('width', $themeDefault, 'pplIconWidth');
 
                                 path {
-                                    fill: ef.get-value($themeDefault, 'pplIconColor');
+                                    fill: currentColor;
                                 }
                             }
                         }
@@ -299,6 +300,12 @@
                 background: ef.get-value($themeDefault, 'pplMoreBlockBg');
                 opacity: 0;
 
+                .wlc-game-thumb__ppl-limits,
+                .wlc-game-thumb__name,
+                .wlc-game-thumb__ppl {
+                    min-width: 0;
+                }
+
                 .wlc-game-thumb__name {
                     max-width: ef.get-value($themeDefault, 'pplMoreNameMaxWidth');
                 }
@@ -348,6 +355,8 @@
                     }
 
                     .wlc-icon {
+                        display: flex;
+                        align-items: center;
                         margin: ef.get-value($themeDefault, 'pplDefaultIconMargin');
                     }
                 }
@@ -431,10 +440,7 @@
 
             &__title {
                 @include text.get-text-style(ef.get-value($themeDefaultPplInfo, 'titleStyle'), ef.get-value($themeDefaultPplInfo, 'titleColor'));
-            }
-
-            &__info {
-                margin: ef.get-value($themeDefaultPplInfo, 'infoMargin');
+                margin: ef.get-value($themeDefaultPplInfo, 'titleMargin');
             }
 
             &__item {
@@ -465,6 +471,41 @@
                 .wlc-game-thumb__item-value {
                     display: flex;
                     align-items: ef.get-value($themeDefaultPplInfo, 'resultsValueAlign');
+                }
+            }
+        }
+
+        &.wlc-game-thumb--theme-mod-wolf {
+
+            .wlc-game-thumb {
+
+                &__title {
+                    @include text.get-text-style(
+                        ef.get-value($themeDefaultPplInfo, 'wolfTitleStyle'),
+                        ef.get-value($themeDefaultPplInfo, 'wolfTitleColor')
+                    );
+                    border-radius: ef.get-value($themeDefaultPplInfo, 'wolfTitleRadius');
+                }
+
+                &__title,
+                &__item {
+                    min-height: ef.get-value($themeDefaultPplInfo, 'wolfItemMinHeight');
+                    margin: ef.get-value($themeDefaultPplInfo, 'wolfItemMargin');
+                    padding: ef.get-value($themeDefaultPplInfo, 'wolfItemPadding');
+                    background: ef.get-value($themeDefaultPplInfo, 'wolfItemBg');
+                    border-bottom: ef.get-value($themeDefaultPplInfo, 'wolfItemBorderBottom');
+                }
+
+                &__item {
+
+                    &:last-child {
+                        border-radius: ef.get-value($themeDefaultPplInfo, 'wolfItemLastChildRadius');
+                        border-bottom: none;
+                    }
+                }
+
+                &__item-value {
+                    color: ef.get-value($themeDefaultPplInfo, 'wolfItemValueColor');
                 }
             }
         }
@@ -571,6 +612,103 @@
             &__buttons,
             &__icon {
                 opacity: ef.get-value($themeDefaultModWolf, 'btnsAndIconOpacity');
+            }
+
+            &__ppl-more-icon::ng-deep {
+                top: ef.get-value($themeDefaultModWolf, 'pplMoreIconTop');
+                right: ef.get-value($themeDefaultModWolf, 'pplMoreIconRight');
+                width: ef.get-value($themeDefaultModWolf, 'pplMoreIconSize');
+                height: ef.get-value($themeDefaultModWolf, 'pplMoreIconSize');
+
+                .wlc-icon {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 100%;
+                }
+
+                svg {
+                    width: ef.get-value($themeDefaultModWolf, 'pplMoreSvgSize');
+                    height: ef.get-value($themeDefaultModWolf, 'pplMoreSvgSize');
+
+                    rect {
+                        opacity: ef.get-value($themeDefaultModWolf, 'pplMoreSvgOpacity');
+                        fill: ef.get-value($themeDefaultModWolf, 'pplMoreCircleColor');
+                    }
+
+                    path {
+                        fill: ef.get-value($themeDefaultModWolf, 'pplMoreIColor');
+                    }
+                }
+
+                @include bm.hover {
+
+                    svg {
+
+                        rect {
+                            opacity: ef.get-value($themeDefaultModWolf, 'pplMoreSvgOpacityHover');
+                        }
+                    }
+                }
+            }
+
+            &__ppl.hidden {
+
+                .wlc-game-thumb__ppl-results {
+                    margin: ef.get-value($themeDefaultModWolf, 'pplResultsMargin');
+                }
+            }
+
+            &__ppl-more-block {
+                gap: ef.get-value($themeDefaultModWolf, 'pplMoreBlockGap');
+                align-content: center;
+                background: ef.get-value($themeDefaultModWolf, 'pplMoreBlockBg');
+
+                ::ng-deep {
+
+                    .wlc-icon {
+                        color: ef.get-value($themeDefaultModWolf, 'pplIconColor');
+
+                        svg {
+                            width: ef.get-value($themeDefaultModWolf, 'pplIconSize');
+                            height: ef.get-value($themeDefaultModWolf, 'pplIconSize');
+                        }
+                    }
+                }
+
+                .wlc-game-thumb__ppl-info-text,
+                .wlc-game-thumb__ppl-limits {
+                    font-weight: ef.get-value($themeDefaultModWolf, 'pplMoreTextWeight');
+                }
+            }
+
+            &__ppl-limits {
+                @include text.get-text-style(
+                    ef.get-value($themeDefaultModWolf, 'pplLimitsTextStyle'),
+                    ef.get-value($themeDefaultModWolf, 'pplLimitsTextColor')
+                );
+            }
+
+            &__ppl-results-item {
+                width: ef.get-value($themeDefaultModWolf, 'pplResultSize');
+                height: ef.get-value($themeDefaultModWolf, 'pplResultSize');
+                color: ef.get-value($themeDefaultModWolf, 'pplResultTextColor');
+
+                &:first-child {
+                    width: ef.get-value($themeDefaultModWolf, 'pplResultSizeFirst');
+                    height: ef.get-value($themeDefaultModWolf, 'pplResultSizeFirst');
+                }
+            }
+
+            &__ppl-info-item {
+                margin: ef.get-value($themeDefaultModWolf, 'pplInfoItemMargin');
+            }
+
+            &__ppl-info {
+                @include text.get-text-style(
+                    ef.get-value($themeDefaultModWolf, 'pplInfoTextStyle'),
+                    ef.get-value($themeDefaultModWolf, 'pplInfoTextColor')
+                );
             }
         }
 

@@ -120,6 +120,7 @@ export interface ILaunchGameModal {
     deviceType?: DeviceType[];
     disableDemo?: boolean;
     showPplInfo?: boolean;
+    gameThumbThemeMod?: string;
 }
 
 export interface ILaunchGameParams {

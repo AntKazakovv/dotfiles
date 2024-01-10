@@ -44,7 +44,10 @@ import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
-import {PragmaticLiveModel} from 'wlc-engine/modules/games/system/models/pragmatic-live.model';
+import {
+    PragmaticLiveModel,
+    IPragmaticResult,
+} from 'wlc-engine/modules/games/system/models/pragmatic-live.model';
 import {TColorTheme} from 'wlc-engine/modules/core/system/interfaces/base-config/color-theme-switching.config';
 import {
     GamesCatalogService,
@@ -92,6 +95,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
     public useWebp: boolean = true;
     public hasVideo: boolean = false;
     public favoriteIcon!: string;
+    public pplLastResults!: IPragmaticResult[];
 
     /**
      * Pragmatic play live data model
@@ -198,6 +202,8 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
                 (pragmaticData: PragmaticLiveModel) => {
                     if (pragmaticData) {
                         this.pragmaticDGA = pragmaticData;
+                        this.pplLastResults =
+                            pragmaticData.lastResult.slice(0, this.$params.common.pplResultsCount);
                         this.cdr.detectChanges();
                     }
                 });
@@ -333,6 +339,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
             modal: {
                 show: modal,
                 showPplInfo: this.hasPragmaticDGA,
+                gameThumbThemeMod: this.$params.themeMod,
             },
         });
     }
