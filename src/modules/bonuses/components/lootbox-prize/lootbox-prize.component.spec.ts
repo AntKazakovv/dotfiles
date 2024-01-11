@@ -1,6 +1,5 @@
 import {
     Component,
-    Directive,
     Input,
 } from '@angular/core';
 import {
@@ -68,7 +67,6 @@ describe('LootboxPrizeComponent', (): void => {
             declarations: [
                 LootboxPrizeComponent,
                 IconComponent,
-                ClampDirective,
             ],
             providers: [
                 {provide: ConfigService, useValue: configServiceStub},
@@ -156,11 +154,4 @@ describe('LootboxPrizeComponent', (): void => {
 @Component({selector: '[wlc-icon]'})
 class IconComponent {
     @Input() iconPath;
-}
-
-@Directive({
-    selector: '[wlc-clamp]',
-})
-export class ClampDirective {
-    @Input('wlc-clamp') lines;
 }
