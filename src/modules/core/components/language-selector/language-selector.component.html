@@ -41,6 +41,8 @@
         class="{{$class}}__current"
         [attr.data-wlc-element]="'selected_link_' + currentLanguage.code"
         (click)="toggle()"
+        [tooltip]="$params.useTooltip && currentLanguage.label"
+        placement="right"
         [ngClass]="[((isOpened || isModalOpen) && !$params.dropdown?.expandableOnHover)
             ? $class + '__current--opened': '']"
         [class.single-lang]="hasSingleLang"

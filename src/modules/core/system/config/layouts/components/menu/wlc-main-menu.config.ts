@@ -31,6 +31,11 @@ export namespace wlcMainMenu {
             themeMod: 'underline',
             type: 'burger-menu',
             wlcElement: 'block_main-nav-panel',
+            menuParams: {
+                tooltip: {
+                    use: true,
+                },
+            },
         },
     };
 
@@ -44,6 +49,11 @@ export namespace wlcMainMenu {
             common: {
                 icons: {
                     folder: 'wlc/icons/european/v1',
+                    use: true,
+                },
+            },
+            menuParams: {
+                tooltip: {
                     use: true,
                 },
             },
@@ -63,6 +73,11 @@ export namespace wlcMainMenu {
                     use: true,
                 },
             },
+            menuParams: {
+                tooltip: {
+                    use: true,
+                },
+            },
         },
     };
 
@@ -76,6 +91,11 @@ export namespace wlcMainMenu {
             common: {
                 icons: {
                     folder: 'wlc/icons/burger-panel/1',
+                    use: true,
+                },
+            },
+            menuParams: {
+                tooltip: {
                     use: true,
                 },
             },
