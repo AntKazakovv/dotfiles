@@ -257,24 +257,25 @@ export class TransferComponent extends AbstractComponent implements OnInit {
 
     private getRecipientsConfig(): IFormComponent[] {
         let recipientField = '';
-        let recipientValidator = '';
         let recipientExampleValue = '';
+        let recipientValidator: string[] = [];
+        let recipientOrValidator: string[] = [];
 
         switch (this.transfer.transferBy) {
             case TransferByEnum.EMAIL:
                 recipientField = 'e-mail';
-                recipientValidator = 'email';
+                recipientValidator = ['email'];
                 recipientExampleValue = 'example@mail.com';
                 break;
             case TransferByEnum.ID:
                 recipientField = 'ID';
-                recipientValidator = 'userId';
+                recipientValidator = ['userId'];
                 recipientExampleValue = '';
                 break;
             case TransferByEnum.EMAIL_OR_ID:
             default:
                 recipientField = 'e-mail or ID';
-                recipientValidator = 'emailOrUserId';
+                recipientOrValidator = ['email', 'userId'];
                 recipientExampleValue = '';
         }
 
@@ -298,8 +299,9 @@ export class TransferComponent extends AbstractComponent implements OnInit {
                     name: 'recipient',
                     validators: [
                         'required',
-                        recipientValidator,
+                        ...recipientValidator,
                     ],
+                    orValidators: recipientOrValidator,
                     exampleValue: recipientExampleValue,
                     wlcElement: 'block_recipient',
                 },
