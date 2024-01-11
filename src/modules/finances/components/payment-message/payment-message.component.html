@@ -111,13 +111,8 @@
         <div class="{{$class}}__text-row">
             <span class="rate">{{invoiceRate}}</span>
         </div>
-
         <div class="{{$class}}__text-row">
-            {{'To replenish the casino balance by'| translate}}
-            <span>{{message.userAmount}} {{system.userCurrency}}</span>
-            {{', deposit' | translate}}
-            <span>{{message.cryptoAmount}} {{system.cryptoTicker}}</span>
-            {{'to the wallet specified below' | translate}}
+            {{'To replenish the casino balance by {{userAmount}}, deposit {{cryptoAmount}} to the wallet specified below' | translate | translate:cryptoMsgContext}}
         </div>
 
         <div class="{{$class}}__text-row">

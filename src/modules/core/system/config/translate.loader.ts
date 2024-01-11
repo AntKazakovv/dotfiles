@@ -39,6 +39,9 @@ export function HttpLoaderFactory(http: HttpClient): TranslateFallbackHttpLoader
 
 export class MissingTranslationService implements MissingTranslationHandler {
     handle(params: MissingTranslationHandlerParams): string {
-        return params.key;
+
+        return params.interpolateParams
+            ? params.translateService.parser.interpolate(params.key, params.interpolateParams)
+            : params.key;
     }
 }

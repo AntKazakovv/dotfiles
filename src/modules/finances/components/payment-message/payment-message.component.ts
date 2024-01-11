@@ -84,6 +84,10 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
     public cryptoAmount: string;
     public cryptoCurrency: string;
     public metamaskButtonConfig: IWrapperCParams | null = null;
+    public cryptoMsgContext: {
+        userAmount: string;
+        cryptoAmount: string;
+    };
 
     public timerParams: ITimerCParams;
     public inputParamsLockedAmount: IInputCParams;
@@ -249,6 +253,10 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
             this.timerParams.common.noDays = !DateHelper.dayExists(this.timerValue);
             this.timerParams.common.noHours = !DateHelper.hoursExists(this.timerValue);
             this.inputParamsCryptoAmount = this.getInputParams('invoice');
+            this.cryptoMsgContext = {
+                userAmount: `${this.message.userAmount} ${this.system.userCurrency}` ,
+                cryptoAmount: `${this.message.cryptoAmount} ${this.system.cryptoTicker}`,
+            };
         }
 
         if (this.message.metamask_account) {
