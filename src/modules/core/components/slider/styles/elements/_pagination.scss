@@ -1,3 +1,9 @@
+swiper-container {
+    --swiper-pagination-color: #{ef.get-value($themeDefaultPagination, 'swiperPagiBulletColorActive')};
+    --swiper-pagination-bullet-inactive-color: #{ef.get-value($themeDefaultPagination, 'swiperPagiBulletColor')};
+    --swiper-pagination-bullet-inactive-opacity: 1;
+}
+
 .swiper-pagination {
     position: absolute;
     z-index: ef.get-value($themeDefaultPagination, 'swiperPagiZindex');
