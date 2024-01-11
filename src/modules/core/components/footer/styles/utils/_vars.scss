@@ -98,6 +98,8 @@ $themeDefault: map-merge((
     // copyright
     'copyrightTextAlign': center,
     'copyrightMargin': ef.size(3) 0 0,
+    //recaptcha
+    'recaptchaMargin': 20px auto 0,
     // icon list merchants
     'iconListMerchantsPadding': ef.size(2) ef.size(5),
     'iconListMerchantsMargin': (

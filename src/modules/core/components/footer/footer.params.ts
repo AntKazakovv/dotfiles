@@ -59,6 +59,7 @@ export const defaultParams: IFooterCParams = {
                                 class: 'footer-disclaimer__item',
                                 components: [
                                     componentLib.wlcDisclaimer.def,
+                                    componentLib.wlcRecaptchaPolicy.def,
                                 ],
                             },
                         },
