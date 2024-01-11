@@ -31,6 +31,8 @@ export class LotteryPrizesComponent extends AbstractComponent implements OnInit,
 
     public override $params: Params.ILotteryPrizesCParams;
     public prizeTable: ILotteryPrize[] = [];
+    public showMoreBtn: boolean = true;
+    protected isExpanded: boolean = false;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILotteryPrizesCParams,
@@ -52,7 +54,21 @@ export class LotteryPrizesComponent extends AbstractComponent implements OnInit,
         }
     }
 
+    public toggleTable(): void {
+        if (this.isExpanded) {
+            this.setPrizeTable();
+        } else {
+            this.prizeTable = this.lottery.prizes.prizeTable;
+        }
+        this.isExpanded = !this.isExpanded;
+    }
+
+    public get showAllText(): string {
+        return this.isExpanded ? 'Show less' : 'Show all';
+    }
+
     private setPrizeTable(): void {
+        this.showMoreBtn = this.$params?.showMoreBtn && this.lottery?.prizes.totalRows > this.$params.limit;
         this.prizeTable = this.lottery?.prizes.getPrizes(this.$params?.limit);
     }
 }

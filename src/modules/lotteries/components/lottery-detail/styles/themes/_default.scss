@@ -1,0 +1,166 @@
+.wlc-lottery-detail--theme-default:host {
+    --wlc-lp-row-border: var(--mc-bg300);
+    --wlc-lp-row-border-last: transparent;
+
+    @include bm.get-mq-map('--wlc-ld-header-height', $themeDefault, 'headerHeight');
+    @include bm.get-mq-map('--wlc-ld-decor-height', $themeDefault, 'headerDecorHeight');
+    @include bm.get-mq-map('--wlc-ld-main-radius', $themeDefault, 'mainRadius');
+    @include bm.get-mq-map('--wlc-ld-cta-size', $themeDefault, 'ctaSize');
+    @include bm.get-mq-map('--wlc-ld-header-padding', $themeDefault, 'headerPadding');
+    @include bm.get-mq-map('--wlc-ld-header-margin', $themeDefault, 'headerMargin');
+
+    position: relative;
+    background: ef.get-value($themeDefault, 'mainBg');
+
+    .wlc-lottery-detail {
+
+        &__header {
+            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'headerGridColumns');
+            @include bm.get-mq-map('justify-items', $themeDefault, 'headerJustifyItems');
+            @include headerText($themeDefault);
+
+            display: grid;
+            min-height: var(--wlc-ld-header-height, #{ef.get-value($themeDefault, 'headerHeight')});
+            margin: var(--wlc-ld-header-margin);
+            padding: var(--wlc-ld-header-padding);
+            text-align: ef.get-value($themeDefault, 'headerTextAlign');
+            border-radius: var(--wlc-ld-main-radius);
+            background: var(--wlc-ld-header-bg, #{ef.get-value($themeDefault, 'headerBg')});
+            overflow: hidden;
+        }
+
+        &__header-decor {
+            @include bm.get-mq-map('max-width', $themeDefault, 'headerDecorWidth');
+
+            position: relative;
+            width: 100%;
+            height: var(--wlc-ld-decor-height);
+
+            &-img {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                max-width: 100%;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        &__header-main {
+            @include bm.get-mq-map('padding', $themeDefault, 'headerMainPadding');
+
+            display: grid;
+            gap: var(--wlc-ld-header-main-gap, #{ef.get-value($themeDefault, 'headerMainGap')});
+            align-content: center;
+            justify-content: center;
+            justify-self: center;
+        }
+
+        &__name {
+            @include lotteryName($themeDefault);
+        }
+
+        &__body {
+            @include bm.get-mq-map('padding', $themeDefault, 'bodyPadding');
+
+            overflow: hidden;
+        }
+
+        &__content {
+            @include bm.get-mq-map('gap', $themeDefault, 'contentGap');
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'contentTextStyle'),
+                ef.get-value($themeDefault, 'contentColor'),
+            );
+
+            display: grid;
+            width: 100%;
+            max-width: ef.get-value($themeDefault, 'contentWidth');
+            margin: 0 auto;
+        }
+
+        &__section {
+            position: relative;
+            text-align: center;
+
+            &-title {
+                @include sectionTitleName($themeDefault);
+            }
+
+            &--prizes {
+
+                &:before,
+                &:after {
+                    @include bm.get-mq-map('display', $themeDefault, 'prizesDecorDisplay');
+
+                    content: '';
+                    position: absolute;
+                    z-index: -1;
+                }
+
+                &:before {
+                    @include bm.get-mq-map('top', $themeDefault, 'prizesDecorLeftPosTop');
+                    @include bm.get-mq-map('bottom', $themeDefault, 'prizesDecorLeftPosBtm');
+                    @include bm.get-mq-map('left', $themeDefault, 'prizesDecorLeftPosLeft');
+                    @include bm.get-mq-map('width', $themeDefault, 'prizesDecorLeftWidth');
+                    @include bm.get-mq-map('height', $themeDefault, 'prizesDecorLeftHeight');
+
+                    background: ef.get-value($themeDefault, 'prizesDecorLeft');
+                }
+
+                &:after {
+                    @include bm.get-mq-map('top', $themeDefault, 'prizesDecorRightPosTop');
+                    @include bm.get-mq-map('right', $themeDefault, 'prizesDecorRightPosRight');
+                    @include bm.get-mq-map('bottom', $themeDefault, 'prizesDecorRightPosBtm');
+                    @include bm.get-mq-map('width', $themeDefault, 'prizesDecorRightWidth');
+                    @include bm.get-mq-map('height', $themeDefault, 'prizesDecorRightHeight');
+
+                    background: ef.get-value($themeDefault, 'prizesDecorRight');
+                }
+            }
+        }
+
+        &__prizes {
+            width: 100%;
+            max-width: ef.get-value($themeDefault, 'prizesWidth');
+            margin: 0 auto;
+            background: ef.get-value($themeDefault, 'prizesBg');
+            border-radius: ef.get-value($themeDefault, 'prizesRadius');
+            overflow: hidden;
+        }
+
+        &__cta {
+            width: 100%;
+            max-width: var(--wlc-ld-cta-size);
+            margin: 0 auto;
+        }
+    }
+
+    &.wlc-lottery-detail--theme-mod-wolf {
+        --wlc-lp-all-color: #{ef.get-value($modWolf, 'allBtnColor')};
+        --wlc-ld-main-radius: #{ef.get-value($modWolf, 'headerRadius')};
+        --wlc-ld-header-main-gap: #{ef.get-value($modWolf, 'headerMainGap')};
+        --wlc-ld-header-margin: #{ef.get-value($modWolf, 'headerMargin')};
+
+        @include bm.get-mq-map('--wlc-ld-header-height', $modWolf, 'headerHeight');
+        @include bm.get-mq-map('--wlc-ld-header-padding', $modWolf, 'headerPadding');
+
+        .wlc-lottery-detail {
+
+            &__header {
+                @include headerText($modWolf);
+                @include bm.cardInnerShadow();
+            }
+
+            &__name {
+                @include lotteryName($modWolf);
+            }
+
+            &__section {
+
+                &-title {
+                    @include sectionTitleName($modWolf);
+                }
+            }
+        }
+    }
+}

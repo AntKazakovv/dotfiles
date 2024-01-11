@@ -1,0 +1,69 @@
+<ng-container *ngIf="pending$ | async; else lotteryDetail" [ngTemplateOutlet]="loader">
+</ng-container>
+
+<ng-template #loader>
+    <div class="{{$class}}__loader">
+        <div wlc-loader></div>
+    </div>
+</ng-template>
+
+<ng-template #lotteryDetail>
+    <ng-container [ngTemplateOutlet]="header"></ng-container>
+    <ng-container [ngTemplateOutlet]="body"></ng-container>
+</ng-template>
+
+<ng-template #header>
+    <div class="{{$class}}__header">
+        <div class="{{$class}}__header-decor">
+            <img class="{{$class}}__header-decor-img"
+                [wlc-fallback]="$params.images.headerFallback"
+                src="{{lottery.imageDescription}}"
+                alt="{{lottery.name}}"/>
+        </div>
+        <div class="{{$class}}__header-main">
+            <p class="{{$class}}__name">{{lottery.name}}</p>
+            <div class="{{$class}}__details">
+                <div wlc-lottery-smart-info
+                    [lottery]="lottery"></div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #body>
+    <div class="{{$class}}__body">
+        <div class="{{$class}}__content">
+
+            <div *ngIf="showLevelsSection" class="{{$class}}__section {{$class}}__section--levels">
+                <p class="{{$class}}__section-title">{{'Levels' | translate}}</p>
+                <p class="">{{'Available for the following levels:' | translate}} <br>{{lottery.levelsString}}</p>
+            </div>
+
+            <div *ngIf="lottery.description" class="{{$class}}__section {{$class}}__section--description">
+                {{lottery.description}}
+            </div>
+
+            <div *ngIf="showCta" class="{{$class}}__cta">
+                <div wlc-lottery-cta
+                    [inlineParams]="{themeMod: $params.themeMod}"
+                    [lottery]="lottery"></div>
+            </div>
+
+            <div class="{{$class}}__section {{$class}}__section--prizes">
+                <p class="{{$class}}__section-title">{{'Prize pool' | translate}}</p>
+
+                <div class="{{$class}}__prizes">
+                    <div wlc-lottery-prizes
+                        [lottery]="lottery"
+                        [inlineParams]="$params.prizesParams"></div>
+                </div>
+            </div>
+
+            <div *ngIf="lottery.terms" class="{{$class}}__section {{$class}}__section--rules">
+                <p class="{{$class}}__section-title">{{'Rules' | translate}}</p>
+                {{lottery.terms}}
+            </div>
+
+        </div>
+    </div>
+</ng-template>

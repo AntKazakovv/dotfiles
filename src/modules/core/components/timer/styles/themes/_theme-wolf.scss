@@ -3,7 +3,7 @@
     .secondary-text {
         @include text.get-text-style(
             ef.get-value($themeWolf, 'titleTextStyle'),
-            ef.get-value($themeWolf, 'titleColor')
+            var(--wlc-timer-title-color, #{ef.get-value($themeWolf, 'titleColor')})
         );
         margin: ef.get-value($themeWolf, 'titleMargin');
         text-align: var(--wlc-timer-caption-align, center);

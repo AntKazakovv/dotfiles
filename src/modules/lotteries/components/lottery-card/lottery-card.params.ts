@@ -11,7 +11,6 @@ export type ComponentThemeMod = 'default' | 'wolf' | CustomType;
 export interface ILotteryCardCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     texts?: {
         noContentTitle?: string;
-        ticketsCaption?: string;
     }
     images?: {
         noContent?: string;
@@ -33,6 +32,5 @@ export const defaultParams: ILotteryCardCParams = {
     },
     texts: {
         noContentTitle: gettext('There are no active lotteries at the moment'),
-        ticketsCaption: gettext('Number of your tickets:'),
     },
 };

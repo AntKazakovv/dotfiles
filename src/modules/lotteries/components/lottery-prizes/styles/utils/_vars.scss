@@ -1,17 +1,23 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'rowGap': ef.size(2),
-    'rowPadding': ef.size(2) ef.size(4),
+    'rowPadding': 0 ef.size(4),
+    'rowMinHeight': 30px,
     'rowBg': transparent,
     'rowBorderWidth': 100%,
     'rowBorderHeight': 1px,
     'rowBorderBg': var(--mc-baseThird, var(--mc-baseMain)),
 
     'prizeTextAlign': right,
+    'placeCenteringFixTransform': translateY(2px),
 
     'commonTextStyle': 'CaptionText',
     'commonColor': var(--mc-baseThird, var(--mc-baseMain)),
 
     'prizeTextStyle': 'CaptionTextBold',
     'prizeColor': var(--mc-baseThird, var(--mc-baseMain)),
+
+    'allBtnTextStyle': 'CaptionTextBold',
+    'allBtnColor': var(--mc-main),
+    'allBtnColorHover': var(--mc-baseMain),
 ), $customThemeDefault);

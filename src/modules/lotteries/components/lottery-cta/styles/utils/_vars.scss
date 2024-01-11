@@ -1,0 +1,24 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'hostTextStyle': 'ButtonText',
+    'hostTextColor': var(--mc-baseMain-locked),
+
+    'hostBg': (
+        radial-gradient(175% 105% at 0% 0%, #00b8e0 0%, #459c00 100%),
+        radial-gradient(120% 65% at 0% 0%, #e0ca00 0%, #56c500 100%),
+        radial-gradient(125% 170% at 10% 5%, #56c500 0%, #e0ca00 100%),
+    ),
+    'hostGap': ef.size(2),
+    'hostPadding': ef.size(4),
+    'hostRadius': ef.get('radius', 'biger'),
+
+    'titleTextStyle': 'ThirdTitleBold',
+    'titleColor': var(--mc-baseThird-locked, var(--mc-baseMain-locked)),
+
+    'controlsMargin': ef.size(2) 0 0,
+
+    // Wolf mod
+    'hostTextStyleWolf': 'CaptionTextBold',
+    'hostTextColorWolf': var(--mc-baseThird-locked),
+    'timerTitleColorWolf': var(--mc-baseThird-locked),
+), $customThemeDefault);

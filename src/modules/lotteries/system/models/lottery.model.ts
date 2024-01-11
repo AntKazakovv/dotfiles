@@ -1,15 +1,22 @@
 import {DateTime} from 'luxon';
 import _indexOf from 'lodash-es/indexOf';
 
-import {ILottery, TLotteryStatus} from 'wlc-engine/modules/lotteries/system/interfaces/lotteries.interface';
+import {
+    ILottery,
+    TLotteryStatus,
+    TLotteryTimerState,
+} from 'wlc-engine/modules/lotteries/system/interfaces/lotteries.interface';
 import {LotteryPrizes} from 'wlc-engine/modules/lotteries/system/models/lottery-prizes.model';
-
 
 export class Lottery {
     public static userLevel: number;
     public static userCurrency: string;
+    public readonly id: number;
     public readonly levels: Array<string | number>;
+    public readonly levelsString: string;
+    public readonly isForAllLevels: boolean;
     public prizes: LotteryPrizes;
+
     private data: ILottery;
     private dateFormat: string = 'dd.MM.yyyy HH:mm';
 
@@ -17,13 +24,12 @@ export class Lottery {
         data: ILottery,
     ) {
         this.data = data;
+        this.id = this.data.ID;
         this.levels = this.data.Levels.sort((a, b) => Number(a) - Number(b));
+        this.levelsString = this.levels.join(', ');
+        this.isForAllLevels = _indexOf(this.levels, 'all') >= 0;
 
         this.init();
-    }
-
-    public get id(): number {
-        return this.data.ID;
     }
 
     public get ticketsCount(): number {
@@ -38,16 +44,27 @@ export class Lottery {
         return this.data.Description;
     }
 
+    public get terms(): string {
+        return this.data.Terms;
+    }
+
+    public get alias(): string {
+        return this.data.Alias;
+    }
+
     public get price(): number {
         return this.data.Price;
     }
 
+    public get currency(): string {
+        return Lottery.userCurrency || 'EUR';
+    }
+
     public get checkUserLevel(): boolean {
-        if (_indexOf(this.levels, 'all') >= 0) {
+        if (this.isForAllLevels) {
             return true;
         }
-
-        return _indexOf(this.levels, Lottery.userLevel) >= 0;
+        return _indexOf(this.levels, Number(Lottery.userLevel)) >= 0;
     }
 
     /** Дата старта эмиссии билетов */
@@ -86,12 +103,20 @@ export class Lottery {
     }
 
     public get imageDescription(): string {
-        return this.data.Images.description;
+        return this.data.Images.description || this.data.Images.main;
     }
 
     /** Вероятно, будет несколько фраз, в зависимости от текущего статуса лотереи */
-    public get timerText(): string {
-        return gettext('The raffle ends in');
+    public getTimerText(state: TLotteryTimerState): string {
+        switch (state) {
+            // case 'dateStart':
+            //     return gettext('The raffle starts in');
+            case 'dateEnd':
+                return gettext('Time until the end of ticket issuance');
+            case 'raffleEnd':
+            default:
+                return gettext('The raffle ends in');
+        }
     }
 
     /** Ожидается старт эмиссии билетов */

@@ -27,3 +27,4 @@ export * from './sign-in-page.section';
 export * from './four-elements.section';
 export * from './sticky-footer.section';
 export * from './youtube-block.section';
+export * from './lotteries.section';

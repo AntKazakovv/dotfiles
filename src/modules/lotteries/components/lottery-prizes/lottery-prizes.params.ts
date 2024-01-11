@@ -5,12 +5,13 @@ import {
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
-export type ComponentThemeMod = 'default' | CustomType;
+export type ComponentThemeMod = 'default' | 'wolf' | CustomType;
 
 export interface ILotteryPrizesCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     /** Number of rows. If empty */
     limit?: number;
     showMoreBtn?: boolean;
+    /** Divider between prizes in row */
     divider?: string;
 };
 

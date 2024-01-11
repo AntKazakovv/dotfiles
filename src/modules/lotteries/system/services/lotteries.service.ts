@@ -6,6 +6,7 @@ import {
     map,
     distinctUntilChanged,
 } from 'rxjs/operators';
+import _find from 'lodash-es/find';
 
 import {
     ConfigService,
@@ -15,17 +16,14 @@ import {
     InjectionService,
     LogService,
 } from 'wlc-engine/modules/core';
+import {UserProfile} from 'wlc-engine/modules/user';
 import {RequestParamsType} from 'wlc-engine/modules/core/system/services/data/data.service';
-import {ILottery} from 'wlc-engine/modules/lotteries/system/interfaces/lotteries.interface';
-import {Lottery} from 'wlc-engine/modules/lotteries/system/models/lottery.model';
 import {
-    UserInfo,
-    UserProfile,
-} from 'wlc-engine/modules/user';
-
-interface ILotteriesResponse {
-    lotteries: ILottery[];
-}
+    ILottery,
+    ILotteryFetchParams,
+    ILotteriesResponse,
+} from 'wlc-engine/modules/lotteries/system/interfaces/lotteries.interface';
+import {Lottery} from 'wlc-engine/modules/lotteries/system/models/lottery.model';
 
 @Injectable({
     providedIn: 'root',
@@ -41,8 +39,6 @@ export class LotteriesService {
     private $resolve: () => void;
     private lottery: Lottery;
     private isAuth: boolean;
-    private userLevel: string;
-    private userInfo$: BehaviorSubject<UserInfo>;
     private isFetching$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
     constructor(
@@ -55,7 +51,7 @@ export class LotteriesService {
         this.init();
     }
 
-    public async fetchLottery(): Promise<Lottery> {
+    public async fetchLottery(params?: ILotteryFetchParams): Promise<Lottery> {
         await this.ready;
 
         if (this.isFetching$.getValue()) {
@@ -72,8 +68,12 @@ export class LotteriesService {
                 type: 'GET',
             }, requestParams);
 
-            if (response.data.lotteries && response.data.lotteries.length) {
-                this.lottery = new Lottery(response.data.lotteries[0]);
+            const result: Lottery[] = this.processResponse(response.data.lotteries, params);
+
+            if (params?.alias) {
+                return result[0];
+            } else {
+                this.lottery = result[0];
                 this.lottery$.next(this.lottery);
                 return this.lottery;
             }
@@ -85,6 +85,21 @@ export class LotteriesService {
         } finally {
             this.isFetching$.next(false);
         }
+    }
+
+    private processResponse(data: ILottery[], params?: ILotteryFetchParams): Lottery[] {
+        const lotteries: Lottery[] = [];
+
+        if (params?.alias) {
+            const lottery: ILottery = _find(data, ({Alias}) => Alias === params.alias);
+            if (lottery) {
+                lotteries.push(new Lottery(lottery));
+            }
+        } else {
+            lotteries.push(new Lottery(data[0]));
+        }
+
+        return lotteries;
     }
 
     private async init(): Promise<void> {

@@ -13,6 +13,11 @@ export type TLotteryBonusPrize = {
  */
 export type TLotteryStatus = 'notStarted' | 'active' | 'ending' | 'ended';
 export type TLotteryPrizeType = 'goods' | 'bonus';
+export type TLotteryTimerState = 'dateStart' |'dateEnd' | 'raffleEnd';
+
+export interface ILotteriesResponse {
+    lotteries: ILottery[];
+}
 
 export interface ILotteryImages {
     main: string;
@@ -22,7 +27,7 @@ export interface ILotteryImages {
 export interface ILotteryPrize {
     place: number;
     type: TLotteryPrizeType;
-    value: string | number;
+    value: string | TLotteryBonusPrize[];
     currency?: string;
 }
 
@@ -40,4 +45,8 @@ export interface ILottery {
     UserTicketsCount: number;
     Levels: string[];
     WinningSpread: TLotteryWinningSpread[];
+}
+
+export interface ILotteryFetchParams {
+    alias?: string;
 }

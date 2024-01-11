@@ -13,6 +13,11 @@
                 [ngTemplateOutletContext]="{$implicit: prize.value}"></ng-container>
         </div>
     </div>
+    <div *ngIf="showMoreBtn"
+        class="{{$class}}__row {{$class}}__row--all-btn"
+        (click)="toggleTable()">
+        {{showAllText | translate}}
+    </div>
 </div>
 
 <ng-template #bonusPrize let-bonusPrize>

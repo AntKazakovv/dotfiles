@@ -1,0 +1,152 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'mainBg': none,
+    'mainRadius': (
+        375: 0,
+        480: ef.get('radius', 'main'),
+    ),
+
+    'headerHeight': (
+        375: auto,
+        768: 250px,
+        1630: 400px,
+    ),
+    'headerPadding': (
+        375: 0 ef.size(4) ef.size(4),
+        768: 0,
+    ),
+    'headerMainPadding': (
+        768: 0 ef.size(6),
+        1200: 0,
+    ),
+    'headerMargin': (
+        375: 0 ef.size(-3),
+        480: 0,
+    ),
+    'headerBg': radial-gradient(148.85% 200.96% at 70.62% 50%, #6300e2 0%, #8435e9 100%),
+    'headerGridColumns': (
+        375: 1fr,
+        768: minmax(0, 2fr) minmax(0, 3fr),
+        1200: repeat(3, minmax(0, 1fr)),
+    ),
+    'headerDecorWidth': (
+        375: 150px,
+        768: 500px,
+    ),
+    'headerDecorHeight': (
+        375: 125px,
+        768: 100%,
+    ),
+    'headerTextAlign': center,
+    'headerMainGap': ef.size(4),
+    'headerTextStyle': 'PrimaryTextBold',
+    'headerColor': var(--mc-baseMain-locked),
+    'headerJustifyItems': (
+        375: center,
+        768: initial,
+    ),
+
+    'nameLineClamp': 2,
+    'nameTextStyle': (
+        375: 'ThirdTitleBold',
+        768: 'QoteTextBold',
+        1630: 'PromoTitle',
+    ),
+    'nameColor': var(--mc-baseMain-locked),
+
+    'bodyPadding': (
+        375: ef.size(6) ef.size(4) 0,
+        1630: ef.size(8) ef.size(4) 0,
+    ),
+
+    'contentGap': (
+        375: ef.size(4),
+        1630: ef.size(6),
+    ),
+    'contentWidth': 890px,
+    'contentTextStyle': 'PrimaryText',
+    'contentColor': var(--mc-baseMain),
+
+    'sectionTitleTextStyle': (
+        375: 'ThirdTitleBold',
+        768: 'QoteTextBold',
+    ),
+    'sectionTitleColor': var(--mc-baseMain),
+    'sectionTitleMargin': 0 0 ef.size(4),
+
+    'prizesWidth': 500px,
+    'prizesBg': var(--mc-bg700),
+    'prizesRadius': ef.get('radius', 'biger'),
+
+    'prizesDecorDisplay': (
+        375: none,
+        900: block,
+    ),
+    'prizesDecorLeft': ef.static('wlc/lotteries/prizes-decor-left.svg') center/contain no-repeat,
+    'prizesDecorRight': ef.static('wlc/lotteries/prizes-decor-right.svg') center/contain no-repeat,
+
+    'prizesDecorLeftWidth': (
+        375: 140px,
+    ),
+    'prizesDecorLeftHeight': (
+        375: 125px,
+    ),
+    'prizesDecorLeftPosLeft': (
+        375: 0,
+    ),
+    'prizesDecorLeftPosTop': (
+        375: auto,
+    ),
+    'prizesDecorLeftPosBtm': (
+        375: 0,
+    ),
+    'prizesDecorRightWidth': (
+        375: 110px,
+    ),
+    'prizesDecorRightHeight': (
+        375: 135px,
+    ),
+    'prizesDecorRightPosRight': (
+        375: 3%,
+    ),
+    'prizesDecorRightPosTop': (
+        375: 0,
+    ),
+    'prizesDecorRightPosBtm': (
+        375: auto,
+    ),
+    'ctaSize': (
+        375: 100%,
+        480: 315px,
+    ),
+), $customThemeDefault);
+
+$customModWolf: () !default;
+$modWolf: map-merge((
+    'headerHeight': (
+        375: 250px,
+    ),
+    'headerPadding': (
+        375: 0 ef.size(4) ef.size(5),
+        768: 0,
+    ),
+    'headerTextStyle': 'CaptionTextBold',
+    'headerColor': var(--mc-baseThird-locked),
+    'headerMainGap': ef.size(2),
+    'headerRadius': ef.get('radius', 'biger'),
+    'headerMargin': 0,
+
+    'nameTextStyle': (
+        375: 'ThirdTitleBold',
+        1630: 'QoteTextBold',
+    ),
+    'nameColor': var(--mc-baseThird-locked),
+
+    'sectionTitleTextStyle': (
+        375: 'ThirdTitleBold',
+        768: 'SecondTitleBold',
+    ),
+    'sectionTitleColor': var(--mc-baseSecond),
+    'sectionTitleMargin': 0 0 ef.size(4),
+    'allBtnColor': var(--mc-secondary),
+), $customModWolf);

@@ -1,0 +1,34 @@
+@mixin headerText($config: $themeDefault) {
+    @include text.get-text-style(
+        ef.get-value($config, 'headerTextStyle'),
+        ef.get-value($config, 'headerColor'),
+    );
+}
+
+@mixin lotteryName($config: $themeDefault) {
+    @include bm.lineClamp(ef.get-value($config, 'nameLineClamp'));
+    @include text.get-text-style(
+        ef.get-value($config, 'nameTextStyle', 375),
+        ef.get-value($config, 'nameColor'),
+    );
+
+    @include mq.min(768) {
+        @include text.get-text-style(ef.get-value($config, 'nameTextStyle', 768), null);
+    }
+
+    @include mq.min(1630) {
+        @include text.get-text-style(ef.get-value($config, 'nameTextStyle', 1630), null);
+    }
+}
+
+@mixin sectionTitleName($config: $themeDefault) {
+    @include text.get-text-style(
+        ef.get-value($config, 'sectionTitleTextStyle', 375),
+        ef.get-value($config, 'sectionTitleColor'),
+    );
+    margin: ef.get-value($config, 'sectionTitleMargin');
+
+    @include mq.min(768) {
+        @include text.get-text-style(ef.get-value($config, 'sectionTitleTextStyle', 768), null);
+    }
+}

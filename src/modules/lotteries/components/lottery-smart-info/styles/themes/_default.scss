@@ -1,0 +1,15 @@
+.wlc-lottery-smart-info--theme-default:host {
+    position: relative;
+    display: grid;
+    gap: var(--wlc-lsi-gap, #{ef.get-value($themeDefault, 'gap')});
+    justify-content: center;
+
+    .wlc-lottery-smart-info {
+
+        &__timer {
+            width: max-content;
+            min-width: ef.get-value($themeDefault, 'timerMinWidth');
+            max-width: ef.get-value($themeDefault, 'timerMaxWidth');
+        }
+    }
+}

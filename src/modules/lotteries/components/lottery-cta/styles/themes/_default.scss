@@ -1,0 +1,39 @@
+.wlc-lottery-cta--theme-default:host {
+    @include text.get-text-style(
+        ef.get-value($themeDefault, 'hostTextStyle'),
+        ef.get-value($themeDefault, 'hostTextColor'),
+    );
+    position: relative;
+    display: grid;
+    gap: ef.get-value($themeDefault, 'hostGap');
+    justify-items: center;
+    width: var(--wlc-lcta-width);
+    padding: ef.get-value($themeDefault, 'hostPadding');
+    text-align: center;
+    background: var(--wlc-lcta-bg, #{ef.get-value($themeDefault, 'hostBg')});
+    border-radius: ef.get-value($themeDefault, 'hostRadius');
+
+    .wlc-lottery-cta {
+
+        &__title {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'titleTextStyle'),
+                ef.get-value($themeDefault, 'titleColor'),
+            );
+        }
+
+        &__controls {
+            margin: ef.get-value($themeDefault, 'controlsMargin');
+        }
+    }
+
+    &.wlc-lottery-cta--theme-mod-wolf {
+        --wlc-timer-title-color: #{ef.get-value($themeDefault, 'timerTitleColorWolf')};
+
+        @include text.get-text-style(
+            ef.get-value($themeDefault, 'hostTextStyleWolf'),
+            ef.get-value($themeDefault, 'hostTextColorWolf'),
+        );
+        @include bm.cardInnerShadow();
+    }
+}

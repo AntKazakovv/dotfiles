@@ -16,6 +16,7 @@ import {CurrenciesInfo} from 'wlc-engine/modules/core/constants';
 
 export class LotteryPrizes {
     public prizeTable: ILotteryPrize[] = [];
+    public totalRows: number;
 
     private data: TLotteryWinningSpread[];
     private userCurrency: string;
@@ -39,11 +40,11 @@ export class LotteryPrizes {
     private init(): void {
         const goodsKey: string = 'GOODS';
 
-        this.prizeTable = _map(this.data, (row, i) => {
-            const type: TLotteryPrizeType = (_indexOf(_keys(row), goodsKey) >= 0) ? 'goods' : 'bonus';
-
+        this.prizeTable = _map(this.data, (row: TLotteryWinningSpread, i: number): ILotteryPrize => {
             const place: number = i + 1;
-            let value;
+            const type: TLotteryPrizeType = (_indexOf(_keys(row), goodsKey) >= 0) ? 'goods' : 'bonus';
+            let value: TLotteryBonusPrize[] | string;
+
             const dataRow: ILotteryPrize = {place, type, value};
 
             if (type === 'goods') {
@@ -55,10 +56,10 @@ export class LotteryPrizes {
 
             return dataRow;
         });
+
+        this.totalRows = this.prizeTable.length;
     }
 
-    // TODO: убрать лишнюю логику,
-    // когда бэк будет возвращать адекватные данные, в зависимости от текущей валюты пользователя
     private transformPrizes(data: TRawLotteryBonusPrize): TLotteryBonusPrize[] {
         const transformed: TLotteryBonusPrize[] = [];
         const moneyCurrency = this.userCurrency?.toUpperCase() || 'EUR';

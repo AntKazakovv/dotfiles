@@ -7,6 +7,7 @@ import {
     ChangeDetectorRef,
 } from '@angular/core';
 
+import {StateService} from '@uirouter/core';
 import {
     Subject,
 } from 'rxjs';
@@ -45,6 +46,7 @@ export class LotteryButtonsComponent extends AbstractComponent implements OnInit
         protected override configService: ConfigService,
         protected override cdr: ChangeDetectorRef,
         protected eventService: EventService,
+        protected stateService: StateService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
@@ -65,7 +67,7 @@ export class LotteryButtonsComponent extends AbstractComponent implements OnInit
     }
 
     public showDetails(): void {
-        // TODO: go to lottery detail page
+        this.stateService.go('app.lotteries-detail', {alias: this.lottery.alias});
     }
 
     public initSubscribers(): void {

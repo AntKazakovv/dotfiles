@@ -1,7 +1,7 @@
 .wlc-lottery-buttons--theme-default:host {
     display: flex;
     flex-wrap: wrap;
-    gap: ef.size(4);
+    gap: ef.get-value($themeDefault, 'hostGap');
     align-items: center;
     justify-content: center;
     width: 100%;

@@ -12,6 +12,7 @@
             display: grid;
             grid-template-columns: auto 1fr;
             gap: ef.get-value($themeDefault, 'rowGap');
+            min-height: ef.get-value($themeDefault, 'rowMinHeight');
             padding: ef.get-value($themeDefault, 'rowPadding');
 
             background: var(--wlc-lp-row-bg, #{ef.get-value($themeDefault, 'rowBg')});
@@ -27,18 +28,50 @@
                 width: ef.get-value($themeDefault, 'rowBorderWidth');
                 height: ef.get-value($themeDefault, 'rowBorderHeight');
 
-                background: ef.get-value($themeDefault, 'rowBorderBg');
+                background: var(--wlc-lp-row-border, #{ef.get-value($themeDefault, 'rowBorderBg')});
                 transform: translate(-50%, 0);
+            }
+
+            &:last-child {
+
+                &:after {
+                    background: var(--wlc-lp-row-border-last, #{ef.get-value($themeDefault, 'rowBorderBg')});
+                }
+            }
+
+            &--head,
+            &--all-btn {
+                align-items: center;
+            }
+
+            &--all-btn {
+                @include bm.transition(color);
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'allBtnTextStyle'),
+                    var(--wlc-lp-all-color, #{ef.get-value($themeDefault, 'allBtnColor')})
+                );
+                grid-template-columns: 1fr;
+                text-align: center;
+                cursor: pointer;
+
+                @include bm.hover() {
+                    color: ef.get-value($themeDefault, 'allBtnColorHover');
+                }
             }
         }
 
         &__col {
+
+            &--place {
+                line-height: ef.get-value($themeDefault, 'rowMinHeight');
+            }
 
             &--prize {
                 @include text.get-text-style(
                     ef.get-value($themeDefault, 'prizeTextStyle'),
                     ef.get-value($themeDefault, 'prizeColor')
                 );
+                align-self: center;
                 text-align: ef.get-value($themeDefault, 'prizeTextAlign');
             }
         }

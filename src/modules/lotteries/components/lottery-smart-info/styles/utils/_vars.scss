@@ -1,4 +1,7 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'hostGap': ef.size(4),
+    'gap': ef.size(4),
+
+    'timerMinWidth': 250px,
+    'timerMaxWidth': 100%,
 ), $customThemeDefault);

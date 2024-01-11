@@ -187,4 +187,10 @@ export const $layouts: ILayoutsConfig = {
             'providers': sectionsLib.providers.slider,
         },
     },
+    'app.lotteries-detail': {
+        extends: 'app',
+        sections: {
+            'content': sectionsLib.lotteries.lotteryDetail,
+        },
+    },
 };

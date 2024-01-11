@@ -1,7 +1,7 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'cardTextStyle': 'PrimaryTextBold',
-    'cardColor': var(--mc-baseMain),
+    'cardColor': var(--mc-baseMain-locked),
     'cardBgDefault': var(--mc-bg700),
     'cardBg': radial-gradient(148.85% 200.96% at 70.62% 50%, #6300e2 0%, #8435e9 100%),
     'cardMinHeight': (
@@ -60,7 +60,7 @@ $themeDefault: map-merge((
         375: 'ThirdTitleBold',
         1024: 'PromoTitle',
     ),
-    'nameColor': var(--mc-baseMain),
+    'nameColor': var(--mc-baseMain-locked),
     'nameClamp': 2,
 
     'prizesMaxWidth': 300px,
@@ -128,10 +128,11 @@ $themeDefault: map-merge((
         1024: 250px,
     ),
     'cardTextStyleWolf': 'CaptionTextBold',
-    'cardColorWolf': var(--mc-baseThird),
+    'cardColorWolf': var(--mc-baseThird-locked),
     'nameTextStyleWolf': (
         375: 'ThirdTitleBold',
         1024: 'QoteTextBold',
     ),
-    'nameColorWolf': var(--mc-baseThird),
+    'nameColorWolf': var(--mc-baseThird-locked),
+    'smartInfoGapWolf': ef.size(2),
 ), $customThemeDefault);

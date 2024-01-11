@@ -83,6 +83,7 @@ let states = {
     'app.login': States.loginState,
     'app.signin': States.signin,
     'app.something-wrong': States.somethingWrongState,
+    'app.lotteries-detail': States.lotteryDetailState,
 };
 
 if (GlobalHelper.isMobileApp()) {
