@@ -8,8 +8,7 @@ $themeDefault: map-merge((
     'titlePadding': 0 0 ef.size(4) 0,
 
     'linkTextStyle': (
-        375: 'PrimaryText',
-        1024: 'ButtonText',
+        375: 'PrimaryTextBold',
     ),
 
     'linkColor': var(--mc-baseMain),
@@ -40,6 +39,14 @@ $themeDefault: map-merge((
         375: 1,
         560: 2,
         900: 1,
+    ),
+    'footerSecondDisplay': (
+        375: grid,
+        560: block,
+    ),
+    'footerSecondGap': (
+        375: ef.size(2),
+        560: 0,
     ),
     'ffPadding': (
         375: 0,

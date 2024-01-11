@@ -266,7 +266,7 @@ $theme2Footer: map-merge((
         900: -1,
     ),
     'footerMenuPadding': (
-        375: ef.size(3),
+        375: ef.size(4) ef.size(3),
         900: ef.size(3) ef.size(5),
     ),
     'footerMenuMargin': (

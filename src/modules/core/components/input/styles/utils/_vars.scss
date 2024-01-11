@@ -88,7 +88,7 @@ $themeVertical: map-merge((
     'fieldIconLineHeight': 0,
     'fieldIconSvgFill': var(--fc-iconColor),
     'fieldIconSvgFillHover': var(--fc-textColor),
-    'fieldIconSvgFillActive': var(--fc-errorBackground),
+    'fieldIconSvgFillActive': var(--fc-textColor),
     'borderColorActive': var(--fc-borderColor),
 
     'errorsColor': ef.get('form', 'errorsColor'),

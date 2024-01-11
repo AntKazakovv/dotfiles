@@ -9,7 +9,6 @@
         .wlc-menu__link {
             @include bm.transition(color);
             @include text.get-text-style(ef.get-value($themeDefault, 'linkTextStyle', 375), ef.get-value($themeDefault, 'linkColor'));
-
             text-decoration: ef.get-value($themeDefault, 'linkDecoration');
 
             &.active {
@@ -18,10 +17,6 @@
 
             @include bm.hover {
                 color: ef.get-value($themeDefault, 'linkColorHover');
-            }
-
-            @include mq.min(1024) {
-                @include text.get-text-style(ef.get-value($themeDefault, 'linkTextStyle', 1024), ef.get-value($themeDefault, 'linkColor'));
             }
         }
 
@@ -43,8 +38,8 @@
             .wlc-post-menu__items,
             & > .wlc-menu--type-post-menu {
                 @include bm.get-mq-map('column-count', $themeDefault, 'footerSecondColumns');
-
-                display: block;
+                @include bm.get-mq-map('display', $themeDefault, 'footerSecondDisplay');
+                @include bm.get-mq-map('grid-gap', $themeDefault, 'footerSecondGap');
             }
         }
 
