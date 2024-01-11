@@ -229,7 +229,10 @@ export class PaymentFormComponent
                 if (userProfile) {
                     this.userProfile$.next(userProfile);
                     this.userProfile = userProfile;
-                    this.currentCurrency = userProfile.currency;
+
+                    if (!this.isMultiWallet) {
+                        this.currentCurrency = userProfile.currency;
+                    }
 
                     if (this.showCommissions) {
                         this.initCommissions();
@@ -241,7 +244,8 @@ export class PaymentFormComponent
         this.initSubscribers();
 
         if (!this.isDeposit) {
-            this.userService ??= await this.injectionService.getService<UserService>('user.user-service');
+            this.userService = await this.injectionService.getService<UserService>('user.user-service');
+
             this.userService.userInfo$
                 .pipe(takeUntil(this.$destroy))
                 .subscribe((userInfo: UserInfo): void => {
