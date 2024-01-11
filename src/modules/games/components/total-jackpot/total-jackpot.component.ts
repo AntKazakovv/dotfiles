@@ -10,6 +10,7 @@ import {
 import {TranslateService} from '@ngx-translate/core';
 
 import {
+    filter,
     takeUntil,
 } from 'rxjs/operators';
 import _clone from 'lodash-es/clone';
@@ -80,6 +81,8 @@ export class TotalJackpotComponent extends AbstractComponent implements OnInit {
             this.getLastJackpots();
         });
         this.noContentParams = GlobalHelper.getNoContentParams(this.$params, this.$class, this.configService);
+
+        this.cdr.markForCheck();
     }
 
     private async getCache(): Promise<void> {
@@ -122,6 +125,7 @@ export class TotalJackpotComponent extends AbstractComponent implements OnInit {
     private getLastJackpots(): void {
         this.gamesCatalogService.subscribeJackpots
             .pipe(
+                filter((data: JackpotModel[]) => !!data.length),
                 takeUntil(this.$destroy),
             )
             .subscribe((data: JackpotModel[]) => {
