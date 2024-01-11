@@ -184,7 +184,7 @@
         [attr.data-wlc-element]="'block_payment-item-' + system.id">
         <button wlc-icon-list-item
                 class="{{$class}}__button"
-                [class.active]="system.id === currentSystem?.id"
+                [class.active]="system.id === currentSystem?.id || system.id === selectedParentID"
                 [class.disabled]="system.disabledBy"
                 type="button"
                 [attr.aria-label]="system.name"
@@ -215,7 +215,7 @@
 
                     <button wlc-icon-list-item
                             class="{{$class}}__button"
-                            [class.active]="system.id === currentSystem?.id"
+                            [class.active]="system.id === currentSystem?.id || system.id === selectedParentID"
                             [class.disabled]="system.disabledBy"
                             type="button"
                             [attr.aria-label]="system.name"

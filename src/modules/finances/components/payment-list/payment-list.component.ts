@@ -140,6 +140,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     public catMenuTypeMain: TPaySystemsSwitcher;
     public logImageError: TIconErrorCode = '1.4.18';
     public paymentCategories: Params.IPaymentsGroup[] = [];
+    public selectedParentID: number;
 
     protected isDeposit: boolean;
     protected lastSucceedRes: number | null = null;
@@ -253,6 +254,13 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         hideModal: boolean = this.$params.hideModalOnSelect,
         autoSelect: boolean = false,
     ): void {
+
+        if (system.isParent) {
+            this.selectedParentID = system.id;
+        } else if (this.$params.theme !== 'crypto-list') {
+            this.selectedParentID = null;
+        }
+
         if (system?.disabledBy) {
             return;
         }
@@ -547,7 +555,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
 
     protected setPaymentCategories(): void {
         this.paymentCategories = _map(this.tags, (item) => {
-            const systemsList: PaymentSystem[] =  _filter(this.systems, (s: PaymentSystem) => {
+            const systemsList: PaymentSystem[] = _filter(this.systems, (s: PaymentSystem) => {
                 return _includes(s.tags, item[0]);
             });
 
@@ -712,9 +720,9 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     protected updatePaySystemsStatus(): void {
         _forEach(this.systems, (system: PaymentSystem): void => {
             system.disabledBy = !this.availableSystems?.length
-            || system.childrenSystems.length
-            && !_every(system.childrenSystems, child => !_includes(this.availableSystems, child.id))
-            || _includes(this.availableSystems, system.id)
+                || system.childrenSystems.length
+                && !_every(system.childrenSystems, child => !_includes(this.availableSystems, child.id))
+                || _includes(this.availableSystems, system.id)
                 ? null : 1;
         });
     }
