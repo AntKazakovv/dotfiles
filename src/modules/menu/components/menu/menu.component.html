@@ -2,7 +2,7 @@
 
     <ng-container *ngIf="!item.params?.state?.parent">
         <div class="{{$class}}__item {{$class}}__item--sref {{$class}}__item--{{item.class}}"
-            [class.active]="isActive(item.params?.state)">
+            [class.active]="isActive(item.params?.state?.name, item.params?.state?.params)">
 
             <a *ngIf="item.params?.state?.activeEq"
                class="{{$class}}__link"
