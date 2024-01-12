@@ -25,6 +25,7 @@ import {
 import {
     AchievementModel,
     AchievementGroupModel,
+    IModifier,
 } from 'wlc-engine/modules/loyalty/submodules/achievements';
 
 import * as Params from './achievement-list.params';
@@ -73,7 +74,7 @@ export class AchievementListComponent extends AbstractComponent implements OnIni
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
 
-        let achievements: AchievementModel[] = await this.achievementsService.getAchievements(this.$params.modifier);
+        let achievements: AchievementModel[] = await this.achievementsService.getAchievements();
 
         if (this.$params.hideReceived) {
             achievements = _filter(achievements, (achievement: AchievementModel) => !achievement.isReceived);
@@ -99,15 +100,14 @@ export class AchievementListComponent extends AbstractComponent implements OnIni
             this.groupedAchievements.get(groupId).push(achievement);
         });
 
-        this.achievementsFromActiveGroup = this.groupedAchievements.get(AchievementGroupModel.commonGroupId);
+        this.getAchievementsFromActiveGroup(AchievementGroupModel.commonGroupId);
+
         this.eventService.subscribe({name: 'TRANSITION_SUCCESS'}, (): void => {
             const activeGroup: string = this.router.globals.params['group'];
 
-            if (this.groupedAchievements.has(activeGroup)) {
-                this.achievementsFromActiveGroup = this.groupedAchievements.get(activeGroup);
-            } else {
-                this.achievementsFromActiveGroup = this.groupedAchievements.get(AchievementGroupModel.commonGroupId);
-            }
+            this.getAchievementsFromActiveGroup(
+                this.groupedAchievements.has(activeGroup) ? activeGroup : AchievementGroupModel.commonGroupId,
+            );
 
             this.cdr.detectChanges();
         }, this.$destroy);
@@ -119,5 +119,20 @@ export class AchievementListComponent extends AbstractComponent implements OnIni
     public paginationOnChange(value: IPaginateOutput): void {
         this.paginatedAchievements = value.paginatedItems as AchievementModel[];
         this.cdr.detectChanges();
+    }
+
+    public getAchievementsFromActiveGroup(group: string): void {
+        this.achievementsFromActiveGroup = this.groupedAchievements.get(group);
+
+        if (this.$params.modifier) {
+            this.achievementsFromActiveGroup = this.modifyAchievementsGroup(
+                this.achievementsFromActiveGroup,
+                this.$params.modifier,
+            );
+        }
+    }
+
+    public modifyAchievementsGroup(achievements: AchievementModel[], modifier: IModifier): AchievementModel[] {
+        return this.achievementsService.modifyAchievementArray(achievements, modifier);
     }
 }

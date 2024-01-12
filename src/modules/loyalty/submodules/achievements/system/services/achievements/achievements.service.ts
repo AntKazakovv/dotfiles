@@ -57,10 +57,9 @@ export class AchievementsService {
         private uiRouter: UIRouter,
     ) {
         this.init();
-        // console.log(this.testFunc('bar','foo'));
     }
 
-    public async getAchievements(modifier?: IModifier): Promise<AchievementModel[]> {
+    public async getAchievements(): Promise<AchievementModel[]> {
         try {
             const response: IData = await this.dataService.request({
                 name: 'achievements',
@@ -72,10 +71,6 @@ export class AchievementsService {
             });
 
             let achievements: AchievementModel[] = this.modifyData(response.data.achievements);
-
-            if (achievements.length && modifier) {
-                achievements = this.modifyAchievementArray(achievements, modifier);
-            }
 
             this._groups = this.modifyGroupsData(response.data.groups);
 
@@ -142,6 +137,14 @@ export class AchievementsService {
         );
     }
 
+    public modifyAchievementArray(achievements: AchievementModel[], modifier: IModifier): AchievementModel[] {
+        if (modifier.type === 'order') {
+            return this.orderAchievementArray(achievements, modifier);
+        } else {
+            return achievements;
+        }
+    }
+
     protected init(): void {
         AchievementModel.currentLang = this.translateService.currentLang || 'en';
         AchievementGroupModel.currentLang = this.translateService.currentLang || 'en';
@@ -192,14 +195,6 @@ export class AchievementsService {
             },
             item,
         ));
-    }
-
-    protected modifyAchievementArray(achievements: AchievementModel[], modifier: IModifier): AchievementModel[] {
-        if (modifier.type === 'order') {
-            return this.orderAchievementArray(achievements, modifier);
-        } else {
-            return achievements;
-        }
     }
 
     protected orderAchievementArray(achievements: AchievementModel[], modifier: IModifier): AchievementModel[] {
