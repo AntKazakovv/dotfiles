@@ -1073,7 +1073,7 @@ export class UserService {
             {
                 endPoint: 'wsc2',
                 events: [WebSocketEvents.RECEIVE.USER_BALANCE, WebSocketEvents.RECEIVE.USER],
-                eventFilterFunc: this.checkWSBalanceDelay,
+                eventFilterFunc: this.filterEventWSBalance.bind(this),
             })
             .pipe(
                 tap((data: IWSUserBalance) => {
@@ -1155,14 +1155,23 @@ export class UserService {
         this.userInfo$.next(this.info);
     }
 
-    private checkWSBalanceDelay(event: IWSData): boolean {
+    private filterEventWSBalance(event: IWSData): boolean {
+        let filterResult: boolean = true;
+
+        if (event.event === WebSocketEvents.RECEIVE.USER_BALANCE) {
+            filterResult = event.data.IDUser === Number(this.profile.idUser);
+            if (!filterResult) {
+                return filterResult;
+            }
+        }
+
         if (event.data?.timestamp) {
             const eventTimeSeconds = DateTime.fromSQL(event.data.timestamp, {zone: 'utc'}).toSeconds();
             const nowTimeSeconds = DateTime.now().toSeconds();
-            return nowTimeSeconds - eventTimeSeconds < 5;
+            filterResult = nowTimeSeconds - eventTimeSeconds < 5;
         }
 
-        return true;
+        return filterResult;
     }
 
     private registerMethods(): void {
