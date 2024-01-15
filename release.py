@@ -22,14 +22,15 @@ projects = [
             "scr1-profile",
             "scr1-var1",
             "scr1-var2",
+            "scr1-mc1",
+            "scr1-kiosk",
+            "scr1-aff",
             "scr2-var1",
             "scr2-var2",
-            "scr1-mc1",
             "scr2-mc1",
-            "scr3-wolf1",
-            "scr1-kiosk",
             "scr2-kiosk",
-            "scr1-aff",
+            "scr3-wolf1",
+            "scr4-license",
         ],
     },
     {
@@ -469,7 +470,7 @@ def check_format(version):
 
 # Клонирование проекта
 def clone_project(project_repo):
-    print(Fore.YELLOW + "Clone project" + Fore.RESET)
+    print(Fore.YELLOW + f"Clone project {project_repo}" + Fore.RESET)
     subprocess.run(["git", "clone", project_repo, temp_folder])
     subprocess.run(["git", "fetch"], cwd=temp_folder)
     print(Fore.GREEN + "Done" + Fore.RESET)
@@ -804,10 +805,11 @@ def make_release(action, branch):
     set_version(new_tag)
     print(Fore.GREEN + f"Done. New tag is {new_tag}" + Fore.RESET)
 
-    print(Fore.YELLOW + "Making change log..." + Fore.RESET)
-    subprocess.run(["npm", "run", "gulp", "change-logs", "--", f"--tag={new_tag}"])
-    subprocess.run(["npm", "run", "gulp", "translations-logs"])
-    print(Fore.GREEN + "Done" + Fore.RESET)
+    if branch == "develop" or "master":
+        print(Fore.YELLOW + "Making change log..." + Fore.RESET)
+        subprocess.run(["npm", "run", "gulp", "change-logs", "--", f"--tag={new_tag}"])
+        subprocess.run(["npm", "run", "gulp", "translations-logs"])
+        print(Fore.GREEN + "Done" + Fore.RESET)
 
     print(Fore.YELLOW + "Commit and push changes..." + Fore.RESET)
     subprocess.run(["git", "add", "src/docs/content", "package.json"])
@@ -957,6 +959,7 @@ def update_projects(projects):
                 subprocess.run(["git", "checkout", branch], cwd=temp_folder)
                 set_version(engine_version, "project")
 
+                clear_npm_cache()
                 update_npm(temp_folder)
                 update_composer()
 
