@@ -24,6 +24,7 @@ $themeDefault: map-merge((
     'colorTitle': var(--mc-baseMain),
     'subtitleMargin': ef.size(2) 0 0,
     'widthGameThumbImg': 100%,
+    'paddingGameThumbInfo': ef.size(10) 0 0 0,
 
     'linkBlockBtnMargin': 0 auto ef.size(2) auto,
     'textBlockHeadMargin': (

@@ -220,6 +220,15 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
                 },
             },
         },
+        {
+            name: 'games.wlc-game-thumb',
+            params: {
+                type: 'modal',
+                common: {
+                    game: params.game,
+                },
+            },
+        },
         params.isLatestBetsWidget ? {
             name: 'promo.wlc-bet-info',
             params: <IBetInfoCParams>{
@@ -233,15 +242,6 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
                 },
             },
         } : null,
-        {
-            name: 'games.wlc-game-thumb',
-            params: {
-                type: 'modal',
-                common: {
-                    game: params.game,
-                },
-            },
-        },
         {
             name: 'core.wlc-button',
             params: <IButtonCParams>{

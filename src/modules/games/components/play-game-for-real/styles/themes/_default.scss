@@ -61,6 +61,7 @@
 
         .wlc-game-thumb {
             margin: ef.get-value($themeDefault, 'modalGameMarginBottom');
+            padding: ef.get-value($themeDefault, 'paddingGameThumbInfo');
         }
 
         .wlc-bet-info {
