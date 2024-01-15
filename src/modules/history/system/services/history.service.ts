@@ -391,7 +391,11 @@ export class HistoryService {
                 .conversionCurrency<Transaction>(this.injectionService, response.data);
             return transactions;
         } catch (error) {
-            if (error.code === 400 && error.errors.length === 1 && error.errors[0] === rangeExceededMsg) {
+            //TODO replace compare with error string from backend by handling this in front. Will be in SCR #544298
+            if (error.code === 400 
+                && error.errors.length === 1
+                && error.errors[0] === 'Report interval is more than 90 days'
+            ) {
                 this.eventService.emit({
                     name: NotificationEvents.PushMessage,
                     data: <IPushMessageParams>{

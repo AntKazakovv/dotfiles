@@ -1,1 +1,1 @@
-export const rangeExceededMsg = gettext('Report interval is more than 90 days');
+export const rangeExceededMsg = gettext('Report period exceeds 90 days');
