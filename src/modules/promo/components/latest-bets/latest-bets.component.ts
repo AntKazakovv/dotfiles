@@ -79,10 +79,6 @@ export class LatestBetsComponent extends AbstractComponent implements OnInit, On
         this.cdr.markForCheck();
     }
 
-    public override ngOnDestroy(): void {
-        this.dataBetSub.unsubscribe();
-    }
-
     public prepareBetParams(bet?: LatestBetsModel): ILatestBetsItemCParams {
         return _merge(
             {
