@@ -71,7 +71,7 @@ $themeAlternative: map-merge((
 
     'prizepoolTextStyle': 'ThirdTitleBold',
     'prizepoolTextStyleLg': 'QoteTextBold',
-    'prizepoolColor': var(--mc-baseMain),
+    'prizepoolColor': ef.get('mainColors', 'baseMain'),
 
     'imageBlockGridArea': (
         320: image,
