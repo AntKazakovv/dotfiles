@@ -7,6 +7,7 @@ import {
     OnInit,
 } from '@angular/core';
 import {UntypedFormControl} from '@angular/forms';
+import QRCode from 'qrcode';
 
 import {
     AbstractComponent,
@@ -34,6 +35,7 @@ export class TwoFactorAuthScanComponent extends AbstractComponent implements OnI
     @Input() public secretCode: ITwoFactorAuthResponse;
     public override $params: Params.ITwoFactorAuthScanCParams;
     public inputParams: IInputCParams;
+    public qrCodeImg: string = '';
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITwoFactorAuthScanCParams,
@@ -45,14 +47,21 @@ export class TwoFactorAuthScanComponent extends AbstractComponent implements OnI
     }
 
     public get imgUrl(): string {
-        return ('https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=') + this.secretCode.path;
+        return this.qrCodeImg;
     }
 
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         this.secretCode ??= this.$params.secretCode || this.twoFactorAuthService.secretCode;
         this.inputParams = this.getInputParams();
+        this.makeLink();
         this.cdr.markForCheck();
+    }
+
+    public async makeLink(): Promise<void> {
+        if (this.secretCode.path) {
+            this.qrCodeImg = await QRCode.toDataURL(this.secretCode.path, {width: 250});
+        }
     }
 
     protected openModal(): void {

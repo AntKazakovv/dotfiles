@@ -11,12 +11,16 @@ import {
 import {UntypedFormControl} from '@angular/forms';
 import {DOCUMENT} from '@angular/common';
 
+import {BehaviorSubject} from 'rxjs';
+
 import {TranslateService} from '@ngx-translate/core';
 import {DateTime} from 'luxon';
 import _cloneDeep from 'lodash-es/cloneDeep';
 import _some from 'lodash-es/some';
 import _map from 'lodash-es/map';
 import _merge from 'lodash-es/merge';
+
+import QRCode from 'qrcode';
 
 import {
     IPaymentMessage,
@@ -93,6 +97,8 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
     public inputParamsLockedAmount: IInputCParams;
     public inputParamsCryptoAmount: IInputCParams;
 
+    public qrCodeImg$: BehaviorSubject<string> = new BehaviorSubject('');
+
     private patchOptions: IPatchOptions = {
         onlySelf: false,
         emitModelToViewChange: true,
@@ -119,11 +125,6 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
 
     public get message(): IPaymentMessage {
         return (this.system.message as IPaymentMessage);
-    }
-
-    public get imgUrl(): string {
-        return (this.system.isKauri ? 'data:image/jpeg;base64,' :
-            'https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=') + this.message.qrlink;
     }
 
     public get details(): string {
@@ -157,6 +158,19 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
         this.cdr.markForCheck();
     }
 
+    public async makeQrLink(): Promise<void> {
+
+        if (this.system.isKauri) {
+            this.qrCodeImg$.next('data:image/jpeg;base64,');
+        } else if (this.message.qrlink) {
+            try {
+                this.qrCodeImg$.next(await QRCode.toDataURL(this.message.qrlink, {width: 250}));
+            } catch (err) {
+                console.error(err);
+            }
+        }
+    }
+
     public override ngOnChanges(): void {
         this.type = null;
         this.prepareMessage();
@@ -179,6 +193,8 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
     }
 
     protected prepareMessage(): void {
+
+        this.makeQrLink();
 
         if (typeof(this.message) === 'string') {
             this.type = 'text';

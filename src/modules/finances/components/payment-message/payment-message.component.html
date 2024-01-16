@@ -162,7 +162,7 @@
         <div class="{{$class}}__qr-wrapper">
             <img class="{{$class}}__qr-image"
                 [alt]="system.name"
-                [src]="imgUrl">
+                [src]="qrCodeImg$ | async">
         </div>
     </div>
 </ng-template>
