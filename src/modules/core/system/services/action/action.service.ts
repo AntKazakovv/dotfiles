@@ -123,10 +123,10 @@ export class ActionService {
     private renderer: Renderer2;
     private scrollTop: number;
     private scrollableElements$: IIndexing<Observable<number>> = {};
+    private bonusesService: BonusesService;
 
     constructor(
         private injector: Injector,
-        private bonusesService: BonusesService,
         protected configService: ConfigService,
         private eventService: EventService,
         private layoutService: LayoutService,
@@ -278,6 +278,7 @@ export class ActionService {
         }
 
         if (initialPath.promocode) {
+            this.bonusesService ??= await this.injectionService.getService<BonusesService>('bonuses.bonuses-service');
             this.bonusesService.processPromocode(initialPath.promocode);
         }
 
