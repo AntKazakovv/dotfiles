@@ -19,6 +19,7 @@ import {
     firstValueFrom,
 } from 'rxjs';
 import {
+    distinctUntilChanged,
     filter,
 } from 'rxjs/operators';
 
@@ -67,7 +68,7 @@ export interface IMenuOptions {
 })
 export class ProfileMenuService {
 
-    protected readyStatus: Deferred<void> = new Deferred<void>();
+    protected readyStatus: Deferred<void>;
     protected ready: Promise<void>;
     protected profileMenuConfig: MenuParams.MenuConfigItem[];
     protected tabsMenu: IMenuItem[];
@@ -79,8 +80,17 @@ export class ProfileMenuService {
         protected stateService: StateService,
         protected injectionService: InjectionService,
     ) {
-        this.ready = this.readyStatus.promise;
-        this.init();
+        this.configService.get<BehaviorSubject<boolean>>('$user.isAuth$')
+            .pipe(distinctUntilChanged())
+            .subscribe(async (): Promise<void> => {
+                this.readyStatus = new Deferred<void>();
+                this.ready = this.readyStatus.promise;
+
+                this.resetMenu();
+                await this.init();
+
+                this.readyStatus.resolve();
+            });
     }
 
     /**
@@ -118,6 +128,7 @@ export class ProfileMenuService {
      * reinit menu
      */
     public resetMenu(): void {
+        this.dropdownMenu = [];
         this.tabsMenu = null;
         this.subMenu = {};
         this.initConfig();
@@ -131,7 +142,7 @@ export class ProfileMenuService {
     public async getSubMenu(options?: IMenuOptions): Promise<IMenuItem[]> {
         await this.ready;
 
-        const state = this.stateService.current.name;
+        const state: string = this.stateService.current.name;
         if (this.subMenu[state]) {
             return this.subMenu[state];
         }
@@ -314,8 +325,6 @@ export class ProfileMenuService {
         if (this.configService.get<boolean>('$base.profile.achievements.use')) {
             await this.prepareAchievements();
         }
-
-        this.readyStatus.resolve();
     }
 
     /**
@@ -373,25 +382,23 @@ export class ProfileMenuService {
     }
 
     protected async prepareTransfer(): Promise<void> {
-        const userInfo = await firstValueFrom(this.configService
+        const userInfo: UserInfo = await firstValueFrom(this.configService
             .get<BehaviorSubject<UserInfo>>('$user.userInfo$')
             .pipe(
-                filter((userInfo: UserInfo): boolean => !!userInfo),
+                filter((userInfo: UserInfo): boolean => !!userInfo?.idUser),
             ),
         );
 
         if (!userInfo.transfersAllowed) {
-            this.profileMenuConfig = this.removeMenuItemsByState(this.profileMenuConfig, 'app.profile.cash.transfer');
-
-            this.configService.set({
-                name: '$base.profile.transfers.use',
-                value: false,
-            });
+            this.profileMenuConfig = this.removeMenuItemsByState(
+                this.profileMenuConfig,
+                'app.profile.cash.transfer',
+            );
         }
     }
 
     private removeMenuItemsByState(items: MenuParams.MenuConfigItem[], state: string): MenuParams.MenuConfigItem[] {
-        return _filter(items, (item: MenuParams.MenuConfigItem) => {
+        return _filter(items, (item: MenuParams.MenuConfigItem): boolean => {
             if (_isString(item)) {
                 const menuItem: IMenuItem = Config.wlcProfileMenuItemsGlobal[item];
                 return menuItem?.params?.state?.name !== state;

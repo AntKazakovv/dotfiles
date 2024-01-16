@@ -8,10 +8,11 @@ import {
 import {UntypedFormGroup} from '@angular/forms';
 
 import {TranslateService} from '@ngx-translate/core';
-import {StateService} from '@uirouter/core';
 import {BehaviorSubject} from 'rxjs';
 import {
     distinctUntilChanged,
+    filter,
+    first,
     map,
     takeUntil,
 } from 'rxjs/operators';
@@ -20,6 +21,7 @@ import _cloneDeep from 'lodash-es/cloneDeep';
 import _forEach from 'lodash-es/forEach';
 import _isObject from 'lodash-es/isObject';
 import _concat from 'lodash-es/concat';
+import _isBoolean from 'lodash-es/isBoolean';
 
 import {
     AbstractComponent,
@@ -27,6 +29,7 @@ import {
     EventService,
     IFormWrapperCParams,
     IInputCParams,
+    IMixedParams,
     IPushMessageParams,
     ITextBlockCParams,
     IValidatorSettings,
@@ -60,6 +63,7 @@ export class TransferComponent extends AbstractComponent implements OnInit {
     public ready: boolean = false;
     public override $params: Params.ITransferCParams;
     public formConfig: IFormWrapperCParams;
+    public isTransfersUnavailable: boolean = false;
 
     private mainForm: UntypedFormGroup;
     private userBalance: number;
@@ -68,44 +72,55 @@ export class TransferComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected params: Params.ITransferCParams,
-        cdr: ChangeDetectorRef,
-        protected eventService: EventService,
-        configService: ConfigService,
-        protected modalService: ModalService,
-        protected transferService: TransferService,
-        protected translateService: TranslateService,
-        protected stateService: StateService,
+        private eventService: EventService,
+        private modalService: ModalService,
+        private transferService: TransferService,
+        private translateService: TranslateService,
+        protected override configService: ConfigService,
+        protected override cdr: ChangeDetectorRef,
     ) {
-        super({
+        super(<IMixedParams<Params.ITransferCParams>>{
             injectParams: params,
             defaultParams: Params.defaultParams,
         }, configService, cdr);
     }
 
-    public override async ngOnInit(): Promise<void> {
+    public override ngOnInit(): void {
         super.ngOnInit();
         this.smsEnabled = this.configService.get<boolean>('appConfig.smsEnabled');
         this.userDataSetSubscribers();
-        try {
-            const transfer: TransferModel = await this.transferService.getTransferData();
-            const bonusInfo: Bonus = await this.transferService.getBonusInfo();
-            if (transfer && bonusInfo) {
-                this.transfer = transfer;
-                this.getInfoConfig(bonusInfo);
-                this.getMainFormConfig();
+
+        this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'})
+            .pipe(
+                filter((userInfo: UserInfo) => _isBoolean(userInfo?.transfersAllowed)),
+                map((userInfo: UserInfo) => userInfo.transfersAllowed),
+                first(),
+                takeUntil(this.$destroy),
+            ).subscribe(async (transfersAllowed: boolean): Promise<void> => {
+                if (transfersAllowed) {
+                    try {
+                        const transfer: TransferModel = await this.transferService.getTransferData();
+                        const bonusInfo: Bonus = await this.transferService.getBonusInfo();
+                        if (transfer && bonusInfo) {
+                            this.transfer = transfer;
+                            this.getInfoConfig(bonusInfo);
+                            this.getMainFormConfig();
+                        }
+                    } catch (error) {
+                        if (error.errors) {
+                            this.showMessage(_concat(error.errors), true);
+                        } else {
+                            this.showMessage(this.$params.errorMessage, true);
+                        }
+                    }
+                } else {
+                    this.showMessage(this.$params.unavailableMessage, true);
+                    this.isTransfersUnavailable = true;
+                }
+
                 this.ready = true;
                 this.cdr.markForCheck();
-            }
-        } catch (error) {
-            const isGiftsAllowed = this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'})
-                .getValue()?.transfersAllowed;
-            if (error.errors && isGiftsAllowed) {
-                this.showMessage(_concat(error.errors), true);
-            } else {
-                this.showMessage(gettext('Something went wrong. Please contact with support service.'), true);
-            }
-            this.goToDashboard();
-        }
+            });
     }
 
     /**
@@ -145,7 +160,7 @@ export class TransferComponent extends AbstractComponent implements OnInit {
         } catch (error) {
             if (Object.keys(error.errors)[0] === 'email') {
                 this.showMessage(error.errors['email'], true);
-                form.controls.email.setErrors({'email': true});
+                form.controls.recipient.setErrors({'email': true});
             } else {
                 this.showMessage(_concat(error.errors), true);
             }
@@ -380,9 +395,5 @@ export class TransferComponent extends AbstractComponent implements OnInit {
         if (this.modalService.getActiveModal('transfer-code')) {
             this.modalService.hideModal('transfer-code');
         }
-    }
-
-    public goToDashboard(): void {
-        this.stateService.go('app.profile.dashboard');
     }
 }

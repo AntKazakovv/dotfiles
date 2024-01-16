@@ -1,9 +1,19 @@
-<ng-container *ngIf="ready; else preloader">
+<ng-container [ngSwitch]="true">
+    <ng-container *ngSwitchCase="ready && isTransfersUnavailable" [ngTemplateOutlet]="noContent"></ng-container>
+    <ng-container *ngSwitchCase="ready" [ngTemplateOutlet]="form"></ng-container>
+    <ng-container *ngSwitchCase="!ready" [ngTemplateOutlet]="preloader"></ng-container>
+</ng-container>
+
+<ng-template #form>
     <div wlc-form-wrapper
         [config]="formConfig"
         [ngSubmit]="sendTransferData.bind(this)"
         (form$)="getForm($event)"></div>
-</ng-container>
+</ng-template>
+
+<ng-template #noContent>
+    <div wlc-wrapper [inlineParams]="$params.noContentConfig"></div>
+</ng-template>
 
 <ng-template #preloader>
     <div wlc-loader></div>

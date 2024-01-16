@@ -2,6 +2,7 @@ import {
     IFormWrapperCParams,
     IInputCParams,
     ITextBlockCParams,
+    IWrapperCParams,
 } from 'wlc-engine/modules/core';
 import {IAlertCParams} from 'wlc-engine/modules/core/components/alert/alert.params';
 import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
@@ -15,12 +16,27 @@ export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 
 export interface ITransferCParams extends IComponentParams<Theme, Type, ThemeMod> {
+    unavailableMessage?: string,
+    errorMessage?: string,
+    noContentConfig?: IWrapperCParams,
 }
 
 export const defaultParams: ITransferCParams = {
     moduleName: 'transfer',
     componentName: 'wlc-transfer',
     class: 'wlc-transfer',
+    unavailableMessage: gettext('Sorry, this functionality is currently unavailable'),
+    errorMessage: gettext('Something went wrong. Please contact with support service.'),
+    noContentConfig: {
+        components: [
+            {
+                name: 'profile.wlc-profile-no-content',
+                params: {
+                    text: gettext('Sorry, this functionality is currently unavailable'),
+                },
+            },
+        ],
+    },
 };
 
 export const infoBlock: IFormComponent = {

@@ -378,7 +378,7 @@ export class UserInfo extends AbstractModel<IUserInfo> {
     }
 
     public get transfersAllowed(): boolean {
-        return this.data.transfersAllowed;
+        return this.data?.transfersAllowed;
     }
 
     public get allowAccessToAddStreamWheel(): boolean {

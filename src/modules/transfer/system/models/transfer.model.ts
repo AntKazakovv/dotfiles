@@ -18,9 +18,7 @@ export class TransferModel extends AbstractModel<ITransfer> {
     }
 
     public get transferBy(): TransferByEnum {
-        //TODO Change "TransferByEnum.EMAIL" to "this.data.TransferBy" when it will work correctly
-        // https://tracker.egamings.com/issues/518715#note-66
-        return TransferByEnum.EMAIL;
+        return this.data.TransferBy;
     }
 
     public get disableConfirmation(): boolean {
