@@ -18,7 +18,7 @@
                     ::ng-deep {
 
                         svg {
-                            stroke: ef.get-value($themeDefault, 'iconSvgStrokeHover');
+                            color: ef.get-value($themeDefault, 'iconSvgColorHover');
                         }
                     }
                 }
@@ -52,10 +52,7 @@
                 svg {
                     width: ef.get-value($themeDefault, 'iconSvgWidth');
                     height: ef.get-value($themeDefault, 'iconSvgHeight');
-                    fill: ef.get-value($themeDefault, 'iconSvgFill');
-
-                    stroke: ef.get-value($themeDefault, 'iconSvgStroke');
-                    stroke-width: ef.get-value($themeDefault, 'iconSvgStrokeWidth');
+                    color: ef.get-value($themeDefault, 'iconSvgColor');
                 }
             }
 

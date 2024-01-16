@@ -128,12 +128,7 @@
                     svg {
                         width: ef.get-value($themeDefault, 'btnIconSize');
                         height: ef.get-value($themeDefault, 'btnIconSize');
-                        fill: ef.get-value($themeDefault, 'btnIconColor');
-
-                        path,
-                        mask {
-                            fill: ef.get-value($themeDefault, 'btnIconColor');
-                        }
+                        color: ef.get-value($themeDefault, 'btnIconColor');
                     }
                 }
             }
@@ -168,12 +163,7 @@
                         svg {
                             width: ef.get-value($themeDefault, 'btnIconSizeActive');
                             height: ef.get-value($themeDefault, 'btnIconSizeActive');
-                            fill: ef.get-value($themeDefault, 'btnIconColorActive');
-
-                            path,
-                            mask {
-                                fill: ef.get-value($themeDefault, 'btnIconColorActive');
-                            }
+                            color: ef.get-value($themeDefault, 'btnIconColorActive');
                         }
                     }
                 }
@@ -201,12 +191,7 @@
                     ::ng-deep {
 
                         svg {
-                            fill: ef.get-value($themeDefault, 'btnColorHover');
-
-                            path,
-                            mask {
-                                fill: ef.get-value($themeDefault, 'btnColorHover');
-                            }
+                            color: ef.get-value($themeDefault, 'btnColorHover');
                         }
                     }
                 }
@@ -298,8 +283,6 @@
 
                         svg {
                             width: ef.get-value($themeDefault, 'listBtnCheckWidth');
-                            stroke: ef.get-value($themeDefault, 'listBtnCheckColor');
-                            stroke-width: 3px;
                         }
                     }
                 }
