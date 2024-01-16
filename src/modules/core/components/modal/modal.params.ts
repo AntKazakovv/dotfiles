@@ -196,10 +196,11 @@ export const MODALS_LIST: IModalList = {
     logout: {
         config: {
             id: 'logout',
-            modalTitle: 'Log out',
+            modalTitle: gettext('Confirmation'),
             modifier: 'logout',
-            componentName: 'user.wlc-logout',
+            componentName: 'user.wlc-logout-confirmation',
             size: 'md',
+            showFooter: false,
             dismissAll: true,
         },
     },

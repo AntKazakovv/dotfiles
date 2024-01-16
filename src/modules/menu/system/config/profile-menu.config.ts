@@ -880,29 +880,6 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
     },
 
-    'profile-menu:logout': {
-        name: gettext('Logout'),
-        type: 'modal',
-        icon: 'logout',
-        class: 'logout',
-        params: {
-            modal: {
-                name: 'logout',
-            },
-        },
-    },
-    'profile-first-menu:logout': {
-        name: gettext('Logout'),
-        type: 'modal',
-        icon: 'logout',
-        class: 'logout',
-        params: {
-            modal: {
-                name: 'logout',
-            },
-        },
-    },
-
     'profile-menu:verification': {
         name: gettext('Verification'),
         type: 'sref',

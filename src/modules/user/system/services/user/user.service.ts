@@ -71,7 +71,6 @@ import {LimitationService} from 'wlc-engine/modules/user/submodules/limitations'
 import {IdleService} from 'wlc-engine/modules/user/system/services/idle/idle.service';
 import {
     ILoginWithPhoneData,
-    ILogoutConfirm,
     IUserPasswordPost,
     IEmailVerifyData,
     IWSUserBalance,
@@ -345,33 +344,8 @@ export class UserService {
 
         this.eventService.subscribe({
             name: 'LOGOUT_CONFIRM',
-        }, (data: ILogoutConfirm) => {
-            this.modalService.showModal({
-                id: 'logout-confirm',
-                modalTitle: gettext('Confirmation'),
-                modifier: 'confirmation',
-                wlcElement: 'modal_logout',
-                modalMessage: data?.modalMessage || gettext('Are you sure?'),
-                showConfirmBtn: true,
-                closeBtnParams: {
-                    themeMod: 'secondary',
-                    wlcElement: 'button_no',
-                    common: {
-                        text: gettext('No'),
-                    },
-                },
-                confirmBtnParams: {
-                    wlcElement: 'button_yes',
-                    common: {
-                        text: gettext('Yes'),
-                    },
-                },
-                textAlign: 'center',
-                onConfirm: () => {
-                    this.logout();
-                },
-                dismissAll: true,
-            });
+        }, () => {
+            this.modalService.showModal('logout');
         });
 
         this.eventService.subscribe({

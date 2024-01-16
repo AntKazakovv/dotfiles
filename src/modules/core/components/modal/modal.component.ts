@@ -31,6 +31,7 @@ import {
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {
     IModalOptions,
+    IModalType,
 } from 'wlc-engine/modules/core/components/modal/modal.interface';
 import {defaultParams} from 'wlc-engine/modules/core/components/modal/modal.params';
 import {WINDOW} from 'wlc-engine/modules/app/system';
@@ -78,6 +79,7 @@ export class WlcModalComponent extends AbstractComponent
     public bsOptions: ModalOptions = {};
     public closeReason: string = '';
 
+    protected modalType: IModalType;
     protected $ready: Deferred<void> = new Deferred();
     protected $closed: Deferred<string> = new Deferred();
 
@@ -129,6 +131,7 @@ export class WlcModalComponent extends AbstractComponent
         super.ngOnInit(this.inlineParams);
         this.applyConfig();
         this.$params.wlcElement = this.$params.config?.wlcElement || this.$params.wlcElement || 'wlc-modal';
+        this.modalType = this.getType();
     }
 
     public ngAfterViewInit(): void {
@@ -157,7 +160,6 @@ export class WlcModalComponent extends AbstractComponent
      * @param {string} modal Modal ID
      */
     public closeModal(modal: string): void {
-
         this.modalService.hideModal(modal);
     }
 
@@ -172,7 +174,7 @@ export class WlcModalComponent extends AbstractComponent
     /**
      * Getting the type of a modal window
      */
-    public getType(): string {
+    public getType(): IModalType {
         if (this.$params.config.modalMessage && this.$params.config.component) {
             return 'message-and-component';
         } else if (this.$params.config.templateRef) {
@@ -195,13 +197,13 @@ export class WlcModalComponent extends AbstractComponent
     }
 
     /**
-     * Close modal by close icon button
+     * Close modal by exact reason
      * @param modal {string}
      */
-    public closeModalByIcon(modal: string): void {
-        this.closeReason = 'closeIcon';
-        this.closeModal(modal);
-        this.eventService.emit({name: 'CLOSE_MODAL', data: modal});
+    public closeModalByReason(reason: string): void {
+        this.closeReason = reason;
+        this.closeModal(this.$params.config.id);
+        this.eventService.emit({name: 'CLOSE_MODAL', data: this.$params.config.id});
     }
 
     protected applyConfig(): void {

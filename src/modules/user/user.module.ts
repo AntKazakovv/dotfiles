@@ -58,6 +58,9 @@ import {MultiWalletModule} from 'wlc-engine/modules/multi-wallet/multi-wallet.mo
 import {
     EmailSubscriptionProfileBlockComponent,
 } from 'wlc-engine/modules/user/components/email-subscription-profile-block/email-subscription-profile-block.component';
+import {
+    LogoutConfirmationComponent,
+} from 'wlc-engine/modules/user/components/logout-confirmation/logout-confirmation.component';
 
 export const services = {
     'user-service': UserService,
@@ -97,6 +100,7 @@ export const components = {
     'wlc-user-stats': UserStatsComponent,
     'wlc-email-verification-notification': EmailVerificationNotificationComponent,
     'wlc-email-subscription-profile-block': EmailSubscriptionProfileBlockComponent,
+    'wlc-logout-confirmation': LogoutConfirmationComponent,
 };
 
 @NgModule({
@@ -132,6 +136,7 @@ export const components = {
         UserStatsComponent,
         EmailVerificationNotificationComponent,
         EmailSubscriptionProfileBlockComponent,
+        LogoutConfirmationComponent,
     ],
     imports: [
         CommonModule,
@@ -173,6 +178,7 @@ export const components = {
         UserStatsComponent,
         EmailVerificationNotificationComponent,
         EmailSubscriptionProfileBlockComponent,
+        LogoutConfirmationComponent,
     ],
 })
 export class UserModule {

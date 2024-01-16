@@ -1,0 +1,43 @@
+.wlc-logout-confirmation--theme-default:host {
+
+    .wlc-logout-confirmation {
+
+        &__icon {
+            display: flex;
+            justify-content: center;
+            margin: ef.get-value($themeDefault, 'iconMargin');
+
+            ::ng-deep {
+
+                .wlc-icon-content {
+                    display: inline-block;
+                    width: ef.get-value($themeDefault, 'iconSize');
+                    height: ef.get-value($themeDefault, 'iconSize');
+
+                    svg {
+                        width: 100%;
+                        color: ef.get-value($themeDefault, 'iconColorConfirm');
+                    }
+                }
+            }
+        }
+
+        &__message {
+            font-size: ef.get-value($themeDefault, 'messageFontSizeConfirm');
+        }
+
+        &__buttons {
+            display: flex;
+            flex-shrink: 0;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: ef.get-value($themeDefault, 'buttonsJustify');
+            border-top: ef.get-value($themeDefault, 'buttonsBorderTop');
+            margin: ef.get-value($themeDefault, 'buttonsMargin');
+
+            & [wlc-button] {
+                margin: ef.get-value($themeDefault, 'buttonsItemMargin');
+            }
+        }
+    }
+}

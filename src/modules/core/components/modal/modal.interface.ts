@@ -88,6 +88,10 @@ export interface IModalConfig extends ModalOptions {
      */
     hideIcon?: boolean;
     /**
+     * Icon path. `/wlc/icons/status/confirm.svg` by default
+     */
+    iconPath?: string;
+    /**
      * Text of close button. `Close` by default
      */
     closeBtnText?: string;
@@ -177,9 +181,14 @@ export interface IModalConfig extends ModalOptions {
 }
 
 /**
- * Available string types of modals (`id`)
+ * Available string names of modals (`id`)
  */
 export type IModalName = 'baseInfo' | 'faq' | 'search' | 'login' | 'signup' | string;
+
+/**
+ * Available string types of modals (`modalType`)
+ */
+export type IModalType = 'message-and-component' | 'templateRef' | 'message' | 'component' | 'html';
 
 /**
  * List of default modals. `id` must be equal with `content.id`

@@ -1,0 +1,22 @@
+<div wlc-wrapper
+     class="{{$class}}__icon"
+     [inlineParams]="$params.iconConfig">
+</div>
+<div *ngFor="let msg of $params.config.modalMessage"
+     [attr.data-wlc-element]="$params.wlcElement + '-message'"
+     [style]="{'text-align': $params.config.textAlign}"
+     class="{{$class}}__message">
+     {{msg | translate}}
+</div>
+<div class="{{$class}}__buttons">
+     <button wlc-button
+             typeAttr="button"
+             [inlineParams]="$params.config.confirmBtnParams"
+             (click)="confirm()">
+     </button>
+     <button wlc-button
+             typeAttr="button"
+             [inlineParams]="$params.config.closeBtnParams"
+             (click)="closeModal()">
+     </button>
+</div>
