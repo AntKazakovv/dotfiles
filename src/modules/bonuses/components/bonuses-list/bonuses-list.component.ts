@@ -101,6 +101,9 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, A
     };
     public noContentParams: INoContentCParams;
     public blankBonus: Bonus;
+    public usePagination: boolean;
+    public showHeader: boolean;
+    public showAllBtn: boolean;
 
     protected promocode: string = '';
     protected itemsPerPage: number = 0;
@@ -135,6 +138,9 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, A
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         this.prepareModifiers();
+        this.usePagination = this.$params.common?.pagination?.use;
+
+        this.showHeader = !!this.$params.titleParams || !!this.$params.allBtnParams || this.$params.type === 'swiper';
 
         this.noContentParams = GlobalHelper.getNoContentParams(
             this.$params,
@@ -420,6 +426,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, A
 
     protected onGetBonuses(bonuses: Bonus[]): void {
         this.paginatedBonuses = this.bonuses = bonuses;
+        this.showAllBtn = !!this.$params.allBtnParams && !!this.bonuses.length;
         const chosenBonus = this.configService.get<ChosenBonusType>(ChosenBonusSetParams.ChosenBonus);
 
         if (chosenBonus?.id) {

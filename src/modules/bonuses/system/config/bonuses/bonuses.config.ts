@@ -31,6 +31,11 @@ export const bonusesConfig: IBonusesModule = {
                         text: gettext('Play'),
                     },
                 },
+                'wolf': {
+                    title: gettext('New bonuses will appear very soon.'),
+                    text: gettext('Cheer yourself up with our new and popular games.'),
+                    decorImage: '//agstatic.com/bonuses/wolf/no-bonuses.svg',
+                },
             },
         },
     },

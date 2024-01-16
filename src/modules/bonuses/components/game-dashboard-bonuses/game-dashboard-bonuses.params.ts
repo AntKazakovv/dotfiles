@@ -4,9 +4,10 @@ import {
     ISliderCParams,
 } from 'wlc-engine/modules/core';
 import {TBonusSortOrder} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
+import {IBonusItemCParams} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';
 
 export type Type = 'default' | CustomType;
-export type Theme = 'default' | CustomType;
+export type Theme = 'default'  | 'wolf' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
@@ -18,10 +19,11 @@ export interface IGameDashboardBonusesCParams extends IComponentParams<Theme, Ty
     defaultSliderParams?: ISliderCParams,
     landscapeSliderParams?: ISliderCParams,
     sortOrder?: TBonusSortOrder[];
+    bonusItemParams?: IBonusItemCParams;
 }
 
 export const defaultParams: IGameDashboardBonusesCParams = {
-    moduleName: 'games',
+    moduleName: 'bonuses',
     componentName: 'game-dashboard-bonuses',
     class: 'wlc-game-dashboard-bonuses',
     defaultSliderParams: {
@@ -42,4 +44,7 @@ export const defaultParams: IGameDashboardBonusesCParams = {
         },
     },
     sortOrder: ['active', 'promocode', 'subscribe', 'inventory'],
+    bonusItemParams: {
+        theme: 'long',
+    },
 };

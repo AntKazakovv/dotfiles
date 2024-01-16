@@ -133,8 +133,34 @@ $bonusesList: map-merge((
         320: 388px,
         768: 380px,
         1024: 385px,
-    )
+    ),
 ), $customBonusesList);
+
+$customBonusesListWolf: () !default;
+$bonusesListWolf: map-merge((
+    'wrapperGridColumns': (
+        375: 1fr,
+        768: repeat(2, minmax(0, 1fr)),
+        1200: repeat(3, minmax(0, 1fr)),
+    ),
+    'wrapperGap': ef.size(4),
+    'wrapperPadding': ef.size(6) ef.size(5),
+    'wrapperBg': var(--mc-bg500),
+    'wrapperRadius': ef.get('radius', 'main'),
+
+    'bodyOrder': 2,
+    'bodyTextALign': center,
+
+    'decorOrder': 1,
+
+    'titleTextStyle': 'ThirdTitleBold',
+    'titleColor': var(--mc-baseSecond),
+
+    'textTextStyle': 'PrimaryText',
+    'textColor': var(--mc-baseSecond),
+
+    'buttonWrappMargin': ef.size(6) 0 0,
+), $customBonusesListWolf);
 
 $customTournamentList: () !default;
 $tournamentList: map-merge((

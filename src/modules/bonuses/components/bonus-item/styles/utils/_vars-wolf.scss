@@ -3,6 +3,7 @@ $themeWolf: map-merge((
     'cardInnerShadow': ef.get('baseVariables', 'cardInnerShadow'),
     'cardMaxWidth': 100%,
     'cardBg': linear-gradient(180deg, #414ec9 0%, #2217a5 100%),
+    'cardRadius': ef.get('radius', 'main'),
 
     'visualWidth': (
         375: 45%,
@@ -48,6 +49,7 @@ $themeWolf: map-merge((
     'infoBg': var(--mc-baseSecond-o2),
     'infoBgHover': var(--mc-baseSecond-o4),
     'infoRadius': ef.get('radius', 'big'),
+    'infoTransformChosen': translateY(ef.size(4)),
 
     'lockedIconSize': 24px,
     'lockedIconColor': var(--mc-baseOpacity-o6),
@@ -60,6 +62,14 @@ $themeWolf: map-merge((
     'disabledOverlayBg': #0047ff,
     'disabledOverlayOpacity': 0.15,
     'disabledOverlayBlendMode': normal,
+
+    'labelTextStyle': 'CaptionTextBold',
+    'labelColor': var(--mc-buttonText-locked),
+    'labelPosTop': 0,
+    'labelPosRight': ef.size(4),
+    'labelPadding': ef.size(1) ef.size(3),
+    'labelTransform': translate(0, ef.size(-1)),
+    'labelBg': var(--mc-main),
 ), $customThemeWolf);
 
 $customWolfModVertical: ();
@@ -78,3 +88,17 @@ $wolfModVertical: map-merge((
     'titleLineClamp': 2,
 ), $customWolfModVertical);
 
+$customWolfDummy: () !default;
+$wolfDummy: map-merge((
+    'cardBg': none,
+    'cardMaxWidth': 350px,
+    'cardMargin': 0 auto,
+    'cardRatio': 110%,
+
+    'contentPadding': 0,
+    'contentMargin': 0,
+    'contentBgColor': var(--mc-bg700),
+    'contentBgSize': 65%,
+    'contentBpPos': center,
+    'contentBgRepeat': no-repeat,
+), $customWolfDummy);

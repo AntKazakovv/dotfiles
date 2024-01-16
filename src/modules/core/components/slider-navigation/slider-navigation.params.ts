@@ -5,7 +5,7 @@ import {
 
 export type ComponentTheme = 'default' | 'wolf' |  CustomType;
 export type ComponentType = 'default' | CustomType;
-export type ComponentThemeMod = 'default' | CustomType;
+export type ComponentThemeMod = 'default' | 'lg' | CustomType;
 
 export interface ISliderNavigationCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     iconPath?: string,

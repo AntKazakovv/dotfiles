@@ -1,0 +1,9 @@
+.wlc-game-dashboard-bonuses--theme-wolf:host {
+    --wlc-navi-right-offset: #{ef.get-value($themeWolf, 'navigationBtnsOffset')};
+    --wlc-navi-left-offset: #{ef.get-value($themeWolf, 'navigationBtnsOffset')};
+
+    position: relative;
+    max-width: ef.get-value($themeWolf, 'hostMaxWidth');
+    margin: ef.get-value($themeWolf, 'hostMargin');
+    padding: ef.get-value($themeWolf, 'hostPadding');
+}

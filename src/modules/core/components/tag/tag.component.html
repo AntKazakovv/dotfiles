@@ -1,4 +1,4 @@
-<ng-container [ngSwitch]="$params.theme" *ngIf="tagConfig.iconUrl">
+<ng-container [ngSwitch]="$params.theme">
     <ng-container *ngSwitchCase="'flag'" [ngTemplateOutlet]="flag"></ng-container>
     <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
 </ng-container>

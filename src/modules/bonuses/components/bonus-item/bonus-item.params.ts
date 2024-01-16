@@ -8,7 +8,10 @@ import {IBonusModalCParams} from 'wlc-engine/modules/bonuses/components/bonus-mo
 import {Size} from 'wlc-engine/modules/core/components/button/button.params';
 import {IAlertCParams} from 'wlc-engine/modules/core/components/alert/alert.params';
 
-export type Type = 'default' | CustomType;
+/**
+ * reg type used only in wolf and further
+ */
+export type Type = 'default' | 'reg' | CustomType;
 export type Theme = 'active'
     | 'default'
     | 'long'
@@ -32,6 +35,15 @@ export type ThemeMod = 'default'
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
+export type TBonusItemImageSource = 'image'
+    | 'imageDescription'
+    | 'imageOther'
+    | 'imagePromo'
+    | 'imageReg'
+    | 'imageStore'
+    | 'imagePromoHome'
+    | 'imageProfileFirst'
+    | 'imageDeposit';
 
 export interface IBonusItemCParams extends IComponentParams<Theme, Type, ThemeMod> {
     modifiers?: Modifiers[];
@@ -80,6 +92,7 @@ export interface IBonusItemCParams extends IComponentParams<Theme, Type, ThemeMo
     buttonsSize?: Size;
     bonusUnavailableAlertParams?: IAlertCParams;
     useReadMoreBtnMode?: boolean;
+    imageSource?: TBonusItemImageSource;
 }
 
 export type TBonusClickAction = 'showDescription' | string;

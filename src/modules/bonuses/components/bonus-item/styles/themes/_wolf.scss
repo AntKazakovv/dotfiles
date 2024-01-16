@@ -6,7 +6,9 @@
     width: var(--wlc-bi-width, 100%);
     min-width: 0;
     max-width: var(--wlc-bi-max-width, ef.get-value($themeWolf, 'cardMaxWidth'));
+    overflow: initial;
     height: 100%;
+    border-radius: ef.get-value($themeWolf, 'cardRadius');
 
     .wlc-bonus-item {
 
@@ -15,7 +17,9 @@
             flex-direction: var(--wlc-bi-dir, row);
             width: 100%;
             height: 100%;
-            cursor: pointer;
+            cursor: var(--wlc-bi-cursor, pointer);
+            overflow: hidden;
+            border-radius: ef.get-value($themeWolf, 'cardRadius');
 
             &:before,
             &:after {
@@ -28,6 +32,8 @@
                 display: block;
                 width: 100%;
                 height: 100%;
+
+                border-radius: inherit;
             }
 
             &:before {
@@ -198,11 +204,29 @@
             line-height: 1;
             background: ef.get-value($themeWolf, 'infoBg');
             border-radius: ef.get-value($themeWolf, 'infoRadius');
+            transform: var(--wlc-bi-info-transform, none);
 
             @include bm.hover {
                 color: ef.get-value($themeWolf, 'infoIconColorHover');
                 background: ef.get-value($themeWolf, 'infoBgHover');
             }
+        }
+
+        &__label {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'labelTextStyle'),
+                ef.get-value($themeWolf, 'labelColor'),
+            );
+            position: absolute;
+            top: ef.get-value($themeWolf, 'labelPosTop');
+            right: ef.get-value($themeWolf, 'labelPosRight');
+            z-index: 10;
+            padding: ef.get-value($themeWolf, 'labelPadding');
+            background: ef.get-value($themeWolf, 'labelBg');
+            transform: ef.get-value($themeWolf, 'labelTransform');
+            border-radius: ef.get('radius', 'main');
+
+            animation: fadeIn 0.3s;
         }
     }
 
@@ -223,5 +247,54 @@
         --wlc-bi-content-bg-transform: translateX(50%);
         --wlc-bi-buttons-justify: #{ef.get-value($wolfModVertical, 'btnsJustify')};
         --wlc-bi-title-clamp: #{ef.get-value($wolfModVertical, 'titleLineClamp')};
+    }
+
+    &.wlc-bonus-item--type-reg {
+        --wlc-bi-info-transform: #{ef.get-value($themeWolf, 'infoTransformChosen')};
+    }
+
+    &.wlc-bonus-item--dummy {
+        --wlc-bi-max-width: #{ef.get-value($wolfDummy, 'cardMaxWidth')};
+        --wlc-bi-bg: #{ef.get-value($wolfDummy, 'cardBg')};
+        --wlc-bi-cursor: default;
+        --wlc-bi-content-padding: #{ef.get-value($wolfDummy, 'contentPadding')};
+        --wlc-bi-content-margin: #{ef.get-value($wolfDummy, 'contentMargin')};
+
+        margin: ef.get-value($wolfDummy, 'cardMargin');
+
+        .wlc-bonus-item {
+
+            &__wrapper {
+
+                &:before {
+                    position: relative;
+                    height: auto;
+                    padding-bottom: #{ef.get-value($wolfDummy, 'cardRatio')};
+                }
+
+                &:after {
+                    display: none;
+                }
+            }
+
+            &__content {
+                background-color: ef.get-value($wolfDummy, 'contentBgColor');
+                background-repeat: ef.get-value($wolfDummy, 'contentBgRepeat');
+                background-position: ef.get-value($wolfDummy, 'contentBpPos');
+                background-size: ef.get-value($wolfDummy, 'contentBgSize');
+                border-radius: ef.get-value($themeWolf, 'cardRadius');
+            }
+        }
+    }
+}
+
+@keyframes fadeIn {
+
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
     }
 }

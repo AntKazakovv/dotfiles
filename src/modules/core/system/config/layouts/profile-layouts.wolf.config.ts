@@ -179,7 +179,7 @@ export const $profileWolfLayouts: IPanelsConfig = {
     'app.profile.dashboard': {
         extends: 'app',
         sections: {
-            'profile-content': sectionsLib.profileContent.profileWolfDashboard(false),
+            'profile-content': sectionsLib.profileContent.profileWolfDashboard,
         },
     },
     'app.profile.cashback-rewards': {

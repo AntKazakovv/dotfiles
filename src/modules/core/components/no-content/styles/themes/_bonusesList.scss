@@ -18,4 +18,54 @@
             }
         }
     }
+
+    &.wlc-no-content--theme-wolf {
+        @include bm.get-mq-map('--wlc-nc-wolf-bonuses-columns', $bonusesListWolf, 'wrapperGridColumns');
+        height: initial;
+
+        .wlc-no-content {
+
+            &__wrapper {
+                display: grid;
+                grid-template-columns: var(--wlc-nc-wolf-bonuses-columns);
+                gap: ef.get-value($bonusesListWolf, 'wrapperGap');
+                align-items: center;
+                justify-items: center;
+                height: initial;
+                padding: ef.get-value($bonusesListWolf, 'wrapperPadding');
+                background: ef.get-value($bonusesListWolf, 'wrapperBg');
+                border-radius: ef.get-value($bonusesListWolf, 'wrapperRadius');
+            }
+
+            &__body {
+                align-items: center;
+                order: ef.get-value($bonusesListWolf, 'bodyOrder');
+                max-width: initial;
+                text-align: ef.get-value($bonusesListWolf, 'bodyTextALign');
+            }
+
+            &-decor {
+                position: static;
+                order: ef.get-value($bonusesListWolf, 'decorOrder');
+            }
+
+            &__title {
+                @include text.get-text-style(
+                    ef.get-value($bonusesListWolf, 'titleTextStyle'),
+                    ef.get-value($bonusesListWolf, 'titleColor'),
+                );
+            }
+
+            &__text {
+                @include text.get-text-style(
+                    ef.get-value($bonusesListWolf, 'textTextStyle'),
+                    ef.get-value($bonusesListWolf, 'textColor'),
+                );
+            }
+
+            &__button-wrap {
+                margin: ef.get-value($bonusesListWolf, 'buttonWrappMargin');
+            }
+        }
+    }
 }

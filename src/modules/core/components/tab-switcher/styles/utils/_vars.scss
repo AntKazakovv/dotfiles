@@ -34,4 +34,5 @@ $themeWolf: map-merge(map-merge($base, (
 
     'navItemBorder': 2px solid var(--fc-baseMain),
     'navItemActiveBorder': 2px solid var(--mc-baseThird),
+    'signupBodyWidth': 100%,
 )), $customThemeWolf);

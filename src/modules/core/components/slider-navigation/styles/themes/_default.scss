@@ -76,6 +76,10 @@
             top: ef.get-value($themeDefault, 'swiperNaviTop');
             z-index: ef.get-value($themeDefault, 'swiperNaviZindex');
             margin-top: calc(-1 * #{ef.get-value($themeDefault, 'swiperNaviButtonSize')} / 2);
+
+            &:after {
+                text-indent: -9999px;
+            }
         }
 
         .swiper-button-prev,

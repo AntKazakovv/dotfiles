@@ -9,10 +9,10 @@
     }
 
     .swiper-button-container {
-        @include bm.get-mq-map('top', $themeRegFirst, 'sliderTopPos');
         @include bm.get-mq-map('max-width', $themeRegFirst, 'sliderMaxWidth');
 
         position: absolute;
+        top: ef.get-value($themeRegFirst, 'sliderTopPos');
         right: ef.get-value($themeRegFirst, 'sliderRight');
         left: ef.get-value($themeRegFirst, 'sliderLeft');
         z-index: ef.get-value($themeRegFirst, 'sliderZIndex');
@@ -22,6 +22,7 @@
         justify-content: ef.get-value($themeRegFirst, 'sliderJustifyContent');
 
         margin: ef.get-value($themeRegFirst, 'sliderMargin');
+        transform: ef.get-value($themeRegFirst, 'sliderBtnsTransform');
 
         pointer-events: none;
 
@@ -52,6 +53,42 @@
         &__checkbox {
             display: inline-block;
             text-align: ef.get-value($themeRegFirst, 'checkBoxAlign');
+        }
+    }
+
+    &.wlc-bonuses-list--theme-mod-wolf[class] {
+        --wlc-navi-right-offset: #{ef.get-value($regFirstModWolf, 'swiperButtonOffset')};
+        --wlc-navi-left-offset: #{ef.get-value($regFirstModWolf, 'swiperButtonOffset')};
+
+        width: 100%;
+        max-width: ef.get-value($regFirstModWolf, 'hostMaxWidth');
+
+        .swiper-button-container {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .wlc-bonuses-list {
+
+            &__slider {
+                margin: ef.get-value($regFirstModWolf, 'wrapperMargin');
+                padding: ef.get-value($regFirstModWolf, 'wrapperPadding');
+            }
+
+            &__checkbox-wrapper {
+                margin: ef.get-value($regFirstModWolf, 'checkboxMargin');
+            }
+        }
+
+        ::ng-deep {
+
+            .swiper {
+                max-width: 100%;
+            }
+
+            .swiper-slide {
+                padding: ef.get-value($regFirstModWolf, 'slidePadding');
+            }
         }
     }
 }

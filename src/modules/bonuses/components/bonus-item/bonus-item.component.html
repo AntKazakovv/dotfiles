@@ -16,11 +16,13 @@
 <ng-template #wolf>
     <div class="{{$class}}__wrapper"
         [class.disabled]="bonus.isDisabled || bonus.showOnly"
+        [class.chosen]="bonus.isChoose"
         [class.has-timer]="hasTimer"
         (click)="bonusClickHadler($event, 'showDescription')">
         <ng-container [ngTemplateOutlet]="bonusContent"></ng-container>
         <ng-container [ngTemplateOutlet]="bonusVisual"></ng-container>
     </div>
+    <ng-container *ngIf="$params.type === 'reg'" [ngTemplateOutlet]="selectedLabel"></ng-container>
 </ng-template>
 
 <ng-template #bonusContent>
@@ -62,7 +64,7 @@
 <ng-template #bonusVisual>
     <div class="{{$class}}__visual">
         <div class="{{$class}}__visual-bg"
-            [style]="{backgroundImage: bonusBg}">
+            [style]="{backgroundImage: bonusImg}">
         </div>
         <div class="{{$class}}__visual-content">
             <div class="{{$class}}__info">
@@ -74,6 +76,12 @@
 
 <ng-template #bonusTagComponent>
     <span wlc-tag [inline]="tagConfig"></span>
+</ng-template>
+
+<ng-template #selectedLabel>
+    <div *ngIf="bonus.isChoose" class="{{$class}}__label">
+        {{selectedTag | translate}}
+    </div>
 </ng-template>
 <!-- New templates end -->
 

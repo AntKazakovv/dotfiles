@@ -16,6 +16,7 @@ import _merge from 'lodash-es/merge';
 import _get from 'lodash-es/get';
 import _includes from 'lodash-es/includes';
 import _isArray from 'lodash-es/isArray';
+import _set from 'lodash-es/set';
 
 import {
     AbstractComponent,
@@ -61,6 +62,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
     public asProfileTypeFirst: boolean;
     public bonus: Bonus;
     public tagConfig: ITagCParams;
+    public bonusImg: string;
 
     constructor(
         @Inject('injectParams') protected params: Params.IBonusItemCParams,
@@ -106,6 +108,14 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
                 }
                 this.cdr.detectChanges();
             }, this.$destroy);
+        }
+
+        if (this.$params.theme === 'wolf') {
+            this.prepareBonusImage();
+
+            if (!this.$params.buttonsParams?.size) {
+                _set(this.$params, 'buttonsParams.size', 'md');
+            }
         }
 
         if (this.isPreviewTheme && !this.bonus) {
@@ -155,7 +165,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
     }
 
     public get selectedTag(): string {
-        if (this.$params.theme === 'reg-first' && this.bonus.isChoose) {
+        if ((this.$params.theme === 'reg-first' || this.$params.theme === 'wolf') && this.bonus.isChoose) {
             return gettext('Selected');
         }
     }
@@ -210,6 +220,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
             imageUrl = this.bonus.imageReg;
 
         } else if (this.$params.theme === 'wolf') {
+            // TODO: сделать логику добавления источника изображения из компонента wlc-bonuses-list
             imageUrl = this.params.themeMod === 'vertical'
                 ? this.bonus.imagePromo
                 : this.bonus.image;
@@ -232,6 +243,21 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
 
     public get useReadMoreBtnMode(): boolean {
         return this.$params.useReadMoreBtnMode && this.$params.theme === 'promo';
+    }
+
+    public prepareBonusImage(): void {
+        const source: Params.TBonusItemImageSource = this.$params.imageSource;
+        let image: string = '';
+
+        if (source) {
+            image = this.bonus[source];
+        } else {
+            image = this.params.themeMod === 'vertical'
+                ? this.bonus.imagePromo
+                : this.bonus.image;
+        }
+
+        this.bonusImg =  image ? `url(${image})` : '';
     }
 
     /**

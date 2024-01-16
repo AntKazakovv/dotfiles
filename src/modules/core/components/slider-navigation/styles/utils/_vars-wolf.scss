@@ -23,4 +23,8 @@ $themeWolf: map-merge((
     'iconColorHover': var(--mc-baseThird),
     'buttonBorderRadius': ef.get('radius', 'big'),
     'buttonSize': 24px,
+
+    // mod lg
+    'buttonSizeLg': 40px,
+    'arrowSizeLg': 18px,
 ), $customThemeWolf);

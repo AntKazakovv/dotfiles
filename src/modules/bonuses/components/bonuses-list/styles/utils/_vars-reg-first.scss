@@ -3,10 +3,7 @@ $themeRegFirst: map-merge((
     'sliderRight': 0,
     'sliderLeft': 0,
     'sliderZIndex': 2,
-    'sliderTopPos': (
-        320: 120px,
-        1630: 179px,
-    ),
+    'sliderTopPos': 50%,
     'sliderMaxWidth': (
         320: 300px,
         1630: 360px,
@@ -14,6 +11,7 @@ $themeRegFirst: map-merge((
     'sliderMargin': auto,
     'sliderAlignItems': center,
     'sliderJustifyContent': space-between,
+    'sliderBtnsTransform': translate(0, -50%),
     'listMaxWidth': (
         375: 300px,
         1630: 360px
@@ -24,3 +22,13 @@ $themeRegFirst: map-merge((
     'checkBoxAlign': left,
     'checkboxWrapperPadding': 0 ef.size(4),
 ), $customThemeRegFirst);
+
+$customRegFirstModWolf: () !default;
+$regFirstModWolf: map-merge((
+    'hostMaxWidth': 390px,
+    'wrapperMargin': ef.size(-1) auto 0,
+    'wrapperPadding': 0 ef.size(5),
+    'slidePadding': ef.size(1) 0 0,
+    'checkboxMargin': ef.size(4) 0 0,
+    'swiperButtonOffset': 0,
+), $customRegFirstModWolf);

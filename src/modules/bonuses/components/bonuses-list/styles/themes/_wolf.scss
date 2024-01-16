@@ -1,23 +1,50 @@
 .wlc-bonuses-list--theme-wolf:host {
 
-    &.wlc-bonuses-list--type-swiper {
-        @include bm.get-mq-map('--wlc-bi-width', $themeWolf, 'bonusItemWidth');
+    .wlc-bonuses-list {
 
-        ::ng-deep {
+        &__header {
+            @include bm.get-mq-map('margin', $themeWolf, 'headerMargin');
+            display: flex;
+            justify-content: space-between;
+        }
 
-            .wlc-swiper-button-prev[class],
-            .wlc-swiper-button-next[class] {
-                display: none;
-            }
+        &__controls {
+            position: relative;
+            display: flex;
+            gap: ef.get-value($themeWolf, 'controlsGap');
+        }
 
-            .wlc-bonus-item--theme-mod-vertical {
-                @include bm.get-mq-map('--wlc-bi-width', $themeWolf, 'bonusItemWidthVertical');
-            }
+        &__swiper-buttons-wrap {
+            @include bm.get-mq-map('display', $themeWolf, 'swiperButtonsDisplay');
+        }
 
-            .swiper-slide {
-                width: auto;
+        &__nocontent {
+            justify-content: center;
+            min-height: ef.get-value($themeWolf, 'noContentMinHeight');
+            margin: ef.get-value($themeWolf, 'noContentMargin');
+        }
+    }
+
+    &.wlc-bonuses-list--type-default {
+        --wlc-bonuses-grid-cols: #{ef.get-value($themeWolf, 'listColumns')};
+        @include bm.get-mq-map('--wlc-bonuses-gap', $themeWolf, 'listGap');
+
+        .wlc-bonuses-list {
+
+            &__list {
+                display: grid;
+                grid-template-columns: var(--wlc-bonuses-grid-cols);
+                gap: var(--wlc-bonuses-gap);
             }
         }
+
+        &.wlc-bonuses-list--theme-mod-vertical {
+            --wlc-bonuses-grid-cols: #{ef.get-value($themeWolf, 'listColumnsVertical')};
+        }
+    }
+
+    &.wlc-bonuses-list--type-swiper {
+        @include bm.get-mq-map('--wlc-bi-width', $themeWolf, 'bonusItemWidth');
 
         .wlc-bonuses-list {
 
@@ -25,6 +52,38 @@
                 width: 100%;
                 min-width: 0;
                 max-width: 100%;
+            }
+        }
+
+        ::ng-deep {
+
+            .swiper {
+                @include bm.get-mq-map('overflow', $themeWolf, 'sliderOverflow');
+            }
+
+            .wlc-bonus-item--theme-mod-vertical {
+                @include bm.get-mq-map('--wlc-bi-width', $themeWolf, 'bonusItemWidthVertical');
+            }
+
+            .wlc-slider-navigation--theme-wolf {
+                position: relative;
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: ef.get-value($themeWolf, 'sliderNaviGap');
+                margin: ef.get-value($themeWolf, 'sliderNaviMargin');
+            }
+
+            .wlc-swiper-button-next,
+            .wlc-swiper-button-prev {
+                position: relative;
+                top: initial;
+                right: initial;
+                left: initial;
+                margin: 0;
+            }
+
+            .swiper-slide {
+                width: auto;
             }
         }
     }

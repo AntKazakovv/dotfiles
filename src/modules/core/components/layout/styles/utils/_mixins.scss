@@ -12,6 +12,7 @@
     @include generateResponsiveHelpers('margin-bottom', 'mb', config.$offsets);
     @include generateResponsiveHelpers('order', 'order', config.$orders);
     @include generateResponsiveHelpers('justify-content', 'h-align', config.$alignment);
+    @include generateResponsiveHelpers('overflow', 'overflow', config.$overflow);
 
     @each $key, $bp in ev.$grid-breakpoints {
 
@@ -23,6 +24,7 @@
                 @include generateResponsiveHelpers('margin-bottom', 'mb', config.$offsets, $key);
                 @include generateResponsiveHelpers('order', 'order', config.$orders, $key);
                 @include generateResponsiveHelpers('justify-content', 'h-align', config.$alignment, $key);
+                @include generateResponsiveHelpers('overflow', 'overflow', config.$overflow, $key);
             }
         }
     }

@@ -1,4 +1,6 @@
 .wlc-slider-navigation--theme-wolf:host {
+    --wlc-icon-width: #{ef.get-value($themeWolf, 'arrowSize')};
+    --wlc-icon-height: #{ef.get-value($themeWolf, 'arrowSize')};
 
     ::ng-deep {
 
@@ -9,8 +11,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: ef.get-value($themeWolf, 'buttonSize');
-            height: ef.get-value($themeWolf, 'buttonSize');
+            width: var(--wlc-navi-button-size, #{ef.get-value($themeWolf, 'buttonSize')});
+            height: var(--wlc-navi-button-size, #{ef.get-value($themeWolf, 'buttonSize')});
 
             color: ef.get-value($themeWolf, 'iconColor');
             background: ef.get-value($themeWolf, 'buttonBg');
@@ -20,8 +22,6 @@
             box-shadow: ef.get-value($themeWolf, 'buttonShadow');
 
             .wlc-icon-content {
-                --wlc-icon-width: #{ef.get-value($themeWolf, 'arrowSize')};
-                --wlc-icon-height: #{ef.get-value($themeWolf, 'arrowSize')};
                 display: flex;
 
                 svg {
@@ -67,12 +67,16 @@
             top: ef.get-value($themeWolf, 'swiperNaviTop');
             z-index: ef.get-value($themeWolf, 'swiperNaviZindex');
             margin-top: calc(-1 * #{ef.get-value($themeWolf, 'swiperNaviButtonSize')} / 2);
+
+            &:after {
+                text-indent: -9999px;
+            }
         }
 
         .swiper-button-prev,
         .swiper-rtl .swiper-button-next {
             right: auto;
-            left: ef.get-value($themeWolf, 'swiperNaviAside');
+            left: var(--wlc-navi-left-offset, #{ef.get-value($themeWolf, 'swiperNaviAside')});
 
             &:after {
                 content: 'prev';
@@ -81,7 +85,7 @@
 
         .swiper-button-next,
         .swiper-rtl .swiper-button-prev {
-            right: ef.get-value($themeWolf, 'swiperNaviAside');
+            right: var(--wlc-navi-right-offset, #{ef.get-value($themeWolf, 'swiperNaviAside')});
             left: auto;
 
             &:after {
@@ -92,5 +96,11 @@
         .swiper-button-lock {
             display: none;
         }
+    }
+
+    &.wlc-slider-navigation--theme-mod-lg {
+        --wlc-navi-button-size: #{ef.get-value($themeWolf, 'buttonSizeLg')};
+        --wlc-icon-width: #{ef.get-value($themeWolf, 'arrowSizeLg')};
+        --wlc-icon-height: #{ef.get-value($themeWolf, 'arrowSizeLg')};
     }
 }

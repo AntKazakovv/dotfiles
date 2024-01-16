@@ -5,7 +5,7 @@ $columnsCount: 12;
 $offsets: (
     'xs': ef.size(2),
     'sm': ef.size(3),
-    'md': ef.size(4),
+    'md': ef.size(5),
     'lg': ef.size(6),
     'xl': ef.size(8),
 );
@@ -20,4 +20,9 @@ $alignment: (
     'start': flex-start,
     'end': flex-end,
     'center': center,
+);
+
+$overflow: (
+    'hidden': hidden,
+    'visible': visible,
 );

@@ -15,10 +15,12 @@ import {
 } from 'wlc-engine/modules/bonuses';
 import {TBonusSortOrder} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {IPreloaderCParams} from 'wlc-engine/modules/core/components/preloader/preloader.params';
+import {ISectionTitleCParams} from 'wlc-engine/modules/core/components/section-title/section-title.params';
+import {ISliderNavigationCParams} from 'wlc-engine/modules/core/components/slider-navigation/slider-navigation.params';
 
 export type Type = 'default' | 'swiper' | CustomType;
 export type Theme = 'active' | 'default' | 'partial' | 'promo' | 'promo-home' | 'reg-first' | 'wolf' | CustomType;
-export type ThemeMod = 'default' | 'with-image' | 'with-ears' | 'wolf' | CustomType;
+export type ThemeMod = 'default' | 'with-image' | 'with-ears' | 'wolf' | 'horizontal' | 'vertical' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
@@ -79,6 +81,11 @@ export interface IBonusesListCParams extends IComponentParams<Theme, Type, Theme
         /** wlc-preloader params */
         params?: IPreloaderCParams;
     }
+    /** Section title params. Used in wolf theme and further */
+    titleParams?: ISectionTitleCParams;
+    /** Params for All button. Used in wolf theme and further */
+    allBtnParams?: IButtonCParams;
+    navigationParams?: ISliderNavigationCParams;
 }
 
 export interface IBlankBonusParams {

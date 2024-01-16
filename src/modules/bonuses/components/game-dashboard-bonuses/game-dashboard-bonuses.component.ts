@@ -147,7 +147,7 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
             component: BonusItemComponent,
             componentParams: <IBonusItemCParams>{
                 bonus,
-                theme: 'long',
+                ...this.$params.bonusItemParams,
             },
         }));
         if (this.slider?.swiper && scroll) {

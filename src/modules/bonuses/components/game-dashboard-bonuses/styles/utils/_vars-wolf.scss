@@ -1,0 +1,8 @@
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'hostMaxWidth': 240px,
+    'hostMargin': 0 auto,
+    'hostPadding': 0,
+
+    'navigationBtnsOffset': ef.size(-3),
+), $customThemeWolf);

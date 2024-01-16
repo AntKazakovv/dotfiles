@@ -485,7 +485,7 @@ export namespace profileContent {
                     class: 'wlc-profile-content__wrp',
                     components: [
                         componentLib.wlcProfileMenu.defTypeWolf,
-                        componentLib.wlcBonusesList.main,
+                        componentLib.wlcBonusesWolf.main,
                     ],
                 },
             },
@@ -1149,7 +1149,7 @@ export namespace profileContent {
         ],
     });
 
-    export const profileWolfDashboard = (bonusesListSwiperWithEars: boolean): ILayoutSectionConfig => ({
+    export const profileWolfDashboard: ILayoutSectionConfig = {
         container: true,
         theme: 'wolf',
         usePreloader: true,
@@ -1183,22 +1183,29 @@ export namespace profileContent {
                         {
                             name: 'core.wlc-wrapper',
                             params: {
-                                class: 'wlc-dashboard-grid',
+                                class: 'wlc-profile-dashboard__top',
                                 components: [
                                     componentLib.wlcDashboardLoyaltyBlock.def,
-                                    componentLib.wlcDashboardExchange.def,
-                                    componentLib.wlcTitle.profileDashboardBonuses,
-                                    ...componentLib.wlcBonusesList.generateDashboardConfig(bonusesListSwiperWithEars),
-                                    componentLib.wlcEnterPromocode.def,
-                                    componentLib.wlcSeeAllBonuses.def,
+                                    componentLib.wlcUserStats.wolf,
+                                    componentLib.wlcEnterPromocode.wolf,
                                 ],
+                                smartSection: {
+                                    hostClasses: 'wlc-mb-lg',
+                                    innerClasses: 'wlc-gap-md',
+                                    columns: [
+                                        'wlc-c-12 wlc-c-768-6 wlc-c-1024-4',
+                                        'wlc-c-12 wlc-c-768-6 wlc-c-1024-4',
+                                        'wlc-c-12  wlc-c-768-6 wlc-c-1024-4',
+                                    ],
+                                },
                             },
                         },
+                        componentLib.wlcBonusesWolf.profileDashboardSlider,
                     ],
                 },
             },
         ],
-    });
+    };
 
     export const profileDashboardWithoutStore: ILayoutSectionConfig = {
         container: true,

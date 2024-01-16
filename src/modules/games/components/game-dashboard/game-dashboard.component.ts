@@ -35,6 +35,7 @@ import _get from 'lodash-es/get';
 import _filter from 'lodash-es/filter';
 import _find from 'lodash-es/find';
 import _map from 'lodash-es/map';
+import _set from 'lodash-es/set';
 
 import {HammerConfig} from 'wlc-engine/modules/core/system/config/hammer.config';
 import {
@@ -229,6 +230,10 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
             };
         } else {
             this.tabs = _filter(this.tabs, (tab: Params.IGameDashboardTab) => tab.id !== 'tournaments');
+        }
+
+        if (this.$params.common?.bonusesListParams) {
+            _set(this.bonusesConfig.components[0], 'params', this.$params.common.bonusesListParams);
         }
 
         this.backdropLabelVisibility();

@@ -1,21 +1,18 @@
 <ng-template #default>
     <div class="{{$class}}__content" data-wlc-element="block_bonuses-main">
-        <div *ngIf="$params.type !== 'swiper'" class="{{$class}}__list-wrapper">
-            <div *ngIf="paginatedBonuses?.length && isReady; else: noBonuses"
-                 class="{{$class}}__list"
-                 data-wlc-element="block_bonus">
-                <div *ngFor="let bonus of paginatedBonuses"
-                     wlc-bonus-item
-                     [inlineParams]="calcBonusItemParams(bonus)">
-                </div>
+        <ng-template [ngIf]="$params.type !== 'swiper'">
+            <ng-container
+                [ngTemplateOutlet]="bonusesList"
+                [ngTemplateOutletContext]="{$implicit: paginatedBonuses}">
+            </ng-container>
+            <div *ngIf="usePagination && paginatedBonuses.length"
+                wlc-pagination
+                [items]="bonuses"
+                [settings]="$params.common?.pagination"
+                (paginationOnChange)="paginationOnChange($event)">
             </div>
-            <div *ngIf="paginatedBonuses?.length"
-                 wlc-pagination
-                 [items]="bonuses"
-                 [settings]="$params.common?.pagination"
-                 (paginationOnChange)="paginationOnChange($event)">
-            </div>
-        </div>
+        </ng-template>
+
         <div *ngIf="$params.type === 'swiper'"
              class="{{$class}}__list-wrapper">
             <ng-container *ngIf="bonuses?.length && isReady; else: noBonuses">
@@ -33,6 +30,64 @@
                     </div>
                 </div>
             </ng-container>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #wolf>
+    <div *ngIf="showHeader" class="{{$class}}__header">
+        <div class="{{$class}}__title">
+            <div *ngIf="$params.titleParams"
+                wlc-section-title
+                [inlineParams]="$params.titleParams"></div>
+        </div>
+        <div class="{{$class}}__controls">
+            <button *ngIf="showAllBtn"
+                wlc-button
+                [inlineParams]="$params.allBtnParams"></button>
+            <div *ngIf="$params.type === 'swiper'" class="{{$class}}__swiper-buttons-wrap">
+                <div *ngIf="showNavigation" slot-container-end>
+                    <div wlc-slider-navigation
+                        class="{{$class}}__buttons"
+                        [inlineParams]="$params.navigationParams">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-template [ngIf]="$params.type !== 'swiper'">
+        <ng-container
+            [ngTemplateOutlet]="bonusesList"
+            [ngTemplateOutletContext]="{$implicit: usePagination? paginatedBonuses : bonuses}">
+        </ng-container>
+        <div *ngIf="usePagination && paginatedBonuses.length"
+            wlc-pagination
+            [items]="bonuses"
+            [settings]="$params.common?.pagination"
+            (paginationOnChange)="paginationOnChange($event)">
+        </div>
+    </ng-template>
+    <ng-template [ngIf]="$params.type === 'swiper'">
+        <ng-container *ngIf="bonuses?.length && isReady; else: noBonuses">
+            <div wlc-slider
+                 class="{{$class}}__slider"
+                 type="dashboard"
+                 [slides]="slides"
+                 [inlineParams]="sliderParams">
+            </div>
+        </ng-container>
+    </ng-template>
+</ng-template>
+
+<ng-template #bonusesList let-bonusList>
+    <div class="{{$class}}__list-wrapper">
+        <div *ngIf="bonusList.length && isReady; else: noBonuses"
+            class="{{$class}}__list"
+            data-wlc-element="block_bonus">
+            <div *ngFor="let bonus of bonusList"
+                    wlc-bonus-item
+                    [inlineParams]="calcBonusItemParams(bonus)">
+            </div>
         </div>
     </div>
 </ng-template>
@@ -74,8 +129,11 @@
                      [slides]="slides"
                      [inlineParams]="sliderParams"
                      (slideChangeTransitionEnd$)="onSlideChange($event)">
-                    <div *ngIf="showNavigation" slot-container-end>
-                            <div wlc-slider-navigation class="container swiper-button-container"></div>
+                </div>
+                <div *ngIf="showNavigation" slot-container-end>
+                    <div wlc-slider-navigation
+                        [inlineParams]="$params.navigationParams"
+                        class="swiper-button-container">
                     </div>
                 </div>
             </ng-container>
@@ -155,6 +213,12 @@
                     <div wlc-no-content
                         [inlineParams]="noContentParams">
                     </div>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'wolf'">
+                <div wlc-no-content
+                    [inlineParams]="noContentParams">
+                </div>
             </ng-container>
 
             <ng-container *ngSwitchDefault>
@@ -247,5 +311,6 @@
     <ng-container *ngSwitchCase="'reg-first'" [ngTemplateOutlet]="partial"></ng-container>
     <ng-container *ngSwitchCase="'promo-home'" [ngTemplateOutlet]="promoHome"></ng-container>
     <ng-container *ngSwitchCase="'promo'" [ngTemplateOutlet]="promo"></ng-container>
+    <ng-container *ngSwitchCase="'wolf'" [ngTemplateOutlet]="wolf"></ng-container>
     <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
 </ng-container>
