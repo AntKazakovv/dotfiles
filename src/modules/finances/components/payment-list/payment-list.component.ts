@@ -41,10 +41,10 @@ import {
     ConfigService,
     ITooltipCParams,
     IWrapperCParams,
-    MediaQueries,
     ColorThemeService,
     TIconColorBg,
 } from 'wlc-engine/modules/core';
+import {MediaQueries} from 'wlc-engine/modules/core/constants';
 import {
     IconModel,
     IIconParams,

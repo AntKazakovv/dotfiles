@@ -67,9 +67,9 @@ import {
     IModalParams,
     IModalConfig,
     DateHelper,
-    ColorThemeValues,
     ValidatorType,
 } from 'wlc-engine/modules/core';
+import {ColorThemeValues} from 'wlc-engine/modules/core/constants';
 import {
     UserInfo,
     UserService,

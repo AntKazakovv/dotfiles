@@ -2,8 +2,8 @@ import {CustomType, IComponentParams} from 'wlc-engine/modules/core/system/class
 import {
     IInputCParams,
     ISelectCParams,
-    ProhibitedPatterns,
 } from 'wlc-engine/modules/core';
+import {ProhibitedPatterns} from 'wlc-engine/modules/core/constants';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;

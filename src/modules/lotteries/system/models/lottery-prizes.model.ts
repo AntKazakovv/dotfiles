@@ -12,7 +12,7 @@ import {
     TLotteryWinningSpread,
     TRawLotteryBonusPrize,
 } from 'wlc-engine/modules/lotteries/system/interfaces/lotteries.interface';
-import {CurrenciesInfo} from 'wlc-engine/modules/core';
+import {CurrenciesInfo} from 'wlc-engine/modules/core/constants';
 
 export class LotteryPrizes {
     public prizeTable: ILotteryPrize[] = [];

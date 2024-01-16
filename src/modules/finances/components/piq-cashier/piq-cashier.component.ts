@@ -16,14 +16,16 @@ import {
     Observable,
     of,
 } from 'rxjs';
+
 import {
     LogService,
     ModalService,
     EventService,
     ConfigService,
     InjectionService,
-    ColorThemeValues,
 } from 'wlc-engine/modules/core';
+import {ColorThemeValues} from 'wlc-engine/modules/core/constants';
+
 import {PIQCashierService} from 'wlc-engine/modules/finances/system/services/piq-cashier/piq-cashier.service';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services/finances/finances.service';
 import {PIQCashierServiceEvents} from 'wlc-engine/modules/finances/system/services/piq-cashier/piq-cashier.service';

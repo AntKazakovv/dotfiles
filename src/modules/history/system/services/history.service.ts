@@ -21,7 +21,6 @@ import _reduce from 'lodash-es/reduce';
 
 import {
     ConfigService,
-    CurrenciesInfo,
     DataService,
     EventService,
     IData,
@@ -31,6 +30,7 @@ import {
     NotificationEvents,
     IPushMessageParams,
 } from 'wlc-engine/modules/core';
+import {CurrenciesInfo} from 'wlc-engine/modules/core/constants';
 import {
     IBonusHistory,
     TBonusesHistory,

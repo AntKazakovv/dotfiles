@@ -10,8 +10,8 @@ import {
 import {
     AbstractComponent,
     ConfigService,
-    CurrenciesInfo,
 } from 'wlc-engine/modules/core';
+import {CurrenciesInfo} from 'wlc-engine/modules/core/constants';
 import {ITournamentPrize} from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
 
 import * as Params from './tournament-prizes-row.params';

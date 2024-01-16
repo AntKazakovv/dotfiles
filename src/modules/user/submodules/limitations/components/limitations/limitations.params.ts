@@ -4,11 +4,11 @@ import {
     IButtonCParams,
     IWrapperCParams,
     ITableCol,
-    ProhibitedPatterns,
     CustomType,
     IComponentParams,
     IFormComponent,
 } from 'wlc-engine/modules/core';
+import {ProhibitedPatterns} from 'wlc-engine/modules/core/constants';
 import {
     LimitValueComponent,
 } from 'wlc-engine/modules/user/submodules/limitations/components/limit-value/limit-value.component';

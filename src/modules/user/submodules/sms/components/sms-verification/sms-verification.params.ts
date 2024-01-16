@@ -4,8 +4,8 @@ import {
     IComponentParams,
     IFormWrapperCParams,
     ISelectCParams,
-    ProhibitedPatterns,
 } from 'wlc-engine/modules/core';
+import {ProhibitedPatterns} from 'wlc-engine/modules/core/constants';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
