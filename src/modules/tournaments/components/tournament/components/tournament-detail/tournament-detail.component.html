@@ -57,7 +57,7 @@
             </div>
         </div>
 
-        <div *ngIf="menuParams"
+        <div *ngIf="$params.useAnchorsMenu && menuParams"
             wlc-wrapper
             class="{{$class}}__anchors"
             [inlineParams]="menuConfig">

@@ -195,6 +195,9 @@ export class TournamentDetailComponent extends AbstractComponent implements
         this.isReady = true;
     }
 
+    /**
+     * @deprecated anchors menu will be deleted
+     * */
     private prepareMenu(): void {
         this.menuParams = {
             common: {

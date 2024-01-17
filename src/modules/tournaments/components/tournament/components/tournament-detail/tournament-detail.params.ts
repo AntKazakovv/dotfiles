@@ -39,6 +39,10 @@ export interface ITournamentDetailCParams extends IComponentParams<ComponentThem
     };
     prizesParams?: ITournamentPrizesCParams;
     gamesGridConfig?: IGamesGridCParams;
+    /**
+     * @deprecated anchors menu will be deleted
+     * */
+    useAnchorsMenu: boolean;
 }
 
 export const defaultParams: ITournamentDetailCParams = {
@@ -90,4 +94,5 @@ export const defaultParams: ITournamentDetailCParams = {
         themeMod: 'tournament-detail',
         thumbParams: {},
     },
+    useAnchorsMenu: false,
 };
