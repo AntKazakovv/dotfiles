@@ -1,7 +1,7 @@
 import _toString from 'lodash-es/toString';
 
 import {InjectionService} from 'wlc-engine/modules/core';
-import {IBet} from 'wlc-engine/modules/profile/system/interfaces/bet.interfaces';
+import {Bet} from 'wlc-engine/modules/history/system/models/bet-history/bet-history.model';
 import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
 import {Transaction} from 'wlc-engine/modules/history';
 import {RatesCurrencyService} from 'wlc-engine/modules/rates';
@@ -9,7 +9,7 @@ import {RatesCurrencyService} from 'wlc-engine/modules/rates';
 export class HistoryHelper {
     private static ratesService: RatesCurrencyService;
 
-    public static async conversionCurrency<T extends Transaction | IBet>
+    public static async conversionCurrency<T extends Transaction | Bet>
     (
         injectionService: InjectionService,
         histories: T[],
@@ -35,11 +35,12 @@ export class HistoryHelper {
                 } else {
                     const coefficient: number = await this.ratesService.getRate(
                         {
-                            currencyFrom: (<IBet>history).Currency,
+                            currencyFrom: (<Bet>history).currency,
                             currencyTo: WalletHelper.conversionCurrency,
                         },
                     );
-                    history.Amount = _toString(+(<IBet>history).Amount * coefficient);
+                    history.currency = WalletHelper.conversionCurrency;
+                    history.amount = _toString(+(<Bet>history).amount * coefficient);
                 }
                 return history;
             }));

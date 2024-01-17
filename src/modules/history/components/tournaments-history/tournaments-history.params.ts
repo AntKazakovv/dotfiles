@@ -3,9 +3,10 @@ import {
     CustomType,
     ITableCol,
     IWrapperCParams,
-    HistoryNameComponent,
-    IHistoryNameItem,
 } from 'wlc-engine/modules/core';
+import {HistoryNameComponent} from 'wlc-engine/modules/history/components/history-name/history-name.component';
+import {IHistoryNameItem} from 'wlc-engine/modules/history/components/history-name/history-name.params';
+
 import {
     TournamentTopwinsBtnComponent,
     // eslint-disable-next-line max-len
@@ -55,6 +56,7 @@ export const tournamentsHistoryTableHeadConfig: ITableCol[] = [
                     name: item.name,
                     status: item.statusName,
                     id: item.id.toString(),
+                    historyType: 'tournaments',
                 },
             };
         },

@@ -13,6 +13,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {IBet} from 'wlc-engine/modules/profile/system/interfaces/bet.interfaces';
 import {HistoryHelper} from 'wlc-engine/modules/history/system/helpers';
+import {Bet} from '../models';
 
 interface IBetRequestParams {
     endDate: string;
@@ -27,8 +28,7 @@ interface IGetBetsParams {
 
 @Injectable({providedIn: 'root'})
 export class BetService {
-
-    private allBets: IBet[] = [];
+    private allBets: Bet[] = [];
     private wasFirstRequest: boolean = false;
 
     constructor(
@@ -47,9 +47,8 @@ export class BetService {
      *
      * @returns {Promise<void>}
      */
-    public async getBets(params: IGetBetsParams, needRequest: boolean): Promise<IBet[]> {
-        
-        if (needRequest) {
+    public async getBets(params: IGetBetsParams, needRequest: boolean): Promise<Bet[]> {
+        if (needRequest || !this.wasFirstRequest) {
             const startDateUTC: DateTime = params.startDate.startOf('day').toUTC(),
                 endDateUTC: DateTime = params.endDate.endOf('day').toUTC();
 
@@ -58,8 +57,8 @@ export class BetService {
                 endDate: endDateUTC.toFormat('y-LL-dd\'\T\'HH:mm:ss'),
             });
 
-            this.allBets = _filter(this.allBets, (item: IBet): boolean => {
-                const itemDateUTC: DateTime = DateTime.fromSQL(item.DateISO, {zone: 'utc'});
+            this.allBets = _filter(this.allBets, (item: Bet): boolean => {
+                const itemDateUTC: DateTime = DateTime.fromSQL(item.dateISO, {zone: 'utc'});
                 return itemDateUTC >= startDateUTC && itemDateUTC <= endDateUTC;
             });
 
@@ -71,6 +70,11 @@ export class BetService {
         return this.orderAllBets(params.orderDirection);
     }
 
+    public resetData(): void {
+        this.allBets = [];
+        this.wasFirstRequest = false;
+    }
+
     /**
      * Order allBets array in BetService
      *
@@ -78,10 +82,10 @@ export class BetService {
      *
      * @returns {void}
      */
-    private orderAllBets(order: TSortDirection): IBet[] {
+    private orderAllBets(order: TSortDirection): Bet[] {
         return order === 'desc'
             ? this.allBets
-            : _orderBy(this.allBets, ['DateISO'], order);
+            : _orderBy(this.allBets, ['dateISO'], order);
     }
 
     /**
@@ -89,12 +93,15 @@ export class BetService {
      *
      * @param {IBetRequestParams} params
      *
-     * @returns {Promise<IBet[]>}
+     * @returns {Promise<Bet[]>}
      */
-    private async requestBetsList(params: IBetRequestParams): Promise<IBet[]> {
+    private async requestBetsList(params: IBetRequestParams): Promise<Bet[]> {
         try {
             const response: IData<IBet[]> = await this.dataService.request<IData>('profile/bets', params);
-            const bets: IBet[] = await HistoryHelper.conversionCurrency<IBet>(this.injectionService, response.data);
+            const bets: Bet[] = await HistoryHelper.conversionCurrency<Bet>(
+                this.injectionService,
+                (response.data) as unknown as Bet[]);
+                
             return bets;
         } catch (error) {
             this.logService.sendLog({code: '22.0.0', data: error});
@@ -111,6 +118,14 @@ export class BetService {
                 success: 'BETS',
                 fail: 'BETS_ERROR',
             },
+            mapFunc: this.createBets.bind(this),
         });
+    }
+
+    private createBets(data: IBet[]): Bet[] {
+        return data.map((item) => new Bet(
+            {service: 'BetService', method: 'createBets'},
+            item,
+        ));
     }
 }

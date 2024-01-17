@@ -6,9 +6,8 @@ import {
     ITableCParams,
 } from 'wlc-engine/modules/core';
 import {Bet} from 'wlc-engine/modules/history/system/models/bet-history/bet-history.model';
-import {
-    BetPreviewComponent,
-} from 'wlc-engine/modules/history/components/bet-history/bet-preview/bet-preview.component';
+import {HistoryNameComponent} from 'wlc-engine/modules/history/components/history-name/history-name.component';
+import {IFinancialHistoryNameItem} from 'wlc-engine/modules/history/components/history-name/history-name.params';
 
 export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;
@@ -31,12 +30,21 @@ export const betHistoryTableHeadConfig: ITableCol[] = [
         title: gettext('Bet time'),
         type: 'component',
         order: 10,
-        mapValue: (item: Bet) => ({bet: item}),
-        componentClass: BetPreviewComponent,
+        mapValue: (item: Bet): {item: IFinancialHistoryNameItem} => {
+            return {
+                item: {
+                    date: item.dateISO,
+                    amount: item.amount,
+                    currency: item.currency,
+                    historyType: 'bets',
+                },
+            };
+        },
+        componentClass: HistoryNameComponent,
         wlcElement: 'wlc-profile-table__cell_time',
     },
     {
-        key: 'Amount',
+        key: 'amount',
         title: gettext('Amount'),
         type: 'amount',
         currencyUseIcon: true,
@@ -44,14 +52,14 @@ export const betHistoryTableHeadConfig: ITableCol[] = [
         wlcElement: 'wlc-profile-table__cell_amount',
     },
     {
-        key: 'Merchant',
+        key: 'merchant',
         title: gettext('Provider'),
         type: 'text',
         order: 30,
         wlcElement: 'wlc-profile-table__cell_merchant',
     },
     {
-        key: 'GameName',
+        key: 'gameName',
         title: gettext('Game'),
         type: 'text',
         order: 40,

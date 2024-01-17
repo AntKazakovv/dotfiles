@@ -1,0 +1,90 @@
+.wlc-history-name--theme-default:host {
+    width: 100%;
+
+    .wlc-bet-history--theme-default &,
+    .wlc-transaction-history--theme-default & {
+        @include bm.get-mq-map('justify-content', $themeDefault, 'itemJustify');
+        display: flex;
+    }
+
+    .wlc-bonuses-history--theme-default &,
+    .wlc-tournaments-history--theme-default & {
+        @include bm.get-mq-map('padding', $themeDefault, 'itemPadding');
+        display: grid;
+        grid-auto-flow: column;
+        gap: ef.get-value($themeDefault, 'itemGap');
+        align-items: center;
+        justify-content: space-between;
+        text-align: left;
+    }
+
+    .wlc-history-name {
+
+        &__status {
+            display: block;
+
+            .wlc-table--table & {
+                display: none;
+            }
+
+            @include mq.max(640) {
+                text-align: right;
+            }
+        }
+
+        &__time {
+            @include bm.get-mq-map('display', $themeDefault, 'timeDisplay');
+            @include bm.get-mq-map('margin', $themeDefault, 'timeMargin');
+            @include bm.get-mq-map('white-space', $themeDefault, 'timeWhiteSpace');
+
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            .wlc-sections__profile-content--theme-first & {
+                @include bm.get-mq-map('display', $themeDefault, 'timeDisplayTypeFirst');
+            }
+        }
+
+        &__amount {
+            @include bm.get-mq-map('display', $themeDefault, 'amountDisplay');
+            @include bm.get-mq-map('margin', $themeDefault, 'amountMargin');
+            gap: ef.get-value($themeDefault, 'amountGap');
+            align-items: center;
+
+            ::ng-deep {
+
+                .wlc-currency {
+
+                    .wlc-currency__sign {
+                        display: none;
+                    }
+                }
+            }
+
+            .wlc-sections__profile-content--theme-first & {
+                @include bm.get-mq-map('display', $themeDefault, 'amountDisplayTypeFirst');
+            }
+        }
+
+        &__currency-icon {
+
+            ::ng-deep {
+
+                .wlc-icon-content {
+                    display: block;
+
+                    svg {
+                        width: 13px;
+                        height: 13px;
+                        transform: translateY(-1px);
+                    }
+                }
+            }
+        }
+
+        &__name {
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+    }
+}

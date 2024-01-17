@@ -1,6 +1,7 @@
 import {
     Component,
     OnInit,
+    OnDestroy,
     ChangeDetectorRef,
     Inject,
     ChangeDetectionStrategy,
@@ -16,7 +17,6 @@ import {DateTime} from 'luxon';
 import _cloneDeep from 'lodash-es/cloneDeep';
 import _filter from 'lodash-es/filter';
 import _find from 'lodash-es/find';
-
 
 import {
     AbstractComponent,
@@ -38,7 +38,7 @@ import {
     startDate,
     endDate,
 } from 'wlc-engine/modules/history/system/config/history.config';
-import {IBet} from 'wlc-engine/modules/profile/system/interfaces/bet.interfaces';
+import {Bet} from 'wlc-engine/modules/history/system/models';
 import {BetService} from 'wlc-engine/modules/history/system/services/bet.service';
 import {HistoryFilterService} from 'wlc-engine/modules/history/system/services/history-filter.service';
 
@@ -50,7 +50,7 @@ import * as Params from './bet-history.params';
     styleUrls: ['./styles/bet-history.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BetHistoryComponent extends AbstractComponent implements OnInit {
+export class BetHistoryComponent extends AbstractComponent implements OnInit, OnDestroy {
 
     public ready: boolean = false;
     public awaiting: boolean = false;
@@ -61,15 +61,14 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
     public orderSelect: ISelectCParams = betConfig.orderSelect;
     public startDateInput: IDatepickerCParams = _cloneDeep(startDate);
     public endDateInput: IDatepickerCParams = _cloneDeep(endDate);
-    public bets$: BehaviorSubject<IBet[]> = new BehaviorSubject([]);
+    public bets$: BehaviorSubject<Bet[]> = new BehaviorSubject([]);
 
     protected filterValue: 'all' | string = 'all';
     protected orderDirection: TSortDirection = 'desc';
     protected startDate: DateTime = DateTime.local().minus({month: 1});
     protected endDate: DateTime = DateTime.local().endOf('day');
     protected readonly today: DateTime = DateTime.local().endOf('day');
-    protected allBets: IBet[] = [];
-    protected isFirstRequest: boolean = true;
+    protected allBets: Bet[] = [];
 
     private isMultiWallet: boolean;
 
@@ -112,6 +111,11 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
         this.setSubscription();
     }
 
+    public override ngOnDestroy(): void {
+        super.ngOnDestroy();
+        this.betService.resetData();
+    }
+
     protected prepareTableParams(): void {
         this.tableData = this.$params.tableConfig;
         this.tableData.rows = this.bets$;
@@ -151,11 +155,7 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
      */
     protected async pushNewBetsList(needRequest: boolean): Promise<void> {
         this.awaiting = true;
-        this.bets$.next(await this.getBets(this.isFirstRequest || needRequest));
-        
-        if (this.isFirstRequest) {
-            this.isFirstRequest = false;
-        }
+        this.bets$.next(await this.getBets(needRequest));
         this.awaiting = false;
 
         if (!this.ready) {
@@ -170,9 +170,9 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
      *
      * @param {boolean} needRequest - if date dont change we dont need a new request
      *
-     * @returns {Promise<IBet[]>}
+     * @returns {Promise<Bet[]>}
      */
-    protected async getBets(needRequest: boolean): Promise<IBet[]> {
+    protected async getBets(needRequest: boolean): Promise<Bet[]> {
         const bets = await this.betService.getBets(
             {
                 endDate: this.endDate,
@@ -188,24 +188,23 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
     /**
      * Filter bets by merchant and push array to this.filteredBets$
      *
-     * @param {IBet[]} bets
+     * @param {Bet[]} bets
      *
-     * @returns {IBet[]}
+     * @returns {Bet[]}
      */
-    protected filterBetsByMerchant(bets: IBet[]): IBet[] {
+    protected filterBetsByMerchant(bets: Bet[]): Bet[] {
         if (this.filterValue === 'all') {
             return bets;
         }
 
-        return _filter(bets, (item: IBet): boolean => item.Merchant === this.filterValue);
+        return _filter(bets, (item: Bet): boolean => item.merchant === this.filterValue);
     }
 
     protected setSubscription(): void {
-        this.eventService.subscribe([
-            {name: MultiWalletEvents.CurrencyConversionChanged},
-        ], async (): Promise<void> => {
-            const bets: IBet[] = await this.getBets(true);
-            this.bets$.next(bets);
+        this.eventService.subscribe({
+            name: MultiWalletEvents.CurrencyConversionChanged,
+        }, async (): Promise<void> => {
+            this.bets$.next(await this.getBets(true));
         }, this.$destroy);
 
         this.historyFilterService.getFilter('bet')

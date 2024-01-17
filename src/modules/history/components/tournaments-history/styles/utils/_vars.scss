@@ -15,12 +15,8 @@ $themeDefault: map-merge((
         1024: auto,
         1200: 160px,
     ),
-    'historyNameGap': ef.size(2),
     'cellTransition': (
         1200: none,
-    ),
-    'historyNamePadding': (
-        1024: 0 0 0 ef.size(2),
     ),
     'actionTextOpacity':  (
         1024: 1,

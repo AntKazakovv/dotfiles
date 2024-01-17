@@ -26,22 +26,6 @@
                 .wlc-table__cell-label {
                     display: none;
                 }
-
-                .wlc-history-name {
-                    @include bm.get-mq-map('padding', $themeDefault, 'historyNamePadding');
-                    display: grid;
-                    grid-auto-flow: column;
-                    gap: ef.get-value($themeDefault, 'historyNameGap');
-                    align-items: center;
-                    justify-content: space-between;
-                    width: 100%;
-                    text-align: left;
-
-                    &__name {
-                        text-overflow: ellipsis;
-                        overflow: hidden;
-                    }
-                }
             }
         }
     }

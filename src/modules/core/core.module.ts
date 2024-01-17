@@ -79,7 +79,6 @@ import {FloatPanelsComponent} from './components/float-panels/float-panels.compo
 import {ForbiddenCountryComponent} from './components/forbidden-country/forbidden-country.component';
 import {FormControlComponent} from './components/form-control/form-control.component';
 import {FormWrapperComponent} from './components/form-wrapper/form-wrapper.component';
-import {HistoryNameComponent} from './components/table/components/history-name/history-name.component';
 import {HistoryFilterComponent} from './components/history-filter/history-filter.component';
 import {
     HistoryFilterFormComponent,
@@ -203,7 +202,6 @@ export const components = {
     'wlc-forbidden-country': ForbiddenCountryComponent,
     'wlc-form-control': FormControlComponent,
     'wlc-form-wrapper': FormWrapperComponent,
-    'wlc-history-name': HistoryNameComponent,
     'wlc-history-filter': HistoryFilterComponent,
     'wlc-header': HeaderComponent,
     'wlc-icon': IconComponent,
@@ -340,7 +338,6 @@ export const services = {
         FormControlComponent,
         FormWrapperComponent,
         FooterComponent,
-        HistoryNameComponent,
         HistoryFilterComponent,
         HistoryFilterFormComponent,
         HeaderComponent,
@@ -432,7 +429,6 @@ export const services = {
         FormControlComponent,
         FormWrapperComponent,
         FooterComponent,
-        HistoryNameComponent,
         HeaderComponent,
         IconComponent,
         InfoPageComponent,

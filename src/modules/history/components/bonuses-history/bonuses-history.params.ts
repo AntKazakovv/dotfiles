@@ -4,12 +4,10 @@ import {
     ITableCParams,
     ITableCol,
     IWrapperCParams,
-    IHistoryNameItem,
-    HistoryNameComponent,
 } from 'wlc-engine/modules/core';
-import {
-    BonusHistoryItemModel,
-} from 'wlc-engine/modules/history/system/models/bonus-history/bonus-history-item.model';
+import {BonusHistoryItemModel} from 'wlc-engine/modules/history/system/models/bonus-history/bonus-history-item.model';
+import {HistoryNameComponent} from 'wlc-engine/modules/history/components/history-name/history-name.component';
+import {IHistoryNameItem} from 'wlc-engine/modules/history/components/history-name/history-name.params';
 
 export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;
@@ -34,6 +32,7 @@ export const bonusHistoryTableHeadConfig: ITableCol[] = [
                     name: item.Name,
                     status: item.StatusName,
                     id: item.id,
+                    historyType: 'bonuses',
                 },
             };
         },

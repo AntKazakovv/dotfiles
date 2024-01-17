@@ -5,20 +5,25 @@ import {IFromLog} from 'wlc-engine/modules/core';
 import {IBet} from 'wlc-engine/modules/profile/system/interfaces/bet.interfaces';
 
 export class Bet extends AbstractModel<IBet> {
+    private _currency: string;
+    private _amount: string;
+
     constructor(
         from: IFromLog,
         data: IBet,
     ) {
         super({from: _assign({model: 'Bet'}, from)});
         this.data = data;
+        this._currency = this.data.Currency;
+        this._amount = this.data.Amount;
     }
 
     public get amount(): string {
-        return this.data.Amount;
+        return this._amount;
     }
 
     public get currency(): string {
-        return this.data.Currency;
+        return this._currency;
     }
 
     public get date(): string {
@@ -39,5 +44,13 @@ export class Bet extends AbstractModel<IBet> {
 
     public get merchant(): string {
         return this.data.Merchant;
+    }
+
+    public set currency(currency: string) {
+        this._currency = currency;
+    }
+
+    public set amount(amount: string) {
+        this._amount = amount;
     }
 }

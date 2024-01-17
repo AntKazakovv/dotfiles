@@ -1,0 +1,29 @@
+<ng-template [ngIf]="isBetHistoryItem || isTransactionsHistoryItem" [ngIfElse]="default">
+    <span class="{{$class}}__time">
+        {{mainInfo}}
+    </span>
+
+    <div class="{{$class}}__amount">
+        <span wlc-currency
+                class="{{$class}}__currency"
+                [value]="additionalInfo"
+                [showValueOnly]="true"
+        ></span>
+        <span wlc-icon
+                class="{{$class}}__currency-icon"
+                [iconPath]="getIconUrl(itemCurrency)"
+        ></span>
+    </div>
+</ng-template>
+
+<ng-template #default>
+    <span class="{{$class}}__name"
+        [attr.data-wlc-element]="'name_' + getItemID()">
+        {{mainInfo}}
+    </span>
+
+    <span class="{{$class}}__status"
+        [attr.data-wlc-element]="'status_' + getItemID()">
+        {{additionalInfo | translate}}
+    </span>
+</ng-template>

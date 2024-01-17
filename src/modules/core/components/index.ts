@@ -71,11 +71,6 @@ export {ScrollUpComponent} from './scroll-up/scroll-up.component';
 export {CounterComponent} from './counter/counter.component';
 export {ICounterCParams} from './counter/counter.params';
 export {IHeaderCParams} from './header/header.params';
-export {
-    IHistoryNameItem,
-    IHistoryNameParams,
-} from './table/components/history-name/history-name.params';
-export {HistoryNameComponent} from './table/components/history-name/history-name.component';
 export {INoContentCParams} from './no-content/no-content.params';
 export {OfflinePageComponent} from './offline-page/offline-page.component';
 export {TooltipComponent} from './tooltip/tooltip.component';

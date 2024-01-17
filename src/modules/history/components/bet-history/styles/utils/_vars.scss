@@ -6,8 +6,12 @@ $themeDefault: map-merge((
     'filterGap': ef.size(3),
     'filterWidth': ef.get-value(ev.$profileSettings, 'filterWidth'),
     'firstCellColumns': 1fr auto,
-
+    'firstCellPadding': ef.size(2) ef.size(3),
     'desktopCellWidth': (
         1024: 25%,
+    ),
+    'desktopCellWidthFirst': (
+        1024: 100%,
+        1200: 25%
     ),
 ), $customThemeDefault);

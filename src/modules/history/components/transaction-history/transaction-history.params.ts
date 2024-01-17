@@ -4,6 +4,7 @@ import {
     IWrapperCParams,
     ITableCol,
     ITableCParams,
+    GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {
     TransactionStatusComponent,
@@ -11,11 +12,10 @@ import {
 import {
     TransactionButtonsComponent,
 } from 'wlc-engine/modules/history/components/transaction-history/transaction-buttons/transaction-buttons.component';
-import {
-    TransactionPreviewComponent,
-} from 'wlc-engine/modules/history/components/transaction-history/transaction-preview/transaction-preview.component';
 import {Transaction} from 'wlc-engine/modules/history/system/models/transaction-history/transaction-history.model';
 import {rangeExceededMsg} from 'wlc-engine/modules/history/system/constants/history.constants';
+import {HistoryNameComponent} from 'wlc-engine/modules/history/components/history-name/history-name.component';
+import {IFinancialHistoryNameItem} from 'wlc-engine/modules/history/components/history-name/history-name.params';
 
 export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;
@@ -41,8 +41,17 @@ export const transactionTableHeadConfig: ITableCol[] = [
         title: gettext('Transaction time'),
         type: 'component',
         order: 10,
-        mapValue: (item: Transaction, index?) => {return {transaction: item, index};},
-        componentClass: TransactionPreviewComponent,
+        mapValue: (item: Transaction): {item: IFinancialHistoryNameItem} => {
+            return {
+                item: {
+                    date: GlobalHelper.toLocalTime(item.dateISO, 'ISO', 'HH:mm:ss dd-MM-yyyy'),
+                    amount: item.amount.toString(),
+                    currency: item.currency,
+                    historyType: 'transactions',
+                },
+            };
+        },
+        componentClass: HistoryNameComponent,
         wlcElement: 'wlc-profile-table__cell_time',
     },
     {

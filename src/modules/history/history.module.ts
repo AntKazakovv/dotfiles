@@ -6,16 +6,13 @@ import {TranslateModule} from '@ngx-translate/core';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {BonusesHistoryComponent} from 'wlc-engine/modules/history/components/bonuses-history/bonuses-history.component';
 import {BetHistoryComponent} from 'wlc-engine/modules/history/components/bet-history/bet-history.component';
-import {BetPreviewComponent} from 'wlc-engine/modules/history/components/bet-history/bet-preview/bet-preview.component';
+import {HistoryNameComponent} from 'wlc-engine/modules/history/components/history-name/history-name.component';
 import {
     TransactionHistoryComponent,
 } from 'wlc-engine/modules/history/components/transaction-history/transaction-history.component';
 import {
     TransactionButtonsComponent,
 } from 'wlc-engine/modules/history/components/transaction-history/transaction-buttons/transaction-buttons.component';
-import {
-    TransactionPreviewComponent,
-} from 'wlc-engine/modules/history/components/transaction-history/transaction-preview/transaction-preview.component';
 import {
     TransactionStatusComponent,
 } from 'wlc-engine/modules/history/components/transaction-history/transaction-status/transaction-status.component';
@@ -41,6 +38,7 @@ export const components = {
     'wlc-transaction-history': TransactionHistoryComponent,
     'wlc-history-range': HistoryRangeComponent,
     'wlc-cashback-history': CashbackHistoryComponent,
+    'wlc-history-name': HistoryNameComponent,
 };
 
 export const services = {
@@ -56,13 +54,11 @@ export const services = {
         BetHistoryComponent,
         CashbackHistoryComponent,
         CashbackPreviewComponent,
-        BetPreviewComponent,
+        HistoryNameComponent,
         TransactionHistoryComponent,
         TransactionButtonsComponent,
-        TransactionPreviewComponent,
         TransactionStatusComponent,
         HistoryRangeComponent,
-
     ],
     imports: [
         CommonModule,
@@ -76,13 +72,12 @@ export const services = {
     exports: [
         BonusesHistoryComponent,
         TournamentsHistoryComponent,
+        HistoryNameComponent,
         BetHistoryComponent,
         CashbackHistoryComponent,
         CashbackPreviewComponent,
-        BetPreviewComponent,
         TransactionHistoryComponent,
         TransactionButtonsComponent,
-        TransactionPreviewComponent,
         TransactionStatusComponent,
         HistoryRangeComponent,
     ],
