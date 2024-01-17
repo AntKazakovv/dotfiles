@@ -16,22 +16,7 @@ projects = [
         # Devcasino
         "id": "1",
         "repository": "git@wlcgitlab.egamings.com:wlcdevcasino/web.git",
-        "branches": [
-            "develop",
-            "master",
-            "scr1-profile",
-            "scr1-var1",
-            "scr1-var2",
-            "scr1-mc1",
-            "scr1-kiosk",
-            "scr1-aff",
-            "scr2-var1",
-            "scr2-var2",
-            "scr2-mc1",
-            "scr2-kiosk",
-            "scr3-wolf1",
-            "scr4-license",
-        ],
+        "branches": ["develop", "master", "scr1-profile", "scr1-var1", "scr1-var2", "scr1-mc1", "scr1-kiosk", "scr1-aff", "scr2-var1", "scr2-var2", "scr2-mc1", "scr2-kiosk", "scr3-wolf1", "scr4-license"],
     },
     {
         # Kiosk
@@ -167,8 +152,8 @@ def error_message():
     print(
         Fore.RED
         + """\n
-    I don't know this kind of magic. Enter the word in brackets. Let's try again...
-    """
+        I don't know this kind of magic. Enter the word in brackets. Let's try again...
+        """
         + Fore.RESET
     )
 
@@ -248,31 +233,14 @@ def set_version(version, project=None):
 
 # Получение локального тега движка
 def get_local_tag():
-    local_tags = subprocess.check_output(
-        ["git", "tag", "-l", "1.*", "--sort=-version:refname", "--format=%(refname)"],
-        text=True,
-    ).split("\n")
-
+    local_tags = subprocess.check_output(["git", "tag", "-l", "1.*", "--sort=-version:refname", "--format=%(refname)"], text=True).split("\n")
     local_tag = local_tags[0].split("/")[-1]
-
     return local_tag
 
 
 # Получение удаленного тега движка
 def get_remote_tag():
-    remote_tags = subprocess.check_output(
-        [
-            "git",
-            "ls-remote",
-            "--exit-code",
-            "--refs",
-            "--sort=-version:refname",
-            "--tags",
-            "origin",
-            "refs/tags/1.*",
-        ],
-        text=True,
-    ).split("\n")
+    remote_tags = subprocess.check_output(["git", "ls-remote", "--exit-code", "--refs", "--sort=-version:refname", "--tags", "origin", "refs/tags/1.*"], text=True).split("\n")
     remote_tag = remote_tags[0].split("/")[-1]
     return remote_tag
 
@@ -280,21 +248,7 @@ def get_remote_tag():
 # Проверка на наличие тега
 def tag_duplicate_checking(action, tag_to_find):
     remote_ref_list = list(
-        filter(
-            None,
-            subprocess.check_output(
-                [
-                    "git",
-                    "ls-remote",
-                    "--exit-code",
-                    "--refs",
-                    "--sort=-version:refname",
-                    "--tags",
-                    "origin",
-                ],
-                text=True,
-            ).split("\n"),
-        )
+        filter(None, subprocess.check_output(["git", "ls-remote", "--exit-code", "--refs", "--sort=-version:refname", "--tags", "origin"], text=True).split("\n"))
     )
 
     for ref in remote_ref_list:
@@ -317,9 +271,7 @@ def tag_duplicate_checking(action, tag_to_find):
 def make_tag(action, branch=None):
     print(Fore.YELLOW + "Making new tag..." + Fore.RESET)
     if branch == None:
-        new_tag = ".".join(
-            [str(k) for k in change_version(action, parse_version(get_version()))]
-        )
+        new_tag = ".".join([str(k) for k in change_version(action, parse_version(get_version()))])
 
         if action == "hotfix":
             new_tag = tag_duplicate_checking(action, new_tag)
@@ -333,26 +285,7 @@ def make_tag(action, branch=None):
         try:
             tag = (
                 list(
-                    filter(
-                        None,
-                        subprocess.check_output(
-                            [
-                                "git",
-                                "ls-remote",
-                                "--exit-code",
-                                "--refs",
-                                "--sort=-version:refname",
-                                "--tags",
-                                "origin",
-                                f"{base_tag}.*",
-                            ],
-                            cwd=temp_folder,
-                            text=True,
-                        ).split("\n"),
-                    )
-                )[-1]
-                .split("/")[-1]
-                .split(".")
+                    filter(None, subprocess.check_output(["git", "ls-remote", "--exit-code", "--refs", "--sort=-version:refname", "--tags", "origin", f"{base_tag}.*"], cwd=temp_folder, text=True).split("\n")))[-1].split("/")[-1].split(".")
             )
             tag[1] = str(int(tag[1]) + 1)
             new_tag = ".".join(tag)
@@ -482,56 +415,20 @@ def push_branch(branch, tag=None, project=None):
     subprocess.run(["git", "add", "."], cwd=temp_folder)
 
     if project == "translate":
-        subprocess.run(
-            [
-                "git",
-                "commit",
-                "-m",
-                f"Release @egamings/wlc-engine-translate {tag} version",
-            ],
-            cwd=temp_folder,
-        )
-        subprocess.run(
-            [
-                "git",
-                "tag",
-                "-a",
-                tag,
-                "-m",
-                f"Release @egamings/wlc-engine-translate {tag} version",
-            ],
-            cwd=temp_folder,
-        )
+        subprocess.run(["git", "commit", "-m", f"Release @egamings/wlc-engine-translate {tag} version"], cwd=temp_folder)
+        subprocess.run(["git", "tag", "-a", tag, "-m", f"Release @egamings/wlc-engine-translate {tag} version"], cwd=temp_folder)
 
     else:
         engine_version = get_version()
-        subprocess.run(
-            ["git", "commit", "-m", f"SCR #0 - project up {engine_version}"],
-            cwd=temp_folder,
-        )
+        subprocess.run(["git", "commit", "-m", f"SCR #0 - project up {engine_version}"], cwd=temp_folder)
 
         if tag:
-            subprocess.run(
-                [
-                    "git",
-                    "tag",
-                    "-a",
-                    tag,
-                    "-m",
-                    f"SCR #0 - project up {engine_version}",
-                ],
-                cwd=temp_folder,
-            )
+            subprocess.run(["git", "tag", "-a", tag, "-m", f"SCR #0 - project up {engine_version}"], cwd=temp_folder)
 
     if tag:
-        subprocess.run(
-            ["git", "push", "origin", branch, "--force-with-lease", "--follow-tags"],
-            cwd=temp_folder,
-        )
+        subprocess.run(["git", "push", "origin", branch, "--force-with-lease", "--follow-tags"], cwd=temp_folder)
     else:
-        subprocess.run(
-            ["git", "push", "origin", branch, "--force-with-lease"], cwd=temp_folder
-        )
+        subprocess.run(["git", "push", "origin", branch, "--force-with-lease"], cwd=temp_folder)
 
     print(Fore.GREEN + "Done" + Fore.RESET)
 
@@ -546,10 +443,7 @@ def clean_temp():
 # Очистка кэша npm
 def clear_npm_cache():
     print(Fore.YELLOW + "Clean npm cache" + Fore.RESET)
-    subprocess.call(
-        ["./node18.sh", "wlc-engine", "npm", "cache", "clear", "-f"],
-        cwd=os.path.expanduser("~/Projects/wlc-docker"),
-    )
+    subprocess.call(["./node18.sh", "wlc-engine", "npm", "cache", "clear", "-f"], cwd=os.path.expanduser("~/Projects/wlc-docker"))
     print(Fore.GREEN + "Done" + Fore.RESET)
 
 
@@ -558,50 +452,29 @@ def update_npm(project_folder=None):
     folder = check_folder(project_folder)
 
     print(Fore.YELLOW + "Delete npm dependencies" + Fore.RESET)
-    subprocess.run(
-        ["rm", "-rf", f"{folder}package-lock.json", f"{temp_folder}node_modules/"]
-    )
+    subprocess.run(["rm", "-rf", f"{folder}package-lock.json", f"{temp_folder}node_modules/"])
     print(Fore.GREEN + "Done" + Fore.RESET)
 
     print(Fore.YELLOW + "Update npm dependencies" + Fore.RESET)
-    subprocess.call(
-        ["./node18.sh", f"wlc-engine/{folder}", "npm", "i"],
-        cwd=os.path.expanduser("~/Projects/wlc-docker"),
-    )
+    subprocess.call(["./node18.sh", f"wlc-engine/{folder}", "npm", "i"], cwd=os.path.expanduser("~/Projects/wlc-docker"))
     print(Fore.GREEN + "Done" + Fore.RESET)
 
 
 # Чекаут npm зависимостей
 def get_depends(branch):
     print(Fore.YELLOW + "Getting dependencies from branch 'develop'" + Fore.RESET)
-    subprocess.run(
-        [
-            "git",
-            "checkout",
-            f"remotes/origin/{branch}",
-            "package.json",
-            "package-lock.json",
-            "composer.json",
-            "composer.lock",
-        ],
-        cwd=temp_folder,
-    )
+    subprocess.run(["git", "checkout", f"remotes/origin/{branch}", "package.json", "package-lock.json", "composer.json", "composer.lock"], cwd=temp_folder)
     print(Fore.GREEN + "Done" + Fore.RESET)
 
 
 # Обновление composer зависимостей
 def update_composer():
     print(Fore.YELLOW + "Delete composer dependencies" + Fore.RESET)
-    subprocess.run(
-        ["rm", "-rf", f"{temp_folder}composer.lock", f"{temp_folder}vendor/"]
-    )
+    subprocess.run(["rm", "-rf", f"{temp_folder}composer.lock", f"{temp_folder}vendor/"])
     print(Fore.GREEN + "Done" + Fore.RESET)
 
     print(Fore.YELLOW + "Update composer dependencies" + Fore.RESET)
-    subprocess.call(
-        ["./compose_php.sh", f"wlc-engine/{temp_folder}", "composer", "i"],
-        cwd=os.path.expanduser("~/Projects/wlc-docker"),
-    )
+    subprocess.call(["./compose_php.sh", f"wlc-engine/{temp_folder}", "composer", "i"], cwd=os.path.expanduser("~/Projects/wlc-docker"))
     print(Fore.GREEN + "Done" + Fore.RESET)
 
 
@@ -618,15 +491,13 @@ def small_update_branch(branch):
 # Проверка ветки на соответствие с веткой для действия
 def check_branch(branch, project_folder=None):
     print(Fore.YELLOW + f"Check project branch..." + Fore.RESET)
-    current_branch = subprocess.check_output(
-        ["git", "rev-parse", "--abbrev-ref", "HEAD"], cwd=project_folder, text=True
-    )[0:-1]
+    current_branch = subprocess.check_output(["git", "rev-parse", "--abbrev-ref", "HEAD"], cwd=project_folder, text=True)[0:-1]
 
     if not branch == current_branch:
         change_branch = input(
             Fore.YELLOW
             + "The branch does not match the process. Switch to the right one? (y/n):"
-            + Fore.RESET
+
         )
         if change_branch.lower() == "y":
             subprocess.run(["git", "checkout", branch], cwd=project_folder)
@@ -670,29 +541,13 @@ def make_hotfix(action):
         try:
             print(Fore.YELLOW + "Commiting all changes..." + Fore.RESET)
             subprocess.run(["git", "add", "."])
-            subprocess.run(
-                [
-                    "git",
-                    "commit",
-                    "-m",
-                    f"SCR #{ticket} - fix: Engine hotfix from {engine_version} version",
-                ]
-            )
+            subprocess.run(["git", "commit", "-m", f"SCR #{ticket} - fix: Engine hotfix from {engine_version} version"])
             print(Fore.YELLOW + "Pushing all changes" + Fore.RESET)
             output = subprocess.run(["git", "push", "origin", branch], check=True)
             print(Fore.GREEN + "New commit pushed!" + Fore.RESET)
 
             print(Fore.YELLOW + "Making new tag..." + Fore.RESET)
-            subprocess.run(
-                [
-                    "git",
-                    "tag",
-                    "-a",
-                    new_tag,
-                    "-m",
-                    f"Release @egamings/wlc-engine {new_tag}",
-                ]
-            )
+            subprocess.run(["git", "tag", "-a", new_tag, "-m", f"Release @egamings/wlc-engine {new_tag}"])
             print(Fore.YELLOW + "Pushing new tag..." + Fore.RESET)
             output = subprocess.run(["git", "push", "origin", new_tag], check=True)
             print(Fore.GREEN + "New tag pushed!" + Fore.RESET)
@@ -714,12 +569,7 @@ def make_translate_release(branch, action="patch"):
     check_branch(branch, temp_folder)
 
     print(Fore.YELLOW + "Making new engine tag..." + Fore.RESET)
-    new_tag = ".".join(
-        [
-            str(k)
-            for k in change_version(action, parse_version(get_version("translate")))
-        ]
-    )
+    new_tag = ".".join([str(k) for k in change_version(action, parse_version(get_version("translate")))])
     set_version(new_tag, "translate")
     push_branch(branch, new_tag, "translate")
     clean_temp()
@@ -739,14 +589,7 @@ def update_language_pack(branch):
 
     print(Fore.YELLOW + "Commit and push changes..." + Fore.RESET)
     subprocess.run(["git", "add", "package-lock.json"])
-    subprocess.run(
-        [
-            "git",
-            "commit",
-            "-m",
-            "SCR #123456 - update: language pack to the last version",
-        ]
-    )
+    subprocess.run(["git", "commit", "-m", "SCR #123456 - update: language pack to the last version"])
     subprocess.run(["git", "push", "origin", f"HEAD:{branch}"])
     print(Fore.GREEN + "Done" + Fore.RESET)
 
@@ -767,12 +610,12 @@ def make_release(action, branch):
             (
                 Fore.YELLOW
                 + """
-        ------------------------------------------------------
-        (1) If you want make and update language pack
-        (2) If you want just update language pack
-        (nothing) If you don`t want anything
-        ------------------------------------------------------
-        Your choise: """
+                ------------------------------------------------------
+                (1) If you want make and update language pack
+                (2) If you want just update language pack
+                (nothing) If you don`t want anything
+                ------------------------------------------------------
+                Your choise: """
                 + Fore.RESET
             )
         )
@@ -786,9 +629,7 @@ def make_release(action, branch):
                     + Fore.RESET
                 )
                 time.sleep(25)
-                job = input(
-                    Fore.YELLOW + "If jankins job is done press 'y': " + Fore.RESET
-                )
+                job = input(Fore.YELLOW + "If jankins job is done press 'y': " + Fore.RESET)
 
                 if job == "y":
                     print(Fore.YELLOW + "Done!" + Fore.RESET)
@@ -858,26 +699,8 @@ def change_core_version(project):
 
     print(Fore.YELLOW + "Update project" + Fore.RESET)
     subprocess.run(["git", "add", "."], cwd=temp_folder)
-    subprocess.run(
-        [
-            "git",
-            "commit",
-            "-m",
-            f"SCR #0 - update: wlc-core to the {new_core_version} version",
-        ],
-        cwd=temp_folder,
-    )
-    subprocess.run(
-        [
-            "git",
-            "tag",
-            "-a",
-            new_tag,
-            "-m",
-            f"SCR #0 - update: wlc-core to the {new_core_version} version",
-        ],
-        cwd=temp_folder,
-    )
+    subprocess.run(["git", "commit", "-m", f"SCR #0 - update: wlc-core to the {new_core_version} version"], cwd=temp_folder)
+    subprocess.run(["git", "tag", "-a", new_tag, "-m", f"SCR #0 - update: wlc-core to the {new_core_version} version"], cwd=temp_folder)
     subprocess.run(["git", "push", "origin", branch, "--follow-tags"], cwd=temp_folder)
     print(Fore.GREEN + "Done" + Fore.RESET)
 
@@ -894,9 +717,7 @@ def make_stable_branch(branch, stable_branch):
     subprocess.run(["git", "checkout", branch], cwd=temp_folder)
     subprocess.run(["git", "branch", "-D", stable_branch], cwd=temp_folder)
     subprocess.run(["git", "checkout", "-b", stable_branch], cwd=temp_folder)
-    subprocess.run(
-        ["git", "push", "origin", stable_branch, "--force-with-lease"], cwd=temp_folder
-    )
+    subprocess.run(["git", "push", "origin", stable_branch, "--force-with-lease"], cwd=temp_folder)
     print(Fore.GREEN + "Done" + Fore.RESET)
 
 
@@ -905,19 +726,19 @@ def update_projects(projects):
     print(
         Fore.YELLOW
         + """
-    ---------------------------------------
-    What project do you want update?
-    ---------------------------------------
-    (0) Update all (or press "Enter")
-    (1) Update wlc_devcasino
-    (2) Update wlc_devcasino_kiosk
-    (3) Update sportsbook
-    (4) Update tk_catcasino
+        ---------------------------------------
+        What project do you want update?
+        ---------------------------------------
+        (0) Update all (or press "Enter")
+        (1) Update wlc_devcasino
+        (2) Update wlc_devcasino_kiosk
+        (3) Update sportsbook
+        (4) Update tk_catcasino
 
-    You can also select more than one
-    item by separating them with " "(space)
-    ---------------------------------------
-    """
+        You can also select more than one
+        item by separating them with " "(space)
+        ---------------------------------------
+        """
         + Fore.RESET
     )
 
@@ -988,22 +809,22 @@ def release_manager():
     print(
         Fore.YELLOW
         + """
-    ------------------------------
-    What I can:
-    ------------------------------
-    (1) Make release
-    (2) Make release candidate
-    (3) Make catcasino release
-    (4) Make catcasino patch
-    (5) Make hotfix
-    (6) Update projects
-    (7) Update wlc core
-    (8) Delete last tag
-    (9) Make language release
-    (0) Update language pack
-    (e) Exit (or press 'Ctrl+Z')
-    ------------------------------
-    """
+        ------------------------------
+        What I can:
+        ------------------------------
+        (1) Make release
+        (2) Make release candidate
+        (3) Make catcasino release
+        (4) Make catcasino patch
+        (5) Make hotfix
+        (6) Update projects
+        (7) Update wlc core
+        (8) Delete last tag
+        (9) Make language release
+        (0) Update language pack
+        (e) Exit (or press 'Ctrl+Z')
+        ------------------------------
+        """
         + Fore.RESET
     )
 
