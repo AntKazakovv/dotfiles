@@ -7,6 +7,10 @@ import {
     Input,
     OnInit,
 } from '@angular/core';
+
+import _values from 'lodash-es/values';
+import _each from 'lodash-es/each';
+
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
@@ -14,9 +18,6 @@ import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract
 import {ITab} from 'wlc-engine/modules/core/components/tab-switcher/tab-switcher.params';
 
 import * as Params from 'wlc-engine/modules/core/components/tab-switcher/tab-switcher.params';
-
-import _values from 'lodash-es/values';
-import _each from 'lodash-es/each';
 
 @Component({
     selector: '[wlc-tab-switcher]',

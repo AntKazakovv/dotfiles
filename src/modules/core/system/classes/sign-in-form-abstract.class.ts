@@ -123,6 +123,8 @@ export abstract class SignInFormAbstract<T extends IAbstractSignInFormCParams<un
                 this.stateService.go('app.home');
             } else if (this.modalService.getActiveModal('login')) {
                 this.modalService.hideModal('login', 'submit');
+            } else if (this.modalService.getActiveModal('signup')) {
+                this.modalService.hideModal('signup', 'submitLogin');
             }
 
             return true;
