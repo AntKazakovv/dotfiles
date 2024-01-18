@@ -9,17 +9,9 @@ import {
 } from '@angular/core';
 
 import Swiper from 'swiper';
-import {
-    filter,
-    takeUntil,
-} from 'rxjs/operators';
-import {Subject} from 'rxjs';
-import _forEach from 'lodash-es/forEach';
+import {takeUntil} from 'rxjs/operators';
 import _merge from 'lodash-es/merge';
 import _isObject from 'lodash-es/isObject';
-import _filter from 'lodash-es/filter';
-import _map from 'lodash-es/map';
-import _find from 'lodash-es/find';
 
 import {
     AbstractComponent,
@@ -46,10 +38,6 @@ import {
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {BonusItemComponent} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.component';
 import {IBonusItemCParams} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';
-import {
-    BonusesListController,
-    IBonusesListController,
-} from 'wlc-engine/modules/bonuses/system/classes/bonuses-list.controller';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import * as Params from './deposit-bonuses.params';
@@ -65,11 +53,9 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
 
     public override $params: Params.IDepositBonusesCParams;
     public bonuses: Bonus[] = [];
-    public ready: boolean = false;
     public asModal: boolean;
     public currentBonus: Bonus | null = null;
     public autoSelect: number | IAutoSelectByDevice<number>;
-    public noBonusesText: string = gettext('Available bonuses are not found');
     public slides: ISlide[] = [];
 
     protected currentPaySystemId: number = 0;
@@ -77,7 +63,6 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
     protected isMobile: boolean = this.configService.get<DeviceModel>('device').isMobile;
     protected firstInit: boolean = true;
     protected paymentsAutoSelect: boolean = false;
-    protected bonusesListController: IBonusesListController;
 
     private promoCodeInfo: IPromoCodeInfo;
 
@@ -91,11 +76,6 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
         @Inject(WINDOW) private window: Window,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
-
-        this.bonusesListController = new BonusesListController(
-            this.bonusesService,
-            this.configService,
-        );
     }
 
     public override async ngOnInit(): Promise<void> {
@@ -110,13 +90,6 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
         this.currentPaySystemId = this.configService.get<PaymentSystem>('chosenPaySystem')?.id;
 
         this.createBlankBonus();
-
-        this.bonusesListController.ready$
-            .pipe(takeUntil(this.$destroy))
-            .subscribe((ready) => {
-                this.ready = ready;
-                this.cdr.markForCheck();
-            });
 
         this.eventService.subscribe({
             name: 'select_system',
@@ -281,49 +254,21 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
     }
 
     protected getBonuses(): void {
-        const errorCatcher$: Subject<boolean> = new Subject();
-        errorCatcher$.pipe(
-            filter((isReady: boolean) => isReady && !this.bonuses.length),
-            takeUntil(this.$destroy),
-        ).subscribe((): void => {
-            this.ready = true;
-            this.cdr.markForCheck();
-        });
 
-        const processBonuses = (bonuses: Bonus[]): void => {
-            this.processBonusesResponse(bonuses);
+        this.processBonusesResponse();
 
-            if (this.firstInit && (!this.paymentsAutoSelect || this.currentPaySystemId)) {
-                this.firstInit = false;
-                this.setAutoSelect();
-            }
-        };
-
-        if (this.$params.bonuses?.length) {
-            processBonuses(this.$params.bonuses);
-        } else {
-            this.bonusesListController.getBonuses({
-                subscribeParams: {
-                    type: 'any',
-                    useQuery: true,
-                },
-                filter: this.$params.filter,
-            });
-
-            this.bonusesListController.bonuses$.pipe(
-                takeUntil(this.$destroy),
-            ).subscribe((bonuses: Bonus[]): void => {
-                processBonuses(bonuses);
-            });
+        if (this.firstInit && (!this.paymentsAutoSelect || this.currentPaySystemId)) {
+            this.firstInit = false;
+            this.setAutoSelect();
         }
     }
 
     protected updateBonusesStatus(): void {
-        if (!this.ready && !this.currentPaySystemId) {
+        if (!this.currentPaySystemId) {
             this.currentPaySystemId = this.configService.get<PaymentSystem>('chosenPaySystem')?.id;
         }
 
-        _forEach(this.bonuses, (bonus: Bonus): void => {
+        this.bonuses.forEach((bonus: Bonus): void => {
             bonus.isChoose = bonus.id === this.currentBonus?.id;
 
             if (bonus.disabledBy === null || bonus.disabledBy === 1) {
@@ -335,47 +280,38 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
         });
     }
 
-    protected processBonusesResponse(bonuses: Bonus[]): void {
-        this.ready = true;
-        if (bonuses.length) {
-            this.bonuses = _filter(bonuses, {isActive: false, showOnly: false});
+    protected processBonusesResponse(): void {
+        this.bonuses = this.$params.bonuses.filter((bonus: Bonus) => !bonus.isActive);
 
-            if (Bonus.stackIsLocked) {
-                this.disableBonuses(2);
-            } else {
-                if (Bonus.existActiveBonus) {
-
-                    _forEach(this.bonuses, (bonus: Bonus): void => {
-                        if (!bonus.allowStack) {
-                            bonus.disabledBy = 3;
-                        }
-                    });
-                }
+        if (Bonus.stackIsLocked) {
+            this.disableBonuses(2);
+        } else {
+            if (Bonus.existActiveBonus) {
+                this.bonuses.forEach((bonus: Bonus): void => {
+                    if (!bonus.allowStack) {
+                        bonus.disabledBy = 3;
+                    }
+                });
             }
 
             this.updateBonusesStatus();
-
-            if (this.ready) {
-                if (this.currentBonus?.isChoose) {
-                    const bonus: Bonus = this.bonuses.find(
-                        (bonus: Bonus): boolean => this.currentBonus.id === bonus.id);
-                    this.bonusClickEvent(bonus, false);
-                } else {
-                    this.bonusClickEvent();
-                }
-            } else if (this.currentPaySystemId) {
-                this.setAutoSelect();
-            }
-
-            if (this.$params.type === 'swiper') {
-                this.bonusesToSlides();
-            }
-
-            if (this.promoCodeInfo) {
-                this.setPromoCodeInfo();
-            }
         }
 
+        if (this.currentBonus?.isChoose) {
+            const bonus: Bonus = this.bonuses.find(
+                (bonus: Bonus): boolean => this.currentBonus.id === bonus.id);
+            this.bonusClickEvent(bonus, false);
+        } else {
+            this.bonusClickEvent();
+        }
+
+        if (this.$params.type === 'swiper') {
+            this.bonusesToSlides();
+        }
+
+        if (this.promoCodeInfo) {
+            this.setPromoCodeInfo();
+        }
         this.cdr.markForCheck();
     }
 
@@ -388,7 +324,7 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
     }
 
     protected bonusesToSlides(): void {
-        this.slides = _map(this.bonuses, (bonus: Bonus): ISlide => {
+        this.slides = this.bonuses.map((bonus: Bonus): ISlide => {
             return {
                 component: BonusItemComponent,
                 componentParams: _merge(this.getBonusItemParams(bonus), {
@@ -407,13 +343,13 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
     }
 
     protected disableBonuses(reason: keyof typeof disabledReasons): void {
-        _forEach(this.bonuses, (bonus: Bonus): void => {
+        this.bonuses.forEach((bonus: Bonus): void => {
             bonus.disabledBy = reason;
         });
     }
 
     protected enableBonuses(): void {
-        _forEach(this.bonuses, (bonus: Bonus): void => {
+        this.bonuses.forEach((bonus: Bonus): void => {
             bonus.disabledBy = null;
         });
     }
@@ -425,12 +361,13 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
             this.cdr.markForCheck();
         } else {
             this.enableBonuses();
-            this.processBonusesResponse(this.bonuses);
+            this.processBonusesResponse();
         }
     }
 
     protected setPromoCodeInfo(): void {
-        const promoCodeBonus: Bonus = _find(this.bonuses, (bonus) => bonus.id === this.promoCodeInfo.bonusId);
+        const promoCodeBonus: Bonus = this.bonuses
+            .find((bonus: Bonus): boolean => bonus.id === this.promoCodeInfo.bonusId);
 
         if (!promoCodeBonus) {
             return;

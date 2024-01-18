@@ -1,9 +1,7 @@
 <div class="{{$class}}__wrapper">
-    <ng-container *ngIf="ready; else loader">
-        <ng-container [ngSwitch]="$params.type">
-            <ng-container *ngSwitchCase="'swiper'" [ngTemplateOutlet]="tplSwiper"></ng-container>
-            <ng-container *ngSwitchDefault [ngTemplateOutlet]="tplDefault"></ng-container>
-        </ng-container>
+    <ng-container [ngSwitch]="$params.type">
+        <ng-container *ngSwitchCase="'swiper'" [ngTemplateOutlet]="tplSwiper"></ng-container>
+        <ng-container *ngSwitchDefault [ngTemplateOutlet]="tplDefault"></ng-container>
     </ng-container>
 </div>
 
@@ -12,66 +10,57 @@
 </ng-template>
 
 <ng-template #modalButton>
-    <ng-container *ngIf="bonuses.length; else bonusesList">
-        <button class="{{$class}}__btn"
-            type="button"
-            [class.selected]="!!currentBonus"
-            [class.use-icon]="!currentBonus"
-            [attr.title]="$params.modalBtnParams.title | translate"
-            [attr.aria-label]="$params.modalBtnParams.title | translate"
-            (click)="openModal()">
-            <span *ngIf="!currentBonus"
-                wlc-icon
-                class="{{$class}}__btn-image"
-                [iconPath]="$params.modalBtnParams.icon"
-            ></span>
-            <div *ngIf="!!currentBonus"
-                class="{{$class}}__btn-image">
-                <div wlc-bonus-item
-                    class="{{$class}}__btn-bonus"
-                    [inlineParams]="getBtnBonusItemParams()">
-                </div>
+    <button class="{{$class}}__btn"
+        type="button"
+        [class.selected]="!!currentBonus"
+        [class.use-icon]="!currentBonus"
+        [attr.title]="$params.modalBtnParams.title | translate"
+        [attr.aria-label]="$params.modalBtnParams.title | translate"
+        (click)="openModal()">
+        <span *ngIf="!currentBonus"
+            wlc-icon
+            class="{{$class}}__btn-image"
+            [iconPath]="$params.modalBtnParams.icon"
+        ></span>
+        <div *ngIf="!!currentBonus"
+            class="{{$class}}__btn-image">
+            <div wlc-bonus-item
+                class="{{$class}}__btn-bonus"
+                [inlineParams]="getBtnBonusItemParams()">
             </div>
-            <span class="{{$class}}__btn-wrap">
-                <ng-container [ngSwitch]="!!currentBonus">
-                    <span *ngSwitchCase="false"
-                        class="{{$class}}__btn-text">
-                        {{$params.modalBtnParams.title | translate}}
-                    </span>
-                    <span *ngSwitchDefault
-                        wlc-icon
-                        class="{{$class}}__btn-arrow"
-                        [iconPath]="'wlc/icons/arrow-left.svg'">
-                    </span>
-                </ng-container>
-                <span class="{{$class}}__btn-text">
-                    {{buttonText | translate}}
-                </span>
-            </span>
-        </button>
-        <div *ngIf="!!currentBonus" class="{{$class}}__short-bonus">
-            {{currentBonus.name}}
-
-            <button
-                wlc-button
-                class="{{$class}}__short-bonus-info"
-                theme="icon"
-                iconPath="/wlc/icons/info.svg"
-                (click)="openCurrentBonusInfo()"
-            ></button>
         </div>
-    </ng-container>
+        <span class="{{$class}}__btn-wrap">
+            <ng-container [ngSwitch]="!!currentBonus">
+                <span *ngSwitchCase="false"
+                    class="{{$class}}__btn-text">
+                    {{$params.modalBtnParams.title | translate}}
+                </span>
+                <span *ngSwitchDefault
+                    wlc-icon
+                    class="{{$class}}__btn-arrow"
+                    [iconPath]="'wlc/icons/arrow-left.svg'">
+                </span>
+            </ng-container>
+            <span class="{{$class}}__btn-text">
+                {{buttonText | translate}}
+            </span>
+        </span>
+    </button>
+    <div *ngIf="!!currentBonus" class="{{$class}}__short-bonus">
+        {{currentBonus.name}}
+
+        <button
+            wlc-button
+            class="{{$class}}__short-bonus-info"
+            theme="icon"
+            iconPath="/wlc/icons/info.svg"
+            (click)="openCurrentBonusInfo()"
+        ></button>
+    </div>
 </ng-template>
 
 <ng-template #bonusesList>
-    <div *ngIf="!bonuses.length"
-        wlc-alert
-        class="{{$class}}__empty"
-        [title]="noBonusesText | translate"
-        level="warning">
-    </div>
-
-    <div class="{{$class}}__list" [class.empty]="!bonuses.length">
+    <div class="{{$class}}__list">
         <div *ngFor="let bonus of bonuses"
             wlc-bonus-item
             class="{{$class}}__bonus"
@@ -86,10 +75,6 @@
             (click)="bonusClickEvent()">
         </div>
     </div>
-</ng-template>
-
-<ng-template #loader>
-    <div wlc-loader class="{{$class}}__loader"></div>
 </ng-template>
 
 <ng-template #tplSwiper>

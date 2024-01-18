@@ -4,18 +4,6 @@
         @include bm.get-mq-map('grid-template-columns', $themeDefault, 'listTemplateColumns');
         @include bm.get-mq-map('gap', $themeDefault, 'listGap');
         display: grid;
-
-        &.empty {
-
-            @include mq.max(ef.get-value($themeDefault, 'listEmptyBreakpoint')) {
-                display: ef.get-value($themeDefault, 'listEmptyDisplay');
-                justify-content: ef.get-value($themeDefault, 'listEmptyJustify');
-
-                .wlc-deposit-bonuses__bonus {
-                    width: ef.get-value($themeDefault, 'listEmptyBonusWidth');
-                }
-            }
-        }
     }
 
     &__bonus {
@@ -134,10 +122,6 @@
                     }
                 }
             }
-        }
-
-        &__empty {
-            margin: ef.get-value($themeDefault, 'emptyBlockMargin');
         }
 
         &__short-bonus {

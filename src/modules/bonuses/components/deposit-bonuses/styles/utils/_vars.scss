@@ -8,18 +8,11 @@ $themeDefault: map-merge((
         375: ef.size(2),
         900: ef.size(4),
     ),
-    'listEmptyBreakpoint': 480,
-    'listEmptyDisplay': flex,
-    'listEmptyJustify': center,
-    'listEmptyBonusWidth': 50%,
 
     // bonus
     'bonusDisabledOrder': 1000,
     'bonusBlankOrder': -1,
     'bonusBlankLastOrder': 1001,
-
-    //empty
-    'emptyBlockMargin': 0 0 ef.size(4),
 
     // short bonus
     'shortBonusMargin': ef.size(4) 0 0,

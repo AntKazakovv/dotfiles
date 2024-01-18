@@ -249,8 +249,8 @@ export class DepositWithdrawComponent
                 useQuery: true,
                 observer: {
                     next: (bonuses: Bonus[]): void => {
-                        const depositBonuses = bonusesService.filterBonuses(bonuses, 'deposit');
-                        this.bonusesExist = !!depositBonuses.length;
+                        const depositBonuses: Bonus[] = bonusesService.filterBonuses(bonuses, 'deposit');
+                        this.bonusesExist = depositBonuses.some((bonus: Bonus) => !bonus.isActive);
 
                         if (this.bonusesExist) {
                             const params: IBonusesListCParams = _merge(this.bonusesListParams.components[0].params, {
@@ -347,10 +347,6 @@ export class DepositWithdrawComponent
         }
 
         this.selectedWallet = wallet;
-    }
-
-    public get showDividerInPaymentSystems(): boolean {
-        return !!this.parentSystem || !!this.currentSystem || !this.hiddenPaymentInfo;
     }
 
     public get paymentSystemName(): string {
