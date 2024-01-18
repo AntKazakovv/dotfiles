@@ -90,7 +90,7 @@
          class="{{$class}}__wallets"
          [inlineParams]="walletsParams"
          (changeWalletEmit)="onWalletChange($event)"></div>
-    <div *ngIf="showDividerInPaymentSystems" class="{{$class}}__divider"></div>
+    <div class="{{$class}}__divider"></div>
 </ng-template>
 
 <ng-template #systems>
@@ -111,7 +111,7 @@
         [userCountry]="userCountry"
         [currentSystem]="parentSystem || currentSystem" [parentTheme]="$params.theme">
     </div>
-    <div *ngIf="showDividerInPaymentSystems" class="{{$class}}__divider"></div>
+    <div class="{{$class}}__divider"></div>
 </ng-template>
 
 <ng-template #bonuses>
@@ -142,7 +142,7 @@
          [currentSystem]="currentSystem"
          [inlineParams]="cryptoListConfig"
          [availableSystems]="availableSystems"></div>
-    <div *ngIf="currentSystem" class="{{$class}}__divider"></div>
+    <div class="{{$class}}__divider"></div>
 </ng-template>
 
 <ng-template #paymentInfo>

@@ -6,7 +6,6 @@ import {
     ChangeDetectorRef,
     OnDestroy,
 } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 import {DOCUMENT} from '@angular/common';
 
 import {TranslateService} from '@ngx-translate/core';
@@ -51,10 +50,7 @@ import {
     BonusItemComponentEvents,
 } from 'wlc-engine/modules/bonuses';
 
-import {
-    ISelectedWallet,
-    WalletsService,
-} from 'wlc-engine/modules/multi-wallet';
+import {ISelectedWallet} from 'wlc-engine/modules/multi-wallet';
 import {WalletsParams} from 'wlc-engine/modules/multi-wallet/components/wallets/wallets.params';
 
 import * as Params from './deposit-withdraw.params';
@@ -123,10 +119,8 @@ export class DepositWithdrawComponent
         protected eventService: EventService,
         cdr: ChangeDetectorRef,
         protected translateService: TranslateService,
-        protected httpClient: HttpClient,
         protected injectionService: InjectionService,
         protected actionService: ActionService,
-        protected walletsService: WalletsService,
         @Inject(DOCUMENT) protected document: Document,
         @Inject(WINDOW) private window: Window,
     ) {
@@ -299,10 +293,6 @@ export class DepositWithdrawComponent
         setTimeout(() => {
             this.isFetchingSystems = false;
         }, 0);
-    }
-
-    public get showDividerInPaymentSystems(): boolean {
-        return !!this.parentSystem || !!this.currentSystem || !this.hiddenPaymentInfo;
     }
 
     public onPromoCodeChanged(bonus: Bonus): void {
