@@ -116,6 +116,8 @@ export class EnterPromocodeComponent extends AbstractComponent implements OnInit
                 promoSuccessStatus = 'notSelected';
             }
 
+            this.enterPromocodeInput.control.setValue('');
+
             this.modalService.showModal('promoSuccess', {status: promoSuccessStatus});
 
             this.eventService.emit({
