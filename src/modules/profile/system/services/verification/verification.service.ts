@@ -15,6 +15,7 @@ import {
     IUserDoc,
     IDocType,
 } from 'wlc-engine/modules/profile/system/interfaces/verification.interface';
+import {CustomAsyncHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 
 @Injectable({
     providedIn: 'root',
@@ -29,6 +30,7 @@ export class VerificationService {
         this.init();
     }
 
+    @CustomAsyncHook('profile', 'verificationServiceGetDocsTypes')
     public async getDocsTypes(): Promise<IDocType[]> {
         try {
             return (await this.dataService.request<IData>('docs/docs-types'))?.data;
