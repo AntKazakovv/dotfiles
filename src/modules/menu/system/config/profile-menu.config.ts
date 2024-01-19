@@ -52,7 +52,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         params: {
             state: {
                 parent: [
-                    'app.profile.main',
+                    'app.profile.main.info',
                     'app.profile.verification',
                     'app.profile.kycaml',
                     'app.profile.messages',
@@ -74,7 +74,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
             blockExpand: true,
             state: {
                 parent: [
-                    'app.profile.main',
+                    'app.profile.main.info',
                     'app.profile.verification',
                     'app.profile.kycaml',
                     'app.profile.messages',
@@ -191,7 +191,12 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         params: {
             blockExpand: true,
             state: {
-                parent: 'app.profile.loyalty-bonuses',
+                parent: [
+                    'app.profile.loyalty-bonuses.main',
+                    'app.profile.loyalty-bonuses.active',
+                    'app.profile.loyalty-bonuses.history',
+                    'app.profile.loyalty-bonuses.inventory',
+                ],
                 name: 'app.profile.loyalty-bonuses.main',
                 params: {},
             },
@@ -416,7 +421,10 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         params: {
             blockExpand: true,
             state: {
-                parent: 'app.profile.loyalty-tournaments',
+                parent: [
+                    'app.profile.loyalty-tournaments.main',
+                    'app.profile.loyalty-tournaments.history',
+                ],
                 name: 'app.profile.loyalty-tournaments.main',
                 params: {},
             },
@@ -560,7 +568,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
             state: {
                 parent: [
                     'app.profile.loyalty-bonuses.history',
-                    'app.profile.gamblings',
+                    'app.profile.gamblings.bets',
                     'app.profile.cash.transactions',
                     'app.profile.loyalty-tournaments.history',
                 ],
@@ -662,7 +670,12 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         params: {
             blockExpand: true,
             state: {
-                parent: 'app.profile.cash',
+                parent: [
+                    'app.profile.cash.deposit',
+                    'app.profile.cash.withdraw',
+                    'app.profile.cash.transactions',
+                    'app.profile.cashback-rewards',
+                ],
                 name: 'app.profile.cash.deposit',
                 params: {},
             },
@@ -796,7 +809,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         params: {
             blockExpand: true,
             state: {
-                parent: 'app.profile.gamblings',
+                parent: 'app.profile.gamblings.bets',
                 name: 'app.profile.gamblings.bets',
                 params: {},
             },
