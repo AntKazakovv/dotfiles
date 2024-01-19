@@ -251,7 +251,7 @@ export class CurrencyComponent
             currencyParts = _filter(currencyParts, (part) => part.type !== 'currency');
         }
 
-        this.displayValue = _join(_map(currencyParts, (part) => part.value), '').trim();
+        this.displayValue = _join(_map(currencyParts, (part) => part.value), '').replace('-\u00A0', '-').trim();
         if (_isNil(this.$params.value) || _isNaN(this.$params.value)) {
             this.addModifiers('is-error');
             this.isError = true;
