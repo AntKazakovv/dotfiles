@@ -26,4 +26,11 @@
             }
         }
     }
+
+    ::ng-deep {
+
+        swiper-container::part(container) {
+            overflow: visible;
+        }
+    }
 }

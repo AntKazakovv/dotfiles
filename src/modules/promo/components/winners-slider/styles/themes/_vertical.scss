@@ -51,6 +51,10 @@
                     height: 100%;
                     overflow-x: visible;
                 }
+
+                swiper-container::part(container) {
+                    overflow: visible;
+                }
             }
         }
     }

@@ -388,6 +388,9 @@ export class SliderComponent extends AbstractComponent
 
     protected initEventHandlers(): void {
         this.windowResizeHandler();
+        this.swiper.slidesEl.addEventListener('swiper-slidechangetransitionend', () => {
+            this.slideChangeTransitionEnd$.emit(this.swiper);
+        });
     }
 
     protected updateProgressModifiers(swiper: Swiper): void {

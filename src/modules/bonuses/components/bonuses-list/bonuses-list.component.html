@@ -49,11 +49,10 @@
              [slides]="slides"
              [inlineParams]="sliderParams"
         ></div>
+        <div *ngIf="showNavigation" slot-container-end>
+            <div wlc-slider-navigation class="{{$class}}__slider-pagination"></div>
+        </div>
     </ng-container>
-
-    <div *ngIf="showNavigation" slot-container-end>
-        <div wlc-slider-navigation class="{{$class}}__slider-pagination"></div>
-    </div>
 </ng-template>
 
 <ng-template #partial>

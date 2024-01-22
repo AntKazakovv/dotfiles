@@ -17,11 +17,11 @@
     <div wlc-scrollbar class="{{$class}}__inner">
         <ng-container *ngIf="readyTournamentsAndSlides; else: noData">
             <ng-container *ngIf="!isTournamentSelected && $params.themeMod === 'swiper'">
-                <div wlc-wrapper
+                <div wlc-slider
                     class="{{$class}}__slider"
                     [inlineParams]="dashboardSliderConfig">
                 </div>
-                <div slot-container-end *ngIf="slides.length > 1" class="{{$class}}__nav">
+                <div *ngIf="slides.length > 1" slot-container-end class="{{$class}}__nav">
                     <div wlc-slider-navigation
                         class="container swiper-button-container"
                         [classPrev]="'wlc-swiper-button-prev-' + navigationId"
@@ -49,19 +49,19 @@
             {{'Tournaments' | translate}}
         </div>
         <ng-container *ngIf="$params.themeMod === 'swiper'">
-            <div wlc-wrapper
+            <div wlc-slider
                 class="{{$class}}__slider"
                 [inlineParams]="bannerSliderConfig">
             </div>
+            <div slot-container-end *ngIf="slides.length > 1">
+                <div wlc-slider-navigation
+                    class="container swiper-button-container"
+                    [classPrev]="'wlc-swiper-button-prev-' + navigationId"
+                    [classNext]="'wlc-swiper-button-next-' + navigationId">
+                </div>
+            </div>
         </ng-container>
     </ng-container>
-    <div slot-container-end *ngIf="slides.length > 1">
-        <div wlc-slider-navigation
-            class="container swiper-button-container"
-            [classPrev]="'wlc-swiper-button-prev-' + navigationId"
-            [classNext]="'wlc-swiper-button-next-' + navigationId">
-        </div>
-    </div>
 </ng-template>
 
 <ng-template #available>

@@ -21,7 +21,7 @@
         .wlc-bonuses-list {
             max-width: ef.get-value($themeDefault, 'sliderMaxWidth');
 
-            .swiper.swiper-initialized {
+            swiper-container {
                 @include bm.get-mq-map('padding', $themeDefault, 'swiperContainerPadding');
                 margin: var(--wlc-bl-swiper-margin);
             }

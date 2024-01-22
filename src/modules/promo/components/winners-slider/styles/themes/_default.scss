@@ -50,6 +50,10 @@
                     margin: ef.get-value($themeDefault, 'swiperMarginShadowFix');
                     padding: ef.get-value($themeDefault, 'swiperPaddingShadowFix');
                 }
+
+                swiper-container::part(container) {
+                    overflow: visible;
+                }
             }
 
             @include mq.min(ef.get-value($themeDefault, 'breakpoint')) {

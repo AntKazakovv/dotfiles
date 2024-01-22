@@ -17,14 +17,23 @@ export namespace wlcBannersSlider {
                         nextEl: '.wlc-slider--theme-default-banner .wlc-swiper-button-next',
                         prevEl: '.wlc-slider--theme-default-banner .wlc-swiper-button-prev',
                     },
-                    pagination: {
-                        enable: true,
-                        clickable: true,
-                    },
                     autoplay: {
                         delay: 10000,
                     },
                     lazy: true,
+                    breakpoints: {
+                        375: {
+                            pagination: {
+                                enabled: true,
+                                clickable: true,
+                            },
+                        },
+                        768: {
+                            pagination: {
+                                enabled: false,
+                            },
+                        },
+                    },
                 },
             },
             showNavigationOn: 'desktop',
@@ -49,14 +58,21 @@ export namespace wlcBannersSlider {
                         nextEl: '.wlc-slider--theme-default-banner .wlc-swiper-button-next',
                         prevEl: '.wlc-slider--theme-default-banner .wlc-swiper-button-prev',
                     },
-                    pagination: {
-                        enable: true,
-                        clickable: true,
-                    },
                     autoplay: {
                         delay: 10000,
                     },
                     breakpoints: {
+                        375: {
+                            pagination: {
+                                enabled: true,
+                                clickable: true,
+                            },
+                        },
+                        768: {
+                            pagination: {
+                                enabled: false,
+                            },
+                        },
                         1366: {
                             slidesPerView: 1.2,
                             spaceBetween: 30,
@@ -84,14 +100,23 @@ export namespace wlcBannersSlider {
                         nextEl: '.wlc-slider--theme-default-banner .wlc-swiper-button-next',
                         prevEl: '.wlc-slider--theme-default-banner .wlc-swiper-button-prev',
                     },
-                    pagination: {
-                        enable: true,
-                        clickable: true,
-                    },
                     autoplay: {
                         delay: 10000,
                     },
                     lazy: true,
+                    breakpoints: {
+                        375: {
+                            pagination: {
+                                enabled: true,
+                                clickable: true,
+                            },
+                        },
+                        768: {
+                            pagination: {
+                                enabled: false,
+                            },
+                        },
+                    },
                 },
             },
             showNavigationOn: 'desktop',

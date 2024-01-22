@@ -1,21 +1,21 @@
 <ng-container *ngIf="isReady && bonuses?.length && slides?.length; else: noBonuses">
+    <div *ngIf="isDesktopAndSlidesLength" slot-container-end class="{{$class}}__nav">
+        <div wlc-slider-navigation
+            [classPrev]="'wlc-game-dashboard-bonuses-nav swiper-button-prev wlc-swiper-button-prev'"
+            [classNext]="'wlc-game-dashboard-bonuses-nav swiper-button-next wlc-swiper-button-next'">
+        </div>
+    </div>
     <div wlc-scrollbar
          class="{{$class}}__bonus-wrp">
         <div *ngIf="!landscapeOrientation || !isMobile"
-             wlc-wrapper
+             wlc-slider
              class="{{$class}}__slider"
              [inlineParams]="defaultSliderConfig">
         </div>
         <div *ngIf="isMobile && landscapeOrientation"
              class="{{$class}}__slider"
-             wlc-wrapper
+             wlc-slider
              [inlineParams]="landscapeSliderConfig">
-        </div>
-        <div *ngIf="isDesktopAndSlidesLength" slot-container-end class="{{$class}}__nav">
-            <div wlc-slider-navigation
-                [classPrev]="'wlc-game-dashboard-bonuses-nav swiper-button-prev wlc-swiper-button-prev'"
-                [classNext]="'wlc-game-dashboard-bonuses-nav swiper-button-next wlc-swiper-button-next'">
-            </div>
         </div>
     </div>
 </ng-container>
