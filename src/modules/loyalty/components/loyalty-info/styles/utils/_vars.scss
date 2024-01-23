@@ -1,31 +1,20 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'titleFont': 'QoteTextBold',
-    'titleFontColor': var(--mc-baseMain),
-
-    'descFont': 'ThirdTitle',
-    'descFontColor': var(--mc-baseMain),
-
     'infoImageWidth': 100%,
     'infoImageRadius': (
         560: ef.get('radius', 'big') ef.get('radius', 'big') 0 0
     ),
 
-    'infoTitleFont': 'ThirdTitleBold',
-    'infoTitleFontColor': var(--mc-baseMain),
-    'infoTitlePadding': 0 0 ef.size(4) 0,
-    'infoTitleTextAlign': center,
-
-    'infoTextFont': 'PrimaryText',
-    'infoTextFontColor': var(--mc-baseMain),
-    'infoTextPadding': 0 0 ef.size(4) 0,
-    'infoTextAlign': center,
-
+    'titleFont': 'QoteTextBold',
+    'titleFontColor': var(--mc-baseMain),
+    'titleTextAlign': center,
     'titlePadding': 0 0 ef.size(4) 0,
-    'descriptionPadding': 0 0 ef.size(4) 0,
-    'paddingContent': ef.size(4) ef.size(6),
+
+    'paddingContent': ef.size(4) ef.size(6) ef.size(10),
 
     'wlcTableMinHeight': auto,
-    'wlcTablePadding':0 0 ef.size(8) 0,
+
+    'wpMargin': ef.size(5) 0 0 0,
+    'wpTextAlign': center,
 
 ), $customThemeDefault);

@@ -23,4 +23,8 @@ $loyaltyThemeV1: map-merge((
         1024: 0 auto ef.size(6) 0,
     ),
 
+    'wpMargin': (
+        375: ef.size(5) 0 0 0,
+        1024: ef.size(8) 0 0 0,
+    ),
 ), $customLoyaltyThemeV1);

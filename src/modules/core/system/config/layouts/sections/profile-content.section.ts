@@ -17,6 +17,7 @@ const profileDefaultLoyaltyType = (isSingleLevels: boolean): ILayoutSectionConfi
             componentLib.wlcLoyaltyProgress.def,
             componentLib.wlcProfileMenu.submenu,
             componentLib.wlcLoyaltyLevels.def,
+            componentLib.wlcLoyaltyLevelsWp.def,
         ],
     };
 };
@@ -67,6 +68,7 @@ const profileFirstLoyaltyType = (isSingleLevels: boolean): ILayoutSectionConfig 
                                 components: [
                                     componentLib.wlcLoyaltyProgress.def,
                                     componentLib.wlcLoyaltyLevels.def,
+                                    componentLib.wlcLoyaltyLevelsWp.def,
                                 ],
                             },
                         },

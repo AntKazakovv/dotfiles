@@ -38,6 +38,11 @@
             grid-area: store;
         }
 
+        .wlc-loyalty-levels-wp {
+            @include bm.get-mq-map('margin', $storeThemeDefault, 'wpMargin');
+            grid-area: wp;
+        }
+
         .wlc-profile-menu {
             @include bm.get-mq-map('margin', $storeThemeDefault, 'submenuMargin');
             grid-area: submenu;

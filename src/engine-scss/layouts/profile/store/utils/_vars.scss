@@ -18,7 +18,7 @@ $storeThemeDefault: map-merge((
         768: repeat(2, 1fr),
     ),
     'containerAreas': (
-        375: 'title title' 'submenu submenu' 'stats stats' 'progress progress' 'store store',
+        375: 'title title' 'submenu submenu' 'stats stats' 'progress progress' 'store store' 'wp wp',
     ),
 
     'submenuMargin': (
@@ -26,4 +26,9 @@ $storeThemeDefault: map-merge((
     ),
 
     'modMobileMargin': 0 0 ef.size(2),
+
+    'wpMargin': (
+        375: ef.size(5) 0 0 0,
+        1024: ef.size(8) 0 0 0,
+    ),
 ), $customStoreThemeDefault);

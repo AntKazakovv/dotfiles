@@ -10,6 +10,7 @@ import {
     LevelNameComponent,
     LoyaltyLevelComponent,
     LoyaltyLevelsComponent,
+    LoyaltyLevelsWpComponent,
     LoyaltyProgramComponent,
     LoyaltyLevelsService,
 } from 'wlc-engine/modules/loyalty';
@@ -26,6 +27,7 @@ export const components = {
     'wlc-loyalty-info': LoyaltyInfoComponent,
     'wlc-loyalty-level': LoyaltyLevelComponent,
     'wlc-loyalty-levels': LoyaltyLevelsComponent,
+    'wlc-loyalty-levels-wp': LoyaltyLevelsWpComponent,
     'wlc-loyalty-program': LoyaltyProgramComponent,
     'wlc-level-name': LevelNameComponent,
 };
@@ -38,6 +40,7 @@ export const components = {
     ],
     declarations: [
         LoyaltyInfoComponent,
+        LoyaltyLevelsWpComponent,
         LevelNameComponent,
         LoyaltyLevelComponent,
         LoyaltyLevelsComponent,
@@ -48,6 +51,7 @@ export const components = {
     ],
     exports: [
         LoyaltyInfoComponent,
+        LoyaltyLevelsWpComponent,
         LevelNameComponent,
         LoyaltyLevelComponent,
         LoyaltyLevelsComponent,

@@ -4,16 +4,7 @@
     </div>
     <div class="{{$class}}__content">
         <h2 class="{{$class}}__title">{{$params.title | translate}}</h2>
-        <div wlc-post
-             class="{{$class}}__description"
-             slug="loyalty-description"
-             [useTitle]="false">
-        </div>
         <div wlc-loyalty-levels class="{{$class}}__levels-table"></div>
-        <div wlc-post
-             class="{{$class}}__text"
-             slug="loyalty-info"
-             [useTitle]="false">
-        </div>
+        <div wlc-loyalty-levels-wp class="{{$class}}__levels-wp"></div>
     </div>
 </div>

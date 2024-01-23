@@ -19,5 +19,9 @@
                 @include bm.get-mq-map('margin', $loyaltyThemeV1, 'progressBodyMargin');
             }
         }
+
+        .wlc-loyalty-levels-wp {
+            @include bm.get-mq-map('margin', $loyaltyThemeV1, 'wpMargin');
+        }
     }
 }

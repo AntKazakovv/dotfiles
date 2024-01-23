@@ -40,6 +40,7 @@ export * from './promo/wlc-tournament-banners-slider.config';
 export * from './promo/wlc-jackpots-slider.config';
 export * from './promo/wlc-loyalty-program.config';
 export * from './promo/wlc-loyalty-levels.config';
+export * from './promo/wlc-loyalty-levels-wp.config';
 export * from './promo/wlc-lucky-button.config';
 export * from './promo/wlc-cash-out-time.config';
 export * from './promo/wlc-top-rated.config';

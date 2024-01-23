@@ -1,0 +1,56 @@
+.wlc-loyalty-levels-wp--theme-default:host {
+    @include bm.get-mq-map('gap', $themeDefault, 'rootGap');
+
+    display: ef.get-value($themeDefault, 'rootDisplay');
+    flex-direction: ef.get-value($themeDefault, 'rootDirection');
+    width: 100%;
+
+    .wlc-loyalty-levels-wp {
+
+        &__description {
+
+            ::ng-deep {
+
+                .wlc-post {
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'textPost'),
+                        ef.get-value($themeDefault, 'textColor')
+                    );
+
+                    title {
+                        @include text.get-text-style(
+                            ef.get-value($themeDefault, 'textTitle', 375),
+                            ef.get-value($themeDefault, 'titleColor'),
+                        );
+
+                        display: block;
+                        margin: ef.get-value($themeDefault, 'titleMargin');
+
+                        @include mq.min(1024) {
+                            @include text.get-text-style(
+                                ef.get-value($themeDefault, 'textTitle', 1024),
+                                null,
+                            );
+                        }
+                    }
+                }
+            }
+        }
+
+        &__info {
+            padding: ef.get-value($themeDefault, 'infoPadding');
+            border-radius: ef.get-value($themeDefault, 'infoBorderRadius');
+            background: ef.get-value($themeDefault, 'infoBg');
+
+            ::ng-deep {
+
+                .wlc-post {
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'textPost'),
+                        ef.get-value($themeDefault, 'textPostInfoColor')
+                    );
+                }
+            }
+        }
+    }
+}

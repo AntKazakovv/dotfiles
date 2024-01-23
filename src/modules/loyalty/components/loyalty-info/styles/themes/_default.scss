@@ -17,21 +17,20 @@
         &__title {
             @include text.get-text-style(ef.get-value($themeDefault, 'titleFont'), ef.get-value($themeDefault, 'titleFontColor'));
             padding: ef.get-value($themeDefault, 'titlePadding');
-            text-align: ef.get-value($themeDefault, 'infoTitleTextAlign');
+            text-align: ef.get-value($themeDefault, 'titleTextAlign');
         }
 
-        &__description {
-            @include text.get-text-style(ef.get-value($themeDefault, 'descFont'), ef.get-value($themeDefault, 'descFontColor'));
-            padding: ef.get-value($themeDefault, 'descriptionPadding');
-            text-align: ef.get-value($themeDefault, 'infoTextAlign');
-        }
 
         &__levels-table {
 
             ::ng-deep .wlc-table {
                 min-height: ef.get-value($themeDefault, 'wlcTableMinHeight');
-                padding: ef.get-value($themeDefault, 'wlcTablePadding');
             }
+        }
+
+        &__levels-wp:not(:empty) {
+            margin: ef.get-value($themeDefault, 'wpMargin');
+            text-align: ef.get-value($themeDefault, 'wpTextAlign');
         }
     }
 }
