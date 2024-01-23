@@ -8,6 +8,7 @@ import {
     TemplateRef,
 } from '@angular/core';
 
+import Swiper from 'swiper';
 import {
     filter,
     takeUntil,
@@ -17,6 +18,7 @@ import _forEach from 'lodash-es/forEach';
 import _merge from 'lodash-es/merge';
 import _isObject from 'lodash-es/isObject';
 import _filter from 'lodash-es/filter';
+import _map from 'lodash-es/map';
 
 import {
     AbstractComponent,
@@ -24,6 +26,7 @@ import {
     DeviceModel,
     EventService,
     GlobalHelper,
+    ISlide,
     ModalService,
 } from 'wlc-engine/modules/core';
 import {
@@ -35,8 +38,11 @@ import {
     disabledReasons,
 } from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services';
-import {BonusItemComponentEvents} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
-import {IBlankBonusParams} from 'wlc-engine/modules/bonuses/components/bonuses-list/bonuses-list.params';
+import {
+    BonusItemComponentEvents,
+    IBonus,
+} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
+import {BonusItemComponent} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.component';
 import {IBonusItemCParams} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';
 import {
     BonusesListController,
@@ -62,9 +68,10 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
     public currentBonus: Bonus | null = null;
     public autoSelect: number | IAutoSelectByDevice<number>;
     public noBonusesText: string = gettext('Available bonuses are not found');
+    public slides: ISlide[] = [];
 
     protected currentPaySystemId: number = 0;
-    protected blankBonus: IBlankBonusParams;
+    protected blankBonus: Bonus;
     protected isMobile: boolean = this.configService.get<DeviceModel>('device').isMobile;
     protected firstInit: boolean = true;
     protected paymentsAutoSelect: boolean = false;
@@ -96,10 +103,9 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
         this.paymentsAutoSelect = this.configService.get<boolean>('$finances.payment.autoSelect')
             || this.configService.get<boolean>('$finances.lastSucceedDepositMethod.use');
 
-        this.blankBonus = {
-            ...Params.defBlankBonusParams,
-            ...this.$params.blankBonus,
-        };
+        this.currentPaySystemId = this.configService.get<PaymentSystem>('chosenPaySystem')?.id;
+
+        this.createBlankBonus();
 
         this.bonusesListController.ready$
             .pipe(takeUntil(this.$destroy))
@@ -223,6 +229,22 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
         }, this.$params.itemParams || {});
     }
 
+    public onSlideChange(swiper: Swiper): void {
+        if (swiper.params.slidesPerView === 1 || swiper.params.slidesPerView === 'auto') {
+            this.chooseBonusByPos(swiper.realIndex);
+        }
+    }
+
+    protected chooseBonusByPos(index: number): void {
+        const bonus: Bonus = this.slides[index].componentParams.bonus;
+
+        if (bonus?.id) {
+            this.bonusClickEvent(bonus, false);
+        } else {
+            this.chooseBlankBonus();
+        }
+    }
+
     /**
      * Choose blank bonus
      * @param {boolean} [silent=false] - event not emits if true
@@ -262,6 +284,7 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
             this.ready = true;
             this.cdr.markForCheck();
         });
+
         const processBonuses = (bonuses: Bonus[]): void => {
             this.processBonusesResponse(bonuses);
 
@@ -312,16 +335,17 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
         if (bonuses.length) {
             this.bonuses = _filter(bonuses, {isActive: false, showOnly: false});
 
-            const activeBonuses: Bonus[] = this.bonusesService.filterBonuses(bonuses, 'active');
-
-            if (activeBonuses.some((bonus: Bonus) => !bonus.allowStack)) {
+            if (Bonus.stackIsLocked) {
                 this.disableBonuses(2);
-            } else if (activeBonuses.some((bonus: Bonus) => bonus.allowStack)) {
-                _forEach(this.bonuses, (bonus: Bonus): void => {
-                    if (!bonus.allowStack) {
-                        bonus.disabledBy = 3;
-                    }
-                });
+            } else {
+                if (Bonus.existActiveBonus) {
+
+                    _forEach(this.bonuses, (bonus: Bonus): void => {
+                        if (!bonus.allowStack) {
+                            bonus.disabledBy = 3;
+                        }
+                    });
+                }
             }
 
             this.updateBonusesStatus();
@@ -337,9 +361,41 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
             } else if (this.currentPaySystemId) {
                 this.setAutoSelect();
             }
+
+            if (this.$params.type === 'swiper') {
+                this.bonusesToSlides();
+            }
         }
 
         this.cdr.markForCheck();
+    }
+
+    protected createBlankBonus(): void {
+        this.blankBonus = new Bonus(
+            {service: 'DepositBonusesComponent', method: 'createBlankBonus'},
+            (Params.defBlankBonusParams) as IBonus,
+            this.configService,
+            null,
+        );
+    }
+
+    protected bonusesToSlides(): void {
+        this.slides = _map(this.bonuses, (bonus: Bonus): ISlide => {
+            return {
+                component: BonusItemComponent,
+                componentParams: _merge(this.getBonusItemParams(bonus), {
+                    bonus,
+                }),
+            };
+        });
+
+        this.slides.unshift({
+            component: BonusItemComponent,
+            componentParams: {
+                ...this.getBonusItemParams(),
+                bonus: this.blankBonus,
+            },
+        });
     }
 
     protected disableBonuses(reason: keyof typeof disabledReasons): void {

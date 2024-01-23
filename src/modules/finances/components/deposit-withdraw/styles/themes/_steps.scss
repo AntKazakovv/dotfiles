@@ -1,0 +1,68 @@
+.wlc-cash--theme-steps:host {
+    display: grid;
+    grid-template-areas: 'main';
+
+    .wlc-cash {
+
+        &__step {
+            grid-area: main;
+            min-width: 0;
+            max-width: 100%;
+        }
+
+        &__step-group {
+            margin: ef.get-value($themeSteps, 'groupMargin');
+
+            &:last-child {
+                margin: ef.get-value($themeSteps, 'groupMarginLast');
+            }
+        }
+
+        &__title {
+            @include text.get-text-style(
+                ef.get-value($themeSteps, 'titleTextStyle'),
+                ef.get-value($themeSteps, 'titleColor')
+            );
+            margin: ef.get-value($themeSteps, 'titleMargin');
+            text-align: center;
+        }
+
+        &__back-control {
+            @include text.get-text-style(
+                ef.get-value($themeSteps, 'backTextStyle'),
+                ef.get-value($themeSteps, 'backColor')
+            );
+            display: grid;
+            grid-template-columns: ef.get-value($themeSteps, 'backColumns');
+            margin: ef.get-value($themeSteps, 'backMargin');
+            text-align: center;
+            cursor: pointer;
+        }
+
+        &__back-icon {
+            --wlc-icon-width: #{ef.get-value($themeSteps, 'backIconSize')};
+            --wlc-icon-height: #{ef.get-value($themeSteps, 'backIconSize')};
+            color: ef.get-value($themeSteps, 'accentColor');
+        }
+
+        &__accent {
+            @include text.get-text-style(
+                ef.get-value($themeSteps, 'accentTextStyle'),
+                ef.get-value($themeSteps, 'accentColor')
+            );
+        }
+
+        &__hr {
+            width: ef.get-value($themeSteps, 'hrWidth');
+            height: ef.get-value($themeSteps, 'hrHeight');
+            margin: ef.get-value($themeSteps, 'hrMargin');
+            background: ef.get-value($themeSteps, 'hrBg');
+            opacity: ef.get-value($themeSteps, 'hrOpacity');
+        }
+
+        &__bonuses {
+            min-width: 0;
+            margin: ef.get-value($themeSteps, 'bonusesMargin');
+        }
+    }
+}

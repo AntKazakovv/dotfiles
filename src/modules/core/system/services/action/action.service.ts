@@ -330,6 +330,10 @@ export class ActionService {
 
             const element: HTMLElement = _isString(elem) ? this.document.querySelector(elem) : elem;
 
+            if (!element) {
+                return;
+            }
+
             if (options?.offsetY) {
                 element.style.paddingBottom = this.getStyleNumValue(element, 'paddingBottom') + options.offsetY + 'px';
             }

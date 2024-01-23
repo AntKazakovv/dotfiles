@@ -15,7 +15,7 @@
                 }
             }
 
-            .wlc-cash {
+            .wlc-cash--theme-default {
 
                 .wlc-cash__title[class] {
                     @include bm.get-mq-map('display', $cashPagesThemeV1, 'cashTitleDisplay');

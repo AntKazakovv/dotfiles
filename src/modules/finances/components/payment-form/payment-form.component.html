@@ -95,7 +95,7 @@
 </ng-container>
 
 <ng-container *ngIf="readyToShow">
-    <div *ngIf="isShowHostedBlock" class="wlc-hosted-fields">
+    <div *ngIf="$params.type !== 'partial-amount' && isShowHostedBlock" class="wlc-hosted-fields">
         <div id="wlc-hosted-fields"
             class="wlc-hosted-fields__container"
             [hidden]="!currentSystem.hostedFields.loaded">

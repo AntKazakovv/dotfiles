@@ -70,4 +70,13 @@ $themeDefault: map-merge((
 
     'btnImageSelectedPadding': 4px,
     'bonusItemShadow': none,
+
+    //type swiper
+    'slideWidth': 170px,
+    'offsetSize': ef.size(3),
+    'pseudoBg': linear-gradient(90deg, var(--mc-bg700) 5%, var(--mc-bg700-o0) 90%),
+    'pseudoDisplay': block,
+    'pseudoWidth': 40px,
+    'pseudoHeight': 100%,
+    'pseudoAfterTransform': scaleX(-1),
 ), $customThemeDefault);

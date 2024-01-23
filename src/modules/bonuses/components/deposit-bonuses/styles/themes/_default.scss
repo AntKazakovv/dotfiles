@@ -171,4 +171,46 @@
             }
         }
     }
+
+    &.wlc-deposit-bonuses--type-swiper {
+        --wlc-dep-bonus-slider-offset: #{ef.get-value($themeDefault, 'offsetSize')};
+
+        position: relative;
+        width: 100%;
+        min-width: 0;
+        margin-top: calc(var(--wlc-dep-bonus-slider-offset) * -1);
+
+        ::ng-deep {
+
+            .swiper-slide {
+                width: ef.get-value($themeDefault, 'slideWidth');
+                padding-top: var(--wlc-dep-bonus-slider-offset);
+            }
+        }
+
+        &:before,
+        &:after {
+            content: '';
+
+            position: absolute;
+            top: 0;
+            z-index: 10;
+
+            display: ef.get-value($themeDefault, 'pseudoDisplay');
+            width: ef.get-value($themeDefault, 'pseudoWidth');
+            height: ef.get-value($themeDefault, 'pseudoHeight');
+
+            background: var(--wlc-dep-bonus-slider-pseudo-bg, #{ef.get-value($themeDefault, 'pseudoBg')});
+            pointer-events: none;
+        }
+
+        &:before {
+            left: 0;
+        }
+
+        &:after {
+            right: 0;
+            transform: ef.get-value($themeDefault, 'pseudoAfterTransform');
+        }
+    }
 }

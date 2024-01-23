@@ -1,3 +1,4 @@
+import {IDepositBonusesCParams} from 'wlc-engine/modules/bonuses';
 import {
     IComponentParams,
     CustomType,
@@ -13,7 +14,12 @@ import {
 import {IPaymentListCParams} from 'wlc-engine/modules/finances/components/payment-list/payment-list.params';
 import {TPaymentsMethods} from 'wlc-engine/modules/finances/system/interfaces';
 
-export type Theme = 'default' | 'second' | CustomType;
+/**
+ * default - one column template
+ * second - two columns template (payments in left column)
+ * steps - mobile template
+ */
+export type Theme = 'default' | 'second' | 'steps' | CustomType;
 export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 
@@ -33,6 +39,13 @@ export interface IDepositWithdrawCParams extends IComponentParams<Theme, Type, T
     /** Array for sorting steps. */
     stepsOrder?: Array<Exclude<TStepTplName, 'wallets'>>;
     depositPromoCodeParams?: IDepositPromoCodeCParams;
+    stepsParams?: {
+        /**
+         * Media query, which describes when use steps template.
+         */
+        breakpoint: string;
+        bonusesListParams?: IDepositBonusesCParams;
+    }
 }
 
 export const defaultParams: IDepositWithdrawCParams = {
@@ -50,6 +63,8 @@ export interface IAdditionalFields {
 }
 
 export type FieldType = IInputCParams | IButtonCParams | ICheckboxCParams;
+
+export type TMobileStep = 1 | 2 | 3;
 
 export {depositForm, depositFormCrypto, withdrawForm} from 'wlc-engine/modules/finances/system/config';
 

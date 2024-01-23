@@ -86,7 +86,6 @@
             margin: ef.get-value($themeCryptoList, 'btnMargin');
             padding: ef.get-value($themeCryptoList, 'btnPadding');
             border: ef.get-value($themeCryptoList, 'btnBorder');
-            color: ef.get-value($themeCryptoList, 'btnColor');
             border-radius: ef.get-value($themeCryptoList, 'btnBorderRadius');
             background: ef.get-value($themeCryptoList, 'btnBg');
         }
@@ -115,8 +114,11 @@
         }
 
         &__btn-modal-text {
+            @include text.get-text-style(
+                ef.get-value($themeCryptoList, 'btnModalTextStyle'),
+                ef.get-value($themeCryptoList, 'btnColor')
+            );
             display: block;
-            font-size: ef.get-value($themeCryptoList, 'btnTextFontSize');
             line-height: 1.2;
         }
 

@@ -7,6 +7,12 @@ import {
     OnDestroy,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
+import {
+    trigger,
+    style,
+    animate,
+    transition,
+} from '@angular/animations';
 
 import {TranslateService} from '@ngx-translate/core';
 import {
@@ -24,6 +30,8 @@ import _remove from 'lodash-es/remove';
 import _each from 'lodash-es/each';
 import _find from 'lodash-es/find';
 import _indexOf from 'lodash-es/indexOf';
+import _set from 'lodash-es/set';
+import _unset from 'lodash-es/unset';
 
 import {
     IMixedParams,
@@ -33,6 +41,7 @@ import {
     InjectionService,
     ActionService,
     AbstractComponent,
+    GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services/finances/finances.service';
@@ -48,6 +57,7 @@ import {
     Bonus,
     BonusesService,
     BonusItemComponentEvents,
+    IBonusesListCParams,
 } from 'wlc-engine/modules/bonuses';
 
 import {ISelectedWallet} from 'wlc-engine/modules/multi-wallet';
@@ -60,6 +70,27 @@ import * as Params from './deposit-withdraw.params';
     templateUrl: './deposit-withdraw.component.html',
     styleUrls: ['./styles/deposit-withdraw.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    animations: [
+        trigger('stepChanged', [
+            transition(':enter', [
+                style({
+                    opacity: 0,
+                    transform: 'translateY(10px)',
+                }),
+                animate('200ms 150ms ease-out', style({
+                    opacity: 1,
+                    transform: 'translateY(0)',
+
+                })),
+            ]),
+            transition(':leave', [
+                animate('150ms ease-in', style({
+                    opacity: 0,
+                    transform: 'translateY(10px)',
+                })),
+            ]),
+        ]),
+    ],
 })
 export class DepositWithdrawComponent
     extends AbstractComponent
@@ -68,6 +99,7 @@ export class DepositWithdrawComponent
     public currentSystem: PaymentSystem;
     public title: string = gettext('Deposit');
     public lastSucceedPaymentMethod: Promise<number | null>;
+    public originalTheme: Params.Theme;
     public listConfig: IPaymentListCParams = {
         paymentType: 'deposit',
         wlcElement: 'block_payment-list',
@@ -89,7 +121,14 @@ export class DepositWithdrawComponent
 
     public useBonuses: boolean = false;
     public showBonuses: boolean = false;
-    public bonusesListParams: IFormWrapperCParams;
+    public bonusesListParams: IFormWrapperCParams = {
+        components: [
+            {
+                name: 'bonuses.wlc-deposit-bonuses',
+                params: {},
+            },
+        ],
+    };
     public availableSystems: number[] = [];
     public currentBonus: Bonus;
     public isWaitingResponse: boolean = false; // move to payment-form
@@ -103,9 +142,13 @@ export class DepositWithdrawComponent
     public bonusesExist: boolean = false;
     public useDepositPromoCode: boolean = false;
     public appliedPromoCode$: BehaviorSubject<Bonus> = new BehaviorSubject(null);
+    public currentStep: Params.TMobileStep = 1;
+    public amount: number;
 
     protected userService: UserService;
     protected alertInformation: TAlertList;
+    protected useStepsTemplate: boolean;
+    protected holdStep: boolean = false;
 
     private userProfile: UserProfile;
     private isDeposit: boolean;
@@ -136,6 +179,12 @@ export class DepositWithdrawComponent
 
         if (this.$params.stepsOrder && this.$params.theme !== 'second') {
             this.prepareStepsOrdering();
+        }
+
+        this.originalTheme = this.$params.theme;
+
+        if (this.$params.stepsParams) {
+            this.prepareStepsTemplate();
         }
 
         this.hiddenPaymentInfo = this.configService.get<boolean>('$finances.paymentInfo.hiddenPaymentInfo');
@@ -199,17 +248,13 @@ export class DepositWithdrawComponent
                         this.bonusesExist = !!depositBonuses.length;
 
                         if (this.bonusesExist) {
-                            this.bonusesListParams = {
-                                components: [
-                                    {
-                                        name: 'bonuses.wlc-deposit-bonuses',
-                                        params: {
-                                            bonuses: depositBonuses,
-                                            disableBonuses$: this.appliedPromoCode$,
-                                        },
-                                    },
-                                ],
-                            };
+                            const params: IBonusesListCParams = _merge(this.bonusesListParams.components[0].params, {
+                                bonuses: depositBonuses,
+                                disableBonuses$: this.appliedPromoCode$,
+                            });
+
+                            _set(this.bonusesListParams, 'components[0].params', params);
+
                         } else {
                             this.deleteStep(Params.PaymentSteps.bonus);
                         }
@@ -295,9 +340,70 @@ export class DepositWithdrawComponent
         }, 0);
     }
 
+    public get showDividerInPaymentSystems(): boolean {
+        return !!this.parentSystem || !!this.currentSystem || !this.hiddenPaymentInfo;
+    }
+
+    public get paymentSystemName(): string {
+        return this.isCryptoInvoices ? 'PayCryptos' : this.currentSystem?.name;
+    }
+
     public onPromoCodeChanged(bonus: Bonus): void {
         this.appliedPromoCode$.next(bonus);
         this.setCurrentBonus(bonus, false);
+    }
+
+    public stepBack(dropCurrentSystem: boolean = false): void {
+        if (dropCurrentSystem) {
+            this.currentSystem = null;
+        }
+
+        if (this.currentStep > 1) {
+            this.currentStep--;
+        }
+    }
+
+    public stepForward(): void {
+        this.currentStep++;
+    }
+
+    public saveAmount(amount: number): void {
+        this.amount = amount;
+    }
+
+    protected prepareStepsTemplate(): void {
+        const mq: MediaQueryList = this.window.matchMedia(this.$params.stepsParams.breakpoint);
+
+        this.updateStepsView(mq.matches);
+        this.updateBonusesParams(mq.matches);
+
+        GlobalHelper.mediaQueryObserver(mq)
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((event: MediaQueryListEvent) => {
+                this.updateStepsView(event.matches);
+                this.updateBonusesParams(event.matches);
+            });
+    }
+
+    protected updateStepsView(useSteps: boolean): void {
+        this.useStepsTemplate = useSteps;
+        this.$params.theme = this.useStepsTemplate ? 'steps' : this.originalTheme;
+        this.clearModifiers();
+    }
+
+    protected updateBonusesParams(isStepsView: boolean): void {
+        const bonusesConfigSteps: IBonusesListCParams = this.$params.stepsParams.bonusesListParams;
+
+        if (isStepsView && bonusesConfigSteps) {
+            _set(this.bonusesListParams, 'components[0].params', bonusesConfigSteps);
+        } else {
+            _unset(this.bonusesListParams, 'components[0].params');
+        }
+    }
+
+    public changeStep(step: Params.TMobileStep): void {
+        this.currentStep = step;
+        this.actionService.scrollTo('.wlc-app', {position: 'start'});
     }
 
     private prepareParams(): void {
@@ -371,6 +477,14 @@ export class DepositWithdrawComponent
         }
 
         this.currentSystem = system;
+
+        if (this.useStepsTemplate) {
+            if (!this.holdStep) {
+                this.changeStep(2);
+            } else {
+                this.holdStep = false;
+            }
+        }
 
         this.useScroll = !this.currentSystem.autoSelect &&
             this.configService.get<boolean>('$finances.paymentInfo.autoScroll');

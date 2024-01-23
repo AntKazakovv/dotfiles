@@ -110,6 +110,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     @Input() protected isFetchingSystems: boolean = false;
     @Input() protected inlineParams: Params.IPaymentListCParams;
     @Input() protected parentTheme: DepositWithdrawParams.Theme;
+    @Input() protected skipAutoSelect: boolean = false;
     @ViewChild('list') protected list: TemplateRef<any>;
 
     public override $params: Params.IPaymentListCParams;
@@ -456,7 +457,11 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
             }
 
             this.selectPayment(system, false, false, true);
-        } else if (this.systems$.getValue().length === 1 && !this.systems$.getValue()[0].disabledBy) {
+        } else if (
+            this.systems$.getValue().length === 1
+            && !this.systems$.getValue()[0].disabledBy
+            && !this.skipAutoSelect
+        ) {
             this.selectPayment(this.systems$.getValue()[0], false, false, true);
         } else if (this.systems$.getValue().length > 1 && this.isAutoSelect) {
             this.selectPayment(this.getAutoSelected(), false, false, true);

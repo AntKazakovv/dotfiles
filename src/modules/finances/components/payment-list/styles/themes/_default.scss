@@ -200,8 +200,11 @@
         }
 
         &__btn-modal-text {
+            @include text.get-text-style(
+                ef.get-value($themeCryptoList, 'btnModalTextStyle'),
+                ef.get-value($themeCryptoList, 'btnColor')
+            );
             display: block;
-            font-size: ef.get-value($themeDefault, 'btnTextFontSize');
             line-height: 1.2;
         }
 

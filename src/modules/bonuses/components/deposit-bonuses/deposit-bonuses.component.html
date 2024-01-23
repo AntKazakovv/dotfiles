@@ -1,8 +1,15 @@
 <div class="{{$class}}__wrapper">
     <ng-container *ngIf="ready; else loader">
-        <ng-container *ngIf="asModal; then modalButton; else bonusesList" ></ng-container>
+        <ng-container [ngSwitch]="$params.type">
+            <ng-container *ngSwitchCase="'swiper'" [ngTemplateOutlet]="tplSwiper"></ng-container>
+            <ng-container *ngSwitchDefault [ngTemplateOutlet]="tplDefault"></ng-container>
+        </ng-container>
     </ng-container>
 </div>
+
+<ng-template #tplDefault>
+    <ng-container *ngIf="asModal; then modalButton; else bonusesList" ></ng-container>
+</ng-template>
 
 <ng-template #modalButton>
     <ng-container *ngIf="bonuses.length; else bonusesList">
@@ -83,4 +90,14 @@
 
 <ng-template #loader>
     <div wlc-loader class="{{$class}}__loader"></div>
+</ng-template>
+
+<ng-template #tplSwiper>
+    <div *ngIf="slides.length"
+        wlc-slider
+        class="{{$class}}__slider"
+        [slides]="slides"
+        [inlineParams]="$params.sliderParams"
+        (slideChangeTransitionEnd$)="onSlideChange($event)">
+    </div>
 </ng-template>

@@ -9,6 +9,8 @@ import {
     ChangeDetectorRef,
     OnDestroy,
     SimpleChange,
+    Output,
+    EventEmitter,
 } from '@angular/core';
 import {UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
@@ -130,6 +132,9 @@ export class PaymentFormComponent
     @Input() public override currentSystem: PaymentSystem;
     @Input() public bonus: Bonus;
     @Input() public wallet: ISelectedWallet;
+    @Input() public amount: number;
+    @Output() public changeStep: EventEmitter<void> = new EventEmitter();
+    @Output() public updateAmount: EventEmitter<number> = new EventEmitter();
 
     public override $params: Params.IPaymentFormCParams;
     public additionalParams: IIndexing<IPaymentAdditionalParam> = {};
@@ -335,6 +340,12 @@ export class PaymentFormComponent
         return !this.requiredFieldsKeys.length && !this.isWaitingResponse && !this.showErrorHostedLoad;
     }
 
+    protected get showAdditionalFields(): boolean {
+        return this.$params.type !== 'partial-amount'
+            || this.currentSystem?.cryptoInvoices
+            || this.currentSystem?.cryptoCheck;
+    }
+
     public onCryptoInvoiceExpires(): void {
         this.cdr.detectChanges();
 
@@ -416,6 +427,18 @@ export class PaymentFormComponent
         if (this.inProgress) {
             return false;
         }
+
+        if (this.$params.type === 'partial-amount'
+            && !_isEmpty(this.additionalParams)
+            && !this.currentSystem.cryptoCheck
+            && !this.currentSystem.cryptoInvoices
+            && (this.currentSystem.isHosted || !_isEmpty(this.additionalParams))
+        ) {
+            this.updateAmount.emit(form.controls.amount.value);
+            this.changeStep.emit();
+            return false;
+        }
+
         this.formObject = form;
 
         if (this.isDeposit) {
@@ -727,8 +750,9 @@ export class PaymentFormComponent
         }
 
         if (this.currentSystem.isHosted
-            && (!this.isLoadingHostedFields || !this.currentSystem.hostedFields.loaded)
-            && _isEmpty(this.requiredFields)) {
+                && (!this.isLoadingHostedFields || !this.currentSystem.hostedFields.loaded)
+                && _isEmpty(this.requiredFields)
+                && this.$params.type !== 'partial-amount') {
             await this.loadHostedFields();
         }
 
@@ -833,7 +857,7 @@ export class PaymentFormComponent
                 }
             }
 
-            if (preselectedAmountsData.length) {
+            if (preselectedAmountsData.length && this.$params.type !== 'partial-additional') {
                 const preselected: IFormComponent = this.preparePreselectedAmounts(
                     preselectedAmountsData,
                     this.usePreselectedSummation);
@@ -866,31 +890,21 @@ export class PaymentFormComponent
                     originParams = this.additionalParams;
                 }
 
-                const additionalFields: IFormComponent[] = this.prepareAdditionalFields(originParams);
-                const additionalFieldsWrap: IFormComponent = this.$params.additionalFieldsWrapperParams;
-                _set(additionalFieldsWrap, 'params.components', additionalFields);
+                if (this.showAdditionalFields) {
+                    const additionalFields: IFormComponent[] = this.prepareAdditionalFields(originParams);
+                    const additionalFieldsWrap: IFormComponent = this.$params.additionalFieldsWrapperParams;
+                    _set(additionalFieldsWrap, 'params.components', additionalFields);
+                    formComponents.push(additionalFieldsWrap);
+                }
 
-                formComponents.push(additionalFieldsWrap);
             }
 
             if (lastAccount) {
                 formComponents.push(lastAccount);
             }
 
-            // button
-            let button: IFormComponent;
-
-            if (this.isDeposit) {
-                if (this.usePrestep && !this.isPrestepComplete) {
-                    button = FormElements.depositPrestepButton;
-                } else {
-                    button = FormElements.depositButton;
-                }
-            } else {
-                button = FormElements.withdrawButton;
-            }
-
             if (!this.showPaymentMessage || _isEmpty(this.currentSystem?.message)) {
+                const button: IFormComponent = this.prepareMainButton();
                 formComponents.push(button);
             }
         }
@@ -908,6 +922,28 @@ export class PaymentFormComponent
         }
 
         this.cdr.markForCheck();
+    }
+
+    protected prepareMainButton(): IFormComponent {
+        let button: IFormComponent;
+
+        if (this.isDeposit) {
+            if (this.usePrestep && !this.isPrestepComplete) {
+                button = FormElements.depositPrestepButton;
+            } else {
+                button = FormElements.depositButton;
+            }
+        } else {
+            button = FormElements.withdrawButton;
+        }
+
+        button = _cloneDeep(button);
+
+        if (this.$params.type === 'partial-additional') {
+            _set(button, 'params.common.text', gettext('Save'));
+        }
+
+        return button;
     }
 
     protected prepareAdditionalFields(originParams: IIndexing<IPaymentAdditionalParam>): IFormComponent[] {
@@ -1005,6 +1041,10 @@ export class PaymentFormComponent
         let showLimits: boolean = false;
 
         _set(amount, 'params.currency', this.currentCurrency);
+
+        if (this.amount) {
+            _set(amount, 'params.value', this.amount);
+        }
 
         const customValidators: ValidatorType[] =
             this.configService.get<ValidatorType[]>(`$finances.fieldsSettings.amount.customValidators[${this.mode}]`);

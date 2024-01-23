@@ -72,6 +72,7 @@
             @include bm.get-mq-map('align-items', $themeDefault, 'btnsAlignment');
             display: flex;
             flex-wrap: wrap;
+            justify-content: center;
             margin: ef.get-value($themeDefault, 'btnsMargin');
         }
 

@@ -9,6 +9,7 @@
         [level]="alertInformation['title'].mod"></div>
 
     <ng-container *ngSwitchCase="'second'" [ngTemplateOutlet]="second"></ng-container>
+    <ng-container *ngSwitchCase="'steps'" [ngTemplateOutlet]="stepsTheme"></ng-container>
     <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
 </ng-container>
 
@@ -57,6 +58,104 @@
             [ngTemplateOutletContext]="{$implicit: step, index: $index}"></ng-container>
     </ng-container>
 </ng-template>
+
+<!-- Steps theme -->
+<ng-template #stepsTheme>
+    <ng-container [ngSwitch]="currentStep">
+        <ng-container *ngSwitchCase="1" [ngTemplateOutlet]="step1"></ng-container>
+        <ng-container *ngSwitchCase="2" [ngTemplateOutlet]="step2"></ng-container>
+        <ng-container *ngSwitchCase="3" [ngTemplateOutlet]="step3"></ng-container>
+    </ng-container>
+</ng-template>
+
+<ng-template #step1>
+    <div class="{{$class}}__step {{$class}}__step--1" [@stepChanged]="currentStep.toString()">
+        <div *ngIf="isMultiWallet" class="{{$class}}__step-group {{$class}}__step-group--wallet">
+            <p class="{{$class}}__title">{{'Choose a wallet' | translate}}</p>
+            <ng-container [ngTemplateOutlet]="wallets"></ng-container>
+        </div>
+        <div class="{{$class}}__step-group {{$class}}__step-group--paysystems">
+            <p class="{{$class}}__title">{{'Select a payment method' | translate}}</p>
+            <ng-container [ngTemplateOutlet]="systems"></ng-container>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #step2>
+    <div class="{{$class}}__step {{$class}}__step--2" [@stepChanged]="currentStep.toString()">
+        <div class="{{$class}}__header">
+            <ng-container *ngTemplateOutlet="stepBackTpl; context: {$implicit: true}"></ng-container>
+        </div>
+
+        <div *ngIf="isCryptoInvoices" class="{{$class}}__step-group {{$class}}__step-group--cryptoinvoices">
+            <ng-container *ngTemplateOutlet="divider"></ng-container>
+            <p class="{{$class}}__title">{{'Select a cryptocurrency' | translate}}</p>
+            <ng-container [ngTemplateOutlet]="cryptoInvoiceSystems"></ng-container>
+        </div>
+
+        <div class="{{$class}}__step-group {{$class}}__step-group--payment-info">
+            <ng-container *ngTemplateOutlet="divider"></ng-container>
+            <p class="{{$class}}__title">{{'Payment information' | translate}}</p>
+
+            <div wlc-payment-form
+                [inlineParams]="{mode: $params.mode, type: 'partial-amount'}"
+                [mode]="$params.mode"
+                [currentSystem]="currentSystem"
+                [bonus]="currentBonus"
+                [wallet]="selectedWallet"
+                [amount]="amount"
+                (changeStep)="stepForward()"
+                (updateAmount)="saveAmount($event)">
+            </div>
+        </div>
+
+        <div *ngIf="bonusesExist && showBonuses" class="{{$class}}__step-group {{$class}}__step-group--bonuses">
+            <ng-container *ngTemplateOutlet="divider"></ng-container>
+            <p class="{{$class}}__title">{{'Select a bonus' | translate}}</p>
+            <div wlc-wrapper
+                class="{{$class}}__bonuses"
+                [inlineParams]="bonusesListParams">
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #step3>
+    <div class="{{$class}}__step {{$class}}__step--3" [@stepChanged]="currentStep.toString()">
+        <div class="{{$class}}__header">
+            <ng-container *ngTemplateOutlet="stepBackTpl;"></ng-container>
+        </div>
+        <div class="{{$class}}__group {{$class}}__group--additional">
+            <ng-container *ngTemplateOutlet="divider"></ng-container>
+            <p class="{{$class}}__title">{{'Payment information' | translate}}</p>
+
+            <div wlc-payment-form
+                [inlineParams]="{mode: $params.mode, type: 'partial-additional'}"
+                [mode]="$params.mode"
+                [currentSystem]="currentSystem"
+                [bonus]="currentBonus"
+                [wallet]="selectedWallet"
+                [amount]="amount">
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #stepBackTpl let-dropSystem>
+    <div class="{{$class}}__back-control"
+        attr.ariaLabel="{{'Back' | translate}}"
+        (click)="stepBack(dropSystem)">
+        <span wlc-icon
+            class="{{$class}}__back-icon"
+            [iconPath]="'/wlc/icons/arrow-left.svg'"></span>
+        <p>{{'The chosen payment method:' | translate }} <span class="{{$class}}__accent">{{paymentSystemName}}</span></p>
+    </div>
+</ng-template>
+
+<ng-template #divider>
+    <hr class="{{$class}}__hr">
+</ng-template>
+<!-- mobile steps end -->
 
 <ng-template #stepTpl let-step let-index="index">
     <div class="{{$class}}__step {{$class}}__step--{{index + 1}}">
@@ -109,6 +208,7 @@
         [inlineParams]="listConfig"
         [availableSystems]="availableSystems"
         [userCountry]="userCountry"
+        [skipAutoSelect]="$params.theme === 'steps'"
         [currentSystem]="parentSystem || currentSystem" [parentTheme]="$params.theme">
     </div>
     <div class="{{$class}}__divider"></div>

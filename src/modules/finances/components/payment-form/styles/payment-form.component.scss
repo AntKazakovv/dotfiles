@@ -6,3 +6,13 @@
 @import './utils/vars';
 
 @import './themes/default';
+
+.wlc-payment-form--type-partial-additional:host {
+
+    ::ng-deep {
+
+        .wlc-amount-wrapper {
+            display: none;
+        }
+    }
+}

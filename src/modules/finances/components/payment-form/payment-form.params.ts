@@ -8,7 +8,14 @@ import {TPaymentsMethods} from 'wlc-engine/modules/finances/system/interfaces';
 import {PaymentSystem} from 'wlc-engine/modules/finances/system/models';
 
 export type ComponentTheme = 'default' | CustomType;
-export type ComponentType = 'default' | CustomType;
+/**
+ * default - basic payment form
+ *
+ * partial-amount - additional fields and hosted fields wouldn't be showed (used with steps theme of deposit-withdraw)
+ *
+ * partial-additional - show only additional and hosted fields (used with steps theme of deposit-withdraw)
+ */
+export type ComponentType = 'default' | 'partial-amount' | 'partial-additional' | CustomType;
 export type ComponentThemeMod = 'default' | 'centered' | CustomType;
 
 export interface IPaymentFormCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {

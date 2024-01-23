@@ -1,0 +1,26 @@
+$customThemeSteps: () !default;
+$themeSteps: map-merge((
+    'titleTextStyle': 'ThirdTitle',
+    'titleColor': var(--mc-baseMain),
+    'titleMargin': 0 0 ef.size(4),
+
+    'backTextStyle': 'ThirdTitle',
+    'backColor': var(--mc-baseMain),
+    'backMargin': 0 0 ef.size(4),
+    'backIconSize': 16px,
+    'backColumns': 16px auto 16px,
+
+    'accentTextStyle': 'ThirdTitleBold',
+    'accentColor': var(--mc-main),
+
+    'hrWidth': 100%,
+    'hrHeight': 2px,
+    'hrMargin': ef.size(4) 0,
+    'hrBg': var(--mc-bg300),
+    'hrOpacity': 1,
+
+    'bonusesMargin': 0 ef.size(-3),
+
+    'groupMargin': 0 0 ef.size(4),
+    'groupMarginLast': 0,
+), $customThemeSteps);
