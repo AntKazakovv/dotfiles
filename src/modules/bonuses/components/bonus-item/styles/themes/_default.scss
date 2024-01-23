@@ -339,6 +339,27 @@
 
     &.wlc-bonus-item--theme-mod-with-image {
 
+        &.wlc-bonus-item--always-show-buttons {
+            @include showBtnWithImg;
+
+            .wlc-bonus-item {
+
+                &__description {
+                    /* stylelint-disable-next-line */
+                    display: -webkit-box;
+                }
+
+                &__btns {
+                    margin: ef.get-value($themeDefault, 'btnsMarginWithImg');
+                }
+
+                &__bottom {
+                    align-items: ef.get-value($themeDefault, 'bottomWithImgShowBtnsAlign');
+                    padding: ef.get-value($themeDefault, 'bottomWithImgShowBtnsPadding');
+                }
+            }
+        }
+
         .wlc-bonus-item {
 
             &__wrapper {
@@ -383,17 +404,20 @@
             }
         }
 
-        @include bm.hover {
-            @include showBtnWithImg;
+        &:not(.wlc-bonus-item--always-show-buttons) {
 
-            .wlc-bonus-item {
+            @include bm.hover {
+                @include showBtnWithImg;
 
-                &__image-block {
-                    @include bm.get-mq-map('height', $themeDefault, 'imgHeightWithImgHover');
-                }
+                .wlc-bonus-item {
 
-                &__description {
-                    opacity: 1;
+                    &__image-block {
+                        @include bm.get-mq-map('height', $themeDefault, 'imgHeightWithImgHover');
+                    }
+
+                    &__description {
+                        opacity: 1;
+                    }
                 }
             }
         }
@@ -443,64 +467,39 @@
                 }
 
                 &__bottom {
-                    grid-template-rows: ef.get-value($themeDefault, 'btmMobileGridRows');
+                    grid-template-rows: ef.get-value($themeDefault, 'bottomShowAlwaysGridRows');
                     padding: ef.get-value($themeDefault, 'btnMobilePadding');
                 }
             }
         }
     }
 
-    @include bm.hover() {
+    &.wlc-bonus-item--always-show-buttons {
+        @include showBtnAlways;
+    }
 
-        .wlc-bonus-item__wrapper {
+    &:not(.wlc-bonus-item--always-show-buttons) {
+        @include bm.hover() {
 
-            &:before {
-                display: none;
+            .wlc-bonus-item__wrapper {
+
+                &:before {
+                    display: none;
+                }
             }
-        }
 
-        .wlc-bonus-item__btns {
-            transform: translateY(0);
-            opacity: 1;
-        }
+            .wlc-bonus-item__btns {
+                transform: translateY(0);
+                opacity: 1;
+            }
 
-        .wlc-bonus-item__description {
-            opacity: 0;
+            .wlc-bonus-item__description {
+                opacity: 0;
+            }
         }
     }
 
     @include bm.hover(false) {
-
-        .wlc-bonus-item {
-
-            &__content {
-                @include bm.get-mq-map('height', $themeDefault, 'heightMobile');
-            }
-
-            &__wrapper {
-                @include bm.get-mq-map('grid-template-rows', $themeDefault, 'infoHeightMobile');
-            }
-
-            &__bottom {
-                display: grid;
-                grid-template-rows: ef.get-value($themeDefault, 'btmMobileGridRows');
-                width: 100%;
-            }
-
-            &__info-block {
-                justify-content: center;
-                min-width: 0;
-                padding: ef.get-value($themeDefault, 'infoPaddingMobile');
-            }
-
-            &__btns {
-                @include bm.get-mq-map('transform', $themeDefault, 'btnsTransformMobile');
-
-                position: static;
-                margin: ef.get-value($themeDefault, 'btnsMarginMobile');
-                padding: ef.get-value($themeDefault, 'btnsPaddingMobile');
-                opacity: 1;
-            }
-        }
+        @include showBtnAlways;
     }
 }

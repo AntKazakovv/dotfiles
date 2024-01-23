@@ -24,6 +24,10 @@ export interface IBonusesModule {
     fallBackIconPath?: string;
     /** Unavailable bonus icon path */
     showOnlyIconPath?: string;
+    /**
+     * Enable permanent display of buttons
+     */
+    isButtonsAreAlwaysShow?: boolean;
     defaultImages?: {
         /** Bonus image for bonus in profile dashboard, profile bonuses, bonus block in main page in default profile */
         image?: string;

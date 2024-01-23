@@ -374,19 +374,23 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
         }
         this.addModifiers(modifiers);
 
+        if (!this.bonus) {
+            return;
+        }
+
         if (this.asProfileTypeFirst) {
             this.addModifiers('theme-mod-with-image');
         }
 
-        if (!this.bonus?.description) {
+        if (!this.bonus.description) {
             this.addModifiers('no-description');
         }
 
-        if (this.bonus?.isActive) {
+        if (this.bonus.isActive) {
             this.addModifiers('is-active');
         }
 
-        if (!this.bonus?.tag && !this.selectedTag) {
+        if (!this.bonus.tag && !this.selectedTag) {
             this.addModifiers('no-tag');
         }
 
@@ -396,6 +400,9 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
 
         if (this.bonus?.showOnly) {
             this.addModifiers('show-only');
+        }
+        if (this.configService.get<boolean>('$bonuses.isButtonsAreAlwaysShow')) {
+            this.addModifiers('always-show-buttons');
         }
     }
 }

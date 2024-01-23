@@ -119,6 +119,50 @@
     }
 }
 
+@mixin showBtnAlways {
+
+    .wlc-bonus-item {
+
+        &__description {
+            display: none;
+        }
+
+        &__content {
+            @include bm.get-mq-map('height', $themeDefault, 'heightShowAlways');
+
+            .wlc-sections__profile-content--theme-first & {
+                max-width: 100%;
+                height: auto;
+            }
+        }
+
+        &__wrapper {
+            @include bm.get-mq-map('grid-template-rows', $themeDefault, 'wrapGridRows');
+        }
+
+        &__bottom {
+            display: grid;
+            grid-template-rows: ef.get-value($themeDefault, 'bottomShowAlwaysGridRows');
+            width: 100%;
+        }
+
+        &__info-block {
+            justify-content: center;
+            min-width: 0;
+            padding: ef.get-value($themeDefault, 'infoPaddingShowAlways');
+        }
+
+        &__btns {
+            @include bm.get-mq-map('transform', $themeDefault, 'btnsTransformShowAlways');
+
+            position: static;
+            margin: ef.get-value($themeDefault, 'btnsMarginShowAlways');
+            padding: ef.get-value($themeDefault, 'btnsPaddingShowAlways');
+            opacity: 1;
+        }
+    }
+}
+
 @mixin dummyBg {
     background-color: ef.get-value($themeDefault, 'dummyBgColor');
     background-repeat: ef.get-value($themeDefault, 'dummyBgRepeat');

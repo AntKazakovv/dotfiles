@@ -14,7 +14,7 @@ $themeDefault: map-merge((
         1200: 340px,
         1366: 370px,
     ),
-    'heightMobile': (
+    'heightShowAlways': (
         320: 290px,
         720: 295px,
         1024: 285px,
@@ -130,7 +130,7 @@ $themeDefault: map-merge((
         720: auto 100px,
         1630: auto 130px,
     ),
-    'infoHeightMobile': (
+    'wrapGridRows': (
         320: auto 92px,
         720: auto 100px,
         1630: auto 130px,
@@ -143,14 +143,14 @@ $themeDefault: map-merge((
         320: 170px,
         1630: 185px,
     ),
-    'infoBtmPaddingWithImg': (
-        320: ef.size(5) 0,
-    ),
+    'infoBtmPaddingWithImg': ef.size(5) 0,
+    'bottomWithImgShowBtnsPadding':  0 0 ef.size(5),
+    'bottomWithImgShowBtnsAlign': end,
     'infoBlockPadding': (
         375: ef.size(2) ef.size(3) 0,
         1630: ef.size(6) ef.size(4) 0,
     ),
-    'infoPaddingMobile': 0 ef.size(3) ef.size(1),
+    'infoPaddingShowAlways': 0 ef.size(3) ef.size(1),
 
     // Images
     'imageBg': rgba(0, 0, 0, 0.3) center/cover no-repeat,
@@ -230,11 +230,11 @@ $themeDefault: map-merge((
     'btnsTransform': (
         320: translateY(400%),
     ),
-    'btnsTransformMobile': (
+    'btnsTransformShowAlways': (
         375: none,
     ),
-    'btnsPaddingMobile': 0,
-    'btnsMarginMobile': 0,
+    'btnsPaddingShowAlways': 0,
+    'btnsMarginShowAlways': 0,
     'btnBottomPosition': (
         375: ef.size(4),
         1630: ef.size(8),
@@ -253,7 +253,7 @@ $themeDefault: map-merge((
         375: 0 0 ef.size(3),
         1200: 0 0 ef.size(4),
     ),
-    'btmMobileGridRows': 1fr auto auto,
+    'bottomShowAlwaysGridRows': 1fr auto auto,
     'btnMobilePadding': 0 0 ef.size(3),
     // More icon
     'moreIconSize': ef.size(4),
