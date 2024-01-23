@@ -24,6 +24,8 @@ import {
     ICountriesRestrictions,
     IGamesSeparateSortSetting,
     IGamesSortSetting,
+    IMerchantCurrency,
+    IMerchantsCurrencies,
     IRestrictions,
     ISearchFilter,
 } from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
@@ -79,6 +81,9 @@ export class Games {
     public useSeparateSorts: boolean;
     public overrideJackpots: boolean;
     public searchByCyrillicLetters: boolean;
+    public merchantsCurrencies: IMerchantsCurrencies = {};
+    public static allowGameCurrency: boolean;
+    public static isMultiWallet: boolean;
 
     protected restrictions: IRestrictions;
 
@@ -99,6 +104,12 @@ export class Games {
 
     public setRestrictions(countriesRestrictions: ICountriesRestrictions): void {
         this.restrictions = GamesHelper.createRestrictions(countriesRestrictions);
+    }
+
+    public setMerchantsCurrencies(merchants: IMerchantCurrency []) : void {
+        for ( let merchant of merchants) {
+            this.merchantsCurrencies[merchant.IDMerchant] = merchant.Currencies;
+        }
     }
 
     public setAvailableGames(disabledMerchants: number[], restrictCountries: string[]): void {

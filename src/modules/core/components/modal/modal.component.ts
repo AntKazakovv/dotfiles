@@ -318,6 +318,10 @@ export class WlcModalComponent extends AbstractComponent
         });
 
         this.modalDirect.onHidden.subscribe(() => {
+
+            if (this.modalDirect.dismissReason === 'backdrop-click') {
+                this.eventService.emit({name: 'CLOSE_MODAL', data: this.$params.config.id});
+            }
             this.setClosed();
             this.eventHandler(this.modalService.events.MODAL_HIDDEN, this.$params.config.onModalHidden);
         });

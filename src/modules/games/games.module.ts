@@ -51,6 +51,7 @@ import * as $config from 'wlc-config/index';
 
 import {GamesSliderComponent} from './components/games-slider/games-slider.component';
 import {GamesFilterService} from 'wlc-engine/modules/games/system/services/games-filter.service';
+import {MultiWalletModule} from 'wlc-engine/modules/multi-wallet/multi-wallet.module';
 
 export const moduleConfig =
     GlobalHelper.mergeConfig<IGamesConfig>(gamesConfig, _get($config, '$games', {}));
@@ -121,6 +122,7 @@ export const services = {
         CoreModule,
         CompilerModule,
         IconListModule,
+        MultiWalletModule,
     ],
     providers: [
         GamesCatalogService,

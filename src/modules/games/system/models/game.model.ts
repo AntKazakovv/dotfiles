@@ -20,6 +20,7 @@ import {
     IGameJackpotAmount,
     TGameImageSize,
     MerchantModel,
+    GamesCatalogService,
 } from 'wlc-engine/modules/games';
 import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
@@ -29,6 +30,7 @@ import {
     GlobalHelper,
     IFromLog,
 } from 'wlc-engine/modules/core';
+import {Games} from 'wlc-engine/modules/games/system/classes/games';
 
 export class Game extends AbstractModel<IGame> {
     public ID: number;
@@ -49,6 +51,7 @@ export class Game extends AbstractModel<IGame> {
     public isFavourite?: boolean;
     public sortPerCategory: IIndexing<number>;
     public launchMerchantID: number;
+    public initialCurrency: string;
 
     protected url: string;
     protected isRestricted: boolean;
@@ -61,7 +64,7 @@ export class Game extends AbstractModel<IGame> {
 
     private _jackpotAmount: IGameJackpotAmount;
     private static _enabledMerchants: MerchantModel[];
-
+    private _selectedCurrency: string;
     // что-то не нужное
     // protected MobileUrl: string;
     // protected MobileAndroidUrl?: string;
@@ -85,6 +88,7 @@ export class Game extends AbstractModel<IGame> {
         data: IGame,
         protected router: UIRouter,
         protected configService: ConfigService,
+        public merchantsCurrencies?: string[],
     ) {
         super({from: _assign({model: 'Game'}, from)});
 
@@ -113,6 +117,12 @@ export class Game extends AbstractModel<IGame> {
         this.merchantAlias = this.getMerchantAlias();
         this.disableDemoBtnsFor = this.configService.get<TDisableDemoFor>('$games.disableDemoBtnsFor');
         this._withFreeRounds = data.Freeround === '1';
+
+        if (this.merchantsCurrencies) {
+            this.initialCurrency = _find(
+                this.merchantsCurrencies,
+                (currency: string): boolean => currency === 'EUR') ?? this.merchantsCurrencies[0];
+        }
         this.data = data;
     }
 
@@ -146,6 +156,48 @@ export class Game extends AbstractModel<IGame> {
      */
     public get withFreeRounds(): boolean {
         return this._withFreeRounds;
+    }
+
+    public get getCurrency(): string {
+        if (!Games.allowGameCurrency && !this.merchantsCurrencies) {
+            return GamesCatalogService.userService.userProfile.currency;
+        }
+        return this.currency
+            ?? this.initialCurrency;
+    }
+
+    public get currency(): string {
+        return _find(this.merchantsCurrencies,
+            (currency: string): boolean => currency === GamesCatalogService.userService.userProfile.currency)
+            ?? this._selectedCurrency;
+    }
+
+    public get getWalletCurrency(): string {
+        if (!Games.allowGameCurrency && !this.merchantsCurrencies) {
+            return GamesCatalogService.userService.userProfile.selectedCurrency;
+        }
+        return this.walletCurrency
+            ?? this.initialCurrency;
+    }
+
+    public get walletCurrency(): string {
+        return GamesCatalogService.userService.userProfile.isConversionInFiat
+            ?  GamesCatalogService.userService.userProfile.selectedCurrency
+            : _find(this.merchantsCurrencies,
+                (currency: string): boolean =>
+                    currency === GamesCatalogService.userService.userProfile.selectedCurrency,
+            )
+            ?? this._selectedCurrency;
+    }
+
+    public set selectedCurrency(currency: string) {
+        this._selectedCurrency = currency;
+    }
+
+    public get currencyNotSupported(): boolean {
+        return Games.allowGameCurrency
+            && !!this.merchantsCurrencies
+            && (!this.walletCurrency || !this.currency);
     }
 
     /**

@@ -107,15 +107,13 @@ import {
     GamesSortEnum,
     SortTypeEnum,
 } from 'wlc-engine/modules/games/system/interfaces/sorts.enums';
-import {
-    UserService,
-} from 'wlc-engine/modules/user';
-import {ISelectedWallet} from 'wlc-engine/modules/multi-wallet/system/interfaces';
+import {UserService} from 'wlc-engine/modules/user';
 import {CatalogBuilder} from 'wlc-engine/modules/games/system/builders/catalog.builder';
 import {MenuService} from 'wlc-engine/modules/menu';
 import {ICategoriesSettings} from 'wlc-engine/modules/games/system/builders/categories.builder';
 import {IBonusWagerGamesFilter} from 'wlc-engine/modules/bonuses/system/interfaces';
 import {IInteractiveText} from 'wlc-engine/modules/core';
+import {Games} from 'wlc-engine/modules/games/system/classes/games';
 
 export interface ILaunchGameModal {
     show: boolean;
@@ -148,6 +146,8 @@ export class GamesCatalogService {
     public favoritesUpdated: Subject<void> = new Subject<void>();
     public idDefVideos: number[] = [];
     public idVerticalVideos: number[] = [];
+    public static userService: UserService;
+
     private searchBySpecialCats: boolean = true;
     private gamesCatalog: Catalog;
     private onlyAuthSpecial: string[] = ['lastplayed', 'favourites', 'last-played'];
@@ -195,6 +195,11 @@ export class GamesCatalogService {
 
         this.useRealJackpots = this.configService.get<boolean>('$base.games.jackpots.useRealJackpots');
         this.useSeparateSorts = this.configService.get<boolean>('$games.sortsV2.use');
+
+        Games.allowGameCurrency =
+            this.configService.get<boolean>('appConfig.siteconfig.AllowGameCurrency');
+        Games.isMultiWallet = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
+        GamesCatalogService.userService = await this.injectionService.getService<UserService>('user.user-service');
 
         const fetches: {
             games: Observable<IEvent<IData<IGames>>>,
@@ -493,20 +498,22 @@ export class GamesCatalogService {
      * @param {IGameParams} options
      * @returns {Promise<ILaunchInfo>}
      */
-    public async getLaunchParams(options: IGameParams): Promise<ILaunchInfo> {
-        const isMultiWallet: boolean = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
-        let currentWallet: ISelectedWallet = null;
+    public async getLaunchParams(
+        options: IGameParams,
+        currency: string,
+        walletCurrency: string,
+    ): Promise<ILaunchInfo> {
+        let wallet: number;
 
-        if (isMultiWallet) {
-            const userService: UserService =
-                await this.injectionService.getService<UserService>('user.user-service');
-            currentWallet = userService.userProfile.extProfile.currentWallet;
+        if (Games.isMultiWallet) {
+            wallet = GamesCatalogService.userService.userInfo?.wallets[walletCurrency]?.walletId;
         }
 
         return (await this.dataService.request('games/gameLaunchParams', {
             ...options,
             demo: options.demo ? 1 : 0,
-            wallet: currentWallet?.walletId,
+            currency,
+            wallet,
         }) as IData).data;
     }
 
@@ -524,7 +531,7 @@ export class GamesCatalogService {
             games = this.getGameList();
         } else if (parentCategory?.slug == 'lastplayed' || childCategory?.slug == 'lastplayed') {
             games = await this.getLastGames();
-        } else if (parentCategory?.slug == 'favourites'  || childCategory?.slug == 'favourites') {
+        } else if (parentCategory?.slug == 'favourites' || childCategory?.slug == 'favourites') {
             games = await this.getFavouriteGames();
         } else if (this.useRealJackpots && parentCategory?.slug == 'jackpots') {
             games = await this.getJackpotGames();
@@ -1011,7 +1018,7 @@ export class GamesCatalogService {
     }
 
     public getGameById(id: number, tableId?: number): Game {
-        return this.gamesCatalog.getGameById(id,tableId);
+        return this.gamesCatalog.getGameById(id, tableId);
     }
 
     /**

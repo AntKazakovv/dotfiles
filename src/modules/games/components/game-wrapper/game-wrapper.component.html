@@ -78,13 +78,19 @@
         </div>
     </div>
     <div class="{{$class}}__game-area" #wrp>
-        <div *ngIf="!isReady" wlc-loader class="{{$class}}__preloader" >
+        <div *ngIf="!isReady" wlc-loader class="{{$class}}__preloader">
         </div>
         <ng-container [ngTemplateOutlet]="gameWrapper"></ng-container>
     </div>
 </div>
 
 <ng-template #gameWrapper>
+    <div
+        *ngIf="showChoiceCurrency"
+        wlc-choice-currency
+        [inlineParams]="choiceCurrencyParams"
+        (currencyEmit)="currencyEmit()"></div>
+
     <ng-container *ngIf="isReady">
         <ng-container *ngIf="useMobileIframe; else gameWithHtml">
             <div #gameContainer

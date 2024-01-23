@@ -689,6 +689,10 @@ export class Catalog {
          * COUNTRIES RESTRICTIONS
          **********************************************************************************************************/
         this.games.setRestrictions(response.countriesRestrictions);
+
+        if (Games.allowGameCurrency) {
+            this.games.setMerchantsCurrencies(response.merchantsCurrencies);
+        }
         /***********************************************************************************************************
          * GAMES
          **********************************************************************************************************/
@@ -703,6 +707,7 @@ export class Catalog {
                 item,
                 this.router,
                 this.configService,
+                this.games.merchantsCurrencies[item.MerchantID] ,
             );
 
             await this.hooksService.run<Game>(

@@ -88,6 +88,8 @@ import {
     IProcessEventData,
     ProcessEvents,
 } from 'wlc-engine/modules/monitoring';
+import {IChoiceCurrencyParams} from 'wlc-engine/modules/multi-wallet/components/choice-currency/choice-currency.params';
+
 import * as Params from './game-wrapper.params';
 
 interface IError {
@@ -171,6 +173,9 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             },
         },
     };
+
+    public choiceCurrencyParams: IChoiceCurrencyParams;
+    public showChoiceCurrency: boolean;
 
     protected realMobile: boolean = false;
     protected aspectRatio: string;
@@ -257,8 +262,15 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         if (this.game) {
             this.gamesCatalogService.getFavouriteGames();
             await this.openActiveGame();
+
+            this.choiceCurrencyParams = {
+                game: this.game,
+            };
+
+            this.showChoiceCurrency = this.game.currencyNotSupported && !this.gameParams.demo;
             this.cdr.detectChanges();
             this.initStartResizeParams();
+            this.game.selectedCurrency = null;
         } else {
             this.logService.sendLog({code: '3.0.4', data: {gameParams: this.gameParams}});
             this.setError({
@@ -273,7 +285,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         ) {
             this.eventService.subscribe(
                 {name: 'LOGIN'},
-                () =>  {
+                () => {
                     // Reload to get error if we play demo and login
                     this.stateService.reload();
                 },
@@ -281,13 +293,13 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         }
         this.screenfull = (await import('screenfull'))?.default;
 
-        this.eventService.subscribe({name: ProcessEvents.modalOpened}, (data: IProcessEventData)=> {
+        this.eventService.subscribe({name: ProcessEvents.modalOpened}, (data: IProcessEventData) => {
             if (data.eventId === 'iframe-deposit') {
                 this.isIframeDepositOpened = true;
             }
         }, this.$destroy);
 
-        this.eventService.subscribe({name: ProcessEvents.modalClosed}, (data: IProcessEventData)=> {
+        this.eventService.subscribe({name: ProcessEvents.modalClosed}, (data: IProcessEventData) => {
             if (data.eventId === 'iframe-deposit') {
                 this.isIframeDepositOpened = false;
             }
@@ -332,9 +344,9 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         }
     }
 
-    public dashboardSideView(dashboardSide:string): boolean {
+    public dashboardSideView(dashboardSide: string): boolean {
         return this.showDashboardBtn && (!this.isKiosk || this.isAuth)
-               && this.$params.dashboardSide === dashboardSide;
+            && this.$params.dashboardSide === dashboardSide;
     }
 
     public onResize(event: ResizedEventModel): void {
@@ -364,7 +376,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                 this.iframe.setAttribute('scrolling', 'auto');
 
                 const fullScreenEvent = fromEvent(container, 'onfullscreenchange');
-                const subscription = fullScreenEvent.subscribe(()=> {
+                const subscription = fullScreenEvent.subscribe(() => {
                     if (!this.document.fullscreenElement) {
                         if (scrollAttr) {
                             this.iframe.setAttribute('scrolling', scrollAttr);
@@ -441,6 +453,11 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             });
             this.setError();
         }
+    }
+
+    public currencyEmit(): void {
+        this.showChoiceCurrency = false;
+        this.cdr.markForCheck();
     }
 
     protected async runGameScript(): Promise<void> {
@@ -760,7 +777,12 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     protected async getLaunchParams(): Promise<void> {
         const waiter: TWaiter = this.logService.waiter({code: '3.0.3'});
         try {
-            const launchInfo: ILaunchInfo = await this.gamesCatalogService.getLaunchParams(this.gameParams);
+            const launchInfo: ILaunchInfo =
+                await this.gamesCatalogService.getLaunchParams(
+                    this.gameParams,
+                    this.game.getCurrency,
+                    this.game.getWalletCurrency,
+                );
 
             const result = await this.hooksService.run<IGameWrapperHookLaunchInfo>(gameWrapperHooks.launchInfo, {
                 game: this.game,

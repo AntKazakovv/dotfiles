@@ -9,11 +9,13 @@ import {WalletsService} from 'wlc-engine/modules/multi-wallet/system/services/wa
 import {SearchFieldComponent} from 'wlc-engine/modules/multi-wallet/components/search-field/search-field.component';
 import {SettingsComponent} from './components/settings/settings.component';
 import {FiltersComponent} from './components/filters/filters.component';
+import {ChoiceCurrencyComponent} from './components/choice-currency/choice-currency.component';
 
 export const components = {
     'wlc-wallets': WalletsComponent,
     'wlc-settings': SettingsComponent,
     'wlc-filters': FiltersComponent,
+    'wlc-choice-currency': ChoiceCurrencyComponent,
 };
 export const services = {
     'wallet-service': WalletsService,
@@ -25,6 +27,7 @@ export const services = {
         SearchFieldComponent,
         SettingsComponent,
         FiltersComponent,
+        ChoiceCurrencyComponent,
     ],
 
     imports: [
@@ -40,6 +43,7 @@ export const services = {
         WalletsComponent,
         SettingsComponent,
         FiltersComponent,
+        ChoiceCurrencyComponent,
     ],
 })
 

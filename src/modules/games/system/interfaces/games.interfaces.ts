@@ -536,3 +536,8 @@ export interface IDisableGameMerchants {
     byDefault?: number[];
     forUnauthorisedUsers?: number[];
 }
+
+/**
+ * Key - ID merchant, value - currencies array
+ */
+export type IMerchantsCurrencies = IIndexing<string[]>;

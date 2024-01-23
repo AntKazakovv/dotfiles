@@ -50,12 +50,10 @@ import {
     IPlayGameForRealCParams,
     GamesCatalogService,
 } from 'wlc-engine/modules/games';
-import {
-    UserInfo,
-    UserService,
-} from 'wlc-engine/modules/user';
+import {UserInfo} from 'wlc-engine/modules/user';
 import {AppType} from 'wlc-engine/modules/core/system/interfaces/base-config/app.interface';
 import {BaseGamesHandler} from './games-handler.base';
+import {Games} from 'wlc-engine/modules/games/system/classes/games';
 
 export interface IHookGameStartData {
     game: Game;
@@ -459,8 +457,6 @@ class StartGameHandler extends BaseGamesHandler {
             return deferred.promise;
         }
 
-        const userService = await this.injectionService.getService<UserService>('user.user-service');
-
         const userInfo: UserInfo = await firstValueFrom(
             this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'})
                 .pipe(
@@ -469,14 +465,40 @@ class StartGameHandler extends BaseGamesHandler {
         );
 
         const isMultiWallet: boolean = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
+        const isResolveBalance: Function = (): boolean => {
+            if (Games.allowGameCurrency) {
 
-        const walletBalance = isMultiWallet
-            && !!userInfo?.getWalletBalance(userService?.userProfile.extProfile.currentWallet?.walletCurrency);
+                if (isMultiWallet) {
 
-        if (!!userInfo.balance || walletBalance) {
+                    if (GamesCatalogService.userService.userProfile.isConversionInFiat) {
+                        return !!userInfo.getWalletBalance(
+                            GamesCatalogService.userService.userProfile.extProfile.currentWallet?.walletCurrency,
+                        )
+                            || (!!userInfo.wallets[
+                                GamesCatalogService.userService.userProfile.extProfile.currentWallet?.walletCurrency]
+                                && !!userInfo.bonusBalance);
+                    } else {
+                        return !!userInfo.getWalletBalance(this.game.getWalletCurrency)
+                            || (!!userInfo.wallets[this.game.getWalletCurrency] && !!userInfo.bonusBalance);
+                    }
+
+                } else {
+                    return !!userInfo.balance;
+                }
+
+            } else {
+                return !!userInfo.balance || !!userInfo.bonusBalance;
+            }
+        };
+
+        if (isResolveBalance()) {
             deferred.resolve();
             return deferred.promise;
+        } else if (Games.allowGameCurrency) {
+            GamesCatalogService.userService.userProfile.gamesCurrency = this.game.getWalletCurrency;
+            this.game.selectedCurrency = null;
         }
+
         const merchantFreeRound = _find(userInfo.freeRounds, (freeRound: IFreeRound): boolean => {
             return ((this.game.merchantID === +freeRound.IDMerchant) ||
                     (this.game.subMerchantID === +freeRound.IDMerchant))

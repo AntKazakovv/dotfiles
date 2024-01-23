@@ -5,6 +5,7 @@ import {
     EventEmitter,
     Inject,
     Input,
+    OnDestroy,
     OnInit,
     Output,
 } from '@angular/core';
@@ -60,7 +61,7 @@ import * as Params from './wallets.params';
     styleUrls: ['./styles/wallets.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WalletsComponent extends AbstractComponent implements OnInit {
+export class WalletsComponent extends AbstractComponent implements OnInit, OnDestroy {
 
     @Input() protected inlineParams: Params.WalletsParams;
     @Output() public changeWalletEmit: EventEmitter<ISelectedWallet> = new EventEmitter();
@@ -152,6 +153,11 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
         this.eventService.subscribe({name: 'LOGOUT'}, (): void => {
             WalletHelper.conversionReset();
         });
+    }
+
+    public override ngOnDestroy(): void {
+        super.ngOnDestroy();
+        this.userService.userProfile.gamesCurrency = undefined;
     }
 
     public get displayedBalance(): string {
@@ -283,7 +289,8 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
         this.currentWallet =
             WalletHelper.createCurrentWallet(
                 userInfo.wallets,
-                this.userService.userProfile.selectedCurrency,
+                this.isFinance && this.userService.userProfile.gamesCurrency
+                    ? this.userService.userProfile.gamesCurrency : this.userService.userProfile.selectedCurrency,
             );
 
         if (!this.userService.userProfile.extProfile.currentWallet && !this.isFinance) {

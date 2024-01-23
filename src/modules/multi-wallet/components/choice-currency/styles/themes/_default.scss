@@ -1,0 +1,126 @@
+$selector: '.wlc-choice-currency';
+
+#{$selector}--theme-default:host {
+
+    @include text.get-text-style(
+        ef.get-value($themeDefault, 'dropdownFontStyle', 375),
+        ef.get-value($themeDefault, 'dropdownTextColor'),
+    );
+    position: ef.get-value($themeDefault, 'position');
+    display: ef.get-value($themeDefault, 'display');
+    flex-direction: ef.get-value($themeDefault, 'flexDirection');
+    gap: ef.get-value($themeDefault, 'gap');
+    align-items: ef.get-value($themeDefault, 'alignItems');
+    justify-content: ef.get-value($themeDefault, 'justifyContent');
+    width: ef.get-value($themeDefault, 'width');
+    height: ef.get-value($themeDefault, 'height');
+
+    &#{$selector}--theme-mod-default {
+
+        &:before {
+            content: '';
+            position: absolute;
+            width: ef.get-value($themeDefault, 'width');
+            height: ef.get-value($themeDefault, 'height');
+            background: ef.get-value($themeDefault, 'background');
+            opacity: ef.get-value($themeDefault, 'backgroundOpacity');
+        }
+    }
+
+    .wlc-btn {
+        z-index: 1;
+        width: ef.get-value($themeDefault, 'btnWidth');
+    }
+
+    #{$selector} {
+
+        &__container {
+            position: ef.get-value($themeDefault, 'containerPosition');
+            display: ef.get-value($themeDefault, 'containerDisplay');
+            gap: ef.get-value($themeDefault, 'containerGap');
+        }
+
+        &__dropdown-btn {
+            --wlc-icon-width: #{ef.get-value($themeDefault, 'iconSize')};
+            --wlc-icon-height: #{ef.get-value($themeDefault, 'iconSize')};
+
+            display: ef.get-value($themeDefault, 'dropdownDisplay');
+            gap: ef.get-value($themeDefault, 'dropdownGap');
+            align-items: ef.get-value($themeDefault, 'dropdownAlignItems');
+            justify-content: ef.get-value($themeDefault, 'dropdownJustifyContent');
+            line-height: ef.get-value($themeDefault, 'dropdownLineHeight');
+            cursor: ef.get-value($themeDefault, 'dropdownCursor');
+
+            .arrow::ng-deep {
+                --wlc-icon-width: #{ef.get-value($themeDefault, 'arrowIconSize')};
+                --wlc-icon-height: #{ef.get-value($themeDefault, 'arrowIconSize')};
+
+                @include bm.transition(transform);
+                margin: ef.get-value($themeDefault, 'dropdownArrowMargin');
+                color: ef.get-value($themeDefault, 'dropdownArrowFill');
+
+                svg {
+                    fill: currentColor;
+                }
+            }
+
+            &.isOpened {
+
+                .arrow::ng-deep {
+                    color: ef.get-value($themeDefault, 'dropdownArrowFillOpened');
+                    transform: rotate(180deg);
+                }
+            }
+
+            @include bm.hover {
+
+                .arrow::ng-deep {
+                    color: ef.get-value($themeDefault, 'dropdownArrowFillHover');
+                }
+            }
+        }
+
+        &__list {
+            @include bm.scrollbar($themeDefault);
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'listFontStyle'),
+                ef.get-value($themeDefault, 'listFontColor'),
+            );
+            position: ef.get-value($themeDefault, 'listPosition');
+            top: ef.get-value($themeDefault, 'listTop');
+            right: ef.get-value($themeDefault, 'listRight');
+            z-index: ef.get-value($themeDefault, 'listZIndex');
+            display: ef.get-value($themeDefault, 'listDisplay');
+            flex-direction: ef.get-value($themeDefault, 'listFlexDirection');
+            align-items: ef.get-value($themeDefault, 'listAlignItems');
+            width: ef.get-value($themeDefault, 'listWidth');
+            max-height: ef.get-value($themeDefault, 'listMaxHeight');
+            overflow-y: scroll;
+            background: ef.get-value($themeDefault, 'listBg');
+            box-shadow: ef.get-value($themeDefault, 'listBoxShadow');
+            border-radius: ef.get-value($themeDefault, 'listBorderRadius');
+        }
+
+        &__currency {
+            --wlc-icon-width: #{ef.get-value($themeDefault, 'iconSize')};
+            --wlc-icon-height: #{ef.get-value($themeDefault, 'iconSize')};
+
+            border-radius: ef.get-value($themeDefault, 'currencyBorderRadius');
+            display: ef.get-value($themeDefault, 'currencyDisplay');
+            gap: ef.get-value($themeDefault, 'currencyGap');
+            align-items: ef.get-value($themeDefault, 'currencyAlignItems');
+            justify-content: ef.get-value($themeDefault, 'currencyJustifyContent');
+            width: ef.get-value($themeDefault, 'currencyWidth');
+            padding: ef.get-value($themeDefault, 'currencyPadding');
+
+            @include bm.hover() {
+                background: ef.get-value($themeDefault, 'currencyBgHover');
+            }
+        }
+    }
+
+    &#{$selector}--theme-mod-in-modal {
+        position: ef.get-value($themeDefault, 'positionInModal');
+        padding: ef.get-value($themeDefault, 'paddingInModal');
+    }
+}

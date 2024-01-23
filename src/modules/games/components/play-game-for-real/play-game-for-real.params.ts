@@ -18,6 +18,7 @@ import {
     defaultSignInFormParams,
     IAbstractSignInFormCParams,
 } from 'wlc-engine/modules/core/system/classes/sign-in-form-abstract.class';
+import {IChoiceCurrencyParams} from 'wlc-engine/modules/multi-wallet/components/choice-currency/choice-currency.params';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
@@ -229,6 +230,13 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
                 },
             },
         },
+        params.game.currencyNotSupported ? {
+            name: 'multi-wallet.wlc-choice-currency',
+            params: <IChoiceCurrencyParams>{
+                game: params.game,
+                themeMod: 'in-modal',
+            },
+        } : null,
         params.isLatestBetsWidget ? {
             name: 'promo.wlc-bet-info',
             params: <IBetInfoCParams>{

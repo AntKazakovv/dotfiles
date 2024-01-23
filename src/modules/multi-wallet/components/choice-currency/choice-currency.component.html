@@ -1,0 +1,52 @@
+<ng-template [ngIf]="isShow">
+    <div
+        wlc-click-outside
+        class="{{$class}}__container"
+        [isOpened]="isOpened"
+        (clickOutside)="clickOutside()">
+        <span class="{{$class}}__text">{{$params.balanceText | translate}}</span>
+        <div
+            class="{{$class}}__dropdown-btn"
+            [class.isOpened]="isOpened"
+            (click)="onOpen()">
+
+            <ng-container
+                [ngTemplateOutlet]="currency"
+                [ngTemplateOutletContext]="{$implicit: currentCurrency}"></ng-container>
+            <span
+                wlc-icon
+                class="arrow"
+                iconPath="/wlc/icons/arrow.svg"
+                wlcElement="icon_arrow"></span>
+        </div>
+
+        <div *ngIf="isOpened"
+             class="{{$class}}__list">
+            <div
+                *ngFor="let item of $params.game.merchantsCurrencies"
+                class="{{$class}}__currency"
+                [class.select]="currency === currentCurrency"
+                (click)="onChangingCurrency(item)">
+                <ng-container
+                    [ngTemplateOutlet]="currency"
+                    [ngTemplateOutletContext]="{$implicit: item}"></ng-container>
+            </div>
+        </div>
+    </div>
+    <button
+        *ngIf="$params.themeMod !== 'in-modal'"
+        wlc-button
+        typeAttr="button"
+        text="{{$params.btnText | translate}}"
+        (click)="onCurrencySelected()">
+    </button>
+</ng-template>
+
+<ng-template #currency let-name>
+    <span
+        wlc-icon
+        class="currency"
+        iconPath="{{getCurrencyIconUrl(name)}}"
+        wlcElement="icon_currency"></span>
+    <span>{{name}}</span>
+</ng-template>
