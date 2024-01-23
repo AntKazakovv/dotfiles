@@ -299,6 +299,7 @@ export class TournamentComponent extends AbstractComponent implements OnInit {
 
             if (tournament) {
                 this.tournament = tournament;
+                Tournament.selectedTournaments = true;
                 this.cdr.markForCheck();
             }
         } finally {
@@ -313,6 +314,9 @@ export class TournamentComponent extends AbstractComponent implements OnInit {
             const tournament = await this.tournamentsService.leaveTournament(this.tournament);
             if (tournament) {
                 this.tournament = tournament;
+                if (this.modalService.getActiveModal('tournament-detail-modal')) {
+                    this.modalService.hideModal('tournament-detail-modal');
+                };
                 this.cdr.markForCheck();
             }
         } finally {
