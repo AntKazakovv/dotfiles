@@ -646,7 +646,7 @@ def make_release(action, branch):
     set_version(new_tag)
     print(Fore.GREEN + f"Done. New tag is {new_tag}" + Fore.RESET)
 
-    if branch == "develop" or "master":
+    if branch == "develop" or branch == "master":
         print(Fore.YELLOW + "Making change log..." + Fore.RESET)
         subprocess.run(["npm", "run", "gulp", "change-logs", "--", f"--tag={new_tag}"])
         subprocess.run(["npm", "run", "gulp", "translations-logs"])
