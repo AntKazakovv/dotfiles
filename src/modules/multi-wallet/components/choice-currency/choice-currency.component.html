@@ -25,7 +25,7 @@
             <div
                 *ngFor="let item of $params.game.merchantsCurrencies"
                 class="{{$class}}__currency"
-                [class.select]="currency === currentCurrency"
+                [class.select]="item === currentCurrency"
                 (click)="onChangingCurrency(item)">
                 <ng-container
                     [ngTemplateOutlet]="currency"
