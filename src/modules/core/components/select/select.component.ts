@@ -29,6 +29,7 @@ import {
     takeUntil,
     first,
     debounceTime,
+    filter,
 } from 'rxjs/operators';
 
 import _some from 'lodash-es/some';
@@ -159,6 +160,11 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
             this.addModifiers('with-note');
         }
 
+        if (this.$params.name === 'countryCode' && !this.control.value
+            && this.configService.get<boolean>('$base.registration.filterCurrencyByCountry')) {
+            this.$params.autoSelect = true;
+        }
+
         if (this.$params.autoSelect) {
             const country = this.configService.get<string>('appConfig.country');
 
@@ -169,6 +175,14 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
                 }
                 case 'countryCode': {
                     this.control.setValue(country);
+                    if (this.configService.get<boolean>('$base.registration.filterCurrencyByCountry')) {
+                        this.eventService.emit({
+                            name: 'SELECT_CHOSEN_COUNTRYCODE',
+                            data: {
+                                value: country,
+                            },
+                        });
+                    }
                     break;
                 }
                 case 'phoneCode': {
@@ -185,6 +199,20 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
                     break;
                 }
             }
+        }
+
+        if (this.$params.name === 'countryCode') {
+            this.control.valueChanges
+                .pipe(
+                    filter((val: string): boolean => !val),
+                    takeUntil(this.$destroy),
+                )
+                .subscribe((): void => {
+                    if (this.isOpened) {
+                        return;
+                    }
+                    this.searchText = this.translateService.instant(this.placeholderText);
+                });
         }
 
         if (this.$params.updateOnControlChange) {
@@ -340,7 +368,14 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
         if (!this.isOpened || this.control.disabled) {
             return;
         }
-        this.selectOption(this.foundItems[this.activeItemIndex]);
+
+        let currentItem: ISelectOptions<unknown> | undefined = this.foundItems[this.activeItemIndex];
+
+        if (!currentItem && this.foundItems.length > 0) {
+            currentItem = this.foundItems[0];
+        }
+
+        this.selectOption(currentItem);
         this.control.markAsTouched();
         this.control.updateValueAndValidity();
         this.isOpened = false;
@@ -583,15 +618,17 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
      * @param {boolean} pushToControl
      * @returns {void} void
      */
-    protected selectOption(item: Params.ISelectOptions, pushToControl: boolean = true): void {
+    protected selectOption(item: Params.ISelectOptions | undefined, pushToControl: boolean = true): void {
         if (pushToControl) {
             this.control.setValue(item?.value);
         }
 
-        this.eventService.emit({
-            name: `SELECT_CHOSEN_${this.$params?.name?.toUpperCase()}`,
-            data: item,
-        });
+        if (item) {
+            this.eventService.emit({
+                name: `SELECT_CHOSEN_${this.$params?.name?.toUpperCase()}`,
+                data: item,
+            });
+        }
 
         if (!this.isOpened) {
             this.searchText = this.translateService.instant(this.placeholderText);

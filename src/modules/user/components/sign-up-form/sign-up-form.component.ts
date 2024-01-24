@@ -6,7 +6,11 @@ import {
 } from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
 
-import {BehaviorSubject} from 'rxjs';
+import {
+    BehaviorSubject,
+    filter,
+    takeUntil,
+} from 'rxjs';
 import _each from 'lodash-es/each';
 import _some from 'lodash-es/some';
 import _filter from 'lodash-es/filter';
@@ -161,6 +165,29 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         if (this.$params.formData) {
             this.formData = new BehaviorSubject(this.$params.formData);
         }
+    }
+
+    public override getForm(form: UntypedFormGroup): void {
+        super.getForm(form);
+
+        form.get('countryCode')?.valueChanges
+            .pipe(
+                filter((val: string): boolean => !val),
+                takeUntil(this.$destroy),
+            )
+            .subscribe(() => {
+                const country: string = this.configService.get<string>('appConfig.country');
+                form.get('countryCode').setValue(country);
+
+                if (this.configService.get<boolean>('$base.registration.filterCurrencyByCountry')) {
+                    this.eventService.emit({
+                        name: 'SELECT_CHOSEN_COUNTRYCODE',
+                        data: {
+                            value: country,
+                        },
+                    });
+                }
+            });
     }
 
     /**
