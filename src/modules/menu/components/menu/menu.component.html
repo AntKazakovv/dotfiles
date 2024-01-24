@@ -2,14 +2,12 @@
 
     <ng-container *ngIf="!item.params?.state?.parent">
         <div class="{{$class}}__item {{$class}}__item--sref {{$class}}__item--{{item.class}}">
-
-            <a *ngIf="item.params?.state?.activeEq"
-               class="{{$class}}__link"
+            <a class="{{$class}}__link"
                [attr.data-wlc-element]="item.wlcElement"
-               [uiSref]="item.params?.state?.name"
-               [uiParams]="item.params?.state?.params"
-               [uiOptions]="item.params?.state?.options"
-               uiSrefActiveEq="active">
+               [wlc-link]="[item.params?.state.name, item.params?.state?.params]"
+               [wlc-link-options]="item.params?.state?.options"
+               wlc-link-active="active"
+               [wlc-link-active-opt]="{exact: item.params?.state?.activeEq}">
 
                 <span *ngIf="$params.theme === 'first'"
                       wlc-icon
@@ -33,51 +31,14 @@
                     </span>
                 </span>
             </a>
-
-            <a *ngIf="!item.params?.state?.activeEq"
-               class="{{$class}}__link"
-               [uiSref]="item.params?.state?.name"
-               [uiParams]="item.params?.state?.params"
-               [uiOptions]="item.params?.state?.options"
-               [attr.data-wlc-element]="item.wlcElement"
-               [attr.title]="!$params.tooltip?.use ? menuItemName(item) : null"
-               uiSrefActive="active">
-
-                <span *ngIf="$params.theme === 'first'"
-                      wlc-icon
-                      class="{{$class}}__icon-active"
-                      [iconUrl]="'/wlc/icons/menu-active.svg'"></span>
-                <span wlc-icon
-                      class="{{$class}}__icon"
-                      [iconPath]="getIcon(item)"
-                      [fallback]="getIconFallback(item)"
-                      [tooltip]="$params.tooltip?.use && !item.disableTooltip && menuItemName(item)"
-                      container="body"
-                      boundariesElement="viewport"
-                      containerClass="wlc-tooltip--compact {{$params.tooltip?.containerClass}}"
-                      placement="right"></span>
-                <span class="{{$class}}__link-text">
-                    <span>{{menuItemName(item)}}</span>
-                    <span *ngIf="item.counterParams"
-                          wlc-counter
-                          [inlineParams]="item.counterParams"
-                    ></span>
-                    <span *ngIf="useArrows"
-                          wlc-icon
-                          class="{{$class}}__icon-arrow"
-                          iconPath="{{menuItemArrow(item)}}">
-                    </span>
-                </span>
-            </a>
         </div>
     </ng-container>
 
     <ng-container *ngIf="item.params?.state?.parent" #srefWithParent>
         <div class="{{$class}}__item {{$class}}__item--sref {{$class}}__item--{{item.class}}">
             <a class="{{$class}}__link"
-               [uiSref]="item.params?.state?.name"
-               [uiParams]="item.params?.state?.params"
-               [uiOptions]="item.params?.state?.options"
+               [wlc-link]="[item.params?.state?.name, item.params?.state?.params]"
+               [wlc-link-options]="item.params?.state?.options"
                [attr.data-wlc-element]="item.wlcElement"
                [class.active]="isActive(item.params?.state?.parent, item.params?.state?.params)">
                 <span *ngIf="$params.theme === 'first'"
@@ -209,8 +170,10 @@
         (mouseenter)="$params.dropdowns?.expandableOnHover && setScrollHoverMenu()">
 
         <a class="{{$class}}__link"
-            [uiSref]="$params.dropdowns?.expandableOnHover ? item.parent?.params?.state?.name : '#'"
-            [uiParams]="$params.dropdowns?.expandableOnHover && item.parent?.params?.state?.params"
+            [wlc-link]="[
+                $params.dropdowns?.expandableOnHover ? item.parent?.params?.state?.name : '#',
+                $params.dropdowns?.expandableOnHover && item.parent?.params?.state?.params,
+            ]"
             [attr.data-wlc-element]="item.wlcElement || item.parent.wlcElement"
             (click)="toggleDropdown(item)">
 

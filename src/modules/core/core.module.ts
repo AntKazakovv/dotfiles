@@ -140,7 +140,11 @@ import {ParallaxMovementDirective} from './directives/parallax-movement.directiv
 import {AuthDirective} from './directives/auth.directive';
 import {WlcLetDirective} from './directives/wlcLet.directive';
 import {ResizedDirective} from 'wlc-engine/modules/core/directives/resized.directive';
-import {LinkDirective} from './directives/link.directive';
+// link directives
+import {LinkAnchorDirective} from './directives/link/link-anchor.directive';
+import {LinkDirective} from './directives/link/link.directive';
+import {LinkActiveDirective} from './directives/link/link-active.directive';
+import {LinkStatusDirective} from './directives/link/link-status.directive';
 //  -- DIRECTIVES IMPORTS END  --;
 
 // -- INTERCEPTOR IMPORTS STARTS --;
@@ -338,7 +342,12 @@ export const services = {
         LayoutComponent,
         LicenseComponent,
         LinkBlockComponent,
+        /** START router facade directives */
         LinkDirective,
+        LinkStatusDirective,
+        LinkAnchorDirective,
+        LinkActiveDirective,
+        /** END router facade directives */
         LoaderComponent,
         LoginSignupComponent,
         LogoComponent,
@@ -420,7 +429,12 @@ export const services = {
         LayoutComponent,
         LicenseComponent,
         LinkBlockComponent,
+        /** START router facade directives */
         LinkDirective,
+        LinkStatusDirective,
+        LinkAnchorDirective,
+        LinkActiveDirective,
+        /** END router facade directives */
         LoaderComponent,
         LoginSignupComponent,
         LogoComponent,
