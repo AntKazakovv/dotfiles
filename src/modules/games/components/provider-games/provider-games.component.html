@@ -18,10 +18,9 @@
 
 <ng-template #headerDefault>
     <div class="{{$class}}__logo"
-        wlc-icon-list-item
+        wlc-wrapper
         [attr.data-wlc-element]="icon.wlcElement"
-        [icon]="icon"
-        [inlineParams]="{class: $class + '-logo'}">
+        [inlineParams]="icon">
     </div>
 
     <ng-container *ngIf="$params.type !== 'mobile-app'">
@@ -34,10 +33,9 @@
     <h1 class="{{$class}}__title">{{provider.alias | translate}}</h1>
 
     <div class="{{$class}}__logo"
-        wlc-icon-list-item
+        wlc-wrapper
         [attr.data-wlc-element]="icon.wlcElement"
-        [icon]="icon"
-        [inlineParams]="{class: $class + '-logo'}">
+        [inlineParams]="icon">
     </div>
 
     <div class="{{$class}}__subtitle">

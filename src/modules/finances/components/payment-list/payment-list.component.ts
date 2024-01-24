@@ -113,13 +113,13 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
 
     public systems: PaymentSystem[] = [];
     public systems$: BehaviorSubject<PaymentSystem[]> = new BehaviorSubject(null);
-    public itemsMap: Map<number, IconModel> = new Map([]);
+    public itemsMap: Map<number, IWrapperCParams> = new Map([]);
 
     public ready: boolean = false;
     public asModal: boolean;
     public showTable: boolean;
     public classList: string = '';
-    public activeIcon: IconModel;
+    public activeIcon: IWrapperCParams;
     public activeName: string = '';
     public useBonuses: boolean = false;
     public useTags: boolean = false;
@@ -402,7 +402,18 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         const index = _findIndex(this.systems, (item) => item.id === this.currentSystem?.id);
 
         if (index !== -1) {
-            this.activeIcon = this.itemsMap.get(this.currentSystem.id);
+            const activeIconModel: IconModel = this.itemsMap.get(this.currentSystem.id).components[0].params['icon'];
+            this.activeIcon = {
+                components: [
+                    {
+                        name: 'icon-list.wlc-icon-list-item',
+                        params: {
+                            icon: activeIconModel,
+                            class: this.$class + '-item',
+                        },
+                    },
+                ],
+            };
             this.activeName = this.systems[index].name;
         }
 
@@ -614,28 +625,38 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         this.cdr.markForCheck();
     }
 
-    protected setIcon(item: PaymentSystem, showAs: 'svg' | 'img', bg: TIconColorBg): IconModel {
-
-        return new IconModel(
-            {
-                component: 'PaymentListComponent',
-                method: 'setPaymentsIconsList',
-            },
-            this.isCryptoInvoices
-                ? this.cryptoIterator(item)
-                : this.merchantsPaymentsIterator('payments', {
-                    showAs: showAs,
-                    wlcElement: 'block_payment-' + this.wlcElementTail(item.alias),
-                    nameForPath: item.alias,
-                    alt: item.name,
-                    colorIconBg: bg,
-                    imgPath: this.isDeposit
-                        ? item.image
-                        : (item.imageWithdraw || item.image),
-                    defaultImages: item.defaultImages,
-                    paymentType: this.$params.paymentType,
-                }),
-        );
+    protected setIcon(item: PaymentSystem, showAs: 'svg' | 'img', bg: TIconColorBg): IWrapperCParams {
+        return {
+            components: [
+                {
+                    name: 'icon-list.wlc-icon-list-item',
+                    params: {
+                        icon: new IconModel(
+                            {
+                                component: 'PaymentListComponent',
+                                method: 'setPaymentsIconsList',
+                            },
+                            this.isCryptoInvoices
+                                ? this.cryptoIterator(item)
+                                : this.merchantsPaymentsIterator('payments', {
+                                    showAs: showAs,
+                                    wlcElement: 'block_payment-' + this.wlcElementTail(item.alias),
+                                    nameForPath: item.alias,
+                                    alt: item.name,
+                                    colorIconBg: bg,
+                                    imgPath: this.isDeposit
+                                        ? item.image
+                                        : (item.imageWithdraw || item.image),
+                                    defaultImages: item.defaultImages,
+                                    paymentType: this.$params.paymentType,
+                                }),
+                        ),
+                        class: this.$class + '-item',
+                        logImageErrorChild: this.logImageError,
+                    },
+                },
+            ],
+        };
     }
 
     protected cryptoIterator(system: PaymentSystem): IIconParams {

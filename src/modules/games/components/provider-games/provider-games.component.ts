@@ -17,6 +17,8 @@ import {
     AbstractComponent,
     ConfigService,
     GlobalHelper,
+    IWrapperCParams,
+    TIconShowAs,
 } from 'wlc-engine/modules/core';
 import {
     CategoryModel,
@@ -48,7 +50,7 @@ export class ProviderGamesComponent extends AbstractComponent implements OnInit 
     public override $params: Params.IProviderGamesCParams;
 
     public provider: MerchantModel;
-    public icon: IconModel;
+    public icon: IWrapperCParams;
     public ready: boolean = false;
     public error: boolean = false;
     public gamesGridList: IGamesGridCParams[] = [];
@@ -97,7 +99,7 @@ export class ProviderGamesComponent extends AbstractComponent implements OnInit 
             return;
         }
 
-        this.setIconModel();
+        this.setIconItem();
         this.addModifiers(this.provider.menuId);
         this.createGamesGridList();
     }
@@ -201,13 +203,13 @@ export class ProviderGamesComponent extends AbstractComponent implements OnInit 
         this.cdr.markForCheck();
     }
 
-    protected setIconModel(): void {
+    protected setIconItem(): void {
         const {alias, wlcElement} = this.provider;
         const {iconType, colorIconBg} = this.$params;
-        const showAs = iconType === 'black' ? 'svg' : 'img';
-        const iconColor = (iconType === 'color' && colorIconBg) ? '/' + colorIconBg : null;
-        const iconPath = `/merchants/svg/${iconType}${iconColor || ''}/${GlobalHelper.toSnakeCase(alias)}.svg`;
-        this.icon = new IconModel(
+        const showAs: TIconShowAs = iconType === 'black' ? 'svg' : 'img';
+        const iconColor: string = (iconType === 'color' && colorIconBg) ? '/' + colorIconBg : null;
+        const iconPath: string = `/merchants/svg/${iconType}${iconColor || ''}/${GlobalHelper.toSnakeCase(alias)}.svg`;
+        const iconModel: IconModel = new IconModel(
             {
                 component: 'ProviderGamesComponent',
                 method: 'setIconModel',
@@ -219,6 +221,17 @@ export class ProviderGamesComponent extends AbstractComponent implements OnInit 
                 iconUrl: `${showAs === 'img' ? GlobalHelper.gstaticUrl : ''}${iconPath}`,
             },
         );
+        this.icon = {
+            components: [
+                {
+                    name: 'icon-list.wlc-icon-list-item',
+                    params: {
+                        icon: iconModel,
+                        class: this.$class + '-logo',
+                    },
+                },
+            ],
+        };
     }
 
     protected initListeners(): void {
@@ -230,5 +243,4 @@ export class ProviderGamesComponent extends AbstractComponent implements OnInit 
             }
         });
     }
-
 }

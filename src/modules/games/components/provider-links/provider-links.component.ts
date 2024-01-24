@@ -28,6 +28,7 @@ import {
     ColorThemeService,
     ISlide,
     ISliderCParams,
+    IWrapperCParams,
 } from 'wlc-engine/modules/core';
 import {
     GamesCatalogService,
@@ -36,7 +37,6 @@ import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.mod
 import {gamesEvents} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {IconModel} from 'wlc-engine/modules/icon-list/system/models/icon-list-item.model';
 import {Game} from 'wlc-engine/modules/games/system/models';
-
 import * as Params from './provider-links.params';
 
 @Component({
@@ -54,7 +54,7 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
     @ViewChild('providersList') providersList: TemplateRef<any>;
 
     public override $params: Params.IProviderLinksCParams;
-    public items: IconModel[] = [];
+    public items: IWrapperCParams[] = [];
     public ready: boolean = false;
     public slides: ISlide[] = [];
     public sliderParams: ISliderCParams = {
@@ -62,7 +62,7 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
     };
     public sliderConfig: ISliderCParams;
 
-    protected $itemsChanges = new BehaviorSubject<IconModel[]>([]);
+    protected $itemsChanges = new BehaviorSubject<IWrapperCParams[]>([]);
     protected modalLinkParams: Params.IProviderLinksCParams;
 
     constructor(
@@ -149,7 +149,7 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
         const merchants: MerchantModel[] = _sortedUniqBy(this.gamesCatalogService.getFilteredMerchants(),
             (item: MerchantModel) => item.alias);
 
-        this.items = this.convertItemsToIconModel<MerchantModel>(
+        const iconModels: IconModel[] = this.convertItemsToIconModel<MerchantModel>(
             merchants,
             (item) => {
                 return {
@@ -170,6 +170,21 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
                 };
             },
         );
+
+        this.items = iconModels.map((iconModel: IconModel) => {
+            return {
+                components: [
+                    {
+                        name: 'icon-list.wlc-icon-list-item',
+                        params: {
+                            icon: iconModel,
+                            infoText: this.getInfoText(iconModel),
+                            class: this.$class + '-item',
+                        },
+                    },
+                ],
+            };
+        });
 
         this.$itemsChanges.next(this.items);
         this.cdr.markForCheck();

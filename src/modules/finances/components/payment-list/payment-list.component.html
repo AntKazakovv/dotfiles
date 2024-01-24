@@ -64,10 +64,9 @@
             [iconUrl]="'wlc/icons/currencies/' + currentSystem.cryptoTicker + '.svg' | lowercase | proxyStaticUrl">
         </span>
         <span *ngSwitchDefault
-            wlc-icon-list-item
+            wlc-wrapper
             class="{{$class}}__btn-modal-image"
-            [icon]="activeIcon"
-            [inlineParams]="{class: $class + '-item'}">
+            [inlineParams]="activeIcon">
         </span>
     </ng-container>
     <span *ngIf="!currentSystem && $params.noSelectedButton?.use"
@@ -132,10 +131,9 @@
 
     <div class="{{$class}}__logo-wrapper">
         <span *ngIf="activeIcon && !currentSystem.cryptoInvoices"
-            wlc-icon-list-item
+            wlc-wrapper
             class="{{$class}}__logo"
-            [icon]="activeIcon"
-            [inlineParams]="{class: $class + '-item'}">
+            [inlineParams]="activeIcon">
         </span>
         <span *ngIf="currentSystem.cryptoInvoices" class="{{$class}}__crypto-logo"
             wlc-icon
@@ -182,7 +180,7 @@
         class="{{$class}}__item"
         [class.disabled]="system.disabledBy"
         [attr.data-wlc-element]="'block_payment-item-' + system.id">
-        <button wlc-icon-list-item
+        <button wlc-wrapper
                 class="{{$class}}__button"
                 [class.active]="system.id === currentSystem?.id || system.id === selectedParentID"
                 [class.disabled]="system.disabledBy"
@@ -190,8 +188,7 @@
                 [attr.aria-label]="system.name"
                 [attr.data-wlc-element]="'block_payment-item-name'"
                 [attr.title]="system.nameWithdraw"
-                [inlineParams]='{icon: itemsMap.get(system.id), class: $class + "-item"}'
-                [logImageErrorChild]="logImageError"
+                [inlineParams]="itemsMap.get(system.id)"
                 (click)='selectPayment(system)'>
         </button>
         <div *ngIf="system.disabledBy"
@@ -213,7 +210,7 @@
                     [class.disabled]="system.disabledBy"
                     [attr.data-wlc-element]="'block_payment-item-' + system.id">
 
-                    <button wlc-icon-list-item
+                    <button wlc-wrapper
                             class="{{$class}}__button"
                             [class.active]="system.id === currentSystem?.id || system.id === selectedParentID"
                             [class.disabled]="system.disabledBy"
@@ -221,8 +218,7 @@
                             [attr.aria-label]="system.name"
                             [attr.data-wlc-element]="'block_payment-item-name'"
                             [attr.title]="system.nameWithdraw"
-                            [inlineParams]='{icon: itemsMap.get(system.id), class: $class + "-item"}'
-                            [logImageErrorChild]="logImageError"
+                            [inlineParams]="itemsMap.get(system.id)"
                             (click)='selectPayment(system)'>
                     </button>
                     <div *ngIf="system.disabledBy"

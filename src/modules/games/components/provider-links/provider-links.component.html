@@ -68,10 +68,8 @@
 <ng-template #iconItem let-item="item">
     <div class="{{$class}}__item {{item.modifier}}"
         [attr.data-wlc-element]="item.wlcElement"
-        wlc-icon-list-item
-        [icon]="item"
-        [infoText]="getInfoText(item)"
-        [inlineParams]='{class: $class + "-item"}'
+        wlc-wrapper
+        [inlineParams]="item"
         ></div>
 </ng-template>
 
