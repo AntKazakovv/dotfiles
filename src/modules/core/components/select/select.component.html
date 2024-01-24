@@ -65,8 +65,13 @@
                 class="{{$class}}__dropdown-item"
                 [ngClass]="{'active': activeItemIndex === $index}"
                 [attr.data-wlc-element]="fieldWlcElement + '_' + (item.value || 'null')"
-                [innerHtml]="item.title.toString() | translate | hlSubstr :searchText :$params.insensitiveSearch"
                 (click)="choseSelectByClick(item, $index)">
+                <span [innerHtml]="item.title.toString() | translate | hlSubstr :searchText :$params.insensitiveSearch">
+                </span>
+                <ng-container *ngIf="item.note"
+                    [ngTemplateOutlet]="note"
+                    [ngTemplateOutletContext]="{$implicit: item.note}">
+                </ng-container>
             </li>
         </ng-container>
         <li *ngIf="$params.useSearch && !foundItems.length"
@@ -98,5 +103,13 @@
         <img [src]="item.icon" wlc-fallback />
         <span [innerHtml]="item.title.toString() | translate | hlSubstr :searchText :$params.insensitiveSearch">
         </span>
+        <ng-container *ngIf="item.note"
+            [ngTemplateOutlet]="note"
+            [ngTemplateOutletContext]="{$implicit: item.note}">
+        </ng-container>
     </li>
+</ng-template>
+
+<ng-template #note let-note>
+    <span class="{{$class}}__dropdown-item-note">{{note | translate}}</span>
 </ng-template>

@@ -245,6 +245,20 @@
             }
         }
     }
+
+    &.wlc-select--with-note {
+
+        .wlc-select__dropdown {
+            width: fit-content;
+
+            &-item {
+
+                &-note {
+                    margin: ef.get-value($baseSettings, 'noteMargin');
+                }
+            }
+        }
+    }
 }
 
 

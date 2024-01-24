@@ -142,7 +142,11 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
         if (this.foundItems.length && _has(this.foundItems[0], 'icon')) {
             this.$params.useIcon = true;
             this.addModifiers('with-icon');
-        };
+        }
+
+        if (this.foundItems.length && _has(this.foundItems[0], 'note')) {
+            this.addModifiers('with-note');
+        }
 
         if (this.$params.autoSelect) {
             const country = this.configService.get<string>('appConfig.country');

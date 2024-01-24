@@ -60,12 +60,12 @@ export interface ISelectOptions<V = unknown> {
      * Need to enable config $modules.user.formElements.showIcon
      */
     icon?: string;
+    note?: string;
 }
 
 export interface ISelectOptionsWithIcon {
     use: boolean;
     components: TComponentsWithIcon[];
-    isoByPhoneCode?: IIndexing<string>;
 }
 
 export const defaultParams: Partial<ISelectCParams> = {

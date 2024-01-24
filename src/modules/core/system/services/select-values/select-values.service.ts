@@ -9,6 +9,7 @@ import {
     distinctUntilChanged,
     takeUntil,
     switchMap,
+    tap,
 } from 'rxjs/operators';
 import {
     Subject,
@@ -21,6 +22,7 @@ import {
 } from 'luxon';
 
 import _filter from 'lodash-es/filter';
+import _find from 'lodash-es/find';
 import _map from 'lodash-es/map';
 import _range from 'lodash-es/range';
 import _sortBy from 'lodash-es/sortBy';
@@ -76,6 +78,7 @@ export class SelectValuesService {
     protected merchantsList: TConstantValue = null;
     protected configSelectWithIcon: Params.ISelectOptionsWithIcon;
     protected gamesCatalogService: GamesCatalogService;
+    protected isoByPhoneCode: IIndexing<string>;
 
     private constantValues: TConstantValues = {};
     private optionFunctions = new Map<string, () => TConstantValue>([
@@ -101,8 +104,10 @@ export class SelectValuesService {
             this.dayList.next(this.getDateList('days').value);
         });
 
-        if (this.configService.get('$modules.user.formElements.showIcon.use')) {
-            this.prepareSelectWithIcon();
+        if (this.configService.get('$base.forms.formElements.showIcon.use')
+            || this.configService.get('$base.forms.formElements.showCountryNamesForPhoneCodes')
+        ) {
+            this.prepareSelectWithDescription();
         }
     }
 
@@ -195,27 +200,39 @@ export class SelectValuesService {
      */
     public getPhoneCodes(): TConstantValue {
         const phoneCodes = new BehaviorSubject<Params.ISelectOptions[]>([]);
+        const showIcon = this.configSelectWithIcon?.components?.includes('phoneCode');
+        const showCountryNames = this.configService.get<boolean>(
+            '$base.forms.formElements.showCountryNamesForPhoneCodes',
+        );
+        let countries: ICountry[] = [];
+
         this.configService.get<BehaviorSubject<ICountry[]>>('countries')
-            .pipe(map(data => {
-                return _map(_sortBy(
-                    _filter(
-                        _uniqBy(data, (country) => country.phoneCode),
-                        (country) => !!country.phoneCode,
-                    ),
-                    (country) => +country.phoneCode,
-                ), (country: ICountry) => {
-                    const countryData: Params.ISelectOptions = {
-                        title: `+${country.phoneCode}`,
-                        value: `+${country.phoneCode}`,
-                    };
+            .pipe(
+                tap(data => countries = data),
+                map(data => {
+                    return _map(_sortBy(
+                        _filter(
+                            _uniqBy(data, (country: ICountry) => country.phoneCode),
+                            (country) => !!country.phoneCode,
+                        ),
+                        (country) => +country.phoneCode,
+                    ), (country: ICountry) => {
+                        const countryData: Params.ISelectOptions<string> = {
+                            title: `+${country.phoneCode}`,
+                            value: `+${country.phoneCode}`,
+                        };
 
-                    if (this.configSelectWithIcon?.components?.includes('phoneCode')) {
-                        countryData.icon = this.getCountryFlag(country, true);
-                    }
+                        if (showIcon) {
+                            countryData.icon = this.getCountryFlag(country, true);
+                        }
 
-                    return countryData;
-                });
-            })).subscribe(val => phoneCodes.next(val));
+                        if (showCountryNames) {
+                            countryData.note = this.getCountryName(countries, country);
+                        }
+
+                        return countryData;
+                    });
+                })).subscribe(val => phoneCodes.next(val));
 
         return phoneCodes;
     }
@@ -360,10 +377,30 @@ export class SelectValuesService {
         let iso = country.iso2;
 
         if (phoneCode) {
-            iso = _get(this.configSelectWithIcon.isoByPhoneCode, `+${country.phoneCode}`, country.iso2);
+            iso = _get(this.isoByPhoneCode, `+${country.phoneCode}`, country.iso2);
         }
 
         return `${GlobalHelper.gstaticUrl}/wlc/flags/4x3/${iso}.svg`;
+    }
+
+    /**
+     * The method return country name check custom settings by iso2
+     *
+     * @param {ICountry[]} countries
+     * @param {ICountry} country - current checked country
+     * @returns {string} country name
+     */
+    private getCountryName(countries: ICountry[], country: ICountry): string {
+        const val: string | undefined = _get(
+            this.isoByPhoneCode,
+            `+${country.phoneCode}`,
+        );
+
+        if (val) {
+            return _find(countries, (v) => v.iso2 === val)?.title || country.title;
+        }
+
+        return country.title;
     }
 
     /**
@@ -387,25 +424,27 @@ export class SelectValuesService {
     }
 
     /**
-     * The method prepare config by select with icon
+     * The method prepare config by select with icon and country name
      *
      * @returns {void}
      */
-    private prepareSelectWithIcon(): void {
-        this.configSelectWithIcon = _cloneDeep(this.configService.get('$modules.user.formElements.showIcon'));
-
-        if (this.configSelectWithIcon.components?.includes('phoneCode')) {
-            this.configSelectWithIcon.isoByPhoneCode = _merge(
-                {
-                    '+7': 'ru',
-                    '+1': 'ca',
-                    '+44': 'im',
-                    '+61': 'au',
-                    '+212': 'ma',
-                },
-                this.configSelectWithIcon.isoByPhoneCode,
+    private prepareSelectWithDescription(): void {
+        if (this.configService.get<boolean>('$base.forms.formElements.showIcon.use')) {
+            this.configSelectWithIcon = _cloneDeep(
+                this.configService.get<Params.ISelectOptionsWithIcon>('$base.forms.formElements.showIcon'),
             );
         }
+
+        this.isoByPhoneCode = _merge(
+            {
+                '+7': 'ru',
+                '+1': 'ca',
+                '+44': 'im',
+                '+61': 'au',
+                '+212': 'ma',
+            },
+            this.configService.get<IIndexing<string>>('$base.forms.formElements.isoByPhoneCode'),
+        );
     }
 
     /**

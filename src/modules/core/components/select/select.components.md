@@ -24,7 +24,7 @@ Example **useSearch** && **noResultText**:
     },
 },
 ```
-### `$modules.user.formElements.showIcon.components`
+### `$base.user.formElements.showIcon.components`
 Массив элементов форм, для которых нужно включить отображение флагов.
 Для отображения флагов у элементов селектора стран и кодов телефона.
 
@@ -38,7 +38,7 @@ formElements: {
 }
 ```
 
-### `$modules.user.formElements.showIcon.isoByPhoneCode`
+### `$base.forms.formElements.showIcon.isoByPhoneCode`
 Объект, в котором можно задать к какой стране относится код телефона.
 
 Example
@@ -47,10 +47,10 @@ formElements: {
     showIcon: {
         use: true,
         components: ['phoneCode', 'countryCode'],
-        isoByPhoneCode: {
-            '+7': 'kz',
-        }
-    }
+    },
+    isoByPhoneCode: {
+        '+7': 'kz',
+    },
 }
 ```
 
