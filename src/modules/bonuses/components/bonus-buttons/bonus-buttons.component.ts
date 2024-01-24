@@ -10,11 +10,13 @@ import {
     TemplateRef,
     ElementRef,
     EventEmitter,
+    AfterViewChecked,
 } from '@angular/core';
 
 import {UIRouter} from '@uirouter/core';
 import _map from 'lodash-es/forEach';
 import _merge from 'lodash-es/merge';
+import _forOwn from 'lodash-es/forOwn';
 
 import {
     AbstractComponent,
@@ -24,7 +26,9 @@ import {
     EventService,
     InjectionService,
     GlobalHelper,
+    IButtonCParams,
 } from 'wlc-engine/modules/core';
+import {ButtonComponent} from 'wlc-engine/modules/core/components/button/button.component';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
 import {SportsbookService} from 'wlc-engine/modules/sportsbook';
@@ -40,7 +44,7 @@ import * as Params from './bonus-buttons.params';
     styleUrls: ['./styles/bonus-buttons.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BonusButtonsComponent extends AbstractComponent implements OnInit {
+export class BonusButtonsComponent extends AbstractComponent implements OnInit, AfterViewChecked {
     @Input() public inlineParams: Partial<Params.IBonusButtonsCParams>;
     @Input() public bonus: Bonus;
     @Input() public bonusItemTheme: BonusItemTheme;
@@ -52,9 +56,12 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
     @Output() public showGames = new EventEmitter<void>();
 
     @ViewChild('cancelModal') public tplModal: TemplateRef<ElementRef>;
+    @ViewChild('subscribeModal') public subscribeModal: TemplateRef<ElementRef>;
+    @ViewChild(ButtonComponent) protected someExistedButton: ButtonComponent;
     public override $params: Params.IBonusButtonsCParams;
     public isAuth: boolean;
     public isDisableButtons: boolean;
+    public isEmpty: boolean = false;
 
     private static sportsbookService: SportsbookService;
     private componentWillBeDestroyedNow: boolean = false;
@@ -77,7 +84,7 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
     }
 
     public override ngOnInit(): void {
-        super.ngOnInit(this.inlineParams);
+        super.ngOnInit(GlobalHelper.prepareCParams(this, ['isInsideModal']));
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
 
         if (this.size) {
@@ -93,6 +100,31 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
 
         if (this.configService.get<boolean>('$base.useButtonPending')) {
             GlobalHelper.addPendingToBtnsParams(this.$params.btnsParams);
+        }
+
+        /**
+         * We must guarantee that each btn has wlcElement for correct "isEmpty" working
+         * **/
+        _forOwn(this.$params.btnsParams, (btn: IButtonCParams, key: string): void => {
+            if (!btn.wlcElement) {
+                btn.wlcElement = key;
+            }
+        });
+    }
+
+    /**
+     * Check if component has no buttons (except 'Close' and 'Read more' buttons)
+     */
+    public ngAfterViewChecked(): void {
+        const isEmpty: boolean = !this.someExistedButton ||
+            [
+                this.$params.btnsParams.closeBtnParams.wlcElement,
+                this.$params.btnsParams.readMoreBtnParams.wlcElement,
+            ].includes(this.someExistedButton.$params?.wlcElement);
+
+        if (this.isEmpty !== isEmpty) {
+            this.isEmpty = isEmpty;
+            this.cdr.detectChanges();
         }
     }
 
@@ -117,20 +149,62 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
     }
 
     /**
-     * Determines show or not the unsubscribe button in template.
-     * Not shown in the inventory bonuses cards, but shown inside modal of them.
+     * Show read more button on card if there are no other buttons.
      *
      * @returns {boolean}
      */
+    public get isShowReadMoreBtn(): boolean {
+        return this.isEmpty && !this.$params.isInsideModal;
+    }
+
+    /**
+     * Show close button inside modal if there are no other buttons.
+     *
+     * @returns {boolean}
+     */
+    public get isShowCloseBtn(): boolean {
+        return this.isEmpty && this.$params.isInsideModal;
+    }
+
+    /**
+     * Not shown in the unavailable bonuses cards.
+     *
+     * @returns {boolean}
+     */
+    public get isShowDepositBtn(): boolean {
+        return this.bonus.canDeposit && !this.bonus.isUnavailableForActivation;
+    }
+
+    public get isShowPlayBtn(): boolean {
+        return this.bonus.canPlay && !this.bonus.isUnavailableForActivation;
+    }
+
+    public get isShowTakeBtn(): boolean {
+        return this.bonus.canInventory && !this.bonus.isUnavailableForActivation;
+    }
+
+    public get isShowOpenBtn(): boolean {
+        return this.bonus.canOpen && !this.bonus.isUnavailableForActivation;
+    }
+
+    /**
+     * Not shown in the inventoried bonus card, but shown inside modal of them.
+     * Not shown in the unavailable bonus card, but shown inside modal of them.
+     * @returns {boolean}
+     */
     public get isShowUnsubscribeBtn(): boolean {
-        return this.bonus.canUnsubscribe && (!this.bonus.inventoried || this.$params.isInsideModal);
+        return this.bonus.canUnsubscribe
+            && (!this.bonus.inventoried || this.$params.isInsideModal)
+            && (!this.bonus.isUnavailableForActivation || this.$params.isInsideModal);
     }
 
     /**
      * Get inventory bonus
      */
     public async getInventory(): Promise<void> {
+        this.$params.btnsParams.takeBtnParams.pending$?.next(true);
         const bonus: Bonus = await this.bonusesService.takeInventory(this.bonus);
+        this.$params.btnsParams.takeBtnParams.pending$?.next(false);
 
         if (bonus) {
             this.bonus = bonus;
@@ -139,30 +213,36 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
     }
 
     /**
-     * Subscribe for a bonus
+     * Subscribe for a bonus event handler
      */
     public async join(): Promise<void> {
-        this.$params.btnsParams.subscribeBtnParams.pending$?.next(true);
-        const bonus = await this.bonusesService.subscribeBonus(this.bonus);
-        this.$params.btnsParams.subscribeBtnParams.pending$?.next(false);
-
-        if (bonus) {
-            this.bonus = bonus;
-            this.bonusesService.clearPromoBonus();
-            this.hideActiveModal('bonus-modal');
-
-            if (bonus.event === 'deposit' &&
-                this.configService.get<boolean>('$base.finances.redirectAfterDepositBonus')) {
-                this.router.stateService.go(
-                    this.$params.promoLinks?.deposit?.state || 'app.profile.cash.deposit',
-                    this.$params.promoLinks?.deposit?.params || {},
-                );
-            }
+        if (this.bonus.stackIsUnavailable) {
+            await this.modalService.showModal({
+                id: 'bonus-info',
+                modalTitle: gettext('Confirmation'),
+                modifier: 'confirmation',
+                showConfirmBtn: true,
+                confirmBtnText: gettext('Yes'),
+                closeBtnParams: {
+                    themeMod: 'secondary',
+                    common: {
+                        text: gettext('No'),
+                    },
+                },
+                templateRef: this.subscribeModal,
+                textAlign: 'center',
+                onConfirm: async () => {
+                    await this.subscribe();
+                },
+                dismissAll: true,
+            });
+        } else {
+            await this.subscribe();
         }
     }
 
     /**
-     * Leave from active bonus
+     * Leave from active bonus event handler
      */
     public leave(): void {
         this.modalService.showModal({
@@ -202,6 +282,29 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
         if (bonus) {
             this.bonus = bonus;
             this.hideActiveModal('bonus-modal');
+        }
+    }
+
+    /**
+     * Subscribe for a bonus
+     */
+    public async subscribe(): Promise<void> {
+        this.$params.btnsParams.subscribeBtnParams.pending$?.next(true);
+        const bonus = await this.bonusesService.subscribeBonus(this.bonus);
+        this.$params.btnsParams.subscribeBtnParams.pending$?.next(false);
+
+        if (bonus) {
+            this.bonus = bonus;
+            this.bonusesService.clearPromoBonus();
+            this.hideActiveModal('bonus-modal');
+
+            if (bonus.event === 'deposit' &&
+                this.configService.get<boolean>('$base.finances.redirectAfterDepositBonus')) {
+                this.router.stateService.go(
+                    this.$params.promoLinks?.deposit?.state || 'app.profile.cash.deposit',
+                    this.$params.promoLinks?.deposit?.params || {},
+                );
+            }
         }
     }
 

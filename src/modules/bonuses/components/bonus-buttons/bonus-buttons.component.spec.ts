@@ -47,10 +47,10 @@ describe('BonusButtonsComponent', () => {
             'canInventory': false,
             'canUnsubscribe': false,
             'canLeave': false,
-            'canReadMore': false,
             'canDeposit': false,
             'canPlay': false,
             'canOpen': false,
+            'isUnavailableForActivation': false,
         });
         injectParams = {
             theme: 'default',
@@ -148,7 +148,7 @@ describe('BonusButtonsComponent', () => {
         component.isAuth = true;
         fixture.detectChanges();
 
-        expect(nativeElement.querySelector('button[wlcelement="button_subscribe"]')).toBeTruthy();
+        expect(nativeElement.querySelector('button[data-wlc-element="button_subscribe"]')).toBeTruthy();
     });
 
     it('-> checking for the presence of an inventoriedBtn', () => {
@@ -158,7 +158,7 @@ describe('BonusButtonsComponent', () => {
         component.isAuth = true;
         fixture.detectChanges();
 
-        expect(nativeElement.querySelector('button[wlcelement="button_take"]')).toBeTruthy();
+        expect(nativeElement.querySelector('button[data-wlc-element="button_take"]')).toBeTruthy();
     });
 
     it('-> checking for the presence of an unsubscribeBtn', () => {
@@ -166,10 +166,10 @@ describe('BonusButtonsComponent', () => {
         component.ngOnInit();
         component.bonusItemTheme = 'default';
         component.isAuth = true;
-        component.isInsideModal = true;
+        component.$params.isInsideModal = true;
         fixture.detectChanges();
 
-        expect(nativeElement.querySelector('button[wlcelement="button_unsubscribe"]')).toBeTruthy();
+        expect(nativeElement.querySelector('button[data-wlc-element="button_unsubscribe"]')).toBeTruthy();
     });
 
     it('-> checking for the presence of an leaveBtn', () => {
@@ -179,7 +179,7 @@ describe('BonusButtonsComponent', () => {
         component.isAuth = true;
         fixture.detectChanges();
 
-        expect(nativeElement.querySelector('button[wlcelement="button_leave"]')).toBeTruthy();
+        expect(nativeElement.querySelector('button[data-wlc-element="button_cancel"]')).toBeTruthy();
     });
 
     it('-> checking for the presence of an openBtn', () => {
@@ -189,18 +189,7 @@ describe('BonusButtonsComponent', () => {
         component.isAuth = true;
         fixture.detectChanges();
 
-        expect(nativeElement.querySelector('button[wlcelement="button_open-lootbox"]')).toBeTruthy();
-    });
-
-    it('-> checking for the presence of an readMoreBtn', () => {
-        resetProp('canReadMore', true);
-        component.ngOnInit();
-        component.bonusItemTheme = 'default';
-        component.isAuth = true;
-        component.isInsideModal = false;
-        fixture.detectChanges();
-
-        expect(nativeElement.querySelector('button[wlcelement="button_read-more"]')).toBeTruthy();
+        expect(nativeElement.querySelector('button[data-wlc-element="button_open-lootbox"]')).toBeTruthy();
     });
 
     it('-> checking for the presence of an chooseBonusBtn', () => {
@@ -210,7 +199,7 @@ describe('BonusButtonsComponent', () => {
         component.isChooseBtn = true;
         fixture.detectChanges();
 
-        expect(nativeElement.querySelector('button[wlcelement="button_choose"]')).toBeTruthy();
+        expect(nativeElement.querySelector('button[data-wlc-element="button_choose"]')).toBeTruthy();
     });
 
     it('-> checking for the presence of an actionDepositBtn', () => {
@@ -221,7 +210,7 @@ describe('BonusButtonsComponent', () => {
         component.isAuth = true;
         fixture.detectChanges();
 
-        expect(nativeElement.querySelector('button[wlcelement="button_deposit"]')).toBeTruthy();
+        expect(nativeElement.querySelector('button[data-wlc-element="button_deposit"]')).toBeTruthy();
     });
 
     it('-> checking for the presence of an actionPlayBtn', () => {
@@ -232,7 +221,7 @@ describe('BonusButtonsComponent', () => {
         component.isAuth = true;
         fixture.detectChanges();
 
-        expect(nativeElement.querySelector('button[wlcelement="button_play"]')).toBeTruthy();
+        expect(nativeElement.querySelector('button[data-wlc-element="button_play"]')).toBeTruthy();
     });
 
     it('-> checking for the presence of an actionRegisterBtn', () => {
@@ -240,7 +229,7 @@ describe('BonusButtonsComponent', () => {
         component.bonusItemTheme = 'promo';
         fixture.detectChanges();
 
-        expect(nativeElement.querySelector('button[wlcelement="button_register"]')).toBeTruthy();
+        expect(nativeElement.querySelector('button[data-wlc-element="button_register"]')).toBeTruthy();
     });
 
     it('-> checking for the presence of an registrationBtn', () => {
@@ -248,24 +237,74 @@ describe('BonusButtonsComponent', () => {
         component.bonusItemTheme = 'long';
         fixture.detectChanges();
 
-        expect(nativeElement.querySelector('button[wlcelement="button_register"]')).toBeTruthy();
+        expect(nativeElement.querySelector('button[data-wlc-element="button_register"]')).toBeTruthy();
     });
 
     it('-> checking for the Read more button represence for showOnly bonus', () => {
         resetProp('showOnly', true);
         component.ngOnInit();
-        component.isInsideModal = false;
+        component.$params.isInsideModal = false;
         fixture.detectChanges();
 
-        expect(nativeElement.querySelector('button[wlcelement="button_read-more"]')).toBeTruthy();
+        expect(nativeElement.querySelector('button[data-wlc-element="button_read-more"]')).toBeTruthy();
+    });
+
+    it('-> checking for the Read more button represence for empty btns bonus', async () => {
+        component.ngOnInit();
+        await fixture.whenStable();
+        component.isAuth = true;
+        component.$params.isInsideModal = false;
+        fixture.detectChanges();
+
+        expect(nativeElement.querySelector('button[data-wlc-element="button_read-more"]')).toBeTruthy();
+    });
+
+    it('-> checking for the Read more button represence for isUnavailableForActivation bonus', async () => {
+        resetProp('canDeposit', true);
+        resetProp('canPlay', true);
+        resetProp('canInventory', true);
+        resetProp('canOpen', true);
+        resetProp('isUnavailableForActivation', true);
+        component.ngOnInit();
+        await fixture.whenStable(); //waiting for the property isEmpty to be set
+        component.isAuth = true;
+        component.$params.isInsideModal = false;
+        fixture.detectChanges();
+
+        expect(nativeElement.querySelector('button[data-wlc-element="button_read-more"]')).toBeTruthy();
     });
 
     it('-> checking for the Close button inside modal represence for showOnly bonus', () => {
         resetProp('showOnly', true);
         component.ngOnInit();
-        component.isInsideModal = true;
+        component.$params.isInsideModal = true;
         fixture.detectChanges();
 
-        expect(nativeElement.querySelector('button[wlcelement="button_close"]')).toBeTruthy();
+        expect(nativeElement.querySelector('button[data-wlc-element="button_close"]')).toBeTruthy();
+    });
+
+    it('-> checking for the Close button inside modal represence for empty btns bonus', async () => {
+        component.ngOnInit();
+        await fixture.whenStable(); //waiting for the property isEmpty to be set
+        component.isAuth = true;
+        component.$params.isInsideModal = true;
+        fixture.detectChanges();
+
+        expect(nativeElement.querySelector('button[data-wlc-element="button_close"]')).toBeTruthy();
+    });
+
+    it('-> checking for the Close button represence for isUnavailableForActivation bonus', async () => {
+        resetProp('canDeposit', true);
+        resetProp('canPlay', true);
+        resetProp('canInventory', true);
+        resetProp('canOpen', true);
+        resetProp('isUnavailableForActivation', true);
+        component.ngOnInit();
+        await fixture.whenStable(); //waiting for the property isEmpty to be set
+        component.isAuth = true;
+        component.$params.isInsideModal = true;
+        fixture.detectChanges();
+
+        expect(nativeElement.querySelector('button[data-wlc-element="button_close"]')).toBeTruthy();
     });
 });

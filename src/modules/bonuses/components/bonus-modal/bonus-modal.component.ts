@@ -86,6 +86,10 @@ export class BonusModalComponent extends AbstractComponent implements OnInit {
         if (this.bonus.isLootbox) {
             this.prepareRewards();
         }
+
+        if (this.bonus.isUnavailableForActivation) {
+            this.addModifiers('is-unavailable');
+        }
     }
 
     /** Active block is showing only for actual active and lootbox bonuses */

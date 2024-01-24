@@ -33,6 +33,7 @@ export class BonusConfirmationComponent extends AbstractComponent implements OnI
      */
     @Input() protected loyaltyBonusId: string;
     @Input() protected bonusId: number;
+    @Input() protected confirmationAction: Params.IConfirmationAction = 'cancel';
 
     public override $params: Params.IBonusConfirmationParams;
     public bonusInfo: BonusCancellationInfo;
@@ -55,11 +56,13 @@ export class BonusConfirmationComponent extends AbstractComponent implements OnI
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
 
-        try {
-            this.bonusInfo =
-                await this.bonusesService.getCancelInformation(this.loyaltyBonusId, this.bonusId);
-        } catch (errors) {
-            this.errors = errors;
+        if (this.confirmationAction === 'cancel') {
+            try {
+                this.bonusInfo =
+                    await this.bonusesService.getCancelInformation(this.loyaltyBonusId, this.bonusId);
+            } catch (errors) {
+                this.errors = errors;
+            }
         }
 
         this.isReady = true;

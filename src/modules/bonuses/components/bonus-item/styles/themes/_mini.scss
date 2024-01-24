@@ -40,13 +40,23 @@
             position: ef.get-value($themeMini, 'wrapperPosition');
             display: block;
             padding-top: ef.get-value($themeMini, 'wrapperPaddingTop');
-            background-color: ef.get-value($themeMini, 'wrapperBgColor');
-            background-repeat: ef.get-value($themeMini, 'wrapperBgRepeat');
-            background-position: ef.get-value($themeMini, 'wrapperBgPos');
-            background-size: ef.get-value($themeMini, 'wrapperBgSize');
-            background-origin: ef.get-value($themeMini, 'wrapperBgOrigin');
             border-radius: ef.get-value($themeMini, 'wrapperRadius');
             border: ef.get-value($themeMini, 'wrapperBorder');
+            background-color: ef.get-value($themeMini, 'wrapperBgColor');
+            overflow: ef.get-value($themeMini, 'wrapperOverflow');
+
+            &-bg {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-repeat: ef.get-value($themeMini, 'wrapperBgRepeat');
+                background-position: ef.get-value($themeMini, 'wrapperBgPos');
+                background-size: ef.get-value($themeMini, 'wrapperBgSize');
+                background-origin: ef.get-value($themeMini, 'wrapperBgOrigin');
+                filter: var(--wlc-bi-img-filter, none);
+            }
         }
 
         &__image-block {

@@ -1,22 +1,35 @@
-<div wlc-icon
-     iconPath="{{$params.iconPath}}"></div>
+<ng-container [ngSwitch]="confirmationAction">
+    <ng-container *ngSwitchCase="'cancel'" [ngTemplateOutlet]="cancelConfirmation"></ng-container>
+    <ng-container *ngSwitchCase="'subscribe'" [ngTemplateOutlet]="subscribeConfirmation"></ng-container>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="cancelConfirmation"></ng-container>
+</ng-container>
 
-<div class="{{$class}}__text-block">{{$params.text | translate}}</div>
+<ng-template #subscribeConfirmation>
+    <div wlc-icon iconPath="{{$params.iconPath}}"></div>
 
-<div class="{{$class}}__text-block">
-    <span>{{$params.textBonusBalanceDecrease | translate}}</span>
-    <ng-container *ngIf="isReady else loading"
-                  [ngTemplateOutlet]="value"
-                  [ngTemplateOutletContext]="{$implicit: bonusInfo?.bonusBalanceDecrease}">
-    </ng-container>
-</div>
-<div>
-    <span>{{$params.textRealBalanceDecrease | translate}}</span>
-    <ng-container *ngIf="isReady else loading"
-                  [ngTemplateOutlet]="value"
-                  [ngTemplateOutletContext]="{$implicit: bonusInfo?.realBalanceDecrease}">
-    </ng-container>
-</div>
+    <div class="{{$class}}__text-block">{{$params.textSubscribeWarning | translate}}</div>
+</ng-template>
+
+<ng-template #cancelConfirmation>
+    <div wlc-icon iconPath="{{$params.iconPath}}"></div>
+
+    <div class="{{$class}}__text-block">{{$params.text | translate}}</div>
+
+    <div class="{{$class}}__text-block">
+        <span>{{$params.textBonusBalanceDecrease | translate}}</span>
+        <ng-container *ngIf="isReady else loading"
+                      [ngTemplateOutlet]="value"
+                      [ngTemplateOutletContext]="{$implicit: bonusInfo?.bonusBalanceDecrease}">
+        </ng-container>
+    </div>
+    <div>
+        <span>{{$params.textRealBalanceDecrease | translate}}</span>
+        <ng-container *ngIf="isReady else loading"
+                      [ngTemplateOutlet]="value"
+                      [ngTemplateOutletContext]="{$implicit: bonusInfo?.realBalanceDecrease}">
+        </ng-container>
+    </div>
+</ng-template>
 
 <ng-template #value let-value>
     <ng-template [ngIf]="bonusInfo">

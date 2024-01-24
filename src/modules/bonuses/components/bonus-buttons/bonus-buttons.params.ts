@@ -67,11 +67,13 @@ export const defaultParams: IBonusButtonsCParams = {
             },
             wlcElement: 'button_cancel',
         },
-        inventoriedBtnParams: {
+        readMoreBtnParams: {
+            themeMod: 'secondary',
             common: {
-                text: gettext('Take'),
+                text: gettext('Read more'),
                 typeAttr: 'button',
             },
+            wlcElement: 'button_read-more',
         },
         closeBtnParams: {
             themeMod: 'secondary',
@@ -79,43 +81,49 @@ export const defaultParams: IBonusButtonsCParams = {
                 text: gettext('Close'),
                 typeAttr: 'button',
             },
+            wlcElement: 'button_close',
+        },
+        takeBtnParams: {
+            common: {
+                text: gettext('Take'),
+                typeAttr: 'button',
+            },
+            wlcElement: 'button_take',
         },
         chooseBtnParams: {
             common: {
                 text: gettext('Choose'),
                 typeAttr: 'button',
             },
+            wlcElement: 'button_choose',
         },
-        depBtnParams: {
+        depositBtnParams: {
             common: {
                 text: gettext('Deposit'),
                 typeAttr: 'button',
             },
+            wlcElement: 'button_deposit',
         },
         playBtnParams: {
             common: {
                 text: gettext('Play'),
                 typeAttr: 'button',
             },
+            wlcElement: 'button_play',
         },
-        readMoreBtnParams: {
-            themeMod: 'secondary',
-            common: {
-                text: gettext('Read more'),
-                typeAttr: 'button',
-            },
-        },
-        regBtnParams: {
+        registerBtnParams: {
             common: {
                 text: gettext('Sign up'),
                 typeAttr: 'button',
             },
+            wlcElement: 'button_register',
         },
-        openLootboxBtnParams: {
+        openBtnParams: {
             common: {
                 text: gettext('Open'),
                 typeAttr: 'button',
             },
+            wlcElement: 'button_open-lootbox',
         },
     },
 };

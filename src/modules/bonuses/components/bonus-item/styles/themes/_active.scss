@@ -11,7 +11,7 @@
             &.disabled {
                 cursor: not-allowed;
                 opacity: 0.5;
-                filter: grayscale(100%);
+                filter: ef.get-value($themeDefault, 'bonusDisableFilter');
             }
         }
 

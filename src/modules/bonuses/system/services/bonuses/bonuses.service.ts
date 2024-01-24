@@ -496,6 +496,14 @@ export class BonusesService {
 
             if (showPush) {
                 this.showSuccess(gettext('Successful subscription to the bonus'));
+
+                if (bonus.stackIsUnavailable) {
+                    this.showWarning(
+                        gettext('The bonus you have subscribed to cannot be activated '
+                            + 'due to the presence of another active bonus'),
+                        gettext('Bonus'),
+                    );
+                }
             }
 
             return response.data;
@@ -668,7 +676,7 @@ export class BonusesService {
 
             const bonuses: Bonus[] = _orderBy(
                 this.checkForbid(await this.modifyBonuses(
-                    (res as IData<IBonus[]>).data,
+                    (res as IData<IBonus[]>).data, 
                     Date.parse(res.headers.get('Date')))),
                 'weight',
                 'desc',
@@ -905,6 +913,9 @@ export class BonusesService {
 
         if (data?.length) {
             Bonus.serverTime = bonusesServerTime;
+            Bonus.existActiveBonus = false;
+            Bonus.stackIsLocked = false;
+
             for (const bonusData of data) {
                 const bonus: Bonus = new Bonus(
                     {service: 'BonusesService', method: 'modifyBonuses'},
@@ -1134,6 +1145,18 @@ export class BonusesService {
                 title,
                 message,
                 wlcElement: 'notification_bonus-success',
+            },
+        });
+    }
+
+    private showWarning(message: string | string[], title: string = gettext('Bonus warning')): void {
+        this.eventService.emit({
+            name: NotificationEvents.PushMessage,
+            data: <IPushMessageParams>{
+                type: 'warning',
+                title,
+                message,
+                wlcElement: 'notification_bonus-warning',
             },
         });
     }

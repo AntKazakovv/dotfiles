@@ -1,20 +1,6 @@
 <ng-container *ngIf="bonus.showOnly; else themeSwitcher">
-    <button *ngIf="!isInsideModal"
-            wlc-button
-            themeMod="secondary"
-            text="Read more"
-            typeAttr="button"
-            wlcElement="button_read-more"
-            (click)="clickHandleHof(readMoreClick, $event)">
-    </button>
-    <button *ngIf="isInsideModal"
-            wlc-button
-            themeMod="secondary"
-            text="Close"
-            typeAttr="button"
-            wlcElement="button_close"
-            (click)="clickHandleHof(action, 'close')">
-    </button>
+    <ng-container [ngTemplateOutlet]="readMoreBtn"></ng-container>
+    <ng-container [ngTemplateOutlet]="closeBtn"></ng-container>
 </ng-container>
 
 <ng-template #themeSwitcher>
@@ -31,12 +17,12 @@
 <ng-template #default>
     <ng-container *ngIf="isAuth">
         <ng-container [ngTemplateOutlet]="subscribeBtn"></ng-container>
-        <ng-container [ngTemplateOutlet]="inventoriedBtn"></ng-container>
-        <ng-container [ngTemplateOutlet]="openLootbox"></ng-container>
+        <ng-container [ngTemplateOutlet]="takeBtn"></ng-container>
+        <ng-container [ngTemplateOutlet]="openLootboxBtn"></ng-container>
         <ng-container [ngTemplateOutlet]="unsubscribeBtn"></ng-container>
-        <ng-container [ngTemplateOutlet]="readMoreBtn"></ng-container>
         <ng-container [ngTemplateOutlet]="leaveBtn"></ng-container>
         <ng-container [ngTemplateOutlet]="chooseBonusBtn"></ng-container>
+        <ng-container [ngTemplateOutlet]="readMoreBtn"></ng-container>
         <ng-container [ngTemplateOutlet]="closeBtn"></ng-container>
     </ng-container>
     <ng-container *ngIf="$params.useActionButtons" [ngTemplateOutlet]="actionRegisterBtn"></ng-container>
@@ -45,12 +31,14 @@
 <ng-template #promo>
     <ng-container *ngIf="isAuth">
         <ng-container [ngTemplateOutlet]="subscribeBtn"></ng-container>
-        <ng-container [ngTemplateOutlet]="inventoriedBtn"></ng-container>
-        <ng-container [ngTemplateOutlet]="openLootbox"></ng-container>
+        <ng-container [ngTemplateOutlet]="takeBtn"></ng-container>
+        <ng-container [ngTemplateOutlet]="openLootboxBtn"></ng-container>
         <ng-container *ngIf="$params.useActionButtons">
             <ng-container [ngTemplateOutlet]="actionDepositBtn"></ng-container>
             <ng-container [ngTemplateOutlet]="actionPlayBtn"></ng-container>
         </ng-container>
+        <ng-container [ngTemplateOutlet]="readMoreBtn"></ng-container>
+        <ng-container [ngTemplateOutlet]="closeBtn"></ng-container>
     </ng-container>
     <ng-container *ngIf="$params.useActionButtons" [ngTemplateOutlet]="actionRegisterBtn"></ng-container>
 </ng-template>
@@ -60,8 +48,8 @@
         <ng-container [ngTemplateOutlet]="chooseBonusBtn"></ng-container>
         <ng-container *ngIf="!bonus.isActive">
             <ng-container [ngTemplateOutlet]="subscribeBtn"></ng-container>
-            <ng-container [ngTemplateOutlet]="inventoriedBtn"></ng-container>
-            <ng-container [ngTemplateOutlet]="openLootbox"></ng-container>
+            <ng-container [ngTemplateOutlet]="takeBtn"></ng-container>
+            <ng-container [ngTemplateOutlet]="openLootboxBtn"></ng-container>
             <ng-container [ngTemplateOutlet]="unsubscribeBtn"></ng-container>
         </ng-container>
         <ng-container [ngTemplateOutlet]="closeBtn"></ng-container>
@@ -72,8 +60,8 @@
 <ng-template #modal>
     <ng-container *ngIf="isAuth">
         <ng-container [ngTemplateOutlet]="subscribeBtn"></ng-container>
-        <ng-container [ngTemplateOutlet]="inventoriedBtn"></ng-container>
-        <ng-container [ngTemplateOutlet]="openLootbox"></ng-container>
+        <ng-container [ngTemplateOutlet]="takeBtn"></ng-container>
+        <ng-container [ngTemplateOutlet]="openLootboxBtn"></ng-container>
         <ng-container *ngIf="$params.useActionButtons">
             <ng-container [ngTemplateOutlet]="actionDepositBtn"></ng-container>
             <ng-container [ngTemplateOutlet]="actionPlayBtn"></ng-container>
@@ -87,8 +75,8 @@
 <ng-template #wolf>
     <ng-container *ngIf="isAuth">
         <ng-container [ngTemplateOutlet]="subscribeBtn"></ng-container>
-        <ng-container [ngTemplateOutlet]="inventoriedBtn"></ng-container>
-        <ng-container [ngTemplateOutlet]="openLootbox"></ng-container>
+        <ng-container [ngTemplateOutlet]="takeBtn"></ng-container>
+        <ng-container [ngTemplateOutlet]="openLootboxBtn"></ng-container>
         <ng-container *ngIf="$params.useActionButtons">
             <ng-container [ngTemplateOutlet]="actionDepositBtn"></ng-container>
             <ng-container [ngTemplateOutlet]="actionPlayBtn"></ng-container>
@@ -100,19 +88,19 @@
 <ng-template #subscribeBtn>
     <button *ngIf="bonus.canSubscribe"
             wlc-button
-            wlcElement="button_subscribe"
-            [disabled]="isDisableButtons"
+            [attr.data-wlc-element]="$params.btnsParams.subscribeBtnParams.wlcElement"
             [inlineParams]="$params.btnsParams.subscribeBtnParams"
+            [disabled]="isDisableButtons"
             (click)="clickHandleHof(join)">
     </button>
 </ng-template>
 
-<ng-template #inventoriedBtn>
-    <button *ngIf="bonus.canInventory"
+<ng-template #takeBtn>
+    <button *ngIf="isShowTakeBtn"
             wlc-button
-            wlcElement="button_take"
+            [attr.data-wlc-element]="$params.btnsParams.takeBtnParams.wlcElement"
+            [inlineParams]="$params.btnsParams.takeBtnParams"
             [disabled]="isDisableButtons"
-            [inlineParams]="$params.btnsParams.inventoriedBtnParams"
             (click)="clickHandleHof(getInventory)">
     </button>
 </ng-template>
@@ -120,9 +108,9 @@
 <ng-template #unsubscribeBtn>
     <button *ngIf="isShowUnsubscribeBtn"
             wlc-button
-            wlcElement="button_unsubscribe"
-            [disabled]="isDisableButtons"
+            [attr.data-wlc-element]="$params.btnsParams.unsubscribeBtnParams.wlcElement"
             [inlineParams]="$params.btnsParams.unsubscribeBtnParams"
+            [disabled]="isDisableButtons"
             (click)="clickHandleHof(unsubscribe)">
     </button>
 </ng-template>
@@ -130,30 +118,29 @@
 <ng-template #leaveBtn>
     <button *ngIf="bonus.canLeave"
             wlc-button
-            wlcElement="button_leave"
-            [disabled]="isDisableButtons"
+            [attr.data-wlc-element]="$params.btnsParams.cancelBtnParams.wlcElement"
             [inlineParams]="$params.btnsParams.cancelBtnParams"
+            [disabled]="isDisableButtons"
             (click)="clickHandleHof(leave)">
     </button>
 </ng-template>
 
 <ng-template #readMoreBtn>
-    <button *ngIf="bonus.canReadMore && !isInsideModal"
+    <button *ngIf="isShowReadMoreBtn"
             wlc-button
-            wlcElement="button_read-more"
-            [disabled]="isDisableButtons"
+            [attr.data-wlc-element]="$params.btnsParams.readMoreBtnParams.wlcElement"
             [inlineParams]="$params.btnsParams.readMoreBtnParams"
+            [disabled]="isDisableButtons"
             (click)="clickHandleHof(readMoreClick, $event)">
     </button>
 </ng-template>
 
 <ng-template #closeBtn>
-    <button *ngIf="isInsideModal"
+    <button *ngIf="isShowCloseBtn"
             wlc-button
-            class="{{$class}}__button-close"
-            wlcElement="button_close"
-            [disabled]="isDisableButtons"
+            [attr.data-wlc-element]="$params.btnsParams.closeBtnParams.wlcElement"
             [inlineParams]="$params.btnsParams.closeBtnParams"
+            [disabled]="isDisableButtons"
             (click)="clickHandleHof(action, 'close')">
     </button>
 </ng-template>
@@ -161,29 +148,29 @@
 <ng-template #chooseBonusBtn>
     <button *ngIf="isChooseBtn"
             wlc-button
-            wlcElement="button_choose"
-            [disabled]="bonus.isChoose || isDisableButtons"
+            [attr.data-wlc-element]="$params.btnsParams.chooseBtnParams.wlcElement"
             [inlineParams]="$params.btnsParams.chooseBtnParams"
+            [disabled]="bonus.isChoose || isDisableButtons"
             (click)="clickHandleHof(chooseBonus)">
     </button>
 </ng-template>
 
 <ng-template #actionDepositBtn>
-    <button *ngIf="bonus.canDeposit"
+    <button *ngIf="isShowDepositBtn"
             wlc-button
-            wlcElement="button_deposit"
+            [attr.data-wlc-element]="$params.btnsParams.depositBtnParams.wlcElement"
+            [inlineParams]="$params.btnsParams.depositBtnParams"
             [disabled]="isDisableButtons"
-            [inlineParams]="$params.btnsParams.depBtnParams"
             (click)="clickHandleHof(action, 'deposit')">
     </button>
 </ng-template>
 
 <ng-template #actionPlayBtn>
-    <button *ngIf="bonus.canPlay"
+    <button *ngIf="isShowPlayBtn"
             wlc-button
-            wlcElement="button_play"
-            [disabled]="isDisableButtons"
+            [attr.data-wlc-element]="$params.btnsParams.playBtnParams.wlcElement"
             [inlineParams]="$params.btnsParams.playBtnParams"
+            [disabled]="isDisableButtons"
             (click)="clickHandleHof(action, 'play')">
     </button>
 </ng-template>
@@ -191,9 +178,9 @@
 <ng-template #actionRegisterBtn>
     <button *ngIf="!isAuth"
             wlc-button
-            wlcElement="button_register"
+            [attr.data-wlc-element]="$params.btnsParams.registerBtnParams.wlcElement"
+            [inlineParams]="$params.btnsParams.registerBtnParams"
             [disabled]="isDisableButtons"
-            [inlineParams]="$params.btnsParams.regBtnParams"
             (click)="clickHandleHof(action, 'register')">
     </button>
 </ng-template>
@@ -201,25 +188,35 @@
 <ng-template #registrationBtn>
     <button *ngIf="!isAuth"
             wlc-button
-            wlcElement="button_register"
+            [attr.data-wlc-element]="$params.btnsParams.registerBtnParams.wlcElement"
+            [inlineParams]="$params.btnsParams.registerBtnParams"
             [disabled]="isDisableButtons"
-            [inlineParams]="$params.btnsParams.regBtnParams"
             (click)="clickHandleHof(registration)">
     </button>
 </ng-template>
 
-<ng-template #openLootbox>
-    <button *ngIf="bonus.canOpen"
+<ng-template #openLootboxBtn>
+    <button *ngIf="isShowOpenBtn"
             wlc-button
+            [attr.data-wlc-element]="$params.btnsParams.openBtnParams.wlcElement"
+            [inlineParams]="$params.btnsParams.openBtnParams"
             [disabled]="isDisableButtons"
-            wlcElement="button_open-lootbox"
-            [inlineParams]="$params.btnsParams.openLootboxBtnParams"
             (click)="clickHandleHof(action, 'openLootbox')">
     </button>
 </ng-template>
+
 <ng-template #cancelModal>
     <div wlc-bonus-confirmation
          [loyaltyBonusId]="bonus.LBID"
-         [bonusId]="bonus.id">
+         [bonusId]="bonus.id"
+         [confirmationAction]="'cancel'">
+    </div>
+</ng-template>
+
+<ng-template #subscribeModal>
+    <div wlc-bonus-confirmation
+         [loyaltyBonusId]="bonus.LBID"
+         [bonusId]="bonus.id"
+         [confirmationAction]="'subscribe'">
     </div>
 </ng-template>

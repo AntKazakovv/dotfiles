@@ -17,6 +17,7 @@ $themeMini: map-merge((
     'wrapperShadowActive': 0 0 14px var(--mc-main),
     'wrapperBorderColorActive': var(--mc-main),
     'wrapperBgBlank': var(--mc-bg),
+    'wrapperOverflow': hidden,
 
     //image block
     'imageFontStyle': 'ThirdTitleBold',

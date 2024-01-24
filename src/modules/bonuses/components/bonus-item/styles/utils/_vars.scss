@@ -57,6 +57,11 @@ $themeDefault: map-merge((
         560: 100%,
     ),
 
+    'bonusDisableFilter': grayscale(100%),
+    'bonusBgImagePosition': center,
+    'bonusBgImageSize': cover,
+    'bonusBgImageRepeat': no-repeat,
+
     // Active block
     'activeBlockMaxWidth': 235px,
     'activeBlockFontColor': var(--mc-baseMain),
@@ -155,7 +160,6 @@ $themeDefault: map-merge((
     // Images
     'imageBg': rgba(0, 0, 0, 0.3) center/cover no-repeat,
     'imageWidth': 100%,
-    'relativeImageHeight': 70%,
     'imageBlockPadding': (
         375: 0 0 ef.size(2),
         1200: 0 0 ef.size(4),

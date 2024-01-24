@@ -83,8 +83,10 @@
          [class.disabled]="bonus.disabledBy"
          [class.chosen]="bonus.isChoose && $params.themeMod !== 'simple'"
          [class.blank]="!bonus.id">
-        <div class="{{$class}}__wrapper"
-             [style]="{backgroundImage: bonus.id && bonusBg}">
+        <div class="{{$class}}__wrapper">
+            <div class="{{$class}}__wrapper-bg"
+                 [style]="{backgroundImage: bonus.id && bonusBg}">
+            </div>
             <div class="{{$class}}__image-block" data-wlc-element="bonus_image">
                 <ng-container *ngIf="!bonus.id">
                     {{'Without bonus' | translate}}
@@ -119,8 +121,9 @@
 <ng-template #default>
     <div class="{{$class}}__content"
          data-wlc-element="block_bonus"
-         [ngStyle]="{'background-image': isThemeModWithImage ? 'none' : bonusBg}"
          [class.disabled]="bonus.isDisabled">
+
+        <ng-container *ngIf="!isThemeModWithImage" [ngTemplateOutlet]="bonusImage"></ng-container>
 
         <div class="{{$class}}__wrapper">
             <div class="{{$class}}__image-block" data-wlc-element="bonus_image">
@@ -264,8 +267,8 @@
 
 <ng-template #promoHome>
     <div class="{{$class}}__content"
-         data-wlc-element="block_bonus"
-         [style]="{backgroundImage: bonusBg}">
+         data-wlc-element="block_bonus">
+        <ng-container [ngTemplateOutlet]="bonusImage"></ng-container>
         <div class="{{$class}}__tag-header">{{'Bonuses' | translate}}</div>
         <ng-container [ngTemplateOutlet]="bonusTag"></ng-container>
         <div class="{{$class}}__wrapper">

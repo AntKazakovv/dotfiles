@@ -40,4 +40,6 @@ $themeWolf: map-merge((
 
     'btnsMargin': ef.size(5) auto 0,
     'btnsOrder': initial,
+
+    'bonusDisableFilter': grayscale(100%),
 ), $customThemeWolf);

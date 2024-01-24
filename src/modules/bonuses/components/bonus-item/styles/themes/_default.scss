@@ -113,6 +113,7 @@
 
         &__image {
             background: ef.get-value($themeDefault, 'imageBg');
+            filter: var(--wlc-bi-img-filter, none);
         }
 
         &__active-block {
@@ -197,7 +198,7 @@
             &.disabled {
                 cursor: not-allowed;
                 opacity: 0.5;
-                filter: grayscale(100%);
+                filter: ef.get-value($themeDefault, 'bonusDisableFilter');
 
                 .wlc-bonus-item__wrapper,
                 .wlc-bonus-item__more-icon {
@@ -213,6 +214,15 @@
         .wlc-bonus-item__tag {
             color: ef.get-value($themeDefault, 'tagFontColorActive');
             background: ef.get-value($themeDefault, 'tagBgActive');
+        }
+    }
+
+    &.wlc-bonus-item--is-unavailable {
+        --wlc-bi-img-filter: #{ef.get-value($themeDefault, 'bonusDisableFilter')};
+
+        .wlc-bonus-item__tag {
+            color: ef.get-value($themeDefault, 'tagFontColor');
+            background: ef.get-value($themeDefault, 'tagBgUnavailable');
         }
     }
 }
@@ -279,8 +289,15 @@
         }
 
         &__image {
-            @include imageCommonStyles;
-            padding-bottom: ef.get-value($themeDefault, 'relativeImageHeight');
+            position: absolute;
+            z-index: -1;
+
+            width: 100%;
+            height: 100%;
+
+            background-repeat: ef.get-value($themeDefault, 'bonusBgImageRepeat');
+            background-position: ef.get-value($themeDefault, 'bonusBgImagePosition');
+            background-size: ef.get-value($themeDefault, 'bonusBgImageSize');
 
             .wlc-bonus-image-other {
                 position: absolute;
@@ -440,7 +457,6 @@
 
         .wlc-bonus-item {
 
-            &__image,
             &__icon {
                 display: none;
             }

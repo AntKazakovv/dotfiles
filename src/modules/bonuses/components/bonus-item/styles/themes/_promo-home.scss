@@ -14,9 +14,6 @@
 
         &__content {
             height: 100%;
-            background-repeat: ef.get-value($themePromoHome, 'contentBgRepeat');
-            background-position: ef.get-value($themePromoHome, 'contentBgPos');
-            background-size: ef.get-value($themePromoHome, 'contentBgSize');
 
             &:before {
                 @include bm.absoluteCentering();
@@ -28,6 +25,18 @@
                 width: calc(100% + 10px);
                 height: calc(100% + 10px);
             }
+        }
+
+        &__image {
+            position: absolute;
+            z-index: -1;
+
+            width: 100%;
+            height: 100%;
+
+            background-repeat: ef.get-value($themePromoHome, 'contentBgRepeat');
+            background-position: ef.get-value($themePromoHome, 'contentBgPos');
+            background-size: ef.get-value($themePromoHome, 'contentBgSize');
         }
 
         &__tag-header {

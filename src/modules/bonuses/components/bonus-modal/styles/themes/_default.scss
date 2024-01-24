@@ -26,12 +26,18 @@
             display: ef.get-value($themeDefault, 'imageBlockDisplay');
             align-items: ef.get-value($themeDefault, 'imageBlockAlignItems');
             justify-content: ef.get-value($themeDefault, 'imageBlockJustifyContent');
-            padding: ef.get-value($themeDefault, 'imageBlockPadding');
+        }
+
+        &__image {
+            position: absolute;
+            width: 100%;
+            height: inherit;
+            filter: var(--wlc-bm-img-filter, none);
             background: {
-                position: ef.get-value($themeDefault, 'imageBlockPosition');
-                color: ef.get-value($themeDefault, 'imageBlockColor');
-                size: ef.get-value($themeDefault, 'imageBlockSize');
-                repeat: ef.get-value($themeDefault, 'imageBlockRepeat');
+                position: ef.get-value($themeDefault, 'imageBlockBgPosition');
+                color: ef.get-value($themeDefault, 'imageBlockBgColor');
+                size: ef.get-value($themeDefault, 'imageBlockBgSize');
+                repeat: ef.get-value($themeDefault, 'imageBlockBgRepeat');
             };
         }
 
@@ -132,14 +138,11 @@
         }
     }
 
-    .wlc-bonus-item {
-        overflow: initial;
+    &.wlc-bonus-modal--is-unavailable {
+        --wlc-bm-img-filter: #{ef.get-value($themeDefault, 'bonusDisableFilter')};
     }
 
-    ::ng-deep {
-
-        .wlc-bonus-buttons__button-close:not(:first-of-type) {
-            display: none;
-        }
+    .wlc-bonus-item {
+        overflow: initial;
     }
 }

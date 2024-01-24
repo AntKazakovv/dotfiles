@@ -85,6 +85,8 @@ export class Bonus extends AbstractModel<IBonus> {
     // TODO: This is array orders of wagering from fundist, need automatically.
     private static bonusTargetsOrder = ['balance', 'freerounds', 'loyalty', 'experience'];
     private static bonusesConfig: IBonusesModule;
+    private static _existActiveBonus: boolean = false;
+    private static _stackIsLocked: boolean = false;
     private static _serverTimeUTC: number = null;
     private _isChoose: boolean = false;
     private _isReg: boolean;
@@ -100,6 +102,17 @@ export class Bonus extends AbstractModel<IBonus> {
         super({from: _assign({model: 'Bonus'}, from)});
 
         this.data = this.modifyData(data);
+
+        if (this.data.Active && !Bonus.stackIsLocked) {
+
+            if (!Bonus.existActiveBonus) {
+                Bonus.existActiveBonus = true;
+            }
+
+            if (!_toNumber(this.data.AllowStack)) {
+                Bonus.stackIsLocked = true;
+            }
+        }
 
         if (!Bonus.bonusesConfig) {
             Bonus.bonusesConfig = this.configService.get<IBonusesModule>('$bonuses');
@@ -129,6 +142,22 @@ export class Bonus extends AbstractModel<IBonus> {
         if (!_isNil(time)) {
             Bonus._serverTimeUTC = time;
         }
+    }
+
+    public static get existActiveBonus(): boolean {
+        return Bonus._existActiveBonus;
+    }
+
+    public static set existActiveBonus(value: boolean) {
+        Bonus._existActiveBonus = value;
+    }
+
+    public static get stackIsLocked(): boolean {
+        return Bonus._stackIsLocked;
+    }
+
+    public static set stackIsLocked(value: boolean) {
+        Bonus._stackIsLocked = value;
     }
 
     public override set data(data: IBonus) {
@@ -174,6 +203,10 @@ export class Bonus extends AbstractModel<IBonus> {
 
     public get allowStack(): boolean {
         return !!_toNumber(this.data.AllowStack);
+    }
+
+    public get stackIsUnavailable(): boolean {
+        return Bonus.stackIsLocked || (Bonus.existActiveBonus && !_toNumber(this.data.AllowStack));
     }
 
     public get awardWageringTotal(): number {
@@ -568,6 +601,16 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     /**
+     * @returns {boolean} is bonus unavailable for activation
+     */
+    public get isUnavailableForActivation(): boolean {
+        return this.status == 1 &&
+            (this.selected || this.inventoried) &&
+            !this.active &&
+            this.stackIsUnavailable;
+    }
+
+    /**
      * @returns {boolean} is bonus subscribed
      */
     public get isSubscribed(): boolean {
@@ -777,6 +820,8 @@ export class Bonus extends AbstractModel<IBonus> {
     public get statusText(): string {
         if (this.isActive) {
             return gettext('Active');
+        } else if (this.isUnavailableForActivation) {
+            return gettext('Unavailable');
         } else if (this.isSubscribed) {
             return gettext('Subscribe');
         } else if (this.inventoried) {
@@ -818,7 +863,7 @@ export class Bonus extends AbstractModel<IBonus> {
      */
     public get tag(): TBonusTagKey {
 
-        if (this.showOnly) {
+        if (this.showOnly || this.isUnavailableForActivation) {
             return 'unavailable';
         }
 
@@ -938,13 +983,6 @@ export class Bonus extends AbstractModel<IBonus> {
      */
     public get canLeave(): boolean {
         return this.isActive && !this.disableCancel;
-    }
-
-    /**
-     * @returns {boolean} can read more about bonus
-     */
-    public get canReadMore(): boolean {
-        return this.isActive && this.disableCancel;
     }
 
     /**

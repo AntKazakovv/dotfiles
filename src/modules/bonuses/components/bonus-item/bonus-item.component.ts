@@ -285,6 +285,10 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
             modalParams.hideBonusButtons = true;
         }
 
+        if (this.bonus.isUnavailableForActivation) {
+            modalParams.alerts = [...(modalParams.alerts || []), this.$params.bonusUnavailableAlertParams];
+        }
+
         this.modalService.showModal('bonusModal', modalParams);
     }
 
@@ -390,6 +394,10 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
             this.addModifiers('is-active');
         }
 
+        if (this.bonus?.isUnavailableForActivation) {
+            this.addModifiers('is-unavailable');
+        }
+
         if (!this.bonus.tag && !this.selectedTag) {
             this.addModifiers('no-tag');
         }
@@ -401,6 +409,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
         if (this.bonus?.showOnly) {
             this.addModifiers('show-only');
         }
+
         if (this.configService.get<boolean>('$bonuses.isButtonsAreAlwaysShow')) {
             this.addModifiers('always-show-buttons');
         }

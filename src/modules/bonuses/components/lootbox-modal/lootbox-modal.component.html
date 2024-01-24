@@ -28,8 +28,8 @@
         </button>
         <button *ngIf="this.lootboxStatus === 'error'"
             wlc-button
-            themeMod="secondary"
-            text="{{'Close' | translate}}"
+            [themeMod]="'secondary'"
+            [text]="'Close'"
             (click)="close()">
         </button>
     </div>

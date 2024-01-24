@@ -11,7 +11,7 @@ $themeDefault: map-merge((
     'bonusDescColor': var(--mc-baseMain),
     'bonusDescAlign': center,
     'bonusDescOverflow': hidden,
-
+    'bonusDisableFilter': grayscale(100%),
     'imageBlockHeight': (
         375: 181px,
         560: 200px,
@@ -20,13 +20,14 @@ $themeDefault: map-merge((
         768: 278px,
         900: 245px,
     ),
-    'imageBlockPosition': center,
-    'imageBlockColor': inherit,
-    'imageBlockSize': cover,
-    'imageBlockRepeat': no-repeat,
     'imageBlockDisplay': flex,
     'imageBlockJustifyContent': center,
     'imageBlockAlignItems': center,
+
+    'imageBlockBgPosition': center,
+    'imageBlockBgColor': inherit,
+    'imageBlockBgSize': cover,
+    'imageBlockBgRepeat': no-repeat,
 
     'infoBlockDisplay': grid,
     'infoBlockGap': ef.size(6),

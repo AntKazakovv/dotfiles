@@ -10,6 +10,7 @@
             background: ef.get-value($themeWolf, 'topBgColor');
             background-position: ef.get-value($themeWolf, 'topBgPos');
             background-size: ef.get-value($themeWolf, 'topBgSize');
+            filter: var(--wlc-bm-img-filter, none);
 
             &:before {
                 content: '';
@@ -96,5 +97,9 @@
             order: ef.get-value($themeWolf, 'btnsOrder');
             margin: ef.get-value($themeWolf, 'btnsMargin');
         }
+    }
+
+    &.wlc-bonus-modal--is-unavailable {
+        --wlc-bm-img-filter: #{ef.get-value($themeWolf, 'bonusDisableFilter')};
     }
 }

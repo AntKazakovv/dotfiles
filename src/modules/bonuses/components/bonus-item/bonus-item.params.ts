@@ -6,6 +6,7 @@ import {
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {IBonusModalCParams} from 'wlc-engine/modules/bonuses/components/bonus-modal/bonus-modal.params';
 import {Size} from 'wlc-engine/modules/core/components/button/button.params';
+import {IAlertCParams} from 'wlc-engine/modules/core/components/alert/alert.params';
 
 export type Type = 'default' | CustomType;
 export type Theme = 'active'
@@ -77,6 +78,7 @@ export interface IBonusItemCParams extends IComponentParams<Theme, Type, ThemeMo
         hideButtons?: boolean;
     };
     buttonsSize?: Size;
+    bonusUnavailableAlertParams?: IAlertCParams;
 }
 
 export type TBonusClickAction = 'showDescription' | string;
@@ -96,4 +98,9 @@ export const defaultParams: IBonusItemCParams = {
         usePreviewBonus: false,
     },
     usePartialMobileImage: false,
+    bonusUnavailableAlertParams: {
+        title: gettext('This bonus cannot be activated due to the presence of another active bonus'),
+        text: gettext(''),
+        level: 'warning',
+    },
 };

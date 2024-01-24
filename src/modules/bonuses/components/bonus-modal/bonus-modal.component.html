@@ -6,9 +6,11 @@
 <ng-template #themeDefault>
     <div class="{{$class}}__wrapper">
         <div class="{{$class}}__info-wrapper">
-            <div class="{{$class}}__image-block"
-                data-wlc-element="bonus_image"
-                [style.backgroundImage]="bonusBgUrl">
+            <div class="{{$class}}__image-block">
+                <div class="{{$class}}__image"
+                     data-wlc-element="bonus_image"
+                     [style.backgroundImage]="bonusBgUrl"
+                ></div>
                 <div wlc-bonus-item [inlineParams]="{bonus, theme: 'modal'}"></div>
             </div>
             <div class="{{$class}}__info-block">
@@ -119,8 +121,8 @@
 
 <ng-template #alerts>
     <div *ngIf="showAlerts" class="{{$class}}__alerts">
-        <div *ngFor="let alert of $params.alerts"
+        <div *ngFor="let alertParams of $params.alerts"
             wlc-alert
-            [title]="alert.title | translate"></div>
+            [inlineParams]="alertParams"></div>
     </div>
 </ng-template>
