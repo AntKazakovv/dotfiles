@@ -14,6 +14,7 @@ import {PostMenuComponent} from './components/post-menu/post-menu.component';
 import {StickyFooterComponent} from './components/sticky-footer/sticky-footer.component';
 import {MobileFooterMenuComponent} from './components/mobile-footer-menu/mobile-footer-menu.component';
 import {PanelMenuComponent} from './components/panel-menu/panel-menu.component';
+import {InfoPageMenuComponent} from './components/info-page-menu/info-page-menu.component';
 import {MenuService} from './system/services';
 
 import {GlobalHelper} from 'wlc-engine/modules/core';
@@ -37,6 +38,7 @@ export const components = {
     'wlc-sticky-footer': StickyFooterComponent,
     'wlc-mobile-footer-menu': MobileFooterMenuComponent,
     'wlc-panel-menu': PanelMenuComponent,
+    'wlc-info-page-menu': InfoPageMenuComponent,
 };
 
 export const services = {
@@ -57,6 +59,7 @@ export const services = {
         StickyFooterComponent,
         MobileFooterMenuComponent,
         PanelMenuComponent,
+        InfoPageMenuComponent,
     ],
     providers: [
         ProfileMenuService,

@@ -15,12 +15,15 @@ export type ModifiersType = AutoModifiersType & ManualModifiersType & string;
 export interface IInfoPageConfig {
     menu?: IWrapperCParams;
     content?: IWrapperCParams;
+    menuWolf?: IWrapperCParams;
 }
 
 export interface IInfoPageCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
     config?: IInfoPageConfig;
     useFaqAccordion?: boolean;
     customConfig?: IIndexing<ILayoutComponent[]>;
+    //Only for wolfTheme.
+    title?: string,
 }
 
 const contacts: ILayoutComponent = {
@@ -64,6 +67,14 @@ export const generateConfig = (isSeparatedPage?: boolean): IInfoPageConfig => {
                 },
             ],
         },
+        menuWolf: {
+            class: 'wlc-info-page__menu',
+            components: [
+                {
+                    name: 'menu.wlc-info-page-menu',
+                },
+            ],
+        },
         content: {
             class: 'wlc-info-page__content',
         },
@@ -75,4 +86,5 @@ export const defaultParams: IInfoPageCParams = {
     moduleName: 'core',
     componentName: 'wlc-info-page',
     useFaqAccordion: false,
+    title: gettext('Information'),
 };

@@ -223,6 +223,11 @@ export const menuConfig: IMenuConfig = {
             use: false,
         },
     },
+    infoPageMenu: {
+        items: [
+            'info-page-menu:legal',
+        ],
+    },
 
     profileFirstMenuUnitedBonuses: {
         items: [

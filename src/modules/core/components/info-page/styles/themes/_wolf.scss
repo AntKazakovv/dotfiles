@@ -1,0 +1,79 @@
+.wlc-info-page--theme-wolf:host {
+    @include bm.get-mq-map('grid-template-columns', $themeWolf, 'columns');
+    @include bm.get-mq-map('row-gap', $themeWolf, 'rowGap');
+    @include bm.get-mq-map('column-gap', $themeWolf, 'columnGap');
+    @include bm.get-mq-map('grid-template-areas', $themeWolf, 'gridTemplateAreas');
+
+    display: grid;
+
+    max-width: ef.get-value($themeWolf, 'maxWidth');
+    margin: ef.get-value($themeWolf, 'margin');
+    padding: ef.get-value($themeWolf, 'padding');
+
+    border-radius: ef.get-value($themeWolf, 'borderRadius');
+
+    .wlc-info-page {
+
+        &__title {
+            grid-area: title;
+
+            margin: ef.get-value($themeWolf, 'marginTitle');
+
+            ::ng-deep {
+
+                .wlc-title__main {
+                    @include text.get-text-style(ef.get-value($themeWolf, 'pageTitleTextSize'), ef.get-value($themeWolf, 'pageTitleTextColor'));
+
+                    @include mq.min(900) {
+                        @include text.get-text-style(ef.get-value($themeWolf, 'pageTitleTextSize', 900), ef.get-value($themeWolf, 'pageTitleTextColor'));
+                    }
+                }
+            }
+        }
+
+        &__menu {
+            @include bm.get-mq-map('display', $themeWolf, 'menuDisplay');
+
+            grid-area: menu;
+
+            align-self: baseline;
+
+            border-radius: ef.get-value($themeWolf, 'menuBorderRadius');
+            overflow: hidden;
+        }
+
+        &__content {
+            @include bm.get-mq-map('padding', $themeWolf, 'contentPadding');
+
+            grid-area: content;
+
+            background: ef.get-value($themeWolf, 'bgColor');
+            border-radius: ef.get-value($themeWolf, 'contentBorderRadius');
+
+            ::ng-deep {
+
+                .wlc-title[class] {
+
+                    .wlc-title__main {
+                        @include text.get-text-style(ef.get-value($themeWolf, 'postTitleTextStyle'), ef.get-value($themeWolf, 'postTitleTextColor'));
+
+                        text-align: start;
+                    }
+                }
+
+                .wlc-post,
+                h3,
+                h4 {
+                    color: ef.get-value($themeWolf, 'contentTextColor');
+                }
+            }
+        }
+    }
+
+    ::ng-deep {
+
+        .wlc-btn {
+            margin: ef.get-value($themeWolf, 'btnMargin');
+        }
+    }
+}

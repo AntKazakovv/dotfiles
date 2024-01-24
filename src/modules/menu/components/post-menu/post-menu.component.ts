@@ -8,11 +8,13 @@ import {
 import {TranslateService} from '@ngx-translate/core';
 import {takeUntil} from 'rxjs/operators';
 
+import {IPostDataOptions} from 'wlc-engine/modules/core';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {StaticService} from 'wlc-engine/modules/static/system/services/static/static.service';
+import {MenuService} from 'wlc-engine/modules/menu/system/services';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers';
 import {TextDataModel} from 'wlc-engine/modules/static/system/models/textdata.model';
 import {
@@ -30,12 +32,9 @@ import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params
 import _get from 'lodash-es/get';
 import _set from 'lodash-es/set';
 import _clone from 'lodash-es/clone';
-import _includes from 'lodash-es/includes';
 import _merge from 'lodash-es/merge';
 import _map from 'lodash-es/map';
-import _isArray from 'lodash-es/isArray';
 import _flatten from 'lodash-es/flatten';
-import _filter from 'lodash-es/filter';
 import _concat from 'lodash-es/concat';
 
 @Component({
@@ -63,6 +62,7 @@ export class PostMenuComponent extends AbstractComponent implements OnInit {
         cdr: ChangeDetectorRef,
         configService: ConfigService,
         protected actionService: ActionService,
+        protected menuService: MenuService,
         private translateService: TranslateService,
         @Inject(WINDOW) private window: Window,
     ) {
@@ -73,8 +73,13 @@ export class PostMenuComponent extends AbstractComponent implements OnInit {
         super.ngOnInit();
         this.prepareParams();
 
+        const postOptions: IPostDataOptions = {
+            categorySlug: this.$params.common.categorySlug,
+            exclude: this.$params.common.exclude,
+        };
+
         this.staticService = await this.injectionService.getService<StaticService>('static.static-service');
-        const posts: TextDataModel[][] = await this.getWpPosts();
+        const posts: TextDataModel[][] = await this.menuService.getWpPosts(postOptions);
 
         if (posts.length) {
             this.hasPosts = true;
@@ -168,33 +173,6 @@ export class PostMenuComponent extends AbstractComponent implements OnInit {
             lang: this.$params.common.basePath?.addLanguage ? this.translateService.currentLang : '',
             page: this.$params.common.basePath?.page,
         });
-    }
-
-    /**
-     * Get wordpress posts data by category slugs from component settings
-     *
-     * @returns {Promise<TextDataModel[][]>}
-     */
-    protected async getWpPosts(): Promise<TextDataModel[][]> {
-        const {categorySlug, exclude} = this.$params.common;
-        let posts: TextDataModel[][] = [];
-
-        if (_isArray(categorySlug)) {
-            const requests = _map(categorySlug, (slug) => {
-                return this.staticService.getPostsListByCategorySlug(slug);
-            });
-
-            posts = _filter(await Promise.all(requests), ({length}) => !!length);
-        } else {
-            posts = [await this.staticService.getPostsListByCategorySlug(categorySlug)];
-        }
-
-        if (exclude) {
-            posts = _map<TextDataModel[], TextDataModel[]>(posts, (models) => (
-                _filter<TextDataModel>(models, (model) => !_includes(exclude, model.slug))
-            ));
-        }
-        return posts;
     }
 
     /**

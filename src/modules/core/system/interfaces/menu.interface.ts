@@ -11,6 +11,7 @@ export interface IMenu {
     stickyFooter?: IMenuOptions;
     panelMenu?: IMenuOptions;
     panelMenuInfo?: IMenuOptions;
+    infoPageMenu?: IMenuOptions;
 }
 
 export interface IMenuOptions {
@@ -26,4 +27,9 @@ export interface IMenuItem {
     items?: IMenuItem[];
     name?: IIndexing<string>;
     iconUrl?: string;
+}
+
+export interface IPostDataOptions {
+    categorySlug: string | string[],
+    exclude?: string[],
 }

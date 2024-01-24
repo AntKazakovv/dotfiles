@@ -14,6 +14,10 @@ import {
     wlcPanelMenuItemGroupsGlobal,
     wlcPanelMenuItemsGlobal,
 } from 'wlc-engine/modules/menu/system/config/panel-menu.config';
+import {
+    wlcInfoPageMenuItemsGlobal,
+    wlcInfoPageMenuItemsGroupsGlobal,
+} from 'wlc-engine/modules/menu/system/config/info-page-menu.config';
 
 export const wlcMenuItemsGlobal: Params.IMenuItemsGlobal = {
     ...wlcMainMenuItemsGlobal,
@@ -25,9 +29,11 @@ export const wlcMenuItemsGlobal: Params.IMenuItemsGlobal = {
     ...wlcStickyFooterItemsGlobal,
     ...wlcMobileFooterMenuItemsGlobal,
     ...wlcPanelMenuItemsGlobal,
+    ...wlcInfoPageMenuItemsGlobal,
 };
 
 export const wlcMenuItemGroupsGlobal: Params.IMenuItemGroupsGlobal = {
     ...wlcMobileMenuItemGroupsGlobal,
     ...wlcPanelMenuItemGroupsGlobal,
+    ...wlcInfoPageMenuItemsGroupsGlobal,
 };

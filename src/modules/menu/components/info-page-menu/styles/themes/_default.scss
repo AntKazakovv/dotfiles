@@ -1,0 +1,118 @@
+.wlc-info-page-menu--theme-default:host {
+
+    ::ng-deep {
+
+        .wlc-loader {
+            margin: ef.get-value($themeDefault, 'loaderMargin');
+        }
+
+        .wlc-menu {
+            @include bm.get-mq-map('background-color', $themeDefault, 'bgColor');
+            @include bm.get-mq-map('padding', $themeDefault, 'menuPadding');
+
+            display: grid;
+            row-gap: ef.get-value($themeDefault, 'menuRowGap');
+
+            .wlc-menu__item {
+                @include bm.get-mq-map('row-gap', $themeDefault, 'itemRowGap');
+                display: grid;
+
+                .wlc-menu__link {
+                    @include bm.get-mq-map('padding', $themeDefault, 'menuItemPadding');
+                    @include bm.get-mq-map('font-size', $themeDefault, 'linkFontSize');
+                    @include bm.get-mq-map('padding', $themeDefault, 'linkPadding');
+                    @include bm.get-mq-map('color', $themeDefault, 'linkColor');
+                    @include bm.transition(all);
+
+                    display: flex;
+
+                    align-items: center;
+
+                    border-bottom: none;
+                    font-weight: bold;
+                    text-decoration: none;
+
+                    background: ef.get-value($themeDefault, 'titleBgColor');
+                    border-radius: ef.get-value($themeDefault, 'linkBorderRadius');
+
+                    .wlc-menu__icon {
+                        margin: ef.get-value($themeDefault, 'iconMargin');
+                    }
+
+                    .wlc-menu__icon-arrow {
+                        @include bm.transition(all);
+                        display: block;
+                        margin-left: auto;
+
+                        svg {
+                            width: ef.get-value($themeDefault, 'linkIconArrowWidth');
+                            height: ef.get-value($themeDefault, 'linkIconArrowHeight');
+                            fill: ef.get-value($themeDefault, 'linkIconArrowFill');
+                        }
+                    }
+
+                    &.active {
+
+                        color: ef.get-value($themeDefault, 'activeLinkColor');
+                        font-weight: bold;
+                        background: ef.get-value($themeDefault, 'activeLinkBgColor');
+                    }
+
+                    @include bm.hover {
+
+                        &:not(.active) {
+                            color: ef.get-value($themeDefault, 'hoverLinkColor');
+                            font-weight: bold;
+                            background: ef.get-value($themeDefault, 'hoverLinkBgColor');
+                        }
+                    }
+                }
+
+                &--dropdown.active {
+
+                    .wlc-menu__icon-arrow {
+                        transform: rotate(180deg);
+                    }
+                }
+
+                .wlc-menu__submenu {
+
+                    background: ef.get-value($themeDefault, 'bgColorMobile');
+                    border-radius: ef.get-value($themeDefault, 'subMenuBorderRadius');
+
+                    .wlc-menu__item {
+                        @include bm.get-mq-map('padding', $themeDefault, 'menuItemPadding');
+                    }
+
+                    .wlc-menu__link {
+                        @include bm.get-mq-map('font-size', $themeDefault, 'linkFontSize');
+                        @include bm.get-mq-map('padding', $themeDefault, 'linkPadding');
+                        @include bm.get-mq-map('color', $themeDefault, 'linkColorMobile');
+
+                        border-bottom: none;
+                        font-weight: normal;
+                        text-decoration: none;
+                        background: ef.get-value($themeDefault, 'linkBgColor');
+                        border-radius: ef.get-value($themeDefault, 'linkBorderRadius');
+
+                        &.active {
+
+                            color: ef.get-value($themeDefault, 'activeLinkColor');
+                            font-weight: bold;
+                            background: ef.get-value($themeDefault, 'activeLinkBgColor');
+                        }
+
+                        @include bm.hover {
+
+                            &:not(.active) {
+                                color: ef.get-value($themeDefault, 'hoverLinkColor');
+                                font-weight: bold;
+                                background: ef.get-value($themeDefault, 'hoverLinkBgColor');
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

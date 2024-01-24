@@ -5,16 +5,22 @@ import {
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
+import {StaticService} from 'wlc-engine/modules/static';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
+import {TextDataModel} from 'wlc-engine/modules/static/system/models/textdata.model';
 import {
     IMenu,
     IMenuOptions,
     IMenuItem,
+    IPostDataOptions,
 } from 'wlc-engine/modules/core/system/interfaces/menu.interface';
 
 import _forEach from 'lodash-es/forEach';
 import _reduce from 'lodash-es/reduce';
 import _cloneDeep from 'lodash-es/cloneDeep';
+import _includes from 'lodash-es/includes';
+import _filter from 'lodash-es/filter';
+import _map from 'lodash-es/map';
 
 @Injectable({
     providedIn: 'root',
@@ -67,6 +73,35 @@ export class MenuService {
         }
 
         return this.menuSettings?.[menuId];
+    }
+
+    /**
+     * Get wordpress posts data by category slugs from component settings
+     *
+     * @returns {Promise<TextDataModel[][]>}
+     */
+    public async getWpPosts(options: IPostDataOptions): Promise<TextDataModel[][]> {
+        const staticService = await this.injectionService
+            .getService<StaticService>('static.static-service');
+        const {categorySlug, exclude} = options;
+        let posts: TextDataModel[][] = [];
+
+        if (Array.isArray(categorySlug)) {
+            const requests = _map(categorySlug, (slug) => {
+                return staticService.getPostsListByCategorySlug(slug);
+            });
+
+            posts = _filter(await Promise.all(requests), ({length}) => !!length);
+        } else {
+            posts = [await staticService.getPostsListByCategorySlug(categorySlug)];
+        }
+
+        if (exclude) {
+            posts = _map<TextDataModel[], TextDataModel[]>(posts, (models) => (
+                _filter<TextDataModel>(models, (model) => !_includes(exclude, model.slug))
+            ));
+        }
+        return posts;
     }
 
     /**

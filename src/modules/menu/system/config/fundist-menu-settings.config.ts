@@ -503,4 +503,14 @@ export const fundistSettings: IMenu = {
             },
         ],
     },
+    infoPageMenu: {
+        items: [
+            {
+                type: 'page',
+                id: 'legal',
+                order: 20,
+                device: 'all',
+            },
+        ],
+    },
 };

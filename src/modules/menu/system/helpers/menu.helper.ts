@@ -60,7 +60,14 @@ export interface IGetHrefItemBasePath {
     page?: string;
 }
 
+export interface IModifyParent {
+    name: string,
+    slug: string,
+    iconFolder?: string,
+}
+
 export interface IParseConfigOptions {
+    modifyParent?: IModifyParent,
     icons?: {
         /** icon folder */
         folder?: string;
@@ -77,7 +84,7 @@ export interface IParseConfigOptions {
 }
 
 export interface IParseSettingsOptions {
-    isAuth: boolean;
+    isAuth?: boolean;
     wlcElementPrefix?: string;
     parentWithIcon?: boolean;
     /** the first child link is set to the parent */
@@ -265,6 +272,7 @@ export class MenuHelper {
         const disableIcons: boolean = options?.icons?.disable;
         const iconsFolder: string = _trim(options?.icons?.folder, '/');
         const iconsFallback: string = options?.icons?.fallback;
+        const modifyParent: IModifyParent = options?.modifyParent;
 
         return _reduce(config, (acc: MenuItemObjectType[], configMenuItem: MenuConfigItem): MenuItemObjectType[] => {
             if (_isString(configMenuItem)) {
@@ -309,11 +317,20 @@ export class MenuHelper {
                         return itemData;
                     }) || [];
 
+                    if (modifyParent) {
+                        const icon: string = modifyParent.slug;
+                        const iconFolder: string = parent.params.wp.iconFolder || modifyParent.iconFolder;
+
+                        parent.name = modifyParent.name;
+                        parent.icon = `${iconFolder}/${icon}.svg`;
+                    }
+
                     acc.push({
                         parent: parent,
                         items: items.filter((item) => item),
                         type: 'group',
                     });
+
                     return acc;
                 } else {
                     const item: Params.IMenuItem = _cloneDeep(configMenuItem as Params.IMenuItem);

@@ -1,7 +1,17 @@
-<div wlc-wrapper
-     [inlineParams]="config.menu"
-></div>
+<ng-container [ngSwitch]="$params.theme">
+     <ng-container *ngSwitchCase="'wolf'" [ngTemplateOutlet]="wolf"></ng-container>
+     <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
+</ng-container>
 
-<div wlc-wrapper
-     [inlineParams]="content"
-></div>
+<ng-template #default>
+     <div wlc-wrapper [inlineParams]="config.menu"></div>
+     <div wlc-wrapper [inlineParams]="content"></div>
+</ng-template>
+
+<ng-template #wolf>
+     <div wlc-title
+          class="{{$class}}__title"
+          [mainText]="$params.title"></div>
+     <div wlc-wrapper [inlineParams]="config.menuWolf"></div>
+     <div wlc-wrapper [inlineParams]="content"></div>
+</ng-template>

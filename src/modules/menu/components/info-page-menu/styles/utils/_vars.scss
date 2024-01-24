@@ -1,0 +1,71 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'menuDisplay': (
+        375: block,
+    ),
+    'linkFontSize': (
+        375: 1.2rem,
+    ),
+    'bgColor': (
+        375: none,
+        900: var(--mc-bg700),
+    ),
+    'bgColorMobile': var(--mc-bg700),
+    'titleBgColor': var(--fc-inputBg),
+    'linkBgColor': rgba(ef.get('mainColors', 'bg300'), 0.4),
+    'activeLinkBgColor': rgba(ef.get('mainColors', 'bg100'), 0.4),
+    'hoverLinkBgColor': rgba(ef.get('mainColors', 'bg100'), 0.4),
+    'linkColor': (
+        375: var(--mc-baseSecond, --mc-baseMain),
+        900: var(--mc-baseMain),
+    ),
+    'linkColorMobile': var(--mc-baseMain),
+    'activeLinkColor': var(--mc-baseThird),
+    'hoverLinkColor': var(--mc-baseMain),
+    'contentTextColor': var(--mc-baseSecond, --mc-baseMain),
+    'columns': (
+        375: 1fr,
+        900: 250px 1fr,
+    ),
+    'itemRowGap': (
+        375: ef.size(1),
+        900: 0,
+    ),
+    'menuRowGap': ef.size(1),
+    'gridTemplateColumnsMq720': 250px 1fr,
+    'loaderMargin': ef.size(3) auto,
+    'btnMargin': 0 auto,
+    'iconMargin': 0 ef.size(2) 0 0,
+    'menuPadding': (
+        375: 0,
+        900: ef.size(1),
+    ),
+    'contentPadding': (
+        375: ef.size(4),
+        900: ef.size(5),
+    ),
+    'linkPadding': (
+        375: ef.size(3) ef.size(3) ef.size(3) ef.size(2),
+        900: ef.size(3) ef.size(3) ef.size(3) ef.size(2),
+    ),
+    'menuItemPadding': (
+        375: ef.size(1),
+        900: ef.size(1),
+    ),
+    'menuBorderRight': 2px solid var(--mc-baseOpacity),
+    'subMenuBorderRadius': ef.get('radius', 'biger'),
+    'contentBorderRadius': ef.get('radius', 'biger'),
+    'linkBorderRadius': ef.get('radius', 'biger'),
+    'borderRadius': ef.get('radius', 'biger'),
+    'padding': 0,
+    'maxWidth': 1200px,
+    'margin': 0 auto,
+
+    'linkIconArrowWidth': auto,
+    'linkIconArrowHeight': auto,
+    'linkIconArrowFill': var(--mc-baseMain),
+
+    'arrowMenuTop': ef.size(4),
+    'arrowMenuLeft': ef.size(-1),
+    'arrowMenuSize': 10px,
+), $customThemeDefault);

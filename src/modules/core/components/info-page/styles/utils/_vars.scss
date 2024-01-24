@@ -26,3 +26,50 @@ $themeDefault: map-merge((
     'maxWidth': 1200px,
     'margin': 0 auto,
 ), $customThemeDefault);
+
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'menuDisplay': (
+        375: block,
+    ),
+    'bgColor': var(--mc-bg700),
+    'postTitleTextColor': var(--mc-baseSecond, --mc-baseMain),
+    'postTitleTextStyle': 'ThirdTitleBold',
+    'pageTitleTextColor': var(--mc-baseSecond, --mc-baseMain),
+    'pageTitleTextSize': (
+        375: 'ThirdTitleBold',
+        900: 'QoteTextBoldSmaller',
+    ),
+    'contentTextColor': var(--mc-baseSecond, --mc-baseMain),
+    'columns': (
+        375: 1fr,
+        900: 250px 1fr,
+    ),
+    'gridTemplateAreas' : (
+        375: 'title'
+        'menu'
+        'content',
+        900: 'title title'
+        'menu content',
+    ),
+    'btnMargin': 0 auto,
+    'contentPadding': (
+        375: ef.size(4),
+        900: ef.size(5),
+    ),
+    'menuBorderRadius': ef.get('radius', 'biger'),
+    'contentBorderRadius': ef.get('radius', 'biger'),
+    'borderRadius': ef.get('radius', 'biger'),
+    'padding': 0,
+    'maxWidth': 1320px,
+    'margin': 0 auto,
+    'marginTitle': 0 auto,
+    'rowGap': (
+        375: ef.size(4),
+        900: ef.size(5),
+    ),
+    'columnGap': (
+        375: 0,
+        900: ef.size(1),
+    ),
+), $customThemeWolf);

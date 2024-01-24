@@ -33,7 +33,8 @@ export type MenuType = 'main-menu'
     | 'affiliates-menu'
     | 'sticky-footer'
     | 'burger-panel-header-menu'
-    | 'panel-menu';
+    | 'panel-menu'
+    | 'info-page-menu';
 export type ItemType =
     | 'sref'
     | 'anchor'
