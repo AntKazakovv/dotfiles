@@ -5,7 +5,7 @@ $themeDefault: map-merge((
         375: ef.size(4) 0 0,
     ),
     'containerRadius': ef.get('radius', 'biger'),
-    'promoStepsBackground': var(--mc-bg300),
+    'promoStepsBackground': var(--mc-bg700),
 
     'desktopStepsDisplay': (
         1024: flex,

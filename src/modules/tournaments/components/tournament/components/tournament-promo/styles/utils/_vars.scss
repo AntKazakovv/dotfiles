@@ -3,7 +3,6 @@ $themeDefault: map-merge((
     'containerRadius': ef.get('radius', 'biger'),
     'containerBackground': (
         375: var(--mc-bg500),
-        900: var(--mc-bg700),
     ),
     'containerGridTemplateColumns': (
         375: minmax(290px, 1fr),
