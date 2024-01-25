@@ -1,7 +1,7 @@
 .wlc-lottery-smart-info--theme-default:host {
     position: relative;
     display: grid;
-    gap: var(--wlc-lsi-gap, #{ef.get-value($themeDefault, 'gap')});
+    gap: var(--wlc-lsi-gap);
     justify-content: center;
 
     .wlc-lottery-smart-info {

@@ -1,6 +1,7 @@
 .wlc-lottery-detail--theme-default:host {
     --wlc-lp-row-border: var(--mc-bg300);
     --wlc-lp-row-border-last: transparent;
+    --wlc-lsi-gap: var(--wlc-ld-header-main-gap);
 
     @include bm.get-mq-map('--wlc-ld-header-height', $themeDefault, 'headerHeight');
     @include bm.get-mq-map('--wlc-ld-decor-height', $themeDefault, 'headerDecorHeight');
@@ -8,6 +9,7 @@
     @include bm.get-mq-map('--wlc-ld-cta-size', $themeDefault, 'ctaSize');
     @include bm.get-mq-map('--wlc-ld-header-padding', $themeDefault, 'headerPadding');
     @include bm.get-mq-map('--wlc-ld-header-margin', $themeDefault, 'headerMargin');
+    @include bm.get-mq-map('--wlc-ld-header-main-gap', $themeDefault, 'headerMainGap');
 
     position: relative;
     background: ef.get-value($themeDefault, 'mainBg');
@@ -49,7 +51,7 @@
             @include bm.get-mq-map('padding', $themeDefault, 'headerMainPadding');
 
             display: grid;
-            gap: var(--wlc-ld-header-main-gap, #{ef.get-value($themeDefault, 'headerMainGap')});
+            gap: var(--wlc-ld-header-main-gap);
             align-content: center;
             justify-content: center;
             justify-self: center;
@@ -143,6 +145,7 @@
 
         @include bm.get-mq-map('--wlc-ld-header-height', $modWolf, 'headerHeight');
         @include bm.get-mq-map('--wlc-ld-header-padding', $modWolf, 'headerPadding');
+        @include bm.get-mq-map('--wlc-ld-cta-size', $modWolf, 'ctaSize');
 
         .wlc-lottery-detail {
 

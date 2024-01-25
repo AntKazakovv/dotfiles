@@ -38,7 +38,10 @@ $themeDefault: map-merge((
         768: 100%,
     ),
     'headerTextAlign': center,
-    'headerMainGap': ef.size(4),
+    'headerMainGap': (
+        375: ef.size(2),
+        1630: ef.size(4),
+    ),
     'headerTextStyle': 'PrimaryTextBold',
     'headerColor': var(--mc-baseMain-locked),
     'headerJustifyItems': (
@@ -55,7 +58,7 @@ $themeDefault: map-merge((
     'nameColor': var(--mc-baseMain-locked),
 
     'bodyPadding': (
-        375: ef.size(6) ef.size(4) 0,
+        375: ef.size(6) 0 0,
         1630: ef.size(8) ef.size(4) 0,
     ),
 
@@ -117,7 +120,7 @@ $themeDefault: map-merge((
     ),
     'ctaSize': (
         375: 100%,
-        480: 315px,
+        480: 340px,
     ),
 ), $customThemeDefault);
 
@@ -149,4 +152,7 @@ $modWolf: map-merge((
     'sectionTitleColor': var(--mc-baseSecond),
     'sectionTitleMargin': 0 0 ef.size(4),
     'allBtnColor': var(--mc-secondary),
+    'ctaSize': (
+        375: 315px,
+    ),
 ), $customModWolf);

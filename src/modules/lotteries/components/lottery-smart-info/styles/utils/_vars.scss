@@ -1,7 +1,5 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'gap': ef.size(4),
-
     'timerMinWidth': 250px,
     'timerMaxWidth': 100%,
 ), $customThemeDefault);

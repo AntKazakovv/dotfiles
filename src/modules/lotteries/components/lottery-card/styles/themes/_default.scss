@@ -1,5 +1,6 @@
 .wlc-lottery-card--theme-default:host {
     --wlc-lc-bg: #{ef.get-value($themeDefault, 'cardBgDefault')};
+    --wlc-lsi-gap: var(--wlc-lc-main-gap);
 
     @include bm.get-mq-map('--wlc-lc-min-height', $themeDefault, 'cardMinHeight');
     @include bm.get-mq-map('--wlc-lc-decor-width', $themeDefault, 'decorWidth');
@@ -7,6 +8,7 @@
     @include bm.get-mq-map('--wlc-lc-btns-margin', $themeDefault, 'btnsMargin');
     @include bm.get-mq-map('--wlc-lc-nocontent-height', $themeDefault, 'noContentHeight');
     @include bm.get-mq-map('--wlc-lc-main-padding', $themeDefault, 'mainPadding');
+    @include bm.get-mq-map('--wlc-lc-main-gap', $themeDefault, 'mainGap');
 
     @include text.get-text-style(
         ef.get-value($themeDefault, 'cardTextStyle'),
@@ -55,7 +57,7 @@
 
         &__main {
             display: grid;
-            gap: var(--wlc-lc-main-gap, #{ef.get-value($themeDefault, 'mainGap')});
+            gap: var(--wlc-lc-main-gap);
             align-self: center;
             justify-items: center;
             padding: var(--wlc-lc-main-padding);
@@ -136,13 +138,11 @@
 
     &.wlc-lottery-card--theme-mod-wolf {
         --wlc-lc-main-gap: #{ef.get-value($themeDefault, 'mainGapWolf')};
-        --wlc-lsi-gap: #{ef.get-value($themeDefault, 'smartInfoGapWolf')};
 
         @include bm.get-mq-map('--wlc-lc-min-height', $themeDefault, 'cardMinHeightWolf');
         @include bm.get-mq-map('--wlc-lc-decor-width', $themeDefault, 'decorWidthWolf');
         @include bm.get-mq-map('--wlc-lc-btns-margin', $themeDefault, 'btnsMarginWolf');
         @include bm.get-mq-map('--wlc-lc-nocontent-height', $themeDefault, 'noContentHeightWolf');
-
         @include bm.cardInnerShadow();
         @include text.get-text-style(
             ef.get-value($themeDefault, 'cardTextStyleWolf'),

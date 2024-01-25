@@ -18,7 +18,7 @@ $themeDefault: map-merge((
         375: 0 ef.size(4) ef.size(4),
         1024: 0,
     ),
-    'wrapperGap': ef.size(4),
+    'wrapperGap': ef.size(2),
 
     'decorWidth': (
         375: 140px,
@@ -54,7 +54,10 @@ $themeDefault: map-merge((
         375: 0,
         1024: ef.size(4) 0,
     ),
-    'mainGap': ef.size(4),
+    'mainGap': (
+        375: ef.size(2),
+        1024: ef.size(4),
+    ),
 
     'nameTextStyle': (
         375: 'ThirdTitleBold',
@@ -72,7 +75,8 @@ $themeDefault: map-merge((
     'timerMaxWidth': 100%,
 
     'btnsMargin': (
-        375: 0
+        375: ef.size(2) 0 0,
+        1024: 0,
     ),
     'btnsDesktopDisplay': (
         375: none,
@@ -121,7 +125,7 @@ $themeDefault: map-merge((
         1024: 375px,
     ),
     'btnsMarginWolf': (
-        1024: ef.size(3) 0 0,
+        375: ef.size(3) 0 0,
     ),
     'noContentHeightWolf': (
         375: 185px,
@@ -134,5 +138,4 @@ $themeDefault: map-merge((
         1024: 'QoteTextBold',
     ),
     'nameColorWolf': var(--mc-baseThird-locked),
-    'smartInfoGapWolf': ef.size(2),
 ), $customThemeDefault);
