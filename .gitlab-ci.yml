@@ -21,7 +21,7 @@ before_script:
     - echo "${ENGINE_NPMRC}" > ~/.npmrc
     - PACKAGE_HASH=($(md5sum package-lock.json))
     - DEPS_CACHE=/builds/deps_${PACKAGE_HASH}.tgz
-    - if [ -f ${DEPS_CACHE} ]; then tar -xf ${DEPS_CACHE}; else npm ci; tar -czf ${DEPS_CACHE} ./node_modules; fi
+    - if [ -f ${DEPS_CACHE} ]; then tar -xf ${DEPS_CACHE}; else npm i; tar -czf ${DEPS_CACHE} ./node_modules; fi
 
 run_checks:
     stage: checks

@@ -5,7 +5,7 @@ module.exports = function checkingChanges() {
         const source = process.env.CI_MERGE_REQUEST_SOURCE_BRANCH_NAME;
         const target = process.env.CI_MERGE_REQUEST_TARGET_BRANCH_NAME;
         const diff =
-            this.execNativeShellSync(`git diff origin/${target} origin/${source} package-lock.json | wc -c | xargs`);
+            this.execNativeShellSync(`git diff --name-only origin/${target} $(git merge-base origin/origin/${target} origin/${source}) package-lock.json | wc -c | xargs`);
 
         if (+diff) {
             console.error(
