@@ -894,7 +894,9 @@ export class PaymentFormComponent
                 button = FormElements.withdrawButton;
             }
 
-            formComponents.push(button);
+            if (!this.showPaymentMessage || _isEmpty(this.currentSystem?.message)) {
+                formComponents.push(button);
+            }
         }
 
         if (!this.usePrestep || this.isPrestepComplete) {

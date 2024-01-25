@@ -44,7 +44,7 @@
         [maxAmount]="maxAmount">
     </div>
 
-    <div class="{{$class}}__divider"></div>
+    <div *ngIf="!currentSystem?.message" class="{{$class}}__divider"></div>
 </ng-container>
 
 <ng-container *ngIf="isInvoicePending">
