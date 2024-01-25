@@ -100,7 +100,6 @@ export const defaultParams: IBonusItemCParams = {
     usePartialMobileImage: false,
     bonusUnavailableAlertParams: {
         title: gettext('This bonus cannot be activated due to the presence of another active bonus'),
-        text: gettext(''),
         level: 'warning',
     },
 };

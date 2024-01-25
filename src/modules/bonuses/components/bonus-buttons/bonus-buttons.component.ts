@@ -49,9 +49,8 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit, 
     @Input() public bonus: Bonus;
     @Input() public bonusItemTheme: BonusItemTheme;
     @Input() public isChooseBtn: boolean;
-    @Input() public isInsideModal: boolean = false;
+    @Input() public isInsideModal: boolean;
     @Input() public readMoreClick: () => Promise<void>;
-    @Input() public isShowUnsubscribe: boolean = false;
     @Input() public size: Size;
     @Output() public showGames = new EventEmitter<void>();
 

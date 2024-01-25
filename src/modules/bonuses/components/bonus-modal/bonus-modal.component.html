@@ -101,7 +101,6 @@
             }"
             [bonus]="bonus"
             [bonusItemTheme]="'modal'"
-            [isShowUnsubscribe]="true"
             (showGames)="expandGames()">
         </div>
     </div>
@@ -121,8 +120,10 @@
 
 <ng-template #alerts>
     <div *ngIf="showAlerts" class="{{$class}}__alerts">
-        <div *ngFor="let alertParams of $params.alerts"
+        <div *ngFor="let alert of $params.alerts"
             wlc-alert
-            [inlineParams]="alertParams"></div>
+            [title]="alert.title | translate"
+            [text]="alert.text | translate"
+            [level]="alert.level"></div>
     </div>
 </ng-template>

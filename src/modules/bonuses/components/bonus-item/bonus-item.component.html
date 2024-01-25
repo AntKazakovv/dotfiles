@@ -478,7 +478,7 @@
          [bonus]="bonus"
          [bonusItemTheme]="$params.theme"
          [isChooseBtn]="isChooseBtn"
-         [readMoreClick]="openDescription"
+         [readMoreClick]="openDescription.bind(this)"
          [size]="buttonSize">
     </div>
 </ng-template>
