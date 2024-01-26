@@ -1,3 +1,5 @@
+import {Type} from '@angular/core';
+
 export type TModuleName =
     | 'core'
     | 'affiliates'
@@ -274,3 +276,51 @@ export const modulesApp: Record<TModuleName, IFunctionImportModule> = {
         return m.WheelModule;
     },
 } as const;
+
+// STANDALONE
+export type TStandaloneName = keyof typeof standaloneComponents;
+export type TCallbackImportFunction = (component: Type<unknown>) => void;
+export type IFunctionImportStandalone = (callback: TCallbackImportFunction) => Promise<Type<unknown>>;
+/**
+ * List of standalone components with import functions
+ * TODO: драфт доки, драфт нейминга
+ *
+ * !! Подумай дважды прежде чем определиться именем компонента))
+ * А лучше посоветуйся с кем-нибудь)
+ *
+ * Naming rules:
+ * - В объекте комментариями уже написаны примеры. Там же комментариями со звездочками визуально
+ * разбито на блоки, так что комментарии со звездочками не удалять
+ *
+ * - Если компонент зависит от другого, например является темой вынесенной в сабкомпонент,
+ * или сабкомпонент с редко нужной логикой, то его имя формируется из названия модуля, названия родительского
+ * компонента и названия саого копонента, все в кебаб-кейсе, например:
+ * `core.parent-component.child-sa-component`
+ *
+ * - Если компонент является самостоятельным, и может использоваться в разных местах, то
+ * название указывается просто кебабкейсом в алфавитном порядке.
+ *
+ * @example
+ * ```typescript
+    'test': async (callback: TCallbackImportFunction) => {
+        const m = await import('wlc-engine/modules/standalone/components/test/test.component');
+        callback(m.TestComponent);
+        return m.TestComponent;
+    },
+ * ```
+ */
+export const standaloneComponents = {
+    /** === Parent dependent standalone (by module) START === */
+    /** ! Bonuses */
+    // 'bonuses.bonus-item.bonus-item-promo': async (callback: TCallbackImportFunction) => {
+    //     const m = await import('wlc-engine/modules/bonuses/components/bonus-item/themes/bonus-item-promo.component');
+    //     callback(m.BonusItemPromo);
+    //     return m.BonusItemPromo;
+    // },
+    /** === Parent dependent standalone (by module) END === */
+
+    /** === Independent components START === */
+    // 'some-sa-component-name': IFunctionImportStandalone
+    // 'another-sa-component-name': IFunctionImportStandalone
+    /** === Independent components END === */
+} satisfies Record<string, IFunctionImportStandalone>;

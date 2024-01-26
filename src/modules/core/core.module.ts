@@ -125,6 +125,7 @@ import {PromocodeLinkComponent} from 'wlc-engine/modules/core/components/promoco
 import {HeaderComponent} from './components/header/header.component';
 import {TabsComponent} from './components/tabs/tabs.component';
 import {TagComponent} from 'wlc-engine/modules/core/components/tag/tag.component';
+import {SaComponent} from './components/sa/sa.component';
 // -- COMPONENTS IMPORTS END  --;
 
 //  -- DIRECTIVES IMPORTS STARTS--;
@@ -235,6 +236,7 @@ export const components = {
     'wlc-wrapper': WrapperComponent,
     'wlc-tabs': TabsComponent,
     'wlc-footer': FooterComponent,
+    'wlc-sa': SaComponent,
 };
 
 export const services = {
@@ -389,6 +391,7 @@ export const services = {
         WlcLetDirective,
         ResizedDirective,
         TabsComponent,
+        SaComponent,
     ],
     exports: [
         AlertComponent,
@@ -475,6 +478,7 @@ export const services = {
         WlcLetDirective,
         ResizedDirective,
         TabsComponent,
+        SaComponent,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

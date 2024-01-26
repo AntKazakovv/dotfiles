@@ -2,6 +2,7 @@ import {
     Injectable,
     InjectionToken,
     Injector,
+    Type,
 } from '@angular/core';
 
 import _get from 'lodash-es/get';
@@ -13,6 +14,9 @@ import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interf
 import {
     TModuleName,
     modulesApp,
+    TStandaloneName,
+    IFunctionImportStandalone,
+    standaloneComponents,
 } from 'wlc-engine/modules/core/system/constants/modules.constants';
 
 @Injectable({
@@ -21,6 +25,7 @@ import {
 export class InjectionService {
     private components: IIndexing<IIndexing<unknown>> = {};
     private services: IIndexing<IIndexing<InjectionToken<unknown>>> = {};
+    private standaloneList: IIndexing<Type<unknown>>  = {};
     private loadedModules: IIndexing<unknown> = {};
 
     constructor(
@@ -98,6 +103,32 @@ export class InjectionService {
                 ? Promise.resolve()
                 : this.importModule(module);
         }));
+    }
+
+    public async loadStandalone(name: TStandaloneName): Promise<Type<unknown>> {
+        if (!_get(this.standaloneList, name)) {
+            await this.importStandalone(name);
+        }
+
+        return _get(this.standaloneList, name);
+    }
+
+    private importStandalone(name: TStandaloneName): unknown {
+        if (this.loadedModules[name]) {
+            return this.loadedModules[name];
+        }
+
+        const importStandaloneFunction: IFunctionImportStandalone | undefined = standaloneComponents[name];
+
+        if (importStandaloneFunction) {
+            return importStandaloneFunction(this.afterStandaloneLoad.bind(this, name));
+        } else {
+            throw new Error(`Standalone "${name}" not found`);
+        }
+    }
+
+    private afterStandaloneLoad(name: string, component: Type<unknown>): void {
+        this.standaloneList[name] = component;
     }
 
     private importModule(name: TModuleName): unknown {
