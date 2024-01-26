@@ -208,6 +208,7 @@ export class UserService {
     private localJackpotsService: LocalJackpotsService;
     private twoFactorAuthService: TwoFactorAuthService;
     private isMultiWallet: boolean = false;
+    private isShowSessionEndedModal: boolean = false;
 
     constructor(
         public translateService: TranslateService,
@@ -267,6 +268,7 @@ export class UserService {
             name: 'USER_INFO',
         }, (info: IData<IUserInfo>) => {
             if (info?.code === 401 || _get(info, 'data.status') === 0) {
+                this.isShowSessionEndedModal = this.isAuth$.getValue();
                 this.logout();
                 return;
             }
@@ -568,7 +570,12 @@ export class UserService {
         } else {
             this.stateService.go('app.home', {
                 locale: this.translateService.currentLang,
-            });
+            }).transition.promise
+                .finally(() => {
+                    if (this.isShowSessionEndedModal) {
+                        this.showSessionEndedModal();
+                    }
+                });
         }
 
         if (this.configService.get('phoneNumber')) {
@@ -1533,5 +1540,20 @@ export class UserService {
             this.localJackpotsService ??= await this.injectionService
                 .getService<LocalJackpotsService>('local-jackpots.local-jackpots-service');
         }
+    }
+
+    private showSessionEndedModal(): void {
+        this.modalService.showModal({
+            id: 'ended-session-modal',
+            componentName: 'user.wlc-ended-session-modal',
+            textAlign: 'center',
+            rejectBtnVisibility: false,
+            showConfirmBtn: true,
+            confirmBtnText: gettext('Ok'),
+            closeBtnVisibility: false,
+            dismissAll: true,
+            backdrop: 'static',
+        });
+        this.isShowSessionEndedModal = false;
     }
 }

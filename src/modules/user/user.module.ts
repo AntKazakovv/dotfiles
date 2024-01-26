@@ -68,6 +68,9 @@ import {NicknameIconComponent} from 'wlc-engine/modules/user/components/nickname
 import {
     NicknameIconEditComponent,
 } from 'wlc-engine/modules/user/components/nickname-icon-edit/nickname-icon-edit.component';
+import {
+    EndedSessionModalComponent,
+} from 'wlc-engine/modules/user/components/ended-session-modal/ended-session-modal.component';
 
 export const services = {
     'user-service': UserService,
@@ -111,6 +114,7 @@ export const components = {
     'wlc-auto-logout-profile-block': AutoLogoutProfileBlockComponent,
     'wlc-nickname-icon': NicknameIconComponent,
     'wlc-nickname-icon-edit': NicknameIconEditComponent,
+    'wlc-ended-session-modal': EndedSessionModalComponent,
 };
 
 @NgModule({
@@ -150,6 +154,7 @@ export const components = {
         AutoLogoutProfileBlockComponent,
         NicknameIconComponent,
         NicknameIconEditComponent,
+        EndedSessionModalComponent,
     ],
     imports: [
         CommonModule,
@@ -195,6 +200,7 @@ export const components = {
         AutoLogoutProfileBlockComponent,
         NicknameIconComponent,
         NicknameIconEditComponent,
+        EndedSessionModalComponent,
     ],
 })
 export class UserModule {

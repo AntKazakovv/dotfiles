@@ -1,0 +1,39 @@
+.wlc-ended-session-modal--theme-default:host {
+
+    .wlc-ended-session-modal {
+
+        &__container {
+            display: grid;
+            grid-template-areas: ef.get-value($themeDefault, 'containerAreas');
+            padding: ef.get-value($themeDefault, 'containerPadding');
+            text-align: center;
+        }
+
+        &__title {
+            @include text.get-text-style(ef.get-value($themeDefault, 'titleFontSize', 320), ef.get-value($themeDefault, 'titleColor'));
+            @include bm.get-mq-map('padding', $themeDefault, 'titlePadding');
+
+            grid-area: ef.get-value($themeDefault, 'titleAreaName');
+            margin: ef.get-value($themeDefault, 'titleMargin');
+
+            @include mq.min(768) {
+                @include text.get-text-style(ef.get-value($themeDefault, 'titleFontSize', 768));
+            }
+        }
+
+        &__icon {
+            display: inline-block;
+            grid-area: ef.get-value($themeDefault, 'iconAreaName');
+            margin: ef.get-value($themeDefault, 'iconMargin');
+            color: ef.get-value($themeDefault, 'iconColor');
+        }
+
+        &__message {
+            @include text.get-text-style(ef.get-value($themeDefault, 'messageFontSize'), ef.get-value($themeDefault, 'messageColor'));
+
+            grid-area: ef.get-value($themeDefault, 'messageAreaName');
+            margin: ef.get-value($themeDefault, 'messageMargin');
+            text-wrap: ef.get-value($themeDefault, 'messageWrap');
+        }
+    }
+}
