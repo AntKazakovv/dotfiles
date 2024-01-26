@@ -1,5 +1,5 @@
 .wlc-no-content--wlc-total-jackpot:host {
-    @include baseNoContent();
+    @include baseNoContent($totalJackpot);
 
     &.wlc-no-content--theme-default {
         text-align: ef.get-value($totalJackpot, 'nodataTextAlign');

@@ -1,52 +1,52 @@
-@mixin baseNoContent {
+@mixin baseNoContent($config: $themeDefault) {
     width: 100%;
     height: 100%;
 
     .wlc-no-content {
 
         &__wrapper {
-            @include bm.get-mq-map('padding', $themeDefault, 'nodataPadding');
+            @include bm.get-mq-map('padding', $config, 'nodataPadding');
             position: relative;
-            height: ef.get-value($themeDefault, 'nodataHeight');
-            background: ef.get-value($themeDefault, 'nodataBackground');
-            background-color: ef.get-value($themeDefault, 'nodataBg');
+            height: ef.get-value($config, 'nodataHeight');
+            background: ef.get-value($config, 'nodataBackground');
+            background-color: ef.get-value($config, 'nodataBg');
         }
 
         &__body {
-            @include bm.get-mq-map('max-width', $themeDefault, 'nodataBodyMaxWidth');
+            @include bm.get-mq-map('max-width', $config, 'nodataBodyMaxWidth');
             position: relative;
-            z-index: ef.get-value($themeDefault, 'nodataBodyZIndex');
-            display: ef.get-value($themeDefault, 'nodataBodyDisplay');
-            flex-direction: ef.get-value($themeDefault, 'nodataBodyDirection');
-            align-items: ef.get-value($themeDefault, 'nodataBodyAlignItems');
-            justify-content: ef.get-value($themeDefault, 'nodataBodyJustifyContent');
-            height: ef.get-value($themeDefault, 'nodataHeight');
+            z-index: ef.get-value($config, 'nodataBodyZIndex');
+            display: ef.get-value($config, 'nodataBodyDisplay');
+            flex-direction: ef.get-value($config, 'nodataBodyDirection');
+            align-items: ef.get-value($config, 'nodataBodyAlignItems');
+            justify-content: ef.get-value($config, 'nodataBodyJustifyContent');
+            height: ef.get-value($config, 'nodataHeight');
         }
 
         &-decor {
-            @include bm.get-mq-map('display', $themeDefault, 'nodataDecorDisplay');
-            @include bm.get-mq-map('width', $themeDefault, 'nodataDecorWidth');
+            @include bm.get-mq-map('display', $config, 'nodataDecorDisplay');
+            @include bm.get-mq-map('width', $config, 'nodataDecorWidth');
             position: absolute;
-            right: ef.get-value($themeDefault, 'nodataDecorPositionRight');
-            bottom: ef.get-value($themeDefault, 'nodataDecorPositionBottom');
-            z-index: ef.get-value($themeDefault, 'nodataDecorZIindex');
-            max-width: ef.get-value($themeDefault, 'nodataDecorMaxWidth');
+            right: ef.get-value($config, 'nodataDecorPositionRight');
+            bottom: ef.get-value($config, 'nodataDecorPositionBottom');
+            z-index: ef.get-value($config, 'nodataDecorZIindex');
+            max-width: ef.get-value($config, 'nodataDecorMaxWidth');
         }
 
         &__title {
             @include text.get-text-style(
-                ef.get-value($themeDefault, 'nodataBodyTitleFontSize'),
-                ef.get-value($themeDefault, 'nodataColor')
+                ef.get-value($config, 'nodataBodyTitleFontSize'),
+                ef.get-value($config, 'nodataColor')
             );
         }
 
         &__text {
-            @include bm.get-mq-map('margin', $themeDefault, 'nodataBodyTextMargin');
-            @include text.get-text-style(ef.get-value($themeDefault, 'nodataBodyText'));
+            @include bm.get-mq-map('margin', $config, 'nodataBodyTextMargin');
+            @include text.get-text-style(ef.get-value($config, 'nodataBodyText'));
         }
 
         &__button-wrap {
-            margin: ef.get-value($themeDefault, 'nodataBtnsWrapMargin');
+            margin: ef.get-value($config, 'nodataBtnsWrapMargin');
         }
     }
 }
