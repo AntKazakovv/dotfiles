@@ -121,6 +121,20 @@
 
 @mixin showBtnAlways {
 
+    &.wlc-bonus-item--is-active {
+
+        .wlc-bonus-item {
+
+            &__wrapper {
+                grid-template-rows: ef.get-value($themeDefault, 'wrapGridRowsActive');
+            }
+
+            &__bottom {
+                @include bm.get-mq-map('padding', $themeDefault, 'btmPadding');
+            }
+        }
+    }
+
     .wlc-bonus-item {
 
         &__description {
