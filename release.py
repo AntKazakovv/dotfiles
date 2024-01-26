@@ -10,6 +10,7 @@ import time
 from colorama import init, Fore
 
 temp_folder = "temp/repo/"
+lang_repo = "git@wlcgitlab.egamings.com:wlc/wlc-engine-translate.git"
 
 projects = [
     {
@@ -239,8 +240,11 @@ def get_local_tag():
 
 
 # Получение удаленного тега движка
-def get_remote_tag():
-    remote_tags = subprocess.check_output(["git", "ls-remote", "--exit-code", "--refs", "--sort=-version:refname", "--tags", "origin", "refs/tags/1.*"], text=True).split("\n")
+def get_remote_tag(repo=None):
+    if repo:
+        remote_tags = subprocess.check_output(["git", "ls-remote", "--exit-code", "--refs", "--sort=-version:refname", "--tags", repo, "origin", "refs/tags/1.*"], text=True).split("\n")
+    else:
+        remote_tags = subprocess.check_output(["git", "ls-remote", "--exit-code", "--refs", "--sort=-version:refname", "--tags", "origin", "refs/tags/1.*"], text=True).split("\n")
     remote_tag = remote_tags[0].split("/")[-1]
     return remote_tag
 
@@ -565,7 +569,7 @@ def make_hotfix(action):
 # Создание релиза переводов
 def make_translate_release(branch, action="patch"):
     clean_temp()
-    clone_project("git@wlcgitlab.egamings.com:wlc/wlc-engine-translate.git")
+    clone_project(lang_repo)
     check_branch(branch, temp_folder)
 
     print(Fore.YELLOW + "Making new engine tag..." + Fore.RESET)
@@ -577,6 +581,7 @@ def make_translate_release(branch, action="patch"):
 
 # Обновление версии переводов
 def update_language_pack(branch):
+    lang_tag = get_remote_tag(lang_repo)
     print(Fore.YELLOW + "Checkout to the remote branch" + Fore.RESET)
     subprocess.run(["git", "fetch", "origin"])
     subprocess.run(["git", "checkout", f"remotes/origin/{branch}"])
