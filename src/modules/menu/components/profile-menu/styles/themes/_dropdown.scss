@@ -24,13 +24,16 @@
                     @include bm.transition();
                     margin: ef.get-value($themeDropdownDefault, 'iconArrowMargin');
                     color: ef.get-value($themeDropdownDefault, 'iconArrowFill');
-                    transform: rotate(-90deg);
+                    transform: rotate(0);
                 }
 
                 .wlc-menu {
 
                     &__item {
                         overflow: hidden;
+                    }
+
+                    &__item--dropdown {
 
                         &.active {
 
@@ -46,16 +49,6 @@
 
                                 .wlc-menu__icon-arrow {
                                     transform: rotate(180deg);
-                                }
-                            }
-                        }
-
-                        &--dropdown {
-
-                            > .wlc-menu__link {
-
-                                .wlc-menu__icon-arrow {
-                                    transform: rotate(0);
                                 }
                             }
                         }
@@ -90,6 +83,23 @@
                             .wlc-icon {
                                 color: inherit;
                             }
+                        }
+                    }
+
+                    &__link-text {
+                        display: flex;
+                        align-items: center;
+
+                        .wlc-counter--theme-circle {
+                            @include text.get-text-style(
+                                ef.get-value($themeDropdownDefault, 'circleCounterTextStyle'),
+                                ef.get-value($themeDropdownDefault, 'circleCounterColor')
+                            );
+                            width: ef.get-value($themeDropdownDefault, 'circleCounterWidth');
+                            height: ef.get-value($themeDropdownDefault, 'circleCounterHeight');
+                            margin: ef.get-value($themeDropdownDefault, 'circleCounterMargin');
+                            background: ef.get-value($themeDropdownDefault, 'circleCounterBg');
+                            border-radius: ef.get-value($themeDropdownDefault, 'circleCounterRadius');
                         }
                     }
 

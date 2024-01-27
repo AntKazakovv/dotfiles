@@ -32,3 +32,20 @@ $cashPagesThemeV1: map-merge((
     'userStatsGridGap': ef.size(2),
 ), $customCashPagesThemeV1);
 
+$customCashPagesWolf: () !default;
+$cashPagesWolf: map-merge((
+    'menuMargin': (
+        320: 0 0 ef.size(4),
+        900: 0 0 ef.size(5),
+    ),
+    'menuLinkTextStyle': 'PrimaryText',
+    'menuLinkColor': var(--mc-baseMain),
+    'menuLinkMargin': 0 ef.size(3) 0 0,
+    'menuItemPadding': 6px ef.size(3),
+    'menuItemBg': var(--mc-bg300),
+    'menuItemRadius': ef.size(8),
+    'menuItemTextStyleActive': 'PrimaryTextBold',
+    'menuItemTextColorActive': var(--mc-baseThird, var(--mc-baseMain)),
+    'menuItemBgHover': var(--mc-bg500),
+    'menuItemTextColorHover': var(--mc-baseThird, var(--mc-baseMain)),
+), $customCashPagesWolf);

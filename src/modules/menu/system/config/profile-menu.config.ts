@@ -1,6 +1,8 @@
 import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
 import * as ProfileMenuParams from 'wlc-engine/modules/menu/components/profile-menu/profile-menu.params';
+import {$base} from 'wlc-config/01.base.config';
 
+const counterTheme = $base.profile?.theme === 'wolf' ? 'circle' : 'default';
 const profileLoyaltyMenuItem: MenuParams.IMenuItem = {
     name: gettext('Loyalty'),
     type: 'sref',
@@ -206,6 +208,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:bonuses-as-offers': {
         name: gettext('Bonuses'),
         counterParams: {
+            theme: counterTheme,
             type: 'bonuses-main',
         },
         type: 'sref',
@@ -219,6 +222,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
         wlcElement: 'link_offers',
     },
+
     'profile-first-menu:bonuses-as-offers': {
         name: gettext('Offers'),
         type: 'sref',
@@ -685,9 +689,9 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:cash-deposit': {
         name: gettext('Deposit'),
         type: 'sref',
+        icon: 'deposit-1',
         class: 'deposit',
         wlcElement: 'link_deposit',
-        icon: 'deposit',
         params: {
             state: {
                 name: 'app.profile.cash.deposit',
@@ -711,7 +715,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:cash-withdrawal': {
         name: gettext('Withdrawal'),
         type: 'sref',
-        icon: 'withdrawal',
+        icon: 'withdrawal-1',
         class: 'withdrawal',
         wlcElement: 'link_withdrawal',
         params: {
@@ -1161,6 +1165,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:cashback-rewards': {
         name: gettext('Cashback'),
         type: 'sref',
+        icon: 'cashback',
         wlcElement: 'link_cashback',
         class: 'cashback-rewards',
         params: {

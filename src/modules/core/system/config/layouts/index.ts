@@ -7,5 +7,6 @@ export * from './layout.kiosk.config';
 export * from './layout.mobile-app.config';
 export * from './profile-layouts.default.config';
 export * from './profile-layouts.first.config';
+export * from './profile-layouts.wolf.config';
 export * from './profile-layouts.kiosk.config';
 export * from './profile-layouts.mobile-app.config';

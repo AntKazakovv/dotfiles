@@ -100,6 +100,60 @@ export const defaultMenuParams: IMenuParams = {
     },
 };
 
+export const wolfMenuParams: IMenuParams = {
+    tabs: {
+        sliderNavigation: {
+            use: true,
+            forDevice: 'any',
+        },
+        menuParams: {
+            common: {
+                useSwiper: true,
+            },
+            sliderParams: {
+                swiper: {
+                    navigation: {
+                        nextEl: '.wlc-profile-menu--type-tabs .wlc-profile-menu__control--next',
+                        prevEl: '.wlc-profile-menu--type-tabs .wlc-profile-menu__control--prev',
+                    },
+                    breakpoints: {
+                        375: {
+                            spaceBetween: 0,
+                        },
+                        900: {
+                            spaceBetween: 18,
+                        },
+                        1024: {
+                            spaceBetween: 43,
+                        },
+                    },
+                },
+            },
+        },
+    },
+    submenu: {
+        sliderNavigation: {
+            use: false,
+            forDevice: 'desktop',
+        },
+        menuParams: {
+            common: {
+                useSwiper: true,
+            },
+            sliderParams: {
+                swiper: {
+                    spaceBetween: 12,
+                },
+            },
+        },
+    },
+};
+
+export const menuConfigs = {
+    default: defaultMenuParams,
+    wolf: wolfMenuParams,
+};
+
 export const defaultParams: IProfileMenuCParams = {
     moduleName: 'menu',
     componentName: 'wlc-profile-menu',

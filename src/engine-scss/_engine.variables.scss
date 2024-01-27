@@ -279,6 +279,18 @@ $profileSettings: map-merge((
     // Locked colors
     'profileTabAngleBg': map-get($mainColors, 'bg700'),
     'profileTabAngleBgAlt': map-get($mainColorsAlt, 'bg700'),
+
+    'wolfWrpMaxWidth': (
+        320: 100%,
+        900: 1024px,
+    ),
+    'wolfSectionBg': (
+        320: none,
+        900: var(--mc-bg700),
+    ),
+    'wolfBorderRadius': 8px,
+    'wolfPadding': 0 size-func(6) size-func(7),
+    'wolfTitleMargin': 0 0 size-func(4),
 ), $customProfileSettings);
 
 /// Глобальные настройки профиля (первая тема):

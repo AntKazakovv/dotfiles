@@ -1,0 +1,21 @@
+.wlc-sections__profile-content--theme-wolf {
+
+    > .container {
+        @include bm.get-mq-map('background', $profileSettings, 'wolfSectionBg');
+        @include bm.get-mq-map('border-radius', $profileSettings, 'wolfBorderRadius');
+        position: relative;
+        padding: ef.get-value($profileSettings, 'wolfPadding');
+    }
+
+    .wlc-profile-content {
+
+        &__wrp {
+            @include bm.get-mq-map('max-width', $profileSettings, 'wolfWrpMaxWidth');
+            margin: 0 auto;
+        }
+    }
+
+    .wlc-section-title {
+        margin: ef.get-value($profileSettings, 'wolfTitleMargin');
+    }
+}

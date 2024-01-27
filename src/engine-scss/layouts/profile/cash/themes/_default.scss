@@ -62,4 +62,42 @@
             }
         }
     }
+
+    .wlc-sections__profile-content--theme-wolf {
+
+        .wlc-menu.wlc-menu--theme-default {
+            @include bm.get-mq-map('margin', $cashPagesWolf, 'menuMargin');
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+
+            .wlc-menu {
+
+                &__link {
+                    @include text.get-text-style(
+                        ef.get-value($cashPagesWolf, 'menuLinkTextStyle'),
+                        ef.get-value($cashPagesWolf, 'menuLinkColor')
+                    );
+                    display: flex;
+                    margin: ef.get-value($cashPagesWolf, 'menuLinkMargin');
+                    padding: ef.get-value($cashPagesWolf, 'menuItemPadding');
+                    text-decoration: none;
+                    background: ef.get-value($cashPagesWolf, 'menuItemBg');
+                    border-radius: ef.get-value($cashPagesWolf, 'menuItemRadius');
+
+                    &.active {
+                        @include text.get-text-style(
+                            ef.get-value($cashPagesWolf, 'menuItemTextStyleActive'),
+                            ef.get-value($cashPagesWolf, 'menuItemTextColorActive')
+                        );
+                    }
+
+                    @include bm.hover {
+                        color: ef.get-value($cashPagesWolf, 'menuItemTextColorHover');
+                        background: ef.get-value($cashPagesWolf, 'menuItemBgHover');
+                    }
+                }
+            }
+        }
+    }
 }

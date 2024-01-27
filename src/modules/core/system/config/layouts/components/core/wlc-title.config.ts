@@ -60,6 +60,18 @@ export namespace wlcTitle {
         },
     };
 
+    export const profileBefore900: ILayoutComponent = {
+        name: 'core.wlc-title',
+        display: {
+            before: 900,
+        },
+        params: <ITitleCParams>{
+            customMod: ['profile'],
+            mainText: gettext('Profile'),
+            wlcElement: 'header_edit-profile',
+        },
+    };
+
     export const cashV1Mobile: ILayoutComponent = {
         name: 'core.wlc-title',
         display: {

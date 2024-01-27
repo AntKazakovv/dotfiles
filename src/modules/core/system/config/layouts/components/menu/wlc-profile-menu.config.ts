@@ -34,6 +34,25 @@ export namespace wlcProfileMenu {
         },
     };
 
+    export const defTypeWolf: ILayoutComponent = {
+        name: 'menu.wlc-profile-menu',
+        display: {
+            after: 900,
+        },
+        params: {
+            theme: 'wolf',
+            type: 'tabs',
+            common: {
+                useSwiper: true,
+                useSliderNavigation: true,
+                icons: {
+                    use: true,
+                    folder: 'wlc/icons/european/v3',
+                },
+            },
+        },
+    };
+
     export const submenu: ILayoutComponent = {
         name: 'menu.wlc-profile-menu',
         params: {
@@ -48,6 +67,14 @@ export namespace wlcProfileMenu {
         },
         display: {
             before: 1199,
+        },
+    };
+
+    export const submenuWolf: ILayoutComponent = {
+        name: 'menu.wlc-profile-menu',
+        params: {
+            type: 'submenu',
+            theme: 'wolf',
         },
     };
 

@@ -57,6 +57,7 @@ import {
     $panelsLayoutsMobileApp,
     $profileLayouts,
     $profileFirstLayouts,
+    $profileWolfLayouts,
     $profileKioskLayouts,
     $profileMobileAppLayouts,
 } from 'wlc-engine/modules/core/system/config/layouts';
@@ -383,10 +384,15 @@ export class ConfigService {
 
     private addLayoutConfig(params: IParamsLayoutConfig): ILayoutsConfig {
         const isMultiWallet = this.get<boolean>('appConfig.siteconfig.isMultiWallet');
-        const mergedLayouts: ILayoutsConfig =
-            params.profile.type === 'first'
-                ? _mergeWith($layouts, $profileFirstLayouts)
-                : _mergeWith($layouts, $profileLayouts);
+        let mergedLayouts: ILayoutsConfig;
+
+        if (params.profile.theme === 'wolf') {
+            mergedLayouts = _mergeWith($layouts, $profileWolfLayouts);
+        } else if (params.profile.type === 'first') {
+            _mergeWith($layouts, $profileFirstLayouts);
+        } else {
+            _mergeWith($layouts, $profileLayouts);
+        }
 
         const mergedLayoutsKiosk: ILayoutsConfig = _mergeWith($layoutsKiosk, $profileKioskLayouts);
 

@@ -8,24 +8,25 @@ import {
 } from '@angular/core';
 import {UIRouter} from '@uirouter/core';
 
-import {
-    takeUntil,
-} from 'rxjs/operators';
 import _clone from 'lodash-es/clone';
 import _has from 'lodash-es/has';
 import _set from 'lodash-es/set';
 import _merge from 'lodash-es/merge';
+import {
+    BehaviorSubject,
+    takeUntil,
+} from 'rxjs';
 
 import {
     AbstractComponent,
-    ActionService,
     AppType,
     EventService,
     DeviceType,
     IMixedParams,
     ProfileType,
+    ConfigService,
+    ActionService,
 } from 'wlc-engine/modules/core';
-import {ConfigService} from 'wlc-engine/modules/core';
 import {
     TIconExtension,
     IMenuOptions,
@@ -46,12 +47,14 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit, O
     public menuParams: MenuParams.IMenuCParams;
     public useSliderNavigation: boolean = false;
     public showSliderNavigation: boolean = false;
+    public ready$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
     protected isMobile: boolean = false;
     protected iconsFolder: string;
     protected useIcons: boolean;
     protected profileConfig: string;
     protected sliderNavigationOptions: Params.ISliderNavigation;
+    protected menuConfig: string;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IProfileMenuCParams,
@@ -75,6 +78,7 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit, O
     public override ngOnInit(): void {
         super.ngOnInit();
 
+        this.menuConfig = Params.menuConfigs[this.$params.theme];
         let configKey: string = 'icons';
         switch (this.$params.type) {
             case 'tabs':
@@ -98,9 +102,11 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit, O
             this.profileConfig = 'profileMenu';
         }
 
-        this.sliderNavigationOptions = Params.defaultMenuParams[this.$params.type]?.sliderNavigation;
-        this.useSliderNavigation = !!this.sliderNavigationOptions?.use;
-        this.setSliderNavigationVisibility();
+        if (this.$params.type === 'tabs' || this.$params.type === 'submenu') {
+            this.sliderNavigationOptions = this.menuConfig[this.$params.type]?.sliderNavigation;
+            this.useSliderNavigation = !!this.sliderNavigationOptions?.use;
+            this.setSliderNavigationVisibility();
+        }
 
         this.useIcons = _has(this.$params, 'common.icons.use')
             ? this.$params.common.icons.use
@@ -150,10 +156,10 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit, O
 
         switch (this.$params.type) {
             case 'tabs':
-                if (Params.defaultMenuParams[this.$params.type]?.menuParams) {
-                    _merge(this.menuParams, Params.defaultMenuParams[this.$params.type].menuParams);
+                if (this.menuConfig[this.$params.type]?.menuParams) {
+                    _merge(this.menuParams, this.menuConfig[this.$params.type].menuParams);
 
-                    if (Params.defaultMenuParams[this.$params.type]?.menuParams.common?.useSwiper) {
+                    if (this.menuConfig[this.$params.type]?.menuParams.common?.useSwiper) {
                         this.addModifiers('swiper');
                     }
                 }
@@ -161,11 +167,13 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit, O
                 iconsKey = 'icons';
                 break;
             case 'submenu':
-                if (Params.defaultMenuParams[this.$params.type]?.menuParams) {
-                    _merge(this.menuParams, Params.defaultMenuParams[this.$params.type].menuParams);
+                if (this.menuConfig[this.$params.type]?.menuParams) {
+                    _merge(this.menuParams, this.menuConfig[this.$params.type].menuParams);
                 }
+
                 this.menuParams.items = await this.profileMenuService.getSubMenu(menuOptions);
                 iconsKey = 'subMenuIcons';
+
                 break;
             case 'full':
             case 'dropdown':
@@ -179,6 +187,7 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit, O
         _set(this.menuParams, 'common.icons.extension', extension);
 
         this.menuParams = _clone(this.menuParams);
+        this.ready$.next(true);
         this.cdr.detectChanges();
     }
 

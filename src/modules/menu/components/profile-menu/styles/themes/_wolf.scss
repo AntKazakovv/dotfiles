@@ -1,0 +1,114 @@
+.wlc-profile-menu--theme-wolf.wlc-profile-menu--type-tabs:host {
+    @include bm.get-mq-map('margin', $themeWolf, 'menuMargin');
+    position: relative;
+    min-width: 0;
+
+    ::ng-deep {
+        @include menuControls($themeWolf);
+    }
+
+    .wlc-profile-menu {
+
+        &__content {
+
+            &:before {
+                @include bm.get-mq-map('display', $themeWolf, 'menuBorderDisplay');
+                content: '';
+                position: absolute;
+                top: ef.get-value($themeWolf, 'menuBorderTop');
+                z-index: 13;
+                width: ef.get-value($themeWolf, 'menuBorderWidth');
+                height: ef.get-value($themeWolf, 'menuBorderHeight');
+                background: ef.get-value($themeWolf, 'menuBorderBg');
+            }
+        }
+    }
+
+    .wlc-menu--theme-wolf {
+        @include bm.get-mq-map('padding', $themeWolf, 'menuPadding');
+        position: relative;
+        display: block;
+        width: 100%;
+
+        ::ng-deep {
+
+            .swiper {
+                z-index: 13;
+            }
+
+            .wlc-menu {
+
+                &__item {
+                    display: flex;
+                    align-items: center;
+
+                    svg {
+                        width: ef.get-value($themeWolf, 'menuIconWidth');
+                        height: ef.get-value($themeWolf, 'menuIconHeight');
+
+                        path {
+                            fill: currentColor;
+                        }
+                    }
+
+                    .wlc-icon-content {
+                        display: flex;
+                    }
+                }
+
+                &__link {
+                    @include bm.transition(color);
+                    @include text.get-text-style(
+                        ef.get-value($themeWolf, 'menuLinkTextStyle'),
+                        ef.get-value($themeWolf, 'menuLinkColor'));
+                    display: flex;
+                    align-items: center;
+                    padding: ef.get-value($themeWolf, 'menuItemPadding');
+                    text-decoration: ef.get-value($themeWolf, 'menuLinkTxtDecor');
+
+                    &.active {
+                        color: ef.get-value($themeWolf, 'menuLinkActiveColor');
+                        font-weight: ef.get-value($themeWolf, 'menuLinkActiveWeight');
+                        border-bottom: ef.get-value($themeWolf, 'menuLinkBorderActive');
+
+                        .wlc-counter {
+                            color: ef.get-value($themeWolf, 'menuLinkCounterColorActive');
+                        }
+                    }
+
+                    @include bm.hover {
+                        color: ef.get-value($themeWolf, 'menuLinkHoverColor');
+
+                        .wlc-counter {
+                            color: ef.get-value($themeWolf, 'menuLinkCounterColorHover');
+                        }
+                    }
+                }
+
+                &__link-text {
+                    display: flex;
+                    align-items: center;
+
+                    .wlc-counter {
+                        @include bm.transition(color);
+                        @include text.get-text-style(
+                            ef.get-value($themeWolf, 'menuLinkCounterTextStyle'),
+                            ef.get-value($themeWolf, 'menuLinkCounterColor')
+                        );
+                        width: ef.get-value($themeWolf, 'menuLinkCounterWidth');
+                        height: ef.get-value($themeWolf, 'menuLinkCounterHeight');
+                        margin: ef.get-value($themeWolf, 'menuLinkCounterMargin');
+                        background: ef.get-value($themeWolf, 'menuLinkCounterBg');
+                        border-radius: ef.get-value($themeWolf, 'menuLinkCounterRadius');
+                    }
+                }
+
+                &__icon {
+                    width: ef.get-value($themeWolf, 'menuIconWidth');
+                    height: ef.get-value($themeWolf, 'menuIconHeight');
+                    margin: ef.get-value($themeWolf, 'menuIconMargin');
+                }
+            }
+        }
+    }
+}

@@ -45,6 +45,7 @@ export interface IProfileConfig {
         use: boolean;
         usePage?: boolean;
     },
+    theme?: 'default' | 'wolf';
     type?: ProfileType,
     /**
      * Minimum age for the players, by default 18 years;

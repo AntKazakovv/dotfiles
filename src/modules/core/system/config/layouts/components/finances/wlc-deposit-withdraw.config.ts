@@ -56,6 +56,16 @@ export namespace wlcDepositWithdraw {
         },
     };
 
+    export const submenuWolf: ILayoutComponent = {
+        name: 'menu.wlc-menu',
+        params: {
+            items: [
+                'profile-menu:cash-deposit',
+                'profile-menu:cash-withdrawal',
+            ],
+        },
+    };
+
     export const balanceAdaptive: ILayoutComponent = {
         name: 'core.wlc-wrapper',
         params: {

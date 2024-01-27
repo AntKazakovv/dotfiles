@@ -111,7 +111,6 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     @ViewChild('anchor') tplAnchor: TemplateRef<ElementRef>;
     @ViewChild('sref') tplSref: TemplateRef<ElementRef>;
     // меняем на sref для swiper чтобы он отрисовывал нужный шаблон (после ревью удалить коммент)
-    @ViewChild('sref') tplTitle: TemplateRef<ElementRef>;
     @ViewChild('modal') tplModal: TemplateRef<ElementRef>;
     @ViewChild('href') tplHref: TemplateRef<ElementRef>;
     @ViewChild('event') tplEvent: TemplateRef<ElementRef>;

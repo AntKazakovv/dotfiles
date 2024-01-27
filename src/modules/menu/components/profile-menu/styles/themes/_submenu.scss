@@ -106,4 +106,39 @@
     .wlc-menu--theme-default.wlc-menu--type-profile-menu::-webkit-scrollbar {
         display: none;
     }
+
+    .wlc-menu--theme-wolf.wlc-menu--type-profile-menu {
+        margin: ef.get-value($submenuProfileWolf, 'menuMargin');
+
+        ::ng-deep {
+
+            .wlc-menu {
+
+                &__link {
+                    @include bm.transition(all);
+                    @include text.get-text-style(
+                        ef.get-value($submenuProfileWolf, 'menuLinkTextStyle'),
+                        ef.get-value($submenuProfileWolf, 'menuLinkColor')
+                    );
+                    display: flex;
+                    padding: ef.get-value($submenuProfileWolf, 'menuItemPadding');
+                    text-decoration: none;
+                    background: ef.get-value($submenuProfileWolf, 'menuItemBg');
+                    border-radius: ef.get-value($submenuProfileWolf, 'menuItemRadius');
+
+                    &.active {
+                        @include text.get-text-style(
+                            ef.get-value($submenuProfileWolf, 'menuItemTextStyleActive'),
+                            ef.get-value($submenuProfileWolf, 'menuItemTextColorActive')
+                        );
+                    }
+
+                    @include bm.hover {
+                        color: ef.get-value($submenuProfileWolf, 'menuItemTextColorHover');
+                        background: ef.get-value($submenuProfileWolf, 'menuItemBgHover');
+                    }
+                }
+            }
+        }
+    }
 }

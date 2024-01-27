@@ -63,6 +63,13 @@ $themeDropdownDefault: map-merge((
         375: var(--mc-bg500),
     ),
     'linkBorderRadius': ef.get('radius', 'biger'),
+    'circleCounterTextStyle': 'CaptionTextBold',
+    'circleCounterColor': var(--mc-baseMain),
+    'circleCounterWidth': ef.size(6),
+    'circleCounterHeight': ef.size(5),
+    'circleCounterMargin': 0 0 0 ef.size(2),
+    'circleCounterBg': var(--mc-bg500),
+    'circleCounterRadius': ef.get('radius', 'main'),
     'submenuBg': (
         375: var(--mc-bg),
     ),
@@ -143,6 +150,20 @@ $submenuProfileDefault: map-merge((
     ),
 ), $customSubmenuProfileDefault);
 
+$customSubmenuProfileWolf: () !default;
+$submenuProfileWolf: map-merge((
+    'menuMargin': 0 0 ef.size(6),
+    'menuItemBg': var(--mc-bg300),
+    'menuItemRadius': ef.size(8),
+    'menuLinkTextStyle': 'PrimaryText',
+    'menuLinkColor': var(--mc-baseMain),
+    'menuItemTextStyleActive': 'PrimaryTextBold',
+    'menuItemTextColorActive': var(--mc-baseThird, var(--mc-baseMain)),
+    'menuItemBgHover': var(--mc-bg500),
+    'menuItemTextColorHover': var(--mc-baseThird, var(--mc-baseMain)),
+    'menuItemPadding': 6px ef.size(3),
+    'menuItemMaxHeight': ef.size(8),
+), $customSubmenuProfileWolf);
 
 $customFullProfileFirstDefault: () !default;
 $fullProfileFirstDefault: map-merge((
@@ -184,3 +205,60 @@ $fullProfileFirstDefault: map-merge((
     ),
     'activeIconColor': var(--mc-main),
 ), $customFullProfileFirstDefault);
+
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'menuBorderDisplay': (
+        320: none,
+        900: block,
+    ),
+    'menuBorderHeight': 2px,
+    'menuBorderTop': 44px,
+    'menuBorderWidth': 100%,
+    'menuBorderBg': var(--mc-baseMain),
+    'menuPadding': (
+        320: 0,
+        900: 0 ef.size(6),
+    ),
+    'menuMargin': (
+        320: 0 0 ef.size(4),
+        900: 0 0 ef.size(6),
+    ),
+    'menuItemPadding': ef.size(3),
+    'menuLinkTextStyle': 'PrimaryText',
+    'menuLinkColor': var(--mc-baseMain),
+    'menuLinkTxtDecor': none,
+    'menuIconWidth': ef.size(4),
+    'menuIconHeight': ef.size(4),
+    'menuIconMargin': 0 ef.size(2) 0 0,
+    'menuLinkActiveColor': var(--mc-baseThird, var(--mc-baseMain)),
+    'menuLinkActiveWeight': bold,
+    'menuLinkHoverColor': var(--mc-baseThird, var(--mc-baseMain)),
+    'menuLinkBorderActive': 2px solid var(--mc-baseThird, var(--mc-baseMain)),
+    'menuLinkCounterTextStyle': 'CaptionTextBold',
+    'menuLinkCounterColor': var(--mc-baseMain),
+    'menuLinkCounterMargin': 0 0 0 ef.size(2),
+    'menuLinkCounterWidth': ef.size(6),
+    'menuLinkCounterHeight': ef.size(5),
+    'menuLinkCounterBg': var(--mc-bg500),
+    'menuLinkCounterRadius': ef.get('radius', 'main'),
+    'menuLinkCounterColorActive': var(--mc-baseThird),
+    'menuLinkCounterColorHover': var(--mc-baseThird),
+
+    'controlsTop': 0,
+    'controlsLeft': 0,
+    'controlAlignItems': center,
+    'controlWidth': 30px,
+    'controlHeight': 100%,
+    'controlPadding': ef.size(1),
+    'controlArrowColor': var(--mc-baseMain),
+    'controlArrowColorHover': var(--mc-main),
+    'controlPrevSvgTransform': rotate(90deg),
+    'controlNextSvgTransform': rotate(-90deg),
+    'controlNextMargin': 0 0 0 auto,
+    'controlPrevJustifyContent': flex-start,
+    'controlPrevMargin': 0 auto 0 0,
+    'controlNextJustifyContent': flex-end,
+    'controlTransition': all 0.3s ease-out,
+    'shadowBg': none,
+), $customThemeWolf);

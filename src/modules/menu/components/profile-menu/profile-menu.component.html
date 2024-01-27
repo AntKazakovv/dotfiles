@@ -1,4 +1,4 @@
-<div *ngIf="menuParams.items?.length" class="{{$class}}__content">
+<div *ngIf="ready$ | async" class="{{$class}}__content">
     <div wlc-menu [inlineParams]="menuParams"></div>
     <ng-container *ngIf="useSliderNavigation">
         <div [hidden]="!showSliderNavigation" class="{{$class}}__controls">

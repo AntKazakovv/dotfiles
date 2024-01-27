@@ -79,6 +79,40 @@ const profileFirstLoyaltyType = (isSingleLevels: boolean): ILayoutSectionConfig 
     };
 };
 
+const profileWolfLoyaltyType = (isSingleLevels: boolean): ILayoutSectionConfig => {
+    return {
+        container: true,
+        theme: 'wolf',
+        usePreloader: true,
+        modifiers: isSingleLevels ? ['single-levels'] : null,
+        components: [
+            {
+                name: 'core.wlc-section-title',
+                params: {
+                    theme: 'wolf',
+                    text: 'Loyalty',
+                    iconPath: 'wlc/icons/european/v3/loyalty.svg',
+                },
+                display: {
+                    before: 899,
+                },
+            },
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__wrp',
+                    components: [
+                        componentLib.wlcProfileMenu.defTypeWolf,
+                        componentLib.wlcProfileMenu.submenuWolf,
+                        componentLib.wlcLoyaltyProgress.def,
+                        componentLib.wlcLoyaltyLevels.def,
+                    ],
+                },
+            },
+        ],
+    };
+};
+
 const fundistIdComponent: IFormComponent = {
     name: 'core.wlc-wrapper',
     params: <IWrapperCParams>{
@@ -198,6 +232,59 @@ const dashboardPromoSection: ILayoutComponent = {
     },
 };
 
+const generateProfileWolf = (): ILayoutSectionConfig => ({
+    container: true,
+    theme: 'wolf',
+    usePreloader: true,
+    components: [
+        {
+            name: 'core.wlc-section-title',
+            params: {
+                theme: 'wolf',
+                text: 'Profile',
+                iconPath: 'wlc/icons/european/v3/account-settings.svg',
+            },
+            display: {
+                before: 899,
+            },
+        },
+        {
+            name: 'core.wlc-wrapper',
+            params: {
+                class: 'wlc-profile-content__wrp',
+                components: [
+                    componentLib.wlcProfileMenu.defTypeWolf,
+                    componentLib.wlcProfileMenu.submenuWolf,
+                    {
+                        name: 'core.wlc-wrapper',
+                        params: {
+                            class: 'wlc-profile-content__top wlc-profile-content__top--buttons',
+                            components: [
+                                componentLib.wlcButton.profileBlocks,
+                            ],
+                        },
+                    },
+                    {
+                        name: 'core.wlc-wrapper',
+                        params: {
+                            class: 'wlc-profile-content__body',
+                            components: [
+                                componentLib.wlcProfileForm.def,
+                                {
+                                    name: 'user.wlc-profile-blocks',
+                                    display: {
+                                        after: 1023,
+                                    },
+                                },
+                            ],
+                        },
+                    },
+                ],
+            },
+        },
+    ],
+});
+
 export namespace profileContent {
     export const empty: ILayoutSectionConfig = {
         container: true,
@@ -225,6 +312,8 @@ export namespace profileContent {
     export const profileMainTypeFirst: ILayoutSectionConfig = generateProfileFirst(false);
 
     export const profileFirstWithFundistUserId = generateProfileFirst(true);
+
+    export const profileMainTypeWolf: ILayoutSectionConfig = generateProfileWolf();
 
     export const profileMainTypeKiosk: ILayoutSectionConfig = {
         container: true,
@@ -285,6 +374,37 @@ export namespace profileContent {
         ],
     };
 
+    export const profileWolfHistory: ILayoutSectionConfig = {
+        container: true,
+        theme: 'wolf',
+        usePreloader: true,
+        components: [
+            {
+                name: 'core.wlc-section-title',
+                params: {
+                    theme: 'wolf',
+                    text: 'History',
+                    iconPath: 'wlc/icons/european/v3/history.svg',
+                },
+                display: {
+                    before: 899,
+                },
+            },
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__wrp',
+                    components: [
+                        componentLib.wlcProfileMenu.defTypeWolf,
+                        componentLib.wlcProfileMenu.submenuWolf,
+                        componentLib.wlcTransactionHistory.filter,
+                        componentLib.wlcTransactionHistory.def,
+                    ],
+                },
+            },
+        ],
+    };
+
     export const profileHistoryTypeFirst: ILayoutSectionConfig = {
         container: true,
         theme: 'first',
@@ -340,6 +460,35 @@ export namespace profileContent {
                 },
             },
             componentLib.wlcBonusesList.main,
+        ],
+    };
+
+    export const profileWolfBonusesMain: ILayoutSectionConfig = {
+        container: true,
+        theme: 'wolf',
+        usePreloader: true,
+        components: [
+            {
+                name: 'core.wlc-section-title',
+                params: {
+                    theme: 'wolf',
+                    text: 'Bonuses',
+                    iconPath: 'wlc/icons/european/v3/bonuses.svg',
+                },
+                display: {
+                    before: 899,
+                },
+            },
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__wrp',
+                    components: [
+                        componentLib.wlcProfileMenu.defTypeWolf,
+                        componentLib.wlcBonusesList.main,
+                    ],
+                },
+            },
         ],
     };
 
@@ -429,6 +578,25 @@ export namespace profileContent {
         ],
     };
 
+    export const profileWolfBonusesActive: ILayoutSectionConfig = {
+        container: true,
+        theme: 'wolf',
+        usePreloader: true,
+        components: [
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__wrp',
+                    components: [
+                        componentLib.wlcProfileMenu.defTypeWolf,
+                        componentLib.wlcTitle.activeBonuses,
+                        componentLib.wlcBonusesList.active,
+                    ],
+                },
+            },
+        ],
+    };
+
     export const profileBonusesActiveTypeFirst = (recommendedWithEars: boolean): ILayoutSectionConfig => ({
         container: true,
         theme: 'first',
@@ -484,6 +652,25 @@ export namespace profileContent {
         components: [
             componentLib.wlcTitle.inventory,
             componentLib.wlcBonusesList.inventory,
+        ],
+    };
+
+    export const profileWolfBonusesInventory: ILayoutSectionConfig = {
+        container: true,
+        theme: 'wolf',
+        usePreloader: true,
+        components: [
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__wrp',
+                    components: [
+                        componentLib.wlcProfileMenu.defTypeWolf,
+                        componentLib.wlcTitle.inventory,
+                        componentLib.wlcBonusesList.inventory,
+                    ],
+                },
+            },
         ],
     };
 
@@ -555,6 +742,37 @@ export namespace profileContent {
         ],
     };
 
+    export const profileWolfDeposit: ILayoutSectionConfig = {
+        container: true,
+        theme: 'wolf',
+        usePreloader: true,
+        components: [
+            {
+                name: 'core.wlc-section-title',
+                params: {
+                    theme: 'wolf',
+                    text: 'Deposit',
+                    iconPath: 'wlc/icons/european/v3/deposit.svg',
+                },
+                display: {
+                    before: 899,
+                },
+            },
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__wrp',
+                    components: [
+                        componentLib.wlcProfileMenu.defTypeWolf,
+                        componentLib.wlcDepositWithdraw.submenuWolf,
+                        componentLib.wlcDepositWithdraw.balanceAdaptive,
+                        componentLib.wlcDepositWithdraw.deposit,
+                    ],
+                },
+            },
+        ],
+    };
+
     export const profileDepositTypeFirst: ILayoutSectionConfig = {
         container: true,
         theme: 'first',
@@ -620,6 +838,37 @@ export namespace profileContent {
             },
             componentLib.wlcDepositWithdraw.submenu,
             componentLib.wlcDepositWithdraw.withdraw,
+        ],
+    };
+
+    export const profileWolfWithdraw: ILayoutSectionConfig = {
+        container: true,
+        theme: 'wolf',
+        usePreloader: true,
+        components: [
+            {
+                name: 'core.wlc-section-title',
+                params: {
+                    theme: 'wolf',
+                    text: 'Withdrawal',
+                    iconPath: 'wlc/icons/european/v3/withdrawal.svg',
+                },
+                display: {
+                    before: 899,
+                },
+            },
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__wrp',
+                    components: [
+                        componentLib.wlcProfileMenu.defTypeWolf,
+                        componentLib.wlcDepositWithdraw.submenuWolf,
+                        componentLib.wlcDepositWithdraw.balanceAdaptive,
+                        componentLib.wlcDepositWithdraw.withdraw,
+                    ],
+                },
+            },
         ],
     };
 
@@ -757,6 +1006,45 @@ export namespace profileContent {
         ],
     };
 
+    export const profileWolfTransactions: ILayoutSectionConfig = {
+        container: true,
+        usePreloader: true,
+        theme: 'wolf',
+        components: [
+            {
+                name: 'core.wlc-section-title',
+                params: {
+                    theme: 'wolf',
+                    text: 'History',
+                    iconPath: 'wlc/icons/european/v3/history.svg',
+                },
+                display: {
+                    before: 899,
+                },
+            },
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__wrp',
+                    components: [
+                        componentLib.wlcProfileMenu.defTypeWolf,
+                        componentLib.wlcProfileMenu.submenuWolf,
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__top',
+                                components: [
+                                    componentLib.wlcTransactionHistory.filterOnly,
+                                ],
+                            },
+                        },
+                        componentLib.wlcTransactionHistory.def,
+                    ],
+                },
+            },
+        ],
+    };
+
     export const profileTransactionsTypeFirst: ILayoutSectionConfig = {
         container: true,
         theme: 'first',
@@ -861,6 +1149,57 @@ export namespace profileContent {
         ],
     });
 
+    export const profileWolfDashboard = (bonusesListSwiperWithEars: boolean): ILayoutSectionConfig => ({
+        container: true,
+        theme: 'wolf',
+        usePreloader: true,
+        components: [
+            {
+                name: 'core.wlc-section-title',
+                params: {
+                    theme: 'wolf',
+                    text: 'Dashboard',
+                    iconPath: 'wlc/icons/european/v3/dashboard.svg',
+                },
+                display: {
+                    before: 899,
+                },
+            },
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__wrp',
+                    components: [
+                        componentLib.wlcProfileMenu.defTypeWolf,
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__top',
+                                components: [
+                                    componentLib.wlcLogout.useText,
+                                ],
+                            },
+                        },
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-dashboard-grid',
+                                components: [
+                                    componentLib.wlcDashboardLoyaltyBlock.def,
+                                    componentLib.wlcDashboardExchange.def,
+                                    componentLib.wlcTitle.profileDashboardBonuses,
+                                    ...componentLib.wlcBonusesList.generateDashboardConfig(bonusesListSwiperWithEars),
+                                    componentLib.wlcEnterPromocode.def,
+                                    componentLib.wlcSeeAllBonuses.def,
+                                ],
+                            },
+                        },
+                    ],
+                },
+            },
+        ],
+    });
+
     export const profileDashboardWithoutStore: ILayoutSectionConfig = {
         container: true,
         components: [
@@ -953,6 +1292,36 @@ export namespace profileContent {
         ],
     };
 
+    export const profileWolfVerificationShuftiProKycaml: ILayoutSectionConfig = {
+        container: true,
+        theme: 'wolf',
+        usePreloader: true,
+        components: [
+            {
+                name: 'core.wlc-section-title',
+                params: {
+                    theme: 'wolf',
+                    text: 'Profile',
+                    iconPath: 'wlc/icons/european/v3/account-settings.svg',
+                },
+                display: {
+                    before: 899,
+                },
+            },
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__wrp',
+                    components: [
+                        componentLib.wlcProfileMenu.defTypeWolf,
+                        componentLib.wlcProfileMenu.submenuWolf,
+                        componentLib.wlcVerification.shuftiProKycaml,
+                    ],
+                },
+            },
+        ],
+    };
+
     export const profileVerificationShuftiProKycamlTypeFirst: ILayoutSectionConfig = {
         container: true,
         theme: 'first',
@@ -1031,6 +1400,36 @@ export namespace profileContent {
         ],
     };
 
+    export const profileWolfVerification: ILayoutSectionConfig = {
+        container: true,
+        theme: 'wolf',
+        usePreloader: true,
+        components: [
+            {
+                name: 'core.wlc-section-title',
+                params: {
+                    theme: 'wolf',
+                    text: 'Profile',
+                    iconPath: 'wlc/icons/european/v3/account-settings.svg',
+                },
+                display: {
+                    before: 899,
+                },
+            },
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__wrp',
+                    components: [
+                        componentLib.wlcProfileMenu.defTypeWolf,
+                        componentLib.wlcProfileMenu.submenuWolf,
+                        componentLib.wlcVerification.def,
+                    ],
+                },
+            },
+        ],
+    };
+
     export const profileVerificationTypeFirst: ILayoutSectionConfig = {
         container: true,
         theme: 'first',
@@ -1095,6 +1494,36 @@ export namespace profileContent {
             },
             componentLib.wlcProfileMenu.submenu,
             componentLib.wlcLimitations.def,
+        ],
+    };
+
+    export const profileWolfLimitations: ILayoutSectionConfig = {
+        container: true,
+        theme: 'wolf',
+        usePreloader: true,
+        components: [
+            {
+                name: 'core.wlc-section-title',
+                params: {
+                    theme: 'wolf',
+                    text: 'Profile',
+                    iconPath: 'wlc/icons/european/v3/account-settings.svg',
+                },
+                display: {
+                    before: 899,
+                },
+            },
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__wrp',
+                    components: [
+                        componentLib.wlcProfileMenu.defTypeWolf,
+                        componentLib.wlcProfileMenu.submenuWolf,
+                        componentLib.wlcLimitations.def,
+                    ],
+                },
+            },
         ],
     };
 
@@ -1218,11 +1647,44 @@ export namespace profileContent {
         ],
     };
 
+    export const profileWolfStore: ILayoutSectionConfig = {
+        container: true,
+        theme: 'wolf',
+        usePreloader: true,
+        components: [
+            {
+                name: 'core.wlc-section-title',
+                params: {
+                    theme: 'wolf',
+                    text: 'Store',
+                    iconPath: 'wlc/icons/european/v3/market.svg',
+                },
+                display: {
+                    before: 899,
+                },
+            },
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__wrp',
+                    components: [
+                        componentLib.wlcProfileMenu.defTypeWolf,
+                        componentLib.wlcProfileMenu.submenuWolf,
+                        componentLib.wlcUserStats.storeWithDescriptionIcon,
+                        componentLib.wlcStoreList.def,
+                    ],
+                },
+            },
+        ],
+    };
+
     export const profileLoyaltyLevels: ILayoutSectionConfig = profileDefaultLoyaltyType(false);
     export const profileLoyaltyLevelsSingle: ILayoutSectionConfig = profileDefaultLoyaltyType(true);
 
     export const profileLoyaltyLevelsTypeFirst: ILayoutSectionConfig = profileFirstLoyaltyType(false);
     export const profileLoyaltyLevelsTypeFirstSingle: ILayoutSectionConfig = profileFirstLoyaltyType(true);
+
+    export const profileWolfLoyaltyLevelsSingle: ILayoutSectionConfig = profileWolfLoyaltyType(true);
 
     export const profileAchievements: ILayoutSectionConfig = {
         container: true,
@@ -1230,6 +1692,35 @@ export namespace profileContent {
             componentLib.wlcAchievementTitle.def,
             componentLib.wlcProfileMenu.submenu,
             componentLib.wlcAchievementsList.def,
+        ],
+    };
+
+    export const profileWolfAchievements: ILayoutSectionConfig = {
+        container: true,
+        theme: 'wolf',
+        components: [
+            {
+                name: 'core.wlc-section-title',
+                params: {
+                    theme: 'wolf',
+                    text: 'Achievements',
+                    iconPath: 'wlc/icons/european/v3/achievements.svg',
+                },
+                display: {
+                    before: 899,
+                },
+            },
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__wrp',
+                    components: [
+                        componentLib.wlcProfileMenu.defTypeWolf,
+                        componentLib.wlcProfileMenu.submenuWolf,
+                        componentLib.wlcAchievementsList.def,
+                    ],
+                },
+            },
         ],
     };
 
@@ -1300,6 +1791,44 @@ export namespace profileContent {
         ],
     };
 
+    export const profileWolfMessages: ILayoutSectionConfig = {
+        container: true,
+        theme: 'wolf',
+        components: [
+            {
+                name: 'core.wlc-section-title',
+                params: {
+                    theme: 'wolf',
+                    text: 'Profile',
+                    iconPath: 'wlc/icons/european/v3/account-settings.svg',
+                },
+                display: {
+                    before: 899,
+                },
+            },
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__wrp',
+                    components: [
+                        componentLib.wlcProfileMenu.defTypeWolf,
+                        componentLib.wlcProfileMenu.submenuWolf,
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__top',
+                                components: [
+                                    componentLib.wlcInternalMails.filterOnly,
+                                ],
+                            },
+                        },
+                        componentLib.wlcInternalMails.mails,
+                    ],
+                },
+            },
+        ],
+    };
+
     export const profileMessagesTypeFirst: ILayoutSectionConfig = {
         container: true,
         theme: 'first',
@@ -1366,6 +1895,45 @@ export namespace profileContent {
             },
             componentLib.wlcProfileMenu.submenuBetHistory,
             componentLib.wlcBetHistory.def,
+        ],
+    };
+
+    export const profileWolfBetHistory: ILayoutSectionConfig = {
+        container: true,
+        usePreloader: true,
+        theme: 'wolf',
+        components: [
+            {
+                name: 'core.wlc-section-title',
+                params: {
+                    theme: 'wolf',
+                    text: 'History',
+                    iconPath: 'wlc/icons/european/v3/history.svg',
+                },
+                display: {
+                    before: 899,
+                },
+            },
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__wrp',
+                    components: [
+                        componentLib.wlcProfileMenu.defTypeWolf,
+                        componentLib.wlcProfileMenu.submenuWolf,
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__top',
+                                components: [
+                                    componentLib.wlcBetHistory.filterOnly,
+                                ],
+                            },
+                        },
+                        componentLib.wlcBetHistory.def,
+                    ],
+                },
+            },
         ],
     };
 
@@ -1503,6 +2071,44 @@ export namespace profileContent {
         ],
     };
 
+    export const profileWolfBonusesHistory: ILayoutSectionConfig = {
+        container: true,
+        theme: 'wolf',
+        components: [
+            {
+                name: 'core.wlc-section-title',
+                params: {
+                    theme: 'wolf',
+                    text: 'History',
+                    iconPath: 'wlc/icons/european/v3/history.svg',
+                },
+                display: {
+                    before: 899,
+                },
+            },
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__wrp',
+                    components: [
+                        componentLib.wlcProfileMenu.defTypeWolf,
+                        componentLib.wlcProfileMenu.submenuWolf,
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__top',
+                                components: [
+                                    componentLib.wlcBonusesHistory.filterOnly,
+                                ],
+                            },
+                        },
+                        componentLib.wlcBonusesHistory.def,
+                    ],
+                },
+            },
+        ],
+    };
+
     export const profileBonusesHistoryTypeFirst: ILayoutSectionConfig = {
         container: true,
         theme: 'first',
@@ -1572,6 +2178,23 @@ export namespace profileContent {
                     class: 'wlc-profile-content',
                     components: [
                         componentLib.wlcTournamentList.detail,
+                    ],
+                },
+            },
+        ],
+    };
+
+    export const profileWolfTournamentsDetail: ILayoutSectionConfig = {
+        container: true,
+        theme: 'wolf',
+        components: [
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__wrp',
+                    components: [
+                        componentLib.wlcProfileMenu.defTypeWolf,
+                        componentLib.wlcTournamentDetail.def,
                     ],
                 },
             },
@@ -1702,6 +2325,36 @@ export namespace profileContent {
         ],
     };
 
+    export const profileWolfTournamentsHistory: ILayoutSectionConfig = {
+        container: true,
+        theme: 'wolf',
+        components: [
+            {
+                name: 'core.wlc-section-title',
+                params: {
+                    theme: 'wolf',
+                    text: 'History',
+                    iconPath: 'wlc/icons/european/v3/history.svg',
+                },
+                display: {
+                    before: 899,
+                },
+            },
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__wrp',
+                    components: [
+                        componentLib.wlcProfileMenu.defTypeWolf,
+                        componentLib.wlcProfileMenu.submenuWolf,
+                        componentLib.wlcHistoryFilter.tournaments,
+                        componentLib.wlcTournamentsHistory.def,
+                    ],
+                },
+            },
+        ],
+    };
+
     export const profileTournamentsHistoryTypeFirst: ILayoutSectionConfig = {
         container: true,
         theme: 'first',
@@ -1759,6 +2412,25 @@ export namespace profileContent {
             componentLib.wlcTitle.profileV2,
             componentLib.wlcProfileMenu.submenu,
             componentLib.wlcSocial.socialNetworksProfile,
+        ],
+    };
+
+    export const profileWolfSocials: ILayoutSectionConfig = {
+        container: true,
+        theme: 'wolf',
+        components: [
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__wrp',
+                    components: [
+                        componentLib.wlcProfileMenu.defTypeWolf,
+                        componentLib.wlcProfileMenu.submenuWolf,
+                        componentLib.wlcTitle.profileV2,
+                        componentLib.wlcSocial.socialNetworksProfile,
+                    ],
+                },
+            },
         ],
     };
 
@@ -1836,6 +2508,34 @@ export namespace profileContent {
                 },
             },
             componentLib.wlcCashbackRewards.def,
+        ],
+    };
+
+    export const profileWolfCashbackRewards: ILayoutSectionConfig = {
+        container: true,
+        theme: 'wolf',
+        components: [
+            {
+                name: 'core.wlc-section-title',
+                params: {
+                    theme: 'wolf',
+                    text: 'Cashback',
+                    iconPath: 'wlc/icons/european/v3/cashback.svg',
+                },
+                display: {
+                    before: 899,
+                },
+            },
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__wrp',
+                    components: [
+                        componentLib.wlcProfileMenu.defTypeWolf,
+                        componentLib.wlcCashbackRewards.def,
+                    ],
+                },
+            },
         ],
     };
 
