@@ -21,6 +21,7 @@ export const TBonusFilter: Record<string, string> = {
 export interface IHistoryData {
     transaction: BehaviorSubject<IHistoryFilter>;
     bet: BehaviorSubject<IHistoryFilter>;
+    cashback: BehaviorSubject<IHistoryFilter>;
     tournaments: BehaviorSubject<IHistoryFilterValue<TTournamentsFilter>>;
     bonus: BehaviorSubject<IHistoryFilterValue<typeof TBonusFilter>>;
     mails: BehaviorSubject<IHistoryFilter>;
@@ -33,6 +34,7 @@ export interface IHistoryFilterValue<T = Record<string, string>> {
 export interface IHistoryDefault {
     transaction: IHistoryFilter<TTransactionFilter>;
     bet: IHistoryFilter;
+    cashback: IHistoryFilter;
     tournaments: IHistoryFilterValue<TTournamentsFilter>;
     bonus: IHistoryFilterValue<keyof typeof TBonusFilter>;
     mails: IHistoryFilter;

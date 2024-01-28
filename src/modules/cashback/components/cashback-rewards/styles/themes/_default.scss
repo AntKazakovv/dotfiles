@@ -7,6 +7,31 @@
             flex-direction: column;
             align-items: center;
             margin: ef.get-value($themeDefault, 'contentMargin');
+
+            &:has(.wlc-cashback__deposit) {
+                align-items: start;
+            }
+
+            .wlc-cashback__deposit {
+                display: flex;
+                flex-direction: column;
+                gap: ef.get-value($themeDefault, 'cashbackGap');
+                width: 100%;
+
+                .wlc-timer--theme-default {
+                    @include bm.get-mq-map('margin', $themeDefault, 'cashbackTimer');
+                    width: ef.get-value($themeDefault, 'cashbackTimerWidth');
+                }
+
+                .wlc-cashback-item__btn {
+                    @include bm.get-mq-map('margin', $themeDefault, 'cashbackBtnMargin');
+                    width: ef.get-value($themeDefault, 'cashbackBtnWidth');
+                }
+            }
+
+            .wlc-cashback__no-content {
+                width: 100%;
+            }
         }
 
         &__items {

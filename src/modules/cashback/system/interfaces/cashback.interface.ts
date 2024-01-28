@@ -6,4 +6,5 @@ export interface ICashbackPlan {
     ID: string;
     Name: string;
     Period: string;
+    Type: string;
 }

@@ -1,0 +1,51 @@
+.wlc-cashback-history--theme-default:host {
+    display: grid;
+    gap: ef.get-value($themeDefault, 'historyGap');
+
+    .wlc-loader {
+        min-height: ef.get-value($themeDefault, 'loaderMinHeight');
+    }
+
+    .wlc-cashback-history__filter {
+        display: flex;
+        gap: ef.get-value($themeDefault, 'historyGap');
+
+        .wlc-select[wlc-select] {
+            width: ef.get-value(ev.$profileSettings, 'filterWidth');
+        }
+
+        .wlc-datepicker--theme-default[class] {
+            max-width: ef.get-value(ev.$profileSettings, 'filterWidth');
+        }
+    }
+
+    .wlc-history-range--theme-default {
+        margin: ef.get-value($themeDefault, 'rangeMargin');
+    }
+
+    .wlc-table--theme-default.wlc-table::ng-deep {
+
+        .wlc-table__cell--first {
+            grid-template-columns: ef.get-value($themeDefault, 'tableCellGridTemplateColumns');
+
+            .wlc-table__cell-label {
+                display: none;
+            }
+        }
+
+        .wlc-table__content .wlc-table__row {
+
+            .wlc-table__cell {
+                vertical-align: ef.get-value($themeDefault, 'tableCellVerticalAlign');
+            }
+        }
+
+        .wlc-table__cell--Period {
+
+            .wlc-table__cell-content {
+                max-width: ef.get-value($themeDefault, 'periodMaxWidth');
+                margin: ef.get-value($themeDefault, 'periodMargin');
+            }
+        }
+    }
+}

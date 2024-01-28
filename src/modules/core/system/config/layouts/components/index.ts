@@ -98,6 +98,7 @@ export * from './history/wlc-bonuses-history.config';
 export * from './history/wlc-tournaments-history.config';
 export * from './history/wlc-transaction-history.config';
 export * from './history/wlc-bet-history.config';
+export * from './history/wlc-cashback-history.config';
 
 export * from './achievements/wlc-achievements-list.config';
 export * from './achievements/wlc-achievements-title.config';

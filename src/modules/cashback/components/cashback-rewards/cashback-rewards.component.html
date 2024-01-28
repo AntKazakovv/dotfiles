@@ -1,50 +1,90 @@
 <div class="{{$class}}__content">
-    <ng-container *ngIf="ready| async; else loading">
-        <ng-container *ngIf="paginatedCashbackPlans.length; then default else noData"></ng-container>
+    <ng-container [ngSwitch]="typeCashback">
+        <ng-container *ngSwitchCase="'deposit'" [ngTemplateOutlet]="typeDeposite"></ng-container>
+        <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
     </ng-container>
 </div>
-
 <ng-template #default>
-    <div class="{{$class}}__items">
-        <div *ngFor="let item of itemCashback | async; trackBy: trackAvailable || trackAmount;" class="{{$class}}-item">
-            <div class="{{$class}}-item__title">{{item.title | translate}}</div>
+    <ng-container *ngIf="ready | async; else loading">
+        <ng-template *ngIf="paginatedCashbackPlans.length; else noData">
+            <div class="{{$class}}__items">
+                <div *ngFor="let item of itemCashback | async; trackBy: trackAvailable || trackAmount;" class="{{$class}}-item">
+                    <div class="{{$class}}-item__title">{{item.title | translate}}</div>
 
-            <div class="{{$class}}-item__desc">{{item.additionalText() | translate}} </div>
+                    <div class="{{$class}}-item__desc">{{item.additionalText() | translate}} </div>
 
-            <div class="{{$class}}-item__period">{{item.periodTitle | translate}} </div>
-            <div *ngIf="item.cashbackStatus && !item.isPending"
-                 wlc-timer
-                 value="{{item.cashbackStatus.date}}"
-                 text="{{item.cashbackStatus.text}}"
-                 (timerEnds)="timerExpiry()">
+                    <div class="{{$class}}-item__period">{{item.periodTitle | translate}} </div>
+                    <div *ngIf="item.cashbackStatus && !item.isPending"
+                        wlc-timer
+                        value="{{item.cashbackStatus.date}}"
+                        text="{{item.cashbackStatus.text}}"
+                        (timerEnds)="timerExpiry()">
+                    </div>
+                    <div *ngIf="item.isPending" class="{{$class}}-item__pending">
+                        <span class="{{$class}}-item__pending-text">
+                            {{'Await processing' | translate}}
+                        </span>
+                    </div>
+                    <div class="{{$class}}-item__btn-block">
+                        <button wlc-button
+                                class="{{$class}}-item__btn"
+                                text="{{item.buttonText}}"
+                                [attr.disabled]="item.isAvailable ? null : ''"
+                                (click)="buttonClick(item)">
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div *ngIf="item.isPending" class="{{$class}}-item__pending">
-                <span class="{{$class}}-item__pending-text">
-                    {{'Await processing' | translate}}
-                </span>
+            <div *ngIf="paginatedCashbackPlans?.length"
+                wlc-pagination
+                [items]="paginatedCashbackPlans"
+                [settings]="$params.pagination"
+                (paginationOnChange)="paginationOnChange($event)">
             </div>
-            <div class="{{$class}}-item__btn-block">
+        </ng-template>
+    </ng-container>
+</ng-template>
+
+<ng-template #typeDeposite>
+    <div class="{{$class}}__deposit">
+        <ng-container *ngIf="ready | async; else loading">
+            <ng-container *ngIf="depositCashback; else noDataDeposit">
+                <div *ngIf="showTimer"
+                    wlc-timer
+                    class="{{$class}}__timer"
+                    [theme]="'default'"
+                    [value]="timerValue"
+                    [text]="$params.claimTimerText"
+                    (timerEnds)="depositTimerEnd()">
+                </div>
                 <button wlc-button
-                        class="{{$class}}-item__btn"
-                        text="{{item.buttonText}}"
-                        [attr.disabled]="item.isAvailable ? null : ''"
-                        (click)="buttonClick(item)">
+                    class="{{$class}}-item__btn"
+                    [text]="$params.claimBtnText"
+                    [disabled]="isNotAvailableCashback"
+                    (click)="claimCashback(depositCashback.id)">
                 </button>
-            </div>
-        </div>
-    </div>
-    <div *ngIf="paginatedCashbackPlans?.length"
-         wlc-pagination
-         [items]="paginatedCashbackPlans"
-         [settings]="$params.pagination"
-         (paginationOnChange)="paginationOnChange($event)">
+            </ng-container>
+        </ng-container>
+        <div wlc-cashback-history></div>
     </div>
 </ng-template>
 
 <ng-template #noData>
-    <div class="{{$class}}__nocontent">
-         {{ 'No cashback available' | translate}}
+    <div wlc-wrapper
+        class="{{$class}}__no-content"
+        [inlineParams]="$params.emptyConfig">
     </div>
+</ng-template>
+
+<ng-template #noDataDeposit>
+    <div wlc-alert theme="panel">
+        <div title>{{$params.noCashbackText | translate}}</div>
+    </div>
+    <button wlc-button
+        class="{{$class}}-item__btn"
+        text="Get cashback"
+        [disabled]="true">
+    </button>
 </ng-template>
 
 <ng-template #loading>

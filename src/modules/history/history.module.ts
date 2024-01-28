@@ -27,6 +27,12 @@ import {TournamentsHistoryComponent} from './components/tournaments-history/tour
 import {
     TournamentTopwinsBtnComponent,
 } from './components/tournaments-history/components/tournament-topwins-btn/tournament-topwins-btn.component';
+import {
+    CashbackHistoryComponent,
+} from 'wlc-engine/modules/history/components/cashback-history/cashback-history.component';
+import {
+    CashbackPreviewComponent,
+} from 'wlc-engine/modules/history/components/cashback-history/cashback-preview/cashback-preview.component';
 
 export const components = {
     'wlc-bonuses-history': BonusesHistoryComponent,
@@ -34,6 +40,7 @@ export const components = {
     'wlc-bet-history': BetHistoryComponent,
     'wlc-transaction-history': TransactionHistoryComponent,
     'wlc-history-range': HistoryRangeComponent,
+    'wlc-cashback-history': CashbackHistoryComponent,
 };
 
 export const services = {
@@ -47,6 +54,8 @@ export const services = {
         TournamentsHistoryComponent,
         TournamentTopwinsBtnComponent,
         BetHistoryComponent,
+        CashbackHistoryComponent,
+        CashbackPreviewComponent,
         BetPreviewComponent,
         TransactionHistoryComponent,
         TransactionButtonsComponent,
@@ -68,6 +77,8 @@ export const services = {
         BonusesHistoryComponent,
         TournamentsHistoryComponent,
         BetHistoryComponent,
+        CashbackHistoryComponent,
+        CashbackPreviewComponent,
         BetPreviewComponent,
         TransactionHistoryComponent,
         TransactionButtonsComponent,

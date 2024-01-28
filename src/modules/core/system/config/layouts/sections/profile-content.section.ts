@@ -1820,7 +1820,18 @@ export namespace profileContent {
                 params: {
                     class: 'wlc-profile-content__top',
                     components: [
-                        componentLib.wlcTitle.cashback,
+                        {
+                            name: 'core.wlc-title',
+                            params: {
+                                customMod: ['profile'],
+                                mainText: gettext('Cashback'),
+                                wlcElement: 'header_cashback',
+                            },
+                            display: {
+                                after: 1024,
+                            },
+                        },
+                        componentLib.wlcCashbackHistory.filter,
                     ],
                 },
             },
@@ -1839,6 +1850,7 @@ export namespace profileContent {
                     class: 'wlc-profile-content__header',
                     components: [
                         componentLib.wlcTitle.cashback,
+                        componentLib.wlcCashbackHistory.filterTypeFirst,
                     ],
                 },
                 display: {

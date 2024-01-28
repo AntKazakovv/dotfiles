@@ -1,0 +1,29 @@
+.wlc-cashback-preview--theme-default:host {
+    @include bm.get-mq-map('justify-content', $themeDefault, 'justify');
+
+    display: flex;
+    width: 100%;
+
+    .wlc-cashback-preview {
+
+        &__time {
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            .wlc-sections__profile-content--theme-first & {
+                @include bm.get-mq-map('display', $themeDefault, 'timeDisplayTypeFirst');
+            }
+        }
+
+        &__amount {
+            @include bm.get-mq-map('display', $themeDefault, 'amountDisplay');
+            @include bm.get-mq-map('margin', $themeDefault, 'amountMargin');
+
+            .wlc-sections__profile-content--theme-first & {
+                @include bm.get-mq-map('display', $themeDefault, 'amountDisplayTypeFirst');
+            }
+        }
+    }
+}

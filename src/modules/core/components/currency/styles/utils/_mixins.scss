@@ -42,4 +42,11 @@
             color: ef.get-value($themeDefault, 'currencyAboveZero');
         }
     }
+
+    .wlc-cashback-history & {
+
+        &.wlc-currency--theme-default {
+            color: ef.get-value($themeDefault, 'currencyAboveZero');
+        }
+    }
 }

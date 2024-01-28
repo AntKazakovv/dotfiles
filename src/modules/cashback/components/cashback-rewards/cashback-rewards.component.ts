@@ -1,3 +1,4 @@
+import {DateTime} from 'luxon';
 import {
     ChangeDetectorRef,
     Component,
@@ -12,6 +13,7 @@ import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract
 import {CashbackService} from 'wlc-engine/modules/cashback/system/services/cashback/cashback.service';
 import {CashbackPlanModel} from 'wlc-engine/modules/cashback/system/models/cashback-plan.model';
 import {
+    ConfigService,
     EventService,
     IPaginateOutput,
     IPushMessageParams,
@@ -45,6 +47,9 @@ export class CashbackRewardsComponent extends AbstractComponent implements OnIni
     public paginatedCashbackPlans: CashbackPlanModel[] = [];
     public itemCashback: BehaviorSubject<CashbackPlanModel[]> = new BehaviorSubject([]);
     public ready: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    public depositCashback: CashbackPlanModel;
+    public typeCashback: 'deposit' | 'default' = 'default';
+    public currentTime: number;
     protected itemsPerPage: number = 0;
 
     constructor(
@@ -53,15 +58,21 @@ export class CashbackRewardsComponent extends AbstractComponent implements OnIni
         protected modalService: ModalService,
         protected eventService: EventService,
         cdr: ChangeDetectorRef,
+        configService: ConfigService,
     ) {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, null, cdr);
+        }, configService, cdr);
     }
 
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
+
+        if (this.configService.get<boolean>('appConfig.siteconfig.CashbackPayoutByClaimButton')) {
+            this.typeCashback = 'deposit';
+        }
+
         this.cashbackService.cashbackPlans
             .subscribe((cashbackPlans: CashbackPlanModel[]): void => {
                 this.paginatedCashbackPlans = cashbackPlans;
@@ -72,7 +83,24 @@ export class CashbackRewardsComponent extends AbstractComponent implements OnIni
             this.ready.next(true);
         }
         await this.cashbackService.fetchCashback();
+
+        if (this.typeCashback === 'deposit' && this.itemCashback.getValue().length) {
+            this.depositCashback = this.itemCashback.getValue()[0];
+        }
         this.ready.next(true);
+    }
+
+    public get isNotAvailableCashback(): boolean {
+        return !this.depositCashback.isAvailable;
+    }
+
+    public get timerValue(): DateTime {
+        const defaultTime = DateTime.fromSQL(this.depositCashback.availableAt);
+        return defaultTime.plus({minutes: defaultTime.offset});
+    }
+
+    public get showTimer(): boolean {
+        return this.timerValue.toMillis() > DateTime.local().toMillis();
     }
 
     /**
@@ -90,9 +118,12 @@ export class CashbackRewardsComponent extends AbstractComponent implements OnIni
                 data: <IPushMessageParams>{
                     type: 'success',
                     title: gettext('Success'),
-                    message: gettext('Success'),
+                    message: gettext('Cashback has been credited to your account'),
                 },
             });
+            if (this.typeCashback === 'deposit' && this.itemCashback.getValue().length) {
+                this.depositeCashbackUpdate();
+            }
         } catch (error) {
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,
@@ -139,6 +170,11 @@ export class CashbackRewardsComponent extends AbstractComponent implements OnIni
         this.ready.next(true);
     }
 
+    public depositTimerEnd(): void {
+        if (this.isNotAvailableCashback) {
+            this.depositeCashbackUpdate();
+        }
+    }
     /**
      * Method called on button click
      *
@@ -160,4 +196,12 @@ export class CashbackRewardsComponent extends AbstractComponent implements OnIni
         this.itemsPerPage = value.event.itemsPerPage;
         this.cdr.detectChanges();
     }
+
+    private async depositeCashbackUpdate(): Promise<void> {
+        this.ready.next(false);
+        await this.cashbackService.fetchCashback();
+        this.depositCashback = this.itemCashback.getValue()[0];
+        this.ready.next(true);
+    }
 }
+

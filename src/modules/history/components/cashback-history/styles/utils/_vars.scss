@@ -1,0 +1,14 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'historyGap': ef.size(4),
+
+    'loaderMinHeight': 400px,
+    'filterWidth': ef.get-value(ev.$profileSettings, 'filterWidth'),
+    'rangeMargin': 0,
+
+    'tableCellGridTemplateColumns': 1fr auto,
+    'tableCellVerticalAlign': middle,
+
+    'periodMaxWidth': 190px,
+    'periodMargin': 0 auto,
+), $customThemeDefault);

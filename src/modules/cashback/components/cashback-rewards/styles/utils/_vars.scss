@@ -43,4 +43,18 @@ $themeDefault: map-merge((
     'itemBtnAlignItems': flex-end,
 
     'timerContentWidth': 227px,
+    'timerTextDisplay': flex,
+    'timerTextFlexDir': column-reverse,
+
+    'cashbackGap': ef.size(4),
+    'cashbackTimer': (
+        375: 0 auto,
+        1024: 0,
+    ),
+    'cashbackTimerWidth': 250px,
+    'cashbackBtnMargin': (
+        375: 0 auto,
+        1024: 0,
+    ),
+    'cashbackBtnWidth': 180px,
 ), $customThemeDefault);

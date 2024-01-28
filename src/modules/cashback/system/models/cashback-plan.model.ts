@@ -37,12 +37,20 @@ export class CashbackPlanModel extends AbstractModel<ICashbackPlan> {
         return this.data.Name;
     }
 
+    public get availableAt(): string {
+        return this.data.AvailableAt;
+    }
+
     public get periodTitle(): string {
         return `${this.translate.instant('Period')}: ${this.translate.instant(this.data.Period)}`;
     }
 
     public get id(): string {
         return this.data.ID;
+    }
+
+    public get type(): string {
+        return this.data.Type;
     }
 
     protected formatDate(date: string): string {

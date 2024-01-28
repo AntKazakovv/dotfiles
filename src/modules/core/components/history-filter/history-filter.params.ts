@@ -141,6 +141,37 @@ export namespace formConfig {
         ],
     };
 
+    export const cashback: IFormWrapperCParams = {
+        class: 'wlc-cashback-filters',
+        components: [
+            {
+                name: 'core.wlc-text-block',
+                params: <ITextBlockCParams>{
+                    common: {
+                        textBlockTitle: gettext('Filter'),
+                    },
+                },
+            },
+            {
+                name: 'core.wlc-datepicker',
+                params: startDate,
+            },
+            {
+                name: 'core.wlc-datepicker',
+                params: endDate,
+            },
+            {
+                name: 'core.wlc-button',
+                params: <IButtonCParams>{
+                    common: {
+                        typeAttr: 'submit',
+                        text: gettext('Save'),
+                    },
+                },
+            },
+        ],
+    };
+
     export const tournaments: IFormWrapperCParams = {
         class: 'wlc-tournaments-filters',
         components: [
