@@ -835,7 +835,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
     }
 
     protected followBreakpoints(): void {
-        const initiatedParams = _cloneDeep(this.$params);
+        const initiatedParams = this.$params;
 
         let breakpoints = _orderBy(
             _map(_keys(this.$params.breakpoints), (val: string) => _isNaN(+val) ? val : +val),
