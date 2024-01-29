@@ -89,7 +89,7 @@ import {
     ProcessEvents,
 } from 'wlc-engine/modules/monitoring';
 import {IChoiceCurrencyParams} from 'wlc-engine/modules/multi-wallet/components/choice-currency/choice-currency.params';
-
+import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 import * as Params from './game-wrapper.params';
 
 interface IError {
@@ -603,7 +603,8 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         });
     }
 
-    protected setGameWindowSize(width?: number): void {
+    @CustomHook('games', 'customSetGameWindowSize')
+    public setGameWindowSize(width?: number): void {
         if (this.$params.theme === 'fullscreen-game-frame') {
             this.setFullPageIframeSize();
             return;
