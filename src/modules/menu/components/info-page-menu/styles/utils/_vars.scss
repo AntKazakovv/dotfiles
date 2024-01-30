@@ -3,8 +3,24 @@ $themeDefault: map-merge((
     'menuDisplay': (
         375: block,
     ),
-    'linkFontSize': (
-        375: 1.2rem,
+    'linkStyles': (
+        375: 'CaptionTextBold',
+        900: 'CaptionText',
+    ),
+    'activeLinkStyles': (
+        375: 'CaptionTextBold',
+    ),
+    'hoverLinkStyles': (
+        375: 'CaptionTextBold',
+    ),
+    'submenuLinkStyles': (
+        375: 'CaptionText',
+    ),
+    'submenuActiveLinkStyles': (
+        375: 'CaptionTextBold',
+    ),
+    'submenuHoverLinkStyles': (
+        375: 'CaptionTextBold',
     ),
     'bgColor': (
         375: none,
