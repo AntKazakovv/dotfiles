@@ -1,6 +1,5 @@
-import {BehaviorSubject} from 'rxjs';
+import {Subject} from 'rxjs';
 
-import {IIndexing} from 'wlc-engine/modules/core';
 import {
     IComponentParams,
     CustomType,
@@ -17,7 +16,7 @@ export interface ICalculatedTax {
 };
 
 export interface ITaxInfoCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
-    formData$?: BehaviorSubject<IIndexing<string | number | boolean>>
+    amount$?: Subject<number>
     mode?: TPaymentsMethods;
 };
 

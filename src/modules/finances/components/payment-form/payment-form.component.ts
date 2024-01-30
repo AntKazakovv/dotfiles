@@ -24,7 +24,6 @@ import {
     catchError,
     distinctUntilChanged,
     takeUntil,
-    throttleTime,
 } from 'rxjs/operators';
 
 import _assign from 'lodash-es/assign';
@@ -149,6 +148,7 @@ export class PaymentFormComponent
     public userProfile$: Subject<UserProfile> = new Subject();
     public onChanges$: Subject<SimpleChanges> = new Subject();
 
+    protected amount$: Subject<number> = new Subject();
     protected userTotalBalance: number;
     protected userAvailableWithdraw: number;
     protected amountControl: UntypedFormControl;
@@ -545,7 +545,6 @@ export class PaymentFormComponent
             this.amountControl.valueChanges
                 .pipe(
                     distinctUntilChanged(),
-                    throttleTime(200, null, {leading: false, trailing: true}),
                     takeUntil(this.$destroy),
                 ).subscribe(val => {
                     if (val === '') {
@@ -555,10 +554,8 @@ export class PaymentFormComponent
                         this.eventService.emit({name: 'AMOUNT_NOT_EMPTY'});
                         this.clearAmountButton.params.isAmountEmpty = false;
                     }
-
-                    this.formData$.next({amount: val});
+                    this.amount$.next(val);
                 });
-            this.formData$.next({amount: `${form.value.amount}`});
         }
     }
 
@@ -634,7 +631,7 @@ export class PaymentFormComponent
     protected async initCommissions(): Promise<void> {
         const params = {
             mode: this.mode,
-            formData$: this.formData$,
+            amount$: this.amount$,
         };
 
         _set(this.commissionsInfoConfig, 'params', params);

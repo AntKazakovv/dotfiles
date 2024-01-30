@@ -50,8 +50,8 @@ export class TaxInfoComponent extends AbstractComponent implements OnInit {
         this.taxes = this.financesService.taxes || await this.financesService.getTaxes();
 
         if (this.taxes) {
-            this.$params.formData$?.pipe(takeUntil(this.$destroy)).subscribe((data) => {
-                this.updateTaxes(Number(data.amount));
+            this.$params.amount$?.pipe(takeUntil(this.$destroy)).subscribe((amount) => {
+                this.updateTaxes(amount);
             });
         } else {
             this.isError = true;
