@@ -32,8 +32,9 @@ export const $layouts: ILayoutsConfig = {
     'app': {
         replaceConfig: true,
         sections: {
+            notifications: sectionsLib.notificationsSection.def,
             header: sectionsLib.header.def,
-            footer: sectionsLib.footer.themeSecond,
+            // footer: sectionsLib.footer.themeSecond,
         },
     },
     'app.home': {
@@ -134,6 +135,19 @@ export const $layouts: ILayoutsConfig = {
                 components: [
                     {
                         name: 'static.wlc-post',
+                    },
+                ],
+            },
+        },
+    },
+    'app.instructions': {
+        extends: 'app',
+        sections: {
+            'pages': {
+                container: true,
+                components: [
+                    {
+                        name: 'static.wlc-instruction',
                     },
                 ],
             },

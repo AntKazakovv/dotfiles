@@ -19,13 +19,14 @@
             </span>
         </a>
 
-        <div wlc-dynamic-html
-            [html]="html"
-            [parseAsPlainHTML]="parseAsPlainHTML"
-            [withoutCompilation]="withoutCompilation"
-            [shouldClearStyles]="shouldClearStyles"
-            [canUseScriptTag]="canUseScriptTag"
-            #wrp>
+        <div #wrp>
+            <div wlc-dynamic-html
+                 [html]="html"
+                 [parseAsPlainHTML]="parseAsPlainHTML"
+                 [withoutCompilation]="withoutCompilation"
+                 [shouldClearStyles]="shouldClearStyles"
+                 [canUseScriptTag]="canUseScriptTag">
+            </div>
         </div>
     </ng-container>
 </div>

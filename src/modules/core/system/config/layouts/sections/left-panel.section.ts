@@ -291,6 +291,7 @@ export namespace leftPanel {
                         componentLib.wlcLoginSignup.burgerPanel,
                         componentLib.wlcMobileMenu.vertical,
                         componentLib.wlcLanguageSelector.long,
+                        componentLib.wlcButton.installPwa,
                     ],
                 },
             },

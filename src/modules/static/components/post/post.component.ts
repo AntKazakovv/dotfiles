@@ -3,11 +3,13 @@ import {
     Inject,
     OnInit,
     Input,
+    Output,
     AfterViewInit,
     ViewContainerRef,
     ViewChild,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
+    EventEmitter,
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {DomSanitizer} from '@angular/platform-browser';
@@ -41,7 +43,7 @@ import * as Params from './post.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PostComponent extends AbstractComponent implements OnInit, AfterViewInit {
-    @ViewChild('wrp', {read: ViewContainerRef, static: true}) wrp: ViewContainerRef;
+    @ViewChild('wrp', {read: ViewContainerRef, static: false}) wrp: ViewContainerRef;
     /**
      * Parses HTML safely, but may break angular template syntax.
      *
@@ -63,6 +65,8 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
     @Input() public canUseScriptTag?: boolean;
     @Input() protected slug: string;
     @Input() protected inlineParams: Params.IPostCParams;
+
+    @Output() public ready: EventEmitter<void> = new EventEmitter();
 
     public data: TextDataModel;
     public html: string;
@@ -114,6 +118,7 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
             this.logService.sendLog({code: '5.0.0', data: error});
         } finally {
             this.isReady = true;
+            this.ready.emit();
             this.cdr.markForCheck();
             if (_get(this.uiRouter.params, '#')) {
                 setTimeout(() => {

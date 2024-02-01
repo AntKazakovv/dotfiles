@@ -145,6 +145,8 @@ declare namespace universalLinks {
 }
 
 declare interface Window extends TAnalyticMethod, IBetradar {
+    isPlatformBrowser: boolean;
+    isPlatformServer: boolean;
     WLC_VERSION: number;
     WLC_ENV?: string;
     WLC_FORBIDDEN?: boolean;
