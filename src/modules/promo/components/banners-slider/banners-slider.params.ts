@@ -8,7 +8,7 @@ import {IBannerCParams} from './../banner/banner.params';
 
 export type ComponentTheme = 'default' | 'default-banner' | CustomType;
 export type ComponentType = 'default' | CustomType;
-export type ComponentThemeMod = 'default' | CustomType;
+export type ComponentThemeMod = 'default' | 'ears' | CustomType;
 
 export type showNavigationOnParams = 'mobile' | 'desktop';
 

@@ -84,6 +84,14 @@ export class BannersSliderComponent extends AbstractComponent implements OnInit 
         if (this.slides.length <= 1) {
             this.$params.sliderParams.swiper.loop = false;
         }
+
+        // TODO это временное решение, необходимо дождаться обновление свайпера в котором пофиксят режим цикла
+        if (this.$params.themeMod === 'ears'
+            && this.slides.length <= 3
+            && this.slides.length > 1
+        ) {
+            this.slides = Array.from({length: 2}, () => this.slides).flat();
+        }
     }
 
     protected getBanners(): BannerModel[] {
