@@ -16,14 +16,14 @@
     <div class="{{$class}}__text-block">{{$params.text | translate}}</div>
 
     <div class="{{$class}}__text-block">
-        <span>{{$params.textBonusBalanceDecrease | translate}}</span>
+        <span class="{{$class}}__descr">{{$params.textBonusBalanceDecrease | translate}}</span>
         <ng-container *ngIf="isReady else loading"
                       [ngTemplateOutlet]="value"
                       [ngTemplateOutletContext]="{$implicit: bonusInfo?.bonusBalanceDecrease}">
         </ng-container>
     </div>
     <div>
-        <span>{{$params.textRealBalanceDecrease | translate}}</span>
+        <span class="{{$class}}__descr">{{$params.textRealBalanceDecrease | translate}}</span>
         <ng-container *ngIf="isReady else loading"
                       [ngTemplateOutlet]="value"
                       [ngTemplateOutletContext]="{$implicit: bonusInfo?.realBalanceDecrease}">
@@ -50,4 +50,3 @@
 
 <!-- TODO added because currency loading does not work correctly, currency should be removed after fixing-->
 <ng-template #loading>...</ng-template>
-

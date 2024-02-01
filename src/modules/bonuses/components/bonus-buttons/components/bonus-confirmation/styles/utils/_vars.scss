@@ -8,6 +8,7 @@ $themeDefault: map-merge((
     'textColor': inherit,
     'valueTextStyle': 'PrimaryTextBold',
     'valueColor': inherit,
+    'descrMargin': 0 ef.size(1) 0 0,
     'currencyTextStyle': null,
     'currencyColor': inherit,
 ), $customThemeDefault);

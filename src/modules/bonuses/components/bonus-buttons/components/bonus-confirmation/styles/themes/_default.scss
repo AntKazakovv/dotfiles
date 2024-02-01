@@ -20,6 +20,10 @@
             margin: ef.get-value($themeDefault, 'marginText');
         }
 
+        &__descr {
+            margin: ef.get-value($themeDefault, 'descrMargin');
+        }
+
         &__value {
             @include text.get-text-style(
                 ef.get-value($themeDefault, 'valueTextStyle'),
