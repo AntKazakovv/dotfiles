@@ -137,7 +137,7 @@ export namespace commonMenuItems {
                 },
             },
             href: {
-                url: '/contacts:slug',
+                url: '/contacts/feedback',
                 baseSiteUrl: true,
             },
         },
