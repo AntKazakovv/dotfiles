@@ -100,8 +100,8 @@ export class TournamentListComponent
         if (this.$params.themeMod === 'swiper') {
             this.sliderParams.swiper = this.$params.common?.swiper;
             this.sliderParams.swiper.navigation = {
-                nextEl: '.wlc-swiper-button-next-' + this.navigationId,
-                prevEl: '.wlc-swiper-button-prev-' + this.navigationId,
+                nextEl: '.wlc-tournament-list .wlc-swiper-button-next-' + this.navigationId,
+                prevEl: '.wlc-tournament-list .wlc-swiper-button-prev-' + this.navigationId,
             };
         }
 
