@@ -22,12 +22,12 @@ $themeDefault: map-merge((
 
     'sliderMargin': ef.size(2) 0 0,
     'sliderContainerMargin': (
-        375: -10px -15px -10px -10px,
-        768: -12px,
+        375: -#{ef.size(2)} -#{ef.size(3)} -#{ef.size(2)} -#{ef.size(2)},
+        768: -#{ef.size(3)},
     ),
     'sliderContainerPadding': (
-        375: 10px 50px 10px 10px,
-        768: 12px,
+        375: ef.size(2) ef.size(10) ef.size(2) ef.size(2),
+        768: ef.size(3),
     ),
 
     'sliderPseudoDisplay': (
