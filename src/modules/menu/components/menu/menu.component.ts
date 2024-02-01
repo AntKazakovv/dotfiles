@@ -119,6 +119,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     @ViewChild('srefWithParent') srefWithParent: ViewContainerRef;
     @ViewChild('content') tplContent: TemplateRef<ElementRef>;
     @ViewChild('subMenuHover') subMenuHover: ElementRef<HTMLElement>;
+    @ViewChild('action') tplAction: TemplateRef<ElementRef>;
 
     @Input() protected inlineParams: Params.IMenuCParams;
 
@@ -505,6 +506,9 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
                         break;
                     case 'event':
                         template = this.tplEvent;
+                        break;
+                    case 'action':
+                        template = this.tplAction;
                         break;
                 }
                 this.slides.push({
