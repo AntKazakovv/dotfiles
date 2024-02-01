@@ -9,8 +9,7 @@ import {
     AfterViewInit,
 } from '@angular/core';
 
-import {UIRouterGlobals} from '@uirouter/core';
-
+import {UIRouter} from '@uirouter/core';
 import _union from 'lodash-es/union';
 import _merge from 'lodash-es/merge';
 import _each from 'lodash-es/each';
@@ -83,7 +82,7 @@ export class TournamentListComponent
         protected eventService: EventService,
         configService: ConfigService,
         cdr: ChangeDetectorRef,
-        protected uiRouter: UIRouterGlobals,
+        protected uiRouter: UIRouter,
     ) {
         super(
             <IMixedParams<Params.ITournamentListCParams>>{
@@ -183,11 +182,17 @@ export class TournamentListComponent
 
                     this.saveDataOfSelectedTournaments(tournaments);
 
-                    if (this.uiRouter.params.tournamentId) {
-                        tournaments = _filter(
+                    if (this.uiRouter.globals.params.tournamentId) {
+                        const currentTournaments: Tournament[] = _filter(
                             tournaments,
-                            tournament => tournament.id === +this.uiRouter.params.tournamentId,
+                            (tournament) => tournament.id === +this.uiRouter.globals.params.tournamentId,
                         );
+
+                        if (currentTournaments.length) {
+                            tournaments = currentTournaments;
+                        } else {
+                            this.uiRouter.stateService.go('app.profile.loyalty-tournaments.main');
+                        }
                     }
 
                     this.paginatedTournaments = this.tournaments = tournaments;
