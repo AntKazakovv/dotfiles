@@ -1,7 +1,7 @@
 import {IIndexing} from 'wlc-engine/modules/core';
 
 export type CategoryViewType = 'all-games' | 'blocks' | 'restricted-blocks';
-export type CategoryBlockShowType = 'slide-arrows' | 'btn-load-more';
+export type CategoryBlockShowType = 'slide-arrows' | 'btn-load-more' | 'default-btn';
 
 export interface ICategorySettings {
     view: CategoryViewType,

@@ -1,0 +1,52 @@
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'headerMargin': 0 0 ef.size(4),
+    'headerJustifyContent': space-between,
+    'headerAlignItems': center,
+    'headerWidth': 100%,
+    'gridColumns': (
+        375: repeat(auto-fill, minmax(110px, 1fr)),
+        900: repeat(auto-fill, minmax(130px, 1fr)),
+        1024: repeat(auto-fill, minmax(150px, 1fr)),
+    ),
+    'gridGap': (
+        375: ef.size(2),
+        900: ef.size(3),
+        1024: ef.size(4)
+    ),
+    'loadMoreFlexDir': column,
+    'loadMoreAlign': center,
+    'loadMoreJustify': center,
+    'loadMoreBorderRadius': ef.get('radius', 'biger'),
+    'loadMoreBG': var(--mc-bg500),
+    'titleFontStyle': 'ThirdTitle',
+    'titleColor': var(--mc-baseMain),
+    'titleIconSize': ef.size(4),
+    'progressBarPadding': (
+        375: 0 ef.size(3),
+    ),
+    'progressBarMargin': 0 0 ef.size(2),
+    'progressBarFontStyle': 'SignTextBold',
+    'progressBarColor': var(--mc-baseMain),
+    'progressBarTextMargin': (
+        375: 0,
+        1024: 0 0 ef.size(1),
+    ),
+    'progressBarDisplay': (
+        375: none,
+        1024: block,
+    ),
+    'progressBarBg': var(--mc-bg300),
+
+    'gridColumnsTournament': (
+        375: repeat(auto-fill, minmax(110px, 1fr)),
+        900: repeat(auto-fill, minmax(130px, 1fr)),
+        1024: repeat(auto-fill, minmax(155px, 1fr)),
+    ),
+    'gridGapTournament': (
+        375: ef.size(2),
+        900: ef.size(2),
+        1024: ef.size(3)
+    ),
+    'gridMaxWidthTournament': 830px,
+), $customThemeWolf);

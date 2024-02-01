@@ -78,6 +78,11 @@
             <ng-container
                 *ngIf="showDesktopLink; then showAllLink">
             </ng-container>
+
+            <ng-container
+                *ngIf="showWolfAllBtn"
+                [ngTemplateOutlet]="wolfAllBtn">
+            </ng-container>
         </div>
 
         <ng-container *ngIf="isReadyOrUsePlaceholder; else: preloader">
@@ -86,7 +91,7 @@
                 class="{{$class}}__list"
                 (wlc-resized)="onResize($event)">
 
-                <ng-container *ngIf="$params.themeMod === 'header-inline'; then headerInline"></ng-container>
+                <ng-container *ngIf="isHeaderInline; then headerInline"></ng-container>
 
                 <div *ngIf="$params.bannerSettings"
                     [@appearance]
@@ -150,7 +155,7 @@
         </ng-container>
 
         <ng-container
-            *ngIf="this.$params.showAllLink?.wolfAllBtn && games.length"
+            *ngIf="showWolfAllBtn"
             [ngTemplateOutlet]="wolfAllBtn">
         </ng-container>
 
@@ -209,8 +214,10 @@
 </ng-template>
 
 <ng-template #headerInline>
-    <div *ngIf="isDesktop"
-        class="{{$class}}__header">
+    <a *ngIf="isDesktop || $params.theme === 'wolf'"
+        class="{{$class}}__header"
+        uiSref="{{$params.showAllLink.sref || $params.showAllLink.link}}"
+        [uiParams]="$params.showAllLink.params || {}">
 
         <span *ngIf="$params.titleIcon?.name"
             wlc-icon
@@ -222,20 +229,22 @@
         <ng-container
             *ngIf="showDesktopLink; then showAllLink">
         </ng-container>
-    </div>
+    </a>
 
-    <a *ngIf="!isDesktop && $params.showAllLink?.use && !$params.showAllLink.titleLinkOnly"
+    <a *ngIf="headerInlineMobLink"
         class="{{$class}}__header"
         uiSref="{{$params.showAllLink.sref || $params.showAllLink.link}}"
         [uiParams]="$params.showAllLink.params || {}">
 
-    <span *ngIf="$params.titleIcon?.name"
-        wlc-icon
-        [iconPath]="$params.titleIcon.name"></span>
+        <span *ngIf="$params.titleIcon?.name"
+            wlc-icon
+            [iconPath]="$params.titleIcon.name">
+        </span>
         <span *ngIf="$params.showTitle"
             wlc-title
             class="{{$class}}__title"
-            [mainText]="title"></span>
+            [mainText]="title">
+        </span>
     </a>
 </ng-template>
 

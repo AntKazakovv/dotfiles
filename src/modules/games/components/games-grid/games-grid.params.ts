@@ -22,7 +22,7 @@ import {
 } from 'wlc-engine/modules/tournaments';
 import {IBannersSliderCParams} from 'wlc-engine/modules/promo';
 
-export type ComponentTheme = 'default' | 'swiper' | 'preview' | 'mobile-app-swiper' | CustomType;
+export type ComponentTheme = 'default' | 'swiper' | 'preview' | 'mobile-app-swiper' | 'wolf' | CustomType;
 export type ComponentType = 'default' | 'search' | 'swiper';
 export type ComponentThemeMod = 'default'
     | 'tournament-detail'
@@ -31,8 +31,6 @@ export type ComponentThemeMod = 'default'
     | 'centered-controls'
     | 'mobile-app-search'
     | 'all-link-secondary'
-    | 'wolf'
-    | 'wolf-tournament'
     /** Use it with simple game thumb. Shows little (120-150px) thumbs with little gaps, auto-filled columns */
     | 'simple'
     | string;

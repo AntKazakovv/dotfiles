@@ -137,6 +137,7 @@ export class GamesCatalogComponent extends AbstractComponent implements OnInit {
                     const platformKey: string = this.isMobile ? 'mobile' : 'desktop';
                     const gameRows: number = _get(gameBlock, `settings.gameRows.${platformKey}`, 2);
                     const showType: string = _get(gameBlock, 'settings.showType');
+                    const cardView: boolean = showType === 'btn-load-more';
 
                     const gridParams: IGamesGridCParams = _merge(_cloneDeep(this.$params.gamesGridParams), {
                         customMod: 'games-block-' + index,
@@ -147,7 +148,7 @@ export class GamesCatalogComponent extends AbstractComponent implements OnInit {
                             byCategory: true,
                         },
                         moreBtn: {
-                            cardView: true,
+                            cardView: cardView,
                         },
                         category: gameBlock.category,
                         progressBar: {
@@ -178,7 +179,8 @@ export class GamesCatalogComponent extends AbstractComponent implements OnInit {
                             ),
                         };
                     }
-                    if (this.isMobile) {
+
+                    if (this.isMobile && this.$params.gamesGridParams.themeMod !== 'wolf') {
                         gridParams.moreBtn.cardView = false;
                     }
 

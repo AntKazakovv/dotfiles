@@ -1,0 +1,168 @@
+.wlc-games-grid--theme-wolf:host {
+
+    .wlc-games-grid {
+
+        &__header {
+            display: flex;
+            align-items: ef.get-value($themeWolf, 'headerAlignItems');
+            justify-content: ef.get-value($themeWolf, 'headerJustifyContent');
+            width: ef.get-value($themeWolf, 'headerWidth');
+            margin: ef.get-value($themeWolf, 'headerMargin');
+        }
+
+        &__list {
+            @include bm.get-mq-map('grid-template-columns', $themeWolf, 'gridColumns');
+            @include bm.get-mq-map('grid-gap', $themeWolf, 'gridGap');
+            display: grid;
+        }
+
+        &__item {
+            perspective: 1000px;
+            perspective-origin: 50% 50%;
+
+            &--load-more {
+                display: flex;
+                flex-direction: ef.get-value($themeWolf, 'loadMoreFlexDir');
+                align-items: ef.get-value($themeWolf, 'loadMoreAlign');
+                justify-content: ef.get-value($themeWolf, 'loadMoreJustify');
+                border-radius: ef.get-value($themeWolf, 'loadMoreBorderRadius');
+                background: ef.get-value($themeWolf, 'loadMoreBG');
+            }
+        }
+
+        &__title {
+
+            ::ng-deep {
+
+                .wlc-title__main {
+                    @include text.get-text-style(
+                        ef.get-value($themeWolf, 'titleFontStyle'),
+                        ef.get-value($themeWolf, 'titleColor')
+                    );
+                    line-height: 1;
+                }
+            }
+        }
+
+        &__title-icon {
+
+            ::ng-deep {
+
+                .wlc-icon-content[class] {
+                    width: ef.get-value($themeWolf, 'titleIconSize');
+                    height: ef.get-value($themeWolf, 'titleIconSize');
+                }
+            }
+        }
+
+        &__card-more {
+
+            ::ng-deep {
+
+                .wlc-btn {
+                    display: flex;
+                }
+            }
+        }
+
+        &__card-progressbar {
+            @include bm.get-mq-map('padding', $themeWolf, 'progressBarPadding');
+            @include bm.get-mq-map('margin', $themeWolf, 'progressBarMargin');
+            width: 100%;
+
+            ::ng-deep {
+
+                .wlc-progress-bar {
+
+                    &__text {
+                        @include text.get-text-style(
+                            ef.get-value($themeWolf, 'progressBarFontStyle'),
+                            ef.get-value($themeWolf, 'progressBarColor')
+                        );
+                        @include bm.get-mq-map('margin', $themeWolf, 'progressBarTextMargin');
+                    }
+
+                    &__progress {
+                        @include bm.get-mq-map('display', $themeWolf, 'progressBarDisplay');
+                        width: 100%;
+                        background: ef.get-value($themeWolf, 'progressBarBg');
+                    }
+                }
+            }
+        }
+    }
+
+    &.wlc-games-grid--theme-mod-tournament-detail {
+
+        .wlc-games-grid {
+
+            &__list {
+                @include bm.get-mq-map('grid-template-columns', $themeWolf, 'gridColumnsTournament');
+                @include bm.get-mq-map('grid-gap', $themeWolf, 'gridGapTournament');
+                max-width: ef.get-value($themeWolf, 'gridMaxWidthTournament');
+                margin: 0 auto;
+            }
+        }
+    }
+
+    &.wlc-games-grid--theme-mod-header-inline {
+
+        .wlc-games-grid {
+
+            &__header {
+                @include bm.get-mq-map('flex-direction', $modHeaderInline, 'flexDirection');
+                @include bm.get-mq-map('padding', $modHeaderInline, 'wolfPadding');
+                @include bm.transition(background);
+                @include bm.get-mq-map('border-radius', $modHeaderInline, 'borderRadius');
+                justify-content: center;
+                margin: 0;
+                color: ef.get-value($modHeaderInline, 'wolfIconColor');
+                text-decoration: none;
+                background: ef.get-value($modHeaderInline, 'wolfBg');
+
+                ::ng-deep {
+
+                    svg {
+                        @include bm.get-mq-map('width', $modHeaderInline, 'wolfIconSize');
+                        @include bm.get-mq-map('height', $modHeaderInline, 'wolfIconSize');
+                    }
+
+                    .wlc-title {
+                        margin: 0;
+                    }
+
+                    .wlc-title__main-link {
+                        @include text.get-text-style(
+                            ef.get-value($modHeaderInline, 'wolfTitleFontStyle', 375),
+                            ef.get-value($modHeaderInline, 'wolfTitleColor')
+                        );
+                        display: flex;
+                        justify-content: center;
+                        margin: ef.get-value($modHeaderInline, 'wolfTitleMargin');
+
+                        .wlc-icon {
+                            margin: ef.get-value($modHeaderInline, 'wolfTitleArrowMargin');
+                            opacity: 1;
+                        }
+
+                        svg {
+                            width: ef.get-value($modHeaderInline, 'wolfTitleArrowSize');
+                            height: ef.get-value($modHeaderInline, 'wolfTitleArrowSize');
+                        }
+
+                        @include mq.min(900) {
+                            @include text.get-text-style(
+                                ef.get-value($modHeaderInline, 'wolfTitleFontStyle', 900),
+                                ef.get-value($modHeaderInline, 'wolfTitleColor')
+                            );
+                        }
+                    }
+                }
+
+                @include bm.hover {
+                    background: ef.get-value($modHeaderInline, 'wolfBgHover');
+                }
+            }
+        }
+    }
+}

@@ -123,7 +123,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
     // We have to calculate the ID here, because if we calculate it in the prepareGrid,
     // the swiper navigation buttons will lose their binding
     public navigationId: string = _random(10000000).toString(16);
-    public btnCounter: CounterType;
+    public btnCounter!: CounterType;
 
     public gamesSliderConfig: IWrapperCParams = {components: []};
     public gamePlaceholdersSliderConfig: IWrapperCParams = {components: []};
@@ -144,6 +144,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
     protected useLazyAfterClick: boolean = false;
     protected categoryAmount: number = 0;
     protected $isReady: Subject<void> = new Subject<void>();
+    protected isHeaderInline!: boolean;
 
     private _gamesList: Game[];
     private $untilBreakpointOrDestroy: Subject<void> = new Subject();
@@ -169,6 +170,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
         super.ngOnInit(this.inlineParams);
 
         this.$params.wlcElement ??= `wlc-games-grid-${this.getWlcSuffix()}`;
+        this.isHeaderInline = this.$params.themeMod === 'header-inline';
 
         this.setWlcElementOnHost();
         this.initTitleIcon();
@@ -210,7 +212,9 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
      * @returns boolean
      */
     public get moreBlockDisplayCondition(): boolean {
-        return !this.moreBtnCardView && this.gamesCount < this.games.length && this.lazyWithClick;
+        return !this.moreBtnCardView &&
+            this.gamesCount < this.games.length &&
+            this.lazyWithClick;
     }
 
     /**
@@ -224,7 +228,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
     }
 
     public get showDefaultHeader(): boolean {
-        return (this.$params.showTitle || this.$params.showAllLink?.use) && this.$params.themeMod !== 'header-inline';
+        return (this.$params.showTitle || this.$params.showAllLink?.use) && !this.isHeaderInline;
     }
 
     /**
@@ -290,14 +294,28 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
     }
 
     public get showTopLink(): boolean {
-        return this.$params.showAllLink?.use &&
-            this.$params.showAllLink?.position === 'top' &&
-            !this.$params.showAllLink.titleLinkOnly &&
-            !this.$params.showAllLink?.wolfAllBtn;
+        return this.$params.showAllLink?.use
+            && this.$params.showAllLink?.position === 'top'
+            && !this.$params.showAllLink.titleLinkOnly
+            && !this.$params.showAllLink?.wolfAllBtn;
     }
 
     public get showDesktopLink(): boolean {
-        return this.$params.showAllLink?.use && this.isDesktop && !this.$params.showAllLink.titleLinkOnly;
+        return this.$params.showAllLink?.use
+            && this.isDesktop
+            && !this.$params.showAllLink.titleLinkOnly
+            && !this.$params.showAllLink.wolfAllBtn;
+    }
+
+    public get showWolfAllBtn(): boolean {
+        return this.$params.showAllLink?.wolfAllBtn && this.isReady;
+    }
+
+    public get headerInlineMobLink(): boolean {
+        return !this.isDesktop
+            && this.$params.showAllLink?.use
+            && !this.$params.showAllLink.titleLinkOnly
+            && this.$params.theme !== 'wolf';
     }
 
     protected get lazyWithClick(): boolean {
@@ -348,6 +366,14 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
         this.categoryAmount = this.games.length;
         this.title = this.$params.title || this.gamesCatalogService.getGamesTitleByState() || this.categoryTitle;
         this.initTitleIcon();
+
+        if (this.$params.showAllLink?.wolfAllBtn && this.$params.showAllLink.useCounter) {
+            this.btnCounter = {
+                use: true,
+                value: this.categoryAmount,
+            };
+        }
+
         if (this.$params.theme === 'swiper' || this.$params.theme === 'mobile-app-swiper') {
             // if we use a class field to this.$params.showAsSwiper.sliderParams.swiper.navigation,
             // the swiper navigation buttons will lose their binding
@@ -376,12 +402,6 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
                 };
             });
 
-            if (this.$params.showAllLink?.wolfAllBtn && this.$params.showAllLink.useCounter) {
-                this.btnCounter = {
-                    use: true,
-                    value: this.categoryAmount,
-                };
-            }
 
             this.gamesSliderConfig = this.createConfigSliders(this.gameSlides);
 
@@ -542,7 +562,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
                 this.gamesCount--;
             }
 
-            if (this.$params.themeMod === 'header-inline') {
+            if (this.isHeaderInline) {
                 this.gamesCount--;
             }
 

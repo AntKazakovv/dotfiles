@@ -314,55 +314,6 @@
         }
     }
 
-    &.wlc-games-grid--theme-mod-wolf {
-
-        .wlc-games-grid {
-
-            &__list {
-                @include bm.get-mq-map('grid-template-columns', $themeDefault, 'gridColumnsWolf');
-                @include bm.get-mq-map('grid-gap', $themeDefault, 'gridGapWolf');
-            }
-
-            &__title {
-
-                ::ng-deep {
-
-                    .wlc-title__main {
-                        @include text.get-text-style(
-                            ef.get-value($themeDefault, 'wolfTitleFontStyle'),
-                            ef.get-value($themeDefault, 'wolfTitleColor')
-                        );
-                        line-height: 1;
-                    }
-                }
-            }
-
-            &__title-icon {
-
-                ::ng-deep {
-
-                    .wlc-icon-content[class] {
-                        width: ef.get-value($themeDefault, 'wolfTitleIconSize');
-                        height: ef.get-value($themeDefault, 'wolfTitleIconSize');
-                    }
-                }
-            }
-        }
-
-        .wlc-games-catalog--theme-default & {
-
-            .wlc-games-grid__content {
-
-                ::ng-deep {
-
-                    .wlc-games-grid__more {
-                        @include bm.get-mq-map('margin', $themeDefault, 'wolfLoadMoreMargin');
-                    }
-                }
-            }
-        }
-    }
-
     &.wlc-games-grid--theme-mod-simple {
 
         .wlc-games-grid {
@@ -392,17 +343,6 @@
                         }
                     }
                 }
-            }
-        }
-    }
-
-    &.wlc-games-grid--theme-mod-wolf-tournament {
-
-        .wlc-games-grid {
-
-            &__list {
-                @include bm.get-mq-map('grid-template-columns', $themeDefault, 'gridColumnsWolfTournament');
-                @include bm.get-mq-map('grid-gap', $themeDefault, 'gridGapWolfTournament');
             }
         }
     }

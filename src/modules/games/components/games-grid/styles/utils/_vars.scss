@@ -26,16 +26,6 @@ $themeDefault: map-merge((
         900: ef.size(3),
         1420: ef.size(4)
     ),
-    'gridGapWolf': (
-        375: ef.size(2),
-        900: ef.size(3),
-        1024: ef.size(4)
-    ),
-    'gridGapWolfTournament': (
-        375: ef.size(2),
-        900: ef.size(2),
-        1024: ef.size(3)
-    ),
     'placeholderBorderRadius': ef.get('radius', 'less'),
     'placeholderTextColor': var(--mc-baseMain),
     'placeholderAlignItems': center,
@@ -72,16 +62,6 @@ $themeDefault: map-merge((
     ),
     'gridBannerColumnRight': (
         320: #{'-1 / -3'}
-    ),
-    'gridColumnsWolf': (
-        375: repeat(auto-fill, minmax(110px, 1fr)),
-        900: repeat(auto-fill, minmax(130px, 1fr)),
-        1024: repeat(auto-fill, minmax(150px, 1fr)),
-    ),
-    'gridColumnsWolfTournament': (
-        375: repeat(auto-fill, minmax(110px, 1fr)),
-        900: repeat(auto-fill, minmax(130px, 1fr)),
-        1024: repeat(auto-fill, minmax(155px, 1fr)),
     ),
 
     'bannerBorderRadius': ef.get('radius', 'biger'),
@@ -121,10 +101,6 @@ $themeDefault: map-merge((
     'wolfLoadMoreIconSize': ef.size(3),
     'wolfLoadMoreIconMargin': 0 0 0 ef.size(2),
     'wolfLoadMoreColorHover': var(--mc-baseThird),
-
-    'wolfTitleFontStyle': 'ThirdTitle',
-    'wolfTitleColor': var(--mc-baseMain),
-    'wolfTitleIconSize': ef.size(4),
 
     //mod simple
     'simpleGridColumns': (
@@ -198,6 +174,27 @@ $modHeaderInline: map-merge((
     ),
     'headerFontStyle': 'QoteTextBold',
     'allLinkColor': var(--mc-main),
+
+    'wolfPadding': (
+        375: ef.size(2),
+        900: ef.size(3),
+        1024: ef.size(3),
+    ),
+    'wolfBg': var(--mc-bg500),
+    'wolfBgHover': var(--mc-bg700),
+    'wolfIconSize': (
+        375: ef.size(6),
+        900: ef.size(10),
+    ),
+    'wolfIconColor': var(--mc-baseThird, var(--mc-baseMain)),
+    'wolfTitleFontStyle': (
+        375: 'CaptionText',
+        900: 'PrimaryText',
+    ),
+    'wolfTitleColor': var(--mc-baseThird, var(--mc-baseMain)),
+    'wolfTitleMargin': ef.size(2) 0 0,
+    'wolfTitleArrowMargin': 0 0 0 ef.size(1),
+    'wolfTitleArrowSize': ef.size(3),
 ), $customModHeaderInline);
 
 $customModMobileApp: () !default;
@@ -214,3 +211,4 @@ $modMobileApp: map-merge((
         1200: repeat(5, 1fr),
     ),
 ), $customModMobileApp);
+

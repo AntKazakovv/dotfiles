@@ -350,6 +350,13 @@
                 &__more {
                     @include bm.get-mq-map('margin', $themeDefault, 'gamesMoreMargin');
                 }
+
+                &--theme-mod-wolf {
+
+                    .wlc-games-grid__more {
+                        @include bm.get-mq-map('margin', $themeDefault, 'gamesWolfMoreMargin');
+                    }
+                }
             }
         }
     }
