@@ -845,7 +845,8 @@ export class PaymentFormComponent
                 formComponents.push(preselected);
             }
 
-            const amountFieldWrap: IFormComponent = this.prepareAmountFieldConfig(isDepInvoice);
+            const amountFieldWrap: IFormComponent = this.prepareAmountFieldConfig(isDepInvoice,
+                !!preselectedAmountsData.length);
 
             if (this.configService.get<boolean>('$finances.useDefaultAmount') && this.isDeposit) {
                 this.initDefaultAmount();
@@ -1004,7 +1005,7 @@ export class PaymentFormComponent
         return component;
     }
 
-    protected prepareAmountFieldConfig(isLocked: boolean): IFormComponent {
+    protected prepareAmountFieldConfig(isLocked: boolean, showClearBtn: boolean): IFormComponent {
         const amount: IFormComponent = _cloneDeep(FormElements.amount);
         let showLimits: boolean = false;
 
@@ -1037,7 +1038,7 @@ export class PaymentFormComponent
             amountWrapper.params.components.push(limitsWrapper);
         }
 
-        if (!this.$params.hideClearAmountButton) {
+        if (!this.$params.hideClearAmountButton && showClearBtn) {
             amountWrapper.params.components.push(this.clearAmountButton);
         }
 
