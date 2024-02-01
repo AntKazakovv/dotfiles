@@ -147,7 +147,10 @@ $themeDefault: map-merge((
     'prizepoolTitleStyle': 'QoteTextBold',
     'prizepoolTitleColor': var(--mc-baseMain),
     'prizepoolTitleSelf': center,
-    'prizepoolAmoutTextStyle': 'ThirdTitleBold',
+    'prizepoolAmoutTextStyle': (
+        375: 'QoteTextBold',
+        560: 'PromoTitle',
+    ),
     'prizepoolAmoutTextStyleLg': (
         375: 'ThirdTitleBold',
         768: 'PromoTitle',

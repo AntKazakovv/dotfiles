@@ -247,9 +247,10 @@ $selector: '.wlc-tournament-detail';
 
                 @include bm.get-mq-map('justify-self', $themeDefault, 'prizepoolAmoutTitleSelf');
                 @include text.get-text-style(
-                    ef.get-value($themeDefault, 'prizepoolAmoutTextStyle'),
+                    ef.get-value($themeDefault, 'prizepoolAmoutTextStyle', 375),
                     ef.get-value($themeDefault, 'prizepoolAmoutText')
                 );
+
                 grid-area: PPAmount;
 
                 &.size-lg {
@@ -267,6 +268,12 @@ $selector: '.wlc-tournament-detail';
                             null
                         );
                     }
+                }
+                @include mq.min(560) {
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'prizepoolAmoutTextStyle', 560),
+                        null,
+                    );
                 }
             }
         }
