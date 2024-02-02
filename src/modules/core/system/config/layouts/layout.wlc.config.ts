@@ -34,7 +34,7 @@ export const $layouts: ILayoutsConfig = {
         sections: {
             notifications: sectionsLib.notificationsSection.def,
             header: sectionsLib.header.def,
-            // footer: sectionsLib.footer.themeSecond,
+            footer: sectionsLib.footer.themeSecond,
         },
     },
     'app.home': {
