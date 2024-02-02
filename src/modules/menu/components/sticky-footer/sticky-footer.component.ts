@@ -26,6 +26,7 @@ import {IMenuOptions} from 'wlc-engine/modules/core/system/interfaces/menu.inter
 import {MenuService} from 'wlc-engine/modules/menu/system/services/menu.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {BodyClassService} from 'wlc-engine/modules/core/system/services/body-class/body-class.service';
+import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 
 import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
 import * as Config from 'wlc-engine/modules/menu/system/config/sticky-footer.items';
@@ -56,6 +57,7 @@ export class StickyFooterComponent extends AbstractComponent implements OnInit, 
         protected eventService: EventService,
         protected bodyClassService: BodyClassService,
         protected translateService: TranslateService,
+        protected gamesCatalogService: GamesCatalogService,
         cdr: ChangeDetectorRef,
     ) {
         super(
@@ -73,6 +75,11 @@ export class StickyFooterComponent extends AbstractComponent implements OnInit, 
 
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         this.initEventHandlers();
+
+        if (this.$params.useFundistName) {
+            await this.gamesCatalogService.ready;
+        }
+
         await this.initConfig();
         this.initMenu();
         this.bodyClassService.addModifier('wlc-body--sticky-footer');
@@ -122,6 +129,15 @@ export class StickyFooterComponent extends AbstractComponent implements OnInit, 
 
     protected async initConfig(): Promise<void> {
         this.menuSettings = await this.menuService.getFundistMenuSettings('stickyFooter');
+
+        if (this.$params.useFundistName) {
+            const fundistLivecasinoTitles = this.gamesCatalogService.getCategoryBySlug('livecasino')?.title;
+            if (fundistLivecasinoTitles) {
+                const currentLang = this.translateService.currentLang;
+                const currentTitle = fundistLivecasinoTitles[currentLang] ?? fundistLivecasinoTitles['en'];
+                _set(Config.wlcStickyFooterItemsGlobal, 'sticky-footer:livecasino.name', currentTitle);
+            }
+        };
 
         if (this.menuSettings) {
             this.menuConfig = MenuHelper.parseMenuSettings(

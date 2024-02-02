@@ -26,6 +26,7 @@ export interface IStickyFooterCParams extends IComponentParams<Theme, Type, Them
     };
     items?: MenuParams.IMenuItem[];
     menuParams?: MenuParams.IMenuCParams,
+    useFundistName?: boolean,
 }
 
 export const defaultParams: IStickyFooterCParams = {
@@ -39,4 +40,5 @@ export const defaultParams: IStickyFooterCParams = {
             useSwiper: false,
         },
     },
+    useFundistName: true,
 };
