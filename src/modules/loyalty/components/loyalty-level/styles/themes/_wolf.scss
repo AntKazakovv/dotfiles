@@ -129,7 +129,13 @@ $class: 'wlc-loyalty-level';
             width: 100%;
             height: 100%;
 
-            padding: ef.get-value($themeWolf, 'rootPaddingCompact');
+            &:before {
+                height: 100%;
+            }
+        }
+
+        .#{$class}__image {
+            height: 100%;
         }
     }
 }
