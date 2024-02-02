@@ -260,6 +260,8 @@ export class DepositWithdrawComponent
                         }
                         Params.PaymentSteps.bonus.$resolve();
                         bonusesSubscription.unsubscribe();
+
+                        this.cdr.markForCheck();
                     },
                 },
             });
