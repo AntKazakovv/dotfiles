@@ -186,6 +186,7 @@ export class PIQCashierService {
             locale: this.configService.get<string>('appConfig.locale') || null,
             containerHeight: this.configService.get('$base.finances.piqCashier.containerHeight') || 'auto',
             containerWidth: '100%',
+            allowMobilePopup: true,
         };
 
         const alias: string = currentSystem.alias;
@@ -195,7 +196,6 @@ export class PIQCashierService {
         }
 
         if (['paymentiq_cashier_idebit', 'paymentiq_cashier_instadebit'].includes(alias)) {
-            cashierConfig.allowMobilePopup = true;
             cashierConfig.receiptExcludeKeys = ['receiptDepositPspRefId'];
         }
 
