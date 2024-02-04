@@ -1,7 +1,7 @@
 'use strict';
 
-import * as Sentry from '@sentry/angular';
-import {Event, Severity, Scope} from '@sentry/angular';
+import * as Sentry from '@sentry/angular-ivy';
+import {Event, SeverityLevel, Scope} from '@sentry/angular-ivy';
 import {Cookie} from 'ng2-cookies';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {
@@ -17,7 +17,7 @@ import {WINDOW} from 'wlc-engine/modules/app/system';
 interface ISentryMessage {
     message: string;
     tags?: IIndexing<string>;
-    level?: string;
+    level?: SeverityLevel;
     data?: IIndexing<any>;
     userInfo?: Sentry.User;
 }
@@ -72,7 +72,7 @@ export class SentryService {
                 scope.setUser(msg.userInfo);
             }
             Sentry.captureMessage(
-                msg.message, Severity.fromString(msg.level || 'info'),
+                msg.message, msg.level || 'info',
             );
         });
     }
@@ -107,7 +107,7 @@ export class SentryService {
                 dsn: this.autotest ? this.dsn.autotest : this.prod ? this.dsn.prod : this.dsn.dev,
                 release: '' + this.window.WLC_VERSION,
                 environment: this.window.WLC_ENV || 'prod',
-                blacklistUrls: [
+                denyUrls: [
                     /https?:\/\/((www)\.)?1x2nwh\.com/,
                 ],
                 beforeSend: (event: Event): Event => {
@@ -126,7 +126,7 @@ export class SentryService {
                         code: '0.0.2',
                         group: 'Common',
                     });
-                    Sentry.captureMessage('Autotest Start', Severity.fromString('info'));
+                    Sentry.captureMessage('Autotest Start', 'info');
                     this.logService.sendLog({code: '0.0.2'});
                 });
             }

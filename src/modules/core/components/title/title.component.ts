@@ -5,7 +5,6 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    ElementRef,
     Inject,
     Input,
     OnInit,
@@ -24,6 +23,13 @@ import {
 import * as Params from './title.params';
 
 import _isString from 'lodash-es/isString';
+
+interface IContextTitle {
+    data: {
+        element: string;
+        text: string;
+    }
+}
 
 @Component({
     selector: '[wlc-title]',
@@ -46,11 +52,11 @@ export class TitleComponent extends AbstractComponent implements OnInit, AfterVi
     @Input() protected type: Params.Type;
     @Input() protected inlineParams: Params.ITitleCParams;
 
-    @ViewChild('div', {static: false}) divTemplate: TemplateRef<ElementRef>;
-    @ViewChild('link') linkTemplate: TemplateRef<ElementRef>;
-    @ViewChild('h1') h1Template: TemplateRef<ElementRef>;
-    @ViewChild('h2') h2Template: TemplateRef<ElementRef>;
-    @ViewChild('span') spanTemplate: TemplateRef<ElementRef>;
+    @ViewChild('div', {static: false}) divTemplate: TemplateRef<IContextTitle>;
+    @ViewChild('link') linkTemplate: TemplateRef<IContextTitle>;
+    @ViewChild('h1') h1Template: TemplateRef<IContextTitle>;
+    @ViewChild('h2') h2Template: TemplateRef<IContextTitle>;
+    @ViewChild('span') spanTemplate: TemplateRef<IContextTitle>;
 
     constructor(
         @Inject('injectParams') protected params: Params.ITitleCParams,
@@ -84,7 +90,7 @@ export class TitleComponent extends AbstractComponent implements OnInit, AfterVi
         return this.getText('secondText');
     }
 
-    public getTemplateRef(name: string): TemplateRef<ElementRef> {
+    public getTemplateRef(name: string): TemplateRef<IContextTitle> {
         switch (name) {
             case 'h1':
                 return this.h1Template;

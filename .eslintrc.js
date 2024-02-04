@@ -1,5 +1,3 @@
-const {join} = require("path");
-
 module.exports = {
     root: true,
     extends: [
@@ -16,8 +14,12 @@ module.exports = {
     parser: "@typescript-eslint/parser",
     parserOptions: {
         ecmaVersion: 2022,
-        project: join(__dirname, "./tsconfig.json"),
-        sourceType: "module"
+        sourceType: "module",
+        project: [
+            './tsconfig.json',
+            './tsconfig.engine.json',
+            './tsconfig.app.json',
+        ],
     },
     rules: {
         '@angular-eslint/no-input-rename': 'off',
@@ -87,11 +89,11 @@ module.exports = {
             parserOptions: {
                 ecmaVersion: 2022,
                 sourceType: 'module',
-                // project: [
-                //     './tsconfig.json',
-                //     './tsconfig.engine.json',
-                //     './tsconfig.app.json',
-                // ],
+                project: [
+                    './tsconfig.json',
+                    './tsconfig.engine.json',
+                    './tsconfig.app.json',
+                ],
             },
             plugins: [
                 '@angular-eslint/template',

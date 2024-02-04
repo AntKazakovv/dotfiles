@@ -91,9 +91,9 @@ export class HistoryService {
     private queryPromises: {
         [Property in RestType]: BehaviorSubject<boolean>;
     } = {
-            bonusesHistory: new BehaviorSubject(false),
-            tournamentsHistory: new BehaviorSubject(false),
-        };
+        bonusesHistory: new BehaviorSubject(false),
+        tournamentsHistory: new BehaviorSubject(false),
+    };
 
     private subjects: ISubjects = {
         bonusesHistory$: new BehaviorSubject(null),

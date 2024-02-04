@@ -2,7 +2,7 @@ import {CommonModule} from '@angular/common';
 
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {APP_INITIALIZER, NgModule} from '@angular/core';
-import {BrowserModule, BrowserTransferStateModule} from '@angular/platform-browser';
+import {BrowserModule} from '@angular/platform-browser';
 import {ServiceWorkerModule} from '@angular/service-worker';
 
 import {MissingTranslationHandler, TranslateLoader, TranslateModule} from '@ngx-translate/core';
@@ -42,7 +42,6 @@ export class GlobalDeps {
     imports: [
         CommonModule,
         BrowserModule.withServerTransition({appId: 'wlc-app'}),
-        BrowserTransferStateModule,
         HttpClientModule,
         UIRouterModule.forRoot({
             states: APP_STATES,

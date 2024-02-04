@@ -130,11 +130,11 @@ export class BonusesService {
     private queryPromises: {
         [Property in RestType]: BehaviorSubject<boolean>;
     } = {
-            active: new BehaviorSubject(false),
-            lootboxPrizes: new BehaviorSubject(false),
-            store: new BehaviorSubject(false),
-            any: new BehaviorSubject(false),
-        };
+        active: new BehaviorSubject(false),
+        lootboxPrizes: new BehaviorSubject(false),
+        store: new BehaviorSubject(false),
+        any: new BehaviorSubject(false),
+    };
 
     private requests: RequestType[] = [];
 

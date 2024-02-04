@@ -380,7 +380,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
 
         const path = mediaPath + gameName
             .toLowerCase()
-            .replace(/[&\/:,\\|]/g, '')
+            .replace(/[&,\/:\\|]/g, '')
             .replace(/\s*-\s*|\s/g, '-');
 
         return _map(format, (el: string): Params.IMediaContent => ({
