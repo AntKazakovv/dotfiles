@@ -691,54 +691,52 @@ export class PaymentFormComponent
             return;
         }
 
-        this.updateCryptoFields();
-
         this.showErrorHostedLoad = false;
         this.isShowHostedBlock = false;
         this.isPrestepComplete = false;
 
-        if (this.currentSystem) {
-            this.usePrestep = this.currentSystem.isPrestep;
-            this.disableAmount = this.currentSystem.disableAmount;
+        this.usePrestep = this.currentSystem.isPrestep;
+        this.disableAmount = this.currentSystem.disableAmount;
 
-            if (this.currentSystem.clearHostedFields()) {
-                this.isLoadingHostedFields = false;
-                this.cdr.detectChanges();
-            }
-
-            if (this.isDeposit && this.currentSystem.isPregeneration && !this.currentSystem.message) {
-                this.isWaitingResponse = true;
-                await this.depositAction(0, {bonusId: null});
-            }
-
-            if (this.isCryptoInvoices) {
-
-                if (this.currentSystem.isParent) {
-                    this.parentSystem = this.currentSystem;
-                    this.invoiceSystems = this.currentSystem.children;
-                }
-
-                const message: IPaymentMessage = this.currentSystem.message as IPaymentMessage;
-
-                if (this.currentSystem.cryptoInvoices && message?.dateEnd) {
-                    this.formData$.next({
-                        amount: message.userAmount,
-                    });
-                }
-            } else {
-                this.parentSystem = null;
-            }
-
-            if (this.currentSystem.isHosted
-                && (!this.isLoadingHostedFields || !this.currentSystem.hostedFields.loaded)
-                && _isEmpty(this.requiredFields)) {
-                await this.loadHostedFields();
-            }
-
-            if (this.currentSystem.isCashier) {
-                this.loadPiqFields();
-            }
+        if (this.currentSystem.clearHostedFields()) {
+            this.isLoadingHostedFields = false;
+            this.cdr.detectChanges();
         }
+
+        if (this.isDeposit && this.currentSystem.isPregeneration && !this.currentSystem.message) {
+            this.isWaitingResponse = true;
+            await this.depositAction(0, {bonusId: null});
+        }
+
+        if (this.isCryptoInvoices) {
+
+            if (this.currentSystem.isParent) {
+                this.parentSystem = this.currentSystem;
+                this.invoiceSystems = this.currentSystem.children;
+            }
+
+            const message: IPaymentMessage = this.currentSystem.message as IPaymentMessage;
+
+            if (this.currentSystem.cryptoInvoices && message?.dateEnd) {
+                this.formData$.next({
+                    amount: message.userAmount,
+                });
+            }
+        } else {
+            this.parentSystem = null;
+        }
+
+        if (this.currentSystem.isHosted
+            && (!this.isLoadingHostedFields || !this.currentSystem.hostedFields.loaded)
+            && _isEmpty(this.requiredFields)) {
+            await this.loadHostedFields();
+        }
+
+        if (this.currentSystem.isCashier) {
+            this.loadPiqFields();
+        }
+
+        this.updateCryptoFields();
 
         this.timerParams.common.noDays = !DateHelper.dayExists(this.dateExpire);
         this.timerParams.common.noHours = !DateHelper.hoursExists(this.dateExpire);

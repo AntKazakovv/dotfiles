@@ -162,7 +162,7 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
     public async makeQrLink(): Promise<void> {
 
         if (this.system.isKauri) {
-            this.qrCodeImg$.next('data:image/jpeg;base64,');
+            this.qrCodeImg$.next('data:image/jpeg;base64,' + this.message.qrlink);
         } else if (this.message.qrlink) {
             try {
                 const qrCodeImg: string = await this.injector.get(QRCodeService).toDataURL(
