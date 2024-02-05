@@ -163,15 +163,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
     public desktopSide: DashboardSide = 'right';
     public side: DashboardSide = 'left';
     public viewInited: boolean = false;
-
-    public bonusesConfig: IWrapperCParams = {
-        class: 'wlc-dashboard-bonuses-wrapper',
-        components: [
-            {
-                name: 'bonuses.wlc-game-dashboard-bonuses',
-            },
-        ],
-    };
+    public bonusesConfig: IWrapperCParams = {};
     public tutorialImage: string;
     public tournamentsConfig: IWrapperCParams = {};
     public logOutConfig: IWrapperCParams = {components: []};
@@ -236,6 +228,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
             _set(this.bonusesConfig.components[0], 'params', this.$params.common.bonusesListParams);
         }
 
+        this.getBonusesConfig();
         this.backdropLabelVisibility();
         await this.loadLastPlayedGames();
         this.initLastPlayedSwiper();
@@ -308,7 +301,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
             swiper: {
                 direction: 'horizontal',
                 slidesPerView: 'auto',
-                grid:{
+                grid: {
                     rows: lastPlayedSlidesPerColumn,
                 },
                 pagination: {
@@ -704,6 +697,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
             this.isAuth = true;
 
             this.removeModifiers('not-auth');
+            this.getBonusesConfig();
             this.loadLastPlayedGames();
             this.initLastPlayedSwiper();
 
@@ -841,6 +835,17 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
                     ...this.lastPlayedSwiper,
                 },
             }],
+        };
+    }
+
+    protected getBonusesConfig(): void {
+        this.bonusesConfig = {
+            class: 'wlc-dashboard-bonuses-wrapper',
+            components: [
+                {
+                    name: 'bonuses.wlc-game-dashboard-bonuses',
+                },
+            ],
         };
     }
 }
