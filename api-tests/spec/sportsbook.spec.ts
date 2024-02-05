@@ -4,8 +4,8 @@ import {
     getRequestUrl,
     printWarn,
 } from './helpers/global';
-import {IBetradarGame} from 'wlc-engine/modules/sportsbook';
-import {IPopularEventsData} from 'wlc-engine/modules/sportsbook';
+import {IPopularEventsData} from 'wlc-engine/modules/sportsbook/system/interfaces/betradar/widgets.interface';
+import {IGame} from 'wlc-engine/modules/games';
 
 describe('/api/v1/sportsbook', () => {
     const url = getRequestUrl('/api/v1/sportsbook/widgets?lang=en&widget=daily-match&action=widgets');
@@ -15,7 +15,7 @@ describe('/api/v1/sportsbook', () => {
 
     it('-> IBetradarGame', async (): Promise<void> => {
         try {
-            const response = await fetchWithRetryNoAuth<IData<IBetradarGame>>(url, interfaceDailyName);
+            const response = await fetchWithRetryNoAuth<IData<IGame>>(url, interfaceDailyName);
             if (!response.data) {
                 printWarn('Sportsbook turned off');
             } else {

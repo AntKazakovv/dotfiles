@@ -388,6 +388,7 @@ export class SliderComponent extends AbstractComponent
 
     protected initEventHandlers(): void {
         this.windowResizeHandler();
+        // @ts-ignore not complete interface. TODO after update version swiper
         this.swiper.slidesEl.addEventListener('swiper-slidechangetransitionend', () => {
             this.slideChangeTransitionEnd$.emit(this.swiper);
         });

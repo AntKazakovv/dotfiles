@@ -9,7 +9,7 @@ export const testUser = {
     password: 'Test123!',
     firstName: 'John',
     lastName: 'Silver',
-    currency: 'RUB',
+    currency: 'EUR',
     countryCode: 'rus',
 };
 
