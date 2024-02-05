@@ -12,6 +12,7 @@ import {
     DataService,
     ConfigService,
     LogService,
+    IIndexing,
 } from 'wlc-engine/modules/core';
 import {BannerModel} from 'wlc-engine/modules/promo/system/models/banner.model';
 import {Deferred} from 'wlc-engine/modules/core/system/classes/deferred.class';
@@ -33,7 +34,7 @@ export class BannersService {
 
     protected banners: BannerModel[] = [];
     protected defaultBanners: BannerModel[] = [];
-    protected allBanners: IBanner[] = [];
+    protected allBanners: IIndexing<IBanner[]> = {};
 
     constructor(
         protected configService: ConfigService,
@@ -159,10 +160,15 @@ export class BannersService {
     }
 
     protected async requestBanners(): Promise<void> {
+        let data = this.configService.get<IIndexing<IBanner[]>>('appConfig.banners');
+
         try {
-            const res: IData<IBanner[]> = await this.dataService.request('banners/banners');
-            if (res.data) {
-                this.allBanners = res.data;
+            if (!data) {
+                data = (await this.dataService.request<IData<IIndexing<IBanner[]>>>('banners/banners'))?.data;
+            }
+            
+            if (data) {
+                this.allBanners = data;
 
                 this.defaultBanners = this.prepareBanners();
                 this.banners = this.prepareBanners(this.translate.currentLang);

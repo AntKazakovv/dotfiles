@@ -47,6 +47,10 @@ export const components = {
     'wlc-bet-info': BetInfoComponent,
 };
 
+export const services = {
+    'banners-service': BannersService,
+};
+
 @NgModule({
     declarations: [
         BannerComponent,

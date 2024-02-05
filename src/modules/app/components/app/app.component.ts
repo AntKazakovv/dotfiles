@@ -114,6 +114,8 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
         return this.sections;
     }
 
+    protected bannerService: BannersService;
+
     private testViewPort = false;
     private isIOS: boolean = false;
     private additionalHostClass: string[] = [];
@@ -136,7 +138,6 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
         protected actionService: ActionService,
         protected modalService: ModalService,
         protected bodyClassService: BodyClassService,
-        protected bannerService: BannersService,
         protected timerService: TimerService,
         private transition: TransitionService,
         private meta: Meta,
@@ -241,6 +242,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
         this.setHostClass();
         this.updateMetaTag();
 
+        this.bannerService = await this.injectionService.getService('promo.banners-service');
         await this.bannerService.readyStatus.promise;
 
         this.cdr.markForCheck();
