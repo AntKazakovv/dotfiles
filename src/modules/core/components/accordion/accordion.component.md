@@ -11,41 +11,104 @@
 
 # Accordion Component
 
-## Params
-Interface [IAccordionCParams](/docs/compodoc/interfaces/IAccordionCParams.html#info)
+#### Аккордеон представляет собой список элементов с заголовками, с возможностью раскрыть элемент для отображения описания
 
-- **items** - accordion item
-- **collapseAll** - collapse all items
-- **title** - title accordion
-- **titleIconPath** - icon to the right of the title
-
-```typescript
-export const defaultParams: IAccordionCParams = {
-    class: 'wlc-accordion',
-    moduleName: 'core',
-    titleIconPath: '/wlc/icons/thin-arrow.svg',
-}
-```
-</div>
-<div class="tab-pane fade" id="c-russian">
-
-# Accordion Component
+---
 
 ## Параметры
-Интерфейс [IAccordionCParams](/docs/compodoc/interfaces/IAccordionCParams.html#info)
 
-- **items** - элементы аккордеона
-- **collapseAll** - свернуть все элементы
-- **title** - название аккордеон
-- **titleIconPath** - значок справа от заголовка
+* **themeMod**: `'default | simple'` - Тема отображения
 
-```typescript
+* **items**: `IAccordeonData[]` - Массив элементов компонента
+
+    * **title**: `string` - Заголовок элемента
+
+    * **description**: `string` - Подзаголовок элемента
+
+    * **content**: `string[]` - Контент, отображаемый в развернутом виде
+
+    * **wrapper**: `IWrapperCParams` - Обертка, для использования дополнительных компонентов
+
+    * **expand**: `boolean` - Развернут ли элемент по умолчанию
+
+* **collapseAll**: `boolean` - Свернуть все элементы
+
+* **title**: `string` - Общий заголовок аккордеона
+
+* **titleIconPath**: `string` - Путь к иконке расположенной в правой части элемента на уровне заголовка
+
+* **textBefore**: `string[]` - Текст перед аккордеоном
+
+* **textAfter**: `string[]` - Текст после аккордеона
+
+* **isEmpty**: `boolean` - Пустой ли компонент (имеются ли элементы в компоненте). При значении `true` отображается `no-data`
+
+---
+
+### Дефолтные параметры
+
+```ts
 export const defaultParams: IAccordionCParams = {
     class: 'wlc-accordion',
     moduleName: 'core',
-    titleIconPath: '/wlc/icons/thin-arrow.svg',
-}
+    titleIconPath: '/wlc/icons/arrow.svg',
+};
 ```
-</div>
-</div>
 
+---
+
+### Пример использования компонента задействовав все параметры
+
+```ts
+{
+                        name: 'core.wlc-accordion',
+                        params: {
+                            themeMod: 'default',
+                            items: [
+                                {
+                                    title: '1 item title',
+                                    description: '1 item subtitle',
+                                    content: [
+                                        'first string of 1 item',
+                                        'second string of 1 item'
+                                    ],
+                                    expand: true,
+                                },
+                                {
+                                    title: '2 item title',
+                                    description: '2 item subtitle',
+                                    content: [
+                                        'Some content in one string'
+                                    ],
+                                    wrapper: {
+                                        class: 'custom-wrapper-in-accordion',
+                                        components: [
+                                            componentLib.wlcButton.leftMenuDeposit,
+                                            componentLib.wlcLogo.header,
+                                        ],
+                                    },
+                                    expand: false,
+                                },
+                            ],
+                            collabseAll: true,
+                            title: 'Custom title accordion',
+                            titleIconPath: '/wlc/icons/arrow.svg',
+                            textBefore: ['Text before the title'],
+                            textAfter: ['Text after the title'],
+                            isEmpty: false,
+                        },
+                    }
+```
+![custom](../../../../docs/assets/core/accordion/custom-accordion.png)
+
+---
+
+### Пример, при параметре `themeMod: 'simple'`
+#### Нет разделительной полосы в развернутом виде
+![simple](../../../../docs/assets/core/accordion/simple-mode-accordion.png)
+
+---
+
+### Пример, при параметре `isEmpty: true`
+
+![empty](../../../../docs/assets/core/accordion/isEmptyTrue.png)
