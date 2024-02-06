@@ -22,6 +22,8 @@ import {
     StepsEvents,
     IIndexing,
     DataService,
+    IPushMessageParams,
+    NotificationEvents,
 } from 'wlc-engine/modules/core';
 import {
     UserActionsAbstract,
@@ -64,6 +66,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
     public override $params: Params.ISignUpFormCParams;
     public errors$: BehaviorSubject<IIndexing<string>> = new BehaviorSubject(null);
     private isTwoSteps: boolean;
+    private useSmsVerification: boolean;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISignUpFormCParams,
@@ -86,6 +89,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
     public override ngOnInit(): void {
         super.ngOnInit();
 
+        this.useSmsVerification = this.configService.get<boolean>('$base.profile.smsVerification.use');
         this.isTwoSteps = this.configService.get<boolean>('$modules.user.params.twoSteps')
             || !!this.configService.get<IMGAConfig>('$modules.core.components["wlc-license"].mga')
             || this.configService.get<string>('appConfig.license') === 'romania';
@@ -132,9 +136,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         }
 
 
-        if (this.configService.get<boolean>('$base.profile.smsVerification.use')
-            || this.isTwoSteps
-        ) {
+        if (this.useSmsVerification || this.isTwoSteps) {
             _each(this.config.components, (item) => {
                 if (item.name === 'core.wlc-button' && item.params?.common?.text && !this.isSecondStep()) {
                     item.params.common.text = gettext('Next');
@@ -167,8 +169,8 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
      * @returns {Promise}
      */
     public async ngSubmit(form: UntypedFormGroup): Promise<boolean> {
-        if ((this.isTwoSteps && !this.isSecondStep())
-            || this.configService.get<boolean>('$base.profile.smsVerification.use')) {
+
+        if (this.isTwoSteps && !this.isSecondStep() || this.useSmsVerification) {
             await this.nextStepSubmit(form);
             return;
         }
@@ -209,7 +211,60 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         }
     }
 
+    protected async checkRegisterPromocode(form: UntypedFormGroup): Promise<boolean> {
+        const promocodeControl = form.get('registrationPromoCode');
+        const currencyControl = form.get('currency');
+
+        if (!promocodeControl?.value || !currencyControl) {
+            return true;
+        }
+
+        promocodeControl.markAsPending();
+
+        try {
+            const result: boolean = await this.validationService.checkPromocode(
+                promocodeControl.value,
+                currencyControl.value,
+                form.get('countryCode')?.value || '',
+            );
+
+            if (result) {
+                return true;
+            } else {
+                throw new Error('Unknown promo code');
+            }
+        } catch (error) {
+            promocodeControl.setErrors({promocode: true});
+
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'error',
+                    title: gettext('Promo code error'),
+                    message: error.errors || error.message || error,
+                    wlcElement: 'notification_promocode-error',
+                },
+            });
+
+            this.logService.sendLog({
+                code: '2.1.2',
+                data: error,
+                from: {
+                    component: 'SignUpFormComponent',
+                    method: 'checkRegisterPromocode',
+                },
+            });
+
+            return false;
+        }
+    }
+
     protected async nextStepSubmit(form: UntypedFormGroup): Promise<void> {
+
+        if (this.useSmsVerification && !await this.checkRegisterPromocode(form)) {
+            return;
+        }
+
         if ((!this.isTwoSteps || this.isSecondStep()) && !await this.checkConfirmation(form)) {
             return;
         }
