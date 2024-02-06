@@ -519,22 +519,4 @@ export namespace wlcButton {
             },
         },
     };
-
-    export const installPwa: ILayoutComponent = {
-        name: 'core.wlc-button',
-        display: {
-            mobile: true,
-        },
-        params: {
-            customMod: 'pwa',
-            common: {
-                text: gettext('Install application'),
-                sref: 'app.pages',
-                srefParams: {
-                    slug: 'install-pwa',
-                },
-                iconPath: '/wlc/icons/install.svg',
-            },
-        },
-    };
 }

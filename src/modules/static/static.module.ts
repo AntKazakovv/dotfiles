@@ -6,7 +6,6 @@ import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {PostComponent} from './components/post/post.component';
 import {PromoStepsComponent} from './components/promo-steps/promo-steps.component';
 import {WpPromoComponent} from 'wlc-engine/modules/static/components/wp-promo/wp-promo.component';
-import {InstructionComponent} from 'wlc-engine/modules/static/components/instruction/instruction.component';
 import {GlobalHelper} from 'wlc-engine/modules/core';
 import {StaticService, IStaticConfig} from 'wlc-engine/modules/static';
 import {staticConfig} from './system/config/static.config';
@@ -22,7 +21,6 @@ export const components = {
     'wlc-post': PostComponent,
     'wlc-promo-steps': PromoStepsComponent,
     'wlc-wp-promo': WpPromoComponent,
-    'wlc-instruction': InstructionComponent,
 };
 
 export const services = {
@@ -34,7 +32,6 @@ export const services = {
         PostComponent,
         PromoStepsComponent,
         WpPromoComponent,
-        InstructionComponent,
     ],
     id: 'StaticModule',
     imports: [
@@ -48,7 +45,6 @@ export const services = {
         PostComponent,
         PromoStepsComponent,
         WpPromoComponent,
-        InstructionComponent,
     ],
     providers: [
         StaticService,

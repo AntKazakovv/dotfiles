@@ -50,16 +50,6 @@
             }
         }
 
-        .wlc-language-selector--theme-default.wlc-language-selector--theme-mod-long {
-            margin: map-get($themeMobile, 'languageSelectorMargin');
-        }
-
-        .wlc-btn--pwa {
-            --wlc-icon-height: #{ef.get('font', 'ButtonText')};
-            width: 100%;
-            margin: ef.get-value($themeMobile, 'pwaBtnGap');
-        }
-
         .wlc-user-stats {
             margin-bottom: map-get($themeMobile, 'gap');
 

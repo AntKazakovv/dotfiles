@@ -126,7 +126,6 @@ import {HeaderComponent} from './components/header/header.component';
 import {TabsComponent} from './components/tabs/tabs.component';
 import {TagComponent} from 'wlc-engine/modules/core/components/tag/tag.component';
 import {SaComponent} from './components/sa/sa.component';
-import {PwaNotificationComponent} from 'wlc-engine/modules/core/components/pwa-notification/pwa-notification.component';
 // -- COMPONENTS IMPORTS END  --;
 
 //  -- DIRECTIVES IMPORTS STARTS--;
@@ -238,7 +237,6 @@ export const components = {
     'wlc-tabs': TabsComponent,
     'wlc-footer': FooterComponent,
     'wlc-sa': SaComponent,
-    'wlc-pwa-notification': PwaNotificationComponent,
 };
 
 export const services = {
@@ -394,7 +392,6 @@ export const services = {
         ResizedDirective,
         TabsComponent,
         SaComponent,
-        PwaNotificationComponent,
     ],
     exports: [
         AlertComponent,
@@ -482,7 +479,6 @@ export const services = {
         ResizedDirective,
         TabsComponent,
         SaComponent,
-        PwaNotificationComponent,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

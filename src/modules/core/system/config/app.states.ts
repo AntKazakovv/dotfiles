@@ -22,7 +22,6 @@ let states = {
     'app.catalog.child': States.catalogChildState,
     'app.gameplay': States.gamePlayState,
     'app.pages': States.pagesState,
-    'app.instructions': States.instructionsState,
     'app.contacts': States.contactsState,
     'app.contact-us': States.contactUsState,
     'app.promotions': States.promotionsState,
