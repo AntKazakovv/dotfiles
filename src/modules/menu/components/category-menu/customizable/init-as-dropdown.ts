@@ -114,7 +114,7 @@ export const initAsDropdownV2: TCustomizableFn = function (this: CategoryMenuCom
 
             if (this.gamesCatalogService.architectureVersion === 3 && this.isMobile) {
                 const allGamesBtn: MenuParams.IMenuItem = this.getAllGamesBtn(false, category);
-                allGamesBtn.params.state.options.reload = true;
+                allGamesBtn.params.state.options.replaceUrl = true;
                 childItems.unshift(allGamesBtn);
             }
 

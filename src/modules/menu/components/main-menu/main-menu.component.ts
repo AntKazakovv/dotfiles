@@ -227,6 +227,14 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
             },
         });
 
+        if (this.gamesCatalogService.architectureVersion === 3) {
+            menuItems.forEach((item: MenuParams.IMenuItem) => {
+                if (item.params?.state?.name === 'app.catalog') {
+                    _set(item, 'params.state.options.replaceUrl', true);
+                }
+            });
+        }
+
         this.$params.menuParams.items = _sortBy(
             menuItems.concat(this.commonMenuItems as MenuParams.IMenuItem[]),
             (item) => item.sort,
