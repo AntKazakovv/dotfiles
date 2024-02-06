@@ -28,7 +28,6 @@ import * as Params from './pwa-notification.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PwaNotificationComponent extends AbstractComponent implements OnInit {
-    public override $params: Params.IPwaNotificationCParams;
 
     constructor(
         @Inject('injectParams') protected params: Params.IPwaNotificationCParams,
