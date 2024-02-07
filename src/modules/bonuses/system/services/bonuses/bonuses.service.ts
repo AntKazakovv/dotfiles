@@ -413,7 +413,7 @@ export class BonusesService {
                         }
                     }
                 } else {
-                    this.showPromoCodeError();
+                    this.showPromoCodeError(gettext('No voucher found'));
                     this.cachingService.clear(promocodeCacheKey);
                 }
             }
@@ -425,13 +425,13 @@ export class BonusesService {
         }
     }
 
-    public showPromoCodeError(): void {
+    public showPromoCodeError(message: string, title: string = gettext('Promo code error')): void {
         this.eventService.emit({
             name: NotificationEvents.PushMessage,
             data: <IPushMessageParams>{
                 type: 'error',
-                title: gettext('Promo code error'),
-                message: gettext('No voucher found'),
+                title,
+                message,
                 wlcElement: 'notification_promocode-error',
             },
         });
@@ -522,7 +522,7 @@ export class BonusesService {
         const params = {ID: bonus.id, Selected: 0};
 
         try {
-            const response: IData = await this.limitedRequests( {
+            const response: IData = await this.limitedRequests({
                 name: 'bonusSubscribe',
                 system: 'bonuses',
                 url: `/bonuses/${bonus.id}`,

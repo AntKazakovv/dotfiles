@@ -19,8 +19,6 @@ import {
     GlobalHelper,
     IInputCParams,
     ModalService,
-    IPushMessageParams,
-    NotificationEvents,
     ConfigService,
 } from 'wlc-engine/modules/core';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
@@ -85,7 +83,7 @@ export class EnterPromocodeComponent extends AbstractComponent implements OnInit
         const promocode = this.enterPromocodeInput.control.value;
 
         if (!promocode) {
-            this.showErrorNotification(gettext('Enter promo code'));
+            this.bonusesService.showPromoCodeError(gettext('Enter promo code'));
             return;
         }
 
@@ -106,7 +104,7 @@ export class EnterPromocodeComponent extends AbstractComponent implements OnInit
             }
 
             if (!bonuses.length) {
-                this.showErrorNotification(gettext('No voucher found'));
+                this.bonusesService.showPromoCodeError(gettext('No voucher found'));
                 return;
             }
 
@@ -126,22 +124,10 @@ export class EnterPromocodeComponent extends AbstractComponent implements OnInit
             });
 
         } catch (error) {
-            this.showErrorNotification(error.errors ? error.errors : error);
+            this.bonusesService.showPromoCodeError(error.errors ? error.errors : error);
         } finally {
             this.pending$.next(false);
         }
-    }
-
-    protected showErrorNotification(message: string, title: string = gettext('Promo code error')): void {
-        this.eventService.emit({
-            name: NotificationEvents.PushMessage,
-            data: <IPushMessageParams>{
-                type: 'error',
-                title,
-                message,
-                wlcElement: 'notification_promocode-error',
-            },
-        });
     }
 
     protected nonAuthSubmit(promocode: string): void {

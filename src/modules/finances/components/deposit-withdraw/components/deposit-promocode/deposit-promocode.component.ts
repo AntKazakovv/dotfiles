@@ -77,27 +77,32 @@ export class DepositPromocodeComponent extends AbstractComponent implements OnIn
 
     public async processPromoCode(): Promise<void> {
         const code: string = this.promoCodeControl.value;
+        this.bonusesService ??= await this.injectionService.getService<BonusesService>('bonuses.bonuses-service');
 
         if (!code || this.bonusPending$.getValue()) {
+            this.bonusesService.showPromoCodeError(gettext('Enter promo code'));
             return;
         }
 
-        this.bonusPending$.next(true);
-        this.bonusesService ??= await this.injectionService.getService<BonusesService>('bonuses.bonuses-service');
+        try {
+            this.bonusPending$.next(true);
 
-        const bonuses: Bonus[] = await this.bonusesService.getBonusesByCode(code);
+            const bonuses: Bonus[] = await this.bonusesService.getBonusesByCode(code);
 
-        if (bonuses.length) {
-            this.bonus = bonuses[0];
-            this.bonus.data.PromoCode = code;
-            this.promoCodeControl.setValue(null);
+            if (bonuses.length) {
+                this.bonus = bonuses[0];
+                this.bonus.data.PromoCode = code;
+                this.promoCodeControl.setValue(null);
 
-            this.showBonusModal(true);
-        } else {
-            this.bonusesService.showPromoCodeError();
+                this.showBonusModal(true);
+            } else {
+                this.bonusesService.showPromoCodeError(gettext('No voucher found'));
+            }
+        } catch (error) {
+            this.bonusesService.showPromoCodeError(error.errors ? error.errors : error);
+        } finally {
+            this.bonusPending$.next(false);
         }
-
-        this.bonusPending$.next(false);
     }
 
     public resetPromoCode(): void {
@@ -142,7 +147,7 @@ export class DepositPromocodeComponent extends AbstractComponent implements OnIn
             });
         }
 
-        let defaultAlert: string =  gettext('Upon activation of this promo code bonus, '
+        let defaultAlert: string = gettext('Upon activation of this promo code bonus, '
             + 'the selection of another deposit bonus will be reset');
         if (this.isBonusApplied) {
             defaultAlert = gettext('This promo code bonus prohibits the selection of another deposit bonus');
