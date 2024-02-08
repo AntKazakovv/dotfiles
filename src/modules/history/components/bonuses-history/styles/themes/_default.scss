@@ -28,6 +28,23 @@
                 }
             }
         }
+
+        .wlc-body--lang-en &,
+        .wlc-body--lang-ru & {
+
+            ::ng-deep {
+
+                .wlc-table--theme-default {
+
+                    .wlc-table__row--head {
+
+                        .wlc-table__cell {
+                            white-space: nowrap;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @include mq.min(1024) {
