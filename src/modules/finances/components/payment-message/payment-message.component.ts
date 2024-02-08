@@ -3,6 +3,7 @@ import {
     ChangeDetectorRef,
     Component,
     Inject,
+    Injector,
     Input,
     OnChanges,
     OnInit,
@@ -20,8 +21,6 @@ import _some from 'lodash-es/some';
 import _map from 'lodash-es/map';
 import _merge from 'lodash-es/merge';
 
-import QRCode from 'qrcode';
-
 import {
     IPaymentMessage,
 } from 'wlc-engine/modules/finances/system/interfaces';
@@ -30,6 +29,7 @@ import {
 } from 'wlc-engine/modules/finances/system/models';
 import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services/finances/finances.service';
+import {QRCodeService} from 'wlc-engine/modules/qr-code';
 import {
     AbstractComponent,
     ConfigService,
@@ -115,6 +115,7 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
         protected translateService: TranslateService,
         protected modalService: ModalService,
         protected financesService: FinancesService,
+        protected injector: Injector,
     ) {
         super(
             <IMixedParams<Params.IPaymentMessageCParams>>{
@@ -164,7 +165,12 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
             this.qrCodeImg$.next('data:image/jpeg;base64,');
         } else if (this.message.qrlink) {
             try {
-                this.qrCodeImg$.next(await QRCode.toDataURL(this.message.qrlink, {width: 250}));
+                const qrCodeImg: string = await this.injector.get(QRCodeService).toDataURL(
+                    this.message.qrlink,
+                    {width: 250},
+                );
+
+                this.qrCodeImg$.next(qrCodeImg);
             } catch (err) {
                 console.error(err);
             }

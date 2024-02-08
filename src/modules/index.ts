@@ -8,3 +8,4 @@ export * as Promo from './promo';
 export * as Static from './static';
 export * as User from './user';
 export * as Compiler from './compiler';
+export * as QrCode from './qr-code';

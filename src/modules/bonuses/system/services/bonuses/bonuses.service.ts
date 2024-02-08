@@ -676,7 +676,7 @@ export class BonusesService {
 
             const bonuses: Bonus[] = _orderBy(
                 this.checkForbid(await this.modifyBonuses(
-                    (res as IData<IBonus[]>).data, 
+                    (res as IData<IBonus[]>).data,
                     Date.parse(res.headers.get('Date')))),
                 'weight',
                 'desc',

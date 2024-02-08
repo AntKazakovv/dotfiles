@@ -3,17 +3,18 @@ import {
     ChangeDetectorRef,
     Component,
     Inject,
+    Injector,
     Input,
     OnInit,
 } from '@angular/core';
 import {UntypedFormControl} from '@angular/forms';
-import QRCode from 'qrcode';
 
 import {
     AbstractComponent,
     IInputCParams,
     ModalService,
 } from 'wlc-engine/modules/core';
+import {QRCodeService} from 'wlc-engine/modules/qr-code';
 import {
     ITwoFactorAuthResponse,
 } from 'wlc-engine/modules/user/submodules/two-factor-auth/system/interfaces/two-factor-auth.interface';
@@ -42,6 +43,7 @@ export class TwoFactorAuthScanComponent extends AbstractComponent implements OnI
         cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected twoFactorAuthService: TwoFactorAuthService,
+        protected injector: Injector,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, null, cdr);
     }
@@ -60,7 +62,10 @@ export class TwoFactorAuthScanComponent extends AbstractComponent implements OnI
 
     public async makeLink(): Promise<void> {
         if (this.secretCode.path) {
-            this.qrCodeImg = await QRCode.toDataURL(this.secretCode.path, {width: 250});
+            this.qrCodeImg = await this.injector.get(QRCodeService).toDataURL(
+                this.secretCode.path,
+                {width: 250},
+            );
         }
     }
 

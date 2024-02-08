@@ -45,7 +45,8 @@ export type TModuleName =
     | 'wheel'
     | 'multi-wallet'
     | 'two-factor-auth'
-    | 'youtube-block';
+    | 'youtube-block'
+    | 'qr-code';
 
 type IFunctionImportModule = (name: TModuleName, callback: Function) => unknown;
 
@@ -274,6 +275,11 @@ export const modulesApp: Record<TModuleName, IFunctionImportModule> = {
         const m = await import('wlc-engine/modules/wheel/wheel.module');
         callback(name, m);
         return m.WheelModule;
+    },
+    'qr-code': async (name: TModuleName, callback: Function) => {
+        const m = await import('wlc-engine/modules/qr-code/qr-code.module');
+        callback(name, m);
+        return m.QrCodeModule;
     },
 } as const;
 
