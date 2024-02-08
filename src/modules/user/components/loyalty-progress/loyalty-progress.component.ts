@@ -13,12 +13,9 @@ import {
     skipWhile,
     startWith,
     takeUntil,
-    filter,
-    mergeMap,
 } from 'rxjs/operators';
 import _find from 'lodash-es/find';
 import _merge from 'lodash-es/merge';
-import _cloneDeep from 'lodash-es/cloneDeep';
 
 import {
     AbstractComponent,
@@ -51,38 +48,16 @@ export class LoyaltyProgressComponent extends AbstractComponent implements OnIni
     public override $params: Params.ILoyaltyProgressCParams;
     public levels: LoyaltyLevelModel[];
     public levelData$: Observable<Params.ILevelViewData> = this.userService.userInfo$.pipe(
-        mergeMap(async (userInfo: UserInfo): Promise<UserInfo> => {
-            if (!this.levels) {
-                this.levels  = await this.loyaltyLevelsService.getLoyaltyLevelsSafely();
-            }
-            return userInfo;
-        }),
-        skipWhile((v: UserInfo) => !v),
-        filter((userInfo: UserInfo): boolean => {
-            if (!this.userInfo && userInfo?.data?.loyalty?.Level) {
-                return true;
-            } else if (this.userInfo) {
-                return (
-                    this.userInfo.level !== userInfo.level ||
-                    this.userInfo.levelName !== userInfo.levelName ||
-                    this.userInfo.points !== userInfo.points ||
-                    this.userInfo.nextLevelPoints !== userInfo.nextLevelPoints
-                );
-            } else {
-                return false;
-            }
-        }),
+        skipWhile(v => !v),
         map(this.infoToViewData.bind(this)),
         takeUntil(this.$destroy),
     ).pipe(startWith({}));
 
-    protected userInfo: UserInfo;
-
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILoyaltyProgressCParams,
         configService: ConfigService,
-        protected userService: UserService,
-        protected loyaltyLevelsService: LoyaltyLevelsService,
+        private userService: UserService,
+        private loyaltyLevelsService: LoyaltyLevelsService,
         cdr: ChangeDetectorRef,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
@@ -90,6 +65,8 @@ export class LoyaltyProgressComponent extends AbstractComponent implements OnIni
 
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit(GlobalHelper.prepareParams(this, ['maxProgressText', 'showLevelIcon', 'showLinkToLevels']));
+
+        this.levels = await this.loyaltyLevelsService.getLoyaltyLevelsSafely();
     }
 
     private infoToViewData(userInfo: UserInfo): Params.ILevelViewData {
@@ -118,8 +95,6 @@ export class LoyaltyProgressComponent extends AbstractComponent implements OnIni
                 ],
             };
         }
-
-        this.userInfo = _cloneDeep(userInfo);
 
         return {
             levelName: userInfo.levelName,
