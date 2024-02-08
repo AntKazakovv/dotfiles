@@ -257,7 +257,7 @@ export class UserService {
             this.info.data = info?.data;
             this.setUserInfo();
 
-            if (this.info.socketsData?.server) {
+            if (this.info.socketsData) {
                 this.info.separateLoyalty = true;
                 this.webSocketService.addWsEndPointConfig('wsc2', this.info.socketsData);
             }

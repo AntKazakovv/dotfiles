@@ -9,10 +9,10 @@ import {
 
 import {Observable} from 'rxjs';
 import {
+    distinctUntilChanged,
     map,
     skipWhile,
     startWith,
-    takeUntil,
 } from 'rxjs/operators';
 import _find from 'lodash-es/find';
 import _merge from 'lodash-es/merge';
@@ -49,8 +49,8 @@ export class LoyaltyProgressComponent extends AbstractComponent implements OnIni
     public levels: LoyaltyLevelModel[];
     public levelData$: Observable<Params.ILevelViewData> = this.userService.userInfo$.pipe(
         skipWhile(v => !v),
+        distinctUntilChanged(),
         map(this.infoToViewData.bind(this)),
-        takeUntil(this.$destroy),
     ).pipe(startWith({}));
 
     constructor(
