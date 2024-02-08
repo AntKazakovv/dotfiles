@@ -85,6 +85,11 @@ export class IconListItemComponent extends AbstractComponent implements OnInit, 
     protected async getIconPath(): Promise<string> {
         const localPath = this.$params.icon.image.replace('//agstatic.com/', '/');
         const file: IFile = await this.fileService.getFile(localPath);
-        return file.url;
+
+        if (file.url) {
+            return file.url;
+        }
+
+        return this.$params.icon.image;
     }
 }

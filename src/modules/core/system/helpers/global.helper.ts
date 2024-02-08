@@ -444,6 +444,7 @@ export class GlobalHelper {
 
         if (url.startsWith('http')
             || url.startsWith(GlobalHelper.gstaticUrl)
+            || url.includes('/wp-content/')
             || url.startsWith(GlobalHelper.mobileAppStaticUrl)
         ) {
             return url;
