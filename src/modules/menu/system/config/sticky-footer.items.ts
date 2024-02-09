@@ -142,7 +142,6 @@ export const wlcStickyFooterItemsGlobal: MenuParams.IMenuItemsGlobal = {
         type: 'content',
         class: 'chat',
         sort: 0,
-        auth: true,
         params: {
             content: {
                 components: [
@@ -150,6 +149,7 @@ export const wlcStickyFooterItemsGlobal: MenuParams.IMenuItemsGlobal = {
                         name: 'chat.wlc-chat-icon',
                         params: {
                             theme: 'wolf',
+                            type: 'sticky-footer',
                         },
                     },
                 ],

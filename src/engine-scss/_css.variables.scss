@@ -7,3 +7,6 @@
 // CSS vars for alternate color theme
 @include cssVars.makeCssColorVars($mainColorsAlt, 'body.wlc-body--theme-alt');
 @include cssVars.makeCssColorVars($fieldColorsAlt, 'body.wlc-body--theme-alt');
+
+// CSS var for button radius
+@include cssVars.makeCssVars('buttonSettings', 'borderRadiusDefault', 'button-border-radius');

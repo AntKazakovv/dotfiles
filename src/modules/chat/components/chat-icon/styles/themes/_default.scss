@@ -1,20 +1,27 @@
+@use '../../../../system/mixins/mixins' as mixins;
+
 .wlc-chat-icon--theme-default:host {
 
     .wlc-chat-icon {
 
         &__button {
-            @include bm.transition;
+            @include mixins.for-desktop-up {
+                width: map-get($themeDefault, 'buttonWidthDesktop');
+                height: map-get($themeDefault, 'buttonHeightDesktop');
+            }
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: ef.get-value($themeDefault, 'buttonWidth');
-            height: ef.get-value($themeDefault, 'buttonHeight');
-            padding: ef.get-value($themeDefault, 'buttonPadding');
-            border: ef.get-value($themeDefault, 'buttonBorder');
-            color: ef.get-value($themeDefault, 'buttonColor');
-            background: ef.get-value($themeDefault, 'buttonBg');
-            border-radius: ef.get-value($themeDefault, 'buttonRadius');
+            width: map-get($themeDefault, 'buttonWidth');
+            height: map-get($themeDefault, 'buttonHeight');
+            padding: map-get($themeDefault, 'buttonPadding');
+            border: map-get($themeDefault, 'buttonBorder');
+            color: map-get($themeDefault, 'buttonColor');
+            background: map-get($themeDefault, 'buttonBg');
+            border-radius: map-get($themeDefault, 'buttonRadius');
+            box-shadow: map-get($themeDefault, 'buttonShadow');
+            transition: map-get($themeDefault, 'buttonTransition');
 
             .ch-icon-chat {
                 width: 100%;
@@ -29,18 +36,16 @@
 
         &__counter {
             position: absolute;
-            top: ef.get-value($themeDefault, 'counterTop');
-            right: ef.get-value($themeDefault, 'counterRight');
-            bottom: auto;
-            left: auto;
+            top: map-get($themeDefault, 'counterTop');
+            right: map-get($themeDefault, 'counterRight');
             display: flex;
             align-items: center;
             justify-content: center;
-            width: ef.get-value($themeDefault, 'counterWidth');
-            height: ef.get-value($themeDefault, 'counterHeight');
-            font-size: ef.get-value($themeDefault, 'counterFontSize');
-            background: ef.get-value($themeDefault, 'counterBg');
-            border-radius: ef.get-value($themeDefault, 'counterRadius');
+            width: map-get($themeDefault, 'counterWidth');
+            height: map-get($themeDefault, 'counterHeight');
+            font-size: map-get($themeDefault, 'counterFontSize');
+            background: map-get($themeDefault, 'counterBg');
+            border-radius: map-get($themeDefault, 'counterRadius');
         }
     }
 }

@@ -3,27 +3,25 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    HostBinding,
     OnInit,
     OnDestroy,
 } from '@angular/core';
 
 import {
-    AbstractComponent,
-    LogService,
-    ConfigService,
-} from 'wlc-engine/modules/core';
-
-import {
     Observable,
-    Subject,
     takeUntil,
 } from 'rxjs';
 
 import {ChatListService} from 'wlc-engine/modules/chat/system/services/chat-list.service';
 import {ChatService} from 'wlc-engine/modules/chat/system/services/chat.service';
+import {AbstractChatComponent} from 'wlc-engine/modules/chat/system/classes/component.abstract.class';
 
-import * as Params from './chat-icon.params';
+export type TChatIconTheme = 'default' | 'wolf';
+export type TChatIconType = 'default' | 'sticky-footer';
+export interface IChatIconParams {
+    type?: TChatIconType;
+    theme?: TChatIconTheme;
+};
 
 @Component({
     selector: '[wlc-chat-icon]',
@@ -31,36 +29,25 @@ import * as Params from './chat-icon.params';
     styleUrls: ['./styles/chat-icon.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChatIconComponent extends AbstractComponent implements OnInit, OnDestroy {
-    @HostBinding('class.wlc-chat-icon') public override $class: string = 'wlc-chat-icon';
-    protected destroy$: Subject<void> = new Subject();
-
-    public override $params: Params.IChatIconCParams;
+export class ChatIconComponent extends AbstractChatComponent implements OnInit, OnDestroy {
 
     constructor(
-        @Inject('injectParams') protected injectParams: Params.IChatIconCParams,
+        @Inject('injectParams') protected params: IChatIconParams,
         protected chatService: ChatService,
         protected chatListService: ChatListService,
-        cdr: ChangeDetectorRef,
-        protected logService: LogService,
-        configService: ConfigService,
+        protected cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super('wlc-chat-icon');
     }
 
-    public override ngOnInit(): void {
-        super.ngOnInit();
+    public ngOnInit(): void {
+        this.prepareParams();
         this.chatListService.messages$
             .pipe(takeUntil(this.destroy$))
             .subscribe(() => {
                 this.chatListService.countUnread();
                 this.cdr.markForCheck();
             });
-    }
-
-    public override ngOnDestroy(): void {
-        this.destroy$.next();
-        this.destroy$.complete();
     }
 
     public get unread$(): Observable<number> {
@@ -79,4 +66,16 @@ export class ChatIconComponent extends AbstractComponent implements OnInit, OnDe
         }
     }
 
+    protected prepareParams(): void {
+        if (this.params.type) {
+            this.addMod(`type-${this.params.type}`);
+        } else {
+            this.params.type = 'default';
+        }
+        this.addMod(this.prepareTheme());
+    }
+
+    protected prepareTheme(): string {
+        return this.params.theme ? `theme-${this.params.theme}` : 'theme-default';
+    }
 }

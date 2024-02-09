@@ -1,48 +1,49 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'buttonWidth': 40px,
-    'buttonHeight': 40px,
+    'buttonWidthDesktop': 40px,
+    'buttonHeightDesktop': 40px,
+    'buttonWidth': 35px,
+    'buttonHeight': 35px,
+    'buttonPadding': 5px,
+    'buttonBorder': none,
     'buttonColor': var(--mc-baseThird-locked, var(--mc-baseMain-locked)),
-    'colorHover': var(--mc-baseThird-locked, var(--mc-baseMain-locked)),
     'buttonBg': var(--mc-main),
     'buttonBgHover': var(--mc-main-l10),
-    'buttonRadius': 50%,
-    'buttonBorder': none,
-    'buttonPadding': ef.size(1),
-    'borderHover': none,
+    'buttonRadius': var(--button-border-radius),
+    'buttonShadow': none,
+    'buttonTransition': all 0.3s linear,
 
-    'shadow': none,
-    'shadowHover': none,
-    'counterBg': var(--mc-main-d20),
-    'counterTop': ef.size(-2),
-    'counterRight': ef.size(-2),
-    'counterRadius': 50%,
+    'counterTop': -10px,
+    'counterRight': -10px,
     'counterWidth': 2.4em,
     'counterHeight': 2.4em,
     'counterFontSize': 10px,
-    'counterColor': var(--mc-baseThird-locked, var(--mc-baseMain-locked)),
+    'counterBg': var(--mc-main-d20),
+    'counterRadius': 50%,
 ), $customThemeDefault);
 
-$customThemeWolf: () !default;
-$themeWolf: map-merge((
+$customThemeWolfSticky: () !default;
+$themeWolfSticky: map-merge((
     'counterTop': -3px,
     'counterRight': 0,
     'counterWidth': 5px,
     'counterHeight': 5px,
     'counterRadius': 50%,
     'counterBg': var(--mc-secondary),
-), $customThemeWolf);
+), $customThemeWolfSticky);
 
-$customThemeWolfHeader: () !default;
-$themeWolfHeader: map-merge((
-    'iconWidth': 24px,
-    'iconHeight': 24px,
-    'itemWidth': 40px,
-    'itemHeight': 40px,
-    'itemColor': var(--fc-iconColor),
-    'itemColorHover': var(--mc-baseThird),
-    'itemBg': var(--fc-inputBg),
-    'itemRadius': ef.get('radius', 'main'),
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'buttonWidth': 40px,
+    'buttonHeight': 40px,
+    'buttonPadding': 8px,
+    'buttonBorder': none,
+    'buttonColor': var(--fc-iconColor),
+    'colorHover': var(--mc-baseThird-locked, var(--mc-baseMain-locked)),
+    'buttonBg': var(--fc-inputBg),
+    'buttonRadius': var(--button-border-radius),
+    'buttonShadow': none,
+    'buttonTransition': all 0.3s linear,
 
     'counterTop': 8px,
     'counterRight': 8px,
@@ -50,4 +51,4 @@ $themeWolfHeader: map-merge((
     'counterHeight': 5px,
     'counterRadius': 50%,
     'counterBg': var(--mc-secondary),
-), $customThemeWolfHeader);
+), $customThemeWolf);

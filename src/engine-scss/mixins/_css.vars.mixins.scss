@@ -7,6 +7,7 @@
 @use 'sass:list';
 @use 'sass:map';
 @use '../engine.variables' as ev;
+@use '../functions' as ef;
 
 @function uniq($list1, $list2) {
     $result: $list1;
@@ -103,6 +104,29 @@
                     @include generateOpacities($baseName, $val, $opacities);
                 }
             }
+        }
+    }
+}
+
+/// Миксин для генерации CSS-переменной из заданной мапы и значения переменной
+/// Позволяет вынести значение переменной из любой мапы
+///
+/// @name makeCssVars
+/// @param {string} $map - name map with variables
+/// @param {string} $var - css-variable
+/// @param {string} $selector - selector name css-variable (example 'button-border-radius')
+///
+@mixin makeCssVars($map, $var, $selector: false) {
+    $sel: ':root';
+    $name: $var;
+    @if (type-of($selector) == 'string') {
+        $name: $selector;
+    }
+    $val: #{ef.get(#{$map}, #{$var})};
+
+    #{$sel} {
+        @if ($val) {
+            #{--}#{$name}: #{$val};
         }
     }
 }

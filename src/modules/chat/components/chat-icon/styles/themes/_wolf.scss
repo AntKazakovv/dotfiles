@@ -2,18 +2,60 @@
 
     .wlc-chat-icon {
 
-        &__item {
+        &__button {
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: map-get($themeWolf, 'buttonWidth');
+            height: map-get($themeWolf, 'buttonHeight');
+            padding: map-get($themeWolf, 'buttonPadding');
+            border: map-get($themeWolf, 'buttonBorder');
+            color: map-get($themeWolf, 'buttonColor');
+            background: map-get($themeWolf, 'buttonBg');
+            border-radius: map-get($themeWolf, 'buttonRadius');
+            box-shadow: map-get($themeWolf, 'buttonShadow');
+            transition: map-get($themeWolf, 'buttonTransition');
+
+            .ch-icon-chat {
+                width: 100%;
+                height: 100%;
+                overflow: initial;
+            }
+
+            &:hover {
+                color: map-get($themeWolf, 'colorHover');
+            }
         }
 
         &__counter {
             position: absolute;
-            top: ef.get-value($themeWolf, 'counterTop');
-            right: ef.get-value($themeWolf, 'counterRight');
-            width: ef.get-value($themeWolf, 'counterWidth');
-            height: ef.get-value($themeWolf, 'counterHeight');
-            border-radius: ef.get-value($themeWolf, 'counterRadius');
-            background: ef.get-value($themeWolf, 'counterBg');
+            top: map-get($themeWolf, 'counterTop');
+            right: map-get($themeWolf, 'counterRight');
+            width: map-get($themeWolf, 'counterWidth');
+            height: map-get($themeWolf, 'counterHeight');
+            border-radius: map-get($themeWolf, 'counterRadius');
+            background: map-get($themeWolf, 'counterBg');
+        }
+    }
+
+    &.wlc-chat-icon--type-sticky-footer {
+
+        .wlc-chat-icon {
+
+            &__item {
+                position: relative;
+            }
+
+            &__counter {
+                position: absolute;
+                top: map-get($themeWolfSticky, 'counterTop');
+                right: map-get($themeWolfSticky, 'counterRight');
+                width: map-get($themeWolfSticky, 'counterWidth');
+                height: map-get($themeWolfSticky, 'counterHeight');
+                border-radius: map-get($themeWolfSticky, 'counterRadius');
+                background: map-get($themeWolfSticky, 'counterBg');
+            }
         }
     }
 }
