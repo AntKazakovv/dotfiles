@@ -160,6 +160,7 @@ export class SelectValuesService {
      * @param {TDateList} value days or months or years
      * @returns {BehaviorSubject<Params.ISelectOptions[]}
      */
+    @CustomHook('core', 'selectValuesDateList')
     public getDateList(value: TDateList): TConstantValue {
         let list: Params.ISelectOptions[] = [];
         switch (value) {
