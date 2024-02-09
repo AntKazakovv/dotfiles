@@ -16,8 +16,4 @@ export const defaultParams: ICategoryPreviewCParams = {
     categories: ['new', 'popular', 'livecasino',
         'megawaysglobal', 'bonusbuyglobal', 'jackpots', 'slots', 'tablegames', 'blackjacks', 'blackjack'],
     categoriesCount: 3,
-    thumbParams: {
-        themeMod: 'default',
-        type: 'default',
-    },
 };
