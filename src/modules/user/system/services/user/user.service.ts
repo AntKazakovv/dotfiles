@@ -537,7 +537,7 @@ export class UserService {
                 value: null,
             });
         }
-        this.dataLoyaltyUserSub.unsubscribe();
+        this.dataLoyaltyUserSub?.unsubscribe();
     }
 
     public createUserProfile(userProfile: IUserProfile): Promise<IIndexing<any>> {
