@@ -115,6 +115,7 @@ import {IBonusWagerGamesFilter} from 'wlc-engine/modules/bonuses/system/interfac
 import {IInteractiveText} from 'wlc-engine/modules/core';
 import {Games} from 'wlc-engine/modules/games/system/classes/games';
 import {GameLauncherService} from 'wlc-engine/modules/games/system/services/game-launcher/game-launcher.service';
+import {ISelectedWallet, WalletsService} from 'wlc-engine/modules/multi-wallet';
 
 export interface ILaunchGameModal {
     show: boolean;
@@ -161,6 +162,7 @@ export class GamesCatalogService {
     private useRealJackpots: boolean;
     private useSeparateSorts: boolean;
     private sorts: IIndexing<IAllSortsItemResponse>;
+    private walletsService: WalletsService;
 
     constructor(
         public configService: ConfigService,
@@ -500,23 +502,31 @@ export class GamesCatalogService {
      * Get game launch params
      *
      * @param {IGameParams} options
+     * @param {string} currency
+     * @param {string} walletCurrency
      * @returns {Promise<ILaunchInfo>}
      */
     public async getLaunchParams(
         options: IGameParams,
         currency: string,
     ): Promise<ILaunchInfo> {
-        let wallet: number;
+        let wallet: ISelectedWallet;
 
         if (Games.isMultiWallet) {
-            wallet = GamesCatalogService.userService.userProfile.extProfile.currentWallet.walletId;
+            wallet = GamesCatalogService.userService.userProfile.extProfile.currentWallet;
+
+            if (!wallet.walletId && !options.demo) {
+                this.walletsService ??= await this.injectionService
+                    .getService<WalletsService>('multi-wallet.wallet-service');
+                wallet.walletId = _toNumber(await this.walletsService.addWallet(wallet.walletCurrency));
+            }
         }
 
         return (await this.dataService.request('games/gameLaunchParams', {
             ...options,
             demo: options.demo ? 1 : 0,
+            wallet: wallet.walletId,
             currency,
-            wallet,
         }) as IData).data;
     }
 
