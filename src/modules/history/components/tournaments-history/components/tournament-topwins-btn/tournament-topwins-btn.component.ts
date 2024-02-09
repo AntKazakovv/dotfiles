@@ -3,6 +3,7 @@ import {
     OnInit,
     Inject,
     HostBinding,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 
 import {
@@ -18,12 +19,11 @@ import {
     // eslint-disable-next-line max-len
 } from 'wlc-engine/modules/tournaments/components/tournament/components/tournament-leaderboard/tournament-leaderboard.params';
 
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-tournament-topwins-btn]',
     templateUrl: './tournament-topwins-btn.component.html',
     styleUrls: ['./styles/tournament-topwins-btn.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TournamentTopwinsBtnComponent extends AbstractComponent implements OnInit {
     @HostBinding('class.profile-first') protected profileFirst: boolean;

@@ -2,6 +2,7 @@ import {
     Component,
     OnInit,
     Inject,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 import {
     AbstractComponent,
@@ -10,12 +11,11 @@ import {
 
 import * as Params from './level-name.params';
 
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-level-name]',
     templateUrl: './level-name.component.html',
     styleUrls: ['./styles/level-name.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LevelNameComponent extends AbstractComponent implements OnInit {
     public override $params: Params.ILevelNameParams;
