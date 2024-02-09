@@ -75,6 +75,9 @@ export interface IProfileConfig {
         cpf?: {
             use: boolean;
         };
+        cnp?: {
+            use: boolean;
+        }
     };
 }
 

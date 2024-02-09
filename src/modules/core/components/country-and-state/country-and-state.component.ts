@@ -34,7 +34,18 @@ import {
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import * as Params from './country-and-state.params';
 
-const listCountryForCpfFields: string[] = ['bra', 'rou'];
+type TCpfCountries = 'bra' | 'rou';
+type TCpfTypes = Exclude<Params.TDependentFields, 'stateCode'>;
+
+const listCountryForCpfFields: Record<TCpfCountries, boolean> = {
+    bra: false,
+    rou: false,
+};
+
+const cpfFieldMap: Record<TCpfCountries, TCpfTypes> = {
+    bra: 'cpf',
+    rou: 'cnp',
+};
 
 /**
  * @description Using cpf field requires `$base.profile.autoFields.cpf.use` setting to be `true` (`false` by default)
@@ -84,6 +95,10 @@ const listCountryForCpfFields: string[] = ['bra', 'rou'];
                     name: 'countryCode',
                     validators: 'required',
                 },
+                {
+                    name: 'cpf',
+                    validators: 'required',
+                },
             ],
         },
     }
@@ -100,10 +115,9 @@ export class CountryAndStateComponent extends AbstractComponent implements OnIni
 
     public showState: boolean = false;
     public showCpf: boolean = false;
-    protected states: IIndexing<IState[]> = {};
     protected useCpf: boolean = false;
-    protected defaultCpfParams: IInputCParams;
-    protected defaultCnpParams: IInputCParams;
+    protected states: IIndexing<IState[]> = {};
+    protected defaultCpfParams!: Record<TCpfTypes, IInputCParams>;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ICountryAndStateCParams,
@@ -117,13 +131,19 @@ export class CountryAndStateComponent extends AbstractComponent implements OnIni
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
-        this.defaultCpfParams = this.$params.cpf;
-        this.defaultCnpParams = this.$params.cnp;
+        const useBraCpf = listCountryForCpfFields['bra'] = this.configService
+            .get<boolean>('$base.profile.autoFields.cpf.use');
+        const useRouCnp = listCountryForCpfFields['rou'] = this.configService
+            .get<string>('appConfig.license') === 'romania'
+            || this.configService.get<boolean>('$base.profile.autoFields.cnp.use');
 
-        if (this.configService.get<boolean>('$base.profile.autoFields.cpf.use')
-            || this.configService.get<string>('appConfig.license') === 'romania'
-        ) {
-            this.useCpf = true;
+        this.useCpf = useBraCpf || useRouCnp;
+
+        if (this.useCpf) {
+            this.defaultCpfParams = {
+                cpf: this.$params.cpf,
+                cnp: this.$params.cnp,
+            };
         }
 
         this.provideParams();
@@ -148,38 +168,44 @@ export class CountryAndStateComponent extends AbstractComponent implements OnIni
     }
 
     protected setListeners(): void {
-        this.configService.get<BehaviorSubject<IIndexing<IState[]>>>('states')
-            .pipe(
-                filter((states) => !_isEmpty(states)),
-                takeUntil(this.$destroy),
-            )
-            .subscribe((states) => {
-                this.states = states;
-                this.updateStates(this.$params.countryCode.control.value);
-            });
 
-        this.$params.countryCode.control.valueChanges
-            .pipe(
-                distinctUntilChanged(),
-                takeUntil(this.$destroy),
-            )
-            .subscribe((countryCode: string) => {
-                this.updateStates(countryCode);
-                this.updateCpf(countryCode);
-            });
+        if (this.$params.countryCode.control) {
+            this.configService.get<BehaviorSubject<IIndexing<IState[]>>>('states')
+                .pipe(
+                    filter((states) => !_isEmpty(states)),
+                    takeUntil(this.$destroy),
+                )
+                .subscribe((states) => {
+                    this.states = states;
+                    this.updateStates(this.$params.countryCode.control.value);
+                });
+        }
 
-        this.$params.cpf.control.statusChanges
-            .pipe(
-                distinctUntilChanged(),
-                takeUntil(this.$destroy),
-            )
-            .subscribe(() => {
-                if (!this.showCpf && this.$params.cpf.control.enabled) {
-                    this.toggleFieldRequired('cpf', this.showCpf);
-                }
-            });
+        if (this.useCpf && this.$params.cpf.control) {
+            this.$params.cpf.control.statusChanges
+                .pipe(
+                    distinctUntilChanged(),
+                    takeUntil(this.$destroy),
+                )
+                .subscribe(() => {
+                    if (!this.showCpf && this.$params.cpf.control.enabled) {
+                        this.toggleFieldRequired('cpf', this.showCpf);
+                    }
+                });
+        }
 
         if (this.$params.stateCode.control || (this.$params.cpf.control && this.useCpf)) {
+            this.$params.countryCode.control.valueChanges
+                .pipe(
+                    distinctUntilChanged(),
+                    takeUntil(this.$destroy),
+                )
+                .subscribe((countryCode: string) => {
+                    this.updateStates(countryCode);
+                    this.updateCpf(countryCode);
+                });
+
+
             merge(
                 this.$params.countryCode.control.statusChanges,
                 this.$params.stateCode.control?.valueChanges || EMPTY,
@@ -193,17 +219,6 @@ export class CountryAndStateComponent extends AbstractComponent implements OnIni
                     this.cdr.markForCheck();
                 });
         }
-
-        this.$params.cpf.control.statusChanges
-            .pipe(
-                distinctUntilChanged(),
-                takeUntil(this.$destroy),
-            )
-            .subscribe(() => {
-                if (!this.showCpf && this.$params.cpf.control.enabled) {
-                    this.toggleFieldRequired('cpf', this.showCpf);
-                }
-            });
     }
 
     protected updateStates(countryCode: string): void {
@@ -226,16 +241,12 @@ export class CountryAndStateComponent extends AbstractComponent implements OnIni
 
     protected updateCpf(countryCode: string): void {
         if (this.useCpf && this.$params.cpf.control) {
-            this.showCpf = listCountryForCpfFields.includes(countryCode);
+            this.showCpf = listCountryForCpfFields[countryCode]
+                && !!this.defaultCpfParams[cpfFieldMap[countryCode]];
 
             if (this.showCpf) {
                 const formControl = this.$params.cpf.control;
-
-                if (countryCode === 'bra' && this.configService.get<boolean>('$base.profile.autoFields.cpf.use')) {
-                    this.$params.cpf = _cloneDeep(this.defaultCpfParams);
-                } else if (countryCode === 'rou' && this.configService.get<string>('appConfig.license') === 'romania') {
-                    this.$params.cpf = _cloneDeep(this.defaultCnpParams);
-                }
+                this.$params.cpf = _cloneDeep(this.defaultCpfParams[cpfFieldMap[countryCode]]);
 
                 this.$params.cpf.control = formControl;
                 this.$params.cpf.control.clearValidators();

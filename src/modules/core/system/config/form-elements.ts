@@ -290,6 +290,10 @@ export namespace FormElements {
                     name: 'countryCode',
                     validators: 'required',
                 },
+                {
+                    name: 'cpf',
+                    validators: 'required',
+                },
             ],
         },
     };
