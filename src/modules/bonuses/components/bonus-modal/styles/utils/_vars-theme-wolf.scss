@@ -10,7 +10,8 @@ $themeWolf: map-merge((
     'contentWidthThin': 330px,
     'contentWidthWide': 100%,
     'contentPadding': (
-        375: ef.size(5) ef.size(5) ef.size(10),
+        375: ef.size(5) ef.size(3) ef.size(10),
+        900: ef.size(5) ef.size(5) ef.size(10),
     ),
     'contentGap': ef.size(5),
 
@@ -37,6 +38,8 @@ $themeWolf: map-merge((
     'activeGap': ef.size(3),
 
     'progressMaxWidth': 250px,
+
+    'simpleGridColumns': repeat(auto-fill, minmax(100px, 1fr)),
 
     'btnsMargin': ef.size(5) auto 0,
     'btnsOrder': initial,

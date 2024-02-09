@@ -3,18 +3,18 @@
     .wlc-accordion {
 
         &__item {
+
             @include bm.transition(background);
+            @include accordionItem($themeWolf);
 
             margin: ef.get-value($themeWolf, 'itemMargin');
-            border-radius: ef.get-value($themeWolf, 'itemRadius');
-            background: var(--wlc-acc-item-bg, #{ef.get-value($themeWolf, 'itemBg')});
-            overflow: hidden;
 
             &.expanded {
                 --wlc-acc-title-color: #{ef.get-value($themeWolf, 'titleColorActive')};
                 --wlc-acc-title-padding: #{ef.get-value($themeWolf, 'titlePaddingActive')};
                 --wlc-acc-item-bg: #{ef.get-value($themeWolf, 'itemBgActive')};
-                --wlc-acc-arrow-transform: scaleY(-1);
+                --wlc-acc-arrow-transform: #{ef.get-value($themeWolf, 'itemArrowTransformExpanded')};
+                --wlc-acc-arrow-color: #{ef.get-value($themeWolf, 'itemArrowColorExpanded')};
             }
 
             &.first {
@@ -37,7 +37,7 @@
             );
 
             display: grid;
-            grid-template-columns: var(--wlc-acc-title-grid-columns, #{ef.get-value($themeWolf, 'titleGridColumns')});
+            grid-template-columns: ef.get-value($themeWolf, 'titleGridColumns');
             gap: ef.size(2);
             padding: var(--wlc-acc-title-padding, #{ef.get-value($themeWolf, 'titlePadding')});
             cursor: pointer;
@@ -50,7 +50,8 @@
 
             @include bm.transition(all);
 
-            transform: var(--wlc-acc-arrow-transform, scaleY(1));
+            color: var(--wlc-acc-arrow-color, ef.get-value($themeWolf, 'itemArrowColor'));
+            transform: var(--wlc-acc-arrow-transform, ef.get-value($themeWolf, 'itemArrowTransform'));
 
             ::ng-deep {
 

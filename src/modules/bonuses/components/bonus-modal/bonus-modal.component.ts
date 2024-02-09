@@ -110,6 +110,7 @@ export class BonusModalComponent extends AbstractComponent implements OnInit {
             }));
 
         this.bonusRewards = _merge(this.$params.rewardsParams, {
+            theme: this.$params.theme,
             items: rewardsItems,
         });
 
@@ -130,7 +131,10 @@ export class BonusModalComponent extends AbstractComponent implements OnInit {
     }
 
     protected async prepareGames(): Promise<void> {
-        this.gamesAccordion = _merge(this.$params.gamesAccordionParams, {items: []});
+        this.gamesAccordion = _merge(this.$params.gamesAccordionParams, {
+            theme: this.$params.theme,
+            items: [],
+        });
 
         this.isLoadingGames = true;
         this.bonusGamesAccordion = this.prepareGamesAccordionItem(this.$params.gamesCommon);

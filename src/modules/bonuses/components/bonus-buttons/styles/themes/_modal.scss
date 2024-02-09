@@ -6,4 +6,11 @@
 
     display: ef.get-value($themeModal, 'btnsDisplay');
     justify-content: ef.get-value($themeModal, 'btnsJustify');
+
+    ::ng-deep {
+
+        .wlc-btn {
+            min-width: 130px;
+        }
+    }
 }

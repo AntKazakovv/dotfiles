@@ -1,0 +1,37 @@
+@mixin accordionItem($config) {
+
+    overflow: hidden;
+    border-radius: ef.get-value($config, 'itemBorderRadius');
+    background: var(--wlc-acc-item-bg, #{ef.get-value($config, 'itemBackground')});
+
+    &-header {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: ef.get-value($config, 'itemHeaderGap');
+        align-items: center;
+        padding: ef.get-value($config, 'itemHeaderPadding');
+        cursor: pointer;
+
+        &-content {
+            display: flex;
+            flex-direction: column;
+            gap: ef.get-value($config, 'itemHeaderContentGap');
+            min-width: 0;
+        }
+    }
+
+    &-title {
+        @include bm.transition(color);
+        @include text.get-text-style(
+            ef.get-value($config, 'itemTitleTextStyle'),
+            var(--wlc-acc-title-color, #{ef.get-value($config, 'itemTitleColor')}),
+        );
+    }
+
+    &-descr {
+        @include text.get-text-style(
+            ef.get-value($config, 'itemDescrTextStyle'),
+            ef.get-value($config, 'itemDescrColor'),
+        );
+    }
+}

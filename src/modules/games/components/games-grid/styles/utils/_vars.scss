@@ -103,9 +103,7 @@ $themeDefault: map-merge((
     'wolfLoadMoreColorHover': var(--mc-baseThird),
 
     //mod simple
-    'simpleGridColumns': (
-        375: repeat(auto-fill, minmax(120px, 1fr)),
-    ),
+    'simpleGridColumns': repeat(auto-fill, minmax(120px, 1fr)),
     'simpleGap': ef.size(2),
     'simpleBtnTextOnlyMargin': ef.size(-2) 0 ef.size(-1),
     'simpleBtnTextOnlyColor': var(--mc-main),

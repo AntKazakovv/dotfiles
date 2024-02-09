@@ -319,7 +319,7 @@
         .wlc-games-grid {
 
             &__list {
-                @include bm.get-mq-map('grid-template-columns', $themeDefault, 'simpleGridColumns');
+                grid-template-columns: var(--wlc-games-grid-simple-cols, #{ef.get-value($themeDefault, 'simpleGridColumns')});
                 gap: ef.get-value($themeDefault, 'simpleGap');
             }
 

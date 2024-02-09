@@ -25,40 +25,13 @@
         }
 
         &__item {
-            background: var(--wlc-accord-item-bg, #{ef.get-value($themeDefault, 'itemBackground')});
+
+            @include accordionItem($themeDefault);
+
             transition: all ef.get-value($themeDefault, 'time');
-            overflow: hidden;
-            border-radius: ef.get-value($themeDefault, 'itemBorderRadius');
-
-            &-header {
-                display: grid;
-                grid-template-columns: 1fr auto;
-                gap: ef.get-value($themeDefault, 'itemHeaderGap');
-                align-items: center;
-                padding: ef.get-value($themeDefault, 'itemHeaderPadding');
-                cursor: pointer;
-
-                &-content {
-                    min-width: 0;
-                }
-            }
-
-            &-title {
-                @include text.get-text-style(
-                    ef.get-value($themeDefault, 'itemTitleTextStyle'),
-                    ef.get-value($themeDefault, 'itemTitleColor'),
-                );
-            }
-
-            &-descr {
-                @include text.get-text-style(
-                    ef.get-value($themeDefault, 'itemDescrTextStyle'),
-                    ef.get-value($themeDefault, 'itemDescrColor'),
-                );
-            }
 
             &.expanded {
-                background: var(--wlc-accord-item-bg-active, #{ef.get-value($themeDefault, 'itemBackgroundActive')});
+                background: var(--wlc-acc-item-bg-active, #{ef.get-value($themeDefault, 'itemBackgroundActive')});
 
                 .wlc-accordion__title-text {
                     color: ef.get-value($themeDefault, 'titleIconColorActive');
@@ -74,7 +47,7 @@
             }
 
             @include bm.hover {
-                background: var(--wlc-accord-item-bg-hover, #{ef.get-value($themeDefault, 'itemBackgroundActive')});
+                background: var(--wlc-acc-item-bg-hover, #{ef.get-value($themeDefault, 'itemBackgroundActive')});
 
                 .wlc-accordion__title-text {
                     color: ef.get-value($themeDefault, 'titleIconColorActive');
@@ -138,10 +111,10 @@
                     ef.get-value($themeDefault, 'contentTextStyle', 320),
                     ef.get-value($themeDefault, 'contentFontColor'),
                 );
-                border-top: var(--wlc-accord-content-hr, ef.get-value($themeDefault, 'contentTopBorder'));
+                border-top: var(--wlc-acc-content-hr, ef.get-value($themeDefault, 'contentTopBorder'));
                 padding: {
-                    top: var(--wlc-accord-content-wrp-padding-top, #{ef.get-value($themeDefault, 'paddingSize')});
-                    bottom: var(--wlc-accord-content-wrp-padding-btm, #{ef.get-value($themeDefault, 'paddingSize')});
+                    top: var(--wlc-acc-content-wrp-padding-top, #{ef.get-value($themeDefault, 'paddingSize')});
+                    bottom: var(--wlc-acc-content-wrp-padding-btm, #{ef.get-value($themeDefault, 'paddingSize')});
                 };
 
                 &_text {
@@ -165,11 +138,11 @@
     }
 
     &.wlc-accordion--theme-mod-simple {
-        --wlc-accord-item-bg: #{ef.get-value($themeDefault, 'simpleItemBg')};
-        --wlc-accord-item-bg-hover: #{ef.get-value($themeDefault, 'simpleItemBgHover')};
-        --wlc-accord-item-bg-active: #{ef.get-value($themeDefault, 'simpleItemBgActive')};
-        --wlc-accord-content-hr: #{ef.get-value($themeDefault, 'simpleContentHr')};
-        --wlc-accord-content-wrp-padding-top: #{ef.get-value($themeDefault, 'simpleContentWrpPaddingTop')};
-        --wlc-accord-content-wrp-padding-btm: #{ef.get-value($themeDefault, 'paddingSize')};
+        --wlc-acc-item-bg: #{ef.get-value($themeDefault, 'simpleItemBg')};
+        --wlc-acc-item-bg-hover: #{ef.get-value($themeDefault, 'simpleItemBgHover')};
+        --wlc-acc-item-bg-active: #{ef.get-value($themeDefault, 'simpleItemBgActive')};
+        --wlc-acc-content-hr: #{ef.get-value($themeDefault, 'simpleContentHr')};
+        --wlc-acc-content-wrp-padding-top: #{ef.get-value($themeDefault, 'simpleContentWrpPaddingTop')};
+        --wlc-acc-content-wrp-padding-btm: #{ef.get-value($themeDefault, 'paddingSize')};
     }
 }

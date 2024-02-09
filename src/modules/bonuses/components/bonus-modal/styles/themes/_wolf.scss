@@ -3,6 +3,7 @@
     --wlc-bm-content-width--thin: #{ef.get-value($themeWolf, 'contentWidthThin')}; // for thin sections
     --wlc-bm-content-width--wide: #{ef.get-value($themeWolf, 'contentWidthWide')}; // for wide section (games)
     --wlc-bm-radius-base: #{ef.get-value($themeWolf, 'radiusBase')};
+    --wlc-games-grid-simple-cols: #{ef.get-value($themeWolf, 'simpleGridColumns')};
 
     .wlc-bonus-modal {
 

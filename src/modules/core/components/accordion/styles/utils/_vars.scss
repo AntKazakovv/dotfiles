@@ -43,6 +43,7 @@ $themeDefault: map-merge((
 
     'itemHeaderGap': ef.size(4),
     'itemHeaderPadding': ef.size(2) ef.size(4),
+    'itemHeaderContentGap': 0,
     'itemTitleTextStyle': 'ThirdTitleBold',
     'itemTitleColor': inherit,
     'itemDescrTextStyle': 'PrimaryText',
