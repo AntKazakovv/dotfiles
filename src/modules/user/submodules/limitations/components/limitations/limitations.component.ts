@@ -350,11 +350,14 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
                 };
                 break;
             case 'timeOut':
+                const timeOutPeriod = Params.timeOutPeriod(this.configService.get('appConfig.license') === 'italy');
+                timeOutPeriod.params.items = timeOutPeriod.params.items.filter((v: ISelectOptions<unknown>) => !!v);
+
                 this.formConfig = {
                     class: this.formConfig.class,
                     components: [
                         limitType,
-                        Params.timeOutPeriod,
+                        timeOutPeriod,
                         Params.submitBtn,
                     ],
                 };
