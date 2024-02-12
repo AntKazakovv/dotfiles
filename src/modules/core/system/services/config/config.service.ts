@@ -389,9 +389,9 @@ export class ConfigService {
         if (params.profile.theme === 'wolf') {
             mergedLayouts = _mergeWith($layouts, $profileWolfLayouts);
         } else if (params.profile.type === 'first') {
-            _mergeWith($layouts, $profileFirstLayouts);
+            mergedLayouts = _mergeWith($layouts, $profileFirstLayouts);
         } else {
-            _mergeWith($layouts, $profileLayouts);
+            mergedLayouts = _mergeWith($layouts, $profileLayouts);
         }
 
         const mergedLayoutsKiosk: ILayoutsConfig = _mergeWith($layoutsKiosk, $profileKioskLayouts);
