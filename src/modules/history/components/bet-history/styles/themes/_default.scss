@@ -26,7 +26,6 @@
 
             .wlc-table__cell--first {
                 grid-template-columns: ef.get-value($themeDefault, 'firstCellColumns');
-                padding: ef.get-value($themeDefault, 'cellPadding');
 
                 .wlc-table__cell-label {
                     display: none;

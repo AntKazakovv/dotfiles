@@ -78,6 +78,10 @@
                 table-layout: fixed;
             }
 
+            .wlc-table__cell--first {
+                grid-template-columns: ef.get-value($themeDefault, 'tableCellFirstTempleteColumns');
+            }
+
             .wlc-table__cell--type {
                 @include bm.get-mq-map('padding', $themeDefault, 'actionPaddingCell');
             }

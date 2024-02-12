@@ -100,4 +100,8 @@ export class TableRowModel {
     public getAmount(col: Params.ITableCol): string {
         return _toString(_get(this.data, col.key));
     }
+
+    public get description(): string {
+        return  _get(this.data, 'description');
+    }
 }

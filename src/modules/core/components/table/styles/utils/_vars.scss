@@ -1,135 +1,89 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'animationTime': ef.get('time', 'main'),
-    'textColor': var(--mc-baseMain),
-    'openIconColor': var(--fc-arrowColor),
-    'openIconColorOpened':var(--mc-baseMain),
-    'borderColorMobile': var(--mc-main),
-    'tableContentMargin': 0 0 auto,
-    'rowTemplateColumns': (
-        375: 1fr,
-    ),
-    'rowTemplateColumnsFirstProfile': (
-        375: 1fr,
-    ),
-    'rowColumns': 1fr,
-    'rowBorderGrid': 2px solid transparent,
-    'rowBorderTable': none,
-    'rowHeight': fit-content,
-    'minRowHeight': ef.size(10),
-    'firstColumnColumns': auto minmax(0, 1fr) auto,
-    'rowBorderMobile': 2px solid var(--mc-main),
-    'rowBorderOpenedMobile': 2px solid var(--mc-main),
-    'rowMarginOpenedMobile': ef.size(1) 0,
-    'rowTitleBorderBottomMobile': 2px solid var(--mc-main),
-    'rowTitleBorderBottomOpenedMobile': 2px solid var(--mc-main),
-    'rowTitleBackgroundMobile': var(--mc-bg300),
-    'rowBackgroundMobile': var(--mc-bg300),
-    'rowBorderRadiusSizeMobile': ef.get('radius', 'biger'),
-    'paddingCellGrid': ef.size(2) ef.size(3),
-    'paddingCellTable': ef.size(3) ef.size(2),
-    'rowGapMobile': ef.size(1),
-    'cellGapMobile': ef.size(1),
-    'rowTitleBackgroundDesktop': transparent,
-    'rowEvenBackgroundDesktop': transparent,
-    'rowOddBackgroundDesktop': var(--mc-bg300),
-    'rowBackgroundDesktopHover': var(--mc-bg500),
-    'rowBorderRadiusSizeDesktop': ef.get('radius', 'biger'),
+    //Text
+    'textHeaderColor': var(--mc-baseMain),
+    'textColor': var(--mc-baseSecond, var(--mc-baseMain)),
+    'textStyleMobile': 'CaptionText',
+    'textStyleDesktop': 'PrimaryText',
+
+    //Root common
+    'rootDisplay': flex,
+    'rootDirection': column,
+    //Root mobile
+    'rootGapMobile': ef.size(4),
+    'rootMinHeightMobile': 200px,
+    //Root desktop
+    'rootGapDesktop': ef.size(6),
+    'rootMinHeightDesktop': 400px,
+
+    //Content
+    'contentWidth': 100%,
+    'contentMargin': 0 0 auto,
+
+    'contentDisplayMobile': grid,
+    'contentGapMobile': 2px,
+
+    'contentDisplayDesktop': table,
+    'contentBorderCollapseDesktop': collapse,
+
+    // Row
+    'rowPosition': relative,
+    'rowOverflow': hidden,
+
+    'rowDisplayMobile': grid,
+    'rowTemplateColumnsMobile': 1fr,
+    'rowAlignContentMobile': center,
+    'rowHeightMobile': fit-content,
+    'rowBackgroundMobile': var(--mc-bg500),
+    'rowBackgroundMobileOnShow': var(--mc-bg300),
+    'rowBorderRadiusMobile': ef.get('radius', 'main'),
+
+    'rowDisplayDesktop': table-row,
+    'rowHeightDesktop': 50px,
+    'rowBackgroundDesktop': transparent,
+    'rowBackgroundHoverDesktop': var(--mc-bg500),
+    'rowBorderDesktop': 1px solid var(--mc-bg300),
+
+    'rowBackgroundAlternativeMobile': var(--mc-bg700),
+    'rowBackgroundAlternativeMobileOnShow': var(--mc-bg500),
+
     // Cell
-    'cellBorderDesktop': none,
-    'textAlignDesktop': center, // start, end, center
-    'verticalAlignDesktop': top,
-    'tooltipOffset': 9px,
-    'sectionLoaderHeight': 400px,
-    'emptySectionMargin': 45px auto 20px,
-    'emptyImgWidth': 20vw,
-    'emptyImgHeight': 20vw,
-    'emptyImgMaxWidth': 330px,
-    'emptyImgMaxHeight': 330px,
-    'emptyImgColor': var(--mc-bg500),
-    'cellBgFirst': transparent,
-    'cellBorderBottomFirst': none,
-    'cellFontWeightFirst': initial,
-    'cellBorderRadiusFirst': initial,
-    'cellContentFontWeight': normal,
-    'cellContentPadding': (
-        375: 0 ef.size(2) 0 0,
-        1024: 0,
-    ),
-    'cellContentTextAlign': (
-        375: end,
-        1024: start,
-    ),
-    'cellJustifyContent': space-between,
-    'cellAutoColumns': auto,
-    'cellAutoFlow': column,
+    'cellPosition': relative,
 
-    // theme mod mobile-cards
-    'rowGapMobCards': ef.size(2),
-    'rowBackgroundMobCards': var(--mc-bg300),
-    'rowMinHeightMobCards': ef.size(8),
-    'cellFirstAlignMobCards': start,
+    'cellBorderMobile': 1px solid var(--mc-bg700),
+    'cellContentWeight': bold,
+    'cellContentDisplay': inline-flex,
+    'cellContentAlignItems': center,
 
-    'betTimeTextAlign': (
-        375: start,
-        768: center,
-    ),
-    'betTimeWhiteSpace': (
-        375: pre-wrap,
-        768: nowrap,
-    ),
-    'betTimeMaxWidth': (
-        375: 100px,
-        560: 100%
-    ),
+    'cellDisplayMobile': grid,
+    'cellAutoColumnsMobile': auto,
+    'cellAutoFlowMobile': column,
+    'cellGapMobile': ef.size(2),
+    'cellAlignContentMobile': center,
+    'cellJustifyContentMobile': space-between,
+    'cellHeightMobile': fit-content,
+    'cellPaddingMobile': ef.size(2) ef.size(3),
 
-    // currency
+    'cellDisplayDesktop': table-cell,
+    'cellHeightDesktop': 50px,
+    'cellPaddingDesktop': ef.size(3),
+    'cellTextAlignDesktop': center,
+    'cellVerticalAlignDesktop': middle,
+
+    //Arrow
+    'arrowDisplay': flex,
+    'arrowAlignItems': center,
+    'openIconSize': 11px,
+    'openIconColor': var(--fc-arrowColor),
+    'openIconColorOpened':var(--mc-baseThird, var(--mc-baseMain)),
+
+    // Note
+    'textNoteColor': var(--mc-baseSecond, var(--mc-baseMain)),
+
+    // Currency
     'currencyWrapperDisplay': flex,
     'currencyWrapperGap': 6px,
     'currencyWrapperAlignItems': center,
     'currencyWrapperJustifyContent': center,
     'currencyIconSize': 13px,
 ), $customThemeDefault);
-
-$customThemeTournaments: () !default;
-$themeTournaments: map-merge((
-    'sectionLoaderHeight': 0,
-    'btnShowMoreGap': (
-        320: 20px 0,
-    ),
-
-    'rowRadiusSize': ef.get('radius', 'biger'),
-    'rowBg': var(--mc-bg300),
-    'rowBgOdd': var(--mc-bg),
-    'rowBgEven': transparent,
-    'rowBorder': none,
-
-    'cellTopRadiusFirstChild': ef.get('radius', 'biger') 0 0 0,
-    'cellTopRadiusLastChild': 0 ef.get('radius', 'biger') 0 0,
-    'cellBottomRadiusFirstChild': 0 0 0 ef.get('radius', 'biger'),
-    'cellBottomRadiusLastChild': 0 0 ef.get('radius', 'biger') 0,
-
-    'smallCellRadiusFirstChild': 0 0 0 ef.get('radius', 'biger'),
-    'smallCellRadiusLastChild': 0 0 ef.get('radius', 'biger') 0,
-
-    'oneCellRadiusFirstChild': ef.get('radius', 'biger') 0 0 ef.get('radius', 'biger'),
-    'oneCellRadiusLastChild': 0 ef.get('radius', 'biger') ef.get('radius', 'biger') 0,
-
-    'cellPadding': ef.size(1),
-    'cellTextStyle': 'ThirdTitle',
-    'cellTextStyleBold': ef.get('fontWeight', 'PrimaryTextBold'),
-    'cellTextColor': var(--mc-baseMain),
-    'cellTextAlign': center,
-    'cellBorder': none,
-    'cellRadiusFirstChild': ef.get('radius', 'biger') 0 0 ef.get('radius', 'biger'),
-    'cellRadiusLastChild': 0 ef.get('radius', 'biger') ef.get('radius', 'biger') 0,
-
-    'headBg': transparent,
-    'headTextStyle': ef.get('fontWeight', 'PrimaryText'),
-    'headTextSize': ef.get('font', 'PrimaryText'),
-    'headCellPadding': 0 0 ef.size(2),
-
-    'prizeTextAlign': right,
-    'prizePaddingRight': ef.size(12),
-    'prizeWidth': 65%,
-), $customThemeTournaments);

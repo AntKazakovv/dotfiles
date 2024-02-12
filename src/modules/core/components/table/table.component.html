@@ -3,39 +3,28 @@
          class="{{$class}}__content"
          [@tableAppearance]="indexFactor || rows">
 
-        <div *ngIf="rows.length" class="{{$class}}__row {{$class}}__row--head">
+        <div *ngIf="isTable && rows.length" class="{{$class}}__row {{$class}}__row--head">
             <span *ngFor="let col of head"
                   class="{{$class}}__cell {{$class}}__cell--{{col.key}}"
-                  [class.has-description]="col.description"
                   [attr.data-wlc-element]="col.wlcElement">
-                    <span>{{col.title | translate}}</span>
-                    <span *ngIf="col.description"
-                          wlc-tooltip
-                          class="{{$class}}-icon__description"
-                          [inlineParams]="{inlineText: col.description | translate, placement: 'top'}">
-                    </span>
+                {{col.title | translate}}{{col.description ? '*' : ''}}
             </span>
         </div>
 
         <div *ngFor="let item of paginatedRows; index as $index"
              class="{{$class}}__row"
-             [ngClass]="[$class + '__row--' + (($index % 2) ? 'even' : 'odd'), item.opened ? 'wlc-show':'']">
+             [ngClass]="[item.opened ? 'wlc-show' : '']">
             <div *ngFor="let col of head; let $first = first"
                  class="{{$class}}__cell {{$class}}__cell--{{col.key}}"
-                 [ngClass]="[$first ? $class + '__cell--first' : '', (col.disableHideClass || $first) ? '' : 'wlc-cell-hide']"
+                 [ngClass]="[$first ? $class + '__cell--first' : 'wlc-cell-hide']"
                  [attr.data-wlc-element]="col.wlcElement"
-                 [@toggle]="animationStatus(col, item, $first)"
-                 (click)="$first ? item.toggleRow() : null"
-            >
+                 [@toggle]="animationStatus(item, $first)"
+                 (click)="$first && isMobile ? item.toggleRow() : null">
+
                 <ng-container [ngSwitch]="col.type">
-                    <div class="{{$class}}__cell-label"
-                         [class.has-description]="col.description">
-                           <span>{{col.title | translate}}:</span>
-                           <span *ngIf="col.description"
-                                 wlc-tooltip
-                                 class="{{$class}}-icon__description"
-                                 [inlineParams]="{inlineText: col.description | translate}">
-                            </span>
+                    <div *ngIf="isMobile"
+                        class="{{$class}}__cell-label">
+                        <span>{{col.title | translate}}{{col.description ? '*' : ''}}</span>
                     </div>
 
                     <div *ngSwitchCase="'component'" class="{{$class}}__cell-content">
@@ -49,14 +38,21 @@
                     </div>
                 </ng-container>
 
-                <div *ngIf="$first"
+                <div *ngIf="$first && isMobile"
                      wlc-icon
                      class="{{$class}}__cell-arrow"
-                     iconPath="/wlc/icons/arrow.svg">
+                     [iconPath]="'/wlc/icons/arrow-down.svg'">
                 </div>
             </div>
         </div>
     </div>
+
+    <div *ngFor="let description of headDescriptions" class="{{$class}}__note">
+        <span *ngIf="description">
+            {{'*'}}{{description | translate}}
+        </span>
+    </div>
+
     <div
          wlc-pagination
          *ngIf="$params.pagination?.use"

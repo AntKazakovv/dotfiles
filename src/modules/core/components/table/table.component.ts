@@ -15,6 +15,7 @@ import _filter from 'lodash-es/filter';
 import _isObject from 'lodash-es/isObject';
 import _uniq from 'lodash-es/uniq';
 import _sortBy from 'lodash-es/sortBy';
+import _map from 'lodash-es/map';
 
 import {
     AbstractComponent,
@@ -25,7 +26,9 @@ import {
     DeviceType,
     HeightToggleAnimation,
     TableAppearanceAnimation,
+    TriggerNamesEnum,
     IPaginateOutput,
+    GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {TableRowModel} from './table-row.model';
 import {WINDOW} from 'wlc-engine/modules/app/system';
@@ -51,10 +54,11 @@ export class TableComponent extends AbstractComponent implements OnInit {
     public paginatedRows: TableRowModel[] = [];
     public itemPerPage: number;
     public head: Params.ITableCol[] = [];
-    public ready = false;
+    public ready: boolean = false;
     public deviceType: DeviceType;
     public indexFactor: number = 0;
-    public tableType: 'grid' | 'table' = 'grid';
+    public tableType: Params.TableTypeEnum = Params.TableTypeEnum.TABLE;
+    public headDescriptions: string[] = [];
 
     public theme: Params.Theme;
     public toggled: boolean = false;
@@ -78,28 +82,19 @@ export class TableComponent extends AbstractComponent implements OnInit {
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
 
-        if (this.window.innerWidth >= this.$params.switchWidth) {
-            this.tableType = 'table';
-            this.addModifiers('table');
-        }
-
-        this.actionService.windowResize().pipe(takeUntil(this.$destroy)).subscribe({
-            next: () => {
-                if (this.window.innerWidth >= this.$params.switchWidth) {
-                    this.tableType = 'table';
-                    this.addModifiers('table');
-                } else {
-                    this.tableType = 'grid';
-                    this.removeModifiers('table');
-                }
-            },
-        });
+        const mediaQueryList: MediaQueryList = this.window.matchMedia(`(max-width: ${this.$params.switchWidth}px)`);
+        this.calcTableType(mediaQueryList);
+        GlobalHelper.mediaQueryObserver(mediaQueryList)
+            .pipe(takeUntil(this.$destroy))
+            .subscribe(this.calcTableType.bind(this));
 
         if (this.$params.pagination.use) {
             this.itemPerPage = this.$params.pageCount;
         }
+
         this.theme = this.$params.theme;
         this.prepareHead();
+
         if (this.$params.rows instanceof BehaviorSubject) {
             this.$params.rows.pipe(takeUntil(this.$destroy)).subscribe((rows) => {
                 this.rows = this.createTableRow(rows);
@@ -111,26 +106,31 @@ export class TableComponent extends AbstractComponent implements OnInit {
             this.rows = this.createTableRow(this.$params.rows);
         }
 
-        const columnWithComponent = _filter(this.head, (item) => item.type === 'component' && !item.componentClass);
+        const columnWithComponent: Params.ITableCol[] = _filter(
+            this.head,
+            (item: Params.ITableCol) => item.type === 'component' && !item.componentClass,
+        );
 
         if (columnWithComponent?.length) {
             const componentsLoadPromises: Promise<unknown>[] = [];
-            _uniq(columnWithComponent.map((item) => item.component)).forEach(async (component) => {
-                componentsLoadPromises.push(
-                    (async (): Promise<void> => {
-                        const componentClass = await this.injectionService.loadComponent(component);
-                        _each(columnWithComponent, (item) => {
-                            if (item.component === component) {
-                                item.componentClass = componentClass;
-                            }
-                        });
-                    })(),
-                );
-                Promise.all(componentsLoadPromises).finally(() => {
-                    this.ready = true;
-                    this.cdr.markForCheck();
+            _uniq(columnWithComponent
+                .map((item: Params.ITableCol) => item.component))
+                .forEach((component: string): void => {
+                    componentsLoadPromises.push(
+                        (async (): Promise<void> => {
+                            const componentClass = await this.injectionService.loadComponent(component);
+                            _each(columnWithComponent, (item: Params.ITableCol): void => {
+                                if (item.component === component) {
+                                    item.componentClass = componentClass;
+                                }
+                            });
+                        })(),
+                    );
+                    Promise.all(componentsLoadPromises).finally(() => {
+                        this.ready = true;
+                        this.cdr.markForCheck();
+                    });
                 });
-            });
         } else {
             this.ready = true;
             this.cdr.markForCheck();
@@ -140,6 +140,26 @@ export class TableComponent extends AbstractComponent implements OnInit {
         this.setPaginatedRowsModifier();
         this.cdr.markForCheck();
         this.subscribeDeviceChange();
+    }
+
+    public get isTable(): boolean {
+        return this.tableType === Params.TableTypeEnum.TABLE;
+    }
+
+    public get isMobile(): boolean {
+        return this.tableType === Params.TableTypeEnum.MOBILE;
+    }
+
+    public calcTableType(mediaQueryResult: MediaQueryList | MediaQueryListEvent): void {
+        this.removeModifiers(this.tableType);
+
+        if (mediaQueryResult.matches) {
+            this.tableType = Params.TableTypeEnum.MOBILE;
+        } else {
+            this.tableType = Params.TableTypeEnum.TABLE;
+        }
+
+        this.addModifiers(this.tableType);
     }
 
     public getComponentInjector(item: TableRowModel, index: number, col: Params.ITableCol): Injector {
@@ -158,14 +178,16 @@ export class TableComponent extends AbstractComponent implements OnInit {
         return item.paramsInjector[col.key];
     }
 
-    public animationStatus(col: Params.ITableCol, item: TableRowModel, first: boolean): string {
-        return (col.disableHideClass || first) || item.opened || this.tableType === 'table' ? 'opened' : 'closed';
+    public animationStatus(item: TableRowModel, first: boolean): string {
+        return first || item.opened || this.isTable ?
+            TriggerNamesEnum.OPENED :
+            TriggerNamesEnum.CLOSED;
     }
 
     protected subscribeDeviceChange(): void {
         this.actionService.deviceType()
             .pipe(takeUntil(this.$destroy))
-            .subscribe((type: DeviceType) => {
+            .subscribe((type: DeviceType): void => {
                 this.deviceType = type;
                 this.cdr.markForCheck();
             });
@@ -224,5 +246,10 @@ export class TableComponent extends AbstractComponent implements OnInit {
             item.order = item.order || Number.MAX_SAFE_INTEGER;
             return item;
         }), 'order');
+
+        this.headDescriptions = _map(
+            _filter(this.head, 'description'),
+            (headCell: Params.ITableCol) => headCell.description,
+        );
     }
 }

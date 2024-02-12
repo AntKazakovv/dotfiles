@@ -1,9 +1,11 @@
 import {
     Component,
-    OnInit,
     Inject,
+    Input,
+    OnInit,
     ChangeDetectionStrategy,
 } from '@angular/core';
+
 import {
     AbstractComponent,
     ITooltipCParams,
@@ -18,6 +20,8 @@ import * as Params from './level-name.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LevelNameComponent extends AbstractComponent implements OnInit {
+    @Input() public inlineParams: Params.ILevelNameParams;
+
     public override $params: Params.ILevelNameParams;
     public tooltipSettings: ITooltipCParams;
 
@@ -28,7 +32,7 @@ export class LevelNameComponent extends AbstractComponent implements OnInit {
     }
 
     public override ngOnInit(): void {
-        super.ngOnInit();
+        super.ngOnInit(this.inlineParams);
 
         this.tooltipSettings = {
             iconName: 'info',

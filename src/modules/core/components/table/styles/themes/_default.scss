@@ -1,352 +1,80 @@
 $selector: '.wlc-table';
 
 .wlc-table--theme-default:host {
-    @include bm.get-mq-map('--table-cell-first-text-align', $themeDefault, 'cellContentTextAlign');
-
     display: flex;
     flex-direction: column;
-    min-height: ef.get-value($themeDefault, 'sectionLoaderHeight');
 
     &.wlc-table {
 
         &.wlc-table--table {
+            gap: ef.get-value($themeDefault, 'rootGapDesktop');
+            min-height: ef.get-value($themeDefault, 'rootMinHeightDesktop');
 
             #{$selector}__content {
-                display: table;
-                width: 100%;
-                border-collapse: collapse;
+                @include tableContent($themeDefault, true);
             }
 
             #{$selector}__row {
-                border: ef.get-value($themeDefault, 'rowBorderTable');
-                display: table-row;
-
-                &.wlc-show {
-                    border: none;
-                }
-
-                &--head {
-                    display: table-row;
-                    background: ef.get-value($themeDefault, 'rowTitleBackgroundDesktop');
-
-                    .wlc-table__cell {
-                        @include text.get-text-style('PrimaryTextBold', ef.get-value($themeDefault, 'textColor'));
-
-                        &.has-description {
-                            @include hasDescription();
-                        }
-                    }
-                }
-
-                &--odd {
-                    background: none;
-
-                    .wlc-table__cell {
-                        background: ef.get-value($themeDefault, 'rowOddBackgroundDesktop');
-                    }
-                }
-
-                &--even {
-                    background: none;
-
-                    .wlc-table__cell {
-                        background: ef.get-value($themeDefault, 'rowEvenBackgroundDesktop');
-                    }
-                }
-
-                &:first-of-type {
-
-                    @include bm.hover {
-
-                        .wlc-table__cell {
-                            background: transparent;
-                        }
-                    }
-                }
-
-                @include bm.hover {
-
-                    .wlc-table__cell {
-                        background: ef.get-value($themeDefault, 'rowBackgroundDesktopHover');
-                    }
-                }
+                @include tableRow($themeDefault, true);
             }
 
             #{$selector}__cell {
-                @include bm.transition(background, ef.get('time', 'less'));
-
-                display: table-cell;
-                padding: ef.get-value($themeDefault, 'paddingCellTable');
-                border: ef.get-value($themeDefault, 'cellBorderDesktop');
-                text-align: ef.get-value($themeDefault, 'textAlignDesktop');
-                vertical-align: ef.get-value($themeDefault, 'verticalAlignDesktop');
-
-                &:first-child {
-                    border-radius: ef.get-value($themeDefault, 'rowBorderRadiusSizeDesktop') 0 0 ef.get-value($themeDefault, 'rowBorderRadiusSizeDesktop');
-                }
-
-                &:last-child {
-                    border-radius: 0 ef.get-value($themeDefault, 'rowBorderRadiusSizeDesktop') ef.get-value($themeDefault, 'rowBorderRadiusSizeDesktop') 0;
-                }
-
-                &--index {
-                    width: 10%;
-                }
-
-                &--first {
-                    @include betweenClass('.wlc-show') {
-                        border: none;
-                    }
-
-                    font-weight: ef.get-value($themeDefault, 'cellFontWeightFirst');
-                    background: ef.get-value($themeDefault, 'cellBgFirst');
-                    border-bottom: ef.get-value($themeDefault, 'cellBorderBottomFirst');
-                    border-radius: ef.get-value($themeDefault, 'cellBorderRadiusFirst');
-                }
-
-                &-label,
-                &-label.has-description,
-                &-arrow {
-                    display: none;
-                }
-
-                &-content {
-                    @include betweenClass('.wlc-table__cell--first') {
-                        justify-self: ef.get-value($themeDefault, 'textAlignDesktop');
-                        text-align: ef.get-value($themeDefault, 'textAlignDesktop');
-                    }
-
-                    justify-self: ef.get-value($themeDefault, 'textAlignDesktop');
-                    font-weight: ef.get-value($themeDefault, 'cellContentFontWeight');
-                    text-align: ef.get-value($themeDefault, 'textAlignDesktop');
-                }
+                @include tableCell($themeDefault, true);
             }
 
-            #{$selector}__img {
-                display: block;
-
-                ::ng-deep {
-
-                    svg {
-                        width: ef.get-value($themeDefault, 'emptyImgWidth');
-                        max-width: ef.get-value($themeDefault, 'emptyImgMaxWidth');
-                        height: ef.get-value($themeDefault, 'emptyImgHeight');
-                        max-height: ef.get-value($themeDefault, 'emptyImgMaxHeight');
-
-                        path {
-                            fill: ef.get-value($themeDefault, 'emptyImgColor');
-                        }
-                    }
-                }
+            #{$selector}__note {
+                @include tableNote($themeDefault, true);
             }
         }
 
-        #{$selector}__content {
-            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'rowTemplateColumns');
-            display: grid;
-            gap: var(--table-gap-mobile, #{ef.get-value($themeDefault, 'rowGapMobile')});
-            margin: ef.get-value($themeDefault, 'tableContentMargin');
+        &.wlc-table--mobile {
+            gap: ef.get-value($themeDefault, 'rootGapMobile');
+            min-height: ef.get-value($themeDefault, 'rootMinHeightMobile');
 
-            .wlc-sections__profile-content--theme-first & {
-                @include bm.get-mq-map('grid-template-columns', $themeDefault, 'rowTemplateColumnsFirstProfile');
+            #{$selector}__content {
+                @include tableContent($themeDefault, false);
             }
+
+            #{$selector}__row {
+                @include tableRow($themeDefault, false);
+            }
+
+            #{$selector}__cell {
+                @include tableCell($themeDefault, false);
+            }
+
+            #{$selector}__note {
+                @include tableNote($themeDefault, false);
+            }
+        }
+
+        //TODO move it out
+        #{$selector}__cell {
 
             ::ng-deep {
 
-                .wlc-bet-preview {
+                .wlc-currency-wrapper {
+                    display: ef.get-value($themeDefault, 'currencyWrapperDisplay');
+                    gap: ef.get-value($themeDefault, 'currencyWrapperGap');
+                    align-items: ef.get-value($themeDefault, 'currencyWrapperAlignItems');
+                    justify-content: ef.get-value($themeDefault, 'currencyWrapperJustifyContent');
 
-                    &__time {
-                        @include bm.get-mq-map('white-space', $themeDefault, 'betTimeWhiteSpace');
-                        @include bm.get-mq-map('max-width', $themeDefault, 'betTimeMaxWidth');
-                        @include bm.get-mq-map('text-align', $themeDefault, 'betTimeTextAlign');
-                    }
-                }
-            }
-        }
+                    .wlc-icon {
 
-        #{$selector}__row {
-            position: relative;
-            display: grid;
-            grid-template-columns: ef.get-value($themeDefault, 'rowColumns');
-            border: ef.get-value($themeDefault, 'rowBorderGrid');
-            border-radius: ef.get-value($themeDefault, 'rowBorderRadiusSizeMobile');
-            height: ef.get-value($themeDefault, 'rowHeight');
-            background: var(--table-row-bg-odd, #{ef.get-value($themeDefault, 'rowBackgroundMobile')});
-            transition: all ef.get-value($themeDefault, 'animationTime');
-            overflow: hidden;
-
-            &.wlc-show {
-                border: ef.get-value($themeDefault, 'rowBorderOpenedMobile');
-                overflow: initial;
-            }
-
-            &--head {
-                display: none;
-            }
-
-            &--odd {
-
-                .wlc-table__cell {
-                    background: var(--table-cell-bg-odd, #{ef.get-value($themeDefault, 'rowOddBackgroundDesktop')});
-                }
-            }
-
-            &--even {
-                background: var(--table-row-bg-even, none);
-
-                .wlc-table__cell {
-                    background: var(--table-cell-bg-even, #{ef.get-value($themeDefault, 'rowEvenBackgroundDesktop')});
-                }
-            }
-        }
-
-        #{$selector}__cell {
-            @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'textColor'));
-
-            display: grid;
-            flex-basis: 100%;
-            flex-grow: 1;
-            grid-auto-columns: ef.get-value($themeDefault, 'cellAutoColumns');
-            grid-auto-flow: ef.get-value($themeDefault, 'cellAutoFlow');
-            grid-gap: ef.get-value($themeDefault, 'cellGapMobile');
-            justify-content: ef.get-value($themeDefault, 'cellJustifyContent');
-            padding: ef.get-value($themeDefault, 'paddingCellGrid');
-
-            ::ng-deep p {
-                margin: 0;
-            }
-
-            &:first-child {
-                border-radius: ef.get-value($themeDefault, 'rowBorderRadiusSizeMobile') ef.get-value($themeDefault, 'rowBorderRadiusSizeMobile') 0 0;
-            }
-
-            &:last-child {
-                border-radius: 0 0 ef.get-value($themeDefault, 'rowBorderRadiusSizeMobile') ef.get-value($themeDefault, 'rowBorderRadiusSizeMobile');
-            }
-
-            &--type {
-                position: relative;
-            }
-
-            &--first {
-                @include betweenClass('.wlc-show') {
-                    border-bottom: ef.get-value($themeDefault, 'rowTitleBorderBottomOpenedMobile');
-                }
-
-                grid-template-columns: ef.get-value($themeDefault, 'firstColumnColumns');
-                align-items: center;
-                min-height: var(--table-row-min-height, #{ef.get-value($themeDefault, 'minRowHeight')});
-                font-weight: bold;
-                font-size: ef.get-value($themeDefault, 'fontSizeTitleMobile');
-                background: ef.get-value($themeDefault, 'rowTitleBackgroundMobile');
-            }
-
-            &-label {
-                justify-self: start;
-
-                &.has-description {
-                    @include hasDescription('mobile');
-                }
-            }
-
-            &-arrow {
-                justify-self: end;
-
-                ::ng-deep svg {
-                    @include betweenClass('.wlc-show') {
-                        transform: rotateZ(180deg);
-                    }
-
-                    transition: all ef.get-value($themeDefault, 'animationTime');
-
-                    path {
-                        @include betweenClass('.wlc-show') {
-                            fill: ef.get-value($themeDefault, 'openIconColorOpened');
-                        }
-
-                        fill: ef.get-value($themeDefault, 'openIconColor');
-                    }
-                }
-            }
-
-            // TODO сделать отдельный класс
-            &--status {
-
-                ::ng-deep {
-
-                    .wlc-tooltip[wlc-tooltip] {
-
-                        .wlc-tooltip__content {
-
-                            @include mq.max(1024) {
-                                right: ef.get-value($themeDefault, 'tooltipOffset');
-                                left: initial;
-                            }
+                        svg {
+                            width: ef.get-value($themeDefault, 'currencyIconSize');
+                            height: ef.get-value($themeDefault, 'currencyIconSize');
+                            transform: translateY(-1px);
                         }
                     }
                 }
             }
-
-            &-content {
-                @include betweenClass('.wlc-table__cell--first') {
-                    @include bm.get-mq-map('padding', $themeDefault, 'cellContentPadding');
-                    justify-self: start;
-                    width: 100%;
-                    text-align: var(--table-cell-first-text-align);
-                }
-
-                justify-self: end;
-                font-weight: bold;
-                text-align: end;
-
-                ::ng-deep {
-
-                    .wlc-currency-wrapper {
-                        display: ef.get-value($themeDefault, 'currencyWrapperDisplay');
-                        gap: ef.get-value($themeDefault, 'currencyWrapperGap');
-                        align-items: ef.get-value($themeDefault, 'currencyWrapperAlignItems');
-                        justify-content: ef.get-value($themeDefault, 'currencyWrapperJustifyContent');
-
-                        .wlc-icon {
-
-                            svg {
-                                width: ef.get-value($themeDefault, 'currencyIconSize');
-                                height: ef.get-value($themeDefault, 'currencyIconSize');
-                                transform: translateY(-1px);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        #{$selector}__empty {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            grid-column-start: span 2;
-            align-items: flex-end;
-            align-self: center;
-            margin: ef.get-value($themeDefault, 'emptySectionMargin');
-            text-align: center;
-
-            &-text {
-                align-self: center;
-            }
-        }
-
-        #{$selector}__img {
-            display: none;
         }
     }
 
-    &#{$selector}--theme-mod-mobile-cards {
-        --table-gap-mobile: #{ef.get-value($themeDefault, 'rowGapMobCards')};
-        --table-cell-bg-odd: #{ef.get-value($themeDefault, 'rowBackgroundMobCards')};
-        --table-cell-bg-even: #{ef.get-value($themeDefault, 'rowBackgroundMobCards')};
-        --table-row-bg-odd: #{ef.get-value($themeDefault, 'rowBackgroundMobCards')};
-        --table-row-bg-even: #{ef.get-value($themeDefault, 'rowBackgroundMobCards')};
-        --table-row-min-height: #{ef.get-value($themeDefault, 'rowMinHeightMobCards')};
-        --table-cell-first-text-align: #{ef.get-value($themeDefault, 'cellFirstAlignMobCards')};
+    //Custom mod only for wolf branch
+    &.wlc-table--wolf-colors {
+        --wlc-tbl-row-mobile-bg: #{ef.get-value($themeDefault, 'rowBackgroundAlternativeMobile')};
+        --wlc-tbl-row-mobile-bg-show: #{ef.get-value($themeDefault, 'rowBackgroundAlternativeMobileOnShow')};
     }
 }

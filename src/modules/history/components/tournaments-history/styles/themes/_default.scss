@@ -47,6 +47,7 @@
                         gap: ef.get-value($themeDefault, 'historyNameGap');
                         align-items: center;
                         justify-content: space-between;
+                        width: 100%;
                         text-align: left;
                     }
                 }
@@ -71,7 +72,6 @@
         }
 
         .wlc-table--theme-mod-first::ng-deep {
-            @include bm.get-mq-map('margin', $themeDefault, 'sectionMargin');
 
             .wlc-table__content {
 

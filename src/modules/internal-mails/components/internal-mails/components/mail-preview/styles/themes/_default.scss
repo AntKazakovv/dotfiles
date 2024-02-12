@@ -14,8 +14,8 @@
     .wlc-mail-preview {
 
         &__mail-icon {
-            width: ef.get-value($themeDefault, 'mailIconSize');
-            height: ef.get-value($themeDefault, 'mailIconSize');
+            --wlc-icon-width: #{ef.get-value($themeDefault, 'mailIconWidth')};
+            --wlc-icon-height: #{ef.get-value($themeDefault, 'mailIconHeight')};
             text-align: ef.get-value($themeDefault, 'mailIconAlign');
 
             ::ng-deep {

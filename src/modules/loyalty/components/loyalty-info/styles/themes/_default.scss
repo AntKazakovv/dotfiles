@@ -15,7 +15,10 @@
         }
 
         &__title {
-            @include text.get-text-style(ef.get-value($themeDefault, 'titleFont'), ef.get-value($themeDefault, 'titleFontColor'));
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'titleFont'),
+                ef.get-value($themeDefault, 'titleFontColor')
+            );
             padding: ef.get-value($themeDefault, 'titlePadding');
             text-align: ef.get-value($themeDefault, 'titleTextAlign');
         }
@@ -25,6 +28,11 @@
 
             ::ng-deep .wlc-table {
                 min-height: ef.get-value($themeDefault, 'wlcTableMinHeight');
+
+                .wlc-level-number__icon {
+                    --wlc-lln-icon-width: #{ef.get-value($themeDefault, 'wlcTableLevelIconWidth')};
+                    --wlc-lln-icon-height: #{ef.get-value($themeDefault, 'wlcTableLevelIconHeight')};
+                }
             }
         }
 

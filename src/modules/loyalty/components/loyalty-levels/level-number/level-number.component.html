@@ -1,0 +1,13 @@
+<span *ngIf="$params.showLevelIcon"
+    wlc-icon
+    class="{{$class}}__icon"
+    [iconUrl]="levelImage"
+    [fallback]="levelFallbackImage">
+</span>
+<span class="{{$class}}__prefix">{{$params.levelPrefix | translate}}</span>
+<span class="{{$class}}__level">{{$params.item.level}}</span>
+<span wlc-level-name
+    class="{{$class}}__name"
+    [inlineParams]="{level: $params.item}">
+</span>
+

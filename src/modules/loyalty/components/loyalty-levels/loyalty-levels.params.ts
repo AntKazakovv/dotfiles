@@ -3,11 +3,16 @@ import {
     CustomType,
     IWrapperCParams,
     ITableCol,
+    ITableCParams,
 } from 'wlc-engine/modules/core';
 
 import {LoyaltyLevelModel} from 'wlc-engine/modules/loyalty/system/models/loyalty-level.model';
 import {ILevelNameParams} from 'wlc-engine/modules/loyalty/components/loyalty-levels/level-name/level-name.params';
 import {LevelNameComponent} from 'wlc-engine/modules/loyalty/components/loyalty-levels/level-name/level-name.component';
+import {ILevelNumberParams}
+    from 'wlc-engine/modules/loyalty/components/loyalty-levels/level-number/level-number.params';
+import {LevelNumberComponent}
+    from 'wlc-engine/modules/loyalty/components/loyalty-levels/level-number/level-number.component';
 
 export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;
@@ -17,6 +22,7 @@ export interface ILoyaltyLevelTableCParams extends IComponentParams<Theme, Type,
     filterType?: 'select' | 'button',
     /** wlc-profile-no-content params **/
     emptyConfig?: IWrapperCParams;
+    tableConfig?: ITableCParams;
     /** array of ITableCol keys to be excluded from table **/
     excludedHeadKeys?: string[],
 }
@@ -35,6 +41,12 @@ export const defaultParams: ILoyaltyLevelTableCParams = {
             },
         ],
     },
+    tableConfig: {
+        pagination: {
+            use: false,
+            breakpoints: null,
+        },
+    },
     excludedHeadKeys: [],
 };
 
@@ -42,15 +54,18 @@ export const loyaltyTableHeadConfig: ITableCol[] = [
     {
         key: 'level',
         title: gettext('Level'),
-        type: 'text',
+        type: 'component',
         order: 20,
         wlcElement: 'wlc-profile-table__cell_level',
+        mapValue: (item: LoyaltyLevelModel): ILevelNumberParams => {
+            return {item};
+        },
+        componentClass: LevelNumberComponent,
     },
     {
         key: 'name',
         title: gettext('Level name'),
         type: 'component',
-        disableHideClass: true,
         order: 30,
         wlcElement: 'wlc-profile-table__cell_name',
         mapValue: (item: LoyaltyLevelModel): ILevelNameParams => {

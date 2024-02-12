@@ -1,6 +1,8 @@
 @use 'sass:string';
 @use 'sass:selector';
 @use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/base.mixins' as bm;
 
 /// Modifies selectors chain
 ///
@@ -38,4 +40,181 @@
         gap: ef.get-value($themeDefault, 'cellGapMobile');
         align-items: center;
     }
+}
+
+@mixin tableContent($theme, $isDesktop: false) {
+    $isMobile: not $isDesktop;
+
+    width: ef.get-value($theme, 'contentWidth');
+
+    margin: ef.get-value($theme, 'contentMargin');
+
+    @if ($isDesktop) {
+        display: ef.get-value($theme, 'contentDisplayDesktop');
+
+        border-collapse: ef.get-value($theme, 'contentBorderCollapseDesktop');
+    } @else if ($isMobile) {
+        display: ef.get-value($theme, 'contentDisplayMobile');
+        gap: ef.get-value($theme, 'contentGapMobile');
+    }
+}
+
+@mixin tableRow($theme, $isDesktop: false) {
+    $isMobile: not $isDesktop;
+
+    position: ef.get-value($theme, 'rowPosition');
+
+    overflow: ef.get-value($theme, 'rowOverflow');
+
+    @if ($isDesktop) {
+        display: ef.get-value($theme, 'rowDisplayDesktop');
+
+        height: ef.get-value($theme, 'rowHeightDesktop');
+
+        border-top: var(--tbl-row-desktop-border, #{ef.get-value($theme, 'rowBorderDesktop')});
+
+        background: ef.get-value($theme, 'rowBackgroundDesktop');
+
+        &--head {
+            border: none;
+
+            .wlc-table__cell {
+                @include text.get-text-style(
+                    ef.get-value($theme, 'textStyleDesktop'),
+                    ef.get-value($theme, 'textHeaderColor')
+                );
+            }
+        }
+
+        &:last-child {
+            border-bottom: var(--tbl-row-desktop-border, #{ef.get-value($theme, 'rowBorderDesktop')});
+        }
+
+        @include bm.hover(true) {
+
+            &:not(.wlc-table__row--head) {
+                background: ef.get-value($theme, 'rowBackgroundHoverDesktop');
+            }
+        }
+    } @else if ($isMobile) {
+        display: ef.get-value($theme, 'rowDisplayMobile');
+        grid-template-columns: ef.get-value($theme, 'rowTemplateColumnsMobile');
+        align-content: ef.get-value($theme, 'rowAlignContentMobile');
+
+        height: ef.get-value($theme, 'rowHeightMobile');
+
+        background: var(--wlc-tbl-row-mobile-bg, #{ef.get-value($theme, 'rowBackgroundMobile')});
+
+        border-radius: ef.get-value($theme, 'rowBorderRadiusMobile');
+
+        &.wlc-show {
+            background: var(--wlc-tbl-row-mobile-bg-show, #{ef.get-value($theme, 'rowBackgroundMobileOnShow')});
+        }
+    }
+}
+
+@mixin tableCell($theme, $isDesktop: false) {
+    $isMobile: not $isDesktop;
+
+    position: ef.get-value($theme, 'cellPosition');
+
+    @if ($isDesktop) {
+        @include text.get-text-style(
+            ef.get-value($theme, 'textStyleDesktop'),
+            ef.get-value($theme, 'textColor')
+        );
+
+        display: ef.get-value($theme, 'cellDisplayDesktop');
+
+        height: ef.get-value($theme, 'cellHeightDesktop');
+
+        padding: ef.get-value($theme, 'cellPaddingDesktop');
+
+        text-align: ef.get-value($theme, 'cellTextAlignDesktop');
+        vertical-align: ef.get-value($theme, 'cellVerticalAlignDesktop');
+    } @else if ($isMobile) {
+        @include text.get-text-style(
+            ef.get-value($theme, 'textStyleMobile'),
+            ef.get-value($theme, 'textColor')
+        );
+        @include betweenClass('.wlc-show') {
+
+            &:not(&--first) {
+                border-top: var(--tbl-cell-mobile-border, #{ef.get-value($theme, 'cellBorderMobile')});
+            }
+
+            &--first {
+                color: ef.get-value($theme, 'textColor');
+            }
+
+            &-arrow {
+
+                ::ng-deep svg {
+                    transform: rotateZ(180deg);
+
+                    path {
+                        fill: ef.get-value($theme, 'openIconColorOpened');
+                    }
+                }
+            }
+        }
+
+        display: ef.get-value($theme, 'cellDisplayMobile');
+        grid-auto-columns: ef.get-value($theme, 'cellAutoColumnsMobile');
+        grid-auto-flow: ef.get-value($theme, 'cellAutoFlowMobile');
+        grid-gap: ef.get-value($theme, 'cellGapMobile');
+        align-content: ef.get-value($theme, 'cellAlignContentMobile');
+        justify-content: ef.get-value($theme, 'cellJustifyContentMobile');
+
+        height: ef.get-value($theme, 'cellHeightMobile');
+
+        padding: ef.get-value($theme, 'cellPaddingMobile');
+
+        &--first {
+            color: ef.get-value($theme, 'textHeaderColor');
+            border: none;
+        }
+
+        &-content {
+            display: ef.get-value($theme, 'cellContentDisplay');
+            align-items: ef.get-value($theme, 'cellContentAlignItems');
+
+            min-width: 0;
+
+            font-weight: ef.get-value($theme, 'cellContentWeight');
+        }
+
+        &-label {
+            justify-self: start;
+
+            color: ef.get-value($theme, 'textHeaderColor');
+        }
+
+        &-arrow {
+            --wlc-icon-width: #{ef.get-value($theme, 'openIconSize')};
+            --wlc-icon-height: #{ef.get-value($theme, 'openIconSize')};
+
+            display: #{ef.get-value($theme, 'arrowDisplay')};
+            align-items: #{ef.get-value($theme, 'arrowAlignItems')};
+
+            line-height: 0;
+
+            ::ng-deep svg {
+                @include bm.transition(transform);
+
+                path {
+                    fill: ef.get-value($theme, 'openIconColor');
+                }
+            }
+        }
+    }
+}
+
+@mixin tableNote($theme, $isDesktop: false) {
+    $isMobile: not $isDesktop;
+
+    @include text.get-text-style(
+        ef.get-value($theme, 'textStyleDesktop'),
+        ef.get-value($theme, 'textNoteColor')
+    );
 }

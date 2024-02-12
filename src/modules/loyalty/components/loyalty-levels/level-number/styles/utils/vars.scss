@@ -1,0 +1,20 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'itemsGap': ef.size(2),
+
+    'levelNumberCount': 2ch,
+    'levelNumberTextAlign': left,
+
+    'nameMargin': 0 ef.size(6) 0 auto,
+    'namePadding': 0 0 0 ef.size(4),
+
+    'iconContainerMarginDesktop': ef.size(-3) 0,
+
+    'iconObjectFit': contain,
+    'iconJustifyContent': end,
+    'iconAlignItems': center,
+    'iconHeightDesktop': 32px,
+    'iconWidthDesktop': 44px,
+    'iconHeightMobile': 24px,
+    'iconWidthMobile': 33px,
+), $customThemeDefault);

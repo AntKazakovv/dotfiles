@@ -8,6 +8,7 @@ import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {
     LoyaltyInfoComponent,
     LevelNameComponent,
+    LevelNumberComponent,
     LoyaltyLevelComponent,
     LoyaltyLevelsComponent,
     LoyaltyLevelsWpComponent,
@@ -15,6 +16,7 @@ import {
     LoyaltyLevelsService,
 } from 'wlc-engine/modules/loyalty';
 import {StaticModule} from 'wlc-engine/modules/static/static.module';
+import {UserModule} from 'wlc-engine/modules/user/user.module';
 import {
     ILoyaltyConfig,
     loyaltyConfig,
@@ -30,6 +32,7 @@ export const components = {
     'wlc-loyalty-levels-wp': LoyaltyLevelsWpComponent,
     'wlc-loyalty-program': LoyaltyProgramComponent,
     'wlc-level-name': LevelNameComponent,
+    'wlc-level-number': LevelNumberComponent,
 };
 
 @NgModule({
@@ -37,11 +40,13 @@ export const components = {
         TranslateModule,
         CoreModule,
         StaticModule,
+        UserModule,
     ],
     declarations: [
         LoyaltyInfoComponent,
         LoyaltyLevelsWpComponent,
         LevelNameComponent,
+        LevelNumberComponent,
         LoyaltyLevelComponent,
         LoyaltyLevelsComponent,
         LoyaltyProgramComponent,
@@ -53,6 +58,7 @@ export const components = {
         LoyaltyInfoComponent,
         LoyaltyLevelsWpComponent,
         LevelNameComponent,
+        LevelNumberComponent,
         LoyaltyLevelComponent,
         LoyaltyLevelsComponent,
         LoyaltyProgramComponent,

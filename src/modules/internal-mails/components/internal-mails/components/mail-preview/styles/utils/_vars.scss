@@ -34,6 +34,7 @@ $themeDefault: map-merge((
         1200: none
     ),
 
-    'mailIconSize': ef.size(5),
+    'mailIconWidth': 20px,
+    'mailIconHeight': auto,
     'mailIconAlign': left,
 ), $customThemeDefault);

@@ -27,7 +27,7 @@ import * as Params from './loyalty-levels.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoyaltyLevelsComponent extends AbstractComponent implements OnInit {
-    public ready = false;
+    public ready: boolean = false;
     public override $params: Params.ILoyaltyLevelTableCParams;
     public levels: BehaviorSubject<LoyaltyLevelModel[]> = new BehaviorSubject([]);
     public tableData: ITableCParams;
@@ -50,11 +50,7 @@ export class LoyaltyLevelsComponent extends AbstractComponent implements OnInit 
         super.ngOnInit();
         this.levels.next(await this.loyaltyLevelsService.getLoyaltyLevelsSafely());
         this.tableData = {
-            themeMod: 'mobile-cards',
-            pagination: {
-                use: false,
-                breakpoints: null,
-            },
+            ...this.$params.tableConfig,
             head: this.$params.excludedHeadKeys.length
                 ? _filter(
                     Params.loyaltyTableHeadConfig,

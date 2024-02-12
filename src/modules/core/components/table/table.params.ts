@@ -8,9 +8,13 @@ import {IPagination} from 'wlc-engine/modules/core/components/pagination/paginat
 
 export type Theme = 'default' | 'tournaments' | 'mobile-app' | CustomType;
 export type Type = 'default' | CustomType;
-export type ThemeMod = 'default' | 'first' | 'mobile-cards' | CustomType;
+export type ThemeMod = 'default' | 'first' | CustomType;
 export type TableColType = 'text' | 'date' | 'index' | 'amount' | 'component';
 
+export const enum TableTypeEnum {
+    TABLE = 'table',
+    MOBILE = 'mobile',
+}
 
 export interface ITableCParams extends IComponentParams<Theme, Type, ThemeMod> {
     head?: ITableCol[],
@@ -24,6 +28,8 @@ export interface ITableCParams extends IComponentParams<Theme, Type, ThemeMod> {
 
 export const defaultParams: ITableCParams = {
     class: 'wlc-table',
+    componentName: 'wlc-table',
+    moduleName: 'core',
     pageCount: 10,
     pagination: {
         use: true,
@@ -46,7 +52,6 @@ export interface ITableCol {
     mapValue?: (v: unknown, index?: number) => unknown;
     component?: string;
     componentClass?: unknown;
-    disableHideClass?: boolean;
     wlcElement?: string;
     description?: string,
     currencyUseIcon?: boolean,

@@ -1,0 +1,69 @@
+.wlc-level-number--theme-default:host {
+
+    display: flex;
+    gap: ef.get-value($themeDefault, 'itemsGap');
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    .wlc-level-number {
+
+        &__icon {
+            --wlc-icon-width: var(--wlc-lln-icon-width);
+            --wlc-icon-height: var(--wlc-lln-icon-height);
+
+            display: inline-flex;
+            align-items: ef.get-value($themeDefault, 'iconAlignItems');
+            justify-content: ef.get-value($themeDefault, 'iconJustifyContent');
+
+            min-width: var(--wlc-lln-icon-width);
+            min-height: var(--wlc-lln-icon-height);
+            max-height: var(--wlc-lln-icon-height);
+
+            ::ng-deep img {
+                object-fit: ef.get-value($themeDefault, 'iconObjectFit');
+            }
+
+            & ~ .wlc-level-number__level {
+                min-width: ef.get-value($themeDefault, 'levelNumberCount');
+            }
+
+            .wlc-table--mobile & {
+                --wlc-lln-icon-width: #{ef.get-value($themeDefault, 'iconWidthMobile')};
+                --wlc-lln-icon-height: #{ef.get-value($themeDefault, 'iconHeightMobile')};
+            }
+
+            .wlc-table--table & {
+                --wlc-lln-icon-width: #{ef.get-value($themeDefault, 'iconWidthDesktop')};
+                --wlc-lln-icon-height: #{ef.get-value($themeDefault, 'iconHeightDesktop')};
+
+                margin: ef.get-value($themeDefault, 'iconContainerMarginDesktop');
+            }
+        }
+
+        &__prefix {
+            display: inline-block;
+
+            .wlc-table--table & {
+                display: none;
+            }
+        }
+
+        &__level {
+            text-align: ef.get-value($themeDefault, 'levelNumberTextAlign');
+        }
+
+        &__name {
+            display: inline-block;
+            margin: ef.get-value($themeDefault, 'nameMargin');
+            padding: ef.get-value($themeDefault, 'namePadding');
+            text-wrap: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+
+            .wlc-table--table & {
+                display: none;
+            }
+        }
+    }
+}

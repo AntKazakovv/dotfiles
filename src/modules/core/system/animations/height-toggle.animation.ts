@@ -4,18 +4,24 @@ import {
     style,
     transition,
     animate,
+    AnimationTriggerMetadata,
 } from '@angular/animations';
 
-export const HeightToggleAnimation = [
+export const enum TriggerNamesEnum {
+    OPENED = 'opened',
+    CLOSED = 'closed',
+};
+
+export const HeightToggleAnimation: AnimationTriggerMetadata[] = [
     trigger('toggle', [
-        state('opened', style({
+        state(TriggerNamesEnum.OPENED, style({
             height: '*',
             paddingTop: '*',
             paddingBottom: '*',
             opacity: 1,
             overflow: 'initial',
         })),
-        state('closed', style({
+        state(TriggerNamesEnum.CLOSED, style({
             height: '0px',
             paddingTop: '0px',
             paddingBottom: '0px',
@@ -23,7 +29,7 @@ export const HeightToggleAnimation = [
             overflow: 'hidden',
         })),
 
-        transition('opened <=> closed', [
+        transition(`${TriggerNamesEnum.OPENED} <=> ${TriggerNamesEnum.CLOSED}`, [
             animate((() => 300)()),
         ]),
     ]),

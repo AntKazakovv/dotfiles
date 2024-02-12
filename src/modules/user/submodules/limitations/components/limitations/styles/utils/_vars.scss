@@ -27,6 +27,7 @@ $themeDefault: map-merge((
         1024: ef.size(5) ef.size(2),
     ),
 
+    'tableCellFirstTempleteColumns': auto 1fr auto,
     'tableCellAlignItems': center,
     'tableCellContentAlignItems': center,
     'tableCellJustifyContent': (

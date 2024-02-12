@@ -34,6 +34,7 @@
                     gap: ef.get-value($themeDefault, 'historyNameGap');
                     align-items: center;
                     justify-content: space-between;
+                    width: 100%;
                     text-align: left;
 
                     &__name {
