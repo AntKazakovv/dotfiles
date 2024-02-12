@@ -158,4 +158,5 @@ export const defaultParams: IProfileMenuCParams = {
     moduleName: 'menu',
     componentName: 'wlc-profile-menu',
     class: 'wlc-profile-menu',
+    theme: 'default',
 };
