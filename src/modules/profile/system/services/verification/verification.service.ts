@@ -163,7 +163,7 @@ export class VerificationService {
             return false;
         }
 
-        if (!_includes(fileTypes, extension)) {
+        if (!_includes(fileTypes, extension.toLowerCase())) {
             this.showError('Invalid format');
             return false;
         }
