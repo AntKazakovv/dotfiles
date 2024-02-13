@@ -73,6 +73,7 @@ export interface IPaymentSystem {
     required: string[];
     required_withdraw: string[];
     showfor: FilterType;
+    technicalTags?: string[];
     withdrawMax?: number;
     withdrawMin?: number;
     tokenRequired?: boolean;
@@ -252,6 +253,14 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
 
     public get cryptoCheck(): boolean {
         return this.isCryptoCheck;
+    }
+
+    public get checkTermsVersion(): boolean {
+        return this.data.technicalTags?.includes('check_tc');
+    }
+
+    public get checkNameBeforeWithdraw(): boolean {
+        return this.data.technicalTags?.includes('check_name_before_withdraw');
     }
 
     public get customParams(): IPaymentSystemCustomParams {

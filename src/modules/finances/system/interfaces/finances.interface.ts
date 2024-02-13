@@ -51,6 +51,9 @@ export interface IFinancesConfig {
      * The default initial amount from the "Preselected payment amount" field will be added to the amount entry form
      */
     useDefaultAmount?: boolean;
+    // TODO удалить после готовности бэка 539575
+    availableSystemsForOldTC?: string[];
+    newTermsVersion?: string;
 }
 
 export interface ITransactionHistoryAlert {

@@ -14,6 +14,8 @@ import {
     Injector,
 } from '@angular/core';
 import {UntypedFormControl} from '@angular/forms';
+
+import {DateTime} from 'luxon';
 import {
     map,
     filter,
@@ -44,8 +46,10 @@ import {
     IWrapperCParams,
     ColorThemeService,
     TIconColorBg,
+    LogService,
 } from 'wlc-engine/modules/core';
 import {MediaQueries} from 'wlc-engine/modules/core/constants';
+import {UserInfo} from 'wlc-engine/modules/user';
 import {
     IconModel,
     IIconParams,
@@ -57,6 +61,7 @@ import {FinancesService} from 'wlc-engine/modules/finances/system/services/finan
 import {
     IAutoSelectByDevice,
     IPaySystemCategories,
+    IFinancesConfig,
     TPaymentsMethods,
     TPaySystemsSwitcher,
     TPaySystemTagAll,
@@ -139,6 +144,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     protected lastSucceedRes: number | null = null;
     protected isAutoSelect: boolean;
     protected useScroll: boolean = false;
+    private isActualUserTerms: boolean = true;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IPaymentListCParams,
@@ -152,6 +158,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         protected actionService: ActionService,
         configService: ConfigService,
         private hostRef: ElementRef,
+        protected logService: LogService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService, colorThemeService, cdr);
     }
@@ -186,6 +193,25 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
                 tap(() => this.onTagChange()),
                 takeUntil(this.$destroy),
             ).subscribe();
+        }
+
+        const newTermsVersion: string = this.configService.get<IFinancesConfig>('$finances').newTermsVersion;
+
+        if (newTermsVersion) {
+            this.configService
+                .get<BehaviorSubject<UserInfo>>('$user.userInfo$')
+                .pipe(takeUntil(this.$destroy))
+                .subscribe((userInfo: UserInfo) => {
+                    const isCheckUserTermsVersion: boolean = this.checkTermsVersion(
+                        userInfo.currentTermsVersion,
+                        userInfo.getTermsVersion(newTermsVersion),
+                    );
+
+                    if (this.isActualUserTerms !== isCheckUserTermsVersion && this.systems) {
+                        this.isActualUserTerms = isCheckUserTermsVersion;
+                        this.processSystemsResponse(this.systems);
+                    }
+                });
         }
 
         this.getPaymentSystems();
@@ -305,6 +331,21 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         return (!this.systems.length || !this.userCountry) && this.$params.theme !== 'crypto-list';
     }
 
+    protected checkTermsVersion(currentTermsVersion: string | DateTime, newTermsVersion: string | DateTime): boolean {
+        if (currentTermsVersion instanceof DateTime && newTermsVersion instanceof DateTime) {
+            return currentTermsVersion >= newTermsVersion;
+        } else if (typeof currentTermsVersion === 'string' && typeof newTermsVersion === 'string') {
+            return Number(currentTermsVersion) >= Number(newTermsVersion);
+        } else {
+            this.logService.sendLog({
+                code: '17.7.0',
+                data: 'Wrong Terms version format in finances config',
+            });
+            console.error('Wrong Terms version format in finances config');
+            return true;
+        }
+    }
+
     protected onTagChange(): void {
         this.activeTag$.next(this.tagsControl.value);
         this.systems$.next(this.systems.filter((val) => val.tags.includes(this.tagsControl.value)));
@@ -372,6 +413,13 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
 
     @CustomAsyncHook('finances', 'customProcessSystemsResponse')
     protected async processSystemsResponse(systems: PaymentSystem[]): Promise<void> {
+
+        if (this.isActualUserTerms) {
+            this.systems = systems.filter((system) => !system.checkTermsVersion);
+        } else {
+            this.systems = systems.filter((system) => system.checkTermsVersion);
+        }
+
         this.systems = systems;
         this.setPaymentsIconsList();
 
@@ -379,7 +427,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
             this.systems$.next(this.systems.filter((val) => val.tags.includes(this.tagsControl.value)));
             this.setPaymentCategories();
         } else {
-            this.systems$.next(systems);
+            this.systems$.next(this.systems);
         }
 
         if (this.useBonuses) {

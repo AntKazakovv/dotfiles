@@ -55,4 +55,8 @@ export const errorTypes: ILogTypes = {
         // Error getting transactions history
         level: 'error',
     },
+    '17.7.0': {
+        // Wrong Terms version format
+        level: 'error',
+    },
 };

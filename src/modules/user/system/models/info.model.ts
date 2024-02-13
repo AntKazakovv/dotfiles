@@ -229,14 +229,19 @@ export class UserInfo extends AbstractModel<IUserInfo> {
     /** Get date of current accepted terms & conditions */
     public get currentTermsVersion(): string | DateTime {
         if (this.data?.toSVersion?.ToSVersion) {
-            const date = DateTime.fromSQL(this.data.toSVersion.ToSVersion, {zone: 'utc'});
-            if (date.invalidReason) {
-                return this.data.toSVersion.ToSVersion;
-            } else {
-                return date;
-            }
+            return this.getTermsVersion(this.data.toSVersion.ToSVersion);
         }
         return '';
+    }
+
+    /** Get terms version */
+    public getTermsVersion(version: string): string | DateTime {
+        const date = DateTime.fromSQL(version, {zone: 'utc'});
+        if (date.invalidReason) {
+            return version;
+        } else {
+            return date;
+        }
     }
 
     /** Get true when last terms & conditions accepted */
