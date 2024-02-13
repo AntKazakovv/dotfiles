@@ -212,9 +212,13 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
      * @returns boolean
      */
     public get moreBlockDisplayCondition(): boolean {
+        const wolfHomeGamesGrid: boolean = this.$params.theme === 'wolf'
+            && (this.$params.showAllLink?.use || this.$params.themeMod === 'header-inline');
+
         return !this.moreBtnCardView &&
-            this.gamesCount < this.games.length &&
-            this.lazyWithClick;
+            this.gamesCount < this.games.length
+            && !wolfHomeGamesGrid
+            && this.lazyWithClick;
     }
 
     /**
@@ -308,7 +312,9 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
     }
 
     public get showWolfAllBtn(): boolean {
-        return this.$params.showAllLink?.wolfAllBtn && this.isReady;
+        return this.$params.showAllLink?.wolfAllBtn
+            && this.$params.showAllLink.use
+            && this.isReady;
     }
 
     public get headerInlineMobLink(): boolean {
