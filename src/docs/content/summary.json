@@ -235,6 +235,10 @@
                 "file": "./900.change-logs/releases/1.8.0_01-07-2022.md"
             },
             {
+                "title": "1.61.0RC4 (14-02-2024)",
+                "file": "./900.change-logs/releases/1.61.0-rc.4_14-02-2024.md"
+            },
+            {
                 "title": "1.61.0RC3 (12-02-2024)",
                 "file": "./900.change-logs/releases/1.61.0-rc.3_12-02-2024.md"
             },
