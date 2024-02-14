@@ -1,10 +1,10 @@
 .wlc-sections__profile-content--theme-wolf {
 
     > .container {
+        @include bm.get-mq-map('padding', $profileSettings, 'wolfPadding');
         @include bm.get-mq-map('background', $profileSettings, 'wolfSectionBg');
         @include bm.get-mq-map('border-radius', $profileSettings, 'wolfBorderRadius');
         position: relative;
-        padding: ef.get-value($profileSettings, 'wolfPadding');
     }
 
     .wlc-profile-content {

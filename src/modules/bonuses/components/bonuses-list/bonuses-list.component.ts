@@ -485,8 +485,13 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, A
             }
 
             const placement: Params.TBonusesListPlacement = this.$params.placement;
+            const disableSwiper: boolean = this.slides.length === 1 && (
+                this.params.theme === 'wolf'
+                || placement === 'profile-dashboard'
+                || placement === 'profile-recommended'
+            );
 
-            if (bonuses.length === 1 && (placement === 'profile-dashboard' || placement === 'profile-recommended')) {
+            if (disableSwiper) {
                 this.$params = _merge(this.$params, {
                     themeMod: 'default',
                     type: 'default',

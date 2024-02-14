@@ -289,7 +289,10 @@ $profileSettings: map-merge((
         900: var(--mc-bg700),
     ),
     'wolfBorderRadius': 8px,
-    'wolfPadding': 0 size-func(6) size-func(7),
+    'wolfPadding': (
+        375: 0 0 size-func(7),
+        900: 0 size-func(6) size-func(7),
+    ),
     'wolfTitleMargin': 0 0 size-func(4),
 ), $customProfileSettings);
 

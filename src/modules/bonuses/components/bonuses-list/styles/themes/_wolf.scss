@@ -6,6 +6,13 @@
             @include bm.get-mq-map('margin', $themeWolf, 'headerMargin');
             display: flex;
             justify-content: space-between;
+
+            ::ng-deep {
+
+                .wlc-section-title {
+                    margin: 0;
+                }
+            }
         }
 
         &__controls {

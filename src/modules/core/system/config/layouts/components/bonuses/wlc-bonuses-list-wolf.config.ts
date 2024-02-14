@@ -107,6 +107,7 @@ export namespace wlcBonusesWolf {
             type: 'swiper',
             hideNavigation: false,
             wlcElement: 'block_bonuses-main',
+            placement: 'profile-dashboard',
             common: {
                 useQuery: true,
                 sortOrder: ['active', 'inventory', 'promocode', 'subscribe'],
