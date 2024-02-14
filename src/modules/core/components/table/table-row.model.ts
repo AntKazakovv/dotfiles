@@ -97,7 +97,7 @@ export class TableRowModel {
         return `/wlc/icons/currencies/${currency.toLowerCase()}.svg`;
     }
 
-    public getAmount(col: Params.ITableCol): string {
+    public getDefaultValue(col: Params.ITableCol): string {
         return _toString(_get(this.data, col.key));
     }
 
