@@ -189,8 +189,6 @@ export class GamesCatalogService {
         await this.configService.ready;
         this.registerMethods();
 
-        this.loadGames();
-
         if (this.configService.get<boolean>('$games.useVideoThumbs.use')) {
             this.getIdDefVideos();
             this.getIdVerticalVideos();
@@ -212,6 +210,8 @@ export class GamesCatalogService {
                 name: gamesEvents.FETCH_GAME_CATALOG_SUCCEEDED,
             }).pipe(take(1)),
         };
+
+        this.loadGames();
 
         if (this.useSeparateSorts) {
             fetches.sorts = this.eventService.filter<IData<IAllSortsItemResponse[]>>({
