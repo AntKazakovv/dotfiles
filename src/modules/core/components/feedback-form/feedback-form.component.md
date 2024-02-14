@@ -1,0 +1,170 @@
+<ul class="nav nav-tabs" role="tablist">
+    <li class="active">
+        <a href="#english" role="tab" id="english-tab" data-toggle="tab" data-link="english">English</a>
+    </li>
+    <li>
+        <a href="#russian" role="tab" id="russian-tab" data-toggle="tab" data-link="russian">Russian</a>
+    </li>
+</ul>
+<div class="tab-content">
+<div class="tab-pane fade active in" id="c-english">
+
+# Feedback-Form Component
+#### Компонент представляет собой форму обратной связи
+
+![feedback-default](../../../../docs/assets/core/feedback-form/feedback-default.png)
+
+---
+
+# Параметры
+
+* **formConfig**:`IFormWrapperCParams` - Основной параметр, реализующий интерфейс `IFormWrapperCParams`
+
+    * **components**: `IFormComponent[]` - Массив компонентов
+
+        * **name**: `string` - Имя компонента типа `'[moduleName].[componentName]'`. Например: `'core.wlc-input'`
+
+        * **params**: `any` - Параметры используемого компонента
+
+        * **alwaysNew**: `Object` - Используется в депозитах
+
+            * **saveValue**: `boolean` - вкл/выкл параметра
+
+        * **blockName**: `string` - Используется с инпутом пароля
+
+    * **validators**: `ValidatorType[]` - Массив валидаторов
+
+    * **isStrictLocked**: `boolean` - Блокирует заполненые поля и не дает повторно редактировать, при условии что поле имеет валидатор `required`, и параметр компонента `locked` не применен
+
+---
+
+### Дефолтные параметры
+
+```ts
+export const defaultParams: IFeedbackFormCParams = {
+    moduleName: 'core',
+    componentName: 'wlc-feedback-form',
+    class: 'wlc-feedback-form',
+};
+```
+
+#### Однако реализуется конфиг, и неявно применяется по дефолту
+
+```ts
+formConfig: {
+    class: 'wlc-form-wrapper',
+    components: [
+        {
+            name: 'core.wlc-input',
+            params: {
+                locked: isAuth,
+                common: {
+                    placeholder: gettext('Your name'),
+                },
+                theme: 'vertical',
+                wlcElement: 'block_sender-name',
+                name: 'senderName',
+                prohibitedPattern: ProhibitedPatterns.notNamesSymbols,
+                validators: [
+                    'required',
+                    'allowLettersOnly',
+                    {
+                        name: 'minLength',
+                        text: gettext('Field length must be more than 2 characters'),
+                        options: 2,
+                    },
+                    {
+                        name: 'maxLength',
+                        text: gettext('The field must be no more than 50 characters long'),
+                        options: 50,
+                    },
+                ],
+                exampleValue: gettext('Enter your name'),
+            },
+        },
+        {
+            name: 'core.wlc-input',
+            params: {
+                locked: isAuth,
+                common: {
+                    placeholder: gettext('E-mail'),
+                    type: 'email',
+                },
+                name: 'senderEmail',
+                theme: 'vertical',
+                wlcElement: 'block_email',
+                validators: [
+                    'required',
+                    'email',
+                    {
+                        name: 'maxLength',
+                        text: gettext('The field must be no more than 50 characters long'),
+                        options: 50,
+                    },
+                ],
+                exampleValue: 'example@mail.com',
+            },
+        },
+        {
+            name: 'core.wlc-input',
+            params: {
+                common: {
+                    placeholder: gettext('Subject'),
+                },
+                name: 'subject',
+                theme: 'vertical',
+                wlcElement: 'block_subject',
+                validators: [
+                    'required',
+                    {
+                        name: 'maxLength',
+                        text: gettext('The field must be no more than 50 characters long'),
+                        options: 50,
+                    },
+                ],
+                exampleValue: 'Enter subject',
+            },
+        },
+        {
+            name: 'core.wlc-textarea',
+            params: {
+                common: {
+                    placeholder: gettext('Message'),
+                },
+                name: 'message',
+                wlcElement: 'block_message',
+                themeMod: 'feedback-form',
+                validators: [
+                    'required',
+                    {
+                        name: 'minLength',
+                        text: gettext('Field length must be more than 5 characters'),
+                        options: 5,
+                    },
+                    {
+                        name: 'maxLength',
+                        text: gettext('The field must be no more than 1500 characters long'),
+                        options: 1500,
+                    },
+                    {
+                        name: 'regExp',
+                        text: gettext('Such constructions are prohibited'),
+                        options: /<\/?\w+>/gi,
+                    },
+                ],
+                exampleValue: gettext('Enter your message'),
+            },
+        },
+        {
+            name: 'core.wlc-button',
+            params: {
+                wlcElement: 'button_submit',
+                common: {
+                    typeAttr: 'submit',
+                    text: gettext('Send message'),
+                },
+            },
+        },
+    ],
+},
+```
