@@ -290,6 +290,7 @@ $profileSettings: map-merge((
     ),
     'wolfBorderRadius': 8px,
     'wolfPadding': (
+        320: 0,
         375: 0 0 size-func(7),
         900: 0 size-func(6) size-func(7),
     ),
