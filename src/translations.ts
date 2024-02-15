@@ -89,3 +89,6 @@ gettext('National ID Number');
 gettext('PayFix user ID number');
 gettext('PayFix user name');
 gettext('Turkish ID number');
+gettext('bankName');
+gettext('bankAcctName');
+gettext('bankAcctNo');
