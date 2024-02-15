@@ -180,7 +180,7 @@ export class GamesCatalogComponent extends AbstractComponent implements OnInit {
                         };
                     }
 
-                    if (this.isMobile && this.$params.gamesGridParams.themeMod !== 'wolf') {
+                    if (this.isMobile && this.$params.gamesGridParams.theme !== 'wolf') {
                         gridParams.moreBtn.cardView = false;
                     }
 
