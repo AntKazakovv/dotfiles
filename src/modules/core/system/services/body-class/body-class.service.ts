@@ -215,6 +215,8 @@ export class BodyClassService {
         }
 
         if (removePadding && !this._openedModalsCounter) {
+            this.document.body.classList.remove('modal-open');
+            this.document.body.style.removeProperty('overflow-y');
             this.document.body.style.setProperty('--body-padding-overflow', null);
             this.document.body.style.paddingRight = null;
         }
