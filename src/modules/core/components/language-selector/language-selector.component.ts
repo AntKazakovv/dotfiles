@@ -389,7 +389,7 @@ export class LanguageSelectorComponent
         this.setDropdownPosition();
 
         this.configService.get<Observable<[DeviceType, TFixedPanelStore]>>('changesFixedPanel$')
-            .pipe(takeUntil(this.$destroy))
+            ?.pipe(takeUntil(this.$destroy))
             .subscribe((value: [DeviceType, TFixedPanelStore]) => {
                 const isCompact: boolean = value[1][this.$params.fixedPanelPosition] === 'compact';
                 const isMobile = value[0] !== DeviceType.Desktop;

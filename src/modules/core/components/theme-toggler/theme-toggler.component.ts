@@ -98,7 +98,7 @@ export class ThemeTogglerComponent extends AbstractComponent implements OnInit {
         }
 
         this.configService.get<Observable<[DeviceType, TFixedPanelStore]>>('changesFixedPanel$')
-            .pipe(takeUntil(this.$destroy))
+            ?.pipe(takeUntil(this.$destroy))
             .subscribe((value: [DeviceType, TFixedPanelStore]) => {
                 const isMobile = value[0] !== DeviceType.Desktop;
                 const isCompact: boolean = value[1]['left'] === 'compact';
