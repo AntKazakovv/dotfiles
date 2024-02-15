@@ -71,6 +71,12 @@ export class IntercomService {
         }
         this.setLogoutHandler();
 
+        this.eventService.subscribe({
+            name: 'LIVECHAT_OPEN',
+        }, () => {
+            this.showMessenger();
+        });
+
         if (this.config.excludeOnlyMobile) {
             this.setDeviceTypeSubscribe();
         } else {
@@ -211,8 +217,7 @@ export class IntercomService {
     protected checkCurrentState(stateName: string): void {
         if (_includes(this.config.excludeStates, stateName)
             && ((this.config.excludeOnlyMobile && this.isMobile)
-                || !this.config.excludeOnlyMobile))
-        {
+                || !this.config.excludeOnlyMobile)) {
             this.updateIntercom({
                 hide_default_launcher: true,
             });
@@ -222,5 +227,13 @@ export class IntercomService {
         this.updateIntercom({
             hide_default_launcher: false,
         });
+    }
+
+    protected showMessenger(): void {
+        try {
+            this.window.Intercom('show');
+        } catch (error) {
+            this.logService.sendLog({code: '23.0.0', data: error});
+        }
     }
 }
