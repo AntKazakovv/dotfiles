@@ -172,14 +172,6 @@ export class Game extends AbstractModel<IGame> {
             ?? this._selectedCurrency;
     }
 
-    public get getWalletCurrency(): string {
-        if (!Games.allowGameCurrency && !this.merchantsCurrencies) {
-            return GamesCatalogService.userService.userProfile.selectedCurrency;
-        }
-        return this.walletCurrency
-            ?? this.initialCurrency;
-    }
-
     public get walletCurrency(): string {
         return GamesCatalogService.userService.userProfile.isConversionInFiat
             ?  GamesCatalogService.userService.userProfile.selectedCurrency

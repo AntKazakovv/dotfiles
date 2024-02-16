@@ -466,21 +466,16 @@ class StartGameHandler extends BaseGamesHandler {
 
         const isMultiWallet: boolean = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
         const isResolveBalance: Function = (): boolean => {
+
             if (Games.allowGameCurrency) {
 
                 if (isMultiWallet) {
 
-                    if (GamesCatalogService.userService.userProfile.isConversionInFiat) {
-                        return !!userInfo.getWalletBalance(
-                            GamesCatalogService.userService.userProfile.extProfile.currentWallet?.walletCurrency,
-                        )
-                            || (!!userInfo.wallets[
-                                GamesCatalogService.userService.userProfile.extProfile.currentWallet?.walletCurrency]
-                                && !!userInfo.bonusBalance);
-                    } else {
-                        return !!userInfo.getWalletBalance(this.game.getWalletCurrency)
-                            || (!!userInfo.wallets[this.game.getWalletCurrency] && !!userInfo.bonusBalance);
-                    }
+                    return !!userInfo.getWalletBalance(
+                        GamesCatalogService.userService.userProfile.extProfile.currentWallet?.walletCurrency,
+                    ) || (!!userInfo.wallets[
+                        GamesCatalogService.userService.userProfile.extProfile.currentWallet?.walletCurrency
+                    ] && !!userInfo.bonusBalance);
 
                 } else {
                     return !!userInfo.balance;
@@ -494,9 +489,6 @@ class StartGameHandler extends BaseGamesHandler {
         if (isResolveBalance()) {
             deferred.resolve();
             return deferred.promise;
-        } else if (Games.allowGameCurrency) {
-            GamesCatalogService.userService.userProfile.gamesCurrency = this.game.getWalletCurrency;
-            this.game.selectedCurrency = null;
         }
 
         const merchantFreeRound = _find(userInfo.freeRounds, (freeRound: IFreeRound): boolean => {

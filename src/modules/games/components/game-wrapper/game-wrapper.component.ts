@@ -782,7 +782,6 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                 await this.gamesCatalogService.getLaunchParams(
                     this.gameParams,
                     this.game.getCurrency,
-                    this.game.getWalletCurrency,
                 );
 
             const result = await this.hooksService.run<IGameWrapperHookLaunchInfo>(gameWrapperHooks.launchInfo, {

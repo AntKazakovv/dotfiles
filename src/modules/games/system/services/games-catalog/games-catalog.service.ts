@@ -505,12 +505,11 @@ export class GamesCatalogService {
     public async getLaunchParams(
         options: IGameParams,
         currency: string,
-        walletCurrency: string,
     ): Promise<ILaunchInfo> {
         let wallet: number;
 
         if (Games.isMultiWallet) {
-            wallet = GamesCatalogService.userService.userInfo?.wallets[walletCurrency]?.walletId;
+            wallet = GamesCatalogService.userService.userProfile.extProfile.currentWallet.walletId;
         }
 
         return (await this.dataService.request('games/gameLaunchParams', {

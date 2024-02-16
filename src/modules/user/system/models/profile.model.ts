@@ -17,8 +17,6 @@ import {ICurrencyFilter} from 'wlc-engine/modules/multi-wallet';
 import {IWebSocketConfig} from 'wlc-engine/modules/core/system/interfaces/websocket.interface';
 export class UserProfile extends AbstractModel<IUserProfile> {
 
-    public gamesCurrency: string;
-
     constructor(
         from: IFromLog,
     ) {
