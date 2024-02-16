@@ -166,7 +166,8 @@ export type TPaySystemTag = 'recommended'
     | 'card_method'
     | 'e_wallet'
     | 'crypto'
-    | 'direct_banking';
+    | 'direct_banking'
+    | 'buy_crypto';
 
 export type TPaySystemTagAll = TPaySystemTag | 'other';
 

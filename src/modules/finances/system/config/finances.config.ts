@@ -27,6 +27,10 @@ export const financesConfig: IFinancesConfig = {
                 name: gettext('Cryptocurrencies'),
                 order: 8,
             },
+            buy_crypto: {
+                name: gettext('Buy Crypto'),
+                order: 6,
+            },
             direct_banking: {
                 name: gettext('Bank Transfer'),
                 order: 4,
