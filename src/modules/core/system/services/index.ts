@@ -46,11 +46,7 @@ export {
 export {ColorThemeService} from './color-theme/color-theme.service';
 export {ForbiddenCountryService} from './forbidden-country/forbidden-country.service';
 export {AnimateButtonsService} from './animate-buttons/animate-buttons.service';
-export {
-    configUrlForFingerprint,
-    FingerprintService,
-    TFingerprintConfigKeys,
-} from './fingerprint/fingerprint.service';
+export {FingerprintService} from './fingerprint/fingerprint.service';
 
 export {WebsocketService} from './websocket/websocket.service';
 export {TimerService} from './timer/timer.service';

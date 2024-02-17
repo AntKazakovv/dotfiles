@@ -7,19 +7,6 @@ import {
 import FingerprintJS from '@fingerprintjs/fingerprintjs';
 
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
-import {RestMethodType} from 'wlc-engine/modules/core/system/services/data/data.service';
-
-export type TFingerprintConfigKeys = 'profiles' | 'auth' | 'trustDevices' | 'authBy/google2fa' | 'userPassword';
-
-type TFingerprintConfig = Record<TFingerprintConfigKeys, RestMethodType[]>;
-
-export const configUrlForFingerprint: TFingerprintConfig = {
-    profiles: ['POST', 'PATCH', 'PUT'],
-    auth: ['PUT'],
-    trustDevices: ['POST'],
-    'authBy/google2fa': ['POST'],
-    userPassword: ['PUT'],
-};
 
 @Injectable({
     providedIn: 'root',

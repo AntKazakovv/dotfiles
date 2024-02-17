@@ -14,7 +14,6 @@ import {
 import _cloneDeep from 'lodash-es/cloneDeep';
 
 import {
-    configUrlForFingerprint,
     FingerprintService,
     IData,
 } from 'wlc-engine/modules/core/system/services';
@@ -51,8 +50,6 @@ export class FingerprintInterceptor implements HttpInterceptor {
     }
 
     protected isUrlForFingerprint(req: HttpRequest<IData>): boolean {
-        return Object.keys(configUrlForFingerprint).some((url: string) => {
-            return req.url === `/api/v1/${url}` && configUrlForFingerprint[url]?.includes(req.method);
-        });
+        return req.url.includes('/api/v1/');
     }
 }
