@@ -3,12 +3,19 @@ import {
     Inject,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
-import {UIRouter} from '@uirouter/core';
+import {
+    Transition,
+    UIRouter,
+} from '@uirouter/core';
 
 import {filter} from 'rxjs/operators';
+import _includes from 'lodash-es/includes';
 
 import {
+    ActionService,
     ConfigService,
+    DeviceModel,
+    DeviceType,
     EventService,
     LogService,
     InjectionService,
@@ -23,6 +30,10 @@ import {IIntercomSetup} from 'wlc-engine/modules/external-services/system/interf
 
 import {WINDOW} from 'wlc-engine/modules/app/system';
 
+export interface IUpdateIntercomOptions {
+    hide_default_launcher: boolean;
+}
+
 @Injectable({
     providedIn: 'root',
 })
@@ -30,6 +41,7 @@ export class IntercomService {
 
     protected config: IIntercomSetup = this.configService.get<IIntercomSetup>('$base.intercom');
     protected isAuth: boolean;
+    protected isMobile: boolean = this.configService.get<DeviceModel>('device').isMobile;
 
     constructor(
         @Inject(DOCUMENT) protected document: Document,
@@ -39,6 +51,7 @@ export class IntercomService {
         protected configService: ConfigService,
         protected router: UIRouter,
         protected injectionService: InjectionService,
+        protected actionService: ActionService,
     ) {
         this.init();
     }
@@ -57,6 +70,12 @@ export class IntercomService {
             }
         }
         this.setLogoutHandler();
+
+        if (this.config.excludeOnlyMobile) {
+            this.setDeviceTypeSubscribe();
+        } else {
+            this.checkCurrentState(this.router.globals.current.name);
+        }
     }
 
     /**
@@ -115,8 +134,9 @@ export class IntercomService {
         'else{w.addEventListener(\'load\',l,false);}}})();';
         this.document.head.appendChild(script);
 
-        this.router.transitionService.onSuccess({}, () => {
-            this.updateIntercom();
+        this.router.transitionService.onSuccess({}, (transition: Transition) => {
+            const stateName: string = transition.targetState().name();
+            this.checkCurrentState(stateName);
         });
     }
 
@@ -160,9 +180,9 @@ export class IntercomService {
     *
     */
 
-    protected updateIntercom(): void {
+    protected updateIntercom(options?: IUpdateIntercomOptions): void {
         try {
-            this.window.Intercom('update');
+            this.window.Intercom('update', options);
         } catch (error) {
             this.logService.sendLog({code: '23.0.0', data: error});
         }
@@ -179,5 +199,28 @@ export class IntercomService {
         } catch (error) {
             this.logService.sendLog({code: '23.0.0', data: error});
         }
+    }
+
+    protected setDeviceTypeSubscribe(): void {
+        this.actionService.deviceType().subscribe((type: DeviceType) => {
+            this.isMobile = type !== DeviceType.Desktop;
+            this.checkCurrentState(this.router.globals.current.name);
+        });
+    }
+
+    protected checkCurrentState(stateName: string): void {
+        if (_includes(this.config.excludeStates, stateName)
+            && ((this.config.excludeOnlyMobile && this.isMobile)
+                || !this.config.excludeOnlyMobile))
+        {
+            this.updateIntercom({
+                hide_default_launcher: true,
+            });
+            return;
+        }
+
+        this.updateIntercom({
+            hide_default_launcher: false,
+        });
     }
 }
