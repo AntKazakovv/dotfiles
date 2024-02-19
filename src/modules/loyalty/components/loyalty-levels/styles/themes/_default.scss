@@ -14,7 +14,7 @@
                     }
                 }
 
-                &.wlc-table__cell--name {
+                &.wlc-table__cell--name:not(.wlc-table__cell--first) {
                     display: none;
                 }
             }

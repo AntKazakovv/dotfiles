@@ -82,7 +82,7 @@ export class TableComponent extends AbstractComponent implements OnInit {
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
 
-        const mediaQueryList: MediaQueryList = this.window.matchMedia(`(max-width: ${this.$params.switchWidth}px)`);
+        const mediaQueryList: MediaQueryList = this.window.matchMedia(`(min-width: ${this.$params.switchWidth}px)`);
         this.calcTableType(mediaQueryList);
         GlobalHelper.mediaQueryObserver(mediaQueryList)
             .pipe(takeUntil(this.$destroy))
@@ -154,9 +154,9 @@ export class TableComponent extends AbstractComponent implements OnInit {
         this.removeModifiers(this.tableType);
 
         if (mediaQueryResult.matches) {
-            this.tableType = Params.TableTypeEnum.MOBILE;
-        } else {
             this.tableType = Params.TableTypeEnum.TABLE;
+        } else {
+            this.tableType = Params.TableTypeEnum.MOBILE;
         }
 
         this.addModifiers(this.tableType);
