@@ -21,6 +21,7 @@ import {first} from 'rxjs/operators';
 })
 export class ClickOutsideDirective implements OnChanges {
     @Input('isOpened') isOpened: boolean = false;
+    @Input('disableTouchStart') disableTouchStart: boolean = false;
     @Output() clickOutside = new EventEmitter<void>();
     protected $allEvents: Subscription;
 
@@ -31,10 +32,12 @@ export class ClickOutsideDirective implements OnChanges {
 
     public ngOnChanges(changes: SimpleChanges): void {
         if (changes.isOpened.currentValue && (!this.$allEvents || this.$allEvents.closed)) {
-            this.$allEvents = merge(
-                fromEvent(this.document, 'click'),
-                fromEvent(this.document, 'touchstart'),
-            )
+            this.$allEvents = (this.disableTouchStart
+                ? fromEvent(this.document, 'click')
+                : merge(
+                    fromEvent(this.document, 'click'),
+                    fromEvent(this.document, 'touchstart'),
+                ))
                 .pipe(
                     first((event) => {
                         const clickedInside = this.elementRef.nativeElement.contains(event.target as HTMLElement);

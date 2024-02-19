@@ -43,6 +43,10 @@ export interface ISelectCParams<V = unknown> extends IComponentParams<ComponentT
     autoSelect?: boolean;
     useIcon?: boolean;
     /**
+     *  Don't close the dropdown on the touchStart event.
+     */
+    disableTouchStart?: boolean;
+    /**
      * Update value if control has been changed from outside
      */
     updateOnControlChange?: boolean;
@@ -68,4 +72,5 @@ export const defaultParams: Partial<ISelectCParams> = {
     class: 'wlc-select',
     noResultText: gettext('No results available'),
     autocomplete: 'off',
+    disableTouchStart: true,
 };

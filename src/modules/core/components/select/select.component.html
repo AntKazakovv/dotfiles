@@ -13,6 +13,7 @@
 <div wlc-click-outside
      class="{{$class}}__group"
      [isOpened]="isOpened"
+     [disableTouchStart]="$params.disableTouchStart"
      [ngClass] = "{'field-disabled': control.disabled}"
      (clickOutside)="closeDropdown()">
     <ng-container *ngIf="$params.useSearch && !control.disabled; else button">
