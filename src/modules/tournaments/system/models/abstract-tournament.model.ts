@@ -27,7 +27,9 @@ import {TournamentsService} from 'wlc-engine/modules/tournaments/system/services
 import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
 
 export abstract class AbstractTournamentModel<T extends ITournamentAbstract> extends AbstractModel<T> {
-    public static useUsersCurrency: boolean = false;
+    public static useUsersCurrency: boolean;
+
+    protected isAuth: boolean;
     protected userCurrency: string;
     protected $descriptionClean: string;
 
@@ -44,11 +46,16 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
             .replace(/<style([\S\s]*?)>([\S\s]*?)<\/style>/g, '')
             .replace('<br>', '\n')
             .replace(/<[^>]*>/g, '');
-        this.userCurrency = this.configService
-            .get<BehaviorSubject<UserProfile>>('$user.userProfile$').getValue()?.originalCurrency
-        && this.configService.get('$user.isAuthenticated')
-            ? this.configService.get<BehaviorSubject<UserProfile>>('$user.userProfile$').getValue()?.originalCurrency
+
+        this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
+        this.userCurrency = this.isAuth
+            ? this.configService
+                .get<BehaviorSubject<UserProfile>>('$user.userProfile$').getValue()?.originalCurrency
+                ?? this.configService.get<string>('$base.defaultCurrency')
             : this.configService.get<string>('$base.defaultCurrency');
+
+        AbstractTournamentModel.useUsersCurrency ??=
+            this.configService.get<boolean>('$base.tournaments.useUsersCurrency');
     }
 
     public get points(): number {
@@ -171,7 +178,7 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
      * @returns {string} tournament target currency loyalty or EUR
      */
     public get targetDefaultCurrency(): string {
-        return this.checkTargetCurrency(!AbstractTournamentModel.useUsersCurrency);
+        return this.checkTargetCurrency(this.isAuth ? !AbstractTournamentModel.useUsersCurrency : false);
     }
 
     /** @returns {string} currency formatting config */

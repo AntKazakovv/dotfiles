@@ -1,4 +1,5 @@
 import {
+    BehaviorSubject,
     Observable,
     PartialObserver,
     pipe,
@@ -28,11 +29,14 @@ import {
     TCurrency,
 } from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
 import {ITournamentPlace} from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
+import {UserProfile} from 'wlc-engine/modules/user';
 
 export class TournamentHistory extends AbstractModel<ITournamentHistory> {
+    public static useUsersCurrency: boolean;
+
     public tournamentWins: ITournamentPrize[];
-    protected userCurrency: string;
-    protected useUsersCurrency: boolean = false;
+
+    private readonly userCurrency: string;
 
     constructor(
         from: IFromLog,
@@ -42,6 +46,14 @@ export class TournamentHistory extends AbstractModel<ITournamentHistory> {
     ) {
         super({from: _assign({model: 'TournamentHistory'}, from)});
         this.data = data;
+
+        this.userCurrency = this.configService
+            .get<BehaviorSubject<UserProfile>>('$user.userProfile$').getValue()?.originalCurrency
+            ?? this.configService.get<string>('$base.defaultCurrency');
+
+        TournamentHistory.useUsersCurrency ??=
+            this.configService.get<boolean>('$base.tournaments.useUsersCurrency');
+
         this.prepareTournamentWins();
     }
 
@@ -111,7 +123,7 @@ export class TournamentHistory extends AbstractModel<ITournamentHistory> {
     }
 
     public get targetDefaultCurrency(): string {
-        return this.checkTargetCurrency(!this.useUsersCurrency);
+        return this.checkTargetCurrency(!TournamentHistory.useUsersCurrency);
     }
 
     public get points(): number {

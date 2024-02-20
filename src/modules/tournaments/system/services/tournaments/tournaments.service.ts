@@ -47,7 +47,6 @@ import {
 } from '../../interfaces/tournaments.interface';
 import {UserProfile} from 'wlc-engine/modules/user';
 import {MultiWalletEvents} from 'wlc-engine/modules/multi-wallet';
-import {AbstractTournamentModel} from '../../models/abstract-tournament.model';
 
 interface ITournamentData extends IData {
     data?: ITournament;
@@ -310,8 +309,6 @@ export class TournamentsService {
     ): Promise<Tournament[]> {
         let tournaments: Tournament[] = [];
         const queryParams: IQueryParams = {};
-        AbstractTournamentModel.useUsersCurrency =
-            this.configService.get<boolean>('$base.tournaments.useUsersCurrency');
 
         if (type === 'active' || type === 'history') {
             queryParams.type = type;

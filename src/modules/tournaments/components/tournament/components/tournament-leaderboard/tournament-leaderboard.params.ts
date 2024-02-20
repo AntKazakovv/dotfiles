@@ -21,7 +21,6 @@ export interface ITournamentLeaderboardCParams extends IComponentParams<Componen
         limit?: number;
         showAllBtn?: boolean;
         useListHead?: boolean;
-        useMainCurrency?: boolean;
         winbetRatioText?: string;
         freeSpinsText?: string;
     };
@@ -37,7 +36,6 @@ export const defaultParams: ITournamentLeaderboardCParams = {
     componentName: 'wlc-tournament-leaderboard',
     displayPlayerName: 'login',
     common: {
-        useMainCurrency: false,
         winbetRatioText: gettext('The winner is considered by the closest approximation to the coefficient:'),
         freeSpinsText: gettext('Leaderboard is updated according to the results of free rounds package completion'),
     },

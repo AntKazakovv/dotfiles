@@ -102,7 +102,7 @@ export class TournamentLeaderboardComponent
 
         if (this.tournament.target === 'loyalty') {
             this.currency = 'LP';
-        } else if (!this.$params.common.useMainCurrency) {
+        } else {
             this.currency = this.tournament.targetDefaultCurrency;
         }
 
@@ -179,14 +179,20 @@ export class TournamentLeaderboardComponent
             : win.points;
     }
 
-    public getCurrencyValue(win: ITournamentPlace): ITournamentPrize[] {
+    public getCurrencyValue(win: ITournamentPlace, userId: string): ITournamentPrize[] {
+        let currency: string = 'EUR';
+
+        if (this.configService.get<boolean>('$base.tournaments.useUsersCurrency') && userId && win.IDUser === userId) {
+            currency = this.currency;
+        }
+
         const wins: TCurrency = (win.Target === 'bonus' && !_isEmpty(win.TotalWins.Currency))
             ? win.TotalWins.Currency
             : this.totalWins(win);
-        return this.historyService.transformWins(wins, this.currency);
+        return this.historyService.transformWins(wins, currency);
     }
 
-    protected totalWins(win: ITournamentPlace): number | string {
+    protected totalWins(win: ITournamentPlace): number {
         return _toNumber(this.currency === 'EUR' ? win.WinEUR : win.Win);
     }
 
@@ -218,8 +224,8 @@ export class TournamentLeaderboardComponent
         this.wins = this.tournament.getTopArray(result);
 
         if (this.isHistory) {
-            _forEach(this.wins, (win, i) => {
-                let winLB = this.getCurrencyValue(win);
+            _forEach(this.wins, (win: ITournamentPlace, i: number): void => {
+                let winLB: ITournamentPrize[] = this.getCurrencyValue(win, result.user.IDUser);
                 this.wins[i].TotalWinsLB = winLB;
             });
         }
