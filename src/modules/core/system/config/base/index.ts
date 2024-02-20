@@ -78,6 +78,7 @@ export const $base: IBaseConfig = {
         'app.profile.cash.transactions',
         'app.profile.loyalty-tournaments.history',
         'app.profile.limitations',
+        'app.profile.kycaml',
     ],
     errorsReplacerMap: {
         'AML verification in progress': {
