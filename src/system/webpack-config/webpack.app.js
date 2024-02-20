@@ -12,6 +12,18 @@ const sortMqList = require('./wlcMqSortingPlugin');
 module.exports = (config, schema, env) => {
     const isDev = env.configuration === 'dev';
 
+    config.resolveLoader = {
+        alias: {
+            'custom-components-loader': resolve(__dirname, './custom-files-loader.js'),
+        },
+    };
+
+    config.module.rules.push({
+        test: /(.*)\/components\/(.*)\.component\.ts$/,
+        loader: 'custom-components-loader',
+        exclude: /node_modules/,
+    });
+
     config.plugins.push(new StylelintPlugin({
         lintDirtyModulesOnly: true,
         cache: true,

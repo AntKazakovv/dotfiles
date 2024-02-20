@@ -48,21 +48,12 @@ class WlcTemplateReplacePlugins {
         const customTplPath = originTplPath.replace('/wlc-engine/', customPath);
         const customComponentDir = path.dirname(customTplPath).replace('!raw-loader!./', '');
         const tplName = path.basename(customTplPath).replace('!raw-loader!./', '');
-        const tsName = tplName.replace('.html', '.ts');
-        const originTsPath = originTplPath.replace('.html', '.ts');
 
         if (fs.existsSync(customTplPath)) {
             resource.request = resource.request.replace(/.+\?/, customTplPath + '?');
         } else {
             createDir.sync(customComponentDir);
             fs.copyFileSync(originTplPath, customComponentDir + '/~' + tplName);
-        }
-
-        // Just for IDE support
-        try {
-            fs.copyFileSync(originTsPath, customComponentDir + '/~readonly_' + tsName);
-        } catch (e) {
-            console.error('Cannot create readonly ts file for ' + tplName);
         }
     });
 }

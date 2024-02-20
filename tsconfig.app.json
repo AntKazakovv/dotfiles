@@ -8,9 +8,9 @@
     ],
     "include": [
         "wlc-engine/**/*.d.ts",
-        "custom/**/*"
+        "src/custom/**/*"
     ],
     "exclude": [
-        "custom/**/~*.ts"
+        "src/custom/**/~*.ts"
     ]
 }
