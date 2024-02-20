@@ -10,7 +10,6 @@ import {
     ChangeDetectorRef,
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {DomSanitizer} from '@angular/platform-browser';
 import {
     StateService,
     UIRouterGlobals,
@@ -76,7 +75,6 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
         @Inject('injectParams') protected params: Params.IPostCParams,
         protected staticService: StaticService,
         protected viewRef: ViewContainerRef,
-        protected domSanitizer: DomSanitizer,
         cdr: ChangeDetectorRef,
         protected uiRouter: UIRouterGlobals,
         configService: ConfigService,
@@ -100,8 +98,7 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
             this.defaultSlug = this.slug || this.$params.slug || this.uiRouter.params.slug;
             this.generatedSlug = this.getGeneratedSlug();
             this.data = await this.getTextModel();
-            this.html = this.domSanitizer
-                .bypassSecurityTrustHtml(this.data.html)?.['changingThisBreaksApplicationSecurity'] ?? '';
+            this.html = this.data.html ?? '';
 
             if (this.isShowDownloadButton()) {
                 this.$params.downloadPdf.use = true;
