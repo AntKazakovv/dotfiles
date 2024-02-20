@@ -11,6 +11,7 @@ import {
     OnChanges,
     SimpleChanges,
     ViewChild,
+    Injector,
 } from '@angular/core';
 import {UntypedFormControl} from '@angular/forms';
 import {
@@ -68,6 +69,11 @@ import {
     IMenuItem,
 } from 'wlc-engine/modules/menu/components/menu/menu.params';
 import {FinancesHelper} from 'wlc-engine/modules/finances/system/helpers/finances.helper';
+import {
+    CustomAsyncHook,
+    CustomHook,
+} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
+
 import * as DepositWithdrawParams from '../deposit-withdraw/deposit-withdraw.params';
 import * as Params from './payment-list.params';
 
@@ -136,7 +142,9 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IPaymentListCParams,
+        @Inject(WINDOW) protected window: Window,
         cdr: ChangeDetectorRef,
+        protected injector: Injector, //added for custom-hook
         protected financesService: FinancesService,
         protected eventService: EventService,
         colorThemeService: ColorThemeService,
@@ -144,7 +152,6 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         protected actionService: ActionService,
         configService: ConfigService,
         private hostRef: ElementRef,
-        @Inject(WINDOW) private window: Window,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService, colorThemeService, cdr);
     }
@@ -212,6 +219,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         return String(index) + String(system.id) + system.name;
     }
 
+    @CustomHook('finances', 'customSelectPayment')
     public selectPayment(
         system: PaymentSystem | null,
         clearSame: boolean = this.useBonuses,
@@ -246,6 +254,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         this.cdr.markForCheck();
     }
 
+    @CustomHook('finances', 'customOpenModal')
     public openModal(): void {
         this.modalService.showModal({
             id: 'payment-list',
@@ -361,6 +370,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         });
     }
 
+    @CustomAsyncHook('finances', 'customProcessSystemsResponse')
     protected async processSystemsResponse(systems: PaymentSystem[]): Promise<void> {
         this.systems = systems;
         this.setPaymentsIconsList();
