@@ -7,7 +7,7 @@ $themeDefault: map-merge((
     ),
     'containerGridTemplateColumns': (
         375: minmax(290px, 1fr),
-        900: minmax(375px, 1fr) 340px,
+        900: minmax(345px, 1fr) 340px,
     ),
     'containerGridTemplateRow': (
         720: 226px auto auto,
@@ -25,7 +25,7 @@ $themeDefault: map-merge((
 
     'infoPadding': (
         375: ef.size(4) ef.size(4) ef.size(6),
-        640: ef.size(6) ef.size(8) ef.size(8),
+        640: ef.size(6) ef.size(8) ef.size(6),
     ),
     'infoPElementDisplay': (
         375: block,
@@ -85,12 +85,12 @@ $themeDefault: map-merge((
     'tagBackgroundUnavailable': ef.get('tagConfig', 'bgUnavailable'),
 
     'titleFontStyle': 'ThirdTitleBold',
-    'titleFontStyleDesk': 'PromoTitle',
+    'titleFontStyleDesk': 'QoteTextBold',
     'titleColor': (
         375: ef.get('mainColors', 'baseMain'),
         900: var(--mc-baseMain),
     ),
-    'titleMargin': 0 0 ef.size(6),
+    'titleMargin': 0 0 ef.size(4),
     'prizepoolMargin': 0 0 ef.size(2),
     'prizepoolTextStyle': 'ThirdTitleBold',
     'prizepoolColor': var(--mc-baseMain),
