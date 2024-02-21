@@ -456,7 +456,9 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
                 this.setActiveTag(tag);
             }
 
-            this.selectPayment(system, false, false, true);
+            if (!this.skipAutoSelect) {
+                this.selectPayment(system, false, false, true);
+            }
         } else if (
             this.systems$.getValue().length === 1
             && !this.systems$.getValue()[0].disabledBy

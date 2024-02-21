@@ -348,6 +348,10 @@ export class DepositWithdrawComponent
         return this.isCryptoInvoices ? 'PayCryptos' : this.currentSystem?.name;
     }
 
+    public get skipAutoSelectPaySystem(): boolean {
+        return this.$params.theme === 'steps';
+    }
+
     public onPromoCodeChanged(bonus: Bonus): void {
         this.appliedPromoCode$.next(bonus);
         this.setCurrentBonus(bonus, false);
@@ -380,6 +384,12 @@ export class DepositWithdrawComponent
         GlobalHelper.mediaQueryObserver(mq)
             .pipe(takeUntil(this.$destroy))
             .subscribe((event: MediaQueryListEvent) => {
+
+                if (event.matches) {
+                    this.currentSystem = null;
+                    this.currentStep = 1;
+                }
+
                 this.updateStepsView(event.matches);
                 this.updateBonusesParams(event.matches);
             });

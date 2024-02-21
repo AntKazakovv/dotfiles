@@ -208,7 +208,7 @@
         [inlineParams]="listConfig"
         [availableSystems]="availableSystems"
         [userCountry]="userCountry"
-        [skipAutoSelect]="$params.theme === 'steps'"
+        [skipAutoSelect]="skipAutoSelectPaySystem"
         [currentSystem]="parentSystem || currentSystem" [parentTheme]="$params.theme">
     </div>
     <div class="{{$class}}__divider"></div>
