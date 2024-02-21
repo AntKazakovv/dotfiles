@@ -218,6 +218,7 @@ export class ModalService {
      *
      * @param id modal identifier
      * @param from defines where the method was called from
+     * @param reason modal close reason
      * @returns void
      */
     public hideModal(id: string, from?: string, reason?: string): void {
@@ -240,7 +241,7 @@ export class ModalService {
             const modalInstance = modal.ref.instance;
             await modalInstance.ready;
 
-            if (!modalInstance.modalDirect.dismissReason && !modalInstance.closeReason && reason) {
+            if ((!modalInstance.modalDirect.dismissReason && !modalInstance.closeReason) || reason) {
                 modalInstance.closeReason = reason;
             }
             modalInstance.modalDirect.hide();

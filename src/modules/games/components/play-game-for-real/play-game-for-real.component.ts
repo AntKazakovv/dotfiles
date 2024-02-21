@@ -117,7 +117,7 @@ export class PlayGameForRealComponent extends SignInFormAbstract<Params.IPlayGam
         this.eventService.subscribe({
             name: Params.Events.PLAY_DEMO,
         }, () => {
-            this.modalService.hideModal('play-game-for-real', 'submit');
+            this.modalService.hideModal('play-game-for-real', undefined, 'submit');
             if (this.$params.common?.game) {
                 this.$params.common.game.launch({
                     demo: true,
@@ -133,7 +133,7 @@ export class PlayGameForRealComponent extends SignInFormAbstract<Params.IPlayGam
         this.eventService.subscribe({
             name: Params.Events.PLAY_REAL,
         }, () => {
-            this.modalService.hideModal('play-game-for-real', 'submit');
+            this.modalService.hideModal('play-game-for-real', undefined, 'submit');
             if (this.$params.common?.game) {
                 this.$params.common.game.launch({
                     demo: false,
@@ -147,7 +147,7 @@ export class PlayGameForRealComponent extends SignInFormAbstract<Params.IPlayGam
             name: 'USER_PROFILE',
         }, () => {
             if (this.$params.common?.game) {
-                this.modalService.hideModal('play-game-for-real', 'submit');
+                this.modalService.hideModal('play-game-for-real', undefined, 'submit');
                 this.$params.common.game.launch({
                     demo: false,
                 });
@@ -160,7 +160,7 @@ export class PlayGameForRealComponent extends SignInFormAbstract<Params.IPlayGam
             name: Params.Events.SIGN_UP,
         }, () => {
             if (!this.configService.get<boolean>('$base.site.restrictRegistration')) {
-                this.modalService.hideModal('play-game-for-real', 'will signup');
+                this.modalService.hideModal('play-game-for-real', undefined, 'will signup');
             }
             setTimeout(() => {
                 this.modalService.showModal('signup');

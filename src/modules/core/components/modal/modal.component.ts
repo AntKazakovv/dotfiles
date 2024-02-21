@@ -219,6 +219,10 @@ export class WlcModalComponent extends AbstractComponent
             focus: config.focus,
         });
 
+        if (config.onCloseInterceptor) {
+            this.bsOptions.closeInterceptor =  config.onCloseInterceptor.bind(this);
+        }
+
         const modifiers: string[] = [];
         modifiers.push(config.id);
 

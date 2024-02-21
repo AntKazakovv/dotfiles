@@ -182,6 +182,11 @@ export interface IModalConfig extends ModalOptions {
      * hidePrevented.bs.modal
      */
     onModalHidePrevented?: () => any;
+
+    /**
+     * function to intercept the closure
+     */
+    onCloseInterceptor?: () => Promise<void>;
 }
 
 /**

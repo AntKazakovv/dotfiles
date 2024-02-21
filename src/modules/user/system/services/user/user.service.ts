@@ -848,9 +848,9 @@ export class UserService {
         }
 
         if (this.modalService.getActiveModal('signup')) {
-            this.modalService.hideModal('signup');
+            this.modalService.hideModal('signup', undefined, 'success');
         } else if (this.modalService.getActiveModal('login')) {
-            this.modalService.hideModal('login');
+            this.modalService.hideModal('login', undefined, 'success');
         }
     }
 
