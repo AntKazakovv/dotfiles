@@ -3,6 +3,7 @@ import {
     CustomType,
     ITableCol,
     IWrapperCParams,
+    ITableCParams,
 } from 'wlc-engine/modules/core';
 import {HistoryNameComponent} from 'wlc-engine/modules/history/components/history-name/history-name.component';
 import {IHistoryNameItem} from 'wlc-engine/modules/history/components/history-name/history-name.params';
@@ -11,6 +12,7 @@ import {
     TournamentTopwinsBtnComponent,
     // eslint-disable-next-line max-len
 } from 'wlc-engine/modules/history/components/tournaments-history/components/tournament-topwins-btn/tournament-topwins-btn.component';
+import {rangeExceededMsg} from 'wlc-engine/modules/history/system/constants/history.constants';
 import {ITournamentWinsParams} from 'wlc-engine/modules/history/system/interfaces';
 import {TournamentHistory} from 'wlc-engine/modules/history/system/models/tournament-history/tournament-history.model';
 import {
@@ -22,28 +24,17 @@ export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 
+export interface ITournamentsHistoryRangeParams {
+    type: string;
+    historyType: string;
+}
 export interface ITournamentsHistoryCParams extends IComponentParams<Theme, Type, ThemeMod> {
-    transactionTableTheme: 'default' | 'mobile-app' | Theme,
+    tableConfig?: ITableCParams,
     /** wlc-profile-no-content params */
     emptyConfig?: IWrapperCParams;
+    historyRangeParams?: ITournamentsHistoryRangeParams;
+    rangeExceededConfig?: IWrapperCParams;
 }
-
-export const defaultParams: ITournamentsHistoryCParams = {
-    moduleName: 'history',
-    componentName: 'wlc-tournaments-history',
-    class: 'wlc-tournaments-history',
-    transactionTableTheme: 'default',
-    emptyConfig: {
-        components: [
-            {
-                name: 'profile.wlc-profile-no-content',
-                params: {
-                    text: gettext('No tournaments history'),
-                },
-            },
-        ],
-    },
-};
 
 export const tournamentsHistoryTableHeadConfig: ITableCol[] = [
     {
@@ -118,3 +109,37 @@ export const tournamentsHistoryTableHeadConfig: ITableCol[] = [
         wlcElement: 'wlc-profile-table__cell_status',
     },
 ];
+
+export const defaultParams: ITournamentsHistoryCParams = {
+    moduleName: 'history',
+    componentName: 'wlc-tournaments-history',
+    class: 'wlc-tournaments-history',
+    tableConfig: {
+        theme: 'default',
+        head: tournamentsHistoryTableHeadConfig,
+    },
+    emptyConfig: {
+        components: [
+            {
+                name: 'profile.wlc-profile-no-content',
+                params: {
+                    text: gettext('No tournaments history'),
+                },
+            },
+        ],
+    },
+    rangeExceededConfig: {
+        components: [
+            {
+                name: 'profile.wlc-profile-no-content',
+                params: {
+                    text: rangeExceededMsg,
+                },
+            },
+        ],
+    },
+    historyRangeParams: {
+        type: 'submenu',
+        historyType: 'tournaments',
+    },
+};

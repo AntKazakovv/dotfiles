@@ -68,12 +68,15 @@ interface ISubjects {
 interface IQueryParams {
     type?: string;
     event?: string;
+    dateFrom?: string;
+    dateTo?: string;
 }
 
 interface IGetTransactionsParams {
     startDate: DateTime;
     endDate: DateTime;
 }
+
 interface ITransactionRequestParams {
     startDate?: string;
     endDate?: string;
@@ -122,11 +125,17 @@ export class HistoryService {
     public async queryHistory<T extends BonusHistoryItemModel | TournamentHistory>(
         publicSubject: boolean,
         type: RestType,
+        dateFrom?: DateTime,
+        dateTo?: DateTime,
     ): Promise<T[]> {
-
         this.queryPromises[type].next(true);
         const queryParams: IQueryParams = {};
+        const startDateUTC: DateTime = dateFrom?.startOf('day').toUTC();
+        const endDateUTC: DateTime = dateTo?.startOf('day').toUTC();
+
         queryParams.type = 'history';
+        queryParams.dateFrom = startDateUTC.toFormat('y-LL-dd\'\T\'HH:mm:ss');
+        queryParams.dateTo = endDateUTC.toFormat('y-LL-dd\'\T\'HH:mm:ss');
 
         if (type === 'bonusesHistory') {
 
@@ -160,7 +169,7 @@ export class HistoryService {
         if (type === 'tournamentsHistory') {
 
             try {
-                const res: IData<ITournamentHistory[]> = await this.dataService.request(
+                const res: IData<ITournamentHistory[]> = await this.dataService.request<IData>(
                     'tournaments/tournaments', queryParams,
                 );
                 //TODO нужно удалить при рефакторинге
@@ -182,12 +191,29 @@ export class HistoryService {
                 publicSubject ? this.subjects.tournamentsHistory$.next(tournaments) : null;
                 return tournaments as T[];
             } catch (error) {
-                this.logService.sendLog({code: '13.0.0', data: error});
-
-                this.eventService.emit({
-                    name: 'TOURNAMENTS_FETCH_FAILED',
-                    data: error,
-                });
+                if (error.code === 400
+                    && error.errors.length === 1
+                    && error.errors[0] === 'Report interval is more than 90 days') {
+                    this.eventService.emit({
+                        name: NotificationEvents.PushMessage,
+                        data: <IPushMessageParams>{
+                            type: 'error',
+                            title: 'Error',
+                            message: rangeExceededMsg,
+                            wlcElement: 'notification_tournaments-history',
+                        },
+                    });
+                    return [];
+                } else {
+                    this.logService.sendLog({
+                        code: '13.0.0',
+                        data: error,
+                    });
+                    this.eventService.emit({
+                        name: 'TOURNAMENTS_FETCH_FAILED',
+                        data: error,
+                    });
+                }
             }
         }
     }

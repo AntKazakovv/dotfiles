@@ -25,7 +25,7 @@ export class HistoryFilterService {
         transaction: new BehaviorSubject<IHistoryFilter<TTransactionFilter>>(null),
         bet: new BehaviorSubject<IHistoryFilter>(null),
         cashback: new BehaviorSubject<IHistoryFilter>(null),
-        tournaments: new BehaviorSubject<IHistoryFilterValue<TTournamentsFilter>>(null),
+        tournaments: new BehaviorSubject<IHistoryFilter<TTournamentsFilter>>(null),
         bonus: new BehaviorSubject<IHistoryFilterValue<typeof TBonusFilter>>(null),
         mails: new BehaviorSubject<IHistoryFilter>(null),
     };
@@ -47,6 +47,8 @@ export class HistoryFilterService {
         },
         tournaments: {
             filterValue: 'all',
+            startDate: null,
+            endDate: null,
         },
         bonus: {
             filterValue: 'all',

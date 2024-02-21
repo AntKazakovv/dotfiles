@@ -10,10 +10,9 @@ import {BehaviorSubject} from 'rxjs';
 import {
     filter,
     takeUntil,
+    takeWhile,
 } from 'rxjs/operators';
 import {DateTime} from 'luxon';
-import _filter from 'lodash-es/filter';
-import _orderBy from 'lodash-es/orderBy';
 
 import {
     AbstractComponent,
@@ -26,19 +25,25 @@ import {
     DeviceType,
     ProfileType,
     InjectionService,
+    IDatepickerCParams,
+    IWrapperCParams,
 } from 'wlc-engine/modules/core';
+import {MultiWalletEvents} from 'wlc-engine/modules/multi-wallet';
 import {
     HistoryFilterService,
 } from 'wlc-engine/modules/history/system/services/history-filter.service';
 import {
     TTournamentsFilter,
-    IHistoryFilterValue,
+    IHistoryFilter,
 } from 'wlc-engine/modules/history/system/interfaces/history-filter.interface';
 import {HistoryService} from 'wlc-engine/modules/history/system/services/history.service';
 import {TournamentsService} from 'wlc-engine/modules/tournaments/system/services/tournaments/tournaments.service';
 import {TournamentHistory} from 'wlc-engine/modules/history';
-import {tournamentConfig} from 'wlc-engine/modules/history/system/config/history.config';
-import {MultiWalletEvents} from 'wlc-engine/modules/multi-wallet';
+import {
+    endDate,
+    startDate,
+    tournamentConfig,
+} from 'wlc-engine/modules/history/system/config/history.config';
 
 import * as Params from './tournaments-history.params';
 
@@ -51,12 +56,19 @@ import * as Params from './tournaments-history.params';
 export class TournamentsHistoryComponent extends AbstractComponent implements OnInit {
 
     public ready: boolean = false;
+    public pending: boolean = false;
     public showFilter: boolean = false;
     public override $params: Params.ITournamentsHistoryCParams;
     public tableData: ITableCParams;
+    public startDateInput: IDatepickerCParams = startDate;
+    public endDateInput: IDatepickerCParams = endDate;
     public filterSelect: ISelectCParams<TTournamentsFilter> = tournamentConfig.filterSelect;
     public tournaments$: BehaviorSubject<TournamentHistory[]> = new BehaviorSubject([]);
+    public reportIntervalExceeded: boolean = false;
+
     protected filterValue: TTournamentsFilter = 'all';
+    protected endDate: DateTime = DateTime.local().endOf('day');
+    protected startDate: DateTime = this.endDate.minus({month: 1});
     protected allTournaments: TournamentHistory[] = [];
     protected tournamentsService: TournamentsService;
 
@@ -80,91 +92,150 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
         this.tournamentsService ??= await this.injectionService.getService('tournaments.tournaments-service');
-        const profileType: ProfileType = this.configService.get<ProfileType>('$base.profile.type') || 'default';
-        await this.historyService.queryHistory(true, 'tournamentsHistory');
-        this.showFilter = this.actionService.getDeviceType() === DeviceType.Desktop;
-
-        if (this.showFilter) {
-            this.filterHandlers();
-        }
-        this.setSubscription();
+        this.allTournaments = await this.historyService.queryHistory(
+            true,
+            'tournamentsHistory',
+            this.startDate,
+            this.endDate,
+        );
 
         this.historyFilterService.setAllFilters('tournaments', {
             filterValue: this.filterValue,
+            startDate: this.startDate,
+            endDate: this.endDate,
         });
-        this.tableData = {
-            theme: this.$params.transactionTableTheme || 'default',
-            themeMod: profileType,
-            head: Params.tournamentsHistoryTableHeadConfig,
-            rows: this.tournaments$,
-            switchWidth: profileType === 'first' ? 1200 : 1024,
-        };
+
+        this.setMinMaxDate();
+        this.setSubscription();
 
         this.tournaments$.next(this.tournamentsFilter());
 
+        this.prepareTableParams();
         this.ready = true;
-        this.cdr.detectChanges();
+        this.cdr.markForCheck();
+    }
+
+    /**
+     * Date range of tournaments history
+     */
+    public get historyRangeParams(): Params.ITournamentsHistoryRangeParams {
+        return this.$params.historyRangeParams;
+    }
+
+    /**
+     *  Message when setting over 90 days range
+     */
+    public get rangeExceededConfig(): IWrapperCParams {
+        return this.$params.rangeExceededConfig;
+    }
+
+    /**
+     * Info when tournaments history haven't data
+     */
+    public get emptyConfig(): IWrapperCParams {
+        return this.$params.emptyConfig;
+    }
+
+    protected prepareTableParams(): void {
+        const profileType: ProfileType = this.configService.get<ProfileType>('$base.profile.type') || 'default';
+
+        this.tableData = this.$params.tableConfig;
+        this.tableData.themeMod ??= profileType;
+        this.tableData.rows = this.tournaments$;
+        this.tableData.switchWidth ??= profileType === 'first' ? 1200 : 1024;
     }
 
     protected tournamentsFilter(): TournamentHistory[] {
         let result: TournamentHistory[] = this.allTournaments || [];
 
         if (this.filterValue !== 'all') {
-            result = _filter(result, (item: TournamentHistory): boolean => {
+            result = result.filter((item: TournamentHistory): boolean => {
                 return item.status.toString() === this.filterValue;
             });
         }
 
-        return _orderBy(
-            result,
-            (item: TournamentHistory): number => DateTime.fromSQL(item.end).toSeconds(),
-            'desc',
-        );
+        return result.filter((item: TournamentHistory): boolean => {
+            return DateTime.fromSQL(item.end).toLocal() >= this.startDate
+                && DateTime.fromSQL(item.end).toLocal() <= this.endDate;
+        });
+    }
+
+    protected setMinMaxDate(): void {
+        const disableSince = this.endDate.toObject();
+        const disableUntil = this.startDate.toObject();
+
+        this.startDateInput.control.setValue(this.startDate);
+        this.endDateInput.control.setValue(this.endDate);
+
+        if (this.startDateInput.datepickerOptions) {
+            this.startDateInput.datepickerOptions.minDate = new Date(
+                disableSince.year,
+                disableSince.month - 1,
+                disableSince.day,
+            );
+
+            this.startDateInput.datepickerOptions.maxDate = new Date(
+                disableUntil.year,
+                disableUntil.month - 1,
+                disableUntil.day,
+            );
+        }
     }
 
     protected setSubscription(): void {
-        this.historyFilterService.getFilter('tournaments')
-            .pipe(
-                filter(
-                    (data: IHistoryFilterValue<TTournamentsFilter>): boolean => {
-                        return !!data && this.filterValue !== data.filterValue;
-                    },
-                ),
-                takeUntil(this.$destroy),
-            )
-            .subscribe((data: IHistoryFilterValue<TTournamentsFilter>): void => {
-                this.filterSelect.control.setValue(this.filterValue = data.filterValue);
-                this.tournaments$.next(this.tournamentsFilter());
-                this.cdr.detectChanges();
-            });
-
-        this.historyService.getObserver<TournamentHistory>('tournamentsHistory')
-            .pipe(takeUntil(this.$destroy))
-            .subscribe((value: TournamentHistory[]): void => {
-                this.allTournaments = value;
-                this.tournaments$.next(this.tournamentsFilter());
-            });
-
-        this.filterHandlers();
-
         this.actionService.deviceType()
             .pipe(takeUntil(this.$destroy))
             .subscribe((type: DeviceType): void => {
                 this.showFilter = type === DeviceType.Desktop;
-                this.cdr.detectChanges();
+
+                if (this.showFilter) {
+                    this.filterHandlers();
+                }
+
+                this.cdr.markForCheck();
             });
+
+        this.historyFilterService.getFilter('tournaments')
+            .pipe(
+                filter((data: IHistoryFilter<TTournamentsFilter>): boolean => !!data),
+                takeUntil(this.$destroy),
+            )
+            .subscribe(async (data: IHistoryFilter<TTournamentsFilter>): Promise<void> => {
+                this.filterSelect.control.setValue(this.filterValue = data.filterValue);
+                const {startDate, endDate} = data;
+                const datesChanged = (!startDate?.equals(this.startDate) || !endDate?.equals(this.endDate));
+
+                if (datesChanged) {
+                    this.startDateInput.control.setValue(data.startDate);
+                    this.endDateInput.control.setValue(data.endDate);
+                    await this.changeDateHandler(startDate, endDate);
+                }
+
+                this.setMinMaxDate();
+                this.tournaments$.next(this.tournamentsFilter());
+                this.cdr.markForCheck();
+            });
+
+        this.filterHandlers();
 
         this.eventService.subscribe([
             {name: MultiWalletEvents.CurrencyConversionChanged},
-        ], (): void => {
-            this.historyService.queryHistory(true, 'tournamentsHistory');
+        ], async (): Promise<void> => {
+            this.allTournaments = await this.historyService.queryHistory(
+                true,
+                'tournamentsHistory',
+                this.startDate,
+                this.endDate,
+            );
+            this.tournaments$.next(this.tournamentsFilter());
         }, this.$destroy);
     }
 
     protected filterHandlers(): void {
         this.filterSelect.control.valueChanges
             .pipe(
-                filter((filterValue: TTournamentsFilter): boolean => this.filterValue != filterValue),
+                filter((filterValue: TTournamentsFilter): boolean => this.filterValue !== filterValue),
+                takeWhile(() => this.showFilter),
                 takeUntil(this.$destroy),
             )
             .subscribe((filterValue: TTournamentsFilter): void => {
@@ -172,7 +243,95 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
                     filterValue: this.filterValue = filterValue,
                 });
                 this.tournaments$.next(this.tournamentsFilter());
-                this.cdr.detectChanges();
+                this.cdr.markForCheck();
             });
+
+        this.startDateInput.control.valueChanges
+            .pipe(
+                filter((startDate: DateTime): boolean => !this.startDate.equals(startDate)),
+                takeWhile(() => this.showFilter),
+                takeUntil(this.$destroy),
+            )
+            .subscribe(async (startDate: DateTime): Promise<void> => {
+                await this.changeDateHandler(startDate, this.endDate);
+                this.pending = true;
+                this.tournaments$.next(this.tournamentsFilter());
+                this.pending = false;
+                this.cdr.markForCheck();
+            });
+
+        this.endDateInput.control.valueChanges
+            .pipe(
+                filter((endDate: DateTime): boolean => !this.endDate.equals(endDate)),
+                takeWhile(() => this.showFilter),
+                takeUntil(this.$destroy),
+            )
+            .subscribe(async (endDate: DateTime): Promise<void> => {
+                await this.changeDateHandler(this.startDate, endDate);
+                this.pending = true;
+                this.tournaments$.next(this.tournamentsFilter());
+                this.pending = false;
+                this.cdr.markForCheck();
+            });
+
+        this.eventService.filter(
+            [
+                {name: 'TOURNAMENT_TOP_SUCCEEDED'},
+                {name: 'TOURNAMENT_TOP_FAILED'},
+                {name: 'TOURNAMENT_LEAVE_SUCCEEDED'},
+                {name: 'TOURNAMENT_LEAVE_FAILED'},
+                {name: 'TOURNAMENT_JOIN_SUCCEEDED'},
+                {name: 'TOURNAMENT_JOIN_FAILED'},
+                {name: 'TOURNAMENT_USER_SUCCEEDED'},
+                {name: 'TOURNAMENT_USER_FAILED'},
+            ],
+            this.$destroy,
+        ).subscribe({
+            next: async (): Promise<void> => {
+                this.allTournaments = await this.historyService.queryHistory(
+                    true,
+                    'tournamentsHistory',
+                    this.startDate,
+                    this.endDate,
+                );
+                this.setMinMaxDate();
+                this.tournaments$.next(this.tournamentsFilter());
+                this.cdr.markForCheck();
+            },
+        });
+    }
+
+    protected async changeDateHandler(startDate: DateTime, endDate: DateTime): Promise<void> {
+        const isStartDateEarlier: boolean = startDate.toMillis() < this.startDate.toMillis();
+        const isEndDateLater: boolean = endDate.toMillis() > this.endDate.toMillis();
+
+        if (isStartDateEarlier && !isEndDateLater) {
+            this.startDate = startDate;
+        } else if (isEndDateLater && !isStartDateEarlier) {
+            this.endDate = endDate;
+        } else {
+            this.startDate = startDate;
+            this.endDate = endDate;
+        }
+
+        const newFilterValue: IHistoryFilter<TTournamentsFilter> = {
+            startDate: startDate,
+            endDate: endDate,
+        };
+        this.historyFilterService.setFilter('tournaments', newFilterValue);
+        const intervalExceeded: boolean = endDate.startOf('day').minus({days: 90}) > startDate;
+
+        if ((isStartDateEarlier || isEndDateLater)
+            || (intervalExceeded !== this.reportIntervalExceeded)) {
+            this.pending = true;
+            this.allTournaments = await this.historyService.queryHistory(
+                true,
+                'tournamentsHistory',
+                this.startDate,
+                this.endDate,
+            );
+            this.reportIntervalExceeded = intervalExceeded;
+            this.pending = false;
+        }
     }
 }

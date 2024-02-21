@@ -15,6 +15,10 @@
             .wlc-select[wlc-select] {
                 width: ef.get-value($themeDefault, 'filterWidth');
             }
+
+            .wlc-datepicker {
+                max-width: ef.get-value($themeDefault, 'datepickerFilterWidth');
+            }
         }
 
         .wlc-table::ng-deep {
