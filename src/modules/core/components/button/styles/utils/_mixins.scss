@@ -101,17 +101,25 @@
 }
 
 @mixin textOnly {
-    min-width: unset;
-    background: unset;
-    border-color: transparent;
+    min-width: ef.get-value($themeTextOnly, 'minWidth');
+    margin: ef.get-value($themeTextOnly, 'margin');
+    background: ef.get-value($themeTextOnly, 'background');
+    border-color: ef.get-value($themeTextOnly, 'borderColor');
+    box-shadow: ef.get-value($themeTextOnly, 'boxShadow');
 
     .wlc-btn__text {
         @include bm.transition(color);
-        color: ef.get-value($themeDefault, 'fontColorSecondary');
+        color: ef.get-value($themeTextOnly, 'fontColor');
     }
 
     @include bm.hover {
-        border-color: ef.get-value($themeDefault, 'borderColorRead');
+        background: ef.get-value($themeTextOnly, 'backgroundHover');
+        border-color: ef.get-value($themeTextOnly, 'borderColorHover');
+        box-shadow: ef.get-value($themeTextOnly, 'boxShadowHover');
+
+        .wlc-btn__text {
+            color: ef.get-value($themeTextOnly, 'fontColorHover');
+        }
     }
 }
 

@@ -13,9 +13,9 @@ import {
 
 export type Type = 'default' | 'resolved' | 'rejected' | 'pending' | 'disabled' | CustomType;
 export type Theme = 'default' | 'skew' | 'rounding' | 'circled' | 'borderless' | 'icon' | 'cleared' |
-    'resolve' | 'theme-wolf-link' | 'wolf-rounded' | CustomType;
+    'resolve' | 'theme-wolf-link' | 'wolf-rounded' | 'textonly' | CustomType;
 export type Size = 'default' | 'md' | 'sm' | 'big' | CustomType;
-export type ThemeMod = 'default' | 'secondary' | 'readmore' | 'textonly' | CustomType;
+export type ThemeMod = 'default' | 'secondary' | 'readmore' | CustomType;
 export type Index = number | string | null;
 export type AutoModifiers = Theme | Size | ThemeMod | 'loading';
 export type THrefTarget = '_self' | '_blank' | '_parent' | '_top';

@@ -71,7 +71,7 @@ export const defaultParams: IBonusModalCParams = {
                         type: 'simple',
                     },
                     btnLoadMore: {
-                        themeMod: 'textonly',
+                        theme: 'textonly',
                     },
                 },
             },

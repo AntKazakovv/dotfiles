@@ -15,10 +15,6 @@
             @include buttonReadMore;
         }
 
-        &.wlc-btn--theme-mod-textonly {
-            @include textOnly;
-        }
-
         &.wlc-btn--size-md {
             @include text.get-text-style(
                 ef.get-value($themeDefault, 'textStyleMd'),

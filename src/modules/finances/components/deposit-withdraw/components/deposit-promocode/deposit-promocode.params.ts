@@ -33,8 +33,7 @@ export const defaultParams: IDepositPromoCodeCParams = {
         },
     },
     clearBtnParams: {
-        theme: 'default',
-        themeMod: 'textonly',
+        theme: 'textonly',
         common: {
             text: 'Cancel',
         },

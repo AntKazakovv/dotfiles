@@ -1,0 +1,4 @@
+.wlc-btn--theme-textonly:host {
+    @include buttonBase;
+    @include textOnly;
+}

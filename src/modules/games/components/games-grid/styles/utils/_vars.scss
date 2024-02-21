@@ -105,10 +105,6 @@ $themeDefault: map-merge((
     //mod simple
     'simpleGridColumns': repeat(auto-fill, minmax(120px, 1fr)),
     'simpleGap': ef.size(2),
-    'simpleBtnTextOnlyMargin': ef.size(-2) 0 ef.size(-1),
-    'simpleBtnTextOnlyColor': var(--mc-main),
-    'simpleBtnTextOnlyColorHover': var(--mc-main-l20),
-    'simpleBtnTextOnlyBorderColor': transparent,
 ), $customThemeDefault);
 
 $customCommonStyles: () !default;

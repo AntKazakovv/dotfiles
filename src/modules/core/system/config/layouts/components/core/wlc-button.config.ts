@@ -365,7 +365,7 @@ export namespace wlcButton {
             auth: false,
         },
         params: {
-            themeMod: 'textonly',
+            theme: 'textonly',
             common: {
                 customModifiers: 'mobile-login',
                 text: gettext('Login'),

@@ -85,8 +85,7 @@ export const defaultParams: IGamblingBanModalParams = {
         },
         signOut: {
             button: {
-                theme: 'cleared',
-                themeMod: 'textonly',
+                theme: 'textonly',
                 common: {text: gettext('Sign out')},
             },
         },

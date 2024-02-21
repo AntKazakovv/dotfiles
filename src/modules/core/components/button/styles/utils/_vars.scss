@@ -52,3 +52,18 @@ $themeWolfRounded: map-merge((
     'padding': 3px ef.size(3),
     'counterMargin': 0 0 0 5px,
 ), $customThemeWolfRounded);
+
+$customThemeTextOnly: () !default;
+$themeTextOnly: map-merge((
+    'margin': 0,
+    'minWidth': unset,
+    'background': unset,
+    'borderColor': transparent,
+    'boxShadow': none,
+    'fontColor': var(--mc-main),
+
+    'fontColorHover': var(--mc-main-l20),
+    'backgroundHover': unset,
+    'borderColorHover': transparent,
+    'boxShadowHover': none,
+), $customThemeTextOnly);
