@@ -35,7 +35,7 @@
                }"
                [attr.data-wlc-element]="fieldWlcElement"
                (click)="openDropdown()"
-               (input)="searchItems()">
+               (input)="executeSearch()">
     </ng-container>
     <div *ngIf="!control.disabled && control.touched && !control.valid && $params.name"
          wlc-form-control

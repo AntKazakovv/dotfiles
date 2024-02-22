@@ -22,10 +22,16 @@ import {UntypedFormControl} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import {
     BehaviorSubject,
+    Subject,
     fromEvent,
 } from 'rxjs';
-import {takeUntil, first} from 'rxjs/operators';
+import {
+    takeUntil,
+    first,
+    debounceTime,
+} from 'rxjs/operators';
 
+import _some from 'lodash-es/some';
 import _union from 'lodash-es/union';
 import _kebabCase from 'lodash-es/kebabCase';
 import _findIndex from 'lodash-es/findIndex';
@@ -47,6 +53,9 @@ import {
     GlobalHelper,
     ISelectOptions,
 } from 'wlc-engine/modules/core';
+
+import {suggestCountry} from 'wlc-engine/modules/core/components/select/helpers/suggest-country.helper';
+import {mergeCountryAliases} from 'wlc-engine/modules/core/components/select/helpers/merge-country-aliases.helper';
 
 import * as Params from './select.params';
 
@@ -98,6 +107,8 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
 
     protected constantValues: IIndexing<BehaviorSubject<Params.ISelectOptions[]>> = {};
     protected clearedValue: unknown;
+
+    private searchSubject$ = new Subject<string>();
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISelectCParams,
@@ -200,6 +211,8 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
         this.control.statusChanges
             .pipe(takeUntil(this.$destroy))
             .subscribe(() => this.cdr.markForCheck());
+
+        this.handleSmartSearch();
     }
 
     public ngAfterViewInit(): void {
@@ -377,6 +390,29 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
     }
 
     /**
+     * The method resolve what method or methods are executing to search items (countries)
+     * List of possible execute methods: searchItems(), modifiedSearchItems(), searchInAliases(), smartSearch()
+     * @method executeSearch
+     * @returns {void} void
+     */
+    public executeSearch(): void {
+        const useAliasCheck: boolean = this.$params?.deepSearch?.useAliasCheck;
+        const useSmartSearch: boolean = this.$params?.deepSearch?.useSmartSearch;
+        const isCountrySelect: boolean = this.$params.options === 'countries';
+
+        if (useAliasCheck && isCountrySelect) {
+            this.modifiedSearchItems();
+            this.searchInAliases();
+        } else {
+            this.searchItems();
+        }
+
+        if (useSmartSearch) {
+            this.smartSearch();
+        }
+    }
+
+    /**
      * The method search include substr in items && sort array by index
      *
      * @method searchItems
@@ -392,6 +428,94 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
             this.foundItems = _sortBy(this.foundItems, sortFn);
             this.getSelectedItemIndex();
         }
+    }
+
+    /**
+     * The method search work like original, but try to find items that match from beginning of the string.
+     * Sometimes original method works wrong with smart search and try to match in middle of the variant.
+     *
+     * @method modifiedSearchItems
+     * @returns {void} void
+     */
+    public modifiedSearchItems(): void {
+        const searchText: string = GlobalHelper.shieldingString(this.searchText);
+        const regExp: RegExp = new RegExp(`^(${searchText})`, this.$params.insensitiveSearch ? 'i' : '');
+        this.foundItems = _cloneDeep(_filter(this.$params.items, option => !!option.title.toString().match(regExp)));
+
+        if (this.searchText) {
+            const sortFn = (obj: ISelectOptions): number => obj.title.toString().match(regExp)?.index;
+            this.foundItems = _sortBy(this.foundItems, sortFn);
+            this.getSelectedItemIndex();
+        }
+    }
+
+    /**
+     * The method try to search items in aliases if user made mistake.
+     *
+     * @method searchInAliases
+     * @returns {void} void
+     */
+    public searchInAliases(): void {
+        if (this.foundItems.length) {
+            return;
+        }
+
+        const searchText: string = GlobalHelper.shieldingString(this.searchText);
+        const regExp: RegExp = new RegExp(`(${searchText})`, this.$params.insensitiveSearch ? 'i' : '');
+
+        const aliasFilterFn = (item: Params.IAlias): boolean => _some(item.aliases, alias => alias.match(regExp));
+        const matchedAliases: Params.IAlias[] = _filter(this.prepareCountryAliases(), aliasFilterFn);
+        const matchedTitles: string[] = _map(matchedAliases, (item) => item.value);
+
+        const filterFn = (item: ISelectOptions): boolean => matchedTitles.includes(item.value.toString());
+        this.foundItems = _filter(this.$params.items, filterFn);
+        this.getSelectedItemIndex();
+    }
+
+    /**
+     * Prepare country aliases.
+     *
+     * @method prepareCountryAliases
+     * @returns {IAlias[]} merged aliases from params with all countries that contains iso2 and iso3
+     */
+    private prepareCountryAliases(): Params.IAlias[] {
+        const aliases: Params.IAlias[] = this.configService.get('$aliases.countryAliases');
+        const countries = this.$params.items as ICountry[];
+
+        return mergeCountryAliases(aliases, countries);
+    }
+
+    /**
+     * The method subscribe on searchSubject$ and allow to handle search by using Levenshtein suggestions.
+     *
+     * @method handleSmartSearch
+     * @returns {void} void
+     */
+    public handleSmartSearch():void {
+        const debounceTimeMs: number = 500;
+
+        this.searchSubject$
+            .pipe(debounceTime(debounceTimeMs), takeUntil(this.$destroy))
+            .subscribe((inputValue) => {
+                this.foundItems = suggestCountry(inputValue,this.$params.items, this.$params.deepSearch.searchLimit);
+                this.cdr.markForCheck();
+            });
+    }
+
+    /**
+     * The method send search text to searchSubject$
+     * that allow search items by using Levenshtein distance if user made mistake.
+     *
+     * @method smartSearch
+     * @returns {void} void
+     */
+    public smartSearch(): void {
+        if (this.foundItems.length) {
+            return;
+        }
+
+        const searchText: string = GlobalHelper.shieldingString(this.searchText);
+        this.searchSubject$.next(searchText);
     }
 
     /**

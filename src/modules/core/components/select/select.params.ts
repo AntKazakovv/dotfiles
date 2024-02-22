@@ -15,7 +15,8 @@ export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
 export type TComponentsWithIcon = 'phoneCode' | 'countryCode';
 
-export interface ISelectCParams<V = unknown> extends IComponentParams<ComponentTheme, ComponentType, string> {
+export interface ISelectCParams<V = unknown>
+extends IComponentParams<ComponentTheme, ComponentType, string>, IDeepSearch {
     name: string;
     value?: V;
     id?: string;
@@ -52,7 +53,7 @@ export interface ISelectCParams<V = unknown> extends IComponentParams<ComponentT
     updateOnControlChange?: boolean;
 }
 
-export interface ISelectOptions<V = unknown> {
+export interface ISelectOptions<V = unknown> extends ILevenshteinDistance {
     value: V;
     title: string | number;
     /**
@@ -67,6 +68,26 @@ export interface ISelectOptions<V = unknown> {
 export interface ISelectOptionsWithIcon {
     use: boolean;
     components: TComponentsWithIcon[];
+}
+export interface IAlias {
+    aliases: string[],
+    title: string,
+    value: string
+};
+
+export interface ILevenshteinDistance {
+    /**
+     * Levenshtein distance. Need for smart search if user made mistake.
+     */
+    distance?: number;
+}
+
+export interface IDeepSearch {
+    deepSearch?: {
+        useAliasCheck?: boolean;
+        useSmartSearch?: boolean;
+        searchLimit?: number;
+    }
 }
 
 export const defaultParams: Partial<ISelectCParams> = {
