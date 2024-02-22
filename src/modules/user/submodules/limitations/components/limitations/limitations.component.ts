@@ -26,7 +26,10 @@ import {
     ModalService,
     NotificationEvents,
 } from 'wlc-engine/modules/core';
-import {UserService} from 'wlc-engine/modules/user';
+import {
+    UserInfo,
+    UserService,
+} from 'wlc-engine/modules/user';
 import {
     LimitationService,
 } from 'wlc-engine/modules/user/submodules/limitations/system/services/limitation/limitation.service';
@@ -328,6 +331,21 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
                 });
             }
         });
+
+        if (this.configService.get<string>('appConfig.license') === 'malta'
+            && !selfExclusion.CoolOffTime
+            && this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'})
+                .getValue()?.status === 2
+        ) {
+            limits.push({
+                type: 'CoolOffTime',
+                typeText: Params.limitTypeTexts['CoolOffTime'],
+                amountValue: {
+                    valueType: 'CoolOffTime',
+                    value: false,
+                },
+            });
+        }
 
         this.limits.next(limits);
         this.loading = false;
