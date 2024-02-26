@@ -125,5 +125,5 @@ export const $base: IBaseConfig = {
             'agreedWithTermsAndConditions',
         ],
     },
-    queryParams: ['message', 'error', 'promocode', 'popup', 'wheel', 'utm_'],
+    queryParams: ['message', 'error', 'promocode', 'popup', 'wheel', 'utm_', 'bonus'],
 };

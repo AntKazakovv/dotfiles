@@ -352,6 +352,25 @@ export const MODALS_LIST: IModalList = {
             size: 'lg',
         },
     },
+    inaccessibleBonus: {
+        config: {
+            id: 'inaccessible-bonus',
+            modalTitle: gettext('Information'),
+            modalMessage: gettext('The selected bonus is unavailable. You can check out other bonuses'),
+            textAlign: 'center',
+            rejectBtnVisibility: false,
+            showConfirmBtn: true,
+            confirmBtnParams: {
+                wlcElement: 'button__see-all-bonuses',
+                common: {
+                    text: gettext('See all bonuses'),
+                    sref: 'app.profile.loyalty-bonuses.main',
+                },
+            },
+            centered: true,
+            size: 'md',
+        },
+    },
     'social-register': {
         config: {
             id: 'social-register',

@@ -435,6 +435,60 @@ export class BonusesService {
     }
 
     /**
+     * Open bonus modal by bonusId from URL
+     *
+     * @param {IIndexing<string>} bonusId
+     * @returns {Promise<void>}
+     */
+    public async processBonus(bonusId: number): Promise<void> {
+        try {
+            await this.configService.ready;
+
+            if (this.configService.get<BehaviorSubject<boolean>>('$user.isAuth$')?.getValue()) {
+                const bonusesSubscription: Subscription = this.getSubscribe({
+                    useQuery: true,
+                    observer: {
+                        next: (bonuses: Bonus[]): void => {
+                            if (bonuses?.length) {
+                                const bonus: Bonus | undefined = _find(bonuses, (bonus: Bonus): boolean => {
+                                    return bonus.id === bonusId;
+                                });
+
+                                if (bonus?.status === 1 && !bonus.showOnly) {
+                                    this.modalService.showModal('bonusModal', {bonus});
+                                } else {
+                                    this.modalService.showModal('inaccessibleBonus');
+                                }
+
+                                bonusesSubscription.unsubscribe();
+                            }
+                        },
+                    },
+                    type: 'any',
+                });
+            } else {
+                const subscription: Subscription = this.configService.get<BehaviorSubject<boolean>>('$user.isAuth$')
+                    .subscribe((isAuth: boolean): void => {
+                        if (isAuth) {
+                            this.processBonus(bonusId).then((): void => {
+                                subscription.unsubscribe();
+                            });
+                        }
+                    });
+
+                if (!this.modalService.getActiveModal('signup')) {
+                    this.modalService.showModal('login');
+                }
+            }
+        } catch (error) {
+            this.showError(
+                error.errors || error,
+                gettext('Bonus error'),
+            );
+        }
+    }
+
+    /**
      * Get bonus by id
      *
      * @param {number} id bonus id

@@ -282,6 +282,11 @@ export class ActionService {
             this.bonusesService.processPromocode(initialPath.promocode);
         }
 
+        if (initialPath.bonus) {
+            this.bonusesService ??= await this.injectionService.getService<BonusesService>('bonuses.bonuses-service');
+            this.bonusesService.processBonus(_toNumber(initialPath.bonus));
+        }
+
         this.openPopup(initialPath);
 
         this.joinToWheel(initialPath);
