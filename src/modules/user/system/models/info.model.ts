@@ -236,9 +236,16 @@ export class UserInfo extends AbstractModel<IUserInfo> {
 
     /** Get terms version */
     public getTermsVersion(version: string): string | DateTime {
-        const date = DateTime.fromSQL(version, {zone: 'utc'});
+        let date = DateTime.fromSQL(version, {zone: 'utc'});
         if (date.invalidReason) {
-            return version;
+            // доп проверка для версий термсов
+            date = DateTime.fromFormat(version, 'dd.MM.yyyy', {zone: 'utc'});
+
+            if (date.invalidReason) {
+                return version;
+            } else {
+                return date;
+            }
         } else {
             return date;
         }

@@ -421,7 +421,6 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
             this.systems = systems.filter((system) => system.checkTermsVersion);
         }
 
-        this.systems = systems;
         this.setPaymentsIconsList();
 
         if (this.useTags) {
