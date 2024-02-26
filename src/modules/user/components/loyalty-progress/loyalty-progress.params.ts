@@ -10,6 +10,13 @@ export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
 export type ComponentThemeMod = 'default' | CustomType;
 
+export interface ILoyaltyData {
+    level: number,
+    levelName: string,
+    points: number,
+    nextLevelPoints: number
+}
+
 export interface ILevelViewData {
     levelName?: string;
     levelIcon?: string;

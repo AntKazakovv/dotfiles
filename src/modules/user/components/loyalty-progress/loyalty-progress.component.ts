@@ -9,19 +9,23 @@ import {
 
 import {Observable} from 'rxjs';
 import {
-    distinctUntilChanged,
     map,
     skipWhile,
     startWith,
+    takeUntil,
+    distinctUntilChanged,
+    mergeMap,
 } from 'rxjs/operators';
 import _find from 'lodash-es/find';
 import _merge from 'lodash-es/merge';
+import _isEqual from 'lodash-es/isEqual';
 
 import {
     AbstractComponent,
     ConfigService,
     GlobalHelper,
     ILayoutComponent,
+    InjectionService,
     IWrapperCParams,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
@@ -48,16 +52,32 @@ export class LoyaltyProgressComponent extends AbstractComponent implements OnIni
     public override $params: Params.ILoyaltyProgressCParams;
     public levels: LoyaltyLevelModel[];
     public levelData$: Observable<Params.ILevelViewData> = this.userService.userInfo$.pipe(
-        skipWhile(v => !v),
-        distinctUntilChanged(),
+        mergeMap(async (userInfo: UserInfo): Promise<UserInfo> => {
+            if (!this.levels) {
+                this.loyaltyLevelsService = await this.injectionService.getService('loyalty.loyalty-levels-service');
+                this.levels  = await this.loyaltyLevelsService.getLoyaltyLevelsSafely();
+            }
+            return userInfo;
+        }),
+        skipWhile((userInfo: UserInfo) => !userInfo?.data?.loyalty?.Level),
+        map((userInfo: UserInfo): Params.ILoyaltyData => ({
+            level: userInfo.level,
+            levelName: userInfo.levelName,
+            points: userInfo.points,
+            nextLevelPoints: userInfo.nextLevelPoints,
+        })),
+        distinctUntilChanged(_isEqual),
         map(this.infoToViewData.bind(this)),
+        takeUntil(this.$destroy),
     ).pipe(startWith({}));
+
+    protected loyaltyLevelsService: LoyaltyLevelsService;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILoyaltyProgressCParams,
         configService: ConfigService,
-        private userService: UserService,
-        private loyaltyLevelsService: LoyaltyLevelsService,
+        protected userService: UserService,
+        protected injectionService: InjectionService,
         cdr: ChangeDetectorRef,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
@@ -65,25 +85,23 @@ export class LoyaltyProgressComponent extends AbstractComponent implements OnIni
 
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit(GlobalHelper.prepareParams(this, ['maxProgressText', 'showLevelIcon', 'showLinkToLevels']));
-
-        this.levels = await this.loyaltyLevelsService.getLoyaltyLevelsSafely();
     }
 
-    private infoToViewData(userInfo: UserInfo): Params.ILevelViewData {
+    private infoToViewData(loyaltyData: Params.ILoyaltyData): Params.ILevelViewData {
         let wrapperParams: IWrapperCParams = null;
 
         if (this.$params.common?.showLevelIcon && this.$params.common.levelIconComponent) {
             const customLevelIcon: string = _find(
                 this.levels,
-                (level: LoyaltyLevelModel): boolean => level.level === userInfo.level,
+                (level: LoyaltyLevelModel): boolean => level.level === loyaltyData.level,
             )?.image;
-            const defaultLevelIcon: string = this.loyaltyLevelsService.getLevelIcon(userInfo.level);
+            const defaultLevelIcon: string = this.loyaltyLevelsService.getLevelIcon(loyaltyData.level);
 
             const loyaltyLevelComponent: ILayoutComponent = _merge(
                 this.$params.common.levelIconComponent,
                 {
                     params: {
-                        level: userInfo.level.toString(),
+                        level: loyaltyData.level.toString(),
                         image: customLevelIcon || defaultLevelIcon,
                     },
                 },
@@ -97,11 +115,12 @@ export class LoyaltyProgressComponent extends AbstractComponent implements OnIni
         }
 
         return {
-            levelName: userInfo.levelName,
-            userPoints: userInfo.points,
-            nextLevelPoints: userInfo.nextLevelPoints,
-            percentProgress: !userInfo.nextLevelPoints ? 100
-                : userInfo.points / userInfo.nextLevelPoints * 100,
+            levelName: loyaltyData.levelName,
+            userPoints: loyaltyData.points,
+            nextLevelPoints: loyaltyData.nextLevelPoints,
+            percentProgress: !loyaltyData.nextLevelPoints
+                ? 100
+                : loyaltyData.points / loyaltyData.nextLevelPoints * 100,
             wrapperParams,
         };
     }

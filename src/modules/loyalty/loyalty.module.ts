@@ -35,6 +35,10 @@ export const components = {
     'wlc-level-number': LevelNumberComponent,
 };
 
+export const services = {
+    'loyalty-levels-service': LoyaltyLevelsService,
+};
+
 @NgModule({
     imports: [
         TranslateModule,
