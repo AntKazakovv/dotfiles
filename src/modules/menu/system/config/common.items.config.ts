@@ -42,26 +42,6 @@ export namespace commonMenuItems {
         auth: true,
     };
 
-    export const recommendations: MenuParams.IMenuItem = {
-        name: gettext('Suggested for you'),
-        type: 'sref',
-        icon: 'recommendations',
-        class: 'recommendations',
-        params: {
-            state: {
-                name: 'app.catalog',
-                params: {
-                    category: 'recommendations',
-                },
-            },
-            href: {
-                url: '/catalog/recommendations',
-                baseSiteUrl: true,
-            },
-        },
-        auth: true,
-    };
-
     export const lobby: MenuParams.IMenuItem = {
         name: gettext('Lobby'),
         type: 'sref',

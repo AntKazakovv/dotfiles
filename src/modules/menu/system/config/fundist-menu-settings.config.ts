@@ -31,15 +31,6 @@ export const fundistSettings: IMenu = {
                 device: 'all',
             },
             {
-                type: 'page',
-                id: 'recommendations',
-                name: {
-                    en: 'Suggested for you',
-                },
-                order: 35,
-                device: 'all',
-            },
-            {
                 type: 'category',
                 id: 'new',
                 name: {
@@ -160,15 +151,6 @@ export const fundistSettings: IMenu = {
                     en: 'Last played',
                 },
                 order: 30,
-                device: 'all',
-            },
-            {
-                type: 'category',
-                id: 'recommendations',
-                name: {
-                    en: 'Suggested for you',
-                },
-                order: 35,
                 device: 'all',
             },
             {
@@ -346,15 +328,6 @@ export const fundistSettings: IMenu = {
                     en: 'Last played',
                 },
                 order: 20,
-                device: 'all',
-            },
-            {
-                type: 'category',
-                id: 'recommendations',
-                name: {
-                    en: 'Suggested for you',
-                },
-                order: 25,
                 device: 'all',
             },
             {

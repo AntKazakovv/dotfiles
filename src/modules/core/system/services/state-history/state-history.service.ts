@@ -5,7 +5,8 @@ import {
 } from '@uirouter/core';
 
 import _includes from 'lodash-es/includes';
-import _findLast from 'lodash-es/findLast';
+import _find from 'lodash-es/find';
+import _reverse from 'lodash-es/reverse';
 
 export interface IState {
     state: StateObject,
@@ -16,6 +17,7 @@ export interface IState {
 export class StateHistoryService {
     protected visitedStates: string[] = [];
 
+    private _lastNotGamePlayState: IState = null;
     private states: IState[] = [];
     private readonly maxStatesLength = 5;
 
@@ -29,15 +31,6 @@ export class StateHistoryService {
             this.states.shift();
         }
     }
-
-    public getPreviousState(): IState {
-        return this.states[this.states.length - 2];
-    }
-
-    public getCurrentState(): IState {
-        return this.states[this.states.length - 1];
-    }
-
 
     /**
      * Push state name in array visitedStates
@@ -64,7 +57,7 @@ export class StateHistoryService {
      * @returns IPrevState
      */
     public get lastNotGamePlayState(): IState {
-        return _findLast(this.states, (stateInfo): boolean => {
+        return _find(_reverse(this.states), (stateInfo): boolean => {
             return !_includes(['app.gameplay', 'app.run-game'], stateInfo.state.name);
         });
     }

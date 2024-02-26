@@ -426,7 +426,7 @@ export class MenuHelper {
         options: IParseSettingsOptions,
     ): MenuConfigItem[] {
 
-        const specialCategories: string[] = ['favourites', 'lastplayed', 'recommendations'];
+        const specialCategories: string[] = ['favourites', 'lastplayed'];
 
         return _reduce(_orderBy(items, 'order', 'asc'), (items: MenuConfigItem[], item: IMenuItem) => {
 

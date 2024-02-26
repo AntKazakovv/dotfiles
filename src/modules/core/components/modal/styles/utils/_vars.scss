@@ -475,21 +475,4 @@ $themeDefault: map-merge((
     'paddingSelectionWinner': ef.size(6) 0 ef.size(8),
     'paddingResultWheelModal': ef.size(6),
     //wheel-modals
-
-    // recommended-modal
-    'recommendedWrapperHeight': 100%,
-    'recommendedWrapperPadding': 0,
-    'recommendedDialogHeight': 100%,
-    'recommendedDialogMargin': 0 auto,
-    'recommendedDialogBg': transparent,
-    'recommendedBodyBg': radial-gradient(rgba(0, 182, 239, 0.6) -70%, var(--mc-bg-o8) 74%),
-    'recommendedBodyDisplay': flex,
-    'recommendedBodyAlignItems': center,
-    'recommendedBodyJustify': center,
-    'recommendedBodyHeight': 100%,
-    'recommendedBodyWidth': 100%,
-    'recommendedBackdropOpacity': (
-        375: 0.65,
-    ),
-    // recommended-modal
 ), $customThemeDefault);

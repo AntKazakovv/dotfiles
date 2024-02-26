@@ -75,8 +75,7 @@ export const initAsDropdownV2: TCustomizableFn = function (this: CategoryMenuCom
     let dropdownMenu: MenuParams.MenuItemType[] = [];
 
     const specialCategories = _filter(this.gamesCatalogService.getCategories(), (category) => {
-        return category.parentCategory?.slug === 'casino'
-            && (category.isFavourites || category.isLastPlayed || category.isRecommended);
+        return category.parentCategory?.slug === 'casino' && (category.isFavourites || category.isLastPlayed);
     });
 
     const iconsDisable = _isNil(this.$params.menuParams.dropdowns.expandableOnHover);
@@ -103,7 +102,7 @@ export const initAsDropdownV2: TCustomizableFn = function (this: CategoryMenuCom
         if (category.childCategories.length) {
             const childItems = MenuHelper.getItemsForCategories({
                 categories: _filter(category.childCategories, (category) => {
-                    return !category.isFavourites && !category.isLastPlayed && !category.isRecommended;
+                    return !category.isFavourites && !category.isLastPlayed;
                 }),
                 lang: this.translateService.currentLang,
                 icons: {

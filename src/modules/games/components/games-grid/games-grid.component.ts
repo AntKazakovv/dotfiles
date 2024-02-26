@@ -139,7 +139,6 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
     protected deviceType: DeviceType;
     protected lastPlayedLoaded: boolean = false;
     protected favoritesLoaded: boolean = false;
-    protected recommendedLoaded: boolean = false;
     protected jackpotsLoaded: boolean = false;
     protected isClickedLoadMoreBtn: boolean = false;
     protected useLazyAfterClick: boolean = false;
@@ -695,11 +694,6 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
             this.favoritesLoaded = true;
         }
 
-        if (!this.recommendedLoaded && _includes(filter?.categories, 'recommendations')) {
-            await this.gamesCatalogService.getRecommendedGames();
-            this.recommendedLoaded = true;
-        }
-
         if (!this.lastPlayedLoaded && _includes(filter?.categories, 'lastplayed')) {
             await this.gamesCatalogService.getLastGames();
             this.lastPlayedLoaded = true;
@@ -841,25 +835,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
     }
 
     protected followBreakpoints(): void {
-        const {
-            gamesRows,
-            gamesRowsOnShowMore,
-            showTitle,
-            showProgressBar,
-            showAllLink,
-            moreBtn,
-            btnLoadMore,
-        } = this.$params;
-
-        const initiatedParams: Required<Params.IGamesGridBreakpoints> = {
-            gamesRows,
-            gamesRowsOnShowMore,
-            showTitle,
-            showProgressBar,
-            showAllLink,
-            moreBtn,
-            btnLoadMore,
-        };
+        const initiatedParams = this.$params;
 
         let breakpoints = _orderBy(
             _map(_keys(this.$params.breakpoints), (val: string) => _isNaN(+val) ? val : +val),

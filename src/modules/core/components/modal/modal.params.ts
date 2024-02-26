@@ -336,14 +336,6 @@ export const MODALS_LIST: IModalList = {
             showFooter: false,
         },
     },
-    recommendedModal: {
-        config: {
-            id: 'recommended-modal',
-            componentName: 'games.wlc-game-recommended',
-            showFooter: false,
-            size: 'fluid',
-        },
-    },
     bonusModal: {
         config: {
             id: 'bonus-modal',

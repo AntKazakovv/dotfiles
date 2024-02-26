@@ -97,7 +97,6 @@ export interface IGamesGridBreakpoints {
     showAllLink?: IGamesGridShowAllLink;
     moreBtn?: IGamesGridMoreBtn;
     showProgressBar?: boolean;
-    btnLoadMore?: IButtonCParams;
 }
 
 export interface IShowAsSwiper {

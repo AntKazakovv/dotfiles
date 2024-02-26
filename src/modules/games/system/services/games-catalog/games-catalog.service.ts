@@ -81,9 +81,6 @@ import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filte
 import {
     IPlayGameForRealCParams,
 } from 'wlc-engine/modules/games/components/play-game-for-real/play-game-for-real.params';
-import {
-    IGameRecommendedCParams,
-} from 'wlc-engine/modules/games/components/game-recommended/game-recommended.params';
 import {JackpotModel} from 'wlc-engine/modules/games/system/models/jackpot.model';
 import {PragmaticLiveModel} from 'wlc-engine/modules/games/system/models/pragmatic-live.model';
 import {
@@ -92,7 +89,6 @@ import {
     ILastPlayedGame,
     ILaunchInfo,
     IStartGameOptions,
-    IRecommendation,
     gamesEvents,
 } from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {Type as IGameThumbType} from 'wlc-engine/modules/games/components/game-thumb/game-thumb.params';
@@ -156,7 +152,7 @@ export class GamesCatalogService {
 
     private searchBySpecialCats: boolean = true;
     private gamesCatalog: Catalog;
-    private onlyAuthSpecial: string[] = ['lastplayed', 'favourites', 'last-played', 'recommendations'];
+    private onlyAuthSpecial: string[] = ['lastplayed', 'favourites', 'last-played'];
     private deviceType: DeviceType;
     private verticalThumbsConfig: IVideoThumbsConfig;
     private defaultThumbsConfig: IVideoThumbsConfig;
@@ -423,26 +419,6 @@ export class GamesCatalogService {
     }
 
     /**
-     * Get recommended games
-     *
-     * @returns {Promise<Game[]>} Recommended Games list
-     */
-    public async getRecommendedGames(merchantId?: number, launchCode?: string): Promise<Game[]> {
-        const gameID: number = merchantId && launchCode
-            ? this.getGame(merchantId, launchCode, false, true)?.ID
-            : null;
-
-        return await this.loadSpecialCategoryGames<IRecommendation>(
-            'recommendations',
-            (item: IRecommendation) => item.gameId,
-            gameID ? {
-                gameId: gameID,
-                providerId: merchantId,
-            } : null,
-        );
-    }
-
-    /**
      * Get favorite games
      *
      * @returns {Promise<Game[]>}
@@ -561,8 +537,6 @@ export class GamesCatalogService {
             games = await this.getLastGames();
         } else if (parentCategory?.slug == 'favourites' || childCategory?.slug == 'favourites') {
             games = await this.getFavouriteGames();
-        } else if (parentCategory?.slug == 'recommendations' || childCategory?.slug == 'recommendations') {
-            games = await this.getRecommendedGames();
         } else if (this.useRealJackpots && parentCategory?.slug == 'jackpots') {
             games = await this.getJackpotGames();
         } else {
@@ -613,10 +587,6 @@ export class GamesCatalogService {
             if (auth || this.configService.get<boolean>('$user.isAuthenticated')) {
                 const favouritesCategory = this.getCategoryBySlug('favourites', parentCategory.slug);
                 const lastplayedCategory = this.getCategoryBySlug('lastplayed', parentCategory.slug);
-                const recommendedCategory = this.getCategoryBySlug('recommendations', parentCategory.slug);
-                if (recommendedCategory) {
-                    categoryList.push(recommendedCategory);
-                }
                 if (favouritesCategory) {
                     categoryList.push(favouritesCategory);
                 }
@@ -671,7 +641,6 @@ export class GamesCatalogService {
             return category.isParent
                 && !category.isLastPlayed
                 && !category.isFavourites
-                && !category.isRecommended
                 && !category.isNew
                 && !category.isPopular;
         });
@@ -1083,8 +1052,6 @@ export class GamesCatalogService {
             return await this.getLastGames();
         } else if (slug == 'favourites') {
             return await this.getFavouriteGames();
-        } else if (slug == 'recommendations') {
-            return await this.getRecommendedGames();
         } else {
             const category = this.getCategoryBySlug(slug);
             if (!category) {
@@ -1186,16 +1153,6 @@ export class GamesCatalogService {
                 showPplInfo: showPplInfo,
                 isLatestBetsWidget: false,
             },
-        });
-    }
-
-    public showRecommendedGamesModal(merchantID?: number, launchCode?: string): void {
-        this.getRecommendedGames(merchantID, launchCode).then((games) => {
-            this.modalService.showModal<IGameRecommendedCParams>('recommendedModal', {
-                gamesGridParams: {
-                    gamesList: games.slice(0, 4),
-                },
-            });
         });
     }
 
@@ -1328,17 +1285,6 @@ export class GamesCatalogService {
         });
 
         this.dataService.registerMethod({
-            name: 'recommendations',
-            system: 'games',
-            url: '/recommendations',
-            type: 'GET',
-            events: {
-                success: gamesEvents.FETCH_RECOMMENDED_SUCCEEDED,
-                fail: gamesEvents.FETCH_RECOMMENDED_FAILED,
-            },
-        });
-
-        this.dataService.registerMethod({
             name: 'defaultThumbsConfig',
             system: 'games',
             cache: 480 * 60 * 1000,
@@ -1370,18 +1316,15 @@ export class GamesCatalogService {
      * @returns {Promise<void>}
      */
     private async loadSpecialCategoryGames<T>(
-        requestUrl: 'favorites' | 'lastGames' | 'recommendations',
+        requestUrl: 'favorites' | 'lastGames',
         getterProperty: (item: T) => string,
-        requestParams?: IIndexing<number | string>,
     ): Promise<Game[]> {
         if (this.configService.get('$user.isAuthenticated')) {
             try {
-                const data: IData = await this.dataService.request(`games/${requestUrl}`, requestParams);
-                const gamesDate: T[] = (requestUrl === 'recommendations') ? data.data.values : data.data;
-                const gameIds: number[] = _map(gamesDate, (gameInfo: T) => {
+                const data: IData = await this.dataService.request(`games/${requestUrl}`);
+                const gameIds: number[] = _map(data.data, (gameInfo: T) => {
                     return _toNumber(getterProperty(gameInfo));
                 });
-
                 const games: Game[] = (gameIds.length) ? this.getGameList({ids: gameIds}) : [];
                 const category: CategoryModel = this.getCategoryBySlug(SpecialCategoriesGamesSlug[requestUrl]);
                 category?.setGames(games);
