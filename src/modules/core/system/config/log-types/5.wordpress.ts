@@ -28,6 +28,10 @@ export const errorTypes: ILogTypes = {
         // Error while getting getPostsListByCategory from WP
         level: 'fatal',
     },
+    '5.0.7': {
+        // Error getting list of categories
+        level: 'fatal',
+    },
     '5.1.0': {
         // Error receiving WP content data from a external source
         level: 'fatal',

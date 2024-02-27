@@ -82,8 +82,6 @@ export interface IStaticRequestConfig {
     lang?: string;
 }
 export interface IRequestUrlStaticText {
-    category: string;
-    tag: string;
     post: string;
     page: string;
 }
@@ -107,13 +105,15 @@ export interface IStaticParams {
     fields?: string;
     categories?: string;
 }
+
 export interface ICategoryStaticText {
     parent: number;
-    description: string;
     name: string;
     id: number;
     slug: string;
     count: number;
+    description?: string;
+    acf?: IAcf;
 }
 
 export interface ISplitTexts {

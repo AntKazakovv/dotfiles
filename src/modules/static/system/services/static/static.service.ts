@@ -30,6 +30,8 @@ import {
     CachingService,
     ConfigService,
     LogService,
+    DataService,
+    IData,
 } from 'wlc-engine/modules/core';
 import {
     ICategoryStaticText,
@@ -63,14 +65,6 @@ export class StaticService {
         'content',
         'image',
     ] as const;
-    private readonly fieldsForCategory = [
-        'parent',
-        'description',
-        'name',
-        'id',
-        'slug',
-        'count',
-    ] as const;
     private $resolve: () => void;
     private ready: Promise<boolean> = new Promise((resolve: (v?: boolean) => void): void => {
         this.$resolve = resolve;
@@ -86,6 +80,7 @@ export class StaticService {
         private hooksService: HooksService,
         private filesService: FilesService,
         private logService: LogService,
+        private dataService: DataService,
     ) {
         this.init();
     }
@@ -194,11 +189,12 @@ export class StaticService {
     private async init(): Promise<void> {
         await this.configService.ready;
         this.setConfig();
-        await this.getCategories();
+        this.registerMethods();
+        await this.setCategories();
         this.ready = Promise.resolve(true);
     }
 
-    private cacheExpiry(type: string): number {
+    private cacheExpiry(type: keyof ICacheExpiry): number {
         return this.cacheExpiryParam[type];
     }
 
@@ -206,32 +202,14 @@ export class StaticService {
         return _find(this.categories, (res) => res.slug === slug)?.id;
     }
 
-    private async getCategories(): Promise<void> {
-        const httpRequestUrl = this.getHttpRequestParams<IPostResponse>('category')?.urlWithParams;
-        const cacheExpiry = this.cacheExpiry('category');
+    private async setCategories(): Promise<void> {
+        try {
+            const response = await this.dataService.request<IData<ICategoryStaticText[]>>('static/categories');
 
-        if (cacheExpiry) {
-            const categories = (await this.cachingService.get<ICategoryStaticText[]>(httpRequestUrl)) || [];
-            if (categories.length) {
-                this.categories = categories;
-                return this.$resolve();
-            }
-        }
-
-        const params: IStaticParams = {
-            _fields: this.fieldsForCategory.join(','),
-        };
-        const response = await this.requestData<ICategoryStaticText[]>('category', params);
-        this.categories = _filter(response?.body, (category) => _isObject(category));
-        this.$resolve();
-
-        if (cacheExpiry) {
-            await this.cachingService.set<ICategoryStaticText>(
-                httpRequestUrl,
-                response?.body,
-                false,
-                cacheExpiry,
-            );
+            this.categories = _filter(response.data, (category: ICategoryStaticText) => _isObject(category));
+            this.$resolve();
+        } catch (error) {
+            this.logService.sendLog({code: '5.0.7', data: error});
         }
     }
 
@@ -341,8 +319,6 @@ export class StaticService {
         const apiUrl = `/content/${(mode === 'query') ? '' : lang}/wp-json/wp/v2/`;
 
         const requestUrls: IRequestUrlStaticText = {
-            category: apiUrl + 'categories',
-            tag: apiUrl + 'tags',
             post: apiUrl + 'posts?per_page=100',
             page: apiUrl + 'pages',
         };
@@ -437,6 +413,16 @@ export class StaticService {
             params.lang = lang;
         }
         return params;
+    }
+
+    private registerMethods(): void {
+        this.dataService.registerMethod({
+            system: 'static',
+            name: 'categories',
+            type: 'GET',
+            url: '/static/categories',
+            cache: this.cacheExpiry('category'),
+        });
     }
 
     /**
