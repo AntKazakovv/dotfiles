@@ -13,7 +13,6 @@ import {
 
 import {takeUntil} from 'rxjs/operators';
 import _map from 'lodash-es/map';
-import _merge from 'lodash-es/merge';
 
 import {
     AbstractComponent,
@@ -122,8 +121,8 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
 
                 if (this.bonuses.length) {
                     this.bonusesToSlides(this.bonuses, true);
-                    this.initSliderComponents();
                 }
+
                 this.isReady = ready;
                 this.cdr.detectChanges();
             });
@@ -153,20 +152,6 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
         if (this.slider?.swiper && scroll) {
             this.slider.swiper.slideTo(0);
         }
-        this.cdr.detectChanges();
-    }
-
-    protected initSliderComponents(): void {
-
-        this.defaultSliderConfig = _merge<ISliderCParams, ISliderCParams>(
-            this.$params.defaultSliderParams,
-            {slides: this.slides},
-        );
-
-        this.landscapeSliderConfig = _merge<ISliderCParams, ISliderCParams>(
-            this.$params.landscapeSliderParams,
-            {slides: this.slides},
-        );
     }
 
     /**

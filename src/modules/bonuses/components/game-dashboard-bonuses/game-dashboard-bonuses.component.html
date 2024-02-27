@@ -10,12 +10,14 @@
         <div *ngIf="!landscapeOrientation || !isMobile"
              wlc-slider
              class="{{$class}}__slider"
-             [inlineParams]="defaultSliderConfig">
+             [inlineParams]="$params.defaultSliderParams"
+             [slides]="slides">
         </div>
         <div *ngIf="isMobile && landscapeOrientation"
              class="{{$class}}__slider"
              wlc-slider
-             [inlineParams]="landscapeSliderConfig">
+             [inlineParams]="$params.landscapeSliderParams"
+             [slides]="slides">
         </div>
     </div>
 </ng-container>
