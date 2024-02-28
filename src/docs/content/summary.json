@@ -235,20 +235,8 @@
                 "file": "./900.change-logs/releases/1.8.0_01-07-2022.md"
             },
             {
-                "title": "1.62.0RC4 (26-02-2024)",
-                "file": "./900.change-logs/releases/1.62.0-rc.4_26-02-2024.md"
-            },
-            {
-                "title": "1.62.0RC3 (26-02-2024)",
-                "file": "./900.change-logs/releases/1.62.0-rc.3_26-02-2024.md"
-            },
-            {
-                "title": "1.62.0RC2 (21-02-2024)",
-                "file": "./900.change-logs/releases/1.62.0-rc.2_21-02-2024.md"
-            },
-            {
-                "title": "1.62.0RC1 (21-02-2024)",
-                "file": "./900.change-logs/releases/1.62.0-rc.1_21-02-2024.md"
+                "title": "1.62.0 (28-02-2024)",
+                "file": "./900.change-logs/releases/1.62.0_28-02-2024.md"
             },
             {
                 "title": "1.61.0 (20-02-2024)",
@@ -812,6 +800,10 @@
             {
                 "title": "28-06-2023",
                 "file": "./1000.translations/history/28-06-2023.md"
+            },
+            {
+                "title": "28-02-2024",
+                "file": "./1000.translations/history/28-02-2024.md"
             },
             {
                 "title": "27-11-2023",
