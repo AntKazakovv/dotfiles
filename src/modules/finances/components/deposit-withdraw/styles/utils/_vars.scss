@@ -50,6 +50,21 @@ $themeDefault: map-merge((
         375: 100%,
         1200: 50%,
     ),
+
+    'promoCodeMargin': ef.size(4) 0 0,
+    'promoCodeAlign': (
+        375: stretch,
+        480: center,
+        900: flex-start,
+    ),
+    'promoCodeBonusAlign': (
+        375: stretch,
+        900: left,
+    ),
+    'promoCodeResultsDir': (
+        375: column,
+        900: row,
+    ),
 ), $customThemeDefault);
 
 $customThemeModWolf: () !default;

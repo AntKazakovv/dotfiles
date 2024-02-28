@@ -9,27 +9,49 @@ export type ComponentType = 'default' | 'modal' | CustomType;
 export type ComponentThemeMod = 'default' | CustomType;
 
 export interface IDepositPromoCodeCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
-    inputParams?: IInputCParams;
-
-    submitBtnParams?: IButtonCParams;
+    inlineFormParams?: IDepositPromoCodeFormCParams,
+    modalFormParams?: IDepositPromoCodeFormCParams,
     clearBtnParams?: IButtonCParams;
+};
+
+export interface IDepositPromoCodeFormCParams {
+    inputParams?: IInputCParams;
+    submitBtnParams?: IButtonCParams;
 };
 
 export const defaultParams: IDepositPromoCodeCParams = {
     class: 'wlc-deposit-promocode',
     componentName: 'wlc-deposit-promocode',
     moduleName: 'finances',
-    inputParams: {
-        theme: 'vertical',
-        name: 'promocode',
-        common: {
-            placeholder: gettext('Promo code'),
-            useLabel: true,
+    inlineFormParams: {
+        inputParams: {
+            theme: 'vertical',
+            name: 'promocode',
+            common: {
+                placeholder: gettext('Promo code'),
+                useLabel: false,
+            },
+        },
+        submitBtnParams: {
+            theme: 'icon',
+            common: {
+                iconPath: '/wlc/icons/enter-arrow.svg',
+            },
         },
     },
-    submitBtnParams: {
-        common: {
-            text: gettext('Apply'),
+    modalFormParams: {
+        inputParams: {
+            theme: 'vertical',
+            name: 'promocode',
+            common: {
+                placeholder: gettext('Promo code'),
+                useLabel: true,
+            },
+        },
+        submitBtnParams: {
+            common: {
+                text: gettext('Apply'),
+            },
         },
     },
     clearBtnParams: {

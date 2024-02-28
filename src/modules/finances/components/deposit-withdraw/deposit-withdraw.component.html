@@ -37,12 +37,6 @@
             <div *ngIf="bonusesExist && showBonuses" class="{{$class}}__step {{$class}}__step--bonuses">
                 <p class="{{$class}}__step-title">{{'Select a bonus' | translate}}</p>
                 <ng-container [ngTemplateOutlet]="bonuses"></ng-container>
-
-                <div *ngIf="useDepositPromoCode" class="{{$class}}__promocode">
-                    <div wlc-deposit-promocode
-                        [inlineParams]="$params.depositPromoCodeParams"
-                        (promoCodeAppliedEvent)="onPromoCodeChanged($event)"></div>
-                </div>
             </div>
             <div class="{{$class}}__step {{$class}}__step--paymentinfo">
                 <p class="{{$class}}__step-title">{{'Payment information' | translate}}</p>
@@ -223,7 +217,17 @@
     <div wlc-wrapper
          [inlineParams]="bonusesListParams">
     </div>
+    <ng-container [ngTemplateOutlet]="depositPromoCode"></ng-container>
     <div class="{{$class}}__divider"></div>
+</ng-template>
+
+<ng-template #depositPromoCode>
+    <div *ngIf="useDepositPromoCode" class="{{$class}}__promocode">
+        <div wlc-deposit-promocode
+            [inlineParams]="$params.depositPromoCodeParams"
+            (promoCodeAppliedEvent)="onPromoCodeChanged($event)">
+        </div>
+    </div>
 </ng-template>
 
 <ng-template #cryptoInvoiceSystems>

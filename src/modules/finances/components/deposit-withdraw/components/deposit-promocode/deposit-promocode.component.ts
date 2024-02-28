@@ -19,6 +19,8 @@ import _set from 'lodash-es/set';
 import {
     AbstractComponent,
     ConfigService,
+    IButtonCParams,
+    IInputCParams,
     IModalConfig,
     InjectionService,
     ModalService,
@@ -50,9 +52,15 @@ export class DepositPromocodeComponent extends AbstractComponent implements OnIn
     public promoCodeControl: UntypedFormControl = new UntypedFormControl();
     public isBonusApplied: boolean = false;
     public bonusPending$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    public promoCodeInputHidden: boolean = true;
+
+    public inputParams: IInputCParams;
+    public submitBtnParams: IButtonCParams;
 
     protected bonus: Bonus;
     protected bonusesService: BonusesService;
+
+    private isModal: boolean = false;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IDepositPromoCodeCParams,
@@ -66,12 +74,19 @@ export class DepositPromocodeComponent extends AbstractComponent implements OnIn
 
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+
+        if (this.$params.type === 'modal') {
+            this.isModal = true;
+        }
+
         this.prepareParams();
     }
 
     public clickHandler(): void {
-        if (this.$params.type === 'modal') {
+        if (this.isModal) {
             this.showPromoCodeModal();
+        } else {
+            this.showPromoCodeInline();
         }
     }
 
@@ -161,8 +176,19 @@ export class DepositPromocodeComponent extends AbstractComponent implements OnIn
     }
 
     private prepareParams(): void {
-        _set(this.$params.inputParams, 'control', this.promoCodeControl);
-        _set(this.$params.submitBtnParams, 'pending$', this.bonusPending$);
+        if (this.isModal) {
+            this.assignInputAndButtonParams(this.$params.modalFormParams);
+        } else {
+            this.assignInputAndButtonParams(this.$params.inlineFormParams);
+        }
+
+        _set(this.inputParams, 'control', this.promoCodeControl);
+        _set(this.submitBtnParams, 'pending$', this.bonusPending$);
+    }
+
+    private assignInputAndButtonParams(params): void {
+        this.inputParams = params.inputParams;
+        this.submitBtnParams = params.submitBtnParams;
     }
 
     private showPromoCodeModal(): void {
@@ -176,6 +202,10 @@ export class DepositPromocodeComponent extends AbstractComponent implements OnIn
         };
 
         this.modalService.showModal(modalConfig);
+    }
+
+    private showPromoCodeInline(): void {
+        this.promoCodeInputHidden = false;
     }
 
     private applyPromoCode(): void {

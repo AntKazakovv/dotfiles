@@ -86,13 +86,6 @@
             }
         }
 
-        &__promocode {
-            @include bm.get-mq-map('--wlc-dep-promocode-align', $themeSecond, 'promoCodeAlign');
-            @include bm.get-mq-map('--wlc-dep-promocode-results-dir', $themeSecond, 'promoCodeResultsDir');
-            @include bm.get-mq-map('--wlc-dep-promocode-bonus-align', $themeSecond, 'promoCodeBonusAlign');
-            margin: ef.get-value($themeSecond, 'promoCodeMargin');
-        }
-
         &__alert-title,
         &__alert {
             @include bm.get-mq-map('margin', $themeDefault, 'alertMargin');

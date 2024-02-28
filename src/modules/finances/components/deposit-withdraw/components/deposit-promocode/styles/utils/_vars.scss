@@ -24,8 +24,18 @@ $themeDefault: map-merge((
     'modalFormJustifyItems': center,
     'modalFormInputSize': (
         375: 100%,
-        480: 330px,
+        480: 290px,
     ),
+
+    'inlineFormInputSize': (
+        375: 100%,
+        480: 325px,
+    ),
+
+    'inlineSubmitBtnRight': 4px,
+    'inlineSubmitBtnSize': 32px,
+    'inlineSubmitBtnBgColor': var(--mc-main),
+    'inlineSubmitBtnBorderRadius': ef.get('radius', 'main'),
 
     'clearBtnColor': var(--mc-main),
     'clearBtnColorHover': var(--mc-baseMain),
