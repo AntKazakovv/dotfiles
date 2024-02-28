@@ -882,6 +882,7 @@ export class UserService {
 
         if (this.modalService.getActiveModal('signup')) {
             this.modalService.hideModal('signup', undefined, 'success');
+            this.eventService.emit({name: this.modalService.events.MODAL_HIDDEN, data: 'signup'});
         } else if (this.modalService.getActiveModal('login')) {
             this.modalService.hideModal('login', undefined, 'success');
         }

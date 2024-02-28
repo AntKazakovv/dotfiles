@@ -49,7 +49,9 @@ export type TModuleName =
     | 'youtube-block'
     | 'qr-code'
     | 'pwa'
-    | 'local-jackpots';
+    | 'local-jackpots'
+    | 'ubidex';
+
 
 type IFunctionImportModule = (name: TModuleName, callback: Function) => unknown;
 
@@ -298,6 +300,11 @@ export const modulesApp: Record<TModuleName, IFunctionImportModule> = {
         const m = await import('wlc-engine/modules/local-jackpots/local-jackpots.module');
         callback(name, m);
         return m.LocalJackpotsModule;
+    },
+    'ubidex': async (name: TModuleName, callback: Function) => {
+        const m = await import('wlc-engine/modules/ubidex/ubidex.module');
+        callback(name, m);
+        return m.UbidexModule;
     },
 } as const;
 

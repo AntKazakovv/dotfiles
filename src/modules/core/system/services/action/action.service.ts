@@ -713,6 +713,7 @@ export class ActionService {
                 },
             });
 
+            this.eventService.emit({name: 'REGISTRATION_COMPLETE'});
             this.eventService.emit({name: 'LOGIN'});
 
             if (!isFastRegistration) {

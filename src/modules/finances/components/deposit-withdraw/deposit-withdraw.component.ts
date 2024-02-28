@@ -298,7 +298,8 @@ export class DepositWithdrawComponent
             this.listConfig.paymentType = 'withdraw';
 
             this.userService ??= await this.injectionService.getService<UserService>('user.user-service');
-
+        } else {
+            this.eventService.emit({name: 'DEPOSIT_VISIT'});
         }
 
         if (!this.isMultiWallet) {

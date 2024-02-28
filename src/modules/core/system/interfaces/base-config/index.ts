@@ -31,6 +31,7 @@ import {IIntercomSetup} from 'wlc-engine/modules/external-services/system/interf
 import {IPopupConfig} from 'wlc-engine/modules/core/system/interfaces/base-config/popup.interface';
 import {ICoupleCurrency} from 'wlc-engine/modules/rates/system/interfaces/rates.interfaces';
 import {MultiWalletConfig} from 'wlc-engine/modules/core/system/interfaces/base-config/multiwallet.interface';
+import {IUbidexConfig} from 'wlc-engine/modules/ubidex/system/interfaces';
 
 export * from './games.interface';
 export * from './tournaments.interface';
@@ -178,4 +179,5 @@ export interface IBaseConfig {
     popupByQuery?: IPopupConfig;
     queryParams?: string[];
     multiWallet?: MultiWalletConfig;
+    ubidex?: IUbidexConfig,
 }

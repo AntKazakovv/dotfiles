@@ -80,6 +80,8 @@ import {
 import {IIntercomSetup} from 'wlc-engine/modules/external-services/system/interfaces/intercom.interface';
 import {IntercomService} from 'wlc-engine/modules/external-services/system/services';
 import {BannersService} from 'wlc-engine/modules/promo';
+import {UbidexService} from 'wlc-engine/modules/ubidex';
+import {IUbidexConfig} from 'wlc-engine/modules/ubidex/system/interfaces';
 
 const defaultParams = {
     class: 'wlc-sections',
@@ -162,6 +164,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
         this.initHookHandlers();
         this.launchGamblingBanFeature();
         this.enableSeo();
+        this.loadUbidex();
     }
 
     @HostListener('document:visibilitychange', ['$event'])
@@ -565,5 +568,16 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
             return;
         }
         this.injectionService.getService<IntercomService>('external-services.intercom-service');
+    }
+
+    private async loadUbidex(): Promise<void> {
+        await this.configService.ready;
+        const ubidexConfig = this.configService.get<IUbidexConfig>('$base.ubidex');
+
+        if (!ubidexConfig || !ubidexConfig?.use) {
+            return;
+        }
+
+        this.injectionService.getService<UbidexService>('ubidex.ubidex-service');
     }
 }
