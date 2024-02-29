@@ -13,7 +13,10 @@ import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {aliasTickerMap} from './../constants/crypto-invoices.constants';
 import {UserProfile} from './../../../user/system/models/profile.model';
-import {IPaymentMessage} from 'wlc-engine/modules/finances/system/interfaces/finances.interface';
+import {
+    IPaymentMessage,
+    TTechnicalTags,
+} from 'wlc-engine/modules/finances/system/interfaces/finances.interface';
 import {
     fieldNameByDbName,
     formFieldTemplates,
@@ -73,12 +76,12 @@ export interface IPaymentSystem {
     required: string[];
     required_withdraw: string[];
     showfor: FilterType;
-    technicalTags?: string[];
     withdrawMax?: number;
     withdrawMin?: number;
     tokenRequired?: boolean;
     cryptoInvoice?: boolean;
     tags?: TPaySystemTag[];
+    optional_checks?: TTechnicalTags[];
 }
 
 export interface IHostedFields {
@@ -256,11 +259,11 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
     }
 
     public get checkTermsVersion(): boolean {
-        return this.data.technicalTags?.includes('check_tc');
+        return this.data.optional_checks?.includes('check_tc');
     }
 
     public get checkNameBeforeWithdraw(): boolean {
-        return this.data.technicalTags?.includes('check_name_before_withdraw');
+        return this.data.optional_checks?.includes('check_name_before_withdraw');
     }
 
     public get customParams(): IPaymentSystemCustomParams {

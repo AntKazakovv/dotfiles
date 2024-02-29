@@ -70,6 +70,7 @@ import {
     IModalConfig,
     DateHelper,
     ValidatorType,
+    ICheckboxCParams,
 } from 'wlc-engine/modules/core';
 import {ColorThemeValues} from 'wlc-engine/modules/core/constants';
 import {
@@ -912,6 +913,21 @@ export class PaymentFormComponent
 
             if (lastAccount) {
                 formComponents.push(lastAccount);
+            }
+
+            if (!this.isDeposit && this.currentSystem?.checkNameBeforeWithdraw) {
+
+                formComponents.push({
+                    name: 'core.wlc-checkbox',
+                    params: <ICheckboxCParams>{
+                        name: 'paymentConfirmationUserName',
+                        validators: ['requiredTrue'],
+                        text: gettext('Recipient data in the profile: <b>{{name}}</b><br>The funds withdrawal ' +
+                            'can only be made to an account registered in the name and last name specified in ' +
+                            'the profile. Otherwise the request will be declined'),
+                        textContext: {name: this.userProfile.fullName},
+                    },
+                });
             }
 
             if (!this.showPaymentMessage || _isEmpty(this.currentSystem?.message)) {

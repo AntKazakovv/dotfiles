@@ -40,7 +40,6 @@ import {
     UserProfile,
 } from 'wlc-engine/modules/user';
 import {
-    IFinancesConfig,
     ITaxData,
     TAdditionalParams,
 } from 'wlc-engine/modules/finances/system/interfaces/finances.interface';
@@ -678,16 +677,6 @@ export class FinancesService {
     }
 
     private createPaymentSystem(data: IPaymentSystem, invoicesSystems?: PaymentSystem[]): PaymentSystem {
-
-        // TODO удалить после готовности бэка 539575
-        if (this.configService.get<IFinancesConfig>('$finances').availableSystemsForOldTC?.includes(data.alias)) {
-            if (data.technicalTags) {
-                data.technicalTags.push('check_tc');
-            } else {
-                data.technicalTags = ['check_tc'];
-            }
-        }
-
         const paymentSystem: PaymentSystem = new PaymentSystem(
             {service: 'FinancesService', method: 'createPaymentSystems'},
             data,

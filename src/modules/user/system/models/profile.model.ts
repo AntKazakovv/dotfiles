@@ -120,6 +120,10 @@ export class UserProfile extends AbstractModel<IUserProfile> {
         return this.data.firstName;
     }
 
+    public get fullName(): string {
+        return `${this.firstName} ${this.lastName}`;
+    }
+
     public get gender(): string {
         return this.data.gender;
     }

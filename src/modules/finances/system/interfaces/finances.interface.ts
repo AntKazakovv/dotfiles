@@ -278,3 +278,5 @@ export type TAlertList = {
 }
 
 export type TShowMode = 'title' | 'wallets' | 'bonuses' | 'cryptoInvoiceSystems' | 'paymentInfo' | 'systems';
+
+export type TTechnicalTags = 'check_name_before_withdraw' | 'check_tc';

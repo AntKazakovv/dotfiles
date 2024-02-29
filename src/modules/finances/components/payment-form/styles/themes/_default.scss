@@ -124,6 +124,10 @@
             text-align: left;
         }
 
+        .wlc-checkbox {
+            padding: ef.get-value($themeDefault, 'checkboxPaddind');
+        }
+
         .wlc-select__dropdown {
             word-break: break-all;
         }

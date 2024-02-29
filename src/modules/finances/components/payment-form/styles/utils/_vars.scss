@@ -113,4 +113,5 @@ $themeDefault: map-merge((
     'dividerWidth': 100%,
     'dividerRadius': ef.get('radius', 'biger'),
     'dividerCryptoMargin': ef.size(6) 0,
+    'checkboxPaddind': ef.size(1) 0,
 ), $customThemeDefault);
