@@ -8,7 +8,7 @@ ENV NPM_VERSION 9
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 RUN apt update && \
-    apt install -y curl git chromium && \
+    apt install -y curl git chromium gettext && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p $NVM_DIR && \

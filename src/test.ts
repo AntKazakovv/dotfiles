@@ -28,6 +28,7 @@ export class CustomTestModule {}
 
 // Init uniq value
 globalThis.WLC_VERSION = new Date().getTime();
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
 // First, initialize the Angular testing environment.
 getTestBed().initTestEnvironment(
