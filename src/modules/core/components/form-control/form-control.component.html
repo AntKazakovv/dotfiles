@@ -1,16 +1,25 @@
-<div *ngIf="!errors.length else controlWithErrors" class="{{className}}__icon form-control__icon">
-    <div *ngIf="!isValueEmpty" class="icon"></div>
+<div *ngIf="!errors.length else controlWithErrors"
+     class="{{className}}__icon form-control__icon">
+    <div *ngIf="!isValueEmpty"
+         class="icon">
+        <div wlc-icon
+             *ngIf="control.valid && !control.pending"
+             class="icon-valid"
+             iconPath="/wlc/icons/valid.svg">
+        </div>
+    </div>
 </div>
 
 <ng-template #controlWithErrors>
     <div *ngIf="control.invalid && control.touched && errors.length"
          class="{{className}}__icon form-control__icon">
-        <div  class="icon"
-              containerClass="form-control-tooltip tooltip-error"
-              placement="bottom"
-              container="form-control"
-              [tooltip]="errorsRef"
-              [isDisabled]="!errors.length">
+        <div wlc-icon
+             class="icon-invalid"
+             containerClass="form-control-tooltip tooltip-error"
+             [tooltip]="errorsRef"
+             container="form-control"
+             placement="bottom"
+             iconPath="/wlc/icons/invalid.svg">
         </div>
     </div>
 </ng-template>

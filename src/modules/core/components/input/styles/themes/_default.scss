@@ -128,20 +128,19 @@
 
             ::ng-deep {
 
-                svg path {
-                    @include bm.transition(fill);
-                    fill: ef.get-value($themeVertical, 'fieldIconSvgFill');
+                svg {
+                    @include bm.transition(color);
+                    color: ef.get-value($themeVertical, 'fieldIconSvgFill');
                 }
             }
-
 
             &:active {
 
                 ::ng-deep {
 
-                    svg path {
+                    svg {
 
-                        fill: ef.get-value($themeVertical, 'fieldIconSvgFillActive');
+                        color: ef.get-value($themeVertical, 'fieldIconSvgFillActive');
                     }
                 }
             }
@@ -150,8 +149,8 @@
 
                 ::ng-deep {
 
-                    svg path {
-                        fill: ef.get-value($themeVertical, 'fieldIconSvgFillHover');
+                    svg {
+                        color: ef.get-value($themeVertical, 'fieldIconSvgFillHover');
                     }
                 }
             }

@@ -59,7 +59,7 @@
             }
 
             svg {
-                fill: ef.get-value($themeDefault, 'iconFill');
+                color: ef.get-value($themeDefault, 'iconFill');
             }
         }
     }

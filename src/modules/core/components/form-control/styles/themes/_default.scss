@@ -2,22 +2,37 @@
     $selector: &;
     $touch: '.ng-touched';
 
+    #{$touch} ~ & {
+
+        #{$selector}__icon {
+
+            .wlc-icon {
+
+                .wlc-icon-content {
+                    display: flex;
+                    align-items: center;
+                }
+            }
+        }
+    }
+
     #{$touch}.ng-valid:not(.wlc-select__field) ~ & {
 
         #{$selector}__icon {
 
-            .icon {
-                background: ef.get-value($themeDefault, 'successColor');
+            .icon-valid {
+                color: ef.get-value($themeDefault, 'successColor');
+            }
+        }
+    }
 
-                &:before {
-                    top: calc(50% - 1px);
-                    left: 50%;
-                    width: 4px;
-                    height: 6px;
-                    transform: translate(-50%, -50%) rotate(45deg);
-                    border-bottom: 1px solid ef.get-value($themeDefault, 'successIconColor');
-                    border-right: 1px solid ef.get-value($themeDefault, 'successIconColor');
-                }
+    #{$touch}.ng-invalid ~ & {
+        border-color: ef.get-value($themeDefault, 'errorColor');
+
+        #{$selector}__icon {
+
+            .icon-invalid {
+                color: ef.get-value($themeDefault, 'errorColor');
             }
         }
     }
@@ -27,6 +42,7 @@
         #{$selector}__icon {
 
             .icon {
+                color: transparent;
 
                 &:before {
                     top: 50%;
@@ -39,38 +55,6 @@
                     border: 2px solid ef.get-value($themeDefault, 'pendingIconColor');
                     border-left-color: transparent;
                     border-radius: 50%;
-                }
-            }
-        }
-    }
-
-    #{$touch}.ng-invalid ~ & {
-        border-color: ef.get-value($themeDefault, 'errorColor');
-
-        #{$selector}__icon {
-
-            .icon {
-                background: ef.get-value($themeDefault, 'errorColor');
-                transform: rotate(45deg);
-
-                &:before {
-                    top: 50%;
-                    left: 50%;
-                    width: 2px;
-                    height: 7px;
-                    background: ef.get-value($themeDefault, 'errorIconColor');
-                    transform: translate(-50%, -50%);
-                }
-
-                &:after {
-                    content: '';
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    width: 7px;
-                    height: 2px;
-                    background: ef.get-value($themeDefault, 'errorIconColor');
-                    transform: translate(-50%, -50%);
                 }
             }
         }
