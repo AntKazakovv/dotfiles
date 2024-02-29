@@ -45,7 +45,7 @@ import {
     StoreService,
 } from 'wlc-engine/modules/store';
 import {Deferred} from 'wlc-engine/modules/core/system/classes/deferred.class';
-import {StoreCategory} from 'wlc-engine/modules/store/system/models/store-category';
+import {StoreCategory} from 'wlc-engine/modules/store/system/models/store-category.model';
 import {UserInfo} from 'wlc-engine/modules/user';
 import {
     AchievementGroupModel,

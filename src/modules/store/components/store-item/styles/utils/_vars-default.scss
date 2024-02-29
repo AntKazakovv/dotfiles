@@ -124,7 +124,9 @@ $themeDefault: map-merge((
     'tagPadding': ef.get('tagConfig', 'padding'),
     'tagRadius': ef.get('tagConfig', 'radius'),
     'tagBg': ef.get('tagConfig', 'bg'),
+    'tagBgUnavailable': ef.get('tagConfig', 'bgUnavailable'),
 
+    'lockBtnMaxWidth': 183px,
 ), $customThemeDefault);
 // Other themes vars
 @import './vars-theme-mod-chip-v2';

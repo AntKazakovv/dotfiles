@@ -41,6 +41,39 @@
                 }
             }
 
+            &.unavailable {
+
+                .wlc-store-item__wrapper {
+
+                    .wlc-store-item__name {
+                        display: none;
+                    }
+
+                    .wlc-store-item__price {
+                        transform: translateY(-10px);
+                    }
+
+                    .wlc-store-item__btns {
+                        transform: translateY(0);
+                        opacity: 1;
+                    }
+
+                    @include bm.hover {
+
+                        .wlc-store-item__info-block {
+
+                            .wlc-store-item__price {
+
+                                @include mq.min(1630) {
+                                    transform: translateY(-10px);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+
             @include bm.hover(false) {
                 @include bm.get-mq-map('height', $themeDefault, 'heightMobile');
 
@@ -203,6 +236,10 @@
             background: ef.get-value($themeDefault, 'tagBg');
             transform: translateX(-50%);
             border-radius: ef.get-value($themeDefault, 'tagRadius');
+
+            &.unavailable {
+                background: ef.get-value($themeDefault, 'tagBgUnavailable');
+            }
         }
 
         &__info-block {
@@ -306,50 +343,10 @@
                 bottom: 8%;
             }
         }
-    }
 
-    &.wlc-store-item--disabled {
-        filter: grayscale(1);
-
-        .wlc-store-item__content {
-            @include bm.get-mq-map('height', $themeDefault, 'heightDisabled');
-
-            @include bm.hover(false) {
-                @include bm.get-mq-map('height', $themeDefault, 'heightMobileDisabled');
-            }
-        }
-
-        .wlc-store-item__wrapper {
-
-            .wlc-store-item__btns {
-                display: none;
-            }
-
-            @include bm.hover {
-                background: ef.get-value($themeDefault, 'backgroundHoverDisabled');
-
-                .wlc-store-item__btns {
-                    display: none;
-                }
-
-                .wlc-store-item__price {
-                    transform: initial;
-                }
-
-                .wlc-store-item__info-block {
-
-                    .wlc-store-item__price {
-
-                        @include mq.min(1630) {
-                            transform: initial;
-                        }
-                    }
-                }
-
-                .wlc-store-item__name {
-                    opacity: 1;
-                }
-            }
+        &__lock-btn {
+            @include cm.lockBtn;
+            max-width: ef.get-value($themeDefault, 'lockBtnMaxWidth');
         }
     }
 }

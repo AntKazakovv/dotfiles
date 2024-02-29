@@ -20,7 +20,8 @@ import {
     EventService,
     GlobalHelper,
 } from 'wlc-engine/modules/core';
-import {StoreItem} from 'wlc-engine/modules/store/system/models/store-item';
+import {StoreItem} from 'wlc-engine/modules/store/system/models/store-item.model';
+import {IDisabledItemInfo} from 'wlc-engine/modules/store/system/interfaces/store.interface';
 import {StoreService} from 'wlc-engine/modules/store/system/services';
 import * as Params from './store-item.params';
 
@@ -39,12 +40,18 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
     @Input() public theme: Params.Theme;
     @Input() public themeMod: Params.ThemeMod;
     @Input() public customMod: Params.CustomMod;
+    @Input() public userLevel: number;
 
     public override $params: Params.IStoreItemCParams;
     public isAuth: boolean;
     public buyClick: boolean = false;
     public storeImage: string;
     public useIconBonusImage: boolean;
+    public storeItemTag: string;
+    public disabledInfo: IDisabledItemInfo;
+    public tagClass: string;
+
+    protected isDisabled: boolean;
     protected isProfileFirst: boolean;
 
     constructor(
@@ -64,10 +71,17 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
 
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+        this.isDisabled = !this.storeItem.isAvailable
+            || !this.storeItem.hasUserAccessByLevel(this.userLevel)
+            || this.storeItem.nextDateAvailable;
         this.prepareModifiers();
+        this.disabledInfo = this.storeItem.getDisabledInfo(this.userLevel);
         this.isProfileFirst = this.configService.get<string>('$base.profile.type') === 'first';
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         this.storeImage = this.storeItem.image;
+        this.storeItemTag = this.isDisabled ? 'Unavailable' : this.storeItem.itemType;
+        this.tagClass = this.storeItemTag.toLowerCase();
+
         this.useIconBonusImage = this.storeItem.isBonus && !this.storeImage &&
             this.configService.get<boolean>('$bonuses.useIconBonusImage');
         if (!this.storeImage) {
@@ -87,8 +101,9 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
         this.modalService.showModal('storeItemInfo', {
             title: storeItem.name,
             description: storeItem.description,
-            isDisabled: this.storeItem.isAvailable ? false : true,
             storeItem: storeItem,
+            isDisabled: this.isDisabled,
+            disabledMsg: this.disabledInfo?.messageText,
         });
     }
 
@@ -118,11 +133,6 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
         if (this.$params.common?.customModifiers) {
             modifiers = _union(modifiers, this.$params.common.customModifiers.split(' '));
         }
-
-        if (!this.storeItem.isAvailable) {
-            modifiers.push('disabled');
-        }
-
         this.addModifiers(modifiers);
     }
 }

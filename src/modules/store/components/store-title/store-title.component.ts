@@ -18,7 +18,7 @@ import {
     EventService,
 } from 'wlc-engine/modules/core';
 import {StoreService} from 'wlc-engine/modules/store/system/services';
-import {StoreCategory} from 'wlc-engine/modules/store/system/models/store-category';
+import {StoreCategory} from 'wlc-engine/modules/store/system/models/store-category.model';
 import * as Params from './store-title.params';
 
 @Component({

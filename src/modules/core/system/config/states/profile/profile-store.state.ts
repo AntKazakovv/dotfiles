@@ -4,7 +4,7 @@ import {Ng2StateDeclaration} from '@uirouter/angular';
 import {Transition} from '@uirouter/core';
 
 import {StoreService} from 'wlc-engine/modules/store/system/services/store/store.service';
-import {StoreCategory} from 'wlc-engine/modules/store/system/models/store-category';
+import {StoreCategory} from 'wlc-engine/modules/store/system/models/store-category.model';
 import {StateHelper} from 'wlc-engine/modules/core/system/helpers';
 
 export const profileStoreState: Ng2StateDeclaration = {

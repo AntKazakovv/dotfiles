@@ -71,16 +71,16 @@ $themeFirst: map-merge((
     // Animation
     'time': ef.get('time', 'main'),
     'bottomHoverTranslate': (
-        320: translateY(-74px),
-        1630: translateY(-74px),
+        375: translateY(-74px),
+    ),
+    'priceHoverTranslate': (
+        375: translateY(6px),
     ),
     'imageHoverTranslate': (
-        320: translateY(-35px),
-        1630: translateY(-35px),
+        375: translateY(-35px),
     ),
     'imageHoverGradientTranslate': (
-        320: translateY(35px),
-        1630: translateY(35px),
+        375: translateY(35px),
     ),
 
     'tagPadding': ef.get('tagConfig', 'padding'),
@@ -88,4 +88,7 @@ $themeFirst: map-merge((
     'tagTextStyle': ef.get('tagConfig', 'textStyle'),
     'tagFontColor': ef.get('tagConfig', 'color'),
     'tagBg': ef.get('tagConfig', 'bg'),
+    'tagBgUnavailable': ef.get('tagConfig', 'bgUnavailable'),
+
+    'lockBtnMaxWidth': 183px,
 ), $customThemeFirst);

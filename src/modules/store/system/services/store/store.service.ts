@@ -46,8 +46,8 @@ import {
     IGetSubscribeParams,
     StoreRestType,
 } from 'wlc-engine/modules/store/system/interfaces/store.interface';
-import {StoreItem} from 'wlc-engine/modules/store/system/models/store-item';
-import {StoreCategory} from 'wlc-engine/modules/store/system/models/store-category';
+import {StoreItem} from 'wlc-engine/modules/store/system/models/store-item.model';
+import {StoreCategory} from 'wlc-engine/modules/store/system/models/store-category.model';
 import {MultiWalletEvents} from 'wlc-engine/modules/multi-wallet';
 
 interface IRequestParams {

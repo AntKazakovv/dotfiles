@@ -1,8 +1,4 @@
-import _assign from 'lodash-es/assign';
-import _toNumber from 'lodash-es/toNumber';
-import _includes from 'lodash-es/includes';
-import _map from 'lodash-es/map';
-import _has from 'lodash-es/has';
+import {DateTime} from 'luxon';
 
 import {
     AbstractModel,
@@ -10,7 +6,15 @@ import {
     IFromLog,
     GlobalHelper,
 } from 'wlc-engine/modules/core';
+
+import _assign from 'lodash-es/assign';
+import _toNumber from 'lodash-es/toNumber';
+import _includes from 'lodash-es/includes';
+import _map from 'lodash-es/map';
+import _has from 'lodash-es/has';
+
 import {
+    IDisabledItemInfo,
     IStoreItem,
 } from '../interfaces/store.interface';
 import {StoreService} from '../services';
@@ -43,6 +47,44 @@ export class StoreItem extends AbstractModel<IStoreItem> {
         return _includes(this.data.Categories, categoryId);
     }
 
+    /**
+     * Check whether user has access by his level
+     *
+     * @param {number} userLevel User level
+     * @returns {boolean}
+     */
+    public hasUserAccessByLevel(userLevel: number): boolean {
+        return _includes(this.availableForLevels, userLevel);
+    }
+
+    /**
+     * @returns {string} Disabled message for info modal
+     */
+    public getDisabledInfo(userLevel: number): IDisabledItemInfo {
+        if (!this.isAvailable) {
+            return {
+                messageText: gettext('This item will become available for purchase when you ' +
+                    'have no active bonuses left'),
+                btnText: gettext('Unavailable'),
+            };
+        }
+
+        if (!this.hasUserAccessByLevel(userLevel)) {
+            return {
+                messageText: gettext('This item is not available to you at the current level'),
+                btnText: gettext('Unavailable for current level'),
+            };
+        }
+
+        if (this.nextDateAvailable) {
+            return {
+                messageText: gettext('The item is temporarily unavailable for a repeated purchase. ' +
+                    'Please, try again later'),
+                btnText: gettext('Temporarily unavailable'),
+            };
+        }
+    }
+
     public override set data(data: IStoreItem) {
         super.data = data;
         this.$availableForLevels = _map(this.data.AvailableForLevels.split(','), (item: string) => _toNumber(item));
@@ -50,6 +92,15 @@ export class StoreItem extends AbstractModel<IStoreItem> {
 
     public override get data(): IStoreItem {
         return super.data;
+    }
+
+    public get timerValue(): DateTime {
+        const defaultTime = DateTime.fromSQL(this.data.NextDateAvailable);
+        return defaultTime.plus({minutes: defaultTime.offset});
+    }
+
+    public get nextDateAvailable(): boolean {
+        return this.timerValue.toMillis() > DateTime.local().toMillis();
     }
 
     public get availableForLevels(): number[] {
@@ -153,6 +204,14 @@ export class StoreItem extends AbstractModel<IStoreItem> {
             default:
                 return this.data.Type;
         }
+    }
+
+
+    /**
+     * @returns {boolean} whether store item is available to all levels.
+     */
+    public get displayToAllLevels(): boolean {
+        return !!_toNumber(this.data.DisplayToAllLevels);
     }
 
     /**

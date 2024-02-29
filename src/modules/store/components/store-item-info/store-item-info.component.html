@@ -5,7 +5,7 @@
     <div *ngIf="$params.isDisabled"
         wlc-alert
         class="{{$class}}__alert-block"
-        [title]="'This product will become available for purchase when you have no active bonuses left.' | translate">
+        [title]="$params.disabledMsg | translate">
     </div>
     <span *ngIf="showMultyWalletWarning"
           class="{{$class}}__multy-wallet">

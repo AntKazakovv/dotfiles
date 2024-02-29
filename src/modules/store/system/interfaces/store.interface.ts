@@ -4,8 +4,8 @@ import {
 } from 'rxjs';
 
 import {IIndexing} from 'wlc-engine/modules/core';
-import {StoreItem} from '../models/store-item';
-import {StoreCategory} from 'wlc-engine/modules/store/system/models/store-category';
+import {StoreItem} from '../models/store-item.model';
+import {StoreCategory} from 'wlc-engine/modules/store/system/models/store-category.model';
 
 export interface IStoreOrder {
     AddDate: string;
@@ -52,6 +52,8 @@ export interface IStoreItem {
     IDBonus?: string;
     BonusEventAmount?: string;
     BonusInfo?: IStoreBonusInfo;
+    DisplayToAllLevels: string;
+    NextDateAvailable?: string;
 }
 
 export interface IStoreItemPrice {
@@ -103,4 +105,9 @@ export interface IGetSubscribeParams {
     observer: PartialObserver<IStore | IStoreOrder[]>;
     type?: StoreRestType;
     until?: Observable<unknown>;
+}
+
+export interface IDisabledItemInfo {
+    messageText: string;
+    btnText: string;
 }

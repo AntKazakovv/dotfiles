@@ -18,6 +18,8 @@ export interface IStoreItemInfoCParams extends IComponentParams<Theme, Type, The
     storeItem: StoreItem,
     // TODO is a temporary solution
     multyWalletWarning?: string;
+    /** Alert message */
+    disabledMsg: string,
 }
 
 export const defaultParams: Partial<IStoreItemInfoCParams> = {

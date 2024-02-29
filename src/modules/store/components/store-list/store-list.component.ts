@@ -9,6 +9,10 @@ import {
 } from '@angular/core';
 import {UIRouter} from '@uirouter/core';
 
+import {
+    skipWhile,
+    takeUntil,
+} from 'rxjs/operators';
 import _union from 'lodash-es/union';
 import _filter from 'lodash-es/filter';
 
@@ -24,6 +28,7 @@ import {
     StoreItem,
     IStore,
 } from 'wlc-engine/modules/store';
+import {UserService} from 'wlc-engine/modules/user';
 
 import * as Params from 'wlc-engine/modules/store/components/store-list/store-list.params';
 
@@ -48,6 +53,7 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
     public isReady: boolean = false;
     public isProfileFirst: boolean;
     public userPoints: number = 0;
+    public userLevel: number = 0;
     public userExpPoints: number = 0;
     public itemTheme: Params.Theme = 'default';
     public isMultiWallet: boolean;
@@ -61,6 +67,7 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
         protected storeService: StoreService,
         protected eventService: EventService,
         protected router: UIRouter,
+        protected userService: UserService,
     ) {
         super(
             <IMixedParams<Params.IStoreListCParams>>{
@@ -92,7 +99,17 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
                 this.initStore(this.store);
             }
         }, this.$destroy);
+
+        this.userService.userInfo$
+            .pipe(
+                skipWhile(v => !v),
+                takeUntil(this.$destroy),
+            )
+            .subscribe((userInfo) => {
+                this.userLevel = userInfo.level;
+            });
         this.isMultiWallet = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
+        this.isReady = true;
     }
 
     /**
@@ -121,12 +138,12 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
 
             if (category) {
                 storeItems = _filter(storeItems, (item: StoreItem): boolean => {
-                    return item.hasCategory(category);
+                    return item.hasCategory(category) && item.displayToAllLevels;
                 });
             }
 
             this.paginatedStoreItems = this.storeItems = storeItems;
-            this.isReady = true;
+
             this.cdr.detectChanges();
         }
     }

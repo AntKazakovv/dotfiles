@@ -18,6 +18,7 @@ Interface [IStoreItemInfoCParams](/docs/compodoc/interfaces/IStoreItemInfoCParam
 - **title** - text for title
 - **description** - description of store item
 - **isDisabled** - boolean variable for whether or not to display alert about store item disabling
+- **disabledInfo** - description of the reason for the unavailability of the product
 
 ```typescript
 export const defaultParams: Partial<IStoreItemInfoCParams> = {
@@ -27,6 +28,10 @@ export const defaultParams: Partial<IStoreItemInfoCParams> = {
     title: '',
     description: '',
     isDisabled: false,
+    disabledInfo: {
+        messageText: '',
+        btnText: '',
+    },
 };
 ```
 </div>
@@ -41,6 +46,7 @@ export const defaultParams: Partial<IStoreItemInfoCParams> = {
 - **title** - текст для заголовка
 - **description** - описание товара
 - **isDisabled** - переменная boolean, позволяющая определить, отображать или нет предупреждение о недоступности товара
+- **disabledInfo** - описание причины блокировки
 
 ```typescript
 export const defaultParams: Partial<IStoreItemInfoCParams> = {
@@ -50,6 +56,10 @@ export const defaultParams: Partial<IStoreItemInfoCParams> = {
     title: '',
     description: '',
     isDisabled: false,
+    disabledMsg: {
+        messageText: '',
+        btnText: '',
+    },
 };
 ```
 </div>

@@ -9,9 +9,11 @@
          class="{{$class}}__list"
          [class.first]="isProfileFirst">
         <div *ngFor="let item of paginatedStoreItems"
-             wlc-store-item
-             [storeItem]="item"
-             [theme]="itemTheme"></div>
+            wlc-store-item
+            [storeItem]="item"
+            [theme]="itemTheme"
+            [userLevel]="userLevel">
+        </div>
     </div>
     <div wlc-pagination
          [items]="storeItems"
