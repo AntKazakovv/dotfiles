@@ -1,11 +1,11 @@
-<div *ngIf="useTimer"
+<div *ngIf="timerValue"
     wlc-timer
     class="{{$class}}__timer"
     [value]="timerValue"
     (timerEnds)="timerEnds()">
 </div>
 
-<ng-container *ngIf="!useTimer">
+<ng-container *ngIf="!timerValue">
     <button
         *ngIf="cancelable; else noCancel"
         wlc-button

@@ -14,6 +14,7 @@ import {
 import {
     LimitationService,
 } from 'wlc-engine/modules/user/submodules/limitations/system/services/limitation/limitation.service';
+import {TLimitationType} from 'wlc-engine/modules/user/submodules/limitations/system/interfaces/limitations.interface';
 
 import * as Params from './limit-cancel.params';
 
@@ -27,9 +28,9 @@ export class LimitCancelComponent extends AbstractComponent implements OnInit {
     public override $params: Params.ILimitCancelCParams;
     public cancelable: boolean = false;
     public pending: boolean = false;
-    public useTimer: boolean = false;
+    public timerValue: DateTime = null;
 
-    protected timerValue: DateTime = null;
+    protected useCoolOffTime: boolean = null;
 
     constructor(
         @Inject('injectParams') protected params: Params.ILimitCancelCParams,
@@ -49,7 +50,12 @@ export class LimitCancelComponent extends AbstractComponent implements OnInit {
         const dateTimeValue: DateTime = DateTime.fromSQL(this.$params.value, {zone: 'utc'});
         if (dateTimeValue.isValid) {
             this.timerValue = dateTimeValue;
-            this.useTimer = true;
+            this.useCoolOffTime = true;
+        }
+
+        if (this.$params.value === 'CoolOffTime') {
+            this.useCoolOffTime = true;
+            this.cancelable = true;
         }
     }
 
@@ -79,11 +85,11 @@ export class LimitCancelComponent extends AbstractComponent implements OnInit {
             textAlign: 'center',
             onConfirm: async () => {
                 try {
-                    if (this.timerValue) {
+                    if (this.useCoolOffTime) {
                         return await this.limitationService.setSelfExclusion('disable');
                     }
 
-                    return await this.limitationService.removeUserSelfExclusion(this.$params.value);
+                    return await this.limitationService.removeUserSelfExclusion(this.$params.value as TLimitationType);
                 } catch (error) {
                     //
                 }
@@ -96,7 +102,7 @@ export class LimitCancelComponent extends AbstractComponent implements OnInit {
     }
 
     public timerEnds(): void {
-        this.useTimer = false;
+        this.timerValue = null;
         this.cancelable = true;
     }
 }

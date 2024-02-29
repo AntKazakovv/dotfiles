@@ -303,6 +303,11 @@ export class LimitationService {
             const result: IData<string | IResultSelfExclusion> =
                 await this.dataService.request('limit/selfExclusion', {period});
 
+            if (period === 'disable') {
+                this.userService ??= await this.injectionService.getService<UserService>('user.user-service');
+                await this.userService.fetchUserInfo();
+            }
+
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,
                 data: <IPushMessageParams>{

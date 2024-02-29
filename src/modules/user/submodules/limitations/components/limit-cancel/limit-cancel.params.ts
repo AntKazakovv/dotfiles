@@ -15,7 +15,7 @@ export type Modifiers = AutoModifiers | CustomMod | null;
 export const limitCancelTypes = Object.keys(limitTypeTexts);
 
 export interface ILimitCancelCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
-    value?: TLimitationType;
+    value?: TLimitationType | 'CoolOffTime' | string;
 }
 
 export const defaultParams: ILimitCancelCParams = {
