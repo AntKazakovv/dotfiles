@@ -55,7 +55,7 @@
         "@biesbjerg/ngx-translate-extract": "7.0.3",
         "@egamings/wlc-engine-translate": "^1.0.0",
         "@egjs/hammerjs": "^2.0.17",
-        "@fingerprintjs/fingerprintjs": "^3.3.6",
+        "@fingerprintjs/fingerprintjs": "^4.2.1",
         "@formatjs/intl-locale": "^3.3.2",
         "@formatjs/intl-numberformat": "^8.7.0",
         "@formatjs/intl-pluralrules": "^5.2.0",
