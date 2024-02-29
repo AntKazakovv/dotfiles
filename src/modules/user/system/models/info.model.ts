@@ -8,6 +8,7 @@ import _isNil from 'lodash-es/isNil';
 import _isNumber from 'lodash-es/isNumber';
 import _toNumber from 'lodash-es/toNumber';
 import _isUndefined from 'lodash-es/isUndefined';
+import {TranslateService} from '@ngx-translate/core';
 
 import {
     IFreeRound,
@@ -18,24 +19,28 @@ import {
     IIndexing,
 } from 'wlc-engine/modules/core/system/interfaces';
 import {IWebSocketConfig} from 'wlc-engine/modules/core/system/interfaces/websocket.interface';
-
-import {TranslateService} from '@ngx-translate/core';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {
     ConfigService,
     IFromLog,
 } from 'wlc-engine/modules/core/system/services';
+
 import {
     ISelectedWallet,
     IWalletObj,
+    IWSWallet,
+    IWSWalletObj,
 } from 'wlc-engine/modules/multi-wallet/system/interfaces/wallet.interface';
 import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
+import {IWSDataUserBalance} from 'wlc-engine/modules/user/system/interfaces/user.interface';
 
 export class UserInfo extends AbstractModel<IUserInfo> {
 
     public separateLoyalty: boolean = false;
     public static currency: string = '';
     public bonusBalanceWS: number = null;
+    private _wsWallets: IWalletObj;
+
     protected $loyaltyData: ILoyalty = {} as ILoyalty;
 
     constructor(
@@ -327,8 +332,45 @@ export class UserInfo extends AbstractModel<IUserInfo> {
         return this.data?.Tags || {};
     }
 
+    public setWalletBalance(wsBalanceData: IWSDataUserBalance, isMultiWallet: boolean, originalCurrency: string): void {
+
+        if (wsBalanceData.IsWallet) {
+            this._wsWallets[wsBalanceData.Currency].balance = wsBalanceData.Balance;
+
+        } else if (isMultiWallet) {
+            this._wsWallets[originalCurrency].balance = wsBalanceData.Balance;
+        }
+    }
+
+    public set wsWallets(wallets: IWSWalletObj) {
+
+        if (!this._wsWallets) {
+            this._wsWallets = this.data.wallets;
+        }
+
+        for (let id in wallets) {
+            const wallet: IWSWallet = wallets[id];
+
+            if (this._wsWallets[wallet.Currency]) {
+                this._wsWallets[wallet.Currency] = {
+                    ...this._wsWallets[wallet.Currency],
+                    balance: wallet.Balance,
+                    availableWithdraw: this.data.wallets[wallet.Currency].availableWithdraw,
+                };
+
+            } else {
+                this._wsWallets[wallet.Currency] = {
+                    currency: wallet.Currency,
+                    balance: wallet.Balance,
+                    walletId: _toNumber(id),
+                    availableWithdraw: this.data.wallets[wallet.Currency]?.availableWithdraw ?? '0.00',
+                };
+            }
+        }
+    }
+
     public get wallets(): IWalletObj {
-        return this.data?.wallets;
+        return this._wsWallets ?? this.data?.wallets;
     }
 
     public get transfersAllowed(): boolean {
@@ -369,7 +411,12 @@ export class UserInfo extends AbstractModel<IUserInfo> {
         const checkboxNames = configService.get<string[]>(
             {name: '$base.registration.requiredRegisterCheckboxNames'}) || [];
         return checkboxNames.reduce((acc: string[], key) => {
-            if(!_isUndefined(this.data?.[key])) return [...acc, key];
+
+            if (!_isUndefined(this.data?.[key])) {
+
+                return [...acc, key];
+            }
+
             return acc;
         }, []);
     }

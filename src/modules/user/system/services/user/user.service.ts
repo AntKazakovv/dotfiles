@@ -203,6 +203,7 @@ export class UserService {
     private termsAcceptService: TermsAcceptService;
     private licenseLimitationsService: LicenseLimitationsService;
     private twoFactorAuthService: TwoFactorAuthService;
+    private isMultiWallet: boolean = false;
 
     constructor(
         public translateService: TranslateService,
@@ -226,6 +227,7 @@ export class UserService {
         this.isAuth$ ??= this.configService.get('$user.isAuth$');
         this.isAuthenticated = this.configService.get('$user.isAuthenticated');
         this.useAchievements = this.configService.get<boolean>('$base.profile.achievements.use');
+        this.isMultiWallet = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
 
         this.userProfile$.subscribe((profile) => {
             this.configUserProfile$.next(profile);
@@ -1103,12 +1105,20 @@ export class UserService {
                         }, 10000);
                     });
 
-                    this.wsBalanceData = _assign(this.wsBalanceData, data.data);
+                    if (!_isUndefined(data.data.GameActionID) && !_isUndefined(this.wsBalanceData?.GameActionID)
+                        && data.data.GameActionID > this.wsBalanceData.GameActionID
+                        || _isUndefined(data.data.GameActionID)
+                        || _isUndefined(this.wsBalanceData?.GameActionID)) {
+                        this.wsBalanceData = _assign(this.wsBalanceData, data.data);
+                    }
+
                     lastTimeGetUserWSBalance = DateTime.now().toSeconds();
 
                     if (data.event === WebSocketEvents.RECEIVE.USER) {
                         sentRequestsWithoutResponse--;
                     }
+
+                    this.setMultiWalletWSData(data.event, data.data.IsWallet);
                 }
             });
 
@@ -1144,11 +1154,32 @@ export class UserService {
         this.userInfo$.next(this.info);
     }
 
+    private setMultiWalletWSData(eventName: string, IsWallet: number): void {
+
+        if (this.isMultiWallet && this.wsBalanceData) {
+
+            if (_isUndefined(IsWallet)) {
+                this.wsBalanceData.IsWallet = 0;
+            }
+
+            if (eventName === WebSocketEvents.RECEIVE.USER) {
+                this.info.wsWallets = this.wsBalanceData.Wallets;
+
+            } else if (eventName === WebSocketEvents.RECEIVE.USER_BALANCE) {
+                this.info.setWalletBalance(this.wsBalanceData, this.isMultiWallet, this.profile.originalCurrency);
+                this.userInfo$.next(this.info);
+            }
+        }
+    }
+
     private filterEventWSBalance(event: IWSData): boolean {
         let filterResult: boolean = true;
 
         if (event.event === WebSocketEvents.RECEIVE.USER_BALANCE) {
-            filterResult = event.data.IDUser === Number(this.profile.idUser);
+            filterResult = event.data.IsWallet
+                ? event.data.IDParent === Number(this.profile.idUser)
+                : event.data.IDUser === Number(this.profile.idUser);
+
             if (!filterResult) {
                 return filterResult;
             }

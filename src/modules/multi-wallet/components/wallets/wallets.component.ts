@@ -370,7 +370,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit, OnDes
                         currencyFrom: currency,
                         currencyTo: this.settingsParams.walletSettings.currency,
                     });
-                    wallet.balance = (coefficient * _toNumber(wallet.balance)).toFixed(2);
+                    wallet.balance = (coefficient * _toNumber(wallet.balance));
                 }
 
             } else if (!this.$params.hideVirtualWallets) {
@@ -385,6 +385,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit, OnDes
                 ?.find((item: ICurrencyFilter) => item.code === currency);
 
             if (wallet.balance && !currentCurrencyUnused) {
+                wallet.balance = _toNumber(wallet.balance).toFixed(2);
                 this.walletList.push(wallet);
             }
 

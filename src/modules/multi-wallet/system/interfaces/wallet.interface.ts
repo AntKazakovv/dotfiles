@@ -6,8 +6,18 @@ export interface IWallet {
     freerounds?: any[];
 }
 
+export interface IWSWallet {
+    Balance: string;
+    Currency: string;
+}
+
+// TODO заменить в дальнейшем на IIndexing
 export interface IWalletObj {
-    [key: string]: IWallet;
+    [currency: string]: IWallet;
+}
+
+export interface IWSWalletObj {
+    [id: string]: IWSWallet;
 }
 
 export interface ICreatedWallet {

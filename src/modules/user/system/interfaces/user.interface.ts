@@ -1,3 +1,5 @@
+import {IWSWalletObj} from 'wlc-engine/modules/multi-wallet';
+
 /**
  * `POST /api/v1/userPassword` body params
  * @param email - user email which is bound to account
@@ -49,4 +51,6 @@ export interface IWSDataUserBalance {
     dwh_event_id?: string;
     odb_event_id?: number;
     Node?: number;
+    GameActionID?: number;
+    Wallets?: IWSWalletObj;
 }
