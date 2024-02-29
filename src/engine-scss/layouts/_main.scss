@@ -14,6 +14,7 @@
 @import './providers/providers';
 
 @include lm.init-layout-gap(ev.$layoutGap);
+@include lm.init-layout-padding(ev.$layoutWithFixedPanels);
 
 [class*='wlc-sections__']:empty {
     display: none;

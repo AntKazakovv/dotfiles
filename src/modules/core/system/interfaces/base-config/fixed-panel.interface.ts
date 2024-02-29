@@ -6,8 +6,6 @@ export interface IFixedPanelSizes {
     compact?: number;
     /** Fixed panel width in expanded state */
     full?: number;
-    /** Gap between fixed panel and content */
-    gap?: number;
 }
 
 export interface IFixedPanelItemParams {

@@ -1,5 +1,6 @@
 @use '../engine.variables' as ev;
 @use '../mixins/base.mixins' as bm;
+@use '../functions' as ef;
 
 /// Creates indent on section
 ///
@@ -47,4 +48,44 @@
             }
         }
     }
+}
+
+/// Creates indents between sections and fixed panels
+///
+/// @name init-layout-padding
+///
+/// @param {map} $map
+@mixin init-layout-padding($map) {
+    $sectionsWithoutPadding: ef.get-value($map, 'sectionsWithoutPadding');
+
+    .wlc-body--fp-left:not(.wlc-body--fp-left-nopadding),
+    .wlc-body--fp-right:not(.wlc-body--fp-right-nopadding) {
+
+        #{get-layout-padding-selector($sectionsWithoutPadding)} {
+            @include bm.get-mq-map('padding', $map, 'sectionsPadding');
+        }
+
+        @each $section, $padding in $sectionsWithoutPadding {
+            @if ($padding) {
+                #{$section} {
+                    @include bm.get-mq-map('padding', $sectionsWithoutPadding, $section);
+                }
+            }
+        }
+    }
+}
+
+/// Returns a selector that selects all sections except the sections from the $sections param
+///
+/// @name get-layout-padding-selector
+///
+/// @param {list} $sections
+@function get-layout-padding-selector($sections) {
+    $selector: '[class*=\'wlc-sections__\']';
+
+    @each $section, $padding in $sections {
+        $selector: '#{$selector}:not(#{$section})';
+    }
+
+    @return $selector;
 }

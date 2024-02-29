@@ -38,3 +38,20 @@ $layoutGap: map-merge((
         '.wlc-sections__profile-content',
     ),
 ), $customLayoutGap);
+
+/// Layout settings for projects with fixed panels.
+/// Documentation: https://wiki.egamings.com/pages/viewpage.action?pageId=119114835
+///
+/// @name customLayoutWithFixedPanels
+$customLayoutWithFixedPanels: () !default;
+$layoutWithFixedPanels: map-merge((
+    'sectionsPadding': 0 size-func(3),
+
+    // The map where the key is a section selector and the value is a padding media-value.
+    // '.wlc-sections__header': null, (if you don't need padding)
+    // '.wlc-sections__header': (
+    //     375: 0 15px,
+    //     1200: initial,
+    // ), (if you need padding on some breakpoints)
+    'sectionsWithoutPadding': (),
+), $customLayoutWithFixedPanels);

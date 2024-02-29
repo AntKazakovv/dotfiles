@@ -8,7 +8,6 @@ export const fixedPanelConfig: IFixedPanelConfig = {
             sizes: {
                 full: 230,
                 compact: 48,
-                gap: 15,
             },
             breakpoints: {
                 display: 1024,
@@ -21,7 +20,6 @@ export const fixedPanelConfig: IFixedPanelConfig = {
             sizes: {
                 full: 320,
                 compact: 0,
-                gap: 15,
             },
             breakpoints: {
                 display: 0,

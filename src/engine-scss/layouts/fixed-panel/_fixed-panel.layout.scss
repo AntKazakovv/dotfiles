@@ -11,11 +11,11 @@
 .wlc-body--fp-left {
 
     &-compact {
-        --fp-left-padding: calc(var(--fp-left-size-compact) + var(--fp-left-size-gap));
+        --fp-left-padding: var(--fp-left-size-compact);
     }
 
     &-expanded {
-        --fp-left-padding: calc(var(--fp-left-size-full) + var(--fp-left-size-gap));
+        --fp-left-padding: var(--fp-left-size-full);
     }
 
     &:not(.wlc-body--fp-left-nopadding) {
@@ -23,39 +23,23 @@
         .wlc-app {
             padding-left: var(--fp-left-padding, 0);
         }
-
-        &:not(.wlc-body--fp-right),
-        &.wlc-body--fp-right-nopadding {
-
-            .wlc-app {
-                padding-right: var(--fp-left-size-gap, 0);
-            }
-        }
     }
 }
 
 .wlc-body--fp-right {
 
     &-compact {
-        --fp-right-padding: calc(var(--fp-right-size-compact) + var(--fp-right-size-gap));
+        --fp-right-padding: var(--fp-right-size-compact);
     }
 
     &-expanded {
-        --fp-right-padding: calc(var(--fp-right-size-full) + var(--fp-right-size-gap));
+        --fp-right-padding: var(--fp-right-size-full);
     }
 
     &:not(.wlc-body--fp-right-nopadding) {
 
         .wlc-app {
             padding-right: var(--fp-right-padding, 0);
-        }
-
-        &:not(.wlc-body--fp-left),
-        &.wlc-body--fp-left-nopadding {
-
-            .wlc-app {
-                padding-left: var(--fp-right-size-gap, 0);
-            }
         }
     }
 }
