@@ -297,13 +297,16 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
      */
 
     public get tag(): string {
-        return this.isSelected
-            ? 'Active'
-            : !this.isTournamentStarts
-                ? 'Coming soon'
-                : this.onlyForLevels
-                    ? 'Unavailable'
-                    : 'Available';
+        switch (true) {
+            case this.isSelected:
+                return 'Active';
+            case !this.isTournamentStarts:
+                return 'Coming soon';
+            case !!this.onlyForLevels:
+                return 'Unavailable';
+            default:
+                return 'Available';
+        }
     }
 
     public get serverTime(): number | null {
