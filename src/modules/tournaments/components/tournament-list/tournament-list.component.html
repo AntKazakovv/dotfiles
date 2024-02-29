@@ -17,6 +17,11 @@
     <div wlc-scrollbar class="{{$class}}__inner">
         <ng-container *ngIf="readyTournamentsAndSlides; else: noData">
             <ng-container *ngIf="!isTournamentSelected && $params.themeMod === 'swiper'">
+                <div wlc-slider
+                    class="{{$class}}__slider"
+                    [slides]="slides"
+                    [inlineParams]="sliderParams">
+                </div>
                 <div *ngIf="slides.length > 1" slot-container-end class="{{$class}}__nav">
                     <div wlc-slider-navigation
                         class="container swiper-button-container"
@@ -51,7 +56,8 @@
         <ng-container *ngIf="$params.themeMod === 'swiper'">
             <div wlc-slider
                 class="{{$class}}__slider"
-                [inlineParams]="bannerSliderConfig">
+                [slides]="slides"
+                [inlineParams]="sliderParams">
             </div>
             <div slot-container-end *ngIf="slides.length > 1">
                 <div wlc-slider-navigation

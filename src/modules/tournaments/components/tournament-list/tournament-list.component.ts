@@ -69,8 +69,6 @@ export class TournamentListComponent
     public isAuth: boolean;
     public noContentParams: INoContentCParams;
 
-    public dashboardSliderConfig: ISliderCParams = {};
-    public bannerSliderConfig: ISliderCParams = {};
     public navigationId: string = _random(10000000).toString(16);
     public emptyInProfileConfig: IWrapperCParams;
     protected indexOfSelectedTournament: number;
@@ -103,8 +101,6 @@ export class TournamentListComponent
                 prevEl: '.wlc-tournament-list .wlc-swiper-button-prev-' + this.navigationId,
             };
         }
-
-        this.initSliderComponents();
 
         this.subscribeOnTournamentLeave();
         this.subscribeOnErrorGettingTournaments();
@@ -201,8 +197,6 @@ export class TournamentListComponent
                         this.tournamentsToSlides(true);
                     }
 
-                    this.initSliderComponents();
-
                     this.isReady = true;
                     this.cdr.markForCheck();
                 },
@@ -256,18 +250,5 @@ export class TournamentListComponent
         if (this.inlineParams) {
             return this.inlineParams;
         }
-    }
-
-    protected initSliderComponents(): void {
-        this.bannerSliderConfig = {
-            slides: this.slides,
-            ...this.sliderParams,
-        };
-
-        this.dashboardSliderConfig = {
-            slides: this.slides,
-            ...this.sliderParams,
-        };
-
     }
 }
