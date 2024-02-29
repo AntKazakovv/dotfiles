@@ -977,6 +977,7 @@ export class PaymentFormComponent
                     params: <ISelectCParams>{
                         labelText: field.name,
                         name: key,
+                        value: this.additionalParams[key].value,
                         theme: GlobalHelper.isMobileApp() ? 'mobile-app' : 'vertical',
                         common: {
                             placeholder: field.name,
