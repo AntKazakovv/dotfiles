@@ -42,10 +42,8 @@ import {
     IMainParamsTextData,
 } from 'wlc-engine/modules/static/system/interfaces/static.interface';
 import {TextDataModel} from 'wlc-engine/modules/static/system/models/textdata.model';
-import {WlcTextData} from 'wlc-engine/modules/static/system/models/textdata.wlc.model';
 import {WpTextData} from 'wlc-engine/modules/static/system/models/textdata.wp.model';
 import {
-    WpPluginsType,
     ICacheExpiry,
     ISplitTexts,
 } from 'wlc-engine/modules/static/system/interfaces/static.interface';
@@ -55,7 +53,6 @@ import {
 })
 export class StaticService {
     private cacheExpiryParam: ICacheExpiry;
-    private useWpPlugin: boolean;
     private categories: ICategoryStaticText[] = [];
     private params: IIndexing<string>;
     private readonly fieldsList = [
@@ -151,7 +148,6 @@ export class StaticService {
     public getLinkToPdf(slug: string): string {
         const params: IPDFParams = {
             slug,
-            wpPlugin: this.useWpPlugin ? 1 : 0,
             termsOfService: this.configService.get<string>('appConfig.siteconfig.termsOfService'),
             lang: 'en',
         };
@@ -197,7 +193,7 @@ export class StaticService {
 
     private async init(): Promise<void> {
         await this.configService.ready;
-        await this.setConfig();
+        this.setConfig();
         await this.getCategories();
         this.ready = Promise.resolve(true);
     }
@@ -342,15 +338,13 @@ export class StaticService {
     private getWpApiUrl(type: StaticTextType, lang: string): string {
         const mode = this.configService.get<TWpTranslateMode>('$static.wpPlugins.translateMode');
 
-        const apiUrl = this.useWpPlugin
-            ? '/content/wp-json/wp-wlc-api/v1/'
-            : `/content/${(mode === 'query') ? '' : lang}/wp-json/wp/v2/`;
+        const apiUrl = `/content/${(mode === 'query') ? '' : lang}/wp-json/wp/v2/`;
 
         const requestUrls: IRequestUrlStaticText = {
             category: apiUrl + 'categories',
             tag: apiUrl + 'tags',
-            post: apiUrl + (this.useWpPlugin ? 'post' : 'posts?per_page=100'),
-            page: apiUrl + (this.useWpPlugin ? 'page' : 'pages'),
+            post: apiUrl + 'posts?per_page=100',
+            page: apiUrl + 'pages',
         };
 
         return this.sanitizer
@@ -372,76 +366,33 @@ export class StaticService {
         return new HttpRequest('GET', url, {params: httpParams});
     }
 
-    private async setConfig(): Promise<boolean> {
+    private setConfig(): void {
         this.cacheExpiryParam = this.configService.get<ICacheExpiry>('$static.cacheExpiry');
-        this.useWpPlugin = await this.checkPlugin();
         this.params = this.getParams();
-        return true;
-    }
-
-    private async checkPlugin(plugin: WpPluginsType = 'wlc-api'): Promise<boolean> {
-        if (this.configService.get<boolean>('$static.wpPlugins.wlcApi') === false) {
-            return false;
-        }
-
-        const cacheExpiry = this.cacheExpiry('plugin');
-        const rx = new RegExp(`^${plugin}\/`);
-        const requestUrl = '/content/wp-json/wp-wlc-api/v1/active-plugins/';
-        let plugins: string[];
-
-        if (cacheExpiry) {
-            plugins = (await this.cachingService.get<string[]>(requestUrl)) || [];
-        }
-
-        try {
-            if (!plugins.length) {
-                plugins = await lastValueFrom(this.httpClient.request<string[]>('GET', requestUrl));
-
-                if (cacheExpiry) {
-                    this.cachingService.set<string>(requestUrl, plugins, false, cacheExpiry);
-                }
-            }
-
-            return !!_find(plugins, (item) => rx.test(item));
-        } catch (e) {
-            return false;
-        }
     }
 
     private getParams(): IIndexing<string> {
         const fields = this.configService.get<any>('$static.additionalFields');
 
-        return (this.useWpPlugin)
-            ? {
-                fields: _filter(fields, (item) => !_includes(this.fieldsList, item)).join(','),
-            }
-            : {
-                _fields: _union(fields, this.fieldsList, ['_embedded', '_links']).join(','),
-                context: 'view',
-                _embed: '1',
-            };
+        return {
+            _fields: _union(fields, this.fieldsList, ['_embedded', '_links']).join(','),
+            context: 'view',
+            _embed: '1',
+        };
     }
 
     private switchTextData(responsePost: IPostResponse | IPostResponse[]): TextDataModel {
         responsePost = _isArray(responsePost) ? responsePost[0] : responsePost;
 
-        return this.useWpPlugin
-            ? new WlcTextData(
-                {
-                    service: 'StaticService',
-                    method: 'switchTextData',
-                    model: 'WlcTextData',
-                },
-                this.normalizeContent(responsePost),
-                this.configService)
-            : new WpTextData(
-                {
-                    service: 'StaticService',
-                    method: 'switchTextData',
-                    model: 'WpTextData',
-                },
-                this.normalizeContent(responsePost),
-                this.configService);
+        return new WpTextData(
+            {
+                service: 'StaticService',
+                method: 'switchTextData',
+                model: 'WpTextData',
+            },
+            this.normalizeContent(responsePost),
+            this.configService,
+        );
     }
 
     private async getPostList(categories: number[], params: IStaticParams = {}): Promise<TextDataModel[]> {

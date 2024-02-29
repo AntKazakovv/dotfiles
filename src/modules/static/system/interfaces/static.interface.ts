@@ -1,14 +1,12 @@
 import {IIndexing} from 'wlc-engine/modules/core';
 
 export type StaticTextType = 'page' | 'post' | 'tag' | 'category';
-export type WpPluginsType = 'wlc-api';
 export type TWpTranslateMode = 'query' | 'pre-path';
 export interface IAcf extends IIndexing<any> {}
 
 export interface IStaticConfig {
     pages?: string[],
     wpPlugins?: {
-        wlcApi?: boolean,
         /**
          * Changing url formation for translation links
          */
@@ -34,7 +32,6 @@ export interface IDownloadPdf {
 export interface ICacheExpiry {
     category: number,
     post: number,
-    plugin: number,
     tag: number,
     page: number,
 }
@@ -130,8 +127,6 @@ export interface ISplitTexts {
 export interface IPDFParams {
     /** language of post */
     lang: string;
-    /** set to 1 when wlc-api plugin enabled */
-    wpPlugin: 0 | 1;
     /** page/post slug in WP */
     slug: string;
     /**
