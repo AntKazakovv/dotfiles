@@ -8,6 +8,6 @@
         "include": [
             "wlc-engine/**/*.d.ts",
             "src/custom/**/*"
-        ],
+        ]
     }
 }
