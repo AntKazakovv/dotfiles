@@ -26,7 +26,7 @@ export const defaultParams: IEnterPromocodeCParams = {
         showTitle: true,
         title: gettext('Have a promo code?'),
         showDescription: false,
-        placeholder: gettext('Enter promo code'),
+        placeholder: gettext('Promo code'),
         btnIconPath: '/wlc/icons/enter-arrow.svg',
         signupModalName: 'signup',
     },

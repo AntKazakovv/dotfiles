@@ -67,7 +67,7 @@
 <ng-template #themeWolf>
     <div class="{{$class}}__content" data-wlc-element="block_timer">
         <div class="{{$class}}__timer-text">
-            <div class="secondary-text">{{$params.common?.text | translate}}:</div>
+            <div class="secondary-text">{{$params.common?.text | translate}}</div>
             <div *ngIf="$params.common.noCountDown" class="time-text">{{$params.common.value}}</div>
             <ng-container *ngIf="!$params.common.noCountDown" [ngTemplateOutlet]="countdown"></ng-container>
         </div>
