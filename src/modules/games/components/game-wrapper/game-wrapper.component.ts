@@ -181,7 +181,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     };
 
     public choiceCurrencyParams: IChoiceCurrencyParams;
-    public showChoiceCurrency: boolean;
+    public showChoiceOfCurrency: boolean;
 
     protected realMobile: boolean = false;
     protected aspectRatio: string;
@@ -275,7 +275,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                 game: this.game,
             };
 
-            this.showChoiceCurrency = this.game.currencyNotSupported && !this.gameParams.demo;
+            this.showChoiceOfCurrency = this.game.showChoiceOfCurrency && !this.gameParams.demo;
             this.cdr.detectChanges();
             this.initStartResizeParams();
             this.game.selectedCurrency = null;
@@ -473,7 +473,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     }
 
     public currencyEmit(): void {
-        this.showChoiceCurrency = false;
+        this.showChoiceOfCurrency = false;
         this.cdr.markForCheck();
     }
 

@@ -4,4 +4,5 @@ export interface IGamesConfig {
         useRealJackpots?: boolean;
         requestCurrency?: string;
     };
+    alwaysShowChoiceOfCurrency?: boolean;
 }

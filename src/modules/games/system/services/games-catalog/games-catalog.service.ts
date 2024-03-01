@@ -201,10 +201,6 @@ export class GamesCatalogService {
 
         this.useRealJackpots = this.configService.get<boolean>('$base.games.jackpots.useRealJackpots');
         this.useSeparateSorts = this.configService.get<boolean>('$games.sortsV2.use');
-
-        Games.allowGameCurrency =
-            this.configService.get<boolean>('appConfig.siteconfig.AllowGameCurrency');
-        Games.isMultiWallet = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
         GamesCatalogService.userService = await this.injectionService.getService<UserService>('user.user-service');
 
         const fetches: {
