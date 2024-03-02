@@ -219,10 +219,10 @@ export const selfExclusion = (isRomaniaLicense: boolean): IFormComponent => {
         name: 'core.wlc-select',
         params: <ISelectCParams>{
             name: 'selfExclusion',
-            labelText: gettext('Self exclusion'),
+            labelText: gettext('Limit time'),
             wlcElement: 'self-exclusion',
             common: {
-                placeholder: gettext('Self exclusion'),
+                placeholder: gettext('Limit time'),
             },
             validators: ['required'],
             locked: false,

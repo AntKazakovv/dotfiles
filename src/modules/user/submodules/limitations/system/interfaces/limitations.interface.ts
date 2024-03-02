@@ -33,3 +33,9 @@ export interface IRealityChecker {
     /** Time in minutes */
     period?: number;
 }
+
+export interface IResultSelfExclusion {
+    result: {
+        loggedIn: string;
+    }
+}

@@ -8,7 +8,9 @@ import {
 import {filter} from 'rxjs/operators';
 import {DateTime} from 'luxon';
 import _isArray from 'lodash-es/isArray';
+import _isObject from 'lodash-es/isObject';
 import _find from 'lodash-es/find';
+import _isString from 'lodash-es/isString';
 
 import {
     ConfigService,
@@ -19,9 +21,14 @@ import {
     ILimitationExclusion,
     IPushMessageParams,
     NotificationEvents,
+    InjectionService,
 } from 'wlc-engine/modules/core';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
-import {TLimitationType} from 'wlc-engine/modules/user/submodules/limitations/system/interfaces/limitations.interface';
+import {
+    IResultSelfExclusion,
+    TLimitationType,
+} from 'wlc-engine/modules/user/submodules/limitations/system/interfaces/limitations.interface';
+import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
 
 export interface ISelfExclusion {
     Currency: string;
@@ -88,12 +95,14 @@ export class LimitationService {
     private lastCheck: number;
     private intervalChecker: Subscription;
     private useRealityCheck: boolean = false;
+    private userService: UserService;
 
     constructor(
         private dataService: DataService,
         private configService: ConfigService,
         private eventService: EventService,
         private modalService: ModalService,
+        private injectionService: InjectionService,
     ) {
         if (this.configService.get('$base.profile.limitations.use')) {
             this.useRealityCheck = !!_find(
@@ -210,7 +219,8 @@ export class LimitationService {
                 data: <IPushMessageParams>{
                     type: 'error',
                     title: gettext('Error'),
-                    message: gettext('Error getting user self exclusion'),
+                    message: _isString(error.errors[0])
+                        ? error.errors[0] : gettext('Error getting user self exclusion'),
                     wlcElement: 'notification_get-self-exclusion-error',
                 },
             });
@@ -288,9 +298,28 @@ export class LimitationService {
         this.eventService.emit({name: 'USER_STATUS_DISABLE'});
     }
 
-    public async setSelfExclusion(period: string): Promise<IData<string>> {
+    public async setSelfExclusion(period: string): Promise<IData<string | IResultSelfExclusion>> {
         try {
-            const result: IData<string> = await this.dataService.request('limit/selfExclusion', {period});
+            const result: IData<string | IResultSelfExclusion> =
+                await this.dataService.request('limit/selfExclusion', {period});
+
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'success',
+                    title: gettext('Profile updated successfully'),
+                    message: _isString(result.data)
+                        ? result.data : gettext('Your profile has been updated successfully'),
+                    wlcElement: 'notification_profile-update-success',
+                },
+            });
+
+            if (_isObject(result.data) && result.data.result?.loggedIn === '0') {
+                this.userService ??= await this.injectionService.getService<UserService>('user.user-service');
+                this.userService.logout();
+                return result;
+            }
+
             this.eventService.emit({name: 'remove_exclusion'});
             return result;
         } catch (error) {

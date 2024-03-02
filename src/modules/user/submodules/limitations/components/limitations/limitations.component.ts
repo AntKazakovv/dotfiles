@@ -211,16 +211,7 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
                 return false;
             case 'selfExclusion':
                 try {
-                    const result = await this.limitationService.setSelfExclusion(form.value.selfExclusion);
-                    this.eventService.emit({
-                        name: NotificationEvents.PushMessage,
-                        data: <IPushMessageParams>{
-                            type: 'success',
-                            title: gettext('Profile updated successfully'),
-                            message: result.data,
-                            wlcElement: 'notification_profile-update-success',
-                        },
-                    });
+                    await this.limitationService.setSelfExclusion(form.value.selfExclusion);
                 } catch (error) {
                     this.pending = false;
                     return false;
@@ -288,7 +279,7 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
 
         const selfExclusion = await this.limitationService.getUserSelfExclusion();
 
-        if (_isNil(this.useZeroBalance) && selfExclusion.ZeroLimits) {
+        if (_isNil(this.useZeroBalance) && selfExclusion?.ZeroLimits) {
             this.useZeroBalance = true;
         }
 
