@@ -366,7 +366,7 @@ export class PaymentFormComponent
             message: [
                 gettext('The deposit period for the issued invoice has expired.'),
                 gettext('If you have sent a payment, check the status of '
-                    + 'the transaction on the transaction history page.'),
+                    + 'the transaction on the transaction history page'),
             ],
             wlcElement: 'notification_deposit-invoice-expired',
         });
