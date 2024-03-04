@@ -26,6 +26,7 @@ $themeDefault: map-merge((
     'searchIconFill': var(--mc-main),
     'searchIconFillHover': var(--mc-baseMain),
     'searchInputPadding': ef.size(2) 0 ef.size(2) ef.size(8),
+    'searchInputFont': 'PrimaryText',
     'searchInputColor': var(--mc-baseMain),
     'searchInputBackground': var(--mc-bg),
     'searchInputBackgroundHover': var(--mc-main),

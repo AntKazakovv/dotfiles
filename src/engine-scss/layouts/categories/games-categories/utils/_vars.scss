@@ -72,9 +72,7 @@ $gamesCategoriesDefault: map-merge((
     'btnIconHeight': 20px,
 
     'withoutBackContainerPadding': 0,
-    'withoutBackBtnBorder': 2px solid var(--mc-baseOpacity),
-    'withoutBackBtnBorderHover': 2px solid var(--mc-main),
-    'withoutBackBg': none,
+    'withoutBackBg': var(--mc-bg700),
     'withoutBackBgHover': var(--mc-main),
 ), $customGamesCategoriesDefault);
 
@@ -84,7 +82,7 @@ $withIcons: map-merge((
     'searchButtonBgHover': var(--mc-bg300),
     'searchButtonIconFill': var(--mc-main),
     'searchButtonIconFillHover': currentColor,
-    'searchButtonTextStyle': 'ThirdTitle',
+    'searchButtonTextStyle': 'PrimaryText',
 
     'merchButtonBg': var(--mc-bg500),
     'merchButtonBgHover': var(--mc-bg300),
@@ -158,7 +156,7 @@ $gamesCategoriesWolf: map-merge((
     'searchBtnPadding': 0 ef.size(4),
     'searchBtnBg': var(--fc-inputBg),
     'searchBtnRadius': ef.size(2),
-    'searchBtnTextStyle': 'PlaceholderText',
+    'searchBtnTextStyle': 'PrimaryText',
     'searchBtnColor': var(--fc-placeholderColor),
     'btnIconWidth': ef.size(5),
     'btnIconHeight': ef.size(5),

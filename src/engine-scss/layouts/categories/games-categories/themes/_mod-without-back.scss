@@ -11,11 +11,9 @@
 
             &.wlc-btn-search,
             &.wlc-btn-merch {
-                border: ef.get-value($gamesCategoriesDefault, 'withoutBackBtnBorder');
                 background: ef.get-value($gamesCategoriesDefault, 'withoutBackBg');
 
                 @include bm.hover {
-                    border: ef.get-value($gamesCategoriesDefault, 'withoutBackBtnBorderHover');
                     background: ef.get-value($gamesCategoriesDefault, 'withoutBackBgHover');
                 }
             }

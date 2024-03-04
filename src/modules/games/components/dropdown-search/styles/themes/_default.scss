@@ -129,8 +129,9 @@
             }
 
             &__input {
+                @include text.get-text-style(ef.get-value($themeDefault, 'searchInputFont'), ef.get-value($themeDefault, 'searchInputColor'));
+
                 padding: ef.get-value($themeDefault, 'searchInputPadding');
-                color: ef.get-value($themeDefault, 'searchInputColor');
                 background: ef.get-value($themeDefault, 'searchInputBackground');
                 border: none;
 
