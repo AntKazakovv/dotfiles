@@ -412,6 +412,7 @@ export class ActionService {
         if (!initialPath.wheel) {
             return;
         }
+
         await this.configService.ready;
         const isAuth = this.configService.get('$user.isAuthenticated');
 
@@ -419,8 +420,15 @@ export class ActionService {
             this.modalService.showModal('login');
         }
         const wheelService = await this.injectionService.getService<WheelService>('wheel.wheel-service');
+        this.removeQueryParams();
         await wheelService.getPrizeWheelUserInfo();
-        wheelService.joinUserToWheel(+initialPath.wheel);
+        wheelService.joinUserToWheel(+initialPath.wheel, initialPath.nonce);
+    }
+
+    protected removeQueryParams(): void {
+        let url = this.window.location.href;
+        let cleanUrl = url.split('?')[0];
+        this.window.history.replaceState(null, null, cleanUrl);
     }
 
     protected onEmailUnsubscribe(): void {

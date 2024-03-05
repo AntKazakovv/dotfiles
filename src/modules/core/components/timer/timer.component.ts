@@ -231,10 +231,20 @@ export class TimerComponent extends AbstractComponent implements OnInit, OnChang
         this.hoursToDday = Math.floor(timeDifference / DateHelper.milliSecondsInHours % DateHelper.hoursInDay);
         this.daysToDday = Math.floor(timeDifference / DateHelper.milliSecondsInDay);
 
+        if (this.$params.common.noHours) {
+            this.minutesToDday = Math.floor(timeDifference / DateHelper.milliSecondsInMinutes);
+        }
+
         this.seconds = ('0' + this.secondsToDday).slice(-2);
         this.minutes = ('0' + this.minutesToDday).slice(-2);
         this.hours = ('0' + this.hoursToDday).slice(-2);
         this.days = ('0' + this.daysToDday).slice(-2);
+
+        if (this.minutesToDday > 99) {
+            this.minutes = String(this.minutesToDday).slice(-3);
+        } else {
+            this.minutes = ('0' + this.minutesToDday).slice(-2);
+        }
 
         if (this.$params.theme === 'circle') {
             this.setCircleDasharray(Math.ceil(timeDifference / DateHelper.milliSecondsInSecond));

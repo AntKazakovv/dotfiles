@@ -10,11 +10,13 @@ export type ComponentThemeMod = 'default' | CustomType;
 export type AutoModifiers = ComponentTheme | ComponentThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
+export type ModeType = 'show' | 'create' | 'join';
 
 export interface IDataWheel {
     amount?: string;
     currency?: string;
     duration?: string;
+    finishedAt?: string;
 }
 
 export interface IGatheringParticipantsCParams extends
@@ -26,6 +28,8 @@ export interface IGatheringParticipantsCParams extends
     completionByButton?: boolean;
     dataWheel?: IDataWheel;
     serverTime?: number;
+    nonce?: string;
+    mode?: ModeType;
 }
 
 export const defaultParams: IGatheringParticipantsCParams = {

@@ -55,15 +55,19 @@ import {
     IEventWidgetWheel,
     IWinner,
 } from 'wlc-engine/modules/wheel/system/interfaces';
-
-import {IDataWheel} from
-    'wlc-engine/modules/wheel/components/gathering-participants/gathering-participants.params';
 import {ParticipantModel} from 'wlc-engine/modules/wheel/system/models';
 import {WebSocketEvents} from 'wlc-engine/modules/core/system/services/websocket/websocket.service';
 
 interface ICreateWheelResponse {
     result?: boolean;
     wheelId?: number;
+    nonce?: string;
+}
+
+interface IJoinWheelResponse {
+    data?: IInfoWheelResponse;
+    result?: boolean;
+    message?: string;
 }
 
 type TCompletion  = 'auto' | 'button';
@@ -85,6 +89,7 @@ export class WheelService {
     private participants: ParticipantModel[] = [];
 
     private currentIdWheel: number = 0;
+    private currentNonce: string = '';
 
     constructor(
         private eventService: EventService,
@@ -107,6 +112,13 @@ export class WheelService {
             ParticipantModel.folder = this.configService.get<string>('$modules.wheel.avatarsFolder') ||
                 '/wlc/prize-wheel/avatars/';
         }
+    }
+
+    public getUserAvatar(idUser: number): string {
+        const array = Array.from(idUser.toString(), Number);
+        const firstNum = array[array.length - 2] > 4 ? 1 : 0;
+        const secondNum = array[array.length - 1];
+        return `${ParticipantModel.folder}avatar-${firstNum}${secondNum}.png`;
     }
 
     public closeModalsWaiting(): void {
@@ -139,12 +151,13 @@ export class WheelService {
                 if (this.userWheel.streamWheelOwner) {
                     this.setInfoWheelSocketSubscription();
                     this.eventsWheel$.next({name: 'updateWidget', data: this.userWheel.streamWheelOwner});
+                    this.currentNonce = this.getNonceFromStorage();
                 } else {
                     this.eventsWheel$.next({name: 'showWidget'});
                 }
             } else if (this.userWheel.streamWheelsParticipant && this.userWheel.streamWheelsParticipant.length) {
                 this.setInfoWheelSocketSubscription();
-                this.eventsWheel$.next({name: 'showWidget'});
+                this.eventsWheel$.next({name: 'updateWidget', data: this.userWheel.streamWheelsParticipant[0]});
             }
         }
     }
@@ -224,51 +237,75 @@ export class WheelService {
         );
     }
 
-    public async joinUserToWheel(idWheel: number): Promise<void> {
+    public async joinUserToWheel(idWheel: number, nonce: string): Promise<void> {
         try {
             await this.getPrizeWheelUserInfo();
             this.setInfoWheelSocketSubscription();
             this.currentIdWheel = idWheel;
-            await this.requestJoinToWheel(idWheel);
-            this.showGatheringParticipantsModal(idWheel);
+            const response: IData<IJoinWheelResponse> = await this.requestJoinToWheel(idWheel, nonce);
+            await this.setInfoAfterJoin(response);
+            this.showModalAfterJoin(response.data);
             this.eventsWheel$.next({name: 'showWidget'});
         } catch (error) {
-            await this.getPrizeWheelUserInfo();
-            if (!this.userWheel.streamWheelsParticipant.length) {
-                this.finishWheel();
-                this.eventService.emit({
-                    name: NotificationEvents.PushMessage,
-                    data: <IPushMessageParams>{
-                        type: 'error',
-                        title: gettext('Error'),
-                        message: error.errors,
-                        wlcElement: 'stream-wheel-join-sending-error',
-                    },
-                });
-                this.modalService.closeAllModals();
-            } else {
-                this.showGatheringParticipantsModal(this.userWheel.streamWheelsParticipant[0]);
-            }
+            this.finishWheel();
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'warning',
+                    title: gettext('Information'),
+                    message: error.errors,
+                    wlcElement: 'stream-wheel-join-sending-error',
+                },
+            });
+            this.modalService.closeAllModals();
         }
     }
 
-    public showGatheringParticipantsModal(
-        id: number,
-        isStreamer?: boolean,
-        dataWheel?: IDataWheel,
-        serverTime?: number,
-    ): void {
+    public async setInfoAfterJoin(response: IData<IJoinWheelResponse>): Promise<void> {
+        this.wheelInfo = response.data.data;
+        this.wheelInfo.serverTime = Date.parse(response.headers.get('Date'));
+        this.wheelInfo$.next(this.wheelInfo);
+
+        if (this.wheelInfo.participantsCount && this.wheelInfo.participants.length) {
+            this.prepareParticipants(this.wheelInfo.participants);
+        }
+    }
+
+    public showModalAfterJoin(response: IJoinWheelResponse): void {
+        if (!response.result) {
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'warning',
+                    title: gettext('Information'),
+                    message: response.message,
+                    wlcElement: 'stream-wheel-rejoin',
+                },
+            });
+        }
+
+        const paramsModal: IGatheringParticipantsCParams = {
+            id: this.wheelInfo.id,
+            isStreamer: false,
+            dataWheel: {
+                amount: this.wheelInfo.amount,
+                currency: this.wheelInfo.currency,
+                duration: this.wheelInfo.duration,
+                finishedAt: this.wheelInfo.finishedAt,
+            },
+            serverTime: this.wheelInfo.serverTime,
+            mode: 'join',
+        };
+
+        this.showGatheringParticipantsModal(paramsModal);
+    }
+
+    public showGatheringParticipantsModal(params: IGatheringParticipantsCParams): void {
         this.modalService.showModal({
             id: 'gathering-participants',
             modifier: 'gathering-participants',
             component: GatheringParticipantsComponent,
-            componentParams: <IGatheringParticipantsCParams>{
-                id: id,
-                isStreamer: !!isStreamer,
-                completionByButton: this.completionByButton,
-                dataWheel: dataWheel ? dataWheel : false,
-                serverTime: serverTime || null,
-            },
+            componentParams: params,
             showFooter: false,
             size: 'xl',
             backdrop: 'static',
@@ -287,7 +324,9 @@ export class WheelService {
             if (this.wheelInfo.participantsCount && this.wheelInfo.participants.length) {
                 this.prepareParticipants(this.wheelInfo.participants);
             }
+
             return this.wheelInfo;
+
         } catch (error) {
             this.modalService.closeAllModals();
             this.eventService.emit({
@@ -324,6 +363,11 @@ export class WheelService {
         return this.participants;
     }
 
+    public async getActualParticipants(): Promise<ParticipantModel[]> {
+        await this.getInfoWheel(this.currentIdWheel);
+        return this.participants;
+    }
+
     public async makeFinishWheel(id: number): Promise<void> {
         try {
             this.showWaitingResultsModal();
@@ -356,34 +400,23 @@ export class WheelService {
         }
 
         if (this.userWheel.streamWheelOwner) {
-            this.modalService.showModal({
-                id: 'gathering-participants',
-                modifier: 'gathering-participants',
-                component: GatheringParticipantsComponent,
-                componentParams: <IGatheringParticipantsCParams>{
-                    id: this.userWheel.streamWheelOwner,
-                    isStreamer: true,
-                    completionByButton: this.completionByButton,
-                },
-                showFooter: false,
-                size: 'xl',
-                backdrop: 'static',
-            });
+
+            const paramsModal: IGatheringParticipantsCParams = {
+                id: this.userWheel.streamWheelOwner,
+                isStreamer: true,
+                completionByButton: this.completionByButton,
+                nonce: this.currentNonce,
+                mode: 'show',
+            };
+            this.showGatheringParticipantsModal(paramsModal);
         }
 
         if (this.userWheel.streamWheelsParticipant
             && this.userWheel.streamWheelsParticipant.length
         ) {
-            this.modalService.showModal({
-                id: 'gathering-participants',
-                modifier: 'gathering-participants',
-                component: GatheringParticipantsComponent,
-                componentParams: <IGatheringParticipantsCParams>{
-                    id: this.userWheel.streamWheelsParticipant[0],
-                },
-                showFooter: false,
-                size: 'xl',
-                backdrop: 'static',
+            this.showGatheringParticipantsModal({
+                id: this.userWheel.streamWheelsParticipant[0],
+                mode: 'show',
             });
         }
     }
@@ -399,7 +432,7 @@ export class WheelService {
         const seconds = Math.floor(timeDifference
             / DateHelper.milliSecondsInSecond % DateHelper.secondsInMinute);
         const minutes = Math.floor(timeDifference
-            / DateHelper.milliSecondsInMinutes % DateHelper.minutesInHour);
+            / DateHelper.milliSecondsInMinutes);
         return `${minutes}:${seconds}`;
     }
 
@@ -407,11 +440,11 @@ export class WheelService {
         return this.dataService.request('wheel/cancelStreamWheel');
     }
 
-    public async requestJoinToWheel(id: number): Promise<IData> {
+    public async requestJoinToWheel(id: number, nonce: string): Promise<IData> {
         try {
             const response: IData = await this.dataService.request(
-                'wheel/joinToStreamWheel', {id});
-            return response.data;
+                'wheel/joinToStreamWheel', {id, nonce});
+            return response;
         } catch (error) {
             return Promise.reject(error);
         }
@@ -427,6 +460,10 @@ export class WheelService {
         }
     }
 
+    public getCurrentNonce(): string {
+        return this.currentNonce ?? '';
+    }
+
     protected async handlerRequestCreateWheel(data: ISettingsWheel): Promise<void> {
         try {
             const requestData: ISettingsWheel = _cloneDeep(data);
@@ -435,17 +472,22 @@ export class WheelService {
                 'wheel/createStreamWheel', requestData);
 
             this.currentIdWheel = response.data.wheelId;
-            this.showGatheringParticipantsModal
-            (
-                response.data.wheelId,
-                true,
-                {
+            this.currentNonce = response.data.nonce;
+            this.setNonceToStorage(response.data.nonce);
+
+            const paramsModal: IGatheringParticipantsCParams = {
+                id: response.data.wheelId,
+                isStreamer: true,
+                dataWheel: {
                     amount: data.amount,
                     currency: this.userWheel.currency,
                     duration: data.duration,
                 },
-                Date.parse(response.headers.get('Date')),
-            );
+                serverTime: Date.parse(response.headers.get('Date')),
+                mode: 'create',
+                nonce: response.data.nonce,
+            };
+            this.showGatheringParticipantsModal(paramsModal);
             this.eventsWheel$.next({name: 'updateWidget', data: response.data.wheelId});
             this.setInfoWheelSocketSubscription();
             this.modalService.hideModal('create-wheel');
@@ -575,6 +617,7 @@ export class WheelService {
     private finishWheel(): void {
         if (this.userWheel.isStreamer) {
             this.eventsWheel$.next({name: 'resetWidget'});
+            this.clearNonce();
         } else {
             this.eventsWheel$.next({name: 'deleteWidget'});
         }
@@ -605,11 +648,28 @@ export class WheelService {
         });
     }
 
-    private getUserAvatar(idUser: number): string {
-        const array = Array.from(idUser.toString(), Number);
-        const firstNum = array[array.length - 2] > 4 ? 1 : 0;
-        const secondNum = array[array.length - 1];
-        return `${ParticipantModel.folder}avatar-${firstNum}${secondNum}.png`;
+    private setNonceToStorage(value: string): void {
+        this.configService.set({
+            name: 'wheelNonce',
+            value: value,
+            storageType: 'localStorage',
+        });
+    }
+
+    private getNonceFromStorage(): string {
+        return this.configService.get({
+            name: 'wheelNonce',
+            storageType: 'localStorage',
+        });
+    }
+
+    private clearNonce(): void {
+        this.currentNonce = '';
+        this.configService.set({
+            name: 'wheelNonce',
+            value: null,
+            storageClear: 'localStorage',
+        });
     }
 
     private registerMethods(): void {

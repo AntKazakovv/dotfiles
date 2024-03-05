@@ -39,7 +39,7 @@
         <div class="{{$class}}__list-wrapper">
             <div *ngFor="let participant of participants$ | async"
                 wlc-participant-item
-                [inlineParams]="calcParticipantsInlineParams(participant)">
+                [inlineParams]="getParticipantsInlineParams(participant)">
             </div>
         </div>
     </div>

@@ -28,4 +28,5 @@ $config: map-merge((
     'buttonWrapperPadding': ef.size(2) 8px,
     'buttonTextAlign': center,
     'timerPadding': ef.size(2),
+    'zIndexWidget': 1059,
 ), $customConfig);

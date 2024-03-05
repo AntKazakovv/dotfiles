@@ -1,3 +1,4 @@
+// eslint-disable no-console
 import {DOCUMENT} from '@angular/common';
 import {
     ChangeDetectionStrategy,
@@ -26,6 +27,8 @@ import {IWinner} from 'wlc-engine/modules/wheel/system/interfaces';
 
 import * as Params from './selection-winner.params';
 
+export type TLineTranslate = {text: string, context: Params.ISelectionWinnerCParams};
+
 @Component({
     selector: '[wlc-selection-winner]',
     templateUrl: './selection-winner.component.html',
@@ -39,6 +42,7 @@ export class SelectionWinnerComponent extends AbstractComponent implements OnIni
     protected winners: IWinner[] = [];
     protected drumLines = [];
     protected participantsWH: Array<ParticipantModel[]> = [];
+    protected translatesParticipantsAmt: TLineTranslate;
 
     constructor(
         @Inject('injectParams') protected params: Params.ISelectionWinnerCParams,
@@ -58,6 +62,10 @@ export class SelectionWinnerComponent extends AbstractComponent implements OnIni
 
     public override ngOnInit(): void {
         super.ngOnInit();
+        this.translatesParticipantsAmt = {
+            text: gettext('Selecting from {{numberParticipants}} participants'),
+            context: this.$params,
+        };
         this.drumLines = new Array(this.$params.numberWinners);
         this.prepareParticipants();
         this.timerStartVisual();
@@ -72,9 +80,23 @@ export class SelectionWinnerComponent extends AbstractComponent implements OnIni
         this.winners.forEach((winner: IWinner) => {
             let tmp: ParticipantModel[] = [];
             Object.assign(tmp, this.participants);
-            const winnerParticipant = tmp.find(user => user.id === winner.id);
-            const indexWinner = this.participants.indexOf(winnerParticipant);
-            this.participants.splice(indexWinner, 1);
+            let winnerParticipant = tmp.find(user => user.id === winner.id);
+
+            if (winnerParticipant) {
+                const indexWinner = this.participants.indexOf(winnerParticipant);
+                this.participants.splice(indexWinner, 1);
+            } else {
+                winnerParticipant = new ParticipantModel(
+                    {
+                        component: 'selection-winners',
+                        method: 'prepareParticipants',
+                    },
+                    {
+                        name: winner.name,
+                        id: winner.id,
+                        avatar: this.wheelService.getUserAvatar(+winner.id),
+                    });
+            }
 
             if (tmp.length < maxLengthParticipants) {
                 while (tmp.length < maxLengthParticipants) {
@@ -86,7 +108,6 @@ export class SelectionWinnerComponent extends AbstractComponent implements OnIni
 
             Object.assign(tmp, this.shuffleParticipants(tmp));
             tmp.splice(posWinner, 0, winnerParticipant);
-
             this.participantsWH.push(tmp);
         });
     }

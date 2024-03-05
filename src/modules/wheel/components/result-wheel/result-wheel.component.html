@@ -20,9 +20,7 @@
                 [currency]="$params.currency">
             </div>
         </div>
-        <ng-container *ngIf="winners$.value.length > 1; else winner">
-            <div class="{{$class}}__winners-title">{{'Winners' | translate}}</div>
-        </ng-container>
+        <div class="{{$class}}__winners-title">{{'Winners' | translate}}</div>
         <ng-container *ngIf="winners$.value.length <= 4; else bigList">
             <div class="{{$class}}__mini-list"
                 [class.three-winners]="winners$.value.length === 3"
@@ -52,8 +50,4 @@
 
 <ng-template #noWin>
     <div class="{{$class}}__congratulation">{{'Unfortunately, you have not won' | translate}}</div>
-</ng-template>
-
-<ng-template #winner>
-    <div class="{{$class}}__winners-title">{{'Winner' | translate}}</div>
 </ng-template>

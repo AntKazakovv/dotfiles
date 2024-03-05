@@ -28,6 +28,7 @@
 
             .time-text {
                 @include text.get-text-style(ef.get-value($themeCircle, 'timerFontStyle', 375), ef.get-value($themeCircle, 'timerFontColor'));
+                text-align: center;
 
                 @include mq.min(560) {
                     @include text.get-text-style(ef.get-value($themeCircle, 'timerFontStyle', 560), ef.get-value($themeCircle, 'timerFontColor'));

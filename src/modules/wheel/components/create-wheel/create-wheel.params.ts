@@ -86,6 +86,22 @@ export const formConfig: IFormWrapperCParams = {
                         title: gettext('6:00 min'),
                         value: '6:00',
                     },
+                    {
+                        title: gettext('15:00 min'),
+                        value: '15:00',
+                    },
+                    {
+                        title: gettext('30:00 min'),
+                        value: '30:00',
+                    },
+                    {
+                        title: gettext('60:00 min'),
+                        value: '60:00',
+                    },
+                    {
+                        title: gettext('180:00 min'),
+                        value: '180:00',
+                    },
                 ],
             },
         },

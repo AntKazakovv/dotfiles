@@ -11,9 +11,10 @@
         </div>
     </div>
     <div class="{{$class}}__container-winners-info">
-        <div class="{{$class}}__number-winners">{{'Number of winners: ' | translate}} {{$params.numberWinners}}</div>
-        <div class="{{$class}}__number-participants">{{'Selecting from' | translate}}
-            {{$params.numberParticipants}} {{'participants'| translate}}</div>
+        <div class="{{$class}}__number-winners">{{'Number of winners:' | translate}} {{$params.numberWinners}}</div>
+        <div class="{{$class}}__number-participants">
+            {{(translatesParticipantsAmt.text | translate: translatesParticipantsAmt.context)}}
+        </div>
         <div class="{{$class}}__arrow"
             wlc-icon
             [iconPath]="this.$params.arrowPath">

@@ -27,6 +27,7 @@ export interface IInfoWheelResponse extends ISettingsWheel {
     participantsCount?: number;
     status?: number;
     serverTime?: number;
+    nonce?: string;
 }
 
 export interface IWSStreamWheelData {
