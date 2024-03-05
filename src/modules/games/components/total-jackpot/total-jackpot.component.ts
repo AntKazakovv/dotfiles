@@ -27,6 +27,7 @@ import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/n
 import {
     GamesCatalogService,
 } from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
+import {JackpotCurrency} from 'wlc-engine/modules/core/constants';
 
 import * as Params from './total-jackpot.params';
 
@@ -110,7 +111,7 @@ export class TotalJackpotComponent extends AbstractComponent implements OnInit {
         }).format(0);
 
         this.currency = {
-            currency: format.replace(/[\d\s\,\.]/g, ''),
+            currency: format.replace(JackpotCurrency.formatCurrency, ''),
             delimiter: /./.test(format) ? '.' : ',',
             position: /\d/g.test(format[0]) ? 'right' : 'left',
             lang: this.translateService.currentLang,

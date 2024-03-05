@@ -130,6 +130,7 @@ export interface ISiteConfig {
     skipPassCheckOnFirstSession?: TBooleanOptional;
     systemsGamePlayInfo: IIndexing<IGamePlayInfo>;
     LastWins?: string | null;
+    LocalJackpots?: boolean;
     RestrictMoneyGames?: number;
     RestrictRegistration?: number;
     // Project type from fundist

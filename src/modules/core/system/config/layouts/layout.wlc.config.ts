@@ -206,4 +206,10 @@ export const $layouts: ILayoutsConfig = {
             'content': sectionsLib.lotteries.lotteryDetail,
         },
     },
+    'app.local-jackpots': {
+        extends: 'app',
+        sections: {
+            'content': sectionsLib.localJackpots.def,
+        },
+    },
 };

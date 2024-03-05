@@ -38,3 +38,4 @@ export * from './profile/profile-limitations.state';
 export * from './user-social-register.state';
 export * from './signin.state';
 export * from './something-wrong.state';
+export * from './local-jackpots.state';

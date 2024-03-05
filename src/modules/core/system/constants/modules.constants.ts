@@ -49,7 +49,8 @@ export type TModuleName =
     | 'youtube-block'
     | 'currency'
     | 'qr-code'
-    | 'pwa';
+    | 'pwa'
+    | 'local-jackpots';
 
 type IFunctionImportModule = (name: TModuleName, callback: Function) => unknown;
 
@@ -298,6 +299,11 @@ export const modulesApp: Record<TModuleName, IFunctionImportModule> = {
         const m = await import('wlc-engine/modules/currency/currency.module');
         callback(name, m);
         return m.CurrencyModule;
+    },
+    'local-jackpots': async (name: TModuleName, callback: Function) => {
+        const m = await import('wlc-engine/modules/local-jackpots/local-jackpots.module');
+        callback(name, m);
+        return m.LocalJackpotsModule;
     },
 } as const;
 

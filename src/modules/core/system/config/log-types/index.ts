@@ -27,6 +27,7 @@ import {errorTypes as kycamlLogs} from './25.kycaml';
 import {errorTypes as ratesLogs} from './26.rates';
 import {errorTypes as transferLogs} from './27.transfer';
 import {errorTypes as lotteriesLogs} from './28.lotteries';
+import {errorTypes as LocalJackpotsLogs} from './30.local-jackpots';
 
 export const defaultLogMethods: TLogMethods[] = ['flog'];
 export const defaultLogLevel: TLogLevel = 'log';
@@ -100,4 +101,5 @@ export const logTypes: ILogTypes = Object.assign(
     ratesLogs,
     transferLogs,
     lotteriesLogs,
+    LocalJackpotsLogs,
 );

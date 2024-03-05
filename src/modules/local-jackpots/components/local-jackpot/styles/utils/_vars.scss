@@ -1,0 +1,48 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'jackpotMargin': 0 0 ef.size(8),
+    'jackpotHeaderMargin': 0 0 ef.size(4),
+    'jackpotNameStyle': (
+        375: 'QoteTextBold',
+        1200: 'PromoTitle',
+    ),
+    'jackpotNameColor': var(--mc-baseMain),
+    'jackpotTotalSvgFill': var(--mc-baseMain),
+    'jackpotTotalSvgSize': (
+        375: 35px,
+        1200: 55px,
+    ),
+    'jackpotTotalCounterWeight': 700,
+    'jackpotTotalCounterLetterSpacing': (
+        375: ef.size(1),
+        1200: ef.size(2),
+    ),
+    'jackpotTotalSvgMaxHeight': 65px,
+    'jackpotTotalMargin': (
+        375: 0,
+        1200: ef.size(4) 0,
+    ),
+    'jackpotDescriptionStyle': 'PrimaryText',
+    'jackpotDescriptionColor': var(--mc-baseMain),
+
+    'jackpotGridsWrapperGap': ef.size(8),
+    'jackpotGridsProgressBarMargin': ef.size(8) 0 0,
+
+    'emptyWidth': (
+        375: auto,
+        1024: 900px,
+    ),
+    'emptyInfoMargin': ef.size(4) 0 ef.size(8),
+    'emptyInfoBg': var(--mc-bg700),
+    'emptyInfoGap': (
+        375: 20px,
+        1024: 140px,
+    ),
+    'emptyInfoPadding': (
+        375: ef.size(6),
+        1024: ef.size(8) ef.size(16),
+    ),
+    'emptyInfoBorderRadius': ef.size(2),
+    'emptyTextStyle': 'PrimaryText',
+    'emptyTextColor': var(--mc-baseMain),
+), $customThemeDefault);

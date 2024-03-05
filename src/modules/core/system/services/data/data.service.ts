@@ -111,6 +111,8 @@ export interface IRequestMethod {
     };
     /** request without credential */
     withoutCredential?: boolean;
+    /** api version */
+    apiVersion?: keyof typeof urlPrefixApi;
 }
 
 export const dataServiceHooks: IIndexing<string> = {
@@ -134,6 +136,11 @@ interface IErrorReplacerParams {
     supportEmail?: boolean;
 }
 
+const urlPrefixApi = {
+    1: '/api/v1',
+    2: '/api/v2',
+} satisfies Record<number, string>;
+
 /**
  * Error replacer object, where:
  *
@@ -154,7 +161,6 @@ export class DataService {
 
     private flow$: Subject<IData> = new Subject<IData>();
     private apiList: {[key: string]: IRegisteredMethod} = {};
-    private urlPrefix = '/api/v1';
     private errorReplacerMap!: TErrorReplacerMap;
 
     constructor(
@@ -348,7 +354,7 @@ export class DataService {
 
         const requestBody = method.type !== 'GET' ? this.checkFormData(params) || '' : undefined;
 
-        const url = method.fullUrl || this.urlPrefix + method.url;
+        const url = method.fullUrl || urlPrefixApi[method.apiVersion ?? 1] + method.url;
         const cacheUrl = requestParams.lang ? `${url}|${requestParams.lang}` : url;
 
         const preloadData$: Observable<unknown> =

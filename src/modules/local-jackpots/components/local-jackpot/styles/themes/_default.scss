@@ -1,0 +1,99 @@
+.wlc-local-jackpots--theme-default:host {
+    margin: ef.get-value($themeDefault, 'jackpotMargin');
+
+    .wlc-local-jackpots {
+
+        &__header {
+            margin: ef.get-value($themeDefault, 'jackpotHeaderMargin'),;
+            text-align: center;
+
+            &-name {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'jackpotNameStyle'),
+                    ef.get-value($themeDefault, 'jackpotNameColor')
+                );
+
+                max-width: fit-content;
+                margin: 0 auto;
+
+                @include mq.min(1200) {
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'jackpotNameStyle', 1200)
+                    );
+                }
+            }
+
+            &-total {
+                @include bm.get-mq-map('margin', $themeDefault, 'jackpotTotalMargin');
+
+                svg {
+                    @include bm.get-mq-map('font-size', $themeDefault, 'jackpotTotalSvgSize');
+
+                    max-height: ef.get-value($themeDefault, 'jackpotTotalSvgMaxHeight');
+                    fill: ef.get-value($themeDefault, 'jackpotTotalSvgFill');
+                }
+
+                &--counter {
+                    @include bm.get-mq-map('letter-spacing', $themeDefault, 'jackpotTotalCounterLetterSpacing');
+
+                    font-weight: ef.get-value($themeDefault, 'jackpotTotalCounterWeight');
+                }
+            }
+
+            &-description {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'jackpotDescriptionStyle'),
+                    ef.get-value($themeDefault, 'jackpotDescriptionColor')
+                );
+            }
+        }
+
+        &__empty {
+            @include bm.get-mq-map('width', $themeDefault, 'emptyWidth');
+
+            margin: 0 auto;
+            text-align: center;
+
+            &-info {
+                @include bm.get-mq-map('gap', $themeDefault, 'emptyInfoGap');
+                @include bm.get-mq-map('padding', $themeDefault, 'emptyInfoPadding');
+
+                display: flex;
+                align-items: center;
+                margin: ef.get-value($themeDefault, 'emptyInfoMargin');
+                background: ef.get-value($themeDefault, 'emptyInfoBg');
+                border-radius: ef.get-value($themeDefault, 'emptyInfoBorderRadius');
+
+                @include mq.max(1024) {
+                    flex-direction: column-reverse;
+                }
+            }
+
+            &-text {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'emptyTextStyle'),
+                    ef.get-value($themeDefault, 'emptyTextColor')
+                );
+            }
+
+            &-button {
+                margin: 0 auto;
+            }
+        }
+    }
+
+    .wlc-games-grids-wrapper {
+        display: grid;
+        grid-row-gap: ef.get-value($themeDefault, 'jackpotGridsWrapperGap');
+
+        ::ng-deep {
+
+            .wlc-games-grid {
+
+                &__progressbar {
+                    margin: ef.get-value($themeDefault, 'jackpotGridsProgressBarMargin');
+                }
+            }
+        }
+    }
+}

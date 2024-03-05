@@ -22,3 +22,8 @@ export namespace MediaQueries {
     export const minOrMax: RegExp = /(\(\s*\')\s*(min-width|max-width):\s*\d+(px)\s*\'\s*\)/i;
 
 }
+
+export namespace JackpotCurrency {
+
+    export const formatCurrency: RegExp = /[\d\s\,\.]/g;
+}

@@ -1,0 +1,69 @@
+<ng-container *ngIf="isReady; else loading">
+
+    <ng-container *ngIf="jackpot && gridParams.components?.length; else noData">
+
+        <div class="{{$class}}__header">
+            <div class="{{$class}}__header-name">{{jackpot.name}}</div>
+            <div class="{{$class}}__header-total">
+                <ng-template [ngTemplateOutlet]="svgTotal"></ng-template>
+            </div>
+            <div class="{{$class}}__header-description">{{jackpot.description}}</div>
+        </div>
+
+        <ng-container *ngIf="gridParams?.components?.length">
+            <div wlc-wrapper [inlineParams]="gridParams"></div>
+        </ng-container>
+    </ng-container>
+
+</ng-container>
+
+<ng-template #loading>
+    <div wlc-loader class="{{$class}}__loader"></div>
+</ng-template>
+
+<ng-template #svgTotal>
+    <svg width="100%">
+        <text x="50%" y="50%" dy=".35em" text-anchor="middle" class="{{$class}}__header-total--value">
+            <tspan class="{{$class}}__header-total--currency"
+                data-wlc-element="jackpot-total_currency">
+                {{userCurrencyFormat | purePipe:[translateService.currentLang, $params.userCurrency]}}&#032;
+            </tspan>
+            <tspan class="{{$class}}__header-total--counter"
+                [countUp]="jackpot.accumulatedAmount"
+                [options]="$params.countUpOptions"
+                [reanimateOnClick]="$params.animateOnClick"
+                data-wlc-element="jackpot-total_counter">
+            </tspan>
+        </text>
+    </svg>
+</ng-template>
+
+<ng-template #noData>
+    <div class="{{$class}}__empty">
+
+        <div wlc-title
+            class="{{$class}}__empty-title"
+            [mainText]="$params.noDataTitle">
+        </div>
+
+        <div class="{{$class}}__empty-info">
+            <div class="{{$class}}__empty-text">
+                {{$params.noDataText | translate}}
+            </div>
+            <div wlc-icon
+                class="{{$class}}__empty-img"
+                [iconPath]="$params.noDataImgPath">
+            </div>
+        </div>
+
+        <button
+            wlc-button
+            class="{{$class}}__empty-button"
+            text="Play"
+            theme="default"
+            [attr.type]="'button'"
+            [wlcElement]="'button_go_category'"
+            (click)="goToCategory()">
+        </button>
+    </div>
+</ng-template>
