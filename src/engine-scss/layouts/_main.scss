@@ -12,6 +12,7 @@
 @import './fixed-panel/fixed-panel.layout';
 @import './mobile-app/mobile-app';
 @import './providers/providers';
+@import './notifications/notifications';
 
 @include lm.init-layout-gap(ev.$layoutGap);
 @include lm.init-layout-padding(ev.$layoutWithFixedPanels);

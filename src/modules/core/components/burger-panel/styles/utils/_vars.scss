@@ -296,6 +296,7 @@ $themeMobile: map-merge((
     'panelHeaderBorderBottom': 2px solid var(--mc-baseOpacity),
     'panelContentPadding': ef.size(4) ef.size(4) ef.size(8),
     'loginBtnPadding': ef.size(4) 0 ef.size(8),
+    'pwaBtnGap': ef.size(4) 0 0 0,
     'gap': ef.size(1),
     'gapWithoutBtn': ef.size(4),
     'headerMenuJustifyContent': center,
@@ -305,6 +306,7 @@ $themeMobile: map-merge((
     'headerMenuItemHeight': ef.size(8),
     'headerMenuItemMargin': 0 ef.size(2),
     'headerMenuItemBackground': var(--mc-bg700),
+    'languageSelectorMargin': ef.size(1) 0,
 ), $customThemeMobile);
 
 $customThemeMobileWolf: () !default;

@@ -110,3 +110,4 @@ export * from './multi-wallet/multi-wallet.config';
 export * from './youtube-block/wlc-youtube-block.config';
 
 export * from './lotteries/wlc-lottery.config';
+export * from './pwa/wlc-pwa-notification.config';

@@ -5,7 +5,6 @@ import {
     Input,
     AfterViewInit,
     ViewContainerRef,
-    ViewChild,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
 } from '@angular/core';
@@ -41,7 +40,6 @@ import * as Params from './post.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PostComponent extends AbstractComponent implements OnInit, AfterViewInit {
-    @ViewChild('wrp', {read: ViewContainerRef, static: true}) wrp: ViewContainerRef;
     /**
      * Parses HTML safely, but may break angular template syntax.
      *

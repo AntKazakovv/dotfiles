@@ -139,6 +139,19 @@ export const $layouts: ILayoutsConfig = {
             },
         },
     },
+    'app.instructions': {
+        extends: 'app',
+        sections: {
+            'pages': {
+                container: true,
+                components: [
+                    {
+                        name: 'static.wlc-instruction',
+                    },
+                ],
+            },
+        },
+    },
     'app.catalog': {
         replaceConfig: true,
         extends: 'app',

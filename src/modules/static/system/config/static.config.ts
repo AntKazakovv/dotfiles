@@ -7,6 +7,7 @@ export const staticConfig: IStaticConfig = {
         'responsible-game',
         'fair-play',
         'games-rules',
+        'install-pwa',
     ],
     downloadPdf: {
         slugsAvailableForDownload: [
