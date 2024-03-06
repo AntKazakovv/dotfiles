@@ -624,7 +624,8 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         const gameContainerTag = this.document.getElementById('egamings_container');
         this.containerObserver = new MutationObserver(() => {
             const iframe = this.wrp?.element?.nativeElement.querySelector('iframe');
-            if (iframe) {
+            if (!this.iframe && iframe) {
+                this.containerObserver.disconnect();
                 this.hooksService.run<IGameWrapperHookIframeShown>(gameWrapperHooks.iframeShown, {
                     iframe: iframe,
                     mobile: this.isMobile,
@@ -637,7 +638,6 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                     this.setGameWindowSize();
                     this.setIframeObserver();
                 }
-                this.containerObserver.disconnect();
             }
         });
 
