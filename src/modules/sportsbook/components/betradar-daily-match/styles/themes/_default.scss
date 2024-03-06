@@ -130,7 +130,7 @@
             ::ng-deep {
 
                 svg {
-                    fill: ef.get-value($themeDefault, 'matchInfoIconFill');
+                    color: ef.get-value($themeDefault, 'matchInfoIconColor');
                 }
             }
         }

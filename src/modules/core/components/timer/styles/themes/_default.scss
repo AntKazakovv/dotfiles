@@ -90,7 +90,7 @@
                 svg {
                     width: ef.get-value($themeDefault, 'timeIconSize');
                     height: ef.get-value($themeDefault, 'timeIconSize');
-                    fill: ef.get-value($themeDefault, 'timeIconFill');
+                    color: ef.get-value($themeDefault, 'timeIconColor');
                 }
             }
         }

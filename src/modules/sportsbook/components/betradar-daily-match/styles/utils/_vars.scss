@@ -60,6 +60,6 @@ $themeDefault: map-merge((
     'teamTextColor': var(--mc-baseMain),
     'matchInfoTextStyle': 'ThirdTitleBold',
     'matchInfoTextColor': var(--mc-baseMain),
-    'matchInfoIconFill': var(--mc-secondary),
+    'matchInfoIconColor': var(--mc-secondary),
     'matchInfoIconMargin': 7px,
 ), $customThemeDefault);
