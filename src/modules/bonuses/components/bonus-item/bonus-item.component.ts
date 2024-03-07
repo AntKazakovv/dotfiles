@@ -351,7 +351,6 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
      */
     public updateBonuses(): void {
         if (this.bonus.isActive && !this.bonus.isExpired) {
-            this.bonus.addToCache('expired');
             this.eventService.emit({name: 'BONUS_REFRESH'});
             setTimeout((): void => {
                 this.eventService.emit({name: 'BONUS_REFRESH'});

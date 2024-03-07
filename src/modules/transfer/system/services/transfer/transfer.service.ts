@@ -3,7 +3,6 @@ import {Injectable} from '@angular/core';
 import _isObject from 'lodash-es/isObject';
 
 import {
-    CachingService,
     ConfigService,
     IData,
     DataService,
@@ -25,7 +24,6 @@ export class TransferService {
     constructor(
         private dataService: DataService,
         private logService: LogService,
-        private cachingService: CachingService,
         private configService: ConfigService,
     ) {
         this.registerMethods();
@@ -76,7 +74,6 @@ export class TransferService {
                     {service: 'TransferService', method: 'getBonusInfo'},
                     response.data,
                     this.configService,
-                    this.cachingService,
                 );
             } else {
                 this.logService.sendLog({code: '10.0.1', data: response.data});

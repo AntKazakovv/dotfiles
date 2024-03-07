@@ -3,15 +3,10 @@ import {Subject} from 'rxjs';
 import _assign from 'lodash-es/assign';
 import _map from 'lodash-es/map';
 import _keys from 'lodash-es/keys';
-import _size from 'lodash-es/size';
-import _remove from 'lodash-es/remove';
-import _unset from 'lodash-es/unset';
 import _includes from 'lodash-es/includes';
 import _each from 'lodash-es/each';
 import _floor from 'lodash-es/floor';
-import _isArray from 'lodash-es/isArray';
 import _isObject from 'lodash-es/isObject';
-import _toString from 'lodash-es/toString';
 import _isString from 'lodash-es/isString';
 import _isNil from 'lodash-es/isNil';
 import _isNumber from 'lodash-es/isNumber';
@@ -23,14 +18,12 @@ import {
     IIndexing,
     AbstractModel,
     ConfigService,
-    CachingService,
     IFromLog,
     GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {
     IBonus,
     IBonusConditions,
-    ActionType,
     TBonusEvent,
     IBonusesModule,
     IBonusResults,
@@ -92,12 +85,12 @@ export class Bonus extends AbstractModel<IBonus> {
     private _isReg: boolean;
     private _isDep: boolean;
     private _fallBackIconPath: string = '';
+    private _expirationTime: DateTime;
 
     constructor(
         from: IFromLog,
         data: IBonus,
         protected configService: ConfigService,
-        protected cachingService: CachingService,
     ) {
         super({from: _assign({model: 'Bonus'}, from)});
 
@@ -854,8 +847,7 @@ export class Bonus extends AbstractModel<IBonus> {
      * @returns {DateTime} bonus expiration time in luxon format
      */
     public get expirationTimeLuxon(): DateTime {
-        const defaultTime = DateTime.fromSQL(this.data.Expire);
-        return defaultTime.plus({minutes: defaultTime.offset});
+        return this._expirationTime;
     }
 
     /**
@@ -1034,146 +1026,6 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     /**
-     * Add bonus to cache
-     *
-     * @param type action type ('inventory' | 'cancel' | 'expired' | 'subscribe' | 'unsubscribe')
-     */
-    public async addToCache(type: ActionType): Promise<void> {
-        const target: IBonusResultValue = this.results[this.target];
-        if (this.event === 'sign up'
-            && type === 'subscribe'
-            && target
-            && ((this.target === 'balance' && _toString(target.ReleaseWagering) === '0')
-                || (this.target !== 'balance'
-                    && ((_toString(target.AwardWagering?.COEF) === '0')
-                        || (_toString(target.AwardWagering?.EUR) === '0'))
-                )
-            )) {
-            return;
-        }
-
-        let ls: IIndexing<number[]>;
-
-        try {
-            ls = await this.cachingService.get('bonuses') || {};
-        } catch {
-            ls = {};
-        }
-        if (ls.hasOwnProperty(type) && _isArray(ls[type]) && !_includes(ls[type], this.id)) {
-            ls[type].push(this.id);
-        } else {
-            ls[type] = [this.id];
-        }
-        _each(ls, (list, key) => {
-            if (key === type) {
-                return;
-            }
-            if (!_isArray(ls[key])) {
-                _unset(ls, key);
-            } else {
-                _remove(list, (n) => n === this.id);
-            }
-        });
-        if (type === 'expired' && ls) {
-            this.cachingService.set<IIndexing<number[]>>('expired-bonuses', ls, true, 300000);
-        } else {
-            this.cachingService.set<IIndexing<number[]>>('bonuses', ls, true, Number.MAX_SAFE_INTEGER);
-        }
-    }
-
-    /**
-     * Set bonus action type to local storage
-     */
-    public async setFromCache(): Promise<void> {
-        let ls: IIndexing<number[]>;
-
-        try {
-            ls = await this.cachingService.get('bonuses') || {};
-        } catch {
-            ls = {};
-        }
-
-        _each(ls, (list, key) => {
-            if (!_isArray(list) || list.length === 0) {
-                _unset(ls, key);
-                return;
-            }
-            if (_includes(list, this.id)) {
-                switch (key) {
-                    case 'cancel':
-                        if (!this.active) {
-                            _remove(list, (n) => n === this.id);
-                        } else {
-                            this.data.Active = 0;
-                            this.data.Status = -99;
-                        }
-                        break;
-                    case 'subscribe':
-                        if (this.selected || (this.inventoried && this.event === 'sign up')) {
-                            _remove(list, (n) => n === this.id);
-                        } else {
-                            this.data.Selected = 1;
-                            this.data.Status = -99;
-                        }
-                        break;
-                    case 'unsubscribe':
-                        if (!this.selected) {
-                            _remove(list, (n) => n === this.id);
-                        } else {
-                            this.data.Selected = 0;
-                            this.data.Status = -99;
-                        }
-                        break;
-                    case 'inventory':
-                        if (!this.inventoried) {
-                            _remove(list, (n) => n === this.id);
-                        } else {
-                            this.data.Inventoried = 0;
-                            this.data.Status = -99;
-                        }
-                        break;
-                }
-            }
-        });
-        if (_size(ls) !== 0) {
-            await this.cachingService.set<IIndexing<number[]>>('bonuses', ls, true, Number.MAX_SAFE_INTEGER);
-        } else {
-            await this.cachingService.clear('bonuses');
-        }
-    }
-
-    /**
-     * Set expired bonus to local storage
-     */
-    public async setExpiredFromCache(): Promise<void> {
-        let expBonuses: IIndexing<number[]>;
-
-        try {
-            expBonuses = await this.cachingService.get('expired-bonuses') || {};
-        } catch {
-            expBonuses = {};
-        }
-
-        _each(expBonuses, (list, key) => {
-            if (!_isArray(list) || list.length === 0) {
-                _unset(expBonuses, key);
-                return;
-            }
-            if (_includes(list, this.id) && key === 'expired') {
-                if (!this.active) {
-                    _remove(list, (n: number): boolean => n === this.id);
-                } else {
-                    this.data.Active = 1;
-                    this.data.Status = -99;
-                }
-            }
-        });
-        if (expBonuses.expired && _size(expBonuses) === 0) {
-            await this.cachingService.clear('expired-bonuses');
-        }
-    }
-
-    /**
      * Games list
      *
      * @param {boolean} whiteList
@@ -1216,6 +1068,14 @@ export class Bonus extends AbstractModel<IBonus> {
         }
 
         bonus.ExpireDays = bonus.ExpireDays || bonus.Expire;
+
+        const expireTime: DateTime = DateTime.fromSQL(bonus.Expire);
+        this._expirationTime = expireTime.plus({minutes: expireTime.offset});
+
+        if (bonus.Active && +this._expirationTime < +DateTime.now()) {
+            bonus.Status = -99;
+        }
+
         return bonus;
     }
 }

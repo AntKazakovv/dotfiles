@@ -21,11 +21,8 @@ import _extend from 'lodash-es/extend';
 import _filter from 'lodash-es/filter';
 import _get from 'lodash-es/get';
 import _includes from 'lodash-es/includes';
-import _isArray from 'lodash-es/isArray';
 import _isObject from 'lodash-es/isObject';
 import _map from 'lodash-es/map';
-import _size from 'lodash-es/size';
-import _unset from 'lodash-es/unset';
 import _orderBy from 'lodash-es/orderBy';
 import _reduce from 'lodash-es/reduce';
 import _union from 'lodash-es/union';
@@ -457,7 +454,6 @@ export class BonusesService {
                         {service: 'BonusesService', method: 'getBonus'},
                         data.data,
                         this.configService,
-                        this.cachingService,
                     );
                 } catch (error) {
                     //
@@ -487,7 +483,7 @@ export class BonusesService {
                 system: 'bonuses',
                 url: `/bonuses/${bonus.id}`,
                 type: 'POST',
-                mapFunc: async (res) => await this.prepareBonusActionData(res, bonus, 'subscribe'),
+                mapFunc: (res) => this.prepareBonusActionData(res, bonus, 'subscribe'),
                 events: {
                     success: 'BONUS_SUBSCRIBE_SUCCEEDED',
                     fail: 'BONUS_SUBSCRIBE_FAILED',
@@ -527,7 +523,7 @@ export class BonusesService {
                 system: 'bonuses',
                 url: `/bonuses/${bonus.id}`,
                 type: 'POST',
-                mapFunc: async (res) => await this.prepareBonusActionData(res, bonus, 'unsubscribe'),
+                mapFunc: (res) => this.prepareBonusActionData(res, bonus, 'unsubscribe'),
                 events: {
                     success: 'BONUS_UNSUBSCRIBE_SUCCEEDED',
                     fail: 'BONUS_UNSUBSCRIBE_FAILED',
@@ -569,7 +565,7 @@ export class BonusesService {
                 system: 'bonuses',
                 url: `/bonuses/${bonus.id}`,
                 type: 'DELETE',
-                mapFunc: async (res) => await this.prepareBonusActionData(res, bonus, 'cancel'),
+                mapFunc: (res) => this.prepareBonusActionData(res, bonus, 'cancel'),
                 events: {
                     success: 'BONUS_CANCEL_SUCCEEDED',
                     fail: 'BONUS_CANCEL_FAILED',
@@ -630,7 +626,7 @@ export class BonusesService {
                 system: 'bonuses',
                 url: `/bonuses/${bonus.id}`,
                 type: 'PUT',
-                mapFunc: async (res) => await this.prepareBonusActionData(res, bonus, 'inventory'),
+                mapFunc: (res) => this.prepareBonusActionData(res, bonus, 'inventory'),
             }, 'inventory', params);
 
             if (emitDelay) {
@@ -682,12 +678,8 @@ export class BonusesService {
                 'desc',
             );
 
-            if (bonuses.length) {
-                await this.checkBonusesInCache(bonuses);
-                await this.checkExpiredBonusesInCache(bonuses);
-                if (!queryParams.PromoCode && !this.promoBonus) {
-                    await this.checkPromoBonus();
-                }
+            if (bonuses.length && !queryParams.PromoCode && !this.promoBonus) {
+                await this.checkPromoBonus();
             }
 
             this.saveBonuses(type, bonuses, publicSubject);
@@ -921,10 +913,8 @@ export class BonusesService {
                     {service: 'BonusesService', method: 'modifyBonuses'},
                     bonusData,
                     this.configService,
-                    this.cachingService,
                 );
-                await bonus.setFromCache();
-                await bonus.setExpiredFromCache();
+
                 queryBonuses.push(bonus);
             }
         }
@@ -963,66 +953,6 @@ export class BonusesService {
             });
         }
         return bonuses;
-    }
-
-    private async checkBonusesInCache(bonuses: Bonus[]): Promise<void> {
-        const bonusesIDs: number[] = _map(bonuses, 'id');
-        let lsBonuses: IIndexing<number[]>;
-
-        try {
-            lsBonuses = await this.cachingService.get('bonuses') || {};
-        } catch {
-            lsBonuses = {};
-        }
-
-        _each(lsBonuses, (list: number[], key: string) => {
-
-            if (!_isArray(list) || list.length === 0) {
-                _unset(lsBonuses, key);
-                return;
-            }
-
-            list = _filter(list, (bonusId: number) => _includes(bonusesIDs, bonusId));
-
-            if (list.length === 0) {
-                _unset(lsBonuses, key);
-            }
-        });
-
-        if (_size(lsBonuses) !== 0) {
-            this.cachingService.set<IIndexing<number[]>>('bonuses', lsBonuses, true, Number.MAX_SAFE_INTEGER);
-        } else {
-            this.cachingService.clear('bonuses');
-        }
-    }
-
-    private async checkExpiredBonusesInCache(bonuses: Bonus[]): Promise<void> {
-        const bonusesIDs: number[] = _map(bonuses, 'id');
-        let expBonuses: IIndexing<number[]>;
-
-        try {
-            expBonuses = await this.cachingService.get('expired-bonuses') || {};
-        } catch {
-            expBonuses = {};
-        }
-
-        _each(expBonuses, (list: number[], key: string) => {
-
-            if (!_isArray(list) || list.length === 0) {
-                _unset(expBonuses, key);
-                return;
-            }
-
-            list = _filter(list, (bonusId: number) => _includes(bonusesIDs, bonusId));
-
-            if (list.length === 0) {
-                _unset(expBonuses, key);
-            }
-        });
-
-        if (expBonuses.expired && _size(expBonuses) === 0) {
-            this.cachingService.clear('expired-bonuses');
-        }
     }
 
     private isPromocodeEntered(bonus: Bonus): boolean {
@@ -1161,30 +1091,42 @@ export class BonusesService {
         });
     }
 
-    private async prepareBonusActionData(res: unknown, bonus: Bonus, actionType: ActionType): Promise<Bonus> {
-        await bonus.addToCache(actionType);
+    /**
+     * Bonus mutation after the target action and before all bonuses are requested and rerender bonus list
+     *
+     * @param {unknown} res part of the changed data from the server
+     * @param {Bonus} bonus current bonus
+     * @param {ActionType} actionType action
+     *
+     * @return {Bonus}
+     * **/
+    private prepareBonusActionData(res: unknown, bonus: Bonus, actionType: ActionType): Bonus {
         _extend(bonus.data, res);
 
         switch (actionType) {
             case 'inventory':
                 bonus.data.Inventoried = 0;
                 bonus.data.Active = 1;
+                bonus.data.Status = -99;
                 break;
 
             case 'subscribe':
                 if (bonus.isInventory) {
                     bonus.data.Inventoried = 1;
                 }
+                bonus.data.Status = -99;
                 break;
 
             case 'unsubscribe':
                 if (bonus.isInventory) {
                     bonus.data.Inventoried = 0;
                 }
+                bonus.data.Status = -99;
                 break;
 
             case 'cancel':
-                bonus.data.Status = 0;
+                bonus.data.Active = 0;
+                bonus.data.Status = -99;
                 break;
         }
 

@@ -375,7 +375,6 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
             {service: 'DepositBonusesComponent', method: 'createBlankBonus'},
             (Params.defBlankBonusParams) as IBonus,
             this.configService,
-            null,
         );
     }
 

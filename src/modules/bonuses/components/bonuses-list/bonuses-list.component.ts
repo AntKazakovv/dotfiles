@@ -28,7 +28,6 @@ import _cloneDeep from 'lodash-es/cloneDeep';
 import {
     AbstractComponent,
     IMixedParams,
-    CachingService,
     ConfigService,
     EventService,
     IData,
@@ -116,7 +115,6 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, A
         @Inject('injectParams') protected params: Params.IBonusesListCParams,
         configService: ConfigService,
         protected bonusesService: BonusesService,
-        protected cachingService: CachingService,
         cdr: ChangeDetectorRef,
         protected eventService: EventService,
         protected translateService: TranslateService,
@@ -159,7 +157,6 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, A
                     Terms: '',
                 } as IBonus,
                 this.configService,
-                this.cachingService,
             );
 
             this.blankBonus.isChoose = true;
