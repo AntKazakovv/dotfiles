@@ -5,6 +5,7 @@ import {
     StateService,
     TargetState,
 } from '@uirouter/core';
+import {Subscription} from 'rxjs';
 import {first} from 'rxjs/operators';
 import {LazyLoadResult} from '@uirouter/core/lib/state/interface';
 import {Ng2StateDeclaration} from '@uirouter/angular';
@@ -18,6 +19,7 @@ import {
     InjectionService,
 } from 'wlc-engine/modules/core/system/services';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {TranslateService} from '@ngx-translate/core';
 import {Deferred} from 'wlc-engine/modules/core/system/classes';
 import {IRedirect} from 'wlc-engine/modules/core/system/interfaces/core.interface';
@@ -85,6 +87,7 @@ export class StateHelper {
                 InjectionService,
                 ModalService,
                 TranslateService,
+                EventService,
             ],
             resolveFn: async (
                 configService: ConfigService,
@@ -93,6 +96,7 @@ export class StateHelper {
                 injectionService: InjectionService,
                 modalService: ModalService,
                 translateService: TranslateService,
+                eventService: EventService,
             ) => {
                 const result = new Deferred();
 
@@ -118,8 +122,22 @@ export class StateHelper {
                             result.resolve();
                         } else {
                             result.reject();
+                            const targetState: Ng2StateDeclaration = transition.targetState().state();
                             await stateService.go('app.home', transition.params());
-                            modalService.showModal('login');
+                            modalService.showModal('login').then((comp) => {
+                                let subscription: Subscription;
+                                comp.ready.then(() => {
+                                    subscription = eventService.subscribe(
+                                        {name: 'LOGIN_SUCCESS'},
+                                        () => {
+                                            stateService.go(targetState.name, transition.params());
+                                        },
+                                    );
+                                });
+                                comp.closed.then(() => {
+                                    subscription.unsubscribe();
+                                });
+                            });
                         }
                     });
                 return result.promise;
