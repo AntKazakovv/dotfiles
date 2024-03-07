@@ -325,6 +325,7 @@ export class WlcModalComponent extends AbstractComponent
 
         this.modalDirect.onShown.subscribe(() => {
             this.eventHandler(this.modalService.events.MODAL_SHOWN, this.$params.config.onModalShown);
+            this.addModifiers('shown');
         });
 
         this.modalDirect.onHidden.subscribe(() => {

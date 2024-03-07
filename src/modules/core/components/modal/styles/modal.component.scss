@@ -19,6 +19,11 @@
     z-index: ef.get-value($hostModal, 'modalZIndex');
     outline: 0;
     overflow: hidden;
+    pointer-events: none;
+
+    &--shown {
+        pointer-events: unset;
+    }
 
     &--search {
         z-index: ef.get-value($hostModal, 'modalZIndex') - 50;
