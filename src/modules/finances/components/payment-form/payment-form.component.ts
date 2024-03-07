@@ -301,7 +301,10 @@ export class PaymentFormComponent
     }
 
     public get showPaymentMessage(): boolean {
-        return this.currentSystem && this.cryptoCheck && !this.isCryptoInvoices;
+        return this.currentSystem
+            && this.cryptoCheck
+            && !this.isCryptoInvoices
+            && !this.requiredFieldsKeys.length;
     }
 
     public get dateExpire(): DateTime {
