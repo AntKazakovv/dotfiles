@@ -489,6 +489,7 @@ export class PaymentFormComponent
     public async withdraw(form: UntypedFormGroup): Promise<boolean> {
         this.modalService.showModal('data-is-processing');
         this.inProgress = true;
+        let isWithdrawSuccess: boolean = true;
 
         try {
             const response = await this.financesService.withdraw(
@@ -535,6 +536,7 @@ export class PaymentFormComponent
                 title: gettext('Error'),
                 message: FinancesHelper.errorToMessage(error),
             });
+            isWithdrawSuccess = false;
 
             return false;
         } finally {
@@ -543,7 +545,9 @@ export class PaymentFormComponent
                 this.modalService.hideModal('data-is-processing');
             }
             this.inProgress = false;
-            this.financesService.fetchPaymentSystems(this.wallet?.walletCurrency);
+            if (isWithdrawSuccess) {
+                this.financesService.fetchPaymentSystems(this.wallet?.walletCurrency);
+            }
         }
     }
 
@@ -1454,6 +1458,7 @@ export class PaymentFormComponent
     ): Promise<boolean> {
 
         const isPregeneration: boolean = this.currentSystem.isPregeneration;
+        let isDepositSuccess: boolean = true;
 
         try {
             const response = await this.financesService.deposit(
@@ -1506,6 +1511,7 @@ export class PaymentFormComponent
                 title: gettext('Deposit'),
                 message: FinancesHelper.errorToMessage(error),
             });
+            isDepositSuccess = false;
 
             return false;
         } finally {
@@ -1521,7 +1527,7 @@ export class PaymentFormComponent
                 this.updateFormConfig();
             }
 
-            if (!isPregeneration) {
+            if (!isPregeneration && isDepositSuccess) {
                 this.financesService.fetchPaymentSystems(this.wallet?.walletCurrency);
             }
         }
