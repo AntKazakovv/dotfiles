@@ -65,6 +65,9 @@ export interface IModalConfig extends ModalOptions {
      *      e.g. 'games.wlc-search'
      */
     componentName?: string;
+    /**
+     *  Parameters for configuring the component
+     */
     componentParams?: unknown;
     /**
      * Set provided injector to given Component
@@ -74,6 +77,9 @@ export interface IModalConfig extends ModalOptions {
      * Allow to insert TemplateRef
      */
     templateRef?: TemplateRef<unknown>;
+      /**
+     *  Parameters for configuring the templateRef
+     */
     templateRefParams?: unknown;
     /**
      * Allow to insert html string
