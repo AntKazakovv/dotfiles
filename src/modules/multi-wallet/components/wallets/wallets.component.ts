@@ -13,6 +13,8 @@ import _orderBy from 'lodash-es/orderBy';
 import _filter from 'lodash-es/filter';
 import _assign from 'lodash-es/assign';
 import _toNumber from 'lodash-es/toNumber';
+import _find from 'lodash-es/find';
+import _sortBy from 'lodash-es/sortBy';
 
 import {
     first,
@@ -96,6 +98,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
     private $createWalletListResolve: () => void;
 
     private ratesService: RatesCurrencyService;
+    private currencies: IIndexing<ICurrency>;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.WalletsParams,
@@ -136,8 +139,8 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
             this.userService.userInfo$.pipe(
                 first((v) => !!v?.idUser),
                 takeUntil(this.$destroy))
-                .subscribe((userInfo: UserInfo): void => {
-                    this.initSelector(userInfo);
+                .subscribe((): void => {
+                    this.initSelector();
                 });
         }
 
@@ -145,10 +148,13 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
             filter(v => !!v?.idUser),
             takeUntil(this.$destroy))
             .subscribe((userInfo: UserInfo) => {
-                this.currentWallet.balance = userInfo.getWalletBalance(this.currentWallet.currency)
-                    .toFixed(2);
-                this.walletCurrency = this.displayedCurrency;
-                this.balance = this.displayedBalance;
+
+                if (this.currentWallet) {
+                    this.currentWallet.balance = userInfo.getWalletBalance(this.currentWallet.currency)
+                        .toFixed(2);
+                    this.walletCurrency = this.displayedCurrency;
+                    this.balance = this.displayedBalance;
+                }
                 this.cdr.detectChanges();
             });
         this.eventService.subscribe({name: 'LOGOUT'}, (): void => {
@@ -213,13 +219,13 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
         this.isShowNotFound = false;
         this.isOpened = !this.isOpened;
         if (this.isOpened) {
-            this.filterWallets();
+            this.createWalletList();
         }
     }
 
     public async setSearchQuery($event: string): Promise<void> {
         this.searchQuery = $event;
-        await this.filterWallets();
+        await this.createWalletList();
         this.isShowNotFound = $event && !this.walletList.length;
         this.cdr.markForCheck();
     }
@@ -276,26 +282,43 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
         this.cdr.markForCheck();
     }
 
-    private async initSelector(userInfo: UserInfo = this.userService.userInfo): Promise<void> {
-        this.currentWallet =
-            WalletHelper.createCurrentWallet(
-                userInfo.wallets,
-                this.userService.userProfile.selectedCurrency,
-            );
+    private async initCurrentWallet(): Promise<void> {
+        await this.createWalletsArray();
 
-        if (!this.userService.userProfile.extProfile.currentWallet && !this.isFinance) {
-            this.userService.updateProfile(
-                {
-                    extProfile: {
-                        currentWallet: {
-                            walletCurrency: this.currentWallet.currency,
-                            walletId: this.currentWallet.walletId,
+        this.currentWallet = _find(
+            this.walletList,
+            (wallet: IWallet) => wallet.currency === this.userService.userProfile.selectedCurrency);
+
+        if (!this.currentWallet) {
+
+            this.currentWallet = this.walletList[0];
+
+            if (!this.isFinance) {
+                this.userService.updateProfile(
+                    {
+                        extProfile: {
+                            currentWallet: {
+                                walletCurrency: this.currentWallet.currency,
+                                walletId: this.currentWallet.walletId,
+                            },
                         },
                     },
-                },
-                {updatePartial: true},
-            );
+                    {updatePartial: true},
+                );
+            }
         }
+        this.changeWalletEmit.emit({
+            walletId: this.currentWallet.walletId,
+            walletCurrency: this.currentWallet.currency,
+        });
+    }
+
+    private async initSelector(): Promise<void> {
+
+        WalletHelper.currencies = this.userService.userProfile.unusedCurrencies;
+        this.currencies = this.configService.get('appConfig.siteconfig.currencies');
+
+        await this.initCurrentWallet();
 
         if (this.userService.userProfile.extProfile.conversionCurrency) {
             this.settingsParams.walletSettings = this.userService.userProfile.extProfile.conversionCurrency;
@@ -307,23 +330,13 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
             };
         }
 
-        WalletHelper.currencies = this.userService.userProfile.unusedCurrencies;
-
         if (!this.isFinance) {
             await this.updateConversionCoefficient();
         }
 
-        if (!this.currentWallet?.walletId && this.$params.hideVirtualWallets) {
-            await this.filterWallets();
-            this.currentWallet = this.walletList[0];
-        }
-
-        this.changeWalletEmit.emit({
-            walletId: this.currentWallet.walletId,
-            walletCurrency: this.currentWallet.currency});
+        this.walletCurrency = this.displayedCurrency;
 
         this.isShowWalletSelector = true;
-        this.walletCurrency = this.displayedCurrency;
         this.cdr.markForCheck();
         WalletHelper.$resolveMultiWallet();
 
@@ -344,64 +357,104 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
         this.filtersParams.currencies = [];
         this.walletList = [];
         const wallets: IWalletObj = _assign({}, this.userService.userInfo.wallets);
-        const currencies: IIndexing<ICurrency> = this.configService.get('appConfig.siteconfig.currencies');
 
-        for (const index in currencies) {
-            const currency: string = currencies[index].Name;
+        for (const index in this.currencies) {
+            const currency: string = this.currencies[index].Name;
 
             let wallet: IWallet = _assign({}, wallets[currency]);
 
-            if (wallet.balance) {
+            if (this.$params.isWithdrawal
+                ? wallet.balance && wallet.balance !== '0.00'
+                : this.currencies[index].registration
+            ) {
+                if (wallet.balance) {
 
-                if (this.changeConversionCoefficientReady) {
-                    await this.changeConversionCoefficientReady;
-                }
+                    if (this.isConvert(currency) && this.isOpened) {
 
-                if (this.isConvert(currency)) {
+                        if (this.changeConversionCoefficientReady) {
+                            await this.changeConversionCoefficientReady;
+                        }
 
-                    const coefficient: number = await this.ratesService.getRate({
-                        currencyFrom: currency,
-                        currencyTo: this.settingsParams.walletSettings.currency,
-                    });
-                    wallet.balance = (coefficient * _toNumber(wallet.balance));
-                }
+                        const coefficient: number = await this.ratesService.getRate({
+                            currencyFrom: currency,
+                            currencyTo: this.settingsParams.walletSettings.currency,
+                        });
+                        wallet.balance = (coefficient * _toNumber(wallet.balance));
+                    }
 
-            } else if (!this.$params.hideVirtualWallets) {
-                wallets[currency] = {
-                    currency: currency,
-                    balance: '0.00',
-                };
-                wallet = wallets[currency];
-            }
-
-            const currentCurrencyUnused: ICurrencyFilter = WalletHelper.currencies
-                ?.find((item: ICurrencyFilter) => item.code === currency);
-
-            if (wallet.balance && !currentCurrencyUnused) {
-                wallet.balance = _toNumber(wallet.balance).toFixed(2);
-                this.walletList.push(wallet);
-            }
-
-            if (currency !== this.currentWallet.currency) {
-                if (currentCurrencyUnused) {
-                    this.filtersParams.currencies.push(currentCurrencyUnused);
                 } else {
-                    this.filtersParams.currencies.push({
-                        name: wallet.currency,
-                        code: wallet.currency,
-                        isUsed: true,
-                    } as ICurrencyFilter);
+                    wallet = {
+                        currency: currency,
+                        balance: '0.00',
+                    };
                 }
-            }
 
-            if (!currencies[index].IsCryptoCurrency) {
-                this.settingsParams.currencies.push(currency);
+                const currentCurrencyUnused: ICurrencyFilter = WalletHelper.currencies
+                    ?.find((item: ICurrencyFilter) => item.code === currency);
+
+                if (!currentCurrencyUnused || this.$params.isWithdrawal) {
+                    wallet.balance = _toNumber(wallet.balance).toFixed(2);
+                    this.walletList.push(wallet);
+                }
+
+                if (currency !== this.currentWallet?.currency ?? this.userService.userProfile.selectedCurrency) {
+
+                    if (currentCurrencyUnused) {
+                        this.filtersParams.currencies.push(currentCurrencyUnused);
+                    } else {
+                        this.filtersParams.currencies.push({
+                            name: wallet.currency,
+                            code: wallet.currency,
+                            isUsed: true,
+                        } as ICurrencyFilter);
+                    }
+                }
+
+                if (!this.currencies[index].IsCryptoCurrency) {
+                    this.settingsParams.currencies.push(currency);
+                }
             }
         }
+
+        if (!this.walletList.length) {
+            let currencies: ICurrency[] = Object.values(this.currencies);
+            const currentCurrency: ICurrency = _find(currencies, (currency: ICurrency) =>
+                (this.currentWallet
+                    ? currency.Name === this.currentWallet.currency
+                    : currency.Name === this.userService.userProfile.selectedCurrency
+                ) && currency.registration);
+            let walletsArray: IWallet[] = Object.values(wallets);
+
+            if (currentCurrency) {
+                this.walletList.push(WalletHelper.createCurrentWallet(
+                    wallets,
+                    this.currentWallet?.currency ?? this.userService.userProfile.selectedCurrency,
+                ));
+
+            } else if (walletsArray.length) {
+                walletsArray = _sortBy(walletsArray, 'walletId');
+                this.walletList.push(walletsArray[0]);
+
+            } else {
+                currencies = _sortBy(currencies, 'Name');
+                this.walletList.push(WalletHelper.createCurrentWallet(wallets, currencies[0].Name));
+            }
+        } else {
+            this.sortWallets();
+        }
+
         this.$createWalletListResolve();
     }
 
-    private async filterWallets(): Promise<void> {
+    private sortWallets(): void {
+        this.walletList = _orderBy(this.walletList, ['walletId', 'currency'])
+            .sort((currency: IWallet) => (
+                this.currentWallet
+                    ? currency.currency === this.currentWallet.currency
+                    : currency.currency === this.userService.userProfile.selectedCurrency) ? -1 : 1);
+    }
+
+    private async createWalletList(): Promise<void> {
         await this.createWalletsArray();
         const searchCondition = (currency: IWallet): boolean =>
             currency.currency.toLowerCase().includes(this.searchQuery.toLowerCase());
@@ -409,32 +462,13 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
         const zeroBalanceCondition: boolean = this.settingsParams.walletSettings?.hideWalletsWithZeroBalance
             && !this.searchQuery.length && !this.isFinance;
 
-        if (zeroBalanceCondition) {
-            this.walletList = this.sortWallets(
-                _filter(this.walletList, (currency: IWallet) => searchCondition(currency)
-                    && (currency.currency === this.currentWallet.currency || currency.balance !== '0.00'),
-                ),
-            );
-
-        } else if (this.$params.hideVirtualWallets) {
-            this.walletList = this.sortWallets(_filter(this.walletList, (currency: IWallet) =>
-                searchCondition(currency) && !!currency.walletId));
-
-        } else {
-            this.walletList = this.sortWallets(_filter(this.walletList, (currency: IWallet) =>
-                searchCondition(currency)));
-        }
-
-        if (!this.walletList.length && !this.searchQuery.length) {
-            this.walletList.push(this.userService.userInfo.wallets[this.userService.userProfile.originalCurrency]);
-        }
+        this.walletList = _filter(this.walletList, (currency: IWallet) => searchCondition(currency)
+            && (zeroBalanceCondition
+                ? (currency.currency === this.currentWallet.currency || currency.balance !== '0.00')
+                : true),
+        );
         this.walletListRead = true;
         this.cdr.markForCheck();
-    }
-
-    private sortWallets(wallets: IWallet[]): IWallet[] {
-        return _orderBy(wallets, ['walletId', 'currency'])
-            .sort((currency: IWallet) => currency.currency === this.currentWallet.currency ? -1 : 1);
     }
 
     private async updateConversionCoefficient(

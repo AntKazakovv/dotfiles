@@ -220,7 +220,7 @@ export class DepositWithdrawComponent
 
             this.walletsParams = {
                 themeMod: 'finances',
-                hideVirtualWallets: !this.isDeposit,
+                isWithdrawal: !this.isDeposit,
             };
         }
 

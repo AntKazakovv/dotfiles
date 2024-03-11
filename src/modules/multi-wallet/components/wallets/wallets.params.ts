@@ -14,7 +14,7 @@ export interface WalletsParams extends IComponentParams<Theme, ComponentType, st
     showDepositBtn?: boolean;
     themeMod?: WalletsThemeMod;
     depositIconPath?: string;
-    hideVirtualWallets?: boolean;
+    isWithdrawal?: boolean;
     filterText?: string;
     settingsText?: string;
 }
@@ -25,7 +25,7 @@ export const defaultParams: WalletsParams = {
     componentName: 'wlc-wallets',
     notFoundText: gettext('Sorry, but nothing was found. Check the spelling or try a different name.'),
     showDepositBtn: false,
-    hideVirtualWallets: false,
+    isWithdrawal: false,
     theme: 'default',
     filterText: gettext('Filter'),
     settingsText: gettext('Wallet settings'),
