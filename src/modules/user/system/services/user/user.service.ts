@@ -393,6 +393,7 @@ export class UserService {
         if (this.useAchievements && this.isAuth$.getValue()) {
             this.achievementsService.setAchievementsSubscription();
         }
+        this.jwtAuthLogin();
     }
 
     public setProfileData(formData: IUserProfile): void {
@@ -940,6 +941,20 @@ export class UserService {
 
         if (userProfile?.phoneCode && !userProfile?.phoneNumber) {
             userProfile.phoneCode = '';
+        }
+    }
+
+    private jwtAuthLogin(): void {
+        if (!this.isAuthenticated && this.configService.get<boolean>('$base.site.useJwtToken')) {
+            const jwtRefreshToken: string = this.configService.get({
+                name: 'jwtAuthRefreshToken',
+                storageType: 'localStorage',
+            });
+            if (jwtRefreshToken) {
+                this.eventService.emit({
+                    name: 'LOGIN',
+                });
+            }
         }
     }
 
