@@ -19,7 +19,6 @@
     }
 
     &.wlc-tournament-list--type-dashboard {
-        position: relative;
         display: flex;
         flex-direction: column;
         height: ef.get-value($themeDefault, 'dashboardContainerHeight');
