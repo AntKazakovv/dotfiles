@@ -1,0 +1,455 @@
+.wlc-verification--theme-wolf:host {
+
+    .wlc-verification__content {
+
+        .wlc-verification {
+
+            &__drag {
+                display: flex;
+                flex-direction: ef.get-value($themeWolf, 'dragDirection');
+
+                & > div {
+                    margin: ef.get-value($themeWolf, 'dragInnerMargin');
+
+                    &:first-of-type {
+                        margin-top: 0;
+                    }
+                }
+
+                @include mq.min(1024) {
+                    display: grid;
+                    grid-template-areas: ef.get-value($themeWolf, 'dragGridTemplateAreas');
+                    grid-template-columns: ef.get-value($themeWolf, 'dragGridTemplateColumns');
+                    gap: ef.get-value($themeWolf, 'dragGap');
+
+                    & > div {
+                        margin-top: 0;
+                    }
+                }
+            }
+
+            &__doc-select {
+                display: flex;
+                flex-direction: ef.get-value($themeWolf, 'docSelectDirection');
+                grid-area: select;
+
+                ::ng-deep {
+
+                    .wlc-select__field {
+                        @include text.get-text-style(
+                            ef.get-value($themeWolf, 'selectTextFont'),
+                            ef.get-value($themeWolf, 'selectTextColor')
+                        );
+                    }
+
+                    .wlc-select__dropdown {
+                        overflow: hidden auto;
+                    }
+                }
+            }
+
+            &__dropzone {
+                position: relative;
+
+                display: flex;
+                flex-direction: ef.get-value($themeWolf, 'dropzoneDirection');
+                grid-area: dropzone;
+                align-items: ef.get-value($themeWolf, 'dropzoneAlignItems');
+                justify-content: ef.get-value($themeWolf, 'dropzoneJustifyContent');
+                width: ef.get-value($themeWolf, 'dropzoneWidth');
+                min-height: ef.get-value($themeWolf, 'dropzoneMinHeight');
+                padding: ef.get-value($themeWolf, 'dropzonePadding');
+
+                border: ef.get-value($themeWolf, 'dropzoneBorder');
+                border-radius: ef.get-value($themeWolf, 'dropzoneRadius');
+                cursor: pointer;
+                background: {
+                    position: ef.get-value($themeWolf, 'dropzoneBgPosition');
+                    color: ef.get-value($themeWolf, 'dropzoneBg');
+                    size: ef.get-value($themeWolf, 'dropzoneBgSize');
+                    repeat: ef.get-value($themeWolf, 'dropzoneBgRepeat');
+                };
+
+                .wlc-btn-upload {
+                    margin: ef.get-value($themeWolf, 'btnOffset');
+
+                    &.selected {
+                        margin: ef.get-value($themeWolf, 'btnSelectedOffset');
+                        white-space: nowrap;
+
+                        @include mq.min(1024) {
+                            display: grid;
+                        }
+                    }
+
+                    @include mq.min(1024) {
+                        display: none;
+                    }
+                }
+
+                &.dragovered {
+                    border-color: ef.get-value($themeWolf, 'dragBorderColor');
+                }
+
+                &.preloaded {
+                    cursor: default;
+                }
+
+                .wlc-verification__text {
+
+                    span {
+                        display: inline-block;
+                    }
+
+                    .wlc-verification__text-inner {
+                        @include bm.get-mq-map('display', $themeWolf, 'verificationTextInnerDisplay');
+                    }
+                }
+
+                @include bm.hover {
+                    border-color: ef.get-value($themeWolf, 'dragBorderColor');
+                }
+            }
+
+            &__dropzone-clear {
+                position: absolute;
+                top: ef.get-value($themeWolf, 'dropzoneClearPosition');
+                right: ef.get-value($themeWolf, 'dropzoneClearPosition');
+                cursor: pointer;
+
+                ::ng-deep .wlc-icon-content {
+
+                    svg {
+
+                        line {
+                            stroke: ef.get-value($themeWolf, 'dropzoneClearIconColor');
+                        }
+                    }
+                }
+
+                @include bm.hover {
+
+                    ::ng-deep .wlc-icon-content {
+
+                        svg {
+
+                            line {
+                                stroke: ef.get-value($themeWolf, 'dropzoneClearIconColorHover');
+                            }
+                        }
+                    }
+                }
+            }
+
+            &__description-full {
+                grid-area: description-full;
+                max-width: inherit;
+                cursor: pointer;
+
+                ::ng-deep {
+
+                    .wlc-alert {
+
+                        &__main {
+                            display: ef.get-value($themeWolf, 'alertDisplay');
+                            align-items: ef.get-value($themeWolf, 'alertAlignItems');
+                            justify-content: ef.get-value($themeWolf, 'alertJustifyContent');
+                            width: ef.get-value($themeWolf, 'alertWidth');
+                        }
+
+                        &__title {
+                            @include text.get-text-style(
+                                ef.get-value($themeWolf, 'dfTextFont'),
+                                ef.get-value($themeWolf, 'dfTextColor')
+                            );
+                            text-decoration: underline;
+                        }
+
+                        &__text {
+                            display: none;
+                        }
+                    }
+
+                    @include bm.hover {
+
+                        .wlc-alert__title {
+                            color: ef.get-value($themeWolf, 'dfTextColorHover');
+                        }
+                    }
+                }
+            }
+
+            &__text {
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'verificationTextFont'),
+                    ef.get-value($themeWolf, 'verificationTextColor')
+                );
+                align-self: ef.get-value($themeWolf, 'verificationTextAlignSelf');
+                text-align: ef.get-value($themeWolf, 'verificationTextAlign');
+            }
+
+            &__upload-docs {
+                @include bm.get-mq-map('padding', $themeWolf, 'offset');
+                grid-area: docs-list;
+                border-top: ef.get-value($themeWolf, 'uploadDocsBorderTop');
+
+                @include mq.min(1024) {
+                    border-top: none;
+                    border-left: ef.get-value($themeWolf, 'borderDocList');
+                }
+            }
+
+            &__title {
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'verificationTitleFont'),
+                    ef.get-value($themeWolf, 'verificationTitleColor')
+                );
+                @include bm.get-mq-map('text-align', $themeWolf, 'verificationTitleAlign');
+            }
+
+            &-requirements {
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'reqTextFont'),
+                    ef.get-value($themeWolf, 'reqTextColor')
+                );
+                @include bm.get-mq-map('margin', $themeWolf, 'reqMargin');
+                grid-area: req-list;
+
+                &__item {
+
+                    &::marker {
+                        color: ef.get-value($themeWolf, 'markerColor');
+                    }
+                }
+            }
+
+            &-docs {
+                display: flex;
+                flex-direction: ef.get-value($themeWolf, 'docsDirection');
+                margin: ef.get-value($themeWolf, 'docsMargin');
+                padding: ef.get-value($themeWolf, 'docsPadding');
+                list-style-type: none;
+
+                &__item {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin-bottom: ef.get-value($themeWolf, 'docsGap');
+                    padding-bottom: ef.get-value($themeWolf, 'docsGap');
+                    border-bottom: ef.get-value($themeWolf, 'docsBorder');
+
+                    &.awaiting-validation {
+                        color: ef.get-value($themeWolf, 'docsStatusAwaitingColor');
+
+                        .wlc-verification-docs__doc-status {
+                            color: ef.get-value($themeWolf, 'docsStatusAwaitingIconColor');
+                        }
+                    }
+
+                    &.validated {
+
+                        ::ng-deep .wlc-icon-content {
+
+                            svg {
+
+                                rect,
+                                path {
+                                    fill: ef.get-value($themeWolf, 'docsStatusValidatedIconColor');
+                                }
+                            }
+                        }
+
+                        .wlc-verification-docs__doc-status {
+                            color: ef.get-value($themeWolf, 'docsStatusValidatedColor');
+                        }
+                    }
+
+                    &.failed-validation,
+                    &.expired {
+
+                        ::ng-deep .wlc-icon-content {
+
+                            svg {
+
+                                rect,
+                                path {
+                                    fill: ef.get-value($themeWolf, 'docsStatusFailedIconColor');
+                                }
+                            }
+                        }
+
+                        .wlc-verification-docs__doc-status {
+                            color: ef.get-value($themeWolf, 'docsStatusFailedColor');
+                        }
+                    }
+
+                    @include bm.hover {
+
+                        .wlc-verification-docs__remove {
+                            visibility: visible;
+                            opacity: 1;
+                        }
+                    }
+                }
+
+                &__doc-icon {
+                    width: ef.get-value($themeWolf, 'docIconBigDimensions');
+                    height: ef.get-value($themeWolf, 'docIconBigDimensions');
+                    margin: ef.get-value($themeWolf, 'docIconMargin');
+                    border-radius: ef.get-value($themeWolf, 'docIconRadius');
+
+                    ::ng-deep .wlc-icon-content {
+
+                        svg {
+                            display: block;
+                            width: ef.get-value($themeWolf, 'docIconSvgSize');
+                            height: ef.get-value($themeWolf, 'docIconSvgSize');
+                        }
+                    }
+                }
+
+                &__doc-info-wrp {
+                    flex: ef.get-value($themeWolf, 'docInfoFlex');
+                    min-width: ef.get-value($themeWolf, 'docInfoMinWidth');
+                    margin: ef.get-value($themeWolf, 'docInfoMargin');
+                }
+
+                &__doc-status {
+                    @include text.get-text-style(
+                        ef.get-value($themeWolf, 'docStatusTextFont'),
+                        ef.get-value($themeWolf, 'docStatusTextColor')
+                    );
+                    width: ef.get-value($themeWolf, 'docStatusWidth');
+                }
+
+                &__doc-title {
+                    @include text.get-text-style(
+                        ef.get-value($themeWolf, 'docTitleFont'),
+                        ef.get-value($themeWolf, 'docTitleColor')
+                    );
+                    position: relative;
+                    z-index: ef.get-value($themeWolf, 'docTitleZIndex');
+                    display: flex;
+                    flex-direction: ef.get-value($themeWolf, 'docTitleDirection');
+                    align-items: ef.get-value($themeWolf, 'docTitleAlignItems');
+                    max-width: ef.get-value($themeWolf, 'docTitleMaxWidth');
+
+                    a {
+                        @include text.get-text-style(
+                            ef.get-value($themeWolf, 'docLinkFont'),
+                            ef.get-value($themeWolf, 'docLinkColor')
+                        );
+                        @include bm.lineClamp(1);
+                        display: inline-block;
+                        max-width: ef.get-value($themeWolf, 'docTitleLinkMaxWidth');
+                        padding: ef.get-value($themeWolf, 'docTitlePadding');
+                        white-space: nowrap;
+                        text-decoration: ef.get-value($themeWolf, 'docTitleLinkDecoration');
+
+                        @include bm.hover {
+                            text-decoration: ef.get-value($themeWolf, 'docTitleLinkDecorationHover');
+                        }
+                    }
+                }
+
+                &__check-wrp {
+                    display: flex;
+                    flex-direction: ef.get-value($themeWolf, 'checkWrpDirection');
+                }
+
+                &__check-icon {
+                    margin-right: ef.get-value($themeWolf, 'docOffset');
+                }
+
+                &__info {
+                    margin-right: ef.get-value($themeWolf, 'docOffset');
+                    cursor: pointer;
+
+                    &.info-icon {
+
+                        ::ng-deep .wlc-icon-content {
+
+                            svg {
+
+                                path {
+                                    fill: ef.get-value($themeWolf, 'infoIconBg');
+                                }
+                            }
+                        }
+                    }
+
+                    @include bm.hover {
+
+                        &.info-icon {
+
+                            ::ng-deep .wlc-icon-content {
+
+                                svg {
+
+                                    path {
+                                        fill: ef.get-value($themeWolf, 'infoIconBgHover');
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &__remove {
+                    @include bm.transition(opacity);
+                    @include bm.get-mq-map('visibility', $themeWolf, 'docRemoveVisibility');
+                    @include bm.get-mq-map('opacity', $themeWolf, 'docRemoveOpacity');
+                    margin: ef.get-value($themeWolf, 'docRemoveMargin');
+                    cursor: pointer;
+
+                    ::ng-deep .wlc-icon-content {
+
+                        svg {
+                            @include bm.transition(color);
+                            width: ef.get-value($themeWolf, 'docRemoveIconSize');
+                            height: ef.get-value($themeWolf, 'docRemoveIconSize');
+                        }
+                    }
+
+                    @include bm.hover {
+                        color: ef.get-value($themeWolf, 'docRemoveColorHover');
+                    }
+                }
+
+                &__preload {
+                    width: ef.get-value($themeWolf, 'preloadDimensions');
+                    height: ef.get-value($themeWolf, 'preloadDimensions');
+                    margin: ef.get-value($themeWolf, 'preloadMargin');
+                    border: ef.get-value($themeWolf, 'preloadBorder');
+                    border-top: ef.get-value($themeWolf, 'preloadBorderTop');
+                    border-radius: ef.get-value($themeWolf, 'preloadRadius');
+                    animation: spin 1s infinite linear;
+                }
+
+                &__info,
+                &__check-icon {
+                    font-size: 0;
+
+                    ::ng-deep .wlc-icon-content {
+
+                        svg {
+                            width: ef.get-value($themeWolf, 'docIconSmallSvgSize');
+                            height: ef.get-value($themeWolf, 'docIconSmallSvgSize');
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes spin {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}

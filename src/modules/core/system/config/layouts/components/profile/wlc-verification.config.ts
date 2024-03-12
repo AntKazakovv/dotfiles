@@ -12,4 +12,12 @@ export namespace wlcVerification {
     export const kycQuestionnaire: ILayoutComponent = {
         name: 'aml.wlc-kyc-questionnaire-info',
     };
+
+    export const themeWolf: ILayoutComponent = {
+        name: 'profile.wlc-verification',
+        params: {
+            theme: 'wolf',
+            iconPath: 'wlc/icons/doc-icons/v3/',
+        },
+    };
 }

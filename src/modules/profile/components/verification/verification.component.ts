@@ -216,6 +216,7 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
         if (
             (this.configService.get('$base.profile.type') === 'first')
             || (this.docTypes.length >= this.verificationParams.selectModeFrom)
+            || (this.$params.theme === 'wolf')
         ) {
             this.isSelectMode = true;
             this.activateDrag();

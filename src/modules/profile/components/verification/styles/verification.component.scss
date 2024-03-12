@@ -4,5 +4,7 @@
 @use 'engine-scss/mixins/base.mixins' as bm;
 
 @import './utils/vars';
+@import './utils/wolf';
 
 @import './themes/default';
+@import './themes/wolf';

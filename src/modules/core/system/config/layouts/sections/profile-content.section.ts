@@ -1600,7 +1600,7 @@ export namespace profileContent {
                     components: [
                         componentLib.wlcProfileMenu.defTypeWolf,
                         componentLib.wlcProfileMenu.submenuWolf,
-                        componentLib.wlcVerification.def,
+                        componentLib.wlcVerification.themeWolf,
                     ],
                 },
             },

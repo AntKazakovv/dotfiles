@@ -4,7 +4,7 @@ import {
     IWrapperCParams,
 } from 'wlc-engine/modules/core';
 
-export type Theme = 'default' | CustomType;
+export type Theme = 'default' | 'wolf' | CustomType;
 export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 

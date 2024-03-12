@@ -1,0 +1,146 @@
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'dropzoneRadius': ef.get('radius', 'biger'),
+    'dropzonePadding': ef.size(8) ef.size(12),
+    'titleFont': 'PrimaryTextBold',
+    'textFont': 'PrimaryText',
+    'offset':(
+        375: ef.size(4) 0 0 0,
+        1024: 0 0 0 ef.size(6),
+    ) ,
+    'btnOffset': 0 0 ef.size(4),
+    'btnSelectedOffset': 0,
+    'docsBorder': 1px solid var(--mc-bg500),
+    'dropzoneBorder': 1px dashed var(--mc-baseSecond),
+    'dragBorderColor': var(--mc-main),
+    'verificationTextInnerDisplay': (
+        375: none,
+        1024: inline-block,
+    ),
+
+    'dragInnerMargin': ef.size(6) 0 0,
+
+    'dragGap': ef.size(6),
+    'dropzoneBg': var(--mc-bg500),
+    'uploadDocsBorderTop': 1px solid var(--mc-bg500),
+    'dropzoneBgRepeat': no-repeat,
+    'dropzoneBgPosition': center,
+    'dropzoneBgSize': contain,
+    'verificationTitleTextStyle': 'PrimaryText',
+    'docsGap': ef.size(3),
+    'docIconRadius': ef.get('radius', 'less'),
+    'dragGridTemplateAreas': 'select docs-list' 'dropzone docs-list' 'req-list docs-list' 'description-full docs-list',
+    'docsStatusAwaitingColor': var(--mc-warning),
+    'docsStatusAwaitingIconColor': var(--mc-warning),
+    'docsStatusValidatedColor': var(--mc-success),
+    'docsStatusValidatedIconColor': var(--mc-success),
+    'docsStatusFailedColor': var(--mc-error),
+    'docsStatusFailedIconColor': var(--mc-error),
+
+    'infoIconBg': var(--mc-baseOpacity),
+    'infoIconBgHover': var(--mc-baseMain),
+    'docIconSmallSvgSize': 20px,
+    'docRemoveIconSize': 12px,
+    'docRemoveColorHover': var(--mc-main),
+    'docIconBigDimensions': 24px,
+    'docOffset': ef.size(1),
+    'dropzoneClearIconColor': var(--mc-main),
+    'dropzoneClearIconColorHover': var(--mc-error),
+    'selectTextColor': var(--fc-textColor),
+    'selectTextFont': 'PrimaryText',
+
+    'preloadDimensions': 12px,
+    'preloadBorderTop': 1px solid var(--mc-main),
+    'preloadBorder': 1px solid var(--mc-bg),
+    'preloadMargin': ef.size(-6) 0 0 auto,
+    'preloadRadius': 100%,
+
+    'dragGridTemplateColumns': 1fr minmax(320px, 1fr),
+
+    'dropzoneMinHeight': 200px,
+    'dropzoneWidth': 100%,
+
+    'dropzoneClearPosition': 10px,
+
+    'docsDirection': column,
+    'docsMargin': ef.size(3) 0 0 0,
+    'docsPadding': 0,
+
+    'docIconSvgSize': 100%,
+    'docIconMargin': ef.size(1),
+
+    'docInfoFlex': 1 1 0%,
+    'docInfoMargin': 0 ef.size(2),
+    'docInfoMinWidth': 0,
+
+    'docStatusWidth': 100%,
+
+    'docTitleZIndex': 5,
+    'docTitlePadding': 0 ef.size(4) 0 0,
+    'docTitleMaxWidth': 100%,
+    'docTitleFont': 'PrimaryText',
+    'docTitleColor': var(--mc-baseMain),
+    'docLinkFont': 'PrimaryText',
+    'docLinkColor': var(--mc-baseSecond),
+
+    'docRemoveMargin': ef.size(-5) 0 0 auto,
+    'docRemoveVisibility': (
+        375: visible,
+        1200: hidden,
+    ),
+    'docRemoveOpacity': (
+        375: 1,
+        1200: 0,
+    ),
+
+    'dragDirection': column,
+    'docSelectDirection': column,
+
+    'dropzoneAlignItems': center,
+    'dropzoneJustifyContent': center,
+    'dropzoneDirection': column,
+
+    'verificationTextAlignSelf': center,
+    'verificationTextAlign': center,
+    'verificationTextFont': 'PrimaryText',
+    'verificationTextColor': var(--mc-baseMain),
+
+    'verificationTitleAlign': (
+        375: center,
+        1024: left,
+    ),
+    'verificationTitleFont': 'PrimaryText',
+    'verificationTitleColor': var(--mc-baseSecond),
+
+    'docTitleDirection': row,
+    'docTitleAlignItems': center,
+
+    'docStatusTextFont': 'PrimaryTextBold',
+    'docStatusTextColor': var(--mc-baseMain),
+
+    'docTitleLinkMaxWidth': 100%,
+    'docTitleLinkDecoration': none,
+    'docTitleLinkDecorationHover': underline,
+
+    'checkWrpDirection': row-reverse,
+
+    'reqMargin': (
+        375: ef.size(6) 0 0,
+        1024: 0,
+    ),
+    'reqItemFontStyle': 'PrimaryText',
+    'reqItemFontColor': var(--mc-baseMain),
+    'markerColor': var(--mc-main),
+
+    'dfTextFont': 'PrimaryText',
+    'dfTextColor': var(--mc-main),
+    'dfTextColorHover': var(--mc-baseMain),
+
+    'alertDisplay': flex,
+    'alertAlignItems': center,
+    'alertJustifyContent': space-between,
+    'alertWidth': 100%,
+
+    'reqTextFont': 'PrimaryText',
+    'reqTextColor': var(--mc-baseSecond),
+), $customThemeWolf);
