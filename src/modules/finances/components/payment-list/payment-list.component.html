@@ -287,7 +287,7 @@
         <div wlc-alert>
             <span title>
                 {{'To display all available payment systems, specify your country on the' | translate}}
-                <a [uiSref]="'app.profile.main.info'">{{'Profile' | translate}}</a> {{'page' | translate}}
+                <a wlc-link="app.profile.main.info">{{'Profile' | translate}}</a> {{'page' | translate}}
             </span>
         </div>
     </ng-container>
@@ -296,7 +296,7 @@
         <div wlc-alert>
             <span title>
                 {{'There are no payment systems available for your country, please check the "Country" field on the' | translate}}
-                <a [uiSref]="'app.profile.main.info'">{{'Profile' | translate}}</a>
+                <a wlc-link="app.profile.main.info">{{'Profile' | translate}}</a>
                 {{'page. If the specified field is filled in, but the payment systems are not displayed, contact the technical support service of our casino.' | translate}}
             </span>
         </div>
