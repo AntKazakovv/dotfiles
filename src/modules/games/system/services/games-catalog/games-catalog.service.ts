@@ -515,7 +515,7 @@ export class GamesCatalogService {
         if (Games.isMultiWallet) {
             wallet = GamesCatalogService.userService.userProfile.extProfile.currentWallet;
 
-            if (!wallet.walletId && !options.demo) {
+            if (!options.demo && !wallet.walletId) {
                 this.walletsService ??= await this.injectionService
                     .getService<WalletsService>('multi-wallet.wallet-service');
                 wallet.walletId = _toNumber(await this.walletsService.addWallet(wallet.walletCurrency));
