@@ -23,3 +23,29 @@ $themeRingWithLogo: map-merge((
     'margin': 0 auto,
     'iconMargin': 0 0 ef.size(4),
 ), $customThemeRingWithLogo);
+
+$customThemeWithOverlay: () !default;
+$themeWithOverlay: map-merge((
+    'overlayZIndex': 10,
+    'overlayPosition': 0,
+    'overlayBackground': var(--mc-disabled-o6),
+    'overlayRadius': ef.get('radius', 'biger'),
+
+    'spinnerPosition': 0,
+    'spinnerTopPosition': 50%,
+    'spinnerDisplay': flex,
+    'spinnerAlignItems': center,
+    'spinnerJustifyContent': center,
+    'spinnerMargin': 0 auto,
+    'spinnerTranslateY': -50%,
+
+    'spinnerBeforePosition': 0,
+    'spinnerBeforeSize': 60px,
+    'spinnerBeforeBackground': var(--mc-bg-o8),
+    'spinnerBeforeRadius': 50%,
+
+    'spinnerAfterSize': 50px,
+    'spinnerAfterRadius': 50%,
+    'spinnerAfterAnimation': spin 1s infinite linear,
+    'afterBorder': 4px solid var(--mc-main),
+), $customThemeWithOverlay);

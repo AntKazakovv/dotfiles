@@ -1,0 +1,4 @@
+.wlc-loader--type-with-overlay:host {
+    @include bm.absoluteCentering;
+    @include with-overlay;
+}

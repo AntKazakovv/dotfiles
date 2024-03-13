@@ -49,3 +49,79 @@
         }
     }
 }
+
+@mixin with-overlay($theme: $themeWithOverlay) {
+    z-index: ef.get-value($theme, 'overlayZIndex');
+    width: 100%;
+    height: 100%;
+
+    .wlc-loader {
+
+        &__overlay {
+            position: absolute;
+            top: ef.get-value($theme, 'overlayPosition');
+            right: ef.get-value($theme, 'overlayPosition');
+            bottom: ef.get-value($theme, 'overlayPosition');
+            left: ef.get-value($theme, 'overlayPosition');
+
+            background: ef.get-value($theme, 'overlayBackground');
+            border-radius: ef.get-value($theme, 'overlayRadius');
+        }
+
+        &__spinner {
+            position: absolute;
+            top: ef.get-value($theme, 'spinnerTopPosition');
+            right: ef.get-value($theme, 'spinnerPosition');
+            left: ef.get-value($theme, 'spinnerPosition');
+
+            display: ef.get-value($theme, 'spinnerDisplay');
+            align-items: ef.get-value($theme, 'spinnerAlignItems');
+            justify-content: ef.get-value($theme, 'spinnerJustifyContent');
+
+            margin: ef.get-value($theme, 'spinnerMargin');
+            transform: translateY(ef.get-value($theme, 'spinnerTranslateY'));
+
+            &:before {
+                content: '';
+
+                position: absolute;
+                top: ef.get-value($theme, 'spinnerBeforePosition');
+                right: ef.get-value($theme, 'spinnerBeforePosition');
+                bottom: ef.get-value($theme, 'spinnerBeforePosition');
+                left: ef.get-value($theme, 'spinnerBeforePosition');
+
+                width: ef.get-value($theme, 'spinnerBeforeSize');
+                height: ef.get-value($theme, 'spinnerBeforeSize');
+
+                margin: auto;
+
+                background: ef.get-value($theme, 'spinnerBeforeBackground');
+                border-radius: ef.get-value($theme, 'spinnerBeforeRadius');
+            }
+
+            &:after {
+                content: '';
+
+                width: ef.get-value($theme, 'spinnerAfterSize');
+                height: ef.get-value($theme, 'spinnerAfterSize');
+
+                border: ef.get-value($theme, 'afterBorder');
+                border-left-color: transparent;
+                border-radius: ef.get-value($theme, 'spinnerAfterRadius');
+
+                animation: ef.get-value($theme, 'spinnerAfterAnimation');
+            }
+        }
+    }
+
+    @keyframes spin {
+
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+}

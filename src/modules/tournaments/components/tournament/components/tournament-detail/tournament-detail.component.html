@@ -150,8 +150,9 @@
             </div>
         </div>
 
-        <div *ngIf="pending" class="{{$class}}__loader">
-            <span class="{{$class}}__loader-elem"></span>
+        <div *ngIf="pending"
+            wlc-loader
+            type="with-overlay">
         </div>
     </div>
 </ng-template>
@@ -287,8 +288,9 @@
             </div>
         </div>
 
-        <div *ngIf="pending" class="{{$class}}__loader">
-            <span class="{{$class}}__loader-elem"></span>
+        <div *ngIf="pending"
+            wlc-loader
+            type="with-overlay">
         </div>
     </div>
 </ng-template>

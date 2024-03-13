@@ -42,9 +42,8 @@ export class LoaderComponent extends AbstractComponent implements OnInit {
 
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-    }
-
-    public get ringType(): boolean {
-        return this.$params.type === 'ring' || this.$params.type === 'ring-with-logo';
+        if (!this.type) {
+            this.type = this.$params.type;
+        }
     }
 }

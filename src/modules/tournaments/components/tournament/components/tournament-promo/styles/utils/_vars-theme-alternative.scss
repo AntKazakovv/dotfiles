@@ -181,21 +181,6 @@ $themeAlternative: map-merge((
     'prizesBodyRadius': ef.get('radius', 'biger'),
     'prizesRowMargin': 0 0 ef.size(2),
 
-    'loaderZIndex': 10,
-    'loaderPosition': 0,
-    'loaderBachround': var(--mc-disabled-o6),
-    'loaderRadius': ef.get('radius', 'biger'),
-
-    'loaderBeforePosition': 0,
-    'loaderBeforeSize': 60px,
-    'loaderBeforeBackground': var(--mc-bg-o8),
-    'loaderBeforeRadius': 50%,
-
-    'loaderAfterSize': 50px,
-    'loaderAfterBorderColor': var(--mc-main),
-    'loaderAfterRadius': 50%,
-    'loaderAfterAnimation': spin 1s infinite linear,
-
     'lockBtnMaxWidth': (
         375: none,
         480: 185px,

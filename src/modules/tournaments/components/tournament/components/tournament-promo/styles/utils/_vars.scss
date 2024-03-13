@@ -133,20 +133,6 @@ $themeDefault: map-merge((
     'btnsAlignSelf': end,
     'prizesMargin': ef.size(2) auto,
 
-    'loaderZIndex': 10,
-    'loaderPosition': 0,
-    'loaderBachround': var(--mc-disabled-o6),
-    'loaderRadius': ef.get('radius', 'biger'),
-
-    'loaderBeforePosition': 0,
-    'loaderBeforeSize': 60px,
-    'loaderBeforeBackground': var(--mc-bg-o8),
-    'loaderBeforeRadius': 50%,
-
-    'loaderAfterSize': 50px,
-    'loaderAfterBorderColor': var(--mc-main),
-    'loaderAfterRadius': 50%,
-    'loaderAfterAnimation': spin 1s infinite linear,
     'lockBtnMaxWidth': (
         480: 185px,
         560: none,

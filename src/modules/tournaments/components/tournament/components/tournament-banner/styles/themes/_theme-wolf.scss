@@ -127,53 +127,6 @@
             }
         }
 
-        &__loader {
-            position: absolute;
-            top: ef.get-value($themeWolf, 'loaderPosition');
-            right: ef.get-value($themeWolf, 'loaderPosition');
-            bottom: ef.get-value($themeWolf, 'loaderPosition');
-            left: ef.get-value($themeWolf, 'loaderPosition');
-            z-index: ef.get-value($themeWolf, 'loaderZIndex');
-
-            display: flex;
-            align-items: ef.get-value($themeWolf, 'loaderAlignItems');
-            justify-content: ef.get-value($themeWolf, 'loaderJustifyContent');
-
-            border-radius: ef.get-value($themeWolf, 'loaderRadius');
-            background: ef.get-value($themeWolf, 'loaderBachround');
-
-            &:before {
-                content: '';
-
-                position: absolute;
-                top: ef.get-value($themeWolf, 'loaderBeforePosition');
-                right: ef.get-value($themeWolf, 'loaderBeforePosition');
-                bottom: ef.get-value($themeWolf, 'loaderBeforePosition');
-                left: ef.get-value($themeWolf, 'loaderBeforePosition');
-
-                width: ef.get-value($themeWolf, 'loaderBeforeSize');
-                height: ef.get-value($themeWolf, 'loaderBeforeSize');
-
-                margin: ef.get-value($themeWolf, 'loaderBeforeMargin');
-
-                background: ef.get-value($themeWolf, 'loaderBeforeBackground');
-
-                border-radius: ef.get-value($themeWolf, 'loaderBeforeRadius');
-            }
-
-            &:after {
-                content: '';
-
-                width: ef.get-value($themeWolf, 'loaderAfterSize');
-                height: ef.get-value($themeWolf, 'loaderAfterSize');
-
-                border: 4px solid ef.get-value($themeWolf, 'loaderAfterBorderColor');
-                border-left-color: transparent;
-                border-radius: ef.get-value($themeWolf, 'loaderAfterRadius');
-                animation: ef.get-value($themeWolf, 'loaderAfterAnimation');
-            }
-        }
-
         @include bm.hover() {
 
             &:before {

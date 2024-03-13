@@ -73,7 +73,10 @@
             </button>
         </div>
 
-        <div *ngIf="pending" class="{{$class}}__loader"></div>
+        <div *ngIf="pending"
+            wlc-loader
+            type="with-overlay">
+        </div>
     </div>
 </ng-template>
 
@@ -146,7 +149,10 @@
             </button>
         </div>
 
-        <div *ngIf="pending" class="{{$class}}__loader"></div>
+        <div *ngIf="pending"
+            wlc-loader
+            type="with-overlay">
+        </div>
     </div>
 </ng-template>
 
@@ -235,7 +241,10 @@
             </button>
         </div>
 
-        <div *ngIf="pending" class="{{$class}}__loader"></div>
+        <div *ngIf="pending"
+            wlc-loader
+            type="with-overlay">
+        </div>
     </div>
 </ng-template>
 

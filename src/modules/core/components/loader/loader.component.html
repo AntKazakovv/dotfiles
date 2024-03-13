@@ -1,10 +1,20 @@
-<ng-container *ngIf="ringType">
-    <ng-container *ngIf="$params.type === 'ring-with-logo'" [ngTemplateOutlet]="logoIcon">
-    </ng-container>
-    <div class="{{$class}}__element"></div>
+<ng-container [ngSwitch]="type">
+    <ng-container *ngSwitchCase="'logo'" [ngTemplateOutlet]="logoIcon"></ng-container>
+    <ng-container *ngSwitchCase="'with-overlay'" [ngTemplateOutlet]="overlay"></ng-container>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="ring"></ng-container>
 </ng-container>
 
-<ng-container *ngIf="$params.type === 'logo'" [ngTemplateOutlet]="logoIcon"></ng-container>
+<ng-template #overlay>
+    <div class="{{$class}}__overlay">
+        <div class="{{$class}}__spinner"></div>
+    </div>
+</ng-template>
+
+<ng-template #ring>
+    <ng-container *ngIf="type === 'ring-with-logo'" [ngTemplateOutlet]="logoIcon">
+    </ng-container>
+    <div class="{{$class}}__element"></div>
+</ng-template>
 
 <ng-template #logoIcon>
     <div wlc-icon iconPath="{{$params.common.logoPath}}"></div>

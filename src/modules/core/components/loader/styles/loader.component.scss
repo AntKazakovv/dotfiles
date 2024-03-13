@@ -1,4 +1,5 @@
 @use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
 
 @import './utils/vars';
 @import './utils/mixins';
@@ -7,6 +8,7 @@
 @import 'themes/logo';
 @import 'themes/not-ready-mod';
 @import 'themes/ring-with-logo';
+@import 'themes/with-overlay';
 
 .wlc-loader {
 
