@@ -14,6 +14,7 @@ export interface IPaymentMessageCParams extends IComponentParams<ComponentTheme,
     system?: PaymentSystem;
     minAmount?: number;
     maxAmount?: number;
+    currency?: string;
 };
 
 export const defaultParams: IPaymentMessageCParams = {

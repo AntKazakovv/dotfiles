@@ -200,9 +200,15 @@
 <ng-template #limits>
     <div class="{{$class}}__text-row">
         {{'Please note, that minimum deposit amount for this method is' | translate}}
-        <span wlc-currency [value]="minAmount"></span>,
+        <span
+            wlc-currency
+            [value]="minAmount"
+            [currency]="currency ?? system.userSelectedCurrency"></span>,
         {{'maximum one is' | translate}}
-        <span wlc-currency [value]="maxAmount"></span>.
+        <span
+            wlc-currency
+            [value]="maxAmount"
+            [currency]="currency ?? system.userSelectedCurrency"></span>.
     </div>
 </ng-template>
 

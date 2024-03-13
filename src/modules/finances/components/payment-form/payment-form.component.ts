@@ -162,6 +162,7 @@ export class PaymentFormComponent
     protected cryptoCheck: boolean = false;
     protected isCryptoInvoices: boolean = false;
     protected currentCurrency: string;
+    // TODO позже надо посмотреть не лишнее ли поле
     protected currency: string;
     protected usePreselectedSummation: boolean = false;
     protected isLoadingHostedFields: boolean = false;
@@ -1268,6 +1269,7 @@ export class PaymentFormComponent
                 system: this.currentSystem,
                 minAmount: this.minAmount,
                 maxAmount: this.maxAmount,
+                currency: this.currentCurrency,
             },
             dismissAll: true,
             backdrop: 'static',

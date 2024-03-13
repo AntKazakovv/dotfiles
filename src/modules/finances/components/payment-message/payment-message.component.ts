@@ -71,6 +71,7 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
     @Input() public system: PaymentSystem;
     @Input() public minAmount: number;
     @Input() public maxAmount: number;
+    @Input() public currency: string;
     @Input() protected inlineParams: Params.IPaymentMessageCParams;
     public override $params: Params.IPaymentMessageCParams;
     public isError: boolean = false;
@@ -154,6 +155,10 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
             } else {
                 this.prepareMessage();
             }
+        }
+
+        if (!this.currency && this.$params.currency) {
+            this.currency = this.$params.currency;
         }
 
         this.cdr.markForCheck();

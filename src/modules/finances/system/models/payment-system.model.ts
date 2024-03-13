@@ -214,6 +214,10 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
         return this.userProfile$.getValue()?.currency;
     }
 
+    public get userSelectedCurrency(): string {
+        return this.userProfile$.getValue()?.selectedCurrency;
+    }
+
     public get appearance(): string {
         return this.data.appearance;
     }

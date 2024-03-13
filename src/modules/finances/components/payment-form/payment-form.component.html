@@ -41,7 +41,8 @@
         [inlineParams]="paymentMessageParams"
         [system]="currentSystem"
         [minAmount]="minAmount"
-        [maxAmount]="maxAmount">
+        [maxAmount]="maxAmount"
+        [currency]="currentCurrency">
     </div>
 
     <div *ngIf="!currentSystem?.message" class="{{$class}}__divider"></div>
