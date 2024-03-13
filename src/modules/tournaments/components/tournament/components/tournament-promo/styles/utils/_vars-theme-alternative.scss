@@ -79,11 +79,15 @@ $themeAlternative: map-merge((
         1024: image,
     ),
     'imageDisplayDesk': (
-        320: none,
+        375: none,
         1024: block,
     ),
+    'imageDisplayDeskUnavailable': (
+        375: none,
+        1630: block,
+    ),
     'imageDisplay': (
-        320: block,
+        375: block,
         768: none,
     ),
     'imageSize': 100%,

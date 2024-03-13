@@ -27,6 +27,10 @@
                         @include bm.get-mq-map('grid-area', $themeAlternative, 'imageBlockUnavailableGridArea');
                     }
 
+                    &__image--desk {
+                        @include bm.get-mq-map('display', $themeAlternative, 'imageDisplayDeskUnavailable');
+                    }
+
                     &__tag {
 
                         &--desk {
