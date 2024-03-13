@@ -160,7 +160,7 @@ import {HlSubstrPipe} from './pipes/hlsubstr.pipe';
 import {SafeValuePipe} from './pipes/safe-value.pipe';
 import {TruncatePipe} from './pipes/truncate.pipe';
 import {ProxyStaticUrlPipe} from './pipes/proxy-static-url.pipe';
-import {PurePipe} from 'wlc-engine/modules/core/pipes/pure.pipe';
+import {FunctionPurePipe} from 'wlc-engine/modules/core/pipes/function-pure.pipe';
 //  -- PIPES IMPORTS END  --;
 
 //  -- CONFIGS IMPORTS STARTS--;
@@ -398,7 +398,7 @@ export const services = {
         ResizedDirective,
         TabsComponent,
         SaComponent,
-        PurePipe,
+        FunctionPurePipe,
     ],
     exports: [
         AlertComponent,
@@ -487,7 +487,7 @@ export const services = {
         ResizedDirective,
         TabsComponent,
         SaComponent,
-        PurePipe,
+        FunctionPurePipe,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

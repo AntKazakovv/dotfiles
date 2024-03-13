@@ -8,12 +8,14 @@ import {
     LocalJackpotsService,
 } from './system/services';
 import {
+    JackpotBannerComponent,
     LocalJackpotComponent,
-} from 'wlc-engine/modules/local-jackpots/components/local-jackpot/local-jackpot.component';
+} from 'wlc-engine/modules/local-jackpots';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 
 export const components = {
     'wlc-local-jackpot': LocalJackpotComponent,
+    'wlc-jackpot-banner': JackpotBannerComponent,
 };
 
 export const services = {
@@ -23,6 +25,7 @@ export const services = {
 @NgModule({
     declarations: [
         LocalJackpotComponent,
+        JackpotBannerComponent,
     ],
     imports: [
         CommonModule,
@@ -35,6 +38,7 @@ export const services = {
     ],
     exports: [
         LocalJackpotComponent,
+        JackpotBannerComponent,
     ],
 })
 export class LocalJackpotsModule {

@@ -9,4 +9,11 @@ export namespace localJackpots {
             componentLib.wlcLocalJackpots.def,
         ],
     };
+
+    export const banner: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            componentLib.wlcLocalJackpots.banner,
+        ],
+    };
 }

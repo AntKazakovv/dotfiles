@@ -26,7 +26,7 @@
         <text x="50%" y="50%" dy=".35em" text-anchor="middle" class="{{$class}}__header-total--value">
             <tspan class="{{$class}}__header-total--currency"
                 data-wlc-element="jackpot-total_currency">
-                {{userCurrencyFormat | purePipe:[translateService.currentLang, $params.userCurrency]}}&#032;
+                {{userCurrencyFormat | functionPurePipe:[translateService.currentLang, $params.userCurrency]}}&#032;
             </tspan>
             <tspan class="{{$class}}__header-total--counter"
                 [countUp]="jackpot.accumulatedAmount"

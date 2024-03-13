@@ -1,0 +1,145 @@
+.wlc-jackpot-banner--theme-default:host {
+
+    .wlc-jackpot-banner {
+
+        &__wrapper {
+            @include bm.get-mq-map('padding', $themeDefault, 'wrapperPadding');
+
+            position: relative;
+            min-height: ef.get-value($themeDefault, 'wrapperMinHeight');
+            background: ef.get-value($themeDefault, 'wrapperBg');
+            border-radius: ef.get-value($themeDefault, 'wrapperBorderRadius');
+
+            &:before {
+                @include bgImage($themeDefault, 'left');
+            }
+
+            &:after {
+                @include bgImage($themeDefault, 'right');
+            }
+        }
+
+        &__jackpot {
+            @include bm.get-mq-map('grid-template-areas', $themeDefault, 'wrapperGridTemplateAreas');
+            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'wrapperGridTemplateColumns');
+
+            display: ef.get-value($themeDefault, 'wrapperDisplay');
+            gap: ef.get-value($themeDefault, 'wrapperGap');
+        }
+
+        &__info {
+            display: flex;
+            flex: 1 1 0;
+            flex-direction: column;
+            grid-area: info;
+            justify-content: space-between;
+            text-align: center;
+        }
+
+        &__name {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'jackpotNameStyle', 375),
+                ef.get-value($themeDefault, 'jackpotNameColor'),
+            );
+
+            @include mq.min(1630) {
+
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'jackpotNameStyle', 1630),
+                    ef.get-value($themeDefault, 'jackpotNameColor'),
+                );
+            }
+        }
+
+        &__description {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'jackpotDescriptionStyle'),
+                ef.get-value($themeDefault, 'jackpotDescriptionColor'),
+            );
+        }
+
+        &__total {
+            @include bm.get-mq-map('height', $themeDefault, 'jackpotTotalHeight');
+            @include bm.get-mq-map('margin', $themeDefault, 'jackpotTotalMargin');
+
+            font-weight: bold;
+            fill: ef.get-value($themeDefault, 'jackpotTotalFill');
+
+            svg {
+                height: inherit;
+
+                text {
+                    @include bm.get-mq-map('font-size', $themeDefault, 'jackpotTotalFontSize');
+                }
+            }
+
+            &-counter {
+                @include bm.get-mq-map('letter-spacing', $themeDefault, 'jackpotTotalLetterSpacing');
+            }
+        }
+
+        &__games {
+            @include bm.get-mq-map('margin', $themeDefault, 'jackpotGamesListMargin');
+
+            flex: 1 1 0;
+            grid-area: games;
+
+            ::ng-deep {
+
+                .wlc-games-grid {
+
+                    &__content {
+                        row-gap: 0;
+                    }
+                }
+            }
+        }
+
+        &__button {
+            display: flex;
+            grid-area: button;
+            align-items: end;
+            justify-content: center;
+        }
+
+        &__empty {
+            @include bm.get-mq-map('flex-direction', $themeDefault, 'emptyFlexDirection');
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &-info {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'emptyTextStyle'),
+                    ef.get-value($themeDefault, 'emptyTextColor'),
+                );
+
+                max-width: ef.get-value($themeDefault, 'emptyInfoMaxWidth');
+                text-align: center;
+            }
+
+            &-text {
+                @include bm.get-mq-map('margin', $themeDefault, 'emptyTextMargin');
+            }
+
+            &-button {
+                width: max-content;
+                margin: 0 auto;
+            }
+
+            &-img {
+
+                ::ng-deep {
+
+                    img {
+                        @include bm.get-mq-map('margin', $themeDefault, 'emptyImgMargin');
+
+                        @include bm.get-mq-map('width', $themeDefault, 'emptyImgWidth');
+                        @include bm.get-mq-map('height', $themeDefault, 'emptyImgHeight');
+                    }
+                }
+            }
+        }
+    }
+}

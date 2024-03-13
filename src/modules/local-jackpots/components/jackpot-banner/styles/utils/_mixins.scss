@@ -1,0 +1,27 @@
+@mixin bgImage($config, $position) {
+
+    @include bm.get-mq-map('display', $config, 'imageBgDisplay');
+    @include bm.get-mq-map('width', $config, 'imageBgWidth');
+    @include bm.get-mq-map('height', $config, 'imageBgHeight');
+
+    content: '';
+
+    position: absolute;
+    top: 0;
+
+    @if ($position == 'left') {
+        left: 0;
+    } @else {
+        right: 0;
+    }
+
+    @if ($position == 'left') {
+        background: ef.get-value($config, 'leftImageBg');
+    } @else {
+        background: ef.get-value($config, 'rightImageBg');
+    }
+
+    background-size: auto 100%;
+    pointer-events: none;
+    border-radius: ef.get-value($config, 'imageBgBorderRadius');
+}

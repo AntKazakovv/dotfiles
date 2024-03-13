@@ -1,0 +1,75 @@
+<div *ngIf="isReady; else loading"
+    class="{{$class}}__wrapper">
+
+    <ng-container *ngIf="jackpot && gridParams.components?.length; else noData">
+        <div class="{{$class}}__jackpot">
+            <div class="{{$class}}__info">
+                <div class="{{$class}}__name">
+                    {{jackpot.name}}
+                </div>
+                <div class="{{$class}}__total">
+                    <ng-template [ngTemplateOutlet]="svgTotal"></ng-template>
+                </div>
+                <div class="{{$class}}__description">
+                    {{jackpot.description}}
+                </div>
+            </div>
+
+            <div class="{{$class}}__button">
+                <button wlc-button
+                    class="wlc-btn wlc-btn--local-jackpot"
+                    wlcElement="button_go_local-jackpot"
+                    [text]="'Show All'"
+                    (click)="goPageLocalJackpots()">
+                </button>
+            </div>
+
+            <div class="{{$class}}__games">
+                <div wlc-wrapper [inlineParams]="gridParams"></div>
+            </div>
+        </div>
+    </ng-container>
+</div>
+
+<ng-template #svgTotal>
+    <svg width="100%">
+        <text x="50%" y="50%" dy=".35em" text-anchor="middle" class="{{$class}}__total">
+            <tspan class="{{$class}}__total-currency"
+                data-wlc-element="jackpot-total_currency">
+                {{userCurrencyFormat | functionPurePipe:[translateService.currentLang, $params.userCurrency]}}&#032;
+            </tspan>
+            <tspan class="{{$class}}__total-counter"
+                [countUp]="jackpot.accumulatedAmount"
+                [options]="$params.countUpOptions"
+                [reanimateOnClick]="$params.animateOnClick"
+                data-wlc-element="jackpot-total_counter">
+            </tspan>
+        </text>
+    </svg>
+</ng-template>
+
+<ng-template #loading>
+    <div wlc-loader class="{{$class}}__loader"></div>
+</ng-template>
+
+<ng-template #noData>
+    <div class="{{$class}}__empty">
+        <div class="{{$class}}__empty-info">
+            <div class="{{$class}}__empty-text">{{$params.noData?.text | translate}}</div>
+            <div class="{{$class}}__empty-button">
+                <button wlc-button
+                    class="wlc-btn wlc-btn--play"
+                    wlcElement="button_game-play"
+                    [icon]="'wlc-game-play'"
+                    [text]="'Play'"
+                    (click)="noDataGoToState()">
+                </button>
+            </div>
+        </div>
+
+        <div wlc-icon
+            class="{{$class}}__empty-img"
+            [iconPath]="$params.noData?.imgPath">
+        </div>
+    </div>
+</ng-template>

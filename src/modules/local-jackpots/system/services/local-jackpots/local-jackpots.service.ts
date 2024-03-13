@@ -7,7 +7,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {ILocalJackpot} from 'wlc-engine/modules/local-jackpots/system/interfaces/local-jackpots.interface';
 
-interface IJackpotsData {
+interface ILocalJackpotsData {
     data: ILocalJackpot[];
     status: string;
 }
@@ -26,7 +26,7 @@ export class LocalJackpotsService {
 
     public async getJackpots(userCurrency: string): Promise<ILocalJackpot[]> {
         try {
-            return (await this.dataService.request<IData<IJackpotsData>>('promo/jackpots', {
+            return (await this.dataService.request<IData<ILocalJackpotsData>>('promo/jackpots', {
                 currency: userCurrency,
             })).data?.data;
         } catch (error) {

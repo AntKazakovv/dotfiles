@@ -1,0 +1,95 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'leftImageBg': ef.static('wlc/jackpots/local-jackpot-coins-left.png') no-repeat center,
+    'rightImageBg': ef.static('wlc/jackpots/local-jackpot-coins-right.png') no-repeat center,
+    'imageBgWidth': (
+        375: 220px,
+        1024: 280px,
+        1630: 340px,
+    ),
+    'imageBgHeight': (
+        375: 150px,
+        1024: 200px,
+        1630: 240px,
+    ),
+    'imageBgDisplay': (
+        375: none,
+        768: block,
+    ),
+    'imageBgBorderRadius': ef.size(2),
+
+    'wrapperDisplay': grid,
+    'wrapperGridTemplateAreas': (
+        375: 'info' 'games' 'button',
+        1630: 'info games' 'button games',
+    ),
+    'wrapperGridTemplateColumns': (
+        375: 1fr,
+        1630: 1fr 1fr,
+    ),
+    'wrapperGap': ef.size(4),
+    'wrapperMinHeight': 260px,
+    'wrapperBg': radial-gradient(92.4% 97.13% at 50% 93.95%, #00b407 0%, #d6a700 100%),
+    'wrapperPadding': (
+        375: 30px 0,
+        1630: 40px 150px,
+    ),
+    'wrapperBorderRadius': ef.size(2),
+
+    'jackpotNameStyle': (
+        375: 'QoteTextBold',
+        1630: 'PromoTitle',
+    ),
+    'jackpotNameColor': var(--mc-baseMain),
+    'jackpotDescriptionStyle': 'PrimaryText',
+    'jackpotDescriptionColor': var(--mc-baseMain),
+    'jackpotTotalHeight': (
+        375: 30px,
+        1024: 50px,
+        1630: 60px,
+    ),
+    'jackpotTotalMargin': (
+        375: ef.size(2) 0,
+        768: ef.size(4) 0,
+    ),
+    'jackpotTotalLetterSpacing': (
+        375: ef.size(1),
+        1630: ef.size(2),
+    ),
+    'jackpotTotalFill': var(--mc-baseMain),
+    'jackpotTotalFontSize': (
+        375: 30px,
+        1024: 50px,
+        1630: 60px,
+    ),
+    'jackpotGamesListMargin': (
+        375: 0 10px,
+        768: 0 70px,
+        1024: 0 200px,
+        1630: 0,
+    ),
+
+    'emptyTextStyle': 'PrimaryText',
+    'emptyTextColor': var(--mc-baseMain),
+    'emptyFlexDirection': (
+        375: column-reverse,
+        1024: row,
+    ),
+    'emptyTextMargin': (
+        375: 0 0 20px,
+        1024: 0 0 15px,
+    ),
+    'emptyImgWidth': (
+        375: 150px,
+        1024: 180px,
+    ),
+    'emptyImgHeight': (
+        375: 150px,
+        1024: 180px,
+    ),
+    'emptyImgMargin': (
+        375: 0 0 20px,
+        1024: 0 0 0 40px,
+    ),
+    'emptyInfoMaxWidth': 275px,
+), $customThemeDefault);
