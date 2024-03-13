@@ -59,6 +59,7 @@ export const defaultParams: IBonusModalCParams = {
             {
                 name: 'games.wlc-games-grid',
                 params:<IGamesGridCParams> {
+                    theme: 'default',
                     themeMod: 'simple',
                     gamesRows: 2,
                     usePlaceholders: true,
