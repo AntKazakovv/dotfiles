@@ -1349,17 +1349,21 @@ export class PaymentFormComponent
     }
 
     protected showIFrame(form: HTMLFormElement): void {
+        const isGetRequest: boolean = form.method === 'get';
+
         const options: IModalParams = {
             id: 'iframe-deposit',
             modifier: 'iframe-deposit',
             componentName: 'finances.wlc-iframe-deposit',
-            componentParams: {},
+            componentParams: {
+                ...(isGetRequest && {src: form.action}),
+            },
             size: 'lg',
             showFooter: false,
             dismissAll: true,
             backdrop: 'static',
             modalTitle: this.isDeposit ? gettext('Deposit') : gettext('Withdraw'),
-            onModalShown: () => form.submit(),
+            onModalShown: isGetRequest ? () => {} : () => form.submit(),
         };
 
         this.modalService.showModal(options);
