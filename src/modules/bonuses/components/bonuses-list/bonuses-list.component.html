@@ -233,7 +233,7 @@
                     class="{{$class}}__nocontent-text">
                     {{ 'You do not have an active bonus. Select from the recommended bonuses or go to the' | translate}}
                     <a class="{{$class}}__nocontent-link"
-                        [uiSref]="'app.profile.loyalty-bonuses.main'">
+                        wlc-link="app.profile.loyalty-bonuses.main">
                         {{'Offers' | translate}}</a>.
                 </div>
                 <div *ngIf="!$params.common.useNoDataText && !$params.common.useNoActiveItem &&
