@@ -47,6 +47,10 @@ export interface IInputCParams extends IComponentParams<ComponentTheme, Componen
         type?: string;
         customModifiers?: CustomMod;
         usePasswordVisibilityBtn?: boolean;
+        /**
+         * Shows password requirements under the field.
+         */
+        showPasswordValidators?: boolean;
         useLabel?: boolean;
         readonly?: boolean;
         tooltipText?: string;

@@ -1,0 +1,51 @@
+.wlc-password-validation-list--theme-default:host {
+
+    .wlc-password-validation-list {
+
+        &__rule {
+            @include bm.get-mq-map('margin', $themeDefault, 'ruleMargin');
+            @include bm.get-mq-map('padding', $themeDefault, 'rulePadding');
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'ruleTextStyle'),
+                ef.get-value($themeDefault, 'ruleColor'),
+            );
+            @include bm.transition(color);
+
+            position: relative;
+
+            &:first-child {
+                @include bm.get-mq-map('margin', $themeDefault, 'ruleMarginFirst');
+            }
+
+            &:before {
+                @include bm.get-mq-map('top', $themeDefault, 'ruleIconPositionTop');
+                @include bm.get-mq-map('left', $themeDefault, 'ruleIconPositionLeft');
+                @include bm.get-mq-map('width', $themeDefault, 'ruleIconWidth');
+                @include bm.get-mq-map('height', $themeDefault, 'ruleIconHeight');
+                @include bm.transition(background-color);
+
+                content: '';
+                position: absolute;
+                display: block;
+                border-radius: ef.get-value($themeDefault, 'ruleIconRadius');
+                background-color: ef.get-value($themeDefault, 'ruleColor');
+            }
+
+            &.touched {
+                color: ef.get-value($themeDefault, 'ruleColorTouched');
+
+                &:before {
+                    background-color: ef.get-value($themeDefault, 'ruleColorTouched');
+                }
+            }
+
+            &.valid {
+                color: ef.get-value($themeDefault, 'ruleColorValid');
+
+                &:before {
+                    background-color: ef.get-value($themeDefault, 'ruleColorValid');
+                }
+            }
+        }
+    }
+}

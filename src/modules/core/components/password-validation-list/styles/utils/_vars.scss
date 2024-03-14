@@ -1,0 +1,16 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'ruleMargin': ef.size(1) 0 0,
+    'ruleMarginFirst': ef.size(2) 0 0,
+    'rulePadding': 0 0 0 ef.size(2),
+    'ruleTextStyle': 'CaptionText',
+    'ruleColor': var(--mc-baseMain),
+    'ruleColorTouched': var(--mc-error),
+    'ruleColorValid': var(--mc-success),
+
+    'ruleIconPositionTop': calc(50% - 2px),
+    'ruleIconPositionLeft': 0,
+    'ruleIconWidth': 4px,
+    'ruleIconHeight': 4px,
+    'ruleIconRadius': 50%,
+), $customThemeDefault);

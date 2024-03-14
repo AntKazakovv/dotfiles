@@ -29,6 +29,9 @@
         </ng-container>
         <ng-container [ngTemplateOutlet]="status"></ng-container>
     </div>
+    <ng-template [ngIf]="$params.common?.showPasswordValidators">
+        <ng-container [ngTemplateOutlet]="validators"></ng-container>
+    </ng-template>
 </ng-template>
 
 <ng-template #placeholderShown>
@@ -87,6 +90,9 @@
     </div>
     <ng-template [ngIf]="$params.bottomHint">
         <div class="{{$class}}__hint">{{$params.bottomHint | translate}}</div>
+    </ng-template>
+    <ng-template [ngIf]="$params.common?.showPasswordValidators">
+        <ng-container [ngTemplateOutlet]="validators"></ng-container>
     </ng-template>
 </ng-template>
 
@@ -152,4 +158,10 @@
         [currency]="$params.currency"
         indicatorFormat="narrowSymbol"
     ></span>
+</ng-template>
+
+<ng-template #validators>
+    <div wlc-password-validation-list
+         [control]="control"
+    ></div>
 </ng-template>

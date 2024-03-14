@@ -95,6 +95,9 @@ import {LoginSignupComponent} from './components/login-signup/login-signup.compo
 import {LogoComponent} from './components/logo/logo.component';
 import {MessageComponent} from 'wlc-engine/modules/core/components';
 import {NotificationThreadComponent} from 'wlc-engine/modules/core/components';
+import {
+    PasswordValidationListComponent,
+} from './components/password-validation-list/password-validation-list.component';
 import {RadioButtonsComponent} from './components/radio-buttons/radio-buttons.component';
 import {RatingComponent} from './components/rating/rating.component';
 import {ScrollbarComponent} from './components/scrollbar/scrollbar.component';
@@ -217,6 +220,7 @@ export const components = {
     'wlc-lottie-animation': LottieAnimationComponent,
     'wlc-no-content': WlcNoContentComponent,
     'wlc-pagination': WlcPaginationComponent,
+    'wlc-password-validation-list' : PasswordValidationListComponent,
     'wlc-promocode-link': PromocodeLinkComponent,
     'wlc-preloader': PreloaderComponent,
     'wlc-radio-buttons': RadioButtonsComponent,
@@ -324,6 +328,7 @@ export const services = {
         NgTemplateNameDirective,
         NotificationThreadComponent,
         ParallaxMovementDirective,
+        PasswordValidationListComponent,
         PromocodeLinkComponent,
         ProxyStaticUrlPipe,
         PreloaderComponent,
@@ -417,6 +422,7 @@ export const services = {
         LottieAnimationComponent,
         NgTemplateNameDirective,
         ParallaxMovementDirective,
+        PasswordValidationListComponent,
         PromocodeLinkComponent,
         ProxyStaticUrlPipe,
         PreloaderComponent,
