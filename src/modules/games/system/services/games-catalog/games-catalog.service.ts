@@ -525,7 +525,7 @@ export class GamesCatalogService {
         return (await this.dataService.request('games/gameLaunchParams', {
             ...options,
             demo: options.demo ? 1 : 0,
-            wallet: wallet?.walletId,
+            wallet: wallet.walletId,
             currency,
         }) as IData).data;
     }
