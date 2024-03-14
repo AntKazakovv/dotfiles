@@ -159,7 +159,7 @@ export class Game extends AbstractModel<IGame> {
     }
 
     public get getCurrency(): string {
-        if (!Games.allowGameCurrency && !this.merchantsCurrencies || this.hasDemo) {
+        if (!Games.allowGameCurrency && !this.merchantsCurrencies) {
             return GamesCatalogService.userService.userProfile.currency;
         }
         return this.currency
