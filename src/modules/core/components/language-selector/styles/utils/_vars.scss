@@ -127,9 +127,9 @@ $customThemeWolf: () !default;
 $themeWolf: map-merge((
     'padding': ef.size(1) 0 0,
 
-    'linkBg': var(--mc-bg300),
+    'linkBg': var(--mc-bg300-o4),
     'linkPadding': 0 ef.size(4),
-    'linkHover': var(--mc-bg100),
+    'linkHover': var(--mc-bg100-o4),
     'linkIconMargin': 0 ef.size(2) 0 0,
 
     'linkIconMarginCompact': 0,
@@ -142,8 +142,8 @@ $themeWolf: map-merge((
     'ddPadding': ef.size(1),
     'ddBg': var(--mc-bg700),
     'ddLinkBg': var(--mc-bg),
-    'ddActiveLinkBg': var(--mc-bg100),
-    'ddHoverLinkBg': var(--mc-bg100),
+    'ddActiveLinkBg': var(--mc-bg100-o4),
+    'ddHoverLinkBg': var(--mc-bg100-o4),
     'linkHoverColor': var(--mc-baseSecond, var(--mc-baseMain)),
     'linkFontSize': 'PrimaryText',
     'linkColor': var(--mc-baseMain),

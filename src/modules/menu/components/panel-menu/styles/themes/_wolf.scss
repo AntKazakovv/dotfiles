@@ -88,6 +88,7 @@
 
                         &.active {
                             color: ef.get-value($panelMenuThemeWolf, 'linkActiveColor');
+                            background: ef.get-value($panelMenuThemeWolf, 'linkActiveBg');
 
                             svg path,
                             svg {
@@ -245,7 +246,7 @@
                             }
 
                             &.active {
-                                background: ef.get-value($panelMenuThemeWolf, 'linkActive');
+                                background: ef.get-value($panelMenuThemeWolf, 'linkActiveBg');
 
                                 @include bm.hover {
                                     background: ef.get-value($panelMenuThemeWolf, 'linkHover');
