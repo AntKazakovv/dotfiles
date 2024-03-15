@@ -83,6 +83,7 @@
                     ef.get-value($theme, 'textStyleDesktop'),
                     ef.get-value($theme, 'textHeaderColor')
                 );
+                font-weight: var(--wlc-tbl-row-head-fw, 700);
             }
         }
 

@@ -76,5 +76,6 @@ $selector: '.wlc-table';
     &.wlc-table--wolf-colors {
         --wlc-tbl-row-mobile-bg: #{ef.get-value($themeDefault, 'rowBackgroundAlternativeMobile')};
         --wlc-tbl-row-mobile-bg-show: #{ef.get-value($themeDefault, 'rowBackgroundAlternativeMobileOnShow')};
+        --wlc-tbl-row-head-fw: 400;
     }
 }
