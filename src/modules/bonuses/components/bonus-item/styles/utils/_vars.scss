@@ -140,7 +140,7 @@ $themeDefault: map-merge((
         720: auto 100px,
         1630: auto 130px,
     ),
-    'wrapGridRowsActive': auto,
+    'wrapGridRowsActive': 40px auto,
     'infoHeightWithImg': (
         320: 130px,
         1630: 145px,
@@ -156,7 +156,7 @@ $themeDefault: map-merge((
         375: ef.size(2) ef.size(3) 0,
         1630: ef.size(6) ef.size(4) 0,
     ),
-    'infoPaddingShowAlways': 0 ef.size(3) ef.size(1),
+    'infoPaddingShowAlways': 0 ef.size(3) ef.size(3),
 
     // Images
     'imageBg': rgba(0, 0, 0, 0.3) center/cover no-repeat,
@@ -258,7 +258,7 @@ $themeDefault: map-merge((
         375: 0 0 ef.size(3),
         1200: 0 0 ef.size(4),
     ),
-    'bottomShowAlwaysGridRows': 1fr auto auto,
+    'bottomShowAlwaysGridRows': auto min-content ef.size(12),
     'btnMobilePadding': 0 0 ef.size(3),
     // More icon
     'moreIconSize': ef.size(4),
