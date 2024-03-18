@@ -239,7 +239,7 @@ export class LanguageSelectorComponent
             this.modalService.showModal({
                 id: 'langSwitcherRef',
                 templateRef: this.langListRef,
-                modalTitle: gettext('Choose your language'),
+                modalTitle: gettext('Select a language'),
                 closeBtnParams: {
                     themeMod: 'secondary',
                     common: {

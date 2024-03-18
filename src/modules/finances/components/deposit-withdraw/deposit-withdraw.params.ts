@@ -79,7 +79,7 @@ export namespace PaymentSteps {
 
     export const wallet: IPaymentStep = {
         template: 'wallets',
-        title: gettext('Choose a wallet'),
+        title: gettext('Select a wallet'),
     };
 
     export const bonus: IPaymentStep = {

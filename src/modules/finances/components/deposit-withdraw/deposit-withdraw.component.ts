@@ -108,7 +108,7 @@ export class DepositWithdrawComponent
         paymentType: 'deposit',
         wlcElement: 'block_payment-list',
         theme: 'crypto-list',
-        chosenMethodText: gettext('The chosen cryptocurrency:'),
+        chosenMethodText: gettext('The selected cryptocurrency:'),
         noSelectedButton: null,
         buttonText: gettext('Show all cryptocurrencies'),
     };

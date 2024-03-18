@@ -27,7 +27,7 @@ export const defaultParams: IFastDepositCParams = {
     componentName: 'wlc-fast-deposit',
     moduleName: 'finances',
     textConfig: {
-        description: gettext('The chosen payment method:'),
+        description: gettext('The selected payment method:'),
         systemUnavailable:
             gettext('The balance is running out and can be exhausted soon. ' +
             'Go to the "Deposit" page to make a payment and receive additional bonuses.'),

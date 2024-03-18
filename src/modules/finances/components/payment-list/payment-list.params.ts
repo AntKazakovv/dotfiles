@@ -78,7 +78,7 @@ export const defaultParams: IPaymentListCParams = {
     modalTitle: gettext('Select a payment method'),
     hideModalOnSelect: true,
     showSelectedInButton: true,
-    chosenMethodText: gettext('The chosen payment method:'),
+    chosenMethodText: gettext('The selected payment method:'),
     ignoreAltTheme: false,
     noSelectedButton: {
         use: true,

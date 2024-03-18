@@ -21,7 +21,7 @@
     <div class="{{$class}}__grid">
         <div #depLeft class="{{$class}}__grid-left">
             <div *ngIf="isMultiWallet" class="{{$class}}__step {{$class}}__step--wallet">
-                <p class="{{$class}}__step-title">{{'Choose a wallet' | translate}}</p>
+                <p class="{{$class}}__step-title">{{'Select a wallet' | translate}}</p>
                 <ng-container [ngTemplateOutlet]="wallets"></ng-container>
             </div>
             <div class="{{$class}}__step {{$class}}__step--paysystems">
@@ -71,7 +71,7 @@
 <ng-template #step1>
     <div class="{{$class}}__step {{$class}}__step--1" [@stepChanged]="currentStep.toString()">
         <div *ngIf="isMultiWallet" class="{{$class}}__step-group {{$class}}__step-group--wallet">
-            <p class="{{$class}}__title">{{'Choose a wallet' | translate}}</p>
+            <p class="{{$class}}__title">{{'Select a wallet' | translate}}</p>
             <ng-container [ngTemplateOutlet]="wallets"></ng-container>
         </div>
         <div class="{{$class}}__step-group {{$class}}__step-group--paysystems">
@@ -148,7 +148,7 @@
         <span wlc-icon
             class="{{$class}}__back-icon"
             [iconPath]="'/wlc/icons/arrow-left.svg'"></span>
-        <p>{{'The chosen payment method:' | translate }} <span class="{{$class}}__accent">{{paymentSystemName}}</span></p>
+        <p>{{'The selected payment method:' | translate }} <span class="{{$class}}__accent">{{paymentSystemName}}</span></p>
     </div>
 </ng-template>
 

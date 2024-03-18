@@ -60,7 +60,7 @@ const textBlockHeaderBonus = {
     params: {
         common: {
             ...textBlockHeaderParams,
-            textBlockSubtitle: gettext('Choose your Welcome Bonus'),
+            textBlockSubtitle: gettext('Select your welcome bonus'),
         },
     },
 };
@@ -154,7 +154,7 @@ export const regFormStepTopComponents = {
                 params: {
                     common: {
                         dynamicText: {
-                            text: gettext('The chosen bonus:'),
+                            text: gettext('The selected bonus:'),
                             textDefault: gettext('Without bonus'),
                             param: ChosenBonusSetParams.ChosenBonus + '.name',
                         },
