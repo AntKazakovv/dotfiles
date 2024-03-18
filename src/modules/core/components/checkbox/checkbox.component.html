@@ -11,7 +11,8 @@
                    name="{{$params.name}}"
                    [attr.data-wlc-element]="fieldWlcElement"
                    [formControl]="control"
-                   [ngClass]="checkboxClassNames"/>
+                   [ngClass]="checkboxClassNames"
+                   (change)="onChange($event)"/>
             <span wlc-icon
                   class="{{$class}}__elem"
                   iconPath="/wlc/icons/icons_new/tick.svg"
