@@ -224,11 +224,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
             this.tabs = _filter(this.tabs, (tab: Params.IGameDashboardTab) => tab.id !== 'tournaments');
         }
 
-        if (this.$params.common?.bonusesListParams) {
-            _set(this.bonusesConfig.components[0], 'params', this.$params.common.bonusesListParams);
-        }
-
-        this.getBonusesConfig();
+        this.setBonusesConfig();
         this.backdropLabelVisibility();
         await this.loadLastPlayedGames();
         this.initLastPlayedSwiper();
@@ -697,7 +693,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
             this.isAuth = true;
 
             this.removeModifiers('not-auth');
-            this.getBonusesConfig();
+            this.setBonusesConfig();
             this.loadLastPlayedGames();
             this.initLastPlayedSwiper();
 
@@ -838,7 +834,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
         };
     }
 
-    protected getBonusesConfig(): void {
+    protected setBonusesConfig(): void {
         this.bonusesConfig = {
             class: 'wlc-dashboard-bonuses-wrapper',
             components: [
@@ -847,5 +843,9 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
                 },
             ],
         };
+
+        if (this.$params.common?.bonusesListParams) {
+            _set(this.bonusesConfig.components[0], 'params', this.$params.common.bonusesListParams);
+        }
     }
 }
