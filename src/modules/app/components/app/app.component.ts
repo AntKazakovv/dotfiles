@@ -116,8 +116,6 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
         return this.sections;
     }
 
-    protected bannerService: BannersService;
-
     private testViewPort = false;
     private isIOS: boolean = false;
     private additionalHostClass: string[] = [];
@@ -214,8 +212,17 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
             filteredPanels.map((item) => item.name),
             this.sections.map((item) => item.name),
         );
+
+        let pushedReadyOnce = true;
+
         const ready = this.eventService.subscribe<{sectionName: string}>({name: 'SECTION_READY'}, (event) => {
             _remove(sections, (item) => item === event.sectionName);
+
+            if (pushedReadyOnce) {
+                this.window.postMessage({app: 'app-ready'});
+                pushedReadyOnce = false;
+            }
+
             if (!sections.length) {
                 ready.unsubscribe();
                 this.additionalHostClass.push('app-ready');
@@ -245,10 +252,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
         this.setHostClass();
         this.updateMetaTag();
 
-        this.bannerService = await this.injectionService.getService('promo.banners-service');
-        await this.bannerService.readyStatus.promise;
-
-        this.cdr.markForCheck();
+        this.injectionService.getService<BannersService>('promo.banners-service');
 
         fromEvent(this.window, 'resize').pipe(filter(() => !this.testViewPort)).subscribe(() => {
             this.updateMetaTag();

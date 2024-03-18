@@ -104,9 +104,13 @@ $appLoader: map-merge((
     'jellyShadowOpacity': 1,
 ), $customAppLoader);
 
+.app-loader,
+.wlc-app__preload {
+    z-index: 10000;
+}
+
 .wlc-app__preload {
     $animeName: map-get($appLoader, 'loaderAnime');
-
     position: fixed;
     top: 0;
     left: 0;

@@ -7,3 +7,4 @@ require('./_unhandled-errors');
 require('./_x-nonce');
 require('./_jwt-auth');
 require('./_preload');
+require('./_loader');

@@ -26,8 +26,10 @@
 </head>
 <body>
 {%if not isEntryPoint  %}
-<div ui-view class="wlc-app">
+<div ui-view class="wlc-app"></div>
 {%endif%}
+
+<div id="app-preload" class="app-preload">
     {% if 'template/preloader.html' is ondisk %}
         {% include 'preloader.html' %}
     {% else %}
@@ -43,9 +45,7 @@
             </div>
         </div>
     {% endif %}
-{%if not isEntryPoint %}
 </div>
-{%endif%}
 <noscript>Please enable JavaScript to continue using this application.</noscript>
 {% include 'additional-footer.html' ignore missing %}
 </body>
