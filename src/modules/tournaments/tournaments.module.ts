@@ -53,6 +53,10 @@ export const components = {
     'wlc-tournament': TournamentComponent,
 };
 
+export const services = {
+    'tournaments-service': TournamentsService,
+};
+
 @NgModule({
     declarations: [
         TournamentDetailComponent,

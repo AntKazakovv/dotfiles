@@ -6,6 +6,7 @@ import {
     Transition,
 } from '@uirouter/angular';
 
+import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {Deferred} from 'wlc-engine/modules/core/system/classes';
 import {TournamentsService} from 'wlc-engine/modules/tournaments';
 
@@ -30,13 +31,16 @@ export const profileTournamentsDetailState: Ng2StateDeclaration = {
             deps: [
                 Transition,
                 StateService,
-                TournamentsService,
+                InjectionService,
             ],
             resolveFn: async (
                 transition: Transition,
                 stateService: StateService,
-                tournamentService: TournamentsService,
+                injectionService: InjectionService,
             ) => {
+                const tournamentService = await injectionService
+                    .getService<TournamentsService>('tournaments.tournaments-service');
+
                 const result = new Deferred();
                 const tournamentId = transition.params().tournamentId;
                 const tournament = await tournamentService.getTournament(tournamentId);
