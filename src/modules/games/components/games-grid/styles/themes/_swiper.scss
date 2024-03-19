@@ -72,6 +72,19 @@
         }
     }
 
+    &.wlc-games-grid--theme-mod-bottom-controls {
+
+        .wlc-games-grid {
+
+            &__content {
+                grid-template-areas: ef.get-value($themeSwiper, 'swiperGridAreasModBottom');
+            }
+
+            &__swiper-buttons-container {
+                margin: ef.get-value($themeSwiper, 'swiperMarginModBottom');
+            }
+        }
+    }
 
     &.wlc-games-grid--theme-mod-centered-controls {
 

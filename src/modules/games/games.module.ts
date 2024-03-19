@@ -47,6 +47,7 @@ import {
 } from './components/merchant-wallet';
 import {LuckyButtonComponent} from './components/lucky-button/lucky-button.component';
 import {FavouriteButtonComponent} from './components/favourite-button/favourite-button.component';
+import {HouseGamesComponent} from './components/house-games/house-games.component';
 
 import * as $config from 'wlc-config/index';
 
@@ -80,6 +81,7 @@ export const components = {
     'wlc-provider-games': ProviderGamesComponent,
     'wlc-lucky-button': LuckyButtonComponent,
     'wlc-favourite-button': FavouriteButtonComponent,
+    'wlc-house-games': HouseGamesComponent,
 };
 
 export const services = {
@@ -114,6 +116,7 @@ export const services = {
         MerchantWalletPreviewComponent,
         LuckyButtonComponent,
         FavouriteButtonComponent,
+        HouseGamesComponent,
     ],
     id: 'GamesModule',
     imports: [
@@ -155,6 +158,7 @@ export const services = {
         MerchantWalletPreviewComponent,
         LuckyButtonComponent,
         TranslateModule,
+        HouseGamesComponent,
     ],
 })
 export class GamesModule {

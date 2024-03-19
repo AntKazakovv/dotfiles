@@ -34,16 +34,18 @@
                         [inlineParams]="$params.btnParams"
                         (click)="readMore()">
                 </button>
-                <div slot-container-start>
+                <div *ngIf="slides.length" slot-container-start>
                     <div wlc-slider-navigation
-                         class="{{$class}}__navigation-btns">
+                         class="{{$class}}__navigation-btns"
+                         [classPrev]="'wlc-swiper-button-prev-' + navigationId"
+                         [classNext]="'wlc-swiper-button-next-' + navigationId">
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="{{$class}}__container">
-            <ng-container [ngTemplateOutlet]="levels.length ? loyaltyLevelsSlider : noData"></ng-container>
+            <ng-container [ngTemplateOutlet]="slides.length ? loyaltyLevelsSlider : noData"></ng-container>
         </div>
     </div>
 </ng-template>
@@ -59,8 +61,8 @@
 <ng-template #desktopLoyaltyLevels>
     <div class="container">
         <div class="{{$class}}__items-wrapper">
-            <div wlc-loyalty-level
-                *ngFor="let level of levels; index as $index;"
+            <div *ngFor="let level of levels; index as $index;"
+                wlc-loyalty-level
                 [inlineParams]="getLoyaltyLevelParams(level, $index)"></div>
         </div>
     </div>

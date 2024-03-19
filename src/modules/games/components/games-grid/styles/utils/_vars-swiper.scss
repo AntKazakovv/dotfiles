@@ -13,9 +13,12 @@ $themeSwiper: map-merge((
         375: 0 0 0 auto,
         1024: 0 ef.size(4) 0 auto,
     ),
+    'swiperMarginModBottom': 0 0 0 auto,
 
     'swiperNoContentGridRow': #{'2/3'},
     'swiperNoContentGridColumn': #{'1/-1'},
+
+    'swiperGridAreasModBottom': 'games-grid games-grid games-grid games-grid' 'title-icon title swiper-buttons show-all',
 
     // theme-mod-centered-controls
     'ccSliderPadding': (

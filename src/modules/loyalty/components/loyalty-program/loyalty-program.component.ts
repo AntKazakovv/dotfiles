@@ -15,6 +15,7 @@ import {
     map,
     takeUntil,
 } from 'rxjs/operators';
+import _random from 'lodash-es/random';
 import _map from 'lodash-es/map';
 import _merge from 'lodash-es/merge';
 
@@ -52,6 +53,7 @@ export class LoyaltyProgramComponent extends AbstractComponent implements OnInit
     public slides: ISlide[] = [];
     public isMobile: boolean = false;
     public sliderConfig: IWrapperCParams;
+    public navigationId: string = _random(10000000).toString(16);
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILoyaltyProgramCParams,
@@ -73,6 +75,7 @@ export class LoyaltyProgramComponent extends AbstractComponent implements OnInit
         super.ngOnInit();
 
         const sliderTheme = (this.$params.theme in Params.sliderDefaultParams) ? this.$params.theme : 'default';
+
         this.$params.sliderParams = _merge(
             Params.sliderDefaultParams[sliderTheme],
             this.$params.sliderParams,
@@ -85,13 +88,17 @@ export class LoyaltyProgramComponent extends AbstractComponent implements OnInit
         switch (this.$params.theme) {
             case 'wolf':
                 this.watchForUserAuth();
+                Params.sliderDefaultParams[sliderTheme].swiper.navigation = {
+                    enabled: true,
+                    nextEl: '.wlc-swiper-button-next-' + this.navigationId,
+                    prevEl: '.wlc-swiper-button-prev-' + this.navigationId,
+                };
                 break;
             case 'default':
             default:
                 this.levels = this.levels.splice(0, this.$params.levelsLimit);
                 this.watchForOrientation();
         }
-
         this.initSlides();
         this.ready = true;
         this.cdr.detectChanges();

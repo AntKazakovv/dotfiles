@@ -1,0 +1,54 @@
+.wlc-house-games--theme-default:host {
+    display: ef.get-value($themeDefault, 'mainDisplay');
+    flex-direction: ef.get-value($themeDefault, 'mainFlexDirections');
+    padding: ef.get-value($themeDefault, 'mainPadding');
+    border-radius: ef.get-value($themeDefault, 'mainRadius');
+    background: ef.get-value($themeDefault, 'mainBg');
+    overflow: hidden;
+
+    .wlc-house-games {
+
+        &__title {
+            @include text.get-text-style(ef.get-value($themeDefault, 'titleTextStyle'), ef.get-value($themeDefault, 'titleTextColor'));
+            padding: ef.get-value($themeDefault, 'titlePadding');
+        }
+
+        &__games {
+            display: ef.get-value($themeDefault, 'gamesDisplay');
+            flex: ef.get-value($themeDefault, 'gamesFlex');
+            align-items: ef.get-value($themeDefault, 'gamesAlignItems');
+
+            ::ng-deep {
+
+                .swiper {
+                    @include bm.get-mq-map('overflow', $themeDefault, 'swiperOverflow');
+                }
+
+                .wlc-games-grid {
+
+                    &__list {
+                        @include bm.get-mq-map('grid-template-columns', $themeDefault, 'gridColumns');
+                    }
+
+                    &__swiper-buttons-container {
+                        @include bm.get-mq-map('display', $themeDefault, 'btnDisplay');
+
+                        .wlc-swiper-button-prev,
+                        .wlc-swiper-button-next {
+                            @include bm.get-mq-map('margin-top', $themeDefault, 'btnMarginTop');
+                        }
+                    }
+
+                    &__content {
+                        row-gap: ef.get-value($themeDefault, 'gridContentRowGap');
+                    }
+                }
+            }
+        }
+
+        &__description {
+            @include text.get-text-style(ef.get-value($themeDefault, 'descriptionTextStyle'), ef.get-value($themeDefault, 'descriptionTextColor'));
+            margin: ef.get-value($themeDefault, 'descriptionMargin');
+        }
+    }
+}

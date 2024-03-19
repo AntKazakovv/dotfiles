@@ -1,0 +1,41 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'mainDisplay': flex,
+    'mainFlexDirections': column,
+    'mainPadding': ef.size(5),
+    'mainRadius': ef.get('radius', 'biger'),
+    'mainBg': radial-gradient(76.62% 101.11% at 25.61% 100%, #1c0d75 8.85%, #0e112e 100%),
+
+    'titleTextStyle': 'QoteTextBoldSmaller',
+    'titleTextColor': var(--mc-baseThird),
+    'titlePadding': 0 0 ef.size(3),
+
+    'descriptionTextStyle': 'PrimaryText',
+    'descriptionTextColor': var(--mc-baseThird),
+    'descriptionMargin': 0 0 ef.size(5),
+
+    'gamesDisplay': grid,
+    'gamesFlex': 0 1 100%,
+    'gamesAlignItems': center,
+    'gamesMargin': (
+        375: 0 ef.size(-5) 0 0,
+        720: 0,
+    ),
+    'btnDisplay': (
+        375: none,
+        720: block,
+    ),
+    'btnMarginTop': (
+        375: 0,
+        720: ef.size(4),
+    ),
+    'gridContentRowGap': 0,
+    'gridColumns': (
+        375: repeat(3, minmax(80px, 1fr)),
+        720: repeat(4, minmax(50px, 1fr)),
+    ),
+    'swiperOverflow': (
+        375: visible,
+        720: hidden,
+    ),
+), $customThemeDefault);

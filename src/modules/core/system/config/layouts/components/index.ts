@@ -66,6 +66,7 @@ export * from './games/wlc-random-game.config';
 export * from './games/wlc-category-preview.config';
 export * from './games/wlc-game-thumb.config';
 export * from './games/wlc-provider-links.config';
+export * from './games/wlc-house-games.config';
 
 export * from './static/wlc-promo-steps.config';
 export * from './static/wlc-wp-promo.config';

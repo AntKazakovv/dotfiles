@@ -31,6 +31,7 @@ export type ComponentThemeMod = 'default'
     | 'centered-controls'
     | 'mobile-app-search'
     | 'all-link-secondary'
+    | 'bottom-controls'
     /** Use it with simple game thumb. Shows little (120-150px) thumbs with little gaps, auto-filled columns */
     | 'simple'
     | string;

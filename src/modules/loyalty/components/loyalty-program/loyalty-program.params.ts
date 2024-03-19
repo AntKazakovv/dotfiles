@@ -57,11 +57,6 @@ export const sliderDefaultParams: TSliderDefaultParams = {
             followFinger: true,
             slidesPerView: 'auto',
             spaceBetween: 8,
-            navigation: {
-                enabled: true,
-                nextEl: '.wlc-swiper-button-next',
-                prevEl: '.wlc-swiper-button-prev',
-            },
             breakpoints: {
                 900: {
                     spaceBetween: 12,
