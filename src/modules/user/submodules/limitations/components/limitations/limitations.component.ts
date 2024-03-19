@@ -245,6 +245,21 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
 
         if (_size(types)) {
             _set(Params, 'limitType.params.items', types);
+
+            if (types.length === 1) {
+                this.setFormData(types[0], types[0].value);
+                return;
+            }
+
+            const defaultValueLimitType = this.configService
+                .get<TLimitationType>('$base.profile.limitations.defaultLimitType');
+
+            if (defaultValueLimitType) {
+                const defaultLimitType = types.find((type) => type.value === defaultValueLimitType);
+                if (defaultLimitType) {
+                    this.setFormData(defaultLimitType, defaultLimitType.value);
+                }
+            }
         }
 
         if (this.configService.get<string>('appConfig.license') === 'malta') {

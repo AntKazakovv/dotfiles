@@ -26,6 +26,7 @@ export interface ILimitationsConfig {
     * Allows you to include some types of limits
     */
     limitTypes?: ILimitationTypeItem[];
+    defaultLimitType?: TLimitationType;
 }
 
 export interface IRealityChecker {
