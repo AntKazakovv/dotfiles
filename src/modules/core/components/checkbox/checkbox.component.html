@@ -38,8 +38,7 @@
         <div class="{{$class}}__text" dir="auto">
             {{textWithLink.prefix | translate}}
             <a
-                [uiSref]="'app.contacts'"
-                [uiParams]="{slug: textWithLink.slug, '#': textWithLink.urlHook}"
+                [wlc-link]="['app.contacts', {slug: textWithLink.slug, '#': textWithLink.urlHook}]"
                 class="{{$class}}__link"
                 [target]="textWithLink.target">
                 {{textWithLink.linkText | translate}}*
