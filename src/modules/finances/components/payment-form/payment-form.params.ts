@@ -3,6 +3,9 @@ import {
     IComponentParams,
     CustomType,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {
+    ThemeMod as TDepositWithdrawСThemeMod,
+} from 'wlc-engine/modules/finances/components/deposit-withdraw/deposit-withdraw.params';
 import {IPaymentMessageCParams} from 'wlc-engine/modules/finances/components/payment-message/payment-message.params';
 import {TPaymentsMethods} from 'wlc-engine/modules/finances/system/interfaces';
 import {PaymentSystem} from 'wlc-engine/modules/finances/system/models';
@@ -30,6 +33,7 @@ export interface IPaymentFormCParams extends IComponentParams<ComponentTheme, Co
     paymentMessageParams?: Partial<IPaymentMessageCParams>;
     /** Params for timer element */
     timerParams?: ITimerCParams;
+    depositWithdrawThemeMod?: TDepositWithdrawСThemeMod;
 };
 
 export const timerParams: ITimerCParams = {

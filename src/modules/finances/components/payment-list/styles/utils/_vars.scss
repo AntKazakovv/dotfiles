@@ -219,3 +219,36 @@ $themeCryptoList: map-merge(map-merge($common, (
     'tooltipBottom': auto,
     'tooltipLeft': auto,
 )), $customThemeCryptoList);
+
+$customThemeModWolf: () !default;
+$themeModWolf: map-merge((
+    'listGridGap': ef.size(3),
+    'listGridTemplateColumns': (
+        375: repeat(auto-fill, minmax(107px, 1fr)),
+        900: repeat(auto-fill, minmax(91px, 1fr)),
+    ),
+    'cryptoListGridTemplateColumns': repeat(auto-fill, minmax(160px, 1fr)),
+    'itemBg': var(--mc-black),
+    'itemBgHover': linear-gradient(to top, var(--mc-main) 0, var(--mc-main) 2px, var(--mc-black-o0) 2px, var(--mc-black-o0) 100%),
+    'itemBgActive': linear-gradient(to top, var(--mc-main) 0, var(--mc-main) 2px, var(--mc-main-o4) 2px, var(--mc-black-o0) 100%),
+    'btnBg': var(--mc-bg700),
+    'btnBorderRadius': ef.get('radius', 'main'),
+    'itemBoxShadowReset': none,
+    'itemBorderColorReset': transparent,
+    'itemBoxBgOriginReset': border-box,
+    'itemBorder': 2px solid transparent,
+    'itemBorderRadius': ef.get('radius', 'main'),
+    'itemGridGap': ef.size(2),
+    'itemPadding': ef.size(2),
+    'itemSvgColor': var(--mc-baseSecond),
+    'itemNameTextStyle': 'CaptionText',
+    'itemTickerTextStyle': 'CaptionText',
+    'itemNameTextColor': var(--mc-baseSecond),
+    'methodTextStyle': 'CaptionText',
+    'methodTextColor': var(--mc-baseMain),
+    'descriptionFont': 'CaptionText',
+    'descriptionColor': var(--mc-baseMain),
+    'descriptionPadding': ef.size(5) 0 0,
+    'errorTextStyle': 'SignText',
+    'errorColor': inherit,
+), $customThemeModWolf);

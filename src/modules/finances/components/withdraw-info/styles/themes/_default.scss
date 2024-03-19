@@ -1,0 +1,62 @@
+.wlc-withdraw-info--theme-default:host {
+    @include bm.get-mq-map('max-width', $themeDefault, 'withdrawMaxWidth');
+    @include bm.get-mq-map('margin', $themeDefault, 'withdrawMargin');
+    @include bm.get-mq-map('gap', $themeDefault, 'withdrawGridGap');
+    display: grid;
+
+    .wlc-withdraw-info {
+
+        &__item {
+            display: flex;
+            gap: ef.get-value($themeDefault, 'withdrawItemGap');
+            align-items: center;
+            justify-content: space-between;
+            padding: ef.get-value($themeDefault, 'withdrawItemPadding');
+            border-bottom: ef.get-value($themeDefault, 'withdrawItemUnderline');
+
+            .name {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'withdrawNameTextStyle'),
+                    ef.get-value($themeDefault, 'withdrawNameColor')
+                );
+            }
+
+            .value {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'withdrawValTextStyle'),
+                    ef.get-value($themeDefault, 'withdrawValColor')
+                );
+            }
+        }
+    }
+
+    &.wlc-withdraw-info--theme-mod-wolf {
+        @include bm.get-mq-map('margin', $themeModWolf, 'withdrawInfoMargin');
+
+        .wlc-withdraw-info {
+
+            &__item {
+                padding: ef.get-value($themeModWolf, 'withdrawItemPadding');
+                border-bottom: ef.get-value($themeModWolf, 'withdrawItemUnderline');
+
+                &:last-child {
+                    border-bottom: none;
+                }
+
+                .name {
+                    @include text.get-text-style(
+                        ef.get-value($themeModWolf, 'withdrawNameTextStyle'),
+                        ef.get-value($themeModWolf, 'withdrawNameColor')
+                    );
+                }
+
+                .value {
+                    @include text.get-text-style(
+                        ef.get-value($themeModWolf, 'withdrawValTextStyle'),
+                        ef.get-value($themeModWolf, 'withdrawValColor')
+                    );
+                }
+            }
+        }
+    }
+}

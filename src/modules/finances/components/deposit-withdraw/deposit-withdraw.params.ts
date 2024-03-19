@@ -22,7 +22,7 @@ import {TPaymentsMethods} from 'wlc-engine/modules/finances/system/interfaces';
  */
 export type Theme = 'default' | 'second' | 'steps' | CustomType;
 export type Type = 'default' | CustomType;
-export type ThemeMod = 'default' | CustomType;
+export type ThemeMod = 'default' | 'wolf' | CustomType;
 
 export type TStepTplName = 'wallets' | 'bonuses' | 'systems' | 'paymentInfo' | 'cryptoInvoiceSystems';
 

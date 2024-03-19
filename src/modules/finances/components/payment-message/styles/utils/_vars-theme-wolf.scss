@@ -1,0 +1,16 @@
+$customThemeWolf: () !default;
+$themeWolf: map-merge(map-merge($themeDefault, (
+    'clipboardMargin': 0 0 ef.size(5),
+    'textRowMargin': 0 0 ef.size(5),
+    'textStyle': 'PrimaryText',
+    'qrImgMaxWidth': 202px,
+    'qrImgMaxHeight': 202px,
+    'qrBorderRadius': ef.get('radius', 'main'),
+    'titleFontStyle': 'CaptionText',
+    'titleColor': var(--fc-labelColor),
+    'placeholderFontStyle': 'PrimaryText',
+    'placeholderFontColor': var(--fc-placeholderColor),
+    'inputFontStyle': 'PrimaryText',
+    'inputTextColor': var(--fc-textColor),
+    'bottomMargin': ef.size(10) ef.size(-2) ef.size(-2),
+)), $customThemeWolf);

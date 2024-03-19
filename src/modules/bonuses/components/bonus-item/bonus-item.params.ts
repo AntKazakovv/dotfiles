@@ -31,6 +31,7 @@ export type ThemeMod = 'default'
     | 'simple' // simple preview on button, use with theme `mini`.
     | 'horizontal' // wolf and further mode
     | 'vertical' // wolf and further mode
+    | 'mini-wolf' // wolf mode deposit mini items
     | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;

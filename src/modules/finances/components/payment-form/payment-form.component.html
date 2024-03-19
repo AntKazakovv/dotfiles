@@ -1,17 +1,9 @@
-<div *ngIf="mode === 'withdraw'" class="{{$class}}__withdraw">
-    <div class="{{$class}}__withdraw-item">
-        <span class="name">{{'Total balance' | translate}}</span>
-        <span wlc-currency
-              class="value"
-              [value]="userTotalBalance"
-              [currency]="currentCurrency"></span>
-    </div>
-    <div class="{{$class}}__withdraw-item">
-        <span class="name">{{'Available for withdrawal' | translate}}</span>
-        <span wlc-currency class="value"
-              [value]="userAvailableWithdraw"
-              [currency]="currentCurrency"></span>
-    </div>
+<div *ngIf="mode === 'withdraw'"
+    wlc-withdraw-info
+    [inlineParams]="{themeMod: $params.depositWithdrawThemeMod}"
+    [currency]="currentCurrency"
+    [totalAmount]="userTotalBalance"
+    [availableAmount]="userAvailableWithdraw">
 </div>
 
 <div *ngIf="requiredFieldsKeys.length"

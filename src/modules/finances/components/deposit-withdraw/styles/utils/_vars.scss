@@ -51,3 +51,33 @@ $themeDefault: map-merge((
         1200: 50%,
     ),
 ), $customThemeDefault);
+
+$customThemeModWolf: () !default;
+$themeModWolf: map-merge((
+    'gridGap': ef.size(5),
+    'subtitleFontStyle': 'PrimaryText',
+    'subtitleColor': var(--mc-baseMain),
+    'subtitleMargin': (
+        375: 0 0 ef.size(4),
+        900: 0 0 ef.size(5),
+    ),
+    'dividerBg': var(--mc-bg300),
+    'dividerMargin': (
+        375: ef.size(4) 0 0,
+        900: ef.size(5) 0 0,
+    ),
+    'buttonBorderRadius': ef.get('radius', 'main'),
+    'bonusButtonBg': var(--mc-bg700),
+    'bonusItemInBonusButtonBg': none,
+    'titleFontStyle': 'CaptionText',
+    'titleColor': var(--fc-labelColor),
+    'inputBorderRadius': ef.get('radius', 'main'),
+    'placeholderFontStyle': 'PrimaryText',
+    'placeholderFontColor': var(--fc-placeholderColor),
+    'inputTextColor': var(--fc-textColor),
+    'btnMarginTop': ef.size(8),
+    'alertMainRadius': ef.get('radius', 'main'),
+    'alertMainRadiusWithText': ef.get('radius', 'main') ef.get('radius', 'main') 0 0,
+    'alertTextRadius': 0 0 ef.get('radius', 'main') ef.get('radius', 'main'),
+    'alertMainBgWithText': var(--mc-bg500),
+), $customThemeModWolf);

@@ -5,7 +5,7 @@ import {
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ITimerCParams} from 'wlc-engine/modules/core';
 
-export type ComponentTheme = 'default' | CustomType;
+export type ComponentTheme = 'default' | 'wolf' | CustomType;
 export type ComponentType = 'default' | CustomType;
 export type ComponentThemeMod = 'default' | 'modal' | CustomType;
 

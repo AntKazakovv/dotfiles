@@ -37,7 +37,10 @@
 
         &__subtitle {
             @include bm.get-mq-map('text-align', $themeDefault, 'subtitleAlignment');
-            @include text.get-text-style(ef.get-value($themeDefault, 'subtitleFontStyle'), ef.get-value($themeDefault, 'subtitleColor'));
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'subtitleFontStyle'),
+                ef.get-value($themeDefault, 'subtitleColor')
+            );
             margin: ef.get-value($themeDefault, 'subtitleMargin');
         }
 
@@ -54,6 +57,120 @@
 
         &__alert {
             @include bm.get-mq-map('margin', $themeDefault, 'alertMargin');
+        }
+    }
+
+    &.wlc-cash--theme-mod-wolf {
+        gap: ef.get-value($themeModWolf, 'gridGap');
+
+        .wlc-cash {
+
+            &__subtitle {
+                @include text.get-text-style(
+                    ef.get-value($themeModWolf, 'subtitleFontStyle'),
+                    ef.get-value($themeModWolf, 'subtitleColor')
+                );
+                @include bm.get-mq-map('margin', $themeModWolf, 'subtitleMargin');
+            }
+
+            &__divider {
+                @include bm.get-mq-map('margin', $themeModWolf, 'dividerMargin');
+
+                background: ef.get-value($themeModWolf, 'dividerBg');
+            }
+        }
+
+        ::ng-deep {
+
+            .wlc-input {
+
+                .wlc-input {
+
+                    &__label {
+                        @include text.get-text-style(
+                            ef.get-value($themeModWolf, 'titleFontStyle'),
+                            ef.get-value($themeModWolf, 'titleColor')
+                        );
+                    }
+
+                    &__input {
+                        @include text.get-text-style(
+                            ef.get-value($themeModWolf, 'placeholderFontStyle'),
+                            ef.get-value($themeModWolf, 'inputTextColor')
+                        );
+                        border-radius: ef.get-value($themeModWolf, 'inputBorderRadius');
+                    }
+
+                    &__input::placeholder {
+                        @include text.get-text-style(
+                            ef.get-value($themeModWolf,'placeholderFontStyle'),
+                            ef.get-value($themeModWolf, 'placeholderFontColor')
+                        );
+                    }
+                }
+            }
+
+            .wlc-select {
+
+                .wlc-select {
+
+                    &__field {
+                        @include text.get-text-style(
+                            ef.get-value($themeModWolf,'placeholderFontStyle'),
+                            ef.get-value($themeModWolf, 'placeholderFontColor')
+                        );
+                        border-radius: ef.get-value($themeModWolf, 'inputBorderRadius');
+                    }
+
+
+                    &__label {
+                        @include text.get-text-style(
+                            ef.get-value($themeModWolf,'titleFontStyle'),
+                            ef.get-value($themeModWolf, 'titleColor')
+                        );
+                    }
+
+
+                    &__dropdown-item {
+                        @include text.get-text-style(
+                            ef.get-value($themeModWolf,'placeholderFontStyle'),
+                            ef.get-value($themeModWolf, 'inputTextColor')
+                        );
+                    }
+                }
+            }
+
+            .wlc-btn:not(.wlc-btn--theme-icon) {
+                margin-top: ef.get-value($themeModWolf, 'btnMarginTop');
+            }
+
+            .wlc-deposit-bonuses {
+
+                .wlc-deposit-bonuses__btn {
+                    background: ef.get-value($themeModWolf, 'bonusButtonBg');
+                    border-radius: ef.get-value($themeModWolf, 'buttonBorderRadius');
+
+                    .wlc-bonus-item__wrapper {
+                        background: ef.get-value($themeModWolf, 'bonusItemInBonusButtonBg');
+                    }
+                }
+            }
+
+            .wlc-alert {
+
+                .wlc-alert__main {
+                    border-radius: ef.get-value($themeModWolf, 'alertMainRadius');
+
+                    &.with-text {
+                        border-radius: ef.get-value($themeModWolf, 'alertMainRadiusWithText');
+                    }
+                }
+
+                .wlc-alert__text {
+                    border-radius: ef.get-value($themeModWolf, 'alertTextRadius');
+                    background: ef.get-value($themeModWolf, 'alertMainBgWithText');
+                }
+            }
         }
     }
 

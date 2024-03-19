@@ -256,7 +256,11 @@
         [mode]="$params.mode"
         [currentSystem]="currentSystem"
         [bonus]="currentBonus"
-        [wallet]="selectedWallet"></div>
+        [wallet]="selectedWallet"
+        [inlineParams]="{
+            mode: $params.mode,
+            depositWithdrawThemeMod: themeMod,
+        }"></div>
 
     <ng-container *ngIf="isWaitingResponse">
         <div wlc-loader></div>

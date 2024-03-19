@@ -22,3 +22,21 @@
     background: ef.get-value($config, 'itemBg');
     border-radius: ef.get-value($config, 'itemBorderRadius');
 }
+
+@mixin buttonStyleReset ($config) {
+    border-color: ef.get-value($config, 'itemBorderColorReset');
+    background-origin: ef.get-value($config, 'itemBoxBgOriginReset');
+    box-shadow: ef.get-value($config, 'itemBoxShadowReset');
+}
+
+@mixin buttonHovered($config) {
+    @include buttonStyleReset($config);
+
+    background-image: ef.get-value($config, 'itemBgHover');
+}
+
+@mixin buttonSelected($config) {
+    @include buttonStyleReset($config);
+
+    background-image: ef.get-value($config, 'itemBgActive');
+}

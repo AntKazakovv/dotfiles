@@ -358,6 +358,10 @@ export class DepositWithdrawComponent
         return this.$params.theme === 'steps';
     }
 
+    public get themeMod(): Params.ThemeMod {
+        return this.$params.themeMod;
+    }
+
     public onPromoCodeChanged(bonus: Bonus): void {
         this.appliedPromoCode$.next(bonus);
         this.setCurrentBonus(bonus, false);

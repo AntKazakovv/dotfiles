@@ -1,0 +1,38 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'withdrawNameTextStyle': 'PrimaryText',
+    'withdrawValTextStyle': 'PrimaryTextBold',
+    'withdrawNameColor': inherit,
+    'withdrawValColor': inherit,
+    'withdrawItemGap': ef.size(4) 0,
+    'withdrawItemPadding': ef.size(1) 0,
+    'withdrawItemUnderline': 1px solid var(--mc-baseOpacity),
+    'itemPadding': ef.size(1) 0,
+    'withdrawMargin': (
+        375: 0 auto ef.size(5),
+        480: 0 auto ef.size(5),
+        900: 0 0 ef.size(5),
+    ),
+    'withdrawGridGap': (
+        375: 0,
+        900: 0 0,
+    ),
+    'withdrawMaxWidth': (
+        375: 100%,
+        480: 330px,
+    ),
+), $customThemeDefault);
+
+$customThemeModWolf: () !default;
+$themeModWolf: map-merge((
+    'withdrawNameTextStyle': 'CaptionText',
+    'withdrawValTextStyle': 'CaptionTextBold',
+    'withdrawNameColor': inherit,
+    'withdrawValColor': var(--mc-baseThird),
+    'withdrawItemPadding': ef.size(2) 0,
+    'withdrawItemUnderline': 1px solid var(--mc-bg300),
+    'withdrawInfoMargin': (
+        375: 0 auto ef.size(5),
+        900: 0 0 ef.size(5),
+    ),
+), $customThemeModWolf);

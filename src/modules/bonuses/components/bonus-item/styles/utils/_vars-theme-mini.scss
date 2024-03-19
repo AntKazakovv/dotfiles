@@ -49,3 +49,10 @@ $themeMini: map-merge((
     'bonusIconTextStyleSmall': 0.9rem,
     'bonusIconTextStyleSmaller': 0.8rem,
 ), $customThemeMini);
+
+$customThemeModMiniWolf: () !default;
+$themeModMiniWolf: map-merge((
+    'bonusItemBg': var(--mc-black),
+    'bonusItemBgHover': linear-gradient(to top, var(--mc-main) 0, var(--mc-main) 2px, var(--mc-black-o0) 2px, var(--mc-black-o0) 100%),
+    'bonusItemBgSelected': linear-gradient(to top, var(--mc-main) 0, var(--mc-main) 2px, var(--mc-main-o4) 2px, var(--mc-black-o0) 100%),
+), $customThemeModMiniWolf);

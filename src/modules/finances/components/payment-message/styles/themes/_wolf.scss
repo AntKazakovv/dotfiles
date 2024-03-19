@@ -1,0 +1,190 @@
+.wlc-payment-message--theme-wolf:host {
+    @include bm.get-mq-map('margin', $themeWolf, 'wrapperMargin');
+    @include bm.get-mq-map('max-width', $themeWolf, 'wrapperMaxWidth');
+    @include bm.get-mq-map('display', $themeWolf, 'wrapperDisplay');
+    @include bm.get-mq-map('gap', $themeWolf, 'wrapperGridGap');
+    @include bm.get-mq-map('grid-template-columns', $themeWolf, 'wrapperGridTemplateColumn');
+
+    .wlc-payment-message {
+
+        &__text {
+            @include bm.get-mq-map('max-width', $themeWolf, 'textMaxWidth');
+            @include bm.get-mq-map('text-align', $themeWolf, 'textAlignment');
+        }
+
+        &__text-row {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'textStyle'),
+                ef.get-value($themeWolf, 'textColor')
+            );
+            @include bm.get-mq-map('margin', $themeWolf, 'textRowMargin');
+
+            .rate {
+                color: ef.get-value($themeWolf, 'rateColor');
+            }
+
+            .wlc-currency--theme-default {
+                display: inline;
+            }
+        }
+
+        &__clipboard,
+        &__clipboard-x {
+            @include bm.get-mq-map('margin', $themeWolf, 'clipboardMargin');
+
+            .wlc-payment-message__text-row {
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'textAdditionalFont'),
+                    ef.get-value($themeWolf, 'textColorAdditional')
+                );
+                margin: ef.get-value($themeWolf, 'textAdditionalMargin');
+            }
+        }
+
+        &__qr {
+            @include bm.get-mq-map('grid-gap', $themeWolf, 'qrGridGap');
+            @include bm.get-mq-map('justify-items', $themeWolf, 'qrJustifyContent');
+            display: grid;
+            grid-template-rows: ef.get-value($themeWolf, 'qrGridRows');
+            grid-template-columns: ef.get-value($themeWolf, 'qrGridColumns');
+
+            min-height: ef.get-value($themeWolf, 'qrBlockMinHeight');
+        }
+
+        &__qr-text {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'textAdditionalFont'),
+                ef.get-value($themeWolf, 'textColorAdditional')
+            );
+            @include bm.get-mq-map('display', $themeWolf, 'qrTextDisplay');
+        }
+
+        &__qr-wrapper {
+            @include bm.get-mq-map('width', $themeWolf, 'qrWrapperWidth');
+            position: relative;
+        }
+
+        &__qr-image {
+            @include bm.get-mq-map('position', $themeWolf, 'qrImgPos');
+
+            top: ef.get-value($themeWolf, 'qrImgPosTop');
+            left: ef.get-value($themeWolf, 'qrImgPosLeft');
+
+            display: block;
+            width: ef.get-value($themeWolf, 'qrImgWidth');
+            max-width: ef.get-value($themeWolf, 'qrImgMaxWidth');
+            height: ef.get-value($themeWolf, 'qrImgHeight');
+            max-height: ef.get-value($themeWolf, 'qrImgMaxHeight');
+
+            object-fit: contain;
+            object-position: ef.get-value($themeWolf, 'qrImgObjectPos');
+
+            transform: ef.get-value($themeWolf, 'qrImgTransform');
+            border-radius: ef.get-value($themeWolf, 'qrBorderRadius');
+        }
+
+        &__warning {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'textStyle'),
+                ef.get-value($themeWolf, 'textColor')
+            );
+            @include bm.get-mq-map('margin', $themeWolf, 'warningMargin');
+            @include bm.get-mq-map('text-align', $themeWolf, 'warningAlignment');
+        }
+
+        &__timer {
+            display: inline-block;
+        }
+
+        &__bottom {
+            display: flex;
+            flex-wrap: wrap;
+            margin: ef.get-value($themeWolf, 'bottomMargin');
+        }
+
+        &__btn {
+            margin: ef.get-value($themeWolf, 'bottomBtnMargin');
+        }
+
+        &__metamask {
+            @include bm.get-mq-map('margin', $themeWolf, 'metamaskMargin');
+            @include bm.get-mq-map('text-align', $themeWolf, 'metamaskAlignment');
+        }
+    }
+
+    &.wlc-payment-message--theme-mod-modal {
+        display: ef.get-value($themeWolf, 'wrapperModalDisplay');
+        max-width: ef.get-value($themeWolf, 'wrapperModalMaxWidth');
+        margin: ef.get-value($themeWolf, 'wrapperModalMargin');
+
+        .wlc-payment-message {
+
+            &__text {
+                max-width: ef.get-value($themeWolf, 'textModalMaxWidth');
+                text-align: ef.get-value($themeWolf, 'textModalAlignment');
+            }
+
+            &__qr-text {
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'textAdditionalFont'),
+                    ef.get-value($themeWolf, 'textColorAdditional')
+                );
+                display: ef.get-value($themeWolf, 'qrTextModalDisplay');
+            }
+
+            &__qr {
+                display: ef.get-value($themeWolf, 'qrModalDisplay');
+                justify-content: ef.get-value($themeWolf, 'qrModalJustifyContent');
+            }
+
+            &__qr-image {
+                position: static;
+                max-width: ef.get-value($themeWolf, 'qrImgMaxWidth', 375);
+                margin: ef.get-value($themeWolf, 'qrModalImgMargin');
+            }
+
+            &__bottom {
+                justify-content: center;
+            }
+
+            &__warning {
+                text-align: ef.get-value($themeWolf, 'warningModalAlignment');
+            }
+
+            &__metamask {
+                margin: ef.get-value($themeWolf, 'metamaskMarginModal');
+                text-align: ef.get-value($themeWolf, 'metamaskAlignmentModal');
+            }
+        }
+
+        ::ng-deep {
+
+            .wlc-input {
+
+                .wlc-input {
+
+                    &__label {
+                        @include text.get-text-style(
+                            ef.get-value($themeWolf, 'titleFontStyle'),
+                            ef.get-value($themeWolf, 'titleColor')
+                        );
+                    }
+
+                    &__input {
+                        @include text.get-text-style(
+                            ef.get-value($themeWolf, 'inputFontStyle'),
+                            ef.get-value($themeWolf, 'inputTextColor')
+                        );
+                    }
+
+                    &__input::placeholder {
+                        @include text.get-text-style(
+                            ef.get-value($themeWolf, 'placeholderFontStyle'),
+                            ef.get-value($themeWolf, 'placeholderFontColor')
+                        );
+                    }
+                }
+            }
+        }
+    }
+}

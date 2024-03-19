@@ -95,7 +95,10 @@
                     }
 
                     &__error {
-                        @include text.get-text-style(ef.get-value($themeDefault, 'errorTextStyle'), ef.get-value($themeDefault, 'errorColor'));
+                        @include text.get-text-style(
+                            ef.get-value($themeDefault, 'errorTextStyle'),
+                            ef.get-value($themeDefault, 'errorColor')
+                        );
 
                         width: 100%;
                         max-height: 100%;
@@ -269,7 +272,10 @@
         }
 
         &__method {
-            @include text.get-text-style(ef.get-value($themeDefault, 'methodTextStyle'), ef.get-value($themeDefault, 'methodTextColor'));
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'methodTextStyle'),
+                ef.get-value($themeDefault, 'methodTextColor')
+            );
             padding: ef.get-value($themeDefault, 'methodPadding');
             text-align: ef.get-value($themeDefault, 'methodAlignment');
         }
@@ -309,7 +315,10 @@
 
         &__tag-btn,
         &__tag-main {
-            @include text.get-text-style(ef.get-value($themeDefault, 'tagBtnTextStyle'), ef.get-value($themeDefault, 'tagBtnTextColor'));
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'tagBtnTextStyle'),
+                ef.get-value($themeDefault, 'tagBtnTextColor')
+            );
             padding: ef.get-value($themeDefault, 'tagBtnPadding');
             border: ef.get-value($themeDefault, 'tagBtnBorder');
             border-radius: ef.get-value($themeDefault, 'tagBtnRadius');
@@ -386,7 +395,10 @@
     }
 
     .payments-description {
-        @include text.get-text-style(ef.get-value($themeDefault, 'descriptionFont'), ef.get-value($themeDefault, 'descriptionColor'));
+        @include text.get-text-style(
+            ef.get-value($themeDefault, 'descriptionFont'),
+            ef.get-value($themeDefault, 'descriptionColor')
+        );
         @include bm.get-mq-map('text-align', $themeDefault, 'descriptionTextAlign');
 
         padding: ef.get-value($themeDefault, 'descriptionPadding');
@@ -398,6 +410,65 @@
 
         @include mq.min(1200) {
             @include text.get-text-style(ef.get-value($themeDefault, 'descriptionFont', 1200), null);
+        }
+    }
+
+    &.wlc-payment-list--theme-mod-wolf {
+        --wlc-payment-list-gap: #{ef.get-value($themeModWolf, 'listGridGap')};
+        @include bm.get-mq-map('--wlc-payment-list-columns', $themeModWolf, 'listGridTemplateColumns');
+
+        .wlc-payment-list {
+
+            &__button {
+                @include buttonBase($themeModWolf);
+
+                &.active,
+                &.active:hover {
+                    @include buttonSelected($themeModWolf);
+                }
+
+                @include bm.hover() {
+                    @include buttonHovered($themeModWolf);
+                }
+            }
+
+            &__button,
+            &__btn-modal {
+
+                ::ng-deep {
+
+                    .wlc-payment-list-item {
+
+                        &__error {
+                            @include text.get-text-style(
+                                ef.get-value($themeModWolf, 'errorTextStyle'),
+                                ef.get-value($themeDefault, 'errorColor')
+                            );
+                        }
+                    }
+                }
+            }
+
+            &__btn-modal {
+                background: ef.get-value($themeModWolf, 'btnBg');
+                border-radius: ef.get-value($themeModWolf, 'btnBorderRadius');
+            }
+
+            &__method {
+                @include text.get-text-style(
+                    ef.get-value($themeModWolf, 'methodTextStyle'),
+                    ef.get-value($themeModWolf, 'methodTextColor')
+                );
+            }
+        }
+
+        .payments-description {
+            @include text.get-text-style(
+                ef.get-value($themeModWolf, 'descriptionFont'),
+                ef.get-value($themeModWolf, 'descriptionColor')
+            );
+
+            padding: ef.get-value($themeModWolf, 'descriptionPadding');
         }
     }
 }

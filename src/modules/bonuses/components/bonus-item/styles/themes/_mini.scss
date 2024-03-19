@@ -121,4 +121,39 @@
             }
         }
     }
+
+    &.wlc-bonus-item--theme-mod-mini-wolf {
+
+        .wlc-bonus-item {
+
+            &__content {
+
+                &.blank {
+
+                    .wlc-bonus-item__wrapper {
+                        background-color: ef.get-value($themeModMiniWolf, 'bonusItemBg');
+                    }
+                }
+
+                &.chosen,
+                &.chosen:hover {
+
+                    .wlc-bonus-item__wrapper {
+                        @include bonusItemSelectionReset();
+
+                        background-image: ef.get-value($themeModMiniWolf, 'bonusItemBgSelected');
+                    }
+                }
+
+                @include bm.hover() {
+
+                    .wlc-bonus-item__wrapper {
+                        @include bonusItemSelectionReset();
+
+                        background-image: ef.get-value($themeModMiniWolf, 'bonusItemBgHover');
+                    }
+                }
+            }
+        }
+    }
 }

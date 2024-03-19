@@ -1,0 +1,14 @@
+<div class="{{$class}}__item">
+    <span class="name">{{'Total balance' | translate}}</span>
+    <span wlc-currency
+        class="value"
+        [value]="totalAmount"
+        [currency]="currency"></span>
+</div>
+<div class="{{$class}}__item">
+    <span class="name">{{'Available for withdrawal' | translate}}</span>
+    <span wlc-currency
+        class="value"
+        [value]="availableAmount"
+        [currency]="currency"></span>
+</div>

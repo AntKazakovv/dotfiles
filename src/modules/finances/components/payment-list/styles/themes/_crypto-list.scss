@@ -69,11 +69,17 @@
         }
 
         &__name {
-            @include text.get-text-style(ef.get-value($themeCryptoList, 'itemNameTextStyle'), ef.get-value($themeCryptoList, 'itemNameTextColor'));
+            @include text.get-text-style(
+                ef.get-value($themeCryptoList, 'itemNameTextStyle'),
+                ef.get-value($themeCryptoList, 'itemNameTextColor')
+            );
         }
 
         &__ticker {
-            @include text.get-text-style(ef.get-value($themeCryptoList, 'itemTickerTextStyle'), ef.get-value($themeCryptoList, 'itemTickerTextColor'));
+            @include text.get-text-style(
+                ef.get-value($themeCryptoList, 'itemTickerTextStyle'),
+                ef.get-value($themeCryptoList, 'itemTickerTextColor')
+            );
         }
 
         &__btn-modal {
@@ -162,7 +168,10 @@
     }
 
     .payments-description {
-        @include text.get-text-style(ef.get-value($themeDefault, 'descriptionFont'), ef.get-value($themeDefault, 'descriptionColor'));
+        @include text.get-text-style(
+            ef.get-value($themeDefault, 'descriptionFont'),
+            ef.get-value($themeDefault, 'descriptionColor')
+        );
         @include bm.get-mq-map('text-align', $themeDefault, 'descriptionTextAlign');
 
         padding: ef.get-value($themeDefault, 'descriptionPadding');
@@ -178,6 +187,67 @@
 
         @include mq.min(1200) {
             @include text.get-text-style(ef.get-value($themeDefault, 'descriptionFont', 1200), null);
+        }
+    }
+
+    &.wlc-payment-list--theme-mod-wolf {
+
+        .wlc-payment-list {
+
+            &__ul {
+                @include bm.get-mq-map('grid-template-columns', $themeModWolf, 'cryptoListGridTemplateColumns');
+                @include bm.get-mq-map('gap', $themeModWolf, 'listGridGap');
+            }
+
+            &__button {
+                @include buttonBase($themeModWolf);
+
+                gap: ef.get-value($themeModWolf, 'itemGridGap');
+                padding: ef.get-value($themeModWolf, 'itemPadding');
+
+                &.active,
+                &.active:hover {
+                    @include buttonSelected($themeModWolf);
+                }
+
+                @include bm.hover() {
+                    @include buttonHovered($themeModWolf);
+                }
+            }
+
+            &__btn-modal {
+                background: ef.get-value($themeModWolf, 'btnBg');
+                border-radius: ef.get-value($themeModWolf, 'btnBorderRadius');
+            }
+
+            &__name {
+                @include text.get-text-style(
+                    ef.get-value($themeModWolf, 'itemNameTextStyle'),
+                    ef.get-value($themeModWolf, 'itemNameTextColor')
+                );
+                @include bm.lineClamp(2);
+            }
+
+            &__ticker {
+                @include text.get-text-style(
+                    ef.get-value($themeModWolf, 'itemTickerTextStyle'),
+                    ef.get-value($themeModWolf, 'itemNameTextColor')
+                );
+            }
+
+            &__method {
+                @include text.get-text-style(
+                    ef.get-value($themeModWolf, 'methodTextStyle'),
+                    ef.get-value($themeModWolf, 'methodTextColor')
+                );
+            }
+        }
+
+        .payments-description {
+            @include text.get-text-style(
+                ef.get-value($themeModWolf, 'descriptionFont'),
+                ef.get-value($themeDefault, 'descriptionColor')
+            );
         }
     }
 }
