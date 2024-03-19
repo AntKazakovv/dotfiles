@@ -10,6 +10,8 @@ import {BaseLottery} from 'wlc-engine/modules/lotteries/system/models/base-lotte
 
 export class Lottery extends BaseLottery {
     public static userLevel: number;
+    public static userCurrency: string;
+    public static ticketsCount: number = 0;
     public readonly levels: Array<string | number>;
     public readonly levelsString: string;
     public readonly isForAllLevels: boolean;
@@ -26,14 +28,6 @@ export class Lottery extends BaseLottery {
         this.isForAllLevels = _indexOf(this.levels, 'all') >= 0;
 
         this.init();
-    }
-
-    public static set userCurrency(val: string) {
-        this._userCurrency = val;
-    }
-
-    public static get userCurrency(): string {
-        return this._userCurrency;
     }
 
     public get ticketsCount(): number {
@@ -138,6 +132,12 @@ export class Lottery extends BaseLottery {
         }
 
         return status;
+    }
+
+    public calcTicketsCount(amount: number): number {
+        const count = Math.trunc(amount / this.price);
+        Lottery.ticketsCount = count;
+        return count;
     }
 
     private init(): void {

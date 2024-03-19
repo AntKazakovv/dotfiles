@@ -1,8 +1,10 @@
+import {BehaviorSubject} from 'rxjs';
 import {IButtonCParams} from 'wlc-engine/modules/core';
 import {
     IComponentParams,
     CustomType,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {Lottery} from 'wlc-engine/modules/lotteries/system/models/lottery.model';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | 'deposit' | CustomType;
@@ -12,6 +14,13 @@ export interface ILotteryCtaCParams extends IComponentParams<ComponentTheme, Com
     depositBtnParams?: IButtonCParams;
     readMoreBtnParams?: IButtonCParams;
     timerText?: string;
+    /** Used in deposit type */
+    amount$?: BehaviorSubject<number>;
+    /** Used in deposit type */
+    lottery$?: BehaviorSubject<Lottery>;
+    /** Use it for hide button (may be useful in deposit widget) */
+    hideButton?: boolean;
+    showTicketsCounter?: boolean;
 };
 
 export const defaultParams: ILotteryCtaCParams = {

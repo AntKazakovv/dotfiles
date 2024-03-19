@@ -1,4 +1,4 @@
-import {Subject} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 
 import {
     IComponentParams,
@@ -16,7 +16,7 @@ export interface ICalculatedTax {
 };
 
 export interface ITaxInfoCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
-    amount$?: Subject<number>
+    amount$?: BehaviorSubject<number>
     mode?: TPaymentsMethods;
 };
 

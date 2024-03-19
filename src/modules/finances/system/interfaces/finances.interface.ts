@@ -52,6 +52,7 @@ export interface IFinancesConfig {
      */
     useDefaultAmount?: boolean;
     newTermsVersion?: string;
+    useLotteryWidget?: boolean;
 }
 
 export interface ITransactionHistoryAlert {

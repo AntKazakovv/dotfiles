@@ -513,6 +513,14 @@ export class FinancesService {
                                     });
                                 });
                         }
+
+                        this.eventService.emit({
+                            name: 'DEPOSIT_SUCCESS',
+                            data: {
+                                amount: initialPath.amount,
+                                currency: profile.currency,
+                            },
+                        });
                     };
 
                     this.eventService.emit(paymentMessage);

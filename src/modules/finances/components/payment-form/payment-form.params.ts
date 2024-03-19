@@ -1,4 +1,7 @@
-import {IFormComponent, ITimerCParams} from 'wlc-engine/modules/core';
+import {
+    IFormComponent,
+    ITimerCParams,
+} from 'wlc-engine/modules/core';
 import {
     IComponentParams,
     CustomType,
@@ -34,6 +37,8 @@ export interface IPaymentFormCParams extends IComponentParams<ComponentTheme, Co
     /** Params for timer element */
     timerParams?: ITimerCParams;
     depositWithdrawThemeMod?: TDepositWithdrawСThemeMod;
+    /** Params for lottery widget */
+    lotteryWidgetParams?: IFormComponent;
 };
 
 export const timerParams: ITimerCParams = {
@@ -53,7 +58,6 @@ export const timerParams: ITimerCParams = {
     },
     iconPath: '/wlc/icons/spinner-1.svg',
 };
-
 
 export const defaultParams: IPaymentFormCParams = {
     class: 'wlc-payment-form',
@@ -83,6 +87,20 @@ export const defaultParams: IPaymentFormCParams = {
         params: {
             class: 'wlc-additional-fields',
             components: [],
+        },
+    },
+    lotteryWidgetParams: {
+        name: 'core.wlc-wrapper',
+        params: {
+            class: 'wlc-lottery-widget',
+            components: [
+                {
+                    name: 'lotteries.wlc-lottery-cta',
+                    params: {
+                        type: 'deposit',
+                    },
+                },
+            ],
         },
     },
 };

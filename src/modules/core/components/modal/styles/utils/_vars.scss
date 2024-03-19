@@ -534,4 +534,10 @@ $themeDefault: map-merge((
         560: ef.size(6) ef.size(3),
     ),
     'depModalBg':  var(--mc-bg700),
+    // lottery-detail modal
+    'lotteryDetailBodyPadding': (
+        375: 0,
+        560: 0 0 ef.size(6),
+        1630: 0 0 ef.size(8),
+    ),
 ), $customThemeDefault);

@@ -9,7 +9,7 @@ $themeDefault: map-merge((
         radial-gradient(125% 170% at 10% 5%, #56c500 0%, #e0ca00 100%),
     ),
     'hostGap': ef.size(2),
-    'hostPadding': ef.size(4),
+    'hostPadding': ef.size(4) ef.size(3),
     'hostRadius': ef.get('radius', 'biger'),
 
     'titleTextStyle': 'ThirdTitleBold',

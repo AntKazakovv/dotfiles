@@ -520,3 +520,11 @@
         }
     }
 }
+
+
+.wlc-modal--lottery-detail {
+
+    .wlc-modal__body {
+        @include bm.get-mq-map('padding', $themeDefault, 'lotteryDetailBodyPadding');
+    }
+}

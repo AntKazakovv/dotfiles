@@ -1,6 +1,10 @@
 import {Injectable} from '@angular/core';
 
-import {BehaviorSubject} from 'rxjs';
+import {TranslateService} from '@ngx-translate/core';
+import {
+    BehaviorSubject,
+    Subscription,
+} from 'rxjs';
 import {
     filter,
     map,
@@ -15,8 +19,10 @@ import {
     DataService,
     EventService,
     IData,
+    IPushMessageParams,
     InjectionService,
     LogService,
+    NotificationEvents,
 } from 'wlc-engine/modules/core';
 import {UserProfile} from 'wlc-engine/modules/user';
 import {RequestParamsType} from 'wlc-engine/modules/core/system/services/data/data.service';
@@ -45,6 +51,7 @@ export class LotteriesService {
     private lottery: Lottery;
     private isAuth: boolean;
     private isFetching$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    private depositSubscription: Subscription;
 
     constructor(
         protected dataService: DataService,
@@ -52,6 +59,7 @@ export class LotteriesService {
         protected injectionService: InjectionService,
         protected configService: ConfigService,
         protected eventService: EventService,
+        protected translateService: TranslateService,
     ) {
         this.init();
     }
@@ -112,6 +120,33 @@ export class LotteriesService {
 
         return queryParams;
     }
+    public updateUserCurrency(currency: string): void {
+        this.userCurrency = currency.toLowerCase();
+        Lottery.userCurrency = currency;
+        this.fetchLottery();
+    }
+
+    public setDepositSubscriber(): void {
+        if (!this.depositSubscription) {
+            this.depositSubscription = this.eventService.subscribe({
+                name: 'DEPOSIT_SUCCESS',
+            }, () => {
+                const message: string =
+                    this.translateService.instant(gettext('Tickets received:')) + ` ${Lottery.ticketsCount}`;
+
+                this.eventService.emit({
+                    name: NotificationEvents.PushMessage,
+                    data: <IPushMessageParams>{
+                        type: 'success',
+                        title: gettext('Deposit'),
+                        message: message,
+                        wlcElement: 'notification_tickets-received',
+                    },
+                });
+            });
+        }
+
+    }
 
     private processResponse(data: ILottery[], params?: ILotteryFetchParams): Lottery[] {
         const lotteries: Lottery[] = [];
@@ -142,7 +177,7 @@ export class LotteriesService {
                 distinctUntilChanged(),
             )
             .subscribe((currency: string) => {
-                this.userCurrency = Lottery.userCurrency = currency.toLowerCase();
+                this.updateUserCurrency(currency);
                 this.$resolve();
             });
 

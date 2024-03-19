@@ -111,6 +111,8 @@ import {
     AbstractDepositWithdrawComponent,
 } from 'wlc-engine/modules/finances/system/classes/abstract.deposit-withdraw.component';
 import {IPaymentMessageCParams} from 'wlc-engine/modules/finances/components/payment-message/payment-message.params';
+import {LotteriesService} from 'wlc-engine/modules/lotteries/system/services/lotteries.service';
+import {Lottery} from 'wlc-engine/modules/lotteries/system/models/lottery.model';
 
 import * as Params from './payment-form.params';
 
@@ -154,7 +156,7 @@ export class PaymentFormComponent
     public userProfile$: Subject<UserProfile> = new Subject();
     public onChanges$: Subject<SimpleChanges> = new Subject();
 
-    protected amount$: Subject<number> = new Subject();
+    protected amount$: BehaviorSubject<number> = new BehaviorSubject(0);
     protected userTotalBalance: number;
     protected userAvailableWithdraw: number;
     protected amountControl: UntypedFormControl;
@@ -169,6 +171,12 @@ export class PaymentFormComponent
     protected formObject: UntypedFormGroup;
     protected inProgress: boolean = false;
     protected userService: UserService;
+
+    protected lotteriesService: LotteriesService;
+    protected useLotteryWidget: boolean = false;
+    protected showLotteryWidget: boolean = false;
+    protected lotteryWidget: IFormComponent;
+
     protected hostedFieldsStyles: Record<THostedStyles, string> = {
         current: '/static/css/hosted.fields.css',
         def: '/static/css/hosted.fields.css',
@@ -193,6 +201,7 @@ export class PaymentFormComponent
     private userProfile: UserProfile;
     private cssVariables: string;
     private prestepAmount: number = 0;
+    private hideAmount: boolean = false;
 
     private formSubmit: HTMLFormElement;
 
@@ -229,6 +238,7 @@ export class PaymentFormComponent
         this.additionalFieldsConfig = this.configService.get('$finances.fieldsSettings.additional');
         this.usePreselectedSummation = this.configService.get<boolean>('$finances.preselectButtons.summationMode');
         this.isRomanianLicense = this.configService.get<string>('appConfig.license') === 'romania';
+        this.useLotteryWidget = this.isDeposit && this.configService.get<boolean>('$finances.useLotteryWidget');
 
         this.configService
             .get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
@@ -250,6 +260,10 @@ export class PaymentFormComponent
             });
 
         this.initSubscribers();
+
+        if (this.useLotteryWidget) {
+            this.prepareLotteryWidget();
+        }
 
         if (!this.isDeposit) {
             this.userService = await this.injectionService.getService<UserService>('user.user-service');
@@ -817,6 +831,8 @@ export class PaymentFormComponent
             this.userTotalBalance = Number(wallet.balance);
             this.userAvailableWithdraw = Number(wallet.availableWithdraw);
             this.updateFormConfig();
+
+            this.lotteriesService?.updateUserCurrency(this.currentCurrency);
         }
     }
 
@@ -868,9 +884,29 @@ export class PaymentFormComponent
         }
     }
 
+    protected async prepareLotteryWidget(): Promise<void> {
+        this.lotteriesService =
+        await this.injectionService.getService<LotteriesService>('lotteries.lotteries-service');
+        this.lotteriesService.fetchLottery();
+        this.lotteryWidget = this.$params.lotteryWidgetParams;
+
+        _merge(this.lotteryWidget.params.components[0].params, {
+            lottery$: this.lotteriesService.lottery$,
+            amount$: this.amount$,
+            showTicketsCounter: !this.hideAmount,
+        });
+
+        this.lotteriesService.lottery$
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((lottery: Lottery) => {
+                this.showLotteryWidget = lottery && lottery.isActive && lottery.checkUserLevel;
+                this.updateFormConfig();
+            });
+    }
+
     protected updateFormConfig(): void {
+        this.hideAmount = this.isDeposit && this.disableAmount && !this.currentSystem?.cryptoInvoices;
         const isDepInvoice: boolean = this.isDeposit && !!(this.currentSystem?.message as IPaymentMessage)?.dateEnd;
-        const hideAmount: boolean = this.isDeposit && this.disableAmount && !this.currentSystem?.cryptoInvoices;
         const formComponents: IFormComponent[] = [];
         const preselectedAmountsData: number[] = this.getPreselectedAmounts();
         let lastAccount: IFormComponent;
@@ -880,7 +916,7 @@ export class PaymentFormComponent
             this.formConfig = null;
         }
 
-        if (!hideAmount && !this.isPrestepComplete) {
+        if (!this.hideAmount && !this.isPrestepComplete) {
 
             if (this.currentSystem?.isPayCryptos && !this.isInvoicePending && !this.currentSystem.isPayCryptosV2) {
 
@@ -951,11 +987,17 @@ export class PaymentFormComponent
                     },
                 });
             }
+        }
 
-            if (!this.showPaymentMessage || _isEmpty(this.currentSystem?.message)) {
-                const button: IFormComponent = this.prepareMainButton();
-                formComponents.push(button);
-            }
+        if (this.useLotteryWidget && this.showLotteryWidget) {
+            _set(this.lotteryWidget, 'params.components[0].params.showTicketsCounter', !this.hideAmount);
+
+            formComponents.push(this.lotteryWidget);
+        }
+
+        if (!this.showPaymentMessage || _isEmpty(this.currentSystem?.message)) {
+            const button: IFormComponent = this.prepareMainButton();
+            formComponents.push(button);
         }
 
         if (!this.usePrestep || this.isPrestepComplete) {

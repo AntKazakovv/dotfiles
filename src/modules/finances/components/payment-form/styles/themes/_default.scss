@@ -129,7 +129,7 @@
         }
 
         .wlc-checkbox {
-            padding: ef.get-value($themeDefault, 'checkboxPaddind');
+            padding: ef.get-value($themeDefault, 'checkboxPadding');
         }
 
         .wlc-select__dropdown {
@@ -153,6 +153,13 @@
 
             margin: ef.get-value($themeDefault, 'mainBtnMargin');
             white-space: nowrap;
+        }
+
+        .wlc-lottery-widget {
+            grid-column: 1 / 2;
+            width: 100%;
+            max-width: var(--wlc-pf-input-size);
+            margin: ef.get-value($themeDefault, 'lotteryWidgetMargin');
         }
     }
 

@@ -1,34 +1,24 @@
-<ng-container [ngSwitch]="$params.type">
-    <ng-container  *ngSwitchCase="'deposit'" [ngTemplateOutlet]="tplDeposit"></ng-container>
-    <ng-container  *ngSwitchDefault [ngTemplateOutlet]="tplDefault"></ng-container>
-</ng-container>
 
-<ng-template #tplDefault>
-    <p class="{{$class}}__title">{{'Get more tickets!' | translate}}</p>
-    <div class="{{$class}}__timer">
-        <div wlc-timer
-            [value]="lottery.dateEnd"
-            [text]="$params.timerText"></div>
-    </div>
-    <p>{{'Ticket value:' | translate}}
-        <span wlc-currency
-            [value]="lottery.price"
-            [currency]="lottery.currency"></span>
-    </p>
+<p class="{{$class}}__title">{{title | translate}}</p>
+<div class="{{$class}}__timer">
+    <div wlc-timer
+        [value]="lottery.dateEnd"
+        [text]="$params.timerText"></div>
+</div>
+<p>{{'Ticket value:' | translate}}
+    <span wlc-currency
+        [value]="lottery.price"
+        [currency]="lottery.currency"></span>
+</p>
 
-    <div class="{{$class}}__controls">
-        <button wlc-button
-            data-wlc-element="lottery_cta_deposit"
-            [inlineParams]="$params.depositBtnParams"></button>
-    </div>
-</ng-template>
+<p *ngIf="showTicketsCounter">
+    {{'Number of tickets you will get:' | translate}}
+    <span class="{{$class}}__tickets-counter">{{ticketsCount$ | async}}</span>
+</p>
 
-<ng-template #tplDeposit>
-    <p class="{{$class}}__title">{{lottery.name}}</p>
-
-    <div class="{{$class}}__controls">
-        <button wlc-button
-            data-wlc-element="lottery_cta_readmore"
-            [inlineParams]="$params.readMoreBtnParams"></button>
-    </div>
-</ng-template>
+<div *ngIf="!$params.hideButton" class="{{$class}}__controls">
+    <button wlc-button
+        data-wlc-element="lottery_cta_deposit"
+        [inlineParams]="ctaBtnParams"
+        (click)="btnClickHandler($event)"></button>
+</div>
