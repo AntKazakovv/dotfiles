@@ -29,8 +29,7 @@
 
         <ng-template #sref let-step="step" let-index="index">
             <a class="{{$class}}__step {{$class}}__step--{{getStepClassByType(step)}}"
-               uiSref="{{step.sref}}"
-               [uiParams]="getSrefParams(step.srefparams)"
+               [wlc-link]="[step.sref, getSrefParams(step.srefparams)]"
                [class.active]="isActiveStep(index)">
                 <ng-container [ngTemplateOutlet]="stepContent" [ngTemplateOutletContext]="{step: step}"></ng-container>
             </a>
