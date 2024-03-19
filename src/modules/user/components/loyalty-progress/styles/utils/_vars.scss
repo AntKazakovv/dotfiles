@@ -26,7 +26,7 @@ $themeDefault: map-merge((
     'textWrap': nowrap,
     'textVerticalAlign': baseline,
     'textColor': var(--mc-baseMain),
-    'textStyle': 'SignTextBold',
+    'textStyle': 'CaptionTextBold',
     'linkColor': var(--mc-main),
     'linkColorHover': var(--mc-baseThird, var(--mc-baseMain)),
 ), $customThemeDefault);

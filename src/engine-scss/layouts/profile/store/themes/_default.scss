@@ -1,5 +1,4 @@
-.app-profile-loyalty-store-main-state,
-.app-profile-loyalty-level-state {
+.app-profile-loyalty-store-main-state {
 
     .wlc-sections__profile-content--theme-default {
 
@@ -11,13 +10,6 @@
 
             display: grid;
             grid-template-rows: auto;
-        }
-
-        .wlc-loyalty-progress {
-            @include bm.get-mq-map('max-width',$storeThemeDefault, 'loyaltyProgressMaxWidth');
-            @include bm.get-mq-map('margin',$storeThemeDefault, 'loyaltyProgressMargin');
-            grid-area: progress;
-            width: 100%;
         }
 
         .wlc-user-stats {
@@ -33,14 +25,8 @@
             grid-area: title;
         }
 
-        .wlc-loyalty-table,
         .wlc-store-list {
             grid-area: store;
-        }
-
-        .wlc-loyalty-levels-wp {
-            @include bm.get-mq-map('margin', $storeThemeDefault, 'wpMargin');
-            grid-area: wp;
         }
 
         .wlc-profile-menu {

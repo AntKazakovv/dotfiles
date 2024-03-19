@@ -13,11 +13,28 @@ const profileDefaultLoyaltyType = (isSingleLevels: boolean): ILayoutSectionConfi
         container: true,
         modifiers: isSingleLevels ? ['single-levels'] : null,
         components: [
-            isSingleLevels ? componentLib.wlcTitle.profileLoyalty : componentLib.wlcTitle.profileStore,
-            componentLib.wlcLoyaltyProgress.def,
-            componentLib.wlcProfileMenu.submenu,
-            componentLib.wlcLoyaltyLevels.def,
-            componentLib.wlcLoyaltyLevelsWp.def,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__wrp',
+                    components: [
+                        isSingleLevels ? componentLib.wlcTitle.profileLoyalty : componentLib.wlcTitle.profileStore,
+                        componentLib.wlcProfileMenu.submenu,
+                        componentLib.wlcLoyaltyProgress.def,
+                        componentLib.wlcLoyaltyLevels.def,
+                        componentLib.wlcLoyaltyLevelsWp.def,
+                    ],
+                    smartSection: {
+                        columns: [
+                            'wlc-c-12',
+                            'wlc-c-12',
+                            'wlc-c-12 wlc-mb-smd',
+                            'wlc-c-12 wlc-mb-xl',
+                            'wlc-c-12',
+                        ],
+                    },
+                },
+            },
         ],
     };
 };
@@ -70,6 +87,13 @@ const profileFirstLoyaltyType = (isSingleLevels: boolean): ILayoutSectionConfig 
                                     componentLib.wlcLoyaltyLevels.def,
                                     componentLib.wlcLoyaltyLevelsWp.def,
                                 ],
+                                smartSection: {
+                                    columns: [
+                                        'wlc-c-12 wlc-mb-smd',
+                                        'wlc-c-12 wlc-mb-xl',
+                                        'wlc-c-12',
+                                    ],
+                                },
                             },
                         },
                     ],
@@ -97,16 +121,25 @@ const profileWolfLoyaltyType = (isSingleLevels: boolean): ILayoutSectionConfig =
                     before: 899,
                 },
             },
+            componentLib.wlcProfileMenu.defTypeWolf,
+            componentLib.wlcProfileMenu.submenuWolf,
             {
                 name: 'core.wlc-wrapper',
                 params: {
                     class: 'wlc-profile-content__wrp',
                     components: [
-                        componentLib.wlcProfileMenu.defTypeWolf,
-                        componentLib.wlcProfileMenu.submenuWolf,
-                        componentLib.wlcLoyaltyProgress.def,
+                        componentLib.wlcLoyaltyProgress.withIcon,
                         componentLib.wlcLoyaltyLevels.def,
+                        componentLib.wlcLoyaltyLevelsWp.def,
                     ],
+                    smartSection: {
+                        innerClasses: '',
+                        columns: [
+                            'wlc-c-12 wlc-mb-smd',
+                            'wlc-c-12 wlc-mb-xl',
+                            'wlc-c-12',
+                        ],
+                    },
                 },
             },
         ],

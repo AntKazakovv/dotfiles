@@ -46,7 +46,7 @@ export const defaultParams: ILoyaltyProgressCParams = {
     class: 'wlc-loyalty-progress',
     common: {
         maxProgressText: gettext('Max'),
-        showLevelIcon: true,
+        showLevelIcon: false,
         showLinkToLevels: false,
         levelIconComponent: {
             name: 'loyalty.wlc-loyalty-level',

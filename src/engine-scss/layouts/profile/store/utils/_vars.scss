@@ -4,21 +4,13 @@ $storeThemeDefault: map-merge((
         719: ef.size(2),
         720: ef.size(4),
     ),
-    'loyaltyProgressMaxWidth': (
-        375: 100%,
-        640: 350px,
-    ),
-    'loyaltyProgressMargin': (
-        375: 0 auto ef.size(4) 0,
-        1024: 0 auto ef.size(6) 0,
-    ),
 
     'containerColumns': (
         375: minmax(0, 1fr),
         768: repeat(2, 1fr),
     ),
     'containerAreas': (
-        375: 'title title' 'submenu submenu' 'stats stats' 'progress progress' 'store store' 'wp wp',
+        375: 'title title' 'submenu submenu' 'stats stats' 'store store',
     ),
 
     'submenuMargin': (
@@ -26,9 +18,4 @@ $storeThemeDefault: map-merge((
     ),
 
     'modMobileMargin': 0 0 ef.size(2),
-
-    'wpMargin': (
-        375: ef.size(5) 0 0 0,
-        1024: ef.size(8) 0 0 0,
-    ),
 ), $customStoreThemeDefault);

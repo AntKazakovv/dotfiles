@@ -1,16 +1,25 @@
 .wlc-level-name--theme-default:host {
+    @include bm.get-mq-map('display', $themeDefault, 'levelNameDisplay');
+    @include bm.get-mq-map('align-items', $themeDefault, 'levelNameAlignItems');
+    justify-content: var(--wlc-lname-justify-content);
 
     .wlc-level-name {
-        @include bm.get-mq-map('display', $themeDefault, 'levelNameDisplay');
-        @include bm.get-mq-map('align-items', $themeDefault, 'levelNameAlignItems');
-        @include bm.get-mq-map('justify-content', $themeDefault, 'levelNameJustifyContent');
 
-        &.has-description {
-            @include bm.get-mq-map('margin', $themeDefault, 'levelNameHasDescMargin');
+        &-text {
+            @include bm.lineClamp(1);
+            word-break: break-all;
         }
 
-        .wlc-tooltip {
+        &-tooltip {
             @include bm.get-mq-map('margin', $themeDefault, 'tooltipMargin');
         }
+    }
+
+    .wlc-table--mobile & {
+        --wlc-lname-justify-content: #{ef.get-value($themeDefault, 'levelNameJustifyContentMobile')};
+    }
+
+    .wlc-table--table & {
+        --wlc-lname-justify-content: #{ef.get-value($themeDefault, 'levelNameJustifyContentDesktop')};
     }
 }

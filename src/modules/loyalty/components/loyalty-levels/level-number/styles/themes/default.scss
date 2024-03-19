@@ -54,12 +54,8 @@
         }
 
         &__name {
-            display: inline-block;
             margin: ef.get-value($themeDefault, 'nameMargin');
             padding: ef.get-value($themeDefault, 'namePadding');
-            text-wrap: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;
 
             .wlc-table--table & {
                 display: none;

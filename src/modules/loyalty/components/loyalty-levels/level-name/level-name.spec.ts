@@ -80,8 +80,8 @@ describe('LevelNameComponent', () => {
         expect(nativeElement.querySelector(`.${defaultParams.class}-text`).textContent).toBe(testLevel.name);
     });
 
-    it('-> checking icon if level hav description', () => {
+    it('-> checking icon if level has description', () => {
         expect(component.$params.level.description).toBeTruthy();
-        expect(nativeElement.querySelector(`.${defaultParams.class}-icon__description`)).toBeTruthy();
+        expect(nativeElement.querySelector(`.${defaultParams.class}-tooltip`)).toBeTruthy();
     });
 });

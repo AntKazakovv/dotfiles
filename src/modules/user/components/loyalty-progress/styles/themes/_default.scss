@@ -1,4 +1,5 @@
 .wlc-loyalty-progress--theme-default:host {
+    width: var(--wlc-lprogress-width, 100%);
 
     .wlc-loyalty-progress {
 

@@ -1,30 +1,23 @@
+$customLoyaltyThemeDefault: () !default;
+$loyaltyThemeDefault: map-merge((
+    'loyaltyProgressWidth': (
+        375: 100%,
+        640: 300px,
+    ),
+), $customLoyaltyThemeDefault);
+
 $customLoyaltyThemeV1: () !default;
 $loyaltyThemeV1: map-merge((
-    'headerDisplay': (
-        1024: flex,
+    'loyaltyProgressWidth': (
+        375: 100%,
+        640: 300px,
     ),
-    'headerJustifyContent': (
-        1024: space-between,
-    ),
+), $customLoyaltyThemeV1);
 
-    'progressHeaderWidth': (
-        640: 350px,
-    ),
-    'progressHeaderMaxWidth': (
-        640: 350px,
-    ),
-
-    'progressBodyWidth': (
+$customLoyaltyThemeWolf: () !default;
+$loyaltyThemeWolf: map-merge((
+    'loyaltyProgressWidth': (
         375: 100%,
         640: 350px,
     ),
-    'progressBodyMargin': (
-        375: 0 auto ef.size(4) 0,
-        1024: 0 auto ef.size(6) 0,
-    ),
-
-    'wpMargin': (
-        375: ef.size(5) 0 0 0,
-        1024: ef.size(8) 0 0 0,
-    ),
-), $customLoyaltyThemeV1);
+), $customLoyaltyThemeWolf);
