@@ -273,6 +273,14 @@ export class UserService {
             }
         });
 
+        this.eventService.filter([
+            {name: 'USER_PROFILE_ERROR'},
+        ]).subscribe((event: IEvent<IData>) => {
+            if (event.data.code === 401) {
+                this.logout();
+            }
+        });
+
         this.eventService.subscribe({
             name: 'UPDATE_ACCEPTED_TERMS',
         }, (value: IUserInfo['toSVersion']) => {
