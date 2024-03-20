@@ -305,7 +305,7 @@ export class MerchantWalletService {
                 hideIcon: true,
                 wlcElement: 'mw-deposit-error',
                 dismissAll: true,
-                modalTitle: gettext('Insufficient balance!'),
+                modalTitle: gettext('Insufficient balance'),
                 modalMessage: gettext('Deposit more money to play this game.'),
                 textAlign: 'center',
                 closeBtnParams: {

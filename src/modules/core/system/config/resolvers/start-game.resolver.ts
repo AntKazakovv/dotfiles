@@ -511,7 +511,7 @@ class StartGameHandler extends BaseGamesHandler {
         } else {
             this.showErrorNotification(
                 gettext('Deposit more money to play this game.'),
-                gettext('Insufficient balance!'),
+                gettext('Insufficient balance'),
             );
 
             if (this.configService.get('$finances.fastDeposit.use')) {
