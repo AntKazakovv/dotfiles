@@ -84,7 +84,7 @@ export namespace PaymentSteps {
 
     export const bonus: IPaymentStep = {
         template: 'bonuses',
-        title: gettext('Choose bonus'),
+        title: gettext('Select a bonus'),
     };
 
     export const paymentSystem: IPaymentStep = {

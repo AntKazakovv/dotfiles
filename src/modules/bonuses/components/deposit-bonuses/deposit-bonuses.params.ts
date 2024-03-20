@@ -85,7 +85,7 @@ export const defaultParams: IDepositBonusesCParams = {
     asModal: '(max-width: 479px)',
     modalBtnParams: {
         icon: 'wlc/icons/empty-bonus.svg',
-        title: gettext('Select a bonus.'),
+        title: gettext('Select a bonus'),
         subtitle: gettext('Receive additional spins or money with your deposit.'),
         notEmptyTitle: gettext('Show all bonuses'),
     },

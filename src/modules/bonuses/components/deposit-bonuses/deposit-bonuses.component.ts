@@ -152,7 +152,7 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
     public openModal(): void {
         this.modalService.showModal({
             id: 'deposit-bonuses',
-            modalTitle: gettext('Choose bonus'),
+            modalTitle: gettext('Select a bonus'),
             templateRef: this.list,
             size: 'md',
         });
