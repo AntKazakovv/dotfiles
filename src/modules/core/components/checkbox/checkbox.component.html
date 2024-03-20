@@ -10,7 +10,7 @@
         <span
             wlc-icon
             class="{{$class}}__elem"
-            iconPath="/wlc/icons/tick.svg"
+            iconPath="/wlc/icons/icons_new/tick.svg"
             [ngClass]="{checked: control?.value}">
         </span>
         <div class="{{$class}}__text">
@@ -36,15 +36,14 @@
         <span
             wlc-icon
             class="{{$class}}__elem"
-            iconPath="/wlc/icons/tick.svg"
+            iconPath="/wlc/icons/icons_new/tick.svg"
             [ngClass]="{checked: control?.value}">
         </span>
         <div class="{{$class}}__text" dir="auto">
             {{textWithLink.prefix | translate}}
             <a
                 class="{{$class}}__link"
-                [uiSref]="'app.contacts'"
-                [uiParams]="{slug: textWithLink.slug, '#': textWithLink.urlHook}"
+                [wlc-link]="['app.contacts', {slug: textWithLink.slug, '#': textWithLink.urlHook}]"
                 [target]="textWithLink.target">
                 {{textWithLink.linkText | translate}}*
             </a>
@@ -64,7 +63,7 @@
         <span
             wlc-icon
             class="{{$class}}__elem"
-            iconPath="/wlc/icons/tick.svg"
+            iconPath="/wlc/icons/icons_new/tick.svg"
             [ngClass]="{checked: control?.value}">
         </span>
         <div
