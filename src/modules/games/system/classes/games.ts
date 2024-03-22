@@ -84,7 +84,6 @@ export class Games {
     public merchantsCurrencies: IMerchantsCurrencies = {};
     public static allowGameCurrency: boolean;
     public static isMultiWallet: boolean;
-    public static alwaysShowChoiceOfCurrency: boolean = false;
 
     protected restrictions: IRestrictions;
 
@@ -305,10 +304,6 @@ export class Games {
         this.searchByCyrillicLetters = this.configService.get<boolean>('$games.search.byCyrillicLetters');
         this.sortSetting = this.configService.get<IGamesSortSetting>('$games.categories.gamesSortSetting');
         this.separateSortSettings = this.configService.get<IGamesSeparateSortSetting>('$games.sortsV2.settings');
-        Games.alwaysShowChoiceOfCurrency = this.configService.get<boolean>('$base.games.alwaysShowChoiceOfCurrency');
-        Games.allowGameCurrency =
-            this.configService.get<boolean>('appConfig.siteconfig.AllowGameCurrency');
-        Games.isMultiWallet = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
     }
 
     /**

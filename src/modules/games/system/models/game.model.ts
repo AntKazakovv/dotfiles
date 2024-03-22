@@ -186,11 +186,10 @@ export class Game extends AbstractModel<IGame> {
         this._selectedCurrency = currency;
     }
 
-    public get showChoiceOfCurrency(): boolean {
+    public get currencyNotSupported(): boolean {
         return Games.allowGameCurrency
-            && (!!this.merchantsCurrencies
-                && (!this.walletCurrency || !this.currency)
-                || Games.alwaysShowChoiceOfCurrency);
+            && !!this.merchantsCurrencies
+            && (!this.walletCurrency || !this.currency);
     }
 
     /**

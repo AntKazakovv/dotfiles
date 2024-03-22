@@ -238,7 +238,7 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
                 },
             },
         },
-        params.game.showChoiceOfCurrency ? {
+        params.game.currencyNotSupported ? {
             name: 'multi-wallet.wlc-choice-currency',
             params: <IChoiceCurrencyParams>{
                 game: params.game,
