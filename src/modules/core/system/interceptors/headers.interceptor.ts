@@ -36,6 +36,11 @@ export class HeadersInterceptor implements HttpInterceptor {
         @Inject(WINDOW) protected window: Window,
         protected configService: ConfigService,
     ) {
+        this.init();
+    }
+
+    private async init(): Promise<void> {
+        await this.configService.ready;
         this.useJwtToken = this.configService.get<boolean>('$base.site.useJwtToken');
     }
 
