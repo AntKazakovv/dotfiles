@@ -66,13 +66,19 @@ export class BonusesListController implements IBonusesListController {
         this.bonusesSubscription = this.bonusesService.getSubscribe({
             ...params.subscribeParams,
             observer: {
-                next: (bonuses: Bonus[]) => {
-                    bonusList = _filter(bonusList, (bonus: Bonus) => _isObject(bonus));
-                    bonusList = this.filterBonuses(bonuses, params.filter);
+                next: (bonuses: Bonus[]): void => {
+                    const isAuth: boolean = this.configService.get<boolean>('$user.isAuthenticated');
+
+                    bonusList = _filter(bonuses, (bonus: Bonus) => _isObject(bonus));
 
                     if (params.filterByGroup) {
                         bonusList = this.filterBonusesByGroup(bonusList, params.filterByGroup);
+                    } else if (!isAuth && params.filter === 'all') {
+                        const promoBonuses: Bonus[] = this.filterBonusesByGroup(bonusList, 'Promo');
+                        bonusList = promoBonuses.length ? promoBonuses : bonusList;
                     }
+
+                    bonusList = this.filterBonuses(bonusList, params.filter);
 
                     if (params.sort) {
                         bonusList = this.sortBonuses(bonusList, params.sort);
