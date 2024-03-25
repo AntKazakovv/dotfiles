@@ -7,7 +7,10 @@ import {
     OnInit,
     ChangeDetectionStrategy,
 } from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
+import {
+    BehaviorSubject,
+    takeUntil,
+} from 'rxjs';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {CashbackService} from 'wlc-engine/modules/cashback/system/services/cashback/cashback.service';
@@ -17,11 +20,16 @@ import {
     EventService,
     IPaginateOutput,
     IPushMessageParams,
-    ModalService,
     NotificationEvents,
 } from 'wlc-engine/modules/core';
+import {
+    CashbackController,
+    ICashbackController,
+} from 'wlc-engine/modules/cashback/system/classes/cashback.controller';
 
 import * as Params from './cashback-rewards.params';
+
+export type TCashbackType = 'deposit' | 'default';
 
 /**
  * Claim reward component.
@@ -43,19 +51,20 @@ import * as Params from './cashback-rewards.params';
 export class CashbackRewardsComponent extends AbstractComponent implements OnInit {
 
     @Input() public inlineParams!: Params.ICashbackRewardCParams;
+
     public override $params!: Params.ICashbackRewardCParams;
     public paginatedCashbackPlans: CashbackPlanModel[] = [];
-    public itemCashback: BehaviorSubject<CashbackPlanModel[]> = new BehaviorSubject([]);
-    public ready: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    public itemCashback$: BehaviorSubject<CashbackPlanModel[]> = new BehaviorSubject([]);
+    public ready$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     public depositCashback: CashbackPlanModel;
-    public typeCashback: 'deposit' | 'default' = 'default';
-    public currentTime: number;
+    public cashbackType: TCashbackType = 'default';
+
     protected itemsPerPage: number = 0;
+    protected cashbackController: ICashbackController;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ICashbackRewardCParams,
         protected cashbackService: CashbackService,
-        protected modalService: ModalService,
         protected eventService: EventService,
         cdr: ChangeDetectorRef,
         configService: ConfigService,
@@ -64,30 +73,37 @@ export class CashbackRewardsComponent extends AbstractComponent implements OnIni
             injectParams,
             defaultParams: Params.defaultParams,
         }, configService, cdr);
+
+
+        this.cashbackController = new CashbackController(
+            this.configService,
+            this.cashbackService,
+            this.$destroy,
+        );
     }
 
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
 
-        if (this.configService.get<boolean>('appConfig.siteconfig.CashbackPayoutByClaimButton')) {
-            this.typeCashback = 'deposit';
-        }
+        this.cashbackType = this.cashbackController.cashbackType;
 
-        this.cashbackService.cashbackPlans
-            .subscribe((cashbackPlans: CashbackPlanModel[]): void => {
-                this.paginatedCashbackPlans = cashbackPlans;
-                this.itemCashback.next(cashbackPlans);
+        this.cashbackController.cashback$
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((cashback: CashbackPlanModel[]) => {
+
+                if (this.cashbackType === 'deposit') {
+                    this.depositCashback = cashback[0];
+
+                    return;
+                }
+
+                this.paginatedCashbackPlans = cashback;
+                this.itemCashback$.next(cashback);
             });
 
-        if (this.itemCashback.getValue().length > 0) {
-            this.ready.next(true);
-        }
-        await this.cashbackService.fetchCashback();
+        await this.cashbackController.getCashbackPlans();
 
-        if (this.typeCashback === 'deposit' && this.itemCashback.getValue().length) {
-            this.depositCashback = this.itemCashback.getValue()[0];
-        }
-        this.ready.next(true);
+        this.ready$.next(true);
     }
 
     public get isNotAvailableCashback(): boolean {
@@ -111,8 +127,11 @@ export class CashbackRewardsComponent extends AbstractComponent implements OnIni
      * @returns {Promise<void>}
      */
     public async claimCashback(id: string): Promise<void> {
+        this.ready$.next(false);
+
         try {
-            await this.cashbackService.claimRewardById(id);
+            await this.cashbackController.claimRewardById(id);
+
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,
                 data: <IPushMessageParams>{
@@ -121,9 +140,6 @@ export class CashbackRewardsComponent extends AbstractComponent implements OnIni
                     message: gettext('Cashback has been credited to your account'),
                 },
             });
-            if (this.typeCashback === 'deposit' && this.itemCashback.getValue().length) {
-                this.depositeCashbackUpdate();
-            }
         } catch (error) {
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,
@@ -134,8 +150,10 @@ export class CashbackRewardsComponent extends AbstractComponent implements OnIni
                 },
             });
         } finally {
-            await this.cashbackService.fetchCashback();
+            await this.cashbackController.fetchCashback();
         }
+
+        this.ready$.next(true);
     }
 
     /**
@@ -165,14 +183,12 @@ export class CashbackRewardsComponent extends AbstractComponent implements OnIni
      * @returns {Promise<void>}
      */
     public async timerExpiry(): Promise<void> {
-        this.ready.next(false);
-        await this.cashbackService.fetchCashback();
-        this.ready.next(true);
+        this.updateCashback();
     }
 
     public depositTimerEnd(): void {
         if (this.isNotAvailableCashback) {
-            this.depositeCashbackUpdate();
+            this.updateCashback();
         }
     }
     /**
@@ -192,16 +208,14 @@ export class CashbackRewardsComponent extends AbstractComponent implements OnIni
      * @param {IPaginateOutput} value - $event output from `wlc-pagination` component
      */
     public paginationOnChange(value: IPaginateOutput<CashbackPlanModel>): void {
-        this.itemCashback.next(value.paginatedItems);
+        this.itemCashback$.next(value.paginatedItems);
         this.itemsPerPage = value.event.itemsPerPage;
         this.cdr.detectChanges();
     }
 
-    private async depositeCashbackUpdate(): Promise<void> {
-        this.ready.next(false);
-        await this.cashbackService.fetchCashback();
-        this.depositCashback = this.itemCashback.getValue()[0];
-        this.ready.next(true);
+    private async updateCashback(): Promise<void> {
+        this.ready$.next(false);
+        await this.cashbackController.fetchCashback();
+        this.ready$.next(true);
     }
 }
-

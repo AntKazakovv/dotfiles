@@ -1,14 +1,15 @@
 <div class="{{$class}}__content">
-    <ng-container [ngSwitch]="typeCashback">
+    <ng-container [ngSwitch]="cashbackType">
         <ng-container *ngSwitchCase="'deposit'" [ngTemplateOutlet]="typeDeposite"></ng-container>
         <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
     </ng-container>
 </div>
+
 <ng-template #default>
-    <ng-container *ngIf="ready | async; else loading">
+    <ng-container *ngIf="ready$ | async; else loading">
         <ng-template *ngIf="paginatedCashbackPlans.length; else noData">
             <div class="{{$class}}__items">
-                <div *ngFor="let item of itemCashback | async; trackBy: trackAvailable || trackAmount;" class="{{$class}}-item">
+                <div *ngFor="let item of itemCashback$ | async; trackBy: trackAvailable || trackAmount;" class="{{$class}}-item">
                     <div class="{{$class}}-item__title">{{item.title | translate}}</div>
 
                     <div class="{{$class}}-item__desc">{{item.additionalText() | translate}} </div>
@@ -47,7 +48,7 @@
 
 <ng-template #typeDeposite>
     <div class="{{$class}}__deposit">
-        <ng-container *ngIf="ready | async; else loading">
+        <ng-container *ngIf="ready$ | async; else loading">
             <ng-container *ngIf="depositCashback; else noDataDeposit">
                 <div *ngIf="showTimer"
                     wlc-timer
