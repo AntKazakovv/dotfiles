@@ -47,6 +47,7 @@ export type TModuleName =
     | 'multi-wallet'
     | 'two-factor-auth'
     | 'youtube-block'
+    | 'currency'
     | 'qr-code'
     | 'pwa';
 
@@ -292,6 +293,11 @@ export const modulesApp: Record<TModuleName, IFunctionImportModule> = {
         const m = await import('wlc-engine/modules/pwa/pwa.module');
         callback(name, m);
         return m.PwaModule;
+    },
+    'currency': async (name: TModuleName, callback: Function) => {
+        const m = await import('wlc-engine/modules/currency/currency.module');
+        callback(name, m);
+        return m.CurrencyModule;
     },
 } as const;
 

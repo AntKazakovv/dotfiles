@@ -45,11 +45,12 @@ import {
     IState,
 } from 'wlc-engine/modules/core/system/interfaces/fundist.interface';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
-import {ICurrency} from 'wlc-engine/modules/finances/system/interfaces/currencies.interface';
 import {
     GamesCatalogService,
 } from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
+import {CurrencyService} from 'wlc-engine/modules/currency/system/services/currency.service';
+import {ICurrencyModel} from 'wlc-engine/modules/currency/system/interfaces/currency.interface';
 
 import * as Params from 'wlc-engine/modules/core/components/select/select.params';
 
@@ -95,12 +96,23 @@ export class SelectValuesService {
         ['logoutTime', (): TConstantValue => this.getLogoutTime()],
     ]);
     private _daysInMonth: BehaviorSubject<number> = new BehaviorSubject(31);
+    private currencyService: CurrencyService;
 
     constructor(
         protected configService: ConfigService,
         protected eventService: EventService,
         protected injectionService: InjectionService,
     ) {
+        this.init();
+    }
+
+    public get daysInMonth(): number {
+        return this._daysInMonth.getValue();
+    }
+
+    private async init(): Promise<void> {
+        await this.configService.ready;
+        this.currencyService = await this.injectionService.getService<CurrencyService>('currency.currency-service');
         this._daysInMonth.subscribe(() => {
             this.dayList.next(this.getDateList('days').value);
         });
@@ -112,10 +124,6 @@ export class SelectValuesService {
         }
     }
 
-    public get daysInMonth(): number {
-        return this._daysInMonth.getValue();
-    }
-
     /**
      * Prepares and returns currency objects
      *
@@ -123,7 +131,7 @@ export class SelectValuesService {
      *this.configService.get<string>('appConfig.country')
      */
     public prepareCurrency(): TConstantValue {
-        if (this.configService.get<IIndexing<ICurrency>>('$base.registration.regCurrenciesByCountries' &&
+        if (this.configService.get<IIndexing<ICurrencyModel>>('$base.registration.regCurrenciesByCountries' &&
             '$base.registration.filterCurrencyByGeo')) {
             return this.filterCurrency(this.configService.get<string>('appConfig.country'));
         } else {
@@ -134,9 +142,9 @@ export class SelectValuesService {
     public filterCurrency(country?: string): TConstantValue {
         const currencies = this.configService.get<IIndexing<string>>('$base.rewritingCurrencyName');
         const sortConfig = this.configService.get<string[]>('$base.registration.currencySort');
-        let modifyCurrencies = _values(this.configService.get<IIndexing<ICurrency>>('appConfig.siteconfig.currencies'));
+        let modifyCurrencies: ICurrencyModel[] = _values(this.currencyService.regCurrencies);
 
-        modifyCurrencies = GlobalHelper.sortByOrder(modifyCurrencies, sortConfig, 'Name');
+        modifyCurrencies = GlobalHelper.sortByOrder(modifyCurrencies, sortConfig, 'DisplayName');
 
         if (country) {
             const currenciesByCountry = this.configService.get<string>(
@@ -151,12 +159,9 @@ export class SelectValuesService {
         }
 
         return new BehaviorSubject(
-            _map(
-                _filter(modifyCurrencies, (el: ICurrency) => {
-                    return el.registration;
-                }), (el) => {
-                    return {title: currencies[el.Name] || el.Name, value: el.Alias};
-                }),
+            _map(modifyCurrencies, (el) => {
+                return {title: currencies[el.DisplayName] || el.DisplayName, value: el.Alias};
+            }),
         );
     }
 

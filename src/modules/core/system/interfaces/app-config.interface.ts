@@ -1,3 +1,4 @@
+import {ICurrency} from 'wlc-engine/modules/currency';
 import {IIndexing} from './global.interface';
 import {IMenu} from './menu.interface';
 import {IBanner} from './promo.interface';
@@ -83,15 +84,6 @@ export interface IGames {
 export interface ILanguage {
     code: string;
     label: string;
-}
-
-export interface ICurrency {
-    Name: string,
-    Alias: string,
-    ID?: string | number,
-    ExRate?: string,
-    registration?: boolean,
-    IsCryptoCurrency?: boolean,
 }
 
 export interface IBalanceLimit {

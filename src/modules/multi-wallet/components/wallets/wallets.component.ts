@@ -29,8 +29,6 @@ import {
     AbstractComponent,
     ConfigService,
     EventService,
-    ICurrency,
-    IIndexing,
     InjectionService,
     ModalService,
 } from 'wlc-engine/modules/core';
@@ -39,6 +37,8 @@ import {
     UserProfile,
     UserService,
 } from 'wlc-engine/modules/user';
+import {CurrencyService} from 'wlc-engine/modules/currency/system/services/currency.service';
+import {ICurrency, ICurrencyModel} from 'wlc-engine/modules/currency/system/interfaces/currency.interface';
 
 import {
     IWallet,
@@ -91,6 +91,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
 
     private searchQuery: string = '';
     private userService: UserService;
+    private currencyService: CurrencyService;
     private changeConversionCoefficientReady: Promise<void>;
     private $coefficientResolve: () => void;
 
@@ -98,7 +99,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
     private $createWalletListResolve: () => void;
 
     private ratesService: RatesCurrencyService;
-    private currencies: IIndexing<ICurrency>;
+    private currencies: ICurrencyModel[];
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.WalletsParams,
@@ -132,6 +133,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
         this.ratesService =
             await this.injectionService.getService<RatesCurrencyService>('rates.rates-currency-service');
         UserInfo.currency = this.userService.userProfile.selectedCurrency;
+        this.currencyService = await this.injectionService.getService<CurrencyService>('currency.currency-service');
 
         if (this.userService.userInfo) {
             this.initSelector();
@@ -177,9 +179,11 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
     }
 
     public async onChangingWallet(item: IWallet): Promise<void> {
+
         this.currentWallet = WalletHelper.createCurrentWallet(
             this.userService.userInfo.wallets,
             item.currency,
+            item.displayName,
         );
         this.isOpened = false;
 
@@ -316,7 +320,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
     private async initSelector(): Promise<void> {
 
         WalletHelper.currencies = this.userService.userProfile.unusedCurrencies;
-        this.currencies = this.configService.get('appConfig.siteconfig.currencies');
+        this.currencies = this.currencyService.currencies;
 
         await this.initCurrentWallet();
 
@@ -360,6 +364,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
 
         for (const index in this.currencies) {
             const currency: string = this.currencies[index].Name;
+            const displayName: string = this.currencies[index].DisplayName;
 
             let wallet: IWallet = _assign({}, wallets[currency]);
 
@@ -381,9 +386,11 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
                         });
                         wallet.balance = (coefficient * _toNumber(wallet.balance));
                     }
+                    wallet.displayName = displayName;
 
                 } else {
                     wallet = {
+                        displayName,
                         currency: currency,
                         balance: '0.00',
                     };
@@ -403,7 +410,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
                         this.filtersParams.currencies.push(currentCurrencyUnused);
                     } else {
                         this.filtersParams.currencies.push({
-                            name: wallet.currency,
+                            name: wallet.displayName,
                             code: wallet.currency,
                             isUsed: true,
                         } as ICurrencyFilter);
@@ -411,14 +418,13 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
                 }
 
                 if (!this.currencies[index].IsCryptoCurrency) {
-                    this.settingsParams.currencies.push(currency);
+                    this.settingsParams.currencies.push({displayName, name: currency});
                 }
             }
         }
 
         if (!this.walletList.length) {
-            let currencies: ICurrency[] = Object.values(this.currencies);
-            const currentCurrency: ICurrency = _find(currencies, (currency: ICurrency) =>
+            const currentCurrency  = _find(this.currencies, (currency: ICurrency) =>
                 (this.currentWallet
                     ? currency.Name === this.currentWallet.currency
                     : currency.Name === this.userService.userProfile.selectedCurrency
@@ -429,6 +435,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
                 this.walletList.push(WalletHelper.createCurrentWallet(
                     wallets,
                     this.currentWallet?.currency ?? this.userService.userProfile.selectedCurrency,
+                    this.currentWallet?.displayName ?? this.userService.userProfile.selectedCurrency,
                 ));
 
             } else if (walletsArray.length) {
@@ -436,8 +443,12 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
                 this.walletList.push(walletsArray[0]);
 
             } else {
-                currencies = _sortBy(currencies, 'Name');
-                this.walletList.push(WalletHelper.createCurrentWallet(wallets, currencies[0].Name));
+                let currencies: ICurrencyModel[] = _sortBy(this.currencies, 'Name');
+                this.walletList.push(WalletHelper.createCurrentWallet(
+                    wallets,
+                    currencies[0].Name,
+                    currencies[0].DisplayName,
+                ));
             }
         } else {
             this.sortWallets();
@@ -457,6 +468,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
     private async createWalletList(): Promise<void> {
         await this.createWalletsArray();
         const searchCondition = (currency: IWallet): boolean =>
+            currency.displayName.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
             currency.currency.toLowerCase().includes(this.searchQuery.toLowerCase());
 
         const zeroBalanceCondition: boolean = this.settingsParams.walletSettings?.hideWalletsWithZeroBalance
