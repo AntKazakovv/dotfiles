@@ -46,10 +46,10 @@ export class PwaNotificationComponent extends AbstractComponent implements OnIni
 
     public override ngOnInit(): void {
         super.ngOnInit();
+        this.visibilityHandler();
         this.pwaNotificationCtrl.init({
             excludeStates: this.$params.excludeStates,
         });
-        this.visibilityHandler();
     }
 
     public openInstruction(): void {
