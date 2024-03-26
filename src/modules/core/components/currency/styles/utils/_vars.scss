@@ -2,6 +2,6 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'textColor': inherit,
     'iconIndent': 4px,
-    'currencyLessZero': var(--mc-error),
+    'currencyLessZero': var(--mc-baseSecond, var(--mc-baseMain)),
     'currencyAboveZero': var(--mc-success),
 ), $customThemeDefault);
