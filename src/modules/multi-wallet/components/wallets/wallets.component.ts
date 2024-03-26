@@ -87,7 +87,6 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
     public walletCurrency: string = '';
     public hideSettings: boolean;
 
-
     protected readonly walletHelper = WalletHelper;
 
     private searchQuery: string = '';
@@ -340,7 +339,10 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
 
     private async initSelector(): Promise<void> {
 
-        WalletHelper.currencies = this.userService.userProfile.unusedCurrencies;
+        if (!this.isFinance) {
+            WalletHelper.currencies = this.userService.userProfile.unusedCurrencies;
+        }
+
         this.currencies = this.configService.get('appConfig.siteconfig.currencies');
 
         await this.initCurrentWallet();
