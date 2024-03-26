@@ -25,7 +25,8 @@ export interface IBonusesModule {
     /** Unavailable bonus icon path */
     showOnlyIconPath?: string;
     /**
-     * Enable permanent display of buttons
+     * Enable permanent display of buttons.
+     * !!! Should not have a default value for correct #577469 !!!
      */
     isButtonsAreAlwaysShow?: boolean;
     defaultImages?: {

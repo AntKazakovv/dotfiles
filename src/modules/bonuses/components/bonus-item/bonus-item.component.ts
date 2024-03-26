@@ -17,6 +17,7 @@ import _get from 'lodash-es/get';
 import _includes from 'lodash-es/includes';
 import _isArray from 'lodash-es/isArray';
 import _set from 'lodash-es/set';
+import _isUndefined from 'lodash-es/isUndefined';
 
 import {
     AbstractComponent,
@@ -439,7 +440,8 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
             this.addModifiers('show-only');
         }
 
-        if (this.configService.get<boolean>('$bonuses.isButtonsAreAlwaysShow')) {
+        const isButtonsAreAlwaysShow: boolean = this.configService.get<boolean>('$bonuses.isButtonsAreAlwaysShow');
+        if ((this.asProfileTypeFirst && _isUndefined(isButtonsAreAlwaysShow)) || isButtonsAreAlwaysShow) {
             this.addModifiers('always-show-buttons');
         }
     }
