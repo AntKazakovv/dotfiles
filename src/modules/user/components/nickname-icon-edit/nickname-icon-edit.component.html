@@ -1,0 +1,46 @@
+<ng-container *ngIf="ready$ | async; else preloader">
+    <div class="{{$class}}__top">
+        <div class="{{$class}}__icon">
+            <div wlc-icon
+                [showSvgAsImg]="true"
+                [iconPath]="iconPath">
+            </div>
+        </div>
+        <div wlc-input
+            [inlineParams]="$params.nickInputParams">
+        </div>
+    </div>
+    <div class="{{$class}}__bottom">
+        <div class="{{$class}}__title">
+            {{'Select a profile picture' | translate}}
+        </div>
+        <div class="{{$class}}__icons-list">
+            <ng-container *ngFor="let icon of iconsList">
+                <div wlc-icon
+                    [showSvgAsImg]="true"
+                    class="{{$class}}__avatar-img"
+                    [class.chosen]="icon.isChosen"
+                    [iconPath]="icon.path"
+                    (click)="chooseAvatar(icon)">
+                </div>
+            </ng-container>
+        </div>
+        <div class="{{$class}}__buttons">
+            <button wlc-button
+                class="{{$class}}__save-btn"
+                text="Save"
+                (click)="setNicknameIcon()">
+            </button>
+            <button wlc-button
+                class="{{$class}}__cancel-btn"
+                themeMod="secondary"
+                text="Cancel"
+                (click)="closeModal()">
+            </button>
+        </div>
+    </div>
+</ng-container>
+
+<ng-template #preloader>
+    <div wlc-loader class="{{$class}}__loader"></div>
+</ng-template>

@@ -25,6 +25,7 @@ export interface IUserIconCParams extends IComponentParams<ComponentTheme, Compo
      */
     buttonParams?: IButtonCParams;
     useDefaultAvatar?: boolean;
+    showSvgAsImg?: boolean;
 };
 
 export const defaultParams: IUserIconCParams = {

@@ -37,6 +37,26 @@
                 @include bm.get-mq-map('grid-gap', $profileSettings, 'contentCenterColGap');
                 display: grid;
             }
+
+            &__body-with-nick-icon {
+                @include bm.get-mq-map('grid-template-columns', $profileSettings, 'contentNickIconColumns');
+                @include bm.get-mq-map('grid-template-rows', $profileSettings, 'contentNickIconRows');
+                @include bm.get-mq-map('grid-template-areas', $profileSettings, 'contentNickIconAreas');
+                @include bm.get-mq-map('grid-gap', $profileSettings, 'contentNickIconGap');
+                display: grid;
+
+                .wlc-profile-form {
+                    grid-area: form;
+                }
+
+                .wlc-nickname-icon {
+                    grid-area: nick-icon;
+                }
+
+                .wlc-profile-bloks {
+                    grid-area: profile-blocks;
+                }
+            }
         }
 
         .wlc-title.wlc-title--profile[wlc-title] {

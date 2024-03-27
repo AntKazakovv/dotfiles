@@ -1,0 +1,92 @@
+.wlc-nickname-icon--theme-default:host {
+    background: ef.get-value($themeDefault, 'bg');
+    border-radius: ef.get-value($themeDefault, 'radius');
+
+    .wlc-nickname-icon {
+
+        &__container {
+            display: grid;
+            grid-template-columns: minmax(0, 80px) 1fr;
+        }
+
+        &__wrp {
+            display: flex;
+            align-items: ef.get-value($themeDefault, 'wrpAlignItems');
+            justify-content: ef.get-value($themeDefault, 'wrpJustifyContent');
+            width: 100%;
+            padding: ef.get-value($themeDefault, 'wrpPadding');
+        }
+
+        &__icon {
+
+            ::ng-deep {
+
+                img {
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    overflow: hidden;
+                    border-radius: ef.get-value($themeDefault, 'iconRadius');
+                }
+            }
+        }
+
+        &__nick {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &__nick-title {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'nickTitleStyle'),
+                ef.get-value($themeDefault, 'nickTitleColor')
+            );
+            margin: ef.get-value($themeDefault, 'nickTitleMargin');
+        }
+
+        &__nick-value {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'nickValueStyle'),
+                ef.get-value($themeDefault, 'nickValueColor')
+            );
+            @include bm.get-mq-map('max-width', $themeDefault, 'nickValueMaxWidth');
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            &.empty {
+                color: ef.get-value($themeDefault, 'nickEmptyColor');
+            }
+        }
+    }
+
+    ::ng-deep {
+
+        .wlc-btn {
+            min-width: ef.get-value($themeDefault, 'btnMinWidth');
+            padding: ef.get-value($themeDefault, 'btnPadding');
+            background: ef.get-value($themeDefault, 'btnBg');
+            border: ef.get-value($themeDefault, 'btnBorder');
+
+            &__text[class] {
+                @include bm.transition(color);
+                color: ef.get-value($themeDefault, 'btnColor');
+            }
+
+            .wlc-icon {
+                display: ef.get-value($themeDefault, 'btnIconDisplay');
+                transform: ef.get-value($themeDefault, 'btnIconTransform');
+            }
+
+            svg {
+                fill: currentColor;
+            }
+
+            @include bm.hover {
+
+                .wlc-btn__text {
+                    color: ef.get-value($themeDefault, 'btnColorHover');
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,28 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'bg': var(--mc-bg500),
+    'radius': ef.size(2),
+    'wrpJustifyContent': space-between,
+    'wrpAlignItems': center,
+    'wrpPadding': 0 ef.size(5),
+    'nickTitleStyle': 'CaptionText',
+    'nickTitleColor': var(--fc-placeholderColor),
+    'nickTitleMargin': ef.size(1) 0 0,
+    'nickValueStyle': 'PrimaryTextBold',
+    'nickValueColor': var(--mc-baseMain),
+    'nickValueMaxWidth': (
+        375: 110px,
+        480: unset,
+    ),
+    'nickEmptyColor': var(--fc-placeholderColor),
+    'iconRadius': ef.size(2) 0 0 ef.size(2),
+    'btnMinWidth': auto,
+    'btnBg': none,
+    'btnBorder': none,
+    'btnPadding': 0,
+    'btnColor': var(--mc-main),
+    'btnIconTransform': rotate(-90deg),
+    'btnIconDisplay': inline-block,
+    'btnColorHover': var(--mc-baseMain),
+), $customThemeDefault);
+

@@ -38,6 +38,23 @@
         min-width: 0;
     }
 
+    .wlc-profile-content__wrp {
+        @include bm.get-mq-map('border-bottom', $profileSettings, 'contentHeaderBorderBottomV1');
+        margin: ef.get-value($profileSettings, 'contentWrpV1Margin');
+
+        .wlc-title--theme-default {
+
+            div.wlc-title__main[class] {
+                @include text.get-text-style(ef.get-value($profileSettings, 'contentWrpV1Title'));
+            }
+        }
+    }
+
+    .wlc-nickname-icon {
+        @include bm.get-mq-map('width', $profileSettings, 'nicknameIconWidth');
+        margin: ef.get-value($profileSettings, 'nicknameIconMargin');
+    }
+
     .wlc-profile-menu {
         @include bm.get-mq-map('margin', $profileSettings, 'profileMenuMarginV1');
     }

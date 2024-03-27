@@ -47,6 +47,25 @@ button.wlc-user-icon--theme-default:host {
         }
     }
 
+    &.wlc-user-icon--avatar {
+        padding: ef.get-value($themeDefault, 'avatarBtnPadding');
+
+        .wlc-user-icon {
+
+            &__text {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'avatarTextStyle'),
+                    ef.get-value($themeDefault, 'avatarTextColor')
+                );
+                display: block;
+            }
+
+            &__user {
+                margin: ef.get-value($themeDefault, 'avatarIconMargin');
+            }
+        }
+    }
+
     @include bm.hover {
         border: ef.get-value($themeDefault, 'btnBorderHover');
 
@@ -72,6 +91,28 @@ div.wlc-user-icon--theme-default:host {
 
             path {
                 fill: ef.get-value($themeDefault, 'iconInnerFill');
+            }
+        }
+    }
+
+    &.wlc-user-icon--avatar {
+
+        .wlc-user-icon__btn {
+            background: none;
+        }
+
+        ::ng-deep {
+
+            .wlc-icon {
+                display: block;
+            }
+
+            img {
+                display: block;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                border-radius: ef.get-value($themeDefault, 'avatarRadius');
             }
         }
     }
@@ -103,6 +144,33 @@ div.wlc-user-icon--theme-default:host {
 
             path {
                 fill: ef.get-value($themeDefault, 'iconInnerFill');
+            }
+
+            img {
+                display: block;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                border-radius: ef.get-value($themeDefault, 'avatarRadius');
+            }
+        }
+    }
+
+    &.wlc-user-icon--avatar {
+
+        .wlc-user-icon {
+
+            &__arrow {
+                margin: ef.get-value($themeDefault, 'avatarArrowMargin');
+            }
+
+            &__user {
+                width: ef.get-value($themeDefault, 'avatarIconWidth');
+                height: ef.get-value($themeDefault, 'avatarIconHeight');
+            }
+
+            &__text {
+                display: none;
             }
         }
     }
@@ -149,6 +217,29 @@ div.wlc-user-icon--theme-default:host {
 
         @include bm.hover {
             border: ef.get-value($themeDefault, 'profileBtnHoverBorder');
+        }
+    }
+
+    &.wlc-btn-profile--avatar {
+
+        .wlc-btn-profile__btn {
+            padding: ef.get-value($themeDefault, 'avatarProfileBtnPadding');
+        }
+
+        ::ng-deep {
+
+            .wlc-icon {
+                width: ef.get-value($themeDefault, 'avatarIconWidth');
+                height: ef.get-value($themeDefault, 'avatarIconHeight');
+            }
+
+            img {
+                display: block;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                border-radius: ef.get-value($themeDefault, 'avatarRadius');
+            }
         }
     }
 }

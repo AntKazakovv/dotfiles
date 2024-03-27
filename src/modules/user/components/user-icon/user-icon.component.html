@@ -1,6 +1,7 @@
 <ng-template [ngIf]="$params.showAsBtn" [ngIfElse]="default">
     <button wlc-button
         class="{{$class}}__btn"
+        [iconPath]="$params.iconPath"
         [inlineParams]="$params.buttonParams">
     </button>
 </ng-template>
@@ -8,9 +9,15 @@
 <ng-template #default>
     <span wlc-icon
         class="{{$class}}__user"
+        [showSvgAsImg]="$params.showSvgAsImg"
         [iconPath]="$params.iconPath"
         wlcElement="wlc-icon-user">
     </span>
+    <ng-container *ngIf="avatarDef">
+        <span class="{{$class}}__text">
+            {{'Profile' | translate}}
+        </span>
+    </ng-container>
     <span *ngIf="showArrow"
         wlc-icon
         class="{{$class}}__arrow"

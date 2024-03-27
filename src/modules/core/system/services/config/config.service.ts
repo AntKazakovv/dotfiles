@@ -452,14 +452,15 @@ export class ConfigService {
 
     private attachFundistUserIdComponent(): void {
         const {profile} = appConfig.$base;
+        const funIdUse = profile?.fundistUserId?.use;
+        const nickIconUse = profile?.nicknameIcon?.use;
 
-        if (profile?.fundistUserId?.use) {
-            const section = profile?.type === 'first'
-                ? sectionsLib.profileContent.profileFirstWithFundistUserId
-                : sectionsLib.profileContent.profileMainWithFundistUserId;
+        const section = profile?.type === 'first'
+            ? sectionsLib.profileContent.generateProfileFirst(funIdUse, nickIconUse)
+            : sectionsLib.profileContent.generateProfileMain(funIdUse, nickIconUse);
 
-            $layouts['app.profile.main.info'].sections['profile-content'] = section;
-        }
+        $layouts['app.profile.main.info'].sections['profile-content'] = section;
+
     }
 
     private async getCountries(): Promise<void> {

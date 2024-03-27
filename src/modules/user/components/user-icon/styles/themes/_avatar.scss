@@ -17,6 +17,17 @@
     .wlc-user-icon__user {
         flex-shrink: 0;
     }
+
+    ::ng-deep {
+
+        img {
+            display: block;
+            width: ef.get-value($themeAvatar, 'btnSize');
+            height: ef.get-value($themeAvatar, 'btnSize');
+            border-radius: ef.get-value($themeAvatar, 'btnRadius');
+            overflow: hidden;
+        }
+    }
 }
 
 button.wlc-user-icon--theme-avatar:host {

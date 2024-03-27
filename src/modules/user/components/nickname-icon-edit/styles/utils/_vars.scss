@@ -1,0 +1,31 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'modalMaxWidth': 620px,
+    'topMaxWidth': 415px,
+    'topMargin': 0 auto ef.size(6),
+    'userIconSize': (
+        375: 100px,
+        768: 120px,
+    ),
+    'iconsListColumns': (
+        375: repeat(auto-fill, minmax(0, 45px)),
+        768: repeat(auto-fill, minmax(0, 60px)),
+    ),
+    'iconsListGap': (
+        375: ef.size(3),
+        768: ef.size(4),
+    ),
+    'iconsListMargin': ef.size(6) 0 ef.size(8),
+    'avatarMaxHeight': 60px,
+    'avatarRadius': ef.size(2),
+    'avatarBorder': 2px solid transparent,
+    'avatarBorderChosen': 2px solid var(--mc-main),
+    'avatarShadowChosen': 0 0 ef.size(1) var(--mc-main),
+    'chosenMarkBottom': -6px,
+    'chosenMarkRight': -6px,
+    'chosenMarkSize': 16px,
+    'chosenMarkColor': var(--mc-main),
+    'chosenMarkRadius': 100%,
+    'avatarBorderHover': 2px solid var(--mc-main),
+    'saveBtnMargin': 0 ef.size(4) 0 0,
+), $customThemeDefault);

@@ -1,0 +1,105 @@
+::ng-deep {
+
+    .wlc-modal--nicknameIcon {
+
+        .wlc-modal__dialog {
+            max-width: ef.get-value($themeDefault, 'modalMaxWidth');
+        }
+    }
+}
+
+.wlc-nickname-icon-edit--theme-default:host {
+
+    ::ng-deep {
+
+        .wlc-input {
+            width: 100%;
+        }
+    }
+
+    .wlc-nickname-icon-edit {
+
+        &__top {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: ef.get-value($themeDefault, 'topMaxWidth');
+            margin: ef.get-value($themeDefault, 'topMargin');
+        }
+
+        &__icon {
+
+            ::ng-deep {
+
+                img {
+                    @include bm.get-mq-map('width', $themeDefault, 'userIconSize');
+                    @include bm.get-mq-map('height', $themeDefault, 'userIconSize');
+                    border-radius: ef.get-value($themeDefault, 'avatarRadius');
+                    overflow: hidden;
+                }
+            }
+        }
+
+        &__title {
+            text-align: center;
+        }
+
+        &__icons-list {
+            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'iconsListColumns');
+            @include bm.get-mq-map('gap', $themeDefault, 'iconsListGap');
+            display: grid;
+            justify-content: center;
+            margin: ef.get-value($themeDefault, 'iconsListMargin');
+        }
+
+        &__avatar-img {
+            --wlc-avatar-border: #{ef.get-value($themeDefault, 'avatarBorder')};
+            --wlc-chosen-mark-display: none;
+            position: relative;
+            cursor: pointer;
+
+            ::ng-deep {
+
+                img {
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    border: var(--wlc-avatar-border);
+                    border-radius: ef.get-value($themeDefault, 'avatarRadius');
+                    overflow: hidden;
+                }
+            }
+
+            &:after {
+                content: '';
+                position: absolute;
+                right: ef.get-value($themeDefault, 'chosenMarkRight');
+                bottom: ef.get-value($themeDefault, 'chosenMarkBottom');
+                display: var(--wlc-chosen-mark-display);
+                width: ef.get-value($themeDefault, 'chosenMarkSize');
+                height: ef.get-value($themeDefault, 'chosenMarkSize');
+                background: ef.get-value($themeDefault, 'chosenMarkColor');
+                border-radius: ef.get-value($themeDefault, 'chosenMarkRadius');
+            }
+
+            &.chosen {
+                --wlc-avatar-border: #{ef.get-value($themeDefault, 'avatarBorderChosen')};
+                --wlc-chosen-mark-display: block;
+                filter: drop-shadow(ef.get-value($themeDefault, 'avatarShadowChosen'));
+            }
+
+            @include bm.hover {
+                --wlc-avatar-border: #{ef.get-value($themeDefault, 'avatarBorderHover')};
+            }
+        }
+
+        &__buttons {
+            display: flex;
+            justify-content: center;
+        }
+
+        &__save-btn {
+            margin: ef.get-value($themeDefault, 'saveBtnMargin');
+        }
+    }
+}

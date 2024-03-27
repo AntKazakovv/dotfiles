@@ -129,6 +129,8 @@ export interface IUserProfile {
     agreedWithTermsAndConditions?: boolean;
     /** user registration Url */
     registrationURL?: string;
+    /** user's nick */
+    nick?: string;
 }
 
 export type TUserType = 'metamask' | 'default';
@@ -154,6 +156,8 @@ export interface IExtProfile {
     unusedCurrencies?: ICurrencyFilter[];
     /** Time to automatically log out profile without activity */
     logoutTime?: number;
+    /** user's avatar path on static */
+    avatarId?: string;
 }
 
 export interface IExtProfilePaymentSystems {

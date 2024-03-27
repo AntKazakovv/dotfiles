@@ -64,6 +64,10 @@ import {
 import {
     AutoLogoutProfileBlockComponent,
 } from 'wlc-engine/modules/user/components/auto-logout-profile-block/auto-logout-profile-block.component';
+import {NicknameIconComponent} from 'wlc-engine/modules/user/components/nickname-icon/nickname-icon.component';
+import {
+    NicknameIconEditComponent,
+} from 'wlc-engine/modules/user/components/nickname-icon-edit/nickname-icon-edit.component';
 
 export const services = {
     'user-service': UserService,
@@ -105,6 +109,8 @@ export const components = {
     'wlc-email-subscription-profile-block': EmailSubscriptionProfileBlockComponent,
     'wlc-logout-confirmation': LogoutConfirmationComponent,
     'wlc-auto-logout-profile-block': AutoLogoutProfileBlockComponent,
+    'wlc-nickname-icon': NicknameIconComponent,
+    'wlc-nickname-icon-edit': NicknameIconEditComponent,
 };
 
 @NgModule({
@@ -142,6 +148,8 @@ export const components = {
         EmailSubscriptionProfileBlockComponent,
         LogoutConfirmationComponent,
         AutoLogoutProfileBlockComponent,
+        NicknameIconComponent,
+        NicknameIconEditComponent,
     ],
     imports: [
         CommonModule,
@@ -185,6 +193,8 @@ export const components = {
         EmailSubscriptionProfileBlockComponent,
         LogoutConfirmationComponent,
         AutoLogoutProfileBlockComponent,
+        NicknameIconComponent,
+        NicknameIconEditComponent,
     ],
 })
 export class UserModule {

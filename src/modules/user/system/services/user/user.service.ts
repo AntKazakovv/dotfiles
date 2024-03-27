@@ -988,6 +988,14 @@ export class UserService {
             .years * -1 >= legalAge;
     }
 
+    public setNicknameIcon (avatar?: string, nick?: string): Promise<IData> {
+        const extProfile = {
+            avatarId: avatar,
+        };
+
+        return this.updateProfile({extProfile, nick}, {updatePartial: true});
+    }
+
     private successfulRegistration(message: string[]): void {
         this.eventService.emit({
             name: NotificationEvents.PushMessage,

@@ -60,4 +60,7 @@ export const profileConfig: IProfileConfig = {
     },
     type: 'default',
     legalAge: 18,
+    nicknameIcon: {
+        nickMaxLength: 20,
+    },
 };

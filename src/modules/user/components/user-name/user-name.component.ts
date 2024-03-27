@@ -58,6 +58,7 @@ export class UserNameComponent extends AbstractComponent implements OnInit, OnDe
         map(this.processDisplayName.bind(this)),
     );
     protected userId: string;
+    protected useNick: boolean = this.configService.get<boolean>('$base.profile.nicknameIcon.use');
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IUserNameCParams,
@@ -96,10 +97,13 @@ export class UserNameComponent extends AbstractComponent implements OnInit, OnDe
         this.stateService.go('app.profile.main.info');
     }
 
-    protected processDisplayName({firstName, lastName, email, idUser}: UserProfile): string {
+    protected processDisplayName({firstName, lastName, email, idUser, nickname}: UserProfile): string {
         let name: string = gettext('User');
 
-        if (firstName || lastName) {
+        if (this.useNick && nickname) {
+            name = nickname;
+        }
+        else if (firstName || lastName) {
             name = `${firstName} ${lastName}`.trim();
         } else if (email) {
             name = email;

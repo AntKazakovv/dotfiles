@@ -72,6 +72,7 @@ export class IconComponent extends AbstractComponent implements OnInit, OnChange
     }
 
     public override ngOnChanges(): void {
+
         if (this.ready) {
             this.imageHtml = null;
             this.imagePath = null;

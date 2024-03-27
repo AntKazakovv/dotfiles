@@ -236,6 +236,31 @@ export class FilesService {
         return htmlString;
     }
 
+    public getStaticFilesList(folder: string): string[] {
+        const res = [];
+        _forEach(imagesList, (item: string) => {
+            if (item.search(folder + '/') !== -1) {
+                res.push(item);
+            }
+        });
+        return res;
+    }
+
+    public getStaticFileByName(folder: string, name: string): string {
+        const list = this.getStaticFilesList(folder);
+        let res: string;
+
+        _forEach(list, (item: string) => {
+            const fileName = item.substring(0, item.indexOf('.'));
+
+            if (name === fileName) {
+                return res = folder + '/' + item;
+            }
+        });
+
+        return res;
+    }
+
     protected async findFile(filePath: string): Promise<IFile> {
         let file: IFile = {key: filePath};
         if (!filePath) {

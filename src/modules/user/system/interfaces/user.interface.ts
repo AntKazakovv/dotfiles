@@ -54,3 +54,8 @@ export interface IWSDataUserBalance {
     GameActionID?: number;
     Wallets?: IWSWalletObj;
 }
+
+export interface IUserNickIcon {
+    nick: string,
+    icon: string,
+};

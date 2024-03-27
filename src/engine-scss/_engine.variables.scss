@@ -232,6 +232,19 @@ $profileSettings: map-merge((
         1024: minmax(0, 1fr) 30%,
         1200: minmax(675px, max-content) 330px,
     ),
+    'contentNickIconColumns': (
+        375: 1fr,
+        1024: minmax(0, 1fr) 30%,
+        1200: minmax(675px, max-content) auto,
+    ),
+    'contentNickIconRows': (
+        1024: min-content 1fr,
+    ),
+    'contentNickIconAreas': (
+        375: 'nick-icon' 'form',
+        1024: 'form nick-icon' 'form profile-blocks',
+    ),
+    'contentNickIconGap': 30px 80px,
     'contentPaddingV1': (
         375: size-func(4) 0 0,
         1200: size-func(3) size-func(6) size-func(4),
@@ -261,6 +274,13 @@ $profileSettings: map-merge((
         320: 40px,
         1200: 55px,
     ),
+    'contentWrpV1Margin': 0 0 size-func(4),
+    'contentWrpV1Title': 'ThirdTitleBold',
+    'nicknameIconWidth': (
+        375: 100%,
+        900: calc(50% - 20px),
+    ),
+    'nicknameIconMargin': size-func(4) 0,
     'titleColorV1': var(--mc-baseMain),
     'titleTextStyleV1': (
         375: 'ThirdTitleBold',

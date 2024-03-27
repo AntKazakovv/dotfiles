@@ -1,0 +1,24 @@
+<ng-container *ngIf="ready$ | async; else preloader">
+    <div class="{{$class}}__container">
+        <div class="{{$class}}__icon">
+            <div wlc-icon
+                [showSvgAsImg]="$params.showSvgAsImg"
+                [iconPath]="iconPath">
+            </div>
+        </div>
+        <div class="{{$class}}__wrp">
+            <div class="{{$class}}__nick">
+                <span class="{{$class}}__nick-title">{{'Nickname' | translate}}</span>
+                <span class="{{$class}}__nick-value"
+                    [class.empty]="emptyNick">{{userNick}}</span>
+            </div>
+            <button wlc-button
+                [inlineParams]="$params.btnParams"
+                (click)="showModal()"></button>
+        </div>
+    </div>
+</ng-container>
+
+<ng-template #preloader>
+    <div wlc-loader></div>
+</ng-template>

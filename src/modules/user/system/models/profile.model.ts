@@ -200,6 +200,10 @@ export class UserProfile extends AbstractModel<IUserProfile> {
         return this.data.birthDate;
     }
 
+    public get nickname(): string {
+        return this.data.nick;
+    }
+
     public get cpf(): string {
         return this.data.cpf;
     }
@@ -238,6 +242,14 @@ export class UserProfile extends AbstractModel<IUserProfile> {
         }
 
         return this.data.extProfile.nick;
+    }
+
+    public get userIcon(): string {
+        if (Array.isArray(this.data.extProfile)) {
+            return '';
+        }
+
+        return this.data.extProfile.avatarId;
     }
 
     public get type(): TUserType {

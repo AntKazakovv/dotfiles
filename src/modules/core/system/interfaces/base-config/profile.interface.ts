@@ -80,6 +80,12 @@ export interface IProfileConfig {
         cnp?: {
             use: boolean;
         }
+    }
+    nicknameIcon?: {
+        use?: boolean;
+        defaultIcon?: string;
+        iconsFolder?: string;
+        nickMaxLength?: number;
     };
 }
 

@@ -322,4 +322,8 @@ export const errorTypes: ILogTypes = {
         // Error disable google 2FA
         level: 'error',
     },
+    '1.11.0': {
+        // Error on nick and avatar setting
+        level: 'error',
+    },
 };

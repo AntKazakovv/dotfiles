@@ -524,4 +524,13 @@ export const MODALS_LIST: IModalList = {
             showFooter: false,
         },
     },
+    nicknameIcon: {
+        config: {
+            id: 'nicknameIcon',
+            componentName: 'user.wlc-nickname-icon-edit',
+            modalTitle: gettext('Edit profile'),
+            showFooter: false,
+            size: 'md',
+        },
+    },
 };

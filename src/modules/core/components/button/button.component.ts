@@ -143,8 +143,17 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
         }
 
         super.ngOnChanges(changes);
+
         if (_get(changes, 'text') && _get(this, '$params.common.text')) {
             this.$params.common.text = this.text;
+        }
+
+        if (_get(changes, 'inlineParams')) {
+            super.ngOnInit(this.prepareParams());
+        }
+
+        if (_get(changes, 'iconPath')) {
+            this.$params.common.iconPath = this.iconPath;
         }
 
         if (_has(changes, 'themeMod') && _has(this, '$params')) {

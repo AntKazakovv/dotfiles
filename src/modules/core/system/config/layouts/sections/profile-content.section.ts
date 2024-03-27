@@ -122,104 +122,59 @@ const fundistIdComponent: IFormComponent = {
     },
 };
 
-const generateProfileMain = (useFundistUserId: boolean): ILayoutSectionConfig => ({
-    container: true,
-    components: [
-        {
-            name: 'core.wlc-wrapper',
-            params: {
-                class: 'wlc-profile-content__top wlc-profile-content__top--buttons',
-                components: [
-                    componentLib.wlcTitle.profileV2,
-                    componentLib.wlcButton.profileBlocks,
-                ],
+const defaultMainBody: IFormComponent = {
+    name: 'core.wlc-wrapper',
+    params: {
+        class: 'wlc-profile-content__body',
+        components: [
+            componentLib.wlcProfileForm.def,
+            {
+                name: 'user.wlc-profile-blocks',
+                display: {
+                    after: 1023,
+                },
             },
-        },
-        ...(useFundistUserId ? [fundistIdComponent] : []),
-        componentLib.wlcProfileMenu.submenu,
-        {
-            name: 'core.wlc-wrapper',
-            params: {
-                class: 'wlc-profile-content__body',
-                components: [
-                    componentLib.wlcProfileForm.def,
-                    {
-                        name: 'user.wlc-profile-blocks',
-                        display: {
-                            after: 1023,
-                        },
-                    },
-                ],
-            },
-        },
-    ],
-});
+        ],
+    },
+};
 
-const generateProfileFirst = (useFundistUserId: boolean): ILayoutSectionConfig => ({
-    container: true,
-    theme: 'first',
-    components: [
-        componentLib.wlcProfileMenu.defTypeFirst,
-        {
-            name: 'core.wlc-wrapper',
-            params: {
-                class: 'wlc-profile-content__header',
-                components: [
-                    {
-                        name: 'core.wlc-wrapper',
-                        params: {
-                            components: [
-                                componentLib.wlcTitle.myAccountV1,
-                                ...(useFundistUserId ? [fundistIdComponent] : []),
-                            ],
-                        },
-                    },
-                ],
+const defaultMainBodyWithNickAndIcon: IFormComponent = {
+    name: 'core.wlc-wrapper',
+    params: {
+        class: 'wlc-profile-content__body-with-nick-icon',
+        components: [
+            componentLib.wlcProfileForm.def,
+            {
+                name: 'user.wlc-nickname-icon',
             },
-            display: {
-                before: 1199,
+            {
+                name: 'user.wlc-profile-blocks',
+                display: {
+                    after: 1023,
+                },
             },
-        },
-        componentLib.wlcProfileMenu.subMenuV1,
-        {
-            name: 'core.wlc-wrapper',
-            params: {
-                class: 'wlc-profile-content',
-                components: [
-                    {
-                        name: 'core.wlc-wrapper',
-                        params: {
-                            class: 'wlc-profile-content__header underlined',
-                            components: [
-                                {
-                                    name: 'core.wlc-wrapper',
-                                    params: {
-                                        components: [
-                                            componentLib.wlcTitle.profileV1,
-                                            ...(useFundistUserId ? [fundistIdComponent] : []),
-                                        ],
-                                    },
-                                },
-                            ],
-                        },
-                        display: {
-                            after: 1200,
-                        },
-                    },
-                    {
-                        name: 'core.wlc-wrapper',
-                        params: {
-                            class: 'wlc-profile-content__body',
-                            components: [
-                                componentLib.wlcProfileForm.def,
-                            ],
-                        },
-                    },
-                ],
+        ],
+    },
+};
+
+const firstMainBodyWithNickAndIcon: IFormComponent = {
+    name: 'core.wlc-wrapper',
+    params: {
+        class: 'wlc-profile-content__wrp',
+        components: [
+            {
+                name: 'core.wlc-title',
+                params: {
+                    customMod: ['profile'],
+                    mainText: gettext('Profile picture and nickname'),
+                },
             },
-        },
-    ],
-});
+            {
+                name: 'user.wlc-nickname-icon',
+            },
+        ],
+    },
+};
 
 const dashboardPromoSection: ILayoutComponent = {
     name: 'core.wlc-wrapper',
@@ -292,9 +247,101 @@ export namespace profileContent {
         ],
     };
 
-    export const profileMain: ILayoutSectionConfig = generateProfileMain(false);
+    export const generateProfileMain = (useFundistUserId: boolean, useNickAndIcon: boolean): ILayoutSectionConfig => ({
+        container: true,
+        components: [
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__top wlc-profile-content__top--buttons',
+                    components: [
+                        componentLib.wlcTitle.profileV2,
+                        componentLib.wlcButton.profileBlocks,
+                    ],
+                },
+            },
+            ...(useFundistUserId ? [fundistIdComponent] : []),
+            componentLib.wlcProfileMenu.submenu,
+            ...(useNickAndIcon ? [defaultMainBodyWithNickAndIcon] : [defaultMainBody]),
+        ],
+    });
 
-    export const profileMainWithFundistUserId: ILayoutSectionConfig = generateProfileMain(true);
+    export const generateProfileFirst = (useFundistUserId: boolean, useNickAndIcon: boolean): ILayoutSectionConfig => ({
+        container: true,
+        theme: 'first',
+        components: [
+            componentLib.wlcProfileMenu.defTypeFirst,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__header',
+                    components: [
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                components: [
+                                    componentLib.wlcTitle.myAccountV1,
+                                    ...(useFundistUserId ? [fundistIdComponent] : []),
+                                ],
+                            },
+                        },
+                    ],
+                },
+                display: {
+                    before: 1199,
+                },
+            },
+            componentLib.wlcProfileMenu.subMenuV1,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content',
+                    components: [
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__header underlined',
+                                components: [
+                                    {
+                                        name: 'core.wlc-wrapper',
+                                        params: {
+                                            components: [
+                                                componentLib.wlcTitle.profileV1,
+                                                ...(useFundistUserId ? [fundistIdComponent] : []),
+                                            ],
+                                        },
+                                    },
+                                ],
+                            },
+                            display: {
+                                after: 1200,
+                            },
+                        },
+                        ...(useNickAndIcon ? [firstMainBodyWithNickAndIcon] : []),
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__body',
+                                components: [
+                                    componentLib.wlcProfileForm.def,
+                                ],
+                            },
+                        },
+                    ],
+                },
+            },
+        ],
+    });
+
+    /**
+     * @deprecated
+     */
+    export const profileMain: ILayoutSectionConfig = generateProfileMain(false, false);
+
+    /**
+     * @deprecated
+     */
+    export const profileMainWithFundistUserId: ILayoutSectionConfig = generateProfileMain(true, false);
 
     export const profileTypeFirstTabletMenu: ILayoutSectionConfig = {
         container: true,
@@ -309,9 +356,15 @@ export namespace profileContent {
         ],
     };
 
-    export const profileMainTypeFirst: ILayoutSectionConfig = generateProfileFirst(false);
+    /**
+     * @deprecated
+     */
+    export const profileMainTypeFirst: ILayoutSectionConfig = generateProfileFirst(false, false);
 
-    export const profileFirstWithFundistUserId = generateProfileFirst(true);
+    /**
+     * @deprecated
+     */
+    export const profileFirstWithFundistUserId = generateProfileFirst(true, false);
 
     export const profileMainTypeWolf: ILayoutSectionConfig = generateProfileWolf();
 
