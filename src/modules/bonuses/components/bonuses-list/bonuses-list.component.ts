@@ -1,4 +1,5 @@
 import {
+    AfterViewInit,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -17,13 +18,12 @@ import {UIRouter} from '@uirouter/core';
 
 import Swiper from 'swiper';
 import {SwiperOptions} from 'swiper/types/swiper-options';
-import {NavigationOptions} from 'swiper/types/modules/navigation';
 import _find from 'lodash-es/find';
 import _findIndex from 'lodash-es/findIndex';
 import _merge from 'lodash-es/merge';
 import _union from 'lodash-es/union';
 import _each from 'lodash-es/each';
-import _random from 'lodash-es/random';
+import _cloneDeep from 'lodash-es/cloneDeep';
 
 import {
     AbstractComponent,
@@ -70,7 +70,7 @@ import * as Params from './bonuses-list.params';
     preserveWhitespaces: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BonusesListComponent extends AbstractComponent implements OnInit, OnDestroy {
+export class BonusesListComponent extends AbstractComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @Input() protected type: Params.Type;
     @Input() protected theme: Params.Theme;
@@ -88,7 +88,6 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
     public sliderParams: ISliderCParams = {
         swiper: {},
     };
-    public navigationId: string = _random(10000000).toString(16);
     public slides: ISlide[] = [];
     public checkBoxParams: ICheckboxCParams = {
         name: 'choose-no-bonus',
@@ -170,19 +169,18 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
          * чтобы не приходилось в параметрах отдельных конфигов дублировать без нужды breakpoints
          */
         if (this.$params.type === 'swiper') {
-            const navParams: NavigationOptions | {} =
-                this.$params.hideNavigation ? {} : {
-                    navigation: {
-                        nextEl: '.wlc-swiper-button-next-' + this.navigationId,
-                        prevEl: '.wlc-swiper-button-prev-' + this.navigationId,
-                    },
-                };
-            this.sliderParams.swiper = _merge(this.$params.common?.swiper, navParams);
+            this.sliderParams.swiper = _cloneDeep(this.$params.common?.swiper);
         }
 
         this.setFilters();
         this.subscribeBonuses();
         this.setSubscription();
+    }
+
+    public ngAfterViewInit(): void {
+        if (this.$params.type === 'swiper' && !this.$params.hideNavigation) {
+            this.sliderParams = _cloneDeep(this.sliderParams);
+        }
     }
 
     public override ngOnDestroy(): void {
@@ -474,6 +472,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                     this.isSingleBonus = true;
                 } else {
                     this.sliderParams.swiper = _merge({
+                        navigation: !this.$params.hideNavigation,
                         slidesPerView: 1,
                         spaceBetween: 0,
                         allowTouchMove: true,

@@ -192,6 +192,10 @@ export namespace wlcBonusesList {
                     nested: true,
                     slidesPerView: 2,
                     spaceBetween: 20,
+                    navigation: {
+                        nextEl: '.wlc-swiper-button-next',
+                        prevEl: '.wlc-swiper-button-prev',
+                    },
                     observer: true,
                     observeSlideChildren: true,
                     breakpoints: {
@@ -306,6 +310,10 @@ export namespace wlcBonusesList {
                 sortOrder: ['active', 'inventory', 'promocode', 'subscribe'],
                 swiper: {
                     slidesPerView: 1,
+                    navigation: {
+                        nextEl: '.wlc-bonuses-list .wlc-swiper-button-next',
+                        prevEl: '.wlc-bonuses-list .wlc-swiper-button-prev',
+                    },
                     pagination: false,
                     lazy: true,
                     spaceBetween: 20,
@@ -336,6 +344,10 @@ export namespace wlcBonusesList {
                 sortOrder: ['active', 'inventory', 'promocode', 'subscribe'],
                 swiper: {
                     slidesPerView: 1,
+                    navigation: {
+                        nextEl: '.wlc-bonuses-list .wlc-swiper-button-next',
+                        prevEl: '.wlc-bonuses-list .wlc-swiper-button-prev',
+                    },
                     lazy: true,
                     loop: true,
                 },

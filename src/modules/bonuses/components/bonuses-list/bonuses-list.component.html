@@ -25,8 +25,8 @@
 
                 <div *ngIf="showNavigation" slot-container-end>
                     <div wlc-slider-navigation
-                        [classPrev]="'swiper-button-prev wlc-swiper-button-prev-' + navigationId"
-                        [classNext]="'swiper-button-next wlc-swiper-button-next-' + navigationId">
+                        [classPrev]="'swiper-button-prev'"
+                        [classNext]="'swiper-button-next'">
                     </div>
                 </div>
             </ng-container>
@@ -97,14 +97,6 @@
 </ng-template>
 
 <ng-template #promoHome>
-    <div *ngIf="showNavigation && bonuses?.length" slot-container-end>
-        <div wlc-slider-navigation
-             class="{{$class}}__slider-pagination"
-             [classPrev]="'wlc-swiper-button-prev-' + navigationId"
-             [classNext]="'wlc-swiper-button-next-' + navigationId">
-        </div>
-    </div>
-
     <ng-container *ngIf="bonuses?.length; else: noContent">
         <div wlc-slider
              class="{{$class}}__slider"
@@ -112,6 +104,9 @@
              [slides]="slides"
              [inlineParams]="sliderParams"
         ></div>
+        <div *ngIf="showNavigation" slot-container-end>
+            <div wlc-slider-navigation class="{{$class}}__slider-pagination"></div>
+        </div>
     </ng-container>
 </ng-template>
 
@@ -134,12 +129,11 @@
                      [slides]="slides"
                      [inlineParams]="sliderParams"
                      (slideChangeTransitionEnd$)="onSlideChange($event)">
-                    <div *ngIf="showNavigation" slot-container-end>
-                        <div wlc-slider-navigation
-                             class="container swiper-button-container"
-                             [classPrev]="'wlc-swiper-button-prev-' + navigationId"
-                             [classNext]="'wlc-swiper-button-next-' + navigationId">
-                        </div>
+                </div>
+                <div *ngIf="showNavigation" slot-container-end>
+                    <div wlc-slider-navigation
+                        [inlineParams]="$params.navigationParams"
+                        class="swiper-button-container">
                     </div>
                 </div>
             </ng-container>
@@ -166,18 +160,18 @@
         </div>
         <div *ngIf="$params.type === 'swiper'" class="{{$class}}__list-wrapper">
             <ng-container *ngIf="bonuses?.length && isReady; else: noBonuses">
-                <div *ngIf="showNavigation" slot-container-end>
-                    <div wlc-slider-navigation
-                        [classPrev]="'swiper-button-prev wlc-swiper-button-prev-' + navigationId"
-                        [classNext]="'swiper-button-next wlc-swiper-button-next-' + navigationId">
-                    </div>
-                </div>
-
                 <div wlc-slider
                      class="{{$class}}__slider"
                      type="dashboard"
                      [slides]="slides"
                      [inlineParams]="sliderParams">
+                </div>
+
+                <div *ngIf="showNavigation" slot-container-end>
+                    <div wlc-slider-navigation
+                        [classPrev]="'swiper-button-prev'"
+                        [classNext]="'swiper-button-next'">
+                    </div>
                 </div>
             </ng-container>
         </div>
