@@ -1,8 +1,7 @@
 <ng-container *ngIf="icon" [ngSwitch]="icon.template">
     <a class="{{$class}}__wrp"
         *ngSwitchCase="'sref'"
-        [uiSref]="icon.sref"
-        [uiParams]="icon.srefParams"
+        [wlc-link]="[icon.sref, icon.srefParams]"
         [attr.target]="icon.target"
         attr.title="{{icon.title | translate}} {{icon.alt}}">
         <ng-container
