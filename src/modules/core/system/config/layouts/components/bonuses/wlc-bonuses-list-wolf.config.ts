@@ -11,11 +11,18 @@ const generateSwiperOptions = (slides: number, mod: string = 'default'): SwiperO
             prevEl: `.wlc-bonuses-list--theme-mod-${mod} .wlc-swiper-button-prev`,
         },
         pagination: false,
-        spaceBetween: 20,
+        spaceBetween: 12,
+        followFinger: true,
         breakpoints: {
+            720: {
+                slidesPerView: 'auto',
+                slidesPerGroup: 1,
+                spaceBetween: 20,
+            },
             1200: {
                 slidesPerView: slides,
                 slidesPerGroup: slides - 1,
+                spaceBetween: 20,
             },
         },
     };

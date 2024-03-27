@@ -39,7 +39,8 @@ $themeWolfPagination: map-merge((
         1200: hidden,
     ),
     'swiperSlideMaxWidth' : (
-        375: 385px,
+        375: unset,
+        900: 385px,
         1200: unset,
     ),
     'containerBorderRadius': ef.size(2),
