@@ -136,7 +136,7 @@ export class MenuService {
         return _reduce(items, (items: IMenuItem[], item: IMenuItem) => {
             if (item.type === 'dropdown') {
                 item.items = this.prepareMenuItems(item.items);
-            } else if (item.type === 'category') {
+            } else if (item.type === 'category' || (item.type === 'page' && item.id === 'recommendations')) {
                 const category: CategoryModel = this.gamesCatalogService.getCategoryBySlug(item.id);
                 if (!category) {
                     return items;
