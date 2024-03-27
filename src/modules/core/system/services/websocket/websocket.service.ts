@@ -54,6 +54,7 @@ export const WebSocketEvents: IIndexing<IIndexing<string>> = {
         LATEST_BETS: 'publicgameaction',
         STREAMWHEEL: 'streamwheel',
         LOYALTY_GET: 'loyalty.loyalty.get',
+        LOYALTY_UPDATE: 'updateloyalty',
         LOYALTY_USERINFO: 'UserInfo',
         USER: 'funcore.wlcinfo.user',
         USER_BALANCE: 'userbalance',

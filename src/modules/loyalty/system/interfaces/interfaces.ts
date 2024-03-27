@@ -1,4 +1,7 @@
-import {ILoyalty} from 'wlc-engine/modules/core/system/interfaces/loyalty.interface';
+import {
+    ILoyalty,
+    ILoyaltyUpdate,
+} from 'wlc-engine/modules/core/system/interfaces/loyalty.interface';
 
 export interface ILoyaltyConfig {
     loyalty?: {
@@ -22,7 +25,7 @@ export interface ILoyaltyConfig {
 };
 
 export interface IWSLoyalty {
-    data: ILoyalty,
+    data: ILoyalty | ILoyaltyUpdate,
     event: string,
     status: string,
     requestId: number,

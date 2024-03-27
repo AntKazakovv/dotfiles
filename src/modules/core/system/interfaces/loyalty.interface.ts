@@ -4,7 +4,7 @@ export interface ILoyalty {
     Balance?: string;
     Block?: number;
     BonusRestrictions?: any;
-    BonusesBalance: IIndexing<IBonusesBalance>;
+    BonusesBalance?: IIndexing<IBonusesBalance>;
     CheckDate?: string;
     ConfirmPoints?: string;
     Country?: string;
@@ -18,13 +18,23 @@ export interface ILoyalty {
     Language?: string;
     Level?: string;
     LevelCoef?: string;
-    LevelName: any;
+    LevelName?: any;
     LevelUp?: boolean;
     Login?: string;
     NextLevelPoints?: string;
     Points?: string;
     TotalBets?: string;
     TotalPoints?: string;
+}
+
+export interface ILoyaltyUpdate {
+    Balance?: number;
+    ConfirmPoints?: number;
+    IDUser?: number;
+    Level?: number;
+    LevelName?: any;
+    NextLevelPoints?: number;
+    Points?: number;
 }
 
 export interface IFreeRound {

@@ -48,6 +48,8 @@ import {
     IMGAConfig,
     IValidateData,
     WebsocketService,
+    ILoyalty,
+    ILoyaltyUpdate,
 } from 'wlc-engine/modules/core';
 import {
     IProcessEventData,
@@ -298,16 +300,36 @@ export class UserService {
         this.eventService.subscribe({name: 'SOCKET_CONNECT', status: 'success'}, (data) => {
             if (this.isAuth$.getValue() && data === 'wsc2') {
                 this.webSocketService.sendToWebsocket('wsc2', WebSocketEvents.SEND.LOYALTY);
-                this.dataLoyaltyUserSub = this.webSocketService.getMessages(
-                    {endPoint: 'wsc2', events: [WebSocketEvents.RECEIVE.LOYALTY_GET]})
-                    .subscribe((data: IWSLoyalty) => {
-                        this.info.loyalty = data.data;
-                        this.setUserInfo();
-                        this.eventService.emit({
-                            name: 'USER_INFO',
-                            data: this.info,
-                        });
+                this.dataLoyaltyUserSub = this.webSocketService.getMessages({
+                    endPoint: 'wsc2',
+                    events: [
+                        WebSocketEvents.RECEIVE.LOYALTY_GET,
+                        WebSocketEvents.RECEIVE.LOYALTY_UPDATE,
+                    ],
+                }).subscribe((data: IWSLoyalty): void => {
+                    switch (data.event) {
+                        case WebSocketEvents.RECEIVE.LOYALTY_UPDATE:
+                            const updatedLoyalty: ILoyalty = {};
+                            for (const [key, value] of Object.entries(this.info.loyalty)) {
+                                updatedLoyalty[key] = (data.data as ILoyaltyUpdate)[key]?.toString() ?? value;
+                            }
+                            this.info.loyalty = updatedLoyalty;
+                            break;
+                        case WebSocketEvents.RECEIVE.LOYALTY_GET:
+                            this.info.loyalty = data.data as ILoyalty;
+                            break;
+                        default:
+                            return;
+                    }
+
+                    this.setUserInfo();
+
+                    this.eventService.emit({
+                        name: 'USER_INFO',
+                        data: this.info,
                     });
+                });
+
                 if (this.configService.get('$base.profile.webSockets.userBalance.use')) {
                     this.startWSUserBalance();
                 }
