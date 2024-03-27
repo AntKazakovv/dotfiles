@@ -14,6 +14,8 @@
     ::ng-deep {
 
         .wlc-btn {
+            --wlc-icon-width: #{ef.get-value($themeDefault, 'iconSize')};
+            --wlc-icon-height: #{ef.get-value($themeDefault, 'iconSize')};
             color: ef.get-value($themeDefault, 'iconFill');
 
             &.has-unread {
@@ -22,11 +24,6 @@
                 @include bm.hover {
                     color: ef.get-value($themeDefault, 'iconFillHasUnreadHover');
                 }
-            }
-
-            svg {
-                @include bm.transition(fill);
-                fill: currentColor;
             }
 
             @include bm.hover {

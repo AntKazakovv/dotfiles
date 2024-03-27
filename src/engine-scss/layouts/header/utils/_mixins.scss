@@ -136,17 +136,7 @@
 
         &-login,
         &-signup {
-
-            .wlc-icon {
-
-                svg {
-
-                    path,
-                    rect {
-                        fill: ef.get-value($theme, 'headerSvgBtn');
-                    }
-                }
-            }
+            color: ef.get-value($theme, 'headerSvgBtn');
         }
 
         &--mobile-login[class] {
