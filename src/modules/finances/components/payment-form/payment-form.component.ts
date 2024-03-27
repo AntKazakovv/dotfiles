@@ -306,7 +306,8 @@ export class PaymentFormComponent
         return this.currentSystem
             && this.cryptoCheck
             && !this.isCryptoInvoices
-            && !this.requiredFieldsKeys.length;
+            && !this.requiredFieldsKeys.length
+            && !this.isMultiWallet;
     }
 
     public get dateExpire(): DateTime {
@@ -392,7 +393,7 @@ export class PaymentFormComponent
         switch (msg) {
             case 'msg1':
                 return !this.isCryptoInvoices
-                    && !this.cryptoCheck
+                    && (!this.cryptoCheck || (this.cryptoCheck && this.isMultiWallet))
                     && this.currentSystem?.isPayCryptosV2;
             case 'msg2':
                 return this.isCryptoInvoices
