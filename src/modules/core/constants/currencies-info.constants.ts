@@ -71,6 +71,7 @@ export namespace CurrenciesInfo {
         'USDT',
         'XB3',
         'XRP',
+        'USDC',
     ]);
 
     /** Special currencis, such as loyalty points, free spins, experience points and free bets */
@@ -247,6 +248,9 @@ export namespace CurrenciesInfo {
         MBNB: {
             icon: '',
             code: [77, 66, 78, 66],
+        },
+        USDC: {
+            code: [85, 83, 68, 67],
         },
     };
 }
