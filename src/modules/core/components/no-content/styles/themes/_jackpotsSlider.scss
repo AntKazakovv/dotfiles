@@ -1,17 +1,52 @@
 .wlc-no-content--wlc-jackpots-slider:host {
     @include baseNoContent();
 
-    &.wlc-no-content--theme-1 {
+    &.wlc-no-content--theme-1,
+    &.wlc-no-content--theme-vertical {
         text-align: ef.get-value($slidersWinnersTheme1, 'nodataTextAlign');
 
         .wlc-no-content {
 
             &__wrapper {
                 @include bm.get-mq-map('padding', $slidersWinnersTheme1, 'wrapperPadding');
+                @include bm.get-mq-map('min-height', $slidersWinnersTheme1, 'wrapperMinHeight');
+                background: ef.get-value($slidersWinnersTheme1, 'wrapperBackground');
+                border-radius: ef.get-value($slidersWinnersTheme1, 'wrapperBorderRadius');
+            }
+
+            &__body {
+                gap: ef.get-value($slidersWinnersTheme1, 'bodyGap');
+                align-items: ef.get-value($slidersWinnersTheme1, 'nodataBodyAlignItems');
+                justify-content: ef.get-value($slidersWinnersTheme1, 'nodataBodyJustifyContent');
+                margin: auto;
+                text-align: ef.get-value($slidersWinnersTheme1, 'nodataBodyTextAlign');
+            }
+
+            &__content {
+                flex: ef.get-value($slidersWinnersTheme1, 'contentFlex');
+            }
+
+            &__title {
+                font-size: ef.get-value($slidersWinnersTheme1, 'nodataBodyTitleFontSize');
+                line-height: ef.get-value($slidersWinnersTheme1, 'nodataBodyTitleLineHeight');
+            }
+
+            &__text {
+                margin: ef.get-value($slidersWinnersTheme1, 'nodataBodyTextMargin');
             }
 
             &__button-wrap {
                 margin: ef.get-value($slidersWinnersTheme1, 'btnsWrapMargin');
+            }
+        }
+    }
+
+    &.wlc-no-content--theme-vertical {
+
+        .wlc-no-content {
+
+            &__wrapper {
+                @include bm.get-mq-map('padding', $slidersWinnersThemeVertical, 'wrapperPadding');
             }
         }
     }

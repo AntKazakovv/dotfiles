@@ -1,5 +1,4 @@
 .wlc-winners-slider--theme-transparent:host {
-    --wlc-winner-slider-slide-height: #{ef.get-value($themeTransparent, 'slideHeight')};
     position: relative;
 
     .wlc-winners-slider {
@@ -21,7 +20,7 @@
                 .wlc-winners-slider__title {
                     flex: ef.get-value($themeTransparent, 'titleNoWinnersFlex');
                     align-items: flex-start;
-                    min-height: ef.get-value($themeTransparent, 'titleNoWinnersMinHeight');
+                    margin-bottom: ef.get-value($themeTransparent, 'titleNoWinnersMargin');
                 }
             }
         }
@@ -40,7 +39,7 @@
         }
 
         &__slider {
-            @include bm.get-mq-map('height', $themeTransparent, 'sliderHeight');
+            @include bm.get-mq-map('max-height', $themeTransparent, 'sliderHeight');
             @include bm.get-mq-map('margin', $themeTransparent, 'wrapperMargin');
 
             ::ng-deep {
@@ -53,6 +52,12 @@
 
                 swiper-container::part(container) {
                     overflow: visible;
+                    @if ef.get-value($themeTransparent, 'sliderShadowPadding') {
+                        margin-bottom: -1 * ef.get-value($themeTransparent, 'sliderShadowPadding');
+                        margin-left: -1 * ef.get-value($themeTransparent, 'sliderShadowPadding');
+                        padding-bottom: ef.get-value($themeTransparent, 'sliderShadowPadding');
+                        padding-left: ef.get-value($themeTransparent, 'sliderShadowPadding');
+                    }
                 }
             }
         }

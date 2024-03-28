@@ -55,7 +55,7 @@ export const swiperParamsDefault: IIndexing<SwiperOptions> = {
     vertical: {
         direction: 'vertical',
         slidesPerView: 4,
-        spaceBetween: 10,
+        spaceBetween: 18,
         loop: true,
         autoplay: {
             disableOnInteraction: false,

@@ -12,8 +12,8 @@ export namespace  winnersSection {
                     class: 'winners-wrapper',
                     components: [
                         componentLib.wlcLastWinsSlider.one,
-                        componentLib.wlcBiggestWinsSlider.one,
                         componentLib.wlcJackpotsSlider.one,
+                        componentLib.wlcBiggestWinsSlider.one,
                     ],
                 },
             },

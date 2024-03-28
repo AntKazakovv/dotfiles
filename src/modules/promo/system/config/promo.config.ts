@@ -43,6 +43,7 @@ export const promoConfig: IPromoConfig = {
                 biggest: {
                     default: {
                         title: gettext('Here will be your biggest win!'),
+                        text: gettext(' '),
                         redirectBtn: {
                             useBtn: false,
                         },
@@ -50,6 +51,9 @@ export const promoConfig: IPromoConfig = {
                     1: {
                         redirectBtn: {
                             useBtn: true,
+                        },
+                        link: {
+                            useLink: false,
                         },
                     },
                     vertical: {
@@ -71,7 +75,14 @@ export const promoConfig: IPromoConfig = {
         'wlc-jackpots-slider': {
             noContent: {
                 default: {
-                    title: gettext('Oh, all the available jackpots have been played.'),
+                    title: gettext('Oh, all the available jackpots have been played. New jackpots' +
+                    ' will appear later. In the meantime, we offer you to have a look at our new games.'),
+                    redirectBtn: {
+                        useBtn: true,
+                    },
+                    link: {
+                        useLink: false,
+                    },
                 },
             },
         },

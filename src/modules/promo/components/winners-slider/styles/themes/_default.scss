@@ -31,11 +31,17 @@
         &__title {
             @include text.get-text-style('QoteTextBold', ef.get-value($themeDefault, 'titleColor'));
             @include bm.get-mq-map('margin-bottom', $themeDefault, 'titleMarginBottom');
-            @include bm.get-mq-map('padding-right', $themeDefault, 'titlePaddingRight');
+            @include bm.get-mq-map('margin-right', $themeDefault, 'titleMarginRight');
             @include bm.get-mq-map('flex', $themeDefault, 'titleFlex');
             @include bm.get-mq-map('text-align', $themeDefault, 'titleAlignment');
 
             display: none;
+
+            height: ef.get-value($themeDefault, 'titleHeight');
+            padding-top: ef.get-value($themeDefault, 'titlePaddingTop');
+            background-color: ef.get-value($themeDefault, 'titleBackground');
+            border-radius: ef.get-value($themeDefault, 'titleBorder');
+
 
             @include mq.min(ef.get-value($themeDefault, 'breakpoint')) {
                 display: block;

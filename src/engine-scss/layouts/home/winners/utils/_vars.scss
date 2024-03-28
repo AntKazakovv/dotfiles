@@ -31,7 +31,7 @@ $themeWinnersSection: map-merge((
 
 $customThemeWinnersSectionStripe: () !default;
 $themeWinnersSectionStripe: map-merge((
-    'background': var(--mc-bg700),
+    'background': none,
     'containerRadius':  ef.get('radius', 'biger'),
     'maxWidthWideContainer': 1870px,
     'paddingWideContainer': (

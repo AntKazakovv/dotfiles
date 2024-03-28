@@ -17,15 +17,6 @@
 
         & > div {
             @include bm.get-mq-map('margin', $themeWinnersSection, 'itemsMargin');
-
-            &:first-child,
-            &:last-child {
-                @include bm.get-mq-map('transform', $themeWinnersSection, 'translateItems');
-            }
-
-            &:last-child {
-                @include bm.get-mq-map('margin', $themeWinnersSection, 'lastItemMargin');
-            }
         }
     }
 }

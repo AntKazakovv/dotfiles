@@ -77,6 +77,8 @@ export class JackpotsSliderComponent extends AbstractComponent implements OnInit
         this.gamesCatalogService = await this.injectionService.getService('games.games-catalog-service');
         this.noContentParams = GlobalHelper.getNoContentParams(this.$params, this.$class, this.configService);
         this.initListener();
+        this.ready = true;
+        this.cdr.markForCheck();
     }
 
     public ngAfterViewInit(): void {

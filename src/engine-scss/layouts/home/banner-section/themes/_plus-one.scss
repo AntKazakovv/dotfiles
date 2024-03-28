@@ -22,12 +22,5 @@
                 padding: ef.get-value($themePlusOne, 'bannerPadding');
             }
         }
-
-        .wlc-winners-slider--theme-vertical[class] {
-
-            .wlc-winners-slider__slider {
-                margin: ef.get-value($themePlusOne, 'winnersSliderMargin');
-            }
-        }
     }
 }

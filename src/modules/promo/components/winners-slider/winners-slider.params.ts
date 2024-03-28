@@ -35,7 +35,7 @@ export const defaultParams: IWinnersSliderCParams = {
 export const swiperParamsDefault: IIndexing<SwiperOptions> = {
     default: {
         slidesPerView: 5,
-        spaceBetween: 22,
+        spaceBetween: 10,
         loop: true,
         autoplay: {
             disableOnInteraction: false,
@@ -90,7 +90,7 @@ export const swiperParamsDefault: IIndexing<SwiperOptions> = {
     vertical: {
         direction: 'vertical',
         slidesPerView: 4,
-        spaceBetween: 10,
+        spaceBetween: 18,
         loop: true,
         autoplay: {
             disableOnInteraction: false,
@@ -102,7 +102,7 @@ export const swiperParamsDefault: IIndexing<SwiperOptions> = {
     },
     transparent: {
         direction: 'vertical',
-        slidesPerView: 3,
+        slidesPerView: 4,
         spaceBetween: 10,
         loop: true,
         autoplay: {

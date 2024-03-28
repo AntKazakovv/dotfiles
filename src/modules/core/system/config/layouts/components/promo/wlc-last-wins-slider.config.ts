@@ -79,7 +79,11 @@ export namespace wlcLastWinsSlider {
                         slidesPerView: 4,
                         followFinger: false,
                     },
-                    1024: {
+                    1200: {
+                        slidesPerView: 3,
+                        followFinger: true,
+                    },
+                    1630: {
                         slidesPerView: 4,
                         followFinger: true,
                     },

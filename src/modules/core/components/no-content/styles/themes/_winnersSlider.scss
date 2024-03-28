@@ -1,17 +1,76 @@
 .wlc-no-content--wlc-winners-slider:host {
     @include baseNoContent();
 
-    &.wlc-no-content--theme-1 {
+    &.wlc-no-content--theme-1.wlc-no-content--theme-mod-default.wlc-no-content--type-default {
         text-align: ef.get-value($slidersWinnersTheme1, 'nodataTextAlign');
 
         .wlc-no-content {
 
             &__wrapper {
                 @include bm.get-mq-map('padding', $slidersWinnersTheme1, 'wrapperPadding');
+                @include bm.get-mq-map('min-height', $slidersWinnersTheme1, 'wrapperMinHeight');
+                border-radius: ef.get-value($slidersWinnersTheme1, 'wrapperBorderRadius');
+
+                &:before {
+                    @include linearGradient();
+                    border-radius: ef.get-value($slidersWinnersTheme1, 'wrapperBorderRadius');
+                }
+            }
+
+            &__body {
+                gap: ef.get-value($slidersWinnersTheme1, 'bodyGap');
+                justify-content: ef.get-value($slidersWinnersTheme1, 'nodataBodyJustifyContent');
+            }
+
+            &__content {
+                flex: ef.get-value($slidersWinnersTheme1, 'contentFlex');
+            }
+
+            &__title {
+                font-size: ef.get-value($slidersWinnersTheme1, 'nodataBodyTitleFontSize');
+                line-height: ef.get-value($slidersWinnersTheme1, 'nodataBodyTitleLineHeight');
+            }
+
+            &__text {
+                margin: ef.get-value($slidersWinnersTheme1, 'nodataBodyTextMargin');
             }
 
             &__button-wrap {
                 margin: ef.get-value($slidersWinnersTheme1, 'btnsWrapMargin');
+            }
+        }
+    }
+
+    &.wlc-no-content--theme-vertical.wlc-no-content--theme-mod-default.wlc-no-content--type-default {
+        text-align: ef.get-value($slidersWinnersThemeVertical, 'nodataTextAlign');
+
+        .wlc-no-content {
+
+            &__wrapper {
+                @include bm.get-mq-map('padding', $slidersWinnersThemeVertical, 'wrapperPadding');
+                @include bm.get-mq-map('min-height', $slidersWinnersThemeVertical, 'wrapperMinHeight');
+            }
+
+            &__body {
+                gap: ef.get-value($slidersWinnersThemeVertical, 'bodyGap');
+                justify-content: ef.get-value($slidersWinnersThemeVertical, 'nodataBodyJustifyContent');
+            }
+
+            &__content {
+                flex: ef.get-value($slidersWinnersThemeVertical, 'contentFlex');
+            }
+
+            &__title {
+                font-size: ef.get-value($slidersWinnersThemeVertical, 'nodataBodyTitleFontSize');
+                line-height: ef.get-value($slidersWinnersThemeVertical, 'nodataBodyTitleLineHeight');
+            }
+
+            &__text {
+                margin: ef.get-value($slidersWinnersThemeVertical, 'nodataBodyTextMargin');
+            }
+
+            &__button-wrap {
+                margin: ef.get-value($slidersWinnersThemeVertical, 'btnsWrapMargin');
             }
         }
     }
@@ -81,6 +140,11 @@
 
             &__wrapper {
                 @include bm.get-mq-map('padding', $slidersWinnersModStripe, 'wrapperPadding');
+                border-radius: ef.get-value($slidersWinnersModStripe, 'wrapperBorderRadius');
+
+                &:before {
+                    display: none;
+                }
             }
 
             &__title {
@@ -100,17 +164,74 @@
 
     &.wlc-no-content--theme-transparent {
 
-        .wlc-no-content__wrapper {
-            padding: ef.get-value($slidersWinnersTransparent, 'wrapperPadding');
-            background: none;
+        text-align: ef.get-value($slidersWinnersThemeTransparent, 'nodataTextAlign');
 
-            &:before {
-                display: none;
+        .wlc-no-content {
+
+            &__wrapper {
+                @include bm.get-mq-map('padding', $slidersWinnersThemeTransparent, 'wrapperPadding');
+                @include bm.get-mq-map('min-height', $slidersWinnersThemeTransparent, 'wrapperMinHeight');
+                border-radius: ef.get-value($slidersWinnersThemeTransparent, 'wrapperBorderRadius');
+
+                &:before {
+                    display: none;
+                }
+            }
+
+            &__body {
+                gap: ef.get-value($slidersWinnersThemeTransparent, 'bodyGap');
+                justify-content: ef.get-value($slidersWinnersThemeTransparent, 'nodataBodyJustifyContent');
+            }
+
+            &__content {
+                flex: ef.get-value($slidersWinnersThemeTransparent, 'contentFlex');
+            }
+
+            &__title {
+                font-size: ef.get-value($slidersWinnersThemeTransparent, 'nodataBodyTitleFontSize');
+                line-height: ef.get-value($slidersWinnersThemeTransparent, 'nodataBodyTitleLineHeight');
+            }
+
+            &__text {
+                margin: ef.get-value($slidersWinnersThemeTransparent, 'nodataBodyTextMargin');
+            }
+
+            &__button-wrap {
+                margin: ef.get-value($slidersWinnersThemeTransparent, 'btnsWrapMargin');
             }
         }
+    }
 
-        .wlc-no-content__button-wrap {
-            margin: ef.get-value($slidersWinnersTransparent, 'buttonMargin');
+    &.wlc-no-content--theme-mod-along-with-tournament {
+
+        .wlc-no-content {
+
+            &__wrapper {
+                @include bm.get-mq-map('padding', $slidersWinnersThemeVertical, 'wrapperPadding');
+                @include bm.get-mq-map('min-height', $slidersWinnersThemeVertical, 'wrapperMinHeight');
+            }
+
+            &__body {
+                gap: ef.get-value($slidersWinnersThemeVertical, 'bodyGap');
+                justify-content: ef.get-value($slidersWinnersThemeVertical, 'nodataBodyJustifyContent');
+            }
+
+            &__content {
+                flex: ef.get-value($slidersWinnersThemeVertical, 'contentFlex');
+            }
+
+            &__title {
+                font-size: ef.get-value($slidersWinnersThemeVertical, 'nodataBodyTitleFontSize');
+                line-height: ef.get-value($slidersWinnersThemeVertical, 'nodataBodyTitleLineHeight');
+            }
+
+            &__text {
+                margin: ef.get-value($slidersWinnersThemeVertical, 'nodataBodyTextMargin');
+            }
+
+            &__button-wrap {
+                margin: ef.get-value($slidersWinnersThemeVertical, 'btnsWrapMargin');
+            }
         }
     }
 }

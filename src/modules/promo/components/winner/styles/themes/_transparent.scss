@@ -4,27 +4,28 @@
 
         &__wrapper {
             gap: ef.get-value($themeTransparent, 'wrapperGap');
-            height: ef.get-value($themeTransparent, 'imageSize');
+            background: ef.get-value($themeTransparent, 'wrapperBackground');
+            border-radius: ef.get-value($themeTransparent, 'wrapperBorderRadius');
         }
 
         &__block {
 
             &--right {
+                @include bm.get-mq-map('padding', $themeTransparent, 'rightPadding');
                 align-content: center;
-                height: ef.get-value($themeTransparent, 'imageSize');
-                padding: ef.get-value($themeTransparent, 'rightPadding');
-                background: ef.get-value($themeTransparent, 'rightBackground');
-                border-radius: ef.get-value($themeTransparent, 'rightBorderRadius');
             }
         }
 
         &__picture {
-            width: ef.get-value($themeTransparent, 'imageSize');
+            @include bm.get-mq-map('width', $themeTransparent, 'iconWidth');
+            @include bm.get-mq-map('height', $themeTransparent, 'iconHeight');
+            box-shadow: none !important;
         }
 
         &__game {
 
             &-arrow {
+                display: none;
                 color: ef.get-value($themeTransparent, 'gameArrowColor');
             }
 

@@ -48,14 +48,73 @@ $themeDefault: map-merge((
 $customSlidersWinnersTheme1: () !default;
 $slidersWinnersTheme1: map-merge((
     'nodataTextAlign': center,
+    'nodataBodyTitleFontSize': 1.4rem,
+    'nodataBodyTitleLineHeight': 1.45,
+    'nodataBodyTextMargin': 5px 0 0 0,
+    'nodataBodyTextAlign': center,
 
     'wrapperPadding': (
-        375: ef.size(6) ef.size(3) ef.size(6),
-        1200: ef.size(6) ef.size(7) ef.size(8),
+        375: ef.size(4) ef.size(3) ef.size(4),
+        1024: ef.size(0) ef.size(3) ef.size(0),
     ),
+    'wrapperMinHeight': (
+        375: none,
+        1024: 363px,
+    ),
+    'wrapperBorderRadius': ef.size(2),
+    'wrapperBackground': var(--mc-bg700),
+    'bodyGap': 20px,
+    'nodataBodyAlignItems': center,
+    'nodataBodyJustifyContent': center,
+    'contentFlex': none,
 
-    'btnsWrapMargin': ef.size(10) auto 0 auto,
+    'btnsWrapMargin': 0,
 ), $customSlidersWinnersTheme1);
+
+$customSlidersWinnersThemeVertical: () !default;
+$slidersWinnersThemeVertical: map-merge((
+    'nodataTextAlign': center,
+    'nodataBodyTitleFontSize': 1.4rem,
+    'nodataBodyTitleLineHeight': 1.45,
+    'nodataBodyTextMargin': 5px 0 0 0,
+
+    'wrapperPadding': (
+        375: ef.size(13) ef.size(3) ef.size(4),
+        1024: ef.size(0) ef.size(3) ef.size(0),
+    ),
+    'wrapperMinHeight': (
+        375: none,
+        1024: 347px,
+    ),
+    'bodyGap': 20px,
+    'nodataBodyJustifyContent': center,
+    'contentFlex': none,
+
+    'btnsWrapMargin': 0,
+), $customSlidersWinnersThemeVertical);
+
+$customSlidersWinnersThemeTransparent: () !default;
+$slidersWinnersThemeTransparent: map-merge((
+    'nodataTextAlign': center,
+    'nodataBodyTitleFontSize': 1.4rem,
+    'nodataBodyTitleLineHeight': 1.45,
+    'nodataBodyTextMargin': 5px 0 0 0,
+
+    'wrapperPadding': (
+        375: ef.size(8) ef.size(3) ef.size(8),
+        1024: ef.size(0) ef.size(3) ef.size(0),
+    ),
+    'wrapperMinHeight': (
+        375: none,
+        1024: 363px,
+    ),
+    'bodyGap': 20px,
+    'nodataBodyJustifyContent': center,
+    'contentFlex': none,
+    'wrapperBorderRadius': ef.size(2),
+
+    'btnsWrapMargin': 0,
+), $customSlidersWinnersThemeTransparent);
 
 $customSlidersWinnersThemeDefault: () !default;
 $slidersWinnersThemeDefault: map-merge((
@@ -95,12 +154,13 @@ $customSlidersWinnersModStripe: () !default;
 $slidersWinnersModStripe: map-merge((
     'nodataBodyTitleFontSize': 'ThirdTitleBold',
     'nodataBodyTextMargin': (
-        320: 0,
+        320: 7px 0 0 0,
     ),
+    'wrapperBorderRadius': ef.size(2),
 
     'wrapperPadding': (
-        375: ef.size(1) 0,
-        1200: ef.size(1) 0,
+        375: ef.size(3) 0,
+        1200: ef.size(3) 0,
     ),
 
     'contentFlex': none,

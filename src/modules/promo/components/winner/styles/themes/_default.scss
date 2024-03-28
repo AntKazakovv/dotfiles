@@ -5,20 +5,17 @@
         &__wrapper {
             @include bm.get-mq-map('gap', $themeDefault, 'gap');
 
-            padding-left: ef.get-value($themeDefault, 'borderLinePadding');
+            padding: ef.get-value($themeDefault, 'wrapperPadding');
 
-            &:before {
-                content: '';
+            background: var(--mc-bg700);
 
-                position: absolute;
-                top: 10%;
-                left: 0;
-                width: ef.get-value($themeDefault, 'borderLineWidth');
-                height: 90%;
-                background-color: ef.get-value($themeDefault, 'borderLineColor');
+            border-radius: ef.get-value($themeDefault, 'borderRadius');
+        }
 
-                border-radius: ef.get-value($themeDefault, 'borderLineRadius');
-            }
+        &__picture {
+            width: ef.get-value($themeDefault, 'iconWidth');
+            height: ef.get-value($themeDefault, 'iconHeight');
+            box-shadow: none;
         }
 
         &__block {
@@ -26,6 +23,54 @@
             &--right {
                 row-gap: ef.get-value($themeDefault, 'rightRowGap');
             }
+        }
+
+        &__game {
+
+            &-arrow {
+                display: none;
+            }
+        }
+    }
+
+    &.wlc-winner--theme-mod-divider {
+
+        .wlc-winner {
+
+            &__wrapper {
+                @include bm.get-mq-map('gap', $themeDefault, 'gap');
+
+                padding: 0 0 0 20px;
+
+                background: none;
+
+                border-radius: ef.get-value($themeDefault, 'borderRadius');
+            }
+
+            &__picture {
+                width: 60px;
+                height: 60px;
+            }
+
+            &__game {
+
+                &-arrow {
+                    display: block;
+                }
+            }
+        }
+
+        &:before {
+            content: '';
+
+            position: absolute;
+            top: 10%;
+            left: 0;
+            width: ef.get-value($themeDefault, 'borderLineWidth');
+            height: 90%;
+            background-color: ef.get-value($themeDefault, 'borderLineColor');
+
+            border-radius: ef.get-value($themeDefault, 'borderLineRadius');
         }
     }
 }

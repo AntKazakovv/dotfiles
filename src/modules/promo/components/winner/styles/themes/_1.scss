@@ -4,6 +4,7 @@
 
         &__wrapper {
             @include bm.get-mq-map('max-width', $theme1, 'maxWidth');
+            position: ef.get-value($theme1, 'wrapperPosition');
 
             margin: ef.get-value($theme1, 'wrapperMargin');
             padding: ef.get-value($theme1, 'wrapperPadding');
@@ -44,6 +45,8 @@
 
         &__picture {
             width: ef.get-value($theme1, 'iconWidth');
+            height: ef.get-value($theme1, 'iconHeight');
+            box-shadow: ef.get-value($theme1, 'pictureShadow');
         }
 
         &__game {

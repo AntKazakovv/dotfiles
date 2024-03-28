@@ -10,6 +10,10 @@
         </div>
 
         <div class="{{$class}}__block {{$class}}__block--right">
+            <div class="{{$class}}__user">
+                <div class="{{$class}}__name">{{name}}</div>
+            </div>
+
             <div class="{{$class}}__game"><span>{{$params.data.gameName}}</span></div>
             <div class="{{$class}}__amount">
                 <span wlc-currency
@@ -29,6 +33,9 @@
         </div>
 
         <div class="{{$class}}__block {{$class}}__block--right">
+            <div class="{{$class}}__user">
+                <div class="{{$class}}__name">{{name}}</div>
+            </div>
             <button class="{{$class}}__game"
                 type="button"
                 [attr.title]="[$params.data.gameName]"

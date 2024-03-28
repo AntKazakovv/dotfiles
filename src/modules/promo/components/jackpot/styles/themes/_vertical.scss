@@ -7,9 +7,21 @@
             display: grid;
             grid-template-areas: ef.get-value($jackpotBase, 'wrapperTemplateAreas');
             grid-template-columns: ef.get-value($jackpotBase, 'wrapperTemplateCols');
-            gap: ef.get-value($jackpotBase, 'wrapperGap');
+            gap: ef.get-value($themeVertical, 'wrapperGap');
             align-items: ef.get-value($jackpotBase, 'wrapperAlignItems');
             max-width: 100%;
+
+            &:before {
+                @include bm.get-mq-map('top', $themeVertical, 'wrapperPseudoBorderTop');
+
+                content: '';
+                position: absolute;
+                left: 0;
+                width: ef.get-value($themeVertical, 'wrapperPseudoBorderWidth');
+                height: ef.get-value($themeVertical, 'wrapperPseudoBorderHeight');
+
+                background-color: ef.get-value($themeVertical, 'wrapperPseudoBorderBg');
+            }
         }
 
         &__block {
@@ -21,7 +33,7 @@
             &--right {
                 display: grid;
                 grid-area: details;
-                grid-template-areas: ef.get-value($jackpotBase, 'rightGridTemplateAreas');
+                grid-template-areas: ef.get-value($themeVertical, 'rightGridTemplateAreas');
                 grid-template-columns: ef.get-value($jackpotBase, 'rightGridTemplateColumns');
                 min-width: 0;
                 padding: ef.get-value($themeVertical, 'rightPadding');
@@ -32,7 +44,7 @@
         }
 
         &__picture {
-            @include picture($jackpotBase);
+            @include picture($themeVertical);
         }
 
         &__image {
@@ -66,10 +78,7 @@
             }
 
             &-arrow {
-                @include bm.transition(color);
-                width: ef.get-value($jackpotBase, 'gameArrowWidth');
-                margin: ef.get-value($jackpotBase, 'gameArrowMargin');
-                color: ef.get-value($jackpotBase, 'gameArrowColor');
+                display: none;
             }
 
             @include bm.hover() {
@@ -77,10 +86,6 @@
 
                 .wlc-jackpot__game-name {
                     border-bottom-color: ef.get-value($jackpotBase, 'gameHoverBorderColor');
-                }
-
-                .wlc-jackpot__game-arrow {
-                    color: ef.get-value($jackpotBase, 'gameHoverArrowColor');
                 }
             }
         }
@@ -92,6 +97,15 @@
             );
             grid-area: amount;
             white-space: nowrap;
+            text-align: right;
+        }
+
+        &__user {
+            @include text.get-text-style(
+                ef.get-value($jackpotBase, 'amountTextStyle'),
+                ef.get-value($jackpotBase, 'amountColor')
+            );
+            grid-area: user;
         }
     }
 }

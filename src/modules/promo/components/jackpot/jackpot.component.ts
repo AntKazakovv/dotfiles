@@ -29,6 +29,8 @@ export class JackpotComponent extends AbstractComponent implements OnInit {
 
     @Input() protected inlineParams: Params.IJackpotCParams;
 
+    public name = '*****';
+
     protected gamesCatalogService: GamesCatalogService;
 
     constructor(

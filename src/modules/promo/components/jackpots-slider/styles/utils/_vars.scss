@@ -2,18 +2,20 @@ $customTheme1: () !default;
 $theme1: map-merge((
     'maxWidth': (
         375: 100%,
-        480: 330px,
+        720: 315px,
+        1024: 345px,
     ),
     'background': var(--mc-bg700),
     'borderRadius': ef.size(2),
     'titleColor': var(--mc-baseMain),
     'titleTextAlign': center,
-    'titleBg': var(--mc-bg500),
-    'titlePadding': ef.size(4),
-    'titleBoxShadow': 0 4px 4px rgba(0, 0, 0, 0.13),
+    'titleBg': none,
+    'titlePadding': 0,
+    'titleBoxShadow': none,
+    'titleSize': 2rem,
+    'titleMargin': 15px,
     'sliderHeight': calc((var(--wlc-jackpot-slider-slide-height, 70px) + var(--wlc-jackpot-slider-slide-gap, 15px) + var(--wlc-jackpot-slider-slide-inner-gap, 15px)) * var(--wlc-jackpot-slider-slides-per-view, 4) - var(--wlc-jackpot-slider-slide-inner-gap, 15px)),
-    'sliderShadowPadding': 10px,
-    'sliderMargin': ef.size(5) ef.size(2) ef.size(4) ef.size(2),
+    'sliderMargin': ef.size(4) ef.size(4) ef.size(2) ef.size(4),
     // line overlapping the border of the last element
     'bottomLineHeight': 2px,
 
@@ -30,8 +32,8 @@ $themeVertical: map-merge((
 
     'wrapperBorderRadius': ef.get('radius', 'biger'),
     'wrapperMargin': (
-        375: ef.size(13) ef.size(3) ef.size(6),
-        1200: ef.size(13) ef.size(7) ef.size(8),
+        375: ef.size(12) ef.size(4) ef.size(2),
+        1200: ef.size(13) ef.size(7) ef.size(4),
     ),
     'wrapperBackground': var(--mc-bg700),
     'wrapperMaxWidth': 100%,
@@ -52,5 +54,5 @@ $themeVertical: map-merge((
     'titleZIndex': 2,
 
     'sliderHeight': calc((var(--wlc-jackpot-slider-slide-height, 60px) + var(--wlc-jackpot-slider-slide-gap, 10px)) * var(--wlc-jackpot-slider-slides-per-view, 4)),
-    'sliderShadowPadding': 10px,
+    'sliderShadowPadding': 0,
 ), $customThemeVertical);

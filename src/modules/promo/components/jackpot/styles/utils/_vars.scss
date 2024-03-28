@@ -1,34 +1,65 @@
 $customTheme1: () !default;
 $theme1: map-merge((
     'maxWidth': (
-        375: calc(100% - 40px),
-        480: 260px,
+        375: 100%,
+        1024: 305px,
     ),
     'itemGap': 20px,
-    'wrapperPadding': 0 0 var(--wlc-jackpot-slider-slide-inner-gap, #{ef.size(3)}) 0,
-    'wrapperBorderBottom': 2px solid var(--mc-baseOpacity),
+    'wrapperPadding': 0 0 15px 0,
+    'wrapperPosition': relative,
+    'wrapperBorderBottom': 1px solid var(--mc-bg500),
     'wrapperMargin': 0 auto,
-    'slideHeight': var(--wlc-jackpot-slider-slide-height, 70px),
-    'iconWidth': var(--wlc-jackpot-slider-slide-height, 70px),
-    'iconShadow': 0 4px 5px rgba(ef.get('mainColors', 'baseContrast'), 0.7),
+    'iconWidth': 86px,
+    'iconHeight': 65px,
+    'slideHeight': 65px,
+    'iconShadow': none,
     'iconAspectRatio': #{1/1},
     'iconBorderRadius': ef.size(2),
     'iconBorder': none,
     'iconPseudoPaddingTop': 100%,
     'userColor': var(--mc-baseMain),
     'gameColor': var(--mc-baseMain),
+    'gameLineHeight': 1.2,
     'amountColor': var(--mc-main),
-    'countryWidth': 16px,
-    'countryMargin': 0 ef.size(2) 0 0,
     'gameBorderBottomInactive': 1px solid transparent,
     'gameBorderBottomActive': 1px solid var(--mc-baseMain),
+
+    'rightGridTemplateColumns': auto 1fr,
+    'rightGridTemplateAreas': 'user amount' 'game game',
+    'rightColumnGap': ef.size(2),
+
+    'countryWidth': 17px,
+    'countryHeight': 11px,
+    'countryMarginRight': ef.size(2),
+    'countryBorder': none,
+    'countryShadow': none,
 ), $customTheme1);
 
 $customThemeVertical: () !default;
 $themeVertical: map-merge((
-    'rightBackground': var(--mc-bg),
+    'rightBackground': none,
     'rightBorderRadius': ef.get('radius', 'biger'),
     'rightPadding': ef.size(1) ef.size(2),
+    'rightGridTemplateAreas': 'user amount' 'game game',
+
+    'iconWidth': (
+        375: 66px,
+        900: 80px,
+    ),
+    'iconHeight': (
+        375: 50px,
+        900: 60px,
+    ),
+    'iconBorderRadius': ef.size(2),
+
+    'wrapperGap': 10px,
+    'wrapperPseudoBorderBg': var(--mc-bg500),
+    'wrapperPseudoBorderWidth': 100%,
+    'wrapperPseudoBorderHeight': 1px,
+    'wrapperPseudoBorderTop': (
+        375: -13px,
+        900: -13px,
+    ),
 ), $customThemeVertical);
 
 $customJackpotBase: () !default;
@@ -62,6 +93,6 @@ $jackpotBase: map-merge((
     'gameHoverBorderColor': currentColor,
     'gameHoverArrowColor': var(--mc-secondary-l20),
 
-    'amountTextStyle': 'ThirdTitle',
+    'amountTextStyle': 'ThirdTitleBold',
     'amountColor': var(--mc-baseMain),
 ), $customJackpotBase);

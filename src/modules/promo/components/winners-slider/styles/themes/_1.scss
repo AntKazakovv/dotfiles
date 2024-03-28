@@ -5,8 +5,6 @@
     @include bm.get-mq-map('max-width', $theme1, 'maxWidth');
 
     width: 100%;
-    background: ef.get-value($theme1, 'background');
-    border-radius: ef.get-value($theme1, 'borderRadius');
     overflow: hidden;
 
     .wlc-winners-slider {
@@ -24,26 +22,24 @@
 
     .wlc-winners-slider__title {
         @include text.get-text-style('ThirdTitleBold', ef.get-value($theme1, 'titleColor'));
+        margin-bottom: ef.get-value($theme1, 'titleMargin');
         padding: ef.get-value($theme1, 'titlePadding');
+        font-size: ef.get-value($theme1, 'titleSize');
         text-align: ef.get-value($theme1, 'titleTextAlign');
         background: ef.get-value($theme1, 'titleBg');
         box-shadow: ef.get-value($theme1, 'titleBoxShadow');
     }
 
     .wlc-winners-slider__slider {
-        @include bm.get-mq-map('margin', $theme1, 'sliderMargin');
+        @include bm.get-mq-map('padding', $theme1, 'sliderPadding');
         @include bm.get-mq-map('height', $theme1, 'sliderHeight');
         position: relative;
+        background: ef.get-value($theme1, 'background');
+        border-radius: ef.get-value($theme1, 'borderRadius');
+        overflow: hidden;
 
         &:before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            z-index: 2;
-            width: 100%;
-            height: ef.get-value($theme1, 'bottomLineHeight');
-            background: ef.get-value($theme1, 'background');
+            display: none;
         }
 
         ::ng-deep {

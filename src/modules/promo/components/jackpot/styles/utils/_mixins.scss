@@ -10,8 +10,9 @@
 }
 
 @mixin picture($config) {
+    @include bm.get-mq-map('width', $config, 'iconWidth');
+    @include bm.get-mq-map('height', $config, 'iconHeight');
     position: relative;
-    width: ef.get-value($config, 'iconWidth');
     border: ef.get-value($config, 'iconBorder');
     box-shadow: ef.get-value($config, 'iconShadow');
     border-radius: ef.get-value($config, 'iconBorderRadius');
