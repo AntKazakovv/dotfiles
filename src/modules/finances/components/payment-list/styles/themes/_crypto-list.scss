@@ -154,10 +154,6 @@
             text-align: ef.get-value($themeCryptoList, 'methodAlignment');
         }
 
-        &__method-text {
-            display: inline;
-        }
-
         &__tooltip[class] {
             position: absolute;
             top: ef.get-value($themeCryptoList, 'tooltipTop');

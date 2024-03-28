@@ -341,6 +341,12 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         return (!systems.length || !userCountry) && theme !== 'crypto-list';
     }
 
+    public get showCryptoTicker(): boolean {
+        return this.currentSystem.cryptoTicker
+            && this.currentSystem.cryptoInvoices
+            && this.$params.theme === 'crypto-list';
+    }
+
     public get paymentDescription(): string {
         let description: string = '';
 

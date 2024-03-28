@@ -280,10 +280,6 @@
             text-align: ef.get-value($themeDefault, 'methodAlignment');
         }
 
-        &__method-text {
-            display: inline;
-        }
-
         &__categories {
             margin: ef.get-value($themeDefault, 'tagsMargin');
 

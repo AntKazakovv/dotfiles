@@ -25,13 +25,13 @@
     </div>
     <div *ngIf="activeName && currentSystem && $params.showSelectedInButton"
         class="{{$class}}__method">
-        <span class="{{$class}}__method-text {{$class}}__method-text--title">
+        <div class="{{$class}}__method-text {{$class}}__method-text--title">
             {{$params.chosenMethodText | translate}}
-        </span>
+        </div>
         <span class="{{$class}}__method-text {{$class}}__method-text--name">
             {{activeName}}
         </span>
-        <span *ngIf="currentSystem.cryptoTicker && currentSystem.cryptoInvoices"
+        <span *ngIf="showCryptoTicker"
             class="{{$class}}__method-text {{$class}}__method-text--ticker">
             ({{currentSystem.cryptoTicker}})
         </span>
