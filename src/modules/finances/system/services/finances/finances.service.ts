@@ -40,8 +40,11 @@ import {
     UserProfile,
 } from 'wlc-engine/modules/user';
 import {
+    IFinancesConfig,
     ITaxData,
     TAdditionalParams,
+    TPaySystemCategoriesConfig,
+    TPaySystemTag,
 } from 'wlc-engine/modules/finances/system/interfaces/finances.interface';
 import {PIQCashierService} from 'wlc-engine/modules/finances/system/services/piq-cashier/piq-cashier.service';
 import {
@@ -677,6 +680,14 @@ export class FinancesService {
     }
 
     private createPaymentSystem(data: IPaymentSystem, invoicesSystems?: PaymentSystem[]): PaymentSystem {
+
+        const categoriesConfig: TPaySystemCategoriesConfig =
+            this.configService.get<IFinancesConfig>('$finances').paySystemCategories?.categoriesConfig;
+
+        data.tags = data.tags?.filter(
+            (tag: TPaySystemTag): boolean => !!categoriesConfig[tag],
+        );
+
         const paymentSystem: PaymentSystem = new PaymentSystem(
             {service: 'FinancesService', method: 'createPaymentSystems'},
             data,

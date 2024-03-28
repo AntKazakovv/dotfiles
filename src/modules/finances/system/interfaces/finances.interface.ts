@@ -152,10 +152,12 @@ export interface IPaySystemCategories {
      * Sort order is descending (the more value the higher position).
      * Can be partially redefined.
      */
-    categoriesConfig?: Partial<Record<TPaySystemTagAll, IPaySystemTag>>;
+    categoriesConfig?: TPaySystemCategoriesConfig;
 }
 
 export type TPaySystemsSwitcher = 'select' | 'menu';
+
+export type TPaySystemCategoriesConfig = Partial<Record<TPaySystemTagAll, IPaySystemTag>>;
 
 export interface IPaySystemTag {
     name: string;
