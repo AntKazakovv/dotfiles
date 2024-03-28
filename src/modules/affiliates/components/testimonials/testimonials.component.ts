@@ -17,7 +17,6 @@ import {
     AbstractComponent,
     ConfigService,
     ISlide,
-    IWrapperCParams,
 } from 'wlc-engine/modules/core';
 import {
     StaticService,
@@ -36,7 +35,6 @@ export class TestimonialsComponent extends AbstractComponent implements OnInit {
     @Input() public slug: string;
     @ViewChild('tesimonial') tplTestimonial: TemplateRef<ElementRef>;
 
-    public sliderConfig: IWrapperCParams = {};
     public slides: ISlide[] = [];
     public ready: boolean = false;
     public override $params: Params.ITestimonialsCParams;
@@ -105,19 +103,7 @@ export class TestimonialsComponent extends AbstractComponent implements OnInit {
         });
 
         if (this.$params.sliderParams && this.slides.length <= 1) {
-            this.$params.sliderParams.loop = false;
+            this.$params.sliderParams.swiper.loop = false;
         }
-
-        this.sliderConfig = {
-            components: [
-                {
-                    name: 'core.wlc-slider',
-                    params: {
-                        swiper: this.$params.sliderParams || {},
-                        slides: this.slides,
-                    },
-                },
-            ],
-        };
     }
 }

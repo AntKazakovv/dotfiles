@@ -17,7 +17,7 @@ import {
     FilesService,
     IIndexing,
     ISlide,
-    IWrapperCParams,
+    ISliderCParams,
 } from 'wlc-engine/modules/core';
 import {
     BetradarGameModel,
@@ -39,7 +39,7 @@ export class BetradarPopularEventsComponent extends AbstractComponent implements
 
     public override $params: Params.IBetradarPopularEventsCParams;
     public slides: ISlide[] = [];
-    public sliderConfig: IWrapperCParams = {};
+    public sliderConfig: ISliderCParams = {};
     public inited: boolean = false;
     public initFailed: boolean = false;
 
@@ -82,15 +82,8 @@ export class BetradarPopularEventsComponent extends AbstractComponent implements
                 this.initImagesDir();
                 await this.gamesToSlides(games);
                 this.sliderConfig = {
-                    components: [
-                        {
-                            name: 'core.wlc-slider',
-                            params: {
-                                swiper: this.$params.swiper || {},
-                                slides: this.slides,
-                            },
-                        },
-                    ],
+                    swiper: this.$params.swiper,
+                    slides: this.slides,
                 };
                 this.inited = true;
             } else {

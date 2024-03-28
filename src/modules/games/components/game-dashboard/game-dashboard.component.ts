@@ -171,7 +171,6 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
     public userStatsConfig: IWrapperCParams = {components: []};
     public userStatsWithoutDepositConfig: IWrapperCParams = {components: []};
     public loyaltyProgressConfig: IWrapperCParams = {components: []};
-    public sliderConfig: IWrapperCParams = {components: []};
 
     protected breakpoints: IIndexing<number> = {
         backdropLabel: 680,
@@ -228,7 +227,6 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
         this.backdropLabelVisibility();
         await this.loadLastPlayedGames();
         this.initLastPlayedSwiper();
-        this.loadSliderComponentOnMobileLandscaped();
 
         if (this.dashboardSide) {
             this.desktopSide = this.dashboardSide;
@@ -763,17 +761,6 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
     }
 
     /**
-     * Plugs slider in if mobile device is landscape orientated
-     */
-    protected loadSliderComponentOnMobileLandscaped(): void {
-        const hasSlides = this.lastPlayedGamesReady && this.lastPlayedGamesSlides.length > 0;
-
-        if (hasSlides && this.isMobile && this.landscapeOrientation) {
-            this.loadSliderComponent();
-        }
-    }
-
-    /**
      * Watches for user signing in.
      * When user is signed up, profile components will be lazy loaded.
      * It allows to load optional using components on demand
@@ -816,21 +803,6 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
         };
         this.logOutConfig = {
             components: [{name: 'user.wlc-logout'}],
-        };
-    }
-
-    /**
-     * Loads slider component using for landscaped mobiles in "last played" section
-     */
-    protected loadSliderComponent(): void {
-        this.sliderConfig = {
-            components: [{
-                name: 'core.wlc-slider',
-                params: <ISliderCParams>{
-                    slides: this.lastPlayedGamesSlides,
-                    ...this.lastPlayedSwiper,
-                },
-            }],
         };
     }
 

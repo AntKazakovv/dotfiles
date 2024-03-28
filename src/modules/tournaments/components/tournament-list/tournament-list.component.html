@@ -17,16 +17,16 @@
     <div wlc-scrollbar class="{{$class}}__inner">
         <ng-container *ngIf="readyTournamentsAndSlides; else: noData">
             <ng-container *ngIf="!isTournamentSelected && $params.themeMod === 'swiper'">
-                <div wlc-slider
-                    class="{{$class}}__slider"
-                    [inlineParams]="dashboardSliderConfig">
-                </div>
                 <div *ngIf="slides.length > 1" slot-container-end class="{{$class}}__nav">
                     <div wlc-slider-navigation
                         class="container swiper-button-container"
                         [classPrev]="'wlc-swiper-button-prev-' + navigationId"
                         [classNext]="'wlc-swiper-button-next-' + navigationId">
                     </div>
+                </div>
+                <div wlc-slider
+                    class="{{$class}}__slider"
+                    [inlineParams]="dashboardSliderConfig">
                 </div>
             </ng-container>
             <ng-container *ngIf="isTournamentSelected">

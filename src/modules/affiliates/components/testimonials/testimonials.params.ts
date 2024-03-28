@@ -1,9 +1,8 @@
-import {IComponentParams} from 'wlc-engine/modules/core';
-import {SwiperOptions} from 'swiper/types/swiper-options';
+import {IComponentParams, ISliderCParams} from 'wlc-engine/modules/core';
 
 export interface ITestimonialsCParams extends IComponentParams<string, string, string> {
     slug: string;
-    sliderParams: SwiperOptions;
+    sliderParams?: ISliderCParams;
     showErrors?: boolean;
     title?: string;
 }
@@ -22,15 +21,17 @@ export const defaultParams: ITestimonialsCParams = {
     slug: 'partners-testimonials',
     showErrors: true,
     sliderParams: {
-        direction: 'horizontal',
-        grabCursor: true,
-        slidesPerView: 1,
-        loop: true,
-        autoplay: {
-            delay: 5000,
-        },
-        pagination: {
-            clickable: true,
+        swiper: {
+            direction: 'horizontal',
+            grabCursor: true,
+            slidesPerView: 1,
+            loop: true,
+            autoplay: {
+                delay: 5000,
+            },
+            pagination: {
+                clickable: true,
+            },
         },
     },
 };

@@ -10,9 +10,10 @@
             <p class="{{$class}}__subtitle">{{$params.subtitle | translate}}</p>
         </div>
 
-        <div wlc-wrapper
-             [inlineParams]="sliderConfig"
-             [ngClass]="isActive ? $class + '__slider--active' : ''"
+        <div wlc-slider
+            [slides]="slides"
+            [inlineParams]="sliderConfig"
+            [ngClass]="isActive ? $class + '__slider--active' : ''"
         ></div>
 
         <button wlc-button
