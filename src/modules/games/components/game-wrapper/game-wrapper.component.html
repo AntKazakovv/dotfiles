@@ -5,7 +5,7 @@
 
 <ng-template #default>
     <div class="{{$class}}__content container"
-         (resized)="onResize($event)">
+         (wlc-resized)="onResize($event)">
 
         <ng-container [ngTemplateOutlet]="gameHeader"></ng-container>
 
@@ -34,7 +34,7 @@
 
 <ng-template #fullscreen>
     <div class="{{$class}}__content"
-         (resized)="onResize($event)">
+         (wlc-resized)="onResize($event)">
 
         <div *ngIf="!isSportsbook && !isMobile"
              class="container">
