@@ -1020,6 +1020,7 @@ export class UserService {
      * @param {IEmailVerifyData} data
      */
     public emailVerification(data?: IEmailVerifyData): Promise<IData> {
+        this.eventService.emit({name: 'SEND_EMAIL_VERIFY'});
         return this.dataService.request('user/emailVerification', data);
     }
 

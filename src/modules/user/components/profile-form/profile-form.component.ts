@@ -9,6 +9,7 @@ import {UntypedFormGroup} from '@angular/forms';
 
 import {
     BehaviorSubject,
+    Subscription,
     filter,
 } from 'rxjs';
 import _assign from 'lodash-es/assign';
@@ -99,12 +100,15 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
     @Input() protected inlineParams: Params.IProfileFormCParams;
     public override $params: Params.IProfileFormCParams;
     public userProfile$: BehaviorSubject<UserProfile | null> = new BehaviorSubject<UserProfile | null>(null);
-    public statusPep: boolean | null = null;
     public errors$: BehaviorSubject<IIndexing<string>> = new BehaviorSubject(null);
     public ready: boolean = false;
     public formConfig: IFormWrapperCParams;
 
+    protected statusPep: boolean | null = null;
+    protected statusPhone: boolean | null = null;
+    protected mailVerifySaveForm: boolean = false;
     protected isKiosk: boolean = false;
+    protected emailVerifySubscription!: Subscription;
 
     constructor(
         @Inject('injectParams') protected params: Params.IProfileFormCParams,
@@ -132,15 +136,33 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
         super.ngOnInit(this.inlineParams);
         await this.configService.ready;
 
+        this.emailVerifySubscription = this.eventService.subscribe({name: 'SEND_EMAIL_VERIFY'}, () => {
+            this.mailVerifySaveForm = true;
+        });
+
         this.userService.userProfile$
             .pipe(
                 filter((userProfile: UserProfile): boolean => !!userProfile?.idUser),
                 filter((userProfile: UserProfile): boolean => {
+                    let returnValue = true;
+
                     if (!_isUndefined(userProfile['pep']) && (userProfile['pep'] !== this.statusPep)) {
                         this.statusPep = userProfile['pep'];
-                        return false;
+                        returnValue = false;
                     }
-                    return true;
+
+                    if (!_isUndefined(userProfile['phoneVerified'])
+                        && (userProfile['phoneVerified'] !== this.statusPhone)) {
+                        this.statusPhone = userProfile['phoneVerified'];
+                        returnValue = false;
+                    }
+
+                    if (this.mailVerifySaveForm) {
+                        this.mailVerifySaveForm = false;
+                        returnValue = false;
+                    }
+
+                    return returnValue;
                 }),
             ).subscribe((userProfile: UserProfile) => {
                 this.userProfile$.next(userProfile);
@@ -162,6 +184,13 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
 
         this.ready = true;
         this.cdr.markForCheck();
+    }
+
+
+    public override ngOnDestroy(): void {
+        if (this.emailVerifySubscription) {
+            this.emailVerifySubscription.unsubscribe();
+        }
     }
 
     /**
