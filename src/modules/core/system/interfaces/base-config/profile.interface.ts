@@ -104,6 +104,8 @@ export interface IVerification {
     maxDocsCount?: number;
     /* The maximum size of the uploaded file. There is also a check on the backing side */
     maxSize?: number;
+    /** A flag to enable/disable KYC questionnaire */
+    kycQuestionnaire?: boolean;
 }
 
 export interface IPasswordValidation {

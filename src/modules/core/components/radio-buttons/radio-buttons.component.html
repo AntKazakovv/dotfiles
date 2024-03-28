@@ -1,20 +1,26 @@
 <fieldset class="{{$class}}__wrapper">
-    <legend class="{{$class}}__title">{{$params.common.placeholder | translate}}</legend>
+    <ng-container *ngIf="$params.common?.placeholder">
+        <legend class="{{$class}}__title">{{$params.common.placeholder | translate}}</legend>
+    </ng-container>
+    <div class="{{$class}}__elems"
+        [class.invalid]="(control.statusChanges | async) === 'INVALID'">
+        <ng-container *ngFor="let item of $params.items">
+            <label class="{{$class}}__group"
+                [class.disabled]="item.disabled"
+                [ngClass]="{'active': item.value === control.value}">
 
-    <div class="{{$class}}__elems">
-        <label class="{{$class}}__group"
-            *ngFor="let item of $params.items"
-            [class.disabled]="item.disabled"
-            [ngClass]="{'active': item.value === control.value}">
+                <input class="{{$class}}__radio"
+                    [attr.name]="$params.name"
+                    (change)="changeHandler(item)"
+                    type="radio"
+                    [attr.data-wlc-element]="'wlc-radio-buttons__' + item.value"
+                    [disabled]="item.disabled">
 
-            <input class="{{$class}}__radio"
-                [attr.name]="$params.name"
-                (change)="changeHandler(item)"
-                type="radio"
-                [attr.data-wlc-element]="'wlc-radio-buttons__' + item.value"
-                [disabled]="item.disabled">
-
-            <span class="{{$class}}__text">{{item.title | translate}}</span>
-        </label>
+                <span class="{{$class}}__text">{{item.title | translate}}</span>
+            </label>
+            <ng-template [ngIf]="item.input">
+                <div class="{{$class}}__input" wlc-input [inlineParams]="item.input"></div>
+            </ng-template>
+        </ng-container>
     </div>
 </fieldset>

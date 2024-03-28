@@ -1,0 +1,35 @@
+<ng-container *ngIf="ready else loader">
+    <ng-container *ngIf="state$ | async as state">
+        <div *ngIf="state.showInfo"
+            wlc-alert
+            class="{{$class}}__block"
+            [level]="infoLevel"
+            [title]="state.infoText">
+        </div>
+
+        <div *ngIf="state.showStatus"
+            wlc-alert
+            class="{{$class}}__block"
+            [level]="state.statusLevel"
+            [title]="state.statusText">
+        </div>
+
+        <div *ngIf="state.awaitingStatus"
+            wlc-alert
+            class="{{$class}}__block"
+            level="info"
+            [title]="awaitingStatusText">
+        </div>
+
+        <button *ngIf="state.showBtn"
+            wlc-button
+            class="{{$class}}__button"
+            [text]="$params.button.common.text"
+            (click)="fillFormHandler()">
+        </button>
+    </ng-container>
+</ng-container>
+
+<ng-template #loader>
+    <div wlc-loader class="{{$class}}__loader"></div>
+</ng-template>

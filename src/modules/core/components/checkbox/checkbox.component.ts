@@ -12,6 +12,7 @@ import {takeUntil} from 'rxjs';
 import _union from 'lodash-es/union';
 import _kebabCase from 'lodash-es/kebabCase';
 import _assign from 'lodash-es/assign';
+import _isNil from 'lodash-es/isNil';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
@@ -58,9 +59,13 @@ export class CheckboxComponent extends AbstractComponent implements OnInit {
 
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+
         if (this.$params.common?.checkedDefault) {
             this.$params.control?.setValue(true);
+        } else if (!_isNil(this.$params.value)) {
+            this.$params.control?.setValue(this.$params.value);
         }
+
         this.control = this.$params.control;
 
         this.listenForCheckboxStatusChanges();

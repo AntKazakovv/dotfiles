@@ -24,6 +24,7 @@ export type PepStatus = PepStatusAsString | boolean;
 
 export interface IUserInfo {
     LockExpiresAt?: string;
+    NotifyKYCQuestionnaire?: boolean;
     affiliateID?: string;
     availableWithdraw: number;
     balance: number;

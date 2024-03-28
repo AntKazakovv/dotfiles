@@ -13,6 +13,7 @@
         -webkit-appearance: none;
     }
 
+    .wlc-input__hint,
     .wlc-input__label {
         @include cm.labelStyle;
 

@@ -251,42 +251,58 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                 this.form.markAsUntouched();
             }
         } else {
-            const formErrors = this.formErrors();
-            let errorFound = false;
 
-            for (const controlName in this.form.controls) {
-                const control = this.form.controls[controlName];
+            if (this.form.errors?.required) {
 
-                if (!errorFound && control.errors) {
-                    this.elRef.nativeElement.querySelector(`#${controlName}`)?.focus();
-                    errorFound = true;
-                }
-            }
-
-            if (this.hasRequiredError) {
                 this.eventService.emit({
                     name: NotificationEvents.PushMessage,
                     data: <IPushMessageParams>{
                         type: 'error',
                         title: gettext('Error filling form'),
-                        message: gettext('Fill required fields'),
+                        message: gettext('Fill at least one option'),
                         wlcElement: 'notification_form-filling-error',
                     },
                 });
-            } else if (formErrors.length) {
-                this.eventService.emit({
-                    name: NotificationEvents.PushMessage,
-                    data: <IPushMessageParams>{
-                        type: 'error',
-                        title: gettext('Error filling form'),
-                        message: formErrors.length > 1
-                            ? gettext('Check the correctness of the filled-out fields')
-                            : _get(this.listErrors, formErrors[0], formErrors[0].replace(/^.+\./, 'validator-')),
-                        wlcElement: 'notification_form-fields-error',
-                    },
-                });
+
+            } else {
+                const formErrors = this.formErrors();
+                let errorFound = false;
+
+                for (const controlName in this.form.controls) {
+                    const control = this.form.controls[controlName];
+
+                    if (!errorFound && control.errors) {
+                        this.elRef.nativeElement.querySelector(`#${controlName}`)?.focus();
+                        errorFound = true;
+                    }
+                }
+
+                if (this.hasRequiredError) {
+                    this.eventService.emit({
+                        name: NotificationEvents.PushMessage,
+                        data: <IPushMessageParams>{
+                            type: 'error',
+                            title: gettext('Error filling form'),
+                            message: gettext('Fill required fields'),
+                            wlcElement: 'notification_form-filling-error',
+                        },
+                    });
+                } else if (formErrors.length) {
+                    this.eventService.emit({
+                        name: NotificationEvents.PushMessage,
+                        data: <IPushMessageParams>{
+                            type: 'error',
+                            title: gettext('Error filling form'),
+                            message: formErrors.length > 1
+                                ? gettext('Check the correctness of the filled-out fields')
+                                : _get(this.listErrors, formErrors[0], formErrors[0].replace(/^.+\./, 'validator-')),
+                            wlcElement: 'notification_form-fields-error',
+                        },
+                    });
+                }
             }
         }
+
         this.submitButtonPending$?.next(false);
         this.cdr.detectChanges();
     }

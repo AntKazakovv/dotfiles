@@ -6,22 +6,17 @@ import {
     NotificationEvents,
     IPushMessageParams,
     IData,
-    IIndexing,
+    LogService,
 } from 'wlc-engine/modules/core';
 
-export interface IKycamlData {
-    url: string;
-    service: 'SumSub' | 'ShuftiPro';
-    status: string;
-}
+import {
+    IKycamlData,
+    TDocsMode,
+    IUserDoc,
+} from 'wlc-engine/modules/aml/system/interfaces/kyc-aml.interface';
 
-export const statusDesc: IIndexing<string> = {
-    uncommitted: gettext('Verification is not passed yet'),
-    processing: gettext('The documents are being processed'),
-    completed: gettext('The documents have been verified successfully'),
-    failed: gettext('Verification has been declined'),
-    retry: gettext('Verification has been declined. Please try again'),
-    deleted: gettext('Time for uploading documents has expired'),
+interface IDepositsSumData {
+    Deposit: number,
 };
 
 @Injectable({
@@ -32,6 +27,7 @@ export class ShuftiProKycamlService {
     constructor(
         private dataService: DataService,
         private eventService: EventService,
+        private logService: LogService,
     ) {}
 
     public async getKycamlData(): Promise<IKycamlData> {
@@ -80,6 +76,34 @@ export class ShuftiProKycamlService {
                      ' Please, try again later or contact the technical support service'),
                 },
             });
+        }
+    }
+
+    public async getDocs(mode: TDocsMode): Promise<IData> {
+        try {
+            const res: IData<IUserDoc[]> = await this.dataService.request({
+                name: 'docsMode',
+                system: 'kyc',
+                url: '/docs/mode',
+                type: 'GET',
+            }, {mode});
+            return res;
+        } catch (error) {
+            this.logService.sendLog({code: '25.0.2', data: error});
+        }
+    }
+
+    public async sumDeposits(): Promise<number> {
+        try {
+            const res: IData<IDepositsSumData> = await this.dataService.request({
+                name: 'sumDeposits',
+                system: 'kyc',
+                url: '/sumDeposits',
+                type: 'GET',
+            });
+            return res.data.Deposit;
+        } catch (error) {
+            this.logService.sendLog({code: '25.0.3', data: error});
         }
     }
 }

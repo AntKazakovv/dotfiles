@@ -29,9 +29,9 @@ import {
 } from 'wlc-engine/modules/core';
 import {
     ShuftiProKycamlService,
-    IKycamlData,
-    statusDesc,
 } from 'wlc-engine/modules/aml/system/services/shufti-pro-kycaml/shufti-pro-kycaml.service';
+import {IKycamlData} from 'wlc-engine/modules/aml/system/interfaces/kyc-aml.interface';
+import {statusDesc} from 'wlc-engine/modules/aml/system/constants/kyc-aml.constants';
 
 import * as Params from './shufti-pro-kycaml.params';
 

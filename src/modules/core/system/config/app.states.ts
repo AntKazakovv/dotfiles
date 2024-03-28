@@ -65,6 +65,7 @@ let states = {
     'app.profile.messages': States.profileMessagesState,
     'app.profile.verification': States.profileVerificationState,
     'app.profile.kycaml': States.profileKycamlState,
+    'app.profile.kyc-questionnaire': States.profileKycQuestionnaireState,
     'app.profile.limitations': States.profileLimitationsState,
     'app.profile.password': States.profilePasswordState,
     'app.profile.notifications': States.profileNotificationsState,

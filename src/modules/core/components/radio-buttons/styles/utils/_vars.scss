@@ -9,8 +9,11 @@ $themeDefault: map-merge((
     'titleMinHeight': ef.size(4),
     'titleColor': var(--fc-labelColor),
     'titlePadding': 0 0 0 10px,
+
     'elemsColumns': minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr),
+    'verticalElemsColumns': minmax(0, 1fr),
     'elemsGap': 10px,
+    'verticalElemsGap': ef.size(4),
 
     //radio buttons
     'radioSize': 25px,
@@ -18,15 +21,20 @@ $themeDefault: map-merge((
     'radioGridGap': 8px,
     'radioBackground': var(--fc-inputBg),
     'radioBackgroundChecked': var(--fc-inputBg),
+    'radioBackgroundError': var(--fc-errorBackground),
     'radioBorder': 2px solid var(--fc-borderColor),
     'radioBorderDisabled': var(--fc-borderColor),
     'radioBorderColorHover': var(--mc-buttonColor),
     'radioBorderColorChecked': var(--mc-buttonColor),
+    'radioBorderColorError': var(--fc-errorBorder),
+    'verticalRadioBorderColorChecked': var(--mc-main),
     'radioPointColor': var(--mc-buttonColor),
+    'verticalRadioPointColor': var(--mc-main),
     'radioBorderRadius': 50%,
     'radioPointBorderRadius': 50%,
     'radioTextFont': 'PrimaryText',
     'radioTextFontColor': var(--mc-baseMain),
+    'verticalInputMargin': ef.size(-2) 0 0,
 ), $customThemeDefault);
 
 $customThemeButton: () !default;

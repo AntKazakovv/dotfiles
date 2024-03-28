@@ -1,0 +1,12 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'formMaxWidth': 490px,
+    'formMargin': 0 auto,
+    'formTitleStyle': 'ThirdTitleBold',
+    'formTitleStyleColor': var(--mc-baseMain),
+    'formBlockTemplateColumns': repeat(2, 1fr),
+    'formBlockGap': ef.size(4),
+    'formBlockPadding': ef.size(4) 0,
+    'formBlockDividerBorder': 2px solid var(--mc-baseOpacity),
+    'formBottomMargin': ef.size(4) 0 0,
+), $customThemeDefault);

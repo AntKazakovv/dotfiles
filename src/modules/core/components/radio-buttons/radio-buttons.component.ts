@@ -6,7 +6,9 @@ import {
     ChangeDetectorRef,
     ChangeDetectionStrategy,
 } from '@angular/core';
-import {UntypedFormControl} from '@angular/forms';
+import {
+    UntypedFormControl,
+} from '@angular/forms';
 
 import {
     AbstractComponent,
@@ -17,7 +19,7 @@ import {IButtonCParams} from 'wlc-engine/modules/core/components/button/button.p
 import * as Params from './radio-buttons.params';
 
 import _compact from 'lodash-es/compact';
-import _isUndefined from 'lodash-es/isUndefined';
+import _isNil from 'lodash-es/isUndefined';
 import _concat from 'lodash-es/concat';
 
 @Component({
@@ -32,6 +34,7 @@ export class RadioButtonsComponent extends AbstractComponent implements OnInit {
 
     public override $params: Params.IRadioButtonsCParams;
     public control: UntypedFormControl;
+    protected itemInputControls: Map<unknown, UntypedFormControl> = new Map();
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IRadioButtonsCParams,
@@ -43,20 +46,54 @@ export class RadioButtonsComponent extends AbstractComponent implements OnInit {
 
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-        this.control = this.$params.control;
+
+        this.control = Array.isArray(this.$params.name)
+            ? this.$params[this.$params.name[0]].control
+            : this.$params.control;
+
+        this.prepareItems();
 
         if (this.$params.theme === 'button') {
             this.prepareButtonMods();
         }
 
-        if (!this.control.value && !_isUndefined(this.$params.defaultValue)) {
-            this.control.setValue(this.$params.items[this.$params.defaultValue].value);
+        if (!this.control.value && !_isNil(this.$params.defaultValue)) {
+            this.control.setValue(this.$params.items[this.$params.defaultValue]?.value);
         }
     }
 
+    public isActive(item: Params.IRadioButtonOption): boolean {
+        return item.value === this.control.value;
+    }
+
     public changeHandler(item: Params.IRadioButtonOption): void {
+
+        if (item.input) {
+            this.itemInputControls.get(item.value).enable();
+        }
+
+        if (this.itemInputControls.size) {
+            this.itemInputControls.forEach((ctrl, key) => {
+                if (key !== item.value) {
+                    ctrl.disable;
+                }
+            });
+        }
+
         this.control.setValue(item.value);
         this.cdr.markForCheck();
+    }
+
+    protected prepareItems(): void {
+        for (const item of this.$params.items) {
+            if (item.input) {
+                const control: UntypedFormControl = item.input.control = this.$params[item.input.name].control;
+                this.itemInputControls.set(item.value, control);
+                if (!this.isActive(item)) {
+                    control.disable();
+                }
+            }
+        }
     }
 
     protected prepareButtonMods(): void {
@@ -73,5 +110,4 @@ export class RadioButtonsComponent extends AbstractComponent implements OnInit {
             this.addModifiers(args);
         }
     }
-
 }

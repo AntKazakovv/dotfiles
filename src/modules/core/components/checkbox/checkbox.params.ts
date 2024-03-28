@@ -16,6 +16,7 @@ export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
 export type OnChange = (checked: boolean) => void;
 export type TargetType = '_blank' | '_self' | '_parent' | '_top';
+export type TComponentThemeMod = 'default' | 'bg-transparent' | 'align-top' | 'bold' | CustomType;
 
 
 export interface ILegalCheckboxWithLink {
@@ -29,9 +30,9 @@ export interface ILegalCheckboxWithLink {
     target?: TargetType;
 }
 
-export interface ICheckboxCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
+export interface ICheckboxCParams extends IComponentParams<ComponentTheme, ComponentType, TComponentThemeMod> {
     name?: string;
-    value?: string;
+    value?: boolean;
     checkboxType?: CheckboxType;
     validators?: ValidatorType[];
     text?: string;

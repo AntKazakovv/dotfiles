@@ -13,6 +13,17 @@
             grid-gap: ef.get-value($themeDefault, 'elemsGap');
             grid-template-columns: ef.get-value($themeDefault, 'elemsColumns');
             align-items: center;
+
+            &.invalid {
+
+                .wlc-radio-buttons__text {
+
+                    &:before {
+                        background: ef.get-value($themeDefault, 'radioBackgroundError');
+                        border-color: ef.get-value($themeDefault, 'radioBorderColorError');
+                    }
+                }
+            }
         }
 
         &__group {
@@ -90,6 +101,38 @@
 
         &__radio {
             @include bm.visuallyHidden();
+        }
+    }
+
+    &.wlc-radio-buttons--theme-mod-vertical {
+
+        .wlc-radio-buttons {
+
+            &__elems {
+                grid-gap: ef.get-value($themeDefault, 'verticalElemsGap');
+                grid-template-columns: ef.get-value($themeDefault, 'verticalElemsColumns');
+            }
+
+            &__group {
+
+                &.active {
+
+                    .wlc-radio-buttons__text {
+
+                        &:before {
+                            border-color: ef.get-value($themeDefault, 'verticalRadioBorderColorChecked');
+                        }
+
+                        &:after {
+                            background: ef.get-value($themeDefault, 'verticalRadioPointColor');
+                        }
+                    }
+                }
+            }
+
+            &__input {
+                margin: ef.get-value($themeDefault, 'verticalInputMargin');
+            }
         }
     }
 }

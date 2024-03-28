@@ -1,0 +1,9 @@
+.wlc-kyc-questionnaire-info--theme-default:host {
+
+    .wlc-kyc-questionnaire-info {
+
+        &__block {
+            margin: ef.get-value($themeDefault, 'alertBlockMargin');
+        }
+    }
+}

@@ -1389,6 +1389,84 @@ export namespace profileContent {
         ],
     };
 
+    export const profileVerificationKycQuestionnaire: ILayoutSectionConfig = {
+        container: true,
+        usePreloader: true,
+        components: [
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__top',
+                    components: [
+                        componentLib.wlcTitle.profileV2,
+                    ],
+                },
+            },
+            componentLib.wlcProfileMenu.submenu,
+            componentLib.wlcVerification.kycQuestionnaire,
+        ],
+    };
+
+    export const profileVerificationKycQuestionnaireTypeFirst: ILayoutSectionConfig = {
+        container: true,
+        theme: 'first',
+        components: [
+            componentLib.wlcProfileMenu.defTypeFirst,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__header',
+                    components: [
+                        componentLib.wlcTitle.myAccountV1,
+                    ],
+                },
+                display: {
+                    before: 1199,
+                },
+            },
+            componentLib.wlcProfileMenu.subMenuV1,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content',
+                    components: [
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__header underlined',
+                                components: [
+                                    {
+                                        name: 'core.wlc-title',
+                                        display: {
+                                            after: 1024,
+                                        },
+                                        params: <ITitleCParams>{
+                                            customMod: ['profile'],
+                                            mainText: gettext('KYC Questionnaire'),
+                                            wlcElement: 'header_kyc-questionnaire',
+                                        },
+                                    },
+                                ],
+                            },
+                            display: {
+                                after: 1200,
+                            },
+                        },
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__body',
+                                components: [
+                                    componentLib.wlcVerification.kycQuestionnaire,
+                                ],
+                            },
+                        },
+                    ],
+                },
+            },
+        ],
+    };
+
     export const profileVerification: ILayoutSectionConfig = {
         container: true,
         usePreloader: true,

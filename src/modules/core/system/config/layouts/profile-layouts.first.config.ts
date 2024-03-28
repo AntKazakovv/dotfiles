@@ -152,6 +152,12 @@ export const $profileFirstLayouts: ILayoutsConfig = {
             'profile-content': sectionsLib.profileContent.profileVerificationShuftiProKycamlTypeFirst,
         },
     },
+    'app.profile.kyc-questionnaire': {
+        extends: 'app.profile',
+        sections: {
+            'profile-content': sectionsLib.profileContent.profileVerificationKycQuestionnaireTypeFirst,
+        },
+    },
     'app.profile.limitations': {
         extends: 'app.profile',
         sections: {

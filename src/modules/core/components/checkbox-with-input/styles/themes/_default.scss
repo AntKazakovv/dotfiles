@@ -1,0 +1,19 @@
+.wlc-checkbox-with-input--theme-default:host {
+
+    .wlc-checkbox {
+        margin: ef.get-value($themeDefault, 'checkboxMargin');
+    }
+
+    ::ng-deep {
+
+        .wlc-input {
+
+            &__label[class] {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'inputLabelTextStyle'),
+                    ef.get-value($themeDefault, 'inputLabelColor')
+                );
+            }
+        }
+    }
+}

@@ -8,4 +8,8 @@ export namespace wlcVerification {
     export const shuftiProKycaml: ILayoutComponent = {
         name: 'aml.wlc-shufti-pro-kycaml',
     };
+
+    export const kycQuestionnaire: ILayoutComponent = {
+        name: 'aml.wlc-kyc-questionnaire-info',
+    };
 }

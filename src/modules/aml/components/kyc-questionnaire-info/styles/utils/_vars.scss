@@ -1,0 +1,4 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'alertBlockMargin': 0 0 ef.size(4),
+), $customThemeDefault);

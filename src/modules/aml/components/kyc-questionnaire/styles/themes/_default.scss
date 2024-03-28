@@ -1,0 +1,52 @@
+.wlc-kyc-questionnaire--theme-default:host {
+
+    .wlc-kyc-questionnaire {
+
+        &__form {
+            max-width: ef.get-value($themeDefault, 'formMaxWidth');
+            margin: ef.get-value($themeDefault, 'formMargin');
+
+            ::ng-deep {
+
+                .wlc-title__second {
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'formTitleStyle'),
+                        ef.get-value($themeDefault, 'formTitleStyleColor')
+                    );
+                }
+
+                .form-questionnaire {
+
+                    &__block {
+                        display: grid;
+                        grid-template-columns: ef.get-value($themeDefault, 'formBlockTemplateColumns');
+                        gap: ef.get-value($themeDefault, 'formBlockGap');
+                        padding: ef.get-value($themeDefault, 'formBlockPadding');
+
+                        &--divider {
+                            border-bottom: ef.get-value($themeDefault, 'formBlockDividerBorder');
+                        }
+
+                        & > div {
+                            grid-column: span 2;
+                        }
+
+                        .wlc-input--nationality,
+                        .wlc-input--postal-code,
+                        .wlc-input--city,
+                        .wlc-input--address,
+                        .wlc-select--country {
+                            grid-column: auto;
+                        }
+                    }
+
+                    &__bottom {
+                        display: flex;
+                        justify-content: center;
+                        margin: ef.get-value($themeDefault, 'formBottomMargin');
+                    }
+                }
+            }
+        }
+    }
+}

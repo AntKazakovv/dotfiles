@@ -153,6 +153,12 @@ export const $profileLayouts: IPanelsConfig = {
             'profile-content': sectionsLib.profileContent.profileVerificationShuftiProKycaml,
         },
     },
+    'app.profile.kyc-questionnaire': {
+        extends: 'app.profile',
+        sections: {
+            'profile-content': sectionsLib.profileContent.profileVerificationKycQuestionnaire,
+        },
+    },
     'app.profile.limitations': {
         extends: 'app.profile',
         sections: {

@@ -1,0 +1,34 @@
+<div class="wlc-modal__header">
+    <div class="wlc-modal__back-btn"
+        [class.hidden]="step === 1"
+        (click)="goBack()"
+        data-wlc-element="button_back">
+        <span wlc-icon
+            class="icon-arrow"
+            iconPath="/wlc/icons/arrow.svg">
+        </span>
+        <span class="wlc-modal__back-btn-text">
+            {{'Back' | translate}}
+        </span>
+    </div>
+    <div class="wlc-modal__title wlc-modal__title--back-btn">
+        {{'KYC Questionnaire' | translate}} {{step}}/{{stepsTotal}}
+    </div>
+    <button wlc-button
+            class="wlc-modal__close"
+            [attr.aria-label]="'Close' | translate"
+            [title]="'Close' | translate"
+            wlcElement="button_close"
+            theme="cleared"
+            iconPath="/wlc/icons/close.svg"
+            (click)="closeModal()">
+    </button>
+</div>
+
+<div class="{{$class}}__form"
+    wlc-form-wrapper
+    (form$)="getForm($event)"
+    [config]="activeStepConfig$ | async"
+    [formData]="formData"
+    [ngSubmit]="submitHandler.bind(this)"
+></div>

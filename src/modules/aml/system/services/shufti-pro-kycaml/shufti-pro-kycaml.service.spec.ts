@@ -5,6 +5,7 @@ import {MockService} from 'ng-mocks';
 import {
     DataService,
     EventService,
+    LogService,
 } from 'wlc-engine/modules/core';
 import {ShuftiProKycamlService} from './shufti-pro-kycaml.service';
 
@@ -21,6 +22,10 @@ describe('ShuftiProKycamlService', () => {
                 {
                     provide: EventService,
                     useValue: MockService(EventService),
+                },
+                {
+                    provide: LogService,
+                    useValue: MockService(LogService),
                 },
                 ShuftiProKycamlService,
             ],

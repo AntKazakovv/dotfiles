@@ -44,6 +44,7 @@ import {
     emailOrPhoneValidator,
     userIdValidator,
     emailOrUserIdValidator,
+    oneOrMoreRequiredValidator,
 } from './validators';
 import {IValidationPasswordRules} from 'wlc-engine/modules/core/system/interfaces/base-config/profile.interface';
 
@@ -130,6 +131,8 @@ export class ValidationService {
         this.setRule('emailOrPhone', emailOrPhoneValidator);
         this.setRule('userId', userIdValidator);
         this.setRule('emailOrUserId', emailOrUserIdValidator);
+        //checks if at least one of the group of fields is filled
+        this.setRule('oneOrMoreRequired', oneOrMoreRequiredValidator);
 
         _forEach(this.configService.get<IIndexing<ValidatorFn>>('$base.forms.customValidators'),
             (validator: ValidatorFn , name: string) => {

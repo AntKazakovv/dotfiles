@@ -31,6 +31,10 @@
             @include bm.visuallyHidden();
         }
 
+        &__radio-pretty {
+            display: none;
+        }
+
         &__group {
             @include button();
             @include m.buttonTransparency();

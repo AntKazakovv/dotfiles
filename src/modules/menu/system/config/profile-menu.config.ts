@@ -57,6 +57,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                     'app.profile.main.info',
                     'app.profile.verification',
                     'app.profile.kycaml',
+                    'app.profile.kyc-questionnaire',
                     'app.profile.messages',
                     'app.profile.limitations',
                     'app.profile.social',
@@ -79,6 +80,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                     'app.profile.main.info',
                     'app.profile.verification',
                     'app.profile.kycaml',
+                    'app.profile.kyc-questionnaire',
                     'app.profile.messages',
                     'app.profile.limitations',
                     'app.profile.social',
@@ -1216,6 +1218,33 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
             },
         },
     },
+    'profile-menu:kyc-questionnaire': {
+        name: gettext('KYC Questionnaire'),
+        type: 'sref',
+        icon: 'kyc-questionnaire',
+        class: 'kyc-questionnaire',
+        wlcElement: 'link_kyc-questionnaire',
+        params: {
+            state: {
+                name: 'app.profile.kyc-questionnaire',
+                params: {},
+            },
+        },
+    },
+
+    'profile-first-menu:kyc-questionnaire': {
+        name: gettext('KYC Questionnaire'),
+        type: 'sref',
+        icon: 'kyc-questionnaire',
+        class: 'kyc-questionnaire',
+        wlcElement: 'link_kyc-questionnaire',
+        params: {
+            state: {
+                name: 'app.profile.kyc-questionnaire',
+                params: {},
+            },
+        },
+    },
 };
 
 export const profileMenuFilter: ProfileMenuParams.IProfileMenuFilter[] = [
@@ -1242,6 +1271,14 @@ export const profileMenuFilter: ProfileMenuParams.IProfileMenuFilter[] = [
     {
         config: '$base.profile.verification.useShuftiProKycaml',
         item: 'profile-first-menu:kycaml',
+    },
+    {
+        config: 'appConfig.siteconfig.EnableKYCQuestionnaire',
+        item: 'profile-menu:kyc-questionnaire',
+    },
+    {
+        config: 'appConfig.siteconfig.EnableKYCQuestionnaire',
+        item: 'profile-first-menu:kyc-questionnaire',
     },
     {
         config: '$base.profile.limitations.use',

@@ -127,6 +127,7 @@ export const menuConfig: IMenuConfig = {
                 items: [
                     'profile-menu:edit-profile',
                     'profile-menu:verification',
+                    'profile-menu:kyc-questionnaire',
                     'profile-menu:kycaml',
                     'profile-menu:limitations',
                     'profile-menu:messages',
@@ -156,6 +157,7 @@ export const menuConfig: IMenuConfig = {
                     'profile-first-menu:edit-profile',
                     'profile-first-menu:verification',
                     'profile-first-menu:kycaml',
+                    'profile-first-menu:kyc-questionnaire',
                     'profile-first-menu:socials',
                     'profile-first-menu:limitations',
                     'profile-first-menu:messages',
@@ -242,6 +244,7 @@ export const menuConfig: IMenuConfig = {
                     'profile-first-menu:edit-profile',
                     'profile-first-menu:verification',
                     'profile-first-menu:kycaml',
+                    'profile-first-menu:kyc-questionnaire',
                     'profile-first-menu:socials',
                     'profile-first-menu:limitations',
                     'profile-first-menu:messages',

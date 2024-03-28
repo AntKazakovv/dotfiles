@@ -63,6 +63,9 @@ import {BurgerPanelComponent} from './components/burger-panel/burger-panel.compo
 import {ButtonComponent} from './components/button/button.component';
 import {CountryAndStateComponent} from './components/country-and-state/country-and-state.component';
 import {CheckboxComponent} from './components/checkbox/checkbox.component';
+import {
+    CheckboxWithInputComponent,
+} from 'wlc-engine/modules/core/components/checkbox-with-input/checkbox-with-input.component';
 import {ContactUsPageComponent} from 'wlc-engine/modules/core/components/contact-us-page/contact-us-page.component';
 import {CopyrightComponent} from './components/copyright/copyright.component';
 import {CounterComponent} from './components/counter/counter.component';
@@ -186,6 +189,7 @@ export const components = {
     'wlc-burger-panel': BurgerPanelComponent,
     'wlc-country-and-state': CountryAndStateComponent,
     'wlc-checkbox': CheckboxComponent,
+    'wlc-checkbox-with-input': CheckboxWithInputComponent,
     'wlc-copyright': CopyrightComponent,
     'wlc-contact-us-page': ContactUsPageComponent,
     'wlc-counter': CounterComponent,
@@ -315,6 +319,7 @@ export const services = {
         ButtonComponent,
         CountryAndStateComponent,
         CheckboxComponent,
+        CheckboxWithInputComponent,
         ClampDirective,
         ClickOutsideDirective,
         CopyToClipboardDirective,
@@ -408,6 +413,7 @@ export const services = {
         ButtonComponent,
         CountryAndStateComponent,
         CheckboxComponent,
+        CheckboxWithInputComponent,
         ClampDirective,
         ClickOutsideDirective,
         CopyToClipboardDirective,

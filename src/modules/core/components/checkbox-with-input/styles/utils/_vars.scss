@@ -1,0 +1,6 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'checkboxMargin': 0 0 ef.size(2),
+    'inputLabelTextStyle': 'SignText',
+    'inputLabelColor': var(--fc-labelColor),
+), $customThemeDefault);

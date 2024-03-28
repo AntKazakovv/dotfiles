@@ -145,9 +145,9 @@
                     width: ef.get-value($themeDefault, 'toggleCircleSize');
                     height: ef.get-value($themeDefault, 'toggleCircleSize');
                     background: ef.get-value($themeDefault, 'toggleCircleBg');
-                    transform: translateY(-50%);
-                    border: ef.get-value($themeDefault, 'toggleCircleBorder');
                     border-radius: 50%;
+                    border: ef.get-value($themeDefault, 'toggleCircleBorder');
+                    transform: translateY(-50%);
                 }
             }
 
@@ -207,6 +207,13 @@
         .wlc-checkbox__text {
             @include text.get-text-style(ef.get-value($themeDefault, 'boldCheckboxTextFont'), ef.get-value($themeDefault, 'boldCheckboxTextFontColor'));
             @include bm.get-mq-map('padding', $themeDefault, 'boldCheckboxTextPadding');
+        }
+    }
+
+    &.wlc-checkbox--theme-mod-align-top {
+
+        .wlc-checkbox__label {
+            align-items: flex-start;
         }
     }
 }

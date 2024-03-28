@@ -434,6 +434,44 @@
             );
         }
     }
+
+    &.wlc-modal--kyc-questionnaire {
+
+        .wlc-modal {
+
+            &__dialog {
+                max-width: ef.get-value($themeDefault, 'kycQDialogMaxWidth');
+            }
+
+            &__body {
+                @include bm.get-mq-map('padding', $themeDefault, 'kycQBodyPadding');
+            }
+
+            &__header {
+                @include bm.get-mq-map('padding', $themeDefault, 'kycQHeaderPadding');
+            }
+
+            &__close {
+                top: ef.get-value($themeDefault, 'kycQCloseTop');
+                right: ef.get-value($themeDefault, 'kycQCloseRight');
+            }
+
+            &__back-btn {
+
+                &.hidden {
+                    visibility: hidden;
+                }
+
+                .icon-arrow {
+                    margin: ef.get-value($themeDefault, 'kycQArrowMargin');
+                }
+            }
+
+            &__back-btn-text {
+                @include bm.get-mq-map('display', $themeDefault, 'kycQBackBtnTextDisplay');
+            }
+        }
+    }
 }
 
 body.modal-open {

@@ -1,3 +1,4 @@
+export * from './oneOrMoreRequired.validator';
 export * from './email.validator';
 export * from './letters.validator';
 export * from './matchFields.validator';

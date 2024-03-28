@@ -54,6 +54,10 @@ export class UserInfo extends AbstractModel<IUserInfo> {
         return this.data?.LockExpiresAt;
     }
 
+    public get notifyKycQuestionnaire(): boolean {
+        return this.data?.NotifyKYCQuestionnaire;
+    }
+
     public get affiliateID(): string {
         return this.data?.affiliateID;
     }

@@ -85,6 +85,9 @@
         </ng-container>
         <ng-container [ngTemplateOutlet]="status"></ng-container>
     </div>
+    <ng-template [ngIf]="$params.hint">
+        <div class="{{$class}}__hint">{{$params.hint | translate}}</div>
+    </ng-template>
 </ng-template>
 
 <ng-container [ngSwitch]="$params.theme">

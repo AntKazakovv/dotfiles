@@ -502,4 +502,22 @@ $themeDefault: map-merge((
     'logoutInfoItalyTextModalStyle': 'PrimaryText',
     'logoutInfoItalyTextModalColor': var(--mc-baseMain),
     // auto-logout-info
+
+    //kyc-questionnaire
+    'kycQDialogMaxWidth': 650px,
+    'kycQBodyPadding': (
+        375: ef.size(5) ef.size(6) ef.size(7),
+        768: ef.size(6) ef.size(6) ef.size(6),
+    ),
+    'kycQHeaderPadding': (
+        375: 0,
+        768: 0,
+    ),
+    'kycQCloseTop': ef.size(2),
+    'kycQCloseRight': 0,
+    'kycQArrowMargin': 0 2px 0 0,
+    'kycQBackBtnTextDisplay': (
+        375: none,
+        900: block,
+    ),
 ), $customThemeDefault);

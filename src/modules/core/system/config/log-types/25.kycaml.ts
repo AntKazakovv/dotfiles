@@ -9,4 +9,12 @@ export const errorTypes: ILogTypes = {
         // Error creating sumsub
         level: 'error',
     },
+    '25.0.2': {
+        // Error getting kycMode docs info
+        level: 'error',
+    },
+    '25.0.3': {
+        // Error getting user's deposits sum in euro
+        level: 'error',
+    },
 };
