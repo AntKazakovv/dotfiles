@@ -1,0 +1,27 @@
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'hostRadius': ef.get('radius', 'main'),
+    'hostBackground': linear-gradient(180deg, #414ec9 50%, #2217a5 100%),
+
+    'imageBgPosition': center top,
+    'imageBgSize': cover,
+
+    'imageMask': ef.static('bonuses/wolf/masks/bonus-image-mask-v.svg'),
+    'imageMaskSize': cover,
+    'imageMaskPosition': left bottom,
+
+    'imageWrapperWidth': 100%,
+    'imageWrapperHeightRatio': 75%,
+
+    'nameTextStyle': 'SignTextBold',
+    'nameTextAlign': center,
+    'nameFontColor': var(--mc-baseThird),
+    'nameMargin': (
+        375: ef.size(1),
+        640: ef.size(1) ef.size(3) ef.size(3),
+    ),
+    'nameLineClamp': (
+        375: 3,
+        640: 2,
+    ),
+), $customThemeWolf);

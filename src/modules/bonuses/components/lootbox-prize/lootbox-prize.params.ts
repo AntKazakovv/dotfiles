@@ -5,7 +5,7 @@ import {
 import {LootboxPrizeModel} from 'wlc-engine/modules/bonuses/system/models/lootbox-prize/lootbox-prize.model';
 
 export type Type = 'default' | CustomType;
-export type Theme = 'default' | CustomType;
+export type Theme = 'default' | 'wolf' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 
 export interface ILootboxPrizeCParams extends IComponentParams<Theme, Type, ThemeMod> {

@@ -68,6 +68,10 @@ export class LootboxPrizeModel extends AbstractModel<ILootboxPrize> {
         return this.data.Image || LootboxPrizeModel.$bonuses.defaultImages?.imageProfileFirst || '';
     }
 
+    public get imagePromo(): string {
+        return this.data.Image_promo || LootboxPrizeModel.$bonuses.defaultImages?.imagePromo || this.image || '';
+    }
+
     /**
      * get image other
      *

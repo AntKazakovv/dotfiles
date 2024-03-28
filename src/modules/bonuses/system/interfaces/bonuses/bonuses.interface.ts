@@ -236,6 +236,7 @@ export interface ILootboxPrize {
     Name: string;
     Image: string;
     Image_other: string;
+    Image_promo: string;
     Description: string;
     Terms: string;
 }

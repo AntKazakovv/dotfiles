@@ -65,6 +65,10 @@ export class LootboxPrizeComponent extends AbstractComponent implements OnInit {
         return this.isProfileFirst ? this.$params.prize.imageProfileFirst : this.$params.prize.image;
     }
 
+    public get imagePromo(): string {
+        return this.$params.prize.imagePromo;
+    }
+
     protected prepareModifiers(): void {
         if (this.isProfileFirst) {
             this.addModifiers('with-image');

@@ -13,7 +13,7 @@ $themeDefault: map-merge((
         375: 'ThirdTitleBold',
         480: 'QoteTextBold',
     ),
-    'titleTextColor': var(--mc-baseMain),
+    'titleTextColor': var(--mc-baseSecond, var(--mc-baseMain)),
 
     'descLineClamp': 3,
     'descMaxWidth': 380px,
@@ -25,7 +25,7 @@ $themeDefault: map-merge((
         375: 'PrimaryTextBold',
         480: 'ThirdTitleBold',
     ),
-    'descTextColor': var(--mc-baseMain),
+    'descTextColor': var(--mc-baseSecond, var(--mc-baseMain)),
     'descTextBeforeTop': (
         375: ef.size(2),
     ),

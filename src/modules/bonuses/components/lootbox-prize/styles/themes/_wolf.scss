@@ -1,0 +1,29 @@
+.wlc-lootbox-prize--theme-wolf:host {
+    height: 100%;
+    border-radius: ef.get-value($themeWolf, 'hostRadius');
+    background: ef.get-value($themeWolf, 'hostBackground');
+    overflow: hidden;
+
+    .wlc-lootbox-prize {
+
+        &__image-wrapper {
+            width: ef.get-value($themeWolf, 'imageWrapperWidth');
+            padding-bottom: ef.get-value($themeWolf, 'imageWrapperHeightRatio');
+            mask-image: ef.get-value($themeWolf, 'imageMask');
+            mask-size: ef.get-value($themeWolf, 'imageMaskSize');
+            mask-position: ef.get-value($themeWolf, 'imageMaskPosition');
+            background-position: ef.get-value($themeWolf, 'imageBgPosition');
+            background-size: ef.get-value($themeWolf, 'imageBgSize');
+        }
+
+        &__name {
+            @include bm.get-mq-map('margin', $themeWolf, 'nameMargin');
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'nameTextStyle'),
+                ef.get-value($themeWolf, 'nameFontColor'),
+            );
+            @include bm.lineClamp(map-get($themeWolf, 'nameLineClamp'));
+            text-align: ef.get-value($themeWolf, 'nameTextAlign');
+        }
+    }
+}
