@@ -1,35 +1,24 @@
 $customMainInfoThemeDefault: () !default;
 $mainInfoThemeDefault: map-merge((
-    'sectionFormGap': (
-        375: ef.size(4),
+    'formRowGap': ef.size(3),
+    'saveButtonMargin': (
+        768: ef.size(5) 0 0,
+        1200: ef.size(3) 0 0,
     ),
-    'sectionRowGap': (
-        1024: ef.size(4),
-    ),
-    'formRowGap': (
-        375: ef.size(4),
-        768: ef.size(2),
-    ),
-    'saveButtonShift': ef.size(4),
     'saveButtonAlign': (
         375: center,
         768: end,
     ),
-    'formMaxWidth': (
-        768: 768px,
+    'emailInputColumns': (
+        375: 1fr,
+        768: 160px 1fr,
+        900: 140px 1fr,
+        1200: 160px 1fr,
     ),
-    'inputWidth': (
-        768: 400px,
-        1200: 450px,
-    ),
-    'formLabelColor': (
-        375: var(--fc-labelColor),
-        768: var(--mc-baseMain)
-    ),
-    'phoneInnerGap': 150px,
     'phoneTemplateColumns': (
         375: 100px minmax(0, 1fr),
-        768: minmax(0, 1fr) 300px,
+        768: minmax(290px, 1fr) 1fr,
+        900: minmax(260px, 1fr) 1fr,
     ),
     'phoneAlignItems': (
         375: flex-end,
@@ -37,14 +26,13 @@ $mainInfoThemeDefault: map-merge((
     ),
     'phoneSize': (
         375: minmax(0, 1fr),
-        768: minmax(0, 1fr) 140px,
+        768: 160px minmax(0, 1fr),
+        900: 140px minmax(0, 1fr),
+        1200: 160px minmax(0, 1fr),
     ),
     'phoneLabelWhiteSpace': (
         375: nowrap,
         768: initial,
-    ),
-    'phoneGap': (
-        768: 0,
     ),
     'phoneInputLabelDisplay': (
         768: none,
@@ -63,8 +51,10 @@ $mainInfoThemeDefault: map-merge((
     ),
 
     'phoneNotVerColumns': (
-        375: 100px minmax(0, 1fr),
-        768: minmax(0, 1fr) 160px 150px,
+        375: 1fr 2fr,
+        768: repeat(2, minmax(0, 1fr)) minmax(110px, max-content),
+        900: minmax(0, 2fr) minmax(0, 1fr) minmax(110px, max-content),
+        1200: minmax(290px, 1fr) minmax(0, 1fr) minmax(110px, max-content),
     ),
     'phoneNotVerAreas': (
         375: 'code phone' 'button button',
@@ -76,42 +66,44 @@ $mainInfoThemeDefault: map-merge((
         768: 100%,
     ),
     'phoneNotVerSelectColumn': (
-        768: minmax(0, 1fr) 120px,
+        768: 160px minmax(0, 1fr),
+        900: 140px minmax(0, 1fr),
+        1200: 160px minmax(0, 1fr),
     ),
 
     'birthColumns': (
         375: repeat(3, minmax(90px, 1fr)),
-        768: 1fr 145px 145px
+        768: minmax(360px, 2fr) 1fr 1fr,
+        900: minmax(270px, 2fr) 1fr 1fr,
+        1200: minmax(340px, 2fr) 1fr 1fr,
     ),
     'birthAlignItems': (
         375: flex-end,
         768: center,
     ),
     'birthSelectSize': (
-        768: 1fr 140px,
+        768: 160px 1fr,
+        900: 140px 1fr,
+        1200: 160px 1fr,
     ),
     'birthLabelWhiteSpace': (
         375: nowrap,
         768: initial,
     ),
     'birthSelectColumns': minmax(0, 1fr),
-    'birthInnerGap': 160px,
-    'addBlockGap': ef.size(4),
-    'addTitleFontSize': ef.get('font', 'smaller'),
-    'addTitleFontWeight': 300,
-    'addItemTitleMainFontSize': ef.get('font', 'main'),
-    'addItemTitleSecondFontSize': ef.get('font', 'smaller'),
-    'addItemLinkFontSize': (
-        375: ef.get('font', 'less'),
-        1024: ef.get('font', 'smaller')
-    ),
-    'addItemLinkFontWeight': (
-        375: ef.get-value($profileSettings, 'profileBtnWeight'),
-    ),
+
     'labelAlignItems': center,
     'labelMargin': 0 0 0 ef.size(2),
     'labelFont': 'PrimaryText',
     'labelFontColor': var(--mc-baseMain),
+    'selectGridGap': (
+        768: ef.size(6),
+    ),
+    'selectGridColumns': (
+        768: 160px 1fr,
+        900: 140px 1fr,
+        1200: 160px 1fr,
+    ),
 ), $customMainInfoThemeDefault);
 
 $customMainInfoThemeV1: () !default;
@@ -200,3 +192,107 @@ $mainInfoThemeV1: map-merge((
         560: 'code phone button',
     ),
 ), $customMainInfoThemeV1);
+
+$customMainInfoThemeWolf: () !default;
+$mainInfoThemeWolf: map-merge((
+    'formAutoColumns': 1fr,
+    'formRowGap':  ef.size(3),
+    'saveButtonMargin': ef.size(1) 0 0,
+    'saveButtonAlign': (
+        375: center,
+        768: end,
+    ),
+    'fieldGap': ef.size(3),
+    'emailInputColumns': (
+        375: 1fr,
+        768: 160px 1fr,
+        900: 140px 1fr,
+        1200: 160px 1fr,
+    ),
+    'birthColumns': (
+        375: repeat(3, minmax(90px, 1fr)),
+        768: minmax(360px, 2fr) 1fr 1fr,
+        900: minmax(260px, 2fr) 1fr 1fr,
+        1024: minmax(270px, 2fr) 1fr 1fr,
+        1200: minmax(320px, 2fr) 1fr 1fr,
+    ),
+    'birthAlignItems': (
+        375: flex-end,
+        768: center,
+    ),
+    'birthSelectColumns': minmax(0, 1fr),
+    'birthSelectSize': (
+        768: 160px 1fr,
+        900: 140px 1fr,
+        1200: 160px 1fr,
+    ),
+    'birthLabelWhiteSpace': (
+        375: nowrap,
+        768: initial,
+    ),
+    'phoneTemplateColumns': (
+        375: 100px minmax(0, 1fr),
+        768: minmax(290px, 1fr) 1fr,
+        900: minmax(270px, 1fr) 1fr,
+    ),
+    'phoneAlignItems': (
+        375: flex-end,
+        768: center,
+    ),
+    'phoneSize': (
+        375: minmax(0, 1fr),
+        768: 160px minmax(0, 1fr),
+        900: 140px minmax(0, 1fr),
+        1200: 160px minmax(0, 1fr),
+    ),
+    'phoneLabelWhiteSpace': (
+        375: nowrap,
+        768: initial,
+    ),
+    'phoneInputColumns': minmax(0, 1fr),
+    'phoneInputLabelDisplay': (
+        768: none,
+    ),
+    'phoneTooltipMargin': 0 0 0 ef.size(1),
+    'phoneVerTooltipDisplay': (
+        375: flex,
+    ),
+    'phoneVerTooltipMargin': (
+        375: 0 0 0 ef.size(1),
+    ),
+    'phoneVerInputLabelDisplay': (
+        375: none,
+    ),
+    'phoneNotVerAreas': (
+        375: 'code phone' 'button button',
+        560: 'code phone button',
+    ),
+    'phoneNotVerColumns': (
+        375: 1fr 2fr,
+        768: repeat(2, minmax(0, 1fr)) minmax(110px, max-content),
+        900: minmax(0, 2fr) minmax(0, 1fr) minmax(110px, max-content),
+    ),
+    'phoneNotVerBtnWidth': (
+        375: max-content,
+        768: 100%,
+    ),
+    'phoneNotVerBtnMargin': 0 auto,
+    'phoneNotVerSelectColumn': (
+        768: 160px minmax(0, 1fr),
+        900: 140px minmax(0, 1fr),
+        1200: 160px minmax(0, 1fr),
+    ),
+    'selectGridGap': (
+        768: ef.size(6),
+    ),
+    'selectGridColumns': (
+        768: 160px 1fr,
+        900: 140px 1fr,
+        1200: 160px 1fr,
+    ),
+    'labelFont': 'PrimaryText',
+    'labelFontColor': var(--mc-baseMain),
+    'labelMargin': 0,
+    'selectFont': 'PrimaryText',
+    'selectFontColor': var(--mc-baseMain),
+), $customMainInfoThemeWolf);

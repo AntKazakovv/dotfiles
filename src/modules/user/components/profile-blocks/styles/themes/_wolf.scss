@@ -16,13 +16,11 @@
         }
 
         &__item {
-            @include bm.get-mq-map('padding', $themeWolf, 'itemPadding');
             position: relative;
             display: flex;
-            flex-wrap: nowrap;
+            flex-direction: column;
             gap: ef.get-value($themeWolf, 'itemGap');
-            align-items: flex-start;
-            justify-content: space-between;
+            padding: ef.get-value($themeWolf, 'itemPadding');
 
             &:before {
                 content: '';
@@ -43,6 +41,10 @@
             }
 
             &--notification {
+                flex-direction: row;
+                flex-wrap: nowrap;
+                align-items: flex-start;
+                justify-content: space-between;
 
                 .wlc-profile-blocks {
 

@@ -47,14 +47,14 @@ $themeDefault: map-merge((
     'btnTextStyle': 'ButtonText',
     'btnColor': (
         375: ef.get('mainColors', 'baseMain'),
-        1024: var(--mc-main)
+        900: var(--mc-main)
     ),
     'btnColorHover': var(--mc-baseMain),
     'btnTextDisplay': flex,
     'btnTextJustify': center,
     'btnIconDisplay': (
         375: none,
-        1024: flex,
+        900: flex,
     ),
     'btnIconMargin': 0 0 0 3px,
     'btnIconTransform': rotate(-90deg),

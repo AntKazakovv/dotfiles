@@ -125,8 +125,8 @@
                         display: ef.get-value($themeDefault, 'btnTextDisplay');
                         justify-content: ef.get-value($themeDefault, 'btnTextJustify');
 
-                        @include mq.min(1024) {
-                            color: ef.get-value($themeDefault, 'btnColor', 1024);
+                        @include mq.min(900) {
+                            color: ef.get-value($themeDefault, 'btnColor', 900);
                         }
                     }
 
@@ -147,7 +147,7 @@
                         }
                     }
 
-                    @include mq.min(1024) {
+                    @include mq.min(900) {
                         display: ef.get-value($themeDefault, 'btnDeskDisplay');
                         min-width: ef.get-value($themeDefault, 'btnDeskMinWidth');
                         height: ef.get-value($themeDefault, 'btnDeskHeight');

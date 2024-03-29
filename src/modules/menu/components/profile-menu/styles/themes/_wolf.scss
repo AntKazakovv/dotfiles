@@ -1,7 +1,7 @@
 .wlc-profile-menu--theme-wolf.wlc-profile-menu--type-tabs:host {
-    @include bm.get-mq-map('margin', $themeWolf, 'menuMargin');
     position: relative;
     min-width: 0;
+    margin: ef.get-value($themeWolf, 'menuMargin');
 
     ::ng-deep {
         @include menuControls($themeWolf);

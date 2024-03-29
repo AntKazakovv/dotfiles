@@ -224,13 +224,13 @@ $profileSettings: map-merge((
         1200: 285px auto,
     ),
     'contentCenterColGap': (
-        375: 40px,
-        1366: 80px,
+        900: size-func(8),
+        1200: size-func(12),
     ),
     'contentCenterFormColumns': (
         375: 1fr,
-        1024: minmax(0, 1fr) 30%,
-        1200: minmax(675px, max-content) 330px,
+        900: minmax(0, 1fr) 290px,
+        1024: minmax(0, 1fr) 360px,
     ),
     'contentNickIconColumns': (
         375: 1fr,
@@ -300,21 +300,36 @@ $profileSettings: map-merge((
     'profileTabAngleBg': map-get($mainColors, 'bg700'),
     'profileTabAngleBgAlt': map-get($mainColorsAlt, 'bg700'),
 
-    'wolfWrpMaxWidth': (
-        320: 100%,
-        900: 1024px,
+    'wolfPadding': (
+        320: 0,
+        900: 0 size-func(6) size-func(9),
     ),
     'wolfSectionBg': (
         320: none,
         900: var(--mc-bg700),
     ),
-    'wolfBorderRadius': 8px,
-    'wolfPadding': (
-        320: 0,
-        375: 0 0 size-func(7),
-        900: 0 size-func(6) size-func(7),
+    'wolfBorderRadius': size-func(2),
+    'wolfTopMargin': (
+        375: 0 0 size-func(4),
+        900: 0,
     ),
-    'wolfTitleMargin': 0 0 size-func(4),
+    'wolfTitleMargin': 0,
+    'wolfTitleFontStyle': 'PrimaryTextBold',
+    'wolfTitleColor': var(--mc-baseThird, var(--mc-baseMain)),
+    'wolfWrpMaxWidth': (
+        320: 100%,
+        900: 1024px,
+    ),
+    'wolfWrpMargin': 0 auto,
+    'wolfGridColumns':(
+        375: 1fr,
+        900: minmax(490px, 1fr) 1fr,
+        1024: minmax(490px, 1fr) 360px,
+    ),
+    'wolfGridGap': (
+        900: size-func(8),
+        1200: size-func(12),
+    ),
 ), $customProfileSettings);
 
 /// Глобальные настройки профиля (первая тема):

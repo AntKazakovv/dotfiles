@@ -1,0 +1,158 @@
+.app-profile-main-info-state {
+
+    .wlc-sections__profile-content--theme-wolf {
+
+        .wlc-profile-form {
+
+            .wlc-form {
+                display: grid;
+                grid-auto-columns: ef.get-value($mainInfoThemeWolf, 'formAutoColumns');
+                grid-row-gap: ef.get-value($mainInfoThemeWolf, 'formRowGap');
+
+                .wlc-btn[wlc-button] {
+                    @include bm.get-mq-map('margin', $mainInfoThemeWolf, 'saveButtonMargin');
+                    @include bm.get-mq-map('justify-self', $mainInfoThemeWolf, 'saveButtonAlign');
+                }
+
+                .wlc-email-field--unverified {
+                    grid-gap: ef.get-value($mainInfoThemeWolf, 'fieldGap');
+
+                    .wlc-input[class] {
+                        @include bm.get-mq-map('grid-template-columns', $mainInfoThemeWolf, 'emailInputColumns');
+                    }
+
+                    .wlc-btn[wlc-button] {
+                        margin-top: 0;
+                    }
+                }
+
+                .wlc-birth-field {
+                    @include bm.get-mq-map('grid-template-columns', $mainInfoThemeWolf, 'birthColumns');
+                    @include bm.get-mq-map('align-items', $mainInfoThemeWolf, 'birthAlignItems');
+                    grid-gap: ef.get-value($mainInfoThemeWolf, 'fieldGap');
+
+                    .wlc-select[class] {
+                        grid-template-columns: ef.get-value($mainInfoThemeWolf, 'birthSelectColumns');
+
+                        &:first-child {
+                            @include bm.get-mq-map('grid-template-columns', $mainInfoThemeWolf, 'birthSelectSize');
+
+                            .wlc-select__label {
+                                @include bm.get-mq-map('white-space', $mainInfoThemeWolf, 'birthLabelWhiteSpace');
+                            }
+                        }
+                    }
+                }
+
+                .wlc-phone-field {
+                    @include bm.get-mq-map('grid-template-columns', $mainInfoThemeWolf, 'phoneTemplateColumns');
+                    @include bm.get-mq-map('align-items', $mainInfoThemeWolf, 'phoneAlignItems');
+                    grid-gap: ef.get-value($mainInfoThemeWolf, 'fieldGap');
+
+                    .wlc-select[class] {
+                        @include bm.get-mq-map('grid-gap', $mainInfoThemeWolf, 'selectGridGap');
+                        @include bm.get-mq-map('grid-template-columns', $mainInfoThemeWolf, 'phoneSize');
+
+                        .wlc-tooltip {
+                            display: none;
+                        }
+
+                        .wlc-select__label {
+                            @include bm.get-mq-map('white-space', $mainInfoThemeWolf, 'phoneLabelWhiteSpace');
+                        }
+                    }
+
+                    .wlc-input[class] {
+                        @include bm.get-mq-map('grid-template-columns', $mainInfoThemeWolf, 'phoneInputColumns');
+                        display: flex;
+                        flex-wrap: wrap;
+                        align-items: center;
+
+                        .wlc-tooltip {
+                            @include bm.get-mq-map('display', $mainInfoThemeWolf, 'phoneInputLabelDisplay');
+                            margin: ef.get-value($mainInfoThemeWolf, 'phoneTooltipMargin');
+                        }
+
+                        .wlc-input__label {
+                            display: none;
+                        }
+                    }
+
+                    &.wlc-phone-field--sms-verified {
+
+                        .wlc-select[class] {
+
+                            .wlc-tooltip {
+                                @include bm.get-mq-map('display', $mainInfoThemeWolf, 'phoneVerTooltipDisplay');
+                                @include bm.get-mq-map('margin', $mainInfoThemeWolf, 'phoneVerTooltipMargin');
+                            }
+                        }
+
+                        .wlc-input[class] {
+
+                            .wlc-input__label {
+                                @include bm.get-mq-map('display', $mainInfoThemeWolf, 'phoneVerInputLabelDisplay');
+                            }
+                        }
+                    }
+
+                    &.wlc-phone-field--sms-not-verified {
+                        @include bm.get-mq-map('grid-template-areas', $mainInfoThemeWolf, 'phoneNotVerAreas');
+                        @include bm.get-mq-map('grid-template-columns', $mainInfoThemeWolf, 'phoneNotVerColumns');
+
+                        .wlc-btn[wlc-button] {
+                            @include bm.get-mq-map('width', $mainInfoThemeWolf, 'phoneNotVerBtnWidth');
+                            grid-area: button;
+                            justify-self: flex-start;
+                            margin: ef.get-value($mainInfoThemeWolf, 'phoneNotVerBtnMargin');
+                        }
+
+                        .wlc-select[class] {
+                            @include bm.get-mq-map('grid-template-columns', $mainInfoThemeWolf, 'phoneNotVerSelectColumn');
+                            grid-area: code;
+
+                            .wlc-tooltip {
+                                display: none;
+                            }
+                        }
+
+                        .wlc-input[class] {
+                            grid-area: phone;
+
+                            .wlc-input__label {
+                                display: none;
+                            }
+
+                            .wlc-tooltip {
+                                display: none;
+                            }
+                        }
+                    }
+                }
+
+                .wlc-input[class],
+                .wlc-select[class] {
+                    @include bm.get-mq-map('grid-gap', $mainInfoThemeWolf, 'selectGridGap');
+                    @include bm.get-mq-map('grid-template-columns', $mainInfoThemeWolf, 'selectGridColumns');
+
+                    .wlc-input__label,
+                    .wlc-select__label {
+                        @include mq.min(768) {
+                            @include text.get-text-style(ef.get-value($mainInfoThemeWolf, 'labelFont'), ef.get-value($mainInfoThemeWolf, 'labelFontColor'));
+                            margin: ef.get-value($mainInfoThemeWolf, 'labelMargin');
+                        }
+                    }
+
+                    .wlc-input__input,
+                    .wlc-select__group {
+
+                        input,
+                        .wlc-select__field {
+                            @include text.get-text-style(ef.get-value($mainInfoThemeWolf, 'selectFont'), ef.get-value($mainInfoThemeWolf, 'selectFontColor'));
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

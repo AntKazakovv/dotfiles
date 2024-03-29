@@ -31,4 +31,15 @@
             }
         }
     }
+
+    .wlc-profile-form {
+
+        .wlc-country-and-state--theme-mod-default {
+
+            .wlc-input--cpf,
+            .wlc-select--state {
+                margin: ef.get-value($themeDefault, 'formProfileMargin');
+            }
+        }
+    }
 }

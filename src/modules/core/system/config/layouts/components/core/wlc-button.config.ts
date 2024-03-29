@@ -505,7 +505,7 @@ export namespace wlcButton {
     export const profileBlocks: ILayoutComponent = {
         name: 'core.wlc-button',
         display: {
-            before: 1023,
+            before: 899,
             auth: true,
         },
         params: {
@@ -513,6 +513,25 @@ export namespace wlcButton {
             themeMod: 'settings',
             common: {
                 iconPath: '/wlc/icons/settings.svg',
+                event: {
+                    name: 'SHOW_MODAL',
+                    data: 'profileBlocks',
+                },
+            },
+        },
+    };
+
+    export const profileBlocksWolf: ILayoutComponent = {
+        name: 'core.wlc-button',
+        display: {
+            before: 899,
+            auth: true,
+        },
+        params: {
+            theme: 'icon',
+            themeMod: 'wolf-settings',
+            common: {
+                iconPath: '/wlc/icons/european/v3/settings.svg',
                 event: {
                     name: 'SHOW_MODAL',
                     data: 'profileBlocks',

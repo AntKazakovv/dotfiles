@@ -42,27 +42,26 @@
 
                 .wlc-btn[wlc-button] {
                     @include bm.get-mq-map('justify-self', $mainInfoThemeDefault, 'saveButtonAlign');
-
-                    @include mq.min(768) {
-                        margin-top: ef.get-value($mainInfoThemeDefault, 'saveButtonShift');
-                    }
+                    @include bm.get-mq-map('margin', $mainInfoThemeDefault, 'saveButtonMargin');
                 }
 
                 .wlc-email-field--unverified {
+                    grid-gap: ef.get-value($mainInfoThemeDefault, 'formRowGap', 768);
+
+                    .wlc-input[class] {
+                        @include bm.get-mq-map('grid-template-columns', $mainInfoThemeDefault, 'emailInputColumns');
+                    }
 
                     .wlc-btn[wlc-button] {
                         margin-top: 0;
                     }
-                }
-
-                @include mq.min(768) {
-                    grid-gap: ef.get-value($mainInfoThemeDefault, 'formRowGap', 768);
                 }
             }
 
             .wlc-birth-field {
                 @include bm.get-mq-map('grid-template-columns', $mainInfoThemeDefault, 'birthColumns');
                 @include bm.get-mq-map('align-items', $mainInfoThemeDefault, 'birthAlignItems');
+                grid-gap: ef.get-value($mainInfoThemeDefault, 'formRowGap', 768);
 
                 .wlc-select[class] {
                     grid-template-columns: ef.get-value($mainInfoThemeDefault, 'birthSelectColumns');
@@ -82,7 +81,7 @@
                 @include bm.get-mq-map('align-items', $mainInfoThemeDefault, 'phoneAlignItems');
 
                 .wlc-select[class] {
-                    @include bm.get-mq-map('grid-gap', $mainInfoThemeDefault, 'phoneGap');
+                    @include bm.get-mq-map('grid-gap', $mainInfoThemeDefault, 'selectGridGap');
                     @include bm.get-mq-map('grid-template-columns', $mainInfoThemeDefault, 'phoneSize');
 
                     .wlc-tooltip {
@@ -164,6 +163,8 @@
 
             .wlc-input[class],
             .wlc-select[class] {
+                @include bm.get-mq-map('grid-gap', $mainInfoThemeDefault, 'selectGridGap');
+                @include bm.get-mq-map('grid-template-columns', $mainInfoThemeDefault, 'selectGridColumns');
 
                 .wlc-input__label,
                 .wlc-select__label {
@@ -172,11 +173,6 @@
                         @include text.get-text-style(ef.get-value($mainInfoThemeDefault, 'labelFont'), ef.get-value($mainInfoThemeDefault, 'labelFontColor'));
                         margin: 0;
                     }
-                }
-
-                @include mq.min(768) {
-                    grid-template-columns: 1fr ef.get-value($mainInfoThemeDefault, 'inputWidth', 1200);
-                    align-items: ef.get-value($mainInfoThemeDefault, 'labelAlignItems');
                 }
             }
         }

@@ -4,19 +4,48 @@
         @include bm.get-mq-map('padding', $profileSettings, 'wolfPadding');
         @include bm.get-mq-map('background', $profileSettings, 'wolfSectionBg');
         @include bm.get-mq-map('border-radius', $profileSettings, 'wolfBorderRadius');
-        @include bm.get-mq-map('padding', $profileSettings, 'wolfPadding');
         position: relative;
     }
 
     .wlc-profile-content {
 
+        &__top {
+            @include bm.get-mq-map('margin', $profileSettings, 'wolfTopMargin');
+            display: flex;
+
+            &--buttons {
+                align-items: ef.get-value($profileSettings, 'topBtnsAlignItems');
+                justify-content: ef.get-value($profileSettings, 'topBtnsJustifyContent');
+            }
+
+            .wlc-section-title[class] {
+                margin: ef.get-value($profileSettings, 'wolfTitleMargin');
+
+                .wlc-section-title {
+
+                    &__content {
+                        @include text.get-text-style(
+                            ef.get-value($profileSettings, 'wolfTitleFontStyle'),
+                            ef.get-value($profileSettings, 'wolfTitleColor'),
+                        );
+                    }
+
+                    &__icon {
+                        color: ef.get-value($profileSettings, 'wolfTitleColor');
+                    }
+                }
+            }
+        }
+
         &__wrp {
             @include bm.get-mq-map('max-width', $profileSettings, 'wolfWrpMaxWidth');
-            margin: 0 auto;
+            margin: ef.get-value($profileSettings, 'wolfWrpMargin');
         }
-    }
 
-    .wlc-section-title {
-        margin: ef.get-value($profileSettings, 'wolfTitleMargin');
+        &__body {
+            @include bm.get-mq-map('grid-template-columns', $profileSettings, 'wolfGridColumns');
+            @include bm.get-mq-map('grid-gap', $profileSettings, 'wolfGridGap');
+            display: grid;
+        }
     }
 }

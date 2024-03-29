@@ -19,5 +19,18 @@
                 }
             }
         }
+
+        &--theme-mod-wolf-settings {
+
+            ::ng-deep {
+
+                svg {
+                    display: ef.get-value($themeIconWolf, 'display');
+                    width: ef.get-value($themeIconWolf, 'size');
+                    height: ef.get-value($themeIconWolf, 'size');
+                    color: ef.get-value($themeIconWolf, 'color');
+                }
+            }
+        }
     }
 }

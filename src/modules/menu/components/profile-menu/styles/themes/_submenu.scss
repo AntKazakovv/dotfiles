@@ -108,7 +108,7 @@
     }
 
     .wlc-menu--theme-wolf.wlc-menu--type-profile-menu {
-        margin: ef.get-value($submenuProfileWolf, 'menuMargin');
+        @include bm.get-mq-map('margin', $submenuProfileWolf, 'menuMargin');
 
         ::ng-deep {
 

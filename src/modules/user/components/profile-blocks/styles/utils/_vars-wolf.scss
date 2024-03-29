@@ -9,15 +9,15 @@ $themeWolf: map-merge((
     'hostHeight': max-content,
     'hostPadding': (
         375: 0,
-        1024: ef.size(6),
+        900: ef.size(6),
     ),
     'hostRadiius': (
         375: 0,
-        1024: ef.size(2),
+        900: ef.size(2),
     ),
     'hostBg': (
         375: transparent,
-        1024: var(--mc-bg500),
+        900: var(--mc-bg500),
     ),
 
     'blockDisplay': grid,
@@ -27,11 +27,8 @@ $themeWolf: map-merge((
         1024: ef.size(6),
     ),
 
-    'itemGap': ef.size(2),
-    'itemPadding': (
-        375: 0 0 ef.size(8) 0,
-        1024: 0 0 ef.size(6) 0,
-    ),
+    'itemGap': ef.size(3),
+    'itemPadding': 0 0 ef.size(6) 0,
     'itemElemBg': var(--mc-bg300),
 
     'notifTitleMargin': 0,

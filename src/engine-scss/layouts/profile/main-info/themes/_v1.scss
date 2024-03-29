@@ -133,9 +133,9 @@
                         @include bm.get-mq-map('grid-template-columns', $mainInfoThemeV1, 'phoneNotVerColumns');
 
                         .wlc-btn[wlc-button] {
-                            @include bm.get-mq-map('width', $mainInfoThemeDefault, 'phoneNotVerBtnWidth');
+                            @include bm.get-mq-map('width', $mainInfoThemeV1, 'phoneNotVerBtnWidth');
                             grid-area: button;
-                            margin: ef.get-value($mainInfoThemeDefault, 'phoneNotVerBtnMargin');
+                            margin: ef.get-value($mainInfoThemeV1, 'phoneNotVerBtnMargin');
                         }
 
                         .wlc-select[class] {

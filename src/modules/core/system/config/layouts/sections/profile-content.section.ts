@@ -164,7 +164,7 @@ const defaultMainBody: IFormComponent = {
             {
                 name: 'user.wlc-profile-blocks',
                 display: {
-                    after: 1023,
+                    after: 900,
                 },
             },
         ],
@@ -226,16 +226,26 @@ const generateProfileWolf = (): ILayoutSectionConfig => ({
     usePreloader: true,
     components: [
         {
-            name: 'core.wlc-section-title',
+            name: 'core.wlc-wrapper',
             params: {
-                theme: 'wolf',
-                text: 'Profile',
-                iconPath: 'wlc/icons/european/v3/account-settings.svg',
-            },
-            display: {
-                before: 899,
+                class: 'wlc-profile-content__top wlc-profile-content__top--buttons',
+                components: [
+                    {
+                        name: 'core.wlc-section-title',
+                        params: {
+                            theme: 'wolf',
+                            text: 'Profile',
+                            iconPath: 'wlc/icons/european/v3/account-settings.svg',
+                        },
+                        display: {
+                            before: 899,
+                        },
+                    },
+                    componentLib.wlcButton.profileBlocksWolf,
+                ],
             },
         },
+
         {
             name: 'core.wlc-wrapper',
             params: {
@@ -246,22 +256,13 @@ const generateProfileWolf = (): ILayoutSectionConfig => ({
                     {
                         name: 'core.wlc-wrapper',
                         params: {
-                            class: 'wlc-profile-content__top wlc-profile-content__top--buttons',
-                            components: [
-                                componentLib.wlcButton.profileBlocks,
-                            ],
-                        },
-                    },
-                    {
-                        name: 'core.wlc-wrapper',
-                        params: {
                             class: 'wlc-profile-content__body',
                             components: [
                                 componentLib.wlcProfileForm.def,
                                 {
                                     name: 'user.wlc-profile-blocks',
                                     display: {
-                                        after: 1023,
+                                        after: 900,
                                     },
                                 },
                             ],
@@ -1730,7 +1731,7 @@ export namespace profileContent {
                                 ],
                             },
                             display: {
-                                after: 1023,
+                                after: 1024,
                             },
                         },
                         {

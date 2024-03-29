@@ -152,7 +152,10 @@ $submenuProfileDefault: map-merge((
 
 $customSubmenuProfileWolf: () !default;
 $submenuProfileWolf: map-merge((
-    'menuMargin': 0 0 ef.size(6),
+    'menuMargin': (
+        320: 0 0 ef.size(4),
+        900: 0 0 ef.size(6),
+    ),
     'menuItemBg': var(--mc-bg300),
     'menuItemRadius': ef.size(8),
     'menuLinkTextStyle': 'PrimaryText',
@@ -220,10 +223,7 @@ $themeWolf: map-merge((
         320: 0,
         900: 0 ef.size(6),
     ),
-    'menuMargin': (
-        320: 0 0 ef.size(4),
-        900: 0 0 ef.size(6),
-    ),
+    'menuMargin': 0 0 ef.size(6),
     'menuItemPadding': ef.size(3),
     'menuLinkTextStyle': 'PrimaryText',
     'menuLinkColor': var(--mc-baseMain),
