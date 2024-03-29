@@ -244,6 +244,10 @@ export class ModalService {
             if ((!modalInstance.modalDirect.dismissReason && !modalInstance.closeReason) || reason) {
                 modalInstance.closeReason = reason;
             }
+
+            if (modalInstance.bsOptions.closeInterceptor) {
+                this.removeCloseQueue(id);
+            }
             modalInstance.modalDirect.hide();
         });
     }
@@ -331,9 +335,9 @@ export class ModalService {
         if (lastModal) {
             lastModal.ref.location.nativeElement.children[0].focus();
         }
-
-        _remove(this.closeQueue, (item: string) => item === id);
-        this.$closeObserver.next(this.closeQueue.length);
+        if (this.closeQueue.length) {
+            this.removeCloseQueue(id);
+        }
     }
 
     private openModal(config: IModalConfig): WlcModalComponent {
@@ -393,5 +397,10 @@ export class ModalService {
         await this.configService.ready;
         this.modalList = GlobalHelper
             .mergeConfig(this.modalList, this.configService.get<IModalList>('$modals.customModals'));
+    }
+
+    private removeCloseQueue(id: string): void {
+        _remove(this.closeQueue, (item: string) => item === id);
+        this.$closeObserver.next(this.closeQueue.length);
     }
 }
