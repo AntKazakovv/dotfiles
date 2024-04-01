@@ -67,6 +67,7 @@
     }
 
     &.wlc-header--theme-mod-wolf {
+        @include bm.get-mq-map('margin-bottom', $themeUniversal, 'headerMarginWolf');
 
         .wlc-header {
 

@@ -204,7 +204,7 @@ $themeDefault: map-merge((
     'btnFontActive': 'PrimaryText',
     'btnColorHover': var(--mc-baseThird-locked, var(--mc-baseMain-locked)),
 
-    'heightBtn': ef.size(8),
+    'heightBtn': 40px,
     'modalPaddingSearch': (
         375: 0 ef.size(1),
         560: 0 ef.size(3),
