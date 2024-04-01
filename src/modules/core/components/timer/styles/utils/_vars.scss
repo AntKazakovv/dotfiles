@@ -53,7 +53,7 @@ $themeOneLine: map-merge((
 $customThemeWolf: () !default;
 $themeWolf: map-merge((
     'titleTextStyle': 'SignTextBold',
-    'titleColor': var(--mc-lightColor),
+    'titleColor': var(--mc-baseThird),
     'titleMargin': 0 0 ef.size(1),
 
     'timerTextStyle': 'CaptionTextBold',

@@ -1,6 +1,6 @@
 $customThemeWolf: () !default;
 $themeWolf: map-merge((
-    'valuesColor': var(--mc-lightColor),
+    'valuesColor': var(--mc-baseThird),
     'dividerContent': '+',
     'dividerMargin': 0 ef.size(1),
     'valuesRadius':ef.get('radius', 'main'),

@@ -458,7 +458,7 @@ $tooltip-box-shadow: map-get($shadows, 'sm') !default;
 $tooltip-bg-error: var(--mc-error) !default;
 
 $currency-tooltip-text-style: 'CaptionTextBold' !default;
-$currency-tooltip-color: var(--mc-lightColor, var(--mc-baseMain)) !default;
+$currency-tooltip-color: var(--mc-baseThird, var(--mc-baseMain)) !default;
 $currency-tooltip-radius: map-get($radius, 'main') !default;
 
 /// Globar settings scrollbar

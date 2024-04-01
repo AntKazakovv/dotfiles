@@ -32,7 +32,7 @@ $themeWolf: map-merge((
     ),
     'headerBackLinkTextStyle': 'PrimaryTextBold',
     'headerBackLinkTextColor': var(--mc-secondary),
-    'headerBackLinkTextColorActive': var(--mc-lightColor),
+    'headerBackLinkTextColorActive': var(--mc-baseThird),
     'headerBackLinkDecoration': none,
     'headerBackLinkIconTransform': rotate(90deg),
     'headerBackLinkIconColor': currentColor,
@@ -44,7 +44,7 @@ $themeWolf: map-merge((
         375: 'ThirdTitleBold',
         900: 'QoteTextBoldSmaller'
     ),
-    'headerTitleTextColor': var(--mc-lightColor),
+    'headerTitleTextColor': var(--mc-baseThird),
     'headerTitleMargin': 0 0 ef.size(3),
 
     'headerDescTextStyle': 'CaptionText',
