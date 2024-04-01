@@ -90,7 +90,7 @@ describe('LogService', () => {
     let window: Window;
 
     beforeEach(() => {
-        spyOnProperty(logTypes, 'logTypes').and.returnValue(logTypesMock);
+        Object.assign(logTypes.logTypes, logTypesMock);
         wlcFlogSendSpy = spyOn(WlcFlogStub, 'send').and.returnValue(Promise.resolve(''));
 
         routerMock = new RouterMock();
