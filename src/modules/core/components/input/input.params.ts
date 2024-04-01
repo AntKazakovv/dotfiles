@@ -72,7 +72,7 @@ export interface IInputCParams extends IComponentParams<ComponentTheme, Componen
     maskOptions?: IMask.AnyMaskedOptions;
     numeric?: INumericInputOptions,
     isHidden?: () => boolean;
-    hint?: string;
+    bottomHint?: string;
 }
 
 export const defaultParams: Partial<IInputCParams> = {

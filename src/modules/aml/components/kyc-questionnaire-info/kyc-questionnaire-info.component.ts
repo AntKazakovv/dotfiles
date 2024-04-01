@@ -128,6 +128,8 @@ export class KycQuestionnaireInfoComponent extends AbstractComponent implements 
                 this.state$.next({
                     infoText: this.infoTextByDep,
                     statusLevel: 'success',
+                    statusText: statusText,
+                    showStatus: true,
                     showInfo: false,
                     showBtn: false,
                 });

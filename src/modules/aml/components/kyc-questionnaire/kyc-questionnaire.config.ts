@@ -227,7 +227,7 @@ export const kycQStepsConfig = {
             },
         ]),
         btnBlock(),
-    ], ['requiredTrue']),
+    ], ['oneOrMoreRequired']),
     step4: wrapForm([
         wrapBlock(false, [
             newTitleSecond(gettext('Gross annual income (euros):')),

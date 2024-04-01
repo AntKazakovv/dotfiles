@@ -42,7 +42,7 @@ export class CheckboxWithInputComponent extends AbstractComponent implements OnI
 
         this.checkboxControl = this.$params.checkboxParams.control = this.$params[this.$params.name[0]].control;
         this.inputControl = this.$params.inputParams.control = this.$params[this.$params.name[1]].control;
-        this.inputControl.disable();
+        this.checkboxControl.getRawValue() ? this.inputControl.enable() : this.inputControl.disable();
 
         this.checkboxControl.valueChanges.pipe(
             takeUntil(this.$destroy),
