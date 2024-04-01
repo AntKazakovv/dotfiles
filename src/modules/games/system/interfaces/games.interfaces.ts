@@ -50,8 +50,6 @@ export interface IGamesConfig {
     useVideoThumbs?: {
         use?: boolean;
     };
-    defaultThumbsConfigUrl?: string;
-    verticalThumbsConfigUrl?: string;
     verticalImagesPath?: string;
     /**
      * exclude required fields

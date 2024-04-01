@@ -5,4 +5,6 @@ export interface IGamesConfig {
         requestCurrency?: string;
     };
     alwaysShowChoiceOfCurrency?: boolean;
+    defaultThumbsConfigUrl?: string;
+    verticalThumbsConfigUrl?: string;
 }

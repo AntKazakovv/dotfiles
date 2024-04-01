@@ -109,8 +109,6 @@ export const gamesConfig: IGamesConfig = {
     useVideoThumbs: {
         use: true,
     },
-    defaultThumbsConfigUrl: '//agstatic.com/games/default-thumb.json',
-    verticalThumbsConfigUrl: '//agstatic.com/vertical-thumbs/vertical-thumb.json',
     verticalImagesPath: '//agstatic.com/vertical-thumbs/',
     sportsbookMerchants: [958, 972, 993, 962, 937, 903, 922, 908, 893],
     components: {
