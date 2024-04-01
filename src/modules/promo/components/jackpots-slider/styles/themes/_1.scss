@@ -31,6 +31,14 @@
             padding: ef.get-value($theme1, 'sliderMargin');
             background: ef.get-value($theme1, 'background');
             border-radius: ef.get-value($theme1, 'borderRadius');
+
+            ::ng-deep {
+
+                .swiper {
+                    height: 100%;
+                    overflow-x: visible;
+                }
+            }
         }
     }
 }
