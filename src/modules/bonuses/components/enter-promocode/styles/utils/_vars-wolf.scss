@@ -12,7 +12,7 @@ $themeWolf: map-merge(map-merge($base, (
         375: 155px,
         1366: initial,
     ),
-    'containerAlignItems': start,
+    'containerAlignItems': flex-start,
 
     'titleFontStyle': 'PlaceholderTextBold',
     'titleColor': var(--mc-baseThird),

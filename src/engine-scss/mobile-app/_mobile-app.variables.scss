@@ -234,7 +234,7 @@ $profileSettings: map-merge((
         1024: 0,
     ),
     'contentHeaderDisplayV1': flex,
-    'contentHeaderAlignV1': start,
+    'contentHeaderAlignV1': flex-start,
     'contentHeaderJustifyV1': space-between,
     'contentHeaderBorderBottomV1': (
         1024: 2px solid var(--mc-baseOpacity),
@@ -564,5 +564,3 @@ $mobileAppOffline: map-merge((
 
     'titleMargin': 0 0 1rem 0,
 ), $customMobileAppOffline);
-
-

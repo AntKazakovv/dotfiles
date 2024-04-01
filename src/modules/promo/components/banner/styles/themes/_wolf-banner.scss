@@ -87,7 +87,7 @@
                 position: absolute;
                 z-index: ef.get-value($themeWolfBanner, 'decorZindex');
                 display: flex;
-                align-items: end;
+                align-items: flex-end;
                 object-position: initial;
                 height: 100%;
 

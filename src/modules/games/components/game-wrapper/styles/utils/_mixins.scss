@@ -121,7 +121,7 @@
         display: flex;
         gap: ef.get-value($themeDefault, 'btnCenterGap');
         align-items: center;
-        justify-content: start;
+        justify-content: flex-start;
         width: 100%;
     }
 }
@@ -136,4 +136,3 @@
         transform: translate(-50%, -50%);
     }
 }
-

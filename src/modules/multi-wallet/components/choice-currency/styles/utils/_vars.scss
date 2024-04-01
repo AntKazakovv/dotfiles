@@ -54,7 +54,7 @@ $themeDefault: map-merge((
     'currencyDisplay': flex,
     'currencyGap': ef.size(1),
     'currencyAlignItems': center,
-    'currencyJustifyContent': start,
+    'currencyJustifyContent': flex-start,
     'currencyWidth': 100%,
     'currencyPadding': ef.size(2),
     'currencyBgHover': var(--mc-bg700),

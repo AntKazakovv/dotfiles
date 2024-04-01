@@ -11,7 +11,7 @@ $themeDefault: map-merge((
     'iconContainerMarginDesktop': ef.size(-3) 0,
 
     'iconObjectFit': contain,
-    'iconJustifyContent': end,
+    'iconJustifyContent': flex-end,
     'iconAlignItems': center,
     'iconHeightDesktop': 32px,
     'iconWidthDesktop': 44px,

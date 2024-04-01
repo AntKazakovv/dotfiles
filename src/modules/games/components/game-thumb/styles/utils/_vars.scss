@@ -175,7 +175,7 @@ $themeDefault: map-merge((
     'merchantNameFontColor': var(--mc-baseMain),
     'merchantNameTransform': capitalize,
     'merchantNamePadding': ef.size(1) ef.size(2),
-    'merchantNameAlign': start,
+    'merchantNameAlign': flex-start,
     'merchantNameJustify': flex-end,
 ), $customThemeDefault);
 
