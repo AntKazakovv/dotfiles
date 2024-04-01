@@ -90,7 +90,9 @@ export class ChangePasswordFormComponent extends AbstractComponent implements On
 
             const messages: string[] = [];
 
-            if (!_isEmpty(error.errors) && (_isArray(error.errors) || _isObject(error.errors))) {
+            if (error.code === 400) {
+                messages.push(error.errors[0]);
+            } else if (!_isEmpty(error.errors) && (_isArray(error.errors) || _isObject(error.errors))) {
                 _each(error.errors, (error: unknown): void => {
                     messages.push(_toString((error)));
                 });

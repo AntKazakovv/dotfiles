@@ -781,7 +781,8 @@ export class UserService {
 
             return response;
         } catch (error) {
-            return error;
+            this.logService.sendLog({code: '', data: error});
+            throw error;
         }
     }
 
