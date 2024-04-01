@@ -158,7 +158,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     public isAuth: boolean;
     public isKiosk: boolean;
     public gameTitle: string;
-    public openDashboard: boolean = true;
+    public openDashboard: boolean = false;
     public showDashboardBtn: boolean = true;
     public mobileGame: boolean = this.configService.get<boolean>('appConfig.mobile');
     public dashboardBtn: ICheckboxCParams = {
