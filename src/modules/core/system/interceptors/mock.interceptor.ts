@@ -35,7 +35,7 @@ export class MocksInterceptor implements HttpInterceptor {
     ) {
         const {base, custom} = this.configService.get<IMocksConfig>('$base.mocks') || {};
         this.custom = custom;
-        this.base = (_keys(base).filter(item => base[item])) as TBaseMock[];
+        this.base = (_keys(base).filter((item: keyof IMocksConfig['base']) => base[item])) as TBaseMock[];
     }
 
     public intercept(
