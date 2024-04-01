@@ -146,7 +146,7 @@ export abstract class IconListAbstract<T> extends AbstractComponent {
      * @returns The path to image.
      */
     protected getPath(
-        name: string, pathDirectory: string, showAs: TIconShowAs, colorIconBg?: TIconColorBg,
+        name: string, pathDirectory: keyof typeof ThemeToDirectory, showAs: TIconShowAs, colorIconBg?: TIconColorBg,
     ): string {
         return IconHelper.getIconPath(
             name,

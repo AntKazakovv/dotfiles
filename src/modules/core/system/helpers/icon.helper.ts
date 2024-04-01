@@ -17,7 +17,7 @@ export class IconHelper {
      */
     public static getIconPath(
         name: string,
-        pathDirectory: string,
+        pathDirectory: keyof typeof ThemeToDirectory,
         showAs: TIconShowAs,
         colorIconBg?: TIconColorBg,
     ): string {

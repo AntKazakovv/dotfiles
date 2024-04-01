@@ -79,12 +79,13 @@ export class GlobalHelper {
         Object.freeze(target);
 
         Object.getOwnPropertyNames(target).forEach((prop: string): void => {
+            const value: unknown = (target as IIndexing<unknown>)[prop];
             if (target.hasOwnProperty(prop)
-                && target[prop] !== null
-                && (typeof target[prop] === 'object' || typeof target[prop] === 'function')
-                && !Object.isFrozen(target[prop])
+                && value !== null
+                && (typeof value === 'object' || typeof value === 'function')
+                && !Object.isFrozen(value)
             ) {
-                this.deepFreeze(target[prop]);
+                this.deepFreeze(value);
             }
         });
 
@@ -188,7 +189,7 @@ export class GlobalHelper {
     public static bootstrapProviders(...providers: Type<unknown>[]): Provider {
         return {
             provide: APP_INITIALIZER,
-            useFactory: () => () => null,
+            useFactory: () => (): void => null,
             deps: providers,
             multi: true,
         };
@@ -208,7 +209,7 @@ export class GlobalHelper {
     public static prepareParams<T>(instance: unknown, inputProperties: string[] = []): T {
         const inlineParams: any = _mergeWith({
             common: {},
-        }, instance['inlineParams'] || {});
+        }, instance as IIndexing<unknown>['inlineParams'] || {});
 
         _forEach(inputProperties, property => {
             if (!_isUndefined(_get(instance, property))) {
@@ -230,7 +231,7 @@ export class GlobalHelper {
      * prepare component params
      */
     public static prepareCParams<T>(instance: unknown, inputProperties: string[] = []): T {
-        const inlineParams: any = instance['inlineParams'] || {};
+        const inlineParams: any = instance as IIndexing<unknown>['inlineParams'] || {};
 
         _forEach(inputProperties, property => {
             if (!_isUndefined(_get(instance, property))) {
@@ -548,7 +549,7 @@ export class GlobalHelper {
      */
     public static parseUrlMessageOrError(url: string): IIndexing<string> {
         if (url.includes('message') || url.includes('error')) {
-            const getParams = {};
+            const getParams: IIndexing<string> = {};
             const values: string[] = url.split('?')?.[1]?.split('&') || [];
 
             if (values.length) {
