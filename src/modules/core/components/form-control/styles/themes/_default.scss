@@ -2,11 +2,13 @@
     $selector: &;
     $touch: '.ng-touched';
 
-    #{$touch} ~ & {
+    #{$touch} ~ &,
+    & {
 
         #{$selector}__icon {
 
             .wlc-icon {
+                color: transparent;
 
                 .wlc-icon-content {
                     display: flex;

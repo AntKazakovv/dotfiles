@@ -15,12 +15,12 @@ $themeDefault: map-merge((
 $customModResolve: () !default;
 $modResolve: map-merge((
     'iconWidth': (
-        375: 16px,
-        1024: 19px,
+        375: 15px,
+        1024: 16px,
     ),
     'iconHeight': (
         375: 15px,
-        1024: 18px,
+        1024: 16px,
     ),
     'iconFill': var(--mc-success),
     'iconColorOnHover': var(--mc-success-d20),
