@@ -72,6 +72,7 @@ export namespace CurrenciesInfo {
         'XB3',
         'XRP',
         'USDC',
+        'AR1',
     ]);
 
     /** Special currencis, such as loyalty points, free spins, experience points and free bets */
