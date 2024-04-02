@@ -101,9 +101,9 @@ export class SearchFieldComponent extends AbstractComponent implements OnInit, A
      *
      * @return {boolean}
      */
-    public get showSearch(): boolean {
+    public showSearch(searchQuery: string, showClearIcon: boolean): boolean {
         if (this.$params.isDropdown) {
-            return (this.searchQuery?.length && !this.showClearIcon) || !this.searchQuery?.length;
+            return (searchQuery?.length && !showClearIcon) || !searchQuery?.length;
         } else {
             return true;
         }

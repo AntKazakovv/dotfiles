@@ -111,7 +111,10 @@
         [ngClass]="classList"
         [class.scrollable]="useScroll && !asModal">
         <ng-container *ngIf="useTags && !isGroupingByBlocks" [ngTemplateOutlet]="categories"></ng-container>
-        <ng-container *ngIf="showNotifications" [ngTemplateOutlet]="notifications"></ng-container>
+        <ng-container
+            *ngIf="showNotifications | functionPurePipe:[systems, userCountry, $params.theme]"
+            [ngTemplateOutlet]="notifications">
+        </ng-container>
 
         <ul *ngIf="!isGroupingByBlocks; else groupList"
             [ngSwitch]="$params.theme"

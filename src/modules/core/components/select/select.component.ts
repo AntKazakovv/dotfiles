@@ -42,6 +42,7 @@ import _sortBy from 'lodash-es/sortBy';
 import _cloneDeep from 'lodash-es/cloneDeep';
 import _map from 'lodash-es/map';
 import _has from 'lodash-es/has';
+import _memoize from 'lodash-es/memoize';
 
 import {ICountry} from 'wlc-engine/modules/core/system/interfaces/fundist.interface';
 import {
@@ -108,6 +109,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
 
     protected constantValues: IIndexing<BehaviorSubject<Params.ISelectOptions[]>> = {};
     protected clearedValue: unknown;
+    protected memoizePlaceholderText = _memoize(this.placeholderText);
 
     private searchSubject$ = new Subject<string>();
 
@@ -207,7 +209,9 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
                     if (this.isOpened) {
                         return;
                     }
-                    this.searchText = this.translateService.instant(this.placeholderText);
+                    this.searchText = this.translateService.instant(this.memoizePlaceholderText(
+                        this.control.value, this.$params.items, this.$params.common.placeholder,
+                    ));
                 });
         }
 
@@ -254,7 +258,9 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
 
             setTimeout(() => {
                 if (!this.control.disabled) {
-                    this.searchText = this.translateService.instant(this.placeholderText);
+                    this.searchText = this.translateService.instant(this.memoizePlaceholderText(
+                        this.control.value, this.$params.items, this.$params.common.placeholder,
+                    ));
                 }
             });
         }
@@ -272,13 +278,17 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
      * @method placeholderText
      * @returns {string} string
      */
-    public get placeholderText(): string {
-        const res = _find(this.$params.items, item => item.value === this.control.value);
+    public placeholderText(
+        value: string,
+        items: ISelectOptions<unknown>[],
+        placeholder?: Params.ISelectCParams['common']['placeholder'],
+    ): string {
+        const res = _find(items, item => item.value === value);
 
         if (res) {
             return res.title.toString();
         } else {
-            return this.$params.common?.placeholder?.toString() || '';
+            return placeholder?.toString() || '';
         }
     }
 
@@ -376,7 +386,9 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
         this.control.updateValueAndValidity();
         this.isOpened = false;
         this.clearSearchField();
-        this.searchText = this.translateService.instant(this.placeholderText);
+        this.searchText = this.translateService.instant(this.memoizePlaceholderText(
+            this.control.value, this.$params.items, this.$params.common.placeholder,
+        ));
         this.getSelectedItemIndex();
     }
 
@@ -627,7 +639,9 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
         }
 
         if (!this.isOpened) {
-            this.searchText = this.translateService.instant(this.placeholderText);
+            this.searchText = this.translateService.instant(this.memoizePlaceholderText(
+                this.control.value, this.$params.items, this.$params.common.placeholder,
+            ));
         }
     }
 

@@ -17,7 +17,7 @@
             iconPath="/wlc/icons/icons_new/close.svg"
             (click)="clearSearch()"
     ></button>
-    <span *ngIf="showSearch"
+    <span *ngIf="showSearch | functionPurePipe:[searchQuery, showClearIcon]"
           wlc-icon
           class="{{$class}}__icon"
           iconPath="/wlc/icons/search.svg"

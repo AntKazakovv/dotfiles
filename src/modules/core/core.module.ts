@@ -162,7 +162,7 @@ import {HlSubstrPipe} from './pipes/hlsubstr.pipe';
 import {SafeValuePipe} from './pipes/safe-value.pipe';
 import {TruncatePipe} from './pipes/truncate.pipe';
 import {ProxyStaticUrlPipe} from './pipes/proxy-static-url.pipe';
-import {FunctionPurePipe} from 'wlc-engine/modules/core/pipes/function-pure.pipe';
+import {FunctionPurePipe} from './pipes/function-pure.pipe';
 //  -- PIPES IMPORTS END  --;
 
 //  -- CONFIGS IMPORTS STARTS--;

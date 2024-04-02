@@ -126,7 +126,7 @@ export class LatestBetsItemComponent extends AbstractComponent implements OnInit
         return this.$params.bet.betType;
     }
 
-    public get isWin(): boolean {
-        return this.type === 'win';
+    public isWin(type: string): boolean {
+        return type === 'win';
     }
 }

@@ -21,7 +21,9 @@
                id="{{$params.id || $params.name}}"
                class="{{$class}}__field"
                type="text"
-               [placeholder]="placeholderText | translate:foundItems[activeItemIndex]?.context"
+               [placeholder]="placeholderText
+                    | functionPurePipe:[control.value, $params.items, $params.common.placeholder]
+                    | translate:foundItems[activeItemIndex]?.context"
                name="{{$params.name}}"
                autocomplete="{{$params.autocomplete}}"
                readonly
@@ -91,7 +93,9 @@
             [attr.type]="'button'"
             [formControl]="control"
             (click)="toggleDropdown()">
-        {{placeholderText | translate:foundItems[activeItemIndex]?.context}}
+        {{placeholderText
+            | functionPurePipe:[control.value, $params.items, $params.common.placeholder]
+            | translate:foundItems[activeItemIndex]?.context}}
     </button>
 </ng-template>
 

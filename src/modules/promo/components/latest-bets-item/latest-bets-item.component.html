@@ -3,7 +3,7 @@
         <button class="{{$class}}__game"
             type="button"
             [attr.title]="[nameGame]"
-            (click)="showModal(game, betAmount, multiplier, profitAmount, currency, isWin)">
+            (click)="showModal(game, betAmount, multiplier, profitAmount, currency, isWin($params.type))">
             <div class="{{$class}}__img-container">
                 <img class="{{$class}}__thumb"
                     [src]="imageGame"
@@ -58,8 +58,9 @@
     </div>
     <div class="{{$class}}__link">
         <div class="{{$class}}__profit-amount {{$class}}__title-value">
-            <div *ngIf="isWin; else zerocredit">
-                <span class="{{$class}}__profit-value"  [ngClass]="isWin ? 'win' : 'loss'">+
+            <div *ngIf="(isWin | functionPurePipe:[$params.type]); else zerocredit">
+                <span class="{{$class}}__profit-value"
+                    [ngClass]="(isWin | functionPurePipe:[$params.type]) ? 'win' : 'loss'">+
                     <span wlc-currency
                         class="{{$class}}__currency"
                         [currency]="currency"
@@ -72,7 +73,8 @@
     </div>
 </div>
 <ng-template #zerocredit>
-    <span class="{{$class}}__profit-value" [ngClass]="isWin ? 'win' : 'loss'">-
+    <span class="{{$class}}__profit-value"
+        [ngClass]="(isWin | functionPurePipe:[$params.type]) ? 'win' : 'loss'">-
         <span wlc-currency
             class="{{$class}}__currency"
             [currency]="currency"

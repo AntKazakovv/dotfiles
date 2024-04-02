@@ -329,8 +329,8 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         return this.dropdownCatMenu || this.asModal ? 'dropdown' : 'desktop';
     }
 
-    public get showNotifications(): boolean {
-        return (!this.systems.length || !this.userCountry) && this.$params.theme !== 'crypto-list';
+    public showNotifications(systems: PaymentSystem[], userCountry: string, theme: string): boolean {
+        return (!systems.length || !userCountry) && theme !== 'crypto-list';
     }
 
     public get paymentDescription(): string {
