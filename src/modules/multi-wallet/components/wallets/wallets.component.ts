@@ -185,6 +185,10 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
         return !this.isFinance && this.walletListRead && !this.hideSettings;
     }
 
+    public get wlcCurrency(): string {
+        return this.settingsParams?.walletSettings.conversionInFiat && !this.isFinance ? this.walletCurrency : null;
+    }
+    
     public async onChangingWallet(item: IWallet): Promise<void> {
         this.currentWallet = WalletHelper.createCurrentWallet(
             this.userService.userInfo.wallets,
