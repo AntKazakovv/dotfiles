@@ -216,8 +216,7 @@
 <ng-template #headerInline>
     <a *ngIf="isDesktop || $params.theme === 'wolf'"
         class="{{$class}}__header"
-        uiSref="{{$params.showAllLink.sref || $params.showAllLink.link}}"
-        [uiParams]="$params.showAllLink.params || {}">
+        [wlc-link]="[$params.showAllLink.sref || $params.showAllLink.link, $params.showAllLink.params || {}]">
 
         <span *ngIf="$params.titleIcon?.name"
             wlc-icon
@@ -233,8 +232,7 @@
 
     <a *ngIf="headerInlineMobLink"
         class="{{$class}}__header"
-        uiSref="{{$params.showAllLink.sref || $params.showAllLink.link}}"
-        [uiParams]="$params.showAllLink.params || {}">
+        [wlc-link]="[$params.showAllLink.sref || $params.showAllLink.link, $params.showAllLink.params || {}]">
 
         <span *ngIf="$params.titleIcon?.name"
             wlc-icon
@@ -313,8 +311,7 @@
                 [text]="title"
                 [iconPath]="$params.titleIcon?.name"
                 [iconFallback]="$params.titleIcon?.fallback"
-                [uiSref]="$params.showAllLink?.sref || $params.showAllLink?.link"
-                [uiParams]="$params.showAllLink?.params || {}">
+                [wlc-link]="[$params.showAllLink?.sref || $params.showAllLink?.link, $params.showAllLink?.params || {}]">
             </a>
         </ng-container>
     </ng-container>
@@ -331,8 +328,7 @@
     <button wlc-button
         class="{{$class}}__show-all-btn"
         [text]="$params.showAllLink.text"
-        [uiSref]="$params.showAllLink.sref || $params.showAllLink.link"
-        [uiParams]="$params.showAllLink.params || {}">
+        [wlc-link]="[$params.showAllLink.sref || $params.showAllLink.link, $params.showAllLink.params || {}]">
     </button>
 </ng-template>
 
@@ -342,15 +338,13 @@
         [theme]="'wolf-rounded'"
         [counter]="btnCounter"
         [text]="$params.showAllLink?.text"
-        [uiSref]="$params.showAllLink?.sref || $params.showAllLink?.link"
-        [uiParams]="$params.showAllLink?.params || {}">
+        [wlc-link]="[$params.showAllLink?.sref || $params.showAllLink?.link, $params.showAllLink?.params || {}]">
     </button>
 </ng-template>
 
 <ng-template #showAllLink>
     <a class="{{$class}}__link"
-        [uiSref]="$params.showAllLink.sref || $params.showAllLink.link"
-        [uiParams]="$params.showAllLink?.params || {}">
+        [wlc-link]="[$params.showAllLink.sref || $params.showAllLink.link, $params.showAllLink?.params || {}]">
         <span>{{$params.showAllLink?.text | translate}}</span>
         <ng-container *ngIf="$params.showAllLink.useCounter && games.length">
             <span class="counter">({{games.length}})</span>
