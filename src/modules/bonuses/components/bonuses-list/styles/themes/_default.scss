@@ -89,6 +89,7 @@
         &.wlc-bonuses-list--theme-mod-with-ears {
 
             &[class*='wlc-bonuses-list--count-'] {
+                --wlc-bl-wrapper-width: unset;
                 --wlc-bl-wrapper-margin: 0;
                 --wlc-bl-swiper-overflow: visible;
             }
