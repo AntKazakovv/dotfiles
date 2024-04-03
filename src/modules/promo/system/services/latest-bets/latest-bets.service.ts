@@ -7,6 +7,7 @@ import {
 } from 'rxjs';
 
 import {
+    ConfigService,
     IData,
     InjectionService,
     LogService,
@@ -62,6 +63,7 @@ export class LatestBetsService {
         private websocketService: WebsocketService,
         private injectionService: InjectionService,
         private logService: LogService,
+        private configService: ConfigService,
     ){
         this.init();
     }
@@ -77,7 +79,9 @@ export class LatestBetsService {
         }
 
         this.registerMethods();
-        this.fetchWSConnectData();
+        if (!this.configService.get<boolean>('$user.isAuthenticated')) {
+            this.fetchWSConnectData();
+        }
         this.fetchLastCacheBets();
     }
 
