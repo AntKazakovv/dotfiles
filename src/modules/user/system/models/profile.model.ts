@@ -9,6 +9,8 @@ import {
     TUserType,
     IExtProfile,
     IUserProfile,
+    FilesService,
+    ConfigService,
 } from 'wlc-engine/modules/core';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {IFromLog} from 'wlc-engine/modules/core';
@@ -19,6 +21,8 @@ export class UserProfile extends AbstractModel<IUserProfile> {
 
     constructor(
         from: IFromLog,
+        protected fileService: FilesService,
+        protected configService: ConfigService,
     ) {
         super({from: _assign({model: 'UserProfile'}, from)});
         this.init();
@@ -249,7 +253,14 @@ export class UserProfile extends AbstractModel<IUserProfile> {
             return '';
         }
 
-        return this.data.extProfile.avatarId;
+        if (this.configService.get<string>('$base.profile.nicknameIcon.use')) {
+            const avatarsFolder: string = this.configService.get<string>('$base.profile.nicknameIcon.iconsFolder');
+
+            return this.fileService.checkStaticFileExistence(this.data.extProfile.avatarId, avatarsFolder) ?
+                this.data.extProfile.avatarId : '';
+        } else {
+            return this.data.extProfile.avatarId;
+        }
     }
 
     public get type(): TUserType {

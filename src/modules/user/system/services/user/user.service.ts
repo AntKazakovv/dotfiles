@@ -50,6 +50,7 @@ import {
     WebsocketService,
     ILoyalty,
     ILoyaltyUpdate,
+    FilesService,
 } from 'wlc-engine/modules/core';
 import {
     IProcessEventData,
@@ -218,6 +219,7 @@ export class UserService {
         private router: UIRouter,
         private webSocketService: WebsocketService,
         private ngZone: NgZone,
+        private fileService: FilesService,
         @Inject(WINDOW) private window: Window,
     ) {
         this.init();
@@ -251,7 +253,8 @@ export class UserService {
             {service: 'UserService', method: 'constructor'},
             this.translateService,
         );
-        this.profile = new UserProfile({service: 'UserService', method: 'constructor'});
+        this.profile = new UserProfile({service: 'UserService', method: 'constructor'},
+            this.fileService, this.configService);
 
         if (this.useAchievements) {
             this.achievementsService ??= await this.injectionService
@@ -537,7 +540,8 @@ export class UserService {
             this.translateService,
         );
         this.setUserInfo();
-        this.profile = new UserProfile({service: 'UserService', method: 'constructor'});
+        this.profile = new UserProfile({service: 'UserService', method: 'constructor'},
+            this.fileService, this.configService);
         this.userProfile$.next(this.profile);
 
         if (this.modalService.getActiveModal('login-error')) {
@@ -1010,7 +1014,7 @@ export class UserService {
             .years * -1 >= legalAge;
     }
 
-    public setNicknameIcon (avatar?: string, nick?: string): Promise<IData> {
+    public setNicknameIcon(avatar?: string, nick?: string): Promise<IData> {
         const extProfile = {
             avatarId: avatar,
         };

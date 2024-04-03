@@ -89,7 +89,6 @@ export class UserIconComponent extends AbstractComponent implements OnInit, Afte
             ).subscribe((obj) => {
                 const newIcon = !!obj.icon ? obj.icon : defIcon;
                 this.$params.iconPath = newIcon;
-
                 this.cdr.markForCheck();
             });
 

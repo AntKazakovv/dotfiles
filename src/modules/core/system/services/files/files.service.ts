@@ -246,17 +246,9 @@ export class FilesService {
         return res;
     }
 
-    public getStaticFileByName(folder: string, name: string): string {
+    public checkStaticFileExistence(file: string, folder: string): boolean {
         const list = this.getStaticFilesList(folder);
-        let res: string;
-
-        _forEach(list, (item: string) => {
-            const fileName = item.substring(0, item.indexOf('.'));
-
-            if (name === fileName) {
-                return res = folder + '/' + item;
-            }
-        });
+        const res: boolean = list.some((item: string) => file === item);
 
         return res;
     }
