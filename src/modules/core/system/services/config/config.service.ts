@@ -66,7 +66,6 @@ import {
     ILayoutsConfig,
     IBootstrap,
     TBooleanOptional,
-    IIndexing,
 } from 'wlc-engine/modules/core/system/interfaces';
 import {
     ICountry,
@@ -89,7 +88,6 @@ import {
     TFixedPanelState,
 } from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
 import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
-import {ICurrency} from 'wlc-engine/modules/finances';
 import * as sectionsLib from 'wlc-engine/modules/core/system/config/layouts/sections';
 
 export * from './app-config.model';
@@ -264,13 +262,6 @@ export class ConfigService {
             storageType: 'localStorage',
             storageClear: !jwtRefreshToken ? 'localStorage' : null,
         });
-    }
-
-    public getCurrencyIdByName(currencyName: string): number {
-        const currencies: IIndexing<ICurrency> = this.get<IIndexing<ICurrency>>('appConfig.siteconfig.currencies');
-        const currency: ICurrency = _find(currencies, ({Name}) => Name === currencyName);
-
-        return Number(currency?.ID);
     }
 
     private setGlobals(): void {

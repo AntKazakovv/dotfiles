@@ -31,7 +31,6 @@ import {
     IPushMessageParams,
     NotificationEvents,
     LogService,
-    IBalanceLimit,
 } from 'wlc-engine/modules/core';
 import {Deferred} from 'wlc-engine/modules/core/system/classes/deferred.class';
 import {WINDOW} from 'wlc-engine/modules/app/system';
@@ -575,13 +574,15 @@ export class FinancesService {
     }
 
     protected updateFastDepLimits(currency: string): void {
-        const limits: IBalanceLimit[]
-            = this.configService.get<IBalanceLimit[]>('appConfig.siteconfig.MinimalBalanceNotifications');
-        const currencyId: number = this.configService.getCurrencyIdByName(currency);
-        const limit: IBalanceLimit = _find(limits, (lim: IBalanceLimit) => lim.currencyId === currencyId);
+        const limits: IIndexing<number>
+            = this.configService.get<IIndexing<number>>('appConfig.siteconfig.MinimalBalanceNotifications');
 
+        if (currency in limits) {
+            this.fastDepCurrency = currency;
+            this.fastDepLimit = limits[currency];
+        }
         this.fastDepCurrency = currency;
-        this.fastDepLimit = limit ? limit.value : 0;
+        this.fastDepLimit = this.fastDepLimit ?? 0;
     }
 
     private async cancelInvoice(systemId: number): Promise<void> {

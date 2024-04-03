@@ -94,11 +94,6 @@ export interface ICurrency {
     IsCryptoCurrency?: boolean,
 }
 
-export interface IBalanceLimit {
-    currencyId: number;
-    value: number;
-}
-
 export type TBooleanOptional = boolean | '' | 0 | 1;
 
 export interface ISiteConfig {
@@ -156,7 +151,7 @@ export interface ISiteConfig {
     /** Setting to show fast deposit modal if balance is coming to an end */
     EnableMinimalBalanceNotifications?: boolean;
     /** List of limits to show fast deposit for each currency on project */
-    MinimalBalanceNotifications?: IBalanceLimit[];
+    MinimalBalanceNotifications?: IIndexing<number>;
 }
 
 export interface ISiteconfigLanguage {
