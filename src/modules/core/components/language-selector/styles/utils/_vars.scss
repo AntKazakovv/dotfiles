@@ -16,6 +16,7 @@ $themeDefault: map-merge((
     'dropdownBackgroundColor': var(--mc-bg),
     'dropdownBorderRadius': ef.get('radius', 'biger'),
     'dropdownFlagSize': ef.size(6),
+    'gridGapSelectorLink': 0,
     'listShadow': 0 0 5px ef.get('mainColors', 'baseContrast'),
 
     'dropdownArrowSize': ef.size(2),
@@ -99,11 +100,11 @@ $themeDefaultModLog: map-merge((
     'flagBoxShadowOpened': (0 0 0 4px var(--mc-main), 0 0 3px 3px rgba(0, 0, 0, 0.6)),
 
     //Popup and compact
-    'ddPopupWidth': calc(100% - 20px),
+    'ddPopupWidth': 100%,
     'ddPopupPosLeft': 50%,
     'ddPopupTransform': translateX(-50%),
     'ddPopupArrowMargin': 0 0 ef.size(2),
-    'ddPopupArrowMarginBottom': ef.size(2) 0 0,
+    'ddPopupArrowMarginBottom': ef.size(1) 0 0,
     'ddPopupArrowPosLeft': 50%,
     'ddPopupArrowWidth': 8px,
     'ddPopupArrowHeight': 8px,
