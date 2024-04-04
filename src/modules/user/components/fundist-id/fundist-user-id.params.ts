@@ -11,6 +11,8 @@ export interface IFundistUserIdCParams extends IComponentParams<string, string, 
 }
 
 export const defaultParams: IFundistUserIdCParams = {
+    moduleName: 'user',
+    componentName: 'wlc-fundist-user-id',
     class: 'wlc-fundist-user-id',
     label: gettext('ID:'),
 };
