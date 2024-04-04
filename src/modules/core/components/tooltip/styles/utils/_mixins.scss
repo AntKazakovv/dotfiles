@@ -4,6 +4,16 @@
     @include bm.transition(color);
     color: ef.get-value($config, 'iconFill');
 
+    &.wlc-icon {
+
+        ::ng-deep {
+
+            svg {
+                fill: currentColor;
+            }
+        }
+    }
+
     @include bm.hover {
         color: ef.get-value($config, 'iconColorOnHover');
     }
