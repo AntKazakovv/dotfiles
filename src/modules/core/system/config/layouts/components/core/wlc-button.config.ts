@@ -495,7 +495,7 @@ export namespace wlcButton {
                 sref: 'app.catalog.child',
                 srefParams: {
                     category: 'casino',
-                    childCategory: 'jackpots',
+                    childCategory: 'new',
                 },
             },
             wlcElement: 'button-play',
