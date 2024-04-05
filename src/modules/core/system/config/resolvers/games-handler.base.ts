@@ -16,6 +16,7 @@ import {ConfigService} from 'wlc-engine/modules/core/system/services/config/conf
 import {Deferred} from 'wlc-engine/modules/core/system/classes';
 import {
     FormElements,
+    TTemplateName,
     formFieldTemplates,
 } from 'wlc-engine/modules/core/system/config/form-elements';
 import {IModalConfig} from 'wlc-engine/modules/core/components/modal/modal.interface';
@@ -83,7 +84,7 @@ export class BaseGamesHandler {
             }
 
             emptyFields.forEach((field) => {
-                const templateName: string = formFieldTemplates[field]?.template;
+                const templateName: TTemplateName = formFieldTemplates[field]?.template;
                 const component: IFormComponent = _cloneDeep(FormElements[templateName]);
                 UserHelper.setValidatorRequired(templateName, component);
                 components.push(component);

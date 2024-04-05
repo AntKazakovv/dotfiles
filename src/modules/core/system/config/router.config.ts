@@ -1,5 +1,6 @@
 import {Injector} from '@angular/core';
 import {
+    StateObject,
     Transition,
     UIRouter,
 } from '@uirouter/core';
@@ -36,10 +37,10 @@ export function routerConfigFn(router: UIRouter, injector: Injector): void {
             configService.get<IIndexing<profileRedirectType>>('$base.redirects.profileRedirects');
         const isKiosk: boolean = configService.get<AppType>('$base.app.type') === 'kiosk';
         const kioskHideSigninState: boolean = configService.get<boolean>('$base.kiosk.hideSigninState');
-        const criteria = ({name}): boolean => {
+        const criteria = ({name}: StateObject): boolean => {
             return _includes(_keys(profileRedirectsMap), name);
         };
-        const kioskAuthUserOnlyCriteria = ({name}): boolean => {
+        const kioskAuthUserOnlyCriteria = ({name}: StateObject): boolean => {
             return isKiosk && !configService.get<boolean>('$user.isAuthenticated') && name !== 'app.signin';
         };
 
@@ -97,7 +98,7 @@ export function routerConfigFn(router: UIRouter, injector: Injector): void {
                 if (state !== trans.to().name) {
                     return;
                 }
-                const showModal: boolean[] = [];
+                const showModal: IIndexing<boolean> = {};
 
                 if (!_isNil(option.auth)) {
                     if (option.auth === 'any') {

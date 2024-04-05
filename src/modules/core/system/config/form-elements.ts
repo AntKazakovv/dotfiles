@@ -15,8 +15,10 @@ import {ProhibitedPatterns} from 'wlc-engine/modules/core/constants';
 import {ICaptchaCParams} from 'wlc-engine/modules/security/captcha';
 import {FormValidators} from 'wlc-engine/modules/core/system/services/validation/validators';
 
+export type TTemplateName = keyof typeof FormElements;
+
 export interface IFieldTemplate {
-    template: string;
+    template: TTemplateName;
     dbName: string;
     label: string;
     displayOrder: number;

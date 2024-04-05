@@ -166,6 +166,7 @@ declare interface Window extends TAnalyticMethod, IBetradar {
     LiveChatWidget?: any;
     intercomSettings?: any;
     Intercom?: any;
+    Hammer?: Hammer;
     affiliate: string;
     WlcFlog: any;
     WlcCookie: any;
