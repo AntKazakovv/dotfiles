@@ -341,10 +341,8 @@
 </ng-template>
 
 <div *ngIf="$params.common?.useSwiper && slides.length"
-    wlc-slider
-    class="{{$class}}__slider"
-    [slides] = "slides"
-    [inlineParams]="$params.sliderParams">
+     wlc-wrapper
+     [inlineParams]="sliderConfig">
 </div>
 
 <ng-container *ngIf="!$params.common?.useSwiper">

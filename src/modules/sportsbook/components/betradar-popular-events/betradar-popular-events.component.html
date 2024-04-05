@@ -1,5 +1,5 @@
 <ng-container *ngIf="inited; else preloader">
-    <div *ngIf="!initFailed" class="{{$class}}__content" wlc-slider [inlineParams]="sliderConfig"></div>
+    <div *ngIf="!initFailed" class="{{$class}}__content" wlc-wrapper [inlineParams]="sliderConfig"></div>
 </ng-container>
 
 <div *ngIf="initFailed" class="{{$class}}__error">

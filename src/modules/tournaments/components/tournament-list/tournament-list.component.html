@@ -29,10 +29,6 @@
                         [classNext]="'wlc-swiper-button-next-' + navigationId">
                     </div>
                 </div>
-                <div wlc-slider
-                    class="{{$class}}__slider"
-                    [inlineParams]="dashboardSliderConfig">
-                </div>
             </ng-container>
             <ng-container *ngIf="isTournamentSelected">
                 <div class="{{$class}}__container-active" data-wlc-element="block_tournament_active_dashboard">
@@ -156,8 +152,8 @@
 <ng-template #noDataBanner>
     <div class="{{$class}}-nocontent__tag">{{'Tournaments' | translate}}</div>
     <div wlc-no-content
-         [inlineParams]="noContentParams"
-         [loading]="!isReady">
+        [inlineParams]="noContentParams"
+        [loading]="!isReady">
     </div>
 </ng-template>
 

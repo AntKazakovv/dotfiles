@@ -58,6 +58,7 @@ import {
     EventService,
     InjectionService,
     GlobalHelper,
+    IWrapperCParams,
     ISlide,
     ISliderCParams,
 } from 'wlc-engine/modules/core';
@@ -126,6 +127,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     public useArrows: boolean = false;
     public innerLinkArrow: string = '';
     public outerLinkArrow: string = '';
+    public sliderConfig!: IWrapperCParams;
 
     protected staticService: StaticService;
     protected iconsExtension: TIconExtension = 'svg';
@@ -743,6 +745,15 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
             ...this.$params.sliderParams,
             slides: this.slides,
             events: new Subject(),
+        };
+
+        this.sliderConfig = {
+            components: [
+                {
+                    name: 'core.wlc-slider',
+                    params: this.sliderParams,
+                },
+            ],
         };
     }
 }

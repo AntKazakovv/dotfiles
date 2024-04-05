@@ -1,11 +1,9 @@
 <ng-container *ngIf="ready; else preloader">
     <div class="{{$class}}__header" *ngIf="$params.title">{{$params.title | translate}}</div>
     <div *ngIf="slides.length; else noData"
-        wlc-slider
         class="{{$class}}__content"
-        [slides] = "slides"
-        [inlineParams]="$params.sliderParams">
-    </div>
+        wlc-wrapper
+        [inlineParams]="sliderConfig"></div>
 </ng-container>
 
 <ng-template #preloader>

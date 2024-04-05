@@ -28,6 +28,7 @@ import {
     ISlide,
     ISliderCParams,
     ISwiperEvent,
+    IWrapperCParams,
 } from 'wlc-engine/modules/core';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {GameThumbComponent} from 'wlc-engine/modules/games/components/game-thumb/game-thumb.component';
@@ -52,7 +53,7 @@ export class GamesSliderComponent extends AbstractComponent implements OnInit {
     public isActive: boolean = false;
     public mockGamesList: Game[] = [];
     public gamesList: Game[] = [];
-    public sliderConfig: ISliderCParams;
+    public sliderConfig: IWrapperCParams;
 
     protected readonly sliderEvents$ = new Subject<ISwiperEvent>();
 
@@ -135,11 +136,20 @@ export class GamesSliderComponent extends AbstractComponent implements OnInit {
 
     protected setSliderConfig(): void {
         this.sliderConfig = {
-            ...this.$params.sliderParams,
-            class: `${this.$class}__slider`,
-            slides: this.slides,
-            events: this.sliderEvents$,
-        },
+            class: `${this.$class}__wrapper`,
+            components: [
+                {
+                    name: 'core.wlc-slider',
+                    params: <ISliderCParams>{
+                        ...this.$params.sliderParams,
+                        class: `${this.$class}__slider`,
+                        slides: this.slides,
+                        events: this.sliderEvents$,
+                    },
+                },
+            ],
+        };
+
         this.cdr.markForCheck();
     }
 

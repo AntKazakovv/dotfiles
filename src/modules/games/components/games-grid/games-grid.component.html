@@ -97,7 +97,7 @@
                     [@appearance]
                     #gameBanner
                     class="{{$class}}__banner wlc-games-banner">
-                    <div wlc-slider
+                    <div wlc-wrapper
                         [inlineParams]="bannerSliderConfig"></div>
                 </div>
 
@@ -159,6 +159,16 @@
             [ngTemplateOutlet]="wolfAllBtn">
         </ng-container>
 
+        <ng-container *ngIf="showGameSlides else: preloaderForSlider">
+            <div wlc-wrapper
+                class="{{$class}}__games-slider"
+                [inlineParams]="gamesSliderConfig"
+                (wlc-resized)="onResize($event)">
+            </div>
+        </ng-container>
+
+        <!-- The button block should be located after the swiper block to hide the button block
+        if the number of games is less than or equal to the number of slots in the grid  -->
         <div *ngIf="$params.showAsSwiper?.useNavigation"
              class="{{$class}}__swiper-buttons-container"
              slot-container-end>
@@ -168,15 +178,6 @@
                 [classNext]="'wlc-swiper-button-next-' + navigationId">
             </div>
         </div>
-
-        <ng-container *ngIf="showGameSlides else: preloaderForSlider">
-            <div wlc-slider
-                class="{{$class}}__games-slider"
-                [inlineParams]="gamesSliderConfig"
-                (wlc-resized)="onResize($event)">
-            </div>
-        </ng-container>
-        
     </div>
 
     <div
@@ -201,7 +202,7 @@
         <ng-container *ngIf="isReadyOrUsePlaceholder else: preloader">
             <ng-container *ngIf="hasGames; else: noGames">
                 <ng-container *ngIf="showGameSlides; else sliderPlaceholders">
-                    <div wlc-slider
+                    <div wlc-wrapper
                         class="{{$class}}__games-slider"
                         [inlineParams]="gamesSliderConfig"
                         (wlc-resized)="onResize($event)">
@@ -288,7 +289,7 @@
 </ng-template>
 
 <ng-template #sliderPlaceholders>
-    <div wlc-slider
+    <div wlc-wrapper
         class="{{$class}}__games-slider"
         [inlineParams]="gamePlaceholdersSliderConfig"
         (wlc-resized)="onResize($event)">
