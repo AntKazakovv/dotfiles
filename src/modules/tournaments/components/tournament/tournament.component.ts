@@ -343,6 +343,9 @@ export class TournamentComponent extends AbstractComponent implements OnInit {
     }
 
     protected goTo(actionParams: IActionParams): void {
+        if (actionParams.selector) {
+            actionParams.url.params = {...actionParams.url.params, '#': 'prizepool'};
+        }
         this.router.stateService.go(actionParams.url.path, actionParams.url.params);
     }
 

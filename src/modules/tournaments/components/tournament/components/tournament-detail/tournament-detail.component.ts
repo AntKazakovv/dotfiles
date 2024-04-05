@@ -23,6 +23,7 @@ import {
     GlobalHelper,
     IWrapperCParams,
     InjectionService,
+    ActionService,
 } from 'wlc-engine/modules/core';
 import {MenuParams} from 'wlc-engine/modules/menu';
 import {GamesCatalogService} from 'wlc-engine/modules/games';
@@ -78,6 +79,7 @@ export class TournamentDetailComponent extends AbstractComponent implements
         protected modalService: ModalService,
         protected injectionService: InjectionService,
         protected router: UIRouter,
+        protected actionService: ActionService,
         cdr: ChangeDetectorRef,
     ) {
         super(
@@ -155,6 +157,19 @@ export class TournamentDetailComponent extends AbstractComponent implements
                 };
             }
         }
+        const selectorParam = this.router.stateService.params['#'];
+        if (selectorParam) {
+            this.scrollTo(`#${selectorParam}`);
+        }
+        if (this.$params.common.scrollToSelector) {
+            this.scrollTo(this.$params.common.scrollToSelector);
+        }
+    }
+
+    public scrollTo(selector: string, delay = 500): void {
+        setTimeout(() => {
+            this.actionService.scrollTo(selector);
+        }, delay);
     }
 
     public goTo(path: string, params: IIndexing<string> = {}): void {
@@ -207,7 +222,6 @@ export class TournamentDetailComponent extends AbstractComponent implements
                 swiper: {
                     scrollToStart: true,
                 },
-                scrollToSelector: this.$params.common.scrollToSelector,
             },
             scrollDuration: 500,
             type: 'main-menu',
