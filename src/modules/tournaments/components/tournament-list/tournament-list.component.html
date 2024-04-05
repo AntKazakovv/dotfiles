@@ -29,6 +29,10 @@
                         [classNext]="'wlc-swiper-button-next-' + navigationId">
                     </div>
                 </div>
+                <div wlc-slider
+                    class="{{$class}}__slider"
+                    [inlineParams]="dashboardSliderConfig">
+                </div>
             </ng-container>
             <ng-container *ngIf="isTournamentSelected">
                 <div class="{{$class}}__container-active" data-wlc-element="block_tournament_active_dashboard">
