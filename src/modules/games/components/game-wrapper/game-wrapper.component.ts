@@ -287,6 +287,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         }
         this.locale = this.router.stateService.params?.locale || 'en';
         this.gameParams = this.getGameParams();
+        this.initEventHandlers();
         this.savedSiteName = this.titleService.getTitle();
         this.disableIframeDefaultResize = this.$params.gameParams?.disableIframeDefaultResize;
 
@@ -342,8 +343,6 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                 this.$destroy);
         }
         this.screenfull = (await import('screenfull'))?.default;
-
-        this.initEventHandlers();
 
         this.eventService.subscribe({name: ProcessEvents.modalOpened}, (data: IProcessEventData) => {
             if (data.eventId === 'iframe-deposit') {
