@@ -72,6 +72,7 @@ let states = {
     'app.profile.payments': States.profilePaymentsState,
     'app.profile.limits': States.profileLimitsState,
     'app.profile.loyalty-level': States.profileLoyaltyLevelState,
+    'app.profile.loyalty-program': States.profileLoyaltyProgramState,
     'app.profile.achievements': States.profileAchievementsState,
     'app.profile.achievements.main': States.profileAchievementsMainState,
     'app.profile.quests': States.profileQuestsState,

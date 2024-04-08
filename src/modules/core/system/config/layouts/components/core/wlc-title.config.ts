@@ -280,6 +280,23 @@ export namespace wlcTitle {
         },
     };
 
+    export const profileLoyaltyProgram: ILayoutComponent = {
+        name: 'core.wlc-wrapper',
+        params: {
+            class: 'wlc-profile-content__top',
+            components: [
+                {
+                    name: 'core.wlc-title',
+                    params: <ITitleCParams>{
+                        customMod: ['profile'],
+                        mainText: gettext('Loyalty Program'),
+                        wlcElement: 'header_loyalty',
+                    },
+                },
+            ],
+        },
+    };
+
     export const profileStoreV1: ILayoutComponent = {
         name: 'core.wlc-title',
         params: <ITitleCParams>{

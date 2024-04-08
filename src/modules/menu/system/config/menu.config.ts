@@ -1,4 +1,9 @@
 import {IMenuConfig} from '../interfaces/menu.interface';
+import {$base} from 'wlc-config/01.base.config';
+
+const loyaltySectionItems = $base.profile?.theme === 'wolf'
+    ? ['profile-menu:loyalty-level-single']
+    : ['profile-menu:loyalty-level-single', 'profile-menu:loyalty-program'];
 
 export const menuConfig: IMenuConfig = {
     fundist: {
@@ -113,9 +118,7 @@ export const menuConfig: IMenuConfig = {
             {
                 parent: 'profile-menu:loyalty-section',
                 type: 'group',
-                items: [
-                    'profile-menu:loyalty-level-single',
-                ],
+                items: loyaltySectionItems,
             },
             'profile-menu:cash-transfer',
             {
@@ -223,6 +226,7 @@ export const menuConfig: IMenuConfig = {
                 type: 'group',
                 items: [
                     'profile-menu:loyalty-level-single',
+                    'profile-menu:loyalty-program',
                 ],
             },
         ],

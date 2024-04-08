@@ -161,6 +161,69 @@ const profileWolfLoyaltyType = (isSingleLevels: boolean): ILayoutSectionConfig =
     };
 };
 
+const profileDefaultLoyaltyProgram = (): ILayoutSectionConfig => {
+    return {
+        container: true,
+        components: [
+            componentLib.wlcTitle.profileLoyalty,
+            componentLib.wlcProfileMenu.submenu,
+            componentLib.wlcIconExpLpDescription.def,
+        ],
+    };
+};
+
+const profileFirstLoyaltyProgram = (): ILayoutSectionConfig => {
+    return {
+        container: true,
+        theme: 'first',
+        components: [
+            componentLib.wlcProfileMenu.defTypeFirst,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__header',
+                    components: [
+                        componentLib.wlcTitle.profileLoyalty,
+                    ],
+                },
+                display: {
+                    before: 1199,
+                },
+            },
+            componentLib.wlcProfileMenu.subMenuV1,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content parent',
+                    components: [
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__header underlined',
+                                components: [
+                                    componentLib.wlcTitle.profileLoyaltyProgram,
+                                ],
+                            },
+                            display: {
+                                after: 1200,
+                            },
+                        },
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__body',
+                                components: [
+                                    componentLib.wlcIconExpLpDescription.def,
+                                ],
+                            },
+                        },
+                    ],
+                },
+            },
+        ],
+    };
+};
+
 const fundistIdComponent: IFormComponent = {
     name: 'core.wlc-wrapper',
     params: <IWrapperCParams>{
@@ -1870,6 +1933,9 @@ export namespace profileContent {
     export const profileLoyaltyLevelsTypeFirstSingle: ILayoutSectionConfig = profileFirstLoyaltyType(true);
 
     export const profileWolfLoyaltyLevelsSingle: ILayoutSectionConfig = profileWolfLoyaltyType(true);
+
+    export const profileLoyaltyProgram: ILayoutSectionConfig = profileDefaultLoyaltyProgram();
+    export const profileLoyaltyProgramTypeFirst: ILayoutSectionConfig = profileFirstLoyaltyProgram();
 
     export const profileAchievements: ILayoutSectionConfig = {
         container: true,

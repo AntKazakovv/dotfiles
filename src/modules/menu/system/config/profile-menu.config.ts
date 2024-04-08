@@ -1115,6 +1115,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
             state: {
                 parent: [
                     'app.profile.loyalty-level',
+                    'app.profile.loyalty-program',
                 ],
                 name: 'app.profile.loyalty-level',
                 params: {},
@@ -1129,6 +1130,20 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     },
     'profile-menu:loyalty-level': profileLoyaltyMenuItem,
     'profile-first-menu:loyalty-level': profileLoyaltyMenuItem,
+
+    'profile-menu:loyalty-program': {
+        name: gettext('Loyalty Program'),
+        type: 'sref',
+        icon: 'loyalty-program',
+        class: 'loyalty-program',
+        wlcElement: 'link_loyalty-program',
+        params: {
+            state: {
+                name: 'app.profile.loyalty-program',
+                params: {},
+            },
+        },
+    },
 
     'profile-menu:achievements': {
         name: gettext('Achievements'),
