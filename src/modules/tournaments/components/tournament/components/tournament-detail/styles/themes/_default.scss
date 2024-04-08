@@ -403,6 +403,10 @@ $selector: '.wlc-tournament-detail';
             }
         }
     }
+
+    &__lock-btn {
+        @include cm.lockBtn;
+    }
 }
 
 @keyframes spin {

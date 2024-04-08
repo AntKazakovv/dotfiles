@@ -151,13 +151,12 @@ $tableBtnBlock: map-merge((
 
 $customTournamentLockBtn: () !default;
 $tournamentLockBtn: map-merge((
-    'lockBtnIconSize': 20px,
+    'lockBtnIconSize': 15px,
     'lockBtnFontStyle': 'SignText',
-    'lockBtnFontColor': var(--mc-baseMain),
+    'lockBtnFontBoldStyle': 'SignTextBold',
+    'lockBtnFontColor': var(--mc-baseThird, var(--mc-baseMain)),
     'lockBtnGap': size-func(2),
-    'lockBtnPadding': size-func(1) size-func(2),
-    'lockBtnBg': var(--mc-buttonColor-o6),
-    'lockBtnBorderRadius': map-get($radius, 'biger'),
+    'lockBtnPadding': size-func(1) 0,
     'lockBtnHeight': (
         375: 40px,
     ),

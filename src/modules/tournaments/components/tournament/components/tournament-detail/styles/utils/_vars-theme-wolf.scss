@@ -2,10 +2,9 @@ $customThemeWolf: () !default;
 $themeWolf: map-merge((
     'detailBorderBottom': 2px solid var(--mc-bg500),
 
-    'headerInfoPadding': ef.size(4) 0 0,
+    'headerInfoPadding': ef.size(8) 0 ef.size(10),
     'headerInfoMinHeight': (
-        375: 300px,
-        768: 345px
+        375: auto,
     ),
     'headerInfoBg': var(--mc-bg500),
     'headerInfoBgPosition': center,
@@ -77,15 +76,27 @@ $themeWolf: map-merge((
     ),
     'leaderboardTableMaxWidth': 500px,
 
+    'levelsPadding': ef.size(4),
+    'levelsBg': var(--mc-bgModal),
+    'levelsTitleStyle': 'SecondTitleBold',
+    'levelsTitleColor': var(--mc-baseSecond),
+    'levelsTitleMargin': 0 0 ef.size(4),
+    'levelsTextStyle': 'CaptionText',
+    'levelsTextColor': var(--mc-baseMain),
+    'levelsTextMaxWidth': (
+        375: 335px,
+    ),
+    'levelsBorder': 2px solid var(--mc-bg500),
+
     'prizesBg': var(--mc-bgModal),
     'freeSpinsPadding': ef.size(5) ef.size(6),
 
     'prizepoolMargin': ef.size(4) auto ef.size(1),
-    'prizepoolTitleStyle': 'QoteTextBoldSmaller',
-    'prizepoolTitleColor': var(--mc-baseSecond),
+    'prizepoolTitleStyle': 'SecondTitleBold',
+    'prizepoolTitleColor': var(--mc-baseThird),
 
-    'prizepoolAmoutTextStyle': 'ThirdTitleBold',
-    'prizepoolAmoutTextColor': var(--mc-baseSecond),
+    'prizepoolAmoutTextStyle': 'PromoTitle',
+    'prizepoolAmoutTextColor': var(--mc-baseThird),
 
     'prizepoolAmoutTextStyleLG': 'PromoTitle',
 

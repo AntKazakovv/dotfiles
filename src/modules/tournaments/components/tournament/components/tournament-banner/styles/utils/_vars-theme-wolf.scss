@@ -55,4 +55,9 @@ $themeWolf: map-merge((
     'bodyJustifyContent': space-between,
     'bodyZIndex': 2,
     'bodyNestedZIindex': 2,
+
+    'lockBtnMaxWidth': (
+        375: 185px,
+        480: none,
+    ),
 ), $customThemeWolf);

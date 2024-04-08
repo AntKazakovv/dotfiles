@@ -140,12 +140,12 @@
 
 //Base styles for tournament lock-btn
 
-@mixin lockBtn() {
+@mixin lockBtn($isBold: false) {
     --wlc-icon-width: #{ef.get-value(ev.$tournamentLockBtn, 'lockBtnIconSize')};
     --wlc-icon-height: #{ef.get-value(ev.$tournamentLockBtn, 'lockBtnIconSize')};
 
     @include text.get-text-style(
-        ef.get-value(ev.$tournamentLockBtn, 'lockBtnFontStyle'),
+        ef.get-value(ev.$tournamentLockBtn, if($isBold, 'lockBtnFontBoldStyle', 'lockBtnFontStyle')),
         ef.get-value(ev.$tournamentLockBtn, 'lockBtnFontColor'),
     );
     @include bm.get-mq-map('height', ev.$tournamentLockBtn, 'lockBtnHeight');
@@ -154,8 +154,6 @@
     gap: ef.get-value(ev.$tournamentLockBtn, 'lockBtnGap');
     align-items: center;
     padding: ef.get-value(ev.$tournamentLockBtn, 'lockBtnPadding');
-    background: ef.get-value(ev.$tournamentLockBtn, 'lockBtnBg');
-    border-radius: ef.get-value(ev.$tournamentLockBtn, 'lockBtnBorderRadius');
 
     .lock-btn__icon {
 

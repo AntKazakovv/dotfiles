@@ -200,6 +200,11 @@
                 @include bm.get-mq-map('display', $themeWolf, 'imageDisplay');
             }
         }
+
+        &__lock-btn {
+            @include cm.lockBtn(bold);
+            @include bm.get-mq-map('max-width', $themeWolf, 'lockBtnMaxWidth');
+        }
     }
 
     ::ng-deep {

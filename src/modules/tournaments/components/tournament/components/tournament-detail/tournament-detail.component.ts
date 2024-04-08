@@ -67,6 +67,7 @@ export class TournamentDetailComponent extends AbstractComponent implements
     public tagClass: string;
     public tagConfig: ITagCParams;
     public freeSpinsParams: ITournamenFreeSpinsParams;
+    public lockBtnText: string;
 
     protected gamesCatalogService: GamesCatalogService;
 
@@ -122,6 +123,7 @@ export class TournamentDetailComponent extends AbstractComponent implements
         this.tagClass = this.tournament.tag.toLowerCase();
         if (this.tournament.onlyForLevels) {
             this.availableLevels = _join([...this.tournament.onlyForLevels].reverse(), ', ');
+            this.lockBtnText = this.configService.get('$tournaments.lockBtnText');
         }
 
         this.gamesGrid = {

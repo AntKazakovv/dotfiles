@@ -176,6 +176,35 @@ $selector: '.wlc-tournament-detail';
             text-align: center;
         }
 
+        #{$selector}__levels {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: ef.get-value($themeWolf, 'levelsPadding');
+            background: ef.get-value($themeWolf, 'levelsBg');
+            border-bottom: ef.get-value($themeWolf, 'levelsBorder');
+
+            &-title {
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'levelsTitleStyle'),
+                    ef.get-value($themeWolf, 'levelsTitleColor')
+                );
+                margin: ef.get-value($themeWolf, 'levelsTitleMargin');
+            }
+
+            &-text {
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'levelsTextStyle'),
+                    ef.get-value($themeWolf, 'levelsTextColor')
+                );
+                @include bm.get-mq-map('max-width', $themeWolf, 'levelsTextMaxWidth');
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+
         #{$selector}__prizeboard {
             @include bm.get-mq-map('grid-template-columns', $themeWolf, 'prizeboardColumnWidth');
             @include bm.get-mq-map('padding', $themeWolf, 'prizeboardPadding');
@@ -230,6 +259,10 @@ $selector: '.wlc-tournament-detail';
                 }
             }
         }
+    }
+
+    &__lock-btn {
+        @include cm.lockBtn(bold);
     }
 
     .wlc-games-grid--theme-default.wlc-games-grid {

@@ -137,11 +137,13 @@
         </div>
 
         <div class="buttons-wrap">
-            <button *ngIf="showJoin"
-                wlc-button
-                text="Join"
-                (click)="joinToTournament()">
-            </button>
+            <ng-container *ngIf="showJoin">
+                <button *ngIf="!tournament.onlyForLevels; else lockBtn"
+                    wlc-button
+                    text="Join"
+                    (click)="joinToTournament()">
+                </button>
+            </ng-container>
             <button wlc-button
                 themeMod="secondary"
                 text="Read more"

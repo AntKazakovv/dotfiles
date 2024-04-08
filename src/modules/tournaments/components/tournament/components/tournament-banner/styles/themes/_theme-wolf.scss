@@ -127,6 +127,11 @@
             }
         }
 
+        &__lock-btn {
+            @include cm.lockBtn(bold);
+            @include bm.get-mq-map('max-width', $themeWolf, 'lockBtnMaxWidth');
+        }
+
         @include bm.hover() {
 
             &:before {

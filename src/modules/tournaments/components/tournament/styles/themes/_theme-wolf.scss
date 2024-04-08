@@ -74,6 +74,10 @@
                         }
                     }
                 }
+
+                .wlc-tournament__lock-btn {
+                    @include cm.lockBtn;
+                }
             }
 
             &__img-container {

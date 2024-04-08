@@ -92,7 +92,8 @@
                     [prizes]="tournament.prizePool">
                 </div>
             </div>
-            <div wlc-timer
+            <div *ngIf="!tournament.onlyForLevels; else lockBtn"
+                wlc-timer
                 class="{{$class}}-timer"
                 theme="wolf"
                 [value]="tournament.stateDateTournament"

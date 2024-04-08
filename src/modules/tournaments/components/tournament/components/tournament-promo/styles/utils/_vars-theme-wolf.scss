@@ -125,6 +125,10 @@ $themeWolf: map-merge((
 
     'prizesMargin': ef.size(2) auto 0,
 
+    'lockBtnMaxWidth': (
+        480: 185px,
+        560: none,
+    ),
     'linkBlockColor': var(--mc-main),
     'linkBlockColorHover': ef.get('mainColors', 'baseMain'), // Locked color
 
