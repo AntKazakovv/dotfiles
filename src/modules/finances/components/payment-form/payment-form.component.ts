@@ -194,6 +194,8 @@ export class PaymentFormComponent
     private cssVariables: string;
     private prestepAmount: number = 0;
 
+    private formSubmit: HTMLFormElement;
+
     constructor(
         @Inject('injectParams') protected injectParams: Params.IPaymentFormCParams,
         @Inject(DOCUMENT) protected document: Document,
@@ -738,6 +740,7 @@ export class PaymentFormComponent
             return;
         }
 
+        this.formSubmit = null;
         this.showErrorHostedLoad = false;
         this.isShowHostedBlock = false;
         this.isPrestepComplete = false;
@@ -1295,12 +1298,8 @@ export class PaymentFormComponent
     }
 
     protected addFormToBodyAndSubmit(response): void {
-        const formSubmit: HTMLFormElement = this.createForm(response);
-        this.document.body.appendChild(formSubmit);
-
-        if (this.currentSystem.appearance !== 'iframe') {
-            formSubmit.submit();
-        }
+        this.formSubmit = this.createForm(response);
+        this.document.body.appendChild(this.formSubmit);
     }
 
     protected createForm(response: any): HTMLFormElement {
@@ -1543,6 +1542,7 @@ export class PaymentFormComponent
             }
 
             this.addFormToBodyAndSubmit(response);
+
             return true;
         } catch (error) {
             this.pushNotification({
@@ -1555,10 +1555,15 @@ export class PaymentFormComponent
             return false;
         } finally {
 
+            if (this.formSubmit && isDepositSuccess && this.currentSystem.appearance !== 'iframe') {
+                setTimeout(() => {
+                    this.formSubmit.submit();
+                }, 100);
+            }
+
             if (this.modalService.getActiveModal('data-is-processing')) {
                 this.modalService.hideModal('data-is-processing');
             }
-
             this.inProgress = false;
             this.isWaitingResponse = false;
 
@@ -1575,7 +1580,9 @@ export class PaymentFormComponent
     private checkAppearance(response: any): void {
         switch(this.currentSystem.appearance) {
             case 'newtab':
-                this.window.open(response[1], '_blank');
+                setTimeout(() => {
+                    this.window.open(response[1], '_blank');
+                }, 100);
                 break;
             case 'iframe':
                 this.addFormToBodyAndSubmit(response);
