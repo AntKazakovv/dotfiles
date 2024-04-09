@@ -109,6 +109,7 @@
     </label>
 </ng-template>
 
+<!-- TODO: проверять наличие валидаторов в контроле, а не параметрах -->
 <ng-template #status>
     <div *ngIf="$params.name && $params.validators?.length"
          class="{{$class}}-status"

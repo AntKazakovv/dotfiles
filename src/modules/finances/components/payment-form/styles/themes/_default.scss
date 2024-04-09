@@ -105,6 +105,11 @@
                 justify-self: start;
                 text-align: left;
             }
+
+            // For amount field with plus and minus buttons
+            .wlc-amount-field + .wlc-amount-limit__wrap {
+                @include bm.get-mq-map('margin-left', $themeDefault, 'amountLimitMarginLeft');
+            }
         }
 
         .wlc-form {

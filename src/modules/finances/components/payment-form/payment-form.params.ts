@@ -25,6 +25,8 @@ export interface IPaymentFormCParams extends IComponentParams<ComponentTheme, Co
     limitsWrapperParams?: IFormComponent;
     paymentSystem?: PaymentSystem;
     hideClearAmountButton?: boolean;
+    /** Enables a field with decrement and increment buttons */
+    amountWithButtons?: boolean;
     paymentMessageParams?: Partial<IPaymentMessageCParams>;
     /** Params for timer element */
     timerParams?: ITimerCParams;

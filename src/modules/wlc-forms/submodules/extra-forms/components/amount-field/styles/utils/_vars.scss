@@ -1,0 +1,19 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'amountGridAreas': 'decrement input increment',
+    'amountGridColumns': min-content 1fr min-content,
+    'amountAlignItems': flex-end,
+    'amountGap': ef.size(2),
+
+    'buttonMinWidth': 40px,
+    'buttonPadding': initial,
+    'buttonBorder': initial,
+    'buttonBackground': var(--mc-bg300),
+    'buttonBackgroundHover': var(--mc-bg100),
+    'buttonDecrementArea': decrement,
+    'buttonIncrementArea': increment,
+    'buttonIconWidth': 24px,
+    'buttonIconHeight': 24px,
+
+    'inputArea': input,
+), $customThemeDefault);

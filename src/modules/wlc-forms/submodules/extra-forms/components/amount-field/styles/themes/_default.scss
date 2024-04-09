@@ -1,0 +1,40 @@
+.wlc-amount-field--theme-default:host {
+    @include bm.get-mq-map('grid-template-areas', $themeDefault, 'amountGridAreas');
+    @include bm.get-mq-map('grid-template-rows', $themeDefault, 'amountGridRows');
+    @include bm.get-mq-map('grid-template-columns', $themeDefault, 'amountGridColumns');
+    @include bm.get-mq-map('gap', $themeDefault, 'amountGap');
+
+    display: grid;
+    align-items: ef.get-value($themeDefault, 'amountAlignItems');
+
+    .wlc-amount-field {
+
+        &__button {
+            --wlc-icon-width: #{ef.get-value($themeDefault, 'buttonIconWidth')};
+            --wlc-icon-height: #{ef.get-value($themeDefault, 'buttonIconHeight')};
+
+            @include bm.get-mq-map('min-width', $themeDefault, 'buttonMinWidth');
+            @include bm.get-mq-map('padding', $themeDefault, 'buttonPadding');
+
+            border: ef.get-value($themeDefault, 'buttonBorder');
+            background: ef.get-value($themeDefault, 'buttonBackground');
+
+            &--decrement {
+                @include bm.get-mq-map('grid-area', $themeDefault, 'buttonDecrementArea');
+            }
+
+            &--increment {
+                @include bm.get-mq-map('grid-area', $themeDefault, 'buttonIncrementArea');
+            }
+
+            @include bm.hover {
+                border: ef.get-value($themeDefault, 'buttonBorderHover');
+                background: ef.get-value($themeDefault, 'buttonBackgroundHover');
+            }
+        }
+
+        &__input {
+            @include bm.get-mq-map('grid-area', $themeDefault, 'inputArea');
+        }
+    }
+}

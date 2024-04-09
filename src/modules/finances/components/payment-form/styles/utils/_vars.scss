@@ -44,6 +44,9 @@ $themeDefault: map-merge((
         375: 'amount' 'limits' 'clear',
         900: 'amount clear' 'limits limits',
     ),
+    'amountLimitMarginLeft': (
+        375: calc(40px + ef.size(2)),
+    ),
 
     'mainBtnMargin': ef.size(4) 0 0,
     'mainBtnJustify': (

@@ -64,6 +64,50 @@ export namespace FormElements {
         },
     };
 
+    export const amountWithButtons: IFormComponent = {
+        name: 'extra-forms.wlc-amount-field',
+        alwaysNew: {
+            saveValue: true,
+        },
+        params: {
+            name: ['amount'],
+            amount: <IInputCParams>{
+                common: {
+                    placeholder: gettext('Amount'),
+                    customModifiers: 'right-shift',
+                    maxLength: 55,
+                },
+                exampleValue: gettext('Enter amount'),
+                theme: 'vertical',
+                name: 'amount',
+                showCurrency: true,
+                prohibitedPattern: ProhibitedPatterns.notAmountSymbols,
+                trimStartZeroes: true,
+                customMod: ['amount'],
+                numeric: {
+                    use: true,
+                    scale: 2,
+                    unsignedOnly: true,
+                    prohibitRadixAsFirst: true,
+                },
+            },
+            validators: [
+                'required',
+                'numberDecimal',
+                {
+                    name: 'min',
+                    text: 'The entered amount is less than the minimum',
+                    options: 10,
+                },
+                {
+                    name: 'max',
+                    text: 'The entered amount is more than the maximum',
+                    options: 10000,
+                },
+            ],
+        },
+    };
+
     export const rules: IFormComponent = {
         name: 'core.wlc-checkbox',
         params: <ICheckboxCParams>{

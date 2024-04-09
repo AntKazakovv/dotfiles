@@ -585,4 +585,16 @@ export class GlobalHelper {
 
         return btnsParams;
     }
+
+    /**
+     * Summation of fractional numbers. Fixes loss of accuracy.
+     *
+     * @param {number | string} a
+     * @param {number | string} b
+     *
+     * @returns {number}
+     */
+    public static sumNumbers(a: number | string, b: number | string): number {
+        return (Number(a) * 100 + Number(b) * 100) / 100;
+    }
 }

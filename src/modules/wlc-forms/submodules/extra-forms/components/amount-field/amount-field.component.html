@@ -1,0 +1,16 @@
+<button wlc-button
+        class="{{$class}}__button {{$class}}__button--decrement"
+        typeAttr="button"
+        [inlineParams]="$params.decrementButton"
+        (click)="changeAmount('-')">
+</button>
+<div wlc-input
+     class="{{$class}}__input"
+     [inlineParams]="$params.amount">
+</div>
+<button wlc-button
+        class="{{$class}}__button {{$class}}__button--increment"
+        typeAttr="button"
+        [inlineParams]="$params.incrementButton"
+        (click)="changeAmount('+')">
+</button>

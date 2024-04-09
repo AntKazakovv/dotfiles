@@ -12,7 +12,8 @@ export type TModuleName =
     | 'pep'
     | 'sms'
     | 'finances'
-    | 'forms'
+    | 'wlc-forms'
+    | 'extra-forms'
     | 'transfer'
     | 'bonuses'
     | 'store'
@@ -107,10 +108,15 @@ export const modulesApp: Record<TModuleName, IFunctionImportModule> = {
         callback(name, m);
         return m.FinancesModule;
     },
-    'forms': async (name: TModuleName, callback: Function) => {
-        const m = await import('wlc-engine/modules/forms/forms.module');
+    'wlc-forms': async (name: TModuleName, callback: Function) => {
+        const m = await import('wlc-engine/modules/wlc-forms/wlc-forms.module');
         callback(name, m);
-        return m.FormsModule;
+        return m.WlcFormsModule;
+    },
+    'extra-forms': async (name: TModuleName, callback: Function) => {
+        const m = await import('wlc-engine/modules/wlc-forms/submodules/extra-forms/extra-forms.module');
+        callback(name, m);
+        return m.ExtraFormsModule;
     },
     'transfer': async (name: TModuleName, callback: Function) => {
         const m = await import('wlc-engine/modules/transfer/transfer.module');

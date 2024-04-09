@@ -682,10 +682,20 @@ export class PaymentFormComponent
                 }
 
                 const sum = this.usePreselectedSummation
-                    ? (Number(this.amountControl.value) * 100 + data.amount * 100) / 100
+                    ? GlobalHelper.sumNumbers(this.amountControl.value, data.amount)
                     : data.amount;
 
                 this.formData$.next({amount: `${sum}`});
+            }, this.$destroy);
+
+        this.eventService.subscribe(
+            {name: 'INCREASE_AMOUNT'},
+            (data: any): void => {
+                if (!this.amountControl.touched) {
+                    this.amountControl.markAsTouched();
+                }
+
+                this.formData$.next({amount: `${data.amount}`});
             }, this.$destroy);
 
         this.eventService.subscribe(
@@ -1066,10 +1076,16 @@ export class PaymentFormComponent
     }
 
     protected prepareAmountFieldConfig(isLocked: boolean, showClearBtn: boolean): IFormComponent {
-        const amount: IFormComponent = _cloneDeep(FormElements.amount);
+        let amount: IFormComponent;
         let showLimits: boolean = false;
 
-        _set(amount, 'params.currency', this.currentCurrency);
+        if (this.$params.amountWithButtons) {
+            amount = _cloneDeep(FormElements.amountWithButtons);
+            _set(amount, 'params.amount.currency', this.currentCurrency);
+        } else {
+            amount = _cloneDeep(FormElements.amount);
+            _set(amount, 'params.currency', this.currentCurrency);
+        }
 
         if (this.amount) {
             _set(amount, 'params.value', this.amount);
