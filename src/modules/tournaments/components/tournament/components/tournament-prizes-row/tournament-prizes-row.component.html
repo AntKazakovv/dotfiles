@@ -7,7 +7,7 @@
 <ng-template #default>
     <div class="{{$class}}__values">
         <span *ngFor="let prize of prizes;"
-            class="{{$class}}__val {{$class}}--{{prize.currency.toLowerCase()}}">
+            class="{{$class}}__val {{$class}}--{{prize.currency | lowercase}}">
             <span *ngIf="prize.value; else noValue"
                 wlc-currency
                 [digitsInfo]="isTornamentHistory ? null : getDigitsInfo(prize.currency)"
@@ -21,7 +21,7 @@
 <ng-template #short>
     <div class="{{$class}}__values">
         <span *ngFor="let prize of mainCurrency;"
-            class="{{$class}}__val {{$class}}--{{prize.currency.toLowerCase()}}">
+            class="{{$class}}__val {{$class}}--{{prize.currency | lowercase}}">
             <span *ngIf="prize.value; else noValue"
                 wlc-currency
                 [digitsInfo]="getDigitsInfo(prize.currency)"

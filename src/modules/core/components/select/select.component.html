@@ -43,7 +43,7 @@
          [className]="$class"
          [control]="control"
          [validators]="$params.validators"
-         [fieldName]="$params.name.toLowerCase()">
+         [fieldName]="$params.name | lowercase">
     </div>
     <div class="{{$class}}-status">
         <span *ngIf="control.disabled || control.untouched || control.valid"

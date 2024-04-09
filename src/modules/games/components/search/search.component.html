@@ -93,7 +93,7 @@
 
         <li class="{{$class}}__list-item"
             *ngFor="let merchant of merchants"
-            [attr.data-wlc-element]="'button_filter-' + merchant.alias.toLowerCase() + '_' + merchant.id">
+            [attr.data-wlc-element]="'button_filter-' + (merchant.alias | lowercase) + '_' + merchant.id">
             <button class="{{$class}}__list-btn"
                     [class.active]="isActive('merchants', merchant.id)"
                     (click)="chooseMerchant(merchant)">

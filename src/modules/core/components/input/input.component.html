@@ -115,7 +115,7 @@
          wlc-form-control
          [className]="$class"
          [control]="control"
-         [fieldName]="$params.name.toLowerCase()"
+         [fieldName]="$params.name | lowercase"
          [validators]="$params.validators"
     ></div>
 </ng-template>
