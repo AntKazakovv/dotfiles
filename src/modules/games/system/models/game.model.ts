@@ -1,4 +1,5 @@
 import {UIRouter} from '@uirouter/core';
+import {BehaviorSubject} from 'rxjs';
 
 import _assign from 'lodash-es/assign';
 import _isObject from 'lodash-es/isObject';
@@ -20,7 +21,6 @@ import {
     IGameJackpotAmount,
     TGameImageSize,
     MerchantModel,
-    GamesCatalogService,
 } from 'wlc-engine/modules/games';
 import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
@@ -31,6 +31,7 @@ import {
     IFromLog,
 } from 'wlc-engine/modules/core';
 import {Games} from 'wlc-engine/modules/games/system/classes/games';
+import {UserProfile} from 'wlc-engine/modules/user/system/models';
 
 export class Game extends AbstractModel<IGame> {
     public ID: number;
@@ -51,37 +52,17 @@ export class Game extends AbstractModel<IGame> {
     public isFavourite?: boolean;
     public sortPerCategory: IIndexing<number>;
     public launchMerchantID: number;
-    public initialCurrency: string;
+    public isVisibilityChangeCurrency: boolean = false;
 
     protected url: string;
     protected isRestricted: boolean;
     protected countryRestrictionId: string;
-    protected toggleFavourite?: any;
-    protected isCurrencyDisabled?: boolean;
-    protected CategoryTitle?: IIndexing<string>[];
     protected disableDemoBtnsFor: TDisableDemoFor;
     protected _withFreeRounds: boolean;
 
     private _jackpotAmount: IGameJackpotAmount;
     private static _enabledMerchants: MerchantModel[];
     private _selectedCurrency: string;
-    // что-то не нужное
-    // protected MobileUrl: string;
-    // protected MobileAndroidUrl?: string;
-    // protected MobileWindowsUrl?: string;
-    // protected SuperBranded: number;
-    // protected Branded: number;
-    // protected PageCode: string;
-    // protected MobilePageCode: string;
-    // protected MobileAndroidPageCode: string;
-    // protected MobileWindowsPageCode: string;
-    // protected ExternalCode: string;
-    // protected MobileExternalCode: string;
-    // protected ImageFullPath: string;
-    // protected WorkingHours: string;
-    // protected IsVirtual: string;
-    // protected TableID: string;
-
 
     constructor(
         from: IFromLog,
@@ -118,11 +99,6 @@ export class Game extends AbstractModel<IGame> {
         this.disableDemoBtnsFor = this.configService.get<TDisableDemoFor>('$games.disableDemoBtnsFor');
         this._withFreeRounds = data.Freeround === '1';
 
-        if (this.merchantsCurrencies) {
-            this.initialCurrency = _find(
-                this.merchantsCurrencies,
-                (currency: string): boolean => currency === 'EUR') ?? this.merchantsCurrencies[0];
-        }
         this.data = data;
     }
 
@@ -158,40 +134,40 @@ export class Game extends AbstractModel<IGame> {
         return this._withFreeRounds;
     }
 
-    public get getCurrency(): string {
-        if (!Games.allowGameCurrency && !this.merchantsCurrencies) {
-            return GamesCatalogService.userService.userProfile.currency;
-        }
-        return this.currency
-            ?? this.initialCurrency;
-    }
 
     public get currency(): string {
-        return _find(this.merchantsCurrencies,
-            (currency: string): boolean => currency === GamesCatalogService.userService.userProfile.currency)
-            ?? this._selectedCurrency;
-    }
+        const currency: string = this._selectedCurrency
+            ?? this.currencyIsSupportedByTheProvider()
+            ?? this.configService.get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
+                .getValue()?.currency
+            ?? 'EUR';
 
-    public get walletCurrency(): string {
-        return GamesCatalogService.userService.userProfile.isConversionInFiat
-            ?  GamesCatalogService.userService.userProfile.selectedCurrency
-            : _find(this.merchantsCurrencies,
-                (currency: string): boolean =>
-                    currency === GamesCatalogService.userService.userProfile.selectedCurrency,
-            )
-            ?? this._selectedCurrency;
+        return currency;
     }
 
     public set selectedCurrency(currency: string) {
         this._selectedCurrency = currency;
     }
 
-    public get currencyNotSupported(): boolean {
-        return Games.allowGameCurrency
-            && !!this.merchantsCurrencies
-            && (!this.walletCurrency || !this.currency);
+    public get showChoiceOfCurrency(): boolean {
+        const alwaysShowChoiceOfCurrency: boolean = Games.alwaysShowChoiceOfCurrency && !this._selectedCurrency;
+        const isShow: boolean = Games.allowGameCurrency
+            && (!!this.merchantsCurrencies
+                && !(this.isVisibilityChangeCurrency || !!this.currencyIsSupportedByTheProvider())
+                || alwaysShowChoiceOfCurrency
+            );
+
+        return isShow;
     }
 
+    public currencyIsSupportedByTheProvider(): string | undefined {
+
+        return this.merchantsCurrencies
+            ?.find((currency: string): boolean =>
+                currency === this.configService.get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
+                    .getValue()?.currency,
+            );
+    }
     /**
      *
      * @param {IRestrictions} restrictions

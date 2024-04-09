@@ -1,4 +1,4 @@
-<ng-container [ngSwitch]="$params.theme">
+<ng-container *ngIf="!showChoiceOfCurrency" [ngSwitch]="$params.theme">
     <ng-container [ngTemplateOutlet]="fullscreen" *ngSwitchCase="'fullscreen-game-frame'"></ng-container>
     <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
 </ng-container>
@@ -102,12 +102,12 @@
     </div>
 </ng-template>
 
+<div
+    *ngIf="showChoiceOfCurrency"
+    wlc-choice-currency
+    [inlineParams]="choiceCurrencyParams"></div>
+
 <ng-template #gameWrapper>
-    <div
-        *ngIf="showChoiceCurrency"
-        wlc-choice-currency
-        [inlineParams]="choiceCurrencyParams"
-        (currencyEmit)="currencyEmit()"></div>
 
     <ng-container *ngIf="isReady">
         <ng-container *ngIf="useMobileIframe; else gameWithHtml">

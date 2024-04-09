@@ -50,7 +50,7 @@ import {
     IPlayGameForRealCParams,
     GamesCatalogService,
 } from 'wlc-engine/modules/games';
-import {UserInfo} from 'wlc-engine/modules/user';
+import {UserInfo, UserProfile} from 'wlc-engine/modules/user';
 import {AppType} from 'wlc-engine/modules/core/system/interfaces/base-config/app.interface';
 import {BaseGamesHandler} from './games-handler.base';
 import {Games} from 'wlc-engine/modules/games/system/classes/games';
@@ -470,13 +470,12 @@ class StartGameHandler extends BaseGamesHandler {
             if (Games.allowGameCurrency) {
 
                 if (isMultiWallet) {
+                    const walletCurrency: string =
+                        this.configService.get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
+                            .getValue().extProfile.currentWallet?.walletCurrency;
 
-                    return !!userInfo.getWalletBalance(
-                        GamesCatalogService.userService.userProfile.extProfile.currentWallet?.walletCurrency,
-                    ) || (!!userInfo.wallets[
-                        GamesCatalogService.userService.userProfile.extProfile.currentWallet?.walletCurrency
-                    ] && !!userInfo.bonusBalance);
-
+                    return !!userInfo.getWalletBalance(walletCurrency)
+                        || (!!userInfo.wallets[walletCurrency] && !!userInfo.bonusBalance);
                 } else {
                     return !!userInfo.balance;
                 }

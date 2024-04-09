@@ -100,6 +100,10 @@ export class UserProfile extends AbstractModel<IUserProfile> {
         return this.extProfile.unusedCurrencies;
     }
 
+    public get gamesCurrency(): string {
+        return this.extProfile.gamesCurrency;
+    }
+
     public get email(): string {
         return this.data.email;
     }

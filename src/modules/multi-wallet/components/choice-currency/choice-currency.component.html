@@ -37,8 +37,8 @@
         *ngIf="$params.themeMod !== 'in-modal'"
         wlc-button
         typeAttr="button"
-        text="{{$params.btnText | translate}}"
-        (click)="onCurrencySelected()">
+        [inlineParams]="buttonParams"
+        (click)="onSelectCurrency()">
     </button>
 </ng-template>
 

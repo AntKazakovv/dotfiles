@@ -1,11 +1,12 @@
 $selector: '.wlc-choice-currency';
 
 #{$selector}--theme-default:host {
-
     @include text.get-text-style(
         ef.get-value($themeDefault, 'dropdownFontStyle', 375),
         ef.get-value($themeDefault, 'dropdownTextColor'),
     );
+    @include bm.get-mq-map('height', $themeDefault, 'height');
+
     position: ef.get-value($themeDefault, 'position');
     display: ef.get-value($themeDefault, 'display');
     flex-direction: ef.get-value($themeDefault, 'flexDirection');
@@ -13,19 +14,8 @@ $selector: '.wlc-choice-currency';
     align-items: ef.get-value($themeDefault, 'alignItems');
     justify-content: ef.get-value($themeDefault, 'justifyContent');
     width: ef.get-value($themeDefault, 'width');
-    height: ef.get-value($themeDefault, 'height');
-
-    &#{$selector}--theme-mod-default {
-
-        &:before {
-            content: '';
-            position: absolute;
-            width: ef.get-value($themeDefault, 'width');
-            height: ef.get-value($themeDefault, 'height');
-            background: ef.get-value($themeDefault, 'background');
-            opacity: ef.get-value($themeDefault, 'backgroundOpacity');
-        }
-    }
+    background: ef.get-value($themeDefault, 'background');
+    opacity: ef.get-value($themeDefault, 'backgroundOpacity');
 
     .wlc-btn {
         z-index: 1;
@@ -121,6 +111,8 @@ $selector: '.wlc-choice-currency';
 
     &#{$selector}--theme-mod-in-modal {
         position: ef.get-value($themeDefault, 'positionInModal');
+        height: ef.get-value($themeDefault, 'heightModal');
         padding: ef.get-value($themeDefault, 'paddingInModal');
+        background: transparent;
     }
 }

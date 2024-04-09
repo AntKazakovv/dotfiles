@@ -185,7 +185,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     };
 
     public choiceCurrencyParams: IChoiceCurrencyParams;
-    public showChoiceCurrency: boolean;
+    public showChoiceOfCurrency: boolean;
 
     protected realMobile: boolean = false;
     protected aspectRatio: string;
@@ -311,17 +311,20 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         this.gameTitle = this.game.name[this.locale] || this.game.name['en'] || '';
 
         if (this.game) {
-            this.gamesCatalogService.getFavouriteGames();
-            await this.openActiveGame();
+            this.showChoiceOfCurrency = this.game.showChoiceOfCurrency && !this.gameParams.demo;
+            this.game.isVisibilityChangeCurrency = false;
 
-            this.choiceCurrencyParams = {
-                game: this.game,
-            };
-
-            this.showChoiceCurrency = this.game.currencyNotSupported && !this.gameParams.demo;
+            if (this.showChoiceOfCurrency) {
+                this.choiceCurrencyParams = {
+                    game: this.game,
+                };
+                this.cdr.markForCheck();
+                return;
+            }
             this.cdr.detectChanges();
             this.initStartResizeParams();
-            this.game.selectedCurrency = null;
+            this.gamesCatalogService.getFavouriteGames();
+            await this.openActiveGame();
         } else {
             this.logService.sendLog({code: '3.0.4', data: {gameParams: this.gameParams}});
             this.setError({
@@ -364,7 +367,9 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     }
 
     public async ngAfterViewInit(): Promise<void> {
-
+        if (this.showChoiceOfCurrency) {
+            return;
+        }
         if (this.configService.get<boolean>('$base.useSeo')) {
             this.seoService = await this.injectionService.getService<SeoService>('seo.seo-service');
         }
@@ -516,11 +521,6 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             });
             this.setError();
         }
-    }
-
-    public currencyEmit(): void {
-        this.showChoiceCurrency = false;
-        this.cdr.markForCheck();
     }
 
     protected async runGameScript(): Promise<void> {
@@ -846,9 +846,8 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             const launchInfo: ILaunchInfo =
                 await this.gamesCatalogService.getLaunchParams(
                     this.gameParams,
-                    this.game.getCurrency,
+                    this.game.currency,
                 );
-
             const result = await this.hooksService.run<IGameWrapperHookLaunchInfo>(gameWrapperHooks.launchInfo, {
                 game: this.game,
                 launchInfo: launchInfo,
@@ -878,6 +877,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                 msg: _get(err, 'errors[0]'),
             });
         } finally {
+            this.game.selectedCurrency = null;
             waiter();
         }
     }

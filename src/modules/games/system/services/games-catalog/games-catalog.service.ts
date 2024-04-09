@@ -11,6 +11,7 @@ import {
 import {TranslateService} from '@ngx-translate/core';
 
 import {
+    BehaviorSubject,
     forkJoin,
     Observable,
     Subject,
@@ -112,7 +113,7 @@ import {
     GamesSortEnum,
     SortTypeEnum,
 } from 'wlc-engine/modules/games/system/interfaces/sorts.enums';
-import {UserService} from 'wlc-engine/modules/user';
+import {UserProfile} from 'wlc-engine/modules/user';
 import {CatalogBuilder} from 'wlc-engine/modules/games/system/builders/catalog.builder';
 import {MenuService} from 'wlc-engine/modules/menu';
 import {ICategoriesSettings} from 'wlc-engine/modules/games/system/builders/categories.builder';
@@ -120,7 +121,8 @@ import {IBonusWagerGamesFilter} from 'wlc-engine/modules/bonuses/system/interfac
 import {IInteractiveText} from 'wlc-engine/modules/core';
 import {Games} from 'wlc-engine/modules/games/system/classes/games';
 import {GameLauncherService} from 'wlc-engine/modules/games/system/services/game-launcher/game-launcher.service';
-import {ISelectedWallet, WalletsService} from 'wlc-engine/modules/multi-wallet';
+import {ISelectedWallet} from 'wlc-engine/modules/multi-wallet/system/interfaces';
+import {WalletsService} from 'wlc-engine/modules/multi-wallet/system/services';
 
 export interface ILaunchGameModal {
     show: boolean;
@@ -154,7 +156,6 @@ export class GamesCatalogService {
     public favoritesUpdated: Subject<void> = new Subject<void>();
     public idDefVideos: number[] = [];
     public idVerticalVideos: number[] = [];
-    public static userService: UserService;
 
     private searchBySpecialCats: boolean = true;
     private gamesCatalog: Catalog;
@@ -203,11 +204,6 @@ export class GamesCatalogService {
 
         this.useRealJackpots = this.configService.get<boolean>('$base.games.jackpots.useRealJackpots');
         this.useSeparateSorts = this.configService.get<boolean>('$games.sortsV2.use');
-
-        Games.allowGameCurrency =
-            this.configService.get<boolean>('appConfig.siteconfig.AllowGameCurrency');
-        Games.isMultiWallet = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
-        GamesCatalogService.userService = await this.injectionService.getService<UserService>('user.user-service');
 
         const fetches: {
             games: Observable<IEvent<IData<IGames>>>,
@@ -541,9 +537,10 @@ export class GamesCatalogService {
         let wallet: ISelectedWallet;
 
         if (Games.isMultiWallet) {
-            wallet = GamesCatalogService.userService.userProfile.extProfile.currentWallet;
+            wallet = this.configService.get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
+                .getValue()?.extProfile.currentWallet;
 
-            if (!options.demo && !wallet.walletId) {
+            if (!options.demo && !wallet?.walletId) {
                 this.walletsService ??= await this.injectionService
                     .getService<WalletsService>('multi-wallet.wallet-service');
                 wallet.walletId = _toNumber(await this.walletsService.addWallet(wallet.walletCurrency));

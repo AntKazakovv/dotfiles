@@ -51,7 +51,8 @@ import {
 import {WalletHelper} from 'wlc-engine/modules/multi-wallet/system/helpers/wallet.helper';
 import {ISettingsParams} from 'wlc-engine/modules/multi-wallet/components/settings/settings.params';
 import {IFiltersParams} from 'wlc-engine/modules/multi-wallet/components/filters/filters.params';
-import {RatesCurrencyService} from 'wlc-engine/modules/rates';
+import {RatesCurrencyService} from 'wlc-engine/modules/rates/system/services';
+import {TUpdateProfileRes} from 'wlc-engine/modules/user/system/services/user/user.service';
 
 import * as Params from './wallets.params';
 
@@ -293,28 +294,43 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
             this.walletList,
             (wallet: IWallet) => wallet.currency === this.userService.userProfile.selectedCurrency);
 
+        const saveWallet = (): Promise<TUpdateProfileRes> => {
+            return this.userService.updateProfile(
+                {
+                    extProfile: {
+                        currentWallet: {
+                            walletCurrency: this.currentWallet.currency,
+                            walletId: this.currentWallet.walletId,
+                        },
+                    },
+                },
+                {updatePartial: true},
+            );
+        };
+
         if (!this.currentWallet) {
 
             this.currentWallet = this.walletList[0];
 
             if (!this.isFinance) {
-                this.userService.updateProfile(
-                    {
-                        extProfile: {
-                            currentWallet: {
-                                walletCurrency: this.currentWallet.currency,
-                                walletId: this.currentWallet.walletId,
-                            },
-                        },
-                    },
-                    {updatePartial: true},
-                );
+                await saveWallet();
             }
         }
         this.changeWalletEmit.emit({
             walletId: this.currentWallet.walletId,
             walletCurrency: this.currentWallet.currency,
         });
+
+        if (!this.isFinance) {
+            this.userService.userProfile$.pipe(
+                first((v) => !!v?.idUser),
+                takeUntil(this.$destroy))
+                .subscribe((profile: UserProfile): void => {
+                    if (!profile.extProfile.currentWallet) {
+                        saveWallet();
+                    }
+                });
+        }
     }
 
     private async initSelector(): Promise<void> {

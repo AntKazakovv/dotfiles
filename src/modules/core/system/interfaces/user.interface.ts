@@ -152,8 +152,10 @@ export interface IExtProfile {
     currentWallet?: ISelectedWallet;
     /** Сurrency into which all amounts will be converted */
     conversionCurrency?: IWalletsSettings;
-    /** Currencies not showing in wallet selector*/
+    /** Currencies not showing in wallet selector */
     unusedCurrencies?: ICurrencyFilter[];
+    /** Сurrency selected before the game */
+    gamesCurrency?: string;
     /** Time to automatically log out profile without activity */
     logoutTime?: number;
     /** user's avatar path on static */

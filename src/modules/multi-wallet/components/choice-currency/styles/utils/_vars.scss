@@ -1,6 +1,6 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'position': absolute,
+    'position': relative,
     'positionInModal': relative,
     'paddingInModal': 0 0 ef.size(8),
     'display': flex,
@@ -9,7 +9,11 @@ $themeDefault: map-merge((
     'alignItems': center,
     'justifyContent': center,
     'width': 100%,
-    'height': 100%,
+    'height': (
+        375: 705px,
+        560: 854px,
+    ),
+    'heightModal': 100%,
 
     'containerDisplay': flex,
     'containerGap': ef.size(2),
