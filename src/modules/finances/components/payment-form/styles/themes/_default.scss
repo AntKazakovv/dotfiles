@@ -70,9 +70,9 @@
         &__invoice-btns {
             @include bm.get-mq-map('flex-direction', $themeDefault, 'btnsDirection');
             @include bm.get-mq-map('align-items', $themeDefault, 'btnsAlignment');
+            @include bm.get-mq-map('justify-content', $themeDefault, 'btnsJustify');
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
             margin: ef.get-value($themeDefault, 'btnsMargin');
         }
 

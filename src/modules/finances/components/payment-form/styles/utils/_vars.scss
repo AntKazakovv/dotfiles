@@ -103,6 +103,10 @@ $themeDefault: map-merge((
         375: center,
         900: flex-start,
     ),
+    'btnsJustify': (
+        375: center,
+        900: flex-start,
+    ),
     'btnsMargin': ef.size(2) ef.size(-2) ef.size(-2),
     'btnMargin': ef.size(2),
     'editBtnMargin': (
