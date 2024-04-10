@@ -52,38 +52,6 @@
                 @include bm.transition(all);
                 width: ef.get-value($theme, 'iconsWidth');
                 height: ef.get-value($theme, 'iconsHeight');
-                fill: none;
-                stroke: ef.get-value($theme, 'iconsColor');
-                stroke-width: ef.get-value($theme, 'iconsStroke');
-            }
-
-            &.wlc-icon--favourite {
-
-                path {
-                    fill: none;
-                }
-
-                &.active {
-
-                    svg {
-                        stroke: ef.get-value($theme, 'iconsColorActive');
-
-                        path {
-                            fill: ef.get-value($theme, 'iconsColorActive');
-                        }
-                    }
-                }
-            }
-
-            @include bm.hover {
-
-                svg {
-                    stroke: ef.get-value($theme, 'iconsColorHover');
-
-                    line {
-                        stroke: ef.get-value($theme, 'iconsColorHover');
-                    }
-                }
             }
         }
     }

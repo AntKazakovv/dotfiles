@@ -57,34 +57,36 @@
 
             .wlc-icon {
                 margin-left: ef.get-value($themeDefault, 'iconsGap');
+                color: ef.get-value($themeDefault, 'iconsColor');
                 cursor: pointer;
 
                 &.icon-btn:not(.active) {
                     @include bm.transition(all);
                 }
 
-                svg {
+                .wlc-icon-content {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
 
+                svg {
                     @include bm.transition(all);
-                    width: ef.get-value($themeDefault, 'iconsWidth');
-                    height: ef.get-value($themeDefault, 'iconsHeight');
-                    fill: ef.get-value($themeDefault, 'iconsColor');
+                    width: ef.get-value($themeDefault, 'iconsSize');
+                    height: ef.get-value($themeDefault, 'iconsSize');
                 }
 
                 &.wlc-icon--favourite {
 
                     &.active {
-
-                        svg {
-                            fill: ef.get-value($themeDefault, 'iconsColorActive');
-                        }
+                        color: ef.get-value($themeDefault, 'iconsColorActive');
                     }
                 }
 
                 @include bm.hover {
 
                     svg {
-                        fill: ef.get-value($themeDefault, 'iconsColorHover');
+                        color: ef.get-value($themeDefault, 'iconsColorHover');
                     }
                 }
             }
