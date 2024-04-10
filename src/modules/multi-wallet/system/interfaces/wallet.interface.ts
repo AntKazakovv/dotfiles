@@ -70,4 +70,5 @@ export interface ICurrencyFilter {
 export enum MultiWalletEvents {
     CurrencyConversionChanged = 'CHANGE_CURRENCY_CONVERSION',
     WalletChanged = 'CHANGE_WALLET',
+    CreateWallet = 'CREATE_WALLET',
 }

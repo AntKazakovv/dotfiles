@@ -12,7 +12,11 @@ import {
     NotificationEvents,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user';
-import {ICreatedWallet} from 'wlc-engine/modules/multi-wallet/system/interfaces/wallet.interface';
+import {
+    ICreatedWallet,
+    ISelectedWallet,
+    MultiWalletEvents,
+} from 'wlc-engine/modules/multi-wallet/system/interfaces/wallet.interface';
 
 @Injectable({
     providedIn: 'root',
@@ -54,6 +58,15 @@ export class WalletsService {
                     {updatePartial: true},
                 );
             }
+            this.eventService.emit(
+                {
+                    name: MultiWalletEvents.CreateWallet,
+                    data: {
+                        walletCurrency: currency,
+                        walletId: _toNumber(response.data.walletId),
+                    } as ISelectedWallet,
+                },
+            );
 
             return response.data.walletId;
         } catch (error) {

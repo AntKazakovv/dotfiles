@@ -38,7 +38,7 @@ import {
     UserService,
 } from 'wlc-engine/modules/user';
 import {CurrencyService} from 'wlc-engine/modules/currency/system/services/currency.service';
-import {ICurrency, ICurrencyModel} from 'wlc-engine/modules/currency/system/interfaces/currency.interface';
+import {ICurrencyModel} from 'wlc-engine/modules/currency/system/interfaces/currency.interface';
 
 import {
     IWallet,
@@ -163,6 +163,15 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
         this.eventService.subscribe({name: 'LOGOUT'}, (): void => {
             WalletHelper.conversionReset();
         });
+        this.eventService.subscribe([
+            {name: MultiWalletEvents.CreateWallet},
+        ], async (wallet: ISelectedWallet): Promise<void> => {
+
+            if (wallet.walletCurrency === this.currentWallet.currency) {
+                this.changeWalletEmit.emit(wallet);
+                this.currentWallet.walletId = wallet.walletId;
+            }
+        }, this.$destroy);
     }
 
     public get displayedBalance(): string {
@@ -440,7 +449,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
         }
 
         if (!this.walletList.length) {
-            const currentCurrency  = _find(this.currencies, (currency: ICurrency) =>
+            const currentCurrency: ICurrencyModel = this.currencies?.find((currency: ICurrencyModel): boolean =>
                 (this.currentWallet
                     ? currency.Name === this.currentWallet.currency
                     : currency.Name === this.userService.userProfile.selectedCurrency
