@@ -112,7 +112,10 @@ export class AbstractComponent implements OnDestroy, OnInit, OnChanges {
         return _get(this.$params, path) as T;
     }
 
-    public paramInclude(paramName: string, classes: string | string[]): boolean {
+    public paramInclude(
+        paramName: keyof IComponentParams<unknown, unknown, unknown>,
+        classes: string | string[],
+    ): boolean {
         if (_isArray(classes)) {
             return _includes(classes, this.$params[paramName]);
         } else {
@@ -120,7 +123,10 @@ export class AbstractComponent implements OnDestroy, OnInit, OnChanges {
         }
     }
 
-    public paramExclude(paramName: string, classes: string | string[]): boolean {
+    public paramExclude(
+        paramName: keyof IComponentParams<unknown, unknown, unknown>,
+        classes: string | string[],
+    ): boolean {
         if (_isArray(classes)) {
             return !_includes(classes, this.$params[paramName]);
         } else {
