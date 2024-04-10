@@ -1,0 +1,17 @@
+<div class="{{$class}}__wrapper">
+    <div class="{{$class}}__row {{$class}}__row--head">
+        <div class="{{$class}}__col {{$class}}__col--place">{{'#' | translate}}</div>
+        <div class="{{$class}}__col {{$class}}__col--prize">{{'Prize' | translate}}</div>
+    </div>
+    <div *ngFor="let row of prizeTable" class="{{$class}}__row">
+        <div class="{{$class}}__col {{$class}}__col--place">{{row.place}}</div>
+        <div class="{{$class}}__col {{$class}}__col--prize">
+            <div wlc-lottery-prize [prize]="row.prize"></div>
+        </div>
+    </div>
+    <div *ngIf="showMoreBtn"
+        class="{{$class}}__row {{$class}}__row--all-btn"
+        (click)="toggleTable()">
+        {{showAllText | translate}}
+    </div>
+</div>

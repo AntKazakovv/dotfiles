@@ -11,5 +11,12 @@
             min-width: ef.get-value($themeDefault, 'timerMinWidth');
             max-width: ef.get-value($themeDefault, 'timerMaxWidth');
         }
+
+        &__text {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'baseTextStyle'),
+                ef.get-value($themeDefault, 'baseColor'),
+            );
+        }
     }
 }

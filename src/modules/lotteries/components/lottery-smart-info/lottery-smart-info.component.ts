@@ -9,6 +9,8 @@ import {
     EventEmitter,
 } from '@angular/core';
 
+import {TranslateService} from '@ngx-translate/core';
+
 import {
     AbstractComponent,
     ConfigService,
@@ -31,6 +33,7 @@ export class LotterySmartInfoComponent extends AbstractComponent implements OnIn
     @Output() public timerEnds: EventEmitter<void> = new EventEmitter();
 
     public override $params: Params.ILotterySmartInfoCParams;
+
     private isAuth: boolean;
 
     constructor(
@@ -38,6 +41,7 @@ export class LotterySmartInfoComponent extends AbstractComponent implements OnIn
         protected override configService: ConfigService,
         protected override cdr: ChangeDetectorRef,
         protected eventService: EventService,
+        protected translateService: TranslateService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
@@ -56,8 +60,22 @@ export class LotterySmartInfoComponent extends AbstractComponent implements OnIn
         }, this.$destroy);
     }
 
+    public getDatesString(): string {
+        let str = this.lottery.datesFormatted;
+
+        if (this.lottery.isEnded && !this.lottery.isWaitingForResults) {
+            str = `${this.translateService.instant('Ended')}: ${this.lottery.drawingDateFormatted}`;
+        }
+
+        return str;
+    }
+
+    public get showTimer(): boolean {
+        return !this.lottery.isWaitingForStart && !this.lottery.isEnded;
+    }
+
     public get showTicketsCounter(): boolean {
-        return this.isAuth;
+        return this.isAuth && !this.lottery.isWaitingForStart;
     }
 
     public updateView(): void {

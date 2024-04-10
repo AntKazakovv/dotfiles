@@ -2,4 +2,7 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'timerMinWidth': 250px,
     'timerMaxWidth': 100%,
+
+    'baseTextStyle': 'CaptionText',
+    'baseColor': null,
 ), $customThemeDefault);

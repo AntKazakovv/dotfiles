@@ -1,0 +1,35 @@
+.wlc-lottery-winners--theme-default:host {
+
+    .wlc-lottery-winners {
+
+        &__header {
+            @include header($themeDefault);
+            @include divider($themeDefault);
+        }
+
+        &__item {
+            @include item($themeDefault);
+            @include divider($themeDefault);
+        }
+
+        &__row {
+            @include row($themeDefault);
+
+            &--head {
+                @include rowHead($themeDefault);
+            }
+        }
+
+        &__col {
+            @include column($themeDefault);
+        }
+
+        &__btn {
+            @include button($themeDefault);
+        }
+
+        &__nodata {
+            @include nodata($themeDefault);
+        }
+    }
+}

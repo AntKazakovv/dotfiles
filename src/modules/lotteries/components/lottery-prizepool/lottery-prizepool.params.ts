@@ -7,7 +7,7 @@ export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
 export type ComponentThemeMod = 'default' | 'wolf' | CustomType;
 
-export interface ILotteryPrizesCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
+export interface ILotteryPrizePoolCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     /** Number of rows. If empty */
     limit?: number;
     showMoreBtn?: boolean;
@@ -15,9 +15,9 @@ export interface ILotteryPrizesCParams extends IComponentParams<ComponentTheme, 
     divider?: string;
 };
 
-export const defaultParams: ILotteryPrizesCParams = {
-    class: 'wlc-lottery-prizes',
-    componentName: 'wlc-lottery-prizes',
+export const defaultParams: ILotteryPrizePoolCParams = {
+    class: 'wlc-lottery-prizepool',
+    componentName: 'wlc-lottery-prizepool',
     moduleName: 'lotteries',
     divider: '+',
 };

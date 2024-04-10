@@ -1,0 +1,4 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'dividerMargin': 0 ef.size(1),
+), $customThemeDefault);

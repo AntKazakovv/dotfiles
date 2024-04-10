@@ -1,4 +1,5 @@
 .wlc-lottery-detail--theme-default:host {
+    --wlc-ld-width-base: #{ef.get-value($themeDefault, 'baseWidth')};
     --wlc-lp-row-border: var(--mc-bg300);
     --wlc-lp-row-border-last: transparent;
     --wlc-lsi-gap: var(--wlc-ld-header-main-gap);
@@ -88,6 +89,11 @@
                 @include sectionTitleName($themeDefault);
             }
 
+            &-content {
+                max-width: var(--wlc-ld-section-content-width, 100%);
+                margin: 0 auto;
+            }
+
             &--prizes {
 
                 &:before,
@@ -119,12 +125,18 @@
                     background: ef.get-value($themeDefault, 'prizesDecorRight');
                 }
             }
+
+            &.hidden {
+                display: none;
+            }
+
+            &--base {
+                --wlc-ld-section-content-width: var(--wlc-ld-width-base);
+            }
         }
 
         &__prizes {
             width: 100%;
-            max-width: ef.get-value($themeDefault, 'prizesWidth');
-            margin: 0 auto;
             background: ef.get-value($themeDefault, 'prizesBg');
             border-radius: ef.get-value($themeDefault, 'prizesRadius');
             overflow: hidden;

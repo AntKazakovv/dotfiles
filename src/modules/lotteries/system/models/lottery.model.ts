@@ -4,27 +4,21 @@ import _indexOf from 'lodash-es/indexOf';
 import {
     ILottery,
     TLotteryStatus,
-    TLotteryTimerState,
 } from 'wlc-engine/modules/lotteries/system/interfaces/lotteries.interface';
 import {LotteryPrizes} from 'wlc-engine/modules/lotteries/system/models/lottery-prizes.model';
+import {BaseLottery} from 'wlc-engine/modules/lotteries/system/models/base-lottery.model';
 
-export class Lottery {
+export class Lottery extends BaseLottery {
     public static userLevel: number;
     public static userCurrency: string;
-    public readonly id: number;
     public readonly levels: Array<string | number>;
     public readonly levelsString: string;
     public readonly isForAllLevels: boolean;
     public prizes: LotteryPrizes;
+    protected override data: ILottery;
 
-    private data: ILottery;
-    private dateFormat: string = 'dd.MM.yyyy HH:mm';
-
-    constructor(
-        data: ILottery,
-    ) {
-        this.data = data;
-        this.id = this.data.ID;
+    constructor(data: ILottery) {
+        super(data);
         this.levels = this.data.Levels.sort((a, b) => Number(a) - Number(b));
         this.levelsString = this.levels.join(', ');
         this.isForAllLevels = _indexOf(this.levels, 'all') >= 0;
@@ -33,19 +27,15 @@ export class Lottery {
     }
 
     public get ticketsCount(): number {
-        return this.data.UserTicketsCount;
-    }
-
-    public get name(): string {
-        return this.data.Name;
+        return this.data.UserTicketsCount || 0;
     }
 
     public get description(): string {
-        return this.data.Description;
+        return this.data.Description || '';
     }
 
     public get terms(): string {
-        return this.data.Terms;
+        return this.data.Terms || '';
     }
 
     public get alias(): string {
@@ -54,10 +44,6 @@ export class Lottery {
 
     public get price(): number {
         return this.data.Price;
-    }
-
-    public get currency(): string {
-        return Lottery.userCurrency || 'EUR';
     }
 
     public get checkUserLevel(): boolean {
@@ -87,15 +73,8 @@ export class Lottery {
         return this.dateEnd.toFormat(this.dateFormat);
     }
 
-    /** Дата розыгрыша призов
-     *  Пока равна dateEnd, в дальнейшем будет отдельное поле от бэка
-     */
-    public get dateRaffle(): DateTime {
-        return this.dateEnd;
-    }
-
     public get datesFormatted(): string {
-        return `${this.dateStartFormatted} - ${this.dateEndFormatted}`;
+        return `${this.dateStartFormatted} - ${this.drawingDateFormatted}`;
     }
 
     public get imageMain(): string {
@@ -106,43 +85,25 @@ export class Lottery {
         return this.data.Images.description || this.data.Images.main;
     }
 
-    /** Вероятно, будет несколько фраз, в зависимости от текущего статуса лотереи */
-    public getTimerText(state: TLotteryTimerState): string {
-        switch (state) {
-            // case 'dateStart':
-            //     return gettext('The raffle starts in');
-            case 'dateEnd':
-                return gettext('Time until the end of ticket issuance');
-            case 'raffleEnd':
-            default:
-                return gettext('The raffle ends in');
-        }
-    }
-
     /** Ожидается старт эмиссии билетов */
     public get isWaitingForStart(): boolean {
         return this.dateStart.toMillis() - DateTime.local().toMillis() > 0;
     }
 
-    /** Окончена эмиссия билетов */
     public get isTicketSaleStopped(): boolean {
         return this.dateEnd.toMillis() - DateTime.local().toMillis() < 0;
-    }
-
-    /** Выдача билетов закончена, но победителей еще не определяли */
-    public get isEnding(): boolean {
-        return this.isTicketSaleStopped && this.dateRaffle.toMillis() - DateTime.local().toMillis() > 0;
     }
 
     public get isActive(): boolean {
         return this.data.Status === 1 && !this.isTicketSaleStopped;
     }
 
-    /** TODO: пока смотрит на время окончания эмиссии билетов, будет смотреть на своё отдельное поле
-     * Розыгрыш завершен
-     */
     public get isEnded(): boolean {
-        return this.isTicketSaleStopped;
+        return this.drawingDate.toMillis() - DateTime.local().toMillis() < 0;
+    }
+
+    public get isWaitingForResults(): boolean {
+        return this.isEnded && !this.results.length;
     }
 
     public get status(): TLotteryStatus {
@@ -150,14 +111,13 @@ export class Lottery {
         if (this.data.Status === 1) {
             if (!this.isTicketSaleStopped) {
                 status = 'active';
-            } else if (this.isEnding) {
+            } else if (this.isWaitingForResults) {
                 status = 'ending';
             }
-        } else if (this.data.Status === 0) {
+        } else if (this.data.Status === 100) {
             if (this.isTicketSaleStopped) {
                 status = 'ended';
             }
-
             if (this.isWaitingForStart) {
                 status = 'notStarted';
             }
@@ -171,6 +131,6 @@ export class Lottery {
     }
 
     private preparePrizes(): void {
-        this.prizes = new LotteryPrizes(this.data.WinningSpread, Lottery.userCurrency);
+        this.prizes = new LotteryPrizes(this.data.WinningSpread);
     }
 }

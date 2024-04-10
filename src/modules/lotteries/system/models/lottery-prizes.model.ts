@@ -1,34 +1,26 @@
 import _map from 'lodash-es/map';
-import _keys from 'lodash-es/keys';
-import _set from 'lodash-es/set';
 import _slice from 'lodash-es/slice';
-import _indexOf from 'lodash-es/indexOf';
-import _forEach from 'lodash-es/forEach';
+import _isArray from 'lodash-es/isArray';
 
 import {
-    ILotteryPrize,
-    TLotteryBonusPrize,
-    TLotteryPrizeType,
+    ILotteryPrizeRow,
     TLotteryWinningSpread,
-    TRawLotteryBonusPrize,
 } from 'wlc-engine/modules/lotteries/system/interfaces/lotteries.interface';
-import {CurrenciesInfo} from 'wlc-engine/modules/core/constants';
+import {LotteriesHelper} from '../helpers/lotteries.helper';
+import {IIndexing} from 'wlc-engine/modules/core';
 
 export class LotteryPrizes {
-    public prizeTable: ILotteryPrize[] = [];
+    public prizeTable: ILotteryPrizeRow[] = [];
     public totalRows: number;
 
-    private data: TLotteryWinningSpread[];
-    private userCurrency: string;
+    private data: IIndexing<TLotteryWinningSpread>;
 
-    constructor(data: TLotteryWinningSpread[], currency?: string) {
+    constructor(data: IIndexing<TLotteryWinningSpread>) {
         this.data = data;
-        this.userCurrency = currency;
-
         this.init();
     }
 
-    public getPrizes(limit?: number): ILotteryPrize[] {
+    public getPrizes(limit?: number): ILotteryPrizeRow[] {
 
         if (limit) {
             return _slice(this.prizeTable, 0, limit);
@@ -38,43 +30,22 @@ export class LotteryPrizes {
     }
 
     private init(): void {
-        const goodsKey: string = 'GOODS';
+        // TODO: temporal logic until WinningSpread is fixed on back
+        // loyalty ticket: https://tracker.egamings.com/issues/589698
+        const isArray = _isArray(this.data);
+        this.prizeTable = _map(this.data, (row: TLotteryWinningSpread, index: string): ILotteryPrizeRow => {
+            let place = Number(index);
 
-        this.prizeTable = _map(this.data, (row: TLotteryWinningSpread, i: number): ILotteryPrize => {
-            const place: number = i + 1;
-            const type: TLotteryPrizeType = (_indexOf(_keys(row), goodsKey) >= 0) ? 'goods' : 'bonus';
-            let value: TLotteryBonusPrize[] | string;
-
-            const dataRow: ILotteryPrize = {place, type, value};
-
-            if (type === 'goods') {
-                value = row[goodsKey];
-            } else {
-                value = this.transformPrizes(row);
+            if (isArray) {
+                place++;
             }
-            _set(dataRow, 'value', value);
 
-            return dataRow;
+            return {
+                place,
+                prize: LotteriesHelper.getPrize(row),
+            };
         });
 
         this.totalRows = this.prizeTable.length;
-    }
-
-    private transformPrizes(data: TRawLotteryBonusPrize): TLotteryBonusPrize[] {
-        const transformed: TLotteryBonusPrize[] = [];
-        const moneyCurrency = this.userCurrency?.toUpperCase() || 'EUR';
-
-        if (data[moneyCurrency]) {
-            transformed.push({currency: moneyCurrency, value: data[moneyCurrency]});
-        }
-
-        _forEach(Array.from(CurrenciesInfo.specialCurrencies), (currency: string): void => {
-            const value: string = data[currency];
-            if (value) {
-                transformed.push({currency, value});
-            }
-        });
-
-        return transformed;
     }
 }

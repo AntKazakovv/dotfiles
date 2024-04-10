@@ -1,0 +1,46 @@
+@mixin baseStyles($config) {
+    --wlc-fl-radius: #{ef.get-value($config, 'mainRadius')};
+    --wlc-fl-border-color: #{ef.get-value($config, 'mainBorderColor')};
+    --wlc-fl-border-width: #{ef.get-value($config, 'mainBorderWidth')};
+    --wlc-fl-main-gap: #{ef.get-value($config, 'mainGap')};
+
+    overflow: hidden;
+}
+
+@mixin wrap($config) {
+    background: var(--wlc-fl-wrap-bg, #{ef.get-value($config, 'wrapBg')});
+    border-radius: var(--wlc-fl-radius);
+    overflow: hidden;
+    transition: all 0.25s;
+}
+
+@mixin header($config) {
+    @include text.get-text-style(
+        ef.get-value($config, 'headerTextStyle'),
+        var(--wlc-fl-header-color, #{ef.get-value($config, 'headerTextStyle')}),
+    );
+    display: grid;
+    grid-template-columns: ef.get-value($config, 'headerColumns');
+    gap: var(--wlc-fl-main-gap);
+    align-items: center;
+    min-height: ef.get-value($config, 'headerMinHeight');
+    padding: ef.get-value($config, 'headerPadding');
+    border-radius: var(--wlc-fl-radius);
+    background: var(--wlc-fl-header-bg, #{ef.get-value($config, 'headerBg')});
+    cursor: pointer;
+    transition: all 0.25s;
+
+    &-details {
+        display: flex;
+        gap: var(--wlc-fl-main-gap);
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+
+@mixin arrow($config) {
+    display: inline-block;
+    color: ef.get-value($config, 'arrowColor');
+    transform: var(--wlc-fl-arrow-transform, translate3d(0, 0, 0));
+    transition: transform 0.25s;
+}

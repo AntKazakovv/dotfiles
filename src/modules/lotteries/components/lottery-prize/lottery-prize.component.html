@@ -1,0 +1,11 @@
+<span *ngIf="prize.type === 'goods';" class="{{$class}}__value">{{prize.simpleValue}}</span>
+
+<ng-container *ngIf="prize.type === 'bonus'">
+    <span *ngFor="let item of prize.bonusValue; first as isFirst" class="{{$class}}__prize-item">
+        <span *ngIf="!isFirst && $params.divider" class="{{$class}}__prize-divider">{{$params.divider}}</span>
+        <span
+            wlc-currency
+            [value]="item.value"
+            [currency]="item.currency"></span>
+    </span>
+</ng-container>

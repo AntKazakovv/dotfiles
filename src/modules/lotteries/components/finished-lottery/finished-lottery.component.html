@@ -1,0 +1,15 @@
+<div class="{{$class}}__wrap">
+    <div class="{{$class}}__header" (click)="toggleView()">
+        <div class="{{$class}}__header-details">
+            <div class="{{$class}}__date">{{lottery.drawingDateFormatted}}</div>
+            <div class="{{$class}}__name">{{lottery.name}}</div>
+        </div>
+        <div class="{{$class}}__control">
+            <span class="{{$class}}__arrow" wlc-icon [iconPath]="'/wlc/icons/arrow-down.svg'"></span>
+        </div>
+    </div>
+
+    <div *ngIf="isExpanded" [@expand]="isExpanded" class="{{$class}}__content">
+        <div wlc-lottery-winners [lottery]="lottery"></div>
+    </div>
+</div>
