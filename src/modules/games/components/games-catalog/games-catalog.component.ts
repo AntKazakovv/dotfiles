@@ -4,17 +4,28 @@ import {
     Inject,
     OnInit,
 } from '@angular/core';
-import {takeUntil} from 'rxjs/operators';
+
+import {
+    filter,
+    takeUntil,
+} from 'rxjs/operators';
 import {TranslateService} from '@ngx-translate/core';
 import {
-    TransitionService,
     RawParams,
 } from '@uirouter/core';
+import _forEach from 'lodash-es/forEach';
+import _get from 'lodash-es/get';
+import _orderBy from 'lodash-es/orderBy';
+import _merge from 'lodash-es/merge';
+import _cloneDeep from 'lodash-es/cloneDeep';
+
 import {
     AbstractComponent,
     ActionService,
     DeviceType,
     GlobalHelper,
+    RouterService,
+    TLifecycleEvent,
 } from 'wlc-engine/modules/core';
 import {
     CategoryModel,
@@ -26,12 +37,6 @@ import {
 } from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 
 import * as Params from './games-catalog.params';
-
-import _forEach from 'lodash-es/forEach';
-import _get from 'lodash-es/get';
-import _orderBy from 'lodash-es/orderBy';
-import _merge from 'lodash-es/merge';
-import _cloneDeep from 'lodash-es/cloneDeep';
 
 @Component({
     selector: '[wlc-games-catalog]',
@@ -52,7 +57,7 @@ export class GamesCatalogComponent extends AbstractComponent implements OnInit {
         protected gamesCatalogService: GamesCatalogService,
         protected actionService: ActionService,
         protected translateService: TranslateService,
-        protected transition: TransitionService,
+        protected routerService: RouterService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams});
     }
@@ -203,12 +208,11 @@ export class GamesCatalogComponent extends AbstractComponent implements OnInit {
      * Init event hanlers
      */
     protected initEventHandlers(): void {
-        const successTransitionListener = this.transition.onSuccess({}, () => {
+        this.routerService.events$.pipe(
+            filter((event: TLifecycleEvent) => event.name === 'onSuccess'),
+            takeUntil(this.$destroy),
+        ).subscribe(() => {
             this.initView();
-        });
-
-        this.$destroy.subscribe(() => {
-            successTransitionListener();
         });
 
         this.actionService.deviceType()

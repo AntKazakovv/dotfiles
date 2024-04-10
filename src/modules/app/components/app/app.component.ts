@@ -14,13 +14,6 @@ import {
     Location,
 } from '@angular/common';
 import {TranslateService} from '@ngx-translate/core';
-import {
-    StateService,
-    Transition,
-    TransitionService,
-    UIRouter,
-    UIRouterGlobals,
-} from '@uirouter/core';
 import {Title, Meta} from '@angular/platform-browser';
 import {register as swiperRegister} from 'swiper/element/bundle';
 import {
@@ -62,6 +55,9 @@ import {
     IHooksConfig,
     HooksService,
     TimerService,
+    RouterService,
+    TLifecycleEvent,
+    routerEventNames,
 } from 'wlc-engine/modules/core';
 import {
     ILivechatConfig,
@@ -126,19 +122,16 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
     private sections: SectionModel[] = [];
 
     constructor(
-        public router: UIRouter,
+        protected routerService: RouterService,
         protected translateService: TranslateService,
-        protected stateService: StateService,
         protected layoutService: LayoutService,
         protected injectionService: InjectionService,
         protected eventService: EventService,
         protected hookService: HooksService,
-        protected uiRouter: UIRouterGlobals,
         protected actionService: ActionService,
         protected modalService: ModalService,
         protected bodyClassService: BodyClassService,
         protected timerService: TimerService,
-        private transition: TransitionService,
         private meta: Meta,
         private logService: LogService,
         private location: Location,
@@ -182,18 +175,18 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
         }
 
         this.translateService.onLangChange.pipe(takeUntil(this.$destroy)).subscribe((v) => {
-            this.stateService.go(
-                this.uiRouter.current.name,
-                _assign({}, this.uiRouter.params, {locale: v.lang}),
+            this.routerService.navigate(
+                this.routerService.current.alias,
+                _assign({}, this.routerService.current.params, {locale: v.lang}),
             );
         });
 
         this.setTransitionHooks();
 
         this.panels = _sortBy(this.layoutService
-            .getAllSection('panels', this.uiRouter.current.name, this.uiRouter.params), 'order');
+            .getAllSection('panels', this.routerService.current.alias, this.routerService.current.params), 'order');
         this.allSections = _sortBy(this.layoutService
-            .getAllSection('pages', this.uiRouter.current.name, this.uiRouter.params), 'order');
+            .getAllSection('pages', this.routerService.current.alias, this.routerService.current.params), 'order');
         this.sections = this.layoutService.filterDisplayElements(this.allSections);
 
         let filteredPanels: SectionModel[] = [];
@@ -300,7 +293,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
                     value: true,
                     storageType: 'localStorage',
                 });
-                this.stateService.go('app.welcome');
+                this.routerService.navigate('app.welcome');
             }
 
             let mobileAppUrlPath: string;
@@ -312,7 +305,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
                     mobileAppUrlPath = eventData.url.replace(`${eventData.scheme}://${eventData.host}`, '');
 
                     if (mobileAppUrlPath) {
-                        this.router.urlService.url(mobileAppUrlPath);
+                        this.routerService.urlService.url(mobileAppUrlPath);
                         setTimeout(() => {
                             const messageInfo = GlobalHelper.parseUrlMessageOrError(eventData.url);
                             if (messageInfo) {
@@ -398,8 +391,8 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
 
     private getAllSections(): void {
         const allSections = _sortBy(this.layoutService
-            .getAllSection('pages', this.uiRouter.transition?.targetState().name(),
-                this.uiRouter.transition?.targetState().params()), 'order');
+            .getAllSection('pages', this.routerService.current.alias,
+                this.routerService.current.params), 'order');
 
         if (this.allSections.length) {
             const oldList = this.allSections.slice();
@@ -424,7 +417,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
     private setHostClass(): void {
         const hostClass = [
             defaultParams.hostClass,
-            `${_get(this.uiRouter, '$current.name', '').replace(/\./g, '-')}-state`,
+            `${_get(this.routerService, 'current.alias', '').replace(/\./g, '-')}-state`,
             ...this.additionalHostClass,
         ];
         this.$hostClass = hostClass.join(' ');
@@ -483,7 +476,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
         }
 
         this.translateService.addLangs(languages);
-        const {locale} = this.uiRouter.params;
+        const {locale} = this.routerService.current.params;
 
         if (_includes(this.translateService.langs, locale)) {
             this.translateService.setDefaultLang(locale);
@@ -500,7 +493,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
                 });
             }
         } else {
-            this.stateService.go('app.error', {
+            this.routerService.navigate('app.error', {
                 locale: _includes(this.translateService.langs, this.configService.get<string>('appConfig.language'))
                     ? this.configService.get<string>('appConfig.language')
                     : (this.translateService.langs[0] || 'en'),
@@ -517,39 +510,31 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
     }
 
     private setTransitionHooks(): void {
-        this.transition.onSuccess({}, (transition: Transition): void => {
-            this.eventService.emit({
-                name: 'TRANSITION_SUCCESS',
-                data: transition,
-            });
-            this.setHostClass();
-            this.getAllSections();
-            this.updateSections();
-            if (!this.configService.get<boolean>('$base.app.demoMode')) {
-                this.actionService.scrollTo(null, {smooth: false});
+        this.routerService.events$.pipe(
+            takeUntil(this.$destroy),
+        ).subscribe((event: TLifecycleEvent) => {
+            if (routerEventNames[event.name]) {
+                this.eventService.emit({
+                    name: routerEventNames[event.name],
+                    data: event.transition,
+                });
             }
 
-            setTimeout(() => {
-                this.cdr.detectChanges();
-            });
-        });
+            if (event.name === 'onStart') {
+                this.modalService.closeAllModals('any');
+            } else if (event.name === 'onSuccess') {
+                this.setHostClass();
+                this.getAllSections();
+                this.updateSections();
 
-        this.transition.onEnter({}, (transition: Transition): void => {
-            this.eventService.emit({
-                name: 'TRANSITION_ENTER',
-                data: transition,
-            });
-        });
+                if (!this.configService.get<boolean>('$base.app.demoMode')) {
+                    this.actionService.scrollTo();
+                }
 
-        this.transition.onFinish({}, (transition: Transition): void => {
-            this.eventService.emit({
-                name: 'TRANSITION_FINISH',
-                data: transition,
-            });
-        });
-
-        this.transition.onStart({}, () => {
-            this.modalService.closeAllModals('any');
+                setTimeout(() => {
+                    this.cdr.detectChanges();
+                });
+            }
         });
     }
 

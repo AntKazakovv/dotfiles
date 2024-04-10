@@ -53,3 +53,5 @@ export {WebsocketService} from './websocket/websocket.service';
 export {TimerService} from './timer/timer.service';
 
 export {FormsService} from './forms/forms.service';
+export {RouterService} from './router/router.service';
+export * from './router/types';

@@ -5,23 +5,25 @@ import {
     Input,
     ChangeDetectionStrategy,
 } from '@angular/core';
+
+import _cloneDeep from 'lodash-es/cloneDeep';
+import _get from 'lodash-es/get';
 import {
-    TransitionService,
-    UIRouterGlobals,
-} from '@uirouter/core';
+    filter,
+    takeUntil,
+} from 'rxjs';
+
 import {
     IWrapperCParams,
     AbstractComponent,
     IAccordionCParams,
     ILayoutComponent,
+    RouterService,
 } from 'wlc-engine/modules/core';
 import {IPostCParams} from 'wlc-engine/modules/static/components';
+import {TLifecycleEvent} from 'wlc-engine/modules/core/system/services/router/types';
 
 import * as Params from './info-page.params';
-
-import _cloneDeep from 'lodash-es/cloneDeep';
-import _get from 'lodash-es/get';
-
 
 /**
  * Outputs disclaimer text
@@ -47,8 +49,7 @@ export class InfoPageComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected params: Params.IInfoPageCParams,
-        protected uiRouter: UIRouterGlobals,
-        protected transition: TransitionService,
+        protected routerService: RouterService,
     ) {
         super({injectParams: params, defaultParams: Params.defaultParams});
     }
@@ -56,7 +57,11 @@ export class InfoPageComponent extends AbstractComponent implements OnInit {
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.config = Params.generateConfig(this.configService.get<boolean>('$base.contacts.separatedPage'));
-        this.transition.onSuccess({}, () => {
+
+        this.routerService.events$.pipe(
+            filter((event: TLifecycleEvent) => event.name === 'onSuccess'),
+            takeUntil(this.$destroy),
+        ).subscribe(() => {
             this.setChildParams();
             this.cdr.markForCheck();
         });
@@ -65,7 +70,8 @@ export class InfoPageComponent extends AbstractComponent implements OnInit {
     }
 
     protected setChildParams(): void {
-        switch (this.uiRouter.params.slug) {
+        const slug = this.routerService.current.params.slug;
+        switch (slug) {
 
             case 'feedback':
                 this.config.content.components = [{
@@ -83,20 +89,21 @@ export class InfoPageComponent extends AbstractComponent implements OnInit {
 
             default:
                 this.config.content.components = _get(
-                    this.$params.customConfig, this.uiRouter.params.slug, this.getStaticPost());
+                    this.$params.customConfig, slug, this.getStaticPost());
         }
         this.content = _cloneDeep(this.config.content);
     }
 
     protected getStaticPost(): ILayoutComponent[] {
+        const slug = this.routerService.current.params.slug;
         return [{
             name: 'static.wlc-post',
             params: <IPostCParams>{
-                slug: this.uiRouter.params.slug,
+                slug: slug,
                 parseAsPlainHTML: true,
                 withoutCompilation: true,
                 shouldClearStyles: true,
-                wlcElement: 'section_static-text_' + this.uiRouter.params.slug,
+                wlcElement: 'section_static-text_' + slug,
                 showTitle: true,
             },
         }];
@@ -107,7 +114,7 @@ export class InfoPageComponent extends AbstractComponent implements OnInit {
             name: 'affiliates.wlc-faq',
             params: <IAccordionCParams>{
                 class: 'wlc-faq',
-                slug: this.uiRouter.params.slug,
+                slug: this.routerService.current.params.slug,
             },
         }];
     }
