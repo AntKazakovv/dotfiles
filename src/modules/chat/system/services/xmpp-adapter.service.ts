@@ -140,7 +140,6 @@ export class XMPPAdapterService {
             this.client = client({
                 domain: this.config.domain,
                 service: this.config.service,
-                // resource: this.window.location.host,
                 username,
                 password,
             });
@@ -153,15 +152,7 @@ export class XMPPAdapterService {
 
             this.client.on('error', (error: any) => {
                 console.error('CHAT', error);
-                // this.onError('event error');
             });
-
-            // this.client.on('status', (status: string) => {
-            //     console.log(
-            //         '%c CHAT status',
-            //         'background: black; color: chartreuse; font-size: 14px',
-            //         status);
-            // });
 
             this.client.on('disconnect', () => {
                 this.ngZone.run(() => {

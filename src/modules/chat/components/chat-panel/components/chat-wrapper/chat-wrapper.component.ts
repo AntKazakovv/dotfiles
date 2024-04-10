@@ -72,6 +72,9 @@ export class ChatWrapperComponent extends AbstractChatComponent implements OnIni
                 this.buffer$.next([]);
                 this.start = 0;
                 this.end = this.chatListService.messages.length;
+                if (this.chatListService.messages.length) {
+                    this.updateBuffer(false, false, true);
+                }
                 this.cdr.markForCheck();
             });
 
@@ -200,7 +203,7 @@ export class ChatWrapperComponent extends AbstractChatComponent implements OnIni
      * @param up - true if direction is up
      * @param newMsg - true if method called from message adding event
      */
-    protected updateBuffer(up: boolean, newMsg: boolean = false, replaceMsg?: boolean): void {
+    protected updateBuffer(up: boolean, newMsg: boolean = false, updateList?: boolean): void {
         const oldStart: number = this.start, oldEnd: number = this.end;
 
         if (up) {
@@ -228,7 +231,7 @@ export class ChatWrapperComponent extends AbstractChatComponent implements OnIni
 
         this.start = this.start < 0 ? 0 : this.start;
 
-        if (replaceMsg || oldStart !== this.start || oldEnd !== this.end) {
+        if (updateList || oldStart !== this.start || oldEnd !== this.end) {
             this.buffer$.next(
                 this.chatListService.messages.slice(this.start - this.end),
             );
