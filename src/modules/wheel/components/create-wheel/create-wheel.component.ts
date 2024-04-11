@@ -57,7 +57,7 @@ export class CreateWheelComponent extends AbstractComponent implements OnInit {
 
         try {
             form.disable();
-            this.wheelService.createWheel(settingsWheel);
+            await this.wheelService.createWheel(settingsWheel);
             return true;
         } catch (error) {
             return false;

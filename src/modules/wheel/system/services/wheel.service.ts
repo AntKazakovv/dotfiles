@@ -206,10 +206,6 @@ export class WheelService {
         return this.userWheel;
     }
 
-    public createWheel(settingsWheel: ISettingsWheel): void {
-        this.handlerRequestCreateWheel(settingsWheel);
-    }
-
     public async setInfoWheelSocketSubscription(): Promise<void> {
         this.infoWheelSocketSub = this.webSocketService.getMessages(
             {endPoint: 'wsc2', events: [WebSocketEvents.RECEIVE.STREAMWHEEL]}).subscribe(
@@ -464,7 +460,7 @@ export class WheelService {
         return this.currentNonce ?? '';
     }
 
-    protected async handlerRequestCreateWheel(data: ISettingsWheel): Promise<void> {
+    public async createWheel(data: ISettingsWheel): Promise<void> {
         try {
             const requestData: ISettingsWheel = _cloneDeep(data);
             requestData.duration = _toString(this.modifyDurationTime(data));
