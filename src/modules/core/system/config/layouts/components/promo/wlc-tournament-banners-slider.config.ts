@@ -48,11 +48,6 @@ export namespace wlcTournamentBannersSlider {
                                 breakpoints: {
                                     560: {
                                         slidesPerView: 1,
-                                        spaceBetween: 12,
-                                    },
-                                    720: {
-                                        slidesPerView: 1,
-                                        spaceBetween: 20,
                                     },
                                 },
                             },
