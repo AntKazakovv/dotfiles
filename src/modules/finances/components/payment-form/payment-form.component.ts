@@ -27,6 +27,7 @@ import {
     distinctUntilChanged,
     takeUntil,
 } from 'rxjs/operators';
+import {DateTime} from 'luxon';
 
 import _assign from 'lodash-es/assign';
 import _cloneDeep from 'lodash-es/cloneDeep';
@@ -72,12 +73,15 @@ import {
     ICheckboxCParams,
     IModalConfig,
 } from 'wlc-engine/modules/core';
-import {ColorThemeValues} from 'wlc-engine/modules/core/constants';
+import {
+    ColorThemeValues,
+    ProhibitedPatterns,
+} from 'wlc-engine/modules/core/constants';
+
 import {
     UserInfo,
     UserService,
 } from 'wlc-engine/modules/user';
-import {DateTime} from 'luxon';
 import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
 
 import {
@@ -777,6 +781,12 @@ export class PaymentFormComponent
         this.usePrestep = this.currentSystem.isPrestep;
         this.disableAmount = this.currentSystem.disableAmount;
 
+        if (this.currentSystem.customParams?.without_cents && this.amountControl.value) {
+            this.formData$.next({
+                amount: this.amountControl.value.replace(ProhibitedPatterns.integers, ''),
+            });
+        }
+
         if (this.currentSystem.clearHostedFields()) {
             this.isLoadingHostedFields = false;
             this.cdr.detectChanges();
@@ -1210,6 +1220,10 @@ export class PaymentFormComponent
                 val.options = this.maxAmount;
             }
         });
+
+        if (this.currentSystem.customParams?.without_cents) {
+            amount.params.prohibitedPattern = ProhibitedPatterns.integers;
+        }
     }
 
     protected getPreselectedAmounts(): number[] {

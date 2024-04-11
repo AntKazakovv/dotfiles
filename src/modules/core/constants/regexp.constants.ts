@@ -10,6 +10,11 @@ export namespace ProhibitedPatterns {
     export const notAmountSymbols: RegExp = /[^\d,.]/;
 
     /**
+     * Integer values only
+     */
+    export const integers: RegExp =  /\D/;
+
+    /**
     * RegExp for number
     */
     export const notNumberSymbols: RegExp = /\D/g;

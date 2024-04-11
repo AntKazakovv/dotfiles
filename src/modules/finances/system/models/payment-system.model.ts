@@ -127,7 +127,7 @@ export interface IPaymentSystemCustomParams {
     provider?: string; // PaymentIQ Cashier provider
     merchant_id?: string; // PaymentIQ Cashier merchant ID
     pregeneration_request?: boolean; // To pre-request payment information for Kauri
-    without_cents?: boolean; // Only integer amounts are supported
+    without_cents?: boolean; // Only integer values are available in the amount field
 }
 
 export interface IPreselectedAmount {
