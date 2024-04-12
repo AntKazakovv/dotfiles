@@ -67,15 +67,24 @@ export namespace wlcBannersSlider {
                                 enabled: true,
                                 clickable: true,
                             },
+                            navigation: {
+                                enabled: false,
+                            },
                         },
                         768: {
                             pagination: {
                                 enabled: false,
                             },
+                            navigation: {
+                                enabled: true,
+                            },
                         },
                         1366: {
                             slidesPerView: 1.2,
                             spaceBetween: 30,
+                            pagination: {
+                                enabled: false,
+                            },
                         },
                     },
                 },
