@@ -626,6 +626,12 @@ export class ActionService {
             });
         });
 
+        this.eventService.subscribe({
+            name: 'SHOW_DEPOSIT_MODAL',
+        }, (): void => {
+            this.modalService.showModal('depositModal');
+        });
+
         if (this.configService.get<boolean>('$base.site.useJwtToken')
             && this.configService.get<boolean>('$user.isAuthenticated')
         ) {

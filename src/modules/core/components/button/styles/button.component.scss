@@ -83,6 +83,33 @@
             &-pulse {
                 animation: ef.get-value($themeDefault, 'mainAnimation');
             }
+
+            &-glare {
+                position: relative;
+
+                &:after {
+                    content: '';
+                    position: absolute;
+                    top: ef.size(-1);
+                    bottom: ef.size(-1);
+                    display: block;
+                    width: ef.get-value($themeDefault, 'glareWidth');
+                    border-color: ef.get-value($themeDefault, 'glareColor');
+                    border-width: ef.get-value($themeDefault, 'glareBorderWidth');
+                    border-style: solid;
+                    transform: skewX(-45deg);
+
+                    animation-name: buttonGlare;
+                    animation-duration: ef.get-value($themeDefault, 'glareSpeed');
+                    animation-timing-function: ef.get-value($themeDefault, 'glareTimingFunc');
+                    animation-iteration-count: infinite;
+                }
+
+                @supports (overflow: clip) {
+                    overflow: clip;
+                    overflow-clip-margin: border-box;
+                }
+            }
         }
 
         &.wlc-btn--theme-mod-secondary {
@@ -112,6 +139,21 @@
                 &-pulse {
                     animation: ef.get-value($themeDefault, 'secondaryAnimation');
                 }
+            }
+        }
+
+        &.wlc-btn--only-icon {
+            --wlc-icon-width: #{ef.get-value($themeDefault, 'onlyIconSize')};
+            --wlc-icon-height: #{ef.get-value($themeDefault, 'onlyIconSize')};
+
+            @include bm.get-mq-map('min-width', $themeDefault, 'heightDefault');
+
+            padding: 0;
+
+            .wlc-btn__text {
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
         }
     }

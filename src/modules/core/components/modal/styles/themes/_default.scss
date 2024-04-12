@@ -378,6 +378,27 @@
         }
     }
 
+    &.wlc-modal--deposit-modal {
+
+        .wlc-modal {
+
+            &__dialog {
+                background: ef.get-value($themeDefault, 'depModalBg');
+            }
+
+            &__body {
+                @include bm.get-mq-map('padding', $themeDefault, 'depModalBodyPadding');
+            }
+        }
+
+        + .modal-backdrop {
+
+            @include mq.max(560) {
+                background: ef.get-value($themeDefault, 'depModalBg');
+            }
+        }
+    }
+
     &.wlc-modal--recommended-games {
 
         .wlc-modal {

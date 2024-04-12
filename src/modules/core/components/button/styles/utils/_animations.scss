@@ -37,3 +37,14 @@
         box-shadow: ef.get-value($themeDefault, 'secondaryBoxShadowAnimationEnd');
     }
 }
+
+@keyframes buttonGlare {
+
+    from {
+        transform: skewX(-45deg) translateX(-200px);
+    }
+
+    to {
+        transform: skewX(-45deg) translateX(200px);
+    }
+}

@@ -64,6 +64,14 @@ $buttonSettings: map-merge((
     'secondaryAnimation': buttonPulseSecondary 12.5s infinite cubic-bezier(0.7, 0, 0, 1),
     'secondaryBoxShadowAnimationStart': 0 0 0 0 var(--mc-secondary),
     'secondaryBoxShadowAnimationEnd': 0 0 0 10px var(--mc-secondary-o0),
+
+    // Animation glare
+    'glareWidth': 55px,
+    'glareColor': rgba(255, 255, 255, 0.1),
+    'glareBorderWidth': 0 size-func(6) 0 size-func(2),
+    'glareSpeed': 3s,
+    'glareTimingFunc': cubic-bezier(0.6, 0.15, 0.6, 0.95),
+
     // Transform
     'transformSkew': skew(-20deg, 0),
     'transformSkewText': skew(20deg, 0),
@@ -95,6 +103,9 @@ $buttonSettings: map-merge((
     'gradientOverlayBg': #000,
     'gradientOverlayOpacity': 0.4,
     'gradientOverlayMixBlend': overlay,
+
+    // only icon
+    'onlyIconSize': 20px,
 ), $customButtonSettings);
 
 $customTableBtnBlock: () !default;

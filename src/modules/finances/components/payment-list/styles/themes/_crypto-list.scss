@@ -172,6 +172,10 @@
             @include bm.get-mq-map('display', $themeDefault, 'descriptionDesktopDisplay');
         }
 
+        .wlc-cash--theme-steps & {
+            text-align: ef.get-value($themeDefault, 'descrAlignModSteps');
+        }
+
         @include mq.min(1200) {
             @include text.get-text-style(ef.get-value($themeDefault, 'descriptionFont', 1200), null);
         }

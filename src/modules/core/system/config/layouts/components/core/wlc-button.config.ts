@@ -266,6 +266,49 @@ export namespace wlcButton {
         },
     };
 
+    export const modalDepositBtn: ILayoutComponent = {
+        name: 'core.wlc-button',
+        display: {
+            auth: true,
+        },
+        params: {
+            common: {
+                text: gettext('Fast deposit'),
+                iconPath: '/wlc/icons/lightning.svg',
+                event: {
+                    name: 'SHOW_DEPOSIT_MODAL',
+                },
+                animation: {
+                    type: 'glare',
+                    handlerType: 'click',
+                },
+                wlcElement: 'button_deposit-modal',
+            },
+        },
+    };
+
+    export const modalDepositBtnCompact: ILayoutComponent = {
+        name: 'core.wlc-button',
+        display: {
+            auth: true,
+            before: 1199,
+        },
+        params: {
+            customMod: 'only-icon',
+            common: {
+                iconPath: '/wlc/icons/lightning.svg',
+                event: {
+                    name: 'SHOW_DEPOSIT_MODAL',
+                },
+                animation: {
+                    type: 'glare',
+                    handlerType: 'click',
+                },
+                wlcElement: 'button_deposit-modal',
+            },
+        },
+    };
+
     export const signup: ILayoutComponent = {
         name: 'core.wlc-button',
         display: {
@@ -431,6 +474,21 @@ export namespace wlcButton {
             themeMod: 'deposit',
             common: {
                 text: gettext('Deposit'),
+                sref: 'app.profile.cash.deposit',
+            },
+        },
+    };
+
+    export const depositMobile: ILayoutComponent = {
+        name: 'core.wlc-button',
+        display: {
+            auth: true,
+            before: 1199,
+        },
+        params: {
+            customMod: 'only-icon',
+            common: {
+                iconPath: '/wlc/icons/deposit-icon-wolf.svg',
                 sref: 'app.profile.cash.deposit',
             },
         },

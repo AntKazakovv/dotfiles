@@ -9,13 +9,23 @@
          [inlineParams]="multiWalletParams">
      </div>
     <button
-        *ngIf="$params.button?.use && !isMultiWallet"
+        *ngIf="showDepButton"
         wlc-button
         class="wlc-btn-deposit"
         [wlcElement]="'button_deposit'"
         [text]="$params.button.text"
         [animation]="$params.button.animate"
         (click)="depositAction()">
+     </button>
+
+     <button
+        *ngIf="showModalDepButton"
+        wlc-button
+        [inlineParams]="$params.modalDepositButton"
+        class="wlc-btn-deposit"
+        [wlcElement]="'button_deposit-modal'"
+        [text]="$params.button.text"
+        (click)="depositAction(true)">
      </button>
 
      <div class="{{$class}}-dropdown"

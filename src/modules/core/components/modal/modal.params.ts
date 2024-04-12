@@ -6,6 +6,7 @@ import {
     IModalOptions,
 } from './index';
 
+import {IDepositWithdrawCParams} from 'wlc-engine/modules/finances';
 import {phrases as pepPhrases} from 'wlc-engine/modules/user/submodules/pep';
 
 export const defaultParams: IModalOptions = {
@@ -541,6 +542,39 @@ export const MODALS_LIST: IModalList = {
             modalTitle: gettext('Edit profile'),
             showFooter: false,
             size: 'md',
+        },
+    },
+    depositModal: {
+        config: {
+            id: 'deposit-modal',
+            size: 'md',
+            showFooter: false,
+            modalTitle: gettext('Deposit'),
+            componentName: 'finances.wlc-deposit-withdraw',
+            componentParams: <IDepositWithdrawCParams>{
+                theme: 'steps',
+                mode: 'deposit',
+
+                stepsParams: {
+                    paymentListParams: {
+                        asModal: null,
+                    },
+                    bonusesListParams: {
+                        type: 'swiper',
+                        asModal: null,
+                    },
+                    paymentFormParams: {
+                        themeMod: 'centered',
+                        hideClearAmountButton: true,
+                        paymentMessageParams: {
+                            themeMod: 'modal',
+                        },
+                    },
+                    cryptoListParams: {
+                        asModal: '(min-width: 0px)',
+                    },
+                },
+            },
         },
     },
 };

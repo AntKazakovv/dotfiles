@@ -120,12 +120,24 @@ export class UserInfoComponent extends AbstractComponent implements OnInit {
         };
     }
 
+    public get showDepButton(): boolean {
+        return this.$params.button.use && !this.isMultiWallet;
+    }
+
+    public get showModalDepButton(): boolean {
+        return this.$params.type === 'modal-dep';
+    }
+
     public toggle(): void {
         this.isOpened = !this.isOpened;
         this.dropdownBtnActive = !this.dropdownBtnActive;
     }
 
-    public depositAction(): void {
-        this.stateService.go(this.$params.button.sref);
+    public depositAction(showModal?: boolean): void {
+        if (showModal) {
+            this.eventService.emit({name: 'SHOW_DEPOSIT_MODAL'});
+        } else {
+            this.stateService.go(this.$params.button.sref);
+        }
     }
 }

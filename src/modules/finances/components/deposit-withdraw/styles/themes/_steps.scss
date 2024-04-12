@@ -65,4 +65,29 @@
             margin: ef.get-value($themeSteps, 'bonusesMargin');
         }
     }
+
+    .wlc-modal--deposit-modal & {
+        --wlc-dep-bonus-slider-pseudo-bg: #{ef.get-value($themeSteps, 'depSliderBonusesPseudoBgModal')};
+
+        @include bm.get-mq-map('--wlc-alert-max-width', $themeSteps, 'contentMaxWidthModal');
+
+        ::ng-deep {
+
+            .wlc-payment-form {
+                --wlc-alert-margin: #{ef.get-value($themeSteps, 'alertMarginModal')};
+            }
+
+            .wlc-payment-list {
+                @include bm.get-mq-map('--wlc-payment-list-columns', $themeSteps, 'paymentListColumnsModal');
+                @include bm.get-mq-map('--wlc-payment-list-gap', $themeSteps, 'paymentListGapModal');
+            }
+        }
+
+        .wlc-cash__crypto-list {
+            @include bm.get-mq-map('max-width', $themeSteps, 'contentMaxWidthModal');
+
+            width: 100%;
+            margin: ef.get-value($themeSteps, 'cryptoListMargin');
+        }
+    }
 }

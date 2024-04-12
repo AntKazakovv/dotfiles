@@ -31,7 +31,6 @@ import _each from 'lodash-es/each';
 import _find from 'lodash-es/find';
 import _indexOf from 'lodash-es/indexOf';
 import _set from 'lodash-es/set';
-import _unset from 'lodash-es/unset';
 
 import {
     IMixedParams,
@@ -64,6 +63,7 @@ import {ISelectedWallet} from 'wlc-engine/modules/multi-wallet';
 import {WalletsParams} from 'wlc-engine/modules/multi-wallet/components/wallets/wallets.params';
 
 import * as Params from './deposit-withdraw.params';
+import {IPaymentFormCParams} from 'wlc-engine/modules/finances/components/payment-form/payment-form.params';
 
 @Component({
     selector: '[wlc-deposit-withdraw]',
@@ -129,6 +129,9 @@ export class DepositWithdrawComponent
             },
         ],
     };
+    public paymentFormParams: IPaymentFormCParams = {
+        mode: this.$params?.mode,
+    };
     public availableSystems: number[] = [];
     public currentBonus: Bonus;
     public isWaitingResponse: boolean = false; // move to payment-form
@@ -182,9 +185,11 @@ export class DepositWithdrawComponent
         }
 
         this.originalTheme = this.$params.theme;
+        this.cryptoListConfig = _merge(this.cryptoListConfig, this.$params.cryptoListParams);
 
-        if (this.$params.stepsParams) {
-            this.prepareStepsTemplate();
+        if (this.$params.stepsParams || this.$params.theme === 'steps') {
+            const ignoreStepsBreakpoint: boolean = this.$params.theme === 'steps';
+            this.prepareStepsTemplate(ignoreStepsBreakpoint);
         }
 
         this.hiddenPaymentInfo = this.configService.get<boolean>('$finances.paymentInfo.hiddenPaymentInfo');
@@ -266,8 +271,6 @@ export class DepositWithdrawComponent
                 },
             });
         }
-        /** Готовим параметры (пока только для второй темы) */
-        this.prepareParams();
 
         if (!this.isMultiWallet) {
             Params.PaymentSteps.paymentSystem.ready = new Promise((resolve: () => void): void => {
@@ -378,24 +381,46 @@ export class DepositWithdrawComponent
         this.amount = amount;
     }
 
-    protected prepareStepsTemplate(): void {
-        const mq: MediaQueryList = this.window.matchMedia(this.$params.stepsParams.breakpoint);
+    public changeStep(step: Params.TMobileStep): void {
+        this.currentStep = step;
+        this.actionService.scrollTo('.wlc-app', {position: 'start'});
+    }
 
-        this.updateStepsView(mq.matches);
-        this.updateBonusesParams(mq.matches);
+    public getPaymentFormPartialParams(showAdditional?: boolean): IPaymentFormCParams {
+        let params: IPaymentFormCParams = _merge(this.paymentFormParams, {mode: this.$params.mode});
 
-        GlobalHelper.mediaQueryObserver(mq)
-            .pipe(takeUntil(this.$destroy))
-            .subscribe((event: MediaQueryListEvent) => {
+        if (showAdditional) {
+            params = _merge(params, {type: 'partial-additional'});
+        } else {
+            params = _merge(params, {type: 'partial-amount'});
+        }
 
-                if (event.matches) {
-                    this.currentSystem = null;
-                    this.currentStep = 1;
-                }
+        return params;
+    }
 
-                this.updateStepsView(event.matches);
-                this.updateBonusesParams(event.matches);
-            });
+    protected prepareStepsTemplate(ignoreBp: boolean = false): void {
+        if (ignoreBp) {
+            this.updateStepsView(ignoreBp);
+            this.updateStepsTplParams(ignoreBp);
+        }
+        else {
+            const mq: MediaQueryList = this.window.matchMedia(this.$params.stepsParams.breakpoint);
+            this.updateStepsView(mq.matches);
+            this.updateStepsTplParams(mq.matches);
+
+            GlobalHelper.mediaQueryObserver(mq)
+                .pipe(takeUntil(this.$destroy))
+                .subscribe((event: MediaQueryListEvent) => {
+
+                    if (event.matches) {
+                        this.currentSystem = null;
+                        this.currentStep = 1;
+                    }
+
+                    this.updateStepsView(event.matches);
+                    this.updateStepsTplParams(event.matches);
+                });
+        }
     }
 
     protected updateStepsView(useSteps: boolean): void {
@@ -404,23 +429,25 @@ export class DepositWithdrawComponent
         this.clearModifiers();
     }
 
-    protected updateBonusesParams(isStepsView: boolean): void {
-        const bonusesConfigSteps: IBonusesListCParams = this.$params.stepsParams.bonusesListParams;
+    protected updateStepsTplParams(isStepsView: boolean): void {
+        let bonusesConfig: IBonusesListCParams = {};
+        let paymentListConfig: IPaymentListCParams = {};
+        let cryptoListConfig: IPaymentListCParams = this.$params.cryptoListParams;
+        let paymentFormConfig: IPaymentFormCParams = {
+            mode: this.$params.mode,
+        };
 
-        if (isStepsView && bonusesConfigSteps) {
-            _set(this.bonusesListParams, 'components[0].params', bonusesConfigSteps);
-        } else {
-            _unset(this.bonusesListParams, 'components[0].params');
+        if (isStepsView) {
+            bonusesConfig = this.$params.stepsParams.bonusesListParams;
+            paymentListConfig = this.$params.stepsParams.paymentListParams;
+            cryptoListConfig = this.$params.stepsParams.cryptoListParams;
+            paymentFormConfig = this.$params.stepsParams.paymentFormParams;
         }
-    }
 
-    public changeStep(step: Params.TMobileStep): void {
-        this.currentStep = step;
-        this.actionService.scrollTo('.wlc-app', {position: 'start'});
-    }
-
-    private prepareParams(): void {
-        this.cryptoListConfig = _merge(this.cryptoListConfig, this.$params.cryptoListParams);
+        this.cryptoListConfig = _merge(this.cryptoListConfig, cryptoListConfig);
+        this.paymentFormParams = _merge(this.paymentFormParams, paymentFormConfig);
+        this.listConfig = _merge(this.listConfig, paymentListConfig);
+        this.bonusesListParams = _set(this.bonusesListParams, 'components[0].params', bonusesConfig);
     }
 
     protected initSubscribers(): void {

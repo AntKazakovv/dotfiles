@@ -220,6 +220,10 @@ export class PaymentFormComponent
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
 
+        if (!this.mode) {
+            this.mode = this.$params.mode;
+        }
+
         this.isDeposit = this.mode === 'deposit';
         this.isMultiWallet = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
         this.additionalFieldsConfig = this.configService.get('$finances.fieldsSettings.additional');
@@ -358,6 +362,14 @@ export class PaymentFormComponent
             || this.currentSystem?.cryptoCheck;
     }
 
+    protected get isNeedThirdStep(): boolean {
+        const isNotCrypto: boolean = !this.currentSystem.cryptoCheck && !this.currentSystem.cryptoInvoices;
+
+        return this.$params.type === 'partial-amount'
+            && isNotCrypto
+            && (this.currentSystem.isHosted || !_isEmpty(this.additionalParams));
+    }
+
     public onCryptoInvoiceExpires(): void {
         this.cdr.detectChanges();
 
@@ -440,12 +452,7 @@ export class PaymentFormComponent
             return false;
         }
 
-        if (this.$params.type === 'partial-amount'
-            && !_isEmpty(this.additionalParams)
-            && !this.currentSystem.cryptoCheck
-            && !this.currentSystem.cryptoInvoices
-            && (this.currentSystem.isHosted || !_isEmpty(this.additionalParams))
-        ) {
+        if (this.isNeedThirdStep) {
             this.updateAmount.emit(form.controls.amount.value);
             this.changeStep.emit();
             return false;
@@ -469,7 +476,7 @@ export class PaymentFormComponent
 
     public async deposit(): Promise<boolean> {
         this.inProgress = true;
-        this.modalService.showModal('data-is-processing');
+        await this.modalService.showModal('data-is-processing');
 
         if (this.currentSystem.isHosted) {
             this.currentSystem.getHostedValue();
@@ -483,7 +490,6 @@ export class PaymentFormComponent
 
                 return false;
             }
-
             return true;
         } else {
             const amount: number = this.isPrestepComplete ? this.prestepAmount : this.formObject.value.amount;

@@ -521,4 +521,17 @@ $themeDefault: map-merge((
         375: none,
         900: block,
     ),
+
+    // payment-list
+    'paymentListBodyPadding': (
+        375: ef.size(6) ef.size(3) ef.size(8),
+        560: ef.size(6) ef.size(3),
+    ),
+
+    // deposit modal
+    'depModalBodyPadding': (
+        375: ef.size(5) ef.size(6),
+        560: ef.size(6) ef.size(3),
+    ),
+    'depModalBg':  var(--mc-bg700),
 ), $customThemeDefault);

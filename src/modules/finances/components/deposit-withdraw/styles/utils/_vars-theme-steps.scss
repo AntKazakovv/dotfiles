@@ -23,4 +23,22 @@ $themeSteps: map-merge((
 
     'groupMargin': 0 0 ef.size(4),
     'groupMarginLast': 0,
+
+    //modal
+    'paymentListColumnsModal': (
+        375: repeat(auto-fill, minmax(120px, 1fr)),
+        560: repeat(auto-fill, minmax(140px, 1fr)),
+    ),
+    'paymentListGapModal': (
+        375: ef.size(2),
+        560: ef.size(3),
+    ),
+
+    'contentMaxWidthModal': (
+        375: 100%,
+        480: 330px,
+    ),
+    'alertMarginModal': 0 auto ef.size(4),
+    'cryptoListMargin': 0 auto,
+    'depSliderBonusesPseudoBgModal': linear-gradient(90deg, var(--mc-bg700) 5%, var(--mc-bg700-o0) 90%),
 ), $customThemeSteps);

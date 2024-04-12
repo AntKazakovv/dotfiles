@@ -4,10 +4,11 @@ import {
     TButtonAnimation,
     ILayoutComponent,
 } from 'wlc-engine/modules/core';
+import {IButtonCParams} from 'wlc-engine/modules/core';
 import {IUserStatsCParams} from 'wlc-engine/modules/user/components/user-stats/user-stats.params';
 
 export type ComponentTheme = 'default' | 'sticky' | 'wolf' | CustomType;
-export type ComponentType = 'default' | CustomType;
+export type ComponentType = 'default' | 'modal-dep' | CustomType;
 
 export interface IUserInfoButton {
     use?: boolean;
@@ -21,6 +22,7 @@ export interface IUserInfoCParams extends IComponentParams<ComponentTheme, Compo
         components: ILayoutComponent[]
     }
     button?: IUserInfoButton,
+    modalDepositButton?: IButtonCParams;
     userStatsParams?: IUserStatsCParams,
 }
 
@@ -37,6 +39,16 @@ export const defaultParams: IUserInfoCParams = {
         use: true,
         sref: 'app.profile.cash.deposit',
         text: gettext('Deposit'),
+    },
+    modalDepositButton: {
+        common: {
+            text: gettext('Fast deposit'),
+            iconPath: 'wlc/icons/lightning.svg',
+            animation: {
+                type: 'glare',
+                handlerType: 'click',
+            },
+        },
     },
     dropdown: {
         components: [

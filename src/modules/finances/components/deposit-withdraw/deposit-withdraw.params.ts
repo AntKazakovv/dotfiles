@@ -11,6 +11,7 @@ import {IButtonCParams} from 'wlc-engine/modules/core/components/button/button.c
 import {
     IDepositPromoCodeCParams,
 } from 'wlc-engine/modules/finances/components/deposit-withdraw/components/deposit-promocode/deposit-promocode.params';
+import {IPaymentFormCParams} from 'wlc-engine/modules/finances/components/payment-form/payment-form.params';
 import {IPaymentListCParams} from 'wlc-engine/modules/finances/components/payment-list/payment-list.params';
 import {TPaymentsMethods} from 'wlc-engine/modules/finances/system/interfaces';
 
@@ -34,9 +35,10 @@ export interface IDepositWithdrawCParams extends IComponentParams<Theme, Type, T
     };
     /** Params for timer element */
     timerParams?: ITimerCParams; // move to payment-form
+
     /** Params for CryptoCurrencies list */
     cryptoListParams?: IPaymentListCParams;
-    /** Array for sorting steps. */
+    /** Array for sorting steps (used with default template only) */
     stepsOrder?: Array<Exclude<TStepTplName, 'wallets'>>;
     depositPromoCodeParams?: IDepositPromoCodeCParams;
     stepsParams?: {
@@ -44,7 +46,10 @@ export interface IDepositWithdrawCParams extends IComponentParams<Theme, Type, T
          * Media query, which describes when use steps template.
          */
         breakpoint: string;
+        paymentListParams?: IPaymentListCParams;
+        cryptoListParams?: IPaymentListCParams;
         bonusesListParams?: IDepositBonusesCParams;
+        paymentFormParams?: IPaymentFormCParams;
     }
 }
 

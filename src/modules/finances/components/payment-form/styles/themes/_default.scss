@@ -178,6 +178,7 @@
     }
 
     &.wlc-payment-form--theme-mod-centered {
+        --wlc-pf-hosted-justify-items: center;
 
         .wlc-payment-form {
 
@@ -187,7 +188,7 @@
             }
 
             &__crypto-block {
-                margin: 0 0 ef.get-value($themeDefault, 'formGap');
+                margin: 0 auto ef.get-value($themeDefault, 'formGap');
             }
 
             &__edit-btn {

@@ -98,8 +98,7 @@
             <p class="{{$class}}__title">{{'Payment information' | translate}}</p>
 
             <div wlc-payment-form
-                [inlineParams]="{mode: $params.mode, type: 'partial-amount'}"
-                [mode]="$params.mode"
+                [inlineParams]="getPaymentFormPartialParams()"
                 [currentSystem]="currentSystem"
                 [bonus]="currentBonus"
                 [wallet]="selectedWallet"
@@ -130,8 +129,7 @@
             <p class="{{$class}}__title">{{'Payment information' | translate}}</p>
 
             <div wlc-payment-form
-                [inlineParams]="{mode: $params.mode, type: 'partial-additional'}"
-                [mode]="$params.mode"
+                [inlineParams]="getPaymentFormPartialParams(true)"
                 [currentSystem]="currentSystem"
                 [bonus]="currentBonus"
                 [wallet]="selectedWallet"

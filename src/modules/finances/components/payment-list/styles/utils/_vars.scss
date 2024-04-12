@@ -127,6 +127,7 @@ $themeDefault: map-merge(map-merge($common, (
     'descriptionDesktopDisplay': (
         320: block,
     ),
+    'descrAlignModSteps': center,
 
     // ChosenMethod
     'сhosenMethodFont': 'PrimaryText',
@@ -193,7 +194,7 @@ $themeDefault: map-merge(map-merge($common, (
 
 $customThemeCryptoList: () !default;
 $themeCryptoList: map-merge(map-merge($common, (
-    'listGridTemplateColumns': repeat(auto-fill, minmax(240px, 1fr)),
+    'listGridTemplateColumns': repeat(auto-fill, minmax(220px, 1fr)),
     'listGridGap': ef.size(2),
 
     'itemGridTemplateColumn': auto 1fr auto,
