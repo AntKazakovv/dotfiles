@@ -178,6 +178,12 @@ div.wlc-user-icon--theme-default:host {
 
         ::ng-deep {
 
+            .wlc-icon {
+                color: ef.get-value($themeDefault, 'profileUserIconFill');
+                background: ef.get-value($themeDefault, 'profileUserIconBg');
+                border-radius: ef.get-value($themeDefault, 'profileUserIconRadius');
+            }
+
             .wlc-btn__text {
                 @include text.get-text-style(
                     ef.get-value($themeDefault, 'profileBtnFont'),
@@ -193,14 +199,6 @@ div.wlc-user-icon--theme-default:host {
             svg {
                 width: ef.get-value($themeDefault, 'profileBtnIconWidth');
                 height: ef.get-value($themeDefault, 'profileBtnIconHeight');
-            }
-
-            circle {
-                fill: ef.get-value($themeDefault, 'iconFill');
-            }
-
-            path {
-                fill: ef.get-value($themeDefault, 'iconInnerFill');
             }
         }
 

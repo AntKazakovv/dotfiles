@@ -43,4 +43,7 @@ $themeDefault: map-merge((
     'profileBtnIconWidth': 28px,
     'profileBtnIconHeight': 28px,
     'profileBtnHoverBorder': 2px solid var(--mc-main),
+    'profileUserIconRadius': 50%,
+    'profileUserIconBg': var(--mc-secondary),
+    'profileUserIconFill': var(--mc-baseMain-locked),
 ), $customThemeDefault);

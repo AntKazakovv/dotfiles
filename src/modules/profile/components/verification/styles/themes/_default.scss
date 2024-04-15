@@ -249,16 +249,7 @@
                     }
 
                     &.awaiting-validation {
-
-                        ::ng-deep .wlc-icon-content {
-
-                            svg {
-
-                                path {
-                                    fill: ef.get-value($themeDefault, 'docsStatusAwaiting');
-                                }
-                            }
-                        }
+                        color: ef.get-value($themeDefault, 'docsStatusAwaiting');
 
                         .wlc-verification-docs__doc-status {
                             color: ef.get-value($themeDefault, 'docsStatusAwaiting');
@@ -459,26 +450,14 @@
                     ::ng-deep .wlc-icon-content {
 
                         svg {
+                            @include bm.transition(color);
                             width: ef.get-value($themeDefault, 'removeIconDocsDemensitons');
                             height: ef.get-value($themeDefault, 'removeIconDocsDemensitons');
-
-                            line {
-                                @include bm.transition(stroke);
-                            }
                         }
                     }
 
                     @include bm.hover {
-
-                        &::ng-deep .wlc-icon-content {
-
-                            svg {
-
-                                line {
-                                    stroke: ef.get-value($themeDefault, 'removeIconDocsHoverColor');
-                                }
-                            }
-                        }
+                        color: ef.get-value($themeDefault, 'removeIconDocsHoverColor');
                     }
 
                     @include mq.min(1200) {
