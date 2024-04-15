@@ -8,8 +8,7 @@
     <p>{{'We\'ll bring you back!' | translate}}</p>
 </div>
 <a *ngFor="let link of links "
-    [uiSref]="link.state"
-    [uiParams]="link.params"
+    [wlc-link]="[link.state, link.params]"
     class="{{$class}}__link">
     <span>{{link.title | translate}}</span>
 </a>
