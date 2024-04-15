@@ -26,7 +26,7 @@ export class LoyaltyLevelsService {
         protected logService: LogService,
         private configService: ConfigService,
         private dataService: DataService,
-        private translate: TranslateService,
+        private translateService: TranslateService,
     ) {
         this.registerMethods();
     }
@@ -111,7 +111,7 @@ export class LoyaltyLevelsService {
                 {service: 'LoyaltyLevelsService', method: 'modifyLevels'},
                 level,
                 isLastLevel,
-                this.translate,
+                this.translateService,
             );
         });
     }

@@ -16,7 +16,7 @@ export class LoyaltyLevelModel extends AbstractModel<ILevel> {
         from: IFromLog,
         data: ILevel,
         public readonly isLast: boolean,
-        protected translate: TranslateService,
+        protected translateService: TranslateService,
     ) {
         super({from: _assign({model: 'LoyaltyLevelModel'}, from)});
         this.data = data;
@@ -36,7 +36,7 @@ export class LoyaltyLevelModel extends AbstractModel<ILevel> {
      */
     public get image(): string {
         if (_isObject(this.data.Image)) {
-            return this.data.Image[this.translate.currentLang];
+            return this.data.Image[this.translateService.currentLang];
         }
 
         return this.data.Image;
@@ -48,7 +48,7 @@ export class LoyaltyLevelModel extends AbstractModel<ILevel> {
      */
     public get description(): string {
         if (_isObject(this.data.Description)) {
-            return this.data.Description[this.translate.currentLang];
+            return this.data.Description[this.translateService.currentLang];
         }
 
         return this.data.Description;
