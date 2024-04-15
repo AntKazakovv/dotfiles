@@ -3,7 +3,7 @@
 </ng-template>
 
 <ng-template #link let-data="data">
-    <a [uiSref]="mainLink" [uiParams]="mainParams" class="{{$class}}__{{data.element}}-link">{{data.text | translate}}
+    <a [wlc-link]="[mainLink, mainParams]" class="{{$class}}__{{data.element}}-link">{{data.text | translate}}
         <span wlc-icon iconPath="/mobile-app/icons/arrow.svg"></span>
     </a>
 </ng-template>
