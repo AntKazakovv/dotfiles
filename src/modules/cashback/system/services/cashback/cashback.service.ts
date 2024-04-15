@@ -30,7 +30,7 @@ export class CashbackService {
         protected dataService: DataService,
         protected eventService: EventService,
         protected injectionService: InjectionService,
-        protected translate: TranslateService,
+        protected translateService: TranslateService,
         protected configService: ConfigService,
         protected logService: LogService,
     ) {
@@ -75,7 +75,7 @@ export class CashbackService {
                         method: 'init',
                     },
                     plan,
-                    this.translate.currentLang,
+                    this.translateService.currentLang,
                 );
             }));
         } catch (error) {
