@@ -4,7 +4,7 @@ import {
     ISeparateSortGamesOptions,
 } from 'wlc-engine/modules/games/system/helpers/games.helpers';
 import {IAllSortsItemResponse} from 'wlc-engine/modules/games/system/interfaces/sorts.interfaces';
-
+import {Game} from 'wlc-engine/modules/games/system/models';
 
 describe('GamesHelper -> sortGamesGeneral', () => {
 
@@ -31,11 +31,11 @@ describe('GamesHelper -> sortGamesGeneral', () => {
 
     const cases = [
         {
-            games: [{ID: 1}, {ID: 2}, {ID: 3}, {ID: 4}],
+            games: [{ID: 1}, {ID: 2}, {ID: 3}, {ID: 4}] as Game[],
             options: {
                 sortSetting: {direction: {}}, language: 'ru', country: 'rus',
             } as ISeparateSortGamesOptions,
-            expected: [{ID: 2}, {ID: 3}, {ID: 1}, {ID: 4}],
+            expected: [{ID: 2}, {ID: 3}, {ID: 1}, {ID: 4}] as Game[],
         },
     ];
 
@@ -121,14 +121,14 @@ describe('GamesHelper -> sortGamesInCategory', () => {
             games: [
                 {ID: 1946305}, {ID: 1958931}, {ID: 2253642}, {ID: 2213856}, {ID: 1474987},
                 {ID: 1679452}, {ID: 2179700}, {ID: 1556365}, {ID: 3172}, {ID: 1478167},
-            ],
+            ] as Game[],
             options: {
                 sortSetting: {direction: {}}, language: 'ru', country: 'rus', categoryId: 16,
             } as ISeparateSortGamesOptions,
             expected: [
                 {ID: 1946305}, {ID: 1958931}, {ID: 2253642}, {ID: 2213856}, {ID: 2179700},
                 {ID: 3172}, {ID: 1556365}, {ID: 1478167}, {ID: 1474987}, {ID: 1679452},
-            ],
+            ] as Game[],
         },
     ];
 
@@ -151,7 +151,7 @@ describe('GamesHelper -> sortGamesInCategory -> category 1471', () => {
             local: '10625',
             globalByCategories: {16: 0},
             localByCategories: {1471: 1000},
-            localPerCategoriesByCountries: {1471: {rus: 100}},
+            localPerCategoriesByCountries: {1471: {arm: 100}},
         },
         1784887: {
             //Curse of the Werewolf Megaways
@@ -205,16 +205,16 @@ describe('GamesHelper -> sortGamesInCategory -> category 1471', () => {
     const cases = [
         {
             games: [
-                {ID: 1714963}, {ID: 1784887}, {ID: 1821057}, {ID: 1841091}, {ID: 1884574},
+                {ID: 1784887}, {ID: 1821057}, {ID: 1714963}, {ID: 1841091}, {ID: 1884574},
                 {ID: 1899086}, {ID: 2057925}, {ID: 2131932}, {ID: 2182268},
-            ],
+            ] as Game[],
             options: {
                 sortSetting: {direction: {}}, language: 'en', country: 'arm', categoryId: 1471,
             } as ISeparateSortGamesOptions,
             expected: [
                 {ID: 1714963}, {ID: 1884574}, {ID: 2131932}, {ID: 1821057}, {ID: 1841091},
                 {ID: 1784887}, {ID: 2182268}, {ID: 2057925}, {ID: 1899086},
-            ],
+            ] as Game[],
         },
     ];
 

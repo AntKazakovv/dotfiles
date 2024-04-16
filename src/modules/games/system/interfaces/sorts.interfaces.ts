@@ -5,16 +5,16 @@ import {GamesSortEnum} from 'wlc-engine/modules/games/system/interfaces/sorts.en
 export interface IAllSortsItemResponse {
     ID: string;
 
-    localPerCategoriesByCountries: {[categoryId: number]: {[countryCode: string]: number}};
-    localByCountries: {[countryCode: string]: number};
-    localByLanguages: {[languageCode: string]: number};
-    localByCategories: {[categoryId: number]: number};
-    local: string | null;
+    localPerCategoriesByCountries?: {[categoryId: number]: {[countryCode: string]: number}};
+    localByCountries?: {[countryCode: string]: number};
+    localByLanguages?: {[languageCode: string]: number};
+    localByCategories?: {[categoryId: number]: number};
+    local?: string;
 
-    globalPerCategoriesByCountries: {[categoryId: number]: {[countryCode: string]: number}};
-    globalByCountries: {[countryCode: string]: number};
-    globalByLanguages: {[languageCode: string]: number};
-    globalByCategories: {[categoryId: number]: number};
+    globalPerCategoriesByCountries?: {[categoryId: number]: {[countryCode: string]: number}};
+    globalByCountries?: {[countryCode: string]: number};
+    globalByLanguages?: {[languageCode: string]: number};
+    globalByCategories?: {[categoryId: number]: number};
     global: string;
 }
 

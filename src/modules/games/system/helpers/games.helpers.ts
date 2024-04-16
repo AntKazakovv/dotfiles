@@ -456,7 +456,7 @@ export class GamesHelper {
      * @param {ISeparateSortGamesOptions} options - games sort options
      */
     public static sortGamesGeneral(
-        games: Pick<Game, 'ID'>[],
+        games: Game[],
         sorts: IIndexing<Partial<IAllSortsItemResponse>>,
         options: ISeparateSortGamesOptions,
     ): void {
@@ -465,7 +465,7 @@ export class GamesHelper {
         const {country, language} = options;
 
         const sorters = GamesSortOrder.map(rank => {
-            const sortBy: ISortBy<Pick<Game, 'ID'>> = game => {
+            const sortBy: ISortBy<Game> = game => {
                 return sortGetters[rank](sorts[game.ID], rank, country, language);
             };
 
@@ -485,7 +485,7 @@ export class GamesHelper {
      * @param {ISeparateSortGamesOptions} options - games sort options
      */
     public static sortGamesInCategory(
-        games: Pick<Game, 'ID'>[],
+        games: Game[],
         sorts: IIndexing<Partial<IAllSortsItemResponse>>,
         options: ISeparateSortGamesOptions,
     ): void {
@@ -493,8 +493,8 @@ export class GamesHelper {
 
         const {country, language, categoryId} = options;
 
-        const sorters = GamesInCategorySortOrder.map(rank => {
-            const sortBy: ISortBy<Pick<Game, 'ID'>> = game => {
+        const sorters: ISortByObjectSorter<Game>[] = GamesInCategorySortOrder.map(rank => {
+            const sortBy: ISortBy<Game> = game => {
                 return sortGetters[rank](sorts[game.ID], rank, country, language, categoryId);
             };
 
@@ -526,12 +526,7 @@ export class GamesHelper {
         return 0;
     }
 
-    private static getSorter(direction: TSortDirection, sortBy: ISortByFunction<Pick<Game, 'ID'>>)
-    : ISortByObjectSorter<Pick<Game, 'ID'>> {
-        const sorter = {
-            comparer: GamesHelper.defaultComparerFn,
-        } as unknown as ISortByObjectSorter<Pick<Game, 'ID'>>;
-        sorter[direction] = sortBy;
-        return sorter;
+    private static getSorter(direction: TSortDirection, sortBy: ISortByFunction<Game>): ISortByObjectSorter<Game> {
+        return {[direction]: sortBy} as unknown as ISortByObjectSorter<Game>;
     }
 }
