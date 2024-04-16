@@ -55,10 +55,10 @@ export class MenuService {
      * @param {string} menuId
      * @returns {Promise<IMenuOptions>}
      */
-    public async getFundistMenuSettings(menuId: keyof IMenu): Promise<IMenuOptions> {
+    public async getFundistMenuSettings(menuId: keyof IMenu, skipSettingsPreparation?: boolean): Promise<IMenuOptions> {
         await this.loadFundistMenuSettings();
 
-        if (!this.menuSettingPrepared && this.menuSettings) {
+        if (!skipSettingsPreparation && !this.menuSettingPrepared && this.menuSettings) {
 
             if (!this.gamesCatalogService) {
                 this.gamesCatalogService = await this.injectionService

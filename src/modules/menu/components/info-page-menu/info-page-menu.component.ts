@@ -137,7 +137,7 @@ export class InfoPageMenuComponent extends AbstractComponent implements OnInit {
     }
 
     protected async initMobileConfig(): Promise<void> {
-        this.menuSettings = _cloneDeep(await this.menuService.getFundistMenuSettings('infoPageMenu'));
+        this.menuSettings = _cloneDeep(await this.menuService.getFundistMenuSettings('infoPageMenu', true));
 
         if (this.menuSettings) {
             this.menuConfig = MenuHelper
