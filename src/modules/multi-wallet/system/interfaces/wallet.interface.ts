@@ -1,6 +1,5 @@
 export interface IWallet {
     currency?: string;
-    displayName?: string;
     balance?: string | number;
     availableWithdraw?: string;
     walletId?: number;

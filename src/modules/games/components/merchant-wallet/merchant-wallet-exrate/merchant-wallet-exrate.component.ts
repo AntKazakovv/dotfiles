@@ -17,8 +17,8 @@ import {
     AbstractComponent,
     ConfigService,
     IIndexing,
+    ICurrency,
 } from 'wlc-engine/modules/core';
-import {ICurrency} from 'wlc-engine/modules/currency';
 
 import * as Params from './merchant-wallet-exrate.params';
 

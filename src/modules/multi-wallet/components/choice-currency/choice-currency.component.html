@@ -23,9 +23,9 @@
         <div *ngIf="isOpened"
              class="{{$class}}__list">
             <div
-                *ngFor="let item of modifyMerchantsCurrencies"
+                *ngFor="let item of $params.game.merchantsCurrencies"
                 class="{{$class}}__currency"
-                [class.select]="item.name === currentCurrency.name"
+                [class.select]="item === currentCurrency"
                 (click)="onChangingCurrency(item)">
                 <ng-container
                     [ngTemplateOutlet]="currency"
@@ -46,7 +46,7 @@
     <span
         wlc-icon
         class="currency"
-        iconPath="{{getCurrencyIconUrl(name.name)}}"
+        iconPath="{{getCurrencyIconUrl(name)}}"
         wlcElement="icon_currency"></span>
-    <span>{{name.displayName}}</span>
+    <span>{{name}}</span>
 </ng-template>

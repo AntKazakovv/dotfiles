@@ -27,7 +27,6 @@ export class WalletHelper {
     public static createCurrentWallet(
         wallets: IWalletObj,
         currency: string,
-        displayName: string,
     ): IWallet {
         let currentWallet: IWallet = _assign(
             {},
@@ -42,7 +41,6 @@ export class WalletHelper {
             };
         }
         currentWallet.balance = _toNumber(currentWallet.balance).toFixed(2);
-        currentWallet.displayName = displayName;
         return currentWallet;
     }
 

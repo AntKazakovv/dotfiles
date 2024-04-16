@@ -2,7 +2,6 @@ import {
     CustomType, ICheckboxCParams,
     IComponentParams,
 } from 'wlc-engine/modules/core';
-import {CurrencyName} from 'wlc-engine/modules/currency/system/interfaces/currency.interface';
 import {IWalletsSettings} from 'wlc-engine/modules/multi-wallet';
 
 export type Type = 'default' | CustomType;
@@ -13,7 +12,7 @@ export interface ISettingsParams extends IComponentParams<Theme, Type, ThemeMod>
     walletSettings: IWalletsSettings;
     hideWalletText?: string;
     viewFiatText?: string;
-    currencies?: CurrencyName[];
+    currencies?: string [];
     descriptionText?: string;
     infoBlockText?: string;
     toggleHideZero?: ICheckboxCParams;
