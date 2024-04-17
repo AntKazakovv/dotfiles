@@ -29,6 +29,7 @@ import _merge from 'lodash-es/merge';
 import _isString from 'lodash-es/isString';
 import _get from 'lodash-es/get';
 import _isUndefined from 'lodash-es/isUndefined';
+import _mergeWith from 'lodash-es/mergeWith';
 
 import {
     DataService,
@@ -295,8 +296,7 @@ export class UserService {
         this.eventService.subscribe([
             {name: 'USER_PROFILE'},
         ], (profile: IData) => {
-            this.profile.data = profile?.data;
-            this.userProfile$.next(this.profile);
+            this.setProfileData(profile.data);
         });
 
         this.eventService.subscribe({name: 'SOCKET_CONNECT', status: 'success'}, (data) => {
@@ -429,7 +429,13 @@ export class UserService {
     }
 
     public setProfileData(formData: IUserProfile): void {
-        this.profile.data = formData;
+        _mergeWith(this.profile.data, formData, (value, newValue) => {
+            if (Array.isArray(newValue) && !newValue.length
+                && (typeof value === 'object') && Object.keys(value).length === 0
+            ) {
+                return {};
+            }
+        });
 
         this.userProfile$.next(this.profile);
     }
