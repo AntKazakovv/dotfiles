@@ -215,8 +215,8 @@ $headerThemeUniversal: map-merge((
         1366: auto 1fr auto,
     ),
     'headerGridGap': (
-        375: ef.size(2),
-        480: ef.size(4),
+        375: 0,
+        1200: ef.size(4),
     ),
     'headerMinHeight': (
         375: 70px,
