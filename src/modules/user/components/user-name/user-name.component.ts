@@ -29,6 +29,7 @@ import {UserService} from 'wlc-engine/modules/user/system/services';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import * as Params from './user-name.params';
+import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 
 /**
  * Show user name component
@@ -97,6 +98,7 @@ export class UserNameComponent extends AbstractComponent implements OnInit, OnDe
         this.stateService.go('app.profile.main.info');
     }
 
+    @CustomHook('user', 'userNameProfileData')
     protected processDisplayName({firstName, lastName, email, idUser, nickname}: UserProfile): string {
         let name: string = gettext('User');
 
