@@ -21,11 +21,17 @@
 
         &--contacts {
             @include bm.get-mq-map('gap', $themeDefault, 'contactsBlockGap');
+            @include bm.get-mq-map('--wlc-contacts-visual-padding', $themeDefault, 'withOutPhone');
+
             display: grid;
             grid-area: contacts;
             grid-template-areas: ef.get-value($themeDefault, 'contactsGridAreas');
             grid-template-rows: ef.get-value($themeDefault, 'contactsGridRows');
             align-items: baseline;
+
+            &:has(.wlc-contact-us-page-details__item--phone) {
+                @include bm.get-mq-map('--wlc-contacts-visual-padding', $themeDefault, 'withPhone');
+            }
         }
 
         &--visual {
@@ -35,10 +41,10 @@
             border-radius: ef.get-value($themeDefault, 'borderRadius');
 
             &:before {
-                @include bm.get-mq-map('padding-bottom', $themeDefault, 'visualPaddingBottom');
                 content: '';
                 display: block;
                 width: 100%;
+                padding-bottom: var(--wlc-contacts-visual-padding, 100%);
             }
         }
 
@@ -65,7 +71,6 @@
 
             display: grid;
             grid-area: info;
-            grid-template-areas: ef.get-value($themeDefault, 'infoGridAreas');
 
             padding: ef.get-value($themeDefault, 'infoPadding');
 
@@ -105,24 +110,6 @@
     }
 
     .wlc-contact-us-page-details__item {
-
-        &--phone,
-        &--time,
-        &--email {
-            @include bm.get-mq-map('padding', $themeDefault, 'detailsPadding');
-        }
-
-        &--phone {
-            grid-area: phone;
-        }
-
-        &--time {
-            grid-area: time;
-        }
-
-        &--email {
-            grid-area: email;
-        }
 
         &--title,
         &--value {

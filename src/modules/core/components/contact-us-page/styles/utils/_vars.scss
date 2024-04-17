@@ -4,14 +4,13 @@ $themeDefault: map-merge((
         375: ef.size(5) ef.size(0),
         768: ef.size(5),
     ),
-    'marginBottom': ef.size(3),
+    'marginBottom': ef.size(1),
     'background': var(--mc-bg700),
     'objectPosition': right bottom,
     'transition': 0.5s ease-in,
     'infoPadding': ef.size(5),
     'borderRadius': ef.get('radius', 'main'),
     'formPadding': ef.size(5),
-    'detailsPadding': 0 ef.size(2),
     'logoTop': (
         375: ef.size(7),
     ),
@@ -23,9 +22,13 @@ $themeDefault: map-merge((
     'headerMargin': 0 0 ef.size(4),
     'headerTextAlign': center,
     'visualBoxShadow': 0 2px 0 0 rgba(46, 77, 141, 0.2) inset,
-    'visualPaddingBottom': (
+    'withPhone': (
         375: 50%,
         768: 85%,
+    ),
+    'withOutPhone': (
+        375: 50%,
+        768: 100%,
     ),
     'formGap': ef.size(5),
     'feedbackGap': (
@@ -37,15 +40,11 @@ $themeDefault: map-merge((
         375: ef.size(4),
         768: ef.size(3),
     ),
-    'contactsGap': ef.size(2),
+    'contactsGap': ef.size(5),
     'contactsGridRows': auto 1fr,
     'contactsGridAreas': (
         'visual'
         'info'
-    ),
-    'infoGridAreas': (
-        'phone time'
-        'email email'
     ),
     'feedbackGridAreas': (
         375: (

@@ -16,6 +16,15 @@
                     href="tel:{{contactsConfig.phone}}"
                     data-wlc-element="link_phone">{{contactsConfig.phone}}</a>
             </div>
+            <div *ngIf="contactsConfig.email"
+                class="{{$class}}-details__item--email"
+                data-wlc-element="block_email">
+
+                <span class="{{$class}}-details__item--title">{{'E-mail' | translate}}</span>
+                <a class="{{$class}}-details__item--value"
+                    href="mailto:{{contactsConfig.email}}"
+                    data-wlc-element="link_email">{{contactsConfig.email}}</a>
+            </div>
             <div *ngIf="contactsConfig.estResTime && contactsConfig.timeUnits"
                 class="{{$class}}-details__item--time"
                 data-wlc-element="block_response-time">
@@ -25,15 +34,6 @@
                     {{contactsConfig.estResTime}} {{contactsConfig.timeUnits | translate}}
                 </span>
             </div>
-            <div *ngIf="contactsConfig.email"
-                class="{{$class}}-details__item--email"
-                data-wlc-element="block_email">
-
-                <span class="{{$class}}-details__item--title">{{'E-mail' | translate}}</span>
-                <a class="{{$class}}-details__item--value"
-                    href="mailto:{{contactsConfig.email}}"
-                    data-wlc-element="link_email">{{contactsConfig.email}}</a>
-                </div>
             <div *ngIf="contactsConfig.additionalInfo"
                 class="{{$class}}-details__item"
                 data-wlc-element="block_additional_info">
