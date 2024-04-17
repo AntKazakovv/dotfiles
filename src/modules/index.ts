@@ -11,3 +11,4 @@ export * as User from './user';
 export * as Compiler from './compiler';
 export * as QrCode from './qr-code';
 export * as Pwa from './pwa';
+export * as Providers from './providers';

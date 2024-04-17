@@ -13,7 +13,6 @@ export {ISearchCParams} from './search/search.params';
 export {ISearchFieldCParams} from './search-field/search-field.params';
 export {ITotalJackpotCParams} from './total-jackpot/total-jackpot.params';
 export {IProgressBarCParams} from './progress-bar/progress-bar.params';
-export {IProviderLinksCParams} from './provider-links/provider-links.params';
 export {LuckyButtonComponent} from './lucky-button/lucky-button.component';
 export {RecommendedGamesComponent} from './recommended-games/recommended-games.component';
 export {IRecommendedGamesCParams} from './recommended-games/recommended-games.params';

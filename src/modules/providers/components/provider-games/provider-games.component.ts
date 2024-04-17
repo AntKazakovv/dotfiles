@@ -35,7 +35,6 @@ import * as Params from './provider-games.params';
 import _filter from 'lodash-es/filter';
 import _isEmpty from 'lodash-es/isEmpty';
 import _cloneDeep from 'lodash-es/cloneDeep';
-import _merge from 'lodash-es/merge';
 
 @Component({
     selector: '[wlc-provider-games]',
@@ -133,53 +132,6 @@ export class ProviderGamesComponent extends AbstractComponent implements OnInit 
                 }];
             } else {
                 this.gamesGridList = categories.map((category: CategoryModel): IGamesGridCParams => {
-                    if (this.$params.type === 'mobile-app') {
-                        const categoryModel: CategoryModel = this.gamesCatalogService.getCategoryBySlug(category.slug);
-
-                        if (categoryModel) {
-                            let sref: string = '',
-                                category: string = '',
-                                childCategory: string = '';
-
-                            if (!categoryModel.isParent) {
-                                sref = 'app.catalog.child';
-                                category = categoryModel.parentCategory.slug;
-                                childCategory = categoryModel.slug;
-                            } else {
-                                sref = 'app.catalog';
-                                category = categoryModel.slug;
-                            }
-
-                            if (gamesGridParams.showAllLink.use) {
-                                if (!gamesGridParams.showAllLink.params) {
-                                    gamesGridParams.showAllLink.params = {};
-                                }
-
-                                gamesGridParams.showAllLink.params = _merge(
-                                    gamesGridParams.showAllLink.params,
-                                    this.router.globals.params,
-                                );
-
-                                if (!gamesGridParams.showAllLink.sref) {
-                                    gamesGridParams.showAllLink.sref = sref;
-                                }
-                                gamesGridParams.showAllLink.params.category = category;
-                                gamesGridParams.showAllLink.params.childCategory = childCategory;
-                            }
-
-                            if (gamesGridParams.showAsSwiper?.sliderParams?.slideShowAll) {
-
-                                if (!gamesGridParams.showAsSwiper.sliderParams.slideShowAll.sref) {
-                                    gamesGridParams.showAsSwiper.sliderParams.slideShowAll.sref = sref;
-                                }
-
-                                gamesGridParams.showAsSwiper.sliderParams.slideShowAll.srefParams = {
-                                    category: category,
-                                    childCategory: childCategory,
-                                };
-                            }
-                        }
-                    }
 
                     if (this.$params.themeMod === 'wolf') {
                         gamesGridParams.btnLoadMore = {

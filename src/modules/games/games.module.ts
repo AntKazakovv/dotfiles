@@ -8,7 +8,6 @@ import {CountUpModule} from 'ngx-countup';
 import _get from 'lodash-es/get';
 
 // Modules
-import {IconListModule} from 'wlc-engine/modules/icon-list/icon-list.module';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {CompilerModule} from 'wlc-engine/modules/compiler';
 import {GlobalHelper} from 'wlc-engine/modules/core';
@@ -36,8 +35,6 @@ import {RandomGameComponent} from './components/random-game/random-game.componen
 import {
     CategoryPreviewComponent,
 } from './components/category-preview/category-preview.component';
-import {ProviderLinksComponent} from './components/provider-links/provider-links.component';
-import {ProviderGamesComponent} from './components/provider-games/provider-games.component';
 import {ProgressBarComponent} from './components/progress-bar/progress-bar.component';
 import {GamesCatalogComponent} from './components/games-catalog/games-catalog.component';
 import {
@@ -87,8 +84,6 @@ export const components = {
     'wlc-search-field': SearchFieldComponent,
     'wlc-dropdown-search': DropdownSearchComponent,
     'wlc-total-jackpot': TotalJackpotComponent,
-    'wlc-provider-links': ProviderLinksComponent,
-    'wlc-provider-games': ProviderGamesComponent,
     'wlc-lucky-button': LuckyButtonComponent,
     'wlc-favourite-button': FavouriteButtonComponent,
     'wlc-house-games': HouseGamesComponent,
@@ -117,8 +112,6 @@ export const services = {
         SearchComponent,
         DropdownSearchComponent,
         TotalJackpotComponent,
-        ProviderLinksComponent,
-        ProviderGamesComponent,
         ProgressBarComponent,
         MerchantWalletExrateComponent,
         MerchantWalletFormComponent,
@@ -147,7 +140,6 @@ export const services = {
         CountUpModule,
         CoreModule,
         CompilerModule,
-        IconListModule,
     ],
     providers: [
         GamesCatalogService,
@@ -168,8 +160,6 @@ export const services = {
         GameDashboardComponent,
         RandomGameComponent,
         CategoryPreviewComponent,
-        ProviderLinksComponent,
-        ProviderGamesComponent,
         ProgressBarComponent,
         MerchantWalletExrateComponent,
         MerchantWalletFormComponent,

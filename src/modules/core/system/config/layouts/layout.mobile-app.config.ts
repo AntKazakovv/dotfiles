@@ -46,7 +46,6 @@ export const $layoutsMobileApp: ILayoutsConfig = {
             'banner-section': sectionsLib.bannerSection.home,
             'categories': sectionsLib.categories.catalog,
             'content-games-first': sectionsLib.contentGames.homeTopSwiper,
-            'providers': sectionsLib.providers.slider,
             'content-games-second': sectionsLib.contentGames.newTopSwiper,
             'content-games-third': sectionsLib.contentGames.allTopSwiper,
             'content-wins': sectionsLib.contentGames.homeBiggestTournament,
@@ -241,7 +240,6 @@ export const $layoutsMobileApp: ILayoutsConfig = {
         extends: 'app',
         sections: {
             'nav-header': sectionsLib.header.returnToHome,
-            'providers': sectionsLib.providers.list,
         },
     },
     'app.providers.item': {
@@ -251,7 +249,6 @@ export const $layoutsMobileApp: ILayoutsConfig = {
         extends: 'app',
         sections: {
             'nav-header': sectionsLib.header.providersItem,
-            'providers-games': sectionsLib.providers.gamesSwiper,
         },
     },
     'app.providers.item.category': {
@@ -261,7 +258,6 @@ export const $layoutsMobileApp: ILayoutsConfig = {
         extends: 'app',
         sections: {
             'nav-header': sectionsLib.header.providersItemCategory,
-            'providers-games': sectionsLib.providers.gamesGrid,
         },
     },
     'app.games-search': {

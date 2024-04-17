@@ -17,7 +17,6 @@ export * from './promo-tournaments.section';
 export * from './game-widgets.section';
 export * from './winners.section';
 export * from './loyalty-program.section';
-export * from './providers-section';
 export * from './home-promo.section';
 export * from './categories-with-side-menu.section';
 export * from './promo-about-us.section';

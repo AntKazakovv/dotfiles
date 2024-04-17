@@ -23,10 +23,8 @@
         [inlineParams]="icon">
     </div>
 
-    <ng-container *ngIf="$params.type !== 'mobile-app'">
-        <p class="{{$class}}__subtitle">{{'Provider' | translate}}</p>
-        <h1 class="{{$class}}__title">{{provider.alias | translate}}</h1>
-    </ng-container>
+    <p class="{{$class}}__subtitle">{{'Provider' | translate}}</p>
+    <h1 class="{{$class}}__title">{{provider.alias | translate}}</h1>
 </ng-template>
 
 <ng-template #headerThemeModWolf>

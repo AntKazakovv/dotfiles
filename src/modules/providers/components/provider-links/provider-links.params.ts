@@ -5,7 +5,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {IAbstractIconsListParams} from 'wlc-engine/modules/icon-list/system/classes/icon-list-abstract.class';
 
-export type ComponentTheme = 'default' | 'mobile-app' | 'mobile-app-swiper' | CustomType;
+export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | 'slider' | 'mobile' | CustomType;
 export type ComponentThemeMod = 'default' | 'inside-modal' | 'mobile-custom' | 'adaptive' | 'wolf' | CustomType;
 

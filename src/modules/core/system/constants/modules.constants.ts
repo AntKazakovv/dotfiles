@@ -55,8 +55,8 @@ export type TModuleName =
     | 'local-jackpots'
     | 'ubidex'
     | 'referrals'
-    | 'turnstile';
-
+    | 'turnstile'
+    | 'providers';
 
 type IFunctionImportModule = (name: TModuleName, callback: Function) => unknown;
 
@@ -335,6 +335,11 @@ export const modulesApp: Record<TModuleName, IFunctionImportModule> = {
         const m = await import('wlc-engine/modules/security/turnstile/turnstile.module');
         callback(name, m);
         return m.TurnstileModule;
+    },
+    'providers': async (name: TModuleName, callback: Function) => {
+        const m = await import('wlc-engine/modules/providers/providers.module');
+        callback(name, m);
+        return m.ProvidersModule;
     },
 } as const;
 

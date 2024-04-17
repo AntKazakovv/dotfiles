@@ -1,10 +1,10 @@
-import {IProviderLinksCParams} from 'wlc-engine/modules/games';
+import {IProviderLinksCParams} from 'wlc-engine/modules/providers';
 import {ILayoutComponent} from 'wlc-engine/modules/core';
 
 export namespace wlcProviderLinks {
 
     export const mobileParams: ILayoutComponent = {
-        name: 'games.wlc-provider-links',
+        name: 'providers.wlc-provider-links',
         params: <IProviderLinksCParams>{
             iconsType: 'color',
             colorIconBg: 'dark',

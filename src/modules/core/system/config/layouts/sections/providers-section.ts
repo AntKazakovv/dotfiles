@@ -1,13 +1,13 @@
 import {ILayoutSectionConfig} from 'wlc-engine/modules/core';
-import {IProviderGamesCParams} from 'wlc-engine/modules/games/components/provider-games/provider-games.params';
-import {IProviderLinksCParams} from 'wlc-engine/modules/games/components/provider-links/provider-links.params';
+import {IProviderGamesCParams} from 'wlc-engine/modules/providers/components/provider-games/provider-games.params';
+import {IProviderLinksCParams} from 'wlc-engine/modules/providers/components/provider-links/provider-links.params';
 
 export namespace providers {
     export const slider: ILayoutSectionConfig = {
         container: true,
         components: [
             {
-                name: 'games.wlc-provider-links',
+                name: 'providers.wlc-provider-links',
                 params: <IProviderLinksCParams>{
                     iconsType: 'color',
                     colorIconBg: 'dark',
@@ -21,7 +21,7 @@ export namespace providers {
         theme: 'wolf',
         components: [
             {
-                name: 'games.wlc-provider-links',
+                name: 'providers.wlc-provider-links',
                 params: <IProviderLinksCParams>{
                     type: 'default',
                     themeMod: 'wolf',
@@ -54,7 +54,7 @@ export namespace providers {
         container: true,
         components: [
             {
-                name: 'games.wlc-provider-games',
+                name: 'providers.wlc-provider-games',
                 params: <IProviderGamesCParams>{
                     iconType: 'color',
                     colorIconBg: 'dark',
@@ -67,7 +67,7 @@ export namespace providers {
         container: true,
         components: [
             {
-                name: 'games.wlc-provider-games',
+                name: 'providers.wlc-provider-games',
                 params: <IProviderGamesCParams>{
                     themeMod: 'wolf',
                     showWithoutCategories: true,
@@ -100,7 +100,7 @@ export namespace providers {
         container: true,
         components: [
             {
-                name: 'games.wlc-provider-links',
+                name: 'providers.wlc-provider-links',
                 params: <IProviderLinksCParams>{
                     iconsType: 'color',
                     colorIconBg: 'dark',
@@ -113,7 +113,7 @@ export namespace providers {
         container: true,
         components: [
             {
-                name: 'games.wlc-provider-links',
+                name: 'providers.wlc-provider-links',
                 display: {
                     after: 720,
                 },
@@ -123,7 +123,7 @@ export namespace providers {
                 },
             },
             {
-                name: 'games.wlc-provider-links',
+                name: 'providers.wlc-provider-links',
                 display: {
                     before: 719,
                 },
@@ -141,7 +141,7 @@ export namespace providers {
         container: true,
         components: [
             {
-                name: 'games.wlc-provider-games',
+                name: 'providers.wlc-provider-games',
                 params: <IProviderGamesCParams>{
                     iconsType: 'color',
                     colorIconBg: 'dark',
