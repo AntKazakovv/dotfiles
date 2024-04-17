@@ -79,7 +79,6 @@ import {
     CustomHook,
 } from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 
-import * as DepositWithdrawParams from '../deposit-withdraw/deposit-withdraw.params';
 import * as Params from './payment-list.params';
 
 interface IPaymentsIterator extends IMerchantsPaymentsIterator {
@@ -87,8 +86,6 @@ interface IPaymentsIterator extends IMerchantsPaymentsIterator {
     defaultImages: string[];
     paymentType: TPaymentsMethods;
 }
-
-export type TCatMenuType = TPaySystemsSwitcher | 'dropdown';
 
 @Component({
     selector: '[wlc-payment-list]',
@@ -109,7 +106,6 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     @Input() protected lastSucceedMethod: Promise<number | null>;
     @Input() protected isFetchingSystems: boolean = false;
     @Input() protected inlineParams: Params.IPaymentListCParams;
-    @Input() protected parentTheme: DepositWithdrawParams.Theme;
     @Input() protected skipAutoSelect: boolean = false;
     @ViewChild('list') protected list: TemplateRef<any>;
 
@@ -174,7 +170,8 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         this.isCryptoInvoices = this.isDeposit && this.$params.theme === 'crypto-list';
         this.tagsConfig = this.configService.get<IPaySystemCategories>('$finances.paySystemCategories');
         this.useTags = this.tagsConfig.use
-            && (this.isDeposit || this.parentTheme === 'second')
+            && ((this.isDeposit ? this.tagsConfig.useFor === 'deposit' : this.tagsConfig.useFor === 'withdraw')
+                || this.tagsConfig.useFor === 'both')
             && this.$params.theme !== 'crypto-list';
         this.useScroll = this.configService.get<boolean>('$finances.usePaySystemScroll');
 
@@ -189,7 +186,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
             this.catMenuTypeMain = this.tagsConfig.desktopMenuType
                 || (this.configService.get('$base.profile.type') === 'first' ? 'select' : 'menu');
 
-            this.isGroupingByBlocks = this.parentTheme === 'second';
+            this.isGroupingByBlocks = this.catMenuTypeMain === 'blocks';
 
             this.tagsControl.valueChanges.pipe(
                 tap(() => this.onTagChange()),

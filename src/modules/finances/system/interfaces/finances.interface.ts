@@ -153,9 +153,12 @@ export interface IPaySystemCategories {
      * Can be partially redefined.
      */
     categoriesConfig?: TPaySystemCategoriesConfig;
+    useFor?: TPaymentListType;
 }
 
-export type TPaySystemsSwitcher = 'select' | 'menu';
+export type TPaySystemsSwitcher = 'select' | 'menu' | 'blocks';
+
+export type TPaymentListType = 'withdraw' | 'deposit' | 'both';
 
 export type TPaySystemCategoriesConfig = Partial<Record<TPaySystemTagAll, IPaySystemTag>>;
 

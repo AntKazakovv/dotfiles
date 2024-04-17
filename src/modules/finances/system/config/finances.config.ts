@@ -10,6 +10,7 @@ export const financesConfig: IFinancesConfig = {
     },
     paySystemCategories: {
         dropdownBefore: '(max-width: 479px)',
+        useFor: 'deposit',
         categoriesConfig: {
             recommended: {
                 name: gettext('Recommended'),
