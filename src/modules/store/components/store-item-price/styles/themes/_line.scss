@@ -1,0 +1,21 @@
+.wlc-store-item-price--theme-line:host {
+
+    .wlc-store-item-price {
+
+        &__content {
+            font-weight: ef.get-value($themeLine, 'contentFontWeight');
+
+            .price-item {
+
+                &:not(:first-child) {
+
+                    &:before {
+                        content: ef.get-value($themeLine, 'dividerContent');
+                        display: inline-block;
+                        margin: ef.get-value($themeLine, 'dividerMargin');
+                    }
+                }
+            }
+        }
+    }
+}

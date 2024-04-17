@@ -14,5 +14,30 @@
     <div class="{{$class}}__description"
         wlc-dynamic-html
         [html]="$params.description"
-        [parseAsPlainHTML]="true"></div>
+        [parseAsPlainHTML]="true">
+    </div>
+    <div class="{{$class}}__price" data-wlc-element="store_item-price">
+        <div wlc-store-item-price
+            [theme]="'line'"
+            [priceLoyalty]="$params.priceLoyalty"
+            [priceExp]="$params.priceExp">
+        </div>
+    </div>
+    <div class="{{$class}}__buttons">
+        <button *ngIf="$params.isDisabled || !$params.storeItem.canBuy; else buyBtn"
+            wlc-button
+            class="{{$class}}__cancel-btn"
+            themeMod="secondary"
+            text="Close"
+            (click)="closeModal()">
+        </button>
+    </div>
 </div>
+
+<ng-template #buyBtn>
+    <button wlc-button
+        class="{{$class}}__buy-btn"
+        text="Buy now"
+        (click)="showConfirmationModal()">
+    </button>
+</ng-template>

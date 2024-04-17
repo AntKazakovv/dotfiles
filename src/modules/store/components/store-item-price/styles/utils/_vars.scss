@@ -1,0 +1,5 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'priceAlignItems': center,
+    'priceJustifyContent': center,
+), $customThemeDefault);

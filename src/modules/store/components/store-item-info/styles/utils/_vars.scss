@@ -12,4 +12,12 @@ $themeDefault: map-merge((
 
     'alertMargin': 0 auto ef.size(4),
     'alertMaxWidth': 100%,
+
+    'infoTextStyle': 'PrimaryText',
+    'infoTextAlign': center,
+
+    'priceMargin': ef.size(4) 0 0,
+
+    'buttonsMargin': ef.size(8) 0 0,
+    'buttonsItemMargin': 0 auto,
 ), $customThemeDefault);

@@ -448,11 +448,21 @@ export const MODALS_LIST: IModalList = {
             dismissAll: true,
         },
     },
+    storeConfirmation: {
+        config: {
+            id: 'store-confirmation',
+            modifier: 'store-confirmation',
+            componentName: 'store.wlc-store-confirmation',
+            modalTitle: gettext('Confirmation'),
+            showFooter: false,
+            dismissAll: true,
+        },
+    },
     storeItemInfo: {
         config: {
             id: 'store-item-info',
             componentName: 'store.wlc-store-item-info',
-            showFooter: true,
+            showFooter: false,
             dismissAll: true,
         },
     },

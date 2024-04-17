@@ -1,0 +1,45 @@
+.wlc-store-confirmation--theme-default:host {
+    @include text.get-text-style(
+        ef.get-value($themeDefault, 'confirmationTextStyle'),
+        null
+    );
+    text-align: ef.get-value($themeDefault, 'confirmationTextAlign');
+
+    .wlc-store-confirmation {
+
+        &__icon {
+            margin: ef.get-value($themeDefault, 'iconMargin');
+
+            ::ng-deep {
+
+                .wlc-icon-content {
+                    display: inline-block;
+                    width: ef.get-value($themeDefault, 'iconSize');
+                    height: ef.get-value($themeDefault, 'iconSize');
+
+                    svg {
+                        width: 100%;
+                        color: ef.get-value($themeDefault, 'iconColor');
+                    }
+                }
+            }
+        }
+
+        &__msg,
+        &__balance-msg {
+            margin: ef.get-value($themeDefault, 'msgMargin');
+        }
+
+        &__buttons {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: ef.get-value($themeDefault, 'buttonsJustifyContent');
+            margin: ef.get-value($themeDefault, 'buttonsMargin');
+
+            & [wlc-button] {
+                margin: ef.get-value($themeDefault, 'buttonsItemMargin');
+            }
+        }
+    }
+}

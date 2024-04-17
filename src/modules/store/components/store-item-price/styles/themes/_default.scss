@@ -1,0 +1,14 @@
+.wlc-store-item-price--theme-default:host {
+
+    .wlc-store-item-price {
+
+        &__content {
+
+            .price-item {
+                display: flex;
+                align-items: ef.get-value($themeDefault, 'priceAlignItems');
+                justify-content: ef.get-value($themeDefault, 'priceJustifyContent');
+            }
+        }
+    }
+}

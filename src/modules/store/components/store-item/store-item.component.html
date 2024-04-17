@@ -69,27 +69,15 @@
                     {{storeItem.name}}
                 </div>
                 <div class="{{$class}}__price" data-wlc-element="store_item-price">
-                    <div
-                        *ngIf="!!storeItem.priceLoyalty"
-                        wlc-currency
-                        class="price-item"
-                        currency="LP"
-                        digitsInfo="1-0-0"
-                        [value]="storeItem.priceLoyalty">
-                    </div>
-                    <div
-                        *ngIf="!!storeItem.priceExp"
-                        wlc-currency
-                        class="price-item"
-                        currency="EP"
-                        digitsInfo="1-0-0"
-                        [value]="storeItem.priceExp">
+                    <div wlc-store-item-price
+                        [priceLoyalty]="storeItem.priceLoyalty"
+                        [priceExp]="storeItem.priceExp">
                     </div>
                 </div>
             </div>
         </div>
         <div *ngIf="isAuth" class="{{$class}}__btns">
-            <div *ngIf="isDisabled; else buyBtn"
+            <div *ngIf="isDisabled || !storeItem.canBuy; else buyBtn"
                 class="{{$class}}__lock-btn">
                 <span wlc-icon
                     class="lock-btn__icon"
@@ -109,11 +97,10 @@
 </div>
 
 <ng-template #buyBtn>
-    <button *ngIf="storeItem.canBuy"
-        wlc-button
-        [disabled]="buyClick"
-        [inlineParams]="$params.btnsParams.buyBtnParams"
-        (click)="buyItem()">
+    <button wlc-button
+        class="{{$class}}__buy-btn"
+        text="Buy now"
+        (click)="showConfirmationModal()">
     </button>
 </ng-template>
 

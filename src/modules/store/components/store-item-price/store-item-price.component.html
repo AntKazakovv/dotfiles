@@ -1,0 +1,16 @@
+<div class="{{$class}}__content">
+    <div *ngIf="!!priceLoyalty"
+        wlc-currency
+        class="price-item"
+        currency="LP"
+        digitsInfo="1-0-0"
+        [value]="priceLoyalty">
+    </div>
+    <div *ngIf="!!priceExp"
+        wlc-currency
+        class="price-item"
+        currency="EP"
+        digitsInfo="1-0-0"
+        [value]="priceExp">
+    </div>
+</div>

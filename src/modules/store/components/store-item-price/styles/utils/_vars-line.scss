@@ -1,0 +1,7 @@
+$customThemeLine: () !default;
+$themeLine: map-merge((
+    'contentFontWeight': 700,
+
+    'dividerContent': '+',
+    'dividerMargin': 0 ef.size(1),
+), $customThemeLine);

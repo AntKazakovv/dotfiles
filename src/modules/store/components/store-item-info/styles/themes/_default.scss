@@ -1,6 +1,11 @@
 .wlc-store-item-info--theme-default:host {
     --wlc-alert-max-width: #{ef.get-value($themeDefault, 'alertMaxWidth')};
     --wlc-alert-margin: #{ef.get-value($themeDefault, 'alertMargin')};
+    @include text.get-text-style(
+        ef.get-value($themeDefault, 'infoTextStyle'),
+        null
+    );
+    text-align: ef.get-value($themeDefault, 'infoTextAlign');
 
     .wlc-store-item-info {
 
@@ -25,6 +30,18 @@
         &__multy-wallet {
             display: inline-block;
             margin: ef.get-value($themeDefault, 'multyWalletMargin');
+        }
+
+        &__price {
+            margin: ef.get-value($themeDefault, 'priceMargin');
+        }
+
+        &__buttons {
+            margin: ef.get-value($themeDefault, 'buttonsMargin');
+
+            .wlc-btn {
+                margin: ef.get-value($themeDefault, 'buttonsItemMargin');
+            }
         }
     }
 }

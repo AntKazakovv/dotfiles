@@ -1,23 +1,21 @@
 import {
     GlobalHelper,
-    IComponentWithPendingBtns,
-} from 'wlc-engine/modules/core';
-import {
+    IComponentParams,
     CustomType,
-} from 'wlc-engine/modules/core/system/classes/abstract.component';
+} from 'wlc-engine/modules/core';
 
-export type Type = 'default' | CustomType;
-export type Theme = 'default' | 'first' | CustomType;
-export type ThemeMod = 'default' | 'chip-v2' | CustomType;
-export type AutoModifiers = Theme | ThemeMod;
+export type ComponentTheme = 'default' | 'first' | CustomType;
+export type ComponentType = 'default' | CustomType;
+export type ComponentThemeMod = 'default' | 'chip-v2' | CustomType;
+export type AutoModifiers = ComponentTheme | ComponentThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
 export type TIconExtension = 'svg' | 'png' | 'jpg';
 
-export interface IStoreItemCParams extends IComponentWithPendingBtns<Theme, Type, ThemeMod> {
+export interface IStoreItemCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     modifiers?: Modifiers[];
     common?: {
-        themeMod?: ThemeMod;
+        themeMod?: ComponentThemeMod;
         customModifiers?: CustomMod;
         defaultPicPath: string;
         defaultPicPathFirst: string;
@@ -34,14 +32,5 @@ export const defaultParams: IStoreItemCParams = {
         defaultPicPath: GlobalHelper.gstaticUrl + '/store/default.png',
         defaultPicPathFirst: GlobalHelper.gstaticUrl + '/store/default1.png',
         iconFormat: 'svg',
-    },
-    btnsParams: {
-        buyBtnParams: {
-            common: {
-                text: gettext('Buy now'),
-                typeAttr: 'button',
-            },
-            wlcElement: 'button_buy',
-        },
     },
 };

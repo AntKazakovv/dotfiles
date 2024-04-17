@@ -18,11 +18,11 @@ import {
     ConfigService,
     ModalService,
     EventService,
-    GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {StoreItem} from 'wlc-engine/modules/store/system/models/store-item.model';
 import {IDisabledItemInfo} from 'wlc-engine/modules/store/system/interfaces/store.interface';
 import {StoreService} from 'wlc-engine/modules/store/system/services';
+
 import * as Params from './store-item.params';
 
 @Component({
@@ -36,15 +36,14 @@ import * as Params from './store-item.params';
 export class StoreItemComponent extends AbstractComponent implements OnInit, OnDestroy {
     @Input() public inlineParams: Params.IStoreItemCParams;
     @Input() public storeItem: StoreItem;
-    @Input() public type: Params.Type;
-    @Input() public theme: Params.Theme;
-    @Input() public themeMod: Params.ThemeMod;
+    @Input() public type: Params.ComponentType;
+    @Input() public theme: Params.ComponentTheme;
+    @Input() public themeMod: Params.ComponentThemeMod;
     @Input() public customMod: Params.CustomMod;
     @Input() public userLevel: number;
 
     public override $params: Params.IStoreItemCParams;
     public isAuth: boolean;
-    public buyClick: boolean = false;
     public storeImage: string;
     public useIconBonusImage: boolean;
     public storeItemTag: string;
@@ -91,10 +90,6 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
                 this.storeImage = this.$params.common?.defaultPicPath;
             }
         };
-
-        if (this.configService.get<boolean>('$base.useButtonPending')) {
-            GlobalHelper.addPendingToBtnsParams(this.$params.btnsParams);
-        }
     }
 
     public openDescription(storeItem: StoreItem): void {
@@ -104,16 +99,18 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
             storeItem: storeItem,
             isDisabled: this.isDisabled,
             disabledMsg: this.disabledInfo?.messageText,
+            priceLoyalty: storeItem.priceLoyalty,
+            priceExp: storeItem.priceExp,
+            canBuy: storeItem.canBuy,
         });
     }
 
-    public async buyItem(): Promise<void> {
-        this.$params.btnsParams.buyBtnParams.pending$?.next(true);
-        this.buyClick = true;
-        await this.storeService.buyItem(this.storeItem.id);
-        this.$params.btnsParams.buyBtnParams.pending$?.next(false);
-        this.buyClick = false;
-        this.cdr.markForCheck();
+    public showConfirmationModal(): void {
+        this.modalService.showModal('storeConfirmation', {
+            storeItem: this.storeItem,
+            priceLoyalty: this.storeItem.priceLoyalty,
+            priceExp: this.storeItem.priceExp,
+        });
     }
 
     /**

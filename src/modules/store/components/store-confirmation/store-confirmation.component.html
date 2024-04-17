@@ -1,0 +1,30 @@
+<div wlc-wrapper
+    class="{{$class}}__icon"
+    [inlineParams]="$params.iconConfig">
+</div>
+<div class="{{$class}}__msg">
+    {{$params.modalMessage | translate}}
+</div>
+<div class="{{$class}}__balance-msg">
+    {{$params.balanceMessage | translate}}
+</div>
+<div class="{{$class}}__price" data-wlc-element="store_item-price">
+    <div wlc-store-item-price
+        [theme]="'line'"
+        [priceLoyalty]="$params.priceLoyalty"
+        [priceExp]="$params.priceExp">
+    </div>
+</div>
+<div class="{{$class}}__buttons">
+    <button wlc-button
+        [disabled]="buyClick"
+        [inlineParams]="$params.btnsParams.buyBtnParams"
+        (click)="buyItem()">
+    </button>
+    <button wlc-button
+        class="{{$class}}__cancel-btn"
+        themeMod="secondary"
+        text="Cancel"
+        (click)="closeModal()">
+    </button>
+</div>
