@@ -8,3 +8,8 @@ export interface ICashbackPlan {
     Period: string;
     Type: string;
 }
+
+export interface ICashbackReward {
+    amount: string;
+    currency: string;
+}

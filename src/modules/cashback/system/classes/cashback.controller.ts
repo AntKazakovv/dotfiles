@@ -7,6 +7,7 @@ import {ConfigService} from 'wlc-engine/modules/core';
 import {CashbackPlanModel} from 'wlc-engine/modules/cashback/system/models/cashback-plan.model';
 import {CashbackService} from 'wlc-engine/modules/cashback/system/services/cashback/cashback.service';
 import {TCashbackType} from 'wlc-engine/modules/cashback/components/cashback-rewards/cashback-rewards.component';
+import {ICashbackReward} from 'wlc-engine/modules/cashback';
 
 export interface ICashbackController {
     cashbackType: TCashbackType;
@@ -14,7 +15,7 @@ export interface ICashbackController {
     getComponentDestroy(Subject): void;
     getCashbackPlans(): void;
     fetchCashback(): Promise<void>;
-    claimRewardById(id: string): Promise<void>;
+    claimRewardById(id: string): Promise<ICashbackReward>;
 }
 
 export class CashbackController implements ICashbackController {
@@ -51,7 +52,7 @@ export class CashbackController implements ICashbackController {
         await this.cashbackService.fetchCashback();
     }
 
-    public async claimRewardById(id: string): Promise<void> {
-        await this.cashbackService.claimRewardById(id);
+    public async claimRewardById(id: string): Promise<ICashbackReward> {
+        return this.cashbackService.claimRewardById(id);
     }
 }

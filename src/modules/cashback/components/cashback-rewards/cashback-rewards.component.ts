@@ -26,6 +26,7 @@ import {
     CashbackController,
     ICashbackController,
 } from 'wlc-engine/modules/cashback/system/classes/cashback.controller';
+import {ICashbackReward} from 'wlc-engine/modules/cashback';
 
 import * as Params from './cashback-rewards.params';
 
@@ -130,25 +131,15 @@ export class CashbackRewardsComponent extends AbstractComponent implements OnIni
         this.ready$.next(false);
 
         try {
-            await this.cashbackController.claimRewardById(id);
+            const reward: ICashbackReward = await this.cashbackController.claimRewardById(id);
 
-            this.eventService.emit({
-                name: NotificationEvents.PushMessage,
-                data: <IPushMessageParams>{
-                    type: 'success',
-                    title: gettext('Success'),
-                    message: gettext('Cashback has been credited to your account'),
-                },
-            });
+            if (reward) {
+                this.showSuccessClaimCashbackMessage(reward);
+            } else {
+                this.showErrorMessage(null);
+            }
         } catch (error) {
-            this.eventService.emit({
-                name: NotificationEvents.PushMessage,
-                data: <IPushMessageParams>{
-                    type: 'error',
-                    title: gettext('Error'),
-                    message: error?.errors || gettext('Something wrong. Please try later.'),
-                },
-            });
+            this.showErrorMessage(error);
         } finally {
             await this.cashbackController.fetchCashback();
         }
@@ -217,5 +208,43 @@ export class CashbackRewardsComponent extends AbstractComponent implements OnIni
         this.ready$.next(false);
         await this.cashbackController.fetchCashback();
         this.ready$.next(true);
+    }
+
+    /**
+     * Method show success claim reward notification
+     *
+     * @method showSuccessClaimCashbackMessage
+     * @param {ICashbackReward} reward - cashback reward data
+     */
+    private showSuccessClaimCashbackMessage(reward: ICashbackReward): void {
+        this.eventService.emit({
+            name: NotificationEvents.PushMessage,
+            data: <IPushMessageParams>{
+                type: 'success',
+                title: gettext('Success'),
+                message: gettext('Cashback has been credited to your account: {{amount}} {{currency}}'),
+                messageContext: {
+                    amount: reward.amount,
+                    currency: reward.currency,
+                },
+            },
+        });
+    }
+
+    /**
+     * Method show error notification
+     *
+     * @method showErrorMessage
+     * @param {any} error - some error
+     */
+    private showErrorMessage(error?: any): void {
+        this.eventService.emit({
+            name: NotificationEvents.PushMessage,
+            data: <IPushMessageParams>{
+                type: 'error',
+                title: gettext('Error'),
+                message: error?.errors || gettext('Something wrong. Please try later.'),
+            },
+        });
     }
 }

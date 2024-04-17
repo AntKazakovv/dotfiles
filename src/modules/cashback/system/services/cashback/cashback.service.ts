@@ -14,7 +14,10 @@ import {
 import {UserProfile} from 'wlc-engine/modules/user';
 
 import {CashbackPlanModel} from 'wlc-engine/modules/cashback/system/models/cashback-plan.model';
-import {ICashbackPlan} from 'wlc-engine/modules/cashback/system/interfaces/cashback.interface';
+import {
+    ICashbackPlan,
+    ICashbackReward,
+} from 'wlc-engine/modules/cashback/system/interfaces/cashback.interface';
 
 @Injectable({
     providedIn: 'root',
@@ -88,17 +91,24 @@ export class CashbackService {
      * @param {string} id - cashback plan id
      * @returns {Promise<void>}
      */
-    public async claimRewardById(id: string): Promise<void> {
-        await this.dataService.request({
-            name: 'cashback',
-            system: 'cashback',
-            url: `/cashback/${id}`,
-            type: 'POST',
-            events: {
-                success: 'CASHBACK_CLAIM_SUCCESS',
-                fail: 'CASHBACK_CLAIM_FAILED',
-            },
-        });
+    public async claimRewardById(id: string): Promise<ICashbackReward> {
+        try {
+            const response: IData<ICashbackReward> = await this.dataService.request({
+                name: 'cashback',
+                system: 'cashback',
+                url: `/cashback/${id}`,
+                type: 'POST',
+                events: {
+                    success: 'CASHBACK_CLAIM_SUCCESS',
+                    fail: 'CASHBACK_CLAIM_FAILED',
+                },
+            });
+
+            return response.data;
+        } catch (error) {
+            this.logService.sendLog({code: '17.3.1', data: error});
+            throw error;
+        }
     }
 
     protected async getCashbackPlan(): Promise<ICashbackPlan[]> {
