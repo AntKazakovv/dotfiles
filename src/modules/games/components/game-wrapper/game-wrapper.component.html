@@ -103,10 +103,7 @@
     </div>
 </ng-template>
 
-<div
-    *ngIf="showChoiceOfCurrency"
-    wlc-choice-currency
-    [inlineParams]="choiceCurrencyParams"></div>
+<div *ngIf="showChoiceOfCurrency" wlc-wrapper [inlineParams]="choiceCurrencyParams"></div>
 
 <ng-template #gameWrapper>
 

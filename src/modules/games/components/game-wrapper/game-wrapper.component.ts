@@ -77,6 +77,7 @@ import {
     TWaiter,
     GlobalHelper,
     ResizedEventModel,
+    IWrapperCParams,
 } from 'wlc-engine/modules/core';
 import {SeoService} from 'wlc-engine/modules/seo';
 import {MultiWalletEvents} from 'wlc-engine/modules/multi-wallet/system/interfaces';
@@ -184,7 +185,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         },
     };
 
-    public choiceCurrencyParams: IChoiceCurrencyParams;
+    public choiceCurrencyParams: IWrapperCParams = {};
     public showChoiceOfCurrency: boolean;
 
     protected realMobile: boolean = false;
@@ -316,7 +317,15 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
 
             if (this.showChoiceOfCurrency) {
                 this.choiceCurrencyParams = {
-                    game: this.game,
+                    class: 'wlc-choice-currency',
+                    components: [
+                        {
+                            name: 'multi-wallet.wlc-choice-currency',
+                            params: <IChoiceCurrencyParams>{
+                                game: this.game,
+                            },
+                        },
+                    ],
                 };
                 this.cdr.markForCheck();
                 return;
