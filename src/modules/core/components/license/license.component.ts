@@ -9,8 +9,10 @@ import {
     ChangeDetectionStrategy,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
+
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {ActionService} from 'wlc-engine/modules/core';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 
@@ -37,6 +39,7 @@ export class LicenseComponent extends AbstractComponent implements OnInit {
         private elRef: ElementRef,
         configService: ConfigService,
         private logService: LogService,
+        private actionService: ActionService,
     ) {
         super(
             {
@@ -50,8 +53,18 @@ export class LicenseComponent extends AbstractComponent implements OnInit {
 
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+
         if (this.$params.apgSeal?.sealId && this.$params.apgSeal.sealDomain) {
             this.licenseType = 'apg';
+        }
+        this.initLicense();
+        this.cdr.markForCheck();
+    }
+
+    protected async initLicense(): Promise<void> {
+        await this.actionService.userMove;
+
+        if (this.licenseType === 'apg') {
             this.initApgSeal();
         } else if (this.$params.mga?.companyId) {
             this.licenseType = 'mga';
@@ -71,7 +84,6 @@ export class LicenseComponent extends AbstractComponent implements OnInit {
                     ? this.$params.curacao.pdf : '/static/curacao_license.pdf';
             }
         }
-        this.cdr.markForCheck();
     }
 
     protected initApgSeal(): void {

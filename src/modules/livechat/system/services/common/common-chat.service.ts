@@ -13,6 +13,7 @@ import {TawkChatService} from 'wlc-engine/modules/livechat/system/services/tawk/
 import {ZendeskService} from 'wlc-engine/modules/livechat/system/services/zendesk/zendesk.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {ZohoChatService} from 'wlc-engine/modules/livechat/system/services/zoho/zoho.service';
+import {ActionService} from 'wlc-engine/modules/core';
 
 export type TChatService =
     | LivechatincService
@@ -37,11 +38,13 @@ export class CommonChatService {
         protected configService: ConfigService,
         protected injector: Injector,
         protected eventService: EventService,
+        protected actionService: ActionService,
     ) {
         this.init();
     }
 
-    protected init(): void {
+    protected async init(): Promise<void> {
+        await this.actionService.userMove;
         switch (this.config?.type) {
             case 'chatra':
                 this.activeChatService = this.injector.get(ChatraService);

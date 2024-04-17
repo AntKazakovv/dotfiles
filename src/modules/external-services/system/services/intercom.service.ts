@@ -56,7 +56,8 @@ export class IntercomService {
         this.init();
     }
 
-    protected init(): void {
+    protected async init(): Promise<void> {
+        await this.actionService.userMove;
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         this.loadIntercom();
         this.bootIntercom();

@@ -219,9 +219,9 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
             if (!sections.length) {
                 ready.unsubscribe();
                 this.additionalHostClass.push('app-ready');
-                this.setHostClass();
                 this.addLivechat();
                 this.loadIntercom();
+                this.setHostClass();
                 this.logService.sendLog({
                     code: '0.0.9',
                     flog: {

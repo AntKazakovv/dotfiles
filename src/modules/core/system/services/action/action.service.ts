@@ -23,6 +23,7 @@ import {
     Observable,
 } from 'rxjs';
 import {
+    first,
     map,
     takeWhile,
 } from 'rxjs/operators';
@@ -124,6 +125,11 @@ export class ActionService {
     private scrollTop: number;
     private scrollableElements$: IIndexing<Observable<number>> = {};
     private bonusesService: BonusesService;
+    public userMove: Promise<void> = new Promise((resolve: () => void): void => {
+        this.$resolve = resolve;
+    });
+
+    private $resolve: () => void;
 
     constructor(
         private injector: Injector,
@@ -568,7 +574,7 @@ export class ActionService {
         });
 
         await this.configService.ready;
-
+        this.moveCursorSubscribe();
         if (this.configService.get<AppType>('$base.app.type') === 'aff') {
             this.runAffiliatesListener();
         }
@@ -861,6 +867,24 @@ export class ActionService {
                 const scrollingGap = headerElement.offsetHeight;
                 element.style['scrollMarginTop'] = `${scrollingGap}px`;
             }
+        }
+    }
+
+    private moveCursorSubscribe(): void {
+        const bindEvent = this.device?.isMobile ? 'touchstart' : 'mousemove';
+
+        fromEvent(this.document, bindEvent).pipe(
+            first(),
+        ).subscribe((): void  => {
+            this.$resolve();
+        });
+
+        if (this.configService.get<boolean>('$base.livechat.openChatOnContactUs')) {
+            this.eventService.subscribe({
+                name: 'OPEN_LIVECHAT',
+            }, () => {
+                this.$resolve();
+            });
         }
     }
 }
