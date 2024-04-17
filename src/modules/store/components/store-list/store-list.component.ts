@@ -138,7 +138,7 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
 
             if (category) {
                 storeItems = _filter(storeItems, (item: StoreItem): boolean => {
-                    return item.hasCategory(category) && item.displayToAllLevels;
+                    return item.hasCategory(category);
                 });
             }
 

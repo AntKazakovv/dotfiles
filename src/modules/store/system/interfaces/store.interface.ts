@@ -52,7 +52,6 @@ export interface IStoreItem {
     IDBonus?: string;
     BonusEventAmount?: string;
     BonusInfo?: IStoreBonusInfo;
-    DisplayToAllLevels: string;
     NextDateAvailable?: string;
 }
 

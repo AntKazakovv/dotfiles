@@ -206,14 +206,6 @@ export class StoreItem extends AbstractModel<IStoreItem> {
         }
     }
 
-
-    /**
-     * @returns {boolean} whether store item is available to all levels.
-     */
-    public get displayToAllLevels(): boolean {
-        return !!_toNumber(this.data.DisplayToAllLevels);
-    }
-
     /**
     * @returns {number} is available
     */
