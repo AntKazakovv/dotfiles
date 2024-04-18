@@ -16,8 +16,7 @@ import {
     AbstractComponent,
     ConfigService,
     EventService,
-    NotificationEvents,
-    IPushMessageParams,
+    LogService,
 } from 'wlc-engine/modules/core';
 
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
@@ -44,6 +43,7 @@ export class EmailSubscriptionProfileBlockComponent extends AbstractComponent im
         configService: ConfigService,
         protected userService: UserService,
         protected eventService: EventService,
+        protected logService: LogService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
@@ -67,26 +67,9 @@ export class EmailSubscriptionProfileBlockComponent extends AbstractComponent im
                 emailAgree: status,
             }, {updatePartial: true});
             this.subscribed$.next(status);
-            this.eventService.emit({
-                name: NotificationEvents.PushMessage,
-                data: <IPushMessageParams>{
-                    type: 'success',
-                    title: gettext('Profile update'),
-                    message: gettext('Profile update success'),
-                    wlcElement: 'notification_profile-update-success',
-                },
-            });
             this.lockButton$.next(false);
         } catch (error) {
-            this.eventService.emit({
-                name: NotificationEvents.PushMessage,
-                data: <IPushMessageParams>{
-                    type: 'error',
-                    title: gettext('Profile update failed'),
-                    message: error,
-                    wlcElement: 'notification_profile-update-error',
-                },
-            });
+            this.logService.sendLog({code: '24.0.0', data: error});
         }
     }
 }
