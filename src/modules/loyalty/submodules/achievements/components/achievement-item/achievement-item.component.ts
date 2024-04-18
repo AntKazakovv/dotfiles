@@ -2,6 +2,7 @@ import {
     ChangeDetectionStrategy,
     Component,
     Inject,
+    Injector,
     Input,
     OnInit,
 } from '@angular/core';
@@ -20,6 +21,7 @@ import {
     AchievementModel,
     AchievementGroupModel,
 } from 'wlc-engine/modules/loyalty/submodules/achievements/system/models';
+import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 
 import * as Params from './achievement-item.params';
 
@@ -42,6 +44,7 @@ export class AchievementItemComponent extends AbstractComponent implements OnIni
     constructor(
         @Inject('injectParams') protected injectParams: Params.IAchievementItemCParams,
         configService: ConfigService,
+        protected injector: Injector,  //added for custom-hook
         protected modalService: ModalService,
         private achievementsService: AchievementsService,
     ) {
@@ -53,6 +56,7 @@ export class AchievementItemComponent extends AbstractComponent implements OnIni
         );
     }
 
+    @CustomHook('achievement', 'customOnInitAchievements')
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.achievement = this.$params.achievement;
