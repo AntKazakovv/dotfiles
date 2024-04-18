@@ -28,13 +28,13 @@ import {
     IPushMessageParams,
     NotificationEvents,
     ValidationService,
-    WlcModalComponent,
     LogService,
 } from 'wlc-engine/modules/core';
 
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
 import {IUserNickIcon} from 'wlc-engine/modules/user/system/interfaces/user.interface';
+import {WlcModalComponent} from 'wlc-engine/standalone/core/components/modal/modal.component';
 
 import * as Params from './nickname-icon-edit.params';
 

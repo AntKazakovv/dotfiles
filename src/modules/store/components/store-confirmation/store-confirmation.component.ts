@@ -13,8 +13,8 @@ import {
     IMixedParams,
     ConfigService,
     GlobalHelper,
-    WlcModalComponent,
 } from 'wlc-engine/modules/core';
+import {WlcModalComponent} from 'wlc-engine/standalone/core/components/modal/modal.component';
 import {StoreService} from 'wlc-engine/modules/store';
 
 import * as Params from 'wlc-engine/modules/store/components/store-confirmation/store-confirmation.params';

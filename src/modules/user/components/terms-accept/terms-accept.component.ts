@@ -16,7 +16,6 @@ import {
 import {
     AbstractComponent,
     ModalService,
-    WlcModalComponent,
     EventService,
     NotificationEvents,
     IPushMessageParams,
@@ -27,6 +26,7 @@ import {
     TermsAcceptService,
     IValidateData,
 } from 'wlc-engine/modules/user/system/services/terms/terms-accept.service';
+import {WlcModalComponent} from 'wlc-engine/standalone/core/components/modal/modal.component';
 
 import * as Params from './terms-accept.params';
 

@@ -3,21 +3,21 @@ import {
     fakeAsync,
     tick,
 } from '@angular/core/testing';
+
 import {
     BsModalService,
     ModalModule,
 } from 'ngx-bootstrap/modal';
+import _assignIn from 'lodash-es/assignIn';
 
-import {DEFAULT_MODAL_CONFIG} from 'wlc-engine/modules/core/components/modal/modal.params';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
-import {IModalConfig} from 'wlc-engine/modules/core/components/modal/modal.interface';
+import {IModalConfig} from 'wlc-engine/modules/core';
 import {WINDOW_PROVIDER} from 'wlc-engine/modules/app/system';
-
-import _assignIn from 'lodash-es/assignIn';
+import {DEFAULT_MODAL_CONFIG} from 'wlc-engine/standalone/core/components/modal';
 
 describe('ModalService', () => {
     let modalService: ModalService;

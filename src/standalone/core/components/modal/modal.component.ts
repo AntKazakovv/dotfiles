@@ -12,11 +12,17 @@ import {
     Renderer2,
     ChangeDetectionStrategy,
 } from '@angular/core';
+import {CommonModule} from '@angular/common';
+
+import {TranslateModule} from '@ngx-translate/core';
 import {takeUntil} from 'rxjs/operators';
 import {
     ModalDirective,
+    ModalModule,
     ModalOptions,
 } from 'ngx-bootstrap/modal';
+import _isString from 'lodash-es/isString';
+import _assign from 'lodash-es/assign';
 
 import {
     Deferred,
@@ -32,17 +38,15 @@ import {ConfigService} from 'wlc-engine/modules/core/system/services/config/conf
 import {
     IModalOptions,
     IModalType,
-} from 'wlc-engine/modules/core/components/modal/modal.interface';
-import {defaultParams} from 'wlc-engine/modules/core/components/modal/modal.params';
+} from 'wlc-engine/modules/core';
+import {defaultParams} from 'wlc-engine/standalone/core/components/modal/modal.params';
 import {WINDOW} from 'wlc-engine/modules/app/system';
-
-import _isString from 'lodash-es/isString';
-import _assign from 'lodash-es/assign';
 import {
     IProcessEventData,
     ProcessEvents,
     ProcessEventsDescriptions,
 } from 'wlc-engine/modules/monitoring';
+import {CoreModule} from 'wlc-engine/modules/core/core.module';
 
 /**
  * A wrapper component for displaying the component in a modal window.
@@ -61,12 +65,20 @@ import {
  * @param {Injector} inject Angular Injector class.
  * @param {ModalOptions} bsOptions Bootstrap modal config.
  */
+
 @Component({
     selector: '[wlc-modal-window]',
     templateUrl: './modal.component.html',
     styleUrls: ['./styles/modal.component.scss'],
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [
+        CommonModule,
+        CoreModule,
+        ModalModule,
+        TranslateModule,
+    ],
 })
 export class WlcModalComponent extends AbstractComponent
     implements OnInit, AfterViewInit, OnDestroy {

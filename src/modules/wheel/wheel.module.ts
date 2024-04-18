@@ -1,7 +1,5 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {BrowserModule} from '@angular/platform-browser';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TranslateModule} from '@ngx-translate/core';
 import {
     FormsModule,
@@ -39,8 +37,6 @@ export const components = {
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        BrowserModule,
-        BrowserAnimationsModule,
         TranslateModule,
         CoreModule,
     ],

@@ -30,12 +30,12 @@ import {
     InjectionService,
     ModalService,
     NotificationEvents,
-    WlcModalComponent,
 } from 'wlc-engine/modules/core';
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 import {IHookRequestData} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {IHookGameStartData} from 'wlc-engine/modules/core/system/config/resolvers';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
+import type {WlcModalComponent} from 'wlc-engine/standalone/core/components/modal/modal.component';
 
 export type IValidateData = Pick<IUserInfo, 'ageConfirmed' | 'agreeWithSelfExcluded' | 'agreedWithTermsAndConditions'>;
 

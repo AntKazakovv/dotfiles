@@ -10,9 +10,9 @@ import {
     AbstractComponent,
     ConfigService,
     IMixedParams,
-    WlcModalComponent,
     ModalService,
 } from 'wlc-engine/modules/core';
+import {WlcModalComponent} from 'wlc-engine/standalone/core/components/modal/modal.component';
 
 import * as Params from './store-item-info.params';
 

@@ -25,8 +25,8 @@ import {
     PepService,
 } from 'wlc-engine/modules/user/submodules/pep/system/services/pep/pep.service';
 import {WINDOW} from 'wlc-engine/modules/app/system';
-import {WlcModalComponent} from 'wlc-engine/modules/core/components/modal/modal.component';
 import {ConfigService} from 'wlc-engine/modules/core';
+import type {WlcModalComponent} from 'wlc-engine/standalone/core/components/modal/modal.component';
 
 
 @Directive()

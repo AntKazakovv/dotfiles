@@ -2,8 +2,8 @@ import {
     IComponentParams,
     CustomType,
     ITitleCParams,
-    IModalConfig,
     IButtonCParams,
+    IModalConfig,
 } from 'wlc-engine/modules/core';
 
 export type Type = 'default' | CustomType;

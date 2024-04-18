@@ -10,9 +10,9 @@ import {
 import {
     AbstractComponent,
     ConfigService,
-    WlcModalComponent,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
+import {WlcModalComponent} from 'wlc-engine/standalone/core/components/modal/modal.component';
 
 import * as Params from './logout-confirmation.params';
 

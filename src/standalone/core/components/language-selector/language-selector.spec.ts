@@ -23,7 +23,8 @@ import {
 } from './language-selector.component';
 import {WINDOW_PROVIDER} from 'wlc-engine/modules/app/system';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers';
-import {ActionService} from 'wlc-engine/modules/core/system/services';
+import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
+import {FilesService} from 'wlc-engine/modules/core/system/services/files/files.service';
 
 @Pipe({
     name: 'translate',
@@ -137,9 +138,9 @@ describe('LanguageSelectorComponent', () => {
         await TestBed.configureTestingModule({
             imports: [
                 TooltipModule,
+                LanguageSelectorComponent,
             ],
             declarations: [
-                LanguageSelectorComponent,
                 TranslatePipeStub,
             ],
             providers: [
@@ -158,6 +159,10 @@ describe('LanguageSelectorComponent', () => {
                 {
                     provide: TranslateService,
                     useValue: TranslateServiceSpy,
+                },
+                {
+                    provide: FilesService,
+                    useValue: MockService(FilesService),
                 },
                 {
                     provide: ActionService,

@@ -67,10 +67,10 @@ import {
     IExtPaymentSystem,
     InjectionService,
     IModalParams,
-    IModalConfig,
     DateHelper,
     ValidatorType,
     ICheckboxCParams,
+    IModalConfig,
 } from 'wlc-engine/modules/core';
 import {ColorThemeValues} from 'wlc-engine/modules/core/constants';
 import {

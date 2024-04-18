@@ -351,6 +351,13 @@ export const standaloneComponents = {
     /** === Parent dependent standalone (by module) END === */
 
     /** === Independent components START === */
+    'wlc-language-selector': async (callback: TCallbackImportFunction) => {
+        return import('wlc-engine/standalone/core/components/language-selector/language-selector.component')
+            .then((m) => {
+                callback(m.LanguageSelectorComponent);
+                return m.LanguageSelectorComponent;
+            });
+    },
     // 'some-sa-component-name': IFunctionImportStandalone
     // 'another-sa-component-name': IFunctionImportStandalone
     /** === Independent components END === */

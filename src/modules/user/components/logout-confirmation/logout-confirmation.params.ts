@@ -1,8 +1,8 @@
 import {
     IComponentParams,
     CustomType,
-    IModalConfig,
     IWrapperCParams,
+    IModalConfig,
 } from 'wlc-engine/modules/core';
 
 export type ComponentTheme = 'default' | CustomType;

@@ -1,5 +1,7 @@
 import {ILayoutComponent} from 'wlc-engine/modules/core';
-import {ILanguageSelectorCParams} from 'wlc-engine/modules/core/components';
+import {
+    ILanguageSelectorCParams,
+} from 'wlc-engine/standalone/core/components/language-selector/language-selector.params';
 
 export namespace wlcLanguageSelector {
     export const topLeft: ILayoutComponent = {

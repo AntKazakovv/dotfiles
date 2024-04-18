@@ -8,11 +8,23 @@ import {
     Type,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
-import {BehaviorSubject, Subject} from 'rxjs';
+
+import {
+    BehaviorSubject,
+    Subject,
+} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {
     BsModalService,
 } from 'ngx-bootstrap/modal';
+import _assignIn from 'lodash-es/assignIn';
+import _isString from 'lodash-es/isString';
+import _find from 'lodash-es/find';
+import _map from 'lodash-es/map';
+import _filter from 'lodash-es/filter';
+import _remove from 'lodash-es/remove';
+import _forEach from 'lodash-es/forEach';
+import _get from 'lodash-es/get';
 
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
@@ -24,16 +36,15 @@ import {MobileAppHooks} from 'wlc-engine/modules/core/system/services/modal/hook
 import {
     MODALS_LIST,
     DEFAULT_MODAL_CONFIG,
-} from 'wlc-engine/modules/core/components/modal/modal.params';
-import {WlcModalComponent} from 'wlc-engine/modules/core/components/modal/modal.component';
+} from 'wlc-engine/standalone/core/components/modal/modal.params';
+import type {WlcModalComponent} from 'wlc-engine/standalone/core/components/modal/modal.component';
 import {
     IModalConfig,
     IModalOptions,
     IModalEvents,
-    IActiveModal,
     IModalName,
     IModalList,
-} from 'wlc-engine/modules/core/components/modal/modal.interface';
+} from 'wlc-engine/modules/core';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {
     IProcessEventData,
@@ -42,15 +53,6 @@ import {
 } from 'wlc-engine/modules/monitoring';
 import {Deferred} from 'wlc-engine/modules/core/system/classes';
 
-import _assignIn from 'lodash-es/assignIn';
-import _isString from 'lodash-es/isString';
-import _find from 'lodash-es/find';
-import _map from 'lodash-es/map';
-import _filter from 'lodash-es/filter';
-import _remove from 'lodash-es/remove';
-import _forEach from 'lodash-es/forEach';
-import _get from 'lodash-es/get';
-
 export const modalServiceHooks = {
     showModal: 'showModal@ModalService',
 };
@@ -58,6 +60,14 @@ export const modalServiceHooks = {
 export interface IHookShowModal {
     config: IModalConfig;
     show: boolean;
+}
+
+/**
+ * Active modal instance
+ */
+export interface IActiveModal {
+    id: string;
+    ref: ComponentRef<WlcModalComponent>;
 }
 
 export type IModalParams = IModalConfig | IModalName;
@@ -340,12 +350,20 @@ export class ModalService {
         }
     }
 
-    private openModal(config: IModalConfig): WlcModalComponent {
+    private async openModal(config: IModalConfig): Promise<WlcModalComponent> {
         if (_find(this.activeModals, ({id}) => id === config.id)) {
             return;
         }
+        const modalComponent = await import('wlc-engine/standalone/core/components/modal/modal.component')
+            .then((m) => m.WlcModalComponent);
+        /**
+         * Todo #604923: компонент теперь не попадает в кор модуль, однако попадает в те,
+         * которые инжектируют этот компонент что бы полчить инстанс модалки в которой открыты.
+         * Нужно сделать инжекшн токен для модалки и передавать с ним инстанс модала отсюда, вместе с injectParams
+         *
+         */
 
-        let windowFactory = this.cfr.resolveComponentFactory(WlcModalComponent);
+        let windowFactory = this.cfr.resolveComponentFactory(modalComponent);
         let injector = Injector.create({
             providers: [
                 {

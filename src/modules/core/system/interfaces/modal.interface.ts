@@ -1,13 +1,11 @@
 import {
     Type,
-    ComponentRef,
     TemplateRef,
     Injector,
 } from '@angular/core';
 
 import {ModalOptions} from 'ngx-bootstrap/modal';
 
-import {WlcModalComponent} from './index';
 import {IComponentParams} from 'wlc-engine/modules/core/system/interfaces/config.interface';
 import {IButtonCParams} from 'wlc-engine/modules/core/components';
 
@@ -262,14 +260,6 @@ export interface IModalEvents {
      * the keyboard option or data-keyboard set to false.
      */
     MODAL_HIDE_PREVENTED: string;
-}
-
-/**
- * Active modal instance
- */
-export interface IActiveModal {
-    id: string;
-    ref: ComponentRef<WlcModalComponent>;
 }
 
 export type TModalOptionAuth = boolean | 'any';

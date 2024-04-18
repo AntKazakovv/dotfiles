@@ -4,7 +4,6 @@ import {
     Component,
     ComponentRef,
     EventEmitter,
-    Host,
     Inject,
     Injector,
     Input,
@@ -67,7 +66,7 @@ export class SaComponent implements AfterViewInit {
     protected componentRef!: ComponentRef<unknown>;
 
     constructor(
-        @Optional() @Host()
+        @Optional()
         @Inject('injectParams') protected injectParams: ISaCParams<unknown>,
         protected injectionService: InjectionService,
         protected hostInjector: Injector,
@@ -113,12 +112,10 @@ export class SaComponent implements AfterViewInit {
     }
 
     protected prepareParams(): void {
-        if (this.injectParams.saName) {
+        if (this.injectParams?.saName) {
             this.name = this.injectParams.saName;
             this.props = this.injectParams.saParams;
         }
     }
 
 }
-
-

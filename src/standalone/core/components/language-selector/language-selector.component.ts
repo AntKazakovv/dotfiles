@@ -11,7 +11,6 @@ import {
     TemplateRef,
     HostListener,
 } from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
 import {
     trigger,
     state,
@@ -19,7 +18,12 @@ import {
     transition,
     animate,
 } from '@angular/animations';
+import {CommonModule} from '@angular/common';
 
+import {
+    TranslateModule,
+    TranslateService,
+} from '@ngx-translate/core';
 import {
     Observable,
     fromEvent,
@@ -43,6 +47,7 @@ import {
     DeviceType,
 } from 'wlc-engine/modules/core';
 import {WINDOW} from 'wlc-engine/modules/app/system';
+import {CoreModule} from 'wlc-engine/modules/core/core.module';
 
 import * as Params from './language-selector.params';
 
@@ -57,6 +62,12 @@ export {ILanguageSelectorCParams} from './language-selector.params';
     templateUrl: './language-selector.component.html',
     styleUrls: ['./styles/language-selector.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [
+        CommonModule,
+        CoreModule,
+        TranslateModule,
+    ],
     animations: [
         trigger('toggle', [
             state('openedHeight', style({

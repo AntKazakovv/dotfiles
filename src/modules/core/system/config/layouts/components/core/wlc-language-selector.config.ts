@@ -1,5 +1,7 @@
 import {ILayoutComponent} from 'wlc-engine/modules/core';
-import {ILanguageSelectorCParams} from 'wlc-engine/modules/core/components';
+import {
+    ILanguageSelectorCParams,
+} from 'wlc-engine/standalone/core/components/language-selector/language-selector.params';
 
 export namespace wlcLanguageSelector {
     export const topLeft: ILayoutComponent = {
@@ -56,9 +58,12 @@ export namespace wlcLanguageSelector {
         },
     };
     export const long: ILayoutComponent = {
-        name: 'core.wlc-language-selector',
-        params: <ILanguageSelectorCParams>{
-            themeMod: 'long',
+        name: 'core.wlc-sa',
+        params: {
+            saName: 'wlc-language-selector',
+            saParams: <ILanguageSelectorCParams>{
+                themeMod: 'long',
+            },
         },
     };
 
@@ -80,13 +85,16 @@ export namespace wlcLanguageSelector {
     };
 
     export const footerThemeFirst: ILayoutComponent = {
-        name: 'core.wlc-language-selector',
-        params: <ILanguageSelectorCParams>{
-            themeMod: 'top-left',
-            currentLang: {
-                hideLang: false,
+        name: 'core.wlc-sa',
+        params: {
+            saName: 'wlc-language-selector',
+            saParams: <ILanguageSelectorCParams>{
+                themeMod: 'top-left',
+                currentLang: {
+                    hideLang: false,
+                },
+                toggleOnScroll: 'bottom-left',
             },
-            toggleOnScroll: 'bottom-left',
         },
     };
 }

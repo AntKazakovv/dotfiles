@@ -15,7 +15,6 @@ import {
     EventService,
     IEvent,
     DataService,
-    WlcModalComponent,
     ConfigService,
     InjectionService,
 } from 'wlc-engine/modules/core';
@@ -24,6 +23,7 @@ import {
     UserInfo,
     UserService,
 } from 'wlc-engine/modules/user';
+import type {WlcModalComponent} from 'wlc-engine/standalone/core/components/modal/modal.component';
 
 @Injectable({providedIn: 'root'})
 export class GamblingBanService {

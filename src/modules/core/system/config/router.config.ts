@@ -17,8 +17,8 @@ import {
     profileRedirectType,
     EventService,
     StateHistoryService,
-    IStateModalOption,
     ForbiddenCountryService,
+    IStateModalOption,
 } from 'wlc-engine/modules/core';
 import {AppType} from 'wlc-engine/modules/core/system/interfaces/base-config/app.interface';
 

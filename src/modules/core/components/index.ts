@@ -26,7 +26,6 @@ export {
 export {IIconCParams} from './icon/icon.params';
 export {IInfoPageCParams} from './info-page/info-page.params';
 export {IInputCParams} from './input/input.params';
-export {ILanguageSelectorCParams} from './language-selector/language-selector.params';
 export {
     ILicenseCParams,
     IMGAConfig,
@@ -61,7 +60,6 @@ export {
     IWrapperCParams,
     WrapperComponent,
 } from './wrapper/wrapper.component';
-export {IModalList} from './modal/modal.interface';
 export {DatepickerComponent} from './datepicker/datepicker.component';
 export {IconComponent} from './icon/icon.component';
 export {TimerComponent} from './timer/timer.component';

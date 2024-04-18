@@ -25,6 +25,7 @@ import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {NgxWebstorageModule} from 'ngx-webstorage';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {WINDOW_PROVIDER} from 'wlc-engine/modules/app/system/tokens/window';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 export function loadConfig(config: ConfigService): Promise<IData> | Promise<unknown> {
     return config.load();
@@ -42,6 +43,7 @@ export class GlobalDeps {
     imports: [
         CommonModule,
         BrowserModule.withServerTransition({appId: 'wlc-app'}),
+        BrowserAnimationsModule,
         HttpClientModule,
         UIRouterModule.forRoot({
             states: APP_STATES,
@@ -69,7 +71,7 @@ export class GlobalDeps {
                 useClass: MissingTranslationService,
             },
         }),
-        CoreModule,
+        CoreModule.forRoot(),
         NgxWebstorageModule.forRoot(),
         ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
         ModalModule.forRoot(),

@@ -1,10 +1,13 @@
 // -- MODULES IMPORTS START --;
 import {CommonModule} from '@angular/common';
-import {NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {
+    NgModule,
+    CUSTOM_ELEMENTS_SCHEMA,
+    ModuleWithProviders,
+} from '@angular/core';
 
 import {HammerModule} from '@angular/platform-browser';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ModalModule, MODAL_CONFIG_DEFAULT_OVERRIDE} from 'ngx-bootstrap/modal';
 import {PaginationModule} from 'ngx-bootstrap/pagination';
@@ -86,7 +89,6 @@ import {
 import {IconComponent} from './components/icon/icon.component';
 import {InfoPageComponent} from './components/info-page/info-page.component';
 import {InputComponent} from './components/input/input.component';
-import {LanguageSelectorComponent} from './components/language-selector/language-selector.component';
 import {LayoutComponent} from './components/layout/layout.component';
 import {LicenseComponent} from './components/license/license.component';
 import {LinkBlockComponent} from './components/link-block/link-block.component';
@@ -112,7 +114,6 @@ import {TextareaComponent} from './components/textarea/textarea.component';
 import {TimerComponent} from './components/timer/timer.component';
 import {TitleComponent} from './components/title/title.component';
 import {TooltipComponent} from './components/tooltip/tooltip.component';
-import {WlcModalComponent} from './components/modal';
 import {WlcNoContentComponent} from './components/no-content/no-content.component';
 import {WlcPaginationComponent} from './components/pagination/pagination.component';
 import {PreloaderComponent} from './components/preloader/preloader.component';
@@ -209,14 +210,12 @@ export const components = {
     'wlc-icon': IconComponent,
     'wlc-info-page': InfoPageComponent,
     'wlc-input': InputComponent,
-    'wlc-language-selector': LanguageSelectorComponent,
     'wlc-license': LicenseComponent,
     'wlc-link-block': LinkBlockComponent,
     'wlc-loader': LoaderComponent,
     'wlc-login-signup': LoginSignupComponent,
     'wlc-logo': LogoComponent,
     'wlc-lottie-animation': LottieAnimationComponent,
-    'wlc-modal': WlcModalComponent,
     'wlc-no-content': WlcNoContentComponent,
     'wlc-pagination': WlcPaginationComponent,
     'wlc-promocode-link': PromocodeLinkComponent,
@@ -245,16 +244,15 @@ export const components = {
     'wlc-sa': SaComponent,
 };
 
+// Cервисы рутовые, записаны в провайдеры, а значит уже существуют в инжекторе модуля
+// Пока что инжектируются функцией, но если надо вынести из чанка - то нужно убрать из провайдеров
 export const services = {
-    'animate-buttons-service': AnimateButtonsService,
-    'color-theme-service': ColorThemeService,
 };
 
 @NgModule({
     imports: [
         CommonModule,
         UIRouterModule,
-        BrowserAnimationsModule,
         HammerModule,
         TranslateModule,
         FormsModule,
@@ -268,45 +266,6 @@ export const services = {
         LottieModule.forRoot({player: playerFactory}),
         LottieCacheModule.forRoot(),
         IMaskModule,
-    ],
-    providers: [
-        DataService,
-        EventService,
-        ConfigService,
-        FilesService,
-        ForbiddenCountryService,
-        HooksService,
-        LogService,
-        ActionService,
-        AnimateButtonsService,
-        ModalService,
-        ContactsService,
-        LayoutService,
-        StateHistoryService,
-        CachingService,
-        NotificationService,
-        GlobalHelper.bootstrapProviders(NotificationService),
-        BodyClassService,
-        FingerprintService,
-        ColorThemeService,
-        WebsocketService,
-        ...interceptors,
-        {
-            provide: MODAL_CONFIG_DEFAULT_OVERRIDE,
-            useValue: {
-                animated: true,
-            },
-        },
-        {
-            provide: CuracaoRequirement,
-            useFactory: (config: ConfigService) => {
-                const {projectType, license} = config.get<AppConfigModel>('appConfig') || {};
-                return config.get<boolean>('$base.site.forceCuracaoRequirement')
-                    || (projectType === 'wlc' && license === 'curacao');
-            },
-            deps: [ConfigService],
-        },
-        CheckBoxTexts,
     ],
     declarations: [
         AlertComponent,
@@ -346,7 +305,6 @@ export const services = {
         IconComponent,
         InfoPageComponent,
         InputComponent,
-        LanguageSelectorComponent,
         LayoutComponent,
         LicenseComponent,
         LinkBlockComponent,
@@ -391,7 +349,6 @@ export const services = {
         TruncatePipe,
         SwiperDirective,
         ValueLengthDirective,
-        WlcModalComponent,
         WlcNoContentComponent,
         WlcPaginationComponent,
         WrapperComponent,
@@ -409,7 +366,6 @@ export const services = {
         AmountLimitComponent,
         AuthDirective,
         BirthdayFieldComponent,
-        BrowserAnimationsModule,
         BurgerPanelComponent,
         ButtonComponent,
         CountryAndStateComponent,
@@ -437,7 +393,6 @@ export const services = {
         IconComponent,
         InfoPageComponent,
         InputComponent,
-        LanguageSelectorComponent,
         LayoutComponent,
         LicenseComponent,
         LinkBlockComponent,
@@ -481,7 +436,6 @@ export const services = {
         SafeValuePipe,
         SwiperDirective,
         ValueLengthDirective,
-        WlcModalComponent,
         WlcNoContentComponent,
         WlcPaginationComponent,
         WrapperComponent,
@@ -495,4 +449,54 @@ export const services = {
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class CoreModule {
+    static forRoot(): ModuleWithProviders<CoreModule> {
+        /**
+         * Проблема: При импорте модуля в стандалоне компонент у всех сервисов создаются новые
+         * инстансы, не смотря на то что они рутовые
+         * Форут нужен что бы только апп модуль его провайдил, а ленивцы не пытались его перезаписать
+         * https://lifeinide.com/post/2019-07-07-angular-dependency-injection-for-root/
+         */
+        return {
+            ngModule: CoreModule,
+            providers: [
+                DataService,
+                EventService,
+                ConfigService,
+                FilesService,
+                ForbiddenCountryService,
+                HooksService,
+                LogService,
+                ActionService,
+                AnimateButtonsService,
+                ModalService,
+                ContactsService,
+                LayoutService,
+                StateHistoryService,
+                CachingService,
+                NotificationService,
+                GlobalHelper.bootstrapProviders(NotificationService),
+                BodyClassService,
+                FingerprintService,
+                ColorThemeService,
+                WebsocketService,
+                ...interceptors,
+                {
+                    provide: MODAL_CONFIG_DEFAULT_OVERRIDE,
+                    useValue: {
+                        animated: true,
+                    },
+                },
+                {
+                    provide: CuracaoRequirement,
+                    useFactory: (config: ConfigService) => {
+                        const {projectType, license} = config.get<AppConfigModel>('appConfig') || {};
+                        return config.get<boolean>('$base.site.forceCuracaoRequirement')
+                            || (projectType === 'wlc' && license === 'curacao');
+                    },
+                    deps: [ConfigService],
+                },
+                CheckBoxTexts,
+            ],
+        };
+    }
 }

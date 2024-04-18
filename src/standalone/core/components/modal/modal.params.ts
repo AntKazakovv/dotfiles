@@ -4,7 +4,7 @@ import {
     IModalConfig,
     IModalList,
     IModalOptions,
-} from './index';
+} from 'wlc-engine/modules/core';
 
 import {IDepositWithdrawCParams} from 'wlc-engine/modules/finances';
 import {phrases as pepPhrases} from 'wlc-engine/modules/user/submodules/pep';

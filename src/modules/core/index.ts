@@ -37,4 +37,3 @@ export {
     IPushMessageParams,
     NotificationEvents,
 } from 'wlc-engine/modules/core/system/services/notification';
-export * from './components/modal';

@@ -19,7 +19,6 @@ import {
     TTemplateName,
     formFieldTemplates,
 } from 'wlc-engine/modules/core/system/config/form-elements';
-import {IModalConfig} from 'wlc-engine/modules/core/components/modal/modal.interface';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
@@ -31,6 +30,7 @@ import {
 } from 'wlc-engine/modules/user';
 import {MerchantFieldsService} from 'wlc-engine/modules/games';
 import {RejectReason} from 'wlc-engine/modules/core/system/config/resolvers/start-game.resolver';
+import {IModalConfig} from 'wlc-engine/modules/core/system/interfaces/modal.interface';
 
 export class BaseGamesHandler {
     protected merchantFieldsService: MerchantFieldsService;

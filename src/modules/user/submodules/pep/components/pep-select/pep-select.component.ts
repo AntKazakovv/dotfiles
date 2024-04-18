@@ -19,11 +19,11 @@ import {
     AbstractComponent,
     ISelectCParams,
     ModalService,
-    MODALS_LIST,
     EventService,
 } from 'wlc-engine/modules/core';
 import {PepService} from 'wlc-engine/modules/user/submodules/pep/system/services/pep/pep.service';
 import {IPepInfoCParams} from 'wlc-engine/modules/user/submodules/pep/components/pep-info/pep-info.params';
+import {MODALS_LIST} from 'wlc-engine/standalone/core/components/modal';
 
 import {defaultParams} from './pep-select.params';
 
