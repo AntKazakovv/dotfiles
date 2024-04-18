@@ -16,7 +16,7 @@ $themeWolf: map-merge((
     'itemArrowSize': ef.size(3),
     'itemArrowFillBase': currentColor,
     'itemArrowColor': inherit,
-    'itemArrowColorExpanded': var(--mc-baseThird),
+    'itemArrowColorExpanded': var(--mc-baseMain),
     'itemArrowTransform': scaleY(1),
     'itemArrowTransformExpanded': scaleY(-1),
     'itemTitleTextStyle': 'CaptionTextBold',

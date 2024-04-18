@@ -44,6 +44,7 @@ export const defaultParams: IBonusModalCParams = {
     gamesAccordionParams: {
         themeMod: 'simple',
         items: [],
+        titleIconPath: '/wlc/icons/arrow-new.svg',
     },
     gamesCommon: {
         title: gettext('Games with bonus'),
@@ -79,7 +80,7 @@ export const defaultParams: IBonusModalCParams = {
     },
     rewardsParams: {
         title: gettext('Possible rewards'),
-        titleIconPath: '/wlc/icons/arrow.svg',
+        titleIconPath: '/wlc/icons/arrow-new.svg',
         collapseAll: true,
     },
 };
