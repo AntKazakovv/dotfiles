@@ -68,6 +68,7 @@ export class TournamentLeaderboardComponent
     public isMaxWinBetRatio: boolean = false;
     public isHistory: boolean = false;
     public isTargetBonus: boolean = false;
+    public showFreeSpinsText: boolean = false;
 
     protected restLimit: number;
     protected historyService: HistoryService;
@@ -120,6 +121,7 @@ export class TournamentLeaderboardComponent
         }
 
         this.historyService ??= await this.injectionService.getService('history.history-service');
+        this.showFreeSpinsText = this.tournament.winnerBy === 'fr' && !this.isHistory;
 
         this.isReady = false;
         this.tournament?.getWinnersSubscribe(

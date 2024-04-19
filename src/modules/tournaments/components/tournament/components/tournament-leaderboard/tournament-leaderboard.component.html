@@ -7,7 +7,10 @@
     </p>
 </div>
 
-<p *ngIf="tournament.winnerBy === 'fr'" class="{{$class}}__descr">{{$params.common?.freeSpinsText | translate}}</p>
+<p *ngIf="showFreeSpinsText" 
+    class="{{$class}}__descr">
+    {{$params.common?.freeSpinsText | translate}}
+</p>
 
 <div *ngIf="wins?.length && isReady; else: noData" class="{{$class}}__container">
     <div *ngIf="$params.common?.useListHead" class="{{$class}}__item {{$class}}__item--head">
