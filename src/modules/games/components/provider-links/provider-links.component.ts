@@ -72,7 +72,7 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
         protected gamesCatalogService: GamesCatalogService,
         protected modalService: ModalService,
         protected eventService: EventService,
-        protected translate: TranslateService,
+        protected translateService: TranslateService,
         colorThemeService: ColorThemeService,
         cdr: ChangeDetectorRef,
     ) {
@@ -122,7 +122,7 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
             });
 
             if (games.length) {
-                return games.length + ' ' + this.translate.instant('games');
+                return games.length + ' ' + this.translateService.instant('games');
             }
         }
 
