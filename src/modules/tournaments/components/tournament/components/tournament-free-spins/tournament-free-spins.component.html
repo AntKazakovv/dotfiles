@@ -46,14 +46,14 @@
     </div>
     <div class="{{$class}}__text-block">
         {{$params.textFreeRoundsInPackage | translate}}
-        {{$params.freeSpins.FreeroundsInPackage}}.
+        {{$params.freeSpins.FreeroundsInPackage}}
     </div>
     <div class="{{$class}}__text-block">
         {{$params.textDebitedBalance | translate}}
         <div wlc-currency
             [value]="buyPrice"
             [currency]="userService.userProfile.currency">
-        </div>.
+        </div>
     </div>
     <div class="{{$class}}__text-block">
         {{$params.textAvailableReplenishments | translate}}
