@@ -111,35 +111,50 @@ const profileWolfLoyaltyType = (isSingleLevels: boolean): ILayoutSectionConfig =
         modifiers: isSingleLevels ? ['single-levels'] : null,
         components: [
             {
-                name: 'core.wlc-section-title',
-                params: {
-                    theme: 'wolf',
-                    text: 'Loyalty',
-                    iconPath: 'wlc/icons/european/v3/loyalty.svg',
-                },
-                display: {
-                    before: 899,
-                },
-            },
-            componentLib.wlcProfileMenu.defTypeWolf,
-            componentLib.wlcProfileMenu.submenuWolf,
-            {
                 name: 'core.wlc-wrapper',
                 params: {
                     class: 'wlc-profile-content__wrp',
                     components: [
-                        componentLib.wlcLoyaltyProgress.withIcon,
-                        componentLib.wlcLoyaltyLevels.def,
-                        componentLib.wlcLoyaltyLevelsWp.def,
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__top',
+                                components: [
+                                    {
+                                        name: 'core.wlc-section-title',
+                                        params: {
+                                            theme: 'wolf',
+                                            text: 'Loyalty',
+                                            iconPath: 'wlc/icons/european/v3/loyalty.svg',
+                                        },
+                                        display: {
+                                            before: 899,
+                                        },
+                                    },
+                                ],
+                            },
+                        },
+                        componentLib.wlcProfileMenu.defTypeWolf,
+                        componentLib.wlcProfileMenu.submenuWolf,
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                components: [
+                                    componentLib.wlcLoyaltyProgress.withIcon,
+                                    componentLib.wlcLoyaltyLevels.def,
+                                    componentLib.wlcLoyaltyLevelsWp.def,
+                                ],
+                                smartSection: {
+                                    innerClasses: '',
+                                    columns: [
+                                        'wlc-c-12 wlc-mb-smd',
+                                        'wlc-c-12 wlc-mb-xl',
+                                        'wlc-c-12',
+                                    ],
+                                },
+                            },
+                        },
                     ],
-                    smartSection: {
-                        innerClasses: '',
-                        columns: [
-                            'wlc-c-12 wlc-mb-smd',
-                            'wlc-c-12 wlc-mb-xl',
-                            'wlc-c-12',
-                        ],
-                    },
                 },
             },
         ],
