@@ -65,3 +65,41 @@ $themeDefault: map-merge((
 
     'iconMargin': 0 ef.size(3) 0 0,
 ), $customThemeDefault);
+
+$customPreloaderLatestBest: () !default;
+$preloaderLatestBest: map-merge((
+    'blockGap': 2px,
+    'blockAlignItems': start,
+    'blockBackground': transparent,
+
+    'lineFirstChildHeight': 40px,
+    'lineFirstChildWidth': (
+        375: 100%,
+        1024: 350px
+    ),
+
+    'buttonFirstChildWidth': 50%,
+    'buttonFirstChildHeight': 36px,
+
+    'lineBorderRadius': 8px,
+    'lineBackground': #161f34,
+    'lineWidth': 100%,
+    'lineHeight': (
+        375: 44px,
+        1024: 55px
+    ),
+
+    'buttonPosition': absolute,
+    'buttonPositionTop': 2px,
+    'buttonPositionLeft': 2px,
+    'buttonBackground': #232e4a,
+    'buttonBorderRadius': 6px,
+    'buttonWidth': (
+        375: 52px,
+        1024: 66px
+    ),
+    'buttonHeight': (
+        375: 40px,
+        1024: 51px
+    ),
+), $customPreloaderLatestBest);

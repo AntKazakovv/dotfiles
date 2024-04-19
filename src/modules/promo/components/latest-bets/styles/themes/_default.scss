@@ -134,5 +134,54 @@
                 }
             }
         }
+
+        .wlc-preloader--theme-default:host {
+
+            ::ng-deep {
+
+                .wlc-preloader {
+
+                    &__element {
+
+                        &--block {
+                            gap: ef.get-value($preloaderLatestBest, 'blockGap');
+                            align-items: ef.get-value($preloaderLatestBest, 'blockAlignItems');
+                            background: ef.get-value($preloaderLatestBest, 'blockBackground');
+                        }
+
+                        &--color-first {
+
+                            &:first-child {
+                                @include bm.get-mq-map('width', $preloaderLatestBest, 'lineFirstChildWidth');
+                                height: ef.get-value($preloaderLatestBest, 'lineFirstChildHeight');
+
+                                .wlc-preloader__element--button {
+                                    width: ef.get-value($preloaderLatestBest, 'buttonFirstChildWidth');
+                                    height: ef.get-value($preloaderLatestBest, 'buttonFirstChildHeight');
+                                }
+                            }
+                        }
+
+                        &--line {
+                            @include bm.get-mq-map('height', $preloaderLatestBest, 'lineHeight');
+                            width: ef.get-value($preloaderLatestBest, 'lineWidth');
+                            border-radius: ef.get-value($preloaderLatestBest, 'lineBorderRadius');
+                            background: ef.get-value($preloaderLatestBest, 'lineBackground');
+                        }
+
+                        &--button {
+                            @include bm.get-mq-map('width', $preloaderLatestBest, 'buttonWidth');
+                            @include bm.get-mq-map('height', $preloaderLatestBest, 'buttonHeight');
+                            position: ef.get-value($preloaderLatestBest, 'buttonPosition');
+                            top: ef.get-value($preloaderLatestBest, 'buttonPositionTop');
+                            left: ef.get-value($preloaderLatestBest, 'buttonPositionLeft');
+                            z-index: 10;
+                            background: ef.get-value($preloaderLatestBest, 'buttonBackground');
+                            border-radius: ef.get-value($preloaderLatestBest, 'buttonBorderRadius');
+                        }
+                    }
+                }
+            }
+        }
     }
 }

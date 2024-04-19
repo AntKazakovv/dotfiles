@@ -24,7 +24,9 @@
         </div>
     </div>
 </ng-container>
-
 <ng-template #preloader>
-    <div wlc-loader></div>
+    <div *ngIf="$params.preloader?.use"
+             wlc-preloader
+             [inlineParams]="$params.preloader.params">
+    </div>
 </ng-template>

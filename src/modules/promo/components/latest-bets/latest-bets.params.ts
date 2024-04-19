@@ -4,6 +4,7 @@ import {
 } from 'wlc-engine/modules/core';
 
 import {ILatestBetsItemCParams} from 'wlc-engine/modules/promo/components/latest-bets-item/latest-bets-item.params';
+import {IPreloaderCParams} from 'wlc-engine/modules/core/components/preloader/preloader.params';
 
 export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;
@@ -19,6 +20,12 @@ export interface ILatestBetsCParams extends IComponentParams<Theme, Type, ThemeM
         minBet: number,
         maxBet: number,
         currency?: string,
+    },
+    preloader?: {
+        /** use preloader or not */
+        use?: boolean;
+        /** base params for wlc-preloader component */
+        params?: IPreloaderCParams;
     }
 }
 
@@ -34,5 +41,8 @@ export const defaultParams: ILatestBetsCParams = {
         minBet: 100,
         maxBet: 600,
         currency: 'EUR',
+    },
+    preloader: {
+        use: false,
     },
 };

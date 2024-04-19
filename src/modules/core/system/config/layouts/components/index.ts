@@ -45,6 +45,7 @@ export * from './promo/wlc-loyalty-levels-wp.config';
 export * from './promo/wlc-lucky-button.config';
 export * from './promo/wlc-cash-out-time.config';
 export * from './promo/wlc-top-rated.config';
+export * from './promo/wlc-latest-bets.config';
 
 export * from './promotions/wlc-bonuses-list.config';
 
