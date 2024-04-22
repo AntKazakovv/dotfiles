@@ -155,11 +155,9 @@ export class Game extends AbstractModel<IGame> {
     public get showChoiceOfCurrency(): boolean {
         const alwaysShowChoiceOfCurrency: boolean = Games.alwaysShowChoiceOfCurrency && !this._selectedCurrency;
         const isShow: boolean = Games.allowGameCurrency
-            && (!!this.merchantsCurrencies
-                && !(this.isVisibilityChangeCurrency || !!this.currencyIsSupportedByTheProvider())
-                || alwaysShowChoiceOfCurrency
-            );
-
+            && !!this.merchantsCurrencies?.length
+            && (!(this.isVisibilityChangeCurrency || !!this.currencyIsSupportedByTheProvider())
+                || alwaysShowChoiceOfCurrency);
         return isShow;
     }
 

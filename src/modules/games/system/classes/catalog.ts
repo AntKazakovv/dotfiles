@@ -707,7 +707,8 @@ export class Catalog {
                 item,
                 this.router,
                 this.configService,
-                this.games.merchantsCurrencies[item.MerchantID] ,
+                this.games.merchantsCurrencies[item.SubMerchantID]
+                ?? this.games.merchantsCurrencies[item.MerchantID],
             );
 
             await this.hooksService.run<Game>(
