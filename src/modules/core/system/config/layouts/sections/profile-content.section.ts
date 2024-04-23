@@ -140,7 +140,7 @@ const profileWolfLoyaltyType = (isSingleLevels: boolean): ILayoutSectionConfig =
                             name: 'core.wlc-wrapper',
                             params: {
                                 components: [
-                                    componentLib.wlcLoyaltyProgress.withIcon,
+                                    componentLib.wlcLoyaltyProgress.def,
                                     componentLib.wlcLoyaltyLevels.def,
                                     componentLib.wlcLoyaltyLevelsWp.def,
                                 ],
