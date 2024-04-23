@@ -209,6 +209,8 @@
                 }
 
                 &__submenu--hover {
+                    @include menuArrow($panelMenuThemeWolf);
+
                     position: absolute;
                     top: 0;
                     left: ef.get-value($panelMenuThemeWolf, 'ddHoverSubmenuLeft');
@@ -226,8 +228,6 @@
                         overscroll-behavior: contain;
 
                         .wlc-menu__item {
-                            @include menuArrow($panelMenuThemeWolf);
-
                             position: relative;
                             padding: ef.get-value($panelMenuThemeWolf, 'ddHoverItemPadding');
                         }

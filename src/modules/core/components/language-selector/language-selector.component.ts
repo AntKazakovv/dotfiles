@@ -424,7 +424,10 @@ export class LanguageSelectorComponent
         if (isCompact) {
             this.removeModifiers('state-expanded');
             this.addModifiers('state-compact');
-            useTooltip = true;
+
+            if (!this.isShowLangByDropdown) {
+                useTooltip = true;
+            }
         } else {
             this.removeModifiers('state-compact');
             this.addModifiers('state-expanded');

@@ -17,7 +17,13 @@
                       wlc-icon
                       class="{{$class}}__icon"
                       [iconPath]="getIcon(item)"
-                      [fallback]="getIconFallback(item)"></span>
+                      [fallback]="getIconFallback(item)"
+                      [tooltip]="$params.tooltip?.use && !item.disableTooltip && menuItemName(item)"
+                      container="body"
+                      boundariesElement="viewport"
+                      containerClass="wlc-tooltip--compact {{$params.tooltip?.containerClass}}"
+                      placement="right">
+                </span>
                 <span class="{{$class}}__link-text">
                     <span>{{menuItemName(item)}}</span>
                     <span *ngIf="item.counterParams"

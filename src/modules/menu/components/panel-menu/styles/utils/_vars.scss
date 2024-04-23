@@ -43,7 +43,7 @@ $panelMenuThemeWolf: map-merge((
     'tooltipInnerPadding': ef.size(1) ef.size(2),
 
     'arrowMenuTop': ef.size(4),
-    'arrowMenuLeft': ef.size(-1),
+    'arrowMenuLeft': ef.size(1),
     'arrowMenuSize': 10px,
 
     'scrollbarTrackBg': var(--mc-bg300),
