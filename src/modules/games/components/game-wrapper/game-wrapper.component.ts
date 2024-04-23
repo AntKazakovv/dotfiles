@@ -29,6 +29,7 @@ import {
 import {
     Subscription,
     fromEvent,
+    BehaviorSubject,
 } from 'rxjs';
 import {
     filter,
@@ -42,6 +43,7 @@ import _includes from 'lodash-es/includes';
 import _toNumber from 'lodash-es/toNumber';
 import _find from 'lodash-es/find';
 import _get from 'lodash-es/get';
+import _isUndefined from 'lodash-es/isUndefined';
 
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
@@ -81,6 +83,7 @@ import {
 import {SeoService} from 'wlc-engine/modules/seo';
 import {MultiWalletEvents} from 'wlc-engine/modules/multi-wallet/system/interfaces';
 import {MerchantWalletService} from 'wlc-engine/modules/games/system/services/merchant-wallet/merchant-wallet.service';
+import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {
     BetGamesHooks,
     EvoGamesHooks,
@@ -98,6 +101,7 @@ import {
 import {IChoiceCurrencyParams} from 'wlc-engine/modules/multi-wallet/components/choice-currency/choice-currency.params';
 import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 import {FinancesService} from 'wlc-engine/modules/finances';
+import {UserService} from 'wlc-engine/modules/user';
 
 import * as Params from './game-wrapper.params';
 
@@ -241,6 +245,8 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     protected fastDepSubscription: Subscription;
     protected financesService: FinancesService;
 
+    private userService: UserService;
+
     constructor(
         @Inject('injectParams') protected injectParams: IGameWrapperCParams,
         @Inject(DOCUMENT) protected document: Document,
@@ -310,24 +316,14 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         this.gameTitle = this.game.name[this.locale] || this.game.name['en'] || '';
 
         if (this.game) {
-            this.showChoiceOfCurrency = this.game.showChoiceOfCurrency && !this.gameParams.demo;
-            this.game.isVisibilityChangeCurrency = false;
+            const isNotStartTheGame: boolean = this.isAuth
+                && !this.gameParams.demo
+                && await this.initChoiceOfCurrency();
 
-            if (this.showChoiceOfCurrency) {
-                this.choiceCurrencyParams = {
-                    class: 'wlc-choice-currency',
-                    components: [
-                        {
-                            name: 'multi-wallet.wlc-choice-currency',
-                            params: <IChoiceCurrencyParams>{
-                                game: this.game,
-                            },
-                        },
-                    ],
-                };
-                this.cdr.markForCheck();
+            if (isNotStartTheGame) {
                 return;
             }
+
             this.cdr.detectChanges();
             this.initStartResizeParams();
             this.gamesCatalogService.getFavouriteGames();
@@ -1183,5 +1179,36 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             .subscribe((event: MediaQueryListEvent) => {
                 handler(event.matches);
             });
+    }
+
+    private async initChoiceOfCurrency(): Promise<boolean> {
+        const profile$: BehaviorSubject<UserProfile> =
+            this.configService.get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'});
+
+        if (_isUndefined(profile$.getValue())) {
+            this.userService = await this.injectionService.getService<UserService>('user.user-service');
+            await this.userService.profileReady;
+        }
+
+        this.showChoiceOfCurrency = this.game.showChoiceOfCurrency;
+        this.game.isVisibilityChangeCurrency = false;
+
+        if (this.showChoiceOfCurrency) {
+            this.choiceCurrencyParams = {
+                class: 'wlc-choice-currency',
+                components: [
+                    {
+                        name: 'multi-wallet.wlc-choice-currency',
+                        params: <IChoiceCurrencyParams>{
+                            game: this.game,
+                        },
+                    },
+                ],
+            };
+            this.cdr.markForCheck();
+            return true;
+        }
+
+        return false;
     }
 }

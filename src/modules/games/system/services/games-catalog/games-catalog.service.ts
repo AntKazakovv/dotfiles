@@ -44,6 +44,7 @@ import _first from 'lodash-es/first';
 import _intersection from 'lodash-es/intersection';
 import _some from 'lodash-es/some';
 import _orderBy from 'lodash-es/orderBy';
+import _isUndefined from 'lodash-es/isUndefined';
 
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers';
 import {ICategorySettings} from 'wlc-engine/modules/core/system/interfaces/categories.interface';
@@ -591,11 +592,11 @@ export class GamesCatalogService {
     ): Promise<ILaunchInfo> {
         let wallet: ISelectedWallet;
 
-        if (Games.isMultiWallet) {
+        if (Games.isMultiWallet && !options.demo) {
             wallet = this.configService.get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
-                .getValue()?.extProfile.currentWallet;
+                .getValue().extProfile.currentWallet;
 
-            if (!options.demo && !wallet?.walletId) {
+            if (!_isUndefined(wallet) && !wallet.walletId) {
                 this.walletsService ??= await this.injectionService
                     .getService<WalletsService>('multi-wallet.wallet-service');
                 wallet.walletId = _toNumber(await this.walletsService.addWallet(wallet.walletCurrency));
@@ -606,7 +607,7 @@ export class GamesCatalogService {
             ...options,
             demo: options.demo ? 1 : 0,
             wallet: wallet?.walletId,
-            currency,
+            currency: options.demo ? 'EUR' : currency,
         }) as IData).data;
     }
 

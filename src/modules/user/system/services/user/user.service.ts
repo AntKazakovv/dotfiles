@@ -171,10 +171,15 @@ export class UserService {
     /** @deprecated use isAuth$ */
     public isAuthenticated: boolean;
     public isAuth$: BehaviorSubject<boolean> = this.configService.get('$user.isAuth$');
+    public profileReady: Promise<void> = new Promise((resolve: () => void): void => {
+        this.$profileResolve = resolve;
+    });
 
     protected info: UserInfo;
     protected profile: UserProfile;
     protected userInfoHandler: Subscription;
+
+    private $profileResolve: () => void;
 
     public get userInfo(): UserInfo {
         if (this.info?.dataReady) {
@@ -250,7 +255,10 @@ export class UserService {
         this.userInfo$.subscribe((userInfo) => {
             this.configUserInfo$.next(userInfo);
         });
-
+        this.userProfile$.pipe(first((profile: UserProfile): boolean => !!profile))
+            .subscribe(() => {
+                this.$profileResolve();
+            });
         this.translateService.onLangChange.subscribe(async () => {
             if (!this.isAuthenticated) return;
 

@@ -142,8 +142,7 @@ export class Game extends AbstractModel<IGame> {
         const currency: string = this._selectedCurrency
             ?? this.currencyIsSupportedByTheProvider()
             ?? this.configService.get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
-                .getValue()?.currency
-            ?? 'EUR';
+                .getValue()?.currency;
 
         return currency;
     }
