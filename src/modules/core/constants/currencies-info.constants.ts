@@ -184,7 +184,7 @@ export namespace CurrenciesInfo {
             icon: '',
         },
         LP: {
-            svg: '/wlc/icons/lp.svg',
+            svg: '/currency/lp.svg',
             name: gettext('LP'),
             description: gettext('Loyalty Points'),
         },
@@ -199,12 +199,12 @@ export namespace CurrenciesInfo {
             description: gettext('Free bets'),
         },
         EP: {
-            svg: '/wlc/icons/exp.svg',
+            svg: '/currency/exp.svg',
             name: gettext('EXP'),
             description: gettext('Experience Points'),
         },
         EXP: {
-            svg: '/wlc/icons/exp.svg',
+            svg: '/currency/exp.svg',
             name: gettext('EXP'),
             description: gettext('Experience Points'),
         },
