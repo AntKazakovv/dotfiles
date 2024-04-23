@@ -282,9 +282,9 @@ export class LayoutService {
         const config = _cloneDeep(this.configService.globalConfig);
 
         if (full) {
-            const layout = {};
-            const panel = {};
-            const promises = [];
+            const layout: IIndexing<ILayoutStateConfig> = {};
+            const panel: IIndexing<ILayoutStateConfig> = {};
+            const promises: Promise<boolean>[] = [];
 
             _each(config.$layouts, async (_, state) => {
                 promises.push(new Promise(async (resolve) => {
