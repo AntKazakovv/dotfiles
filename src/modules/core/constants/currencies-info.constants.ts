@@ -252,6 +252,7 @@ export namespace CurrenciesInfo {
         },
         USDC: {
             code: [85, 83, 68, 67],
+            literalAs: 'BTC',
         },
     };
 }
