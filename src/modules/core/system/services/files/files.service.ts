@@ -324,9 +324,6 @@ export class FilesService {
                 'GET',
                 GlobalHelper.proxyUrl(url),
                 {
-                    headers: {
-                        'Cache-Control': 'public, max-age=31536000',
-                    },
                     observe: 'response',
                     responseType: 'text',
                     withCredentials: false,
