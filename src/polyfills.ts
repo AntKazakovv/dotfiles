@@ -42,6 +42,26 @@
  *
  */
 
+// eslint-disable-next-line no-restricted-globals
+(window as any).__zone_symbol__BLACK_LISTED_EVENTS = [
+    'resize',
+    'mousemove',
+    'scroll',
+    'touchmove',
+    'pointermove',
+    'message',
+    'load',
+    'readystatechange',
+    'abort',
+    'error',
+    'loadend',
+    'loadstart',
+    'progress',
+    'timeout',
+];
+
+// eslint-disable-next-line no-restricted-globals
+(window as any).__Zone_disable_XHR = true;
 /***************************************************************************************************
  * Zone JS is required by default for Angular itself.
  */

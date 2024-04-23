@@ -17,6 +17,7 @@ import {
     ViewEncapsulation,
     TemplateRef,
     ElementRef,
+    NgZone,
 } from '@angular/core';
 import {takeUntil} from 'rxjs/operators';
 
@@ -79,7 +80,6 @@ export class SliderComponent extends AbstractComponent
     public emptySlidesCount: number = 0;
     public slideMaxWidth: number = 0;
 
-    protected observer: MutationObserver;
     protected readonly eventHandlers: Record<Params.SwiperEventName, TUnknownFunction> = {
         start: () => this.swiper?.autoplay.start(),
         stop: () => this.swiper?.autoplay.stop(),
@@ -99,6 +99,7 @@ export class SliderComponent extends AbstractComponent
         protected renderer: Renderer2,
         protected injector: Injector,
         protected actionService: ActionService,
+        protected ngZone: NgZone,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
@@ -150,7 +151,7 @@ export class SliderComponent extends AbstractComponent
     public afterViewInit(): void {
         this.ready = true;
         this.swiper = this.swiperRef?.nativeElement.swiper;
-        this.cdr.detectChanges();
+        this.cdr.markForCheck();
 
         if (this.$params.slideShowAll?.use) {
             let templateParams = {item: {}};
@@ -163,7 +164,6 @@ export class SliderComponent extends AbstractComponent
             this.fixSlidesSequence();
         }
         this.updateView();
-        this.initObserver();
         this.initNavigation();
 
         this.initEventHandlers();
@@ -173,7 +173,7 @@ export class SliderComponent extends AbstractComponent
         if (this.ready) {
             this.initEmptySlidesCount();
             this.fixSlidesSequence();
-            this.cdr.detectChanges();
+            this.cdr.markForCheck();
             this.update();
         }
 
@@ -220,17 +220,21 @@ export class SliderComponent extends AbstractComponent
             _forEach(slides, (slide: HTMLElement) => {
                 slide.style.maxWidth = firstSlide.style.width;
             });
-            this.cdr.detectChanges();
+            this.cdr.markForCheck();
         }
     }
 
     public update(): void {
-        this.swiper.update();
+        this.ngZone.runOutsideAngular(() => {
+            this.swiper.update();
+        });
         this.updateProgressModifiers(this.swiper);
     }
 
     public scrollToStart(): void {
-        this.swiper.slideTo(0, 0, false);
+        this.ngZone.runOutsideAngular(() => {
+            this.swiper.slideTo(0, 0, false);
+        });
     }
 
     public onResize(): void {
@@ -243,27 +247,16 @@ export class SliderComponent extends AbstractComponent
 
     public override ngOnDestroy(): void {
         super.ngOnDestroy();
-        if (this.observer) {
-            this.observer.disconnect();
-        }
     }
 
     protected initNavigation(): void {
         if (this.swiper.navigation) {
-            this.swiper.navigation.destroy();
-            this.swiper.navigation.init();
-            this.swiper.navigation.update();
+            this.ngZone.runOutsideAngular(() => {
+                this.swiper.navigation.destroy();
+                this.swiper.navigation.init();
+                this.swiper.navigation.update();
+            });
         }
-    }
-
-    protected initObserver(): void {
-        this.observer = new MutationObserver(() => {
-            this.updateView();
-        });
-        this.observer.observe(this.sliderWrap, {
-            childList: true,
-            subtree: true,
-        });
     }
 
     protected setSliderWrapper(): void {
@@ -277,6 +270,10 @@ export class SliderComponent extends AbstractComponent
     }
 
     protected updateView(): void {
+        if (!this.ready) {
+            return;
+        }
+
         this.setSliderWrapper();
         const slides: HTMLElement[] = this.swiper?.slides;
         if (slides) {
@@ -337,7 +334,7 @@ export class SliderComponent extends AbstractComponent
             });
         }
 
-        this.cdr.detectChanges();
+        this.cdr.markForCheck();
         this.update();
     }
 
@@ -386,9 +383,12 @@ export class SliderComponent extends AbstractComponent
 
     protected initEventHandlers(): void {
         this.windowResizeHandler();
-        // @ts-ignore not complete interface. TODO after update version swiper
-        this.swiper.slidesEl.addEventListener('swiper-slidechangetransitionend', () => {
-            this.slideChangeTransitionEnd$.emit(this.swiper);
+
+        this.ngZone.runOutsideAngular(() => {
+            // @ts-ignore not complete interface. TODO after update version swiper
+            this.swiper.slidesEl.addEventListener('swiper-slidechangetransitionend', () => {
+                this.slideChangeTransitionEnd$.emit(this.swiper);
+            });
         });
     }
 
@@ -409,24 +409,26 @@ export class SliderComponent extends AbstractComponent
     }
 
     protected updateNavigation(navigation: NavigationOptions | boolean): void {
-        setTimeout(() => {
-            if (_isObject(navigation)) {
-                this.swiper.params.navigation = _merge<NavigationOptions, NavigationOptions>(
-                    Params.defaultNavigationParams,
-                    navigation,
-                );
-            } else {
-                this.swiper.params.navigation = navigation;
-            }
+        this.ngZone.runOutsideAngular(() => {
+            setTimeout(() => {
+                if (_isObject(navigation)) {
+                    this.swiper.params.navigation = _merge<NavigationOptions, NavigationOptions>(
+                        Params.defaultNavigationParams,
+                        navigation,
+                    );
+                } else {
+                    this.swiper.params.navigation = navigation;
+                }
 
-            if (this.swiper.params.slidesPerView == 'auto') {
-                this.swiper.params.slidesPerView = 1;
-            }
+                if (this.swiper.params.slidesPerView == 'auto') {
+                    this.swiper.params.slidesPerView = 1;
+                }
 
-            this.swiper.navigation.destroy();
-            this.swiper.navigation.init();
-            this.swiper.navigation.update();
-            this.cdr.markForCheck();
+                this.swiper.navigation.destroy();
+                this.swiper.navigation.init();
+                this.swiper.navigation.update();
+                this.cdr.markForCheck();
+            });
         });
     }
 }

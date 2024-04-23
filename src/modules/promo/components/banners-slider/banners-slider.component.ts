@@ -55,7 +55,7 @@ export class BannersSliderComponent extends AbstractComponent implements OnInit 
         setTimeout(() => {
             this.ready = true;
             this.useNavigation = !this.$params.hideNavigation && this.slides.length > 1;
-            this.cdr.detectChanges();
+            this.cdr.markForCheck();
         });
 
         this.eventService.subscribe([

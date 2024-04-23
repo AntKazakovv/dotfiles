@@ -118,8 +118,6 @@ export class TotalJackpotComponent extends AbstractComponent implements OnInit {
         };
 
         this.$params.countUpOptions.decimal = this.currency.delimiter;
-
-        this.cdr.markForCheck();
         this.cachingService.set('total-jackpot-currency', this.currency, true);
     }
 
@@ -136,6 +134,7 @@ export class TotalJackpotComponent extends AbstractComponent implements OnInit {
                 if (this.$params.theme === 'games-inside') {
                     this.updateGameList();
                 }
+                this.cdr.markForCheck();
             });
     }
 
@@ -143,7 +142,6 @@ export class TotalJackpotComponent extends AbstractComponent implements OnInit {
         this.amount = data.reduce((accumulator: number, currentValue: JackpotModel) => (
             accumulator + currentValue.amount
         ), 0);
-        this.cdr.markForCheck();
         this.cachingService.set('total-jackpot-amount', this.amount, true);
     }
 

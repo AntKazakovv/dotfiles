@@ -6,6 +6,7 @@ import {
     OnInit,
     Inject,
     OnDestroy,
+    NgZone,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 import {
@@ -39,6 +40,7 @@ export class ParallaxMovementDirective implements OnInit, AfterViewInit, OnDestr
         private elementRef: ElementRef,
         @Inject(DOCUMENT) protected document: Document,
         @Inject(WINDOW) protected window: Window,
+        protected ngZone: NgZone,
     ) {}
 
     public ngOnInit(): void {
@@ -64,20 +66,22 @@ export class ParallaxMovementDirective implements OnInit, AfterViewInit, OnDestr
     }
 
     protected subscribeEvents(): void {
-        fromEvent(this.swiper, 'mousemove')
-            .pipe(takeUntil(this.$destroy))
-            .subscribe((e: MouseEvent) => {
-                if (!this.onlyActiveSlide ||
-                    (this.onlyActiveSlide && !!this.elementRef.nativeElement.closest('.swiper-slide-active'))) {
-                    this.mouseMovement(e);
-                }
-            });
+        this.ngZone.runOutsideAngular(() => {
+            fromEvent(this.swiper, 'mousemove')
+                .pipe(takeUntil(this.$destroy))
+                .subscribe((e: MouseEvent) => {
+                    if (!this.onlyActiveSlide ||
+                        (this.onlyActiveSlide && !!this.elementRef.nativeElement.closest('.swiper-slide-active'))) {
+                        this.mouseMovement(e);
+                    }
+                });
 
-        fromEvent(this.swiper, 'mouseleave')
-            .pipe(takeUntil(this.$destroy))
-            .subscribe(() => {
-                this.mouseLeave();
-            });
+            fromEvent(this.swiper, 'mouseleave')
+                .pipe(takeUntil(this.$destroy))
+                .subscribe(() => {
+                    this.mouseLeave();
+                });
+        });
     }
 
     protected mouseLeave(): void {

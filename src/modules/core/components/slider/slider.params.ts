@@ -82,6 +82,7 @@ export const defaultParams: ISliderCParams = {
         text: gettext('Show all'),
         sref: '',
     },
+    useStartTimeout: true,
 };
 
 export const defaultNavigationParams: NavigationOptions = {

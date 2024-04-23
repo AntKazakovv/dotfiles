@@ -11,6 +11,7 @@ import {
     Inject,
     Optional,
     ChangeDetectionStrategy,
+    NgZone,
 } from '@angular/core';
 
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
@@ -52,6 +53,7 @@ export class IconComponent extends AbstractComponent implements OnInit, OnChange
         @Inject('injectParams') protected injectParams: Params.IIconCParams,
         protected fileService: FilesService,
         protected elRef: ElementRef,
+        protected ngZone: NgZone,
         cdr: ChangeDetectorRef,
     ) {
         super({
@@ -84,37 +86,39 @@ export class IconComponent extends AbstractComponent implements OnInit, OnChange
         this.imageError.emit();
     }
 
-    protected async getIconHtml(): Promise<void> {
-        let file: IFile;
+    protected getIconHtml(): void {
+        this.ngZone.runOutsideAngular(async () => {
+            let file: IFile;
 
-        if (this.iconName) {
-            file = this.fileService.getSvgByName(this.iconName);
-        } else if (this.iconUrl) {
-            file = await this.fileService.getFileByUrl(this.iconUrl);
-        } else if (this.iconPath) {
-            file = await this.fileService.getFile(this.iconPath);
+            if (this.iconName) {
+                file = this.fileService.getSvgByName(this.iconName);
+            } else if (this.iconUrl) {
+                file = await this.fileService.getFileByUrl(this.iconUrl);
+            } else if (this.iconPath) {
+                file = await this.fileService.getFile(this.iconPath);
 
-            if (!file?.htmlString && !file?.url && this.fallback) {
-                file = await this.fileService.getFile(this.fallback);
-                this.imageErrorHolder();
+                if (!file?.htmlString && !file?.url && this.fallback) {
+                    file = await this.fileService.getFile(this.fallback);
+                    this.imageErrorHolder();
+                }
+            } else {
+                file = {
+                    key: undefined,
+                };
             }
-        } else {
-            file = {
-                key: undefined,
-            };
-        }
 
-        if (file?.htmlString && !this.showSvgAsImg) {
-            this.imageHtml = this.fileService.replaceSvgId(file.htmlString);
-            this.addModifiers(['loaded', 'svg']);
-        } else if (file?.url) {
-            this.imagePath = file.url;
-            this.addModifiers(['loaded', 'img']);
-        } else {
-            this.imageErrorHolder();
-            this.elRef.nativeElement.remove();
-        }
-        this.cdr.markForCheck();
+            if (file?.htmlString && !this.showSvgAsImg) {
+                this.imageHtml = this.fileService.replaceSvgId(file.htmlString);
+                this.addModifiers(['loaded', 'svg']);
+            } else if (file?.url) {
+                this.imagePath = file.url;
+                this.addModifiers(['loaded', 'img']);
+            } else {
+                this.imageErrorHolder();
+                this.elRef.nativeElement.remove();
+            }
+            this.cdr.markForCheck();
+        });
     }
 
     protected prepareParams(): any {

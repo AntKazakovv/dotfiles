@@ -8,6 +8,7 @@ import {
     SimpleChanges,
     OnChanges,
     ChangeDetectorRef,
+    NgZone,
 } from '@angular/core';
 
 import {
@@ -43,6 +44,7 @@ export class IconListItemComponent extends AbstractComponent implements OnInit, 
         cdr: ChangeDetectorRef,
         protected logService: LogService,
         protected fileService: FilesService,
+        protected ngZone: NgZone,
     ) {
         super({
             injectParams,
@@ -53,15 +55,16 @@ export class IconListItemComponent extends AbstractComponent implements OnInit, 
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         if (!this.icon) {
-
-            if (
-                this.$params.icon.showAs === 'img'
-                && this.$params.icon.image.includes('//agstatic.com/')
-            ) {
-                this.$params.icon.image = await this.getIconPath();
-            }
-            this.icon = this.$params.icon;
-            this.cdr.markForCheck();
+            this.ngZone.runOutsideAngular(async () => {
+                if (
+                    this.$params.icon.showAs === 'img'
+                    && this.$params.icon.image.includes('//agstatic.com/')
+                ) {
+                    this.$params.icon.image = await this.getIconPath();
+                }
+                this.icon = this.$params.icon;
+                this.cdr.markForCheck();
+            });
         }
     }
 

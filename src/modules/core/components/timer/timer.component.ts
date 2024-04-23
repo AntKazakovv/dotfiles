@@ -11,6 +11,8 @@ import {
     SimpleChanges,
     ElementRef,
     Renderer2,
+    NgZone,
+    inject,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 
@@ -77,6 +79,8 @@ export class TimerComponent extends AbstractComponent implements OnInit, OnChang
     protected initialValue: number;
     protected afterCorrected: boolean = false;
 
+    protected readonly ngZone = inject(NgZone);
+
     private valueFormat: DateTime;
     private secondsToDday: number;
     private minutesToDday: number;
@@ -115,12 +119,15 @@ export class TimerComponent extends AbstractComponent implements OnInit, OnChang
 
         if (this.checkValueFormat()) {
             this.getTimeDifference();
-            this.intervalSub = interval(DateHelper.milliSecondsInSecond)
-                .pipe(takeUntil(this.$destroy))
-                .subscribe(() => {
-                    this.getTimeDifference();
-                    this.cdr.detectChanges();
-                });
+
+            this.ngZone.runOutsideAngular(() => {
+                this.intervalSub = interval(DateHelper.milliSecondsInSecond)
+                    .pipe(takeUntil(this.$destroy))
+                    .subscribe(() => {
+                        this.getTimeDifference();
+                        this.cdr.markForCheck();
+                    });
+            });
         }
         if (this.$params.theme === 'wolf') {
             this.$params.dividers.units = '';
@@ -212,9 +219,12 @@ export class TimerComponent extends AbstractComponent implements OnInit, OnChang
         }
 
         if (this.intervalSub && this.timeDifference <= 0 && !this.countUp) {
-            setTimeout(() => {
-                this.timerEnds.emit();
-            }, 1000);
+            this.ngZone.runOutsideAngular(() => {
+                setTimeout(() => {
+                    this.timerEnds.emit();
+                }, 1000);
+            });
+
             this.intervalSub.unsubscribe();
             this.intervalSub = null;
 

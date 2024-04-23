@@ -3,6 +3,7 @@ import {
     Directive,
     ElementRef,
     Input,
+    NgZone,
 } from '@angular/core';
 
 import {SwiperOptions} from 'swiper/types/swiper-options';
@@ -14,10 +15,16 @@ import {SwiperContainer} from 'swiper/element';
 export class SwiperDirective implements AfterViewInit {
     @Input() config?: SwiperOptions;
 
-    constructor(private element: ElementRef<SwiperContainer>) {}
+    constructor(
+        private element: ElementRef<SwiperContainer>,
+        protected ngZone: NgZone,
+    ) {}
 
     public ngAfterViewInit(): void {
         Object.assign(this.element.nativeElement, this.config);
-        this.element.nativeElement.initialize();
+
+        this.ngZone.runOutsideAngular(() => {
+            this.element.nativeElement.initialize();
+        });
     }
 }

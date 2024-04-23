@@ -528,13 +528,16 @@ export class ActionService {
         this.renderer = this.rendererFactory.createRenderer(null, null);
         this.configService.ready.then(() => {
             this.device = this.configService.get<DeviceModel>('device');
-            fromEvent(this.window, 'resize').subscribe({
-                next: (event: Event) => {
-                    this.windowResizeSubject.next({
-                        device: this.device,
-                        event,
-                    });
-                },
+
+            this.ngZone.runOutsideAngular(() => {
+                fromEvent(this.window, 'resize').subscribe({
+                    next: (event: Event) => {
+                        this.windowResizeSubject.next({
+                            device: this.device,
+                            event,
+                        });
+                    },
+                });
             });
 
             this.ngZone.runOutsideAngular(() => {

@@ -172,7 +172,7 @@ export class WinnersSliderComponent extends AbstractComponent implements OnInit,
             this.ready = true;
         }
 
-        this.cdr.detectChanges();
+        this.cdr.markForCheck();
     }
 
     protected prepareSliderParams(): void {
