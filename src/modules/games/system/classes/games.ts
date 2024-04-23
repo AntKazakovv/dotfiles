@@ -74,7 +74,7 @@ interface IFilterItemsParameters<T, L> extends IFilterParameters {
 
 export class Games {
 
-    public availableGames: Game[];
+    public availableGames: Game[] = [];
     public allGames: Game[] = [];
     public sortSetting: IGamesSortSetting;
     public separateSortSettings: IGamesSeparateSortSetting;

@@ -191,7 +191,7 @@ export namespace wlcGamesGrid {
                 },
             },
             breakpoints: {
-                375:{
+                375: {
                     showAsSwiper: {
                         maxSlidesCount: 24,
                     },
@@ -303,7 +303,7 @@ export namespace wlcGamesGrid {
                 },
             },
             breakpoints: {
-                375:{
+                375: {
                     showAsSwiper: {
                         maxSlidesCount: 24,
                     },
@@ -407,7 +407,7 @@ export namespace wlcGamesGrid {
                 },
             },
             breakpoints: {
-                375:{
+                375: {
                     showAsSwiper: {
                         maxSlidesCount: 24,
                     },
@@ -518,7 +518,7 @@ export namespace wlcGamesGrid {
                 },
             },
             breakpoints: {
-                375:{
+                375: {
                     showAsSwiper: {
                         maxSlidesCount: 24,
                     },
@@ -658,7 +658,7 @@ export namespace wlcGamesGrid {
             filter: {
                 categories: ['popular'],
             },
-            bannerSettings: <IBannersSliderCParams> {
+            bannerSettings: <IBannersSliderCParams>{
                 sliderParams: {
                     swiper: {
                         enabled: true,
@@ -713,7 +713,7 @@ export namespace wlcGamesGrid {
             thumbParams: {
                 theme: 'default',
             },
-            bannerSettings: <IBannersSliderCParams> {
+            bannerSettings: <IBannersSliderCParams>{
                 sliderParams: {
                     swiper: {
                         enabled: true,
@@ -746,6 +746,65 @@ export namespace wlcGamesGrid {
                 sref: 'app.catalog',
                 params: {
                     category: 'new',
+                },
+            },
+        },
+    };
+
+    export const originalGamesSwiper: ILayoutComponent = {
+        name: 'games.wlc-games-grid',
+        params: {
+            type: 'swiper',
+            theme: 'swiper',
+            themeMod: 'bottom-title',
+            title: gettext('Original games'),
+            filter: {
+                categories: [],
+                merchants: [777],
+            },
+            showAllLink: {
+                use: false,
+            },
+            showAsSwiper: {
+                useNavigation: true,
+                sliderParams: {
+                    swiper: {
+                        preloadImages: false,
+                        lazy: true,
+                        slidesPerView: 1,
+                        slidesPerGroup: 1,
+                        grid: null,
+                        spaceBetween: 10,
+                        breakpoints: {
+                            375: {
+                                slidesPerView: 2,
+                                slidesPerGroup: 1,
+                                grid: {
+                                    rows: 1,
+                                    fill: 'row',
+                                },
+                                followFinger: false,
+                            },
+                            560: {
+                                slidesPerView: 3,
+                                spaceBetween: 15,
+                            },
+                            720: {
+                                slidesPerView: 4,
+                            },
+                            900: {
+                                slidesPerView: 4,
+                                spaceBetween: 15,
+                            },
+                            1200: {
+                                slidesPerView: 5,
+                            },
+                            1420: {
+                                slidesPerView: 5,
+                                spaceBetween: 20,
+                            },
+                        },
+                    },
                 },
             },
         },

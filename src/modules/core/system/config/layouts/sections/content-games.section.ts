@@ -158,4 +158,11 @@ export namespace contentGames {
             componentLib.wlcGamesGrid.newGamesGridBanner,
         ],
     };
+
+    export const originalGames: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            componentLib.wlcGamesGrid.originalGamesSwiper,
+        ],
+    };
 }
