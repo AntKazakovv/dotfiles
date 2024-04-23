@@ -17,6 +17,7 @@ import _has from 'lodash-es/has';
 import {
     AbstractComponent,
     IMixedParams,
+    InjectionService,
 } from 'wlc-engine/modules/core';
 
 import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
@@ -49,6 +50,7 @@ export class StickyFooterComponent extends AbstractComponent implements OnInit, 
     protected menuConfig: MenuParams.MenuConfigItem[];
     protected menuSettings: IMenuOptions;
     protected isAuth: boolean;
+    protected gamesCatalogService: GamesCatalogService;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IStickyFooterCParams,
@@ -57,7 +59,7 @@ export class StickyFooterComponent extends AbstractComponent implements OnInit, 
         protected eventService: EventService,
         protected bodyClassService: BodyClassService,
         protected translateService: TranslateService,
-        protected gamesCatalogService: GamesCatalogService,
+        protected injectionService: InjectionService,
         cdr: ChangeDetectorRef,
     ) {
         super(
@@ -77,6 +79,8 @@ export class StickyFooterComponent extends AbstractComponent implements OnInit, 
         this.initEventHandlers();
 
         if (this.$params.useFundistName) {
+            this.gamesCatalogService = await this.injectionService
+                .getService<GamesCatalogService>('games.games-catalog-service');
             await this.gamesCatalogService.ready;
         }
 
