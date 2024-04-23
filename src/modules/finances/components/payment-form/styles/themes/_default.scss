@@ -45,6 +45,18 @@
             @include bm.get-mq-map('margin', $themeDefault, 'timerMargin');
             @include bm.get-mq-map('justify-content', $themeDefault, 'timerJustify');
             display: flex;
+
+            ::ng-deep {
+
+                .wlc-timer__content {
+                    @include bm.get-mq-map('display', $themeDefault, 'timerContentDisplay');
+                    flex-direction: ef.get-value($themeDefault, 'timerContentFlexDirection');
+
+                    .time-text {
+                        @include bm.get-mq-map('margin', $themeDefault, 'timerTextMargin');
+                    }
+                }
+            }
         }
 
         &__divider {
