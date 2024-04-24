@@ -46,6 +46,7 @@ import _sortBy from 'lodash-es/sortBy';
 import _union from 'lodash-es/union';
 import _some from 'lodash-es/some';
 
+import {OptimizationService} from 'wlc-engine/services';
 import {
     AbstractComponent,
     ActionService,
@@ -116,6 +117,8 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
         return this.sections;
     }
 
+    protected optimizationService: OptimizationService;
+
     private testViewPort = false;
     private isIOS: boolean = false;
     private additionalHostClass: string[] = [];
@@ -157,6 +160,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
         }
         this.isIOS = this.actionService.device.osName === 'ios';
 
+        this.setOptimizationService();
         this.loadAnalytics();
         this.launchMonitoring();
         this.initHookHandlers();
@@ -270,6 +274,11 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
 
     public trackBySectionName(index: number, section: SectionModel): string {
         return section.name;
+    }
+
+    private async setOptimizationService(): Promise<void> {
+        this.optimizationService = await this.injectionService
+            .getExternalService<OptimizationService>('optimization');
     }
 
     private initHookHandlers(): void {

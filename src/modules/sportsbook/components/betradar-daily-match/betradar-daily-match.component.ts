@@ -5,19 +5,23 @@ import {
     OnInit,
     ChangeDetectionStrategy,
 } from '@angular/core';
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes';
+
+import _trim from 'lodash-es/trim';
+
+import {OptimizationService} from 'wlc-engine/services';
 import {
+    AbstractComponent,
     ConfigService,
     FilesService,
+    InjectionService,
 } from 'wlc-engine/modules/core';
 import {
     BetradarGameModel,
     BetradarService,
     SportsbookService,
 } from 'wlc-engine/modules/sportsbook';
-import * as Params from './betradar-daily-match.params';
 
-import _trim from 'lodash-es/trim';
+import * as Params from './betradar-daily-match.params';
 
 @Component({
     selector: '[wlc-betradar-daily-match]',
@@ -34,6 +38,7 @@ export class BetradarDailyMatchComponent extends AbstractComponent implements On
     public dailyMatch: BetradarGameModel;
 
     protected imagesDir: string;
+    protected optimizationService: OptimizationService;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IBetradarDailyMatchCParams,
@@ -42,6 +47,7 @@ export class BetradarDailyMatchComponent extends AbstractComponent implements On
         protected sportsbookService: SportsbookService,
         configService: ConfigService,
         protected fileService: FilesService,
+        protected injectionService: InjectionService,
     ) {
         super({
             injectParams,
@@ -55,12 +61,19 @@ export class BetradarDailyMatchComponent extends AbstractComponent implements On
     }
 
     protected async init(): Promise<void> {
+        this.optimizationService = await this.injectionService
+            .getExternalService<OptimizationService>('optimization');
+
         try {
             this.dailyMatch = await this.betradarService.getDailyMatch();
             if (this.dailyMatch) {
                 if (this.configService.get<boolean>('$sportsbook.betradar.widgets.dailyMatch.showImage')) {
                     this.initImagesDir();
                     this.imagePath = await this.getImage(this.dailyMatch);
+
+                    if (this.optimizationService?.useSlimImages) {
+                        this.imagePath = this.optimizationService.getSlimImage(this.imagePath);
+                    }
                 }
                 await this.dailyMatch.checkLogoImages();
             } else {

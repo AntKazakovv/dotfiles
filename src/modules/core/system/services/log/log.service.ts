@@ -7,6 +7,7 @@ import {
 import {DOCUMENT} from '@angular/common';
 import {UIRouter} from '@uirouter/core';
 
+import {Subject} from 'rxjs';
 import _cloneDeep from 'lodash-es/cloneDeep';
 import _get from 'lodash-es/get';
 import _intersection from 'lodash-es/intersection';
@@ -73,6 +74,8 @@ interface IRequestLog {
 
 @Injectable()
 export class LogService {
+    public sendLog$: Subject<IFlogData> = new Subject<IFlogData>();
+
     private Flog: WlcFlog = _get(this.window, 'WlcFlog', {}) as WlcFlog;
 
     constructor(
@@ -269,6 +272,11 @@ export class LogService {
         if (resultLog.data?.duration && !resultLog.flog?.duration) {
             flogData.duration = resultLog.data.duration;
         }
+
+        if (this.sendLog$.observers.length) {
+            this.sendLog$.next(flogData);
+        }
+
         this.Flog.send(flogData).finally();
     }
 }

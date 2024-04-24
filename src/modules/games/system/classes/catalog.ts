@@ -22,6 +22,7 @@ import _size from 'lodash-es/size';
 import _toNumber from 'lodash-es/toNumber';
 import _uniqBy from 'lodash-es/uniqBy';
 
+import {OptimizationService} from 'wlc-engine/services';
 import {
     EventService,
     ConfigService,
@@ -78,6 +79,7 @@ export class Catalog {
     protected userProfile$: BehaviorSubject<UserProfile>;
     protected userCountry: string;
     protected existMenuSettings: boolean;
+    protected optimizationService: OptimizationService;
 
     constructor(
         gamesRequstInfo: IGames,
@@ -558,6 +560,9 @@ export class Catalog {
         const menuService: MenuService = await this.injectionService.getService<MenuService>('menu.menu-service');
         this.existMenuSettings = await menuService.existFundistMenuSettings();
 
+        this.optimizationService = await this.injectionService
+            .getExternalService<OptimizationService>('optimization');
+
         await this.processFetchedGamesCatalog(this.data, this.sorts);
         this.availableGamesHandler();
         this.readyStatus.resolve();
@@ -702,6 +707,11 @@ export class Catalog {
         Game.enabledMerchants = this.merchants.allMerchants;
 
         for (const item of response.games) {
+
+            if (this.optimizationService?.useSlimImages) {
+                item.Image = this.optimizationService.getSlimImage(item.Image);
+            }
+
             const game = new Game(
                 {parentModel: 'Catalog', method: 'processFetchedGamesCatalog'},
                 item,

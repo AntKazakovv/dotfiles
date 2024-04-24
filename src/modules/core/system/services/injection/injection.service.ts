@@ -3,6 +3,7 @@ import {
     InjectionToken,
     Injector,
     Type,
+    ProviderToken,
 } from '@angular/core';
 
 import _get from 'lodash-es/get';
@@ -18,6 +19,10 @@ import {
     IFunctionImportStandalone,
     standaloneComponents,
 } from 'wlc-engine/modules/core/system/constants/modules.constants';
+import {
+    externalServices,
+    TExternalServices,
+} from 'wlc-engine/modules/core/system/constants/external-services.constants';
 
 @Injectable({
     providedIn: 'root',
@@ -88,6 +93,27 @@ export class InjectionService {
         }
 
         return token ? this.injector.get<T>(token) : null;
+    }
+
+    /**
+     * Load and return external service (not has module) class by it's name
+     *
+     * @param alias {string} alias of service
+     *
+     * @return {Promise<serviceName>}
+     */
+    public async getExternalService<T>(alias: TExternalServices, force?: boolean): Promise<T> {
+        if (force || this.configService.get<boolean>(externalServices[alias]?.config)) {
+            let token: ProviderToken<T> = _get(this.services as unknown, alias);
+
+            if (!token) {
+                token = await externalServices[alias].importFn().then((m) => {
+                    return m[Object.keys(m)[0]];
+                });
+                _set(this.services, alias, token);
+            }
+            return this.injector.get<T>(token);
+        }
     }
 
     /**

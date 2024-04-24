@@ -11,13 +11,15 @@ import {
 
 import _trim from 'lodash-es/trim';
 
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes';
+import {OptimizationService} from 'wlc-engine/services';
 import {
+    AbstractComponent,
     ConfigService,
     FilesService,
     IIndexing,
     ISlide,
     IWrapperCParams,
+    InjectionService,
 } from 'wlc-engine/modules/core';
 import {
     BetradarGameModel,
@@ -46,6 +48,7 @@ export class BetradarPopularEventsComponent extends AbstractComponent implements
     protected imagesDir: string;
     // alternating pictures for one category
     protected maxCountImgByCategory: number;
+    protected optimizationService: OptimizationService;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IBetradarPopularEventsCParams,
@@ -54,6 +57,7 @@ export class BetradarPopularEventsComponent extends AbstractComponent implements
         protected sportsbookService: SportsbookService,
         configService: ConfigService,
         protected fileService: FilesService,
+        protected injectionService: InjectionService,
     ) {
         super({
             injectParams,
@@ -76,6 +80,9 @@ export class BetradarPopularEventsComponent extends AbstractComponent implements
     }
 
     protected async init(): Promise<void> {
+        this.optimizationService = await this.injectionService
+            .getExternalService<OptimizationService>('optimization');
+
         try {
             const games: BetradarGameModel[] = await this.betradarService.getPopularEvents();
             if (games.length) {
@@ -155,7 +162,11 @@ export class BetradarPopularEventsComponent extends AbstractComponent implements
             const index: number = imageIndex[game.sportAlias];
             imageIndex[game.sportAlias]++;
 
-            const imagePath: string = await this.getImage(game, index);
+            let imagePath: string = await this.getImage(game, index);
+
+            if (this.optimizationService?.useSlimImages) {
+                imagePath = this.optimizationService.getSlimImage(imagePath);
+            }
 
             slides.push({
                 templateRef: this.tplPopularEventsSlide,
