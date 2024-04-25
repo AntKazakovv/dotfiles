@@ -48,4 +48,8 @@
             display: grid;
         }
     }
+
+    .wlc-section-title {
+        margin: ef.get-value($profileSettings, 'wolfTopMargin');
+    }
 }
