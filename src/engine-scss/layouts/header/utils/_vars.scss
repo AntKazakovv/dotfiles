@@ -108,6 +108,7 @@ $theme2Header: map-merge((
     'headerContainerDesktopMargin': (
         1200: 0 auto
     ),
+    'headerDepositBtnColor': var(--mc-baseMain-locked),
     'containerJustifyContent': space-between,
     'headerGapColumns': ef.size(8),
     'headerGridColumns': (
@@ -209,6 +210,7 @@ $headerThemeUniversal: map-merge((
     'headerContainerDesktopMargin': (
         1200: 0 auto
     ),
+    'headerDepositBtnColor': var(--mc-baseMain-locked),
     'headerGapColumns': ef.size(8),
     'headerGridColumns': (
         375: 1fr auto,
