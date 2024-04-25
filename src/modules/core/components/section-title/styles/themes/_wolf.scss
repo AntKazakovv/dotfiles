@@ -53,4 +53,18 @@ a.wlc-section-title--theme-wolf:host {
             }
         }
     }
+
+    .wlc-sections__profile-content & {
+
+        .wlc-section-title {
+
+            &__content {
+                color: ef.get-value($themeWolf, 'profileTitleColor');
+            }
+
+            &__icon {
+                color: ef.get-value($themeWolf, 'profileTitleIconFill');
+            }
+        }
+    }
 }

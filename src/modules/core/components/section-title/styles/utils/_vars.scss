@@ -21,4 +21,7 @@ $themeWolf: map-merge((
     'titleIconSize': 16px,
     'titleIconFill': var(--mc-baseMain),
     'titleIconFillBase': currentColor,
+
+    'profileTitleColor': var(--mc-baseThird),
+    'profileTitleIconFill': var(--mc-baseThird),
 ), $customThemeWolf);
