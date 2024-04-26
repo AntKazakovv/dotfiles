@@ -480,7 +480,7 @@
                 padding: ef.get-value($themeDefaultPplInfo, 'itemPadding');
                 background: ef.get-value($themeDefaultPplInfo, 'itemBg');
 
-                &:first-child {
+                &:nth-child(2) {
                     border-radius: ef.get-value($themeDefaultPplInfo, 'itemFirstChildRadius');
                 }
 
@@ -524,6 +524,10 @@
                 }
 
                 &__item {
+
+                    &:nth-child(2) {
+                        border-radius: 0;
+                    }
 
                     &:last-child {
                         border-radius: ef.get-value($themeDefaultPplInfo, 'wolfItemLastChildRadius');
