@@ -754,6 +754,7 @@ export class PaymentFormComponent
         }
 
         if (this.isDeposit && this.currentSystem.isPregeneration && !this.currentSystem.message) {
+            this.updateCryptoFields();
             this.isWaitingResponse = true;
             await this.depositAction(0, {bonusId: null});
         }
