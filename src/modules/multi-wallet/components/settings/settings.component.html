@@ -30,8 +30,8 @@
     <div
         *ngFor="let currency of $params.currencies"
         class="{{$class}}__currency"
-        [class.active]="$params.walletSettings.currency === currency"
-        (click)="onCurrencyChange(currency)">
-        {{currency}}
+        [class.active]="$params.walletSettings.currency === currency.name"
+        (click)="onCurrencyChange(currency.name)">
+        {{currency.displayName}}
     </div>
 </div>
