@@ -71,7 +71,7 @@ export class HeadersInterceptor implements HttpInterceptor {
             });
             if (jwtAuthToken) {
                 req = req.clone({
-                    headers: req.headers.set('Authorization', `Basic d2xjOndsY2RlbW8=,Bearer ${jwtAuthToken}`),
+                    headers: req.headers.set('Authorization', `Bearer ${jwtAuthToken}`),
                 });
             }
         }
