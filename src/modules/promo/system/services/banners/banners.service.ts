@@ -38,7 +38,7 @@ export class BannersService {
 
     constructor(
         protected configService: ConfigService,
-        protected translate: TranslateService,
+        protected translateService: TranslateService,
         protected dataService: DataService,
         protected logService: LogService,
     ) {
@@ -171,10 +171,10 @@ export class BannersService {
                 this.allBanners = data;
 
                 this.defaultBanners = this.prepareBanners();
-                this.banners = this.prepareBanners(this.translate.currentLang);
+                this.banners = this.prepareBanners(this.translateService.currentLang);
 
-                this.translate.onLangChange.subscribe(() => {
-                    this.banners = this.prepareBanners(this.translate.currentLang);
+                this.translateService.onLangChange.subscribe(() => {
+                    this.banners = this.prepareBanners(this.translateService.currentLang);
                 });
             }
         } catch (error) {
