@@ -4,7 +4,7 @@ export type CategoryViewType = 'all-games' | 'blocks' | 'restricted-blocks';
 export type CategoryBlockShowType = 'slide-arrows' | 'btn-load-more' | 'default-btn';
 
 export interface ICategorySettings {
-    view: CategoryViewType,
+    view?: CategoryViewType,
     blocks?: IIndexing<ICategoryBlock>;
 }
 

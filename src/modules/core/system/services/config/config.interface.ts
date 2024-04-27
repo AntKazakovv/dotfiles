@@ -12,7 +12,7 @@ import {BehaviorSubject} from 'rxjs';
 /**
  * Types of storage to get or set data
  */
-export type IStorageType = 'localStorage' | 'sessionStorage' | 'cookiesStorage';
+export type IStorageType = 'localStorage' | 'sessionStorage';
 
 export interface IGlobalConfig {
     appConfig: AppConfigModel;

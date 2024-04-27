@@ -43,12 +43,9 @@ export class AppConfigModel extends AbstractModel<IBootstrap> {
      */
     public get categories(): IIndexing<ICategorySettings> {
         if (this.data.categories && _entries(this.data.categories).some(([, value]) => Array.isArray(value))) {
-            return _reduce(_entries(this.data.categories), (acc, current) => {
-                acc[current[0]] = current[1];
+            return _reduce(_entries(this.data.categories), (acc: IIndexing<ICategorySettings>, current) => {
+                acc[current[0]] = Array.isArray(current[1]) ? {} : current[1];
 
-                if (Array.isArray(current[1])) {
-                    acc[current[0]] = {};
-                }
                 return acc;
             }, {});
         }
