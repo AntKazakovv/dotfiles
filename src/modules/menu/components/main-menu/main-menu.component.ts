@@ -74,7 +74,7 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
         @Inject('injectParams') protected injectParams: Params.IMainMenuCParams,
         cdr: ChangeDetectorRef,
         protected layoutService: LayoutService,
-        protected translate: TranslateService,
+        protected translateService: TranslateService,
         protected eventService: EventService,
         configService: ConfigService,
         protected injectionService: InjectionService,
@@ -109,10 +109,15 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
             : await this.menuService.getFundistMenuSettings('mainMenu');
 
         if (this.menuSettings) {
-            this.menuConfig = MenuHelper.parseMenuSettings(this.menuSettings, 'main-menu', this.translate.currentLang, {
-                isAuth: this.isAuth,
-                wlcElementPrefix: 'link_main-nav-',
-            });
+            this.menuConfig = MenuHelper.parseMenuSettings(
+                this.menuSettings,
+                'main-menu',
+                this.translateService.currentLang,
+                {
+                    isAuth: this.isAuth,
+                    wlcElementPrefix: 'link_main-nav-',
+                },
+            );
         } else if (this.configService.get<AppType>('$base.app.type') === 'kiosk') {
             this.menuConfig = this.configService.get<MenuParams.MenuConfigItem[]>('$menu.mainMenuKiosk.items');
         } else {
@@ -219,7 +224,7 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
 
         let menuItems: MenuParams.IMenuItem[] = MenuHelper.getItemsForCategories({
             categories: categories,
-            lang: this.translate.currentLang,
+            lang: this.translateService.currentLang,
             wlcElementPrefix: 'link_main-nav',
             icons: {
                 folder: this.iconsFolder,
