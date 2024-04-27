@@ -209,7 +209,7 @@ export class GlobalHelper {
     public static prepareParams<T>(instance: unknown, inputProperties: string[] = []): T {
         const inlineParams: any = _mergeWith({
             common: {},
-        }, instance as IIndexing<unknown>['inlineParams'] || {});
+        }, instance['inlineParams'] as IIndexing<unknown> || {});
 
         _forEach(inputProperties, property => {
             if (!_isUndefined(_get(instance, property))) {
@@ -231,7 +231,7 @@ export class GlobalHelper {
      * prepare component params
      */
     public static prepareCParams<T>(instance: unknown, inputProperties: string[] = []): T {
-        const inlineParams: any = instance as IIndexing<unknown>['inlineParams'] || {};
+        const inlineParams: any = instance['inlineParams'] as IIndexing<unknown> || {};
 
         _forEach(inputProperties, property => {
             if (!_isUndefined(_get(instance, property))) {
