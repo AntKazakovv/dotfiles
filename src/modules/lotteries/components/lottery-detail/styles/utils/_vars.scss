@@ -1,7 +1,5 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'baseWidth': 500px,
-
     'mainBg': none,
     'mainRadius': (
         375: 0,
@@ -79,6 +77,7 @@ $themeDefault: map-merge((
     'sectionTitleColor': var(--mc-baseMain),
     'sectionTitleMargin': 0 0 ef.size(4),
 
+    'prizesWidth': 500px,
     'prizesBg': var(--mc-bg700),
     'prizesRadius': ef.get('radius', 'biger'),
 

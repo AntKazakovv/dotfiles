@@ -8,7 +8,7 @@
     <div class="{{$class}}__timer">
         <div wlc-timer
             [value]="lottery.dateEnd"
-            [text]="$params.timerText"></div>
+            [text]="lottery.getTimerText('dateEnd')"></div>
     </div>
     <p>{{'Ticket value:' | translate}}
         <span wlc-currency

@@ -5,25 +5,22 @@ import {
     Inject,
     Input,
     ChangeDetectorRef,
-    OnDestroy,
 } from '@angular/core';
 
 import {
-    BehaviorSubject,
-    Subject,
     takeUntil,
 } from 'rxjs';
+import _merge from 'lodash-es/merge';
+import _assign from 'lodash-es/assign';
 
 import {
-    AbstractComponent,
     ConfigService,
     EventService,
 } from 'wlc-engine/modules/core';
-import {ILotteryPrizePoolCParams}
-    from 'wlc-engine/modules/lotteries/components/lottery-prizepool/lottery-prizepool.params';
+import {ILotteryPrizesCParams} from 'wlc-engine/modules/lotteries/components/lottery-prizes/lottery-prizes.params';
 import {LotteriesService} from 'wlc-engine/modules/lotteries/system/services/lotteries.service';
 import {Lottery} from 'wlc-engine/modules/lotteries/system/models/lottery.model';
-import {LotteryController} from 'wlc-engine/modules/lotteries/system/classes/lottery.controller';
+import {LotteryAbstract} from 'wlc-engine/modules/lotteries/system/classes/lottery-abstract.class';
 
 import * as Params from './lottery-card.params';
 
@@ -34,59 +31,51 @@ import * as Params from './lottery-card.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
-export class LotteryCardComponent extends AbstractComponent implements OnInit, OnDestroy {
+export class LotteryCardComponent extends LotteryAbstract<Params.ILotteryCardCParams> implements OnInit {
     @Input() protected inlineParams: Params.ILotteryCardCParams;
 
-    public update$: Subject<void> = new Subject();
     public override $params: Params.ILotteryCardCParams;
-    public prizesParams: ILotteryPrizePoolCParams;
-    public lottery: Lottery;
-    public pending$: BehaviorSubject<boolean> = new BehaviorSubject(true);
-
-    protected lotteryController: LotteryController;
+    public prizesParams: ILotteryPrizesCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILotteryCardCParams,
         configService: ConfigService,
-        protected eventService: EventService,
-        protected lotteriesService: LotteriesService,
+        eventService: EventService,
+        lotteriesService: LotteriesService,
         cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams}, lotteriesService, eventService, configService, cdr);
     }
 
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
 
-        this.lotteryController = new LotteryController(
-            this.lotteriesService,
-            this.configService,
-            this.eventService,
-        );
-        this.pending$.next(true);
+        await this.getLottery();
 
-        await this.lotteryController.fetchLottery();
-        this.lotteryController.lottery$.pipe(
+        this.lotteriesService.lottery$.pipe(
             takeUntil(this.$destroy),
-        ).subscribe((lottery: Lottery) => {
+        ).subscribe((lottery: Lottery): void => {
             this.lottery = lottery;
+            this.setPrizesParams();
             this.cdr.markForCheck();
         });
 
-        this.pending$.next(false);
-    }
-
-    public override ngOnDestroy(): void {
-        super.ngOnDestroy();
-        this.lotteryController.destroy();
+        this.setPrizesParams();
     }
 
     public get showTicketsCounter(): boolean {
-        return this.lotteryController.isAuth;
+        return this.isAuth;
     }
 
     public updateView(): void {
         this.update$.next();
+        this.cdr.markForCheck();
+    }
+
+    private setPrizesParams(): void {
+        this.prizesParams = _assign(_merge(this.$params.prizesParams, {
+            lottery: this.lottery,
+        }));
         this.cdr.markForCheck();
     }
 }

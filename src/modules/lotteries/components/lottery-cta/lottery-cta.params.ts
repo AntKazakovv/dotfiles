@@ -11,14 +11,12 @@ export type ComponentThemeMod = 'default' | 'wolf' | CustomType;
 export interface ILotteryCtaCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     depositBtnParams?: IButtonCParams;
     readMoreBtnParams?: IButtonCParams;
-    timerText?: string;
 };
 
 export const defaultParams: ILotteryCtaCParams = {
     class: 'wlc-lottery-cta',
     componentName: 'wlc-lottery-cta',
     moduleName: 'lotteries',
-    timerText: gettext('Time until the end of ticket issuance'),
     depositBtnParams: {
         common: {
             text: gettext('Deposit'),

@@ -5,8 +5,4 @@ export const errorTypes: ILogTypes = {
         // Error endpoint lottery
         level: 'error',
     },
-    '28.1.0': {
-        // Error endpoint lotteries history
-        level: 'error',
-    },
 };

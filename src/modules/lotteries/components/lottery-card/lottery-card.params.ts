@@ -2,8 +2,7 @@ import {
     IComponentParams,
     CustomType,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ILotteryPrizePoolCParams}
-    from 'wlc-engine/modules/lotteries/components/lottery-prizepool/lottery-prizepool.params';
+import {ILotteryPrizesCParams} from 'wlc-engine/modules/lotteries/components/lottery-prizes/lottery-prizes.params';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
@@ -17,7 +16,7 @@ export interface ILotteryCardCParams extends IComponentParams<ComponentTheme, Co
         noContent?: string;
         imageMainFallback?: string;
     }
-    prizesParams?: ILotteryPrizePoolCParams;
+    prizesParams?: ILotteryPrizesCParams;
 };
 
 export const defaultParams: ILotteryCardCParams = {

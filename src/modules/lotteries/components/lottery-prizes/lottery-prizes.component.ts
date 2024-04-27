@@ -14,28 +14,28 @@ import {
     ConfigService,
 } from 'wlc-engine/modules/core';
 import {Lottery} from 'wlc-engine/modules/lotteries/system/models/lottery.model';
-import {ILotteryPrizeRow} from 'wlc-engine/modules/lotteries/system/interfaces/lotteries.interface';
+import {ILotteryPrize} from 'wlc-engine/modules/lotteries/system/interfaces/lotteries.interface';
 
-import * as Params from './lottery-prizepool.params';
+import * as Params from './lottery-prizes.params';
 
 @Component({
-    selector: '[wlc-lottery-prizepool]',
-    templateUrl: './lottery-prizepool.component.html',
-    styleUrls: ['./styles/lottery-prizepool.component.scss'],
+    selector: '[wlc-lottery-prizes]',
+    templateUrl: './lottery-prizes.component.html',
+    styleUrls: ['./styles/lottery-prizes.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
-export class LotteryPrizePoolComponent extends AbstractComponent implements OnInit, OnChanges {
-    @Input() protected inlineParams: Params.ILotteryPrizePoolCParams;
+export class LotteryPrizesComponent extends AbstractComponent implements OnInit, OnChanges {
+    @Input() protected inlineParams: Params.ILotteryPrizesCParams;
     @Input() protected lottery: Lottery;
 
-    public override $params: Params.ILotteryPrizePoolCParams;
-    public prizeTable: ILotteryPrizeRow[] = [];
+    public override $params: Params.ILotteryPrizesCParams;
+    public prizeTable: ILotteryPrize[] = [];
     public showMoreBtn: boolean = true;
     protected isExpanded: boolean = false;
 
     constructor(
-        @Inject('injectParams') protected injectParams: Params.ILotteryPrizePoolCParams,
+        @Inject('injectParams') protected injectParams: Params.ILotteryPrizesCParams,
         protected override configService: ConfigService,
         protected override cdr: ChangeDetectorRef,
     ) {
@@ -50,6 +50,7 @@ export class LotteryPrizePoolComponent extends AbstractComponent implements OnIn
     public override ngOnChanges(changes: SimpleChanges): void {
         if (changes.lottery) {
             this.setPrizeTable();
+            this.cdr.markForCheck();
         }
     }
 

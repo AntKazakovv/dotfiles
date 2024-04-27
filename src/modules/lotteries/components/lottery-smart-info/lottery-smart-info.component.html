@@ -1,13 +1,13 @@
 <ng-container *ngIf="lottery">
-    <p class="{{$class}}__dates">{{getDatesString()}}</p>
-    <p *ngIf="lottery.isWaitingForResults" class="{{$class}}__text">
-        {{$params.texts.endingText | translate}}
+    <p *ngIf="!lottery.isEnded" class="{{$class}}__dates">{{lottery.datesFormatted}}</p>
+    <p *ngIf="lottery.isEnded" class="{{$class}}__dates">
+        {{'Ended' | translate}}: {{lottery.dateEndFormatted}}
     </p>
-    <div *ngIf="showTimer" class="{{$class}}__timer">
+    <div *ngIf="!lottery.isEnded" class="{{$class}}__timer">
         <div wlc-timer
             [inlineParams]="{theme: $params.themeMod}"
-            [value]="lottery.drawingDate"
-            [text]="$params.texts.timerText"
+            [value]="lottery.dateEnd"
+            [text]="lottery.getTimerText('raffleEnd')"
             (timerEnds)="updateView()"></div>
     </div>
     <div *ngIf="showTicketsCounter" class="{{$class}}__tickets">

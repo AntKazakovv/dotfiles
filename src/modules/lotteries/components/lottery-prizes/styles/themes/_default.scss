@@ -1,10 +1,10 @@
-.wlc-lottery-prizepool--theme-default:host {
+.wlc-lottery-prizes--theme-default:host {
     @include text.get-text-style(
         ef.get-value($themeDefault, 'commonTextStyle'),
         ef.get-value($themeDefault, 'commonColor')
     );
 
-    .wlc-lottery-prizepool {
+    .wlc-lottery-prizes {
 
         &__row {
             position: relative;

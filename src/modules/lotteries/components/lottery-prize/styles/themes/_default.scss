@@ -1,9 +1,0 @@
-.wlc-lottery-prize--theme-default:host {
-
-    .wlc-lottery-prize {
-
-        &__prize-divider {
-            margin: ef.get-value($themeDefault, 'dividerMargin');
-        }
-    }
-}

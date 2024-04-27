@@ -1,9 +1,0 @@
-<div *ngIf="isHistoryLoaded; else loader" class="{{$class}}__list">
-    <div *ngFor="let item of history" class="{{$class}}__item">
-        <div wlc-finished-lottery [lottery]="item"></div>
-    </div>
-</div>
-
-<ng-template #loader>
-    <div wlc-loader></div>
-</ng-template>

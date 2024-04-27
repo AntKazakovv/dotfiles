@@ -63,10 +63,7 @@ export class LotteryButtonsComponent extends AbstractComponent implements OnInit
     }
 
     public get showDepositBtn(): boolean {
-        return this.isAuth
-            && this.lottery?.checkUserLevel
-            && !this.lottery.isWaitingForStart
-            && !this.lottery.isTicketSaleStopped;
+        return this.isAuth && this.lottery?.checkUserLevel && !this.lottery.isTicketSaleStopped;
     }
 
     public showDetails(): void {

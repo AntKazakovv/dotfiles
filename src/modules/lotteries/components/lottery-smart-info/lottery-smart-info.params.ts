@@ -10,9 +10,6 @@ export type ComponentThemeMod = 'default' | CustomType;
 export interface ILotterySmartInfoCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     texts?: {
         ticketsCaption?: string;
-        timerText?: string;
-        /** Text for case when lottery is finished but results hasn't been ready yet */
-        endingText?: string;
     }
 };
 
@@ -22,8 +19,5 @@ export const defaultParams: ILotterySmartInfoCParams = {
     moduleName: 'lotteries',
     texts: {
         ticketsCaption: gettext('Number of your tickets:'),
-        timerText: gettext('The raffle starts in'),
-        endingText: gettext('The raffle has started and will last no more than 15 minutes! '
-            + 'Follow the course of the raffle. Good luck!'),
     },
 };
