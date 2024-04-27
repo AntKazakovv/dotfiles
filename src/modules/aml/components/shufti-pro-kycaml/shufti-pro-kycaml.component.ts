@@ -60,7 +60,7 @@ export class ShuftiProKycamlComponent extends AbstractComponent implements OnIni
         @Inject('injectParams') protected injectParams: Params.IShuftiProKycamlCParams,
         protected shuftiProKycamlService: ShuftiProKycamlService,
         protected sanitizer: DomSanitizer,
-        protected translate: TranslateService,
+        protected translateService: TranslateService,
         protected logService: LogService,
         configService: ConfigService,
         cdr: ChangeDetectorRef,
@@ -146,7 +146,7 @@ export class ShuftiProKycamlComponent extends AbstractComponent implements OnIni
                     return (await this.shuftiProKycamlService.createData())?.url;
                 },
             ).withConf({
-                lang: this.translate.currentLang,
+                lang: this.translateService.currentLang,
                 uiConf: {
                     scrollIntoView: false,
                 },
