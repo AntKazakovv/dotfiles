@@ -1123,6 +1123,12 @@ export class BonusesService {
             }
         });
 
+        this.eventService.subscribe([
+            {name: 'PROMO_ERROR'},
+        ], (): void => {
+            this.cachingService.clear(this.dbPromoUrl);
+        });
+
         this.translateService.onLangChange.subscribe((): void => {
             this.updateSubscribers();
         });

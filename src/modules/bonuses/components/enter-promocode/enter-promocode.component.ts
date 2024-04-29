@@ -124,6 +124,9 @@ export class EnterPromocodeComponent extends AbstractComponent implements OnInit
             });
 
         } catch (error) {
+            this.eventService.emit({
+                name: 'PROMO_ERROR',
+            });
             this.bonusesService.showPromoCodeError(error.errors ? error.errors : error);
         } finally {
             this.pending$.next(false);
