@@ -391,7 +391,7 @@ export class ProfileMenuService {
 
         if (!userInfo.transfersAllowed) {
             this.profileMenuConfig = this.removeMenuItemsByState(
-                this.profileMenuConfig,
+                _cloneDeep(this.profileMenuConfig),
                 'app.profile.cash.transfer',
             );
         }
