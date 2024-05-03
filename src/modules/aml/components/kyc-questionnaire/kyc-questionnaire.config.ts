@@ -178,7 +178,7 @@ export const kycQStepsConfig = {
     step2other: wrapForm([
         wrapBlock(false, [
             newInput('employmentOtherDetails', gettext('Information'),
-                gettext('e.g. maternity leave, unemployment, etc.')),
+                gettext('(e.g. maternity leave, unemployment, etc.)')),
         ]),
         btnBlock(),
     ]),
