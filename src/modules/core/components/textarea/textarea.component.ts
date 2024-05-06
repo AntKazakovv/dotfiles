@@ -5,16 +5,25 @@ import {
     Input,
     ChangeDetectorRef,
     ChangeDetectionStrategy,
+    AfterViewInit,
+    inject,
+    DestroyRef,
 } from '@angular/core';
 import {UntypedFormControl} from '@angular/forms';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+
+import {
+    distinctUntilChanged,
+    tap,
+} from 'rxjs/operators';
+import _kebabCase from 'lodash-es/kebabCase';
+
 import {
     AbstractComponent,
     ConfigService,
 } from 'wlc-engine/modules/core';
 
 import * as Params from './textarea.params';
-
-import _kebabCase from 'lodash-es/kebabCase';
 
 /**
  * Component textarea
@@ -33,11 +42,12 @@ import _kebabCase from 'lodash-es/kebabCase';
     styleUrls: ['./styles/textarea.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TextareaComponent extends AbstractComponent implements OnInit {
+export class TextareaComponent extends AbstractComponent implements OnInit, AfterViewInit {
     @Input() protected inlineParams: Params.ITextareaCParams;
     public override $params: Params.ITextareaCParams;
     public control: UntypedFormControl;
     public fieldWlcElement: string;
+    protected destroyRef = inject(DestroyRef);
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITextareaCParams,
@@ -51,6 +61,18 @@ export class TextareaComponent extends AbstractComponent implements OnInit {
         super.ngOnInit(this.inlineParams);
         this.control = this.$params?.control;
         this.fieldWlcElement = 'textarea_' + _kebabCase(this.$params.name);
+    }
+
+    public ngAfterViewInit(): void {
+        this.control.valueChanges
+            .pipe(
+                distinctUntilChanged(),
+                tap((v: string) =>  {
+                    this.control.setValue(v.trimStart());
+                }),
+                takeUntilDestroyed(this.destroyRef),
+            )
+            .subscribe();
     }
 
     public isFieldRequired(): boolean {
