@@ -48,7 +48,6 @@
 
         &__show-all-btn,
         &__link {
-            @include bm.get-mq-map('margin', $themeSwiper, 'swiperShowAllMargin');
             grid-area: show-all;
         }
 

@@ -11,10 +11,7 @@ $themeSwiper: map-merge((
     'swiperButtonsDisplay': grid,
     'swiperButtonsContainerMargin': (
         375: 0 0 0 auto,
-    ),
-
-    'swiperShowAllMargin': (
-        375: 0 0 0 ef.size(4),
+        1024: 0 ef.size(4) 0 auto,
     ),
     'swiperMarginModBottom': 0 0 0 auto,
 
