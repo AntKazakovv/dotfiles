@@ -24,6 +24,8 @@ export class LoyaltyLevelsWpComponent extends AbstractComponent implements OnIni
     @Input() public hideInfo: boolean;
 
     public override $params: Params.ILoyaltyLevelWpParams;
+    public noDataInfo: boolean = false;
+    public noDataDescription: boolean = false;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILoyaltyLevelWpParams,
@@ -37,13 +39,23 @@ export class LoyaltyLevelsWpComponent extends AbstractComponent implements OnIni
 
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit(GlobalHelper.prepareCParams(this, ['hideDescription', 'hideInfo']));
+        this.$params.loyaltyDescriptionPost.components[0].params =
+            {
+                ...this.$params.loyaltyDescriptionPost.components[0].params as {},
+                noDataCallback: () => this.noDataDescription = true,
+            };
+        this.$params.loyaltyInfoPost.components[0].params =
+        {
+            ...this.$params.loyaltyInfoPost.components[0].params as {},
+            noDataCallback: () => this.noDataInfo = true,
+        };
     }
 
     public get showDescription(): boolean {
-        return !this.$params.hideDescription;
+        return !this.$params.hideDescription && !this.noDataDescription;
     }
 
     public get showInfo(): boolean {
-        return !this.$params.hideInfo;
+        return !this.$params.hideInfo && !this.noDataInfo;
     }
 }

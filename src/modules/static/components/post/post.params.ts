@@ -30,6 +30,7 @@ export interface IPostCParams extends IComponentParams<string, string, string> {
     downloadPdf?: IDownloadPdf;
     canUseScriptTag?: boolean;
     noContent?: INoContent;
+    noDataCallback?: () => void;
 }
 
 export const defaultParams: IPostCParams = {

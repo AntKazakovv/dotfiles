@@ -109,6 +109,9 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
                 this.params.setTitle?.(this.data.title);
             }
         } catch (error) {
+            if (!this.data) {
+                this.$params.noDataCallback?.();
+            }
             this.logService.sendLog({code: '5.0.0', data: error});
         } finally {
             this.isReady = true;
