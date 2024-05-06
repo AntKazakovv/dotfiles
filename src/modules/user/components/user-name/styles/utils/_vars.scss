@@ -9,7 +9,7 @@ $customThemeWolf: () !default;
 $themeWolf: map-merge((
     'containerGap': ef.size(2),
     'containerRadius': ef.size(2),
-    'containerBg': var(--mc-bg300),
+    'containerBg': var(--mc-bg300-o4),
     'containerWidth': 100%,
     'containerMaxWidth': 288px,
     'emailValueTextStyle': 'CaptionTextBold',

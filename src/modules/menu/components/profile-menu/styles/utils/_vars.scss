@@ -86,14 +86,14 @@ $themeDropdownWolf: map-merge((
     'linkTextStyle': 'CaptionText',
     'linkColor': var(--mc-baseMain),
     'linkBg': (
-        375: var(--mc-bg300),
+        375: var(--mc-bg300-o4),
     ),
     'hoverLinkColor': var(--mc-baseSecond, var(--mc-baseMain)),
-    'hoverLinkBg': var(--mc-bg100),
+    'hoverLinkBg': var(--mc-bg100-o4),
     'activeLinkTextStyle': 'CaptionTextBold',
     'activeLinkColor': var(--mc-baseThird, var(--mc-baseMain)),
     'activeLinkBg': (
-        375: var(--mc-bg100),
+        375: var(--mc-bg100-o4),
     ),
     'counterWidth': auto,
     'counterMinWidth': ef.size(6),
