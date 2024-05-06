@@ -80,11 +80,10 @@
     }
 
     .wlc-jackpot__name {
+        @include text.get-text-style(ef.get-value($theme1, 'nameText'));
         flex: 1 1 auto;
         min-width: 0;
         max-width: 100%;
-        font-size: 1.6rem;
-        line-height: 1.45;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -104,7 +103,10 @@
     }
 
     .wlc-jackpot__game {
-        @include text.get-text-style('ThirdTitleBold', ef.get-value($theme1, 'gameColor'));
+        @include text.get-text-style(
+            ef.get-value($theme1, 'gameText'),
+            ef.get-value($theme1, 'gameColor')
+        );
         grid-area: game;
         line-height: ef.get-value($theme1, 'gameLineHeight');
 
@@ -115,7 +117,10 @@
     }
 
     .wlc-jackpot__amount {
-        @include text.get-text-style('ThirdTitleBold', ef.get-value($theme1, 'gameColor'));
+        @include text.get-text-style(
+            ef.get-value($theme1, 'amountText'),
+            ef.get-value($theme1, 'gameColor')
+        );
         display: flex;
         grid-area: amount;
         align-items: center;

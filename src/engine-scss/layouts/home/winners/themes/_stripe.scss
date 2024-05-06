@@ -1,8 +1,6 @@
 .wlc-sections__winners-section--theme-stripe {
-    background: none;
 
     &.wlc-sections__winners-section--in-container {
-        background: none;
 
         @if (ef.get('baseVariables', 'useWide') == true) {
             @include bm.get-mq-map('padding', $themeWinnersSectionStripe, 'paddingWideContainer');

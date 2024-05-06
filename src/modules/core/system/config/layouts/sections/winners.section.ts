@@ -5,19 +5,19 @@ export namespace  winnersSection {
     export const home: ILayoutSectionConfig = {
         container: true,
         components: [
-            componentLib.wlcTitle.winnersSection,
-            {
-                name: 'core.wlc-wrapper',
-                params: {
-                    class: 'winners-wrapper',
-                    components: [
-                        componentLib.wlcLastWinsSlider.one,
-                        componentLib.wlcJackpotsSlider.one,
-                        componentLib.wlcBiggestWinsSlider.one,
-                    ],
-                },
-            },
+            componentLib.wlcLastWinsSlider.one,
+            componentLib.wlcJackpotsSlider.one,
+            componentLib.wlcBiggestWinsSlider.one,
         ],
+        smartSection: {
+            hostClasses: 'wlc-mb-xl',
+            innerClasses: 'wlc-gap-smd wlc-mb-md',
+            columns: [
+                'wlc-c-12 wlc-c-720-6 wlc-c-1200-4',
+                'wlc-c-12 wlc-c-720-6 wlc-c-1200-4',
+                'wlc-c-12 wlc-c-720-6 wlc-c-1200-4',
+            ],
+        },
     };
 
     export const stripeDef: ILayoutSectionConfig = {

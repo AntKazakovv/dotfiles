@@ -33,8 +33,9 @@ $themeDefault: map-merge((
     'titleAlignment': (
         1200: center,
     ),
+    'titleText': 'QoteTextBoldSmaller',
     'titleBackground': var(--mc-bg700),
-    'titleBorder': ef.size(2),
+    'titleBorderRadius': ef.get('radius', 'biger'),
     'titleHeight': ef.size(16),
     'loaderHeight': 62px,
     'sliderWrapperHeight': 100%,
@@ -120,33 +121,24 @@ $themeTransparent: map-merge((
 
 $customTheme1: () !default;
 $theme1: map-merge((
-    'maxWidth': (
-        375: 100%,
-        720: 315px,
-        1024: 345px,
-    ),
-    'background': var(--mc-bg700),
-    'borderRadius': ef.size(2),
-
     'wrapperHeight': 100%,
     'containerHeight': 100%,
     'containerDisplay': flex,
     'containerDirection': column,
-
     'slideHeight': 70px,
     'slideInnerGap': 15px,
 
     'titleColor': var(--mc-baseMain),
-    'titleSize': 2rem,
+    'titleText': 'QoteTextBold',
     'titleTextAlign': center,
     'titleBg': none,
     'titlePadding': ef.size(0),
-    'titleMargin': 15px,
+    'titleMargin': 0 0 ef.size(2),
     'titleBoxShadow': none,
 
     'sliderHeight': calc((var(--wlc-winner-slider-slide-height, 70px) + var(--wlc-winner-slider-slide-gap, 15px) + var(--wlc-winner-slider-slide-inner-gap, 15px)) * var(--wlc-winner-slider-slides-per-view, 4) - var(--wlc-winner-slider-slide-inner-gap, 15px)),
-    'sliderPadding': ef.size(4) ef.size(4) ef.size(2) ef.size(4),
+    'sliderPadding': ef.size(4) ef.size(4) ef.size(2),
 
-    // line overlapping the border of the last element
-    'bottomLineHeight': 2px,
+    'background': var(--mc-bg700),
+    'borderRadius': ef.get('radius', 'biger'),
 ), $customTheme1);

@@ -14,24 +14,19 @@ $themeWinnersSection: map-merge((
         1024: 0 ef.size(2),
         1200: 0 ef.size(2) ef.size(5),
     ),
-    'lastItemMargin': (
-        365: 0,
-        480: 0 ef.size(2),
-        1200: 0 ef.size(2) ef.size(5),
-    ),
-    // from first and last elements
-    'translateItems': (
-        1200: translateY(ef.size(5)),
-    ),
     'sectionMargin': (
-        375: 0 0 ef.size(4),
-        1200: 0 0 ef.size(8),
+        375: 0 auto ef.size(4),
+        1200: 0 auto ef.size(8),
     ),
+    'sectionMaxWidth': (
+        720: 710px,
+        1200: 1075px,
+    ),
+    'sectionWidth': 100%,
 ), $customThemeWinnersSection);
 
 $customThemeWinnersSectionStripe: () !default;
 $themeWinnersSectionStripe: map-merge((
-    'background': none,
     'containerRadius':  ef.get('radius', 'biger'),
     'maxWidthWideContainer': 1870px,
     'paddingWideContainer': (

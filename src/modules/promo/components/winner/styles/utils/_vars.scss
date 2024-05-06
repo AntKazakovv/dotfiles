@@ -18,7 +18,7 @@ $winnerBase: map-merge((
     'rightGridTemplateAreas': 'user amount' 'game game',
     'rightColumnGap': ef.size(2),
 
-    'userTextStyle': 'ThirdTitle',
+    'userTextStyle': 'PrimaryText',
     'userColor': var(--mc-baseMain),
     'userTextTransform': none,
 
@@ -28,7 +28,7 @@ $winnerBase: map-merge((
     'countryBorder': none,
     'countryShadow': none,
 
-    'gameTextStyle': 'ThirdTitleBold',
+    'gameTextStyle': 'PrimaryTextBold',
     'gameColor': var(--mc-baseMain),
     'gameAlignItems': center,
     'gameJustifyContent': space-between,
@@ -42,7 +42,7 @@ $winnerBase: map-merge((
     'gameHoverBorderColor': currentColor,
     'gameHoverArrowColor': var(--mc-main-l20),
 
-    'amountTextStyle': 'ThirdTitleBold',
+    'amountTextStyle': 'PrimaryTextBold',
     'amountColor': var(--mc-baseMain),
     'amountTextAlign': right,
 ), $customWinnerBase);

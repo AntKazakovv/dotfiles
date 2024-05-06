@@ -375,14 +375,6 @@ export namespace wlcTitle {
         },
     };
 
-    export const winnersSection: ILayoutComponent = {
-        name: 'core.wlc-title',
-        params: {
-            mainText: gettext('Winners'),
-            wlcElement: 'header_winners',
-        },
-    };
-
     export const profileAvailableTournaments: ILayoutComponent = {
         name: 'core.wlc-title',
         params: {

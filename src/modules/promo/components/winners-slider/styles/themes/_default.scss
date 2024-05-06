@@ -29,7 +29,10 @@
         }
 
         &__title {
-            @include text.get-text-style('QoteTextBold', ef.get-value($themeDefault, 'titleColor'));
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'titleText'),
+                ef.get-value($themeDefault, 'titleColor')
+            );
             @include bm.get-mq-map('margin-bottom', $themeDefault, 'titleMarginBottom');
             @include bm.get-mq-map('margin-right', $themeDefault, 'titleMarginRight');
             @include bm.get-mq-map('flex', $themeDefault, 'titleFlex');
@@ -40,7 +43,7 @@
             height: ef.get-value($themeDefault, 'titleHeight');
             padding-top: ef.get-value($themeDefault, 'titlePaddingTop');
             background-color: ef.get-value($themeDefault, 'titleBackground');
-            border-radius: ef.get-value($themeDefault, 'titleBorder');
+            border-radius: ef.get-value($themeDefault, 'titleBorderRadius');
 
 
             @include mq.min(ef.get-value($themeDefault, 'breakpoint')) {

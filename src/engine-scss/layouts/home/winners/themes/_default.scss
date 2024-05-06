@@ -1,12 +1,9 @@
 .wlc-sections__winners-section {
     @include bm.get-mq-map('margin', $themeWinnersSection, 'sectionMargin');
+    width: ef.get-value($themeWinnersSection, 'sectionWidth');
 
-    .wlc-title--theme-default {
-        margin: ef.get-value($themeWinnersSection, 'titleMargin');
-
-        .wlc-title__main {
-            text-align: ef.get-value($themeWinnersSection, 'titleTextAlign');
-        }
+    &--theme-default {
+        @include bm.get-mq-map('max-width', $themeWinnersSection, 'sectionMaxWidth');
     }
 
     .winners-wrapper {

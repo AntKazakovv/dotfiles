@@ -1,23 +1,18 @@
 $customTheme1: () !default;
 $theme1: map-merge((
-    'maxWidth': (
-        375: 100%,
-        720: 315px,
-        1024: 345px,
-    ),
     'background': var(--mc-bg700),
-    'borderRadius': ef.size(2),
+    'borderRadius': ef.get('radius', 'biger'),
+
+    'titleText': 'QoteTextBold',
     'titleColor': var(--mc-baseMain),
     'titleTextAlign': center,
     'titleBg': none,
     'titlePadding': 0,
     'titleBoxShadow': none,
-    'titleSize': 2rem,
-    'titleMargin': 15px,
+    'titleMargin': 0 0 ef.size(2),
+
     'sliderHeight': calc((var(--wlc-jackpot-slider-slide-height, 70px) + var(--wlc-jackpot-slider-slide-gap, 15px) + var(--wlc-jackpot-slider-slide-inner-gap, 15px)) * var(--wlc-jackpot-slider-slides-per-view, 4) - var(--wlc-jackpot-slider-slide-inner-gap, 15px)),
-    'sliderMargin': ef.size(4) ef.size(4) ef.size(2) ef.size(4),
-    // line overlapping the border of the last element
-    'bottomLineHeight': 2px,
+    'sliderPadding': ef.size(4) ef.size(4) ef.size(2),
 
     'slideHeight': 70px,
     'slideInnerGap': ef.size(3),
