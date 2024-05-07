@@ -174,6 +174,6 @@ export class EventService {
     }
 
     private static isEventMatching<T>(filter: Partial<IEvent<T>>, event: IEvent<T>): boolean {
-        return _every(_keys(filter), (k: string) => filter[k] === event[k]);
+        return _every(_keys(filter), (k: keyof IEvent<T>) => filter[k] === event[k]);
     }
 }
