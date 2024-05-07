@@ -8,7 +8,7 @@ $themeDefault: map-merge((
     'gameButtonDecoration': none,
     'gameButtonBorder': none,
     'gameButtonColor': var(--mc-baseMain),
-    'gameHeightThumb': 54px,
+    'gameHeightThumb': 51px,
 
     'cellDisplay': table-cell,
     'cellHiddenDisplay': (
@@ -25,17 +25,17 @@ $themeDefault: map-merge((
     'cellGameWidth': 350px,
     'cellUserWidth': 300px,
     'cellProfitWidth': 110px,
+    'cellProfitWidthMobileMax': 220px,
     'cellTextAlign': left,
     'cellVerticalAlign': middle,
     'cellBackground': var(--mc-bg700),
     'cellFontSize': 16px,
     'cellSvgCategoryWidth': ef.size(4),
     'cellNameAlign': left,
-    'cellNameWidth': 175px,
     'cellTextColor': var(--mc-baseSecond, var(--mc-baseMain)),
     'cellFirstChildPadding': 2px,
-    'cellFirstChildBorderRadius': ef.size(2) 0 0 ef.size(2),
-    'cellLastChildBorderRadius': 0 ef.size(2) ef.size(2) 0,
+    'cellFirstChildBorderRadius': ef.get('radius', 'main') 0 0 ef.get('radius', 'main'),
+    'cellLastChildBorderRadius': 0 ef.get('radius', 'biger') ef.get('radius', 'biger') 0,
 
     'iconMargin': 0 ef.size(2) 0 0,
     'iconFirstChildMargin': 0 ef.size(3) 0 0,
@@ -56,8 +56,8 @@ $themeDefault: map-merge((
     'titleValueFontSizeMobile': 12px,
     'titleValueStyle': 'PrimaryText',
 
-    'thumbHeight': 55px,
-    'thumbBorderRadius': 12px,
+    'thumbHeight': 51px,
+    'thumbBorderRadius': ef.get('radius', 'less'),
     'thumbMargin': ef.size(3),
 
     'ImgContainerWidth': 90px,
@@ -70,4 +70,5 @@ $themeDefault: map-merge((
     'profitTextAlign': center,
     'profitValueColor': var(--mc-baseThird, var(--mc-baseMain)),
 
+    'nameMaxWidthMobile': 110px,
 ), $customThemeDefault);

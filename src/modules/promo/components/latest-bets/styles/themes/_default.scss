@@ -85,6 +85,7 @@
                 border-radius: ef.get-value($themeDefault, 'blockButtonsBorderRadius');
 
                 @include mq.max(1024) {
+                    justify-content: space-between;
                     min-width: 100%;
                 }
             }
@@ -97,7 +98,6 @@
                 min-width: ef.get-value($themeDefault, 'buttonMinWidth');
                 max-width: ef.get-value($themeDefault, 'buttonMaxWidth');
                 height: ef.get-value($themeDefault, 'buttonHeight');
-                margin: ef.get-value($themeDefault, 'buttonMargin');
                 padding: ef.get-value($themeDefault, 'buttonPadding');
                 background-color: ef.get-value($themeDefault, 'blockButtonsBackground');
                 border-radius: ef.get-value($themeDefault, 'buttonBorderRadius');

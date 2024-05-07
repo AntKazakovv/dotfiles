@@ -26,6 +26,7 @@
                 }
 
                 .wlc-latest-bets-item__img-container {
+                    display: flex;
                     width: ef.get-value($themeDefault, 'ImgContainerWidth');
                 }
             }
@@ -62,7 +63,6 @@
             &__thumb {
                 height: ef.get-value($themeDefault, 'thumbHeight');
                 border-radius: ef.get-value($themeDefault, 'thumbBorderRadius');
-                margin-right: ef.get-value($themeDefault, 'thumbMargin');
             }
 
             &__cell {
@@ -79,7 +79,7 @@
                     text-align: ef.get-value($themeDefault, 'cellNameAlign');
 
                     @include mq.max(560) {
-                        width: ef.get-value($themeDefault, 'cellNameWidth');
+                        max-width: ef.get-value($themeDefault, 'nameMaxWidthMobile');
                     }
                 }
 
@@ -96,6 +96,7 @@
                     width: ef.get-value($themeDefault, 'cellProfitWidth');
 
                     @include mq.max(560) {
+                        max-width: ef.get-value($themeDefault, 'cellProfitWidthMobileMax');
 
                         .wlc-latest-bets-item__title {
                             padding: ef.get-value($themeDefault, 'mobilePaddingAmount');
