@@ -96,7 +96,8 @@ export class PanelMenuComponent extends AbstractComponent implements OnInit {
     protected async initConfig(): Promise<void> {
         if (this.$params.type === 'info') {
             this.menuSettings = _cloneDeep(await this.menuService.getFundistMenuSettings('panelMenuInfo'));
-            if (this.configService.get<boolean>('$base.contacts.separatedPage')) {
+
+            if (this.configService.get<boolean>('$base.contacts.separatedPage') && this.menuSettings) {
                 this.menuSettings.items.forEach((item) => {
                     if (item.id === 'contacts') {
                         item.id = 'contact-us';
