@@ -18,9 +18,9 @@ import {
     IButtonCParams,
     InjectionService,
 } from 'wlc-engine/modules/core';
+
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
 import {UserProfile} from 'wlc-engine/modules/user';
-import {CurrencyService} from 'wlc-engine/modules/currency/system/services/currency.service';
 
 import * as Params
     from 'wlc-engine/modules/multi-wallet/components/choice-currency/choice-currency.params';
@@ -42,7 +42,6 @@ export class ChoiceCurrencyComponent extends AbstractComponent implements OnInit
     protected buttonParams: IButtonCParams;
 
     private userService: UserService;
-    public currencyService: CurrencyService;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IChoiceCurrencyParams,
@@ -63,8 +62,6 @@ export class ChoiceCurrencyComponent extends AbstractComponent implements OnInit
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         this.userService = await this.injectionService.getService<UserService>('user.user-service');
-        this.currencyService =
-            await this.injectionService.getService<CurrencyService>('currency.currency-service');
 
         this.userService.userProfile$
             .pipe(

@@ -1,4 +1,3 @@
-import {TDisplayName, ICurrency} from 'wlc-engine/modules/currency';
 import {IIndexing} from './global.interface';
 import {IMenu} from './menu.interface';
 import {IBanner} from './promo.interface';
@@ -86,10 +85,19 @@ export interface ILanguage {
     label: string;
 }
 
+export interface ICurrency {
+    Name: string,
+    Alias: string,
+    ID?: string | number,
+    ExRate?: string,
+    registration?: boolean,
+    IsCryptoCurrency?: boolean,
+}
+
 export type TBooleanOptional = boolean | '' | 0 | 1;
 
 export interface ISiteConfig {
-    currencies: IIndexing<ICurrency<TDisplayName>>;
+    currencies: IIndexing<ICurrency>;
     depositOnlyFullUserData: string; //TODO Should be number
     exclude_countries: string[];
     fastRegistration: number | boolean;
