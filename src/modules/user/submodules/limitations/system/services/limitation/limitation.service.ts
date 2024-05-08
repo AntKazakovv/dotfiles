@@ -411,7 +411,7 @@ export class LimitationService {
             const dateTimeFromSQL: DateTime = DateTime.fromSQL(result.data.date);
 
             if (dateTimeFromSQL.isValid) {
-                time = dateTimeFromSQL.toFormat('LL.dd.yyyy HH:mm');
+                time = dateTimeFromSQL.plus({minutes: dateTimeFromSQL.offset}).toFormat('LL.dd.yyyy HH:mm');
             } else {
                 time = DateTime.local().plus({days: 1}).toFormat('LL.dd.yyyy');
             }
