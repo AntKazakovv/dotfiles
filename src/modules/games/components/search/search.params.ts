@@ -25,6 +25,11 @@ export interface ISearchCParams extends IComponentParams<ComponentTheme, string,
         gamesGridParams?: IGamesGridCParamsPartial;
         openProvidersList?: boolean,
     },
+    /**
+     * The id of the modal window that the component is associated with.
+     * To correctly configure scrolling inside the modal window.
+     */
+    modalId?: string;
     searchInputParams?: ISearchFieldCParams;
     easyThemeParams?: {
         /**

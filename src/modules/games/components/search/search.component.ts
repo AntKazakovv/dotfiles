@@ -3,6 +3,7 @@ import {
     OnInit,
     ChangeDetectionStrategy,
     Inject,
+    ElementRef,
 } from '@angular/core';
 import {
     trigger,
@@ -20,7 +21,10 @@ import {
     first,
 } from 'rxjs/operators';
 
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {
+    AbstractComponent,
+    ModalService,
+} from 'wlc-engine/modules/core';
 import {
     ISearchCParams,
     PanelType,
@@ -104,6 +108,7 @@ export class SearchComponent extends AbstractComponent implements OnInit {
     public lastQueries$: Observable<string[]>;
     public visibleGames: Game[] = [];
     public ready: boolean = false;
+    public gamesGridScrollHost: ElementRef;
 
     protected parentCategory: CategoryModel;
     protected childCategory: CategoryModel;
@@ -117,6 +122,7 @@ export class SearchComponent extends AbstractComponent implements OnInit {
         protected translateService: TranslateService,
         protected gamesFilterService: GamesFilterService,
         protected router: UIRouter,
+        protected modalService: ModalService,
     ) {
         super({
             injectParams: injectParams,
@@ -128,6 +134,9 @@ export class SearchComponent extends AbstractComponent implements OnInit {
 
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
+        if (this.$params.modalId) {
+            this.gamesGridScrollHost = this.modalService.getActiveModal(this.$params.modalId)?.ref.location;
+        }
         if (this.$params.theme === 'easy') {
             this.lastQueries$ = this.gamesFilterService.lastQueries$;
             this.gamesGridParams = this.$params.easyThemeParams.searchGamesGrid;

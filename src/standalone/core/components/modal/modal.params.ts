@@ -49,6 +49,9 @@ export const MODALS_LIST: IModalList = {
             id: 'search',
             modifier: 'search',
             componentName: 'games.wlc-search',
+            componentParams: {
+                modalId: 'search',
+            },
             showFooter: false,
         },
     },
@@ -58,6 +61,7 @@ export const MODALS_LIST: IModalList = {
             modifier: 'search',
             componentName: 'games.wlc-search',
             componentParams: {
+                modalId: 'search',
                 common: {
                     openProvidersList: true,
                 },
