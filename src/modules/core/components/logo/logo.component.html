@@ -6,9 +6,8 @@
     <ng-container *ngIf="logoName; else logoUrl">
         <a wlc-icon
             class="{{$class}}__image"
-            [uiSref]="$params.link"
-            [uiParams]="$params.uiParams"
-            [uiOptions]="$params.uiOptions"
+            [wlc-link]="[$params.link, $params.uiParams]"
+            [wlc-link-options]="$params.uiOptions"
             [iconName]="logoImageSource"
             [showSvgAsImg]="$params.image.showSvgAsImg"
         ></a>
@@ -30,9 +29,8 @@
 <ng-template #logoUrl>
     <a wlc-icon
         class="{{$class}}__image"
-        [uiSref]="$params.link"
-        [uiParams]="$params.uiParams"
-        [uiOptions]="$params.uiOptions"
+        [wlc-link]="[$params.link, $params.uiParams]"
+        [wlc-link-options]="$params.uiOptions"
         [iconUrl]="logoImageSource"
         [showSvgAsImg]="$params.image.showSvgAsImg"
     ></a>
