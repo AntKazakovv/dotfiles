@@ -384,8 +384,9 @@ $themeDefault: map-merge((
     'tournamentDetailPadding': (
         320: 0,
     ),
+    'tournamentDetailPaddingWrapper': ef.size(6) 0 0,
     'tournamentDetailFooterPadding': (
-        320: ef.size(4) 0,
+        320: ef.size(8) 0,
         768: ef.size(4) 0 ef.size(8),
     ),
     'tournamentDetailRadius': (

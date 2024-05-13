@@ -138,6 +138,10 @@
 
     &.wlc-modal--tournament-detail {
 
+        .wlc-modal__wrapper {
+            @include bm.get-mq-map('padding', $themeDefault, 'tournamentDetailPaddingWrapper');
+        }
+
         .wlc-modal__body {
             @include bm.get-mq-map('padding', $themeDefault, 'tournamentDetailPadding');
         }

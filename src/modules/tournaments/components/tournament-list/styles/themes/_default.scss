@@ -1,6 +1,10 @@
 .wlc-tournament-list--theme-default:host {
     @include bm.get-mq-map('margin', $themeDefault, 'containerMargin');
 
+    .wlc-sections__profile-content & {
+        margin-bottom: 0;
+    }
+
     .wlc-tournament-list__container {
         @include bm.get-mq-map('grid-template-columns', $themeDefault, 'containerGridTemplateColumns');
         display: grid;
