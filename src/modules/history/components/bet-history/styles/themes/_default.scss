@@ -43,6 +43,13 @@
                         }
                     }
                 }
+
+                .wlc-sections__profile-content & {
+
+                    @include mq.max(1024) {
+                        display: none;
+                    }
+                }
             }
 
             .wlc-table__cell {

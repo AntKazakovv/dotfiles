@@ -52,6 +52,16 @@
                     display: none;
                 }
             }
+
+            @include mq.max(1024) {
+
+                .wlc-sections__profile-content & {
+
+                    .wlc-table__cell--amount {
+                        display: none;
+                    }
+                }
+            }
         }
 
         .wlc-table--theme-mobile-app.wlc-table::ng-deep {
