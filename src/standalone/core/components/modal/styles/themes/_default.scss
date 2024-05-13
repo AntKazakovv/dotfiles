@@ -330,10 +330,8 @@
             }
 
             &__body {
-                padding: ef.get-value($themeDefault, 'lootboxModalBodyPadding');
-                background: ef.get-value($themeDefault, 'lootboxModalBodyBg');
-                background-size: ef.get-value($themeDefault, 'lootboxModalBodyBgSize');
-
+                @include bm.get-mq-map('background', $themeDefault, 'lootboxModalBodyBg');
+                @include bm.get-mq-map('padding', $themeDefault, 'lootboxModalBodyPadding');
                 @include mq.max(560) {
                     height: 100%;
                 }

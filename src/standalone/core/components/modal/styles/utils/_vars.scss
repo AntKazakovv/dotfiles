@@ -468,9 +468,20 @@ $themeDefault: map-merge((
         320: 100%,
         640: 650px,
     ),
-    'lootboxModalBodyPadding': ef.size(6) 0 0,
-    'lootboxModalBodyBg': ef.static('wlc/bonuses/lootbox/lootbox-modal-bg.jpg') no-repeat center,
-    'lootboxModalBodyBgSize': cover,
+    'lootboxModalBodyPadding': (
+        375: ef.size(5) 0 0,
+        560: ef.size(6) 0 0,
+    ),
+    'lootboxModalBodyBg': (
+        375: (
+            ef.static('wlc/bonuses/lootbox/modal_bg.png') no-repeat center 130px / 300%,
+            linear-gradient(#3e266f, #0e002c)
+        ),
+        560: (
+            ef.static('wlc/bonuses/lootbox/modal_bg.png') no-repeat center 140px / 200%,
+            linear-gradient(#3e266f, #0e002c)
+        ),
+    ),
     // lootbox-modal
 
     // history-wins-modal

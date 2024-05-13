@@ -34,31 +34,8 @@
 
         &__text-block {
             @include bm.get-mq-map('height', $themeDefault, 'textBlockHeight');
-            position: relative;
-            padding: ef.get-value($themeDefault, 'textBlockPadding');
+            @include bm.get-mq-map('background', $themeDefault, 'textBlockBg');
             text-align: ef.get-value($themeDefault, 'textBlockTextAlign');
-
-            &:before {
-                @include bm.get-mq-map('bottom', $themeDefault, 'descTextBeforeTop');
-                @include bm.get-mq-map('left', $themeDefault, 'descTextBeforeLeft');
-                @include bm.get-mq-map('width', $themeDefault, 'descTextBeforeWidth');
-                @include bm.get-mq-map('height', $themeDefault, 'descTextBeforeHeight');
-                background: ef.get-value($themeDefault, 'descTextBeforeBg');
-            }
-
-            &:after {
-                @include bm.get-mq-map('bottom', $themeDefault, 'descTextAfterTop');
-                @include bm.get-mq-map('right', $themeDefault, 'descTextAfterRight');
-                @include bm.get-mq-map('width', $themeDefault, 'descTextAfterWidth');
-                @include bm.get-mq-map('height', $themeDefault, 'descTextAfterHeight');
-                background: ef.get-value($themeDefault, 'descTextAfterBg');
-            }
-
-            &:before,
-            &:after {
-                content: '';
-                position: absolute;
-            }
         }
 
         &__title {
@@ -69,24 +46,30 @@
             position: relative;
             z-index: 5;
 
-            @include mq.min(480) {
-                @include text.get-text-style(ef.get-value($themeDefault, 'titleTextStyle', 480), null);
+            @include mq.min(560) {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'titleTextStyle', 560),
+                    null,
+                );
             }
         }
 
         &__desc {
             @include bm.lineClamp(ef.get-value($themeDefault, 'descLineClamp'));
             @include bm.get-mq-map('margin', $themeDefault, 'descMargin');
+            @include bm.get-mq-map('max-width', $themeDefault, 'descMaxWidth');
             @include text.get-text-style(
                 ef.get-value($themeDefault, 'descTextStyle', 375),
                 ef.get-value($themeDefault, 'descTextColor'),
             );
             position: relative;
             z-index: 5;
-            max-width: ef.get-value($themeDefault, 'descMaxWidth');
 
-            @include mq.min(480) {
-                @include text.get-text-style(ef.get-value($themeDefault, 'descTextStyle', 480), null);
+            @include mq.min(560) {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'descTextStyle', 560),
+                    null,
+                );
             }
         }
 
@@ -95,30 +78,22 @@
             background: ef.get-value($themeDefault, 'sliderBlockBg');
 
             &:before {
-                @include bm.get-mq-map('height', $themeDefault, 'sliderBlockBeforeHeight');
-                top: ef.get-value($themeDefault, 'sliderBlockBeforeTop');
-                right: ef.get-value($themeDefault, 'sliderBlockBeforeRight');
-                left: ef.get-value($themeDefault, 'sliderBlockBeforeLeft');
-                width: ef.get-value($themeDefault, 'sliderBlockBeforeWidth');
-                background: ef.get-value($themeDefault, 'sliderBlockBeforeBg');
-                transform: ef.get-value($themeDefault, 'sliderBlockBeforeTransform');
+                top: ef.get-value($themeDefault, 'sliderBlockBeforeStripeTop');
+                background: ef.get-value($themeDefault, 'sliderBlockBeforeStripeBg');
             }
 
             &:after {
-                @include bm.get-mq-map('height', $themeDefault, 'sliderBlockAfterHeight');
-                right: ef.get-value($themeDefault, 'sliderBlockAfterRight');
-                bottom: ef.get-value($themeDefault, 'sliderBlockAfterBottom');
-                left: ef.get-value($themeDefault, 'sliderBlockAfterLeft');
-                width: ef.get-value($themeDefault, 'sliderBlockAfterWidth');
-                background: ef.get-value($themeDefault, 'sliderBlockAfterBg');
-                transform: ef.get-value($themeDefault, 'sliderBlockAfterTransform');
+                bottom: ef.get-value($themeDefault, 'sliderBlockAfterStripeBottom');
+                background: ef.get-value($themeDefault, 'sliderBlockAfterStripeBg');
             }
 
             &:before,
             &:after {
+                @include bm.get-mq-map('height', $themeDefault, 'sliderBlockStripeHeight');
                 content: '';
                 position: absolute;
                 z-index: 5;
+                width: ef.get-value($themeDefault, 'sliderBlockStripeWidth');
             }
         }
 
@@ -129,34 +104,32 @@
 
             &:before,
             &:after {
+                @include bm.get-mq-map('width', $themeDefault, 'sliderArrowWidth');
+                @include bm.get-mq-map('height', $themeDefault, 'sliderArrowHeight');
                 content: '';
                 position: absolute;
                 z-index: 10;
                 display: block;
+                background: ef.get-value($themeDefault, 'sliderArrowBg');
             }
 
             &:before {
-                @include bm.get-mq-map('width', $themeDefault, 'sliderBeforeWidth');
-                @include bm.get-mq-map('height', $themeDefault, 'sliderBeforeHeight');
-                background: ef.get-value($themeDefault, 'sliderBeforeBg');
-                transform: ef.get-value($themeDefault, 'sliderBeforeTransform');
+                @include bm.get-mq-map('transform', $themeDefault, 'sliderBeforeArrowTransform');
             }
 
             &:after {
-                @include bm.get-mq-map('width', $themeDefault, 'sliderAfterWidth');
-                @include bm.get-mq-map('height', $themeDefault, 'sliderAfterHeight');
+                @include bm.get-mq-map('transform', $themeDefault, 'sliderAfterArrowTransform');
                 bottom: 0;
-                background: ef.get-value($themeDefault, 'sliderAfterBg');
-                transform: ef.get-value($themeDefault, 'sliderAfterTransform');
             }
         }
 
         &__buttons {
+            @include bm.get-mq-map('padding', $themeDefault, 'buttonsPadding');
+            @include bm.get-mq-map('background', $themeDefault, 'buttonsBg');
+            position: relative;
             display: flex;
             align-items: flex-start;
             justify-content: center;
-            padding: ef.get-value($themeDefault, 'buttonsPadding');
-            background: ef.get-value($themeDefault, 'buttonsBg');
 
             button {
                 margin-right: ef.get-value($themeDefault, 'buttonMarginRight');
