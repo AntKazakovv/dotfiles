@@ -121,7 +121,6 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     public classList: string = '';
     public activeIcon: IconModel;
     public activeName: string = '';
-    public paymentDescription: string = '';
     public useBonuses: boolean = false;
     public useTags: boolean = false;
     public isGroupingByBlocks: boolean = false;
@@ -252,7 +251,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         autoSelect: boolean = false,
     ): void {
 
-        if (system.isParent) {
+        if (system?.isParent) {
             this.selectedParentID = system.id;
         } else if (this.$params.theme !== 'crypto-list') {
             this.selectedParentID = null;
@@ -278,10 +277,6 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
             && this.modalService.getActiveModal('payment-list')) {
             this.modalService.hideModal('payment-list');
         }
-
-        this.paymentDescription = chosenSystem && (this.isDeposit
-            ? system.description
-            : system.descriptionWithdraw);
 
         this.cdr.markForCheck();
     }
@@ -335,6 +330,16 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
 
     public get showNotifications(): boolean {
         return (!this.systems.length || !this.userCountry) && this.$params.theme !== 'crypto-list';
+    }
+
+    public get paymentDescription(): string {
+        let description: string = '';
+
+        if (this.currentSystem) {
+            description = this.isDeposit ? this.currentSystem.description : this.currentSystem.descriptionWithdraw;
+        }
+
+        return description;
     }
 
     protected checkTermsVersion(currentTermsVersion: string | DateTime, newTermsVersion: string | DateTime): boolean {

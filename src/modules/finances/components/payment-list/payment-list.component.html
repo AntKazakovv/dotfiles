@@ -121,7 +121,7 @@
             <ng-container *ngSwitchCase="'crypto-list'" [ngTemplateOutlet]="cryptoList"></ng-container>
             <ng-container *ngSwitchDefault [ngTemplateOutlet]="defaultList"></ng-container>
         </ul>
-        <div [@toggle]="paymentDescription ? 'opened' : 'closed'"
+        <div *ngIf="paymentDescription"
             class="payments-description payments-description--desktop">
             {{paymentDescription}}
         </div>
