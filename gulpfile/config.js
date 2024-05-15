@@ -14,6 +14,7 @@ module.exports = function config(root, bundleType, pathsConfig = {}) {
         paths: {
             root: root,
             nodeModules: `${root}/node_modules`,
+            mobileAppEngineSrc: `${root}/node_modules/@egamings/mobile-app-engine/src`,
             engine: `${root}/node_modules/@egamings/wlc-engine`,
             engineLink: `${root}/wlc-engine`,
             inline: `${root}/wlc-engine/system/inline`,

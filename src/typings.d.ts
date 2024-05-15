@@ -102,8 +102,6 @@ declare type TAnalyticMethod = {
 
 declare type TBundleType = 'site' | 'google-play' | 'app-store';
 
-declare type TBundleType = 'site' | 'google-play' | 'app-store';
-
 declare type TMobileApp = {
     apiUrl: string;
     translationsDomain?: string;

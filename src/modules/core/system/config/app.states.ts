@@ -12,9 +12,7 @@ import {ILanguage} from 'wlc-engine/modules/core/system/interfaces/app-config.in
 import {LayoutComponent} from 'wlc-engine/modules/core/components/layout/layout.component';
 import {polyfillsResolver} from 'wlc-engine/modules/core/system/config/resolvers/polyfills.resolver';
 import {customStates} from 'wlc-src/custom/system/config/custom.states';
-import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import * as States from './states';
-import * as MobileAppStates from './mobile-app/states';
 
 let states = {
     'app.home': States.homeState,
@@ -93,21 +91,6 @@ let states = {
     'app.lotteries-detail': States.lotteryDetailState,
     'app.local-jackpots': States.localJackpotsState,
 };
-
-if (GlobalHelper.isMobileApp()) {
-    states = _merge(states, {
-        'app.language': MobileAppStates.languageState,
-        'app.games-search': MobileAppStates.gamesSearchState,
-        'app.menu': MobileAppStates.menuState,
-        'app.menu.item': MobileAppStates.menuItemState,
-        'app.run-game': MobileAppStates.runGameState,
-        'app.providers': MobileAppStates.providersState,
-        'app.providers.item': MobileAppStates.providersItemState,
-        'app.providers.item.category': MobileAppStates.providersItemCategoryState,
-        'app.welcome': MobileAppStates.welcomeState,
-        'app.games': MobileAppStates.gamesState,
-    });
-}
 
 const appState: Ng2StateDeclaration = {
     name: 'app',

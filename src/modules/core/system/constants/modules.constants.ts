@@ -32,7 +32,6 @@ export type TModuleName =
     | 'quests'
     | 'metamask'
     | 'history'
-    | 'mobile'
     | 'deadsimplechat'
     | 'limitations'
     | 'chat'
@@ -217,11 +216,11 @@ export const modulesApp: Record<TModuleName, IFunctionImportModule> = {
         callback(name, m);
         return m.HistoryModule;
     },
-    'mobile': async (name: TModuleName, callback: Function) => {
-        const m = await import('wlc-engine/modules/mobile/mobile.module');
-        callback(name, m);
-        return m.MobileModule;
-    },
+    // 'mobile': async (name: TModuleName, callback: Function) => {
+    //     const m = await import('mobile-app-engine/modules/mobile/mobile.module');
+    //     callback(name, m);
+    //     return m.MobileModule;
+    // },
     'deadsimplechat': async (name: TModuleName, callback: Function) => {
         const m = await import('wlc-engine/modules/deadsimplechat/deadsimplechat.module');
         callback(name, m);

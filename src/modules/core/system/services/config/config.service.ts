@@ -51,15 +51,12 @@ import {
     $layouts,
     $layoutsAff,
     $layoutsKiosk,
-    $layoutsMobileApp,
     $panelsLayouts,
     $panelsLayoutsKiosk,
-    $panelsLayoutsMobileApp,
     $profileLayouts,
     $profileFirstLayouts,
     $profileWolfLayouts,
     $profileKioskLayouts,
-    $profileMobileAppLayouts,
 } from 'wlc-engine/modules/core/system/config/layouts';
 import {
     IParamsLayoutConfig,
@@ -428,11 +425,6 @@ export class ConfigService {
                 return {
                     $layouts: mergedLayoutsKiosk,
                     $panelsLayouts: $panelsLayoutsKiosk,
-                };
-            case 'mobile-app':
-                return {
-                    $layouts: _mergeWith($layoutsMobileApp, $profileMobileAppLayouts),
-                    $panelsLayouts: $panelsLayoutsMobileApp,
                 };
             default:
                 if (isMultiWallet) {

@@ -232,6 +232,22 @@ module.exports = function messagesTask() {
             .pipe(dest(this.params.paths.temp));
     });
 
+    task('message:engine_front_to_pot', () => {  // Done
+        return src([
+            this.params.paths.src + '/**/*.ts',
+            this.params.paths.src + '/**/*.js',
+            this.params.paths.src + '/**/*.html',
+            this.params.paths.mobileAppEngineSrc + '/**/*.ts',
+            this.params.paths.mobileAppEngineSrc + '/**/*.js',
+            this.params.paths.mobileAppEngineSrc + '/**/*.html',
+        ])
+            .pipe(gettext.extract('front.pot', {
+                "moduleName": "translateService",
+                "moduleMethodString": "instant",
+            }))
+            .pipe(dest(this.params.paths.temp));
+    });
+
     task('message:front_pot_to_po', async (cb) => {  // Done
         const languagesDir = fs.existsSync(this.params.paths.languagesDev)
             ? this.params.paths.languagesDev
@@ -290,7 +306,7 @@ module.exports = function messagesTask() {
 
     task('engineMessages', series(
         'clean:temp',
-        'message:front_to_pot',
+        'message:engine_front_to_pot',
         'message:merge_engine_pot',
         'message:front_pot_to_po',
         'message:temp_front_po',
