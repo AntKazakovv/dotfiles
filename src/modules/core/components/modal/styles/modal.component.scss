@@ -432,7 +432,10 @@
 .wlc-body--os-ios {
 
     .wlc-modal__dialog {
-        margin: ef.get-value($hostModal, 'modalOffsetIosMobile');
+
+        &:not(~.wlc-modal--tournament-detail-modal) {
+            margin: ef.get-value($hostModal, 'modalOffsetIosMobile');
+        }
 
         &--scrollable {
 
