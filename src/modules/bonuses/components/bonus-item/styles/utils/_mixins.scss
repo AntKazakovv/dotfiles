@@ -129,6 +129,10 @@
                 grid-template-rows: ef.get-value($themeDefault, 'wrapGridRowsActive');
             }
 
+            &__info-block {
+                padding: ef.get-value($themeDefault, 'infoActivePaddingShowAlways');
+            }
+
             &__bottom {
                 @include bm.get-mq-map('padding', $themeDefault, 'btmPadding');
             }

@@ -156,7 +156,8 @@ $themeDefault: map-merge((
         375: ef.size(2) ef.size(3) 0,
         1630: ef.size(6) ef.size(4) 0,
     ),
-    'infoPaddingShowAlways': 0 ef.size(3) ef.size(3),
+    'infoPaddingShowAlways': 0 ef.size(3) ef.size(1),
+    'infoActivePaddingShowAlways': 0 ef.size(3) ef.size(3),
 
     // Images
     'imageBg': rgba(0, 0, 0, 0.3) center/cover no-repeat,
@@ -256,9 +257,9 @@ $themeDefault: map-merge((
     'btmFlexDir': column,
     'btmPadding': (
         375: 0 0 ef.size(3),
-        1200: 0 0 ef.size(4),
+        1200: 0 0 ef.size(5),
     ),
-    'bottomShowAlwaysGridRows': auto min-content ef.size(12),
+    'bottomShowAlwaysGridRows': 1fr auto auto,
     'btnMobilePadding': 0 0 ef.size(3),
     // More icon
     'moreIconSize': ef.size(4),
