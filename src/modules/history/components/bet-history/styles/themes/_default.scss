@@ -32,7 +32,7 @@
                 }
             }
 
-            .wlc-table__cell--Amount {
+            .wlc-table__cell--amount {
 
                 ::ng-deep {
 
@@ -72,6 +72,13 @@
                         .wlc-currency__sign {
                             display: none;
                         }
+                    }
+                }
+
+                .wlc-sections__profile-content & {
+
+                    @include mq.max(1024) {
+                        display: none;
                     }
                 }
             }
