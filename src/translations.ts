@@ -92,3 +92,6 @@ gettext('Turkish ID number');
 gettext('bankName');
 gettext('bankAcctName');
 gettext('bankAcctNo');
+gettext('Pix key code');
+gettext('Account holder first name');
+gettext('Account holder last name');
