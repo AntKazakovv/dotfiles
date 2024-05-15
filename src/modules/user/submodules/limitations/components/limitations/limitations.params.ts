@@ -87,7 +87,7 @@ export const limitType = {
     },
 };
 
-export const limitAmount = (useZeroBalance: boolean): IFormComponent => {
+export const limitAmount = (useZeroBalance: boolean, currency: string): IFormComponent => {
     const limitAmountConfig = {
         name: 'core.wlc-input',
         params: <IInputCParams>{
@@ -106,6 +106,7 @@ export const limitAmount = (useZeroBalance: boolean): IFormComponent => {
             ],
             locked: false,
             prohibitedPattern: ProhibitedPatterns.notAmountSymbols,
+            currency,
         },
     };
 

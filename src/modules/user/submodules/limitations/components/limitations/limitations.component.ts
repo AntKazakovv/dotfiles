@@ -81,12 +81,12 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
 
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
-
+        await this.userService.userProfile$.pipe(first((v) => !!v)).toPromise();
         this.formConfig = {
             class: 'wlc-form-wrapper',
             components: [
                 Params.limitType,
-                Params.limitAmount(this.useZeroBalance),
+                Params.limitAmount(this.useZeroBalance, this.userService.userProfile.originalCurrency),
                 Params.limitPeriod,
                 Params.submitBtn,
             ],
@@ -280,7 +280,6 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
     protected async setLimits(): Promise<void> {
         this.loading = true;
         const limits = [];
-        await this.userService.userProfile$.pipe(first((v) => !!v)).toPromise();
         if (this.userService.userProfile.extProfile.realityCheckTime && this.limitationService.realityCheckEnabled) {
             limits.push({
                 type: 'realityChecker',
@@ -288,6 +287,7 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
                 amountValue: {
                     valueType: 'realityChecker',
                     value: this.userService.userProfile.extProfile.realityCheckTime,
+                    currency: this.userService.userProfile.originalCurrency,
                 },
             });
         }
@@ -306,6 +306,7 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
                     amountValue: {
                         valueType: key,
                         value: item,
+                        currency: this.userService.userProfile.originalCurrency,
                     },
                 });
             }
@@ -391,6 +392,7 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
                         limitType,
                         Params.limitAmount(
                             this.isTypeLimitationsForZeroBalance(data.value) ? this.useZeroBalance : null,
+                            this.userService.userProfile.originalCurrency,
                         ),
                         Params.limitPeriod,
                         Params.submitBtn,
