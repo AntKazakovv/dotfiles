@@ -155,6 +155,7 @@ import {interceptors} from 'wlc-engine/modules/core/system/interceptors/intercep
 // -- INTERCEPTOR IMPORTS END
 
 //  -- PIPES IMPORTS STARTS--;
+import {DynamicPipe} from 'wlc-engine/modules/core/pipes/dynamic.pipe';
 import {HlSubstrPipe} from './pipes/hlsubstr.pipe';
 import {SafeValuePipe} from './pipes/safe-value.pipe';
 import {TruncatePipe} from './pipes/truncate.pipe';
@@ -267,6 +268,7 @@ export const services = {
         IMaskModule,
     ],
     declarations: [
+        DynamicPipe,
         AlertComponent,
         AnimateSpriteComponent,
         AccordionComponent,
@@ -362,7 +364,7 @@ export const services = {
         TranslateModule,
         TooltipModule,
         /** END modules */
-
+        DynamicPipe,
         AlertComponent,
         AnimateSpriteComponent,
         AccordionComponent,
