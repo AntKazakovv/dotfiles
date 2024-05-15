@@ -12,6 +12,7 @@ export interface IRealityCheckInfoCParams extends IComponentParams<ComponentThem
     Deposits?: number;
     Losses?: number;
     Wins?: number;
+    currency?: string;
 }
 
 export const defaultParams: IRealityCheckInfoCParams = {

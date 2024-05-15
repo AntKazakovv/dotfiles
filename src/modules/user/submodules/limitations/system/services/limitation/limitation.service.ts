@@ -367,6 +367,7 @@ export class LimitationService {
             const result = await this.getRealityCheck(this.loginTime);
             this.intervalChecker?.unsubscribe();
             this.intervalChecker = null;
+            this.userService ??= await this.injectionService.getService<UserService>('user.user-service');
             this.modalService.showModal({
                 id: 'reality-check-info',
                 modalTitle: gettext('Activity check!'),
@@ -374,6 +375,7 @@ export class LimitationService {
                 componentName: 'user.wlc-reality-check-info',
                 componentParams: {
                     ...result,
+                    currency: this.userService.userProfile.originalCurrency,
                 },
                 closeBtnVisibility: true,
                 showFooter: false,

@@ -17,13 +17,19 @@
     </div>
     <div class="{{$class}}-result-value">
         <div class="{{$class}}-result-item">
-            <span wlc-currency [value]="$params.Wins"></span>
+            <span wlc-currency
+                 [value]="$params.Wins"
+                 [currency]="params.currency"></span>
         </div>
         <div class="{{$class}}-result-item">
-            <span wlc-currency [value]="$params.Losses"></span>
+            <span wlc-currency
+                 [value]="$params.Losses"
+                 [currency]="params.currency"></span>
         </div>
         <div class="{{$class}}-result-item">
-            <span wlc-currency [value]="$params.Deposits"></span>
+            <span wlc-currency
+                 [value]="$params.Deposits"
+                 [currency]="params.currency"></span>
         </div>
     </div>
 </div>
