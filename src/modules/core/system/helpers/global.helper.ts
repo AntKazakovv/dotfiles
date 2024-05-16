@@ -31,7 +31,10 @@ import {
     IDisplayConfig,
     IIndexing,
 } from 'wlc-engine/modules/core/system/interfaces';
+import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notification/notification.service';
+import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {IButtonCParams} from 'wlc-engine/modules/core/components/button/button.params';
 import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
 import {sanitizeHTMLTags} from 'wlc-engine/modules/core/constants/regexp.constants';
@@ -285,6 +288,29 @@ export class GlobalHelper {
                 mutation.disconnect();
             };
         });
+    }
+
+    /**
+     * Push message about registration restriction
+     *
+     * @returns boolean
+     */
+    public static restrictRegistration(
+        configService: ConfigService,
+        eventService: EventService,
+    ): boolean {
+        const restrictReg = configService.get<boolean>('$base.site.restrictRegistration');
+        if (restrictReg) {
+            eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'error',
+                    message: gettext('Sorry, registration is disabled.'),
+                    wlcElement: 'registration-is-disabled',
+                },
+            });
+        }
+        return restrictReg;
     }
 
     /**

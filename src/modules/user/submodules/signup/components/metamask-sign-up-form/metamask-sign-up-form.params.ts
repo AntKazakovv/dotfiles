@@ -21,7 +21,7 @@ export interface IMetamaskSignUpFormCParams extends IComponentParams<ComponentTh
 export const defaultParams: IMetamaskSignUpFormCParams = {
     class: 'wlc-metamask-sign-up-form',
     componentName: 'wlc-metamask-sign-up-form',
-    moduleName: 'user',
+    moduleName: 'signup',
     wlcElement: 'modal_metamask_signup',
     submitEventName: 'REGISTRATION_SUCCESS',
 };

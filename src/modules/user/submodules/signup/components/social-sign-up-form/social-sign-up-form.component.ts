@@ -19,7 +19,7 @@ import {UserService} from 'wlc-engine/modules/user/system/services/user/user.ser
 import {SocialService} from 'wlc-engine/modules/user/system/services/social/social.service';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {CuracaoRequirement} from 'wlc-engine/modules/app/system';
-import {UserHelper} from 'wlc-engine/modules/user/system/helpers/user.helper';
+import {SignUpService} from 'wlc-engine/modules/user/submodules/signup/system/services/signup.service';
 
 import * as Params from './social-sign-up-form.params';
 
@@ -62,7 +62,7 @@ export class SocialSignUpFormComponent extends UserActionsAbstract<Params.ISocia
             enableRequirement: this.enableRequirement,
         };
 
-        UserHelper.modifyFormByLicense(data);
+        SignUpService.modifyFormByLicense(data);
         if (this.$params.formData) {
             this.formData = new BehaviorSubject(this.$params.formData);
         }

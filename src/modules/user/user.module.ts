@@ -26,7 +26,6 @@ import {FundistUserIdComponent} from './components/fundist-id/fundist-user-id.co
 import {IconExpLpDescriptionComponent} from './components/icon-exp-lp-description/icon-exp-lp-description.component';
 import {LogoutComponent} from './components/logout/logout.component';
 import {LoyaltyProgressComponent} from './components/loyalty-progress/loyalty-progress.component';
-import {MetamaskSignUpFormComponent} from './components/metamask-sign-up-form/metamask-sign-up-form.component';
 import {NewPasswordFormComponent} from './components/new-password-form/new-password-form.component';
 import {PhoneFieldComponent} from './components/phone-field/phone-field.component';
 import {ProfileFormComponent} from './components/profile-form/profile-form.component';
@@ -34,16 +33,12 @@ import {ProfileBlocksComponent} from './components/profile-blocks/profile-blocks
 import {
     RealityCheckInfoComponent,
 } from 'wlc-engine/modules/user/components/reality-check-info/reality-check-info.component';
-import {RestoreLinkComponent} from './components/restore-link/restore-link.component';
-import {RestorePasswordFormComponent} from './components/restore-password-form/restore-password-form.component';
-import {SignInFormComponent} from './components/sign-in-form/sign-in-form.component';
-import {SignUpFormComponent} from './components/sign-up-form/sign-up-form.component';
 import {UserIconComponent} from './components/user-icon/user-icon.component';
 import {UserInfoComponent} from './components/user-info/user-info.component';
 import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {UserNameComponent} from './components/user-name/user-name.component';
 import {SocialNetworksComponent} from './components/social-networks/social-networks.component';
-import {SocialSignUpFormComponent} from './components/social-sign-up-form/social-sign-up-form.component';
+
 import {
     EmailVerificationNotificationComponent,
 } from './components/email-verification-notification/email-verification-notification.component';
@@ -94,19 +89,13 @@ export const components = {
     'wlc-logout': LogoutComponent,
     'wlc-loyalty-block': DashboardLoyaltyBlockComponent,
     'wlc-loyalty-progress': LoyaltyProgressComponent,
-    'wlc-metamask-sign-up-form': MetamaskSignUpFormComponent,
     'wlc-new-password-form': NewPasswordFormComponent,
     'wlc-password-confirmation-form': PasswordConfirmationFormComponent,
     'wlc-phone-field': PhoneFieldComponent,
     'wlc-profile-blocks': ProfileBlocksComponent,
     'wlc-profile-form': ProfileFormComponent,
     'wlc-reality-check-info': RealityCheckInfoComponent,
-    'wlc-restore-link': RestoreLinkComponent,
-    'wlc-restore-password-form': RestorePasswordFormComponent,
-    'wlc-sign-in-form': SignInFormComponent,
-    'wlc-sign-up-form': SignUpFormComponent,
     'wlc-social-networks': SocialNetworksComponent,
-    'wlc-social-sign-up-form': SocialSignUpFormComponent,
     'wlc-user-icon': UserIconComponent,
     'wlc-user-info': UserInfoComponent,
     'wlc-user-name': UserNameComponent,
@@ -134,7 +123,6 @@ export const components = {
         FundistUserIdComponent,
         LogoutComponent,
         LoyaltyProgressComponent,
-        MetamaskSignUpFormComponent,
         NewPasswordFormComponent,
         PasswordConfirmationFormComponent,
         ProfileFormComponent,
@@ -142,12 +130,7 @@ export const components = {
         ProfileFormComponent,
         ProfileBlocksComponent,
         RealityCheckInfoComponent,
-        RestoreLinkComponent,
-        RestorePasswordFormComponent,
-        SignInFormComponent,
-        SignUpFormComponent,
         SocialNetworksComponent,
-        SocialSignUpFormComponent,
         UserIconComponent,
         UserInfoComponent,
         UserNameComponent,
@@ -190,11 +173,7 @@ export const components = {
         PhoneFieldComponent,
         ProfileBlocksComponent,
         RealityCheckInfoComponent,
-        RestorePasswordFormComponent,
-        SignInFormComponent,
-        SignUpFormComponent,
         SocialNetworksComponent,
-        SocialSignUpFormComponent,
         UserIconComponent,
         UserInfoComponent,
         UserNameComponent,

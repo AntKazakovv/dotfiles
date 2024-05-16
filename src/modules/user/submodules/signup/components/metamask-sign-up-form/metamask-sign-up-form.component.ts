@@ -21,7 +21,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user';
 import {CuracaoRequirement} from 'wlc-engine/modules/app/system';
-import {UserHelper} from 'wlc-engine/modules/user/system/helpers/user.helper';
+import {SignUpService} from 'wlc-engine/modules/user/submodules/signup/system/services/signup.service';
 
 import * as Params from './metamask-sign-up-form.params';
 
@@ -44,6 +44,7 @@ export class MetamaskSignUpFormComponent
         @Inject(CuracaoRequirement) private enableRequirement: boolean,
         @Inject('injectParams') protected injectParams: Params.IMetamaskSignUpFormCParams,
         userService: UserService,
+        protected signupService: SignUpService,
         logService: LogService,
         configService: ConfigService,
         eventService: EventService,
@@ -66,7 +67,7 @@ export class MetamaskSignUpFormComponent
             enableRequirement: this.enableRequirement,
         };
 
-        UserHelper.modifyFormByLicense(data);
+        SignUpService.modifyFormByLicense(data);
 
         if (this.$params.formData) {
             this.formData = new BehaviorSubject(this.$params.formData);
@@ -85,7 +86,7 @@ export class MetamaskSignUpFormComponent
             let regData = form.getRawValue();
             regData = _merge(this.$params.regData, regData);
 
-            await this.userService.validateRegistration(this.userService.prepareRegData(regData));
+            await this.userService.validateRegistration(this.signupService.prepareRegData(regData));
             this.userService.setProfileData(regData);
             await this.userService.createUserProfile(this.userService.userProfile.data);
             this.userService.finishRegistration();

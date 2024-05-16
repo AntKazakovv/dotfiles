@@ -69,7 +69,7 @@ export const MODALS_LIST: IModalList = {
                     'signIn': {
                         name: gettext('Login'),
                         startTab: 'signIn',
-                        component: 'user.wlc-sign-in-form',
+                        component: 'login.wlc-sign-in-form',
                         modifier: 'login',
                         modalId: 'login',
                     },
@@ -87,7 +87,7 @@ export const MODALS_LIST: IModalList = {
     kioskLogin: {
         config: {
             id: 'login',
-            componentName: 'user.wlc-sign-in-form',
+            componentName: 'login.wlc-sign-in-form',
             size: 'md',
             showFooter: false,
             dismissAll: true,
@@ -107,7 +107,7 @@ export const MODALS_LIST: IModalList = {
                 tabs: {
                     'signIn': {
                         name: gettext('Login'),
-                        component: 'user.wlc-sign-in-form',
+                        component: 'login.wlc-sign-in-form',
                         modifier: 'login',
                         modalId: 'login',
                     },
@@ -165,7 +165,7 @@ export const MODALS_LIST: IModalList = {
         config: {
             id: 'restore-password',
             modifier: 'restore',
-            componentName: 'user.wlc-restore-password-form',
+            componentName: 'login.wlc-restore-password-form',
             componentParams: {
                 wlcElement: 'form_password-recovery',
             },
@@ -388,7 +388,7 @@ export const MODALS_LIST: IModalList = {
             id: 'social-register',
             modifier: 'social-register',
             modalTitle: gettext('Registration'),
-            componentName: 'user.wlc-social-sign-up-form',
+            componentName: 'signup.wlc-social-sign-up-form',
             showFooter: false,
         },
     },

@@ -25,6 +25,7 @@ import {
     IUserProfile,
     IExtProfile,
 } from 'wlc-engine/modules/core/system/interfaces/user.interface';
+import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
@@ -33,10 +34,9 @@ import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notifi
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {
-    IRegFormDataForConfig,
     UserService,
-    UserHelper,
 } from 'wlc-engine/modules/user';
+import {IRegFormDataForConfig} from 'wlc-engine/modules/user/submodules/signup';
 import {
     ChosenBonusSetParams,
     ChosenBonusType,
@@ -72,12 +72,12 @@ export abstract class UserActionsAbstract<T> extends AbstractComponent implement
 
     public override ngOnInit(inlineParams?: IComponentParams<unknown, unknown, unknown>): void {
         super.ngOnInit(inlineParams);
-        UserHelper.restrictRegistration(this.configService, this.eventService);;
+        GlobalHelper.restrictRegistration(this.configService, this.eventService);;
         this.getFormDataFromCash();
     }
 
     public beforeSubmit(): boolean {
-        return !UserHelper.restrictRegistration(this.configService, this.eventService);
+        return !GlobalHelper.restrictRegistration(this.configService, this.eventService);
     }
 
     /**

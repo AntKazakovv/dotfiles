@@ -30,10 +30,8 @@ import {
     IValidateData,
     InjectionService,
 } from 'wlc-engine/modules/core';
-import {
-    UserService,
-    IRegFormDataForConfig,
-} from 'wlc-engine/modules/user';
+import {UserService} from 'wlc-engine/modules/user';
+import {IRegFormDataForConfig} from 'wlc-engine/modules/user/submodules/signup';
 import {ISmsSendResponse} from 'wlc-engine/modules/user/submodules/sms/system/interfaces/sms-responses.interface';
 import {SmsService} from 'wlc-engine/modules/user/submodules/sms/system/services/sms/sms.service';
 

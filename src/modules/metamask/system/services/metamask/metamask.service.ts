@@ -33,7 +33,7 @@ import {
 } from 'wlc-engine/modules/metamask/system/interfaces/metamask.interfaces';
 import {
     IMetamaskSignUpFormCParams,
-} from 'wlc-engine/modules/user/components/metamask-sign-up-form/metamask-sign-up-form.params';
+} from 'wlc-engine/modules/user/submodules/signup/components/metamask-sign-up-form/metamask-sign-up-form.params';
 
 /**
  * Service for interaction with MetaMask browser application.
@@ -385,7 +385,7 @@ export class MetamaskService {
             modifier: 'request-profile',
             showFooter: false,
             modalTitle: gettext('Fill form to continue registration'),
-            componentName: 'user.wlc-metamask-sign-up-form',
+            componentName: 'signup.wlc-metamask-sign-up-form',
             componentParams: <IMetamaskSignUpFormCParams> {
                 regData: authData,
                 submitEventName,

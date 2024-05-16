@@ -74,7 +74,7 @@ export const generateConfig = (useLogin: boolean, isKiosk: boolean): IFormWrappe
                 },
             },
             !isKiosk ? {
-                name: 'user.wlc-restore-link',
+                name: 'login.wlc-restore-link',
                 params: {
                     wlcElement: 'button_forgot-password',
                     common: {
@@ -118,7 +118,7 @@ export const defaultParams: ISignInFormCParams = _assign(
     defaultSignInFormParams,
     <ISignInFormCParams>{
         class: 'wlc-sign-in-form',
-        moduleName: 'user',
+        moduleName: 'login',
         componentName: 'wlc-sign-in-form',
         wlcElement: 'modal_login',
     },

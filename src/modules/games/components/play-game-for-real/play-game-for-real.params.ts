@@ -189,7 +189,7 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
                 },
             },
             !params.isKiosk ? {
-                name: 'user.wlc-restore-link',
+                name: 'login.wlc-restore-link',
                 params: {
                     common: {
                         typeAttr: 'button',

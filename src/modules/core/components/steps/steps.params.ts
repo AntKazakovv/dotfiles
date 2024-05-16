@@ -177,7 +177,7 @@ const getTwoStepsForm = (isSecondProfile: boolean): IStepConfig => {
                     components: [
                         regFormStepTopComponents,
                         {
-                            name: 'user.wlc-sign-up-form',
+                            name: 'signup.wlc-sign-up-form',
                             params: {
                                 customMod: ['secondStep'],
                                 formType: 'secondStep',
@@ -195,7 +195,7 @@ const getTwoStepsForm = (isSecondProfile: boolean): IStepConfig => {
 };
 
 const regFormComponent = {
-    name: 'user.wlc-sign-up-form',
+    name: 'signup.wlc-sign-up-form',
 };
 
 const regBanner = {

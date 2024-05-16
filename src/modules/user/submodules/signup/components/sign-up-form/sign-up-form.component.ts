@@ -32,7 +32,6 @@ import {
 } from 'wlc-engine/modules/core';
 import {
     UserActionsAbstract,
-    IValidateData,
     InjectionService,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user';
@@ -41,14 +40,11 @@ import {ValidationService} from 'wlc-engine/modules/core/system/services/validat
 import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 import {IMGAConfig} from 'wlc-engine/modules/core/components/license/license.params';
 import {CuracaoRequirement} from 'wlc-engine/modules/app/system';
-import {UserHelper} from 'wlc-engine/modules/user/system/helpers/user.helper';
 import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
+import {SignUpService} from 'wlc-engine/modules/user/submodules/signup/system/services/signup.service';
+import {IRegFormDataForConfig} from 'wlc-engine/modules/user/submodules/signup/system/interfaces/signup.interface';
 
 import * as Params from './sign-up-form.params';
-
-export interface IRegFormDataForConfig {
-    form: IValidateData;
-}
 
 /**
  * Sign-up form component.
@@ -56,7 +52,7 @@ export interface IRegFormDataForConfig {
  * @example
  *
  * {
- *     name: 'user.wlc-sign-up-form',
+ *     name: 'signup.wlc-sign-up-form',
  * }
  *
  */
@@ -126,7 +122,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
                     selfExcludedText: this.configService.get<string>('$base.legal.selfExcludedCheckboxText'),
                     enableRequirement: this.enableRequirement,
                 };
-                UserHelper.modifyFormByLicense(data);
+                SignUpService.modifyFormByLicense(data);
             } else {
                 this.config.components = _filter(this.config.components, (el) => {
                     return !['ageConfirmed', 'agreedWithTermsAndConditions'].includes(el.params.name);
@@ -139,7 +135,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
                 selfExcludedText: this.configService.get<string>('$base.legal.selfExcludedCheckboxText'),
                 enableRequirement: this.enableRequirement,
             };
-            UserHelper.modifyFormByLicense(data);
+            SignUpService.modifyFormByLicense(data);
         }
 
 

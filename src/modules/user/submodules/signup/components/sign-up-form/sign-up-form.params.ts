@@ -35,7 +35,7 @@ export const defaultParams: ISignUpFormCParams = {
     class: 'wlc-sign-up-form',
     wlcElement: 'modal_signup',
     componentName: 'wlc-sign-up-form',
-    moduleName: 'user',
+    moduleName: 'signup',
 };
 
 export const signUpFormConfig: IFormWrapperCParams = {

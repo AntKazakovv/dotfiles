@@ -23,7 +23,6 @@ import {
     tap,
 } from 'rxjs/operators';
 import _assign from 'lodash-es/assign';
-import _keys from 'lodash-es/keys';
 import _set from 'lodash-es/set';
 import _merge from 'lodash-es/merge';
 import _isString from 'lodash-es/isString';
@@ -49,6 +48,7 @@ import {
     IMGAConfig,
     IValidateData,
     WebsocketService,
+    GlobalHelper,
     ILoyalty,
     ILoyaltyUpdate,
     FilesService,
@@ -63,8 +63,6 @@ import {
     TMetamaskData,
 } from 'wlc-engine/modules/metamask';
 import {
-    ChosenBonusSetParams,
-    ChosenBonusType,
     BonusesService,
 } from 'wlc-engine/modules/bonuses';
 import {WINDOW} from 'wlc-engine/modules/app/system';
@@ -450,23 +448,6 @@ export class UserService {
         this.userProfile$.next(this.profile);
     }
 
-    public prepareRegData(data: Partial<IUserProfile>): IValidateData {
-        const formData: IValidateData = {
-            'TYPE': 'user-register',
-            data,
-            fields: _keys(data),
-        };
-
-        const chosenBonus = this.configService.get<ChosenBonusType>(ChosenBonusSetParams.ChosenBonus);
-
-        if (chosenBonus?.id) {
-            formData.data.registrationBonus = String(chosenBonus.id);
-            formData.fields.push('registrationBonus');
-        }
-
-        return formData;
-    }
-
     public validateRegistration(regData: IValidateData): Promise<IIndexing<any>> {
         return this.dataService.request('user/userRegistration', regData);
     }
@@ -595,7 +576,7 @@ export class UserService {
     }
 
     public createUserProfile(userProfile: IUserProfile): Promise<IIndexing<any>> {
-        if (UserHelper.restrictRegistration(this.configService, this.eventService)) {
+        if (GlobalHelper.restrictRegistration(this.configService, this.eventService)) {
             throw new Error(gettext('Sorry, registration is disabled.'));
         }
         this.prepareCreateProfile(userProfile);

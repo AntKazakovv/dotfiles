@@ -3,6 +3,6 @@ import {ILayoutComponent} from 'wlc-engine/modules/core/system/interfaces/layout
 export namespace wlcSignInPageForm {
 
     export const kiosk: ILayoutComponent = {
-        name: 'user.wlc-sign-in-form',
+        name: 'login.wlc-sign-in-form',
     };
 }
