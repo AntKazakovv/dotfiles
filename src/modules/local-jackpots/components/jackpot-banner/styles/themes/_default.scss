@@ -110,12 +110,12 @@
             justify-content: center;
 
             &-info {
+                @include bm.get-mq-map('max-width', $themeDefault, 'emptyInfoMaxWidth');
                 @include text.get-text-style(
                     ef.get-value($themeDefault, 'emptyTextStyle'),
                     ef.get-value($themeDefault, 'emptyTextColor'),
                 );
 
-                max-width: ef.get-value($themeDefault, 'emptyInfoMaxWidth');
                 text-align: center;
             }
 

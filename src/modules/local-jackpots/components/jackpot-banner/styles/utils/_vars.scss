@@ -91,5 +91,8 @@ $themeDefault: map-merge((
         375: 0 0 20px,
         1024: 0 0 0 40px,
     ),
-    'emptyInfoMaxWidth': 275px,
+    'emptyInfoMaxWidth': (
+        375: 335px,
+        480: 375px,
+    ),
 ), $customThemeDefault);
