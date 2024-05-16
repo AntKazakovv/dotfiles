@@ -1219,7 +1219,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
     },
     'profile-menu:kyc-questionnaire': {
-        name: gettext('KYC Questionnaire'),
+        name: gettext('KYC questionnaire'),
         type: 'sref',
         icon: 'kyc-questionnaire',
         class: 'kyc-questionnaire',
@@ -1233,7 +1233,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     },
 
     'profile-first-menu:kyc-questionnaire': {
-        name: gettext('KYC Questionnaire'),
+        name: gettext('KYC questionnaire'),
         type: 'sref',
         icon: 'kyc-questionnaire',
         class: 'kyc-questionnaire',

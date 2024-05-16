@@ -1544,7 +1544,7 @@ export namespace profileContent {
                                         },
                                         params: <ITitleCParams>{
                                             customMod: ['profile'],
-                                            mainText: gettext('KYC Questionnaire'),
+                                            mainText: gettext('KYC questionnaire'),
                                             wlcElement: 'header_kyc-questionnaire',
                                         },
                                     },
