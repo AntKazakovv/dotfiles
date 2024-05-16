@@ -20,7 +20,6 @@ import {DOCUMENT} from '@angular/common';
 import {TransitionService} from '@uirouter/core';
 import {
     Observable,
-    fromEvent,
     Subject,
     BehaviorSubject,
     asyncScheduler,
@@ -45,7 +44,6 @@ import {
 import {DeviceType} from 'wlc-engine/modules/core/system/models/device.model';
 import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {HammerConfig} from 'wlc-engine/modules/core/system/config/hammer.config';
 import {panelsEvents} from './../float-panels/float-panels.params';
 import {
     GlobalHelper,
@@ -96,7 +94,6 @@ export class BurgerPanelComponent extends AbstractComponent
     public title: string;
     public headerMenuConfig: IWrapperCParams;
 
-    protected isUseTouchEvents: boolean;
     protected hammer$: any; // HammerInstance
     protected panstart$: Observable<HammerInput>;
     protected panmove$: Observable<HammerInput>;
@@ -141,17 +138,6 @@ export class BurgerPanelComponent extends AbstractComponent
     }
 
     public ngAfterViewInit(): void {
-        if (this.isUseTouchEvents) {
-            const element = (this.hostElement.nativeElement as HTMLElement);
-            this.$width = element.clientWidth;
-
-            this.hammer$ = new HammerConfig(this.window).buildHammer(element);
-            this.panstart$ = fromEvent(this.hammer$, 'panstart');
-            this.panmove$ = fromEvent(this.hammer$, 'panmove');
-            this.panend$ = fromEvent(this.hammer$, 'panend');
-
-            this.initPanListeners();
-        }
 
         if (this.$params.type === 'left-fixed' || this.$params.type === 'right-fixed') {
             this.isOpened = true;
@@ -240,11 +226,6 @@ export class BurgerPanelComponent extends AbstractComponent
         this.initHeaderMenu();
 
         this.title = this.$params.title || gettext('Menu');
-
-        if (this.$params.touchEvents?.use) {
-            this.isUseTouchEvents = this.$params.touchEvents?.onlyMobile ?
-                this.configService.get<boolean>('appConfig.mobile') : true;
-        }
 
         this.animeType = this.$params.animeType;
         if (this.animeType === 'translate-stagger' && this.$params.theme === 'default') {

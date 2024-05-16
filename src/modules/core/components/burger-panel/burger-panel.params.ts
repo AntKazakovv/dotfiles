@@ -31,10 +31,6 @@ export interface IBurgerPanelCParams extends IComponentParams<string, BurgerPane
      * Use this option to customize animation of burger-panels
      */
     animeType?: BurgerPanelAnimeType;
-    touchEvents?: {
-        use?: boolean;
-        onlyMobile?: boolean;
-    };
     showLogo?: boolean;
 }
 
@@ -47,7 +43,4 @@ export const defaultParams: IBurgerPanelCParams = {
     useScroll: true,
     showClose: true,
     animeType: 'fade',
-    touchEvents: {
-        use: true,
-    },
 };

@@ -27,9 +27,6 @@ export const defaultParams: IFloatPanelsCParams = {
         },
         'left-def': {
             type: 'left',
-            touchEvents: {
-                use: false,
-            },
         },
         'left-mobile': {
             type: 'left',
