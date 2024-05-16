@@ -1,0 +1,15 @@
+$customThemeToggle: () !default;
+$themeToggle: map-merge((
+    'toggleBackground': var(--mc-baseOpacity),
+    'toggleWidth': auto,
+    'toggleHeight': 24px,
+    'toggleElemWidth': 50px,
+    'togglePadding': 0 ef.size(4),
+    'toggleRadius': ef.get('radius', 'large'),
+    'toggleCircleSize': ef.size(4),
+    'toggleCircleOffset': 2px,
+    'toggleCircleBg': var(--mc-bg-o6),
+    'toggleCircleBgActive': var(--mc-main),
+    'toggleFontStyle': 'ThirdTitleBold',
+    'toggleTextPadding': 0 ef.size(3) 0 0,
+), $customThemeToggle);

@@ -112,7 +112,6 @@
     &.wlc-checkbox--text-left {
 
         .wlc-checkbox {
-            padding: ef.get-value($themeDefault, 'leftTextPadding');
 
             &__elem {
                 right: 0;

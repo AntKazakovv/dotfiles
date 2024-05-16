@@ -53,7 +53,7 @@ export class ProfileBlocksComponent extends AbstractComponent implements OnInit 
     public override $params: Params.IProfileBlocksCParams;
     public toggleBtn: ICheckboxCParams = {
         name: 'notification',
-        type: 'toggle',
+        theme: 'toggle',
         control: new UntypedFormControl(),
         onChange: (checked: boolean): void => {
             this.notificationToggle(checked);

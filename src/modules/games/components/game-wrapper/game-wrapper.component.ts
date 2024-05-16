@@ -163,7 +163,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     public mobileGame: boolean = this.configService.get<boolean>('appConfig.mobile');
     public dashboardBtn: ICheckboxCParams = {
         name: 'game-dashboard',
-        type: 'toggle',
+        theme: 'toggle',
         text: gettext('Dashboard'),
         textSide: 'left',
         control: new UntypedFormControl(),

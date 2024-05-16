@@ -1,0 +1,57 @@
+.wlc-checkbox--theme-toggle:host {
+    position: relative;
+
+    .wlc-checkbox {
+
+        &__checkbox {
+            display: none;
+        }
+
+        &__label {
+            display: flex;
+            align-items: center;
+            width: ef.get-value($themeToggle, 'toggleWidth');
+            height: ef.get-value($themeToggle, 'toggleHeight');
+            padding: ef.get-value($themeToggle, 'togglePadding');
+            cursor: pointer;
+            user-select: none;
+        }
+
+        &__elem {
+            @include bm.transition(background);
+            position: relative;
+            width: ef.get-value($themeToggle, 'toggleElemWidth');
+            height: ef.get-value($themeToggle, 'toggleHeight');
+            background: ef.get-value($themeToggle, 'toggleBackground');
+            cursor: pointer;
+            border-radius: ef.get-value($themeToggle, 'toggleRadius');
+
+            &.checked {
+
+                &:before {
+                    left: calc(100% - #{ef.get-value($themeToggle, 'toggleCircleSize')} - #{ef.get-value($themeToggle, 'toggleCircleOffset')});
+                    background: ef.get-value($themeToggle, 'toggleCircleBgActive');
+                }
+            }
+
+            &:before {
+                @include bm.transition();
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: ef.get-value($themeToggle, 'toggleCircleOffset');
+                z-index: 2;
+                width: ef.get-value($themeToggle, 'toggleCircleSize');
+                height: ef.get-value($themeToggle, 'toggleCircleSize');
+                background: ef.get-value($themeToggle, 'toggleCircleBg');
+                transform: translateY(-50%);
+                border-radius: 50%;
+            }
+        }
+
+        &__text {
+            @include text.get-text-style(ef.get-value($themeToggle, 'toggleFontStyle'));
+            padding: ef.get-value($themeToggle, 'toggleTextPadding');
+        }
+    }
+}

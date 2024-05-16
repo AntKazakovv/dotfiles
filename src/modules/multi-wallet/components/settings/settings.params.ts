@@ -31,11 +31,11 @@ export const defaultParams: ISettingsParams = {
     infoBlockText: gettext('Please note that the currency amounts are approximate'),
     toggleHideZero: {
         name: 'hideZeroBalances',
-        type: 'toggle',
+        theme: 'toggle',
     },
     toggleViewFiat: {
         name: 'viewFiat',
-        type: 'toggle',
+        theme: 'toggle',
     },
     walletSettings: {
         hideWalletsWithZeroBalance: false,

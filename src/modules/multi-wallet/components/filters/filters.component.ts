@@ -60,7 +60,7 @@ export class FiltersComponent extends AbstractComponent implements OnInit {
                 WalletHelper.currencies = _filter(this.$params.currencies,
                     (currency: ICurrencyFilter) => !currency.isUsed);
             },
-            type: 'toggle',
+            theme: 'toggle',
         };
     }
 }
