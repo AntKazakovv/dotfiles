@@ -17,8 +17,8 @@ import {
     AbstractComponent,
     ConfigService,
     IIndexing,
-    ICurrency,
 } from 'wlc-engine/modules/core';
+import {TDisplayName, ICurrency} from 'wlc-engine/modules/currency';
 
 import * as Params from './merchant-wallet-exrate.params';
 
@@ -59,7 +59,8 @@ export class MerchantWalletExrateComponent extends AbstractComponent implements 
     }
 
     protected setExRate(): void {
-        const currencies = this.configService.get<IIndexing<ICurrency>>('appConfig.siteconfig.currencies');
+        const currencies =
+            this.configService.get<IIndexing<ICurrency<TDisplayName>>>('appConfig.siteconfig.currencies');
         const usdExRate: number = _toNumber(_find(currencies, {Alias: 'USD'}).ExRate);
 
         this.exrate = this.$params.currency === 'EUR'

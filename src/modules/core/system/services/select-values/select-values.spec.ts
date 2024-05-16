@@ -1,7 +1,7 @@
 import {TestBed} from '@angular/core/testing';
 
 import _each from 'lodash-es/each';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, filter} from 'rxjs';
 import {DateTime} from 'luxon';
 
 import {
@@ -20,6 +20,7 @@ import {
     IPhoneLimits,
 } from 'wlc-engine/modules/core/system/services/select-values/select-values.service';
 import {GamesCatalogService} from 'wlc-engine/modules/games/system/services';
+import {CurrencyService} from 'wlc-engine/modules/currency/system/services';
 
 describe('SelectValuesService', () => {
 
@@ -28,6 +29,7 @@ describe('SelectValuesService', () => {
     let eventServiceSpy: jasmine.SpyObj<EventService>;
     let InjectionServiceSpy: jasmine.SpyObj<InjectionService>;
     let gameCatalogServiceSpy: jasmine.SpyObj<GamesCatalogService>;
+    let currencyServiceSpy: jasmine.SpyObj<CurrencyService>;
 
     const currencies: IIndexing<ICurrency> = {
         1: {ID: '1', Name: 'EUR', ExRate: '1.00000000', registration: true, Alias: 'EUR'},
@@ -109,6 +111,16 @@ describe('SelectValuesService', () => {
             },
         );
 
+        currencyServiceSpy = jasmine.createSpyObj(
+            'CurrencyService',
+            [],
+            {'regCurrencies': [
+                {DisplayName: 'EUR', ID: '1', Name: 'EUR', ExRate: '1.00000000', Alias: 'EUR'},
+                {DisplayName: 'USD', ID: '3', Name: 'USD', ExRate: '1.17865291', Alias: 'USD'},
+                {DisplayName: 'RUB', ID: '2', Name: 'RUB', ExRate: '89.28111768', Alias: 'RUB'},
+            ]},
+        );
+
         InjectionServiceSpy = jasmine.createSpyObj(
             'InjectionService',
             ['getService'],
@@ -116,6 +128,9 @@ describe('SelectValuesService', () => {
         InjectionServiceSpy.getService.and.callFake((name: string): Promise<any> => {
             if (name === 'games.games-catalog-service') {
                 return Promise.resolve(gameCatalogServiceSpy);
+            }
+            if (name === 'currency.currency-service') {
+                return Promise.resolve(currencyServiceSpy);
             }
         });
 
@@ -146,7 +161,7 @@ describe('SelectValuesService', () => {
         expect(selectValuesService).toBeTruthy();
     });
 
-    it('-> should prepare currencies. If no available currencies, method will work', () => {
+    it('-> should prepare currencies. If no available currencies, method will work', (done) => {
         const prepareCurrencyResult = new BehaviorSubject([
             {
                 title: 'RUB',
@@ -162,8 +177,11 @@ describe('SelectValuesService', () => {
             },
         ]);
         const prepareCurrency = selectValuesService.prepareCurrency();
-        expect(prepareCurrency.getValue().length).toBe(3);
-        expect(prepareCurrency).toEqual(prepareCurrencyResult);
+        prepareCurrency.pipe(filter((v) => !!v.length)).subscribe((currencies) => {
+            expect(currencies.length).toBe(3);
+            expect(currencies).toEqual(prepareCurrencyResult.getValue());
+            done();
+        });
     });
 
     it('-> should get date list', () => {

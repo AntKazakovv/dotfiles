@@ -169,10 +169,6 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
             const country = this.configService.get<string>('appConfig.country');
 
             switch (this.$params.name) {
-                case 'currency': {
-                    this.setDefaultCurrency(country, this.foundItems);
-                    break;
-                }
                 case 'countryCode': {
                     this.control.setValue(country);
                     if (this.configService.get<boolean>('$base.registration.filterCurrencyByCountry')) {
@@ -662,6 +658,19 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
                 }];
                 this.foundItems = _cloneDeep(this.$params.items);
 
+                if (this.$params.name === 'currency'
+                    && !this.control.value
+                    && this.foundItems.length
+                ) {
+                    if (this.$params.autoSelect) {
+                        this.setDefaultCurrency();
+                        this.getSelectedItemIndex();
+                    } else {
+                        this.activeItemIndex = 0;
+                        this.control.setValue(this.foundItems[0].value);
+                    }
+                }
+
                 if (this.control.value && !_find(this.foundItems, item => item.value === this.control.value)) {
                     this.clearedValue = this.control.value;
                     this.control.setValue(this.foundItems[0]?.value || '');
@@ -713,7 +722,10 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
      * @method setDefaultCurrency
      * @returns {void} void
      */
-    public setDefaultCurrency(country: string, items: Params.ISelectOptions[]): void {
+    public setDefaultCurrency(
+        country: string = this.configService.get<string>('appConfig.country'),
+        items: Params.ISelectOptions[] = this.foundItems,
+    ): void {
         const currency = this.configService.get<string>(
             `$base.registration.selectCurrencyByCountry.${country}`,
         );

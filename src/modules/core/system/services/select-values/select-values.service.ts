@@ -27,12 +27,10 @@ import _map from 'lodash-es/map';
 import _range from 'lodash-es/range';
 import _sortBy from 'lodash-es/sortBy';
 import _uniqBy from 'lodash-es/uniqBy';
-import _values from 'lodash-es/values';
 import _merge from 'lodash-es/merge';
 import _get from 'lodash-es/get';
 import _cloneDeep from 'lodash-es/cloneDeep';
 import _has from 'lodash-es/has';
-import _includes from 'lodash-es/includes';
 
 import {UserProfile} from 'wlc-engine/modules/user';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
@@ -45,11 +43,12 @@ import {
     IState,
 } from 'wlc-engine/modules/core/system/interfaces/fundist.interface';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
-import {ICurrency} from 'wlc-engine/modules/finances/system/interfaces/currencies.interface';
 import {
     GamesCatalogService,
 } from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
+import {CurrencyService} from 'wlc-engine/modules/currency/system/services/currency.service';
+import {ICurrency} from 'wlc-engine/modules/currency/system/interfaces/currency.interface';
 
 import * as Params from 'wlc-engine/modules/core/components/select/select.params';
 
@@ -123,7 +122,7 @@ export class SelectValuesService {
      *this.configService.get<string>('appConfig.country')
      */
     public prepareCurrency(): TConstantValue {
-        if (this.configService.get<IIndexing<ICurrency>>('$base.registration.regCurrenciesByCountries' &&
+        if (this.configService.get<IIndexing<ICurrency<string>>>('$base.registration.regCurrenciesByCountries' &&
             '$base.registration.filterCurrencyByGeo')) {
             return this.filterCurrency(this.configService.get<string>('appConfig.country'));
         } else {
@@ -132,32 +131,40 @@ export class SelectValuesService {
     }
 
     public filterCurrency(country?: string): TConstantValue {
-        const currencies = this.configService.get<IIndexing<string>>('$base.rewritingCurrencyName');
-        const sortConfig = this.configService.get<string[]>('$base.registration.currencySort');
-        let modifyCurrencies = _values(this.configService.get<IIndexing<ICurrency>>('appConfig.siteconfig.currencies'));
+        const filteredCurrency$ = new BehaviorSubject<Params.ISelectOptions[]>([]);
 
-        modifyCurrencies = GlobalHelper.sortByOrder(modifyCurrencies, sortConfig, 'Name');
+        from(this.configService.ready)
+            .pipe(
+                switchMap(() =>
+                    from(this.injectionService.getService<CurrencyService>('currency.currency-service')),
+                ),
+            )
+            .subscribe((currencyService: CurrencyService) => {
+                const currencies: IIndexing<string> = this.configService.get('$base.rewritingCurrencyName');
+                const sortConfig: string[] = this.configService.get<string[]>('$base.registration.currencySort');
+                let modifyCurrencies: ICurrency<string>[] = currencyService.regCurrencies;
 
-        if (country) {
-            const currenciesByCountry = this.configService.get<string>(
-                `$base.registration.regCurrenciesByCountries.${country}`,
-            );
+                modifyCurrencies = GlobalHelper.sortByOrder(modifyCurrencies, sortConfig, 'DisplayName');
 
-            if (currenciesByCountry) {
-                modifyCurrencies = _filter(modifyCurrencies, (el) => {
-                    return _includes(currenciesByCountry, el.Name);
-                });
-            }
-        }
+                if (country) {
+                    const currenciesByCountry: string = this.configService.get<string>(
+                        `$base.registration.regCurrenciesByCountries.${country}`,
+                    );
 
-        return new BehaviorSubject(
-            _map(
-                _filter(modifyCurrencies, (el: ICurrency) => {
-                    return el.registration;
-                }), (el) => {
-                    return {title: currencies[el.Name] || el.Name, value: el.Alias};
-                }),
-        );
+                    if (currenciesByCountry) {
+                        modifyCurrencies = modifyCurrencies.filter((el: ICurrency<string>) => {
+                            return currenciesByCountry.includes(el.Name);
+                        });
+                    }
+                }
+                filteredCurrency$.next(
+                    modifyCurrencies.map((el: ICurrency<string>) => {
+                        return {title: currencies[el.DisplayName] || el.DisplayName, value: el.Alias};
+                    }),
+                );
+            });
+
+        return filteredCurrency$;
     }
 
     /**
