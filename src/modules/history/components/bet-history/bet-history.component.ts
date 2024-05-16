@@ -57,8 +57,8 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit, On
     public showFilter: boolean = false;
     public override $params: Params.IBetHistoryCParams;
     public tableData: ITableCParams;
-    public filterSelect: ISelectCParams = betConfig.filterSelect;
-    public orderSelect: ISelectCParams = betConfig.orderSelect;
+    public filterSelect: ISelectCParams = _cloneDeep(betConfig.filterSelect);
+    public orderSelect: ISelectCParams = _cloneDeep(betConfig.orderSelect);
     public startDateInput: IDatepickerCParams = _cloneDeep(startDate);
     public endDateInput: IDatepickerCParams = _cloneDeep(endDate);
     public bets$: BehaviorSubject<Bet[]> = new BehaviorSubject([]);
