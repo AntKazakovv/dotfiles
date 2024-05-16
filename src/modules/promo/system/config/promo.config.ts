@@ -79,9 +79,23 @@ export const promoConfig: IPromoConfig = {
                     ' will appear later. In the meantime, we offer you to have a look at our new games.'),
                     redirectBtn: {
                         useBtn: true,
+                        event: {
+                            name: 'OPEN_CATEGORY',
+                            data: {
+                                parent: 'casino',
+                                child: 'new',
+                            },
+                        },
                     },
                     link: {
                         useLink: false,
+                        event: {
+                            name: 'OPEN_CATEGORY',
+                            data: {
+                                parent: 'casino',
+                                child: 'new',
+                            },
+                        },
                     },
                 },
             },

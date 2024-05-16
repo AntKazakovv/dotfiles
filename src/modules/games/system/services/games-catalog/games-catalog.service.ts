@@ -141,6 +141,11 @@ export interface IVideoThumbsConfig {
     haveVideo: number[];
 }
 
+export interface IOpenCategory {
+    parent: string;
+    child: string;
+}
+
 @Injectable({
     providedIn: 'root',
 })
@@ -313,6 +318,43 @@ export class GamesCatalogService {
                     },
                 });
             },
+        });
+
+        this.eventService.subscribe({
+            name: 'OPEN_CATEGORY',
+        }, (data: IOpenCategory) => {
+            if (this.architectureVersion === 2) {
+                this.stateService.go('app.catalog', {
+                    category: data.child || data.parent,
+                });
+            } else {
+                let appState: string;
+                let appParams: RawParams;
+
+                if (data.child && data.parent) {
+                    const category: CategoryModel = this.getCategoryBySlug(data.child);
+
+                    if (category.parentCategory) {
+                        appState = 'app.catalog.child';
+                        appParams = {
+                            category: data.parent,
+                            childCategory: data.child,
+                        };
+                    } else {
+                        appState = 'app.catalog';
+                        appParams = {
+                            category: data.child,
+                        };
+                    }
+                } else {
+                    appState = 'app.catalog';
+                    appParams = {
+                        category: data.parent,
+                    };
+                }
+
+                this.stateService.go(appState, appParams);
+            }
         });
 
         this.actionService.deviceType()

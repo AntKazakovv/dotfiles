@@ -14,8 +14,9 @@
                     {{$params.text | translate}}
                     <a *ngIf="$params.link.useLink"
                         class="{{$class}}__text-link"
-                        [uiSref]="$params.link.uiSref"
-                        [uiParams]="$params.link.uiParams">
+                        (click)="openState($params.link.event,
+                                           $params.link.uiSref,
+                                           $params.link.uiParams)">
                         {{'Play' | translate}}!
                     </a>
                 </p>
@@ -32,8 +33,9 @@
             <button
                 wlc-button
                 [text]="$params.redirectBtn.text"
-                [sref]="$params.redirectBtn.sref"
-                [srefParams]="$params.redirectBtn.srefParams"
+                (click)="openState($params.redirectBtn.event,
+                                   $params.redirectBtn.sref,
+                                   $params.redirectBtn.srefParams)"
             ></button>
         </div>
     </div>

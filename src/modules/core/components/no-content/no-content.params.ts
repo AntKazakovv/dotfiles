@@ -8,6 +8,11 @@ export type TComponentTheme = 'default' | 'promotions' | CustomType;
 export type TComponentType = 'default' | CustomType;
 export type TComponentThemeMod = 'default' | CustomType;
 
+export type TEvent = {
+    name: string;
+    data?: unknown;
+}
+
 export interface INoContentCParams extends IComponentParams<TComponentTheme, TComponentType, TComponentThemeMod> {
     /*describes in which component was used no-content component*/
     parentComponentClass?: string,
@@ -21,12 +26,14 @@ export interface INoContentCParams extends IComponentParams<TComponentTheme, TCo
         sref?: string,
         srefParams?: RawParams,
         text?: string,
+        event?: TEvent;
     },
     /*set link config, and where it should redirect*/
     link?: {
         useLink?: boolean,
         uiSref?: string,
         uiParams?: RawParams,
+        event?: TEvent;
     },
     /*set background image of empty content*/
     bgImage?: string,

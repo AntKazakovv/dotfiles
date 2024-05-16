@@ -6,8 +6,14 @@ import {
     Input,
 } from '@angular/core';
 import {
+    RawParams,
+    StateService,
+} from '@uirouter/core';
+
+import {
     AbstractComponent,
     ConfigService,
+    EventService,
     GlobalHelper,
 } from 'wlc-engine/modules/core';
 
@@ -31,6 +37,8 @@ export class WlcNoContentComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected injectParams: Params.INoContentCParams,
         configService: ConfigService,
+        protected eventService: EventService,
+        protected stateService: StateService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
@@ -39,6 +47,14 @@ export class WlcNoContentComponent extends AbstractComponent implements OnInit {
         super.ngOnInit(this.inlineParams);
         if (this.$params.parentComponentClass) {
             this.addModifiers(this.$params.parentComponentClass);
+        }
+    }
+
+    public openState(event: Params.TEvent, state: string, stateParams: RawParams): void {
+        if (event) {
+            this.eventService.emit(event);
+        } else {
+            this.stateService.go(state, stateParams);
         }
     }
 }

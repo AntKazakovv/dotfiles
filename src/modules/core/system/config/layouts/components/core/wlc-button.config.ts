@@ -492,10 +492,12 @@ export namespace wlcButton {
         params: {
             common: {
                 text: gettext('Play'),
-                sref: 'app.catalog.child',
-                srefParams: {
-                    category: 'casino',
-                    childCategory: 'new',
+                event: {
+                    name: 'OPEN_CATEGORY',
+                    data: {
+                        parent: 'casino',
+                        child: 'new',
+                    },
                 },
             },
             wlcElement: 'button-play',
