@@ -114,7 +114,6 @@
     <button wlc-button
             class="{{$class}}__btn-no-jackpot"
             [text]="$params.noJackpotBtn.text"
-            [uiSref]="$params.noJackpotBtn.sref"
-            [uiParams]="$params.noJackpotBtn.params || {}">
+            [wlc-link]="[$params.noJackpotBtn.sref, $params.noJackpotBtn.params]">
     </button>
 </ng-template>
