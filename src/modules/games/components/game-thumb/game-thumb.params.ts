@@ -7,6 +7,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {Game} from 'wlc-engine/modules/games';
 import * as ButtonParams from 'wlc-engine/modules/core/components/button/button.params';
+import {ITagCParams} from 'wlc-engine/modules/core/components/tag/tag.params';
 
 export type Type = 'default'
 
@@ -106,6 +107,10 @@ export interface IGameThumbCParams extends IComponentParams<Theme, Type, ThemeMo
             use?: boolean,
             iconPath?: string,
         },
+        /**
+         * Displays a tag with the rtp value in games in the hot category
+         */
+        hotGameRtpTag?: ITagCParams;
         pplResultsCount?: number;
         /**
          * merchant icon usage params
@@ -162,6 +167,12 @@ export const defaultParams: IGameThumbCParams = {
             iconPath: 'wlc/icons/info.svg',
         },
         pplResultsCount: 10,
+        hotGameRtpTag: {
+            themeMod: 'rtp',
+            common: {
+                iconUrl: 'wlc/icons/theme-wolf/firework.svg',
+            },
+        },
     },
     showJackpotAmount: false,
 };

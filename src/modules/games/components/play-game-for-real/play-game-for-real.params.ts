@@ -10,6 +10,8 @@ import {
     IButtonCParams,
     ITextBlockCParams,
     GlobalHelper,
+    ITableCParams,
+    ITableCol,
 } from 'wlc-engine/modules/core';
 import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
@@ -66,6 +68,35 @@ const insertPplInfo = (game: Game, themeMod: string): IFormComponent => {
             common: {
                 game: game,
             },
+        },
+    };
+};
+
+const tableInformationConfig: ITableCol[] = [
+    {
+        key: 'text',
+        type: 'text',
+        order: 10,
+        wlcElement: 'wlc-play-game-table__cell_type',
+    },
+    {
+        key: 'value',
+        type: 'text',
+        order: 20,
+        wlcElement: 'wlc-play-game-table__cell_action',
+    },
+];
+
+const insertGameInformation = (game: Game): IFormComponent => {
+    return {
+        name: 'core.wlc-table',
+        params: <ITableCParams>{
+            themeMod: 'game-info',
+            title: gettext('More info'),
+            head: tableInformationConfig,
+            rows: [{text: 'RTP:', value: `${game.hotGameRTP}%`}],
+            showHead: false,
+            disableMobileVersion: true,
         },
     };
 };
@@ -213,6 +244,7 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
             },
             ...orDemoBtn,
             !params.isKiosk ? templateSignUp : null,
+            params.game.hotGameRTP ? insertGameInformation(params.game) : null,
         ];
     };
 
@@ -274,6 +306,7 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
         },
         ...demoBtn,
         params.showPplInfo ? insertPplInfo(params.game, params.gameThumbThemeMod) : null,
+        params.game.hotGameRTP ? insertGameInformation(params.game) : null,
     ];
 
     return {

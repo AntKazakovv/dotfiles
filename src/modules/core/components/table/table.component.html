@@ -1,8 +1,12 @@
+<div *ngIf="ready && $params.title" class="{{$class}}__title">
+    {{$params.title | translate}}
+</div>
+
 <div *ngIf='ready'
     class="{{$class}}__content"
     [@tableAppearance]="indexFactor || rows">
 
-    <div *ngIf="isTable && rows.length" class="{{$class}}__row {{$class}}__row--head">
+    <div *ngIf="isTable && $params.showHead && rows.length" class="{{$class}}__row {{$class}}__row--head">
         <span *ngFor="let col of head"
             class="{{$class}}__cell {{$class}}__cell--{{col.key}}"
             [attr.data-wlc-element]="col.wlcElement">
@@ -18,8 +22,8 @@
             class="{{$class}}__cell {{$class}}__cell--{{col.key}}"
             [ngClass]="[$first ? $class + '__cell--first' : 'wlc-cell-hide']"
             [attr.data-wlc-element]="col.wlcElement"
-            [@toggle]="animationStatus(item, $first)"
-            (click)="$first && isMobile ? item.toggleRow() : null">
+            [@toggle]="!$params.disableMobileVersion && animationStatus(item, $first)"
+            (click)="$first && isMobile && !$params.disableMobileVersion ? item.toggleRow() : null">
 
             <ng-container [ngSwitch]="col.type">
                 <div *ngIf="isMobile" class="{{$class}}__cell-label">

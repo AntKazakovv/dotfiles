@@ -8,6 +8,19 @@ $themeDefault: map-merge((
     'radius': ef.get('radius', 'biger'),
     'iconSize': 12px,
     'bgOpacity': 0.8,
+
+    // theme mod rtp
+    'rtpMargin': (
+        375: 0 0 0 ef.size(1),
+        1024: 0 auto,
+    ),
+    'rtpHeight': 18px,
+    'rtpBorderRadius': ef.size(2),
+    'rtpPadding': 0 10px,
+    'rtpGap': ef.size(1),
+    'rtpOpacity': 0.8,
+    'rtpTagBg': #a70129,
+    'rtpColor': #fff,
 ), $customThemeDefault);
 
 $customThemeFlag: () !default;

@@ -154,7 +154,7 @@ export class TableComponent extends AbstractComponent implements OnInit {
     public calcTableType(mediaQueryResult: MediaQueryList | MediaQueryListEvent): void {
         this.removeModifiers(this.tableType);
 
-        if (mediaQueryResult.matches) {
+        if (mediaQueryResult.matches || this.$params.disableMobileVersion) {
             this.tableType = Params.TableTypeEnum.TABLE;
         } else {
             this.tableType = Params.TableTypeEnum.MOBILE;

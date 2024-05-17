@@ -8,7 +8,7 @@ import {IPagination} from 'wlc-engine/modules/core/components/pagination/paginat
 
 export type Theme = 'default' | 'mobile-app' | CustomType;
 export type Type = 'default' | CustomType;
-export type ThemeMod = 'default' | 'first' | CustomType;
+export type ThemeMod = 'default' | 'first' | 'game-info' | CustomType;
 export type TableColType = 'text' | 'date' | 'index' | 'amount' | 'component';
 
 export const enum TableTypeEnum {
@@ -28,6 +28,18 @@ export interface ITableCParams extends IComponentParams<Theme, Type, ThemeMod> {
      * Scroll up when pagination
      */
     scrollUp?: boolean;
+    /**
+     * Enable/disable display column headers
+     */
+    showHead?: boolean;
+    /**
+     * Enable/disable view transformation in mobile version
+     */
+    disableMobileVersion?: boolean;
+    /**
+     * Title at the table
+     */
+    title?: string;
 }
 
 export const defaultParams: ITableCParams = {
@@ -46,12 +58,13 @@ export const defaultParams: ITableCParams = {
     switchWidth: 1024,
     iconPath: '/wlc/icons/empty-table-bg.svg',
     scrollUp: false,
+    showHead: true,
 };
 
 export interface ITableCol {
     key: string;
-    title: string;
     type: TableColType;
+    title?: string;
     format?: string;
     order?: number;
     mapValue?: (v: unknown, index?: number) => unknown;

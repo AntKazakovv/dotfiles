@@ -52,6 +52,8 @@ import {TColorTheme} from 'wlc-engine/modules/core/system/interfaces/base-config
 import {
     GamesCatalogService,
 } from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
+import {ITagCParams} from 'wlc-engine/modules/core/components/tag/tag.params';
+
 import * as Params from './game-thumb.params';
 
 @Component({
@@ -204,6 +206,15 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
                         this.pragmaticDGA = pragmaticData;
                         this.pplLastResults =
                             pragmaticData.lastResult.slice(0, this.$params.common.pplResultsCount);
+
+                        if (this.game.hotGameRTP) {
+                            if (pragmaticData.lastResult?.length) {
+                                this.addModifiers('ppl-with-result');
+                            } else {
+                                this.addModifiers('ppl-without-result');
+                            }
+                        }
+
                         this.cdr.detectChanges();
                     }
                 });
@@ -323,6 +334,14 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
         if (this.isTransform) {
             this.settingVerticalThumb();
         }
+
+        if (this.game.hotGameRTP) {
+            this.addModifiers('with-rtp');
+        }
+
+        if (this.$params.showJackpotAmount && this.game.jackpotAmount) {
+            this.addModifiers('with-jackpot');
+        }
     }
 
     /**
@@ -342,6 +361,20 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
                 gameThumbThemeMod: this.$params.themeMod,
             },
         });
+    }
+
+    public isHotGameHasRtp(game: Game): boolean {
+        return !!game.hotGameRTP;
+    }
+
+    public generateTagParams(game: Game, hotGameRtpTag: ITagCParams): ITagCParams {
+        const captionTag: ITagCParams = {
+            common: {
+                caption: `RTP: ${game.hotGameRTP}%`,
+            },
+        };
+
+        return Object.assign({}, hotGameRtpTag, captionTag);
     }
 
     public async toggleFavourites(game: Game): Promise<void> {

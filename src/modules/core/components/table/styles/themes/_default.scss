@@ -10,6 +10,12 @@ $selector: '.wlc-table';
             gap: ef.get-value($themeDefault, 'rootGapDesktop');
             min-height: ef.get-value($themeDefault, 'rootMinHeightDesktop');
 
+            .wlc-table__title {
+                @include text.get-text-style(ef.get-value($themeDefault, 'titleTextStyle'));
+
+                text-align: center;
+            }
+
             #{$selector}__content {
                 @include tableContent($themeDefault, true);
             }
@@ -67,6 +73,45 @@ $selector: '.wlc-table';
                             transform: translateY(-1px);
                         }
                     }
+                }
+            }
+        }
+    }
+
+    &.wlc-table--theme-mod-game-info {
+        gap: ef.get-value($themeDefault, 'tableInformationGap');
+
+        .wlc-table__title {
+            margin: ef.get-value($themeDefault, 'tableInformationTitleMargin');
+        }
+
+        .wlc-table__content {
+
+            .wlc-table__row {
+                display: flex;
+                justify-content: space-between;
+                height: auto;
+                border: none;
+                background: ef.get-value($themeDefault, 'tableInformationRowBackground');
+                border-radius: ef.get-value($themeDefault, 'tableInformationRowBorderRadius');
+
+                .wlc-table__cell {
+                    @include text.get-text-style(ef.get-value($themeDefault, 'tableInformationCellStyle'));
+
+                    height: auto;
+                    padding: ef.get-value($themeDefault, 'tableInformationCellPadding');
+
+                    &--text {
+                        text-align: left;
+                    }
+
+                    &--value {
+                        text-align: right;
+                    }
+                }
+
+                @include bm.hover() {
+                    background: ef.get-value($themeDefault, 'tableInformationRowBackground');
                 }
             }
         }

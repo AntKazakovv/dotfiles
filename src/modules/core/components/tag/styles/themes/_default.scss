@@ -43,6 +43,33 @@
             display: none;
         }
     }
+
+    &.wlc-tag--theme-mod-rtp {
+        @include bm.get-mq-map('margin', $themeDefault, 'rtpMargin');
+
+        display: flex;
+        gap: ef.get-value($themeDefault, 'rtpGap');
+        width: max-content;
+        height: ef.get-value($themeDefault, 'rtpHeight');
+        border-radius: ef.get-value($themeDefault, 'rtpBorderRadius');
+        padding: ef.get-value($themeDefault, 'rtpPadding');
+        color: ef.get-value($themeDefault, 'rtpColor');
+
+        .wlc-tag {
+
+            &__icon,
+            &__caption {
+                z-index: 10;
+            }
+        }
+
+        &:before {
+            --wlc-tag-bg: #{ef.get-value($themeDefault, 'rtpTagBg')};
+
+            z-index: 1;
+            opacity: ef.get-value($themeDefault, 'rtpOpacity');
+        }
+    }
 }
 
 .wlc-tag--theme-flag:host {
@@ -79,4 +106,3 @@
         }
     }
 }
-

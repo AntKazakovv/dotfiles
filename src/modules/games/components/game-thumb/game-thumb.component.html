@@ -194,6 +194,7 @@
         <ng-container [ngTemplateOutlet]="buttonFavourite"></ng-container>
         <ng-container [ngTemplateOutlet]="buttonsPlayDemo"></ng-container>
     </div>
+
     <div *ngIf="showMerchantIcon; else merchantName"
          class="{{$class}}__merchants-block">
         <img class="{{$class}}__merchants-icon"
@@ -215,6 +216,11 @@
             <ng-container [ngTemplateOutlet]="pragmaticPlayLive"></ng-container>
         </div>
         <ng-container [ngTemplateOutlet]="pplMoreIcon"></ng-container>
+    </ng-container>
+
+    <ng-container
+        *ngIf="isHotGameHasRtp | functionPurePipe:[game]"
+        [ngTemplateOutlet]="hotGameRtp">
     </ng-container>
 
     <div
@@ -295,6 +301,11 @@
         (click)="startGame(false, true, $event)">
         <ng-container *ngIf="!hasVideo; else videoTemplate">
             <ng-container [ngTemplateOutlet]="thumbImg"></ng-container>
+        </ng-container>
+
+        <ng-container
+            *ngIf="isHotGameHasRtp | functionPurePipe:[game]"
+            [ngTemplateOutlet]="hotGameRtp">
         </ng-container>
     </div>
 </ng-template>
@@ -483,5 +494,15 @@
              (mouseenter)="showGameInfo()"
              (mouseleave)="hideGameInfo()">
         </div>
+    </div>
+</ng-template>
+
+<ng-template #hotGameRtp>
+    <div class="{{$class}}__rtp">
+        <span wlc-tag
+            class="{{$class}}__rtp-tag"
+            [inline]="generateTagParams | functionPurePipe:[game, $params.common.hotGameRtpTag]"
+            [title]="game.hotGameRTP">
+        </span>
     </div>
 </ng-template>

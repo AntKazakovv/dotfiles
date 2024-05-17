@@ -66,6 +66,10 @@
                 opacity: 0;
                 pointer-events: none;
             }
+
+            &__rtp {
+                @include bm.get-mq-map('opacity', $themeDefault, 'rtpOpacity');
+            }
         }
     }
 }

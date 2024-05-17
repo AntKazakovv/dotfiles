@@ -177,6 +177,17 @@ $themeDefault: map-merge((
     'merchantNamePadding': ef.size(1) ef.size(2),
     'merchantNameAlign': flex-start,
     'merchantNameJustify': flex-end,
+
+    'rtpRight': 0,
+    'rtpBottom': ef.size(2),
+    'rtpLeft': 0,
+    'rtpWithJackpotBottom': ef.size(7),
+    'rtpWithPPLResult': ef.size(11),
+    'rtpWithPPLWithoutResult': ef.size(6),
+    'rtpOpacity': (
+        375: 1,
+        1024: 0,
+    ),
 ), $customThemeDefault);
 
 $customThemeDefaultCircle: () !default;
@@ -236,6 +247,10 @@ $themeDefaultModCircle: map-merge((
         375: 0,
         1024: initial,
     ),
+
+    'rtpMargin': ef.size(2) 0 0,
+    'rtpTitleMargin': ef.size(6) 0 0,
+    'rtpTagMargin': 0 0 0 ef.size(2),
 ), $customThemeDefaultCircle);
 
 $customThemeDefaultBottom: () !default;

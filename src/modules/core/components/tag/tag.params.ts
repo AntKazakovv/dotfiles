@@ -5,14 +5,14 @@ import {
 
 export type ComponentTheme = 'default' | 'flag' | CustomType;
 export type ComponentType = 'default'  | CustomType;
-export type ComponentThemeMod = 'default' | CustomType;
+export type ComponentThemeMod = 'default' | 'rtp' | CustomType;
 
 export interface ITagList<T extends string> {
         useIcons: boolean;
         tagList: Partial<Record<T, ITagCommon>>
 }
 export interface ITagCommon {
-    caption: string;
+    caption?: string;
     bg?: string;
     iconUrl?: string;
     flagIconUrl?: string;

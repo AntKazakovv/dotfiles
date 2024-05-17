@@ -55,6 +55,7 @@ export class Game extends AbstractModel<IGame> {
     public isVisibilityChangeCurrency: boolean = false;
     public initialCurrency: string;
     public admID?: string;
+    public hotGameRTP?: number;
 
     protected url: string;
     protected isRestricted: boolean;
@@ -101,6 +102,7 @@ export class Game extends AbstractModel<IGame> {
         this.merchantAlias = this.getMerchantAlias();
         this.disableDemoBtnsFor = this.configService.get<TDisableDemoFor>('$games.disableDemoBtnsFor');
         this._withFreeRounds = data.Freeround === '1';
+        this.hotGameRTP = data.HotGameRTP && Number(data.HotGameRTP);
 
         this.data = data;
     }

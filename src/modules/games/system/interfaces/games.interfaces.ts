@@ -465,6 +465,7 @@ export interface IGame {
      * The field contains a list of merchant currencies unique to the game, if one exists.
      */
     IDMerchantsCurrencies?: string;
+    HotGameRTP?: string;
 }
 
 export interface ICustomSort {

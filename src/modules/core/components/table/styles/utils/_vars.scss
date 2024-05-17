@@ -5,6 +5,7 @@ $themeDefault: map-merge((
     'textColor': var(--mc-baseSecond, var(--mc-baseMain)),
     'textStyleMobile': 'CaptionText',
     'textStyleDesktop': 'PrimaryText',
+    'titleTextStyle': 'PrimaryTextBold',
 
     //Root common
     'rootDisplay': flex,
@@ -86,4 +87,12 @@ $themeDefault: map-merge((
     'currencyWrapperAlignItems': center,
     'currencyWrapperJustifyContent': center,
     'currencyIconSize': 13px,
+
+    // table info
+    'tableInformationGap': ef.size(2),
+    'tableInformationTitleMargin': ef.size(8) 0 0,
+    'tableInformationRowBackground': var(--mc-bg700),
+    'tableInformationRowBorderRadius': ef.get('radius', 'small') ef.get('radius', 'small') 0 0,
+    'tableInformationCellStyle': 'CaptionText',
+    'tableInformationCellPadding': ef.size(1) ef.size(2),
 ), $customThemeDefault);

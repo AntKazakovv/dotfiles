@@ -368,6 +368,13 @@
             }
         }
 
+        &__rtp {
+            position: absolute;
+            right: ef.get-value($themeDefault, 'rtpRight');
+            bottom: ef.get-value($themeDefault, 'rtpBottom');
+            left: ef.get-value($themeDefault, 'rtpLeft');
+        }
+
         &__jackpot {
             @include text.get-text-style(
                 ef.get-value($themeDefault, 'jackpotTextStyle'),
@@ -387,6 +394,36 @@
             height: ef.get-value($themeDefault, 'jackpotHeight');
             padding: ef.get-value($themeDefault, 'jackpotPadding');
             background: ef.get-value($themeDefault, 'jackpotBg');
+        }
+    }
+
+    &.wlc-game-thumb--with-jackpot {
+
+        .wlc-game-thumb {
+
+            &__rtp {
+                bottom: ef.get-value($themeDefault, 'rtpWithJackpotBottom');
+            }
+        }
+    }
+
+    &.wlc-game-thumb--ppl-with-result {
+
+        .wlc-game-thumb {
+
+            &__rtp {
+                bottom: ef.get-value($themeDefault, 'rtpWithPPLResult');
+            }
+        }
+    }
+
+    &.wlc-game-thumb--ppl-without-result {
+
+        .wlc-game-thumb {
+
+            &__rtp {
+                bottom: ef.get-value($themeDefault, 'rtpWithPPLWithoutResult');
+            }
         }
     }
 
@@ -555,6 +592,24 @@
 
                     .wlc-btn__text {
                         transform: none;
+                    }
+                }
+            }
+        }
+
+        &.wlc-game-thumb--with-rtp {
+
+            .wlc-game-thumb {
+
+                &__title {
+                    margin: ef.get-value($themeDefaultModCircle, 'rtpTitleMargin');
+                }
+
+                &__rtp {
+                    margin: ef.get-value($themeDefaultModCircle, 'rtpMargin');
+
+                    &-tag {
+                        margin: ef.get-value($themeDefaultModCircle, 'rtpTagMargin');
                     }
                 }
             }
