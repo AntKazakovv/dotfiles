@@ -20,7 +20,7 @@
         </a>
 
         <div wlc-dynamic-html
-             [html]="html"
+             [html]="html | safeValue:'dynamicHTML'"
              [parseAsPlainHTML]="parseAsPlainHTML"
              [withoutCompilation]="withoutCompilation"
              [shouldClearStyles]="shouldClearStyles"

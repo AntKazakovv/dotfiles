@@ -1,6 +1,6 @@
 import {IIndexing} from 'wlc-engine/modules/core';
 
-export type StaticTextType = 'page' | 'post' | 'tag' | 'category';
+export type StaticTextType = 'page' | 'post';
 export type TWpTranslateMode = 'query' | 'pre-path';
 export interface IAcf extends IIndexing<any> {}
 
@@ -76,11 +76,6 @@ export interface IPostResponse {
     code?: string;
 }
 
-export interface IStaticRequestConfig {
-    type?: StaticTextType;
-    slug?: string;
-    lang?: string;
-}
 export interface IRequestUrlStaticText {
     post: string;
     page: string;
