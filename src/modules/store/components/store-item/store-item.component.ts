@@ -42,6 +42,7 @@ import * as Params from './store-item.params';
     encapsulation: ViewEncapsulation.None,
 })
 export class StoreItemComponent extends AbstractComponent implements OnInit, OnDestroy {
+
     @Input() public inlineParams: Params.IStoreItemCParams;
     @Input() public storeItem: StoreItem;
     @Input() public type: Params.ComponentType;
@@ -49,6 +50,7 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
     @Input() public themeMod: Params.ComponentThemeMod;
     @Input() public customMod: Params.CustomMod;
     @Input() public userLevel: number;
+    @Input() public itemDisabledInfo: IDisabledItemInfo;
 
     public override $params: Params.IStoreItemCParams;
     public isAuth: boolean;
@@ -80,11 +82,8 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
 
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-        this.isDisabled = !this.storeItem.isAvailable
-            || !this.storeItem.hasUserAccessByLevel(this.userLevel)
-            || this.storeItem.nextDateAvailable;
+        this.isDisabled = !!Object.keys(this.itemDisabledInfo).length;
         this.prepareModifiers();
-        this.disabledInfo = this.storeItem.getDisabledInfo(this.userLevel);
         this.isProfileFirst = this.configService.get<string>('$base.profile.type') === 'first';
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         this.storeImage = this.storeItem.image;
@@ -115,7 +114,7 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
             description: this.storeItem.description,
             storeItem: this.storeItem,
             isDisabled: this.isDisabled,
-            disabledMsg: this.disabledInfo?.messageText,
+            disabledMsg: this.itemDisabledInfo?.messageText,
             priceLoyalty: this.storeItem.priceLoyalty,
             priceExp: this.storeItem.priceExp,
             canBuy: this.storeItem.canBuy,

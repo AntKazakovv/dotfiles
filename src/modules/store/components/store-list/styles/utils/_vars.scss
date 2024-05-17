@@ -7,5 +7,17 @@ $themeDefault: map-merge((
     ),
     'minItemWidthFirst': 250px,
     'alertPadding': 0 0 ef.size(2),
+    'contentGridColumns': (
+        375: minmax(0, 1fr),
+        768: repeat(2, 1fr),
+    ),
+    'contentGridAreas': (
+        375: 'filter stats' 'list list' 'pagination pagination',
+    ),
+    'filterWidth': 185px,
+    'filterMargin': 0 0 ef.size(4),
+    'filterButtonTop': 15px,
+    'filterButtonRight': 15px,
+    'filterButtonColor': var(--mc-baseMain),
 ), $customThemeDefault);
 

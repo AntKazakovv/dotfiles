@@ -1,3 +1,5 @@
+import {UntypedFormControl} from '@angular/forms';
+
 import {IStoreModule} from 'wlc-engine/modules/store/system/interfaces/store.interface';
 
 export const storeConfig: IStoreModule = {
@@ -37,5 +39,27 @@ export const storeConfig: IStoreModule = {
 
             },
         },
+    },
+    storeFilterConfig: {
+        name: 'filterValue',
+        labelText: gettext('Sort by'),
+        common: {
+            placeholder: gettext('Type'),
+        },
+        control: new UntypedFormControl('all'),
+        items: [
+            {
+                value: 'all',
+                title: gettext('All'),
+            },
+            {
+                value: 'available',
+                title: gettext('Available'),
+            },
+            {
+                value: 'unavailable',
+                title: gettext('Unavailable'),
+            },
+        ],
     },
 };

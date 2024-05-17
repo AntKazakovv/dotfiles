@@ -3,7 +3,10 @@ import {
     Observable,
 } from 'rxjs';
 
-import {IIndexing} from 'wlc-engine/modules/core';
+import {
+    IIndexing,
+    ISelectCParams,
+} from 'wlc-engine/modules/core';
 import {ITagCommon} from 'wlc-engine/modules/core/components/tag/tag.params';
 import {StoreItem} from '../models/store-item.model';
 import {StoreCategory} from 'wlc-engine/modules/store/system/models/store-category.model';
@@ -108,8 +111,8 @@ export interface IGetSubscribeParams {
 }
 
 export interface IDisabledItemInfo {
-    messageText: string;
-    btnText: string;
+    messageText?: string;
+    btnText?: string;
 }
 
 export type TStoreTagKey = 'unavailable'
@@ -127,4 +130,11 @@ export interface IStoreTagsConfig {
 
 export interface IStoreModule {
     tagsConfig?: IStoreTagsConfig;
+    storeFilterConfig?: ISelectCParams<TStoreFilter>;
+}
+
+export type TStoreFilter = 'all' | 'available' | 'unavailable';
+
+export interface IStoreFilterValue {
+    filterValue: TStoreFilter;
 }
