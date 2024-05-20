@@ -20,7 +20,7 @@
         <ng-container [ngTemplateOutlet]="btnModalWrap"></ng-container>
     </button>
     <div *ngIf="paymentDescription && showDescription" class="payments-description">{{paymentDescription}}</div>
-    <div *ngIf="currentSystem && $params.showSelectedInButton"
+    <div *ngIf="activeName && currentSystem && $params.showSelectedInButton"
         class="{{$class}}__method">
         <span class="{{$class}}__method-text {{$class}}__method-text--title">
             {{$params.chosenMethodText | translate}}

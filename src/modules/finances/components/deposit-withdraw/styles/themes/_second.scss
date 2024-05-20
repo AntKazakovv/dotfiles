@@ -51,13 +51,8 @@
                 margin: ef.get-value($themeSecond, 'stepTitleMargin');
             }
 
-            &--wallet {
-                --cash-divider-display: none;
-            }
-
             &--paysystems {
                 --wlc-alert-max-width: 100%;
-                @include bm.get-mq-map('--cash-divider-display', $themeSecond, 'dividerDisplayPs');
             }
 
             &--paymentinfo {
@@ -65,17 +60,18 @@
             }
 
             &--bonuses {
-                --cash-divider-order: 100;
-
                 display: flex;
                 flex-direction: column;
                 min-width: 0;
             }
+
+            & + .wlc-cash__step .wlc-cash__divider {
+                --cash-divider-display: block;
+            }
         }
 
         &__divider {
-            display: var(--cash-divider-display, block);
-            order: var(--cash-divider-order, initial);
+            display: var(--cash-divider-display, none);
             width: 100%;
             height: ef.get-value($themeSecond, 'dividerSize');
             margin: ef.get-value($themeSecond, 'dividerMargin');
@@ -83,6 +79,10 @@
 
             &--cryptoblock {
                 margin: ef.get-value($themeSecond, 'dividerMarginCrypto');
+            }
+
+            &--root {
+                @include bm.get-mq-map('--cash-divider-display', $themeSecond, 'dividerDisplay');
             }
         }
 

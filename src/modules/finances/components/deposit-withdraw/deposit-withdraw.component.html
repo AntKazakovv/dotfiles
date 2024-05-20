@@ -29,16 +29,21 @@
                 <ng-container [ngTemplateOutlet]="systems"></ng-container>
             </div>
         </div>
+
+        <div class="{{$class}}__divider {{$class}}__divider--root"></div>
+
         <div #depRight class="{{$class}}__grid-right">
             <div *ngIf="isCryptoInvoices" class="{{$class}}__step {{$class}}__step--cryptoinvoices">
                 <p class="{{$class}}__step-title">{{'Select a cryptocurrency' | translate}}</p>
                 <ng-container [ngTemplateOutlet]="cryptoInvoiceSystems"></ng-container>
             </div>
             <div *ngIf="bonusesExist && showBonuses" class="{{$class}}__step {{$class}}__step--bonuses">
+                <div class="{{$class}}__divider"></div>
                 <p class="{{$class}}__step-title">{{'Select a bonus' | translate}}</p>
                 <ng-container [ngTemplateOutlet]="bonuses"></ng-container>
             </div>
             <div class="{{$class}}__step {{$class}}__step--paymentinfo">
+                <div class="{{$class}}__divider"></div>
                 <p class="{{$class}}__step-title">{{'Payment information' | translate}}</p>
                 <ng-container [ngTemplateOutlet]="paymentInfo"></ng-container>
             </div>
@@ -48,6 +53,7 @@
 
 <ng-template #default>
     <ng-container *ngFor="let step of steps; index as $index">
+        <div *ngIf="showDividerInPaymentSystems && $index > 0" class="{{$class}}__divider"></div>
         <ng-container [ngTemplateOutlet]="stepTpl"
             [ngTemplateOutletContext]="{$implicit: step, index: $index}"></ng-container>
     </ng-container>
@@ -181,7 +187,6 @@
          class="{{$class}}__wallets"
          [inlineParams]="walletsParams"
          (changeWalletEmit)="onWalletChange($event)"></div>
-    <div class="{{$class}}__divider"></div>
 </ng-template>
 
 <ng-template #systems>
@@ -203,7 +208,6 @@
         [skipAutoSelect]="skipAutoSelectPaySystem"
         [currentSystem]="parentSystem || currentSystem">
     </div>
-    <div class="{{$class}}__divider"></div>
 </ng-template>
 
 <ng-template #bonuses>
@@ -218,7 +222,6 @@
          [inlineParams]="bonusesListParams">
     </div>
     <ng-container [ngTemplateOutlet]="depositPromoCode"></ng-container>
-    <div class="{{$class}}__divider"></div>
 </ng-template>
 
 <ng-template #depositPromoCode>
@@ -244,7 +247,6 @@
          [currentSystem]="currentSystem"
          [inlineParams]="cryptoListConfig"
          [availableSystems]="availableSystems"></div>
-    <div class="{{$class}}__divider"></div>
 </ng-template>
 
 <ng-template #paymentInfo>

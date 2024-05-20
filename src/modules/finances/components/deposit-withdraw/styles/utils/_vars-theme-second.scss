@@ -20,9 +20,9 @@ $themeSecond: map-merge((
     ),
     'dividerSize': 2px,
     'dividerBg': var(--mc-bg300),
-    'dividerMargin': ef.size(4) 0 0,
+    'dividerMargin': 0 0 ef.size(4),
     'dividerMarginCrypto': ef.size(4) 0,
-    'dividerDisplayPs': (
+    'dividerDisplay': (
         375: block,
         900: none,
     ),
