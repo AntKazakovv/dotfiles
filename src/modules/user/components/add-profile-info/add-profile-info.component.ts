@@ -66,7 +66,7 @@ export class AddProfileInfoComponent extends ProfileFormAbstract implements OnIn
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.disableStatesControl();
-        this.formConfig = _cloneDeep(this.$params.formConfig);
+        this.setFormConfig();
 
         this.updateFormForMetamask().then((isChanged: boolean): void => {
             if (isChanged) {
@@ -165,5 +165,20 @@ export class AddProfileInfoComponent extends ProfileFormAbstract implements OnIn
             },
             this.$destroy,
         );
+    }
+
+    protected setFormConfig(): void {
+        const formConfig = _cloneDeep(this.$params.formConfig);
+        const checkPassOnUpdate = this.configService.get<number>('appConfig.checkPassOnUpdate');
+
+        if (checkPassOnUpdate === 0) {
+            formConfig.components = formConfig.components.filter(
+                component => !(
+                    component.name === 'core.wlc-input' && (component.params?.name as string) === 'currentPassword'
+                ),
+            );
+        }
+
+        this.formConfig = formConfig;
     }
 }

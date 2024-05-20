@@ -41,6 +41,7 @@ export interface IBootstrap {
     menuSettings?: IMenu;
     showProfileMenu?: boolean; // TODO Does it need?
     countryAgeBan?: IIndexing<number>;
+    checkPassOnUpdate?: number;
 }
 
 export type TEnv = 'dev' | 'qa' | 'test' | 'prod';

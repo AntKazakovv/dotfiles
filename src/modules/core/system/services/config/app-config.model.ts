@@ -273,6 +273,14 @@ export class AppConfigModel extends AbstractModel<IBootstrap> {
         return this.data.smsEnabled;
     }
 
+    /**
+     * Returns check user current password on profile update.
+     * @returns {number} 0 or 1 is check password on update
+     */
+    public get checkPassOnUpdate(): number {
+        return this.data.checkPassOnUpdate;
+    }
+
     protected override checkData(): void {
         super.checkData();
 
