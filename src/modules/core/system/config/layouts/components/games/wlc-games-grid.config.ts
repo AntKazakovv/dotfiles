@@ -195,6 +195,9 @@ export namespace wlcGamesGrid {
                     showAsSwiper: {
                         maxSlidesCount: 24,
                     },
+                    showAllLink: {
+                        position: 'bottom',
+                    },
                 },
                 1024: {
                     maxSlidesCount: 20,
@@ -206,10 +209,16 @@ export namespace wlcGamesGrid {
                     showAsSwiper: {
                         maxSlidesCount: 30,
                     },
+                    showAllLink: {
+                        position: 'top',
+                    },
                 },
                 1630: {
                     showAsSwiper: {
                         maxSlidesCount: 36,
+                    },
+                    showAllLink: {
+                        position: 'top',
                     },
                 },
             },
@@ -411,6 +420,9 @@ export namespace wlcGamesGrid {
                     showAsSwiper: {
                         maxSlidesCount: 24,
                     },
+                    showAllLink: {
+                        position: 'bottom',
+                    },
                 },
                 1024: {
                     maxSlidesCount: 20,
@@ -422,10 +434,16 @@ export namespace wlcGamesGrid {
                     showAsSwiper: {
                         maxSlidesCount: 30,
                     },
+                    showAllLink: {
+                        position: 'top',
+                    },
                 },
                 1630: {
                     showAsSwiper: {
                         maxSlidesCount: 36,
+                    },
+                    showAllLink: {
+                        position: 'top',
                     },
                 },
             },

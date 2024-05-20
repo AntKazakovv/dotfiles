@@ -11,12 +11,13 @@ $themeSwiper: map-merge((
     'swiperButtonsDisplay': grid,
     'swiperButtonsContainerMargin': (
         375: 0 0 0 auto,
-        1024: 0 ef.size(4) 0 auto,
     ),
+
     'swiperShowAllMargin': (
         375: 0,
         1024: 0 0 0 ef.size(4),
     ),
+
     'swiperMarginModBottom': 0 0 0 auto,
 
     'swiperNoContentGridRow': #{'2/3'},
