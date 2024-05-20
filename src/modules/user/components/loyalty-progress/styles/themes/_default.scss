@@ -11,16 +11,12 @@
 
         &__loyalty-level-container {
             position: relative;
-
             width: ef.get-value($themeDefault, 'iconContainerWidth');
             min-width: ef.get-value($themeDefault, 'iconContainerWidth');
             height: ef.get-value($themeDefault, 'iconContainerHeight');
             min-height: ef.get-value($themeDefault, 'iconContainerHeight');
-
             border-radius: ef.get-value($themeDefault, 'iconContainerBorderRadius');
-
             background: ef.get-value($themeDefault, 'iconContainerBg');
-
             overflow: hidden;
         }
 
@@ -29,30 +25,27 @@
             flex-direction: ef.get-value($themeDefault, 'infoContainerDirection');
             gap: ef.get-value($themeDefault, 'infoContainerGap');
             justify-content: ef.get-value($themeDefault, 'infoContainerJustify');
-
             width: 100%;
-
             margin: ef.get-value($themeDefault, 'infoContainerMargin');
         }
 
         &__line {
             position: relative;
-
             width: 100%;
             height: ef.get-value($themeDefault, 'progressBarHeight');
-
             background: ef.get-value($themeDefault, 'progressBarEmptyBg');
             border-radius: ef.get-value($themeDefault, 'progressBarBorderRadius');
-
             overflow: hidden;
+
+            .wlc-loyalty-block--theme-wolf & {
+                background: ef.get-value($themeDefault, 'progressBarEmptyBgWolf');
+            }
 
             &-current {
                 position: absolute;
                 top: 0;
                 left: 0;
-
                 height: 100%;
-
                 background: ef.get-value($themeDefault, 'progressBarFillBg');
                 border-radius: ef.get-value($themeDefault, 'progressBarBorderRadius');
             }
@@ -64,35 +57,19 @@
                 ef.get-value($themeDefault, 'textStyle'),
                 ef.get-value($themeDefault, 'textColor')
             );
-
             display: ef.get-value($themeDefault, 'textItemsDisplay');
             justify-content: ef.get-value($themeDefault, 'textItemsJustify');
         }
 
         &__name,
         &__all,
+        &__next,
         &__points-start,
         &__points-end {
             @include inlineLayoutShiftFix();
-
             display: ef.get-value($themeDefault, 'textDisplay');
             flex-wrap: ef.get-value($themeDefault, 'textWrap');
             align-items: ef.get-value($themeDefault, 'textVerticalAlign');
-        }
-
-        &__all {
-            @include text.get-text-style(
-                ef.get-value($themeDefault, 'textStyle'),
-                ef.get-value($themeDefault, 'textColor')
-            );
-
-            color: ef.get-value($themeDefault, 'linkColor');
-
-            @include bm.hover {
-                @include bm.transition(color);
-
-                color: ef.get-value($themeDefault, 'linkColorHover');
-            }
         }
     }
 }

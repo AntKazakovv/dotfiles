@@ -57,7 +57,6 @@ export namespace rightPanel {
                             params: {
                                 common: {
                                     showLevelIcon: false,
-                                    showLinkToLevels: true,
                                 },
                             },
                         },

@@ -1,3 +1,4 @@
+import {IWrapperCParams} from 'wlc-engine/modules/core';
 import {
     IComponentParams,
     CustomType,
@@ -23,7 +24,9 @@ export interface IGameDashboardCParams extends IComponentParams<Theme, Type, The
         tournamentsListParams?: ITournamentListCParams;
         loyaltyProgressParams?: ILoyaltyProgressCParams;
         bonusesListParams?: IGameDashboardBonusesCParams;
-    }
+    };
+    loyaltyBlockConfig?: IWrapperCParams;
+    loyaltyBlockWolfConfig?: IWrapperCParams;
 }
 
 interface IEvents {
@@ -61,9 +64,30 @@ export const defaultParams: IGameDashboardCParams = {
         loyaltyProgressParams: {
             common: {
                 showLevelIcon: false,
-                showLinkToLevels: true,
             },
         },
+    },
+    loyaltyBlockConfig: {
+        class: 'wlc-loyalty-block-wrapper',
+        components: [
+            {
+                name: 'user.wlc-loyalty-block',
+                params: {
+                    isGameDashboard: true,
+                },
+            },
+        ],
+    },
+    loyaltyBlockWolfConfig: {
+        class: 'wlc-loyalty-block-wolf-wrapper',
+        components: [
+            {
+                name: 'user.wlc-loyalty-block',
+                params: {
+                    theme: 'wolf',
+                },
+            },
+        ],
     },
 };
 

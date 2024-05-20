@@ -533,4 +533,33 @@
             }
         }
     }
+
+    .wlc-loyalty-block-wrapper {
+        margin: ef.get-value($themeDefault, 'loyaltyBlockMargin');
+
+        ::ng-deep {
+
+            .wlc-loyalty-block--theme-default {
+                gap: ef.get-value($themeDefault, 'loyaltyBlockGap');
+                padding: ef.get-value($themeDefault, 'loyaltyBlockPadding');
+                background: ef.get-value($themeDefault, 'loyaltyBlockBg');
+            }
+
+            .wlc-loyalty-block__all {
+                text-align: ef.get-value($themeDefault, 'loyaltyBlockTextAlign');
+            }
+        }
+    }
+
+    .wlc-loyalty-block-wolf-wrapper {
+        margin: ef.get-value($themeDefault, 'loyaltyBlockMargin');
+
+        ::ng-deep {
+
+            .wlc-loyalty-block--theme-wolf {
+                padding: ef.get-value($themeDefault, 'loyaltyBlockPadding');
+                background: ef.get-value($themeDefault, 'loyaltyBlockBg');
+            }
+        }
+    }
 }

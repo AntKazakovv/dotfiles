@@ -17,6 +17,7 @@ $themeDefault: map-merge((
     //Info progress bar
     'progressBarHeight': 6px,
     'progressBarEmptyBg': var(--fc-inputBg),
+    'progressBarEmptyBgWolf': var(--mc-bg300),
     'progressBarFillBg': var(--mc-main),
     'progressBarBorderRadius': ef.get('radius', 'large'),
     //Info data
@@ -27,6 +28,4 @@ $themeDefault: map-merge((
     'textVerticalAlign': baseline,
     'textColor': var(--mc-baseMain),
     'textStyle': 'CaptionTextBold',
-    'linkColor': var(--mc-main),
-    'linkColorHover': var(--mc-baseThird, var(--mc-baseMain)),
 ), $customThemeDefault);

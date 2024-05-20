@@ -47,7 +47,6 @@ export class LoyaltyProgressComponent extends AbstractComponent implements OnIni
     @Input() protected inlineParams: Params.ILoyaltyProgressCParams;
     @Input() protected maxProgressText: string;
     @Input() protected showLevelIcon: boolean;
-    @Input() protected showLinkToLevels: boolean;
 
     public override $params: Params.ILoyaltyProgressCParams;
     public levels: LoyaltyLevelModel[];
@@ -55,7 +54,7 @@ export class LoyaltyProgressComponent extends AbstractComponent implements OnIni
         mergeMap(async (userInfo: UserInfo): Promise<UserInfo> => {
             if (!this.levels) {
                 this.loyaltyLevelsService = await this.injectionService.getService('loyalty.loyalty-levels-service');
-                this.levels  = await this.loyaltyLevelsService.getLoyaltyLevelsSafely();
+                this.levels = await this.loyaltyLevelsService.getLoyaltyLevelsSafely();
             }
             return userInfo;
         }),
@@ -72,6 +71,8 @@ export class LoyaltyProgressComponent extends AbstractComponent implements OnIni
     ).pipe(startWith({}));
 
     protected loyaltyLevelsService: LoyaltyLevelsService;
+    protected nextLevel = '';
+    protected nextLevelName = '';
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILoyaltyProgressCParams,
@@ -84,7 +85,7 @@ export class LoyaltyProgressComponent extends AbstractComponent implements OnIni
     }
 
     public override async ngOnInit(): Promise<void> {
-        super.ngOnInit(GlobalHelper.prepareParams(this, ['maxProgressText', 'showLevelIcon', 'showLinkToLevels']));
+        super.ngOnInit(GlobalHelper.prepareParams(this, ['maxProgressText', 'showLevelIcon']));
     }
 
     private infoToViewData(loyaltyData: Params.ILoyaltyData): Params.ILevelViewData {
@@ -114,9 +115,17 @@ export class LoyaltyProgressComponent extends AbstractComponent implements OnIni
             };
         }
 
+        if (this.levels[loyaltyData.level]) {
+            this.nextLevel = this.levels[loyaltyData.level].level.toString();
+            this.nextLevelName = this.levels[loyaltyData.level].name;
+        }
+
         return {
+            level: loyaltyData.level,
             levelName: loyaltyData.levelName,
             userPoints: loyaltyData.points,
+            nextLevel: this.nextLevel,
+            nextLevelName: this.nextLevelName,
             nextLevelPoints: loyaltyData.nextLevelPoints,
             percentProgress: !loyaltyData.nextLevelPoints
                 ? 100

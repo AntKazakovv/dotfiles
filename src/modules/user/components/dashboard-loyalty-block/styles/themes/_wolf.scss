@@ -1,0 +1,45 @@
+.wlc-loyalty-block--theme-wolf:host {
+    display: flex;
+    flex-direction: column;
+    gap: ef.get-value($themeWolf, 'gap');
+    padding: ef.get-value($themeWolf, 'padding');
+    background: ef.get-value($themeWolf, 'bg');
+    box-shadow: ef.get-value($themeWolf, 'boxShadow');
+    border-radius: ef.get-value($themeWolf, 'borderRadius');
+
+    .wlc-loyalty-block {
+
+        &__user-name {
+
+            ::ng-deep {
+
+                .wlc-user-name__container {
+                    max-width: unset;
+                }
+            }
+        }
+
+        &__all {
+            margin: ef.get-value($themeWolf, 'btnAllMargin');
+
+            ::ng-deep {
+
+                .wlc-btn {
+                    @include text.get-text-style(
+                        ef.get-value($themeWolf, 'btnAllStyle'),
+                        ef.get-value($themeWolf, 'btnAllColor')
+                    );
+
+                    @include bm.hover {
+                        @include bm.transition(color);
+                        color: ef.get-value($themeWolf, 'btnAllColorHover');
+                    }
+                }
+
+                .wlc-icon {
+                    display: none;
+                }
+            }
+        }
+    }
+}

@@ -1223,7 +1223,6 @@ export namespace profileContent {
                     class: 'wlc-profile-content__top',
                     components: [
                         componentLib.wlcTitle.profileDashboard,
-                        componentLib.wlcLogout.useText,
                     ],
                 },
             },
@@ -1276,18 +1275,9 @@ export namespace profileContent {
                         {
                             name: 'core.wlc-wrapper',
                             params: {
-                                class: 'wlc-profile-content__top',
-                                components: [
-                                    componentLib.wlcLogout.useText,
-                                ],
-                            },
-                        },
-                        {
-                            name: 'core.wlc-wrapper',
-                            params: {
                                 class: 'wlc-profile-dashboard__top',
                                 components: [
-                                    componentLib.wlcDashboardLoyaltyBlock.def,
+                                    componentLib.wlcDashboardLoyaltyBlock.wolf,
                                     componentLib.wlcUserStats.wolf,
                                     componentLib.wlcEnterPromocode.wolf,
                                 ],

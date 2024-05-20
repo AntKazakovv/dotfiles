@@ -1,0 +1,13 @@
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'padding': ef.size(4) ef.size(5) ef.size(2),
+    'bg': var(--mc-bg500),
+    'boxShadow': null,
+    'borderRadius': ef.get('radius', 'biger'),
+    'gap': ef.size(3),
+
+    'btnAllStyle': 'CaptionTextBold',
+    'btnAllColor': var(--mc-main),
+    'btnAllColorHover': var(--mc-baseThird, var(--mc-baseMain)),
+    'btnAllMargin': auto auto 0,
+), $customThemeWolf);

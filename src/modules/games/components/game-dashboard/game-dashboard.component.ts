@@ -166,7 +166,6 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
     public bonusesConfig: IWrapperCParams = {};
     public tutorialImage: string;
     public tournamentsConfig: IWrapperCParams = {};
-    public logOutConfig: IWrapperCParams = {components: []};
     public userNameConfig: IWrapperCParams = {components: []};
     public userStatsConfig: IWrapperCParams = {components: []};
     public userStatsWithoutDepositConfig: IWrapperCParams = {components: []};
@@ -183,6 +182,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
     protected oldDirection: Direction;
     protected dontShowInstructionKey = 'gameDashboardDontShowInstruction';
     protected disableOpenOnClick: boolean = false;
+    protected loyaltyBlockConfig: IWrapperCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IGameDashboardCParams,
@@ -209,6 +209,10 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
 
         this.isKiosk = this.configService.get<AppType>('$base.app.type') === 'kiosk';
         this.tabs = this.isKiosk ? Params.dashboardTabsKiosk : Params.dashboardTabs;
+
+        this.loyaltyBlockConfig = this.$params.themeMod === 'wolf'
+            ? this.$params.loyaltyBlockWolfConfig
+            : this.$params.loyaltyBlockConfig;
 
         if (this.configService.get<boolean>('$base.tournaments.use')) {
             this.tournamentsConfig = {
@@ -813,9 +817,6 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
 
         this.userNameConfig = {
             components: [{name: 'user.wlc-user-name'}],
-        };
-        this.logOutConfig = {
-            components: [{name: 'user.wlc-logout'}],
         };
     }
 

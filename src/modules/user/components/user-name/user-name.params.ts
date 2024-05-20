@@ -15,4 +15,5 @@ export const defaultParams: IUserNameCParams = {
     class: 'wlc-user-name',
     userNameLength: 20,
     type: 'default',
+    showUserId: false,
 };

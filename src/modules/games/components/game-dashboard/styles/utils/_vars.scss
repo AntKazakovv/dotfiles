@@ -23,7 +23,7 @@ $themeDefault: map-merge((
     'desktopUserAlignItems': center,
     'desktopUserInfoJustifyContent': space-between,
     'desktopUserInfoWidth': 100%,
-    'desktopUserInfoMargin': 0 0 ef.size(4) 0,
+    'desktopUserInfoMargin': 0 0 ef.size(4),
 
     'tutorialArrowTop': 135px,
     'tutorialArrowRight': unset,
@@ -83,4 +83,10 @@ $themeDefault: map-merge((
 
     'wolfLastPlayedGridColumns': repeat(auto-fill, minmax(110px, 1fr)),
     'wolfLastPlayedGap': ef.size(3),
+
+    'loyaltyBlockMargin': 0 0 ef.size(4),
+    'loyaltyBlockGap': ef.size(3),
+    'loyaltyBlockPadding': 0,
+    'loyaltyBlockBg': unset,
+    'loyaltyBlockTextAlign': center,
 ), $customThemeDefault);

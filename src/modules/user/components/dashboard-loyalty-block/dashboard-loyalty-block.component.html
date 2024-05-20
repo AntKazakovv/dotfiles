@@ -1,8 +1,38 @@
-<div class="{{$class}}__user-name"  data-wlc-element="user-name">
-    <div wlc-user-name [userNameLength]="50"></div>
-    <div wlc-logout [useText]="true"></div>
-</div>
-<div wlc-loyalty-progress
-     class="{{$class}}__loyalty"
-     [inlineParams]="$params.loyaltyProgressParams">
-</div>
+<ng-container [ngSwitch]="$params.theme">
+    <ng-container *ngSwitchCase="'wolf'" [ngTemplateOutlet]="wolf"></ng-container>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
+</ng-container>
+
+<ng-template #default>
+    <div class="{{$class}}__user-name" data-wlc-element="user-name">
+        <div wlc-user-name [userNameLength]="50"></div>
+        <ng-container *ngIf="!$params.isGameDashboard && !isKiosk" [ngTemplateOutlet]="btnAllLevels"></ng-container>
+    </div>
+    <ng-container *ngIf="!isKiosk" [ngTemplateOutlet]="loyaltyProgress"></ng-container>
+    <ng-container *ngIf="$params.isGameDashboard && !isKiosk" [ngTemplateOutlet]="btnAllLevels"></ng-container>
+</ng-template>
+
+<ng-template #wolf>
+    <div class="{{$class}}__user-name"  data-wlc-element="user-name">
+        <div wlc-user-name
+            [showUserId]="true">
+        </div>
+    </div>
+    <ng-container *ngIf="!isKiosk" [ngTemplateOutlet]="loyaltyProgress"></ng-container>
+    <ng-container *ngIf="!isKiosk" [ngTemplateOutlet]="btnAllLevels"></ng-container>
+</ng-template>
+
+<ng-template #loyaltyProgress>
+    <div wlc-loyalty-progress
+        class="{{$class}}__loyalty"
+        [inlineParams]="$params.loyaltyProgressParams">
+    </div>
+</ng-template>
+
+<ng-template #btnAllLevels>
+    <div class="{{$class}}__all">
+        <button wlc-button
+            [inlineParams]="$params.buttonParams">
+        </button>
+    </div>
+</ng-template>

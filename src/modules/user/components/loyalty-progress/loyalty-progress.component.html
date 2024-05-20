@@ -10,12 +10,8 @@
 
     <div class="{{$class}}__info-container">
         <div class="{{$class}}__title" data-wlc-element="user-loyalty-title">
-            <div class="{{$class}}__name">{{levelData.levelName}}</div>
-            <button *ngIf="$params.common.showLinkToLevels"
-                    wlc-button
-                    class="{{$class}}__all"
-                    [inlineParams]="$params.common.buttonParams">
-            </button>
+            <div class="{{$class}}__name">{{levelData.level}} {{levelData.levelName}}</div>
+            <div class="{{$class}}__next">{{levelData.nextLevel}} {{levelData.nextLevelName}}</div>
         </div>
         <div class="{{$class}}__line">
             <div class="{{$class}}__line-current"

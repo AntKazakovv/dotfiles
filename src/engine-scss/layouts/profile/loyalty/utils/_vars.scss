@@ -2,7 +2,7 @@ $customLoyaltyThemeDefault: () !default;
 $loyaltyThemeDefault: map-merge((
     'loyaltyProgressWidth': (
         375: 100%,
-        640: 300px,
+        640: 450px,
     ),
 ), $customLoyaltyThemeDefault);
 
@@ -10,7 +10,7 @@ $customLoyaltyThemeV1: () !default;
 $loyaltyThemeV1: map-merge((
     'loyaltyProgressWidth': (
         375: 100%,
-        640: 300px,
+        640: 450px,
     ),
 ), $customLoyaltyThemeV1);
 

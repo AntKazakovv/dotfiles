@@ -1,34 +1,57 @@
-.wlc-loyalty-block {
+.wlc-loyalty-block--theme-default:host {
+    @include bm.get-mq-map('padding', $themeDefault, 'padding');
+    display: grid;
+    gap: ef.get-value($themeDefault, 'gap');
+    background: ef.get-value($themeDefault, 'bg');
+    box-shadow: ef.get-value($themeDefault, 'boxShadow');
+    border-radius: ef.get-value($themeDefault, 'borderRadius');
 
-    &:host {
-        @include bm.get-mq-map('padding', $themeDefault, 'padding');
-
-        display: grid;
-        gap: ef.get-value($themeDefault, 'gap');
-
-        background: ef.get-value($themeDefault, 'bg');
-        box-shadow: ef.get-value($themeDefault, 'boxShadow');
-        border-radius: ef.get-value($themeDefault, 'borderRadius');
-
-        .wlc-dashboard-grid.without-store & {
-
-            @include bm.get-mq-map('margin', $themeDefault, 'withoutStoreMargin');
-        }
+    .wlc-dashboard__top.without-store & {
+        @include bm.get-mq-map('margin', $themeDefault, 'withoutStoreMargin');
     }
 
-    &__user-name {
-        display: grid;
-        grid-template-columns: ef.get-value($themeDefault, 'userGridColumns');
-        align-items: ef.get-value($themeDefault, 'userGridAlignItems');
+    .wlc-loyalty-block {
 
-        .wlc-logout {
-            @include bm.get-mq-map('display', $themeDefault, 'logoutDisplay');
+        &__user-name {
+            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'userGridColumns');
+            display: grid;
+            gap: ef.get-value($themeDefault, 'userGridGap');
+            align-items: ef.get-value($themeDefault, 'userGridAlignItems');
+        }
+
+        &__all {
 
             ::ng-deep {
 
-                svg {
-                    width: ef.get-value($themeDefault, 'userIconWidth');
-                    margin: ef.get-value($themeDefault, 'userIconMargin');
+                .wlc-btn {
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'btnAllStyle'),
+                        ef.get-value($themeDefault, 'btnAllColor')
+                    );
+
+                    @include bm.hover {
+                        @include bm.transition(color);
+                        color: ef.get-value($themeDefault, 'btnAllColorHover');
+                    }
+                }
+
+                .wlc-btn__text {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                .wlc-icon {
+                    margin: ef.get-value($themeDefault, 'btnAllIconMargin');
+
+                    svg {
+                        transform: rotate(-90deg);
+                        fill: currentColor;
+                    }
+                }
+
+                .wlc-icon-content {
+                    display: flex;
                 }
             }
         }

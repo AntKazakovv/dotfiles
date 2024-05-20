@@ -95,17 +95,12 @@
 <ng-template #profile>
     <div wlc-scrollbar>
         <ng-container *ngIf="isAuth && (!isMobile || !landscapeOrientation)">
-            <div class="{{$class}}__profile-user">
-                <ng-container *ngTemplateOutlet="userInfo"></ng-container>
-            </div>
-            <div wlc-wrapper [inlineParams]="userStatsConfig">
-            </div>
-            <div *ngIf="!isKiosk" wlc-wrapper [inlineParams]="loyaltyProgressConfig">
-            </div>
+            <div wlc-wrapper [inlineParams]="loyaltyBlockConfig"></div>
+            <div wlc-wrapper [inlineParams]="userStatsConfig"></div>
             <div *ngIf="isMerchantWallet"
-                 class="{{$class}}__merchant-balance"
-                 wlc-merchant-wallet-preview
-            ></div>
+                wlc-merchant-wallet-preview
+                class="{{$class}}__merchant-balance">
+            </div>
         </ng-container>
         <ng-container *ngIf="isAuth && isMobile && landscapeOrientation">
             <div class="{{$class}}__profile-user">
@@ -151,7 +146,7 @@
             </div>
         </ng-container>
         <div *ngIf="!lastPlayedGamesSlides.length"
-             class="{{$class}}__not-found">
+            class="{{$class}}__not-found">
             {{'No games available' | translate}}
         </div>
     </ng-container>
@@ -165,6 +160,5 @@
 <ng-template #userInfo>
     <div class="{{$class}}__user-info">
         <div wlc-wrapper [inlineParams]="userNameConfig"></div>
-        <div wlc-wrapper [inlineParams]="logOutConfig"></div>
     </div>
 </ng-template>

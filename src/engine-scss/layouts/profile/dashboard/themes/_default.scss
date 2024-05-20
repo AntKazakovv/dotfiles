@@ -4,13 +4,6 @@
     .wlc-profile-content__top {
         @include bm.get-mq-map('display', $dashboardThemeDefault, 'topDisplay');
         justify-content: space-between;
-
-        .wlc-logout {
-
-            svg {
-                margin: ef.get-value($dashboardThemeDefault, 'logoutSvgMargin');
-            }
-        }
     }
 
     .wlc-title--profile-bonuses {

@@ -1,11 +1,17 @@
-import {CustomType, IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {IButtonCParams} from 'wlc-engine/modules/core';
+import {
+    CustomType,
+    IComponentParams,
+} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ILoyaltyProgressCParams} from 'wlc-engine/modules/user';
 
-export type ComponentTheme = 'default' | CustomType;
+export type ComponentTheme = 'default' | 'wolf' | CustomType;
 export type ComponentType = 'default' | CustomType;
 
 export interface ILoyaltyBlockCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
     loyaltyProgressParams?: ILoyaltyProgressCParams;
+    buttonParams?: IButtonCParams;
+    isGameDashboard?: boolean;
 }
 
 export const defaultParams: ILoyaltyBlockCParams = {
@@ -15,7 +21,17 @@ export const defaultParams: ILoyaltyBlockCParams = {
     loyaltyProgressParams: {
         common: {
             showLevelIcon: false,
-            showLinkToLevels: true,
         },
     },
+    buttonParams: {
+        wlcElement: 'progress-all-levels-button',
+        theme: 'cleared',
+        common: {
+            text: gettext('All levels'),
+            typeAttr: 'button',
+            sref: 'app.profile.loyalty-level',
+            iconPath: '/wlc/icons/arrow.svg',
+        },
+    },
+    isGameDashboard: false,
 };

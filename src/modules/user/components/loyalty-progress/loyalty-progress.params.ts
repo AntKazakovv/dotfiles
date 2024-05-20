@@ -1,12 +1,11 @@
 import {
     CustomType,
-    IButtonCParams,
     IComponentParams,
     ILayoutComponent,
     IWrapperCParams,
 } from 'wlc-engine/modules/core';
 
-export type ComponentTheme = 'default' | CustomType;
+export type ComponentTheme = 'default' | 'wolf' | CustomType;
 export type ComponentType = 'default' | CustomType;
 export type ComponentThemeMod = 'default' | CustomType;
 
@@ -18,10 +17,13 @@ export interface ILoyaltyData {
 }
 
 export interface ILevelViewData {
+    level?: number;
     levelName?: string;
     levelIcon?: string;
     levelIconFallback?: string;
     userPoints?: number;
+    nextLevel?: string;
+    nextLevelName?: string;
     nextLevelPoints?: number;
     percentProgress?: number;
     wrapperParams?: IWrapperCParams;
@@ -35,8 +37,6 @@ export interface ILoyaltyProgressCParams extends IComponentParams<ComponentTheme
          * Be used only if showLevelIcon === true
          * **/
         levelIconComponent?: ILayoutComponent;
-        showLinkToLevels?: boolean;
-        buttonParams?: IButtonCParams;
     };
 }
 
@@ -47,22 +47,12 @@ export const defaultParams: ILoyaltyProgressCParams = {
     common: {
         maxProgressText: gettext('Max'),
         showLevelIcon: true,
-        showLinkToLevels: false,
         levelIconComponent: {
             name: 'loyalty.wlc-loyalty-level',
             params: {
                 theme: 'wolf',
                 themeMod: 'compact',
                 isUserLevel: true,
-            },
-        },
-        buttonParams: {
-            wlcElement: 'progress-all-levels-button',
-            theme: 'cleared',
-            common: {
-                text: gettext('All levels'),
-                typeAttr: 'button',
-                sref: 'app.profile.loyalty-level',
             },
         },
     },

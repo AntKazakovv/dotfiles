@@ -50,6 +50,7 @@ import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorat
 export class UserNameComponent extends AbstractComponent implements OnInit, OnDestroy {
     @Input() public userNameLength: number;
     @Input() public showSvgAsImg: boolean;
+    @Input() public showUserId: boolean;
     @Input() protected inlineParams: Params.IUserNameCParams;
 
     public override $params: Params.IUserNameCParams;
@@ -104,15 +105,18 @@ export class UserNameComponent extends AbstractComponent implements OnInit, OnDe
 
         if (this.useNick && nickname) {
             name = nickname;
-        }
-        else if (firstName || lastName) {
+        } else if (firstName || lastName) {
             name = `${firstName} ${lastName}`.trim();
         } else if (email) {
             name = email;
         }
+
+        this.$params.showUserId = this.showUserId || this.$params.showUserId;
+
         if (this.$params.showUserId) {
             this.userId = `ID: ${idUser}`;
         }
+
         return name;
     }
 }
