@@ -36,8 +36,13 @@
 
     &.wlc-burger-panel--theme-mod-wolf {
         --bp-padding: #{ef.get-value($themeLeftFixed, 'panelPadding')};
+        --us-display: block;
 
         .wlc-burger-panel {
+
+            &__header.two-columns {
+                grid-template-columns: 1fr auto;
+            }
 
             &__header,
             &__content {
@@ -59,7 +64,14 @@
 
                     ::ng-deep {
 
-                        .wlc-panel-menu,
+                        .wlc-panel-menu {
+                            margin: map-get($themeLeft, 'panelWolfMenuMargin');
+                        }
+
+                        .wlc-user-stats {
+                            margin: map-get($themeLeft, 'panelWolfStatsMargin');
+                        }
+
                         .wlc-social-icons,
                         .wlc-theme-toggler {
                             margin: map-get($themeLeft, 'panelWolfItemMargin');

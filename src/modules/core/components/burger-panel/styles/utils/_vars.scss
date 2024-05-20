@@ -128,6 +128,8 @@ $themeLeft: map-merge((
     'panelBackground': var(--mc-bgModal),
     'panelWolfBackground': var(--mc-bg700),
     'panelWolfPadding': 0 ef.size(2) ef.size(4),
+    'panelWolfMenuMargin': ef.size(1) 0 0,
+    'panelWolfStatsMargin':  ef.size(1) 0 ef.size(5),
     'panelWolfItemMargin': ef.size(5) 0 0,
     'loginBtnBg': var(--mc-bg),
     'menuLinksColor': var(--mc-baseMain),
@@ -166,7 +168,7 @@ $themeLeft: map-merge((
     'langCurrentBgModLongHover': var(--mc-baseMain-o1),
 
     'logoMargin': 0 auto,
-    'logoSvgMaxHeight': ef.size(8),
+    'logoSvgMaxHeight': ef.size(6),
 
     'userInfoMargin': ef.size(6) ef.size(4) ef.size(4),
     'userInfoEmailIconWidth': ef.size(5),
