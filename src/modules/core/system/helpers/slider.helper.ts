@@ -42,7 +42,7 @@ export class SliderHelper {
         element: Element,
         renderer: Renderer2,
     ): void {
-        _forEach(cssProps, (prop: string, key: string) => {
+        _forEach(cssProps, (prop: string, key: keyof SwiperOptions) => {
 
             let value = swiperOptions[key];
 
