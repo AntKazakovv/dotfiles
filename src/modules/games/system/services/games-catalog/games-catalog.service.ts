@@ -215,8 +215,10 @@ export class GamesCatalogService {
         this.registerMethods();
 
         if (this.configService.get<boolean>('$games.useVideoThumbs.use')) {
-            this.getIdDefVideos();
-            this.getIdVerticalVideos();
+            await Promise.all([
+                this.getIdDefVideos(),
+                this.getIdVerticalVideos(),
+            ]);
         }
 
         this.useRealJackpots = this.configService.get<boolean>('$base.games.jackpots.useRealJackpots');
