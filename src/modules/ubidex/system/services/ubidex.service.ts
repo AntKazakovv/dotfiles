@@ -53,16 +53,16 @@ export class UbidexService {
 
     private prepareEventsConfig(): void {
         this.ubidexConfig.eventsMap = _merge({
-            'VISIT': ['VISIT'],
-            'REG_INTERRUPT': ['REG_INTERRUPT'],
-            'REG_ERROR': [
+            'visit': ['VISIT'],
+            'regstarted': [
                 'REGISTRATION_ERROR',
                 'REGISTRATION_CONFIRM_ERROR',
                 'PROFILE_CREATE_ERROR',
+                'REG_INTERRUPT',
             ],
-            'REG_SUCCESS': ['REGISTRATION_COMPLETE'],
-            'LOGIN': ['LOGIN'],
-            'DEPOSIT_CLICK': ['DEPOSIT_VISIT'],
+            'regfinished': ['REGISTRATION_COMPLETE'],
+            'login': ['LOGIN'],
+            'other': ['DEPOSIT_VISIT'],
         }, this.configService.get<IIndexing<string[]>>('$base.ubidex.eventsMap'));
     }
 
@@ -88,17 +88,17 @@ export class UbidexService {
         const {eventsMap} = this.ubidexConfig;
 
         for (let ubidexKey in eventsMap) {
-            eventsMap[ubidexKey].forEach((event: string) => {
-                if (!this.isAuth && event === 'VISIT') {
+            eventsMap[ubidexKey].forEach((eventName: string) => {
+                if (!this.isAuth && eventName === 'VISIT') {
                     this.sendUserEvent(ubidexKey);
                     return;
                 }
 
                 switch (ubidexKey) {
-                    case 'LOGIN':
-                    case 'REG_SUCCESS':
-                    case 'DEPOSIT_CLICK':
-                        this.eventService.subscribe({name: event}, async () => {
+                    case 'login':
+                    case 'regfinished':
+                    case 'other':
+                        this.eventService.subscribe({name: eventName}, async () => {
                             if (!this.uid) {
                                 this.uid = await this.getUserId();
                                 this.isAuth = true;
@@ -107,22 +107,31 @@ export class UbidexService {
                         });
                         break;
 
-                    case 'REG_INTERRUPT':
-                        this.eventService.subscribe({name: ProcessEvents.modalClosed}, (data: IProcessEventData) => {
-                            if (data.eventId === 'signup' && data.description !== 'success') {
-                                this.sendUserEvent(ubidexKey);
-                            }
-                        });
+                    case 'regstarted':
+                        if (eventName === 'REG_INTERRUPT') {
+                            this.eventService.subscribe({
+                                name: ProcessEvents.modalClosed,
+                            }, (data: IProcessEventData) => {
+                                if (data.eventId === 'signup' && data.description !== 'success') {
+                                    this.sendUserEvent(ubidexKey);
+                                }
+                            });
 
-                        this.eventService.subscribe({name: ProcessEvents.beforeunload}, () => {
-                            if (this.modalService.getActiveModal('signup')) {
-                                this.sendUserEvent(ubidexKey);
-                            }
+                            this.eventService.subscribe({name: ProcessEvents.beforeunload}, () => {
+                                if (this.modalService.getActiveModal('signup')) {
+                                    this.sendUserEvent(ubidexKey);
+                                }
+                            });
+                            break;
+                        }
+
+                        this.eventService.subscribe({name: eventName}, () => {
+                            this.sendUserEvent(ubidexKey);
                         });
                         break;
 
                     default:
-                        this.eventService.subscribe({name: event}, () => {
+                        this.eventService.subscribe({name: eventName}, () => {
                             this.sendUserEvent(ubidexKey);
                         });
                         break;
