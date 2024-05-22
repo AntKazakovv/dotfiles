@@ -60,7 +60,8 @@ export interface IStoreItem {
 export interface IStoreItemPrice {
     LOYALTY: string;
     EXPERIENCE: string;
-    EUR?: string;
+    // all currencies
+    [key: string]: string;
 }
 
 export interface IStoreBonusInfo {
