@@ -68,7 +68,7 @@ export abstract class TextDataModel extends AbstractModel<ITextData>{
 
     /**
      * Get self cache fields
-     * 
+     *
      * @returns {IIndexing<any>} - key and values cache fields
      */
     public getCacheFields(): IIndexing<any> {
@@ -96,7 +96,12 @@ export abstract class TextDataModel extends AbstractModel<ITextData>{
 
     protected getHtml(): string {
         try {
-            return this.decodeHtml(this.htmlRaw).replace(/”/gi, '\"');
+            // 17 angular
+            return this.decodeHtml(this.htmlRaw)
+                .replace(/”/gi, '\"')
+                .replace(/@/gi, '&#64;')
+                .replace(/{/gi, '&#123;')
+                .replace(/}/gi, '&#125;');
         } catch (error) {
             return '<div>' + this.decodeHtml(this.htmlRaw).replace(/”/gi, '\"') + '</div>';
         }

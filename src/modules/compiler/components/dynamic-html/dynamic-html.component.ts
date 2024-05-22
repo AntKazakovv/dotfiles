@@ -140,9 +140,15 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
     }
 
     private getHtml(): string {
-        return this.parseAsPlainHTML
+        const html: string = this.parseAsPlainHTML
             ? GlobalHelper.parseHtmlSafely(this.html)
             : this.html;
+
+        // 17 angular
+        return html
+            .replace(/@/gi, '&#64;')
+            .replace(/{/gi, '&#123;')
+            .replace(/}/gi, '&#125;');
     }
 
     private extractBodyFromString(html: string): string {
