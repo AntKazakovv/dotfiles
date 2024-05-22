@@ -69,9 +69,9 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
     @Input() public game: Game;
     @Input() public dumpy: boolean = false;
     @Input() protected inlineParams: Params.IGameThumbCParams;
-    @HostBinding('attr.data-wlc-element') protected wlcElement;
-    @HostBinding('class.no-demo') protected noDemoClass;
-    @HostBinding('class.thumb-transform') protected isTransform;
+    @HostBinding('attr.data-wlc-element') protected wlcElement: string;
+    @HostBinding('class.no-demo') protected noDemoClass: boolean;
+    @HostBinding('class.thumb-transform') protected isTransform: boolean;
     @ViewChild('video') video: ElementRef;
     @ViewChild('transform') transform: ElementRef;
     @ViewChildren('layersOne') layersOne: QueryList<ElementRef<HTMLElement>>;
