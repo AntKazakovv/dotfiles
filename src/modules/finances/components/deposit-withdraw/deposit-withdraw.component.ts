@@ -223,7 +223,7 @@ export class DepositWithdrawComponent
             Bonus.depositCurrency = wallet.walletCurrency;
             this.bonusesListParams = _assign({}, this.bonusesListParams);
             this.dropCurrentSystem();
-
+            this.deleteStep(Params.PaymentSteps.cryptoInvoices);
             await this.financesService.fetchPaymentSystems(wallet.walletCurrency);
 
             if (this.currentSystem) {
