@@ -12,15 +12,15 @@
         {{'To continue using the site, you must agree with the updated' | translate}}
         <span class="{{$class}}__link" (click)="showModal()">{{'Terms and Conditions|nominative' | translate}}</span>.
         {{'If you are not ready to accept the Terms and Conditions, you can request a' | translate}}
-        <a uiSref="app.profile.cash.withdraw">{{'withdrawal' | translate}}</a>
+        <a [wlc-link]="['app.profile.cash.withdraw']">{{'withdrawal' | translate}}</a>
         {{'or' | translate}}
-        <a uiSref="app.contacts" [uiParams]="{slug: 'feedback'}">{{'contact us' | translate}}</a>.
+        <a [wlc-link]="['app.contacts', {slug: 'feedback'}]">{{'contact us' | translate}}</a>.
     </div>
 </ng-template>
 <ng-template #extended>
     <div class="{{$class}}__text">
         {{'To continue using the site, you must agree the points listed below' | translate}}.
         {{'If you are not ready to confirm the information, you can' | translate}}
-        <a uiSref="app.contacts" [uiParams]="{slug: 'feedback'}">{{'contact us' | translate}}</a>.
+        <a [wlc-link]="['app.contacts', {slug: 'feedback'}]">{{'contact us' | translate}}</a>.
     </div>
 </ng-template>
