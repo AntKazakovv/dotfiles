@@ -443,7 +443,7 @@ def clean_temp():
 # Очистка кэша npm
 def clear_npm_cache():
     print(Fore.YELLOW + "Clean npm cache" + Fore.RESET)
-    subprocess.call(["./node18.sh", "wlc-engine", "npm", "cache", "clear", "-f"], cwd=os.path.expanduser("~/Projects/wlc-docker"))
+    subprocess.call(["./node18.sh", "wlc-engine", "npm", "cache", "clear", "-f"], cwd=os.path.expanduser("~/Projects/wlc"))
     print(Fore.GREEN + "Done" + Fore.RESET)
 
 
@@ -456,7 +456,7 @@ def update_npm(project_folder=None):
     print(Fore.GREEN + "Done" + Fore.RESET)
 
     print(Fore.YELLOW + "Update npm dependencies" + Fore.RESET)
-    subprocess.call(["./node18.sh", f"wlc-engine/{folder}", "npm", "i"], cwd=os.path.expanduser("~/Projects/wlc-docker"))
+    subprocess.call(["./node18.sh", f"wlc-engine/{folder}", "npm", "i"], cwd=os.path.expanduser("~/Projects/wlc"))
     print(Fore.GREEN + "Done" + Fore.RESET)
 
 
@@ -474,7 +474,7 @@ def update_composer():
     print(Fore.GREEN + "Done" + Fore.RESET)
 
     print(Fore.YELLOW + "Update composer dependencies" + Fore.RESET)
-    subprocess.call(["./compose_php.sh", f"wlc-engine/{temp_folder}", "composer", "i"], cwd=os.path.expanduser("~/Projects/wlc-docker"))
+    subprocess.call(["./compose_php.sh", f"wlc-engine/{temp_folder}", "composer", "i"], cwd=os.path.expanduser("~/Projects/wlc"))
     print(Fore.GREEN + "Done" + Fore.RESET)
 
 
