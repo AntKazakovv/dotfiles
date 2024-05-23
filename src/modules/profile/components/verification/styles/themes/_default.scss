@@ -15,6 +15,10 @@
                 flex-direction: ef.get-value($themeDefault, 'dragDirection');
 
                 & > div {
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'reqItemFontStyle'),
+                        ef.get-value($themeDefault, 'reqItemFontColor')
+                    );
                     margin: ef.get-value($themeDefault, 'dragInnerMargin');
 
                     &:first-of-type {
@@ -30,6 +34,10 @@
                     column-gap: ef.get-value($themeDefault, 'docsOffsetDesctop');
 
                     & > div {
+                        @include text.get-text-style(
+                            ef.get-value($themeDefault, 'reqItemFontStyle'),
+                            ef.get-value($themeDefault, 'reqItemFontColor')
+                        );
                         margin-top: 0;
                     }
                 }
