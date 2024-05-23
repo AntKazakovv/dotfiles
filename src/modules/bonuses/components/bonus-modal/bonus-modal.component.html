@@ -16,11 +16,11 @@
             <div class="{{$class}}__info-block">
                 <ng-container [ngTemplateOutlet]="alerts"></ng-container>
                 <h4 class="{{$class}}__name" data-wlc-element="bonus_title-name">{{bonus.name}}</h4>
+                <ng-container [ngTemplateOutlet]="buttons"></ng-container>
                 <div class="{{$class}}__desc-block">
                     <ng-container [ngTemplateOutlet]="descr"></ng-container>
                     <ng-container [ngTemplateOutlet]="terms"></ng-container>
                 </div>
-                <ng-container [ngTemplateOutlet]="buttons"></ng-container>
                 <ng-container [ngTemplateOutlet]="games"></ng-container>
                 <ng-container *ngIf="bonus.isLootbox" [ngTemplateOutlet]="rewards"></ng-container>
             </div>
