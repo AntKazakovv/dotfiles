@@ -77,6 +77,7 @@ type TCompletion  = 'auto' | 'button';
 export class WheelService {
     public wheelInfo$: Subject<IInfoWheelResponse> = new Subject<IInfoWheelResponse>();
     public eventsWheel$: Subject<IEventWidgetWheel> = new Subject<IEventWidgetWheel>();
+    public showButtonResults$: Subject<boolean> = new Subject<boolean>();
     public completionByButton: boolean = false;
     public wheelInfo: IInfoWheelResponse;
     public settingsWheel: ISettingsWheel;
@@ -87,7 +88,7 @@ export class WheelService {
     private userWheel: IUserWheel;
     private winners: IWinner[] = [];
     private participants: ParticipantModel[] = [];
-
+    private disableFinishFromSocket: boolean = false;
     private currentIdWheel: number = 0;
     private currentNonce: string = '';
 
@@ -217,13 +218,15 @@ export class WheelService {
                                 this.joinEventHandler(message.data.Users);
                                 break;
                             case 'finish':
-                                this.modalService.closeAllModals();
+                                if (!this.disableFinishFromSocket) {
+                                    this.modalService.closeAllModals();
 
-                                if (message.data.Users) {
-                                    this.finishEventHandler(message.data.Users);
-                                } else {
-                                    this.showCancelRaffleModal();
-                                    this.finishWheel();
+                                    if (message.data.Users) {
+                                        this.finishEventHandler(message.data.Users);
+                                    } else {
+                                        this.showCancelRaffleModal();
+                                        this.finishWheel();
+                                    }
                                 }
                                 break;
                         }
@@ -324,16 +327,18 @@ export class WheelService {
             return this.wheelInfo;
 
         } catch (error) {
-            this.modalService.closeAllModals();
-            this.eventService.emit({
-                name: NotificationEvents.PushMessage,
-                data: <IPushMessageParams> {
-                    type: 'error',
-                    title: gettext('Error'),
-                    message: error.errors,
-                    wlcElement: 'stream-wheel-get-info-error',
-                },
-            });
+            if (!this.modalService.getActiveModal('waiting-results')) {
+                this.modalService.closeAllModals();
+                this.eventService.emit({
+                    name: NotificationEvents.PushMessage,
+                    data: <IPushMessageParams> {
+                        type: 'error',
+                        title: gettext('Error'),
+                        message: error.errors,
+                        wlcElement: 'stream-wheel-get-info-error',
+                    },
+                });
+            }
         }
     }
 
@@ -415,6 +420,11 @@ export class WheelService {
                 mode: 'show',
             });
         }
+
+        if (this.getIdWheelFromStorage()) {
+            this.currentIdWheel = this.getIdWheelFromStorage();
+            this.showWaitingResultsModal();
+        }
     }
 
     public async internalTimeEnd(): Promise<void> {
@@ -458,6 +468,90 @@ export class WheelService {
 
     public getCurrentNonce(): string {
         return this.currentNonce ?? '';
+    }
+
+    public async getWinnersFromHttp(): Promise<void> {
+        this.disableFinishFromSocket = true;
+        this.setIdWheelToStorage(this.currentIdWheel);
+        let wheelInfo: IInfoWheelResponse;
+
+        try {
+            wheelInfo = await this.getInfoWheel(this.currentIdWheel);
+        } catch (error) {
+            Promise.reject(error);
+        }
+
+        if (this.userWheel.isStreamer) {
+
+            if (wheelInfo?.status > 0) {
+
+                if (wheelInfo.winners) {
+
+                    if (wheelInfo.winners.length) {
+                        this.modalService.closeAllModals();
+                        this.finishEventHandler(wheelInfo.winners);
+                        this.clearIdWheel();
+                    } else {
+                        this.showCancelRaffleModal();
+                        this.finishWheel();
+                        this.clearIdWheel();
+                    }
+                } else {
+                    this.winnersHttpCallback(5000);
+                }
+
+            } else {
+                this.winnersHttpCallback(5000);
+            }
+        } else {
+            this.disableFinishFromSocket = true;
+
+            if (wheelInfo?.status > 0) {
+
+                if (wheelInfo.winners) {
+
+                    if (wheelInfo.winners.length) {
+                        this.modalService.closeAllModals();
+                        this.finishEventHandler(wheelInfo.winners);
+                        this.clearIdWheel();
+                    } else {
+                        this.showCancelRaffleModal();
+                        this.finishWheel();
+                        this.clearIdWheel();
+                    }
+                } else {
+                    this.noResultsHandler(10000);
+                }
+            } else {
+                this.noResultsHandler(10000);
+            }
+        }
+    }
+
+    protected winnersHttpCallback(timeout: number): void {
+        setTimeout(() => {
+            this.getWinnersFromHttp();
+        }, timeout);
+    }
+
+    protected noResultsHandler(timeout: number): void {
+        this.showUnknownResultsNotify();
+        this.showButtonResults$.next(false);
+        setTimeout(() => {
+            this.showButtonResults$.next(true);
+        }, timeout);
+    }
+
+    protected showUnknownResultsNotify(): void {
+        this.eventService.emit({
+            name: NotificationEvents.PushMessage,
+            data: <IPushMessageParams>{
+                type: 'warning',
+                title: gettext('Information'),
+                message: gettext('Results are unknown yet, try again later'),
+                wlcElement: 'stream-wheel-join-sending-error',
+            },
+        });
     }
 
     public async createWheel(data: ISettingsWheel): Promise<void> {
@@ -558,21 +652,39 @@ export class WheelService {
         return Math.ceil(timerValue.toSeconds() - DateTime.local().toSeconds());
     }
 
-    private finishEventHandler(usersJson: string): void {
+    private finishEventHandler(winners: string | IWinner[]): void {
         this.winners = [];
-        const users = JSON.parse(usersJson);
+        let winnersTmp;
 
-        for (const user in users) {
-            this.winners.push({
-                amount: +users[user].Amount,
-                currency: users[user].Currency,
-                name: (users[user].Name && users[user].LastName)
-                    ? users[user].Name + users[user].LastName
-                    : users[user].Email,
-                id: +users[user].ID,
-                avatar: this.getUserAvatar(+users[user].ID),
-            });
+        if (Array.isArray(winners)) {
+            winnersTmp = winners.slice();
+            for (const user in winnersTmp) {
+                this.winners.push({
+                    amount: +winnersTmp[user].amount,
+                    currency: winnersTmp[user].currency,
+                    name: (winnersTmp[user].name && winnersTmp[user].lastName)
+                        ? winnersTmp[user].name + winnersTmp[user].lastName
+                        : winnersTmp[user].email,
+                    id: +winnersTmp[user].id,
+                    avatar: this.getUserAvatar(+winnersTmp[user].id),
+                });
+            }
+        } else {
+            winnersTmp = JSON.parse(winners);
+
+            for (const user in winnersTmp) {
+                this.winners.push({
+                    amount: +winnersTmp[user].Amount,
+                    currency: winnersTmp[user].Currency,
+                    name: (winnersTmp[user].Name && winnersTmp[user].LastName)
+                        ? winnersTmp[user].Name + winnersTmp[user].LastName
+                        : winnersTmp[user].Email,
+                    id: +winnersTmp[user].ID,
+                    avatar: this.getUserAvatar(+winnersTmp[user].ID),
+                });
+            }
         }
+
         this.showSelectionWinnersModal();
     }
 
@@ -627,6 +739,7 @@ export class WheelService {
         this.participants = [];
         this.participants$.next(this.participants);
         this.infoWheelSocketSub.unsubscribe();
+        this.clearIdWheel();
     }
 
     private showWaitingResultsModal(): void {
@@ -649,12 +762,37 @@ export class WheelService {
             size: 'xl',
             backdrop: 'static',
         });
+        this.clearIdWheel();
     }
 
     private setNonceToStorage(value: string): void {
         this.configService.set({
             name: 'wheelNonce',
             value: value,
+            storageType: 'localStorage',
+        });
+    }
+
+    private setIdWheelToStorage(value: number): void {
+        this.configService.set({
+            name: 'currentIdWheel',
+            value: value,
+            storageType: 'localStorage',
+        });
+    }
+
+    private clearIdWheel(): void {
+        this.currentIdWheel = 0;
+        this.configService.set({
+            name: 'currentIdWheel',
+            value: null,
+            storageClear: 'localStorage',
+        });
+    }
+
+    private getIdWheelFromStorage(): number {
+        return this.configService.get({
+            name: 'currentIdWheel',
             storageType: 'localStorage',
         });
     }

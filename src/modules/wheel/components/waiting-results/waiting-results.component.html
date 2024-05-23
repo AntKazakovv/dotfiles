@@ -16,3 +16,10 @@
         </div>
     </div>
 </ng-template>
+
+<button *ngIf="showButtonResults$ | async"
+    wlc-button
+    themeMod="default"
+    [text]="'Take results' | translate"
+    (click)="takeResults()">
+</button>
