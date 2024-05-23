@@ -63,14 +63,16 @@ export class DeadsimplechatService {
 
     private async getRoom(): Promise<unknown> {
         try {
-            const response: IData = await this.injector.get<DataService>(DataService).request({
+            const response: IData =
+            await this.injector.get<DataService>(DataService).request({
                 name: 'chatRooms',
                 system: 'chat',
                 url: '/chat/rooms',
                 type: 'GET',
             });
-            let roomsResponse: IRoomResponse[] = JSON.parse(response.data);
-            this.chatRoom = roomsResponse[0]; // TODO if many room needed
+            // JSON for core less then 1.90.0
+            this.chatRoom = (typeof response.data === 'string') ? JSON.parse(response.data)[0] : response.data[0];
+            //  TODO if many room needed
             this.loginUser();
         } catch (error) {
             return Promise.reject(error);
@@ -85,7 +87,8 @@ export class DeadsimplechatService {
                 url: '/chat/user',
                 type: 'POST',
             });
-            this.userResponse = JSON.parse(response.data);
+            // JSON for core less then 1.90.0
+            this.userResponse = (typeof response.data === 'string') ? JSON.parse(response.data) : response.data;
             this.eventService.emit({name: 'CHAT_USER_RESPONSE'});
         } catch (error) {
             return Promise.reject(error);
