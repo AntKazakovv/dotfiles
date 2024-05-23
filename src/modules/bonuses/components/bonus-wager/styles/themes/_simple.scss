@@ -1,0 +1,36 @@
+.wlc-bonus-wager--theme-simple:host {
+    display: grid;
+    gap: ef.get-value($themeSimple, 'gap');
+
+    .wlc-bonus-wager {
+
+        &__caption {
+            @include text.get-text-style(
+                ef.get-value($themeSimple, 'captionTextStyle'),
+                ef.get-value($themeSimple, 'captionColor')
+            );
+            text-align: ef.get-value($themeSimple, 'captionTextAlign');
+        }
+
+        &__progress {
+            position: relative;
+            height: ef.get-value($themeSimple, 'progressHeight');
+            background: var(--wlc-wager-progress-bg, #{ef.get-value($themeSimple, 'progressBg')});
+            border-radius: ef.get-value($themeSimple, 'progressRadius');
+            overflow: hidden;
+
+            &:before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: var(--wlc-wager-progress, 0);
+                max-width: 100%;
+                height: 100%;
+                background: var(--wlc-wager-curr-bg, #{ef.get-value($themeSimple, 'progressCurrentBg')});
+                box-shadow: ef.get-value($themeSimple, 'progressCurrentShadow');
+                border-radius: inherit;
+            }
+        }
+    }
+}

@@ -13,12 +13,28 @@
         }
 
         &__name {
-            @include text.get-text-style(ef.get-value($themeDefault, 'bonusNameTextStyle'), ef.get-value($themeDefault,'bonusNameColor'));
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'bonusNameTextStyle'),
+                ef.get-value($themeDefault,'bonusNameColor')
+            );
         }
 
-        &__description,
+        &__description {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'bonusDescTextStyle'),
+                ef.get-value($themeDefault,'bonusDescColor')
+            );
+        }
+
         &__terms {
-            @include text.get-text-style(ef.get-value($themeDefault, 'bonusDescTextStyle'), ef.get-value($themeDefault,'bonusDescColor'));
+            @include bm.get-mq-map('padding', $themeDefault, 'termsPadding');
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'termsTextStyle'),
+                ef.get-value($themeDefault,'termsColor')
+            );
+
+            background: ef.get-value($themeDefault, 'termsBg');
+            border-radius: ef.get-value($themeDefault, 'termsRadius');
         }
 
         &__image-block {
@@ -135,6 +151,29 @@
             gap: ef.get-value($themeDefault, 'alertsGap');
             width: 100%;
             margin: ef.get-value($themeDefault, 'alertsMargin');
+        }
+
+        &__active {
+            --wlc-wager-progress-bg: #{ef.get-value($themeDefault, 'wagerBg')};
+
+            display: grid;
+            gap: ef.get-value($themeDefault, 'activeGap');
+            width: 100%;
+            max-width: ef.get-value($themeDefault, 'activeMaxWidth');
+            margin: 0 auto;
+
+            ::ng-deep {
+
+                .wlc-bonus-wager {
+
+                    &__caption {
+                        @include text.get-text-style(
+                            ef.get-value($themeDefault, 'wagerCaptionTextStyle'),
+                            ef.get-value($themeDefault, 'wagerCaptionColor')
+                        );
+                    }
+                }
+            }
         }
     }
 

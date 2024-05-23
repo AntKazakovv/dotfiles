@@ -521,7 +521,7 @@
                 <span
                     wlc-currency
                     [value]="bonus.wageringLeft"
-                    [currency]="bonusesService.profile.originalCurrency"></span>
+                    [currency]="bonusesService.profile?.originalCurrency"></span>
                 {{'remaining' | translate}}
             </div>
             <div class="{{$class}}__progressbar">

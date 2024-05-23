@@ -1,5 +1,5 @@
-$customThemeWolf: () !default;
-$themeWolf: map-merge((
+$customThemeSimple: () !default;
+$themeSimple: map-merge((
     'gap': ef.size(1),
 
     'progressHeight': 6px,
@@ -11,4 +11,4 @@ $themeWolf: map-merge((
     'captionTextStyle': 'SignTextBold',
     'captionColor': inherit,
     'captionTextAlign': center,
-), $customThemeWolf);
+), $customThemeSimple);

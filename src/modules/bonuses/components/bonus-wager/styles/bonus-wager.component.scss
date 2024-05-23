@@ -3,7 +3,7 @@
 @use 'engine-scss/mixins/text' as text;
 
 @import './utils/vars';
-@import './utils/vars-theme-wolf';
+@import './utils/vars-theme-simple';
 
 @import './themes/default';
-@import './themes/wolf';
+@import './themes/simple';

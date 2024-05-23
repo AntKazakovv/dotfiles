@@ -25,7 +25,7 @@ $themeDefault: map-merge((
     'imageBlockAlignItems': center,
 
     'imageBlockBgPosition': center,
-    'imageBlockBgColor': inherit,
+    'imageBlockBgColor': var(--mc-bgModal-d10),
     'imageBlockBgSize': cover,
     'imageBlockBgRepeat': no-repeat,
 
@@ -34,7 +34,7 @@ $themeDefault: map-merge((
     'infoBlockPadding': ef.size(6) ef.size(4),
 
     'descBlockDisplay': grid,
-    'descBlockGap': ef.size(4),
+    'descBlockGap': ef.size(6),
 
     'iconValFontColor': ef.get('mainColors', 'black'),
     'iconValBg': ef.get('mainColors', 'baseMain'),
@@ -81,4 +81,19 @@ $themeDefault: map-merge((
         480: 488px,
     ),
     'alertsMargin': 0 auto,
+
+    'termsBg': var(--mc-bg500),
+    'termsRadius': ef.get('radius', 'biger'),
+    'termsPadding': (
+        375: ef.size(4) ef.size(5),
+    ),
+    'termsTextStyle': 'ThirdTitle',
+    'termsColor': inherit,
+
+    'activeMaxWidth': 250px,
+    'activeGap': ef.size(6),
+
+    'wagerBg': var(--fc-inputBg),
+    'wagerCaptionTextStyle': 'CaptionTextBold',
+    'wagerCaptionColor': var(--mc-baseMain),
 ), $customThemeDefault);

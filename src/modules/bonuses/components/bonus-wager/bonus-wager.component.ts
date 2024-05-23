@@ -49,7 +49,7 @@ export class BonusWagerComponent extends AbstractComponent implements OnInit {
     }
 
     public get currency(): string {
-        return this.bonusesService.profile.originalCurrency;
+        return this.bonusesService.profile?.originalCurrency;
     }
 
     public get progressPercent(): string {

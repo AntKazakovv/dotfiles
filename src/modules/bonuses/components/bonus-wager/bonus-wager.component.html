@@ -1,5 +1,5 @@
 <ng-container [ngSwitch]="$params.theme">
-    <ng-container *ngSwitchCase="'wolf'" [ngTemplateOutlet]="themeWolf"></ng-container>
+    <ng-container *ngSwitchCase="'simple'" [ngTemplateOutlet]="themeSimple"></ng-container>
     <ng-container *ngSwitchDefault [ngTemplateOutlet]="themeDefault"></ng-container>
 </ng-container>
 
@@ -7,7 +7,7 @@
     <!-- TODO: create default theme and use it in bonus-item.component -->
 </ng-template>
 
-<ng-template #themeWolf>
+<ng-template #themeSimple>
     <div class="{{$class}}__caption">
         <span wlc-currency
             [value]="wagering"

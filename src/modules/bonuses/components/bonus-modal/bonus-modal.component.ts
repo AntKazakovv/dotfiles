@@ -27,6 +27,7 @@ import {LootboxPrizeModel} from 'wlc-engine/modules/bonuses/system/models';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
 
 import * as Params from './bonus-modal.params';
+import {IBonusWagerCParams} from 'wlc-engine/modules/bonuses/components/bonus-wager/bonus-wager.params';
 
 @Component({
     selector: '[wlc-bonus-modal]',
@@ -90,7 +91,23 @@ export class BonusModalComponent extends AbstractComponent implements OnInit {
 
     /** Active block is showing only for actual active and lootbox bonuses */
     public get showActiveBlock(): boolean {
-        return (this.bonus.isActive || this.bonus.isLootbox) && !this.bonus.isExpired;
+        return (this.showExpirationTimer || this.showSubscribeTimer) && !this.bonus.isExpired;
+    }
+
+    public get wagerParams(): IBonusWagerCParams {
+        return this.$params.wagerParams;
+    }
+
+    public get showExpirationTimer(): boolean {
+        return this.bonus.isActive || this.bonus.isLootbox;
+    }
+
+    public get showSubscribeTimer(): boolean {
+        return this.bonus.isBonusTimerActive
+            && this.bonus.canSubscribe
+            && !this.bonus.showOnly
+            && !this.bonus.stackIsUnavailable
+            && !this.bonus.isDisabled;
     }
 
     protected async prepareRewards(): Promise<void> {

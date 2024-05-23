@@ -17,7 +17,8 @@
                 <ng-container [ngTemplateOutlet]="alerts"></ng-container>
                 <h4 class="{{$class}}__name" data-wlc-element="bonus_title-name">{{bonus.name}}</h4>
                 <ng-container [ngTemplateOutlet]="buttons"></ng-container>
-                <div class="{{$class}}__desc-block">
+                <ng-container [ngTemplateOutlet]="active"></ng-container>
+                <div *ngIf="bonus.description || bonus.terms" class="{{$class}}__desc-block">
                     <ng-container [ngTemplateOutlet]="descr"></ng-container>
                     <ng-container [ngTemplateOutlet]="terms"></ng-container>
                 </div>
@@ -57,15 +58,25 @@
 <ng-template #active>
     <div *ngIf="showActiveBlock" class="{{$class}}__active">
         <div class="{{$class}}__timer">
-            <div wlc-timer
+            <div *ngIf="showExpirationTimer"
+                wlc-timer
                 text="{{'Time remaining' | translate}}"
                 [value]="bonus.expirationTimeDaysjs"
+                [serverDateUTC]="bonus.serverTime">
+            </div>
+            <div *ngIf="showSubscribeTimer"
+                wlc-timer
+                text="{{'Available for activation' | translate}}"
+                [value]="bonus.timerEnd"
                 [serverDateUTC]="bonus.serverTime">
             </div>
         </div>
 
         <div *ngIf="bonus.wageringTotal" class="{{$class}}__progress">
-            <div wlc-bonus-wager [inlineParams]="{theme: $params.theme}" [bonus]="bonus"></div>
+            <div wlc-bonus-wager
+                [inlineParams]="wagerParams"
+                [bonus]="bonus">
+            </div>
         </div>
     </div>
 </ng-template>
