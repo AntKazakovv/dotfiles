@@ -15,15 +15,18 @@ module.exports = function buildTask() {
             fs.symlinkSync('../wlc-engine/src', this.params.paths.engineLink);
         }
 
-        const realPathYoutube = `${this.params.paths.youtubeBlockDev}`;
+        if (this.params.paths.youtubeBlockDev) {
 
-        if (fs.existsSync(realPathYoutube)) {
-            try {
-                fs.unlinkSync(this.params.paths.youtubeBlockLink);
-            } catch (e) {
-                this.deleteFolderRecursive(this.params.paths.youtubeBlockLink);
+            const realPathYoutube = `${this.params.paths.youtubeBlockDev}`;
+
+            if (fs.existsSync(realPathYoutube)) {
+                try {
+                    fs.unlinkSync(this.params.paths.youtubeBlockLink);
+                } catch (e) {
+                    this.deleteFolderRecursive(this.params.paths.youtubeBlockLink);
+                }
+                fs.symlinkSync('../wlc-youtube-block', this.params.paths.youtubeBlockLink);
             }
-            fs.symlinkSync('../wlc-youtube-block', this.params.paths.youtubeBlockLink);
         }
 
         cb();

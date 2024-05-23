@@ -112,13 +112,16 @@ module.exports = function preBuildTask() {
      */
     //TODO после добавления еще одного npm-пакета переписать этот метод, чтобы он мог работать с массивом симлинков
     const makeWlcYoutubeBlockSymlink = () => {
-        try {
-            fs.lstatSync(this.params.paths.youtubeBlockLink);
-            fs.unlinkSync(this.params.paths.youtubeBlockLink);
-        } catch {
-            //
+
+        if (this.params.paths.youtubeBlockLink) {
+            try {
+                fs.lstatSync(this.params.paths.youtubeBlockLink);
+                fs.unlinkSync(this.params.paths.youtubeBlockLink);
+            } catch {
+                //
+            }
+            fs.symlinkSync('./node_modules/@wlc-modules/wlc-youtube-block', this.params.paths.youtubeBlockLink);
         }
-        fs.symlinkSync('./node_modules/@wlc-modules/wlc-youtube-block', this.params.paths.youtubeBlockLink);
     };
 
     /**
