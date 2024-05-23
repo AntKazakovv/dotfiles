@@ -1,0 +1,14 @@
+$customCommon: () !default;
+$common: map-merge((
+    'listGap': 2px,
+), $customCommon);
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge(map-merge($common, (
+
+)), $customThemeDefault);
+
+$customThemeWolf: () !default;
+$themeWolf: map-merge(map-merge($common, (
+
+)), $customThemeWolf);

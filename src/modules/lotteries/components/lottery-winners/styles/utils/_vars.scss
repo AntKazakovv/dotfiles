@@ -1,0 +1,67 @@
+$customCommon: () !default;
+$common: map-merge((
+    'headerTextStyle': 'CaptionText',
+    'headerColor': inherit,
+    'headerMinHeight': 40px,
+
+    'itemTextStyle': 'CaptionText',
+    'itemPrizeTextStyle': 'CaptionTextBold',
+    'itemPrizeColor': inherit,
+    'itemUsersPadding': 0 ef.size(1),
+    'itemJustify': center,
+    'itemTextAlign': center,
+    'itemPlaceJustify': start,
+    'itemPlaceTextAlign': left,
+    'itemPrizeJustify': end,
+    'itemPrizeTextAlign': right,
+
+    'rowHeadBg': none,
+    'rowHeadTextStyle': 'CaptionText',
+    'rowColumns': 30px 1fr 1fr,
+
+    'currentBorderStyle': solid,
+
+    'contentMinHeight': 40px,
+    'contentPadding': ef.size(2) 0,
+
+    'btnTextStyle': 'CaptionTextBold',
+    'btnColor': var(--mc-main),
+    'btnColorHover': var(--mc-baseMain),
+    'btnMinHeight': 40px,
+
+    'dividerWidth': 100%,
+    'dividerHeight': 1px,
+    'dividerBg': var(--mc-bg300),
+), $customCommon);
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge(map-merge($common, (
+    'itemColor': inherit,
+
+    'rowPadding': 0 ef.size(4),
+    'rowHeadColor': inherit,
+
+    'currentGap': ef.size(1),
+    'currentRadius': ef.get('radius', 'big'),
+    'currentBg': var(--mc-main),
+    'currentBorderWidth': 0,
+    'currentBorderColor': transparent,
+
+    'extraColor': var(--mc-baseMain-o4),
+)), $customThemeDefault);
+
+$customThemeWolf: () !default;
+$themeWolf: map-merge(map-merge($common, (
+    'itemColor': var(--mc-baseSecond),
+
+    'rowPadding': 0 ef.size(5),
+    'rowHeadColor': var(--mc-baseMain),
+
+    'currentGap': 0,
+    'currentRadius': 0,
+    'currentBg': linear-gradient(180deg, var(--mc-secondary-o0) 0%, var(--mc-secondary-o4) 100%),
+    'currentBorderWidth': 0 0 2px,
+    'currentBorderColor': var(--mc-secondary),
+
+    'extraColor': var(--mc-baseSecond-o4),
+)), $customThemeWolf);

@@ -1,0 +1,14 @@
+@mixin historyBase($config) {
+
+    .wlc-lotteries-history {
+
+        &__list {
+            display: grid;
+            gap: ef.get-value($config, 'listGap');
+        }
+
+        &__item {
+            min-width: 0;
+        }
+    }
+}

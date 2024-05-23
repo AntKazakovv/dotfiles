@@ -49,13 +49,14 @@
                     [lottery]="lottery"></div>
             </div>
 
-            <div class="{{$class}}__section {{$class}}__section--prizes">
-                <p class="{{$class}}__section-title">{{'Prize pool' | translate}}</p>
+            <div *ngIf="lottery.results.length; else prizePool" class="{{$class}}__section {{$class}}__section--base {{$class}}__section--prizes">
+                <p class="{{$class}}__section-title">{{'Results' | translate}}</p>
 
-                <div class="{{$class}}__prizes">
-                    <div wlc-lottery-prizes
-                        [lottery]="lottery"
-                        [inlineParams]="$params.prizesParams"></div>
+                <div class="{{$class}}__section-content {{$class}}__prizes">
+                    <div *ngIf="lottery.results.length"
+                        wlc-lottery-winners
+                        [showHeader]="true"
+                        [lottery]="lottery"></div>
                 </div>
             </div>
 
@@ -64,6 +65,29 @@
                 {{lottery.terms}}
             </div>
 
+            <!-- TODO: animation when history appears -->
+            <div class="{{$class}}__section {{$class}}__section--base {{$class}}__section--history"
+                [class.hidden]="!hasHistory">
+                <p class="{{$class}}__section-title">{{'History' | translate}}</p>
+
+                <div wlc-lotteries-history
+                    class="{{$class}}__section-content"
+                    (historyLoaded)="onHistoryLoaded($event)"></div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #prizePool>
+    <div class="{{$class}}__section {{$class}}__section--base {{$class}}__section--prizes">
+        <p class="{{$class}}__section-title">{{'Prize pool' | translate}}</p>
+
+        <div class="{{$class}}__section-content {{$class}}__prizes">
+            <div *ngIf="!lottery.results.length"
+                wlc-lottery-prizepool
+                [lottery]="lottery"
+                [inlineParams]="$params.prizesParams">
+            </div>
         </div>
     </div>
 </ng-template>

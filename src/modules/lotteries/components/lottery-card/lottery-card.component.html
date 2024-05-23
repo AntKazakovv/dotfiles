@@ -19,8 +19,8 @@
                 </div>
             </div>
             <div class="{{$class}}__prizes">
-                <div wlc-lottery-prizes
-                    [inlineParams]="prizesParams"
+                <div wlc-lottery-prizepool
+                    [inlineParams]="$params.prizesParams"
                     [lottery]="lottery"></div>
             </div>
             <div class="{{$class}}__buttons {{$class}}__buttons--mobile">

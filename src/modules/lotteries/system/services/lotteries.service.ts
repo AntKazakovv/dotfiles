@@ -7,6 +7,8 @@ import {
     distinctUntilChanged,
 } from 'rxjs/operators';
 import _find from 'lodash-es/find';
+import _set from 'lodash-es/set';
+import _map from 'lodash-es/map';
 
 import {
     ConfigService,
@@ -22,8 +24,11 @@ import {
     ILottery,
     ILotteryFetchParams,
     ILotteriesResponse,
+    ILotteriesHistoryResponse,
+    ILotteryBase,
 } from 'wlc-engine/modules/lotteries/system/interfaces/lotteries.interface';
 import {Lottery} from 'wlc-engine/modules/lotteries/system/models/lottery.model';
+import {BaseLottery} from 'wlc-engine/modules/lotteries/system/models/base-lottery.model';
 
 @Injectable({
     providedIn: 'root',
@@ -51,22 +56,13 @@ export class LotteriesService {
         this.init();
     }
 
-    public async fetchLottery(params?: ILotteryFetchParams): Promise<Lottery> {
+    public async fetchLottery(params: ILotteryFetchParams = {}): Promise<Lottery> {
         await this.ready;
 
-        if (this.isFetching$.getValue()) {
-            return;
-        }
-
-        const requestParams: RequestParamsType = this.userCurrency ? {wallet: this.userCurrency} : null;
         try {
             this.isFetching$.next(true);
-            const response: IData<ILotteriesResponse> = await this.dataService.request({
-                name: 'lotteries',
-                system: 'lotteries',
-                url: '/lotteries',
-                type: 'GET',
-            }, requestParams);
+            const response: IData<ILotteriesResponse> =
+                await this.dataService.request('lotteries/lotteries', params);
 
             const result: Lottery[] = this.processResponse(response.data.lotteries, params);
 
@@ -82,9 +78,39 @@ export class LotteriesService {
                 code: '28.0.0',
                 data: error,
             });
-        } finally {
-            this.isFetching$.next(false);
         }
+    }
+
+    public async fetchLotteriesHistory(params?: RequestParamsType): Promise<BaseLottery[]> {
+        const queryParams: RequestParamsType = this.updateQueryParams(params);
+        try {
+            const response: IData<ILotteriesHistoryResponse> =
+                await this.dataService.request('lotteries/history', queryParams);
+
+            const results: BaseLottery[] = _map(response.data.lotteries, (lottery: ILotteryBase) => {
+                return new BaseLottery(lottery);
+            });
+
+            return results;
+        } catch (error) {
+            this.logService.sendLog({
+                code: '28.1.0',
+                data: error,
+            });
+        }
+    }
+
+    protected updateQueryParams(params?: RequestParamsType): RequestParamsType {
+        const queryParams: RequestParamsType = params || {};
+        const usersPerPlace: number = this.configService.get<number>('$lotteries.results.usersPerPlace');
+
+        _set(queryParams, 'usersPerPlace', usersPerPlace);
+
+        if (this.userCurrency) {
+            _set(queryParams, 'wallet', this.userCurrency);
+        }
+
+        return queryParams;
     }
 
     private processResponse(data: ILottery[], params?: ILotteryFetchParams): Lottery[] {
@@ -105,6 +131,8 @@ export class LotteriesService {
     private async init(): Promise<void> {
         await this.configService.ready;
 
+        this.registerMethods();
+
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
 
         this.configService.get<BehaviorSubject<UserProfile>>('$user.userProfile$')
@@ -114,14 +142,28 @@ export class LotteriesService {
                 distinctUntilChanged(),
             )
             .subscribe((currency: string) => {
-                this.userCurrency = currency.toLowerCase();
-                Lottery.userCurrency =  this.userCurrency;
-                this.fetchLottery();
+                this.userCurrency = Lottery.userCurrency = currency.toLowerCase();
                 this.$resolve();
             });
 
         if (!this.isAuth) {
             this.$resolve();
         }
+    }
+
+    private registerMethods(): void {
+        this.dataService.registerMethod({
+            name: 'lotteries',
+            system: 'lotteries',
+            url: '/lotteries',
+            type: 'GET',
+        });
+
+        this.dataService.registerMethod({
+            name: 'history',
+            system: 'lotteries',
+            url: '/lotteries/history',
+            type: 'GET',
+        });
     }
 };

@@ -1,0 +1,141 @@
+@mixin divider($config) {
+
+    &:after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+
+        display: var(--wlc-results-divider-display, block);
+        width: ef.get-value($config, 'dividerWidth');
+        height: ef.get-value($config, 'dividerHeight');
+
+        background: ef.get-value($config, 'dividerBg');
+        transform: translate(-50%, -#{ef.get-value($config, 'dividerHeight')});
+    }
+
+    &:last-child {
+        --wlc-results-divider-display: none;
+    }
+}
+
+@mixin header($config) {
+    @include text.get-text-style(
+        ef.get-value($config, 'headerTextStyle'),
+        ef.get-value($config, 'headerColor')
+    );
+
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: ef.get-value($config, 'headerMinHeight');
+    text-align: center;
+}
+
+@mixin item($config) {
+    @include text.get-text-style(
+        ef.get-value($config, 'itemTextStyle'),
+        ef.get-value($config, 'itemColor')
+    );
+    position: relative;
+}
+
+@mixin row($config) {
+    position: relative;
+    display: grid;
+    grid-template-columns: ef.get-value($config, 'rowColumns');
+    align-items: center;
+    padding: ef.get-value($config, 'rowPadding');
+
+    &.current {
+
+        &:before {
+            $currentGap: ef.get-value($config, 'currentGap');
+
+            content: '';
+
+            position: absolute;
+            top: $currentGap;
+            right: $currentGap;
+            bottom: $currentGap;
+            left: $currentGap;
+            z-index: 0;
+
+            display: block;
+            border-style: ef.get-value($config, 'currentBorderStyle');
+            border-width: ef.get-value($config, 'currentBorderWidth');
+            border-color: ef.get-value($config, 'currentBorderColor');
+            border-radius: ef.get-value($config, 'currentRadius');
+            background: ef.get-value($config, 'currentBg');
+        }
+    }
+
+    &--extra {
+        color: ef.get-value($config, 'extraColor');
+    }
+}
+
+@mixin rowHead($config) {
+    background: ef.get-value($config, 'rowHeadBg');
+
+    .wlc-lottery-winners__col {
+        @include text.get-text-style(
+            ef.get-value($config, 'rowHeadTextStyle'),
+            ef.get-value($config, 'rowHeadColor'),
+        );
+    }
+}
+
+@mixin column($config) {
+    position: relative;
+
+    &-content {
+        display: flex;
+        align-items: center;
+        justify-content: var(--wlc-lw-col-justify, #{ef.get-value($config, 'itemJustify')});
+        min-height: ef.get-value($config, 'contentMinHeight');
+        padding: ef.get-value($config, 'contentPadding');
+        text-align: var(--wlc-lw-col-text-align, center);
+    }
+
+    &--place {
+        --wlc-lw-col-justify: #{ef.get-value($config, 'itemPlaceJustify')};
+        --wlc-lw-col-text-align: #{ef.get-value($config, 'itemPlaceTextAlign')};
+    }
+
+    &--users {
+        padding: ef.get-value($config, 'itemUsersPadding');
+    }
+
+    &--prize {
+        --wlc-lw-col-justify: #{ef.get-value($config, 'itemPrizeJustify')};
+        --wlc-lw-col-text-align: #{ef.get-value($config, 'itemPrizeTextAlign')};
+
+        @include text.get-text-style(
+            ef.get-value($config, 'itemPrizeTextStyle'),
+            ef.get-value($config, 'itemPrizeColor')
+        );
+    }
+}
+
+@mixin button($config) {
+    @include text.get-text-style(
+        ef.get-value($config, 'btnTextStyle'),
+        ef.get-value($config, 'btnColor')
+    );
+    min-height: ef.get-value($config, 'btnMinHeight');
+
+    @include bm.hover {
+        color: ef.get-value($config, 'btnColorHover');
+    }
+}
+
+@mixin nodata($config) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: ef.get-value($config, 'contentMinHeight');
+    padding: ef.get-value($config, 'contentPadding');
+    text-align: center;
+}

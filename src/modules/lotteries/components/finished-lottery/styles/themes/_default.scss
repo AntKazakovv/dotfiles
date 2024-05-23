@@ -1,0 +1,29 @@
+.wlc-finished-lottery--theme-default:host {
+    @include baseStyles($themeDefault);
+
+    .wlc-finished-lottery {
+
+        &__wrap {
+            @include wrap($themeDefault);
+
+            border: var(--wlc-fl-border-width) solid var(--wlc-fl-border-color);
+        }
+
+        &__header {
+            @include header($themeDefault);
+        }
+
+        &__arrow {
+            @include arrow($themeDefault);
+        }
+
+        &__content {
+            border-top: var(--wlc-fl-border-width) solid var(--wlc-fl-border-color);
+        }
+    }
+
+    &.wlc-finished-lottery--expanded {
+        --wlc-fl-border-color: #{ef.get-value($themeDefault, 'mainBorderColorExp')};
+        --wlc-fl-arrow-transform: scaleY(-1);
+    }
+}
