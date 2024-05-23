@@ -108,7 +108,6 @@ export * from './achievements/wlc-achievements-title.config';
 
 export * from './rates/wlc-rates-currency.config';
 export * from './multi-wallet/multi-wallet.config';
-export * from './youtube-block/wlc-youtube-block.config';
 
 export * from './lotteries/wlc-lottery.config';
 export * from './pwa/wlc-pwa-notification.config';

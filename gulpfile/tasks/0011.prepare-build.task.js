@@ -50,12 +50,16 @@ module.exports = function preBuildTask() {
 
         try {
             this.params.locales = JSON.parse(fs.readFileSync(
-                (fs.existsSync(`${languagesDev}/${localesFile}`) ? languagesDev : languagesPack)
+                (fs.existsSync(`${languagesDev}/${localesFile}`)
+                    ? languagesDev
+                    : languagesPack
+                )
                 + `/${localesFile}`,
             ));
         } catch (error) {
             console.log(error);
         }
+
         fs.symlinkSync(`${languagesDir}/${localesFile}`, locales);
         this.addToGitIgnore('/', '', localesFile);
     };
@@ -101,6 +105,20 @@ module.exports = function preBuildTask() {
             //
         }
         fs.symlinkSync('./node_modules/@egamings/wlc-engine/src', this.params.paths.engineLink);
+    };
+
+    /**
+     * Create symlink to the wlc-youtube-block directory
+     */
+    //TODO после добавления еще одного npm-пакета переписать этот метод, чтобы он мог работать с массивом симлинков
+    const makeWlcYoutubeBlockSymlink = () => {
+        try {
+            fs.lstatSync(this.params.paths.youtubeBlockLink);
+            fs.unlinkSync(this.params.paths.youtubeBlockLink);
+        } catch {
+            //
+        }
+        fs.symlinkSync('./node_modules/@wlc-modules/wlc-youtube-block', this.params.paths.youtubeBlockLink);
     };
 
     /**
@@ -334,6 +352,7 @@ module.exports = function preBuildTask() {
         makeIndexHtmlSymlink();
         makeLocalesSymlink();
         makeWlcEngineSymlink();
+        makeWlcYoutubeBlockSymlink();
         makeSrcIndexHtmlSymlink();
         makePolyfillsSymlink();
         makeCustomModule();
