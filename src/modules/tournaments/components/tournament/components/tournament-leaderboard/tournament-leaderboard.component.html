@@ -36,7 +36,7 @@
                 [class.last]="$index === (winsTop.length - 1)">
                 <div class="{{$class}}__cell item-place">
                     <span class="{{$class}}__cell-place">{{win.IDUserPlace}}</span>
-                    <span *ngIf="paramExclude('themeMod', 'history')"
+                    <span *ngIf="paramExclude('themeMod', 'history') && $params.theme !== 'wolf'"
                         wlc-icon
                         iconPath="/wlc/icons/cup.svg">
                     </span>
