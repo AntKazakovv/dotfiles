@@ -158,10 +158,10 @@
             [attr.data-wlc-element]="'block_payment-item-name'"
             (click)="selectPayment(system)"
             type="button">
-            <span class="{{$class}}__icon {{itemsMap.get(system.id).image}}"
+            <span class="{{$class}}__icon {{getIconUrl | functionPurePipe:[itemsMap, system]}}"
                 wlc-icon
                 [showSvgAsImg]="true"
-                [iconUrl]="itemsMap.get(system.id).image"
+                [iconUrl]="getIconUrl | functionPurePipe:[itemsMap, system]"
                 [fallback]="'/wlc/icons/currencies/def.svg' | proxyStaticUrl"
             ></span>
             <span class="{{$class}}__name">{{system.name}}</span>

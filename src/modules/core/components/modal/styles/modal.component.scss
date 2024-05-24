@@ -431,17 +431,23 @@
 // fixes for ios
 .wlc-body--os-ios {
 
-    .wlc-modal__dialog {
+    .wlc-modal {
 
-        &:not(~.wlc-modal--tournament-detail-modal) {
-            margin: ef.get-value($hostModal, 'modalOffsetIosMobile');
+        &:not(.wlc-modal--tournament-detail-modal) {
+
+            .wlc-modal__dialog {
+                margin: ef.get-value($hostModal, 'modalOffsetIosMobile');
+            }
         }
 
-        &--scrollable {
+        &__dialog {
 
-            .wlc-modal__body {
-                @include bm.get-mq-map('height', $hostModal, 'staticMaxHeightMobileIos');
-                overflow-y: auto;
+            &--scrollable {
+
+                .wlc-modal__body {
+                    @include bm.get-mq-map('height', $hostModal, 'staticMaxHeightMobileIos');
+                    overflow-y: auto;
+                }
             }
         }
     }

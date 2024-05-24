@@ -56,6 +56,7 @@ import {
     TIconErrorCode,
     IconListAbstract,
     IMerchantsPaymentsIterator,
+    IIconListItemCParams,
 } from 'wlc-engine/modules/icon-list';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services/finances/finances.service';
 import {
@@ -340,6 +341,10 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         }
 
         return description;
+    }
+
+    public getIconUrl(itemsMap: Map<number, IWrapperCParams>, system: PaymentSystem): string {
+        return (itemsMap.get(system.id).components[0].params as IIconListItemCParams).icon.image;
     }
 
     protected checkTermsVersion(currentTermsVersion: string | DateTime, newTermsVersion: string | DateTime): boolean {
