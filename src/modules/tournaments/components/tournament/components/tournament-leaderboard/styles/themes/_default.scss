@@ -12,12 +12,28 @@
         &__container {
             max-width: var(--lb-container-max-width, #{ef.get-value($themeDefault, 'containerMaxWidth')});
             margin: var(--lb-container-margin, #{ef.get-value($themeDefault, 'containerMargin')});
+
+            &:has(.wlc-tournament-leaderboard__btn) {
+
+                .wlc-tournament-leaderboard__list:not(.wlc-tournament-leaderboard__list--top) {
+                    border-radius: ef.get-value($themeDefault, 'listRadiusWithBtn');
+                }
+
+                .wlc-tournament-leaderboard__item:last-child:not(.user[class]) {
+                    border-bottom: ef.get-value($themeDefault, 'borderBottom');
+                }
+            }
+
+            &:has(.wlc-tournament-leaderboard__item--head) {
+
+                .wlc-tournament-leaderboard__list--top {
+                    border-radius: ef.get-value($themeDefault, 'topRadiusWithHead');
+                }
+            }
         }
 
         &__wrapper {
-            padding: var(--lb-wrapper-padding);
             background: var(--lb-wrapper-bg, #{ef.get-value($themeDefault, 'wrapperBg')});
-            border-radius: var(--lb-wrapper-radius, #{ef.get-value($themeDefault, 'wrapperRadius')});
             overflow: hidden;
         }
 
@@ -34,12 +50,14 @@
         &__list {
             display: grid;
             grid-template-columns: ef.get-value($themeDefault, 'gridTemplateColumns');
-            gap: var(--lb-list-gap);
             padding: var(--lb-list-padding);
             background: var(--lb-list-bg, #{ef.get-value($themeDefault, 'listBg')});
             border-radius: ef.get-value($themeDefault, 'listRadius');
+            overflow: hidden;
 
             &--top {
+                --lb-list-bg-top: #{ef.get-value($themeDefault, 'listBgTop')};
+                margin: ef.get-value($themeDefault, 'topMargin');
                 overflow: hidden;
                 background: var(--lb-list-bg-top);
             }
@@ -53,9 +71,21 @@
             display: grid;
             grid-template-columns: var(--lb-item-columns);
             min-height: var(--lb-item-min-height, #{ef.get-value($themeDefault, 'itemHeight')});
-            margin: var(--lb-item-margin);
             background: var(--lb-row-bg, #{ef.get-value($themeDefault, 'rowBg')});
             border-radius: var(--lb-item-radius, #{ef.get-value($themeDefault, 'itemRadius')});
+
+            &:not(.last, :last-child, .user[class]) {
+                border-bottom: ef.get-value($themeDefault, 'borderBottom');
+            }
+
+            &:not(&--head) {
+
+                .wlc-tournament-leaderboard__cell:last-child {
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'itemBoldTextStyle')
+                    );
+                }
+            }
 
             .item-user {
                 @include bm.get-mq-map('padding', $themeDefault, 'itemPaddingUser');
@@ -75,10 +105,6 @@
             }
 
             &--top {
-                @include text.get-text-style(
-                    ef.get-value($themeDefault, 'itemTextStyleTop'),
-                    ef.get-value($themeDefault, 'itemColorTop')
-                );
 
                 .wlc-icon::ng-deep {
                     @include bm.get-mq-map('width', $themeDefault, 'topIconWidth');
@@ -95,12 +121,10 @@
             }
 
             &--head {
-                @include bm.get-mq-map('padding', $themeDefault, 'headPadding');
                 @include bm.get-mq-map('background', $themeDefault, 'headBg');
+                border-radius: ef.get-value($themeWolf, 'headRadius');
 
                 .wlc-tournament-leaderboard__cell {
-                    display: block;
-                    width: 100%;
                     height: auto;
                     text-align: var(--lb-head-align, left);
                     text-overflow: ellipsis;
@@ -120,9 +144,10 @@
 
             &.user[class] {
                 @include text.get-text-style(
-                    ef.get-value($themeDefault, 'itemUserCellTextStyle'),
+                    ef.get-value($themeDefault, 'itemBoldTextStyle'),
                     ef.get-value($themeDefault, 'itemUserCellTextColor')
                 );
+                border-bottom: ef.get-value($themeDefault, 'itemUserBorderBottom');
 
                 .wlc-icon::ng-deep {
                     color: ef.get-value($themeDefault, 'topIconUserColor');
@@ -152,10 +177,30 @@
             &-place {
                 min-width: ef.get-value($themeDefault, 'cellPlaceMinWidth');
             }
+
+            &:nth-child(2) {
+                justify-self: center;
+            }
         }
 
-        &__btn {
-            margin: var(--lb-btn-margin);
+        &__btn::ng-deep {
+            width: 100%;
+            height: ef.get-value($themeDefault, 'btnHeight');
+            padding: 0;
+            background: ef.get-value($themeDefault, 'listBg');
+            border-radius: ef.get-value($themeDefault, 'btnRadius');
+            border: 0;
+
+            .wlc-btn__text {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'btnTextStyle'),
+                    ef.get-value($themeDefault, 'btnTextColor'),
+                );
+
+                @include bm.hover() {
+                    color: ef.get-value($themeDefault, 'btnTextColorHover');
+                }
+            }
         }
 
         &__nocontent {
@@ -167,13 +212,6 @@
             background: var(--lb-nocontent-bg, #{ef.get-value($themeDefault, 'nocontentBg')});
             border-radius: ef.get-value($themeDefault, 'listRadius');
         }
-    }
-
-    .delimetr {
-        @include bm.get-mq-map('width', $themeDefault, 'delimetrwidth');
-        @include bm.get-mq-map('height', $themeDefault, 'delimetrheight');
-        @include bm.get-mq-map('background', $themeDefault, 'delimetrBg');
-        margin: ef.get-value($themeDefault, 'delimetrMargin');
     }
 
     .user-login {
@@ -256,14 +294,18 @@
 
             &__cell {
                 justify-content: ef.get-value($themeDefaultModHistory, 'cellAlign');
+
+                &:first-child {
+                    justify-content: left;
+                }
+
+                &:last-child {
+                    justify-content: right;
+                }
             }
 
             &__item {
                 background: ef.get-value($themeDefaultModHistory, 'rowPrimaryBg');
-
-                &:nth-child(odd) {
-                    background: ef.get-value($themeDefaultModHistory, 'rowSecondaryBg');
-                }
 
                 &.user[class] {
                     background: ef.get-value($themeDefault, 'rowUserBg');
@@ -286,10 +328,31 @@
                 }
             }
 
-            &__list--top {
+            &__container {
 
-                .user {
-                    border-radius: ef.get-value($themeDefaultModHistory, 'userTopRadius');
+                .wlc-tournament-leaderboard__list--top {
+                    border-radius: 0;
+                }
+            }
+
+            &__list {
+                border-radius: ef.get-value($themeDefaultModHistory, 'listRadius');
+
+                &--top {
+                    margin: 0;
+
+                    .wlc-tournament-leaderboard__item {
+                        border-bottom: ef.get-value($themeDefault, 'borderBottom');
+                    }
+
+                    .user {
+                        @include text.get-text-style(
+                            ef.get-value($themeDefault, 'itemTextStyle'),
+                            ef.get-value($themeDefault, 'itemUserCellTextColor')
+                        );
+                        border-radius: ef.get-value($themeDefaultModHistory, 'userTopRadius');
+                        border-bottom: ef.get-value($themeDefaultModHistory, 'itemUserBorderBottom');
+                    }
                 }
             }
         }

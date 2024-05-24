@@ -1,25 +1,26 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'containerBackground': var(--mc-bg),
+    'containerBackground': var(--mc-bg700),
     'containerRadius': ef.get('radius', 'biger'),
     'containerPadding': ef.size(3) 0,
 
-    'headPadding': 0 ef.size(3) ef.size(2) 0,
-    'headMargin': 0 0 ef.size(3),
-    'headBorderBottom':  2px solid var(--mc-bg500),
+    'headPadding': 0 ef.size(5),
+    'headMargin': 0,
+    'headBorderBottom': 1px solid var(--mc-bg300),
 
-    'headTextFontStyle': 'CaptionText',
+    'headTextFontStyle': 'PrimaryText',
     'headTextColor': var(--mc-baseMain),
     'headTextMaxWidth': 100%,
 
-    'bodyPadding': 0 ef.size(3) 0 0,
+    'bodyPadding': 0 ef.size(5),
     'bodyMargin': 0,
-    'bodyBackground': var(--mc-bg),
+    'bodyBackground': var(--mc-bg700),
     'bodyRadius': ef.get('radius', 'biger'),
 
     'bodyRowMargin':  0 0 ef.size(3),
 
-    'bodyColFontStyle': 'PrimaryTextBold',
+    'bodyColBoldFontStyle': 'PrimaryTextBold',
+    'bodyColFontStyle': 'PrimaryText',
     'bodyColColor': var(--mc-baseMain),
 
     'bodyTextAlignItems': center,
@@ -30,9 +31,9 @@ $themeDefault: map-merge((
     'bodyPlaceMargin': 0 ef.size(1) 0 0,
 
     'rowAlignItems': center,
+    'rowPadding': ef.size(1) ef.size(5),
+    'rowBorder': 1px solid var(--mc-bg300),
 
-    'colFlex': 0 0 30%,
-    'lastColFlex': 0 0 70%,
     'colMinWidth': 0%,
     'colPadding': 0 2px,
     'colPercentTextAlign': (

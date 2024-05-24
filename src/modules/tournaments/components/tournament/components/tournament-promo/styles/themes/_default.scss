@@ -38,6 +38,18 @@
             );
             margin: ef.get-value($themeDefault, 'prizepoolMargin');
             text-align: ef.get-value($themeDefault, 'prizepoolTextAlign');
+
+            ::ng-deep {
+
+                .wlc-tournament-prizes-row {
+
+                    &__values {
+                        padding: ef.get-value($themeDefault, 'prizesRowValuePadding');
+                        border-radius: ef.get-value($themeDefault, 'prizesRowValueBorderRadius');
+                        background: ef.get-value($themeDefault, 'prizesRowValueBg');
+                    }
+                }
+            }
         }
 
         &__board {
@@ -74,7 +86,12 @@
                 .wlc-link-block {
 
                     .wlc-btn[class] {
+                        display: block;
+                        width: 100%;
+                        height: ef.get-value($themeDefault, 'linkBlockHeight');
+                        border-radius: ef.get-value($themeDefault, 'linkBlockRadius');
                         color: ef.get-value($themeDefault, 'linkBlockColor');
+                        background-color: ef.get-value($themeDefault, 'linkBlockBgColor');
 
                         .wlc-icon {
                             color: ef.get-value($themeDefault, 'linkBlockColor');
@@ -88,6 +105,10 @@
                             }
                         }
                     }
+                }
+
+                .wlc-timer__content {
+                    background-color: ef.get-value($themeDefault, 'timerBg');
                 }
             }
         }
@@ -109,6 +130,26 @@
         &__inner {
             position: relative;
             z-index: ef.get-value($themeDefault, 'innerBlockZIndex');
+
+            &:has(.wlc-btn) {
+
+                ::ng-deep {
+
+                    .wlc-tournament-promo-prizes.wlc-tournament-prizes--theme-default {
+
+                        & .wlc-tournament-prizes {
+
+                            &__container {
+                                border-radius: ef.get-value($themeWolf, 'containerRadiusHasBtn');
+                            }
+
+                            &__body .wlc-tournament-prizes__row:last-child {
+                                border-bottom: ef.get-value($themeWolf, 'prizesRowBorder');
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         &__tag {

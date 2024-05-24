@@ -95,6 +95,12 @@ $themeDefault: map-merge((
     'prizepoolColor': ef.get('mainColors', 'baseMain'),
     'prizepoolTextAlign': center,
 
+    'prizesRowValuePadding': ef.size(1) ef.size(3),
+    'prizesRowValueBg': var(--mc-bg700),
+    'prizesRowValueBorderRadius': ef.get('radius', 'biger'),
+
+    'timerBg': var(--mc-bg700),
+
     'descriptionFontStyle': 'PrimaryText',
     'descriptionFontStyleDesk': 'ThirdTitle',
     'descriptionColor': (
@@ -130,13 +136,16 @@ $themeDefault: map-merge((
         900: initial
     ),
     'btnsAlignSelf': end,
-    'prizesMargin': ef.size(2) auto,
+    'prizesMargin': ef.size(2) auto 0,
 
     'lockBtnMaxWidth': (
         480: 185px,
         560: none,
     ),
     'linkBlockColor': var(--mc-main),
+    'linkBlockBgColor': var(--mc-bg700),
+    'linkBlockHeight': ef.size(6),
+    'linkBlockRadius': 0 0 ef.get('radius', 'biger') ef.get('radius', 'biger'),
     'linkBlockColorHover': ef.get('mainColors', 'baseMain'), // Locked color
 
     'boardTitleMargin': 0 0 ef.size(2) 0,
