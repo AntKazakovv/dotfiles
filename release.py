@@ -583,8 +583,8 @@ def update_language_pack(branch):
     print(Fore.GREEN + "Done" + Fore.RESET)
 
     print(Fore.YELLOW + "Update language pack to the last version" + Fore.RESET)
-    subprocess.run(["npm", "cache", "clean", "-f"])
-    subprocess.run(["npm", "update", "@egamings/wlc-engine-translate", "-f"])
+    subprocess.call(["./node18.sh", "wlc-engine", "npm", "cache", "clean", "-f"], cwd=os.path.expanduser("~/Projects/wlc"))
+    subprocess.call(["./node18.sh", "wlc-engine", "npm", "update", "@egamings/wlc-engine-translate", "-f"], cwd=os.path.expanduser("~/Projects/wlc"))
     print(Fore.GREEN + "Done" + Fore.RESET)
 
     print(Fore.YELLOW + "Commit and push changes..." + Fore.RESET)
