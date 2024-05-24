@@ -94,4 +94,7 @@ $themeWolf: map-merge((
     'tagBg': var(--mc-main),
     'tagTextStyle': 'CaptionTextBold',
     'tagColor': var(--mc-baseThird),
+    'dashboardSwiperNavTop': 105px,
+    'dashboardSwiperNavRight': 2px,
+    'dashboardSwiperNavLeft': 2px,
 ), $customThemeWolf);

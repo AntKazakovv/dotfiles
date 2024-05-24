@@ -88,13 +88,13 @@
                         &-prev,
                         &-next {
                             position: absolute;
-                            top: ef.get-value($themeDefault, 'dashboardSwiperNavTop');
-                            left: ef.get-value($themeDefault, 'dashboardSwiperNavLeft');
+                            top: ef.get-value($themeWolf, 'dashboardSwiperNavTop');
+                            left: ef.get-value($themeWolf, 'dashboardSwiperNavLeft');
                             z-index: 100;
                         }
 
                         &-next {
-                            right: ef.get-value($themeDefault, 'dashboardSwiperNavLeft');
+                            right: ef.get-value($themeWolf, 'dashboardSwiperNavRight');
                             left: auto;
                         }
                     }
