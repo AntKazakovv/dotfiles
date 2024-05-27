@@ -1,0 +1,89 @@
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'contentHeight': 410px,
+    'contentMinWidth': (
+        375: 280px,
+        1630: 330px,
+    ),
+    'contentMaxWidth': (
+        375: 330px,
+        720: 100%,
+    ),
+    'contentRadius': ef.get('radius', 'main'),
+    'contentBoxShadowHover': 0 4px 4px 0 rgba(0, 0, 0, 0.25),
+    'unavailableBg': #0047ff,
+    'unavailableOpacity': 0.15,
+    'unavailableOpacityHover': 0.2,
+
+    'wrapperBg': var(--mc-bg300),
+    'wrapperBgHover':  var(--mc-bg300-d20),
+    'wrapperOpacityHover': 0.8,
+
+    'tagPosition': absolute,
+    'tagPositionTop': ef.size(5),
+    'tagPositionLeft': 50%,
+    'tagTransform': translateX(-50%),
+
+    'infoWidth': (
+        375: 250px,
+        1630: 290px,
+    ),
+    'nameMargin': (
+        375: ef.size(14) auto ef.size(4),
+    ),
+    'nameTextStyle': 'ThirdTitleBold',
+    'nameFontColor': var(--mc-baseThird),
+
+    'imageAlignItems': center,
+    'imageBg': transparent,
+    'imageSize': 180px,
+    'imageMargin': 0 auto ef.size(7),
+    'imageMaxHeight': (
+        375: 180px,
+    ),
+    'imageMaxWidth': (
+        375: 180px,
+    ),
+
+    'bonusIconSize': (
+        375: 120px,
+        1630: 144px,
+    ),
+    'bonusIconMargin': 0 auto,
+    'bonusIconValueBlockHeight': (
+        375: 20px,
+        1630: 25px,
+    ),
+    'bonusIconTextStyle': 'ThirdTitleBold',
+    'bonusIconValueColor': var(--mc-black),
+    'bonusIconValueBlockBottom': 10px,
+    'bonusIconValueBlockMinWidth': 60px,
+    'bonusIconValueBg': var(--mc-baseMain),
+    'bonusIconValueBlockRadius': ef.get('radius', 'biger'),
+    'bonusIconValueBlockPadding': 0 ef.size(1),
+
+    'priceTextStyle': 'PrimaryTextBold',
+    'priceFontColor': var(--mc-baseThird),
+    'dividerContent': '+',
+    'dividerMargin': 0 ef.size(1),
+
+    'moreIconSvgSize': 20px,
+    'moreIconPosTop': ef.size(4),
+    'moreIconPosRight': ef.size(4),
+    'moreIconSize': 24px,
+    'moreIconColor': var(--mc-baseThird),
+    'moreIconColorHover': var(--mc-baseThird),
+    'moreIconBg': var(--mc-baseSecond-o2),
+    'moreIconBgHover': var(--mc-baseSecond-o4),
+    'moreIconRadius': ef.get('radius', 'big'),
+
+    'btnsMargin': auto auto ef.size(5),
+    'lockBtnBg': (
+        375: var(--mc-buttonColor-o6),
+        1024: unset,
+    ),
+    'lockBtnTextDisplay': (
+        375: block,
+        1024: none,
+    ),
+), $customThemeWolf);

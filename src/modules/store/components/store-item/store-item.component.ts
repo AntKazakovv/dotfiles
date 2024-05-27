@@ -18,9 +18,17 @@ import {
     ConfigService,
     ModalService,
     EventService,
+    IButtonCParams,
 } from 'wlc-engine/modules/core';
+import {
+    ITagCParams,
+    ITagCommon,
+} from 'wlc-engine/modules/core/components/tag/tag.params';
 import {StoreItem} from 'wlc-engine/modules/store/system/models/store-item.model';
-import {IDisabledItemInfo} from 'wlc-engine/modules/store/system/interfaces/store.interface';
+import {
+    IDisabledItemInfo,
+    IStoreTagsConfig,
+} from 'wlc-engine/modules/store/system/interfaces/store.interface';
 import {StoreService} from 'wlc-engine/modules/store/system/services';
 
 import * as Params from './store-item.params';
@@ -52,6 +60,8 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
 
     protected isDisabled: boolean;
     protected isProfileFirst: boolean;
+    protected tagConfig: ITagCParams;
+    protected buyBtnParams: IButtonCParams = Params.defaultParams.buyBtnParams;
 
     constructor(
         @Inject('injectParams') protected params: Params.IStoreItemCParams,
@@ -90,18 +100,25 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
                 this.storeImage = this.$params.common?.defaultPicPath;
             }
         };
+
+        if (this.$params.theme === 'wolf') {
+            this.buyBtnParams = this.$params.buyBtnParamsWolf;
+            this.makeTagConfig();
+        }
     }
 
-    public openDescription(storeItem: StoreItem): void {
+    public openDescription($event?: MouseEvent): void {
+        $event?.stopPropagation();
+
         this.modalService.showModal('storeItemInfo', {
-            title: storeItem.name,
-            description: storeItem.description,
-            storeItem: storeItem,
+            title: this.storeItem.name,
+            description: this.storeItem.description,
+            storeItem: this.storeItem,
             isDisabled: this.isDisabled,
             disabledMsg: this.disabledInfo?.messageText,
-            priceLoyalty: storeItem.priceLoyalty,
-            priceExp: storeItem.priceExp,
-            canBuy: storeItem.canBuy,
+            priceLoyalty: this.storeItem.priceLoyalty,
+            priceExp: this.storeItem.priceExp,
+            canBuy: this.storeItem.canBuy,
         });
     }
 
@@ -131,5 +148,23 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
             modifiers = _union(modifiers, this.$params.common.customModifiers.split(' '));
         }
         this.addModifiers(modifiers);
+    }
+
+    protected makeTagConfig(): void {
+        const storeTagsConfig = this.configService.get<IStoreTagsConfig>('$store.tagsConfig');
+        const tagCommon: ITagCommon = storeTagsConfig.tagList[this.tagClass];
+
+        this.tagConfig = {
+            common: tagCommon,
+        };
+    }
+
+    protected storeItemClickHadler($event: MouseEvent): void {
+
+        if (($event.target as HTMLElement).closest('.wlc-btn')) {
+            return;
+        }
+
+        this.openDescription($event);
     }
 }

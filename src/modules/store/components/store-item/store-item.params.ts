@@ -2,9 +2,10 @@ import {
     GlobalHelper,
     IComponentParams,
     CustomType,
+    IButtonCParams,
 } from 'wlc-engine/modules/core';
 
-export type ComponentTheme = 'default' | 'first' | CustomType;
+export type ComponentTheme = 'default' | 'first' | 'wolf' | CustomType;
 export type ComponentType = 'default' | CustomType;
 export type ComponentThemeMod = 'default' | 'chip-v2' | CustomType;
 export type AutoModifiers = ComponentTheme | ComponentThemeMod;
@@ -22,6 +23,8 @@ export interface IStoreItemCParams extends IComponentParams<ComponentTheme, Comp
         /** allows to use svg/png/jpg extension */
         iconFormat: TIconExtension;
     };
+    buyBtnParams: IButtonCParams;
+    buyBtnParamsWolf: IButtonCParams;
 }
 
 export const defaultParams: IStoreItemCParams = {
@@ -32,5 +35,20 @@ export const defaultParams: IStoreItemCParams = {
         defaultPicPath: GlobalHelper.gstaticUrl + '/store/default.png',
         defaultPicPathFirst: GlobalHelper.gstaticUrl + '/store/default1.png',
         iconFormat: 'svg',
+    },
+    buyBtnParams: {
+        common: {
+            text: gettext('Buy now'),
+            typeAttr: 'button',
+        },
+        wlcElement: 'button_buy',
+    },
+    buyBtnParamsWolf: {
+        common: {
+            text: gettext('Buy now'),
+            typeAttr: 'button',
+            size: 'md',
+        },
+        wlcElement: 'button_buy',
     },
 };

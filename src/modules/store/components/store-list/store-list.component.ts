@@ -55,7 +55,7 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
     public userPoints: number = 0;
     public userLevel: number = 0;
     public userExpPoints: number = 0;
-    public itemTheme: Params.Theme = 'default';
+    public itemTheme: Params.ThemeMod = 'default';
     public isMultiWallet: boolean;
     protected itemsPerPage: number = 0;
     protected store: IStore;
@@ -81,7 +81,7 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
         this.prepareModifiers();
         this.isReady = false;
         this.isProfileFirst = this.configService.get<string>('$base.profile.type') === 'first';
-        this.itemTheme = this.isProfileFirst ? 'first' : 'default';
+        this.itemTheme = this.$params.themeMod ?? 'default';
 
         this.storeService.getSubscribe({
             useQuery: true,

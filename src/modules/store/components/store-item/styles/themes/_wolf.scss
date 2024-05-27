@@ -1,0 +1,195 @@
+.wlc-store-item--theme-wolf {
+
+    .wlc-store-item {
+
+        &__content {
+            @include bm.get-mq-map('min-width', $themeWolf, 'contentMinWidth');
+            @include bm.get-mq-map('max-width', $themeWolf, 'contentMaxWidth');
+            position: relative;
+            height: ef.get-value($themeWolf, 'contentHeight');
+            margin: 0 auto;
+            border-radius: ef.get-value($themeWolf, 'contentRadius');
+            overflow: hidden;
+
+            &.unavailable {
+
+                &:after {
+                    @include bm.transition(opacity);
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    z-index: 10;
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    background: ef.get-value($themeWolf, 'unavailableBg');
+                    opacity: ef.get-value($themeWolf, 'unavailableOpacity');
+                    pointer-events: none;
+                    border-radius: inherit;
+                }
+
+                @include bm.hover() {
+
+                    &:after {
+                        opacity: ef.get-value($themeWolf, 'unavailableOpacityHover');
+                    }
+                }
+            }
+
+            @include bm.hover() {
+                box-shadow: ef.get-value($themeWolf, 'contentBoxShadowHover');
+            }
+        }
+
+        &__wrapper {
+            @include bm.transition(background);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            background: ef.get-value($themeWolf, 'wrapperBg');
+            cursor: pointer;
+
+            &.unavailable {
+                mix-blend-mode: luminosity;
+            }
+
+            @include bm.hover {
+
+                &:not(.unavailable) {
+                    background: ef.get-value($themeWolf, 'wrapperBgHover');
+
+                    .wlc-store-item__tag,
+                    .wlc-store-item__name,
+                    .wlc-store-item__image,
+                    .wlc-store-item__price {
+                        opacity: ef.get-value($themeWolf, 'wrapperOpacityHover');
+                    }
+                }
+            }
+        }
+
+        &__tag {
+            --wlc-tag-position: #{ef.get-value($themeWolf, 'tagPosition')};
+            @include bm.transition(opacity);
+            top: ef.get-value($themeWolf, 'tagPositionTop');
+            left: ef.get-value($themeWolf, 'tagPositionLeft');
+            z-index: 2;
+            transform: ef.get-value($themeWolf, 'tagTransform');
+        }
+
+        &__name {
+            @include bm.transition(opacity);
+            @include bm.get-mq-map('width', $themeWolf, 'infoWidth');
+            @include bm.get-mq-map('margin', $themeWolf, 'nameMargin');
+            @include bm.lineClamp();
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'nameTextStyle'),
+                ef.get-value($themeWolf, 'nameFontColor'),
+            );
+            text-align: center;
+        }
+
+        &__image {
+            @include bm.transition(opacity);
+            display: flex;
+            align-items: ef.get-value($themeWolf, 'imageAlignItems');
+            width: ef.get-value($themeWolf, 'imageSize');
+            height: ef.get-value($themeWolf, 'imageSize');
+            margin: ef.get-value($themeWolf, 'imageMargin');
+            background-color: ef.get-value($themeWolf, 'imageBg');
+
+            img {
+                @include bm.get-mq-map('max-height', $themeWolf, 'imageMaxHeight');
+                @include bm.get-mq-map('max-width', $themeWolf, 'imageMaxWidth');
+                display: block;
+                height: auto;
+                margin: 0 auto;
+            }
+        }
+
+        &__bonus-icon {
+            @include bm.get-mq-map('width', $themeWolf, 'bonusIconSize');
+            @include bm.get-mq-map('height', $themeWolf, 'bonusIconSize');
+            position: relative;
+            display: flex;
+            justify-content: center;
+            margin: ef.get-value($themeWolf, 'bonusIconMargin');
+
+            .icon-sign {
+                width: 100%;
+            }
+
+            .icon-text {
+                @include bm.get-mq-map('height', $themeWolf, 'bonusIconValueBlockHeight');
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'bonusIconTextStyle'),
+                    ef.get-value($themeWolf, 'bonusIconValueColor')
+                );
+                position: absolute;
+                bottom: ef.get-value($themeWolf, 'bonusIconValueBlockBottom');
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-width: ef.get-value($themeWolf, 'bonusIconValueBlockMinWidth');
+                padding: ef.get-value($themeWolf, 'bonusIconValueBlockPadding');
+                line-height: 1;
+                background-color: ef.get-value($themeWolf, 'bonusIconValueBg');
+                border-radius: ef.get-value($themeWolf, 'bonusIconValueBlockRadius');
+            }
+        }
+
+        &__price {
+            @include bm.transition(opacity);
+            @include bm.get-mq-map('width', $themeWolf, 'infoWidth');
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'priceTextStyle'),
+                ef.get-value($themeWolf, 'priceFontColor'),
+            );
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        &__more-icon {
+            --wlc-icon-width: #{ef.get-value($themeWolf, 'moreIconSvgSize')};
+            --wlc-icon-height: #{ef.get-value($themeWolf, 'moreIconSvgSize')};
+            @include bm.transition(all);
+            position: absolute;
+            top: ef.get-value($themeWolf, 'moreIconPosTop');
+            right: ef.get-value($themeWolf, 'moreIconPosRight');
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: ef.get-value($themeWolf, 'moreIconSize');
+            height: ef.get-value($themeWolf, 'moreIconSize');
+            color: ef.get-value($themeWolf, 'moreIconColor');
+            line-height: 1;
+            background: ef.get-value($themeWolf, 'moreIconBg');
+            cursor: pointer;
+            border-radius: ef.get-value($themeWolf, 'moreIconRadius');
+
+            @include bm.hover {
+                color: ef.get-value($themeWolf, 'moreIconColorHover');
+                background: ef.get-value($themeWolf, 'moreIconBgHover');
+            }
+        }
+
+        &__btns {
+            margin: ef.get-value($themeWolf, 'btnsMargin');
+        }
+
+        &__lock-btn {
+            @include cm.lockBtn;
+            @include bm.get-mq-map('background', $themeWolf, 'lockBtnBg');
+
+            .lock-btn__text {
+                @include bm.get-mq-map('display', $themeWolf, 'lockBtnTextDisplay');
+            }
+        }
+    }
+}

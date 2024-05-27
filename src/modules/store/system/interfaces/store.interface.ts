@@ -4,6 +4,7 @@ import {
 } from 'rxjs';
 
 import {IIndexing} from 'wlc-engine/modules/core';
+import {ITagCommon} from 'wlc-engine/modules/core/components/tag/tag.params';
 import {StoreItem} from '../models/store-item.model';
 import {StoreCategory} from 'wlc-engine/modules/store/system/models/store-category.model';
 
@@ -109,4 +110,21 @@ export interface IGetSubscribeParams {
 export interface IDisabledItemInfo {
     messageText: string;
     btnText: string;
+}
+
+export type TStoreTagKey = 'unavailable'
+    | 'bonus'
+    | 'money'
+    | 'money + bonus'
+    | 'tournament points'
+    | 'item'
+    | '';
+
+export interface IStoreTagsConfig {
+    useIcons: boolean;
+    tagList?: Partial<Record<TStoreTagKey, ITagCommon>>;
+}
+
+export interface IStoreModule {
+    tagsConfig?: IStoreTagsConfig;
 }

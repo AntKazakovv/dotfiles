@@ -95,11 +95,22 @@
                 padding: ef.get-value($themeDefault, 'storePadding');
                 background: none;
 
+                .wlc-sections__profile-content--theme-wolf & {
+                    justify-content: ef.get-value($themeDefault, 'storeJustifyContentWolf');
+                }
+
                 .wlc-user-stats-balance__item {
                     margin: ef.get-value($themeDefault, 'storeItemMargin');
                     padding: 0;
                     border-bottom: none;
                     cursor: pointer;
+
+                    .wlc-sections__profile-content--theme-wolf & {
+
+                        &:first-child {
+                            margin: ef.get-value($themeDefault, 'storeItemMarginWolf');
+                        }
+                    }
 
                     @include bm.hover {
 

@@ -2,7 +2,10 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 
+import _get from 'lodash-es/get';
+
 import {CoreModule} from '../core/core.module';
+import {GlobalHelper} from 'wlc-engine/modules/core';
 import {CompilerModule} from 'wlc-engine/modules/compiler/compiler.module';
 
 import {StoreService} from './system/services';
@@ -13,6 +16,10 @@ import {StoreTitleComponent} from './components/store-title/store-title.componen
 import {StoreItemInfoComponent} from './components/store-item-info/store-item-info.component';
 import {StoreConfirmationComponent} from './components/store-confirmation/store-confirmation.component';
 import {StoreItemPriceComponent} from 'wlc-engine/modules/store/components/store-item-price/store-item-price.component';
+import {IStoreModule} from './system/interfaces/store.interface';
+import {storeConfig} from './system/config/store.config';
+
+import * as $config from 'wlc-config/index';
 
 export const components = {
     'wlc-store-item': StoreItemComponent,
@@ -26,6 +33,8 @@ export const components = {
 export const services = {
     'store-service': StoreService,
 };
+
+export const moduleConfig = GlobalHelper.mergeConfig<IStoreModule>(storeConfig, _get($config, '$store', {}));
 
 @NgModule({
     declarations: [

@@ -1858,7 +1858,7 @@ export namespace profileContent {
                         componentLib.wlcProfileMenu.defTypeWolf,
                         componentLib.wlcProfileMenu.submenuWolf,
                         componentLib.wlcUserStats.storeWithDescriptionIcon,
-                        componentLib.wlcStoreList.def,
+                        componentLib.wlcStoreList.wolf,
                     ],
                 },
             },

@@ -26,6 +26,30 @@ export namespace wlcStoreList {
     export const first: ILayoutComponent = {
         name: 'store.wlc-store-list',
         params: {
+            themeMod: 'first',
+            common: {
+                pagination: {
+                    use: true,
+                    breakpoints: {
+                        0: {
+                            itemPerPage: 3,
+                        },
+                        640: {
+                            itemPerPage: 4,
+                        },
+                        900: {
+                            itemPerPage: 6,
+                        },
+                    },
+                },
+            },
+        },
+    };
+
+    export const wolf: ILayoutComponent = {
+        name: 'store.wlc-store-list',
+        params: {
+            themeMod: 'wolf',
             common: {
                 pagination: {
                     use: true,
