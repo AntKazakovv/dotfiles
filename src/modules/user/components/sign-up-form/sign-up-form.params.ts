@@ -202,7 +202,13 @@ export const twoStepsFormConfigRomania = {
                 locked: false,
             },
         },
-        FormElements.gender,
+        {
+            name: FormElements.gender.name,
+            params: {
+                ...FormElements.gender.params,
+                locked: false,
+            },
+        },
         FormElements.city,
         FormElements.address,
         FormElements.postalCode,
