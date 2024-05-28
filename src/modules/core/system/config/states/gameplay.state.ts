@@ -60,6 +60,7 @@ export const gamePlayState: Ng2StateDeclaration = {
             && showRecommendedGames
             && configService.get('$user.isAuthenticated')
             && $transition.$to().name !== 'app.profile.cash.deposit'
+            && $transition.$to().name !== 'app.gameplay'
         ) {
 
             const {launchCode, merchantId} = stateHistoryService.getCurrentState().params;
