@@ -32,6 +32,7 @@
 <ng-template #timer>
     <div wlc-timer
         [value]="timerValue"
-        [inlineParams]="timerParams">
+        [inlineParams]="timerParams"
+        (timerEnds)="timerExpiry()">
     </div>
 </ng-template>

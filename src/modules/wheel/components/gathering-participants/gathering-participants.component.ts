@@ -10,6 +10,8 @@ import {
 import {
     BehaviorSubject,
     takeUntil,
+    first,
+    tap,
 } from 'rxjs';
 import {DateTime} from 'luxon';
 import _merge from 'lodash-es/merge';
@@ -88,23 +90,23 @@ export class GatheringParticipantsComponent extends AbstractComponent implements
         this.initSubscription();
     }
 
-    public timerExpiry(): void {
-        if (this.$params.completionByButton) {
-            if (this.$params.isStreamer) {
-                this.timerReady$.next(true);
-            } else {
-                this.wheelService.internalTimeEnd();
-            }
-        } else {
-            this.wheelService.internalTimeEnd();
-        }
-    }
-
     protected initSubscription(): void {
         this.wheelService.participants$.pipe(takeUntil(this.$destroy))
             .subscribe((participants: ParticipantModel[]): void => {
                 this.participants$.next(participants);
             });
+
+        if (this.$params.completionByButton && this.$params.isStreamer) {
+            this.wheelService.timerReady$
+                .pipe(
+                    first(v => !!v),
+                    tap(() => {
+                        this.timerReady$.next(true);
+                    }),
+                    takeUntil(this.$destroy),
+                )
+                .subscribe();
+        }
     }
 
     protected async requestWheelInfo(): Promise<void> {

@@ -46,6 +46,7 @@ export class WidgetWheelComponent extends AbstractComponent implements OnInit {
     public timerValue!: DateTime;
     protected IDurationWheel: IDurationWheel;
     protected template$: BehaviorSubject<TButtonTemplate> = new BehaviorSubject<TButtonTemplate>('title');
+    protected isExpired: boolean = false;
 
     constructor(
         @Inject('injectParams') protected params: Params.IWidgetWheelCParams,
@@ -89,6 +90,14 @@ export class WidgetWheelComponent extends AbstractComponent implements OnInit {
         this.toggleWidget();
     }
 
+    public timerExpiry(): void {
+        if (!this.isExpired) {
+            this.wheelService.setTimerStatus(true);
+            this.wheelService.internalTimeEnd();
+            this.isExpired = true;
+        }
+    }
+
     protected setTimer(): void {
         this.timerValue = DateTime.now().plus({
             minutes: this.IDurationWheel.minutes,
@@ -110,9 +119,11 @@ export class WidgetWheelComponent extends AbstractComponent implements OnInit {
                 switch (event.name) {
                     case 'deleteWidget':
                         this.enableWheel$.next(false);
+                        this.isExpired = false;
                         break;
                     case 'resetWidget':
                         this.template$.next('title');
+                        this.isExpired = false;
                         break;
                     case 'showWidget':
                         this.enableWheel$.next(true);

@@ -83,6 +83,7 @@ export class WheelService {
     public settingsWheel: ISettingsWheel;
     public userWheel$: Subject<IUserWheel> = new Subject<IUserWheel>();
     public participants$: Subject<ParticipantModel[]> = new Subject<ParticipantModel[]>();
+    public timerReady$ = new BehaviorSubject<boolean>(false);
     private userService: UserService;
     private infoWheelSocketSub: Subscription;
     private userWheel: IUserWheel;
@@ -420,11 +421,6 @@ export class WheelService {
                 mode: 'show',
             });
         }
-
-        if (this.getIdWheelFromStorage()) {
-            this.currentIdWheel = this.getIdWheelFromStorage();
-            this.showWaitingResultsModal();
-        }
     }
 
     public async internalTimeEnd(): Promise<void> {
@@ -472,7 +468,6 @@ export class WheelService {
 
     public async getWinnersFromHttp(): Promise<void> {
         this.disableFinishFromSocket = true;
-        this.setIdWheelToStorage(this.currentIdWheel);
         let wheelInfo: IInfoWheelResponse;
 
         try {
@@ -490,11 +485,9 @@ export class WheelService {
                     if (wheelInfo.winners.length) {
                         this.modalService.closeAllModals();
                         this.finishEventHandler(wheelInfo.winners);
-                        this.clearIdWheel();
                     } else {
                         this.showCancelRaffleModal();
                         this.finishWheel();
-                        this.clearIdWheel();
                     }
                 } else {
                     this.winnersHttpCallback(5000);
@@ -513,11 +506,9 @@ export class WheelService {
                     if (wheelInfo.winners.length) {
                         this.modalService.closeAllModals();
                         this.finishEventHandler(wheelInfo.winners);
-                        this.clearIdWheel();
                     } else {
                         this.showCancelRaffleModal();
                         this.finishWheel();
-                        this.clearIdWheel();
                     }
                 } else {
                     this.noResultsHandler(10000);
@@ -526,6 +517,10 @@ export class WheelService {
                 this.noResultsHandler(10000);
             }
         }
+    }
+
+    public setTimerStatus(status: boolean): void {
+        this.timerReady$.next(status);
     }
 
     protected winnersHttpCallback(timeout: number): void {
@@ -736,10 +731,10 @@ export class WheelService {
         } else {
             this.eventsWheel$.next({name: 'deleteWidget'});
         }
+        this.setTimerStatus(false);
         this.participants = [];
         this.participants$.next(this.participants);
         this.infoWheelSocketSub.unsubscribe();
-        this.clearIdWheel();
     }
 
     private showWaitingResultsModal(): void {
@@ -762,37 +757,12 @@ export class WheelService {
             size: 'xl',
             backdrop: 'static',
         });
-        this.clearIdWheel();
     }
 
     private setNonceToStorage(value: string): void {
         this.configService.set({
             name: 'wheelNonce',
             value: value,
-            storageType: 'localStorage',
-        });
-    }
-
-    private setIdWheelToStorage(value: number): void {
-        this.configService.set({
-            name: 'currentIdWheel',
-            value: value,
-            storageType: 'localStorage',
-        });
-    }
-
-    private clearIdWheel(): void {
-        this.currentIdWheel = 0;
-        this.configService.set({
-            name: 'currentIdWheel',
-            value: null,
-            storageClear: 'localStorage',
-        });
-    }
-
-    private getIdWheelFromStorage(): number {
-        return this.configService.get({
-            name: 'currentIdWheel',
             storageType: 'localStorage',
         });
     }
