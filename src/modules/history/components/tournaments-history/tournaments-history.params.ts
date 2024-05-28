@@ -80,7 +80,7 @@ export const tournamentsHistoryTableHeadConfig: ITableCol[] = [
     },
     {
         key: 'win',
-        title: gettext('Win'),
+        title: gettext('Winnings'),
         type: 'component',
         mapValue: (item: TournamentHistory): ITournamentWinsParams => {
             return {
