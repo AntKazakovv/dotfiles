@@ -1,0 +1,11 @@
+@import './utils/vars';
+
+.wlc-sections__withdraw-cancel {
+    @include bm.get-mq-map('width', $withdrawCancel, 'width');
+    @include bm.get-mq-map('right', $withdrawCancel, 'posRight');
+    position: fixed;
+    bottom: ef.get-value($withdrawCancel, 'posBottom');
+    z-index: ef.get-value($withdrawCancel, 'zIndex');
+    align-self: ef.get-value($withdrawCancel, 'alignSelf');
+    margin: ef.get-value($withdrawCancel, 'margin');
+}

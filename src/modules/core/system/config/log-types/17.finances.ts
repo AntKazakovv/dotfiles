@@ -59,4 +59,8 @@ export const errorTypes: ILogTypes = {
         // Wrong Terms version format
         level: 'error',
     },
+    '17.8.0': {
+        // Error canceling withdrawal
+        level: 'error',
+    },
 };

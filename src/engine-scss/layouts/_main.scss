@@ -13,6 +13,7 @@
 @import './mobile-app/mobile-app';
 @import './providers/providers';
 @import './notifications/notifications';
+@import './withdraw-cancel/withdraw-cancel';
 
 @include lm.init-layout-gap(ev.$layoutGap);
 @include lm.init-layout-padding(ev.$layoutWithFixedPanels);

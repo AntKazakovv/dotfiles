@@ -34,6 +34,7 @@ export const $base: IBaseConfig = {
         metamask: {
             hidePayMessageModalOnSuccess: true,
         },
+        lastWithdrawCancelWidget: false,
     },
     rewritingWpLanguages: {
         'pt-br': 'pb',

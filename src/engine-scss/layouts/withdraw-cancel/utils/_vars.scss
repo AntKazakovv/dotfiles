@@ -1,0 +1,15 @@
+$customWithdrawCancel: () !default;
+$withdrawCancel: map-merge((
+    'posBottom': 1%,
+    'zIndex': 1000,
+    'alignSelf': center,
+    'width': (
+        375: 95%,
+        560: unset,
+    ),
+    'posRight': (
+        375: unset,
+        560: 1%,
+    ),
+    'margin': 0 auto,
+), $customStickyFooterBase);

@@ -62,10 +62,12 @@ export const WebSocketEvents: IIndexing<IIndexing<string>> = {
         ACHIEVEMENTS: 'achievementsloyalty',
         LOCAL_JACKPOTS: 'userjackpot',
         QUESTS: 'questsloyalty',
+        LAST_WITHDRAW: 'userpayment',
     },
     SEND: {
         LOYALTY: 'loyalty.loyalty.get',
         USER_INFO: 'funcore.wlcinfo.user',
+        USER_PAYMENT: 'funcore.userpayment',
     },
 };
 

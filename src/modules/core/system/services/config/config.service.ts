@@ -66,6 +66,7 @@ import {
     ILayoutsConfig,
     IBootstrap,
     TBooleanOptional,
+    ILayoutSectionConfig,
 } from 'wlc-engine/modules/core/system/interfaces';
 import {
     ICountry,
@@ -404,6 +405,10 @@ export class ConfigService {
 
         this.attachFundistUserIdComponent();
 
+        if (appConfig.$base.finances.lastWithdrawCancelWidget) {
+            this.attachCancelLastWithdrawWidget();
+        }
+
         if (!wlcConfig.$base.profile.store.use) {
             $layouts['app.profile.dashboard'].sections['profile-content'] =
                 sectionsLib.profileContent.profileDashboardWithoutStore;
@@ -451,7 +456,21 @@ export class ConfigService {
             : sectionsLib.profileContent.generateProfileMain(funIdUse, nickIconUse);
 
         $layouts['app.profile.main.info'].sections['profile-content'] = section;
+    }
 
+    private attachCancelLastWithdrawWidget(): void {
+        const widgetSection: ILayoutSectionConfig = {
+            container: false,
+            display: {
+                auth: true,
+            },
+            components: [
+                {
+                    name: 'finances.wlc-withdraw-cancel',
+                },
+            ],
+        };
+        $layouts['app'].sections['withdraw-cancel'] = widgetSection;
     }
 
     private async getCountries(): Promise<void> {

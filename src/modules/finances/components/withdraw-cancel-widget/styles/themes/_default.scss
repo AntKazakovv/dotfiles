@@ -1,0 +1,56 @@
+.wlc-withdraw-cancel--theme-default:host {
+    @include bm.get-mq-map('width', $themeDefault, 'widgetWidth');
+    border-radius: ef.get-value($themeDefault, 'widgetBorderRadius');
+    margin-left: auto;
+    background: ef.get-value($themeDefault, 'widgetBg');
+    box-shadow: ef.get-value($themeDefault, 'widgetShadow');
+
+    .wlc-withdraw-cancel {
+
+        &__message-wrapper {
+            display: flex;
+            justify-content: space-between;
+            padding: ef.get-value($themeDefault, 'wrapperPadding');
+        }
+
+        &__message-title {
+            margin-bottom: ef.get-value($themeDefault, 'titleMarginBottom');
+        }
+
+        &__message-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+        }
+
+        &__message-info {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'messageTextStyle', 375),
+                ef.get-value($themeDefault, 'messageTextColor')
+            );
+        }
+
+        &__btn-cancel {
+            justify-items: start;
+            max-width: fit-content;
+            padding-left: 0;
+        }
+
+        &__btn-close {
+            @include bm.transition(opacity);
+            align-self: flex-start;
+            color: ef.get-value($themeDefault, 'btnСloseIconColor');
+            background: ef.get-value($themeDefault, 'btnСloseBg');
+            outline: ef.get-value($themeDefault, 'btnСloseOutline');
+            transform: ef.get-value($themeDefault, 'btnСloseTransform');
+            cursor: ef.get-value($themeDefault, 'btnСloseCursor');
+            opacity: ef.get-value($themeDefault, 'btnСloseOpacity');
+            border: ef.get-value($themeDefault, 'btnСloseBorder');
+
+            @include bm.hover {
+                opacity: ef.get-value($themeDefault, 'btnСloseOpacityHover');
+            }
+        }
+    }
+}

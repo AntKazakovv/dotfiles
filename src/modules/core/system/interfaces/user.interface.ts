@@ -160,6 +160,7 @@ export interface IExtProfile {
     logoutTime?: number;
     /** user's avatar path on static */
     avatarId?: string;
+    lastPendingWithdrawId?: number;
 }
 
 export interface IExtProfilePaymentSystems {
@@ -168,4 +169,22 @@ export interface IExtProfilePaymentSystems {
 
 export interface IExtPaymentSystem {
     additionalParams?: IIndexing<string>;
+}
+
+export interface ILastWithdraw {
+    ID: number;
+    AddDate: string;
+    Status: number;
+    Currency: string;
+    Updated: string;
+    Amount: string;
+    AmountConverted: string;
+};
+
+export interface IWSLastWithdraw {
+    data: ILastWithdraw,
+    event: string,
+    status: string,
+    requestId: number,
+    system: string,
 }

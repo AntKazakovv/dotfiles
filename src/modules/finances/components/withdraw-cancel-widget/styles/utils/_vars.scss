@@ -1,0 +1,29 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'widgetBorderRadius': ef.get('radius', 'big'),
+    'widgetBg': var(--mc-bgModal),
+    'widgetWidth': (
+        375: 355px,
+        1024: 500px,
+    ),
+    'widgetShadow': 0 ef.size(1) ef.size(2) 0 rgba(0, 0, 0, 0.67),
+
+    'wrapperPadding': ef.size(3) ef.size(4) ef.size(2) ef.size(4),
+
+    'messageTextStyle': (
+        375: 'PrimaryText',
+    ),
+    'messageTextColor': var(--mc-baseMain),
+
+    'titleMarginBottom': ef.size(2),
+
+    'btnСloseIconColor': var(--mc-baseMain),
+    'btnСloseBg': transparent,
+    'btnСloseTransform': translateY(-5px),
+    'btnСloseCursor': pointer,
+    'btnСloseOutline': none,
+    'btnСloseBorder': none,
+    'btnСloseOpacity': 0.5,
+    'btnСloseOpacityHover': 1,
+
+), $customThemeDefault);

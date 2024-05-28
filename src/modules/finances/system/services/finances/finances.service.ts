@@ -64,6 +64,7 @@ import {
     WalletsService,
 } from 'wlc-engine/modules/multi-wallet';
 import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
+import {ITransaction, Transaction} from 'wlc-engine/modules/history';
 
 type TUserDepositCountsInfo = Pick<UserInfo, 'depositsCount'>;
 
@@ -199,7 +200,7 @@ export class FinancesService {
             return Promise.reject(error);
         }
     }
-
+    
     public async checkWithdraw(systemId: number): Promise<any> {
         try {
             const result = await this.dataService.request<IData>('finances/getWithdrawal', {
@@ -207,6 +208,17 @@ export class FinancesService {
                 systemId: systemId,
             });
             return result.data;
+        } catch (error) {
+            return Promise.reject(error);
+        }
+    }
+
+    public async getPendingWithdraws(): Promise<Transaction[]> {
+        try {
+            const result = await this.dataService.request<IData>
+            ('finances/getPendingWithdraws');
+
+            return result.data as Transaction[];
         } catch (error) {
             return Promise.reject(error);
         }
@@ -245,7 +257,6 @@ export class FinancesService {
             },
         })).data;
     }
-
 
     public async fetchPaymentSystems(currency: string = ''): Promise<PaymentSystem[]> {
         this.systems =
@@ -745,6 +756,19 @@ export class FinancesService {
             });
     }
 
+    private createTransactions(data: ITransaction[]): Transaction[] {
+        const transactions: Transaction[] = [];
+        if (data.length) {
+            for (const transaction of data) {
+                transactions.push(new Transaction(
+                    {service: 'FinancesService', method: 'createTransactions'},
+                    transaction,
+                ));
+            }
+        }
+        return transactions;
+    }
+
     private pushNotification(params: IPushMessageParams): void {
         this.eventService.emit({
             name: NotificationEvents.PushMessage,
@@ -800,6 +824,18 @@ export class FinancesService {
             events: {
                 success: 'WITHDRAW_GET',
                 fail: 'WITHDRAW_ERROR',
+            },
+        });
+        this.dataService.registerMethod({
+            name: 'getPendingWithdraws',
+            system: 'finances',
+            url: '/transactions',
+            params: {status: 0},
+            type: 'GET',
+            mapFunc: this.createTransactions.bind(this),
+            events: {
+                success: 'WITHDRAWS_GET_PENDING',
+                fail: 'WITHDRAWS_GET_PENDING_ERROR',
             },
         });
     }

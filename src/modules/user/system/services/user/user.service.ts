@@ -15,12 +15,14 @@ import {
     BehaviorSubject,
     firstValueFrom,
     interval,
+    Subject,
 } from 'rxjs';
 import {
     first,
     map,
     takeWhile,
     tap,
+    filter,
 } from 'rxjs/operators';
 import _assign from 'lodash-es/assign';
 import _set from 'lodash-es/set';
@@ -43,6 +45,8 @@ import {
     LogService,
     IUserInfo,
     IUserProfile,
+    ILastWithdraw,
+    IWSLastWithdraw,
     IRedirect,
     InjectionService,
     IMGAConfig,
@@ -186,12 +190,15 @@ export class UserService {
         }
     }
 
+    public userWithdrawCancelWSData$: Subject<ILastWithdraw> = new Subject();
     public userProfile$: BehaviorSubject<UserProfile> = new BehaviorSubject(null);
     public userInfo$: BehaviorSubject<UserInfo> = new BehaviorSubject(null);
     private configUserProfile$: BehaviorSubject<UserProfile> = this.configService.get({name: '$user.userProfile$'});
     private configUserInfo$: BehaviorSubject<UserInfo> = this.configService.get({name: '$user.userInfo$'});
     private useAchievements: boolean;
 
+    // TODO: make getting this param from fundist after release SCR #520408
+    private useLastWithdrawCancel: boolean;
     private limitationService: LimitationService;
     private idleService: IdleService;
     private bonusService: BonusesService;
@@ -232,6 +239,7 @@ export class UserService {
         this.isAuthenticated = this.configService.get('$user.isAuthenticated');
         this.useAchievements = this.configService.get<boolean>('$base.profile.achievements.use');
         this.isMultiWallet = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
+        this.useLastWithdrawCancel = this.configService.get<boolean>('$base.finances.lastWithdrawCancelWidget');
 
         this.userProfile$.subscribe((profile) => {
             this.configUserProfile$.next(profile);
@@ -314,7 +322,7 @@ export class UserService {
                         WebSocketEvents.RECEIVE.LOYALTY_GET,
                         WebSocketEvents.RECEIVE.LOYALTY_UPDATE,
                     ],
-                }).subscribe((data: IWSLoyalty): void => {
+                }).subscribe((data: IWSLoyalty | IWSLastWithdraw): void => {
                     switch (data.event) {
                         case WebSocketEvents.RECEIVE.LOYALTY_UPDATE:
                             const updatedLoyalty: ILoyalty = {};
@@ -340,6 +348,21 @@ export class UserService {
 
                 if (this.configService.get('$base.profile.webSockets.userBalance.use')) {
                     this.startWSUserBalance();
+                }
+
+                if (this.useLastWithdrawCancel) {
+                    this.webSocketService.sendToWebsocket('wsc2', WebSocketEvents.SEND.USER_PAYMENT);
+                    this.webSocketService.getMessages(
+                        {
+                            endPoint: 'wsc2',
+                            system: 'funcore',
+                            events: [WebSocketEvents.RECEIVE.LAST_WITHDRAW],
+                        })
+                        .pipe(
+                            filter((data: IWSLastWithdraw) => data.status === 'success'),
+                            tap(async (data: IWSLastWithdraw) => this.userWithdrawCancelWSData$.next(data.data)),
+                        )
+                        .subscribe();
                 }
             }
         });

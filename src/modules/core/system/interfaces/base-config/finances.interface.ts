@@ -37,4 +37,9 @@ export interface IFinancesConfig {
      * Metamask payment options
      */
     metamask?: IMetamaskConfig;
+    /**
+     * Enable display widget to cancel last pending withdrawal, will be moved to fundist settings
+     * after release SCR #520408
+     */
+    lastWithdrawCancelWidget?: boolean;
 }

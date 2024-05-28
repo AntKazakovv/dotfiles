@@ -1,0 +1,38 @@
+<div *ngIf="currentPendingWithdraw" class="{{$class}}__message-wrapper">
+    <div class="{{$class}}__message-content">
+        <div class="{{$class}}__message-info">
+            <div class="{{$class}}__message-title">
+                {{'A withdrawal request has already been created' | translate}}
+            </div>
+
+            <div class="{{$class}}__message-amount">
+                {{'Amount' | translate}}: {{amountValue}}
+                <span wlc-currency
+                [currency]="currentPendingWithdraw.currency"
+                [showIconOnly]="true"
+                [digitsInfo]="'1-0-0'">
+                </span>
+            </div>
+
+            <div class="{{$class}}__message-time">
+                {{'Transaction time' | translate}}: {{formattedDateWithdraw}}
+            </div>
+        </div>
+
+        <button wlc-button
+                class="{{$class}}__btn-cancel"
+                theme="textonly"
+                text="Cancel" 
+                (click)="cancelWithdraw()">
+        </button>
+    </div>
+
+    <button wlc-icon
+            class="{{$class}}__btn-close"
+            type="button"
+            title="{{'Close' | translate}}"
+            wlcElement="button_close"
+            iconPath="/wlc/icons/icons_new/close.svg"
+            (click)="hideWidget()">
+    </button>
+</div>
