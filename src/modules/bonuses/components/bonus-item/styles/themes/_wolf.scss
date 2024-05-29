@@ -250,6 +250,9 @@
 
         &.wlc-bonus-item--type-reg {
             --wlc-bi-visual-ratio: #{ef.get-value($wolfModVertical, 'regVisualRatio')};
+
+            @include bm.get-mq-map('max-width', $wolfModVertical, 'cardMaxWidth');
+            margin: 0 auto;
         }
     }
 

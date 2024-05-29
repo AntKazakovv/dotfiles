@@ -78,6 +78,10 @@ $wolfModVertical: map-merge((
     'cardBg': linear-gradient(180deg, #414ec9 50%, #2217a5 100%),
     'visualRatio': 75%, // 4:3
     'regVisualRatio': 70%,
+    'cardMaxWidth': (
+        320: 330px,
+        900: 350px,
+    ),
     'visualContentPadding': ef.size(4),
     'visualMask':  ef.static('bonuses/wolf/masks/bonus-image-mask-v.svg'),
     'visualMaskPosition': center bottom,

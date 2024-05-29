@@ -66,13 +66,22 @@
         .swiper-button-container {
             width: 100%;
             max-width: 100%;
+
+            ::ng-deep {
+
+                .wlc-swiper-button-prev,
+                .wlc-swiper-button-next {
+                    width: ef.get-value($regFirstModWolf, 'buttonSize');
+                    height: ef.get-value($regFirstModWolf, 'buttonSize');
+                    pointer-events: all;
+                }
+            }
         }
 
         .wlc-bonuses-list {
 
             &__slider {
                 margin: ef.get-value($regFirstModWolf, 'wrapperMargin');
-                padding: ef.get-value($regFirstModWolf, 'wrapperPadding');
             }
 
             &__checkbox-wrapper {
@@ -83,7 +92,7 @@
         ::ng-deep {
 
             .swiper {
-                max-width: 100%;
+                @include bm.get-mq-map('max-width', $regFirstModWolf, 'swiperMaxWidth');
             }
 
             .swiper-slide {
