@@ -10,6 +10,7 @@ import {
     TAnimationType,
     TAnimateButtonHandler,
 } from 'wlc-engine/modules/core/system/interfaces/animate-buttons.interface';
+import {IIndexing} from 'wlc-engine/modules/core';
 
 export type Type = 'default' | 'resolved' | 'rejected' | 'pending' | 'disabled' | CustomType;
 export type Theme = 'default' | 'skew' | 'rounding' | 'circled' | 'borderless' | 'icon' | 'cleared' |
@@ -49,6 +50,7 @@ export interface IButtonCParams extends IComponentParams<Theme, Type, ThemeMod> 
         showIconAsImg?: boolean;
         index?: Index;
         text?: string;
+        textContext?: IIndexing<string>;
         customModifiers?: CustomMod;
         event?: EventType | EventType[];
         /** href link for button */

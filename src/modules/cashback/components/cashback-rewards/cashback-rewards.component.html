@@ -14,7 +14,7 @@
 
                     <div class="{{$class}}-item__desc">{{item.additionalText() | translate}} </div>
 
-                    <div class="{{$class}}-item__period">{{item.periodTitle | translate}} </div>
+                    <div class="{{$class}}-item__period">{{'Period' | translate}}: {{item.period | translate}} </div>
                     <div *ngIf="item.cashbackStatus && !item.isPending"
                         wlc-timer
                         value="{{item.cashbackStatus.date}}"
@@ -29,7 +29,8 @@
                     <div class="{{$class}}-item__btn-block">
                         <button wlc-button
                                 class="{{$class}}-item__btn"
-                                text="{{item.buttonText}}"
+                                [text]=item.buttonText.text
+                                [textContext]=item.buttonText.context
                                 [attr.disabled]="item.isAvailable ? null : ''"
                                 (click)="buttonClick(item)">
                         </button>

@@ -1,11 +1,10 @@
-import {TranslateService} from '@ngx-translate/core';
 import {DateTime} from 'luxon';
 import _assign from 'lodash-es/assign';
 
 import {
-    ConfigService,
     IFromLog,
     AbstractModel,
+    IIndexing,
 } from 'wlc-engine/modules/core';
 import {CurrencyModel} from 'wlc-engine/modules/core/system/models/currency.model';
 import {ICashbackPlan} from 'wlc-engine/modules/cashback/system/interfaces/cashback.interface';
@@ -15,18 +14,35 @@ interface ICashbackStatus {
     date: string,
 }
 
+interface IButtonText {
+    text: string,
+    context?: IIndexing<string>
+}
+
 export class CashbackPlanModel extends AbstractModel<ICashbackPlan> {
 
     public static userCurrency: string;
 
+    protected readonly _buttonText!: IButtonText;
+
     constructor(
         from: IFromLog,
         data: ICashbackPlan,
-        protected translate: TranslateService,
-        protected configService: ConfigService,
+        protected currentLang: string,
     ) {
         super({from: _assign({model: 'CashbackPlan'}, from)});
         this.data = data;
+
+        this._buttonText = this.amount > 0 && this.isAvailable
+            ? {
+                text: gettext('Claim {{sum}}'),
+                context: {
+                    sum: this.createCurrencyModel().toString(),
+                },
+            }
+            : {
+                text: gettext('Get cashback'),
+            };
     }
 
     public get isAvailable(): boolean {
@@ -41,8 +57,8 @@ export class CashbackPlanModel extends AbstractModel<ICashbackPlan> {
         return this.data.AvailableAt;
     }
 
-    public get periodTitle(): string {
-        return `${this.translate.instant('Period')}: ${this.translate.instant(this.data.Period)}`;
+    public get period(): string {
+        return this.data.Period;
     }
 
     public get id(): string {
@@ -80,11 +96,8 @@ export class CashbackPlanModel extends AbstractModel<ICashbackPlan> {
         return Number(this.data.Amount);
     }
 
-    public get buttonText(): string {
-
-        return this.amount > 0 && this.isAvailable
-            ? this.translate.instant('Claim') + ` ${this.createCurrencyModel()}`
-            : gettext('Get cashback');
+    public get buttonText(): IButtonText {
+        return this._buttonText;
     }
 
     public additionalText(): string {
@@ -125,7 +138,7 @@ export class CashbackPlanModel extends AbstractModel<ICashbackPlan> {
             this.data.Amount,
             {
                 currency: CashbackPlanModel.userCurrency,
-                language: this.translate.currentLang,
+                language: this.currentLang,
             },
         );
     }

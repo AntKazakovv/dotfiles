@@ -48,6 +48,7 @@ import {AnimateButtonsService} from 'wlc-engine/modules/core/system/services/ani
 import {TAnimateButtonHandlerOnService} from 'wlc-engine/modules/core/system/interfaces/animate-buttons.interface';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {WINDOW} from 'wlc-engine/modules/app/system';
+import {IIndexing} from 'wlc-engine/modules/core';
 
 import * as Params from './button.params';
 
@@ -68,6 +69,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
 
     @ContentChild(IconComponent, {read: ElementRef}) IconComponentElement!: ElementRef;
     @Input() public text: string;
+    @Input() public textContext: IIndexing<string>;
     @Input() public event: {name: string, data?: unknown};
     @Input() public href: string;
     @Input() public sref: string;
@@ -148,6 +150,10 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
             this.$params.common.text = this.text;
         }
 
+        if (_get(changes, 'textContext') && _get(this, '$params.common.textContext')) {
+            this.$params.common.textContext = this.textContext;
+        }
+
         if (_get(changes, 'inlineParams')) {
             super.ngOnInit(this.prepareParams());
         }
@@ -192,6 +198,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
 
         const inputProperties: (keyof Params.IButtonCParams['common'])[] = [
             'text',
+            'textContext',
             'size',
             'icon',
             'iconPath',

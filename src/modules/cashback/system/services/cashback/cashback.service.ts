@@ -75,8 +75,7 @@ export class CashbackService {
                         method: 'init',
                     },
                     plan,
-                    this.translate,
-                    this.configService,
+                    this.translate.currentLang,
                 );
             }));
         } catch (error) {

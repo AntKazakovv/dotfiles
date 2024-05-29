@@ -1,5 +1,5 @@
 <span class="{{$class}}__text">
-    {{$params.common?.text | translate}}
+    {{$params.common?.text | translate:$params.common?.textContext}}
     <span *ngIf="$params.common?.icon || $params.common?.iconPath"
           wlc-icon
           [iconName]="$params.common.icon"
