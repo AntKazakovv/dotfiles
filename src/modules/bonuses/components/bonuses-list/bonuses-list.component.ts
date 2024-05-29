@@ -183,6 +183,10 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         this.setFilters();
         this.subscribeBonuses();
         this.setSubscription();
+
+        if (this.params.theme === 'reg-first' || this.$params.theme === 'partial') {
+            this.setRegSubscription();
+        }
     }
 
     public override ngOnDestroy(): void {
@@ -267,6 +271,31 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
     }
 
     protected setSubscription(): void {
+
+        if (this.$params.type === 'swiper') {
+            this.eventService.subscribe([
+                {name: 'LOGIN'},
+                {name: 'LOGOUT'},
+                {name: 'PROFILE_UPDATE'},
+                {name: 'BONUS_TAKE_SUCCEEDED'},
+                {name: 'BONUS_CANCEL_SUCCEEDED'},
+            ], () => {
+                if (this.bonuses?.length) {
+                    this.bonusesToSlides(this.bonuses, true);
+                }
+            }, this.$destroy);
+
+            this.eventService.subscribe([
+                {name: 'BONUS_SUBSCRIBE_SUCCEEDED'},
+            ], (bonus: IData) => {
+                if (bonus?.data?.event === 'sign up' && this.bonuses?.length) {
+                    this.bonusesToSlides(this.bonuses, true);
+                }
+            }, this.$destroy);
+        }
+    }
+
+    protected setRegSubscription(): void {
         this.eventService.subscribe([
             {name: BonusItemComponentEvents.reg},
         ], (bonus: Bonus): void => {
@@ -285,8 +314,6 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
             if (this.checkBoxParams.control.touched || this.checkBoxParams.control.value === true) {
                 this.checkBoxParams.control.setValue(false);
             }
-
-            this.prepareBonuses();
 
             const allowedBonus: boolean = !!_find(this.bonuses, ({id}: Bonus) => id === bonus.id);
 
@@ -323,28 +350,6 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
 
             this.cdr.detectChanges();
         }, this.$destroy);
-
-        if (this.$params.type === 'swiper') {
-            this.eventService.subscribe([
-                {name: 'LOGIN'},
-                {name: 'LOGOUT'},
-                {name: 'PROFILE_UPDATE'},
-                {name: 'BONUS_TAKE_SUCCEEDED'},
-                {name: 'BONUS_CANCEL_SUCCEEDED'},
-            ], () => {
-                if (this.bonuses?.length) {
-                    this.bonusesToSlides(this.bonuses, true);
-                }
-            }, this.$destroy);
-
-            this.eventService.subscribe([
-                {name: 'BONUS_SUBSCRIBE_SUCCEEDED'},
-            ], (bonus: IData) => {
-                if (bonus?.data?.event === 'sign up' && this.bonuses?.length) {
-                    this.bonusesToSlides(this.bonuses, true);
-                }
-            }, this.$destroy);
-        }
     }
 
     protected prepareModifiers(): void {
