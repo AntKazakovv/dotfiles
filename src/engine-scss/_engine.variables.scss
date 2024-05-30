@@ -1,24 +1,15 @@
-////
+///
 /// This is a poster comment.
 /// It will apply annotations to all items from file.
 /// @group global
-////
+///
 @import 'app.variables';
 
-$customGap: () !default;
-$customSize: () !default;
-$customButton: () !default;
-$customTime: () !default;
-$customModalSize: () !default;
-$customVars: () !default;
 $customBaseVariables: () !default;
-$custom-container-max-widths: () !default;
-$custom-container-max-widths-wide: () !default;
-
 $baseVariables: map-merge((
     // Possible to add image background to body:
-    //imageBackground: url('xxx'),
-    //baseSize used in @function size
+    // imageBackground: url('xxx'),
+    // baseSize used in @function size
     'baseSize': 5,
     'sectionsGap': (
         375: 30px,
@@ -26,7 +17,7 @@ $baseVariables: map-merge((
         1630: 40px,
     ),
     /// Глобальные настройки ширины контейнера.
-    ///  Если true то ширина контейнера равняется ширине экрана.
+    /// Если true то ширина контейнера равняется ширине экрана.
     'useWide': false,
     'cardInnerShadow': inset 0 2px 0 0 rgba(255, 255, 255, 0.2),
     /// Настойка исользования градиента в бэкгарунд кнопки
@@ -48,57 +39,15 @@ $baseVariables: map-merge((
 @import './engine-vars/07.buttons';
 @import './engine-vars/08.layout';
 @import './engine-vars/09.datepicker';
-
-/// Размеры отступов на сайте.
-/// Здесь перечислены все возможные отступы и поля для всех стандартных элементов на сайте.
-/// Это и отступ заголовка от текста, и расстояние между блоками игр и т.д.
-/// Если в дизайне используются другие значения, то по умолчанию для WLC проектов необходимо
-/// округлять размеры до используемых в данной палитре.
-///
-/// @name size
-///
-/// @prop {Size} smallest [5px] - smallest
-/// @prop {Size} small [10px] - small
-/// @prop {Size} smally [15px] - smallest
-/// @prop {Size} smaller [20px] - smaller
-/// @prop {Size} less [30px] - less
-/// @prop {Size} main [40px] - main
-/// @prop {Size} biger [50px] - biger
-/// @prop {Size} big [60px] - big
-/// @deprecated This map is deprecated and will be deleted soon. Use ef.size(n)
-$dummy: map-merge((), $customSize);
-$size: map-merge((
-    'smallest': 5px,
-    'small': 10px,
-    'smally': 15px,
-    'smaller': 20px,
-    'less': 30px,
-    'main': 40px,
-    'biger': 50px,
-    'big': 60px,
-    'sectionsGap': (
-        375: 40px,
-    ),
-    'sectionProfileGap': (
-        375: 30px,
-        900: 20px,
-    ),
-), $customSize);
-
-/// Значения длительности анимации.
-/// В основном используются в свойстве `transition`.
-///
-/// @name time
-///
-/// @prop {Time} less [0.2s] - less
-/// @prop {Time} main [0.3s] - main
-/// @prop {Time} long [0.5s] - long
-$dummy: map-merge((), $customTime);
-$time: map-merge((
-    'less': 0.2s,
-    'main': 0.3s,
-    'long': 0.5s,
-), $customTime);
+@import './engine-vars/10.size';
+@import './engine-vars/11.time';
+@import './engine-vars/12.container';
+@import './engine-vars/13.animations';
+@import './engine-vars/14.tag';
+@import './engine-vars/15.hl-substr';
+@import './engine-vars/16.shadows';
+@import './engine-vars/17.scrollbar';
+@import './engine-vars/18.tooltip';
 
 /// Breakpoints для CSS медиа-запросов.
 ///
@@ -133,279 +82,6 @@ $grid-breakpoints: (
     1420: 1420px,
     1630: 1630px,
 );
-
-/// Ширина контейнера `container` при минимальной ширине экрана устройства.
-///
-/// @name container-max-widths
-///
-/// @prop {Size} 375 [345px] - 375px - 479px
-/// @prop {Size} 480 [450px] - 480px - 559px
-/// @prop {Size} 560 [530px] - 560px - 639px
-/// @prop {Size} 640 [610px] - 640px - 719px
-/// @prop {Size} 720 [690px] - 720px - 767px
-/// @prop {Size} 768 [738px] - 768px - 899px
-/// @prop {Size} 900 [870px] - 900px - 1023px
-/// @prop {Size} 1024 [994px] - 1024px - 1199px
-/// @prop {Size} 1200 [1170px] - 1200px - 1365px
-/// @prop {Size} 1366 [1336px] - 1366px - 1419px
-/// @prop {Size} 1420 [1390px] - 1420px - 1629px
-/// @prop {Size} 1630 [1600px] - 1630px и выше
-$dummy: map-merge((), $custom-container-max-widths);
-$container-max-widths: map-merge((
-    375: calc(100% - 30px),
-    480: 450px,
-    560: 530px,
-    640: 610px,
-    720: 690px,
-    768: 738px,
-    900: 870px,
-    1024: 994px,
-    1200: 1170px,
-    1630: 1600px
-), $custom-container-max-widths);
-
-$dummy: map-merge((), $custom-container-max-widths-wide);
-$container-max-widths-wide: map-merge((
-    320: 100%,
-    1630: 1920px,
-), $custom-container-max-widths-wide);
-
-/// Глобальные настройки профиля:
-///
-/// @name customProfileSettings
-$dummy: map-merge((), $customProfileSettings);
-$profileSettings: map-merge((
-    'profileWidth': (
-        1366: 1275px
-    ),
-    'profileMinHeight': (
-        375: 120px,
-        1024: 580px,
-        1630: 680px,
-    ),
-    'profileWidthV1': (
-        1366: 1200px,
-        1630: 1370px,
-    ),
-    'titleColor': var(--mc-baseMain),
-    'profilePadding': (
-        375: size-func(3) size-func(3) size-func(6),
-        1024: size-func(4) size-func(8) size-func(6),
-        1630: size-func(6) size-func(8),
-    ),
-    'profilePaddingV1': (
-        375: size-func(3) size-func(3) size-func(6),
-        1200: 0,
-    ),
-    'profilePaddingV1TournDetail': (
-        375: 0,
-        1200: 0,
-    ),
-    'profileBg': (
-        375: var(--mc-bg700),
-        1024: var(--mc-bg700),
-    ),
-    'profileBgV1': var(--mc-bg700),
-    'profileBorderRadius': (
-        375: size-func(2),
-        1024: size-func(2)
-    ),
-    'profileBorderRadiusV1': map-get($radius, 'biger'),
-    'profileBtnWeight': 700,
-    'rangeMarginBottom': size-func(3),
-    'historyFilterDisplay': flex,
-    'historyFilterAlign': center,
-    'historyFilterJustify': space-between,
-    'historyFilterMargin': 0 0 size-func(1),
-    'profileDisplayV1': (
-        320: grid,
-    ),
-    'profileGridTemplateColumnsV1': (
-        1200: 285px auto,
-    ),
-    'contentCenterColGap': (
-        900: size-func(8),
-        1200: size-func(12),
-    ),
-    'contentCenterFormColumns': (
-        375: 1fr,
-        900: minmax(0, 1fr) 290px,
-        1024: minmax(0, 1fr) 360px,
-    ),
-    'contentNickIconColumns': (
-        375: 1fr,
-        1024: minmax(0, 1fr) 30%,
-        1200: minmax(675px, max-content) auto,
-    ),
-    'contentNickIconRows': (
-        1024: min-content 1fr,
-    ),
-    'contentNickIconAreas': (
-        375: 'nick-icon' 'form',
-        1024: 'form nick-icon' 'form profile-blocks',
-    ),
-    'contentNickIconGap': 30px 80px,
-    'contentPaddingV1': (
-        375: size-func(4) 0 0,
-        1200: size-func(3) size-func(6) size-func(4),
-        1630: size-func(4) size-func(8) size-func(6),
-    ),
-    'contentPaddingV1TourntDetail': (
-        375: 0,
-        1200: size-func(3) size-func(6) size-func(4),
-        1630: size-func(4) size-func(8) size-func(6),
-    ),
-    'contentHeaderInsideMarginTopV1': (
-        375: -#{size-func(4)},
-        1024: 0,
-    ),
-    'contentHeaderDisplayV1': flex,
-    'contentHeaderAlignV1': flex-start,
-    'contentHeaderJustifyV1': space-between,
-    'contentHeaderBorderBottomV1': (
-        1024: 2px solid var(--mc-baseOpacity),
-    ),
-    'contentHeaderMarginV1': 0 0 size-func(4) 0,
-    'contentHeaderUnderlinedMarginV1': 0 0 size-func(4) 0,
-    'contentHeaderPaddingV1': (
-        375: 0,
-    ),
-    'contentHeaderHeightV1': (
-        320: 40px,
-        1200: 55px,
-    ),
-    'contentWrpV1Margin': 0 0 size-func(4),
-    'contentWrpV1Title': 'ThirdTitleBold',
-    'nicknameIconWidth': (
-        375: 100%,
-        900: calc(50% - 20px),
-    ),
-    'nicknameIconMargin': size-func(4) 0,
-    'titleColorV1': var(--mc-baseMain),
-    'titleTextStyleV1': (
-        375: 'ThirdTitleBold',
-        1200: 'QoteTextBold',
-    ),
-    'secondTitleStyle': 'PrimaryText',
-
-    'topMargin': (
-        375: 0 0 size-func(3),
-        1200: 0 0 size-func(4),
-    ),
-    'topBtnsAlignItems': center,
-    'topBtnsJustifyContent': space-between,
-    // Filter width in history
-    'filterWidth': 185px,
-    // Locked colors
-    'profileTabAngleBg': map-get($mainColors, 'bg700'),
-    'profileTabAngleBgAlt': map-get($mainColorsAlt, 'bg700'),
-
-    'wolfPadding': (
-        320: 0,
-        900: 0 size-func(6) size-func(9),
-    ),
-    'wolfSectionBg': (
-        320: none,
-        900: var(--mc-bg700),
-    ),
-    'wolfBorderRadius': size-func(2),
-    'wolfTopMargin': (
-        375: 0 0 size-func(4),
-        900: 0,
-    ),
-    'wolfTitleMargin': 0,
-    'wolfTitleFontStyle': 'PrimaryTextBold',
-    'wolfTitleColor': var(--mc-baseThird, var(--mc-baseMain)),
-    'wolfWrpMaxWidth': (
-        320: 100%,
-        900: 1024px,
-    ),
-    'wolfWrpMargin': 0 auto,
-    'wolfGridColumns':(
-        375: 1fr,
-        900: minmax(490px, 1fr) 1fr,
-        1024: minmax(490px, 1fr) 360px,
-    ),
-    'wolfGridGap': (
-        900: size-func(8),
-        1200: size-func(12),
-    ),
-), $customProfileSettings);
-
-/// Глобальные настройки профиля (первая тема):
-///
-/// @name customProfileSettings
-$profileSettingsThemeFirst: map-merge((
-    'profileWidth': (
-        1366: 1200px,
-        1630: 1370px
-    ),
-), $customProfileSettingsThemeFirst);
-
-$customContainerPadding: () !default;
-$containerPadding: map-merge((
-    'paddingDef': 0,
-    'paddingWide': (
-        375: 0 size-func(2),
-        560: 0 size-func(3),
-        768: 0 size-func(5),
-    )
-), $customContainerPadding);
-
-$customAppOffline: () !default;
-$appOffline: map-merge((
-
-), $customAppOffline);
-
-/// Глобальная настройка анимации Pop up
-/// modalAnimationEffects может приниимать значения
-/// 'fadeTop' 'fadeBottom' 'fadeLeft' 'fadeRight'
-/// 'scale' 'fall' 'sideFall'
-/// 'flip' 'superScaled' 'slit'
-$customModalAnimation: () !default;
-$modalAnimation: map-merge((
-    'modalAnimationEffects': 'fadeTop',
-    'modalAnimationTournamentEffects': 'fadeTop',
-    'modalMobileAnimation': true,
-    'modalClosingAnimation': false,
-), $customModalAnimation);
-
-
-/// Глобальная настройка анимации тумбнях
-/// thumbAnimationEffects может приниимать значения
-/// 'default' 'smooth' 'smoothSimple' 'zoom' 'flip' 'scale' 'rotate'  'bounce'
-$customThumbAnimation: () !default;
-$thumbAnimation: map-merge((
-    'thumbAnimationEffects': 'default',
-), $customThumbAnimation);
-
-$customTagConfig: () !default;
-$tagConfig: map-merge((
-    'textStyle': 'SignText',
-    'radius': map-get($radius, 'large'),
-    'padding': 4px 15px,
-
-    // Locked colors
-    'bg': map-get($mainColors, 'secondary'),
-    'bgActive': map-get($mainColors, 'main'),
-    'bgUnavailable': map-get($mainColors, 'bg700'),
-    'color': map-get($mainColors, 'baseMain'),
-    'colorActive': map-get($mainColors, 'baseMain'),
-    'colorUnavailable': map-get($mainColors, 'baseMain'),
-), $customTagConfig);
-
-$customHlSubstr: () !default;
-$hlSubstr: map-merge((
-    'fontStyle': 'ThirdTitleBold',
-    'textColor': var(--fc-textColor),
-), $customHlSubstr);
-
-// TODO: стандартизировать все тени, использующиеся в компонентах и ссылаться на них через этот конфиг
-$customShadows: () !default;
-$shadows: map-merge((
-    'sm': 0 3px 10px rgba(0, 0, 0, 0.4),
-    'lg': 0 0 20px rgba(0, 0, 0, 0.3),
-), $customShadows);
 
 /// Reboot base variables.
 ///
@@ -456,34 +132,3 @@ $table-cell-padding-x: 0.5rem !default;
 $table-cell-vertical-align: top !default;
 $table-th-font-weight: null !default;
 $table-caption-color: var(--mc-elementsColor) !default;
-
-$tooltip-font-size: $font-size-base * 0.875 !default;
-$tooltip-text-style-compact: 'CaptionText' !default;
-$tooltip-opacity: 1 !default;
-$tooltip-padding-y: 5px !default;
-$tooltip-padding-x: 6px !default;
-$tooltip-arrow-width: 1.2rem !default;
-$tooltip-arrow-height: 0.7rem !default;
-$tooltip-arrow-color: var(--mc-bg100) !default;
-$tooltip-max-width: 170px !default;
-$tooltip-bg: var(--mc-bg100) !default;
-$tooltip-color: var(--mc-baseThird, var(--mc-baseMain)) !default;
-$tooltip-border-radius: map-get($radius, 'biger') !default;
-$tooltip-box-shadow: map-get($shadows, 'sm') !default;
-$tooltip-bg-error: var(--mc-error) !default;
-
-$currency-tooltip-text-style: 'CaptionTextBold' !default;
-$currency-tooltip-color: var(--mc-baseThird, var(--mc-baseMain)) !default;
-$currency-tooltip-radius: map-get($radius, 'main') !default;
-
-/// Globar settings scrollbar
-/// @name scrollbarConfig
-/// @prop {Size} size [8px]
-/// @prop {Size} margin [5px]
-/// @prop {Size} borderRadius [6px]
-$customScrollbarConfig: () !default;
-$scrollbarConfig: (
-    'size': 5px,
-    'margin': 5px,
-    'borderRadius': map-get($radius, 'biger'),
-);

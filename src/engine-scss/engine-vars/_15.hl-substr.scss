@@ -1,0 +1,5 @@
+$customHlSubstr: () !default;
+$hlSubstr: map-merge((
+    'fontStyle': 'ThirdTitleBold',
+    'textColor': var(--fc-textColor),
+), $customHlSubstr);

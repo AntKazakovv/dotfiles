@@ -9,6 +9,8 @@ $profileSettings: map-merge((
     ),
     'profileMinHeight': (
         375: 120px,
+        1024: 580px,
+        1630: 680px,
     ),
     'profileWidthV1': (
         1366: 1200px,
@@ -21,8 +23,11 @@ $profileSettings: map-merge((
         1630: size-func(6) size-func(8),
     ),
     'profilePaddingV1': (
-        375: size-func(4) size-func(4) size-func(8),
+        375: size-func(3) size-func(3) size-func(6),
         1200: 0,
+    ),
+    'profilePaddingV1TournDetail': (
+        375: 0,
     ),
     'profileBg': (
         375: var(--mc-bg700),
@@ -41,22 +46,40 @@ $profileSettings: map-merge((
     'historyFilterJustify': space-between,
     'historyFilterMargin': 0 0 size-func(1),
     'profileDisplayV1': (
-        320: grid,
+        375: grid,
     ),
     'profileGridTemplateColumnsV1': (
         1200: 285px auto,
     ),
     'contentCenterColGap': (
-        375: 40px,
-        1366: 80px,
+        900: size-func(8),
+        1200: size-func(12),
     ),
     'contentCenterFormColumns': (
         375: 1fr,
-        1024: minmax(0, 1fr) 30%,
-        1200: minmax(675px, max-content) 330px,
+        900: minmax(0, 1fr) 290px,
+        1024: minmax(0, 1fr) 360px,
     ),
+    'contentNickIconColumns': (
+        375: 1fr,
+        1024: minmax(0, 1fr) 30%,
+        1200: minmax(675px, max-content) auto,
+    ),
+    'contentNickIconRows': (
+        1024: min-content 1fr,
+    ),
+    'contentNickIconAreas': (
+        375: 'nick-icon' 'form',
+        1024: 'form nick-icon' 'form profile-blocks',
+    ),
+    'contentNickIconGap': 30px 80px,
     'contentPaddingV1': (
         375: size-func(4) 0 0,
+        1200: size-func(3) size-func(6) size-func(4),
+        1630: size-func(4) size-func(8) size-func(6),
+    ),
+    'contentPaddingV1TourntDetail': (
+        375: 0,
         1200: size-func(3) size-func(6) size-func(4),
         1630: size-func(4) size-func(8) size-func(6),
     ),
@@ -76,10 +99,16 @@ $profileSettings: map-merge((
         375: 0,
     ),
     'contentHeaderHeightV1': (
-        320: 35px,
-        560: 50px,
-        1200: 60px,
+        375: 40px,
+        1200: 55px,
     ),
+    'contentWrpV1Margin': 0 0 size-func(4),
+    'contentWrpV1Title': 'ThirdTitleBold',
+    'nicknameIconWidth': (
+        375: 100%,
+        900: calc(50% - 20px),
+    ),
+    'nicknameIconMargin': size-func(4) 0,
     'titleColorV1': var(--mc-baseMain),
     'titleTextStyleV1': (
         375: 'ThirdTitleBold',
@@ -94,9 +123,43 @@ $profileSettings: map-merge((
     'topBtnsAlignItems': center,
     'topBtnsJustifyContent': space-between,
 
+    // Filter width in history
+    'filterWidth': 185px,
+
     // Locked colors
     'profileTabAngleBg': map-get($mainColors, 'bg700'),
     'profileTabAngleBgAlt': map-get($mainColorsAlt, 'bg700'),
+
+    'wolfPadding': (
+        375: 0,
+        900: 0 size-func(6) size-func(9),
+    ),
+    'wolfSectionBg': (
+        375: none,
+        900: var(--mc-bg700),
+    ),
+    'wolfBorderRadius': size-func(2),
+    'wolfTopMargin': (
+        375: 0 0 size-func(4),
+        900: 0,
+    ),
+    'wolfTitleMargin': 0,
+    'wolfTitleFontStyle': 'PrimaryTextBold',
+    'wolfTitleColor': var(--mc-baseThird, var(--mc-baseMain)),
+    'wolfWrpMaxWidth': (
+        375: 100%,
+        900: 1024px,
+    ),
+    'wolfWrpMargin': 0 auto,
+    'wolfGridColumns':(
+        375: 1fr,
+        900: minmax(490px, 1fr) 1fr,
+        1024: minmax(490px, 1fr) 360px,
+    ),
+    'wolfGridGap': (
+        900: size-func(8),
+        1200: size-func(12),
+    ),
 ), $customProfileSettings);
 
 /// Глобальные настройки профиля (первая тема):

@@ -1,0 +1,32 @@
+/// Размеры отступов на сайте.
+/// Здесь перечислены все возможные отступы и поля для всех стандартных элементов на сайте.
+/// Это и отступ заголовка от текста, и расстояние между блоками игр и т.д.
+/// Если в дизайне используются другие значения, то по умолчанию для WLC проектов необходимо
+/// округлять размеры до используемых в данной палитре.
+///
+/// @name size
+///
+/// @prop {Size} smallest [5px] - smallest
+/// @prop {Size} small [10px] - small
+/// @prop {Size} smally [15px] - smallest
+/// @prop {Size} smaller [20px] - smaller
+/// @prop {Size} less [30px] - less
+/// @prop {Size} main [40px] - main
+/// @prop {Size} biger [50px] - biger
+/// @prop {Size} big [60px] - big
+/// @deprecated This map is deprecated and will be deleted soon. Use ef.size(n)
+$customSize: () !default;
+$dummy: map-merge((), $customSize);
+$size: map-merge((
+    'smallest': 5px,
+    'small': 10px,
+    'smally': 15px,
+    'smaller': 20px,
+    'less': 30px,
+    'main': 40px,
+    'biger': 50px,
+    'big': 60px,
+    'sectionsGap': (
+        375: 40px,
+    ),
+), $customSize);

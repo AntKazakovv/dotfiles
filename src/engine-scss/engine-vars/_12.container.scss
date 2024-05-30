@@ -1,0 +1,47 @@
+/// Ширина контейнера `container` при минимальной ширине экрана устройства.
+///
+/// @name container-max-widths
+///
+/// @prop {Size} 375 [345px] - 375px - 479px
+/// @prop {Size} 480 [450px] - 480px - 559px
+/// @prop {Size} 560 [530px] - 560px - 639px
+/// @prop {Size} 640 [610px] - 640px - 719px
+/// @prop {Size} 720 [690px] - 720px - 767px
+/// @prop {Size} 768 [738px] - 768px - 899px
+/// @prop {Size} 900 [870px] - 900px - 1023px
+/// @prop {Size} 1024 [994px] - 1024px - 1199px
+/// @prop {Size} 1200 [1170px] - 1200px - 1365px
+/// @prop {Size} 1366 [1336px] - 1366px - 1419px
+/// @prop {Size} 1420 [1390px] - 1420px - 1629px
+/// @prop {Size} 1630 [1600px] - 1630px и выше
+$custom-container-max-widths: () !default;
+$dummy: map-merge((), $custom-container-max-widths);
+$container-max-widths: map-merge((
+    375: calc(100% - 30px),
+    480: 450px,
+    560: 530px,
+    640: 610px,
+    720: 690px,
+    768: 738px,
+    900: 870px,
+    1024: 994px,
+    1200: 1170px,
+    1630: 1600px
+), $custom-container-max-widths);
+
+$custom-container-max-widths-wide: () !default;
+$dummy: map-merge((), $custom-container-max-widths-wide);
+$container-max-widths-wide: map-merge((
+    320: 100%,
+    1630: 1920px,
+), $custom-container-max-widths-wide);
+
+$customContainerPadding: () !default;
+$containerPadding: map-merge((
+    'paddingDef': 0,
+    'paddingWide': (
+        375: 0 size-func(2),
+        560: 0 size-func(3),
+        768: 0 size-func(5),
+    )
+), $customContainerPadding);

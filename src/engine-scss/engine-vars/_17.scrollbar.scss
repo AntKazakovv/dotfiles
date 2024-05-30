@@ -1,0 +1,11 @@
+/// Globar settings scrollbar
+/// @name scrollbarConfig
+/// @prop {Size} size [8px]
+/// @prop {Size} margin [5px]
+/// @prop {Size} borderRadius [6px]
+$customScrollbarConfig: () !default;
+$scrollbarConfig: (
+    'size': 5px,
+    'margin': 5px,
+    'borderRadius': map-get($radius, 'biger'),
+);

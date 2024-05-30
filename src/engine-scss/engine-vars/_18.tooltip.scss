@@ -1,0 +1,18 @@
+$customTooltipConfig: () !default;
+$tooltipConfig: map-merge((
+    'textStyleCompact': 'CaptionText',
+    'opacity': 1,
+    'padding': 5px 6px,
+    'arrowWidth': 1.2rem,
+    'arrowHeight': 0.7rem,
+    'maxWidth': 170px,
+    'bg': var(--mc-bg100),
+    'bgError': var(--mc-error),
+    'color': var(--mc-baseThird, var(--mc-baseMain)),
+    'borderRadius': map-get($radius, 'biger'),
+    'boxShadow': map-get($shadows, 'sm'),
+
+    'currencyTextStyle': 'CaptionTextBold',
+    'currencyColor': var(--mc-baseThird, var(--mc-baseMain)),
+    'currencyBorderRadius': map-get($radius, 'main'),
+), $customTooltipConfig);

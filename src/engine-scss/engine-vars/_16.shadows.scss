@@ -1,0 +1,6 @@
+// TODO: стандартизировать все тени, использующиеся в компонентах и ссылаться на них через этот конфиг
+$customShadows: () !default;
+$shadows: map-merge((
+    'sm': 0 3px 10px rgba(0, 0, 0, 0.4),
+    'lg': 0 0 20px rgba(0, 0, 0, 0.3),
+), $customShadows);

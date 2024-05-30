@@ -1,0 +1,14 @@
+$customTagConfig: () !default;
+$tagConfig: map-merge((
+    'textStyle': 'SignText',
+    'radius': map-get($radius, 'large'),
+    'padding': 4px 15px,
+
+    // Locked colors
+    'bg': map-get($mainColors, 'secondary'),
+    'bgActive': map-get($mainColors, 'main'),
+    'bgUnavailable': map-get($mainColors, 'bg700'),
+    'color': map-get($mainColors, 'baseMain'),
+    'colorActive': map-get($mainColors, 'baseMain'),
+    'colorUnavailable': map-get($mainColors, 'baseMain'),
+), $customTagConfig);

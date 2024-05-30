@@ -1,0 +1,15 @@
+/// Значения длительности анимации.
+/// В основном используются в свойстве `transition`.
+///
+/// @name time
+///
+/// @prop {Time} less [0.2s] - less
+/// @prop {Time} main [0.3s] - main
+/// @prop {Time} long [0.5s] - long
+$customTime: () !default;
+$dummy: map-merge((), $customTime);
+$time: map-merge((
+    'less': 0.2s,
+    'main': 0.3s,
+    'long': 0.5s,
+), $customTime);

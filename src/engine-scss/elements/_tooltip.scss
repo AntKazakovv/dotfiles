@@ -1,22 +1,28 @@
 .tooltip {
-    --bs-tooltip-bg-color: #{$tooltip-bg};
-    --bs-tooltip-color: #{$tooltip-color};
+    --bs-tooltip-bg-color: #{ef.get-value($tooltipConfig, 'bg')};
+    --bs-tooltip-color: #{ef.get-value($tooltipConfig, 'color')};
 
-    @include text.get-text-style(#{$tooltip-text-style-compact}, var(--bs-tooltip-color));
+    @include text.get-text-style(
+        ef.get-value($tooltipConfig, 'textStyleCompact'),
+        var(--bs-tooltip-color),
+    );
     position: absolute;
     z-index: 1080;
     display: block;
-    max-width: $tooltip-max-width;
+    max-width: ef.get-value($tooltipConfig, 'maxWidth');
     margin: 0;
     word-wrap: break-word;
     opacity: 0;
 
     &.currency-tooltip {
-        @include text.get-text-style(#{$currency-tooltip-text-style}, #{$currency-tooltip-color});
+        @include text.get-text-style(
+            ef.get-value($tooltipConfig, 'currencyTextStyle'),
+            ef.get-value($tooltipConfig, 'currencyColor'),
+        );
         max-width: none;
 
         & .tooltip-inner {
-            border-radius: $currency-tooltip-radius;
+            border-radius: ef.get-value($tooltipConfig, 'currencyBorderRadius');
 
             & > span {
 
@@ -34,19 +40,19 @@
 
     &.wlc-tooltip__bs-tooltip--error,
     &.tooltip-error {
-        --bs-tooltip-bg-color: #{$tooltip-bg-error};
-        --bs-tooltip-color: #{$tooltip-color};
+        --bs-tooltip-bg-color: #{ef.get-value($tooltipConfig, 'bgError')};
+        --bs-tooltip-color: #{ef.get-value($tooltipConfig, 'color')};
     }
 
     &.show {
-        opacity: $tooltip-opacity;
+        opacity: ef.get-value($tooltipConfig, 'opacity');
     }
 
     .tooltip-arrow {
         position: absolute;
         display: block;
-        width: $tooltip-arrow-width;
-        height: $tooltip-arrow-height;
+        width: ef.get-value($tooltipConfig, 'arrowWidth');
+        height: ef.get-value($tooltipConfig, 'arrowHeight');
 
         &:before {
             content: '';
@@ -59,66 +65,91 @@
     &.wlc-tooltip--compact {
 
         .tooltip-inner {
-            @include text.get-text-style(#{$tooltip-text-style-compact}, null);
+            @include text.get-text-style(
+                ef.get-value($tooltipConfig, 'textStyleCompact'),
+                null,
+            );
         }
     }
 }
 
 .bs-tooltip-top {
-    padding: $tooltip-arrow-height 0;
+    padding: ef.get-value($tooltipConfig, 'arrowHeight') 0;
 
     .tooltip-arrow {
         bottom: 0;
 
         &:before {
             top: -1px;
-            border-width: $tooltip-arrow-height ($tooltip-arrow-width * 0.5) 0;
+            border-width:
+                (
+                    ef.get-value($tooltipConfig, 'arrowHeight')
+                    (#{ef.get-value($tooltipConfig, 'arrowWidth') * 0.5})
+                    0
+                );
             border-top-color: var(--bs-tooltip-bg-color);
         }
     }
 }
 
 .bs-tooltip-end {
-    padding: 0 $tooltip-arrow-height;
+    padding: 0 ef.get-value($tooltipConfig, 'arrowHeight');
 
     .tooltip-arrow {
         left: 0;
-        width: $tooltip-arrow-height;
-        height: $tooltip-arrow-width;
+        width: ef.get-value($tooltipConfig, 'arrowHeight');
+        height: ef.get-value($tooltipConfig, 'arrowWidth');
 
         &:before {
             right: -1px;
-            border-width: ($tooltip-arrow-width * 0.5) $tooltip-arrow-height ($tooltip-arrow-width * 0.5) 0;
+            border-width:
+                (
+                    (#{ef.get-value($tooltipConfig, 'arrowWidth') * 0.5})
+                    ef.get-value($tooltipConfig, 'arrowHeight')
+                    (#{ef.get-value($tooltipConfig, 'arrowWidth') * 0.5})
+                    0
+                );
             border-right-color: var(--bs-tooltip-bg-color);
         }
     }
 }
 
 .bs-tooltip-bottom {
-    padding: $tooltip-arrow-height 0;
+    padding: ef.get-value($tooltipConfig, 'arrowHeight') 0;
 
     .tooltip-arrow {
         top: 0;
 
         &:before {
             bottom: -1px;
-            border-width: 0 ($tooltip-arrow-width * 0.5) $tooltip-arrow-height;
+            border-width:
+                (
+                    0
+                    (#{ef.get-value($tooltipConfig, 'arrowWidth') * 0.5})
+                    ef.get-value($tooltipConfig, 'arrowHeight')
+                );
             border-bottom-color: var(--bs-tooltip-bg-color);
         }
     }
 }
 
 .bs-tooltip-start {
-    padding: 0 $tooltip-arrow-height;
+    padding: 0 ef.get-value($tooltipConfig, 'arrowHeight');
 
     .tooltip-arrow {
         right: 0;
-        width: $tooltip-arrow-height;
-        height: $tooltip-arrow-width;
+        width: ef.get-value($tooltipConfig, 'arrowHeight');
+        height: ef.get-value($tooltipConfig, 'arrowWidth');
 
         &:before {
             left: -1px;
-            border-width: ($tooltip-arrow-width * 0.5) 0 ($tooltip-arrow-width * 0.5) $tooltip-arrow-height;
+            border-width:
+                (
+                    (#{ef.get-value($tooltipConfig, 'arrowWidth') * 0.5})
+                    0
+                    (#{ef.get-value($tooltipConfig, 'arrowWidth') * 0.5})
+                    ef.get-value($tooltipConfig, 'arrowHeight')
+                );
             border-left-color: var(--bs-tooltip-bg-color);
         }
     }
@@ -145,9 +176,9 @@
 // Wrapper for the tooltip content
 
 .tooltip-inner {
-    padding: $tooltip-padding-y $tooltip-padding-x;
+    padding: ef.get-value($tooltipConfig, 'padding');
     text-align: center;
-    border-radius: $tooltip-border-radius;
+    border-radius: ef.get-value($tooltipConfig, 'borderRadius');
     background-color: var(--bs-tooltip-bg-color);
-    box-shadow: $tooltip-box-shadow;
+    box-shadow: ef.get-value($tooltipConfig, 'boxShadow');
 }

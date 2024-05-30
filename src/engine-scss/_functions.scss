@@ -79,7 +79,7 @@
 /// );
 /// background: url(map-get($theme, 'key'));
 ///
-/// // Output
+/// Output
 /// background: url('//agstatic.com/wlc/path/img.png');
 ///
 /// @example scss - Return url(...)
@@ -88,7 +88,7 @@
 /// );
 /// background: map-get($theme, 'key');
 ///
-/// // Output
+/// Output
 /// background: url('//agstatic.com/wlc/path/img.png');
 ///
 /// @name static

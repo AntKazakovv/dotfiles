@@ -1,0 +1,20 @@
+/// Глобальная настройка анимации Pop up
+/// modalAnimationEffects может приниимать значения
+/// 'fadeTop' 'fadeBottom' 'fadeLeft' 'fadeRight'
+/// 'scale' 'fall' 'sideFall'
+/// 'flip' 'superScaled' 'slit'
+$customModalAnimation: () !default;
+$modalAnimation: map-merge((
+    'modalAnimationEffects': 'fadeTop',
+    'modalAnimationTournamentEffects': 'fadeTop',
+    'modalMobileAnimation': true,
+    'modalClosingAnimation': false,
+), $customModalAnimation);
+
+/// Глобальная настройка анимации тумбнях
+/// thumbAnimationEffects может приниимать значения
+/// 'default' 'smooth' 'smoothSimple' 'zoom' 'flip' 'scale' 'rotate'  'bounce'
+$customThumbAnimation: () !default;
+$thumbAnimation: map-merge((
+    'thumbAnimationEffects': 'default',
+), $customThumbAnimation);
