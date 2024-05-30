@@ -11,6 +11,7 @@ import _set from 'lodash-es/set';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 
 import * as Params from './promocode-link.params';
 
@@ -40,6 +41,7 @@ export class PromocodeLinkComponent extends AbstractComponent implements OnInit 
         this.provideParams();
     }
 
+    @CustomHook('core', 'promocodeLinkProvideParams')
     protected provideParams(): void {
         const index = this.$params.validatorsField.findIndex((el) => el.name === 'registrationPromoCode');
         _set(this.$params, 'registrationPromoCode.validators', this.$params.validatorsField[index].validators);

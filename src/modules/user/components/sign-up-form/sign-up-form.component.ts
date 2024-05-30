@@ -2,6 +2,7 @@ import {
     ChangeDetectionStrategy,
     Component,
     Inject,
+    OnDestroy,
     OnInit,
 } from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
@@ -41,6 +42,7 @@ import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/fo
 import {IMGAConfig} from 'wlc-engine/modules/core/components/license/license.params';
 import {CuracaoRequirement} from 'wlc-engine/modules/app/system';
 import {UserHelper} from 'wlc-engine/modules/user/system/helpers/user.helper';
+import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 
 import * as Params from './sign-up-form.params';
 
@@ -64,7 +66,7 @@ export interface IRegFormDataForConfig {
     styleUrls: ['./styles/sign-up-form.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormCParams> implements OnInit {
+export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormCParams> implements OnInit, OnDestroy {
 
     public config: IFormWrapperCParams;
     public override $params: Params.ISignUpFormCParams;
@@ -90,6 +92,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         }, configService, eventService, injectionService, logService, userService);
     }
 
+    @CustomHook('user', 'signUpFormNgOnInit')
     public override ngOnInit(): void {
         super.ngOnInit();
 
@@ -165,6 +168,11 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         if (this.$params.formData) {
             this.formData = new BehaviorSubject(this.$params.formData);
         }
+    }
+
+    @CustomHook('user', 'signUpFormNgOnDestroy')
+    public override ngOnDestroy(): void {
+        super.ngOnDestroy();
     }
 
     public override getForm(form: UntypedFormGroup): void {
