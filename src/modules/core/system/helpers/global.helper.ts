@@ -3,6 +3,7 @@ import {
     Type,
     Provider,
 } from '@angular/core';
+import {Cookie} from 'ng2-cookies';
 
 import {
     BehaviorSubject,
@@ -659,5 +660,10 @@ export class GlobalHelper {
         } else {
             return content;
         }
+    }
+
+    public static isAutotest(): boolean {
+        const cookieValue: string = '7698155c459ee95063a26a7121b2b7916fa36004cbcfe787043d27692b249971';
+        return Cookie.get('runautotest') === cookieValue;
     }
 }

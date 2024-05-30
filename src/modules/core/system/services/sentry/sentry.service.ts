@@ -13,6 +13,7 @@ import {Cookie} from 'ng2-cookies';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 
 interface ISentryMessage {
@@ -42,8 +43,7 @@ export class SentryService {
         private logService: LogService,
         @Inject(WINDOW) private window: Window,
     ) {
-        this.autotest = Cookie
-            .get('runautotest') === '7698155c459ee95063a26a7121b2b7916fa36004cbcfe787043d27692b249971';
+        this.autotest = GlobalHelper.isAutotest();
         if (this.autotest) {
             this.window.testSessionHash = this.sessionHash = this.generateHash();
         } else {

@@ -15,6 +15,7 @@ import _concat from 'lodash-es/concat';
 
 import {
     ConfigService,
+    GlobalHelper,
     IIndexing,
 } from 'wlc-engine/modules/core';
 import {IGamesSettings} from 'wlc-engine/modules/games/system/builders/games.builder';
@@ -119,7 +120,12 @@ export class Games {
     }
 
     public setAvailableGames(disabledMerchants: number[], restrictCountries: string[]): void {
+        const autotest: boolean = GlobalHelper.isAutotest();
         this.availableGames = _filter(this.allGames, (game: Game) => {
+            if (autotest) {
+                return true;
+            }
+
             if (disabledMerchants && _includes(disabledMerchants, game.merchantID)) {
                 return false;
             }
