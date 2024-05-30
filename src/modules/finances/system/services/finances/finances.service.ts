@@ -327,6 +327,7 @@ export class FinancesService {
      * @param isDeposit - mode of cash, if true, then the type of request is Deposit, else Withdrawal
      * @returns {number} `number` - method id or null
      */
+    @CustomHook('finances', 'getLastSucceedPaymentMethod')
     public async getLastSucceedPaymentMethod(isDeposit: boolean): Promise<number | null> {
         try {
             const result: IData<string> = await this.dataService.request({
