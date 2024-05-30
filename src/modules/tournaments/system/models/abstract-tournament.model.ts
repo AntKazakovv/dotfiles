@@ -25,6 +25,7 @@ import {
 } from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
 import {TournamentsService} from 'wlc-engine/modules/tournaments/system/services/tournaments/tournaments.service';
 import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
+import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 
 export abstract class AbstractTournamentModel<T extends ITournamentAbstract> extends AbstractModel<T> {
     public static useUsersCurrency: boolean;
@@ -217,7 +218,7 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
      * @param {ITopTournamentUsers} result tournament top users
      * @returns {ITournamentPlace[]} tournament top array
      */
-
+    @CustomHook('tournaments', 'abstractTournamentGetTopArray')
     public getTopArray(result: ITopTournamentUsers): ITournamentPlace[] {
         const topWin = result?.results || [];
 
