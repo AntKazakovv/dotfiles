@@ -343,6 +343,11 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         return description;
     }
 
+    public get showDescription(): boolean {
+        return this.currentSystem.cryptoInvoices && this.$params.theme === 'crypto-list'
+            || !this.currentSystem.cryptoInvoices;
+    }
+
     public getIconUrl(itemsMap: Map<number, IWrapperCParams>, system: PaymentSystem): string {
         return (itemsMap.get(system.id).components[0].params as IIconListItemCParams).icon.image;
     }

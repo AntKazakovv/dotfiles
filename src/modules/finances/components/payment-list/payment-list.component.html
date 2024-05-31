@@ -19,7 +19,7 @@
         <ng-container [ngTemplateOutlet]="btnModalImage"></ng-container>
         <ng-container [ngTemplateOutlet]="btnModalWrap"></ng-container>
     </button>
-    <div *ngIf="paymentDescription" class="payments-description">{{paymentDescription}}</div>
+    <div *ngIf="paymentDescription && showDescription" class="payments-description">{{paymentDescription}}</div>
     <div *ngIf="currentSystem && $params.showSelectedInButton"
         class="{{$class}}__method">
         <span class="{{$class}}__method-text {{$class}}__method-text--title">
@@ -120,7 +120,7 @@
             <ng-container *ngSwitchCase="'crypto-list'" [ngTemplateOutlet]="cryptoList"></ng-container>
             <ng-container *ngSwitchDefault [ngTemplateOutlet]="defaultList"></ng-container>
         </ul>
-        <div *ngIf="paymentDescription"
+        <div *ngIf="paymentDescription && showDescription"
             class="payments-description payments-description--desktop">
             {{paymentDescription}}
         </div>
