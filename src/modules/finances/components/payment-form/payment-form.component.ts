@@ -113,6 +113,7 @@ import {
 import {IPaymentMessageCParams} from 'wlc-engine/modules/finances/components/payment-message/payment-message.params';
 import {LotteriesService} from 'wlc-engine/modules/lotteries/system/services/lotteries.service';
 import {Lottery} from 'wlc-engine/modules/lotteries/system/models/lottery.model';
+import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 
 import * as Params from './payment-form.params';
 
@@ -598,6 +599,7 @@ export class PaymentFormComponent
         }
     }
 
+    @CustomHook('finances', 'paymentFormSetAmountSubscriber')
     public setAmountSubscriber(form: UntypedFormGroup): void {
         this.amountControl = <UntypedFormControl>form.controls['amount'];
         if (this.amountControl) {
