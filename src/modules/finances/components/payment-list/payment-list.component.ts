@@ -142,6 +142,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     protected lastSucceedRes: number | null = null;
     protected isAutoSelect: boolean;
     protected useScroll: boolean = false;
+
     private isActualUserTerms: boolean = true;
 
     constructor(
@@ -758,5 +759,13 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
                 || _includes(this.availableSystems, system.id)
                 ? null : 1;
         });
+    }
+
+    protected getPaymentName(system: PaymentSystem): string {
+        if (this.isDeposit) {
+            return system.name;
+        }
+
+        return system.nameWithdraw;
     }
 }

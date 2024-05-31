@@ -190,7 +190,7 @@
                 type="button"
                 [attr.aria-label]="system.name"
                 [attr.data-wlc-element]="'block_payment-item-name'"
-                [attr.title]="system.nameWithdraw"
+                [attr.title]="getPaymentName(system)"
                 [inlineParams]="itemsMap.get(system.id)"
                 (click)='selectPayment(system)'>
         </button>
@@ -220,7 +220,7 @@
                             type="button"
                             [attr.aria-label]="system.name"
                             [attr.data-wlc-element]="'block_payment-item-name'"
-                            [attr.title]="system.nameWithdraw"
+                            [attr.title]="getPaymentName(system)"
                             [inlineParams]="itemsMap.get(system.id)"
                             (click)='selectPayment(system)'>
                     </button>
