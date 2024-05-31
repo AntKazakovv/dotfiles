@@ -707,6 +707,7 @@ export class Catalog {
         Game.enabledMerchants = this.merchants.allMerchants;
 
         for (const item of response.games) {
+            const merchantId: string = !!item.SubMerchantID ? item.IDMerchantsCurrencies : item.MerchantID ;
 
             if (this.optimizationService?.useSlimImages) {
                 item.Image = this.optimizationService.getSlimImage(item.Image);
@@ -717,8 +718,9 @@ export class Catalog {
                 item,
                 this.router,
                 this.configService,
-                this.games.merchantsCurrencies[item.SubMerchantID]
-                ?? this.games.merchantsCurrencies[item.MerchantID],
+                item.IDMerchantsCurrencies
+                    ? this.games.merchantsCurrencies[`${merchantId}=>${item.IDMerchantsCurrencies}`]
+                    : this.games.merchantsCurrencies[merchantId],
             );
 
             await this.hooksService.run<Game>(

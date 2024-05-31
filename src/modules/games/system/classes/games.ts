@@ -109,9 +109,11 @@ export class Games {
 
     public setMerchantsCurrencies(merchants: IMerchantCurrency[]): void {
         for (let merchant of merchants) {
-            //TODO переделать после релиза https://tracker.egamings.com/issues/599028
+
             if (merchant.IsDefault === '1') {
                 this.merchantsCurrencies[merchant.IDMerchant] = merchant.Currencies;
+            } else {
+                this.merchantsCurrencies[`${merchant.IDMerchant}=>${merchant.ID}`] = merchant.Currencies;
             }
         }
     }

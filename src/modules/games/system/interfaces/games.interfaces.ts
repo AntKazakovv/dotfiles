@@ -461,6 +461,10 @@ export interface IGame {
     TableID?: string;
     isRestricted?: boolean;
     Freeround?: string;
+    /**
+     * The field contains a list of merchant currencies unique to the game, if one exists.
+     */
+    IDMerchantsCurrencies?: string;
 }
 
 export interface ICustomSort {
@@ -555,6 +559,8 @@ export interface IDisableGameMerchants {
 }
 
 /**
- * Key - ID merchant, value - currencies array
+ * Value - currencies array.
+ * If this is the default list (IsDefault: '1'), then key: 'IDMerchant'.
+ * Else if the list is not default (IsDefault: '0'), then key: 'IDMerchant=>ID'
  */
 export type IMerchantsCurrencies = IIndexing<string[]>;
