@@ -47,6 +47,7 @@ import {
     SHIFT_ANIMATION_DURATION,
 } from 'wlc-engine/modules/core/components/notification-thread/notification-thread.component';
 import {WINDOW} from 'wlc-engine/modules/app/system';
+import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 
 import * as Params from './notification.params';
 
@@ -363,7 +364,8 @@ export class NotificationService {
      *
      * @param params object with message data and notification options
      */
-    private pushMessage({dismissTime, ...componentParams}: IPushMessageParams): void {
+    @CustomHook('core', 'notificationServicePushMessage')
+    public pushMessage({dismissTime, ...componentParams}: IPushMessageParams): void {
 
         this.pushComponent({
             Component: MessageComponent,
