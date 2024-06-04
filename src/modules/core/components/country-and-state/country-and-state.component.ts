@@ -32,6 +32,7 @@ import {
     ValidatorType,
 } from 'wlc-engine/modules/core';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 import * as Params from './country-and-state.params';
 
 type TCpfCountries = 'bra' | 'rou';
@@ -221,6 +222,7 @@ export class CountryAndStateComponent extends AbstractComponent implements OnIni
         }
     }
 
+    @CustomHook('core','countryAndStateStatesUpdate')
     protected updateStates(countryCode: string): void {
         if (!this.$params.stateCode.control) {
             return;
