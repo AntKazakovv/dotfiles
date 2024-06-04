@@ -221,7 +221,7 @@ describe('SelectValuesService', () => {
         _each(phoneLimits, (el) => {
             expect(el.maxLength || el.minLength).toBeTruthy();
             if (el.minLength && el.maxLength) {
-                expect(el.minLength < el.maxLength).toBeTruthy();
+                expect(el.minLength <= el.maxLength).toBeTruthy();
             }
         });
     });

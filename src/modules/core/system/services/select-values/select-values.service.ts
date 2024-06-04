@@ -303,6 +303,10 @@ export class SelectValuesService {
                 minLength: 9,
                 maxLength: 10,
             },
+            '+90': {
+                minLength: 7,
+                maxLength: 7,
+            },
             '+91': {
                 maxLength: 10,
             },
