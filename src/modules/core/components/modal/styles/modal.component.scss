@@ -433,14 +433,10 @@
 
     .wlc-modal {
 
-        .wlc-modal__dialog {
-            margin: ef.get-value($hostModal, 'modalOffset');
-        }
-
-        &.wlc-modal--tournament-detail-modal {
+        &:not(.wlc-modal--tournament-detail-modal) {
 
             .wlc-modal__dialog {
-                margin: ef.get-value($hostModal, 'modalOffsetMobile');
+                margin: ef.get-value($hostModal, 'modalOffsetIosMobile');
             }
         }
 

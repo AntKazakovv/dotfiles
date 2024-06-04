@@ -27,9 +27,8 @@ $customRegFirstModWolf: () !default;
 $regFirstModWolf: map-merge((
     'hostMaxWidth': 390px,
     'wrapperMargin': ef.size(-1) auto 0,
+    'wrapperPadding': 0 ef.size(5),
     'slidePadding': ef.size(1) 0 0,
     'checkboxMargin': ef.size(4) 0 0,
     'swiperButtonOffset': 0,
-    'buttonSize': 40px,
-    'swiperMaxWidth': 380px,
 ), $customRegFirstModWolf);

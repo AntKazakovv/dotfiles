@@ -55,12 +55,6 @@
                                         ef.get-value($themeWolf, 'singupWolfBtnTextFontStyle'),
                                         ef.get-value($themeDefault, 'singupBtnTextColor')
                                     );
-
-                                    @include mq.min(560) {
-                                        @include text.get-text-style(
-                                            ef.get-value($themeWolf, 'singupWolfBtnTextFontStyle'),
-                                            ef.get-value($themeDefault, 'singupBtnTextColor'));
-                                    }
                                 }
                             }
                         }
