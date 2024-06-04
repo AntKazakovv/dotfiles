@@ -44,21 +44,6 @@
                         max-width: ef.get-value($themeDefault, 'singupHeadMaxWidth');
                         padding: ef.get-value($themeDefault, 'singupHeadPadding');
 
-                        &.wlc-steps__head--wolf {
-
-                            .wlc-link-block {
-                                @include bm.get-mq-map('top', $themeWolf, 'singupWolfLinkBlockTopPos');
-                                z-index: 10;
-
-                                .wlc-btn__text {
-                                    @include text.get-text-style(
-                                        ef.get-value($themeWolf, 'singupWolfBtnTextFontStyle'),
-                                        ef.get-value($themeDefault, 'singupBtnTextColor')
-                                    );
-                                }
-                            }
-                        }
-
                         .wlc-link-block {
                             @include bm.get-mq-map('display', $themeDefault, 'singupLinkBlockDisplay');
                             @include bm.get-mq-map('top', $themeDefault, 'singupLinkBlockTopPos');

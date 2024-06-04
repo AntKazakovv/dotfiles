@@ -25,7 +25,6 @@ $themeWolf: map-merge((
     'contentWidth': 50%,
     'contentGap': ef.size(2),
     'contentPadding': ef.size(5) ef.size(1) ef.size(5) ef.size(5),
-    'regContentPadding': ef.size(5) ef.size(5) ef.size(15),
     'contentAlign': start,
     'contentTextAlign': left,
 
@@ -77,7 +76,6 @@ $customWolfModVertical: ();
 $wolfModVertical: map-merge((
     'cardBg': linear-gradient(180deg, #414ec9 50%, #2217a5 100%),
     'visualRatio': 75%, // 4:3
-    'regVisualRatio': 70%,
     'visualContentPadding': ef.size(4),
     'visualMask':  ef.static('bonuses/wolf/masks/bonus-image-mask-v.svg'),
     'visualMaskPosition': center bottom,
