@@ -6,11 +6,17 @@ $themeDefault: map-merge((
     'mainRadius': ef.get('radius', 'biger'),
     'mainBg': radial-gradient(76.62% 101.11% at 25.61% 100%, #1c0d75 8.85%, #0e112e 100%),
 
-    'titleTextStyle': 'QoteTextBoldSmaller',
+    'titleTextStyle': (
+        375: 'ThirdTitleBold',
+        720: 'QoteTextBoldSmaller',
+    ),
     'titleTextColor': var(--mc-baseThird),
     'titlePadding': 0 0 ef.size(3),
 
-    'descriptionTextStyle': 'PrimaryText',
+    'descriptionTextStyle': (
+        375: 'CaptionTextBold',
+        720: 'PrimaryText',
+    ),
     'descriptionTextColor': var(--mc-baseThird),
     'descriptionMargin': 0 0 ef.size(5),
 

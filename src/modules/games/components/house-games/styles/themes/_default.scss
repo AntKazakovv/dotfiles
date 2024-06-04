@@ -9,8 +9,18 @@
     .wlc-house-games {
 
         &__title {
-            @include text.get-text-style(ef.get-value($themeDefault, 'titleTextStyle'), ef.get-value($themeDefault, 'titleTextColor'));
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'titleTextStyle', 375),
+                ef.get-value($themeDefault, 'titleTextColor')
+            );
             padding: ef.get-value($themeDefault, 'titlePadding');
+
+            @include mq.min(720) {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'titleTextStyle', 720),
+                    null
+                );
+            }
         }
 
         &__games {
@@ -47,8 +57,18 @@
         }
 
         &__description {
-            @include text.get-text-style(ef.get-value($themeDefault, 'descriptionTextStyle'), ef.get-value($themeDefault, 'descriptionTextColor'));
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'descriptionTextStyle', 375),
+                ef.get-value($themeDefault, 'descriptionTextColor')
+            );
             margin: ef.get-value($themeDefault, 'descriptionMargin');
+
+            @include mq.min(720) {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'descriptionTextStyle', 720),
+                    null
+                );
+            }
         }
     }
 }
