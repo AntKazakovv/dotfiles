@@ -21,7 +21,7 @@ import {TPaymentsMethods} from 'wlc-engine/modules/finances/system/interfaces';
  * steps - mobile template
  */
 export type Theme = 'default' | 'second' | 'steps' | CustomType;
-export type Type = 'default' | CustomType;
+export type Type = 'default' | 'modal' | CustomType;
 export type ThemeMod = 'default' | 'wolf' | CustomType;
 
 export type TStepTplName = 'wallets' | 'bonuses' | 'systems' | 'paymentInfo' | 'cryptoInvoiceSystems';

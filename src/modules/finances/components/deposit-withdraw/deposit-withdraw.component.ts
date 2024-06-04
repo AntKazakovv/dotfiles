@@ -187,8 +187,8 @@ export class DepositWithdrawComponent
         this.originalTheme = this.$params.theme;
         this.cryptoListConfig = _merge(this.cryptoListConfig, this.$params.cryptoListParams);
 
-        if (this.$params.stepsParams || this.$params.theme === 'steps') {
-            const ignoreStepsBreakpoint: boolean = this.$params.theme === 'steps';
+        if (this.$params.stepsParams || this.$params.type === 'modal') {
+            const ignoreStepsBreakpoint: boolean = this.$params.type === 'modal';
             this.prepareStepsTemplate(ignoreStepsBreakpoint);
         }
 

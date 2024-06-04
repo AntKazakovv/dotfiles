@@ -552,7 +552,7 @@ export const MODALS_LIST: IModalList = {
             modalTitle: gettext('Deposit'),
             componentName: 'finances.wlc-deposit-withdraw',
             componentParams: <IDepositWithdrawCParams>{
-                theme: 'steps',
+                type: 'modal',
                 mode: 'deposit',
 
                 stepsParams: {

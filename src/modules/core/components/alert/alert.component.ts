@@ -29,7 +29,7 @@ export class AlertComponent extends AbstractComponent implements OnInit, OnChang
     @Input('text') public text: string;
     @Input('level') protected level: Params.TLevel;
 
-    @Input() protected inlineParams: Params.IAlertCParams = {};
+    @Input() protected inlineParams: Params.IAlertCParams;
 
     public override $params: Params.IAlertCParams;
 
