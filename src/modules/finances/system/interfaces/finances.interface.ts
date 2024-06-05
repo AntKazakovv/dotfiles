@@ -274,6 +274,7 @@ export interface IAlertMessage {
 export interface IAlerts {
     deposit?: TAlertList;
     withdraw?: TAlertList;
+    showAmountInMultiWallet?: boolean;
 }
 
 export type TAlertList = {

@@ -258,6 +258,9 @@ export class ActionService {
                     paymentMessage.type = initialPath.type;
                 }
 
+                if (initialPath.currency) {
+                    paymentMessage.currency = initialPath.currency;
+                }
                 this.checkPaymentMessage(paymentMessage);
                 break;
             case 'SET_NEW_PASSWORD':

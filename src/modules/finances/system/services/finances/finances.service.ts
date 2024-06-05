@@ -74,6 +74,7 @@ export interface IPaymentPostMessage {
     amount?: string;
     tid?: string;
     type?: string;
+    currency?: string;
 }
 
 interface IQueries {
@@ -420,7 +421,7 @@ export class FinancesService {
             {name: '$user.userProfile$'},
         );
 
-        userProfile$.pipe(first((profile) => !!profile)).subscribe((profile) => {
+        userProfile$.pipe(first((profile) => !!profile)).subscribe((profile: UserProfile) => {
 
             this.configService.get<Deferred<null>>({name: 'firstLanguageReady'})
                 .promise
@@ -431,10 +432,16 @@ export class FinancesService {
                             ? this.translateService.instant(gettext('Withdraw request has been successfully sent!'))
                             : this.translateService.instant(gettext('Deposit completed successfully')),
                     ];
+                    const isMultiWallet: boolean =
+                        this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
+                    const isShowAmount: boolean = !!initialPath.amount && (isMultiWallet ? this.configService
+                        .get('$finances.alerts.showAmountInMultiWallet')
+                        && !!initialPath.currency
+                        : true);
 
-                    if (initialPath.amount) {
+                    if (isShowAmount) {
                         const currencyElement = `<span wlc-currency [value]="${initialPath.amount}" `
-                            + `[currency]="'${profile.currency}'"></span>`;
+                            + `[currency]="'${isMultiWallet ? initialPath.currency : profile.currency}'"></span>`;
 
                         if (type === 'withdraw') {
                             message.push(
