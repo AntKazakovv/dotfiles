@@ -123,9 +123,16 @@ export interface IBonusResultValueDefault extends IBonusResultValue {
     Value?: IIndexing<string>;
 }
 
+export interface IFreeroundsRangeRelative {
+    Max: IIndexing<string>;
+    Min: IIndexing<string>;
+    Value: string;
+}
+
 export interface IBonusResultValueFreerounds extends IBonusResultValue {
     Value?: string;
-    FreeroundGames?: Record<string, number[]>
+    FreeroundGames?: Record<string, number[]>;
+    Ranges?: IFreeroundsRangeRelative[];
 }
 
 export interface IBonusResultValueLootbox extends IBonusResultValue {

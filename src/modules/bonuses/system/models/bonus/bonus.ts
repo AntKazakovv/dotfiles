@@ -33,6 +33,8 @@ import {
     IBonusResultValue,
     IBonusWagerGamesFilter,
     TBonusTagKey,
+    IBonusResultValueFreerounds,
+    IFreeroundsRangeRelative,
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
 import {LootboxPrizeModel} from 'wlc-engine/modules/bonuses/system/models/lootbox-prize/lootbox-prize.model';
@@ -735,9 +737,9 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     /**
-     * @returns {number | number[]} bonus value
+     * @returns {number | number[] | string} bonus value
      */
-    public get value(): number | number[] {
+    public get value(): number | number[] | string {
         const resultsTarget = this.results[this.target];
 
         if (!resultsTarget) {
@@ -751,6 +753,8 @@ export class Bonus extends AbstractModel<IBonus> {
                     : _round(_toNumber((resultsTarget as IBonusResultValueDefault).Value?.EUR));
             case 'lootbox':
                 return (resultsTarget as IBonusResultValueLootbox).Value;
+            case 'freerounds':
+                return this.produceFreeroundsValue(resultsTarget as IBonusResultValueFreerounds);
             default:
                 return _round(_toNumber((resultsTarget as IBonusResultValueDefault).Value[Bonus.depositCurrency
                         ?? Bonus.userCurrency]))
@@ -836,7 +840,7 @@ export class Bonus extends AbstractModel<IBonus> {
             return 'default';
         }
 
-        if (resultsTarget?.Type === 'relative') {
+        if (resultsTarget?.Type === 'relative' && this.target !== 'freerounds') {
             return 'relative';
         } else {
             return this.target;
@@ -1078,4 +1082,15 @@ export class Bonus extends AbstractModel<IBonus> {
 
         return bonus;
     }
+
+    private produceFreeroundsValue(resultsTarget: IBonusResultValueFreerounds): string {
+        if (resultsTarget.Type === 'relative') {
+            const ranges: IFreeroundsRangeRelative[] = resultsTarget.Ranges;
+            return ranges.length > 1
+                ? `${ranges[0].Value}-${ranges[ranges.length - 1].Value}`
+                : ranges[0].Value;
+        }
+        return resultsTarget.Value;
+    }
+
 }

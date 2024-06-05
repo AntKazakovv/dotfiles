@@ -196,7 +196,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
         return this.$params.themeMod === 'with-image';
     }
 
-    public get valueBonus(): number {
+    public get valueBonus(): number | string {
         return _isArray(this.bonus.value) ? 0 : this.bonus.value;
     }
 

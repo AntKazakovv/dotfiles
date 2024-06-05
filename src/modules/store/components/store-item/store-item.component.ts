@@ -121,7 +121,7 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
         this.cdr.detectChanges();
     };
 
-    public get valueStore(): number {
+    public get valueStore(): number | string {
         return _isArray(this.storeItem.bonus.value) ? 0 : this.storeItem.bonus.value;
     }
 
