@@ -1,7 +1,6 @@
 import {
     Pipe,
     PipeTransform,
-    SecurityContext,
 } from '@angular/core';
 import {
     DomSanitizer,
@@ -12,7 +11,7 @@ import {
     SafeUrl,
 } from '@angular/platform-browser';
 
-type TSafeType = 'html' | 'dynamicHTML'| 'style' | 'script' | 'url' | 'resourceUrl';
+type TSafeType = 'html' | 'style' | 'script' | 'url' | 'resourceUrl';
 type TSafeValue = SafeHtml | SafeStyle | SafeScript | SafeUrl | SafeResourceUrl;
 
 /**
@@ -38,8 +37,6 @@ export class SafeValuePipe implements PipeTransform {
         switch (type) {
             case 'html':
                 return this.sanitizer.bypassSecurityTrustHtml(value);
-            case 'dynamicHTML':
-                return this.sanitizer.sanitize(SecurityContext.HTML, this.sanitizer.bypassSecurityTrustHtml(value));
             case 'style':
                 return this.sanitizer.bypassSecurityTrustStyle(value);
             case 'script':

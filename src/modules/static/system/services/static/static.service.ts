@@ -6,6 +6,7 @@ import {
 } from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
+import {DomSanitizer} from '@angular/platform-browser';
 
 import {lastValueFrom} from 'rxjs';
 import _filter from 'lodash-es/filter';
@@ -73,6 +74,7 @@ export class StaticService {
     constructor(
         private configService: ConfigService,
         private translateService: TranslateService,
+        private sanitizer: DomSanitizer,
         private httpClient: HttpClient,
         private cachingService: CachingService,
         private hooksService: HooksService,
@@ -321,7 +323,8 @@ export class StaticService {
             page: apiUrl + 'pages',
         };
 
-        return requestUrls[type] ?? '';
+        return this.sanitizer
+            .bypassSecurityTrustUrl(requestUrls[type])?.['changingThisBreaksApplicationSecurity'];
     }
 
     private getHttpRequestParams<T>(type: StaticTextType, params: IStaticParams = {}): HttpRequest<T> {
