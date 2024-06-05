@@ -51,6 +51,7 @@ import {IPaymentListCParams} from 'wlc-engine/modules/finances/components/paymen
 import {
     IAlertMessage,
     TAlertList,
+    TShowMode,
 } from 'wlc-engine/modules/finances';
 
 import {
@@ -742,7 +743,7 @@ export class DepositWithdrawComponent
         this.steps = steps;
     }
 
-    protected showAlert(step: string): boolean {
+    protected showAlert(step: TShowMode): boolean {
         return !!this.alertInformation && !!this.alertInformation[step];
     }
 }

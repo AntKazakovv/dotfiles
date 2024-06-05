@@ -323,7 +323,8 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     }
 
     public get activeTagName(): string {
-        return this.tagsConfig.categoriesConfig[this.tagsControl.value]?.name;
+        const tagsControl:TPaySystemTagAll = this.tagsControl.value;
+        return this.tagsConfig.categoriesConfig[tagsControl]?.name;
     }
 
     public get catMenuType(): 'desktop' | 'dropdown' {
