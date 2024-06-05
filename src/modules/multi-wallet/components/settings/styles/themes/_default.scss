@@ -4,11 +4,18 @@ $selector: '.wlc-settings';
 
     #{$selector} {
 
+        &__divider {
+            margin: ef.get-value($themeDefault, 'hrMargin');
+        }
+
         &__currencies {
-            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'currenciesTemplateColumns');
+            @include bm.scrollbar($themeDefault);
             display: grid;
             gap: ef.get-value($themeDefault, 'currenciesGap');
             width: ef.get-value($themeDefault, 'currenciesWidth');
+            max-height: ef.get-value($themeDefault, 'currenciesMaxHeight');
+            padding: ef.get-value($themeDefault, 'currenciesPadding');
+            overflow-y: auto;
         }
 
         &__currency {
@@ -18,15 +25,19 @@ $selector: '.wlc-settings';
             );
             display: flex;
             align-items: center;
-            justify-content: center;
-            max-width: ef.get-value($themeDefault, 'currencyMaxWidth');
+            justify-content: space-between;
+            height: ef.get-value($themeDefault, 'currencyHeight');
             padding: ef.get-value($themeDefault, 'currencyPadding');
             border-radius: ef.get-value($themeDefault, 'currencyBorderRadius');
-            border: ef.get-value($themeDefault, 'currencyBorder');
+
             cursor: pointer;
 
             &.active {
-                border-color: ef.get-value($themeDefault, 'currencyActiveBorderColor');
+                border: ef.get-value($themeDefault, 'currencyActiveBorder');
+            }
+
+            @include bm.hover() {
+                background: ef.get-value($themeDefault, 'currencyBackgroundHover');
             }
         }
 
@@ -42,6 +53,7 @@ $selector: '.wlc-settings';
             justify-content: space-between;
             width: ef.get-value($themeDefault, 'toggleWidth');
             margin: ef.get-value($themeDefault, 'toggleMargin');
+            padding: ef.get-value($themeDefault, 'currenciesPadding');
 
             .wlc-checkbox--theme-default.wlc-checkbox--type-toggle::ng-deep {
 
@@ -56,6 +68,7 @@ $selector: '.wlc-settings';
                 ef.get-value($themeDefault, 'hideTextStyle'),
                 ef.get-value($themeDefault, 'hideTextColor'),
             );
+            padding: ef.get-value($themeDefault, 'descriptionPadding');
         }
 
         &__alert-block {
@@ -69,8 +82,15 @@ $selector: '.wlc-settings';
 
     .wlc-modal--wallet-settings {
 
-        .wlc-modal__footer {
-            padding: ef.get-value($themeDefault, 'modalFooterPadding');
+        .wlc-modal {
+
+            &__body {
+                padding: ef.get-value($themeDefault, 'modalBodyPadding');
+            }
+
+            &__footer {
+                padding: ef.get-value($themeDefault, 'modalFooterPadding');
+            }
         }
     }
 }

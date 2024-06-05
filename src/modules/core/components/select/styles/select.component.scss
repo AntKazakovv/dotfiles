@@ -213,8 +213,20 @@
 
     &.wlc-select--currency {
 
-        .wlc-select__field {
-            color: ef.get-value($baseSettings, 'selectColor');
+        .wlc-select {
+
+            &__field {
+                color: ef.get-value($baseSettings, 'selectColor');
+            }
+
+            &__dropdown {
+                width: ef.get-value($baseSettings, 'currencyWidth');
+                min-width: ef.get-value($baseSettings, 'currencyMinWidth');
+            }
+
+            &__dropdown-item {
+                padding: ef.get-value($baseSettings, 'currencyDropdownPadding');
+            }
         }
     }
 

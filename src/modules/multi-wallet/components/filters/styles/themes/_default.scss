@@ -15,6 +15,7 @@
 
             overflow-y: auto;
             width: ef.get-value($themeDefault, 'listHeight');
+            padding: ef.get-value($themeDefault, 'listPaddings');
         }
 
         &__currency {
@@ -26,13 +27,15 @@
                 ef.get-value($themeDefault, 'currencyTextColor'),
             );
 
-            display: flex;
+            display: grid;
+            grid-template-areas:
+                'left right'
+                'divider divider';
             align-items: ef.get-value($themeDefault, 'currencyAlign');
             justify-content: ef.get-value($themeDefault, 'currencyJustifyContent');
 
             width: ef.get-value($themeDefault, 'currencyWidth');
             height: ef.get-value($themeDefault, 'currencyHeight');
-            padding: ef.get-value($themeDefault, 'currencyPadding');
             line-height: 1;
         }
 
@@ -42,12 +45,32 @@
                 ef.get-value($themeDefault, 'currencyTextColor'),
             );
             display: flex;
+            grid-area: left;
             gap: ef.get-value($themeDefault, 'leftGap');
         }
 
         &__right {
             display: flex;
+            grid-area: right;
             align-items: ef.get-value($themeDefault, 'rightAlign');
+
+            ::ng-deep {
+
+                .wlc-checkbox__label[class] {
+                    padding: ef.get-value($themeDefault, 'checkboxPadding');
+                }
+            }
+        }
+
+        &__description {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'descriptionFontStyle'),
+                null,
+            );
+        }
+
+        &__divider {
+            grid-area: divider;
         }
     }
 }

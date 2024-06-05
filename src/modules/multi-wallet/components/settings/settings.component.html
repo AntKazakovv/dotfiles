@@ -5,8 +5,7 @@
         [inlineParams]="$params.toggleHideZero"
     ></div>
 </div>
-
-<hr/>
+<hr class="{{$class}}__divider"/>
 
 <div class="{{$class}}__view-fiat">
     <span>{{$params.viewFiatText | translate}}</span>
@@ -15,9 +14,9 @@
         [inlineParams]="$params.toggleViewFiat"
     ></div>
 </div>
+<hr class="{{$class}}__divider"/>
 
-
-<span class="{{$class}}__description">{{$params.descriptionText | translate}}</span>
+<div class="{{$class}}__description">{{$params.descriptionText | translate}}</div>
 
 <div
     wlc-alert
@@ -32,6 +31,7 @@
         class="{{$class}}__currency"
         [class.active]="$params.walletSettings.currency === currency.name"
         (click)="onCurrencyChange(currency.name)">
-        {{currency.displayName}}
+        <span>{{currency.name}}</span>
+        <span>{{currency.displayName}}</span>
     </div>
 </div>

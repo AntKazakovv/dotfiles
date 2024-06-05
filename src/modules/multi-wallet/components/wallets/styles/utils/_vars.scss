@@ -63,6 +63,8 @@ $themeDefault: map-merge((
         480: ef.size(-4),
     ),
     'financeContentRight': 0,
+    'financeContentTop': calc(100% + 10px),
+
     'contentWidth': (
         375: 100%,
         480: 420px,
@@ -110,8 +112,8 @@ $themeDefault: map-merge((
     'settingsTextFontStyle': 'PrimaryTextBold',
     'settingsTextColor': inherit,
     'settingsColor': var(--mc-main),
-    'settingsGap': ef.size(4),
-    'settingsIconSize': 16px,
+    'settingsGap': ef.size(2),
+    'settingsIconSize': 20px,
     'notFoundPaddings': 0 ef.size(4) 0 0,
 
     'filterMargin': 0 ef.size(4) 0 0,

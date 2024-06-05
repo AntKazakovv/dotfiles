@@ -237,7 +237,9 @@ $selector: '.wlc-wallets';
             }
 
             &__content {
+                top: ef.get-value($themeDefault, 'financeContentTop');
                 right: ef.get-value($themeDefault, 'financeContentRight');
+                width: 100%;
             }
 
             &__dropdown-btn {

@@ -83,9 +83,9 @@ $selector: '.wlc-choice-currency';
             display: ef.get-value($themeDefault, 'listDisplay');
             flex-direction: ef.get-value($themeDefault, 'listFlexDirection');
             align-items: ef.get-value($themeDefault, 'listAlignItems');
-            width: ef.get-value($themeDefault, 'listWidth');
+            min-width: ef.get-value($themeDefault, 'listMinWidth');
             max-height: ef.get-value($themeDefault, 'listMaxHeight');
-            overflow-y: scroll;
+            overflow-y: auto;
             background: ef.get-value($themeDefault, 'listBg');
             box-shadow: ef.get-value($themeDefault, 'listBoxShadow');
             border-radius: ef.get-value($themeDefault, 'listBorderRadius');
@@ -111,6 +111,7 @@ $selector: '.wlc-choice-currency';
 
     &#{$selector}--theme-mod-in-modal {
         position: ef.get-value($themeDefault, 'positionInModal');
+        z-index: 1;
         height: ef.get-value($themeDefault, 'heightModal');
         padding: ef.get-value($themeDefault, 'paddingInModal');
         background: transparent;

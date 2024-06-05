@@ -1,19 +1,16 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'currenciesTemplateColumns': (
-        375: repeat(6, 50px),
-        560: repeat(8, 46px),
-    ),
-    'currenciesGap': ef.size(2),
+    'currenciesPadding': 0 ef.size(6) 0 0,
+    'currenciesGap': ef.size(1),
     'currenciesWidth': 100%,
-    'currencyTextStyle': 'CaptionTextBold',
+    'currenciesMaxHeight': 310px,
+    'currencyTextStyle': 'PrimaryTextBold',
     'currencyTextColor': inherit,
-    'currencyPadding': ef.size(2),
+    'currencyPadding': 8px ef.size(2),
     'currencyBorderRadius': ef.get('radius', 'biger'),
-    'currencyBorder': 2px solid var(--mc-bg300),
-    'currencyActiveBorderColor': var(--mc-main),
-    'currencyMaxWidth': 46px,
-
+    'currencyActiveBorder': 2px solid var(--mc-main),
+    'currencyHeight;': 36px,
+    'currencyBackgroundHover': var(--mc-bg700),
     'hideTextStyle': 'PrimaryText',
     'hideTextColor': inherit,
 
@@ -22,9 +19,16 @@ $themeDefault: map-merge((
 
     'checkboxPadding': 0,
 
-    'marginAlert': ef.size(4) 0,
+    'marginAlert': ef.size(4) ef.size(7) ef.size(4) 0,
     'widthAlert': 100%,
 
     'modalFooterPadding': 0 ef.size(6) ef.size(17),
+    'modalBodyPadding': ef.size(6) 0 ef.size(6) ef.size(6),
 
+    'descriptionPadding': ef.size(6) ef.size(6) 0 0,
+
+    'scrollbarTrackBg': var(--mc-bg700),
+    'scrollbarThumbBg': var(--mc-bg100),
+
+    'hrMargin': ef.size(2) ef.size(6) ef.size(2) 0,
 ), $customThemeDefault);

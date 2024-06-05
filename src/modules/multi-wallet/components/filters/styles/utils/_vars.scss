@@ -1,5 +1,6 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
+    'descriptionFontStyle': 'PrimaryText',
     'currencyFontStyle': 'PrimaryTextBold',
 
     'scrollbarTrackBg': var(--mc-bg700),
@@ -7,7 +8,7 @@ $themeDefault: map-merge((
 
     'modalBodyGap': ef.size(4),
     'modalBodyAlign': center,
-    'modalBodyPadding': ef.size(4) 0 0 ef.size(4),
+    'modalBodyPadding': ef.size(4) 0 0 ef.size(6),
     'modalBodyBorderRadius': ef.get('radius', 'biger'),
     'modalFooterPadding': 0,
     'modalHeight': (
@@ -20,12 +21,12 @@ $themeDefault: map-merge((
         375: 100%,
         560: 460px,
     ),
+    'listPaddings': 0 ef.size(6) 0 0,
 
     'currencyAlign': center,
     'currencyJustifyContent': space-between,
     'currencyWidth': 100%,
     'currencyHeight': 40px,
-    'currencyPadding': 0 ef.size(2),
     'currencyTextColor': inherit,
 
     'leftGap': ef.size(1),
@@ -33,4 +34,6 @@ $themeDefault: map-merge((
     'iconSize': 20px,
 
     'rightAlign': center,
+
+    'checkboxPadding': 0 0 0 ef.size(4),
 ), $customThemeDefault);
