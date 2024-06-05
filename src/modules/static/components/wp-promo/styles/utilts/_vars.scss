@@ -24,7 +24,8 @@ $themeDefault: map-merge((
     'backgroundSize': cover,
     'backgroundRepeat': no-repeat,
     'wrapperMaxWidth': (
-        375: 315px,
+        375: 345px,
+        480: 450px,
         560: 715px,
         900: 970px,
         1200: 100%,
@@ -33,7 +34,7 @@ $themeDefault: map-merge((
     'contentHeight': (
         320: 100%,
     ),
-    'contentMinHeight': 300px,
+    'contentMinHeight': 120px,
     'contentPadding': (
         320: ef.size(4) ef.size(4) ef.size(6),
         560: ef.size(8),
@@ -57,10 +58,9 @@ $themeDefault: map-merge((
         1630: 0 0 ef.size(4),
     ),
     'nameTextStyle': (
-        375: 'QoteTextBold',
-        900: 'PromoTitle',
+        375: 'ThirdTitleBold',
+        900: 'SecondTitleBold',
         1200: 'QoteTextBold',
-        1630: 'PromoTitle',
     ),
 
     'infoMaxWidth': (
@@ -69,7 +69,10 @@ $themeDefault: map-merge((
     ),
     'infoZIndex': 2,
 
-    'descriptionTextStyle': 'ThirdTitle',
+    'descriptionTextStyle': (
+        375: 'PrimaryText',
+        1200: 'ThirdTitle',
+    ),
 
     'decorDisplay': (
         320: none,

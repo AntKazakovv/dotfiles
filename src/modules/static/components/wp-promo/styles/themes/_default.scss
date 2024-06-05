@@ -80,7 +80,11 @@
         }
 
         &__description {
-            @include text.get-text-style(ef.get-value($themeDefault, 'descriptionTextStyle'));
+            @include text.get-text-style(ef.get-value($themeDefault, 'descriptionTextStyle', 375));
+
+            @include mq.min(1200) {
+                @include text.get-text-style(ef.get-value($themeDefault, 'descriptionTextStyle', 1200));
+            }
         }
 
         &__btns {
