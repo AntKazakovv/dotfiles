@@ -82,10 +82,6 @@ import {FloatPanelsComponent} from './components/float-panels/float-panels.compo
 import {ForbiddenCountryComponent} from './components/forbidden-country/forbidden-country.component';
 import {FormControlComponent} from './components/form-control/form-control.component';
 import {FormWrapperComponent} from './components/form-wrapper/form-wrapper.component';
-import {HistoryFilterComponent} from './components/history-filter/history-filter.component';
-import {
-    HistoryFilterFormComponent,
-} from './components/history-filter/history-filter-form/history-filter-form.component';
 import {IconComponent} from './components/icon/icon.component';
 import {InfoPageComponent} from './components/info-page/info-page.component';
 import {InputComponent} from './components/input/input.component';
@@ -205,7 +201,6 @@ export const components = {
     'wlc-forbidden-country': ForbiddenCountryComponent,
     'wlc-form-control': FormControlComponent,
     'wlc-form-wrapper': FormWrapperComponent,
-    'wlc-history-filter': HistoryFilterComponent,
     'wlc-header': HeaderComponent,
     'wlc-icon': IconComponent,
     'wlc-info-page': InfoPageComponent,
@@ -302,8 +297,6 @@ export const services = {
         FormControlComponent,
         FormWrapperComponent,
         FooterComponent,
-        HistoryFilterComponent,
-        HistoryFilterFormComponent,
         HeaderComponent,
         IconComponent,
         InfoPageComponent,

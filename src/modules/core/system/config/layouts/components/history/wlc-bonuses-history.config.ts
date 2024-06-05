@@ -13,7 +13,7 @@ export namespace wlcBonusesHistory {
             components: [
                 wlcTitle.history,
                 {
-                    name: 'core.wlc-history-filter',
+                    name: 'history.wlc-history-filter',
                     params: {
                         config: 'bonus',
                     },
@@ -26,14 +26,14 @@ export namespace wlcBonusesHistory {
     };
 
     export const filterOnly: ILayoutComponent = {
-        name: 'core.wlc-history-filter',
+        name: 'history.wlc-history-filter',
         params: {
             config: 'bonus',
         },
     };
 
     export const filterOnlyV1: ILayoutComponent = {
-        name: 'core.wlc-history-filter',
+        name: 'history.wlc-history-filter',
         params: {
             config: 'bonus',
         },

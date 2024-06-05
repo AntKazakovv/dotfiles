@@ -30,6 +30,10 @@ import {
 import {
     CashbackPreviewComponent,
 } from 'wlc-engine/modules/history/components/cashback-history/cashback-preview/cashback-preview.component';
+import {HistoryFilterComponent} from './components/history-filter/history-filter.component';
+import {
+    HistoryFilterFormComponent,
+} from './components/history-filter/history-filter-form/history-filter-form.component';
 
 export const components = {
     'wlc-bonuses-history': BonusesHistoryComponent,
@@ -39,6 +43,8 @@ export const components = {
     'wlc-history-range': HistoryRangeComponent,
     'wlc-cashback-history': CashbackHistoryComponent,
     'wlc-history-name': HistoryNameComponent,
+    'wlc-history-filter': HistoryFilterComponent,
+    'wlc-history-filter-form': HistoryFilterFormComponent,
 };
 
 export const services = {
@@ -59,6 +65,8 @@ export const services = {
         TransactionButtonsComponent,
         TransactionStatusComponent,
         HistoryRangeComponent,
+        HistoryFilterComponent,
+        HistoryFilterFormComponent,
     ],
     imports: [
         CommonModule,
@@ -80,6 +88,8 @@ export const services = {
         TransactionButtonsComponent,
         TransactionStatusComponent,
         HistoryRangeComponent,
+        HistoryFilterComponent,
+        HistoryFilterFormComponent,
     ],
 })
 

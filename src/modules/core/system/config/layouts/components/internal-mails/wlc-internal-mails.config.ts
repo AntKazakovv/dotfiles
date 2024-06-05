@@ -13,7 +13,7 @@ export namespace wlcInternalMails {
             components: [
                 wlcTitle.profileV2,
                 {
-                    name: 'core.wlc-history-filter',
+                    name: 'history.wlc-history-filter',
                     params: {
                         config: 'mails',
                     },
@@ -26,7 +26,7 @@ export namespace wlcInternalMails {
     };
 
     export const filterOnly: ILayoutComponent = {
-        name: 'core.wlc-history-filter',
+        name: 'history.wlc-history-filter',
         params: {
             config: 'mails',
         },

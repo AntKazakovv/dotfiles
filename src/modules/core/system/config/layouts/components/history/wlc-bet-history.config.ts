@@ -13,7 +13,7 @@ export namespace wlcBetHistory {
             components: [
                 wlcTitle.history,
                 {
-                    name: 'core.wlc-history-filter',
+                    name: 'history.wlc-history-filter',
                     params: {
                         config: 'bet',
                     },
@@ -26,7 +26,7 @@ export namespace wlcBetHistory {
     };
 
     export const filterOnly: ILayoutComponent = {
-        name: 'core.wlc-history-filter',
+        name: 'history.wlc-history-filter',
         params: {
             config: 'bet',
         },

@@ -9,7 +9,7 @@ export namespace wlcCashbackHistory {
             components: [
                 wlcTitle.cashback,
                 {
-                    name: 'core.wlc-history-filter',
+                    name: 'history.wlc-history-filter',
                     params: {
                         config: 'cashback',
                     },
@@ -27,7 +27,7 @@ export namespace wlcCashbackHistory {
             class: 'profile-history-filter',
             components: [
                 {
-                    name: 'core.wlc-history-filter',
+                    name: 'history.wlc-history-filter',
                     params: {
                         config: 'cashback',
                     },

@@ -2612,7 +2612,7 @@ export namespace profileContent {
                     components: [
                         componentLib.wlcProfileMenu.defTypeWolf,
                         componentLib.wlcProfileMenu.submenuWolf,
-                        componentLib.wlcHistoryFilter.tournaments,
+                        componentLib.wlcTournamentsHistory.filter,
                         componentLib.wlcTournamentsHistory.def,
                     ],
                 },
