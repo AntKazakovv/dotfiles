@@ -145,27 +145,29 @@ module.exports = function changeLogsTask() {
             }
 
             // make attempt to get branch from gitlab pipeline
-            if (!res.branch) {
-                const response = this.execNativeShellSync(
-                    `curl "https://${gitUrl}/api/v4/projects/${projectId}/`
-                    + `repository/commits/${res.hash}?private_token=${apiKey}"`,
-                );
-                try {
+            try {
+                if (!res.branch) {
+                    const response = this.execNativeShellSync(
+                        `curl "https://${gitUrl}/api/v4/projects/${projectId}/`
+                        + `repository/commits/${res.hash}?private_token=${apiKey}"`,
+                    );
+
                     const data = JSON.parse(response);
                     const branch = _.get(data, 'last_pipeline.ref');
                     if (branch !== 'master') {
                         res.branch = _.get(data, 'last_pipeline.ref');
                     }
-                } catch (error) {
-                    //
                 }
+            } catch (error) {
+                //
             }
 
+
             // attemp to get merge request data
-            let response = this.execNativeShellSync(`curl "https://${gitUrl}/api/v4/projects`
+            try {
+                let response = this.execNativeShellSync(`curl "https://${gitUrl}/api/v4/projects`
                 + `/${projectId}/repository/commits/${res.hash}/merge_requests?state=merged&private_token=${apiKey}"`);
 
-            try {
                 const data = JSON.parse(response);
                 if (data && data.length) {
                     const mr = data[0];
@@ -177,18 +179,19 @@ module.exports = function changeLogsTask() {
                 //
             }
 
-            if (!res.mrId) {
-                if (res.branch) {
-                    response = this.execNativeShellSync(`curl "https://${gitUrl}/api/v4/projects`
-                        + `/${projectId}/merge_requests?state=merged`
-                        + `&source_branch=${res.branch}&private_token=${apiKey}"`);
-                } else {
-                    const searchText = encodeURIComponent(res.message);
-                    response = this.execNativeShellSync(`curl "https://${gitUrl}/api/v4/projects/`
-                        + `${projectId}/merge_requests?state=merged&search=${searchText}&private_token=${apiKey}"`);
-                }
+            try {
+                if (!res.mrId) {
+                    if (res.branch) {
+                        response = this.execNativeShellSync(`curl "https://${gitUrl}/api/v4/projects`
+                            + `/${projectId}/merge_requests?state=merged`
+                            + `&source_branch=${res.branch}&private_token=${apiKey}"`);
+                    } else {
+                        const searchText = encodeURIComponent(res.message);
+                        response = this.execNativeShellSync(`curl "https://${gitUrl}/api/v4/projects/`
+                            + `${projectId}/merge_requests?state=merged&search=${searchText}&private_token=${apiKey}"`);
+                    }
 
-                try {
+
                     const data = JSON.parse(response);
                     if (_.isArray(data)) {
                         let mr;
@@ -204,9 +207,9 @@ module.exports = function changeLogsTask() {
                         res.description = _.get(mr, 'description', '');
                         res.mrId = _.get(mr, 'id', Date.now());
                     }
-                } catch (error) {
-                    //
                 }
+            } catch (error) {
+                //
             }
 
             res.message = res.mrTitle || res.message;
