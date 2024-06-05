@@ -53,6 +53,11 @@ export interface IFinancesConfig {
     useDefaultAmount?: boolean;
     newTermsVersion?: string;
     useLotteryWidget?: boolean;
+    /** Settings for enable/disable deposit when necessary (use tags from UserInfo) */
+    checkUserTags?: {
+        use: true;
+        tag: string;
+    }
 }
 
 export interface ITransactionHistoryAlert {

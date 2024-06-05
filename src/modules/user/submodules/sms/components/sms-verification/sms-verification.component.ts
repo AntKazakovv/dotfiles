@@ -64,6 +64,7 @@ export class SmsVerificationComponent extends UserActionsAbstract<Params.ISmsVer
     public codeSended: boolean = false;
     public timeValue: DateTime;
     public lockResend: boolean;
+
     protected resendChecker: Subscription;
     protected phoneCode: string;
     protected phoneNumber: string;

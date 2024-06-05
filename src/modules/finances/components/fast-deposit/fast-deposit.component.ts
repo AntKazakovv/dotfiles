@@ -8,15 +8,25 @@ import {
 } from '@angular/core';
 
 import {
+    Observable,
+    firstValueFrom,
+} from 'rxjs';
+import {
+    distinctUntilChanged,
+    takeUntil,
+} from 'rxjs/operators';
+
+import {
     AbstractComponent,
     ConfigService,
     IModalConfig,
     ModalService,
 } from 'wlc-engine/modules/core';
 
-import * as Params from './fast-deposit.params';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services';
 import {PaymentSystem} from 'wlc-engine/modules/finances/system/models';
+
+import * as Params from './fast-deposit.params';
 
 @Component({
     selector: '[wlc-fast-deposit]',
@@ -28,6 +38,7 @@ import {PaymentSystem} from 'wlc-engine/modules/finances/system/models';
 export class FastDepositComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IFastDepositCParams;
 
+    public ready: boolean = false;
     public override $params: Params.IFastDepositCParams;
     public lastSucseedMethod: number | null;
     public paymentSystem: PaymentSystem;
@@ -36,6 +47,7 @@ export class FastDepositComponent extends AbstractComponent implements OnInit {
     protected paymentSystems: PaymentSystem[];
     protected isFetchingSystems: boolean = true;
     protected modalConfig: IModalConfig;
+    protected isInitialized: boolean = false;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IFastDepositCParams,
@@ -49,8 +61,17 @@ export class FastDepositComponent extends AbstractComponent implements OnInit {
 
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
-        this.setDepositUrl();
-        this.setPaymentSystem();
+
+        if (this.financesService.checkUserTags) {
+            await firstValueFrom(this.financesService.isDepositBlocked$());
+            this.initAfterTagsChecking();
+        } {
+            this.init();
+        }
+    }
+
+    public get isDepositBlocked$(): Observable<boolean> {
+        return this.financesService.isDepositBlocked$();
     }
 
     protected setDepositUrl(): void {
@@ -77,5 +98,31 @@ export class FastDepositComponent extends AbstractComponent implements OnInit {
             this.isFetchingSystems = false;
         }
         this.cdr.markForCheck();
+    }
+
+    protected init(): void {
+        if (this.isInitialized) {
+            return;
+        }
+
+        this.setDepositUrl();
+        this.setPaymentSystem();
+
+        this.ready = true;
+        this.isInitialized = true;
+    }
+
+    protected initAfterTagsChecking(): void {
+        this.financesService.isDepositBlocked$().pipe(
+            distinctUntilChanged(),
+            takeUntil(this.$destroy),
+        ).subscribe((isBlocked: boolean): void => {
+            if (isBlocked) {
+                this.ready = true;
+                this.cdr.markForCheck();
+            } else {
+                this.init();
+            }
+        });
     }
 }

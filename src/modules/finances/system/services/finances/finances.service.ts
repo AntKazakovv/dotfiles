@@ -7,6 +7,7 @@ import {
 import {TranslateService} from '@ngx-translate/core';
 import {
     BehaviorSubject,
+    Observable,
     Subscription,
 } from 'rxjs';
 import {
@@ -98,6 +99,9 @@ export class FinancesService {
     private systems: PaymentSystem[] = [];
     private emitDepositStatus$: Subscription;
 
+    private _checkUserTags: boolean;
+    private _isDepositBlocked$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
     constructor(
         protected dataService: DataService,
         protected eventService: EventService,
@@ -115,10 +119,23 @@ export class FinancesService {
             this.paymentSystems$.next(undefined);
             this.systems = [];
         });
+
+        this._checkUserTags = this.configService.get<boolean>('$finances.checkUserTags.use');
+        if (this.checkUserTags) {
+            this.watchForUserTags();
+        }
     }
 
     public get paymentSystems(): PaymentSystem[] {
         return this.systems;
+    }
+
+    public get checkUserTags(): boolean {
+        return this._checkUserTags;
+    }
+
+    public isDepositBlocked$(): Observable<boolean> {
+        return this._isDepositBlocked$.asObservable();
     }
 
     public getSystemById(id: number): PaymentSystem {
@@ -718,6 +735,15 @@ export class FinancesService {
         return paymentSystem;
     }
 
+    private watchForUserTags(): void {
+        const targetTag: string = this.configService.get<string>('$finances.checkUserTags.tag');
+
+        this.configService.get<BehaviorSubject<UserInfo>>('$user.userInfo$')
+            .pipe(filter((userInfo) => !!userInfo))
+            .subscribe((userInfo: UserInfo): void => {
+                this._isDepositBlocked$.next(userInfo.checkTagExists(targetTag));
+            });
+    }
 
     private pushNotification(params: IPushMessageParams): void {
         this.eventService.emit({

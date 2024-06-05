@@ -1,6 +1,7 @@
 <ng-container *ngIf="ready; else preloader" [ngSwitch]="$params.theme">
 
-    <div
+    <ng-container *ngIf="!isDeposit || !(isDepositBlocked$ | async); else phoneVerify">
+        <div
         *ngIf="showAlert('title')"
         wlc-alert
         class="{{$class}}__alert-title"
@@ -8,9 +9,10 @@
         [text]="alertInformation['title'].description | translate"
         [level]="alertInformation['title'].mod"></div>
 
-    <ng-container *ngSwitchCase="'second'" [ngTemplateOutlet]="second"></ng-container>
-    <ng-container *ngSwitchCase="'steps'" [ngTemplateOutlet]="stepsTheme"></ng-container>
-    <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
+        <ng-container *ngSwitchCase="'second'" [ngTemplateOutlet]="second"></ng-container>
+        <ng-container *ngSwitchCase="'steps'" [ngTemplateOutlet]="stepsTheme"></ng-container>
+        <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
+    </ng-container>
 </ng-container>
 
 <ng-template #preloader>
@@ -273,3 +275,7 @@
     </ng-container>
 </ng-template>
 <ng-template #empty>The step not implemented</ng-template>
+
+<ng-template #phoneVerify>
+    <div wlc-wrapper [inlineParams]="$params.phoneVerifyParams"></div>
+</ng-template>

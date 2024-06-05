@@ -1,21 +1,34 @@
 .wlc-sms-verification--theme-default:host {
-    @include bm.get-mq-map('min-height', $themeDefault, 'formMinHeight');
+    @include bm.get-mq-map('--wlc-sms-btn-margin', $themeDefault, 'btnMargin');
+    @include bm.get-mq-map('--wlc-sms-ver-min-height', $themeDefault, 'formMinHeight');
+
     width: ef.get-value($themeDefault, 'formWidth');
     max-width: ef.get-value($themeDefault, 'formMaxWidth');
+    min-height: var(--wlc-sms-ver-min-height);
     margin: ef.get-value($themeDefault, 'formMargin');
 
     .wlc-sms-verification {
 
+        &__descr {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'descrTextStyle'),
+                ef.get-value($themeDefault, 'descrColor'),
+            );
+        }
+
         &__text {
-            margin: ef.get-value($themeDefault, 'textMargin');
-            font-size: ef.get-value($themeDefault, 'textFontSize');
-            text-align: ef.get-value($themeDefault, 'textAlign');
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'textStyle'),
+                ef.get-value($themeDefault, 'textColor')
+            );
+            margin: var(--wlc-sms-text-margin, #{ef.get-value($themeDefault, 'textMargin')});
+            text-align: var(--wlc-sms-text-align, #{ef.get-value($themeDefault, 'textAlign')});
         }
 
         &__timer {
             display: flex;
             flex-direction: column;
-            align-items: ef.get-value($themeDefault, 'timerAlign');
+            align-items: var(--wlc-sms-timer-align, #{ef.get-value($themeDefault, 'timerAlign')});
             justify-content: ef.get-value($themeDefault, 'timerJustify');
             margin: ef.get-value($themeDefault, 'timerMargin');
         }
@@ -23,6 +36,13 @@
         &__timer-text {
             @include text.get-text-style('SignText', ef.get-value($themeDefault, 'timerTextColor'));
             margin: ef.get-value($themeDefault, 'timerTextMargin');
+        }
+
+        &__divider {
+            width: ef.get-value($themeDefault, 'dividerWidth');
+            height: ef.get-value($themeDefault, 'dividerHeight');
+            margin: ef.get-value($themeDefault, 'dividerMargin');
+            background: ef.get-value($themeDefault, 'dividerBg');
         }
     }
 
@@ -49,7 +69,7 @@
         }
 
         .wlc-phone-field {
-            grid-gap: ef.get-value($themeDefault, 'fieldsGridGap');
+            grid-gap: var(--wls-sms-field-gap, #{ef.get-value($themeDefault, 'fieldsGridGap')});
 
             .wlc-select__label,
             .wlc-input__label {
@@ -58,9 +78,50 @@
             }
         }
 
-
         .wlc-btn {
-            @include bm.get-mq-map('margin', $themeDefault, 'btnMargin');
+            margin: var(--wlc-sms-btn-margin);
+        }
+    }
+
+    &.wlc-sms-verification--theme-mod-inline {
+        --wlc-sms-text-margin: #{ef.get-value($modInline, 'verTextMargin')};
+        --wls-sms-field-gap: #{ef.get-value($modInline, 'formFieldGap')};
+        --wlc-sms-ver-min-height: auto;
+
+        @include bm.get-mq-map('--wlc-sms-btn-margin', $modInline, 'btnMargin');
+        @include bm.get-mq-map('--wlc-sms-timer-align', $modInline, 'timerAlignItems');
+        @include bm.get-mq-map('--wlc-sms-text-align', $modInline, 'verTextAlign');
+
+        display: grid;
+        gap: ef.get-value($modInline, 'gap');
+        width: ef.get-value($modInline, 'formWidth');
+        max-width: ef.get-value($modInline, 'formMaxWidth');
+
+        .wlc-sms-verification {
+
+            &__content {
+                max-width: ef.get-value($modInline, 'contentMaxWidth');
+                margin: var(--wlc-sms-content-margin, 0);
+            }
+        }
+
+        ::ng-deep {
+
+            .wlc-phone-field {
+                display: grid;
+                grid-template-columns: ef.get-value($modInline, 'phoneFieldColumns');
+                padding: ef.get-value($modInline, 'phoneFieldPadding');
+            }
+        }
+
+        .wlc-modal & {
+            --wlc-alert-max-width: 100%;
+            --wlc-sms-content-margin: 0 auto;
+
+            --wlc-sms-btn-margin: #{ef.get-value($modInline, 'modalSmsBtnMargin')};
+            --wlc-sms-content-margin: #{ef.get-value($modInline, 'modalSmsContentMargin')};
+            --wlc-sms-timer-align: #{ef.get-value($modInline, 'modalSmsTimerAlign')};
+            --wlc-sms-text-align: #{ef.get-value($modInline, 'modalSmsTextAlign')};
         }
     }
 }

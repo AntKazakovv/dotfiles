@@ -17,14 +17,16 @@ import {
 import {TranslateService} from '@ngx-translate/core';
 import {
     BehaviorSubject,
+    Observable,
+    firstValueFrom,
 } from 'rxjs';
 import {
     first,
     takeUntil,
+    distinctUntilChanged,
 } from 'rxjs/operators';
 import _assign from 'lodash-es/assign';
 import _merge from 'lodash-es/merge';
-import _map from 'lodash-es/map';
 import _uniq from 'lodash-es/uniq';
 import _remove from 'lodash-es/remove';
 import _each from 'lodash-es/each';
@@ -61,9 +63,9 @@ import {
 
 import {ISelectedWallet} from 'wlc-engine/modules/multi-wallet';
 import {WalletsParams} from 'wlc-engine/modules/multi-wallet/components/wallets/wallets.params';
+import {IPaymentFormCParams} from 'wlc-engine/modules/finances/components/payment-form/payment-form.params';
 
 import * as Params from './deposit-withdraw.params';
-import {IPaymentFormCParams} from 'wlc-engine/modules/finances/components/payment-form/payment-form.params';
 
 @Component({
     selector: '[wlc-deposit-withdraw]',
@@ -152,11 +154,12 @@ export class DepositWithdrawComponent
     protected alertInformation: TAlertList;
     protected useStepsTemplate: boolean;
     protected holdStep: boolean = false;
+    protected isInitialized: boolean = false;
 
     private userProfile: UserProfile;
-    private isDeposit: boolean;
     private useScroll: boolean = false;
     private stepsOrder: Params.TStepTplName[] = [];
+    private _isDeposit: boolean;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IDepositWithdrawCParams,
@@ -180,148 +183,26 @@ export class DepositWithdrawComponent
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
 
-        if (this.$params.stepsOrder && this.$params.theme !== 'second') {
-            this.prepareStepsOrdering();
-        }
-
         this.originalTheme = this.$params.theme;
-        this.cryptoListConfig = _merge(this.cryptoListConfig, this.$params.cryptoListParams);
-
         if (this.$params.stepsParams || this.$params.type === 'modal') {
             const ignoreStepsBreakpoint: boolean = this.$params.type === 'modal';
             this.prepareStepsTemplate(ignoreStepsBreakpoint);
         }
 
-        this.hiddenPaymentInfo = this.configService.get<boolean>('$finances.paymentInfo.hiddenPaymentInfo');
-        this.useBonuses = this.configService.get<boolean>('$finances.bonusesInDeposit.use');
-        this.isDeposit = this.$params.mode === 'deposit';
-        this.showBonuses = this.useBonuses && this.isDeposit;
-        this.alertInformation = this.configService.get<TAlertList>(`$finances.alerts.${this.$params.mode}`);
-        this.useDepositPromoCode = this.isDeposit && this.configService.get<boolean>('$finances.useDepositPromoCode');
+        this._isDeposit = this.$params.mode === 'deposit';
 
-        this.isLastMethodExisting = (this.isDeposit
-                && this.configService.get<boolean>('$finances.lastSucceedDepositMethod.use'))
-            || (!this.isDeposit && this.configService.get<boolean>('$finances.lastSucceedWithdrawMethod.use'));
-
-        this.isMultiWallet = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
-
-        if (this.isMultiWallet) {
-            this.userService = await this.injectionService.getService<UserService>('user.user-service');
-            Params.PaymentSteps.wallet.ready = new Promise((resolve: () => void): void => {
-                Params.PaymentSteps.wallet.$resolve = resolve;
-            });
-            this.addStep(Params.PaymentSteps.wallet, true);
-
-            if (this.userService.userInfo) {
-                Params.PaymentSteps.wallet.$resolve();
-            } else {
-                this.userService.userInfo$.pipe(
-                    first((v) => !!v?.idUser),
-                    takeUntil(this.$destroy))
-                    .subscribe((): void => {
-                        Params.PaymentSteps.wallet.$resolve();
-                    });
-            }
-
-            this.walletsParams = {
-                themeMod: 'finances',
-                isWithdrawal: !this.isDeposit,
-            };
+        if (this.isDeposit && this.financesService.checkUserTags) {
+            await firstValueFrom(this.financesService.isDepositBlocked$());
+            this.initAfterTagsChecking();
+            return;
         }
 
-        if (this.showBonuses) {
-
-            Params.PaymentSteps.bonus.ready = new Promise((resolve: () => void): void => {
-                Params.PaymentSteps.bonus.$resolve = resolve;
-            });
-
-            this.addStep(Params.PaymentSteps.bonus);
-
-            this.eventService.subscribe({name: 'BONUSES_FETCH_FAILED'}, (): void => {
-                Params.PaymentSteps.bonus.$resolve();
-                this.deleteStep(Params.PaymentSteps.bonus);
-            });
-
-            const bonusesService = await this.injectionService
-                .getService<BonusesService>('bonuses.bonuses-service');
-            const bonusesSubscription = bonusesService.getSubscribe({
-                type: 'any',
-                useQuery: true,
-                observer: {
-                    next: (bonuses: Bonus[]): void => {
-                        const depositBonuses: Bonus[] = bonusesService.filterBonuses(bonuses, 'deposit');
-                        this.bonusesExist = depositBonuses.some((bonus: Bonus) => !bonus.isActive);
-
-                        if (this.bonusesExist) {
-                            const params: IBonusesListCParams = _merge(this.bonusesListParams.components[0].params, {
-                                bonuses: depositBonuses,
-                                disableBonuses$: this.appliedPromoCode$,
-                            });
-
-                            _set(this.bonusesListParams, 'components[0].params', params);
-
-                        } else {
-                            this.deleteStep(Params.PaymentSteps.bonus);
-                        }
-                        Params.PaymentSteps.bonus.$resolve();
-                        bonusesSubscription.unsubscribe();
-
-                        this.cdr.markForCheck();
-                    },
-                },
-            });
-        }
-
-        if (!this.isMultiWallet) {
-            Params.PaymentSteps.paymentSystem.ready = new Promise((resolve: () => void): void => {
-                Params.PaymentSteps.paymentSystem.$resolve = resolve;
-            });
-        }
-
-        this.addStep(Params.PaymentSteps.paymentSystem);
-        if (!this.hiddenPaymentInfo) {
-            this.addStep(Params.PaymentSteps.paymentInfo);
-        }
-
-        this.configService
-            .get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
-            .pipe(takeUntil(this.$destroy))
-            .subscribe((UserProfile) => {
-                this.userProfile = UserProfile;
-            });
-
-        this.initSubscribers();
-
-        if (this.isLastMethodExisting) {
-            this.lastSucceedPaymentMethod = this.financesService.getLastSucceedPaymentMethod(this.isDeposit);
-        }
-
-        if (!this.isDeposit) {
-            this.title = gettext('Withdrawal');
-            this.listConfig.paymentType = 'withdraw';
-
-            this.userService ??= await this.injectionService.getService<UserService>('user.user-service');
-        } else {
-            this.eventService.emit({name: 'DEPOSIT_VISIT'});
-        }
-
-        if (!this.isMultiWallet) {
-            this.financesService.fetchPaymentSystems()
-                .finally(() => {
-                    this.isFetchingSystems = false;
-                    Params.PaymentSteps.paymentSystem.$resolve();
-                });
-        }
-
-        Promise.all(_map(Array.from(this.steps), async (step: Params.IPaymentStep) => await step.ready))
-            .then(() => {
-                this.ready = true;
-                this.cdr.markForCheck();
-            });
+        this.init();
     }
 
     public override ngOnDestroy(): void {
         super.ngOnDestroy();
+
         if (this.useBonuses) {
             this.configService.set({name: 'chosenPaySystem', value: null});
             Bonus.depositCurrency = null;
@@ -347,6 +228,14 @@ export class DepositWithdrawComponent
         }
 
         this.selectedWallet = wallet;
+    }
+
+    public get isDeposit(): boolean {
+        return this._isDeposit;
+    }
+
+    public get isDepositBlocked$(): Observable<boolean> {
+        return this.financesService.isDepositBlocked$();
     }
 
     public get showDividerInPaymentSystems(): boolean {
@@ -586,6 +475,159 @@ export class DepositWithdrawComponent
 
     protected get userCountry(): string {
         return this.userProfile?.countryCode || '';
+    }
+
+    protected async init(): Promise<void> {
+        if (this.isInitialized) {
+            return;
+        }
+
+        if (this.$params.stepsOrder && this.$params.theme !== 'second') {
+            this.prepareStepsOrdering();
+        }
+
+        this.cryptoListConfig = Object.assign({}, this.cryptoListConfig, this.$params.cryptoListParams);
+        this.hiddenPaymentInfo = this.configService.get<boolean>('$finances.paymentInfo.hiddenPaymentInfo');
+        this.useBonuses = this.configService.get<boolean>('$finances.bonusesInDeposit.use');
+        this.showBonuses = this.useBonuses && this.isDeposit;
+        this.alertInformation = this.configService.get<TAlertList>(`$finances.alerts.${this.$params.mode}`);
+        this.useDepositPromoCode = this.isDeposit && this.configService.get<boolean>('$finances.useDepositPromoCode');
+
+        this.isLastMethodExisting = (this.isDeposit
+                && this.configService.get<boolean>('$finances.lastSucceedDepositMethod.use'))
+            || (!this.isDeposit && this.configService.get<boolean>('$finances.lastSucceedWithdrawMethod.use'));
+
+        this.isMultiWallet = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
+
+        if (this.isMultiWallet) {
+            this.userService = await this.injectionService.getService<UserService>('user.user-service');
+            Params.PaymentSteps.wallet.ready = new Promise((resolve: () => void): void => {
+                Params.PaymentSteps.wallet.$resolve = resolve;
+            });
+            this.addStep(Params.PaymentSteps.wallet, true);
+
+            if (this.userService.userInfo) {
+                Params.PaymentSteps.wallet.$resolve();
+            } else {
+                this.userService.userInfo$.pipe(
+                    first((v) => !!v?.idUser),
+                    takeUntil(this.$destroy),
+                ).subscribe((): void => {
+                    Params.PaymentSteps.wallet.$resolve();
+                });
+            }
+
+            this.walletsParams = {
+                themeMod: 'finances',
+                isWithdrawal: !this.isDeposit,
+            };
+        }
+
+        if (this.showBonuses) {
+            Params.PaymentSteps.bonus.ready = new Promise((resolve: () => void): void => {
+                Params.PaymentSteps.bonus.$resolve = resolve;
+            });
+
+            this.addStep(Params.PaymentSteps.bonus);
+
+            this.eventService.subscribe({name: 'BONUSES_FETCH_FAILED'}, (): void => {
+                Params.PaymentSteps.bonus.$resolve();
+                this.deleteStep(Params.PaymentSteps.bonus);
+            });
+
+            const bonusesService = await this.injectionService
+                .getService<BonusesService>('bonuses.bonuses-service');
+            const bonusesSubscription = bonusesService.getSubscribe({
+                type: 'any',
+                useQuery: true,
+                observer: {
+                    next: (bonuses: Bonus[]): void => {
+                        const depositBonuses: Bonus[] = bonusesService.filterBonuses(bonuses, 'deposit');
+                        this.bonusesExist = depositBonuses.some((bonus: Bonus) => !bonus.isActive);
+
+                        if (this.bonusesExist) {
+                            const params: IBonusesListCParams =
+                                Object.assign({}, this.bonusesListParams.components[0].params, {
+                                    bonuses: depositBonuses,
+                                    disableBonuses$: this.appliedPromoCode$,
+                                });
+
+                            _set(this.bonusesListParams, 'components[0].params', params);
+
+                        } else {
+                            this.deleteStep(Params.PaymentSteps.bonus);
+                        }
+                        Params.PaymentSteps.bonus.$resolve();
+                        bonusesSubscription.unsubscribe();
+
+                        this.cdr.markForCheck();
+                    },
+                },
+            });
+        }
+
+        if (!this.isMultiWallet) {
+            Params.PaymentSteps.paymentSystem.ready = new Promise((resolve: () => void): void => {
+                Params.PaymentSteps.paymentSystem.$resolve = resolve;
+            });
+        }
+
+        this.addStep(Params.PaymentSteps.paymentSystem);
+        if (!this.hiddenPaymentInfo) {
+            this.addStep(Params.PaymentSteps.paymentInfo);
+        }
+
+        this.configService
+            .get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((UserProfile) => {
+                this.userProfile = UserProfile;
+            });
+
+        this.initSubscribers();
+
+        if (this.isLastMethodExisting) {
+            this.lastSucceedPaymentMethod = this.financesService.getLastSucceedPaymentMethod(this.isDeposit);
+        }
+
+        if (!this.isDeposit) {
+            this.title = gettext('Withdrawal');
+            this.listConfig.paymentType = 'withdraw';
+
+            this.userService ??= await this.injectionService.getService<UserService>('user.user-service');
+        } else {
+            this.eventService.emit({name: 'DEPOSIT_VISIT'});
+        }
+
+        if (!this.isMultiWallet) {
+            this.financesService.fetchPaymentSystems()
+                .finally(() => {
+                    this.isFetchingSystems = false;
+                    Params.PaymentSteps.paymentSystem.$resolve();
+                });
+        }
+
+        Promise.all(Array.from(this.steps).map(async (step: Params.IPaymentStep) => await step.ready))
+            .then(() => {
+                this.ready = true;
+                this.cdr.markForCheck();
+            });
+
+        this.isInitialized = true;
+    }
+
+    protected initAfterTagsChecking(): void {
+        this.financesService.isDepositBlocked$().pipe(
+            distinctUntilChanged(),
+            takeUntil(this.$destroy),
+        ).subscribe((isBlocked: boolean): void => {
+            if (isBlocked) {
+                this.ready = true;
+                this.cdr.markForCheck();
+            } else {
+                this.init();
+            }
+        });
     }
 
     private prepareStepsOrdering(): void {

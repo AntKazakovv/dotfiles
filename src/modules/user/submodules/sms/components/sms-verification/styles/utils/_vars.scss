@@ -13,7 +13,8 @@ $themeDefault: map-merge((
     ),
     'textMargin': ef.size(8) 0 0 0,
     'textAlign': center,
-    'textFontSize': ef.get('font', 'PrimaryText'),
+    'textStyle': 'PrimaryText',
+    'textColor': inherit,
 
     'timerMargin': ef.size(4) 0 0 0,
     'timerAlign': center,
@@ -35,4 +36,46 @@ $themeDefault: map-merge((
     'btnMargin': (
         320: ef.size(8) auto ef.size(2),
     ),
+
+    'descrTextStyle': 'PrimaryText',
+    'descrColor': inherit,
+
+    'dividerWidth': 100%,
+    'dividerHeight': 2px,
+    'dividerBg': var(--mc-baseOpacity),
+    'dividerMargin': ef.size(4) 0,
 ), $customThemeDefault);
+
+$customModInline: () !default;
+$modInline: map-merge((
+    'gap': ef.size(4),
+
+    'formWidth': 100%,
+    'formMaxWidth': 100%,
+    'formFieldGap': ef.size(3),
+    'contentMaxWidth': 315px,
+
+    'btnMargin': (
+        375: ef.size(8) auto 0,
+        640: ef.size(8) 0 0,
+    ),
+    'phoneFieldPadding': 0,
+
+    'verTextMargin': 0,
+    'verTextAlign': (
+        375: center,
+        640: left,
+    ),
+    'timerAlignItems': (
+        375: center,
+        640: start,
+    ),
+    'phoneFieldColumns': 110px auto,
+
+    //modal
+    'modalJustifyItems': center,
+    'modalSmsBtnMargin': ef.size(8) auto 0,
+    'modalSmsContentMargin': 0 auto,
+    'modalSmsTimerAlign': center,
+    'modalSmsTextAlign': center,
+), $customModInline);

@@ -5,11 +5,11 @@ import {
 } from 'wlc-engine/modules/core';
 import {ProhibitedPatterns} from 'wlc-engine/modules/core/constants';
 
-export type ComponentTheme = 'default' | CustomType;
+export type ComponentTheme = 'default' | 'vertical' | CustomType;
 export type ComponentType = 'default' | CustomType;
 export type Theme = 'default' | CustomType;
 export type AutoModifiers = Theme | 'default';
-export type CustomMod = string;
+export type CustomMod = 'one-line' | string;
 export type Modifiers = AutoModifiers | CustomMod | null;
 
 export interface IPhoneFieldCParams extends IComponentParams<ComponentTheme, ComponentType, string> {

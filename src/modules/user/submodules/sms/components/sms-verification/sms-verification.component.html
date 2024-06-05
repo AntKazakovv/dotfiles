@@ -1,30 +1,49 @@
-<div *ngIf="!codeSended"
-    wlc-form-wrapper
-    [config]="config"
-    [ngSubmit]="sendCode.bind(this)"
-    (form$)="getForm($event)"
-    [formData]="formData"></div>
-<div *ngIf="codeSended" class="{{$class}}__code">
-    <div
+<div *ngIf="$params.alertText" wlc-alert>
+    <span title>{{$params.alertText | translate}}</span>
+</div>
+
+<p *ngIf="$params.description" class="{{$class}}__descr">{{$params.description | translate}}</p>
+
+<div class="{{$class}}__content">
+    <div *ngIf="!codeSended"
         wlc-form-wrapper
-        [config]="configCode"
-        [ngSubmit]="submitCode.bind(this)"></div>
-    <div class="{{$class}}__text">{{'Haven\'t received the code?' | translate}}</div>
-    <button
-        wlc-button
-        class="{{$class}}__btn"
-        [text]="$params.resendButton?.common?.text || 'Send again'"
-        typeAttr="button"
-        [disabled]="lockResend"
-        (click)="resendCode()"
-        [wlcElement]="'buttom_resend-sms'"
-    ></button>
-    <div class="{{$class}}__timer">
-        <div class="{{$class}}__timer-text">{{'Will be available in' | translate}}</div>
-        <div wlc-timer
-            [value]="timeValue"
-            [noDays]="true"
-            [noHours]="true"
-            [themeMod]="'light'"></div>
+        [config]="config"
+        [ngSubmit]="sendCode.bind(this)"
+        (form$)="getForm($event)"
+        [formData]="formData">
     </div>
 </div>
+<div *ngIf="codeSended" class="{{$class}}__code">
+    <div class="{{$class}}__content">
+        <div
+            wlc-form-wrapper
+            [config]="configCode"
+            [ngSubmit]="submitCode.bind(this)">
+        </div>
+    </div>
+    <ng-container *ngIf="$params.showDividers" [ngTemplateOutlet]="divider"></ng-container>
+    <div class="{{$class}}__content">
+        <div class="{{$class}}__text">{{'Haven\'t received the code?' | translate}}</div>
+        <button
+            wlc-button
+            class="{{$class}}__btn"
+            [text]="$params.resendButton?.common?.text || 'Send again'"
+            typeAttr="button"
+            [disabled]="lockResend"
+            (click)="resendCode()"
+            [wlcElement]="'buttom_resend-sms'"></button>
+        <div class="{{$class}}__timer">
+            <div class="{{$class}}__timer-text">{{'Will be available in' | translate}}</div>
+            <div wlc-timer
+                [value]="timeValue"
+                [noDays]="true"
+                [noHours]="true"
+                [themeMod]="'light'">
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #divider>
+    <div class="{{$class}}__divider"></div>
+</ng-template>

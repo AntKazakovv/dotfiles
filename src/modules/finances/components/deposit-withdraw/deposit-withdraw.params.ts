@@ -6,6 +6,7 @@ import {
     ISelectCParams,
     ICheckboxCParams,
     ITimerCParams,
+    IWrapperCParams,
 } from 'wlc-engine/modules/core';
 import {IButtonCParams} from 'wlc-engine/modules/core/components/button/button.component';
 import {
@@ -14,6 +15,8 @@ import {
 import {IPaymentFormCParams} from 'wlc-engine/modules/finances/components/payment-form/payment-form.params';
 import {IPaymentListCParams} from 'wlc-engine/modules/finances/components/payment-list/payment-list.params';
 import {TPaymentsMethods} from 'wlc-engine/modules/finances/system/interfaces';
+import {inlinePhoneVerificationConfig as phoneVerificationConfig}
+    from 'wlc-engine/modules/user/submodules/sms/components/sms-verification/sms-verification.params';
 
 /**
  * default - one column template
@@ -41,6 +44,7 @@ export interface IDepositWithdrawCParams extends IComponentParams<Theme, Type, T
     /** Array for sorting steps (used with default template only) */
     stepsOrder?: Array<Exclude<TStepTplName, 'wallets'>>;
     depositPromoCodeParams?: IDepositPromoCodeCParams;
+    phoneVerifyParams?: IWrapperCParams;
     stepsParams?: {
         /**
          * Media query, which describes when use steps template.
@@ -60,6 +64,7 @@ export const defaultParams: IDepositWithdrawCParams = {
     class: 'wlc-cash',
     showPaymentRules: true,
     stepsOrder: ['systems', 'cryptoInvoiceSystems', 'bonuses', 'paymentInfo'],
+    phoneVerifyParams: phoneVerificationConfig,
 };
 
 export interface IAdditionalFields {

@@ -402,6 +402,10 @@ export class UserInfo extends AbstractModel<IUserInfo> {
         }*/
     }
 
+    public checkTagExists(tag: string): boolean {
+        return Object.values(this.tags).indexOf(tag) >= 0;
+    }
+
     public getWalletBalance(currency: string): number {
         return this.wallets && this.wallets[currency]?.balance ? _toNumber(this.wallets[currency]?.balance) : 0;
     }

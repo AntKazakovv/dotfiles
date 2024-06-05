@@ -8,6 +8,8 @@ import {
 
 import {IDepositWithdrawCParams} from 'wlc-engine/modules/finances';
 import {phrases as pepPhrases} from 'wlc-engine/modules/user/submodules/pep';
+import {inlinePhoneVerificationConfig as phoneVerificationConfig}
+    from 'wlc-engine/modules/user/submodules/sms/components/sms-verification/sms-verification.params';
 
 export const defaultParams: IModalOptions = {
     moduleName: 'core',
@@ -565,7 +567,7 @@ export const MODALS_LIST: IModalList = {
             componentParams: <IDepositWithdrawCParams>{
                 type: 'modal',
                 mode: 'deposit',
-
+                phoneVerifyParams: phoneVerificationConfig,
                 stepsParams: {
                     paymentListParams: {
                         asModal: null,
