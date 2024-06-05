@@ -118,7 +118,10 @@ import {CatalogBuilder} from 'wlc-engine/modules/games/system/builders/catalog.b
 import {MenuService} from 'wlc-engine/modules/menu';
 import {ICategoriesSettings} from 'wlc-engine/modules/games/system/builders/categories.builder';
 import {IBonusWagerGamesFilter} from 'wlc-engine/modules/bonuses/system/interfaces';
-import {IInteractiveText} from 'wlc-engine/modules/core';
+import {
+    CachingService,
+    IInteractiveText,
+} from 'wlc-engine/modules/core';
 import {Games} from 'wlc-engine/modules/games/system/classes/games';
 import {GameLauncherService} from 'wlc-engine/modules/games/system/services/game-launcher/game-launcher.service';
 import {ISelectedWallet} from 'wlc-engine/modules/multi-wallet/system/interfaces';
@@ -190,6 +193,7 @@ export class GamesCatalogService {
         protected injector: Injector,
         protected injectionService: InjectionService,
         protected gameLauncherService: GameLauncherService,
+        protected cachingService: CachingService,
     ) {
         this.init();
     }
@@ -290,6 +294,15 @@ export class GamesCatalogService {
                     }
                 });
                 this.getFavouriteGames();
+
+                if (this.getCategoryBySlug('recommendations')) {
+
+                    this.eventService.subscribe({
+                        name: 'LOGOUT',
+                    }, () => {
+                        this.cachingService.clear('recommendations');
+                    });
+                }
             });
         });
 
@@ -1383,6 +1396,12 @@ export class GamesCatalogService {
             name: 'recommendations',
             system: 'games',
             url: '/recommendations',
+            cache: 15 * 60 * 1000,
+            cacheOptions: {
+                includeRequestParams: true,
+                key: 'recommendations',
+            },
+            noUseLang: true,
             type: 'GET',
             events: {
                 success: gamesEvents.FETCH_RECOMMENDED_SUCCEEDED,

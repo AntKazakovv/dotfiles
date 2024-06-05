@@ -41,6 +41,7 @@ import _has from 'lodash-es/has';
 import _set from 'lodash-es/set';
 import _reverse from 'lodash-es/reverse';
 import _isArray from 'lodash-es/isArray';
+import _reduce from 'lodash-es/reduce';
 
 import {CachingService} from 'wlc-engine/modules/core/system/services/caching/caching.service';
 import {HooksService} from 'wlc-engine/modules/core/system/services/hooks/hooks.service';
@@ -70,6 +71,13 @@ export interface IData<T = any> {
 
 export type RestMethodType = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
 
+export interface ICacheOptions {
+    /** Generate cache key using request params */
+    includeRequestParams?: boolean;
+    /** Cache key for save date */
+    key?: string;
+}
+
 export type RequestParamsType = HttpParams | {[key: string]: string | string[] | any};
 
 export interface IRequestMethod {
@@ -93,6 +101,7 @@ export interface IRequestMethod {
     },
     /** cache time in ms */
     cache?: number;
+    cacheOptions?: ICacheOptions;
     /** request parameters */
     params?: RequestParamsType;
     /** period of automatically request */
@@ -337,6 +346,22 @@ export class DataService {
         this.errorReplacerMap = this.configService.get<TErrorReplacerMap>('$base.errorsReplacerMap');
     }
 
+    private cacheUrlWithParams(cacheUrl: string, params: RequestParamsType): string {
+        let preparedParams: string[];
+        if (params instanceof HttpParams) {
+            const keys: string[] = params.keys();
+            preparedParams = _reduce(keys, (result, key) => {
+                const value = params.get(key);
+                result.push(`${key}=${value}`);
+                return result;
+            }, []);
+        } else {
+            preparedParams = Object.entries(params).map(item => item.join('='));
+        }
+
+        return cacheUrl + '|' + preparedParams.join('&');
+    }
+
     protected request$<T>(method: IRegisteredMethod, params?: RequestParamsType): Observable<IData | T> {
         if (!method.url && !method.fullUrl) {
             throw new Error(`request$: url or fullUrl are necessary on ${method.system}/${method.name}`);
@@ -355,7 +380,15 @@ export class DataService {
         const requestBody = method.type !== 'GET' ? this.checkFormData(params) || '' : undefined;
 
         const url = method.fullUrl || urlPrefixApi[method.apiVersion ?? 1] + method.url;
-        const cacheUrl = requestParams.lang ? `${url}|${requestParams.lang}` : url;
+        let cacheUrl = requestParams.lang ? `${url}|${requestParams.lang}` : url;
+
+        if (method.cacheOptions?.key) {
+            cacheUrl = method.cacheOptions.key;
+        }
+
+        if (method.cacheOptions?.includeRequestParams && params) {
+            cacheUrl = this.cacheUrlWithParams(cacheUrl, params);
+        }
 
         const preloadData$: Observable<unknown> =
             (this.isRequestPreloaded(method))

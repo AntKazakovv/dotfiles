@@ -691,26 +691,26 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
      */
     protected async preloadSpecialGames(filter?: IGamesFilterData): Promise<void> {
         if (!this.favoritesLoaded && _includes(filter?.categories, 'favourites')) {
-            await this.gamesCatalogService.getFavouriteGames();
             this.favoritesLoaded = true;
+            await this.gamesCatalogService.getFavouriteGames();
         }
 
         if (!this.recommendedLoaded && _includes(filter?.categories, 'recommendations')) {
-            await this.gamesCatalogService.getRecommendedGames();
             this.recommendedLoaded = true;
+            await this.gamesCatalogService.getRecommendedGames();
         }
 
         if (!this.lastPlayedLoaded && _includes(filter?.categories, 'lastplayed')) {
-            await this.gamesCatalogService.getLastGames();
             this.lastPlayedLoaded = true;
+            await this.gamesCatalogService.getLastGames();
         }
 
         if (!this.jackpotsLoaded && _includes(filter?.categories, 'jackpots')) {
             const category = this.gamesCatalogService.getCategoryBySlug('jackpots');
             if (category) {
+                this.jackpotsLoaded = true;
                 await category.isReady;
             }
-            this.jackpotsLoaded = true;
         }
     }
 
