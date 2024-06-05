@@ -92,9 +92,11 @@ $themeWolf: map-merge((
     'prizepoolIconSizeLg': ef.size(8),
     'infoTextStyle': 'CaptionText',
     'infoTextColor': var(--mc-baseMain),
-    'infoWidth': (
-        375: 260px,
-        900: 330px,
+    'infoMaxWidth': 500px,
+    'infoPadding': (
+        375: 0 ef.size(6),
+        560: 0 ef.size(3),
+        640: 0,
     ),
     'infoMargin': 0 auto ef.size(4),
     'prizeboardColumnWidth': (

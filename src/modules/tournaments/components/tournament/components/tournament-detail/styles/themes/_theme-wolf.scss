@@ -170,8 +170,10 @@ $selector: '.wlc-tournament-detail';
                 ef.get-value($themeWolf, 'infoTextStyle'),
                 ef.get-value($themeWolf, 'infoTextColor')
             );
-            @include bm.get-mq-map('width', $themeWolf, 'infoWidth');
+            @include bm.get-mq-map('padding', $themeWolf, 'infoPadding');
+            max-width: ef.get-value($themeWolf, 'infoMaxWidth');
             margin: ef.get-value($themeWolf, 'infoMargin');
+            text-align: center;
         }
 
         #{$selector}__prizeboard {
