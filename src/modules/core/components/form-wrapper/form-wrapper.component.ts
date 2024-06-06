@@ -72,6 +72,7 @@ import {
 } from 'wlc-engine/modules/core/components/wrapper/wrapper.component';
 import {FormValidators} from 'wlc-engine/modules/core/system/services/validation/validators';
 import {WINDOW} from 'wlc-engine/modules/app/system';
+import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 
 export interface IControls extends IIndexing<UntypedFormControl> {
 }
@@ -175,6 +176,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
         );
     }
 
+    @CustomHook('core', 'formWrapperNgOnInit')
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
         this.prepareParams();
