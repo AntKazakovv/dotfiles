@@ -42,11 +42,11 @@
             @include bm.get-mq-map('align-items', $themeDefault, 'contentAlignItems');
             @include bm.get-mq-map('padding', $themeDefault, 'contentPadding');
             @include bm.get-mq-map('text-align', $themeDefault, 'contentTextAlign');
+            @include bm.get-mq-map('min-height', $themeDefault, 'contentMinHeight');
 
             display: ef.get-value($themeDefault, 'contentDisplay');
             flex-direction: ef.get-value($themeDefault, 'contentDirection');
             justify-content: ef.get-value($themeDefault, 'contentJustify');
-            min-height: ef.get-value($themeDefault, 'contentMinHeight');
 
             &--mobile {
                 position: absolute;

@@ -34,7 +34,10 @@ $themeDefault: map-merge((
     'contentHeight': (
         320: 100%,
     ),
-    'contentMinHeight': 120px,
+    'contentMinHeight': (
+        375: 120px,
+        1024: 300px,
+    ),
     'contentPadding': (
         320: ef.size(4) ef.size(4) ef.size(6),
         560: ef.size(8),
