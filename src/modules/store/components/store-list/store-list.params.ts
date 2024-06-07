@@ -3,9 +3,7 @@ import {
     CustomType,
     IPagination,
     IWrapperCParams,
-    IButtonCParams,
 } from 'wlc-engine/modules/core';
-import {storeConfig} from 'wlc-engine/modules/store/system/config/store.config';
 
 export type Type = 'default' | CustomType;
 export type Theme = 'default' | CustomType;
@@ -18,8 +16,6 @@ export interface IStoreListCParams extends IComponentParams<Theme, Type, ThemeMo
     modifiers?: Modifiers[];
     /** wlc-profile-no-content params */
     emptyConfig?: IWrapperCParams;
-    userStatsConfig: IWrapperCParams;
-    formConfig: IWrapperCParams;
     common?: {
         themeMod?: ThemeMod;
         customModifiers?: CustomMod;
@@ -38,35 +34,6 @@ export const defaultParams: IStoreListCParams = {
                 name: 'profile.wlc-profile-no-content',
                 params: {
                     text: gettext('No store items available'),
-                },
-            },
-        ],
-    },
-    userStatsConfig: {
-        components: [
-            {
-                name: 'user.wlc-user-stats',
-                params: {
-                    type: 'store',
-                    showTooltipDescriptionModal: true,
-                },
-            },
-        ],
-    },
-    formConfig: {
-        class: 'wlc-form-wrapper',
-        components: [
-            {
-                name: 'core.wlc-select',
-                params: storeConfig.storeFilterConfig,
-            },
-            {
-                name: 'core.wlc-button',
-                params: <IButtonCParams>{
-                    name: 'submit',
-                    common: {
-                        text: gettext('Save'),
-                    },
                 },
             },
         ],

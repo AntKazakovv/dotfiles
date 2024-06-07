@@ -1,9 +1,0 @@
-$customThemeDefault: () !default;
-$themeDefault: map-merge((
-    'formMaxWidth': (
-        375: 285px,
-    ),
-    'formRowGap': ef.size(4),
-    'formMargin': auto,
-    'btnMargin': ef.size(4) auto 0,
-), $customThemeDefault);

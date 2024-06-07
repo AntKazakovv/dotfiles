@@ -5,7 +5,9 @@
         > .container {
             @include bm.get-mq-map('grid-template-columns', $storeThemeDefault, 'containerColumns');
             @include bm.get-mq-map('grid-template-areas', $storeThemeDefault, 'containerAreas');
+
             position: relative;
+
             display: grid;
             grid-template-rows: auto;
         }
@@ -30,13 +32,6 @@
         .wlc-profile-menu {
             @include bm.get-mq-map('margin', $storeThemeDefault, 'submenuMargin');
             grid-area: submenu;
-        }
-    }
-
-    .wlc-sections__profile-content--theme-first {
-
-        > .container {
-            position: relative;
         }
     }
 }

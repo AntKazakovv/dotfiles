@@ -16,7 +16,6 @@ import {StoreTitleComponent} from './components/store-title/store-title.componen
 import {StoreItemInfoComponent} from './components/store-item-info/store-item-info.component';
 import {StoreConfirmationComponent} from './components/store-confirmation/store-confirmation.component';
 import {StoreItemPriceComponent} from 'wlc-engine/modules/store/components/store-item-price/store-item-price.component';
-import {StoreFilterFormComponent} from './components/store-filter-form/store-filter-form.component';
 import {IStoreModule} from './system/interfaces/store.interface';
 import {storeConfig} from './system/config/store.config';
 
@@ -29,7 +28,6 @@ export const components = {
     'wlc-store-item-info': StoreItemInfoComponent,
     'wlc-store-confirmation': StoreConfirmationComponent,
     'wlc-store-item-price': StoreItemPriceComponent,
-    'wlc-store-filter-form': StoreFilterFormComponent,
 };
 
 export const services = {
@@ -46,7 +44,6 @@ export const moduleConfig = GlobalHelper.mergeConfig<IStoreModule>(storeConfig, 
         StoreItemInfoComponent,
         StoreConfirmationComponent,
         StoreItemPriceComponent,
-        StoreFilterFormComponent,
     ],
     imports: [
         CommonModule,
@@ -64,7 +61,6 @@ export const moduleConfig = GlobalHelper.mergeConfig<IStoreModule>(storeConfig, 
         StoreItemInfoComponent,
         StoreConfirmationComponent,
         StoreItemPriceComponent,
-        StoreFilterFormComponent,
     ],
 })
 

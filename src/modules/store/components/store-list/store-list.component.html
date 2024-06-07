@@ -1,12 +1,4 @@
 <div class="{{$class}}__content" data-wlc-element="wlc-store">
-    <div *ngIf="showDesktopFilter; else mobileFilter"
-        class="{{$class}}__filter">
-        <div wlc-select [inlineParams]="storeFilter"></div>
-    </div>
-    <div wlc-wrapper
-        class="{{$class}}__user-stats"
-        [inlineParams]="$params.userStatsConfig">
-    </div>
     <div *ngIf="isMultiWallet"
          wlc-alert
          class="{{$class}}__alert-block"
@@ -20,8 +12,7 @@
             wlc-store-item
             [storeItem]="item"
             [theme]="itemTheme"
-            [userLevel]="userLevel"
-            [itemDisabledInfo]="getItemDisabledInfo(item)">
+            [userLevel]="userLevel">
         </div>
     </div>
     <div wlc-pagination
@@ -30,25 +21,12 @@
          (paginationOnChange)="paginationOnChange($event)">
     </div>
     <ng-template #noItems>
-        <div *ngIf="isReady; else loading"
-            wlc-wrapper
-            class="{{$class}}__nocontent"
-            [inlineParams]="$params.emptyConfig">
-        </div>
+        <div *ngIf="isReady; else loading" wlc-wrapper [inlineParams]="$params.emptyConfig"></div>
     </ng-template>
 </div>
 
 <ng-template #loading>
-    <div class="{{$class}}__loader">
+    <div class="{{$class}}__nocontent">
         <div wlc-loader></div>
     </div>
-</ng-template>
-
-<ng-template #mobileFilter>
-    <button wlc-button
-        class="{{$class}}__filter-button"
-        theme="custom"
-        iconPath="/wlc/icons/filter.svg"
-        (click)="openFilter()">
-    </button>
 </ng-template>
