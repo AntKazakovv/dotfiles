@@ -214,7 +214,7 @@ export class MerchantWalletService {
                         title: this.merchant.alias,
                         message: _isArray(error.errors)
                             ? error.errors
-                            : gettext('Error getting merchant wallet balance.'),
+                            : gettext('Provider wallet balance information has not been received'),
                     },
                 });
             });
@@ -292,7 +292,7 @@ export class MerchantWalletService {
                     type: 'error',
                     title: this.merchant.alias,
                     message: [
-                        gettext('Withdrawal is unavailable due to zero balance on merchant wallet.'),
+                        gettext('Withdrawal is unavailable due to a zero balance on the provider\'s wallet'),
                     ],
                 },
             });
@@ -329,7 +329,7 @@ export class MerchantWalletService {
                 wlcElement: 'mw-balance-transfer',
                 showFooter: false,
                 backdrop: 'static',
-                modalTitle: method === 'deposit' ? gettext('Adding funds') : gettext('Funds withdrawal'),
+                modalTitle: method === 'deposit' ? gettext('Funds replenishment') : gettext('Funds withdrawal'),
                 componentName: 'games.wlc-merchant-wallet-form',
                 componentParams: <IMerchantWalletFormCParams>{
                     method: method,
@@ -348,7 +348,7 @@ export class MerchantWalletService {
             modifier: 'info',
             wlcElement: 'ew-zero-balance',
             showConfirmBtn: true,
-            confirmBtnText: gettext('Add'),
+            confirmBtnText: gettext('Replenish'),
             rejectBtnVisibility: false,
             modalTitle: this.merchant.alias,
             componentName: 'games.wlc-merchant-wallet-info',
@@ -376,7 +376,7 @@ export class MerchantWalletService {
             ).pipe(
                 catchError((error: any): Observable<never> => {
                     const errData = _isArray(error.errors) ? error
-                        : {errors: [gettext('Error getting merchant wallet balance.')]};
+                        : {errors: [gettext('Provider wallet balance information has not been received')]};
                     this.balance$.next(errData);
                     return throwError(errData);
                 }),

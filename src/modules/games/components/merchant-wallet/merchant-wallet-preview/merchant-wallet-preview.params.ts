@@ -43,7 +43,7 @@ export const buttonsDefault: IWrapperCParams = {
             name: 'core.wlc-button',
             params: {
                 common: {
-                    text: 'Add',
+                    text: 'Replenish',
                     event: {
                         name: MerchantWalletEvents.Deposit,
                     },
@@ -74,7 +74,7 @@ export const buttonsResizable: IWrapperCParams = {
             name: 'core.wlc-button',
             params: {
                 common: {
-                    text: 'Add',
+                    text: 'Replenish',
                     iconPath: '',
                     event: {
                         name: MerchantWalletEvents.Deposit,

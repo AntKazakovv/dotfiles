@@ -549,7 +549,7 @@ export class PaymentFormComponent
                 title: gettext('Withdraw'),
                 message: [
                     this.translateService.instant('Withdraw request has been successfully sent!'),
-                    this.translateService.instant('Withdraw sum') + ` ${currencyIcon}`,
+                    this.translateService.instant('Withdrawal amount') + ` ${currencyIcon}`,
                 ],
                 wlcElement: 'notification_withdraw-request-success',
                 displayAsHTML: true,

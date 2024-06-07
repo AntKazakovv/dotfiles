@@ -107,11 +107,11 @@ export class MerchantWalletFormComponent extends AbstractComponent implements On
                     title: this.merchantName,
                     message: [
                         method === 'deposit'
-                            ? gettext('Transfer to the provider`s wallet has been successfully sent!')
-                            : gettext('Transfer from the provider`s wallet has been successfully completed!'),
+                            ? gettext('The transfer to the provider\'s wallet has been successfully made!')
+                            : gettext('The transfer from the provider\'s wallet has been successfully completed!'),
                         this.translateService.instant(method === 'deposit'
-                            ? gettext('Deposit sum')
-                            : gettext('Withdraw sum'))
+                            ? gettext('Replenishment amount')
+                            : gettext('Withdrawal amount'))
                         + ': ' + amount + ' ' + this.merchantWalletService.userCurrency,
                     ],
                 },
@@ -257,7 +257,7 @@ export class MerchantWalletFormComponent extends AbstractComponent implements On
                         wlcElement: `button_${method}`,
                         common: {
                             typeAttr: 'submit',
-                            text: method === 'deposit' ? gettext('Add') : gettext('Withdraw'),
+                            text: method === 'deposit' ? gettext('Replenish') : gettext('Withdraw'),
                         },
                         customMod: ['submit', method],
                     },

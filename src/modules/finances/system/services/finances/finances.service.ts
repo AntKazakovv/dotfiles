@@ -446,7 +446,7 @@ export class FinancesService {
 
                         if (type === 'withdraw') {
                             message.push(
-                                this.translateService.instant(gettext('Withdraw sum')) + ` ${currencyElement}`,
+                                this.translateService.instant(gettext('Withdrawal amount')) + ` ${currencyElement}`,
                             );
                         } else {
                             message.push(
