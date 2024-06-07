@@ -94,7 +94,7 @@ import * as Params from './select.params';
 export class SelectComponent extends AbstractComponent implements OnInit, OnChanges, AfterViewInit {
 
     @ViewChild('selectList') protected selectList: ElementRef<HTMLElement>;
-    @ViewChild('searchInput') protected searchInput: ElementRef<HTMLInputElement>;
+    @ViewChild('searchInput') protected searchInput: ElementRef<HTMLElement>;
 
     @Input() protected inlineParams: Params.ISelectCParams;
 
@@ -244,19 +244,19 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
             fromEvent(this.searchInput.nativeElement, 'focus')
                 .pipe(takeUntil(this.$destroy))
                 .subscribe(() => {
-                    const el = this.searchInput.nativeElement;
-                    if (el.hasAttribute('readonly')) {
-                        el.removeAttribute('readonly');
-                        el.blur();
-                        el.focus();
+                    if (this.searchInput.nativeElement.hasAttribute('readonly')) {
+                        this.searchInput.nativeElement.removeAttribute('readonly');
+                        this.searchInput.nativeElement.blur();
+                        this.searchInput.nativeElement.focus();
                     }
-
-                    const value: string = (el.placeholder || el.value) === this.$params.common.placeholder ?
-                        '' : el.value;
-                    el.placeholder = value;
-                    this.searchText = value;
                     this.openDropdown();
                 });
+
+            setTimeout(() => {
+                if (!this.control.disabled) {
+                    this.searchText = this.translateService.instant(this.placeholderText);
+                }
+            });
         }
     }
 
