@@ -6,7 +6,10 @@
     .wlc-progress-bar {
 
         &__text {
-            @include text.get-text-style(#{ef.get-value($themeDefault, 'PrimaryText')}, ef.get-value($themeDefault, 'textFontColor'));
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'textFontStyle'),
+                ef.get-value($themeDefault, 'textFontColor')
+            );
             @include bm.get-mq-map('margin', $themeDefault, 'textMargin');
         }
 
@@ -32,7 +35,10 @@
         .wlc-search--theme-mod-default & {
 
             &__text {
-                @include text.get-text-style(ef.get-value($themeDefault, 'textFontStyle'), ef.get-value($themeDefault, 'textFontColor'));
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'textFontStyle'),
+                    ef.get-value($themeDefault, 'textFontColor')
+                );
             }
         }
     }
