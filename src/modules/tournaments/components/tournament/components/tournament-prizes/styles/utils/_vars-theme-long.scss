@@ -1,31 +1,33 @@
 $customThemeLong: () !default;
 $themeLong: map-merge((
-    'headTextStyle': 'PrimaryText',
+    'headTextStyle': 'CaptionText',
     'headColor': inherit,
-    'headBorderRadius': ef.get('radius', 'biger') ef.get('radius', 'biger') 0 0,
 
-    'bodyTextStyle': 'PrimaryText',
-    'bodyTextBoldStyle': 'PrimaryTextBold',
+    'bodyTextStyle': 'CaptionTextBold',
     'bodyColor': inherit,
-    'bodyBorderRadius': 0 0 ef.get('radius', 'biger') ef.get('radius', 'biger'),
 
-    'controlPadding': ef.size(2) 0,
-    'controlBackground': var(--mc-bg700),
-    'controlRadius': 0 0 ef.get('radius', 'biger') ef.get('radius', 'biger'),
+    'controlsMargin': ef.size(2) ef.size(-2),
+    'controlOffset': ef.size(2),
 
-    'rowPadding': ef.size(2) ef.size(5),
-    'rowBg': var(--mc-bg700),
-    'rowBorder': 1px solid var(--mc-bg300),
+    'rowAlignItems': flex-start,
+    'rowPadding': ef.size(1) ef.size(2) ef.size(1) 0,
+    'rowRadius': ef.get('radius', 'biger'),
+    'rowBgEven': none,
+    'rowBgOdd': var(--mc-bg),
 
+    'topColor': inherit,
+    'topBg': var(--mc-bg-o6),
+
+    'colPlaceFlexSize': 0 0 20%,
+    'colPlacePadding': 0,
     'colPlaceTextAlign': center,
 
+    'colPrizeFlexSize': 1 1 80%,
+    'colPrizePadding': 0,
     'colPrizeTextAlign': right,
 
-    'colInfoPadding': 1px 0 0,
-    'colGap': ef.size(1),
+    'colInfoMinWidth': 18px,
+    'colInfoPadding': 1px 0 0 ef.size(2),
 
     'iconSize': 15px,
-
-    'buttonColor': var(--mc-main),
-    'buttonHoverColor': var(--mc-baseMain),
 ), $customThemeLong);

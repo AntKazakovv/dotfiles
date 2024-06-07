@@ -5,9 +5,10 @@
     .wlc-tournament-prizes-row {
 
         &__values {
-            display: var(--wlc-prizes-row-display, inline-flex);
+            display: var(--wlc-prizes-row-display, flex);
             flex-wrap: wrap;
             justify-content: var(--wlc-prizes-row-alignment, #{ef.get-value($themeDefault, 'valuesAlignment')});
+            width: 100%;
             text-align: var(--wlc-prizes-row-alignment, #{ef.get-value($themeDefault, 'valuesAlignment')});
             text-overflow: ellipsis;
             overflow: hidden;

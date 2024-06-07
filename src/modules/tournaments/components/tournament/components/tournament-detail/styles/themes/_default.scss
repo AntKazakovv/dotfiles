@@ -253,12 +253,6 @@ $selector: '.wlc-tournament-detail';
 
                 grid-area: PPAmount;
 
-                &:has(.wlc-tournament-prizes-row__val:nth-child(n+2)) {
-                    @include text.get-text-style(
-                        ef.get-value($themeDefault, 'prizepoolTitleStyle'),
-                    );
-                }
-
                 &.size-lg {
                     @include bm.get-mq-map('--wlc-icon-width', $themeDefault, 'prizepoolAmountIconSizeLg');
                     @include bm.get-mq-map('--wlc-icon-height', $themeDefault, 'prizepoolAmountIconSizeLg');

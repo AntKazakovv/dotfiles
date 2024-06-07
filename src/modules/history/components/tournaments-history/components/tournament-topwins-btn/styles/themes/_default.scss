@@ -1,6 +1,7 @@
 .wlc-tournament-topwins-btn--theme-default:host {
 
     @include bm.get-mq-map('padding', $themeDefault, 'btnBlockPadding');
+    @include cm.tableBtnBlockStyles;
 
     &.profile-first {
         @include bm.get-mq-map('padding', $themeDefault, 'btnBlockPaddingFirst');
@@ -13,15 +14,10 @@
         }
     }
 
-    .action-wrapper {
-        position: absolute;
-        bottom: 5px;
-        left: 0;
-
+    .action-btn {
         display: flex;
         justify-content: center;
-        width: 100%;
-        border-top: ef.get-value($themeDefault, 'actionWrapperBorder');
+        margin: ef.get-value($themeDefault, 'actionBtnPadding');
 
         .wlc-table--table & {
             display: none;

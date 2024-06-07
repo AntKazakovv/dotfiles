@@ -3,7 +3,7 @@ $themeDefault: map-merge((
     'containerMaxWidth': 100%,
     'containerMargin': 0 auto,
     'gridTemplateColumns': 1fr,
-    'wrapperBg': transparent,
+    'wrapperBg': var(--mc-bg700),
     'wrapperBgAlt': var(--mc-bg500-o4),
     'wrapperPadding': ef.size(2) 0,
     'wrapperRadius': ef.get('radius', 'biger'),
@@ -14,10 +14,12 @@ $themeDefault: map-merge((
     ),
     'descrAlign': center,
     'firstCellPadding': (
-        375: 0 0 0 ef.size(5),
+        375: 0 0 0 ef.size(3),
+        768: 0 0 0 ef.size(4),
     ),
     'lastCellPadding': (
-        375: 0 ef.size(5) 0 0,
+        375: 0 ef.size(3) 0 0,
+        768: 0 ef.size(4) 0 0,
     ),
     'iconMargin': 0 ef.size(2) 0 0,
     'iconSize': 12px,
@@ -27,15 +29,9 @@ $themeDefault: map-merge((
     'btnMargin': ef.size(4) auto 0,
     'nocontentBg': none,
 
-    'btnTextStyle': 'PrimaryTextBold',
-    'btnTextColor': var(--mc-main),
-    'btnTextColorHover': var(--mc-baseMain),
-    'btnHeight': 38px,
-    'btnRadius': 0 0 ef.get('radius', 'biger') ef.get('radius', 'biger'),
-
     'fontSize': ef.get('font', 'PrimaryText'),
     'rowBg': transparent,
-    'rowUserBg': linear-gradient(180deg, var(--mc-bg700) 0%, var(--mc-main-o4) 100%),
+    'rowUserBg': var(--mc-main),
     'iconBaseColor': currentColor, // set null if you need to use multicolor icon
     'iconColor': var(--mc-baseOpacity),
     'iconUserColor': var(--mc-bg),
@@ -49,35 +45,30 @@ $themeDefault: map-merge((
 
     'listGap': ef.size(1),
     'listBg': var(--mc-bg700),
-    'listBgTop': var(--mc-bg700),
+    'listBgTop': none,
     'listRadius': ef.get('radius', 'biger'),
-    'listRadiusWithBtn': ef.get('radius', 'biger') ef.get('radius', 'biger') 0 0,
 
-    'itemRadius': initial,
+    'itemRadius': ef.get('radius', 'big'),
     'itemMargin': (
         375: 0 ef.size(2),
         768: 0 ef.size(3),
     ),
-    'itemHeight': 38px,
-    'itemGridTemplate': repeat(3, 1fr),
+    'itemHeight': 24px,
+    'itemGridTemplate': 80px 1fr 1fr,
 
     'itemBg': var(--mc-bg700),
     'itemTextStyle': 'PrimaryText',
-    'itemBoldTextStyle': 'PrimaryTextBold',
     'itemTextStyleTop': 'PrimaryTextBold',
     'itemColor': inherit,
     'itemColorTop': inherit,
     'itemPaddingUser': 0 ef.size(1),
 
+    'itemUserCellTextStyle': 'PrimaryTextBold',
     'itemUserCellTextColor': var(--mc-baseMain),
-    'itemUserBorderBottom': 2px solid var(--mc-main),
 
-    'headBg': var(--mc-bg700),
+    'headBg': transparent,
     'headPadding': 0 0 ef.size(1),
-    'headRadius': ef.get('radius', 'biger') ef.get('radius', 'biger') 0 0,
 
-    'topMargin': 0 0 ef.size(1),
-    'topRadiusWithHead': 0 0 ef.get('radius', 'biger') ef.get('radius', 'biger'),
     'topCellHeight': 26px,
     'topCellUserPadding': 0 ef.size(3) 0 ef.size(2),
     'topIconMargin': 0 0 0 ef.size(1),
@@ -87,10 +78,8 @@ $themeDefault: map-merge((
     'topIconUserColor': var(--mc-baseMain),
 
     'winTextMargin': 0 3px 0 0,
-    'winBonusTextMargin': 0,
+    'winBonusTextMargin': 0 10px 0 0,
     'winJustifyContent': end,
-
-    'borderBottom': 1px solid var(--mc-bg300),
 ), $customThemeDefault);
 
 $customThemeModCompact: () !default;
@@ -131,28 +120,26 @@ $themeDefaultModHistory: map-merge((
     'listPadding': 0,
     'listBg': none,
     'listBgTop': var(--mc-bg500),
-    'listRadius': 0 0 ef.get('radius', 'biger') ef.get('radius', 'biger'),
 
-    'headPaddingFirst': 0 0 0 ef.size(5),
-    'headPaddingLast': 0 ef.size(5) 0 0,
+    'headPaddingFirst': 0,
+    'headPaddingLast': 0,
     'headAlign': center,
     'headAlignFirst': center,
     'headAlignLast': center,
 
-    'rowPrimaryBg': var(--mc-bg700),
+    'rowPrimaryBg': var(--mc-bg500),
     'rowSecondaryBg': transparent,
-    'rowHeight': 38px,
+    'rowHeight': 30px,
     'rowGrid':(
-        375: 3fr 4fr 2fr 6fr,
+        375: 1fr 2fr 1fr 3fr,
         480: 1fr 2fr 1fr 2fr,
     ),
 
-    'firstCellPadding': 0 0 0 ef.size(5),
-    'lastCellPadding': 0 ef.size(5) 0 0,
+    'firstCellPadding': 0 ef.size(1),
+    'lastCellPadding': ef.size(1) ef.size(2),
 
     'cellAlign': center,
     'nocontentBg': none,
-    'itemRadius': initial,
-    'itemUserBorderBottom': 2px solid var(--mc-main),
+    'itemRadius': ef.get('radius', 'biger'),
     'userTopRadius': 0,
 ), $customThemeDefaultModHistory);
