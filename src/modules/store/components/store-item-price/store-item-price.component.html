@@ -1,16 +1,28 @@
 <div class="{{$class}}__content">
-    <div *ngIf="!!priceLoyalty"
+    <div *ngIf="!!storeItemTotalPrice.loyaltyPrice"
         wlc-currency
         class="price-item"
         currency="LP"
         digitsInfo="1-0-0"
-        [value]="priceLoyalty">
+        [value]="storeItemTotalPrice.loyaltyPrice">
     </div>
-    <div *ngIf="!!priceExp"
+    <div *ngIf="!!storeItemTotalPrice.expPrice"
         wlc-currency
         class="price-item"
         currency="EP"
         digitsInfo="1-0-0"
-        [value]="priceExp">
+        [value]="storeItemTotalPrice.expPrice">
+    </div>
+    <div *ngIf="!!storeItemTotalPrice.moneyPrice" class="{{$class}}__money price-item">
+        <span wlc-currency
+            class="{{$class}}__money-value"
+            [value]="storeItemTotalPrice.moneyPrice"
+            digitsInfo="1-2-2"
+            [showValueOnly]="true">
+        </span>
+        <span wlc-icon
+            class="{{$class}}__money-icon"
+            [iconPath]="WalletHelper.getCurrencyIconUrl(storeItemTotalPrice.moneyCurrency)">
+        </span>
     </div>
 </div>

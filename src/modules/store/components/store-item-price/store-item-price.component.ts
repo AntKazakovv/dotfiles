@@ -7,8 +7,12 @@ import {
     ChangeDetectorRef,
 } from '@angular/core';
 
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {
+    AbstractComponent,
+    ConfigService,
+} from 'wlc-engine/modules/core';
+import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
+import {IStoreItemTotalPrice} from 'wlc-engine/modules/store/system/interfaces/store.interface';
 
 import * as Params from './store-item-price.params';
 
@@ -19,12 +23,13 @@ import * as Params from './store-item-price.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StoreItemPriceComponent extends AbstractComponent implements OnInit {
+
+    @Input() public inlineParams: Params.IStoreItemPriceCParams;
+    @Input() public storeItemTotalPrice: IStoreItemTotalPrice;
+
     public override $params: Params.IStoreItemPriceCParams;
 
-    @Input() protected inlineParams: Params.IStoreItemPriceCParams;
-    @Input() public theme: Params.ComponentTheme;
-    @Input() public priceLoyalty: number;
-    @Input() public priceExp: number;
+    protected readonly WalletHelper = WalletHelper;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IStoreItemPriceCParams,

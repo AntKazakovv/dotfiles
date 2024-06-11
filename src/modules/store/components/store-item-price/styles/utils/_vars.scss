@@ -1,5 +1,8 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'priceAlignItems': center,
-    'priceJustifyContent': center,
+    'contentGap': ef.size(1) 0,
+    'dividerContent': '+',
+    'dividerMargin': 0 ef.size(1),
+    'priceIconSize': 15px,
+    'moneyIconMargin': 0 0 0 4px,
 ), $customThemeDefault);

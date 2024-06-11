@@ -32,7 +32,7 @@ $themeFirst: map-merge((
     'nameFontColor': var(--mc-baseMain),
     'nameFontSize': ef.get('font', 'big'),
     'priceFontColor': var(--mc-baseMain),
-    'priceFontSize': ef.get('font', 'PrimaryText'),
+    'priceFontStyle': 'PrimaryTextBold',
     'moreIconColor': var(--mc-baseOpacity),
     'moreIconColorHover': var(--mc-baseMain),
     'moreIconPadding': ef.size(1),
@@ -91,4 +91,6 @@ $themeFirst: map-merge((
     'tagBgUnavailable': ef.get('tagConfig', 'bgUnavailable'),
 
     'lockBtnMaxWidth': 183px,
+
+    'priceLineHeight': 1,
 ), $customThemeFirst);

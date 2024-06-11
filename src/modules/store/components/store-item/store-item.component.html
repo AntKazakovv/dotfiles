@@ -75,10 +75,7 @@
                         {{storeItem.name}}
                     </div>
                     <div class="{{$class}}__price" data-wlc-element="store_item-price">
-                        <div wlc-store-item-price
-                            [priceLoyalty]="storeItem.priceLoyalty"
-                            [priceExp]="storeItem.priceExp">
-                        </div>
+                        <div wlc-store-item-price [storeItemTotalPrice]="storeItemTotalPrice"></div>
                     </div>
                 </div>
             </div>
@@ -141,11 +138,7 @@
                 </div>
             </div>
             <div class="{{$class}}__price" data-wlc-element="store_item-price">
-                <div wlc-store-item-price
-                    [theme]="'line'"
-                    [priceLoyalty]="storeItem.priceLoyalty"
-                    [priceExp]="storeItem.priceExp">
-                </div>
+                <div wlc-store-item-price [storeItemTotalPrice]="storeItemTotalPrice"></div>
             </div>
             <div *ngIf="isAuth" class="{{$class}}__btns">
                 <div *ngIf="isDisabled; else buyBtn" class="{{$class}}__lock-btn">
@@ -167,4 +160,3 @@
         (click)="showConfirmationModal()">
     </button>
 </ng-template>
-

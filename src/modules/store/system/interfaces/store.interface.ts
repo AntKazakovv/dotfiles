@@ -45,6 +45,7 @@ export interface IStoreItem {
     Name: string;
     Order: string;
     Price: IStoreItemPrice;
+    PriceMoney: IStoreItemPriceMoney;
     Quantity: string;
     RepeatBuyRestriction: string;
     Status: string;
@@ -127,4 +128,15 @@ export interface IStoreTagsConfig {
 
 export interface IStoreModule {
     tagsConfig?: IStoreTagsConfig;
+}
+
+export interface IStoreItemTotalPrice {
+    loyaltyPrice?: number,
+    expPrice?: number,
+    moneyPrice?: number,
+    moneyCurrency?: string,
+}
+
+export interface IStoreItemPriceMoney {
+    [key: string]: string;
 }

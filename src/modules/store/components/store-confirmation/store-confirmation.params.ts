@@ -3,7 +3,10 @@ import {
     IWrapperCParams,
     IComponentWithPendingBtns,
 } from 'wlc-engine/modules/core';
-import {StoreItem} from 'wlc-engine/modules/store';
+import {
+    IStoreItemTotalPrice,
+    StoreItem,
+} from 'wlc-engine/modules/store';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
@@ -15,8 +18,7 @@ export interface IStoreConfirmationCParams extends
     iconConfig: IWrapperCParams;
     modalMessage: string;
     balanceMessage: string;
-    priceLoyalty: number,
-    priceExp: number,
+    storeItemTotalPrice: IStoreItemTotalPrice,
 }
 
 export const defaultParams: Partial<IStoreConfirmationCParams> = {
@@ -35,8 +37,13 @@ export const defaultParams: Partial<IStoreConfirmationCParams> = {
     },
     modalMessage: gettext('Are you sure?'),
     balanceMessage: gettext('Your balance will be debited on:'),
-    priceLoyalty: 0,
-    priceExp: 0,
+    storeItemTotalPrice: {
+        loyaltyPrice: 0,
+        expPrice: 0,
+        moneyPrice: 0,
+        moneyCurrency: 'EUR',
+
+    },
     btnsParams: {
         buyBtnParams: {
             common: {

@@ -2,7 +2,10 @@ import {
     IComponentParams,
     CustomType,
 } from 'wlc-engine/modules/core';
-import {StoreItem} from 'wlc-engine/modules/store';
+import {
+    IStoreItemTotalPrice,
+    StoreItem,
+} from 'wlc-engine/modules/store';
 
 export type Type = 'default' | CustomType;
 export type Theme = 'default' | CustomType;
@@ -20,8 +23,7 @@ export interface IStoreItemInfoCParams extends IComponentParams<Theme, Type, The
     multyWalletWarning?: string;
     /** Alert message */
     disabledMsg: string,
-    priceLoyalty: number,
-    priceExp: number,
+    storeItemTotalPrice: IStoreItemTotalPrice,
     canBuy: boolean,
 }
 
@@ -33,7 +35,12 @@ export const defaultParams: Partial<IStoreItemInfoCParams> = {
     description: '',
     isDisabled: false,
     multyWalletWarning: gettext('Please note that some transactions are processed only through your main wallet.'),
-    priceLoyalty: 0,
-    priceExp: 0,
+    storeItemTotalPrice: {
+        loyaltyPrice: 0,
+        expPrice: 0,
+        moneyPrice: 0,
+        moneyCurrency: 'EUR',
+
+    },
     canBuy: false,
 };

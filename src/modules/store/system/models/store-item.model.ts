@@ -16,6 +16,7 @@ import _has from 'lodash-es/has';
 import {
     IDisabledItemInfo,
     IStoreItem,
+    IStoreItemPriceMoney,
 } from '../interfaces/store.interface';
 import {StoreService} from '../services';
 import {Bonus} from 'wlc-engine/modules/bonuses';
@@ -166,6 +167,10 @@ export class StoreItem extends AbstractModel<IStoreItem> {
      */
     public get priceExp(): number {
         return _toNumber(this.data.Price.EXPERIENCE);
+    }
+
+    public get priceMoney(): IStoreItemPriceMoney {
+        return this.data.PriceMoney;
     }
 
     /**

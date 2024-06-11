@@ -60,8 +60,7 @@ export class StoreItemInfoComponent extends AbstractComponent implements OnInit 
     public showConfirmationModal(): void {
         this.modalService.showModal('storeConfirmation', {
             storeItem: this.$params.storeItem,
-            priceLoyalty: this.$params.storeItem.priceLoyalty,
-            priceExp: this.$params.storeItem.priceExp,
+            storeItemTotalPrice: this.$params.storeItemTotalPrice,
         });
     }
 }

@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import {UIRouter} from '@uirouter/core';
 
+import {BehaviorSubject} from 'rxjs';
 import {
     skipWhile,
     takeUntil,
@@ -29,6 +30,7 @@ import {
     IStore,
 } from 'wlc-engine/modules/store';
 import {UserService} from 'wlc-engine/modules/user';
+import {UserProfile} from 'wlc-engine/modules/user';
 
 import * as Params from 'wlc-engine/modules/store/components/store-list/store-list.params';
 
@@ -59,6 +61,7 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
     public isMultiWallet: boolean;
     protected itemsPerPage: number = 0;
     protected store: IStore;
+    protected userCurrency: string;
 
     constructor(
         @Inject('injectParams') protected params: Params.IStoreListCParams,
@@ -108,6 +111,18 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
             .subscribe((userInfo) => {
                 this.userLevel = userInfo.level;
             });
+
+        this.configService
+            .get<BehaviorSubject<UserProfile>>('$user.userProfile$')
+            .pipe(
+                takeUntil(this.$destroy),
+            )
+            .subscribe((profile: UserProfile): void => {
+                this.userCurrency = profile?.idUser
+                    ? profile.currency
+                    : this.configService.get<string>('$base.defaultCurrency');
+            });
+
         this.isMultiWallet = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
         this.isReady = true;
     }

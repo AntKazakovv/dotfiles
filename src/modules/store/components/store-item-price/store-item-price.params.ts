@@ -3,7 +3,7 @@ import {
     CustomType,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
 
-export type ComponentTheme = 'default' | 'line' | CustomType;
+export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
 export type ComponentThemeMod = 'default' | CustomType;
 

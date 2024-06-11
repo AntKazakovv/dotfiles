@@ -270,14 +270,15 @@
 
             @include bm.get-mq-map('width', $themeDefault, 'infoWidth');
             @include bm.get-mq-map('min-height', $themeDefault, 'priceMinHeight');
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'priceFontStyle'),
+                ef.get-value($themeDefault, 'priceFontColor')
+            );
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
+            line-height: ef.get-value($themeDefault, 'priceLineHeight');
 
-            color: ef.get-value($themeDefault, 'priceFontColor');
-
-            font-size: ef.get-value($themeDefault, 'priceFontSize');
             text-align: center;
 
             transition: transform ef.get-value($themeDefault, 'time') ease-in-out;

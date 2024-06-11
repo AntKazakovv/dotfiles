@@ -28,6 +28,7 @@ import {StoreItem} from 'wlc-engine/modules/store/system/models/store-item.model
 import {
     IDisabledItemInfo,
     IStoreTagsConfig,
+    IStoreItemTotalPrice,
 } from 'wlc-engine/modules/store/system/interfaces/store.interface';
 import {StoreService} from 'wlc-engine/modules/store/system/services';
 
@@ -49,6 +50,7 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
     @Input() public themeMod: Params.ComponentThemeMod;
     @Input() public customMod: Params.CustomMod;
     @Input() public userLevel: number;
+    @Input() public userCurrency: string;
 
     public override $params: Params.IStoreItemCParams;
     public isAuth: boolean;
@@ -62,6 +64,7 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
     protected isProfileFirst: boolean;
     protected tagConfig: ITagCParams;
     protected buyBtnParams: IButtonCParams = Params.defaultParams.buyBtnParams;
+    protected storeItemTotalPrice: IStoreItemTotalPrice = {};
 
     constructor(
         @Inject('injectParams') protected params: Params.IStoreItemCParams,
@@ -105,6 +108,8 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
             this.buyBtnParams = this.$params.buyBtnParamsWolf;
             this.makeTagConfig();
         }
+
+        this.makeStorePrices();
     }
 
     public openDescription($event?: MouseEvent): void {
@@ -116,8 +121,7 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
             storeItem: this.storeItem,
             isDisabled: this.isDisabled,
             disabledMsg: this.disabledInfo?.messageText,
-            priceLoyalty: this.storeItem.priceLoyalty,
-            priceExp: this.storeItem.priceExp,
+            storeItemTotalPrice: this.storeItemTotalPrice,
             canBuy: this.storeItem.canBuy,
         });
     }
@@ -125,8 +129,7 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
     public showConfirmationModal(): void {
         this.modalService.showModal('storeConfirmation', {
             storeItem: this.storeItem,
-            priceLoyalty: this.storeItem.priceLoyalty,
-            priceExp: this.storeItem.priceExp,
+            storeItemTotalPrice: this.storeItemTotalPrice,
         });
     }
 
@@ -166,5 +169,21 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
         }
 
         this.openDescription($event);
+    }
+
+
+    protected makeStorePrices(): void {
+        this.storeItemTotalPrice.loyaltyPrice = this.storeItem.priceLoyalty;
+        this.storeItemTotalPrice.expPrice = this.storeItem.priceExp;
+
+        if (!!Number(this.storeItem.priceMoney?.EUR)) {
+            this.storeItemTotalPrice.moneyCurrency = !!Number(this.storeItem.priceMoney[this.userCurrency])
+                ? this.userCurrency
+                : 'EUR';
+
+            this.storeItemTotalPrice.moneyPrice = Number(
+                this.storeItem.priceMoney[this.storeItemTotalPrice.moneyCurrency],
+            );
+        }
     }
 }

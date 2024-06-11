@@ -207,14 +207,15 @@
 
             @include bm.get-mq-map('width', $themeFirst, 'infoWidth');
             @include bm.get-mq-map('min-height', $themeFirst, 'priceMinHeight');
+            @include text.get-text-style(
+                ef.get-value($themeFirst, 'priceFontStyle'),
+                ef.get-value($themeFirst, 'priceFontColor')
+            );
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
+            line-height: ef.get-value($themeFirst, 'priceLineHeight');
 
-            color: ef.get-value($themeFirst, 'priceFontColor');
-
-            font-size: ef.get-value($themeFirst, 'priceFontSize');
             text-align: center;
 
             transition: transform ef.get-value($themeFirst, 'time') ease-in-out;

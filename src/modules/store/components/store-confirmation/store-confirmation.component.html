@@ -9,11 +9,7 @@
     {{$params.balanceMessage | translate}}
 </div>
 <div class="{{$class}}__price" data-wlc-element="store_item-price">
-    <div wlc-store-item-price
-        [theme]="'line'"
-        [priceLoyalty]="$params.priceLoyalty"
-        [priceExp]="$params.priceExp">
-    </div>
+    <div wlc-store-item-price [storeItemTotalPrice]="$params.storeItemTotalPrice"></div>
 </div>
 <div class="{{$class}}__buttons">
     <button wlc-button
