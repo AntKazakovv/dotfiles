@@ -1,4 +1,5 @@
 export * as Bonuses from './bonuses';
+export * as Quests from './quests';
 export * as Core from './core';
 export * as Finances from './finances';
 export * as Games from './games';

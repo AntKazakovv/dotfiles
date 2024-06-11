@@ -74,6 +74,8 @@ let states = {
     'app.profile.loyalty-level': States.profileLoyaltyLevelState,
     'app.profile.achievements': States.profileAchievementsState,
     'app.profile.achievements.main': States.profileAchievementsMainState,
+    'app.profile.quests': States.profileQuestsState,
+    'app.profile.quests.main': States.profileQuestsMainState,
     'app.profile.dashboard': States.profileDashboardState,
     'app.error': States.errorPageState,
     'app.offline': States.offlineState,

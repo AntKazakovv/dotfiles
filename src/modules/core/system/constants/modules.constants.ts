@@ -29,6 +29,7 @@ export type TModuleName =
     | 'lotteries'
     | 'loyalty'
     | 'achievements'
+    | 'quests'
     | 'metamask'
     | 'history'
     | 'mobile'
@@ -195,6 +196,11 @@ export const modulesApp: Record<TModuleName, IFunctionImportModule> = {
         const m = await import('wlc-engine/modules/loyalty/submodules/achievements/achievements.module');
         callback(name, m);
         return m.AchievementsModule;
+    },
+    'quests': async (name: TModuleName, callback: Function) => {
+        const m = await import('wlc-engine/modules/quests/quests.module');
+        callback(name, m);
+        return m.QuestsModule;
     },
     'metamask': async (name: TModuleName, callback: Function) => {
         const m = await import('wlc-engine/modules/metamask/metamask.module');

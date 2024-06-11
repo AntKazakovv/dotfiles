@@ -1951,6 +1951,94 @@ export namespace profileContent {
         ],
     };
 
+    export const profileQuests: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            componentLib.wlcQuestsTitle.def,
+            componentLib.wlcProfileMenu.submenu,
+            componentLib.wlcQuestsTaskList.def,
+        ],
+    };
+
+    export const profileWolfQuests: ILayoutSectionConfig = {
+        container: true,
+        theme: 'wolf',
+        components: [
+            {
+                name: 'core.wlc-section-title',
+                params: {
+                    theme: 'wolf',
+                    text: 'Quests',
+                    iconPath: 'wlc/icons/european/v3/quests.svg',
+                },
+                display: {
+                    before: 899,
+                },
+            },
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__wrp',
+                    components: [
+                        componentLib.wlcProfileMenu.defTypeWolf,
+                        componentLib.wlcProfileMenu.submenuWolf,
+                        componentLib.wlcQuestsTaskList.def,
+                    ],
+                },
+            },
+        ],
+    };
+
+    export const profileQuestsTypeFirst: ILayoutSectionConfig = {
+        container: true,
+        theme: 'first',
+        components: [
+            componentLib.wlcProfileMenu.defTypeFirst,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__header',
+                    components: [
+                        componentLib.wlcQuestsTitle.def,
+                    ],
+                },
+                display: {
+                    before: 1199,
+                },
+            },
+            componentLib.wlcProfileMenu.subMenuV1,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content',
+                    components: [
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__header underlined',
+                                components: [
+                                    componentLib.wlcQuestsTitle.state,
+                                ],
+                            },
+                            display: {
+                                after: 1200,
+                            },
+                        },
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__body',
+                                components: [
+                                    componentLib.wlcQuestsTaskList.def,
+                                ],
+                            },
+                        },
+                    ],
+                },
+            },
+        ],
+    };
+
     export const profileMessages: ILayoutSectionConfig = {
         container: true,
         components: [

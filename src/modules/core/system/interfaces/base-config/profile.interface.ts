@@ -69,7 +69,13 @@ export interface IProfileConfig {
          * Enable achievements
          */
         use: boolean;
-    }
+    },
+    quests?: {
+        /**
+         * Enable quests
+         */
+        use: boolean,
+    },
     /*
      * Toggle auto fields
      */

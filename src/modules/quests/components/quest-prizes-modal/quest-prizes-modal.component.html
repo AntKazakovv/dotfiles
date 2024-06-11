@@ -1,0 +1,16 @@
+<div class="{{$class}}__container">
+    <div *ngFor="let prizeNumber of numbers"
+        class="{{$class}}__prize"
+        [class.selected]="prizeNumber === selectedPrizeNumber"
+        (click)="selectPrize(prizeNumber)">
+        <img class="{{$class}}__prize-img"
+            [src]="$params.prizeIconPath"
+            [wlc-fallback]="$params.prizeIconFallbackPath"/>
+    </div>
+</div>
+<button wlc-button
+    class="{{$class}}__btn"
+    [class.visible]="selectedPrizeNumber"
+    [inlineParams]="$params.openBtnParams"
+    (click)="open()">
+</button>

@@ -1,0 +1,72 @@
+.wlc-quest-prizes-modal--theme-default:host {
+    display: flex;
+    flex-direction: column;
+    row-gap: ef.get-value($themeDefault, 'hostRowGap');
+    align-items: center;
+
+    .wlc-quest-prizes-modal {
+
+        &__container {
+            display: grid;
+            grid-gap: ef.get-value($themeDefault, 'ctrGap');
+            grid-template-columns: ef.get-value($themeDefault, 'ctrTemplateColumns');
+        }
+
+        &__prize {
+            position: relative;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: ef.get-value($themeDefault, 'prizeWidth');
+            height: ef.get-value($themeDefault, 'prizeHeight');
+
+            background: ef.get-value($themeDefault, 'prizeBg');
+            border-radius: ef.get-value($themeDefault, 'prizeRadius');
+            cursor: pointer;
+            overflow: hidden;
+
+            &-img {
+                @include bm.transition(filter);
+
+                width: ef.get-value($themeDefault, 'prizeImgWidth');
+                max-width: 100%;
+                height: ef.get-value($themeDefault, 'prizeImgHeight');
+                max-height: 100%;
+
+                object-fit: contain;
+                filter: var(--wlc-qpm-selected-filter, none);
+            }
+
+            &:after {
+                content: '';
+
+                position: absolute;
+
+                display: block;
+                width: 100%;
+                height: 100%;
+
+                border-radius: inherit;
+                border-bottom: var(--wlc-qpm-selected-border-bottom, none);
+            }
+
+            &.selected {
+                --wlc-qpm-selected-filter: #{ef.get-value($themeDefault, 'prizeSelectFilter')};
+                --wlc-qpm-selected-border-bottom: #{ef.get-value($themeDefault, 'prizeSelectBorderBottom')};
+            }
+        }
+
+        &__btn {
+            @include bm.transition(opacity);
+
+            visibility: hidden;
+            opacity: 0;
+
+            &.visible {
+                visibility: visible;
+                opacity: 1;
+            }
+        }
+    }
+}

@@ -1053,14 +1053,15 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     protected modifyData(bonus: IBonus): IBonus {
+
         if (!bonus.Target && _isObject(bonus.Results)) {
-            let target = '';
-            _each(bonus.Results, (value: any, key: any) => {
-                target += key;
-                target += ' ';
+            let targets: string[] = [];
+
+            _each(bonus.Results, (value: any, key: string): void => {
+                targets.push(key);
             });
 
-            bonus.Target = target as TBonusTarget;
+            bonus.Target = targets.join(' ') as TBonusTarget;
         }
 
         if (bonus.Target && _isString(bonus.Target)) {
@@ -1072,6 +1073,12 @@ export class Bonus extends AbstractModel<IBonus> {
         }
 
         bonus.ExpireDays = bonus.ExpireDays || bonus.Expire;
+
+
+        //TODO remove it after 608920 release
+        if (!isNaN(Number(bonus.Expire))) {
+            bonus.Expire = bonus.Ends;
+        }
 
         const expireTime: DateTime = DateTime.fromSQL(bonus.Expire);
         this._expirationTime = expireTime.plus({minutes: expireTime.offset});

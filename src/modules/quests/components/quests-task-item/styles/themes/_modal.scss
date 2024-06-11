@@ -1,0 +1,77 @@
+.wlc-quests-task-item--theme-modal:host {
+
+    display: flex;
+    flex-direction: column;
+    align-items: ef.get-value($themeModal, 'hostAlignItems');
+    row-gap: ef.get-value($themeModal, 'hostRowGap');
+    text-align: ef.get-value($themeModal, 'hostTextAlign');
+
+    .wlc-quests-task-item {
+
+        &__image {
+            width: ef.get-value($themeModal, 'imageWidth');
+            min-width: ef.get-value($themeModal, 'imageWidth');
+            height: ef.get-value($themeModal, 'imageHeight');
+            min-height: ef.get-value($themeModal, 'imageHeight');
+
+            object-fit: contain;
+            object-position: center;
+        }
+
+        &__content {
+            display: flex;
+            flex-direction: column;
+            align-items: ef.get-value($themeModal, 'contentAlignItem');
+            row-gap: ef.get-value($themeModal, 'contentRowGap');
+        }
+
+        &__name {
+            @include text.get-text-style(
+                ef.get-value($themeModal, 'nameTextStyle'),
+                ef.get-value($themeModal, 'nameTextColor'),
+            );
+        }
+
+        &__description {
+            @include text.get-text-style(
+                ef.get-value($themeModal, 'descriptionTextStyle'),
+                ef.get-value($themeModal, 'descriptionTextColor'),
+            );
+        }
+
+        &__progress {
+            display: flex;
+            flex-direction: column;
+            row-gap: ef.get-value($themeModal, 'progressRowGap');
+
+            &-text {
+                @include text.get-text-style(
+                    ef.get-value($themeModal, 'progressTextStyle'),
+                    ef.get-value($themeModal, 'progressTextColor'),
+                );
+            }
+
+            &-track {
+                position: relative;
+
+                width: ef.get-value($themeModal, 'progressTrackWidth');
+                height: ef.get-value($themeModal, 'progressTrackHeight');
+
+                background: ef.get-value($themeModal, 'progressTrackBg');
+                border-radius: ef.get-value($themeModal, 'progressTrackRadius');
+                overflow: hidden;
+
+                &:after {
+                    content: '';
+
+                    display: block;
+                    width: var(--wlc-qti-progress, 0%);
+                    height: 100%;
+
+                    background: ef.get-value($themeModal, 'progressTrackBgFilled');
+                    border-radius: inherit;
+                }
+            }
+        }
+    }
+}

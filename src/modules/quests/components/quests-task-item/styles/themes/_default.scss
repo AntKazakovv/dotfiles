@@ -1,0 +1,132 @@
+.wlc-quests-task-item--theme-default:host {
+    background: ef.get-value($themeDefault, 'hostBg');
+    border-radius: ef.get-value($themeDefault, 'hostRadius');
+    overflow: hidden;
+
+    .wlc-quests-task-item {
+
+        &__content {
+            display: flex;
+            flex-direction: column;
+            padding: ef.get-value($themeDefault, 'contentPadding');
+            background: var(--wlc-qti-content-bg, none);
+            cursor: pointer;
+        }
+
+        &__info {
+            display: inline-flex;
+            column-gap: ef.get-value($themeDefault, 'infoColumnGap');
+
+            &-image {
+                position: relative;
+
+                &-light {
+                    --wlc-icon-width: #{ef.get-value($themeDefault, 'imageLightWidth')};
+                    --wlc-icon-height: #{ef.get-value($themeDefault, 'imageLightHeight')};
+
+                    position: absolute;
+                    top: ef.get-value($themeDefault, 'imageLightTop');
+                    left: ef.get-value($themeDefault, 'imageLightLeft');
+                }
+
+                &-task {
+                    position: relative;
+                    width: ef.get-value($themeDefault, 'imageTaskWidth');
+                    min-width: ef.get-value($themeDefault, 'imageTaskWidth');
+                    height: ef.get-value($themeDefault, 'imageTaskHeight');
+                    min-height: ef.get-value($themeDefault, 'imageTaskHeight');
+                    object-fit: contain;
+                }
+
+                &:before {
+                    content: '';
+
+                    position: absolute;
+                    bottom: ef.get-value($themeDefault, 'imageShadowBottom');
+                    left: ef.get-value($themeDefault, 'imageShadowLeft');
+
+                    display: block;
+                    width: ef.get-value($themeDefault, 'imageShadowWidth');
+                    height: ef.get-value($themeDefault, 'imageShadowHeight');
+
+                    box-shadow: ef.get-value($themeDefault, 'imageShadowBoxShadow');
+                }
+            }
+
+            &-data {
+                display: flex;
+                flex-direction: column;
+                justify-content: ef.get-value($themeDefault, 'dataJustifyContent');
+                row-gap: ef.get-value($themeDefault, 'dataRowGap');
+                width: 100%;
+
+                &-title {
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'dataTitleTextStyle'),
+                        ef.get-value($themeDefault, 'dataTitleTextColor'),
+                    );
+                }
+
+                &-description {
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'dataDescriptionTextStyle'),
+                        ef.get-value($themeDefault, 'dataDescriptionTextColor'),
+                    );
+                }
+            }
+        }
+
+        &__progress {
+            display: inline-flex;
+            align-items: ef.get-value($themeDefault, 'progressAlignItems');
+            column-gap: ef.get-value($themeDefault, 'progressColumnGap');
+
+            &-bar {
+                display: flex;
+                flex-direction: column;
+                align-items: ef.get-value($themeDefault, 'progressBarAlignItems');
+                width: 100%;
+                row-gap: ef.get-value($themeDefault, 'progressBarRowGap');
+
+                &-details {
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'progressBarDetailsTextStyle'),
+                        ef.get-value($themeDefault, 'progressBarDetailsTextColor'),
+                    );
+                }
+
+                &-track {
+                    width: 100%;
+                    height: ef.get-value($themeDefault, 'progressBarTrackHeight');
+
+                    background: ef.get-value($themeDefault, 'progressBarTrackBg');
+                    border-radius: ef.get-value($themeDefault, 'progressBarTrackRadius');
+
+                    overflow: hidden;
+
+                    &:after {
+                        content: '';
+
+                        display: block;
+                        width: var(--wlc-qti-progress, 0);
+                        height: 100%;
+
+                        background: ef.get-value($themeDefault, 'progressBarTrackBgFilled');
+                        border-radius: inherit;
+                    }
+                }
+            }
+
+            &-status {
+                --wlc-icon-width: #{ef.get-value($themeDefault, 'progressBarStatusIconWidth')};
+                --wlc-icon-height: #{ef.get-value($themeDefault, 'progressBarStatusIconHeight')};
+
+                line-height: 0;
+            }
+        }
+    }
+
+    &.wlc-quests-task-item--completed {
+        --wlc-qti-content-bg: #{ef.get-value($themeDefault, 'contentBgCompleted')};
+    }
+}

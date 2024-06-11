@@ -134,6 +134,12 @@ export const $profileFirstLayouts: ILayoutsConfig = {
             'profile-content': sectionsLib.profileContent.profileAchievementsTypeFirst,
         },
     },
+    'app.profile.quests.main': {
+        extends: 'app.profile',
+        sections: {
+            'profile-content': sectionsLib.profileContent.profileQuestsTypeFirst,
+        },
+    },
     'app.profile.messages': {
         extends: 'app.profile',
         sections: {

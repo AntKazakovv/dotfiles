@@ -1,0 +1,20 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    //Host
+    'hostRowGap': ef.size(9),
+
+    //Container
+    'ctrGap': ef.size(4),
+    'ctrTemplateColumns': repeat(3, 100px),
+
+    //Prize
+    'prizeWidth': 100px,
+    'prizeHeight': 100px,
+    'prizeBg': var(--mc-bg700),
+    'prizeRadius': ef.get('radius', 'main'),
+    'prizeImgWidth': 86px,
+    'prizeImgHeight': auto,
+    'prizeSelectFilter': drop-shadow(0 8px 8px var(--mc-main)) drop-shadow(0 -8px 8px var(--mc-main)),
+    'prizeSelectBorderBottom': 4px solid var(--mc-main),
+
+), $customThemeDefault);

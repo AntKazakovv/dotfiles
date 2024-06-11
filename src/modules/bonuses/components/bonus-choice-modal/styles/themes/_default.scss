@@ -1,0 +1,91 @@
+.wlc-bonus-choice-modal--theme-default:host {
+    display: flex;
+    flex-direction: ef.get-value($themeDefault, 'hostDirection');
+    row-gap: ef.get-value($themeDefault, 'hostRowGap');
+    align-items: center;
+    text-align: center;
+
+    .wlc-bonus-choice-modal {
+
+        &__bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: -1;
+
+            width: 100%;
+            height: 100%;
+
+            background: ef.get-value($themeDefault, 'bg');
+        }
+
+        &__title {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'titleStyle'),
+                ef.get-value($themeDefault, 'titleColor'),
+            );
+        }
+
+        &__header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: ef.get-value($themeDefault, 'headerMaxWidth');
+
+            &-prefix {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'headerPrefixStyle'),
+                    ef.get-value($themeDefault, 'headerPrefixColor'),
+                );
+            }
+
+            &-text {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'headerTextStyle'),
+                    ef.get-value($themeDefault, 'headerTextColor'),
+                );
+            }
+        }
+
+        &__image {
+            --wlc-icon-width: 100%;
+            --wlc-icon-height: auto;
+
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: ef.get-value($themeDefault, 'imageWidth');
+            height: ef.get-value($themeDefault, 'imageHeight');
+
+            &:before {
+                content: '';
+
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                z-index: -1;
+
+                width: ef.get-value($themeDefault, 'imageBgWidth');
+                height: ef.get-value($themeDefault, 'imageBgHeight');
+
+                background: ef.get-value($themeDefault, 'imageBg');
+                transform: translate(-50%, -50%);
+            }
+
+            ::ng-deep .wlc-icon-content {
+                object-fit: contain;
+            }
+        }
+
+        &__description {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'descriptionTextStyle'),
+                ef.get-value($themeDefault, 'descriptionTextColor'),
+            );
+
+            max-width: ef.get-value($themeDefault, 'descriptionMaxWidth');
+        }
+    }
+}

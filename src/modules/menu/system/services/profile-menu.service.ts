@@ -52,6 +52,10 @@ import {
     AchievementGroupModel,
     AchievementsService,
 } from 'wlc-engine/modules/loyalty/submodules/achievements';
+import {
+    QuestModel,
+    QuestsService,
+} from 'wlc-engine/modules/quests';
 
 import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
 import * as Config from 'wlc-engine/modules/menu/system/config/profile-menu.config';
@@ -306,6 +310,61 @@ export class ProfileMenuService {
     }
 
     /**
+     * Prepare profile quests
+     */
+    protected async prepareQuests(): Promise<void> {
+        let questItemIndex: number = _findIndex(
+            this.profileMenuConfig,
+            (item: MenuParams.MenuConfigItem): boolean => {
+                if (_isString(item)) {
+                    const menuItem: IMenuItem = Config.wlcProfileMenuItemsGlobal[item];
+
+                    return menuItem?.type === 'quest';
+                } else {
+                    if (_has(item, 'parent')) {
+                        return (item as MenuParams.MenuConfigItemsGroup).parent == 'profile-menu:quests';
+                    }
+
+                    return item.type === 'quest';
+                }
+            },
+        );
+
+        if (questItemIndex !== -1) {
+            const questsService: QuestsService =
+                await this.injectionService.getService('quests.quests-service');
+
+            const quests: QuestModel[] = await questsService.getQuestsArray(true);
+
+            const menuItems: MenuParams.IMenuItem[] = _map(
+                quests,
+                (quest: QuestModel): IMenuItem => {
+                    return {
+                        name: quest.name,
+                        type: 'sref',
+                        icon: 'quest',
+                        class: 'quest',
+                        wlcElement: 'link_cc-profile-menu_quest',
+                        params: {
+                            state: {
+                                name: 'app.profile.quests.main',
+                                params: {
+                                    questId: quest.id,
+                                },
+                            },
+                        },
+                    };
+                });
+
+            this.profileMenuConfig[questItemIndex] = {
+                parent: 'profile-menu:quests',
+                type: 'group',
+                items: menuItems.length > 1 ? menuItems : [],
+            };
+        }
+    }
+
+    /**
      * Init profile menu
      *
      * @returns {Promise<void>}
@@ -324,6 +383,10 @@ export class ProfileMenuService {
 
         if (this.configService.get<boolean>('$base.profile.achievements.use')) {
             await this.prepareAchievements();
+        }
+
+        if (this.configService.get<boolean>('$base.profile.quests.use')) {
+            await this.prepareQuests();
         }
     }
 

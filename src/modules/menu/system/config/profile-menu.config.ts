@@ -1164,6 +1164,34 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
     },
 
+    'profile-menu:quests': {
+        name: gettext('Quests'),
+        type: 'title',
+        icon: 'quests',
+        class: 'quests',
+        wlcElement: 'link_cc-profile-menu_quests',
+        params: {
+            state: {
+                name: 'app.profile.quests.main',
+                params: {},
+            },
+        },
+    },
+
+    'profile-menu:quests-with-tasks': {
+        name: gettext('Quests'),
+        type: 'quest',
+        icon: 'quests',
+        class: 'quests',
+        wlcElement: 'link_cc-profile-menu_quests',
+        params: {
+            state: {
+                name: 'app.profile.quests.main',
+                params: {},
+            },
+        },
+    },
+
     'profile-menu:cashback-rewards': {
         name: gettext('Cashback'),
         type: 'sref',
@@ -1351,6 +1379,18 @@ export const profileMenuFilter: ProfileMenuParams.IProfileMenuFilter[] = [
     {
         config: '$base.profile.achievements.use',
         item: 'profile-first-menu:achievements',
+    },
+    {
+        config: '$base.profile.achievements.use',
+        item: 'profile-menu:achievements-with-groups',
+    },
+    {
+        config: '$base.profile.quests.use',
+        item: 'profile-menu:quests',
+    },
+    {
+        config: '$base.profile.quests.use',
+        item: 'profile-menu:quests-with-tasks',
     },
     {
         config: '$base.profile.dashboard.use',

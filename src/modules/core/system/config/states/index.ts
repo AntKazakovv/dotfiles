@@ -23,6 +23,7 @@ export * from './profile/profile-social.state';
 export * from './profile/profile-payments.state';
 export * from './profile/profile-loyalty-level.state';
 export * from './profile/profile-achievements.state';
+export * from './profile/profile-quests.state';
 export * from './profile/profile-limits.state';
 export * from './profile/profile-gamblings.state';
 export * from './profile/profile-dashboard.state';

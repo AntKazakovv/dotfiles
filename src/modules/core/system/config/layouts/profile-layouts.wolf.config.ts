@@ -128,6 +128,12 @@ export const $profileWolfLayouts: IPanelsConfig = {
             'profile-content': sectionsLib.profileContent.profileWolfAchievements,
         },
     },
+    'app.profile.quests.main': {
+        extends: 'app.profile',
+        sections: {
+            'profile-content': sectionsLib.profileContent.profileWolfQuests,
+        },
+    },
     'app.profile.messages': {
         extends: 'app.profile',
         sections: {

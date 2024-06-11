@@ -534,6 +534,7 @@ $themeDefault: map-merge((
         560: ef.size(6) ef.size(3),
     ),
     'depModalBg':  var(--mc-bg700),
+
     // lottery-detail modal
     'lotteryDetailBodyPadding': (
         375: 0,
@@ -544,4 +545,7 @@ $themeDefault: map-merge((
     // local jackpots
     'localJackpotWonBg': url('//agstatic.com/wlc/jackpots/local-jackpot-won-bg.png'),
     'localJackpotWonOpacity': 0.6,
+
+    //quest-task-info
+    'taskInfoBodyMinHeight': 650px,
 ), $customThemeDefault);

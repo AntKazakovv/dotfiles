@@ -12,3 +12,4 @@ export {
     ICRecommendedBonusesParams,
 } from './recommended-bonuses/recommended-bonuses.params';
 export {ILootboxPrizeCParams} from './lootbox-prize/lootbox-prize.params';
+export {IBonusChoiceModalCParams} from './bonus-choice-modal/bonus-choice-modal.params';

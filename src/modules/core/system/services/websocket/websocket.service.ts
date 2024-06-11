@@ -61,6 +61,7 @@ export const WebSocketEvents: IIndexing<IIndexing<string>> = {
         USER_BALANCE: 'userbalance',
         ACHIEVEMENTS: 'achievementsloyalty',
         LOCAL_JACKPOTS: 'userjackpot',
+        QUESTS: 'questsloyalty',
     },
     SEND: {
         LOYALTY: 'loyalty.loyalty.get',

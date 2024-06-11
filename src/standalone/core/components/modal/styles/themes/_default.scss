@@ -525,6 +525,16 @@
             }
         }
     }
+
+    &.wlc-modal--quest-task-info {
+
+        .wlc-modal {
+
+            &__body {
+                min-height: ef.get-value($themeDefault, 'taskInfoBodyMinHeight');
+            }
+        }
+    }
 }
 
 body.modal-open {

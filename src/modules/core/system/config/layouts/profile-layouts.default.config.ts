@@ -135,6 +135,12 @@ export const $profileLayouts: IPanelsConfig = {
             'profile-content': sectionsLib.profileContent.profileAchievements,
         },
     },
+    'app.profile.quests.main': {
+        extends: 'app.profile',
+        sections: {
+            'profile-content': sectionsLib.profileContent.profileQuests,
+        },
+    },
     'app.profile.messages': {
         extends: 'app.profile',
         sections: {

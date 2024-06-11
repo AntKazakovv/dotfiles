@@ -28,6 +28,7 @@ import {errorTypes as ratesLogs} from './26.rates';
 import {errorTypes as transferLogs} from './27.transfer';
 import {errorTypes as lotteriesLogs} from './28.lotteries';
 import {errorTypes as LocalJackpotsLogs} from './30.local-jackpots';
+import {errorTypes as questsLogs} from './31.quests';
 
 export const defaultLogMethods: TLogMethods[] = ['flog'];
 export const defaultLogLevel: TLogLevel = 'log';
@@ -102,4 +103,5 @@ export const logTypes: ILogTypes = Object.assign(
     transferLogs,
     lotteriesLogs,
     LocalJackpotsLogs,
+    questsLogs,
 );

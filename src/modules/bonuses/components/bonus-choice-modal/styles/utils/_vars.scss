@@ -1,0 +1,32 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    //Host
+    'hostDirection': column,
+    'hostRowGap': ef.size(4),
+
+    //Bg
+    'bg': ef.static('wlc/bonuses/choice-modal/bg.svg') repeat center/150%,
+
+    //Title
+    'titleStyle': 'SecondTitleBold',
+    'titleColor': var(--mc-baseSecond, var(--mc-baseMain)),
+
+    //Header
+    'headerMaxWidth': 335px,
+    'headerPrefixStyle': 'PlaceholderTextBold',
+    'headerPrefixColor': var(--mc-baseSecond, var(--mc-baseMain)),
+    'headerTextStyle': 'ThirdTitleBold',
+    'headerTextColor': var(--mc-baseMain),
+
+    //Prize image
+    'imageWidth': 300px,
+    'imageHeight': 250px,
+    'imageBg': ef.static('wlc/bonuses/choice-modal/sun.png') no-repeat center/contain,
+    'imageBgWidth': 140%,
+    'imageBgHeight': 200%,
+
+    //Description
+    'descriptionMaxWidth': 335px,
+    'descriptionTextStyle': 'PrimaryText',
+    'descriptionTextColor': var(--mc-baseSecond, var(--mc-baseMain)),
+), $customThemeDefault);

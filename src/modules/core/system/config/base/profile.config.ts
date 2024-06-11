@@ -55,6 +55,9 @@ export const profileConfig: IProfileConfig = {
     achievements: {
         use: false,
     },
+    quests: {
+        use: false,
+    },
     transfers: {
         use: false,
     },

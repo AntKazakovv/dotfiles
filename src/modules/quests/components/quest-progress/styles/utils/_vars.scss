@@ -1,0 +1,41 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    //Host
+    'hostRowGap': ef.size(4),
+    'hostRowPadding': ef.size(2) 0,
+
+    //Timer
+    'timerAlign': (
+        375: center,
+        900: flex-start,
+    ),
+    'timerWidth': fit-content,
+
+    //Content
+    'contentHeight': 60px,
+    'contentGap': ef.size(5),
+
+    //Track
+    'trackPadding': 0 30px 0 18px, //в пкс, подстраиваем под иконку
+
+    'trackStartImageWidth': 50px,
+    'trackStartImageHeight': 50px,
+    'trackStartImageBottom': 50%,
+    'trackStartImageLeft': 0,
+    'trackStartImageTransform': translateY(50%),
+
+    'trackLineAlignItems': center,
+    'trackLineJustifyContent': center,
+    'trackLineHeight': ef.size(8),
+    'trackLineRadius': ef.get('radius', 'main'),
+    'trackLineBg': var(--mc-bg300),
+    'trackLineBgFilled': linear-gradient(270deg, #00b6ef 0%, #b75aff 88.41%),
+    'trackLineBorder': 2px solid var(--mc-bg500),
+    'trackLineDataTextStyle': 'CaptionTextBold',
+    'trackLineDataTextColor': var(--mc-baseThird, var(--mc-baseMain)),
+
+    'trackEndImageWidth': 60px,
+    'trackEndImageHeight': 60px,
+    'trackEndImageBottom': 0,
+    'trackEndImageRight': 0,
+), $customThemeDefault);

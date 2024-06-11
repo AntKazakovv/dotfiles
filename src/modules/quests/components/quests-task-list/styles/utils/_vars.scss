@@ -1,0 +1,9 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    //Host
+    'hostRowGap': ef.size(6),
+    'hostMaxWidth': 700px,
+
+    //List
+    'listRowGap': ef.size(4),
+), $customThemeDefault);

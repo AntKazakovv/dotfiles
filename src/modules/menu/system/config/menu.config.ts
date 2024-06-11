@@ -101,6 +101,7 @@ export const menuConfig: IMenuConfig = {
             },
             'profile-menu:market-with-categories',
             'profile-menu:achievements-with-groups',
+            'profile-menu:quests-with-tasks',
             {
                 parent: 'profile-menu:loyalty-section',
                 type: 'group',
@@ -208,6 +209,7 @@ export const menuConfig: IMenuConfig = {
             },
             'profile-menu:market-with-categories',
             'profile-menu:achievements-with-groups',
+            'profile-menu:quests-with-tasks',
             {
                 parent: 'profile-menu:loyalty-section',
                 type: 'group',
@@ -291,6 +293,7 @@ export const menuConfig: IMenuConfig = {
             },
             'profile-menu:market-with-categories',
             'profile-menu:achievements-with-groups',
+            'profile-menu:quests-with-tasks',
             {
                 parent: 'profile-menu:loyalty-section',
                 type: 'group',

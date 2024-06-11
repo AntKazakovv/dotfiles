@@ -1,0 +1,34 @@
+$customThemeModal: () !default;
+$themeModal: map-merge((
+    //Host
+    'hostAlignItems': center,
+    'hostRowGap': ef.size(8),
+    'hostTextAlign': center,
+
+    //Image
+    'imageWidth': 200px,
+    'imageHeight': 200px,
+
+    //Content
+    'contentAlignItem': center,
+    'contentRowGap': ef.size(4),
+
+    //Name
+    'nameTextStyle': 'QoteTextBold',
+    'nameTextColor': var(--mc-baseMain),
+
+    //Description
+    'descriptionTextStyle': 'PrimaryText',
+    'descriptionTextColor': var(--mc-baseMain),
+
+    //Progress
+    'progressRowGap': ef.size(2),
+    'progressTextStyle': 'CaptionText',
+    'progressTextColor': var(--mc-baseMain),
+
+    'progressTrackWidth': 275px,
+    'progressTrackHeight': 8px,
+    'progressTrackBg': var(--mc-bg300),
+    'progressTrackBgFilled': var(--mc-main),
+    'progressTrackRadius': ef.get('radius', 'main'),
+), $customThemeModal);

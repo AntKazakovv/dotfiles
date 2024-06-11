@@ -324,6 +324,23 @@ export namespace wlcTitle {
         },
     };
 
+    export const profileQuests: ILayoutComponent = {
+        name: 'core.wlc-wrapper',
+        params: {
+            class: 'wlc-profile-content__top',
+            components: [
+                {
+                    name: 'core.wlc-title',
+                    params: <ITitleCParams>{
+                        customMod: ['profile'],
+                        mainText: gettext('Quests'),
+                        wlcElement: 'header_quests',
+                    },
+                },
+            ],
+        },
+    };
+
     export const totalJackpot: ILayoutComponent = {
         name: 'core.wlc-title',
         params: {

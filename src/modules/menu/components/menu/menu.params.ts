@@ -50,7 +50,8 @@ export type ItemType =
     | 'market'
     | 'action'
     | 'content'
-    | 'achievement';
+    | 'achievement'
+    | 'quest';
 export type WpItemType = 'sref' | 'href';
 export type IMenuTarget = '_blank' | '_self' | '_parent' | '_top';
 export type MenuTheme = 'default' | 'submenu' | string;

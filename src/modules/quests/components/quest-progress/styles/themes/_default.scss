@@ -1,0 +1,101 @@
+.wlc-quest-progress--theme-default:host {
+
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    row-gap: ef.get-value($themeDefault, 'hostRowGap');
+    padding: ef.get-value($themeDefault, 'hostRowPadding');
+
+    .wlc-quest-progress {
+
+        &__timer {
+            @include bm.get-mq-map('align-self', $themeDefault, 'timerAlign');
+
+            width: ef.get-value($themeDefault, 'timerWidth');
+        }
+
+        &__content {
+            display: inline-flex;
+            align-items: center;
+            height: ef.get-value($themeDefault, 'contentHeight');
+            column-gap: ef.get-value($themeDefault, 'contentGap');
+        }
+
+        &__track {
+            position: relative;
+            width: 100%;
+            padding: ef.get-value($themeDefault, 'trackPadding');
+
+            &-start-img {
+                --wlc-icon-width: #{ef.get-value($themeDefault, 'trackStartImageWidth')};
+                --wlc-icon-height: #{ef.get-value($themeDefault, 'trackStartImageHeight')};
+
+                position: absolute;
+                bottom: ef.get-value($themeDefault, 'trackStartImageBottom');
+                left: ef.get-value($themeDefault, 'trackStartImageLeft');
+                object-fit: contain;
+                z-index: 1;
+                transform: ef.get-value($themeDefault, 'trackStartImageTransform');
+            }
+
+            &-line {
+                position: relative;
+
+                display: flex;
+                align-items: ef.get-value($themeDefault, 'trackLineAlignItems');
+                justify-content: ef.get-value($themeDefault, 'trackLineJustifyContent');
+                width: 100%;
+                height: ef.get-value($themeDefault, 'trackLineHeight');
+
+                border-radius: ef.get-value($themeDefault, 'trackLineRadius');
+                background: ef.get-value($themeDefault, 'trackLineBg');
+                border: ef.get-value($themeDefault, 'trackLineBorder');
+                overflow: hidden;
+
+                &-data {
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'trackLineDataTextStyle'),
+                        ef.get-value($themeDefault, 'trackLineDataTextColor')
+                    );
+
+                    position: relative;
+                }
+
+                &:before {
+                    content: '';
+
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+
+                    display: block;
+                    width: var(--wlc-qp-progress);
+                    height: 100%;
+
+                    background: ef.get-value($themeDefault, 'trackLineBgFilled');
+                }
+            }
+
+            &-end-img {
+                --wlc-icon-width: #{ef.get-value($themeDefault, 'trackEndImageWidth')};
+                --wlc-icon-height: #{ef.get-value($themeDefault, 'trackEndImageHeight')};
+
+                position: absolute;
+                right: ef.get-value($themeDefault, 'trackEndImageRight');
+                bottom: ef.get-value($themeDefault, 'trackEndImageBottom');
+                object-fit: contain;
+                z-index: 1;
+                cursor: var(--wlc-qp-icon-cursor, auto);
+            }
+        }
+    }
+
+    &.wlc-quest-progress--completed {
+
+        .wlc-quest-progress__track-end-img::ng-deep .wlc-icon-content {
+            transform-origin: 50% 80%;
+            animation: 2s ease-in-out 1s normal none infinite running swing;
+        }
+    }
+}

@@ -107,6 +107,9 @@ export * from './history/wlc-cashback-history.config';
 export * from './achievements/wlc-achievements-list.config';
 export * from './achievements/wlc-achievements-title.config';
 
+export * from './quests/wlc-quests-task-list.config';
+export * from './quests/wlc-quests-title.config';
+
 export * from './rates/wlc-rates-currency.config';
 export * from './multi-wallet/multi-wallet.config';
 

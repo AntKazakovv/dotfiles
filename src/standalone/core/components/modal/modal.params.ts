@@ -589,4 +589,15 @@ export const MODALS_LIST: IModalList = {
             },
         },
     },
+    questTaskInfo: {
+        config: {
+            id: 'quest-task-item-modal',
+            modifier: 'quest-task-info',
+            componentName: 'quests.wlc-quests-task-item',
+            componentParams: {
+                theme: 'modal',
+            },
+            showFooter: false,
+        },
+    },
 };

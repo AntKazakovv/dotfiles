@@ -1,0 +1,56 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    //Host
+    'hostBg': var(--mc-bg500),
+    'hostRadius': ef.get('radius', 'main'),
+
+    //Content
+    'contentPadding': ef.size(3),
+    'contentBgCompleted': linear-gradient(180deg, rgba(0, 182, 239, 0) 0%, rgba(0, 182, 239, 0.4) 100%),
+
+    //Info
+    'infoColumnGap': ef.size(3),
+
+    //Image
+    'imageLightWidth': 120%,
+    'imageLightHeight': 100%,
+    'imageLightTop': -20%,
+    'imageLightLeft': -10%,
+
+    'imageTaskWidth': 70px,
+    'imageTaskHeight': 70px,
+
+    'imageShadowWidth': 70%,
+    'imageShadowHeight': 2px,
+    'imageShadowBottom': 8%,
+    'imageShadowLeft': 15%,
+    'imageShadowBoxShadow': 0 5px 5px var(--mc-baseContrast),
+
+    //Data
+    'dataJustifyContent': center,
+    'dataRowGap': ef.size(1),
+
+    'dataTitleTextStyle': 'CaptionTextBold',
+    'dataTitleTextColor': var(--mc-baseThird, var(--mc-baseMain)),
+
+    'dataDescriptionTextStyle': 'SignText',
+    'dataDescriptionTextColor': var(--mc-baseSecond, var(--mc-baseMain)),
+
+    //Progress
+    'progressAlignItems': flex-end,
+    'progressColumnGap': ef.size(3),
+
+    'progressBarAlignItems': center,
+    'progressBarRowGap': ef.size(1),
+
+    'progressBarDetailsTextStyle': 'SignTextBold',
+    'progressBarDetailsTextColor': var(--mc-baseThird, var(--mc-baseMain)),
+
+    'progressBarTrackHeight': 6px,
+    'progressBarTrackBg': var(--mc-bg300),
+    'progressBarTrackBgFilled': var(--mc-main),
+    'progressBarTrackRadius': ef.get('radius', 'big'),
+
+    'progressBarStatusIconWidth': 30px,
+    'progressBarStatusIconHeight': 30px,
+), $customThemeDefault);

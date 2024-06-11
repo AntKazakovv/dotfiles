@@ -1,0 +1,65 @@
+<ng-container *ngIf='task' [ngSwitch]="$params.theme">
+    <ng-container *ngSwitchCase="'modal'" [ngTemplateOutlet]="modal"></ng-container>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
+</ng-container>
+
+<ng-template #default>
+    <div class="{{$class}}__content" (click)="openDescription()">
+        <div class="{{$class}}__info">
+            <div class="{{$class}}__info-image">
+                <div *ngIf="$params.pathsToIcons.light"
+                    wlc-icon
+                    class="{{$class}}__info-image-light"
+                    [iconPath]="$params.pathsToIcons.light"
+                    [fallback]="$params.pathsToFallbackIcons.light">
+                </div>
+                <img class="{{$class}}__info-image-task"
+                    [src]="taskImagePath"
+                    [wlc-fallback]="taskImagePathFallback"/>
+            </div>
+            <div class="{{$class}}__info-data">
+                <span class="{{$class}}__info-data-title">{{task.name}}</span>
+                <p class="{{$class}}__info-data-description">{{task.description}}</p>
+            </div>
+        </div>
+        <div class="{{$class}}__progress">
+            <div class="{{$class}}__progress-bar">
+                <span class="{{$class}}__progress-bar-details">{{progressDetails}}</span>
+                <div class="{{$class}}__progress-bar-track"
+                    [style.--wlc-qti-progress]="task.progressPercent + '%'">
+                </div>
+            </div>
+            <div wlc-icon
+                class="{{$class}}__progress-status"
+                [iconPath]="taskStatusIconPath"
+                [fallback]="taskStatusIconPathFallback"
+            ></div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #modal>
+    <img class="{{$class}}__image"
+        [src]="taskImagePath"
+        [wlc-fallback]="taskImagePathFallback"/>
+
+    <div class="{{$class}}__content">
+        <div class="{{$class}}__name">{{task.name}}</div>
+        <div class="{{$class}}__description">{{task.description}}</div>
+        <div class="{{$class}}__progress">
+            <div class="{{$class}}__progress-text">{{progressDetails}}</div>
+            <div class="{{$class}}__progress-track"
+                [style.--wlc-qti-progress]="task.progressPercent + '%'">
+            </div>
+        </div>
+    </div>
+
+    <button *ngIf="showModalButton"
+        wlc-button
+        class="{{$class}}__btn"
+        [inlineParams]="modalButtonParams">
+    </button>
+</ng-template>
+
+
+

@@ -1,0 +1,20 @@
+.wlc-quests-task-list--theme-default:host {
+
+    .wlc-quests-task-list {
+
+        &__content {
+            display: flex;
+            flex-direction: column;
+            row-gap: ef.get-value($themeDefault, 'hostRowGap');
+            width: 100%;
+            max-width: ef.get-value($themeDefault, 'hostMaxWidth');
+        }
+
+        &__list {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            row-gap: ef.get-value($themeDefault, 'listRowGap');
+        }
+    }
+}

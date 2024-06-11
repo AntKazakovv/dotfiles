@@ -33,6 +33,9 @@ import * as $config from 'wlc-config/index';
 import {
     BonusConfirmationComponent,
 } from './components/bonus-buttons/components/bonus-confirmation/bonus-confirmation.component';
+import {
+    BonusChoiceModalComponent,
+} from 'wlc-engine/modules/bonuses/components/bonus-choice-modal/bonus-choice-modal.component';
 
 export const moduleConfig = GlobalHelper.mergeConfig<IBonusesModule>(bonusesConfig, _get($config, '$bonuses', {}));
 
@@ -49,6 +52,7 @@ export const components = {
     'wlc-recommended-bonuses': RecommendedBonusesComponent,
     'wlc-deposit-bonuses': DepositBonusesComponent,
     'wlc-bonus-wager': BonusWagerComponent,
+    'wlc-bonus-choice-modal': BonusChoiceModalComponent,
 };
 
 export const services = {
@@ -70,6 +74,7 @@ export const services = {
         DepositBonusesComponent,
         BonusConfirmationComponent,
         BonusWagerComponent,
+        BonusChoiceModalComponent,
     ],
     imports: [
         CommonModule,
@@ -94,6 +99,7 @@ export const services = {
         PromoSuccessComponent,
         RecommendedBonusesComponent,
         BonusWagerComponent,
+        BonusChoiceModalComponent,
     ],
 })
 
