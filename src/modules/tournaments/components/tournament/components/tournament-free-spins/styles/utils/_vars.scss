@@ -13,13 +13,6 @@ $themeDefault: map-merge((
     'dashboardBackground': transparent,
     'radius': ef.get('radius', 'biger'),
 
-    'modalTextStyle': 'PrimaryText',
-    'modalTextColor': inherit,
-    'modalMargin': 0 0 ef.size(4),
-    'modalBottomMargin': 0,
-    'modalAlign': center,
-    'modalIconMargin': 0 0 ef.size(6),
-
     'titleTextStyle': 'PrimaryTextBold',
     'titleTextColor': inherit,
     'titleTextAlign': center,

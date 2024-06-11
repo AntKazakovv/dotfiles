@@ -557,4 +557,11 @@ $themeDefault: map-merge((
 
     //quest-task-info
     'taskInfoBodyMinHeight': 650px,
+
+    // free spins buy modal
+    'freeSpinsTextStyle': 'PrimaryText',
+    'freeSpinsMargin': 0 0 ef.size(4),
+    'freeSpinsLastOfTypeMargin': 0,
+    'freeSpinsTextAlign': center,
+    'freeSpinsIconMargin': 0 0 ef.size(6),
 ), $customThemeDefault);

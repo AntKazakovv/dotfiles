@@ -539,3 +539,27 @@
         @include bm.get-mq-map('padding', $themeDefault, 'lotteryDetailBodyPadding');
     }
 }
+
+.wlc-modal--free-spins-buy {
+
+    .wlc-tournament-free-spins {
+
+        &__text-block {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'freeSpinsTextStyle'),
+                null
+            );
+            margin: ef.get-value($themeDefault, 'freeSpinsMargin');
+            text-align: ef.get-value($themeDefault, 'freeSpinsTextAlign');
+
+            &:last-of-type {
+                margin: ef.get-value($themeDefault, 'freeSpinsLastOfTypeMargin');
+            }
+        }
+
+        &__icon {
+            margin: ef.get-value($themeDefault, 'freeSpinsIconMargin');
+            text-align: ef.get-value($themeDefault, 'freeSpinsTextAlign');
+        }
+    }
+}

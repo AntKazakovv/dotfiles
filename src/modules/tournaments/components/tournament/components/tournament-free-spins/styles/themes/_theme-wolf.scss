@@ -75,30 +75,3 @@ $selector: '.wlc-tournament-free-spins';
         }
     }
 }
-
-::ng-deep {
-
-    .wlc-modal--free-spins-buy {
-
-        #{$selector} {
-
-            &__text-block {
-                @include text.get-text-style(
-                    ef.get-value($themeWolf, 'modalTextStyle'),
-                    ef.get-value($themeWolf, 'modalTextColor')
-                );
-                margin: ef.get-value($themeWolf, 'modalMargin');
-                text-align: ef.get-value($themeWolf, 'modalAlign');
-
-                :last-child {
-                    margin: ef.get-value($themeWolf, 'modalBottomMargin');
-                }
-            }
-
-            &__icon {
-                margin: ef.get-value($themeWolf, 'modalIconMargin');
-                text-align: ef.get-value($themeWolf, 'modalAlign');
-            }
-        }
-    }
-}
