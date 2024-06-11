@@ -26,6 +26,7 @@ import _map from 'lodash-es/map';
 import _find from 'lodash-es/find';
 import _filter from 'lodash-es/filter';
 import _includes from 'lodash-es/includes';
+import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 
 @Component({
     selector: '[wlc-steps]',
@@ -93,6 +94,7 @@ export class StepsComponent extends AbstractComponent implements OnInit {
         this.setSubscription();
     }
 
+    @CustomHook('core', 'setSubscriptionSteps')
     protected setSubscription(): void {
         this.eventService.subscribe({name: Params.StepsEvents.Next}, () => {
             this.nextStep();
