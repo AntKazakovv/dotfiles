@@ -33,7 +33,6 @@ export class FormControlComponent implements OnInit, OnDestroy {
     @Input() className: string;
     @Input() fieldName: string;
     @Input() validators: ValidatorType[];
-    @Input() orValidators: ValidatorType[];
     @HostBinding('class') protected $hostClass: string = 'form-control';
 
     public errors: string[] = [];
@@ -55,13 +54,8 @@ export class FormControlComponent implements OnInit, OnDestroy {
         this.control.statusChanges.pipe(
             takeUntil(this.ngUnsubscribe),
         ).subscribe(() => {
-            if (this.control.errors) {
-                this.errors = this.getErrors();
-                if (!this.errors.length) {
-                    this.control.setErrors(null);
-                }
-                this.cdr.markForCheck();
-            }
+            this.errors = this.getErrors();
+            this.cdr.markForCheck();
         });
     }
 
@@ -75,29 +69,7 @@ export class FormControlComponent implements OnInit, OnDestroy {
     }
 
     protected getErrors(): string[] {
-        const validatorsErrors: string[] = _keys(this.control.errors).filter((item: string): string => {
-            if (!this.orValidators?.includes(item)) {
-                return item;
-            }
-        });
-
-        const orValidatorsErrors: string[] = _keys(this.control.errors).filter((item: string): string => {
-            if (this.orValidators?.includes(item)) {
-                return item;
-            }
-        });
-
-        if (validatorsErrors.length) {
-            return this.errorHandling(validatorsErrors);
-        } else if (orValidatorsErrors.length === this.orValidators?.length) {
-            return [gettext('Check the correctness of the filled-out fields')];
-        }
-
-        return [];
-    }
-
-    protected errorHandling(errors: string[]): string[] {
-        return _map(errors, (item: string): string => {
+        return _map(_keys(this.control.errors), (item: string): string => {
             if (item === 'incomingError') {
                 return this.control.errors[item];
             }
