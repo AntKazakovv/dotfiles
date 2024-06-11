@@ -8,6 +8,7 @@ import {
     IData,
     DataService,
     LogService,
+    GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {
     ICashbackHistory,
@@ -58,6 +59,13 @@ export class CashbackService {
                 return itemDateUTC >= startDateUTC && itemDateUTC <= endDateUTC;
             });
             this.allCashbacks = _map(this.allCashbacks, (item: ICashbackHistory) => {
+                item.AddDate = GlobalHelper.toLocalTime(item.AddDate, 'SQL', 'yyyy-MM-dd HH:mm:ss');
+                item.PeriodFrom = DateTime.fromISO(item.PeriodFrom).isValid ?
+                    GlobalHelper.toLocalTime(item.PeriodFrom, 'SQL', 'yyyy-MM-dd HH:mm:ss') :
+                    item.PeriodFrom.replace(/\./g, '-');
+                item.PeriodTo = DateTime.fromISO(item.PeriodTo).isValid ?
+                    GlobalHelper.toLocalTime(item.PeriodTo, 'SQL', 'yyyy-MM-dd HH:mm:ss') :
+                    item.PeriodTo.replace(/\./g, '-');
                 item.Period = `${item.PeriodFrom} - ${item.PeriodTo}`;
                 return item;
             });

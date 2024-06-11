@@ -18,6 +18,7 @@ import {CashbackPlanModel} from 'wlc-engine/modules/cashback/system/models/cashb
 import {
     ConfigService,
     EventService,
+    GlobalHelper,
     IPaginateOutput,
     IPushMessageParams,
     NotificationEvents,
@@ -238,13 +239,41 @@ export class CashbackRewardsComponent extends AbstractComponent implements OnIni
      * @param {any} error - some error
      */
     private showErrorMessage(error?: any): void {
-        this.eventService.emit({
-            name: NotificationEvents.PushMessage,
-            data: <IPushMessageParams>{
-                type: 'error',
-                title: gettext('Error'),
-                message: error?.errors || gettext('Something wrong. Please try later.'),
-            },
-        });
+
+        if (error?.errors?.error?.message === 'Zero Loss') {
+            const data = error.errors.error.params;
+
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'error',
+                    title: gettext('Error'),
+                    message: gettext('Between {{dateFrom}} and {{dateTo}}, your total deposit amount is ' +
+                    '{{deposit}} {{currency}} and your total withdrawal amount is {{withdrawal}} {{currency}}. ' +
+                    'Cashback accrual is unavailable since you have not incurred any losses during this period'),
+                    messageContext: {
+                        dateFrom: this.prepareDate(data.dateFrom),
+                        dateTo: this.prepareDate(data.dateTo),
+                        deposit: data.deposit,
+                        withdrawal: data.withdrawal,
+                        currency: data.currency,
+                    },
+                },
+            });
+        } else {
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'error',
+                    title: gettext('Error'),
+                    message: error?.errors || gettext('Something wrong. Please try later.'),
+                },
+            });
+        }
+    }
+
+    private prepareDate(date: string): string {
+        const prepDate = date.split(' ')[1].split('.').reverse().join('-') + ' ' + date.split(' ')[0];
+        return GlobalHelper.toLocalTime(prepDate, 'SQL', 'yyyy-MM-dd HH:mm');
     }
 }
