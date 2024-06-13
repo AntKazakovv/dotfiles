@@ -73,6 +73,7 @@ export class Bonus extends AbstractModel<IBonus> {
     public readonly nameClean: string;
     public readonly allowPromotions: boolean;
     public readonly hidePromotionsForUnauthorized: boolean;
+    public timerEnd: DateTime;
 
     private static regEvents = ['deposit first', 'registration', 'verification'];
     private static depEvents = ['deposit', 'deposit first', 'deposit repeated', 'deposit sum'];
@@ -131,6 +132,16 @@ export class Bonus extends AbstractModel<IBonus> {
         }
 
         this._fallBackIconPath = this.configService.get<string>('$bonuses.fallBackIconPath');
+
+        if (this.event === 'cashback') {
+            this.timerEnd = (
+                +this.availabilityTimeLuxon < +this.endsTimeLuxon
+                    ? this.availabilityTimeLuxon
+                    : this.endsTimeLuxon
+            );
+        } else {
+            this.timerEnd = this.endsTimeLuxon;
+        }
     }
 
     public static set serverTime(time: number) {
@@ -301,6 +312,10 @@ export class Bonus extends AbstractModel<IBonus> {
 
     public get ends(): string {
         return this.data.Ends;
+    }
+
+    public get availabilityDate(): string {
+        return this.data.AvailabilityDate;
     }
 
     public get freeroundComplete(): number {
@@ -528,6 +543,10 @@ export class Bonus extends AbstractModel<IBonus> {
 
     public get terms(): string {
         return this.data.Terms;
+    }
+
+    public get isBonusTimerActive(): boolean {
+        return this.data.Timer;
     }
 
     public get totalWinning(): number {
@@ -854,6 +873,14 @@ export class Bonus extends AbstractModel<IBonus> {
         return this._expirationTime;
     }
 
+    public get endsTimeLuxon(): DateTime {
+        return this.convertTimeToLuxonFormat(this.data.Ends);
+    }
+
+    public get availabilityTimeLuxon(): DateTime {
+        return this.convertTimeToLuxonFormat(this.data.AvailabilityDate);
+    }
+
     /**
      * @returns {TBonusTagKey} bonus tag
      */
@@ -1052,6 +1079,11 @@ export class Bonus extends AbstractModel<IBonus> {
             : [];
     }
 
+    public convertTimeToLuxonFormat(date: string): DateTime {
+        const defaultTime = DateTime.fromSQL(date);
+        return defaultTime.plus({minutes: defaultTime.offset});
+    }
+
     protected modifyData(bonus: IBonus): IBonus {
 
         if (!bonus.Target && _isObject(bonus.Results)) {
@@ -1074,14 +1106,12 @@ export class Bonus extends AbstractModel<IBonus> {
 
         bonus.ExpireDays = bonus.ExpireDays || bonus.Expire;
 
-
         //TODO remove it after 608920 release
         if (!isNaN(Number(bonus.Expire))) {
             bonus.Expire = bonus.Ends;
         }
 
-        const expireTime: DateTime = DateTime.fromSQL(bonus.Expire);
-        this._expirationTime = expireTime.plus({minutes: expireTime.offset});
+        this._expirationTime = this.convertTimeToLuxonFormat(bonus.Expire);
 
         if (bonus.Active && +this._expirationTime < +DateTime.now()) {
             bonus.Status = -99;

@@ -133,14 +133,18 @@
 
         <ng-container *ngIf="!isThemeModWithImage" [ngTemplateOutlet]="bonusImage"></ng-container>
 
-        <div class="{{$class}}__wrapper">
-            <div class="{{$class}}__image-block" data-wlc-element="bonus_image">
+        <div class="{{$class}}__wrapper" [class.timer]="showTimerEnds">
+            <div class="{{$class}}__image-block"
+                data-wlc-element="bonus_image"
+                [class.timer]="showTimerEnds">
                 <ng-container [ngTemplateOutlet]="bonusTag"></ng-container>
                 <ng-container *ngIf="isThemeModWithImage" [ngTemplateOutlet]="bonusImage"></ng-container>
                 <ng-container [ngTemplateOutlet]="bonusIcon"></ng-container>
                 <ng-container [ngTemplateOutlet]="moreIcon"></ng-container>
             </div>
-            <div class="{{$class}}__bottom" data-wlc-element="bonus_info">
+            <div class="{{$class}}__bottom"
+                data-wlc-element="bonus_info"
+                [class.timer]="showTimerEnds">
                 <ng-container *ngIf="bonus.isActive" [ngTemplateOutlet]="activeBlock"></ng-container>
 
                 <div class="{{$class}}__info-block">
@@ -149,6 +153,7 @@
                         [innerHTML]="bonus.nameClean | translate">
                     </h4>
                     <ng-container [ngTemplateOutlet]="description"></ng-container>
+                    <ng-container *ngIf="showTimerEnds" [ngTemplateOutlet]="timerEnds"></ng-container>
                     <button *ngIf="!$params.common?.iconMoreBtn"
                             wlc-button
                             typeAttr="button"
@@ -175,9 +180,7 @@
                     <h4 class="{{$class}}__name" data-wlc-element="bonus_title-name">
                         {{bonus.name}}
                     </h4>
-                    <ng-container *ngIf="bonus.description"
-                                  [ngTemplateOutlet]="description">
-                    </ng-container>
+                    <ng-container *ngIf="bonus.description" [ngTemplateOutlet]="description"></ng-container>
                 </div>
                 <ng-container [ngTemplateOutlet]="bonusButtons"></ng-container>
             </div>
@@ -560,4 +563,13 @@
           (click)="chooseBonusNoBtn()">
         {{bonus.value}}
     </span>
+</ng-template>
+
+<ng-template #timerEnds>
+    <div wlc-timer
+        class="{{$class}}__timer-ends"
+        text="{{'Available for activation' | translate}}"
+        [value]="bonus.timerEnd"
+        [serverDateUTC]="bonus.serverTime">
+    </div>
 </ng-template>

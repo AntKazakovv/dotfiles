@@ -280,6 +280,10 @@
             }
         }
 
+        &__wrapper.timer {
+            @include bm.get-mq-map('grid-template-rows', $themeDefault, 'infoHeightTimer');
+        }
+
         &__image-block {
             @include bm.get-mq-map('padding', $themeDefault, 'imageBlockPadding');
 
@@ -326,6 +330,11 @@
         &__description {
             @include descriptionCommonStyles;
             margin-top: ef.get-value($themeDefault, 'descriptionMargin');
+        }
+
+        &__timer-ends {
+            @include bm.transition(opacity);
+            margin: ef.get-value($themeDefault, 'timerMargin');
         }
 
         &__remaning {
@@ -394,6 +403,10 @@
                 display: block;
             }
 
+            &__image-block.timer {
+                @include bm.get-mq-map('height', $themeDefault, 'imgHeightTimerWithImg');
+            }
+
             &__image {
                 height: 100%;
                 padding-bottom: 0;
@@ -411,6 +424,10 @@
                 @include bm.transition(height, 0.3s, ease-in-out);
                 @include bm.get-mq-map('padding', $themeDefault, 'infoBtmPaddingWithImg');
                 @include bm.get-mq-map('height', $themeDefault, 'infoHeightWithImg');
+            }
+
+            &__bottom.timer {
+                @include bm.get-mq-map('height', $themeDefault, 'infoHeightTimerWithImg');
             }
 
             &__btns {
@@ -432,7 +449,12 @@
                         @include bm.get-mq-map('height', $themeDefault, 'imgHeightWithImgHover');
                     }
 
-                    &__description {
+                    &__image-block.timer {
+                        @include bm.get-mq-map('height', $themeDefault, 'imgHeightTimerWithImgHover');
+                    }
+
+                    &__description,
+                    &__timer-ends {
                         opacity: 1;
                     }
                 }
@@ -509,7 +531,8 @@
                 opacity: 1;
             }
 
-            .wlc-bonus-item__description {
+            .wlc-bonus-item__description,
+            .wlc-bonus-item__timer-ends {
                 opacity: 0;
             }
         }

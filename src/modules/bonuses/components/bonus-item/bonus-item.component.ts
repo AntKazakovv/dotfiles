@@ -246,6 +246,16 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
         return this.$params.useReadMoreBtnMode && this.$params.theme === 'promo';
     }
 
+    public get showTimerEnds(): boolean {
+        return (
+            this.bonus.isBonusTimerActive
+            && this.bonus.canSubscribe
+            && !this.bonus.showOnly
+            && !this.bonus.stackIsUnavailable
+            && !this.bonus.isDisabled
+        );
+    }
+
     public prepareBonusImage(): void {
         const source: Params.TBonusItemImageSource = this.$params.imageSource;
         let image: string = '';
@@ -258,7 +268,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
                 : this.bonus.image;
         }
 
-        this.bonusImg =  image ? `url(${image})` : '';
+        this.bonusImg = image ? `url(${image})` : '';
     }
 
     /**

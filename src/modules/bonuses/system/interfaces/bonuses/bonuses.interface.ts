@@ -78,7 +78,8 @@ export type TBonusEvent =
     | 'level up'
     | 'sign up'
     | 'store'
-    | 'promotion';
+    | 'promotion'
+    | 'cashback';
 
 export type TBonusTarget =
     | 'balance'
@@ -193,6 +194,7 @@ export interface IBonus extends IBonusBase {
     AffiliateUrl: string;
     AllowCatalog: string;
     AllowStack: string;
+    AvailabilityDate: string;
     AmountMax: IIndexing<string>;
     AmountMin: IIndexing<string>;
     BonusBalance: string;
@@ -229,6 +231,7 @@ export interface IBonus extends IBonusBase {
     SportSettings: string;
     Starts: string;
     Terms: string;
+    Timer: boolean;
     TotalWinning: string;
     WageringType: string;
     Conditions?: IBonusConditions;

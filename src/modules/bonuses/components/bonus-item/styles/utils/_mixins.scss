@@ -113,6 +113,10 @@
             @include bm.get-mq-map('height', $themeDefault, 'infoHeightWithHover');
         }
 
+        &__bottom.timer {
+            @include bm.get-mq-map('height', $themeDefault, 'infoHeightTimerWithHover');
+        }
+
         &__btns {
             @include bm.get-mq-map('transform', $themeDefault, 'btnBottomTransformHover');
         }

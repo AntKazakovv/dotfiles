@@ -104,6 +104,17 @@ $themeDefault: map-merge((
         1366: 185px,
         1630: 220px,
     ),
+    'imgHeightTimerWithImg': (
+        320: 125px,
+        480: 140px,
+        640: 125px,
+        720: 150px,
+        768: 145px,
+        1024: 150px,
+        1200: 115px,
+        1366: 120px,
+        1630: 155px,
+    ),
     'imgHeightWithImgHover': (
         320: 150px,
         480: 165px,
@@ -115,6 +126,17 @@ $themeDefault: map-merge((
         1366: 145px,
         1630: 180px,
     ),
+    'imgHeightTimerWithImgHover': (
+        320: 85px,
+        480: 100px,
+        640: 85px,
+        720: 110px,
+        768: 105px,
+        1024: 110px,
+        1200: 74px,
+        1366: 80px,
+        1630: 115px,
+    ),
 
     // // Info block
     'infoPadding': 0 ef.size(3),
@@ -125,6 +147,11 @@ $themeDefault: map-merge((
         320: auto 92px,
         720: auto 100px,
         1630: auto 130px,
+    ),
+    'infoHeightTimer': (
+        375: auto 145px,
+        720: auto 150px,
+        1630: auto 155px,
     ),
     'infoWrapGridRowsActive': (
         320: ef.size(8) auto,
@@ -145,9 +172,17 @@ $themeDefault: map-merge((
         320: 130px,
         1630: 145px,
     ),
+    'infoHeightTimerWithImg': (
+        320: 195px,
+        1630: 210px,
+    ),
     'infoHeightWithHover': (
         320: 170px,
         1630: 185px,
+    ),
+    'infoHeightTimerWithHover': (
+        320: 235px,
+        1630: 250px,
     ),
     'infoBtmPaddingWithImg': ef.size(5) 0,
     'bottomWithImgShowBtnsPadding':  0 0 ef.size(5),
@@ -222,6 +257,8 @@ $themeDefault: map-merge((
 
     // // Description
     'descriptionMargin': ef.size(1),
+
+    'timerMargin': ef.size(1) 0 0,
 
     // Btns
     'btnsInnerOffset': 0 ef.size(1),
