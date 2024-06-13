@@ -1,4 +1,6 @@
 import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+
 import {TranslateModule} from '@ngx-translate/core';
 
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
@@ -39,6 +41,7 @@ export const services = {
         ProfileMessagePreviewComponent,
     ],
     imports: [
+        CommonModule,
         CoreModule,
         HistoryModule,
         TranslateModule,

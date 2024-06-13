@@ -47,6 +47,7 @@ import {
     ProcessEventsDescriptions,
 } from 'wlc-engine/modules/monitoring';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
+import {CompilerModule} from 'wlc-engine/modules/compiler';
 
 /**
  * A wrapper component for displaying the component in a modal window.
@@ -78,6 +79,7 @@ import {CoreModule} from 'wlc-engine/modules/core/core.module';
         CoreModule,
         ModalModule,
         TranslateModule,
+        CompilerModule,
     ],
 })
 export class WlcModalComponent extends AbstractComponent
