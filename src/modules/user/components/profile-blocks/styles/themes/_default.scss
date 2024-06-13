@@ -10,6 +10,14 @@
             display: ef.get-value($themeDefault, 'blockDisplay');
             grid-row-gap: ef.get-value($themeDefault, 'blockGap');
             grid-template-columns: ef.get-value($themeDefault, 'blockColumns');
+
+            .wlc-profile-blocks__item {
+                margin: ef.get-value($themeDefault, 'itemMargin');
+            }
+
+            .wlc-profile-blocks__item--notification {
+                margin: ef.get-value($themeDefault, 'itemNotificationMargin');
+            }
         }
 
         &__title {
@@ -29,6 +37,7 @@
                 grid-row-gap: ef.get-value($themeDefault, 'notifGap');
                 grid-template-columns: ef.get-value($themeDefault, 'notifColumns');
                 align-items: ef.get-value($themeDefault, 'notifAlignItems');
+                margin-bottom: 0;
 
                 .wlc-profile-blocks {
 
