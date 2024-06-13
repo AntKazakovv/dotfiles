@@ -7,8 +7,6 @@ import {
     ChangeDetectionStrategy,
 } from '@angular/core';
 
-import {TranslateService} from '@ngx-translate/core';
-
 import {Subject} from 'rxjs';
 
 import {
@@ -44,7 +42,6 @@ export class DeadsimplechatComponent extends AbstractComponent implements OnInit
         protected deadsimplechatService: DeadsimplechatService,
         configService: ConfigService,
         protected eventService: EventService,
-        protected translate: TranslateService,
     ) {
         super(<IMixedParams<Params.IDeadsimplechatCParams>>{
             injectParams: params,
