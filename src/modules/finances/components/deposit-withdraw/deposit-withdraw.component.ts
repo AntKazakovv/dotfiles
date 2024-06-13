@@ -329,21 +329,24 @@ export class DepositWithdrawComponent
     }
 
     public async onWalletChange(wallet: ISelectedWallet): Promise<void> {
-        this.isFetchingSystems = true;
-        Bonus.depositCurrency = wallet.walletCurrency;
-        this.bonusesListParams = _assign({}, this.bonusesListParams);
+        if (this.diffCurrencies(wallet)) {
+            this.isFetchingSystems = true;
+            Bonus.depositCurrency = wallet.walletCurrency;
+            this.bonusesListParams = _assign({}, this.bonusesListParams);
+            this.dropCurrentSystem();
 
-        this.selectedWallet = wallet;
-        this.dropCurrentSystem();
-        await this.financesService.fetchPaymentSystems(wallet.walletCurrency);
+            await this.financesService.fetchPaymentSystems(wallet.walletCurrency);
 
-        if (this.currentSystem) {
-            this.checkCurrentSystem();
+            if (this.currentSystem) {
+                this.checkCurrentSystem();
+            }
+
+            setTimeout(() => {
+                this.isFetchingSystems = false;
+            }, 0);
         }
 
-        setTimeout(() => {
-            this.isFetchingSystems = false;
-        }, 0);
+        this.selectedWallet = wallet;
     }
 
     public get showDividerInPaymentSystems(): boolean {
@@ -502,6 +505,10 @@ export class DepositWithdrawComponent
 
     protected onProfileUpdate(): void {
         this.financesService.fetchPaymentSystems(this.selectedWallet?.walletCurrency);
+    }
+
+    protected diffCurrencies(wallet: ISelectedWallet): boolean {
+        return wallet.walletCurrency !== this.selectedWallet?.walletCurrency;
     }
 
     protected checkCurrentSystem(): void {
