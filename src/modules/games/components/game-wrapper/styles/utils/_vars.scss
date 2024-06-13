@@ -11,6 +11,7 @@ $themeDefault: map-merge((
     'headerBg': transparent,
     'headerColor': var(--mc-baseMain),
     'headerMargin': 0,
+    'headerWidth': 335px,
     'btnLeftMargin': 0 auto 0 30px,
     'btnCenterGap': ef.size(6),
     'titleWidth': 50%,
@@ -25,9 +26,13 @@ $themeDefault: map-merge((
     'admIdText': 'CaptionText',
     'admIdTextColor': var(--mc-baseMain-o6),
 
-    'titleFontSize': 'PrimaryTextBold',
+    'titleFontSize': 'QoteTextBold',
     'titleColor': var(--mc-baseMain),
     'iconsColorMob': var(--mc-bg300),
+
+    'checkboxTextWidth': 150px,
+    'checkboxTextAlign': right,
+    'checkboxElemWidth': 50px,
 ), $customThemeDefault);
 
 $customThemeFullscreenGameFrame: () !default;

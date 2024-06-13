@@ -17,7 +17,8 @@
         background: ef.get-value($theme, 'headerBg');
 
         h2 {
-            max-width: 50%;
+            @include text.get-text-style(ef.get-value($theme, 'titleFontSize'));
+            max-width: ef.get-value($theme, 'headerWidth');
             margin: ef.get-value($theme, 'headerMargin');
             color: ef.get-value($theme, 'headerColor');
             white-space: nowrap;

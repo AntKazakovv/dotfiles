@@ -55,6 +55,15 @@
             display: flex;
             align-items: center;
 
+            .wlc-checkbox__text {
+                min-width: ef.get-value($themeDefault, 'checkboxTextWidth');
+                text-align: ef.get-value($themeDefault, 'checkboxTextAlign');
+            }
+
+            .wlc-checkbox__elem {
+                min-width: ef.get-value($themeDefault, 'checkboxElemWidth');
+            }
+
             .wlc-icon {
                 margin-left: ef.get-value($themeDefault, 'iconsGap');
                 color: ef.get-value($themeDefault, 'iconsColor');
