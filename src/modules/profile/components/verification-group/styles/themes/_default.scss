@@ -261,29 +261,11 @@
                 }
 
                 &.validated {
-
-                    ::ng-deep .wlc-icon-content {
-
-                        svg {
-
-                            rect {
-                                fill: ef.get-value($themeDefault, 'docsStatusValidated');
-                            }
-                        }
-                    }
+                    color: ef.get-value($themeDefault, 'docsStatusValidated');
                 }
 
                 &.failed-validation {
-
-                    ::ng-deep .wlc-icon-content {
-
-                        svg {
-
-                            rect {
-                                fill: ef.get-value($themeDefault, 'docsStatusFailed');
-                            }
-                        }
-                    }
+                    color: ef.get-value($themeDefault, 'docsStatusFailed');
                 }
 
                 &.expired {
