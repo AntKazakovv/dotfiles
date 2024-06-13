@@ -1,0 +1,10 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'titleStyle': 'PrimaryTextBold',
+    'totalStyle': 'PromoTitle',
+    'totalFontSize': 36px,
+    'totalSvgMaxHeight': 50px,
+    'totalSvgFontSize': 36px,
+    'imgWight': 335px,
+    'imgHeight': 335px,
+), $customThemeDefault);

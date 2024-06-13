@@ -135,6 +135,18 @@ export const MODALS_LIST: IModalList = {
             dismissAll: true,
         },
     },
+    localJackpotWon: {
+        config: {
+            id: 'local-jackpots-won',
+            modifier: 'local-jackpots-won',
+            modalTitle: gettext('Congratulations!'),
+            componentName: 'local-jackpots.wlc-jackpot-won',
+            size: 'md',
+            showConfirmBtn: true,
+            confirmBtnText: gettext('Take'),
+            rejectBtnVisibility: false,
+        },
+    },
     newPassword: {
         config: {
             id: 'new-password',

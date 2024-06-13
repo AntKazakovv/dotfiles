@@ -77,7 +77,7 @@ export interface IModalConfig extends ModalOptions {
      * Allow to insert TemplateRef
      */
     templateRef?: TemplateRef<unknown>;
-      /**
+    /**
      *  Parameters for configuring the templateRef
      */
     templateRefParams?: unknown;

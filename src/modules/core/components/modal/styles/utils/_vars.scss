@@ -540,4 +540,8 @@ $themeDefault: map-merge((
         560: 0 0 ef.size(6),
         1630: 0 0 ef.size(8),
     ),
+
+    // local jackpots
+    'localJackpotWonBg': url('//agstatic.com/wlc/jackpots/local-jackpot-won-bg.png'),
+    'localJackpotWonOpacity': 0.6,
 ), $customThemeDefault);

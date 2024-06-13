@@ -11,11 +11,13 @@ import {
     JackpotBannerComponent,
     LocalJackpotComponent,
 } from 'wlc-engine/modules/local-jackpots';
+import {JackpotWonComponent} from 'wlc-engine/modules/local-jackpots/components/jackpot-won/jackpot-won.component';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 
 export const components = {
-    'wlc-local-jackpot': LocalJackpotComponent,
+    'wlc-local-jackpots': LocalJackpotComponent,
     'wlc-jackpot-banner': JackpotBannerComponent,
+    'wlc-jackpot-won': JackpotWonComponent,
 };
 
 export const services = {
@@ -26,6 +28,7 @@ export const services = {
     declarations: [
         LocalJackpotComponent,
         JackpotBannerComponent,
+        JackpotWonComponent,
     ],
     imports: [
         CommonModule,
@@ -39,6 +42,7 @@ export const services = {
     exports: [
         LocalJackpotComponent,
         JackpotBannerComponent,
+        JackpotWonComponent,
     ],
 })
 export class LocalJackpotsModule {

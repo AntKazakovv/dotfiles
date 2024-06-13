@@ -1,0 +1,36 @@
+<div class="{{$class}}__content">
+    <div class="{{$class}}__content-title">{{$params.title | translate}}</div>
+
+    <div class="{{$class}}__content-total">
+        <ng-template [ngTemplateOutlet]="svgTotal"></ng-template>
+    </div>
+
+    <div wlc-icon
+        class="{{$class}}__content-img"
+        [iconPath]="$params.imgPath">
+    </div>
+
+    <audio
+        #audio
+        controls
+        autoplay
+        class="{{$class}}__content-audio">
+        <source [src]="$params.audioPath">
+    </audio>
+</div>
+
+<ng-template #svgTotal>
+    <svg width="100%">
+        <text x="50%" y="50%" dy=".35em" text-anchor="middle">
+            <tspan data-wlc-element="jackpot-total_currency">
+                {{userCurrencyFormat | functionPurePipe:[translateService.currentLang, $params.userCurrency]}}&#032;
+            </tspan>
+            <tspan
+                [countUp]="$params.amountWon"
+                [options]="$params.countUpOptions"
+                [reanimateOnClick]="$params.animateOnClick"
+                data-wlc-element="jackpot-total_counter">
+            </tspan>
+        </text>
+    </svg>
+</ng-template>

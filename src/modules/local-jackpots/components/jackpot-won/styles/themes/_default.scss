@@ -1,0 +1,40 @@
+.wlc-jackpot-won--theme-default:host {
+
+    .wlc-jackpot-won {
+
+        &__content {
+            text-align: center;
+
+            &-title {
+                @include text.get-text-style(ef.get-value($themeDefault, 'titleStyle'));
+            }
+
+            &-total {
+                @include text.get-text-style(ef.get-value($themeDefault, 'totalStyle'));
+
+                svg {
+                    max-height: ef.get-value($themeDefault, 'totalSvgMaxHeight');
+                    font-size: ef.get-value($themeDefault, 'totalSvgFontSize');
+                    fill: var(--mc-baseMain);
+                }
+            }
+
+            &-audio {
+                display: none;
+            }
+
+            &-img {
+
+                ::ng-deep {
+
+                    .wlc-icon-content {
+                        position: relative;
+                        z-index: 10;
+                        width: ef.get-value($themeDefault, 'imgWight');
+                        height: ef.get-value($themeDefault, 'imgHeight');
+                    }
+                }
+            }
+        }
+    }
+}

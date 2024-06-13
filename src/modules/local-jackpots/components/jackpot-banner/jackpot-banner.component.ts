@@ -35,10 +35,10 @@ import {
     IGamesGridCParams,
 } from 'wlc-engine/modules/games';
 import {ILocalJackpot} from 'wlc-engine/modules/local-jackpots/system/interfaces/local-jackpots.interface';
-import {JackpotCurrency} from 'wlc-engine/modules/core/constants';
 import {
     LocalJackpotsService,
 } from 'wlc-engine/modules/local-jackpots/system/services/local-jackpots/local-jackpots.service';
+import {LocalJackpotsHelper} from 'wlc-engine/modules/local-jackpots/system/helpers';
 
 import * as Params from './jackpot-banner.params';
 
@@ -100,10 +100,7 @@ export class JackpotBannerComponent extends AbstractComponent implements OnInit 
     }
 
     public userCurrencyFormat(currentLang: string, currency: string): string {
-        return Intl.NumberFormat(currentLang, {
-            style: 'currency',
-            currency,
-        }).format(0).replace(JackpotCurrency.formatCurrency, '');
+        return LocalJackpotsHelper.userCurrencyFormat(currentLang, currency);
     }
 
     protected async initGameGrids(): Promise<void> {

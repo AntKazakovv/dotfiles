@@ -497,6 +497,34 @@
             }
         }
     }
+
+    &.wlc-modal--local-jackpots-won {
+
+        .wlc-modal {
+
+            &__dialog {
+
+                &:before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    left: 0;
+
+                    width: 100%;
+                    height: 100%;
+                    opacity: ef.get-value($themeDefault, 'localJackpotWonOpacity');
+                    pointer-events: none;
+
+                    background: {
+                        position: center;
+                        image: ef.get-value($themeDefault, 'localJackpotWonBg');
+                        repeat: no-repeat;
+                    }
+                }
+            }
+        }
+    }
 }
 
 body.modal-open {

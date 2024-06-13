@@ -60,6 +60,7 @@ export const WebSocketEvents: IIndexing<IIndexing<string>> = {
         USER: 'funcore.wlcinfo.user',
         USER_BALANCE: 'userbalance',
         ACHIEVEMENTS: 'achievementsloyalty',
+        LOCAL_JACKPOTS: 'userjackpot',
     },
     SEND: {
         LOYALTY: 'loyalty.loyalty.get',

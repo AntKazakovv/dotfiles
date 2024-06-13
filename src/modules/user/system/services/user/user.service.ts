@@ -90,6 +90,7 @@ import {TermsAcceptService} from 'wlc-engine/modules/user/system/services/terms/
 import {
     TwoFactorAuthService,
 } from 'wlc-engine/modules/user/submodules/two-factor-auth/system/services/two-factor-auth/two-factor-auth.service';
+import {LocalJackpotsService} from 'wlc-engine/modules/local-jackpots';
 
 export enum LanguageChangeEvents {
     ChangeLanguage = 'CHANGE_LANGUAGE'
@@ -204,6 +205,7 @@ export class UserService {
     private wsBalanceData: IWSDataUserBalance = null;
     private termsAcceptService: TermsAcceptService;
     private licenseLimitationsService: LicenseLimitationsService;
+    private localJackpotsService: LocalJackpotsService;
     private twoFactorAuthService: TwoFactorAuthService;
     private isMultiWallet: boolean = false;
 
@@ -355,6 +357,7 @@ export class UserService {
             this.isAuthenticated = true;
             this.configService.set({name: '$user.isAuthenticated', value: true});
             this.setTermsAcceptService();
+            this.setLocalJackpotsService();
             this.setLicenseLimitationsService();
             this.showTwoFactorAuthModal();
             this.fetchUserProfile().then(async () => {
@@ -403,6 +406,7 @@ export class UserService {
 
         if (this.isAuthenticated) {
             this.setTermsAcceptService();
+            this.setLocalJackpotsService();
             this.setLicenseLimitationsService();
             this.showTwoFactorAuthModal();
             this.fetchUserProfile().then(async () => {
@@ -1521,6 +1525,13 @@ export class UserService {
         ) {
             this.licenseLimitationsService ??= await this.injectionService
                 .getService<LicenseLimitationsService>('limitations.license-limitations-service');
+        }
+    }
+
+    private async setLocalJackpotsService(): Promise<void> {
+        if (this.configService.get<boolean>('appConfig.siteconfig.LocalJackpots')) {
+            this.localJackpotsService ??= await this.injectionService
+                .getService<LocalJackpotsService>('local-jackpots.local-jackpots-service');
         }
     }
 }
