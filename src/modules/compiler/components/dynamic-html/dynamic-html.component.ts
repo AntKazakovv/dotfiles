@@ -16,10 +16,12 @@ import {
     ChangeDetectionStrategy,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
-import {CoreModule} from 'wlc-engine/modules/core/core.module';
-import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 
 import _each from 'lodash-es/each';
+
+import {CoreModule} from 'wlc-engine/modules/core/core.module';
+import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
+import {DomSanitizerService} from 'wlc-engine/modules/core/system/services/dom-sanitizer/dom-sanitizer.service';
 
 @Component({
     selector: '[wlc-dynamic-html]',
@@ -48,6 +50,10 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
      */
     @Input() public canUseScriptTag: boolean = false;
     /**
+     * Using sanitizer for html security (but <style> tags allowed)
+     */
+    @Input() public safeHtmlMode: boolean = true;
+    /**
      * html to compile
      */
     @Input() protected html: string;
@@ -63,6 +69,7 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
         private injector: Injector,
         private moduleRef: NgModuleRef<CoreModule>,
         private elementRef: ElementRef,
+        private domSanitizerService: DomSanitizerService,
     ) {
     }
 
@@ -76,7 +83,7 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
         }
 
         if (this.withoutCompilation) {
-            this.elementRef.nativeElement.innerHTML = this.extractBodyFromString(this.getHtml());
+            this.elementRef.nativeElement.innerHTML = this.getHtml();
         } else {
             try {
                 this.createComponentFromRaw();
@@ -94,9 +101,9 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
     }
 
     private createComponentFromRaw(): void {
-        const html = this.getHtml();
+        const template: string = this.getHtml();
         const dynamicComponent = Component({
-            template: this.extractBodyFromString(html),
+            template: this.prepareComponentTemplate(template),
             selector: `${this.tag || 'div'}[wlc-dynamic]`,
         })(class {
             ngOnInit(): void {
@@ -125,6 +132,12 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
             });
     }
 
+    private prepareComponentTemplate(template: string): string {
+        return this.extractBodyFromString(new XMLSerializer().serializeToString(
+            new DOMParser().parseFromString(template, 'text/html'),
+        ));
+    }
+
     private createScriptElements(): void {
         const html = new DOMParser().parseFromString(this.html, 'text/html');
 
@@ -140,12 +153,16 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
     }
 
     private getHtml(): string {
-        const html: string = this.parseAsPlainHTML
+        let html = this.parseAsPlainHTML
             ? GlobalHelper.parseHtmlSafely(this.html)
             : this.html;
 
         // 17 angular
-        return GlobalHelper.replaceBrackets(html);
+        html = GlobalHelper.replaceBrackets(html);
+
+        return this.safeHtmlMode
+            ? this.domSanitizerService.sanitizeHtml(this.extractBodyFromString(html))
+            : this.extractBodyFromString(html);
     }
 
     private extractBodyFromString(html: string): string {

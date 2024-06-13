@@ -49,6 +49,7 @@ import {
     AppConfigModel,
     FingerprintService,
     WebsocketService,
+    DomSanitizerService,
 } from './system/services';
 // -- SERVICES IMPORTS END  --;
 
@@ -480,6 +481,7 @@ export class CoreModule {
                 FingerprintService,
                 ColorThemeService,
                 WebsocketService,
+                DomSanitizerService,
                 ...interceptors,
                 {
                     provide: MODAL_CONFIG_DEFAULT_OVERRIDE,

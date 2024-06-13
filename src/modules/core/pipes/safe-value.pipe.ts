@@ -3,7 +3,6 @@ import {
     PipeTransform,
 } from '@angular/core';
 import {
-    DomSanitizer,
     SafeHtml,
     SafeResourceUrl,
     SafeScript,
@@ -11,11 +10,13 @@ import {
     SafeUrl,
 } from '@angular/platform-browser';
 
+import {DomSanitizerService} from 'wlc-engine/modules/core/system/services/dom-sanitizer/dom-sanitizer.service';
+
 type TSafeType = 'html' | 'style' | 'script' | 'url' | 'resourceUrl';
 type TSafeValue = SafeHtml | SafeStyle | SafeScript | SafeUrl | SafeResourceUrl;
 
 /**
- * Custom pipe to prevent Angular sanitizer edit given value like HTML, Style, Script, URL or ResourceUrl
+ * Custom pipe to prevent Angular domSanitizerService edit given value like HTML, Style, Script, URL or ResourceUrl
  *
  * @param {string} value source string
  *
@@ -31,20 +32,20 @@ type TSafeValue = SafeHtml | SafeStyle | SafeScript | SafeUrl | SafeResourceUrl;
 })
 export class SafeValuePipe implements PipeTransform {
 
-    constructor(private sanitizer: DomSanitizer) { }
+    constructor(private domSanitizerService: DomSanitizerService) { }
 
     public transform(value: string, type: TSafeType): TSafeValue {
         switch (type) {
             case 'html':
-                return this.sanitizer.bypassSecurityTrustHtml(value);
+                return this.domSanitizerService.bypassSecurityTrustHtml(value);
             case 'style':
-                return this.sanitizer.bypassSecurityTrustStyle(value);
+                return this.domSanitizerService.bypassSecurityTrustStyle(value);
             case 'script':
-                return this.sanitizer.bypassSecurityTrustScript(value);
+                return this.domSanitizerService.bypassSecurityTrustScript(value);
             case 'url':
-                return this.sanitizer.bypassSecurityTrustUrl(value);
+                return this.domSanitizerService.bypassSecurityTrustUrl(value);
             case 'resourceUrl':
-                return this.sanitizer.bypassSecurityTrustResourceUrl(value);
+                return this.domSanitizerService.bypassSecurityTrustResourceUrl(value);
             default:
                 throw new Error('You have to define type of the value');
         }

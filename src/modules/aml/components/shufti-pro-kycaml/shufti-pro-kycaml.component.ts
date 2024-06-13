@@ -10,7 +10,6 @@ import {
     ViewChild,
 } from '@angular/core';
 import {
-    DomSanitizer,
     SafeResourceUrl,
 } from '@angular/platform-browser';
 
@@ -26,6 +25,7 @@ import {
     AbstractComponent,
     ConfigService,
     LogService,
+    DomSanitizerService,
 } from 'wlc-engine/modules/core';
 import {
     ShuftiProKycamlService,
@@ -59,7 +59,7 @@ export class ShuftiProKycamlComponent extends AbstractComponent implements OnIni
     constructor(
         @Inject('injectParams') protected injectParams: Params.IShuftiProKycamlCParams,
         protected shuftiProKycamlService: ShuftiProKycamlService,
-        protected sanitizer: DomSanitizer,
+        protected domSanitizerService: DomSanitizerService,
         protected translateService: TranslateService,
         protected logService: LogService,
         configService: ConfigService,
@@ -127,7 +127,7 @@ export class ShuftiProKycamlComponent extends AbstractComponent implements OnIni
                 break;
             case 'ShuftiPro':
             default:
-                this.url = this.sanitizer.bypassSecurityTrustResourceUrl(this.data.url);
+                this.url = this.domSanitizerService.bypassSecurityTrustResourceUrl(this.data.url);
                 break;
         }
     }

@@ -17,7 +17,6 @@ import {
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 import {
-    DomSanitizer,
     Title,
 } from '@angular/platform-browser';
 import {UntypedFormControl} from '@angular/forms';
@@ -254,7 +253,6 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         protected modalService: ModalService,
         protected logService: LogService,
         protected elementRef: ElementRef,
-        protected domSanitizer: DomSanitizer,
         cdr: ChangeDetectorRef,
         protected renderer: Renderer2,
         protected hostElement: ElementRef,
@@ -871,9 +869,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                 if (this.configService.get<boolean>('appConfig.mobile')) {
                     this.useOrNotMobileIframe();
                 }
-
-                this.gameHtml = this.domSanitizer
-                    .bypassSecurityTrustHtml(launchInfo.gameHtml)?.['changingThisBreaksApplicationSecurity'];
+                this.gameHtml = launchInfo.gameHtml;
                 this.cdr.markForCheck();
 
                 this.checkAndInitMerchantWallet();

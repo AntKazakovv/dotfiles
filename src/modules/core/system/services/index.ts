@@ -47,6 +47,7 @@ export {ColorThemeService} from './color-theme/color-theme.service';
 export {ForbiddenCountryService} from './forbidden-country/forbidden-country.service';
 export {AnimateButtonsService} from './animate-buttons/animate-buttons.service';
 export {FingerprintService} from './fingerprint/fingerprint.service';
+export {DomSanitizerService} from './dom-sanitizer/dom-sanitizer.service';
 
 export {WebsocketService} from './websocket/websocket.service';
 export {TimerService} from './timer/timer.service';
