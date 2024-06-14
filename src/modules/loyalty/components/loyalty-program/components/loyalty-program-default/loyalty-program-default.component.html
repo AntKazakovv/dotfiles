@@ -1,0 +1,53 @@
+<ng-container *ngIf="slides$ | async | slice: 0 : levelsLimit as slides else noData">
+    <div *ngIf="slides.length else noData"
+         class="{{$class}}__wrapper">
+        <div class="{{$class}}__title">{{title | translate}}</div>
+        <div class="{{$class}}__container">
+            <div class="{{$class}}__container-decor">
+                <div class="{{$class}}__decor-left"
+                     [ngStyle]="{backgroundImage: 'url(' + decorLeftPath + ')'}"></div>
+                <div class="{{$class}}__decor-right"
+                     [ngStyle]="{backgroundImage: 'url(' + decorRightPath + ')'}"></div>
+            </div>
+
+            <ng-container
+                [ngTemplateOutlet]="(isMobile$ | async)
+                    ? loyaltyLevelsSlider
+                    : desktopLoyaltyLevels"
+                [ngTemplateOutletContext]="{$implicit: slides}">
+            </ng-container>
+
+            <div class="{{$class}}__btn-wrapper">
+                <button wlc-button
+                        [inlineParams]="btnParams"
+                        (click)="readMore?.()">
+                </button>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<ng-template #desktopLoyaltyLevels let-slides>
+    <div class="container">
+        <div class="{{$class}}__items-wrapper">
+            <div *ngFor="let slide of slides"
+                 wlc-loyalty-level
+                 [inlineParams]="slide.componentParams">
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #loyaltyLevelsSlider let-slides>
+    <div class="container">
+        <div wlc-slider
+             class="{{$class}}__slider"
+             [slides]="slides"
+             [inlineParams]="sliderParams">
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #noData>
+    <div class="{{$class}}-nodata">{{emptyStateText | translate}}</div>
+</ng-template>

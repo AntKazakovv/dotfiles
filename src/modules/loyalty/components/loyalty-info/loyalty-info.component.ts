@@ -3,6 +3,7 @@ import {
     Inject,
     OnInit,
     ChangeDetectionStrategy,
+    Input,
 } from '@angular/core';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
@@ -17,7 +18,10 @@ import * as Params from './loyalty-info.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoyaltyInfoComponent extends AbstractComponent implements OnInit {
+    @Input() protected inlineParams: Params.ILoyaltyInfoCParams;
+
     public override $params: Params.ILoyaltyInfoCParams;
+    public title!: string;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILoyaltyInfoCParams,
@@ -26,10 +30,9 @@ export class LoyaltyInfoComponent extends AbstractComponent implements OnInit {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
+    public override ngOnInit(): void {
+        super.ngOnInit(this.inlineParams);
 
-    public override async ngOnInit(): Promise<void> {
-        super.ngOnInit();
-
-        this.$params.title ??= this.configService.get<string>('$loyalty.loyalty.programTitle');
+        this.title = this.$params.title ?? this.configService.get<string>('$loyalty.loyalty.programTitle');
     }
 }

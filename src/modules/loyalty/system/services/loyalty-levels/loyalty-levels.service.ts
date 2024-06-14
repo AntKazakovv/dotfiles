@@ -1,6 +1,10 @@
-import {Injectable} from '@angular/core';
+import {
+    inject,
+    Injectable,
+} from '@angular/core';
 
 import {TranslateService} from '@ngx-translate/core';
+import {BehaviorSubject} from 'rxjs';
 import _map from 'lodash-es/map';
 import _isObject from 'lodash-es/isObject';
 import _values from 'lodash-es/values';
@@ -10,7 +14,6 @@ import {
     DataService,
     LogService,
     IData,
-    IIndexing,
     ConfigService,
 } from 'wlc-engine/modules/core';
 import {ILevel} from 'wlc-engine/modules/loyalty/system/interfaces';
@@ -20,14 +23,14 @@ import {LoyaltyLevelModel} from 'wlc-engine/modules/loyalty/system/models';
     providedIn: 'root',
 })
 export class LoyaltyLevelsService {
-    public levels: IIndexing<string>[] = [];
+    public readonly levels$: BehaviorSubject<LoyaltyLevelModel[] | null> = new BehaviorSubject(null);
 
-    constructor(
-        protected logService: LogService,
-        private configService: ConfigService,
-        private dataService: DataService,
-        private translateService: TranslateService,
-    ) {
+    protected logService: LogService = inject(LogService);
+    protected configService: ConfigService = inject(ConfigService);
+    protected dataService: DataService = inject(DataService);
+    protected translateService: TranslateService = inject(TranslateService);
+
+    constructor() {
         this.registerMethods();
     }
 
@@ -55,12 +58,16 @@ export class LoyaltyLevelsService {
     /**
      * get loyalty levels or return empty array on error in request
      */
-    public async getLoyaltyLevelsSafely(): Promise<LoyaltyLevelModel[]> {
-        try {
-            return await this.getLoyaltyLevels();
-        } catch (error) {
-            return [];
-        }
+    public getLoyaltyLevelsObserver(): BehaviorSubject<LoyaltyLevelModel[]> {
+        this.getLoyaltyLevels()
+            .then((levels: LoyaltyLevelModel[]): void => {
+                this.levels$.next(levels);
+            }).catch((): void => {
+                this.levels$.next([]);
+            });
+
+
+        return this.levels$;
     }
 
     /**

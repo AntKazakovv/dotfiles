@@ -1,5 +1,5 @@
 <span class="{{$class}}-text">{{$params.level.name}}</span>
-<span *ngIf="$params.level.description && tooltipSettings"
+<span *ngIf="tooltipSettings"
       wlc-tooltip
       class="{{$class}}-tooltip"
       [inlineParams]="tooltipSettings"></span>

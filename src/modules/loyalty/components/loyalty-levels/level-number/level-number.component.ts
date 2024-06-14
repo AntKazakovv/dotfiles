@@ -3,15 +3,15 @@ import {
     OnInit,
     Inject,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
+    Input,
+    inject,
 } from '@angular/core';
 
 import {
     AbstractComponent,
     ConfigService,
-    IMixedParams,
 } from 'wlc-engine/modules/core';
-import {LoyaltyLevelsService} from 'wlc-engine/modules/loyalty';
+import {LoyaltyLevelsService} from 'wlc-engine/modules/loyalty/system/services/loyalty-levels/loyalty-levels.service';
 
 import * as Params from './level-number.params';
 
@@ -22,24 +22,23 @@ import * as Params from './level-number.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LevelNumberComponent extends AbstractComponent implements OnInit {
-    public override $params: Params.ILevelNumberParams;
-    public levelImage: string;
-    public levelFallbackImage: string;
+    @Input() protected inlineParams: Params.ILevelNumberCParams;
+
+    public override $params: Params.ILevelNumberCParams;
+    public levelImage!: string;
+    public levelFallbackImage!: string;
+
+    protected override configService: ConfigService = inject(ConfigService);
+    protected readonly loyaltyLevelsService: LoyaltyLevelsService = inject(LoyaltyLevelsService);
 
     constructor(
-        @Inject('injectParams') protected params: Params.ILevelNumberParams,
-        protected loyaltyLevelsService: LoyaltyLevelsService,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
+        @Inject('injectParams') protected params: Params.ILevelNumberCParams,
     ) {
-        super(<IMixedParams<Params.ILevelNumberParams>>{
-            injectParams: params,
-            defaultParams: Params.defaultParams,
-        }, configService, cdr);
+        super({injectParams: params, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {
-        super.ngOnInit();
+        super.ngOnInit(this.inlineParams);
 
         this.levelImage = this.$params.item?.image ||
             this.loyaltyLevelsService.getLevelIcon(this.$params.item?.level);

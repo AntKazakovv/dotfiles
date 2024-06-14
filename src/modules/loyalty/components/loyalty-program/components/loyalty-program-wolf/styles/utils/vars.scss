@@ -1,5 +1,5 @@
-$customThemeWolf: () !default;
-$themeWolf: map-merge((
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
     'wrapperMargin': 0 auto,
     'wrapperDisplay': grid,
     'wrapperDirection': column,
@@ -49,4 +49,4 @@ $themeWolf: map-merge((
     ),
 
     'nodataTextAlign': center,
-), $customThemeWolf);
+), $customThemeDefault);

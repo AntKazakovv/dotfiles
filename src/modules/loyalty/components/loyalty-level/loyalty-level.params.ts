@@ -4,14 +4,14 @@ import {
 } from 'wlc-engine/modules/core';
 
 export type ComponentTheme = 'default' | 'wolf' | CustomType;
-export type ComponentThemeMod = 'default' | 'compact' | CustomType;
 export type ComponentType = 'default' | CustomType;
+export type ComponentThemeMod = 'default' | 'compact' | CustomType;
 
-export interface ILoyaltyLevelCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
+export interface ILoyaltyLevelCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     /**
      * Ordinal number of the level
      */
-    level: string,
+    level?: string,
     /**
      * Level name
      */
@@ -27,7 +27,7 @@ export interface ILoyaltyLevelCParams extends IComponentParams<ComponentTheme, C
     /**
      * Primary image's source
      */
-    image: string,
+    image?: string,
     /**
      * Defines what should be shown as a title
      */
@@ -36,9 +36,9 @@ export interface ILoyaltyLevelCParams extends IComponentParams<ComponentTheme, C
      * Level matches to user level
      */
     isUserLevel?: boolean,
-};
+}
 
-export const defaultParams: Partial<ILoyaltyLevelCParams> = {
+export const defaultParams: ILoyaltyLevelCParams = {
     moduleName: 'loyalty',
     componentName: 'wlc-loyalty-level',
     class: 'wlc-loyalty-level',

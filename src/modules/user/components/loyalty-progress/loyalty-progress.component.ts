@@ -4,18 +4,20 @@ import {
     OnInit,
     Input,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
+    inject,
 } from '@angular/core';
 
-import {Observable} from 'rxjs';
 import {
+    Observable,
+    distinctUntilChanged,
     map,
     skipWhile,
     startWith,
-    takeUntil,
-    distinctUntilChanged,
     mergeMap,
-} from 'rxjs/operators';
+    takeUntil,
+    filter,
+    firstValueFrom,
+} from 'rxjs';
 import _find from 'lodash-es/find';
 import _merge from 'lodash-es/merge';
 import _isEqual from 'lodash-es/isEqual';
@@ -48,13 +50,20 @@ export class LoyaltyProgressComponent extends AbstractComponent implements OnIni
     @Input() protected maxProgressText: string;
     @Input() protected showLevelIcon: boolean;
 
+    protected userService: UserService = inject(UserService);
+    protected injectionService: InjectionService = inject(InjectionService);
+    protected loyaltyLevelsService: LoyaltyLevelsService;
+    protected nextLevel: string = '';
+    protected nextLevelName: string = '';
+
     public override $params: Params.ILoyaltyProgressCParams;
     public levels: LoyaltyLevelModel[];
     public levelData$: Observable<Params.ILevelViewData> = this.userService.userInfo$.pipe(
         mergeMap(async (userInfo: UserInfo): Promise<UserInfo> => {
             if (!this.levels) {
                 this.loyaltyLevelsService = await this.injectionService.getService('loyalty.loyalty-levels-service');
-                this.levels = await this.loyaltyLevelsService.getLoyaltyLevelsSafely();
+                this.levels =
+                    await firstValueFrom(this.loyaltyLevelsService.getLoyaltyLevelsObserver().pipe(filter(v => !!v)));
             }
             return userInfo;
         }),
@@ -70,21 +79,14 @@ export class LoyaltyProgressComponent extends AbstractComponent implements OnIni
         takeUntil(this.$destroy),
     ).pipe(startWith({}));
 
-    protected loyaltyLevelsService: LoyaltyLevelsService;
-    protected nextLevel = '';
-    protected nextLevelName = '';
-
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILoyaltyProgressCParams,
         configService: ConfigService,
-        protected userService: UserService,
-        protected injectionService: InjectionService,
-        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
-    public override async ngOnInit(): Promise<void> {
+    public override ngOnInit(): void {
         super.ngOnInit(GlobalHelper.prepareParams(this, ['maxProgressText', 'showLevelIcon']));
     }
 
@@ -129,7 +131,7 @@ export class LoyaltyProgressComponent extends AbstractComponent implements OnIni
             nextLevelPoints: loyaltyData.nextLevelPoints,
             percentProgress: !loyaltyData.nextLevelPoints
                 ? 100
-                : loyaltyData.points / loyaltyData.nextLevelPoints * 100,
+                : loyaltyData.points / (loyaltyData.nextLevelPoints || 1) * 100,
             wrapperParams,
         };
     }

@@ -1,22 +1,27 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
+    inject,
     Inject,
+    Input,
     OnInit,
 } from '@angular/core';
 
 import {BehaviorSubject} from 'rxjs';
-import _filter from 'lodash-es/filter';
+import {
+    first,
+    tap,
+    takeUntil,
+} from 'rxjs/operators';
 
 import {
     AbstractComponent,
     ConfigService,
-    IMixedParams,
+    ITableCol,
     ITableCParams,
 } from 'wlc-engine/modules/core';
-import {LoyaltyLevelModel} from 'wlc-engine/modules/loyalty/system/models';
-import {LoyaltyLevelsService} from 'wlc-engine/modules/loyalty/system/services';
+import {LoyaltyLevelModel} from 'wlc-engine/modules/loyalty/system/models/loyalty-level.model';
+import {LoyaltyLevelsService} from 'wlc-engine/modules/loyalty/system/services/loyalty-levels/loyalty-levels.service';
 
 import * as Params from './loyalty-levels.params';
 
@@ -27,38 +32,37 @@ import * as Params from './loyalty-levels.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoyaltyLevelsComponent extends AbstractComponent implements OnInit {
-    public ready: boolean = false;
+    @Input() protected inlineParams: Params.ILoyaltyLevelTableCParams;
+
     public override $params: Params.ILoyaltyLevelTableCParams;
-    public levels: BehaviorSubject<LoyaltyLevelModel[]> = new BehaviorSubject([]);
-    public tableData: ITableCParams;
+    public readonly levels$: BehaviorSubject<LoyaltyLevelModel[] | null> = new BehaviorSubject(null);
+    public tableData!: ITableCParams;
+
+    protected readonly loyaltyLevelsService: LoyaltyLevelsService = inject(LoyaltyLevelsService);
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILoyaltyLevelTableCParams,
-        cdr: ChangeDetectorRef,
         configService: ConfigService,
-        protected loyaltyLevelsService: LoyaltyLevelsService,
-    )
-    {
-        super(
-            <IMixedParams<Params.ILoyaltyLevelTableCParams>>{
-                injectParams,
-                defaultParams: Params.defaultParams,
-            }, configService, cdr);
+    ) {
+        super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
-    public override async ngOnInit(): Promise<void> {
-        super.ngOnInit();
-        this.levels.next(await this.loyaltyLevelsService.getLoyaltyLevelsSafely());
+    public override ngOnInit(): void {
+        super.ngOnInit(this.inlineParams);
+
         this.tableData = {
             ...this.$params.tableConfig,
-            head: this.$params.excludedHeadKeys.length
-                ? _filter(
-                    Params.loyaltyTableHeadConfig,
-                    (tableHead) => !this.$params.excludedHeadKeys.includes(tableHead.key))
+            head: this.$params.excludedHeadKeys?.length
+                ? Params.loyaltyTableHeadConfig.filter(
+                    (tableHead: ITableCol) => !this.$params.excludedHeadKeys.includes(tableHead.key))
                 : Params.loyaltyTableHeadConfig,
-            rows: this.levels,
+            rows: this.levels$,
         };
-        this.ready = true;
-        this.cdr.detectChanges();
+
+        this.loyaltyLevelsService.getLoyaltyLevelsObserver().pipe(
+            first(v => !!v),
+            tap((levels: LoyaltyLevelModel[]) => this.levels$.next(levels)),
+            takeUntil(this.$destroy),
+        ).subscribe();
     }
 }

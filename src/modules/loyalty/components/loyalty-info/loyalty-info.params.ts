@@ -6,11 +6,12 @@ import {
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
+export type ComponentThemeMod = 'default' | CustomType;
 
-export interface ILoyaltyInfoCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
+export interface ILoyaltyInfoCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     imagePath?: string;
     title?: string;
-};
+}
 
 export const defaultParams: ILoyaltyInfoCParams = {
     moduleName: 'loyalty',

@@ -19,25 +19,22 @@ import * as Params from './loyalty-levels-wp.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoyaltyLevelsWpComponent extends AbstractComponent implements OnInit {
-    @Input() public inlineParams: Params.ILoyaltyLevelWpParams;
+    @Input() protected inlineParams: Params.ILoyaltyLevelsWpCParams;
     @Input() public hideDescription: boolean;
     @Input() public hideInfo: boolean;
 
-    public override $params: Params.ILoyaltyLevelWpParams;
+    public override $params: Params.ILoyaltyLevelsWpCParams;
     public noDataInfo: boolean = false;
     public noDataDescription: boolean = false;
 
     constructor(
-        @Inject('injectParams') protected injectParams: Params.ILoyaltyLevelWpParams,
+        @Inject('injectParams') protected injectParams: Params.ILoyaltyLevelsWpCParams,
         configService: ConfigService,
     ) {
-        super({
-            injectParams,
-            defaultParams: Params.defaultParams,
-        }, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
-    public override async ngOnInit(): Promise<void> {
+    public override ngOnInit(): void {
         super.ngOnInit(GlobalHelper.prepareCParams(this, ['hideDescription', 'hideInfo']));
         this.$params.loyaltyDescriptionPost.components[0].params =
             {

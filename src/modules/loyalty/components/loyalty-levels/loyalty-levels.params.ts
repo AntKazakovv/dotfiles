@@ -7,18 +7,18 @@ import {
 } from 'wlc-engine/modules/core';
 
 import {LoyaltyLevelModel} from 'wlc-engine/modules/loyalty/system/models/loyalty-level.model';
-import {ILevelNameParams} from 'wlc-engine/modules/loyalty/components/loyalty-levels/level-name/level-name.params';
+import {ILevelNameCParams} from 'wlc-engine/modules/loyalty/components/loyalty-levels/level-name/level-name.params';
 import {LevelNameComponent} from 'wlc-engine/modules/loyalty/components/loyalty-levels/level-name/level-name.component';
-import {ILevelNumberParams}
+import {ILevelNumberCParams}
     from 'wlc-engine/modules/loyalty/components/loyalty-levels/level-number/level-number.params';
 import {LevelNumberComponent}
     from 'wlc-engine/modules/loyalty/components/loyalty-levels/level-number/level-number.component';
 
-export type Theme = 'default' | CustomType;
-export type Type = 'default' | CustomType;
-export type ThemeMod = 'default' | CustomType;
+export type ComponentTheme = 'default' | CustomType;
+export type ComponentType = 'default' | CustomType;
+export type ComponentThemeMod = 'default' | CustomType;
 
-export interface ILoyaltyLevelTableCParams extends IComponentParams<Theme, Type, ThemeMod> {
+export interface ILoyaltyLevelTableCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     filterType?: 'select' | 'button',
     /** wlc-profile-no-content params **/
     emptyConfig?: IWrapperCParams;
@@ -47,7 +47,6 @@ export const defaultParams: ILoyaltyLevelTableCParams = {
             breakpoints: null,
         },
     },
-    excludedHeadKeys: [],
 };
 
 export const loyaltyTableHeadConfig: ITableCol[] = [
@@ -57,7 +56,7 @@ export const loyaltyTableHeadConfig: ITableCol[] = [
         type: 'component',
         order: 20,
         wlcElement: 'wlc-profile-table__cell_level',
-        mapValue: (item: LoyaltyLevelModel): ILevelNumberParams => {
+        mapValue: (item: LoyaltyLevelModel): ILevelNumberCParams => {
             return {item};
         },
         componentClass: LevelNumberComponent,
@@ -68,7 +67,7 @@ export const loyaltyTableHeadConfig: ITableCol[] = [
         type: 'component',
         order: 30,
         wlcElement: 'wlc-profile-table__cell_name',
-        mapValue: (item: LoyaltyLevelModel): ILevelNameParams => {
+        mapValue: (item: LoyaltyLevelModel): ILevelNameCParams => {
             return {level: item};
         },
         componentClass: LevelNameComponent,

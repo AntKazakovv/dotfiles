@@ -1,0 +1,34 @@
+<ng-container *ngIf="slides$ | async as slides else noData">
+    <div *ngIf="slides.length else noData" class="{{$class}}__wrapper">
+        <div class="{{$class}}__header">
+            <div class="{{$class}}__title">{{title | translate}}</div>
+            <div class="{{$class}}__btn-wrapper">
+                <button wlc-button
+                    [inlineParams]="btnParams"
+                    (click)="readMore?.()">
+                </button>
+                <div slot-container-start>
+                    <div wlc-slider-navigation
+                        class="{{$class}}__navigation-btns"
+                        [classPrev]="'wlc-swiper-button-prev-' + navigationId"
+                        [classNext]="'wlc-swiper-button-next-' + navigationId">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="{{$class}}__container">
+            <div class="container">
+                <div wlc-slider
+                    class="{{$class}}__slider"
+                    [slides]="slides"
+                    [inlineParams]="sliderParams">
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<ng-template #noData>
+    <div class="{{$class}}-nodata">{{emptyStateText | translate}}</div>
+</ng-template>

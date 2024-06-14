@@ -3,39 +3,20 @@ import {
     Inject,
     OnInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
+    Input,
+    inject,
 } from '@angular/core';
 
-import {UIRouter} from '@uirouter/core';
 import {BehaviorSubject} from 'rxjs';
-import {
-    distinctUntilChanged,
-    filter,
-    first,
-    map,
-    takeUntil,
-} from 'rxjs/operators';
-import _random from 'lodash-es/random';
-import _map from 'lodash-es/map';
-import _merge from 'lodash-es/merge';
 
 import {
     AbstractComponent,
-    ActionService,
     ConfigService,
-    DeviceType,
-    ModalService,
-    ISlide,
-    IWrapperCParams,
 } from 'wlc-engine/modules/core';
-import {LoyaltyLevelComponent} from 'wlc-engine/modules/loyalty/components/loyalty-level/loyalty-level.component';
-import {ILoyaltyLevelCParams} from 'wlc-engine/modules/loyalty/components/loyalty-level/loyalty-level.params';
-import {LoyaltyLevelsService} from 'wlc-engine/modules/loyalty/system/services/loyalty-levels/loyalty-levels.service';
-import {LoyaltyLevelModel} from 'wlc-engine/modules/loyalty/system/models/loyalty-level.model';
 import {
-    UserInfo,
-    UserService,
-} from 'wlc-engine/modules/user';
+    LoyaltyProgramController,
+    TComponent,
+} from 'wlc-engine/modules/loyalty/components/loyalty-program/controllers/loyalty-program.controller';
 
 import * as Params from './loyalty-program.params';
 
@@ -44,155 +25,41 @@ import * as Params from './loyalty-program.params';
     templateUrl: './loyalty-program.component.html',
     styleUrls: ['./styles/loyalty-program.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [LoyaltyProgramController],
 })
 export class LoyaltyProgramComponent extends AbstractComponent implements OnInit {
+    @Input() protected inlineParams: Params.ILoyaltyProgramCParams;
+
     public override $params: Params.ILoyaltyProgramCParams;
-    public levels: LoyaltyLevelModel[] = [];
-    public userLevel: string | null = null;
-    public ready = false;
-    public slides: ISlide[] = [];
-    public isMobile: boolean = false;
-    public sliderConfig: IWrapperCParams;
-    public navigationId: string = _random(10000000).toString(16);
+    public ready$: BehaviorSubject<boolean>;
+    public $component: TComponent;
+
+    protected readonly $ctrl: LoyaltyProgramController = inject(LoyaltyProgramController);
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILoyaltyProgramCParams,
-        cdr: ChangeDetectorRef,
         configService: ConfigService,
-        private actionService: ActionService,
-        private loyaltyLevelsService: LoyaltyLevelsService,
-        private modalService: ModalService,
-        private router: UIRouter,
-        private userService: UserService,
     ) {
-        super({
-            injectParams,
-            defaultParams: Params.defaultParams,
-        }, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
     public override async ngOnInit(): Promise<void> {
-        super.ngOnInit();
+        super.ngOnInit(this.inlineParams);
 
-        const sliderTheme = (this.$params.theme in Params.sliderDefaultParams) ? this.$params.theme : 'default';
+        this.ready$ = this.$ctrl.ready$;
 
-        this.$params.sliderParams = _merge(
-            Params.sliderDefaultParams[sliderTheme],
-            this.$params.sliderParams,
-        );
-
-        await this.configService.ready;
-        this.$params.title ??= this.configService.get<string>('$loyalty.loyalty.programTitle');
-        this.levels = await this.loyaltyLevelsService.getLoyaltyLevelsSafely();
-
-        switch (this.$params.theme) {
-            case 'wolf':
-                this.watchForUserAuth();
-                Params.sliderDefaultParams[sliderTheme].swiper.navigation = {
-                    enabled: true,
-                    nextEl: '.wlc-swiper-button-next-' + this.navigationId,
-                    prevEl: '.wlc-swiper-button-prev-' + this.navigationId,
-                };
-                break;
-            case 'default':
-            default:
-                this.levels = this.levels.splice(0, this.$params.levelsLimit);
-                this.watchForOrientation();
-        }
-        this.initSlides();
-        this.ready = true;
-        this.cdr.detectChanges();
-    }
-
-    /**
-     * redirects to the profile page to the site levels, if not logged in - shows modal
-     */
-    public readMore(): void {
-        this.modalService.showModal('loyaltyInfo');
-    }
-
-    /**
-     * @returns string
-     * sets how many points you need to get to the next level
-     */
-    public setLoyaltyPoints(index: number): string {
-        if (this.levels[index].isLast && !this.levels[index].nextLevelPoints) {
-            return `${this.levels[index].currentLevelPoints}+`;
-        } else {
-            return `${this.levels[index].currentLevelPoints} - ${this.levels[index].nextLevelPoints}`;
-        }
-    }
-
-    /**
-     * Creates slide list for slider from level models
-     */
-    protected initSlides(): void {
-        this.slides = _map(this.levels, (level: LoyaltyLevelModel, idx) => ({
-            component: LoyaltyLevelComponent,
-            componentParams: this.getLoyaltyLevelParams(level, idx),
-        }));
-    }
-
-    /**
-     * Aggregating inline params for loyalty levels list item
-     *
-     * @param {LoyaltyLevelModel} level - model representing info about the level
-     * @param {number} idx - ordinal number of level
-     * @returns {ILoyaltyLevelCParams} `inlineParams` for `[wlc-loyalty-level]` component
-     */
-    public getLoyaltyLevelParams(level: LoyaltyLevelModel, idx: number): ILoyaltyLevelCParams {
-        return {
+        await this.$ctrl.init({
             theme: this.$params.theme,
-            name: level.name,
-            level: String(level.level),
-            points: this.setLoyaltyPoints(idx),
-            description: level.description,
-            image: level.image || this.loyaltyLevelsService.getLevelIcon(level.level),
-            isUserLevel: String(level.level) === this.userLevel,
-        };
-    }
+            title: this.$params.title ?? this.configService.get<string>('$loyalty.loyalty.programTitle'),
+            decorLeftPath: this.$params.decorLeftPath,
+            decorRightPath: this.$params.decorRightPath,
+            levelsLimit: this.$params.levelsLimit,
+            emptyStateText: this.$params.emptyStateText,
+            sliderParams: this.$params.sliderParams,
+            useNavigation: this.$params.useNavigation,
+            btnParams: this.$params.btnParams,
+        });
 
-    /**
-     * Watches for device orientation changes
-     */
-    protected watchForOrientation(): void {
-        this.actionService.deviceType()
-            .pipe(
-                filter((type) => !!type),
-                distinctUntilChanged(),
-                takeUntil(this.$destroy),
-            )
-            .subscribe((type) => {
-                this.isMobile = type !== DeviceType.Desktop;
-                this.cdr.markForCheck();
-            });
-    }
-
-    /**
-     * Watches for user login/logout for detect user level changes
-     */
-    protected watchForUserAuth(): void {
-        this.configService.get<BehaviorSubject<boolean>>('$user.isAuth$')
-            .pipe(
-                distinctUntilChanged(),
-                takeUntil(this.$destroy),
-            ).subscribe((isAuth) => {
-                if (isAuth) {
-                    this.userService.userInfo$.pipe(
-                        first((userInfo: UserInfo) => !!userInfo?.loyalty?.Level),
-                        map((userInfo: UserInfo) => userInfo.loyalty.Level),
-                        takeUntil(this.$destroy),
-                    ).subscribe((level) => {
-                        this.userLevel = level;
-                        this.initSlides();
-                        this.cdr.markForCheck();
-                    });
-                } else {
-                    if (this.userLevel === null) return;
-                    this.userLevel = null;
-                    this.initSlides();
-                    this.cdr.markForCheck();
-                }
-            });
+        this.$component = this.$ctrl.$component;
     }
 }

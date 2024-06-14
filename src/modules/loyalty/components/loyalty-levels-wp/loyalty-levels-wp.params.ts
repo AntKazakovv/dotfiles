@@ -8,14 +8,14 @@ export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
 export type ComponentThemeMod = 'default' | CustomType;
 
-export interface ILoyaltyLevelWpParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
+export interface ILoyaltyLevelsWpCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     hideDescription?: boolean,
     loyaltyDescriptionPost?: IWrapperCParams,
     hideInfo?: boolean,
     loyaltyInfoPost?: IWrapperCParams,
 }
 
-export const defaultParams: ILoyaltyLevelWpParams = {
+export const defaultParams: ILoyaltyLevelsWpCParams = {
     moduleName: 'loyalty',
     class: 'wlc-loyalty-levels-wp',
     componentName: 'wlc-loyalty-levels-wp',

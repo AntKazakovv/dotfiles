@@ -11,7 +11,7 @@ import {LoyaltyLevelModel} from 'wlc-engine/modules/loyalty/system/models/loyalt
 import {LevelNameComponent} from './level-name.component';
 import {
     defaultParams,
-    ILevelNameParams,
+    ILevelNameCParams,
 } from './level-name.params';
 
 describe('LevelNameComponent', () => {
@@ -34,7 +34,7 @@ describe('LevelNameComponent', () => {
         Description: 'Description',
     }, false, translateServiceSpy);
 
-    const injectParams: ILevelNameParams = {
+    const injectParams: ILevelNameCParams = {
         wlcElement: 'test-wlc-element',
         theme: 'default',
         level: testLevel,

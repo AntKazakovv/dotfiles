@@ -119,6 +119,7 @@ export class ActionService {
     protected financesService: FinancesService;
 
     private deviceTypeSubject: BehaviorSubject<DeviceType> = new BehaviorSubject(null);
+    private isMobileDeviceType$: BehaviorSubject<boolean | null> = new BehaviorSubject(null);
     private windowResizeSubject: Subject<IResizeEvent> = new Subject();
     private breakpoints: IDeviceBreakpoints;
     private renderer: Renderer2;
@@ -388,6 +389,15 @@ export class ActionService {
     }
 
     /**
+     * Subscribe to the change of mobile device type
+     *
+     * @returns {Observable<DeviceType>}
+     */
+    public isMobileDeviceType(): Observable<boolean> {
+        return this.isMobileDeviceType$;
+    }
+
+    /**
      * Subscribe to the change of width or height of the window
      *
      *@returns {Observable<IResizeEvent>}
@@ -598,6 +608,7 @@ export class ActionService {
                 });
         });
         this.deviceTypeSubject.next(this.getDeviceType());
+        this.isMobileDeviceType$.next(this.deviceTypeSubject.value === DeviceType.Mobile);
 
         fromEvent(this.window, 'message').subscribe((event: MessageEvent<IPaymentPostMessage>) => {
             if (event.data) {

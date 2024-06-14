@@ -12,14 +12,15 @@ import {
     LoyaltyLevelsComponent,
     LoyaltyLevelsWpComponent,
     LoyaltyProgramComponent,
-    LoyaltyLevelsService,
-} from 'wlc-engine/modules/loyalty';
+    LoyaltyProgramDefaultComponent,
+    LoyaltyProgramWolfComponent,
+} from 'wlc-engine/modules/loyalty/components';
 import {StaticModule} from 'wlc-engine/modules/static/static.module';
-import {UserModule} from 'wlc-engine/modules/user/user.module';
 import {
     ILoyaltyConfig,
     loyaltyConfig,
-} from './system';
+    LoyaltyLevelsService,
+} from 'wlc-engine/modules/loyalty/system';
 import * as $config from 'wlc-config/index';
 
 export const moduleConfig = GlobalHelper.mergeConfig<ILoyaltyConfig>(loyaltyConfig, _get($config, '$loyalty', {}));
@@ -42,7 +43,6 @@ export const services = {
     imports: [
         CoreModule,
         StaticModule,
-        UserModule,
     ],
     declarations: [
         LoyaltyInfoComponent,
@@ -52,6 +52,8 @@ export const services = {
         LoyaltyLevelComponent,
         LoyaltyLevelsComponent,
         LoyaltyProgramComponent,
+        LoyaltyProgramDefaultComponent,
+        LoyaltyProgramWolfComponent,
     ],
     providers: [
         LoyaltyLevelsService,

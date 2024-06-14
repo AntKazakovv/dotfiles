@@ -1,7 +1,7 @@
-<div *ngIf="ready; else preloader" class="{{$class}}">
-    <div *ngIf="levels.value.length; else empty"
+<div *ngIf="levels$ | async; else preloader" class="{{$class}}">
+    <div *ngIf="levels$.value.length; else empty"
          wlc-table
-         [inlineParams]='tableData'></div>
+         [inlineParams]="tableData"></div>
 </div>
 
 <ng-template #empty>
