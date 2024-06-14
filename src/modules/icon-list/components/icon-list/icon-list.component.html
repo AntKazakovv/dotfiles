@@ -1,11 +1,16 @@
-<div class="{{$class}}__wrapper" #wrapper>
-    <ng-container *ngFor="let item of items">
-        <div *ngIf="!(item.isError && $params.hideImgOnError)"
-            wlc-icon-list-item
-            class="{{$class}}__item {{item.modifier}}"
-            [attr.data-wlc-element]="item.wlcElement"
-            [inlineParams]='{icon: item, class: $class + "-item"}'>
-        </div>
+<div
+    class="{{$class}}__wrapper"
+    #wrapper
+    wlc-observer-element
+    (isIntersecting)="intersectingHandler($event)">
+    <ng-container *ngIf="showContent">
+        <ng-container *ngFor="let item of items">
+            <div *ngIf="!(item.isError && $params.hideImgOnError)"
+                wlc-icon-list-item
+                class="{{$class}}__item {{item.modifier}}"
+                [attr.data-wlc-element]="item.wlcElement"
+                [inlineParams]='{icon: item, class: $class + "-item"}'>
+            </div>
+        </ng-container>
     </ng-container>
-
 </div>

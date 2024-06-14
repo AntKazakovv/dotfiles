@@ -10,7 +10,6 @@ import {
     HostBinding,
     AfterViewChecked,
     ViewChild,
-    Injector,
 } from '@angular/core';
 
 import {fromEvent} from 'rxjs';
@@ -18,6 +17,7 @@ import {
     debounceTime,
     takeUntil,
 } from 'rxjs/operators';
+import _concat from 'lodash-es/concat';
 
 import {
     ConfigService,
@@ -29,10 +29,11 @@ import {
 import {GamesCatalogService} from 'wlc-engine/modules/games';
 import {IconModel} from 'wlc-engine/modules/icon-list/system/models/icon-list-item.model';
 import {IconListAbstract} from 'wlc-engine/modules/icon-list/system/classes/icon-list-abstract.class';
+import {
+    ILazyLoadingIntersectionObserver,
+} from 'wlc-engine/modules/core/system/interfaces/base-config/optimization.interface';
 
 import * as Params from './icon-list.params';
-
-import _concat from 'lodash-es/concat';
 
 /**
  *  Component to display an icon list.
@@ -47,6 +48,8 @@ import _concat from 'lodash-es/concat';
 })
 export class IconListComponent extends IconListAbstract<Params.IIconListCParams> implements OnInit, AfterViewChecked {
     /** List of items being rendered. */
+
+    public showContent: boolean = !this.isUseIntersectionObserver();
     public override $params: Params.IIconListCParams;
     protected wrapper: HTMLElement;
     protected resized: boolean = false;
@@ -66,7 +69,6 @@ export class IconListComponent extends IconListAbstract<Params.IIconListCParams>
         colorThemeService: ColorThemeService,
         protected actionService: ActionService,
         protected injectionService: InjectionService,
-        private injector: Injector,
         private hostElement: ElementRef,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService, colorThemeService, cdr);
@@ -82,6 +84,13 @@ export class IconListComponent extends IconListAbstract<Params.IIconListCParams>
     public ngAfterViewChecked(): void {
         if (this.$params.watchForScroll) {
             this.scrollingCheck();
+        }
+    }
+
+    public intersectingHandler(isIntersecting: boolean): void {
+        if (isIntersecting && this.isUseIntersectionObserver()) {
+            this.showContent = true;
+            this.cdr.markForCheck();
         }
     }
 
@@ -116,6 +125,13 @@ export class IconListComponent extends IconListAbstract<Params.IIconListCParams>
         this.scrollableLeft = !!scrollLeft;
         this.scrollableRight = (scrollWidth - clientWidth) > scrollLeft;
         this.cdr.markForCheck();
+    }
+
+    protected isUseIntersectionObserver(): boolean {
+        const config = this.configService.get<ILazyLoadingIntersectionObserver>(
+            '$base.lazyLoadingIntersectionObserver',
+        );
+        return config && config.use && config.components?.includes('icon-list');
     }
 
     /**

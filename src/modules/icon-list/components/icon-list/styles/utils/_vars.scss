@@ -176,3 +176,9 @@ $themeSafety: map-merge((
     ),
     'iconFill': var(--mc-bg100),
 ), $customThemeSafety);
+
+// ~~ theme default
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'wrapperMinHeight': 20px,
+), $customThemeDefault);

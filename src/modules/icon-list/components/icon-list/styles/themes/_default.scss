@@ -4,6 +4,10 @@
         display: block;
     }
 
+    &__wrapper {
+        min-height: ef.get-value($themeDefault, 'wrapperMinHeight');
+    }
+
     img,
     .wlc-icon svg,
     .wlc-icon img {

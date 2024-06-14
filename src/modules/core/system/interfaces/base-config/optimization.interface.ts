@@ -17,3 +17,10 @@ export interface IActivation {
     /** Activate if duration of flog 0.0.9 is more than specified */
     siteCompileTime?: number;
 }
+
+export interface ILazyLoadingIntersectionObserver {
+    use?: boolean;
+    components?: TLazyLoadingComponents[];
+}
+
+type TLazyLoadingComponents = 'icon-list';
