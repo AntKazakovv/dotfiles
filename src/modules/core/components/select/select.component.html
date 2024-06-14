@@ -22,7 +22,7 @@
                class="{{$class}}__field"
                type="text"
                [placeholder]="placeholderText
-                    | functionPurePipe:[control.value, $params.items, $params.common.placeholder]
+                    | functionPurePipe:[control.value, $params.items, $params.common?.placeholder]
                     | translate:foundItems[activeItemIndex]?.context"
                name="{{$params.name}}"
                autocomplete="{{$params.autocomplete}}"
@@ -94,7 +94,7 @@
             [formControl]="control"
             (click)="toggleDropdown()">
         {{placeholderText
-            | functionPurePipe:[control.value, $params.items, $params.common.placeholder]
+            | functionPurePipe:[control.value, $params.items, $params.common?.placeholder]
             | translate:foundItems[activeItemIndex]?.context}}
     </button>
 </ng-template>
