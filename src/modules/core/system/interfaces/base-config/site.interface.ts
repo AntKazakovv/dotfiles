@@ -5,6 +5,7 @@ export interface ISiteLanguages {
 export interface ISiteConfig {
     name: string;
     url: string;
+    theme?: TThemeApp;
     removeCreds?: boolean;
     restrictRegistration?: boolean;
     /**
@@ -26,3 +27,5 @@ export interface ISiteConfig {
     /** Сustom gstatic url on the project */
     gstaticUrl?: string;
 }
+
+export type TThemeApp = 'wolf';

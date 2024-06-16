@@ -7,12 +7,8 @@ import {
     SimpleChanges,
     Directive,
 } from '@angular/core';
+
 import {Subject} from 'rxjs';
-
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {IComponentParams} from 'wlc-engine/modules/core/system/interfaces/config.interface';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
-
 import _filter from 'lodash-es/filter';
 import _get from 'lodash-es/get';
 import _isArray from 'lodash-es/isArray';
@@ -24,8 +20,17 @@ import _split from 'lodash-es/split';
 import _has from 'lodash-es/has';
 import _mergeWith from 'lodash-es/mergeWith';
 import _includes from 'lodash-es/includes';
+import _merge from 'lodash-es/merge';
 
-export {IComponentParams, CustomType} from 'wlc-engine/modules/core';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {IComponentParams} from 'wlc-engine/modules/core/system/interfaces/config.interface';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
+import {TThemeApp} from 'wlc-engine/modules/core/system/interfaces/base-config/site.interface';
+import {wolfConfig} from 'wlc-engine/modules/core/system/config/themes/wolf.config';
+export {
+    IComponentParams,
+    CustomType,
+} from 'wlc-engine/modules/core/system/interfaces/config.interface';
 
 interface IAbstractConfig {
     moduleName?: string;
@@ -62,9 +67,7 @@ export class AbstractComponent implements OnDestroy, OnInit, OnChanges {
         const abstractConfig: IAbstractConfig = _cloneDeep(this.mixedParams.defaultParams);
         this.$params = _mergeWith(
             abstractConfig,
-            this.configService?.get<IIndexing<unknown>>(
-                `$modules.${abstractConfig?.moduleName}.components.${abstractConfig?.componentName}`,
-            ),
+            this.getConfigComponentByTheme(abstractConfig),
             !inlineParams ? this.mixedParams.injectParams : {},
             inlineParams,
             (objValue: unknown, srcValue: unknown) => _isArray(objValue) ? srcValue : undefined,
@@ -201,5 +204,25 @@ export class AbstractComponent implements OnDestroy, OnInit, OnChanges {
 
     protected hasParam(path: string): boolean {
         return _has(this.$params, path);
+    }
+
+    protected getConfigComponentByTheme(abstractConfig: IAbstractConfig): IIndexing<unknown> {
+        if (this.configService?.get<TThemeApp>('$base.site.theme') === 'wolf') {
+            const defaultComponentWolfConfig: IIndexing<unknown> =
+                wolfConfig[abstractConfig?.moduleName]?.[abstractConfig?.componentName];
+
+            if (defaultComponentWolfConfig) {
+                return _merge(
+                    defaultComponentWolfConfig,
+                    this.configService?.get<IIndexing<unknown>>(
+                        `$modules.${abstractConfig?.moduleName}.components.${abstractConfig?.componentName}`,
+                    ),
+                );
+            }
+        }
+
+        return this.configService?.get<IIndexing<unknown>>(
+            `$modules.${abstractConfig?.moduleName}.components.${abstractConfig?.componentName}`,
+        );
     }
 }
