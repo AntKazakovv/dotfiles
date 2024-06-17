@@ -679,7 +679,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
                     if (this.$params.autoSelect) {
                         this.setDefaultCurrency();
                         this.getSelectedItemIndex();
-                    } else {
+                    } else if (!this.$params.common?.placeholder) {
                         this.activeItemIndex = 0;
                         this.control.setValue(this.foundItems[0].value);
                     }
