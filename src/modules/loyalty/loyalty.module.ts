@@ -1,5 +1,4 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
 
 import {TranslateModule} from '@ngx-translate/core';
 import _get from 'lodash-es/get';
@@ -42,7 +41,6 @@ export const services = {
 
 @NgModule({
     imports: [
-        CommonModule,
         TranslateModule,
         CoreModule,
         StaticModule,

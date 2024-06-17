@@ -12,9 +12,7 @@ import {
     Renderer2,
     ChangeDetectionStrategy,
 } from '@angular/core';
-import {CommonModule} from '@angular/common';
 
-import {TranslateModule} from '@ngx-translate/core';
 import {takeUntil} from 'rxjs/operators';
 import {
     ModalDirective,
@@ -75,10 +73,8 @@ import {CompilerModule} from 'wlc-engine/modules/compiler';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
     imports: [
-        CommonModule,
         CoreModule,
         ModalModule,
-        TranslateModule,
         CompilerModule,
     ],
 })

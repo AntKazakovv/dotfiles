@@ -18,12 +18,8 @@ import {
     transition,
     animate,
 } from '@angular/animations';
-import {CommonModule} from '@angular/common';
 
-import {
-    TranslateModule,
-    TranslateService,
-} from '@ngx-translate/core';
+import {TranslateService} from '@ngx-translate/core';
 import {
     Observable,
     fromEvent,
@@ -64,9 +60,7 @@ export {ILanguageSelectorCParams} from './language-selector.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
     imports: [
-        CommonModule,
         CoreModule,
-        TranslateModule,
     ],
     animations: [
         trigger('toggle', [

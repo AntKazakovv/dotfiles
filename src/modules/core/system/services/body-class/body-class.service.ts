@@ -5,7 +5,6 @@ import {
 import {
     Inject,
     Injectable,
-    inject,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 
@@ -151,7 +150,8 @@ export class BodyClassService {
         }
 
         if (this.configService.get<boolean>('$base.colorThemeSwitching.use')) {
-            this.colorThemeService = inject(ColorThemeService);
+            this.colorThemeService =
+                await this.injectionService.getService<ColorThemeService>('core.color-theme-service');
             this.initColorThemeSwitching();
         }
     }

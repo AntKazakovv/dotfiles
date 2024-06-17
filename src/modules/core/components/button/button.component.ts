@@ -12,7 +12,6 @@ import {
     OnInit,
     HostBinding,
     SimpleChanges,
-    inject,
 } from '@angular/core';
 import {
     RawParams,
@@ -67,6 +66,8 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
     OnChanges,
     AfterViewInit {
 
+    public static animateButtonsService: AnimateButtonsService;
+
     @ContentChild(IconComponent, {read: ElementRef}) IconComponentElement!: ElementRef;
     @Input() public text: string;
     @Input() public textContext: IIndexing<string>;
@@ -94,7 +95,6 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
     public ready: boolean = false;
     public override $params: Params.IButtonCParams;
     protected $loading = new Subject<boolean>();
-    protected animateButtonsService: AnimateButtonsService;
 
     @HostBinding('attr.type') get typeAttrValue(): string {
         return this.params?.common?.typeAttr || this.typeAttr;
@@ -241,14 +241,17 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
         this.addModifiers(modifiers);
     }
 
-    protected animationHandlers(): void {
+    protected async animationHandlers(): Promise<void> {
+        if (!ButtonComponent.animateButtonsService) {
+            ButtonComponent.animateButtonsService
+                = await this.injectionService.getService<AnimateButtonsService>('core.animate-buttons-service');
+        }
+
         switch (this.$params.common.animation.handlerType) {
             case 'deposit':
-                this.animateButtonsService = inject(AnimateButtonsService);
-
                 this.removeModifiers(`animate-${this.$params.common.animation.type}`);
 
-                if (this.animateButtonsService.isFirstButtonAnimateEvent.deposit) {
+                if (ButtonComponent.animateButtonsService.isFirstButtonAnimateEvent.deposit) {
                     this.eventService.emit({
                         name: 'ANIMATE_BUTTON',
                         data: <TAnimateButtonHandlerOnService>'deposit',

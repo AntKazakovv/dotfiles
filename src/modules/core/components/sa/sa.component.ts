@@ -1,6 +1,7 @@
 import {
     AfterViewInit,
     ChangeDetectionStrategy,
+    ChangeDetectorRef,
     Component,
     ComponentRef,
     EventEmitter,
@@ -70,6 +71,7 @@ export class SaComponent implements AfterViewInit {
         @Inject('injectParams') protected injectParams: ISaCParams<unknown>,
         protected injectionService: InjectionService,
         protected hostInjector: Injector,
+        protected cdr: ChangeDetectorRef,
     ) {}
 
     public ngAfterViewInit(): void {
@@ -90,6 +92,8 @@ export class SaComponent implements AfterViewInit {
             this.componentRef = this.target.createComponent(m, {
                 injector: this.injector,
             });
+
+            this.cdr.markForCheck();
 
             this.status.emit({status: 'success', data: this.componentRef});
         } catch (error) {

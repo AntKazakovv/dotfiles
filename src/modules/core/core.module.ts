@@ -244,9 +244,12 @@ export const components = {
     'wlc-sa': SaComponent,
 };
 
+// TODO #616954
 // Cервисы рутовые, записаны в провайдеры, а значит уже существуют в инжекторе модуля
 // Пока что инжектируются функцией, но если надо вынести из чанка - то нужно убрать из провайдеров
 export const services = {
+    'animate-buttons-service': AnimateButtonsService,
+    'color-theme-service': ColorThemeService,
 };
 
 @NgModule({
@@ -360,6 +363,12 @@ export const services = {
         IntersectionDirective,
     ],
     exports: [
+        /** START modules */
+        CommonModule,
+        TranslateModule,
+        TooltipModule,
+        /** END modules */
+
         AlertComponent,
         AnimateSpriteComponent,
         AccordionComponent,
@@ -430,7 +439,6 @@ export const services = {
         TimerComponent,
         TitleComponent,
         TooltipComponent,
-        TooltipModule,
         TruncatePipe,
         HlSubstrPipe,
         SafeValuePipe,

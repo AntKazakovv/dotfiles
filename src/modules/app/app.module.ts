@@ -1,5 +1,3 @@
-import {CommonModule} from '@angular/common';
-
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
@@ -41,7 +39,6 @@ export class GlobalDeps {
         AppComponent,
     ],
     imports: [
-        CommonModule,
         BrowserModule.withServerTransition({appId: 'wlc-app'}),
         BrowserAnimationsModule,
         HttpClientModule,

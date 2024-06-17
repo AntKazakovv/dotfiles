@@ -319,8 +319,11 @@
                 max-width: var(--bp-lang-max-width);
                 margin: var(--bp-lang-margin);
             }
+        }
 
-            + .wlc-theme-toggler {
+        ::ng-deep {
+
+            .wlc-theme-toggler {
 
                 &:before {
                     @include separator;
