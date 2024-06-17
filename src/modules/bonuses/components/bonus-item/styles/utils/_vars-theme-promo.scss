@@ -67,6 +67,10 @@ $themePromo: map-merge((
         560: left,
     ),
 
+    'infoRows': ef.size(4) 1fr auto,
+    'infoAreas': 'tag' 'info' 'button',
+    'infoGap': ef.size(4),
+
     'nameFontColor': var(--mc-baseMain),
     'nameTextStyle': (
         375: 'QoteTextBold',
@@ -95,6 +99,11 @@ $themePromo: map-merge((
     'infoTagPositionTop': (
         375: 20px,
         560: auto
+    ),
+
+    'infoTagJustifySelf': (
+        375: center,
+        560: start
     ),
 
     //Image
@@ -140,7 +149,11 @@ $themePromo: map-merge((
     'baseBg': var(--mc-bg300),
     'baseBgHover': var(--mc-bg500),
 
-    'btnsJustifyContent': start,
+    'btnsJustifySelf': (
+        375: center,
+        560: start,
+    ),
+    'btnsAlignSelf': end,
 
     // With image
     'maxWidthWithImg': 320px,

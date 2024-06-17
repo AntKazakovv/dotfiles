@@ -80,7 +80,10 @@
 
             z-index: 1;
 
-            display: flex;
+            display: grid;
+            grid-template-areas: ef.get-value($themePromo, 'infoAreas');
+            grid-template-rows: ef.get-value($themePromo, 'infoRows');
+            gap: ef.get-value($themePromo, 'infoGap');
             min-width: 0;
             max-width: 100%;
 
@@ -90,19 +93,19 @@
         &__tag {
             @include bm.get-mq-map('position', $themePromo, 'infoTagPosition');
             @include bm.get-mq-map('top', $themePromo, 'infoTagPositionTop');
-            @include bm.get-mq-map('margin-bottom', $themePromo, 'infoItemsMargin');
+            @include bm.get-mq-map('justify-self', $themePromo, 'infoTagJustifySelf');
         }
 
         &__info {
-            @include bm.get-mq-map('margin-bottom', $themePromo, 'infoItemsMargin');
             @include bm.get-mq-map('text-align', $themePromo, 'infoTextAlign');
-
+            grid-area: info;
             width: 100%;
         }
 
         &__btns {
-            grid-area: buttons;
-            justify-content: ef.get-value($themePromo, 'btnsJustifyContent');
+            @include bm.get-mq-map('justify-self', $themePromo, 'btnsJustifySelf');
+            grid-area: button;
+            align-self: ef.get-value($themePromo, 'btnsAlignSelf');
         }
 
         &__name {
