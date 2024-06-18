@@ -4,7 +4,6 @@ import {
     ChangeDetectionStrategy,
     Inject,
     Input,
-    ChangeDetectorRef,
 } from '@angular/core';
 import {
     StateService,
@@ -15,7 +14,6 @@ import {TranslateService} from '@ngx-translate/core';
 
 import {
     AbstractComponent,
-    ConfigService,
     GlobalHelper,
     IWrapperCParams,
     TIconShowAs,
@@ -56,15 +54,13 @@ export class ProviderGamesComponent extends AbstractComponent implements OnInit 
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IProviderGamesCParams,
-        configService: ConfigService,
         protected uiRouter: UIRouterGlobals,
         protected router: UIRouter,
         protected gamesCatalogService: GamesCatalogService,
         protected translateService: TranslateService,
         protected stateService: StateService,
-        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

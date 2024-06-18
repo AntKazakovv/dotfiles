@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     Input,
@@ -11,7 +10,6 @@ import {
 import {
     AbstractComponent,
     IMixedParams,
-    ConfigService,
     GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {WlcModalComponent} from 'wlc-engine/standalone/core/components/modal/modal.component';
@@ -37,15 +35,13 @@ export class StoreConfirmationComponent extends AbstractComponent implements OnI
     constructor(
         @Inject('injectParams') protected params: Params.IStoreConfirmationCParams,
         @Inject(WlcModalComponent) protected modal: WlcModalComponent,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
         protected storeService: StoreService,
     ) {
         super(
             <IMixedParams<Params.IStoreConfirmationCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override ngOnInit(): void {

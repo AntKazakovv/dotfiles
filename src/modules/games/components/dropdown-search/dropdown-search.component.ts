@@ -2,7 +2,6 @@ import {
     Component,
     OnInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Inject,
     ViewChild,
     ElementRef,
@@ -10,7 +9,6 @@ import {
 
 import {
     AbstractComponent,
-    ConfigService,
     EventService,
 } from 'wlc-engine/modules/core';
 import {
@@ -50,17 +48,15 @@ export class DropdownSearchComponent extends AbstractComponent implements OnInit
 
     constructor(
         @Inject('injectParams') protected injectParams: IDropdownSearchCParams,
-        configService: ConfigService,
         protected eventService: EventService,
         protected gamesCatalogService: GamesCatalogService,
         protected gamesFilterService: GamesFilterService,
-        cdr: ChangeDetectorRef,
         protected host: ElementRef,
     ) {
         super({
             injectParams: injectParams,
             defaultParams: defaultParams,
-        }, configService, cdr);
+        });
     }
 
     public override async ngOnInit(): Promise<void> {

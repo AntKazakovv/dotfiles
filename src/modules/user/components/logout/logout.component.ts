@@ -3,14 +3,12 @@ import {
     Inject,
     OnInit,
     Input,
-    ChangeDetectorRef,
     ChangeDetectionStrategy,
 } from '@angular/core';
 
 import {
     AbstractComponent,
     ModalService,
-    ConfigService,
     EventService,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
@@ -29,16 +27,11 @@ export class LogoutComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected params: Params.ILogoutCParams,
-        cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected userService: UserService,
         protected eventService: EventService,
-        configService: ConfigService,
     ) {
-        super({
-            injectParams: params,
-            defaultParams: Params.defaultParams,
-        }, configService, cdr);
+        super({injectParams: params, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

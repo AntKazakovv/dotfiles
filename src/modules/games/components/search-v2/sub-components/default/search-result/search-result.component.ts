@@ -10,10 +10,7 @@ import {
     takeUntil,
 } from 'rxjs';
 
-import {
-    AbstractComponent,
-    ConfigService,
-} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core';
 import {IGamesGridCParams} from 'wlc-engine/modules/games/components/games-grid/games-grid.params';
 import {SearchControllerDefault} from 'wlc-engine/modules/games/components/search-v2';
 
@@ -31,12 +28,11 @@ export class SearchResultComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject (SearchControllerDefault) protected $searchControllerDefault: SearchControllerDefault,
-        configService: ConfigService,
     ) {
         super({
             injectParams: {},
             defaultParams: Params.defaultParams,
-        }, configService);
+        });
     }
 
     public override ngOnInit(): void {

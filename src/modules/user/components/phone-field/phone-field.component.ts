@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     Input,
@@ -14,7 +13,6 @@ import {
     takeUntil,
 } from 'rxjs/operators';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {ICountry} from 'wlc-engine/modules/core/system/interfaces/fundist.interface';
 import {IInputCParams} from 'wlc-engine/modules/core/components/input/input.params';
 import {ISelectCParams} from 'wlc-engine/modules/core/components/select/select.params';
@@ -54,14 +52,12 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IPhoneFieldCParams,
-        configService: ConfigService,
         protected selectValues: SelectValuesService,
-        cdr: ChangeDetectorRef,
         protected userService: UserService,
         protected validationService: ValidationService,
         protected modalService: ModalService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

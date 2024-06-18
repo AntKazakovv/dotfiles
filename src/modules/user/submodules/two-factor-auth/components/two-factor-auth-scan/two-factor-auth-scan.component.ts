@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     Injector,
@@ -40,12 +39,11 @@ export class TwoFactorAuthScanComponent extends AbstractComponent implements OnI
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITwoFactorAuthScanCParams,
-        cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected twoFactorAuthService: TwoFactorAuthService,
         protected injector: Injector,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, null, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public get imgUrl(): string {

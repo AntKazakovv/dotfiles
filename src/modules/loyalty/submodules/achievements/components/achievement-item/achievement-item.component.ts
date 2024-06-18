@@ -9,7 +9,6 @@ import {
 
 import {
     AbstractComponent,
-    ConfigService,
     IAccordionCParams,
     IButtonCParams,
     IMixedParams,
@@ -47,7 +46,6 @@ export class AchievementItemComponent extends AbstractComponent implements OnIni
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IAchievementItemCParams,
-        configService: ConfigService,
         protected injector: Injector,  //added for custom-hook
         protected modalService: ModalService,
         private achievementsService: AchievementsService,
@@ -56,7 +54,7 @@ export class AchievementItemComponent extends AbstractComponent implements OnIni
             <IMixedParams<Params.IAchievementItemCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
-            }, configService,
+            },
         );
     }
 

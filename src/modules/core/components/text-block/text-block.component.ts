@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import {
     AbstractComponent,
-    ConfigService,
     GlobalHelper,
 } from 'wlc-engine/modules/core';
 
@@ -40,9 +39,8 @@ export class TextBlockComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected params: Params.ITextBlockCParams,
-        configService: ConfigService,
     ) {
-        super({injectParams: params, defaultParams: Params.defaultParams}, configService);
+        super({injectParams: params, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

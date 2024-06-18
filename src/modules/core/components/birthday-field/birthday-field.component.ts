@@ -1,5 +1,4 @@
 import {
-    ChangeDetectorRef,
     Component,
     Inject,
     Input,
@@ -17,10 +16,7 @@ import {
 import _toNumber from 'lodash-es/toNumber';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {
-    ConfigService,
-    SelectValuesService,
-} from 'wlc-engine/modules/core';
+import {SelectValuesService} from 'wlc-engine/modules/core';
 
 import * as Params from './birthday-field.params';
 
@@ -36,12 +32,9 @@ export class BirthdayFieldComponent extends AbstractComponent implements OnInit,
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IBirthFieldCParams,
-        configService: ConfigService,
         protected selectValues: SelectValuesService,
-        cdr: ChangeDetectorRef,
-    )
-    {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+    ) {
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

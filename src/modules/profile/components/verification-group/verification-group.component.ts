@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     EventEmitter,
     Inject,
@@ -13,7 +12,6 @@ import {takeUntil} from 'rxjs/operators';
 
 import {
     AbstractComponent,
-    ConfigService,
     EventService,
     IMixedParams,
     IEvent,
@@ -45,15 +43,13 @@ export class VerificationGroupComponent extends AbstractComponent implements OnI
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IVerificationGroupCParams,
-        configService: ConfigService,
         protected verificationService: VerificationService,
         protected eventService: EventService,
-        cdr: ChangeDetectorRef,
     ) {
         super(
             <IMixedParams<Params.IVerificationGroupCParams>>{
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override ngOnInit(): void {

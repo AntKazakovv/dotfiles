@@ -3,7 +3,6 @@ import {
     OnInit,
     Inject,
     ElementRef,
-    ChangeDetectorRef,
     ViewChild,
     ViewContainerRef,
     Renderer2,
@@ -63,7 +62,6 @@ import {
 import {
     AbstractComponent,
     ActionService,
-    ConfigService,
     DeviceType,
     HooksService,
     IPushMessageParams,
@@ -254,12 +252,10 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         protected router: UIRouter,
         protected eventService: EventService,
         protected gamesCatalogService: GamesCatalogService,
-        configService: ConfigService,
         protected actionService: ActionService,
         protected modalService: ModalService,
         protected logService: LogService,
         protected elementRef: ElementRef,
-        cdr: ChangeDetectorRef,
         protected renderer: Renderer2,
         protected hostElement: ElementRef,
         protected hooksService: HooksService,
@@ -270,7 +266,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, configService, cdr);
+        });
     }
 
     public override async ngOnInit(): Promise<void> {

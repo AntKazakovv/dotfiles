@@ -2,7 +2,6 @@ import {
     Component,
     Inject,
     Input,
-    ChangeDetectorRef,
     OnChanges,
     OnInit,
     SimpleChanges,
@@ -23,7 +22,6 @@ import {
 import _isEqual from 'lodash-es/isEqual';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {ITooltipCParams} from 'wlc-engine/modules/core/components/tooltip/tooltip.params';
 import {
@@ -93,11 +91,9 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IInputCParams,
-        configService: ConfigService,
         protected eventService: EventService,
-        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     @CustomHook('core', 'ngOnInitInput')

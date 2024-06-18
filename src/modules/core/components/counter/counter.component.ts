@@ -2,7 +2,6 @@ import {
     Component,
     OnInit,
     Input,
-    ChangeDetectorRef,
     Inject,
     HostBinding,
     ChangeDetectionStrategy,
@@ -17,7 +16,6 @@ import {
     IMixedParams,
     EventService,
     InjectionService,
-    ConfigService,
 } from 'wlc-engine/modules/core';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
@@ -46,15 +44,13 @@ export class CounterComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected params: Params.ICounterCParams,
         protected eventService: EventService,
-        configService: ConfigService,
         protected injectionService: InjectionService,
-        cdr: ChangeDetectorRef,
     ) {
         super(
             <IMixedParams<Params.ICounterCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override async ngOnInit(): Promise<void> {

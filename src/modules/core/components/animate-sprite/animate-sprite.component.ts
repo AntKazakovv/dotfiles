@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ElementRef,
     Inject,
@@ -30,7 +29,6 @@ import {
     AbstractComponent,
     IMixedParams,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {Deferred} from 'wlc-engine/modules/core/system/classes/deferred.class';
@@ -75,18 +73,13 @@ export class AnimateSpriteComponent extends AbstractComponent implements OnInit,
         @Inject('injectParams') protected injectParams: Params.IAnimateSpriteCParams,
         @Inject(WINDOW) protected window: Window,
         protected actionService: ActionService,
-        configService: ConfigService,
         protected elementRef: ElementRef<HTMLElement>,
-        cdr: ChangeDetectorRef,
     ) {
         super(
             <IMixedParams<Params.IAnimateSpriteCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
-            },
-            configService,
-            cdr,
-        );
+            });
     }
 
     public override ngOnInit(): void {

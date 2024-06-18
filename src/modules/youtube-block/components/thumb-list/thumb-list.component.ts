@@ -12,7 +12,6 @@ import {Subject} from 'rxjs';
 
 import {
     AbstractComponent,
-    ConfigService,
     IWrapperCParams,
     ISlide,
     ISliderCParams,
@@ -44,12 +43,8 @@ export class ThumbListComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IThumbListCParams,
-        configService: ConfigService,
     ) {
-        super({
-            injectParams,
-            defaultParams: Params.defaultParams,
-        }, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {

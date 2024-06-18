@@ -21,7 +21,6 @@ import _cloneDeep from 'lodash-es/cloneDeep';
 import {
     AbstractComponent,
     IMixedParams,
-    ConfigService,
     ITimerCParams,
     ModalService,
     EventService,
@@ -56,7 +55,6 @@ export class GatheringParticipantsComponent extends AbstractComponent implements
         @Inject('injectParams') protected params: Params.IGatheringParticipantsCParams,
         @Inject(DOCUMENT) protected document: Document,
 
-        configService: ConfigService,
         protected wheelService: WheelService,
         protected modalService: ModalService,
         protected eventService: EventService,
@@ -64,7 +62,7 @@ export class GatheringParticipantsComponent extends AbstractComponent implements
         super(<IMixedParams<Params.IGatheringParticipantsCParams>>{
             injectParams: params,
             defaultParams: Params.defaultParams,
-        }, configService);
+        });
     }
 
     public override async ngOnInit(): Promise<void> {

@@ -3,7 +3,6 @@ import {
     OnInit,
     ChangeDetectionStrategy,
     Inject,
-    ChangeDetectorRef,
     ViewChild,
     TemplateRef,
 } from '@angular/core';
@@ -15,7 +14,6 @@ import _isObject from 'lodash-es/isObject';
 
 import {
     AbstractComponent,
-    ConfigService,
     DeviceModel,
     EventService,
     GlobalHelper,
@@ -68,14 +66,12 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IDepositBonusesCParams,
-        configService: ConfigService,
         protected bonusesService: BonusesService,
         protected eventService: EventService,
         protected modalService: ModalService,
-        cdr: ChangeDetectorRef,
         @Inject(WINDOW) private window: Window,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {

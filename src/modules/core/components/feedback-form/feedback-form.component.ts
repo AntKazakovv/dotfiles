@@ -1,7 +1,6 @@
 import {
     AfterViewInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     Input,
@@ -21,7 +20,6 @@ import _each from 'lodash-es/each';
 
 import {
     AbstractComponent,
-    ConfigService,
     ContactsService,
     EventService,
     IFormWrapperCParams,
@@ -66,12 +64,10 @@ export class FeedbackFormComponent extends AbstractComponent implements OnInit, 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IFeedbackFormCParams,
         protected contactsService: ContactsService,
-        configService: ConfigService,
         protected eventService: EventService,
         protected translateService: TranslateService,
-        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

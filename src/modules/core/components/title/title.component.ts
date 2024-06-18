@@ -3,7 +3,6 @@ import {RawParams} from '@uirouter/core';
 import {
     AfterViewInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     Input,
@@ -60,13 +59,12 @@ export class TitleComponent extends AbstractComponent implements OnInit, AfterVi
 
     constructor(
         @Inject('injectParams') protected params: Params.ITitleCParams,
-        cdr: ChangeDetectorRef,
     ) {
         super(
             <IMixedParams<Params.ITitleCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, null, cdr);
+            });
     }
 
     public override ngOnInit(): void {

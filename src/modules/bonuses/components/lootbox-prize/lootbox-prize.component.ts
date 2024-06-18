@@ -8,7 +8,6 @@ import {
 import {
     AbstractComponent,
     IMixedParams,
-    ConfigService,
 } from 'wlc-engine/modules/core';
 
 import * as Params from './lootbox-prize.params';
@@ -26,13 +25,12 @@ export class LootboxPrizeComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILootboxPrizeCParams,
-        configService: ConfigService,
     ) {
         super(
             <IMixedParams<Params.ILootboxPrizeCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
-            }, configService);
+            });
     }
 
     public override ngOnInit(): void {

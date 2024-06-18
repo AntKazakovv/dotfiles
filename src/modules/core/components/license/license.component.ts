@@ -5,13 +5,11 @@ import {
     Input,
     ViewEncapsulation,
     ElementRef,
-    ChangeDetectorRef,
     ChangeDetectionStrategy,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {ActionService} from 'wlc-engine/modules/core';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
@@ -35,20 +33,11 @@ export class LicenseComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILicenseCParams,
         @Inject(DOCUMENT) protected document: Document,
-        cdr: ChangeDetectorRef,
-        private elRef: ElementRef,
-        configService: ConfigService,
-        private logService: LogService,
-        private actionService: ActionService,
+        protected elRef: ElementRef,
+        protected logService: LogService,
+        protected actionService: ActionService,
     ) {
-        super(
-            {
-                injectParams,
-                defaultParams: Params.defaultParams,
-            },
-            configService,
-            cdr,
-        );
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

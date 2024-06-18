@@ -1,5 +1,4 @@
 import {
-    ChangeDetectorRef,
     Component,
     Inject,
     Input,
@@ -47,7 +46,6 @@ import _memoize from 'lodash-es/memoize';
 import {ICountry} from 'wlc-engine/modules/core/system/interfaces/fundist.interface';
 import {
     AbstractComponent,
-    ConfigService,
     EventService,
     SelectValuesService,
     IIndexing,
@@ -115,13 +113,11 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISelectCParams,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
         protected eventService: EventService,
         protected selectValues: SelectValuesService,
         protected translateService: TranslateService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

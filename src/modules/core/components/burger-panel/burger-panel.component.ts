@@ -6,7 +6,6 @@ import {
     OnChanges,
     SimpleChanges,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     HostBinding,
     SimpleChange,
     ElementRef,
@@ -37,7 +36,6 @@ import _get from 'lodash-es/get';
 
 import {
     EventService,
-    ConfigService,
     LogService,
     InjectionService,
 } from 'wlc-engine/modules/core/system/services';
@@ -110,12 +108,10 @@ export class BurgerPanelComponent extends AbstractComponent
 
     constructor(
         @Optional() @Inject('injectParams') protected injectParams: Params.IBurgerPanelCParams,
-        configService: ConfigService,
         protected eventService: EventService,
         protected renderer: Renderer2,
         protected logService: LogService,
         protected transitionService: TransitionService,
-        cdr: ChangeDetectorRef,
         protected actionService: ActionService,
         @Inject(WINDOW) protected window: Window,
         @Inject(DOCUMENT) protected document: Document,
@@ -125,7 +121,7 @@ export class BurgerPanelComponent extends AbstractComponent
         super({
             injectParams: {},
             defaultParams: Params.defaultParams,
-        }, configService, cdr);
+        });
     }
 
     @CustomHook('core', 'burgerPanelInit')

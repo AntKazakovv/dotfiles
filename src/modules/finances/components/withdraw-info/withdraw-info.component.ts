@@ -2,15 +2,11 @@ import {
     Component,
     OnInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Inject,
     Input,
 } from '@angular/core';
 
-import {
-    AbstractComponent,
-    ConfigService,
-} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core';
 
 import * as Params from './withdraw-info.params';
 
@@ -31,10 +27,8 @@ export class WithdrawInfoComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IWithdrawInfoCParams,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

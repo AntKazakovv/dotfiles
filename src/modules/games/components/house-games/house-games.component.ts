@@ -3,15 +3,10 @@ import {
     Inject,
     OnInit,
     Input,
-    ChangeDetectorRef,
     ChangeDetectionStrategy,
-    inject,
 } from '@angular/core';
 
-import {
-    AbstractComponent,
-    ConfigService,
-} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core';
 
 import * as Params from './house-games.params';
 
@@ -35,9 +30,6 @@ export class HouseGamesComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IHouseGamesCParams;
 
     public override $params: Params.IHouseGamesCParams;
-
-    protected override readonly configService = inject(ConfigService);
-    protected override readonly cdr = inject(ChangeDetectorRef);
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IHouseGamesCParams,

@@ -4,7 +4,6 @@ import {
     ChangeDetectionStrategy,
     Inject,
     Input,
-    ChangeDetectorRef,
     ElementRef,
     OnChanges,
     SimpleChanges,
@@ -14,7 +13,6 @@ import _isUndefined from 'lodash-es/isUndefined';
 import _set from 'lodash-es/set';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 
 import * as Params from './section-title.params';
@@ -39,12 +37,10 @@ export class SectionTitleComponent extends AbstractComponent implements OnInit, 
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISectionTitleCParams,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
         private element: ElementRef,
     ) {
         super(
-            {injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+            {injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

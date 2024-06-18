@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     OnInit,
@@ -27,7 +26,6 @@ import _sortBy from 'lodash-es/sortBy';
 import _merge from 'lodash-es/merge';
 import _pull from 'lodash-es/pull';
 
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {LayoutService} from 'wlc-engine/modules/core/system/services/layout/layout.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {IMenuOptions} from 'wlc-engine/modules/core/system/interfaces/menu.interface';
@@ -72,11 +70,9 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMainMenuCParams,
-        cdr: ChangeDetectorRef,
         protected layoutService: LayoutService,
         protected translateService: TranslateService,
         protected eventService: EventService,
-        configService: ConfigService,
         protected injectionService: InjectionService,
         protected menuService: MenuService,
     ) {
@@ -85,8 +81,6 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
                 injectParams,
                 defaultParams: Params.defaultParams,
             },
-            configService,
-            cdr,
         );
     }
 

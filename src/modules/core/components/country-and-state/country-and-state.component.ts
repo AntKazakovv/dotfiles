@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     Input,
@@ -23,7 +22,6 @@ import _cloneDeep from 'lodash-es/cloneDeep';
 import _isObject from 'lodash-es/isObject';
 
 import {
-    ConfigService,
     IIndexing,
     IInputCParams,
     IState,
@@ -122,11 +120,9 @@ export class CountryAndStateComponent extends AbstractComponent implements OnIni
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ICountryAndStateCParams,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
         protected validationService: ValidationService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

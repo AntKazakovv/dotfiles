@@ -4,7 +4,6 @@ import {
     ChangeDetectionStrategy,
     Inject,
     Input,
-    ChangeDetectorRef,
     ViewChild,
     TemplateRef,
     ElementRef,
@@ -13,7 +12,6 @@ import {UntypedFormControl} from '@angular/forms';
 
 import {
     AbstractComponent,
-    ConfigService,
     IInputCParams,
     ModalService,
 } from 'wlc-engine/modules/core';
@@ -56,12 +54,10 @@ export class ReferralInfoComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IReferralInfoCParams,
-        configService: ConfigService,
-        protected override cdr: ChangeDetectorRef,
         protected referralsService: ReferralsService,
         protected modalService: ModalService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {

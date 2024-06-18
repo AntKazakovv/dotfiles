@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     inject,
     Inject,
@@ -13,7 +12,6 @@ import {first, takeUntil} from 'rxjs/operators';
 
 import {
     AbstractComponent,
-    ConfigService,
     EventService,
     GlobalHelper,
     IButtonCParams,
@@ -47,16 +45,11 @@ export class ChoiceCurrencyComponent extends AbstractComponent implements OnInit
     protected readonly userService: UserService = inject(UserService);
     protected readonly eventService: EventService = inject(EventService);
     protected readonly stateService: StateService = inject(StateService);
-    protected override readonly configService: ConfigService = inject(ConfigService);
-    protected override readonly cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
 
     constructor(
-        @Inject('injectParams') protected injectParams: Params.IChoiceCurrencyParams) {
-        super(
-            {
-                injectParams,
-                defaultParams: Params.defaultParams,
-            });
+        @Inject('injectParams') protected injectParams: Params.IChoiceCurrencyParams,
+    ) {
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

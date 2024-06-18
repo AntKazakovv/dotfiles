@@ -12,7 +12,6 @@ import _cloneDeep from 'lodash-es/cloneDeep';
 import {
     AbstractComponent,
     IMixedParams,
-    ConfigService,
 } from 'wlc-engine/modules/core';
 import {ParticipantModel} from 'wlc-engine/modules/wheel/system/models';
 
@@ -36,12 +35,11 @@ export class ResultWheelComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected params: Params.IResultWheelCParams,
-        configService: ConfigService,
     ) {
         super(<IMixedParams<Params.IResultWheelCParams>>{
             injectParams: params,
             defaultParams: Params.defaultParams,
-        }, configService);
+        });
     }
 
     public override ngOnInit(): void {

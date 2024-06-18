@@ -4,7 +4,6 @@ import {
     Inject,
     Input,
     OnInit,
-    ChangeDetectorRef,
 } from '@angular/core';
 
 import _findIndex from 'lodash-es/findIndex';
@@ -18,7 +17,6 @@ import {
     AbstractComponent,
     GlobalHelper,
     IMixedParams,
-    ConfigService,
     ModalService,
     InjectionService,
 } from 'wlc-engine/modules/core';
@@ -75,8 +73,6 @@ export class TournamentLeaderboardComponent
 
     constructor(
         @Inject('injectParams') protected params: Params.ITournamentLeaderboardCParams,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
         protected modalService: ModalService,
         protected injectionService: InjectionService,
     ) {
@@ -84,7 +80,7 @@ export class TournamentLeaderboardComponent
             <IMixedParams<Params.ITournamentLeaderboardCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override async ngOnInit(): Promise<void> {

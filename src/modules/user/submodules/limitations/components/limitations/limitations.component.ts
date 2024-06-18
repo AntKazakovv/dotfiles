@@ -3,7 +3,6 @@ import {
     OnInit,
     Input,
     Inject,
-    ChangeDetectorRef,
     ChangeDetectionStrategy,
 } from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
@@ -18,7 +17,6 @@ import _cloneDeep from 'lodash-es/cloneDeep';
 
 import {
     AbstractComponent,
-    ConfigService,
     EventService,
     IFormWrapperCParams,
     IPushMessageParams,
@@ -74,10 +72,8 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
         protected limitationService: LimitationService,
         protected eventService: EventService,
         protected modalService: ModalService,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
     ) {
-        super({injectParams: params, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams: params, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {

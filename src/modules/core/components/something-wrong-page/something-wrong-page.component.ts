@@ -5,7 +5,6 @@ import {
 } from '@angular/core';
 
 import {WINDOW} from 'wlc-engine/modules/app/system';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 
@@ -24,12 +23,11 @@ export class SomethingWrongPageComponent extends AbstractComponent {
     constructor(
         @Inject('injectParams') protected params: Params.ISomethingWrongPageCParams,
         @Inject(WINDOW) protected window: Window,
-        configService: ConfigService,
     ) {
         super(<IMixedParams<any>>{
             injectParams: params,
             defaultParams: Params.defaultParams,
-        }, configService);
+        });
     }
 
     /** Reload the page using the window method */

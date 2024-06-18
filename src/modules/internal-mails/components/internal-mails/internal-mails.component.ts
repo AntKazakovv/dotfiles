@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     OnInit,
@@ -21,7 +20,6 @@ import _find from 'lodash-es/find';
 
 import {
     ITableCParams,
-    ConfigService,
     IMixedParams,
     AbstractComponent,
     ActionService,
@@ -66,8 +64,6 @@ export class InternalMailsComponent extends AbstractComponent implements OnInit 
     constructor(
         @Inject('injectParams') protected params: Params.IInternalMailsCParams,
         protected internalMailsService: InternalMailsService,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
         protected historyFilterService: HistoryFilterService,
         protected actionService: ActionService,
     ) {
@@ -75,7 +71,7 @@ export class InternalMailsComponent extends AbstractComponent implements OnInit 
             <IMixedParams<Params.IInternalMailsCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override async ngOnInit(): Promise<void> {

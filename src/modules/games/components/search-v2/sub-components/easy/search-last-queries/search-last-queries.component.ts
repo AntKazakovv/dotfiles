@@ -3,16 +3,11 @@ import {
     OnInit,
     ChangeDetectionStrategy,
     Inject,
-    ChangeDetectorRef,
-    inject,
 } from '@angular/core';
 
 import {takeUntil} from 'rxjs';
 
-import {
-    AbstractComponent,
-    ConfigService,
-} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core';
 import {SearchControllerEasy} from 'wlc-engine/modules/games/components/search-v2';
 import {openCloseAnimations} from 'wlc-engine/modules/games/system/animations/search.animations';
 
@@ -27,17 +22,15 @@ import * as Params from './search-last-queries.params';
 })
 export class SearchLastQueriesComponent extends AbstractComponent implements OnInit {
     public lastQueries: string[] = [];
-    protected override readonly cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
     protected recentSearchText: string = this.$searchControllerEasy.props.recentSearchText;
 
     constructor(
         @Inject (SearchControllerEasy) protected $searchControllerEasy: SearchControllerEasy,
-        configService: ConfigService,
     ) {
         super({
             injectParams: {},
             defaultParams: Params.defaultParams,
-        }, configService);
+        });
     }
 
     public override ngOnInit(): void {

@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     Input,
@@ -12,7 +11,6 @@ import _set from 'lodash-es/set';
 
 import {
     AbstractComponent,
-    ConfigService,
     GlobalHelper,
     IMixedParams,
 } from 'wlc-engine/modules/core';
@@ -61,15 +59,13 @@ export class TournamentBannerComponent
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITournamentBannerCParams,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
         protected tournamentsService: TournamentsService,
     ) {
         super(
             <IMixedParams<Params.ITournamentBannerCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override ngOnInit(): void {

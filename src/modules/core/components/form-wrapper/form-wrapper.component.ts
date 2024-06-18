@@ -155,7 +155,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
         injector: Injector,
         uiRouter: UIRouterGlobals,
         eventService: EventService,
-        protected override configService: ConfigService,
+        configService: ConfigService,
         protected validationService: ValidationService,
         protected elRef: ElementRef,
         cdr: ChangeDetectorRef,

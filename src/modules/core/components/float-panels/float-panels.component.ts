@@ -3,7 +3,6 @@ import {
     OnInit,
     ChangeDetectionStrategy,
     Input,
-    ChangeDetectorRef,
     Inject,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
@@ -21,7 +20,6 @@ import {
     AbstractComponent,
     ActionService,
     BodyClassService,
-    ConfigService,
     EventService,
     IBurgerPanelCParams,
     LayoutService,
@@ -73,9 +71,7 @@ export class FloatPanelsComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject(DOCUMENT) protected document: Document,
-        configService: ConfigService,
         protected eventService: EventService,
-        cdr: ChangeDetectorRef,
         protected logService: LogService,
         protected actionService: ActionService,
         protected layoutService: LayoutService,
@@ -85,7 +81,7 @@ export class FloatPanelsComponent extends AbstractComponent implements OnInit {
         super({
             injectParams: {},
             defaultParams: Params.defaultParams,
-        }, configService, cdr);
+        });
     }
 
     public override ngOnInit(): void {

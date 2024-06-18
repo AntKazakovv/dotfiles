@@ -4,13 +4,9 @@ import {
     Inject,
     OnInit,
     Input,
-    ChangeDetectorRef,
 } from '@angular/core';
 
-import {
-    AbstractComponent,
-    ConfigService,
-} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core';
 
 import * as Params from './footer.params';
 
@@ -26,10 +22,8 @@ export class FooterComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected params: Params.IFooterCParams,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
     ) {
-        super({injectParams: params, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams: params, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

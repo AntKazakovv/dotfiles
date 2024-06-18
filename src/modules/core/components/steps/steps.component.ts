@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     Input,
@@ -10,7 +9,6 @@ import {first} from 'rxjs/operators';
 
 import {
     AbstractComponent,
-    ConfigService,
     EventService,
     IEvent,
     IIndexing,
@@ -48,13 +46,11 @@ export class StepsComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected injectParams: Params.IStepsParams,
         protected eventService: EventService,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
     ) {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, configService, cdr);
+        });
 
         this.isSkipBonus = this.configService.get<boolean>('$base.registration.skipBonusStep');
         this.usePromoBanner = this.configService.get<boolean>('$base.registration.usePromoBanner');

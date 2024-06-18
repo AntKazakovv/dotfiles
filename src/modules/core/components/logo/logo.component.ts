@@ -3,14 +3,10 @@ import {
     OnInit,
     ChangeDetectionStrategy,
     Inject,
-    ChangeDetectorRef,
     Optional,
 } from '@angular/core';
 
-import {
-    ConfigService,
-    EventService,
-} from 'wlc-engine/modules/core/system/services';
+import {EventService} from 'wlc-engine/modules/core/system/services';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ColorThemeValues} from 'wlc-engine/modules/core/constants';
 
@@ -32,14 +28,12 @@ export class LogoComponent extends AbstractComponent implements OnInit {
     constructor(
         @Optional()
         @Inject('injectParams') protected componentParams: Params.ILogoCParams,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
         protected eventService: EventService,
     ) {
         super({
             injectParams: componentParams,
             defaultParams: Params.defaultParams,
-        }, configService, cdr);
+        });
     }
 
     public override ngOnInit(): void {

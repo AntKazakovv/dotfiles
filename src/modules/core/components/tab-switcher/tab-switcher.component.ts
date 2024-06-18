@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     Injector,
@@ -11,7 +10,6 @@ import {
 import _values from 'lodash-es/values';
 import _each from 'lodash-es/each';
 
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
@@ -40,14 +38,12 @@ export class TabSwitcherComponent
         @Inject('injectParams') protected injectParams: Params.ITabSwitcherParams,
         protected injector: Injector,
         protected injectionService: InjectionService,
-        cdr: ChangeDetectorRef,
         protected modalService: ModalService,
-        configService: ConfigService,
     ) {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, configService, cdr);
+        });
     }
 
     public override ngOnInit(): void {

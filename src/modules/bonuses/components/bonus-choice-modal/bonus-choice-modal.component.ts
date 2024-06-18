@@ -6,10 +6,7 @@ import {
     OnInit,
 } from '@angular/core';
 
-import {
-    AbstractComponent,
-    ConfigService,
-} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core';
 
 import * as Params from './bonus-choice-modal.params';
 
@@ -26,9 +23,8 @@ export class BonusChoiceModalComponent extends AbstractComponent implements OnIn
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IBonusChoiceModalCParams,
-        configService: ConfigService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

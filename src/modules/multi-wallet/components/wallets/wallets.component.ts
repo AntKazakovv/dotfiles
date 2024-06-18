@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     Input,
@@ -25,7 +24,6 @@ import {
 
 import {
     AbstractComponent,
-    ConfigService,
     EventService,
     InjectionService,
     ModalService,
@@ -100,18 +98,11 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.WalletsParams,
-        protected override cdr: ChangeDetectorRef,
-        protected override configService: ConfigService,
         private eventService: EventService,
         private injectionService: InjectionService,
         private modalService: ModalService,
     ) {
-        super(
-            {
-                injectParams,
-                defaultParams: Params.defaultParams,
-            },
-            configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {

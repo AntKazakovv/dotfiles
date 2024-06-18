@@ -1,7 +1,6 @@
 import {
     Component,
     OnInit,
-    ChangeDetectorRef,
     Inject,
     ChangeDetectionStrategy,
     inject,
@@ -24,7 +23,6 @@ import {
     EventService,
     ITableCParams,
     IDatepickerCParams,
-    ConfigService,
     ActionService,
     DeviceType,
     IIndexing,
@@ -72,14 +70,12 @@ export class OrdersHistoryComponent extends AbstractComponent implements OnInit 
 
     constructor(
         @Inject('injectParams') protected params: Params.IOrdersHistoryCParams,
-        protected override cdr: ChangeDetectorRef,
-        protected override configService: ConfigService,
     ) {
         super(
             <IMixedParams<Params.IOrdersHistoryCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override async ngOnInit(): Promise<void> {

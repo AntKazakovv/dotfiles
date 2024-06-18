@@ -14,7 +14,6 @@ import {AnimationItem} from 'lottie-web';
 import {AnimationOptions} from 'ngx-lottie';
 import _forEach from 'lodash-es/forEach';
 
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 
 import * as Params from './lottie-animation.params';
@@ -39,12 +38,11 @@ export class LottieAnimationComponent extends AbstractComponent implements OnIni
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILottieAnimationCParams,
-        configService: ConfigService,
         private ngZone: NgZone,
         private elementRef: ElementRef,
         private renderer2: Renderer2,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

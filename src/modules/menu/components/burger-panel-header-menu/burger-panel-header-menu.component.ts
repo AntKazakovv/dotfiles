@@ -3,14 +3,12 @@ import {
     Component,
     Inject,
     OnInit,
-    ChangeDetectorRef,
 } from '@angular/core';
 
 import {
     AbstractComponent,
     IMixedParams,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
 import {IBurgerPanelHeaderMenu} from 'wlc-engine/modules/menu/system/interfaces/menu.interface';
@@ -37,8 +35,6 @@ export class BurgerPanelHeaderMenuComponent extends AbstractComponent implements
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IBurgerPanelHeaderMenuCParams,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
         protected eventService: EventService,
         protected menuService: MenuService,
     ) {
@@ -47,8 +43,6 @@ export class BurgerPanelHeaderMenuComponent extends AbstractComponent implements
                 injectParams: injectParams,
                 defaultParams: Params.defaultParams,
             },
-            configService,
-            cdr,
         );
     }
 

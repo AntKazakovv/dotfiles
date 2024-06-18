@@ -5,10 +5,7 @@ import {
     ChangeDetectionStrategy,
 } from '@angular/core';
 
-import {
-    ConfigService,
-    IMixedParams,
-} from 'wlc-engine/modules/core';
+import {IMixedParams} from 'wlc-engine/modules/core';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 
@@ -27,11 +24,10 @@ export class OfflinePageComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected params: Params.IOfflinePageCParams,
         @Inject(WINDOW) protected window: Window,
-        configService: ConfigService,
     ) {
         super(<IMixedParams<Params.IOfflinePageCParams>>{
             injectParams: params,
             defaultParams: Params.defaultParams,
-        }, configService);
+        });
     }
 }

@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     OnDestroy,
@@ -50,7 +49,6 @@ import {OptimizationService} from 'wlc-engine/services';
 import {
     AbstractComponent,
     ActionService,
-    ConfigService,
     Deferred,
     EventService,
     GlobalHelper,
@@ -129,7 +127,6 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
 
     constructor(
         public router: UIRouter,
-        configService: ConfigService,
         protected translateService: TranslateService,
         protected stateService: StateService,
         protected layoutService: LayoutService,
@@ -137,7 +134,6 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
         protected eventService: EventService,
         protected hookService: HooksService,
         protected uiRouter: UIRouterGlobals,
-        cdr: ChangeDetectorRef,
         protected actionService: ActionService,
         protected modalService: ModalService,
         protected bodyClassService: BodyClassService,
@@ -150,7 +146,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
         @Inject(WINDOW) private window: Window,
         @Inject(DOCUMENT) private document: Document,
     ) {
-        super({injectParams: {}, defaultParams}, configService, cdr);
+        super({injectParams: {}, defaultParams});
         this.configService.set({name: 'firstLanguageReady', value: new Deferred()});
         this.resolveLang();
 

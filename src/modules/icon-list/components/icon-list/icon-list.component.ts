@@ -4,7 +4,6 @@ import {
     ChangeDetectionStrategy,
     Inject,
     Input,
-    ChangeDetectorRef,
     ViewEncapsulation,
     ElementRef,
     HostBinding,
@@ -20,7 +19,6 @@ import {
 import _concat from 'lodash-es/concat';
 
 import {
-    ConfigService,
     LogService,
     ActionService,
     InjectionService,
@@ -64,14 +62,12 @@ export class IconListComponent extends IconListAbstract<Params.IIconListCParams>
     constructor(
         @Inject('injectParams') protected injectParams: Params.IIconListCParams,
         protected logService: LogService,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
         colorThemeService: ColorThemeService,
         protected actionService: ActionService,
         protected injectionService: InjectionService,
         private hostElement: ElementRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, colorThemeService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams}, colorThemeService);
     }
 
     /** Calls method based on the component theme */

@@ -4,12 +4,10 @@ import {
     ChangeDetectionStrategy,
     Inject,
     Input,
-    ChangeDetectorRef,
 } from '@angular/core';
 
 import {
     AbstractComponent,
-    ConfigService,
     EventService,
     ISlide,
 } from 'wlc-engine/modules/core';
@@ -37,12 +35,10 @@ export class BannersSliderComponent extends AbstractComponent implements OnInit 
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IBannersSliderCParams,
-        configService: ConfigService,
         protected bannerService: BannersService,
-        cdr: ChangeDetectorRef,
         protected eventService: EventService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {

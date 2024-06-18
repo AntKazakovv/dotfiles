@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     OnInit,
@@ -18,7 +17,6 @@ import {
     AbstractComponent,
     IMixedParams,
     IWrapperCParams,
-    ConfigService,
 } from 'wlc-engine/modules/core';
 import {MenuHelper} from'wlc-engine/modules/menu/system/helpers/menu.helper';
 
@@ -42,8 +40,6 @@ export class SidebarMenuComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISidebarMenuCParams,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
         protected router: UIRouter,
     ) {
         super(
@@ -51,8 +47,6 @@ export class SidebarMenuComponent extends AbstractComponent implements OnInit {
                 injectParams,
                 defaultParams: Params.defaultParams,
             },
-            configService,
-            cdr,
         );
     }
 

@@ -4,7 +4,6 @@ import {
     ChangeDetectionStrategy,
     Inject,
     Input,
-    ChangeDetectorRef,
     inject,
     DestroyRef,
 } from '@angular/core';
@@ -22,7 +21,6 @@ import _merge from 'lodash-es/merge';
 import _cloneDeep from 'lodash-es/cloneDeep';
 
 import {
-    ConfigService,
     IWrapperCParams,
     InjectionService,
     AbstractComponent,
@@ -67,14 +65,8 @@ export class JackpotBannerComponent extends AbstractComponent implements OnInit 
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IJackpotBannerCParams,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
     ) {
-        super(
-            {injectParams, defaultParams: Params.defaultParams},
-            configService,
-            cdr,
-        );
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {

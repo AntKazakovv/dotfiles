@@ -3,7 +3,6 @@ import {
     Inject,
     OnInit,
     Input,
-    ChangeDetectorRef,
     ChangeDetectionStrategy,
     AfterViewInit,
     inject,
@@ -18,10 +17,7 @@ import {
 } from 'rxjs/operators';
 import _kebabCase from 'lodash-es/kebabCase';
 
-import {
-    AbstractComponent,
-    ConfigService,
-} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core';
 
 import * as Params from './textarea.params';
 
@@ -51,10 +47,8 @@ export class TextareaComponent extends AbstractComponent implements OnInit, Afte
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITextareaCParams,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

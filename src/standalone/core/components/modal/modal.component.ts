@@ -32,7 +32,6 @@ import {
     AbstractComponent,
     IMixedParams,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {
     IModalOptions,
     IModalType,
@@ -99,7 +98,6 @@ export class WlcModalComponent extends AbstractComponent
         @Inject('injectParams') protected params: IModalOptions,
         protected eventService: EventService,
         protected injector: Injector,
-        configService: ConfigService,
         protected modalService: ModalService,
         protected element: ElementRef,
         protected renderer: Renderer2,
@@ -108,7 +106,7 @@ export class WlcModalComponent extends AbstractComponent
         super(<IMixedParams<IModalOptions>>{
             injectParams: params,
             defaultParams: defaultParams,
-        }, configService);
+        });
     }
 
     /**

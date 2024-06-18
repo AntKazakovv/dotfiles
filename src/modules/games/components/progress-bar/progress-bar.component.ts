@@ -6,10 +6,7 @@ import {
     Input,
 } from '@angular/core';
 
-import {
-    AbstractComponent,
-    ConfigService,
-} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core';
 
 import * as Params from './progress-bar.params';
 
@@ -30,9 +27,8 @@ export class ProgressBarComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IProgressBarCParams,
-        configService: ConfigService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public get progressPercent(): string {

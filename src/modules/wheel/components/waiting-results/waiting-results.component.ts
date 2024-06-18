@@ -16,7 +16,6 @@ import _cloneDeep from 'lodash-es/cloneDeep';
 import {
     AbstractComponent,
     IMixedParams,
-    ConfigService,
     ModalService,
 } from 'wlc-engine/modules/core';
 import {ILottieAnimationCParams} from 'wlc-engine/modules/core/components/lottie-animation/lottie-animation.params';
@@ -38,14 +37,13 @@ export class WaitingResultsComponent extends AbstractComponent implements OnInit
 
     constructor(
         @Inject('injectParams') protected params: Params.IWaitingResultsCParams,
-        configService: ConfigService,
         protected modalService: ModalService,
         protected wheelService: WheelService,
     ) {
         super(<IMixedParams<Params.IWaitingResultsCParams>>{
             injectParams: params,
             defaultParams: Params.defaultParams,
-        }, configService);
+        });
     }
 
     public override ngOnInit(): void {

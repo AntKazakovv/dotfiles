@@ -14,7 +14,6 @@ import {TranslateService} from '@ngx-translate/core';
 import {
     AbstractComponent,
     IMixedParams,
-    ConfigService,
 } from 'wlc-engine/modules/core';
 import {UserProfile} from 'wlc-engine/modules/user';
 import {LocalJackpotsHelper} from 'wlc-engine/modules/local-jackpots/system/helpers';
@@ -35,14 +34,13 @@ export class JackpotWonComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected params: Params.IJackpotWonCParams,
-        configService: ConfigService,
         protected translateService: TranslateService,
     ) {
         super(
             <IMixedParams<Params.IJackpotWonCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService);
+            });
     }
 
     public override ngOnInit(): void {

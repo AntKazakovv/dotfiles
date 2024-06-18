@@ -11,7 +11,6 @@ import {BehaviorSubject} from 'rxjs';
 import {
     AbstractComponent,
     IMixedParams,
-    ConfigService,
     IFormWrapperCParams,
     IIndexing,
 } from 'wlc-engine/modules/core';
@@ -34,13 +33,12 @@ export class CreateWheelComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected params: Params.ICreateWheelCParams,
-        configService: ConfigService,
         protected wheelService: WheelService,
     ) {
         super(<IMixedParams<Params.ICreateWheelCParams>>{
             injectParams: params,
             defaultParams: Params.defaultParams,
-        }, configService);
+        });
     }
 
     public override ngOnInit(): void {

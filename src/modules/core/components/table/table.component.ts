@@ -1,7 +1,6 @@
 import {
     Component,
     OnInit,
-    ChangeDetectorRef,
     Inject,
     Input,
     ChangeDetectionStrategy,
@@ -22,7 +21,6 @@ import {
     IMixedParams,
     InjectionService,
     ActionService,
-    ConfigService,
     DeviceType,
     HeightToggleAnimation,
     TableAppearanceAnimation,
@@ -67,9 +65,7 @@ export class TableComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected params: Params.ITableCParams,
         protected injectionService: InjectionService,
-        cdr: ChangeDetectorRef,
         protected injector: Injector,
-        configService: ConfigService,
         protected actionService: ActionService,
         @Inject(WINDOW) protected window: Window,
     ) {
@@ -77,7 +73,7 @@ export class TableComponent extends AbstractComponent implements OnInit {
             <IMixedParams<Params.ITableCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override async ngOnInit(): Promise<void> {

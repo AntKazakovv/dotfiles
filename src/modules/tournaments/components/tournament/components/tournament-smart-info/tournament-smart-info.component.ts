@@ -3,14 +3,12 @@ import {
     ChangeDetectionStrategy,
     Input,
     OnInit,
-    ChangeDetectorRef,
     Inject,
     Output,
     EventEmitter,
 } from '@angular/core';
 import {
     AbstractComponent,
-    ConfigService,
     GlobalHelper,
     IMixedParams,
 } from 'wlc-engine/modules/core';
@@ -42,14 +40,12 @@ export class TournamentSmartInfoComponent extends AbstractComponent implements O
 
     constructor(
         @Inject('injectParams') protected params: Params.ITournamentSmartInfoCParams,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
     ) {
         super(
             <IMixedParams<Params.ITournamentSmartInfoCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
     public override ngOnInit(): void {
         super.ngOnInit(GlobalHelper.prepareParams(this,

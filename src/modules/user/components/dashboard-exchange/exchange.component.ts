@@ -3,7 +3,6 @@ import {
     Inject,
     OnInit,
     Input,
-    ChangeDetectorRef,
     ChangeDetectionStrategy,
     OnDestroy,
 } from '@angular/core';
@@ -12,7 +11,6 @@ import {
     takeUntil,
 } from 'rxjs/operators';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {ModalService} from 'wlc-engine/modules/core/system/services';
 
@@ -30,12 +28,10 @@ export class ExchangeComponent extends AbstractComponent implements OnInit, OnDe
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IDashboardExchangeCParams,
-        configService: ConfigService,
         protected UserService: UserService,
-        cdr: ChangeDetectorRef,
         protected modalService: ModalService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

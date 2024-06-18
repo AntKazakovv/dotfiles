@@ -3,17 +3,13 @@ import {
     Inject,
     OnInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     NgZone,
 } from '@angular/core';
 
 import {interval} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
-import {
-    AbstractComponent,
-    ConfigService,
-} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core';
 
 import {ICoupleCurrency} from 'wlc-engine/modules/rates/system/interfaces/';
 import {RateCurrencyModel} from 'wlc-engine/modules/rates/system/models/';
@@ -36,12 +32,10 @@ export class RatesCurrencyComponent extends AbstractComponent implements OnInit 
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IRatesCurrencyParams,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
         protected ratesService: RatesCurrencyService,
         private ngZone: NgZone,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {

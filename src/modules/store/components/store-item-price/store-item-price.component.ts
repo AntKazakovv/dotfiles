@@ -4,13 +4,9 @@ import {
     OnInit,
     Input,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
 } from '@angular/core';
 
-import {
-    AbstractComponent,
-    ConfigService,
-} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core';
 import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
 import {IStoreItemTotalPrice} from 'wlc-engine/modules/store/system/interfaces/store.interface';
 
@@ -33,13 +29,11 @@ export class StoreItemPriceComponent extends AbstractComponent implements OnInit
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IStoreItemPriceCParams,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
     ) {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, configService, cdr);
+        });
     }
 
     public override ngOnInit(): void {

@@ -9,7 +9,6 @@ import _merge from 'lodash-es/merge';
 import _sortBy from 'lodash-es/sortBy';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 
 import * as Params from './social-icons.params';
 
@@ -24,9 +23,8 @@ export class SocialIconsComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISocialIconsCParams,
-        configService: ConfigService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

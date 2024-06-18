@@ -16,7 +16,6 @@ import {
     ModalService,
 } from 'wlc-engine/modules/core/system/services';
 import {
-    ConfigService,
     SignInFormAbstract,
     IMixedParams,
     AppType,
@@ -51,7 +50,6 @@ export class SignInFormComponent extends SignInFormAbstract<Params.ISignInFormCP
         injectionService: InjectionService,
         eventService: EventService,
         protected logService: LogService,
-        configService: ConfigService,
         modalService: ModalService,
         userService: UserService,
         stateService: StateService,
@@ -68,7 +66,6 @@ export class SignInFormComponent extends SignInFormAbstract<Params.ISignInFormCP
             eventService,
             stateService,
             translateService,
-            configService,
         );
     }
 

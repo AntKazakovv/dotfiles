@@ -9,7 +9,6 @@ import {
     ViewChildren,
     QueryList,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
 } from '@angular/core';
 
 import {
@@ -25,7 +24,6 @@ import {
     ActionService,
     LayoutService,
 } from 'wlc-engine/modules/core/system/services';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 
@@ -55,10 +53,8 @@ export class PreloaderComponent extends AbstractComponent implements OnInit, Aft
         protected actionService: ActionService,
         protected layoutService: LayoutService,
         protected renderer: Renderer2,
-        protected override configService: ConfigService,
-        protected override cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

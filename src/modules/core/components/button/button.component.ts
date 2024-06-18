@@ -1,7 +1,6 @@
 import {
     AfterViewInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ContentChild,
     ElementRef,
@@ -40,7 +39,6 @@ import {
     AbstractComponent,
     IMixedParams,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {IconComponent} from 'wlc-engine/modules/core/components/icon/icon.component';
 import {AnimateButtonsService} from 'wlc-engine/modules/core/system/services/animate-buttons/animate-buttons.service';
@@ -104,8 +102,6 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
         @Inject('injectParams') protected params: Params.IButtonCParams,
         @Inject(WINDOW) protected window: Window,
         protected elementRef: ElementRef,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
         protected stateService: StateService,
         protected eventService: EventService,
         protected injectionService: InjectionService,
@@ -114,7 +110,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
             <IMixedParams<Params.IButtonCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override ngOnInit(): void {

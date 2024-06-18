@@ -4,7 +4,6 @@ import {
     ChangeDetectionStrategy,
     Inject,
     Input,
-    ChangeDetectorRef,
     ViewChild,
     TemplateRef,
     ElementRef,
@@ -23,7 +22,6 @@ import _clone from 'lodash-es/clone';
 import _assign from 'lodash-es/assign';
 
 import {
-    ConfigService,
     AbstractComponent,
     GlobalHelper,
     ActionService,
@@ -67,15 +65,13 @@ export class WinnersSliderComponent extends AbstractComponent implements OnInit,
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IWinnersSliderCParams,
-        configService: ConfigService,
         protected winnersService: WinnersService,
-        cdr: ChangeDetectorRef,
         protected renderer: Renderer2,
         protected actionService: ActionService,
         @Inject(WINDOW) protected window: Window,
         private element: ElementRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

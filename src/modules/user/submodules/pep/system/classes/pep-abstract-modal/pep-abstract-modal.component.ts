@@ -25,7 +25,6 @@ import {
     PepService,
 } from 'wlc-engine/modules/user/submodules/pep/system/services/pep/pep.service';
 import {WINDOW} from 'wlc-engine/modules/app/system';
-import {ConfigService} from 'wlc-engine/modules/core';
 import type {WlcModalComponent} from 'wlc-engine/standalone/core/components/modal/modal.component';
 
 
@@ -42,9 +41,8 @@ export abstract class PepAbstractModalComponent extends AbstractComponent implem
         protected modalService: ModalService,
         protected pepService: PepService,
         mixedParams: IMixedParams<unknown>,
-        configService?: ConfigService,
     ) {
-        super(mixedParams, configService);
+        super(mixedParams);
     }
 
     public override ngOnInit(inlineParams?: IComponentParams<unknown, unknown, unknown>): void {

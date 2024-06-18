@@ -6,10 +6,7 @@ import {
     Input,
 } from '@angular/core';
 
-import {
-    AbstractComponent,
-    ConfigService,
-} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core';
 import * as Params from './transfer-code-form.params';
 
 export {ITransferCodeFormCParams} from './transfer-code-form.params';
@@ -28,9 +25,8 @@ export class TransferCodeFormComponent extends AbstractComponent implements OnIn
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITransferCodeFormCParams,
-        configService: ConfigService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

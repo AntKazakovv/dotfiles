@@ -4,7 +4,6 @@ import {
     ChangeDetectionStrategy,
     Inject,
     Input,
-    ChangeDetectorRef,
 } from '@angular/core';
 import {
     distinctUntilChanged,
@@ -16,7 +15,6 @@ import _isEqual from 'lodash-es/isEqual';
 
 import {
     AbstractComponent,
-    ConfigService,
     EventService,
     LogService,
     NotificationEvents,
@@ -54,14 +52,12 @@ export class MerchantWalletPreviewComponent extends AbstractComponent implements
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMerchantWalletPreviewCParams,
-        configService: ConfigService,
         protected eventService: EventService,
         protected logService: LogService,
         protected merchantWalletService: MerchantWalletService,
         protected actionService: ActionService,
-        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

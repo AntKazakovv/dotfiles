@@ -6,10 +6,7 @@ import {
     OnInit,
 } from '@angular/core';
 
-import {
-    AbstractComponent,
-    ConfigService,
-} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core';
 
 import * as Params from './quest-prizes-modal.params';
 
@@ -29,9 +26,8 @@ export class QuestPrizesModalComponent extends AbstractComponent implements OnIn
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IQuestPrizesModalCParams,
-        configService: ConfigService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

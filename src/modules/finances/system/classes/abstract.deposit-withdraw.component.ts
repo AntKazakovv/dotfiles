@@ -1,7 +1,4 @@
-import {
-    ChangeDetectorRef,
-    Directive,
-} from '@angular/core';
+import {Directive} from '@angular/core';
 
 import {BehaviorSubject} from 'rxjs';
 import _isEqual from 'lodash-es/isEqual';
@@ -12,7 +9,6 @@ import {
     AbstractComponent,
     IIndexing,
     IMixedParams,
-    ConfigService,
     ModalService,
     IFormWrapperCParams,
     LogService,
@@ -46,11 +42,9 @@ export abstract class AbstractDepositWithdrawComponent<T extends {mode: TPayment
         protected params: IMixedParams<unknown>,
         protected logService: LogService,
         protected modalService: ModalService,
-        configService: ConfigService,
         protected injectionService: InjectionService,
-        cdr: ChangeDetectorRef,
     ) {
-        super(params, configService, cdr);
+        super(params);
     }
 
     /**

@@ -4,7 +4,6 @@ import {
     ChangeDetectionStrategy,
     Inject,
     Input,
-    ChangeDetectorRef,
 } from '@angular/core';
 import {takeUntil} from 'rxjs/operators';
 
@@ -15,7 +14,6 @@ import _toNumber from 'lodash-es/toNumber';
 
 import {
     AbstractComponent,
-    ConfigService,
     IIndexing,
 } from 'wlc-engine/modules/core';
 import {TDisplayName, ICurrency} from 'wlc-engine/modules/currency';
@@ -38,10 +36,8 @@ export class MerchantWalletExrateComponent extends AbstractComponent implements 
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMerchantWalletExrateCParams,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

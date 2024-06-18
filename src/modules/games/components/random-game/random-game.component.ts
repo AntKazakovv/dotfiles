@@ -6,7 +6,6 @@ import {
     OnInit,
 } from '@angular/core';
 import {
-    ConfigService,
     EventService,
     ModalService,
 } from 'wlc-engine/modules/core';
@@ -31,7 +30,6 @@ export class RandomGameComponent extends RandomGameAbstract<Params.IRandomGameCP
     constructor(
         @Inject('injectParams') protected injectParams: Params.IRandomGameCParams,
         gamesCatalogService: GamesCatalogService,
-        configService: ConfigService,
         modalService: ModalService,
         eventService: EventService,
     ) {
@@ -40,7 +38,6 @@ export class RandomGameComponent extends RandomGameAbstract<Params.IRandomGameCP
                 injectParams,
                 defaultParams: Params.defaultParams,
             },
-            configService,
             modalService,
             eventService,
             gamesCatalogService,

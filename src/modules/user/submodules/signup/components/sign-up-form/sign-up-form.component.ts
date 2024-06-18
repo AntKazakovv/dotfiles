@@ -20,7 +20,6 @@ import _cloneDeep from 'lodash-es/cloneDeep';
 import _isObject from 'lodash-es/isObject';
 
 import {
-    ConfigService,
     EventService,
     LogService,
     IFormWrapperCParams,
@@ -76,7 +75,6 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         userService: UserService,
         protected validationService: ValidationService,
         logService: LogService,
-        configService: ConfigService,
         eventService: EventService,
         protected socialService: SocialService,
         protected dataService: DataService,
@@ -86,7 +84,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, configService, eventService, injectionService, logService, userService);
+        }, eventService, injectionService, logService, userService);
     }
 
     @CustomHook('user', 'signUpFormNgOnInit')

@@ -4,7 +4,6 @@ import {
     ChangeDetectionStrategy,
     Inject,
     Input,
-    ChangeDetectorRef,
     OnDestroy,
 } from '@angular/core';
 
@@ -16,7 +15,6 @@ import {
 
 import {
     AbstractComponent,
-    ConfigService,
     EventService,
 } from 'wlc-engine/modules/core';
 import {ILotteryPrizePoolCParams}
@@ -47,12 +45,10 @@ export class LotteryCardComponent extends AbstractComponent implements OnInit, O
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILotteryCardCParams,
-        configService: ConfigService,
         protected eventService: EventService,
         protected lotteriesService: LotteriesService,
-        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {

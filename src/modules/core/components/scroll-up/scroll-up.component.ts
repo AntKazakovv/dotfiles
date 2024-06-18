@@ -4,7 +4,6 @@ import {
     OnInit,
     Inject,
     NgZone,
-    ChangeDetectorRef,
     ElementRef,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
@@ -15,7 +14,6 @@ import {
     throttleTime,
 } from 'rxjs';
 
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ActionService} from 'wlc-engine/modules/core';
 import {WINDOW} from 'wlc-engine/modules/app/system';
@@ -36,18 +34,16 @@ export class ScrollUpComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IScrollUpParams,
-        configService: ConfigService,
         protected actionService: ActionService,
         protected elRef: ElementRef,
         private ngZone: NgZone,
-        cdr: ChangeDetectorRef,
         @Inject(DOCUMENT) private document: Document,
         @Inject(WINDOW) private window: Window,
     ){
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, configService, cdr);
+        });
     }
 
     public override ngOnInit(): void {

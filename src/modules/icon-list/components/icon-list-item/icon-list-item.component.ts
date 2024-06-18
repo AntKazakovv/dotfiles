@@ -7,13 +7,11 @@ import {
     ViewEncapsulation,
     SimpleChanges,
     OnChanges,
-    ChangeDetectorRef,
     NgZone,
 } from '@angular/core';
 
 import {
     AbstractComponent,
-    ConfigService,
     LogService,
 } from 'wlc-engine/modules/core';
 import {FilesService} from 'wlc-engine/modules/core/system/services/files/files.service';
@@ -40,16 +38,11 @@ export class IconListItemComponent extends AbstractComponent implements OnInit, 
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IIconListItemCParams,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
         protected logService: LogService,
         protected fileService: FilesService,
         protected ngZone: NgZone,
     ) {
-        super({
-            injectParams,
-            defaultParams: Params.defaultParams,
-        }, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {

@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ElementRef,
     Inject,
@@ -33,7 +32,6 @@ import _find from 'lodash-es/find';
 import _isNil from 'lodash-es/isNil';
 
 import {
-    ConfigService,
     ILanguage,
     ModalService,
     AbstractComponent,
@@ -122,15 +120,13 @@ export class LanguageSelectorComponent
     constructor(
         public translateService: TranslateService,
         @Inject('injectParams') protected injectParams: Params.ILanguageSelectorCParams,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
         protected elementRef: ElementRef,
         protected modalService: ModalService,
         protected logService: LogService,
         protected actionService: ActionService,
         @Inject(WINDOW) private window: Window,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

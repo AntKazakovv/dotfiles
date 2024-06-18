@@ -8,10 +8,7 @@ import {
 
 import _assignIn from 'lodash-es/assignIn';
 
-import {
-    AbstractComponent,
-    ConfigService,
-} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core';
 import {
     ISearchCParams,
     defaultParams,
@@ -40,12 +37,11 @@ export class SearchV2Component extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected injectParams: ISearchCParams,
         protected injector: Injector,
-        configService: ConfigService,
     ) {
         super({
             injectParams: {},
             defaultParams: defaultParams,
-        }, configService);
+        });
     }
 
     public override ngOnInit(): void {

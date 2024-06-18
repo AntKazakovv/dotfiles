@@ -4,7 +4,6 @@ import {
     OnInit,
     Input,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     OnChanges,
     Output,
     EventEmitter,
@@ -28,7 +27,6 @@ import _merge from 'lodash-es/merge';
 
 import {
     GlobalHelper,
-    ConfigService,
     DateHelper,
     TimerService,
 } from 'wlc-engine/modules/core';
@@ -97,11 +95,9 @@ export class TimerComponent extends AbstractComponent implements OnInit, OnChang
         @Inject(DOCUMENT) protected document: Document,
         protected element: ElementRef,
         protected renderer: Renderer2,
-        configService: ConfigService,
         protected timerService: TimerService,
-        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

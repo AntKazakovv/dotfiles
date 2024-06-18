@@ -2,12 +2,14 @@ import {
     ComponentFixture,
     TestBed,
 } from '@angular/core/testing';
+import {MockService} from 'ng-mocks';
 
 import {AmountLimitComponent} from 'wlc-engine/modules/core/components/amount-limit/amount-limit.component';
 import {
     ILimits,
     defaultParams,
 } from 'wlc-engine/modules/core/components/amount-limit/amount-limit.params';
+import {ConfigService} from 'wlc-engine/modules/core/system/services';
 
 describe('AmountLimitComponent', () => {
     let component: AmountLimitComponent;
@@ -23,10 +25,16 @@ describe('AmountLimitComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [AmountLimitComponent],
-            providers: [{
-                provide: 'injectParams',
-                useValue: injectParams,
-            }],
+            providers: [
+                {
+                    provide: 'injectParams',
+                    useValue: injectParams,
+                },
+                {
+                    provide: ConfigService,
+                    useValue: MockService(ConfigService),
+                },
+            ],
         }).compileComponents();
 
         fixture = TestBed.createComponent(AmountLimitComponent);

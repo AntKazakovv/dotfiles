@@ -4,7 +4,6 @@ import {
     ChangeDetectionStrategy,
     Inject,
     Input,
-    ChangeDetectorRef,
 } from '@angular/core';
 
 import {StateService} from '@uirouter/core';
@@ -17,7 +16,6 @@ import {
 
 import {
     AbstractComponent,
-    ConfigService,
     EventService,
 } from 'wlc-engine/modules/core';
 import {Lottery} from 'wlc-engine/modules/lotteries/system/models/lottery.model';
@@ -43,12 +41,10 @@ export class LotteryButtonsComponent extends AbstractComponent implements OnInit
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILotteryButtonsCParams,
-        protected override configService: ConfigService,
-        protected override cdr: ChangeDetectorRef,
         protected eventService: EventService,
         protected stateService: StateService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {

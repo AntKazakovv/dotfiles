@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     Injector,
@@ -33,7 +32,6 @@ import {FinancesService} from 'wlc-engine/modules/finances/system/services/finan
 import {QRCodeService} from 'wlc-engine/modules/qr-code';
 import {
     AbstractComponent,
-    ConfigService,
     IInputCParams,
     IMixedParams,
     ITimerCParams,
@@ -111,9 +109,7 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
         @Inject('injectParams') protected injectParams: Params.IPaymentMessageCParams,
         @Inject(DOCUMENT) protected document: Document,
         protected renderer: Renderer2,
-        configService: ConfigService,
         protected logService: LogService,
-        cdr: ChangeDetectorRef,
         protected translateService: TranslateService,
         protected modalService: ModalService,
         protected financesService: FinancesService,
@@ -123,7 +119,7 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
             <IMixedParams<Params.IPaymentMessageCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public get message(): IPaymentMessage {

@@ -4,7 +4,6 @@ import {
     ChangeDetectionStrategy,
     Inject,
     Input,
-    ChangeDetectorRef,
 } from '@angular/core';
 import {TransitionService} from '@uirouter/core';
 
@@ -15,7 +14,6 @@ import {
     AbstractComponent,
     IMixedParams,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {IHistoryFilter} from 'wlc-engine/modules/history/system/interfaces/history-filter.interface';
 import {HistoryFilterService} from 'wlc-engine/modules/history/system/services/history-filter.service';
@@ -38,17 +36,15 @@ export class HistoryRangeComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected params: Params.IHistoryRangeCParams,
-        configService: ConfigService,
         protected eventService: EventService,
         protected historyFilterService: HistoryFilterService,
-        cdr: ChangeDetectorRef,
         protected transition: TransitionService,
     ) {
         super(
             <IMixedParams<Params.IHistoryRangeCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override ngOnInit(): void {

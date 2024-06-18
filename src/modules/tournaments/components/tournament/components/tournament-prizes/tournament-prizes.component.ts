@@ -10,7 +10,6 @@ import _slice from 'lodash-es/slice';
 
 import {
     AbstractComponent,
-    ConfigService,
     GlobalHelper,
     ITooltipCParams,
 } from 'wlc-engine/modules/core';
@@ -53,12 +52,8 @@ export class TournamentPrizesComponent
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITournamentPrizesCParams,
-        configService: ConfigService,
     ) {
-        super({
-            injectParams,
-            defaultParams: Params.defaultParams,
-        }, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

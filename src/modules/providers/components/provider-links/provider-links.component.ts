@@ -4,7 +4,6 @@ import {
     ChangeDetectionStrategy,
     Inject,
     Input,
-    ChangeDetectorRef,
     ViewChild,
     TemplateRef,
     AfterViewInit,
@@ -21,7 +20,6 @@ import _unset from 'lodash-es/unset';
 
 import {IconListAbstract} from 'wlc-engine/modules/icon-list/system/classes/icon-list-abstract.class';
 import {
-    ConfigService,
     EventService,
     GlobalHelper,
     ModalService,
@@ -67,16 +65,14 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IProviderLinksCParams,
-        configService: ConfigService,
         protected stateService: StateService,
         protected gamesCatalogService: GamesCatalogService,
         protected modalService: ModalService,
         protected eventService: EventService,
         protected translateService: TranslateService,
         colorThemeService: ColorThemeService,
-        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, colorThemeService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams}, colorThemeService);
     }
 
     public override ngOnInit(): void {

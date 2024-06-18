@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     Input,
@@ -22,7 +21,6 @@ import _isUndefined from 'lodash-es/isUndefined';
 import {
     AbstractComponent,
     IMixedParams,
-    ConfigService,
     ModalService,
     EventService,
     ITooltipCParams,
@@ -67,8 +65,6 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
 
     constructor(
         @Inject('injectParams') protected params: Params.IBonusItemCParams,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
         protected modalService: ModalService,
         protected eventService: EventService,
         protected bonusesService: BonusesService,
@@ -77,7 +73,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
             <IMixedParams<Params.IBonusItemCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override ngOnInit(): void {

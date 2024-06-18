@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     OnInit,
     Inject,
@@ -24,7 +23,6 @@ import {
     DeviceType,
     IMixedParams,
     ProfileType,
-    ConfigService,
     ActionService,
 } from 'wlc-engine/modules/core';
 import {
@@ -58,8 +56,6 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit, O
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IProfileMenuCParams,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
         protected actionService: ActionService,
         protected eventService: EventService,
         protected profileMenuService: ProfileMenuService,
@@ -70,8 +66,6 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit, O
                 injectParams: injectParams,
                 defaultParams: Params.defaultParams,
             },
-            configService,
-            cdr,
         );
     }
 

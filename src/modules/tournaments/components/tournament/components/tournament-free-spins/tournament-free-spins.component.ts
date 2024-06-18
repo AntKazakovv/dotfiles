@@ -13,7 +13,6 @@ import _toNumber from 'lodash-es/toNumber';
 
 import {
     AbstractComponent,
-    ConfigService,
     InjectionService,
     ModalService,
 } from 'wlc-engine/modules/core';
@@ -42,7 +41,6 @@ export class TournamentFreeSpinsComponent extends AbstractComponent implements O
     constructor(
         @Inject('injectParams')
         protected injectParams: Params.ITournamenFreeSpinsParams,
-        protected override configService: ConfigService,
         private tournamentsService: TournamentsService,
         private injectionService: InjectionService,
         private modalService: ModalService,
@@ -50,7 +48,7 @@ export class TournamentFreeSpinsComponent extends AbstractComponent implements O
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, configService);
+        });
     }
 
     public override async ngOnInit(): Promise<void> {

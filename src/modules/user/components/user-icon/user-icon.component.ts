@@ -5,7 +5,6 @@ import {
     ChangeDetectionStrategy,
     Inject,
     Input,
-    ChangeDetectorRef,
     ElementRef,
 } from '@angular/core';
 import {
@@ -23,7 +22,6 @@ import _merge from 'lodash-es/merge';
 import {
     AbstractComponent,
     EventService,
-    ConfigService,
     IButtonCParams,
 } from 'wlc-engine/modules/core';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
@@ -47,12 +45,10 @@ export class UserIconComponent extends AbstractComponent implements OnInit, Afte
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IUserIconCParams,
-        private elementRef: ElementRef,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
+        protected elementRef: ElementRef,
         protected eventService: EventService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

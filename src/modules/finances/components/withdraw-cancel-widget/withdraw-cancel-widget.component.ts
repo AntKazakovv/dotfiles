@@ -2,7 +2,6 @@ import {
     Component,
     OnInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Inject,
     Input,
     inject,
@@ -21,7 +20,6 @@ import {
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
-    ConfigService,
     EventService,
     LogService,
     ILastWithdraw,
@@ -50,9 +48,7 @@ export class WithdrawCancelWidgetComponent extends AbstractComponent implements 
     protected readonly userService: UserService = inject(UserService);
     protected readonly eventService: EventService = inject(EventService);
     protected readonly financesService: FinancesService = inject(FinancesService);
-    protected override readonly cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
     protected readonly logService: LogService = inject(LogService);
-    protected override configService: ConfigService = inject(ConfigService);
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IWithdrawCancelWidgetCParams,

@@ -4,7 +4,6 @@ import {
     ChangeDetectionStrategy,
     Inject,
     Input,
-    ChangeDetectorRef,
     Output,
     EventEmitter,
 } from '@angular/core';
@@ -13,7 +12,6 @@ import {TranslateService} from '@ngx-translate/core';
 
 import {
     AbstractComponent,
-    ConfigService,
     EventService,
 } from 'wlc-engine/modules/core';
 import {Lottery} from 'wlc-engine/modules/lotteries/system/models/lottery.model';
@@ -38,12 +36,10 @@ export class LotterySmartInfoComponent extends AbstractComponent implements OnIn
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILotterySmartInfoCParams,
-        protected override configService: ConfigService,
-        protected override cdr: ChangeDetectorRef,
         protected eventService: EventService,
         protected translateService: TranslateService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

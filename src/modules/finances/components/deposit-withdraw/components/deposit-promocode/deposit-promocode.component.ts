@@ -9,7 +9,6 @@ import {
     ElementRef,
     Output,
     EventEmitter,
-    ChangeDetectorRef,
 } from '@angular/core';
 import {UntypedFormControl} from '@angular/forms';
 
@@ -18,7 +17,6 @@ import _set from 'lodash-es/set';
 
 import {
     AbstractComponent,
-    ConfigService,
     IButtonCParams,
     IInputCParams,
     IModalConfig,
@@ -65,12 +63,10 @@ export class DepositPromocodeComponent extends AbstractComponent implements OnIn
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IDepositPromoCodeCParams,
-        protected override configService: ConfigService,
-        protected override cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected injectionService: InjectionService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

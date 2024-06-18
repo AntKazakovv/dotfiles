@@ -13,7 +13,6 @@ import {ICheckboxCParams} from 'wlc-engine/modules/core/components/checkbox/chec
 import * as Params from './gambling-ban-modal.params';
 import {
     AbstractComponent,
-    ConfigService,
     EventService,
     NotificationEvents,
 } from 'wlc-engine/modules/core';
@@ -31,10 +30,9 @@ export class GamblingBanModalComponent extends AbstractComponent implements OnIn
     constructor(
         @Inject('injectParams') protected injectParams: Params.IGamblingBanModalParams,
         protected eventService: EventService,
-        configService: ConfigService,
         protected gamblingBanService: GamblingBanService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public get isConfirmed(): boolean {

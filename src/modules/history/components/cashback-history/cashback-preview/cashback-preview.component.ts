@@ -1,14 +1,10 @@
 import {
     Component,
     OnInit,
-    ChangeDetectorRef,
     Inject,
     ChangeDetectionStrategy,
 } from '@angular/core';
-import {
-    ConfigService,
-    EventService,
-} from 'wlc-engine/modules/core';
+import {EventService} from 'wlc-engine/modules/core';
 import {
     AbstractComponent,
     IMixedParams,
@@ -31,8 +27,6 @@ export class CashbackPreviewComponent extends AbstractComponent implements OnIni
 
     constructor(
         @Inject('injectParams') protected params: Params.ICashbackPreviewParams,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
         protected betService: BetService,
         protected eventService: EventService,
     ) {
@@ -40,7 +34,7 @@ export class CashbackPreviewComponent extends AbstractComponent implements OnIni
             <IMixedParams<Params.ICashbackPreviewParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override async ngOnInit(): Promise<void> {

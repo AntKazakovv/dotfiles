@@ -9,10 +9,7 @@ import {
 import _clone from 'lodash-es/clone';
 import _filter from 'lodash-es/filter';
 
-import {
-    AbstractComponent,
-    ConfigService,
-} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core';
 import {
     MenuHelper,
     MenuParams,
@@ -35,9 +32,8 @@ export class AffiliatesMenuComponent extends AbstractComponent implements OnInit
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IAffiliatesMenuCParams,
-        configService: ConfigService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

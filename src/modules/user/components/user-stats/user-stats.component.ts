@@ -3,7 +3,6 @@ import {
     Inject,
     OnInit,
     Input,
-    ChangeDetectorRef,
     ChangeDetectionStrategy,
     OnDestroy,
 } from '@angular/core';
@@ -16,7 +15,6 @@ import _each from 'lodash-es/each';
 import _get from 'lodash-es/get';
 
 import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {ModalService} from 'wlc-engine/modules/core/system/services';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
@@ -55,16 +53,14 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IUserStatsCParams,
-        configService: ConfigService,
         protected userService: UserService,
-        cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected translateService: TranslateService,
         private stateService: StateService,
     ) {
         super(
             <IMixedParams<Params.IUserStatsCParams>>{injectParams: injectParams, defaultParams: Params.defaultParams},
-            configService, cdr);
+        );
     }
 
     public override ngOnInit(): void {

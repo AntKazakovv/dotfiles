@@ -5,7 +5,6 @@ import {
     ChangeDetectionStrategy,
     Inject,
     Input,
-    ChangeDetectorRef,
     OnDestroy,
     Renderer2,
 } from '@angular/core';
@@ -18,7 +17,6 @@ import {
 
 import {
     AbstractComponent,
-    ConfigService,
     EventService,
 } from 'wlc-engine/modules/core';
 import {TFixedPanelStore} from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
@@ -54,13 +52,11 @@ export class LivechatButtonComponent extends AbstractComponent implements OnInit
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILivechatButtonCParams,
         @Inject(DOCUMENT) private document: Document,
-        configService: ConfigService,
         protected chatService: CommonChatService,
         protected eventService: EventService,
-        cdr: ChangeDetectorRef,
         protected renderer: Renderer2,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

@@ -1,7 +1,6 @@
 import {
     Component,
     OnInit,
-    ChangeDetectorRef,
     Inject,
     ChangeDetectionStrategy,
 } from '@angular/core';
@@ -22,7 +21,6 @@ import {
     IMixedParams,
     EventService,
     ITableCParams,
-    ConfigService,
     ActionService,
     IIndexing,
     DeviceType,
@@ -67,18 +65,16 @@ export class CashbackHistoryComponent extends AbstractComponent implements OnIni
 
     constructor(
         @Inject('injectParams') protected params: Params.ICashbackHistoryCParams,
-        cdr: ChangeDetectorRef,
         protected cashbackService: CashbackService,
         protected eventService: EventService,
         protected historyFilterService: HistoryFilterService,
-        configService: ConfigService,
         protected actionService: ActionService,
     ) {
         super(
             <IMixedParams<Params.ICashbackHistoryCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override ngOnInit(): void {

@@ -2,7 +2,6 @@ import {
     Component,
     OnInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Inject,
 } from '@angular/core';
 import {
@@ -28,7 +27,6 @@ import {
     defaultParams,
     defaultGamesGridParams,
 } from './search.params';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {TranslateService} from '@ngx-translate/core';
@@ -114,9 +112,7 @@ export class SearchComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: ISearchCParams,
-        configService: ConfigService,
         protected gamesCatalogService: GamesCatalogService,
-        cdr: ChangeDetectorRef,
         protected eventService: EventService,
         protected translateService: TranslateService,
         protected gamesFilterService: GamesFilterService,
@@ -125,7 +121,7 @@ export class SearchComponent extends AbstractComponent implements OnInit {
         super({
             injectParams: injectParams,
             defaultParams: defaultParams,
-        }, configService, cdr);
+        });
 
         this.currentLanguage = this.translateService.currentLang;
     }

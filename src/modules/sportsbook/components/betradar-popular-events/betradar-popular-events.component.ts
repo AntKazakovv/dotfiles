@@ -1,5 +1,4 @@
 import {
-    ChangeDetectorRef,
     Component,
     Inject,
     OnInit,
@@ -14,7 +13,6 @@ import _trim from 'lodash-es/trim';
 import {OptimizationService} from 'wlc-engine/services';
 import {
     AbstractComponent,
-    ConfigService,
     FilesService,
     IIndexing,
     ISlide,
@@ -52,17 +50,15 @@ export class BetradarPopularEventsComponent extends AbstractComponent implements
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IBetradarPopularEventsCParams,
-        cdr: ChangeDetectorRef,
         protected betradarService: BetradarService,
         protected sportsbookService: SportsbookService,
-        configService: ConfigService,
         protected fileService: FilesService,
         protected injectionService: InjectionService,
     ) {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, configService, cdr);
+        });
     }
 
     public override ngOnInit(): void {

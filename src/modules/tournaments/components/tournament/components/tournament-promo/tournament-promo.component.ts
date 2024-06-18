@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     Input,
@@ -13,7 +12,6 @@ import _cloneDeep from 'lodash-es/cloneDeep';
 
 import {
     AbstractComponent,
-    ConfigService,
     GlobalHelper,
     IMixedParams,
 } from 'wlc-engine/modules/core';
@@ -59,15 +57,13 @@ export class TournamentPromoComponent extends AbstractComponent implements OnIni
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITournamentPromoCParams,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
         protected tournamentsService: TournamentsService,
     ) {
         super(
             <IMixedParams<Params.ITournamentPromoCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override ngOnInit(): void {

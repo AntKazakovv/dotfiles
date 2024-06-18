@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     Input,
@@ -27,7 +26,6 @@ import {
     IMixedParams,
     IMenuOptions,
     EventService,
-    ConfigService,
     InjectionService,
     DeviceType,
     ActionService,
@@ -83,8 +81,6 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
 
     constructor(
         @Inject('injectParams') protected params: Params.ICategoryMenuCParams,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
         protected eventService: EventService,
         protected translateService: TranslateService,
         protected router: UIRouter,
@@ -97,8 +93,6 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
                 injectParams: params,
                 defaultParams: Params.defaultParams,
             },
-            configService,
-            cdr,
         );
     }
 

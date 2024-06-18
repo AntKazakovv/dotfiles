@@ -9,7 +9,6 @@ import {
 import {BehaviorSubject} from 'rxjs';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 
 import * as Params from './history-filter-form.params';
@@ -31,9 +30,8 @@ export class HistoryFilterFormComponent extends AbstractComponent implements OnI
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IHistoryFilterFormCParams,
-        configService: ConfigService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

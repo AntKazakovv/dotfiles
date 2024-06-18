@@ -2,17 +2,13 @@ import {
     Component,
     OnInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Inject,
     Input,
     Output,
     EventEmitter,
 } from '@angular/core';
 
-import {
-    AbstractComponent,
-    ConfigService,
-} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core';
 
 import {LotteriesService} from 'wlc-engine/modules/lotteries/system/services/lotteries.service';
 import {RequestParamsType} from 'wlc-engine/modules/core/system/services/data/data.service';
@@ -37,11 +33,9 @@ export class LotteriesHistoryComponent extends AbstractComponent implements OnIn
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILotteriesHistoryCParams,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
         protected lotteriesService: LotteriesService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {

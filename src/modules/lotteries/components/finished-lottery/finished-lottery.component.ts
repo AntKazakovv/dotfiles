@@ -2,7 +2,6 @@ import {
     Component,
     OnInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Inject,
     Input,
 } from '@angular/core';
@@ -13,10 +12,7 @@ import {
     trigger,
 } from '@angular/animations';
 
-import {
-    AbstractComponent,
-    ConfigService,
-} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core';
 import {BaseLottery} from 'wlc-engine/modules/lotteries/system/models/base-lottery.model';
 
 import * as Params from './finished-lottery.params';
@@ -48,10 +44,8 @@ export class FinishedLotteryComponent extends AbstractComponent implements OnIni
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IFinishedLotteryCParams,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

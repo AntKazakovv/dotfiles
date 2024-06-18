@@ -5,7 +5,7 @@ import {
     ChangeDetectionStrategy,
 } from '@angular/core';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService, IMixedParams} from 'wlc-engine/modules/core';
+import {IMixedParams} from 'wlc-engine/modules/core';
 import * as Params from './error-page.params';
 
 @Component({
@@ -21,12 +21,11 @@ export class ErrorPageComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected params: Params.IErrorPageCParams,
-        configService: ConfigService,
     ) {
         super(<IMixedParams<any>>{
             injectParams: params,
             defaultParams: Params.defaultParams,
-        }, configService);
+        });
     }
 
     public override ngOnInit(): void {

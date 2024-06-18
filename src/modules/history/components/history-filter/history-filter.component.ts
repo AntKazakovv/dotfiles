@@ -4,7 +4,6 @@ import {
     ChangeDetectionStrategy,
     Inject,
     Input,
-    ChangeDetectorRef,
     OnDestroy,
 } from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
@@ -64,9 +63,8 @@ export class HistoryFilterComponent extends AbstractComponent implements OnInit,
         protected eventService: EventService,
         protected modalService: ModalService,
         protected historyFilterService: HistoryFilterService,
-        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

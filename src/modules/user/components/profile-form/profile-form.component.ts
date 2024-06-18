@@ -3,7 +3,6 @@ import {
     Inject,
     OnInit,
     Input,
-    ChangeDetectorRef,
     ChangeDetectionStrategy,
 } from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
@@ -110,7 +109,6 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
     constructor(
         @Inject('injectParams') protected params: Params.IProfileFormCParams,
         protected userService: UserService,
-        cdr: ChangeDetectorRef,
         eventService: EventService,
         configService: ConfigService,
         @Inject('requiredFields') protected requiredFields: (keyof typeof FormElements)[],
@@ -127,8 +125,6 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
                 ),
             },
             eventService,
-            configService,
-            cdr,
         );
     }
 

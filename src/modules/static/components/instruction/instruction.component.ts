@@ -3,7 +3,6 @@ import {
     Inject,
     OnInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     inject,
     NgZone,
     Renderer2,
@@ -11,7 +10,6 @@ import {
 } from '@angular/core';
 
 import {
-    ConfigService,
     AbstractComponent,
     IMixedParams,
 } from 'wlc-engine/modules/core';
@@ -28,8 +26,6 @@ import * as Params from './instruction.params';
 })
 export class InstructionComponent extends AbstractComponent implements OnInit {
 
-    protected override readonly cdr = inject(ChangeDetectorRef);
-    protected override readonly configService = inject(ConfigService);
     protected readonly ngZone = inject(NgZone);
     protected readonly rnd = inject(Renderer2);
     protected readonly host = inject(ElementRef);

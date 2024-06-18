@@ -3,7 +3,6 @@ import {
     Component,
     Inject,
     OnInit,
-    ChangeDetectorRef,
     HostBinding,
 } from '@angular/core';
 
@@ -31,7 +30,6 @@ export class ClearAmountButtonComponent extends AbstractComponent implements OnI
     constructor(
         @Inject('injectParams') protected injectParams: Params.IClearAmountButtonCParams,
         protected eventService: EventService,
-        protected override cdr: ChangeDetectorRef,
     ) {
         super(<IMixedParams<Params.IClearAmountButtonCParams>>{
             injectParams,

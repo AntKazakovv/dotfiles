@@ -14,7 +14,6 @@ import _isString from 'lodash-es/isString';
 
 import {
     AbstractComponent,
-    ConfigService,
     DataService,
     IFormWrapperCParams,
     ModalService,
@@ -47,12 +46,11 @@ export class KycQuestionnaireComponent extends AbstractComponent implements OnIn
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IKycQuestionnaireCParams,
-        configService: ConfigService,
         protected modalService: ModalService,
         protected dataService: DataService,
         protected eventService: EventService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {
@@ -192,4 +190,3 @@ export class KycQuestionnaireComponent extends AbstractComponent implements OnIn
         }
     }
 }
-

@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     inject,
     Inject,
@@ -9,7 +8,6 @@ import {
 
 import {
     AbstractComponent,
-    ConfigService,
     EventService,
 } from 'wlc-engine/modules/core';
 import {
@@ -34,10 +32,8 @@ export class QuestsTitleComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected params: Params.IQuestsTitleCParams,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams: params, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams: params, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

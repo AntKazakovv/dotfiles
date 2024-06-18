@@ -3,7 +3,6 @@ import {
     Inject,
     Input,
     OnInit,
-    ChangeDetectorRef,
     ChangeDetectionStrategy,
     Output,
     EventEmitter,
@@ -20,7 +19,6 @@ import {
 } from 'rxjs/operators';
 
 import {
-    ConfigService,
     EventService,
     AbstractComponent,
 } from 'wlc-engine/modules/core';
@@ -58,15 +56,13 @@ export class SearchFieldComponent extends AbstractComponent implements OnInit, A
 
     constructor(
         @Inject('injectParams') protected injectParams: ISearchFieldCParams,
-        cdr: ChangeDetectorRef,
         protected eventService: EventService,
         protected gamesFilterService: GamesFilterService,
-        configService: ConfigService,
     ) {
         super({
             injectParams: injectParams,
             defaultParams: defaultParams,
-        }, configService, cdr);
+        });
     }
 
     public override ngOnInit(): void {

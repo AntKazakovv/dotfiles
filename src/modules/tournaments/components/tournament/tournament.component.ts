@@ -4,7 +4,6 @@ import {
     Inject,
     Input,
     OnInit,
-    ChangeDetectorRef,
 } from '@angular/core';
 
 import {UIRouter} from '@uirouter/core';
@@ -20,7 +19,6 @@ import {
     AbstractComponent,
     GlobalHelper,
     IMixedParams,
-    ConfigService,
     ModalService,
 } from 'wlc-engine/modules/core';
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
@@ -80,15 +78,13 @@ export class TournamentComponent extends AbstractComponent implements OnInit {
         @Inject('injectParams') protected params: Params.ITournamentCParams,
         protected modalService: ModalService,
         protected tournamentsService: TournamentsService,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
         protected router: UIRouter,
     ) {
         super(
             <IMixedParams<Params.ITournamentCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override ngOnInit(): void {

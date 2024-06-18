@@ -4,13 +4,11 @@ import {
     ChangeDetectionStrategy,
     Inject,
     Input,
-    ChangeDetectorRef,
     Host,
     Optional,
 } from '@angular/core';
 
 import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 
 import * as Params from './slider-navigation.params';
 
@@ -33,14 +31,12 @@ export class SliderNavigationComponent extends AbstractComponent implements OnIn
         @Optional()
         @Inject('injectParams')
         protected injectParams: Params.ISliderNavigationCParams,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
     ) {
         super(
             <IMixedParams<Params.ISliderNavigationCParams>>{
                 injectParams: injectParams,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override ngOnInit(): void {

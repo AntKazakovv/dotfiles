@@ -24,7 +24,6 @@ import _isEqual from 'lodash-es/isEqual';
 
 import {
     AbstractComponent,
-    ConfigService,
     GlobalHelper,
     ILayoutComponent,
     InjectionService,
@@ -81,9 +80,8 @@ export class LoyaltyProgressComponent extends AbstractComponent implements OnIni
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILoyaltyProgressCParams,
-        configService: ConfigService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

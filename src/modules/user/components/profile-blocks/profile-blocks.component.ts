@@ -3,7 +3,6 @@ import {
     Inject,
     OnInit,
     Input,
-    ChangeDetectorRef,
     ChangeDetectionStrategy,
 } from '@angular/core';
 import {UntypedFormControl} from '@angular/forms';
@@ -20,7 +19,6 @@ import {
 
 import {
     AbstractComponent,
-    ConfigService,
     ModalService,
     ValidatorType,
     ICheckboxCParams,
@@ -70,17 +68,11 @@ export class ProfileBlocksComponent extends AbstractComponent implements OnInit 
     constructor(
         @Inject('injectParams') protected params: Params.IProfileBlocksCParams,
         protected userService: UserService,
-        cdr: ChangeDetectorRef,
         protected modalService: ModalService,
-        configService: ConfigService,
         protected eventService: EventService,
         protected injectionService: InjectionService,
     ) {
-        super(
-            {injectParams: params, defaultParams: Params.defaultParams},
-            configService,
-            cdr,
-        );
+        super({injectParams: params, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {

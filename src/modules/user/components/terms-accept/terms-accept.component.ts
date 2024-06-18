@@ -19,7 +19,6 @@ import {
     EventService,
     NotificationEvents,
     IPushMessageParams,
-    ConfigService,
     IFormWrapperCParams,
 } from 'wlc-engine/modules/core';
 import {
@@ -49,12 +48,11 @@ export class AcceptTermsComponent extends AbstractComponent implements OnInit {
         protected modal: WlcModalComponent,
         protected modalService: ModalService,
         protected eventService: EventService,
-        configService: ConfigService,
         protected termsAcceptService: TermsAcceptService,
         protected stateService: StateService,
         protected uiRouter: UIRouterGlobals,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {

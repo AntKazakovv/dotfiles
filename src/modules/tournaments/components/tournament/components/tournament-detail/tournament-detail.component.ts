@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     Input,
@@ -17,7 +16,6 @@ import _join from 'lodash-es/join';
 import {
     AbstractComponent,
     IMixedParams,
-    ConfigService,
     ModalService,
     IIndexing,
     GlobalHelper,
@@ -74,19 +72,17 @@ export class TournamentDetailComponent extends AbstractComponent implements
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITournamentDetailCParams,
-        configService: ConfigService,
         protected tournamentsService: TournamentsService,
         protected modalService: ModalService,
         protected injectionService: InjectionService,
         protected router: UIRouter,
         protected actionService: ActionService,
-        cdr: ChangeDetectorRef,
     ) {
         super(
             <IMixedParams<Params.ITournamentDetailCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override ngOnInit(): void {

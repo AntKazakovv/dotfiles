@@ -16,7 +16,7 @@ import {
 
 import {
     AbstractComponent,
-    ConfigService,
+    IMixedParams,
     ITableCol,
     ITableCParams,
 } from 'wlc-engine/modules/core';
@@ -42,9 +42,12 @@ export class LoyaltyLevelsComponent extends AbstractComponent implements OnInit 
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILoyaltyLevelTableCParams,
-        configService: ConfigService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super(
+            <IMixedParams<Params.ILoyaltyLevelTableCParams>>{
+                injectParams,
+                defaultParams: Params.defaultParams,
+            });
     }
 
     public override ngOnInit(): void {

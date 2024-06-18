@@ -11,7 +11,6 @@ import {
 
 import {
     AbstractComponent,
-    ConfigService,
     IMixedParams,
     ModalService,
 } from 'wlc-engine/modules/core';
@@ -38,14 +37,13 @@ export class OpenMailBtnComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected params: Params.IOpenMailMessageBtn,
         protected modalService: ModalService,
-        configService: ConfigService,
         protected internalMailsService: InternalMailsService,
     ) {
         super(
             <IMixedParams<Params.IOpenMailMessageBtn>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService);
+            });
     }
 
     public override ngOnInit(): void {

@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     Input,
@@ -21,7 +20,6 @@ import _shuffle from 'lodash-es/shuffle';
 
 import {
     ActionService,
-    ConfigService,
     DeviceType,
     ModalService,
     AbstractComponent,
@@ -60,15 +58,13 @@ export class GamesSliderComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected injectParams: Params.IGamesSliderCParams,
         protected gamesCatalogService: GamesCatalogService,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected actionService: ActionService,
     ) {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, configService, cdr);
+        });
     }
 
     public override async ngOnInit(): Promise<void> {

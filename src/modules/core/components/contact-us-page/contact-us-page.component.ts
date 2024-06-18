@@ -1,12 +1,10 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 
 import {
-    ConfigService,
     ContactsService,
     EventService,
 } from 'wlc-engine/modules/core/system/services';
@@ -36,11 +34,9 @@ export class ContactUsPageComponent extends FeedbackFormComponent {
 
     constructor(
         contactsService: ContactsService,
-        configService: ConfigService,
         eventService: EventService,
         translateService: TranslateService,
-        cdr: ChangeDetectorRef,
     ) {
-        super(Params.defaultParams, contactsService, configService, eventService, translateService, cdr);
+        super(Params.defaultParams, contactsService, eventService, translateService);
     }
 }

@@ -8,7 +8,6 @@ import {
 
 import {
     AbstractComponent,
-    ConfigService,
 } from 'wlc-engine/modules/core';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
@@ -30,10 +29,9 @@ export class BonusWagerComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IBonusWagerCParams,
-        protected override configService: ConfigService,
         protected bonusesService: BonusesService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

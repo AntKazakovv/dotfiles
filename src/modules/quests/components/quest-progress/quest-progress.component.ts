@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     inject,
     Inject,
@@ -14,7 +13,6 @@ import dayjs from 'dayjs';
 
 import {
     AbstractComponent,
-    ConfigService,
     EventService,
     InjectionService,
     IPushMessageParams,
@@ -59,10 +57,8 @@ export class QuestProgressComponent extends AbstractComponent implements OnInit,
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IQuestProgressCParams,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

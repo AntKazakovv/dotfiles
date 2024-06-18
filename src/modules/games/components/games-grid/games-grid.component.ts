@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ElementRef,
     Inject,
@@ -53,7 +52,6 @@ import {SwiperOptions} from 'swiper/types/swiper-options';
 
 import {
     AbstractComponent,
-    ConfigService,
     DeviceType,
     ActionService,
     EventService,
@@ -155,15 +153,13 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
         protected gamesCatalogService: GamesCatalogService,
         protected eventService: EventService,
         protected actionService: ActionService,
-        configService: ConfigService,
         protected router: UIRouter,
-        cdr: ChangeDetectorRef,
         protected renderer: Renderer2,
         protected elementRef: ElementRef,
         @Inject(WINDOW) protected window: Window,
         protected gamesFilterService: GamesFilterService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
         this.trackGames = this.trackGames.bind(this);
     }
 

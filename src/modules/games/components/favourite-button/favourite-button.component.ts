@@ -2,7 +2,6 @@ import {
     Component,
     Inject,
     OnInit,
-    ChangeDetectorRef,
     ChangeDetectionStrategy,
 } from '@angular/core';
 import {StateService} from '@uirouter/core';
@@ -15,7 +14,6 @@ import {
 import {
     AbstractComponent,
     IMixedParams,
-    ConfigService,
     EventService,
     ModalService,
 } from 'wlc-engine/modules/core';
@@ -41,11 +39,9 @@ export class FavouriteButtonComponent extends AbstractComponent implements OnIni
 
     constructor(
         @Inject('injectParams') protected params: Params.IFavouriteButtonCParams,
-        cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected eventService: EventService,
         protected stateService: StateService,
-        configService: ConfigService,
         protected gamesCatalogService: GamesCatalogService,
         protected userService: UserService,
     ) {
@@ -53,7 +49,7 @@ export class FavouriteButtonComponent extends AbstractComponent implements OnIni
             <IMixedParams<Params.IFavouriteButtonCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr,
+            },
         );
     }
 

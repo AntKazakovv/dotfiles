@@ -2,7 +2,6 @@ import {
     Component,
     OnInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Inject,
     Input,
     OnDestroy,
@@ -21,7 +20,6 @@ import _merge from 'lodash-es/merge';
 
 import {
     AbstractComponent,
-    ConfigService,
     ISelectCParams,
     SelectValuesService,
 } from 'wlc-engine/modules/core';
@@ -69,12 +67,10 @@ export class ReferralsListComponent extends AbstractComponent implements OnInit,
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IReferralsListCParams,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
         protected referralsService: ReferralsService,
         protected selectValuesService: SelectValuesService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {

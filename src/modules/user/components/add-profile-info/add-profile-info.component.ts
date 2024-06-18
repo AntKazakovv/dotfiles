@@ -5,7 +5,6 @@ import {
     ChangeDetectionStrategy,
     Inject,
     Input,
-    ChangeDetectorRef,
 } from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
 import {StateService} from '@uirouter/core';
@@ -16,7 +15,6 @@ import _cloneDeep from 'lodash-es/cloneDeep';
 import _isString from 'lodash-es/isString';
 
 import {
-    ConfigService,
     EventService,
     ModalService,
     SelectValuesService,
@@ -48,19 +46,13 @@ export class AddProfileInfoComponent extends ProfileFormAbstract implements OnIn
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IAddProfileInfoCParams,
-        configService: ConfigService,
         protected userService: UserService,
         protected modalService: ModalService,
-        cdr: ChangeDetectorRef,
         eventService: EventService,
         protected stateService: StateService,
         protected selectService: SelectValuesService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams},
-            eventService,
-            configService,
-            cdr,
-        );
+        super({injectParams, defaultParams: Params.defaultParams}, eventService);
     }
 
     public override ngOnInit(): void {

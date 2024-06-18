@@ -10,7 +10,6 @@ import {UntypedFormControl} from '@angular/forms';
 import {
     AbstractComponent,
     IMixedParams,
-    ConfigService,
     InjectionService,
     ICheckboxCParams,
 } from 'wlc-engine/modules/core';
@@ -45,7 +44,6 @@ export class RecommendedGamesComponent extends AbstractComponent implements OnIn
         },
     };
 
-    protected override readonly configService = inject(ConfigService);
     protected readonly injectionService = inject(InjectionService);
 
     constructor(

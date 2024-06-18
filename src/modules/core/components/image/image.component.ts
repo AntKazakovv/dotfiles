@@ -3,7 +3,6 @@ import {
     OnInit,
     Input,
     ViewEncapsulation,
-    ChangeDetectorRef,
     OnChanges,
     Inject,
     Optional,
@@ -14,7 +13,6 @@ import {
 
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 
 import * as Params from './image.params';
 
@@ -43,13 +41,11 @@ export class ImageComponent extends AbstractComponent implements OnInit, OnChang
     constructor(
         @Optional()
         @Inject('injectParams') protected injectParams: Params.IImageCParams,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
     ) {
         super({
             injectParams: injectParams || {},
             defaultParams: Params.defaultParams,
-        }, configService, cdr);
+        });
     }
 
     public override ngOnInit(): void {

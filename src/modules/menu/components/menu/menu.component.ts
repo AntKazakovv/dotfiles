@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     Input,
@@ -53,7 +52,6 @@ import {
     IMixedParams,
     ActionService,
     ModalService,
-    ConfigService,
     DeviceType,
     EventService,
     InjectionService,
@@ -140,11 +138,9 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMenuCParams,
-        cdr: ChangeDetectorRef,
         protected actionService: ActionService,
         protected modalService: ModalService,
         protected stateService: StateService,
-        configService: ConfigService,
         protected eventService: EventService,
         protected injectionService: InjectionService,
         protected translateService: TranslateService,
@@ -157,8 +153,6 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
                 injectParams,
                 defaultParams: Params.defaultParams,
             },
-            configService,
-            cdr,
         );
     }
 

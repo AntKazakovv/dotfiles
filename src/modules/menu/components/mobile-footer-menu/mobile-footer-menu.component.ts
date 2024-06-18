@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     OnInit,
@@ -12,7 +11,6 @@ import {
     AbstractComponent,
     IMixedParams,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {MenuHelper} from'wlc-engine/modules/menu/system/helpers/menu.helper';
 import {TIconExtension} from'wlc-engine/modules/menu/system/interfaces/menu.interface';
 
@@ -35,16 +33,12 @@ export class MobileFooterMenuComponent extends AbstractComponent implements OnIn
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMobileFooterMenuCParams,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
     ) {
         super(
             <IMixedParams<Params.IMobileFooterMenuCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
             },
-            configService,
-            cdr,
         );
     }
 

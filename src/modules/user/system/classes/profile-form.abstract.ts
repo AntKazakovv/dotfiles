@@ -1,7 +1,4 @@
-import {
-    Directive,
-    ChangeDetectorRef,
-} from '@angular/core';
+import {Directive} from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
 
 import {
@@ -16,7 +13,6 @@ import _isObject from 'lodash-es/isObject';
 
 import {
     AbstractComponent,
-    ConfigService,
     EventService,
     IFormWrapperCParams,
     IIndexing,
@@ -35,10 +31,8 @@ export abstract class ProfileFormAbstract extends AbstractComponent {
     constructor(
         mixedParams: IMixedParams<unknown>,
         protected eventService: EventService,
-        configService?: ConfigService,
-        cdr?: ChangeDetectorRef,
     ) {
-        super(mixedParams, configService, cdr);
+        super(mixedParams);
     }
 
     /**

@@ -6,6 +6,7 @@ import {
     OnChanges,
     SimpleChanges,
     Directive,
+    inject,
 } from '@angular/core';
 
 import {Subject} from 'rxjs';
@@ -56,12 +57,10 @@ export class AbstractComponent implements OnDestroy, OnInit, OnChanges {
     protected $destroy: Subject<void> = new Subject();
     protected modifiers: string[] = [];
 
-    constructor(
-        private mixedParams: IMixedParams<unknown>,
-        protected configService?: ConfigService,
-        protected cdr?: ChangeDetectorRef,
-    ) {
-    }
+    protected readonly configService: ConfigService = inject(ConfigService);
+    protected readonly cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
+
+    constructor(private mixedParams: IMixedParams<unknown>) {}
 
     public ngOnInit(inlineParams?: IComponentParams<unknown, unknown, unknown>): void {
         const abstractConfig: IAbstractConfig = _cloneDeep(this.mixedParams.defaultParams);

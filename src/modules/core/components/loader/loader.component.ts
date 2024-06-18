@@ -12,7 +12,6 @@ import {
     AbstractComponent,
     IMixedParams,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import * as Params from './loader.params';
 
 @Component({
@@ -31,13 +30,12 @@ export class LoaderComponent extends AbstractComponent implements OnInit {
         @Optional()
         @Inject('injectParams')
         protected injectParams: Params.ILoaderCParams,
-        configService: ConfigService,
     ) {
         super(
             <IMixedParams<Params.ILoaderCParams>>{
                 injectParams: injectParams,
                 defaultParams: Params.defaultParams,
-            }, configService);
+            });
     }
 
     public override ngOnInit(): void {

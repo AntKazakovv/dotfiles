@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     OnInit,
@@ -9,7 +8,6 @@ import {TranslateService} from '@ngx-translate/core';
 import {takeUntil} from 'rxjs/operators';
 
 import {IPostDataOptions} from 'wlc-engine/modules/core';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
@@ -59,14 +57,12 @@ export class PostMenuComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected injectParams: Params.IPostMenuCParams,
         protected injectionService: InjectionService,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
         protected actionService: ActionService,
         protected menuService: MenuService,
         private translateService: TranslateService,
         @Inject(WINDOW) private window: Window,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {

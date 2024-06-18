@@ -19,7 +19,6 @@ import {
 
 import {
     AbstractComponent,
-    ConfigService,
     EventService,
     TableAppearanceAnimation,
 } from 'wlc-engine/modules/core';
@@ -57,9 +56,8 @@ export class QuestsTaskListComponent extends AbstractComponent implements OnInit
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IQuestsTaskListCParams,
-        configService: ConfigService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

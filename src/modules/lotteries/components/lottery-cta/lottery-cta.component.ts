@@ -12,7 +12,6 @@ import {takeUntil} from 'rxjs/operators';
 
 import {
     AbstractComponent,
-    ConfigService,
     ModalService,
     EventService,
 } from 'wlc-engine/modules/core';
@@ -42,13 +41,12 @@ export class LotteryCtaComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILotteryCtaCParams,
-        protected override configService: ConfigService,
         protected lotteriesService: LotteriesService,
         protected modalService: ModalService,
         protected eventService: EventService,
         protected translateService: TranslateService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {

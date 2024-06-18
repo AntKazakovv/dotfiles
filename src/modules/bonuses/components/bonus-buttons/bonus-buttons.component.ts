@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     OnInit,
@@ -21,7 +20,6 @@ import _forOwn from 'lodash-es/forOwn';
 import {
     AbstractComponent,
     IMixedParams,
-    ConfigService,
     ModalService,
     EventService,
     InjectionService,
@@ -68,8 +66,6 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit, 
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IBonusButtonsCParams,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
         protected modalService: ModalService,
         protected bonusesService: BonusesService,
         protected eventService: EventService,
@@ -80,7 +76,7 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit, 
             <IMixedParams<Params.IBonusButtonsCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override ngOnInit(): void {

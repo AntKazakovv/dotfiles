@@ -1,5 +1,4 @@
 import {
-    ChangeDetectorRef,
     ChangeDetectionStrategy,
     Component,
     OnInit,
@@ -9,7 +8,6 @@ import {
 
 import {
     AbstractComponent,
-    ConfigService,
     IMixedParams,
     ModalService,
 } from 'wlc-engine/modules/core';
@@ -32,15 +30,13 @@ export class ThumbItemComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IThumbItemCParams,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
         protected modalService: ModalService,
     ) {
         super(
             <IMixedParams<Params.IThumbItemCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override ngOnInit(): void {

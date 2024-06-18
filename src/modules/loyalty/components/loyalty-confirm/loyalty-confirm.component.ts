@@ -2,7 +2,6 @@ import {
     Component,
     OnInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Inject,
     Input,
     inject,
@@ -10,7 +9,6 @@ import {
 
 import {
     AbstractComponent,
-    ConfigService,
     EventService,
     IWrapperCParams,
     ModalService,
@@ -52,10 +50,8 @@ export class LoyaltyConfirmComponent extends AbstractComponent implements OnInit
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILoyaltyConfirmCParams,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

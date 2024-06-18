@@ -4,7 +4,6 @@ import {
     ChangeDetectionStrategy,
     Inject,
     Input,
-    ChangeDetectorRef,
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 
@@ -19,7 +18,6 @@ import _isEqual from 'lodash-es/isEqual';
 
 import {
     AbstractComponent,
-    ConfigService,
     FilesService,
     ModalService,
 } from 'wlc-engine/modules/core';
@@ -47,14 +45,12 @@ export class NicknameIconComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.INicknameIconCParams,
-        configService: ConfigService,
         protected fileService: FilesService,
         protected userService: UserService,
         protected modalService: ModalService,
         protected translateService: TranslateService,
-        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

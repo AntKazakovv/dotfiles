@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component, ElementRef,
     HostListener,
     inject,
@@ -8,7 +7,11 @@ import {
     OnInit,
     ViewChild,
 } from '@angular/core';
-import {AbstractComponent, ConfigService, ModalService} from 'wlc-engine/modules/core';
+
+import {
+    AbstractComponent,
+    ModalService,
+} from 'wlc-engine/modules/core';
 import {InternalMailsService} from 'wlc-engine/modules/internal-mails/system/services';
 
 import * as Params from './mail-actions-dropdown.params';
@@ -29,13 +32,8 @@ export class MailActionsDropdownComponent extends AbstractComponent implements O
     public constructor(
         @Inject('injectParams') params: Params.IMailActionsDropdownCParams,
         protected readonly modalService: ModalService,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
     ) {
-        super({
-            injectParams: params,
-            defaultParams: Params.defaultParams,
-        }, configService, cdr);
+        super({injectParams: params, defaultParams: Params.defaultParams});
     }
 
     public toggleDropDownHandle(): void {

@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     Input,
@@ -39,7 +38,6 @@ export class TooltipComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITooltipCParams,
         protected modalService: ModalService,
-        cdr: ChangeDetectorRef,
         protected actionService: ActionService,
     )
     {
@@ -47,7 +45,7 @@ export class TooltipComponent extends AbstractComponent implements OnInit {
             <IMixedParams<Params.ITooltipCParams>>{
                 injectParams: injectParams,
                 defaultParams: Params.defaultParams,
-            }, null, cdr);
+            });
     }
 
     public override ngOnInit(): void {

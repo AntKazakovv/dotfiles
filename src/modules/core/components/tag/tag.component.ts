@@ -8,10 +8,7 @@ import {
     ElementRef,
 } from '@angular/core';
 
-import {
-    AbstractComponent,
-    ConfigService,
-} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core';
 
 import * as Params from './tag.params';
 
@@ -31,11 +28,10 @@ export class TagComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITagCParams,
-        protected override configService: ConfigService,
         protected renderer: Renderer2,
         private hostRef: ElementRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

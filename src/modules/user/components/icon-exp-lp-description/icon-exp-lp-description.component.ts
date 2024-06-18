@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 
 import * as Params from './icon-exp-lp-description.params';
 
@@ -25,9 +24,8 @@ export class IconExpLpDescriptionComponent extends AbstractComponent implements 
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IIconExpLpDescriptionCParams,
-        configService: ConfigService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

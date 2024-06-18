@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     OnDestroy,
@@ -15,7 +14,6 @@ import {
 import {
     AbstractComponent,
     IMixedParams,
-    ConfigService,
     HooksService,
     IWrapperCParams,
     IIndexing,
@@ -82,10 +80,8 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
 
     constructor(
         @Inject('injectParams') protected params: Params.ISportsbookCParams,
-        cdr: ChangeDetectorRef,
         protected sportsbookService: SportsbookService,
         protected betradarService: BetradarService,
-        configService: ConfigService,
         protected eventService: EventService,
         protected hooksService: HooksService,
         protected modalService: ModalService,
@@ -98,8 +94,6 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
                 injectParams: params,
                 defaultParams: Params.defaultParams,
             },
-            configService,
-            cdr,
         );
     }
 

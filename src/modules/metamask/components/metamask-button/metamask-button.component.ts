@@ -8,7 +8,6 @@ import {
 
 import {
     AbstractComponent,
-    ConfigService,
     InjectionService,
 } from 'wlc-engine/modules/core';
 import {MetamaskService} from 'wlc-engine/modules/metamask/system/services/metamask/metamask.service';
@@ -31,10 +30,9 @@ export class MetamaskButtonComponent extends AbstractComponent implements OnInit
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMetamaskButtonCParams,
-        configService: ConfigService,
         protected injectionService: InjectionService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

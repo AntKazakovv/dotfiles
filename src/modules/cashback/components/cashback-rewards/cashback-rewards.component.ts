@@ -1,7 +1,6 @@
 import dayjs from 'dayjs';
 import type {Dayjs} from 'dayjs';
 import {
-    ChangeDetectorRef,
     Component,
     Inject,
     Input,
@@ -17,7 +16,6 @@ import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract
 import {CashbackService} from 'wlc-engine/modules/cashback/system/services/cashback/cashback.service';
 import {CashbackPlanModel} from 'wlc-engine/modules/cashback/system/models/cashback-plan.model';
 import {
-    ConfigService,
     EventService,
     GlobalHelper,
     IPaginateOutput,
@@ -69,13 +67,11 @@ export class CashbackRewardsComponent extends AbstractComponent implements OnIni
         @Inject('injectParams') protected injectParams: Params.ICashbackRewardCParams,
         protected cashbackService: CashbackService,
         protected eventService: EventService,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
     ) {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, configService, cdr);
+        });
 
 
         this.cashbackController = new CashbackController(

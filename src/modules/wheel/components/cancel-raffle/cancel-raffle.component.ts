@@ -8,7 +8,6 @@ import {
 import {
     AbstractComponent,
     IMixedParams,
-    ConfigService,
     ModalService,
 } from 'wlc-engine/modules/core';
 
@@ -26,14 +25,12 @@ export class CancelRaffleComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected params: Params.ICancelRaffleCParams,
-
-        configService: ConfigService,
         protected modalService: ModalService,
     ) {
         super(<IMixedParams<Params.ICancelRaffleCParams>>{
             injectParams: params,
             defaultParams: Params.defaultParams,
-        }, configService);
+        });
     }
 
     public override ngOnInit(): void {

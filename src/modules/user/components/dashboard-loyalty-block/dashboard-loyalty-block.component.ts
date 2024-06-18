@@ -3,16 +3,14 @@ import {
     Inject,
     OnInit,
     Input,
-    ChangeDetectorRef, ChangeDetectionStrategy, OnDestroy,
+    ChangeDetectionStrategy,
+    OnDestroy,
 } from '@angular/core';
 
 import {skipWhile, takeUntil} from 'rxjs/operators';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {
-    ConfigService,
-    AppType,
-} from 'wlc-engine/modules/core';
+import {AppType} from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {ModalService} from 'wlc-engine/modules/core/system/services';
 
@@ -33,12 +31,10 @@ export class DashboardLoyaltyBlockComponent extends AbstractComponent implements
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILoyaltyBlockCParams,
-        configService: ConfigService,
         protected UserService: UserService,
-        cdr: ChangeDetectorRef,
         protected modalService: ModalService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

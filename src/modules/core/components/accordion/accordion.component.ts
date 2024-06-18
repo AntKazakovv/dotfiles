@@ -4,7 +4,6 @@ import {
     OnInit,
     Input,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     OnChanges,
     SimpleChanges,
     SimpleChange,
@@ -36,9 +35,8 @@ export class AccordionComponent extends AbstractComponent implements OnInit, OnC
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IAccordionCParams,
-        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, null, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {

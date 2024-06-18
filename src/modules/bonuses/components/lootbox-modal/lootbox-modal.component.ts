@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     OnInit,
@@ -16,7 +15,6 @@ import _isObject from 'lodash-es/isObject';
 import {
     AbstractComponent,
     IMixedParams,
-    ConfigService,
     ModalService,
     EventService,
     IPushMessageParams,
@@ -56,8 +54,6 @@ export class LootboxModalComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILootboxModalCParams,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
         protected bonusesService: BonusesService,
         protected modalService: ModalService,
         protected eventService: EventService,
@@ -66,7 +62,7 @@ export class LootboxModalComponent extends AbstractComponent implements OnInit {
             <IMixedParams<Params.ILootboxModalCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override async ngOnInit(): Promise<void> {

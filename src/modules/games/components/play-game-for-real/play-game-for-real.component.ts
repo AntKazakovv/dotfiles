@@ -3,7 +3,6 @@ import {
     Inject,
     OnInit,
     Input,
-    ChangeDetectorRef,
     HostBinding,
     ChangeDetectionStrategy,
 } from '@angular/core';
@@ -11,7 +10,6 @@ import {TranslateService} from '@ngx-translate/core';
 import {StateService} from '@uirouter/core';
 
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {InjectionService} from 'wlc-engine/modules/core/system/services';
@@ -51,13 +49,11 @@ export class PlayGameForRealComponent extends SignInFormAbstract<Params.IPlayGam
     constructor(
         @Inject('injectParams') protected params: Params.IPlayGameForRealCParams,
         injectionService: InjectionService,
-        cdr: ChangeDetectorRef,
         modalService: ModalService,
         protected logService: LogService,
         eventService: EventService,
         translateService: TranslateService,
         stateService: StateService,
-        configService: ConfigService,
         userService: UserService,
     ) {
         super(
@@ -71,8 +67,6 @@ export class PlayGameForRealComponent extends SignInFormAbstract<Params.IPlayGam
             eventService,
             stateService,
             translateService,
-            configService,
-            cdr,
         );
 
         this.config = Params.playGameForRealConfig({

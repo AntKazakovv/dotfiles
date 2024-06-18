@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     OnDestroy,
@@ -13,7 +12,6 @@ import {UIRouter} from '@uirouter/core';
 import {
     AbstractComponent,
     IMixedParams,
-    ConfigService,
     ModalService,
     EventService,
 } from 'wlc-engine/modules/core';
@@ -35,8 +33,6 @@ export class StoreTitleComponent extends AbstractComponent implements OnInit, On
 
     constructor(
         @Inject('injectParams') protected params: Params.IStoreTitleCParams,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
         protected modalService: ModalService,
         protected eventService: EventService,
         protected storeService: StoreService,
@@ -47,7 +43,7 @@ export class StoreTitleComponent extends AbstractComponent implements OnInit, On
             <IMixedParams<Params.IStoreTitleCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override ngOnInit(): void {

@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     Input,
@@ -16,7 +15,6 @@ import {
 
 import {
     AbstractComponent,
-    ConfigService,
     EventService,
     ModalService,
 } from 'wlc-engine/modules/core';
@@ -43,14 +41,12 @@ export class TwoFactorAuthProfileBlockComponent extends AbstractComponent implem
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITwoFactorAuthProfileBlockCParams,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
         protected userService: UserService,
         protected modalService: ModalService,
         protected eventService: EventService,
         protected twoFactorAuthService: TwoFactorAuthService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {

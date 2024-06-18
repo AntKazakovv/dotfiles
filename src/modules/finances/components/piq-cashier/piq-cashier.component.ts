@@ -1,5 +1,4 @@
 import {
-    ChangeDetectorRef,
     Component,
     OnInit,
     OnDestroy,
@@ -21,7 +20,6 @@ import {
     LogService,
     ModalService,
     EventService,
-    ConfigService,
     InjectionService,
 } from 'wlc-engine/modules/core';
 import {ColorThemeValues} from 'wlc-engine/modules/core/constants';
@@ -59,8 +57,6 @@ export class PIQCashierComponent
     constructor(
         @Inject(DOCUMENT) protected document: Document,
         @Inject('injectParams') protected injectParams: Params.IPIQCashierCParams,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
         protected eventService: EventService,
         protected financesService: FinancesService,
         protected piqCashierService: PIQCashierService,
@@ -70,7 +66,7 @@ export class PIQCashierComponent
         protected httpClient: HttpClient,
     ) {
         super({injectParams, defaultParams: Params.defaultParams},
-            logService, modalService, configService, injectionService, cdr);
+            logService, modalService, injectionService);
     }
 
     public override async ngOnInit(): Promise<void> {

@@ -3,7 +3,6 @@ import {
     OnInit,
     Input,
     ViewEncapsulation,
-    ChangeDetectorRef,
     ElementRef,
     OnChanges,
     Output,
@@ -54,12 +53,11 @@ export class IconComponent extends AbstractComponent implements OnInit, OnChange
         protected fileService: FilesService,
         protected elRef: ElementRef,
         protected ngZone: NgZone,
-        cdr: ChangeDetectorRef,
     ) {
         super({
             injectParams: injectParams || {},
             defaultParams: Params.defaultParams,
-        }, null, cdr);
+        });
     }
 
     public override ngOnInit(): void {

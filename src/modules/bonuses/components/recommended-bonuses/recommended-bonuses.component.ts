@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     OnInit,
@@ -27,12 +26,11 @@ export class RecommendedBonusesComponent
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ICRecommendedBonusesParams,
-        cdr: ChangeDetectorRef,
     ) {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, null, cdr);
+        });
     }
 
     public override ngOnInit(): void {

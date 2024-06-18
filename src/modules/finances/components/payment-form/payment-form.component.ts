@@ -6,7 +6,6 @@ import {
     Inject,
     Input,
     SimpleChanges,
-    ChangeDetectorRef,
     OnDestroy,
     SimpleChange,
     Output,
@@ -48,7 +47,6 @@ import _set from 'lodash-es/set';
 import _sortBy from 'lodash-es/sortBy';
 
 import {
-    ConfigService,
     IFormComponent,
     IFormWrapperCParams,
     IIndexing,
@@ -216,8 +214,6 @@ export class PaymentFormComponent
         @Inject(DOCUMENT) protected document: Document,
         @Inject(WINDOW) private window: Window,
 
-        protected override configService: ConfigService,
-        protected override cdr: ChangeDetectorRef,
         injectionService: InjectionService,
         protected financesService: FinancesService,
         protected eventService: EventService,
@@ -229,7 +225,7 @@ export class PaymentFormComponent
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, logService, modalService, configService, injectionService, cdr);
+        }, logService, modalService, injectionService);
     }
 
     public override async ngOnInit(): Promise<void> {

@@ -1,6 +1,5 @@
 import {
     Component,
-    ChangeDetectorRef,
     Inject,
     OnInit,
     ChangeDetectionStrategy,
@@ -44,13 +43,12 @@ export class ProfileMessagePreviewComponent extends AbstractComponent implements
     constructor(
         @Inject('injectParams') protected params: Params.IMailPreviewCParams,
         protected internalMailsService: InternalMailsService,
-        cdr: ChangeDetectorRef,
     ) {
         super(
             <IMixedParams<Params.IMailPreviewCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, null, cdr);
+            });
     }
 
     public override ngOnInit(): void {

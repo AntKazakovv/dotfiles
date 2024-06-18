@@ -11,7 +11,6 @@ import _merge from 'lodash-es/merge';
 
 import {
     AbstractComponent,
-    ConfigService,
     EventService,
     IFormWrapperCParams,
 } from 'wlc-engine/modules/core';
@@ -32,10 +31,9 @@ export class AmountFormComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IAmountFormCParams,
-        configService: ConfigService,
         protected eventService: EventService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

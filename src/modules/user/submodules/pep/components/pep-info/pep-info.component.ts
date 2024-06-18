@@ -13,7 +13,6 @@ import {
 } from 'rxjs';
 
 import {
-    ConfigService,
     EventService,
     ModalService,
 } from 'wlc-engine/modules/core';
@@ -57,7 +56,6 @@ export class PepInfoComponent extends PepAbstractModalComponent implements OnIni
         eventService: EventService,
         modalService: ModalService,
         pepService: PepService,
-        configService: ConfigService,
     ) {
         super(
             window,
@@ -68,7 +66,6 @@ export class PepInfoComponent extends PepAbstractModalComponent implements OnIni
                 injectParams,
                 defaultParams,
             },
-            configService,
         );
     }
 

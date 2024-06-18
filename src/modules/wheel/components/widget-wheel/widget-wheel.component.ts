@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     OnInit,
     Inject,
@@ -18,7 +17,6 @@ import _cloneDeep from 'lodash-es/cloneDeep';
 import {
     AbstractComponent,
     IMixedParams,
-    ConfigService,
     ITimerCParams,
 } from 'wlc-engine/modules/core';
 import {IInfoWheelResponse} from 'wlc-engine/modules/wheel/system/interfaces/wheel.interface';
@@ -51,14 +49,12 @@ export class WidgetWheelComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected params: Params.IWidgetWheelCParams,
-        protected override configService: ConfigService,
-        protected override cdr: ChangeDetectorRef,
         protected wheelService: WheelService,
     ) {
         super(<IMixedParams<Params.IWidgetWheelCParams>>{
             injectParams: params,
             defaultParams: Params.defaultParams,
-        }, configService);
+        });
     }
 
     public override ngOnInit(): void {

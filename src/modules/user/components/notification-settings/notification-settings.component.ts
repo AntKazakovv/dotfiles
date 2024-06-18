@@ -4,7 +4,6 @@ import {
     ChangeDetectionStrategy,
     Inject,
     Input,
-    ChangeDetectorRef,
     Injector,
     inject,
     DestroyRef,
@@ -15,7 +14,6 @@ import {Subject} from 'rxjs';
 
 import {
     AbstractComponent,
-    ConfigService,
     ModalService,
     LogService,
 } from 'wlc-engine/modules/core';
@@ -46,10 +44,8 @@ export class NotificationSettingsComponent extends AbstractComponent implements 
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.INotificationSettingsCParams,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public get agreeSubscriptionsInjector(): Injector {

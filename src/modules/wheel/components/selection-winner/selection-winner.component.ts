@@ -1,4 +1,3 @@
-// eslint-disable no-console
 import {DOCUMENT} from '@angular/common';
 import {
     ChangeDetectionStrategy,
@@ -14,7 +13,6 @@ import _forEach from 'lodash-es/forEach';
 import {
     AbstractComponent,
     IMixedParams,
-    ConfigService,
     LogService,
 } from 'wlc-engine/modules/core';
 import {WINDOW} from 'wlc-engine/modules/app/system';
@@ -47,7 +45,6 @@ export class SelectionWinnerComponent extends AbstractComponent implements OnIni
     constructor(
         @Inject('injectParams') protected params: Params.ISelectionWinnerCParams,
         @Inject(DOCUMENT) protected document: Document,
-        configService: ConfigService,
         protected renderer: Renderer2,
         protected element: ElementRef,
         protected wheelService: WheelService,
@@ -57,7 +54,7 @@ export class SelectionWinnerComponent extends AbstractComponent implements OnIni
         super(<IMixedParams<Params.ISelectionWinnerCParams>>{
             injectParams: params,
             defaultParams: Params.defaultParams,
-        }, configService);
+        });
     }
 
     public override ngOnInit(): void {

@@ -1,7 +1,6 @@
 import {
     Component,
     OnInit,
-    ChangeDetectorRef,
     Inject,
     ChangeDetectionStrategy,
     Input,
@@ -25,7 +24,6 @@ import _cloneDeep from 'lodash-es/cloneDeep';
 import {
     AbstractComponent,
     IMixedParams,
-    ConfigService,
     InjectionService,
     IWrapperCParams,
 } from 'wlc-engine/modules/core';
@@ -66,14 +64,12 @@ export class LocalJackpotComponent extends AbstractComponent implements OnInit, 
 
     constructor(
         @Inject('injectParams') protected params: Params.ILocalJackpotsCParams,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
     ) {
         super(
             <IMixedParams<Params.ILocalJackpotsCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override ngOnInit(): void {

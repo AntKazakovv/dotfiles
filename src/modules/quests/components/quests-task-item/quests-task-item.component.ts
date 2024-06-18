@@ -9,7 +9,6 @@ import {
 
 import {
     AbstractComponent,
-    ConfigService,
     IButtonCParams,
     ModalService,
 } from 'wlc-engine/modules/core';
@@ -41,9 +40,8 @@ export class QuestsTaskItemComponent extends AbstractComponent implements OnInit
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IQuestsTaskItemCParams,
-        configService: ConfigService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

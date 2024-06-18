@@ -3,7 +3,6 @@ import {
     Inject,
     OnInit,
     Input,
-    ChangeDetectorRef,
     ElementRef,
     ChangeDetectionStrategy,
 } from '@angular/core';
@@ -23,10 +22,7 @@ import {
 import {JackpotModel} from 'wlc-engine/modules/games/system/models/jackpot.model';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes';
-import {
-    CachingService,
-    ConfigService,
-} from 'wlc-engine/modules/core/system/services';
+import {CachingService} from 'wlc-engine/modules/core/system/services';
 import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
 import {
     GamesCatalogService,
@@ -72,15 +68,13 @@ export class TotalJackpotComponent extends AbstractComponent implements OnInit {
     constructor(
         public elementRef: ElementRef,
         @Inject('injectParams') protected params: Params.ITotalJackpotCParams,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
         protected translateService: TranslateService,
         protected cachingService: CachingService,
         protected gamesCatalogService: GamesCatalogService,
         protected eventService: EventService,
         protected stateService: StateService,
     ) {
-        super({injectParams: params, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams: params, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

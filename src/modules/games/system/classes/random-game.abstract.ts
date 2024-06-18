@@ -3,7 +3,6 @@ import _filter from 'lodash-es/filter';
 
 import {
     AbstractComponent,
-    ConfigService,
     EventService,
     GlobalHelper,
     IComponentParams,
@@ -26,15 +25,11 @@ export abstract class RandomGameAbstract<T extends IComponentParams<unknown, unk
 
     constructor(
         mixedParams: IMixedParams<T>,
-        configService: ConfigService,
         protected modalService: ModalService,
         protected eventService: EventService,
         protected gamesCatalogService: GamesCatalogService,
     ) {
-        super(
-            mixedParams,
-            configService,
-        );
+        super(mixedParams);
     }
 
     public toRandomGame(): void {

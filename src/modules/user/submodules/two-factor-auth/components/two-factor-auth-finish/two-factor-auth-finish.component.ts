@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     Input,
@@ -35,11 +34,10 @@ export class TwoFactorAuthFinishComponent extends AbstractComponent implements O
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITwoFactorAuthFinishCParams,
-        cdr: ChangeDetectorRef,
         protected twoFactorAuthService: TwoFactorAuthService,
 
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, null, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {

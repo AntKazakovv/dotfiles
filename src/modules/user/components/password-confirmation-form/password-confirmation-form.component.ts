@@ -2,7 +2,6 @@ import {
     Component,
     OnInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Inject,
     Input,
 } from '@angular/core';
@@ -10,7 +9,6 @@ import {UntypedFormGroup} from '@angular/forms';
 
 import {
     AbstractComponent,
-    ConfigService,
     IFormWrapperCParams,
     EventService,
     NotificationEvents,
@@ -37,13 +35,11 @@ export class PasswordConfirmationFormComponent extends AbstractComponent impleme
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IPasswordConfirmationFormCParams,
-        configService: ConfigService,
         protected userService: UserService,
         protected eventService: EventService,
         protected modalService: ModalService,
-        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

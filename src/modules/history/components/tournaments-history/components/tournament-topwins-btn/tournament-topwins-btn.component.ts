@@ -8,7 +8,6 @@ import {
 
 import {
     AbstractComponent,
-    ConfigService,
     IMixedParams,
     ModalService,
 } from 'wlc-engine/modules/core';
@@ -32,13 +31,12 @@ export class TournamentTopwinsBtnComponent extends AbstractComponent implements 
     constructor(
         @Inject('injectParams') protected params: Params.ITournamentTopwinsBtnParams,
         protected modalService: ModalService,
-        configService: ConfigService,
     ) {
         super(
             <IMixedParams<Params.ITournamentTopwinsBtnParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService);
+            });
     }
 
     public override ngOnInit(): void {

@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     OnInit,
@@ -30,13 +29,12 @@ export class CaptchaComponent extends AbstractComponent implements OnInit {
         @Inject('injectParams') protected injectParams: Params.ICaptchaCParams,
         protected eventService: EventService,
         protected captchaService: CaptchaService,
-        cdr: ChangeDetectorRef,
     ) {
         super(
             <IMixedParams<Params.ICaptchaCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
-            }, null, cdr,
+            },
         );
     }
 

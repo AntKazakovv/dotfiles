@@ -8,6 +8,7 @@ import {TranslatePipe} from '@ngx-translate/core';
 import {
     MockComponent,
     MockPipe,
+    MockService,
 } from 'ng-mocks';
 import _each from 'lodash-es/each';
 import _trim from 'lodash-es/trim';
@@ -19,6 +20,7 @@ import {
     IAccordionCParams,
     defaultParams,
 } from './accordion.params';
+import {ConfigService} from 'wlc-engine/modules/core/system/services';
 
 describe('AccordionComponent', (): void => {
     let component: AccordionComponent;
@@ -65,10 +67,16 @@ describe('AccordionComponent', (): void => {
                 MockPipe(TranslatePipe, value => value),
                 MockComponent(IconComponent),
             ],
-            providers: [{
-                provide: 'injectParams',
-                useValue: injectParams,
-            }],
+            providers: [
+                {
+                    provide: 'injectParams',
+                    useValue: injectParams,
+                },
+                {
+                    provide: ConfigService,
+                    useValue: MockService(ConfigService),
+                },
+            ],
         }).overrideComponent(AccordionComponent, {
             set: {
                 animations: [HeightToggleAnimation],

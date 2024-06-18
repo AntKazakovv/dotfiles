@@ -6,7 +6,6 @@ import {
     Component,
     OnChanges,
     EventEmitter,
-    ChangeDetectorRef,
     ChangeDetectionStrategy,
 } from '@angular/core';
 import {PageChangedEvent} from 'ngx-bootstrap/pagination';
@@ -17,7 +16,6 @@ import {
     GlobalHelper,
     AbstractComponent,
 } from 'wlc-engine/modules/core';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import * as Params from './pagination.params';
@@ -48,15 +46,13 @@ export class WlcPaginationComponent<T = unknown> extends AbstractComponent imple
 
     constructor(
         @Inject('injectParams') protected params: Params.IPaginationCParams,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
         @Inject(WINDOW) private window: Window,
     ) {
         super(
             <IMixedParams<Params.IPaginationCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override ngOnChanges(): void {

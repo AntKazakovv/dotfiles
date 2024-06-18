@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ElementRef,
     Inject,
@@ -16,7 +15,6 @@ import _random from 'lodash-es/random';
 import {
     AbstractComponent,
     CachingService,
-    ConfigService,
     IMixedParams,
 } from 'wlc-engine/modules/core';
 
@@ -38,17 +36,13 @@ export class CashOutTimeComponent extends AbstractComponent implements OnInit {
     constructor(
         public elementRef: ElementRef,
         @Inject('injectParams') protected injectParams: Params.ICashOutTimeCParams,
-        configService: ConfigService,
         protected cachingService: CachingService,
-        cdr: ChangeDetectorRef,
     ) {
         super(
             <IMixedParams<Params.ICashOutTimeCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
             },
-            configService,
-            cdr,
         );
     }
 

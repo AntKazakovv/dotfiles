@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 
 import {
-    ConfigService,
     EventService,
     ModalService,
 } from 'wlc-engine/modules/core';
@@ -27,7 +26,6 @@ export class LuckyButtonComponent extends RandomGameAbstract<Params.IFeelingLuck
     constructor(
         public elementRef: ElementRef,
         @Inject('injectParams') protected injectParams: Params.IFeelingLuckyButtonCParams,
-        configService: ConfigService,
         gamesCatalogService: GamesCatalogService,
         eventService: EventService,
         modalService: ModalService,
@@ -37,7 +35,6 @@ export class LuckyButtonComponent extends RandomGameAbstract<Params.IFeelingLuck
                 injectParams,
                 defaultParams: Params.defaultParams,
             },
-            configService,
             modalService,
             eventService,
             gamesCatalogService,

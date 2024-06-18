@@ -17,7 +17,6 @@ import type {Dayjs} from 'dayjs';
 
 import {
     AbstractComponent,
-    ConfigService,
     EventService,
     InjectionService,
     ModalService,
@@ -52,16 +51,12 @@ export class WinnerComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IWinnerCParams,
-        configService: ConfigService,
         protected translateService: TranslateService,
         protected injectionService: InjectionService,
         protected modalService: ModalService,
         protected eventService: EventService,
     ) {
-        super(
-            {injectParams, defaultParams: Params.defaultParams},
-            configService,
-        );
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public get gameImage(): string {

@@ -31,7 +31,6 @@ import _isNaN from 'lodash-es/isNaN';
 
 import {UserProfile} from 'wlc-engine/modules/user';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {
     CurrencyModel,
     ICurrencyIcon,
@@ -137,15 +136,11 @@ export class CurrencyComponent
     constructor(
         protected changeDetectorRef: ChangeDetectorRef,
         protected translateService: TranslateService,
-        configService: ConfigService,
         @Optional()
         @Inject('injectParams')
         protected injectParams: Params.ICurrencyCParams,
     ) {
-        super({
-            injectParams,
-            defaultParams: Params.defaultParams,
-        }, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnChanges(): void {

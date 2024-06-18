@@ -4,9 +4,15 @@ import {
 } from '@angular/core/testing';
 
 import {TranslateService} from '@ngx-translate/core';
-import {MockComponent} from 'ng-mocks';
+import {
+    MockComponent,
+    MockService,
+} from 'ng-mocks';
 
-import {TooltipComponent} from 'wlc-engine/modules/core';
+import {
+    ConfigService,
+    TooltipComponent,
+} from 'wlc-engine/modules/core';
 import {LoyaltyLevelModel} from 'wlc-engine/modules/loyalty/system/models/loyalty-level.model';
 import {LevelNameComponent} from './level-name.component';
 import {
@@ -51,6 +57,10 @@ describe('LevelNameComponent', () => {
                 {
                     provide: 'injectParams',
                     useValue: injectParams,
+                },
+                {
+                    provide: ConfigService,
+                    useValue: MockService(ConfigService),
                 },
             ],
         }).compileComponents();

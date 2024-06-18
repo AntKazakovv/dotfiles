@@ -1,7 +1,6 @@
 import {
     AfterViewInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ElementRef,
     Inject,
@@ -17,7 +16,6 @@ import _each from 'lodash-es/each';
 import {
     AbstractComponent,
     LogService,
-    ConfigService,
 } from 'wlc-engine/modules/core';
 import {
     BannersService,
@@ -55,13 +53,11 @@ export class BannerComponent extends AbstractComponent implements OnInit, AfterV
     constructor(
         @Inject('injectParams') protected injectParams: Params.IBannerCParams,
         protected bannersService: BannersService,
-        configService: ConfigService,
         protected logService: LogService,
         protected element: ElementRef,
-        cdr: ChangeDetectorRef,
         @Inject(DOCUMENT) protected document: Document,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
 

@@ -6,7 +6,6 @@ import {
     AfterViewInit,
     ViewContainerRef,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {
@@ -20,7 +19,6 @@ import {
     EventService,
     IPushMessageParams,
     NotificationEvents,
-    ConfigService,
     AbstractComponent,
     ActionService,
     LogService,
@@ -73,9 +71,7 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
         @Inject('injectParams') protected params: Params.IPostCParams,
         protected staticService: StaticService,
         protected viewRef: ViewContainerRef,
-        cdr: ChangeDetectorRef,
         protected uiRouter: UIRouterGlobals,
-        configService: ConfigService,
         protected stateService: StateService,
         protected logService: LogService,
         protected actionService: ActionService,
@@ -83,7 +79,7 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
         protected eventService: EventService,
         @Inject(CuracaoRequirement) protected isCuracaoWlc: boolean,
     ) {
-        super({injectParams: params, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams: params, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {

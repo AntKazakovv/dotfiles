@@ -9,7 +9,6 @@ import _get from 'lodash-es/get';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
-    ConfigService,
     ModalService,
     LogService,
     EventService,
@@ -39,11 +38,10 @@ export class LoginSignupComponent extends AbstractComponent implements OnInit {
         @Inject('injectParams') protected injectParams: Params.ILoginSignupCParams,
         @Inject(WINDOW) protected window: Window,
         protected modalService: ModalService,
-        configService: ConfigService,
         protected logService: LogService,
         protected eventService: EventService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

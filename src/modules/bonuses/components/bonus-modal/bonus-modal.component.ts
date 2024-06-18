@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     OnInit,
@@ -19,7 +18,6 @@ import {
 import {
     AbstractComponent,
     IMixedParams,
-    ConfigService,
     InjectionService,
     IAccordionData,
     IAccordionCParams,
@@ -52,8 +50,6 @@ export class BonusModalComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IBonusModalCParams,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
         protected injectionService: InjectionService,
         protected bonusesService: BonusesService,
     ) {
@@ -61,7 +57,7 @@ export class BonusModalComponent extends AbstractComponent implements OnInit {
             <IMixedParams<Params.IBonusModalCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override ngOnInit(): void {

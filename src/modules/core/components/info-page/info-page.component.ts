@@ -3,7 +3,6 @@ import {
     Inject,
     OnInit,
     Input,
-    ChangeDetectorRef,
     ChangeDetectionStrategy,
 } from '@angular/core';
 import {
@@ -13,7 +12,6 @@ import {
 import {
     IWrapperCParams,
     AbstractComponent,
-    ConfigService,
     IAccordionCParams,
     ILayoutComponent,
 } from 'wlc-engine/modules/core';
@@ -51,10 +49,8 @@ export class InfoPageComponent extends AbstractComponent implements OnInit {
         @Inject('injectParams') protected params: Params.IInfoPageCParams,
         protected uiRouter: UIRouterGlobals,
         protected transition: TransitionService,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
     ) {
-        super({injectParams: params, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams: params, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

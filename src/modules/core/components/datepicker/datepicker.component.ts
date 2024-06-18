@@ -4,7 +4,6 @@ import {
     OnInit,
     Input,
     ViewChild,
-    ChangeDetectorRef,
     ChangeDetectionStrategy,
 } from '@angular/core';
 import {UntypedFormControl} from '@angular/forms';
@@ -23,7 +22,6 @@ import type {Dayjs} from 'dayjs';
 import {defineLocale} from 'ngx-bootstrap/chronos';
 import * as locales from 'ngx-bootstrap/locale';
 
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 
@@ -59,13 +57,11 @@ export class DatepickerComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IDatepickerCParams,
-        configService: ConfigService,
         protected translateService: TranslateService,
-        cdr: ChangeDetectorRef,
         protected eventService: EventService,
         protected localeService: BsLocaleService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

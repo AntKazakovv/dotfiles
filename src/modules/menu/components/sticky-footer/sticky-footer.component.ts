@@ -2,7 +2,6 @@ import {
     Component,
     Inject,
     OnInit,
-    ChangeDetectorRef,
     ChangeDetectionStrategy,
     OnDestroy,
 } from '@angular/core';
@@ -21,7 +20,6 @@ import {
 } from 'wlc-engine/modules/core';
 
 import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {TIconExtension} from 'wlc-engine/modules/menu/system/interfaces/menu.interface';
 import {IMenuOptions} from 'wlc-engine/modules/core/system/interfaces/menu.interface';
 import {MenuService} from 'wlc-engine/modules/menu/system/services/menu.service';
@@ -54,21 +52,17 @@ export class StickyFooterComponent extends AbstractComponent implements OnInit, 
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IStickyFooterCParams,
-        configService: ConfigService,
         protected menuService: MenuService,
         protected eventService: EventService,
         protected bodyClassService: BodyClassService,
         protected translateService: TranslateService,
         protected injectionService: InjectionService,
-        cdr: ChangeDetectorRef,
     ) {
         super(
             <IMixedParams<Params.IStickyFooterCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
             },
-            configService,
-            cdr,
         );
     }
 

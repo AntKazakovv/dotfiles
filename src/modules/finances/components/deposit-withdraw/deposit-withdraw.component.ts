@@ -3,7 +3,6 @@ import {
     OnInit,
     Inject,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     OnDestroy,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
@@ -36,7 +35,6 @@ import _set from 'lodash-es/set';
 
 import {
     IMixedParams,
-    ConfigService,
     EventService,
     IFormWrapperCParams,
     InjectionService,
@@ -173,10 +171,8 @@ export class DepositWithdrawComponent
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IDepositWithdrawCParams,
-        configService: ConfigService,
         protected financesService: FinancesService,
         protected eventService: EventService,
-        cdr: ChangeDetectorRef,
         protected translateService: TranslateService,
         protected injectionService: InjectionService,
         protected actionService: ActionService,
@@ -187,7 +183,7 @@ export class DepositWithdrawComponent
             <IMixedParams<Params.IDepositWithdrawCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override async ngOnInit(): Promise<void> {

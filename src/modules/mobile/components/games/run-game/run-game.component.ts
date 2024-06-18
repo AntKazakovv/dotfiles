@@ -2,7 +2,6 @@ import {
     Component,
     Inject,
     OnInit,
-    ChangeDetectorRef,
     ChangeDetectionStrategy,
 } from '@angular/core';
 import {StateService} from '@uirouter/core';
@@ -16,7 +15,6 @@ import _toNumber from 'lodash-es/toNumber';
 import {
     AbstractComponent,
     IMixedParams,
-    ConfigService,
     EventService,
     ModalService,
     InjectionService,
@@ -57,11 +55,9 @@ export class RunGameComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected params: Params.IRunGameCParams,
-        cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected eventService: EventService,
         protected stateService: StateService,
-        configService: ConfigService,
         protected injectionService: InjectionService,
         protected userService: UserService,
     ) {
@@ -69,7 +65,7 @@ export class RunGameComponent extends AbstractComponent implements OnInit {
             <IMixedParams<Params.IRunGameCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr,
+            },
         );
     }
 

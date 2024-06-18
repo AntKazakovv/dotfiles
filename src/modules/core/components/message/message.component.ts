@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 
 import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {NOTIFICATION_METADATA} from 'wlc-engine/modules/core/system/services/notification/notification.service';
 import {INotificationMetadata} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
 import {
@@ -55,7 +54,6 @@ export class MessageComponent
         public meta: INotificationMetadata,
         @Inject('injectParams')
         protected params: IMessageData,
-        configService: ConfigService,
     ) {
         super(
             <IMixedParams<Params.IMessageParams>>{
@@ -66,7 +64,6 @@ export class MessageComponent
                 },
                 defaultParams: Params.defaultParams,
             },
-            configService,
         );
     }
 

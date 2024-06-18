@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     Input,
@@ -9,7 +8,6 @@ import {
 
 import {
     AbstractComponent,
-    ConfigService,
 } from 'wlc-engine/modules/core';
 
 import * as Params from './two-factor-auth-disable.params';
@@ -27,10 +25,8 @@ export class TwoFactorAuthDisableComponent extends AbstractComponent implements 
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITwoFactorAuthDisableCParams,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {

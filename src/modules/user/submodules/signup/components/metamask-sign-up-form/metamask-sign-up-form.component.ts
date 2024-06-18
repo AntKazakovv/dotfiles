@@ -11,7 +11,6 @@ import _merge from 'lodash-es/merge';
 import _isObject from 'lodash-es/isObject';
 
 import {
-    ConfigService,
     EventService,
     IFormWrapperCParams,
     IIndexing,
@@ -46,14 +45,13 @@ export class MetamaskSignUpFormComponent
         userService: UserService,
         protected signupService: SignUpService,
         logService: LogService,
-        configService: ConfigService,
         eventService: EventService,
         injectionService: InjectionService,
     ) {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, configService, eventService, injectionService, logService, userService);
+        }, eventService, injectionService, logService, userService);
     }
 
     public override ngOnInit(): void {

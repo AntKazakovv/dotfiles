@@ -1,5 +1,4 @@
 import {
-    ChangeDetectorRef,
     Component,
     ElementRef,
     HostBinding,
@@ -37,7 +36,6 @@ import {
 import {ISource} from 'wlc-engine/modules/core/components/image/image.params';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {ColorThemeService} from 'wlc-engine/modules/core/system/services/color-theme/color-theme.service';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {DeviceType} from 'wlc-engine/modules/core/system/models/device.model';
 import {IconHelper} from 'wlc-engine/modules/core/system/helpers/icon.helper';
@@ -123,8 +121,6 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected injectParams: Params.IGameThumbCParams,
         protected actionService: ActionService,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
         protected eventService: EventService,
         protected colorThemeService: ColorThemeService,
         protected gamesCatalogService: GamesCatalogService,
@@ -135,7 +131,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, configService, cdr);
+        });
     }
 
     public override ngOnInit(): void {

@@ -11,7 +11,6 @@ import {Subject} from 'rxjs';
 
 import {
     AbstractComponent,
-    ConfigService,
     EventService,
     IMixedParams,
 } from 'wlc-engine/modules/core';
@@ -40,13 +39,12 @@ export class DeadsimplechatComponent extends AbstractComponent implements OnInit
         @Inject(DOCUMENT) protected document: Document,
         @Inject('injectParams') protected params: Params.IDeadsimplechatCParams,
         protected deadsimplechatService: DeadsimplechatService,
-        configService: ConfigService,
         protected eventService: EventService,
     ) {
         super(<IMixedParams<Params.IDeadsimplechatCParams>>{
             injectParams: params,
             defaultParams: Params.defaultParams,
-        }, configService);
+        });
     }
 
     public override ngOnInit(): void {

@@ -7,7 +7,6 @@ import {
 
 import {
     AbstractComponent,
-    ConfigService,
     IMixedParams,
 } from 'wlc-engine/modules/core';
 
@@ -26,13 +25,12 @@ export class EndedSessionModalComponent extends AbstractComponent implements OnI
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IEndedSessionModalParams,
-        configService: ConfigService,
     ) {
         super(
             <IMixedParams<Params.IEndedSessionModalParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
-            }, configService);
+            });
     }
 
     public override ngOnInit(): void {

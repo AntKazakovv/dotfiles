@@ -10,10 +10,7 @@ import {
 
 import _get from 'lodash-es/get';
 
-import {
-    AbstractComponent,
-    ConfigService,
-} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core';
 
 import * as Params from './alert.params';
 
@@ -35,9 +32,8 @@ export class AlertComponent extends AbstractComponent implements OnInit, OnChang
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IAlertCParams,
-        configService: ConfigService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

@@ -9,10 +9,7 @@ import {
 
 import {BehaviorSubject} from 'rxjs';
 
-import {
-    AbstractComponent,
-    ConfigService,
-} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core';
 import {
     LoyaltyProgramController,
     TComponent,
@@ -38,9 +35,8 @@ export class LoyaltyProgramComponent extends AbstractComponent implements OnInit
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILoyaltyProgramCParams,
-        configService: ConfigService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {

@@ -7,10 +7,7 @@ import {
     inject,
 } from '@angular/core';
 
-import {
-    AbstractComponent,
-    ConfigService,
-} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core';
 import {LoyaltyLevelsService} from 'wlc-engine/modules/loyalty/system/services/loyalty-levels/loyalty-levels.service';
 
 import * as Params from './level-number.params';
@@ -28,7 +25,6 @@ export class LevelNumberComponent extends AbstractComponent implements OnInit {
     public levelImage!: string;
     public levelFallbackImage!: string;
 
-    protected override configService: ConfigService = inject(ConfigService);
     protected readonly loyaltyLevelsService: LoyaltyLevelsService = inject(LoyaltyLevelsService);
 
     constructor(

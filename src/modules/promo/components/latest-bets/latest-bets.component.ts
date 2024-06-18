@@ -1,7 +1,6 @@
 import {
     Component,
     OnInit,
-    ChangeDetectorRef,
     Inject,
     ChangeDetectionStrategy,
     OnDestroy,
@@ -22,7 +21,6 @@ import _merge from 'lodash-es/merge';
 
 import {
     AbstractComponent,
-    ConfigService,
     EventService,
     IMixedParams,
 } from 'wlc-engine/modules/core';
@@ -56,16 +54,14 @@ export class LatestBetsComponent extends AbstractComponent implements OnInit, On
 
     constructor(
         @Inject('injectParams') protected params: Params.ILatestBetsCParams,
-        cdr: ChangeDetectorRef,
         protected latestBetsService: LatestBetsService,
         protected eventService: EventService,
-        configService: ConfigService,
     ) {
         super(
             <IMixedParams<Params.ILatestBetsCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override ngOnInit(): void {

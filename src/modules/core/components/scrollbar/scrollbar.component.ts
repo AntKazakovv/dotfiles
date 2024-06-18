@@ -1,13 +1,11 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ElementRef,
     Input,
     OnInit,
 } from '@angular/core';
 
-import {ConfigService} from 'wlc-engine/modules/core/system/services';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 
 import * as Params from './scrollbar.params';
@@ -25,14 +23,12 @@ export class ScrollbarComponent extends AbstractComponent implements OnInit {
     public override $params: Params.IScrollbarCParams;
 
     constructor(
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
         public host: ElementRef,
     ) {
         super({
             injectParams: {},
             defaultParams: Params.defaultParams,
-        }, configService, cdr);
+        });
     }
 
     public override ngOnInit(): void {

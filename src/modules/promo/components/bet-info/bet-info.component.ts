@@ -5,10 +5,7 @@ import {
     OnInit,
     ChangeDetectionStrategy,
 } from '@angular/core';
-import {
-    AbstractComponent,
-    ConfigService,
-} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core';
 
 import * as Params from './bet-info.params';
 
@@ -37,8 +34,7 @@ export class BetInfoComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected params: Params.IBetInfoCParams,
-        configService: ConfigService,
     ) {
-        super({injectParams: params, defaultParams: Params.defaultParams}, configService);
+        super({injectParams: params, defaultParams: Params.defaultParams});
     }
 }

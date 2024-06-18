@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     OnInit,
@@ -15,7 +14,6 @@ import {
 import {
     AbstractComponent,
     IMixedParams,
-    ConfigService,
     EventService,
     LayoutService,
     ModalService,
@@ -49,9 +47,7 @@ export class AppUpdaterComponent
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IAppUpdaterParams,
-        configService: ConfigService,
         protected router: UIRouter,
-        cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected stateService: StateService,
         protected eventService: EventService,
@@ -64,8 +60,6 @@ export class AppUpdaterComponent
                 injectParams: injectParams,
                 defaultParams: Params.defaultParams,
             },
-            configService,
-            cdr,
         );
     }
 

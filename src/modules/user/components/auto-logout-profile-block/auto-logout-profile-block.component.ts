@@ -8,7 +8,6 @@ import {
 
 import {
     AbstractComponent,
-    ConfigService,
     ModalService,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
@@ -29,11 +28,10 @@ export class AutoLogoutProfileBlockComponent extends AbstractComponent implement
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IAutoLogoutProfileBlockCParams,
-        configService: ConfigService,
         protected userService: UserService,
         protected modalService: ModalService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

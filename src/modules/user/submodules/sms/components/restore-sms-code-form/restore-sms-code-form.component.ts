@@ -5,14 +5,12 @@ import {
     ChangeDetectionStrategy,
     Inject,
     ViewChild,
-    ChangeDetectorRef,
 } from '@angular/core';
 import dayjs from 'dayjs';
 import type {Dayjs} from 'dayjs';
 
 import {
     AbstractComponent,
-    ConfigService,
     EventService,
     IFormWrapperCParams,
     IPushMessageParams,
@@ -42,13 +40,11 @@ export class RestoreSmsCodeFormComponent extends AbstractComponent implements On
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IRestoreSmsCodeFormCParams,
-        configService: ConfigService,
         protected eventService: EventService,
         protected modalService: ModalService,
         protected injectionService: InjectionService,
-        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

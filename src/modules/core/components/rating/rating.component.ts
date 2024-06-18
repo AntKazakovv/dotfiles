@@ -6,7 +6,6 @@ import {
     ViewChild,
     ElementRef,
     Input,
-    ChangeDetectorRef,
     Renderer2,
 } from '@angular/core';
 
@@ -20,7 +19,6 @@ import {
     IMixedParams,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {CachingService} from 'wlc-engine/modules/core/system/services/caching/caching.service';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 
 import * as Params from './rating.params';
 
@@ -41,18 +39,14 @@ export class RatingComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IRatingCParams,
-        configService: ConfigService,
         protected cachingService: CachingService,
         protected renderer: Renderer2,
-        cdr: ChangeDetectorRef,
     ) {
         super(
             <IMixedParams<Params.IRatingCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
             },
-            configService,
-            cdr,
         );
     }
 

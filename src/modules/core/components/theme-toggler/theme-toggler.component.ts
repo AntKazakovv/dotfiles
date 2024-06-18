@@ -4,7 +4,6 @@ import {
     ChangeDetectionStrategy,
     Inject,
     Input,
-    ChangeDetectorRef,
 } from '@angular/core';
 
 import {
@@ -16,7 +15,6 @@ import _isUndefined from 'lodash-es/isUndefined';
 import {
     AbstractComponent,
     ActionService,
-    ConfigService,
     DeviceType,
 } from 'wlc-engine/modules/core';
 import {ColorThemeService} from 'wlc-engine/modules/core/system/services/color-theme/color-theme.service';
@@ -69,12 +67,10 @@ export class ThemeTogglerComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IThemeTogglerCParams,
-        configService: ConfigService,
         protected colorThemeService: ColorThemeService,
         protected actionService: ActionService,
-        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

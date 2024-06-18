@@ -19,7 +19,6 @@ import {
     GlobalHelper,
     IInputCParams,
     ModalService,
-    ConfigService,
 } from 'wlc-engine/modules/core';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
@@ -49,12 +48,11 @@ export class EnterPromocodeComponent extends AbstractComponent implements OnInit
         protected bonusesService: BonusesService,
         protected eventService: EventService,
         protected modalService: ModalService,
-        configService: ConfigService,
     ) {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, configService);
+        });
     }
 
     public enterPromocodeInput: IInputCParams = {

@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     OnInit,
@@ -21,7 +20,6 @@ import _sortBy from 'lodash-es/sortBy';
 import {
     AbstractComponent,
     IMixedParams,
-    ConfigService,
     IPaginateOutput,
     EventService,
     GlobalHelper,
@@ -78,15 +76,13 @@ export class TournamentListComponent
         @Inject('injectParams') protected params: Params.ITournamentListCParams,
         protected tournamentsService: TournamentsService,
         protected eventService: EventService,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
         protected uiRouter: UIRouter,
     ) {
         super(
             <IMixedParams<Params.ITournamentListCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override ngOnInit(): void {

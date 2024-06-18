@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Host,
     Inject,
@@ -15,7 +14,6 @@ import {
     AbstractComponent,
     IMixedParams,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {
     PasswordValidationListController,
 } from 'wlc-engine/modules/core/components/password-validation-list/controller/password-validation-list.controller';
@@ -39,13 +37,11 @@ export class PasswordValidationListComponent extends AbstractComponent implement
         @Optional() @Host()
         @Inject('injectParams') protected injectParams: Params.IPasswordValidationListComponent,
         protected injector: Injector,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
     ) {
         super(<IMixedParams<Params.IPasswordValidationListComponent>>{
             injectParams: injectParams,
             defaultParams: Params.defaultParams,
-        }, configService, cdr);
+        });
     }
 
     public override ngOnInit(): void {

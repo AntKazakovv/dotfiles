@@ -3,13 +3,11 @@ import {
     Inject,
     OnInit,
     Component,
-    ChangeDetectorRef,
     ChangeDetectionStrategy,
 } from '@angular/core';
 
 import {
     IPaysystem,
-    ConfigService,
     ColorThemeService,
 } from 'wlc-engine/modules/core';
 import {IconListAbstract} from 'wlc-engine/modules/icon-list/system/classes/icon-list-abstract.class';
@@ -38,11 +36,9 @@ export class IconPaymentsListComponent extends IconListAbstract<Params.IIconPaym
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IIconPaymentsListCParams,
-        configService: ConfigService,
         colorThemeService: ColorThemeService,
-        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, colorThemeService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams}, colorThemeService);
     }
 
     public override async ngOnInit(): Promise<void> {

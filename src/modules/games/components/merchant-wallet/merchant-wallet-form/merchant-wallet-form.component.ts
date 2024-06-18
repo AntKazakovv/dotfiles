@@ -4,7 +4,6 @@ import {
     ChangeDetectionStrategy,
     Inject,
     Input,
-    ChangeDetectorRef,
 } from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
 import {takeUntil} from 'rxjs/operators';
@@ -18,7 +17,6 @@ import _isArray from 'lodash-es/isArray';
 
 import {
     AbstractComponent,
-    ConfigService,
     EventService,
     IFormWrapperCParams,
     IPushMessageParams,
@@ -56,14 +54,12 @@ export class MerchantWalletFormComponent extends AbstractComponent implements On
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMerchantWalletFormCParams,
-        configService: ConfigService,
         protected merchantWalletService: MerchantWalletService,
         protected eventService: EventService,
         protected logService: LogService,
         protected translateService: TranslateService,
-        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

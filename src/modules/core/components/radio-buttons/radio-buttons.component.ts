@@ -3,17 +3,13 @@ import {
     OnInit,
     Inject,
     Input,
-    ChangeDetectorRef,
     ChangeDetectionStrategy,
 } from '@angular/core';
 import {
     UntypedFormControl,
 } from '@angular/forms';
 
-import {
-    AbstractComponent,
-    ConfigService,
-} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core';
 import {IButtonCParams} from 'wlc-engine/modules/core/components/button/button.params';
 
 import * as Params from './radio-buttons.params';
@@ -38,10 +34,8 @@ export class RadioButtonsComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IRadioButtonsCParams,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

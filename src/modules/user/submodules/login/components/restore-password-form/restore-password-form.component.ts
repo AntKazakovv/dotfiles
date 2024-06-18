@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     OnInit,
@@ -16,7 +15,6 @@ import {
     AbstractComponent,
     EventService,
     ModalService,
-    ConfigService,
     IPushMessageParams,
     NotificationEvents,
     IIndexing,
@@ -57,14 +55,12 @@ export class RestorePasswordFormComponent extends AbstractComponent implements O
         protected modalService: ModalService,
         protected userService: UserService,
         protected timeLimitService: TimeLimitService,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
     ) {
 
         super(<IMixedParams<Params.IRestorePasswordFormCParams>>{
             injectParams: injectParams,
             defaultParams: Params.defaultParams,
-        }, configService, cdr);
+        });
     }
 
     public override ngOnInit(): void {

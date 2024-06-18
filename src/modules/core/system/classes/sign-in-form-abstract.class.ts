@@ -1,7 +1,4 @@
-import {
-    Directive,
-    ChangeDetectorRef,
-} from '@angular/core';
+import {Directive} from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
 import {StateService} from '@uirouter/core';
 import {TranslateService} from '@ngx-translate/core';
@@ -20,7 +17,6 @@ import {EventService} from 'wlc-engine/modules/core/system/services/event/event.
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {CaptchaService} from 'wlc-engine/modules/security/captcha';
 import {
     IFormComponent,
@@ -87,10 +83,8 @@ export abstract class SignInFormAbstract<T extends IAbstractSignInFormCParams<un
         protected eventService: EventService,
         protected stateService: StateService,
         protected translateService: TranslateService,
-        configService?: ConfigService,
-        cdr?: ChangeDetectorRef,
     ) {
-        super(mixedParams, configService, cdr);
+        super(mixedParams);
     }
 
     public beforeSubmit(form: UntypedFormGroup): boolean {

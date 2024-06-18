@@ -8,7 +8,6 @@ import {
 } from '@angular/core';
 
 import {
-    ConfigService,
     EventService,
     LogService,
     IFormWrapperCParams,
@@ -36,7 +35,6 @@ export class SocialSignUpFormComponent extends UserActionsAbstract<Params.ISocia
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISocialSignUpFormCParams,
-        configService: ConfigService,
         logService: LogService,
         userService: UserService,
         eventService: EventService,
@@ -48,7 +46,7 @@ export class SocialSignUpFormComponent extends UserActionsAbstract<Params.ISocia
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, configService, eventService,  injectionService, logService, userService);
+        }, eventService,  injectionService, logService, userService);
     }
 
     public override ngOnInit(): void {

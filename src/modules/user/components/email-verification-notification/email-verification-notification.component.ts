@@ -27,7 +27,6 @@ import _includes from 'lodash-es/includes';
 
 import {
     AbstractComponent,
-    ConfigService,
     BodyClassService,
     EventService,
     IPushMessageParams,
@@ -55,7 +54,6 @@ export class EmailVerificationNotificationComponent extends AbstractComponent im
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IEmailVerificationNotificationCParams,
-        configService: ConfigService,
         protected userService: UserService,
         protected bodyClassService: BodyClassService,
         protected eventService: EventService,
@@ -63,7 +61,7 @@ export class EmailVerificationNotificationComponent extends AbstractComponent im
         protected timeLimitService: TimeLimitService,
         @Inject(WINDOW) protected window: Window,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

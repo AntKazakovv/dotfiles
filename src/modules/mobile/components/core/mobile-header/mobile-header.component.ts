@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     OnInit,
@@ -19,7 +18,6 @@ import {
     IMixedParams,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
-    ConfigService,
     EventService,
     LayoutService,
     ModalService,
@@ -43,9 +41,7 @@ export class MobileHeaderComponent
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMobileHeaderParams,
-        configService: ConfigService,
         protected router: UIRouter,
-        cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected stateService: StateService,
         protected eventService: EventService,
@@ -57,8 +53,6 @@ export class MobileHeaderComponent
                 injectParams: injectParams,
                 defaultParams: Params.defaultParams,
             },
-            configService,
-            cdr,
         );
     }
 

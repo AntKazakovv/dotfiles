@@ -1,7 +1,6 @@
 import {
     Component,
     OnInit,
-    ChangeDetectorRef,
     Inject,
     ChangeDetectionStrategy,
     inject,
@@ -12,7 +11,6 @@ import {takeUntil} from 'rxjs/operators';
 import {
     AbstractComponent,
     IMixedParams,
-    ConfigService,
 } from 'wlc-engine/modules/core';
 
 import {PwaNotificationController} from './controller/pwa-notification.controller';
@@ -30,9 +28,6 @@ export class PwaNotificationComponent extends AbstractComponent implements OnIni
     public override $params: Params.IPwaNotificationCParams;
 
     protected readonly pwaNotificationCtrl = inject(PwaNotificationController);
-
-    protected override readonly cdr = inject(ChangeDetectorRef);
-    protected override readonly configService = inject(ConfigService);
 
     constructor(
         @Inject('injectParams') protected params: Params.IPwaNotificationCParams,

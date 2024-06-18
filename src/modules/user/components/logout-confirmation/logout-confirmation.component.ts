@@ -2,15 +2,11 @@ import {
     Component,
     OnInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Inject,
     Input,
 } from '@angular/core';
 
-import {
-    AbstractComponent,
-    ConfigService,
-} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
 import {WlcModalComponent} from 'wlc-engine/standalone/core/components/modal/modal.component';
 
@@ -32,10 +28,8 @@ export class LogoutConfirmationComponent extends AbstractComponent implements On
         @Inject('injectParams') protected injectParams: Params.IConfirmationCParams,
         @Inject(WlcModalComponent) protected modal: WlcModalComponent,
         protected userService: UserService,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

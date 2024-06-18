@@ -1,7 +1,6 @@
 import {
     Component,
     OnInit,
-    ChangeDetectorRef,
     Inject,
     ChangeDetectionStrategy,
 } from '@angular/core';
@@ -25,7 +24,6 @@ import {
     IMixedParams,
     EventService,
     ITableCParams,
-    ConfigService,
     ActionService,
     DeviceType,
     ProfileType,
@@ -80,11 +78,9 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
 
     constructor(
         @Inject('injectParams') protected params: Params.ITransactionHistoryCParams,
-        cdr: ChangeDetectorRef,
         protected historyService: HistoryService,
         protected eventService: EventService,
         protected historyFilterService: HistoryFilterService,
-        configService: ConfigService,
         protected actionService: ActionService,
         protected translateService: TranslateService,
     ) {
@@ -92,7 +88,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
             <IMixedParams<Params.ITransactionHistoryCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override async ngOnInit(): Promise<void> {

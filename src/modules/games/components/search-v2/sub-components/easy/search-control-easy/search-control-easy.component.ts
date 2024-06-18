@@ -10,10 +10,7 @@ import {
     takeUntil,
 } from 'rxjs';
 
-import {
-    AbstractComponent,
-    ConfigService,
-} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core';
 import {SearchControllerEasy} from 'wlc-engine/modules/games/components/search-v2';
 import {ISearchFieldCParams} from 'wlc-engine/modules/games/components/search-field/search-field.params';
 
@@ -31,12 +28,11 @@ export class SearchControlEasyComponent extends AbstractComponent implements OnI
 
     constructor(
         @Inject (SearchControllerEasy) protected $searchControllerEasy: SearchControllerEasy,
-        configService: ConfigService,
     ) {
         super({
             injectParams: {},
             defaultParams: Params.defaultParams,
-        }, configService);
+        });
     }
 
     public override ngOnInit(): void {

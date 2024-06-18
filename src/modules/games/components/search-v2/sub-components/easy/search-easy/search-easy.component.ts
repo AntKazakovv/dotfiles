@@ -4,10 +4,7 @@ import {
     Inject,
 } from '@angular/core';
 
-import {
-    AbstractComponent,
-    ConfigService,
-} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core';
 import {ISearchEasyCParams} from './search-easy.params';
 import {
     SearchControllerEasy,
@@ -34,11 +31,10 @@ export class SearchEasyComponent extends AbstractComponent {
     constructor(
         @Inject('injectParams') protected injectParams: ISearchEasyCParams,
         @Inject (SearchControllerEasy) protected $searchControllerEasy: SearchControllerEasy,
-        configService: ConfigService,
     ) {
         super({
             injectParams: {},
             defaultParams: Params.defaultParams,
-        }, configService);
+        });
     }
 }

@@ -2,7 +2,6 @@ import {
     Component,
     OnInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     inject,
     Inject,
     Input,
@@ -12,10 +11,7 @@ import {
     BehaviorSubject,
 } from 'rxjs';
 
-import {
-    AbstractComponent,
-    ConfigService,
-} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services';
 import {DepWagerController} from 'wlc-engine/modules/finances/system/classes/dep-wager.controller';
 import {DepWagerModel} from '../../system/models/dep-wager.model';
@@ -44,10 +40,8 @@ export class DepWagerComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IDepWagerCParams,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {

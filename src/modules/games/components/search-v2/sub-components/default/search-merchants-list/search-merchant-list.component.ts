@@ -1,7 +1,6 @@
 import {
     Component,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Inject,
     HostBinding,
 } from '@angular/core';
@@ -9,10 +8,7 @@ import {
 import {Observable} from 'rxjs';
 import _includes from 'lodash-es/includes';
 
-import {
-    AbstractComponent,
-    ConfigService,
-} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core';
 import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
 import {openCloseAnimations} from 'wlc-engine/modules/games/system/animations/search.animations';
 import {SearchControllerDefault} from 'wlc-engine/modules/games/components/search-v2';
@@ -31,13 +27,11 @@ export class SearchMerchantListComponent extends AbstractComponent {
 
     constructor(
         @Inject (SearchControllerDefault) protected $searchControllerDefault: SearchControllerDefault,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
     ) {
         super({
             injectParams: {},
             defaultParams: Params.defaultParams,
-        }, configService, cdr);
+        });
     }
 
     public chooseMerchant(merchant?: MerchantModel): void {

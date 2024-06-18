@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     OnInit,
@@ -12,7 +11,6 @@ import {
 } from 'rxjs/operators';
 
 import {
-    ConfigService,
     IMixedParams,
     AbstractComponent,
 } from 'wlc-engine/modules/core';
@@ -40,14 +38,12 @@ export class InternalMailsNotifierComponent extends AbstractComponent implements
     constructor(
         @Inject('injectParams') protected params: Params.IInternalMailsNotifierCParams,
         protected internalMailsService: InternalMailsService,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
     ) {
         super(
             <IMixedParams<Params.IInternalMailsNotifierCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override ngOnInit(): void {

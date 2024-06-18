@@ -12,7 +12,6 @@ import {
 import {takeUntil} from 'rxjs';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 
 import * as Params from './checkbox-with-input.params';
 
@@ -32,9 +31,8 @@ export class CheckboxWithInputComponent extends AbstractComponent implements OnI
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ICheckboxWithInputCParams,
-        configService: ConfigService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

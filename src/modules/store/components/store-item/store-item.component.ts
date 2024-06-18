@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     Input,
@@ -15,7 +14,6 @@ import _isArray from 'lodash-es/isArray';
 import {
     AbstractComponent,
     IMixedParams,
-    ConfigService,
     ModalService,
     EventService,
     IButtonCParams,
@@ -68,8 +66,6 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
 
     constructor(
         @Inject('injectParams') protected params: Params.IStoreItemCParams,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
         protected modalService: ModalService,
         protected eventService: EventService,
         protected storeService: StoreService,
@@ -78,7 +74,7 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
             <IMixedParams<Params.IStoreItemCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override ngOnInit(): void {

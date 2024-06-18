@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     inject,
     Inject,
@@ -21,7 +20,6 @@ import _filter from 'lodash-es/filter';
 import {
     AbstractComponent,
     IMixedParams,
-    ConfigService,
     IPaginateOutput,
     EventService,
 } from 'wlc-engine/modules/core';
@@ -71,8 +69,6 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
 
     constructor(
         @Inject('injectParams') protected params: Params.IStoreListCParams,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
         protected storeService: StoreService,
         protected eventService: EventService,
         protected router: UIRouter,
@@ -81,7 +77,7 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
             <IMixedParams<Params.IStoreListCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override ngOnInit(): void {

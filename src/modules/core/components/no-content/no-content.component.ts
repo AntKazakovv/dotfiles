@@ -12,7 +12,6 @@ import {
 
 import {
     AbstractComponent,
-    ConfigService,
     EventService,
     GlobalHelper,
 } from 'wlc-engine/modules/core';
@@ -36,11 +35,10 @@ export class WlcNoContentComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.INoContentCParams,
-        configService: ConfigService,
         protected eventService: EventService,
         protected stateService: StateService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

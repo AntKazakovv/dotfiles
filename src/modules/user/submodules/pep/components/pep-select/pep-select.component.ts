@@ -1,6 +1,5 @@
 import {
     Component,
-    ChangeDetectorRef,
     ChangeDetectionStrategy,
     Inject,
     Input,
@@ -39,15 +38,11 @@ export class PepSelectComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: ISelectCParams,
-        cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected pepService: PepService,
         protected eventService: EventService,
     ) {
-        super({
-            injectParams,
-            defaultParams,
-        }, null, cdr);
+        super({injectParams, defaultParams});
     }
 
     public override ngOnInit(): void {

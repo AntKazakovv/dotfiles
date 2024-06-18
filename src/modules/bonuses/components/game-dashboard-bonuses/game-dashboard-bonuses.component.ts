@@ -1,7 +1,6 @@
 import {
     AfterViewInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     OnInit,
@@ -17,7 +16,6 @@ import _map from 'lodash-es/map';
 import {
     AbstractComponent,
     IMixedParams,
-    ConfigService,
     EventService,
     DeviceType,
     DeviceOrientation,
@@ -66,8 +64,6 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
 
     constructor(
         @Inject('injectParams') protected params: Params.IGameDashboardBonusesCParams,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
         protected eventService: EventService,
         protected actionService: ActionService,
         protected bonusesService: BonusesService,
@@ -76,7 +72,7 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
             <IMixedParams<Params.IGameDashboardBonusesCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
 
         this.bonusesListController = new BonusesListController(
             this.bonusesService,

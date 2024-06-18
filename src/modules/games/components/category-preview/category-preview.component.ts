@@ -1,13 +1,15 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     Input,
     OnInit,
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {ConfigService, GlobalHelper, IIndexing} from 'wlc-engine/modules/core';
+import {
+    GlobalHelper,
+    IIndexing,
+} from 'wlc-engine/modules/core';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
     GamesCatalogService,
@@ -44,14 +46,12 @@ export class CategoryPreviewComponent extends AbstractComponent implements OnIni
     constructor(
         @Inject('injectParams') protected injectParams: Params.ICategoryPreviewCParams,
         protected gamesCatalogService: GamesCatalogService,
-        configService: ConfigService,
         protected translateService: TranslateService,
-        cdr: ChangeDetectorRef,
     ) {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, configService, cdr);
+        });
     }
 
     public override async ngOnInit(): Promise<void> {

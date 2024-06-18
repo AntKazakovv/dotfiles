@@ -1,6 +1,5 @@
 import {
     Directive,
-    ChangeDetectorRef,
     OnInit,
 } from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
@@ -26,7 +25,6 @@ import {
     IExtProfile,
 } from 'wlc-engine/modules/core/system/interfaces/user.interface';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notification/notification.service';
@@ -60,14 +58,12 @@ export abstract class UserActionsAbstract<T> extends AbstractComponent implement
 
     constructor(
         protected componentParams: IMixedParams<T>,
-        configService: ConfigService,
         protected eventService: EventService,
         protected injectionService: InjectionService,
         protected logService: LogService,
         protected userService: UserService,
-        cdr?: ChangeDetectorRef,
     ) {
-        super(componentParams, configService, cdr);
+        super(componentParams);
     }
 
     public override ngOnInit(inlineParams?: IComponentParams<unknown, unknown, unknown>): void {

@@ -5,7 +5,6 @@ import {
     Input,
     ChangeDetectionStrategy,
     OnDestroy,
-    ChangeDetectorRef,
 } from '@angular/core';
 import {
     StateService,
@@ -22,7 +21,6 @@ import {
 
 import {
     AbstractComponent,
-    ConfigService,
     GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
@@ -64,13 +62,11 @@ export class UserNameComponent extends AbstractComponent implements OnInit, OnDe
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IUserNameCParams,
-        configService: ConfigService,
         protected userService: UserService,
         protected eventService: EventService,
         protected stateService: StateService,
-        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

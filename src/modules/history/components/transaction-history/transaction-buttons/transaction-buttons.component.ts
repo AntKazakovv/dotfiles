@@ -1,7 +1,6 @@
 import {
     Component,
     OnInit,
-    ChangeDetectorRef,
     Inject,
     HostBinding,
     ChangeDetectionStrategy,
@@ -13,7 +12,6 @@ import {
     EventService,
     IPushMessageParams,
     NotificationEvents,
-    ConfigService,
     LogService,
     GlobalHelper,
 } from 'wlc-engine/modules/core';
@@ -44,17 +42,15 @@ export class TransactionButtonsComponent extends AbstractComponent implements On
     constructor(
         @Inject('injectParams') protected params: Params.ITransactionButtonsParams,
         @Inject(WINDOW) protected window: Window,
-        cdr: ChangeDetectorRef,
         protected financesService: FinancesService,
         protected eventService: EventService,
-        configService: ConfigService,
         protected logService: LogService,
     ) {
         super(
             <IMixedParams<Params.ITransactionButtonsParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override ngOnInit(): void {

@@ -1,7 +1,6 @@
 import {
     Component,
     OnInit,
-    ChangeDetectorRef,
     Inject,
     ChangeDetectionStrategy,
     Input,
@@ -10,7 +9,6 @@ import {
 import {
     AbstractComponent,
     IMixedParams,
-    ConfigService,
     InjectionService,
     ModalService,
 } from 'wlc-engine/modules/core';
@@ -47,8 +45,6 @@ export class LatestBetsItemComponent extends AbstractComponent implements OnInit
 
     constructor(
         @Inject('injectParams') protected params: Params.ILatestBetsItemCParams,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
         protected injectionService: InjectionService,
         protected modalService: ModalService,
     ) {
@@ -56,7 +52,7 @@ export class LatestBetsItemComponent extends AbstractComponent implements OnInit
             <IMixedParams<Params.ILatestBetsItemCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override async ngOnInit(): Promise<void> {

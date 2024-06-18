@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     Input,
@@ -11,7 +10,6 @@ import {
 import {
     AbstractComponent,
     IMixedParams,
-    ConfigService,
 } from 'wlc-engine/modules/core';
 import {WheelService} from 'wlc-engine/modules/wheel/system/services';
 
@@ -31,15 +29,13 @@ export class ParticipantItemComponent extends AbstractComponent implements OnIni
 
     constructor(
         @Inject('injectParams') protected params: Params.IParticipantItemCParams,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
         protected wheelService: WheelService,
     ) {
         super(
             <IMixedParams<Params.IParticipantItemCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override ngOnInit(): void {

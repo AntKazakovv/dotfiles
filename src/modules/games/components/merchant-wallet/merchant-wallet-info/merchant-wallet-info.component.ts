@@ -5,10 +5,7 @@ import {
     Inject,
 } from '@angular/core';
 
-import {
-    AbstractComponent,
-    ConfigService,
-} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core';
 
 import * as Params from './merchant-wallet-info.params';
 
@@ -24,9 +21,8 @@ export class MerchantWalletInfoComponent extends AbstractComponent implements On
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMerchantWalletInfoCParams,
-        configService: ConfigService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

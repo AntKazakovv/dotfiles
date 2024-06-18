@@ -4,15 +4,11 @@ import {
     ChangeDetectionStrategy,
     Inject,
     Input,
-    ChangeDetectorRef,
 } from '@angular/core';
 
 import {takeUntil} from 'rxjs/operators';
 
-import {
-    AbstractComponent,
-    ConfigService,
-} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services';
 import {TaxModel} from 'wlc-engine/modules/finances/system/models';
 
@@ -37,11 +33,9 @@ export class TaxInfoComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITaxInfoCParams,
-        protected override configService: ConfigService,
-        protected override cdr: ChangeDetectorRef,
         protected financesService: FinancesService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {

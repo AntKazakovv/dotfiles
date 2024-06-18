@@ -8,7 +8,6 @@ import {
 
 import {
     AbstractComponent,
-    ConfigService,
     IMixedParams,
 } from 'wlc-engine/modules/core';
 
@@ -27,13 +26,12 @@ export class ProfileNoContentComponent extends AbstractComponent implements OnIn
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IProfileNoContentCParams,
-        configService: ConfigService,
     ) {
         super(
             <IMixedParams<Params.IProfileNoContentCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
-            }, configService);
+            });
     }
 
     public override ngOnInit(): void {

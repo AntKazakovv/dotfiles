@@ -5,7 +5,7 @@ import {
     OnInit,
 } from '@angular/core';
 
-import {ConfigService, GlobalHelper} from 'wlc-engine/modules/core';
+import {GlobalHelper} from 'wlc-engine/modules/core';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {
     AbstractComponent,
@@ -37,13 +37,12 @@ export class HistoryNameComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected params: Params.IHistoryNameParams,
         @Inject(WINDOW) private window: Window,
-        configService: ConfigService,
     ) {
         super(
             <IMixedParams<Params.IHistoryNameParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService);
+            });
     }
 
     public override ngOnInit(): void {

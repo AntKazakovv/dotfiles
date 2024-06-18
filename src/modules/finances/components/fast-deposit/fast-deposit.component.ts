@@ -4,7 +4,6 @@ import {
     ChangeDetectionStrategy,
     Inject,
     Input,
-    ChangeDetectorRef,
 } from '@angular/core';
 
 import {
@@ -18,7 +17,6 @@ import {
 
 import {
     AbstractComponent,
-    ConfigService,
     IModalConfig,
     ModalService,
 } from 'wlc-engine/modules/core';
@@ -51,12 +49,10 @@ export class FastDepositComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IFastDepositCParams,
-        protected override configService: ConfigService,
         protected financesService: FinancesService,
         protected modalService: ModalService,
-        protected override cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {

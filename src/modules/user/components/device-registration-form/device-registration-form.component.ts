@@ -2,7 +2,6 @@ import {
     Component,
     Inject,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     OnInit,
 } from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
@@ -19,7 +18,6 @@ import {
     ModalService,
     IPushMessageParams,
     NotificationEvents,
-    ConfigService,
     IFormWrapperCParams,
     ITimerCParams,
     DataService,
@@ -49,16 +47,14 @@ export class DeviceRegistrationFormComponent extends AbstractComponent implement
         protected userService: UserService,
         protected modalService: ModalService,
         protected eventService: EventService,
-        configService: ConfigService,
         protected logService: LogService,
         protected dataService: DataService,
-        cdr: ChangeDetectorRef,
         @Inject(WINDOW) private window: Window,
     ) {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, configService, cdr);
+        });
     }
 
     public override ngOnInit(): void {

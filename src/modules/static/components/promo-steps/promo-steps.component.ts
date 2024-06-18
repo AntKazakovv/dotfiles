@@ -4,7 +4,6 @@ import {
     OnInit,
     Input,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
 } from '@angular/core';
 
 import {RawParams} from '@uirouter/core';
@@ -16,7 +15,6 @@ import {
 
 import {
     AbstractComponent,
-    ConfigService,
     ActionService,
     DeviceType,
     ModalService,
@@ -62,14 +60,12 @@ export class PromoStepsComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IPromoStepsCParams,
-        configService: ConfigService,
         protected modalService: ModalService,
         protected staticService: StaticService,
-        cdr: ChangeDetectorRef,
         protected actionService: ActionService,
         protected eventService: EventService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {

@@ -10,7 +10,6 @@ import {
     ModalService,
     AbstractComponent,
     IMixedParams,
-    ConfigService,
 } from 'wlc-engine/modules/core';
 
 import * as Params from './promo-success.params';
@@ -33,14 +32,12 @@ export class PromoSuccessComponent
         @Inject('injectParams') protected injectParams: Params.IPromoSuccessCParams,
         protected modalService: ModalService,
         protected router: UIRouter,
-        configService: ConfigService,
-
     ) {
         super(
             <IMixedParams<Params.IPromoSuccessCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
-            }, configService);
+            });
     }
 
     public override ngOnInit(): void {

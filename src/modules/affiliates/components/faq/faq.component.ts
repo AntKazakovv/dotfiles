@@ -4,7 +4,6 @@ import {
     OnInit,
     Input,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
 } from '@angular/core';
 
 import _map from 'lodash-es/map';
@@ -16,7 +15,6 @@ import {
     HeightToggleAnimation,
     IAccordionData,
     IAccordionCParams,
-    ConfigService,
 } from 'wlc-engine/modules/core';
 import {
     StaticService,
@@ -41,11 +39,9 @@ export class FaqComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected injectParams: Params.IFaqCParams,
         protected staticService: StaticService,
-        cdr: ChangeDetectorRef,
         protected logService: LogService,
-        configService: ConfigService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {

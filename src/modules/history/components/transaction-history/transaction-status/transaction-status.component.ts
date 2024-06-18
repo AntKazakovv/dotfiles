@@ -1,7 +1,6 @@
 import {
     Component,
     OnInit,
-    ChangeDetectorRef,
     Inject,
     ChangeDetectionStrategy,
 } from '@angular/core';
@@ -20,13 +19,12 @@ export class TransactionStatusComponent extends AbstractComponent implements OnI
 
     constructor(
         @Inject('injectParams') protected params: Params.ITransactionStatusParams,
-        cdr: ChangeDetectorRef,
     ) {
         super(
             <IMixedParams<Params.ITransactionStatusParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, null, cdr);
+            });
     }
 
     public override async ngOnInit(): Promise<void> {

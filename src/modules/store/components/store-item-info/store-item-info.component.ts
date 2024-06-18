@@ -8,7 +8,6 @@ import {
 
 import {
     AbstractComponent,
-    ConfigService,
     IMixedParams,
     ModalService,
 } from 'wlc-engine/modules/core';
@@ -32,14 +31,13 @@ export class StoreItemInfoComponent extends AbstractComponent implements OnInit 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IStoreItemInfoCParams,
         @Inject(WlcModalComponent) protected modal: WlcModalComponent,
-        configService: ConfigService,
         protected modalService: ModalService,
     ) {
         super(
             <IMixedParams<Params.IStoreItemInfoCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
-            }, configService);
+            });
 
         this.isMultiWallet = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
     }

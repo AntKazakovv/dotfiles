@@ -1,7 +1,6 @@
 import {
     Component,
     OnInit,
-    ChangeDetectorRef,
     Inject,
     ChangeDetectionStrategy,
 } from '@angular/core';
@@ -23,7 +22,6 @@ import {
     EventService,
     ITableCParams,
     ISelectCParams,
-    ConfigService,
     ActionService,
     DeviceType,
     InjectionService,
@@ -77,11 +75,9 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
 
     constructor(
         @Inject('injectParams') protected params: Params.ITournamentsHistoryCParams,
-        cdr: ChangeDetectorRef,
         protected historyService: HistoryService,
         protected eventService: EventService,
         protected historyFilterService: HistoryFilterService,
-        configService: ConfigService,
         protected actionService: ActionService,
         protected injectionService: InjectionService,
     ) {
@@ -89,7 +85,7 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
             <IMixedParams<Params.ITournamentsHistoryCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override async ngOnInit(): Promise<void> {

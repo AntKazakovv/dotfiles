@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ElementRef,
     Inject,
@@ -22,7 +21,6 @@ import _find from 'lodash-es/find';
 import {
     AbstractComponent,
     ActionService,
-    ConfigService,
     DeviceType,
     EventService,
     IEvent,
@@ -74,9 +72,7 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected injectParams: Params.IVerificationCParams,
         protected actionService: ActionService,
-        configService: ConfigService,
         protected verificationService: VerificationService,
-        cdr: ChangeDetectorRef,
         protected eventService: EventService,
         protected translateService: TranslateService,
     ) {
@@ -84,7 +80,7 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
             <IMixedParams<Params.IVerificationCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override async ngOnInit(): Promise<void> {

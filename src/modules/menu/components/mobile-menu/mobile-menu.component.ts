@@ -3,7 +3,6 @@ import {
     Component,
     Inject,
     OnInit,
-    ChangeDetectorRef,
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 
@@ -19,7 +18,6 @@ import {
     AbstractComponent,
     IMixedParams,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {
     IMenuOptions,
@@ -53,8 +51,6 @@ export class MobileMenuComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMobileMenuCParams,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
         protected translateService: TranslateService,
         protected eventService: EventService,
         protected injectionService: InjectionService,
@@ -65,8 +61,6 @@ export class MobileMenuComponent extends AbstractComponent implements OnInit {
                 injectParams: injectParams,
                 defaultParams: Params.defaultParams,
             },
-            configService,
-            cdr,
         );
     }
 

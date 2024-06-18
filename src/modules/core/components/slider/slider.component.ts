@@ -1,6 +1,5 @@
 import {
     AfterViewInit,
-    ChangeDetectorRef,
     ChangeDetectionStrategy,
     Component,
     EventEmitter,
@@ -27,7 +26,6 @@ import {SwiperOptions} from 'swiper/types/swiper-options';
 import {NavigationOptions} from 'swiper/types/modules/navigation';
 
 import {
-    ConfigService,
     ActionService,
     TUnknownFunction,
 } from 'wlc-engine/modules/core';
@@ -94,14 +92,12 @@ export class SliderComponent extends AbstractComponent
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISliderCParams,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
         protected renderer: Renderer2,
         protected injector: Injector,
         protected actionService: ActionService,
         protected ngZone: NgZone,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

@@ -1,7 +1,6 @@
 import {
     Component,
     OnInit,
-    ChangeDetectorRef,
     Inject,
     ChangeDetectionStrategy,
 } from '@angular/core';
@@ -25,7 +24,6 @@ import _isBoolean from 'lodash-es/isBoolean';
 
 import {
     AbstractComponent,
-    ConfigService,
     EventService,
     IFormWrapperCParams,
     IInputCParams,
@@ -76,13 +74,11 @@ export class TransferComponent extends AbstractComponent implements OnInit {
         private modalService: ModalService,
         private transferService: TransferService,
         private translateService: TranslateService,
-        protected override configService: ConfigService,
-        protected override cdr: ChangeDetectorRef,
     ) {
         super(<IMixedParams<Params.ITransferCParams>>{
             injectParams: params,
             defaultParams: Params.defaultParams,
-        }, configService, cdr);
+        });
     }
 
     public override ngOnInit(): void {

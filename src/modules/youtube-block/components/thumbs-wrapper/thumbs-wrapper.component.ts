@@ -1,5 +1,4 @@
 import {
-    ChangeDetectorRef,
     ChangeDetectionStrategy,
     Component,
     AfterViewInit,
@@ -12,7 +11,6 @@ import {takeUntil} from 'rxjs/operators';
 
 import {
     AbstractComponent,
-    ConfigService,
     ModalService,
 } from 'wlc-engine/modules/core';
 
@@ -41,15 +39,10 @@ export class ThumbsWrapperComponent extends AbstractComponent implements AfterVi
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IThumbsWrapperCParams,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
         protected youtubeBlockService: YoutubeBlockService,
         protected modalService: ModalService,
     ) {
-        super({
-            injectParams,
-            defaultParams: Params.defaultParams,
-        }, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
         this.subscribeEvents();
     }
 

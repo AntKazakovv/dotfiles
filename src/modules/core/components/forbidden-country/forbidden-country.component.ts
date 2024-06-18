@@ -4,10 +4,7 @@ import {
     ChangeDetectionStrategy,
 } from '@angular/core';
 
-import {
-    AbstractComponent,
-    ConfigService,
-} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core';
 
 import * as Params from './forbidden-country.params';
 
@@ -22,11 +19,10 @@ export class ForbiddenCountryComponent extends AbstractComponent {
 
     constructor(
         @Inject('injectParams') protected params: Params.IForbiddenCountryParams,
-        configService: ConfigService,
     ) {
         super({
             injectParams: params,
             defaultParams: Params.defaultParams,
-        }, configService);
+        });
     }
 }

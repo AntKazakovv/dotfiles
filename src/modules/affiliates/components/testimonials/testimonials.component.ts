@@ -4,7 +4,6 @@ import {
     OnInit,
     Input,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     ViewChild,
     TemplateRef,
     ElementRef,
@@ -15,7 +14,6 @@ import _get from 'lodash-es/get';
 
 import {
     AbstractComponent,
-    ConfigService,
     ISlide,
     IWrapperCParams,
 } from 'wlc-engine/modules/core';
@@ -46,10 +44,8 @@ export class TestimonialsComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITestimonialsCParams,
         protected staticService: StaticService,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {

@@ -1,7 +1,6 @@
 import {
     AfterViewInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ElementRef,
     Inject,
@@ -40,7 +39,6 @@ import _set from 'lodash-es/set';
 import {HammerConfig} from 'wlc-engine/modules/core/system/config/hammer.config';
 import {
     ActionService,
-    ConfigService,
     DeviceType,
     DeviceOrientation,
     EventService,
@@ -188,18 +186,13 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
         @Inject('injectParams') protected injectParams: Params.IGameDashboardCParams,
         @Inject(DOCUMENT) protected document: Document,
         @Inject(WINDOW) protected window: Window,
-        cdr: ChangeDetectorRef,
         protected actionService: ActionService,
-        configService: ConfigService,
         protected renderer: Renderer2,
         protected cachingService: CachingService,
         protected eventService: EventService,
         protected gamesCatalogService: GamesCatalogService,
     ) {
-        super({
-            injectParams,
-            defaultParams: Params.defaultParams,
-        }, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {

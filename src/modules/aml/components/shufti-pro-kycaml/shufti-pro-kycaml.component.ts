@@ -2,7 +2,6 @@ import {TranslateService} from '@ngx-translate/core';
 import {
     AfterViewInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ElementRef,
     Inject,
@@ -23,7 +22,6 @@ import {
 
 import {
     AbstractComponent,
-    ConfigService,
     LogService,
     DomSanitizerService,
 } from 'wlc-engine/modules/core';
@@ -62,13 +60,8 @@ export class ShuftiProKycamlComponent extends AbstractComponent implements OnIni
         protected domSanitizerService: DomSanitizerService,
         protected translateService: TranslateService,
         protected logService: LogService,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
     ) {
-        super({
-            injectParams,
-            defaultParams: Params.defaultParams,
-        }, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {

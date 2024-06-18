@@ -8,7 +8,6 @@ import {
 import {
     AbstractComponent,
     IMixedParams,
-    ConfigService,
 } from 'wlc-engine/modules/core';
 
 import * as Params from './top-rated.params';
@@ -25,14 +24,12 @@ export class TopRatedComponent extends AbstractComponent {
     constructor(
         public elementRef: ElementRef,
         @Inject('injectParams') protected injectParams: Params.ITopRatedCParams,
-        configService: ConfigService,
     ) {
         super(
             <IMixedParams<Params.ITopRatedCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
             },
-            configService,
         );
     }
 }

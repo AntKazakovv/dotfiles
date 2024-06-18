@@ -4,7 +4,6 @@ import {
     ChangeDetectionStrategy,
     Inject,
     Input,
-    ChangeDetectorRef,
     ElementRef,
     Renderer2,
     AfterViewInit,
@@ -20,7 +19,6 @@ import _map from 'lodash-es/map';
 import {
     GlobalHelper,
     AbstractComponent,
-    ConfigService,
     InjectionService,
     ISlide,
     SliderHelper,
@@ -61,14 +59,12 @@ export class JackpotsSliderComponent extends AbstractComponent implements OnInit
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IJackpotsSliderCParams,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
         protected injectionService: InjectionService,
         protected renderer: Renderer2,
         @Inject(WINDOW) protected window: Window,
         private element: ElementRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {

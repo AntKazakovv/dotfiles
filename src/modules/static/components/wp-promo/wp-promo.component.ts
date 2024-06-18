@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     Input,
@@ -12,7 +11,6 @@ import {takeUntil} from 'rxjs';
 import {
     AbstractComponent,
     ActionService,
-    ConfigService,
     IMixedParams,
     LogService,
     ModalService,
@@ -46,8 +44,6 @@ export class WpPromoComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IWpPromoCParams,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected staticService: StaticService,
         protected logService: LogService,
@@ -59,8 +55,6 @@ export class WpPromoComponent extends AbstractComponent implements OnInit {
                 injectParams,
                 defaultParams: Params.defaultParams,
             },
-            configService,
-            cdr,
         );
     }
 

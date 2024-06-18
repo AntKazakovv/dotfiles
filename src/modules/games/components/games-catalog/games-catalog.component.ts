@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     OnInit,
@@ -14,7 +13,6 @@ import {
 import {
     AbstractComponent,
     ActionService,
-    ConfigService,
     DeviceType,
     GlobalHelper,
 } from 'wlc-engine/modules/core';
@@ -52,13 +50,11 @@ export class GamesCatalogComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected injectParams: Params.IGamesCatalogCParams,
         protected gamesCatalogService: GamesCatalogService,
-        configService: ConfigService,
         protected actionService: ActionService,
         protected translateService: TranslateService,
         protected transition: TransitionService,
-        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

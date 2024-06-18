@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
-    ConfigService,
     EventService,
     InjectionService,
     ModalService,
@@ -35,15 +34,11 @@ export class JackpotComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IJackpotCParams,
-        configService: ConfigService,
         protected injectionService: InjectionService,
         protected modalService: ModalService,
         protected eventService: EventService,
     ) {
-        super(
-            {injectParams, defaultParams: Params.defaultParams},
-            configService,
-        );
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public get gameImage(): string {

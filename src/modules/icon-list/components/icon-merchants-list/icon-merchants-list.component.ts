@@ -3,12 +3,10 @@ import {
     Inject,
     OnInit,
     Component,
-    ChangeDetectorRef,
     ChangeDetectionStrategy,
 } from '@angular/core';
 
 import {
-    ConfigService,
     InjectionService,
     ColorThemeService,
 } from 'wlc-engine/modules/core';
@@ -41,12 +39,10 @@ export class IconMerchantsListComponent extends IconListAbstract<Params.IIconMer
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IIconMerchantsListCParams,
-        configService: ConfigService,
         colorThemeService: ColorThemeService,
         protected injectionService: InjectionService,
-        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, colorThemeService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams}, colorThemeService);
     }
 
     public  override async ngOnInit(): Promise<void> {

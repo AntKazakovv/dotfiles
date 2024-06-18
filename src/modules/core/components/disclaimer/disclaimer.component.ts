@@ -8,7 +8,6 @@ import {
 import {TranslateService} from '@ngx-translate/core';
 import {takeUntil} from 'rxjs/operators';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core';
 import {defaultParams, IDisclaimerCParams} from './disclaimer.params';
 
 
@@ -37,10 +36,9 @@ export class DisclaimerComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected params: IDisclaimerCParams,
-        configService: ConfigService,
         protected translateService: TranslateService,
     ) {
-        super({injectParams: params, defaultParams}, configService);
+        super({injectParams: params, defaultParams});
     }
 
     public override ngOnInit(): void {

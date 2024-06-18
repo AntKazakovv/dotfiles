@@ -8,7 +8,6 @@ import {
 
 import {IconListAbstract} from 'wlc-engine/modules/icon-list/system/classes/icon-list-abstract.class';
 import {IconModel} from 'wlc-engine/modules/icon-list/system/models/icon-list-item.model';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {ColorThemeService} from 'wlc-engine/modules/core';
 import * as Params from './icon-safety-list.params';
 
@@ -25,10 +24,9 @@ export class IconSafetyListComponent extends IconListAbstract<Params.IIconSafety
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IIconSafetyListCParams,
-        configService: ConfigService,
         colorThemeService: ColorThemeService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, colorThemeService);
+        super({injectParams, defaultParams: Params.defaultParams}, colorThemeService);
     }
 
     public override ngOnInit(): void {

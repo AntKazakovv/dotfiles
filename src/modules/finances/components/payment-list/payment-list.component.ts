@@ -4,7 +4,6 @@ import {
     Inject,
     Input,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     TemplateRef,
     ElementRef,
     AfterViewInit,
@@ -43,7 +42,6 @@ import {
     GlobalHelper,
     ListAppearanceAnimation,
     HeightToggleAnimation,
-    ConfigService,
     ITooltipCParams,
     IWrapperCParams,
     ColorThemeService,
@@ -151,18 +149,16 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     constructor(
         @Inject('injectParams') protected injectParams: Params.IPaymentListCParams,
         @Inject(WINDOW) protected window: Window,
-        cdr: ChangeDetectorRef,
         protected injector: Injector, //added for custom-hook
         protected financesService: FinancesService,
         protected eventService: EventService,
         colorThemeService: ColorThemeService,
         protected modalService: ModalService,
         protected actionService: ActionService,
-        configService: ConfigService,
         private hostRef: ElementRef,
         protected logService: LogService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, colorThemeService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams}, colorThemeService);
     }
 
     public override ngOnInit(): void {

@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     HostBinding,
     Inject,
@@ -28,7 +27,6 @@ import _random from 'lodash-es/random';
 import {
     AbstractComponent,
     IMixedParams,
-    ConfigService,
     EventService,
     IData,
     ICheckboxCParams,
@@ -114,9 +112,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
 
     constructor(
         @Inject('injectParams') protected params: Params.IBonusesListCParams,
-        configService: ConfigService,
         protected bonusesService: BonusesService,
-        cdr: ChangeDetectorRef,
         protected eventService: EventService,
         protected translateService: TranslateService,
         protected actionService: ActionService,
@@ -126,7 +122,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
             <IMixedParams<Params.IBonusesListCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
 
         this.bonusesListController = new BonusesListController(
             this.bonusesService,

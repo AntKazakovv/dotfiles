@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     Input,
@@ -14,7 +13,6 @@ import _filter from 'lodash-es/filter';
 
 import {
     AbstractComponent,
-    ConfigService,
     EventService,
     IMixedParams,
     IPaginateOutput,
@@ -61,14 +59,12 @@ export class AchievementListComponent extends AbstractComponent implements OnIni
         private achievementsService: AchievementsService,
         private eventService: EventService,
         private router: UIRouter,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
     ) {
         super(
             <IMixedParams<Params.IAchievementListCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr,
+            },
         );
     }
 

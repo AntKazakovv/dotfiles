@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     Input,
@@ -15,7 +14,6 @@ import _assign from 'lodash-es/assign';
 import _isNil from 'lodash-es/isNil';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {CheckBoxTexts} from 'wlc-engine/modules/core/system/classes/checkbox-text.class';
 import {IBaseConfig} from 'wlc-engine/modules/core/system/interfaces';
@@ -48,13 +46,11 @@ export class CheckboxComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ICheckboxCParams,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected checkBoxTexts: CheckBoxTexts,
         protected eventService: EventService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

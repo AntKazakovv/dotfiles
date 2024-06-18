@@ -7,10 +7,7 @@ import {
     HostBinding,
 } from '@angular/core';
 
-import {
-    AbstractComponent,
-    ConfigService,
-} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core';
 import {CurrenciesInfo} from 'wlc-engine/modules/core/constants';
 import {ITournamentPrize} from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
 
@@ -38,9 +35,8 @@ export class TournamentPrizesRowComponent extends AbstractComponent implements O
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITournamentPrizesRowCParams,
-        configService: ConfigService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
         if ('history' in this.injectParams) this.prizes = this.injectParams.wins;
     }
 

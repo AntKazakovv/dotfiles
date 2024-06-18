@@ -2,7 +2,6 @@ import {
     Component,
     OnInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Inject,
     Input,
 } from '@angular/core';
@@ -22,7 +21,6 @@ import _isEqual from 'lodash-es/isEqual';
 
 import {
     AbstractComponent,
-    ConfigService,
     EventService,
     FilesService,
     IPushMessageParams,
@@ -63,15 +61,13 @@ export class NicknameIconEditComponent extends AbstractComponent implements OnIn
     constructor(
         @Inject('injectParams') protected injectParams: Params.INicknameIconEditCParams,
         @Inject(WlcModalComponent) protected modal: WlcModalComponent,
-        configService: ConfigService,
         protected fileService: FilesService,
         protected userService: UserService,
         protected eventService: EventService,
         protected validationService: ValidationService,
         protected logService: LogService,
-        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {

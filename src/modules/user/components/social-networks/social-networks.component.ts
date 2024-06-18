@@ -4,7 +4,6 @@ import {
     ChangeDetectionStrategy,
     Inject,
     Input,
-    ChangeDetectorRef,
 } from '@angular/core';
 
 import _map from 'lodash-es/map';
@@ -14,7 +13,6 @@ import _merge from 'lodash-es/merge';
 
 import {
     AbstractComponent,
-    ConfigService,
     ISocialNetwork,
     EventService,
     InjectionService,
@@ -57,14 +55,12 @@ export class SocialNetworksComponent extends AbstractComponent implements OnInit
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISocialNetworksCParams,
-        configService: ConfigService,
         protected eventService: EventService,
         protected injectionService: InjectionService,
         protected gameLauncherService: GameLauncherService,
-        cdr: ChangeDetectorRef,
         @Inject(WINDOW) protected window: Window,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {

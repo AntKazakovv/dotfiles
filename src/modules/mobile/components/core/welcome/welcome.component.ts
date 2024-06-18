@@ -2,7 +2,6 @@ import {
     Component,
     Inject,
     OnInit,
-    ChangeDetectorRef,
     ChangeDetectionStrategy,
 } from '@angular/core';
 import {StateService} from '@uirouter/core';
@@ -15,7 +14,6 @@ import {
 import {
     AbstractComponent,
     IMixedParams,
-    ConfigService,
     EventService,
     ModalService,
     InjectionService,
@@ -47,11 +45,9 @@ export class WelcomeComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected params: Params.IWelcomeCParams,
-        cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected eventService: EventService,
         protected stateService: StateService,
-        configService: ConfigService,
         protected injectionService: InjectionService,
         protected userService: UserService,
     ) {
@@ -59,7 +55,7 @@ export class WelcomeComponent extends AbstractComponent implements OnInit {
             <IMixedParams<Params.IWelcomeCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr,
+            },
         );
     }
 

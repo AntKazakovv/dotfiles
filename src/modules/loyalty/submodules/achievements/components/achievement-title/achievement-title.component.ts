@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     OnDestroy,
@@ -11,7 +10,6 @@ import {
 import {
     AbstractComponent,
     IMixedParams,
-    ConfigService,
     EventService,
 } from 'wlc-engine/modules/core';
 import {
@@ -35,16 +33,14 @@ export class AchievementTitleComponent extends AbstractComponent implements OnIn
 
     constructor(
         @Inject('injectParams') protected params: Params.IAchievementTitleCParams,
-        cdr: ChangeDetectorRef,
-        configService: ConfigService,
-        private eventService: EventService,
-        private achievementsService: AchievementsService,
+        protected eventService: EventService,
+        protected achievementsService: AchievementsService,
     ) {
         super(
             <IMixedParams<Params.IAchievementTitleCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override ngOnInit(): void {

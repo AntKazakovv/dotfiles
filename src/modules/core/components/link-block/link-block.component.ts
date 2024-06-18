@@ -4,7 +4,6 @@ import {
     Input,
     Inject,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
 } from '@angular/core';
 import {UIRouter} from '@uirouter/core';
 
@@ -18,7 +17,6 @@ import {
     InteractiveTextService,
     ModalService,
 } from 'wlc-engine/modules/core';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 
 import * as Params from './link-block.params';
 
@@ -48,14 +46,9 @@ export class LinkBlockComponent
         protected eventService: EventService,
         protected modalService: ModalService,
         protected router: UIRouter,
-        cdr: ChangeDetectorRef,
         protected interactiveTextService: InteractiveTextService,
-        configService: ConfigService,
     ) {
-        super({
-            injectParams,
-            defaultParams: Params.defaultParams,
-        }, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {

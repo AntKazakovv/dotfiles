@@ -1,5 +1,4 @@
 import {
-    ChangeDetectorRef,
     Component,
     Inject,
     OnInit,
@@ -18,7 +17,6 @@ import {
 import {takeUntil} from 'rxjs/operators';
 
 import {
-    ConfigService,
     EventService,
     LogService,
     TimerComponent,
@@ -76,10 +74,8 @@ export class SmsVerificationComponent extends UserActionsAbstract<Params.ISmsVer
         @Inject('injectParams') protected injectParams: Params.ISmsVerificationCParams,
         userService: UserService,
         eventService: EventService,
-        configService: ConfigService,
         logService: LogService,
         injectionService: InjectionService,
-        cdr: ChangeDetectorRef,
         protected smsService: SmsService,
         protected modalService: ModalService,
         protected dataService: DataService,
@@ -87,7 +83,7 @@ export class SmsVerificationComponent extends UserActionsAbstract<Params.ISmsVer
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, configService, eventService, injectionService, logService, userService, cdr);
+        }, eventService, injectionService, logService, userService);
     }
 
     public override ngOnInit(): void {

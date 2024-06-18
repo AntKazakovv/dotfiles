@@ -2,7 +2,6 @@ import {
     Component,
     OnInit,
     OnDestroy,
-    ChangeDetectorRef,
     Inject,
     ChangeDetectionStrategy,
 } from '@angular/core';
@@ -25,7 +24,6 @@ import {
     EventService,
     ITableCParams,
     ISelectCParams,
-    ConfigService,
     ActionService,
     DeviceType,
     TSortDirection,
@@ -75,18 +73,16 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit, On
 
     constructor(
         @Inject('injectParams') protected params: Params.IBetHistoryCParams,
-        cdr: ChangeDetectorRef,
         protected betService: BetService,
         protected eventService: EventService,
         protected historyFilterService: HistoryFilterService,
-        configService: ConfigService,
         protected actionService: ActionService,
     ) {
         super(
             <IMixedParams<Params.IBetHistoryCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService, cdr);
+            });
     }
 
     public override ngOnInit(): void {

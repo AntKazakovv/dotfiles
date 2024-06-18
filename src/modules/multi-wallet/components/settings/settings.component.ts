@@ -1,6 +1,5 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     Inject,
     Input,
@@ -8,12 +7,8 @@ import {
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
 
-import {
-    AbstractComponent,
-    ConfigService,
-} from 'wlc-engine/modules/core';
-
 import {CurrencyName} from 'wlc-engine/modules/currency/system/interfaces/currency.interface';
+import {AbstractComponent} from 'wlc-engine/modules/core';
 import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
 
 import * as Params from 'wlc-engine/modules/multi-wallet/components/settings/settings.params';
@@ -31,15 +26,8 @@ export class SettingsComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISettingsParams,
-        protected override cdr: ChangeDetectorRef,
-        protected override configService: ConfigService,
     ) {
-        super(
-            {
-                injectParams,
-                defaultParams: Params.defaultParams,
-            },
-            configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {

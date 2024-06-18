@@ -3,7 +3,6 @@ import {
     OnInit,
     Input,
     ViewEncapsulation,
-    ChangeDetectorRef,
     OnChanges,
     Inject,
     ChangeDetectionStrategy,
@@ -29,12 +28,11 @@ export class BetradarNoContentComponent extends AbstractComponent implements OnI
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IBetradarNoContentCParams,
-        cdr: ChangeDetectorRef,
     ) {
         super({
             injectParams: injectParams || {},
             defaultParams: Params.defaultParams,
-        }, null, cdr);
+        });
     }
 
     public override ngOnInit(): void {

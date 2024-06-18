@@ -1,14 +1,10 @@
-import {
-    ChangeDetectorRef,
-    Directive,
-} from '@angular/core';
+import {Directive} from '@angular/core';
 import {RawParams} from '@uirouter/core';
 
 import {takeUntil} from 'rxjs';
 
 import {
     AbstractComponent,
-    ConfigService,
     GlobalHelper,
     IMixedParams,
     IFromLog,
@@ -84,11 +80,9 @@ export abstract class IconListAbstract<T> extends AbstractComponent {
 
     constructor(
         protected componentParams: IMixedParams<T>,
-        configService: ConfigService,
         protected colorThemeService: ColorThemeService,
-        cdr?: ChangeDetectorRef,
     ) {
-        super(componentParams, configService, cdr);
+        super(componentParams);
     }
 
     /**

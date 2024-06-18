@@ -2,7 +2,6 @@ import {
     Component,
     OnInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Inject,
     Input,
 } from '@angular/core';
@@ -19,7 +18,6 @@ import {
 
 import {
     AbstractComponent,
-    ConfigService,
     EventService,
     IPushMessageParams,
     NotificationEvents,
@@ -48,16 +46,14 @@ export class EmailFieldComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IEmailFieldCParams,
-        configService: ConfigService,
         protected userService: UserService,
         protected eventService: EventService,
         protected timeLimitService: TimeLimitService,
-        cdr: ChangeDetectorRef,
     ) {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, configService, cdr);
+        });
     }
 
     public override ngOnInit(): void {

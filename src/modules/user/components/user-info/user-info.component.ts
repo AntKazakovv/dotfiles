@@ -5,7 +5,6 @@ import {
     Input,
     ChangeDetectionStrategy,
     ElementRef,
-    ChangeDetectorRef,
 } from '@angular/core';
 import {
     animate,
@@ -16,10 +15,7 @@ import {
 } from '@angular/animations';
 import {StateService} from '@uirouter/core';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {
-    ConfigService,
-    EventService,
-} from 'wlc-engine/modules/core/system/services';
+import {EventService} from 'wlc-engine/modules/core/system/services';
 import {
     AppType,
     IWrapperCParams,
@@ -66,13 +62,11 @@ export class UserInfoComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IUserInfoCParams,
-        configService: ConfigService,
         protected elementRef: ElementRef,
         protected stateService: StateService,
         protected eventService: EventService,
-        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {

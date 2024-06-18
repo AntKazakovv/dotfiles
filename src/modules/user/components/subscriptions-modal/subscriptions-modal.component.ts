@@ -16,7 +16,6 @@ import {
 
 import {
     AbstractComponent,
-    ConfigService,
     ICheckboxCParams,
     IMixedParams,
     ModalService,
@@ -47,13 +46,12 @@ export class SubscriptionsModalComponent extends AbstractComponent implements On
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISubscriptionsModalParams,
         @Inject('agreeSubscriptions') protected agreeSubscriptions$: Subject<Params.SubscriptionsType>,
-        configService: ConfigService,
     ) {
         super(
             <IMixedParams<Params.ISubscriptionsModalParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
-            }, configService);
+            });
     }
 
     public override ngOnInit(): void {

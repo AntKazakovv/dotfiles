@@ -10,12 +10,15 @@ import {
 } from '@angular/core/testing';
 
 import {Subject} from 'rxjs';
+import {MockService} from 'ng-mocks';
 
+import {ConfigService} from 'wlc-engine/modules/core';
 import {InternalMailModel} from 'wlc-engine/modules/internal-mails/system/models/internal-mail.model';
 import {
     InternalMailsService,
 } from 'wlc-engine/modules/internal-mails/system/services/internal-mails/internal-mails.service';
 import {ProfileMessagePreviewComponent} from './mail-preview.component';
+
 import * as Params from './mail-preview.params';
 
 describe('ProfileMessagePreviewComponent', (): void => {
@@ -61,6 +64,7 @@ describe('ProfileMessagePreviewComponent', (): void => {
             providers: [
                 {provide: InternalMailsService, useValue: internalMailsServiceStub},
                 {provide: 'injectParams', useValue: injectParams},
+                {provide: ConfigService, useValue: MockService(ConfigService)},
             ],
         });
 

@@ -2,7 +2,6 @@ import {
     Component,
     OnInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Inject,
     Input,
 } from '@angular/core';
@@ -14,7 +13,6 @@ import {TranslateService} from '@ngx-translate/core';
 
 import {
     AbstractComponent,
-    ConfigService,
     DataService,
     ModalService,
     EventService,
@@ -47,15 +45,13 @@ export class KycQuestionnaireInfoComponent extends AbstractComponent implements 
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IKycQuestionnaireInfoCParams,
-        configService: ConfigService,
-        cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected dataService: DataService,
         protected eventService: EventService,
         protected translateService: TranslateService,
         protected shuftyProKycamlService: ShuftiProKycamlService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {
