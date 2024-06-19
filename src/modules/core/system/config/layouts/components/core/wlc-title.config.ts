@@ -133,7 +133,7 @@ export namespace wlcTitle {
         name: 'core.wlc-title',
         params: {
             customMod: ['profile'],
-            mainText: gettext('Bets history'),
+            mainText: gettext('Betting history'),
             wlcElement: 'header_bet-history',
         },
     };
@@ -151,7 +151,7 @@ export namespace wlcTitle {
         name: 'core.wlc-title',
         params: {
             customMod: ['profile'],
-            mainText: gettext('Tournaments history'),
+            mainText: gettext('Tournament history'),
             wlcElement: 'header_history',
         },
     };
@@ -202,7 +202,7 @@ export namespace wlcTitle {
         name: 'core.wlc-title',
         params: {
             customMod: ['profile'],
-            mainText: gettext('Transactions history'),
+            mainText: gettext('Transaction history'),
             wlcElement: 'header_transactions-history',
         },
         display: {
@@ -223,7 +223,7 @@ export namespace wlcTitle {
         name: 'core.wlc-title',
         params: {
             customMod: ['profile'],
-            mainText: gettext('Bonuses history'),
+            mainText: gettext('Bonus history'),
             wlcElement: 'header_transactions-history',
         },
     };

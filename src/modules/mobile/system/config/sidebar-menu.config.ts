@@ -199,7 +199,7 @@ export const wlcSidebarMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
     },
     'sidebar-menu:bonuses-history': {
-        name: gettext('Bonuses history'),
+        name: gettext('Bonus history'),
         type: 'sref',
         auth: true,
         icon: 'bonuses-history',
@@ -212,7 +212,7 @@ export const wlcSidebarMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
     },
     'sidebar-menu:bets-history': {
-        name: gettext('Bets history'),
+        name: gettext('Betting history'),
         type: 'sref',
         auth: true,
         icon: 'bets-history',
@@ -225,7 +225,7 @@ export const wlcSidebarMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
     },
     'sidebar-menu:transactions-history': {
-        name: gettext('Transactions history'),
+        name: gettext('Transaction history'),
         type: 'sref',
         auth: true,
         icon: 'transaction-history',
@@ -238,7 +238,7 @@ export const wlcSidebarMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
     },
     'sidebar-menu:tournaments-history': {
-        name: gettext('Tournaments history'),
+        name: gettext('Tournament history'),
         type: 'sref',
         auth: true,
         icon: 'tournaments-history',

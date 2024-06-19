@@ -54,7 +54,7 @@ export const $profileMobileAppLayouts: IPanelsConfig = {
         },
     },
     'app.profile.loyalty-bonuses.history': {
-        title: gettext('Bonuses history'),
+        title: gettext('Bonus history'),
         extends: 'app.profile',
         sections: {
             'nav-header': sectionsLib.header.bonusesHistory,
@@ -83,7 +83,7 @@ export const $profileMobileAppLayouts: IPanelsConfig = {
         },
     },
     'app.profile.loyalty-tournaments.history': {
-        title: gettext('Tournaments history'),
+        title: gettext('Tournament history'),
         extends: 'app.profile',
         sections: {
             'nav-header': sectionsLib.header.tournamentsHistory,
@@ -122,7 +122,7 @@ export const $profileMobileAppLayouts: IPanelsConfig = {
         },
     },
     'app.profile.cash.transactions': {
-        title: gettext('Transactions history'),
+        title: gettext('Transaction history'),
         extends: 'app.profile',
         sections: {
             'nav-header': sectionsLib.header.transactionsHistory,
@@ -130,7 +130,7 @@ export const $profileMobileAppLayouts: IPanelsConfig = {
         },
     },
     'app.profile.gamblings.bets': {
-        title: gettext('Bets history'),
+        title: gettext('Betting history'),
         extends: 'app.profile',
         sections: {
             'nav-header': sectionsLib.header.betsHistory,

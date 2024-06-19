@@ -331,7 +331,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     },
 
     'profile-menu:bonuses-history': {
-        name: gettext('Bonuses history'),
+        name: gettext('Bonus history'),
         type: 'sref',
         icon: 'bonuses-history',
         class: 'bonuses-history',
@@ -344,7 +344,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
     },
     'profile-first-menu:bonuses-history': {
-        name: gettext('Bonuses history'),
+        name: gettext('Bonus history'),
         type: 'sref',
         icon: 'bonuses-history',
         class: 'bonuses-history',
@@ -469,7 +469,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     },
 
     'profile-menu:tournaments-history': {
-        name: gettext('Tournaments history'),
+        name: gettext('Tournament history'),
         type: 'sref',
         icon: 'tournaments-history',
         class: 'tournaments-history',
@@ -482,7 +482,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         wlcElement: 'link_tournaments-history',
     },
     'profile-first-menu:tournaments-history': {
-        name: gettext('Tournaments history'),
+        name: gettext('Tournament history'),
         type: 'sref',
         icon: 'tournaments-history',
         class: 'tournaments-history',
@@ -770,7 +770,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     },
 
     'profile-menu:transaction-history': {
-        name: gettext('Transactions history'),
+        name: gettext('Transaction history'),
         type: 'sref',
         icon: 'transaction-history',
         class: 'transaction-history',
@@ -783,7 +783,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
     },
     'profile-first-menu:transaction-history': {
-        name: gettext('Transactions history'),
+        name: gettext('Transaction history'),
         type: 'sref',
         icon: 'transaction-history',
         class: 'transaction-history',
@@ -825,7 +825,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     },
 
     'profile-menu:bets-history': {
-        name: gettext('Bets history'),
+        name: gettext('Betting history'),
         type: 'sref',
         icon: 'bets-history',
         class: 'bonus-history',
@@ -838,7 +838,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
     },
     'profile-first-menu:bets-history': {
-        name: gettext('Bets history'),
+        name: gettext('Betting history'),
         type: 'sref',
         icon: 'bets-history',
         class: 'bonus-history',
