@@ -159,7 +159,7 @@ describe('LootboxModalComponent', (): void => {
 
         expect(component.title).toEqual('Loot box');
         expect(_trim(nativeElement.querySelector(`.${defaultParams.class}__desc`).textContent))
-            .toEqual('Press the "Spin" button to randomly select one of the bonuses');
+            .toEqual('Click the Spin button to randomly select one of the bonuses');
         expect(component.slides.length).toBe(defaultParams.totalSlides);
         expect(component.btnText).toBe('Spin');
         expect(component.btnDisabled).toBeFalse();
