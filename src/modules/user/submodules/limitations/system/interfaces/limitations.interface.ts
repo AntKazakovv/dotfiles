@@ -1,4 +1,5 @@
 import {IIndexing} from 'wlc-engine/modules/core';
+import {ActivityResultModel} from 'wlc-engine/modules/user/submodules/limitations/system/models/activity-result.model';
 
 export type TLimitationType =
     | 'MaxDepositSum'
@@ -45,4 +46,17 @@ export interface IResultSelfExclusion {
     result: {
         loggedIn: string;
     }
+}
+
+export interface IActivityResultData {
+    /**
+     * Key in IIndexing - wallet name
+     */
+    wallets?: IIndexing<IActivityResult> | ActivityResultModel[];
+    fromTime: string;
+}
+export interface IActivityResult {
+    Wins: string;
+    Deposits: string;
+    Losses: string;
 }

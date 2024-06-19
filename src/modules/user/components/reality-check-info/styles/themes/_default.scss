@@ -1,42 +1,11 @@
 .wlc-reality-check-info--theme-default:host {
-    padding: 0 38px 38px 38px;
+    padding: ef.get-value($themeDefault, 'padding');
 
     .wlc-reality-check-info {
 
-        &-title {
-            @include text.get-text-style(ef.get-value($themeDefault, 'infoTextFont'), ef.get-value($themeDefault, 'infoTextFontColor'));
-            margin: ef.get-value($themeDefault, 'titleMargin');
-            text-align: ef.get-value($themeDefault, 'titleAlign');
-        }
-
         &-time {
+            width: ef.get-value($themeDefault, 'timeWidth');
             margin: ef.get-value($themeDefault, 'timeMargin');
-        }
-
-        &-result {
-            @include text.get-text-style(ef.get-value($themeDefault, 'resultTextFont'), ef.get-value($themeDefault, 'resultTextFontColor'));
-            margin: ef.get-value($themeDefault, 'resultMargin');
-
-            &-head,
-            &-value {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            &-head {
-                @include text.get-text-style(ef.get-value($themeDefault, 'resultHeadTextFont'), ef.get-value($themeDefault, 'resultHeadTextFontColor'));
-                padding: ef.get-value($themeDefault, 'resultHeadPadding');
-            }
-
-            &-value {
-                border-radius: ef.get-value($themeDefault, 'resultValueBorderRadius');
-                padding: ef.get-value($themeDefault, 'resultValuePadding');
-                background: ef.get-value($themeDefault, 'resultValueBackground');
-            }
-
-            &-item {
-                text-align: ef.get-value($themeDefault, 'resultItemTextAlign');
-            }
         }
 
         &-footer {
@@ -47,6 +16,56 @@
 
             .wlc-checkbox {
                 margin: ef.get-value($themeDefault, 'footerCheckboxMargin');
+            }
+        }
+    }
+
+    ::ng-deep {
+
+        .wlc-table {
+
+            &__content {
+                background: ef.get-value($themeDefault, 'tableBackground');
+                border-radius: ef.get-value($themeDefault, 'tableRadius');
+            }
+
+            &--theme-default.wlc-table.wlc-table--table[class] {
+                min-height: ef.get-value($themeDefault, 'tableMinHeight');
+
+                .wlc-table {
+
+                    &__row--head[class] .wlc-table__cell {
+                        @include text.get-text-style(
+                            ef.get-value($themeDefault, 'headTableTextStyle'),
+                            null
+                        );
+                    }
+
+                    &__cell {
+                        @include text.get-text-style(
+                            ef.get-value($themeDefault, 'tableTextStyle'),
+                            null
+                        );
+                    }
+
+                    &__row[class]:last-child {
+                        border-bottom: ef.get-value($themeDefault, 'tableRowBorderBottom');
+                    }
+                }
+
+                @include bm.hover {
+
+                    .wlc-table__row[class]:last-child:not(.wlc-table__row--head) {
+
+                        :last-child {
+                            border-bottom-right-radius: ef.get-value($themeDefault, 'tableRadius');
+                        }
+
+                        :first-child {
+                            border-bottom-left-radius: ef.get-value($themeDefault, 'tableRadius');
+                        }
+                    }
+                }
             }
         }
     }

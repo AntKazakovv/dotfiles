@@ -23,13 +23,18 @@ import {
     IPushMessageParams,
     NotificationEvents,
     InjectionService,
+    IIndexing,
 } from 'wlc-engine/modules/core';
+
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {
+    IActivityResult,
+    IActivityResultData,
     IResultSelfExclusion,
     TLimitationType,
 } from 'wlc-engine/modules/user/submodules/limitations/system/interfaces/limitations.interface';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
+import {ActivityResultModel} from 'wlc-engine/modules/user/submodules/limitations/system/models/activity-result.model';
 import {IMGAConfig} from 'wlc-engine/modules/core/components/license/license.params';
 
 export interface ISelfExclusion {
@@ -50,13 +55,6 @@ export interface ISelfExclusion {
 
 export interface ISelfExclusionData extends IData {
     data: ISelfExclusion;
-}
-
-export interface IRealityCheckerResult {
-    FromTime?: string;
-    Deposits?: number;
-    Losses?: number;
-    Wins?: number;
 }
 
 export type TResponseType = 'already' | 'queue' | 'immediately';
@@ -194,11 +192,11 @@ export class LimitationService {
      *
      * @return {Promise}
      */
-    public async getRealityCheck(from: number): Promise<IRealityCheckerResult> {
+    public async getRealityCheck(from: number): Promise<IActivityResultData> {
         try {
-            const result = await this.dataService.request<IData>('limit/realityCheck', {
-                from: dayjs(from).add(-1 * dayjs().utcOffset(), 'minute').format('YYYY-MM-DD HH:mm:ss'),
-            });
+            const result: IData<IActivityResultData> = await this.dataService.request<IData>(
+                'limit/realityCheck', 
+                {from: dayjs(from).add(-1 * dayjs().utcOffset(), 'minute').format('YYYY-MM-DD HH:mm:ss')});
             return result.data;
         } catch (error) {
             //
@@ -365,10 +363,9 @@ export class LimitationService {
      * @return {Promise}
      */
     protected async processRealityCheck(): Promise<void> {
-        const now = new Date().getTime();
+        const now: number = new Date().getTime();
         if (now > (this.lastCheck + this.checkPeriod)) {
-            const result = await this.getRealityCheck(this.loginTime);
-            this.intervalChecker?.unsubscribe();
+            const result: IActivityResultData = await this.getRealityCheck(this.loginTime);
             this.intervalChecker = null;
             this.userService ??= await this.injectionService.getService<UserService>('user.user-service');
             this.modalService.showModal({
@@ -377,11 +374,13 @@ export class LimitationService {
                 withoutPadding: true,
                 componentName: 'user.wlc-reality-check-info',
                 componentParams: {
+                    fromTime: result.fromTime,
+                    tableConfig: {
+                        rows: this.createWalletsResults(<IIndexing<IActivityResult>>result.wallets),
+                    },
                     theme:
                         this.configService.get<IMGAConfig>('$modules.user.components["wlc-reality-check-info"].theme')??
                         'default',
-                    ...result,
-                    currency: this.userService.userProfile.originalCurrency,
                 },
                 closeBtnVisibility: true,
                 showFooter: false,
@@ -411,6 +410,28 @@ export class LimitationService {
                 },
             });
         }
+    }
+
+    private createWalletsResults(items?: IIndexing<IActivityResult>): ActivityResultModel[] {
+        const wallets: ActivityResultModel[] = [];
+
+        if (Array.isArray(items)) {
+            wallets.push(new ActivityResultModel(
+                {service: 'LimitationService', method: 'processRealityCheck'},
+                null,
+                this.userService.userProfile.selectedCurrency),
+            );
+        } else {
+            for (const currency in items) {
+                wallets.push(new ActivityResultModel(
+                    {service: 'LimitationService', method: 'processRealityCheck'},
+                    items[currency],
+                    currency,
+                ));
+            }
+        }
+
+        return wallets;
     }
 
     private showModalUpdateLimit(result: IData<ISelfExclusionSingleData>, exclusion?: ILimitationExclusion): void {

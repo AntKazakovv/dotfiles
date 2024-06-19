@@ -15,6 +15,7 @@ import {UserService} from 'wlc-engine/modules/user/system/services/user/user.ser
 import {
     AbstractComponent,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {ITableCParams} from 'wlc-engine/modules/core';
 
 import * as Params from './reality-check-info.params';
 
@@ -60,6 +61,10 @@ export class RealityCheckInfoComponent extends AbstractComponent implements OnIn
         }
     }
 
+    public get tableConfig(): ITableCParams {
+        return this.$params.tableConfig;
+    }
+
     public close(): void {
         if (this.modalService.getActiveModal('reality-check-info')) {
             this.modalService.hideModal('reality-check-info');
@@ -82,7 +87,7 @@ export class RealityCheckInfoComponent extends AbstractComponent implements OnIn
     }
 
     protected getDateFromString(): Date {
-        const dateGroups = this.$params.FromTime.match(this.dateRegExp).groups;
+        const dateGroups = this.$params.fromTime.match(this.dateRegExp).groups;
         const dateInfo = {
             year: Number(dateGroups.y),
             month: Number(dateGroups.m) - 1,
