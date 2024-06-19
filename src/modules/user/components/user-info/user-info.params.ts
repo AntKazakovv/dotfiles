@@ -112,7 +112,7 @@ export const stickyThemeParams: IUserInfoCParams = {
                                 class: 'wlc-btn-profile',
                                 buttonParams: {
                                     common: {
-                                        text: gettext('My Profile'),
+                                        text: gettext('Profile'),
                                         sref: 'app.profile.dashboard',
                                         iconPath: '/wlc/icons/icons_new/user-icon.svg',
                                     },
@@ -158,7 +158,7 @@ export const kioskParams: IUserInfoCParams = {
                                 class: 'wlc-btn-profile',
                                 buttonParams: {
                                     common: {
-                                        text: gettext('My Profile'),
+                                        text: gettext('Profile'),
                                         sref: 'app.profile.main.info',
                                         iconPath: '/wlc/icons/icons_new/user-icon.svg',
                                     },

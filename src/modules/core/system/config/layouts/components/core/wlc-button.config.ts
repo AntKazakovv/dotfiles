@@ -224,7 +224,7 @@ export namespace wlcButton {
             class: 'wlc-btn-profile',
             buttonParams: {
                 common: {
-                    text: gettext('My Profile'),
+                    text: gettext('Profile'),
                     sref: 'app.profile.dashboard',
                     iconPath: '/wlc/icons/icons_new/user-icon.svg',
                 },
