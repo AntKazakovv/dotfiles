@@ -1,6 +1,4 @@
-import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
-import {TranslateModule} from '@ngx-translate/core';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {SportsbookComponent} from './components/sportsbook/sportsbook.component';
 import {BetradarDailyMatchComponent} from './components/betradar-daily-match/betradar-daily-match.component';
@@ -39,8 +37,6 @@ export const services = {
         BetradarPopularEventsComponent,
     ],
     imports: [
-        CommonModule,
-        TranslateModule,
         CoreModule,
     ],
     providers: [
