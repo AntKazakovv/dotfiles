@@ -1,7 +1,5 @@
-import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {UIRouterModule} from '@uirouter/angular';
-import {TranslateModule} from '@ngx-translate/core';
 
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {IconListComponent} from 'wlc-engine/modules/icon-list/components/icon-list/icon-list.component';
@@ -34,9 +32,7 @@ export const components = {
     ],
     imports: [
         UIRouterModule,
-        CommonModule,
         CoreModule,
-        TranslateModule,
     ],
     exports: [
         IconListComponent,
