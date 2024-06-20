@@ -117,12 +117,16 @@ def change_version(action, v):
 def parse_version(version):
     v = []
     for k in version.split("."):
-        if k.find("-rc") != -1:
-            v.append(int(k.replace("-rc", "")))
+        if "-rc" in k:
+            k, rc = k.split("-rc")
+            v.append(int(k))
             v.append("rc")
-        elif k.find("-hotfix") != -1:
-            v.append(int(k.replace("-hotfix", "")))
+            v.append(int(rc))
+        elif "-hotfix" in k:
+            k, hotfix = k.split("-hotfix")
+            v.append(int(k))
             v.append("hotfix")
+            v.append(int(hotfix))
         else:
             v.append(int(k))
     while len(v) < 3:
