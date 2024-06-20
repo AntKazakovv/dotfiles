@@ -1,7 +1,5 @@
-import {CommonModule} from '@angular/common';
 import {UIRouterModule} from '@uirouter/angular';
 import {NgModule} from '@angular/core';
-import {TranslateModule} from '@ngx-translate/core';
 
 import {
     BannersService,
@@ -66,11 +64,9 @@ export const services = {
         BetInfoComponent,
     ],
     imports: [
-        CommonModule,
         UIRouterModule,
         CoreModule,
         StaticModule,
-        TranslateModule,
         CompilerModule,
     ],
     providers: [
