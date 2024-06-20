@@ -3,20 +3,20 @@
 import os
 import re
 import json
-import git
 import subprocess
 import datetime
 import time
 from colorama import init, Fore
 
 temp_folder = "temp/repo/"
+lang_repo = "git@wlcgitlab.egamings.com:wlc/wlc-engine-translate.git"
 
 projects = [
     {
         # Devcasino
         "id": "1",
         "repository": "git@wlcgitlab.egamings.com:wlcdevcasino/web.git",
-        "branches": ["develop", "master", "scr1-profile", "scr1-var1", "scr1-var2", "scr1-mc1", "scr1-lic1", "scr1-kiosk", "scr1-aff", "scr2-var1", "scr2-var2", "scr2-mc1", "scr2-lic1", "scr2-kiosk", "scr3-wolf1", "scr4-license"],
+        "branches": ["develop", "master", "scr1-profile", "scr1-var1", "scr1-var2", "scr1-mc1", "scr1-lic1", "scr1-kiosk", "scr1-aff", "scr2-var1", "scr2-var2", "scr2-mc1", "scr2-lic1", "scr2-kiosk", "scr3-wolf1"],
     },
     {
         # Kiosk
@@ -30,268 +30,255 @@ projects = [
         "repository": "git@wlcgitlab.egamings.com:sportsbook/enginesportsbooks.git",
         "branches": ["develop"],
     },
-    {
-        # Catcasino
-        "id": "4",
-        "repository": "git@wlcgitlab.egamings.com:tkcatcasino/web.git",
-        "branches": ["scr0-pretest"],
-    },
 ]
 
 
 # Вычисление версии движка
 def change_version(action, v):
-    if action == "release":
-        if not (len(v) > 3 and v[3] == "rc"):
-            v[1] = v[1] + 1
-            v[2] = 0
-        return v[0:3]
 
-    elif action == "rc":
-        rc = 1
-        if len(v) > 4 and v[3] == "rc":
-            rc = v[4] + 1
-        else:
-            v[1] = v[1] + 1
-            v[2] = 0
-        v = v[0:3]
-        v[2] = str(v[2]) + "-rc"
-        v.append(rc)
-        return v
+    match action:
 
-    elif action == "major":
-        v[0] = v[0] + 1
-        for i in range(1, len(v)):
-            v[i] = 0
-        return v[0:3]
+        case "release":
+            if not (len(v) > 3 and v[3] == "rc"):
+                v[1] = v[1] + 1
+                v[2] = 0
+            return v[0:3]
 
-    elif action == "patch":
-        if not (len(v) > 3 and v[3] == "rc"):
-            v[2] = v[2] + 1
-        return v[0:3]
-
-    elif action == "catcasino":
-        print(
-            Fore.YELLOW
-            + f"Current cats engine based on {v[1]} default engine version"
-            + Fore.RESET
-        )
-        v[1] = input(
-            Fore.YELLOW
-            + "What new tag will cats be based on (example 54): "
-            + Fore.RESET
-        )
-        v[2] = 0
-        return v
-
-    elif action == "hotfix":
-        hotfix = 1
-        if len(v) > 4 and v[3] == "hotfix":
-            hotfix = v[4] + 1
-        v = v[0:3]
-        v[2] = str(v[2]) + "-hotfix"
-        v.append(hotfix)
-        return v
-
-    elif action == "deltag":
-        if len(v) > 4 and v[3] == "rc":
-            rc = v[4] - 1
+        case "rc":
+            rc = 1
+            if len(v) > 4 and v[3] == "rc":
+                rc = v[4] + 1
+            else:
+                v[1] = v[1] + 1
+                v[2] = 0
             v = v[0:3]
             v[2] = str(v[2]) + "-rc"
             v.append(rc)
             return v
 
-        elif len(v) > 4 and v[3] == "hotfix":
-            hotfix = v[4] - 1
+        case "major":
+            v[0] = v[0] + 1
+            for i in range(1, len(v)):
+                v[i] = 0
+            return v[0:3]
+
+        case "patch":
+            if not (len(v) > 3 and v[3] == "rc"):
+                v[2] = v[2] + 1
+            return v[0:3]
+
+        case "catcasino":
+            print(
+                Fore.YELLOW
+                + f"Current cats engine based on {v[1]} default engine version"
+                + Fore.RESET
+            )
+            v[1] = input(
+                Fore.YELLOW
+                + "What new tag will cats be based on (example 54): "
+                + Fore.RESET
+            )
+            v[2] = 0
+            return v
+
+        case "hotfix":
+            hotfix = 1
+            if len(v) > 4 and v[3] == "hotfix":
+                hotfix = v[4] + 1
             v = v[0:3]
             v[2] = str(v[2]) + "-hotfix"
             v.append(hotfix)
             return v
 
-        else:
-            v[1] = v[1] - 1
-            v[2] = 0
-            return v[0:3]
+        case "deltag":
+            if len(v) > 4 and v[3] == "rc":
+                rc = v[4] - 1
+                v = v[0:3]
+                v[2] = str(v[2]) + "-rc"
+                v.append(rc)
+                return v
+
+            elif len(v) > 4 and v[3] == "hotfix":
+                hotfix = v[4] - 1
+                v = v[0:3]
+                v[2] = str(v[2]) + "-hotfix"
+                v.append(hotfix)
+                return v
+
+            else:
+                v[1] = v[1] - 1
+                v[2] = 0
+                return v[0:3]
+
+        case _:
+            error_message()
 
 
-# Парсинг версии движка
 def parse_version(version):
     v = []
     for k in version.split("."):
-        if k.find("-rc") != -1:
-            v.append(int(k.replace("-rc", "")))
+        if "-rc" in k:
+            k, rc = k.split("-rc")
+            v.append(int(k))
             v.append("rc")
-        elif k.find("-hotfix") != -1:
-            v.append(int(k.replace("-hotfix", "")))
+            v.append(int(rc))
+        elif "-hotfix" in k:
+            k, hotfix = k.split("-hotfix")
+            v.append(int(k))
             v.append("hotfix")
+            v.append(int(hotfix))
         else:
             v.append(int(k))
     while len(v) < 3:
         v.append(0)
-    return v
-
-
-# Проверка пути
-def check_folder(project_folder=None):
-    if project_folder is None:
-        folder = ""
-    else:
-        folder = project_folder
-    return folder
+    return v[:3]
 
 
 # Получение текущей даты
 def get_date():
-    today = datetime.date.today()
-    date = str("{:4d}{:02d}{:02d}".format(today.year, today.month, today.day))
-    return date
+    return datetime.date.today().strftime("%Y%m%d")
 
 
 # Сообщение о ложном выборе
 def error_message():
-    print(
-        Fore.RED
-        + """\n
-        I don't know this kind of magic. Enter the word in brackets. Let's try again...
-        """
-        + Fore.RESET
-    )
+    print(Fore.RED + """\n I don't know this kind of magic. Enter the word in brackets. Let's try again...""" + Fore.RESET)
 
 
 # Получение содержимого package.json
 def get_json(project_folder=None):
-    folder = check_folder(project_folder)
+    if project_folder:
+        file_path = os.path.join(project_folder, "package.json")
+    else:
+        file_path = "package.json"
 
-    with open(f"{folder}package.json", "r") as j:
+    with open(file_path, "r") as j:
         json_data = json.load(j)
+
     return json_data
 
 
 # Получение версии движка / переводов / проектов в package.json
 def get_version(project=None):
-    if project is None:
-        json_data = get_json()
-        version = json_data["version"]
+    json_data = get_json() if project is None else get_json(temp_folder)
+    version = json_data.get("version")
+
+    if project == "translate":
         return version
+
+    elif project == "project":
+        version = json_data["dependencies"].get("@egamings/wlc-engine")
+        return version
+
     else:
-        json_data = get_json(temp_folder)
+        translate = json_data["dependencies"].get("@egamings/wlc-engine-translate")
+        return version, translate
 
-        if project == "translate":
-            version = json_data["version"]
-            return version
-
-        elif project == "project":
-            version = json_data["dependencies"]["@egamings/wlc-engine"]
-            return version
 
 
 # Обновление версии / движка / переводов / проектов в package.json
-def set_version(version, project=None):
+def set_version(project, version):
     print(Fore.YELLOW + "Updating version into the package.json ..." + Fore.RESET)
 
-    if project is None:
-        json_data = get_json()
-        print(
-            Fore.YELLOW + "Current engine version:", json_data["version"] + Fore.RESET
-        )
-        json_data["version"] = version
+    match project:
 
-        with open("package.json", "w") as j:
-            json.dump(json_data, j, indent=4)
-        print(Fore.GREEN + "New engine version:", json_data["version"] + Fore.RESET)
+        case "engine":
+            json_data = get_json()
+            print(Fore.YELLOW + f"Current engine version: {json_data["version"]}" + Fore.RESET)
 
-    else:
-        json_data = get_json(temp_folder)
+            json_data.update({"version": version})
+            with open("package.json", "w") as j:
+                json.dump(json_data, j, indent=4)
+            print(Fore.YELLOW + f"New engine version: {json_data["version"]}" + Fore.RESET)
 
-        if project == "translate":
-            print(
-                Fore.YELLOW + "Current translate version:",
-                json_data["version"] + Fore.RESET,
-            )
-            json_data["version"] = version
+        case "langpack":
+            json_data = get_json()
+            print(Fore.YELLOW + f"Current language version: {json_data["dependencies"].get("@egamings/wlc-engine-translate")}" + Fore.RESET)
 
+            json_data["dependencies"].update({"@egamings/wlc-engine-translate": version})
+            with open("package.json", "w") as j:
+                json.dump(json_data, j, indent=4)
+            print(Fore.YELLOW + f"New language version: {json_data["dependencies"].get("@egamings/wlc-engine-translate")}" + Fore.RESET)
+
+        case "translate":
+            json_data = get_json(temp_folder)
+            print(Fore.YELLOW + "Current translate version:", json_data["version"] + Fore.RESET)
+
+            json_data.update({"version": version})
             with open(f"{temp_folder}package.json", "w") as j:
                 json.dump(json_data, j, indent=4)
-            print(
-                Fore.GREEN + "New translate version:", json_data["version"] + Fore.RESET
-            )
+            print(Fore.GREEN + "New translate version:", json_data["version"] + Fore.RESET)
 
-        elif project == "project":
-            print(
-                Fore.YELLOW + "Current lock engine version:",
-                json_data["dependencies"]["@egamings/wlc-engine"] + Fore.RESET,
-            )
-            json_data["dependencies"]["@egamings/wlc-engine"] = version
+        case "project":
+            json_data = get_json(temp_folder)
+            print(Fore.YELLOW + "Current lock engine version:", json_data["dependencies"].get("@egamings/wlc-engine") + Fore.RESET)
 
+            json_data["dependencies"].update({"@egamings/wlc-engine": version})
             with open(f"{temp_folder}package.json", "w") as j:
                 json.dump(json_data, j, indent=4)
-            print(
-                Fore.GREEN + "New lock engine version:",
-                json_data["dependencies"]["@egamings/wlc-engine"] + Fore.RESET,
-            )
+            print(Fore.GREEN + "New lock engine version:", json_data["dependencies"].get("@egamings/wlc-engine") + Fore.RESET)
+
+        case _:
+            error_message()
+
+
+
+# Проверка на соответствие шаблону
+def check_format(version):
+    patterns = {
+        "rc": r"^\d+\.\d+\.\d+-rc\.\d+$",
+        "hotfix": r"^\d+\.\d+\.\d+-hotfix\.\d+$",
+        "release": r"^\d+\.\d+\.\d+$"
+    }
+
+    for format, pattern in patterns.items():
+        if re.search(pattern, version):
+            return format
+
+    return Fore.RED + "Version format error" + Fore.RESET
+
+
+# Получение списка удаленных референсов
+def get_remote_ref_list(repo_path=None):
+    command = ["git", "ls-remote", "--exit-code", "--refs", "--sort=-version:refname", "--tags", "origin", "refs/tags/1.*"]
+    if repo_path:
+        command.insert(-2, repo_path)
+    return subprocess.check_output(command, text=True).splitlines()
 
 
 # Получение локального тега движка
 def get_local_tag():
-    local_tags = subprocess.check_output(["git", "tag", "-l", "1.*", "--sort=-version:refname", "--format=%(refname)"], text=True).split("\n")
-    local_tag = local_tags[0].split("/")[-1]
-    return local_tag
+    local_tags = subprocess.check_output(["git", "tag", "-l", "1.*", "--sort=-version:refname", "--format=%(refname)"], text=True).splitlines()
+    return local_tags[0].split("/")[-1] if local_tags else None
+
+# Получение последнего remote тега
+def get_latest_remote_tag(tag_type, repo_path=None):
+    remote_ref_list = get_remote_ref_list(repo_path)
+    tags = [line.split("/")[-1] for line in remote_ref_list if check_format(line.split("/")[-1]) == tag_type]
+    return tags[0] if tags else None
 
 
-# Получение удаленного тега движка
-def get_remote_tag():
-    remote_tags = subprocess.check_output(["git", "ls-remote", "--exit-code", "--refs", "--sort=-version:refname", "--tags", "origin", "refs/tags/1.*"], text=True).split("\n")
-    remote_tag = remote_tags[0].split("/")[-1]
-    return remote_tag
+# Проверка на наличие тега. Возвращает имя тега, которое не занято.
+def tag_duplicate_checking(action, tag_to_find, repo_path=None):
+    remote_ref_list = get_remote_ref_list(repo_path)
+    remote_tag_list = [ref.split("/")[-1] for ref in remote_ref_list]
+
+    while tag_to_find in remote_tag_list:
+        free_tag_name = ".".join(map(str, change_version(action, parse_version(tag_to_find))))
+
+    return free_tag_name
 
 
-# Проверка на наличие тега
-def tag_duplicate_checking(action, tag_to_find):
-    remote_ref_list = list(
-        filter(None, subprocess.check_output(["git", "ls-remote", "--exit-code", "--refs", "--sort=-version:refname", "--tags", "origin"], text=True).split("\n"))
-    )
-
-    for ref in remote_ref_list:
-        remote_tag_list = [ref.split("/")[-1] for ref in remote_ref_list]
-
-    tag_exists = any(tag_to_find in tag for tag in remote_tag_list)
-
-    if tag_exists:
-        while tag_to_find in remote_tag_list:
-            tag_to_find = ".".join(
-                [str(k) for k in change_version(action, parse_version(tag_to_find))]
-            )
-
-    new_tag = tag_to_find
-
-    return new_tag
-
-
-# Создание тэгов
+# Создание нового тега
 def make_tag(action, branch=None):
-    print(Fore.YELLOW + "Making new tag..." + Fore.RESET)
-    if branch == None:
-        new_tag = ".".join([str(k) for k in change_version(action, parse_version(get_version()))])
-
+    print(Fore.YELLOW + "Making new tag..." + {Fore.RESET})
+    if branch is None:
+        new_tag = ".".join(map(str, change_version(action, parse_version(get_version()))))
         if action == "hotfix":
             new_tag = tag_duplicate_checking(action, new_tag)
-
     else:
-        if branch == "develop":
-            base_tag = "test-" + get_date()
-        elif branch == "master":
-            base_tag = "prod-" + get_date()
-
-        try:
-            tag = (
-                list(
-                    filter(None, subprocess.check_output(["git", "ls-remote", "--exit-code", "--refs", "--sort=-version:refname", "--tags", "origin", f"{base_tag}.*"], cwd=temp_folder, text=True).split("\n")))[-1].split("/")[-1].split(".")
-            )
-            tag[1] = str(int(tag[1]) + 1)
-            new_tag = ".".join(tag)
-        except subprocess.CalledProcessError:
-            tag = None
-            new_tag = base_tag + ".1"
+        base_tag = f"{'test' if branch == 'develop' else 'prod'}-{get_date()}"
+        new_tag = base_tag + ".1"
+        new_tag = tag_duplicate_checking(action, new_tag, projects[0].get("repository"))
 
     print(Fore.GREEN + f"Done! New tag is {new_tag}" + Fore.RESET)
     return new_tag
@@ -303,11 +290,7 @@ def del_local_tag():
     local_tag = get_local_tag()
 
     if local_tag == engine_version:
-        agree = input(
-            Fore.YELLOW
-            + f"Do you want to delete local tag {local_tag}? (y/n):"
-            + Fore.RESET
-        )
+        agree = input(Fore.YELLOW + f"Do you want to delete local tag {local_tag}? (y/n):" + Fore.RESET)
 
         if agree.lower() == "y":
             subprocess.run(["git", "tag", "-d", local_tag])
@@ -321,11 +304,7 @@ def del_local_tag():
             start()
 
     else:
-        agree = input(
-            Fore.YELLOW
-            + f"Engine version {engine_version} and local tag {local_tag} are different. Do you realy want to delete local tag {local_tag}? (y/n):"
-            + Fore.RESET
-        )
+        agree = input(Fore.YELLOW + f"Engine version {engine_version} and local tag {local_tag} are different. Do you really want to delete local tag {local_tag}? (y/n):" + Fore.RESET)
 
         if agree.lower() == "y":
             print(Fore.GREEN + "As you wish Master!" + Fore.RESET)
@@ -341,14 +320,10 @@ def del_local_tag():
 # Удаление удаленного тега движка
 def del_remote_tag():
     engine_version = get_version()
-    remote_tag = get_remote_tag()
+    remote_tag = get_latest_remote_tag()
 
     if remote_tag == engine_version:
-        agree = input(
-            Fore.YELLOW
-            + f"Do you want to delete remote tag {remote_tag}? (y/n):"
-            + Fore.RESET
-        )
+        agree = input(Fore.YELLOW + f"Do you want to delete remote tag {remote_tag}? (y/n):" + Fore.RESET)
 
         if agree.lower() == "y":
             subprocess.run(["git", "push", "--delete", "origin", remote_tag])
@@ -360,51 +335,23 @@ def del_remote_tag():
             start()
 
     else:
-        agree = input(
-            Fore.YELLOW
-            + f"Engine version {engine_version} and remote tag {remote_tag} are different. Do you realy want to delete remote tag {remote_tag}? (y/n):"
-            + Fore.RESET
-        )
+        agree = input(Fore.YELLOW + f"Engine version {engine_version} and remote tag {remote_tag} are different. Do you really want to delete remote tag {remote_tag}? (y/n):" + Fore.RESET)
 
         if agree.lower() == "y":
             print(Fore.GREEN + "As you wish Master!" + Fore.RESET)
             subprocess.run(["git", "push", "--delete", "origin", remote_tag])
             print(Fore.GREEN + f"Remote tag {remote_tag} deleted!" + Fore.RESET)
         elif agree.lower() == "n":
-            print(
-                Fore.GREEN
-                + f"Tag {remote_tag} still on remote repository."
-                + Fore.RESET
-            )
+            print(Fore.GREEN + f"Tag {remote_tag} still on remote repository." + Fore.RESET)
         else:
             error_message()
             start()
-
-
-# Проверка на соответствие шаблону
-def check_format(version):
-    release_pattern = r"^\d+\.\d+\.\d+$"
-    rc_pattern = r"^\d+\.\d+\.\d+-rc\.\d+$"
-
-    if re.match(rc_pattern, version):
-        format = "rc"
-        return format
-
-    elif re.match(release_pattern, version):
-        format = "release"
-        return format
-
-    else:
-        format = "error"
-        return format
-
-    # TODO необходимо дописать функцию проверки
 
 
 # Клонирование проекта
-def clone_project(project_repo):
-    print(Fore.YELLOW + f"Clone project {project_repo}" + Fore.RESET)
-    subprocess.run(["git", "clone", project_repo, temp_folder])
+def clone_project(repo_path):
+    print(Fore.YELLOW + f"Clone project {repo_path}" + Fore.RESET)
+    subprocess.run(["git", "clone", repo_path, temp_folder])
     subprocess.run(["git", "fetch"], cwd=temp_folder)
     print(Fore.GREEN + "Done" + Fore.RESET)
 
@@ -449,7 +396,7 @@ def clear_npm_cache():
 
 # Обновление npm зависимостей
 def update_npm(project_folder=None):
-    folder = check_folder(project_folder)
+    folder = "" if project_folder is None else project_folder
 
     print(Fore.YELLOW + "Delete npm dependencies" + Fore.RESET)
     subprocess.run(["rm", "-rf", f"{folder}package-lock.json", f"{temp_folder}node_modules/"])
@@ -463,7 +410,7 @@ def update_npm(project_folder=None):
 # Чекаут npm зависимостей
 def get_depends(branch):
     print(Fore.YELLOW + "Getting dependencies from branch 'develop'" + Fore.RESET)
-    subprocess.run(["git", "checkout", f"remotes/origin/{branch}", "package.json", "package-lock.json", "composer.json", "composer.lock"], cwd=temp_folder)
+    subprocess.run([ "git", "switch", f"remotes/origin/{branch}", "package.json", "package-lock.json", "composer.json", "composer.lock"], cwd=temp_folder)
     print(Fore.GREEN + "Done" + Fore.RESET)
 
 
@@ -480,8 +427,8 @@ def update_composer():
 
 # Клонирование файлов зависимостей на текущую ветку
 def small_update_branch(branch):
-    print(Fore.YELLOW + "Checkout branch" + Fore.RESET)
-    subprocess.run(["git", "checkout", branch], cwd=temp_folder)
+    print(Fore.YELLOW + "Switch the branch" + Fore.RESET)
+    subprocess.run(["git", "switch", branch], cwd=temp_folder)
     print(Fore.GREEN + "Done" + Fore.RESET)
 
     get_depends("develop")
@@ -491,50 +438,32 @@ def small_update_branch(branch):
 # Проверка ветки на соответствие с веткой для действия
 def check_branch(branch, project_folder=None):
     print(Fore.YELLOW + f"Check project branch..." + Fore.RESET)
-    current_branch = subprocess.check_output(["git", "rev-parse", "--abbrev-ref", "HEAD"], cwd=project_folder, text=True)[0:-1]
+    current_branch = subprocess.check_output(["git", "rev-parse", "--abbrev-ref", "HEAD"], cwd=project_folder, text=True).strip()
 
     if not branch == current_branch:
-        change_branch = input(
-            Fore.YELLOW
-            + "The branch does not match the process. Switch to the right one? (y/n):"
-
-        )
+        change_branch = input(Fore.YELLOW + "The branch does not match the process. Switch to the right one? (y/n):")
         if change_branch.lower() == "y":
-            subprocess.run(["git", "checkout", branch], cwd=project_folder)
+            subprocess.run(["git", "switch", branch], cwd=project_folder, check=True)
         elif change_branch.lower() == "n":
             print(Fore.YELLOW + "As you wish Master!" + Fore.RESET)
         else:
             error_message()
             start()
     else:
-        print(
-            Fore.GREEN
-            + f"The branch '{branch}' is correct! Continue the process..."
-            + Fore.RESET
-        )
+        print(Fore.GREEN + f"The branch '{branch}' is correct! Continue the process..." + Fore.RESET)
 
 
 # Создание хотфикс ветки
 def make_hotfix(action):
     date = get_date()
-    ticket = input(
-        Fore.YELLOW
-        + "Insert hotfix ticket number please (example 430178): "
-        + Fore.RESET
-    )
-    engine_version = input(
-        Fore.YELLOW + "Insert engine version for hotfix (example 1.39.0): " + Fore.RESET
-    )
+    ticket = input(Fore.YELLOW + "Insert hotfix ticket number please (example 430178): " + Fore.RESET)
+    engine_version = input(Fore.YELLOW + "Insert engine version for hotfix (example 1.39.0): " + Fore.RESET)
     branch = "hotfix-" + date + "-" + ticket
 
-    subprocess.run(["git", "checkout", "-b", branch, engine_version])
+    subprocess.run(["git", "switch", "-c", branch, engine_version])
     print(Fore.GREEN + "Hotfix branch created!" + Fore.RESET)
 
-    changed = input(
-        Fore.YELLOW
-        + "When you add all the changes to the branch, enter 'y': "
-        + Fore.RESET
-    )
+    changed = input(Fore.YELLOW + "When you add all the changes to the branch, enter 'y': " + Fore.RESET)
 
     if changed.lower() == "y":
         new_tag = make_tag(action)
@@ -563,108 +492,100 @@ def make_hotfix(action):
 
 
 # Создание релиза переводов
-def make_translate_release(branch, action="patch"):
+def make_translate_release(action, branch):
     clean_temp()
-    clone_project("git@wlcgitlab.egamings.com:wlc/wlc-engine-translate.git")
+    clone_project(lang_repo)
     check_branch(branch, temp_folder)
-
-    print(Fore.YELLOW + "Making new engine tag..." + Fore.RESET)
-    new_tag = ".".join([str(k) for k in change_version(action, parse_version(get_version("translate")))])
-    set_version(new_tag, "translate")
+    print(Fore.YELLOW + "Making new translate tag..." + Fore.RESET)
+    new_tag = ".".join(map(str, change_version(action, parse_version("translate"))))
+    set_version("translate", new_tag)
     push_branch(branch, new_tag, "translate")
     clean_temp()
+    return new_tag
 
 
 # Обновление версии переводов
 def update_language_pack(branch):
-    print(Fore.YELLOW + "Checkout to the remote branch" + Fore.RESET)
+    print(Fore.YELLOW + "Switch to the remote branch" + Fore.RESET)
     subprocess.run(["git", "fetch", "origin"])
-    subprocess.run(["git", "checkout", f"remotes/origin/{branch}"])
+    subprocess.run(["git", "switch", f"remotes/origin/{branch}"])
     print(Fore.GREEN + "Done" + Fore.RESET)
 
-    print(Fore.YELLOW + "Update language pack to the last version" + Fore.RESET)
+    print(Fore.YELLOW + f"Update language pack to the {new_tag} version" + Fore.RESET)
+    new_tag = get_latest_remote_tag("rc" if branch == "develop" else "release", lang_repo) if branch in ["develop", "master"] else None
+
+    set_version("langpack", new_tag)
+
     subprocess.call(["./node18.sh", "wlc-engine", "npm", "cache", "clean", "-f"], cwd=os.path.expanduser("~/Projects/wlc"))
     subprocess.call(["./node18.sh", "wlc-engine", "npm", "update", "@egamings/wlc-engine-translate", "-f"], cwd=os.path.expanduser("~/Projects/wlc"))
     print(Fore.GREEN + "Done" + Fore.RESET)
 
     print(Fore.YELLOW + "Commit and push changes..." + Fore.RESET)
-    subprocess.run(["git", "add", "package-lock.json"])
-    subprocess.run(["git", "commit", "-m", "SCR #123456 - update: language pack to the last version"])
+    subprocess.run(["git", "add", "package.json", "package-lock.json"])
+    subprocess.run(["git", "commit", "-m", f"SCR #123456 - update: language pack to the {new_tag} version"])
     subprocess.run(["git", "push", "origin", f"HEAD:{branch}"])
     print(Fore.GREEN + "Done" + Fore.RESET)
 
-    print(Fore.YELLOW + "Checkout to the local branch and pull changes" + Fore.RESET)
-    subprocess.run(["git", "checkout", branch])
+    print(Fore.YELLOW + "Switch to the local branch and pull changes" + Fore.RESET)
+    subprocess.run(["git", "switch", branch])
     subprocess.run(["git", "pull", "origin", branch])
-    print(
-        Fore.GREEN
-        + "Done. Dependency of language pack updated to the latest version!"
-        + Fore.RESET
-    )
+    print(Fore.GREEN + f"Done. Dependency of language pack updated to the {new_tag} version!" + Fore.RESET)
 
 
 # Создание релиза
 def make_release(action, branch):
-    if branch == "develop":
-        update_language = input(
-            (
-                Fore.YELLOW
-                + """
-                ------------------------------------------------------
-                (1) If you want make and update language pack
-                (2) If you want just update language pack
-                (nothing) If you don`t want anything
-                ------------------------------------------------------
-                Your choise: """
-                + Fore.RESET
-            )
-        )
+    print(Fore.YELLOW + """
+        ------------------------------------------------
+        What do you want to do?
+        ------------------------------------------------
+        (1) If you want make and update language pack
+        (2) If you want just update language pack
+        (nothing) If you don`t want anything
+        ------------------------------------------------
+        """ + Fore.RESET)
 
-        if update_language == "1" or update_language == "2":
-            if update_language == "1":
-                make_translate_release("master")
-                print(
-                    Fore.YELLOW
-                    + "Waiting for the jenkins job to complete... Check your self, please"
-                    + Fore.RESET
-                )
-                time.sleep(25)
-                job = input(Fore.YELLOW + "If jankins job is done press 'y': " + Fore.RESET)
+    choice = input(Fore.YELLOW + "Write your choise: " + Fore.RESET)
 
-                if job == "y":
-                    print(Fore.YELLOW + "Done!" + Fore.RESET)
+    if choice == "1" or choice == "2":
 
-            update_language_pack(branch)
+        if choice == "1":
+            make_translate_release(action, branch)
 
-    print(Fore.YELLOW + "Checkout to the remote branch" + Fore.RESET)
+            print(Fore.YELLOW + "Waiting for the jenkins job to complete... Check your self, please" + Fore.RESET)
+            time.sleep(25)
+            job = input(Fore.YELLOW + "If jankins job is done press 'y': " + Fore.RESET)
+
+            if job == "y":
+                print(Fore.YELLOW + "Done!" + Fore.RESET)
+
+        update_language_pack(branch)
+
+    print(Fore.YELLOW + "Switch to the remote branch" + Fore.RESET)
     subprocess.run(["git", "fetch", "origin"])
-    subprocess.run(["git", "checkout", f"remotes/origin/{branch}"])
+    subprocess.run(["git", "switch", f"remotes/origin/{branch}"])
     print(Fore.GREEN + "Done" + Fore.RESET)
 
     print(Fore.YELLOW + "Making new engine tag..." + Fore.RESET)
     new_tag = make_tag(action)
-    set_version(new_tag)
+    set_version("engine", new_tag)
     print(Fore.GREEN + f"Done. New tag is {new_tag}" + Fore.RESET)
 
-    if branch == "develop" or branch == "master":
+    if branch in ["develop", "master"]:
         print(Fore.YELLOW + "Making change log..." + Fore.RESET)
-        subprocess.run(["npm", "run", "gulp", "change-logs", "--", f"--tag={new_tag}"])
-        subprocess.run(["npm", "run", "gulp", "translations-logs"])
+        subprocess.run(["./node18.sh", "wlc-engine", "npm", "run", "gulp", "change-logs", "--", f"--tag={new_tag}"])
+        subprocess.run(["./node18.sh", "wlc-engine", "npm", "run", "gulp", "translations-logs"])
         print(Fore.GREEN + "Done" + Fore.RESET)
+
 
     print(Fore.YELLOW + "Commit and push changes..." + Fore.RESET)
     subprocess.run(["git", "add", "src/docs/content", "package.json"])
-    subprocess.run(
-        ["git", "commit", "-m", f"Updated for release @egamings/wlc-engine {new_tag}"]
-    )
-    subprocess.run(
-        ["git", "tag", "-a", new_tag, "-m", f"Release @egamings/wlc-engine {new_tag}"]
-    )
+    subprocess.run(["git", "commit", "-m", f"Updated for release @egamings/wlc-engine {new_tag}"])
+    subprocess.run(["git", "tag", "-a", new_tag, "-m", f"Release @egamings/wlc-engine {new_tag}"])
     subprocess.run(["git", "push", "origin", f"HEAD:{branch}", "--follow-tags"])
     print(Fore.GREEN + "Done" + Fore.RESET)
 
-    print(Fore.YELLOW + "Checkout to the local branch and pull changes" + Fore.RESET)
-    subprocess.run(["git", "checkout", branch])
+    print(Fore.YELLOW + "Switch to the local branch and pull changes" + Fore.RESET)
+    subprocess.run(["git", "switch", branch])
     subprocess.run(["git", "pull", "origin", branch])
     print(Fore.GREEN + "Done. New release ready" + Fore.RESET)
 
@@ -673,22 +594,18 @@ def make_release(action, branch):
 def change_core_version(project):
     clean_temp()
     clone_project(project["repository"])
-    branch = input(
-        Fore.YELLOW
-        + "What devcasino branch do you want to update? Type 'develop' or 'master': "
-        + Fore.RESET
-    )
+    branch = input(Fore.YELLOW + "What devcasino branch do you want to update? Type 'develop' or 'master': " + Fore.RESET)
     check_branch(branch, temp_folder)
 
     print(Fore.YELLOW + "Start to update wlc-core version..." + Fore.RESET)
     with open(os.path.expanduser(f"{temp_folder}composer.json"), "r") as j:
         json_data = json.load(j)
 
-    current_core_version = json_data["require"]["egamings/wlc_core"]
+    current_core_version = json_data["require"].get("egamings/wlc_core")
     print(Fore.GREEN + f"Current wlc-core version: {current_core_version}" + Fore.RESET)
 
     new_core_version = input(Fore.YELLOW + "Insert new wlc-core version: " + Fore.RESET)
-    json_data["require"]["egamings/wlc_core"] = new_core_version
+    json_data["require"].update({"egamings/wlc_core": new_core_version})
 
     with open(os.path.expanduser(f"{temp_folder}composer.json"), "w") as j:
         json.dump(json_data, j, indent=4)
@@ -704,28 +621,23 @@ def change_core_version(project):
     subprocess.run(["git", "push", "origin", branch, "--follow-tags"], cwd=temp_folder)
     print(Fore.GREEN + "Done" + Fore.RESET)
 
+    print(Fore.GREEN + f"Done! Now new wlc-core version on current branch is", json_data["require"].get("egamings/wlc_core") + Fore.RESET)
     clean_temp()
-    print(
-        Fore.GREEN + "Done! Now new wlc-core version on current branch is",
-        json_data["require"]["egamings/wlc_core"] + Fore.RESET,
-    )
 
 
 # Создание стабильной ветки
 def make_stable_branch(branch, stable_branch):
     print(Fore.YELLOW + f"Making stable release on {stable_branch} branch" + Fore.RESET)
-    subprocess.run(["git", "checkout", branch], cwd=temp_folder)
+    subprocess.run(["git", "switch", branch], cwd=temp_folder)
     subprocess.run(["git", "branch", "-D", stable_branch], cwd=temp_folder)
-    subprocess.run(["git", "checkout", "-b", stable_branch], cwd=temp_folder)
+    subprocess.run(["git", "switch", "-c", stable_branch], cwd=temp_folder)
     subprocess.run(["git", "push", "origin", stable_branch, "--force-with-lease"], cwd=temp_folder)
     print(Fore.GREEN + "Done" + Fore.RESET)
 
 
 # Обновление веток проектов
 def update_projects(projects):
-    print(
-        Fore.YELLOW
-        + """
+    print(Fore.YELLOW + """
         ---------------------------------------
         What project do you want update?
         ---------------------------------------
@@ -733,18 +645,13 @@ def update_projects(projects):
         (1) Update wlc_devcasino
         (2) Update wlc_devcasino_kiosk
         (3) Update sportsbook
-        (4) Update tk_catcasino
 
         You can also select more than one
         item by separating them with " "(space)
         ---------------------------------------
-        """
-        + Fore.RESET
-    )
+        """ + Fore.RESET)
 
-    choise_list = list(
-        filter(None, input(Fore.YELLOW + "Write your choise: " + Fore.RESET).split(" "))
-    )
+    choise_list = list(filter(None, input(Fore.YELLOW + "Write your choise: " + Fore.RESET).split(" ")))
 
     if "0" in choise_list or len(choise_list) == 0:
         projects = projects
@@ -760,11 +667,7 @@ def update_projects(projects):
         project_version = get_version("project")
 
         if project["id"] == "1" and check_format(project_version) == "release":
-            print(
-                Fore.YELLOW
-                + f"Making stable release {project_version} branches"
-                + Fore.RESET
-            )
+            print(Fore.YELLOW + f"Making stable release {project_version} branches" + Fore.RESET)
 
             for branch in project["branches"]:
                 if branch in ["develop"]:
@@ -777,8 +680,8 @@ def update_projects(projects):
 
         for branch in project["branches"]:
             if branch in ["develop"] or branch in ["scr0-pretest"]:
-                subprocess.run(["git", "checkout", branch], cwd=temp_folder)
-                set_version(engine_version, "project")
+                subprocess.run(["git", "switch", branch], cwd=temp_folder)
+                set_version("project", engine_version)
 
                 clear_npm_cache()
                 update_npm(temp_folder)
@@ -806,122 +709,110 @@ def update_projects(projects):
 
 # Менеджер релиза
 def release_manager():
-    print(
-        Fore.YELLOW
-        + """
-        ------------------------------
-        What I can:
-        ------------------------------
-        (1) Make release
-        (2) Make release candidate
-        (3) Make catcasino release
-        (4) Make catcasino patch
-        (5) Make hotfix
-        (6) Update projects
-        (7) Update wlc core
-        (8) Delete last tag
-        (9) Make language release
-        (0) Update language pack
-        (e) Exit (or press 'Ctrl+Z')
-        ------------------------------
-        """
-        + Fore.RESET
-    )
+    print(Fore.YELLOW + """
+        ---------------------------------------
+        What do you want to do?
+        ---------------------------------------
+        (erc) Make engine release candidate
+        (er)  Make engine release
+        (eh)  Make engine hotfix
+        (lrc) Make language release candidate
+        (lr)  Make language release
+        (ul)  Update language pack
+        (cr)  Make catcasino release
+        (cp)  Make catcasino patch
+        (up)  Update projects
+        (uwc) Update wlc core
+        (dt)  Delete last tag
+        (ex)  Exit (or press 'Ctrl+Z')
+        ---------------------------------------
+        """ + Fore.RESET)
 
-    choice = input(Fore.YELLOW + "What do you want to do: " + Fore.RESET)
+    choice = input(Fore.YELLOW + "Write your choise: " + Fore.RESET)
 
-    if choice == "1":
-        action = "release"
-        branch = "master"
-        check_branch(branch)
-        print(Fore.YELLOW + "Release starting..." + Fore.RESET)
-        make_release(action, branch)
-        start()
+    match choice:
 
-    elif choice == "2":
-        action = "rc"
-        branch = "develop"
-        check_branch(branch)
-        print(Fore.YELLOW + "Release candidate starting..." + Fore.RESET)
-        make_release(action, branch)
-        start()
+        case "erc":
+            action = "rc"
+            branch = "develop"
+            check_branch(branch)
+            print(Fore.YELLOW + "Release candidate starting..." + Fore.RESET)
+            make_release(action, branch)
 
-    elif choice == "3":
-        action = "catcasino"
-        branch = "catcasino"
-        check_branch(branch)
-        print(Fore.YELLOW + "Catcasino release starting..." + Fore.RESET)
-        make_release(action, branch)
-        start()
+        case "er":
+            action = "release"
+            branch = "master"
+            check_branch(branch)
+            print(Fore.YELLOW + "Release starting..." + Fore.RESET)
+            make_release(action, branch)
 
-    elif choice == "4":
-        action = "patch"
-        branch = "catcasino"
-        check_branch(branch)
-        print(Fore.YELLOW + "Catcasino patch process starting..." + Fore.RESET)
-        make_release(action, branch)
-        start()
+        case "eh":
+            action = "hotfix"
+            make_hotfix(action)
+            print(Fore.GREEN + "Hotfix created!" + Fore.RESET)
 
-    elif choice == "5":
-        action = "hotfix"
-        make_hotfix(action)
-        print(Fore.GREEN + "Hotfix created!" + Fore.RESET)
-        start()
+        case "lrc":
+            action = "rc"
+            branch = "develop"
+            make_translate_release(action, branch)
+            print(Fore.GREEN + "Language release candidate created!" + Fore.RESET)
 
-    elif choice == "6":
-        update_projects(projects)
-        print(Fore.GREEN + "Projects updated!" + Fore.RESET)
-        start()
+        case "lr":
+            action = "release"
+            branch = "master"
+            make_translate_release(action, branch)
+            print(Fore.GREEN + "Language release created!" + Fore.RESET)
 
-    elif choice == "7":
-        change_core_version(projects["id" == "1"])
-        print(Fore.GREEN + "WLC Core updated!" + Fore.RESET)
-        start()
+        case "ul":
+            branch = "develop"
+            update_language_pack(branch)
+            print(Fore.GREEN + "Language pack updated!" + Fore.RESET)
 
-    elif choice == "8":
-        action = "deltag"
-        del_local_tag()
-        del_remote_tag()
-        old_version = make_tag(action)
-        set_version(old_version)
-        start()
+        case "cr":
+            action = "catcasino"
+            branch = "catcasino"
+            check_branch(branch)
+            print(Fore.YELLOW + "Catcasino release starting..." + Fore.RESET)
+            make_release(action, branch)
 
-    elif choice == "9":
-        branch = "master"
-        make_translate_release(branch)
-        print(Fore.GREEN + "Language release created!" + Fore.RESET)
-        start()
+        case "cp":
+            action = "patch"
+            branch = "catcasino"
+            check_branch(branch)
+            print(Fore.YELLOW + "Catcasino patch process starting..." + Fore.RESET)
+            make_release(action, branch)
 
-    elif choice == "0":
-        branch = "develop"
-        update_language_pack(branch)
-        print(Fore.GREEN + "Language pack updated!" + Fore.RESET)
-        start()
+        case "up":
+            update_projects(projects)
+            print(Fore.GREEN + "Projects updated!" + Fore.RESET)
 
-    elif choice == "e":
-        print(Fore.GREEN + "Good job. Bye bye. :-)" + Fore.RESET)
+        case "uwc":
+            change_core_version(projects["id" == "1"])
+            print(Fore.GREEN + "WLC Core updated!" + Fore.RESET)
 
-    elif choice == "t":
-        action = "cats"
-        branch = "catcasino"
-        check_branch(branch)
-        print(Fore.YELLOW + "Release catcasino starting..." + Fore.RESET)
-        make_release(action, branch)
-        start()
+        case "dt":
+            action = "deltag"
+            del_local_tag()
+            del_remote_tag()
+            old_version = make_tag(action)
+            set_version("engine", old_version)
 
-    else:
-        error_message()
-        start()
+        case "ex":
+            print(Fore.GREEN + "Good job. Bye bye. :-)" + Fore.RESET)
+
+        case "t":
+            # Choise for testing things
+            update_language_pack("scr570354")
+
+        case _:
+            error_message()
+
+    start()
 
 
 # Запуск скрипта
 def start():
-    print(
-        Fore.GREEN
-        + """
-    Release manager starting..."""
-        + Fore.RESET
-    )
+    print(Fore.GREEN + "Release manager starting..." + Fore.RESET)
     release_manager()
 
 
