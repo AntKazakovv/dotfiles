@@ -29,7 +29,7 @@
         }
 
         .wlc-alert {
-            margin-bottom: ef.get-value($themeDefault, 'alertMarginBottom');
+            @include bm.get-mq-map('margin', $themeDefault, 'alertMargin');
         }
 
         .wlc-input {

@@ -24,7 +24,10 @@ $themeDefault: map-merge((
     ),
 
     // Info block
-    'alertMarginBottom': ef.size(4),
+    'alertMargin': (
+        375: 0 auto ef.size(4),
+        900: 0 0 ef.size(4) 0,
+    ),
 
     // Divider
     'dividerMargin': ef.size(4) 0,
