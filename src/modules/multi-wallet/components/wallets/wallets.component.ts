@@ -2,11 +2,9 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    EventEmitter,
     Inject,
     Input,
     OnInit,
-    Output,
 } from '@angular/core';
 
 import _orderBy from 'lodash-es/orderBy';
@@ -65,7 +63,6 @@ import * as Params from './wallets.params';
 export class WalletsComponent extends AbstractComponent implements OnInit {
 
     @Input() protected inlineParams: Params.WalletsParams;
-    @Output() public changeWalletEmit: EventEmitter<ISelectedWallet> = new EventEmitter();
 
     public override $params: Params.WalletsParams;
 
@@ -169,9 +166,10 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
         ], async (wallet: ISelectedWallet): Promise<void> => {
 
             if (wallet.walletCurrency === this.currentWallet.currency) {
-                this.changeWalletEmit.emit(wallet);
+                this.walletChangeCallback(wallet);
                 this.currentWallet.walletId = wallet.walletId;
             }
+
         }, this.$destroy);
     }
 
@@ -207,8 +205,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
 
         this.walletCurrency = this.displayedCurrency;
         this.balance = this.displayedBalance;
-
-        this.changeWalletEmit.emit({
+        this.walletChangeCallback({
             walletCurrency: this.currentWallet.currency,
             walletId: this.currentWallet.walletId ?? null,
         });
@@ -300,6 +297,12 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
         this.cdr.markForCheck();
     }
 
+    private walletChangeCallback(wallet: ISelectedWallet): void {
+        if (this.$params?.onWalletChange) {
+            this.$params?.onWalletChange(wallet);
+        }
+    }
+
     private async initCurrentWallet(): Promise<void> {
         await this.createWalletsArray();
 
@@ -330,10 +333,13 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
             }
         }
         UserInfo.currency = this.currentWallet.currency;
-        this.changeWalletEmit.emit({
-            walletId: this.currentWallet.walletId,
-            walletCurrency: this.currentWallet.currency,
-        });
+
+        if (this.$params.onWalletChange) {
+            this.$params.onWalletChange({
+                walletId: this.currentWallet.walletId,
+                walletCurrency: this.currentWallet.currency,
+            });
+        }
 
         if (!this.isFinance) {
             this.userService.userProfile$.pipe(

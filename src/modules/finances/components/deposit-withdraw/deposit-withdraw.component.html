@@ -185,10 +185,9 @@
         [title]="alertInformation['wallets'].title | translate"
         [text]="alertInformation['wallets'].description | translate"
         [level]="alertInformation['wallets'].mod"></div>
-    <div wlc-wallets
+    <div wlc-wrapper
          class="{{$class}}__wallets"
-         [inlineParams]="walletsParams"
-         (changeWalletEmit)="onWalletChange($event)"></div>
+         [inlineParams]="walletsParams"></div>
 </ng-template>
 
 <ng-template #systems>

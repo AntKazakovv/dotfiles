@@ -51,3 +51,7 @@ export interface IUserNickIcon {
     nick: string,
     icon: string,
 };
+
+export const ProfileUpdateTypes: Record<string, string> = {
+    CHANGE_WALLET: 'changeWallet',
+} as const;

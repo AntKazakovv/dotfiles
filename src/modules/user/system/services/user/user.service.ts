@@ -31,6 +31,7 @@ import _isString from 'lodash-es/isString';
 import _get from 'lodash-es/get';
 import _isUndefined from 'lodash-es/isUndefined';
 import _mergeWith from 'lodash-es/mergeWith';
+import _has from 'lodash-es/has';
 
 import {
     DataService,
@@ -82,6 +83,7 @@ import {
     IUserPasswordPost,
     IEmailVerifyData,
     IWSDataUserBalance,
+    ProfileUpdateTypes,
 } from 'wlc-engine/modules/user/system/interfaces/user.interface';
 import {IWSLoyalty} from 'wlc-engine/modules/loyalty/system/interfaces/interfaces';
 import {WebSocketEvents} from 'wlc-engine/modules/core/system/services/websocket/websocket.service';
@@ -677,8 +679,13 @@ export class UserService {
             }, requestParams);
 
             if (response.data?.result) {
+                let type: string;
+
+                if (_has(updates, 'extProfile.currentWallet')) {
+                    type = ProfileUpdateTypes.CHANGE_WALLET;
+                }
                 _merge(this.profile.data, updates);
-                this.eventService.emit({name: 'PROFILE_UPDATE'});
+                this.eventService.emit({name: 'PROFILE_UPDATE', data: type});
             }
 
             return response;

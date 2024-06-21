@@ -43,6 +43,7 @@ import {
     ActionService,
     AbstractComponent,
     GlobalHelper,
+    IWrapperCParams,
 } from 'wlc-engine/modules/core';
 import {PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services/finances/finances.service';
@@ -50,6 +51,7 @@ import {IPaymentListCParams} from 'wlc-engine/modules/finances/components/paymen
 import {TAlertList} from '../../system/interfaces/finances.interface';
 
 import {
+    ProfileUpdateTypes,
     UserProfile,
     UserService,
 } from 'wlc-engine/modules/user';
@@ -140,7 +142,7 @@ export class DepositWithdrawComponent
     public hiddenPaymentInfo: boolean;
     public isLastMethodExisting: boolean;
     public isFetchingSystems: boolean = true;
-    public walletsParams: WalletsParams;
+    public walletsParams: IWrapperCParams;
     public selectedWallet: ISelectedWallet;
     public isMultiWallet: boolean = false;
     public ready: boolean = false;
@@ -361,7 +363,11 @@ export class DepositWithdrawComponent
 
         this.eventService.subscribe(
             {name: 'PROFILE_UPDATE'},
-            () => this.onProfileUpdate(),
+            (type: string): void => {
+                if (type !== ProfileUpdateTypes.CHANGE_WALLET) {
+                    this.onProfileUpdate();
+                }
+            },
             this.$destroy,
         );
 
@@ -518,8 +524,16 @@ export class DepositWithdrawComponent
             }
 
             this.walletsParams = {
-                themeMod: 'finances',
-                isWithdrawal: !this.isDeposit,
+                components: [
+                    {
+                        name: 'multi-wallet.wlc-wallets',
+                        params: <WalletsParams>{
+                            themeMod: 'finances',
+                            isWithdrawal: !this.isDeposit,
+                            onWalletChange: this.onWalletChange.bind(this),
+                        },
+                    },
+                ],
             };
         }
 

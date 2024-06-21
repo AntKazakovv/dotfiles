@@ -17,6 +17,7 @@ export interface WalletsParams extends IComponentParams<Theme, ComponentType, st
     isWithdrawal?: boolean;
     filterText?: string;
     settingsText?: string;
+    onWalletChange?: Function;
 }
 
 export const defaultParams: WalletsParams = {
