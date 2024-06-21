@@ -28,6 +28,7 @@ $themeWolf: map-merge((
     'descrTextStyle': 'CaptionText',
     'descrColor': var(--mc-baseSecond),
     'blocksSize': 235px,
+    'boardMargin': 0 auto ef.size(4),
 
     'leaderboardBg': var(--mc-bg),
     'leaderboardListBg': none,

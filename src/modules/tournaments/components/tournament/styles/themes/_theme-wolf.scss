@@ -175,6 +175,7 @@
 
             &__board {
                 width: ef.get-value($themeWolf, 'blocksSize');
+                margin: ef.get-value($themeWolf, 'boardMargin');
                 padding: ef.get-value($themeWolf, 'gap') 0 ef.get-value($themeWolf, 'gap') 0;
             }
 

@@ -95,6 +95,12 @@
                 [useListHead]="false"
                 [showAllBtn]="true">
             </div>
+            <button *ngIf="$params.theme === 'wolf'"
+                wlc-button
+                themeMod="secondary"
+                text="Read more"
+                (click)="readMore({selector: ''})">
+            </button>
         </ng-container>
         <div *ngIf="tournament.freeRounds"
             wlc-tournament-free-spins
