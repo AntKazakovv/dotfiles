@@ -567,8 +567,8 @@ def make_release(action, branch):
 
     if branch in ["develop", "master"]:
         print(Fore.YELLOW + "Making change log..." + Fore.RESET)
-        subprocess.run(["./node18.sh", "wlc-engine", "npm", "run", "gulp", "change-logs", "--", f"--tag={new_tag}"])
-        subprocess.run(["./node18.sh", "wlc-engine", "npm", "run", "gulp", "translations-logs"])
+        subprocess.run(["npm", "run", "gulp", "change-logs", "--", f"--tag={new_tag}"])
+        subprocess.run(["npm", "run", "gulp", "translations-logs"])
         print(Fore.GREEN + "Done" + Fore.RESET)
 
 
