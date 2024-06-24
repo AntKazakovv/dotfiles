@@ -50,9 +50,6 @@ $themeDefault: map-merge((
     'itemDescrColor': inherit,
 
     // mod simple
-    'simpleItemBg': var(--mc-bg700),
-    'simpleItemBgHover': var(--mc-bg700-l5),
-    'simpleItemBgActive': var(--mc-bg700),
     'simpleContentHr': none,
     'simpleContentWrpPaddingTop': ef.size(2),
 ), $customThemeDefault);

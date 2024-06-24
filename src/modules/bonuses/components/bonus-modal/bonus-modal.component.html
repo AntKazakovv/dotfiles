@@ -45,7 +45,7 @@
 </ng-template>
 
 <ng-template #games>
-    <div *ngIf="!isLootbox" class="{{$class}}__games">
+    <div *ngIf="showGames" class="{{$class}}__games">
         <ng-container *ngIf="!isLoadingGames; else loader">
             <div wlc-accordion
                 [inlineParams]="gamesAccordion"

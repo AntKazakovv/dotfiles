@@ -138,9 +138,6 @@
     }
 
     &.wlc-accordion--theme-mod-simple {
-        --wlc-acc-item-bg: #{ef.get-value($themeDefault, 'simpleItemBg')};
-        --wlc-acc-item-bg-hover: #{ef.get-value($themeDefault, 'simpleItemBgHover')};
-        --wlc-acc-item-bg-active: #{ef.get-value($themeDefault, 'simpleItemBgActive')};
         --wlc-acc-content-hr: #{ef.get-value($themeDefault, 'simpleContentHr')};
         --wlc-acc-content-wrp-padding-top: #{ef.get-value($themeDefault, 'simpleContentWrpPaddingTop')};
         --wlc-acc-content-wrp-padding-btm: #{ef.get-value($themeDefault, 'paddingSize')};

@@ -69,7 +69,7 @@ export class BonusModalComponent extends AbstractComponent implements OnInit {
 
         this.bonus = this.$params.bonus;
 
-        if (!this.isLootbox) {
+        if (this.showGames) {
             this.prepareGames();
         }
 
@@ -124,6 +124,10 @@ export class BonusModalComponent extends AbstractComponent implements OnInit {
 
     public get isLootbox(): boolean {
         return this.bonus.target === 'lootbox';
+    }
+
+    public get showGames(): boolean {
+        return !this.isLootbox || (this.isLootbox && this.bonus.event === 'bet' && !this.bonus.inventoried);
     }
 
     public expandGames(): void {
