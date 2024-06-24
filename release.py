@@ -117,21 +117,17 @@ def change_version(action, v):
 def parse_version(version):
     v = []
     for k in version.split("."):
-        if "-rc" in k:
-            k, rc = k.split("-rc")
-            v.append(int(k))
+        if k.find("-rc") != -1:
+            v.append(int(k.replace("-rc", "")))
             v.append("rc")
-            v.append(int(rc))
-        elif "-hotfix" in k:
-            k, hotfix = k.split("-hotfix")
-            v.append(int(k))
+        elif k.find("-hotfix") != -1:
+            v.append(int(k.replace("-hotfix", "")))
             v.append("hotfix")
-            v.append(int(hotfix))
         else:
             v.append(int(k))
     while len(v) < 3:
         v.append(0)
-    return v[:3]
+    return v
 
 
 # Получение текущей даты
@@ -170,8 +166,8 @@ def get_version(project=None):
         return version
 
     else:
-        translate = json_data["dependencies"].get("@egamings/wlc-engine-translate")
-        return version, translate
+        # translate = json_data["dependencies"].get("@egamings/wlc-engine-translate")
+        return version
 
 
 
@@ -270,7 +266,7 @@ def tag_duplicate_checking(action, tag_to_find, repo_path=None):
 
 # Создание нового тега
 def make_tag(action, branch=None):
-    print(Fore.YELLOW + "Making new tag..." + {Fore.RESET})
+    print(Fore.YELLOW + "Making new tag..." + Fore.RESET)
     if branch is None:
         new_tag = ".".join(map(str, change_version(action, parse_version(get_version()))))
         if action == "hotfix":
@@ -497,7 +493,7 @@ def make_translate_release(action, branch):
     clone_project(lang_repo)
     check_branch(branch, temp_folder)
     print(Fore.YELLOW + "Making new translate tag..." + Fore.RESET)
-    new_tag = ".".join(map(str, change_version(action, parse_version("translate"))))
+    new_tag = ".".join(map(str, change_version(action, parse_version(get_version("translate")))))
     set_version("translate", new_tag)
     push_branch(branch, new_tag, "translate")
     clean_temp()
@@ -511,11 +507,10 @@ def update_language_pack(branch):
     subprocess.run(["git", "switch", f"remotes/origin/{branch}"])
     print(Fore.GREEN + "Done" + Fore.RESET)
 
-    print(Fore.YELLOW + f"Update language pack to the {new_tag} version" + Fore.RESET)
     new_tag = get_latest_remote_tag("rc" if branch == "develop" else "release", lang_repo) if branch in ["develop", "master"] else None
 
+    print(Fore.YELLOW + f"Update language pack to the {new_tag} version" + Fore.RESET)
     set_version("langpack", new_tag)
-
     subprocess.call(["./node18.sh", "wlc-engine", "npm", "cache", "clean", "-f"], cwd=os.path.expanduser("~/Projects/wlc"))
     subprocess.call(["./node18.sh", "wlc-engine", "npm", "update", "@egamings/wlc-engine-translate", "-f"], cwd=os.path.expanduser("~/Projects/wlc"))
     print(Fore.GREEN + "Done" + Fore.RESET)
@@ -802,7 +797,9 @@ def release_manager():
 
         case "t":
             # Choise for testing things
-            update_language_pack("scr570354")
+            action = "release"
+            new_tag = ".".join(map(str, change_version(action, parse_version(get_version()))))
+            print(new_tag)
 
         case _:
             error_message()
