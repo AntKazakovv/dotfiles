@@ -22,7 +22,7 @@ export interface IBonusesHistoryCParams extends IComponentParams<Theme, Type, Th
 export const bonusHistoryTableHeadConfig: ITableCol[] = [
     {
         key: 'Name',
-        title: gettext('Bonus name'),
+        title: gettext('Name'),
         type: 'component',
         order: 20,
         wlcElement: 'wlc-profile-table__cell_name',
