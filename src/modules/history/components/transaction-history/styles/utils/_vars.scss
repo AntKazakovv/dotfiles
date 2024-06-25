@@ -17,6 +17,7 @@ $themeDefault: map-merge((
         1024: 0 ef.size(3)
     ),
     'filterWidth': ef.get-value(ev.$profileSettings, 'filterWidth'),
+    'datepickerfilterWidth': 140px,
     'filterBtnMinWidth': 110px,
     'btnMinHeight': 40px,
     'labelAreas': 'label label label' '. . .',

@@ -23,7 +23,7 @@
             }
 
             .wlc-datepicker--theme-default[class] {
-                max-width: ef.get-value($themeDefault, 'filterWidth');
+                max-width: ef.get-value($themeDefault, 'datepickerfilterWidth');
             }
         }
 
