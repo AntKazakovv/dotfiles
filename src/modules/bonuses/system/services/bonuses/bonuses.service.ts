@@ -80,6 +80,7 @@ import {
 import {LootboxPrizeModel} from 'wlc-engine/modules/bonuses/system/models/lootbox-prize/lootbox-prize.model';
 import {BonusCancellationInfo} from '../../models/bonus/bonus-cancellation-info.model';
 import {RequestParamsType} from 'wlc-engine/modules/core/system/services/data/data.service';
+import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 
 type TUserLoyaltyInfo = Pick<UserInfo, 'bonusesBalance' | 'freeRounds'>;
 
@@ -443,6 +444,7 @@ export class BonusesService {
      * @param {IIndexing<string>} bonusId
      * @returns {Promise<void>}
      */
+    @CustomHook('bonuses', 'bonusesServiceProcessBonus')
     public async processBonus(bonusId: number): Promise<void> {
         try {
             await this.configService.ready;
