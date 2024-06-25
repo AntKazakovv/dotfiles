@@ -55,13 +55,14 @@ export class ClearAmountButtonComponent extends AbstractComponent implements OnI
             {name: 'AMOUNT_NOT_EMPTY'},
             () => {
                 this.$params.isAmountEmpty = false;
-            },
-        );
+                this.cdr.markForCheck();
+            }, this.$destroy);
+
         this.eventService.subscribe(
             {name: 'AMOUNT_IS_EMPTY'},
             () => {
                 this.$params.isAmountEmpty = true;
-            },
-        );
+                this.cdr.markForCheck();
+            }, this.$destroy);
     }
 }
