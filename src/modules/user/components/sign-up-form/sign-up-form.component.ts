@@ -203,6 +203,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
      * @param form
      * @returns {Promise}
      */
+    @CustomHook('user', 'signUpFormNgSubmit')
     public async ngSubmit(form: UntypedFormGroup): Promise<boolean> {
 
         if (this.isTwoSteps && !this.isSecondStep() || this.useSmsVerification) {
