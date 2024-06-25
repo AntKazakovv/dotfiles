@@ -536,6 +536,20 @@
             }
         }
     }
+
+    &.wlc-modal--internal-mail {
+
+        .wlc-modal {
+
+            &__body {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'internalMailContentStyle'),
+                    ef.get-value($themeDefault, 'internalMailContentColor')
+                );
+                word-wrap: break-word;
+            }
+        }
+    }
 }
 
 body.modal-open {

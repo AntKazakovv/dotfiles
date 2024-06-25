@@ -88,6 +88,7 @@ export enum NotificationEvents {
     PushComponent = 'PUSH_NOTIFICATION_COMPONENT',
     PushMessage   = 'PUSH_NOTIFICATION_MESSAGE',
     Dismiss       = 'DISMISS_NOTIFICATION',
+    DismissAll    = 'DISMISS_ALL_NOTIFICATION',
 }
 
 /**
@@ -308,6 +309,15 @@ export class NotificationService {
         this.eventService.subscribe(
             {name: Events.Dismiss},
             (id: number) => {this.dismiss(id);},
+        );
+
+        this.eventService.subscribe(
+            {name: Events.DismissAll},
+            () => {
+                this.notifications.forEach((notification) => {
+                    this.dismiss(notification.id);
+                });
+            },
         );
     }
 

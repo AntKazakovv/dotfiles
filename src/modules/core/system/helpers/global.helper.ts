@@ -598,4 +598,18 @@ export class GlobalHelper {
     public static sumNumbers(a: number | string, b: number | string): number {
         return (Number(a) * 100 + Number(b) * 100) / 100;
     }
+
+    /**
+     * replace braces {} and "at" ( @ ) symbols. Need for Angular 17
+     *
+     * @param {string} text
+     *
+     * @returns {string}
+     */
+    public static replaceBrackets(text: string): string {
+        return text
+            .replace(/@/gi, '&#64;')
+            .replace(/{/gi, '&#123;')
+            .replace(/}/gi, '&#125;');
+    }
 }

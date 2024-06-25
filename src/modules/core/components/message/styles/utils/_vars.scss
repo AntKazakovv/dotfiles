@@ -52,6 +52,17 @@ $themeDefault: map-merge((
 
     messageContainerMargin: ef.size(1) 0 0,
     contentMargin: 0 ef.size(7) 0 0,
+
+    // For type 'message'
+    buttonWidth: auto,
+    buttonMinWidth: auto,
+    buttonHeight: auto,
+    buttonMargin: 10px 0 0,
+    buttonPadding: 0,
+    buttonBackground: none,
+    buttonBorder: none,
+    messageContainerMaxHeight: 60px,
+    messageContainerOverflow: hidden,
 ), $customThemeDefault);
 
 @function get($key) {

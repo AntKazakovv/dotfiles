@@ -1,4 +1,5 @@
 import {EventEmitter} from '@angular/core';
+import {StateService} from '@uirouter/core';
 import {
     fakeAsync,
     TestBed,
@@ -16,6 +17,7 @@ import {
     EventService,
     IData,
     LogService,
+    ModalService,
 } from 'wlc-engine/modules/core';
 import {IInternalMail} from 'wlc-engine/modules/internal-mails/system/interfaces/internal-mails.interface';
 import {InternalMailModel} from 'wlc-engine/modules/internal-mails/system/models/internal-mail.model';
@@ -40,6 +42,8 @@ describe('InternalMailsService', (): void => {
     let dataServiceSpy: jasmine.SpyObj<DataService>;
     let logServiceSpy: jasmine.SpyObj<LogService>;
     let translateServiceSpy: jasmine.SpyObj<TranslateService>;
+    let modalServiceSpy: jasmine.SpyObj<ModalService>;
+    let stateServiceSpy: jasmine.SpyObj<StateService>;
 
     beforeEach(fakeAsync((): void => {
         const mailsReq: Partial<IData<IInternalMail[]>> = {
@@ -52,7 +56,7 @@ describe('InternalMailsService', (): void => {
             ],
         };
 
-        configServiceSpy = jasmine.createSpyObj('ConfigService', ['get']);
+        configServiceSpy = jasmine.createSpyObj('ConfigService', ['get', 'set']);
         eventServiceSpy = jasmine.createSpyObj('EventService', ['emit', 'subscribe']);
         dataServiceSpy = jasmine.createSpyObj('DataService', ['subscribe', 'registerMethod', 'request', 'reset']);
         logServiceSpy = jasmine.createSpyObj('LogService', ['sendLog']);
@@ -60,8 +64,16 @@ describe('InternalMailsService', (): void => {
             currentLang: 'en',
             onLangChange: new EventEmitter,
         });
+        modalServiceSpy = jasmine.createSpyObj('ModalService', ['showModal']);
+        stateServiceSpy = jasmine.createSpyObj('StateService', ['is']);
 
+        configServiceSpy.get.withArgs({
+            name: 'lastMessageTime',
+            storageType: 'sessionStorage',
+        }).and.returnValue(null);
+        configServiceSpy.set.and.returnValue(null);
         configServiceSpy.get.withArgs('$user.isAuthenticated').and.returnValue(true);
+        configServiceSpy.get.withArgs('$base.profile.messages.notificationsParams').and.returnValue({});
         dataServiceSpy.request.and.resolveTo({});
         dataServiceSpy.request.withArgs('messages/getMails').and.resolveTo(mailsReq);
 
@@ -87,6 +99,14 @@ describe('InternalMailsService', (): void => {
                 {
                     provide: TranslateService,
                     useValue: translateServiceSpy,
+                },
+                {
+                    provide: ModalService,
+                    useValue: modalServiceSpy,
+                },
+                {
+                    provide: StateService,
+                    useValue: stateServiceSpy,
                 },
             ],
         });
@@ -184,4 +204,26 @@ describe('InternalMailsService', (): void => {
             ).toBeUndefined();
         }),
     );
+
+    it('-> check unreadMailsCount after openMessage', fakeAsync((): void => {
+        internalMailsService.mails$
+            .pipe(first())
+            .subscribe((mails: InternalMailModel[]): void => {
+                internalMailsService.openMessage(mails[0]);
+            });
+        flushMicrotasks();
+
+        expect(internalMailsService.unreadMailsCount$.getValue()).toBe(3);
+    }));
+
+    it('-> check modalService.showModal called when we call openMessage', fakeAsync((): void => {
+        internalMailsService.mails$
+            .pipe(first())
+            .subscribe((mails: InternalMailModel[]): void => {
+                internalMailsService.openMessage(mails[0]);
+            });
+        flushMicrotasks();
+
+        expect(modalServiceSpy.showModal).toHaveBeenCalled();
+    }));
 });

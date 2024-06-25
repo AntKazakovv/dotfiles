@@ -2,6 +2,7 @@ import {
     ConfigService,
     AbstractModel,
     IFromLog,
+    GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {IPostResponse} from 'wlc-engine/modules/static';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
@@ -97,11 +98,8 @@ export abstract class TextDataModel extends AbstractModel<ITextData>{
     protected getHtml(): string {
         try {
             // 17 angular
-            return this.decodeHtml(this.htmlRaw)
-                .replace(/”/gi, '\"')
-                .replace(/@/gi, '&#64;')
-                .replace(/{/gi, '&#123;')
-                .replace(/}/gi, '&#125;');
+            return GlobalHelper.replaceBrackets(this.decodeHtml(this.htmlRaw)
+                .replace(/”/gi, '\"'));
         } catch (error) {
             return '<div>' + this.decodeHtml(this.htmlRaw).replace(/”/gi, '\"') + '</div>';
         }

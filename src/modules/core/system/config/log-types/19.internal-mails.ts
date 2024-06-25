@@ -13,4 +13,8 @@ export const errorTypes: ILogTypes = {
         // Error occurred while delete internal mail
         level: 'error',
     },
+    '19.0.3': {
+        // Error occurred while parsing internal mail
+        level: 'error',
+    },
 };

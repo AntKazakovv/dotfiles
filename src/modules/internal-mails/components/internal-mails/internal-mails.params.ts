@@ -20,6 +20,7 @@ export interface IMailHistoryRangeParams {
     type: string,
     historyType: string,
 }
+
 export interface IInternalMailsCParams extends IComponentParams<Theme, Type, ThemeMod> {
     /** wlc-profile-no-content params */
     emptyConfig?: IWrapperCParams;

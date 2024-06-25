@@ -1,3 +1,23 @@
 .wlc-notification-message--theme-default:host {
     @include messageBase;
+
+    &.wlc-notification-message--type-message {
+
+        .wlc-notification-message__message {
+            max-height: ef.get-value($themeDefault, 'messageContainerMaxHeight');
+            overflow: ef.get-value($themeDefault, 'messageContainerOverflow');
+        }
+
+        .wlc-btn {
+            --mc-baseMain-locked: var(--mc-main);
+
+            width: ef.get-value($themeDefault, 'buttonWidth');
+            min-width: ef.get-value($themeDefault, 'buttonMinWidth');
+            height: ef.get-value($themeDefault, 'buttonHeight');
+            margin: ef.get-value($themeDefault, 'buttonMargin');
+            padding: ef.get-value($themeDefault, 'buttonPadding');
+            background: ef.get-value($themeDefault, 'buttonBackground');
+            border: ef.get-value($themeDefault, 'buttonBorder');
+        }
+    }
 }

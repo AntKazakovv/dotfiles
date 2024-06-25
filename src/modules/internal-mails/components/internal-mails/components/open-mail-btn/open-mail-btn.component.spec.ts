@@ -47,8 +47,6 @@ describe('OpenMailBtnComponent', (): void => {
     let configServiceStub: IConfigServiceStub;
 
     let configGetSpy: jasmine.Spy;
-    let markAsReadSpy: jasmine.Spy;
-    let showModalSpy: jasmine.Spy;
 
     const setup = (setupParams?: setupParams): void => {
         injectParams = {
@@ -94,8 +92,6 @@ describe('OpenMailBtnComponent', (): void => {
             ],
         });
 
-        markAsReadSpy = spyOn(TestBed.inject(InternalMailsService), 'markAsRead');
-        showModalSpy = spyOn(TestBed.inject(ModalService), 'showModal');
         configGetSpy = spyOn(TestBed.inject(ConfigService), 'get');
 
         configGetSpy.and.returnValue(setupParams?.isProfileFirst ? 'first' : 'default');
@@ -120,24 +116,6 @@ describe('OpenMailBtnComponent', (): void => {
     it('-> check that host has NOT profile-first in default profile', (): void => {
         setup();
         expect(nativeElement.getAttribute('class')).not.toContain('profile-first');
-    });
-
-    it('-> check internalMailsService.markAsRead called when call openMessage with UNread message', (): void => {
-        setup();
-        component.openMessage();
-        expect(markAsReadSpy).toHaveBeenCalled();
-    });
-
-    it('-> check internalMailsService.markAsRead NOT called when call openMessage with read message', (): void => {
-        setup({isMailReaded: true});
-        component.openMessage();
-        expect(markAsReadSpy).not.toHaveBeenCalled();
-    });
-
-    it('-> check modalService.showModal called when we call openMessage', (): void => {
-        setup();
-        component.openMessage();
-        expect(showModalSpy).toHaveBeenCalled();
     });
 
     it('-> check action-text', (): void => {

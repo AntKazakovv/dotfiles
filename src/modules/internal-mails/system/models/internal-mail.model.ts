@@ -77,6 +77,13 @@ export class InternalMailModel extends AbstractModel<IInternalMail> {
     }
 
     /**
+     * @returns {boolean} mail's personal flag
+     */
+    public get personal(): boolean {
+        return !!(+this.data.Personal);
+    }
+
+    /**
      * Set mail's reading status
      * @param {boolean} status if `true` set 'readed' status, if `false` set 'new' status
      */

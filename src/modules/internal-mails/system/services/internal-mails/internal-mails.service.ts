@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {StateService} from '@uirouter/core';
 import {
     LangChangeEvent,
     TranslateService,
@@ -11,21 +12,34 @@ import {
     Subject,
     Subscription,
 } from 'rxjs';
+import {DateTime} from 'luxon';
 import _map from 'lodash-es/map';
 import _filter from 'lodash-es/filter';
 import _find from 'lodash-es/find';
 import _isEqual from 'lodash-es/isEqual';
+import _mergeWith from 'lodash-es/mergeWith';
 
 import {
     ConfigService,
     DataService,
     Deferred,
     EventService,
+    GlobalHelper,
     IData,
     LogService,
+    ModalService,
 } from 'wlc-engine/modules/core';
+import {
+    NotificationEvents,
+    IPushMessageParams,
+} from 'wlc-engine/modules/core/system/services/notification';
 import {IInternalMail} from 'wlc-engine/modules/internal-mails/system/interfaces';
 import {InternalMailModel} from 'wlc-engine/modules/internal-mails/system/models';
+
+export interface IMailNotificationsParams {
+    excludedStatesForNotifications: string[];
+    numberOfNotifications: number,
+}
 
 @Injectable({
     providedIn: 'root',
@@ -37,6 +51,14 @@ export class InternalMailsService {
     public currentLang: string;
     private _mails$: BehaviorSubject<InternalMailModel[]> = new BehaviorSubject([]);
     private mailsFetchHandler: Subscription;
+    private newMails: InternalMailModel[];
+    private notificationsParams: IMailNotificationsParams = {
+        excludedStatesForNotifications: [
+            'app.profile.cash.deposit',
+            'app.gameplay',
+        ],
+        numberOfNotifications: 3,
+    };
 
     constructor(
         private dataService: DataService,
@@ -44,6 +66,8 @@ export class InternalMailsService {
         private logService: LogService,
         private configService: ConfigService,
         private translateService: TranslateService,
+        private modalService: ModalService,
+        private stateService: StateService,
     ) {
         this.init();
     }
@@ -135,6 +159,55 @@ export class InternalMailsService {
         }
     }
 
+    /**
+     * Show mail in modal and mark as read
+     *
+     * @returns {void}
+     */
+    public openMessage(internalMail: InternalMailModel): void {
+
+        let currentMessage = internalMail;
+
+        if (!currentMessage.personal) {
+            try {
+                currentMessage = JSON.parse(currentMessage.content)[InternalMailModel.currentLanguage || 'en'];
+            }
+            catch (error) {
+                this.logService.sendLog({
+                    code: '19.0.3',
+                    data: error,
+                    from: {
+                        service: 'InternalMailsService',
+                        method: 'openMessage',
+                    },
+                });
+            }
+        }
+
+        let clearedMsg = GlobalHelper.replaceBrackets(currentMessage.content);
+
+        this.modalService.showModal({
+            id: 'internal-mail',
+            modalTitle: internalMail.title,
+            html: clearedMsg,
+            closeBtnText: gettext('Close'),
+            showConfirmBtn: true,
+            confirmBtnParams: {
+                themeMod: 'secondary',
+                common: {
+                    text: gettext('Delete'),
+                },
+            },
+            onConfirm: () => {
+                this.deleteMail(internalMail);
+            },
+        });
+
+        if (internalMail.status !== 'readed') {
+            this.markAsRead(internalMail);
+        }
+    }
+
     private async init(): Promise<void> {
         this.registerMethods();
 
@@ -145,6 +218,9 @@ export class InternalMailsService {
 
         InternalMailModel.currentLanguage = this.translateService.currentLang || 'en';
         this.setHandlers();
+
+        this.setNotificationsParams();
+        this.setSubscriptions();
     }
 
     /**
@@ -290,5 +366,113 @@ export class InternalMailsService {
             url: '/messages',
             type: 'GET',
         });
+    }
+
+    private setSubscriptions(): void {
+        this.mails$.subscribe((mails: InternalMailModel[]): void => {
+            this.newMails = mails.filter((mail) => mail.status === 'new');
+            if (this.newMails.length && !this.isRestrictedState()) {
+                let date = DateTime.fromSQL(this.newMails[0].dateISO);
+                if (!this.getLastMessageTime() && this.newMails.length) {
+                    this.setLastMessageTime();
+
+                    for (let i = this.notificationsParams.numberOfNotifications - 1; i >= 0; i--) {
+                        if (this.newMails[i]) {
+                            this.displayMessageByIndex(i);
+                        }
+                    }
+                } else if (this.getLastMessageTime()
+                    && date > this.getLastMessageTime()) {
+                    this.setLastMessageTime();
+                    this.displayMessageByIndex(0);
+                }
+            }
+        });
+
+        this.eventService.subscribe({
+            name: 'LOGOUT',
+        }, () => {
+            this.removeLastMessageTime();
+            this.eventService.emit({
+                name: NotificationEvents.DismissAll,
+            });
+        });
+    }
+
+    private setNotificationsParams(): void {
+        this.notificationsParams = _mergeWith(
+            this.notificationsParams,
+            this.configService.get<IMailNotificationsParams>('$base.profile.messages.notificationsParams'),
+        );
+    }
+
+    private getLastMessageTime(): DateTime | null {
+        const date: string | null = this.configService.get({
+            name: 'lastMessageTime',
+            storageType: 'sessionStorage',
+        });
+
+        return date ? DateTime.fromSQL(date) : null;
+    }
+
+    private setLastMessageTime(): void {
+        this.configService.set({
+            name: 'lastMessageTime',
+            value: this.newMails[0].dateISO,
+            storageType: 'sessionStorage',
+        });
+    }
+
+    private removeLastMessageTime(): void {
+        this.configService.set({
+            name: 'lastMessageTime',
+            value: null,
+            storageType: 'sessionStorage',
+        });
+    }
+
+    private displayMessageByIndex(index: number): void {
+        let currentMessage = this.newMails[index];
+
+        if (!currentMessage.personal) {
+            try {
+                currentMessage = JSON.parse(currentMessage.content)[InternalMailModel.currentLanguage || 'en'];
+            }
+            catch (error) {
+                this.logService.sendLog({
+                    code: '19.0.3',
+                    data: error,
+                    from: {
+                        service: 'InternalMailsService',
+                        method: 'displayMessageByIndex',
+                    },
+                });
+            }
+        }
+
+        let clearedMsg = GlobalHelper.replaceBrackets(currentMessage.content);
+
+        this.eventService.emit({
+            name: NotificationEvents.PushMessage,
+            data: <IPushMessageParams>{
+                type: 'message',
+                title: gettext(currentMessage.title),
+                message: gettext(clearedMsg),
+
+                action: {
+                    label: gettext('Read more'),
+                    onClick: () => {
+                        this.openMessage(currentMessage);
+                        this.eventService.emit({
+                            name: NotificationEvents.DismissAll,
+                        });
+                    },
+                },
+            },
+        });
+    }
+
+    private isRestrictedState(): boolean {
+        return this.notificationsParams.excludedStatesForNotifications.some(state => this.stateService.is(state));
     }
 }

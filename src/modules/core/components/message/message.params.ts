@@ -2,7 +2,7 @@ import {CustomType, IComponentParams} from 'wlc-engine/modules/core/system/class
 import {TObjectFit} from './message.interface';
 
 export type TTheme = 'default' | CustomType;
-export type TMessageType = 'info' | 'success' | 'warning' | 'error';
+export type TMessageType = 'message' | 'info' | 'success' | 'warning' | 'error';
 export type TThemeMode = 'default' | CustomType;
 
 export interface IMessageParams extends IComponentParams<TTheme, TMessageType, TThemeMode> {
@@ -20,6 +20,7 @@ export const defaultParams: IMessageParams = {
     showCloseButton: true,
     imageFit: 'cover',
     typeIcons: {
+        message: '/wlc/icons/status/message.svg',
         success: '/wlc/icons/status/ok.svg',
         warning: '/wlc/icons/status/alert.svg',
         error: '/wlc/icons/status/alert.svg',

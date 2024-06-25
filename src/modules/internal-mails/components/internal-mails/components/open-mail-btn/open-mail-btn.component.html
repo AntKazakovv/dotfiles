@@ -5,7 +5,3 @@
         [inlineParams]="$params.buttonParams"
         (click)="openMessage()">
 </button>
-
-<ng-template #message>
-    <div class="internal-mail__content" [innerHtml]="$params.internalMail.content | safeValue:'html'"></div>
-</ng-template>

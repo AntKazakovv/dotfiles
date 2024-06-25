@@ -145,10 +145,7 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
             : this.html;
 
         // 17 angular
-        return html
-            .replace(/@/gi, '&#64;')
-            .replace(/{/gi, '&#123;')
-            .replace(/}/gi, '&#125;');
+        return GlobalHelper.replaceBrackets(html);
     }
 
     private extractBodyFromString(html: string): string {

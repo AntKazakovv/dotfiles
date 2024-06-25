@@ -59,25 +59,6 @@ export class OpenMailBtnComponent extends AbstractComponent implements OnInit {
      * @returns {void}
      */
     public openMessage(): void {
-        this.modalService.showModal({
-            id: 'internal-mail',
-            modalTitle: this.$params.internalMail.title,
-            templateRef: this.message,
-            closeBtnText: gettext('Close'),
-            showConfirmBtn: true,
-            confirmBtnParams: {
-                themeMod: 'secondary',
-                common: {
-                    text: gettext('Delete'),
-                },
-            },
-            onConfirm: () => {
-                this.internalMailsService.deleteMail(this.$params.internalMail);
-            },
-        });
-
-        if (this.$params.internalMail.status !== 'readed') {
-            this.internalMailsService.markAsRead(this.$params.internalMail);
-        }
+        this.internalMailsService.openMessage(this.$params.internalMail);
     }
 }

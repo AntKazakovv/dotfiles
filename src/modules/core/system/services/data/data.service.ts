@@ -368,7 +368,7 @@ export class DataService {
         }
 
         const requestParams = _assign(
-            {lang: this.translateService.currentLang || 'en'},
+            {lang: this.translateService.currentLang || this.configService.get<string>('appConfig.language') || 'en'},
             method.params,
             method.type === 'GET' ? params : {},
         );

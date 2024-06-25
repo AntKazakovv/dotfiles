@@ -1,3 +1,4 @@
+import {IMailNotificationsParams} from 'wlc-engine/modules/internal-mails';
 import {ILimitationsConfig} from 'wlc-engine/modules/user/submodules/limitations';
 import {ISmsVerification} from 'wlc-engine/modules/user/submodules/sms';
 
@@ -15,6 +16,7 @@ export interface IProfileConfig {
          * Activate internal mails
          */
         use: boolean;
+        notificationsParams?: IMailNotificationsParams;
     },
     webSockets?: IWebSockets,
     smsVerification?: ISmsVerification,
