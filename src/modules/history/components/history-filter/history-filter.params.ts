@@ -219,6 +219,14 @@ export namespace formConfig {
                 },
             },
             {
+                name: 'core.wlc-datepicker',
+                params: startDate,
+            },
+            {
+                name: 'core.wlc-datepicker',
+                params: endDate,
+            },
+            {
                 name: 'core.wlc-select',
                 params: bonusesConfig.filterSelect,
             },

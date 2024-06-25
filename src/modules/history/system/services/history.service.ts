@@ -155,12 +155,27 @@ export class HistoryService {
 
                 return this.historyBonuses as T[];
             } catch (error) {
-                this.logService.sendLog({code: '10.0.0', data: error});
+                if (error.code === 400
+                    && error.errors.length === 1
+                    && error.errors[0] === 'Report interval is more than 90 days') {
+                    this.eventService.emit({
+                        name: NotificationEvents.PushMessage,
+                        data: <IPushMessageParams>{
+                            type: 'error',
+                            title: 'Error',
+                            message: rangeExceededMsg,
+                            wlcElement: 'notification_bonuses-history',
+                        },
+                    });
+                    return [];
+                } else {
+                    this.logService.sendLog({code: '10.0.0', data: error});
 
-                this.eventService.emit({
-                    name: 'BONUSES_FETCH_FAILED',
-                    data: error,
-                });
+                    this.eventService.emit({
+                        name: 'BONUSES_FETCH_FAILED',
+                        data: error,
+                    });
+                }
             } finally {
                 this.queryPromises[type].next(false);
             }
@@ -221,7 +236,7 @@ export class HistoryService {
     /**
      * @param {IGetTransactionsParams} params optional params for getting transactions.
      * If no params provided, wlc-core sends 100 last transactions
-     * @returns {Promise<Transaction[]} list of transactions
+     * @returns {Promise<Transaction[]>} list of transactions
      */
     public async getTransactionList(params?: IGetTransactionsParams, isNeedRequest?: boolean): Promise<Transaction[]> {
 

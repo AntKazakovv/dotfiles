@@ -10,7 +10,6 @@ import {
     TTournamentsFilter,
     TBonusFilter,
     IHistoryData,
-    IHistoryFilterValue,
     IHistoryDefault,
     IHistoryFilter,
 } from 'wlc-engine/modules/history/system/interfaces/history-filter.interface';
@@ -26,7 +25,7 @@ export class HistoryFilterService {
         bet: new BehaviorSubject<IHistoryFilter>(null),
         cashback: new BehaviorSubject<IHistoryFilter>(null),
         tournaments: new BehaviorSubject<IHistoryFilter<TTournamentsFilter>>(null),
-        bonus: new BehaviorSubject<IHistoryFilterValue<typeof TBonusFilter>>(null),
+        bonus: new BehaviorSubject<IHistoryFilter<keyof typeof TBonusFilter>>(null),
         mails: new BehaviorSubject<IHistoryFilter>(null),
     };
     protected historyDefault: IHistoryDefault = {
@@ -52,6 +51,8 @@ export class HistoryFilterService {
         },
         bonus: {
             filterValue: 'all',
+            startDate: null,
+            endDate: null,
         },
         mails: {
             startDate: null,

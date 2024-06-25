@@ -23,7 +23,7 @@ export interface IHistoryData {
     bet: BehaviorSubject<IHistoryFilter>;
     cashback: BehaviorSubject<IHistoryFilter>;
     tournaments: BehaviorSubject<IHistoryFilter<TTournamentsFilter>>;
-    bonus: BehaviorSubject<IHistoryFilterValue<typeof TBonusFilter>>;
+    bonus: BehaviorSubject<IHistoryFilter<keyof typeof TBonusFilter>>;
     mails: BehaviorSubject<IHistoryFilter>;
 };
 
@@ -36,7 +36,7 @@ export interface IHistoryDefault {
     bet: IHistoryFilter;
     cashback: IHistoryFilter;
     tournaments: IHistoryFilter<TTournamentsFilter>;
-    bonus: IHistoryFilterValue<keyof typeof TBonusFilter>;
+    bonus: IHistoryFilter<keyof typeof TBonusFilter>;
     mails: IHistoryFilter;
 }
 export interface IHistoryFilter<T = string> {
