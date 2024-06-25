@@ -194,6 +194,19 @@ export const financesConfig: IFinancesConfig = {
                     },
                 ],
             },
+            wallet_address: {
+                settings: [
+                    {
+                        validators: [
+                            {
+                                name: 'maxLength',
+                                options: 60,
+                            },
+                        ],
+                        systems: ['coinspaid_cardano'],
+                    },
+                ],
+            },
         },
     },
     transactionHistoryAlert: {
