@@ -267,17 +267,32 @@ def tag_duplicate_checking(action, tag_to_find, repo_path=None):
 # Создание нового тега
 def make_tag(action, branch=None):
     print(Fore.YELLOW + "Making new tag..." + Fore.RESET)
-    if branch is None:
-        new_tag = ".".join(map(str, change_version(action, parse_version(get_version()))))
+    if branch == None:
+        new_tag = ".".join([str(k) for k in change_version(action, parse_version(get_version()))])
+
         if action == "hotfix":
             new_tag = tag_duplicate_checking(action, new_tag)
+
     else:
-        base_tag = f"{'test' if branch == 'develop' else 'prod'}-{get_date()}"
-        new_tag = base_tag + ".1"
-        new_tag = tag_duplicate_checking(action, new_tag, projects[0].get("repository"))
+        if branch == "develop":
+            base_tag = "test-" + get_date()
+        elif branch == "master":
+            base_tag = "prod-" + get_date()
+
+        try:
+            tag = (
+                list(
+                    filter(None, subprocess.check_output(["git", "ls-remote", "--exit-code", "--refs", "--sort=-version:refname", "--tags", "origin", f"{base_tag}.*"], cwd=temp_folder, text=True).split("\n")))[-1].split("/")[-1].split(".")
+            )
+            tag[1] = str(int(tag[1]) + 1)
+            new_tag = ".".join(tag)
+        except subprocess.CalledProcessError:
+            tag = None
+            new_tag = base_tag + ".1"
 
     print(Fore.GREEN + f"Done! New tag is {new_tag}" + Fore.RESET)
     return new_tag
+
 
 
 # Удаление локального тега движка
@@ -406,7 +421,7 @@ def update_npm(project_folder=None):
 # Чекаут npm зависимостей
 def get_depends(branch):
     print(Fore.YELLOW + "Getting dependencies from branch 'develop'" + Fore.RESET)
-    subprocess.run([ "git", "switch", f"remotes/origin/{branch}", "package.json", "package-lock.json", "composer.json", "composer.lock"], cwd=temp_folder)
+    subprocess.run([ "git", "checkout", f"remotes/origin/{branch}", "package.json", "package-lock.json", "composer.json", "composer.lock"], cwd=temp_folder)
     print(Fore.GREEN + "Done" + Fore.RESET)
 
 
@@ -567,8 +582,8 @@ def make_release(action, branch):
 
     if branch in ["develop", "master"]:
         print(Fore.YELLOW + "Making change log..." + Fore.RESET)
-        subprocess.run(["npm", "run", "gulp", "change-logs", "--", f"--tag={new_tag}"])
-        subprocess.run(["npm", "run", "gulp", "translations-logs"])
+        subprocess.run(["./node18.sh", "wlc-engine", "npm", "run", "gulp", "change-logs", "--", f"--tag={new_tag}"], cwd=os.path.expanduser("~/Projects/wlc"))
+        subprocess.run(["./node18.sh", "wlc-engine", "npm", "run", "gulp", "translations-logs"], cwd=os.path.expanduser("~/Projects/wlc"))
         print(Fore.GREEN + "Done" + Fore.RESET)
 
 
@@ -797,9 +812,11 @@ def release_manager():
 
         case "t":
             # Choise for testing things
-            action = "release"
-            new_tag = ".".join(map(str, change_version(action, parse_version(get_version()))))
-            print(new_tag)
+            new_tag = "1.0.0"
+            print(Fore.YELLOW + "Making change log..." + Fore.RESET)
+            subprocess.run(["./node18.sh", "wlc-engine", "npm", "run", "gulp", "change-logs", "--", f"--tag={new_tag}"], cwd=os.path.expanduser("~/Projects/wlc"))
+            subprocess.run(["./node18.sh", "wlc-engine", "npm", "run", "gulp", "translations-logs"], cwd=os.path.expanduser("~/Projects/wlc"))
+            print(Fore.GREEN + "Done" + Fore.RESET)
 
         case _:
             error_message()
