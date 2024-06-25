@@ -1,0 +1,33 @@
+.wlc-referrals-list--theme-default:host {
+
+    .wlc-referrals-list {
+        @include refListBase($themeDefault);
+
+        &__filters {
+            @include filters($themeDefault);
+        }
+
+        &__filter-item {
+            @include bm.get-mq-map('width', $themeDefault, 'filterItemWidth');
+        }
+
+        &__summary {
+            @include summary($themeDefault);
+        }
+
+        &__item {
+            @include item($themeDefault);
+        }
+
+        &__more-btn {
+            @include moreBtn($themeDefault);
+        }
+    }
+
+    ::ng-deep {
+
+        .wlc-profile-no-content {
+            @include noContent($themeDefault);
+        }
+    }
+}

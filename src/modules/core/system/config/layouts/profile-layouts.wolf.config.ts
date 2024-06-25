@@ -194,4 +194,10 @@ export const $profileWolfLayouts: IPanelsConfig = {
             'profile-content': sectionsLib.profileContent.profileWolfCashbackRewards,
         },
     },
+    'app.profile.referral': {
+        extends: 'app.profile',
+        sections: {
+            'profile-content': sectionsLib.profileContent.profileWolfReferral,
+        },
+    },
 };

@@ -1,0 +1,162 @@
+@mixin cta($config) {
+    @include bm.get-mq-map('padding', $config, 'ctaPadding');
+    @include text.get-text-style(
+        ef.get-value($config, 'ctaTextStyle'),
+        ef.get-value($config, 'ctaColor')
+    );
+    position: relative;
+    border-radius: var(--wlc-ref-info-radius);
+    background: ef.get-value($config, 'ctaBg');
+
+    &-title {
+        @include text.get-text-style(
+            ef.get-value($config, 'ctaTitleTextStyle'),
+            ef.get-value($config, 'ctaTitleColor')
+        );
+    }
+
+    &-main {
+        display: grid;
+        gap: ef.get-value($config, 'ctaMainGap');
+        max-width: ef.get-value($config, 'ctaMainMaxWidth');
+    }
+
+    &-decor {
+        @include bm.get-mq-map('top', $config, 'decorPosTop');
+        @include bm.get-mq-map('right', $config, 'decorPosRight');
+        @include bm.get-mq-map('display', $config, 'decorDisplay');
+        @include bm.get-mq-map('max-width', $config, 'decorMaxWidth');
+        @include bm.get-mq-map('transform', $config, 'decorTransform');
+
+        position: absolute;
+        z-index: 0;
+        max-height: 100%;
+
+        &-img {
+            object-fit: scale-down;
+            object-position: center;
+        }
+    }
+
+    ::ng-deep {
+
+        .wlc-input {
+
+            .wlc-input__input--right-shift {
+                padding-right: ef.get-value($config, 'ctaInputPaddingRight');
+            }
+        }
+    }
+}
+
+@mixin details($config) {
+    @include text.get-text-style(
+        ef.get-value($config, 'detailsTextStyle'),
+        ef.get-value($config, 'detailsColor')
+    );
+    display: flex;
+    flex-direction: column;
+    gap: ef.get-value($config, 'detailsGap');
+    align-items: center;
+    justify-content: center;
+    padding: ef.get-value($config, 'detailsPadding');
+    border-radius: var(--wlc-ref-info-radius);
+    background: ef.get-value($config, 'detailsBg');
+}
+
+@mixin total($config) {
+    width: 100%;
+
+    &-row {
+        --wlc-currency-display: flex;
+
+        @include text.get-text-style(
+            ef.get-value($config, 'totalTextStyle'),
+            ef.get-value($config, 'totalColor')
+        );
+
+        position: relative;
+        display: flex;
+        gap: ef.get-value($config, 'totalGap');
+        align-items: center;
+        justify-content: space-between;
+        min-height: ef.get-value($config, 'totalMinHeight');
+        padding: ef.get-value($config, 'totalPadding');
+
+        &:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            display: block;
+            width: ef.get-value($config, 'totalHrWidth');
+            height: ef.get-value($config, 'totalHrHeight');
+            background: ef.get-value($config, 'totalHrBg');
+            transform: ef.get-value($config, 'totalHrTransform');
+        }
+
+        &:last-child {
+
+            &:after {
+                display: ef.get-value($config, 'totalLastHrDisplay');
+            }
+        }
+
+        &-value {
+            color: ef.get-value($config, 'totalValColor');
+            font-weight: ef.get-value($config, 'totalValFontWeight');
+        }
+    }
+}
+
+@mixin descr($config) {
+    @include text.get-text-style(
+        ef.get-value($config, 'descrTextStyle'),
+        ef.get-value($config, 'descrColor')
+    );
+    display: grid;
+    gap: ef.get-value($config, 'descrGap');
+    text-align: ef.get-value($config, 'descrTextAlign');
+
+    &-title {
+        @include text.get-text-style(
+            ef.get-value($config, 'descrTitleTextStyle', 375),
+            ef.get-value($config, 'descrTitleColor')
+        );
+
+        @include mq.min(1200) {
+            @include text.get-text-style(
+                ef.get-value($config, 'descrTitleTextStyle', 1200),
+                null
+            );
+        }
+    }
+}
+
+@mixin refInfoBase($config) {
+
+    &__wrap {
+        @include bm.get-mq-map('gap', $config, 'wrapGap');
+        display: grid;
+
+        > * {
+            min-width: 0;
+        }
+    }
+
+    &__top {
+        @include bm.get-mq-map('grid-template-columns', $config, 'topColumns');
+        @include bm.get-mq-map('gap', $config, 'topGap');
+        display: grid;
+    }
+
+    &__section {
+        width: 100%;
+        max-width: var(--wlc-ref-info-content-width);
+        margin: ef.get-value($config, 'contentMargin');
+    }
+
+    &__btn-commission {
+        min-width: ef.get-value($config, 'commissionBtnMinWidth');
+    }
+}

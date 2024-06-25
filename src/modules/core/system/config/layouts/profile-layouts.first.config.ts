@@ -206,4 +206,10 @@ export const $profileFirstLayouts: ILayoutsConfig = {
             'profile-content': sectionsLib.profileContent.profileCashbackRewardsFirst,
         },
     },
+    'app.profile.referral': {
+        extends: 'app.profile',
+        sections: {
+            'profile-content': sectionsLib.profileContent.profileReferralTypeFirst,
+        },
+    },
 };

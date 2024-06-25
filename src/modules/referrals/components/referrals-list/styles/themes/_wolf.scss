@@ -1,0 +1,39 @@
+.wlc-referrals-list--theme-wolf:host {
+
+    .wlc-referrals-list {
+        @include refListBase($themeWolf);
+
+        &__filters {
+            @include filters($themeWolf);
+        }
+
+        &__filter-item {
+            @include bm.get-mq-map('width', $themeWolf, 'filterItemWidth');
+        }
+
+        &__summary {
+            @include summary($themeWolf);
+        }
+
+        &__item {
+            @include item($themeWolf);
+        }
+
+        &__more-btn {
+            @include moreBtn($themeWolf);
+        }
+
+        &__list-wrapper {
+            @include bm.get-mq-map('background', $themeWolf, 'listWrapperBg');
+            overflow: hidden;
+            border-radius: var(--wlc-ref-info-radius);
+        }
+    }
+
+    ::ng-deep {
+
+        .wlc-profile-no-content {
+            @include noContent($themeWolf);
+        }
+    }
+}

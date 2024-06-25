@@ -1,0 +1,89 @@
+$common: (
+    'wrapGap': (
+        375: ef.size(4),
+    ),
+    'wrapAlignItems': (
+        375: start,
+    ),
+
+    'filtersGap': (
+        375: ef.size(2),
+        640: ef.size(4),
+    ),
+    'filtersWidth': (
+        375: 100%,
+        640: auto,
+    ),
+    'filtersJustify': (
+        375: initial,
+    ),
+    'filtersFlexWrap': initial,
+
+    'listContainerMinHeight': (
+        375: 220px,
+        640: 250px,
+    ),
+    'listWrapperGap': 0,
+
+    'summaryTextStyle': 'PrimaryText',
+    'summaryColor': var(--mc-baseOpacity),
+    'summaryGap': ef.size(2),
+
+    'itemTextStyle': 'CaptionText',
+    'itemGap': ef.size(2),
+    'itemJustifyContent': center,
+    'itemPadding': ef.size(2),
+    'itemTextAlign': center,
+    'itemHeadColor': var(--mc-baseMain),
+    'itemHeadFontWeight': inherit,
+    'itemBorderBg': var(--mc-bg300),
+    'itemBorderWidth': 100%,
+    'itemBorderHeight': 2px,
+    'itemProfitColor': inherit,
+
+    'moreBtnTextStyle': 'ButtonText',
+    'moreBtnColor': var(--mc-main),
+    'moreBtnColorHover': var(--mc-main-l10),
+    'moreBtnBg': transparent,
+    'moreBtnBgHover': transparent,
+    'moreBtnBorder': none,
+    'moreBtnWidth': 140px,
+    'moreBtnHeight': 40px,
+
+    'noContentIconSize': (
+        375: 50px,
+        640: 100px,
+    ),
+    'noContentFlexDir': column-reverse,
+    'noContentGap': ef.size(4),
+    'noContentMargin': 0,
+    'noContentTextAlign': center,
+    'noContentImgAlignSelf': center,
+);
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge(map-merge($common, (
+    'filterItemWidth': (
+        375: 50%,
+        640: 150px,
+    ),
+
+    'itemColor': inherit,
+    'itemProfitFontWeight': 700,
+)), $customThemeDefault);
+
+$customThemeWolf: () !default;
+$themeWolf: map-merge(map-merge($common, (
+    'filterItemWidth': (
+        375: 50%,
+        640: 185px,
+    ),
+
+    'itemColor': var(--mc-baseSecond),
+    'itemProfitFontWeight': normal,
+
+    'listWrapperBg': (
+        375: var(--mc-bg700),
+        640: transparent,
+    ),
+)), $customThemeWolf);

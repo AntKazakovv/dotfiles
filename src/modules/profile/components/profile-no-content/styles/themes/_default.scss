@@ -1,4 +1,7 @@
 .wlc-profile-no-content:host {
+    --wlc-icon-width: #{ef.get-value($themeDefault, 'imgWidth')};
+    --wlc-icon-height: #{ef.get-value($themeDefault, 'imgHeight')};
+
     @include text.get-text-style(ef.get-value($themeDefault, 'textStyle'), ef.get-value($themeDefault, 'textColor'));
     display: ef.get-value($themeDefault, 'display');
     flex-direction: ef.get-value($themeDefault, 'direction');
@@ -10,6 +13,7 @@
         &__img {
             @include bm.get-mq-map('display', $themeDefault, 'imgDisplayProfileDef');
             align-self: ef.get-value($themeDefault, 'imgAlignSelf');
+            min-height: var(--wlc-icon-height);
             color: ef.get-value($themeDefault, 'imgColor');
 
             .wlc-sections__profile-content--theme-first & {
@@ -19,9 +23,7 @@
             ::ng-deep {
 
                 svg {
-                    width: ef.get-value($themeDefault, 'imgWidth');
                     max-width: ef.get-value($themeDefault, 'imgMaxWidth');
-                    height: ef.get-value($themeDefault, 'imgHeight');
                     max-height: ef.get-value($themeDefault, 'imgMaxHeight');
 
                     path {

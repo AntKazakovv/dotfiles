@@ -1,0 +1,24 @@
+.wlc-referral-info--theme-wolf:host {
+    --wlc-ref-info-content-width: #{ef.get-value($themeWolf, 'contentWidth')};
+    --wlc-ref-info-radius: #{ef.get-value($themeWolf, 'mainRadius')};
+
+    .wlc-referral-info {
+        @include refInfoBase($themeWolf);
+
+        &__descr {
+            @include descr($themeWolf);
+        }
+
+        &__cta {
+            @include cta($themeWolf);
+        }
+
+        &__details {
+            @include details($themeWolf);
+        }
+
+        &__total {
+            @include total($themeWolf);
+        }
+    }
+}

@@ -53,7 +53,8 @@ export type TModuleName =
     | 'qr-code'
     | 'pwa'
     | 'local-jackpots'
-    | 'ubidex';
+    | 'ubidex'
+    | 'referrals';
 
 
 type IFunctionImportModule = (name: TModuleName, callback: Function) => unknown;
@@ -248,6 +249,11 @@ export const modulesApp: Record<TModuleName, IFunctionImportModule> = {
         const m = await import('wlc-engine/modules/security/recaptcha/recaptcha.module');
         callback(name, m);
         return m.RecaptchaModule;
+    },
+    'referrals': async (name: TModuleName, callback: Function) => {
+        const m = await import('wlc-engine/modules/referrals/referrals.module');
+        callback(name, m);
+        return m.ReferralsModule;
     },
     'cashback': async (name: TModuleName, callback: Function) => {
         const m = await import('wlc-engine/modules/cashback/cashback.module');

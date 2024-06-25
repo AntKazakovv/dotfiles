@@ -77,6 +77,7 @@ let states = {
     'app.profile.quests': States.profileQuestsState,
     'app.profile.quests.main': States.profileQuestsMainState,
     'app.profile.dashboard': States.profileDashboardState,
+    'app.profile.referral': States.profileReferralState,
     'app.error': States.errorPageState,
     'app.offline': States.offlineState,
     'app.tournaments': States.tournamentsState,

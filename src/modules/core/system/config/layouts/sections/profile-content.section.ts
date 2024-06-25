@@ -2854,4 +2854,121 @@ export namespace profileContent {
             },
         ],
     };
+
+    export const profileReferral: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__top wlc-profile-content__top--buttons',
+                    components: [
+                        componentLib.wlcTitle.profileV2,
+                        componentLib.wlcButton.profileBlocks,
+                    ],
+                },
+            },
+            componentLib.wlcProfileMenu.submenu,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    components: [
+                        {
+                            name: 'referrals.wlc-referral-info',
+                        },
+                    ],
+                },
+            },
+        ],
+    };
+
+    export const profileReferralTypeFirst: ILayoutSectionConfig = {
+        container: true,
+        theme: 'first',
+        components: [
+            componentLib.wlcProfileMenu.defTypeFirst,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__header',
+                    components: [
+                        componentLib.wlcTitle.myAccountV1,
+                    ],
+                },
+                display: {
+                    before: 1199,
+                },
+            },
+            componentLib.wlcProfileMenu.subMenuV1,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content',
+                    components: [
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__header underlined',
+                                components: [
+                                    componentLib.wlcTitle.referrals,
+                                ],
+                            },
+                            display: {
+                                after: 1200,
+                            },
+                        },
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__body',
+                                components: [
+                                    {
+                                        name: 'referrals.wlc-referral-info',
+                                    },
+                                ],
+                            },
+                        },
+                    ],
+                },
+            },
+        ],
+    };
+
+    export const profileWolfReferral: ILayoutSectionConfig = {
+        container: true,
+        theme: 'wolf',
+        components: [
+            {
+                name: 'core.wlc-section-title',
+                params: {
+                    theme: 'wolf',
+                    text: 'Profile',
+                    iconPath: 'wlc/icons/european/v3/account-settings.svg',
+                },
+                display: {
+                    before: 899,
+                },
+            },
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__wrp',
+                    components: [
+                        componentLib.wlcProfileMenu.defTypeWolf,
+                        componentLib.wlcProfileMenu.submenuWolf,
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                components: [
+                                    {
+                                        name: 'referrals.wlc-referral-info',
+                                    },
+                                ],
+                            },
+                        },
+                    ],
+                },
+            },
+        ],
+    };
 }

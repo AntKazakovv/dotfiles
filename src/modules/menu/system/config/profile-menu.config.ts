@@ -61,6 +61,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                     'app.profile.messages',
                     'app.profile.limitations',
                     'app.profile.social',
+                    'app.profile.referral',
                 ],
                 name: 'app.profile.main.info',
                 params: {},
@@ -84,6 +85,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                     'app.profile.messages',
                     'app.profile.limitations',
                     'app.profile.social',
+                    'app.profile.referral',
                 ],
                 name: 'app.profile.main.info',
                 params: {},
@@ -1233,6 +1235,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
             },
         },
     },
+
     'profile-first-menu:dashboard': {
         name: gettext('Dashboard'),
         type: 'sref',
@@ -1260,6 +1263,19 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
     },
 
+    'profile-menu:referral': {
+        name: gettext('Referral program'),
+        type: 'sref',
+        class: 'referral',
+        wlcElement: 'link_cc-profile-menu_referral',
+        params: {
+            state: {
+                name: 'app.profile.referral',
+                params: {},
+            },
+        },
+    },
+
     'profile-first-menu:kyc-questionnaire': {
         name: gettext('KYC questionnaire'),
         type: 'sref',
@@ -1269,6 +1285,19 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         params: {
             state: {
                 name: 'app.profile.kyc-questionnaire',
+                params: {},
+            },
+        },
+    },
+
+    'profile-first-menu:referral': {
+        name: gettext('Referral program'),
+        type: 'sref',
+        class: 'referral',
+        wlcElement: 'link_cc-profile-menu_referral',
+        params: {
+            state: {
+                name: 'app.profile.referral',
                 params: {},
             },
         },
@@ -1415,5 +1444,9 @@ export const profileMenuFilter: ProfileMenuParams.IProfileMenuFilter[] = [
     {
         config: '$base.profile.socials.usePage',
         item: 'profile-first-menu:socials',
+    },
+    {
+        config: '$base.profile.referralProgram.use',
+        item: 'profile-menu:referral',
     },
 ];

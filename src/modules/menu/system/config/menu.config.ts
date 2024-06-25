@@ -133,6 +133,7 @@ export const menuConfig: IMenuConfig = {
                     'profile-menu:limitations',
                     'profile-menu:messages',
                     'profile-menu:socials',
+                    'profile-menu:referral',
                 ],
             },
         ],
@@ -162,6 +163,7 @@ export const menuConfig: IMenuConfig = {
                     'profile-first-menu:socials',
                     'profile-first-menu:limitations',
                     'profile-first-menu:messages',
+                    'profile-first-menu:referral',
                 ],
             },
             {

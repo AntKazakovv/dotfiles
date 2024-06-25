@@ -207,4 +207,10 @@ export const $profileLayouts: IPanelsConfig = {
             'profile-content': sectionsLib.profileContent.profileCashbackRewards,
         },
     },
+    'app.profile.referral': {
+        extends: 'app.profile',
+        sections: {
+            'profile-content': sectionsLib.profileContent.profileReferral,
+        },
+    },
 };

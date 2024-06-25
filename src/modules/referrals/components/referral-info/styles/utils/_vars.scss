@@ -1,0 +1,102 @@
+$common: (
+    'contentWidth': 600px,
+    'contentMargin': 0 auto,
+    'mainRadius': ef.get('radius', 'main'),
+    'wrapGap': (
+        375: ef.size(4),
+        1200: ef.size(6),
+    ),
+
+    'topColumns': (
+        375: 1fr,
+        900: 2fr 1fr,
+    ),
+    'topGap': (
+        375: ef.size(4),
+        1200: ef.size(6),
+    ),
+
+    'ctaTextStyle': 'PrimaryText',
+    'ctaPadding': (
+        375: ef.size(4),
+    ),
+    'ctaBg': radial-gradient(125% 60% at 85% 50%, #6c05bc 0%, #4b0086 100%),
+    'ctaTitleTextStyle': 'ThirdTitleBold',
+    'ctaMainGap': ef.size(2),
+    'ctaMainMaxWidth': 345px,
+    'ctaInputPaddingRight': 40px,
+
+    'decorDisplay': (
+        375: none,
+        640: block,
+    ),
+    'decorPosTop': (
+        375: 50%,
+    ),
+    'decorPosRight': (
+        375: ef.size(4),
+    ),
+    'decorMaxWidth': (
+        375: 180px,
+    ),
+    'decorTransform': (
+        375: translateY(-50%),
+    ),
+
+    'detailsTextStyle': 'PrimaryText',
+    'detailsColor': var(--mc-baseMain),
+    'detailsGap': ef.size(1),
+    'detailsPadding': ef.size(2) ef.size(4) ef.size(3),
+    'detailsBg': var(--mc-bg500),
+
+    'totalColor': var(--mc-baseMain),
+    'totalGap': ef.size(2),
+    'totalMinHeight': 50px,
+    'totalPadding': ef.size(1) 0,
+    'totalHrWidth': 100%,
+    'totalHrHeight': 2px,
+    'totalHrBg': var(--mc-baseOpacity),
+    'totalHrTransform': translate(-50%, -50%),
+    'totalLastHrDisplay': none,
+    'totalValFontWeight': 700,
+
+    'commissionBtnMinWidth': 180px,
+
+    'descrTextStyle': 'PrimaryText',
+    'descrColor': inherit,
+    'descrGap': ef.size(4),
+    'descrMargin': 0 auto,
+    'descrTextAlign': center,
+
+    'historyMargin': 0 auto,
+);
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge(map-merge($common, (
+    'ctaColor': inherit,
+    'ctaTitleColor': inherit,
+
+    'totalTextStyle': 'PrimaryText',
+    'totalValColor': inherit,
+
+    'descrTitleTextStyle': (
+        375: 'ThirdTitleBold',
+        1200: 'QoteTextBold',
+    ),
+    'descrTitleColor': var(--mc-baseMain),
+
+)), $customThemeDefault);
+
+$customThemeWolf: () !default;
+$themeWolf: map-merge(map-merge($common, (
+    'ctaColor': var(--mc-baseThird-locked),
+    'ctaTitleColor': var(--mc-baseThird-locked),
+
+    'totalTextStyle': 'PrimaryTextBold',
+    'totalValColor': var(--mc-baseThird),
+
+    'descrTitleTextStyle': (
+        375: 'ThirdTitleBold',
+    ),
+    'descrTitleColor': var(--mc-baseThird),
+)), $customThemeDefault);

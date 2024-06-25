@@ -7,6 +7,7 @@ import {
     TTournamentsFilter,
     TTransactionFilter,
 } from 'wlc-engine/modules/history/system/interfaces/history-filter.interface';
+import {ISelectOptions} from 'wlc-engine/modules/profile';
 
 export const startDate: IDatepickerCParams = {
     name: 'startDate',
@@ -26,6 +27,11 @@ export const endDate: IDatepickerCParams = {
         emit: 'CHANGE_END_DATE',
         subscribe: 'CHANGE_START_DATE',
     },
+};
+
+export const refCommissionFilterConfig: ISelectOptions = {
+    value: 'commission',
+    title: gettext('Commission'),
 };
 
 export namespace transactionConfig {

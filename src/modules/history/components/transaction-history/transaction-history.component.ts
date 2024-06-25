@@ -16,6 +16,7 @@ import {
 import {DateTime} from 'luxon';
 import _filter from 'lodash-es/filter';
 import _merge from 'lodash-es/merge';
+import _union from 'lodash-es/union';
 
 import {
     AbstractComponent,
@@ -28,6 +29,7 @@ import {
     DeviceType,
     ProfileType,
     ISelectCParams,
+    ISelectOptions,
 } from 'wlc-engine/modules/core';
 import {ITransactionHistoryAlert, financesConfig} from 'wlc-engine/modules/finances';
 import {MultiWalletEvents} from 'wlc-engine/modules/multi-wallet';
@@ -36,6 +38,7 @@ import {
     transactionConfig as config,
     startDate,
     endDate,
+    refCommissionFilterConfig,
     IHistoryFilter,
     TTransactionFilter,
 } from 'wlc-engine/modules/history';
@@ -93,6 +96,13 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
         super.ngOnInit();
         this.transfersEnabled = this.configService.get<boolean>('$base.profile.transfers.use');
         this.filterSelect = this.transfersEnabled ? config.filterSelectTransfer : config.filterSelect;
+
+        if (this.configService.get<boolean>('$base.profile.referralProgram.use')) {
+            const items: ISelectOptions<TTransactionFilter>[] =
+                _union(this.filterSelect.items, [refCommissionFilterConfig as ISelectOptions<TTransactionFilter>]);
+            this.filterSelect.items = items;
+        }
+
         this.allTransactions = await this.historyService.getTransactionList(
             {
                 startDate: this.startDate,
@@ -142,6 +152,8 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
                         return item.amount < 0;
                     case 'transfer':
                         return item.system === 'Gift';
+                    case 'commission':
+                        return item.system === 'commission';
                 }
             });
         }

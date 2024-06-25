@@ -1,0 +1,24 @@
+.wlc-referral-info--theme-default:host {
+    --wlc-ref-info-content-width: #{ef.get-value($themeDefault, 'contentWidth')};
+    --wlc-ref-info-radius: #{ef.get-value($themeDefault, 'mainRadius')};
+
+    .wlc-referral-info {
+        @include refInfoBase($themeDefault);
+
+        &__descr {
+            @include descr($themeDefault);
+        }
+
+        &__cta {
+            @include cta($themeDefault);
+        }
+
+        &__details {
+            @include details($themeDefault);
+        }
+
+        &__total {
+            @include total($themeDefault);
+        }
+    }
+}

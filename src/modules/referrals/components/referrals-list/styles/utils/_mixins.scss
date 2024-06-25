@@ -1,0 +1,130 @@
+
+@mixin refListBase($config) {
+
+    &__wrap {
+        @include bm.get-mq-map('gap', $config, 'wrapGap');
+        @include bm.get-mq-map('align-items', $config, 'wrapAlignItems');
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__list,
+    &__summary {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+
+    &__list {
+        width: 100%;
+    }
+
+    &__list-container {
+        @include bm.get-mq-map('min-height', $config, 'listContainerMinHeight');
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    &__list-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: ef.get-value($config, 'listWrapperGap');
+        align-items: center;
+        width: 100%;
+    }
+}
+
+@mixin filters($config) {
+    @include bm.get-mq-map('gap', $config, 'filtersGap');
+    @include bm.get-mq-map('justify-content', $config, 'filtersJustify');
+    @include bm.get-mq-map('width', $config, 'filtersWidth');
+
+    display: flex;
+    flex-wrap: ef.get-value($config, 'filtersFlexWrap');
+    align-items: end;
+}
+
+@mixin item($config) {
+    @include text.get-text-style(
+        ef.get-value($config, 'itemTextStyle'),
+        ef.get-value($config, 'itemColor')
+    );
+    position: relative;
+    display: flex;
+    gap: ef.get-value($config, 'itemGap');
+    align-items: center;
+    justify-content: ef.get-value($config, 'itemJustifyContent');
+    min-height: 40px;
+    padding: ef.get-value($config, 'itemPadding');
+    text-align: ef.get-value($config, 'itemTextAlign');
+
+    &:after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        display: block;
+        width: ef.get-value($config, 'itemBorderWidth');
+        height: ef.get-value($config, 'itemBorderHeight');
+        background: ef.get-value($config, 'itemBorderBg');
+        transform: translate(-50%, -50%);
+    }
+
+    &-col {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+
+    &-col--profit {
+        color: ef.get-value($config, 'itemProfitColor');
+        font-weight: ef.get-value($config, 'itemProfitFontWeight');
+    }
+
+    &--head {
+        color: ef.get-value($config, 'itemHeadColor');
+        font-weight: ef.get-value($config, 'itemHeadFontWeight');
+    }
+}
+
+@mixin moreBtn($config) {
+    @include text.get-text-style(
+        ef.get-value($config, 'moreBtnTextStyle'),
+        ef.get-value($config, 'moreBtnColor')
+    );
+    min-width: ef.get-value($config, 'moreBtnWidth');
+    height: ef.get-value($config, 'moreBtnHeight');
+    background: ef.get-value($config, 'moreBtnBg');
+    border: ef.get-value($config, 'moreBtnBorder');
+
+    @include bm.hover {
+        color: ef.get-value($config, 'moreBtnColor');
+        background: ef.get-value($config, 'moreBtnBgHover');
+    }
+}
+
+@mixin summary($config) {
+    @include text.get-text-style(
+        ef.get-value($config, 'summaryTextStyle'),
+        ef.get-value($config, 'summaryColor')
+    );
+    display: grid;
+    gap: ef.get-value($config, 'summaryGap');
+}
+
+@mixin noContent($config) {
+    @include bm.get-mq-map('--wlc-icon-width', $config, 'noContentIconSize');
+    @include bm.get-mq-map('--wlc-icon-height', $config, 'noContentIconSize');
+
+    flex-direction: ef.get-value($config, 'noContentFlexDir');
+    gap: ef.get-value($config, 'noContentGap');
+    margin: ef.get-value($config, 'noContentMargin');
+    text-align: ef.get-value($config, 'noContentTextAlign');
+
+    .wlc-profile-no-content__img[class] {
+        display: block;
+        align-self: ef.get-value($config, 'noContentImgAlignSelf');
+    }
+}

@@ -419,4 +419,13 @@ export namespace wlcTitle {
             wlcElement: 'header_transfer',
         },
     };
+
+    export const referrals: ILayoutComponent = {
+        name: 'core.wlc-title',
+        params: <ITitleCParams>{
+            customMod: ['profile'],
+            mainText: gettext('Referral program'),
+            wlcElement: 'header_messages',
+        },
+    };
 }
