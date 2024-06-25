@@ -206,7 +206,13 @@ export class TableComponent extends AbstractComponent implements OnInit {
     public paginationOnChange(value: IPaginateOutput): void {
         this.paginatedRows = value.paginatedItems as TableRowModel[];
         this.itemPerPage = value.event.itemsPerPage;
-        this.actionService.scrollTo('body');
+
+        let amountPages = Math.ceil(this.rows.length / this.itemPerPage);
+
+        if (value.event.page === amountPages || this.$params.scrollUp) {
+            this.actionService.scrollTo('body');
+        }
+
         this.indexFactor = (value.event.page - 1) * value.event.itemsPerPage;
         this.setPaginatedRowsModifier();
         this.cdr.detectChanges();

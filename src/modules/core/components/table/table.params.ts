@@ -24,6 +24,10 @@ export interface ITableCParams extends IComponentParams<Theme, Type, ThemeMod> {
     iconPath?: string,
     switchWidth?: number;
     indexShift?: number;
+    /**
+     * Scroll up when pagination
+     */
+    scrollUp?: boolean;
 }
 
 export const defaultParams: ITableCParams = {
@@ -41,6 +45,7 @@ export const defaultParams: ITableCParams = {
     },
     switchWidth: 1024,
     iconPath: '/wlc/icons/empty-table-bg.svg',
+    scrollUp: false,
 };
 
 export interface ITableCol {
