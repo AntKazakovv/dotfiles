@@ -92,6 +92,8 @@ export interface IBonusItemCParams extends IComponentParams<Theme, Type, ThemeMo
     };
     buttonsSize?: Size;
     bonusUnavailableAlertParams?: IAlertCParams;
+    bonusAllowStackAlertParams?: IAlertCParams;
+    bonusNonCancelableAlertParams?: IAlertCParams;
     useReadMoreBtnMode?: boolean;
     imageSource?: TBonusItemImageSource;
 }
@@ -115,6 +117,14 @@ export const defaultParams: IBonusItemCParams = {
     usePartialMobileImage: false,
     bonusUnavailableAlertParams: {
         title: gettext('This bonus cannot be activated due to the presence of another active bonus'),
+        level: 'warning',
+    },
+    bonusAllowStackAlertParams: {
+        title: gettext('The bonus allows stacking'),
+        level: 'info',
+    },
+    bonusNonCancelableAlertParams: {
+        title: gettext('The bonus does not allow cancellation. Wager this bonus to claim a new one'),
         level: 'warning',
     },
 };

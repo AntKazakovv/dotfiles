@@ -307,6 +307,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
         const modalParams: IBonusModalCParams = _merge({
             bonus: this.bonus,
             bonusItemTheme: this.$params.theme,
+            alerts: [],
         }, this.$params.bonusModalParams || {});
 
         if (this.$params.buttonsParams?.hideButtons
@@ -317,7 +318,15 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
         }
 
         if (this.bonus.isUnavailableForActivation) {
-            modalParams.alerts = [...(modalParams.alerts || []), this.$params.bonusUnavailableAlertParams];
+            modalParams.alerts.push(this.$params.bonusUnavailableAlertParams);
+        }
+
+        if (!Bonus.existActiveBonus && !(this.bonus.selected || this.bonus.inventoried) && this.bonus.allowStack) {
+            modalParams.alerts.push(this.$params.bonusAllowStackAlertParams);
+        }
+
+        if (this.bonus.isActive && this.bonus.disableCancel) {
+            modalParams.alerts.push(this.$params.bonusNonCancelableAlertParams);
         }
 
         this.modalService.showModal('bonusModal', modalParams);
