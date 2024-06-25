@@ -1,0 +1,86 @@
+.wlc-achievement-item--theme-wolf:host {
+
+    .wlc-achievement-item {
+
+        &__container {
+            @include containerCommonStyles($themeWolf);
+        }
+
+        &__image-container {
+            @include imageCommonStyles($themeWolf);
+        }
+
+        &__prize-description-icon-container {
+            @include prizeDescIconContainerCommonStyles($themeWolf);
+        }
+
+        &__prize-description-icon {
+            @include prizeDescIconCommonStyles($themeWolf);
+        }
+
+        &__progress {
+            @include progressCommonStyles($themeWolf);
+        }
+
+        &__name {
+            @include nameCommonStyles($themeWolf);
+        }
+
+        &__description {
+            @include descriptionCommonStyles($themeWolf);
+        }
+
+        &__button {
+            @include bm.get-mq-map('grid-area', $themeWolf, 'buttonArea');
+            @include bm.get-mq-map('margin', $themeWolf, 'buttonMargin');
+            max-width: 100%;
+
+            .wlc-btn {
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'buttonTextStyle'),
+                    ef.get-value($themeWolf, 'buttonColor')
+                );
+                max-width: 100%;
+                text-wrap: nowrap;
+                text-overflow: ellipsis;
+
+                @include bm.hover {
+                    color: ef.get-value($themeWolf, 'buttonColorHover');
+                }
+            }
+        }
+
+        &__date {
+            @include dateCommonStyles($themeWolf);
+        }
+
+        &__info {
+            --wlc-icon-width: #{ef.get-value($themeWolf, 'infoIconSize')};
+            --wlc-icon-height: #{ef.get-value($themeWolf, 'infoIconSize')};
+            @include bm.transition(background);
+            @include bm.get-mq-map('grid-area', $themeWolf, 'infoArea');
+            display: ef.get-value($themeWolf, 'infoDisplay');
+            align-items: center;
+            justify-content: center;
+            width: ef.get-value($themeWolf, 'infoSize');
+            height: ef.get-value($themeWolf, 'infoSize');
+            margin: ef.get-value($themeWolf, 'infoMargin');
+            color: ef.get-value($themeWolf, 'infoIconColor');
+            line-height: 1;
+            background: ef.get-value($themeWolf, 'infoBg');
+            cursor: pointer;
+            border-radius: ef.get-value($themeWolf, 'infoRadius');
+
+            ::ng-deep {
+
+                .wlc-icon-content {
+                    display: flex;
+                }
+            }
+
+            @include bm.hover {
+                background: ef.get-value($themeWolf, 'infoBgHover');
+            }
+        }
+    }
+}

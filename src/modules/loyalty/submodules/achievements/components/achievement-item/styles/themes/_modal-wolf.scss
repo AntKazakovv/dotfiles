@@ -1,0 +1,42 @@
+.wlc-achievement-item--theme-modal-wolf:host {
+
+    .wlc-achievement-item {
+
+        &__container {
+            @include containerCommonStyles($themeModalWolf);
+        }
+
+        &__image-container {
+            @include imageCommonStyles($themeModalWolf);
+        }
+
+        &__prize-description-icon-container {
+            @include prizeDescIconContainerCommonStyles($themeModalWolf);
+        }
+
+        &__prize-description-icon {
+            @include prizeDescIconCommonStyles($themeModalWolf);
+        }
+
+        &__progress {
+            @include progressCommonStyles($themeModalWolf);
+        }
+
+        &__name {
+            @include nameCommonStyles($themeModalWolf);
+        }
+
+        &__description {
+            @include descriptionCommonStyles($themeModalWolf);
+        }
+
+        &__button {
+            @include bm.get-mq-map('grid-area', $themeModalWolf, 'buttonArea');
+            @include bm.get-mq-map('margin', $themeModalWolf, 'buttonMargin');
+        }
+
+        &__date {
+            @include dateCommonStyles($themeModalWolf);
+        }
+    }
+}

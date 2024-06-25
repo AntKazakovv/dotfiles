@@ -1,13 +1,15 @@
 import {IIndexing} from 'wlc-engine/modules/core';
 
 export type TAchievementTarget = 'Bet'
-                                | 'Deposit'
-                                | 'GroupWins'
-                                | 'Login'
-                                | 'Verification'
-                                | 'Win'
-                                | 'Withdrawal'
-                                | 'Empty';
+    | 'Deposit'
+    | 'GroupWins'
+    | 'Login'
+    | 'Verification'
+    | 'Win'
+    | 'Withdrawal'
+    | 'Empty';
+
+export type TItemModalTheme = 'modal' | 'modal-wolf';
 
 export interface IAchievementProgressDetails {
     Current: string;
@@ -64,4 +66,9 @@ export interface IWSAchievementData {
     achievement_id?: number,
     user_id?: number,
     achievement_name?: string,
+}
+
+export interface IAchievementItemParams {
+    infoIconPath: string,
+    modalTheme: TItemModalTheme,
 }

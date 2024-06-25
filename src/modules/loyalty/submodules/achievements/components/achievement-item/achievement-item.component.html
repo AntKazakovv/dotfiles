@@ -1,10 +1,12 @@
-<ng-container [ngSwitch]="$params.type">
-    <ng-container *ngSwitchCase="'modal'" [ngTemplateOutlet]="typeModal"></ng-container>
-    <ng-container *ngSwitchDefault [ngTemplateOutlet]="typeDefault"></ng-container>
+<ng-container [ngSwitch]="$params.theme">
+    <ng-container *ngSwitchCase="'modal-wolf'" [ngTemplateOutlet]="themeModal"></ng-container>
+    <ng-container *ngSwitchCase="'modal'" [ngTemplateOutlet]="themeModal"></ng-container>
+    <ng-container *ngSwitchCase="'wolf'" [ngTemplateOutlet]="default"></ng-container>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
 </ng-container>
 
 <!-- default -->
-<ng-template #typeDefault>
+<ng-template #default>
     <div class="{{$class}}__container {{$class}}__container--{{achievement.status}}">
         <ng-container [ngTemplateOutlet]="achievementImage" [ngTemplateOutletContext]="{$implicit: true}"></ng-container>
         <ng-container *ngIf="showProgress" [ngTemplateOutlet]="achievementProgress"></ng-container>
@@ -14,16 +16,17 @@
         <ng-container *ngIf="achievement.isReceived" [ngTemplateOutlet]="achievementDate"></ng-container>
         <div class="{{$class}}__info">
             <div wlc-icon
-                 class="icon-btn"
-                 iconPath="/wlc/icons/info.svg"
-                 wlcElement="button_terms"
-                 (click)="openDescription()"></div>
+                class="icon-btn"
+                [iconPath]="$params.itemParams.infoIconPath"
+                wlcElement="button_terms"
+                (click)="openDescription()">
+            </div>
         </div>
     </div>
 </ng-template>
 
 <!-- modal -->
-<ng-template #typeModal>
+<ng-template #themeModal>
     <div class="{{$class}}__container {{$class}}__container--{{achievement.status}}">
         <ng-container [ngTemplateOutlet]="achievementImage" [ngTemplateOutletContext]="{$implicit: false}"></ng-container>
         <ng-container *ngIf="showProgress" [ngTemplateOutlet]="achievementProgress"></ng-container>

@@ -3,11 +3,14 @@ import {
     IComponentParams,
     IPagination,
 } from 'wlc-engine/modules/core';
-import {IModifier} from 'wlc-engine/modules/loyalty/submodules/achievements/system/interfaces/achievement.interface';
+import {
+    IAchievementItemParams,
+    IModifier,
+} from 'wlc-engine/modules/loyalty/submodules/achievements/system/interfaces/achievement.interface';
 
 export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;
-export type ThemeMod = 'default' | CustomType;
+export type ThemeMod = 'default' | 'wolf' | CustomType;
 export type TOrder = 'asc' | 'desc';
 
 export interface IAchievementListCParams extends IComponentParams<Theme, Type, ThemeMod> {
@@ -27,6 +30,7 @@ export interface IAchievementListCParams extends IComponentParams<Theme, Type, T
      * Is need hide received achievements
      */
     hideReceived?: boolean;
+    itemParams?: IAchievementItemParams,
 }
 
 export const defaultParams: IAchievementListCParams = {

@@ -321,7 +321,6 @@ export const MODALS_LIST: IModalList = {
             componentName: 'achievements.wlc-achievement-item',
             componentParams: {
                 type: 'modal',
-                theme: 'modal',
                 buttonParams: {
                     Bet: {
                         theme: 'default',

@@ -95,6 +95,12 @@ export class AchievementItemComponent extends AbstractComponent implements OnIni
     }
 
     public openDescription(): void {
-        this.modalService.showModal('achievementInfo', {achievement: this.achievement});
+        this.modalService.showModal(
+            'achievementInfo',
+            {
+                achievement: this.achievement,
+                theme: this.$params.itemParams.modalTheme,
+            },
+        );
     }
 }

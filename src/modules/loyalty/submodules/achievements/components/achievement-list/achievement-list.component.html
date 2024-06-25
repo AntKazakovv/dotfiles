@@ -2,15 +2,15 @@
     <ng-container *ngIf="$params.pagination?.use; else defaultWithoutPagination">
         <div class="{{$class}}__list">
             <div *ngFor="let achievement of paginatedAchievements"
-                 wlc-achievement-item
-                 [inlineParams]="{achievement: achievement}">
+                wlc-achievement-item
+                [inlineParams]="getItemInlineParams(achievement)">
             </div>
         </div>
         <div wlc-pagination
-             theme="default"
-             [items]="achievementsFromActiveGroup"
-             [settings]="$params.pagination"
-             (paginationOnChange)="paginationOnChange($event)">
+            [theme]="$params.themeMod"
+            [items]="achievementsFromActiveGroup"
+            [settings]="$params.pagination"
+            (paginationOnChange)="paginationOnChange($event)">
         </div>
     </ng-container>
 </ng-container>
@@ -19,7 +19,7 @@
     <div class="{{$class}}__list">
         <div *ngFor="let achievement of achievementsFromActiveGroup"
              wlc-achievement-item
-             [inlineParams]="{achievement: achievement}">
+             [inlineParams]="getItemInlineParams(achievement)">
         </div>
     </div>
 </ng-template>

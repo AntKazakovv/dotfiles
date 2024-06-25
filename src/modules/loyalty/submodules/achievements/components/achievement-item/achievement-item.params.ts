@@ -5,10 +5,12 @@ import {
 } from 'wlc-engine/modules/core';
 import {AchievementModel} from 'wlc-engine/modules/loyalty/submodules/achievements/system/models/achievement.model';
 import {
+    IAchievementItemParams,
     TAchievementTarget,
+    TItemModalTheme,
 } from 'wlc-engine/modules/loyalty/submodules/achievements/system/interfaces/achievement.interface';
 
-export type Theme = 'default' | CustomType;
+export type Theme = 'default' | 'wolf' | TItemModalTheme | CustomType;
 export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 
@@ -29,6 +31,10 @@ export interface IAchievementItemCParams extends IComponentParams<Theme, Type, T
      * Prize icon in top right angle
      */
     prizeIconPath?: string;
+    /**
+     * Info icon path
+     */
+    itemParams?: IAchievementItemParams,
 }
 
 export const defaultParams: IAchievementItemCParams = {

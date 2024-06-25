@@ -26,6 +26,7 @@ import {
     AchievementModel,
     AchievementGroupModel,
     IModifier,
+    IAchievementItemCParams,
 } from 'wlc-engine/modules/loyalty/submodules/achievements';
 
 import * as Params from './achievement-list.params';
@@ -134,5 +135,13 @@ export class AchievementListComponent extends AbstractComponent implements OnIni
 
     public modifyAchievementsGroup(achievements: AchievementModel[], modifier: IModifier): AchievementModel[] {
         return this.achievementsService.modifyAchievementArray(achievements, modifier);
+    }
+
+    public getItemInlineParams(achievement): IAchievementItemCParams {
+        return {
+            achievement: achievement,
+            theme: this.$params.themeMod,
+            itemParams: this.$params.itemParams,
+        };
     }
 }
