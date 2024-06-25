@@ -42,6 +42,7 @@ import {
     ChatState,
 } from 'wlc-engine/modules/livechat/system/classes/livechatAbstract.class';
 import {WINDOW} from 'wlc-engine/modules/app/system';
+import {CustomAsyncHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 
 export type AssignType = 'loyalty' | 'tag';
 
@@ -163,6 +164,7 @@ export class LivechatincService extends LivechatAbstract<ILivechatIncConfig> {
         this.initialize();
     }
 
+    @CustomAsyncHook('livechat','liveChatIncServiceInitialize')
     protected async initialize(): Promise<void> {
         this.chatState$ = new BehaviorSubject(null);
 
