@@ -59,7 +59,6 @@ $themeDefault: map-merge((
     'favouriteHoverBg': ef.get('mainColors', 'baseMain'), // Locked color
     'favouriteBackBgActive': ef.get('mainColors', 'bg300'), // Locked color
     'favouriteBackBgHover': ef.get('mainColors', 'bg300'), // Locked color
-    'favouriteBackSize': ef.size(8),
     'favouriteBackRadius': ef.get('radius', 'biger'),
     'favouriteBoxShadow': none,
 
@@ -194,10 +193,8 @@ $customThemeDefaultCircle: () !default;
 $themeDefaultModCircle: map-merge((
     'descBg': linear-gradient( 360deg, var(--mc-baseContrast) 0%, var(--mc-baseContrast-o0) 47%),
 
-    'titlePosition': ef.size(2),
-    'titleAlignItems': start,
-    'titleOpacity': 1,
-    'titleOpacityHover': 0,
+    'titlePosition': 0,
+    'titleAlignItems': center,
 
     'btnsGridRows': auto ef.size(8),
     'btnsGridRowsVert': minmax(0, 1fr) minmax(0, 1fr),

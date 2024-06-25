@@ -545,8 +545,8 @@
             }
 
             &__title {
-                justify-self: center;
-                max-width: calc(100% - #{ef.get-value($themeDefault, 'favouriteBackSize')} * 2 * 1.2);
+                position: relative;
+                align-items: center;
             }
         }
     }
@@ -566,12 +566,11 @@
             }
 
             &__title {
-                position: absolute;
+                position: relative;
                 bottom: ef.get-value($themeDefaultModCircle, 'titlePosition');
                 left: ef.get-value($themeDefaultModCircle, 'titlePosition');
 
                 align-items: ef.get-value($themeDefaultModCircle, 'titleAlignItems');
-                opacity: ef.get-value($themeDefaultModCircle, 'titleOpacity');
             }
 
             &__buttons {
@@ -628,10 +627,6 @@
                 &__buttons,
                 &__icon {
                     opacity: ef.get-value($themeDefaultModCircle, 'btnsAndIconOpacityHover');
-                }
-
-                &__title {
-                    opacity: ef.get-value($themeDefaultModCircle, 'titleOpacityHover');
                 }
             }
         }
