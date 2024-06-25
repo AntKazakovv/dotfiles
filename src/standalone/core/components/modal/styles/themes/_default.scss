@@ -236,6 +236,7 @@
     }
 
     &.wlc-modal--payment-list {
+        --wlc-crypto-list-columns: #{ef.get-value($themeDefault, 'paymentListCryptoColumns')};
 
         .wlc-modal {
 

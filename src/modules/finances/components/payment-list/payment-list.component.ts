@@ -174,6 +174,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
                 || this.tagsConfig.useFor === 'both')
             && this.$params.theme !== 'crypto-list';
         this.useScroll = this.configService.get<boolean>('$finances.usePaySystemScroll');
+        this.followBreakpoints();
 
         if (this.configService.get<boolean>('$base.colorThemeSwitching.use')
             && this.$params.colorIconBg
@@ -214,7 +215,6 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         }
 
         this.getPaymentSystems();
-        this.followBreakpoints();
 
         if (this.currentSystem) {
             this.setActivePayment();

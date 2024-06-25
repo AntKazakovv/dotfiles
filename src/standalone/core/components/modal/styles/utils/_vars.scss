@@ -527,6 +527,7 @@ $themeDefault: map-merge((
         375: ef.size(6) ef.size(3) ef.size(8),
         560: ef.size(6) ef.size(3),
     ),
+    'paymentListCryptoColumns': repeat(auto-fill, minmax(220px, 1fr)),
 
     // deposit modal
     'depModalBodyPadding': (
