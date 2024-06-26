@@ -235,6 +235,10 @@
                 "file": "./900.change-logs/releases/1.8.0_01-07-2022.md"
             },
             {
+                "title": "1.74.0RC1 (26-06-2024)",
+                "file": "./900.change-logs/releases/1.74.0-rc.1_26-06-2024.md"
+            },
+            {
                 "title": "1.73.0 (24-06-2024)",
                 "file": "./900.change-logs/releases/1.73.0_24-06-2024.md"
             },
@@ -876,6 +880,10 @@
             {
                 "title": "27-01-2023",
                 "file": "./1000.translations/history/27-01-2023.md"
+            },
+            {
+                "title": "26-06-2024",
+                "file": "./1000.translations/history/26-06-2024.md"
             },
             {
                 "title": "26-02-2024",
