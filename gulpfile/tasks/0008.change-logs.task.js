@@ -14,6 +14,13 @@ const {task, src, dest} = require('gulp'),
 
 module.exports = function changeLogsTask() {
 
+    class ManyMrError extends Error {
+        constructor(message) {
+            super(message);
+            this.name = "ManyMrError";
+        }
+    }
+
     const generateSummary = () => {
         const children = glob
             .sync(`${this.params.paths.changeLogs}/*.md`)
@@ -170,13 +177,23 @@ module.exports = function changeLogsTask() {
 
                 const data = JSON.parse(response);
                 if (data && data.length) {
+
+                    if (data.length > 1) {
+                        const response = this.execNativeShellSync(`curl "https://${gitUrl}/api/v4/projects`
+                            + `/${projectId}/repository/commits/${res.hash}?private_token=${apiKey}"`);
+                        const data = JSON.parse(response);
+                        throw new ManyMrError(`Commit "${data.title}" ${data.web_url} has many MRs. Fix it and try again`);
+                    }
+
                     const mr = data[0];
                     res.mrTitle = _.get(mr, 'title', '');
                     res.description = _.get(mr, 'description', '');
                     res.mrId = _.get(mr, 'id', Date.now());
                 }
             } catch (error) {
-                //
+                if (error instanceof ManyMrError) {
+                    throw Error(error.message);
+                }
             }
 
             try {
