@@ -247,9 +247,9 @@ def get_local_tag():
     return local_tags[0].split("/")[-1] if local_tags else None
 
 # Получение последнего remote тега
-def get_latest_remote_tag(tag_type, repo_path=None):
+def get_latest_remote_tag(repo_path=None):
     remote_ref_list = get_remote_ref_list(repo_path)
-    tags = [line.split("/")[-1] for line in remote_ref_list if check_format(line.split("/")[-1]) == tag_type]
+    tags = [line.split("/")[-1] for line in remote_ref_list if check_format(line.split("/")[-1])]
     return tags[0] if tags else None
 
 
