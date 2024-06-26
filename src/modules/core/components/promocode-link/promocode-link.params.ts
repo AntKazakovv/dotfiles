@@ -26,6 +26,7 @@ export const defaultParams: Partial<IPromoCodeLinkCParams> = {
     moduleName: 'core',
     linkPromoCode: {
         wlcElement: 'block_link_promocode',
+        themeMod: 'custom',
         common: {
             link: gettext('Have a promo code?'),
         },
