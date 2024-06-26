@@ -349,6 +349,10 @@ export class DepositWithdrawComponent
         this.selectedWallet = wallet;
     }
 
+    public get showDividerInPaymentSystems(): boolean {
+        return !!this.parentSystem || !!this.currentSystem || !this.hiddenPaymentInfo;
+    }
+
     public get paymentSystemName(): string {
         return this.isCryptoInvoices ? 'PayCryptos' : this.currentSystem?.name;
     }
