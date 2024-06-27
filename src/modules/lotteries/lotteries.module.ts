@@ -1,11 +1,8 @@
-import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 
 import _get from 'lodash-es/get';
 
-import {TranslateModule} from '@ngx-translate/core';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
-import {CompilerModule} from 'wlc-engine/modules/compiler';
 
 import {LotteriesService} from './system/services/lotteries.service';
 import {LotteryCardComponent} from './components/lottery-card/lottery-card.component';
@@ -57,10 +54,7 @@ export const services = {
         LotteryWinnersComponent,
     ],
     imports: [
-        CommonModule,
         CoreModule,
-        TranslateModule,
-        CompilerModule,
     ],
     exports: [
         LotteryCardComponent,
