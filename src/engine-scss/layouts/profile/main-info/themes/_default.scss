@@ -4,10 +4,7 @@
     &__profile-content--theme-mobile-app {
 
         > .container {
-            display: grid;
-            grid: {
-                template-columns: 1fr;
-            }
+            display: block;
         }
 
         .wlc-profile-form {
