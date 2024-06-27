@@ -224,7 +224,10 @@ $headerThemeUniversal: map-merge((
         375: 70px,
         1630: 100px,
     ),
-    'headerPadding': 0,
+    'headerPadding': (
+        375: 0,
+        1200: 0 ef.size(2),
+    ),
     'headerBackground': transparent,
     'headerGlobalPadding': ef.size(3),
     'headerLogoMargin': (

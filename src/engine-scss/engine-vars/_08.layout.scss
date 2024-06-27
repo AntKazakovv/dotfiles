@@ -48,7 +48,7 @@ $layoutGap: map-merge((
 /// @name customLayoutWithFixedPanels
 $customLayoutWithFixedPanels: () !default;
 $layoutWithFixedPanels: map-merge((
-    'sectionsPadding': 0,
+    'sectionsPadding': 0 size-func(3),
 
     // The map where the key is a section selector and the value is a padding media-value.
     // '.wlc-sections__header': null, (if you don't need padding)
@@ -56,5 +56,7 @@ $layoutWithFixedPanels: map-merge((
     //     375: 0 15px,
     //     1200: initial,
     // ), (if you need padding on some breakpoints)
-    'sectionsWithoutPadding': (),
+    'sectionsWithoutPadding': (
+        '.wlc-sections__sticky-footer': null,
+    ),
 ), $customLayoutWithFixedPanels);
