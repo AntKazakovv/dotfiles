@@ -1,6 +1,4 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {TranslateModule} from '@ngx-translate/core';
 import {UIRouterModule} from '@uirouter/angular';
 
 import _get from 'lodash-es/get';
@@ -77,10 +75,8 @@ export const services = {
         BonusChoiceModalComponent,
     ],
     imports: [
-        CommonModule,
         CoreModule,
         PromoModule,
-        TranslateModule,
         UIRouterModule,
         CompilerModule,
     ],
