@@ -1,7 +1,5 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
 import {UIRouterModule} from '@uirouter/angular';
-import {TranslateModule} from '@ngx-translate/core';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {CategoryMenuComponent} from './components/category-menu/category-menu.component';
 import {MenuComponent} from './components/menu/menu.component';
@@ -66,8 +64,6 @@ export const services = {
         MenuService,
     ],
     imports: [
-        CommonModule,
-        TranslateModule,
         UIRouterModule,
         CoreModule,
     ],
