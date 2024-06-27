@@ -1,8 +1,4 @@
-import {
-    TestBed,
-    fakeAsync,
-    tick,
-} from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
 import {
     BsModalService,
@@ -146,13 +142,12 @@ describe('ModalService', () => {
         expect(modalService['activeModals'].length).toBe(lengthBeforeOpen);
     });
 
-    it('-> showModal should add modal in activeModals', fakeAsync(() => {
-        modalService.showModal({id: existingModalId});
-        tick(1000);
+    it('-> showModal should add modal in activeModals', async () => {
+        await modalService.showModal({id: existingModalId});
 
         const indexNewModal = modalService['activeModals'].findIndex(item => item.id === existingModalId);
         expect(modalService['activeModals'][indexNewModal]).toBeDefined();
-    }));
+    });
 
     it('-> showError should call showModal method with assigning configs', () => {
         const modalServiceShowModalSpy = spyOn(modalService, 'showModal');
