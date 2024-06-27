@@ -1,8 +1,6 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {UIRouterModule} from '@uirouter/angular';
-import {TranslateModule} from '@ngx-translate/core';
 import {CountUpModule} from 'ngx-countup';
 
 import _get from 'lodash-es/get';
@@ -133,9 +131,7 @@ export const services = {
     ],
     id: 'GamesModule',
     imports: [
-        CommonModule,
         UIRouterModule,
-        TranslateModule,
         FormsModule,
         CountUpModule,
         CoreModule,
@@ -167,7 +163,6 @@ export const services = {
         MerchantWalletInfoComponent,
         MerchantWalletPreviewComponent,
         LuckyButtonComponent,
-        TranslateModule,
         HouseGamesComponent,
     ],
 })
