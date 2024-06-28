@@ -29,9 +29,6 @@ export interface ISaCParams<T> {
  * Standalone simple wrapper component.
  * Implements providing standalone components via Injection service.
  *
- * TODO: пока что в компоненте не предусмотрена возмоность инжектирования
- * через wlc-wrapper, если понадобится - добавим.
- *
  * @example
  * ```
  * <div wlc-sa="my-standalone-component" class="{{$class}}__wrapper"></div>

@@ -125,8 +125,10 @@ export class WrapperComponent extends LayoutComponent implements OnInit, OnChang
         this.$wlcElement = this.$params.wlcElement;
         this.allComponents$.length = 0;
 
-        for (const el of this.$params?.components) {
-            const configProperty = el && el.display?.configProperty;
+        this.$params.components = this.changeConfigStandaloneComponents(this.$params.components);
+
+        for (const component of this.$params.components) {
+            const configProperty = component && component.display?.configProperty;
             if (!_isUndefined(configProperty) &&
                 !this.configService.get<unknown>(configProperty)
             ) {
@@ -134,8 +136,8 @@ export class WrapperComponent extends LayoutComponent implements OnInit, OnChang
             }
 
             this.allComponents$.push({
-                ...el,
-                componentClass: await this.injectionService.loadComponent(el.name),
+                ...component,
+                componentClass: await this.injectionService.loadComponent(component.name),
             });
         }
         this.setWatcher();

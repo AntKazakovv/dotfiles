@@ -78,3 +78,4 @@ export {
     ISlide,
     ISwiperEvent,
 } from './slider/slider.params';
+export {ISaCParams} from './sa/sa.component';

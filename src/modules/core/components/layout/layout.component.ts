@@ -10,10 +10,23 @@ import {
     ViewEncapsulation,
     Inject,
 } from '@angular/core';
+
 import {
     TransitionService,
     UIRouterGlobals,
 } from '@uirouter/core';
+import {
+    fromEvent,
+    Subject,
+    Subscription,
+} from 'rxjs';
+import {
+    takeUntil,
+} from 'rxjs/operators';
+import _each from 'lodash-es/each';
+import _isEqual from 'lodash-es/isEqual';
+import _findIndex from 'lodash-es/findIndex';
+
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
@@ -27,18 +40,8 @@ import {
     ISmartSectionConfig,
 } from 'wlc-engine/modules/core/system/interfaces/layouts.interface';
 import {WINDOW} from 'wlc-engine/modules/app/system';
-import {
-    fromEvent,
-    Subject,
-    Subscription,
-} from 'rxjs';
-import {
-    takeUntil,
-} from 'rxjs/operators';
-
-import _each from 'lodash-es/each';
-import _isEqual from 'lodash-es/isEqual';
-import _findIndex from 'lodash-es/findIndex';
+import {standaloneComponents} from 'wlc-engine/modules/core/system/constants/modules.constants';
+import {ISaCParams} from 'wlc-engine/modules/core/components/sa/sa.component';
 
 @Component({
     selector: '[wlc-layout]',
@@ -112,7 +115,6 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
     protected async setComponents(state: string, params?: IIndexing<any>): Promise<void> {
         this.currentConfig = this.layoutService.getLayoutConfig(this.layouts, state, params);
-
         if (this.currentConfig.sections[this.sectionName]?.usePreloader) {
             this.ready = false;
         };
@@ -179,7 +181,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
     }
 
     protected getAllComponents(): void {
-        const allComponents = this.section?.components as ILayoutComponent[] || [];
+        let allComponents = this.section?.components as ILayoutComponent[] || [];
 
         if (this.allComponents$.length) {
             const oldList = this.allComponents$.slice();
@@ -200,6 +202,9 @@ export class LayoutComponent implements OnInit, OnDestroy {
         if (this.allComponents$.length) {
             this.allComponents$.length = 0;
         }
+
+        allComponents = this.changeConfigStandaloneComponents(allComponents);
+
         this.allComponents$.push(...allComponents);
     }
 
@@ -212,5 +217,29 @@ export class LayoutComponent implements OnInit, OnDestroy {
         );
         this.ready = true;
         this.cdr.markForCheck();
+    }
+
+    protected changeConfigStandaloneComponents(components: ILayoutComponent[]): ILayoutComponent[] {
+        return components.map((component) => {
+            const name: string = component.name.split('.')[1];
+
+            if (standaloneComponents[name]) {
+                const saConfig: ILayoutComponent = {
+                    name: 'core.wlc-sa',
+                    params: <ISaCParams<unknown>>{
+                        saName: name,
+                        saParams: component.params,
+                    },
+                };
+
+                if (component.componentClass) {
+                    saConfig.componentClass = component.componentClass;
+                }
+
+                return saConfig;
+            }
+
+            return component;
+        });
     }
 }

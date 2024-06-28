@@ -49,6 +49,9 @@ export interface ILayoutSectionConfig {
     container?: string | boolean;
     /** shows preloader before components are set */
     usePreloader?: boolean;
+    /**
+    * @deprecated string type is deprecated
+    */
     components?: (ILayoutComponent | string)[];
     modify?: ILayoutModifyItem[];
     modifiers?: string[];

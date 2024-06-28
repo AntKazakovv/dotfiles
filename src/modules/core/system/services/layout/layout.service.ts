@@ -49,7 +49,10 @@ import {
     SectionModel,
     ISectionData,
 } from 'wlc-engine/modules/core/system/models/section.model';
-import {TModuleName} from 'wlc-engine/modules/core/system/constants/modules.constants';
+import {
+    TModuleName,
+    standaloneComponents,
+} from 'wlc-engine/modules/core/system/constants/modules.constants';
 
 export type LayoutsType = 'pages' | 'panels';
 
@@ -179,6 +182,7 @@ export class LayoutService {
             }, [])), []);
 
         await this.injectionService.importModules(modules as TModuleName[]);
+        await this.injectionService.loadComponent('core.wlc-sa');
 
         _each(res.sections, (section) => {
             _each(section.components, (component) => {
@@ -188,7 +192,13 @@ export class LayoutService {
                         componentClass: this.injectionService.getComponent(component),
                     };
                 } else {
-                    component.componentClass = this.injectionService.getComponent(component.name);
+                    const name: string = component.name.split('.')[1];
+
+                    if (standaloneComponents[name]) {
+                        component.componentClass = this.injectionService.getComponent('core.wlc-sa');
+                    } else {
+                        component.componentClass = this.injectionService.getComponent(component.name);
+                    }
                 }
 
                 if (component.exclude?.length) {
