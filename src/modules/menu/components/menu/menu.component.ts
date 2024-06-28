@@ -543,7 +543,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
             });
         } else {
             _forEach(this.items, (item: Params.IMenuItemsGroup): void => {
-                if (item.parent) {
+                if (item.parent && this.$params.dropdowns?.expandByParent) {
                     if (this.isActive(
                         item.parent.params?.state?.name,
                         item.parent.params?.state?.params,

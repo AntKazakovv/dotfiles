@@ -178,6 +178,7 @@ export interface IMenuDropdowns {
     expandableOnClick: boolean;
     /** expand menu dropdowns by hover */
     expandableOnHover?: boolean;
+    expandByParent?: boolean;
 }
 
 export interface IStateForExpand {
@@ -273,5 +274,6 @@ export const defaultParams: IMenuCParams = {
     },
     dropdowns: {
         expandableOnClick: true,
+        expandByParent: true,
     },
 };

@@ -161,6 +161,7 @@ export class InfoPageMenuComponent extends AbstractComponent implements OnInit {
                 themeMod: this.$params.themeMod,
                 dropdowns: {
                     expandableOnClick: true,
+                    expandByParent: false,
                 },
             };
 
