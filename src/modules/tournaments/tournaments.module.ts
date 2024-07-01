@@ -1,7 +1,5 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
 
-import {TranslateModule} from '@ngx-translate/core';
 import _get from 'lodash-es/get';
 
 import {CoreModule} from '../core/core.module';
@@ -72,9 +70,7 @@ export const services = {
         TournamentFreeSpinsComponent,
     ],
     imports: [
-        CommonModule,
         CoreModule,
-        TranslateModule,
         CompilerModule,
     ],
     providers: [
