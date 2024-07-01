@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 
-import {TranslateModule} from '@ngx-translate/core';
 import _get from 'lodash-es/get';
 
 import {GlobalHelper} from 'wlc-engine/modules/core';
@@ -41,7 +40,6 @@ export const services = {
 
 @NgModule({
     imports: [
-        TranslateModule,
         CoreModule,
         StaticModule,
         UserModule,
