@@ -89,7 +89,7 @@ export const defaultMenuParams: IMenuParams = {
             },
             sliderParams: {
                 swiper: {
-                    spaceBetween: 30,
+                    spaceBetween: 20,
                     navigation: {
                         nextEl: '.wlc-profile-menu--type-submenu .wlc-profile-menu__control--next',
                         prevEl: '.wlc-profile-menu--type-submenu .wlc-profile-menu__control--prev',
