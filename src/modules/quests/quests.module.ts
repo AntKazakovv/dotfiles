@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 
-import {TranslateModule} from '@ngx-translate/core';
 import _get from 'lodash-es/get';
 
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
@@ -34,7 +33,6 @@ export const services = {
 @NgModule({
     imports: [
         CoreModule,
-        TranslateModule,
     ],
     declarations: [
         QuestsTitleComponent,
