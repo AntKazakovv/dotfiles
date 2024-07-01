@@ -1,7 +1,5 @@
-import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 
-import {TranslateModule} from '@ngx-translate/core';
 import {CountUpModule} from 'ngx-countup';
 
 import {
@@ -31,9 +29,7 @@ export const services = {
         JackpotWonComponent,
     ],
     imports: [
-        CommonModule,
         CoreModule,
-        TranslateModule,
         CountUpModule,
     ],
     providers: [
