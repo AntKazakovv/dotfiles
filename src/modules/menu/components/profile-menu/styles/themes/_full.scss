@@ -64,6 +64,7 @@
                                 ef.get-value($fullProfileFirstDefault, 'menuLinkActiveFontColor')
                             );
                             position: relative;
+                            transition: unset;
 
                             .wlc-menu__icon-active {
                                 @include bm.get-mq-map('color', $fullProfileFirstDefault, 'activeIconColor');

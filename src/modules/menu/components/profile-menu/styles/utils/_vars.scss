@@ -19,7 +19,7 @@ $themeDefault: map-merge((
         1024: ef.size(2) ef.size(3),
         1200: ef.size(2) ef.size(4)
     ),
-    'profileMenuLinkBorderRadius': ef.get('radius', 'big') ef.get('radius', 'big') 0 0,
+    'profileMenuLinkBorderRadius': ef.get('radius', 'biger') ef.get('radius', 'biger') 0 0,
     'iconSize': 16px,
     'profileMenuAngleBg': ef.get-value(ev.$profileSettings, 'profileTabAngleBg'),
     'profileMenuAngleBgAlt': ef.get-value(ev.$profileSettings, 'profileTabAngleBgAlt'),

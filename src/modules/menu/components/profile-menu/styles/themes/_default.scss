@@ -71,10 +71,12 @@
                     color: ef.get-value($themeDefault, 'profileMenuActiveColor');
                     font-weight: bold;
                     background-color: ef.get-value($themeDefault, 'profileMenuBg');
+                    transition: unset;
 
                     &:before,
                     &:after {
                         opacity: 1;
+                        transition: unset;
                     }
                 }
 
@@ -104,12 +106,15 @@
 
             .swiper-slide {
 
-                &:first-child,
-                &:last-child {
+                &:first-of-type {
 
                     .wlc-menu__link {
 
-                        &:after,
+                        &.active {
+                            right: initial;
+                            left: 0;
+                        }
+
                         &:before {
                             content: '';
                             top: 100%;
@@ -119,16 +124,10 @@
                             background: ef.get-value($themeDefault, 'profileMenuBg');
                             pointer-events: none;
                         }
-                    }
-                }
 
-                &:first-child {
-
-                    .wlc-menu__link {
-
-                        &.active {
-                            right: initial;
-                            left: 0;
+                        &:after {
+                            right: -14px;
+                            transform: unset;
                         }
 
                         @include bm.hover {
@@ -138,7 +137,7 @@
                     }
                 }
 
-                &:last-child {
+                &:last-of-type {
 
                     .wlc-menu__link {
 
@@ -147,9 +146,14 @@
                             left: initial;
                         }
 
-                        @include bm.hover {
-                            right: 0;
-                            left: initial;
+                        &:before {
+                            content: '';
+                            top: 100%;
+                            left: 0;
+                            width: 100%;
+                            height: ef.get-value($themeDefault, 'profileMenuBgElemHeight');
+                            background: ef.get-value($themeDefault, 'profileMenuBg');
+                            pointer-events: none;
                         }
                     }
                 }

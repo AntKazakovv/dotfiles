@@ -681,6 +681,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                 parent: [
                     'app.profile.cash.deposit',
                     'app.profile.cash.withdraw',
+                    'app.profile.cash.transfer',
                     'app.profile.cash.transactions',
                     'app.profile.cashback-rewards',
                 ],

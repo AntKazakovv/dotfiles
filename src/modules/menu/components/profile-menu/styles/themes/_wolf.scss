@@ -70,6 +70,7 @@
                         color: ef.get-value($themeWolf, 'menuLinkActiveColor');
                         font-weight: ef.get-value($themeWolf, 'menuLinkActiveWeight');
                         border-bottom: ef.get-value($themeWolf, 'menuLinkBorderActive');
+                        transition: unset;
 
                         .wlc-counter {
                             color: ef.get-value($themeWolf, 'menuLinkCounterColorActive');
