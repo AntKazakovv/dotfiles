@@ -1,6 +1,4 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {TranslateModule} from '@ngx-translate/core';
 
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {IIndexing} from 'wlc-engine/modules/core';
@@ -18,8 +16,6 @@ export const components: IIndexing<any> = {
 
 @NgModule({
     imports: [
-        CommonModule,
-        TranslateModule,
         CoreModule,
         HistoryModule,
     ],
