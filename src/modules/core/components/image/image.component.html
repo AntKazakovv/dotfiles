@@ -1,0 +1,30 @@
+<div class="{{$class}}__content" [attr.data-wlc-element]="$params.wlcElement">
+    <picture *ngIf="$params.slimSrc" class="{{$class}}__picture">
+        <ng-container *ngIf="$params.slimSources">
+            <source *ngFor="let source of $params.slimSources"
+                    [attr.media]="source.media"
+                    [attr.sizes]="source.sizes"
+                    [srcset]="source.srcset"
+                    type="{{source.type}}">
+        </ng-container>
+        <img wlc-fallback
+             [src]="$params.slimSrc"
+             fetchpriority="high"
+             loading="eager">
+    </picture>
+
+    <picture class="{{$class}}__picture">
+        <ng-container *ngIf="$params.sources">
+            <source *ngFor="let source of $params.sources"
+                    [attr.media]="source.media"
+                    [attr.sizes]="source.sizes"
+                    [srcset]="source.srcset"
+                    type="{{source.type}}">
+        </ng-container>
+        <img wlc-fallback
+             (imageError)="onError()"
+             (load)="onLoad()"
+             [src]="$params.src"
+             loading="lazy">
+    </picture>
+</div>

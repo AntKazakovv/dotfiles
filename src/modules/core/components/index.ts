@@ -62,6 +62,7 @@ export {
 } from './wrapper/wrapper.component';
 export {DatepickerComponent} from './datepicker/datepicker.component';
 export {IconComponent} from './icon/icon.component';
+export {ImageComponent} from './image/image.component';
 export {TimerComponent} from './timer/timer.component';
 export {ISocialIconsCParams} from './social-icons/social-icons.params';
 export {IScrollUpParams} from './scroll-up/scroll-up.params';

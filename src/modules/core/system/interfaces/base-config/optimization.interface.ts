@@ -2,6 +2,11 @@ import {TDeviceSelection} from 'wlc-engine/modules/core/system/interfaces/global
 
 export interface IOptimizationConfig {
     slimImages: ISlimImages;
+    slimExtraImages: ISlimExtraImages;
+}
+
+export interface ISlimExtraImages {
+    use: boolean;
 }
 
 export interface ISlimImages {

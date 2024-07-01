@@ -12,6 +12,26 @@
     max-height: none !important;
     line-height: ef.get-value($winnerBase, 'lineHeight');
 
+    ::ng-deep {
+
+        .wlc-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            display: block;
+            width: 100%;
+            height: 100%;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+            }
+        }
+    }
+
     .wlc-winner {
 
         &__wrapper {
@@ -54,19 +74,6 @@
                 display: block;
                 padding-top: ef.get-value($winnerBase, 'imagePseudoPaddingTop');
             }
-        }
-
-        &__image {
-            position: absolute;
-            top: 0;
-            left: 0;
-
-            display: block;
-            width: 100%;
-            height: 100%;
-
-            object-fit: cover;
-            object-position: center;
         }
 
         &__user {

@@ -84,6 +84,7 @@ import {ForbiddenCountryComponent} from './components/forbidden-country/forbidde
 import {FormControlComponent} from './components/form-control/form-control.component';
 import {FormWrapperComponent} from './components/form-wrapper/form-wrapper.component';
 import {IconComponent} from './components/icon/icon.component';
+import {ImageComponent} from './components/image/image.component';
 import {InfoPageComponent} from './components/info-page/info-page.component';
 import {InputComponent} from './components/input/input.component';
 import {LayoutComponent} from './components/layout/layout.component';
@@ -205,6 +206,7 @@ export const components = {
     'wlc-form-wrapper': FormWrapperComponent,
     'wlc-header': HeaderComponent,
     'wlc-icon': IconComponent,
+    'wlc-image': ImageComponent,
     'wlc-info-page': InfoPageComponent,
     'wlc-input': InputComponent,
     'wlc-license': LicenseComponent,
@@ -302,6 +304,7 @@ export const services = {
         FooterComponent,
         HeaderComponent,
         IconComponent,
+        ImageComponent,
         InfoPageComponent,
         InputComponent,
         LayoutComponent,
@@ -396,6 +399,7 @@ export const services = {
         FooterComponent,
         HeaderComponent,
         IconComponent,
+        ImageComponent,
         InfoPageComponent,
         InputComponent,
         LayoutComponent,

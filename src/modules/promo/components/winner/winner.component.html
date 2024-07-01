@@ -45,12 +45,11 @@
 
 <ng-template #gamePicture>
     <div class="{{$class}}__picture">
-        <img class="{{$class}}__image"
-             wlc-fallback
-             loading="lazy"
-             [src]="gameImage"
-             [attr.alt]="[gameName]"
-             [attr.data-wlc-element]="'img_item-' + $params.winnerType + '-wins'">
+        <div wlc-image
+            [attr.alt]="[gameName]"
+            [attr.data-wlc-element]="'img_item-' + $params.winnerType + '-wins'"
+            [src]="gameImage">
+        </div>
     </div>
 </ng-template>
 

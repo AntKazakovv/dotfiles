@@ -1,21 +1,8 @@
 .wlc-game-thumb--theme-horizontal:host {
 
-    .wlc-game-thumb {
-        @include bm.transition(background);
-        display: flex;
-        align-items: center;
-        padding: ef.get-value($themeHorizontal, 'containerHorizontalPadding');
-        background: ef.get-value($themeHorizontal, 'containerHorizontalBg');
-        border-radius: ef.get-value($themeHorizontal, 'containerHorizontalRadius');
-        cursor: pointer;
+    ::ng-deep {
 
-        &__name {
-            @include text.get-text-style(ef.get-value($themeHorizontal, 'gameNameTextStyle'), ef.get-value($themeHorizontal, 'gameNameColor'));
-            @include bm.transition(border-color);
-            border-bottom: ef.get-value($themeHorizontal, 'gameNameBorder');
-        }
-
-        &__img {
+        .wlc-image {
             position: relative;
             display: block;
             width: ef.get-value($themeHorizontal, 'imgWidth');
@@ -35,6 +22,22 @@
                 object-fit: cover;
                 object-position: center;
             }
+        }
+    }
+
+    .wlc-game-thumb {
+        @include bm.transition(background);
+        display: flex;
+        align-items: center;
+        padding: ef.get-value($themeHorizontal, 'containerHorizontalPadding');
+        background: ef.get-value($themeHorizontal, 'containerHorizontalBg');
+        border-radius: ef.get-value($themeHorizontal, 'containerHorizontalRadius');
+        cursor: pointer;
+
+        &__name {
+            @include text.get-text-style(ef.get-value($themeHorizontal, 'gameNameTextStyle'), ef.get-value($themeHorizontal, 'gameNameColor'));
+            @include bm.transition(border-color);
+            border-bottom: ef.get-value($themeHorizontal, 'gameNameBorder');
         }
 
         &__block {

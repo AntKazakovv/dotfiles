@@ -34,6 +34,7 @@ import {
     AppType,
     GlobalHelper,
 } from 'wlc-engine/modules/core';
+import {ISource} from 'wlc-engine/modules/core/components/image/image.params';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {ColorThemeService} from 'wlc-engine/modules/core/system/services/color-theme/color-theme.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
@@ -385,6 +386,18 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
         } catch (error) {
             // TODO обработка ошибок
         }
+    }
+
+    public get imageSources(): ISource[] {
+        const sources: ISource[] = [];
+
+        if (this.useWebp) {
+            sources.push({
+                srcset: this.game.getImage(315, 'webp'),
+                type: 'image/webp',
+            });
+        }
+        return sources;
     }
 
     /**

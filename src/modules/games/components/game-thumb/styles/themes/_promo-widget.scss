@@ -9,6 +9,19 @@
         .wlc-loader {
             @include bm.absoluteCentering;
         }
+
+        .wlc-image {
+            width: 100%;
+            height: 100%;
+
+            img {
+                display: block;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+            }
+        }
     }
 
     .wlc-game-thumb {
@@ -43,19 +56,6 @@
                 height: 100%;
 
                 background: ef.get-value($themePromoWidget, 'shadowLayout');
-            }
-        }
-
-        &__img {
-            width: 100%;
-            height: 100%;
-
-            img {
-                display: block;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                object-position: center;
             }
         }
 

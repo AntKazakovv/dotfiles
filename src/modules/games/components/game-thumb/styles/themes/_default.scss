@@ -8,6 +8,28 @@
         -webkit-mask-image: -webkit-radial-gradient(white, black); /* stylelint-disable-line */
     }
 
+    ::ng-deep {
+
+        .wlc-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: inherit;
+            overflow: hidden;
+
+            img {
+                display: block;
+                width: 100%;
+                height: 100%;
+
+                object-fit: cover;
+                object-position: center;
+            }
+        }
+    }
+
     .wlc-game-thumb-media {
 
         &__wrap {
@@ -36,21 +58,6 @@
 
             width: 100%;
             height: 100%;
-        }
-
-        &__img {
-            border-radius: inherit;
-
-            overflow: hidden;
-
-            img {
-                display: block;
-                width: 100%;
-                height: 100%;
-
-                object-fit: cover;
-                object-position: center;
-            }
         }
 
         &__desc {
