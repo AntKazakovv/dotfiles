@@ -127,6 +127,7 @@ export const gamesConfig: IGamesConfig = {
     slimGamesRequest: true,
     search: {
         byCyrillicLetters: true,
+        useOldSearch: false,
     },
     merchantWallet: {
         availableMerchants: [

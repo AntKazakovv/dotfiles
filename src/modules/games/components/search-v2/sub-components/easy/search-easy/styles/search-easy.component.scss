@@ -1,0 +1,66 @@
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+
+@import './utils/vars';
+
+::ng-deep {
+
+    .wlc-modal--search.wlc-modal--theme-default {
+
+        .wlc-modal__wrapper {
+            @include bm.get-mq-map('padding', $themeEasy, 'modalPadding');
+        }
+
+        .wlc-modal__body {
+            @include bm.get-mq-map('padding', $themeEasy, 'modalPaddingSearch');
+        }
+
+        .wlc-modal__dialog {
+            max-width: ef.get-value($themeEasy, 'modalDialogMaxWidth');
+        }
+
+        .wlc-modal__close {
+            @include bm.get-mq-map('top', $themeEasy, 'closeTop');
+            @include bm.get-mq-map('right', $themeEasy, 'modalCloseRight');
+        }
+    }
+}
+
+.wlc-search-easy--theme-easy:host {
+
+    .wlc-search-easy {
+
+        &__title {
+            @include bm.get-mq-map('padding', $themeEasy, 'searchModalHeaderPadding');
+            @include bm.get-mq-map('text-align', $themeEasy, 'searchModalHeaderPositionText');
+
+            margin: ef.get-value($themeEasy, 'searchModalHeaderMargin');
+
+            ::ng-deep {
+
+                .wlc-title__main {
+                    @include text.get-text-style(
+                        ef.get-value($themeEasy, 'recentTitleFontStyle'),
+                        ef.get-value($themeEasy, 'recentTitleColor'),
+                    );
+                    line-height: 1;
+
+                    @include mq.min(1024) {
+                        @include text.get-text-style(ef.get-value($themeEasy, 'recentTitleFontStyle', 1024), null);
+                    }
+                }
+            }
+        }
+
+        &__recommended-text {
+            @include bm.get-mq-map('margin', $themeEasy, 'resultMargin');
+            @include bm.get-mq-map('text-align', $themeEasy, 'resultTextAlign');
+            @include text.get-text-style(
+                ef.get-value($themeEasy, 'resultSize'),
+                ef.get-value($themeEasy, 'resultColor')
+            );
+        }
+    }
+}

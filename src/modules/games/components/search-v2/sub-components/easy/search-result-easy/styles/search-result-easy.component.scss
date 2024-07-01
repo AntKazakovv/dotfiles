@@ -1,0 +1,45 @@
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+
+@import './utils/vars';
+
+.wlc-search-result-easy--theme-default:host {
+
+    .wlc-search-result-easy {
+
+        &__games {
+            @include bm.get-mq-map('margin', $themeEasy, 'gamesMargin');
+            margin: 0 0 ef.size(8);
+
+            ::ng-deep {
+
+                .wlc-title__main {
+                    @include text.get-text-style(
+                        ef.get-value($themeEasy, 'recentTitleFontStyle'),
+                        ef.get-value($themeEasy, 'recentTitleColor'),
+                    );
+                    line-height: 1;
+
+                    @include mq.min(1024) {
+                        @include text.get-text-style(ef.get-value($themeEasy, 'recentTitleFontStyle', 1024), null);
+                    }
+                }
+
+                .wlc-games-grid__swiper-buttons-container {
+                    margin: ef.get-value($themeEasy, 'buttonsSliderMargin');
+                }
+            }
+        }
+
+        &__empty {
+            @include text.get-text-style(
+                ef.get-value($themeEasy, 'emptyTextFontStyle'),
+                ef.get-value($themeEasy, 'emptyTextColor'),
+            );
+            @include bm.get-mq-map('margin', $themeEasy, 'gamesMargin');
+            @include bm.get-mq-map('text-align', $themeEasy, 'emptyTextAlign');
+        }
+    }
+}

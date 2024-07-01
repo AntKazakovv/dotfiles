@@ -1,0 +1,118 @@
+.wlc-search-categories-list--theme-default:host {
+    @include bm.get-mq-map('grid-column-start', $themeDefault, 'searchPanelGridColumnStart');
+
+    .wlc-search-categories-list {
+
+        &__list {
+            @include bm.get-mq-map('grid-column-start', $themeDefault, 'searchPanelGridColumnStart');
+            @include bm.get-mq-map('gap', $themeDefault, 'listGap');
+            @include bm.get-mq-map('margin', $themeDefault, 'listMargin');
+            display: grid;
+            padding: 0;
+            list-style-type: none;
+
+            @if ef.get-value($themeDefault, 'listGrid') {
+                @include mixins.list-grid(ef.get-value($themeDefault, 'listGrid'));
+            } @else {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            &-btn {
+                @include text.get-text-style(ef.get-value($themeDefault, 'searchBtnItemsFont'), ef.get-value($themeDefault, 'listBtnColor'));
+                @include bm.get-mq-map('padding', $themeDefault, 'listBtnPadding');
+                @include bm.get-mq-map('background', $themeDefault, 'listBtnBackground');
+                @include bm.get-mq-map('border-radius', $themeDefault, 'listBtnRadius');
+                @include bm.get-mq-map('border', $themeDefault, 'listBtnBorder');
+                @include bm.get-mq-map('height', $themeDefault, 'listBtnHeight');
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                transition: border-color, color ef.get-value($themeDefault, 'listBtnTransition') linear;
+
+                &:focus {
+                    outline: none;
+                }
+
+                &.active {
+                    @include text.get-text-style(ef.get-value($themeDefault, 'searchBtnItemsFontActive'));
+                    @include bm.get-mq-map('color', $themeDefault, 'listBtnColorActive');
+                    @include bm.get-mq-map('background', $themeDefault, 'listBtnBackgroundHover');
+                    @include bm.get-mq-map('border', $themeDefault, 'listBtnBorderActive');
+                    @include bm.get-mq-map('border-bottom', $themeDefault, 'listBtnBorderBottomActive');
+
+                    .wlc-search-categories-list__list-icon {
+                        border: ef.get-value($themeDefault, 'listBtnIconActive');
+                        background: ef.get-value($themeDefault, 'listBtnIconBackgroundActive');
+
+                        &::ng-deep {
+
+                            .wlc-icon-content {
+                                @include bm.transition(opacity);
+                                opacity: 1;
+                            }
+                        }
+                    }
+                }
+
+                @include bm.hover {
+                    @include bm.get-mq-map('color', $themeDefault, 'listBtnColorActive', true);
+                    @include bm.get-mq-map('background', $themeDefault, 'listBtnBackgroundHover', true);
+                    @include bm.get-mq-map('border', $themeDefault, 'listBtnBorderActive', true);
+                    @include bm.get-mq-map('border-bottom', $themeDefault, 'listBtnBorderBottomActive', true);
+                }
+
+                @include mq.min(560) {
+                    border-bottom: ef.get-value($themeDefault, 'listBtnBorderBottom');
+                }
+            }
+
+            &-icon {
+                position: relative;
+                display: none;
+                width: ef.get-value($themeDefault, 'listBtnIconSize');
+                min-width: ef.get-value($themeDefault, 'listBtnIconSize');
+                height: ef.get-value($themeDefault, 'listBtnIconSize');
+                margin: ef.get-value($themeDefault, 'listBtnIconMargin');
+                background: ef.get-value($themeDefault, 'listBtnIconBackground');
+                transition: ef.get-value($themeDefault, 'listBtnTransition') linear;
+                border-radius: ef.get-value($themeDefault, 'listBtnIconRadius');
+                border: ef.get-value($themeDefault, 'listBtnIconBorder');
+
+                &::ng-deep {
+
+                    .wlc-icon-content {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        height: 100%;
+                        opacity: 0;
+
+                        svg {
+                            width: ef.get-value($themeDefault, 'listBtnCheckWidth');
+                            stroke: ef.get-value($themeDefault, 'listBtnCheckColor');
+                            stroke-width: 3px;
+                        }
+                    }
+                }
+
+                @include mq.min(560) {
+                    display: block;
+                }
+            }
+
+            &-text {
+                display: block;
+                width: 95%;
+                white-space: nowrap;
+                text-align: center;
+                text-overflow: ellipsis;
+                overflow: hidden;
+
+                @include mq.min(560) {
+                    text-align: left;
+                }
+            }
+        }
+    }
+}

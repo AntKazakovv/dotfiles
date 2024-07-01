@@ -39,7 +39,7 @@ export class GamesFilterService {
     /**
      * Allows you to know when all the filters of this service will be ready
      */
-    public $gamesFilterSubsIsReady: Subject<void> = new Subject<void>();
+    public $gamesFilterSubsIsReady: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     /**
      * property that stores cached filters
      */
@@ -73,6 +73,10 @@ export class GamesFilterService {
      */
     public get lastQueries$(): Observable<string[]> {
         return this._lastQueries$.asObservable();
+    }
+
+    public get lastQueries(): string[] {
+        return this._lastQueries$.getValue();
     }
 
     /**

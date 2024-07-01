@@ -1,0 +1,12 @@
+<div class="{{$class}}__title">
+    {{titleText | translate}}
+</div>
+
+<ng-template *ngComponentOutlet="controlPanelComponent"></ng-template>
+
+<p *ngIf="recommendedText" class="{{$class}}__recommended-text">
+    {{recommendedText | translate}}
+</p>
+
+<ng-template *ngComponentOutlet="lastQueriesComponent"></ng-template>
+<ng-template *ngComponentOutlet="resultBlockComponent"></ng-template>

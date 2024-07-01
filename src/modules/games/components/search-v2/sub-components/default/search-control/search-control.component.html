@@ -1,0 +1,68 @@
+<div class="{{$class}}__panel">
+
+    <div wlc-search-field
+        class="{{$class}}__col {{$class}}__col--search"
+        [inlineParams]="$searchControllerDefault.searchParams"
+        (searchQueryEmit)="setSearchQuery($event)">
+    </div>
+
+    <div class="{{$class}}__col {{$class}}__col--merchants">
+        <button class="{{$class}}__btn"
+                data-wlc-element="block_filter-merchants"
+                [class.active]="openPanel === 'merchants'"
+                (click)="togglePanel('merchants')">
+            <span wlc-icon
+                  class="icon"
+                  iconPath="/wlc/icons/filter-merchants.svg">
+            </span>
+
+            <span *ngIf="merchantsLength; else allProvider" class="title-wrap">
+                <span class="title">{{'Providers' | translate}}</span>
+                <span class="counter">({{merchantsLength}})</span>
+            </span>
+        </button>
+
+    </div>
+
+    <div class="{{$class}}__col {{$class}}__col--categories">
+        <button class="{{$class}}__btn"
+                data-wlc-element="block_filter-categories"
+                [class.active]="openPanel === 'categories'"
+                (click)="togglePanel('categories')">
+            <span wlc-icon
+                  class="icon"
+                  iconPath="/wlc/icons/filter-categories.svg">
+            </span>
+
+                <span *ngIf="categoriesLength; else allCategories" class="title-wrap">
+                    <span class="title">{{'Categories' | translate}}</span>
+                    <span class="counter">({{categoriesLength}})</span>
+                </span>
+        </button>
+    </div>
+
+    <ng-container [ngSwitch]="openPanel">
+        <ng-template *ngSwitchCase="'merchants'" [ngTemplateOutlet]="merchantsList"></ng-template>
+        <ng-template *ngSwitchCase="'categories'" [ngTemplateOutlet]="categoriesList"></ng-template>
+    </ng-container>
+</div>
+
+<ng-template #merchantsList>
+    <ng-template
+        *ngComponentOutlet="merchantsListComponent">
+    </ng-template>
+</ng-template>
+
+<ng-template #categoriesList>
+    <ng-template
+        *ngComponentOutlet="categoriesListComponent">
+    </ng-template>
+</ng-template>
+
+<ng-template #allCategories>
+    <span class="title">{{'Categories' | translate}}</span>
+</ng-template>
+
+<ng-template #allProvider>
+    <span class="title">{{'Providers' | translate}}</span>
+</ng-template>

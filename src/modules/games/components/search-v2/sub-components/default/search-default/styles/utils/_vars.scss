@@ -1,0 +1,35 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'searchModalHeaderPadding': (
+        375: ef.size(6) 0 ef.size(3),
+        560: ef.size(6) 0 ef.size(4),
+    ),
+    'searchModalHeaderPositionText': (
+        375: center,
+        1200: left,
+    ),
+    'searchModalHeaderFont': (
+        375: 'ThirdTitleBold' ,
+        1200: 'QoteTextBold',
+    ),
+    'searchModalHeaderFontColor': var(--mc-baseSecond, var(--mc-baseMain)),
+    'searchModalHeaderMargin': 0,
+    'modalPadding': (
+        375: ef.size(6) ef.size(2),
+    ),
+    'modalPaddingSearch': (
+        375: 0 ef.size(1),
+        560: 0 ef.size(3),
+        1200: 0 ef.size(10),
+    ),
+    'closeTop': (
+        375: ef.size(5),
+        1200: 33px,
+    ),
+    'modalDialogMaxWidth': 1433px,
+    'modalCloseRight': (
+        375: ef.size(1),
+        560: ef.size(2),
+        1200: 33px,
+    ),
+), $customThemeDefault);

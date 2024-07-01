@@ -27,6 +27,7 @@ import {GameWrapperComponent} from './components/game-wrapper/game-wrapper.compo
 import {RecommendedGamesComponent} from './components/recommended-games/recommended-games.component';
 import {SearchFieldComponent} from './components/search-field/search-field.component';
 import {SearchComponent} from './components/search/search.component';
+import {SearchV2Component} from './components/search-v2/search-v2.component';
 import {DropdownSearchComponent} from './components/dropdown-search/dropdown-search.component';
 import {TotalJackpotComponent} from './components/total-jackpot/total-jackpot.component';
 import {PlayGameForRealComponent} from './components/play-game-for-real/play-game-for-real.component';
@@ -48,6 +49,16 @@ import {
 import {LuckyButtonComponent} from './components/lucky-button/lucky-button.component';
 import {FavouriteButtonComponent} from './components/favourite-button/favourite-button.component';
 import {HouseGamesComponent} from './components/house-games/house-games.component';
+
+import {SearchMerchantListComponent} from 'wlc-engine/modules/games/components/search-v2';
+import {SearchCategoriesListComponent} from 'wlc-engine/modules/games/components/search-v2';
+import {SearchControlComponent} from 'wlc-engine/modules/games/components/search-v2';
+import {SearchControlEasyComponent} from 'wlc-engine/modules/games/components/search-v2';
+import {SearchLastQueriesComponent} from 'wlc-engine/modules/games/components/search-v2';
+import {SearchResultComponent} from 'wlc-engine/modules/games/components/search-v2';
+import {SearchResultEasyComponent} from 'wlc-engine/modules/games/components/search-v2';
+import {SearchDefaultComponent} from 'wlc-engine/modules/games/components/search-v2';
+import {SearchEasyComponent} from 'wlc-engine/modules/games/components/search-v2';
 
 import * as $config from 'wlc-config/index';
 
@@ -72,7 +83,7 @@ export const components = {
     'wlc-games-slider': GamesSliderComponent,
     'wlc-play-game-for-real': PlayGameForRealComponent,
     'wlc-random-game': RandomGameComponent,
-    'wlc-search': SearchComponent,
+    'wlc-search': moduleConfig.search?.useOldSearch ? SearchComponent : SearchV2Component,
     'wlc-search-field': SearchFieldComponent,
     'wlc-dropdown-search': DropdownSearchComponent,
     'wlc-total-jackpot': TotalJackpotComponent,
@@ -116,6 +127,16 @@ export const services = {
         LuckyButtonComponent,
         FavouriteButtonComponent,
         HouseGamesComponent,
+        SearchV2Component,
+        SearchMerchantListComponent,
+        SearchCategoriesListComponent,
+        SearchControlComponent,
+        SearchControlEasyComponent,
+        SearchLastQueriesComponent,
+        SearchResultComponent,
+        SearchResultEasyComponent,
+        SearchDefaultComponent,
+        SearchEasyComponent,
     ],
     id: 'GamesModule',
     imports: [

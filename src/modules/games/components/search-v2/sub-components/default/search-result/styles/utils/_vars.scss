@@ -1,0 +1,24 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'resultMargin': (
+        375: ef.size(4) 0 0,
+    ),
+    'resultSize': 'PrimaryText',
+    'resultColor': var(--mc-baseMain),
+    'gamesPadding': (
+        375: ef.size(4) 0 ef.size(6),
+        1200: ef.size(4) 0 ef.size(8),
+    ),
+    'noGamesPadding': (
+        375: 0 0 ef.size(3),
+        900: 0,
+    ),
+    'noGamesMargin': (
+        375: -5px 0 0,
+    ),
+    'gamesMargin': 0,
+    'gamesMoreMargin': (
+        375: ef.size(4) 0 0,
+        1200: ef.size(4) 0 0,
+    ),
+), $customThemeDefault);

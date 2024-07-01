@@ -1,0 +1,4 @@
+$customThemeEasy: () !default;
+$themeEasy: map-merge((
+    'searchFieldMargin': 0 0 ef.size(4),
+), $customThemeEasy);

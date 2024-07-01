@@ -197,6 +197,10 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
         this.prepareThumbParams();
         this.prepareGrid().finally();
         this.setNoContentText();
+
+        if (this.$params.type === 'search') {
+            this.gamesFilterService.$gamesFilterSubsIsReady.next(true);
+        }
     }
 
     public override ngOnDestroy(): void {
@@ -502,7 +506,6 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
                     }
                 });
             }, this.$destroy);
-            this.gamesFilterService.$gamesFilterSubsIsReady.next();
         }
 
         this.initLazyLoading();

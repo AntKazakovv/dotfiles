@@ -1,0 +1,21 @@
+<div *ngIf="showBlock"
+    @openClose
+    class="{{$class}}__recent-wrapper">
+    <h5 class="{{$class}}__recent-title"
+        wlc-title
+        [mainText]="recentSearchText | translate"
+    >
+    </h5>
+
+    <span *ngFor="let item of lastQueries; index as index;"
+        class="{{$class}}__chip"
+        (click)="chooseQuery(index)">
+        <span class="{{$class}}__chip-text">{{item}}</span>
+        <button wlc-button
+            class="{{$class}}__chip-remove"
+            (click)="deleteQuery($event, index)"
+            theme="cleared"
+            iconPath="/wlc/icons/close.svg">
+        </button>
+    </span>
+</div>

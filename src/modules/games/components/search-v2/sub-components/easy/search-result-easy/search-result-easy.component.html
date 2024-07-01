@@ -1,0 +1,19 @@
+<div *ngIf="visibleGames.length; else emptyGames"
+    wlc-games-grid
+    class="{{$class}}__games"
+    [inlineParams]="gamesGridParams"
+    [gamesList]="visibleGames"
+></div>
+
+<div *ngIf="showSecondBlock"
+    class="{{$class}}__games"
+    wlc-games-grid
+    [inlineParams]="secondGamesGridParams"
+></div>
+
+<ng-template #emptyGames>
+    <p *ngIf="fieldWasClicked && searchQuery.length >= 3"
+        class="{{$class}}__empty"
+        >{{emptyText | translate}}
+    </p>
+</ng-template>

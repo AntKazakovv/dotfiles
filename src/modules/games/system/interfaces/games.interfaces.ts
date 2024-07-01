@@ -96,6 +96,7 @@ export interface IGamesConfig {
 
 export interface IGamesSearchSettings {
     byCyrillicLetters?: boolean;
+    useOldSearch?: boolean;
 }
 
 export interface IFundist {

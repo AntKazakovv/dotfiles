@@ -1,0 +1,27 @@
+<ul class="{{$class}}__list">
+    <li class="{{$class}}__list-item" data-wlc-element="button_filter-all">
+        <button class="{{$class}}__list-btn"
+                (click)="chooseMerchant()"
+                [class.active]="isActiveList()">
+            <span class="{{$class}}__list-text">{{'All providers' | translate}}</span>
+            <span wlc-icon
+                  class="{{$class}}__list-icon"
+                  iconPath="/wlc/icons/tick.svg">
+            </span>
+        </button>
+    </li>
+
+    <li class="{{$class}}__list-item"
+        *ngFor="let merchant of getMerchants() | async;"
+        [attr.data-wlc-element]="'button_filter-' + merchant.alias + '_' + merchant.id | lowercase">
+        <button class="{{$class}}__list-btn"
+                (click)="chooseMerchant(merchant)"
+                [class.active]="isActiveMerchant(merchant.id)">
+            <span class="{{$class}}__list-text">{{merchant.alias | translate}}</span>
+            <span wlc-icon
+                  class="{{$class}}__list-icon"
+                  iconPath="/wlc/icons/tick.svg">
+            </span>
+        </button>
+    </li>
+</ul>

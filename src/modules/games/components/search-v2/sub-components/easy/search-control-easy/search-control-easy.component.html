@@ -1,0 +1,9 @@
+<div wlc-search-field
+    class="{{$class}}__search-input"
+    [searchQueryInput]="searchQuery$ | async"
+    [inlineParams]="searchParams"
+    (searchQueryEmit)="setSearchQuery($event)"
+    (searchBlur)="addLastQueries($event, 500)"
+    (enterEmit)="addLastQueries($event)"
+    (clickEmit)="handleClickSearchField()"
+></div>

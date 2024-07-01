@@ -1,0 +1,49 @@
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+
+@import './utils/vars';
+
+::ng-deep {
+
+    .wlc-modal--search.wlc-modal--theme-default {
+
+        .wlc-modal__wrapper {
+            @include bm.get-mq-map('padding', $themeDefault, 'modalPadding');
+        }
+
+        .wlc-modal__body {
+            @include bm.get-mq-map('padding', $themeDefault, 'modalPaddingSearch');
+        }
+
+        .wlc-modal__dialog {
+            max-width: ef.get-value($themeDefault, 'modalDialogMaxWidth');
+        }
+
+        .wlc-modal__close {
+            @include bm.get-mq-map('top', $themeDefault, 'closeTop');
+            @include bm.get-mq-map('right', $themeDefault, 'modalCloseRight');
+        }
+    }
+}
+
+.wlc-search-default--theme-default:host {
+
+    .wlc-search-default {
+
+        &__title {
+            @include bm.get-mq-map('padding', $themeDefault, 'searchModalHeaderPadding');
+            @include bm.get-mq-map('text-align', $themeDefault, 'searchModalHeaderPositionText');
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'searchModalHeaderFont'),
+                ef.get-value($themeDefault, 'searchModalHeaderFontColor')
+            );
+            margin: ef.get-value($themeDefault, 'searchModalHeaderMargin');
+
+            @include mq.min(1200) {
+                @include text.get-text-style(ef.get-value($themeDefault, 'searchModalHeaderFont', 1200), null);
+            }
+        }
+    }
+}

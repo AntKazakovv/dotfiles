@@ -1,0 +1,29 @@
+<ul class="{{$class}}__list">
+    <li class="{{$class}}__list-item">
+        <button class="{{$class}}__list-btn"
+                (click)="chooseCategory()"
+                [class.active]="isActiveList()">
+            <span class="{{$class}}__list-text">{{'All categories' | translate}}</span>
+            <span wlc-icon
+                    class="{{$class}}__list-icon"
+                    iconPath="/wlc/icons/tick.svg">
+            </span>
+        </button>
+    </li>
+
+    <li class="{{$class}}__list-item"
+        *ngFor="let category of getCategories() | async;"
+        [attr.data-wlc-element]="'button_filter-' + category.name + '_' + category.id">
+        <button class="{{$class}}__list-btn"
+                (click)="chooseCategory(category)"
+                [class.active]="isActive(category.slug)">
+                <span class="{{$class}}__list-text">
+                    {{category.title[currentLang()] || category.title['en'] | translate}}
+                </span>
+            <span wlc-icon
+                    class="{{$class}}__list-icon"
+                    iconPath="/wlc/icons/tick.svg">
+            </span>
+        </button>
+    </li>
+</ul>

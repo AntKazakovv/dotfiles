@@ -1,0 +1,73 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'searchPanelGridColumnStart': (
+        375: span 2,
+        900: span 3,
+    ),
+    'listGap': (
+        375: ef.size(2) ef.size(3),
+        560: 0 ef.size(4),
+    ),
+    'listMargin': (
+        375: -10px 0 ef.size(2),
+        900: ef.size(4) 0 0,
+    ),
+    'searchBtnItemsFont': 'PrimaryText',
+    'listBtnPadding': (
+        375: ef.size(1) ef.size(2),
+        560: ef.size(3) 0,
+    ),
+    'listBtnBackground': (
+        375: transparent,
+        560: none,
+    ),
+    'listBtnRadius': (
+        375: ef.get('radius', 'biger'),
+        560: 0,
+    ),
+    'listBtnBorder': (
+        375: 2px solid var(--fc-borderColor),
+        560: none,
+    ),
+
+    'listBtnBorderActive': (
+        375: 2px solid var(--mc-main),
+        560: none,
+    ),
+
+    'listBtnBorderBottom': 2px solid var(--mc-baseOpacity),
+
+    'listBtnBorderBottomActive': (
+        560: 2px solid var(--mc-main),
+    ),
+
+    'listBtnColorActive': (
+        375: var(--mc-baseMain),
+        560: var(--mc-main),
+    ),
+    'listBtnColor': var(--mc-baseMain),
+    'listBtnHeight': (
+        375: 40px,
+        560: auto,
+    ),
+    'listBtnCheckColor': var(--mc-main),
+    'listBtnCheckWidth': 9px,
+    'listBtnBackgroundHover': (
+        375: none,
+    ),
+    'searchBtnItemsFontActive': 'ButtonText',
+    'listBtnIconActive': 2px solid var(--mc-main),
+    'listBtnIconBackgroundActive': none,
+    'listBtnIconSize': 25px,
+    'listBtnIconMargin': 0 0 0 ef.size(1),
+    'listBtnIconBackground': none,
+    'listBtnTransition': ef.get('time', 'main'),
+    'listBtnIconRadius': ef.get('radius', 'small'),
+    'listBtnIconBorder': 2px solid var(--fc-borderColor),
+    'listGrid': (
+        320: 2,
+        900: 4,
+        1200: 5,
+        1420: 6,
+    ),
+), $customThemeDefault);

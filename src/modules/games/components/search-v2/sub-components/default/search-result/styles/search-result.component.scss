@@ -1,0 +1,39 @@
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/functions' as ef;
+
+@import './utils/vars';
+
+.wlc-search-result--theme-default:host {
+
+    .wlc-search-result {
+
+        &__games {
+            @include bm.get-mq-map('padding', $themeDefault, 'gamesPadding');
+        }
+
+        &__query {
+            @include bm.get-mq-map('margin', $themeDefault, 'resultMargin');
+            @include text.get-text-style(ef.get-value($themeDefault, 'resultSize'), ef.get-value($themeDefault, 'resultColor'));
+        }
+
+        &__content::ng-deep {
+
+            .wlc-games-grid::ng-deep {
+
+                &__nocontent {
+                    @include bm.get-mq-map('padding', $themeDefault, 'noGamesPadding');
+                    @include bm.get-mq-map('margin', $themeDefault, 'noGamesMargin');
+                }
+
+                &__list {
+                    margin: ef.get-value($themeDefault, 'gamesMargin');
+                }
+
+                &__more {
+                    @include bm.get-mq-map('margin', $themeDefault, 'gamesMoreMargin');
+                }
+            }
+        }
+    }
+}

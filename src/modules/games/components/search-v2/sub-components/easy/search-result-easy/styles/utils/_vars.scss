@@ -1,0 +1,19 @@
+$customThemeEasy: () !default;
+$themeEasy: map-merge((
+    'gamesMargin': (
+        375: 0 0 ef.size(4),
+        900: 0 0 ef.size(8),
+    ),
+    'recentTitleFontStyle': (
+        375: 'ThirdTitle',
+        1024: 'QoteTextBold',
+    ),
+    'recentTitleColor': var(--mc-baseMain),
+    'buttonsSliderMargin': 0 0 0 auto,
+    'emptyTextColor': var(--mc-baseMain),
+    'emptyTextFontStyle': 'ThirdTitle',
+    'emptyTextAlign': (
+        375: center,
+        900: left,
+    ),
+), $customThemeEasy);

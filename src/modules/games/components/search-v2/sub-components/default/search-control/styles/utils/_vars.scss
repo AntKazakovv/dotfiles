@@ -1,0 +1,66 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'searchPanelGap': (
+        375: ef.size(4) ef.size(3),
+        900: 0 ef.size(3),
+    ),
+    'searchPanelColumns': (
+        375: 1fr 1fr,
+        900: 1fr 0.6fr 0.6fr,
+        1024: 1fr 0.4fr 0.4fr,
+        1200: 1fr 0.3fr 0.3fr,
+    ),
+    'searchPanelPadding': (
+        375: ef.size(4) 0 0,
+        560: ef.size(4),
+    ),
+    'searchPanelBg': (
+        375: none,
+        560: var(--mc-bg700),
+    ),
+    'searchPanelBorderRadius': ef.get('radius', 'biger'),
+    'searchColWidth': (
+        375: 100%,
+        900: 170px,
+    ),
+    'btnFont': 'PrimaryText',
+    'btnColor': var(--mc-baseMain),
+    'btnPadding': (
+        375: ef.size(2) ef.size(5) ef.size(2) ef.size(7),
+        900: ef.size(2) ef.size(6) ef.size(2) ef.size(7),
+    ),
+    'btnBackground': (
+        375: var(--mc-bg700),
+        560: var(--mc-bg),
+    ),
+    'btnBorder': (
+        375: none,
+    ),
+    'alignItemsBtn': center,
+    'justifyBtn': flex-start,
+    'widthBtn': 100%,
+    'heightBtn': ef.size(8),
+    'btnBorderRadius': ef.get('radius', 'biger'),
+    'btnTransition': ef.get('time', 'main'),
+    'btnArrowSize': 8px,
+    'btnIconSize': 18px,
+    'btnIconColor': var(--mc-baseMain),
+    'btnCounterMarginLeft': ef.size(1),
+    'btnBorderActive': (
+        320: none,
+    ),
+    'btnBackgroundActive': var(--mc-main),
+    'btnActiveAfterTransform': translateY(-30%) rotate(45deg),
+    'btnArrowColor': var(--mc-baseOpacity),
+    'btnArrowColorActive': var(--mc-baseThird-locked, var(--mc-baseMain-locked)),
+    'btnFontActive': 'PrimaryText',
+    'btnColorActive': var(--mc-baseThird-locked, var(--mc-baseMain-locked)),
+    'btnIconColorActive': var(--mc-baseThird-locked, var(--mc-baseMain-locked)),
+    'btnIconSizeActive': 18px,
+    'btnBackgroundHover': (
+        375: var(--mc-bg500),
+        560: var(--mc-main),
+    ),
+    'btnArrowWidth': 2px,
+    'btnColorHover': var(--mc-baseThird-locked, var(--mc-baseMain-locked)),
+), $customThemeDefault);

@@ -1,0 +1,183 @@
+.wlc-search-control--theme-default:host {
+
+    .wlc-search-control {
+
+        &__panel {
+            @include bm.get-mq-map('gap', $themeDefault, 'searchPanelGap');
+            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'searchPanelColumns');
+            @include bm.get-mq-map('padding', $themeDefault, 'searchPanelPadding');
+            @include bm.get-mq-map('background', $themeDefault, 'searchPanelBg');
+            display: grid;
+            border-radius: ef.get-value($themeDefault, 'searchPanelBorderRadius');
+        }
+
+        &__col {
+
+            &--search {
+                grid-column-start: span 2;
+
+                @include mq.min(900) {
+                    grid-column-start: initial;
+                }
+            }
+
+            &--merchants,
+            &--categories {
+                @include bm.get-mq-map('min-width', $themeDefault, 'searchColWidth');
+            }
+
+            .title {
+                @include text.get-text-style(ef.get-value($themeDefault, 'btnFont'), ef.get-value($themeDefault, 'btnColor'));
+                display: block;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+
+                &-wrap {
+                    display: flex;
+                    flex: 1 1 0%;
+                    align-items: center;
+                    min-width: 0;
+                }
+            }
+        }
+
+        &__btn {
+            @include bm.get-mq-map('padding', $themeDefault, 'btnPadding');
+            @include bm.get-mq-map('background', $themeDefault, 'btnBackground');
+            @include bm.get-mq-map('border', $themeDefault, 'btnBorder');
+
+            position: relative;
+
+            display: flex;
+            align-items: ef.get-value($themeDefault, 'alignItemsBtn');
+            justify-content: ef.get-value($themeDefault, 'justifyBtn');
+
+            width: ef.get-value($themeDefault, 'widthBtn');
+            height: ef.get-value($themeDefault, 'heightBtn');
+
+            border-radius: ef.get-value($themeDefault, 'btnBorderRadius');
+
+            transition:
+                background-color ef.get-value($themeDefault, 'btnTransition') linear,
+                border ef.get-value($themeDefault, 'btnTransition') linear;
+
+            &:focus {
+                outline: none;
+            }
+
+            &:after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                right: 13px;
+                display: block;
+                width: ef.get-value($themeDefault, 'btnArrowSize');
+                height: ef.get-value($themeDefault, 'btnArrowSize');
+                transform: translateY(-50%) rotate(225deg);
+                transition: ef.get-value($themeDefault, 'btnTransition') linear;
+                border-top: ef.get-value($themeDefault, 'btnArrowWidth') solid ef.get-value($themeDefault, 'btnArrowColor');
+                border-left: ef.get-value($themeDefault, 'btnArrowWidth') solid ef.get-value($themeDefault, 'btnArrowColor');
+            }
+
+            .icon {
+                position: absolute;
+                top: 50%;
+                left: 10px;
+                transform: translateY(-50%);
+
+                ::ng-deep {
+
+                    svg {
+                        width: ef.get-value($themeDefault, 'btnIconSize');
+                        height: ef.get-value($themeDefault, 'btnIconSize');
+                        fill: ef.get-value($themeDefault, 'btnIconColor');
+
+                        path,
+                        mask {
+                            fill: ef.get-value($themeDefault, 'btnIconColor');
+                        }
+                    }
+                }
+            }
+
+            .counter {
+                @include text.get-text-style(ef.get-value($themeDefault, 'btnFont'), ef.get-value($themeDefault, 'btnColor'));
+                margin-left: ef.get-value($themeDefault, 'btnCounterMarginLeft');
+            }
+
+            &.active {
+                @include bm.get-mq-map('border', $themeDefault, 'btnBorderActive');
+                background: ef.get-value($themeDefault, 'btnBackgroundActive');
+
+                &:after {
+                    transform: ef.get-value($themeDefault, 'btnActiveAfterTransform');
+                    border-color: ef.get-value($themeDefault, 'btnArrowColorActive');
+                }
+
+                .title {
+                    @include text.get-text-style(ef.get-value($themeDefault, 'btnFontActive'), ef.get-value($themeDefault, 'btnColorActive'));
+                }
+
+                .counter {
+                    color: ef.get-value($themeDefault, 'btnColorActive');
+                }
+
+                .icon {
+                    color: ef.get-value($themeDefault, 'btnIconColorActive');
+
+                    ::ng-deep {
+
+                        svg {
+                            width: ef.get-value($themeDefault, 'btnIconSizeActive');
+                            height: ef.get-value($themeDefault, 'btnIconSizeActive');
+                            fill: ef.get-value($themeDefault, 'btnIconColorActive');
+
+                            path,
+                            mask {
+                                fill: ef.get-value($themeDefault, 'btnIconColorActive');
+                            }
+                        }
+                    }
+                }
+            }
+
+            @include bm.hover {
+                @include bm.get-mq-map('background', $themeDefault, 'btnBackgroundHover',true);
+
+                &:after {
+                    border-top: ef.get-value($themeDefault, 'btnArrowWidth') solid ef.get-value($themeDefault, 'btnColorHover');
+                    border-left: ef.get-value($themeDefault, 'btnArrowWidth') solid ef.get-value($themeDefault, 'btnColorHover');
+                }
+
+                .title {
+                    @include text.get-text-style(ef.get-value($themeDefault, 'btnFont'), ef.get-value($themeDefault, 'btnColorHover'));
+                }
+
+                .counter {
+                    color: ef.get-value($themeDefault, 'btnColorHover');
+                }
+
+                .icon {
+                    color: ef.get-value($themeDefault, 'btnColorHover');
+
+                    ::ng-deep {
+
+                        svg {
+                            fill: ef.get-value($themeDefault, 'btnColorHover');
+
+                            path,
+                            mask {
+                                fill: ef.get-value($themeDefault, 'btnColorHover');
+                            }
+                        }
+                    }
+                }
+            }
+
+            @include mq.min(900) {
+                justify-content: flex-start;
+            }
+        }
+    }
+}

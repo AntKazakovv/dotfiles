@@ -1,0 +1,9 @@
+<div class="{{$class}}__title">
+    {{titleText | translate}}
+</div>
+
+<ng-template *ngComponentOutlet="controlPanelComponent"></ng-template>
+
+<div class="{{$class}}__content">
+    <ng-template *ngComponentOutlet="resultBlockComponent"></ng-template>
+</div>

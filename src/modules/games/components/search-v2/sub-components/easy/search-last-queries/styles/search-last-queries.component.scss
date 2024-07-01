@@ -1,0 +1,87 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/functions' as ef;
+
+@import './utils/vars';
+
+.wlc-search-last-queries--theme-default:host {
+
+    @include bm.get-mq-map('margin', $themeDefault, 'recentWrapperMargin');
+
+    .wlc-search-last-queries {
+
+        &__recent-title {
+            margin: ef.get-value($themeDefault, 'recentTitleMargin');
+
+            ::ng-deep {
+
+                .wlc-title__main {
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'recentTitleFontStyle'),
+                        ef.get-value($themeDefault, 'recentTitleColor'),
+                    );
+                    line-height: 1;
+
+                    @include mq.min(1024) {
+                        @include text.get-text-style(ef.get-value($themeDefault, 'recentTitleFontStyle', 1024), null);
+                    }
+                }
+            }
+        }
+
+        &__chip {
+            @include bm.transition(background);
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'chipColorFontStyle'),
+                ef.get-value($themeDefault, 'chipColor'),
+            );
+            display: ef.get-value($themeDefault, 'chipDisplay');
+            flex-wrap: nowrap;
+            max-width: 100%;
+            margin: ef.get-value($themeDefault, 'chipMargin');
+            padding: ef.get-value($themeDefault, 'chipPadding');
+            background: ef.get-value($themeDefault, 'chipBg');
+            border-radius: ef.get-value($themeDefault, 'chipBorderRadius');
+            cursor: pointer;
+
+            @include bm.hover() {
+                background: ef.get-value($themeDefault, 'chipBgHover');
+            }
+        }
+
+        &__chip-remove {
+            flex: 0 0 auto;
+            width: ef.get-value($themeDefault, 'chipRemoveWidth');
+            color: inherit;
+
+            ::ng-deep {
+
+                .wlc-icon {
+
+                    .wlc-icon-content {
+                        display: flex;
+                        justify-content: center;
+                    }
+
+                    svg {
+                        width: ef.get-value($themeDefault, 'chipRemoveIconSize');
+                        height: ef.get-value($themeDefault, 'chipRemoveIconSize');
+                    }
+                }
+            }
+
+            @include bm.hover() {
+                color: ef.get-value($themeDefault, 'chipRemoveIconColorHover');
+            }
+        }
+
+        &__chip-text {
+            display: inline-block;
+            overflow: hidden;
+            margin: ef.get-value($themeDefault, 'chipTextMargin');
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    }
+}
