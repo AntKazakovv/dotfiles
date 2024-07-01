@@ -48,7 +48,7 @@
 @mixin gradientBtnOverlay($config) {
     position: relative;
 
-    &:before {
+    &:after {
         @include bm.transition(opacity);
         content: '';
         position: absolute;
@@ -64,7 +64,7 @@
 
     @include bm.hover {
 
-        &:before {
+        &:after {
             opacity: ef.get-value($config, 'gradientOverlayOpacity');
         }
     }
