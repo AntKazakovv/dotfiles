@@ -1,10 +1,9 @@
-<div *ngIf="promoCodeInputHidden; else inlineForm" class="{{$class}}__link"
-    (click)="clickHandler()">
-        <span class="{{$class}}__link-text">{{'Have a promo code?' | translate}}</span>
-        <span class="{{$class}}__link-arrow">
-            <span wlc-icon [iconPath]="'/wlc/icons/arrow-right.svg'"></span>
-        </span>
+<div *ngIf="showTooltip; else link"
+    wlc-tooltip
+    [inlineParams]="$params.tooltipParams">
+    <ng-container [ngTemplateOutlet]="link"></ng-container>
 </div>
+
 <div *ngIf="isBonusApplied" class="{{$class}}__results">
     <div class="{{$class}}__bonus">
         <span class="{{$class}}__bonus-name">{{bonus.name}}</span>
@@ -42,4 +41,15 @@
         [inlineParams]="submitBtnParams"
         (click)="processPromoCode()">
     </button>
+</ng-template>
+
+<ng-template #link>
+    <div *ngIf="promoCodeInputHidden; else inlineForm"
+        class="{{$class}}__link {{showTooltip && $class + '__link--disabled'}}"
+        (click)="clickHandler()">
+        <span class="{{$class}}__link-text">{{'Have a promo code?' | translate}}</span>
+        <span class="{{$class}}__link-arrow">
+            <span wlc-icon [iconPath]="'/wlc/icons/arrow-right.svg'"></span>
+        </span>
+    </div>
 </ng-template>

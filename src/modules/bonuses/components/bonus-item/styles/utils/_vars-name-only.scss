@@ -1,0 +1,4 @@
+$customThemeNameOnly: () !default;
+$themeNameOnly: map-merge((
+    'nameBtnPadding': 0,
+), $customThemeNameOnly);

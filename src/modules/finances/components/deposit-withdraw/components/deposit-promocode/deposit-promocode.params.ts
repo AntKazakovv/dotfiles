@@ -1,4 +1,8 @@
-import {IButtonCParams, IInputCParams} from 'wlc-engine/modules/core';
+import {
+    IButtonCParams,
+    IInputCParams,
+    ITooltipCParams,
+} from 'wlc-engine/modules/core';
 import {
     IComponentParams,
     CustomType,
@@ -12,6 +16,7 @@ export interface IDepositPromoCodeCParams extends IComponentParams<ComponentThem
     inlineFormParams?: IDepositPromoCodeFormCParams,
     modalFormParams?: IDepositPromoCodeFormCParams,
     clearBtnParams?: IButtonCParams;
+    tooltipParams?: ITooltipCParams;
 };
 
 export interface IDepositPromoCodeFormCParams {
@@ -59,5 +64,11 @@ export const defaultParams: IDepositPromoCodeCParams = {
         common: {
             text: 'Cancel',
         },
+    },
+    tooltipParams: {
+        type: 'wrapper',
+        bsTooltipMod: 'error',
+        inlineText: 'Blocked by an active bonus. You have to wager active bonus first or cancel it to claim new bonus.',
+        placement: 'bottom',
     },
 };

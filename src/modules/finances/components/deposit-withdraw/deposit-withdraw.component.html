@@ -219,6 +219,18 @@
         [title]="alertInformation['bonuses'].title | translate"
         [text]="alertInformation['bonuses'].description | translate"
         [level]="alertInformation['bonuses'].mod"></div>
+    <div *ngIf="activeBonusesAlertParams"
+        wlc-alert
+        class="{{$class}}__alert"
+        [text]="activeBonusesAlertParams.description | translate"
+        [level]="activeBonusesAlertParams.mod">
+            <div title>
+                {{activeBonusesAlertParams.title | translate}}
+                <div *ngIf="activeBonusesListParams"
+                    wlc-wrapper
+                    [inlineParams]="activeBonusesListParams"></div>
+            </div>
+    </div>
     <div wlc-wrapper
          [inlineParams]="bonusesListParams">
     </div>
@@ -226,9 +238,11 @@
 </ng-template>
 
 <ng-template #depositPromoCode>
-    <div *ngIf="useDepositPromoCode" class="{{$class}}__promocode">
+    <div *ngIf="useDepositPromoCode"
+        class="{{$class}}__promocode">
         <div wlc-deposit-promocode
             [inlineParams]="$params.depositPromoCodeParams"
+            [showTooltip]="activeBonusesExist"
             (promoCodeAppliedEvent)="onPromoCodeChanged($event)">
         </div>
     </div>

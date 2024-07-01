@@ -48,7 +48,10 @@ import {
 import {PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services/finances/finances.service';
 import {IPaymentListCParams} from 'wlc-engine/modules/finances/components/payment-list/payment-list.params';
-import {TAlertList} from '../../system/interfaces/finances.interface';
+import {
+    IAlertMessage,
+    TAlertList,
+} from 'wlc-engine/modules/finances';
 
 import {
     ProfileUpdateTypes,
@@ -136,6 +139,8 @@ export class DepositWithdrawComponent
     public paymentFormParams: IPaymentFormCParams = {
         mode: this.$params?.mode,
     };
+    public activeBonusesListParams: IFormWrapperCParams;
+    public activeBonusesAlertParams: IAlertMessage;
     public availableSystems: number[] = [];
     public currentBonus: Bonus;
     public isWaitingResponse: boolean = false; // move to payment-form
@@ -147,6 +152,7 @@ export class DepositWithdrawComponent
     public isMultiWallet: boolean = false;
     public ready: boolean = false;
     public bonusesExist: boolean = false;
+    public activeBonusesExist: boolean = false;
     public useDepositPromoCode: boolean = false;
     public appliedPromoCode$: BehaviorSubject<Bonus> = new BehaviorSubject(null);
     public currentStep: Params.TMobileStep = 1;
@@ -556,10 +562,50 @@ export class DepositWithdrawComponent
                 useQuery: true,
                 observer: {
                     next: (bonuses: Bonus[]): void => {
+                        this.activeBonusesAlertParams = null;
+                        this.activeBonusesListParams = null;
+                        this.activeBonusesExist = false;
+
                         const depositBonuses: Bonus[] = bonusesService.filterBonuses(bonuses, 'deposit');
                         this.bonusesExist = depositBonuses.some((bonus: Bonus) => !bonus.isActive);
 
                         if (this.bonusesExist) {
+                            const activeBonuses: Bonus[] = bonusesService.filterBonuses(bonuses, 'active');
+                            this.activeBonusesExist = !!activeBonuses.length;
+
+                            if (this.activeBonusesExist) {
+                                this.activeBonusesListParams = {
+                                    components: activeBonuses.map((activeBonus: Bonus) => {
+                                        return {
+                                            name: 'bonuses.wlc-bonus-item',
+                                            params: {
+                                                theme: 'name-only',
+                                                bonus: activeBonus,
+                                            },
+                                        };
+                                    }),
+                                };
+
+                                const isNonCancelable: boolean =
+                                    activeBonuses.some((bonus: Bonus): boolean => bonus.disableCancel);
+
+                                if (isNonCancelable && this.showAlert('activeBonusNonCancelable')) {
+                                    const alert: IAlertMessage = this.alertInformation['activeBonusNonCancelable'];
+                                    this.activeBonusesAlertParams = {
+                                        title: alert.title,
+                                        mod: alert.mod,
+                                        description: alert.description ??'',
+                                    };
+                                } else if (this.showAlert('activeBonusNotStackable')) {
+                                    const alert: IAlertMessage = this.alertInformation['activeBonusNotStackable'];
+                                    this.activeBonusesAlertParams = {
+                                        title: alert.title,
+                                        mod: alert.mod,
+                                        description: alert.description ?? '',
+                                    };
+                                }
+                            }
+
                             const params: IBonusesListCParams =
                                 Object.assign({}, this.bonusesListParams.components[0].params, {
                                     bonuses: depositBonuses,

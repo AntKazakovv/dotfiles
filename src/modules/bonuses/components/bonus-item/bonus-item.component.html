@@ -9,6 +9,7 @@
     <ng-container *ngSwitchCase="'modal'" [ngTemplateOutlet]="modal"></ng-container>
     <ng-container *ngSwitchCase="'mini'" [ngTemplateOutlet]="mini"></ng-container>
     <ng-container *ngSwitchCase="'wolf'" [ngTemplateOutlet]="wolf"></ng-container>
+    <ng-container *ngSwitchCase="'name-only'" [ngTemplateOutlet]="nameOnly"></ng-container>
     <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
 </ng-container>
 
@@ -398,6 +399,16 @@
             <ng-container [ngTemplateOutlet]="bonusButtons"></ng-container>
         </div>
     </div>
+</ng-template>
+
+<ng-template #nameOnly>
+    <button wlc-button
+        class="{{$class}}__name-btn"
+        typeAttr="button"
+        [theme]="'textonly'"
+        [text]="bonus.name"
+        (click)="openDescription($event)">
+    </button>
 </ng-template>
 
 <ng-template #moreIcon>

@@ -44,6 +44,7 @@ import * as Params from './deposit-promocode.params';
 
 export class DepositPromocodeComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IDepositPromoCodeCParams;
+    @Input() protected showTooltip: boolean;
     @Output() public promoCodeAppliedEvent: EventEmitter<Bonus> = new EventEmitter();
 
     @ViewChild('modalForm') public modalForm: TemplateRef<ElementRef>;

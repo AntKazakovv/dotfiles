@@ -3,6 +3,7 @@ $themeDefault: map-merge((
     'linkTextStyle': 'PrimaryTextBold',
     'linkColor': var(--mc-main),
     'linkColorHover': var(--mc-baseMain),
+    'linkColorDisabled': var(--fc-disabledPlaceholderColor),
     'linkArrowSize': ef.size(2),
     'linkArrowDisplay': initial,
     'linkGap': ef.size(1),

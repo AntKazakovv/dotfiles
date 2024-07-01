@@ -168,9 +168,7 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
         if (clearSame && bonus?.isChoose) {
             this.chooseBlankBonus();
         } else {
-            this.blankBonus.isChoose = !bonus;
-            this.currentBonus = bonus || null;
-            this.updateBonusesStatus();
+            this.chooseBonus(bonus);
             this.eventService.emit({
                 name: bonus ? BonusItemComponentEvents.deposit : BonusItemComponentEvents.blank,
                 data: bonus || null,
@@ -235,6 +233,12 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
         if (!silent) {
             this.eventService.emit({name: BonusItemComponentEvents.blank, data: null});
         }
+    }
+
+    protected chooseBonus(bonus: Bonus): void {
+        this.blankBonus.isChoose = !bonus;
+        this.currentBonus = bonus || null;
+        this.updateBonusesStatus();
     }
 
     protected getAutoSelectedBonus(): Bonus | null {
@@ -305,6 +309,13 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
             this.bonusClickEvent();
         }
 
+        const subscribedBonuses: Bonus[] = this.bonuses.filter(
+            (bonus: Bonus) => bonus.isSubscribed && !bonus.disabledBy);
+
+        if (subscribedBonuses.length === 1) {
+            this.chooseBonus(subscribedBonuses[0]);
+        }
+
         if (this.$params.type === 'swiper') {
             this.bonusesToSlides();
         }
@@ -312,6 +323,7 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
         if (this.promoCodeInfo) {
             this.setPromoCodeInfo();
         }
+
         this.cdr.markForCheck();
     }
 

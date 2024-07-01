@@ -287,6 +287,13 @@ export type TAlertList = {
     [key in TShowMode]?: IAlertMessage;
 }
 
-export type TShowMode = 'title' | 'wallets' | 'bonuses' | 'cryptoInvoiceSystems' | 'paymentInfo' | 'systems';
+export type TShowMode = 'title'
+    | 'wallets'
+    | 'bonuses'
+    | 'cryptoInvoiceSystems'
+    | 'paymentInfo'
+    | 'systems'
+    | 'activeBonusNotStackable'
+    | 'activeBonusNonCancelable';
 
 export type TTechnicalTags = 'check_name_before_withdraw' | 'check_tc';

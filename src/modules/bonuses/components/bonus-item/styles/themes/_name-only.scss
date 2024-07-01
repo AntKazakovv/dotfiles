@@ -1,0 +1,10 @@
+.wlc-bonus-item--theme-name-only {
+
+    .wlc-bonus-item {
+
+        &__name-btn {
+            padding: ef.get-value($themeNameOnly, 'nameBtnPadding');
+        }
+    }
+}
+

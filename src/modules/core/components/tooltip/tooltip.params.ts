@@ -2,8 +2,9 @@ import {CustomType, IComponentParams} from 'wlc-engine/modules/core/system/class
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 
 export type ThemeMod = 'resolve' | 'error' | CustomType;
+export type ComponentType = 'wrapper' | CustomType;
 
-export interface ITooltipCParams extends IComponentParams<unknown, unknown, ThemeMod> {
+export interface ITooltipCParams extends IComponentParams<unknown, ComponentType, ThemeMod> {
     inlineText?: string;
     iconName?: string;
     modal?: string;

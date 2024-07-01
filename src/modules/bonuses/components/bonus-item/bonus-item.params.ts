@@ -23,6 +23,7 @@ export type Theme = 'active'
     | 'modal'
     | 'mini' // deposit mini items
     | 'wolf'
+    | 'name-only'
     | CustomType;
 export type ThemeMod = 'default'
     | 'active'

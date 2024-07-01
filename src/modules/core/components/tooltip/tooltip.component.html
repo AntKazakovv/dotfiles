@@ -1,20 +1,28 @@
-<ng-container *ngIf="$params.modal; else tooltip">
-    <div wlc-icon
-          class="{{$class}}__icon"
-          [iconPath]="iconPath"
-          (click)="openModal($event)">
+@if ($params.type === 'wrapper') {
+    <div class="{{$class}}__wrapper"
+        containerClass="{{$class}}__bs-tooltip {{containerClassMod}}"
+        placement="top"
+        container="body"
+        [placement]="$params.placement"
+        [tooltip]="$params.inlineText | translate"
+        boundariesElement="viewport">
+        <ng-content/>
     </div>
-</ng-container>
-
-<ng-template #tooltip>
+} @else if ($params.modal) {
     <div wlc-icon
-         class="{{$class}}__icon"
-         containerClass="{{$class}}__bs-tooltip {{containerClassMod}}"
-         placement="top"
-         container="body"
-         [placement]="$params.placement"
-         [iconPath]="iconPath"
-         [tooltip]="$params.inlineText | translate"
-         boundariesElement="viewport">
+        class="{{$class}}__icon"
+        [iconPath]="iconPath"
+        (click)="openModal($event)">
     </div>
-</ng-template>
+} @else {
+    <div wlc-icon
+        class="{{$class}}__icon"
+        containerClass="{{$class}}__bs-tooltip {{containerClassMod}}"
+        placement="top"
+        container="body"
+        [placement]="$params.placement"
+        [iconPath]="iconPath"
+        [tooltip]="$params.inlineText | translate"
+        boundariesElement="viewport">
+    </div>
+}

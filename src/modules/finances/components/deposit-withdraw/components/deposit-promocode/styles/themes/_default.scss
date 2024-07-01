@@ -9,13 +9,14 @@
             @include bm.transition(color);
             @include text.get-text-style(
                 ef.get-value($themeDefault, 'linkTextStyle'),
-                ef.get-value($themeDefault, 'linkColor')
+                null,
             );
 
             display: inline-flex;
             gap: ef.get-value($themeDefault, 'linkGap');
             align-items: center;
             justify-content: center;
+            color: var(--wlc-dep-promocode-link-color, #{ef.get-value($themeDefault, 'linkColor')});
             cursor: pointer;
 
             &-arrow {
@@ -27,7 +28,7 @@
             }
 
             @include bm.hover {
-                color: ef.get-value($themeDefault, 'linkColorHover');
+                color: var(--wlc-dep-promocode-link-color, #{ef.get-value($themeDefault, 'linkColorHover')});
             }
         }
 
@@ -100,6 +101,11 @@
 ::ng-deep {
 
     .wlc-deposit-promocode {
+
+        &__link--disabled {
+            --wlc-dep-promocode-link-color: ef.get-value($themeDefault, 'linkColorDisabled');
+            pointer-events: none;
+        }
 
         &__inline-form {
             position: relative;
