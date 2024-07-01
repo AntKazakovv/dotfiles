@@ -172,6 +172,7 @@ export interface ITournamentPlace {
     Points: string;
     UserLogin: string;
     Win: string;
+    Currency?: string;
     WinEUR?: string;
     ScreenName?: string;
     points?: number;

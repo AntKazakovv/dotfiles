@@ -1,5 +1,4 @@
 import {
-    BehaviorSubject,
     Observable,
     PartialObserver,
     pipe,
@@ -29,7 +28,6 @@ import {
     TCurrency,
 } from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
 import {ITournamentPlace} from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
-import {UserProfile} from 'wlc-engine/modules/user';
 
 export class TournamentHistory extends AbstractModel<ITournamentHistory> {
     public static useUsersCurrency: boolean;
@@ -47,9 +45,9 @@ export class TournamentHistory extends AbstractModel<ITournamentHistory> {
         super({from: _assign({model: 'TournamentHistory'}, from)});
         this.data = data;
 
-        this.userCurrency = this.configService
-            .get<BehaviorSubject<UserProfile>>('$user.userProfile$').getValue()?.originalCurrency
-            ?? this.configService.get<string>('$base.defaultCurrency');
+        this.userCurrency = this.configService.get<string>('appConfig.user.currency')
+            || this.configService.get<string>('$base.defaultCurrency');
+
 
         TournamentHistory.useUsersCurrency ??=
             this.configService.get<boolean>('$base.tournaments.useUsersCurrency');

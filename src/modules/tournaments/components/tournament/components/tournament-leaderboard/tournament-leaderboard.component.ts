@@ -10,7 +10,6 @@ import _findIndex from 'lodash-es/findIndex';
 import _forEach from 'lodash-es/forEach';
 import _isEmpty from 'lodash-es/isEmpty';
 import _isNumber from 'lodash-es/isNumber';
-import _toNumber from 'lodash-es/toNumber';
 import _union from 'lodash-es/union';
 import {Subscription} from 'rxjs';
 
@@ -195,18 +194,18 @@ export class TournamentLeaderboardComponent
     public getCurrencyValue(win: ITournamentPlace, userId: string): ITournamentPrize[] {
         let currency: string = 'EUR';
 
-        if (this.configService.get<boolean>('$base.tournaments.useUsersCurrency') && userId && win.IDUser === userId) {
-            currency = this.currency;
+        if (this.configService.get<boolean>('$base.tournaments.useUsersCurrency') && userId) {
+            currency = win.Currency;
         }
 
         const wins: TCurrency = (win.Target === 'bonus' && !_isEmpty(win.TotalWins.Currency))
             ? win.TotalWins.Currency
-            : this.totalWins(win);
+            : this.totalWins(win, currency);
         return this.historyService.transformWins(wins, currency);
     }
 
-    protected totalWins(win: ITournamentPlace): number {
-        return _toNumber(this.currency === 'EUR' ? win.WinEUR : win.Win);
+    protected totalWins(win: ITournamentPlace, currency: string): number {
+        return Number(currency === 'EUR' ? win.WinEUR : win.Win);
     }
 
     protected prepareModifiers(): void {
