@@ -1,6 +1,4 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {TranslateModule} from '@ngx-translate/core';
 
 import _get from 'lodash-es/get';
 
@@ -46,9 +44,7 @@ export const moduleConfig = GlobalHelper.mergeConfig<IStoreModule>(storeConfig, 
         StoreItemPriceComponent,
     ],
     imports: [
-        CommonModule,
         CoreModule,
-        TranslateModule,
         CompilerModule,
     ],
     providers: [
