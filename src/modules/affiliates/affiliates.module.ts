@@ -1,5 +1,4 @@
 import {NgModule} from '@angular/core';
-import {TranslateModule} from '@ngx-translate/core';
 
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {MenuModule} from 'wlc-engine/modules/menu/menu.module';
@@ -26,7 +25,6 @@ export const components = {
     imports: [
         CoreModule,
         MenuModule,
-        TranslateModule,
     ],
 })
 export class AffiliatesModule {
