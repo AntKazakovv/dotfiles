@@ -39,16 +39,13 @@
             &-switcher {
                 grid-area: ef.get-value($themeDefault, 'switcherArea');
 
-                .wlc-checkbox--theme-default {
+                ::ng-deep {
 
-                    &.wlc-checkbox--type-toggle {
+                    .wlc-checkbox[wlc-checkbox] {
 
-                        ::ng-deep {
-
-                            .wlc-checkbox__label {
-                                flex-direction: ef.get-value($themeDefault, 'labelDirection');
-                                padding: ef.get-value($themeDefault, 'switcherPadding');
-                            }
+                        .wlc-checkbox__label {
+                            flex-direction: ef.get-value($themeDefault, 'labelDirection');
+                            padding: ef.get-value($themeDefault, 'switcherPadding');
                         }
                     }
                 }
