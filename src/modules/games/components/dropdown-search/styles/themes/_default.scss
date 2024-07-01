@@ -1,9 +1,8 @@
 .wlc-dropdown-search--theme-default:host {
+    @include bm.get-mq-map('width', $themeDefault, 'searchWidth');
     position: relative;
     display: flex;
-    width: ef.get-value($themeDefault, 'searchWidth');
     height: ef.get-value($themeDefault, 'searchHeight');
-    margin-right: ef.get-value($themeDefault, 'searchMarginRight');
 
     .wlc-dropdown-search {
 
@@ -11,7 +10,6 @@
             position: absolute;
             z-index: ef.get-value($themeDefault, 'searchZIndex');
             width: ef.get-value($themeDefault, 'searchContainerWidth');
-            overflow: hidden;
             background: ef.get-value($themeDefault, 'searchContainerBG');
             transition-timing-function: ef.get-value($themeDefault, 'searchContainerFunc');
             transition-duration: ef.get-value($themeDefault, 'searchContainerDuration');
@@ -21,6 +19,21 @@
             &.open {
                 @include bm.get-mq-map('width', $themeDefault, 'searchOpenWidth');
                 box-shadow: ef.get-value($themeDefault, 'searchOpenBoxShadow');
+
+                .wlc-dropdown-search__search-field {
+                    @include bm.get-mq-map('padding', $themeDefault, 'searchFieldOpenPadding');
+                }
+
+                ::ng-deep {
+
+                    .wlc-search-field__input {
+                        padding-right: ef.get-value($themeDefault, 'searchInputOpenPaddingRight');
+                    }
+
+                    .wlc-scrollbar--theme-default[class] {
+                        opacity: 1;
+                    }
+                }
             }
 
             ::ng-deep {
@@ -77,7 +90,7 @@
             }
 
             .wlc-games-grid {
-                padding: ef.get-value($themeDefault, 'wlcGamesGridPadding');
+                @include bm.get-mq-map('padding', $themeDefault, 'wlcGamesGridPadding');
 
                 &__list {
                     grid-gap: ef.get-value($themeDefault, 'gameListGridGap');
@@ -141,6 +154,11 @@
                     opacity: 1;
                 }
             }
+        }
+
+        .wlc-scrollbar--theme-default[class] {
+            @include bm.transition(opacity, 1s, linear);
+            opacity: 0;
         }
     }
 

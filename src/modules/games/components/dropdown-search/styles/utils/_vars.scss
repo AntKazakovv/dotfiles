@@ -1,14 +1,16 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'searchWidth': 60px,
-    'searchHeight': 100%,
-    'searchMarginRight': ef.size(-2),
-    'searchOpenWidth': (
-        900: unset,
-        1200: 300px,
+    'searchWidth': (
+        900: 50px,
+        1200: 60px,
     ),
-    'searchZIndex': 5,
-    'searchOpenBoxShadow': 0 4px 17px rgba(0, 0, 0, 0.47),
+    'searchHeight': 100%,
+    'searchOpenWidth': (
+        900: 310px,
+        1200: 330px,
+    ),
+    'searchZIndex': 10,
+    'searchOpenBoxShadow': 0 4px 17px rgba(0, 0, 0, 0.5),
     'searchContainerWidth': 100%,
     'searchContainerBG': var(--mc-bg700),
     'searchContainerFunc': ease,
@@ -27,6 +29,7 @@ $themeDefault: map-merge((
     'searchIconFillHover': var(--mc-baseMain),
     'searchInputPadding': ef.size(2) 0 ef.size(2) ef.size(8),
     'searchInputFont': 'PrimaryText',
+    'searchInputOpenPaddingRight': ef.size(2),
     'searchInputColor': var(--mc-baseMain),
     'searchInputBackground': var(--mc-bg),
     'searchInputBackgroundHover': var(--mc-main),
@@ -37,8 +40,12 @@ $themeDefault: map-merge((
     'noContentColor': var(--mc-baseMain),
     'searchWidthIconsCat': 100%,
     'searchFieldPadding': (
-        900: ef.size(2) ef.size(3),
-        1200: ef.size(4) ef.size(3),
+        900: ef.size(2) 0 ef.size(2) ef.size(2),
+        1200: ef.size(4) 0 ef.size(4) ef.size(4),
+    ),
+    'searchFieldOpenPadding': (
+        900: ef.size(2),
+        1200: ef.size(4),
     ),
     'searchFieldMarginBottomIC': ef.size(4),
     'searchOrderIconsCat': 2,
@@ -46,7 +53,10 @@ $themeDefault: map-merge((
     'searchInputColorIC': var(--mc-baseMain),
     'searchInputPaddingIC': 0 ef.size(10) 0 ef.size(4),
     'gameListMaxWidthIC': 280px,
-    'wlcGamesGridPadding': 0 ef.size(3) ef.size(4),
+    'wlcGamesGridPadding': (
+        900: 0 ef.size(1) ef.size(2) ef.size(2),
+        1200: 0 ef.size(3) ef.size(4) ef.size(4),
+    ),
     'wlcGamesGridPaddingIC': ef.size(4) ef.size(3),
     'wlcScrollbarWidth': 270px,
     'wlcScrollbarWidthIC': 100%,
