@@ -602,6 +602,7 @@ export namespace wlcButton {
         name: 'core.wlc-button',
         display: {
             mobile: true,
+            pwa: false,
         },
         params: {
             customMod: 'pwa',

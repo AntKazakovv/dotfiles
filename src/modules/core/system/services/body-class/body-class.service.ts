@@ -40,6 +40,7 @@ import {
     TFixedPanelStore,
 } from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
 import {TColorTheme} from 'wlc-engine/modules/core/system/interfaces/base-config/color-theme-switching.config';
+import {StateService} from '@uirouter/core';
 
 export enum BodyClassEvents {
     add = 'BODY_ADD_MODIFIER',
@@ -55,7 +56,8 @@ export enum BodyClassPrefix {
     osVer = 'wlc-body--osver-',
     browser = 'wlc-body--browser-',
     country = 'wlc-body--country-',
-    fixedPanel = 'wlc-body--fp-'
+    fixedPanel = 'wlc-body--fp-',
+    pwa = 'wlc-body--pwa',
 };
 
 export type TBodyClassPrefix = keyof typeof BodyClassPrefix;
@@ -88,6 +90,7 @@ export class BodyClassService {
         private actionService: ActionService,
         private translateService: TranslateService,
         private logService: LogService,
+        private stateService: StateService,
     ) {
         this.init();
     }
@@ -223,6 +226,7 @@ export class BodyClassService {
     }
 
     private addStaticClasses(): void {
+
         const country = this.configService.get<string>('appConfig.country');
         if (country) {
             this.addModifier(BodyClassPrefix.country + country, true);
@@ -276,6 +280,26 @@ export class BodyClassService {
         });
 
         this.setMetaThemeColor();
+
+        this.pwaListeners();
+    }
+
+    private pwaListeners(): void {
+        const matchMedia = this.window.matchMedia('(display-mode: standalone)');
+
+        if (matchMedia.matches) {
+            this.addModifier(BodyClassPrefix.pwa, true);
+        }
+
+        matchMedia.addEventListener('change', (evt) => {
+            if (evt.matches) {
+                this.addModifier(BodyClassPrefix.pwa, true);
+            } else {
+                this.removeClassByPrefix(BodyClassPrefix.pwa);
+            }
+
+            this.stateService.reload();
+        });
     }
 
     private setMetaThemeColor(): void {

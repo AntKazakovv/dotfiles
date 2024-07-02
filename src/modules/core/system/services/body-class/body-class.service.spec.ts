@@ -1,7 +1,9 @@
 import {TestBed} from '@angular/core/testing';
+import {MockService} from 'ng-mocks';
 import {EventEmitter} from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 import {TranslateService} from '@ngx-translate/core';
+import {StateService} from '@uirouter/core';
 
 import {
     BehaviorSubject,
@@ -95,6 +97,10 @@ describe('BodyClassService', () => {
                 {
                     provide: ActionService,
                     useValue: ActionServiceSpy,
+                },
+                {
+                    provide: StateService,
+                    useValue: MockService(StateService),
                 },
             ],
         });

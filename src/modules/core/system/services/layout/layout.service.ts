@@ -213,7 +213,7 @@ export class LayoutService {
      *
      * @returns string with media query
      */
-    public createMediaQuery(display: {before?: number, after?: number}): string {
+    public createMediaQuery(display: {before?: number, after?: number, pwa?: boolean}): string {
         const mediaQuery: string[] = [];
         const queries = [display.after, display.before];
         const min: number = _min(queries),
@@ -225,6 +225,14 @@ export class LayoutService {
 
         if (!_isUndefined(max)) {
             mediaQuery.push(`(max-width: ${max}px)`);
+        }
+
+        if (!_isUndefined(display.pwa)) {
+            if (display.pwa) {
+                mediaQuery.push('(display-mode: standalone)');
+            } else if (!display.pwa) {
+                mediaQuery.push('(not (display-mode: standalone))');
+            }
         }
 
         return mediaQuery.join(' and ');
@@ -248,7 +256,7 @@ export class LayoutService {
                     result = false;
                 }
 
-                if (result && (element.display?.after || element.display?.before)) {
+                if (result && (element.display?.after || element.display?.before || element.display?.pwa)) {
                     result = result && this.window.matchMedia(this.createMediaQuery(element.display)).matches;
                 }
 

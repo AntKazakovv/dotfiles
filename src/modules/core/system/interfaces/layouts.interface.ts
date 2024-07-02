@@ -104,6 +104,8 @@ export interface IDisplayConfig {
     after?: number;
     /** display component before this window width */
     before?: number;
+    /** display component only if pwa application launched */
+    pwa?: boolean;
     /** display component only on mobile when true, on desktop when false */
     mobile?: boolean;
     /** display component only auth user when true, anon user when false */
