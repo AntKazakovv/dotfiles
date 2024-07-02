@@ -7,12 +7,12 @@ import {
     OnInit,
 } from '@angular/core';
 
-import _orderBy from 'lodash-es/orderBy';
 import _filter from 'lodash-es/filter';
 import _assign from 'lodash-es/assign';
 import _toNumber from 'lodash-es/toNumber';
 import _find from 'lodash-es/find';
 import _sortBy from 'lodash-es/sortBy';
+import _orderBy from 'lodash-es/orderBy';
 
 import {
     first,
@@ -425,11 +425,11 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
                         });
                         wallet.balance = (coefficient * _toNumber(wallet.balance));
                     }
-                    wallet.displayName = displayName;
+                    wallet.displayName = displayName || currency;
 
                 } else {
                     wallet = {
-                        displayName,
+                        displayName: displayName || currency,
                         currency: currency,
                         balance: '0.00',
                     };
@@ -475,15 +475,15 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
                 this.walletList.push(WalletHelper.createCurrentWallet(
                     wallets,
                     this.currentWallet?.currency ?? this.userService.userProfile.selectedCurrency,
-                    this.currentWallet?.displayName ?? this.userService.userProfile.selectedCurrency,
+                    this.currentWallet?.displayName || this.userService.userProfile.selectedCurrency,
                 ));
 
             } else if (walletsArray.length) {
-                walletsArray = _sortBy(walletsArray, 'walletId');
+                walletsArray = _sortBy(walletsArray, ['DisplayName', 'Name']);
                 this.walletList.push(walletsArray[0]);
 
             } else {
-                let currencies: ICurrency<string>[] = _sortBy(this.currencies, 'Name');
+                let currencies: ICurrency<string>[] = _sortBy(this.currencies, ['DisplayName', 'Name']);
                 this.walletList.push(WalletHelper.createCurrentWallet(
                     wallets,
                     currencies[0].Name,
@@ -498,11 +498,16 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
     }
 
     private sortWallets(): void {
-        this.walletList = _orderBy(this.walletList, ['walletId', 'currency'])
-            .sort((currency: IWallet) => (
-                this.currentWallet
-                    ? currency.currency === this.currentWallet.currency
-                    : currency.currency === this.userService.userProfile.selectedCurrency) ? -1 : 1);
+        this.walletList = _orderBy(
+            this.walletList,
+            [
+                (wallet: IWallet): boolean =>
+                    wallet.currency === (this.currentWallet?.currency || this.userService.userProfile.selectedCurrency),
+                (wallet: IWallet): boolean => wallet.balance !== '0.00',
+                'displayName',
+            ],
+            ['desc', 'desc', 'asc'],
+        );
     }
 
     private async createWalletList(): Promise<void> {
