@@ -5,25 +5,23 @@
 
     <div class="{{$class}}__amount">
         <span wlc-currency
-                class="{{$class}}__currency"
-                [value]="additionalInfo"
-                [showValueOnly]="true"
-        ></span>
-        <span wlc-icon
-                class="{{$class}}__currency-icon"
-                [iconPath]="getIconUrl(itemCurrency)"
+              class="{{$class}}__currency"
+              [value]="additionalInfo"
+              [showValueOnly]="isMultiWalletOn"
+              [currency]="itemCurrency"
+              [useCurrencyIcon]="isMultiWalletOn"
         ></span>
     </div>
 </ng-template>
 
 <ng-template #default>
     <span class="{{$class}}__name"
-        [attr.data-wlc-element]="'name_' + getItemID()">
+          [attr.data-wlc-element]="'name_' + getItemID()">
         {{mainInfo}}
     </span>
 
     <span class="{{$class}}__status"
-        [attr.data-wlc-element]="'status_' + getItemID()">
+          [attr.data-wlc-element]="'status_' + getItemID()">
         {{additionalInfo | translate}}
     </span>
 </ng-template>

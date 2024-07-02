@@ -1114,32 +1114,42 @@ export namespace profileContent {
         theme: 'wolf',
         components: [
             {
-                name: 'core.wlc-section-title',
-                params: {
-                    theme: 'wolf',
-                    text: 'History',
-                    iconPath: 'wlc/icons/european/v3/history.svg',
-                },
-                display: {
-                    before: 899,
-                },
-            },
-            {
                 name: 'core.wlc-wrapper',
                 params: {
                     class: 'wlc-profile-content__wrp',
                     components: [
                         componentLib.wlcProfileMenu.defTypeWolf,
-                        componentLib.wlcProfileMenu.submenuWolf,
                         {
                             name: 'core.wlc-wrapper',
                             params: {
                                 class: 'wlc-profile-content__top',
                                 components: [
-                                    componentLib.wlcTransactionHistory.filterOnly,
+                                    {
+                                        name: 'core.wlc-section-title',
+                                        params: {
+                                            theme: 'wolf',
+                                            text: 'History',
+                                            iconPath: 'wlc/icons/european/v3/history.svg',
+                                        },
+                                        display: {
+                                            before: 1023,
+                                        },
+                                    },
+                                    {
+                                        name: 'core.wlc-history-filter',
+                                        params: {
+                                            theme: 'wolf',
+                                            config: 'transaction',
+                                            iconPath: '/wlc/icons/filter-wolf.svg',
+                                        },
+                                        display: {
+                                            before: 1023,
+                                        },
+                                    },
                                 ],
                             },
                         },
+                        componentLib.wlcProfileMenu.submenuWolf,
                         componentLib.wlcTransactionHistory.def,
                     ],
                 },
@@ -2169,32 +2179,42 @@ export namespace profileContent {
         theme: 'wolf',
         components: [
             {
-                name: 'core.wlc-section-title',
-                params: {
-                    theme: 'wolf',
-                    text: 'History',
-                    iconPath: 'wlc/icons/european/v3/history.svg',
-                },
-                display: {
-                    before: 899,
-                },
-            },
-            {
                 name: 'core.wlc-wrapper',
                 params: {
                     class: 'wlc-profile-content__wrp',
                     components: [
                         componentLib.wlcProfileMenu.defTypeWolf,
-                        componentLib.wlcProfileMenu.submenuWolf,
                         {
                             name: 'core.wlc-wrapper',
                             params: {
                                 class: 'wlc-profile-content__top',
                                 components: [
-                                    componentLib.wlcBetHistory.filterOnly,
+                                    {
+                                        name: 'core.wlc-section-title',
+                                        params: {
+                                            theme: 'wolf',
+                                            text: 'History',
+                                            iconPath: 'wlc/icons/european/v3/history.svg',
+                                        },
+                                        display: {
+                                            before: 1023,
+                                        },
+                                    },
+                                    {
+                                        name: 'core.wlc-history-filter',
+                                        params: {
+                                            theme: 'wolf',
+                                            config: 'bet',
+                                            iconPath: '/wlc/icons/filter-wolf.svg',
+                                        },
+                                        display: {
+                                            before: 1023,
+                                        },
+                                    },
                                 ],
                             },
                         },
+                        componentLib.wlcProfileMenu.submenuWolf,
                         componentLib.wlcBetHistory.def,
                     ],
                 },
@@ -2341,32 +2361,42 @@ export namespace profileContent {
         theme: 'wolf',
         components: [
             {
-                name: 'core.wlc-section-title',
-                params: {
-                    theme: 'wolf',
-                    text: 'History',
-                    iconPath: 'wlc/icons/european/v3/history.svg',
-                },
-                display: {
-                    before: 899,
-                },
-            },
-            {
                 name: 'core.wlc-wrapper',
                 params: {
                     class: 'wlc-profile-content__wrp',
                     components: [
                         componentLib.wlcProfileMenu.defTypeWolf,
-                        componentLib.wlcProfileMenu.submenuWolf,
                         {
                             name: 'core.wlc-wrapper',
                             params: {
                                 class: 'wlc-profile-content__top',
                                 components: [
-                                    componentLib.wlcBonusesHistory.filterOnly,
+                                    {
+                                        name: 'core.wlc-section-title',
+                                        params: {
+                                            theme: 'wolf',
+                                            text: 'History',
+                                            iconPath: 'wlc/icons/european/v3/history.svg',
+                                        },
+                                        display: {
+                                            before: 1023,
+                                        },
+                                    },
+                                    {
+                                        name: 'core.wlc-history-filter',
+                                        params: {
+                                            theme: 'wolf',
+                                            config: 'bonus',
+                                            iconPath: '/wlc/icons/filter-wolf.svg',
+                                        },
+                                        display: {
+                                            before: 1023,
+                                        },
+                                    },
                                 ],
                             },
                         },
+                        componentLib.wlcProfileMenu.submenuWolf,
                         componentLib.wlcBonusesHistory.def,
                     ],
                 },
@@ -2595,25 +2625,43 @@ export namespace profileContent {
         theme: 'wolf',
         components: [
             {
-                name: 'core.wlc-section-title',
-                params: {
-                    theme: 'wolf',
-                    text: 'History',
-                    iconPath: 'wlc/icons/european/v3/history.svg',
-                },
-                display: {
-                    before: 899,
-                },
-            },
-            {
                 name: 'core.wlc-wrapper',
                 params: {
                     class: 'wlc-profile-content__wrp',
                     components: [
                         componentLib.wlcProfileMenu.defTypeWolf,
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__top',
+                                components: [
+                                    {
+                                        name: 'core.wlc-section-title',
+                                        params: {
+                                            theme: 'wolf',
+                                            text: 'History',
+                                            iconPath: 'wlc/icons/european/v3/history.svg',
+                                        },
+                                        display: {
+                                            before: 1023,
+                                        },
+                                    },
+                                    {
+                                        name: 'core.wlc-history-filter',
+                                        params: {
+                                            theme: 'wolf',
+                                            config: 'tournaments',
+                                            iconPath: '/wlc/icons/filter-wolf.svg',
+                                        },
+                                        display: {
+                                            before: 1023,
+                                        },
+                                    },
+                                ],
+                            },
+                        },
                         componentLib.wlcProfileMenu.submenuWolf,
-                        componentLib.wlcTournamentsHistory.filter,
-                        componentLib.wlcTournamentsHistory.def,
+                        componentLib.wlcTournamentsHistory.wolf,
                     ],
                 },
             },

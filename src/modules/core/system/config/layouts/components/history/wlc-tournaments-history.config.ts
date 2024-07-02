@@ -36,4 +36,11 @@ export namespace wlcTournamentsHistory {
     export const def: ILayoutComponent = {
         name: 'history.wlc-tournaments-history',
     };
+
+    export const wolf: ILayoutComponent = {
+        name: 'history.wlc-tournaments-history',
+        params: {
+            theme: 'wolf',
+        },
+    };
 }

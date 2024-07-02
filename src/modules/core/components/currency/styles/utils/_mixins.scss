@@ -34,12 +34,47 @@
     .wlc-bet-history &,
     .wlc-transaction-history & {
 
+        & .wlc-currency--with-icon {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+
+            ::ng-deep {
+
+                svg {
+                    width: ef.get-value($themeDefault, 'currencyIconSize');
+                    height: ef.get-value($themeDefault, 'currencyIconSize');
+                }
+            }
+        }
+
         &.wlc-currency--less-zero {
             color: ef.get-value($themeDefault, 'currencyLessZero');
         }
 
         &.wlc-currency--above-zero {
             color: ef.get-value($themeDefault, 'currencyAboveZero');
+        }
+    }
+
+    .wlc-bet-history .wlc-table--wolf-colors &,
+    .wlc-transaction-history .wlc-table--wolf-colors & {
+
+        &.wlc-currency {
+
+            &--less-zero,
+            &--above-zero {
+                padding: ef.get-value($themeDefault, 'currencyPadding');
+                border-radius: ef.get-value($themeDefault, 'currencyRadius');
+            }
+
+            &--less-zero {
+                background: ef.get-value($themeDefault, 'currencyNegativeBg');
+            }
+
+            &--above-zero {
+                background: ef.get-value($themeDefault, 'currencyPositiveBg');
+            }
         }
     }
 

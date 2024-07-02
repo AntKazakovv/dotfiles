@@ -1,0 +1,15 @@
+.app-profile-loyalty-bonuses-history-state,
+.app-profile-loyalty-tournaments-history-state,
+.app-profile-gamblings-bets-state,
+.app-profile-cash-transactions-state {
+
+    .wlc-sections__profile-content--theme-wolf {
+
+        .wlc-profile-content__top {
+            display: ef.get-value($historyThemeWolf, 'profileTopDisplay');
+            align-items: ef.get-value($historyThemeWolf, 'profileTopAlignItems');
+            justify-content: ef.get-value($historyThemeWolf, 'profileTopJustifyContent');
+            margin: ef.get-value($historyThemeWolf, 'profileTopMargin');
+        }
+    }
+}

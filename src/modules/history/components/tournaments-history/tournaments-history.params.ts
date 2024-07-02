@@ -20,7 +20,7 @@ import {
     // eslint-disable-next-line max-len
 } from 'wlc-engine/modules/tournaments/components/tournament/components/tournament-prizes-row/tournament-prizes-row.component';
 
-export type Theme = 'default' | CustomType;
+export type Theme = 'default' | 'wolf' | CustomType;
 export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 
@@ -114,6 +114,7 @@ export const defaultParams: ITournamentsHistoryCParams = {
     moduleName: 'history',
     componentName: 'wlc-tournaments-history',
     class: 'wlc-tournaments-history',
+    theme: 'default',
     tableConfig: {
         theme: 'default',
         head: tournamentsHistoryTableHeadConfig,

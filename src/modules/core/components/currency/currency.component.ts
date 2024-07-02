@@ -109,6 +109,8 @@ export class CurrencyComponent
 
     @Input() public useTooltip: boolean = true;
 
+    @Input() public useCurrencyIcon: boolean = false;
+
     /**
      * Result that would be displayed
      */
@@ -277,5 +279,9 @@ export class CurrencyComponent
             }
         });
         return _keys(inline).length ? inline : null;
+    }
+
+    protected getIconUrl(currency: string): string {
+        return `/wlc/icons/currencies/${currency.toLowerCase()}.svg`;
     }
 }

@@ -1,0 +1,56 @@
+.wlc-tournaments-history--theme-wolf {
+
+    &:host {
+
+        .wlc-tournaments-history__filter {
+            flex-wrap: wrap;
+            gap: ef.get-value($themeWolf, 'filterGap');
+            margin: ef.get-value($themeWolf, 'filterMargin');
+
+            .wlc-select[wlc-select] {
+                width: ef.get-value($themeWolf, 'filterWidth');
+            }
+        }
+
+        .wlc-table::ng-deep {
+
+            .wlc-table__cell {
+
+                &.wlc-table__cell--first {
+                    grid-template-columns: ef.get-value($themeWolf, 'firstCellTemplateColumns');
+                    align-items: center;
+                    word-break: break-word;
+
+                    .wlc-table__cell-label {
+                        display: none;
+                    }
+                }
+            }
+
+            &.wlc-table__cell--win {
+
+                .wlc-tournament-prizes-row__values {
+                    @include bm.get-mq-map('max-width', $themeWolf, 'tournamentsWinsMaxWidth');
+                    @include bm.get-mq-map('justify-content', $themeWolf, 'tournamentsWinsJustifyContent');
+                }
+            }
+        }
+
+        .wlc-table.wlc-table--mobile.wlc-table--wolf-colors::ng-deep {
+
+            .wlc-table__cell--statusName {
+
+                .wlc-table__cell-label {
+                    display: none;
+                }
+            }
+        }
+
+        .wlc-table--theme-default.wlc-table--table::ng-deep {
+
+            .wlc-table__cell--name {
+                max-width: ef.get-value($themeWolf, 'cellNameMaxWidth');
+            }
+        }
+    }
+}

@@ -15,7 +15,7 @@ import {
     CustomType,
 } from 'wlc-engine/modules/core/system/interfaces/config.interface';
 
-export type Theme = 'default' | CustomType;
+export type Theme = 'default' | 'wolf' | CustomType;
 export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | 'mobile-app' | CustomType;
 

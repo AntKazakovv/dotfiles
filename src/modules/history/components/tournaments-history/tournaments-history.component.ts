@@ -23,10 +23,10 @@ import {
     ConfigService,
     ActionService,
     DeviceType,
-    ProfileType,
     InjectionService,
     IDatepickerCParams,
     IWrapperCParams,
+    ProfileType,
 } from 'wlc-engine/modules/core';
 import {MultiWalletEvents} from 'wlc-engine/modules/multi-wallet';
 import {
@@ -108,9 +108,9 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
         this.setMinMaxDate();
         this.setSubscription();
 
+        this.prepareTableParams();
         this.tournaments$.next(this.tournamentsFilter());
 
-        this.prepareTableParams();
         this.ready = true;
         this.cdr.markForCheck();
     }

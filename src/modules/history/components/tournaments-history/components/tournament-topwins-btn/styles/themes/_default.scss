@@ -17,10 +17,17 @@
     .action-btn {
         display: flex;
         justify-content: center;
-        margin: ef.get-value($themeDefault, 'actionBtnPadding');
+        margin: ef.get-value($themeDefault, 'actionBtnMarginDesk');
 
         .wlc-table--table & {
             display: none;
+        }
+
+        .wlc-table--mobile & {
+            bottom: 0;
+            width: ef.get-value($themeDefault, 'actionBtnWidthMob');
+            margin: ef.get-value($themeDefault, 'actionBtnMarginMob');
+            padding: ef.get-value($themeDefault, 'actionBtnPaddingMob');
         }
     }
 
@@ -52,6 +59,44 @@
                     @include bm.hover {
                         color: ef.get-value($themeDefault, 'moreIconColorHover');
                     }
+                }
+            }
+        }
+    }
+
+    .wlc-table--mobile & {
+
+        ::ng-deep {
+
+            .action-text {
+                display: none;
+            }
+
+            .wlc-btn__text {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'actionBtnFontStyle'),
+                    ef.get-value($themeDefault, 'actionBtnColor')
+                );
+            }
+        }
+    }
+
+    .wlc-table--mobile.wlc-table--wolf-colors & {
+        padding: ef.get-value($themeDefault, 'btnBlockPaddingWolf');
+
+        ::ng-deep {
+
+            .action-btn {
+                bottom: 0;
+                width: ef.get-value($themeDefault, 'actionBtnWidthWolf');
+                margin: ef.get-value($themeDefault, 'actionBtnMarginWolf');
+                padding: ef.get-value($themeDefault, 'actionBtnPaddingWolf');
+
+                .wlc-btn__text {
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'actionBtnFontStyle'),
+                        ef.get-value($themeDefault, 'actionBtnColorWolf')
+                    );
                 }
             }
         }

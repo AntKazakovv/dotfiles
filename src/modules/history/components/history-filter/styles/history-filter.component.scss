@@ -1,6 +1,9 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/engine.variables' as ev;
 
 @import './utils/vars';
+@import './utils/vars-wolf';
 
 @import './themes/default';
+@import './themes/wolf';

@@ -5,7 +5,7 @@ import {
     OnInit,
 } from '@angular/core';
 
-import {GlobalHelper} from 'wlc-engine/modules/core';
+import {ConfigService, GlobalHelper} from 'wlc-engine/modules/core';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {
     AbstractComponent,
@@ -31,17 +31,19 @@ export class HistoryNameComponent extends AbstractComponent implements OnInit {
     public additionalInfo: string;
     public itemCurrency: string;
 
+    protected readonly isMultiWalletOn: boolean = this.configService.get('appConfig.siteconfig.isMultiWallet');
     protected readonly WalletHelper = WalletHelper;
 
     constructor(
         @Inject('injectParams') protected params: Params.IHistoryNameParams,
         @Inject(WINDOW) private window: Window,
+        configService: ConfigService,
     ) {
         super(
             <IMixedParams<Params.IHistoryNameParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            });
+            }, configService);
     }
 
     public override ngOnInit(): void {
@@ -68,10 +70,8 @@ export class HistoryNameComponent extends AbstractComponent implements OnInit {
                     (this.window.innerWidth < 480) ? this.$params.previewBetDateFormat.mobile
                         : this.$params.previewBetDateFormat.desktop,
                 );
-
             case 'transactions':
                 return (this.$params.item as Params.IFinancialHistoryNameItem).date;
-            
             case 'bonuses':
             case 'tournaments':
                 return (this.$params.item as Params.IHistoryNameItem).name;

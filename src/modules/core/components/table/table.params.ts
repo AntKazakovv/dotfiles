@@ -59,5 +59,5 @@ export interface ITableCol {
     componentClass?: unknown;
     wlcElement?: string;
     description?: string,
-    currencyUseIcon?: boolean,
+    useCurrencyIcon?: boolean,
 }

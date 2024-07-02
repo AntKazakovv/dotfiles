@@ -44,6 +44,16 @@
                 }
             }
         }
+
+        .wlc-table--theme-default.wlc-table.wlc-table--mobile::ng-deep {
+
+            .wlc-table__cell {
+
+                &--StatusName {
+                    display: none;
+                }
+            }
+        }
     }
 
     @include mq.min(1024) {

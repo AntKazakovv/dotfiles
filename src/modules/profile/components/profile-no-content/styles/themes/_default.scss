@@ -1,11 +1,14 @@
 .wlc-profile-no-content:host {
-    --wlc-icon-width: #{ef.get-value($themeDefault, 'imgWidth')};
-    --wlc-icon-height: #{ef.get-value($themeDefault, 'imgHeight')};
-
-    @include text.get-text-style(ef.get-value($themeDefault, 'textStyle'), ef.get-value($themeDefault, 'textColor'));
+    @include text.get-text-style(
+        ef.get-value($themeDefault, 'textStyle'),
+        ef.get-value($themeDefault, 'textColor')
+    );
+    @include bm.get-mq-map('gap', $themeDefault, 'gap');
+    @include bm.get-mq-map('height', $themeDefault, 'height');
     display: ef.get-value($themeDefault, 'display');
     flex-direction: ef.get-value($themeDefault, 'direction');
     align-items: ef.get-value($themeDefault, 'alignItems');
+    justify-content: ef.get-value($themeDefault, 'justifyContent');
     margin: ef.get-value($themeDefault, 'margin');
 
     .wlc-profile-no-content {
@@ -32,5 +35,9 @@
                 }
             }
         }
+    }
+
+    .wlc-sections__profile-content--theme-wolf & {
+        margin: ef.get-value($themeDefault, 'marginWolf');
     }
 }

@@ -1,0 +1,44 @@
+.wlc-history-filter--theme-wolf:host {
+    display: flex;
+
+    .wlc-history-filter {
+
+        &__button {
+            position: relative;
+            overflow: visible;
+            color: ef.get-value($themeWolf, 'buttonIconColor');
+
+            &:after {
+                @include bm.transition();
+                content: '';
+                position: absolute;
+                top: ef.get-value($themeWolf, 'buttonSignalPosTop');
+                right: ef.get-value($themeWolf, 'buttonSignalPosRight');
+                width: ef.get-value($themeWolf, 'buttonSignalSize');
+                height: ef.get-value($themeWolf, 'buttonSignalSize');
+                border-radius: ef.get-value($themeWolf, 'buttonSignalRadius');
+                background: transparent;
+            }
+
+            &.filtered {
+
+                &:after {
+                    background: ef.get-value($themeWolf, 'buttonSignalBg');
+                }
+            }
+
+            ::ng-deep {
+
+                svg {
+                    display: block;
+                    width: ef.get-value($themeWolf, 'buttonIconSize');
+                    height: ef.get-value($themeWolf, 'buttonIconSize');
+                }
+            }
+
+            @include bm.hover {
+                color: ef.get-value($themeWolf, 'buttonIconColorHover');
+            }
+        }
+    }
+}

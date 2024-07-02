@@ -12,6 +12,7 @@ export interface ICurrencyCParams extends IComponentParams<ThemeType, ComponentT
     useSvgIconName?: boolean;
     textError?: string;
     showValueOnly?: boolean;
+    useCurrencyIcon?: boolean;
 }
 
 export const defaultParams: ICurrencyCParams = {

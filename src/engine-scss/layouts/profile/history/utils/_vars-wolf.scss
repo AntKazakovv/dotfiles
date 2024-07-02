@@ -1,0 +1,7 @@
+$customHistoryThemeWolf: () !default;
+$historyThemeWolf: map-merge((
+    'profileTopDisplay': flex,
+    'profileTopAlignItems': flex-start,
+    'profileTopJustifyContent': space-between,
+    'profileTopMargin': 0 0 ef.size(4),
+), $customHistoryThemeWolf);

@@ -8,14 +8,18 @@
     }
 
     .wlc-bonuses-history--theme-default &,
-    .wlc-tournaments-history--theme-default & {
+    .wlc-tournaments-history--theme-default &,
+    .wlc-tournaments-history--theme-wolf & {
         @include bm.get-mq-map('padding', $themeDefault, 'itemPadding');
         display: grid;
         grid-auto-flow: column;
         gap: ef.get-value($themeDefault, 'itemGap');
         align-items: center;
+        justify-content: center;
+    }
+
+    .wlc-table--mobile & {
         justify-content: space-between;
-        text-align: left;
     }
 
     .wlc-history-name {

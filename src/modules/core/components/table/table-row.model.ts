@@ -6,6 +6,7 @@ import _toString from 'lodash-es/toString';
 
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {IWrapperCParams} from 'wlc-engine/modules/core/components/wrapper/wrapper.component';
+import {ICurrencyCParams} from 'wlc-engine/modules/core/components/currency/currency.params';
 import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
 
 import * as Params from './table.params';
@@ -15,7 +16,7 @@ export type Currency = {
     currency: string;
 }
 
-export type TTableValue = string | Currency | IWrapperCParams;
+export type TTableValue = string | Currency | IWrapperCParams | ICurrencyCParams;
 
 export class TableRowModel {
 
@@ -51,37 +52,21 @@ export class TableRowModel {
             case 'component':
                 const currency = _get(this.data, 'currency') ?? _get(this.data, 'Currency');
 
-                if (col.component === 'core.wlc-wrapper' && currency && col.currencyUseIcon) {
-                    defaultValue = {
-                        class: 'wlc-currency-wrapper',
-                        components: [
-                            {
-                                name: 'core.wlc-currency',
-                                params: {
-                                    value: <string>defaultValue,
-                                    currency: WalletHelper.conversionCurrency ?? currency,
-                                    showValueOnly: !WalletHelper.conversionCurrency,
-                                },
-                            },
-                            {
-                                name: 'core.wlc-icon',
-                                params: {
-                                    iconPath: this.getIconUrl(currency),
-                                },
-                            },
-                        ],
-                    };
-                }
                 if (col.component === 'core.wlc-currency' && currency) {
+
+                    if (col.useCurrencyIcon) {
+                        return defaultValue = {
+                            value: <string>defaultValue,
+                            currency: WalletHelper.conversionCurrency ?? currency,
+                            showValueOnly: !WalletHelper.conversionCurrency,
+                            useCurrencyIcon: true,
+                        };
+                    }
+
                     defaultValue = {
                         value: <string>defaultValue,
                         currency: currency,
                     };
-                    if (col.currencyUseIcon) {
-                        defaultValue = {
-                            class: 'wlc-currency-wrapper',
-                        };
-                    }
                 }
 
             default:

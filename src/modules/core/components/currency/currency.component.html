@@ -6,8 +6,11 @@
         </ng-container>
         <ng-container *ngIf="isNegative && !icon.minusBeforeCurrency">-</ng-container>
     </ng-container>
-
-    <ng-container *ngIf="!isError; else error">{{displayValue}}</ng-container>
+    <ng-container *ngIf="!isError; else error">
+        <ng-container *ngIf="$params.useCurrencyIcon || useCurrencyIcon; else displayValueTmp">
+            <ng-container *ngTemplateOutlet="withCurrencyIcon;"></ng-container>
+        </ng-container>
+    </ng-container>
 
     <ng-container *ngIf="icon?.placement === 'right'">
         <ng-container *ngTemplateOutlet="iconTpl;"></ng-container>
@@ -35,4 +38,18 @@
         </span>
         <span *ngIf="showName" class="wlc-currency__name">{{icon.name}}</span>
     </span>
+</ng-template>
+
+<ng-template #withCurrencyIcon>
+    <div class="{{$class}}--with-icon">
+        <div class="{{$class}}--value">{{displayValue}}</div>
+        <span wlc-icon
+              class="{{$class}}__icon"
+              [iconPath]="getIconUrl($params.currency)"
+        ></span>
+    </div>
+</ng-template>
+
+<ng-template #displayValueTmp>
+    {{displayValue}}
 </ng-template>

@@ -6,21 +6,30 @@ $themeDefault: map-merge((
     'display': flex,
     'direction': column,
     'alignItems': center,
-    'margin': 45px auto 20px,
+    'justifyContent': center,
+    'gap': (
+        375: ef.size(4),
+        1024: ef.size(6),
+    ),
+    'margin': ef.size(9) auto ef.size(4),
+    'marginWolf': ef.size(11) auto ef.size(5),
+    'height': (
+        375: 180px,
+        640: 300px,
+        1024: 400px,
+    ),
 
     // Img
     'imgDisplayProfileDef': (
-        375: none,
-        1024: block,
+        375: block,
     ),
     'imgDisplayProfileFirst': (
-        375: none,
-        1200: block,
+        375: block,
     ),
-    'imgAlignSelf': flex-end,
-    'imgWidth': 20vw,
-    'imgMaxWidth': 330px,
-    'imgHeight': 20vw,
-    'imgMaxHeight': 330px,
+    'imgAlignSelf': center,
+    'imgWidth': 14vw,
+    'imgMaxWidth': 100px,
+    'imgHeight': 14vw,
+    'imgMaxHeight': 100px,
     'imgColor': var(--mc-bg500),
 ), $customThemeDefault);

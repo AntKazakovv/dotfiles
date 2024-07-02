@@ -1,17 +1,32 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'btnBlockPadding': (
-        375: 0 0 ef.size(14),
+        375: 0 0 ef.size(4),
         1024: 0,
     ),
     'btnBlockPaddingFirst': (
-        375: 0 0 ef.size(14),
+        375: 0 0 ef.size(4),
         1200: 0,
     ),
-    'actionBtnPadding': 0 0 ef.size(2),
+    'actionBtnMarginDesk': 0 0 ef.size(2),
+    'actionBtnMarginMob': 0 0 ef.size(2),
+    'actionBtnPaddingMob': ef.size(2) 0 0,
+    'actionBtnWidthMob': 100%,
+    'actionBtnFontStyle': 'ButtonText',
+    'actionBtnColor': var(--mc-main),
+
     'moreIconSize': 18px,
     'moreIconMargin': 0 0 0 ef.size(1),
     'moreIconColor': var(--mc-baseOpacity),
     'moreIconColorHover': var(--mc-baseMain),
     'transformSkew': ef.get-value(ev.$buttonSettings, 'transformSkew'),
+
+    'btnBlockPaddingWolf': (
+        375: 0 0 ef.size(5),
+        1024: 0,
+    ),
+    'actionBtnPaddingWolf': ef.size(2) 0 0,
+    'actionBtnMarginWolf': 0 0 ef.size(2),
+    'actionBtnWidthWolf': 100%,
+    'actionBtnColorWolf': var(--mc-secondary),
 ), $customThemeDefault);

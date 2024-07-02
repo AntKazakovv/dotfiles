@@ -17,5 +17,5 @@ export const defaultParams: IProfileNoContentCParams = {
     componentName: 'wlc-profile-no-content',
     class: 'wlc-profile-no-content',
     text: gettext('No items available'),
-    iconPath: '/wlc/icons/empty-table-bg.svg',
+    iconPath: '/wlc/icons/icons_new/empty-table-bg.svg',
 };

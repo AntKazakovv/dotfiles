@@ -2,6 +2,12 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'textColor': inherit,
     'iconIndent': 4px,
-    'currencyLessZero': var(--mc-baseSecond, var(--mc-baseMain)),
-    'currencyAboveZero': var(--mc-success),
+    'currencyLessZero': var(--mc-baseThird, var(--mc-baseMain)),
+    'currencyAboveZero': var(--mc-baseThird, var(--mc-success)),
+
+    'currencyNegativeBg': var(--mc-baseMain-o2),
+    'currencyPositiveBg': var(--mc-success-o2),
+    'currencyPadding': 2px 6px,
+    'currencyRadius': ef.get-value(ev.$radius, 'large'),
+    'currencyIconSize': 15px,
 ), $customThemeDefault);
