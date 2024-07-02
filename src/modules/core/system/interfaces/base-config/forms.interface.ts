@@ -18,4 +18,4 @@ export interface IFormsConfig {
     },
 }
 
-export type TComponentShowIcon = 'phoneCode' | 'countryCode';
+export type TComponentShowIcon = 'phoneCode' | 'countryCode' | 'currency';

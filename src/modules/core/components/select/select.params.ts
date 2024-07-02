@@ -13,7 +13,7 @@ export type Theme = 'default' | CustomType;
 export type AutoModifiers = Theme | 'default';
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
-export type TComponentsWithIcon = 'phoneCode' | 'countryCode';
+export type TComponentsWithIcon = 'phoneCode' | 'countryCode' | 'currency';
 
 export interface ISelectCParams<V = unknown>
 extends IComponentParams<ComponentTheme, ComponentType, string>, IDeepSearch {

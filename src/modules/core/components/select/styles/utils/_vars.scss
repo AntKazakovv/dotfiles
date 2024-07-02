@@ -74,5 +74,8 @@ $baseSettings: map-merge((
     'countryIconMargin': 0 ef.size(2) 0 0,
     'countryIconBorder': none,
     'countryIconShadow': none,
+    'currencyIconWidth': 18px,
+    'currencyIconHeight': 18px,
+    'currencyIconMargin': 0 ef.size(1) 0 0,
     'noteMargin': 0 0 0 ef.size(2),
 ), $customBaseSettings);

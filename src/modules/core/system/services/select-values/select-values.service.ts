@@ -122,11 +122,33 @@ export class SelectValuesService {
      *this.configService.get<string>('appConfig.country')
      */
     public prepareCurrency(): TConstantValue {
+        let filteredCurrency$: TConstantValue;
+
         if (this.configService.get<IIndexing<ICurrency<string>>>('$base.registration.regCurrenciesByCountries' &&
             '$base.registration.filterCurrencyByGeo')) {
-            return this.filterCurrency(this.configService.get<string>('appConfig.country'));
+            filteredCurrency$ = this.filterCurrency(this.configService.get<string>('appConfig.country'));
         } else {
-            return this.filterCurrency();
+            filteredCurrency$ = this.filterCurrency();
+        }
+
+        if (this.configSelectWithIcon?.components?.includes('currency')) {
+            const filteredCurrencyWithIcon$ = new BehaviorSubject<Params.ISelectOptions[]>([]);
+
+            filteredCurrency$.pipe(
+                map((data: Params.ISelectOptions[]) => {
+                    data.forEach((item) => {
+                        item.icon =
+                        `${GlobalHelper.gstaticUrl}/wlc/icons/currencies/${item.value.toString().toLowerCase()}.svg`;
+                    });
+                    return data;
+                }),
+            ).subscribe((value) => {
+                filteredCurrencyWithIcon$.next(value);
+            });
+
+            return filteredCurrencyWithIcon$;
+        } else {
+            return filteredCurrency$;
         }
     }
 

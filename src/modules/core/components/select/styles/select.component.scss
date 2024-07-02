@@ -228,6 +228,21 @@
                 padding: ef.get-value($baseSettings, 'currencyDropdownPadding');
             }
         }
+
+        &.wlc-select--with-icon {
+
+            .wlc-select__dropdown {
+
+                &-item {
+
+                    img {
+                        @include bm.get-mq-map('min-width', $baseSettings, 'currencyIconWidth');
+                        @include bm.get-mq-map('height', $baseSettings, 'currencyIconHeight');
+                        @include bm.get-mq-map('margin', $baseSettings, 'currencyIconMargin');
+                    }
+                }
+            }
+        }
     }
 
     &.wlc-select--country {

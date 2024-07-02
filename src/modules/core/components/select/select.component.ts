@@ -154,8 +154,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
         }
 
         if (this.foundItems.length && _has(this.foundItems[0], 'icon')) {
-            this.$params.useIcon = true;
-            this.addModifiers('with-icon');
+            this.prepareIcons();
         }
 
         if (this.foundItems.length && _has(this.foundItems[0], 'note')) {
@@ -672,16 +671,20 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
                 }];
                 this.foundItems = _cloneDeep(this.$params.items);
 
-                if (this.$params.name === 'currency'
-                    && !this.control.value
-                    && this.foundItems.length
-                ) {
-                    if (this.$params.autoSelect) {
-                        this.setDefaultCurrency();
-                        this.getSelectedItemIndex();
-                    } else if (!this.$params.common?.placeholder) {
-                        this.activeItemIndex = 0;
-                        this.control.setValue(this.foundItems[0].value);
+                if (this.$params.name === 'currency' && this.foundItems.length) {
+
+                    if (_has(this.foundItems[0], 'icon')) {
+                        this.prepareIcons();
+                    }
+
+                    if (!this.control.value) {
+                        if (this.$params.autoSelect) {
+                            this.setDefaultCurrency();
+                            this.getSelectedItemIndex();
+                        } else if (!this.$params.common?.placeholder) {
+                            this.activeItemIndex = 0;
+                            this.control.setValue(this.foundItems[0].value);
+                        }
                     }
                 }
 
@@ -799,5 +802,10 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
     protected getAgeFromConfig(selectCountry: string): number {
         return this.configService.get<number>(`appConfig.countryAgeBan.${selectCountry}`)
             || this.configService.get('$base.profile.legalAge');
+    }
+
+    protected prepareIcons(): void {
+        this.$params.useIcon = true;
+        this.addModifiers('with-icon');
     }
 }
