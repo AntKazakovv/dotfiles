@@ -1,6 +1,7 @@
 import {
     Injectable,
     Inject,
+    inject,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 import {
@@ -8,7 +9,11 @@ import {
     UIRouter,
 } from '@uirouter/core';
 
-import {filter} from 'rxjs/operators';
+import {
+    BehaviorSubject,
+    firstValueFrom,
+    first,
+} from 'rxjs';
 import _includes from 'lodash-es/includes';
 
 import {
@@ -23,6 +28,7 @@ import {
 
 import {
     UserInfo,
+    UserProfile,
     UserService,
 } from 'wlc-engine/modules/user';
 
@@ -38,20 +44,20 @@ export interface IUpdateIntercomOptions {
     providedIn: 'root',
 })
 export class IntercomService {
-
+    protected readonly userService: UserService = inject(UserService);
+    protected readonly eventService: EventService = inject(EventService);
+    protected readonly logService: LogService = inject(LogService);
+    protected readonly configService: ConfigService = inject(ConfigService);
+    protected readonly router: UIRouter = inject(UIRouter);
+    protected readonly injectionService: InjectionService = inject(InjectionService);
+    protected readonly actionService: ActionService = inject(ActionService);
+    protected isMobile: boolean = this.configService.get<DeviceModel>('device').isMobile;
     protected config: IIntercomSetup = this.configService.get<IIntercomSetup>('$base.intercom');
     protected isAuth: boolean;
-    protected isMobile: boolean = this.configService.get<DeviceModel>('device').isMobile;
 
     constructor(
         @Inject(DOCUMENT) protected document: Document,
         @Inject(WINDOW) protected window: Window,
-        protected eventService: EventService,
-        protected logService: LogService,
-        protected configService: ConfigService,
-        protected router: UIRouter,
-        protected injectionService: InjectionService,
-        protected actionService: ActionService,
     ) {
         this.init();
     }
@@ -60,17 +66,17 @@ export class IntercomService {
         await this.actionService.userMove;
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         this.loadIntercom();
-        this.bootIntercom();
 
         if (this.config.sendUserInfo) {
 
             if (this.isAuth) {
-                this.getUserInfo();
+                await this.getUserInfo();
+                this.setLogoutHandler();
             } else {
                 this.setHandlersUserInfo();
+                this.bootIntercom();
             }
         }
-        this.setLogoutHandler();
 
         this.eventService.subscribe({
             name: 'LIVECHAT_OPEN',
@@ -94,6 +100,7 @@ export class IntercomService {
         const logout = this.eventService.subscribe([
             {name: 'LOGOUT'},
         ], () => {
+            logout.unsubscribe();
             this.isAuth = false;
             this.shutdownIntercom();
             this.bootIntercom();
@@ -101,7 +108,6 @@ export class IntercomService {
             if (this.config.sendUserInfo) {
                 this.setHandlersUserInfo();
             }
-            logout.unsubscribe();
         });
     }
 
@@ -113,10 +119,10 @@ export class IntercomService {
     protected setHandlersUserInfo(): void {
         const login = this.eventService.subscribe([
             {name: 'LOGIN'},
-        ], () => {
+        ], async () => {
+            login.unsubscribe();
             this.isAuth = true;
             this.getUserInfo();
-            login.unsubscribe();
             this.setLogoutHandler();
         });
     }
@@ -148,20 +154,31 @@ export class IntercomService {
     }
 
     protected async getUserInfo(): Promise<void> {
-        const userService = await this.injectionService.getService<UserService>('user.user-service');
-        const userInfoSubscribe = userService.userInfo$
-            .pipe(filter((userInfo: UserInfo): boolean => !!userInfo && userInfo.dataReady))
-            .subscribe((userInfo: UserInfo): void => {
-                if (!userInfo) {
-                    return;
-                }
-                this.bootIntercom({
-                    email: userInfo.email,
-                    name: `${userInfo.firstName || null} ${userInfo.lastName || null}`,
-                    user_id: userInfo.loyalty.IDUser,
-                });
-                userInfoSubscribe.unsubscribe();
-            });
+        this.shutdownIntercom();
+        await this.userService.fetchUserInfo();
+        await this.userService.fetchUserProfile();
+        const [userInfo, userProfile] = await Promise.all([
+            firstValueFrom(
+                this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'})
+                    .pipe(
+                        first((userInfo: UserInfo): boolean => !!userInfo?.idUser),
+                    ),
+            ),
+            firstValueFrom(
+                this.configService.get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
+                    .pipe(
+                        first((userProfile: UserProfile): boolean => !!userProfile?.idUser),
+                    ),
+            ),
+        ]);
+
+
+        this.bootIntercom({
+            email: userInfo.email,
+            name: `${userInfo.firstName || null} ${userInfo.lastName || null}`,
+            user_id: userInfo.loyalty.IDUser,
+            wlc_login: userProfile.login || null,
+        });
     }
 
     /**
