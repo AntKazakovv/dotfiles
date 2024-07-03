@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 
 import _isUndefined from 'lodash-es/isUndefined';
+import _set from 'lodash-es/set';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
@@ -18,13 +19,14 @@ import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper
 
 import * as Params from './section-title.params';
 
+type SectionTitleParams = (keyof Params.ISectionTitleCParams)[];
+
 @Component({
     selector: 'div[wlc-section-title], a[wlc-section-title]',
     templateUrl: './section-title.component.html',
     styleUrls: ['./styles/section-title.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-
 export class SectionTitleComponent extends AbstractComponent implements OnInit, OnChanges {
     @Input() protected inlineParams: Params.ISectionTitleCParams;
     @Input() public text: string;
@@ -33,6 +35,7 @@ export class SectionTitleComponent extends AbstractComponent implements OnInit, 
 
     public override $params: Params.ISectionTitleCParams;
     public useTitleLink: boolean;
+    public readonly sectionTitleParams: SectionTitleParams = ['text', 'iconPath', 'iconFallback'];
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISectionTitleCParams,
@@ -45,7 +48,7 @@ export class SectionTitleComponent extends AbstractComponent implements OnInit, 
     }
 
     public override ngOnInit(): void {
-        super.ngOnInit(GlobalHelper.prepareCParams(this, ['text', 'iconPath', 'iconFallback']));
+        super.ngOnInit(GlobalHelper.prepareCParams(this, this.sectionTitleParams));
         if (_isUndefined(this.$params.noUseArrowLinkIcon)) {
             this.$params.noUseArrowLinkIcon = this.$params.theme === 'wolf';
         }
@@ -54,8 +57,12 @@ export class SectionTitleComponent extends AbstractComponent implements OnInit, 
 
     public override ngOnChanges(changes: SimpleChanges): void {
         super.ngOnChanges(changes);
-        if (changes.text?.currentValue && !changes?.text?.firstChange) {
-            this.$params.text = changes.text.currentValue;
+        const params = this.sectionTitleParams;
+
+        for (const param of params) {
+            if (changes[param]?.currentValue && !changes[param]?.firstChange) {
+                _set(this.$params, param, changes[param].currentValue);
+            }
         }
     }
 }
