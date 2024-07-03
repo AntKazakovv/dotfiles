@@ -1,7 +1,5 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {TranslateModule} from '@ngx-translate/core';
 
 import {WalletsComponent} from './components/wallets/wallets.component';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
@@ -31,10 +29,8 @@ export const services = {
     ],
 
     imports: [
-        CommonModule,
         CoreModule,
         FormsModule,
-        TranslateModule,
     ],
     providers: [
         WalletsService,
