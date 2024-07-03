@@ -522,7 +522,7 @@ def update_language_pack(branch):
     subprocess.run(["git", "switch", f"remotes/origin/{branch}"])
     print(Fore.GREEN + "Done" + Fore.RESET)
 
-    new_tag = get_latest_remote_tag("rc" if branch == "develop" else "release", lang_repo) if branch in ["develop", "master"] else None
+    new_tag = get_latest_remote_tag(lang_repo) if branch in ["develop", "master"] else None
 
     print(Fore.YELLOW + f"Update language pack to the {new_tag} version" + Fore.RESET)
     set_version("langpack", new_tag)
