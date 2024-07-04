@@ -930,7 +930,6 @@ export namespace profileContent {
                     components: [
                         componentLib.wlcProfileMenu.defTypeWolf,
                         componentLib.wlcDepositWithdraw.submenuWolf,
-                        componentLib.wlcDepositWithdraw.balanceAdaptive,
                         componentLib.wlcDepositWithdraw.deposit,
                     ],
                 },
@@ -1029,7 +1028,6 @@ export namespace profileContent {
                     components: [
                         componentLib.wlcProfileMenu.defTypeWolf,
                         componentLib.wlcDepositWithdraw.submenuWolf,
-                        componentLib.wlcDepositWithdraw.balanceAdaptive,
                         componentLib.wlcDepositWithdraw.withdraw,
                     ],
                 },

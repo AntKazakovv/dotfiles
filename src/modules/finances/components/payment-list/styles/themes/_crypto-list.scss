@@ -231,7 +231,7 @@
             &__ticker {
                 @include text.get-text-style(
                     ef.get-value($themeModWolf, 'itemTickerTextStyle'),
-                    ef.get-value($themeModWolf, 'itemNameTextColor')
+                    ef.get-value($themeModWolf, 'itemTickerTextColor')
                 );
             }
 

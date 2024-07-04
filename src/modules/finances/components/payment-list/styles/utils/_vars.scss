@@ -244,6 +244,7 @@ $themeModWolf: map-merge((
     'itemNameTextStyle': 'CaptionText',
     'itemTickerTextStyle': 'CaptionText',
     'itemNameTextColor': var(--mc-baseSecond),
+    'itemTickerTextColor': var(--mc-baseOpacity),
     'methodTextStyle': 'CaptionText',
     'methodTextColor': var(--mc-baseMain),
     'descriptionFont': 'CaptionText',
