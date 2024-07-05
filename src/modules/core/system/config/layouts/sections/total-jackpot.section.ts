@@ -12,7 +12,6 @@ export namespace totalJackpotSection {
                     components: [
                         componentLib.wlcTitle.totalJackpot,
                         componentLib.wlcTotalJackpot.home,
-                        componentLib.wlcButton.totalJackpot,
                     ],
                 },
             },

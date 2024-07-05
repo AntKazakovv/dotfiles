@@ -124,9 +124,8 @@
             }
         }
 
-        &__btn-no-jackpot {
+        &__btn-jackpot {
             @include bm.get-mq-map('margin', $themeGamesInside, 'noJackpotBtnMarign');
-
             position: relative;
         }
     }

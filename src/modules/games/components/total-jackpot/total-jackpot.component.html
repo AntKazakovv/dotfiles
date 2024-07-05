@@ -5,6 +5,11 @@
 </ng-container>
 
 <ng-template #default>
+    <ng-container [ngTemplateOutlet]="jackpotAmount"></ng-container>
+    <ng-container [ngTemplateOutlet]="jackpotBtn"></ng-container>
+</ng-template>
+
+<ng-template #jackpotAmount>
     <div *ngIf="amount; else noContent" class="{{$class}}-body">
         <ng-container [ngTemplateOutlet]="svg"></ng-container>
     </div>
@@ -17,8 +22,8 @@
                 <div class="{{$class}}__sprite"
                     wlc-animate-sprite
                     [parentElementRef]="elementRef.nativeElement"
-                    [inlineParams]="$params.animateSprite"
-                ></div>
+                    [inlineParams]="$params.animateSprite">
+                </div>
             </ng-container>
         </div>
         <div class="{{$class}}__content">
@@ -30,8 +35,8 @@
                         [options]="$params.countUpOptions"
                         [reanimateOnClick]="$params.animateOnClick"
                         data-wlc-element="total-jackpot_counter"
-                        [ngClass]="{'loading': !amount}"
-                    ></span>
+                        [ngClass]="{'loading': !amount}">
+                    </span>
                 </ng-container>
             </p>
             <p class="{{$class}}__text">{{$params.text | translate}}</p>
@@ -53,20 +58,19 @@
 
         <text x="50%" y="50%" dy=".35em" text-anchor="middle" class="{{$class}}__text">
             <tspan class="{{$class}}__currency"
-                   *ngIf="amount && currency?.position == 'left'"
-                   data-wlc-element="total-jackpot_currency">
+                *ngIf="amount && currency?.position == 'left'"
+                data-wlc-element="total-jackpot_currency">
                 {{currency.currency}}&#032;
             </tspan>
             <tspan class="{{$class}}__counter"
-                   [countUp]="amount"
-                   [options]="$params.countUpOptions"
-                   [reanimateOnClick]="$params.animateOnClick"
-                   data-wlc-element="total-jackpot_counter"
-                   [ngClass]="{'loading': !amount}">
+                [countUp]="amount"
+                [options]="$params.countUpOptions"
+                [reanimateOnClick]="$params.animateOnClick"
+                data-wlc-element="total-jackpot_counter"
+                [ngClass]="{'loading': !amount}">
                 --- --- ---
             </tspan>
-            <tspan class="{{$class}}__currency"
-                   *ngIf="amount && currency?.position == 'right'">
+            <tspan class="{{$class}}__currency" *ngIf="amount && currency?.position == 'right'">
                 {{currency.currency}}
             </tspan>
         </text>
@@ -93,27 +97,27 @@
     <div class="{{$class}}__bg"></div>
     <div class="{{$class}}__decor {{$class}}__decor--1"></div>
     <div class="{{$class}}__decor {{$class}}__decor--2"></div>
-
     <div class="{{$class}}__content">
         <div class="{{$class}}__title"
             wlc-title
             [mainText]="$params.title"></div>
         <div class="{{$class}}__amount">
-            <ng-container [ngTemplateOutlet]="default"></ng-container>
+            <ng-container [ngTemplateOutlet]="jackpotAmount"></ng-container>
         </div>
-        <div *ngIf="$params.gamesGridParams.gamesList.length; else noJackpotBtn"
+        <div *ngIf="$params.gamesGridParams.gamesList.length; else jackpotBtn"
             class="{{$class}}__games"
             wlc-games-grid
             [inlineParams]="$params.gamesGridParams">
         </div>
-
     </div>
 </ng-template>
 
-<ng-template #noJackpotBtn>
-    <button wlc-button
-            class="{{$class}}__btn-no-jackpot"
-            [text]="$params.noJackpotBtn.text"
-            [wlc-link]="[$params.noJackpotBtn.sref, $params.noJackpotBtn.params]">
+<ng-template #jackpotBtn>
+    <button *ngIf="jackpotBtnParams"
+        wlc-button
+        class="{{$class}}__btn-jackpot"
+        [text]="jackpotBtnParams.text"
+        (click)="openState(jackpotBtnParams.event)">
     </button>
 </ng-template>
+

@@ -95,6 +95,10 @@
 
                 &-link {
                     @include bm.transition();
+
+                    @include bm.hover {
+                        cursor: pointer;
+                    }
                 }
             }
         }

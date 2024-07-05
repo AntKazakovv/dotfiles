@@ -148,6 +148,8 @@ export interface IVideoThumbsConfig {
 export interface IOpenCategory {
     parent: string;
     child: string;
+    /** use it if we don't have child */
+    additionalChild: string;
 }
 
 @Injectable({
@@ -337,33 +339,41 @@ export class GamesCatalogService {
         this.eventService.subscribe({
             name: 'OPEN_CATEGORY',
         }, (data: IOpenCategory) => {
+            let parent: string = data.parent;
+            let child: string = data.child;
+            let additionalChild: string = data.additionalChild;
+
+            if (child && !this.getCategoryBySlug(child) && additionalChild){
+                child = additionalChild;
+            }
+
             if (this.architectureVersion === 2) {
                 this.stateService.go('app.catalog', {
-                    category: data.child || data.parent,
+                    category: child || parent,
                 });
             } else {
                 let appState: string;
                 let appParams: RawParams;
 
-                if (data.child && data.parent) {
-                    const category: CategoryModel = this.getCategoryBySlug(data.child);
+                if (child && parent) {
+                    const category: CategoryModel = this.getCategoryBySlug(child);
 
                     if (category.parentCategory) {
                         appState = 'app.catalog.child';
                         appParams = {
-                            category: data.parent,
-                            childCategory: data.child,
+                            category: parent,
+                            childCategory: child,
                         };
                     } else {
                         appState = 'app.catalog';
                         appParams = {
-                            category: data.child,
+                            category: child,
                         };
                     }
                 } else {
                     appState = 'app.catalog';
                     appParams = {
-                        category: data.parent,
+                        category: parent,
                     };
                 }
 

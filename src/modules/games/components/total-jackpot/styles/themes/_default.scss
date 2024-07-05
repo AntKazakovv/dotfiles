@@ -1,5 +1,8 @@
 .wlc-total-jackpot--theme-default:host {
+    @include bm.get-mq-map('gap', $themeDefault, 'totalJackpotGap');
     display: flex;
+    flex-direction: column;
+    align-items: center;
 
     .wlc-total-jackpot__counter {
 

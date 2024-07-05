@@ -1,5 +1,3 @@
-import {RawParams} from '@uirouter/core';
-
 import {CustomType, IComponentParams} from 'wlc-engine/modules/core/system/classes';
 import {CountUpOptions} from 'countup.js';
 import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
@@ -13,13 +11,15 @@ export type ComponentType = 'default' | CustomType;
 export type ComponentThemeMod = 'default' | 'label' | string;
 export type TotalJackpotNoContentByThemeType = Partial<Record<ComponentTheme, INoContentCParams>>;
 
-export interface INoJackpotBtn {
-    /** Inside link */
-    sref?: string;
-    /** Params for sref */
-    params?: RawParams;
+export type TEvent = {
+    name: string;
+    data?: unknown;
+}
+
+export interface IJackpotBtn {
     /** Caption of the button */
     text?: string;
+    event?: TEvent;
 }
 
 export interface ITotalJackpotCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
@@ -38,10 +38,11 @@ export interface ITotalJackpotCParams extends IComponentParams<ComponentTheme, C
      * Params of wlc-games-grid component who shows jackpot games
      */
     gamesGridParams?: IGamesGridCParams;
+    jackpotBtn?: IJackpotBtn;
     /**
      * Fallback button params when jackpots list is empty
      */
-    noJackpotBtn?: INoJackpotBtn;
+    noJackpotBtn?: IJackpotBtn;
 }
 
 export const defaultParams: ITotalJackpotCParams = {
@@ -133,9 +134,22 @@ export const defaultParams: ITotalJackpotCParams = {
         },
     },
     noJackpotBtn: {
-        sref: 'app.catalog',
-        params: {
-            category: 'new',
+        event: {
+            name: 'OPEN_CATEGORY',
+            data: {
+                parent: 'casino',
+                child: 'new',
+            },
+        },
+        text: gettext('Play'),
+    },
+    jackpotBtn: {
+        event: {
+            name: 'OPEN_CATEGORY',
+            data: {
+                parent: 'casino',
+                child: 'jackpots',
+            },
         },
         text: gettext('Play'),
     },

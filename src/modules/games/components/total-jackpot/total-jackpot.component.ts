@@ -7,6 +7,7 @@ import {
     ElementRef,
     ChangeDetectionStrategy,
 } from '@angular/core';
+import {StateService} from '@uirouter/core';
 import {TranslateService} from '@ngx-translate/core';
 
 import {
@@ -15,7 +16,10 @@ import {
 } from 'rxjs/operators';
 import _clone from 'lodash-es/clone';
 
-import {GlobalHelper} from 'wlc-engine/modules/core';
+import {
+    EventService,
+    GlobalHelper,
+} from 'wlc-engine/modules/core';
 import {JackpotModel} from 'wlc-engine/modules/games/system/models/jackpot.model';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes';
@@ -30,6 +34,7 @@ import {
 import {JackpotCurrency} from 'wlc-engine/modules/core/constants';
 
 import * as Params from './total-jackpot.params';
+import {IJackpotBtn} from './total-jackpot.params';
 
 export interface ITotalJackpotCurrency {
     currency: string;
@@ -62,6 +67,7 @@ export class TotalJackpotComponent extends AbstractComponent implements OnInit {
     public currency: ITotalJackpotCurrency;
     public noContentParams: INoContentCParams;
     public gamesList: Game[] = [];
+    public jackpotBtnParams: IJackpotBtn;
 
     constructor(
         public elementRef: ElementRef,
@@ -71,12 +77,15 @@ export class TotalJackpotComponent extends AbstractComponent implements OnInit {
         protected translateService: TranslateService,
         protected cachingService: CachingService,
         protected gamesCatalogService: GamesCatalogService,
+        protected eventService: EventService,
+        protected stateService: StateService,
     ) {
         super({injectParams: params, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+        this.jackpotBtnParams = this.$params.noJackpotBtn;
         this.getCache();
         this.gamesCatalogService.ready.then(() => {
             this.getLastJackpots();
@@ -84,6 +93,10 @@ export class TotalJackpotComponent extends AbstractComponent implements OnInit {
         this.noContentParams = GlobalHelper.getNoContentParams(this.$params, this.$class, this.configService);
 
         this.cdr.markForCheck();
+    }
+
+    public openState(event: Params.TEvent): void {
+        this.eventService.emit(event);
     }
 
     private async getCache(): Promise<void> {
@@ -130,6 +143,8 @@ export class TotalJackpotComponent extends AbstractComponent implements OnInit {
             .subscribe((data: JackpotModel[]) => {
                 this.calcAmount(data);
                 this.getCurrency(data[0].currency);
+
+                this.jackpotBtnParams = this.amount ? this.$params.jackpotBtn : this.$params.noJackpotBtn;
 
                 if (this.$params.theme === 'games-inside') {
                     this.updateGameList();

@@ -2,6 +2,12 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
+    'totalJackpotGap': (
+        375: ef.size(6) 0,
+        720: ef.size(8) 0,
+        1630: ef.size(12) 0,
+    ),
+
     'fontSize': ef.size(6),
     'fontWeight': bold,
     'loadingAnimation': pulse 2s infinite,
