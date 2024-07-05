@@ -36,6 +36,7 @@ export class LotteryCtaComponent extends AbstractComponent implements OnInit {
     public override $params: Params.ILotteryCtaCParams;
     public ticketsCount$: BehaviorSubject<number> = new BehaviorSubject(0);
     public ctaBtnParams: IButtonCParams;
+    public hideButton: boolean = false;
 
     private isDeposit: boolean;
 
@@ -53,6 +54,7 @@ export class LotteryCtaComponent extends AbstractComponent implements OnInit {
         super.ngOnInit(this.inlineParams);
 
         this.isDeposit = this.$params.type === 'deposit';
+        this.hideButton = this.$params.hideButton && this.isDeposit;
 
         if (this.isDeposit) {
             this.ctaBtnParams = this.$params.readMoreBtnParams;

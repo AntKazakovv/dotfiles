@@ -18,7 +18,7 @@ export interface ILotteryCtaCParams extends IComponentParams<ComponentTheme, Com
     amount$?: BehaviorSubject<number>;
     /** Used in deposit type */
     lottery$?: BehaviorSubject<Lottery>;
-    /** Use it for hide button (may be useful in deposit widget) */
+    /** Use it for hide button (hides only in deposit widget) */
     hideButton?: boolean;
     showTicketsCounter?: boolean;
 };

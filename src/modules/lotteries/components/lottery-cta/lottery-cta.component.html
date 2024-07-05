@@ -16,7 +16,7 @@
     <span class="{{$class}}__tickets-counter">{{ticketsCount$ | async}}</span>
 </p>
 
-<div *ngIf="!$params.hideButton" class="{{$class}}__controls">
+<div *ngIf="!hideButton" class="{{$class}}__controls">
     <button wlc-button
         data-wlc-element="lottery_cta_deposit"
         [inlineParams]="ctaBtnParams"

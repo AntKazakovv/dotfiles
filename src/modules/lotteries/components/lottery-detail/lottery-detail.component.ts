@@ -64,7 +64,11 @@ export class LotteryDetailComponent extends AbstractComponent implements OnInit,
             params,
         );
 
-        const lottery: Lottery = await this.lotteryController.fetchLottery();
+        if (this.$params.lottery) {
+            this.lottery = this.$params.lottery;
+        } else {
+            await this.lotteryController.fetchLottery();
+        }
 
         this.lotteryController.lottery$.pipe(
             filter((lottery) => !!lottery),
@@ -73,9 +77,10 @@ export class LotteryDetailComponent extends AbstractComponent implements OnInit,
             this.lottery = lottery;
             this.cdr.markForCheck();
         });
+
         this.pending$.next(false);
 
-        if (!lottery) {
+        if (!this.lottery) {
             this.stateService.go('app.error');
         }
     }
