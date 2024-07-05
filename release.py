@@ -522,7 +522,10 @@ def update_language_pack(branch):
     subprocess.run(["git", "switch", f"remotes/origin/{branch}"])
     print(Fore.GREEN + "Done" + Fore.RESET)
 
-    new_tag = get_latest_remote_tag(lang_repo) if branch in ["develop", "master"] else None
+    clean_temp()
+    clone_project(lang_repo)
+    new_tag = get_version("translate")
+    clean_temp()
 
     print(Fore.YELLOW + f"Update language pack to the {new_tag} version" + Fore.RESET)
     set_version("langpack", new_tag)
@@ -812,11 +815,8 @@ def release_manager():
 
         case "t":
             # Choise for testing things
-            new_tag = "1.0.0"
-            print(Fore.YELLOW + "Making change log..." + Fore.RESET)
-            subprocess.run(["./node20.sh", "wlc-engine", "npm", "run", "gulp", "change-logs", "--", f"--tag={new_tag}"], cwd=os.path.expanduser("~/Projects/wlc"))
-            subprocess.run(["./node20.sh", "wlc-engine", "npm", "run", "gulp", "translations-logs"], cwd=os.path.expanduser("~/Projects/wlc"))
-            print(Fore.GREEN + "Done" + Fore.RESET)
+            branch = "master"
+            update_language_pack(branch)
 
         case _:
             error_message()
