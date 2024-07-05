@@ -72,10 +72,4 @@ export namespace wlcLanguageSelector {
             toggleOnScroll: 'bottom-left',
         },
     };
-    export const mobileApp: ILayoutComponent = {
-        name: 'core.wlc-language-selector',
-        params: <ILanguageSelectorCParams>{
-            theme: 'mobile-app',
-        },
-    };
 }

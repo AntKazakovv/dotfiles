@@ -4,6 +4,7 @@
     --ls-link-hover: #{ef.get-value($themeWolf, 'linkHover')};
     --ls-link-icon-margin: #{ef.get-value($themeWolf, 'linkIconMargin')};
     --ls-link-arrow: block;
+    --ls-curr-flag-size: #{ef.get-value($themeWolf, 'currentFlagSize')};
     --ls-icon-width: auto;
 
     position: relative;
@@ -17,6 +18,13 @@
         --ls-link-hover: none;
         --ls-link-arrow: none;
         --ls-icon-width: 100%;
+
+        @include bm.hover {
+
+            .wlc-language-selector__current {
+                background: #{ef.get-value($themeWolf, 'linkHover')};
+            }
+        }
     }
 
     &.wlc-language-selector--state-expanded {
@@ -162,7 +170,9 @@
         }
 
         &__current {
+            @include bm.transition(background);
             display: flex;
+            gap: ef.get-value($themeWolf, 'linkGap');
             align-items: center;
             justify-content: var(--ls-link-justify-content);
             min-height: ef.get-value($themeWolf, 'linkMinHeight');
@@ -170,6 +180,12 @@
             background: var(--ls-link-background);
             border-radius: ef.get-value($themeWolf, 'linkBorderRadius');
             cursor: pointer;
+
+            &-flag {
+                @include flag(var(--ls-curr-flag-size), var(--ls-curr-flag-size), 50%);
+                @include bm.transition(box-shadow);
+                box-shadow: ef.get-value($themeWolf, 'linkBoxShadow');
+            }
 
             &--opened {
                 border-top-left-radius: ef.get-value($themeWolf, 'linkBorderRadius');
@@ -198,17 +214,13 @@
 
                 ::ng-deep {
 
-                    .wlc-icon-content {
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-
-                        svg path,
-                        svg {
-                            width: ef.get-value($themeWolf, 'linkIconArrowWidth');
-                            height: ef.get-value($themeWolf, 'linkIconArrowHeight');
-                            vertical-align: middle;
-                        }
+                    svg path,
+                    svg {
+                        @include bm.transition(fill);
+                        width: ef.get-value($themeWolf, 'linkIconArrowWidth');
+                        height: ef.get-value($themeWolf, 'linkIconArrowHeight');
+                        vertical-align: middle;
+                        fill: ef.get-value($themeWolf, 'linkIconFill');
                     }
                 }
             }
@@ -218,13 +230,35 @@
                     ef.get-value($themeWolf, 'linkFontSize'),
                     ef.get-value($themeWolf, 'linkColor'),
                 );
+                @include bm.transition(color);
             }
 
             @include bm.hover {
                 background: var(--ls-link-hover);
 
-                .wlc-language-selector__current-lang {
-                    color: ef.get-value($themeWolf, 'linkHoverColor');
+                .wlc-language-selector {
+
+                    &__current {
+
+                        &-flag {
+                            box-shadow: ef.get-value($themeWolf, 'linkBoxShadowHover');
+                        }
+
+                        &-arrow {
+
+                            ::ng-deep {
+
+                                svg path,
+                                svg {
+                                    fill: ef.get-value($themeWolf, 'linkIconArrowFill');
+                                }
+                            }
+                        }
+
+                        &-lang {
+                            color: ef.get-value($themeWolf, 'linkHoverColor');
+                        }
+                    }
                 }
             }
         }

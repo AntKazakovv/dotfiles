@@ -2,7 +2,7 @@ import {IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.
 import {TFixedPanelPos} from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
 
 
-export type ThemeType = 'default' | 'mobile-app' | 'wolf';
+export type ThemeType = 'default' | 'wolf';
 export type ThemeModType = 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right' | 'long';
 export type ComponentType = 'click' | 'hover' | 'compact';
 

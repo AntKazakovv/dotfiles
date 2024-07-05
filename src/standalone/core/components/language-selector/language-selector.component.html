@@ -1,40 +1,7 @@
 <ng-container [ngSwitch]="$params.theme">
     <ng-container *ngSwitchCase="'wolf'" [ngTemplateOutlet]="wolf"></ng-container>
-    <ng-container *ngSwitchCase="'mobile-app'" [ngTemplateOutlet]="mobileApp"></ng-container>
     <ng-container *ngSwitchDefault [ngTemplateOutlet]="def"></ng-container>
 </ng-container>
-
-<ng-template #mobileApp>
-    <div class="{{$class}}__list">
-        <div *ngFor="let lang of availableLanguages"
-             class="{{$class}}__item {{$class}}__item--{{lang.code}}"
-             [ngClass]="[lang.code === currentLanguage.code ? $class + '__item--active': '']"
-             [tooltip]="$params.useTooltip && lang.label"
-             boundariesElement="viewport"
-             container="body"
-             containerClass="wlc-tooltip--compact"
-             placement="right">
-
-            <a href="/{{lang.code}}"
-               class="{{$class}}__link" [attr.data-wlc-element]="'link_' + lang.code"
-               (click)="changeLanguage(lang.code, $event)">
-                <span class="{{$class}}__link-flag">
-                    <img src="{{getFlagUrl(lang.code)}}"
-                         loading="lazy"
-                         alt="{{lang.label}}"
-                         (error)="imageError(lang.code)">
-                </span>
-                <span class="{{$class}}__link-lang">
-                    {{lang.label}}
-                    <div wlc-icon
-                         class="{{$class}}__active"
-                         iconPath="/wlc/icons/check.svg">
-                    </div>
-                </span>
-            </a>
-        </div>
-    </div>
-</ng-template>
 
 <ng-template #wolf>
     <div *ngIf="isShowLangByThemeWolf"
@@ -49,14 +16,15 @@
         [class.modal]="!isShowLangByDropdown"
         #langContainer>
 
-        <div *ngIf="$params.defaultIcon"
-            wlc-icon
-            class="{{$class}}__icon"
-            [iconPath]="$params.defaultIcon">
-        </div>
+        <ng-container *ngIf="$params.currentLang?.hideFlag; else flag">
+            <div *ngIf="$params.defaultIcon"
+                wlc-icon
+                class="{{$class}}__icon"
+                [iconPath]="$params.defaultIcon">
+            </div>
+        </ng-container>
 
-        <div *ngIf="!$params.currentLang?.hideArrow"
-            class="{{$class}}__current-lang">
+        <div *ngIf="!$params.currentLang?.hideArrow" class="{{$class}}__current-lang">
             {{currentLanguage?.label | translate}}
         </div>
 
@@ -82,8 +50,8 @@
         #dropdown>
         <ng-container
             [ngTemplateOutlet]="langList"
-            [ngTemplateOutletContext]="{list: availableLanguages, class: $class}"
-        ></ng-container>
+            [ngTemplateOutletContext]="{list: availableLanguages, class: $class}">
+        </ng-container>
     </div>
 
     <ng-template #langList let-list="list" let-$class="class">
@@ -93,7 +61,8 @@
                 [ngClass]="[lang.code === currentLanguage.code ? $class + '__item--active': '']">
 
                 <a href="/{{lang.code}}"
-                    class="{{$class}}__link" [attr.data-wlc-element]="'link_' + lang.code"
+                    class="{{$class}}__link"
+                    [attr.data-wlc-element]="'link_' + lang.code"
                     (click)="changeLanguage(lang.code, $event)">
 
                     <div *ngIf="!$params.dropdown?.hideFlag" class="{{$class}}__link-flag">
@@ -103,7 +72,9 @@
                             (error)="imageError(lang.code)">
                     </div>
 
-                    <span *ngIf="!$params.dropdown?.hideLang" class="{{$class}}__link-lang">{{lang.label}}</span>
+                    <span *ngIf="!$params.dropdown?.hideLang" class="{{$class}}__link-lang">
+                        {{lang.label}}
+                    </span>
                 </a>
             </div>
         </div>
@@ -111,22 +82,23 @@
 </ng-template>
 
 <ng-template #def>
-    <div class="{{$class}}__current" [attr.data-wlc-element]="'selected_link_' + currentLanguage.code"
-         (click)="toggle()"
-         [ngClass]="[(isOpened || isModalOpen) ? $class + '__current--opened': '']"
-         [class.single-lang]="hasSingleLang"
-         [tooltip]="$params.useTooltip && currentLanguage.label"
-         container="body"
-         containerClass="wlc-tooltip--compact"
-         boundariesElement="viewport"
-         placement="right"
-         #langContainer
-    >
+    <div class="{{$class}}__current"
+        [attr.data-wlc-element]="'selected_link_' + currentLanguage.code"
+        (click)="toggle()"
+        [ngClass]="[(isOpened || isModalOpen) ? $class + '__current--opened': '']"
+        [class.single-lang]="hasSingleLang"
+        [tooltip]="$params.useTooltip && currentLanguage.label"
+        container="body"
+        containerClass="wlc-tooltip--compact"
+        boundariesElement="viewport"
+        placement="right"
+        #langContainer>
+
         <div *ngIf="!$params.currentLang?.hideFlag" class="{{$class}}__current-flag">
             <img src="{{getFlagUrl(currentLanguage.code)}}"
-                 loading="lazy"
-                 alt="{{currentLanguage.label}}"
-                 (error)="imageError(currentLanguage.code)">
+                loading="lazy"
+                alt="{{currentLanguage.label}}"
+                (error)="imageError(currentLanguage.code)">
         </div>
         <div *ngIf="!$params.currentLang?.hideLang" class="{{$class}}__current-lang">
             {{!isLongThemeMod ? this.currentLanguage?.code : this.currentLanguage?.label | translate}}
@@ -138,41 +110,52 @@
         </div>
     </div>
     <div *ngIf="isShowLangByDropdown"
-         class="{{$class}}__dropdown"
-         [@toggle]="animationState()"
-         #dropdown
-    >
+        class="{{$class}}__dropdown"
+        [@toggle]="animationState()"
+        #dropdown>
+
         <ng-container [ngTemplateOutlet]="langList"
-                      [ngTemplateOutletContext]="{list: availableLanguages, class: $class}"
-        ></ng-container>
+            [ngTemplateOutletContext]="{list: availableLanguages, class: $class}">
+        </ng-container>
     </div>
 
     <ng-template #langList let-list="list" let-$class="class">
         <div class="{{$class}}__list">
             <div *ngFor="let lang of list"
-                 class="{{$class}}__item {{$class}}__item--{{lang.code}}"
-                 [ngClass]="[lang.code === currentLanguage.code ? $class + '__item--active': '']"
-                 [tooltip]="$params.useTooltip && lang.label"
-                 container="body"
-                 containerClass="wlc-tooltip--compact"
-                 boundariesElement="viewport"
-                 placement="right">
+                class="{{$class}}__item {{$class}}__item--{{lang.code}}"
+                [ngClass]="[lang.code === currentLanguage.code ? $class + '__item--active': '']"
+                [tooltip]="$params.useTooltip && lang.label"
+                container="body"
+                containerClass="wlc-tooltip--compact"
+                boundariesElement="viewport"
+                placement="right">
 
                 <a href="/{{lang.code}}"
-                   class="{{$class}}__link" [attr.data-wlc-element]="'link_' + lang.code"
-                   (click)="changeLanguage(lang.code, $event)">
+                    class="{{$class}}__link"
+                    [attr.data-wlc-element]="'link_' + lang.code"
+                    (click)="changeLanguage(lang.code, $event)">
 
-                <span *ngIf="!$params.dropdown?.hideFlag" class="{{$class}}__link-flag">
-                    <img src="{{getFlagUrl(lang.code)}}"
-                         loading="lazy"
-                         alt="{{lang.label}}"
-                         (error)="imageError(lang.code)">
-                </span>
+                    <span *ngIf="!$params.dropdown?.hideFlag" class="{{$class}}__link-flag">
+                        <img src="{{getFlagUrl(lang.code)}}"
+                            loading="lazy"
+                            alt="{{lang.label}}"
+                            (error)="imageError(lang.code)">
+                    </span>
 
-                    <span *ngIf="!$params.dropdown?.hideLang" class="{{$class}}__link-lang">{{lang.label}}</span>
-
+                    <span *ngIf="!$params.dropdown?.hideLang" class="{{$class}}__link-lang">
+                        {{lang.label}}
+                    </span>
                 </a>
             </div>
         </div>
     </ng-template>
+</ng-template>
+
+<ng-template #flag>
+    <div *ngIf="!$params.currentLang?.hideFlag" class="{{$class}}__current-flag">
+        <img src="{{getFlagUrl(currentLanguage.code)}}"
+            loading="lazy"
+            alt="{{currentLanguage.label}}"
+            (error)="imageError(currentLanguage.code)">
+    </div>
 </ng-template>

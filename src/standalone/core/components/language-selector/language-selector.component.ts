@@ -30,6 +30,7 @@ import {
 } from 'rxjs/operators';
 import _find from 'lodash-es/find';
 import _isNil from 'lodash-es/isNil';
+import _merge from 'lodash-es/merge';
 
 import {
     ILanguage,
@@ -186,13 +187,6 @@ export class LanguageSelectorComponent
                     .subscribe(() => {
                         this.configService.set({name: 'currentLanguage', value: this.translateService.currentLang});
 
-                        if (GlobalHelper.isMobileApp()) {
-                            this.configService.set({
-                                name: 'currentLanguage',
-                                value: this.translateService.currentLang,
-                                storageType: 'localStorage',
-                            });
-                        }
                         if (this.isModalOpen) {
                             this.modalService.hideModal('langSwitcherRef');
                         }
@@ -440,7 +434,7 @@ export class LanguageSelectorComponent
             this.addModifiers('state-expanded');
         }
 
-        this.$params.currentLang = currentLangConfig;
+        this.$params.currentLang = _merge({}, this.$params.currentLang, currentLangConfig);
         this.$params.dropdown = dropdownConfig;
         this.$params.useTooltip = useTooltip;
         this.cdr.detectChanges();
