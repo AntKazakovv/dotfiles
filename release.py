@@ -528,6 +528,7 @@ def update_language_pack(branch):
 
     clean_temp()
     clone_project(lang_repo)
+    check_branch(branch)
     new_tag = get_version("translate")
     clean_temp()
 
