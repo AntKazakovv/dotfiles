@@ -635,6 +635,14 @@ export class UserService {
 
             const requestParams = await this.getUpdateProfileParams(updates, options);
 
+            if (this.configService.get<number>('appConfig.siteconfig.fastRegistration')
+                && requestParams.passwordRepeat
+                && requestParams.password
+                && !requestParams.newPasswordRepeat
+            ) {
+                requestParams.password = '';
+            }
+
             const response: TUpdateProfileRes = await this.dataService.request({
                 name: 'updateProfile',
                 system: 'user',
