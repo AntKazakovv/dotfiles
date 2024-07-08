@@ -323,7 +323,7 @@ $themeMobileWolf: map-merge((
     'btnMinHeight': 40px,
     'btnMargin': ef.size(1) 0 0,
     'btnPadding': 0 ef.size(3),
-    'btnBg': var(--mc-bg300),
+    'btnBg': var(--mc-bg300-o4),
     'btnBgHover': var(--mc-bg100),
     'btnRadius': ef.get('radius', 'main'),
     'btnFontStyle': 'CaptionText',
