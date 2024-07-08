@@ -1,5 +1,4 @@
 import {NgModule} from '@angular/core';
-import {TranslateModule} from '@ngx-translate/core';
 
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 
@@ -17,7 +16,6 @@ export const components = {
 @NgModule({
     imports: [
         CoreModule,
-        TranslateModule,
     ],
     providers: [GamblingBanService],
     declarations: [GamblingBanModalComponent],
