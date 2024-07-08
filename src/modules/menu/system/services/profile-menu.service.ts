@@ -195,6 +195,14 @@ export class ProfileMenuService {
         await this.ready;
 
         if (!this.dropdownMenu.length) {
+
+            if (this.configService.get<boolean>('$base.stickyHeader.use')) {
+                options = Object.assign(options,
+                    {
+                        isSingleLevelMenu: true,
+                    },
+                );
+            }
             this.dropdownMenu =
                 MenuHelper.parseMenuConfig(this.profileMenuConfig, Config.wlcProfileMenuItemsGlobal, options);
         }

@@ -81,6 +81,8 @@ export interface IParseConfigOptions {
     },
     /** hide category menu */
     notUseCategoryMenu?: boolean;
+    /** hide all submenu in dropdown menu */
+    isSingleLevelMenu?: boolean;
 }
 
 export interface IParseSettingsOptions {
@@ -273,6 +275,7 @@ export class MenuHelper {
         const iconsFolder: string = _trim(options?.icons?.folder, '/');
         const iconsFallback: string = options?.icons?.fallback;
         const modifyParent: IModifyParent = options?.modifyParent;
+        const isSingleLevelMenu: boolean = options?.isSingleLevelMenu;
 
         return _reduce(config, (acc: MenuItemObjectType[], configMenuItem: MenuConfigItem): MenuItemObjectType[] => {
             if (_isString(configMenuItem)) {
@@ -291,6 +294,12 @@ export class MenuHelper {
                         ? item.parent
                         : _cloneDeep(globalItemsConfig[item.parent]);
                     MenuHelper.setIcon(parent, iconsFolder, disableIcons, iconsFallback);
+
+                    if (isSingleLevelMenu) {
+                        parent.type = 'sref';
+                        acc.push(parent);
+                        return acc;
+                    }
 
                     const items: MenuItemObjectType[] = item.items?.map((item: MenuItemsGroupItem) => {
                         if (_has(item, 'parent')) {
