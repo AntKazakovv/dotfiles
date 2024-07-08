@@ -247,10 +247,24 @@
         --wlc-bi-content-bg-transform: translateX(50%);
         --wlc-bi-buttons-justify: #{ef.get-value($wolfModVertical, 'btnsJustify')};
         --wlc-bi-title-clamp: #{ef.get-value($wolfModVertical, 'titleLineClamp')};
+
+        &.wlc-bonus-item--type-reg {
+            --wlc-bi-visual-ratio: #{ef.get-value($wolfModVertical, 'regVisualRatio')};
+
+            @include bm.get-mq-map('max-width', $wolfModVertical, 'regCardMaxWidth');
+            margin: 0 auto;
+        }
     }
 
     &.wlc-bonus-item--type-reg {
         --wlc-bi-info-transform: #{ef.get-value($themeWolf, 'infoTransformChosen')};
+
+        .wlc-bonus-item {
+
+            &__content {
+                padding: ef.get-value($themeWolf, 'regContentPadding');
+            }
+        }
     }
 
     &.wlc-bonus-item--dummy {

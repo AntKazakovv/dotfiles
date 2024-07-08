@@ -66,6 +66,16 @@
         .swiper-button-container {
             width: 100%;
             max-width: 100%;
+
+            ::ng-deep {
+
+                .wlc-swiper-button-prev,
+                .wlc-swiper-button-next {
+                    width: ef.get-value($regFirstModWolf, 'buttonSize');
+                    height: ef.get-value($regFirstModWolf, 'buttonSize');
+                    pointer-events: all;
+                }
+            }
         }
 
         .wlc-bonuses-list {

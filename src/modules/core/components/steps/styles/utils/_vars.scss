@@ -173,3 +173,13 @@ $themeDefault: map-merge((
         900: none,
     ),
 ), $customThemeDefault);
+
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'singupWolfLinkBlockTopPos': (
+        375: -90px,
+        900: 7px,
+    ),
+    'singupWolfBtnTextFontStyle': 'PrimaryTextBold',
+    'singupBtnTextColor': var(--mc-main),
+), $customThemeWolf);

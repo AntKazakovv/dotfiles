@@ -85,6 +85,17 @@
             background: ef.get-value($themeDefault, 'checkboxElemBackgroundError');
             border-color: ef.get-value($themeDefault, 'checkboxElemBorderColorError');
         }
+
+        &.ng-untouched {
+
+            &.ng-dirty {
+
+                &.ng-invalid + .wlc-checkbox__elem {
+                    background: ef.get-value($themeDefault, 'checkboxElemBackgroundError');
+                    border-color: ef.get-value($themeDefault, 'checkboxElemBorderColorError');
+                }
+            }
+        }
     }
 
     &.wlc-checkbox--theme-mod-bg-transparent {
