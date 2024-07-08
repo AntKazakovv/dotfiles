@@ -267,6 +267,8 @@ $themeDefault: map-merge((
     ),
     'titleMargin': 0,
     'titleColor': var(--mc-baseSecond, var(--mc-baseMain)),
+    'scrollbarTrackBg': var(--mc-bg700),
+    'scrollbarThumbBg': var(--mc-bg100),
 
     // loginSignUp modal modifier
     'loginSignUpModalWrapperPadding': (
@@ -454,6 +456,11 @@ $themeDefault: map-merge((
     // internal-mails-content
     'internalMailContentStyle': 'PrimaryText',
     'internalMailContentColor': var(--mc-baseMain),
+    'internalMailMargin': (
+        375: ef.size(6) ef.size(3) ef.size(8),
+        768: ef.size(6),
+    ),
+    'internalMailPadding': 0,
     // internal-mails-content
 
     // lootbox-modal

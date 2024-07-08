@@ -559,11 +559,23 @@
         .wlc-modal {
 
             &__body {
+                @include bm.get-mq-map('margin', $themeDefault, 'internalMailMargin');
                 @include text.get-text-style(
                     ef.get-value($themeDefault, 'internalMailContentStyle'),
                     ef.get-value($themeDefault, 'internalMailContentColor')
                 );
+                @include bm.scrollbar($themeDefault, 'horizontal');
+                padding: ef.get-value($themeDefault, 'internalMailPadding');
+                overflow-x: auto;
                 word-wrap: break-word;
+
+                * {
+                    max-width: 100%;
+                }
+
+                [width] {
+                    width: 100%;
+                }
             }
         }
     }
