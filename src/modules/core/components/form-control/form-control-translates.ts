@@ -18,3 +18,4 @@ gettext('validator-emailOrPhone');
 gettext('validator-tooManyRequests');
 gettext('validator-userId');
 gettext('validator-emailOrUserId');
+gettext('login-not-unique');

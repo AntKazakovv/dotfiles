@@ -95,3 +95,4 @@ gettext('bankAcctNo');
 gettext('Pix key code');
 gettext('Account holder first name');
 gettext('Account holder last name');
+gettext('ID number');
