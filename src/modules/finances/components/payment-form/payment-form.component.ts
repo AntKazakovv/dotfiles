@@ -313,6 +313,13 @@ export class PaymentFormComponent
         this.onChanges$.complete();
     }
 
+    public get usePregeneration(): boolean {
+        return this.currentSystem?.isPregeneration
+            && this.isDeposit
+            && !this.isMultiWallet
+            && !this.currentSystem.message;
+    }
+
     public get isInvoicePending(): boolean {
         return this.isDeposit && !!(this.currentSystem?.message as IPaymentMessage)?.dateEnd
             && this.dateExpire > DateTime.now();
@@ -775,8 +782,7 @@ export class PaymentFormComponent
             this.cdr.detectChanges();
         }
 
-        if (this.isDeposit && this.currentSystem.isPregeneration && !this.currentSystem.message) {
-            this.updateCryptoFields();
+        if (this.usePregeneration) {
             this.isWaitingResponse = true;
             await this.depositAction(0, {bonusId: null});
         }
