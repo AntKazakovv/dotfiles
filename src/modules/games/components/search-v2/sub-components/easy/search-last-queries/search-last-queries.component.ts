@@ -7,10 +7,7 @@ import {
     inject,
 } from '@angular/core';
 
-import {
-    takeUntil,
-    filter,
-} from 'rxjs';
+import {takeUntil} from 'rxjs';
 
 import {
     AbstractComponent,
@@ -30,7 +27,6 @@ import * as Params from './search-last-queries.params';
 })
 export class SearchLastQueriesComponent extends AbstractComponent implements OnInit {
     public lastQueries: string[] = [];
-    public showBlock: boolean = false;
     protected override readonly cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
     protected recentSearchText: string = this.$searchControllerEasy.props.recentSearchText;
 
@@ -61,11 +57,9 @@ export class SearchLastQueriesComponent extends AbstractComponent implements OnI
     public getLastQueriesSubscribe(): void {
         this.$searchControllerEasy.lastQueries$
             .pipe(
-                filter((v) => !!v.length),
                 takeUntil(this.$destroy),
             )
             .subscribe((value) => {
-                this.showBlock = true;
                 this.lastQueries = value;
                 this.cdr.markForCheck();
             });

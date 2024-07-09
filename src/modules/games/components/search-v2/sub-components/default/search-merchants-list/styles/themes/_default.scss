@@ -91,7 +91,7 @@
                         svg {
                             width: ef.get-value($themeDefault, 'listBtnCheckWidth');
                             stroke: ef.get-value($themeDefault, 'listBtnCheckColor');
-                            stroke-width: 3px;
+                            stroke-width: 0;
                         }
                     }
                 }

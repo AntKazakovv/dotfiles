@@ -120,7 +120,7 @@ export class SearchControllerDefault extends AbstractSearchController<IControlle
     }
 
     public get filters(): IGamesFilterData {
-        return this._filters$.getValue();
+        return this._filters$.value;
     }
 
     public setFilter(): void {

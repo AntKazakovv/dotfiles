@@ -26,8 +26,8 @@ $themeDefault: map-merge((
     'btnFont': 'PrimaryText',
     'btnColor': var(--mc-baseMain),
     'btnPadding': (
-        375: ef.size(2) ef.size(5) ef.size(2) ef.size(7),
-        900: ef.size(2) ef.size(6) ef.size(2) ef.size(7),
+        375: 10px 25px 10px 35px,
+        900: 10px 30px 10px 35px,
     ),
     'btnBackground': (
         375: var(--mc-bg700),
@@ -39,7 +39,7 @@ $themeDefault: map-merge((
     'alignItemsBtn': center,
     'justifyBtn': flex-start,
     'widthBtn': 100%,
-    'heightBtn': ef.size(8),
+    'heightBtn': 100%,
     'btnBorderRadius': ef.get('radius', 'biger'),
     'btnTransition': ef.get('time', 'main'),
     'btnArrowSize': 8px,
