@@ -1,4 +1,5 @@
 import {
+    inject,
     Injectable,
 } from '@angular/core';
 import {StateService} from '@uirouter/core';
@@ -17,6 +18,7 @@ import _forEach from 'lodash-es/forEach';
 import {
     BehaviorSubject,
     firstValueFrom,
+    merge,
 } from 'rxjs';
 import {
     distinctUntilChanged,
@@ -56,6 +58,7 @@ import {
     QuestModel,
     QuestsService,
 } from 'wlc-engine/modules/quests';
+import {TranslateService} from '@ngx-translate/core';
 
 import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
 import * as Config from 'wlc-engine/modules/menu/system/config/profile-menu.config';
@@ -78,23 +81,24 @@ export class ProfileMenuService {
     protected tabsMenu: IMenuItem[];
     protected subMenu: IIndexing<IMenuItem[]> = {};
     protected dropdownMenu: MenuItemObjectType[] = [];
+    protected configService: ConfigService = inject(ConfigService);
+    protected stateService: StateService = inject(StateService);
+    protected injectionService: InjectionService = inject(InjectionService);
+    protected translateService: TranslateService = inject(TranslateService);
 
-    constructor(
-        protected configService: ConfigService,
-        protected stateService: StateService,
-        protected injectionService: InjectionService,
-    ) {
-        this.configService.get<BehaviorSubject<boolean>>('$user.isAuth$')
-            .pipe(distinctUntilChanged())
-            .subscribe(async (): Promise<void> => {
-                this.readyStatus = new Deferred<void>();
-                this.ready = this.readyStatus.promise;
+    constructor() {
+        merge(
+            this.configService.get<BehaviorSubject<boolean>>('$user.isAuth$').pipe(distinctUntilChanged()),
+            this.translateService.onLangChange.pipe(distinctUntilChanged()),
+        ).subscribe(async (): Promise<void> => {
+            this.readyStatus = new Deferred<void>();
+            this.ready = this.readyStatus.promise;
 
-                this.resetMenu();
-                await this.init();
+            this.resetMenu();
+            await this.init();
 
-                this.readyStatus.resolve();
-            });
+            this.readyStatus.resolve();
+        });
     }
 
     /**
