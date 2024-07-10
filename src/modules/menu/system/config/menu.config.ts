@@ -252,6 +252,7 @@ export const menuConfig: IMenuConfig = {
                     'profile-first-menu:socials',
                     'profile-first-menu:limitations',
                     'profile-first-menu:messages',
+                    'profile-first-menu:referral',
                 ],
             },
             {
