@@ -1,6 +1,6 @@
+import {$base} from 'wlc-engine/modules/core/system/config/default.config';
 import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
 import * as ProfileMenuParams from 'wlc-engine/modules/menu/components/profile-menu/profile-menu.params';
-import {$base} from 'wlc-config/01.base.config';
 
 const counterTheme = $base.profile?.theme === 'wolf' ? 'circle' : 'default';
 const profileLoyaltyMenuItem: MenuParams.IMenuItem = {
