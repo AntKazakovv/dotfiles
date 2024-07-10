@@ -1,5 +1,4 @@
 import {NgModule} from '@angular/core';
-import {TranslateModule} from '@ngx-translate/core';
 
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 
@@ -25,7 +24,6 @@ export const services = {
     ],
     imports: [
         CoreModule,
-        TranslateModule,
     ],
     providers: [
         CaptchaService,
