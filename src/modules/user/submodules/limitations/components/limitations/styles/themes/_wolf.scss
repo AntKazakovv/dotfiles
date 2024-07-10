@@ -1,0 +1,136 @@
+.wlc-limitations--theme-wolf:host {
+
+    .wlc-limitations-info {
+        display: flex;
+        flex-direction: ef.get-value($themeWolf, 'infoFlexDirection');
+        gap: ef.get-value($themeWolf, 'infoGap');
+        align-items: ef.get-value($themeWolf, 'infoAlignItems');
+        width: ef.get-value($themeWolf, 'infoWidth');
+        margin: ef.get-value($themeWolf, 'infoMargin');
+        padding: ef.get-value($themeWolf, 'infoPadding');
+        background: ef.get-value($themeWolf, 'infoBackground');
+        border-radius: ef.get-value($themeWolf, 'infoBorderRadius');
+
+        &__message {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'infoTextFont'),
+                ef.get-value($themeWolf, 'infoTextFontColor')
+            );
+
+            &-link {
+                @include bm.transition(color);
+                color: ef.get-value($themeWolf, 'infoLinkColor');
+                cursor: pointer;
+
+                @include bm.hover {
+                    color: ef.get-value($themeWolf, 'infoLinkHoverColor');
+                }
+            }
+        }
+
+        &__icon {
+            flex: ef.get-value($themeWolf, 'infoIconFlex');
+            width: ef.get-value($themeWolf, 'infoIconSize');
+            height: ef.get-value($themeWolf, 'infoIconSize');
+            margin: ef.get-value($themeWolf, 'infoIconMargin');
+
+            ::ng-deep {
+
+                .wlc-icon-content {
+                    display: flex;
+                    align-items: ef.get-value($themeWolf, 'infoIconAlignItems');
+                    color: ef.get-value($themeWolf, 'infoIconColor');
+
+                    svg {
+                        width: ef.get-value($themeWolf, 'infoIconSvgWidth');
+                        fill: currentColor;
+                    }
+                }
+            }
+        }
+    }
+
+    .wlc-limitations-list {
+        margin: ef.get-value($themeWolf, 'marginList');
+    }
+
+    ::ng-deep {
+
+        .wlc-form {
+            @include bm.get-mq-map('grid-template-columns', $themeWolf, 'formTemplateColumns');
+            display: grid;
+            align-items: ef.get-value($themeWolf, 'formAlignItems');
+            justify-content: ef.get-value($themeWolf, 'formJustifyContent');
+            column-gap: ef.get-value($themeWolf, 'formColumnGap');
+            row-gap: ef.get-value($themeWolf, 'formRowGap');
+        }
+
+        .wlc-btn {
+            @include bm.get-mq-map('margin', $themeWolf, 'btnMargin');
+        }
+
+        .wlc-table--theme-default[class] {
+
+            .wlc-table__content {
+                table-layout: fixed;
+            }
+
+            .wlc-table__cell--first {
+                grid-template-columns: ef.get-value($themeWolf, 'tableCellFirstTemplateColumns');
+            }
+
+            .wlc-table__cell-content {
+                @include bm.get-mq-map('justify-content', $themeWolf, 'tableCellJustifyContent');
+            }
+        }
+
+        .wlc-table {
+
+            &.wlc-table--mobile {
+
+                .wlc-table__row.wlc-show {
+
+                    .wlc-table__cell--first {
+
+                        .wlc-table__cell-label,
+                        .wlc-table__cell-content {
+                            color: ef.get-value($themeWolf, 'tableTextFontActiveColor');
+                        }
+                    }
+                }
+
+                .wlc-table__cell {
+
+                    &.wlc-table__cell--first {
+
+                        .wlc-table__cell-label {
+                            font-weight: ef.get-value($themeWolf, 'tableCellFontWeigh');
+                        }
+                    }
+
+                    &.wlc-table__cell--type:not(.wlc-table__cell--first) {
+                        justify-content: ef.get-value($themeWolf, 'tableCellTypeJustifyContent');
+
+                        .wlc-table__cell-label {
+                            display: none;
+                        }
+                    }
+                }
+
+                .wlc-btn {
+                    height: ef.get-value($themeWolf, 'btnHeight');
+                    padding: ef.get-value($themeWolf, 'btnPadding');
+                    border: none;
+
+                    &__text {
+                        color: ef.get-value($themeWolf, 'btnTextColor');
+                    }
+
+                    @include bm.hover {
+                        background: transparent;
+                    }
+                }
+            }
+        }
+    }
+}

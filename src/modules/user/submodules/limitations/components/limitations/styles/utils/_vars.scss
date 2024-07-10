@@ -45,7 +45,7 @@ $themeDefault: map-merge((
     'infoLinkHoverColor': var(--mc-baseMain),
     'infoTextFont': 'PrimaryText',
     'infoTextFontColor': var(--mc-baseMain),
-    'infoPadding':  (
+    'infoPadding': (
         375: ef.size(3) ef.size(2),
         1024: ef.size(3) ef.size(8) ef.size(3) ef.size(2),
     ),

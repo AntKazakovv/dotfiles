@@ -29,6 +29,7 @@ import {
     TLimitationType,
 } from 'wlc-engine/modules/user/submodules/limitations/system/interfaces/limitations.interface';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
+import {IMGAConfig} from 'wlc-engine/modules/core/components/license/license.params';
 
 export interface ISelfExclusion {
     Currency: string;
@@ -374,6 +375,9 @@ export class LimitationService {
                 withoutPadding: true,
                 componentName: 'user.wlc-reality-check-info',
                 componentParams: {
+                    theme:
+                        this.configService.get<IMGAConfig>('$modules.user.components["wlc-reality-check-info"].theme')??
+                        'default',
                     ...result,
                     currency: this.userService.userProfile.originalCurrency,
                 },

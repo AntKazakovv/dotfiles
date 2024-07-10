@@ -1,0 +1,55 @@
+.wlc-reality-check-info--theme-wolf:host {
+    padding: ef.get-value($themeWolf, 'formPadding');
+
+    .wlc-reality-check-info {
+
+        &-title {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'titleTextFont'),
+                ef.get-value($themeWolf, 'titleTextFontColor')
+            );
+            margin: ef.get-value($themeWolf, 'titleMargin');
+            text-align: ef.get-value($themeWolf, 'titleAlign');
+        }
+
+        &-time {
+            margin: ef.get-value($themeWolf, 'timeMargin');
+        }
+
+        &-result {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'resultTextFont'),
+                ef.get-value($themeWolf, 'resultTextFontColor')
+            );
+            margin: ef.get-value($themeWolf, 'resultMargin');
+            border-radius: ef.get-value($themeWolf, 'resultBorderRadius');
+            background: ef.get-value($themeWolf, 'resultBackground');
+
+            &-head,
+            &-value {
+                display: grid;
+                grid-template-columns: ef.get-value($themeWolf, 'resultGridTemplateColumns');
+                padding: ef.get-value($themeWolf, 'resultPadding');
+            }
+
+            &-value {
+                border-top: ef.get-value($themeWolf, 'resultBorderTop');
+            }
+
+            &-item {
+                text-align: ef.get-value($themeWolf, 'resultItemTextAlign');
+            }
+        }
+
+        &-footer {
+            display: flex;
+            flex-direction: ef.get-value($themeWolf, 'footerFlexDirection');
+            align-items: ef.get-value($themeWolf, 'footerAlignItems');
+            justify-content: ef.get-value($themeWolf, 'footerJustifyContent');
+
+            .wlc-checkbox {
+                margin: ef.get-value($themeWolf, 'footerCheckboxMargin');
+            }
+        }
+    }
+}

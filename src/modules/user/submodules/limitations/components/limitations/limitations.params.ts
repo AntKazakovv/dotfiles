@@ -19,7 +19,7 @@ import {
 } from 'wlc-engine/modules/user/submodules/limitations/components/limit-cancel/limit-cancel.component';
 export {limitTypeTexts} from 'wlc-engine/modules/user/submodules/limitations/system/config/limitations.config';
 
-export type ComponentTheme = 'default' | CustomType;
+export type ComponentTheme = 'default' | 'wolf' | CustomType;
 export type ComponentType = 'default' | CustomType;
 export type Theme = 'default' | CustomType;
 export type AutoModifiers = Theme | 'default';
@@ -29,12 +29,14 @@ export type Modifiers = AutoModifiers | CustomMod | null;
 export interface ILimitationsCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
     /** wlc-profile-no-content params */
     emptyConfig?: IWrapperCParams;
+    infoIcon?: string;
 }
 
 export const defaultParams: ILimitationsCParams = {
     moduleName: 'limitations',
     componentName: 'wlc-limitations',
     class: 'wlc-limitations',
+    infoIcon: '/wlc/icons/info.svg',
     emptyConfig: {
         components: [
             {
