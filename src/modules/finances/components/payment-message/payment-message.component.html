@@ -177,7 +177,7 @@
     <div class="{{$class}}__clipboard">
         <div wlc-input [inlineParams]="inputParams"></div>
         <div class="{{$class}}__text-row">
-            {{'With the Destination Tag set to ' | translate}}{{message.tag}}
+            <span class="{{$class}}__text-row-descr">{{'With the Destination Tag set to' | translate}}</span>{{message.tag}}
         </div>
     </div>
 </ng-template>
