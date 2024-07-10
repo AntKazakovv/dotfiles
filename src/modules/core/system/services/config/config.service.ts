@@ -450,10 +450,15 @@ export class ConfigService {
         const {profile} = appConfig.$base;
         const funIdUse = profile?.fundistUserId?.use;
         const nickIconUse = profile?.nicknameIcon?.use;
+        let section: ILayoutSectionConfig;
 
-        const section = profile?.type === 'first'
-            ? sectionsLib.profileContent.generateProfileFirst(funIdUse, nickIconUse)
-            : sectionsLib.profileContent.generateProfileMain(funIdUse, nickIconUse);
+        if (profile.theme === 'wolf') {
+            section = sectionsLib.profileContent.profileMainTypeWolf;
+        } else {
+            section = profile?.type === 'first'
+                ? sectionsLib.profileContent.generateProfileFirst(funIdUse, nickIconUse)
+                : sectionsLib.profileContent.generateProfileMain(funIdUse, nickIconUse);
+        }
 
         $layouts['app.profile.main.info'].sections['profile-content'] = section;
     }

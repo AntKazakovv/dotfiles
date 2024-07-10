@@ -1572,6 +1572,36 @@ export namespace profileContent {
         ],
     };
 
+    export const profileWolfVerificationKycQuestionnaire: ILayoutSectionConfig = {
+        container: true,
+        theme: 'wolf',
+        usePreloader: true,
+        components: [
+            {
+                name: 'core.wlc-section-title',
+                params: {
+                    theme: 'wolf',
+                    text: 'Profile',
+                    iconPath: 'wlc/icons/european/v3/account-settings.svg',
+                },
+                display: {
+                    before: 899,
+                },
+            },
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__wrp',
+                    components: [
+                        componentLib.wlcProfileMenu.defTypeWolf,
+                        componentLib.wlcProfileMenu.submenuWolf,
+                        componentLib.wlcVerification.kycQuestionnaire,
+                    ],
+                },
+            },
+        ],
+    };
+
     export const profileVerificationKycQuestionnaireTypeFirst: ILayoutSectionConfig = {
         container: true,
         theme: 'first',

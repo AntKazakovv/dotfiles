@@ -200,4 +200,10 @@ export const $profileWolfLayouts: IPanelsConfig = {
             'profile-content': sectionsLib.profileContent.profileWolfReferral,
         },
     },
+    'app.profile.kyc-questionnaire': {
+        extends: 'app.profile',
+        sections: {
+            'profile-content': sectionsLib.profileContent.profileWolfVerificationKycQuestionnaire,
+        },
+    },
 };
