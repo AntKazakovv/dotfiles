@@ -261,6 +261,8 @@ export class CurrencyComponent
             this.addModifiers('above-zero');
         } else if (Number(this.$params.value) < 0) {
             this.addModifiers('less-zero');
+        } else if (Number(this.$params.value) === 0) {
+            this.addModifiers('equal-zero');
         }
     }
 

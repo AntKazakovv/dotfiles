@@ -4,6 +4,7 @@ import {
     ChangeDetectorRef,
     Inject,
     ChangeDetectionStrategy,
+    Input,
 } from '@angular/core';
 
 import {BehaviorSubject} from 'rxjs';
@@ -48,6 +49,8 @@ import {CashbackService} from 'wlc-engine/modules/history/system/services/cashba
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CashbackHistoryComponent extends AbstractComponent implements OnInit {
+
+    @Input() public theme: Params.ComponentTheme;
 
     public ready: boolean = false;
     public awaiting: boolean = false;

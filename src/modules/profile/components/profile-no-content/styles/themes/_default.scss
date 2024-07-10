@@ -7,6 +7,7 @@
     @include bm.get-mq-map('height', $themeDefault, 'height');
     display: ef.get-value($themeDefault, 'display');
     flex-direction: ef.get-value($themeDefault, 'direction');
+    gap: ef.get-value($themeDefault, 'gap');
     align-items: ef.get-value($themeDefault, 'alignItems');
     justify-content: ef.get-value($themeDefault, 'justifyContent');
     margin: ef.get-value($themeDefault, 'margin');

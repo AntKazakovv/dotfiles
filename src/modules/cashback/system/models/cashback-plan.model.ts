@@ -41,7 +41,7 @@ export class CashbackPlanModel extends AbstractModel<ICashbackPlan> {
                 },
             }
             : {
-                text: gettext('Get cashback'),
+                text: gettext('Claim reward'),
             };
     }
 

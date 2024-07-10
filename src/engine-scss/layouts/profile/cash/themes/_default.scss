@@ -20,11 +20,9 @@
             justify-content: flex-start;
 
             margin: ef.get-value($cashPagesThemeDefault, 'menuMargin');
-            border-bottom: ef.get-value($cashPagesThemeDefault, 'menuBorder');
 
             .wlc-menu__item {
                 margin-right: 30px;
-                margin-bottom: -2px;
 
                 &:last-child {
                     margin-right: 0;

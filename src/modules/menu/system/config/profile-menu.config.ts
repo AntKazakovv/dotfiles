@@ -1026,8 +1026,13 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         class: 'payments',
         params: {
             state: {
-                name: 'app.profile.payments',
+                name: 'app.profile.cash.deposit',
                 params: {},
+                parent: [
+                    'app.profile.cash.deposit',
+                    'app.profile.cash.withdraw',
+                    'app.profile.cashback-rewards',
+                ],
             },
         },
     },

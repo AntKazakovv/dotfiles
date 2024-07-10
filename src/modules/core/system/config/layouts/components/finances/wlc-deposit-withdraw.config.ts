@@ -52,6 +52,7 @@ export namespace wlcDepositWithdraw {
             items: [
                 'profile-menu:cash-deposit',
                 'profile-menu:cash-withdrawal',
+                'profile-menu:cashback-rewards',
             ],
         },
     };
