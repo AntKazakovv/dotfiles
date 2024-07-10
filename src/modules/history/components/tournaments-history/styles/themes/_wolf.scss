@@ -3,12 +3,17 @@
     &:host {
 
         .wlc-tournaments-history__filter {
+            display: ef.get-value($themeWolf, 'filterDisplay');
             flex-wrap: wrap;
             gap: ef.get-value($themeWolf, 'filterGap');
             margin: ef.get-value($themeWolf, 'filterMargin');
 
             .wlc-select[wlc-select] {
                 width: ef.get-value($themeWolf, 'filterWidth');
+            }
+
+            .wlc-datepicker {
+                max-width: ef.get-value($themeWolf, 'datepickerFilterWidth');
             }
         }
 

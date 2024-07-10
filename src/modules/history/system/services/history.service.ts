@@ -131,7 +131,7 @@ export class HistoryService {
         this.queryPromises[type].next(true);
         const queryParams: IQueryParams = {};
         const startDateUTC: DateTime = dateFrom?.startOf('day').toUTC();
-        const endDateUTC: DateTime = dateTo?.startOf('day').toUTC();
+        const endDateUTC: DateTime = dateTo?.endOf('day').toUTC();
 
         queryParams.type = 'history';
         queryParams.dateFrom = startDateUTC.toFormat('y-LL-dd\'\T\'HH:mm:ss');

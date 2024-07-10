@@ -4,6 +4,8 @@ $themeWolf: map-merge((
     'filterMargin': 0 0 ef.size(4),
     'filterGap': ef.size(3),
     'filterWidth': ef.get-value(ev.$profileSettings, 'filterWidth'),
+    'filterDisplay': flex,
+    'datepickerFilterWidth': 140px,
     'firstCellTemplateColumns': 1fr auto,
     'tournamentsWinsMaxWidth': (
         375: 180px,

@@ -68,7 +68,7 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
 
     protected filterValue: TTournamentsFilter = 'all';
     protected endDate: DateTime = DateTime.local().endOf('day');
-    protected startDate: DateTime = this.endDate.minus({month: 1});
+    protected startDate: DateTime = this.endDate.minus({month: 1}).startOf('day');
     protected allTournaments: TournamentHistory[] = [];
     protected tournamentsService: TournamentsService;
 

@@ -2647,7 +2647,7 @@ export namespace profileContent {
                                         },
                                     },
                                     {
-                                        name: 'core.wlc-history-filter',
+                                        name: 'history.wlc-history-filter',
                                         params: {
                                             theme: 'wolf',
                                             config: 'tournaments',
