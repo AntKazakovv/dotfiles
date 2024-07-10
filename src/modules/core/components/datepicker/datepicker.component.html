@@ -11,6 +11,7 @@
                (bsValueChange)="onDateChanged($event)"
                inputmode="numeric"
                [(bsValue)]="bsValue"
+               (blur)="setPrevValue()"
         />
         <span wlc-icon
               class="{{$class}}__icon"
