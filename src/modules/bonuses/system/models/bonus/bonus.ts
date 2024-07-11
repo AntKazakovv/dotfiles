@@ -66,6 +66,9 @@ export class Bonus extends AbstractModel<IBonus> {
     public showOnlyIcon: string;
     public disabledBy: null | keyof typeof disabledReasons = null;
     public lootBoxRewards: LootboxPrizeModel[];
+    public static readonly regEvents: TBonusEvent[] = ['deposit first', 'registration', 'verification'];
+    public static readonly depEvents: TBonusEvent[] = ['deposit', 'deposit first', 'deposit repeated', 'deposit sum'];
+    public static readonly welcomeEvents: TBonusEvent[] = ['registration', 'deposit first'];
     public static userCurrency: string;
     public static depositCurrency: string;
     public readonly descriptionClean: string;
@@ -75,9 +78,6 @@ export class Bonus extends AbstractModel<IBonus> {
     public readonly hidePromotionsForUnauthorized: boolean;
     public timerEnd: DateTime;
 
-    private static regEvents = ['deposit first', 'registration', 'verification'];
-    private static depEvents = ['deposit', 'deposit first', 'deposit repeated', 'deposit sum'];
-    private static welcomeEvents = ['registration', 'deposit first'];
     // TODO: This is array orders of wagering from fundist, need automatically.
     private static bonusTargetsOrder = ['balance', 'freerounds', 'loyalty', 'experience'];
     private static bonusesConfig: IBonusesModule;

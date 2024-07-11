@@ -76,6 +76,7 @@ import {
     IBonusCanceledInfo,
     RequestType,
     IPromoCodeInfo,
+    IQueryFilters,
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {LootboxPrizeModel} from 'wlc-engine/modules/bonuses/system/models/lootbox-prize/lootbox-prize.model';
 import {BonusCancellationInfo} from '../../models/bonus/bonus-cancellation-info.model';
@@ -128,8 +129,6 @@ export class BonusesService {
     };
 
     private useForbidUserFields = this.configService.get<boolean>('$loyalty.useForbidUserFields');
-    private depEvents = ['deposit', 'deposit first', 'deposit repeated', 'deposit sum'];
-    private regEvents = ['deposit first', 'registration', 'verification'];
 
     private queryPromises: {
         [Property in RestType]: BehaviorSubject<boolean>;
@@ -213,7 +212,7 @@ export class BonusesService {
             params.ready$?.next(false);
             const subj$ = this.queryPromises[params.type || 'any'];
             if (!subj$.getValue()) {
-                this.queryBonuses(true, params.type || 'any')
+                this.queryBonuses(true, params.type || 'any', null, params.queryFilters)
                     .finally(() => params.ready$?.next(true));
             } else {
                 subj$.pipe(takeWhile((v: boolean) => v))
@@ -280,12 +279,12 @@ export class BonusesService {
                 case 'deposit':
                     return this.isCatalogAllowOrSelectedOrActive(bonus)
                         && (this.isNotPromoOrSelectedOrActive(bonus) || this.isPromocodeEntered(bonus))
-                        && (this.depEvents.indexOf(bonus.event) !== -1 && !inventoried)
+                        && (Bonus.depEvents.indexOf(bonus.event) !== -1 && !inventoried)
                         && !bonus.showOnly;
                 case 'reg':
                     return this.isCatalogAllowOrSelectedOrActive(bonus)
                         && (this.isNotPromoOrSelectedOrActive(bonus) || this.isPromocodeEntered(bonus))
-                        && this.regEvents.indexOf(bonus.event) !== -1
+                        && Bonus.regEvents.indexOf(bonus.event) !== -1
                         && !bonus.showOnly;
                 case 'main':
                     return !active && (!hasPromoCode || selected || this.isPromocodeEntered(bonus))
@@ -711,15 +710,17 @@ export class BonusesService {
      * @param {boolean} publicSubject is public rxjs subject from query
      * @param {RestType} type bonuses rest type ('active' | 'history' | 'store' | 'any') (no required)
      * @param {string} promoCode bonus promocode (no required)
+     * @param {string} queryFilters bonus filters (no required)
      * @returns {Bonus[]} bonuses array
      */
     public async queryBonuses<T extends Bonus | LootboxPrizeModel>(
         publicSubject: boolean,
         type: RestType = 'any',
         promoCode?: string,
+        queryFilters?: IQueryFilters,
     ): Promise<T[]> {
         this.queryPromises[type].next(true);
-        const queryParams = this.prepareQueryParams(type, promoCode);
+        const queryParams: IQueryParams = this.prepareQueryParams(type, promoCode, queryFilters);
 
         try {
             const res: IBonusesData = await this.limitedRequests('bonuses/bonuses', type, queryParams);
@@ -741,7 +742,9 @@ export class BonusesService {
                 await this.checkPromoBonus();
             }
 
-            this.saveBonuses(type, bonuses, publicSubject);
+            if (!queryFilters) {
+                this.saveBonuses(type, bonuses, publicSubject);
+            }
 
             if (promoCode) {
                 this.eventService.emit({
@@ -883,21 +886,33 @@ export class BonusesService {
         return lootboxPrizes;
     }
 
-    private prepareQueryParams(type: RestType, promoCode: string): IQueryParams {
+    private prepareQueryParams(type: RestType, promoCode: string, queryFilters: IQueryFilters = {}): IQueryParams {
         const params: IQueryParams = {};
 
         if (type) {
             if (type === 'active' || type === 'lootboxPrizes') {
                 params.type = type;
             }
+
             if (type === 'store') {
                 params.event = type;
+                queryFilters.event = queryFilters.event?.length
+                    ? [type, ...queryFilters.event]
+                    : [type];
             }
         }
 
         if (promoCode) {
             params.PromoCode = promoCode;
         }
+
+        Object.keys(queryFilters).forEach((key: string): void => {
+            const value: string = Array.isArray(queryFilters[key])
+                ? queryFilters[key].join(',')
+                : queryFilters[key].toString();
+
+            params[key] = value;
+        });
 
         return params;
     }

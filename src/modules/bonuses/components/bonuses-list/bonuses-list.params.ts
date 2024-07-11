@@ -12,6 +12,7 @@ import {
     IBonusItemCParams,
     RestType,
     BonusesFilterType,
+    IQueryFilters,
 } from 'wlc-engine/modules/bonuses';
 import {TBonusSortOrder} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {IPreloaderCParams} from 'wlc-engine/modules/core/components/preloader/preloader.params';
@@ -37,8 +38,19 @@ export interface IBonusesListCParams extends IComponentParams<Theme, Type, Theme
         themeMod?: ThemeMod;
         customModifiers?: CustomMod;
         restType?: RestType;
+        /**
+         * Filter on program-level
+         * */
         filter?: BonusesFilterType;
+        /**
+         * @Deprecated
+         * Use queryFilters instead
+         * */
         filterByGroup?: string;
+        /**
+         * Filter on request-level
+         * */
+        queryFilters?: IQueryFilters;
         sortOrder?: TBonusSortOrder[];
         swiper?: SwiperOptions;
         swiperManualTransitionDuration?: number;

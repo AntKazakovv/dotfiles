@@ -292,12 +292,20 @@ export interface IQueryParams {
     PromoCode?: string;
 }
 
+export interface IQueryFilters {
+    event?: string[],
+    group?: string,
+    currency?: string,
+    hasPromocode?: boolean,
+}
+
 export interface IGetSubscribeParams {
     useQuery: boolean;
     observer: PartialObserver<Bonus[]>;
     type?: RestType;
     until?: Observable<unknown>;
     ready$?: Subject<boolean>;
+    queryFilters?: IQueryFilters;
 }
 
 export type TBonusSortOrder = 'active' | 'promocode' | 'subscribe' | 'inventory' | number;

@@ -557,6 +557,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
             subscribeParams: {
                 useQuery: this.$params.common?.useQuery || !hasFilteredBonuses,
                 type: restType,
+                queryFilters: this.$params.common.queryFilters,
             },
             filter: this.filter,
             sort: this.$params.common?.sortOrder,

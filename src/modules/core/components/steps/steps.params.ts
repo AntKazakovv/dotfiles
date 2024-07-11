@@ -9,6 +9,7 @@ import {
     IWrapperCParams,
 } from 'wlc-engine/modules/core';
 import {
+    Bonus,
     ChosenBonusSetParams,
     IBonusesListCParams,
 } from 'wlc-engine/modules/bonuses';
@@ -280,6 +281,9 @@ export const defaultParams: IStepsParams = {
                                     common: {
                                         restType: 'any',
                                         filter: 'reg',
+                                        queryFilters: {
+                                            event: Bonus.regEvents,
+                                        },
                                         selectFirstBonus: true,
                                         useBlankBonus: true,
                                         swiper: bonusesSwiperParams,
@@ -303,6 +307,9 @@ export const defaultParams: IStepsParams = {
                                     common: {
                                         restType: 'any',
                                         filter: 'reg',
+                                        queryFilters: {
+                                            event: Bonus.regEvents,
+                                        },
                                         selectFirstBonus: true,
                                         useBlankBonus: true,
                                     },
@@ -366,6 +373,9 @@ export const defaultParams: IStepsParams = {
                                     common: {
                                         restType: 'any',
                                         filter: 'reg',
+                                        queryFilters: {
+                                            event: Bonus.regEvents,
+                                        },
                                         selectFirstBonus: true,
                                         useBlankBonus: false,
                                         swiper: bonusesSwiperParams,

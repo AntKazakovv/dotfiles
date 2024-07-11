@@ -13,6 +13,7 @@ import {
 } from 'wlc-engine/modules/bonuses/components';
 import {
     BonusesFilterType,
+    IQueryFilters,
     RestType,
     TBonusSortOrder,
 } from 'wlc-engine/modules/bonuses/system/interfaces';
@@ -34,6 +35,7 @@ export interface IGetBonusesParams {
     subscribeParams: {
         useQuery: boolean;
         type: RestType;
+        queryFilters?: IQueryFilters;
     };
     filter: BonusesFilterType;
     sort?: TBonusSortOrder[];
