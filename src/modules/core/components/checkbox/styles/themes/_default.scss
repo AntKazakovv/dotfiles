@@ -10,6 +10,10 @@
             cursor: pointer;
             user-select: none;
 
+            .wlc-steps__container--wolf & {
+                margin: map-get($themeWolf, 'checkboxMarginWolf');
+            }
+
             @include bm.hover {
 
                 .wlc-checkbox__elem {

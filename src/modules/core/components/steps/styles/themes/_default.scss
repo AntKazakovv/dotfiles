@@ -56,6 +56,14 @@
                                         ef.get-value($themeWolf, 'singupBtnTextColor')
                                     );
                                 }
+
+                                .wlc-icon {
+
+                                    svg {
+                                        width: ef.get-value($themeWolf, 'singupIconSvgWidthWolf');
+                                        height: ef.get-value($themeWolf, 'singupIconSvgHeightWolf');
+                                    }
+                                }
                             }
                         }
 

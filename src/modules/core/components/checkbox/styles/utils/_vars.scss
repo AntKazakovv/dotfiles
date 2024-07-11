@@ -36,3 +36,8 @@ $themeDefault: map-merge((
     'boldCheckboxTextFontColor': var(--mc-baseThird, var(--mc-baseMain)),
     'boldCheckboxTextPadding': 0,
 ), $customThemeDefault);
+
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'checkboxMarginWolf': 0 0 ef.size(2),
+), $customThemeWolf);

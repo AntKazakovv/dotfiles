@@ -2,6 +2,11 @@
     --wlc-icon-width: #{ef.get-value($themeWolf, 'arrowSize')};
     --wlc-icon-height: #{ef.get-value($themeWolf, 'arrowSize')};
 
+    .wlc-steps__container--wolf & {
+        --wlc-icon-width: #{ef.get-value($themeWolf, 'arrowSizeLg')};
+        --wlc-icon-height: #{ef.get-value($themeWolf, 'arrowSizeLg')};
+    }
+
     ::ng-deep {
 
         .wlc-swiper-button-prev,

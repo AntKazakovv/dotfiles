@@ -307,6 +307,14 @@ $themeDefault: map-merge((
     'loginSignUpTitleStyle': 'ThirdTitleBold',
     'loginSignUpTitleColor': var(--mc-baseSecond, var(--mc-baseMain)),
     'loginSignUpTitleAlign': center,
+    'loginSignUpTextFontSizeWolf': (
+        320: 'PrimaryText',
+        768: 'QoteTextBold',
+    ),
+    'loginSignUpTitleColorWolf': (
+        320: var(--mc-baseMain, var(--mc-baseMain)),
+        768: var(--mc-baseSecond, var(--mc-baseMain)),
+    ),
 
     'loginSignUpDialogHeight': (
         320: 100%,

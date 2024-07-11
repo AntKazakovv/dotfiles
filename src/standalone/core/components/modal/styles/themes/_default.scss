@@ -81,6 +81,23 @@
                         @include text.get-text-style(ef.get-value($themeDefault, 'loginSignUpTextFontSize', 768), null);
                     }
                 }
+
+                .wlc-tab-switcher--theme-wolf {
+
+                    .wlc-text-block__title {
+                        @include text.get-text-style(
+                            ef.get-value($themeDefault, 'loginSignUpTextFontSizeWolf', 320),
+                            ef.get-value($themeDefault, 'loginSignUpTitleColorWolf', 320)
+                        );
+
+                        @include mq.min(768) {
+                            @include text.get-text-style(
+                                ef.get-value($themeDefault, 'loginSignUpTextFontSizeWolf', 768),
+                                ef.get-value($themeDefault, 'loginSignUpTitleColorWolf', 768)
+                            );
+                        }
+                    }
+                }
             }
 
             &__dialog {
