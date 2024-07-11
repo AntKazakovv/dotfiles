@@ -370,6 +370,10 @@ export class ConfigService {
             appConfig.$base.defaultCurrency = this.global.appConfig.siteconfig.currencies[0]?.Alias || 'EUR';
         }
 
+        if (appConfig.$base.finances.lastWithdrawCancelWidget) {
+            this.attachCancelLastWithdrawWidget();
+        }
+
         appConfig.$base.site.restrictRegistration = !!(appConfig.$base.site.restrictRegistration
             ?? this.global.appConfig.siteconfig.RestrictRegistration
             ?? false);
@@ -404,10 +408,6 @@ export class ConfigService {
         }
 
         this.attachFundistUserIdComponent();
-
-        if (appConfig.$base.finances.lastWithdrawCancelWidget) {
-            this.attachCancelLastWithdrawWidget();
-        }
 
         if (!wlcConfig.$base.profile.store.use) {
             $layouts['app.profile.dashboard'].sections['profile-content'] =
@@ -460,6 +460,7 @@ export class ConfigService {
 
     private attachCancelLastWithdrawWidget(): void {
         const widgetSection: ILayoutSectionConfig = {
+            replaceConfig: true,
             container: false,
             display: {
                 auth: true,
@@ -470,7 +471,7 @@ export class ConfigService {
                 },
             ],
         };
-        $layouts['app'].sections['withdraw-cancel'] = widgetSection;
+        _set(appConfig,'$layouts.app.sections.withdraw-cancel', widgetSection);
     }
 
     private async getCountries(): Promise<void> {
