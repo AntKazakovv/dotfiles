@@ -34,7 +34,7 @@
         <div *ngIf="item.extraUsers" class="{{$class}}__row {{$class}}__row--extra">
             <div class="{{$class}}__col {{$class}}__col--place"></div>
             <div class="{{$class}}__col {{$class}}__col--users">
-                <span class="{{$class}}__col-content">{{"And {{extraUsers}} users more" | translate:item}}</span>
+                <span class="{{$class}}__col-content">{{'And {{extraUsers}} users more' | translate | translate:item}}</span>
             </div>
             <div class="{{$class}}__col {{$class}}__col--prize"></div>
         </div>
