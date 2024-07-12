@@ -145,8 +145,7 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
         const {iconsType, colorIconBg} = this.$params;
         const showIconAs = iconsType == 'black' ? 'svg' : 'img';
 
-        const merchants: MerchantModel[] = _sortedUniqBy(this.gamesCatalogService.getFilteredMerchants(),
-            (item: MerchantModel) => item.alias);
+        const merchants: MerchantModel[] = this.prepareMerchants();
 
         const iconModels: IconModel[] = this.convertItemsToIconModel<MerchantModel>(
             merchants,
@@ -237,5 +236,31 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
         }
 
         this.modalLinkParams = params;
+    }
+
+    protected prepareMerchants(): MerchantModel[] {
+        let preparedMerchants: MerchantModel[] =
+            _sortedUniqBy(this.gamesCatalogService.getFilteredMerchants(), (item: MerchantModel) => item.alias);
+
+        if (this.$params.excludeByAlias) {
+            preparedMerchants = preparedMerchants.filter((merchant: MerchantModel) => {
+                return !this.$params.excludeByAlias.includes(merchant.alias);
+            });
+        }
+
+        if (this.$params.orderedByAlias) {
+            preparedMerchants = preparedMerchants.sort((firstMerchant, secondMerchant) => {
+                const firstMerchantOrder = this.$params.orderedByAlias[firstMerchant.alias]
+                    ? this.$params.orderedByAlias[firstMerchant.alias]
+                    : 0;
+                const secondMerchantOrder = this.$params.orderedByAlias[secondMerchant.alias]
+                    ? this.$params.orderedByAlias[secondMerchant.alias]
+                    : 0;
+
+                return firstMerchantOrder - secondMerchantOrder;
+            });
+        }
+
+        return preparedMerchants;
     }
 }

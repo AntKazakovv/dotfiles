@@ -4,6 +4,7 @@ import {
     IButtonCParams,
 } from 'wlc-engine/modules/core';
 import {IAbstractIconsListParams} from 'wlc-engine/modules/icon-list/system/classes/icon-list-abstract.class';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | 'slider' | 'mobile' | CustomType;
@@ -35,6 +36,11 @@ IAbstractIconsListParams<ComponentTheme, ComponentType, ComponentThemeMod> {
      */
     useTitleLink?: boolean;
     redirectToPage?: boolean;
+    excludeByAlias?: string[];
+    /**
+     * Works like order in flexbox
+     */
+    orderedByAlias?: IIndexing<number>;
 };
 
 export const defaultParams: IProviderLinksCParams = {
