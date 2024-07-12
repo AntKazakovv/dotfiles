@@ -1449,4 +1449,8 @@ export const profileMenuFilter: ProfileMenuParams.IProfileMenuFilter[] = [
         config: '$base.profile.referralProgram.use',
         item: 'profile-menu:referral',
     },
+    {
+        config: '$base.profile.referralProgram.use',
+        item: 'profile-first-menu:referral',
+    },
 ];

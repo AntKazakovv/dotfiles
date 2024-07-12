@@ -67,16 +67,16 @@
     <div class="{{$class}}__section {{$class}}__descr">
         <p class="{{$class}}__descr-title">{{'How does it work?' | translate}}</p>
 
-        <p>{{"Any user of casino can invite a new player who has not previously "
+        <p>{{"Any user of {{casinoName}} can invite a new player who has not previously "
             + "been registered on the site. The invited player is called a referral. "
-            + "It is possible to invite an unlimited number of new users." | translate:translateParams}}</p>
+            + "It is possible to invite an unlimited number of new users." | translate | translate:translateParams}}</p>
         <p>{{"To invite new users, you need to copy the unique referral link above "
             + "and send it to a new potential user, "
             + "or post it in your social network account or blog." | translate }}</p>
         <p>{{"By clicking on the link, the invited user goes to the registration page. "
             + "Our system recognizes the user as a referral. "
-            + "When a referral places bets and receives a result on the casino, "
-            + "the user who has invited them starts receiving the commission." | translate:translateParams}}</p>
+            + "When a referral places bets and receives a result on the {{casinoName}}, "
+            + "the user who has invited them starts receiving the commission." | translate | translate:translateParams}}</p>
     </div>
 </ng-template>
 
