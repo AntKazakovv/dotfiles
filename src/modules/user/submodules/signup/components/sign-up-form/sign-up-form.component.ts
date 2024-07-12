@@ -36,6 +36,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user';
 import {SocialService} from 'wlc-engine/modules/user/system/services/social/social.service';
+import {TurnstileService} from 'wlc-engine/modules/security/turnstile/system/services';
 import {ValidationService} from 'wlc-engine/modules/core/system/services/validation/validation.service';
 import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 import {IMGAConfig} from 'wlc-engine/modules/core/components/license/license.params';
@@ -89,7 +90,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
     }
 
     @CustomHook('user', 'signUpFormNgOnInit')
-    public override ngOnInit(): void {
+    public override async  ngOnInit(): Promise<void> {
         super.ngOnInit();
 
         this.useSmsVerification = this.configService.get<boolean>('$base.profile.smsVerification.use');
@@ -163,6 +164,14 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
 
         if (this.$params.formData) {
             this.formData = new BehaviorSubject(this.$params.formData);
+        }
+
+        const useTurnstile = this.configService.get('appConfig.objectData.turnstile.isEnabled');
+        if (useTurnstile){
+            const turnstileService = await this.injectionService.getService<TurnstileService>(
+                'turnstile.turnstile-service',
+            );
+            turnstileService.launch('signup');
         }
     }
 
