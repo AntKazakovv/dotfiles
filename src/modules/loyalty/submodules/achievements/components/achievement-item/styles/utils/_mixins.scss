@@ -216,6 +216,20 @@
     }
 }
 
+@mixin tagCommonStyles($theme: $themeDefault) {
+    @include bm.get-mq-map('grid-area', $theme, 'tagArea');
+    display: inline-block;
+    justify-self: ef.get-value($theme, 'tagJustifySelf');
+    margin: ef.get-value($theme, 'tagMargin');
+    line-height: 0;
+    vertical-align: ef.get-value($theme, 'tagVerticalAlign');
+}
+
+@mixin levelsCommonStyles($theme: $themeDefault) {
+    @include bm.get-mq-map('grid-area', $theme, 'levelsArea');
+    @include bm.get-mq-map('margin', $theme, 'levelsMargin');
+}
+
 @mixin descriptionCommonStyles($theme: $themeDefault) {
     @include bm.get-mq-map('grid-area', $theme, 'descriptionArea');
     @include bm.get-mq-map('margin', $theme, 'descriptionMargin');

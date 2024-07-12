@@ -10,7 +10,7 @@
     <div class="{{$class}}__container {{$class}}__container--{{achievement.status}}">
         <ng-container [ngTemplateOutlet]="achievementImage" [ngTemplateOutletContext]="{$implicit: true}"></ng-container>
         <ng-container *ngIf="showProgress" [ngTemplateOutlet]="achievementProgress"></ng-container>
-        <ng-container *ngIf="achievement.name" [ngTemplateOutlet]="achievementName"></ng-container>
+        <ng-container *ngIf="achievement.name" [ngTemplateOutlet]="achievementName" [ngTemplateOutletContext]="{$implicit: true}"></ng-container>
         <ng-container *ngIf="achievement.description" [ngTemplateOutlet]="achievementDescription"></ng-container>
         <ng-container *ngIf="showButton" [ngTemplateOutlet]="achievementButton"></ng-container>
         <ng-container *ngIf="achievement.isReceived" [ngTemplateOutlet]="achievementDate"></ng-container>
@@ -29,9 +29,11 @@
 <ng-template #themeModal>
     <div class="{{$class}}__container {{$class}}__container--{{achievement.status}}">
         <ng-container [ngTemplateOutlet]="achievementImage" [ngTemplateOutletContext]="{$implicit: false}"></ng-container>
-        <ng-container *ngIf="showProgress" [ngTemplateOutlet]="achievementProgress"></ng-container>
+        <ng-container *ngIf="levelsTagText" [ngTemplateOutlet]="achievementTag"></ng-container>
         <ng-container *ngIf="achievement.name" [ngTemplateOutlet]="achievementName"></ng-container>
         <ng-container *ngIf="achievement.description" [ngTemplateOutlet]="achievementDescription"></ng-container>
+        <ng-container *ngIf="showProgress" [ngTemplateOutlet]="achievementProgress"></ng-container>
+        <ng-container *ngIf="achievement.levelsInfo.length" [ngTemplateOutlet]="achievementLevels"></ng-container>
         <ng-container *ngIf="showButton" [ngTemplateOutlet]="achievementButton"></ng-container>
         <ng-container *ngIf="achievement.isReceived" [ngTemplateOutlet]="achievementDate"></ng-container>
     </div>
@@ -51,7 +53,7 @@
     <div class="{{$class}}__progress"
          data-wlc-element="achievement_progress">
         <div class="{{$class}}__progress-details">
-            {{achievement.progressCurrent}} / {{achievement.progressTotal}}
+            {{achievement.progressDetailsText}}
         </div>
         <div class="{{$class}}__progress-line">
             <div class="{{$class}}__progress-line-inner"
@@ -60,11 +62,25 @@
     </div>
 </ng-template>
 
-<ng-template #achievementName>
+<ng-template #achievementLevels>
+    <div wlc-accordion
+        class="{{$class}}__levels"
+        [inlineParams]="levelsAccordionParams">
+    </div>
+</ng-template>
+
+<ng-template #achievementTag>
+    <div wlc-achievement-tag
+        class="{{$class}}__tag"
+        [inlineParams]="{text: levelsTagText}">
+    </div>
+</ng-template>
+
+<ng-template #achievementName let-showTag>
     <div class="{{$class}}__name"
          data-wlc-element="achievement_name">
         <div class="{{$class}}__name-text">
-            {{achievement.name}}
+            <ng-container *ngIf="showTag && levelsTagText" [ngTemplateOutlet]="achievementTag"></ng-container>{{achievement.name}}
         </div>
     </div>
 </ng-template>

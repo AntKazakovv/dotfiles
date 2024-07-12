@@ -1,0 +1,30 @@
+.wlc-achievement-tag--theme-default:host {
+
+    .wlc-achievement-tag {
+
+        &__content {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'textStyle', 375),
+                ef.get-value($themeDefault, 'textColor'),
+            );
+
+            display: inline-block;
+            width: min-content;
+            padding: ef.get-value($themeDefault, 'contentPadding');
+
+            white-space: nowrap;
+            vertical-align: baseline;
+
+            background: var(--wlc-ach-tag-bg, #{ef.get-value($themeDefault, 'contentBg')});
+            border-radius: ef.get-value($themeDefault, 'contentBorderRadius');
+            overflow: hidden;
+
+            @include mq.min(1024) {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'textStyle', 1024),
+                    null,
+                );
+            }
+        }
+    }
+}

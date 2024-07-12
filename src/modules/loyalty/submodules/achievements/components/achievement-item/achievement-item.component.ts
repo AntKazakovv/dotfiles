@@ -10,6 +10,7 @@ import {
 import {
     AbstractComponent,
     ConfigService,
+    IAccordionCParams,
     IButtonCParams,
     IMixedParams,
     ModalService,
@@ -22,6 +23,7 @@ import {
     AchievementGroupModel,
 } from 'wlc-engine/modules/loyalty/submodules/achievements/system/models';
 import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
+import {IAchievementLevelsCParams} from 'wlc-engine/modules/loyalty/submodules/achievements';
 
 import * as Params from './achievement-item.params';
 
@@ -40,6 +42,8 @@ export class AchievementItemComponent extends AbstractComponent implements OnIni
     public showProgress: boolean;
     public buttonParams: IButtonCParams;
     public showButton: boolean;
+    public levelsTagText: string;
+    public levelsAccordionParams: IAccordionCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IAchievementItemCParams,
@@ -60,6 +64,12 @@ export class AchievementItemComponent extends AbstractComponent implements OnIni
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.achievement = this.$params.achievement;
+
+        if (this.achievement.levelsInfo.length) {
+            this.levelsTagText = this.$params.generateCaptionFn?.(this.achievement);
+            this.levelsAccordionParams = this.getLevelsAccordionParams();
+        }
+
         this.showProgress = this.$params.showProgress && !this.achievement.isReceived;
 
         if (this.$params.buttonParams) {
@@ -102,5 +112,25 @@ export class AchievementItemComponent extends AbstractComponent implements OnIni
                 theme: this.$params.itemParams.modalTheme,
             },
         );
+    }
+
+    protected getLevelsAccordionParams(): IAccordionCParams {
+        return {
+            ...this.$params.levelsAccordionParams,
+            items: [
+                {
+                    ...this.$params.levelsAccordionItemParams,
+                    wrapper: {
+                        components: [{
+                            name: 'achievements.wlc-achievement-levels',
+                            params: <IAchievementLevelsCParams>{
+                                achievement: this.achievement,
+                            },
+                        }],
+                    },
+                },
+            ],
+
+        };
     }
 }

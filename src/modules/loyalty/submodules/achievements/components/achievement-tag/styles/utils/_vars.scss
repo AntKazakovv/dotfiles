@@ -1,0 +1,12 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'textColor': var(--mc-baseMain),
+    'textStyle': (
+        375: 'CaptionTextBold',
+        1024: 'PrimaryTextBold',
+    ),
+
+    'contentPadding': 0 ef.size(2),
+    'contentBg': var(--mc-bg100),
+    'contentBorderRadius': ef.get('radius', 'biger'),
+), $customThemeDefault);

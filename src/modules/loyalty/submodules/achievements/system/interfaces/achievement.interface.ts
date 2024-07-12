@@ -11,10 +11,14 @@ export type TAchievementTarget = 'Bet'
 
 export type TItemModalTheme = 'modal' | 'modal-wolf';
 
-export interface IAchievementProgressDetails {
+export interface IAchievementProgressDetailsBase {
     Current: string;
     Target: TAchievementTarget;
     Total: string;
+}
+
+export interface IAchievementProgressDetails extends IAchievementProgressDetailsBase {
+    CurrentLevelDetails: IAchievementProgressDetailsBase | null;
 }
 
 export interface IModifier {
@@ -40,6 +44,7 @@ export interface IAchievementData {
 export interface IAchievement {
     ActionTitle: string | IIndexing<string>;
     ActionUrl: string;
+    LevelsInfo?: IAchievementLevelInfo[],
     Description: string | IIndexing<string>;
     EndDate?: string | null;
     ID: string;
@@ -48,7 +53,6 @@ export interface IAchievement {
     ImageNotActive: string;
     Name: string | IIndexing<string>;
     PrizeDescription: string | IIndexing<string>;
-    Progress?: string;
     ProgressDetails?: IAchievementProgressDetails;
     Status?: '0' | '1';
 }
@@ -66,6 +70,23 @@ export interface IWSAchievementData {
     achievement_id?: number,
     user_id?: number,
     achievement_name?: string,
+    isLevelOfGroup?: boolean,
+}
+
+export interface IAchievementLevelInfo {
+    name: string | IIndexing<string>,
+    description: string | IIndexing<string>,
+}
+
+export interface IAchievementsConfig {
+    achievements: {
+        notification: {
+            titleText: string,
+            message: string,
+            levelUpTitleText: string,
+            levelUpMessage: string,
+        },
+    },
 }
 
 export interface IAchievementItemParams {

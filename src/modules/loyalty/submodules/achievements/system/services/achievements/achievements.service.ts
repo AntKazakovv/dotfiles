@@ -27,10 +27,12 @@ import {
     LogService,
     WebsocketService,
     NotificationEvents,
+    ConfigService,
 } from 'wlc-engine/modules/core';
 import {
     IAchievement,
     IAchievementGroup,
+    IAchievementsConfig,
     IModifier,
     IWSAchievementData,
 } from 'wlc-engine/modules/loyalty/submodules/achievements/system/interfaces/achievement.interface';
@@ -55,6 +57,7 @@ export class AchievementsService {
         private webSocketService: WebsocketService,
         private eventService: EventService,
         private uiRouter: UIRouter,
+        private configService: ConfigService,
     ) {
         this.init();
     }
@@ -119,17 +122,32 @@ export class AchievementsService {
             endPoint: 'wsc2', events: [WebSocketEvents.RECEIVE.ACHIEVEMENTS],
         }).subscribe(
             {
-                next: (message: IWSConsumerData<IWSAchievementData>) => {
+                next: (message: IWSConsumerData<IWSAchievementData>): void => {
+                    const notificationConfig =
+                        this.configService.get<IAchievementsConfig>('$achievements')?.achievements?.notification;
+
                     const achName = JSON.parse(message.data.achievement_name);
+                    const translatedName = achName[(this.translateService.currentLang)]?.length
+                        ? achName[(this.translateService.currentLang)]
+                        : achName[('en')];
+
+                    let translatedTitle: string = '';
+                    let translatedMessage: string = '';
+
+                    if (message.data.isLevelOfGroup) {
+                        translatedTitle = this.translateService.instant(notificationConfig.levelUpTitleText);
+                        translatedMessage = this.translateService.instant(notificationConfig.levelUpMessage);
+                    } else {
+                        translatedTitle = this.translateService.instant(notificationConfig.titleText);
+                        translatedMessage = this.translateService.instant(notificationConfig.message);
+                    }
 
                     this.eventService.emit({
                         name: NotificationEvents.PushMessage,
                         data: <IPushMessageParams>{
                             type: 'success',
-                            title: gettext('Achievement received'),
-                            message: achName[(this.translateService.currentLang)]?.length
-                                ? achName[(this.translateService.currentLang)]
-                                : achName[('en')],
+                            title: translatedTitle,
+                            message: `${translatedMessage} “${translatedName}”`,
                         },
                     });
                 },

@@ -22,6 +22,10 @@
             @include progressCommonStyles($themeDefault);
         }
 
+        &__tag {
+            @include tagCommonStyles($themeDefault);
+        }
+
         &__name {
             @include nameCommonStyles($themeDefault);
         }

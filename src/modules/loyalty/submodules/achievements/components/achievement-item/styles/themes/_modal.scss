@@ -26,6 +26,14 @@
             @include nameCommonStyles($themeModal);
         }
 
+        &__tag {
+            @include tagCommonStyles($themeModal);
+        }
+
+        &__levels {
+            @include levelsCommonStyles($themeModal);
+        }
+
         &__description {
             @include descriptionCommonStyles($themeModal);
         }

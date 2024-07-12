@@ -1,0 +1,10 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'textColor': var(--mc-baseMain),
+    'hostDisplay': flex,
+    'hostDirection': column,
+    'hostRowGap': ef.size(3),
+    'itemNameTextStyle': 'PrimaryTextBold',
+    'itemDescriptionTextStyle': 'PrimaryText',
+    'completedItemOpacity': 0.6,
+), $customThemeDefault);

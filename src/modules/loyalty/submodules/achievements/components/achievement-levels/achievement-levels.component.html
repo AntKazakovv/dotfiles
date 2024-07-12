@@ -1,0 +1,12 @@
+<div *ngFor="let level of levelsData"
+    class="{{$class}}__item"
+    [ngClass]="(level.isCompleted) ? $class + '--completed' : ''">
+    <div *ngIf="level.isCurrent"
+        wlc-achievement-tag
+        class="{{$class}}__item-tag"
+        [text]="$params.currentLevelTagText">
+    </div>
+    <div class="{{$class}}__item-name">{{level.name}}</div>
+    <div class="{{$class}}__item-description">{{level.description}}</div>
+</div>
+

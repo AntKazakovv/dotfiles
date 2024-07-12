@@ -155,23 +155,28 @@ $themeDefault: map-merge((
         1024: 5px,
     ),
 
+    'tagMargin': 0 ef.size(1) 0 0,
+    'tagVerticalAlign': text-top,
+
 ), $customThemeDefault);
 
 $customThemeModal: () !default;
 $themeModal: map-merge((
     'achievementGridAreas': (
         'image      '
+        'tag        '
         'name       '
         'prizeDescription'
         'description'
         'progress   '
+        'levels     '
         'button     '
         'date       '
     ),
 
     'imageContainerArea': image,
     'imageContainerSize': 275px,
-    'imageContainerMargin': 0 auto,
+    'imageContainerMargin': 0 auto ef.size(8),
     'imageContainerPadding': ef.size(5),
     'imageContainerRadius': ef.get('radius', 'big'),
     'imageContainerBackground': var(--mc-bg),
@@ -184,7 +189,7 @@ $themeModal: map-merge((
     'imageIconSvgFillAlt': var(--mc-baseContrast-d20),
 
     'nameArea': name,
-    'nameMargin': ef.size(8) 0 0,
+    'nameMargin': ef.size(4) 0 0,
     'nameTextAlign': center,
     'nameTextStyle': (
         375: 'ThirdTitleBold',
@@ -233,4 +238,13 @@ $themeModal: map-merge((
     'prizeDescIconContainerBgColor': var(--mc-secondary),
     'prizeDescIconContainerBorderRadius': ef.get('radius', 'main'),
     'prizeDescIconContainerBorderPadding': 5px,
+
+    'tagArea': tag,
+    'tagJustifySelf': center,
+
+    'levelsArea': levels,
+    'levelsMargin': (
+        375: ef.size(8) 0 0,
+        1024: ef.size(4) 0 0,
+    ),
 ), $customThemeModal);

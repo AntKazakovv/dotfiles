@@ -1,0 +1,30 @@
+.wlc-achievement-levels--theme-default:host {
+    display: ef.get-value($themeDefault, 'hostDisplay');
+    flex-direction: ef.get-value($themeDefault, 'hostDirection');
+    row-gap: ef.get-value($themeDefault, 'hostRowGap');
+
+    .wlc-achievement-levels {
+
+        &__item {
+            opacity: var(--wlc-ach-lvls-item-opacity, unset);
+
+            &-name {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'itemNameTextStyle'),
+                    ef.get-value($themeDefault, 'textColor')
+                );
+            }
+
+            &-description {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'itemDescriptionTextStyle'),
+                    ef.get-value($themeDefault, 'textColor')
+                );
+            }
+        }
+    }
+
+    .wlc-achievement-levels--completed {
+        --wlc-ach-lvls-item-opacity: #{ef.get-value($themeDefault, 'completedItemOpacity')};
+    }
+}

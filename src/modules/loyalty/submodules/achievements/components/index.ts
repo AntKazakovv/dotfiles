@@ -4,3 +4,7 @@ export {AchievementListComponent} from './achievement-list/achievement-list.comp
 export {IAchievementListCParams} from './achievement-list/achievement-list.params';
 export {AchievementTitleComponent} from './achievement-title/achievement-title.component';
 export {IAchievementTitleCParams} from './achievement-title/achievement-title.params';
+export {AchievementLevelsComponent} from './achievement-levels/achievement-levels.component';
+export {IAchievementLevelsCParams} from './achievement-levels/achievement-levels.params';
+export {AchievementTagComponent} from './achievement-tag/achievement-tag.component';
+export {IAchievementTagCParams} from './achievement-tag/achievement-tag.params';

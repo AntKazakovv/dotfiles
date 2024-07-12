@@ -1,5 +1,7 @@
 import {
     CustomType,
+    IAccordionCParams,
+    IAccordionData,
     IButtonCParams,
     IComponentParams,
 } from 'wlc-engine/modules/core';
@@ -35,6 +37,9 @@ export interface IAchievementItemCParams extends IComponentParams<Theme, Type, T
      * Info icon path
      */
     itemParams?: IAchievementItemParams,
+    generateCaptionFn?: (achievement: AchievementModel) => string,
+    levelsAccordionParams?: IAccordionCParams;
+    levelsAccordionItemParams?: IAccordionData;
 }
 
 export const defaultParams: IAchievementItemCParams = {
@@ -107,4 +112,14 @@ export const defaultParams: IAchievementItemCParams = {
     },
     prizeIconPath: 'wlc/achievements/prizeIcon.svg',
     showProgress: true,
+    generateCaptionFn: (achievement: AchievementModel): string => {
+        return `LVL ${achievement.progressCurrent + 1}/${achievement.progressTotal}`;
+    },
+    levelsAccordionParams: {
+        theme: 'wolf',
+    },
+    levelsAccordionItemParams: {
+        title: gettext('Information'),
+        expand: true,
+    },
 };
