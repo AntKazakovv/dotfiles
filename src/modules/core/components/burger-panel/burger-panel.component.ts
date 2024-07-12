@@ -61,6 +61,7 @@ import {
     TFixedPanelState,
     TFixedPanelStore,
 } from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
+import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 import * as Params from './burger-panel.params';
 
 enum Directions {
@@ -93,6 +94,7 @@ export class BurgerPanelComponent extends AbstractComponent
     public override $params: Params.IBurgerPanelCParams;
     public title: string;
     public headerMenuConfig: IWrapperCParams;
+    public fixedPanelState: TFixedPanelState;
 
     protected hammer$: any; // HammerInstance
     protected panstart$: Observable<HammerInput>;
@@ -105,7 +107,6 @@ export class BurgerPanelComponent extends AbstractComponent
     protected fixedPanelConfig: IFixedPanelItemParams;
     protected fixedPanelPos: TFixedPanelPos;
     protected fixedPanelStore$: BehaviorSubject<TFixedPanelStore>;
-    protected fixedPanelState: TFixedPanelState;
 
     constructor(
         @Optional() @Inject('injectParams') protected injectParams: Params.IBurgerPanelCParams,
@@ -127,6 +128,7 @@ export class BurgerPanelComponent extends AbstractComponent
         }, configService, cdr);
     }
 
+    @CustomHook('core', 'burgerPanelInit')
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.init();
