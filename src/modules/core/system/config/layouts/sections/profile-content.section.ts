@@ -1136,7 +1136,7 @@ export namespace profileContent {
                                         },
                                     },
                                     {
-                                        name: 'core.wlc-history-filter',
+                                        name: 'history.wlc-history-filter',
                                         params: {
                                             theme: 'wolf',
                                             config: 'transaction',
@@ -2201,7 +2201,7 @@ export namespace profileContent {
                                         },
                                     },
                                     {
-                                        name: 'core.wlc-history-filter',
+                                        name: 'history.wlc-history-filter',
                                         params: {
                                             theme: 'wolf',
                                             config: 'bet',
@@ -2383,7 +2383,7 @@ export namespace profileContent {
                                         },
                                     },
                                     {
-                                        name: 'core.wlc-history-filter',
+                                        name: 'history.wlc-history-filter',
                                         params: {
                                             theme: 'wolf',
                                             config: 'bonus',
