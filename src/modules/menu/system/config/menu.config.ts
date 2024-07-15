@@ -134,9 +134,9 @@ export const menuConfig: IMenuConfig = {
                 parent: 'profile-menu:history',
                 type: 'group',
                 items: [
-                    'profile-menu:bonuses-history',
                     'profile-menu:bets-history',
                     'profile-menu:transaction-history',
+                    'profile-menu:bonuses-history',
                     'profile-menu:tournaments-history',
                 ],
             },
