@@ -1,7 +1,5 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
 import {UIRouterModule} from '@uirouter/angular';
-import {TranslateModule} from '@ngx-translate/core';
 import {
     DataService,
 } from 'wlc-engine/modules/core';
@@ -142,9 +140,7 @@ export const components = {
         SubscriptionsModalComponent,
     ],
     imports: [
-        CommonModule,
         CoreModule,
-        TranslateModule,
         UIRouterModule,
         MultiWalletModule,
     ],
