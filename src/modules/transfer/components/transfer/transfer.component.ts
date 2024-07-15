@@ -252,26 +252,30 @@ export class TransferComponent extends AbstractComponent implements OnInit {
     }
 
     private getRecipientsConfig(): IFormComponent[] {
-        let recipientField = '';
         let recipientValidator = '';
         let recipientExampleValue = '';
+        let recipientTextBlock = '';
+        let recipientPlaceholder = '';
 
         switch (this.transfer.transferBy) {
             case TransferByEnum.EMAIL:
-                recipientField = 'e-mail';
                 recipientValidator = 'email';
                 recipientExampleValue = 'example@mail.com';
+                recipientTextBlock = gettext('Enter the recipient\'s e-mail');
+                recipientPlaceholder = gettext('Recipient\'s e-mail');
                 break;
             case TransferByEnum.ID:
-                recipientField = 'ID';
                 recipientValidator = 'userId';
                 recipientExampleValue = '';
+                recipientTextBlock = gettext('Enter the recipient\'s ID');
+                recipientPlaceholder = gettext('Recipient\'s ID');
                 break;
             case TransferByEnum.EMAIL_OR_ID:
             default:
-                recipientField = 'e-mail or ID';
                 recipientValidator = 'emailOrUserId';
                 recipientExampleValue = '';
+                recipientTextBlock = gettext('Enter the recipient\'s e-mail or ID');
+                recipientPlaceholder = gettext('Recipient\'s e-mail or ID');
         }
 
         return [
@@ -279,7 +283,7 @@ export class TransferComponent extends AbstractComponent implements OnInit {
                 name: 'core.wlc-text-block',
                 params: <ITextBlockCParams>{
                     common: {
-                        textBlockSubtitle: ['1.', gettext(`Enter the recipient\'s ${recipientField}`)],
+                        textBlockSubtitle: ['1.', recipientTextBlock],
                     },
                 },
             },
@@ -288,7 +292,7 @@ export class TransferComponent extends AbstractComponent implements OnInit {
                 params: <IInputCParams>{
                     theme: 'vertical',
                     common: {
-                        placeholder: gettext(`Recipient\’s ${recipientField}`),
+                        placeholder: recipientPlaceholder,
                     },
                     locked: true,
                     name: 'recipient',
@@ -351,6 +355,16 @@ export class TransferComponent extends AbstractComponent implements OnInit {
     }
 
     private getConfirmationConfig(): IFormComponent[] {
+        let confirmationText = '';
+
+        if (!this.smsEnabled) {
+            // eslint-disable-next-line max-len
+            confirmationText = gettext('To confirm this gift for a friend, a verification code will be sent to your e-mail address');
+        } else {
+            // eslint-disable-next-line max-len
+            confirmationText = gettext('To confirm this gift for a friend, a verification code will be sent to your e-mail address or phone number.');
+        }
+
         return [
             Params.transferDivider,
             {
@@ -358,8 +372,7 @@ export class TransferComponent extends AbstractComponent implements OnInit {
                 params: <ITextBlockCParams>{
                     common: {
                         textBlockSubtitle: ['3.', gettext('Confirmation')],
-                        textBlockText: gettext('To confirm this gift for a friend, we will send a verification code ' +
-                            `to your e-mail address${this.smsEnabled ? ' or phone number.' : '.'}`),
+                        textBlockText: confirmationText,
                     },
                 },
             },
