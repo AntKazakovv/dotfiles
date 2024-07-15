@@ -213,6 +213,10 @@ export class DepositWithdrawComponent
     public override ngOnDestroy(): void {
         super.ngOnDestroy();
 
+        if (!this.isDeposit) {
+            this.userService.unsubscribeWSAvailableWithdraw();
+        }
+
         if (this.useBonuses) {
             this.configService.set({name: 'chosenPaySystem', value: null});
             Bonus.depositCurrency = null;
@@ -235,6 +239,15 @@ export class DepositWithdrawComponent
             setTimeout(() => {
                 this.isFetchingSystems = false;
             }, 0);
+
+            if (!this.isDeposit) {
+
+                if (this.selectedWallet) {
+                    this.userService.updateWSAvailableWithdraw(wallet.walletId.toString());
+                } else {
+                    this.userService.subscribeWSAvailableWithdraw(this.$destroy, wallet.walletId.toString());
+                }
+            }
         }
 
         this.selectedWallet = wallet;
@@ -665,6 +678,11 @@ export class DepositWithdrawComponent
             this.listConfig.paymentType = 'withdraw';
 
             this.userService ??= await this.injectionService.getService<UserService>('user.user-service');
+
+            if (!this.isMultiWallet) {
+                this.userService.subscribeWSAvailableWithdraw(this.$destroy);
+            }
+
         } else {
             this.eventService.emit({name: 'DEPOSIT_VISIT'});
         }

@@ -28,6 +28,7 @@ import {
 
 import {
     ISelectedWallet,
+    IWallet,
     IWalletObj,
     IWSWallet,
     IWSWalletObj,
@@ -40,9 +41,11 @@ export class UserInfo extends AbstractModel<IUserInfo> {
     public separateLoyalty: boolean = false;
     public static currency: string = '';
     public bonusBalanceWS: number = null;
-    private _wsWallets: IWalletObj;
 
     protected $loyaltyData: ILoyalty = {} as ILoyalty;
+
+    private _wsWallets: IWalletObj;
+    private _wcAvailableWithdraw: number;
 
     constructor(
         from: IFromLog,
@@ -63,8 +66,14 @@ export class UserInfo extends AbstractModel<IUserInfo> {
         return this.data?.affiliateID;
     }
 
+    public set availableWithdraw(availableWithdraw: number) {
+        this._wcAvailableWithdraw = availableWithdraw;
+    }
+
     public get availableWithdraw(): number {
-        return UserInfo.currency ? this.getWalletAvailableWithdraw(UserInfo.currency) : this.data?.availableWithdraw;
+        return UserInfo.currency
+            ? this.getWalletAvailableWithdraw(UserInfo.currency)
+            : this._wcAvailableWithdraw ?? this.data?.availableWithdraw;
     }
 
     public set balance(balance: number) {
@@ -355,13 +364,14 @@ export class UserInfo extends AbstractModel<IUserInfo> {
 
         for (let id in wallets) {
             const wallet: IWSWallet = wallets[id];
+            let wsWallet: IWallet = this._wsWallets[wallet.Currency];
 
-            if (this._wsWallets[wallet.Currency]) {
-                this._wsWallets[wallet.Currency] = {
-                    ...this._wsWallets[wallet.Currency],
-                    balance: wallet.Balance,
-                    availableWithdraw: this.data.wallets[wallet.Currency].availableWithdraw,
-                };
+            if (wsWallet) {
+                wsWallet.balance = wallet.Balance;
+
+                if (wallet.availableWithdraw) {
+                    wsWallet.availableWithdraw = wallet.availableWithdraw;
+                }
 
             } else {
                 this._wsWallets[wallet.Currency] = {
