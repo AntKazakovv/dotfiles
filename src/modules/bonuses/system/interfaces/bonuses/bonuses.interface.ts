@@ -239,6 +239,8 @@ export interface IBonus extends IBonusBase {
     AllowPromotions?: string;
     /** Show/hide bonus in Promo for unauthorized user (available in combination witn AllowPromotions) ("0" | "1") */
     HidePromotionsForUnauthorized?: string;
+    /** Loyalty levels for custom in issue #537651 */
+    Levels?: string[];
     showOnly?: boolean;
 }
 
