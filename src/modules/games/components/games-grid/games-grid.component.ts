@@ -9,6 +9,7 @@ import {
     Renderer2,
     ViewChild,
 } from '@angular/core';
+import {DOCUMENT} from '@angular/common';
 import {UIRouter} from '@uirouter/core';
 
 import {
@@ -154,6 +155,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IGamesGridCParams,
+        @Inject(DOCUMENT) protected document: Document,
         protected gamesCatalogService: GamesCatalogService,
         protected eventService: EventService,
         protected actionService: ActionService,
@@ -351,13 +353,16 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
         }
 
         this.gamesRowsLoaded += this.$params.gamesRowsOnShowMore || this.$params.gamesRows;
+
         this.setGridParams();
 
         if (this.$params.moreBtn?.scrollToEnd && !this.useLazy) {
+            const valueOffsetY: number = this.document.querySelector('.wlc-sticky-footer') ? 80 : 20;
+
             setTimeout(() => {
                 this.actionService.scrollTo(this.elementRef.nativeElement, {
                     position: 'end',
-                    offsetY: 40,
+                    offsetY: valueOffsetY,
                 });
             }, 750);
         }
