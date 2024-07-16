@@ -1,0 +1,46 @@
+.wlc-link-block--theme-wolf:host {
+    @include bm.get-mq-map('min-height', $themeWolf, 'hostMinHeight');
+    @include bm.get-mq-map('padding', $themeWolf, 'hostPadding');
+
+    background: ef.get-value($themeWolf, 'hostBg');
+    border-radius: ef.get-value($themeWolf, 'hostRadius');
+
+    .wlc-link-block {
+
+        &__container {
+            display: ef.get-value($themeWolf, 'containerDisplay');
+            flex-direction: ef.get-value($themeWolf, 'containerFlexDir');
+            gap: ef.get-value($themeWolf, 'containerGap');
+            justify-content: ef.get-value($themeWolf, 'containerJustify');
+            height: 100%;
+        }
+
+        &__title {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'titleTextStyle', 375),
+                ef.get-value($themeWolf, 'titleColor'),
+            );
+
+            @include mq.min(900) {
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'titleTextStyle', 900),
+                    null,
+                );
+            }
+        }
+    }
+
+    ::ng-deep {
+
+        .wlc-btn {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'btnTextStyle'),
+                ef.get-value($themeWolf, 'btnColor'),
+            );
+
+            @include bm.hover {
+                color: ef.get-value($themeWolf, 'btnColorHover');
+            }
+        }
+    }
+}

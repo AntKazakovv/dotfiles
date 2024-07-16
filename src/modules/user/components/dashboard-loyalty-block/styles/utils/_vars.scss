@@ -2,6 +2,8 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'padding': (
         375: ef.size(3),
+        1024: ef.size(2) ef.size(4),
+        1366: ef.size(3) ef.size(5),
     ),
     'bg': var(--mc-bg300),
     'boxShadow': null,

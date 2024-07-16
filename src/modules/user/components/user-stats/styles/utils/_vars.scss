@@ -46,6 +46,15 @@ $base: map-merge((
     'iconTop': 50%,
     'iconRigth': 0,
     'iconDescriptionCurrencyPosition': absolute,
+
+    'balancePaddingDashboard': (
+        375: ef.size(2) ef.size(3),
+        1024: ef.size(2) ef.size(4),
+        1366: ef.size(2) ef.size(5),
+    ),
+    'balanceBgDashboard': var(--mc-bg300),
+    'balanceItemPaddingDashboard': ef.size(1) 0,
+    'balanceItemMinHeightDashboard': 32px,
 ), $customBase);
 
 $customThemeDefault: () !default;

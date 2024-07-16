@@ -63,4 +63,8 @@ export const errorTypes: ILogTypes = {
         // Error canceling withdrawal
         level: 'error',
     },
+    '17.9.0': {
+        // Deposit wager report not found
+        level: 'error',
+    },
 };

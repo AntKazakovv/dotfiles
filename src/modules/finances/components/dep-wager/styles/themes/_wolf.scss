@@ -1,0 +1,29 @@
+.wlc-dep-wager--theme-wolf:host {
+    @include baseStyles($themeWolf);
+
+    .wlc-dep-wager {
+
+        &__top {
+            @include top($themeWolf);
+        }
+
+        &__list-details {
+            @include details($themeWolf);
+        }
+
+        &__detail {
+            @include detailItem($themeWolf);
+        }
+
+        &__empty {
+            @include empty($themeWolf);
+        }
+    }
+
+    ::ng-deep {
+
+        .wlc-loader {
+            @include loader($themeWolf);
+        }
+    }
+}

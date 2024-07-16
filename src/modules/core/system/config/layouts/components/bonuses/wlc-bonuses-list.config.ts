@@ -292,6 +292,63 @@ export namespace wlcBonusesList {
             },
         },
     };
+
+    export const dashboardWide: ILayoutComponent = {
+        name: 'bonuses.wlc-bonuses-list',
+        params: <IBonusesListCParams>{
+            type: 'swiper',
+            themeMod: 'wide',
+            wlcElement: 'block_bonuses-main',
+            placement: 'profile-dashboard',
+            common: {
+                useQuery: true,
+                sortOrder: ['active', 'inventory', 'promocode', 'subscribe'],
+                swiper: {
+                    nested: true,
+                    slidesPerView: 'auto',
+                    spaceBetween: 20,
+                    observer: true,
+                    observeSlideChildren: true,
+                    breakpoints: {
+                        320: {
+                            slidesPerView: 'auto',
+                            spaceBetween: 10,
+                            followFinger: false,
+                        },
+                        640: {
+                            slidesPerView: 'auto',
+                            spaceBetween: 20,
+                            followFinger: false,
+                        },
+                        768: {
+                            slidesPerView: 'auto',
+                            spaceBetween: 20,
+                            followFinger: false,
+                        },
+                        900: {
+                            slidesPerView: 'auto',
+                            spaceBetween: 20,
+                            followFinger: true,
+                        },
+                        1024: {
+                            slidesPerView: 3,
+                            spaceBetween: 20,
+                            followFinger: true,
+                        },
+                        1366: {
+                            slidesPerView: 3,
+                            spaceBetween: 20,
+                        },
+                        1630: {
+                            slidesPerView: 3,
+                            spaceBetween: 25,
+                        },
+                    },
+                },
+            },
+        },
+    };
+
     export const dashboardWithEars: ILayoutComponent = {
         name: 'bonuses.wlc-bonuses-list',
         display: {

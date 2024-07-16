@@ -1,0 +1,28 @@
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'hostMinHeight': (
+        375: 130px,
+        768: 160px,
+    ),
+    'hostPadding': (
+        375: ef.size(5),
+        900: ef.size(5) ef.size(5) ef.size(6),
+    ),
+    'hostBg': var(--mc-bg500),
+    'hostRadius': ef.get('radius', 'biger'),
+
+    'containerDisplay': flex,
+    'containerFlexDir': column,
+    'containerGap': ef.size(2),
+    'containerJustify': space-between,
+
+    'titleTextStyle': (
+        375: 'PrimaryTextBold',
+        900: 'ThirdTitleBold',
+    ),
+    'titleColor': var(--mc-baseThird),
+
+    'btnTextStyle': 'PrimaryTextBold',
+    'btnColor': var(--mc-main),
+    'btnColorHover': var(--mc-main-l20),
+), $customThemeWolf);

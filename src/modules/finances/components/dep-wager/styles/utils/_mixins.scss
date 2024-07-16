@@ -1,0 +1,117 @@
+@mixin baseStyles($config) {
+    @include bm.get-mq-map('padding', $config, 'cardPadding');
+    @include text.get-text-style(
+        ef.get-value($config, 'baseTextStyle', 375),
+        ef.get-value($config, 'baseColor'),
+    );
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: ef.get-value($config, 'cardGap');
+    min-height: ef.get-value($config, 'cardMinHeight');
+    background: var(--wlc-dep-wager-bg, #{ef.get-value($config, 'cardBg')});
+    border-radius: ef.get-value($config, 'cardRadius');
+}
+
+@mixin top($config) {
+    @include text.get-text-style(
+        ef.get-value($config, 'topTextStyle', 375),
+        ef.get-value($config, 'topColor')
+    );
+    display: flex;
+    justify-content: ef.get-value($config, 'topJustify');
+
+    &-title {
+        min-width: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    &-value {
+        color: ef.get-value($config, 'topValueColor');
+    }
+
+    @include mq.min(900) {
+        @include text.get-text-style(
+            ef.get-value($config, 'topTextStyle', 900),
+            null
+        );
+    }
+}
+
+@mixin details($config) {
+    @include bm.get-mq-map('margin', $config, 'listDetailsMargin');
+
+    padding: 0;
+    list-style-type: none;
+}
+
+@mixin detailItem($config) {
+    @include bm.get-mq-map('padding', $config, 'detailPadding');
+
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: ef.get-value($config, 'detailJustify');
+
+    &:after {
+        @include bm.get-mq-map('width', $config, 'detailDividerWidth');
+
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+
+        display: var(--wlc-dep-wager-divider-disp, 'block');
+        height: ef.get-value($config, 'detailDividerHeight');
+
+        background: ef.get-value($config, 'detailDividerBg');
+        transform: ef.get-value($config, 'detailDividerTransform');
+    }
+
+    &:last-child {
+        --wlc-dep-wager-divider-disp: none;
+    }
+
+    &-caption {
+        display: grid;
+        grid-template-columns: auto ef.get-value($config, 'infoIconSize');
+        gap: ef.get-value($config, 'detailCaptionGap');
+        color: ef.get-value($config, 'detailCaptionColor');
+    }
+
+    &-value {
+        @include text.get-text-style(
+            ef.get-value($config, 'detailValTextStyle', 375),
+            ef.get-value($config, 'detailValColor')
+        );
+        text-align: ef.get-value($config, 'detailValTextAlign');
+    }
+
+    &-info {
+        --wlc-icon-width: #{ef.get-value($config, 'infoIconSize')};
+        --wlc-icon-height: #{ef.get-value($config, 'infoIconSize')};
+
+        color: ef.get-value($config, 'infoIconColor');
+        cursor: pointer;
+    }
+}
+
+@mixin empty($config) {
+    margin: ef.get-value($config, 'emptyMargin');
+    padding: ef.get-value($config, 'emptyPadding');
+    text-align: ef.get-value($config, 'emptyTextAlign');
+}
+
+@mixin loader($config) {
+    $loaderSize: ef.get-value($config, 'loaderSize');
+
+    min-width: $loaderSize;
+    min-height: $loaderSize;
+
+    .wlc-loader__element {
+        width: $loaderSize;
+        height: $loaderSize;
+    }
+}

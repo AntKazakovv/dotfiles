@@ -1,0 +1,44 @@
+<ng-container *wlcLet="depWagerModel$ | async as depWagerModel">
+    <div class="{{$class}}__top">
+        <div class="{{$class}}__top-title">{{'Last deposit' | translate}}</div>
+        <div class="{{$class}}__top-value">
+            <div *ngIf="hasDeposit"
+                wlc-currency
+                [value]="depWagerModel.depositInfo.value"
+                [currency]="depWagerModel.depositInfo.currency"></div>
+            <div *ngIf="!hasDeposit">-</div>
+        </div>
+    </div>
+    <ng-container *ngIf="ready$ | async; else loader;">
+        <ul *ngIf="hasDeposit; else empty" class="{{$class}}__list-details">
+            <li class="{{$class}}__detail">
+                <div class="{{$class}}__detail-caption">{{'Date' | translate}}</div>
+                <div class="{{$class}}__detail-value">{{depWagerModel.depositDate | date:'dd.MM.yy'}}</div>
+            </li>
+            <li class="{{$class}}__detail">
+                <div class="{{$class}}__detail-caption">{{'Deposit wagering' | translate}}
+                    <div class="{{$class}}__detail-info"
+                        wlc-icon
+                        iconPath="/wlc/icons/info.svg"
+                        [tooltip]="$params.tooltipText | translate:translationsContext">
+                    </div>
+                </div>
+                <div class="{{$class}}__detail-value">x{{depWagerModel.currentWager}}</div>
+            </li>
+            <li class="{{$class}}__detail">
+                <div class="{{$class}}__detail-caption">{{'Status' | translate}}</div>
+                <div class="{{$class}}__detail-value">{{depWagerModel.statusText| translate}}</div>
+            </li>
+        </ul>
+    </ng-container>
+</ng-container>
+
+<ng-template #empty>
+    <div class="{{$class}}__empty">
+        {{'There are no last deposits' | translate}}
+    </div>
+</ng-template>
+
+<ng-template #loader>
+    <div wlc-loader></div>
+</ng-template>

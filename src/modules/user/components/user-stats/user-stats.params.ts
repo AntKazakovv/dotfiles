@@ -6,7 +6,7 @@ import {IIndexing} from 'wlc-engine/modules/core';
 import * as ButtonParams from 'wlc-engine/modules/core/components/button/button.params';
 
 export type ComponentTheme = 'default' | 'wolf' | CustomType;
-export type ComponentType = 'default' | 'short' | 'mobile' | 'store' | 'header' | CustomType;
+export type ComponentType = 'default' | 'dashboard' | 'short' | 'mobile' | 'store' | 'header' | CustomType;
 export type ComponentThemeMod = 'default' | 'mobile-app' | CustomType;
 export type StatsFieldsView = 'abbreviation' | 'fullWithAbbreviation';
 

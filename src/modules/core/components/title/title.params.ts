@@ -7,7 +7,7 @@ import {
 
 export type Theme = 'default' | CustomType;
 export type Type = 'default' | 'modal' | CustomType;
-export type ThemeMod = 'default' | CustomType;
+export type ThemeMod = 'default' | 'third' | CustomType;
 export type TagType = 'div' | 'h1' | 'h2' | 'span' | CustomType;
 
 export type varTextType = 'mainText' | 'secondText';

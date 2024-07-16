@@ -125,6 +125,12 @@
             width: 100%;
         }
     }
+
+    &.wlc-bonuses-list--theme-mod-wide {
+        @include bm.get-mq-map('--wlc-bl-wrapper-padding', $themeDefault, 'pdListWrapperPaddingWide');
+        @include bm.get-mq-map('--wlc-bl-prev-button-offset', $themeDefault, 'pdSwiperBtnPrevOffsetWide');
+        @include bm.get-mq-map('--wlc-bl-next-button-offset', $themeDefault, 'pdSwiperBtnNextOffsetWide');
+    }
 }
 
 .wlc-bonuses-list__nocontent {

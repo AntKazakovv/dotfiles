@@ -1,4 +1,5 @@
 .wlc-user-stats--theme-default:host {
+    @include bm.get-mq-map('--wlc-ustats-balance-bg', $themeDefault, 'balanceBg');
 
     .wlc-user-stats {
         width: 100%;
@@ -24,11 +25,10 @@
         }
 
         &-balance {
-            @include bm.get-mq-map('background', $themeDefault, 'balanceBg');
-
             width: 100%;
-            padding: ef.get-value($themeDefault, 'balancePadding');
+            padding: var(--wlc-ustats-balance-padding, #{ef.get-value($themeDefault, 'balancePadding')});
             border-radius: ef.get-value($themeDefault, 'balanceBorderRadius');
+            background: var(--wlc-ustats-balance-bg);
 
             &--short {
                 @include bm.get-mq-map('background', $themeDefault, 'balanceShortBg');
@@ -46,7 +46,8 @@
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                padding: ef.get-value($themeDefault, 'balanceItemPadding');
+                min-height: var(--wlc-ustats-item-min-height);
+                padding: var(--wlc-ustats-item-padding, #{ef.get-value($themeDefault, 'balanceItemPadding')});
 
                 &:last-child {
                     border-bottom: none;
@@ -215,5 +216,13 @@
             flex-direction: row;
             justify-content: space-between;
         }
+    }
+
+    &.wlc-user-stats--theme-mod-dashboard {
+        --wlc-ustats-balance-bg: #{ef.get-value($themeDefault, 'balanceBgDashboard')};
+        --wlc-ustats-item-padding: #{ef.get-value($themeDefault, 'balanceItemPaddingDashboard')};
+        --wlc-ustats-item-min-height: #{ef.get-value($themeDefault, 'balanceItemMinHeightDashboard')};
+
+        @include bm.get-mq-map('--wlc-ustats-balance-padding', $themeDefault, 'balancePaddingDashboard');
     }
 }

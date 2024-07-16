@@ -57,7 +57,12 @@ export interface IFinancesConfig {
     checkUserTags?: {
         use: true;
         tag: string;
-    }
+    };
+    /** Settings for deposit wager widget */
+    depositWager?: {
+        use: boolean;
+        wager: number;
+    };
 }
 
 export interface ITransactionHistoryAlert {
@@ -297,3 +302,11 @@ export type TShowMode = 'title'
     | 'activeBonusNonCancelable';
 
 export type TTechnicalTags = 'check_name_before_withdraw' | 'check_tc';
+
+/** Deposit wagering info response format */
+export interface IDepWagerData {
+    deposit: number;
+    depositDate: string;
+    wager: number;
+    currency: string;
+}

@@ -73,6 +73,7 @@ export * from './static/wlc-promo-steps.config';
 export * from './static/wlc-wp-promo.config';
 
 export * from './finances/wlc-deposit-withdraw.config';
+export * from './finances/wlc-deposit-wager.config';
 
 export * from './transfer/wlc-transfer.config';
 

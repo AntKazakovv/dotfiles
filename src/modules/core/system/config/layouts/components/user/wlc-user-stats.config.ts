@@ -46,6 +46,14 @@ export namespace wlcUserStats {
         },
     };
 
+    export const dashboard: ILayoutComponent = {
+        name: 'user.wlc-user-stats',
+        params: {
+            themeMod: 'dashboard',
+            useDepositBtn: false,
+        },
+    };
+
     export const wolf: ILayoutComponent = {
         name: 'user.wlc-user-stats',
         display: {

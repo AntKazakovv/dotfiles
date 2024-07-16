@@ -1,0 +1,122 @@
+$common: (
+    'cardMinHeight': 150px,
+    'cardPadding': (
+        375: ef.size(3) ef.size(3) 0,
+        900: ef.size(5) ef.size(5) ef.size(3),
+    ),
+    'cardGap': ef.size(2),
+    'cardRadius': ef.get('radius', 'biger'),
+
+    'listDetailsMargin': (
+        375: 0 ef.size(-3),
+        900: 0 ef.size(-5),
+    ),
+
+    'topTextStyle': (
+        375: 'PrimaryTextBold',
+        900: 'ThirdTitleBold',
+    ),
+    'topJustify': space-between,
+    'topColor': inherit,
+    'topValueColor': inherit,
+
+    'baseTextStyle': 'CaptionText',
+    'baseColor': inherit,
+
+    'detailPadding': (
+        375: ef.size(2) ef.size(3),
+        900: ef.size(2) ef.size(5),
+    ),
+    'detailDividerWidth': (
+        375: calc(100% - 2 * ef.size(3)),
+        900: calc(100% - 2 * ef.size(5)),
+    ),
+    'detailJustify': space-between,
+    'detailDividerHeight': 2px,
+    'detailDividerBg': var(--mc-baseOpacity),
+    'detailDividerTransform': translate(-50%, -50%),
+    'detailValTextStyle': 'CaptionTextBold',
+    'detailValColor': inherit,
+    'detailValTextAlign': right,
+    'detailCaptionColor': inherit,
+    'detailCaptionGap': ef.size(1),
+
+    'infoIconSize': 15px,
+    'infoIconColor': var(--mc-baseOpacity),
+
+    'emptyMargin': auto,
+    'emptyTextAlign': center,
+    'emptyPadding': 0 0 ef.size(3),
+
+    'loaderSize': 75px,
+);
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge(map-merge($common, (
+    'cardBg': var(--mc-bg300),
+    'cardPadding': (
+        375: ef.size(3) ef.size(3) 0,
+        900: ef.size(5) ef.size(5) ef.size(3),
+    ),
+    'cardGap': ef.size(2),
+    'cardRadius': ef.get('radius', 'biger'),
+
+    'listDetailsMargin': (
+        375: 0 ef.size(-3),
+        900: 0 ef.size(-5),
+    ),
+
+    'topTextStyle': (
+        375: 'PrimaryTextBold',
+        900: 'ThirdTitleBold',
+    ),
+    'topJustify': space-between,
+    'topColor': inherit,
+    'topValueColor': inherit,
+
+    'baseTextStyle': 'CaptionText',
+    'baseColor': inherit,
+
+    'detailPadding': (
+        375: ef.size(2) ef.size(3),
+        900: ef.size(2) ef.size(5),
+    ),
+    'detailDividerWidth': (
+        375: calc(100% - 2 * ef.size(3)),
+        900: calc(100% - 2 * ef.size(5)),
+    ),
+    'detailJustify': space-between,
+    'detailDividerHeight': 2px,
+    'detailDividerBg': var(--mc-baseOpacity),
+    'detailDividerTransform': translate(-50%, -50%),
+    'detailValTextStyle': 'CaptionTextBold',
+    'detailValColor': inherit,
+    'detailValTextAlign': right,
+    'detailCaptionColor': inherit,
+    'detailCaptionGap': ef.size(1),
+
+    'infoIconSize': 15px,
+    'infoIconColor': var(--mc-baseOpacity),
+
+    'emptyMargin': auto,
+    'emptyTextAlign': center,
+    'emptyPadding': 0 0 ef.size(3),
+
+    'loaderSize': 75px,
+)), $customThemeDefault);
+
+$customThemeWolf: () !default;
+$themeWolf: map-merge(map-merge($common, (
+    'cardBg': var(--mc-bg500),
+
+    'topColor': var(--mc-baseThird),
+
+    'detailDividerWidth': (
+        375: calc(100%),
+        900: calc(100%),
+    ),
+    'detailDividerHeight': 1px,
+    'detailDividerBg': var(--mc-bg700),
+    'detailDividerTransform': translate(-50%, 0),
+    'detailValColor': var(--mc-baseThird),
+)), $customThemeWolf);

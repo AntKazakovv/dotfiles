@@ -51,6 +51,10 @@ $themeDefault: map-merge((
         1366: 0 ef.size(4) 0 0,
         1630: 0,
     ),
+    'pdListWrapperPaddingWide': (
+        375: 0 ef.size(4),
+        1024: 0,
+    ),
     'pdSwiperBtnPrevOffset': (
         720: 0,
         1024: ef.size(-4),
@@ -60,6 +64,14 @@ $themeDefault: map-merge((
         1024: ef.size(-4),
         1366: 0,
         1630: ef.size(-4),
+    ),
+    'pdSwiperBtnPrevOffsetWide': (
+        720: 0,
+        1024: ef.size(-4),
+    ),
+    'pdSwiperBtnNextOffsetWide': (
+        720: 0,
+        1024: ef.size(-4),
     ),
     'bonusWidthDefault': (
         375: 330px,

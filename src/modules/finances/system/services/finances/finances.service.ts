@@ -41,6 +41,7 @@ import {
     UserProfile,
 } from 'wlc-engine/modules/user';
 import {
+    IDepWagerData,
     IFinancesConfig,
     ITaxData,
     TAdditionalParams,
@@ -236,6 +237,20 @@ export class FinancesService {
                 success: 'TRANSACTION_CANCEL',
             },
         });
+    }
+
+    public async getDepWager(): Promise<IDepWagerData[]> {
+        try {
+            const response: IData = await this.dataService.request<IData>('finances/getDepWager');
+            const data: IDepWagerData[] = JSON.parse(response.data);
+            return data;
+        } catch (error) {
+            this.logService.sendLog({
+                code: '17.9.0',
+                data: error,
+            });
+            return Promise.reject(error);
+        }
     }
 
     /**
@@ -851,6 +866,17 @@ export class FinancesService {
             events: {
                 success: 'WITHDRAWS_GET_PENDING',
                 fail: 'WITHDRAWS_GET_PENDING_ERROR',
+            },
+        });
+
+        this.dataService.registerMethod({
+            name: 'getDepWager',
+            system: 'finances',
+            url: '/reports?report=v2/Reports/DepositWagerProgress',
+            type: 'GET',
+            events: {
+                success: 'DEPOSIT_WAGER_REPORT_GET',
+                fail: 'DEPOSIT_WAGER_REPORT_ERROR',
             },
         });
     }

@@ -298,6 +298,241 @@ const dashboardPromoSection: ILayoutComponent = {
     },
 };
 
+/** Generates dashboard layout config with/without deposit wager widget. Use smart sections */
+const generateDashboard = (useDepositWager?: boolean): ILayoutSectionConfig => {
+    const componentsNoWager: ILayoutComponent[] = [
+        componentLib.wlcEnterPromocode.def,
+        componentLib.wlcSeeAllBonuses.def,
+    ];
+    const componentsWager: ILayoutComponent[] = [
+        componentLib.wlcEnterPromocode.def,
+        componentLib.wlcDepositWager.def,
+        componentLib.wlcSeeAllBonuses.def,
+    ];
+    const columnsNoWager: string[] = [
+        'wlc-c-12 wlc-c-720-6',
+        'wlc-c-12 wlc-c-720-6',
+    ];
+    const columnsWager: string[] = [
+        'wlc-c-12 wlc-c-720-6 wlc-c-1200-4',
+        'wlc-c-12 wlc-c-720-6 wlc-c-1200-4',
+        'wlc-c-12 wlc-c-720-6 wlc-c-1200-4',
+    ];
+    const bottomLineComponents: ILayoutComponent[] = useDepositWager ? componentsWager : componentsNoWager;
+    const bottomLineColumns: string[] = useDepositWager ? columnsWager : columnsNoWager;
+
+    return {
+        container: true,
+        usePreloader: true,
+        components: [
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'smart-dashboard__title',
+                    components: [
+                        {
+                            name: 'core.wlc-title',
+                            params: {
+                                themeMod: 'third',
+                                mainText: gettext('My dashboard'),
+                            },
+                        },
+                        {
+                            name: 'user.wlc-logout',
+                            params: {
+                                useText: true,
+                            },
+                            display: {
+                                before: 899,
+                            },
+                        },
+                    ],
+                    smartSection: {
+                        hostClasses: 'wlc-mb-sm',
+                        innerClasses: 'wlc-gap-xs wlc-h-align-between',
+                        columns: [
+                            'wlc-c-8',
+                            'wlc-c-auto',
+                        ],
+                    },
+                },
+            },
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'smart-dashboard__top',
+                    components: [
+                        componentLib.wlcDashboardLoyaltyBlock.def,
+                        componentLib.wlcUserStats.dashboard,
+                    ],
+                    smartSection: {
+                        hostClasses: 'wlc-mb-smd wlc-mb-1630-lg',
+                        innerClasses: 'wlc-gap-smd wlc-gap-1366-md',
+                        columns: [
+                            'wlc-c-12 wlc-c-768-6',
+                            'wlc-c-12 wlc-c-768-6',
+                        ],
+                    },
+                },
+            },
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'smart-dashboard__bonuses-title',
+                    components: [
+                        {
+                            name: 'core.wlc-title',
+                            params: {
+                                themeMod: 'third',
+                                mainText: gettext('My bonuses'),
+                                wlcElement: 'header_user-bonuses',
+                            },
+                        },
+                    ],
+                    smartSection: {
+                        hostClasses: 'wlc-mb-sm wlc-mb-1630-smd',
+                    },
+                },
+            },
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'smart-dashboard__bonuses',
+                    components: [
+                        {
+                            ...componentLib.wlcBonusesList.dashboardWithEars,
+                            display: {
+                                before: 1023,
+                            },
+                        },
+                        {
+                            ...componentLib.wlcBonusesList.dashboardWide,
+                            display: {
+                                after: 1024,
+                            },
+                        },
+                    ],
+                    smartSection: {
+                        hostClasses: 'wlc-mb-xs wlc-mb-1630-lg',
+                        innerClasses: 'wlc-gap-smd',
+                        columns: [
+                            'wlc-c-12',
+                            'wlc-c-12',
+                        ],
+                    },
+                },
+            },
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'smart-dashboard__bottom',
+                    components: bottomLineComponents,
+                    smartSection: {
+                        hostClasses: 'wlc-mb-lg',
+                        innerClasses: 'wlc-gap-smd wlc-gap-1366-md',
+                        columns: bottomLineColumns,
+                    },
+                },
+            },
+        ],
+    };
+};
+
+/** Generates wolf dashboard layout config with/without deposit wager widget. Use smart sections */
+const generateDashboardWolf = (useDepositWager?: boolean): ILayoutSectionConfig => {
+    const componentsNoWager: ILayoutComponent[] = [
+        componentLib.wlcEnterPromocode.wolf,
+        componentLib.wlcSeeAllBonuses.wolf,
+    ];
+    const componentsWager: ILayoutComponent[] = [
+        componentLib.wlcEnterPromocode.wolf,
+        componentLib.wlcDepositWager.wolf,
+        componentLib.wlcSeeAllBonuses.wolf,
+    ];
+    const columnsNoWager: string[] = [
+        'wlc-c-12 wlc-c-640-6',
+        'wlc-c-12 wlc-c-640-6',
+    ];
+    const columnsWager: string[] = [
+        'wlc-c-12 wlc-c-640-6 wlc-c-1200-4',
+        'wlc-c-12 wlc-c-640-6 wlc-c-1200-4',
+        'wlc-c-12 wlc-c-768-6 wlc-c-1200-4',
+    ];
+    const bottomLineComponents: ILayoutComponent[] = useDepositWager ? componentsWager : componentsNoWager;
+    const bottomLineColumns: string[] = useDepositWager ? columnsWager : columnsNoWager;
+
+    return {
+        container: true,
+        theme: 'wolf',
+        usePreloader: true,
+        components: [
+            {
+                name: 'core.wlc-section-title',
+                params: {
+                    theme: 'wolf',
+                    text: 'Dashboard',
+                    iconPath: 'wlc/icons/european/v3/dashboard.svg',
+                },
+                display: {
+                    before: 899,
+                },
+            },
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__wrp',
+                    components: [
+                        componentLib.wlcProfileMenu.defTypeWolf,
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'smart-dashboard__top',
+                                components: [
+                                    componentLib.wlcDashboardLoyaltyBlock.wolf,
+                                    componentLib.wlcUserStats.wolf,
+                                ],
+                                smartSection: {
+                                    hostClasses: 'wlc-mb-lg',
+                                    innerClasses: 'wlc-gap-smd wlc-gap-768-md',
+                                    columns: [
+                                        'wlc-c-12 wlc-c-640-6',
+                                        'wlc-c-12 wlc-c-640-6',
+                                    ],
+                                },
+                            },
+                        },
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'smart-dashboard__bonuses',
+                                components: [
+                                    componentLib.wlcBonusesWolf.profileDashboardSlider,
+
+                                ],
+                                smartSection: {
+                                    hostClasses: 'wlc-mb-lg',
+                                },
+                            },
+                        },
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'smart-dashboard__bottom',
+                                components: bottomLineComponents,
+                                smartSection: {
+                                    hostClasses: 'wlc-mb-lg',
+                                    innerClasses: 'wlc-gap-smd wlc-gap-768-md',
+                                    columns: bottomLineColumns,
+                                },
+                            },
+                        },
+                    ],
+                },
+            },
+        ],
+    };
+};
+
 const generateProfileWolf = (): ILayoutSectionConfig => ({
     container: true,
     theme: 'wolf',
@@ -1399,6 +1634,13 @@ export namespace profileContent {
         ],
     });
 
+    export const profileDashboardWager: ILayoutSectionConfig = generateDashboard(true);
+    export const profileDashboardNoWager: ILayoutSectionConfig = generateDashboard(false);
+
+    export const wolfDashboardWager: ILayoutSectionConfig = generateDashboardWolf(true);
+    export const wolfDashboardNoWager: ILayoutSectionConfig = generateDashboardWolf(false);
+
+    /** TODO: replace that with new dashboard config */
     export const profileWolfDashboard: ILayoutSectionConfig = {
         container: true,
         theme: 'wolf',
@@ -1441,7 +1683,19 @@ export namespace profileContent {
                                 },
                             },
                         },
-                        componentLib.wlcBonusesWolf.profileDashboardSlider,
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-dashboard__middle',
+                                components: [
+                                    componentLib.wlcBonusesWolf.profileDashboardSlider,
+
+                                ],
+                                smartSection: {
+                                    hostClasses: 'wlc-mb-lg',
+                                },
+                            },
+                        },
                     ],
                 },
             },

@@ -21,7 +21,14 @@ import {ISliderNavigationCParams} from 'wlc-engine/modules/core/components/slide
 
 export type Type = 'default' | 'swiper' | CustomType;
 export type Theme = 'active' | 'default' | 'partial' | 'promo' | 'promo-home' | 'reg-first' | 'wolf' | CustomType;
-export type ThemeMod = 'default' | 'with-image' | 'with-ears' | 'wolf' | 'horizontal' | 'vertical' | CustomType;
+export type ThemeMod = 'default'
+    | 'with-image'
+    | 'with-ears'
+    | 'wolf'
+    | 'horizontal'
+    | 'vertical'
+    | 'wide'
+    | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;

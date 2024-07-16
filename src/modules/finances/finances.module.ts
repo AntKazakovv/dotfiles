@@ -27,6 +27,7 @@ import {ClearAmountButtonComponent}
     from './components/deposit-withdraw/components/clear-amount-button/clear-amount-button.component';
 import {WithdrawInfoComponent} from './components/withdraw-info/withdraw-info.component';
 import {WithdrawCancelWidgetComponent} from './components/withdraw-cancel-widget/withdraw-cancel-widget.component';
+import {DepWagerComponent} from './components/dep-wager/dep-wager.component';
 
 import {GlobalHelper} from 'wlc-engine/modules/core';
 import {financesConfig} from './system/config/finances.config';
@@ -51,6 +52,7 @@ export const components = {
     'wlc-deposit-promocode': DepositPromocodeComponent,
     'wlc-withdraw-info': WithdrawInfoComponent,
     'wlc-withdraw-cancel': WithdrawCancelWidgetComponent,
+    'wlc-dep-wager': DepWagerComponent,
 };
 
 export const services = {
@@ -80,6 +82,7 @@ export const services = {
         DepositPromocodeComponent,
         WithdrawInfoComponent,
         WithdrawCancelWidgetComponent,
+        DepWagerComponent,
     ],
     providers: [
         FinancesService,
@@ -89,6 +92,7 @@ export const services = {
         DepositWithdrawComponent,
         PaymentListComponent,
         WithdrawCancelWidgetComponent,
+        DepWagerComponent,
     ],
 })
 export class FinancesModule {

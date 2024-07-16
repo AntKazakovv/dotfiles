@@ -10,4 +10,6 @@ $themeDefault: map-merge((
     'mainTitleStyle': 'QoteTextBold',
     'secondTitleStyle': 'CaptionText',
     'titleMargin': 15px,
+
+    'mainTitleStyleModThird': 'ThirdTitleBold',
 ), $customThemeDefault);

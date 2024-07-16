@@ -15,4 +15,17 @@
             @include text.get-text-style(ef.get-value($themeDefault, 'secondTitleStyle'), ef.get-value($themeDefault, 'secondColor'));
         }
     }
+
+    &.wlc-title--theme-mod-third {
+
+        .wlc-title {
+
+            &__main {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'mainTitleStyleModThird'),
+                    null
+                );
+            }
+        }
+    }
 }
