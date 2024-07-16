@@ -133,9 +133,10 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
     }
 
     private prepareComponentTemplate(template: string): string {
-        return this.extractBodyFromString(new XMLSerializer().serializeToString(
+        const html = this.extractBodyFromString(new XMLSerializer().serializeToString(
             new DOMParser().parseFromString(template, 'text/html'),
         ));
+        return GlobalHelper.replaceBrackets(html);
     }
 
     private createScriptElements(): void {
@@ -157,12 +158,11 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
             ? GlobalHelper.parseHtmlSafely(this.html)
             : this.html;
 
-        // 17 angular
-        html = GlobalHelper.replaceBrackets(html);
-
-        return this.safeHtmlMode
+        html = this.safeHtmlMode
             ? this.domSanitizerService.sanitizeHtml(this.extractBodyFromString(html))
             : this.extractBodyFromString(html);
+
+        return GlobalHelper.replaceBrackets(html);
     }
 
     private extractBodyFromString(html: string): string {

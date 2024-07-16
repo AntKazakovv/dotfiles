@@ -49,7 +49,7 @@ export class SanitizingHtmlSerializer {
 
         while (current) {
             if (this.skipTag(current.nodeName.toLowerCase())) {
-                current = null;
+                current = this.checkClobberedElement(current, current.nextSibling as HTMLElement);
                 this.sanitizedSomething = true;
                 continue;
             }
@@ -124,7 +124,7 @@ export class SanitizingHtmlSerializer {
     private endElement(element): void {
         const tagName = element.nodeName.toLowerCase();
 
-        if (!_includes(['body', 'html'], tagName)) {
+        if (!_includes(['body', 'html', 'br'], tagName)) {
             this.buf.push(`</${tagName}>`);
         }
     }
