@@ -141,6 +141,8 @@ export class SliderComponent extends AbstractComponent
     public ngAfterViewInit(): void {
         if (this.$params.useStartTimeout) {
             setTimeout(() => {
+                this.initEmptySlidesCount();
+                this.fixSlidesSequence();
                 this.afterViewInit();
             }, 0);
         } else {
