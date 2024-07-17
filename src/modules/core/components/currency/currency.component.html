@@ -7,7 +7,7 @@
         <ng-container *ngIf="isNegative && !icon.minusBeforeCurrency">-</ng-container>
     </ng-container>
     <ng-container *ngIf="!isError; else error">
-        <ng-container *ngIf="$params.useCurrencyIcon || useCurrencyIcon; else displayValueTmp">
+        <ng-container *ngIf="$params.useCurrencyIcon || useCurrencyIcon; else displayValueTpl">
             <ng-container *ngTemplateOutlet="withCurrencyIcon;"></ng-container>
         </ng-container>
     </ng-container>
@@ -50,6 +50,4 @@
     </div>
 </ng-template>
 
-<ng-template #displayValueTmp>
-    {{displayValue}}
-</ng-template>
+<ng-template #displayValueTpl>{{displayValue}}</ng-template>
