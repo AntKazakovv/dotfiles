@@ -68,7 +68,7 @@ export class UserHelper {
             modifier: 'confirmation',
             hideIcon: true,
             showConfirmBtn: true,
-            confirmBtnText: gettext('Ok'),
+            confirmBtnText: gettext('OK'),
             rejectBtnVisibility: false,
             modalMessage: [
                 modalMessage,

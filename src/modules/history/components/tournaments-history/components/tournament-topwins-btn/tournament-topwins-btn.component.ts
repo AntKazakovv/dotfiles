@@ -63,7 +63,7 @@ export class TournamentTopwinsBtnComponent extends AbstractComponent implements 
                     useListHead: true,
                 },
             },
-            closeBtnText: gettext('Ok'),
+            closeBtnText: gettext('OK'),
             scrollable: false,
             wlcElement: 'tournament_wins_history',
             size: this.$params.tournament.target === 'bonus' ? 'md-extra' : 'md',

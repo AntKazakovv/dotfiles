@@ -80,7 +80,7 @@ export const defaultParams: IGamblingBanModalParams = {
         confirm: {
             button: {
                 theme: 'default',
-                common: {text: gettext('Ok')},
+                common: {text: gettext('OK')},
             },
         },
         signOut: {

@@ -193,7 +193,7 @@ export class VerificationService {
             modifier: 'document-description',
             size: 'md',
             showConfirmBtn: true,
-            confirmBtnText: 'Ok',
+            confirmBtnText: 'OK',
             rejectBtnVisibility: false,
             modalTitle: docGroup.name,
             html: docGroup.fullDescription,

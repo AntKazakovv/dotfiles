@@ -273,7 +273,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
             modifier: 'info',
             componentName: 'multi-wallet.wlc-filters',
             componentParams: this.filtersParams,
-            confirmBtnText: gettext('Ok'),
+            confirmBtnText: gettext('OK'),
             rejectBtnVisibility: false,
             textAlign: 'center',
             showConfirmBtn: false,

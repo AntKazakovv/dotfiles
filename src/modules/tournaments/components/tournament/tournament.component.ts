@@ -287,7 +287,7 @@ export class TournamentComponent extends AbstractComponent implements OnInit {
             case 'leave':
                 return gettext('Leave');
             case 'deposit':
-                return gettext('Ok!');
+                return gettext('OK');
         }
     }
 

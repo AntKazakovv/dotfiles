@@ -448,7 +448,7 @@ export class NotificationService {
                 this.createNotificationMetadata(id),
             ),
             modalTitle: params.modalTitle,
-            closeBtnText: gettext('Ok'),
+            closeBtnText: gettext('OK'),
             size: 'md',
         });
     }

@@ -1576,7 +1576,7 @@ export class UserService {
             textAlign: 'center',
             rejectBtnVisibility: false,
             showConfirmBtn: true,
-            confirmBtnText: gettext('Ok'),
+            confirmBtnText: gettext('OK'),
             closeBtnVisibility: false,
             dismissAll: true,
             backdrop: 'static',
