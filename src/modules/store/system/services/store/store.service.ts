@@ -10,11 +10,9 @@ import {
     Subscription,
     Observable,
     pipe,
+    firstValueFrom,
 } from 'rxjs';
-import {
-    first,
-    takeUntil,
-} from 'rxjs/operators';
+import {takeUntil} from 'rxjs/operators';
 import _filter from 'lodash-es/filter';
 import _get from 'lodash-es/get';
 import _toString from 'lodash-es/toString';
@@ -249,7 +247,7 @@ export class StoreService {
 
         const store: IStore = !this.store$.getValue()
             ? await this.getStore(true)
-            : await this.store$.pipe(first()).toPromise();
+            : await firstValueFrom(this.store$);
 
         return _find(store.categories, (category: StoreCategory): boolean => {
             return category.id === categoryId;
@@ -290,7 +288,9 @@ export class StoreService {
             });
         }
 
-        queryStore.categories = this.storeCategories || await this.getCategories();
+        queryStore.categories = this.storeCategories.length > 0
+            ? this.storeCategories
+            : await this.getCategories();
 
         return queryStore;
     }
