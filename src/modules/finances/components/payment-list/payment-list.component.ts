@@ -456,7 +456,20 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         this.setPaymentsIconsList();
 
         if (this.useTags) {
-            this.systems$.next(this.systems.filter((val) => val.tags.includes(this.tagsControl.value)));
+            let tagSystems: PaymentSystem[] = this.systems.filter((val) => val.tags.includes(this.tagsControl.value));
+
+            if (!tagSystems.length && this.systems.length) {
+                const firstTag: TPaySystemTagAll = this.systems.find((val) => val.tags.length)?.tags[0];
+
+                if (firstTag) {
+                    this.setActiveTag(firstTag);
+                    tagSystems = this.systems.filter((val) => val.tags.includes(this.tagsControl.value));
+                } else {
+                    tagSystems = this.systems;
+                }
+            }
+
+            this.systems$.next(tagSystems);
             this.setPaymentCategories();
         } else {
             this.systems$.next(this.systems);
