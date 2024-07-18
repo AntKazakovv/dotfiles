@@ -14,7 +14,11 @@ class WlcTemplateReplacePlugins {
             resource.request.replace(/\?.+$/, ''),
         );
 
-        if (!originStylePath || !_includes(originStylePath, '/wlc-engine/modules/') || /^_/.test(originStylePath)) {
+        if (!originStylePath
+            || /^_/.test(originStylePath)
+            || (!_includes(originStylePath, '/wlc-engine/modules/')
+                && !_includes(originStylePath, '/wlc-engine/standalone/'))
+        ) {
             return;
         }
 
