@@ -99,7 +99,8 @@ export class AddProfileInfoComponent extends ProfileFormAbstract implements OnIn
         });
 
         if (response.status === 'success') {
-            this.modalService.closeAllModals();
+            this.modalService.hideModal('data-is-processing');
+            this.modalService.hideModal('add-profile-info');
 
             if (this.$params.redirect?.success) {
                 this.stateService.go(this.$params.redirect.success.to, this.$params.redirect.success.params);

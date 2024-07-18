@@ -65,7 +65,7 @@ export abstract class AbstractDepositWithdrawComponent<T extends {mode: TPayment
                 formConfig: this.profileForm,
             },
             showFooter: false,
-            dismissAll: true,
+            dismissAll: false,
             backdrop: 'static',
         });
     }

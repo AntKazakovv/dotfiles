@@ -261,6 +261,8 @@ export class PaymentFormComponent
                         this.initCommissions();
                         this.updateFormConfig();
                     }
+
+                    this.checkUserProfileForPayment();
                 }
             });
 
