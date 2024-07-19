@@ -78,9 +78,10 @@ declare type CSSStyleStringProps = keyof StringProps<CSSStyleDeclaration>;
 export type ScrollPositionType = 'start' | 'end' | 'center' | 'nearest';
 
 export interface IScrollOptions {
-    position: ScrollPositionType;
+    position?: ScrollPositionType;
     offsetY?: number;
     inline?: ScrollPositionType;
+    smooth?: boolean;
 }
 
 export interface IScrollSmoothlyOptions {
@@ -334,11 +335,13 @@ export class ActionService {
      * @param {IScrollOptions} scroll options
      */
     public scrollTo(elem?: string | HTMLElement, options?: IScrollOptions): void {
+        const scrollBehavior = options?.smooth === false ? 'auto' : 'smooth';
+
         setTimeout((): void => {
             if (!elem) {
                 this.window.scrollTo({
                     top: 0,
-                    behavior: 'smooth',
+                    behavior: scrollBehavior,
                 });
                 return;
             }
@@ -357,7 +360,7 @@ export class ActionService {
                 this.setScrollingOffset(element);
 
                 element.scrollIntoView({
-                    behavior: 'smooth',
+                    behavior: scrollBehavior,
                     block: options?.position || 'start',
                     inline: options?.inline || 'nearest',
                 });

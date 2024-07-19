@@ -530,7 +530,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
             this.getAllSections();
             this.updateSections();
             if (!this.configService.get<boolean>('$base.app.demoMode')) {
-                this.actionService.scrollTo();
+                this.actionService.scrollTo(null, {smooth: false});
             }
 
             setTimeout(() => {
