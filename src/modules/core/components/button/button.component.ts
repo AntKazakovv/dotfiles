@@ -262,7 +262,9 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
                 break;
 
             case 'click':
-                this.subscribeStopAnimationOnClick();
+                if (this.$params.common.animation.duration === 'interrupt') {
+                    this.subscribeStopAnimationOnClick();
+                }
                 break;
         }
     }

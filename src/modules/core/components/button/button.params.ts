@@ -9,6 +9,7 @@ import {
 import {
     TAnimationType,
     TAnimateButtonHandler,
+    TAnimationDuration,
 } from 'wlc-engine/modules/core/system/interfaces/animate-buttons.interface';
 import {IIndexing} from 'wlc-engine/modules/core';
 
@@ -25,6 +26,8 @@ export type Modifiers = AutoModifiers | CustomMod | null;
 export type TButtonAnimation = {
     /** Animation type */
     type: TAnimationType;
+    /** Animation duration */
+    duration?: TAnimationDuration;
     /** Button animate handler type */
     handlerType: TAnimateButtonHandler;
 }

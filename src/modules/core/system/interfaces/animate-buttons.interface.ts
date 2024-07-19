@@ -2,6 +2,8 @@ import {CustomType} from 'wlc-engine/modules/core/system/classes/abstract.compon
 
 export type TAnimationType = 'pulse' | 'glare' | CustomType;
 
+export type TAnimationDuration = 'interrupt';
+
 export type TAnimateButtonHandler = 'deposit' | 'click';
 
 export type TAnimateButtonHandlerOnService = Exclude<TAnimateButtonHandler, 'click'>;
