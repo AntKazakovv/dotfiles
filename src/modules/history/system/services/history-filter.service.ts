@@ -57,6 +57,7 @@ export class HistoryFilterService {
         mails: {
             startDate: null,
             endDate: null,
+            filterValue: 'all',
         },
     };
 

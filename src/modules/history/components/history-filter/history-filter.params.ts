@@ -9,6 +9,7 @@ import {
     bonusesConfig,
     startDate,
     endDate,
+    internalMailsConfig,
 } from 'wlc-engine/modules/history/system/config/history.config';
 import {
     IComponentParams,
@@ -260,6 +261,10 @@ export namespace formConfig {
             {
                 name: 'core.wlc-datepicker',
                 params: endDate,
+            },
+            {
+                name: 'core.wlc-select',
+                params: internalMailsConfig.filterSelect,
             },
             {
                 name: 'core.wlc-button',

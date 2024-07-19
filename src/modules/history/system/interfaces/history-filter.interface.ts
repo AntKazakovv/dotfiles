@@ -4,6 +4,7 @@ import {TSortDirection} from 'wlc-engine/modules/core';
 
 export type TTransactionFilter = 'all' | 'deposit' | 'withdraw' | 'transfer' | 'commission';
 export type TTournamentsFilter = 'all' | '-95' | '-99' | '99' | '100' | '0' | '1';
+export type TInternalMailFilter = 'all' | 'new' | 'readed';
 export const TBonusFilter: Record<string, string> = {
     'all': 'all',
     '-100': 'Expired',

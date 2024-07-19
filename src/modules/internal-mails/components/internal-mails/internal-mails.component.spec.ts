@@ -27,6 +27,7 @@ import {
     InternalMailsService,
 } from 'wlc-engine/modules/internal-mails/system/services/internal-mails/internal-mails.service';
 import {InternalMailsComponent} from './internal-mails.component';
+import {SelectComponent} from 'wlc-engine/modules/core/components/select/select.component';
 
 import * as Params from './internal-mails.params';
 
@@ -86,6 +87,7 @@ describe('InternalMailsComponent', (): void => {
                 return new BehaviorSubject({
                     startDate: DateTime.local(),
                     endDate: DateTime.local().endOf('day'),
+                    filterValue: 'all',
                 });
             },
         };
@@ -106,6 +108,7 @@ describe('InternalMailsComponent', (): void => {
                 MockComponent(TableComponent),
                 MockComponent(DatepickerComponent),
                 MockComponent(HistoryRangeComponent),
+                MockComponent(SelectComponent),
             ],
             providers: [
                 {provide: InternalMailsService, useValue: internalMailsServiceStub},
@@ -197,7 +200,6 @@ describe('InternalMailsComponent', (): void => {
 
         actionServiceStub.deviceTypeSubject.next(DeviceType.Mobile);
         flushMicrotasks();
-
         expect(nativeElement.querySelectorAll('[wlc-datepicker]').length).toBe(0);
     }));
 });

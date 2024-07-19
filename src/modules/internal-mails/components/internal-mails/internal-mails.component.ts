@@ -29,12 +29,15 @@ import {
     IDatepickerCParams,
     ActionService,
     DeviceType,
+    ISelectCParams,
 } from 'wlc-engine/modules/core';
 import {
     startDate,
     endDate,
     IHistoryFilter,
     HistoryFilterService,
+    internalMailsConfig,
+    TInternalMailFilter,
 } from 'wlc-engine/modules/history';
 import {
     InternalMailsService,
@@ -54,9 +57,11 @@ export class InternalMailsComponent extends AbstractComponent implements OnInit 
     public showFilter: boolean = false;
     public startDateInput: IDatepickerCParams = _cloneDeep(startDate);
     public endDateInput: IDatepickerCParams = _cloneDeep(endDate);
+    public filterSelect: ISelectCParams<TInternalMailFilter> = _cloneDeep(internalMailsConfig.filterSelect);
     public tableData: ITableCParams;
     protected startDate: DateTime = DateTime.local();
     protected endDate: DateTime = DateTime.local().endOf('day');
+    protected filterValue: TInternalMailFilter = 'all';
     protected internalMails$: BehaviorSubject<InternalMailModel[]> = new BehaviorSubject([]);
     protected allMails: InternalMailModel[] = [];
 
@@ -92,7 +97,8 @@ export class InternalMailsComponent extends AbstractComponent implements OnInit 
     protected filterMails(): InternalMailModel[] {
         return _filter(this.allMails, (item: InternalMailModel): boolean => {
             return DateTime.fromSQL(item.dateISO, {zone: 'utc'}) >= this.startDate
-                && DateTime.fromSQL(item.dateISO, {zone: 'utc'}) <= this.endDate;
+                && DateTime.fromSQL(item.dateISO, {zone: 'utc'}) <= this.endDate
+                && (item.status === this.filterValue || this.filterValue === 'all');
         });
     }
 
@@ -128,6 +134,7 @@ export class InternalMailsComponent extends AbstractComponent implements OnInit 
         this.historyFilterService.setAllFilters('mails', {
             startDate: this.startDate,
             endDate: this.endDate,
+            filterValue: this.filterValue,
         });
         this.tableData = {
             head: Params.internalMailsTableHeadConfig,
@@ -169,9 +176,10 @@ export class InternalMailsComponent extends AbstractComponent implements OnInit 
                 filter((data: IHistoryFilter): boolean => !!data),
                 takeUntil(this.$destroy),
             )
-            .subscribe((data: IHistoryFilter): void => {
+            .subscribe((data: IHistoryFilter<TInternalMailFilter>): void => {
                 this.startDateInput.control.setValue(this.startDate = data.startDate);
                 this.endDateInput.control.setValue(this.endDate = data.endDate);
+                this.filterSelect.control.setValue(this.filterValue = data.filterValue);
                 this.setMinMaxDate();
 
                 this.internalMails$.next(this.filterMails());
@@ -207,6 +215,17 @@ export class InternalMailsComponent extends AbstractComponent implements OnInit 
             )
             .subscribe((endDate: DateTime): void => {
                 this.historyFilterService.setFilter('mails', {endDate: this.endDate = endDate});
+                this.internalMails$.next(this.filterMails());
+            });
+
+        this.filterSelect.control.valueChanges
+            .pipe(
+                filter((value: TInternalMailFilter): boolean => this.filterValue !== value),
+                takeWhile(() => this.showFilter),
+                takeUntil(this.$destroy),
+            )
+            .subscribe((value: TInternalMailFilter): void => {
+                this.historyFilterService.setFilter('mails', {filterValue: this.filterValue = value});
                 this.internalMails$.next(this.filterMails());
             });
     }

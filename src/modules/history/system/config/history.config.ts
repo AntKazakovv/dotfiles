@@ -4,6 +4,7 @@ import {IDatepickerCParams} from 'wlc-engine/modules/core/components/datepicker/
 import {ISelectCParams} from 'wlc-engine/modules/core/components/select/select.params';
 import {
     TBonusFilter,
+    TInternalMailFilter,
     TTournamentsFilter,
     TTransactionFilter,
 } from 'wlc-engine/modules/history/system/interfaces/history-filter.interface';
@@ -209,6 +210,32 @@ export namespace bonusesConfig {
             {
                 value: '2',
                 title: gettext('Inventoried'),
+            },
+        ],
+    };
+}
+
+export namespace internalMailsConfig {
+    export const filterSelect: ISelectCParams<TInternalMailFilter> = {
+        name: 'filterValue',
+        common: {
+            placeholder: gettext('Sort by'),
+        },
+        theme: 'vertical',
+        labelText: gettext('Sort by'),
+        control: new UntypedFormControl('all'),
+        items: [
+            {
+                value: 'all',
+                title: gettext('All'),
+            },
+            {
+                value: 'new',
+                title: gettext('Not seen'),
+            },
+            {
+                value: 'readed',
+                title: gettext('Seen'),
             },
         ],
     };
