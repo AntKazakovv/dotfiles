@@ -72,7 +72,7 @@
             <ng-container [ngTemplateOutlet]="gameName"></ng-container>
             <button *ngIf="gameParams?.demo"
                     wlc-button
-                    text="Play for real"
+                    text="{{'Play for real' | translate}}"
                     (click)="playForReal()">
             </button>
         </div>

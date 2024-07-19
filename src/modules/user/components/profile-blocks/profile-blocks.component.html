@@ -151,7 +151,7 @@
 
 <ng-template #enable>
     <button wlc-button
-        text="Enable"
+        text="{{'Enable' | translate}}"
         wlcElement="button_google-auth"
         iconPath="/wlc/icons/icons_new/arrow.svg"
         [disabled]="lockLink"
@@ -162,7 +162,7 @@
 
 <ng-template #disable>
     <button wlc-button
-        text="Disable"
+        text="{{'Disable' | translate}}"
         themeMod="secondary"
         wlcElement="button_google-auth"
         iconPath="/wlc/icons/icons_new/arrow.svg"
