@@ -93,6 +93,17 @@
 
         &::ng-deep {
 
+            .wlc-header {
+
+                &__left,
+                &__right {
+
+                    > * {
+                        @include bm.get-mq-map('margin', $themeUniversal, 'headerGridGapWolf');
+                    }
+                }
+            }
+
             .wlc-logo {
                 width: ef.get-value($themeUniversal, 'searchWidthLogoWolf');
                 margin-right: calc(var(--h-gap) * 0.5);
