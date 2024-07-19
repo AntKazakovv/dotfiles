@@ -93,6 +93,7 @@ export const defaultParams: ITournamentDetailCParams = {
         },
         themeMod: 'tournament-detail',
         thumbParams: {},
+        openContext: 'tournament',
     },
     useAnchorsMenu: false,
 };

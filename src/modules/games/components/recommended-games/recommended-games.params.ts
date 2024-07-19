@@ -45,5 +45,6 @@ export const defaultParams: IRecommendedGamesCParams = {
                 gamesRows: 1,
             },
         },
+        openContext: 'zing-pop-up-similar-games',
     },
 };

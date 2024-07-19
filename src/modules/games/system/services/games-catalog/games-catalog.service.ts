@@ -71,6 +71,7 @@ import {ActionService} from 'wlc-engine/modules/core/system/services/action/acti
 import {
     IGames,
     IJackpot,
+    TOpenContext,
 } from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {Catalog} from 'wlc-engine/modules/games/system/classes/catalog';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
@@ -127,6 +128,9 @@ import {Games} from 'wlc-engine/modules/games/system/classes/games';
 import {GameLauncherService} from 'wlc-engine/modules/games/system/services/game-launcher/game-launcher.service';
 import {ISelectedWallet} from 'wlc-engine/modules/multi-wallet/system/interfaces';
 import {WalletsService} from 'wlc-engine/modules/multi-wallet/system/services';
+import {
+    zingBrainCategoryMap,
+} from 'wlc-engine/modules/games/system/constants/recommended-games.constants';
 
 export interface ILaunchGameModal {
     show: boolean;
@@ -139,6 +143,7 @@ export interface ILaunchGameModal {
 export interface ILaunchGameParams {
     demo?: boolean;
     modal?: ILaunchGameModal;
+    openContext?: TOpenContext;
 }
 
 export interface IVideoThumbsConfig {
@@ -1234,6 +1239,13 @@ export class GamesCatalogService {
                     (disableDemo || !game.hasDemo) ? true : params.modal.disableDemo,
                     params.modal.showPplInfo,
                 );
+
+                if (this.configService.get('$games.categories.useRecommended')
+                    && this.configService.get('$user.isAuthenticated')
+                ) {
+                    this.sendRecommendedStat(game, params.openContext);
+                }
+
                 return;
             }
 
@@ -1251,6 +1263,12 @@ export class GamesCatalogService {
                     message: gettext('Sorry, something went wrong!'),
                 },
             });
+        }
+
+        if (this.configService.get('$games.categories.useRecommended')
+            && this.configService.get('$user.isAuthenticated')
+        ) {
+            this.sendRecommendedStat(game, params.openContext);
         }
     }
 
@@ -1422,6 +1440,13 @@ export class GamesCatalogService {
         });
 
         this.dataService.registerMethod({
+            name: 'recommendedStat',
+            system: 'games',
+            url: '/recommendations',
+            type: 'POST',
+        });
+
+        this.dataService.registerMethod({
             name: 'defaultThumbsConfig',
             system: 'games',
             cache: 480 * 60 * 1000,
@@ -1459,23 +1484,30 @@ export class GamesCatalogService {
     ): Promise<Game[]> {
         if (this.configService.get('$user.isAuthenticated')) {
             try {
+                const isRecommendations = requestUrl === 'recommendations';
                 const data: IData = await this.dataService.request(`games/${requestUrl}`, requestParams);
-                const gamesDate: T[] = (requestUrl === 'recommendations') ? data.data.values : data.data;
+                const gamesDate: T[] = isRecommendations ? data.data.values : data.data;
                 const gameIds: number[] = _map(gamesDate, (gameInfo: T) => {
                     return _toNumber(getterProperty(gameInfo));
                 });
                 let games: Game[] = (gameIds.length) ? this.getGameList({ids: gameIds}) : [];
                 const category: CategoryModel = this.getCategoryBySlug(SpecialCategoriesGamesSlug[requestUrl]);
 
-                if (requestUrl === 'recommendations') {
-                    const gamesScore = _reduce<IRecommendedGame, IIndexing<number>>(
-                    gamesDate as IRecommendedGame[],
-                    (result, value) => {
-                        result[value.gameId] = value.score;
-                        return result;
-                    }, {});
+                if (isRecommendations) {
+                    const gamesInfo = _reduce<IRecommendedGame, IIndexing<IRecommendedGame>>(
+                        gamesDate as IRecommendedGame[],
+                        (result, value) => {
+                            result[value.gameId] = value;
+                            return result;
+                        },{},
+                    );
+
+                    for (const game of games) {
+                        game.recommendationId = gamesInfo[game.ID].recommendationId;
+                    }
+
                     games = _orderBy(games, function (game: Game) {
-                        return gamesScore[game.ID];
+                        return gamesInfo[game.ID].score;
                     }, 'desc');
                 }
                 category?.setGames(games);
@@ -1491,6 +1523,20 @@ export class GamesCatalogService {
                     },
                 });
             }
+        }
+    }
+
+    public async sendRecommendedStat(game: Game, openContext: string): Promise<void> {
+        const categoryContext = zingBrainCategoryMap[openContext] ?? openContext;
+        try {
+            await this.dataService.request('games/recommendedStat', {
+                gameId: game.ID,
+                merchantId: game.merchantID,
+                category: categoryContext,
+                recommendationId: game.recommendationId || '',
+            });
+        } catch (error) {
+            this.logService.sendLog({code: '3.0.32', data: error});
         }
     }
 

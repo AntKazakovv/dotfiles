@@ -16,6 +16,7 @@ import {
     IGamesFilterData,
     IGameThumbCParams,
     IProgressBarCParams,
+    TOpenContext,
 } from 'wlc-engine/modules/games';
 import {
     ITournamentGames,
@@ -281,6 +282,10 @@ export interface IGamesGridCParams extends IComponentParams<ComponentTheme, Comp
      */
     updateGridAfterFiltering?: boolean;
     intersectingMargin?: string;
+    /**
+     * Context of open games grid
+     */
+    openContext?: TOpenContext;
 }
 
 export const defaultParams: IGamesGridCParams = {

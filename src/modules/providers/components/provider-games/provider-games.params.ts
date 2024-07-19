@@ -50,6 +50,7 @@ export const defaultParams: IProviderGamesCParams = {
             lazyTimeout: 1000,
             scrollToEnd: false,
         },
+        openContext: 'provider-games',
     },
     gamesGridAllParams: {
         usePlaceholders: true,
@@ -63,6 +64,7 @@ export const defaultParams: IProviderGamesCParams = {
             lazyTimeout: 1000,
             scrollToEnd: false,
         },
+        openContext: 'provider-games',
     },
     iconType: 'black',
 };

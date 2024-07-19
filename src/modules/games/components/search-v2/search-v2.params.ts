@@ -183,6 +183,7 @@ export const defaultParams: ISearchCParams = {
                 filter: {
                     categories: ['popular'],
                 },
+                openContext: 'search',
                 thumbParams,
                 showAsSwiper,
             },
@@ -204,6 +205,7 @@ export const defaultGamesGridParams: IGamesGridCParams = {
         hide: false,
         lazy: false,
     },
+    openContext: 'search',
     breakpoints: {
         375: {
             gamesRows: 4,

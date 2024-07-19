@@ -33,6 +33,7 @@ export const defaultParams: ILocalJackpotsCParams = {
     gamesGridParams: {
         gamesRows: 2,
         showProgressBar: true,
+        openContext: 'local-jackpots',
     },
     animateOnClick: false,
     countUpOptions: {

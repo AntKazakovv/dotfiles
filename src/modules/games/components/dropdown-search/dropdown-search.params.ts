@@ -43,5 +43,6 @@ export const defaultParams: IDropdownSearchCParams = {
             type: 'horizontal',
             theme: 'horizontal',
         },
+        openContext: 'dropdown-search',
     },
 };

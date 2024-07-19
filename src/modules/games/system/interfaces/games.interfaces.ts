@@ -25,6 +25,21 @@ export type TDisableDemoFor = 'all' | 'auth';
 /** Games sorting feature  */
 export type TGameSortFeature = 'sortPerCountry' | 'sortPerLanguage' | 'sortPerCategory';
 
+/** Games sorting feature  */
+export type TOpenContext = 'main-recommended'
+    | 'new'
+    | 'for-you-similar'
+    | 'zing-pop-up-similar-games'
+    | 'local-jackpots'
+    | 'dropdown-search'
+    | 'house-games'
+    | 'similar-recommended'
+    | 'search'
+    | 'total-jackpot'
+    | 'jackpot-banner'
+    | 'provider-games'
+    | 'tournament';
+
 export interface IGamesConfig {
     /**
      * Option to set the directory architecture in the project.

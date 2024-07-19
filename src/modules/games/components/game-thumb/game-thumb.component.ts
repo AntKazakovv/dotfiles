@@ -341,7 +341,6 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
             this.addModifiers('with-jackpot');
         }
     }
-
     /**
      * Start game
      *
@@ -358,6 +357,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
                 showPplInfo: this.hasPragmaticDGA,
                 gameThumbThemeMod: this.$params.themeMod,
             },
+            openContext: this.$params.openContext,
         });
     }
 

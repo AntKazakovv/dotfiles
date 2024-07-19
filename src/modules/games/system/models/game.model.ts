@@ -65,6 +65,7 @@ export class Game extends AbstractModel<IGame> {
     private static _enabledMerchants: MerchantModel[];
     private _selectedCurrency: string;
     private _isRestricted: boolean = false;
+    private _recommendationId: string;
 
     constructor(
         from: IFromLog,
@@ -131,6 +132,14 @@ export class Game extends AbstractModel<IGame> {
 
     public get jackpotAmount(): IGameJackpotAmount {
         return this._jackpotAmount;
+    }
+
+    public set recommendationId(recommendationId: string) {
+        this._recommendationId = recommendationId;
+    }
+
+    public get recommendationId(): string {
+        return this._recommendationId;
     }
 
     /**

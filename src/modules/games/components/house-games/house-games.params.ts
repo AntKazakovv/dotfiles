@@ -69,5 +69,6 @@ export const defaultParams: IHouseGamesCParams = {
                 },
             },
         },
+        openContext: 'house-games',
     },
 };

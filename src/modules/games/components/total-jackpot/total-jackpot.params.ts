@@ -132,6 +132,7 @@ export const defaultParams: ITotalJackpotCParams = {
         thumbParams: {
             showJackpotAmount: true,
         },
+        openContext: 'total-jackpot',
     },
     noJackpotBtn: {
         event: {

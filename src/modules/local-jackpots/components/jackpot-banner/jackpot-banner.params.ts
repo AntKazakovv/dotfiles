@@ -88,5 +88,6 @@ export const defaultParams: Partial<IJackpotBannerCParams> = {
                 },
             },
         },
+        openContext: 'local-jackpots',
     },
 };

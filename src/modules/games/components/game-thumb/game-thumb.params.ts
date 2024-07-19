@@ -5,7 +5,10 @@ import {
     TIconShowAs,
     TIconColorBg,
 } from 'wlc-engine/modules/core';
-import {Game} from 'wlc-engine/modules/games';
+import {
+    Game,
+    TOpenContext,
+} from 'wlc-engine/modules/games';
 import * as ButtonParams from 'wlc-engine/modules/core/components/button/button.params';
 import {ITagCParams} from 'wlc-engine/modules/core/components/tag/tag.params';
 
@@ -151,6 +154,10 @@ export interface IGameThumbCParams extends IComponentParams<Theme, Type, ThemeMo
      */
     showJackpotAmount?: boolean;
     favouriteButton?: IFavouriteButton;
+    /**
+     * Context of open game
+     */
+    openContext?: TOpenContext;
 }
 
 export const defaultParams: IGameThumbCParams = {

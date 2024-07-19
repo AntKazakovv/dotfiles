@@ -202,6 +202,7 @@ export const defaultGamesGridParams: IGamesGridCParams = {
     byState: true,
     hideEmpty: false,
     showProgressBar: true,
+    openContext: 'search',
     moreBtn: {
         hide: false,
         lazy: false,

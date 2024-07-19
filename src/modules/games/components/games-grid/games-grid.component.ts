@@ -380,10 +380,18 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
     }
 
     protected prepareThumbParams(): void {
+        this.$params.thumbParams = this.$params.thumbParams ?? {};
 
         if (this.configService.get<boolean>('$base.games.jackpots.useRealJackpots')) {
             _set(this.$params, 'thumbParams.showJackpotAmount', true);
         }
+
+        if (this.$params.openContext) {
+            _set(this.$params.thumbParams, 'openContext', this.$params.openContext);
+        } else if (this.$params.filter?.categories.length == 1) {
+            _set(this.$params.thumbParams, 'openContext', this.$params.filter.categories[0]);
+        }
+
         this.$params.thumbParams = _cloneDeep(this.$params.thumbParams);
     }
 

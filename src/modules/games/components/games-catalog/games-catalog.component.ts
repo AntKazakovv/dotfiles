@@ -71,14 +71,16 @@ export class GamesCatalogComponent extends AbstractComponent implements OnInit {
     }
 
     protected async initView(): Promise<void> {
+        const grids: IGamesGridCParams[] = [];
+        const category: CategoryModel = this.gamesCatalogService.getChildCategoryByState()
+            || this.gamesCatalogService.getParentCategoryByState();
+
         this.isReady = false;
         this.gameGrids = [];
 
         await this.gamesCatalogService.ready;
 
         if (this.$params.showAllCategories) {
-            const grids: IGamesGridCParams[] = [];
-
             _forEach(this.gamesCatalogService.getCategories(), (category: CategoryModel): void => {
                 if (!category.games.length) {
                     return;
@@ -116,13 +118,9 @@ export class GamesCatalogComponent extends AbstractComponent implements OnInit {
             this.gameGrids = grids;
 
         } else if (this.gamesCatalogService.getFundistCategorySettings()) {
-            const category: CategoryModel = this.gamesCatalogService.getChildCategoryByState()
-                || this.gamesCatalogService.getParentCategoryByState();
 
             await category?.isReady;
-
             if (category?.gameBlocks.length) {
-                const grids: IGamesGridCParams[] = [];
                 const gameBlocks = (category.view === 'restricted-blocks')
                     ? _orderBy(
                         category.gameBlocks, (gameBlock: IGameBlock) => _get(gameBlock, 'settings.order'),
@@ -152,6 +150,7 @@ export class GamesCatalogComponent extends AbstractComponent implements OnInit {
                             cardView: cardView,
                         },
                         category: gameBlock.category,
+                        openContext: gameBlock.category.slug + ' | ' + category.slug,
                         progressBar: {
                             prefixText: '',
                         },
@@ -187,9 +186,20 @@ export class GamesCatalogComponent extends AbstractComponent implements OnInit {
 
                     grids.push(gridParams);
                 });
-
-                this.gameGrids = grids;
+            } else {
+                const gridParams: IGamesGridCParams = _merge(_cloneDeep(this.$params.gamesGridParams), {
+                    openContext: category.slug,
+                });
+                grids.push(gridParams);
             }
+
+            this.gameGrids = grids;
+        } else {
+            const gridParams: IGamesGridCParams = _merge(_cloneDeep(this.$params.gamesGridParams), {
+                openContext: category.slug,
+            });
+            grids.push(gridParams);
+            this.gameGrids = grids;
         }
         this.isReady = true;
         this.cdr.markForCheck();

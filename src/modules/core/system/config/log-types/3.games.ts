@@ -110,4 +110,8 @@ export const errorTypes: ILogTypes = {
     '3.0.31': {
         // Catalog has game with unknown category
     },
+    '3.0.32': {
+        // Error on send stat by recommended games
+        level: 'fatal',
+    },
 };
