@@ -159,6 +159,7 @@ export namespace wlcTitle {
     export const bonuses: ILayoutComponent = {
         name: 'core.wlc-title',
         params: {
+            theme: 'default',
             customMod: ['profile'],
             mainText: gettext('Bonuses'),
             wlcElement: 'header_bonuses',
