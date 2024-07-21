@@ -370,7 +370,7 @@ export class ConfigService {
             appConfig.$base.defaultCurrency = this.global.appConfig.siteconfig.currencies[0]?.Alias || 'EUR';
         }
 
-        if (appConfig.$base.finances.lastWithdrawCancelWidget) {
+        if (appConfig.$base.finances?.lastWithdrawCancelWidget) {
             this.attachCancelLastWithdrawWidget();
         }
 
