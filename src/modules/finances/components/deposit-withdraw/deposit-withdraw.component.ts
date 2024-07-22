@@ -557,9 +557,10 @@ export class DepositWithdrawComponent
 
             const bonusesService = await this.injectionService
                 .getService<BonusesService>('bonuses.bonuses-service');
-            const bonusesSubscription = bonusesService.getSubscribe({
+            bonusesService.getSubscribe({
                 type: 'any',
                 useQuery: true,
+                until: this.$destroy,
                 observer: {
                     next: (bonuses: Bonus[]): void => {
                         this.activeBonusesAlertParams = null;
@@ -606,19 +607,16 @@ export class DepositWithdrawComponent
                                 }
                             }
 
-                            const params: IBonusesListCParams =
-                                Object.assign({}, this.bonusesListParams.components[0].params, {
-                                    bonuses: depositBonuses,
-                                    disableBonuses$: this.appliedPromoCode$,
-                                });
-
-                            _set(this.bonusesListParams, 'components[0].params', params);
+                            _merge(this.bonusesListParams.components[0].params, {
+                                bonuses: depositBonuses,
+                                disableBonuses$: this.appliedPromoCode$,
+                            });
+                            this.bonusesListParams = Object.assign({}, this.bonusesListParams);
 
                         } else {
                             this.deleteStep(Params.PaymentSteps.bonus);
                         }
                         Params.PaymentSteps.bonus.$resolve();
-                        bonusesSubscription.unsubscribe();
 
                         this.cdr.markForCheck();
                     },
