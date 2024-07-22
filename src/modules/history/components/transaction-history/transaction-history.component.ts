@@ -46,6 +46,7 @@ import {
 import {HistoryService} from 'wlc-engine/modules/history/system/services/history.service';
 import {HistoryFilterService} from 'wlc-engine/modules/history/system/services/history-filter.service';
 import {Transaction} from 'wlc-engine/modules/history/system/models/transaction-history/transaction-history.model';
+import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 
 import * as Params from './transaction-history.params';
 
@@ -140,6 +141,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
         this.tableData.switchWidth ??= profileType === 'first' ? 1200 : 1024;
     }
 
+    @CustomHook('history', 'historyTransactionFilter')
     protected transactionFilter(): Transaction[] {
         let result: Transaction[] = this.allTransactions || [];
 
