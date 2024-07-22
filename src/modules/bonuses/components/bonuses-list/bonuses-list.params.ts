@@ -87,6 +87,7 @@ export interface IBonusesListCParams extends IComponentParams<Theme, Type, Theme
      */
     hideNavigation?: boolean;
     useBtnScroll?: boolean,
+    noContentBtnText?: string;
     btnScroll?: IButtonCParams,
     itemsParams?: IBonusItemCParams,
     /** is bonuses list in profile */
@@ -143,6 +144,7 @@ export const defaultParams: IBonusesListCParams = {
         },
     },
     useBtnScroll: false,
+    noContentBtnText: gettext('No active bonuses'),
     btnScroll: {
         common: {
             text: gettext('Select a bonus'),

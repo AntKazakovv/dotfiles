@@ -249,13 +249,7 @@
                 <ng-container *ngIf="$params.common.useNoActiveItem">
                     <div
                         *ngTemplateOutlet="noItem; context:
-                                            {img: 'noActive', text:'No active bonuses', description: description, button: $params.useBtnScroll} ">
-                    </div>
-                </ng-container>
-                <ng-container *ngIf="$params.common.useNoOffersItem">
-                    <div
-                        *ngTemplateOutlet="noItem; context:
-                                {img: 'noOffers', text:'Bonuses Coming Soon', description: descriptionNoOffers, button: false} ">
+                        {img: 'noActive', text: useNoContentBtnText, description: description, button: useBtnScroll}">
                     </div>
                 </ng-container>
             </ng-container>
@@ -304,12 +298,6 @@
 <ng-template #description>
     <div class="nobonus__description" data-wlc-element="bonus_description-name">
         {{ 'Select from the available bonuses' | translate}}
-    </div>
-</ng-template>
-
-<ng-template #descriptionNoOffers>
-    <div class="nobonus__description" data-wlc-element="bonus_description-name">
-        {{ 'Bonuses will be back soon. Come back!' | translate}}
     </div>
 </ng-template>
 

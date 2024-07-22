@@ -164,15 +164,15 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         /**
          * TODO: на рефакторинг: сделать что-то с параметрами слайдера
          * чтобы не приходилось в параметрах отдельных конфигов дублировать без нужды breakpoints
-         */
+        */
         if (this.$params.type === 'swiper') {
             const navParams: NavigationOptions | {} =
-                this.$params.hideNavigation ? {} : {
-                    navigation: {
-                        nextEl: '.wlc-swiper-button-next-' + this.navigationId,
-                        prevEl: '.wlc-swiper-button-prev-' + this.navigationId,
-                    },
-                };
+            this.$params.hideNavigation ? {} : {
+                navigation: {
+                    nextEl: '.wlc-swiper-button-next-' + this.navigationId,
+                    prevEl: '.wlc-swiper-button-prev-' + this.navigationId,
+                },
+            };
             this.sliderParams.swiper = _merge(this.$params.common?.swiper, navParams);
         }
 
@@ -183,6 +183,14 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         if (this.params.theme === 'reg-first' || this.$params.theme === 'partial') {
             this.setRegSubscription();
         }
+    }
+
+    public get useBtnScroll(): boolean {
+        return this.$params.useBtnScroll;
+    }
+
+    public get useNoContentBtnText(): string {
+        return this.$params.noContentBtnText;
     }
 
     public override ngOnDestroy(): void {
