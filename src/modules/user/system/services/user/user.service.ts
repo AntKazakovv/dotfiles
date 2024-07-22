@@ -62,10 +62,10 @@ import {
     FilesService,
 } from 'wlc-engine/modules/core';
 import {
-    IProcessEventData,
     ProcessEvents,
     ProcessEventsDescriptions,
-} from 'wlc-engine/modules/monitoring';
+} from 'wlc-engine/modules/monitoring/system/config/process.config';
+import {IProcessEventData} from 'wlc-engine/modules/monitoring';
 import {
     MetamaskService,
     TMetamaskData,

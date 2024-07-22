@@ -93,9 +93,9 @@ import {WINDOW} from 'wlc-engine/modules/app/system';
 import {IMerchantWalletPreviewCParams}
     from 'wlc-engine/modules/games/components/merchant-wallet/merchant-wallet-preview/merchant-wallet-preview.params';
 import {
-    IProcessEventData,
     ProcessEvents,
-} from 'wlc-engine/modules/monitoring';
+} from 'wlc-engine/modules/monitoring/system/config/process.config';
+import {IProcessEventData} from 'wlc-engine/modules/monitoring';
 import {IChoiceCurrencyParams} from 'wlc-engine/modules/multi-wallet/components/choice-currency/choice-currency.params';
 import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 import {FinancesService} from 'wlc-engine/modules/finances';

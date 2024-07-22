@@ -47,10 +47,10 @@ import {
 } from 'wlc-engine/modules/core';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {
-    IProcessEventData,
     ProcessEvents,
     ProcessEventsDescriptions,
-} from 'wlc-engine/modules/monitoring';
+} from 'wlc-engine/modules/monitoring/system/config/process.config';
+import {IProcessEventData} from 'wlc-engine/modules/monitoring';
 import {Deferred} from 'wlc-engine/modules/core/system/classes';
 
 export const modalServiceHooks = {

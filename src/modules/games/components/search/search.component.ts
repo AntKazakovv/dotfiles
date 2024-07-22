@@ -50,9 +50,9 @@ import _sortBy from 'lodash-es/sortBy';
 import _isEmpty from 'lodash-es/isEmpty';
 import {UIRouter} from '@uirouter/core';
 import {
-    IProcessEventData,
     ProcessEvents,
-} from 'wlc-engine/modules/monitoring';
+} from 'wlc-engine/modules/monitoring/system/config/process.config';
+import {IProcessEventData} from 'wlc-engine/modules/monitoring';
 
 @Component({
     selector: '[wlc-search]',

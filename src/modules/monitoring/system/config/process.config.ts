@@ -5,7 +5,7 @@ import {
     TProcessConfigs,
 } from 'wlc-engine/modules/monitoring/system/interfaces/process.interface';
 
-export enum ProcessEvents {
+export const enum ProcessEvents {
     launchTrigger = 'launchTrigger',
     startTrigger = 'startTrigger',
     successTrigger = 'successTrigger',
@@ -16,9 +16,9 @@ export enum ProcessEvents {
     modalClosed = 'modalClosed',
     buttonPressed = 'buttonPressed',
     beforeunload = 'beforeunload',
-}
+};
 
-export enum ProcessEventsDescriptions {
+export const enum ProcessEventsDescriptions {
     launchTrigger = 'Launch: ',
     startTrigger = 'Start: ',
     successTrigger = 'Success: ',
@@ -30,7 +30,7 @@ export enum ProcessEventsDescriptions {
     buttonPressed = 'Button pressed: ',
     beforeunload = 'Page is unloaded',
     noReason = 'no reason',
-}
+};
 
 // Comparator function used for 'SHOW_MODAL' event (open modal with passed id)
 // for checking that trigger eventId match opened modal id

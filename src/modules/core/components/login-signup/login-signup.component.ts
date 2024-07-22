@@ -14,10 +14,10 @@ import {
     EventService,
 } from 'wlc-engine/modules/core/system/services';
 import {
-    IProcessEventData,
     ProcessEvents,
     ProcessEventsDescriptions,
-} from 'wlc-engine/modules/monitoring';
+} from 'wlc-engine/modules/monitoring/system/config/process.config';
+import {IProcessEventData} from 'wlc-engine/modules/monitoring';
 import {TButtonAnimation} from 'wlc-engine/modules/core/components/button/button.params';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 

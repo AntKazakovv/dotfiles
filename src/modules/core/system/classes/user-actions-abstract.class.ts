@@ -40,10 +40,10 @@ import {
     ChosenBonusType,
 } from 'wlc-engine/modules/bonuses';
 import {
-    IProcessEventData,
     ProcessEvents,
     ProcessEventsDescriptions,
-} from 'wlc-engine/modules/monitoring';
+} from 'wlc-engine/modules/monitoring/system/config/process.config';
+import {IProcessEventData} from 'wlc-engine/modules/monitoring';
 
 export interface IValidateData {
     'TYPE': string;

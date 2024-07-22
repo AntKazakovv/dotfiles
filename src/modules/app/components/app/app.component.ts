@@ -72,10 +72,10 @@ import {IAnalytics} from 'wlc-engine/modules/analytics/system/interfaces/analyti
 import {AnalyticsService} from 'wlc-engine/modules/analytics';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {
-    processConfigsCommon,
     ProcessService,
     TProcessConfigs,
 } from 'wlc-engine/modules/monitoring';
+import {processConfigsCommon} from 'wlc-engine/modules/monitoring/system/config/process.config';
 import {IIntercomSetup} from 'wlc-engine/modules/external-services/system/interfaces/intercom.interface';
 import {IntercomService} from 'wlc-engine/modules/external-services/system/services';
 import {BannersService} from 'wlc-engine/modules/promo';

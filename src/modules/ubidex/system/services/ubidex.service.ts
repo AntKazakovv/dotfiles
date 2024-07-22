@@ -18,10 +18,9 @@ import {
 import {IUbidexConfig} from 'wlc-engine/modules/ubidex/system/interfaces/ubidex.interface';
 import {UserInfo} from 'wlc-engine/modules/user';
 import {
-    IProcessEventData,
     ProcessEvents,
-    ProcessService,
-} from 'wlc-engine/modules/monitoring';
+} from 'wlc-engine/modules/monitoring/system/config/process.config';
+import {IProcessEventData} from 'wlc-engine/modules/monitoring';
 
 @Injectable({
     providedIn: 'root',
@@ -37,7 +36,6 @@ export class UbidexService {
         protected eventService: EventService,
         protected logService: LogService,
         protected modalService: ModalService,
-        protected processService: ProcessService,
     ) {
         this.init();
     }

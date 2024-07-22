@@ -39,13 +39,12 @@ import {
 import {defaultParams} from 'wlc-engine/standalone/core/components/modal/modal.params';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {
-    IProcessEventData,
     ProcessEvents,
     ProcessEventsDescriptions,
-} from 'wlc-engine/modules/monitoring';
+} from 'wlc-engine/modules/monitoring/system/config/process.config';
+import {IProcessEventData} from 'wlc-engine/modules/monitoring';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {CompilerModule} from 'wlc-engine/modules/compiler';
-
 /**
  * A wrapper component for displaying the component in a modal window.
  * It is a wrapper with basic elements, such as:

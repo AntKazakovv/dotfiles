@@ -24,7 +24,6 @@ import {UIRouterModule} from '@uirouter/angular';
 import {IMaskModule} from 'angular-imask';
 
 import {CompilerModule} from 'wlc-engine/modules/compiler/compiler.module';
-import {MonitoringModule} from 'wlc-engine/modules/monitoring/monitoring.module';
 // -- MODULES IMPORTS END --;
 
 // -- SERVICES IMPORTS START --;
@@ -269,7 +268,6 @@ export const services = {
         PaginationModule.forRoot(),
         BsDatepickerModule.forRoot(),
         CompilerModule,
-        MonitoringModule,
         LottieModule.forRoot({player: playerFactory}),
         LottieCacheModule.forRoot(),
     ],
