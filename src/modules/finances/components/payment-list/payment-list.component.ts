@@ -344,16 +344,16 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     public get paymentDescription(): string {
         let description: string = '';
 
-        if (this.currentSystem) {
+        if (this.currentSystem
+            && (
+                !this.currentSystem.cryptoInvoices
+                || this.currentSystem.cryptoInvoices && this.$params.theme === 'crypto-list'
+            )
+        ) {
             description = this.isDeposit ? this.currentSystem.description : this.currentSystem.descriptionWithdraw;
         }
 
         return description;
-    }
-
-    public get showDescription(): boolean {
-        return this.currentSystem.cryptoInvoices && this.$params.theme === 'crypto-list'
-            || !this.currentSystem.cryptoInvoices;
     }
 
     public getIconUrl(itemsMap: Map<number, IWrapperCParams>, system: PaymentSystem): string {
