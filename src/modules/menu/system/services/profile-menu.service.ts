@@ -210,6 +210,16 @@ export class ProfileMenuService {
     }
 
     /**
+     * Get menu for type 'full'
+     *
+     * @returns {MenuItemObjectType[]}
+     */
+    public async getFullMenu(options?: IMenuOptions): Promise<MenuItemObjectType[]> {
+        await this.ready;
+        return MenuHelper.parseMenuConfig(this.profileMenuConfig, Config.wlcProfileMenuItemsGlobal, options);
+    }
+
+    /**
      * Prepare profile market
      */
     protected async prepareMarket(): Promise<void> {

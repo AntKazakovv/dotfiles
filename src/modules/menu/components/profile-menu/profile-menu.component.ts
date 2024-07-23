@@ -176,6 +176,9 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit, O
 
                 break;
             case 'full':
+                this.menuParams.items = await this.profileMenuService.getFullMenu(menuOptions);
+                iconsKey = 'dropdownMenuIcons';
+                break;
             case 'dropdown':
                 this.menuParams.items = await this.profileMenuService.getDropdownMenu(menuOptions);
                 iconsKey = 'dropdownMenuIcons';
