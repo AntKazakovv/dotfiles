@@ -29,6 +29,7 @@ import {defaultParams} from './pep-select.params';
 @Component({
     selector: '[wlc-pep-select]',
     templateUrl: './pep-select.component.html',
+    styleUrls: ['./styles/pep-select.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PepSelectComponent extends AbstractComponent implements OnInit {

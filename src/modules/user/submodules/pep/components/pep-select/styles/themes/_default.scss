@@ -1,0 +1,43 @@
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+
+.wlc-select--pep-select:host {
+    position: relative;
+
+    &::ng-deep {
+
+        .wlc-select--pep-select {
+
+            .wlc-select__label {
+
+                .wlc-tooltip {
+                    position: absolute;
+                    right: 0;
+                    bottom: 15%;
+
+                    .wlc-sections__profile-content--theme-first & {
+                        right: 4%;
+                        bottom: 10%;
+                    }
+
+                    &::ng-deep {
+
+                        .wlc-tooltip__icon {
+                            --wlc-icon-width: #{ef.get-value($themeDefault, 'iconSize')};
+                            --wlc-icon-height: #{ef.get-value($themeDefault, 'iconSize')};
+                        }
+                    }
+                }
+            }
+
+            .wlc-select__group {
+                @include bm.get-mq-map('width', $themeDefault, 'groupWidth');
+
+                .wlc-sections__profile-content--theme-first & {
+                    @include bm.get-mq-map('width', $themeDefault, 'groupWidthProfileFirst');
+                }
+            }
+        }
+    }
+}

@@ -426,6 +426,7 @@ export namespace FormElements {
             name: 'pep',
             validators: [],
             options: 'pep',
+            customMod: ['pep-select'],
         },
     };
 

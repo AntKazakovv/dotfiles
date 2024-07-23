@@ -1,0 +1,12 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'groupWidth': (
+        375: 89%,
+        560: 94%,
+    ),
+    'groupWidthProfileFirst': (
+        375: 90%,
+        900: 85%,
+    ),
+    'iconSize': 24px,
+), $customThemeDefault);
