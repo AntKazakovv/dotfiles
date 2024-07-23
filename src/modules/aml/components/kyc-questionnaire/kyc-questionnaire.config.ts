@@ -240,8 +240,8 @@ export const kycQStepsConfig = {
                     defaultValue: null,
                     items: [
                         {value: 'Less than 10,000', title: gettext('Less than 10,000')},
-                        {value: '10,000-50,000', title: gettext('10,000-50,000')},
-                        {value: '50,000-100,000', title: gettext('50,000-100,000')},
+                        {value: '10,000-50,000', title: '10,000-50,000'},
+                        {value: '50,000-100,000', title: '50,000-100,000'},
                         {value: 'More than 100,000', title: gettext('More than 100,000')},
                     ],
                     validators: ['required'],
@@ -261,9 +261,9 @@ export const kycQStepsConfig = {
                     defaultValue: null,
                     items: [
                         {value: 'Less than 5,000', title: gettext('Less than 5,000')},
-                        {value: '5,000-10,000', title: gettext('5,000-10,000')},
-                        {value: '10,000-50,000', title: gettext('10,000-50,000')},
-                        {value: '50,000-100,000', title: gettext('50,000-100,000')},
+                        {value: '5,000-10,000', title: '5,000-10,000'},
+                        {value: '10,000-50,000', title: '10,000-50,000'},
+                        {value: '50,000-100,000', title: '50,000-100,000'},
                         {value: 'More than 100,000', title: gettext('More than 100,000')},
                     ],
                     validators: ['required'],
