@@ -69,7 +69,7 @@ export class SelectValuesService {
     public dayList: BehaviorSubject<Params.ISelectOptions[]> = new BehaviorSubject([]);
     public countryStates$: BehaviorSubject<IState[]> = new BehaviorSubject([{
         value: '',
-        title: 'Please select country',
+        title: gettext('Please select country'),
     }]);
 
     protected merchantsList: TConstantValue = null;
@@ -489,7 +489,7 @@ export class SelectValuesService {
                             stateControl.enable();
                             return;
                         }
-                        this.countryStates$.next([{value: '', title: 'Country without states'}]);
+                        this.countryStates$.next([{value: '', title: gettext('Country without states')}]);
                         stateControl.disable();
                     });
             } else {

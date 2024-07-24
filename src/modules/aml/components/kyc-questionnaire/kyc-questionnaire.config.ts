@@ -185,12 +185,12 @@ export const kycQStepsConfig = {
     step3: wrapForm([
         wrapBlock(false, [
             newTitleSecond(gettext('The expected source of funds to be used:')),
-            newCheckbox('fundsSourceSalary', 'Salary'),
-            newCheckbox('fundsSourceDividends', 'Dividends'),
-            newCheckbox('fundsSourceInheritance', 'Inheritance'),
-            newCheckbox('fundsSourceBusinessProfits', 'Business profits'),
-            newCheckbox('fundsSourceInvestmentActivities', 'Income from investment activities'),
-            newCheckbox('fundsSourceDonation', 'Donation'),
+            newCheckbox('fundsSourceSalary', gettext('Salary')),
+            newCheckbox('fundsSourceDividends', gettext('Dividends')),
+            newCheckbox('fundsSourceInheritance', gettext('Inheritance')),
+            newCheckbox('fundsSourceBusinessProfits', gettext('Business profits')),
+            newCheckbox('fundsSourceInvestmentActivities', gettext('Income from investment activities')),
+            newCheckbox('fundsSourceDonation', gettext('Donation')),
             {
                 name: 'core.wlc-checkbox-with-input',
                 params: {

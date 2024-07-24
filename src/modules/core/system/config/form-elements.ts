@@ -59,7 +59,7 @@ export namespace FormElements {
                 },
                 {
                     name: 'max',
-                    text: 'The entered amount is more than the maximum',
+                    text: gettext('The entered amount is more than the maximum'),
                     options: 10000,
                 },
             ],
@@ -103,7 +103,7 @@ export namespace FormElements {
                 },
                 {
                     name: 'max',
-                    text: 'The entered amount is more than the maximum',
+                    text: gettext('The entered amount is more than the maximum'),
                     options: 10000,
                 },
             ],

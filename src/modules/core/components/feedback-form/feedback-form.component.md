@@ -122,7 +122,7 @@ formConfig: {
                         options: 50,
                     },
                 ],
-                exampleValue: 'Enter subject',
+                exampleValue: gettext('Enter subject'),
             },
         },
         {

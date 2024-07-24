@@ -10,6 +10,7 @@ export type ComponentThemeMod = 'default' | CustomType;
 
 export interface IEmailFieldCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     email: IInputCParams,
+    verifyBtnText?: string;
 };
 
 export const defaultParams: IEmailFieldCParams = {
@@ -25,4 +26,5 @@ export const defaultParams: IEmailFieldCParams = {
         validators: ['required', 'email'],
         exampleValue: 'example@mail.com',
     },
+    verifyBtnText: gettext('Verify'),
 };

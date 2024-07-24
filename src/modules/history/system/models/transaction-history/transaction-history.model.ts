@@ -71,7 +71,7 @@ export class Transaction extends AbstractModel<ITransactionEx> {
         super({from: _assign({model: 'Transaction'}, from)});
         this.data = data;
         this.setStatus(this.data.Status);
-        this.data.type = this.amount < 0 ? 'Debit' : 'Credit';
+        this.data.type = this.amount < 0 ? gettext('Debit') : gettext('Credit');
     }
 
     public get amount(): number {
@@ -118,7 +118,7 @@ export class Transaction extends AbstractModel<ITransactionEx> {
     public get canceled(): boolean {
         return this.data.Canceled;
     }
-
+    
     public get type(): 'Debit' | 'Credit' {
         return this.data.type;
     }

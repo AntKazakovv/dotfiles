@@ -80,7 +80,7 @@ export const defaultParams: IAchievementItemCParams = {
         Verification: {
             theme: 'cleared',
             common: {
-                text: 'Verify',
+                text: gettext('Verify'),
                 sref: 'app.profile.main.info',
             },
             wlcElement: 'button_verify',

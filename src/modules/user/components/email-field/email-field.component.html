@@ -2,7 +2,7 @@
 <button *ngIf="verificationBtn"
         wlc-button
         typeAttr="button"
-        text="Verify"
+        text="{{$params.verifyBtnText}}"
         theme="resolve"
         [class.disabled]="waitMailVerification$ | async"
         (click)="sendLink()"

@@ -159,12 +159,12 @@ export class VerificationService {
         const extension = file.name.split('.').pop();
 
         if (file.size > maxSize * 1000000) {
-            this.showError('Invalid size');
+            this.showError(gettext('Invalid size'));
             return false;
         }
 
         if (!_includes(fileTypes, extension.toLowerCase())) {
-            this.showError('Invalid format');
+            this.showError(gettext('Invalid format'));
             return false;
         }
 

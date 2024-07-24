@@ -80,7 +80,7 @@ export const getFeedbackConfig = (isAuth: boolean): IFormWrapperCParams => ({
                         options: 50,
                     },
                 ],
-                exampleValue: 'Enter subject',
+                exampleValue: gettext('Enter subject'),
             },
         },
         {
