@@ -312,6 +312,7 @@ export const menuConfig: IMenuConfig = {
                 type: 'group',
                 items: [
                     'profile-menu:loyalty-level-single',
+                    'profile-menu:loyalty-program',
                 ],
             },
         ],
