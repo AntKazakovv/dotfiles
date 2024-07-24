@@ -242,6 +242,11 @@ export class PaymentFormComponent
         this.isRomanianLicense = this.configService.get<string>('appConfig.license') === 'romania';
         this.useLotteryWidget = this.isDeposit && this.configService.get<boolean>('$finances.useLotteryWidget');
 
+        if (!this.isMultiWallet) {
+            this.currentCurrency = this.configService.get<string>('appConfig.user.currency')
+                || this.configService.get<string>('$base.defaultCurrency');
+        }
+
         this.configService
             .get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
             .pipe(takeUntil(this.$destroy))
@@ -249,10 +254,6 @@ export class PaymentFormComponent
                 if (userProfile) {
                     this.userProfile$.next(userProfile);
                     this.userProfile = userProfile;
-
-                    if (!this.isMultiWallet) {
-                        this.currentCurrency = userProfile.currency;
-                    }
 
                     if (this.showCommissions) {
                         this.initCommissions();

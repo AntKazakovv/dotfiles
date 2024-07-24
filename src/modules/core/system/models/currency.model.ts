@@ -120,9 +120,7 @@ export class CurrencyModel extends AbstractModel<ICurrencyOptions>{
             currency: (this.isCryptocurrency || this.currencyFormat?.svg)
                 ? this.currencyFormat?.literalAs || 'USD'
                 : _toUpper(this.currency).trim(),
-            currencyDisplay: CurrenciesInfo.containingCountrySymbol.has(this.currency)
-                ? 'symbol'
-                : 'narrowSymbol',
+            currencyDisplay: this.defineCurrencyDisplay(),
             useGrouping: true,
             ...this.getParsedDigitsInfo(2),
         }).formatToParts(this.numericValue);
@@ -240,5 +238,17 @@ export class CurrencyModel extends AbstractModel<ICurrencyOptions>{
     protected putInRange(num: number, start: number, end: number): number {
         const min = Math.max(num, start);
         return Math.min(min, end);
+    }
+
+    private defineCurrencyDisplay(): string {
+        if (this.currency === 'BYN') {
+            return 'code';
+        }
+
+        if (CurrenciesInfo.containingCountrySymbol.has(this.currency)) {
+            return 'symbol';
+        }
+
+        return 'narrowSymbol';
     }
 }
