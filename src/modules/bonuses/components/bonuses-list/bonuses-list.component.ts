@@ -300,7 +300,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
             {name: BonusItemComponentEvents.reg},
         ], (bonus: Bonus): void => {
 
-            this.bonusesService.unchooseAllBonuses();
+            this.unchooseBonuses();
             bonus.isChoose = true;
 
             if (this.blankBonus && this.blankBonus.id !== bonus.id) {

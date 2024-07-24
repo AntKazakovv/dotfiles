@@ -287,7 +287,7 @@ export interface IBonusConditionsGames {
 }
 
 export interface IQueryParams {
-    type?: string;
+    type?: RestType;
     event?: string;
     PromoCode?: string;
 }
@@ -319,7 +319,7 @@ export type BonusesFilterType =
     | 'active'
     | 'united'
     | 'default';
-export type RestType = 'active' | 'lootboxPrizes' | 'store' | 'any';
+export type RestType = 'active' | 'lootboxPrizes' | 'store' | 'reg' | 'any';
 export type ActionType = 'inventory' | 'cancel' | 'expired' | 'subscribe' | 'unsubscribe';
 export type RequestType = RestType | ActionType | 'cancelInfo';
 

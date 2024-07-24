@@ -279,7 +279,7 @@ export const defaultParams: IStepsParams = {
                                     type: 'swiper',
                                     theme: 'partial',
                                     common: {
-                                        restType: 'any',
+                                        restType: 'reg',
                                         filter: 'reg',
                                         queryFilters: {
                                             event: Bonus.regEvents,
@@ -305,7 +305,7 @@ export const defaultParams: IStepsParams = {
                                     wlcElement: 'block_bonuses',
                                     theme: 'partial',
                                     common: {
-                                        restType: 'any',
+                                        restType: 'reg',
                                         filter: 'reg',
                                         queryFilters: {
                                             event: Bonus.regEvents,
@@ -371,7 +371,7 @@ export const defaultParams: IStepsParams = {
                                     type: 'swiper',
                                     theme: 'reg-first',
                                     common: {
-                                        restType: 'any',
+                                        restType: 'reg',
                                         filter: 'reg',
                                         queryFilters: {
                                             event: Bonus.regEvents,

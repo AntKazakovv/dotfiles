@@ -94,6 +94,7 @@ interface ISubjects {
     active$: BehaviorSubject<Bonus[]>;
     store$: BehaviorSubject<Bonus[]>;
     lootboxPrizes$: BehaviorSubject<LootboxPrizeModel[]>;
+    reg$: BehaviorSubject<Bonus[]>;
 }
 
 interface IFreeRoundData {
@@ -126,6 +127,7 @@ export class BonusesService {
         active$: new BehaviorSubject(null),
         lootboxPrizes$: new BehaviorSubject(null),
         store$: new BehaviorSubject(null),
+        reg$: new BehaviorSubject(null),
     };
 
     private useForbidUserFields = this.configService.get<boolean>('$loyalty.useForbidUserFields');
@@ -136,6 +138,7 @@ export class BonusesService {
         active: new BehaviorSubject(false),
         lootboxPrizes: new BehaviorSubject(false),
         store: new BehaviorSubject(false),
+        reg: new BehaviorSubject(false),
         any: new BehaviorSubject(false),
     };
 
@@ -176,6 +179,9 @@ export class BonusesService {
                 break;
             case 'store':
                 bonuses = this.subjects.store$.getValue();
+                break;
+            case 'reg':
+                bonuses = this.subjects.reg$.getValue();
                 break;
             default:
                 bonuses = this.subjects.bonuses$.getValue();
@@ -246,6 +252,9 @@ export class BonusesService {
                 break;
             case 'store':
                 flow$ = this.subjects.store$;
+                break;
+            case 'reg':
+                flow$ = this.subjects.reg$;
                 break;
             default:
                 flow$ = this.subjects.bonuses$;
@@ -742,9 +751,7 @@ export class BonusesService {
                 await this.checkPromoBonus();
             }
 
-            if (!queryFilters) {
-                this.saveBonuses(type, bonuses, publicSubject);
-            }
+            this.saveBonuses(type, bonuses, publicSubject);
 
             if (promoCode) {
                 this.eventService.emit({
@@ -860,6 +867,11 @@ export class BonusesService {
                     this.subjects.store$.next(bonuses);
                 }
                 this.storeBonuses = bonuses;
+                break;
+            case 'reg':
+                if (publicSubject) {
+                    this.subjects.reg$.next(bonuses);
+                }
                 break;
             default:
                 if (publicSubject) {
