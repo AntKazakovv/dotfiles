@@ -15,7 +15,11 @@ export interface ILimitationTypeItem {
     title: string;
     value: TLimitationType;
 }
-
+export interface ITimeOutLimitOption {
+    title: string;
+    /** Period value sets in days*/
+    value: string;
+}
 export interface ILimitationsConfig {
     /**
     * Enable/disable limitations
@@ -27,6 +31,8 @@ export interface ILimitationsConfig {
     */
     limitTypes?: ILimitationTypeItem[];
     defaultLimitType?: TLimitationType;
+    /** Set periods for time out limit */
+    timeOutLimitOptions?: ITimeOutLimitOption[];
 }
 
 export interface IRealityChecker {

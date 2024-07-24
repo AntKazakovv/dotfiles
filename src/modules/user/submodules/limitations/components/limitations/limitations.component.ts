@@ -37,6 +37,7 @@ import {
 import {
     ILimitationTypeItem,
     TLimitationType,
+    ITimeOutLimitOption,
 } from 'wlc-engine/modules/user/submodules/limitations/system/interfaces/limitations.interface';
 
 import * as Params from './limitations.params';
@@ -351,8 +352,9 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
                 };
                 break;
             case 'timeOut':
-                const timeOutPeriod = Params.timeOutPeriod(this.configService.get('appConfig.license') === 'italy');
-                timeOutPeriod.params.items = timeOutPeriod.params.items.filter((v: ISelectOptions<unknown>) => !!v);
+                const timeOutPeriod = Params.timeOutPeriod;
+                timeOutPeriod.params.items = this.configService.get('$base.profile.limitations.timeOutLimitOptions')
+                    ?? this.setDefaultTimeOutLimitOptions(this.configService.get('appConfig.license') === 'italy');
 
                 this.formConfig = {
                     class: this.formConfig.class,
@@ -404,4 +406,34 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
             this.formData.next(this.form.value);
         }
     }
+
+    protected setDefaultTimeOutLimitOptions(isItalyLicense: boolean): ITimeOutLimitOption[] {
+        const opts: ITimeOutLimitOption[] = [
+            {
+                title: gettext('1 day'),
+                value: '1',
+            },
+            {
+                title: gettext('1 week'),
+                value: '7',
+            },
+            isItalyLicense ?
+                {
+                    title: gettext('15 days'),
+                    value: '15',
+                }
+                : null,
+            {
+                title: gettext('1 month'),
+                value: '30',
+            },
+            {
+                title: gettext('Permanently'),
+                value: '36525',
+            },
+        ];
+
+        return opts.filter((v: ISelectOptions<unknown>) => !!v);
+    }
 }
+

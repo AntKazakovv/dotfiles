@@ -185,44 +185,18 @@ export const realityCheckerPeriod = {
     },
 };
 
-export const timeOutPeriod = (isItalyLicense: boolean): IFormComponent => {
-    return {
-        name: 'core.wlc-select',
-        params: <ISelectCParams>{
-            name: 'limitTime',
-            labelText: gettext('Limit time'),
-            wlcElement: 'limit-time',
-            common: {
-                placeholder: gettext('Limit time'),
-            },
-            validators: ['required'],
-            locked: false,
-            items: [
-                {
-                    title: gettext('1 day'),
-                    value: '1',
-                },
-                {
-                    title: gettext('1 week'),
-                    value: '7',
-                },
-                isItalyLicense ?
-                    {
-                        title: gettext('15 days'),
-                        value: '15',
-                    }
-                    : null,
-                {
-                    title: gettext('1 month'),
-                    value: '30',
-                },
-                {
-                    title: gettext('Permanently'),
-                    value: '36525',
-                },
-            ],
+export const timeOutPeriod = {
+    name: 'core.wlc-select',
+    params: <ISelectCParams>{
+        name: 'limitTime',
+        labelText: gettext('Limit time'),
+        wlcElement: 'limit-time',
+        common: {
+            placeholder: gettext('Limit time'),
         },
-    };
+        validators: ['required'],
+        locked: false,
+    },
 };
 
 export const selfExclusion = (isRomaniaLicense: boolean): IFormComponent => {
