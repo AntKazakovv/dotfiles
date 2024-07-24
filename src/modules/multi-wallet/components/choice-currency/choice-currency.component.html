@@ -1,20 +1,17 @@
 <ng-template [ngIf]="isShow">
-    <div
-        wlc-click-outside
+    <div wlc-click-outside
         class="{{$class}}__container"
         [isOpened]="isOpened"
         (clickOutside)="clickOutside()">
-        <span class="{{$class}}__text">{{$params.balanceText | translate}}</span>
-        <div
-            class="{{$class}}__dropdown-btn"
+        <span class="{{$class}}__text">{{balanceText | translate}}</span>
+        <div class="{{$class}}__dropdown-btn"
             [class.isOpened]="isOpened"
             (click)="onOpen()">
 
             <ng-container
                 [ngTemplateOutlet]="currency"
                 [ngTemplateOutletContext]="{$implicit: currentCurrency}"></ng-container>
-            <span
-                wlc-icon
+            <span wlc-icon
                 class="arrow"
                 iconPath="/wlc/icons/icons_new/arrow.svg"
                 wlcElement="icon_arrow"></span>
@@ -22,19 +19,17 @@
 
         <div *ngIf="isOpened"
              class="{{$class}}__list">
-            <div
-                *ngFor="let item of $params.game.merchantsCurrencies"
+            <div *ngFor="let currencyName of currencies"
                 class="{{$class}}__currency"
-                [class.select]="item === currentCurrency"
-                (click)="onChangingCurrency(item)">
+                [class.select]="currencyName === currentCurrency"
+                (click)="onChangingCurrency(currencyName)">
                 <ng-container
                     [ngTemplateOutlet]="currency"
-                    [ngTemplateOutletContext]="{$implicit: item}"></ng-container>
+                    [ngTemplateOutletContext]="{$implicit: currencyName}"></ng-container>
             </div>
         </div>
     </div>
-    <button
-        *ngIf="$params.themeMod !== 'in-modal'"
+    <button *ngIf="isOverlap"
         wlc-button
         typeAttr="button"
         [inlineParams]="buttonParams"
@@ -43,10 +38,11 @@
 </ng-template>
 
 <ng-template #currency let-name>
-    <span
-        wlc-icon
-        class="currency"
-        iconPath="{{getCurrencyIconUrl(name)}}"
-        wlcElement="icon_currency"></span>
-    <span>{{currencyService.getDisplayName(name)}}</span>
+    <ng-template [ngIf]="showCurrency(name)" >
+          <span wlc-icon
+              class="currency"
+              iconPath="{{getCurrencyIconUrl(name)}}"
+              wlcElement="icon_currency"></span>
+        <span>{{currencyService.getDisplayName(name)}}</span>
+    </ng-template>
 </ng-template>

@@ -26,6 +26,11 @@ export class CurrencyService {
         return this.currencies.find((curr: ICurrency<string>) => curr.Name === currencyName).DisplayName;
     }
 
+    public isFiat(currencyName: string): boolean {
+        return !this.currencies
+            .find((currency: ICurrency<string>): boolean => currency.Name === currencyName).IsCryptoCurrency;
+    }
+
     private setCurrencies(): void {
         let currencies: IIndexing<ICurrency<TDisplayName>> =
             this.configService.get<IIndexing<ICurrency<TDisplayName>>>('appConfig.siteconfig.currencies');

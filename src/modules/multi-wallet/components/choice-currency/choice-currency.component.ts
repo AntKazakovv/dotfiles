@@ -2,6 +2,7 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
+    inject,
     Inject,
     Input,
     OnInit,
@@ -16,7 +17,6 @@ import {
     EventService,
     GlobalHelper,
     IButtonCParams,
-    InjectionService,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
 import {UserProfile} from 'wlc-engine/modules/user';
@@ -40,17 +40,18 @@ export class ChoiceCurrencyComponent extends AbstractComponent implements OnInit
     protected currentCurrency: string;
     protected isShow: boolean = false;
     protected buttonParams: IButtonCParams;
+    protected allCurrency: boolean = true;
+    protected isOverlap: boolean;
+    protected readonly currencyService: CurrencyService = inject(CurrencyService);
 
-    private userService: UserService;
-    public currencyService: CurrencyService;
+    private readonly userService: UserService = inject(UserService);
+    private readonly eventService: EventService = inject(EventService);
+    private readonly stateService: StateService = inject(StateService);
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IChoiceCurrencyParams,
-        protected override cdr: ChangeDetectorRef,
         protected override configService: ConfigService,
-        private stateService: StateService,
-        private eventService: EventService,
-        private injectionService: InjectionService,
+        protected override cdr: ChangeDetectorRef,
     ) {
         super(
             {
@@ -60,12 +61,9 @@ export class ChoiceCurrencyComponent extends AbstractComponent implements OnInit
             configService);
     }
 
-    public override async ngOnInit(): Promise<void> {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-        this.userService = await this.injectionService.getService<UserService>('user.user-service');
-        this.currencyService =
-            await this.injectionService.getService<CurrencyService>('currency.currency-service');
-
+        this.allCurrency = !this.configService.get<boolean>('$base.multiWallet.onlyFiat');
         this.userService.userProfile$
             .pipe(
                 first((profile: UserProfile): boolean => !!profile),
@@ -96,7 +94,16 @@ export class ChoiceCurrencyComponent extends AbstractComponent implements OnInit
                 typeAttr: 'button',
             },
         };
+        this.isOverlap = this.$params.themeMod !== 'in-modal';
         this.cdr.markForCheck();
+    }
+
+    public get currencies(): string[] {
+        return this.$params.game.merchantsCurrencies;
+    }
+
+    public get balanceText(): string {
+        return this.$params.balanceText;
     }
 
     public onOpen(): void {
@@ -123,6 +130,10 @@ export class ChoiceCurrencyComponent extends AbstractComponent implements OnInit
         this.cdr.markForCheck();
         this.selectCurrency();
         this.stateService.reload();
+    }
+
+    protected showCurrency(currency: string): boolean {
+        return this.allCurrency || this.currencyService.isFiat(currency);
     }
 
     private selectCurrency(): void {

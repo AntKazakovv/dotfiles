@@ -1,3 +1,5 @@
 export interface MultiWalletConfig {
-    hideSettings: boolean;
+    hideSettings?: boolean;
+    onlyFiat?: boolean;
+    alwaysShowChoiceOfCurrency?: boolean;
 }
