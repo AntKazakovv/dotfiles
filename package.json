@@ -54,7 +54,7 @@
         "@angular/service-worker": "^17.3.2",
         "@angular/ssr": "^17.3.2",
         "@biesbjerg/ngx-translate-extract": "7.0.4",
-        "@egamings/wlc-engine-translate": "1.4.0-rc.1",
+        "@egamings/wlc-engine-translate": "1.4.0-rc.2",
         "@egjs/hammerjs": "^2.0.17",
         "@fingerprintjs/fingerprintjs": "^4.2.1",
         "@formatjs/intl-locale": "^3.4.2",
