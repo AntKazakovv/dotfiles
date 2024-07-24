@@ -1,14 +1,16 @@
-import {Injectable} from '@angular/core';
 import {
-    BehaviorSubject,
-    Subject,
+    inject,
+    Injectable,
+} from '@angular/core';
+
+import {
+    BehaviorSubject, Subject,
     Subscription,
 } from 'rxjs';
-import {
-    map,
-    filter,
-    takeUntil,
-} from 'rxjs/operators';
+import {filter, takeUntil} from 'rxjs/operators';
+import _each from 'lodash-es/each';
+import _find from 'lodash-es/find';
+
 import {
     ConfigService,
     EventService,
@@ -20,10 +22,8 @@ import {
     PragmaticLiveData,
     PragmaticLiveModel,
 } from 'wlc-engine/modules/games/system/models/pragmatic-live.model';
+import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
 import {UserProfile} from 'wlc-engine/modules/user';
-
-import _each from 'lodash-es/each';
-import _find from 'lodash-es/find';
 
 export interface IPragmaticPlaySettings {
     dgaUrl: string;
@@ -45,47 +45,19 @@ export class PragmaticPlayLiveService {
     private currency: string = 'EUR';
     private wsPragmaticSub: Subscription;
 
+    private readonly userService: UserService = inject(UserService);
+    private readonly websocketService: WebsocketService = inject(WebsocketService);
+    private readonly eventService: EventService = inject(EventService);
+    private readonly configService: ConfigService = inject(ConfigService);
+
     private readonly apiUrl: string;
     private readonly casinoId: string;
 
-    constructor(
-        private configService: ConfigService,
-        private eventService: EventService,
-        private websocketService: WebsocketService,
-    ) {
+    constructor() {
         const settings = this.configService.get<IPragmaticPlaySettings>('pragmaticPlaySettings');
         this.apiUrl = settings?.dgaUrl;
         this.casinoId = settings?.casinoId;
-
-        this.configService.ready.then(() => {
-            this.currency = this.configService.get<string>('appConfig.user.currency')
-                || this.configService.get<string>('$base.defaultCurrency');
-        });
-
-        this.configService.get<BehaviorSubject<UserProfile>>('$user.userProfile$')
-            .pipe(
-                filter((user: UserProfile): boolean =>
-                    !!user && this.configService.get<boolean>('$user.isAuthenticated'),
-                ),
-                map((user: UserProfile): string =>
-                    user.currency || this.configService.get<string>('$base.defaultCurrency')),
-                filter((currency: string): boolean => currency !== this.currency),
-            )
-            .subscribe(async (currency) => {
-                this.currency = currency;
-                if (this.hasSubscribers()) {
-                    this.wsPragmaticSub.unsubscribe();
-                }
-            });
-
-        this.eventService.subscribe([{name: 'LOGOUT'}],
-            () => {
-                this.currency = this.configService.get<string>('$base.defaultCurrency');
-                if (this.hasSubscribers()) {
-                    this.wsPragmaticSub.unsubscribe();
-                }
-            },
-        );
+        this.init();
     }
 
     /**
@@ -141,6 +113,27 @@ export class PragmaticPlayLiveService {
             });
     }
 
+    private async init(): Promise<void> {
+        this.currency = this.configService.get<string>('appConfig.user.currency')
+            || this.configService.get<string>('$base.defaultCurrency');
+        this.userService.userProfile$
+            .pipe(filter(p => !!p && this.configService.get<boolean>('$user.isAuthenticated')))
+            .subscribe((profile: UserProfile) => {
+                if (this.currency !== profile.selectedCurrency) {
+                    this.currency = profile.selectedCurrency;
+                    this.unsubscribe();
+                    this.websocketService.closeSocket('pragmatic');
+                    this.connect();
+                }
+            });
+        this.eventService.subscribe([{name: 'LOGOUT'}],
+            () => {
+                this.currency = this.configService.get<string>('$base.defaultCurrency');
+                this.unsubscribe();
+            },
+        );
+    }
+
     private async connect(): Promise<void> {
         if (!this.apiUrl) {
             return;
@@ -148,6 +141,11 @@ export class PragmaticPlayLiveService {
         await this.configService.ready;
 
         this.websocketService.addWsEndPointConfig('pragmatic', {server2: this.apiUrl});
+
+        if (this.configService.get('$user.isAuthenticated')) {
+            await this.userService.profileReady;
+        }
+
         this.wsPragmaticSub = this.websocketService.getMessages(
             {
                 endPoint: 'pragmatic',
@@ -175,6 +173,12 @@ export class PragmaticPlayLiveService {
         }
     }
 
+    private unsubscribe(): void {
+        if (this.wsPragmaticSub) {
+            this.wsPragmaticSub.unsubscribe();
+        }
+    }
+
     private onMessage(data: PragmaticLiveData): void {
         if (data.tableId && this.subscribed[data.tableId].subscribers) {
             const pragmaticData = new PragmaticLiveModel(
@@ -190,7 +194,7 @@ export class PragmaticPlayLiveService {
 
         if (data.error?.includes('Table not found')) {
             const tableId = data.error.replace('Table not found: ', '');
-            this.subscribed[tableId].flow.complete();
+            this.subscribed[tableId]?.flow.complete();
             this.subscribed[tableId] = null;
         }
     }

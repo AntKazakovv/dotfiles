@@ -172,15 +172,10 @@ export class UserService {
     /** @deprecated use isAuth$ */
     public isAuthenticated: boolean;
     public isAuth$: BehaviorSubject<boolean> = this.configService.get('$user.isAuth$');
-    public profileReady: Promise<void> = new Promise((resolve: () => void): void => {
-        this.$profileResolve = resolve;
-    });
 
     protected info: UserInfo;
     protected profile: UserProfile;
     protected userInfoHandler: Subscription;
-
-    private $profileResolve: () => void;
 
     public get userInfo(): UserInfo {
         if (this.info?.dataReady) {
@@ -201,6 +196,11 @@ export class UserService {
     public userWithdrawCancelWSData$: Subject<ILastWithdraw> = new Subject();
     public userProfile$: BehaviorSubject<UserProfile> = new BehaviorSubject(null);
     public userInfo$: BehaviorSubject<UserInfo> = new BehaviorSubject(null);
+    public profileReady: Promise<void> = new Promise((resolve: () => void): void => {
+        this.$profileResolve = resolve;
+    });
+
+    private $profileResolve: () => void;
     private configUserProfile$: BehaviorSubject<UserProfile> = this.configService.get({name: '$user.userProfile$'});
     private configUserInfo$: BehaviorSubject<UserInfo> = this.configService.get({name: '$user.userInfo$'});
     private useAchievements: boolean;
@@ -252,14 +252,14 @@ export class UserService {
         this.userProfile$.subscribe((profile) => {
             this.configUserProfile$.next(profile);
         });
-
-        this.userInfo$.subscribe((userInfo) => {
-            this.configUserInfo$.next(userInfo);
-        });
         this.userProfile$.pipe(first((profile: UserProfile): boolean => !!profile))
             .subscribe(() => {
                 this.$profileResolve();
             });
+
+        this.userInfo$.subscribe((userInfo: UserInfo) => {
+            this.configUserInfo$.next(userInfo);
+        });
         this.translateService.onLangChange.subscribe(async () => {
             if (!this.isAuthenticated) return;
 

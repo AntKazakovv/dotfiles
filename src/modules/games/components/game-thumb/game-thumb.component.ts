@@ -543,7 +543,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
                         )
                         .subscribe((mouseCoords: Params.ICoordinates): void => {
                             this.mouseMove(mouseCoords);
-                        }),
+                        });
                     mouseEvents$.add(
                         fromEvent(this.elementRef.nativeElement, 'mouseleave')
                             .pipe(takeUntil(this.$destroy))

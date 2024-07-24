@@ -175,6 +175,15 @@ export class WebsocketService {
         return this.endPointToWebsocket.has(endPoint);
     }
 
+    public closeSocket(endPoint: TWSEndPoint): void {
+        this.endPointToConfig.delete(endPoint);
+
+        if (this.hasSocketConnection(endPoint)) {
+            this.endPointToWebsocket.get(endPoint).complete();
+            this.endPointToWebsocket.delete(endPoint);
+        }
+    }
+
     /**
      * Create new websocket connection and add to Map
      *
