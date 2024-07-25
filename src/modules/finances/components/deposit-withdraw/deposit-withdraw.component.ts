@@ -165,6 +165,7 @@ export class DepositWithdrawComponent
     protected holdStep: boolean = false;
     protected isInitialized: boolean = false;
 
+    private static forceEnableAutoSelectPaySystem: boolean = false;
     private userProfile: UserProfile;
     private useScroll: boolean = false;
     private stepsOrder: Params.TStepTplName[] = [];
@@ -256,7 +257,7 @@ export class DepositWithdrawComponent
     }
 
     public get skipAutoSelectPaySystem(): boolean {
-        return this.$params.theme === 'steps';
+        return this.$params.theme === 'steps' && !DepositWithdrawComponent.forceEnableAutoSelectPaySystem;
     }
 
     public get themeMod(): Params.ThemeMod {
@@ -301,6 +302,12 @@ export class DepositWithdrawComponent
         }
 
         return params;
+    }
+
+    disableForceAutoSelection(): void {
+        if (DepositWithdrawComponent.forceEnableAutoSelectPaySystem) {
+            DepositWithdrawComponent.forceEnableAutoSelectPaySystem = false;
+        }
     }
 
     protected prepareStepsTemplate(ignoreBp: boolean = false): void {
@@ -509,6 +516,10 @@ export class DepositWithdrawComponent
         this.isLastMethodExisting = (this.isDeposit
                 && this.configService.get<boolean>('$finances.lastSucceedDepositMethod.use'))
             || (!this.isDeposit && this.configService.get<boolean>('$finances.lastSucceedWithdrawMethod.use'));
+
+        if (this.$params.theme === 'steps' && this.isLastMethodExisting) {
+            DepositWithdrawComponent.forceEnableAutoSelectPaySystem = true;
+        }
 
         this.isMultiWallet = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
 

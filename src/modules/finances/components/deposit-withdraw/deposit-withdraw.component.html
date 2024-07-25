@@ -207,7 +207,8 @@
         [availableSystems]="availableSystems"
         [userCountry]="userCountry"
         [skipAutoSelect]="skipAutoSelectPaySystem"
-        [currentSystem]="parentSystem || currentSystem">
+        [currentSystem]="parentSystem || currentSystem"
+        (autoSelectionDone)="disableForceAutoSelection()">
     </div>
 </ng-template>
 

@@ -24,7 +24,7 @@ export const sanitizeHTMLTags: RegExp = /<[^>]*>/g;
 
 export namespace MediaQueries {
 
-    export const minOrMax: RegExp = /(\(\s*\')\s*(min-width|max-width):\s*\d+(px)\s*\'\s*\)/i;
+    export const minOrMax: RegExp = /\(\s*(min-width|max-width):\s*\d+(px)\s*\)/i;
 
 }
 

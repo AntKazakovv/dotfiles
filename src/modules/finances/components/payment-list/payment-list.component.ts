@@ -12,6 +12,8 @@ import {
     SimpleChanges,
     ViewChild,
     Injector,
+    Output,
+    EventEmitter,
 } from '@angular/core';
 import {UntypedFormControl} from '@angular/forms';
 
@@ -108,6 +110,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     @Input() protected isFetchingSystems: boolean = false;
     @Input() protected inlineParams: Params.IPaymentListCParams;
     @Input() protected skipAutoSelect: boolean = false;
+    @Output() protected readonly autoSelectionDone: EventEmitter<void> = new EventEmitter();
     @ViewChild('list') protected list: TemplateRef<any>;
 
     public override $params: Params.IPaymentListCParams;
@@ -252,7 +255,6 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         hideModal: boolean = this.$params.hideModalOnSelect,
         autoSelect: boolean = false,
     ): void {
-
         if (system?.isParent) {
             this.selectedParentID = system.id;
         } else if (this.$params.theme !== 'crypto-list') {
@@ -278,6 +280,10 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         if (system && hideModal && system.id !== this.currentSystem?.id
             && this.modalService.getActiveModal('payment-list')) {
             this.modalService.hideModal('payment-list');
+        }
+
+        if (autoSelect) {
+            this.autoSelectionDone.emit();
         }
 
         this.cdr.markForCheck();
@@ -385,9 +391,8 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
                 });
 
             if (current) {
-
-                if (current?.id !== this.currentSystem?.id) {
-                    this.selectPayment(current, false, false);
+                if ((current?.id !== this.currentSystem?.id) && !this.skipAutoSelect) {
+                    this.selectPayment(current, false, false, true);
                 }
 
             } else if (this.isAutoSelect) {
@@ -396,16 +401,11 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
                     this.selectPayment(null, undefined, false, true);
                 }
 
-                this.selectPayment(this.systems$.getValue().find(s => !s.disabledBy), true, false);
-
+                this.selectPayment(this.systems$.getValue().find(s => !s.disabledBy), true, false, true);
             } else if (this.currentSystem
                 && !this.systems$.getValue().find(s => s.id === this.currentSystem?.id)) {
 
-                if (this.currentSystem?.isParent) {
-                    this.selectPayment(null, undefined, false);
-                }
-
-                this.selectPayment(null, undefined, false);
+                this.selectPayment(null, undefined, false, true);
             }
         }
     }
@@ -510,7 +510,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
             && !this.skipAutoSelect
         ) {
             this.selectPayment(this.systems$.getValue()[0], false, false, true);
-        } else if (this.systems$.getValue().length > 1 && this.isAutoSelect) {
+        } else if (this.systems$.getValue().length > 1 && this.isAutoSelect && !this.skipAutoSelect) {
             this.selectPayment(this.getAutoSelected(), false, false, true);
         }
 
