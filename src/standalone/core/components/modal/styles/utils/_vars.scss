@@ -547,9 +547,16 @@ $themeDefault: map-merge((
     // deposit modal
     'depModalBodyPadding': (
         375: ef.size(5) ef.size(6),
-        560: ef.size(6) ef.size(3),
+        560: ef.size(6) ef.size(3) ef.size(4),
     ),
     'depModalBg':  var(--mc-bg700),
+
+    //deposit bonuses
+    'depBonusesBodyPadding': (
+        375: ef.size(5) ef.size(3),
+        560: ef.size(6) ef.size(3),
+    ),
+    'depBonusesGap': ef.size(2),
 
     // lottery-detail modal
     'lotteryDetailBodyPadding': (

@@ -90,6 +90,7 @@
     <div class="{{$class}}__content"
          data-wlc-element="block_bonus"
          [class.disabled]="bonus.disabledBy"
+         [class.subscribed]="bonus.isSubscribed"
          [class.chosen]="bonus.isChoose && $params.themeMod !== 'simple'"
          [class.blank]="!bonus.id">
         <div class="{{$class}}__wrapper">
@@ -104,10 +105,12 @@
                 <ng-container *ngIf="bonus.id && !bonus.showOnly"
                               [ngTemplateOutlet]="bonusIcon">
                 </ng-container>
-
             </div>
         </div>
-        <div *ngIf="!$params.hideBonusBottom" class="{{$class}}__bottom">
+        <div *ngIf="!$params.hideBonusBottom && bonus.id" class="{{$class}}__bottom">
+            <div *ngIf="bonus.isSubscribed" class="{{$class}}__tag-wrapper">
+                <span wlc-tag [inline]="tagConfig"></span>
+            </div>
             <h4 *ngIf="bonus.id"
                 class="{{$class}}__name"
                 data-wlc-element="bonus_title-name"

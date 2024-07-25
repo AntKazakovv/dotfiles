@@ -2,8 +2,8 @@
 
     &__list {
         @include bm.get-mq-map('grid-template-columns', $themeDefault, 'listTemplateColumns');
-        @include bm.get-mq-map('gap', $themeDefault, 'listGap');
         display: grid;
+        gap: var(--wlc-dep-bonuses-gap, #{ef.get-value($themeDefault, 'listGapFallback')});
     }
 
     &__bonus {
@@ -23,6 +23,7 @@
 }
 
 .wlc-deposit-bonuses--theme-default:host {
+    @include bm.get-mq-map('--wlc-dep-bonuses-gap', $themeDefault, 'listGap');
 
     .wlc-deposit-bonuses {
 
@@ -117,7 +118,7 @@
 
                 .wlc-bonus-item--theme-mini {
 
-                    .wlc-bonus-item__wrapper {
+                    .wlc-bonus-item__content:after {
                         box-shadow: ef.get-value($themeDefault, 'bonusItemShadow');
                     }
                 }
@@ -154,6 +155,15 @@
                 color: ef.get-value($themeDefault, 'shortBonusInfoColorHover');
             }
         }
+
+        &__short-bonus-tag {
+            --wlc-tag-min-width: #{ef.get-value($themeDefault, 'shortBonusTagMinWidth')};
+            --wlc-tag-min-height: #{ef.get-value($themeDefault, 'shortBonusTagMinHeight')};
+            --wlc-tag-bg-opacity: #{ef.get-value($themeDefault, 'shortBonusTagBgOpacity')};
+
+            display: ef.get-value($themeDefault, 'shortBonusTagDisplay');
+            margin: ef.get-value($themeDefault, 'shortBonusTagMargin');
+        }
     }
 
     &.wlc-deposit-bonuses--type-swiper {
@@ -168,7 +178,7 @@
 
             .swiper-slide {
                 width: ef.get-value($themeDefault, 'slideWidth');
-                padding-top: var(--wlc-dep-bonus-slider-offset);
+                padding: var(--wlc-dep-bonus-slider-offset) 0;
             }
         }
 

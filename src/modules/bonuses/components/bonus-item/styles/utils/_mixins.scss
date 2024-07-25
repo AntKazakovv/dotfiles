@@ -191,9 +191,3 @@
     background-position: ef.get-value($themeDefault, 'dummyBgPosition');
     background-size: ef.get-value($themeDefault, 'dummyBgSize');
 }
-
-@mixin bonusItemSelectionReset() {
-    border-color: transparent;
-    background-origin: border-box;
-    box-shadow: none;
-}
