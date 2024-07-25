@@ -144,8 +144,8 @@ export const templateSignUp = {
 };
 
 export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperCParams => {
-    let demoBtn = [],
-        orDemoBtn = [];
+    let demoBtn: IFormComponent[] = [],
+        orDemoBtn: IFormComponent[] = [];
     if (params.game.hasDemo && !params.disableDemo) {
         demoBtn = [
             {

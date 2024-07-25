@@ -35,9 +35,11 @@ import {
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
 import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
-import {IMerchantWalletFormCParams} from
-    'wlc-engine/modules/games/components/merchant-wallet/merchant-wallet-form/merchant-wallet-form.params';
+import {
+    IMerchantWalletFormCParams,
+}  from 'wlc-engine/modules/games/components/merchant-wallet/merchant-wallet-form/merchant-wallet-form.params';
 import {IMerchantWalletSystemConfig} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
+import {TResponseError} from 'wlc-engine/modules/core/system/services/data/data.service';
 
 /**
  * @param balanceSuccess - balance get request is succeeded
@@ -102,6 +104,8 @@ const defMerchantConfig: IMerchantWalletSystemConfig = {
 
 @Injectable({providedIn: 'root'})
 export class MerchantWalletService {
+
+    public readonly balanceError$: BehaviorSubject<TResponseError> = new BehaviorSubject(null);
 
     private _merchant: MerchantModel;
     private _game: Game;
@@ -374,13 +378,14 @@ export class MerchantWalletService {
                     fail: BalanceServiceEvents.balanceFail,
                 }}, {systemId: this.merchant.id}),
             ).pipe(
-                catchError((error: any): Observable<never> => {
-                    const errData = _isArray(error.errors) ? error
-                        : {errors: [gettext('Provider wallet balance information has not been received')]};
-                    this.balance$.next(errData);
-                    return throwError(errData);
+                catchError((error: TResponseError): Observable<never> => {
+                    this.balanceError$.next(error);
+                    return throwError(error);
                 }),
                 map((response: IGetBalanceResponse) => {
+                    if (this.balanceError$.getValue()) {
+                        this.balanceError$.next(null);
+                    }
                     this.balance$.next(response.data);
                     return response.data;
                 }),

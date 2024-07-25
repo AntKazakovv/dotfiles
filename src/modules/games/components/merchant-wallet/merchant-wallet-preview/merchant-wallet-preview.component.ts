@@ -27,6 +27,7 @@ import {
     IMerchantWalletBalance,
     MerchantWalletService,
 } from 'wlc-engine/modules/games/system/services/merchant-wallet/merchant-wallet.service';
+import {TResponseError} from 'wlc-engine/modules/core/system/services/data/data.service';
 
 import * as Params from './merchant-wallet-preview.params';
 
@@ -118,11 +119,20 @@ export class MerchantWalletPreviewComponent extends AbstractComponent implements
     }
 
     protected initListeners(): void {
+        this.merchantWalletService.balanceError$
+            .pipe(
+                tap((error: TResponseError): void => {
+                    this.isError = !!error;
+                }),
+                distinctUntilChanged(_isEqual),
+                takeUntil(this.$destroy),
+            )
+            .subscribe((): void => {
+                this.cdr.markForCheck();
+            });
+
         this.merchantWalletService.balanceObserver
             .pipe(
-                tap((value: IMerchantWalletBalance): void => {
-                    this.isError = !!value?.['errors'];
-                }),
                 distinctUntilChanged(_isEqual),
                 takeUntil(this.$destroy),
             )

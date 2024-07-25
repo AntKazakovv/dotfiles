@@ -70,6 +70,8 @@ export interface IData<T = any> {
     headers?: HttpHeaders;
 }
 
+export type TResponseError = Pick<IData, 'status' | 'code' | 'errors'>
+
 export type RestMethodType = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
 
 export interface ICacheOptions {
