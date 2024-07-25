@@ -327,11 +327,21 @@ export class SliderComponent extends AbstractComponent
                 if (_get(this.swiper, 'virtualSize', 0) > _get(this.swiper, 'size', 0)) {
                     this.addModifiers('overflow');
                     _set(this.swiper, 'allowTouchMove', true);
+
+                    if (this.$params.centeredSlides && !_get(this.swiper.params, 'centeredSlides')) {
+                        _set(this.swiper.params, 'centeredSlides', true);
+                        _set(this.swiper.params, 'centeredSlidesBounds', true);
+                    }
                 } else {
                     if (this.hasModifier('overflow')) {
                         this.removeModifiers('overflow');
                     }
                     _set(this.swiper, 'allowTouchMove', false);
+
+                    if (this.$params.centeredSlides && _get(this.swiper.params, 'centeredSlides')) {
+                        _set(this.swiper.params, 'centeredSlides', false);
+                        _set(this.swiper.params, 'centeredSlidesBounds', false);
+                    }
                 }
             });
         }

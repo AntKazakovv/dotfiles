@@ -72,6 +72,10 @@ export interface ISliderCParams extends IComponentParams<ComponentTheme, Compone
         text?: string;
         srefParams?: RawParams;
     },
+    /**
+     * If 'true' enable parameter centeredSlides and centeredSlidesBounds. 'false' is default.
+     */
+    centeredSlides?: boolean;
 };
 
 export const defaultParams: ISliderCParams = {
@@ -83,6 +87,7 @@ export const defaultParams: ISliderCParams = {
         sref: '',
     },
     useStartTimeout: false,
+    centeredSlides: false,
 };
 
 export const defaultNavigationParams: NavigationOptions = {

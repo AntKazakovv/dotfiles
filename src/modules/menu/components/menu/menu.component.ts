@@ -475,12 +475,26 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         if (this.$params.common?.useSwiper) {
             this.slides = [];
             this.addModifiers('swiper');
-            _forEach(this.items, (item) => {
+            _forEach(this.items, (item: Params.IMenuItem, index: number) => {
                 let template: TemplateRef<any>;
                 let templateParams = {item: item};
 
                 if (_has(item, 'parent')) {
                     return;
+                }
+
+                if (this.sliderParams.centeredSlides
+                    && this.isActive(
+                        item.params?.state?.name,
+                        item.params?.state?.params,
+                    )
+                ) {
+                    this.sliderParams.swiper.on = {
+                        update: (swiper) => {
+                            swiper.slideTo(index);
+                            swiper.activeIndex = index;
+                        },
+                    };
                 }
 
                 const menuItem: Params.IMenuItem = item as Params.IMenuItem;
