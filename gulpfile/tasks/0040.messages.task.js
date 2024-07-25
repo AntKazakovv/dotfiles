@@ -98,7 +98,7 @@ module.exports = function messagesTask() {
                     `-o ${this.params.paths.locale}/${locale.locale}/LC_MESSAGES/loyalty.mo\n`;
             });
 
-        this.execShell(commands, false).then(() => cb());
+        this.execShell(commands, true).then(() => cb());
     });
 
     task('message:translationstwig', (cb) => {
@@ -132,7 +132,7 @@ module.exports = function messagesTask() {
             + ' --keyword="trans" --keyword="transchoice" --keyword="_" --keyword="gettext"' +
             ` --files \`cat ${tmpFile.name}\`\n`;
 
-        await this.execShell(commands, false);
+        await this.execShell(commands, true);
         await this.execShell(extractCommand, true);
 
         // fix date update
@@ -153,7 +153,7 @@ module.exports = function messagesTask() {
             getTextCommand = `xgettext -L PHP --force-po -f ${tmpFile.name} -o ${this.params.paths.temp}/messages_php.pot\n`
                 +  `sed --in-place ${this.params.paths.temp}/messages_php.pot --expression="s|#:[[:space:]]${this.params.paths.root}|#: |"\n`;
 
-        await this.execShell(commands, false);
+        await this.execShell(commands, true);
         await this.execShell(getTextCommand, true);
         cb();
     });
