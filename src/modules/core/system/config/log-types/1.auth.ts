@@ -125,6 +125,23 @@ export const errorTypes: ILogTypes = {
         // Login request send
         level: 'info',
     },
+    '1.2.6': {
+        // Force logout (jwt errors)
+        level: 'info',
+    },
+    '1.2.6.1': {
+        // Force logout (diff refresh tokens, jwt concurrent requests checks skiped)
+        level: 'info',
+    },
+    '1.2.6.2': {
+        // Force logout (jwt refreshToken failed requests)
+        level: 'info',
+    },
+    '1.2.6.3': {
+        // Prevent logout one-time
+        // (jwt request refreshToken failed, current authToken !== authToken value before request)
+        level: 'info',
+    },
     '1.3.1': {
         // Captcha load timeout
     },

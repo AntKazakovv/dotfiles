@@ -22,6 +22,7 @@ import {
     PartialObserver,
     throwError,
     firstValueFrom,
+    timer,
 } from 'rxjs';
 import {
     map,
@@ -170,6 +171,7 @@ export class DataService {
 
     private flow$: Subject<IData> = new Subject<IData>();
     private apiList: {[key: string]: IRegisteredMethod} = {};
+    private pendingRequests: Map<string, Promise<unknown>> = new Map();
     private errorReplacerMap!: TErrorReplacerMap;
 
     constructor(
@@ -261,7 +263,21 @@ export class DataService {
             },
         );
 
-        return firstValueFrom(this.request$<T>(method.request, method.params));
+        const requestKey = `${method.request.url || method.request.fullUrl}|${JSON.stringify(method.params || {})}`;
+        const pendingRequest = this.pendingRequests.get(requestKey) as Promise<IData | T>;
+
+        if (pendingRequest) {
+            return pendingRequest;
+        }
+
+        const requestPromise = firstValueFrom(this.request$<T>(method.request, method.params));
+        this.pendingRequests.set(requestKey, requestPromise);
+
+        requestPromise.finally(() => {
+            this.pendingRequests.delete(requestKey);
+        });
+
+        return requestPromise;
     }
 
     /**
@@ -394,14 +410,17 @@ export class DataService {
             (this.isRequestPreloaded(method))
                 ? from(this.window.wlcPreload[method.preload])
                 : of(undefined);
+
         if (!method.retries?.count) {
             _set(method, 'retries.count', [3000, 1000]);
         } else {
             method.retries.count = _reverse(method.retries.count);
         }
+
         let countLength = method.retries.count.length;
-        let jwtRetriesCount = 1;
         let notCacheStaticData = true;
+        let jwtRetriesCount = 1;
+        let concurentRequestRetriesCount = 2;
 
         return preloadData$.pipe(
             switchMap((result: IData) => {
@@ -449,15 +468,68 @@ export class DataService {
                                                     fail: 'REFRESH_JWT_TOKEN_ERROR',
                                                 },
                                             }, {token: jwtRefreshToken})).pipe(
-                                                catchError(() => {
+                                                catchError((error) => {
+                                                    const jwtCurrentAuthToken: string = this.configService.get({
+                                                        name: 'jwtAuthToken',
+                                                        storageType: 'localStorage',
+                                                    });
+                                                    const jwtCurrentRefreshToken: string = this.configService.get({
+                                                        name: 'jwtAuthRefreshToken',
+                                                        storageType: 'localStorage',
+                                                    });
+
+                                                    if (jwtCurrentRefreshToken !== jwtRefreshToken) {
+                                                        this.logService.sendLog({
+                                                            code: '1.2.6.3',
+                                                            flog: {
+                                                                authToken: jwtCurrentAuthToken,
+                                                                refreshToken: jwtCurrentRefreshToken,
+                                                                requestRefreshToken: jwtRefreshToken,
+                                                            },
+                                                        });
+                                                        jwtRetriesCount++;
+                                                        return timer(500);
+                                                    }
+
+                                                    if (error.errors?.includes('Concurent request')
+                                                        && concurentRequestRetriesCount > 0
+                                                    ) {
+                                                        concurentRequestRetriesCount--;
+                                                        jwtRetriesCount++;
+                                                        return timer(500);
+                                                    }
+
+                                                    this.logService.sendLog({
+                                                        code: '1.2.6.1',
+                                                        flog: {
+                                                            authToken: jwtCurrentAuthToken,
+                                                            refreshToken: jwtCurrentRefreshToken,
+                                                        },
+                                                    });
                                                     this.configService.updateJwtTokens(null, null);
-                                                    return of('');
+                                                    this.eventService.emit({name: 'FORCE_LOGOUT'});
+                                                    return throwError(error);
                                                 }),
                                                 map(() => error),
                                             );
                                         }
                                     }
+
+                                    this.logService.sendLog({
+                                        code: '1.2.6.2',
+                                        flog: {
+                                            authToken: this.configService.get({
+                                                name: 'jwtAuthToken',
+                                                storageType: 'localStorage',
+                                            }),
+                                            refreshToken: this.configService.get({
+                                                name: 'jwtAuthRefreshToken',
+                                                storageType: 'localStorage',
+                                            }),
+                                        },
+                                    });
                                     this.configService.updateJwtTokens(null, null);
+                                    this.eventService.emit({name: 'FORCE_LOGOUT'});
                                 }
                                 return throwError(error);
                             }),
