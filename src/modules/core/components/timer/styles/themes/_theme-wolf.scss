@@ -16,6 +16,7 @@
         );
         display: flex;
         justify-content: ef.get-value($themeWolf, 'timerJustifyContent');
+        white-space: nowrap;
     }
 
     .time-text__item {
@@ -34,7 +35,11 @@
         }
 
         .text {
-            padding: ef.get-value($themeWolf, 'itemTextpadding');
+            padding: ef.get-value($themeWolf, 'itemTextPadding');
+        }
+
+        &:last-child {
+            padding: 0;
         }
     }
 
