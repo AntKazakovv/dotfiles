@@ -22,6 +22,8 @@ import {
     ISliderCParams,
     ModalService,
     SliderComponent,
+    ITagCommon,
+    ITagCParams,
 } from 'wlc-engine/modules/core';
 import {
     IAutoSelectByDevice,
@@ -35,6 +37,7 @@ import {BonusesService} from 'wlc-engine/modules/bonuses/system/services';
 import {
     BonusItemComponentEvents,
     IBonus,
+    IBonusesTags,
     IPromoCodeInfo,
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {BonusItemComponent} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.component';
@@ -60,6 +63,7 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
     public autoSelect: number | IAutoSelectByDevice<number>;
     public slides: ISlide[] = [];
     public sliderParams: ISliderCParams;
+    public tagConfig: ITagCParams;
 
     protected currentPaySystemId: number = 0;
     protected blankBonus: Bonus;
@@ -95,6 +99,7 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
         }
 
         this.createBlankBonus();
+        this.setTagConfig();
 
         this.eventService.subscribe({
             name: 'select_system',
@@ -213,6 +218,27 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
     public onSlideChange(swiper: Swiper): void {
         if (swiper.params.slidesPerView === 1 || swiper.params.slidesPerView === 'auto') {
             this.chooseBonusByPos(swiper.realIndex);
+        }
+    }
+
+    protected setTagConfig(): void {
+        const moduleTagsConfig: IBonusesTags = this.configService.get<IBonusesTags>('$bonuses.tagsConfig');
+
+        if (moduleTagsConfig.tagList['subscribed']) {
+            const tagCommon: ITagCommon = Object.assign(moduleTagsConfig.tagList['subscribed']);
+
+            if (!moduleTagsConfig.useIcons) {
+                tagCommon.iconUrl = null;
+            }
+
+            if (!this.$params.itemParams?.themeMod) {
+                tagCommon.bg = null;
+                tagCommon.iconUrl = null;
+            }
+
+            this.tagConfig = {
+                common: tagCommon,
+            };
         }
     }
 

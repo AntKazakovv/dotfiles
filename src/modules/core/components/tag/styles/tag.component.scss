@@ -8,6 +8,8 @@
 
 .wlc-tag:host {
     position: var(--wlc-tag-position, relative);
+    z-index: 10;
+    min-width: var(--wlc-tag-min-width, initial);
     max-width: 100%;
     line-height: 1;
     white-space: nowrap;

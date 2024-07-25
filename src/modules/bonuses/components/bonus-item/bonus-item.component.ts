@@ -252,6 +252,10 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
         );
     }
 
+    public get showBonusBottom(): boolean {
+        return !this.$params.hideBonusBottom && !!this.bonus.id;
+    }
+
     public prepareBonusImage(): void {
         const source: Params.TBonusItemImageSource = this.$params.imageSource;
         let image: string = '';
@@ -392,9 +396,9 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
 
     protected prepareTagConfig(): void {
         const moduleTagsConfig: IBonusesTags = this.configService.get<IBonusesTags>('$bonuses.tagsConfig');
-        const tagCommon: ITagCommon = moduleTagsConfig.tagList[this.bonus.tag];
 
-        if (tagCommon) {
+        if (moduleTagsConfig.tagList[this.bonus.tag]) {
+            const tagCommon: ITagCommon = Object.assign(moduleTagsConfig.tagList[this.bonus.tag]);
 
             if (!moduleTagsConfig.useIcons) {
                 tagCommon.iconUrl = null;

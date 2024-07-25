@@ -269,6 +269,17 @@
         }
     }
 
+    &.wlc-modal--deposit-bonuses {
+        --wlc-dep-bonuses-gap: #{ef.get-value($themeDefault, 'depBonusesGap')};
+
+        .wlc-modal {
+
+            &__body {
+                @include bm.get-mq-map('padding', $themeDefault, 'depBonusesBodyPadding');
+            }
+        }
+    }
+
     &.wlc-modal--bonus-info-default {
 
         .wlc-modal {

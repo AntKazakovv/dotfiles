@@ -41,6 +41,10 @@ export {
     ITableCParams,
     ITableCol,
 } from './table/table.params';
+export {
+    ITagCommon,
+    ITagCParams,
+} from './tag/tag.params';
 export {IThemeTogglerCParams} from './theme-toggler/theme-toggler.params';
 export {ITooltipCParams} from './tooltip/tooltip.params';
 export {StepsEvents} from './steps/steps.params';
