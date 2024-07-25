@@ -8,7 +8,6 @@ import {
 import {BonusHistoryItemModel} from 'wlc-engine/modules/history/system/models/bonus-history/bonus-history-item.model';
 import {HistoryNameComponent} from 'wlc-engine/modules/history/components/history-name/history-name.component';
 import {IHistoryNameItem} from 'wlc-engine/modules/history/components/history-name/history-name.params';
-import {rangeExceededMsg} from 'wlc-engine/modules/history/system/constants/history.constants';
 
 export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;
@@ -24,7 +23,6 @@ export interface IBonusesHistoryCParams extends IComponentParams<Theme, Type, Th
     emptyConfig?: IWrapperCParams;
     tableConfig?: ITableCParams;
     historyRangeParams?: IBonusesHistoryRangeParams;
-    rangeExceededConfig?: IWrapperCParams;
 }
 
 export const bonusHistoryTableHeadConfig: ITableCol[] = [
@@ -111,16 +109,6 @@ export const defaultParams: IBonusesHistoryCParams = {
                 name: 'profile.wlc-profile-no-content',
                 params: {
                     text: gettext('No bonuses history'),
-                },
-            },
-        ],
-    },
-    rangeExceededConfig: {
-        components: [
-            {
-                name: 'profile.wlc-profile-no-content',
-                params: {
-                    text: rangeExceededMsg,
                 },
             },
         ],

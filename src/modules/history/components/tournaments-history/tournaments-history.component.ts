@@ -122,13 +122,6 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
     }
 
     /**
-     *  Message when setting over 90 days range
-     */
-    public get rangeExceededConfig(): IWrapperCParams {
-        return this.$params.rangeExceededConfig;
-    }
-
-    /**
      * Info when tournaments history haven't data
      */
     public get emptyConfig(): IWrapperCParams {

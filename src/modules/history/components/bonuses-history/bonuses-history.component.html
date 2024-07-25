@@ -15,13 +15,7 @@
 </ng-container>
 
 <ng-template #empty>
-    <div *ngIf="!reportIntervalExceeded; else reportInterval"
-        wlc-wrapper [inlineParams]="emptyConfig">
-    </div>
-</ng-template>
-
-<ng-template #reportInterval>
-    <div wlc-wrapper [inlineParams]="rangeExceededConfig"></div>
+    <div wlc-wrapper [inlineParams]="emptyConfig"></div>
 </ng-template>
 
 <ng-template #preloader>

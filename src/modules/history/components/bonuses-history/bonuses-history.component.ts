@@ -125,13 +125,6 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
         return this.$params.emptyConfig;
     }
 
-    /**
-     *  Message when setting over 90 days range
-     */
-    public get rangeExceededConfig(): IWrapperCParams {
-        return this.$params.rangeExceededConfig;
-    }
-
     protected prepareTableParams(): void {
         this.tableData = this.$params.tableConfig;
         this.tableData.rows = this.bonuses$;

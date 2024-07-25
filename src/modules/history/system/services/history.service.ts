@@ -56,7 +56,6 @@ import {
     Transaction,
     ITransaction,
 } from 'wlc-engine/modules/history/system/models/transaction-history/transaction-history.model';
-import {rangeExceededMsg} from 'wlc-engine/modules/history/system/constants/history.constants';
 import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
 import {HistoryHelper} from 'wlc-engine/modules/history/system/helpers';
 import {RatesCurrencyService} from 'wlc-engine/modules/rates';
@@ -160,7 +159,18 @@ export class HistoryService {
 
                 return this.historyBonuses as T[];
             } catch (error) {
-                if (error.code === 400
+                //TODO need to be implemented in release 1.81: remove ELSE-IF block. More info: #635561.
+                if (error.errors.dateFrom) {
+                    this.eventService.emit({
+                        name: NotificationEvents.PushMessage,
+                        data: <IPushMessageParams>{
+                            type: 'error',
+                            title: 'Error',
+                            message: error.errors.dateFrom,
+                            wlcElement: 'notification_bonuses-history',
+                        },
+                    });
+                } else if (error.code === 400
                     && error.errors.length === 1
                     && error.errors[0] === 'Report interval is more than 90 days') {
                     this.eventService.emit({
@@ -168,7 +178,7 @@ export class HistoryService {
                         data: <IPushMessageParams>{
                             type: 'error',
                             title: 'Error',
-                            message: rangeExceededMsg,
+                            message: gettext('Report interval is more than 90 days'),
                             wlcElement: 'notification_bonuses-history',
                         },
                     });
@@ -211,7 +221,18 @@ export class HistoryService {
                 publicSubject ? this.subjects.tournamentsHistory$.next(tournaments) : null;
                 return tournaments as T[];
             } catch (error) {
-                if (error.code === 400
+                //TODO need to be implemented in release 1.81: remove ELSE-IF block. More info: #635561.
+                if (error.errors.dateFrom) {
+                    this.eventService.emit({
+                        name: NotificationEvents.PushMessage,
+                        data: <IPushMessageParams>{
+                            type: 'error',
+                            title: 'Error',
+                            message: error.errors.dateFrom,
+                            wlcElement: 'notification_tournaments-history',
+                        },
+                    });
+                } else if (error.code === 400
                     && error.errors.length === 1
                     && error.errors[0] === 'Report interval is more than 90 days') {
                     this.eventService.emit({
@@ -219,7 +240,7 @@ export class HistoryService {
                         data: <IPushMessageParams>{
                             type: 'error',
                             title: 'Error',
-                            message: rangeExceededMsg,
+                            message: gettext('Report interval is more than 90 days'),
                             wlcElement: 'notification_tournaments-history',
                         },
                     });
@@ -452,8 +473,18 @@ export class HistoryService {
                 .conversionCurrency<Transaction>(this.injectionService, response.data);
             return transactions;
         } catch (error) {
-            //TODO replace compare with error string from backend by handling this in front. Will be in SCR #544298
-            if (error.code === 400
+            //TODO need to be implemented in release 1.81: remove ELSE-IF block. More info: #635561.
+            if (error.errors.startDate) {
+                this.eventService.emit({
+                    name: NotificationEvents.PushMessage,
+                    data: <IPushMessageParams>{
+                        type: 'error',
+                        title: 'Error',
+                        message: error.errors.startDate,
+                        wlcElement: 'notification_transaction-history',
+                    },
+                });
+            } else if (error.code === 400
                 && error.errors.length === 1
                 && error.errors[0] === 'Report interval is more than 90 days'
             ) {
@@ -462,7 +493,7 @@ export class HistoryService {
                     data: <IPushMessageParams>{
                         type: 'error',
                         title: 'Error',
-                        message: rangeExceededMsg,
+                        message: gettext('Report interval is more than 90 days'),
                         wlcElement: 'notification_transaction-history',
                     },
                 });

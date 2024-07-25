@@ -13,7 +13,6 @@ import {
     TransactionButtonsComponent,
 } from 'wlc-engine/modules/history/components/transaction-history/transaction-buttons/transaction-buttons.component';
 import {Transaction} from 'wlc-engine/modules/history/system/models/transaction-history/transaction-history.model';
-import {rangeExceededMsg} from 'wlc-engine/modules/history/system/constants/history.constants';
 import {HistoryNameComponent} from 'wlc-engine/modules/history/components/history-name/history-name.component';
 import {IFinancialHistoryNameItem} from 'wlc-engine/modules/history/components/history-name/history-name.params';
 
@@ -32,7 +31,6 @@ export interface ITransactionHistoryCParams extends IComponentParams<Theme, Type
     /** wlc-profile-no-content params */
     emptyConfig?: IWrapperCParams;
     historyRangeParams?: ITransactionHistoryRangeParams;
-    rangeExceededConfig?: IWrapperCParams;
 }
 
 export const transactionTableHeadConfig: ITableCol[] = [
@@ -104,16 +102,6 @@ export const defaultParams: ITransactionHistoryCParams = {
                 name: 'profile.wlc-profile-no-content',
                 params: {
                     text: gettext('No transactions history'),
-                },
-            },
-        ],
-    },
-    rangeExceededConfig: {
-        components: [
-            {
-                name: 'profile.wlc-profile-no-content',
-                params: {
-                    text: rangeExceededMsg,
                 },
             },
         ],
