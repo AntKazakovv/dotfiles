@@ -20,7 +20,10 @@
         <li class="{{$class}}__summary-item">{{'Results:' | translate}} {{filterInterval}}</li>
         <li class="{{$class}}__summary-item">
             {{'Total profit by month:' | translate}}
-            <span wlc-currency [value]="monthProfit"></span>
+            <span wlc-currency
+                [value]="monthProfit"
+                currency="EUR">
+            </span>
         </li>
         <li class="{{$class}}__summary-item">{{'Number of profit referrals:' | translate}} {{profitReferralsCount}}</li>
     </ul>
@@ -38,7 +41,10 @@
                     <li *ngFor="let item of referralItems" class="{{$class}}__item">
                         <div class="{{$class}}__item-col {{$class}}__item-col--name">{{item.id}}</div>
                         <div class="{{$class}}__item-col {{$class}}__item-col--profit">
-                            <span wlc-currency [value]="item.profit"></span>
+                            <span wlc-currency
+                                [value]="item.profit"
+                                currency="EUR">
+                            </span>
                         </div>
                     </li>
                 </ul>
