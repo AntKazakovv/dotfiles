@@ -1,6 +1,6 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'buttonIconFill': var(--mc-baseThird, --mc-baseMain),
+    'buttonIconFill': var(--mc-baseMain),
     'buttonIconFillHover': var(--mc-secondary),
     'buttonIconTransition': all 0.3s,
 

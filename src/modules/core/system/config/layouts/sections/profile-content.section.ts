@@ -902,7 +902,7 @@ export namespace profileContent {
                     ],
                 },
             },
-            componentLib.wlcProfileMenu.submenu,
+            componentLib.wlcDepositWithdraw.submenu,
             componentLib.wlcDepositWithdraw.deposit,
         ],
     };
@@ -913,10 +913,11 @@ export namespace profileContent {
         usePreloader: true,
         components: [
             {
-                name: 'core.wlc-wrapper',
+                name: 'core.wlc-section-title',
                 params: {
-                    class: 'wlc-profile-content__top',
-                    components: [componentLib.wlcTitle.paymentsWolf],
+                    theme: 'wolf',
+                    text: 'Deposit',
+                    iconPath: 'wlc/icons/european/v3/deposit.svg',
                 },
                 display: {
                     before: 899,
@@ -928,7 +929,7 @@ export namespace profileContent {
                     class: 'wlc-profile-content__wrp',
                     components: [
                         componentLib.wlcProfileMenu.defTypeWolf,
-                        componentLib.wlcProfileMenu.submenuWolf,
+                        componentLib.wlcDepositWithdraw.submenuWolf,
                         componentLib.wlcDepositWithdraw.balanceAdaptive,
                         componentLib.wlcDepositWithdraw.deposit,
                     ],
@@ -1000,7 +1001,7 @@ export namespace profileContent {
                     ],
                 },
             },
-            componentLib.wlcProfileMenu.submenu,
+            componentLib.wlcDepositWithdraw.submenu,
             componentLib.wlcDepositWithdraw.withdraw,
         ],
     };
@@ -1011,10 +1012,11 @@ export namespace profileContent {
         usePreloader: true,
         components: [
             {
-                name: 'core.wlc-wrapper',
+                name: 'core.wlc-section-title',
                 params: {
-                    class: 'wlc-profile-content__top',
-                    components: [componentLib.wlcTitle.paymentsWolf],
+                    theme: 'wolf',
+                    text: 'Withdrawal',
+                    iconPath: 'wlc/icons/european/v3/withdrawal.svg',
                 },
                 display: {
                     before: 899,
@@ -1026,7 +1028,7 @@ export namespace profileContent {
                     class: 'wlc-profile-content__wrp',
                     components: [
                         componentLib.wlcProfileMenu.defTypeWolf,
-                        componentLib.wlcProfileMenu.submenuWolf,
+                        componentLib.wlcDepositWithdraw.submenuWolf,
                         componentLib.wlcDepositWithdraw.balanceAdaptive,
                         componentLib.wlcDepositWithdraw.withdraw,
                     ],
@@ -2884,7 +2886,6 @@ export namespace profileContent {
                     ],
                 },
             },
-            componentLib.wlcProfileMenu.submenu,
             componentLib.wlcCashbackRewards.def,
         ],
     };
@@ -2894,13 +2895,11 @@ export namespace profileContent {
         theme: 'wolf',
         components: [
             {
-                name: 'core.wlc-wrapper',
+                name: 'core.wlc-section-title',
                 params: {
-                    class: 'wlc-profile-content__top profile-history-filter',
-                    components: [
-                        componentLib.wlcTitle.paymentsWolf,
-                        componentLib.wlcCashbackHistory.filterTypeWolf,
-                    ],
+                    theme: 'wolf',
+                    text: 'Cashback',
+                    iconPath: 'wlc/icons/european/v3/cashback.svg',
                 },
                 display: {
                     before: 899,
@@ -2912,19 +2911,6 @@ export namespace profileContent {
                     class: 'wlc-profile-content__wrp',
                     components: [
                         componentLib.wlcProfileMenu.defTypeWolf,
-                        componentLib.wlcProfileMenu.submenuWolf,
-                        {
-                            name: 'core.wlc-wrapper',
-                            params: {
-                                components: [
-                                    componentLib.wlcCashbackHistory.filterTypeWolf,
-                                ],
-                            },
-                            display: {
-                                after: 900,
-                                before: 1023,
-                            },
-                        },
                         componentLib.wlcCashbackRewards.def,
                     ],
                 },

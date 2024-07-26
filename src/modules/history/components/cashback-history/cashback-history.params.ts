@@ -12,7 +12,7 @@ import {
     CashbackHistoryModel,
 } from 'wlc-engine/modules/history/system/models/cashback-history/cashback-history.model';
 
-export type ComponentTheme = 'default'| 'wolf' | CustomType;
+export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
 export type ComponentThemeMod = 'default' | CustomType;
 
@@ -88,7 +88,6 @@ export const defaultParams: ICashbackHistoryCParams = {
             {
                 name: 'profile.wlc-profile-no-content',
                 params: {
-                    iconPath: '/wlc/icons/icons_new/empty-table-bg.svg',
                     text: gettext('No cashback history'),
                 },
             },

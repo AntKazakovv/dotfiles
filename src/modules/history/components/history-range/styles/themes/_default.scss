@@ -5,18 +5,4 @@
     );
     margin: ef.get-value($themeDefault, 'historyRangeMargin');
     white-space: nowrap;
-
-    .wlc-sections__profile-content--theme-wolf & {
-        @include text.get-text-style(
-            ef.get-value($themeWolf, 'historyRangeFontSize', 375),
-            ef.get-value($themeWolf, 'historyRangeColor')
-        );
-
-        @include mq.min(1024) {
-            @include text.get-text-style(
-                ef.get-value($themeWolf, 'historyRangeFontSize', 1024),
-                null
-            );
-        }
-    }
 }

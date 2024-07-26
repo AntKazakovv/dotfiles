@@ -20,6 +20,7 @@
         overflow: hidden;
 
         &:disabled {
+            background: ef.get-value($themeDefault, 'disabledBg');
             box-shadow: ef.get-value($themeDefault, 'disabledShadow');
             cursor: ef.get-value($themeDefault, 'disabledCursor');
             border: ef.get-value($themeDefault, 'disabledBorder');

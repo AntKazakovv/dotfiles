@@ -13,8 +13,7 @@ $themeDefault: map-merge((
 
 $customThemeWolf: () !default;
 $themeWolf: map-merge((
-    'secondTitleFontStyle': 'ThirdTitle',
-    'titleFontStyle': 'PrimaryText',
+    'titleFontStyle': 'ThirdTitle',
     'titleColor': var(--mc-baseMain),
     'titleColorHover': var(--mc-baseThird),
 

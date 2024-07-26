@@ -21,22 +21,6 @@ export namespace wlcCashbackHistory {
         },
     };
 
-    export const filterTypeWolf: ILayoutComponent = {
-        name: 'core.wlc-wrapper',
-        params: {
-            class: 'profile-history-filter',
-            components: [
-                {
-                    name: 'core.wlc-history-filter',
-                    params: {
-                        config: 'cashback',
-                        iconPath: '/wlc/icons/filter-wolf.svg',
-                    },
-                },
-            ],
-        },
-    };
-
     export const filterTypeFirst: ILayoutComponent = {
         name: 'core.wlc-wrapper',
         params: {

@@ -4,13 +4,3 @@ $themeDefault: map-merge((
     'historyRangeColor': var(--mc-baseOpacity),
     'historyRangeMargin': 0 0 ef.size(4),
 ), $customThemeDefault);
-
-
-$customThemeWolf: () !default;
-$themeWolf: map-merge((
-    'historyRangeColor': var(--mc-baseMain),
-    'historyRangeFontSize': (
-        375: 'CaptionText',
-        1024: 'PrimaryText',
-    )
-), $customThemeWolf);

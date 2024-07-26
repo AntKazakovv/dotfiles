@@ -8,7 +8,7 @@ import {
 } from 'wlc-engine/modules/core';
 
 export type ComponentType = 'default' | CustomType;
-export type ComponentTheme = 'default' | 'wolf' | CustomType;
+export type ComponentTheme = 'default' | CustomType;
 export type ComponentThemeMod = 'default' | 'first' | CustomType;
 
 export interface ICashbackRewardCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
@@ -32,7 +32,6 @@ export const defaultParams: ICashbackRewardCParams = {
             {
                 name: 'profile.wlc-profile-no-content',
                 params: {
-                    iconPath: '/wlc/icons/icons_new/empty-table-bg.svg',
                     text: gettext('Sorry, this functionality is currently unavailable'),
                 },
             },

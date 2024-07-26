@@ -73,10 +73,7 @@ a.wlc-section-title--theme-wolf:host {
         .wlc-section-title {
 
             &__content {
-                @include text.get-text-style(
-                    ef.get-value($themeWolf, 'secondTitleFontStyle'),
-                    ef.get-value($themeWolf, 'titleColor')
-                );
+                color: ef.get-value($themeWolf, 'titleColor');
             }
 
             &__icon {
