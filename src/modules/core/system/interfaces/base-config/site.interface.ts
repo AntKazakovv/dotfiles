@@ -23,11 +23,6 @@ export interface ISiteConfig {
     languages?: ISiteLanguages;
     /** Use jwt token (JSON Web Token) for user authorization */
     useJwtToken?: boolean;
-    /**
-     * Optional turnstileConfig could be get from CloudFlare Turnstile documentation
-     * and merged with default config
-     */
-    turnstileConfig?: Record<string, string>;
     /** Сustom gstatic url on the project */
     gstaticUrl?: string;
 }

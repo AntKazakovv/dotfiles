@@ -202,7 +202,6 @@ declare interface Window extends TAnalyticMethod, IBetradar {
     cordova?: any;
     universalLinks?: universalLinks.IUniversalLinks;
     ApkUpdater?: any;
-    turnstile?: any;
 }
 
 declare const WLC_VERSION: number;

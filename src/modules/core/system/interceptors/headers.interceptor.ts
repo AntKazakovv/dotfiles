@@ -7,7 +7,6 @@ import {
     HttpErrorResponse,
 } from '@angular/common/http';
 import {
-    inject,
     Inject,
     Injectable,
 } from '@angular/core';
@@ -27,21 +26,11 @@ import {WINDOW} from 'wlc-engine/modules/app/system';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
-import {TurnstileService} from 'wlc-engine/modules/security/turnstile/system/services';
-import {InjectionService} from 'wlc-engine/modules/core/system/services';
 
 @Injectable()
 export class HeadersInterceptor implements HttpInterceptor {
 
     private useJwtToken: boolean = false;
-    private useTurnstile: boolean = false;
-
-    protected readonly injectionService: InjectionService = inject(InjectionService);
-    protected turnstileService: TurnstileService;
-
-    protected get applyTurnstile(): boolean {
-        return this.turnstileService?.turnstileToken && this.useTurnstile;
-    }
 
     constructor(
         @Inject(WINDOW) protected window: Window,
@@ -53,11 +42,6 @@ export class HeadersInterceptor implements HttpInterceptor {
     private async init(): Promise<void> {
         await this.configService.ready;
         this.useJwtToken = this.configService.get<boolean>('$base.site.useJwtToken');
-        this.useTurnstile = this.configService.get('appConfig.objectData.turnstile.isEnabled');
-        if (this.useTurnstile){
-            this.turnstileService = await this.injectionService
-                .getService<TurnstileService>('turnstile.turnstile-service');
-        }
     }
 
     @CustomHook('core', 'headersInterceptorIntercept')
@@ -92,15 +76,6 @@ export class HeadersInterceptor implements HttpInterceptor {
             }
         }
 
-        if (this.applyTurnstile && req.url === '/api/v1/profiles' && req.method === 'POST') {
-            const body = JSON.parse(req.body);
-            body.tsToken = this.turnstileService.turnstileToken;
-
-            req = req.clone({
-                body: JSON.stringify(body),
-            });
-        }
-
         if (this.useJwtToken && req.url === '/api/v1/auth') {
             req = req.clone({
                 params: req.params.set('useJwt', 1),
@@ -108,9 +83,6 @@ export class HeadersInterceptor implements HttpInterceptor {
             if (req.body) {
                 const body = JSON.parse(req.body);
                 body.useJwt = 1;
-                if (this.applyTurnstile) {
-                    body.tsToken = this.turnstileService.turnstileToken;
-                }
 
                 req = req.clone({
                     body: JSON.stringify(body),

@@ -22,7 +22,6 @@ import {
     AppType,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
-import {TurnstileService} from 'wlc-engine/modules/security/turnstile';
 import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 
 import * as Params from './sign-in-form.params';
@@ -72,7 +71,7 @@ export class SignInFormComponent extends SignInFormAbstract<Params.ISignInFormCP
         );
     }
 
-    public override async ngOnInit(): Promise<void> {
+    public override ngOnInit(): void {
         super.ngOnInit();
         this.config = this.$params.formConfig || Params.generateConfig(
             this.configService.get<boolean>('$base.site.useLogin'),
@@ -89,14 +88,6 @@ export class SignInFormComponent extends SignInFormAbstract<Params.ISignInFormCP
                     params: {},
                 });
             }
-        }
-
-        const useTurnstile = this.configService.get('appConfig.objectData.turnstile.isEnabled');
-        if (useTurnstile){
-            const turnstileService = await this.injectionService.getService<TurnstileService>(
-                'turnstile.turnstile-service',
-            );
-            turnstileService.launch('login');
         }
     }
 }
