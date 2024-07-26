@@ -633,9 +633,30 @@ export class GlobalHelper {
      * @returns {string}
      */
     public static replaceBrackets(text: string): string {
-        return text
+
+        const content = text
             .replace(/@/gi, '&#64;')
             .replace(/{/gi, '&#123;')
             .replace(/}/gi, '&#125;');
+
+        if (content.indexOf('<style>') >= 0) {
+            const html: Document = new DOMParser().parseFromString(content, 'text/html');
+
+            if (html.getElementsByTagName('style').length) {
+
+                for (let i = 0; i < html.getElementsByTagName('style').length; i++) {
+                    let el = html.getElementsByTagName('style').item(i);
+
+                    el.innerHTML = el.innerHTML
+                        .replace(/&#64;/gi, '@')
+                        .replace(/&#123;/gi, '{')
+                        .replace(/&#125;/gi, '}');
+                }
+            }
+
+            return html.documentElement.innerHTML;
+        } else {
+            return content;
+        }
     }
 }
