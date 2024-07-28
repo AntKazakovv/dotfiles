@@ -37,8 +37,8 @@
                     color: ef.get-value($themeDefault, 'titleIconColorActive');
                 }
 
-                .wlc-accordion__title-icon ::ng-deep svg path {
-                    fill: ef.get-value($themeDefault, 'titleIconColorActive');
+                .wlc-accordion__title-icon ::ng-deep svg {
+                    color: ef.get-value($themeDefault, 'titleIconColorActive');
                 }
 
                 .wlc-accordion__title-icon {
@@ -53,8 +53,8 @@
                     color: ef.get-value($themeDefault, 'titleIconColorActive');
                 }
 
-                .wlc-accordion__title-icon ::ng-deep svg path {
-                    fill: ef.get-value($themeDefault, 'titleIconColorActive');
+                .wlc-accordion__title-icon ::ng-deep svg {
+                    color: ef.get-value($themeDefault, 'titleIconColorActive');
                 }
             }
         }
@@ -87,14 +87,19 @@
 
                 display: flex;
                 flex-grow: 0;
+                color: ef.get-value($themeDefault, 'titleIconColor');
                 line-height: 1;
                 transition: transform ef.get-value($themeDefault, 'time');
 
                 ::ng-deep {
 
-                    svg path {
-                        transition: fill ef.get-value($themeDefault, 'time');
-                        fill: ef.get-value($themeDefault, 'titleIconColor');
+                    .wlc-icon-content {
+                        display: flex;
+                        align-items: center;
+
+                        svg {
+                            transition: color ef.get-value($themeDefault, 'time');
+                        }
                     }
                 }
             }

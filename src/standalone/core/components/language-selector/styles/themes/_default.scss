@@ -47,8 +47,9 @@
 
                 ::ng-deep {
 
-                    path {
-                        fill: currentColor;
+                    .wlc-icon-content {
+                        display: flex;
+                        align-items: center;
                     }
                 }
             }

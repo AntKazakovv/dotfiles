@@ -15,8 +15,9 @@ button.wlc-user-icon--theme-default:host {
         margin: ef.get-value($themeDefault, 'arrowMargin');
         color: ef.get-value($themeDefault, 'arrowFill');
 
-        svg {
-            fill: currentColor;
+        .wlc-icon-content {
+            display: flex;
+            align-items: center;
         }
     }
 
@@ -26,10 +27,6 @@ button.wlc-user-icon--theme-default:host {
         .wlc-user-icon__arrow::ng-deep {
             color: ef.get-value($themeDefault, 'arrowFillActive');
             transform: rotate(180deg);
-
-            svg {
-                fill: currentColor;
-            }
         }
 
 
@@ -39,10 +36,6 @@ button.wlc-user-icon--theme-default:host {
             .wlc-user-icon__arrow::ng-deep {
                 color: ef.get-value($themeDefault, 'arrowFillActive');
                 transform: rotate(180deg);
-
-                svg {
-                    fill: currentColor;
-                }
             }
         }
     }
@@ -71,10 +64,6 @@ button.wlc-user-icon--theme-default:host {
 
         .wlc-user-icon__arrow::ng-deep {
             color: ef.get-value($themeDefault, 'arrowFillHover');
-
-            svg {
-                fill: currentColor;
-            }
         }
     }
 }

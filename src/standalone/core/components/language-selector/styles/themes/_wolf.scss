@@ -179,12 +179,8 @@
                 background: ef.get-value($themeWolf, 'ddLinkBg');
 
                 .wlc-language-selector__current-arrow {
+                    color: ef.get-value($themeWolf, 'linkIconActiveFill');
                     transform: rotate(180deg);
-
-                    svg,
-                    path {
-                        fill: ef.get-value($themeWolf, 'linkIconActiveFill');
-                    }
                 }
 
                 &.wlc-language-selector__current {
@@ -198,15 +194,21 @@
             &-arrow {
                 display: var(--ls-link-arrow);
                 margin-left: auto;
+                color: ef.get-value($themeWolf, 'linkIconFill');
 
                 ::ng-deep {
 
-                    svg path,
-                    svg {
-                        width: ef.get-value($themeWolf, 'linkIconArrowWidth');
-                        height: ef.get-value($themeWolf, 'linkIconArrowHeight');
-                        vertical-align: middle;
-                        fill: ef.get-value($themeWolf, 'linkIconFill');
+                    .wlc-icon-content {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        svg path,
+                        svg {
+                            width: ef.get-value($themeWolf, 'linkIconArrowWidth');
+                            height: ef.get-value($themeWolf, 'linkIconArrowHeight');
+                            vertical-align: middle;
+                        }
                     }
                 }
             }

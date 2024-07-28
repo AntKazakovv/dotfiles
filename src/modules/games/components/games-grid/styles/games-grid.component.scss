@@ -83,8 +83,6 @@
 
                     svg {
                         transform: ef.get-value($commonStyles, 'allLinkTransform');
-
-                        fill: ef.get-value($commonStyles, 'allLinkColor');
                     }
                 }
             }
@@ -100,10 +98,6 @@
 
                     .wlc-icon {
                         transform: ef.get-value($commonStyles, 'allLinkIconTransformHover');
-
-                        svg {
-                            fill: ef.get-value($commonStyles, 'allLinkColorHover');
-                        }
                     }
                 }
             }
@@ -153,4 +147,3 @@
         }
     }
 }
-

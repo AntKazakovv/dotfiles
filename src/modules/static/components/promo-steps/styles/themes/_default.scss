@@ -131,9 +131,7 @@
                             margin-left: ef.get-value($themeDefault, 'modalBtnIconMarginLeft');
 
                             svg {
-                                @include bm.transition(fill);
                                 transform: ef.get-value($themeDefault, 'modalBtnIconTransform');
-                                fill: ef.get-value($themeDefault, 'modalBtnColor');
                             }
                         }
                     }
@@ -143,13 +141,6 @@
 
                     .wlc-promo-steps__step-desc {
                         color: ef.get-value($themeDefault, 'modalBtnHoverColor');
-
-                        ::ng-deep {
-
-                            svg {
-                                fill: ef.get-value($themeDefault, 'modalBtnHoverColor');
-                            }
-                        }
                     }
                 }
             }

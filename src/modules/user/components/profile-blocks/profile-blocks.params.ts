@@ -48,7 +48,7 @@ export const defaultParams: IProfileBlocksCParams = {
             wlcElement: 'button_change-password',
             common: {
                 text: gettext('Change'),
-                iconPath: 'wlc/icons/arrow.svg',
+                iconPath: 'wlc/icons/icons_new/arrow.svg',
             },
         },
     },
@@ -59,7 +59,7 @@ export const defaultParams: IProfileBlocksCParams = {
             wlcElement: 'button_add-banking-info',
             common: {
                 text: gettext('Add info'),
-                iconPath: 'wlc/icons/arrow.svg',
+                iconPath: 'wlc/icons/icons_new/arrow.svg',
             },
         },
     },
@@ -70,7 +70,7 @@ export const defaultParams: IProfileBlocksCParams = {
             wlcElement: 'button_change-auto-logout',
             common: {
                 text: gettext('Change'),
-                iconPath: 'wlc/icons/arrow.svg',
+                iconPath: 'wlc/icons/icons_new/arrow.svg',
             },
         },
     },

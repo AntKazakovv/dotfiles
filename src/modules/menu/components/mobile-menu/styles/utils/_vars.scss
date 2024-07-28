@@ -12,8 +12,6 @@ $themeDropdownDefault: map-merge((
     'linkBorderRadius': ef.get('radius', 'biger'),
     'submenuBg': var(--mc-bg),
     'submenuPadding': ef.size(1) ef.size(1),
-    'arrowFillColor': var(--mc-baseOpacity),
-    'arrowFillColorActive': ef.get('mainColors', 'baseMain'),
     'iconMargin': 0 7px 0 0,
     'iconWidth': 20px,
     'iconHeight': 20px,

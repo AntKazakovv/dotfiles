@@ -38,10 +38,6 @@
                         height: ef.get-value($themeDefault, 'pageItemHeight');
                     }
 
-                    svg {
-                        fill: currentColor;
-                    }
-
                     &.disabled {
                         color: ef.get-value($themeDefault, 'pageItemInnerFillDisabled');
                         background: ef.get-value($themeDefault, 'pageItemDisabled');
@@ -49,6 +45,12 @@
                         .wlc-btn {
                             cursor: auto;
                         }
+                    }
+
+                    .wlc-icon-content {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
                     }
 
                     &:not(.disabled) {

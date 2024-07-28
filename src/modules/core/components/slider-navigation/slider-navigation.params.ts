@@ -15,5 +15,5 @@ export const defaultParams: ISliderNavigationCParams = {
     moduleName: 'core',
     componentName: 'wlc-slider-navigation',
     class: 'wlc-slider-navigation',
-    iconPath: '/wlc/icons/arrow.svg',
+    iconPath: '/wlc/icons/icons_new/arrow.svg',
 };

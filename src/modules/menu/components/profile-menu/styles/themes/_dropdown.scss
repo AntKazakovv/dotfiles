@@ -14,10 +14,6 @@
 
                 .wlc-icon {
                     margin: ef.get-value($themeDropdownDefault, 'iconMargin');
-
-                    svg {
-                        fill: currentColor;
-                    }
                 }
 
                 .wlc-menu__icon-arrow {
@@ -25,6 +21,12 @@
                     margin: ef.get-value($themeDropdownDefault, 'iconArrowMargin');
                     color: ef.get-value($themeDropdownDefault, 'iconArrowFill');
                     transform: rotate(0);
+
+                    .wlc-icon-content {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
                 }
 
                 .wlc-menu {

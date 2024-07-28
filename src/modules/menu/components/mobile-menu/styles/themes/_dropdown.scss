@@ -24,10 +24,6 @@
                             .wlc-menu__icon-arrow {
                                 @include bm.transition();
                                 transform: rotate(180deg);
-
-                                svg {
-                                    fill: ef.get-value($themeDropdownDefault, 'arrowFillColorActive');
-                                }
                             }
                         }
                     }
@@ -48,6 +44,15 @@
                     @include bm.get-mq-map('height', $themeDropdownDefault, 'iconHeight');
                     @include bm.get-mq-map('margin', $themeDropdownDefault, 'iconMargin');
                     color: ef.get-value($themeDropdownDefault, 'iconColor');
+
+                    &-arrow {
+
+                        .wlc-icon-content {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        }
+                    }
 
                     img,
                     svg {
@@ -90,10 +95,6 @@
                         @include bm.transition();
                         margin-left: auto;
                         transform: rotate(-90deg);
-
-                        svg {
-                            fill: ef.get-value($themeDropdownDefault, 'arrowFillColor');
-                        }
                     }
 
                     @include bm.hover {
@@ -103,13 +104,6 @@
                         &.active {
                             color: ef.get-value($themeDropdownDefault, 'activeLinkColor');
                             background: ef.get-value($themeDropdownDefault, 'activeTabLinkBg');
-                        }
-
-                        .wlc-menu__icon-arrow {
-
-                            svg {
-                                fill: ef.get-value($themeDropdownDefault, 'arrowFillColorActive');
-                            }
                         }
                     }
                 }

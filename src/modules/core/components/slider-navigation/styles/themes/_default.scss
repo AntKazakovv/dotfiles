@@ -19,8 +19,10 @@
             border: ef.get-value($themeDefault, 'buttonBorder');
             box-shadow: ef.get-value($themeDefault, 'buttonShadow');
 
-            svg {
-                fill: currentColor;
+            .wlc-icon-content {
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
 
             &.swiper-button-disabled {

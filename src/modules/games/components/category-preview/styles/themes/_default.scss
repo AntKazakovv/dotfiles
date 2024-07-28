@@ -148,9 +148,14 @@
             .wlc-icon {
                 margin: ef.get-value($themeDefault, 'allLinkIconMargin');
 
+                .wlc-icon-content {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
                 svg {
                     transform: ef.get-value($themeDefault, 'allLinkTransform');
-                    fill: currentColor;
                 }
             }
         }

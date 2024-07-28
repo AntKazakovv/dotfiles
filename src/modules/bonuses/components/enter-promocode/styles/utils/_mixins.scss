@@ -34,10 +34,7 @@
         svg {
             width: ef.get-value($config, 'btnIconSize');
             height: ef.get-value($config, 'btnIconSize');
-
-            * {
-                fill: ef.get-value($config, 'btnIconFill');
-            }
+            color: ef.get-value($config, 'btnIconFill');
         }
     }
 

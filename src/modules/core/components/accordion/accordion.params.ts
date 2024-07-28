@@ -45,5 +45,5 @@ export interface IAccordionCParams extends IComponentParams<string, string, stri
 export const defaultParams: IAccordionCParams = {
     class: 'wlc-accordion',
     moduleName: 'core',
-    titleIconPath: '/wlc/icons/arrow.svg',
+    titleIconPath: '/wlc/icons/icons_new/arrow.svg',
 };

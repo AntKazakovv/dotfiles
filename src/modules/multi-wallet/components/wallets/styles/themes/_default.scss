@@ -106,8 +106,10 @@ $selector: '.wlc-wallets';
                 margin: ef.get-value($themeDefault, 'dropdownArrowMargin');
                 color: ef.get-value($themeDefault, 'dropdownArrowFill');
 
-                svg {
-                    fill: currentColor;
+                .wlc-icon-content {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                 }
             }
 

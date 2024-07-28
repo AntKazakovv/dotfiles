@@ -35,7 +35,6 @@
                 svg {
                     @include bm.get-mq-map('width', $themeDefault, 'iconWidth');
                     height: auto;
-                    fill: currentColor;
                 }
             }
         }

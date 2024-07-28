@@ -175,8 +175,9 @@
 
                 ::ng-deep {
 
-                    svg {
-                        fill: currentColor;
+                    .wlc-icon-content {
+                        display: flex;
+                        align-items: center;
                     }
                 }
             }

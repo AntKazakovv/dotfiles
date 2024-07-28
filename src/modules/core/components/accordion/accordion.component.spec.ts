@@ -31,7 +31,7 @@ describe('AccordionComponent', (): void => {
         type: 'default',
         wlcElement: 'wlc-accordion',
         title: 'Possible rewards',
-        titleIconPath: '/wlc/icons/arrow.svg',
+        titleIconPath: '/wlc/icons/icons_new/arrow.svg',
         items: [
             {
                 title: 'Simple title first',

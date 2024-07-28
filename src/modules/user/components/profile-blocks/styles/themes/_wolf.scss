@@ -149,10 +149,6 @@
                     .wlc-icon {
                         margin: ef.get-value($themeWolf, 'btnIconMargin');
                         transform: ef.get-value($themeWolf, 'btnIconTransform');
-
-                        svg {
-                            fill: currentColor;
-                        }
                     }
 
                     @include bm.hover {

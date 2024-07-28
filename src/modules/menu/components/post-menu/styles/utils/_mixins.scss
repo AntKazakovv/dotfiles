@@ -51,9 +51,14 @@
                 transform: ef.get-value($config, 'controlArrowTransform');
             }
 
+            .wlc-icon-content {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
             svg {
                 transform: var(--wlc-post-menu-svg-transform, none);
-                fill: currentColor;
             }
 
             &--prev {

@@ -135,10 +135,6 @@
                         @include bm.get-mq-map('display', $themeDefault, 'btnIconDisplay');
                         margin: ef.get-value($themeDefault, 'btnIconMargin');
                         transform: ef.get-value($themeDefault, 'btnIconTransform');
-
-                        svg {
-                            fill: currentColor;
-                        }
                     }
 
                     @include bm.hover {
