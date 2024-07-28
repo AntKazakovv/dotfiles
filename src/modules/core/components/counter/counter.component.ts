@@ -64,6 +64,7 @@ export class CounterComponent extends AbstractComponent implements OnInit {
                 const bonusesService = await this.injectionService
                     .getService<BonusesService>('bonuses.bonuses-service');
 
+                this.count = 0;
                 bonusesService.getSubscribe({
                     useQuery: !bonusesService.bonuses?.length,
                     observer: {
@@ -72,7 +73,7 @@ export class CounterComponent extends AbstractComponent implements OnInit {
                                 let filter: BonusesFilterType = null;
                                 if (
                                     this.$params.type === 'bonuses-all' ||
-                                    this.configService.get<boolean>('$bonuses.showAllInProfile')
+                                        this.configService.get<boolean>('$bonuses.showAllInProfile')
                                 ) {
                                     filter = 'all';
                                 } else if (this.$params.type === 'bonuses-main') {
@@ -91,6 +92,9 @@ export class CounterComponent extends AbstractComponent implements OnInit {
                     type: 'any',
                     until: this.$destroy,
                 });
+
+                this.cdr.markForCheck();
+
                 break;
             case 'store':
                 break;
