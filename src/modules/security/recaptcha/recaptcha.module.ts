@@ -1,7 +1,4 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-
-import {TranslateModule} from '@ngx-translate/core';
 
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {CompilerModule} from 'wlc-engine/modules/compiler';
@@ -30,10 +27,8 @@ export const services = {
         RecaptchaPolicyComponent,
     ],
     imports: [
-        CommonModule,
         CompilerModule,
         CoreModule,
-        TranslateModule,
     ],
     providers: [
         RecaptchaService,
