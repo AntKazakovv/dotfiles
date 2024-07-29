@@ -68,21 +68,22 @@ $themeDefault: map-merge((
     ),
 
     //qr image
-    'qrImgMaxHeight': 280px,
+    'qrImgMaxHeight': 100%,
     'qrImgObjectPos': top left,
     'qrImgPosTop': 0,
     'qrImgPosLeft': 0,
     'qrImgTransform': null,
-    'qrImgWidth': 100%,
-    'qrImgHeight': 100%,
+    'qrImgWidth': fit-content,
+    'qrImgHeight': auto,
     'qrImgPos': (
         375: static,
         640: absolute,
     ),
     'qrImgMaxWidth': (
         375: 250px,
-        640: initial,
+        640: 100%,
     ),
+    'qrImgBorderRadius': ef.get('radius', 'biger'),
 
     'qrModalDisplay': flex,
     'qrModalJustifyContent': center,

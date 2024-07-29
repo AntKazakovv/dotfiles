@@ -90,6 +90,7 @@
             width: ef.get-value($themeDefault, 'qrImgWidth');
             height: ef.get-value($themeDefault, 'qrImgHeight');
             max-height: ef.get-value($themeDefault, 'qrImgMaxHeight');
+            border-radius: ef.get-value($themeDefault, 'qrImgBorderRadius');
 
             object-fit: contain;
             object-position: ef.get-value($themeDefault, 'qrImgObjectPos');
@@ -178,6 +179,7 @@
                 position: static;
                 max-width: ef.get-value($themeDefault, 'qrImgMaxWidth', 375);
                 margin: ef.get-value($themeDefault, 'qrModalImgMargin');
+                border-radius: ef.get-value($themeDefault, 'qrImgBorderRadius');
             }
 
             &__bottom {
