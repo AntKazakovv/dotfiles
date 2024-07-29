@@ -16,13 +16,16 @@
         }
 
         &.wlc-btn--size-md {
-            @include text.get-text-style(
-                ef.get-value($themeDefault, 'textStyleMd'),
-                null
-            );
             min-width: auto;
             height: ef.get-value($themeDefault, 'heightMd');
             padding: ef.get-value($themeDefault, 'paddingMd');
+
+            .wlc-btn__text {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'textStyleMd'),
+                    null
+                );
+            }
         }
     }
 }

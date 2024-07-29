@@ -2252,7 +2252,7 @@ export namespace profileContent {
                             params: {
                                 class: 'wlc-profile-content__body',
                                 components: [
-                                    componentLib.wlcStoreList.first,
+                                    componentLib.wlcStoreList.def,
                                 ],
                             },
                         },

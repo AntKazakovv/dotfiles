@@ -1,4 +1,5 @@
 <ng-container [ngSwitch]="$params.theme">
+    <ng-container *ngSwitchCase="'text'" [ngTemplateOutlet]="tagCaption"></ng-container>
     <ng-container *ngSwitchCase="'flag'" [ngTemplateOutlet]="flag"></ng-container>
     <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
 </ng-container>
@@ -8,7 +9,7 @@
         class="{{$class}}__icon"
         [iconUrl]="tagConfig.iconUrl">
     </span>
-    <span class="{{$class}}__caption">{{tagConfig.caption | translate}}</span>
+    <ng-container [ngTemplateOutlet]="tagCaption"></ng-container>
 </ng-template>
 
 <ng-template #flag>
@@ -20,4 +21,8 @@
         wlc-icon
         [iconUrl]="tagConfig.iconUrl">
     </span>
+</ng-template>
+
+<ng-template #tagCaption>
+    <span class="{{$class}}__caption">{{tagConfig.caption | translate}}</span>
 </ng-template>

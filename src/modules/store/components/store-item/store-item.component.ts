@@ -21,6 +21,7 @@ import {
 import {
     ITagCParams,
     ITagCommon,
+    TagTheme,
 } from 'wlc-engine/modules/core/components/tag/tag.params';
 import {StoreItem} from 'wlc-engine/modules/store/system/models/store-item.model';
 import {
@@ -43,12 +44,10 @@ import * as Params from './store-item.params';
 export class StoreItemComponent extends AbstractComponent implements OnInit, OnDestroy {
 
     @Input() public inlineParams: Params.IStoreItemCParams;
-    @Input() public storeItem: StoreItem;
     @Input() public type: Params.ComponentType;
     @Input() public theme: Params.ComponentTheme;
     @Input() public themeMod: Params.ComponentThemeMod;
     @Input() public customMod: Params.CustomMod;
-    @Input() public userLevel: number;
     @Input() public userCurrency: string;
     @Input() public itemDisabledInfo: IDisabledItemInfo;
 
@@ -57,13 +56,14 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
     public storeImage: string;
     public useIconBonusImage: boolean;
     public storeItemTag: string;
+    public disabledInfo: IDisabledItemInfo;
     public tagClass: string;
 
     protected isDisabled: boolean;
     protected isProfileFirst: boolean;
     protected tagConfig: ITagCParams;
-    protected buyBtnParams: IButtonCParams = Params.defaultParams.buyBtnParams;
     protected storeItemTotalPrice: IStoreItemTotalPrice = {};
+    protected storeItem: StoreItem;
 
     constructor(
         @Inject('injectParams') protected params: Params.IStoreItemCParams,
@@ -80,8 +80,12 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
 
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-        this.isDisabled = !!Object.keys(this.itemDisabledInfo).length;
+        this.storeItem = this.$params.storeItem;
+        this.isDisabled = !this.storeItem.isAvailable
+            || !this.storeItem.hasUserAccessByLevel(this.$params.userLevel)
+            || this.storeItem.nextDateAvailable;
         this.prepareModifiers();
+        this.disabledInfo = this.storeItem.getItemDisabledInfo(this.$params.userLevel);
         this.isProfileFirst = this.configService.get<string>('$base.profile.type') === 'first';
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         this.storeImage = this.storeItem.image;
@@ -90,20 +94,13 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
 
         this.useIconBonusImage = this.storeItem.isBonus && !this.storeImage &&
             this.configService.get<boolean>('$bonuses.useIconBonusImage');
+
         if (!this.storeImage) {
-            if (this.isProfileFirst) {
-                this.storeImage = this.$params.common?.defaultPicPathFirst;
-            } else if (!this.storeItem.isBonus || !this.configService.get<boolean>('$bonuses.useIconBonusImage')) {
-                this.storeImage = this.$params.common?.defaultPicPath;
-            }
+            this.storeImage = this.$params.common?.defaultPicPath;
         };
 
-        if (this.$params.theme === 'wolf') {
-            this.buyBtnParams = this.$params.buyBtnParamsWolf;
-            this.makeTagConfig();
-        }
-
         this.makeStorePrices();
+        this.makeTagConfig();
     }
 
     public get showWalletConfirmation(): boolean {
@@ -152,9 +149,20 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
         return _isArray(this.storeItem.bonus.value) ? 0 : this.storeItem.bonus.value;
     }
 
+    protected get tagTheme(): TagTheme {
+        return this.$params.storeItemParams.tagTheme;
+    }
 
-    protected get isBonusRelative(): boolean {
-        return this.storeItem.bonus.viewTarget === 'relative';
+    protected get infoIconPath(): string {
+        return this.$params.storeItemParams.infoIcon;
+    }
+
+    protected get lockIconUrl(): string {
+        return this.$params.storeItemParams.lockIcon;
+    }
+
+    protected get buyBtnParams(): IButtonCParams {
+        return this.$params.storeItemParams.buyBtnParams;
     }
 
     protected prepareModifiers(): void {
@@ -174,8 +182,7 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
         };
     }
 
-    protected storeItemClickHadler($event: MouseEvent): void {
-
+    protected storeItemClickHandler($event: MouseEvent): void {
         if (($event.target as HTMLElement).closest('.wlc-btn')) {
             return;
         }
@@ -197,5 +204,11 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
                 this.storeItem.priceMoney[this.storeItemTotalPrice.moneyCurrency],
             );
         }
+    }
+
+    protected shouldStoreImageBeShown(): boolean {
+        return !!this.storeImage && (
+            !this.storeItem.isBonus || !this.configService.get<boolean>('$bonuses.useIconBonusImage')
+        );
     }
 }

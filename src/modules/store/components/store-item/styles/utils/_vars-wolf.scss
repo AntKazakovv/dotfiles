@@ -16,7 +16,7 @@ $themeWolf: map-merge((
     'unavailableOpacityHover': 0.2,
 
     'wrapperBg': var(--mc-bg300),
-    'wrapperBgHover':  var(--mc-bg300-d20),
+    'wrapperBgHover': var(--mc-bg300-d20),
     'wrapperOpacityHover': 0.8,
 
     'tagPosition': absolute,
@@ -64,8 +64,7 @@ $themeWolf: map-merge((
 
     'priceTextStyle': 'PrimaryTextBold',
     'priceFontColor': var(--mc-baseThird),
-    'dividerContent': '+',
-    'dividerMargin': 0 ef.size(1),
+    'priceLineHeight': 1,
 
     'moreIconSvgSize': 20px,
     'moreIconPosTop': ef.size(4),

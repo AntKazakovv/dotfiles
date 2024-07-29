@@ -2,8 +2,9 @@ import {
     GlobalHelper,
     IComponentParams,
     CustomType,
-    IButtonCParams,
 } from 'wlc-engine/modules/core';
+import {IStoreItemParams} from 'wlc-engine/modules/store/system/interfaces/store.interface';
+import {StoreItem} from 'wlc-engine/modules/store/system/models/store-item.model';
 
 export type ComponentTheme = 'default' | 'first' | 'wolf' | CustomType;
 export type ComponentType = 'default' | CustomType;
@@ -19,12 +20,12 @@ export interface IStoreItemCParams extends IComponentParams<ComponentTheme, Comp
         themeMod?: ComponentThemeMod;
         customModifiers?: CustomMod;
         defaultPicPath: string;
-        defaultPicPathFirst: string;
         /** allows to use svg/png/jpg extension */
         iconFormat: TIconExtension;
     };
-    buyBtnParams: IButtonCParams;
-    buyBtnParamsWolf: IButtonCParams;
+    storeItem?: StoreItem,
+    storeItemParams?: IStoreItemParams,
+    userLevel?: number,
 }
 
 export const defaultParams: IStoreItemCParams = {
@@ -32,23 +33,7 @@ export const defaultParams: IStoreItemCParams = {
     componentName: 'wlc-store-item',
     class: 'wlc-store-item',
     common: {
-        defaultPicPath: GlobalHelper.gstaticUrl + '/store/default.png',
-        defaultPicPathFirst: GlobalHelper.gstaticUrl + '/store/default1.png',
+        defaultPicPath: GlobalHelper.gstaticUrl + '/store/default-item.png',
         iconFormat: 'svg',
-    },
-    buyBtnParams: {
-        common: {
-            text: gettext('Buy now'),
-            typeAttr: 'button',
-        },
-        wlcElement: 'button_buy',
-    },
-    buyBtnParamsWolf: {
-        common: {
-            text: gettext('Buy now'),
-            typeAttr: 'button',
-            size: 'md',
-        },
-        wlcElement: 'button_buy',
     },
 };

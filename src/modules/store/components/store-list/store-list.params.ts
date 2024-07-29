@@ -6,6 +6,7 @@ import {
     IButtonCParams,
 } from 'wlc-engine/modules/core';
 import {storeConfig} from 'wlc-engine/modules/store/system/config/store.config';
+import {IStoreItemParams} from 'wlc-engine/modules/store/system/interfaces/store.interface';
 
 export type Type = 'default' | CustomType;
 export type Theme = 'default' | CustomType;
@@ -25,6 +26,7 @@ export interface IStoreListCParams extends IComponentParams<Theme, Type, ThemeMo
         customModifiers?: CustomMod;
         byCategories?: boolean;
         pagination?: IPagination;
+        storeItemParams?: IStoreItemParams;
     };
     filterIconPath?: string;
 }

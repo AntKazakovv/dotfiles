@@ -51,6 +51,7 @@ import {
 import {storeConfig} from 'wlc-engine/modules/store/system/config/store.config';
 
 import {ISelectCParams} from 'wlc-engine/modules/core/components/select/select.params';
+import {IStoreItemCParams} from 'wlc-engine/modules/store/components/store-item/store-item.params';
 import * as Params from 'wlc-engine/modules/store/components/store-list/store-list.params';
 
 @Component({
@@ -319,5 +320,14 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
         }
 
         this.modalService.hideModal('store-filter');
+    }
+
+    protected makeStoreItemInlineParams(item: StoreItem): IStoreItemCParams {
+        return {
+            storeItem: item,
+            storeItemParams: this.$params.common?.storeItemParams,
+            theme: this.itemTheme,
+            userLevel: this.userLevel,
+        };
     }
 }

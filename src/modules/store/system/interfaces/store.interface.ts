@@ -5,9 +5,13 @@ import {
 
 import {
     IIndexing,
+    IButtonCParams,
     ISelectCParams,
 } from 'wlc-engine/modules/core';
-import {ITagCommon} from 'wlc-engine/modules/core/components/tag/tag.params';
+import {
+    ITagCommon,
+    TagTheme,
+} from 'wlc-engine/modules/core/components/tag/tag.params';
 import {StoreItem} from '../models/store-item.model';
 import {StoreCategory} from 'wlc-engine/modules/store/system/models/store-category.model';
 
@@ -150,4 +154,11 @@ export interface IStoreItemTotalPrice {
 
 export interface IStoreItemPriceMoney {
     [key: string]: string;
+}
+
+export interface IStoreItemParams {
+    infoIcon: string,
+    lockIcon: string,
+    tagTheme: TagTheme,
+    buyBtnParams: IButtonCParams,
 }

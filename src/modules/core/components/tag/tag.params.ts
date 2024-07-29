@@ -3,13 +3,14 @@ import {
     CustomType,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
 
-export type ComponentTheme = 'default' | 'flag' | CustomType;
-export type ComponentType = 'default'  | CustomType;
+export type ComponentTheme = TagTheme | CustomType;
+export type ComponentType = 'default' | CustomType;
 export type ComponentThemeMod = 'default' | 'rtp' | CustomType;
+export type TagTheme = 'default' | 'flag' | 'text';
 
 export interface ITagList<T extends string> {
-        useIcons: boolean;
-        tagList: Partial<Record<T, ITagCommon>>
+    useIcons: boolean;
+    tagList: Partial<Record<T, ITagCommon>>
 }
 export interface ITagCommon {
     caption?: string;

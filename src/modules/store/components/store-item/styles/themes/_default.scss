@@ -3,346 +3,165 @@
     .wlc-store-item {
 
         &__content {
-
-            @include bm.get-mq-map('height', $themeDefault, 'height');
-            @include bm.get-mq-map('min-width', $themeDefault, 'minWidth');
-            @include bm.get-mq-map('max-width', $themeDefault, 'maxWidth');
-            position: relative;
-            margin-right: auto;
-            margin-left: auto;
-
-            border-radius: ef.get-value($themeDefault, 'radius');
+            @include bm.get-mq-map('min-width', $themeDefault, 'contentMinWidth');
+            @include bm.get-mq-map('max-width', $themeDefault, 'contentMaxWidth');
+            height: ef.get-value($themeDefault, 'contentHeight');
+            margin: 0 auto;
+            border-radius: ef.get-value($themeDefault, 'contentRadius');
             overflow: hidden;
-
-            &.noauth {
-
-                .wlc-store-item__wrapper {
-
-                    @include bm.hover {
-
-                        .wlc-store-item__price {
-                            transform: translateY(0);
-                        }
-
-                        .wlc-store-item__name {
-                            opacity: 1;
-                        }
-
-                        .wlc-store-item__info-block {
-
-                            .wlc-store-item__price {
-
-                                @include mq.min(1630) {
-                                    transform: translateY(0);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            &.unavailable {
-
-                .wlc-store-item__wrapper {
-
-                    .wlc-store-item__name {
-                        display: none;
-                    }
-
-                    .wlc-store-item__price {
-                        transform: translateY(-10px);
-                    }
-
-                    .wlc-store-item__btns {
-                        transform: translateY(0);
-                        opacity: 1;
-                    }
-
-                    @include bm.hover {
-
-                        .wlc-store-item__info-block {
-
-                            .wlc-store-item__price {
-
-                                @include mq.min(1630) {
-                                    transform: translateY(-10px);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-
-            @include bm.hover(false) {
-                @include bm.get-mq-map('height', $themeDefault, 'heightMobile');
-
-                .wlc-store-item__wrapper {
-                    @include bm.get-mq-map('grid-template-rows', $themeDefault, 'wrapperGridMobile');
-                }
-
-                .wlc-store-item__btns {
-                    position: static;
-                    bottom: 10%;
-                    transform: translateY(0);
-
-                    opacity: 1;
-                }
-
-                &.noauth {
-                    @include bm.get-mq-map('height', $themeDefault, 'height');
-
-                    .wlc-store-item__wrapper {
-                        @include bm.get-mq-map('grid-template-rows', $themeDefault, 'wrapperGrid');
-                    }
-                }
-            }
         }
 
         &__wrapper {
-            @include bm.get-mq-map('grid-template-rows', $themeDefault, 'wrapperGrid');
+            @include bm.transition(background);
             position: relative;
-
-            display: grid;
-
+            display: flex;
+            flex-direction: column;
             width: 100%;
             height: 100%;
-
-            background: ef.get-value($themeDefault, 'background');
+            background: ef.get-value($themeDefault, 'wrapperBg');
+            cursor: pointer;
 
             @include bm.hover {
-                background: ef.get-value($themeDefault, 'backgroundHover');
+                background: ef.get-value($themeDefault, 'wrapperBgHover');
 
-                .wlc-store-item__btns {
-                    transform: translateY(0);
-                    opacity: 1;
-                }
-
+                .wlc-store-item__tag,
+                .wlc-store-item__name,
+                .wlc-store-item__image,
                 .wlc-store-item__price {
-                    transform: translateY(-100%);
-                }
-
-                .wlc-store-item__info-block {
-
-                    .wlc-store-item__price {
-
-                        @include mq.min(1630) {
-                            transform: translateY(-130%);
-                        }
-                    }
-                }
-
-                .wlc-store-item__name {
-                    opacity: 0;
+                    opacity: ef.get-value($themeDefault, 'wrapperOpacityHover');
                 }
             }
         }
 
-        &__image-block {
-            position: relative;
+        &__tag {
+            --wlc-tag-position: #{ef.get-value($themeDefault, 'tagPosition')};
+            @include bm.transition(opacity);
+            top: ef.get-value($themeDefault, 'tagPositionTop');
+            left: ef.get-value($themeDefault, 'tagPositionLeft');
+            transform: ef.get-value($themeDefault, 'tagTransform');
+        }
+
+        &__name {
+            @include bm.transition(opacity);
+            @include bm.get-mq-map('width', $themeDefault, 'infoWidth');
+            @include bm.get-mq-map('margin', $themeDefault, 'nameMargin');
+            @include bm.lineClamp();
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'nameTextStyle'),
+                ef.get-value($themeDefault, 'nameFontColor'),
+            );
+            text-align: center;
         }
 
         &__image {
-            @include bm.get-mq-map('padding', $themeDefault, 'imagePadding');
-            position: relative;
-
+            @include bm.transition(opacity);
             display: flex;
-            align-items: ef.get-value($themeDefault, 'imageAlign');
-
-            width: 100%;
-            height: 100%;
-
+            align-items: ef.get-value($themeDefault, 'imageAlignItems');
+            width: ef.get-value($themeDefault, 'imageSize');
+            height: ef.get-value($themeDefault, 'imageSize');
+            margin: ef.get-value($themeDefault, 'imageMargin');
             background-color: ef.get-value($themeDefault, 'imageBg');
 
-            .wlc-bonus-image-other {
-                position: absolute;
-            }
-
             img {
-                @include bm.get-mq-map('max-height', $themeDefault, 'maxImageHeight');
-                @include bm.get-mq-map('max-width', $themeDefault, 'maxImageWidth');
+                @include bm.get-mq-map('max-height', $themeDefault, 'imageMaxHeight');
+                @include bm.get-mq-map('max-width', $themeDefault, 'imageMaxWidth');
                 display: block;
-
                 height: auto;
                 margin: 0 auto;
             }
         }
 
         &__bonus-icon {
-
             @include bm.get-mq-map('width', $themeDefault, 'bonusIconSize');
             @include bm.get-mq-map('height', $themeDefault, 'bonusIconSize');
-            @include bm.get-mq-map('margin', $themeDefault, 'bonusIconMargin');
             position: relative;
-
-            background-repeat: no-repeat;
-            background-position: center center;
-            background-size: cover;
+            display: flex;
+            justify-content: center;
+            margin: ef.get-value($themeDefault, 'bonusIconMargin');
 
             .icon-sign {
-                position: absolute;
-                top: 0;
-                left: 0;
-
                 width: 100%;
             }
 
             .icon-text {
                 @include bm.get-mq-map('height', $themeDefault, 'bonusIconValueBlockHeight');
-
                 @include text.get-text-style(
                     ef.get-value($themeDefault, 'bonusIconTextStyle'),
                     ef.get-value($themeDefault, 'bonusIconValueColor')
                 );
-
                 position: absolute;
-                bottom: ef.get-value($themeDefault, 'bonusIconValueBlockPosB');
-                left: ef.get-value($themeDefault, 'bonusIconValueBlockPosL');
-
+                bottom: ef.get-value($themeDefault, 'bonusIconValueBlockBottom');
                 display: flex;
                 align-items: center;
                 justify-content: center;
-
-                width: ef.get-value($themeDefault, 'bonusIconValueBlockWidth');
-                margin: ef.get-value($themeDefault, 'bonusIconValueBlockMagin');
-                color: ef.get-value($themeDefault, 'bonusIconValueColor');
-                font-weight: ef.get-value($themeDefault, 'bonusIconValueFontW');
+                min-width: ef.get-value($themeDefault, 'bonusIconValueBlockMinWidth');
+                padding: ef.get-value($themeDefault, 'bonusIconValueBlockPadding');
                 line-height: 1;
-
                 background-color: ef.get-value($themeDefault, 'bonusIconValueBg');
-
-                border-radius: ef.get-value($themeDefault, 'bonusIconValueBlockBorderRds');
-
-                &.wlc-small {
-                    font-size: ef.get-value($themeDefault, 'bonusIconTextStyleSmall');
-                }
-
-                &.wlc-smaller {
-                    font-size: ef.get-value($themeDefault, 'bonusIconTextStyleSmaller');
-                }
-            }
-        }
-
-        &__tag {
-            @include text.get-text-style(ef.get-value($themeDefault, 'tagTextStyle'), ef.get-value($themeDefault, 'tagFontColor'));
-
-            position: absolute;
-            top: ef.get-value($themeDefault, 'tagPositionTop');
-            left: 50%;
-            z-index: 2;
-
-            padding: ef.get-value($themeDefault, 'tagPadding');
-
-            background: ef.get-value($themeDefault, 'tagBg');
-            transform: translateX(-50%);
-            border-radius: ef.get-value($themeDefault, 'tagRadius');
-
-            &.unavailable {
-                background: ef.get-value($themeDefault, 'tagBgUnavailable');
-            }
-        }
-
-        &__info-block {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-            padding: ef.get-value($themeDefault, 'infoPadding');
-        }
-
-        &__name {
-            @include bm.get-mq-map('width', $themeDefault, 'infoWidth');
-            @include bm.lineClamp();
-            font-weight: bold;
-
-            font-size: ef.get-value($themeDefault, 'nameFontSize');
-            line-height: 1.4;
-            text-align: center;
-
-            transition: opacity ef.get-value($themeDefault, 'time') ease-in-out;
-
-            @include mq.min(1630) {
-                @include text.get-text-style('QoteTextBold', ef.get-value($themeDefault, 'nameFontColor'));
+                border-radius: ef.get-value($themeDefault, 'bonusIconValueBlockRadius');
             }
         }
 
         &__price {
-
+            @include bm.transition(opacity);
             @include bm.get-mq-map('width', $themeDefault, 'infoWidth');
-            @include bm.get-mq-map('min-height', $themeDefault, 'priceMinHeight');
             @include text.get-text-style(
-                ef.get-value($themeDefault, 'priceFontStyle'),
-                ef.get-value($themeDefault, 'priceFontColor')
+                ef.get-value($themeDefault, 'priceTextStyle'),
+                null,
             );
             display: flex;
+            flex-wrap: wrap;
             align-items: center;
             justify-content: center;
+            margin: 0 auto;
             line-height: ef.get-value($themeDefault, 'priceLineHeight');
-
-            text-align: center;
-
-            transition: transform ef.get-value($themeDefault, 'time') ease-in-out;
         }
 
         &__more-icon {
+            --wlc-icon-width: #{ef.get-value($themeDefault, 'moreIconSvgSize')};
+            --wlc-icon-height: #{ef.get-value($themeDefault, 'moreIconSvgSize')};
+            @include bm.transition(all);
             position: absolute;
             top: ef.get-value($themeDefault, 'moreIconPosTop');
             right: ef.get-value($themeDefault, 'moreIconPosRight');
-            bottom: ef.get-value($themeDefault, 'moreIconPosBottom');
-            left: ef.get-value($themeDefault, 'moreIconPosLeft');
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: ef.get-value($themeDefault, 'moreIconSize');
+            height: ef.get-value($themeDefault, 'moreIconSize');
             line-height: 1;
-
-            .icon-btn {
-                width: ef.get-value($themeDefault, 'moreIconSize');
-                height: ef.get-value($themeDefault, 'moreIconSize');
-
-                cursor: pointer;
-
-                svg {
-
-                    @include bm.transition(fill);
-                    width: 100%;
-
-                    fill: ef.get-value($themeDefault, 'moreIconColor');
-                }
-            }
+            background: ef.get-value($themeDefault, 'moreIconBg');
+            cursor: pointer;
+            border-radius: ef.get-value($themeDefault, 'moreIconRadius');
 
             @include bm.hover {
-
-                .icon-btn {
-
-                    svg {
-                        fill: ef.get-value($themeDefault, 'moreIconColorHover');
-                    }
-                }
+                background: ef.get-value($themeDefault, 'moreIconBgHover');
             }
         }
 
         &__btns {
-            position: absolute;
-            bottom: 5%;
-
-            display: flex;
-            justify-content: center;
-
-            width: 100%;
-            transform: translateY(400%);
-
-            opacity: 0;
-            transition: all ef.get-value($themeDefault, 'time') ease-in-out;
-
-            button {
-                margin: ef.get-value($themeDefault, 'btnMargin');
-            }
-
-            @include mq.min(1630) {
-                bottom: 8%;
-            }
+            margin: ef.get-value($themeDefault, 'btnsMargin');
         }
 
         &__lock-btn {
             @include cm.lockBtn;
-            max-width: ef.get-value($themeDefault, 'lockBtnMaxWidth');
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'lockBtnTextStyle'),
+                null,
+            );
+            background: ef.get-value($themeDefault, 'lockBtnBg');
+
+            .wlc-icon {
+
+                .wlc-icon-content {
+                    display: flex;
+                }
+
+                svg {
+                    --wlc-icon-width: #{ef.get-value($themeDefault, 'lockBtnIconSize')};
+                    --wlc-icon-height: #{ef.get-value($themeDefault, 'lockBtnIconSize')};
+                }
+            }
         }
     }
 }

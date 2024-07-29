@@ -32,3 +32,14 @@ $themeFlag: map-merge((
     'flagHeight': 28px,
     'iconSize': 20px,
 ), $customThemeFlag);
+
+$customThemeText: () !default;
+$themeText: map-merge((
+    'textStyle': ef.get('tagConfig', 'textStyle'),
+    'textColor': ef.get('tagConfig', 'color'),
+    'textMinHeight': 20px,
+    'textMinWidth': 80px,
+    'textPadding': ef.get('tagConfig', 'padding'),
+    'textBg': ef.get('tagConfig', 'bg'),
+    'textRadius': ef.get('tagConfig', 'radius'),
+), $customThemeText);

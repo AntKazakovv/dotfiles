@@ -18,11 +18,9 @@
          [class.first]="isProfileFirst">
         <div *ngFor="let item of paginatedStoreItems"
             wlc-store-item
-            [storeItem]="item"
-            [theme]="itemTheme"
-            [userLevel]="userLevel"
             [userCurrency]="userCurrency"
-            [itemDisabledInfo]="getItemDisabledInfo(item)">
+            [itemDisabledInfo]="getItemDisabledInfo(item)"
+            [inlineParams]="makeStoreItemInlineParams(item)">
         </div>
     </div>
     <div wlc-pagination

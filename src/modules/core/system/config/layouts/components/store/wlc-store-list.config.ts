@@ -20,28 +20,16 @@ export namespace wlcStoreList {
                         },
                     },
                 },
-            },
-        },
-    };
-
-    export const first: ILayoutComponent = {
-        name: 'store.wlc-store-list',
-        params: {
-            themeMod: 'first',
-            filterIconPath: '/wlc/icons/filter.svg',
-            common: {
-                pagination: {
-                    use: true,
-                    breakpoints: {
-                        0: {
-                            itemPerPage: 3,
+                storeItemParams: {
+                    infoIcon: '/wlc/icons/info-3.svg',
+                    lockIcon: '/wlc/icons/lock-icon.svg',
+                    tagTheme: 'text',
+                    buyBtnParams: {
+                        common: {
+                            text: gettext('Buy now'),
+                            typeAttr: 'button',
                         },
-                        640: {
-                            itemPerPage: 4,
-                        },
-                        900: {
-                            itemPerPage: 6,
-                        },
+                        wlcElement: 'button_buy',
                     },
                 },
             },
@@ -66,6 +54,19 @@ export namespace wlcStoreList {
                         900: {
                             itemPerPage: 6,
                         },
+                    },
+                },
+                storeItemParams: {
+                    infoIcon: '/wlc/icons/theme-wolf/interface/info.svg',
+                    lockIcon: '/wlc/icons/theme-wolf/interface/locked.svg',
+                    tagTheme: 'default',
+                    buyBtnParams: {
+                        common: {
+                            text: gettext('Buy now'),
+                            typeAttr: 'button',
+                            size: 'md',
+                        },
+                        wlcElement: 'button_buy',
                     },
                 },
             },
