@@ -219,16 +219,16 @@ export const financesConfig: IFinancesConfig = {
     alerts: {
         deposit: {
             'activeBonusNotStackable': {
-                title: 'You currently have one or several active bonuses. ' +
+                title: gettext('You currently have one or several active bonuses. ' +
                     'A new bonus may not allow stacking with active bonuses. ' +
                     'Please check if the new bonus is available (in the bonus details). ' +
-                    'If the new bonus does not allow stacking, you have to cancel or wager the active bonuses',
+                    'If the new bonus does not allow stacking, you have to cancel or wager the active bonuses'),
                 description: '',
                 mod: 'warning',
             },
             'activeBonusNonCancelable': {
-                title: 'You have one or several active bonuses which do not allow cancellation. ' +
-                    'You need to wager the active bonuses to claim a new one',
+                title: gettext('You have one or several active bonuses which do not allow cancellation. ' +
+                    'You need to wager the active bonuses to claim a new one'),
                 description: '',
                 mod: 'warning',
             },
