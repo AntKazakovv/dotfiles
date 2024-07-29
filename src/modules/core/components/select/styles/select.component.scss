@@ -71,7 +71,7 @@
             }
 
             &.ng-untouched {
-                color: ef.get-value($baseSettings, 'inputPlaceholderColor');
+                color: ef.get-value($baseSettings, 'selectColor');
             }
 
             &:disabled {

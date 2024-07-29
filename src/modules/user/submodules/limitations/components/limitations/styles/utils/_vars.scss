@@ -14,6 +14,7 @@ $themeDefault: map-merge((
     'formAlignItems': end,
     'formJustifyContent': start,
     'formElementLabelGap': 3px,
+    'selectUntouchedColor': var(--fc-placeholderColor),
 
     'btnWidth': auto,
     'btnHeight': ef.size(8),

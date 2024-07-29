@@ -63,6 +63,13 @@
             justify-content: ef.get-value($themeWolf, 'formJustifyContent');
             column-gap: ef.get-value($themeWolf, 'formColumnGap');
             row-gap: ef.get-value($themeWolf, 'formRowGap');
+
+            .wlc-select {
+
+                .wlc-select__field.ng-untouched {
+                    color: ef.get-value($themeWolf, 'selectUntouchedColor');
+                }
+            }
         }
 
         .wlc-btn {

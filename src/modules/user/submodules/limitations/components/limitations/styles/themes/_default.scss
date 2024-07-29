@@ -65,6 +65,10 @@
             .wlc-select,
             .wlc-input {
                 row-gap: ef.get-value($themeDefault, 'formElementLabelGap');
+
+                .wlc-select__field.ng-untouched {
+                    color: ef.get-value($themeDefault, 'selectUntouchedColor');
+                }
             }
         }
 

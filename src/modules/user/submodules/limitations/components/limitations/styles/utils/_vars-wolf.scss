@@ -30,6 +30,7 @@ $themeWolf: map-merge((
     'formJustifyContent': start,
     'formColumnGap': ef.size(6),
     'formRowGap': ef.size(4),
+    'selectUntouchedColor': var(--fc-placeholderColor),
     'btnMargin': (
         375: 0 auto,
         560: 0 auto 0 0,
