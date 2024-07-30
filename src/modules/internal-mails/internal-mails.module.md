@@ -14,8 +14,8 @@
 ## Main parts of the module:
 - a reminder bell indicating the number of unread messages in the header at resolutions > 1200px
 - a reminder bell indicating the presence of an unread message in the right burger menu at resolutions < 1200px
-- the "Messages" sub-item of the "Account Settings" item in the right burger menu on permissions < 1200px and the "wlc-user-info-dropdown" drop-down menu on permissions > 1200px
-- sub-item "Messages" of the "Account Settings" item in the profile menu section with the message table
+- the "Messages" sub-item of the "Profile" item in the right burger menu on permissions < 1200px and the "wlc-user-info-dropdown" drop-down menu on permissions > 1200px
+- sub-item "Messages" of the "Profile" item in the profile menu section with the message table
 
 # Example of enabling functionality on a project:
 
@@ -69,8 +69,8 @@ export {$menu} from './05.menu.config';
 ## Основные части модуля:
 - колокольчик-напоминание с указанием количества непрочитанных сообщений в хедере на разрешениях > 1200px
 - колокольчик-напоминание с указанием наличия непрочитанных сообщение в правом бургер меню на разрешениях < 1200px
-- подпункт "Сообщения" пункта "Настройки аккаунта" в правом бургер меню на разрешениях < 1200px и выпадающем меню "wlc-user-info-dropdown" на разрешениях > 1200px
-- подпункт "Сообщения" пункта "Настройки аккаунта" в секции меню профиля с таблицей сообщений
+- подпункт "Сообщения" пункта "Профиль" в правом бургер меню на разрешениях < 1200px и выпадающем меню "wlc-user-info-dropdown" на разрешениях > 1200px
+- подпункт "Сообщения" пункта "Профиль" в секции меню профиля с таблицей сообщений
 
 ## Пример подключения функционала на проекте:
 
