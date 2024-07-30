@@ -235,6 +235,10 @@
                 "file": "./900.change-logs/releases/1.8.0_01-07-2022.md"
             },
             {
+                "title": "1.77.0RC1 (30-07-2024)",
+                "file": "./900.change-logs/releases/1.77.0-rc.1_30-07-2024.md"
+            },
+            {
                 "title": "1.76.0 (29-07-2024)",
                 "file": "./900.change-logs/releases/1.76.0_29-07-2024.md"
             },
@@ -814,476 +818,44 @@
         "file": "./1000.translations/1000.translations.md",
         "children": [
             {
-                "title": "31-10-2022",
-                "file": "./1000.translations/history/31-10-2022.md"
+                "title": "30-07-2024",
+                "file": "./1000.translations/history/30-07-2024.md"
             },
             {
-                "title": "31-05-2023",
-                "file": "./1000.translations/history/31-05-2023.md"
-            },
-            {
-                "title": "31-01-2024",
-                "file": "./1000.translations/history/31-01-2024.md"
-            },
-            {
-                "title": "30-06-2022",
-                "file": "./1000.translations/history/30-06-2022.md"
-            },
-            {
-                "title": "30-05-2023",
-                "file": "./1000.translations/history/30-05-2023.md"
-            },
-            {
-                "title": "30-01-2023",
-                "file": "./1000.translations/history/30-01-2023.md"
-            },
-            {
-                "title": "29-08-2022",
-                "file": "./1000.translations/history/29-08-2022.md"
-            },
-            {
-                "title": "29-02-2024",
-                "file": "./1000.translations/history/29-02-2024.md"
-            },
-            {
-                "title": "28-10-2022",
-                "file": "./1000.translations/history/28-10-2022.md"
-            },
-            {
-                "title": "28-07-2023",
-                "file": "./1000.translations/history/28-07-2023.md"
-            },
-            {
-                "title": "28-07-2022",
-                "file": "./1000.translations/history/28-07-2022.md"
-            },
-            {
-                "title": "28-06-2023",
-                "file": "./1000.translations/history/28-06-2023.md"
-            },
-            {
-                "title": "28-03-2024",
-                "file": "./1000.translations/history/28-03-2024.md"
-            },
-            {
-                "title": "28-02-2024",
-                "file": "./1000.translations/history/28-02-2024.md"
-            },
-            {
-                "title": "27-11-2023",
-                "file": "./1000.translations/history/27-11-2023.md"
-            },
-            {
-                "title": "27-09-2022",
-                "file": "./1000.translations/history/27-09-2022.md"
-            },
-            {
-                "title": "27-06-2022",
-                "file": "./1000.translations/history/27-06-2022.md"
-            },
-            {
-                "title": "27-03-2024",
-                "file": "./1000.translations/history/27-03-2024.md"
-            },
-            {
-                "title": "27-01-2023",
-                "file": "./1000.translations/history/27-01-2023.md"
-            },
-            {
-                "title": "26-06-2024",
-                "file": "./1000.translations/history/26-06-2024.md"
-            },
-            {
-                "title": "26-02-2024",
-                "file": "./1000.translations/history/26-02-2024.md"
-            },
-            {
-                "title": "25-09-2023",
-                "file": "./1000.translations/history/25-09-2023.md"
-            },
-            {
-                "title": "25-04-2024",
-                "file": "./1000.translations/history/25-04-2024.md"
-            },
-            {
-                "title": "25-01-2023",
-                "file": "./1000.translations/history/25-01-2023.md"
-            },
-            {
-                "title": "24-11-2023",
-                "file": "./1000.translations/history/24-11-2023.md"
-            },
-            {
-                "title": "24-11-2022",
-                "file": "./1000.translations/history/24-11-2022.md"
-            },
-            {
-                "title": "24-05-2024",
-                "file": "./1000.translations/history/24-05-2024.md"
-            },
-            {
-                "title": "24-03-2022",
-                "file": "./1000.translations/history/24-03-2022.md"
-            },
-            {
-                "title": "24-01-2024",
-                "file": "./1000.translations/history/24-01-2024.md"
-            },
-            {
-                "title": "23-09-2022",
-                "file": "./1000.translations/history/23-09-2022.md"
-            },
-            {
-                "title": "23-06-2023",
-                "file": "./1000.translations/history/23-06-2023.md"
-            },
-            {
-                "title": "23-05-2023",
-                "file": "./1000.translations/history/23-05-2023.md"
-            },
-            {
-                "title": "23-03-2023",
-                "file": "./1000.translations/history/23-03-2023.md"
-            },
-            {
-                "title": "22-12-2023",
-                "file": "./1000.translations/history/22-12-2023.md"
-            },
-            {
-                "title": "22-11-2022",
-                "file": "./1000.translations/history/22-11-2022.md"
-            },
-            {
-                "title": "22-09-2023",
-                "file": "./1000.translations/history/22-09-2023.md"
-            },
-            {
-                "title": "22-07-2022",
-                "file": "./1000.translations/history/22-07-2022.md"
-            },
-            {
-                "title": "22-06-2022",
-                "file": "./1000.translations/history/22-06-2022.md"
-            },
-            {
-                "title": "22-05-2024",
-                "file": "./1000.translations/history/22-05-2024.md"
-            },
-            {
-                "title": "22-04-2024",
-                "file": "./1000.translations/history/22-04-2024.md"
-            },
-            {
-                "title": "21-11-2022",
-                "file": "./1000.translations/history/21-11-2022.md"
-            },
-            {
-                "title": "21-02-2023",
-                "file": "./1000.translations/history/21-02-2023.md"
-            },
-            {
-                "title": "20-07-2022",
-                "file": "./1000.translations/history/20-07-2022.md"
-            },
-            {
-                "title": "20-04-2023",
-                "file": "./1000.translations/history/20-04-2023.md"
-            },
-            {
-                "title": "19-08-2022",
-                "file": "./1000.translations/history/19-08-2022.md"
+                "title": "24-07-2024",
+                "file": "./1000.translations/history/24-07-2024.md"
             },
             {
                 "title": "19-07-2024",
                 "file": "./1000.translations/history/19-07-2024.md"
             },
             {
-                "title": "19-03-2024",
-                "file": "./1000.translations/history/19-03-2024.md"
-            },
-            {
-                "title": "19-02-2024",
-                "file": "./1000.translations/history/19-02-2024.md"
-            },
-            {
-                "title": "19-01-2023",
-                "file": "./1000.translations/history/19-01-2023.md"
-            },
-            {
-                "title": "18-08-2023",
-                "file": "./1000.translations/history/18-08-2023.md"
-            },
-            {
-                "title": "17-08-2023",
-                "file": "./1000.translations/history/17-08-2023.md"
-            },
-            {
-                "title": "17-05-2024",
-                "file": "./1000.translations/history/17-05-2024.md"
-            },
-            {
-                "title": "17-04-2024",
-                "file": "./1000.translations/history/17-04-2024.md"
-            },
-            {
-                "title": "17-04-2023",
-                "file": "./1000.translations/history/17-04-2023.md"
-            },
-            {
-                "title": "16-11-2023",
-                "file": "./1000.translations/history/16-11-2023.md"
-            },
-            {
-                "title": "16-08-2023",
-                "file": "./1000.translations/history/16-08-2023.md"
-            },
-            {
-                "title": "16-04-2024",
-                "file": "./1000.translations/history/16-04-2024.md"
-            },
-            {
-                "title": "16-02-2023",
-                "file": "./1000.translations/history/16-02-2023.md"
-            },
-            {
-                "title": "15-12-2023",
-                "file": "./1000.translations/history/15-12-2023.md"
-            },
-            {
-                "title": "15-08-2023",
-                "file": "./1000.translations/history/15-08-2023.md"
-            },
-            {
-                "title": "15-05-2023",
-                "file": "./1000.translations/history/15-05-2023.md"
-            },
-            {
-                "title": "15-02-2024",
-                "file": "./1000.translations/history/15-02-2024.md"
-            },
-            {
-                "title": "15-01-2024",
-                "file": "./1000.translations/history/15-01-2024.md"
-            },
-            {
-                "title": "14-09-2023",
-                "file": "./1000.translations/history/14-09-2023.md"
-            },
-            {
-                "title": "14-06-2022",
-                "file": "./1000.translations/history/14-06-2022.md"
-            },
-            {
-                "title": "14-05-2024",
-                "file": "./1000.translations/history/14-05-2024.md"
-            },
-            {
-                "title": "14-04-2023",
-                "file": "./1000.translations/history/14-04-2023.md"
-            },
-            {
-                "title": "14-03-2024",
-                "file": "./1000.translations/history/14-03-2024.md"
-            },
-            {
-                "title": "13-12-2023",
-                "file": "./1000.translations/history/13-12-2023.md"
-            },
-            {
-                "title": "13-06-2024",
-                "file": "./1000.translations/history/13-06-2024.md"
-            },
-            {
-                "title": "13-05-2024",
-                "file": "./1000.translations/history/13-05-2024.md"
-            },
-            {
-                "title": "13-03-2024",
-                "file": "./1000.translations/history/13-03-2024.md"
-            },
-            {
-                "title": "13-03-2023",
-                "file": "./1000.translations/history/13-03-2023.md"
-            },
-            {
-                "title": "12-10-2023",
-                "file": "./1000.translations/history/12-10-2023.md"
-            },
-            {
-                "title": "12-06-2023",
-                "file": "./1000.translations/history/12-06-2023.md"
-            },
-            {
-                "title": "12-02-2024",
-                "file": "./1000.translations/history/12-02-2024.md"
-            },
-            {
-                "title": "11-10-2023",
-                "file": "./1000.translations/history/11-10-2023.md"
-            },
-            {
                 "title": "11-07-2024",
                 "file": "./1000.translations/history/11-07-2024.md"
-            },
-            {
-                "title": "11-07-2023",
-                "file": "./1000.translations/history/11-07-2023.md"
-            },
-            {
-                "title": "11-06-2024",
-                "file": "./1000.translations/history/11-06-2024.md"
-            },
-            {
-                "title": "11-04-2023",
-                "file": "./1000.translations/history/11-04-2023.md"
-            },
-            {
-                "title": "11-03-2024",
-                "file": "./1000.translations/history/11-03-2024.md"
-            },
-            {
-                "title": "10-08-2023",
-                "file": "./1000.translations/history/10-08-2023.md"
-            },
-            {
-                "title": "10-05-2023",
-                "file": "./1000.translations/history/10-05-2023.md"
-            },
-            {
-                "title": "10-04-2023",
-                "file": "./1000.translations/history/10-04-2023.md"
-            },
-            {
-                "title": "10-01-2023",
-                "file": "./1000.translations/history/10-01-2023.md"
-            },
-            {
-                "title": "09-10-2023",
-                "file": "./1000.translations/history/09-10-2023.md"
-            },
-            {
-                "title": "09-04-2024",
-                "file": "./1000.translations/history/09-04-2024.md"
-            },
-            {
-                "title": "09-02-2023",
-                "file": "./1000.translations/history/09-02-2023.md"
             },
             {
                 "title": "08-07-2024",
                 "file": "./1000.translations/history/08-07-2024.md"
             },
             {
-                "title": "08-06-2023",
-                "file": "./1000.translations/history/08-06-2023.md"
-            },
-            {
-                "title": "07-09-2022",
-                "file": "./1000.translations/history/07-09-2022.md"
-            },
-            {
-                "title": "07-08-2023",
-                "file": "./1000.translations/history/07-08-2023.md"
-            },
-            {
-                "title": "07-06-2023",
-                "file": "./1000.translations/history/07-06-2023.md"
-            },
-            {
-                "title": "06-12-2023",
-                "file": "./1000.translations/history/06-12-2023.md"
-            },
-            {
-                "title": "06-12-2022",
-                "file": "./1000.translations/history/06-12-2022.md"
-            },
-            {
-                "title": "06-04-2024",
-                "file": "./1000.translations/history/06-04-2024.md"
-            },
-            {
-                "title": "06-03-2024",
-                "file": "./1000.translations/history/06-03-2024.md"
-            },
-            {
-                "title": "06-03-2023",
-                "file": "./1000.translations/history/06-03-2023.md"
-            },
-            {
-                "title": "06-02-2023",
-                "file": "./1000.translations/history/06-02-2023.md"
-            },
-            {
-                "title": "05-10-2022",
-                "file": "./1000.translations/history/05-10-2022.md"
-            },
-            {
-                "title": "05-09-2023",
-                "file": "./1000.translations/history/05-09-2023.md"
-            },
-            {
-                "title": "05-07-2023",
-                "file": "./1000.translations/history/05-07-2023.md"
-            },
-            {
-                "title": "05-06-2023",
-                "file": "./1000.translations/history/05-06-2023.md"
-            },
-            {
-                "title": "05-05-2023",
-                "file": "./1000.translations/history/05-05-2023.md"
-            },
-            {
-                "title": "05-04-2024",
-                "file": "./1000.translations/history/05-04-2024.md"
-            },
-            {
-                "title": "05-03-2024",
-                "file": "./1000.translations/history/05-03-2024.md"
-            },
-            {
-                "title": "04-06-2024",
-                "file": "./1000.translations/history/04-06-2024.md"
-            },
-            {
-                "title": "04-05-2023",
-                "file": "./1000.translations/history/04-05-2023.md"
-            },
-            {
-                "title": "03-11-2023",
-                "file": "./1000.translations/history/03-11-2023.md"
-            },
-            {
-                "title": "03-08-2022",
-                "file": "./1000.translations/history/03-08-2022.md"
-            },
-            {
                 "title": "03-07-2024",
                 "file": "./1000.translations/history/03-07-2024.md"
             },
             {
-                "title": "02-03-2023",
-                "file": "./1000.translations/history/02-03-2023.md"
+                "title": "26-06-2024",
+                "file": "./1000.translations/history/26-06-2024.md"
             },
             {
-                "title": "02-02-2024",
-                "file": "./1000.translations/history/02-02-2024.md"
+                "title": "13-06-2024",
+                "file": "./1000.translations/history/13-06-2024.md"
             },
             {
-                "title": "01-11-2022",
-                "file": "./1000.translations/history/01-11-2022.md"
+                "title": "11-06-2024",
+                "file": "./1000.translations/history/11-06-2024.md"
             },
             {
-                "title": "01-08-2023",
-                "file": "./1000.translations/history/01-08-2023.md"
-            },
-            {
-                "title": "01-06-2023",
-                "file": "./1000.translations/history/01-06-2023.md"
-            },
-            {
-                "title": "01-02-2024",
-                "file": "./1000.translations/history/01-02-2024.md"
+                "title": "04-06-2024",
+                "file": "./1000.translations/history/04-06-2024.md"
             }
         ]
     }
