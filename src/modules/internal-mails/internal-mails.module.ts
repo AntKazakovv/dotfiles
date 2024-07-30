@@ -21,6 +21,10 @@ import {
     InternalMailsService,
 } from 'wlc-engine/modules/internal-mails/system/services/internal-mails/internal-mails.service';
 
+// import path
+// eslint-disable-next-line max-len
+import {MailActionsDropdownComponent} from 'wlc-engine/modules/internal-mails/components/internal-mails/components/mail-actions-dropdown/mail-actions-dropdown.component';
+
 
 export const components = {
     'wlc-internal-mails': InternalMailsComponent,
@@ -37,6 +41,7 @@ export const services = {
         InternalMailsNotifierComponent,
         OpenMailBtnComponent,
         ProfileMessagePreviewComponent,
+        MailActionsDropdownComponent,
     ],
     imports: [
         CoreModule,

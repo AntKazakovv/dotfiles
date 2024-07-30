@@ -1,0 +1,82 @@
+.wlc-mail-actions-dropdown--theme-default:host {
+
+    ::ng-deep {
+
+        .wlc-mail-actions-dropdown {
+
+            &__container {
+                position: relative;
+            }
+
+            &__button {
+                color: ef.get-value($themeDefault, 'dotsButtonColor');
+
+                &.open {
+                    color: ef.get-value($themeDefault, 'dotsButtonColorActive');
+                }
+
+                @include bm.hover {
+                    color: ef.get-value($themeDefault, 'dotsButtonColorActive');
+                }
+            }
+
+            &__items {
+                position: absolute;
+                top: 30px;
+                right: 0;
+                z-index: 100;
+
+                .wlc-btn {
+                    color: ef.get-value($themeDefault, 'dropdownIconColor');
+                    border-radius: 0;
+                    background-color: ef.get-value($themeDefault, 'dropdownButtonBg');
+                    border: none;
+
+                    &:first-child {
+                        border-top-right-radius: ef.get-value($themeDefault, 'dropdownBorderRadius');
+                        border-top-left-radius: ef.get-value($themeDefault, 'dropdownBorderRadius');
+                    }
+
+                    &:last-child {
+                        border-bottom-right-radius: ef.get-value($themeDefault, 'dropdownBorderRadius');
+                        border-bottom-left-radius: ef.get-value($themeDefault, 'dropdownBorderRadius');
+                    }
+
+                    &__text {
+                        display: flex;
+                        flex-direction: row-reverse;
+                        gap: 16px;
+                        align-items: flex-end;
+                        justify-content: flex-end;
+                        width: ef.get-value($themeDefault, 'dropdownButtonWidth');
+                        color: ef.get-value($themeDefault, 'dropdownButtonColor');
+                        font-weight: normal;
+
+                        .wlc-icon {
+                            color: ef.get-value($themeDefault, 'dropdownIconColor');
+                        }
+                    }
+
+                    @include bm.hover {
+                        color: ef.get-value($themeDefault, 'dropdownButtonColor');
+                        font-weight: normal;
+                        background-color: ef.get-value($themeDefault, 'dropdownButtonBgHover');
+
+                        .wlc-icon {
+                            color: ef.get-value($themeDefault, 'dropdownButtonColor');
+                        }
+                    }
+                }
+
+                .wlc-sections__profile-content--theme-default &,
+                .wlc-sections__profile-content--theme-wolf & {
+                    @include responsivePosition(1024);
+                }
+
+                .wlc-sections__profile-content--theme-first & {
+                    @include responsivePosition(1200);
+                }
+            }
+        }
+    }
+}

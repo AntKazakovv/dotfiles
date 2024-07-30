@@ -140,7 +140,7 @@
         );
         @include betweenClass('.wlc-show') {
 
-            &:not(&--first) {
+            &:not(&--first, &--mail-actions) {
                 border-top: var(--tbl-cell-mobile-border, #{ef.get-value($theme, 'cellBorderMobile')});
             }
 
@@ -207,6 +207,13 @@
                     fill: ef.get-value($theme, 'openIconColor');
                 }
             }
+        }
+
+        &--mail-actions {
+            position: absolute;
+            right: 3px;
+            bottom: 8px;
+            display: block;
         }
     }
 }

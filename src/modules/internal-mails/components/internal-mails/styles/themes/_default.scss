@@ -81,6 +81,12 @@
                         @include showOrHideActiveBtn;
                     }
                 }
+
+                .wlc-sections__profile-content--theme-wolf & {
+                    @include mq.min(1024) {
+                        @include showOrHideActiveBtn;
+                    }
+                }
             }
         }
     }

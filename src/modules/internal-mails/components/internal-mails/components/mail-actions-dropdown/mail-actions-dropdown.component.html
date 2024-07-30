@@ -1,0 +1,19 @@
+<div #dropdownContainer class="{{$class}}__container">
+    <button wlc-button
+            class="{{$class}}__button"
+            theme="icon"
+            iconPath="/wlc/icons/dots.svg"
+            [ngClass]="{'open': isOpened}"
+            (click)="toggleDropDownHandle()">
+    </button>
+
+    <div *ngIf="isOpened" class="{{$class}}__items">
+        <button wlc-button
+                class="{{$class}}__item"
+                theme="default"
+                iconPath="/wlc/icons/trash.svg"
+                [text]="'Delete' | translate"
+                (click)="deleteMessageHandle()">
+        </button>
+    </div>
+</div>

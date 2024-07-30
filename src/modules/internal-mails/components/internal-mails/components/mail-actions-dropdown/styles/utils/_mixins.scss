@@ -1,0 +1,7 @@
+@mixin responsivePosition($max-width) {
+
+    @include mq.max($max-width) {
+        top: initial;
+        bottom: 30px;
+    }
+}

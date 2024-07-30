@@ -191,16 +191,6 @@ export class InternalMailsService {
             modalTitle: internalMail.title,
             html: clearedMsg,
             closeBtnText: gettext('Close'),
-            showConfirmBtn: true,
-            confirmBtnParams: {
-                themeMod: 'secondary',
-                common: {
-                    text: gettext('Delete'),
-                },
-            },
-            onConfirm: () => {
-                this.deleteMail(internalMail);
-            },
         });
 
         if (internalMail.status !== 'readed') {

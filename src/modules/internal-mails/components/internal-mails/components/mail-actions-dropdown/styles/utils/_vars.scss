@@ -1,0 +1,11 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'dotsButtonColor': var(--mc-baseOpacity),
+    'dotsButtonColorActive': var(--mc-baseMain),
+    'dropdownButtonBg': var(--mc-bg700),
+    'dropdownButtonBgHover': var(--mc-bg700-l20),
+    'dropdownButtonColor': var(--mc-baseMain),
+    'dropdownBorderRadius': 10px,
+    'dropdownButtonWidth': 140px,
+    'dropdownIconColor': var(--mc-baseOpacity),
+), $customThemeDefault);
