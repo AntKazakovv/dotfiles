@@ -9,7 +9,7 @@ $themeGamesInside: map-merge((
         375: 0 auto,
     ),
     'radius': (
-        1200: ef.get('radius', 'biger'),
+        375: ef.get('radius', 'biger'),
     ),
     'bg': ef.static('wlc/total-jackpot/bg.png') center/contain repeat-x,
     'contentPadding': (
