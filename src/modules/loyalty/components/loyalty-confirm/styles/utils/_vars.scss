@@ -1,0 +1,11 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'hostTextStyle': 'PrimaryText',
+    'hostColor': inherit,
+
+    'hostGap': ef.size(8),
+    'hostTextAlign': center,
+
+    'contentGap': ef.size(4),
+    'buttonsGap': ef.size(3),
+), $customThemeDefault);

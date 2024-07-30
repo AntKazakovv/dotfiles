@@ -36,6 +36,14 @@ export const DEFAULT_MODAL_CONFIG: Partial<IModalConfig> = {
 };
 
 export const MODALS_LIST: IModalList = {
+    loyaltyConfirmation: {
+        config: {
+            id: 'loyalty-confirmation',
+            componentName: 'loyalty.wlc-loyalty-confirm',
+            showFooter: false,
+            modalTitle: gettext('Confirmation'),
+        },
+    },
     search: {
         config: {
             id: 'search',

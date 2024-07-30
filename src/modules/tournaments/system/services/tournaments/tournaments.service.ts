@@ -237,7 +237,7 @@ export class TournamentsService {
      * @param {Tournament} tournament Tournament object
      * @returns {Tournament} Tournament object
      */
-    public async joinTournament(tournament: Tournament): Promise<Tournament> {
+    public async joinTournament(tournament: Tournament, walletId?: number): Promise<Tournament> {
         const params: IJoinTournamentParams = {ID: tournament.id, Selected: 1};
         try {
             this.isProcessed$.next(true);
@@ -245,7 +245,7 @@ export class TournamentsService {
             const isMultiWallet: boolean = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
 
             if (isMultiWallet) {
-                params.wallet = this.profile.extProfile.currentWallet.walletId;
+                params.wallet = walletId || this.profile.extProfile.currentWallet.walletId;
             }
 
             const response: IData = await this.dataService.request({

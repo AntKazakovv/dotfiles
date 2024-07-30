@@ -212,6 +212,10 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
         ).subscribe(observer);
     }
 
+    public getFeeAmount(currency: string): number {
+        return this.data.FeeAmount[currency];
+    }
+
     /**
      * Get tournament top array
      *

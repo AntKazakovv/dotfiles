@@ -29,3 +29,4 @@ export {LoyaltyProgramWolfComponent}
     from './loyalty-program/components/loyalty-program-wolf/loyalty-program-wolf.component';
 export {ILoyaltyProgramWolfCParams}
     from './loyalty-program/components/loyalty-program-wolf/loyalty-program-wolf.params';
+export {LoyaltyConfirmComponent} from './loyalty-confirm/loyalty-confirm.component';

@@ -14,6 +14,7 @@ import {
     LoyaltyProgramComponent,
     LoyaltyProgramDefaultComponent,
     LoyaltyProgramWolfComponent,
+    LoyaltyConfirmComponent,
 } from 'wlc-engine/modules/loyalty/components';
 import {StaticModule} from 'wlc-engine/modules/static/static.module';
 import {
@@ -33,6 +34,7 @@ export const components = {
     'wlc-loyalty-program': LoyaltyProgramComponent,
     'wlc-level-name': LevelNameComponent,
     'wlc-level-number': LevelNumberComponent,
+    'wlc-loyalty-confirm': LoyaltyConfirmComponent,
 };
 
 export const services = {
@@ -54,6 +56,7 @@ export const services = {
         LoyaltyProgramComponent,
         LoyaltyProgramDefaultComponent,
         LoyaltyProgramWolfComponent,
+        LoyaltyConfirmComponent,
     ],
     providers: [
         LoyaltyLevelsService,
@@ -66,6 +69,7 @@ export const services = {
         LoyaltyLevelComponent,
         LoyaltyLevelsComponent,
         LoyaltyProgramComponent,
+        LoyaltyConfirmComponent,
     ],
 })
 export class LoyaltyModule {}

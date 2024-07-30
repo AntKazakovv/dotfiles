@@ -5,7 +5,13 @@ import {
 } from 'wlc-engine/modules/core';
 import {Theme} from 'wlc-engine/modules/core/components/button/button.params';
 
-export type ComponentType = 'default' | CustomType;
+/** Defines different functionality
+ * default - for global switching wallet (in header)
+ * loyalty - for loyalty operations (buy/subscribe bonuses/store items/tournaments)
+ * deposit - for using on Deposit page
+ * withdrawal - for using on Withdraw page
+ */
+export type ComponentType = 'default' | 'loyalty' | 'deposit' | 'withdrawal' | CustomType;
 export type WalletsThemeMod = 'finances';
 
 export interface WalletsParams extends IComponentParams<Theme, ComponentType, string> {

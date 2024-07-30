@@ -522,7 +522,9 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
         this.walletList = _filter(this.walletList, (currency: IWallet) => searchCondition(currency)
             && (zeroBalanceCondition
                 ? (currency.currency === this.currentWallet.currency || currency.balance !== '0.00')
-                : true),
+                : true)
+            // TODO: refactor it after release https://tracker.egamings.com/issues/623167 (create exists wallets list)
+            && (this.$params.type === 'loyalty' ? !!currency.walletId : true),
         );
         this.walletListRead = true;
         this.cdr.markForCheck();
