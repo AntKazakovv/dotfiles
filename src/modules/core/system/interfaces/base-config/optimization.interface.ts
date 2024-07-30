@@ -29,4 +29,4 @@ export interface ILazyLoadingIntersectionObserver {
     components?: TLazyLoadingComponents[];
 }
 
-type TLazyLoadingComponents = 'icon-list';
+type TLazyLoadingComponents = 'icon-list' | 'games-grid';

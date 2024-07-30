@@ -80,6 +80,10 @@ import {
 
 import * as Params from './games-grid.params';
 
+import {
+    ILazyLoadingIntersectionObserver,
+} from 'wlc-engine/modules/core/system/interfaces/base-config/optimization.interface';
+
 @Component({
     selector: '[wlc-games-grid]',
     templateUrl: './games-grid.component.html',
@@ -165,37 +169,8 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
 
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-
-        this.$params.wlcElement ??= `wlc-games-grid-${this.getWlcSuffix()}`;
-        this.isHeaderInline = this.$params.themeMod === 'header-inline';
-
-        this.setWlcElementOnHost();
-        this.initTitleIcon();
-
-        if (this.$params.theme !== 'swiper' && this.$params.theme !== 'mobile-app-swiper') {
-            this.applyMoreBtnSettings();
-        }
-
-        this.filterName = this.$params.searchFilterName;
-
-        this.$isReady
-            .pipe(
-                first(() => this.isReadyOrUsePlaceholder),
-                takeUntil(this.$destroy),
-            )
-            .subscribe(() => this.loadSlidersComponentsOnReady());
-        this.initEventListeners();
-
-        if (_size(this.$params.breakpoints)) {
-            this.followBreakpoints();
-        }
-
-        this.prepareThumbParams();
-        this.prepareGrid().finally();
-        this.setNoContentText();
-
-        if (this.$params.type === 'search') {
-            this.gamesFilterService.$gamesFilterSubsIsReady.next(true);
+        if (!this.isUseIntersectionObserver()) {
+            this.init();
         }
     }
 
@@ -263,6 +238,47 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
     */
     public get isShowPreloader(): boolean {
         return this.games?.length > this.gamesCount;
+    }
+
+    public init(): void {
+        this.$params.wlcElement ??= `wlc-games-grid-${this.getWlcSuffix()}`;
+        this.isHeaderInline = this.$params.themeMod === 'header-inline';
+
+        this.setWlcElementOnHost();
+        this.initTitleIcon();
+
+        if (this.$params.theme !== 'swiper' && this.$params.theme !== 'mobile-app-swiper') {
+            this.applyMoreBtnSettings();
+        }
+
+        this.filterName = this.$params.searchFilterName;
+
+        this.$isReady
+            .pipe(
+                first(() => this.isReadyOrUsePlaceholder),
+                takeUntil(this.$destroy),
+            )
+            .subscribe(() => this.loadSlidersComponentsOnReady());
+        this.initEventListeners();
+
+        if (_size(this.$params.breakpoints)) {
+            this.followBreakpoints();
+        }
+
+        this.prepareThumbParams();
+        this.prepareGrid().finally();
+        this.setNoContentText();
+
+        if (this.$params.type === 'search') {
+            this.gamesFilterService.$gamesFilterSubsIsReady.next(true);
+        }
+    }
+
+    public intersectingHandler(isIntersecting: boolean): void {
+        if (isIntersecting && this.isUseIntersectionObserver()) {
+            this.init();
+            this.cdr.markForCheck();
+        }
     }
 
     public trackGames(index: number, item: Game): string {
@@ -529,6 +545,13 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
         this.applyMobileSettings();
         this.applyTabletSettings();
         this.cdr.markForCheck();
+    }
+
+    protected isUseIntersectionObserver(): boolean {
+        const config = this.configService.get<ILazyLoadingIntersectionObserver>(
+            '$base.lazyLoadingIntersectionObserver',
+        );
+        return config && config.use && config.components?.includes('games-grid');
     }
 
     /**

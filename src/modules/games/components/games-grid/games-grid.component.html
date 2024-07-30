@@ -7,9 +7,11 @@
 
 <ng-template #preview>
     <div class="{{$class}}__content"
+        wlc-observer-element
+        (isIntersecting)="intersectingHandler($event)"
+        [rootMargin]="$params?.intersectingMargin"
         [@cardLoading]="isLoadingAnimation"
         [hidden]="hideEmptyComponent">
-
         <div *ngIf="showDefaultHeader" class="{{$class}}__header">
             <div *ngIf="$params.urlPreviewCategoryBg"
                 class="{{$class}}__bg"
@@ -68,9 +70,11 @@
 
 <ng-template #default>
     <div class="{{$class}}__content"
+        wlc-observer-element
+        (isIntersecting)="intersectingHandler($event)"
+        [rootMargin]="$params?.intersectingMargin"
         [@cardLoading]="isLoadingAnimation"
         [hidden]="hideEmptyComponent">
-
         <div *ngIf="showDefaultHeader" class="{{$class}}__header">
 
             <ng-container [ngTemplateOutlet]="blockTitle"></ng-container>
@@ -140,26 +144,28 @@
 </ng-template>
 
 <ng-template #swiper>
-    <div class="{{$class}}__content"
-        [class.wolf-all]="$params.showAllLink?.wolfAllBtn"
-        [hidden]="hideEmptyComponent">
-        <ng-container [ngTemplateOutlet]="blockTitle"></ng-container>
 
-        <ng-container
-            *ngIf="showTopLink">
-            <ng-container
-                *ngIf="this.$params.showAllLink.showAsBtn;
-                then showAllBtn;
-                else showAllLink">
+        <div wlc-observer-element
+            class="{{$class}}__content"
+            (isIntersecting)="intersectingHandler($event)"
+            [rootMargin]="$params?.intersectingMargin"
+            [class.wolf-all]="$params.showAllLink?.wolfAllBtn"
+            [hidden]="hideEmptyComponent">
+
+            <ng-container [ngTemplateOutlet]="blockTitle"></ng-container>
+
+            <ng-container *ngIf="showTopLink">
+
+                <ng-container *ngIf="this.$params.showAllLink.showAsBtn; then showAllBtn; else showAllLink">
+                </ng-container>
             </ng-container>
-        </ng-container>
 
-        <ng-container
+            <ng-container
             *ngIf="showWolfAllBtn"
             [ngTemplateOutlet]="wolfAllBtn">
         </ng-container>
 
-        <ng-container *ngIf="showGameSlides else: preloaderForSlider">
+            <ng-container *ngIf="showGameSlides else: preloaderForSlider">
             <div wlc-wrapper
                 class="{{$class}}__games-slider"
                 [inlineParams]="gamesSliderConfig"
@@ -167,9 +173,9 @@
             </div>
         </ng-container>
 
-        <!-- The button block should be located after the swiper block to hide the button block
-        if the number of games is less than or equal to the number of slots in the grid  -->
-        <div *ngIf="$params.showAsSwiper?.useNavigation"
+            <!-- The button block should be located after the swiper block to hide the button block
+            if the number of games is less than or equal to the number of slots in the grid  -->
+            <div *ngIf="$params.showAsSwiper?.useNavigation"
              class="{{$class}}__swiper-buttons-container"
              slot-container-end>
             <div wlc-slider-navigation
@@ -178,9 +184,9 @@
                 [classNext]="'wlc-swiper-button-next-' + navigationId">
             </div>
         </div>
-    </div>
+        </div>
 
-    <div
+        <div
         *ngIf="games.length && showBottomLink"
         class="{{$class}}__more">
         <ng-template [ngTemplateOutlet]="showAllBtn"></ng-template>

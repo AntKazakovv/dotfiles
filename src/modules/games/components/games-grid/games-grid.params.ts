@@ -280,6 +280,7 @@ export interface IGamesGridCParams extends IComponentParams<ComponentTheme, Comp
      * Updates the grid after changing the filter
      */
     updateGridAfterFiltering?: boolean;
+    intersectingMargin?: string;
 }
 
 export const defaultParams: IGamesGridCParams = {
@@ -310,4 +311,5 @@ export const defaultParams: IGamesGridCParams = {
         },
     },
     searchFilterName: 'page',
+    intersectingMargin: '150px',
 };
