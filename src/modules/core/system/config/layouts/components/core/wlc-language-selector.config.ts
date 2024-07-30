@@ -75,6 +75,7 @@ export namespace wlcLanguageSelector {
             saName: 'wlc-language-selector',
             saParams: <ILanguageSelectorCParams>{
                 themeMod: 'long',
+                outsideClickHandler: false,
             },
         },
     };
@@ -86,6 +87,7 @@ export namespace wlcLanguageSelector {
             saParams: <ILanguageSelectorCParams>{
                 themeMod: 'long',
                 compactMod: true,
+                outsideClickHandler: false,
             },
         },
     };
@@ -98,6 +100,7 @@ export namespace wlcLanguageSelector {
                 theme: 'wolf',
                 compactMod: true,
                 defaultIcon: 'wlc/icons/european/v3/language.svg',
+                outsideClickHandler: false,
             },
         },
     };

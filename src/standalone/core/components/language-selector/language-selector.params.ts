@@ -44,6 +44,7 @@ export interface ILanguageSelectorCParams extends IComponentParams<ThemeType, Co
     fixedPanelPosition?: TFixedPanelPos;
     useTooltip?: boolean;
     defaultIcon?: string;
+    outsideClickHandler?: boolean;
 }
 
 export const defaultParams: ILanguageSelectorCParams = {
@@ -73,4 +74,5 @@ export const defaultParams: ILanguageSelectorCParams = {
     compactMod: false,
     useTooltip: false,
     fixedPanelPosition: 'left',
+    outsideClickHandler: true,
 };

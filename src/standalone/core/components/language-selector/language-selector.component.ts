@@ -157,6 +157,7 @@ export class LanguageSelectorComponent
             this.$params.order,
             'code',
         );
+
         this.currentLanguage = this.findLanguage(this.translateService.currentLang);
 
         if (this.languagesCount() <= 1) {
@@ -354,6 +355,7 @@ export class LanguageSelectorComponent
             (this.isShowLangByDropdown || this.isLongThemeMod)
             && this.isOpened
             && !this.elementRef.nativeElement.contains(event.target)
+            && this.$params.outsideClickHandler
         ) {
             this.isOpened = !this.isOpened;
             this.cdr.markForCheck();
@@ -398,6 +400,10 @@ export class LanguageSelectorComponent
             .subscribe((value: [DeviceType, TFixedPanelStore]) => {
                 const isCompact: boolean = value[1][this.$params.fixedPanelPosition] === 'compact';
                 const isMobile = value[0] !== DeviceType.Desktop;
+
+                if (isCompact && !isMobile) {
+                    this.isOpened = false;
+                }
 
                 this.updateCompactState(isCompact ? isCompact && !isMobile : isCompact);
             });
