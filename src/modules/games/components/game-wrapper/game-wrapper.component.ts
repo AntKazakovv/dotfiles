@@ -358,7 +358,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             }
         }, this.$destroy);
 
-        if (this.isAuth && this.configService.get<boolean>('appConfig.siteconfig.EnableMinimalBalanceNotifications')) {
+        if (this.useFastDeposit()) {
             this.financesService ??= await this.injectionService.getService('finances.finances-service');
 
             this.fastDepSubscription = await this.financesService.checkForAutoFastDep();
@@ -519,6 +519,23 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                 },
             });
             this.setError();
+        }
+    }
+
+    protected useFastDeposit(): boolean {
+        if (this.isAuth && this.configService.get<boolean>('appConfig.siteconfig.EnableMinimalBalanceNotifications')) {
+            const exceptCategories = this.configService.get<string[]>('$finances.fastDeposit.excludeCategorySlug');
+
+            if (exceptCategories) {
+                const categoryIds: number[] =
+                    exceptCategories.map((slug: string) => this.gamesCatalogService.getCategoryBySlug(slug).id);
+
+                if (categoryIds?.length) {
+                    return categoryIds.every((categoryId: number) => !this.game.hasCategoryById(categoryId));
+                }
+            }
+
+            return true;
         }
     }
 

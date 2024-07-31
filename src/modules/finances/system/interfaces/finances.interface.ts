@@ -190,6 +190,8 @@ export interface IFastDeposit {
     gamePlayShowLimit?: number;
     /** @deprecated - fast deposit logic will be managed by Fundist */
     use?: boolean;
+    /** Exclude use fast deposit for games which has one of current categories */
+    excludeCategorySlug?: string[];
 }
 
 export type TTranslate = 'pay_to_address' | 'pay_to_bank' | 'html';

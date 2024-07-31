@@ -204,6 +204,16 @@ export class Game extends AbstractModel<IGame> {
     }
 
     /**
+     * Check has category by id
+     *
+     * @param {number} categoryId
+     * @returns {boolean}
+     */
+    public hasCategoryById(categoryId: number): boolean {
+        return this.categoryID.includes(categoryId);
+    }
+
+    /**
      *
      * @returns {string}
      */
