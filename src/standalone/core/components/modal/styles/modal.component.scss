@@ -255,12 +255,15 @@
 
             .wlc-modal__body {
                 @include bm.scrollbar($hostModal);
-
                 @include bm.get-mq-map('min-height', $hostModal, 'staticMinHeight');
                 @include bm.get-mq-map('max-height', $hostModal, 'staticMaxHeightMobile');
                 @include bm.get-mq-map('margin', $hostModal, 'scrollModalBodyMargin');
                 @include bm.get-mq-map('padding', $hostModal, 'scrollModalBodyPadding');
                 overflow-y: auto;
+            }
+
+            .wlc-modal__footer {
+                @include bm.get-mq-map('padding', $hostModal, 'scrollModalFooterPadding');
             }
         }
 

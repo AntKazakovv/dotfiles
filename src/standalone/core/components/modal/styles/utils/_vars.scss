@@ -48,8 +48,8 @@ $hostModal: map-merge((
     'modalSmSize': 300px,
 
     'modalWrapperPadding': (
-        320: 30px 0,
-        900: 50px 0 0,
+        320: ef.size(6) 0,
+        900: ef.size(10) 0 0,
     ),
 
     'closePosRight': (
@@ -231,11 +231,13 @@ $hostModal: map-merge((
         375: 150px,
     ),
     'staticMaxHeightMobile': (
-        375: 100%,
+        375: calc(100vh - 160px),
+        560: calc(100vh - 230px),
         1024: calc(100vh - 330px),
     ),
     'staticMaxHeightMobileIos': (
-        375: 100%,
+        375: calc(100vh - 180px),
+        560: calc(100vh - 250px),
         1024: calc(100vh - 350px),
     ),
     'scrollModalBodyMargin': (
@@ -244,6 +246,11 @@ $hostModal: map-merge((
     'scrollModalBodyPadding': (
         320: 0 ef.size(3) 0,
         768: 0 ef.size(6) 0,
+    ),
+    'scrollModalFooterPadding': (
+        320: 0 ef.size(3) 0,
+        560: 0 ef.size(3) ef.size(6),
+        768: 0 ef.size(6) ef.size(6),
     ),
     'scrollbarTrackBg': var(--mc-bg700),
     'scrollbarThumbBg': var(--mc-bg100),
@@ -276,7 +283,7 @@ $themeDefault: map-merge((
 
     // loginSignUp modal modifier
     'loginSignUpModalWrapperPadding': (
-        375: ef.size(6) 0,
+        320: ef.size(2) 0,
         900: ef.size(10) 0,
     ),
     'loginSignUpModalBackground': (
@@ -348,6 +355,10 @@ $themeDefault: map-merge((
     // loginSignUp modal modifier
 
     // restore password modal modifier
+    'restoreModalWrapperPadding': (
+        320: ef.size(2) 0,
+        900: ef.size(10) 0,
+    ),
     'restoreModalBackground': (
         375: var(--mc-bgModal),
         560: transparent,
