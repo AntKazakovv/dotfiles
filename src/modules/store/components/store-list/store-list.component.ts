@@ -2,6 +2,7 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
+    inject,
     Inject,
     Input,
     OnDestroy,
@@ -29,8 +30,11 @@ import {
     StoreItem,
     IStore,
 } from 'wlc-engine/modules/store';
-import {UserService} from 'wlc-engine/modules/user';
-import {UserProfile} from 'wlc-engine/modules/user';
+import {
+    UserInfo,
+    UserService,
+    UserProfile,
+} from 'wlc-engine/modules/user';
 
 import * as Params from 'wlc-engine/modules/store/components/store-list/store-list.params';
 
@@ -59,9 +63,11 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
     public userExpPoints: number = 0;
     public itemTheme: Params.ThemeMod = 'default';
     public isMultiWallet: boolean;
+
     protected itemsPerPage: number = 0;
     protected store: IStore;
     protected userCurrency: string;
+    protected readonly userService: UserService = inject(UserService);
 
     constructor(
         @Inject('injectParams') protected params: Params.IStoreListCParams,
@@ -70,7 +76,6 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
         protected storeService: StoreService,
         protected eventService: EventService,
         protected router: UIRouter,
-        protected userService: UserService,
     ) {
         super(
             <IMixedParams<Params.IStoreListCParams>>{
@@ -82,9 +87,11 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.prepareModifiers();
+
         this.isReady = false;
         this.isProfileFirst = this.configService.get<string>('$base.profile.type') === 'first';
         this.itemTheme = this.$params.themeMod ?? 'default';
+        this.isMultiWallet = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
 
         this.storeService.getSubscribe({
             useQuery: true,
@@ -103,15 +110,6 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
             }
         }, this.$destroy);
 
-        this.userService.userInfo$
-            .pipe(
-                skipWhile(v => !v),
-                takeUntil(this.$destroy),
-            )
-            .subscribe((userInfo) => {
-                this.userLevel = userInfo.level;
-            });
-
         this.configService
             .get<BehaviorSubject<UserProfile>>('$user.userProfile$')
             .pipe(
@@ -123,8 +121,20 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
                     : this.configService.get<string>('$base.defaultCurrency');
             });
 
-        this.isMultiWallet = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
-        this.isReady = true;
+        this.userService.userInfo$
+            .pipe(
+                skipWhile(v => !v),
+                takeUntil(this.$destroy),
+            )
+            .subscribe((userInfo: UserInfo) => {
+                this.userLevel = userInfo.level;
+
+                if (!this.isReady && userInfo.level) {
+                    this.isReady = true;
+                }
+
+                this.cdr.detectChanges();
+            });
     }
 
     /**
