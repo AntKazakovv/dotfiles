@@ -11,6 +11,7 @@ import {
 import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 import {IAddProfileInfoCParams} from 'wlc-engine/modules/user/components/add-profile-info/add-profile-info.params';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
+import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 
 export class UserHelper {
 
@@ -61,6 +62,7 @@ export class UserHelper {
         }
     }
 
+    @CustomHook('user', 'userHelperShowInformationModal')
     public static showInformationModal(modalService: ModalService, modalMessage: string): void {
         modalService.showModal({
             id: 'user-information',
