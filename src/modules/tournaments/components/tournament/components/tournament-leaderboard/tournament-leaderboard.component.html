@@ -7,12 +7,12 @@
     </p>
 </div>
 
-<p *ngIf="showFreeSpinsText" 
+<p *ngIf="showFreeSpinsText"
     class="{{$class}}__descr">
     {{$params.common?.freeSpinsText | translate}}
 </p>
 
-<div *ngIf="wins?.length && isReady; else: noData" class="{{$class}}__container">
+<div *ngIf="isUserParticipant" class="{{$class}}__container">
     <div *ngIf="$params.common?.useListHead" class="{{$class}}__item {{$class}}__item--head">
         <div class="{{$class}}__cell item-place" title="{{'Place' | translate}}">{{'Place' | translate}}</div>
         <div class="{{$class}}__cell item-user"  title="{{'Player' | translate}}">
@@ -93,9 +93,17 @@
     </ng-container>
 </div>
 
-<ng-template #noData>
-    <div *ngIf="isReady" class="{{$class}}__nocontent">{{'No tournament winnings available' | translate}}</div>
-    <div *ngIf="!isReady" class="{{$class}}__nocontent">
+<ng-template [ngIf]="isReady" [ngIfElse]="preloader">
+    <div *ngIf="wins?.length && !isParticipant" class="{{$class}}__nocontent">
+        {{'The tournament results will be available after it is ended' | translate}}
+    </div>
+    <div *ngIf="!wins.length" class="{{$class}}__nocontent">
+        {{'No tournament winnings available' | translate}}
+    </div>
+</ng-template>
+
+<ng-template #preloader>
+    <div class="{{$class}}__nocontent">
         <div wlc-loader></div>
     </div>
 </ng-template>

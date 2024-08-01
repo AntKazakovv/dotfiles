@@ -60,6 +60,7 @@ export class TournamentLeaderboardComponent
     public winsTop: ITournamentPlace[];
     public winsRest: ITournamentPlace[];
     public userId: string;
+    public isParticipant: boolean;
     public isReady: boolean;
     public currency: string = 'EUR';
     public pointsTitle: string = gettext('Points');
@@ -135,6 +136,15 @@ export class TournamentLeaderboardComponent
                 limit: 0,
             },
         );
+    }
+
+    /**
+     * Show leaderboard if current user is participant
+     *
+     * @returns {boolean}
+     */
+    public get isUserParticipant(): boolean {
+        return this.wins?.length && this.isReady && this.isParticipant;
     }
 
     public get needShowBtn(): boolean {
@@ -223,7 +233,7 @@ export class TournamentLeaderboardComponent
 
         if (this.isHistory) {
             _forEach(this.wins, (win: ITournamentPlace, i: number): void => {
-                let winLB: ITournamentPrize[] = this.getCurrencyValue(win, result.user.IDUser);
+                let winLB: ITournamentPrize[] = this.getCurrencyValue(win, result.user?.IDUser);
                 this.wins[i].TotalWinsLB = winLB;
             });
         }
@@ -231,12 +241,16 @@ export class TournamentLeaderboardComponent
         if (this.wins?.length) {
             this.winsTop = this.wins.slice(0, 3);
             this.winsRest = this.wins.slice(3) || [];
+
             if (this.isAuth && result?.user) {
                 this.userId = result.user.IDUser;
+                this.isParticipant = this.wins.some(user => user.IDUser === this.userId);
+
                 if (this.restLimit) {
                     this.getRestLimit(_findIndex(this.winsRest, ['IDUser', this.userId]));
                 }
             }
+
             if (!result?.user && this.restLimit) {
                 this.getRestLimit();
             }
