@@ -508,9 +508,9 @@ export class FinancesService {
                             );
                         } else {
                             message.push(
-                                `${currencyElement} `
-                                + this.translateService.instant(
-                                    gettext('were successfully deposited in your account.'),
+                                this.translateService.instant(
+                                    gettext('{{currencyElement}} were successfully deposited in your account'),
+                                    {currencyElement: currencyElement},
                                 ),
                             );
                         }
