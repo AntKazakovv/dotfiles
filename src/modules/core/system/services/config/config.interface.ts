@@ -39,7 +39,7 @@ export interface IGetParams {
 
 export interface ISetParams<T> {
     name: string;
-    value: T;
+    value?: T;
     storageType?: IStorageType;
     storageClear?: IStorageType;
     merge?: boolean;

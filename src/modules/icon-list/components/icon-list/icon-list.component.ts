@@ -129,7 +129,7 @@ export class IconListComponent extends IconListAbstract<Params.IIconListCParams>
 
     protected isUseIntersectionObserver(): boolean {
         const config = this.configService.get<ILazyLoadingIntersectionObserver>(
-            '$base.lazyLoadingIntersectionObserver',
+            '$base.optimization.lazyLoadingIntersectionObserver',
         );
         return config && config.use && config.components?.includes('icon-list');
     }

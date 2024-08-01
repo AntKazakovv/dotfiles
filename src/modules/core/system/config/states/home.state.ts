@@ -30,6 +30,22 @@ export const homeState: Ng2StateDeclaration = {
                 cachingService: CachingService,
             ): Promise<void> => {
                 await configService.ready;
+
+                if (configService.get('$base.monitoring.loggingLoadedSections.use')) {
+                    if (transition.$from().name) {
+                        configService.set({
+                            name: 'siteOpenedFromHomePage',
+                            storageClear: 'localStorage',
+                        });
+                    } else {
+                        configService.set({
+                            name: 'siteOpenedFromHomePage',
+                            value: true,
+                            storageType: 'localStorage',
+                        });
+                    }
+                }
+
                 const redirects: IRedirectAfterLoad
                     = configService.get<IRedirectAfterLoad>('$base.redirects.redirectAfterLoad');
 

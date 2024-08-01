@@ -23,9 +23,7 @@ import {
     logTypes,
     TLogMethods,
 } from 'wlc-engine/modules/core/system/config/log-types';
-import {
-    IIndexing,
-} from 'wlc-engine/modules/core';
+import {IIndexing} from 'wlc-engine/modules/core';
 import {IFlogData, WlcFlog} from 'wlc-engine/system/inline/_flog';
 import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {WINDOW} from 'wlc-engine/modules/app/system';
@@ -49,6 +47,8 @@ export interface ILogObj<T = any> extends ILogType {
     data?: T;
     flog?: TLogObjFlog;
     from?: IFromLog;
+    isSiteCached?: boolean;
+    siteOpenedFromHome?: boolean;
 }
 
 export interface IWaitElementParams {
@@ -76,6 +76,7 @@ interface IRequestLog {
 export class LogService {
     public sendLog$: Subject<IFlogData> = new Subject<IFlogData>();
 
+    private isGamesCached: boolean = false;
     private Flog: WlcFlog = _get(this.window, 'WlcFlog', {}) as WlcFlog;
 
     constructor(
@@ -84,6 +85,7 @@ export class LogService {
         @Inject(DOCUMENT) private document: Document,
         @Inject(WINDOW) private window: Window,
     ) {
+        this.init();
     }
 
     /**
@@ -200,7 +202,7 @@ export class LogService {
      *
      * @param {ILogObj} logObj Log info
      */
-    public sendLog(logObj: ILogObj): void {
+    public sendLog(logObj: ILogObj, useAdvancedMetrics?: boolean): void {
         const defaultLog = _get(logTypes, logObj.code);
         if (!defaultLog) {
             // TODO Warning about empty code
@@ -216,6 +218,21 @@ export class LogService {
         _merge(resultLog, defaultLog);
         resultLog.level = resultLog.level || defaultLogLevel;
         resultLog.method = resultLog.method || defaultLogMethods;
+
+        if (useAdvancedMetrics && this.configService.get('$base.monitoring.loggingLoadedSections.use')) {
+            const siteOpenedFromHomePage = this.configService.get(
+                {name: 'siteOpenedFromHomePage', storageType: 'localStorage'},
+            );
+
+            Object.assign(resultLog, {
+                isSiteCached: this.isGamesCached,
+                siteOpenedFromHome: siteOpenedFromHomePage,
+            });
+
+            if (!resultLog.durationType) {
+                resultLog.durationType = 'fromStart';
+            }
+        }
 
         if (this.Flog.enabled && isMethod('flog')) {
             this.sendFlog(resultLog);
@@ -249,7 +266,24 @@ export class LogService {
         this.sendLog(logObj);
     }
 
-    protected sendFlog(logObj: ILogObj): void {
+    private init(): void {
+        this.isGamesCached = !!this.window.localStorage.getItem(
+            `ngx-webstorage|/api/v1/games|${this.configService.get<string>('appConfig.language') || 'en'}`,
+        );
+
+        setTimeout(() => {
+            if (this.configService.get('$base.monitoring.loggingLoadedFullSite')) {
+                this.window.onload = () => {
+                    this.sendLog({
+                        code: '33.0.0',
+                        isSiteCached: this.isGamesCached,
+                    });
+                };
+            }
+        });
+    }
+
+    private sendFlog(logObj: ILogObj): void {
         const resultLog: ILogObj = _cloneDeep(logObj);
         resultLog.flog = resultLog.flog || {};
         resultLog.flog.mobile = this.configService.get<boolean>('appConfig.mobile');
@@ -261,11 +295,21 @@ export class LogService {
             default:
                 break;
         }
+
         const flogData: IFlogData = {
             code: resultLog.code,
             level: resultLog.level,
             ..._get(resultLog, 'flog'),
         };
+
+        if (typeof (resultLog.isSiteCached) !== 'undefined') {
+            flogData.isSiteCached = resultLog.isSiteCached;
+        }
+
+        if (typeof (resultLog.siteOpenedFromHome) !== 'undefined') {
+            flogData.siteOpenedFromHome = resultLog.siteOpenedFromHome;
+        }
+
         if (resultLog.from) {
             flogData.from = resultLog.from;
         }

@@ -3,6 +3,7 @@ import {TDeviceSelection} from 'wlc-engine/modules/core/system/interfaces/global
 export interface IOptimizationConfig {
     slimImages?: ISlimImages;
     slimExtraImages?: ISlimExtraImages;
+    lazyLoadingIntersectionObserver?: ILazyLoadingIntersectionObserver;
 }
 
 export interface ISlimExtraImages {

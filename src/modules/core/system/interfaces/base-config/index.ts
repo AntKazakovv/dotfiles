@@ -32,10 +32,7 @@ import {IPopupConfig} from 'wlc-engine/modules/core/system/interfaces/base-confi
 import {ICoupleCurrency} from 'wlc-engine/modules/rates/system/interfaces/rates.interfaces';
 import {MultiWalletConfig} from 'wlc-engine/modules/core/system/interfaces/base-config/multiwallet.interface';
 import {IUbidexConfig} from 'wlc-engine/modules/ubidex/system/interfaces';
-import {
-    IOptimizationConfig,
-    ILazyLoadingIntersectionObserver,
-} from 'wlc-engine/modules/core/system/interfaces/base-config/optimization.interface';
+import {IOptimizationConfig} from 'wlc-engine/modules/core/system/interfaces/base-config/optimization.interface';
 
 export * from './games.interface';
 export * from './tournaments.interface';
@@ -185,5 +182,4 @@ export interface IBaseConfig {
     queryParams?: string[];
     multiWallet?: MultiWalletConfig;
     ubidex?: IUbidexConfig;
-    lazyLoadingIntersectionObserver?: ILazyLoadingIntersectionObserver;
 }

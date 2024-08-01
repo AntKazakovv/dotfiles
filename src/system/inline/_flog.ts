@@ -84,6 +84,7 @@ export class WlcFlog {
                 duration: (new Date().getTime() - this.startTime.getTime()) / 1000,
             }).finally();
         };
+
         window.addEventListener('beforeunload', this.eventListeners.beforeunload);
     }
 
