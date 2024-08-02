@@ -47,7 +47,9 @@
             <span class="rate">{{message.rate}}</span>
         </div>
         <div class="{{$class}}__text-row">
-            {{'To replenish the casino balance by' | translate}} {{parseAmount}} {{', replenish the specified wallet with' | translate}} {{parseRate}}
+            {{
+                'To replenish the casino balance by {{parseAmount}}, replenish the specified wallet with {{parseRate}}' | translate | translate:{parseAmount, parseRate}
+            }}
         </div>
         <div class="{{$class}}__text-row">
             <ng-container [ngTemplateOutlet]="qrCode"></ng-container>
