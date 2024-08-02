@@ -45,7 +45,6 @@ export interface IWSDataUserBalance {
     Node?: number;
     GameActionID?: number;
     Wallets?: IWSWalletObj;
-    availableWithdraw?: string;
 }
 
 export interface IUserNickIcon {
@@ -56,8 +55,3 @@ export interface IUserNickIcon {
 export const ProfileUpdateTypes: Record<string, string> = {
     CHANGE_WALLET: 'changeWallet',
 } as const;
-
-export interface IWSUserInfoPayload {
-    RefreshWallet?: string;
-    method: string;
-}

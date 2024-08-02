@@ -18,10 +18,8 @@ import {
     Subject,
 } from 'rxjs';
 import {
-    delay,
     first,
     map,
-    takeUntil,
     takeWhile,
     tap,
     filter,
@@ -85,7 +83,6 @@ import {
     IUserPasswordPost,
     IEmailVerifyData,
     IWSDataUserBalance,
-    IWSUserInfoPayload,
     ProfileUpdateTypes,
 } from 'wlc-engine/modules/user/system/interfaces/user.interface';
 import {IWSLoyalty} from 'wlc-engine/modules/loyalty/system/interfaces/interfaces';
@@ -224,14 +221,6 @@ export class UserService {
     private twoFactorAuthService: TwoFactorAuthService;
     private isMultiWallet: boolean = false;
     private isShowSessionEndedModal: boolean = false;
-    private userWSInfoNewSub: Subscription;
-    private useWSBalance: boolean;
-    private walletId: string;
-    private availableWithdrawTimeout: NodeJS.Timeout;
-    private socketReady: Promise<void> = new Promise((resolve: () => void): void => {
-        this.$socketResolve = resolve;
-    });
-    private $socketResolve: () => void;
 
     constructor(
         public translateService: TranslateService,
@@ -333,15 +322,9 @@ export class UserService {
         ], (profile: IData) => {
             this.setProfileData(profile.data);
         });
-        this.useWSBalance = this.configService.get('$base.profile.webSockets.userBalance.use');
-
-        if (!this.useWSBalance || !this.isAuth$.getValue()) {
-            this.$socketResolve();
-        }
 
         this.eventService.subscribe({name: 'SOCKET_CONNECT', status: 'success'}, (data) => {
             if (this.isAuth$.getValue() && data === 'wsc2') {
-                this.$socketResolve();
                 this.webSocketService.sendToWebsocket('wsc2', WebSocketEvents.SEND.LOYALTY);
                 this.dataLoyaltyUserSub = this.webSocketService.getMessages({
                     endPoint: 'wsc2',
@@ -373,7 +356,7 @@ export class UserService {
                     });
                 });
 
-                if (this.useWSBalance) {
+                if (this.configService.get('$base.profile.webSockets.userBalance.use')) {
                     this.startWSUserBalance();
                 }
 
@@ -1021,72 +1004,6 @@ export class UserService {
         return this.dataService.request('user/emailVerification', data);
     }
 
-    public updateWSAvailableWithdraw(walletId?: string): void {
-        if (this.isUseWSBalance) {
-
-            if (walletId) {
-                this.walletId = walletId;
-            }
-
-            const userInfoPayload: IWSUserInfoPayload = {
-                method: WebSocketEvents.SEND.USER_INFO_NEW,
-                RefreshWallet: this.walletId,
-            };
-            this.webSocketService.sendToWebsocket('wsc2', null, userInfoPayload);
-        }
-    }
-
-    public async subscribeWSAvailableWithdraw($destroy: Subject<void>, walletId?: string): Promise<void> {
-        await this.socketReady;
-
-        if (this.isUseWSBalance) {
-
-            if (!this.isMultiWallet) {
-                this.walletId = this.userInfo.idUser;
-            }
-
-            this.updateWSAvailableWithdraw(walletId);
-            this.userWSInfoNewSub = this.webSocketService.getMessages(
-                {
-                    endPoint: 'wsc2',
-                    events: [WebSocketEvents.RECEIVE.USER_INFO_NEW],
-                    eventFilterFunc: this.filterEventWSTimestamp.bind(this),
-                })
-                .pipe(
-                    delay(1500),
-                    takeWhile((data: IWSConsumerData<IWSDataUserBalance>) => {
-                        const  isError: boolean = data.status === 'error';
-
-                        if (isError) {
-                            this.info.availableWithdraw = null;
-                            this.info.wsWallets = null;
-                        }
-
-                        return !isError;
-                    }),
-                    takeUntil($destroy),
-                )
-                .subscribe((data: IWSConsumerData<IWSDataUserBalance>) => {
-
-                    if (this.isMultiWallet) {
-                        this.info.wsWallets = data.data.Wallets;
-                    }
-
-                    this.info.availableWithdraw = Number(data.data.availableWithdraw);
-                    this.ngZone.runOutsideAngular(() => {
-                        this.availableWithdrawTimeout = setTimeout(() => {
-                            this.updateWSAvailableWithdraw();
-                        }, 8500);
-                    });
-                });
-        }
-    }
-
-    public unsubscribeWSAvailableWithdraw(): void {
-        clearTimeout(this.availableWithdrawTimeout);
-        this.walletId = null;
-    }
-
     protected prepareCreateProfile(userProfile: IUserProfile): void {
         if (this.configService.get('$base.profile.limitations.use')
             && this.configService.get('$base.profile.limitations.realityChecker.autoApply')
@@ -1107,10 +1024,6 @@ export class UserService {
         if (userProfile?.phoneCode && !userProfile?.phoneNumber) {
             userProfile.phoneCode = '';
         }
-    }
-
-    private get isUseWSBalance(): boolean {
-        return this.isAuth$.getValue() && !!this.userInfo.data.socketsData && this.useWSBalance;
     }
 
     private jwtAuthLogin(): void {
@@ -1143,7 +1056,7 @@ export class UserService {
      */
     public isAgeLegal({birthDay, birthYear, birthMonth}: IUserProfile): boolean {
         const legalAge: number = this.configService.get('legalAgeByCountry')
-            || this.configService.get('$base.profile.legalAge');
+                                || this.configService.get('$base.profile.legalAge');
         return DateTime.utc(+birthYear, +birthMonth, +birthDay)
             .diffNow('years')
             .years * -1 >= legalAge;
@@ -1318,9 +1231,6 @@ export class UserService {
                     sendUserInfoIntervalSub.unsubscribe();
                     wsUserInfoSub.unsubscribe();
                     authSub.unsubscribe();
-                    this.userWSInfoNewSub.unsubscribe();
-                    this.unsubscribeWSAvailableWithdraw();
-
                     if (isErrorWSUserBalance) {
                         isErrorWSUserBalance = false;
                     }
@@ -1377,15 +1287,9 @@ export class UserService {
             }
         }
 
-        return this.filterEventWSTimestamp(event);
-    }
-
-    private filterEventWSTimestamp(event: IWSConsumerData): boolean {
-        let filterResult: boolean = true;
-
         if (event.data?.timestamp) {
-            const eventTimeSeconds: number = DateTime.fromSQL(event.data.timestamp, {zone: 'utc'}).toSeconds();
-            const nowTimeSeconds: number = DateTime.now().toSeconds();
+            const eventTimeSeconds = DateTime.fromSQL(event.data.timestamp, {zone: 'utc'}).toSeconds();
+            const nowTimeSeconds = DateTime.now().toSeconds();
             filterResult = nowTimeSeconds - eventTimeSeconds < 5;
         }
 

@@ -10,8 +10,6 @@ export interface IWallet {
 export interface IWSWallet {
     Balance: string;
     Currency: string;
-    availableWithdraw?: string;
-    WalletId?: number;
 }
 
 // TODO заменить в дальнейшем на IIndexing
