@@ -561,13 +561,9 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
                     }
 
                     item.expand = !!_find(item.items, (subItem: MenuItemObjectType): boolean => {
-                        if (this.checkIsMenuItem(subItem)) {
-                            const {name, params} = subItem.params?.state;
-
-                            return this.isActive(
-                                name,
-                                params,
-                            );
+                        if (this.checkIsMenuItem(subItem) && subItem.params?.state) {
+                            const {name, params} = subItem.params.state;
+                            return this.isActive(name, params);
                         }
 
                         return false;
