@@ -329,8 +329,7 @@ export class SliderComponent extends AbstractComponent
                     _set(this.swiper, 'allowTouchMove', true);
 
                     if (this.$params.centeredSlides && !_get(this.swiper.params, 'centeredSlides')) {
-                        _set(this.swiper.params, 'centeredSlides', true);
-                        _set(this.swiper.params, 'centeredSlidesBounds', true);
+                        this.setCenteredSlidesModifiers(true);
                     }
                 } else {
                     if (this.hasModifier('overflow')) {
@@ -339,8 +338,7 @@ export class SliderComponent extends AbstractComponent
                     _set(this.swiper, 'allowTouchMove', false);
 
                     if (this.$params.centeredSlides && _get(this.swiper.params, 'centeredSlides')) {
-                        _set(this.swiper.params, 'centeredSlides', false);
-                        _set(this.swiper.params, 'centeredSlidesBounds', false);
+                        this.setCenteredSlidesModifiers(false);
                     }
                 }
             });
@@ -442,5 +440,12 @@ export class SliderComponent extends AbstractComponent
                 this.cdr.markForCheck();
             });
         });
+    }
+
+    protected setCenteredSlidesModifiers(value: boolean): void {
+        _set(this.swiper.params, 'centeredSlides', value);
+        _set(this.swiper.params, 'centeredSlidesBounds', value);
+        this.cdr.markForCheck();
+        this.update();
     }
 }
