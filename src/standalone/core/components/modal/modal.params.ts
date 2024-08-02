@@ -36,10 +36,10 @@ export const DEFAULT_MODAL_CONFIG: Partial<IModalConfig> = {
 };
 
 export const MODALS_LIST: IModalList = {
-    loyaltyConfirmation: {
+    walletConfirm: {
         config: {
-            id: 'loyalty-confirmation',
-            componentName: 'loyalty.wlc-loyalty-confirm',
+            id: 'wallet-confirm',
+            componentName: 'multi-wallet.wlc-wallet-confirm',
             showFooter: false,
             modalTitle: gettext('Confirmation'),
         },

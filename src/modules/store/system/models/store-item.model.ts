@@ -1,13 +1,7 @@
 import dayjs from 'dayjs';
 import type {Dayjs} from 'dayjs';
 
-import {
-    AbstractModel,
-    ConfigService,
-    IFromLog,
-    GlobalHelper,
-} from 'wlc-engine/modules/core';
-
+import {BehaviorSubject} from 'rxjs';
 import _assign from 'lodash-es/assign';
 import _toNumber from 'lodash-es/toNumber';
 import _includes from 'lodash-es/includes';
@@ -15,16 +9,28 @@ import _map from 'lodash-es/map';
 import _has from 'lodash-es/has';
 
 import {
+    AbstractModel,
+    ConfigService,
+    IFromLog,
+    GlobalHelper,
+} from 'wlc-engine/modules/core';
+import {
     IDisabledItemInfo,
     IStoreItem,
     IStoreItemPriceMoney,
 } from '../interfaces/store.interface';
 import {StoreService} from '../services';
 import {Bonus} from 'wlc-engine/modules/bonuses';
+import {UserProfile} from 'wlc-engine/modules/user';
+import {
+    IAmount,
+    WalletHelper,
+} from 'wlc-engine/modules/multi-wallet';
 
 export class StoreItem extends AbstractModel<IStoreItem> {
     public bonus: Bonus;
     protected userCurrency: string;
+    protected useConversionInFiat: boolean;
     private $availableForLevels: number[] = [];
 
     constructor(
@@ -37,6 +43,13 @@ export class StoreItem extends AbstractModel<IStoreItem> {
         this.userCurrency = this.ConfigService.get<string>('appConfig.user.currency')
             || this.ConfigService.get<string>('$base.defaultCurrency');
         this.data = data;
+
+        const userProfile: UserProfile
+            = this.ConfigService.get<BehaviorSubject<UserProfile>>('$user.userProfile$').getValue();
+
+        if (userProfile) {
+            this.useConversionInFiat = userProfile.isConversionInFiat;
+        }
     }
 
     /**
@@ -221,5 +234,92 @@ export class StoreItem extends AbstractModel<IStoreItem> {
 
     public get type(): string {
         return this.data.Type;
+    }
+
+    /** Returns store-item price */
+    public getPriceAmount(currency: string): IAmount[] {
+        const amount: IAmount[] = [];
+
+        if (this.priceLoyalty) {
+            amount.push({
+                value: this.priceLoyalty,
+                currency: 'LP',
+            });
+        }
+
+        if (this.priceExp) {
+            amount.push({
+                value: this.priceExp,
+                currency: 'EP',
+            });
+        }
+
+        if (this.type === 'Bonus' && this.priceMoney) {
+            const moneyAmount = this.getMoneyPriceAmount(currency);
+
+            if (moneyAmount.value) {
+                amount.push(moneyAmount);
+            }
+        }
+
+        return amount;
+    }
+
+    /** Returns store-item value */
+    public getValueAmount(currency: string): IAmount[] {
+        const amount: IAmount[] = [];
+
+        let value: number = Number(this.data.Price[currency.toUpperCase()]);
+        let conversionCurrency: string = null;
+
+        if (!value) {
+            value = Number(this.data.Price['EUR']);
+            conversionCurrency = 'EUR';
+        }
+
+        if (this.useConversionInFiat) {
+            value = Number(this.data.Price[WalletHelper.conversionCurrency.toUpperCase()]);
+
+            if (!value) {
+                value = Number(this.data.Price['EUR']) * WalletHelper.coefficientConversionEUR;
+            }
+
+            conversionCurrency = WalletHelper.conversionCurrency;
+        }
+
+        amount.push({
+            value: value,
+            currency: currency,
+            conversionCurrency,
+        });
+
+        return amount;
+    }
+
+    protected getMoneyPriceAmount(currency: string): IAmount {
+        let moneyPrice: number = Number(this.priceMoney[currency.toUpperCase()]);
+        let conversionCurrency: string = null;
+
+        if (!moneyPrice) {
+            moneyPrice = Number(this.priceMoney['EUR']);
+            conversionCurrency = 'EUR';
+        }
+
+        if (moneyPrice) {
+
+            if (this.useConversionInFiat) {
+                const originalPrice = this.priceMoney[WalletHelper.conversionCurrency.toUpperCase()];
+
+                moneyPrice = Number(originalPrice)
+                    || Number(this.priceMoney['EUR']) * WalletHelper.coefficientConversionEUR;
+                conversionCurrency = WalletHelper.conversionCurrency.toLowerCase();
+            }
+
+            return {
+                value: Number(moneyPrice),
+                currency,
+                conversionCurrency,
+            };
+        }
     }
 }

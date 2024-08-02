@@ -1,0 +1,50 @@
+.wlc-wallet-confirm--theme-default:host {
+    @include text.get-text-style(
+        ef.get-value($themeDefault, 'hostTextStyle'),
+        ef.get-value($themeDefault, 'hostColor')
+    );
+
+    display: grid;
+    gap: ef.get-value($themeDefault, 'hostGap');
+    text-align: ef.get-value($themeDefault, 'hostTextAlign');
+
+    .wlc-wallet-confirm {
+
+        &__decor {
+            --wlc-icon-width: #{ef.get-value($themeDefault, 'decorWidth')};
+            --wlc-icon-height: #{ef.get-value($themeDefault, 'decorHeight')};
+
+            color: ef.get-value($themeDefault, 'decorFill');
+        }
+
+        &__content,
+        &__details {
+            display: grid;
+            gap: ef.get-value($themeDefault, 'contentGap');
+        }
+
+        &__buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: ef.get-value($themeDefault, 'buttonsGap');
+            justify-content: center;
+        }
+
+        &__amount {
+            --wlc-icon-width: #{ef.get-value($themeDefault, 'amountIconSize')};
+            --wlc-icon-height: #{ef.get-value($themeDefault, 'amountIconSize')};
+
+            display: flex;
+            flex-wrap: wrap;
+            gap: ef.get-value($themeDefault, 'amountGap');
+            justify-content: center;
+        }
+
+        &__amount-item {
+            display: inline-flex;
+            gap: ef.get-value($themeDefault, 'amountGap');
+            align-items: center;
+            line-height: 1;
+        }
+    }
+}

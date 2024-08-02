@@ -1,6 +1,9 @@
-import {Subject} from 'rxjs';
 import dayjs from 'dayjs';
 import type {Dayjs} from 'dayjs';
+import {
+    BehaviorSubject,
+    Subject,
+} from 'rxjs';
 import _assign from 'lodash-es/assign';
 import _map from 'lodash-es/map';
 import _keys from 'lodash-es/keys';
@@ -37,8 +40,12 @@ import {
     IBonusResultValueFreerounds,
     IFreeroundsRangeRelative,
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
-import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
+import {
+    IAmount,
+    WalletHelper,
+} from 'wlc-engine/modules/multi-wallet';
 import {LootboxPrizeModel} from 'wlc-engine/modules/bonuses/system/models/lootbox-prize/lootbox-prize.model';
+import {UserProfile} from 'wlc-engine/modules/user';
 
 export const disabledReasons = {
     // Apply to deposit bonuses which paySystems array isn't empty and
@@ -1083,6 +1090,69 @@ export class Bonus extends AbstractModel<IBonus> {
     public convertTime(date: string): Dayjs {
         const defaultTime: Dayjs = dayjs(date);
         return defaultTime.add(dayjs().utcOffset(), 'minute');
+    }
+
+    /** Prepare and returns data for loyalty-confirm component */
+    public getBonusResults(currency: string): IAmount[] {
+        const specialTargets: Partial<Record<TBonusTarget, string>> = {
+            'experience': 'EP',
+            'freerounds': 'FS',
+            'loyalty': 'LP',
+        };
+
+        const results = _reduce(this.results, (res: IAmount[], result: IBonusResultValue, target: TBonusTarget) => {
+            const curr: string = specialTargets[target];
+            if (curr) {
+                let value: number;
+                if (target === 'loyalty' || target === 'experience') {
+                    value = Number((result as IBonusResultValueDefault).Value['EUR']);
+                } else if (target === 'freerounds') {
+                    value = Number((result as IBonusResultValueFreerounds).Value);
+                }
+
+                if (value) {
+                    res.push({
+                        value,
+                        currency: curr,
+                    });
+                }
+            }
+            return res;
+        }, []);
+
+        const balanceResults: IAmount = this.getBalanceResults(currency);
+
+        if (balanceResults) {
+            results.push(balanceResults);
+        }
+
+        return results;
+    }
+
+    protected getBalanceResults(currency: string): IAmount {
+        const resultsData: IBonusResultValueDefault = this.results['balance'];
+
+        if (!resultsData) {
+            return;
+        }
+
+        const userProfile: UserProfile
+            = this.configService.get<BehaviorSubject<UserProfile>>('$user.userProfile$').getValue();
+        const conversionCurrency: string = userProfile?.isConversionInFiat
+            ? WalletHelper.conversionCurrency
+            : null;
+
+        let value: string = conversionCurrency
+            ? resultsData.Value[conversionCurrency]
+            : resultsData.Value[currency];
+
+        if (value) {
+            return {
+                value: Number(value),
+                currency,
+                conversionCurrency,
+            };
+        }
     }
 
     protected modifyData(bonus: IBonus): IBonus {

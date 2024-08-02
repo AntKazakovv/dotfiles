@@ -132,8 +132,15 @@ export class TournamentComponent extends AbstractComponent implements OnInit {
 
         if (this.isMultiWallet) {
             await WalletHelper.readyMultiWallet;
+
+            this.modalService.showModal('walletConfirm', {
+                model: this.tournament,
+                type: 'tournament',
+            });
+        } else {
+
+            this.checkSubscribeConditions(this.tournament);
         }
-        this.checkSubscribeConditions(this.tournament);
     }
 
     public leave(): void {

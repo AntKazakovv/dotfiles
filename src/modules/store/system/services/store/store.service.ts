@@ -47,6 +47,7 @@ import {
 import {StoreItem} from 'wlc-engine/modules/store/system/models/store-item.model';
 import {StoreCategory} from 'wlc-engine/modules/store/system/models/store-category.model';
 import {MultiWalletEvents} from 'wlc-engine/modules/multi-wallet';
+import {RequestParamsType} from 'wlc-engine/modules/core/system/services/data/data.service';
 
 interface IRequestParams {
     type?: string;
@@ -210,8 +211,13 @@ export class StoreService {
         }
     }
 
-    public async buyItem(itemId: number, quantity: number = 1): Promise<IStoreBuyResponse> {
-        const params = {id: _toString(itemId), quantity: quantity};
+    public async buyItem(itemId: number, quantity: number = 1, wallet: number = null): Promise<IStoreBuyResponse> {
+        const params: RequestParamsType = {
+            id: _toString(itemId),
+            quantity,
+            wallet,
+        };
+
         try {
             const response: IData = await this.dataService.request({
                 name: 'buyStoreItem',

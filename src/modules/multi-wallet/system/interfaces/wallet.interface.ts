@@ -1,4 +1,7 @@
 import {CurrencyName} from 'wlc-engine/modules/currency';
+import {Bonus} from 'wlc-engine/modules/bonuses';
+import {StoreItem} from 'wlc-engine/modules/store';
+import {Tournament} from 'wlc-engine/modules/tournaments';
 
 export interface IWallet {
     currency?: string;
@@ -64,4 +67,19 @@ export enum MultiWalletEvents {
     CurrencyConversionChanged = 'CHANGE_CURRENCY_CONVERSION',
     WalletChanged = 'CHANGE_WALLET',
     CreateWallet = 'CREATE_WALLET',
+}
+
+export interface IAmount {
+    value: number | string;
+    currency: string;
+    conversionCurrency?: string;
+}
+
+export type TWalletConfirmItem = Bonus | StoreItem | Tournament;
+
+export interface IWalletConfirmController {
+    subscribe(): Promise<void>;
+    onWalletChange(wallet: ISelectedWallet): void;
+    debitAmount?: IAmount[];
+    creditAmount?: IAmount[];
 }

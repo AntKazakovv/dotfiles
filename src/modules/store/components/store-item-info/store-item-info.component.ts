@@ -56,9 +56,16 @@ export class StoreItemInfoComponent extends AbstractComponent implements OnInit 
     }
 
     public showConfirmationModal(): void {
-        this.modalService.showModal('storeConfirmation', {
-            storeItem: this.$params.storeItem,
-            storeItemTotalPrice: this.$params.storeItemTotalPrice,
-        });
+        if (this.isMultiWallet && this.$params.storeItem.type !== 'Item') {
+            this.modalService.showModal('walletConfirm', {
+                item: this.$params.storeItem,
+                type: 'store',
+            });
+        } else {
+            this.modalService.showModal('storeConfirmation', {
+                storeItem: this.$params.storeItem,
+                storeItemTotalPrice: this.$params.storeItemTotalPrice,
+            });
+        }
     }
 }

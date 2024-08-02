@@ -24,7 +24,10 @@ import {
     ITournamentPlace,
 } from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
 import {TournamentsService} from 'wlc-engine/modules/tournaments/system/services/tournaments/tournaments.service';
-import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
+import {
+    IAmount,
+    WalletHelper,
+} from 'wlc-engine/modules/multi-wallet';
 import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 
 export abstract class AbstractTournamentModel<T extends ITournamentAbstract> extends AbstractModel<T> {
@@ -33,6 +36,7 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
     protected isAuth: boolean;
     protected userCurrency: string;
     protected $descriptionClean: string;
+    protected useConversionInFiat: boolean;
 
     constructor(
         params: IAbstractModelParams,
@@ -54,6 +58,11 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
                 .get<BehaviorSubject<UserProfile>>('$user.userProfile$').getValue()?.originalCurrency
                 ?? this.configService.get<string>('$base.defaultCurrency')
             : this.configService.get<string>('$base.defaultCurrency');
+
+        if (this.isAuth) {
+            const userProfile = this.configService.get<BehaviorSubject<UserProfile>>('$user.userProfile$').getValue();
+            this.useConversionInFiat = userProfile?.isConversionInFiat;
+        }
 
         AbstractTournamentModel.useUsersCurrency ??=
             this.configService.get<boolean>('$base.tournaments.useUsersCurrency');
@@ -212,8 +221,28 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
         ).subscribe(observer);
     }
 
-    public getFeeAmount(currency: string): number {
-        return this.data.FeeAmount[currency];
+    public getFeeAmount(walletCurrency: string): IAmount {
+        let currency: string = walletCurrency;
+        let amount: number;
+        let conversionCurrency: string = null;
+
+        if (this.feeType === 'loyalty') {
+            currency = 'LP';
+            amount = this.feeAmount;
+        } else {
+            if (this.useConversionInFiat) {
+                amount = this.feeAmountConversion;
+                conversionCurrency = WalletHelper.conversionCurrency;
+            } else {
+                amount = this.data.FeeAmount[walletCurrency];
+            }
+        }
+
+        return {
+            currency,
+            conversionCurrency,
+            value: amount,
+        };
     }
 
     /**

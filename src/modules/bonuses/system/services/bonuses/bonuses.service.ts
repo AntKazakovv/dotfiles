@@ -541,9 +541,9 @@ export class BonusesService {
      * @param {boolean} showPush show success push message or not
      * @returns {Bonus} bonus object
      */
-    public async subscribeBonus(bonus: Bonus, showPush: boolean = true): Promise<Bonus> {
+    public async subscribeBonus(bonus: Bonus, showPush: boolean = true, wallet: number = null): Promise<Bonus> {
         bonus.data.PromoCode = (bonus.id === this.promoBonus?.id) ? this.promoBonus.promoCode : '';
-        const params = {ID: bonus.id, PromoCode: bonus.promoCode, Selected: 1};
+        const params = {ID: bonus.id, PromoCode: bonus.promoCode, Selected: 1, wallet};
 
         try {
             const response: IData = await this.limitedRequests({

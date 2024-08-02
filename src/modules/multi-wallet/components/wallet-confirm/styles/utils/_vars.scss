@@ -8,4 +8,11 @@ $themeDefault: map-merge((
 
     'contentGap': ef.size(4),
     'buttonsGap': ef.size(3),
+
+    'decorWidth': 120px,
+    'decorHeight': 120px,
+    'decorFill': var(--mc-bg100),
+
+    'amountIconSize': 16px,
+    'amountGap': 3px, // less, than ef.size(1)
 ), $customThemeDefault);

@@ -1,0 +1,78 @@
+
+<div *ngIf="showDecor" class="{{$class}}__decor">
+    <span wlc-icon [iconPath]="decorUrl"></span>
+</div>
+<div class="{{$class}}__content">
+    <div [ngSwitch]="type" class="{{$class}}__details {{$class}}__details--prices">
+        <ng-container *ngSwitchCase="'tournament'" [ngTemplateOutlet]="tournamentInfoTpl"></ng-container>
+        <ng-container *ngSwitchCase="'bonus'" [ngTemplateOutlet]="bonusInfoTpl"></ng-container>
+        <ng-container *ngSwitchCase="'store'" [ngTemplateOutlet]="storeItemInfoTpl"></ng-container>
+    </div>
+    <div *ngIf="isMultiWallet" class="{{$class}}__details {{$class}}__details--wallets">
+        <p>{{'Select a wallet' | translate}}:</p>
+        <div wlc-wrapper [inlineParams]="walletsParams"></div>
+        <p *ngIf="isTournament">{{'Let\'s play?' | translate}}</p>
+    </div>
+</div>
+<div class="{{$class}}__buttons">
+    <button wlc-button
+        text="{{subscribeButtonText}}"
+        data-wlc-element="wlc_loyalty_confirm-subscribe"
+        (click)="subscribeHandler()">
+    </button>
+
+    <button wlc-button
+        themeMod="secondary"
+        text="Cancel"
+        data-wlc-element="wlc_loyalty_confirm-cancel"
+        (click)="closeModal()">
+    </button>
+</div>
+
+<ng-template #tournamentInfoTpl>
+    <p>{{'Entry fee:' | translate}}</p>
+    <ng-container *ngTemplateOutlet="amountRowTpl; context: {$implicit: debitAmount}"></ng-container>
+</ng-template>
+
+<ng-template #bonusInfoTpl>
+    <p>{{'Are you sure?' | translate}}</p>
+    <p *ngIf="showSubscribeWarning">
+        {{'The current active bonus prohibits the activation of other bonuses. '
+        + 'Activation of this bonus will not happen. Are you sure you want to subscribe?' | translate}}
+    </p>
+
+    <ng-container *ngIf="creditAmount.length">
+        <p>{{'After the bonus is wagered, you will be credited:' | translate}}</p>
+        <ng-container *ngTemplateOutlet="amountRowTpl; context: {$implicit: creditAmount}"></ng-container>
+    </ng-container>
+</ng-template>
+
+<ng-template #storeItemInfoTpl>
+    <p>{{'Are you sure?' | translate}}</p>
+    <p>{{'Your balance will be debited on:' | translate}}</p>
+    <ng-container *ngTemplateOutlet="amountRowTpl; context: {$implicit: debitAmount}"></ng-container>
+
+    @if (hasCreditAmount) {
+        <p>{{'Your real balance will be replenished with:' | translate}}</p>
+        <ng-container *ngTemplateOutlet="amountRowTpl; context: {$implicit: creditAmount}"></ng-container>
+    }
+</ng-template>
+
+<ng-template #amountRowTpl let-amount>
+    <p class="{{$class}}__amount">
+        <span *ngFor="let item of amount; index as i" class="{{$class}}__amount-item">
+            <span *ngIf="i > 0" class="{{$class}}__amount-divider">+</span>
+            <span wlc-currency
+                [digitsInfo]="getDigitsInfo(item)"
+                [value]="item.value"
+                [currency]="getAmountCurrency(item)"
+                [showValueOnly]="showValueOnly(item)">
+            </span>
+            <span *ngIf="showCurrencyIcon(item)"
+                wlc-icon
+                class="currency"
+                iconPath="{{walletHelper.getCurrencyIconUrl(item.currency)}}">
+            </span>
+        </span>
+    </p>
+</ng-template>

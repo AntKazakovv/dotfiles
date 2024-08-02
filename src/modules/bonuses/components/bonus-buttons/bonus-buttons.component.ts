@@ -212,28 +212,38 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit, 
      * Subscribe for a bonus event handler
      */
     public async join(): Promise<void> {
-        if (this.bonus.stackIsUnavailable) {
-            await this.modalService.showModal({
-                id: 'bonus-info',
-                modalTitle: gettext('Confirmation'),
-                modifier: 'confirmation',
-                showConfirmBtn: true,
-                confirmBtnText: gettext('Yes'),
-                closeBtnParams: {
-                    themeMod: 'secondary',
-                    common: {
-                        text: gettext('No'),
-                    },
-                },
-                templateRef: this.subscribeModal,
-                textAlign: 'center',
-                onConfirm: async () => {
-                    await this.subscribe();
-                },
-                dismissAll: true,
+        const isMultiWallet: boolean = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
+
+        if (isMultiWallet) {
+            this.modalService.showModal('walletConfirm', {
+                model: this.bonus,
+                type: 'bonus',
             });
         } else {
-            await this.subscribe();
+
+            if (this.bonus.stackIsUnavailable) {
+                await this.modalService.showModal({
+                    id: 'bonus-info',
+                    modalTitle: gettext('Confirmation'),
+                    modifier: 'confirmation',
+                    showConfirmBtn: true,
+                    confirmBtnText: gettext('Yes'),
+                    closeBtnParams: {
+                        themeMod: 'secondary',
+                        common: {
+                            text: gettext('No'),
+                        },
+                    },
+                    templateRef: this.subscribeModal,
+                    textAlign: 'center',
+                    onConfirm: async () => {
+                        await this.subscribe();
+                    },
+                    dismissAll: true,
+                });
+            } else {
+                await this.subscribe();
+            }
         }
     }
 

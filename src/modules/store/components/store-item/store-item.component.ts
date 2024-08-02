@@ -108,6 +108,10 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
         this.makeStorePrices();
     }
 
+    public get showWalletConfirmation(): boolean {
+        return this.storeItem.type !== 'Item' && this.storeItem.type !== 'TournamentPoints';
+    }
+
     public openDescription($event?: MouseEvent): void {
         $event?.stopPropagation();
 
@@ -122,11 +126,20 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
         });
     }
 
-    public showConfirmationModal(): void {
-        this.modalService.showModal('storeConfirmation', {
-            storeItem: this.storeItem,
-            storeItemTotalPrice: this.storeItemTotalPrice,
-        });
+    public async showConfirmationModal(): Promise<void> {
+        const isMultiWallet: boolean = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
+
+        if (isMultiWallet && this.showWalletConfirmation) {
+            this.modalService.showModal('walletConfirm', {
+                model: this.storeItem,
+                type: 'store',
+            });
+        } else {
+            this.modalService.showModal('storeConfirmation', {
+                storeItem: this.storeItem,
+                storeItemTotalPrice: this.storeItemTotalPrice,
+            });
+        }
     }
 
     /**
