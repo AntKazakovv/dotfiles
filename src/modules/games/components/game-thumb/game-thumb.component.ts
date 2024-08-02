@@ -28,6 +28,7 @@ import _isArray from 'lodash-es/isArray';
 import _forEach from 'lodash-es/forEach';
 import _concat from 'lodash-es/concat';
 import _includes from 'lodash-es/includes';
+import _merge from 'lodash-es/merge';
 
 import {
     AppType,
@@ -374,7 +375,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
             },
         };
 
-        return Object.assign({}, hotGameRtpTag, captionTag);
+        return _merge(hotGameRtpTag, captionTag);
     }
 
     public async toggleFavourites(game: Game): Promise<void> {

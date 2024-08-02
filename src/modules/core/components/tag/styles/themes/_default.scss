@@ -50,7 +50,7 @@
         display: flex;
         gap: ef.get-value($themeDefault, 'rtpGap');
         width: max-content;
-        height: ef.get-value($themeDefault, 'rtpHeight');
+        min-height: ef.get-value($themeDefault, 'rtpMinHeight');
         border-radius: ef.get-value($themeDefault, 'rtpBorderRadius');
         padding: ef.get-value($themeDefault, 'rtpPadding');
         color: ef.get-value($themeDefault, 'rtpColor');
@@ -60,6 +60,10 @@
             &__icon,
             &__caption {
                 z-index: 10;
+            }
+
+            &__caption {
+                line-height: 1.5;
             }
         }
 

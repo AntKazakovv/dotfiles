@@ -249,7 +249,7 @@ $themeDefaultModCircle: map-merge((
     ),
 
     'rtpMargin': ef.size(2) 0 0,
-    'rtpTitleMargin': ef.size(6) 0 0,
+    'rtpTitleMargin': 0 0 ef.size(5),
     'rtpTagMargin': 0 0 0 ef.size(2),
 ), $customThemeDefaultCircle);
 
