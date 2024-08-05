@@ -268,7 +268,13 @@ export class SeoService {
         const gameSeo: IGameStateData = _find(this.gameStates, (el: IGameStateData): boolean => {
             return (el.merchantID === params.merchantId) && (el.launchCode === params.launchCode);
         });
+
         if (!gameSeo) {
+
+            if (this.pageStates['app.gameplay']) {
+                this.setPageMetaTags(false, 'app.gameplay');
+            }
+
             return;
         }
 
