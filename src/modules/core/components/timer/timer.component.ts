@@ -246,9 +246,13 @@ export class TimerComponent extends AbstractComponent implements OnInit, OnChang
         }
 
         this.seconds = ('0' + this.secondsToDday).slice(-2);
-        this.minutes = ('0' + this.minutesToDday).slice(-2);
         this.hours = ('0' + this.hoursToDday).slice(-2);
-        this.days = ('0' + this.daysToDday).slice(-2);
+
+        if (this.daysToDday > 99) {
+            this.days = String(this.daysToDday).slice(-3);
+        } else {
+            this.days = ('0' + this.daysToDday).slice(-2);
+        }
 
         if (this.minutesToDday > 99) {
             this.minutes = String(this.minutesToDday).slice(-3);
