@@ -608,7 +608,7 @@ export class ActionService {
                 });
         });
         this.deviceTypeSubject.next(this.getDeviceType());
-        this.isMobileDeviceType$.next(this.deviceTypeSubject.value === DeviceType.Mobile);
+        this.isMobileDeviceType$.next(this.deviceTypeSubject.value !== DeviceType.Desktop);
 
         fromEvent(this.window, 'message').subscribe((event: MessageEvent<IPaymentPostMessage>) => {
             if (event.data) {

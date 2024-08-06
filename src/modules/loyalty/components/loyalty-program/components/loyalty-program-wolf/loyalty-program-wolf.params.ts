@@ -27,6 +27,10 @@ export const defaultParams: ILoyaltyProgramWolfCParams = {
             followFinger: true,
             slidesPerView: 'auto',
             breakpoints: {
+                0: {
+                    spaceBetween: 12,
+                    slidesPerView: 'auto',
+                },
                 900: {
                     spaceBetween: 20,
                     slidesPerView: 5,
