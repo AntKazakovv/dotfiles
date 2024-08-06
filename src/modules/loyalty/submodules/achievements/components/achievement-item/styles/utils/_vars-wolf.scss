@@ -122,7 +122,7 @@ $themeWolf: map-merge((
     'dateArea': button-date,
     'dateTextAlign': right,
     'dateTextStyle': 'SignText',
-    'dateColor': var(--mc-baseOpacity-o4),
+    'dateColor': var(--mc-baseOpacity),
 
     'infoIconSize': 20px,
     'infoArea': info,
@@ -130,8 +130,8 @@ $themeWolf: map-merge((
     'infoSize': 20px,
     'infoMargin': 0 0 ef.size(1) ef.size(2),
     'infoIconColor': var(--mc-bg300),
-    'infoBg': var(--mc-baseOpacity-o4),
-    'infoBgHover':  var(--mc-baseOpacity-o6),
+    'infoBg': var(--mc-baseOpacity),
+    'infoBgHover':  var(--mc-baseOpacity),
     'infoRadius': ef.get('radius', 'big'),
 
     'prizeDescIconContainerPosition': absolute,
@@ -221,7 +221,7 @@ $themeModalWolf: map-merge((
     'dateMargin': ef.size(5) 0 0,
     'dateTextAlign': center,
     'dateTextStyle': 'CaptionText',
-    'dateColor': var(--mc-baseOpacity-o4),
+    'dateColor': var(--mc-baseOpacity),
 
     'prizeDescIconContainerPosition': null,
     'prizeDescIconContainerTop': null,
