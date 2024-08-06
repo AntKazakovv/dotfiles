@@ -1662,7 +1662,7 @@ export class PaymentFormComponent
                 this.addFormToBodyAndSubmit(response);
                 break;
             default:
-                this.window.location.replace(response[1]);
+                this.window.location.href = response[1];
                 break;
         }
     }
