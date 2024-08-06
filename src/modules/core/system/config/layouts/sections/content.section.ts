@@ -15,6 +15,13 @@ export namespace content {
         ],
     };
 
+    export const gamePlayWolf: ILayoutSectionConfig = {
+        order: 2,
+        components: [
+            componentLib.wlcGameWrapper.wolf,
+        ],
+    };
+
     export const promotions: ILayoutSectionConfig = {
         order: 2,
         container: true,

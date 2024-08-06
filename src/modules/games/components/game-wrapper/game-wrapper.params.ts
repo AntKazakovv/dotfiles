@@ -4,7 +4,7 @@ import {DashboardSide} from 'wlc-engine/modules/games/components/game-dashboard/
 
 export type Type = 'default' | CustomType;
 export type Theme = 'default' | 'fullscreen-game-frame' | CustomType;
-export type ThemeMod = 'default' | CustomType;
+export type ThemeMod = 'default' | 'wolf' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;

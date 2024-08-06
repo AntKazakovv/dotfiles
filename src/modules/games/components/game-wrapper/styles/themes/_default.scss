@@ -61,7 +61,7 @@
             }
 
             .wlc-checkbox__elem {
-                min-width: ef.get-value($themeDefault, 'checkboxElemWidth');
+                width: ef.get-value($themeDefault, 'checkboxElemWidth');
             }
 
             .wlc-icon {
@@ -198,6 +198,57 @@
 
             &__btn-center {
                 justify-content: center;
+            }
+        }
+    }
+
+    &.wlc-game-wrapper--theme-mod-wolf {
+
+        .wlc-game-wrapper {
+
+            &__header {
+
+                h2 {
+                    @include text.get-text-style(
+                        ef.get-value($themeWolf, 'textStyle'),
+                        ef.get-value($themeWolf, 'textColor')
+                    );
+                }
+
+                .wlc-checkbox--theme-toggle {
+
+                    .wlc-checkbox__elem {
+                        width: ef.get-value($themeWolf, 'checkboxWidth');
+                        height: ef.get-value($themeWolf, 'checkboxHeight');
+
+                        &.checked {
+
+                            &:before {
+                                background: ef.get-value($themeWolf, 'checkboxBeforeBgActive');
+                            }
+                        }
+
+                        &:before {
+                            width: ef.get-value($themeWolf, 'checkboxBeforeSizeCircle');
+                            height: ef.get-value($themeWolf, 'checkboxBeforeSizeCircle');
+                        }
+                    }
+                }
+            }
+
+            &__game-area {
+                border-radius: ef.get-value($themeWolf, 'wrapperRadius');
+            }
+
+            &__btn-center {
+                gap: ef.get-value($themeWolf, 'btnCenterGap');
+            }
+
+            &__btn-right {
+
+                .wlc-icon {
+                    color: ef.get-value($themeWolf, 'iconsColor');
+                }
             }
         }
     }

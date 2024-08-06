@@ -5,4 +5,12 @@ export namespace wlcGameWrapper {
         name: 'games.wlc-game-wrapper',
         reloadOnStateChange: true,
     };
+
+    export const wolf: ILayoutComponent = {
+        name: 'games.wlc-game-wrapper',
+        reloadOnStateChange: true,
+        params: {
+            themeMod: 'wolf',
+        },
+    };
 }
