@@ -166,6 +166,10 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
             this.$params.themeMod = this.themeMod;
             this.prepareHostClass();
         }
+
+        if (_get(changes, 'counter') && _get(this, '$params.common.counter')) {
+            this.$params.common.counter = this.counter;
+        }
         this.cdr.detectChanges();
     }
 
