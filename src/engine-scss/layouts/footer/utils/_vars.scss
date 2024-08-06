@@ -217,7 +217,6 @@ $theme1Footer: map-merge((
     'affBtnMargin': (
         375: 0 0 ef.size(6),
         900: 0 0 ef.size(4),
-        1024: 0,
         1200: ef.size(2) 0,
     ),
     'affBtnJustifySelf': (
@@ -229,7 +228,6 @@ $theme1Footer: map-merge((
     'compactListMarginWithAff': (
         375: 0 0 ef.size(2),
         900: 0 0 ef.size(4),
-        1024: 0,
         1200: ef.size(2) 0 0,
     ),
     'socialIconsCompactJustifySelfWithAff': (

@@ -89,7 +89,7 @@
 
                     .wlc-social-icons {
 
-                        &__list {
+                        &__list[class] {
                             @include bm.get-mq-map('margin', $theme1Footer, 'compactListMarginWithAff');
                         }
                     }
