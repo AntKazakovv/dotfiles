@@ -1,0 +1,12 @@
+$customHistoryThemeDefault: () !default;
+$historyThemeDefault: map-merge((
+    'containerPadding': (
+        375: 0 ef.size(6) ef.size(4),
+        1024: ef.size(6) ef.size(8) ef.size(4),
+    ),
+
+    'tableGapDesktop': ef.size(2),
+    'tableGapMobile': ef.size(2),
+
+    'paginationMargin': ef.size(2) auto ef.size(6),
+), $customHistoryThemeDefault);

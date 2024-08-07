@@ -1,9 +1,18 @@
 .app-profile-loyalty-bonuses-history-state,
 .app-profile-loyalty-tournaments-history-state,
 .app-profile-gamblings-bets-state,
-.app-profile-cash-transactions-state {
+.app-profile-cash-transactions-state,
+.app-profile-loyalty-store-history-state {
 
     .wlc-sections__profile-content--theme-wolf {
+
+        &[class] {
+            @include bm.get-mq-map('margin-bottom', $historyThemeWolf, 'profileContentMarginBottom');
+        }
+
+        > .container {
+            @include bm.get-mq-map('padding', $historyThemeWolf, 'containerPadding');
+        }
 
         .wlc-profile-content__top {
 
@@ -12,6 +21,21 @@
                 align-items: ef.get-value($historyThemeWolf, 'profileTopAlignItems');
                 justify-content: ef.get-value($historyThemeWolf, 'profileTopJustifyContent');
                 margin: ef.get-value($historyThemeWolf, 'profileTopMargin');
+            }
+        }
+
+        .wlc-pagination--theme-wolf {
+            @include bm.get-mq-map('margin', $historyThemeWolf, 'paginationMargin');
+        }
+
+        .wlc-table--theme-default.wlc-table--wolf-colors {
+
+            &.wlc-table--table {
+                gap: ef.get-value($historyThemeWolf, 'tableGapDesktop');
+            }
+
+            &.wlc-table--mobile {
+                gap: ef.get-value($historyThemeWolf, 'tableGapMobile');
             }
         }
     }

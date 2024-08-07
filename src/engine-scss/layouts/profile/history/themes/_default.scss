@@ -1,0 +1,31 @@
+.app-profile-loyalty-bonuses-history-state,
+.app-profile-loyalty-tournaments-history-state,
+.app-profile-gamblings-bets-state,
+.app-profile-cash-transactions-state,
+.app-profile-loyalty-store-history-state {
+
+    .wlc-sections__profile-content.wlc-sections__profile-content--theme-default {
+
+        .container {
+            @include bm.get-mq-map('padding', $historyThemeDefault, 'containerPadding');
+        }
+
+        .wlc-pagination--theme-default {
+
+            .pagination {
+                margin: ef.get-value($historyThemeDefault, 'paginationMargin');
+            }
+        }
+
+        .wlc-table--theme-default.wlc-table {
+
+            &.wlc-table--table {
+                gap: ef.get-value($historyThemeDefault, 'tableGapDesktop');
+            }
+
+            &.wlc-table--mobile {
+                gap: ef.get-value($historyThemeDefault, 'tableGapMobile');
+            }
+        }
+    }
+}
