@@ -98,7 +98,22 @@ module.exports = function messagesTask() {
                     `-o ${this.params.paths.locale}/${locale.locale}/LC_MESSAGES/loyalty.mo\n`;
             });
 
-        this.execShell(commands, true).then(() => cb());
+        this.execShell(commands, false)
+            .then(() => cb())
+            .catch((e) => {
+                console.log(commands);
+                console.log(this.$params.locales);
+                if (Array.isArray(e)) {
+                    console.log(e);
+                    e.forEach((e) => {
+                        console.log(e);
+                    });
+                } else if (typeof e === 'object') {
+                    JSON.stringify(e);
+                } else {
+                    console.log(e);
+                }
+            });
     });
 
     task('message:translationstwig', (cb) => {
