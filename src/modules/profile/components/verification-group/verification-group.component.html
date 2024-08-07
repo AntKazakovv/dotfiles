@@ -64,8 +64,7 @@
                 {{'Drop file here or' | translate}}
                 <span>{{'browse' | translate}}</span>
                 {{acceptFormat}}.
-                {{'Max size' | translate}}
-                {{verificationParams.maxSize}} MB
+                {{'Max size: {{maxSize}} MB' | translate | translate:verificationParams}}
             </ng-template>
         </p>
     </div>
@@ -79,7 +78,7 @@
         <p class="{{$class}}__text">
             {{'browse' | translate | titlecase}}
             {{acceptFormat}}.
-            {{'Max size' | translate}} {{verificationParams.maxSize}} MB
+            {{'Max size: {{maxSize}} MB' | translate | translate:verificationParams}}
         </p>
     </div>
 
