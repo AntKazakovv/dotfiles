@@ -55,6 +55,7 @@ $themeDefault: map-merge((
     'buttonMinWidth': 169px,
     'buttonBackground': transparent,
     'buttonPadding': ef.size(1) ef.size(2),
+    'buttonMargin': 3px,
     'buttonBorderRadius': ef.size(2),
     'buttonActiveBackground': var(--mc-bg700),
     'buttonHoverBackground': var(--mc-bg500),
