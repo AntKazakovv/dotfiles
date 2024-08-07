@@ -235,16 +235,8 @@
                 "file": "./900.change-logs/releases/1.8.0_01-07-2022.md"
             },
             {
-                "title": "1.77.0RC3 (07-08-2024)",
-                "file": "./900.change-logs/releases/1.77.0-rc.3_07-08-2024.md"
-            },
-            {
-                "title": "1.77.0RC2 (02-08-2024)",
-                "file": "./900.change-logs/releases/1.77.0-rc.2_02-08-2024.md"
-            },
-            {
-                "title": "1.77.0RC1 (30-07-2024)",
-                "file": "./900.change-logs/releases/1.77.0-rc.1_30-07-2024.md"
+                "title": "1.77.0 (07-08-2024)",
+                "file": "./900.change-logs/releases/1.77.0_07-08-2024.md"
             },
             {
                 "title": "1.76.0 (29-07-2024)",
