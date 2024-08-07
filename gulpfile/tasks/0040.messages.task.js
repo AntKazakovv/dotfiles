@@ -102,7 +102,7 @@ module.exports = function messagesTask() {
             .then(() => cb())
             .catch((e) => {
                 console.log(commands);
-                console.log(this.$params.locales);
+                console.log(this.params.locales);
                 if (Array.isArray(e)) {
                     console.log(e);
                     e.forEach((e) => {
