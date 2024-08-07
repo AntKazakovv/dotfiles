@@ -325,8 +325,8 @@ export class SelectValuesService {
                 maxLength: 10,
             },
             '+90': {
-                minLength: 7,
-                maxLength: 7,
+                minLength: 10,
+                maxLength: 10,
             },
             '+91': {
                 maxLength: 10,
