@@ -245,9 +245,8 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
     public get showTimerEnds(): boolean {
         return (
             this.bonus.isBonusTimerActive
-            && this.bonus.canSubscribe
+            && !this.bonus.isActive
             && !this.bonus.showOnly
-            && !this.bonus.stackIsUnavailable
             && !this.bonus.isDisabled
         );
     }
