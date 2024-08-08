@@ -333,11 +333,8 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
                 inputParams.control = new UntypedFormControl(this.message.cryptoAmount);
                 break;
             case 'cryptoAmount':
-                const cryptoCurrency = this.cryptoCurrency;
-                inputParams.common.placeholder = this.translateService.instant(
-                    gettext('Converted crypto amount: {{cryptoCurrency}}'),
-                    {cryptoCurrency},
-                ),
+                inputParams.common.placeholder = this.translateService.instant('Converted crypto amount')
+                    + ` (${this.cryptoCurrency})`;
                 inputParams.control = new UntypedFormControl(this.cryptoAmount);
                 break;
 
