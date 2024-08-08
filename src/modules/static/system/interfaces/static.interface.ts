@@ -19,6 +19,42 @@ export interface IStaticConfig {
     /** `splitStaticTexts` settings for split static texts */
     splitStaticTexts?: ISplitTexts;
     downloadPdf?: IDownloadPdf;
+
+    /**
+     * Show promo posts on default language
+     * if the content not available for the select language.
+     *
+     * 1) Posts for the default language are requested only if the config is enabled;
+     * in all other cases, default behavior.
+     *
+     * 2) In the WP language settings (Settings -> Language) the following items must be enabled
+     *
+     * 2.1) Hide posts which content is not available for the selected language
+     *
+     * 2.2) Show menu items in an alternative language when translators is not available for the selected language
+     *
+     * 2.3) Show post content in an alternative language when translation is not available for the selected language
+     *
+     * 2.4) Show displayed language prefix when field content is not available for the selected language
+     *
+     * 3) In the language settings (Default Language / Orders),
+     * the desired language must be selected as the default, and must also be at the very top in order.
+     *
+     * 4) If the default language is different from English, then in the static.config.ts property
+     * $static.wpPromoShowAllPosts.defaultLanguage
+     * the default language from the WP must be specified (for example defaultLanguage: 'ru')
+     *
+     */
+    wpPromoShowAllPosts?: {
+        use: boolean;
+
+        /**
+         * Default language from from WP Language settings. Setup default lang first in order wp settings.
+         *
+         * Default: 'en'
+         */
+        defaultLanguage: string;
+    }
 }
 
 export interface IDownloadPdf {

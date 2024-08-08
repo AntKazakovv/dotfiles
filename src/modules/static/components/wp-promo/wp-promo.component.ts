@@ -27,6 +27,7 @@ import _map from 'lodash-es/map';
 import _sortBy from 'lodash-es/sortBy';
 import _assign from 'lodash-es/assign';
 import _filter from 'lodash-es/filter';
+import _find from 'lodash-es/find';
 
 import * as Params from './wp-promo.params';
 
@@ -100,6 +101,22 @@ export class WpPromoComponent extends AbstractComponent implements OnInit {
     protected async getItemsBySlug(): Promise<void> {
         try {
             this.response = await this.staticService.getPostsListByCategorySlug(this.$params.categorySlug);
+
+            if (this.configService.get<boolean>('$static.wpPromoShowAllPosts.use')) {
+                const lang = this.configService.get<string>('$static.wpPromoShowAllPosts.defaultLanguage');
+                const allPosts = await this.staticService.getPostsListByCategorySlug(
+                    this.$params.categorySlug,
+                    {lang},
+                );
+
+                const postsAnotherLanguage = _filter(allPosts, (defaultItem) => {
+                    const findInResponse = _find(this.response, ['slug', defaultItem.slug]);
+                    return !findInResponse;
+                });
+
+                this.response = [...this.response, ...postsAnotherLanguage];
+            }
+
             this.items = this.sortItemsBySortWeight(this.prepareItems(this.response));
         } catch (error) {
             this.logService.sendLog({

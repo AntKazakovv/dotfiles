@@ -30,4 +30,8 @@ export const staticConfig: IStaticConfig = {
     rewritingLanguages: {
         'pt-br': 'pb',
     },
+    wpPromoShowAllPosts: {
+        use: false,
+        defaultLanguage: 'en',
+    },
 };
