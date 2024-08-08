@@ -6,9 +6,12 @@ import _trim from 'lodash-es/trim';
 import _includes from 'lodash-es/includes';
 import _merge from 'lodash-es/merge';
 import _lowerFirst from 'lodash-es/lowerFirst';
+import _clone from 'lodash-es/clone';
 
 import {
     AbstractHook,
+    ConfigService,
+    EventService,
     IIndexing,
     ModalService,
 } from 'wlc-engine/modules/core';
@@ -22,6 +25,8 @@ type IntegrationMode = 'mobile' | 'desktop';
 
 export interface IDigitainHooksParams extends ISportsbookHook {
     modalService: ModalService;
+    eventService: EventService,
+    configService: ConfigService,
     router: UIRouter;
     window: Window;
 }
@@ -90,8 +95,22 @@ export class DigitainHooks extends AbstractHook {
             multiView: 'MultiView',
             overview: 'Overview',
             schedule: 'Shedule',
+            favorites: 'Favorites',
         };
-        const pageCode: string = pages[this.params.router.stateService.params.page] || pages.home;
+        const authRequiredPages: string[] = [
+            'betsHistory',
+            'favorites',
+        ];
+
+        const authRequired = authRequiredPages.includes(this.params.router.globals.params.page)
+            && !this.params.configService.get<boolean>('$user.isAuthenticated');
+
+        let pageCode = pages[this.params.router.stateService.params.page] || pages.home;
+
+        if (authRequired) {
+            pageCode = pages.home;
+            this.requiredAuthPageHandler();
+        }
 
         let eventId: string = '';
 
@@ -203,5 +222,27 @@ export class DigitainHooks extends AbstractHook {
         if (this.params.window.mobileDigitainApp?.destroy) {
             this.params.window.mobileDigitainApp.destroy();
         }
+    }
+
+    protected async requiredAuthPageHandler(): Promise<void> {
+        const redirectParams = _clone(this.params.router.globals.params);
+
+        try {
+            await this.params.router.stateService.go(this.params.router.globals.current.name).transition.promise;
+
+            this.params.modalService.showModal('login');
+            this.params.eventService.subscribe({name: 'LOGIN'}, () => {
+                setTimeout(()=> {
+                    this.params.router.stateService.go(
+                        this.params.router.globals.current.name,
+                        redirectParams,
+                        {
+                            reload: true,
+                        },
+                    );
+                }, 0);
+            }, this.params.disableHooks);
+        } catch (err) {}
+
     }
 }

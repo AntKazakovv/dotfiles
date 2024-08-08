@@ -29,6 +29,6 @@ export interface ISportsbookCParams extends IComponentParams<Theme, Type, ThemeM
 
 export const defaultParams: ISportsbookCParams = {
     moduleName: 'sportsbook',
-    componentName: 'wlc-csportsbook',
+    componentName: 'wlc-sportsbook',
     class: 'wlc-sportsbook',
 };

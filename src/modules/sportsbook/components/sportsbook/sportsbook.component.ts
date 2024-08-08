@@ -57,6 +57,8 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
                 hooksService: this.hooksService,
                 disableHooks: this.$destroy,
                 modalService: this.modalService,
+                eventService: this.eventService,
+                configService: this.configService,
                 router: this.router,
                 window: this.window,
             });
