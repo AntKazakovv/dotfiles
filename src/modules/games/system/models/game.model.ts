@@ -3,7 +3,6 @@ import {BehaviorSubject} from 'rxjs';
 
 import _assign from 'lodash-es/assign';
 import _isObject from 'lodash-es/isObject';
-import _each from 'lodash-es/each';
 import _intersection from 'lodash-es/intersection';
 import _includes from 'lodash-es/includes';
 import _toNumber from 'lodash-es/toNumber';
@@ -58,7 +57,6 @@ export class Game extends AbstractModel<IGame> {
     public hotGameRTP?: number;
 
     protected url: string;
-    protected isRestricted: boolean;
     protected countryRestrictionId: string;
     protected disableDemoBtnsFor: TDisableDemoFor;
     protected _withFreeRounds: boolean;
@@ -66,6 +64,7 @@ export class Game extends AbstractModel<IGame> {
     private _jackpotAmount: IGameJackpotAmount;
     private static _enabledMerchants: MerchantModel[];
     private _selectedCurrency: string;
+    private _isRestricted: boolean = false;
 
     constructor(
         from: IFromLog,
@@ -105,6 +104,10 @@ export class Game extends AbstractModel<IGame> {
         this.hotGameRTP = data.HotGameRTP && Number(data.HotGameRTP);
 
         this.data = data;
+    }
+
+    public get isRestricted(): boolean {
+        return this._isRestricted;
     }
 
     public static set enabledMerchants(merchants: MerchantModel[]) {
@@ -177,21 +180,26 @@ export class Game extends AbstractModel<IGame> {
      * @returns {boolean}
      */
     public gameRestricted(restrictions: IRestrictions, countries: string[]): boolean {
-        let restricted: boolean = false;
-
         const restrictedCountries: IIndexing<boolean> = restrictions.restrictedByID[this.countryRestrictionId]
             || restrictions.restrictedByDefault[this.subMerchantID]
             || restrictions.restrictedByDefault[this.merchantID];
 
         if (_isObject(restrictedCountries)) {
-            _each(countries, (country: string) => {
+
+            for (let country in countries) {
+
                 if (restrictedCountries[country]) {
-                    restricted = true;
+                    this._isRestricted = true;
+                    break;
                 }
-            });
+            }
+        } else {
+            this._isRestricted = false;
         }
-        return restricted;
+
+        return this._isRestricted;
     }
+
 
     /**
      * Check has category or not

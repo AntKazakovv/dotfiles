@@ -1149,7 +1149,8 @@ export class GamesCatalogService {
      * @returns {Game[]} List with only available games
      */
     public filterAvailableGames(gamesList: Game[]): Game[] {
-        return _intersectionBy(gamesList, (game: Game): string => {
+        const availableGames = gamesList.filter((game) => !game.isRestricted);
+        return _intersectionBy(availableGames, (game: Game): string => {
             return game.ID + game.launchCode;
         });
     }
