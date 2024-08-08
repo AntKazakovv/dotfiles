@@ -229,6 +229,15 @@ export namespace wlcTitle {
         },
     };
 
+    export const ordersHistory: ILayoutComponent = {
+        name: 'core.wlc-title',
+        params: {
+            customMod: ['profile'],
+            mainText: gettext('Purchase history'),
+            wlcElement: 'header_orders-history',
+        },
+    };
+
     export const profileDashboard: ILayoutComponent = {
         name: 'core.wlc-title',
         params: {

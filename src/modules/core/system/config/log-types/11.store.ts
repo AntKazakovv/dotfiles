@@ -13,4 +13,8 @@ export const errorTypes: ILogTypes = {
         // Error when get store categories
         level: 'fatal',
     },
+    '11.0.3': {
+        // Error getting orders history
+        level: 'fatal',
+    },
 };

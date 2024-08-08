@@ -122,6 +122,12 @@ export const $profileFirstLayouts: ILayoutsConfig = {
             'profile-content': sectionsLib.profileContent.empty,
         },
     },
+    'app.profile.loyalty-store.history': {
+        extends: 'app.profile',
+        sections: {
+            'profile-content': sectionsLib.profileContent.profileOrdersHistoryTypeFirst,
+        },
+    },
     'app.profile.loyalty-level': {
         extends: 'app.profile',
         sections: {

@@ -1,0 +1,35 @@
+.wlc-profile-no-content:host {
+    @include text.get-text-style(ef.get-value($themeWolf, 'textStyle'), ef.get-value($themeWolf, 'textColor'));
+    display: ef.get-value($themeWolf, 'display');
+    flex-direction: ef.get-value($themeWolf, 'direction');
+    align-items: ef.get-value($themeWolf, 'alignItems');
+    margin: ef.get-value($themeWolf, 'margin');
+
+    .wlc-profile-no-content {
+
+        &__img {
+            @include bm.get-mq-map('display', $themeWolf, 'imgDisplayProfileDef');
+            @include bm.get-mq-map('margin', $themeWolf, 'imgMargin');
+            align-self: ef.get-value($themeWolf, 'imgAlignSelf');
+            color: ef.get-value($themeWolf, 'imgColor');
+
+            .wlc-sections__profile-content--theme-first & {
+                @include bm.get-mq-map('display', $themeWolf, 'imgDisplayProfileFirst');
+            }
+
+            ::ng-deep {
+
+                svg {
+                    width: ef.get-value($themeWolf, 'imgWidth');
+                    max-width: ef.get-value($themeWolf, 'imgMaxWidth');
+                    height: ef.get-value($themeWolf, 'imgHeight');
+                    max-height: ef.get-value($themeWolf, 'imgMaxHeight');
+
+                    path {
+                        fill: currentColor;
+                    }
+                }
+            }
+        }
+    }
+}

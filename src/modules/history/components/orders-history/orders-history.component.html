@@ -1,0 +1,22 @@
+<ng-template [ngIf]="isReady" [ngIfElse] = "preloader">
+
+    <div *ngIf="showFilter" class="{{$class}}__filter">
+        <div wlc-datepicker [inlineParams]="startDateInput"></div>
+        <div wlc-datepicker [inlineParams]="endDateInput"></div>
+    </div>
+
+    <div wlc-history-range [inlineParams]="historyRangeParams"></div>
+
+    <div *ngIf="orders$.value.length; else empty"
+         wlc-table
+         [inlineParams]="tableData">
+    </div>
+</ng-template>
+
+<ng-template #empty>
+    <div wlc-wrapper [inlineParams]="emptyConfigParams"></div>
+</ng-template>
+
+<ng-template #preloader>
+    <div wlc-loader></div>
+</ng-template>

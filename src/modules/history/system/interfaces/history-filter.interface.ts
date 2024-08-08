@@ -26,6 +26,7 @@ export interface IHistoryData {
     tournaments: BehaviorSubject<IHistoryFilter<TTournamentsFilter>>;
     bonus: BehaviorSubject<IHistoryFilter<keyof typeof TBonusFilter>>;
     mails: BehaviorSubject<IHistoryFilter>;
+    orders: BehaviorSubject<IHistoryFilter>;
 };
 
 export interface IHistoryFilterValue<T = Record<string, string>> {
@@ -39,6 +40,7 @@ export interface IHistoryDefault {
     tournaments: IHistoryFilter<TTournamentsFilter>;
     bonus: IHistoryFilter<keyof typeof TBonusFilter>;
     mails: IHistoryFilter;
+    orders: IHistoryFilter;
 }
 export interface IHistoryFilter<T = string> {
     filterValue?: T;

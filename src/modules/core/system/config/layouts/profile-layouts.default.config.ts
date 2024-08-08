@@ -111,6 +111,12 @@ export const $profileLayouts: IPanelsConfig = {
             'profile-content': sectionsLib.profileContent.profileBetHistory,
         },
     },
+    'app.profile.loyalty-store.history': {
+        extends: 'app.profile',
+        sections: {
+            'profile-content': sectionsLib.profileContent.profileOrdersHistory,
+        },
+    },
     'app.profile.loyalty-store.main': {
         extends: 'app.profile',
         sections: {

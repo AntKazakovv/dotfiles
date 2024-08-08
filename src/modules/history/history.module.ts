@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {BonusesHistoryComponent} from 'wlc-engine/modules/history/components/bonuses-history/bonuses-history.component';
+import {OrdersHistoryComponent} from 'wlc-engine/modules/history/components/orders-history/orders-history.component';
 import {BetHistoryComponent} from 'wlc-engine/modules/history/components/bet-history/bet-history.component';
 import {HistoryNameComponent} from 'wlc-engine/modules/history/components/history-name/history-name.component';
 import {
@@ -42,6 +43,7 @@ export const components = {
     'wlc-history-name': HistoryNameComponent,
     'wlc-history-filter': HistoryFilterComponent,
     'wlc-history-filter-form': HistoryFilterFormComponent,
+    'wlc-orders-history': OrdersHistoryComponent,
 };
 
 export const services = {
@@ -64,6 +66,7 @@ export const services = {
         HistoryRangeComponent,
         HistoryFilterComponent,
         HistoryFilterFormComponent,
+        OrdersHistoryComponent,
     ],
     imports: [
         CoreModule,
@@ -85,6 +88,7 @@ export const services = {
         HistoryRangeComponent,
         HistoryFilterComponent,
         HistoryFilterFormComponent,
+        OrdersHistoryComponent,
     ],
 })
 

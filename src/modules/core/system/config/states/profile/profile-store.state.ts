@@ -37,3 +37,10 @@ export const profileStoreMain: Ng2StateDeclaration = {
 export const profileStoreOrders: Ng2StateDeclaration = {
     url: '/orders',
 };
+
+export const profileStoreOrdersHistory: Ng2StateDeclaration = {
+    url: '/orders/history',
+    resolve: [
+        StateHelper.profileStateResolver('$base.profile.store.use'),
+    ],
+};

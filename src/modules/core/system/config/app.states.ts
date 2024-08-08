@@ -54,6 +54,7 @@ let states = {
     'app.profile.loyalty-store': States.profileStoreState,
     'app.profile.loyalty-store.main': States.profileStoreMain,
     'app.profile.loyalty-store.orders': States.profileStoreOrders,
+    'app.profile.loyalty-store.history': States.profileStoreOrdersHistory,
     'app.profile.cash': States.profileCashState,
     'app.profile.cash.deposit': States.profileCashDepositState,
     'app.profile.cash.withdraw': States.profileCashWithdrawState,

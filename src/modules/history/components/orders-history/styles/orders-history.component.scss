@@ -1,8 +1,10 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/base.mixins' as bm;
-@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/engine.variables' as ev;
 
 @import './utils/vars';
-@import './utils/vars-wolf';
+@import './utils/vars-theme-wolf';
+
 @import './themes/default';
 @import './themes/wolf';

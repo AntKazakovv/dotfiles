@@ -1,0 +1,11 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'sectionLoaderMinHeight': 400px,
+
+    'filterDisplay': (
+        375: flex,
+    ),
+    'filterMargin': 0 0 ef.size(5),
+    'filterGap': ef.size(4),
+    'filterWidth': ef.get-value(ev.$profileSettings, 'filterWidth'),
+), $customThemeDefault);

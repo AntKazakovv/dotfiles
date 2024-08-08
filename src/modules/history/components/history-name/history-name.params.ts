@@ -7,8 +7,8 @@ export interface IAbstractHistoryNameItem {
 }
 export interface IHistoryNameItem extends IAbstractHistoryNameItem {
     name: string;
-    status: string;
-    id: string;
+    status?: string;
+    id?: string;
 };
 
 export interface IFinancialHistoryNameItem extends IAbstractHistoryNameItem {

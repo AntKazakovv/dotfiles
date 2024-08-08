@@ -104,6 +104,12 @@ export const $profileWolfLayouts: IPanelsConfig = {
             'profile-content': sectionsLib.profileContent.profileWolfBetHistory,
         },
     },
+    'app.profile.loyalty-store.history': {
+        extends: 'app.profile',
+        sections: {
+            'profile-content': sectionsLib.profileContent.profileWolfOrdersHistory,
+        },
+    },
     'app.profile.loyalty-store.main': {
         extends: 'app',
         sections: {

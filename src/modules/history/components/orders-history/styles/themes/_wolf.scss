@@ -1,0 +1,33 @@
+.wlc-orders-history--theme-wolf {
+
+    &:host {
+
+        .wlc-loader {
+            min-height: ef.get-value($themeWolf, 'sectionLoaderMinHeight');
+        }
+
+        .wlc-orders-history__filter {
+            @include bm.get-mq-map('display', $themeWolf, 'filterDisplay');
+            flex-wrap: wrap;
+            gap: ef.get-value($themeWolf, 'filterGap');
+            margin: ef.get-value($themeWolf, 'filterMargin');
+
+            .wlc-select[wlc-select] {
+                width: ef.get-value($themeWolf, 'filterWidth');
+            }
+        }
+
+        .wlc-table::ng-deep {
+
+            .wlc-table__cell {
+
+                &.wlc-table__cell--first {
+
+                    .wlc-table__cell-label {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -40,6 +40,10 @@ import {
 } from 'wlc-engine/modules/history/system/models/bonus-history/bonus-history-item.model';
 import {TournamentHistory} from 'wlc-engine/modules/history/system/models/tournament-history/tournament-history.model';
 import {
+    IOrder, 
+    OrderHistoryItemModel,
+} from 'wlc-engine/modules/history/system/models/orders-history/orders-history.model';
+import {
     ITournamentHistory,
 } from 'wlc-engine/modules/history/system/interfaces/tournament-history/tournament-history.interface';
 import {
@@ -73,8 +77,8 @@ interface IQueryParams {
 }
 
 interface IGetTransactionsParams {
-    startDate: DateTime;
-    endDate: DateTime;
+    startDate?: DateTime;
+    endDate?: DateTime;
 }
 
 interface ITransactionRequestParams {
@@ -257,6 +261,21 @@ export class HistoryService {
             }
         }
         return this.allTransactions;
+    }
+
+    public async getOrdersList(): Promise<OrderHistoryItemModel[]> {
+        try {
+            const response: IData<OrderHistoryItemModel[]> = await this.dataService
+                .request<IData>('store/orders');
+                
+            return response.data as OrderHistoryItemModel[];
+        } catch (error) {
+            this.logService.sendLog({
+                code: '11.0.3',
+                data: error,
+            });
+            throw error;
+        }
     }
 
     public getObserver<T extends BonusHistoryItemModel | TournamentHistory>(
@@ -474,6 +493,18 @@ export class HistoryService {
         });
 
         this.dataService.registerMethod({
+            name: 'orders',
+            system: 'store',
+            url: '/store/orders',
+            type: 'GET',
+            events: {
+                success: 'ORDERS_FETCH_SUCCESS',
+                fail: 'ORDERS_FETCH_FAIL',
+            },
+            mapFunc: this.createOrders.bind(this),
+        });
+
+        this.dataService.registerMethod({
             name: 'transactions',
             system: 'finances',
             url: '/transactions',
@@ -520,6 +551,13 @@ export class HistoryService {
     private createTransaction(data: ITransaction[]): Transaction[] {
         return data.map((item) => new Transaction(
             {service: 'HistoryService', method: 'createTransaction'},
+            item,
+        ));
+    }
+
+    private createOrders(data: IOrder[]): OrderHistoryItemModel[] {
+        return data.map((item: IOrder) => new OrderHistoryItemModel(
+            {service: 'HistoryService', method: 'createOrders'},
             item,
         ));
     }

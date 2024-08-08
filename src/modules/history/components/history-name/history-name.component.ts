@@ -73,6 +73,7 @@ export class HistoryNameComponent extends AbstractComponent implements OnInit {
             case 'transactions':
                 return (this.$params.item as Params.IFinancialHistoryNameItem).date;
             case 'bonuses':
+            case 'orders':
             case 'tournaments':
                 return (this.$params.item as Params.IHistoryNameItem).name;
         }

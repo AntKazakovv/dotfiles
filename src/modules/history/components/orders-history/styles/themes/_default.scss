@@ -1,0 +1,33 @@
+.wlc-orders-history--theme-default {
+
+    &:host {
+
+        .wlc-loader {
+            min-height: ef.get-value($themeDefault, 'sectionLoaderMinHeight');
+        }
+
+        .wlc-orders-history__filter {
+            @include bm.get-mq-map('display', $themeDefault, 'filterDisplay');
+            flex-wrap: wrap;
+            gap: ef.get-value($themeDefault, 'filterGap');
+            margin: ef.get-value($themeDefault, 'filterMargin');
+
+            .wlc-select[wlc-select] {
+                width: ef.get-value($themeDefault, 'filterWidth');
+            }
+        }
+
+        .wlc-table::ng-deep {
+
+            .wlc-table__cell {
+
+                &.wlc-table__cell--first {
+
+                    .wlc-table__cell-label {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}

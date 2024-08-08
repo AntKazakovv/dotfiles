@@ -30,6 +30,7 @@ import {
 import {
     IMenuItem,
     MenuItemObjectType,
+    MenuItemsGroupItem,
     MenuItemsGroupParent,
 } from 'wlc-engine/modules/menu/components/menu/menu.params';
 import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
@@ -264,11 +265,55 @@ export class ProfileMenuService {
                     };
                 });
 
+            if (this.configService.get<string>('$base.profile.type') === 'first') {
+                const ordersHistoryItem: MenuParams.IMenuItem = {
+                    name: gettext('Purchase history'),
+                    type: 'sref',
+                    icon: 'store-category',
+                    class: 'store-category',
+                    wlcElement: 'link_cc-profile-menu_store-category',
+                    params: {
+                        state: {
+                            name: 'app.profile.loyalty-store.history',
+                            params: {},
+                        },
+                    },
+                };
+
+                menuItems.push(ordersHistoryItem);
+            }
+
             this.profileMenuConfig[marketItemIndex] = {
                 parent: 'profile-menu:market',
                 type: 'group',
                 items: menuItems,
             };
+        }
+    }
+
+    /**
+     * Prepare orders history in profile menu
+     */
+    protected prepareOrdersHistory(): void {
+        const historyMenuIndex: number = this.profileMenuConfig.findIndex((item: MenuParams.MenuConfigItem) => {
+            if (Object.getOwnPropertyNames(item).includes('parent')) {
+                return (item as MenuParams.MenuConfigItemsGroup).parent === 'profile-menu:history'
+             || (item as MenuParams.MenuConfigItemsGroup).parent === 'profile-first-menu:history';
+            }
+        });
+
+        if (historyMenuIndex !== -1) {
+            const ordersHistoryItem: string = 'profile-menu:orders-history';
+
+            // eslint-disable-next-line max-len
+            const isOrdersInMenu: boolean = (this.profileMenuConfig[historyMenuIndex] as MenuParams.MenuConfigItemsGroup)
+                .items.findIndex((value: MenuItemsGroupItem) => value === ordersHistoryItem) !== -1;
+
+            if (!isOrdersInMenu) {
+                const lastHistoryItemIndex: number = this.profileMenuConfig.length - 1;
+                (this.profileMenuConfig[historyMenuIndex] as MenuParams.MenuConfigItemsGroup).items
+                    .splice(lastHistoryItemIndex + 1, 0, ordersHistoryItem);
+            }
         }
     }
 
@@ -393,6 +438,7 @@ export class ProfileMenuService {
 
         if (this.configService.get<boolean>('$base.profile.store.use')) {
             await this.prepareMarket();
+            this.prepareOrdersHistory();
         }
 
         if (this.configService.get('$base.profile.transfers.use')) {

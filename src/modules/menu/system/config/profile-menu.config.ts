@@ -851,6 +851,33 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
             },
         },
     },
+    'profile-menu:orders-history': {
+        name: gettext('Purchase history'),
+        type: 'sref',
+        icon: 'orders-history',
+        class: 'orders-history',
+        wlcElement: 'link_orders-history',
+        params: {
+            state: {
+                name: 'app.profile.loyalty-store.history',
+                params: {},
+            },
+        },
+    },
+
+    'profile-first-menu:orders-history': {
+        name: gettext('Purchase history'),
+        type: 'sref',
+        icon: 'orders-history',
+        class: 'orders-history',
+        wlcElement: 'link_orders-history',
+        params: {
+            state: {
+                name: 'app.profile.loyalty-store.history',
+                params: {},
+            },
+        },
+    },
 
     'profile-menu:messages': {
         name: gettext('Messages'),

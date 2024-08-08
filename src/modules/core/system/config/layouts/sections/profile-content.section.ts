@@ -2549,6 +2549,113 @@ export namespace profileContent {
         ],
     };
 
+    export const profileOrdersHistory: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__top',
+                    components: [
+                        componentLib.wlcOrdersHistory.filter,
+                    ],
+                },
+            },
+            componentLib.wlcProfileMenu.submenu,
+            componentLib.wlcOrdersHistory.def,
+        ],
+    };
+
+    export const profileOrdersHistoryTypeFirst: ILayoutSectionConfig = {
+        container: true,
+        theme: 'first',
+        components: [
+            componentLib.wlcProfileMenu.defTypeFirst,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__header',
+                    components: [
+                        componentLib.wlcTitle.ordersHistory,
+                        componentLib.wlcOrdersHistory.filterTypeFirst,
+                    ],
+                },
+                display: {
+                    before: 1199,
+                },
+            },
+            componentLib.wlcProfileMenu.subMenuV1,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content',
+                    components: [
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__header underlined',
+                                components: [
+                                    componentLib.wlcTitle.ordersHistory,
+                                ],
+                            },
+                            display: {
+                                after: 1200,
+                            },
+                        },
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__body',
+                                components: [
+                                    componentLib.wlcOrdersHistory.def,
+                                ],
+                            },
+                        },
+                    ],
+                },
+            },
+        ],
+    };
+
+    export const profileWolfOrdersHistory: ILayoutSectionConfig = {
+        container: true,
+        usePreloader: true,
+        theme: 'wolf',
+        components: [
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__wrp',
+                    components: [
+                        componentLib.wlcProfileMenu.defTypeWolf,
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__top wlc-profile-content__top--buttons',
+                                components: [
+                                    {
+                                        name: 'core.wlc-section-title',
+                                        params: {
+                                            theme: 'wolf',
+                                            text: 'History',
+                                            iconPath: 'wlc/icons/european/v3/history.svg',
+                                        },
+                                        display: {
+                                            before: 1023,
+                                        },
+                                    },
+                                    componentLib.wlcOrdersHistory.filterOnly,
+                                ],
+                            },
+                        },
+                        componentLib.wlcProfileMenu.submenuWolf,
+                        componentLib.wlcOrdersHistory.wolf,
+                    ],
+                },
+            },
+        ],
+    };
+
     export const profileTournamentsDetail: ILayoutSectionConfig = {
         container: true,
         components: [

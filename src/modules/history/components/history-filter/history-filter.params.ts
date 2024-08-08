@@ -277,4 +277,35 @@ export namespace formConfig {
             },
         ],
     };
+
+    export const orders: IFormWrapperCParams = {
+        class: 'wlc-orders-filters',
+        components: [
+            {
+                name: 'core.wlc-text-block',
+                params: <ITextBlockCParams>{
+                    common: {
+                        textBlockTitle: gettext('Filter'),
+                    },
+                },
+            },
+            {
+                name: 'core.wlc-datepicker',
+                params: startDate,
+            },
+            {
+                name: 'core.wlc-datepicker',
+                params: endDate,
+            },
+            {
+                name: 'core.wlc-button',
+                params: <IButtonCParams>{
+                    common: {
+                        typeAttr: 'submit',
+                        text: gettext('Save'),
+                    },
+                },
+            },
+        ],
+    };
 }
