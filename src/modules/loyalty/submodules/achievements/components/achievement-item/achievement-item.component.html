@@ -104,7 +104,7 @@
 <ng-template #achievementDate>
     <div class="{{$class}}__date"
          data-wlc-element="achievement_date">
-         {{'Claimed: {{receivingDate}}' | translate | translate:achievement}}
+        {{'Claimed' | translate}} {{achievement.receivingDate}}
     </div>
 </ng-template>
 
