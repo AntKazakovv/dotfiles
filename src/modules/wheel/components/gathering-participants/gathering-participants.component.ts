@@ -142,7 +142,7 @@ export class GatheringParticipantsComponent extends AbstractComponent implements
     }
 
     protected getLink(id: number): string {
-        const site: string = this.configService.get<string>('appConfig.site');
+        const site: string = this.wheelService.redirectorUrl || this.configService.get<string>('appConfig.site');
         const lang: string = this.configService.get<string>('appConfig.language');
         const page = this.configService.get<string>('$modules.wheel.pageForLinkWheel') || null;
         const nonce = this.params.nonce ?? this.currentNonce;

@@ -93,6 +93,7 @@ export class WheelService {
     private disableFinishFromSocket: boolean = false;
     private currentIdWheel: number = 0;
     private currentNonce: string = '';
+    private _redirectorUrl: string;
 
     constructor(
         private eventService: EventService,
@@ -320,6 +321,7 @@ export class WheelService {
             this.currentIdWheel = id;
             this.wheelInfo = response.data;
             this.wheelInfo.serverTime = Date.parse(response.headers.get('Date'));
+            this._redirectorUrl = response.data.StreamWheelRedirectorUrl;
             this.wheelInfo$.next(this.wheelInfo);
 
             if (this.wheelInfo.participantsCount && this.wheelInfo.participants.length) {
@@ -548,6 +550,10 @@ export class WheelService {
                 wlcElement: 'stream-wheel-join-sending-error',
             },
         });
+    }
+
+    public get redirectorUrl(): string {
+        return this._redirectorUrl;
     }
 
     public async createWheel(data: ISettingsWheel): Promise<void> {

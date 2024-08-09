@@ -29,6 +29,7 @@ export interface IInfoWheelResponse extends ISettingsWheel {
     serverTime?: number;
     nonce?: string;
     winners?: IWinner[];
+    StreamWheelRedirectorUrl?: string;
 }
 
 export interface IWSStreamWheelData {
