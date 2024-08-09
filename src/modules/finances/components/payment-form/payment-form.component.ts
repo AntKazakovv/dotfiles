@@ -1405,6 +1405,25 @@ export class PaymentFormComponent
         form.style.display = 'none';
 
         if (this.currentSystem.appearance === 'iframe') {
+
+            if (response[0] === 'GET') {
+                const responseUrl = response[1].URL;
+                let responseParams = '';
+
+                Object.keys(response[1]).map((key) => {
+
+                    if (key !== 'URL') {
+
+                        if (!responseParams) {
+                            responseParams = `${key}=${response[1][key]}`;
+                        } else {
+                            responseParams = responseParams + `&${key}=${response[1][key]}`;
+                        }
+                    }
+                });
+
+                form.action = `${responseUrl}?${responseParams}`;
+            }
             form.target = 'deposit_frame';
             this.showIFrame(form);
         } else if (this.currentSystem.appearance === 'newtab') {
