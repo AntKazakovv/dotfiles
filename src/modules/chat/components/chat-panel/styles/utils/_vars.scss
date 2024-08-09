@@ -133,7 +133,7 @@ $chatConfig: map-merge((
     //Buttons
     // base
     'btnBg': var(--mc-baseMain-o0),
-    'btnBgHover': var(--mc-baseMain-o2),
+    'btnBgHover': var(--mc-buttonColor),
     'btnMinWidth': 110px,
     'btnHeight': 40px, // TODO: sm-modifier
     'btnRadius': 10px,
@@ -154,8 +154,7 @@ $chatConfig: map-merge((
     'btnIconMargin': 0 10px 0 0,
 
     // primary button
-    'btnPrimaryBg': var(--mc-main),
-    'btnPrimaryBgHover': var(--mc-main-l10),
+    'btnPrimaryBg': var(--mc-buttonColor),
 
     //icon button
     'bntIconSvgSize': 24px,

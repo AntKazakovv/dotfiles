@@ -46,6 +46,35 @@
 
         &__btn {
             @include enterPromocodeButton($themeWolf);
+
+            ::ng-deep {
+
+                .wlc-icon {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                }
+            }
+
+            &:before {
+                @include bm.transition(opacity);
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: ef.get-value($themeWolf, 'btnSize');
+                height: ef.get-value($themeWolf, 'btnSize');
+                background: ef.get-value($themeWolf, 'btnBgBefore');
+                opacity: 0;
+            }
+
+            @include bm.hover {
+
+                &:before {
+                    opacity: 0.4;
+                }
+            }
         }
     }
 

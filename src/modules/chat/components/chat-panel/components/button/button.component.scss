@@ -1,4 +1,5 @@
 @use '../../styles/utils/helpers' as helpers;
+@use 'engine-scss/mixins/base.mixins' as bm;
 
 .wlc-btn:host {
     --btn-bg: #{helpers.get-prop('btnBg')};
@@ -66,7 +67,28 @@
 
     &--mod-primary {
         --btn-bg: #{helpers.get-prop('btnPrimaryBg')};
-        --btn-bg-hover: #{helpers.get-prop('btnPrimaryBgHover')};
+        position: relative;
+
+        &:before {
+            @include bm.transition(opacity);
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: inherit;
+            background-color: #000;
+            opacity: 0;
+            mix-blend-mode: overlay;
+        }
+
+        @include helpers.hover() {
+
+            &:before {
+                opacity: 0.4;
+            }
+        }
     }
 
     &--theme-icon {

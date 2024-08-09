@@ -320,6 +320,16 @@
                 background: ef.get-value($themeWolfHeader, 'depositBgBefore');
                 opacity: 0;
             }
+
+            ::ng-deep {
+
+                .wlc-icon {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                }
+            }
         }
 
         @include bm.hover {

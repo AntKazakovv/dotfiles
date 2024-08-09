@@ -23,6 +23,13 @@ button.wlc-user-icon--theme-wolf:host {
 
     @include hoverBefore($themeWolf);
 
+    .wlc-user-icon__user {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
     @include bm.hover {
 
         &:before {
