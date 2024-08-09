@@ -96,9 +96,8 @@ $themeDefault: map-merge((
 
 $customThemePromo: () !default;
 $themePromo: map-merge((
-    'gridGap': (
-        375: ef.size(2),
-        560: ef.size(4),
+    'gap': (
+        375: ef.size(4),
     ),
     'listColumns': (
         375: 1fr,
