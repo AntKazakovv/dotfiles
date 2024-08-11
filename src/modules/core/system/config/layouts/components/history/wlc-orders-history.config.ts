@@ -21,7 +21,7 @@ export namespace wlcOrdersHistory {
             components: [
                 wlcTitle.history,
                 {
-                    name: 'core.wlc-history-filter',
+                    name: 'history.wlc-history-filter',
                     params: {
                         config: 'orders',
                     },
@@ -34,7 +34,7 @@ export namespace wlcOrdersHistory {
     };
 
     export const filterOnly: ILayoutComponent = {
-        name: 'core.wlc-history-filter',
+        name: 'history.wlc-history-filter',
         params: {
             config: 'orders',
         },
@@ -49,7 +49,7 @@ export namespace wlcOrdersHistory {
             class: 'profile-history-filter',
             components: [
                 {
-                    name: 'core.wlc-history-filter',
+                    name: 'history.wlc-history-filter',
                     params: {
                         config: 'orders',
                     },
