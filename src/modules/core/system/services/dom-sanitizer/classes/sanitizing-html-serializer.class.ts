@@ -57,7 +57,7 @@ export class SanitizingHtmlSerializer {
             if (current.nodeType === Node.ELEMENT_NODE) {
                 traverseContent = this.startElement(current);
             } else if (current.nodeType === Node.TEXT_NODE) {
-                this.sanitizeTextNodeChars(current.nodeValue);
+                this.sanitizeTextNodeChars(current.parentNode.nodeName.toLowerCase(), current.nodeValue);
             } else {
                 // Strip non-element, non-text nodes.
                 this.sanitizedSomething = true;
@@ -149,8 +149,8 @@ export class SanitizingHtmlSerializer {
         return this.UNSAFE_TAGS.has(tagName);
     }
 
-    private sanitizeTextNodeChars(chars: string): void {
-        this.buf.push(this.encodeEntities(chars));
+    private sanitizeTextNodeChars(tagName: string, chars: string): void {
+        this.buf.push(tagName === 'style' ? chars : this.encodeEntities(chars));
     }
 
     private checkClobberedElement(node: HTMLElement, nextNode: HTMLElement): HTMLElement {
