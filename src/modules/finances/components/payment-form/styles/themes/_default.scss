@@ -235,7 +235,8 @@
                 justify-self: center;
             }
 
-            .wlc-payment-message__clipboard {
+            .wlc-payment-message__clipboard,
+            .wlc-payment-message__text-row:has(.wlc-input) {
                 display: flex;
                 justify-content: center;
             }
