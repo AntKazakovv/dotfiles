@@ -49,7 +49,7 @@ export class ImageComponent extends AbstractComponent implements OnInit, OnChang
         super({
             injectParams: injectParams || {},
             defaultParams: Params.defaultParams,
-        }, null, cdr);
+        }, configService, cdr);
     }
 
     public override ngOnInit(): void {
