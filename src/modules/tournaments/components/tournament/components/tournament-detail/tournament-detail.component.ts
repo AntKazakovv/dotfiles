@@ -168,7 +168,7 @@ export class TournamentDetailComponent extends AbstractComponent implements
 
     public scrollTo(selector: string, delay = 500): void {
         setTimeout(() => {
-            this.actionService.scrollTo(selector);
+            this.actionService.scrollTo(selector, {useScrollingOffset: false});
         }, delay);
     }
 

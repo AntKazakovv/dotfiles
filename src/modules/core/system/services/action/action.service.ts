@@ -82,6 +82,7 @@ export interface IScrollOptions {
     offsetY?: number;
     inline?: ScrollPositionType;
     smooth?: boolean;
+    useScrollingOffset?: boolean;
 }
 
 export interface IScrollSmoothlyOptions {
@@ -357,7 +358,9 @@ export class ActionService {
             }
 
             setTimeout((): void => {
-                this.setScrollingOffset(element);
+                if (options?.useScrollingOffset) {
+                    this.setScrollingOffset(element);
+                }
 
                 element.scrollIntoView({
                     behavior: scrollBehavior,
