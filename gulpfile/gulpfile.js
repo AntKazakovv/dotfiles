@@ -49,7 +49,8 @@ class gulpTask {
         }
 
         const options = _.merge({
-            maxProcesses: 30
+            maxProcesses: 30,
+            successCondition: 'first',
         }, params);
 
         if (hideOutput) {
