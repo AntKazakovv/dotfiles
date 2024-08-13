@@ -46,7 +46,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     },
 
     'profile-menu:account-settings': {
-        name: gettext('Profile'),
+        name: gettext('General'),
         class: 'account-settings',
         type: 'sref',
         icon: 'account-settings',
@@ -69,7 +69,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
     },
     'profile-first-menu:account-settings': {
-        name: gettext('Profile'),
+        name: gettext('General'),
         class: 'account-settings',
         type: 'sref',
         icon: 'account-settings',
@@ -111,7 +111,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     },
 
     'profile-menu:edit-profile': {
-        name: gettext('General'),
+        name: gettext('Profile'),
         type: 'sref',
         icon: 'edit-profile',
         wlcElement: 'link_edit-profile',
@@ -125,7 +125,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     },
 
     'profile-first-menu:edit-profile': {
-        name: gettext('General'),
+        name: gettext('Profile'),
         type: 'sref',
         icon: 'edit-profile',
         wlcElement: 'link_edit-profile',

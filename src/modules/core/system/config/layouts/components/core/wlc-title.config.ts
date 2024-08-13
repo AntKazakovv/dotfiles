@@ -16,7 +16,7 @@ export namespace wlcTitle {
     export const profile: ILayoutComponent = {
         name: 'core.wlc-title',
         params: {
-            mainText: gettext('Profile'),
+            mainText: gettext('General'),
             wlcElement: 'header_edit-profile',
         },
     };
@@ -25,7 +25,7 @@ export namespace wlcTitle {
         name: 'core.wlc-title',
         params: {
             customMod: ['profile'],
-            mainText: gettext('Profile'),
+            mainText: gettext('General'),
             wlcElement: 'header_edit-profile',
         },
     };
@@ -55,7 +55,7 @@ export namespace wlcTitle {
         },
         params: <ITitleCParams>{
             customMod: ['profile'],
-            mainText: gettext('Profile'),
+            mainText: gettext('General'),
             wlcElement: 'header_edit-profile',
         },
     };
