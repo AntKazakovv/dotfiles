@@ -52,7 +52,9 @@ export class VerificationService {
 
     public async getFileTypes(): Promise<string[]> {
         try {
-            return _toArray((await this.dataService.request<IData>('docs/docs-extensions'))?.data);
+            const docsExtensions = _toArray((await this.dataService.request<IData>('docs/docs-extensions'))?.data);
+
+            return docsExtensions.map((item: string) => item.toLowerCase());
         } catch (error) {
             this.logService.sendLog({
                 code: '9.0.3',
