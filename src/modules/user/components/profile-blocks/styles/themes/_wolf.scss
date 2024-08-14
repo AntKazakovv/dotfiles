@@ -151,6 +151,10 @@
                         transform: ef.get-value($themeWolf, 'btnIconTransform');
                     }
 
+                    &:before {
+                        display: none;
+                    }
+
                     @include bm.hover {
 
                         .wlc-btn__text {

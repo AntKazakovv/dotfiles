@@ -197,6 +197,10 @@
                 border: ef.get-value($themeWolf, 'detailsBorder');
                 border-radius: ef.get-value($themeWolf, 'detailsBorderRadius');
 
+                &:before {
+                    display: none;
+                }
+
                 ::ng-deep {
 
                     .wlc-btn__text {
