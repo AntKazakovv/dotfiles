@@ -351,9 +351,6 @@ export class ModalService {
     }
 
     private async openModal(config: IModalConfig): Promise<WlcModalComponent> {
-        if (_find(this.activeModals, ({id}) => id === config.id)) {
-            return;
-        }
         const modalComponent = await import('wlc-engine/standalone/core/components/modal/modal.component')
             .then((m) => m.WlcModalComponent);
         /**
@@ -362,6 +359,9 @@ export class ModalService {
          * Нужно сделать инжекшн токен для модалки и передавать с ним инстанс модала отсюда, вместе с injectParams
          *
          */
+        if (_find(this.activeModals, ({id}) => id === config.id)) {
+            return;
+        }
 
         let windowFactory = this.cfr.resolveComponentFactory(modalComponent);
         let injector = Injector.create({
