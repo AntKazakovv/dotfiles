@@ -11,16 +11,10 @@
         }
 
         .wlc-image {
-            width: 100%;
-            height: 100%;
-
-            img {
-                display: block;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                object-position: center;
-            }
+            --wlc-image-width: 100%;
+            --wlc-image-height: 100%;
+            --wlc-image-object-fit: cover;
+            --wlc-image-object-position: center;
         }
     }
 

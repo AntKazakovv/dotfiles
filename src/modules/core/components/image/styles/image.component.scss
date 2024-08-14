@@ -2,14 +2,20 @@
 
 .wlc-image {
     position: relative;
+    overflow: hidden;
+    width: var(--wlc-image-width, auto);
+    height: var(--wlc-image-height, auto);
 
     &__picture {
         position: absolute;
         top: 0;
+        width: 100%;
 
         img {
             width: var(--wlc-image-width, auto);
             height: var(--wlc-image-height, auto);
+            object-fit: var(--wlc-image-object-fit);
+            object-position: var(--wlc-image-object-position);
         }
     }
 

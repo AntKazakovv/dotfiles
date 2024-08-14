@@ -11,22 +11,16 @@
     ::ng-deep {
 
         .wlc-image {
+            --wlc-image-width: 100%;
+            --wlc-image-height: 100%;
+            --wlc-image-object-fit: cover;
+            --wlc-image-object-position: center;
+
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
             border-radius: inherit;
             overflow: hidden;
-
-            img {
-                display: block;
-                width: 100%;
-                height: 100%;
-
-                object-fit: cover;
-                object-position: center;
-            }
         }
     }
 
