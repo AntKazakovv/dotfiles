@@ -8,7 +8,8 @@ import {
 import {UntypedFormGroup} from '@angular/forms';
 
 import {BehaviorSubject} from 'rxjs';
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
 import _toNumber from 'lodash-es/toNumber';
 
 import {
@@ -39,7 +40,7 @@ export class DeviceRegistrationFormComponent extends AbstractComponent implement
     public config: IFormWrapperCParams = Params.deviceRegistrationFormConfig;
     public userAgent: string = this.window.navigator.userAgent;
     public location: string = this.configService.get<string>('appConfig.country');
-    public timerValue!: DateTime;
+    public timerValue!: Dayjs;
     public buttonDisabled!: boolean;
     public timerParams: ITimerCParams = Params.timerParams;
 
@@ -140,7 +141,7 @@ export class DeviceRegistrationFormComponent extends AbstractComponent implement
 
     protected setTimer(): void {
         this.buttonDisabled = true;
-        this.timerValue = DateTime.now().plus({minutes: 1});
+        this.timerValue = dayjs().add(1, 'minute');
         this.cdr.markForCheck();
     }
 }

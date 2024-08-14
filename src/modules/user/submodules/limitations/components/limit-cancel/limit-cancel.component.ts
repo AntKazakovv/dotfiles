@@ -5,7 +5,8 @@ import {
     ChangeDetectionStrategy,
 } from '@angular/core';
 
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
 
 import {
     AbstractComponent,
@@ -28,7 +29,7 @@ export class LimitCancelComponent extends AbstractComponent implements OnInit {
     public override $params: Params.ILimitCancelCParams;
     public cancelable: boolean = false;
     public pending: boolean = false;
-    public timerValue: DateTime = null;
+    public timerValue: Dayjs = null;
 
     protected useCoolOffTime: boolean = null;
 
@@ -47,8 +48,8 @@ export class LimitCancelComponent extends AbstractComponent implements OnInit {
             this.cancelable = true;
         }
 
-        const dateTimeValue: DateTime = DateTime.fromSQL(this.$params.value, {zone: 'utc'});
-        if (dateTimeValue.isValid) {
+        const dateTimeValue: Dayjs = dayjs(this.$params.value, 'YYYY-MM-DD HH:mm:ss');
+        if (dateTimeValue.isValid()) {
             this.timerValue = dateTimeValue;
             this.useCoolOffTime = true;
         }

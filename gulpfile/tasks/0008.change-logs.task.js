@@ -10,7 +10,7 @@ const {task, src, dest} = require('gulp'),
     concat = require('gulp-concat'),
     customFilter = require('gulp-custom-filter'),
     glob = require('glob'),
-    luxon = require('luxon');
+    dayjs = require('dayjs');
 
 module.exports = function changeLogsTask() {
 
@@ -247,7 +247,7 @@ module.exports = function changeLogsTask() {
         });
         history = history.filter(i => !!i);
 
-        const date = luxon.DateTime.now().toFormat('dd-LL-yyyy');
+        const date = dayjs().format('DD-MM-YYYY');
         const filePath = `${this.params.paths.changeLogs}/${tag}_${date}.md`,
             relativeFilePath = path.relative(__dirname, filePath),
             relativeDirPath = path.dirname(relativeFilePath);
@@ -291,7 +291,7 @@ module.exports = function changeLogsTask() {
             throw Error(`Directory ./${relativeDirPath} not founded`);
         }
 
-        const minStartDate = luxon.DateTime.now().minus({months: 4});
+        const minStartDate = dayjs().add(-4, 'month');
 
         if (!isRC) {
             deleteRClogs();
@@ -307,13 +307,7 @@ module.exports = function changeLogsTask() {
             .pipe(customFilter(file => {
                 const fileNameInfo = path.basename(file.basename, '.md').split('_');
                 const dateInfo = fileNameInfo[1].split('-');
-                const fileDate = luxon.DateTime.fromISO(`${dateInfo[2]}-${dateInfo[1]}-${dateInfo[0]}`);
-                const interval = luxon.Interval.fromDateTimes(fileDate, fileDate);
-
-                if (interval.isAfter(minStartDate)) {
-                    return true;
-                }
-                return false;
+                return minStartDate.diff(`${dateInfo[2]}-${dateInfo[1]}-${dateInfo[0]}`, 'day') < 0;
             }))
             .pipe(modifyFile((content, filePath, file) => {
 

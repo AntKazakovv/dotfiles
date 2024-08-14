@@ -44,8 +44,8 @@ export class TableRowModel {
                 } else {
                     return (
                         col.format
-                            ? value?.toFormat(col.format)
-                            : value?.toFormat('dd-MM-yyyy HH:mm:ss')
+                            ? value?.format(col.format)
+                            : value?.format('DD-MM-YYYY HH:mm:ss')
                     ) || value?.toString();
                 }
 

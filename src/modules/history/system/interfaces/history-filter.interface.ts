@@ -1,5 +1,5 @@
 import {BehaviorSubject} from 'rxjs';
-import {DateTime} from 'luxon';
+import type {Dayjs} from 'dayjs';
 import {TSortDirection} from 'wlc-engine/modules/core';
 
 export type TTransactionFilter = 'all' | 'deposit' | 'withdraw' | 'transfer' | 'commission';
@@ -45,6 +45,6 @@ export interface IHistoryDefault {
 export interface IHistoryFilter<T = string> {
     filterValue?: T;
     orderDirection?: TSortDirection;
-    startDate?: DateTime;
-    endDate?: DateTime;
+    startDate?: Dayjs;
+    endDate?: Dayjs;
 }

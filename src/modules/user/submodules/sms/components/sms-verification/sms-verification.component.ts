@@ -9,7 +9,8 @@ import {
 } from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
 
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
 import {
     interval,
     Subscription,
@@ -62,7 +63,7 @@ export class SmsVerificationComponent extends UserActionsAbstract<Params.ISmsVer
     public config: IFormWrapperCParams;
     public configCode = Params.smsVerificationFormCodeConfig;
     public codeSended: boolean = false;
-    public timeValue: DateTime;
+    public timeValue: Dayjs;
     public lockResend: boolean;
 
     protected resendChecker: Subscription;
@@ -212,7 +213,7 @@ export class SmsVerificationComponent extends UserActionsAbstract<Params.ISmsVer
 
     protected setResendTimeout(): void {
         this.lockResend = true;
-        this.timeValue = DateTime.now().plus({minutes: 1});
+        this.timeValue = dayjs().add(1, 'minute');
         if (this.timer) {
             this.timer.value = this.timeValue;
             this.timer.ngOnInit();
@@ -220,7 +221,7 @@ export class SmsVerificationComponent extends UserActionsAbstract<Params.ISmsVer
         this.cdr.detectChanges();
 
         this.resendChecker = interval(1000).pipe(takeUntil(this.$destroy)).subscribe(() => {
-            if (this.timeValue.toMillis() <= DateTime.local().toMillis()) {
+            if (this.timeValue.unix() <= dayjs().unix()) {
                 this.resendChecker.unsubscribe();
                 this.lockResend = false;
                 this.cdr.markForCheck();

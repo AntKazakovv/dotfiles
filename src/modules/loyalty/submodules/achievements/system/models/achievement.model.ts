@@ -1,4 +1,4 @@
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
 import _assign from 'lodash-es/assign';
 import _isObject from 'lodash-es/isObject';
 import _toNumber from 'lodash-es/toNumber';
@@ -132,7 +132,7 @@ export class AchievementModel extends AbstractModel<IAchievement> {
     }
 
     public get receivingDate(): string {
-        return DateTime.fromSQL(this.data.EndDate).toFormat('dd.MM.yyyy');
+        return dayjs(this.data.EndDate, 'YYYY-MM-DD HH:mm:ss').format('DD-MM-YYYY');
     }
 
     protected getCurrentLangText(property: string | IIndexing<string>): string {

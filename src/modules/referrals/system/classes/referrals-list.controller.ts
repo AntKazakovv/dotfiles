@@ -1,9 +1,7 @@
 import _reduce from 'lodash-es/reduce';
-import {
-    DateTime,
-    Duration,
-    Interval,
-} from 'luxon';
+
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
 import {
     BehaviorSubject,
     Subject,
@@ -33,7 +31,7 @@ export class ReferralsListController {
     public filterInterval: string;
 
     protected $destroy: Subject<void> = new Subject();
-    protected requestDateFormat: string = 'yyyy-MM-dd';
+    protected requestDateFormat: string = 'YYYY-MM-DD';
     protected visualDateFormat: string;
     protected queryParams$: BehaviorSubject<IRefListQueryParams> = new BehaviorSubject(null);
 
@@ -65,7 +63,7 @@ export class ReferralsListController {
     }
 
     public init(): void {
-        this.visualDateFormat = this.params.filterDateFormat || 'dd.MM.yyyy';
+        this.visualDateFormat = this.params.filterDateFormat || 'DD.MM.YYYY';
         this.prepareFilterData();
     }
 
@@ -105,9 +103,9 @@ export class ReferralsListController {
     /** Prepare options for date selects */
     protected prepareFilterData(): void {
         const monthsList: ISelectOptions[] = this.selectValuesService.getDateList('months').getValue();
-        const currentMonth: number = DateTime.now().month;
+        const currentMonth: number = dayjs().month() + 1;
         const yearsList: ISelectOptions[] = [];
-        const currentYear: number = DateTime.now().year;
+        const currentYear: number = dayjs().year();
 
         for(let y = currentYear; y > 2020; y--) {
             yearsList.push({value: `${y}`, title: `${y}`});
@@ -136,22 +134,14 @@ export class ReferralsListController {
         }
 
         if (this.currentMonth && this.currentYear) {
-            const interval = Interval.after(
-                DateTime.fromObject({
-                    year: +this._currentYear,
-                    month: +this._currentMonth,
-                    day: 1,
-                }),
-                Duration.fromObject({months: 1, days: -1}),
-            );
-            const from: DateTime = interval.start;
-            const to: DateTime = interval.end;
+            const from: Dayjs = dayjs().startOf('month');
+            const to: Dayjs = dayjs().endOf('month');
 
-            this.filterInterval = `${from.toFormat(this.visualDateFormat)} - ${to.toFormat(this.visualDateFormat)}`;
+            this.filterInterval = `${from.format(this.visualDateFormat)} - ${to.format(this.visualDateFormat)}`;
 
             this.queryParams$.next({
-                from: from.toFormat(this.requestDateFormat),
-                to: to.toFormat(this.requestDateFormat),
+                from: from.format(this.requestDateFormat),
+                to: to.format(this.requestDateFormat),
             });
         }
     }

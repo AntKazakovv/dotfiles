@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import {
     Component,
     OnInit,
@@ -7,7 +8,7 @@ import {
     ChangeDetectionStrategy,
 } from '@angular/core';
 import {UntypedFormControl} from '@angular/forms';
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
 import {ICheckboxCParams} from 'wlc-engine/modules/core/components/checkbox/checkbox.params';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
@@ -49,7 +50,7 @@ export class RealityCheckInfoComponent extends AbstractComponent implements OnIn
 
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
-        this.playTime = DateTime.fromJSDate(this.getLocalDate()).toFormat('yyyy-LL-dd HH:mm:ss');
+        this.playTime = dayjs(this.getLocalDate()).format('YYYY-MM-DD HH:mm:ss');
     }
 
     public override ngOnDestroy(): void {

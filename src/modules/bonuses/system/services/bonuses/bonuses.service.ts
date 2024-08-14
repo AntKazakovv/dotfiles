@@ -15,7 +15,8 @@ import {
     distinctUntilChanged,
     map,
 } from 'rxjs/operators';
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
 import _each from 'lodash-es/each';
 import _extend from 'lodash-es/extend';
 import _filter from 'lodash-es/filter';
@@ -1351,8 +1352,8 @@ export class BonusesService {
      * @return {void}
      */
     private showMessageBonusFreeRound(freeRound: IFreeRoundData, game: Game): void {
-        const defaultTime = DateTime.fromSQL(freeRound.date);
-        const offsetTime = defaultTime.plus({minutes: defaultTime.offset});
+        const defaultTime: Dayjs = dayjs(freeRound.date, 'YYYY-MM-DD HH:mm:ss');
+        const offsetTime: Dayjs = defaultTime.add(dayjs().utcOffset(), 'minute');
 
         this.eventService.emit({
             name: NotificationEvents.PushMessage,
@@ -1364,7 +1365,7 @@ export class BonusesService {
                 message: gettext('Free spins available: {{count}}\n Play until: {{date}}'),
                 messageContext: {
                     count: freeRound.count,
-                    date: offsetTime.setLocale(defaultTime.locale).toFormat('MM/dd/yyyy hh:mm:ss'),
+                    date: offsetTime.format('MM/DD/YYYY HH:mm:ss'),
                 },
                 image: {
                     src: game.image,

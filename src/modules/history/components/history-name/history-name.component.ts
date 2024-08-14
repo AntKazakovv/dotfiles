@@ -66,12 +66,13 @@ export class HistoryNameComponent extends AbstractComponent implements OnInit {
 
                 return GlobalHelper.toLocalTime(
                     date,
-                    'SQL',
+                    'ISO',
                     (this.window.innerWidth < 480) ? this.$params.previewBetDateFormat.mobile
                         : this.$params.previewBetDateFormat.desktop,
                 );
             case 'transactions':
                 return (this.$params.item as Params.IFinancialHistoryNameItem).date;
+
             case 'bonuses':
             case 'orders':
             case 'tournaments':

@@ -10,7 +10,7 @@ import {
     SimpleChanges,
 } from '@angular/core';
 
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
 
 import {
     AbstractComponent,
@@ -82,7 +82,7 @@ export class QuestProgressComponent extends AbstractComponent implements OnInit,
     }
 
     public init(): void {
-        this.showTimer = this.$params.quest.renewalTime > DateTime.now();
+        this.showTimer = this.$params.quest.renewalTime > dayjs();
         this.progressText = `${this.$params.quest.progressReady} / ${this.$params.quest.progressTotal}`;
 
         this.statusImagePath = this.getStatusImage(false);

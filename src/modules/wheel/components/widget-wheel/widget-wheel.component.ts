@@ -10,7 +10,8 @@ import {
     BehaviorSubject,
     takeUntil,
 } from 'rxjs';
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
 import _merge from 'lodash-es/merge';
 import _cloneDeep from 'lodash-es/cloneDeep';
 
@@ -43,7 +44,7 @@ export class WidgetWheelComponent extends AbstractComponent implements OnInit {
     public enableWheel$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     public timerParams: ITimerCParams = {};
     public override $params: Params.IWidgetWheelCParams;
-    public timerValue!: DateTime;
+    public timerValue!: Dayjs;
     protected IDurationWheel: IDurationWheel;
     protected template$: BehaviorSubject<TButtonTemplate> = new BehaviorSubject<TButtonTemplate>('title');
     protected isExpired: boolean = false;
@@ -99,10 +100,9 @@ export class WidgetWheelComponent extends AbstractComponent implements OnInit {
     }
 
     protected setTimer(): void {
-        this.timerValue = DateTime.now().plus({
-            minutes: this.IDurationWheel.minutes,
-            seconds: this.IDurationWheel.seconds,
-        });
+        this.timerValue = dayjs()
+            .add(this.IDurationWheel.minutes, 'minute')
+            .add(this.IDurationWheel.seconds, 'second');
         this.cdr.markForCheck();
     }
 

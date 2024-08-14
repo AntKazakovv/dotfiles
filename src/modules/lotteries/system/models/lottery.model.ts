@@ -1,4 +1,5 @@
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
 import _indexOf from 'lodash-es/indexOf';
 
 import {
@@ -62,23 +63,23 @@ export class Lottery extends BaseLottery {
     }
 
     /** Дата старта эмиссии билетов */
-    public get dateStart(): DateTime {
-        const defaultTime = DateTime.fromSQL(this.data.DateStart);
-        return defaultTime.plus({minutes: defaultTime.offset});
+    public get dateStart(): Dayjs {
+        const defaultTime: Dayjs = dayjs(this.data.DateStart, 'YYYY-MM-DD HH:mm:ss');
+        return defaultTime.add(dayjs().utcOffset(), 'minute');
     }
 
     public get dateStartFormatted(): string {
-        return this.dateStart.toFormat(this.dateFormat);
+        return this.dateStart.format(this.dateFormat);
     }
 
     /** Дата конца эмиссии билетов */
-    public get dateEnd(): DateTime {
-        const defaultTime = DateTime.fromSQL(this.data.DateEnd);
-        return defaultTime.plus({minutes: defaultTime.offset});
+    public get dateEnd(): Dayjs {
+        const defaultTime: Dayjs = dayjs(this.data.DateEnd, 'YYYY-MM-DD HH:mm:ss');
+        return defaultTime.add(dayjs().utcOffset(), 'minute');
     }
 
     public get dateEndFormatted(): string {
-        return this.dateEnd.toFormat(this.dateFormat);
+        return this.dateEnd.format(this.dateFormat);
     }
 
     public get datesFormatted(): string {
@@ -95,11 +96,11 @@ export class Lottery extends BaseLottery {
 
     /** Ожидается старт эмиссии билетов */
     public get isWaitingForStart(): boolean {
-        return this.dateStart.toMillis() - DateTime.local().toMillis() > 0;
+        return this.dateStart.unix() - dayjs().unix() > 0;
     }
 
     public get isTicketSaleStopped(): boolean {
-        return this.dateEnd.toMillis() - DateTime.local().toMillis() < 0;
+        return this.dateEnd.unix() - dayjs().unix() < 0;
     }
 
     public get isActive(): boolean {
@@ -107,7 +108,7 @@ export class Lottery extends BaseLottery {
     }
 
     public get isEnded(): boolean {
-        return this.drawingDate.toMillis() - DateTime.local().toMillis() < 0;
+        return this.drawingDate.unix() - dayjs().unix() < 0;
     }
 
     public get isWaitingForResults(): boolean {

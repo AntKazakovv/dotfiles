@@ -52,7 +52,7 @@ export class InternalMailModel extends AbstractModel<IInternalMail> {
      * @returns {string} day of creation of the mail (format: dd-MM-yyyy HH:mm)
      */
     public get date(): string {
-        return GlobalHelper.toLocalTime(this.data.Created, 'SQL', 'dd-MM-yyyy HH:mm');
+        return GlobalHelper.toLocalTime(this.data.Created, 'SQL', 'DD-MM-YYYY HH:mm');
     }
 
     /**

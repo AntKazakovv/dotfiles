@@ -1,4 +1,5 @@
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
 import _assign from 'lodash-es/assign';
 import _isObject from 'lodash-es/isObject';
 
@@ -43,8 +44,8 @@ export class QuestModel extends AbstractModel<IQuest> {
         this.progressPercent = Math.floor(this.data.Progress.Ready * 100 / (this.data.Progress.Total || 1));
     }
 
-    public get renewalTime(): DateTime {
-        return DateTime.fromSQL(this.data.RenewalTime);
+    public get renewalTime(): Dayjs {
+        return dayjs(this.data.RenewalTime);
     }
 
     public get status(): IQuest['Status'] {

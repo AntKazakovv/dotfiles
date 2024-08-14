@@ -13,7 +13,7 @@ import {
     HostBinding,
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {DateTime} from 'luxon';
+import type {Dayjs} from 'dayjs';
 
 import {
     AbstractComponent,
@@ -96,7 +96,7 @@ export class WinnerComponent extends AbstractComponent implements OnInit {
         return GlobalHelper.proxyUrl(`/wlc/flags/4x3/${this.$params.winner.countryIso2}.svg`);
     }
 
-    public get date(): DateTime {
+    public get date(): Dayjs {
         return this.$params.winner.date;
     }
 

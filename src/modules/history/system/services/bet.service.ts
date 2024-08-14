@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
 import _filter from 'lodash-es/filter';
 import _orderBy from 'lodash-es/orderBy';
 
@@ -21,8 +22,8 @@ interface IBetRequestParams {
 }
 
 interface IGetBetsParams {
-    endDate: DateTime;
-    startDate: DateTime;
+    endDate: Dayjs;
+    startDate: Dayjs;
     orderDirection: TSortDirection;
 }
 
@@ -48,18 +49,20 @@ export class BetService {
      * @returns {Promise<void>}
      */
     public async getBets(params: IGetBetsParams, needRequest: boolean): Promise<Bet[]> {
+
         if (needRequest || !this.wasFirstRequest) {
-            const startDateUTC: DateTime = params.startDate.startOf('day').toUTC(),
-                endDateUTC: DateTime = params.endDate.endOf('day').toUTC();
+            const startDateUTC: Dayjs = params.startDate.startOf('day').add(-1 * dayjs().utcOffset(), 'minute'),
+                endDateUTC: Dayjs = params.endDate.endOf('day').add(-1 * dayjs().utcOffset(), 'minute');
 
             this.allBets = await this.requestBetsList({
-                startDate: startDateUTC.toFormat('y-LL-dd\'\T\'HH:mm:ss'),
-                endDate: endDateUTC.toFormat('y-LL-dd\'\T\'HH:mm:ss'),
+                startDate: startDateUTC.format('YYYY-MM-DDTHH:mm:ss'),
+                endDate: endDateUTC.format('YYYY-MM-DDTHH:mm:ss'),
             });
 
             this.allBets = _filter(this.allBets, (item: Bet): boolean => {
-                const itemDateUTC: DateTime = DateTime.fromSQL(item.dateISO, {zone: 'utc'});
-                return itemDateUTC >= startDateUTC && itemDateUTC <= endDateUTC;
+                const itemDateUTC: Dayjs = dayjs(item.dateISO, 'YYYY-MM-DD HH:mm:ss');
+                return itemDateUTC.unix() >= startDateUTC.unix()
+                && itemDateUTC.unix() <= endDateUTC.unix();
             });
 
             if (!this.wasFirstRequest) {
@@ -101,7 +104,7 @@ export class BetService {
             const bets: Bet[] = await HistoryHelper.conversionCurrency<Bet>(
                 this.injectionService,
                 (response.data) as unknown as Bet[]);
-                
+
             return bets;
         } catch (error) {
             this.logService.sendLog({code: '22.0.0', data: error});

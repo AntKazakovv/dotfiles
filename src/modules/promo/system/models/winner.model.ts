@@ -1,4 +1,5 @@
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
 
 import {
     GamesCatalogService,
@@ -45,8 +46,8 @@ export class WinnerModel extends AbstractModel<IWinnerData> {
         return this.data.CountryIso3;
     }
 
-    public get date(): DateTime {
-        return DateTime.fromISO(this.data.Date);
+    public get date(): Dayjs {
+        return dayjs(this.data.Date, 'YYYY-MM-DDTHH:mm:ss');
     }
 
     public get screenName(): string {

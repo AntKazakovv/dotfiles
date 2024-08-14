@@ -12,7 +12,10 @@ import {
     takeUntil,
     takeWhile,
 } from 'rxjs/operators';
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
+import toObject from 'dayjs/plugin/toObject';
+dayjs.extend(toObject);
 
 import {
     AbstractComponent,
@@ -67,8 +70,8 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
     public reportIntervalExceeded: boolean = false;
 
     protected filterValue: TTournamentsFilter = 'all';
-    protected endDate: DateTime = DateTime.local().endOf('day');
-    protected startDate: DateTime = this.endDate.minus({month: 1}).startOf('day');
+    protected endDate: Dayjs = dayjs().endOf('day');
+    protected startDate: Dayjs = this.endDate.add(-1, 'month').startOf('day');
     protected allTournaments: TournamentHistory[] = [];
     protected tournamentsService: TournamentsService;
 
@@ -155,8 +158,8 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
         }
 
         return result.filter((item: TournamentHistory): boolean => {
-            return DateTime.fromSQL(item.end).toLocal() >= this.startDate
-                && DateTime.fromSQL(item.end).toLocal() <= this.endDate;
+            return dayjs(item.end).add(dayjs().utcOffset(), 'minute') >= this.startDate
+                && dayjs(item.end).add(dayjs().utcOffset(), 'minute') <= this.endDate;
         });
     }
 
@@ -169,15 +172,15 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
 
         if (this.startDateInput.datepickerOptions) {
             this.startDateInput.datepickerOptions.minDate = new Date(
-                disableSince.year,
-                disableSince.month - 1,
-                disableSince.day,
+                disableSince.years,
+                disableSince.months,
+                disableSince.date,
             );
 
             this.startDateInput.datepickerOptions.maxDate = new Date(
-                disableUntil.year,
-                disableUntil.month - 1,
-                disableUntil.day,
+                disableUntil.years,
+                disableUntil.months,
+                disableUntil.date,
             );
         }
     }
@@ -203,7 +206,7 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
             .subscribe(async (data: IHistoryFilter<TTournamentsFilter>): Promise<void> => {
                 this.filterSelect.control.setValue(this.filterValue = data.filterValue);
                 const {startDate, endDate} = data;
-                const datesChanged = (!startDate?.equals(this.startDate) || !endDate?.equals(this.endDate));
+                const datesChanged = (!startDate?.isSame(this.startDate) || !endDate?.isSame(this.endDate));
 
                 if (datesChanged) {
                     this.startDateInput.control.setValue(data.startDate);
@@ -248,11 +251,11 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
 
         this.startDateInput.control.valueChanges
             .pipe(
-                filter((startDate: DateTime): boolean => !this.startDate.equals(startDate)),
+                filter((startDate: Dayjs): boolean => !this.startDate.isSame(startDate)),
                 takeWhile(() => this.showFilter),
                 takeUntil(this.$destroy),
             )
-            .subscribe(async (startDate: DateTime): Promise<void> => {
+            .subscribe(async (startDate: Dayjs): Promise<void> => {
                 await this.changeDateHandler(startDate, this.endDate);
                 this.pending = true;
                 this.tournaments$.next(this.tournamentsFilter());
@@ -262,11 +265,11 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
 
         this.endDateInput.control.valueChanges
             .pipe(
-                filter((endDate: DateTime): boolean => !this.endDate.equals(endDate)),
+                filter((endDate: Dayjs): boolean => !this.endDate.isSame(endDate)),
                 takeWhile(() => this.showFilter),
                 takeUntil(this.$destroy),
             )
-            .subscribe(async (endDate: DateTime): Promise<void> => {
+            .subscribe(async (endDate: Dayjs): Promise<void> => {
                 await this.changeDateHandler(this.startDate, endDate);
                 this.pending = true;
                 this.tournaments$.next(this.tournamentsFilter());
@@ -301,9 +304,9 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
         });
     }
 
-    protected async changeDateHandler(startDate: DateTime, endDate: DateTime): Promise<void> {
-        const isStartDateEarlier: boolean = startDate.toMillis() < this.startDate.toMillis();
-        const isEndDateLater: boolean = endDate.toMillis() > this.endDate.toMillis();
+    protected async changeDateHandler(startDate: Dayjs, endDate: Dayjs): Promise<void> {
+        const isStartDateEarlier: boolean = startDate.unix() < this.startDate.unix();
+        const isEndDateLater: boolean = endDate.unix() > this.endDate.unix();
 
         if (isStartDateEarlier && !isEndDateLater) {
             this.startDate = startDate;
@@ -319,7 +322,7 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
             endDate: endDate,
         };
         this.historyFilterService.setFilter('tournaments', newFilterValue);
-        const intervalExceeded: boolean = endDate.startOf('day').minus({days: 90}) > startDate;
+        const intervalExceeded: boolean = endDate.startOf('day').add(-90, 'day') > startDate;
 
         if ((isStartDateEarlier || isEndDateLater)
             || (intervalExceeded !== this.reportIntervalExceeded)) {

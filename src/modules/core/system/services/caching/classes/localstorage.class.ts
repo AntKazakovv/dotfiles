@@ -1,6 +1,6 @@
+import dayjs from 'dayjs';
 import {AbstractCache} from './abstract.cache';
 import {LocalStorageService} from 'ngx-webstorage';
-import {DateTime} from 'luxon';
 
 export class LocalStorageCache extends AbstractCache {
 
@@ -24,7 +24,7 @@ export class LocalStorageCache extends AbstractCache {
         if (!data) {
             return;
         }
-        if (data.expiration < DateTime.local().toMillis()) {
+        if (data.expiration < new Date().getTime()) {
             await this.delete(this.getKey(key));
             return;
         }
@@ -43,7 +43,7 @@ export class LocalStorageCache extends AbstractCache {
     public set<T>(key: string, value: T, keepTime: number): Promise<T> {
         this.addKey(key);
         return this.storage.store(this.getKey(key), {
-            expiration: DateTime.local().plus(keepTime).toMillis(),
+            expiration: dayjs().add(keepTime, 'ms').toDate().getTime(),
             value,
         });
     }

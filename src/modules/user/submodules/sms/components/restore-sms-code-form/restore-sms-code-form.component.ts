@@ -7,8 +7,8 @@ import {
     ViewChild,
     ChangeDetectorRef,
 } from '@angular/core';
-
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
 
 import {
     AbstractComponent,
@@ -36,7 +36,7 @@ export class RestoreSmsCodeFormComponent extends AbstractComponent implements On
 
     public override $params: Params.IRestoreSmsCodeFormCParams;
     public lockResend: boolean;
-    public timeValue: DateTime;
+    public timeValue: Dayjs;
     public formConfig: IFormWrapperCParams;
     protected userService: UserService;
 
@@ -141,7 +141,7 @@ export class RestoreSmsCodeFormComponent extends AbstractComponent implements On
 
     protected setResendTimer(): void {
         this.lockResend = true;
-        this.timeValue = DateTime.now().plus({minutes: 1});
+        this.timeValue =  dayjs().add(1, 'minute');
         if (this.timer) {
             this.timer.value = this.timeValue;
             this.timer.ngOnInit();

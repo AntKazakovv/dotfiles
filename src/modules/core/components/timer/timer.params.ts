@@ -1,4 +1,4 @@
-import {DateTime} from 'luxon';
+import type {Dayjs} from 'dayjs';
 
 import {
     CustomType,
@@ -17,7 +17,7 @@ export type ModifiersType = AutoModifiersType & ManualModifiersType & string;
 export interface ITimerCParams extends IComponentParams<ComponentTheme, ComponentType, ThemeMod> {
     common?: {
         noCountDown?: boolean;
-        value?: string | DateTime;
+        value?: string | Dayjs;
         text?: string;
         countUp?: boolean;
         noDays?: boolean;

@@ -1,4 +1,5 @@
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
 
 import {
     AbstractModel,
@@ -95,13 +96,13 @@ export class StoreItem extends AbstractModel<IStoreItem> {
         return super.data;
     }
 
-    public get timerValue(): DateTime {
-        const defaultTime = DateTime.fromSQL(this.data.NextDateAvailable);
-        return defaultTime.plus({minutes: defaultTime.offset});
+    public get timerValue(): Dayjs {
+        const defaultTime: Dayjs = dayjs(this.data.NextDateAvailable, 'YYYY-MM-DD HH:mm:ss');
+        return defaultTime.add(dayjs().utcOffset(), 'minute');
     }
 
     public get nextDateAvailable(): boolean {
-        return this.timerValue.toMillis() > DateTime.local().toMillis();
+        return this.data.NextDateAvailable ? this.timerValue.unix() > dayjs().unix() : false;
     }
 
     public get availableForLevels(): number[] {

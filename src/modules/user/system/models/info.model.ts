@@ -1,4 +1,5 @@
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
 import _reduce from 'lodash-es/reduce';
 import _get from 'lodash-es/get';
 import _assign from 'lodash-es/assign';
@@ -226,9 +227,9 @@ export class UserInfo extends AbstractModel<IUserInfo> {
     }
 
     /** Get date of next terms & conditions */
-    public get nextTermsVersion(): string | DateTime {
-        const date = DateTime.fromSQL(this.data?.toSWlcVersion, {zone: 'utc'});
-        if (date.invalidReason) {
+    public get nextTermsVersion(): string | Dayjs {
+        const date = dayjs(this.data.toSWlcVersion);
+        if (!date.isValid()) {
             return this.data?.toSWlcVersion || '';
         } else {
             return date;
@@ -236,7 +237,7 @@ export class UserInfo extends AbstractModel<IUserInfo> {
     }
 
     /** Get date of current accepted terms & conditions */
-    public get currentTermsVersion(): string | DateTime {
+    public get currentTermsVersion(): string | Dayjs {
         if (this.data?.toSVersion?.ToSVersion) {
             return this.getTermsVersion(this.data.toSVersion.ToSVersion);
         }
@@ -244,13 +245,13 @@ export class UserInfo extends AbstractModel<IUserInfo> {
     }
 
     /** Get terms version */
-    public getTermsVersion(version: string): string | DateTime {
-        let date = DateTime.fromSQL(version, {zone: 'utc'});
-        if (date.invalidReason) {
+    public getTermsVersion(version: string): string | Dayjs {
+        let date = dayjs(version);
+        if (!date.isValid()) {
             // доп проверка для версий термсов
-            date = DateTime.fromFormat(version, 'dd.MM.yyyy', {zone: 'utc'});
+            date = dayjs(version, 'DD-MM-YYYY');
 
-            if (date.invalidReason) {
+            if (!date.isValid()) {
                 return version;
             } else {
                 return date;
@@ -262,10 +263,10 @@ export class UserInfo extends AbstractModel<IUserInfo> {
 
     /** Get true when last terms & conditions accepted */
     public get isTermsActual(): boolean {
-        if (this.nextTermsVersion instanceof DateTime) {
-            if (this.nextTermsVersion > DateTime.now()) {
+        if (this.nextTermsVersion instanceof dayjs) {
+            if (this.nextTermsVersion > dayjs()) {
                 return true;
-            } else if (this.currentTermsVersion instanceof DateTime) {
+            } else if (this.currentTermsVersion instanceof dayjs) {
                 return this.currentTermsVersion >= this.nextTermsVersion;
             }
         }

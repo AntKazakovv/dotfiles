@@ -7,7 +7,7 @@ import {
     OnInit,
     ChangeDetectionStrategy,
 } from '@angular/core';
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
 import {
     distinctUntilKeyChanged,
     map,
@@ -65,6 +65,7 @@ export class BirthdayFieldComponent extends AbstractComponent implements OnInit,
         const {control: dayControl} = this.$params.birthDay;
         let month: number;
         let year: number;
+        let day: number;
 
         merge(
             this.$params.birthYear.control.valueChanges.pipe(
@@ -96,9 +97,9 @@ export class BirthdayFieldComponent extends AbstractComponent implements OnInit,
                  */
                 year = year || 2000;
                 month = month || 1;
-                this.selectValues.setDaysInMonth(DateTime.local(year, month).daysInMonth);
-
-                if (dayControl.value && _toNumber(dayControl.value) > this.selectValues.daysInMonth) {
+                day = dayControl.value;
+                this.selectValues.setDaysInMonth(dayjs(`${year}-${month}-01 12:00:00`).daysInMonth());
+                if (day && _toNumber(day) > this.selectValues.daysInMonth) {
                     dayControl.setValue('');
                 }
 

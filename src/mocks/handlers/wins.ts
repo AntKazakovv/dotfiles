@@ -4,14 +4,13 @@ import {
     finance,
     address,
 } from 'faker';
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
 import {
     MockedRequest,
     MockedResponse,
     ResponseComposition,
     RestContext,
 } from 'msw';
-
 import {MockHelper} from 'wlc-engine/mocks/helpers/mock.helper';
 import {IWinnerData} from 'wlc-engine/modules/promo';
 
@@ -35,14 +34,11 @@ export const winsHandler = async (
                 GameTableID: await MockHelper.getRandomGameID(true),
                 AmountEUR: datatype.number(),
                 Amount: datatype.number(),
-                Date: DateTime
-                    .now()
-                    .minus({
-                        day: datatype.number(10),
-                        hour: datatype.number(60),
-                        second: datatype.number(60),
-                    })
-                    .toFormat('yyyy-MM-dd HH:mm:ss'),
+                Date: dayjs()
+                    .add(-1 * datatype.number(10), 'day')
+                    .add(-1 * datatype.number(60), 'hour')
+                    .add(-1 * datatype.number(60), 'second')
+                    .format('YYYY-MM-DD HH:mm:ss'),
                 ScreenName: fake('{{name.firstName}} *****'),
                 Currency: finance.currencyCode(),
                 CountryIso2: address.countryCode('alpha-2').toLowerCase(),

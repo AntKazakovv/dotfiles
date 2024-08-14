@@ -63,11 +63,11 @@ export class TournamentHistory extends AbstractModel<ITournamentHistory> {
     }
 
     public get start(): string {
-        return GlobalHelper.toLocalTime(this.data.Start, 'SQL', 'yyyy-MM-dd HH:mm:ss');
+        return GlobalHelper.toLocalTime(this.data.Start, 'SQL', 'YYYY-MM-DD HH:mm:ss');
     }
 
     public get end(): string {
-        return GlobalHelper.toLocalTime(this.data.End, 'SQL', 'yyyy-MM-dd HH:mm:ss');
+        return GlobalHelper.toLocalTime(this.data.End, 'SQL', 'YYYY-MM-DD HH:mm:ss');
     }
 
     public get win(): string {

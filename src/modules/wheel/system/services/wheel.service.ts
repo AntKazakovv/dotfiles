@@ -7,7 +7,8 @@ import {
     first,
     Subscription,
 } from 'rxjs';
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
 import _toString from 'lodash-es/toString';
 import _cloneDeep from 'lodash-es/cloneDeep';
 
@@ -429,8 +430,8 @@ export class WheelService {
     }
 
     public modifyDateTimeFormat(incomTime: string, serverTime: number): string {
-        const time: DateTime = DateTime.fromSQL(incomTime, {zone: 'utc'}).toLocal();
-        const timeDifference: number = (time.toMillis() - serverTime);
+        const time: Dayjs = dayjs(incomTime).add(dayjs().utcOffset(), 'minute');
+        const timeDifference: number = (time.unix() - serverTime);
         const seconds = Math.floor(timeDifference
             / DateHelper.milliSecondsInSecond % DateHelper.secondsInMinute);
         const minutes = Math.floor(timeDifference
@@ -639,12 +640,11 @@ export class WheelService {
     }
 
     private modifyDurationTime(settingsWheel: ISettingsWheel): number {
-        const timerValue = DateTime.now().plus({
-            minutes: +settingsWheel.duration.split(':')[0],
-            seconds: +settingsWheel.duration.split(':')[1],
-        });
+        const timerValue = dayjs()
+            .add(+settingsWheel.duration.split(':')[0], 'minute')
+            .add(+settingsWheel.duration.split(':')[1], 'second');
 
-        return Math.ceil(timerValue.toSeconds() - DateTime.local().toSeconds());
+        return Math.ceil(timerValue.unix() - dayjs().unix());
     }
 
     private finishEventHandler(winners: string | IWinner[]): void {

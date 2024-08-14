@@ -5,7 +5,7 @@ import {
     TestBed,
 } from '@angular/core/testing';
 
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
 import {MockComponent} from 'ng-mocks';
 import {
     BehaviorSubject,
@@ -15,12 +15,15 @@ import {
 import {
     ActionService,
     ConfigService,
-    DatepickerComponent,
     Deferred,
     DeviceType,
     WrapperComponent,
 } from 'wlc-engine/modules/core';
-import {HistoryFilterService, IHistoryFilter} from 'wlc-engine/modules/history';
+import {
+    HistoryFilterService,
+    IHistoryFilter,
+} from 'wlc-engine/modules/history';
+import {DatepickerComponent} from 'wlc-engine/modules/core/components/datepicker/datepicker.component';
 import {TableComponent} from 'wlc-engine/modules/core/components/table/table.component';
 import {HistoryRangeComponent} from 'wlc-engine/modules/history/components/history-range/history-range.component';
 import {
@@ -85,8 +88,8 @@ describe('InternalMailsComponent', (): void => {
             setAllFilters() {},
             getFilter() {
                 return new BehaviorSubject({
-                    startDate: DateTime.local(),
-                    endDate: DateTime.local().endOf('day'),
+                    startDate: dayjs(),
+                    endDate: dayjs().endOf('day'),
                     filterValue: 'all',
                 });
             },

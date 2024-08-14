@@ -10,10 +10,7 @@ import {
     fromEventPattern,
     Observable,
 } from 'rxjs';
-import {
-    DateTime,
-    DateTimeOptions,
-} from 'luxon';
+import dayjs from 'dayjs';
 import _size from 'lodash-es/size';
 import _get from 'lodash-es/get';
 import _isArray from 'lodash-es/isArray';
@@ -425,21 +422,25 @@ export class GlobalHelper {
      * @param date {string}
      * @param from {'ISO' | 'SQL'} recording format
      * @param toFormat {string} in what recording format should I remake
-     * @param options {DateTimeOptions}
      * @returns {string} local time
      */
     public static toLocalTime(
         date: string,
         from: 'ISO' | 'SQL',
         toFormat: string,
-        options: DateTimeOptions = {zone: 'utc'},
     ): string {
+        let format: string;
         switch(from) {
             case 'ISO':
-                return DateTime.fromISO(date, options).toLocal().toFormat(toFormat);
+                format = 'YYYY-MM-DDTHH:mm:ss';
+                break;
             case 'SQL':
-                return DateTime.fromSQL(date, options).toLocal().toFormat(toFormat);
+                format = 'YYYY-MM-DD HH:mm:ss';
+                break;
         }
+        return dayjs(date, format)
+            .add(dayjs().utcOffset(), 'minute')
+            .format(toFormat);
     }
 
     /**

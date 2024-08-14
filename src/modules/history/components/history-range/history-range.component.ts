@@ -66,10 +66,10 @@ export class HistoryRangeComponent extends AbstractComponent implements OnInit {
             .pipe(filter((historyFilter: IHistoryFilter<string>): boolean => !!historyFilter))
             .subscribe((historyFilter: IHistoryFilter<string>): void => {
                 this.startDate = historyFilter.startDate
-                    ? historyFilter.startDate.toFormat('dd.LL.yyyy')
+                    ? historyFilter.startDate.format('DD.MM.YYYY')
                     : this.startDate;
                 this.endDate = historyFilter.endDate
-                    ? historyFilter.endDate.toFormat('dd.LL.yyyy')
+                    ? historyFilter.endDate.format('DD.MM.YYYY')
                     : this.endDate;
                 this.ready = true;
                 this.cdr.detectChanges();

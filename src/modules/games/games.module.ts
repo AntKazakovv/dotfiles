@@ -91,9 +91,9 @@ export const components = {
 
 export const services = {
     'games-catalog-service': GamesCatalogService,
-    'merchant-fields-service': MerchantFieldsService,
-    'merchant-wallet-service': MerchantWalletService,
     'games-filter-service': GamesFilterService,
+    'merchant-wallet-service': MerchantWalletService,
+    'merchant-fields-service': MerchantFieldsService,
 };
 
 @NgModule({
@@ -143,6 +143,7 @@ export const services = {
     ],
     providers: [
         GamesCatalogService,
+        GamesFilterService,
         MerchantFieldsService,
         MerchantWalletService,
     ],

@@ -13,7 +13,8 @@ import {
     first,
     tap,
 } from 'rxjs';
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
 import _merge from 'lodash-es/merge';
 import _cloneDeep from 'lodash-es/cloneDeep';
 
@@ -45,7 +46,7 @@ export class GatheringParticipantsComponent extends AbstractComponent implements
     @Input() public inlineParams: Params.IGatheringParticipantsCParams;
     public override $params!: Params.IGatheringParticipantsCParams;
     protected timerParams: ITimerCParams = {};
-    protected timerValue!: DateTime;
+    protected timerValue!: Dayjs;
     protected ready: BehaviorSubject<boolean> = new BehaviorSubject(false);
     protected timerReady$ = new BehaviorSubject<boolean>(false);
     protected participants$: BehaviorSubject<ParticipantModel[]> = new BehaviorSubject([]);
@@ -129,15 +130,13 @@ export class GatheringParticipantsComponent extends AbstractComponent implements
 
     protected setTimer(timeRemaining: string): void {
         if (+timeRemaining.split(':')[1] > 0 || +timeRemaining.split(':')[0] > 0) {
-            this.timerValue = DateTime.now().plus({
-                minutes: +timeRemaining.split(':')[0],
-                seconds: +timeRemaining.split(':')[1],
-            });
+            this.timerValue = dayjs()
+                .add(+timeRemaining.split(':')[0], 'minute')
+                .add(+timeRemaining.split(':')[1], 'second');
         } else {
-            this.timerValue = DateTime.now().plus({
-                minutes: 0,
-                seconds: 0,
-            });
+            this.timerValue = dayjs()
+                .add(0, 'minute')
+                .add(0, 'second');
             this.timerReady$.next(true);
         }
     }

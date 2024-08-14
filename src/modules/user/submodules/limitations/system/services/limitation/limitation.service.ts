@@ -6,7 +6,8 @@ import {
     BehaviorSubject,
 } from 'rxjs';
 import {filter} from 'rxjs/operators';
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
 import _isArray from 'lodash-es/isArray';
 import _isObject from 'lodash-es/isObject';
 import _find from 'lodash-es/find';
@@ -144,7 +145,7 @@ export class LimitationService {
             });
 
             if (!this.loginTime || force) {
-                this.loginTime = DateTime.now().toUTC().toMillis();
+                this.loginTime = new Date().getTime();
                 this.configService.set({
                     name: 'realityCheckerTime',
                     value: this.loginTime,
@@ -196,7 +197,7 @@ export class LimitationService {
     public async getRealityCheck(from: number): Promise<IRealityCheckerResult> {
         try {
             const result = await this.dataService.request<IData>('limit/realityCheck', {
-                from: DateTime.fromMillis(from).toUTC().toFormat('yyyy-LL-dd HH:mm:ss'),
+                from: dayjs(from).add(-1 * dayjs().utcOffset(), 'minute').format('YYYY-MM-DD HH:mm:ss'),
             });
             return result.data;
         } catch (error) {
@@ -289,11 +290,12 @@ export class LimitationService {
      * @return {Promise}
      */
     public async userSelfDisable(days: number): Promise<void> {
-        const date = DateTime.now().plus({days});
+        const date = dayjs().add(days, 'day');
         await this.dataService.request({
             name: 'userSelfDisable',
             system: 'limit',
-            url: `/profiles/disable?dateTo=${date.toUTC().toSQL({includeOffset: false})}`,
+            // eslint-disable-next-line max-len
+            url: `/profiles/disable?dateTo=${date.add(-1 * date.utcOffset(), 'minute').format('YYYY-MM-DD HH:mm:ss.SSS')}`,
             type: 'PUT',
         });
         this.eventService.emit({name: 'USER_STATUS_DISABLE'});
@@ -363,7 +365,7 @@ export class LimitationService {
      * @return {Promise}
      */
     protected async processRealityCheck(): Promise<void> {
-        const now = DateTime.now().toMillis();
+        const now = new Date().getTime();
         if (now > (this.lastCheck + this.checkPeriod)) {
             const result = await this.getRealityCheck(this.loginTime);
             this.intervalChecker?.unsubscribe();
@@ -395,12 +397,12 @@ export class LimitationService {
                             storageType: 'sessionStorage',
                             value: null,
                         });
-                        this.loginTime = DateTime.now().toMillis();
+                        this.loginTime = new Date().getTime();
                         this.intervalChecker = timer(60000, 60000).subscribe(() => {
                             this.processRealityCheck();
                         });
                     }
-                    this.lastCheck = DateTime.now().toMillis();
+                    this.lastCheck = new Date().getTime();
                     this.configService.set<number>({
                         name: 'realityLastCheckTime',
                         storageType: 'sessionStorage',
@@ -414,12 +416,12 @@ export class LimitationService {
     private showModalUpdateLimit(result: IData<ISelfExclusionSingleData>, exclusion?: ILimitationExclusion): void {
         if (result.data?.type === 'queue') {
             let time: string = '';
-            const dateTimeFromSQL: DateTime = DateTime.fromSQL(result.data.date);
+            const dateTimeFromSQL: Dayjs = dayjs(result.data.date, 'YYYY-MM-DD HH:mm:ss');
 
-            if (dateTimeFromSQL.isValid) {
-                time = dateTimeFromSQL.plus({minutes: dateTimeFromSQL.offset}).toFormat('LL.dd.yyyy HH:mm');
+            if (dateTimeFromSQL.isValid()) {
+                time = dateTimeFromSQL.add(dayjs().utcOffset(), 'minute').format('MM.DD.YYYY HH:mm');
             } else {
-                time = DateTime.local().plus({days: 1}).toFormat('LL.dd.yyyy');
+                time = dayjs().add(1, 'day').format('MM.DD.YYYY');
             }
 
             this.eventService.emit({

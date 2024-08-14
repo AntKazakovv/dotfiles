@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
 import _assign from 'lodash-es/assign';
 
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
@@ -26,8 +28,8 @@ export class Bet extends AbstractModel<IBet> {
         return this._currency;
     }
 
-    public get date(): string {
-        return this.data.Date;
+    public get date(): Dayjs {
+        return dayjs(this.data.DateISO, 'YYYY-MM-DDTHH:mm:ss');
     }
 
     public get dateISO(): string {

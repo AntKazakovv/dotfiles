@@ -13,7 +13,9 @@ import {
     takeUntil,
     takeWhile,
 } from 'rxjs/operators';
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
+
 import _filter from 'lodash-es/filter';
 import _merge from 'lodash-es/merge';
 import _union from 'lodash-es/union';
@@ -23,12 +25,12 @@ import {
     IMixedParams,
     EventService,
     ITableCParams,
-    IDatepickerCParams,
     ConfigService,
     ActionService,
     DeviceType,
     ProfileType,
     ISelectCParams,
+    IDatepickerCParams,
     ISelectOptions,
 } from 'wlc-engine/modules/core';
 import {ITransactionHistoryAlert, financesConfig} from 'wlc-engine/modules/finances';
@@ -71,8 +73,8 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
     public reportIntervalExceeded: boolean = false;
 
     protected filterValue: TTransactionFilter = 'all';
-    protected endDate: DateTime = DateTime.local();
-    protected startDate: DateTime = this.endDate.minus({month: 1}).startOf('day');
+    protected endDate: Dayjs = dayjs();
+    protected startDate: Dayjs = this.endDate.add(-1, 'month').startOf('day');
     protected allTransactions: Transaction[] = [];
     protected transfersEnabled: boolean;
 
@@ -161,29 +163,29 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
         }
 
         return _filter(result, (item: Transaction): boolean => {
-            return DateTime.fromISO(item.dateISO, {zone: 'utc'}).toLocal() >= this.startDate
-                && DateTime.fromISO(item.dateISO, {zone: 'utc'}).toLocal() <= this.endDate;
+            if (!item.dateISO) {
+                return false;
+            }
+            return dayjs(item.dateISO, 'YYYY-MM-DDTHH:mm:ss').unix() >= this.startDate.unix()
+                && dayjs(item.dateISO, 'YYYY-MM-DDTHH:mm:ss').unix() <= this.endDate.unix();
         });
     }
 
     protected setMinMaxDate(): void {
-        const disableSince = this.endDate.toObject();
-        const disableUntil = this.startDate.toObject();
-
         this.startDateInput.control.setValue(this.startDate);
         this.endDateInput.control.setValue(this.endDate);
 
         if (this.startDateInput.datepickerOptions) {
             this.startDateInput.datepickerOptions.minDate = new Date(
-                disableSince.year,
-                disableSince.month - 1,
-                disableSince.day,
+                this.endDate.year(),
+                this.endDate.month(),
+                this.endDate.date(),
             );
 
             this.startDateInput.datepickerOptions.maxDate = new Date(
-                disableUntil.year,
-                disableUntil.month - 1,
-                disableUntil.day,
+                this.startDate.year(),
+                this.startDate.month(),
+                this.startDate.date(),
             );
         }
     }
@@ -198,8 +200,8 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
                 this.filterSelect.control.setValue(this.filterValue = data.filterValue);
                 const {startDate, endDate} = data;
                 const datesChanged = (
-                    startDate?.toMillis() !== this.startDate.toMillis()
-                    || endDate?.toMillis() !== this.endDate.toMillis()
+                    startDate?.unix() !== this.startDate.unix()
+                    || endDate?.unix() !== this.endDate.unix()
                 );
                 if (datesChanged) {
                     this.startDateInput.control.setValue(data.startDate);
@@ -248,11 +250,11 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
 
         this.startDateInput.control.valueChanges
             .pipe(
-                filter((startDate: DateTime): boolean => this.startDate.toMillis() !== startDate.toMillis()),
+                filter((startDate: Dayjs): boolean => this.startDate.unix() !== startDate.unix()),
                 takeWhile(() => this.showFilter),
                 takeUntil(this.$destroy),
             )
-            .subscribe(async (startDate: DateTime): Promise<void> => {
+            .subscribe(async (startDate: Dayjs): Promise<void> => {
                 await this.changeDateHandler(startDate, this.endDate);
                 this.pending = true;
                 this.transaction$.next(this.transactionFilter());
@@ -262,11 +264,11 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
 
         this.endDateInput.control.valueChanges
             .pipe(
-                filter((endDate: DateTime): boolean => this.endDate.toMillis() !== endDate.toMillis()),
+                filter((endDate: Dayjs): boolean => this.endDate.unix() !== endDate.unix()),
                 takeWhile(() => this.showFilter),
                 takeUntil(this.$destroy),
             )
-            .subscribe(async (endDate: DateTime): Promise<void> => {
+            .subscribe(async (endDate: Dayjs): Promise<void> => {
                 await this.changeDateHandler(this.startDate, endDate);
                 this.pending = true;
                 this.transaction$.next(this.transactionFilter());
@@ -310,9 +312,9 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
         return this.translateService.instant(gettext(this.alertConfig.text));
     }
 
-    protected async changeDateHandler(startDate: DateTime, endDate: DateTime): Promise<void> {
-        const isStartDateEarlier: boolean = startDate?.toMillis() < this.startDate.toMillis();
-        const isEndDateLater: boolean = endDate?.toMillis() > this.endDate.toMillis();
+    protected async changeDateHandler(startDate: Dayjs, endDate: Dayjs): Promise<void> {
+        const isStartDateEarlier: boolean = startDate?.unix() < this.startDate.unix();
+        const isEndDateLater: boolean = endDate?.unix() > this.endDate.unix();
 
         if (isStartDateEarlier && !isEndDateLater) {
             this.startDate = startDate;
@@ -325,7 +327,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
 
         const newFilterValue: IHistoryFilter<TTransactionFilter> = {startDate: startDate, endDate: endDate};
         this.historyFilterService.setFilter('transaction', newFilterValue);
-        const intervalExceeded: boolean = endDate.startOf('day').minus({days: 90}) > startDate;
+        const intervalExceeded: boolean = endDate.startOf('day').add(-90, 'day') > startDate;
 
         if ((isStartDateEarlier || isEndDateLater)
             || (intervalExceeded !== this.reportIntervalExceeded)) {

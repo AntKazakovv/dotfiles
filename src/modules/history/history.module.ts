@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
+
 import {BonusesHistoryComponent} from 'wlc-engine/modules/history/components/bonuses-history/bonuses-history.component';
 import {OrdersHistoryComponent} from 'wlc-engine/modules/history/components/orders-history/orders-history.component';
 import {BetHistoryComponent} from 'wlc-engine/modules/history/components/bet-history/bet-history.component';

@@ -27,7 +27,6 @@ import {
     distinctUntilChanged,
     takeUntil,
 } from 'rxjs/operators';
-import {DateTime} from 'luxon';
 
 import _assign from 'lodash-es/assign';
 import _cloneDeep from 'lodash-es/cloneDeep';
@@ -82,6 +81,8 @@ import {
     UserInfo,
     UserService,
 } from 'wlc-engine/modules/user';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
 import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
 
 import {
@@ -328,12 +329,12 @@ export class PaymentFormComponent
 
     public get isInvoicePending(): boolean {
         return this.isDeposit && !!(this.currentSystem?.message as IPaymentMessage)?.dateEnd
-            && this.dateExpire > DateTime.now();
+            && this.dateExpire > dayjs();
     }
 
     public get isInvoiceExpired(): boolean {
         return this.isDeposit && !!(this.currentSystem?.message as IPaymentMessage)?.dateEnd
-            && this.dateExpire <= DateTime.now();
+            && this.dateExpire <= dayjs();
     }
 
     public get showPaymentMessage(): boolean {
@@ -344,8 +345,8 @@ export class PaymentFormComponent
             && !this.isMultiWallet;
     }
 
-    public get dateExpire(): DateTime {
-        return DateTime.fromISO((this.currentSystem?.message as IPaymentMessage)?.dateEnd);
+    public get dateExpire(): Dayjs {
+        return dayjs((this.currentSystem?.message as IPaymentMessage)?.dateEnd, 'YYYY-MM-DDTHH:mm:ss');
     }
 
     public get showCommissions(): boolean {

@@ -1,11 +1,12 @@
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
 import {IAcf, IPostResponse} from 'wlc-engine/modules/static/system/interfaces/static.interface';
 
 export class PostModel {
     public readonly slug: string;
     public readonly categories: number[];
     public readonly content: string;
-    public readonly date: DateTime;
+    public readonly date: Dayjs;
     public readonly title: string;
     public readonly image: string;
     public readonly description: string;
@@ -15,7 +16,7 @@ export class PostModel {
         this.slug = post.slug;
         this.categories = post.categories;
         this.content = post.content?.rendered;
-        this.date = DateTime.fromISO(post.date);
+        this.date = dayjs(post.date, 'YYYY-MM-DDTHH:mm:ss');
         this.title = post.title?.rendered;
         this.image = post.image;
         this.description = post.excerpt?.rendered;

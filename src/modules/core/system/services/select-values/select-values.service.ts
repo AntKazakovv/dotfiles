@@ -16,10 +16,7 @@ import {
     BehaviorSubject,
     from,
 } from 'rxjs';
-import {
-    DateTime,
-    Info,
-} from 'luxon';
+import dayjs from 'dayjs';
 
 import _filter from 'lodash-es/filter';
 import _find from 'lodash-es/find';
@@ -49,6 +46,7 @@ import {
 import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 import {CurrencyService} from 'wlc-engine/modules/currency/system/services/currency.service';
 import {ICurrency} from 'wlc-engine/modules/currency/system/interfaces/currency.interface';
+import {monthsArray} from 'wlc-engine/modules/core/system/constants/months.constant';
 
 import * as Params from 'wlc-engine/modules/core/components/select/select.params';
 
@@ -206,14 +204,14 @@ export class SelectValuesService {
                 break;
             }
             case 'months': {
-                list = _map(Info.months('long', {locale: 'en'}), (month: string, index: number) => {
+                list = _map(monthsArray, (month: string, index: number) => {
                     return {title: month, value: `${++index}`};
                 });
                 break;
             }
 
             case 'years': {
-                list = _map(_range(DateTime.local().year - 18, 1900), (year) => {
+                list = _map(_range(dayjs().year() - 18, 1900), (year: number) => {
                     return {title: `${year}`, value: `${year}`};
                 });
                 break;

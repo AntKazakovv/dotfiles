@@ -2,8 +2,7 @@ import {TestBed} from '@angular/core/testing';
 
 import _each from 'lodash-es/each';
 import {BehaviorSubject, filter} from 'rxjs';
-import {DateTime} from 'luxon';
-
+import dayjs from 'dayjs';
 import {
     ConfigService,
     EventService,
@@ -186,7 +185,7 @@ describe('SelectValuesService', () => {
 
     it('-> should get date list', () => {
         const values: TDateList[] = ['days', 'months', 'years'];
-        const results: number[] = [31, 12, DateTime.local().year - 18 - 1900];
+        const results: number[] = [31, 12, dayjs().year() - 18 - 1900];
         _each(values, (value: TDateList, index: number) => {
             const dateList: BehaviorSubject<ISelectOptions[]> = selectValuesService.getDateList(value);
             const dateListLength = dateList.getValue().length;

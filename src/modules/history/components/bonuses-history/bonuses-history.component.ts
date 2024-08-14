@@ -12,7 +12,10 @@ import {
     takeUntil,
     takeWhile,
 } from 'rxjs/operators';
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
+import toObject from 'dayjs/plugin/toObject';
+dayjs.extend(toObject);
 
 import {
     AbstractComponent,
@@ -62,8 +65,8 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
     public reportIntervalExceeded: boolean = false;
 
     protected filterValue: keyof typeof TBonusFilter = 'all';
-    protected endDate: DateTime = DateTime.local().endOf('day');
-    protected startDate: DateTime = this.endDate.minus({month: 1});
+    protected endDate: Dayjs = dayjs().endOf('day');
+    protected startDate: Dayjs = this.endDate.add(-1, 'month');
     protected allBonuses: BonusHistoryItemModel[] = [];
     protected historyFilterService: HistoryFilterService;
 
@@ -151,13 +154,13 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
         }
 
         return result.filter((item: BonusHistoryItemModel) => {
-            return DateTime.fromSQL(item.End).toLocal() >= this.startDate
-                && DateTime.fromSQL(item.End).toLocal() <= this.endDate;
+            return dayjs(item.End).add(dayjs().utcOffset(), 'minute') >= this.startDate
+                && dayjs(item.End).add(dayjs().utcOffset(), 'minute') <= this.endDate;
         });
     }
 
     protected setMinMaxDate(): void {
-        const disableSince = this.endDate.toObject();
+        const disableSince = dayjs(this.endDate).toObject();
         const disableUntil = this.startDate.toObject();
 
         this.startDateInput.control.setValue(this.startDate);
@@ -165,15 +168,15 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
 
         if (this.startDateInput.datepickerOptions) {
             this.startDateInput.datepickerOptions.minDate = new Date(
-                disableSince.year,
-                disableSince.month - 1,
-                disableSince.day,
+                disableSince.years,
+                disableSince.months,
+                disableSince.date,
             );
 
             this.startDateInput.datepickerOptions.maxDate = new Date(
-                disableUntil.year,
-                disableUntil.month - 1,
-                disableUntil.day,
+                disableUntil.years,
+                disableUntil.months,
+                disableUntil.date,
             );
         }
     }
@@ -199,7 +202,7 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
             .subscribe(async (data: IHistoryFilter<keyof typeof TBonusFilter>): Promise<void> => {
                 this.filterSelect.control.setValue(this.filterValue = data.filterValue);
                 const {startDate, endDate} = data;
-                const datesChanged = (!startDate?.equals(this.startDate) || !endDate?.equals(this.endDate));
+                const datesChanged = (!startDate?.isSame(this.startDate) || !endDate?.isSame(this.endDate));
 
                 if (datesChanged) {
                     this.startDateInput.control.setValue(data.startDate);
@@ -244,11 +247,11 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
 
         this.startDateInput.control.valueChanges
             .pipe(
-                filter((startDate: DateTime): boolean => !this.startDate.equals(startDate)),
+                filter((startDate: Dayjs): boolean => !this.startDate.isSame(startDate)),
                 takeWhile(() => this.showFilter),
                 takeUntil(this.$destroy),
             )
-            .subscribe(async (startDate: DateTime): Promise<void> => {
+            .subscribe(async (startDate: Dayjs): Promise<void> => {
                 await this.changeDateHandler(startDate, this.endDate);
                 this.pending = true;
                 this.bonuses$.next(this.bonusesFilter());
@@ -258,11 +261,11 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
 
         this.endDateInput.control.valueChanges
             .pipe(
-                filter((endDate: DateTime): boolean => !this.endDate.equals(endDate)),
+                filter((endDate: Dayjs): boolean => !this.endDate.isSame(endDate)),
                 takeWhile(() => this.showFilter),
                 takeUntil(this.$destroy),
             )
-            .subscribe(async (endDate: DateTime): Promise<void> => {
+            .subscribe(async (endDate: Dayjs): Promise<void> => {
                 await this.changeDateHandler(this.startDate, endDate);
                 this.pending = true;
                 this.bonuses$.next(this.bonusesFilter());
@@ -278,9 +281,9 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
             });
     }
 
-    protected async changeDateHandler(startDate: DateTime, endDate: DateTime): Promise<void> {
-        const isStartDateEarlier: boolean = startDate?.toMillis() < this.startDate.toMillis();
-        const isEndDateLater: boolean = endDate?.toMillis() > this.endDate.toMillis();
+    protected async changeDateHandler(startDate: Dayjs, endDate: Dayjs): Promise<void> {
+        const isStartDateEarlier: boolean = startDate?.unix() < this.startDate.unix();
+        const isEndDateLater: boolean = endDate?.unix() > this.endDate.unix();
 
         if (isStartDateEarlier && !isEndDateLater) {
             this.startDate = startDate;
@@ -296,7 +299,7 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
             endDate: endDate,
         };
         this.historyFilterService.setFilter('bonus', newFilterValue);
-        const intervalExceeded: boolean = endDate.startOf('day').minus({days: 90}) > startDate;
+        const intervalExceeded: boolean = endDate.startOf('day').add(-90, 'day') > startDate;
 
         if ((isStartDateEarlier || isEndDateLater)
             || (intervalExceeded !== this.reportIntervalExceeded)) {

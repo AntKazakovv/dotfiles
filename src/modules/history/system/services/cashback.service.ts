@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
 import _filter from 'lodash-es/filter';
 import _map from 'lodash-es/map';
 
@@ -20,8 +21,8 @@ interface ICashbackRequestParams {
 }
 
 interface IGetCashbacksParams {
-    endDate: DateTime;
-    startDate: DateTime;
+    endDate: Dayjs;
+    startDate: Dayjs;
 }
 
 @Injectable({providedIn: 'root'})
@@ -47,23 +48,23 @@ export class CashbackService {
      */
     public async getCashbacks(params: IGetCashbacksParams, needRequest: boolean): Promise<ICashbackHistory[]> {
         if (needRequest) {
-            const startDateUTC: DateTime = params.startDate.startOf('day').toUTC(),
-                endDateUTC: DateTime = params.endDate.endOf('day').toUTC();
+            const startDateUTC: Dayjs = params.startDate.startOf('day').add(-1 * dayjs().utcOffset(), 'minute'),
+                endDateUTC: Dayjs = params.endDate.endOf('day').add(-1 * dayjs().utcOffset(), 'minute');
 
             this.allCashbacks = await this.requestCashbacksList({
-                from: startDateUTC.toFormat('y-LL-dd'),
-                to: endDateUTC.toFormat('y-LL-dd'),
+                from: startDateUTC.format('YYYY-MM-DD'),
+                to: endDateUTC.format('YYYY-MM-DD'),
             });
             this.allCashbacks = _filter(this.allCashbacks, (item: ICashbackHistory): boolean => {
-                const itemDateUTC: DateTime = DateTime.fromSQL(item.AddDate, {zone: 'utc'});
+                const itemDateUTC: Dayjs = dayjs(item.AddDate, 'YYYY-MM-DD HH:mm:ss');
                 return itemDateUTC >= startDateUTC && itemDateUTC <= endDateUTC;
             });
             this.allCashbacks = _map(this.allCashbacks, (item: ICashbackHistory) => {
                 item.AddDate = GlobalHelper.toLocalTime(item.AddDate, 'SQL', 'yyyy-MM-dd HH:mm:ss');
-                item.PeriodFrom = DateTime.fromSQL(item.PeriodFrom).isValid ?
+                item.PeriodFrom = dayjs(item.PeriodFrom).isValid() ?
                     GlobalHelper.toLocalTime(item.PeriodFrom, 'SQL', 'yyyy-MM-dd HH:mm:ss') :
                     item.PeriodFrom.replace(/\./g, '-');
-                item.PeriodTo = DateTime.fromSQL(item.PeriodTo).isValid ?
+                item.PeriodTo = dayjs(item.PeriodTo).isValid() ?
                     GlobalHelper.toLocalTime(item.PeriodTo, 'SQL', 'yyyy-MM-dd HH:mm:ss') :
                     item.PeriodTo.replace(/\./g, '-');
                 item.Period = `${item.PeriodFrom} - ${item.PeriodTo}`;

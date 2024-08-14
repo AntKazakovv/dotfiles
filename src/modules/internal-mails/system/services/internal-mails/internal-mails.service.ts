@@ -12,7 +12,8 @@ import {
     Subject,
     Subscription,
 } from 'rxjs';
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
 import _map from 'lodash-es/map';
 import _filter from 'lodash-es/filter';
 import _find from 'lodash-es/find';
@@ -362,7 +363,7 @@ export class InternalMailsService {
         this.mails$.subscribe((mails: InternalMailModel[]): void => {
             this.newMails = mails.filter((mail) => mail.status === 'new');
             if (this.newMails.length && !this.isRestrictedState()) {
-                let date = DateTime.fromSQL(this.newMails[0].dateISO);
+                let date = dayjs(this.newMails[0].dateISO);
                 if (!this.getLastMessageTime() && this.newMails.length) {
                     this.setLastMessageTime();
 
@@ -396,13 +397,13 @@ export class InternalMailsService {
         );
     }
 
-    private getLastMessageTime(): DateTime | null {
+    private getLastMessageTime(): Dayjs | null {
         const date: string | null = this.configService.get({
             name: 'lastMessageTime',
             storageType: 'sessionStorage',
         });
 
-        return date ? DateTime.fromSQL(date) : null;
+        return date ? dayjs(date) : null;
     }
 
     private setLastMessageTime(): void {

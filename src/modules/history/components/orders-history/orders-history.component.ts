@@ -14,7 +14,8 @@ import {
     filter,
     takeWhile,
 } from 'rxjs/operators';
-import {DateTime, ToObjectOutput} from 'luxon';
+import dayjs from 'dayjs';
+import {Dayjs} from 'dayjs';
 import _merge from 'lodash-es/merge';
 
 import {
@@ -61,8 +62,8 @@ export class OrdersHistoryComponent extends AbstractComponent implements OnInit 
     public override $params: Params.IOrdersHistoryCParams;
 
     protected allOrders: OrderHistoryItemModel[] = [];
-    protected endDate: DateTime = DateTime.local();
-    protected startDate: DateTime = this.endDate.minus({month: 1}).startOf('day');
+    protected endDate: Dayjs = dayjs();
+    protected startDate: Dayjs = this.endDate.add(-1, 'month').startOf('day');
     protected destroyRef = inject(DestroyRef);
     protected readonly historyService: HistoryService = inject(HistoryService);
     protected readonly actionService: ActionService = inject(ActionService);
@@ -87,8 +88,8 @@ export class OrdersHistoryComponent extends AbstractComponent implements OnInit 
         this.allOrders = await this.historyService.getOrdersList();
 
         if (this.allOrders.length) {
-            this.endDate = DateTime.now();
-            this.startDate = this.endDate.minus({month: 1});
+            this.endDate = dayjs();
+            this.startDate = this.endDate.add(-1, 'month');
         }
 
         this.setMinMaxDate();
@@ -148,8 +149,8 @@ export class OrdersHistoryComponent extends AbstractComponent implements OnInit 
 
     protected filterOrdersByDate(): void {
         this.orders$.next(this.allOrders.filter(
-            order => DateTime.fromSQL(order.addDateSQL) >= this.startDate.startOf('day')
-                && DateTime.fromSQL(order.addDateSQL) <= this.endDate.endOf('day')));
+            order => dayjs(order.addDateSQL) >= this.startDate.startOf('day')
+                && dayjs(order.addDateSQL) <= this.endDate.endOf('day')));
 
         this.cdr.markForCheck();
     }
@@ -157,21 +158,21 @@ export class OrdersHistoryComponent extends AbstractComponent implements OnInit 
     protected onDesktopFilterDateChange(): void {
         this.startDateInput.control.valueChanges
             .pipe(
-                filter((startDate: DateTime): boolean => this.startDate.toMillis() !== startDate.toMillis()),
+                filter((startDate: Dayjs): boolean => this.startDate.unix() !== startDate.unix()),
                 takeWhile(() => this.showFilter),
                 takeUntilDestroyed(this.destroyRef),
             )
-            .subscribe((startDate: DateTime): void => {
+            .subscribe((startDate: Dayjs): void => {
                 this.historyFilterService.setFilter('orders', {startDate});
             });
 
         this.endDateInput.control.valueChanges
             .pipe(
-                filter((endDate: DateTime): boolean => this.endDate.toMillis() !== endDate.toMillis()),
+                filter((endDate: Dayjs): boolean => this.endDate.unix() !== endDate.unix()),
                 takeWhile(() => this.showFilter),
                 takeUntilDestroyed(this.destroyRef),
             )
-            .subscribe((endDate: DateTime): void => {
+            .subscribe((endDate: Dayjs): void => {
                 this.historyFilterService.setFilter('orders', {endDate});
             });
     }
@@ -185,8 +186,8 @@ export class OrdersHistoryComponent extends AbstractComponent implements OnInit 
             .subscribe(async (data: IHistoryFilter): Promise<void> => {
                 const {startDate, endDate} = data;
                 const changedData: IIndexing<boolean> = {
-                    startDate: !this.startDate.equals(startDate),
-                    endDate: !this.endDate.equals(endDate),
+                    startDate: !this.startDate.isSame(startDate),
+                    endDate: !this.endDate.isSame(endDate),
                 };
 
                 if (this.isReady && !(Object.values(changedData).find((val) => !!val))
@@ -208,23 +209,21 @@ export class OrdersHistoryComponent extends AbstractComponent implements OnInit 
     }
 
     private setMinMaxDate(): void {
-        const disableSince: ToObjectOutput = this.endDate.toObject();
-        const disableUntil: ToObjectOutput = this.startDate.toObject();
 
         this.startDateInput.control.setValue(this.startDate);
         this.endDateInput.control.setValue(this.endDate);
 
         if (this.startDateInput.datepickerOptions) {
             this.startDateInput.datepickerOptions.minDate = new Date(
-                disableSince.year,
-                disableSince.month - 1,
-                disableSince.day,
+                this.endDate.year(),
+                this.endDate.month(),
+                this.endDate.day(),
             );
 
             this.startDateInput.datepickerOptions.maxDate = new Date(
-                disableUntil.year,
-                disableUntil.month - 1,
-                disableUntil.day,
+                this.startDate.year(),
+                this.startDate.month(),
+                this.startDate.date(),
             );
         }
     }

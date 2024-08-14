@@ -1,4 +1,5 @@
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
 import _assign from 'lodash-es/assign';
 import _toNumber from 'lodash-es/toNumber';
 import _isString from 'lodash-es/isString';
@@ -77,8 +78,8 @@ export class Transaction extends AbstractModel<ITransactionEx> {
         return +this.data.Amount * this.coefficientConvertion;
     }
 
-    public get date(): DateTime {
-        return DateTime.fromISO(this.data.DateISO);
+    public get date(): Dayjs {
+        return dayjs(this.data.DateISO, 'YYYY-MM-DDTHH:mm:ss');
     }
 
     /**

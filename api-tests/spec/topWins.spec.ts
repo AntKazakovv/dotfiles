@@ -1,4 +1,4 @@
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
 
 import {
     getRequestUrl,
@@ -50,18 +50,18 @@ describe('/api/v1/stats/topWins', () => {
     });
 
     it('-> IWinnerData by date', async (): Promise<void> => {
-        const format = 'y-LL-dd\'\T\'HH:mm:ss';
-        const startDate = DateTime.local().minus({months: 1});
-        const endDate = DateTime.local();
+        const format = 'YYYY-MM-DDTHH:mm:ss';
+        const startDate = dayjs().add(-1, 'month');
+        const endDate = dayjs();
 
-        await fetch(`${url}&startDate=${startDate.toFormat(format)}&endDate=${endDate.toFormat(format)}`)
+        await fetch(`${url}&startDate=${startDate.format(format)}&endDate=${endDate.format(format)}`)
             .then((res: Response) => res.json())
             .then((res: IData<TWinnersData>) => {
                 checkIfSuccess(res);
                 if (res.data) {
                     for (let win of res.data) {
-                        expect(DateTime.fromSQL(win.Date).toMillis()).toBeGreaterThanOrEqual(startDate.toMillis());
-                        expect(DateTime.fromSQL(win.Date).toMillis()).toBeLessThanOrEqual(endDate.toMillis());
+                        expect(dayjs(win.Date, 'YYYY-MM-DD HH:mm:ss').unix()).toBeGreaterThanOrEqual(startDate.unix());
+                        expect(dayjs(win.Date, 'YYYY-MM-DD HH:mm:ss').unix()).toBeLessThanOrEqual(endDate.unix());
                     }
                 }
             })

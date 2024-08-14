@@ -1,4 +1,5 @@
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
 import _map from 'lodash-es/map';
 
 import {
@@ -27,17 +28,17 @@ export class BaseLottery {
         this.prepareResults();
     }
 
-    public get drawingDate(): DateTime {
-        const defaultTime = DateTime.fromSQL(this.data.DrawingDate);
-        return defaultTime.plus({minutes: defaultTime.offset});
+    public get drawingDate(): Dayjs {
+        const defaultTime: Dayjs = dayjs(this.data.DrawingDate, 'YYYY-MM-DD HH:mm:ss');
+        return defaultTime.add(dayjs().utcOffset(), 'minute');
     }
 
     public get drawingDateFormatted(): string {
-        return this.drawingDate.toFormat(this.dateFormat);
+        return this.drawingDate.format(this.dateFormat);
     }
 
     public get drawingDateFormattedShot(): string {
-        return this.drawingDate.toFormat(this.dateFormatShort);
+        return this.drawingDate.format(this.dateFormatShort);
     }
 
     public get results(): LotteryResult[] {

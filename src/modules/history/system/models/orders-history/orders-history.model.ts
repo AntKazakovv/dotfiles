@@ -1,7 +1,7 @@
 import _assign from 'lodash-es/assign';
 import _toNumber from 'lodash-es/toNumber';
 
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
 
 import {IFromLog} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
@@ -71,7 +71,7 @@ export class OrderHistoryItemModel extends AbstractModel<IOrder> {
     }
 
     public get addDate(): string {
-        return DateTime.fromSQL(this.data.AddDate).toFormat('dd-LL-yyyy HH:mm:ss');
+        return dayjs(this.data.AddDate).format('DD-MM-YYYY HH:mm:ss');
     }
 
     public get addDateSQL(): string {

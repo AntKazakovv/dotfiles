@@ -44,7 +44,7 @@ export const transactionTableHeadConfig: ITableCol[] = [
         mapValue: (item: Transaction): {item: IFinancialHistoryNameItem} => {
             return {
                 item: {
-                    date: GlobalHelper.toLocalTime(item.dateISO, 'ISO', 'HH:mm:ss dd-MM-yyyy'),
+                    date: GlobalHelper.toLocalTime(item.dateISO, 'ISO', 'HH:mm:ss DD-MM-YYYY'),
                     amount: item.amount.toString(),
                     currency: item.currency,
                     historyType: 'transactions',

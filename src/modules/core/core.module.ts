@@ -74,8 +74,8 @@ import {ContactUsPageComponent} from 'wlc-engine/modules/core/components/contact
 import {CopyrightComponent} from './components/copyright/copyright.component';
 import {CounterComponent} from './components/counter/counter.component';
 import {CurrencyComponent} from 'wlc-engine/modules/core/components/currency/currency.component';
-import {DatepickerComponent} from './components/datepicker/datepicker.component';
 import {DisclaimerComponent} from './components/disclaimer/disclaimer.component';
+import {DatepickerComponent} from './components/datepicker/datepicker.component';
 import {ErrorPageComponent} from './components/error-page/error-page.component';
 import {OfflinePageComponent} from './components/offline-page/offline-page.component';
 import {FeedbackFormComponent} from './components/feedback-form/feedback-form.component';
@@ -257,6 +257,7 @@ export const services = {
         UIRouterModule,
         HammerModule,
         TranslateModule,
+        IMaskModule,
         FormsModule,
         ReactiveFormsModule,
         ModalModule,
@@ -267,7 +268,6 @@ export const services = {
         MonitoringModule,
         LottieModule.forRoot({player: playerFactory}),
         LottieCacheModule.forRoot(),
-        IMaskModule,
     ],
     declarations: [
         DynamicPipe,

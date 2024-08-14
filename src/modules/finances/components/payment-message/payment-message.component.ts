@@ -15,7 +15,8 @@ import {DOCUMENT} from '@angular/common';
 import {BehaviorSubject} from 'rxjs';
 
 import {TranslateService} from '@ngx-translate/core';
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
 import _cloneDeep from 'lodash-es/cloneDeep';
 import _some from 'lodash-es/some';
 import _map from 'lodash-es/map';
@@ -137,8 +138,8 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
         return `1 ${this.system.cryptoTicker} = ${this.message.cryptoRate} ${this.system.userCurrency}`;
     }
 
-    public get timerValue(): DateTime {
-        return DateTime.fromISO(this.message.dateEnd);
+    public get timerValue(): Dayjs {
+        return dayjs(this.message.dateEnd, 'YYYY-MM-DDTHH:mm:ss');
     }
 
     public override ngOnInit(): void {

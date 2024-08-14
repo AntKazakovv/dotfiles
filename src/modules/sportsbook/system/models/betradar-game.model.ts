@@ -1,4 +1,4 @@
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
 import _assign from 'lodash-es/assign';
 
 import {
@@ -100,12 +100,13 @@ export class BetradarGameModel extends AbstractModel<IGame> {
      * @returns {string}
      */
     public get startTimeLabel(): string {
-        const today = DateTime.local(),
-            tomorrow = DateTime.local().plus(1);
+        const today = dayjs(),
+            tomorrow = dayjs().add(1, 'day'),
+            dataDate = dayjs(this.data.start_time);
 
-        if (today.hasSame(DateTime.fromMillis(this.data.start_time), 'day')) {
+        if (!today.diff(dataDate, 'day')) {
             return gettext('Today');
-        } else if (tomorrow.hasSame(DateTime.fromMillis(this.data.start_time), 'day')) {
+        } else if (!tomorrow.diff(dataDate, 'day')) {
             return gettext('Tomorrow');
         }
         return '';
@@ -147,7 +148,7 @@ export class BetradarGameModel extends AbstractModel<IGame> {
      * @returns {string}
      */
     public startTime(format: string = 'h:mm a'): string {
-        return DateTime.fromMillis(this.data.start_time).toFormat(format);
+        return dayjs(this.data.start_time).format(format);
     }
 
     /**

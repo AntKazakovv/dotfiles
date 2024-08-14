@@ -54,7 +54,7 @@ export class BonusHistoryItemModel extends AbstractModel<IBonusHistory> {
     }
 
     public get End(): string {
-        return GlobalHelper.toLocalTime(this.data.End, 'SQL', 'yyyy-MM-dd HH:mm:ss');
+        return GlobalHelper.toLocalTime(this.data.End, 'SQL', 'YYYY-MM-DD HH:mm:ss');
     }
 
     public get Status(): string {

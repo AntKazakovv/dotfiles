@@ -3,13 +3,13 @@ const _ = require('lodash');
 const fs = require('fs');
 const gettextParser = require('gettext-parser');
 const glob = require('glob');
-const luxon = require('luxon');
 const path = require('path');
+const dayjs = require('dayjs');
 
 module.exports = function translationsLogsTask() {
 
     const sortDate = (data, transformData) => data.sort((a, b) => {
-        const formatData = (data) => luxon.DateTime.fromFormat(transformData(data), 'mm-dd-yyyy').valueOf();
+        const formatData = (data) => dayjs(transformData(data)).format('MM-DD-YYYY').valueOf();
         return formatData(b) - formatData(a);
     });
 

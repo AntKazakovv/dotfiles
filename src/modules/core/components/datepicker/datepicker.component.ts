@@ -17,11 +17,11 @@ import {
     BsDaterangepickerDirective,
     BsLocaleService,
 } from 'ngx-bootstrap/datepicker';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
 
 import {defineLocale} from 'ngx-bootstrap/chronos';
 import * as locales from 'ngx-bootstrap/locale';
-
-import {DateTime} from 'luxon';
 
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
@@ -78,26 +78,32 @@ export class DatepickerComponent extends AbstractComponent implements OnInit {
 
         this.control.valueChanges
             .pipe(takeUntil(this.$destroy))
-            .subscribe((date: DateTime): void => {
-                this.bsValue = date.toJSDate();
+            .subscribe((date: Dayjs): void => {
+                this.bsValue = date.toDate();
             });
 
         if (this.control.value) {
-            this.bsValue = (this.control.value as DateTime).toJSDate();
+            this.bsValue = (this.control.value as Dayjs).toDate();
             this.control.markAsTouched();
         }
 
         if (this.$params.event?.subscribe) {
-            this.eventService.subscribe<DateTime>({name: this.$params.event.subscribe}, (date: DateTime): void => {
+            this.eventService.subscribe<Dayjs>({name: this.$params.event.subscribe}, (date: Dayjs): void => {
                 switch (this.$params.event.subscribe) {
                     case 'CHANGE_START_DATE': {
-                        const {day, month, year} = date.toObject();
-                        this.$params.datepickerOptions.minDate = new Date(year, month - 1, day);
+                        this.$params.datepickerOptions.minDate = new Date(
+                            date.year(),
+                            date.month(),
+                            date.date(),
+                        );
                         break;
                     }
                     case 'CHANGE_END_DATE': {
-                        const {day, month, year} = date.toObject();
-                        this.$params.datepickerOptions.maxDate = new Date(year, month - 1, day);
+                        this.$params.datepickerOptions.maxDate = new Date(
+                            date.year(),
+                            date.month(),
+                            date.date(),
+                        );
                         break;
                     }
                 }
@@ -110,7 +116,7 @@ export class DatepickerComponent extends AbstractComponent implements OnInit {
             this.imask.maskRef.updateValue();
         }
 
-        let dateTime = DateTime.fromJSDate(date);
+        let dateTime: Dayjs = dayjs(date);
 
         if (this.$params.name === 'endDate') {
             dateTime = dateTime.endOf('day');

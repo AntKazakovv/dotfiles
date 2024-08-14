@@ -1,4 +1,5 @@
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
 
 export class DateHelper {
     public static readonly milliSecondsInSecond = 1000;
@@ -14,11 +15,12 @@ export class DateHelper {
     public static get milliSecondsInMinutes(): number {
         return this.milliSecondsInSecond * this.secondsInMinute;
     }
-    public static dayExists(date: DateTime): boolean {
-        return !!Math.floor((date.toMillis() - DateTime.local().toMillis()) / this.milliSecondsInDay);
+    public static dayExists(date: Dayjs): boolean {
+        return !!Math.floor((date.unix() - dayjs().unix())
+            * this.milliSecondsInSecond / this.milliSecondsInDay);
     }
-    public static hoursExists(date: DateTime): boolean {
-        return !!Math.floor((date.toMillis() - DateTime.local().toMillis())
-            / this.milliSecondsInHours % this.hoursInDay);
+    public static hoursExists(date: Dayjs): boolean {
+        return !!Math.floor((date.unix() - dayjs().unix())
+            * this.milliSecondsInSecond / this.milliSecondsInHours % this.hoursInDay);
     }
 }

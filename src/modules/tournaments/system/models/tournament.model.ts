@@ -1,4 +1,5 @@
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
 
 import _assign from 'lodash-es/assign';
 import _toNumber from 'lodash-es/toNumber';
@@ -246,41 +247,41 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
     }
 
     /**
-     * @returns {DateTime} tournament start time in luxon format
+     * @returns {Dayjs} tournament start time in Dayjs format
      */
-    public get startsLuxon(): DateTime {
-        const defaultTime = DateTime.fromSQL(this.data.Starts);
-        return defaultTime.plus({minutes: defaultTime.offset});
+    public get startsFormat(): Dayjs {
+        const defaultTime: Dayjs = dayjs(this.data.Starts, 'YYYY-MM-DD HH:mm:ss');
+        return defaultTime.add(dayjs().utcOffset(), 'minute');
     }
 
     /**
-     * @returns {DateTime} tournament end time in luxon format
+     * @returns {Dayjs} tournament end time in Dayjs format
      */
-    public get endsLuxon(): DateTime {
-        const defaultTime = DateTime.fromSQL(this.data.Ends);
-        return defaultTime.plus({minutes: defaultTime.offset});
+    public get endsFormat(): Dayjs {
+        const defaultTime: Dayjs = dayjs(this.data.Ends, 'YYYY-MM-DD HH:mm:ss');
+        return defaultTime.add(dayjs().utcOffset(), 'minute');
     }
 
     /**
      * @returns {boolean} is tournament start
      */
     public get isTournamentStarts(): boolean {
-        const timeDifference = this.startsLuxon.toMillis() - DateTime.local().toMillis();
+        const timeDifference = this.startsFormat.unix() - dayjs().unix();
         return timeDifference <= 0;
     }
 
     /**
-     * @returns {DateTime} returns the date for the tournament based on its state
+     * @returns {Dayjs} returns the date for the tournament based on its state
      */
-    public get stateDateTournament(): DateTime {
-        return this.isTournamentStarts ? this.endsLuxon : this.startsLuxon;
+    public get stateDateTournament(): Dayjs {
+        return this.isTournamentStarts ? this.endsFormat : this.startsFormat;
     }
 
     /**
      * @returns {boolean} is tournament end
      */
     public get isTournamentEnds(): boolean {
-        const timeDifference = this.endsLuxon.toMillis() - DateTime.local().toMillis();
+        const timeDifference = this.endsFormat.unix() - dayjs().unix();
         return timeDifference < 0;
     }
 

@@ -1,5 +1,6 @@
-import {DateTime} from 'luxon';
 import {Subject} from 'rxjs';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
 import _assign from 'lodash-es/assign';
 import _map from 'lodash-es/map';
 import _keys from 'lodash-es/keys';
@@ -76,7 +77,7 @@ export class Bonus extends AbstractModel<IBonus> {
     public readonly nameClean: string;
     public readonly allowPromotions: boolean;
     public readonly hidePromotionsForUnauthorized: boolean;
-    public timerEnd: DateTime;
+    public timerEnd: Dayjs;
 
     // TODO: This is array orders of wagering from fundist, need automatically.
     private static bonusTargetsOrder = ['balance', 'freerounds', 'loyalty', 'experience'];
@@ -88,7 +89,7 @@ export class Bonus extends AbstractModel<IBonus> {
     private _isReg: boolean;
     private _isDep: boolean;
     private _fallBackIconPath: string = '';
-    private _expirationTime: DateTime;
+    private _expirationTime: Dayjs;
 
     constructor(
         from: IFromLog,
@@ -867,18 +868,18 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     /**
-     * @returns {DateTime} bonus expiration time in luxon format
+     * @returns {Dayjs} bonus expiration time in DayJs format
      */
-    public get expirationTimeLuxon(): DateTime {
+    public get expirationTimeDaysjs(): Dayjs {
         return this._expirationTime;
     }
 
-    public get endsTimeLuxon(): DateTime {
-        return this.convertTimeToLuxonFormat(this.data.Ends);
+    public get endsTimeLuxon(): Dayjs {
+        return this.convertTime(this.data.Ends);
     }
 
-    public get availabilityTimeLuxon(): DateTime {
-        return this.convertTimeToLuxonFormat(this.data.AvailabilityDate);
+    public get availabilityTimeLuxon(): Dayjs {
+        return this.convertTime(this.data.AvailabilityDate);
     }
 
     /**
@@ -1047,13 +1048,13 @@ export class Bonus extends AbstractModel<IBonus> {
     /**
      * Formatted bonus expiration time
      *
-     * @param {string} format date format by luxon plugin
+     * @param {string} format date format by Dayjs plugin
      * @returns {string} formatted date
      */
     public expirationTime(format: string = 'D T'): string {
-        const defaultTime = DateTime.fromSQL(this.data.Expire);
-        const offsetTime = defaultTime.plus({minutes: defaultTime.offset});
-        return offsetTime.setLocale(defaultTime.locale).toFormat(format);
+        const defaultTime: Dayjs = dayjs(this.data.Expire);
+        const offsetTime: Dayjs = defaultTime.add(dayjs().utcOffset(), 'minute');
+        return offsetTime.format(format);
     }
 
     /**
@@ -1079,9 +1080,9 @@ export class Bonus extends AbstractModel<IBonus> {
             : [];
     }
 
-    public convertTimeToLuxonFormat(date: string): DateTime {
-        const defaultTime = DateTime.fromSQL(date);
-        return defaultTime.plus({minutes: defaultTime.offset});
+    public convertTime(date: string): Dayjs {
+        const defaultTime: Dayjs = dayjs(date);
+        return defaultTime.add(dayjs().utcOffset(), 'minute');
     }
 
     protected modifyData(bonus: IBonus): IBonus {
@@ -1111,9 +1112,9 @@ export class Bonus extends AbstractModel<IBonus> {
             bonus.Expire = bonus.Ends;
         }
 
-        this._expirationTime = this.convertTimeToLuxonFormat(bonus.Expire);
+        this._expirationTime = this.convertTime(bonus.Expire);
 
-        if (bonus.Active && +this._expirationTime < +DateTime.now()) {
+        if (bonus.Active && +this._expirationTime < +dayjs()) {
             bonus.Status = -99;
         }
 

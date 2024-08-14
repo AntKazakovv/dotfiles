@@ -1,4 +1,4 @@
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
 
 import {
     fetch,
@@ -12,9 +12,9 @@ import {IData} from 'wlc-engine/modules/core';
 import {TBets} from 'wlc-engine/modules/profile/system/interfaces/bet.interfaces';
 
 describe('/api/v1/bets', () => {
-    const format = 'y-LL-dd\'\T\'HH:mm:ss';
-    const startDate = DateTime.local().minus({months: 1}).toFormat(format);
-    const endDate = DateTime.local().toFormat(format);
+    const format = 'YYYY-MM-DDTHH:mm:ss';
+    const startDate = dayjs().add(-1, 'month').format(format);
+    const endDate = dayjs().format(format);
     const url = getRequestUrl(`/api/v1/bets?/&startDate=${startDate}&endDate=${endDate}`);
     const interfaceName = 'TBets';
 

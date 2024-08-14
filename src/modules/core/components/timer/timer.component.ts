@@ -16,7 +16,8 @@ import {
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
 import {
     interval,
     Subscription,
@@ -36,13 +37,13 @@ import {AbstractComponent} from 'wlc-engine/modules/core/system/classes';
 import * as Params from './timer.params';
 
 /**
- * timer value format 'yyyy-MM-dd HH:mm:ss' or luxon format
+ * timer value format 'yyyy-MM-dd HH:mm:ss' or Dayjs format
  *
  * @example
  *
  * <div wlc-timer
  *      class="{{$class}}__timer"
- *      [value]="$params.common.bonus?.expirationTimeLuxon"
+ *      [value]="$params.common.bonus?.expirationTimeFormat"
  *      text="Time remaining">
  * </div>
  *
@@ -54,7 +55,7 @@ import * as Params from './timer.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TimerComponent extends AbstractComponent implements OnInit, OnChanges {
-    @Input() public value: string | DateTime;
+    @Input() public value: string | Dayjs;
     @Input() public timeRemaining: number;
     @Input() public text: string;
     @Input() public noCountDown: boolean;
@@ -81,7 +82,7 @@ export class TimerComponent extends AbstractComponent implements OnInit, OnChang
 
     protected readonly ngZone = inject(NgZone);
 
-    private valueFormat: DateTime;
+    private valueFormat: Dayjs;
     private secondsToDday: number;
     private minutesToDday: number;
     private hoursToDday: number;
@@ -148,16 +149,16 @@ export class TimerComponent extends AbstractComponent implements OnInit, OnChang
 
     public checkValueFormat(): boolean {
         if (_isString(this.$params.common?.value)) {
-            this.valueFormat = DateTime.fromSQL(this.$params.common?.value as string);
+            this.valueFormat = dayjs(this.$params.common?.value, 'YYYY-MM-DD HH:mm:ss');
             return this.reg.test(this.$params.common?.value as string);
         } else {
-            this.valueFormat = this.$params.common?.value as DateTime;
+            this.valueFormat = this.$params.common?.value as Dayjs;
 
             if (this.$params.theme === 'circle') {
-                this.initialValue = Math.ceil(this.valueFormat.toSeconds() - DateTime.local().toSeconds());
+                this.initialValue = Math.ceil(this.valueFormat.unix() - dayjs().unix());
             }
 
-            return DateTime.isDateTime(this.$params.common?.value);
+            return this.valueFormat.isValid();
         }
     }
 
@@ -182,7 +183,6 @@ export class TimerComponent extends AbstractComponent implements OnInit, OnChang
         const timerCircle = this.element.nativeElement.querySelector('.wlc-timer__path-remaining');
 
         if (timerCircle) {
-
             if (timeFraction > 0) {
                 this.renderer.setAttribute(timerCircle, 'stroke-dasharray', circleDasharray);
             } else {
@@ -194,12 +194,12 @@ export class TimerComponent extends AbstractComponent implements OnInit, OnChang
     private getTimeDifference(): void {
         if (this.serverDateUTC) {
             if (this.timerService.timeCounter) {
-                this.timeDifference = this.valueFormat.toMillis() - this.timerService.timeCounter;
+                this.timeDifference = this.valueFormat.unix() * 1000 - this.timerService.timeCounter;
             } else {
                 return;
             }
         } else {
-            this.timeDifference = this.valueFormat.toMillis() - DateTime.local().toMillis();
+            this.timeDifference = (this.valueFormat.unix() - dayjs().unix()) * 1000;
         }
 
         if (this.timeDifference < 0 && this.countUp) {

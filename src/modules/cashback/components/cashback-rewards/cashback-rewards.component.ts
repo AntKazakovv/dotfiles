@@ -1,4 +1,5 @@
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
 import {
     ChangeDetectorRef,
     Component,
@@ -112,13 +113,13 @@ export class CashbackRewardsComponent extends AbstractComponent implements OnIni
         return !this.depositCashback.isAvailable;
     }
 
-    public get timerValue(): DateTime {
-        const defaultTime = DateTime.fromSQL(this.depositCashback.availableAt);
-        return defaultTime.plus({minutes: defaultTime.offset});
+    public get timerValue(): Dayjs {
+        const defaultTime = dayjs(this.depositCashback.availableAt, 'YYYY-MM-DD HH:mm:ss');
+        return defaultTime.add(dayjs().utcOffset(), 'minute');
     }
 
     public get showTimer(): boolean {
-        return this.timerValue.toMillis() > DateTime.local().toMillis();
+        return this.timerValue.unix() > dayjs().unix();
     }
 
     /**

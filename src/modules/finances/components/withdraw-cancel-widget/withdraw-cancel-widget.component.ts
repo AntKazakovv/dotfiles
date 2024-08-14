@@ -62,7 +62,7 @@ export class WithdrawCancelWidgetComponent extends AbstractComponent implements 
 
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-        
+
         this.subscribeToWS();
         this.subscribeToUserProfile();
     }
@@ -90,7 +90,7 @@ export class WithdrawCancelWidgetComponent extends AbstractComponent implements 
     }
 
     public get formattedDateWithdraw(): string {
-        return this.currentPendingWithdraw.date.toFormat(this.$params.transactionDateFormat);
+        return this.currentPendingWithdraw.date.format(this.$params.transactionDateFormat);
     }
 
     public get amountValue(): number {
@@ -138,7 +138,7 @@ export class WithdrawCancelWidgetComponent extends AbstractComponent implements 
             }, {updatePartial: true});
         } catch (error) {
             this.logService.sendLog({
-                code: '1.1.26', 
+                code: '1.1.26',
                 data: error,
                 from: {
                     component: 'WithdrawCancelWidgetComponent',

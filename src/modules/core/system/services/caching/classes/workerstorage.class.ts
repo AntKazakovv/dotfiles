@@ -1,4 +1,4 @@
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
 import {Subject} from 'rxjs';
 import {first} from 'rxjs/operators';
 import {AbstractCache} from './abstract.cache';
@@ -94,7 +94,7 @@ export class WorkerStorageCache extends AbstractCache {
                 type: 'set',
                 key,
                 value,
-                expiration: DateTime.local().plus(keepTime).toMillis(),
+                expiration: dayjs().add(keepTime, 'ms').toDate().getTime(),
             });
         } catch (error) {
             return;

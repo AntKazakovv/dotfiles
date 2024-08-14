@@ -38,7 +38,7 @@ export const defaultParams: IHistoryNameParams = {
     componentName: 'wlc-history-name',
     class: 'wlc-history-name',
     previewBetDateFormat: {
-        desktop: 'dd-MM-yyyy HH:mm:ss',
-        mobile: 'dd-MM-yyyy HH:mm:ss',
+        desktop: 'DD-MM-YYYY HH:mm:ss',
+        mobile: 'DD-MM-YYYY HH:mm:ss',
     },
 };

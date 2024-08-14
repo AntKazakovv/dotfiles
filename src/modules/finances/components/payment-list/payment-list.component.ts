@@ -17,7 +17,7 @@ import {
 } from '@angular/core';
 import {UntypedFormControl} from '@angular/forms';
 
-import {DateTime} from 'luxon';
+import {Dayjs} from 'dayjs';
 import {
     map,
     filter,
@@ -360,8 +360,8 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         return (itemsMap.get(system.id).components[0].params as IIconListItemCParams).icon.image;
     }
 
-    protected checkTermsVersion(currentTermsVersion: string | DateTime, newTermsVersion: string | DateTime): boolean {
-        if (currentTermsVersion instanceof DateTime && newTermsVersion instanceof DateTime) {
+    protected checkTermsVersion(currentTermsVersion: string | Dayjs, newTermsVersion: string | Dayjs): boolean {
+        if (currentTermsVersion instanceof Dayjs && newTermsVersion instanceof Dayjs) {
             return currentTermsVersion >= newTermsVersion;
         } else if (typeof currentTermsVersion === 'string' && typeof newTermsVersion === 'string') {
             return Number(currentTermsVersion) >= Number(newTermsVersion);

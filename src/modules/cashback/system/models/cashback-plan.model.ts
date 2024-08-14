@@ -1,4 +1,5 @@
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
 import _assign from 'lodash-es/assign';
 
 import {
@@ -70,7 +71,7 @@ export class CashbackPlanModel extends AbstractModel<ICashbackPlan> {
     }
 
     protected formatDate(date: string): string {
-        return DateTime.fromSQL(date, {zone: 'utc'}).toLocal().toFormat('yyyy-LL-dd HH:mm:ss');
+        return dayjs(date).add(dayjs().utcOffset(), 'minute').format('YYYY-MM-DD HH:mm:ss');
     }
 
     public get cashbackStatus(): ICashbackStatus | null {
@@ -119,13 +120,13 @@ export class CashbackPlanModel extends AbstractModel<ICashbackPlan> {
     }
 
     public get isPending(): boolean {
-        const availableDate: DateTime = DateTime.fromSQL(this.data.AvailableAt, {zone: 'utc'}).toLocal();
+        const availableDate: Dayjs = dayjs(this.data.AvailableAt).add(dayjs().utcOffset(), 'minute');
 
-        return (DateTime.local() > availableDate) && !this.isAvailable;
+        return (dayjs() > availableDate) && !this.isAvailable;
     }
 
     public get isAvailableAt(): boolean {
-        return DateTime.utc() <= DateTime.fromSQL(this.data.AvailableAt);
+        return dayjs().add(-dayjs().utcOffset(), 'minute') <= dayjs(this.data.AvailableAt);
     }
 
     protected createCurrencyModel(): CurrencyModel {

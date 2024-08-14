@@ -13,7 +13,8 @@ import {
     takeUntil,
     takeWhile,
 } from 'rxjs/operators';
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
 import _cloneDeep from 'lodash-es/cloneDeep';
 import _filter from 'lodash-es/filter';
 import _find from 'lodash-es/find';
@@ -23,13 +24,13 @@ import {
     IMixedParams,
     EventService,
     ITableCParams,
-    IDatepickerCParams,
     ISelectCParams,
     ConfigService,
     ActionService,
     DeviceType,
     TSortDirection,
     IIndexing,
+    IDatepickerCParams,
 } from 'wlc-engine/modules/core';
 import {MultiWalletEvents} from 'wlc-engine/modules/multi-wallet';
 import {IHistoryFilter} from 'wlc-engine/modules/history/system/interfaces/history-filter.interface';
@@ -65,9 +66,9 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit, On
 
     protected filterValue: 'all' | string = 'all';
     protected orderDirection: TSortDirection = 'desc';
-    protected startDate: DateTime = DateTime.local().minus({month: 1});
-    protected endDate: DateTime = DateTime.local().endOf('day');
-    protected readonly today: DateTime = DateTime.local().endOf('day');
+    protected startDate: Dayjs = dayjs().add(-1, 'month');
+    protected endDate: Dayjs = dayjs();
+    protected readonly today: Dayjs = dayjs().endOf('day');
     protected allBets: Bet[] = [];
 
     private isMultiWallet: boolean;
@@ -125,23 +126,20 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit, On
     }
 
     protected setMinMaxDate(): void {
-        const disableSince = this.endDate.toObject();
-        const disableUntil = this.startDate.toObject();
-
         this.startDateInput.control.setValue(this.startDate);
         this.endDateInput.control.setValue(this.endDate);
 
         if (this.startDateInput.datepickerOptions) {
             this.startDateInput.datepickerOptions.minDate = new Date(
-                disableSince.year,
-                disableSince.month - 1,
-                disableSince.day,
+                this.endDate.year(),
+                this.endDate.month(),
+                this.endDate.date(),
             );
 
             this.startDateInput.datepickerOptions.maxDate = new Date(
-                disableUntil.year,
-                disableUntil.month - 1,
-                disableUntil.day,
+                this.startDate.year(),
+                this.startDate.month(),
+                this.startDate.date(),
             );
         }
     }
@@ -214,8 +212,8 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit, On
             )
             .subscribe(async (data: IHistoryFilter): Promise<void> => {
                 const changedData: IIndexing<boolean> = {
-                    endDate: !this.endDate.equals(data.endDate),
-                    startDate: !this.startDate.equals(data.startDate),
+                    endDate: !!this.endDate.diff(data.endDate, 'day'),
+                    startDate: !!this.startDate.diff(data.startDate, 'day'),
                     filterValue: this.filterValue !== data.filterValue,
                     orderDirection: this.orderDirection !== data.orderDirection,
                 };
@@ -277,21 +275,21 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit, On
 
         this.startDateInput.control.valueChanges
             .pipe(
-                filter((startDate: DateTime): boolean => this.startDate.toMillis() !== startDate.toMillis()),
+                filter((startDate: Dayjs): boolean => this.startDate.unix() !== startDate.unix()),
                 takeWhile(() => this.showFilter),
                 takeUntil(this.$destroy),
             )
-            .subscribe((startDate: DateTime): void => {
+            .subscribe((startDate: Dayjs): void => {
                 this.historyFilterService.setFilter('bet', {startDate});
             });
 
         this.endDateInput.control.valueChanges
             .pipe(
-                filter((endDate: DateTime): boolean => this.endDate.toMillis() !== endDate.toMillis()),
+                filter((endDate: Dayjs): boolean => this.endDate.unix() !== endDate.unix()),
                 takeWhile(() => this.showFilter),
                 takeUntil(this.$destroy),
             )
-            .subscribe((endDate: DateTime): void => {
+            .subscribe((endDate: Dayjs): void => {
                 this.historyFilterService.setFilter('bet', {endDate});
             });
     }

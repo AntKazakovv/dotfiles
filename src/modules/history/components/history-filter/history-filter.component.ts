@@ -14,7 +14,8 @@ import {
     filter,
     takeUntil,
 } from 'rxjs/operators';
-import {DateTime} from 'luxon';
+import type {Dayjs} from 'dayjs';
+
 import _isEqual from 'lodash-es/isEqual';
 import _keys from 'lodash-es/keys';
 import _merge from 'lodash-es/merge';
@@ -117,8 +118,8 @@ export class HistoryFilterComponent extends AbstractComponent implements OnInit,
         this.isFiltered = !_keys(this.defaultFormData)
             .every((key: string): boolean => {
                 const formData: IIndexing<any> = this.defaultFormData;
-                if ((formData[key] instanceof DateTime) && (data[key] instanceof DateTime)) {
-                    return formData[key].toFormat('y-LL-dd') === data[key].toFormat('y-LL-dd');
+                if ((formData[key] as Dayjs).isValid()) {
+                    return formData[key].format('YYYY-MM-DD') ===  data[key].format('YYYY-MM-DD');
                 }
                 return _isEqual(formData[key], data[key]);
             });
@@ -152,7 +153,7 @@ export class HistoryFilterComponent extends AbstractComponent implements OnInit,
                 .findIndex((input: IFormComponent) => input.params.name === 'endDate');
 
             if (formData.startDate && startIndex + 1) {
-                const {day, month, year} = formData.endDate.plus({day: 1}).toObject();
+                const date: Dayjs = formData.endDate.add(1, 'day');
                 formConfig = _merge({}, formConfig, {
                     components: formConfig.components
                         .map((el: IFormComponent, i: number) => i === startIndex
@@ -160,10 +161,18 @@ export class HistoryFilterComponent extends AbstractComponent implements OnInit,
                                 params: {
                                     datepickerOptions: {
                                         markDates: [{
-                                            dates: [formData.startDate.toObject()],
+                                            dates: [
+                                                formData.startDate.date(),
+                                                formData.startDate.month() + 1,
+                                                formData.startDate.year(),
+                                            ],
                                             styleClass: 'defaultDate',
                                         }],
-                                        disableSince: {day, month, year},
+                                        disableSince: {
+                                            day: date.date(),
+                                            month: date.month() + 1,
+                                            year: date.year(),
+                                        },
                                     },
                                 },
                             })
@@ -173,7 +182,7 @@ export class HistoryFilterComponent extends AbstractComponent implements OnInit,
             }
 
             if (formData.endDate && endIndex + 1) {
-                const {day, month, year} = formData.startDate.minus({day: 1}).toObject();
+                const date: Dayjs = formData.startDate.add(-1, 'day');
                 formConfig = _merge({}, formConfig, {
                     components: formConfig.components
                         .map((el: IFormComponent, i: number) => i === endIndex
@@ -181,11 +190,19 @@ export class HistoryFilterComponent extends AbstractComponent implements OnInit,
                                 params: {
                                     datepickerOptions: {
                                         markDates: [{
-                                            dates: [formData.endDate.toObject()],
+                                            dates: [
+                                                formData.startDate.date(),
+                                                formData.startDate.month() + 1,
+                                                formData.startDate.year(),
+                                            ],
                                             styleClass: 'defaultDate',
                                         }],
-                                        disableUntil: {day, month, year},
                                         alignSelectorRight: true,
+                                        disableUntil: {
+                                            day: date.date(),
+                                            month: date.month() + 1,
+                                            year: date.year(),
+                                        },
                                     },
                                 },
                             })

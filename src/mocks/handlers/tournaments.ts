@@ -2,14 +2,13 @@ import {
     datatype,
     lorem,
 } from 'faker';
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
 import {
     MockedRequest,
     MockedResponse,
     ResponseComposition,
     RestContext,
 } from 'msw';
-
 import {ITournament} from 'wlc-engine/modules/tournaments';
 
 export const tournamentsHandler = async (
@@ -65,18 +64,12 @@ export const tournamentsHandler = async (
                 Target: 'loyalty',
                 Type: 'relative',
                 Value: datatype.number().toString(),
-                Starts: DateTime
-                    .now()
-                    .minus({
-                        day: datatype.number(10),
-                    })
-                    .toFormat('yyyy-MM-dd HH:mm:ss'),
-                Ends: DateTime
-                    .now()
-                    .plus({
-                        day: datatype.number(10),
-                    })
-                    .toFormat('yyyy-MM-dd HH:mm:ss'),
+                Starts: dayjs()
+                    .add(-1 * datatype.number(10), 'day')
+                    .format('YYYY-MM-DD HH:mm:ss'),
+                Ends: dayjs()
+                    .add(datatype.number(10), 'day')
+                    .format('YYYY-MM-DD HH:mm:ss'),
                 Status: '1',
                 Games: {
                     Games: [],

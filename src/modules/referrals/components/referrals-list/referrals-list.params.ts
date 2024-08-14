@@ -23,7 +23,7 @@ export const defaultParams: IReferralsListCParams = {
     class: 'wlc-referrals-list',
     componentName: 'wlc-referrals-list',
     moduleName: 'referrals',
-    filterDateFormat: 'dd.MM.yyyy',
+    filterDateFormat: 'DD.MM.YYYY',
     skipEmptyReferrals: true,
     rowsLimit: 10,
     emptyConfig: {

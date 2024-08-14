@@ -11,7 +11,6 @@ import {
     map,
     takeUntil,
 } from 'rxjs/operators';
-import {DateTime} from 'luxon';
 import _PaymentIQCashier, {
     IPiqCashierApiMethods,
     IPiqCashierConfig,
@@ -167,7 +166,7 @@ export class PIQCashierService {
             merchantId: currentSystem.customParams?.merchant_id,
             providerType: currentSystem.customParams?.provider || null,
             amount: amount || null,
-            sessionId: `${idUser}-${DateTime.local().toMillis()}`,
+            sessionId: `${idUser}-${new Date().getTime()}`,
             userId: idUser,
             user: {
                 email: userEmail,

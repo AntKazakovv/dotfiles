@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
 import {
     BehaviorSubject,
     interval,
@@ -40,7 +41,7 @@ import {
 } from 'wlc-engine/modules/history/system/models/bonus-history/bonus-history-item.model';
 import {TournamentHistory} from 'wlc-engine/modules/history/system/models/tournament-history/tournament-history.model';
 import {
-    IOrder, 
+    IOrder,
     OrderHistoryItemModel,
 } from 'wlc-engine/modules/history/system/models/orders-history/orders-history.model';
 import {
@@ -77,8 +78,8 @@ interface IQueryParams {
 }
 
 interface IGetTransactionsParams {
-    startDate?: DateTime;
-    endDate?: DateTime;
+    startDate?: Dayjs;
+    endDate?: Dayjs;
 }
 
 interface ITransactionRequestParams {
@@ -129,17 +130,17 @@ export class HistoryService {
     public async queryHistory<T extends BonusHistoryItemModel | TournamentHistory>(
         publicSubject: boolean,
         type: RestType,
-        dateFrom?: DateTime,
-        dateTo?: DateTime,
+        dateFrom?: Dayjs,
+        dateTo?: Dayjs,
     ): Promise<T[]> {
         this.queryPromises[type].next(true);
         const queryParams: IQueryParams = {};
-        const startDateUTC: DateTime = dateFrom?.startOf('day').toUTC();
-        const endDateUTC: DateTime = dateTo?.endOf('day').toUTC();
+        const startDateUTC: Dayjs = dateFrom?.startOf('day').add(-1 * dayjs().utcOffset(), 'minute');
+        const endDateUTC: Dayjs = dateTo?.endOf('day').add(-1 * dayjs().utcOffset(), 'minute');
 
         queryParams.type = 'history';
-        queryParams.dateFrom = startDateUTC.toFormat('y-LL-dd\'\T\'HH:mm:ss');
-        queryParams.dateTo = endDateUTC.toFormat('y-LL-dd\'\T\'HH:mm:ss');
+        queryParams.dateFrom = startDateUTC.format('YYYY-MM-DDTHH:mm:ss');
+        queryParams.dateTo = endDateUTC.format('YYYY-MM-DDTHH:mm:ss');
 
         if (type === 'bonusesHistory') {
 
@@ -248,12 +249,12 @@ export class HistoryService {
             return await this.requestTransactionsList();
         }
 
-        const startDateUTC: DateTime = params.startDate.startOf('day').toUTC();
-        const endDateUTC: DateTime = params.endDate.endOf('day').toUTC();
+        const startDateUTC: Dayjs = params.startDate.startOf('day').add(-1 * dayjs().utcOffset(), 'minute');
+        const endDateUTC: Dayjs = params.endDate.endOf('day').add(-1 * dayjs().utcOffset(), 'minute');
         if (isNeedRequest || this.isFirstTransactionsRequest) {
             this.allTransactions = await this.requestTransactionsList({
-                startDate: startDateUTC.toFormat('y-LL-dd\'\T\'HH:mm:ss'),
-                endDate: endDateUTC.toFormat('y-LL-dd\'\T\'HH:mm:ss'),
+                startDate: startDateUTC.format('YYYY-MM-DDTHH:mm:ss'),
+                endDate: endDateUTC.format('YYYY-MM-DDTHH:mm:ss'),
             });
 
             if (this.isFirstTransactionsRequest) {
@@ -267,7 +268,7 @@ export class HistoryService {
         try {
             const response: IData<OrderHistoryItemModel[]> = await this.dataService
                 .request<IData>('store/orders');
-                
+
             return response.data as OrderHistoryItemModel[];
         } catch (error) {
             this.logService.sendLog({

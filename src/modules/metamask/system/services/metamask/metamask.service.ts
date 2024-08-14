@@ -2,7 +2,7 @@ import {
     Inject,
     Injectable,
 } from '@angular/core';
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
 import {TranslateService} from '@ngx-translate/core';
 import {Subject} from 'rxjs';
 import * as ethers from 'ethers';
@@ -419,7 +419,7 @@ export class MetamaskService {
         return this.translateService.instant(metamaskActionMessages[action])
             + ` ${this.configService.get<string>('$base.site.name')}`
             + ` ${this.translateService.instant('on')} `
-            + DateTime.now().toLocaleString(DateTime.DATETIME_SHORT);
+            + dayjs().format('MM/DD/YYYY, H:MM A');
     }
 
     /**

@@ -4,7 +4,8 @@ import {
     NgZone,
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {DateTime} from 'luxon';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
 import {
     StateService,
     UIRouter,
@@ -1057,9 +1058,8 @@ export class UserService {
     public isAgeLegal({birthDay, birthYear, birthMonth}: IUserProfile): boolean {
         const legalAge: number = this.configService.get('legalAgeByCountry')
                                 || this.configService.get('$base.profile.legalAge');
-        return DateTime.utc(+birthYear, +birthMonth, +birthDay)
-            .diffNow('years')
-            .years * -1 >= legalAge;
+        const date: Dayjs = dayjs(`${birthYear}-${birthMonth}-${birthDay}`);
+        return (date.diff(dayjs().format('YYYY-MM-DD'), 'year') * -1) >= legalAge;
     }
 
     public setNicknameIcon(avatar?: string, nick?: string): Promise<IData> {
@@ -1155,7 +1155,7 @@ export class UserService {
                     if (!isErrorWSUserBalance
                         && sentRequestsWithoutResponse >= 1
                         && (!lastTimeGetUserWSBalance
-                            || DateTime.now().toSeconds() - lastTimeGetUserWSBalance > 15)
+                            || dayjs().unix() - lastTimeGetUserWSBalance > 15)
                     ) {
                         setErrorWS();
                     }
@@ -1192,14 +1192,14 @@ export class UserService {
 
                     this.ngZone.runOutsideAngular(() => {
                         setTimeoutUpdateUserInfo = setTimeout(() => {
-                            const nowTime = DateTime.now().toSeconds();
+                            const nowTime = dayjs().unix();
                             if (nowTime - lastTimeGetUserWSBalance > 1 && data.data.Balance !== this.userInfo.balance) {
                                 this.setUserInfo();
                             }
                         }, 1500);
 
                         setTimeoutRefreshData = setTimeout(() => {
-                            const nowTime = DateTime.now().toSeconds();
+                            const nowTime = dayjs().unix();
                             if (nowTime - lastTimeGetUserWSBalance >= 10) {
                                 this.webSocketService.sendToWebsocket('wsc2', WebSocketEvents.SEND.USER_INFO);
                                 sentRequestsWithoutResponse++;
@@ -1214,7 +1214,7 @@ export class UserService {
                         this.wsBalanceData = _assign(this.wsBalanceData, data.data);
                     }
 
-                    lastTimeGetUserWSBalance = DateTime.now().toSeconds();
+                    lastTimeGetUserWSBalance = dayjs().unix();
 
                     if (data.event === WebSocketEvents.RECEIVE.USER) {
                         sentRequestsWithoutResponse--;
@@ -1288,8 +1288,8 @@ export class UserService {
         }
 
         if (event.data?.timestamp) {
-            const eventTimeSeconds = DateTime.fromSQL(event.data.timestamp, {zone: 'utc'}).toSeconds();
-            const nowTimeSeconds = DateTime.now().toSeconds();
+            const eventTimeSeconds = dayjs(event.data.timestamp).add(dayjs().utcOffset(), 'minute').unix();
+            const nowTimeSeconds = dayjs().unix();
             filterResult = nowTimeSeconds - eventTimeSeconds < 5;
         }
 
