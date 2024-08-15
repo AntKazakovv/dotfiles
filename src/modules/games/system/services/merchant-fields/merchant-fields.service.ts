@@ -104,7 +104,11 @@ export class MerchantFieldsService {
         let emptyFields: string[] = requiredFields.filter((field) => {
             return !profile.hasField(field) && profile.fieldIsEmpty(field);
         });
-
+        if (emptyFields.length > 0 && !emptyFields.includes('countryCode') && !emptyFields.includes('stateCode')
+            && this.configService.get<BehaviorSubject<IState[]>>('states').getValue()[profile.countryCode]
+        ) {
+            emptyFields.push('stateCode');
+        }
         if (emptyFields.includes('stateCode')
             && (emptyFields.includes('countryCode') || (profile.countryCode
                 && !this.configService.get<BehaviorSubject<IState[]>>('states').getValue()[profile.countryCode]))
