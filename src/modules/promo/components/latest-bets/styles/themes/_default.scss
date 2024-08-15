@@ -74,6 +74,7 @@
 
             &__filter {
                 @include bm.get-mq-map('display', $themeDefault, 'filterDisplay');
+                @include bm.get-mq-map('width',$themeDefault, 'filterWidth');
             }
 
             &__block-buttons {
@@ -81,6 +82,7 @@
                 min-width: ef.get-value($themeDefault, 'blockButtonsMinWidth');
                 max-width: ef.get-value($themeDefault, 'blockButtonsMaxWidth');
                 height: ef.get-value($themeDefault, 'blockButtonsHeight');
+                background-color: ef.get-value($themeDefault, 'blockButtonsBg');
 
                 border-radius: ef.get-value($themeDefault, 'blockButtonsBorderRadius');
 

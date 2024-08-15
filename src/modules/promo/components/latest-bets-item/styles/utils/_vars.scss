@@ -1,7 +1,12 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'itemDisplay': table-row,
+    'itemDisplay': grid,
+    'gridTemplateClm': (
+        375: 255px 1fr ,
+        1024: 376px 290px repeat(3, minmax(0, 1fr)),
+    ),
     'itemBorderRadius': ef.size(2),
+    'rowMarginBottom': 2px,
     'itemColor': var(--mc-bg700),
 
     'gameButtonBackground': transparent,
@@ -20,12 +25,6 @@ $themeDefault: map-merge((
         375: 6px ef.size(2),
         1200: 6px 2px,
     ),
-    'cellMultiplierWidth': 200px,
-    'cellAmountWidth': 200px,
-    'cellGameWidth': 350px,
-    'cellUserWidth': 300px,
-    'cellProfitWidth': 110px,
-    'cellProfitWidthMobileMax': 220px,
     'cellTextAlign': left,
     'cellVerticalAlign': middle,
     'cellBackground': var(--mc-bg700),
@@ -57,10 +56,10 @@ $themeDefault: map-merge((
     'titleValueStyle': 'PrimaryText',
 
     'thumbHeight': 51px,
-    'thumbBorderRadius': ef.get('radius', 'less'),
+    'thumbBorderRadius': 10px,
     'thumbMargin': ef.size(3),
 
-    'ImgContainerWidth': 90px,
+    'ImgContainerWidth': 88px,
 
     'winBackground': var(--mc-success-o2),
     'lossBackground': var(--mc-baseMain-o1),
@@ -71,4 +70,8 @@ $themeDefault: map-merge((
     'profitValueColor': var(--mc-baseThird, var(--mc-baseMain)),
 
     'nameMaxWidthMobile': 110px,
+    'profitAmountJustify': (
+        560: end,
+        1024: start
+    )
 ), $customThemeDefault);

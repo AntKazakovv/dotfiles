@@ -26,8 +26,9 @@ $themeDefault: map-merge((
 
     'filterDisplay':  (
         375: table-caption,
-        1200: table-row,
+        1024: flex,
     ),
+    'filterWidth': 100%,
 
     'blockButtonsDisplay':  (
         375: flex,
@@ -42,21 +43,22 @@ $themeDefault: map-merge((
     'lastChildWhiteSpace': nowrap,
     'lastChildPadding': 0 ef.size(6) 0 0,
 
-    'blockButtonsMinWidth': 380px,
+    'blockButtonsMinWidth': 346px,
     'blockButtonsMaxWidth': 100%,
-    'blockButtonsHeight': ef.size(10),
+    'blockButtonsHeight':44px,
+    'blockButtonsBg': var(--mc-bgModal),
     'blockButtonsBackground': var(--mc-bgModal),
     'blockButtonsBorderRadius': ef.size(2),
 
     'buttonLineHeight': 1.1,
-    'buttonHeight': ef.size(9),
+    'buttonHeight': ef.size(8),
     'buttonFontSize': 14px,
     'buttonMaxWidth': 100%,
     'buttonMinWidth': 169px,
     'buttonBackground': transparent,
+    'buttonMargin': 2px,
     'buttonPadding': ef.size(1) ef.size(2),
-    'buttonMargin': 3px,
-    'buttonBorderRadius': ef.size(2),
+    'buttonBorderRadius': 6px,
     'buttonActiveBackground': var(--mc-bg700),
     'buttonHoverBackground': var(--mc-bg500),
     'buttonFontStyle': 'CaptionTextBold',

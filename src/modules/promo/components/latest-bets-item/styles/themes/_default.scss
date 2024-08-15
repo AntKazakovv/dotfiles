@@ -2,8 +2,10 @@
 
     &:host {
 
+        @include bm.get-mq-map('grid-template-columns', $themeDefault,'gridTemplateClm');
         display: ef.get-value($themeDefault, 'itemDisplay');
         border-radius: ef.get-value($themeDefault, 'itemBorderRadius');
+        margin-bottom: ef.get-value($themeDefault, 'rowMarginBottom');
         color: ef.get-value($themeDefault, 'itemColor');
 
         .wlc-latest-bets-item {
@@ -53,12 +55,7 @@
                 }
             }
 
-            &__link {
 
-                @include mq.max(560) {
-                    display: flex;
-                }
-            }
 
             &__thumb {
                 height: ef.get-value($themeDefault, 'thumbHeight');
@@ -83,17 +80,7 @@
                     }
                 }
 
-                &--multiplier {
-                    width: ef.get-value($themeDefault, 'cellMultiplierWidth');
-                    color: ef.get-value($themeDefault, 'cellTextColor');
-                }
-
-                &--amount {
-                    width: ef.get-value($themeDefault, 'cellAmountWidth');
-                }
-
                 &--profit {
-                    width: ef.get-value($themeDefault, 'cellProfitWidth');
 
                     @include mq.max(560) {
                         max-width: ef.get-value($themeDefault, 'cellProfitWidthMobileMax');
@@ -102,14 +89,6 @@
                             padding: ef.get-value($themeDefault, 'mobilePaddingAmount');
                         }
                     }
-                }
-
-                &--game {
-                    width: ef.get-value($themeDefault, 'cellUserWidth');
-                }
-
-                &--user {
-                    width: ef.get-value($themeDefault, 'cellUserWidth');
                 }
 
 
@@ -161,11 +140,8 @@
             }
 
             &__profit-amount {
+                @include bm.get-mq-map(' justify-content', $themeDefault,'profitAmountJustify');
                 display: flex;
-
-                @include mq.max(1024) {
-                    justify-content: end;
-                }
             }
 
             &__profit-value {
