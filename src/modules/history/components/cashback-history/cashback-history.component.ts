@@ -185,8 +185,8 @@ export class CashbackHistoryComponent extends AbstractComponent implements OnIni
             )
             .subscribe(async (data: IHistoryFilter): Promise<void> => {
                 const changedData: IIndexing<boolean> = {
-                    endDate: !this.endDate.diff(data.endDate, 'day'),
-                    startDate: !this.startDate.diff(data.startDate, 'day'),
+                    endDate: !this.endDate.isSame(data.endDate, 'day'),
+                    startDate: !this.startDate.isSame(data.startDate, 'day'),
                 };
 
                 if (this.ready && !_find(changedData, (value: boolean): boolean => value)) {

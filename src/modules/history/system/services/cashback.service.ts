@@ -60,12 +60,12 @@ export class CashbackService {
                 return itemDateUTC >= startDateUTC && itemDateUTC <= endDateUTC;
             });
             this.allCashbacks = _map(this.allCashbacks, (item: ICashbackHistory) => {
-                item.AddDate = GlobalHelper.toLocalTime(item.AddDate, 'SQL', 'yyyy-MM-dd HH:mm:ss');
+                item.AddDate = GlobalHelper.toLocalTime(item.AddDate, 'SQL', 'YYYY-MM-DD HH:mm:ss');
                 item.PeriodFrom = dayjs(item.PeriodFrom).isValid() ?
-                    GlobalHelper.toLocalTime(item.PeriodFrom, 'SQL', 'yyyy-MM-dd HH:mm:ss') :
+                    GlobalHelper.toLocalTime(item.PeriodFrom, 'SQL', 'YYYY-MM-DD HH:mm:ss') :
                     item.PeriodFrom.replace(/\./g, '-');
                 item.PeriodTo = dayjs(item.PeriodTo).isValid() ?
-                    GlobalHelper.toLocalTime(item.PeriodTo, 'SQL', 'yyyy-MM-dd HH:mm:ss') :
+                    GlobalHelper.toLocalTime(item.PeriodTo, 'SQL', 'YYYY-MM-DD HH:mm:ss') :
                     item.PeriodTo.replace(/\./g, '-');
                 item.Period = `${item.PeriodFrom} - ${item.PeriodTo}`;
                 return item;
