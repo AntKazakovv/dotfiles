@@ -221,6 +221,10 @@ export namespace FormElements {
                     name: 'maxLength',
                     options: 25,
                 },
+                {
+                    name: 'onlyLatinLetters',
+                    projectType: 'wlc',
+                },
             ],
             wlcElement: 'block_Name',
             locked: true,
@@ -243,6 +247,10 @@ export namespace FormElements {
                 {
                     name: 'maxLength',
                     options: 25,
+                },
+                {
+                    name: 'onlyLatinLetters',
+                    projectType: 'wlc',
                 },
             ],
             wlcElement: 'block_last-name',
@@ -352,7 +360,13 @@ export namespace FormElements {
                 placeholder: gettext('City'),
             },
             name: 'city',
-            validators: [FormValidators.cityMinLength],
+            validators: [
+                FormValidators.cityMinLength,
+                {
+                    name: 'onlyLatinLetters',
+                    projectType: 'wlc',
+                },
+            ],
             wlcElement: 'block_city',
             customMod: ['city'],
         },
@@ -366,7 +380,13 @@ export namespace FormElements {
                 placeholder: gettext('Address'),
             },
             name: 'address',
-            validators: ['required'],
+            validators: [
+                'required',
+                {
+                    name: 'onlyLatinLetters',
+                    projectType: 'wlc',
+                },
+            ],
             wlcElement: 'block_address',
             customMod: ['address'],
         },

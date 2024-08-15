@@ -526,8 +526,17 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
         let validationRule: IValidatorListItem;
 
         if (_isObject(validatorSettings)) {
+            if (validatorSettings.projectType) {
+                const projectType = this.configService.get<string>('appConfig.projectType');
+                if (validatorSettings.projectType !== projectType) {
+                    return;
+                }
+            }
+
             validationRule = _clone(this.validationService.getValidator(validatorSettings.name));
-            validationRule.validator = validationRule.validator(validatorSettings.options);
+            validationRule.validator = validatorSettings.options
+                ? validationRule.validator(validatorSettings.options)
+                : validationRule.validator;
         } else {
             validationRule = this.validationService.getValidator(validatorSettings);
         }

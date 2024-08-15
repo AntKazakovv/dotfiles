@@ -45,6 +45,7 @@ import {
     userIdValidator,
     emailOrUserIdValidator,
     oneOrMoreRequiredValidator,
+    onlyLatinLettersValidator,
 } from './validators';
 import {IValidationPasswordRules} from 'wlc-engine/modules/core/system/interfaces/base-config/profile.interface';
 
@@ -52,8 +53,9 @@ export type ValidatorType = string | IValidatorSettings;
 
 export interface IValidatorSettings {
     name: string;
-    options: any | number;
+    options?: any | number;
     text?: string;
+    projectType?: string;
 }
 
 export interface IValidatorListItem {
@@ -122,6 +124,7 @@ export class ValidationService {
         this.setRule('matchingFields', matchingFieldsValidator);
         this.setRule('email', emailValidator);
         this.setRule('onlyLetters', onlyLettersValidator);
+        this.setRule('onlyLatinLetters', onlyLatinLettersValidator);
         this.setRule('regExp', regexpValidator);
         this.setRule('regexpEmoji', regexpEmojiValidator);
         this.setRule('newPassword', newPasswordValidator);

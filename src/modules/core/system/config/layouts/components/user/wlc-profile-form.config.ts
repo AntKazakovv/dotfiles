@@ -296,7 +296,13 @@ export namespace wlcProfileForm {
                         name: 'firstName',
                         locked: true,
                         prohibitedPattern: ProhibitedPatterns.notNamesSymbols,
-                        validators: ['required'],
+                        validators: [
+                            'required',
+                            {
+                                name: 'onlyLatinLetters',
+                                projectType: 'wlc',
+                            },
+                        ],
                         exampleValue: gettext('Enter your name'),
                     },
                 },
@@ -310,7 +316,13 @@ export namespace wlcProfileForm {
                         name: 'lastName',
                         locked: true,
                         prohibitedPattern: ProhibitedPatterns.notNamesSymbols,
-                        validators: ['required'],
+                        validators: [
+                            'required',
+                            {
+                                name: 'onlyLatinLetters',
+                                projectType: 'wlc',
+                            },
+                        ],
                         exampleValue: gettext('Enter your last name'),
                     },
                 },
@@ -353,7 +365,12 @@ export namespace wlcProfileForm {
                         },
                         wlcElement: 'block_address',
                         name: 'address',
-                        validators: [],
+                        validators: [
+                            {
+                                name: 'onlyLatinLetters',
+                                projectType: 'wlc',
+                            },
+                        ],
                     },
                 },
                 {

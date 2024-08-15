@@ -10,3 +10,4 @@ export * from './email-or-phone.validator';
 export * from './email-or-user-id.validator';
 export * from './user-id.validator';
 export * from './form.validator';
+export * from './latinLetters.validator';
