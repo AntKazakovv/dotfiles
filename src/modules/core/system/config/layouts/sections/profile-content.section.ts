@@ -1410,7 +1410,36 @@ export namespace profileContent {
                     ],
                 },
             },
+            componentLib.wlcProfileMenu.submenu,
             componentLib.wlcTransfer.def,
+        ],
+    };
+
+    export const profileWolfTransfer: ILayoutSectionConfig = {
+        container: true,
+        theme: 'wolf',
+        components: [
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__top',
+                    components: [componentLib.wlcTitle.paymentsWolf],
+                },
+                display: {
+                    before: 899,
+                },
+            },
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__wrp',
+                    components: [
+                        componentLib.wlcProfileMenu.defTypeWolf,
+                        componentLib.wlcProfileMenu.submenuWolf,
+                        componentLib.wlcTransfer.def,
+                    ],
+                },
+            },
         ],
     };
 

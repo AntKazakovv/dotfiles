@@ -430,6 +430,15 @@ export namespace wlcTitle {
         },
     };
 
+    export const paymentsWolf: ILayoutComponent = {
+        name: 'core.wlc-section-title',
+        params: {
+            theme: 'wolf',
+            text: 'Payments',
+            iconPath: 'wlc/icons/european/v3/payments.svg',
+        },
+    };
+
     export const profileTransfer: ILayoutComponent = {
         name: 'core.wlc-title',
         params: <ITitleCParams>{

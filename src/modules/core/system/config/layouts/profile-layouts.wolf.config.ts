@@ -98,6 +98,12 @@ export const $profileWolfLayouts: IPanelsConfig = {
             'profile-content': sectionsLib.profileContent.profileWolfWithdraw,
         },
     },
+    'app.profile.cash.transfer': {
+        extends: 'app',
+        sections: {
+            'profile-content': sectionsLib.profileContent.profileWolfTransfer,
+        },
+    },
     'app.profile.cash.transactions': {
         extends: 'app.profile',
         sections: {

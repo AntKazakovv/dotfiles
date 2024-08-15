@@ -1073,6 +1073,11 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
             state: {
                 name: 'app.profile.payments',
                 params: {},
+                parent: [
+                    'app.profile.cash.deposit',
+                    'app.profile.cash.withdraw',
+                    'app.profile.cash.transfer',
+                ],
             },
         },
     },
