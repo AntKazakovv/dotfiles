@@ -235,6 +235,10 @@
                 "file": "./900.change-logs/releases/1.8.0_01-07-2022.md"
             },
             {
+                "title": "1.78.0RC3 (16-08-2024)",
+                "file": "./900.change-logs/releases/1.78.0-rc.3_16-08-2024.md"
+            },
+            {
                 "title": "1.78.0RC2 (14-08-2024)",
                 "file": "./900.change-logs/releases/1.78.0-rc.2_14-08-2024.md"
             },
@@ -826,44 +830,44 @@
         "file": "./1000.translations/1000.translations.md",
         "children": [
             {
-                "title": "08-08-2024",
-                "file": "./1000.translations/history/08-08-2024.md"
-            },
-            {
-                "title": "30-07-2024",
-                "file": "./1000.translations/history/30-07-2024.md"
-            },
-            {
-                "title": "24-07-2024",
-                "file": "./1000.translations/history/24-07-2024.md"
-            },
-            {
-                "title": "19-07-2024",
-                "file": "./1000.translations/history/19-07-2024.md"
-            },
-            {
-                "title": "11-07-2024",
-                "file": "./1000.translations/history/11-07-2024.md"
+                "title": "03-07-2024",
+                "file": "./1000.translations/history/03-07-2024.md"
             },
             {
                 "title": "08-07-2024",
                 "file": "./1000.translations/history/08-07-2024.md"
             },
             {
-                "title": "03-07-2024",
-                "file": "./1000.translations/history/03-07-2024.md"
+                "title": "08-08-2024",
+                "file": "./1000.translations/history/08-08-2024.md"
             },
             {
-                "title": "26-06-2024",
-                "file": "./1000.translations/history/26-06-2024.md"
+                "title": "11-06-2024",
+                "file": "./1000.translations/history/11-06-2024.md"
+            },
+            {
+                "title": "11-07-2024",
+                "file": "./1000.translations/history/11-07-2024.md"
             },
             {
                 "title": "13-06-2024",
                 "file": "./1000.translations/history/13-06-2024.md"
             },
             {
-                "title": "11-06-2024",
-                "file": "./1000.translations/history/11-06-2024.md"
+                "title": "16-08-2024",
+                "file": "./1000.translations/history/16-08-2024.md"
+            },
+            {
+                "title": "19-07-2024",
+                "file": "./1000.translations/history/19-07-2024.md"
+            },
+            {
+                "title": "24-07-2024",
+                "file": "./1000.translations/history/24-07-2024.md"
+            },
+            {
+                "title": "26-06-2024",
+                "file": "./1000.translations/history/26-06-2024.md"
             }
         ]
     }
