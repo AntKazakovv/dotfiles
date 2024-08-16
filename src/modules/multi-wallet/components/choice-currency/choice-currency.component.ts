@@ -42,23 +42,21 @@ export class ChoiceCurrencyComponent extends AbstractComponent implements OnInit
     protected buttonParams: IButtonCParams;
     protected allCurrency: boolean = true;
     protected isOverlap: boolean;
-    protected readonly currencyService: CurrencyService = inject(CurrencyService);
 
-    private readonly userService: UserService = inject(UserService);
-    private readonly eventService: EventService = inject(EventService);
-    private readonly stateService: StateService = inject(StateService);
+    protected readonly currencyService: CurrencyService = inject(CurrencyService);
+    protected readonly userService: UserService = inject(UserService);
+    protected readonly eventService: EventService = inject(EventService);
+    protected readonly stateService: StateService = inject(StateService);
+    protected override readonly configService: ConfigService = inject(ConfigService);
+    protected override readonly cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
 
     constructor(
-        @Inject('injectParams') protected injectParams: Params.IChoiceCurrencyParams,
-        protected override configService: ConfigService,
-        protected override cdr: ChangeDetectorRef,
-    ) {
+        @Inject('injectParams') protected injectParams: Params.IChoiceCurrencyParams) {
         super(
             {
                 injectParams,
                 defaultParams: Params.defaultParams,
-            },
-            configService);
+            });
     }
 
     public override ngOnInit(): void {
@@ -106,6 +104,10 @@ export class ChoiceCurrencyComponent extends AbstractComponent implements OnInit
         return this.$params.balanceText;
     }
 
+    public getDisplayName(currency: string): string {
+        return this.currencyService.getDisplayName(currency);
+    }
+
     public onOpen(): void {
         this.isOpened = !this.isOpened;
     }
@@ -136,7 +138,7 @@ export class ChoiceCurrencyComponent extends AbstractComponent implements OnInit
         return this.allCurrency || this.currencyService.isFiat(currency);
     }
 
-    private selectCurrency(): void {
+    protected selectCurrency(): void {
         this.$params.game.selectedCurrency = this.currentCurrency;
         this.$params.game.isVisibilityChangeCurrency = true;
 

@@ -3,30 +3,36 @@
         class="{{$class}}__container"
         [isOpened]="isOpened"
         (clickOutside)="clickOutside()">
-        <span class="{{$class}}__text">{{balanceText | translate}}</span>
+        <span class="{{$class}}__text">
+            {{balanceText | translate}}
+        </span>
         <div class="{{$class}}__dropdown-btn"
             [class.isOpened]="isOpened"
             (click)="onOpen()">
-
             <ng-container
                 [ngTemplateOutlet]="currency"
-                [ngTemplateOutletContext]="{$implicit: currentCurrency}"></ng-container>
+                [ngTemplateOutletContext]="{$implicit: currentCurrency}">
+            </ng-container>
             <span wlc-icon
                 class="arrow"
                 iconPath="/wlc/icons/icons_new/arrow.svg"
-                wlcElement="icon_arrow"></span>
+                wlcElement="icon_arrow">
+            </span>
         </div>
 
         <div *ngIf="isOpened"
              class="{{$class}}__list">
-            <div *ngFor="let currencyName of currencies"
-                class="{{$class}}__currency"
-                [class.select]="currencyName === currentCurrency"
-                (click)="onChangingCurrency(currencyName)">
-                <ng-container
-                    [ngTemplateOutlet]="currency"
-                    [ngTemplateOutletContext]="{$implicit: currencyName}"></ng-container>
-            </div>
+            <ng-container *ngFor="let currencyName of currencies">
+                <div *ngIf="showCurrency(currencyName)"
+                    class="{{$class}}__currency"
+                    [class.select]="currencyName === currentCurrency"
+                    (click)="onChangingCurrency(currencyName)">
+                    <ng-container
+                        [ngTemplateOutlet]="currency"
+                        [ngTemplateOutletContext]="{$implicit: currencyName}">
+                    </ng-container>
+                </div>
+            </ng-container>
         </div>
     </div>
     <button *ngIf="isOverlap"
@@ -38,11 +44,12 @@
 </ng-template>
 
 <ng-template #currency let-name>
-    <ng-template [ngIf]="showCurrency(name)" >
-          <span wlc-icon
-              class="currency"
-              iconPath="{{getCurrencyIconUrl(name)}}"
-              wlcElement="icon_currency"></span>
-        <span>{{currencyService.getDisplayName(name)}}</span>
-    </ng-template>
+    <span wlc-icon
+         class="currency"
+         wlcElement="icon_currency"
+         [iconPath]="getCurrencyIconUrl(name)">
+    </span>
+    <span>
+        {{getDisplayName(name)}}
+    </span>
 </ng-template>
