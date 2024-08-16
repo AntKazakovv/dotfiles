@@ -67,7 +67,7 @@ export namespace wlcTitle {
         },
         params: <ITitleCParams>{
             customMod: ['profile'],
-            mainText: gettext('Cash'),
+            mainText: gettext('Transactions'),
             wlcElement: 'header_edit-profile',
         },
     };
@@ -76,7 +76,7 @@ export namespace wlcTitle {
         name: 'core.wlc-title',
         params: <ITitleCParams>{
             customMod: ['profile'],
-            mainText: gettext('Cash'),
+            mainText: gettext('Transactions'),
             wlcElement: 'header_edit-profile',
         },
     };

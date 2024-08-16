@@ -67,7 +67,7 @@ export namespace wlcTitle {
         },
         params: <ITitleCParams>{
             customMod: ['profile'],
-            mainText: gettext('Cash'),
+            mainText: gettext('Transactions'),
             wlcElement: 'header_edit-profile',
         },
     };
@@ -76,7 +76,7 @@ export namespace wlcTitle {
         name: 'core.wlc-title',
         params: <ITitleCParams>{
             customMod: ['profile'],
-            mainText: gettext('Cash'),
+            mainText: gettext('Transactions'),
             wlcElement: 'header_cash',
         },
     };
@@ -85,7 +85,7 @@ export namespace wlcTitle {
         name: 'core.wlc-section-title',
         params: {
             theme: 'wolf',
-            text: gettext('Cash'),
+            text: gettext('Transactions'),
             iconPath: 'wlc/icons/european/v3/payments.svg',
         },
     };

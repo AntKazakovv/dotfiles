@@ -675,7 +675,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     },
 
     'profile-menu:cash': {
-        name: gettext('Cash'),
+        name: gettext('Transactions'),
         type: 'sref',
         icon: 'payments',
         class: 'payments',
@@ -692,7 +692,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
     },
     'profile-first-menu:cash': {
-        name: gettext('Cash'),
+        name: gettext('Transactions'),
         type: 'title',
         icon: 'cash',
         class: 'cash',
