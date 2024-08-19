@@ -61,10 +61,10 @@ const postMenu = {
 };
 
 function addIf(
-    component: ILayoutComponent, 
+    component: ILayoutComponent,
     components: ILayoutComponent[],
-    predicate: boolean, 
-): ILayoutComponent[] 
+    predicate: boolean,
+): ILayoutComponent[]
 {
     if (predicate) {
         components.push(component);
@@ -75,7 +75,7 @@ function addIf(
 const generateComponent = (isSeparatedPage: boolean): ILayoutComponent[] => {
     const defaultComponents: ILayoutComponent[] = [postMenu];
 
-    return addIf( contacts, defaultComponents, isSeparatedPage);    
+    return addIf(contacts, defaultComponents, !isSeparatedPage);    
 };
 
 export const generateConfig = (isSeparatedPage?: boolean): IInfoPageConfig => {
