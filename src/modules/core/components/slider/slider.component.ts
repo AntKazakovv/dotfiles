@@ -181,6 +181,22 @@ export class SliderComponent extends AbstractComponent
         }
     }
 
+    // TODO: Try to delete setTimeout if swiper performance increases
+    public delayedSlideTo(slideNo: number = 1, delay: number = 500): void {
+        this.ngZone.runOutsideAngular(() => {
+            setTimeout(() => {
+                const swiperWasEnabled: boolean = this.swiper.params.enabled;
+                this.swiper.update();
+                this.swiper.enable();
+                this.swiper.slideTo(slideNo);
+
+                if (!swiperWasEnabled) {
+                    this.swiper.disable();
+                }
+            }, delay);
+        });
+    }
+
     public detectSlide(slide: Params.ISlide): string {
         if (slide) {
             if (slide.component) {

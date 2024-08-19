@@ -194,11 +194,13 @@ describe('LootboxModalComponent', (): void => {
 
         component.onSlideChangeTransitionEnd();
 
+        fixture.detectChanges();
+
         expect(component.title).toEqual('Congratulations!');
         expect(component.lootboxStatus).toEqual('dropped');
         expect(_trim(nativeElement.querySelector(`.${defaultParams.class}__desc`).textContent))
             .toEqual(`Bonus "${getPrize().name}" has been successfully activated and added to your bonus list`);
-        expect(component.slides.length).toBe(defaultParams.totalSlides + 3);
+        expect(component.slides.length).toBe(defaultParams.totalSlides + 2);
         expect(nativeElement.querySelectorAll(`.${defaultParams.class}__buttons button`).length).toBe(1);
         expect(component.btnDisabled).toBeFalse();
         expect(component.btnThemeMod).toBe('secondary');

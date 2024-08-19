@@ -6,9 +6,7 @@ import {
     ViewChild,
 } from '@angular/core';
 
-import _concat from 'lodash-es/concat';
 import _random from 'lodash-es/random';
-import _find from 'lodash-es/find';
 import _toNumber from 'lodash-es/toNumber';
 import _isObject from 'lodash-es/isObject';
 
@@ -119,30 +117,22 @@ export class LootboxModalComponent extends AbstractComponent implements OnInit {
         try {
             const {bonus}: Bonus = await this.getDroppedBonus();
 
-            this.droppedPrize = _find(
-                this.prizes,
-                {id: _isObject(bonus) ? _toNumber(bonus.ID) : bonus},
+            this.droppedPrize = this.prizes.find(
+                (prize) => prize.id === (_isObject(bonus) ? _toNumber(bonus.ID) : bonus),
             );
-
-            this.slides = _concat(
-                this.slides,
+            this.slides = this.slides.concat(
                 this.getSlide(this.droppedPrize),
-                this.slides[_random(this.$params.totalSlides - 1)],
-                this.slides[_random(this.$params.totalSlides - 1)],
+                this.getSlide(this.getRandomPrize(this.droppedPrize?.id)),
             );
-            this.clearModifiers();
-            this.addModifiers(this.lootboxStatus);
-            this.cdr.detectChanges();
 
-            this.slider.swiper.enable();
-            this.slider.swiper.slideTo(this.$params.totalSlides);
-            this.slider.swiper.disable();
+            this.slider.delayedSlideTo(this.slides.length);
         } catch (error) {
             this.lootboxStatus = 'error';
             this.btnDisabled = false;
+            this.droppedPrize = null;
+        } finally {
             this.clearModifiers();
             this.addModifiers(this.lootboxStatus);
-            this.cdr.detectChanges();
         }
     }
 
@@ -168,7 +158,6 @@ export class LootboxModalComponent extends AbstractComponent implements OnInit {
         this.btnText = gettext('Close');
         this.clearModifiers();
         this.addModifiers(this.lootboxStatus);
-        this.cdr.detectChanges();
     }
 
     protected async getDroppedBonus(): Promise<Bonus> {

@@ -36,23 +36,12 @@ export class LootboxPrizeComponent extends AbstractComponent implements OnInit {
     public override ngOnInit(): void {
         super.ngOnInit();
         this.isProfileFirst = this.configService.get<string>('$base.profile.type') === 'first';
-        if (this.$params.prize.imageOther?.length) {
-            this.$params.iconPath = this.$params.prize.imageOther;
-        } else {
-            this.$params.iconPath = `//agstatic.com/bonuses/icons/lootbox.${this.configService.get<string>(
-                '$bonuses.defaultIconExtension')}`;
-        };
-
+        this.$params.iconPath = this.$params.prize.imageOther
+            || `//agstatic.com/bonuses/icons/lootbox.${this.configService.get<string>(
+                '$bonuses.defaultIconExtension',
+            )}`;
         this.prepareModifiers();
     }
-
-    /**
-     * detectChanges after image loading error
-     * @returns {void}
-     */
-    public imageErrorLoad(): void {
-        this.cdr.detectChanges();
-    };
 
     /**
      * Get bg image by profile
@@ -65,6 +54,14 @@ export class LootboxPrizeComponent extends AbstractComponent implements OnInit {
 
     public get imagePromo(): string {
         return this.$params.prize.imagePromo;
+    }
+
+    public get prizeName(): string {
+        return this.$params.prize.name;
+    }
+
+    public get iconPath(): string {
+        return this.$params.iconPath;
     }
 
     protected prepareModifiers(): void {
