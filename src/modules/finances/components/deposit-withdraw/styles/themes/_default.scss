@@ -197,6 +197,7 @@
 
         &__promocode {
             @include bm.get-mq-map('--wlc-dep-promocode-align', $themeDefault, 'promoCodeAlign');
+            @include bm.get-mq-map('--wlc-dep-promocode-results-align', $themeDefault, 'promoCodeResAlign');
             @include bm.get-mq-map('--wlc-dep-promocode-results-dir', $themeDefault, 'promoCodeResultsDir');
             @include bm.get-mq-map('--wlc-dep-promocode-bonus-align', $themeDefault, 'promoCodeBonusAlign');
             margin: ef.get-value($themeDefault, 'promoCodeMargin');

@@ -308,6 +308,12 @@ export class DepositWithdrawComponent
         this.actionService.scrollTo('.wlc-app', {position: 'start'});
     }
 
+    public getPromoCodeBonus(): Bonus {
+        if (this.currentBonus && this.currentBonus.promoCode) {
+            return this.currentBonus;
+        }
+    }
+
     public getPaymentFormPartialParams(showAdditional?: boolean): IPaymentFormCParams {
         let params: IPaymentFormCParams = _merge(this.paymentFormParams, {mode: this.$params.mode});
 

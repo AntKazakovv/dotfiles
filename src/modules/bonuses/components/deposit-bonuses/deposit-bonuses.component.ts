@@ -11,6 +11,7 @@ import Swiper from 'swiper';
 import {takeUntil} from 'rxjs/operators';
 import _merge from 'lodash-es/merge';
 import _isObject from 'lodash-es/isObject';
+import _set from 'lodash-es/set';
 
 import {
     AbstractComponent,
@@ -18,7 +19,9 @@ import {
     EventService,
     GlobalHelper,
     ISlide,
+    ISliderCParams,
     ModalService,
+    SliderComponent,
 } from 'wlc-engine/modules/core';
 import {
     IAutoSelectByDevice,
@@ -48,6 +51,7 @@ import * as Params from './deposit-bonuses.params';
 })
 export class DepositBonusesComponent extends AbstractComponent implements OnInit {
     @ViewChild('bonusesList') protected list: TemplateRef<any>;
+    @ViewChild(SliderComponent) protected slider: SliderComponent | undefined;
 
     public override $params: Params.IDepositBonusesCParams;
     public bonuses: Bonus[] = [];
@@ -55,14 +59,15 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
     public currentBonus: Bonus | null = null;
     public autoSelect: number | IAutoSelectByDevice<number>;
     public slides: ISlide[] = [];
+    public sliderParams: ISliderCParams;
 
     protected currentPaySystemId: number = 0;
     protected blankBonus: Bonus;
     protected isMobile: boolean = this.configService.get<DeviceModel>('device').isMobile;
     protected firstInit: boolean = true;
     protected paymentsAutoSelect: boolean = false;
-
-    private promoCodeInfo: IPromoCodeInfo;
+    protected lastBonusId: number;
+    protected promoCodeInfo: IPromoCodeInfo;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IDepositBonusesCParams,
@@ -84,6 +89,10 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
             || this.configService.get<boolean>('$finances.lastSucceedDepositMethod.use');
 
         this.currentPaySystemId = this.configService.get<PaymentSystem>('chosenPaySystem')?.id;
+
+        if (this.$params.type === 'swiper') {
+            this.sliderParams = this.$params.sliderParams;
+        }
 
         this.createBlankBonus();
 
@@ -234,6 +243,7 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
     protected chooseBonus(bonus: Bonus): void {
         this.blankBonus.isChoose = !bonus;
         this.currentBonus = bonus || null;
+        this.lastBonusId = bonus?.id || null;
         this.updateBonusesStatus();
     }
 
@@ -256,6 +266,7 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
     protected getBonuses(): void {
 
         this.processBonusesResponse();
+        this.updateSliderParams();
 
         if (this.firstInit && (!this.paymentsAutoSelect || this.currentPaySystemId)) {
             this.firstInit = false;
@@ -349,6 +360,31 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
                 bonus: this.blankBonus,
             },
         });
+
+        if (this.lastBonusId) {
+            let slideIndex: number = this.getActiveSlideIndex();
+            this.slider?.swiper.slideTo(slideIndex, 150);
+        }
+    }
+
+    protected updateSliderParams(): void {
+        let slideIndex: number = this.getActiveSlideIndex();
+
+        _set(this.sliderParams, 'swiper.initialSlide', slideIndex);
+    }
+
+    protected getActiveSlideIndex(): number {
+        let initialSlide: number = 0;
+
+        for (let i = 0; i < this.slides.length; i++) {
+
+            if (this.lastBonusId === (this.slides[i].componentParams as IBonusItemCParams)?.bonus?.id) {
+                initialSlide = i;
+                break;
+            }
+        }
+
+        return initialSlide;
     }
 
     protected disableBonuses(reason: keyof typeof disabledReasons): void {
@@ -360,6 +396,10 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
     protected enableBonuses(): void {
         this.bonuses.forEach((bonus: Bonus): void => {
             bonus.disabledBy = null;
+
+            if (this.lastBonusId === bonus.id) {
+                this.chooseBonus(bonus);
+            }
         });
     }
 
@@ -367,6 +407,12 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
         if (bonus) {
             this.chooseBlankBonus(true);
             this.disableBonuses(4);
+
+            if (this.$params.type === 'swiper') {
+                this.bonusesToSlides();
+                this.slider?.swiper.slideTo(0, 150);
+            }
+
             this.cdr.markForCheck();
         } else {
             this.enableBonuses();

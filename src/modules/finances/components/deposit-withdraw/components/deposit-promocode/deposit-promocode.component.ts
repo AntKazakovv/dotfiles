@@ -1,6 +1,7 @@
 import {
     Component,
     OnInit,
+    OnChanges,
     ChangeDetectionStrategy,
     Inject,
     Input,
@@ -9,6 +10,7 @@ import {
     ElementRef,
     Output,
     EventEmitter,
+    SimpleChanges,
 } from '@angular/core';
 import {UntypedFormControl} from '@angular/forms';
 
@@ -40,23 +42,24 @@ import * as Params from './deposit-promocode.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
-export class DepositPromocodeComponent extends AbstractComponent implements OnInit {
+export class DepositPromocodeComponent extends AbstractComponent implements OnInit, OnChanges {
     @Input() protected inlineParams: Params.IDepositPromoCodeCParams;
     @Input() protected showTooltip: boolean;
+    @Input() protected bonus: Bonus;
+
     @Output() public promoCodeAppliedEvent: EventEmitter<Bonus> = new EventEmitter();
 
     @ViewChild('modalForm') public modalForm: TemplateRef<ElementRef>;
 
     public override $params: Params.IDepositPromoCodeCParams;
     public promoCodeControl: UntypedFormControl = new UntypedFormControl();
-    public isBonusApplied: boolean = false;
     public bonusPending$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     public promoCodeInputHidden: boolean = true;
 
     public inputParams: IInputCParams;
     public submitBtnParams: IButtonCParams;
 
-    protected bonus: Bonus;
+    protected _isBonusApplied: boolean = false;
     protected bonusesService: BonusesService;
 
     private isModal: boolean = false;
@@ -77,6 +80,20 @@ export class DepositPromocodeComponent extends AbstractComponent implements OnIn
         }
 
         this.prepareParams();
+    }
+
+    public override ngOnChanges(changes: SimpleChanges): void {
+        if (changes['bonus']) {
+            this._isBonusApplied = !!changes['bonus'].currentValue;
+        }
+    }
+
+    public get isBonusApplied(): boolean {
+        return this._isBonusApplied;
+    }
+
+    public get bonusName(): string {
+        return this.bonus?.name;
     }
 
     public clickHandler(): void {
@@ -118,7 +135,6 @@ export class DepositPromocodeComponent extends AbstractComponent implements OnIn
     }
 
     public resetPromoCode(): void {
-        this.isBonusApplied = false;
         this.bonus = null;
         this.promoCodeAppliedEvent.emit(null);
         this.cdr.markForCheck();
@@ -206,9 +222,12 @@ export class DepositPromocodeComponent extends AbstractComponent implements OnIn
     }
 
     private applyPromoCode(): void {
-        this.modalService.closeAllModals();
+        this.modalService.hideModal('bonus-modal');
+
+        if (this.isModal) {
+            this.modalService.hideModal('deposit-promocode');
+        };
+
         this.promoCodeAppliedEvent.emit(this.bonus);
-        this.isBonusApplied = true;
-        this.cdr.markForCheck();
     }
 }

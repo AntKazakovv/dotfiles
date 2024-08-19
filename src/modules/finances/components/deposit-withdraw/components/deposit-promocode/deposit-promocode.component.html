@@ -6,7 +6,7 @@
 
 <div *ngIf="isBonusApplied" class="{{$class}}__results">
     <div class="{{$class}}__bonus">
-        <span class="{{$class}}__bonus-name">{{bonus.name}}</span>
+        <span class="{{$class}}__bonus-name">{{bonusName}}</span>
         <span class="{{$class}}__bonus-info" (click)="showBonusModal()">
             <span wlc-icon [iconPath]="'/wlc/icons/info.svg'"></span>
         </span>

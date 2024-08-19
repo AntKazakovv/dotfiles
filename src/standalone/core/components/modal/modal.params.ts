@@ -580,6 +580,9 @@ export const MODALS_LIST: IModalList = {
                 type: 'modal',
                 mode: 'deposit',
                 phoneVerifyParams: phoneVerificationConfig,
+                depositPromoCodeParams: {
+                    type: 'default',
+                },
                 stepsParams: {
                     paymentListParams: {
                         asModal: null,

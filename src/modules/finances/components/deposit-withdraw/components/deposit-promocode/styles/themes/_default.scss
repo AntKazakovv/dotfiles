@@ -36,7 +36,7 @@
             display: flex;
             flex-direction: var(--wlc-dep-promocode-results-dir, row);
             gap: ef.get-value($themeDefault, 'resultsGap');
-            align-items: var(--wlc-dep-promocode-align, start);
+            align-items: var(--wlc-dep-promocode-results-align, start);
             margin: ef.get-value($themeDefault, 'resultsMargin');
         }
 

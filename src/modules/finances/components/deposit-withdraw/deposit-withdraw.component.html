@@ -131,6 +131,7 @@
                 [inlineParams]="bonusesListParams">
             </div>
         </div>
+        <ng-container [ngTemplateOutlet]="depositPromoCode"></ng-container>
     </div>
 </ng-template>
 
@@ -258,6 +259,7 @@
         <div wlc-deposit-promocode
             [inlineParams]="$params.depositPromoCodeParams"
             [showTooltip]="activeBonusesExist"
+            [bonus]="getPromoCodeBonus()"
             (promoCodeAppliedEvent)="onPromoCodeChanged($event)">
         </div>
     </div>
