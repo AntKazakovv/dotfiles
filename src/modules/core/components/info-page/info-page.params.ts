@@ -67,7 +67,7 @@ function addIf(
 ): ILayoutComponent[]
 {
     if (predicate) {
-        components.push(component);
+        components = [component, ...components];
     }
     return components;
 }
