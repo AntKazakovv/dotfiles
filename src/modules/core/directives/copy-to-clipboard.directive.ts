@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import {UntypedFormControl} from '@angular/forms';
 
-import {ConfigService} from 'wlc-engine/modules/core';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 
 @Directive({
     selector: '[wlc-copy-to-clipboard]',

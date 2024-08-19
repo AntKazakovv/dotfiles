@@ -8,7 +8,7 @@ import {
     ElementRef,
 } from '@angular/core';
 
-import {AbstractComponent} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 
 import * as Params from './tag.params';
 

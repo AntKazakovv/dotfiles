@@ -17,16 +17,14 @@ import {
     throttleTime,
 } from 'rxjs/operators';
 
-import {
-    ConfigService,
-    ICountry,
-} from 'wlc-engine/modules/core';
+import {ICountry} from 'wlc-engine/modules/core/system/interfaces/fundist.interface';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {IForbiddenCountryParams} from 'wlc-engine/modules/core/components/forbidden-country/forbidden-country.params';
 import {
     IModalParams,
     ModalService,
 } from 'wlc-engine/modules/core/system/services/modal/modal.service';
-import {GlobalHelper} from 'wlc-engine/modules/core';
+import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 
 @Injectable({
     providedIn: 'root',

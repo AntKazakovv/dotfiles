@@ -25,11 +25,9 @@ import {takeUntil} from 'rxjs/operators';
 import _isString from 'lodash-es/isString';
 import _merge from 'lodash-es/merge';
 
-import {
-    GlobalHelper,
-    DateHelper,
-    TimerService,
-} from 'wlc-engine/modules/core';
+import {GlobalHelper} from  'wlc-engine/modules/core/system/helpers/global.helper';
+import {DateHelper} from 'wlc-engine/modules/core/system/helpers/date.helper';
+import {TimerService} from 'wlc-engine/modules/core/system/services/timer/timer.service';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes';
 
 import * as Params from './timer.params';

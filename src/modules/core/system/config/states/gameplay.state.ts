@@ -7,10 +7,8 @@ import _toNumber from 'lodash-es/toNumber';
 import {startGameResolver} from 'wlc-engine/modules/core/system/config/resolvers';
 import {StateHelper} from 'wlc-engine/modules/core/system/helpers/state.helper';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
-import {
-    ConfigService,
-    ModalService,
-} from 'wlc-engine/modules/core/system/services';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {StateHistoryService} from 'wlc-engine/modules/core/system/services/state-history/state-history.service';
 import {
     GamesFilterService,

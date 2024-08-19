@@ -1,7 +1,7 @@
 'use strict';
 
 import {Ng2StateDeclaration} from '@uirouter/angular';
-import {StateHelper} from 'wlc-engine/modules/core';
+import {StateHelper} from 'wlc-engine/modules/core/system/helpers/state.helper';
 
 export const loginState: Ng2StateDeclaration = {
     url: '/login',

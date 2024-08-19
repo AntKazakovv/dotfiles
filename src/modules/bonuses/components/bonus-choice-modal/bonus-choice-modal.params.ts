@@ -6,7 +6,7 @@ import {
     GlobalHelper,
     IButtonCParams,
 } from 'wlc-engine/modules/core';
-import {Bonus} from 'wlc-engine/modules/bonuses';
+import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 
 export type ComponentType = 'default' | CustomType;
 export type ComponentTheme = 'default' | CustomType;

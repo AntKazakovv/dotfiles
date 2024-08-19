@@ -1,11 +1,9 @@
 import _assign from 'lodash-es/assign';
 
-import {
-    AbstractModel,
-    ConfigService,
-    GlobalHelper,
-    IFromLog,
-} from 'wlc-engine/modules/core';
+import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
+import {IFromLog} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {
     IBonusesModule,
     ILootboxPrize,

@@ -8,10 +8,10 @@ import _isObject from 'lodash-es/isObject';
 import _isString from 'lodash-es/isString';
 import _assign from 'lodash-es/assign';
 
-import {ConfigService} from 'wlc-engine/modules/core/system/services';
-import {IBaseConfig} from 'wlc-engine/modules/core/system/interfaces';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {IBaseConfig} from 'wlc-engine/modules/core/system/interfaces/base-config';
 import {ILegalCheckboxWithLink} from 'wlc-engine/modules/core/components/checkbox/checkbox.params';
-import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers';
+import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {CuracaoRequirement} from 'wlc-engine/modules/app/system';
 
 @Injectable()

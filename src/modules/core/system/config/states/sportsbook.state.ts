@@ -5,11 +5,9 @@ import {
     Transition,
 } from '@uirouter/angular';
 
-import {sportsbookResolver} from 'wlc-engine/modules/core/system/config/resolvers';
-import {
-    IIndexing,
-    InjectionService,
-} from 'wlc-engine/modules/core';
+import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
+import {sportsbookResolver} from 'wlc-engine/modules/core/system/config/resolvers/sportsbook.resolver';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 
 import {
     SportsbookService,

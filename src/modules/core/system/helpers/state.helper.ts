@@ -1,3 +1,4 @@
+import {TranslateService} from '@ngx-translate/core';
 import {
     Transition,
     StateDeclaration,
@@ -5,22 +6,20 @@ import {
     StateService,
     TargetState,
 } from '@uirouter/core';
-import {Subscription} from 'rxjs';
-import {first} from 'rxjs/operators';
 import {LazyLoadResult} from '@uirouter/core/lib/state/interface';
 import {Ng2StateDeclaration} from '@uirouter/angular';
+
+import {Subscription} from 'rxjs';
+import {first} from 'rxjs/operators';
 
 import _merge from 'lodash-es/merge';
 
 // If you try to import everything from 'wlc-engine/modules/core' then the project failed loading
-import {
-    ConfigService,
-    ModalService,
-    InjectionService,
-} from 'wlc-engine/modules/core/system/services';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
+import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
-import {TranslateService} from '@ngx-translate/core';
 import {Deferred} from 'wlc-engine/modules/core/system/classes';
 import {IRedirect} from 'wlc-engine/modules/core/system/interfaces/core.interface';
 import {TModuleName} from 'wlc-engine/modules/core/system/constants/modules.constants';

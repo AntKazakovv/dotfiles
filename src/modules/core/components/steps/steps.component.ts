@@ -8,12 +8,12 @@ import {
 import {first} from 'rxjs/operators';
 
 import {
-    AbstractComponent,
-    EventService,
     IEvent,
     IIndexing,
-    GlobalHelper,
 } from 'wlc-engine/modules/core';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {GlobalHelper} from  'wlc-engine/modules/core/system/helpers/global.helper';
 import {IMGAConfig} from 'wlc-engine/modules/core/components/license/license.params';
 
 import * as Params from 'wlc-engine/modules/core/components/steps/steps.params';

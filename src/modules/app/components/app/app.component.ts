@@ -39,26 +39,26 @@ import _union from 'lodash-es/union';
 import _some from 'lodash-es/some';
 
 import {OptimizationService} from 'wlc-engine/services';
+import {ILanguage} from 'wlc-engine/modules/core/system/interfaces/app-config.interface';
+import {IHooksConfig} from 'wlc-engine/modules/core/system/interfaces/base-config/hooks.interface';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
+import {Deferred} from 'wlc-engine/modules/core/system/classes/deferred.class';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
+import {LayoutService} from 'wlc-engine/modules/core/system/services/layout/layout.service';
+import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
+import {SectionModel} from 'wlc-engine/modules/core/system/models/section.model';
+import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
+import {BodyClassService} from 'wlc-engine/modules/core/system/services/body-class/body-class.service';
+import {HooksService} from 'wlc-engine/modules/core/system/services/hooks/hooks.service';
+import {TimerService} from 'wlc-engine/modules/core/system/services/timer/timer.service';
+import {RouterService} from 'wlc-engine/modules/core/system/services/router/router.service';
 import {
-    AbstractComponent,
-    ActionService,
-    Deferred,
-    EventService,
-    GlobalHelper,
-    ILanguage,
-    LayoutService,
-    ModalService,
-    SectionModel,
-    LogService,
-    InjectionService,
-    BodyClassService,
-    IHooksConfig,
-    HooksService,
-    TimerService,
-    RouterService,
-    TLifecycleEvent,
     routerEventNames,
-} from 'wlc-engine/modules/core';
+    TLifecycleEvent,
+} from 'wlc-engine/modules/core/system/services/router/types';
 import {
     ILivechatConfig,
     CommonChatService,

@@ -12,12 +12,12 @@ import {HttpLoaderFactory, MissingTranslationService} from '../core/system/confi
 import {environment} from '../../system/environments/environment';
 import {AppComponent} from './components/app/app.component';
 import {CoreModule} from '../core/core.module';
-import {
-    ConfigService,
-    ActionService,
-    LogService,
-    IData,
-} from 'wlc-engine/modules/core/system/services';
+
+import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
+import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
+
 import {Location} from '@angular/common';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {NgxWebstorageModule} from 'ngx-webstorage';

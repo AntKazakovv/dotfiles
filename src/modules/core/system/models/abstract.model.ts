@@ -1,5 +1,8 @@
 import {GlobalDeps} from 'wlc-engine/modules/app/app.module';
-import {IFromLog, ILogObj} from 'wlc-engine/modules/core';
+import {
+    IFromLog,
+    ILogObj,
+} from 'wlc-engine/modules/core/system/services/log/log.service';
 
 import _keys from 'lodash-es/keys';
 import _merge from 'lodash-es/merge';

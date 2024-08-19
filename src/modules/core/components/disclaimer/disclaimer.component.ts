@@ -6,9 +6,14 @@ import {
     ChangeDetectionStrategy,
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
+
 import {takeUntil} from 'rxjs/operators';
+
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {defaultParams, IDisclaimerCParams} from './disclaimer.params';
+import {
+    defaultParams,
+    IDisclaimerCParams,
+} from './disclaimer.params';
 
 
 /**

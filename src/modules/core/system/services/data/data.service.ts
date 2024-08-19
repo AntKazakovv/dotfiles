@@ -57,7 +57,7 @@ import {
 } from 'wlc-engine/modules/core/system/interfaces';
 
 import {WINDOW} from 'wlc-engine/modules/app/system';
-import {ConfigService} from 'wlc-engine/modules/core/system/services';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 
 export interface IData<T = any> {
     status: 'success' | 'error';

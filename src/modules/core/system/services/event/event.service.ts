@@ -22,7 +22,7 @@ import _keys from 'lodash-es/keys';
 import _omit from 'lodash-es/omit';
 import _some from 'lodash-es/some';
 
-import {HooksService} from 'wlc-engine/modules/core';
+import {HooksService} from 'wlc-engine/modules/core/system/services/hooks/hooks.service';
 
 export const eventServiceHooks = {
     emit: 'emit@EventService',

@@ -5,7 +5,7 @@ import {
     Transition,
 } from '@uirouter/angular';
 
-import {ConfigService} from 'wlc-engine/modules/core/system/services';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 
 export const contactsState: Ng2StateDeclaration = {
     url: '/contacts/:slug',

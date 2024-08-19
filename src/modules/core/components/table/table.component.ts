@@ -26,8 +26,9 @@ import {
     TableAppearanceAnimation,
     TriggerNamesEnum,
     IPaginateOutput,
-    GlobalHelper,
 } from 'wlc-engine/modules/core';
+
+import {GlobalHelper} from  'wlc-engine/modules/core/system/helpers/global.helper';
 import {TableRowModel} from './table-row.model';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 

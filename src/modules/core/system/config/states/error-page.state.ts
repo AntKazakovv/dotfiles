@@ -9,11 +9,9 @@ import {
     interval,
 } from 'rxjs';
 
-import {
-    ConfigService,
-    EventService,
-    ModalService,
-} from 'wlc-engine/modules/core';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 
 let subs$: Subscription;
 let timeoutId: ReturnType<typeof setTimeout>;

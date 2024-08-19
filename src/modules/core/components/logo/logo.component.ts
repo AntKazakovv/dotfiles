@@ -6,7 +6,7 @@ import {
     Optional,
 } from '@angular/core';
 
-import {EventService} from 'wlc-engine/modules/core/system/services';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ColorThemeValues} from 'wlc-engine/modules/core/constants';
 

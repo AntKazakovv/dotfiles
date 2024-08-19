@@ -1,17 +1,18 @@
-'use strict';
-
-import * as Sentry from '@sentry/angular-ivy';
-import {Event, SeverityLevel, Scope} from '@sentry/angular-ivy';
-import {Cookie} from 'ng2-cookies';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {
     Inject,
     Injectable,
 } from '@angular/core';
+import * as Sentry from '@sentry/angular-ivy';
 import {
-    ConfigService,
-    LogService,
-} from 'wlc-engine/modules/core';
+    Event,
+    SeverityLevel,
+    Scope,
+} from '@sentry/angular-ivy';
+import {Cookie} from 'ng2-cookies';
+
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
+import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 
 interface ISentryMessage {

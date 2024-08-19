@@ -1,8 +1,6 @@
 import {CurrenciesInfo} from 'wlc-engine/modules/core/constants/currencies-info.constants';
-import {
-    AbstractModel,
-    IFromLog,
-} from 'wlc-engine/modules/core';
+import {IFromLog} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 
 import _findIndex from 'lodash-es/findIndex';
 import _toInteger from 'lodash-es/toInteger';

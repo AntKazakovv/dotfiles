@@ -1,32 +1,38 @@
-import {InjectionToken} from '@angular/core';
+import {
+    InjectionToken,
+    Injector,
+} from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 import {TranslateService} from '@ngx-translate/core';
 import {ResolveTypes} from '@uirouter/core';
 import {shouldPolyfill as shouldPolyfillNumberFormat} from '@formatjs/intl-numberformat/should-polyfill';
 import {shouldPolyfill as shouldPolyfillLocale} from '@formatjs/intl-locale/should-polyfill';
 import {shouldPolyfill as shouldPolyfillPluralRules} from '@formatjs/intl-pluralrules/should-polyfill';
-import {ConfigService} from 'wlc-engine/modules/core';
+
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 
 export const polyfillsResolver: ResolveTypes = {
     token: new InjectionToken('Polyfills resolver'),
-    deps: [ConfigService, TranslateService, DOCUMENT],
+    deps: [Injector, TranslateService, DOCUMENT],
     async resolveFn(
-        configService: ConfigService,
+        injector: Injector,
         translateService: TranslateService,
         document: Document,
     ) {
-        return new PolyfillsResolver(configService, translateService, document).resolve();
+        return new PolyfillsResolver(injector, translateService, document).resolve();
     },
 };
 
 class PolyfillsResolver {
     private static readonly shouldPolyfillNumberFormat: string = shouldPolyfillNumberFormat();
+    private configService: ConfigService;
 
     constructor(
-        private configService: ConfigService,
+        private injector: Injector,
         private translateService: TranslateService,
         private document: Document,
     ) {
+        this.configService = injector.get(ConfigService);
     }
 
     public async resolve(): Promise<void> {

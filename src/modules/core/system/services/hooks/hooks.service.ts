@@ -1,7 +1,5 @@
 import {Injectable} from '@angular/core';
-import {
-    IIndexing,
-} from 'wlc-engine/modules/core';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 
 import _bind from 'lodash-es/bind';
 import _forEach from 'lodash-es/forEach';

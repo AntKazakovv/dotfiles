@@ -6,11 +6,9 @@ import {
     Transition,
 } from '@uirouter/angular';
 
-import {IRedirectAfterLoad} from 'wlc-engine/modules/core/system/interfaces';
-import {
-    CachingService,
-    ConfigService,
-} from 'wlc-engine/modules/core/system/services';
+import {IRedirectAfterLoad} from 'wlc-engine/modules/core/system/interfaces/core.interface';
+import {CachingService} from 'wlc-engine/modules/core/system/services/caching/caching.service';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 
 export const homeState: Ng2StateDeclaration = {
     url: '',

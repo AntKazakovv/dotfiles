@@ -13,13 +13,14 @@ import _isNil from 'lodash-es/isNil';
 import {
     IRedirect,
     IIndexing,
-    ConfigService,
     profileRedirectType,
     EventService,
     StateHistoryService,
     ForbiddenCountryService,
     IStateModalOption,
 } from 'wlc-engine/modules/core';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+
 import {AppType} from 'wlc-engine/modules/core/system/interfaces/base-config/app.interface';
 
 export function routerConfigFn(router: UIRouter, injector: Injector): void {

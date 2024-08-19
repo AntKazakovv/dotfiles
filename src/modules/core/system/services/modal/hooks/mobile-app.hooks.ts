@@ -1,10 +1,8 @@
-import {AbstractHook} from 'wlc-engine/modules/core/system/classes';
-import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers';
-import {
-    ConfigService,
-    EventService,
-    HooksService,
-} from 'wlc-engine/modules/core/system/services';
+import {AbstractHook} from 'wlc-engine/modules/core/system/classes/abstract.hook';
+import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
+import {HooksService} from 'wlc-engine/modules/core/system/services/hooks/hooks.service';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {
     IHookShowModal,
     modalServiceHooks,

@@ -35,7 +35,7 @@ import _compact from 'lodash-es/compact';
 import {
     DataService,
     IData,
-} from '../data/data.service';
+} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {SelectValuesService} from 'wlc-engine/modules/core/system/services/select-values/select-values.service';
 import {

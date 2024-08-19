@@ -18,13 +18,12 @@ import _toNumber from 'lodash-es/toNumber';
 import _reduce from 'lodash-es/reduce';
 import _round from 'lodash-es/round';
 
-import {
-    IIndexing,
-    AbstractModel,
-    ConfigService,
-    IFromLog,
-    GlobalHelper,
-} from 'wlc-engine/modules/core';
+import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {IFromLog} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
+
 import {
     IBonus,
     IBonusConditions,

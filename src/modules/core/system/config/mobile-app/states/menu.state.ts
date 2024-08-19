@@ -5,9 +5,7 @@ import {
     Transition,
 } from '@uirouter/core';
 
-import {
-    ConfigService,
-} from 'wlc-engine/modules/core';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {StateHelper} from 'wlc-engine/modules/core/system/helpers/state.helper';
 import {wlcSidebarMenuItemsGlobal} from 'wlc-engine/modules/mobile/system/config/sidebar-menu.config';
 import {IMenuItem} from 'wlc-engine/modules/menu/components/menu/menu.params';

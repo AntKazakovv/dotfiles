@@ -7,7 +7,7 @@ import {
 } from '@uirouter/angular';
 
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
-import {Deferred} from 'wlc-engine/modules/core/system/classes';
+import {Deferred} from 'wlc-engine/modules/core/system/classes/deferred.class';
 import {TournamentsService} from 'wlc-engine/modules/tournaments';
 
 export const profileTournamentsState: Ng2StateDeclaration = {

@@ -1,10 +1,10 @@
 import _assign from 'lodash-es/assign';
 import _toString from 'lodash-es/toString';
 import _toNumber from 'lodash-es/toNumber';
-import {
-    AbstractModel,
-    IFromLog,
-} from 'wlc-engine/modules/core';
+
+import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
+import {IFromLog} from 'wlc-engine/modules/core/system/services/log/log.service';
+
 import {IBonusCanceledInfo} from 'wlc-engine/modules/bonuses';
 import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
 

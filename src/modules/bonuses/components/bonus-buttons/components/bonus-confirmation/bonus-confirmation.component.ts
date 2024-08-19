@@ -11,9 +11,7 @@ import {
     IMixedParams,
 } from 'wlc-engine/modules/core';
 import {BonusCancellationInfo} from 'wlc-engine/modules/bonuses/system/models';
-import {
-    BonusesService,
-} from 'wlc-engine/modules/bonuses';
+import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
 
 import * as Params from './bonus-confirmation.params';
 

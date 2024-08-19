@@ -10,7 +10,7 @@ import {
 
 import _get from 'lodash-es/get';
 
-import {AbstractComponent} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 
 import * as Params from './alert.params';
 
