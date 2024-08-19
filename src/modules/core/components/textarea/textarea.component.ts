@@ -13,6 +13,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 import {
     distinctUntilChanged,
+    filter,
     tap,
 } from 'rxjs/operators';
 import _kebabCase from 'lodash-es/kebabCase';
@@ -61,6 +62,7 @@ export class TextareaComponent extends AbstractComponent implements OnInit, Afte
         this.control.valueChanges
             .pipe(
                 distinctUntilChanged(),
+                filter((v: string) => !!v),
                 tap((v: string) =>  {
                     this.control.setValue(v.trimStart());
                 }),

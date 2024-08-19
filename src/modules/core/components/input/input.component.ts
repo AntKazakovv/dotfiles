@@ -364,7 +364,7 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
     }
 
     protected trimSpaces(value: string): string {
-        return value.trimStart().replace(/\s\s+/g, ' ');
+        return value?.trimStart()?.replace(/\s\s+/g, ' ');
     }
 
     protected trimByMaxLength(value: string): string {

@@ -47,25 +47,42 @@ const contacts: ILayoutComponent = {
     },
 };
 
+const postMenu = {
+    name: 'menu.wlc-post-menu',
+    params: {
+        theme: 'contacts',
+        common: {
+            categorySlug: 'legal',
+            exclude: ['feedback'],
+            state: 'app.contacts',
+            parseAsPlainHTML: true,
+        },
+    },
+};
+
+function addIf(
+    component: ILayoutComponent, 
+    components: ILayoutComponent[],
+    predicate: boolean, 
+): ILayoutComponent[] 
+{
+    if (predicate) {
+        components.push(component);
+    }
+    return components;
+}
+
+const generateComponent = (isSeparatedPage: boolean): ILayoutComponent[] => {
+    const defaultComponents: ILayoutComponent[] = [postMenu];
+
+    return addIf( contacts, defaultComponents, isSeparatedPage);    
+};
+
 export const generateConfig = (isSeparatedPage?: boolean): IInfoPageConfig => {
     return {
         menu: {
             class: 'wlc-info-page__menu',
-            components: [
-                isSeparatedPage ? null : contacts,
-                {
-                    name: 'menu.wlc-post-menu',
-                    params: {
-                        theme: 'contacts',
-                        common: {
-                            categorySlug: 'legal',
-                            exclude: ['feedback'],
-                            state: 'app.contacts',
-                            parseAsPlainHTML: true,
-                        },
-                    },
-                },
-            ],
+            components: generateComponent(isSeparatedPage),
         },
         menuWolf: {
             class: 'wlc-info-page__menu',

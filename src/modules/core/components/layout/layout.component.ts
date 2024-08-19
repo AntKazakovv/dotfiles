@@ -221,7 +221,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
     protected changeConfigStandaloneComponents(components: ILayoutComponent[]): ILayoutComponent[] {
         return components.map((component) => {
-            const name: string = component.name.split('.')[1];
+            const name: string = component && component.name.split('.')[1];
 
             if (standaloneComponents[name]) {
                 const saConfig: ILayoutComponent = {
