@@ -17,4 +17,6 @@ $themeDropdownDefault: map-merge((
     'iconHeight': 20px,
     'iconColor': var(--mc-main),
     'iconFill': currentColor,
+    'arrowColor': var(--mc-baseOpacity),
+    'arrowColorActive': inherit,
 ), $customDropdownThemeDefault);

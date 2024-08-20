@@ -23,6 +23,7 @@
 
                             .wlc-menu__icon-arrow {
                                 @include bm.transition();
+                                color: ef.get-value($themeDropdownDefault, 'arrowColorActive');
                                 transform: rotate(180deg);
                             }
                         }
@@ -94,12 +95,17 @@
                     .wlc-menu__icon-arrow {
                         @include bm.transition();
                         margin-left: auto;
+                        color: ef.get-value($themeDropdownDefault, 'arrowColor');
                         transform: rotate(-90deg);
                     }
 
                     @include bm.hover {
                         color: ef.get-value($themeDropdownDefault, 'activeLinkColor');
                         background: ef.get-value($themeDropdownDefault, 'activeLinkBg');
+
+                        .wlc-menu__icon-arrow {
+                            color: ef.get-value($themeDropdownDefault, 'arrowColorActive');
+                        }
 
                         &.active {
                             color: ef.get-value($themeDropdownDefault, 'activeLinkColor');
