@@ -11,6 +11,7 @@
 
             &.wlc-btn-search,
             &.wlc-btn-merch {
+                @include bm.get-mq-map('min-width', $gamesCategoriesDefault, 'withoutBackButtonSearchMinWidth');
                 background: ef.get-value($gamesCategoriesDefault, 'withoutBackBg');
 
                 @include bm.hover {
