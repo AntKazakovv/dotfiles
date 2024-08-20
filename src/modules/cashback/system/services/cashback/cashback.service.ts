@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {BehaviorSubject} from 'rxjs';
-import {distinctUntilChanged} from 'rxjs/operators';
+import {distinctUntilChanged, skipWhile} from 'rxjs/operators';
 
 import {
     ConfigService,
@@ -25,6 +25,11 @@ import {
 export class CashbackService {
 
     public cashbackPlans: BehaviorSubject<CashbackPlanModel[]> = new BehaviorSubject([]);
+    public ready: Promise<void> = new Promise((resolve: () => void): void => {
+        this.$resolve = resolve;
+    });
+
+    private $resolve: () => void;
 
     constructor(
         protected dataService: DataService,
@@ -43,17 +48,13 @@ export class CashbackService {
         this.configService
             .get<BehaviorSubject<UserProfile>>('$user.userProfile$')
             .pipe(
-                distinctUntilChanged((prev: UserProfile, next: UserProfile): boolean => prev?.idUser === next?.idUser))
+                distinctUntilChanged((prev: UserProfile, next: UserProfile): boolean => prev?.idUser === next?.idUser),
+                skipWhile((profile) => profile === null),
+            )
             .subscribe((profile: UserProfile) => {
-                CashbackPlanModel.userCurrency = profile?.currency
-                        || this.configService.get<string>('$base.defaultCurrency')
-                        || 'EUR';
-
-                if (profile?.idUser) {
-                    this.fetchCashback();
-                } else {
-                    this.cashbackPlans.next([]);
-                }
+                CashbackPlanModel.userCurrency = profile.originalCurrency;
+                this.fetchCashback();
+                this.$resolve();
             });
     }
 

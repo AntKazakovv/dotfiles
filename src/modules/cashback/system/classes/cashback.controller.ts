@@ -39,6 +39,7 @@ export class CashbackController implements ICashbackController {
     }
 
     public async getCashbackPlans(): Promise<void> {
+        await this.cashbackService.ready;
         this.cashbackService.cashbackPlans
             .pipe(takeUntil(this.componentDestroy))
             .subscribe((cashbackPlans: CashbackPlanModel[]): void => {
