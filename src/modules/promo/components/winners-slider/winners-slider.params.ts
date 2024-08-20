@@ -36,8 +36,10 @@ export const swiperParamsDefault: IIndexing<SwiperOptions> = {
     default: {
         slidesPerView: 5,
         spaceBetween: 10,
-        loop: false,
-        autoplay: false,
+        loop: true,
+        autoplay: {
+            disableOnInteraction: false,
+        },
         watchSlidesProgress: true,
         observer: true,
         observeParents: true,
@@ -89,8 +91,10 @@ export const swiperParamsDefault: IIndexing<SwiperOptions> = {
         direction: 'vertical',
         slidesPerView: 4,
         spaceBetween: 18,
-        loop: false,
-        autoplay: false,
+        loop: true,
+        autoplay: {
+            disableOnInteraction: false,
+        },
         watchSlidesProgress: true,
         observer: true,
         observeParents: true,
