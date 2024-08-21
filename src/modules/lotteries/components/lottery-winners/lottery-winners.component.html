@@ -23,7 +23,13 @@
                 <span *ngIf="$index < 1" class="{{$class}}__col-content">{{item.place}}</span>
             </div>
             <div class="{{$class}}__col {{$class}}__col--users">
-                <span class="{{$class}}__col-content">{{row.user}}</span>
+                <span class="{{$class}}__col-content">
+                    @if (row.isCurrent) {
+                        {{row.user | translate}}
+                    } @else {
+                        {{row.user}}
+                    }
+                </span>
             </div>
             <div class="{{$class}}__col {{$class}}__col--prize">
                 <span *ngIf="$index < 1" class="{{$class}}__col-content">
