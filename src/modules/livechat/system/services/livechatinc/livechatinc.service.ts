@@ -449,7 +449,7 @@ export class LivechatincService extends LivechatAbstract<ILivechatIncConfig> {
             transaction.type === 'Credit');
 
         return lastSuccessDep ?
-            GlobalHelper.toLocalTime(lastSuccessDep.dateISO, 'ISO', 'HH:mm:ss dd-MM-yyyy') : 'No success deposits';
+            GlobalHelper.toLocalTime(lastSuccessDep.dateISO, 'ISO', 'HH:mm:ss DD-MM-YYYY') : 'No success deposits';
     }
 
     private getUserTag(): string | string[] {

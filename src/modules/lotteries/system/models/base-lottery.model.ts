@@ -12,8 +12,8 @@ import {LotteryResult} from 'wlc-engine/modules/lotteries/system/models/lottery-
 export class BaseLottery {
     public readonly id: number;
     public readonly name: string;
-    public readonly dateFormat: string = 'dd.MM.yyyy HH:mm';
-    public readonly dateFormatShort: string = 'dd.MM.yyyy';
+    public readonly dateFormat: string = 'DD.MM.YYYY HH:mm';
+    public readonly dateFormatShort: string = 'DD.MM.YYYY';
 
     protected data: ILotteryBase;
 

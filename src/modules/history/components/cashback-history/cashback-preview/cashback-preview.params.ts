@@ -26,7 +26,7 @@ export const defaultParams: ICashbackPreviewParams = {
     componentName: 'wlc-cashback-preview',
     class: 'wlc-cashback-preview',
     dateFormat: {
-        desktop: 'dd-MM-yyyy HH:mm:ss',
-        mobile: 'dd-MM-yyyy HH:mm:ss',
+        desktop: 'DD-MM-YYYY HH:mm:ss',
+        mobile: 'DD-MM-YYYY HH:mm:ss',
     },
 };

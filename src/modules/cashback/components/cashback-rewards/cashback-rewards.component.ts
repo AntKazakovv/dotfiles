@@ -275,6 +275,6 @@ export class CashbackRewardsComponent extends AbstractComponent implements OnIni
 
     private prepareDate(date: string): string {
         const prepDate = date.split(' ')[1].split('.').reverse().join('-') + ' ' + date.split(' ')[0];
-        return GlobalHelper.toLocalTime(prepDate, 'SQL', 'yyyy-MM-dd HH:mm');
+        return GlobalHelper.toLocalTime(prepDate, 'SQL', 'YYYY-MM-DD HH:mm');
     }
 }
