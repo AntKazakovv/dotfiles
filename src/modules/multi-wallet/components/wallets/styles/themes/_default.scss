@@ -1,9 +1,12 @@
 $selector: '.wlc-wallets';
-#{$selector}--theme-default:host {
+#{$selector}:host {
 
     @include bm.get-mq-map('position', $themeDefault, 'position');
     @include bm.get-mq-map('max-width', $themeDefault, 'dropdownMaxWidth');
-    @include bm.get-mq-map('margin', $themeDefault, 'margin');
+
+    :not(&#{$selector}--theme-mod-finances) {
+        @include bm.get-mq-map('margin', $themeDefault, 'margin');
+    }
 
     #{$selector} {
 
@@ -118,6 +121,13 @@ $selector: '.wlc-wallets';
                 .arrow::ng-deep {
                     color: ef.get-value($themeDefault, 'dropdownArrowFillOpened');
                     transform: rotate(180deg);
+                }
+            }
+
+            .currency::ng-deep {
+
+                svg {
+                    vertical-align: text-bottom;
                 }
             }
 

@@ -6,7 +6,7 @@ import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interf
 
 export type ComponentTheme = 'default' | 'success' | 'warning' | 'error' | CustomType;
 export type ComponentType = 'default' | CustomType;
-export type ComponentThemeMod = 'default' | CustomType;
+export type ComponentThemeMod = 'default' | 'wolf' | CustomType;
 
 
 export const alertIcons: IIndexing<string> = {

@@ -22,6 +22,7 @@ export interface WalletsParams extends IComponentParams<Theme, ComponentType, st
     depositIconPath?: string;
     isWithdrawal?: boolean;
     filterText?: string;
+    filterIcon?: string;
     settingsText?: string;
     onWalletChange?: Function;
 }
@@ -31,9 +32,16 @@ export const defaultParams: WalletsParams = {
     moduleName: 'multi-wallet',
     componentName: 'wlc-wallets',
     notFoundText: gettext('Sorry, but nothing was found. Check the spelling or try a different name.'),
-    showDepositBtn: false,
+    showDepositBtn: true,
     isWithdrawal: false,
     theme: 'default',
     filterText: gettext('Filter'),
+    filterIcon: '/wlc/icons/filter.svg',
     settingsText: gettext('Wallet settings'),
+    depositBtnParams: {
+        common: {
+            sref: 'app.profile.cash.deposit',
+            text: gettext('Deposit'),
+        },
+    },
 };

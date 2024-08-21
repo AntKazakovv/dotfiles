@@ -1,6 +1,9 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'currenciesPadding': 0 ef.size(6) 0 0,
+    'currenciesPadding': (
+        375: 0 ef.size(3) 0 0,
+        560: 0 ef.size(6) 0 0,
+    ),
     'currenciesGap': ef.size(1),
     'currenciesWidth': 100%,
     'currenciesMaxHeight': 310px,
@@ -17,18 +20,51 @@ $themeDefault: map-merge((
     'toggleWidth': 100%,
     'toggleMargin': 0 0 ef.size(2),
 
-    'checkboxPadding': 0,
+    'checkboxPadding': (
+        375: 0 ef.size(3),
+        560: 0 ef.size(6),
+    ),
 
     'marginAlert': ef.size(4) ef.size(7) ef.size(4) 0,
+    'marginAlertMobile': ef.size(4) ef.size(3) ef.size(4) 0,
+
     'widthAlert': 100%,
 
-    'modalFooterPadding': 0 ef.size(6) ef.size(17),
-    'modalBodyPadding': ef.size(6) 0 ef.size(6) ef.size(6),
+    'modalBodyPadding': (
+        375: ef.size(6) 0 ef.size(8) ef.size(3),
+        560: ef.size(6) 0 ef.size(8) ef.size(6),
+    ),
 
-    'descriptionPadding': ef.size(6) ef.size(6) 0 0,
+    'descriptionPadding': (
+        375: ef.size(6) ef.size(3) 0 0,
+        560: ef.size(6) ef.size(6) 0 0,
+    ),
 
     'scrollbarTrackBg': var(--mc-bg700),
     'scrollbarThumbBg': var(--mc-bg100),
-
-    'hrMargin': ef.size(2) ef.size(6) ef.size(2) 0,
+    'hrMargin':(
+        375: ef.size(2) ef.size(3) ef.size(2) 0,
+        560: ef.size(2) ef.size(6) ef.size(2) 0,
+    ),
+    'descriptionMargin': ef.size(8) 0 0,
 ), $customThemeDefault);
+
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'fontColor': var(--mc-baseSecond),
+    'selectCurrencyBg': linear-gradient(180deg, #00b6ef00 0%, #00b6ef66 100%),
+    'currencyColor': var(--mc-baseThird),
+    'modalFooterPadding': 0 ef.size(6) ef.size(8),
+    'modalBodyPadding': (
+        375: ef.size(4) 0 ef.size(8) ef.size(3),
+        560: ef.size(4) 0 ef.size(6) ef.size(6),
+    ),
+    'marginAlert': ef.size(4) ef.size(6) ef.size(4) 0,
+    'scrollbarTrackBg': var(--mc-baseOpacity),
+    'closeIconSize': 16px,
+
+    'alertMinHeight': (
+        375: 64px,
+        560: 44px,
+    )
+), $customThemeWolf);

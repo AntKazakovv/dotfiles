@@ -22,7 +22,7 @@
     </div>
 
     <button
-        *ngIf="$params.showDepositBtn"
+        *ngIf="showDepositBtn"
         wlc-button
         class="{{$class}}__btn-deposit"
         [wlcElement]="'button_deposit'"
@@ -59,7 +59,7 @@
                 attr.aria-label="{{$params.filterText | translate}}"
                 [attr.type]="'button'"
                 theme="custom"
-                iconPath="/wlc/icons/filter.svg"
+                iconPath="{{filterIconPath}}"
                 (click)="showFiltersModal()">
         </button>
 

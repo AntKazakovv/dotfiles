@@ -1,6 +1,7 @@
 $customThemeToggle: () !default;
 $themeToggle: map-merge((
     'toggleBackground': var(--mc-baseOpacity),
+    'wolfToggleBackground': var(--mc-bg300),
     'toggleWidth': auto,
     'toggleHeight': 24px,
     'toggleElemWidth': 50px,

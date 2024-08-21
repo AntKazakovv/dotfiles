@@ -97,19 +97,7 @@ export class UserInfoComponent extends AbstractComponent implements OnInit {
         }, this.$destroy);
         this.multiWalletParams = {
             components: [
-                {
-                    name: 'multi-wallet.wlc-wallets',
-                    params: {
-                        showDepositBtn: this.$params.button.use,
-                        depositBtnParams: {
-                            common: {
-                                sref: this.$params.button.sref,
-                                text: this.$params.button.text,
-                                animation: this.$params.button.animate,
-                            },
-                        },
-                    },
-                },
+                {name: 'multi-wallet.wlc-wallets'},
             ],
         };
     }

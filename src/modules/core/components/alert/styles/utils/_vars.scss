@@ -40,4 +40,6 @@ $themeDefault: map-merge((
     'iconHeight': 15px,
     'iconColor': inherit,
     'iconColorInfo': var(--mc-baseOpacity),
+    //wolf
+    'wolfTitlePadding': ef.size(2) ef.size(2) ef.size(4),
 ), $customThemeDefault);

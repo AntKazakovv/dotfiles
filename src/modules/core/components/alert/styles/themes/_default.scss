@@ -104,4 +104,11 @@
             }
         }
     }
+
+    &.wlc-alert--theme-mod-wolf {
+
+        .wlc-alert__title {
+            padding: ef.get-value($themeDefault, 'wolfTitlePadding');
+        }
+    }
 }

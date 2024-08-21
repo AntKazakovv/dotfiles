@@ -16,8 +16,7 @@ export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
 export type OnChange = (checked: boolean) => void;
 export type TargetType = '_blank' | '_self' | '_parent' | '_top';
-export type TComponentThemeMod = 'default' | 'bg-transparent' | 'align-top' | 'bold' | CustomType;
-
+export type TComponentThemeMod = 'default' | 'bg-transparent' | 'align-top' | 'bold' | 'wolf' | CustomType;
 
 export interface ILegalCheckboxWithLink {
     prefix?: string;

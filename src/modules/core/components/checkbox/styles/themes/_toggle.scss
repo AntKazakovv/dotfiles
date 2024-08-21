@@ -54,4 +54,11 @@
             padding: ef.get-value($themeToggle, 'toggleTextPadding');
         }
     }
+
+    &.wlc-checkbox--theme-mod-wolf {
+
+        .wlc-checkbox__elem {
+            background: ef.get-value($themeToggle, 'wolfToggleBackground');
+        }
+    }
 }

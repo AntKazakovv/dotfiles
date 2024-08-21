@@ -1,4 +1,4 @@
-.wlc-filters--theme-default:host {
+.wlc-filters:host {
     @include bm.get-mq-map('height', $themeDefault, 'modalHeight');
     display: flex;
     flex-direction: column;
@@ -11,6 +11,7 @@
 
         &__list {
             @include bm.scrollbar($themeDefault);
+            @include bm.get-mq-map('max-height', $themeDefault, 'listMaxHeight');
             @include bm.get-mq-map('height', $themeDefault, 'listHeight');
 
             overflow-y: auto;

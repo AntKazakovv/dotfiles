@@ -17,9 +17,13 @@ $themeDefault: map-merge((
     ),
 
     'listWidth': 100%,
-    'listHeight': (
+    'listMaxHeight': (
         375: 100%,
         560: 460px,
+    ),
+    'listHeight': (
+        375: 100%,
+        560: fit-content,
     ),
     'listPaddings': 0 ef.size(6) 0 0,
 
@@ -37,3 +41,21 @@ $themeDefault: map-merge((
 
     'checkboxPadding': 0 0 0 ef.size(4),
 ), $customThemeDefault);
+
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'descriptionFontStyle': 'PrimaryText',
+    'descriptionFontColor': var(--mc-baseSecond),
+
+    'currencyFontStyle': 'CaptionTextBold',
+    'currencyFontColor': var(--mc-baseThird),
+
+    'listPadding': 0 ef.size(4) ef.size(4) 0,
+    'scrollbarTrackBg': var(--mc-baseOpacity),
+
+    'iconSize': 15px,
+
+    'closeIconSize': 16px,
+
+    'hrMargin': 0,
+), $customThemeWolf);

@@ -1,0 +1,48 @@
+$selector: '.wlc-settings';
+#{$selector}--theme-wolf:host {
+    color: ef.get-value($themeWolf, 'fontColor');
+
+    #{$selector} {
+
+        &__currencies {
+            @include bm.scrollbar($themeWolf);
+        }
+
+        &__currency {
+            color: ef.get-value($themeWolf, 'currencyColor');
+        }
+
+        &__currency.active {
+            background: ef.get-value($themeWolf, 'selectCurrencyBg');
+        }
+    }
+
+    ::ng-deep {
+
+        .wlc-alert__title {
+            @include bm.get-mq-map('min-height', $themeWolf, 'alertMinHeight');
+        }
+    }
+}
+
+::ng-deep {
+
+    .wlc-modal--wallet-settings:has(#{$selector}--theme-wolf) {
+
+        .wlc-modal {
+
+            &__footer {
+                padding: ef.get-value($themeWolf, 'modalFooterPadding');
+            }
+
+            &__body {
+                @include bm.get-mq-map('padding', $themeWolf, 'modalBodyPadding');
+            }
+
+            &__close {
+                --wlc-icon-width: #{ef.get-value($themeWolf, 'closeIconSize')};
+                --wlc-icon-height: #{ef.get-value($themeWolf, 'closeIconSize')};
+            }
+        }
+    }
+}

@@ -1,0 +1,45 @@
+$selector: '.wlc-filters';
+#{$selector}--theme-wolf:host {
+
+    @include text.get-text-style(
+        ef.get-value($themeWolf, 'descriptionFontStyle'),
+        ef.get-value($themeWolf, 'descriptionFontColor'),
+    );
+
+    hr {
+        margin: ef.get-value($themeWolf, 'hrMargin');
+    }
+
+    #{$selector} {
+
+        &__currency {
+            --wlc-icon-width: #{ef.get-value($themeWolf, 'iconSize')};
+            --wlc-icon-height: #{ef.get-value($themeWolf, 'iconSize')};
+        }
+
+        &__currency,
+        &__left {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'currencyFontStyle'),
+                ef.get-value($themeWolf, 'currencyFontColor'),
+            );
+        }
+
+        &__list {
+            @include bm.scrollbar($themeWolf);
+
+            padding: ef.get-value($themeWolf, 'listPadding');
+        }
+    }
+}
+
+::ng-deep {
+
+    .wlc-modal--wallet-filters:has(#{$selector}--theme-wolf) {
+
+        .wlc-modal__close {
+            --wlc-icon-width: #{ef.get-value($themeWolf, 'closeIconSize')};
+            --wlc-icon-height: #{ef.get-value($themeWolf, 'closeIconSize')};
+        }
+    }
+}

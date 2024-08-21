@@ -1,20 +1,21 @@
 $selector: '.wlc-settings';
 
-#{$selector}--theme-default:host {
+#{$selector}:host {
 
     #{$selector} {
 
         &__divider {
-            margin: ef.get-value($themeDefault, 'hrMargin');
+            @include bm.get-mq-map('margin', $themeDefault, 'hrMargin');
         }
 
         &__currencies {
             @include bm.scrollbar($themeDefault);
+            @include bm.get-mq-map('padding', $themeDefault, 'currenciesPadding');
+
             display: grid;
             gap: ef.get-value($themeDefault, 'currenciesGap');
             width: ef.get-value($themeDefault, 'currenciesWidth');
             max-height: ef.get-value($themeDefault, 'currenciesMaxHeight');
-            padding: ef.get-value($themeDefault, 'currenciesPadding');
             overflow-y: auto;
         }
 
@@ -43,22 +44,24 @@ $selector: '.wlc-settings';
 
         &__hide-wallets,
         &__view-fiat {
-
             @include text.get-text-style(
                 ef.get-value($themeDefault, 'hideTextStyle'),
                 ef.get-value($themeDefault, 'hideTextColor'),
             );
+
             display: flex;
             align-items: center;
             justify-content: space-between;
             width: ef.get-value($themeDefault, 'toggleWidth');
             margin: ef.get-value($themeDefault, 'toggleMargin');
-            padding: ef.get-value($themeDefault, 'currenciesPadding');
 
-            .wlc-checkbox--theme-default.wlc-checkbox--type-toggle::ng-deep {
+            ::ng-deep {
 
-                .wlc-checkbox__label {
-                    padding: ef.get-value($themeDefault, 'checkboxPadding');
+                .wlc-checkbox--theme-toggle[class] {
+
+                    .wlc-checkbox__label[class] {
+                        @include bm.get-mq-map('padding', $themeDefault, 'checkboxPadding');
+                    }
                 }
             }
         }
@@ -68,12 +71,16 @@ $selector: '.wlc-settings';
                 ef.get-value($themeDefault, 'hideTextStyle'),
                 ef.get-value($themeDefault, 'hideTextColor'),
             );
-            padding: ef.get-value($themeDefault, 'descriptionPadding');
+            @include bm.get-mq-map('padding', $themeDefault, 'descriptionPadding');
         }
 
         &__alert-block {
             --wlc-alert-max-width: #{ef.get-value($themeDefault, 'widthAlert')};
             --wlc-alert-margin: #{ef.get-value($themeDefault, 'marginAlert')};
+
+            @include mq.max(560) {
+                --wlc-alert-margin: #{ef.get-value($themeDefault, 'marginAlertMobile')};
+            }
         }
     }
 }
@@ -85,11 +92,7 @@ $selector: '.wlc-settings';
         .wlc-modal {
 
             &__body {
-                padding: ef.get-value($themeDefault, 'modalBodyPadding');
-            }
-
-            &__footer {
-                padding: ef.get-value($themeDefault, 'modalFooterPadding');
+                @include bm.get-mq-map('padding', $themeDefault, 'modalBodyPadding');
             }
         }
     }

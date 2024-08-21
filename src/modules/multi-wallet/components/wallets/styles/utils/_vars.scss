@@ -119,3 +119,35 @@ $themeDefault: map-merge((
     'filterMargin': 0 ef.size(4) 0 0,
     'filterColor':  var(--mc-main),
 ), $customThemeDefault);
+
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'fontColor': var(--mc-buttonText),
+    'dropdownHeight': 40px,
+    'dropdownPadding': 10px 0 10px 10px,
+    'dropdownArrowMargin': ef.size(2),
+    'dropdownGap': 0,
+    'containerBg': var(--fc-inputBg),
+    'fontStyle': 'CaptionTextBold',
+    'currencyPadding': 0 ef.size(1) 0 0,
+    'currencyBorderRadius': ef.size(2),
+    'currencyHeight': 35px,
+    'selectCurrencyInListBg': linear-gradient(180deg, #00b6ef00 0%, #00b6ef66 100%),
+
+    'notFoundFontStyle': 'PrimaryText',
+    'notFoundFontColor': var(--mc-baseSecond),
+
+    'filterColor': var(--mc-baseThird),
+    'scrollbarTrackBg': var(--mc-baseOpacity),
+
+    'currencyIconSize': 15px,
+    'arrowIconWidth': 12px,
+    'containerHeight': 40px,
+
+    'financeBtnWidth': 40px,
+    'financeBtnPadding': ef.size(2),
+    'financeDropdownBg': var(--mc-bg500),
+    'financeContainerHeight': fit-content,
+
+    'settingsGap': ef.size(3),
+), $customThemeWolf);

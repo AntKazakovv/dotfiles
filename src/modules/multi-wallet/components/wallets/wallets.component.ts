@@ -73,7 +73,9 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
     public walletListRead: boolean = false;
     public hideSettings: boolean;
 
+    protected showDepositBtn;
     protected readonly walletHelper = WalletHelper;
+
     private readonly eventService: EventService = inject(EventService);
     private readonly modalService: ModalService = inject(ModalService);
     private readonly userService: UserService = inject(UserService);
@@ -99,6 +101,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
         super.ngOnInit(this.inlineParams);
         this.hideSettings = this.configService.get<boolean>('$base.multiWallet.hideSettings');
         this.isFinance = this.$params.themeMod === 'finances';
+        this.showDepositBtn = this.$params.showDepositBtn && !this.isFinance;
 
         if (this.$params.themeMod) {
             this.addModifiers(this.$params.themeMod);
@@ -157,6 +160,10 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
 
     public get showSettings(): boolean {
         return !this.isFinance && !this.hideSettings;
+    }
+
+    public get filterIconPath(): string {
+        return this.$params.filterIcon;
     }
 
     public async onChangingWallet(item: IWallet): Promise<void> {

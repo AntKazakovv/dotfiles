@@ -1,0 +1,116 @@
+$selector: '.wlc-wallets';
+#{$selector}--theme-wolf:host {
+    @include text.get-text-style(
+        ef.get-value($themeWolf, 'fontStyle'),
+        ef.get-value($themeWolf, 'fontColor'),
+    );
+
+    #{$selector}--theme-wolf:not(&.wlc-wallets--theme-mod-finances) {
+
+        #{$selector}__dropdown-btn {
+            height: ef.get-value($themeWolf, 'dropdownHeight');
+            padding: ef.get-value($themeWolf, 'dropdownPadding');
+        }
+    }
+
+    #{$selector} {
+
+
+        &__dropdown-btn {
+            --wlc-icon-width: #{ef.get-value($themeWolf, 'currencyIconSize')};
+            --wlc-icon-height: #{ef.get-value($themeWolf, 'currencyIconSize')};
+
+            gap: ef.get-value($themeWolf, 'dropdownGap');
+
+            .arrow::ng-deep {
+                --wlc-icon-width: #{ef.get-value($themeWolf, 'arrowIconWidth')};
+
+                margin: ef.get-value($themeWolf, 'dropdownArrowMargin');
+            }
+
+            .wlc-currency {
+                padding: ef.get-value($themeWolf, 'currencyPadding');
+            }
+
+            &.isOpened {
+
+                .arrow::ng-deep {
+                    color: ef.get-value($themeWolf, 'fontColor');
+                }
+            }
+        }
+
+        &__container {
+            --wlc-wallets-container-bg: #{ef.get-value($themeWolf, 'containerBg')};
+
+            height: ef.get-value($themeWolf, 'containerHeight');
+        }
+
+        &__btn-deposit {
+            min-width: ef.get-value($themeWolf, 'financeBtnWidth');
+            padding: ef.get-value($themeWolf, 'financeBtnPadding');
+        }
+
+        &__currency {
+            --wlc-icon-width: #{ef.get-value($themeWolf, 'currencyIconSize')};
+            --wlc-icon-height: #{ef.get-value($themeWolf, 'currencyIconSize')};
+
+            border-radius: ef.get-value($themeWolf, 'currencyBorderRadius');
+
+            .select {
+                background: ef.get-value($themeWolf, 'selectCurrencyInListBg');
+            }
+        }
+
+        &__list {
+            @include bm.scrollbar($themeWolf);
+
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'fontStyle'),
+                ef.get-value($themeWolf, 'fontColor'),
+            );
+
+            #{$selector}__currency {
+                border-radius: ef.get-value($themeWolf, 'currencyBorderRadius');
+                height: ef.get-value($themeWolf, 'currencyHeight');
+
+                &.select {
+                    background: ef.get-value($themeWolf, 'selectCurrencyInListBg');
+                }
+            }
+        }
+
+        &__not-found {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'notFoundFontStyle'),
+                ef.get-value($themeWolf, 'notFoundFontColor'),
+            );
+        }
+
+        &__filter-button {
+            color: ef.get-value($themeWolf, 'filterColor');
+        }
+
+        &__settings {
+            gap: ef.get-value($themeWolf, 'settingsGap');
+        }
+    }
+
+    &#{$selector}--theme-mod-finances {
+
+        #{$selector}__container {
+            height: ef.get-value($themeWolf, 'financeContainerHeight');
+        }
+
+        @include mq.max(900) {
+            --wlc-wallets-container-bg: #{ef.get-value($themeWolf, 'financeDropdownBg')};
+        }
+    }
+
+    .wlc-btn--theme-default:host & {
+
+        :before {
+            content: none;
+        }
+    }
+}
