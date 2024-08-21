@@ -132,7 +132,7 @@ export class SmsVerificationComponent extends UserActionsAbstract<Params.ISmsVer
         try {
             form.disable();
 
-            if (this.configService.get<boolean>('$base.site.useXNonce')) {
+            if (!this.userService.isAuth$.getValue() && this.configService.get<boolean>('$base.site.useXNonce')) {
                 this.dataService.setNonceToLocalStorage();
             }
 
@@ -180,7 +180,7 @@ export class SmsVerificationComponent extends UserActionsAbstract<Params.ISmsVer
             }
             return true;
         } catch (error) {
-            if (this.configService.get<boolean>('$base.site.useXNonce')) {
+            if (!this.userService.isAuth$.getValue() && this.configService.get<boolean>('$base.site.useXNonce')) {
                 this.dataService.deleteNonceFromLocalStorage();
             }
 

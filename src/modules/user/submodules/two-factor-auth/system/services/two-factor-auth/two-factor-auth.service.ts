@@ -208,7 +208,9 @@ export class TwoFactorAuthService {
         try {
             switch (responseCode) {
                 case 231:
-                    if (this.configService.get<boolean>('$base.site.useXNonce')) {
+                    if (!this.userService.isAuth$.getValue()
+                        && this.configService.get<boolean>('$base.site.useXNonce')
+                    ) {
                         this.dataService.setNonceToLocalStorage();
                     }
 
@@ -235,7 +237,10 @@ export class TwoFactorAuthService {
             this.hideActiveModal('two-factor-auth-code');
             return true;
         } catch (error) {
-            if (responseCode === 231 && this.configService.get<boolean>('$base.site.useXNonce')) {
+            if (responseCode === 231
+                && !this.userService.isAuth$.getValue()
+                && this.configService.get<boolean>('$base.site.useXNonce')
+            ) {
                 this.dataService.deleteNonceFromLocalStorage();
             }
 

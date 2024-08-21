@@ -92,7 +92,7 @@ export class DeviceRegistrationFormComponent extends AbstractComponent implement
         const regCode: number = _toNumber(form.controls.code.value);
 
         try {
-            if (this.configService.get<boolean>('$base.site.useXNonce')) {
+            if (!this.userService.isAuth$.getValue() && this.configService.get<boolean>('$base.site.useXNonce')) {
                 this.dataService.setNonceToLocalStorage();
             }
 
@@ -115,7 +115,7 @@ export class DeviceRegistrationFormComponent extends AbstractComponent implement
             this.eventService.emit({name: 'LOGIN'});
             return true;
         } catch (error) {
-            if (this.configService.get<boolean>('$base.site.useXNonce')) {
+            if (!this.userService.isAuth$.getValue() && this.configService.get<boolean>('$base.site.useXNonce')) {
                 this.dataService.deleteNonceFromLocalStorage();
             }
 
