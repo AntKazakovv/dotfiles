@@ -73,7 +73,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
     public reportIntervalExceeded: boolean = false;
 
     protected filterValue: TTransactionFilter = 'all';
-    protected endDate: Dayjs = dayjs();
+    protected endDate: Dayjs = dayjs().endOf('day');
     protected startDate: Dayjs = this.endDate.add(-1, 'month').startOf('day');
     protected allTransactions: Transaction[] = [];
     protected transfersEnabled: boolean;
