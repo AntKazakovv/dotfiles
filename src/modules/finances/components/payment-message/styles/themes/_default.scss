@@ -20,6 +20,10 @@
         &__text {
             @include bm.get-mq-map('max-width', $themeDefault, 'textMaxWidth');
             @include bm.get-mq-map('text-align', $themeDefault, 'textAlignment');
+
+            .wlc-payment-message__text-row:last-child {
+                @include bm.get-mq-map('margin', $themeDefault, 'textLastChildMargin');
+            }
         }
 
         &__text-row {
@@ -44,7 +48,10 @@
             @include bm.get-mq-map('margin', $themeDefault, 'clipboardMargin');
 
             .wlc-payment-message__text-row {
-                @include text.get-text-style(ef.get-value($themeDefault, 'textAdditionalFont'), ef.get-value($themeDefault, 'textColorAdditional'));
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'textAdditionalFont'),
+                    ef.get-value($themeDefault, 'textColorAdditional'),
+                );
                 margin: ef.get-value($themeDefault, 'textAdditionalMargin');
             }
         }
@@ -60,7 +67,10 @@
         }
 
         &__qr-text {
-            @include text.get-text-style(ef.get-value($themeDefault, 'textAdditionalFont'), ef.get-value($themeDefault, 'textColorAdditional'));
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'textAdditionalFont'),
+                ef.get-value($themeDefault, 'textColorAdditional'),
+            );
             @include bm.get-mq-map('display', $themeDefault, 'qrTextDisplay');
         }
 
@@ -88,7 +98,10 @@
         }
 
         &__warning {
-            @include text.get-text-style(ef.get-value($themeDefault, 'textStyle'), ef.get-value($themeDefault, 'textColor'));
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'textStyle'),
+                ef.get-value($themeDefault, 'textColor'),
+            );
             @include bm.get-mq-map('margin', $themeDefault, 'warningMargin');
             @include bm.get-mq-map('text-align', $themeDefault, 'warningAlignment');
         }
@@ -111,6 +124,25 @@
             @include bm.get-mq-map('margin', $themeDefault, 'metamaskMargin');
             @include bm.get-mq-map('text-align', $themeDefault, 'metamaskAlignment');
         }
+
+        &__crypto-guide-btn {
+            order: ef.get-value($themeDefault, 'guideButtonOrder');
+            width: ef.get-value($themeDefault, 'guideButtonWidth');
+            max-width: ef.get-value($themeDefault, 'guideButtonMaxWidth');
+            margin: ef.get-value($themeDefault, 'guideButtonMargin');
+            cursor: pointer;
+
+            ::ng-deep {
+
+                .wlc-alert__main {
+                    color: ef.get-value($themeDefault, 'guideButtonTextColor');
+
+                    @include bm.hover {
+                        color: ef.get-value($themeDefault, 'guideButtonHoverTextColor');
+                    }
+                }
+            }
+        }
     }
 
     &.wlc-payment-message--theme-mod-modal {
@@ -123,10 +155,17 @@
             &__text {
                 max-width: ef.get-value($themeDefault, 'textModalMaxWidth');
                 text-align: ef.get-value($themeDefault, 'textModalAlignment');
+
+                .wlc-payment-message__text-row:last-child {
+                    @include bm.get-mq-map('margin', $themeDefault, 'textModalLastChildMargin');
+                }
             }
 
             &__qr-text {
-                @include text.get-text-style(ef.get-value($themeDefault, 'textAdditionalFont'), ef.get-value($themeDefault, 'textColorAdditional'));
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'textAdditionalFont'),
+                    ef.get-value($themeDefault, 'textColorAdditional'),
+                );
                 display: ef.get-value($themeDefault, 'qrTextModalDisplay');
             }
 
@@ -152,6 +191,10 @@
             &__metamask {
                 margin: ef.get-value($themeDefault, 'metamaskMarginModal');
                 text-align: ef.get-value($themeDefault, 'metamaskAlignmentModal');
+            }
+
+            &__crypto-guide-btn {
+                margin: ef.get-value($themeDefault, 'guideButtonMarginModal');
             }
         }
     }

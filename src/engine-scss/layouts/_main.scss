@@ -14,6 +14,7 @@
 @import './providers/providers';
 @import './notifications/notifications';
 @import './withdraw-cancel/withdraw-cancel';
+@import './crypto-purchase-guide/crypto-purchase-guide';
 
 @include lm.init-layout-gap(ev.$layoutGap);
 @include lm.init-layout-padding(ev.$layoutWithFixedPanels);

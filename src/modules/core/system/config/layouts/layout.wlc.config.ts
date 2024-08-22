@@ -212,4 +212,10 @@ export const $layouts: ILayoutsConfig = {
             'content': sectionsLib.localJackpots.def,
         },
     },
+    'app.crypto-purchase-guide': {
+        extends: 'app',
+        sections: {
+            'crypto-purchase-guide': sectionsLib.cryptoPurchaseGuidePage.def,
+        },
+    },
 };

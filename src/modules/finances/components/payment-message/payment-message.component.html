@@ -6,6 +6,13 @@
     <ng-container *ngSwitchCase="'text'" [ngTemplateOutlet]="textForm"></ng-container>
     <ng-container *ngSwitchCase="'pay_via_invoice'" [ngTemplateOutlet]="payViaInvoice"></ng-container>
     <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
+
+    <div *ngIf="showCryptoGuideButton"
+        wlc-link="app.crypto-purchase-guide"
+        wlc-alert
+        class="{{$class}}__crypto-guide-btn"
+        [title]="'Guidelines for making a deposit via a cryptocurrency system' | translate">
+    </div>
 </ng-container>
 
 <ng-template #default>

@@ -55,7 +55,7 @@ export interface IFinancesConfig {
     useLotteryWidget?: boolean;
     /** Settings for enable/disable deposit when necessary (use tags from UserInfo) */
     checkUserTags?: {
-        use: true;
+        use: boolean;
         tag: string;
     };
     /** Settings for deposit wager widget */
@@ -66,6 +66,9 @@ export interface IFinancesConfig {
     /** Function for generating HTML content for a new independent browser tab.
      * Display time - 1-3 seconds, then redirect to the payment page. */
     payLoaderPageGenerateFn?: (title: string) => string;
+    cryptoPurchaseGuide?: {
+        use: boolean;
+    };
 }
 
 export interface ITransactionHistoryAlert {

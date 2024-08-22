@@ -1,0 +1,38 @@
+.wlc-sections__crypto-purchase-guide--theme-default {
+
+    .container {
+        @include bm.get-mq-map('max-width', $cryptoPurchaseGuideDefault, 'containerMaxWidth');
+
+        padding: ef.get-value($cryptoPurchaseGuideDefault, 'containerPadding');
+
+        .wlc-post {
+
+            .wlc-title {
+
+                .wlc-title__main[class] {
+                    @include text.get-text-style(
+                        ef.get-value($cryptoPurchaseGuideDefault, 'titleTextStyle', 375),
+                        ef.get-value($cryptoPurchaseGuideDefault, 'titleTextColor'),
+                    );
+
+                    text-align: ef.get-value($cryptoPurchaseGuideDefault, 'titleTextAlign');
+
+                    @include mq.min(900) {
+                        @include text.get-text-style(ef.get-value($cryptoPurchaseGuideDefault, 'titleTextStyle', 900));
+                    }
+                }
+            }
+        }
+
+        [wlc-dynamic] {
+            @include text.get-text-style(
+                ef.get-value($cryptoPurchaseGuideDefault, 'postTextStyle'),
+                ef.get-value($cryptoPurchaseGuideDefault, 'postTextColor'),
+            );
+
+            padding: ef.get-value($cryptoPurchaseGuideDefault, 'postPadding');
+            border-radius: ef.get-value($cryptoPurchaseGuideDefault, 'postBRadius');
+            background: ef.get-value($cryptoPurchaseGuideDefault, 'postBg');
+        }
+    }
+}

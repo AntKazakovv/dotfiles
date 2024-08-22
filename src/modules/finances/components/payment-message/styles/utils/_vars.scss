@@ -27,6 +27,12 @@ $themeDefault: map-merge((
         375: center,
         640: left,
     ),
+    'textLastChildMargin': (
+        640: 0,
+    ),
+    'textModalLastChildMargin': (
+        640: 0 0 ef.size(4),
+    ),
     'textStyle': 'CaptionText',
     'textColor': var(--mc-baseMain),
     'textColorAdditional': var(--fc-labelColor),
@@ -53,6 +59,7 @@ $themeDefault: map-merge((
         640: block,
     ),
     'qrGridGap': (
+        375: ef.size(4),
         640: ef.size(1),
     ),
     'qrWrapperWidth': (
@@ -101,4 +108,13 @@ $themeDefault: map-merge((
     'metamaskAlignmentModal': center,
 
     'descrMargin': 0 ef.size(1) 0 0,
+
+    // crypto guide button
+    'guideButtonWidth': 100%,
+    'guideButtonMaxWidth': 400px,
+    'guideButtonMargin': 0,
+    'guideButtonMarginModal': ef.size(4) 0 0,
+    'guideButtonOrder': 2,
+    'guideButtonTextColor': var(--mc-main),
+    'guideButtonHoverTextColor': var(--mc-baseMain),
 ), $customThemeDefault);

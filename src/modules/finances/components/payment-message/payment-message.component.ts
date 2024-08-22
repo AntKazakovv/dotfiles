@@ -99,6 +99,8 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
 
     public qrCodeImg$: BehaviorSubject<string> = new BehaviorSubject('');
 
+    public showCryptoGuideButton = !!this.configService.get<boolean>('$finances.cryptoPurchaseGuide.use');;
+
     private patchOptions: IPatchOptions = {
         onlySelf: false,
         emitModelToViewChange: true,

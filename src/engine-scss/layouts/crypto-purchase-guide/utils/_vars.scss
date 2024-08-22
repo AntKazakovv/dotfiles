@@ -1,0 +1,20 @@
+$customCryptoPurchaseGuideDefault: () !default;
+$cryptoPurchaseGuideDefault: map-merge((
+    'containerMaxWidth': (
+        1200: 1024px,
+    ),
+    'containerPadding': ef.size(5) 0 ef.size(8),
+
+    'titleTextStyle': (
+        375: 'ThirdTitleBold',
+        900: 'SecondTitleBold',
+    ),
+    'titleTextColor': var(--mc-baseSecond, var(--mc-baseMain)),
+    'titleTextAlign': center,
+
+    'postTextStyle': null,
+    'postTextColor': var(--mc-baseSecond, var(--mc-baseMain)),
+    'postPadding': ef.size(5),
+    'postBRadius': ef.get('radius', 'biger'),
+    'postBg': var(--mc-bg700),
+), $customCryptoPurchaseGuideDefault);

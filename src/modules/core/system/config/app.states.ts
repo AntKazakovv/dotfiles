@@ -90,6 +90,7 @@ let states = {
     'app.something-wrong': States.somethingWrongState,
     'app.lotteries-detail': States.lotteryDetailState,
     'app.local-jackpots': States.localJackpotsState,
+    'app.crypto-purchase-guide': States.cryptoPurchaseGuide,
 };
 
 const appState: Ng2StateDeclaration = {

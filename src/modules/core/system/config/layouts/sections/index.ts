@@ -30,3 +30,4 @@ export * from './lotteries.section';
 export * from './notifications.section';
 export * from './local-jackpots.section';
 export * from './youtube-block.section';
+export * from './crypto-purchase-guide.section';
