@@ -15,13 +15,14 @@
                     <div class="{{$class}}-item__desc">{{item.additionalText() | translate}} </div>
 
                     <div class="{{$class}}-item__period">{{'Period' | translate}}: {{item.period | translate}} </div>
-                    <div *ngIf="item.cashbackStatus && !item.isPending"
+                    <div *ngIf="item.cashbackStatus && !item.timerEnded"
                         wlc-timer
                         value="{{item.cashbackStatus.date}}"
                         text="{{item.cashbackStatus.text}}"
-                        (timerEnds)="timerExpiry()">
+                        (timerEnds)="timerExpiry(item)">
                     </div>
-                    <div *ngIf="item.isPending" class="{{$class}}-item__pending">
+                    <div *ngIf="item.isPending && item.timerEnded"
+                        class="{{$class}}-item__pending">
                         <span class="{{$class}}-item__pending-text">
                             {{'Await processing' | translate}}
                         </span>
@@ -50,7 +51,7 @@
     <div class="{{$class}}__deposit">
         <ng-container *ngIf="ready$ | async; else loading">
             <ng-container *ngIf="depositCashback; else noDataDeposit">
-                <div *ngIf="showTimer"
+                <div *ngIf="showDepositTimer"
                     wlc-timer
                     class="{{$class}}__timer"
                     [theme]="'default'"

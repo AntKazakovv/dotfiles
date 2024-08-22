@@ -26,6 +26,8 @@ export class CashbackPlanModel extends AbstractModel<ICashbackPlan> {
 
     protected readonly _buttonText!: IButtonText;
 
+    public timerEnded = false;
+
     constructor(
         from: IFromLog,
         data: ICashbackPlan,
@@ -44,6 +46,8 @@ export class CashbackPlanModel extends AbstractModel<ICashbackPlan> {
             : {
                 text: gettext('Get cashback'),
             };
+
+        this.timerEnded = this.isPending ? true : false;
     }
 
     public get isAvailable(): boolean {

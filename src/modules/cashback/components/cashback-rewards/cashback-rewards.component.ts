@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import type {Dayjs} from 'dayjs';
+import {Dayjs} from 'dayjs';
 import {
     Component,
     Inject,
@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import {
     BehaviorSubject,
+    debounceTime,
     takeUntil,
 } from 'rxjs';
 
@@ -59,6 +60,7 @@ export class CashbackRewardsComponent extends AbstractComponent implements OnIni
     public ready$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     public depositCashback: CashbackPlanModel;
     public cashbackType: TCashbackType = 'default';
+    public showDepositTimer: boolean = false;
 
     protected itemsPerPage: number = 0;
     protected cashbackController: ICashbackController;
@@ -92,12 +94,23 @@ export class CashbackRewardsComponent extends AbstractComponent implements OnIni
 
                 if (this.cashbackType === 'deposit') {
                     this.depositCashback = cashback[0];
-
+                    this.showDepositTimer = this.timerValue > dayjs();
                     return;
                 }
 
                 this.paginatedCashbackPlans = cashback;
                 this.itemCashback$.next(cashback);
+            });
+
+        this.itemCashback$
+            .pipe(
+                debounceTime(15000),
+                takeUntil(this.$destroy),
+            )
+            .subscribe((cashbackPlans: CashbackPlanModel[]) => {
+                if (cashbackPlans.some(cashback => cashback.isPending)) {
+                    this.cashbackController.fetchCashback();
+                }
             });
 
         await this.cashbackController.getCashbackPlans();
@@ -112,10 +125,6 @@ export class CashbackRewardsComponent extends AbstractComponent implements OnIni
     public get timerValue(): Dayjs {
         const defaultTime = dayjs(this.depositCashback.availableAt, 'YYYY-MM-DD HH:mm:ss');
         return defaultTime.add(dayjs().utcOffset(), 'minute');
-    }
-
-    public get showTimer(): boolean {
-        return this.timerValue.unix() > dayjs().unix();
     }
 
     /**
@@ -171,11 +180,13 @@ export class CashbackRewardsComponent extends AbstractComponent implements OnIni
      * @method timerExpiry
      * @returns {Promise<void>}
      */
-    public async timerExpiry(): Promise<void> {
+    public async timerExpiry(item: CashbackPlanModel): Promise<void> {
+        item.timerEnded = true;
         this.updateCashback();
     }
 
     public depositTimerEnd(): void {
+        this.showDepositTimer = false;
         if (this.isNotAvailableCashback) {
             this.updateCashback();
         }
