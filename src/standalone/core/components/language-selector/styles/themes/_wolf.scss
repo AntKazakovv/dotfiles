@@ -181,6 +181,14 @@
                 .wlc-language-selector__current-arrow {
                     color: ef.get-value($themeWolf, 'linkIconActiveFill');
                     transform: rotate(180deg);
+
+                    ::ng-deep {
+
+                        svg,
+                        path {
+                            fill: currentColor;
+                        }
+                    }
                 }
 
                 &.wlc-language-selector__current {
