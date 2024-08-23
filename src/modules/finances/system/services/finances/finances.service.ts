@@ -7,6 +7,7 @@ import {
 import {TranslateService} from '@ngx-translate/core';
 import {
     BehaviorSubject,
+    firstValueFrom,
     Observable,
     Subscription,
 } from 'rxjs';
@@ -200,7 +201,7 @@ export class FinancesService {
             return Promise.reject(error);
         }
     }
-    
+
     public async checkWithdraw(systemId: number): Promise<any> {
         try {
             const result = await this.dataService.request<IData>('finances/getWithdrawal', {
@@ -258,16 +259,30 @@ export class FinancesService {
         })).data;
     }
 
-    public async fetchPaymentSystems(currency: string = ''): Promise<PaymentSystem[]> {
-        this.systems =
-            this.createPaymentSystems((await this.dataService.request<IData>('finances/paymentSystems', {currency}))
-                .data as IPaymentSystem[]);
+    public async fetchPaymentSystems(currency?: string): Promise<PaymentSystem[]> {
+        if (!currency) {
+            const userProfile$ = this.configService.get<BehaviorSubject<UserProfile>>('$user.userProfile$');
+
+            currency =
+                userProfile$.getValue()?.originalCurrency
+                ?? (await firstValueFrom(
+                    userProfile$
+                        .pipe(
+                            first(userProfile => !!userProfile?.idUser),
+                        )))
+                    ?.originalCurrency
+                ?? this.configService.get<string>('$base.defaultCurrency');
+        }
+
+        this.systems = this.createPaymentSystems((await this.dataService
+            .request<IData>('finances/paymentSystems', {currency}))
+            .data as IPaymentSystem[]);
 
         // TODO delete when will be completed #247624
         this.systems = this.systems.filter(system => !system.alias.includes('helper'));
 
-        this.paymentSystems$.next(this.paymentSystems);
-        return this.paymentSystems;
+        this.paymentSystems$.next(this.systems);
+        return this.systems;
     }
 
     /**
