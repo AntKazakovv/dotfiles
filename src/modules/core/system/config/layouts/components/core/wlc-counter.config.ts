@@ -7,4 +7,11 @@ export namespace wlcCounter {
             type: 'bonuses-main',
         },
     };
+
+    export const bonusesAll: ILayoutComponent = {
+        name: 'core.wlc-counter',
+        params: {
+            type: 'bonuses-all',
+        },
+    };
 }

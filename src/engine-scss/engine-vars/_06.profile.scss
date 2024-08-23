@@ -122,6 +122,9 @@ $profileSettings: map-merge((
     ),
     'topBtnsAlignItems': center,
     'topBtnsJustifyContent': space-between,
+    'topCounterTextStyle': 'ThirdTitleBold',
+    'topCounterColor': inherit,
+    'topCounterMargin': 0 0 0 size-func(1),
 
     // Filter width in history
     'filterWidth': 185px,

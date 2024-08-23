@@ -20,6 +20,7 @@
 
     .time-text__item {
         padding: ef.get-value($themeWolf, 'itemPadding');
+        white-space: nowrap;
 
         .value {
             display: inline-flex;

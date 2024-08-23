@@ -25,10 +25,15 @@
 
                 .wlc-title {
                     display: inline-block;
+                }
 
-                    + .wlc-counter {
-                        display: inline-block;
-                    }
+                .wlc-counter {
+                    @include text.get-text-style(
+                        ef.get-value($profileSettings, 'topCounterTextStyle'),
+                        ef.get-value($profileSettings, 'topCounterColor')
+                    );
+                    display: inline-block;
+                    margin: ef.get-value($profileSettings, 'topCounterMargin');
                 }
             }
 

@@ -27,6 +27,33 @@ export namespace wlcBonusesList {
             },
         },
     };
+
+    export const all: ILayoutComponent = {
+        name: 'bonuses.wlc-bonuses-list',
+        params: <IBonusesListCParams>{
+            inProfile: true,
+            common: {
+                filter: 'all',
+                useQuery: true,
+                sortOrder: ['active', 'inventory', 'promocode', 'subscribe'],
+                pagination: {
+                    use: true,
+                    breakpoints: {
+                        0: {
+                            itemPerPage: 3,
+                        },
+                        640: {
+                            itemPerPage: 4,
+                        },
+                        720: {
+                            itemPerPage: 6,
+                        },
+                    },
+                },
+            },
+        },
+    };
+
     export const mainFirst: ILayoutComponent = {
         name: 'bonuses.wlc-bonuses-list',
         params: <IBonusesListCParams>{
@@ -176,9 +203,41 @@ export namespace wlcBonusesList {
                     },
                 },
             },
+        },
+    };
+
+    export const inventoryFirst: ILayoutComponent = {
+        name: 'bonuses.wlc-bonuses-list',
+        params: <IBonusesListCParams>{
+            inProfile: true,
+            common: {
+                useQuery: true,
+                filter: 'inventory',
+                pagination: {
+                    use: true,
+                    breakpoints: {
+                        0: {
+                            itemPerPage: 3,
+                        },
+                        640: {
+                            itemPerPage: 4,
+                        },
+                        720: {
+                            itemPerPage: 6,
+                        },
+                        1366: {
+                            itemPerPage: 8,
+                        },
+                        1630: {
+                            itemPerPage: 6,
+                        },
+                    },
+                },
+            },
             themeMod: 'with-image',
         },
     };
+
     export const dashboard: ILayoutComponent = {
         name: 'bonuses.wlc-bonuses-list',
         params: <IBonusesListCParams>{

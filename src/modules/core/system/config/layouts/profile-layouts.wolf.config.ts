@@ -26,6 +26,12 @@ export const $profileWolfLayouts: IPanelsConfig = {
             'profile-content': sectionsLib.profileContent.profileWolfBonusesMain,
         },
     },
+    'app.profile.loyalty-bonuses.offers': {
+        extends: 'app.profile',
+        sections: {
+            'profile-content': sectionsLib.profileContent.profileWolfBonusesOffers,
+        },
+    },
     'app.profile.loyalty-bonuses.active': {
         extends: 'app.profile',
         sections: {

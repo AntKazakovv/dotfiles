@@ -1,6 +1,10 @@
 import {SwiperOptions} from 'swiper/types/swiper-options';
 
-import {IBonusesListCParams, IGameDashboardBonusesCParams} from 'wlc-engine/modules/bonuses';
+import {
+    IBonusesListCParams,
+    IGameDashboardBonusesCParams,
+    BonusesFilterType,
+} from 'wlc-engine/modules/bonuses';
 import {ILayoutComponent} from 'wlc-engine/modules/core';
 
 const generateSwiperOptions = (slides: number, mod: string = 'default'): SwiperOptions => {
@@ -28,13 +32,15 @@ const generateSwiperOptions = (slides: number, mod: string = 'default'): SwiperO
     };
 };
 
-export namespace wlcBonusesWolf {
-
-    export const main: ILayoutComponent = {
+const generateProfileBonusesConfig = (filterType: BonusesFilterType): ILayoutComponent => {
+    return {
         name: 'bonuses.wlc-bonuses-list',
         params: <IBonusesListCParams>{
             theme: 'wolf',
+            inProfile: true,
             common: {
+                filter: filterType,
+                sortOrder: ['active', 'inventory', 'promocode', 'subscribe'],
                 pagination: {
                     use: true,
                     breakpoints: {
@@ -49,6 +55,17 @@ export namespace wlcBonusesWolf {
             },
         },
     };
+};
+
+export namespace wlcBonusesWolf {
+
+    export const main: ILayoutComponent = generateProfileBonusesConfig('all');
+
+    export const offers: ILayoutComponent = generateProfileBonusesConfig('main');
+
+    export const active: ILayoutComponent = generateProfileBonusesConfig('active');
+
+    export const inventory: ILayoutComponent = generateProfileBonusesConfig('inventory');
 
     export const mainModVertical: ILayoutComponent = {
         name: 'bonuses.wlc-bonuses-list',

@@ -620,11 +620,30 @@ export namespace profileContent {
                     class: 'wlc-profile-content__top',
                     components: [
                         componentLib.wlcTitle.bonuses,
-                        componentLib.wlcCounter.bonuses,
+                        componentLib.wlcCounter.bonusesAll,
                     ],
                 },
             },
+            componentLib.wlcProfileMenu.submenu,
             componentLib.wlcBonusesList.main,
+        ],
+    };
+
+    export const profileBonusesAll: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__top',
+                    components: [
+                        componentLib.wlcTitle.bonuses,
+                        componentLib.wlcCounter.bonusesAll,
+                    ],
+                },
+            },
+            componentLib.wlcProfileMenu.submenu,
+            componentLib.wlcBonusesList.all,
         ],
     };
 
@@ -650,7 +669,38 @@ export namespace profileContent {
                     class: 'wlc-profile-content__wrp',
                     components: [
                         componentLib.wlcProfileMenu.defTypeWolf,
+                        componentLib.wlcProfileMenu.submenuWolf,
                         componentLib.wlcBonusesWolf.main,
+                    ],
+                },
+            },
+        ],
+    };
+
+    export const profileWolfBonusesOffers: ILayoutSectionConfig = {
+        container: true,
+        theme: 'wolf',
+        usePreloader: true,
+        components: [
+            {
+                name: 'core.wlc-section-title',
+                params: {
+                    theme: 'wolf',
+                    text: 'Bonuses',
+                    iconPath: 'wlc/icons/european/v3/bonuses.svg',
+                },
+                display: {
+                    before: 899,
+                },
+            },
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__wrp',
+                    components: [
+                        componentLib.wlcProfileMenu.defTypeWolf,
+                        componentLib.wlcProfileMenu.submenuWolf,
+                        componentLib.wlcBonusesWolf.offers,
                     ],
                 },
             },
@@ -735,11 +785,29 @@ export namespace profileContent {
         ],
     };
 
+    export const profileBonusesActiveDef: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__top',
+                    components: [
+                        componentLib.wlcTitle.bonuses,
+                        componentLib.wlcCounter.bonusesAll,
+                    ],
+                },
+            },
+            componentLib.wlcProfileMenu.submenu,
+            componentLib.wlcBonusesList.active,
+        ],
+    };
+
     export const profileBonusesActive: ILayoutSectionConfig = {
         container: true,
         components: [
             componentLib.wlcTitle.activeBonuses,
-            componentLib.wlcBonusesList.active,
+            componentLib.wlcBonusesList.activeFirst,
         ],
     };
 
@@ -754,8 +822,8 @@ export namespace profileContent {
                     class: 'wlc-profile-content__wrp',
                     components: [
                         componentLib.wlcProfileMenu.defTypeWolf,
-                        componentLib.wlcTitle.activeBonuses,
-                        componentLib.wlcBonusesList.active,
+                        componentLib.wlcProfileMenu.submenuWolf,
+                        componentLib.wlcBonusesWolf.active,
                     ],
                 },
             },
@@ -815,7 +883,17 @@ export namespace profileContent {
     export const profileBonusesInventory: ILayoutSectionConfig = {
         container: true,
         components: [
-            componentLib.wlcTitle.inventory,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__top',
+                    components: [
+                        componentLib.wlcTitle.bonuses,
+                        componentLib.wlcCounter.bonusesAll,
+                    ],
+                },
+            },
+            componentLib.wlcProfileMenu.submenu,
             componentLib.wlcBonusesList.inventory,
         ],
     };
@@ -831,8 +909,8 @@ export namespace profileContent {
                     class: 'wlc-profile-content__wrp',
                     components: [
                         componentLib.wlcProfileMenu.defTypeWolf,
-                        componentLib.wlcTitle.inventory,
-                        componentLib.wlcBonusesList.inventory,
+                        componentLib.wlcProfileMenu.submenuWolf,
+                        componentLib.wlcBonusesWolf.inventory,
                     ],
                 },
             },
@@ -879,7 +957,7 @@ export namespace profileContent {
                             params: {
                                 class: 'wlc-profile-content__body',
                                 components: [
-                                    componentLib.wlcBonusesList.inventory,
+                                    componentLib.wlcBonusesList.inventoryFirst,
                                 ],
                             },
                         },

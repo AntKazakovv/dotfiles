@@ -213,7 +213,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         name: gettext('Bonuses'),
         counterParams: {
             theme: counterTheme,
-            type: 'bonuses-main',
+            type: 'bonuses-all',
         },
         type: 'sref',
         class: 'bonuses',
@@ -222,6 +222,12 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
             state: {
                 name: 'app.profile.loyalty-bonuses.main',
                 params: {},
+                parent: [
+                    'app.profile.loyalty-bonuses.main',
+                    'app.profile.loyalty-bonuses.active',
+                    'app.profile.loyalty-bonuses.offers',
+                    'app.profile.loyalty-bonuses.inventory',
+                ],
             },
         },
         wlcElement: 'link_offers',
@@ -248,7 +254,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         class: 'bonuses-offers',
         params: {
             state: {
-                name: 'app.profile.loyalty-bonuses.main',
+                name: 'app.profile.loyalty-bonuses.offers',
                 params: {},
             },
         },
@@ -291,6 +297,17 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
             },
         },
         wlcElement: 'link_active',
+    },
+    'profile-menu:bonuses-all': {
+        name: gettext('All bonuses'),
+        type: 'sref',
+        class: 'all-bonus',
+        params: {
+            state: {
+                name: 'app.profile.loyalty-bonuses.main',
+                params: {},
+            },
+        },
     },
     'profile-first-menu:bonuses-all': {
         name: gettext('My bonuses'),

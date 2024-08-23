@@ -115,16 +115,20 @@
             .wlc-menu {
 
                 &__link {
-                    @include bm.transition(all);
                     @include text.get-text-style(
                         ef.get-value($submenuProfileWolf, 'menuLinkTextStyle'),
                         ef.get-value($submenuProfileWolf, 'menuLinkColor')
                     );
+
                     display: flex;
+                    justify-content: center;
+                    min-width: ef.get-value($submenuProfileWolf, 'itemMinWidth');
                     padding: ef.get-value($submenuProfileWolf, 'menuItemPadding');
                     text-decoration: none;
                     background: ef.get-value($submenuProfileWolf, 'menuItemBg');
                     border-radius: ef.get-value($submenuProfileWolf, 'menuItemRadius');
+                    transition-duration: ef.get-value($submenuProfileWolf, 'itemTransitionDur');
+                    transition-property: ef.get-value($submenuProfileWolf, 'itemTransitionProp');
 
                     &.active {
                         @include text.get-text-style(
@@ -134,8 +138,11 @@
                     }
 
                     @include bm.hover {
-                        color: ef.get-value($submenuProfileWolf, 'menuItemTextColorHover');
-                        background: ef.get-value($submenuProfileWolf, 'menuItemBgHover');
+
+                        &:not(.active) {
+                            color: ef.get-value($submenuProfileWolf, 'menuItemTextColorHover');
+                            background: ef.get-value($submenuProfileWolf, 'menuItemBgHover');
+                        }
                     }
                 }
             }

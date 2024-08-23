@@ -9,9 +9,6 @@ export const redirectsConfig: IRedirectConfig = {
     zeroBalance: {
         state: 'app.profile.cash.deposit',
     },
-    profileRedirects: {
-        'app.profile.loyalty-bonuses.active': 'first',
-    },
     states: {
         'app.profile.dashboard': {
             state: 'app.profile.main.info',

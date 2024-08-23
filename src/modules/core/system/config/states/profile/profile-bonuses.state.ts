@@ -2,6 +2,8 @@
 
 import {Ng2StateDeclaration} from '@uirouter/angular';
 
+import {StateHelper} from 'wlc-engine/modules/core/system/helpers';
+
 export const profileBonusesState: Ng2StateDeclaration = {
     abstract: true,
     url: '/loyalty-bonuses',
@@ -9,6 +11,10 @@ export const profileBonusesState: Ng2StateDeclaration = {
 
 export const profileBonusesMainState: Ng2StateDeclaration = {
     url: '',
+};
+
+export const profileBonusesOffersState: Ng2StateDeclaration = {
+    url: '/offers',
 };
 
 export const profileBonusesActiveState: Ng2StateDeclaration = {
@@ -21,6 +27,9 @@ export const profileBonusesAllState: Ng2StateDeclaration = {
 
 export const profileBonusesInventoryState: Ng2StateDeclaration = {
     url: '/inventory',
+    resolve: [
+        StateHelper.profileStateResolver('$base.profile.bonuses.inventory.use'),
+    ],
 };
 
 export const profileBonusesHistoryState: Ng2StateDeclaration = {

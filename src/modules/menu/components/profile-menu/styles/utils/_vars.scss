@@ -166,6 +166,10 @@ $submenuProfileWolf: map-merge((
     'menuItemTextColorHover': var(--mc-baseThird, var(--mc-baseMain)),
     'menuItemPadding': 6px ef.size(3),
     'menuItemMaxHeight': ef.size(8),
+
+    'itemMinWidth': 60px,
+    'itemTransitionProp': (background, color),
+    'itemTransitionDur': ef.get('time', 'main'),
 ), $customSubmenuProfileWolf);
 
 $customFullProfileFirstDefault: () !default;

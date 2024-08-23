@@ -30,13 +30,19 @@ export const $profileLayouts: IPanelsConfig = {
     'app.profile.loyalty-bonuses.main': {
         extends: 'app.profile',
         sections: {
+            'profile-content': sectionsLib.profileContent.profileBonusesAll,
+        },
+    },
+    'app.profile.loyalty-bonuses.offers': {
+        extends: 'app.profile',
+        sections: {
             'profile-content': sectionsLib.profileContent.profileBonusesMain,
         },
     },
     'app.profile.loyalty-bonuses.active': {
         extends: 'app.profile',
         sections: {
-            'profile-content': sectionsLib.profileContent.profileBonusesActive,
+            'profile-content': sectionsLib.profileContent.profileBonusesActiveDef,
         },
     },
     'app.profile.loyalty-bonuses.inventory': {

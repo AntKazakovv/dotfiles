@@ -95,13 +95,22 @@ export const menuConfig: IMenuConfig = {
     profileMenu: {
         items: [
             'profile-menu:dashboard',
-            'profile-menu:bonuses-as-offers',
             'profile-menu:cashback-rewards',
             {
                 parent: 'profile-menu:loyalty',
                 type: 'group',
                 items: [
                     'profile-menu:loyalty-level-single',
+                ],
+            },
+            {
+                parent: 'profile-menu:bonuses-as-offers',
+                type: 'group',
+                items: [
+                    'profile-menu:bonuses-all',
+                    'profile-menu:bonuses-offers',
+                    'profile-menu:bonuses-active',
+                    'profile-menu:bonuses-inventory',
                 ],
             },
             'profile-menu:market-with-categories',
