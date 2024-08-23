@@ -185,6 +185,16 @@
 
     .wlc-cash {
 
+        &__alert-verification {
+            @include bm.get-mq-map('--wlc-alert-margin', $themeDefault, 'verificationAlertMargin');
+
+            &-title {
+                display: flex;
+                flex-direction: ef.get-value($themeDefault, 'verificationAlertDirection');
+                align-items: ef.get-value($themeDefault, 'verificationAlertAlignItems');
+            }
+        }
+
         &__promocode {
             @include bm.get-mq-map('--wlc-dep-promocode-align', $themeDefault, 'promoCodeAlign');
             @include bm.get-mq-map('--wlc-dep-promocode-results-dir', $themeDefault, 'promoCodeResultsDir');

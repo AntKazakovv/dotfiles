@@ -109,6 +109,7 @@ export interface IUserProfile {
     swift?: string;
     VerificationJobID?: string;
     VerificationSessionID?: string;
+    verificationConditions?: string[];
     birthDate?: string;
     newPassword?: string;
     newPasswordRepeat?: string;

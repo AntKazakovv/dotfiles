@@ -204,6 +204,10 @@ export class UserProfile extends AbstractModel<IUserProfile> {
         return this.data.VerificationSessionID;
     }
 
+    public get verificationConditions(): string[] {
+        return this.data.verificationConditions;
+    }
+
     public get birthDate(): string {
         return this.data.birthDate;
     }

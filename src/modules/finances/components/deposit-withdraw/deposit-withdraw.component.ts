@@ -23,6 +23,7 @@ import {
     first,
     takeUntil,
     distinctUntilChanged,
+    filter,
 } from 'rxjs/operators';
 import _assign from 'lodash-es/assign';
 import _merge from 'lodash-es/merge';
@@ -156,6 +157,8 @@ export class DepositWithdrawComponent
     public appliedPromoCode$: BehaviorSubject<Bonus> = new BehaviorSubject(null);
     public currentStep: Params.TMobileStep = 1;
     public amount: number;
+    public verification: Params.IVerificationAlert = {};
+    public userCountry: string;
 
     protected userService: UserService;
     protected alertInformation: TAlertList;
@@ -164,7 +167,6 @@ export class DepositWithdrawComponent
     protected isInitialized: boolean = false;
 
     private static forceEnableAutoSelectPaySystem: boolean = false;
-    private userProfile: UserProfile;
     private useScroll: boolean = false;
     private stepsOrder: Params.TStepTplName[] = [];
     private _isDeposit: boolean;
@@ -394,6 +396,24 @@ export class DepositWithdrawComponent
             this.$destroy,
         );
 
+        this.configService.get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
+            .pipe(
+                filter((profile: UserProfile) => !!profile),
+                takeUntil(this.$destroy))
+            .subscribe((userProfile: UserProfile): void => {
+                this.userCountry = userProfile.countryCode ?? '';
+
+                if (this.$params.mode === 'withdraw') {
+                    this.verification = {
+                        showProfileLink: !userProfile.emailVerified,
+                        showVerificationLink: userProfile.emailVerified
+                            ? !!userProfile.verificationConditions.length
+                            : userProfile.verificationConditions.length > 1,
+                        conditions: userProfile.verificationConditions.join(', '),
+                    };
+                }
+            });
+
         if (this.useBonuses) {
             this.eventService.subscribe([
                 {name: BonusItemComponentEvents.deposit},
@@ -500,10 +520,6 @@ export class DepositWithdrawComponent
         }
 
         this.cdr.markForCheck();
-    }
-
-    protected get userCountry(): string {
-        return this.userProfile?.countryCode || '';
     }
 
     protected async init(): Promise<void> {
@@ -655,13 +671,6 @@ export class DepositWithdrawComponent
         if (!this.hiddenPaymentInfo) {
             this.addStep(Params.PaymentSteps.paymentInfo);
         }
-
-        this.configService
-            .get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
-            .pipe(takeUntil(this.$destroy))
-            .subscribe((UserProfile) => {
-                this.userProfile = UserProfile;
-            });
 
         this.initSubscribers();
 

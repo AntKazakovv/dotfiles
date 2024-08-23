@@ -55,6 +55,7 @@ export interface IDepositWithdrawCParams extends IComponentParams<Theme, Type, T
         bonusesListParams?: IDepositBonusesCParams;
         paymentFormParams?: IPaymentFormCParams;
     }
+    verificationAlertMessage?: string;
 }
 
 export const defaultParams: IDepositWithdrawCParams = {
@@ -65,6 +66,7 @@ export const defaultParams: IDepositWithdrawCParams = {
     showPaymentRules: true,
     stepsOrder: ['systems', 'cryptoInvoiceSystems', 'bonuses', 'paymentInfo'],
     phoneVerifyParams: phoneVerificationConfig,
+    verificationAlertMessage: gettext('Please verify your account to withdraw the funds'),
 };
 
 export interface IAdditionalFields {
@@ -83,6 +85,12 @@ export interface IPaymentStep {
     title: string;
     ready?: Promise<void>;
     $resolve?: () => void;
+}
+
+export interface IVerificationAlert {
+    showProfileLink?: boolean;
+    showVerificationLink?: boolean;
+    conditions?: string;
 }
 
 export namespace PaymentSteps {

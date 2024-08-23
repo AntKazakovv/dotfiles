@@ -64,6 +64,14 @@ $themeDefault: map-merge((
         375: column,
         900: row,
     ),
+
+    //verification Alert
+    'verificationAlertMargin': (
+        375: 0,
+        900: 0 0 450px,
+    ),
+    'verificationAlertDirection': column,
+    'verificationAlertAlignItems': start,
 ), $customThemeDefault);
 
 $customThemeModWolf: () !default;

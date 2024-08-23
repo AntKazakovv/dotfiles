@@ -1,19 +1,32 @@
-<ng-container *ngIf="ready; else preloader" [ngSwitch]="$params.theme">
+<ng-container [ngTemplateOutlet]="verification.conditions ? verificationAlert : themeSwitcher"></ng-container>
 
-    <ng-container *ngIf="!isDeposit || !(isDepositBlocked$ | async); else phoneVerify">
-        <div
-        *ngIf="showAlert('title')"
-        wlc-alert
-        class="{{$class}}__alert-title"
-        [title]="alertInformation['title'].title | translate"
-        [text]="alertInformation['title'].description | translate"
-        [level]="alertInformation['title'].mod"></div>
+<ng-template #verificationAlert>
+    <div wlc-alert class="{{$class}}__alert-verification">
+        <span class="{{$class}}__alert-verification-title" title>
+            {{$params.verificationAlertMessage | translate}} ({{verification.conditions}})
+            <a *ngIf="verification.showProfileLink" [uiSref]="'app.profile.main.info'">{{'Profile' | translate}}</a>
+            <a *ngIf="verification.showVerificationLink" [uiSref]="'app.profile.verification'">{{'Verification' | translate}}</a>
+        </span>
+    </div>
+</ng-template>
 
-        <ng-container *ngSwitchCase="'second'" [ngTemplateOutlet]="second"></ng-container>
-        <ng-container *ngSwitchCase="'steps'" [ngTemplateOutlet]="stepsTheme"></ng-container>
-        <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
+<ng-template #themeSwitcher>
+    <ng-container *ngIf="ready; else preloader" [ngSwitch]="$params.theme">
+
+        <ng-container *ngIf="!isDeposit || !(isDepositBlocked$ | async); else phoneVerify">
+            <div *ngIf="showAlert('title')"
+                wlc-alert
+                class="{{$class}}__alert-title"
+                [title]="alertInformation['title'].title | translate"
+                [text]="alertInformation['title'].description | translate"
+                [level]="alertInformation['title'].mod"></div>
+
+            <ng-container *ngSwitchCase="'second'" [ngTemplateOutlet]="second"></ng-container>
+            <ng-container *ngSwitchCase="'steps'" [ngTemplateOutlet]="stepsTheme"></ng-container>
+            <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
+        </ng-container>
     </ng-container>
-</ng-container>
+</ng-template>
 
 <ng-template #preloader>
     <div wlc-loader></div>
