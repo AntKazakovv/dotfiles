@@ -6,7 +6,8 @@ export const staticConfig: IStaticConfig = {
         'privacy-policy',
         'responsible-game',
         'fair-play',
-        'games-rules',
+        'games-rules', // deprecated #597588
+        'games-providers',
         'install-pwa',
     ],
     downloadPdf: {
