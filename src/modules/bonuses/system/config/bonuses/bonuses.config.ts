@@ -86,4 +86,18 @@ export const bonusesConfig: IBonusesModule = {
             },
         },
     },
+    alertsConfig: {
+        allowStackAlert: {
+            title: gettext('The bonus allows stacking'),
+            level: 'info',
+        },
+        unavailableActivationAlert: {
+            title: gettext('This bonus cannot be activated due to the presence of another active bonus'),
+            level: 'warning',
+        },
+        nonCancelableAlert: {
+            title: gettext('The bonus does not allow cancellation. Wager this bonus to claim a new one'),
+            level: 'warning',
+        },
+    },
 };

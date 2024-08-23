@@ -25,6 +25,8 @@ import {
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {LootboxPrizeModel} from 'wlc-engine/modules/bonuses/system/models';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
+import {IAlertCParams} from 'wlc-engine/modules/core/components/alert/alert.params';
+import {TBonusAlertsGlobal} from 'wlc-engine/modules/bonuses/system/interfaces';
 
 import * as Params from './bonus-modal.params';
 import {IBonusWagerCParams} from 'wlc-engine/modules/bonuses/components/bonus-wager/bonus-wager.params';
@@ -48,6 +50,7 @@ export class BonusModalComponent extends AbstractComponent implements OnInit {
     protected gamesCatalogService: GamesCatalogService;
     protected bonusGamesAccordion: IAccordionData;
     protected freeroundGamesAccordion: IAccordionData;
+    protected _alerts: IAlertCParams[] = [];
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IBonusModalCParams,
@@ -65,6 +68,8 @@ export class BonusModalComponent extends AbstractComponent implements OnInit {
         super.ngOnInit();
 
         this.bonus = this.$params.bonus;
+
+        this.prepareAlerts();
 
         if (this.showGames) {
             this.prepareGames();
@@ -110,37 +115,16 @@ export class BonusModalComponent extends AbstractComponent implements OnInit {
             && !this.bonus.isDisabled;
     }
 
-    protected async prepareRewards(): Promise<void> {
-        this.isRewardsLoading = true;
-        this.bonus.lootBoxRewards ??= await this.bonusesService.getLootboxPrizes(this.bonus);
-
-        const rewardsItems: IAccordionData[] = _map(this.bonus.lootBoxRewards,
-            ((bonus: LootboxPrizeModel): IAccordionData => {
-                return {
-                    title: bonus.name,
-                    content: [bonus.descriptionClean, bonus.termsClean],
-                };
-            }));
-
-        this.bonusRewards = _merge(this.$params.rewardsParams, {
-            theme: this.$params.theme,
-            items: rewardsItems,
-        });
-
-        this.isRewardsLoading = false;
-        this.cdr.markForCheck();
-    }
-
-    public get showAlerts(): boolean {
-        return !!(this.$params.alerts && this.$params.alerts.length);
-    }
-
     public get isLootbox(): boolean {
         return this.bonus.target === 'lootbox';
     }
 
     public get showGames(): boolean {
         return !this.isLootbox || (this.isLootbox && this.bonus.event === 'bet' && !this.bonus.inventoried);
+    }
+
+    public get alerts(): IAlertCParams[] {
+        return this._alerts;
     }
 
     public expandGames(): void {
@@ -181,6 +165,27 @@ export class BonusModalComponent extends AbstractComponent implements OnInit {
         this.cdr.markForCheck();
     }
 
+    protected async prepareRewards(): Promise<void> {
+        this.isRewardsLoading = true;
+        this.bonus.lootBoxRewards ??= await this.bonusesService.getLootboxPrizes(this.bonus);
+
+        const rewardsItems: IAccordionData[] = _map(this.bonus.lootBoxRewards,
+            ((bonus: LootboxPrizeModel): IAccordionData => {
+                return {
+                    title: bonus.name,
+                    content: [bonus.descriptionClean, bonus.termsClean],
+                };
+            }));
+
+        this.bonusRewards = _merge(this.$params.rewardsParams, {
+            theme: this.$params.theme,
+            items: rewardsItems,
+        });
+
+        this.isRewardsLoading = false;
+        this.cdr.markForCheck();
+    }
+
     protected prepareGamesAccordionItem(common: IAccordionData): IAccordionData {
         return _merge(common, {wrapper: this.$params.gamesGridWrapperParams});
     }
@@ -202,5 +207,35 @@ export class BonusModalComponent extends AbstractComponent implements OnInit {
             'wrapper.components[0].params.gamesList',
             games,
         );
+    }
+
+    protected prepareAlerts(): void {
+        const alerts: IAlertCParams[] = [];
+        const globalAlerts = this.configService.get<TBonusAlertsGlobal>('$bonuses.alertsConfig');
+
+        if (this.bonus.isUnavailableForActivation && !!globalAlerts['unavailableActivationAlert']) {
+            alerts.push(globalAlerts['unavailableActivationAlert']);
+        }
+
+        if (!Bonus.existActiveBonus
+            && !(this.bonus.selected || this.bonus.inventoried)
+            && this.bonus.allowStack
+            && !!globalAlerts['allowStackAlert']
+        ) {
+            alerts.push(globalAlerts['allowStackAlert']);
+        }
+
+        if (this.bonus.isActive
+            && this.bonus.disableCancel
+            && !!globalAlerts['nonCancelableAlert']
+        ) {
+            alerts.push(globalAlerts['nonCancelableAlert']);
+        }
+
+        if (this.$params.alerts && this.$params.alerts.length) {
+            alerts.push(...this.$params.alerts);
+        }
+
+        this._alerts = alerts;
     }
 }

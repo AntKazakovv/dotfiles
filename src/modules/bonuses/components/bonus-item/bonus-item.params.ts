@@ -6,7 +6,6 @@ import {
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {IBonusModalCParams} from 'wlc-engine/modules/bonuses/components/bonus-modal/bonus-modal.params';
 import {Size} from 'wlc-engine/modules/core/components/button/button.interfaces';
-import {IAlertCParams} from 'wlc-engine/modules/core/components/alert/alert.params';
 
 /**
  * reg type used only in wolf and further
@@ -92,9 +91,6 @@ export interface IBonusItemCParams extends IComponentParams<Theme, Type, ThemeMo
         hideButtons?: boolean;
     };
     buttonsSize?: Size;
-    bonusUnavailableAlertParams?: IAlertCParams;
-    bonusAllowStackAlertParams?: IAlertCParams;
-    bonusNonCancelableAlertParams?: IAlertCParams;
     useReadMoreBtnMode?: boolean;
     imageSource?: TBonusItemImageSource;
 }
@@ -116,16 +112,4 @@ export const defaultParams: IBonusItemCParams = {
         usePreviewBonus: false,
     },
     usePartialMobileImage: false,
-    bonusUnavailableAlertParams: {
-        title: gettext('This bonus cannot be activated due to the presence of another active bonus'),
-        level: 'warning',
-    },
-    bonusAllowStackAlertParams: {
-        title: gettext('The bonus allows stacking'),
-        level: 'info',
-    },
-    bonusNonCancelableAlertParams: {
-        title: gettext('The bonus does not allow cancellation. Wager this bonus to claim a new one'),
-        level: 'warning',
-    },
 };

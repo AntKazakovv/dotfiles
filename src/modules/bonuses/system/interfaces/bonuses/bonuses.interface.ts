@@ -6,7 +6,11 @@ import {
 } from 'rxjs';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {BonusesListNoContentByThemeType} from 'wlc-engine/modules/bonuses/components/bonuses-list/bonuses-list.params';
-import {ITagCommon, ITagList} from 'wlc-engine/modules/core/components/tag/tag.params';
+import {
+    ITagCommon,
+    ITagList,
+} from 'wlc-engine/modules/core/components/tag/tag.params';
+import {IAlertCParams} from 'wlc-engine/modules/core/components/alert/alert.params';
 
 export interface IBonusesModule {
     /** Flag for change filter from 'main' to 'all' into Dashboard/Bonuses. Usability only for 2.0 Profile. **/
@@ -62,7 +66,11 @@ export interface IBonusesModule {
         },
     };
     tagsConfig?: ITagList<TBonusTagKey>;
+    alertsConfig?: TBonusAlertsGlobal;
 }
+
+export type TBonusAlert = 'allowStackAlert' | 'unavailableActivationAlert' | 'nonCancelableAlert';
+export type TBonusAlertsGlobal = Partial<Record<TBonusAlert, IAlertCParams>>;
 
 export type TBonusEvent =
     | 'deposit first'
