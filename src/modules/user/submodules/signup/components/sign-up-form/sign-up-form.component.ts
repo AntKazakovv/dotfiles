@@ -178,6 +178,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         super.ngOnDestroy();
     }
 
+    @CustomHook('user', 'SignUpFormGetForm')
     public override getForm(form: UntypedFormGroup): void {
         super.getForm(form);
 
