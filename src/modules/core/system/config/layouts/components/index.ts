@@ -119,3 +119,4 @@ export * from './lotteries/wlc-lottery.config';
 export * from './pwa/wlc-pwa-notification.config';
 
 export * from './local-jackpots/wlc-local-jackpots.config';
+export * from './youtube-block/wlc-youtube-block.config';

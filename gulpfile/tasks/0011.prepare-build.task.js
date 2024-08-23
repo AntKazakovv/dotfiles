@@ -108,23 +108,6 @@ module.exports = function preBuildTask() {
     };
 
     /**
-     * Create symlink to the wlc-youtube-block directory
-     */
-    //TODO после добавления еще одного npm-пакета переписать этот метод, чтобы он мог работать с массивом симлинков
-    const makeWlcYoutubeBlockSymlink = () => {
-
-        if (this.params.paths.youtubeBlockLink) {
-            try {
-                fs.lstatSync(this.params.paths.youtubeBlockLink);
-                fs.unlinkSync(this.params.paths.youtubeBlockLink);
-            } catch {
-                //
-            }
-            fs.symlinkSync('./node_modules/@wlc-modules/wlc-youtube-block', this.params.paths.youtubeBlockLink);
-        }
-    };
-
-    /**
      * Create symlink to the polyfills.ts file in the src directory
      */
     const makePolyfillsSymlink = () => {
@@ -355,7 +338,6 @@ module.exports = function preBuildTask() {
         makeIndexHtmlSymlink();
         makeLocalesSymlink();
         makeWlcEngineSymlink();
-        makeWlcYoutubeBlockSymlink();
         makeSrcIndexHtmlSymlink();
         makePolyfillsSymlink();
         makeCustomModule();

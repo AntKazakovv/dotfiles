@@ -1,0 +1,19 @@
+<div class="{{$class}}__content"
+     data-wlc-element="youtube_thumb_list">
+
+    <div wlc-wrapper
+         class="{{$class}}__thumbs-slider"
+         data-wlc-element="youtube_thumb_slider"
+         [inlineParams]="thumbsSliderConfig">
+    </div>
+
+    <div *ngIf="$params.showAsSwiper?.useNavigation"
+         class="{{$class}}__swiper-buttons-container"
+         slot-container-end>
+         <div wlc-slider-navigation
+            class="{{$class}}__swiper-buttons"
+            [classPrev]="'wlc-swiper-button-prev-' + navigationId"
+            [classNext]="'wlc-swiper-button-next-' + navigationId">
+        </div>
+    </div>
+</div>

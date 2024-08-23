@@ -54,6 +54,7 @@ export type TModuleName =
     | 'pwa'
     | 'local-jackpots'
     | 'ubidex'
+    | 'youtube-block'
     | 'referrals'
     | 'providers'
     | 'turnstile';
@@ -340,6 +341,11 @@ export const modulesApp: Record<TModuleName, IFunctionImportModule> = {
         const m = await import('wlc-engine/modules/security/turnstile/turnstile.module');
         callback(name, m);
         return m.TurnstileModule;
+    },
+    'youtube-block': async (name: TModuleName, callback: Function) => {
+        const m = await import('wlc-engine/modules/youtube-block/youtube-block.module');
+        callback(name, m);
+        return m.YoutubeBlockModule;
     },
 } as const;
 

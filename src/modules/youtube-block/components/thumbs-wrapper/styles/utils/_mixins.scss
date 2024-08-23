@@ -1,0 +1,16 @@
+@mixin decorStyles($conf) {
+    @include bm.get-mq-map('width', $conf, 'width');
+    @include bm.get-mq-map('height', $conf, 'height');
+
+    @if (ef.get-value($conf, 'left')) {
+        @include bm.get-mq-map('left', $conf, 'left');
+    } @else if (ef.get-value($conf, 'right')) {
+        @include bm.get-mq-map('right', $conf, 'right');
+    }
+
+    @if (ef.get-value($conf, 'top')) {
+        @include bm.get-mq-map('top', $conf, 'top');
+    } @else if (ef.get-value($conf, 'bottom')) {
+        @include bm.get-mq-map('bottom', $conf, 'bottom');
+    }
+}
