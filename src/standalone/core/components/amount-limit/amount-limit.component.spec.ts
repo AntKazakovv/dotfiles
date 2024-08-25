@@ -4,12 +4,12 @@ import {
 } from '@angular/core/testing';
 import {MockService} from 'ng-mocks';
 
-import {AmountLimitComponent} from 'wlc-engine/modules/core/components/amount-limit/amount-limit.component';
 import {
     ILimits,
     defaultParams,
-} from 'wlc-engine/modules/core/components/amount-limit/amount-limit.params';
-import {ConfigService} from 'wlc-engine/modules/core/system/services';
+} from 'wlc-engine/standalone/core/components/amount-limit/amount-limit.params';
+import {ConfigService} from 'wlc-engine/modules/core';
+import {AmountLimitComponent} from 'wlc-engine/standalone/core/components/amount-limit/amount-limit.component';
 
 describe('AmountLimitComponent', () => {
     let component: AmountLimitComponent;
@@ -24,7 +24,7 @@ describe('AmountLimitComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [AmountLimitComponent],
+            imports: [AmountLimitComponent],
             providers: [
                 {
                     provide: 'injectParams',

@@ -7,7 +7,9 @@ import {
     AbstractComponent,
     GlobalHelper,
 } from 'wlc-engine/modules/core';
-import * as Params from 'wlc-engine/modules/core/components/amount-limit/amount-limit.params';
+import {CoreModule} from 'wlc-engine/modules/core/core.module';
+
+import * as Params from 'wlc-engine/standalone/core/components/amount-limit/amount-limit.params';
 
 import _isObject from 'lodash-es/isObject';
 
@@ -16,6 +18,10 @@ import _isObject from 'lodash-es/isObject';
     templateUrl: './amount-limit.component.html',
     styleUrls: ['./styles/amount-limit.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [
+        CoreModule,
+    ],
 })
 export class AmountLimitComponent extends AbstractComponent implements OnInit {
     @Input() public inlineParams: Params.IAmountLimitCParams;

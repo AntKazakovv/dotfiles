@@ -25,7 +25,7 @@ import {
     NotificationEvents,
 } from 'wlc-engine/modules/core';
 import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
-import {IAmountLimitCParams} from 'wlc-engine/modules/core/components/amount-limit/amount-limit.params';
+import {IAmountLimitCParams} from 'wlc-engine/standalone/core/components/amount-limit/amount-limit.params';
 import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 import {UserInfo} from 'wlc-engine/modules/user';
 import {

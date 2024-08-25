@@ -60,7 +60,6 @@ import {CuracaoRequirement} from 'wlc-engine/modules/app/system';
 // -- COMPONENTS IMPORTS  --;
 import {AnimateSpriteComponent} from './components/animate-sprite/animate-sprite.component';
 import {AccordionComponent} from 'wlc-engine/modules/core/components/accordion/accordion.component';
-import {AmountLimitComponent} from './components/amount-limit/amount-limit.component';
 import {BirthdayFieldComponent} from './components/birthday-field/birthday-field.component';
 import {BurgerPanelComponent} from './components/burger-panel/burger-panel.component';
 import {ButtonComponent} from './components/button/button.component';
@@ -182,7 +181,6 @@ export const components = {
     'wlc-alert': AlertComponent,
     'wlc-animate-sprite': AnimateSpriteComponent,
     'wlc-accordion': AccordionComponent,
-    'wlc-amount-limit': AmountLimitComponent,
     'wlc-birth-field': BirthdayFieldComponent,
     'wlc-button': ButtonComponent,
     'wlc-burger-panel': BurgerPanelComponent,
@@ -270,7 +268,6 @@ export const services = {
         AlertComponent,
         AnimateSpriteComponent,
         AccordionComponent,
-        AmountLimitComponent,
         AuthDirective,
         BirthdayFieldComponent,
         BurgerPanelComponent,
@@ -366,7 +363,6 @@ export const services = {
         AlertComponent,
         AnimateSpriteComponent,
         AccordionComponent,
-        AmountLimitComponent,
         AuthDirective,
         BirthdayFieldComponent,
         BurgerPanelComponent,

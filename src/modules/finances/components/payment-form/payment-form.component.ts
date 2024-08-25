@@ -104,7 +104,7 @@ import {FinancesService} from 'wlc-engine/modules/finances/system/services/finan
 
 import {Bonus} from 'wlc-engine/modules/bonuses';
 import {ISelectOptions} from 'wlc-engine/modules/profile';
-import {IAmountLimitCParams} from 'wlc-engine/modules/core/components/amount-limit/amount-limit.params';
+import {IAmountLimitCParams} from 'wlc-engine/standalone/core/components/amount-limit/amount-limit.params';
 import {UserProfile} from 'wlc-engine/modules/user';
 import {PaymentMessageComponent} from '../payment-message/payment-message.component';
 import {DOCUMENT} from '@angular/common';

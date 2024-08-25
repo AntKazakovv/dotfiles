@@ -422,6 +422,14 @@ export const standaloneComponents = {
                 return m.SomethingWrongPageComponent;
             });
     },
+
+    'wlc-amount-limit': async (callback: TCallbackImportFunction) => {
+        return import('wlc-engine/standalone/core/components/amount-limit/amount-limit.component')
+            .then((m) => {
+                callback(m.AmountLimitComponent);
+                return m.AmountLimitComponent;
+            });
+    },
     // 'some-sa-component-name': IFunctionImportStandalone
     // 'another-sa-component-name': IFunctionImportStandalone
     /** === Independent components END === */
