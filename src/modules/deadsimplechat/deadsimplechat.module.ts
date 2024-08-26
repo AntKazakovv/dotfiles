@@ -1,6 +1,4 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {TranslateModule} from '@ngx-translate/core';
 import {DeadsimplechatService} from './system/services/deadsimplechat.service';
 import {DeadsimplechatComponent} from './components/deadsimplechat/deadsimplechat.component';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
@@ -15,8 +13,6 @@ export const components = {
 
 @NgModule({
     imports: [
-        CommonModule,
-        TranslateModule,
         CoreModule,
     ],
     declarations: [
