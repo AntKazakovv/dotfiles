@@ -50,11 +50,11 @@ export namespace transactionConfig {
             },
             {
                 value: 'deposit',
-                title: gettext('Deposit'),
+                title: gettext('Credit'),
             },
             {
                 value: 'withdraw',
-                title: gettext('Withdrawal'),
+                title: gettext('Debit'),
             },
         ],
     };
