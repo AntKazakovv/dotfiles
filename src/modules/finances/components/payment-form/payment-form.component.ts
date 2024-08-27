@@ -522,6 +522,7 @@ export class PaymentFormComponent
         }
     }
 
+    @CustomHook('finances', 'paymentMessageWithdraw')
     public async withdraw(form: UntypedFormGroup): Promise<boolean> {
         this.modalService.showModal('data-is-processing');
         this.inProgress = true;
