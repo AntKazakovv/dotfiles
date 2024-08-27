@@ -30,6 +30,7 @@ import {errorTypes as lotteriesLogs} from './28.lotteries';
 import {errorTypes as LocalJackpotsLogs} from './30.local-jackpots';
 import {errorTypes as questsLogs} from './31.quests';
 import {errorTypes as referralsLogs} from './32.referrals';
+import {errorTypes as pwaLogs} from './34.pwa';
 import {errorTypes as monitoringLogs} from './33.monitoring';
 
 export const defaultLogMethods: TLogMethods[] = ['flog'];
@@ -108,4 +109,5 @@ export const logTypes: ILogTypes = Object.assign(
     questsLogs,
     referralsLogs,
     monitoringLogs,
+    pwaLogs,
 );

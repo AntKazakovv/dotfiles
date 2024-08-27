@@ -219,6 +219,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
             if (!sections.length) {
                 ready.unsubscribe();
                 this.additionalHostClass.push('app-ready');
+                this.checkLaunchMode();
                 this.addLivechat();
                 this.loadIntercom();
                 this.setHostClass();
@@ -227,6 +228,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
                     flog: {
                         downlink: _get(this.window, 'navigator.connection.downlink', 0),
                         effectiveType: _get(this.window, 'navigator.connection.effectiveType', ''),
+                        launchMode: this.configService.get({name: 'launchMode', storageType: 'sessionStorage'}),
                     },
                     from: {
                         component: 'AppComponent',
@@ -573,5 +575,18 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
         }
 
         this.injectionService.getService<UbidexService>('ubidex.ubidex-service');
+    }
+
+    private checkLaunchMode(): void {
+        const isStandalone = this.window.matchMedia('(display-mode: standalone)').matches;
+
+        if (isStandalone) {
+            this.configService.set({name: 'launchMode', value: 'pwa', storageType: 'sessionStorage'});
+        } else {
+            this.configService.set({name: 'launchMode', value: 'browser', storageType: 'sessionStorage'});
+            this.window.addEventListener('appinstalled', () => {
+                this.logService.sendLog({code: '34.0.0'});
+            });
+        }
     }
 }
