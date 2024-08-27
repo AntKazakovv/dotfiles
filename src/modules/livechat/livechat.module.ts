@@ -1,6 +1,4 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {TranslateModule} from '@ngx-translate/core';
 import {CoreModule} from '../core/core.module';
 
 import {ChatraService} from './system/services/chatra/chatra.service';
@@ -25,8 +23,6 @@ export const services = {
         LivechatButtonComponent,
     ],
     imports: [
-        CommonModule,
-        TranslateModule,
         CoreModule,
     ],
     providers: [
