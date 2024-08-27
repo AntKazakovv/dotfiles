@@ -2,8 +2,8 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'titleFontStyle': 'QoteTextBold',
     'titleColor': var(--mc-baseMain),
-    'titleColorLink': var(--mc-baseOpacity),
-    'titleColorLinkHover': var(--mc-baseMain),
+    'titleColorLink': var(--mc-baseMain),
+    'titleColorLinkHover': var(--mc-baseOpacity),
     'iconLinkColor': var(--mc-baseMain),
 
     'titleIconMargin': 0 ef.size(2) 0 0,
