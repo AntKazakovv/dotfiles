@@ -1,5 +1,4 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
 import {ProcessService} from './system/services/process/process.service';
 
 export const services = {
@@ -7,10 +6,6 @@ export const services = {
 };
 
 @NgModule({
-    declarations: [],
-    imports: [
-        CommonModule,
-    ],
     providers: [
         ProcessService,
     ],
