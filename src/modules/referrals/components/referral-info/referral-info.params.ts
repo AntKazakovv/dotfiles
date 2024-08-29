@@ -10,8 +10,9 @@ export type ComponentThemeMod = 'default' | CustomType;
 
 export interface IReferralInfoCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     /** URL for decor picture in Earn more block */
-    decorFallbackUrl: string;
     decorUrl?: string;
+    /** Fallback URL for decor picture in Earn more block */
+    decorFallbackUrl?: string;
     /** Params for button 'Get commission' */
     getCommissionBtn?: IButtonCParams;
     confirmModalParams?: IModalParams;

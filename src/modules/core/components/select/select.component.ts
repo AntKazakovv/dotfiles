@@ -383,7 +383,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
         this.isOpened = false;
         this.clearSearchField();
         this.searchText = this.translateService.instant(this.memoizePlaceholderText(
-            this.control.value, this.$params.items, this.$params.common.placeholder,
+            this.control.value, this.$params.items, this.$params.common?.placeholder,
         ));
         this.getSelectedItemIndex();
     }

@@ -1,87 +1,71 @@
-<div class="{{$class}}__wrap" *ngIf="refInfo">
+<div *ngIf="refInfo$ | async as refInfo" class="{{$class}}__wrap">
     <div class="{{$class}}__top">
-        <ng-container [ngTemplateOutlet]="ctaBlock"></ng-container>
-        <ng-container [ngTemplateOutlet]="detailsBlock"></ng-container>
-    </div>
-    <ng-container [ngTemplateOutlet]="descrBlock"></ng-container>
-    <ng-container [ngTemplateOutlet]="history"></ng-container>
-</div>
-
-<ng-template #ctaBlock>
-    <div class="{{$class}}__cta">
-        <div class="{{$class}}__cta-main">
-
-        <p class="{{$class}}__cta-title">{{'Earn more!' | translate}}</p>
-        <p class="{{$class}}__cta-descr">
-            {{"Get commissions from the bets of players who have been registered using your link" | translate}}
-        </p>
-        <div class="{{$class}}__link"
-            wlc-input
-            [inlineParams]="inputParams">
-        </div>
-        </div>
-        <div class="{{$class}}__cta-decor">
-            <img class="{{$class}}__cta-decor-img"
-                [wlc-fallback]="decorFallbackUrl"
-                src="{{decorUrl}}"
-                alt=""/>
-        </div>
-    </div>
-</ng-template>
-
-<ng-template #detailsBlock>
-    <div class="{{$class}}__details">
-        <div class="{{$class}}__total">
-            <div class="{{$class}}__total-row">
-                <div class="{{$class}}__total-row-title">
-                    {{'Total number of referrals' | translate}}
-                </div>
-                <div class="{{$class}}__total-row-value">
-                    <span class="{{$class}}__amount">{{refInfo.total}}</span>
+        <div class="{{$class}}__cta">
+            <div class="{{$class}}__cta-main">
+                <p class="{{$class}}__cta-title">
+                    {{'Earn more!' | translate}}
+                </p>
+                <p class="{{$class}}__cta-descr">
+                    {{'Get commissions from the bets of players who have been registered using your link' | translate}}
+                </p>
+                <div wlc-input
+                    class="{{$class}}__link"
+                    [inlineParams]="getInputParams(refInfo.link)">
                 </div>
             </div>
-            <div class="{{$class}}__total-row">
-                <div class="{{$class}}__total-row-title">
-                    {{'Available for receiving' | translate}}
+            <div class="{{$class}}__cta-decor">
+                <img class="{{$class}}__cta-decor-img"
+                    src="{{decorUrl}}"
+                    [wlc-fallback]="decorFallbackUrl"/>
+            </div>
+        </div>
+        <div class="{{$class}}__details">
+            <div class="{{$class}}__total">
+                <div class="{{$class}}__total-row">
+                    <div class="{{$class}}__total-row-title">
+                        {{'Total number of referrals' | translate}}
+                    </div>
+                    <div class="{{$class}}__total-row-value">
+                        <span class="{{$class}}__amount">{{refInfo.total}}</span>
+                    </div>
                 </div>
-                <div class="{{$class}}__total-row-value">
-                    <div *ngFor="let item of refInfo.availableAmount"
-                        class="{{$class}}__amount"
-                        wlc-currency
-                        [currency]="item.currency"
-                        [value]="item.value">
+                <div class="{{$class}}__total-row">
+                    <div class="{{$class}}__total-row-title">
+                        {{'Available for receiving' | translate}}
+                    </div>
+                    <div class="{{$class}}__total-row-value">
+                        <div *ngFor="let item of refInfo.availableAmounts"
+                            wlc-currency
+                            class="{{$class}}__amount"
+                            [currency]="item.currency"
+                            [value]="item.value">
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <button wlc-button
+                class="{{$class}}__btn-commission"
+                [inlineParams]="getComissionBtnParams"
+                [disabled]="refInfo.profitUnavailable"
+                (click)="takeProfit()">
+            </button>
         </div>
-
-        <button class="{{$class}}__btn-commission"
-            wlc-button
-            [inlineParams]="$params.getCommissionBtn"
-            [disabled]="refInfo.profitUnavailable"
-            (click)="takeProfit()"></button>
     </div>
-</ng-template>
-
-<ng-template #descrBlock>
     <div class="{{$class}}__section {{$class}}__descr">
         <p class="{{$class}}__descr-title">{{'How does it work?' | translate}}</p>
-
-        <p>{{"Any user of {{casinoName}} can invite a new player who has not previously "
-            + "been registered on the site. The invited player is called a referral. "
-            + "It is possible to invite an unlimited number of new users." | translate | translate:translateParams}}</p>
-        <p>{{"To invite new users, you need to copy the unique referral link above "
-            + "and send it to a new potential user, "
-            + "or post it in your social network account or blog." | translate }}</p>
-        <p>{{"By clicking on the link, the invited user goes to the registration page. "
-            + "Our system recognizes the user as a referral. "
-            + "When a referral places bets and receives a result on the {{casinoName}}, "
-            + "the user who has invited them starts receiving the commission." | translate | translate:translateParams}}</p>
+        <p>{{'Any user of {{casinoName}} can invite a new player who has not previously '
+            + 'been registered on the site. The invited player is called a referral. '
+            + 'It is possible to invite an unlimited number of new users.' | translate | translate:translateParams}}</p>
+        <p>{{'To invite new users, you need to copy the unique referral link above '
+            + 'and send it to a new potential user, '
+            + 'or post it in your social network account or blog.' | translate }}</p>
+        <p>{{'By clicking on the link, the invited user goes to the registration page. '
+            + 'Our system recognizes the user as a referral. '
+            + 'When a referral places bets and receives a result on the {{casinoName}}, '
+            + 'the user who has invited them starts receiving the commission.' | translate | translate:translateParams}}</p>
     </div>
-</ng-template>
-
-<ng-template #history>
     <div class="{{$class}}__section {{$class}}__section--history">
-        <div wlc-referrals-list [inlineParams]="{theme: $params.theme}"></div>
+        <div wlc-referrals-list [inlineParams]="refListInlineParams"></div>
     </div>
-</ng-template>
+</div>

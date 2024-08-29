@@ -26,3 +26,7 @@ export interface IRefDateFilter {
 export interface IRefList{
     referrals: IRefItem[];
 }
+
+export interface ITakeProfitResponse {
+    result: boolean;
+}

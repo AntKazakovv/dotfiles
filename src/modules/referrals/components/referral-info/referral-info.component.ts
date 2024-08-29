@@ -1,28 +1,26 @@
 import {
     Component,
-    OnInit,
     ChangeDetectionStrategy,
     Inject,
     Input,
-    ViewChild,
-    TemplateRef,
-    ElementRef,
+    inject,
 } from '@angular/core';
 import {UntypedFormControl} from '@angular/forms';
+import {Observable} from 'rxjs';
 
 import {
     AbstractComponent,
+    IButtonCParams,
     IInputCParams,
+    IModalConfig,
     ModalService,
 } from 'wlc-engine/modules/core';
-
-import {
-    takeUntil,
-} from 'rxjs';
-import _merge from 'lodash-es/merge';
-
 import {RefInfoModel} from 'wlc-engine/modules/referrals/system/models/ref-info.model';
-import {ReferralsService} from 'wlc-engine/modules/referrals/system/services/referrals.service';
+import {
+    IRefInfoController,
+    RefInfoController,
+} from '../../system/classes/referral-info.controller';
+import {IReferralsListCParams} from '../referrals-list/referrals-list.params';
 
 import * as Params from './referral-info.params';
 
@@ -31,15 +29,17 @@ import * as Params from './referral-info.params';
     templateUrl: './referral-info.component.html',
     styleUrls: ['./styles/referral-info.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [RefInfoController],
 })
 
-export class ReferralInfoComponent extends AbstractComponent implements OnInit {
+export class ReferralInfoComponent extends AbstractComponent {
     @Input() protected inlineParams: Params.IReferralInfoCParams;
-    @ViewChild('confirmationTpl') public confirmationTpl: TemplateRef<ElementRef>;
+
     public override $params: Params.IReferralInfoCParams;
-    public refInfo: RefInfoModel;
-    public translateParams: Params.IReferralInfoTranslations;
-    public inputParams: IInputCParams = {
+    public readonly translateParams: Params.IReferralInfoTranslations;
+
+    private _controller: IRefInfoController = inject(RefInfoController);
+    private _inputParams: IInputCParams = {
         name: 'link',
         theme: 'vertical',
         common: {
@@ -54,30 +54,17 @@ export class ReferralInfoComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IReferralInfoCParams,
-        protected referralsService: ReferralsService,
         protected modalService: ModalService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams});
-    }
-
-    public override async ngOnInit(): Promise<void> {
-        super.ngOnInit(this.inlineParams);
-
-        await this.configService.ready;
 
         this.translateParams = {
-            casinoName: this.configService.get<string>('$base.site.name') ?? '',
+            casinoName: this._controller.casinoName,
         };
+    }
 
-        this.referralsService.refInfo$.pipe(takeUntil(this.$destroy)).subscribe((data: RefInfoModel) => {
-            if (data) {
-                this.refInfo = data;
-                const refLink: string = `${this.configService.get<string>('appConfig.site')}?${data.link}`;
-                this.inputParams.control = new UntypedFormControl(refLink);
-                this.cdr.markForCheck();
-            }
-        });
-        this.referralsService.getRefInfo();
+    public get refInfo$(): Observable<RefInfoModel> {
+        return this._controller.refInfo$;
     }
 
     public get decorUrl(): string {
@@ -88,11 +75,25 @@ export class ReferralInfoComponent extends AbstractComponent implements OnInit {
         return this.$params.decorFallbackUrl;
     }
 
+    public get getComissionBtnParams(): IButtonCParams {
+        return this.$params.getCommissionBtn;
+    }
+
+    public get refListInlineParams(): IReferralsListCParams {
+        return {theme: this.$params.theme};
+    }
+
+    public getInputParams(refLink: string): IInputCParams {
+        return {
+            ...this._inputParams,
+            control: new UntypedFormControl(refLink),
+        };
+    }
+
     public takeProfit(): void {
-        this.modalService.showModal(
-            _merge(this.$params.confirmModalParams, {
-                onConfirm: () => this.referralsService.takeProfit(),
-            }),
-        );
+        this.modalService.showModal({
+            ...this.$params.confirmModalParams as IModalConfig,
+            onConfirm: () => this._controller.takeProfit(),
+        });
     }
 }

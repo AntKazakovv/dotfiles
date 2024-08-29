@@ -1,13 +1,13 @@
-import _reduce from 'lodash-es/reduce';
+import {Injectable} from '@angular/core';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
-import dayjs from 'dayjs';
-import type {Dayjs} from 'dayjs';
 import {
     BehaviorSubject,
-    Subject,
+    skip,
     distinctUntilChanged,
-    takeUntil,
 } from 'rxjs';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
 
 import {ISelectOptions, SelectValuesService} from 'wlc-engine/modules/core';
 import {IReferralsListCParams} from 'wlc-engine/modules/referrals/components/referrals-list/referrals-list.params';
@@ -20,17 +20,31 @@ import {
 import {RefItemModel} from 'wlc-engine/modules/referrals/system/models/ref-item.model';
 import {ReferralsService} from 'wlc-engine/modules/referrals/system/services/referrals.service';
 
-export class ReferralsListController {
-    public listReady$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+export interface IReferralsListController {
+    filtersReady$: BehaviorSubject<boolean>;
+    referralsList$: BehaviorSubject<RefItemModel[]>;
+    totalProfitSum: number;
+    monthsFilterItems: ISelectOptions[];
+    yearFilterItems: ISelectOptions[];
+    filterInterval: string;
+    profitReferralsCount: number;
+    currentMonth: string;
+    currentYear: string;
+    init(params: IReferralsListCParams): void;
+    toggleRows(): void;
+    getRefsList(skipEmpty: boolean, limit?: number): RefItemModel[];
+    updateFilters(filter?: IRefDateFilter): void;
+};
+
+@Injectable()
+export class ReferralsListController implements IReferralsListController {
     public filtersReady$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-    public referralsList$: BehaviorSubject<RefItemModel[]> = new BehaviorSubject([]);
-    public profitReferrals: RefItemModel[] = [];
+    public referralsList$: BehaviorSubject<RefItemModel[]> = new BehaviorSubject(null);
     public totalProfitSum: number = 0;
     public monthsFilterItems: ISelectOptions[];
     public yearFilterItems: ISelectOptions[];
     public filterInterval: string;
 
-    protected $destroy: Subject<void> = new Subject();
     protected requestDateFormat: string = 'YYYY-MM-DD';
     protected visualDateFormat: string;
     protected queryParams$: BehaviorSubject<IRefListQueryParams> = new BehaviorSubject(null);
@@ -40,40 +54,25 @@ export class ReferralsListController {
     private _rowsLimit: number;
     private _skipEmpty: boolean;
     private _isExpanded: boolean = false;
-
-    private allReferrals: RefItemModel[] = [];
+    private _allReferrals: RefItemModel[] = [];
+    private _profitReferrals: RefItemModel[] = [];
 
     constructor(
-        protected referralsService: ReferralsService,
-        protected selectValuesService: SelectValuesService,
-        protected params: IReferralsListCParams,
+        protected readonly referralsService: ReferralsService,
+        protected readonly selectValuesService: SelectValuesService,
     ) {
-        this._rowsLimit = params.rowsLimit || 10;
-        this._skipEmpty = params.skipEmptyReferrals || false;
-
-        this.init();
-
         this.queryParams$
             .pipe(
+                skip(1),
                 distinctUntilChanged(),
-                takeUntil(this.$destroy),
+                takeUntilDestroyed(),
             ).subscribe((params: IRefListQueryParams) => {
                 this.fetchReferralsList(params);
             });
     }
 
-    public init(): void {
-        this.visualDateFormat = this.params.filterDateFormat || 'DD.MM.YYYY';
-        this.prepareFilterData();
-    }
-
-    public destroy(): void {
-        this.$destroy.next();
-        this.$destroy.complete();
-    }
-
     public get profitReferralsCount(): number {
-        return this.profitReferrals?.length || 0;
+        return this._profitReferrals?.length || 0;
     }
 
     public get currentMonth(): string {
@@ -84,6 +83,18 @@ export class ReferralsListController {
         return this._currentYear;
     }
 
+    public init({
+        rowsLimit = 10,
+        skipEmptyReferrals = false,
+        filterDateFormat = 'DD.MM.YYYY',
+    }: IReferralsListCParams): void {
+        this._rowsLimit = rowsLimit;
+        this._skipEmpty = skipEmptyReferrals;
+        this.visualDateFormat = filterDateFormat;
+
+        this.prepareFilterData();
+    }
+
     public toggleRows(): void {
         this._isExpanded = !this._isExpanded;
 
@@ -91,12 +102,37 @@ export class ReferralsListController {
     }
 
     public getRefsList(skipEmpty: boolean = true, limit?: number): RefItemModel[] {
-        const source: RefItemModel[] = skipEmpty ? this.profitReferrals : this.allReferrals;
+        const source: RefItemModel[] = skipEmpty ? this._profitReferrals : this._allReferrals;
 
         if (limit && source.length > limit) {
             return source.slice(0, limit);
         } else {
             return source;
+        }
+    }
+
+    public updateFilters(filter?: IRefDateFilter): void {
+        if (filter) {
+            switch (filter.field) {
+                case 'month':
+                    this._currentMonth = filter.value;
+                    break;
+                case 'year':
+                    this._currentYear = filter.value;
+                    break;
+            }
+        }
+
+        if (this.currentMonth && this.currentYear) {
+            const from: Dayjs = dayjs(`${this.currentYear}-${this.currentMonth}-01`);
+            const to: Dayjs = from.endOf('month');
+
+            this.filterInterval = `${from.format(this.visualDateFormat)} - ${to.format(this.visualDateFormat)}`;
+
+            this.queryParams$.next({
+                from: from.format(this.requestDateFormat),
+                to: to.format(this.requestDateFormat),
+            });
         }
     }
 
@@ -121,44 +157,16 @@ export class ReferralsListController {
         this.updateFilters();
     }
 
-    public updateFilters(filter?: IRefDateFilter): void {
-        if (filter) {
-            switch (filter.field) {
-                case 'month':
-                    this._currentMonth = filter.value;
-                    break;
-                case 'year':
-                    this._currentYear = filter.value;
-                    break;
-            }
-        }
-
-        if (this.currentMonth && this.currentYear) {
-            const from: Dayjs = dayjs().startOf('month');
-            const to: Dayjs = dayjs().endOf('month');
-
-            this.filterInterval = `${from.format(this.visualDateFormat)} - ${to.format(this.visualDateFormat)}`;
-
-            this.queryParams$.next({
-                from: from.format(this.requestDateFormat),
-                to: to.format(this.requestDateFormat),
-            });
-        }
-    }
-
     protected async fetchReferralsList(params: IRefListQueryParams): Promise<void> {
-        this.listReady$.next(false);
-        try {
-            const data: IRefItem[] = await this.referralsService.fetchRefList(params);
-            this.processReferralsListResponse(data);
-        } catch (error) {
-        } finally {
-            this.listReady$.next(true);
-        }
+        this.referralsList$.next(null);
+
+        const data: IRefItem[] = await this.referralsService.fetchRefList(params);
+
+        this._processReferralsListResponse(data);
     }
 
     protected updateReferralsList(): void {
-        let source: RefItemModel[] = this._skipEmpty ? this.profitReferrals : this.allReferrals;
+        let source: RefItemModel[] = this._skipEmpty ? this._profitReferrals : this._allReferrals;
 
         if (!this._isExpanded) {
             source = source.slice(0, this._rowsLimit);
@@ -167,11 +175,11 @@ export class ReferralsListController {
         this.referralsList$.next(source);
     }
 
-    private processReferralsListResponse(data: IRefItem[]): void {
+    private _processReferralsListResponse(data: IRefItem[]): void {
         const profitReferrals: RefItemModel[] = [];
         const allReferrals: RefItemModel[] = [];
 
-        this.totalProfitSum = _reduce(data, (acc: number, item: IRefItem) => {
+        this.totalProfitSum = data.reduce((acc: number, item: IRefItem) => {
             const referral = new RefItemModel(item);
             acc += referral.profit;
 
@@ -184,8 +192,8 @@ export class ReferralsListController {
             return acc;
         }, 0);
 
-        this.profitReferrals = profitReferrals;
-        this.allReferrals = allReferrals;
+        this._profitReferrals = profitReferrals;
+        this._allReferrals = allReferrals;
 
         this.updateReferralsList();
     }

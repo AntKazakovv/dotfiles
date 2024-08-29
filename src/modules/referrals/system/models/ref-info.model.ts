@@ -1,35 +1,21 @@
-import _map from 'lodash-es/map';
-
 import {IRefCurrency, IRefInfo} from 'wlc-engine/modules/referrals/system/interfaces/referrals.interface';
 
 export class RefInfoModel {
     public readonly link: string;
     public readonly total: number;
-    public readonly availableAmount: IRefCurrency[];
+    public readonly availableAmounts: IRefCurrency[];
     public readonly profitUnavailable: boolean;
-    private data: IRefInfo;
 
-    constructor(data: IRefInfo) {
-        this.data = data;
-        this.link = data.link;
-        this.total = Number(data.total);
-        this.availableAmount = this.prepareAmounts();
-        this.profitUnavailable = this.availableAmount[0].value <= 0;
+    constructor({link, total, available}: IRefInfo, siteUrl: string) {
+        this.link = `${siteUrl}?${link}`;
+        this.total = Number(total);
+        this.availableAmounts = this.prepareAmounts(available);
+        this.profitUnavailable = this.availableAmounts[0].value <= 0;
     }
 
-    protected prepareAmounts(): IRefCurrency[] {
-
-        const res: IRefCurrency[] = _map(this.data.available, (val: number, key: string) => {
-            return {
-                value: val,
-                currency: key,
-            };
-        });
-
-        if (res.length > 1) {
-            res.sort((a: IRefCurrency) => a.currency.toLowerCase() === 'eur' ? 1 : -1);
-        }
-
-        return res;
+    protected prepareAmounts(availableComission: IRefInfo['available']): IRefCurrency[] {
+        return Object.entries(availableComission)
+            .map(([currency, value]: [string, number]) => ({currency, value}))
+            .sort((a: IRefCurrency) => a.currency.toLowerCase() === 'eur' ? 1 : -1);
     }
 }

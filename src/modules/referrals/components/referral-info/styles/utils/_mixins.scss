@@ -16,6 +16,8 @@
     }
 
     &-main {
+        position: relative;
+        z-index: 1;
         display: grid;
         gap: ef.get-value($config, 'ctaMainGap');
         max-width: ef.get-value($config, 'ctaMainMaxWidth');

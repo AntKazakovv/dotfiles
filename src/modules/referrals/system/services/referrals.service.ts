@@ -3,12 +3,10 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 
 import {
-    ConfigService,
     DataService,
     EventService,
     IData,
     IPushMessageParams,
-    InjectionService,
     LogService,
     NotificationEvents,
 } from 'wlc-engine/modules/core';
@@ -17,6 +15,7 @@ import {
     IRefItem,
     IRefList,
     IRefListQueryParams,
+    ITakeProfitResponse,
 } from 'wlc-engine/modules/referrals/system/interfaces/referrals.interface';
 import {RefInfoModel} from 'wlc-engine/modules/referrals/system/models/ref-info.model';
 
@@ -29,66 +28,56 @@ export class ReferralsService {
     constructor(
         protected dataService: DataService,
         protected logService: LogService,
-        protected injectionService: InjectionService,
-        protected configService: ConfigService,
         protected eventService: EventService,
     ) {
-        this.init();
+        this.registerMethods();
     }
 
-    public async getRefInfo(): Promise<RefInfoModel | null> {
+    public async getRefInfo(siteUrl: string): Promise<void> {
         try {
-            return await this.dataService.request<IData<IRefInfo>>('referrals/getReferralInfo')
-                .then((result: IData<IRefInfo>): RefInfoModel => {
-                    const refInfo: RefInfoModel = new RefInfoModel(result.data);
-                    this.refInfo$.next(refInfo);
-                    return refInfo;
-                });
+            const refInfoRes = await this.dataService.request<IData<IRefInfo>>('referrals/getReferralInfo');
+
+            this.refInfo$.next(new RefInfoModel(refInfoRes.data, siteUrl));
         } catch (error) {
             this.logService.sendLog({
-                code: '30.0.0',
+                code: '32.0.0',
                 data: error,
             });
-            return null;
         }
     }
 
     public async fetchRefList(params: IRefListQueryParams): Promise<IRefItem[]> {
         try {
-            const res: IData<IRefList> =
-             await this.dataService.request<IData<IRefList>>('referrals/getReferralsList', params);
-            return res.data.referrals;
+            const refListRes = await this.dataService.request<IData<IRefList>>('referrals/getReferralsList', params);
+
+            return refListRes.data.referrals;
         } catch (error) {
             this.showReferralError(error.errors);
             this.logService.sendLog({
-                code: '30.1.0',
+                code: '32.1.0',
                 data: error,
             });
-            return Promise.reject(error);
         }
     }
 
-    public async takeProfit(): Promise<any> {
+    public async takeProfit(): Promise<void> {
         try {
-            const res: IData = await this.dataService.request<IData>('referrals/takeProfit');
+            const profitRes = await this.dataService.request<IData<ITakeProfitResponse>>('referrals/takeProfit');
 
-            if (res.data.result) {
+            if (profitRes.data.result) {
                 this.eventService.emit({
                     name: NotificationEvents.PushMessage,
                     data: <IPushMessageParams>{
                         type: 'success',
                     },
                 });
-                this.getRefInfo();
             }
-
         } catch (error) {
             this.showReferralError(error.errors);
             this.logService.sendLog({
-                code: '30.2.0',
+                code: '32.2.0',
                 data: error,
             });
-            return Promise.reject(error);
         }
     }
 
@@ -110,10 +99,6 @@ export class ReferralsService {
             system: 'referrals',
             url: '/referralInfo',
             type: 'GET',
-            events: {
-                success: 'REF_INFO_SUCCESS',
-                fail: 'REF_INFO_ERROR',
-            },
         });
 
         this.dataService.registerMethod({
@@ -129,10 +114,5 @@ export class ReferralsService {
             url: '/takeRefProfit',
             type: 'POST',
         });
-    }
-
-    private async init(): Promise<void> {
-        await this.configService.ready;
-        this.registerMethods();
     }
 }

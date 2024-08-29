@@ -30,39 +30,37 @@
 </ng-template>
 
 <ng-template #list>
-    <div class="{{$class}}__list-container">
-        <ng-container *ngIf="listReady$ | async; else loader">
-            <div *ngIf="referralItems.length; else emptyData" class="{{$class}}__list-wrapper">
-                <ul class="{{$class}}__list">
-                    <li class="{{$class}}__item {{$class}}__item--head">
-                        <div class="{{$class}}__item-col">{{'ID'}}</div>
-                        <div class="{{$class}}__item-col">{{'Profit' | translate}}</div>
-                    </li>
-                    <li *ngFor="let item of referralItems" class="{{$class}}__item">
-                        <div class="{{$class}}__item-col {{$class}}__item-col--name">{{item.id}}</div>
-                        <div class="{{$class}}__item-col {{$class}}__item-col--profit">
-                            <span wlc-currency
-                                [value]="item.profit"
-                                currency="EUR">
-                            </span>
-                        </div>
-                    </li>
-                </ul>
+    <div *ngIf="referralsList$ | async as refList; else loader" class="{{$class}}__list-container">
+        <div *ngIf="refList.length; else emptyData" class="{{$class}}__list-wrapper">
+            <ul class="{{$class}}__list">
+                <li class="{{$class}}__item {{$class}}__item--head">
+                    <div class="{{$class}}__item-col">{{'ID'}}</div>
+                    <div class="{{$class}}__item-col">{{'Profit' | translate}}</div>
+                </li>
+                <li *ngFor="let item of refList" class="{{$class}}__item">
+                    <div class="{{$class}}__item-col {{$class}}__item-col--name">{{item.id}}</div>
+                    <div class="{{$class}}__item-col {{$class}}__item-col--profit">
+                        <span wlc-currency
+                            [value]="item.profit"
+                            currency="EUR">
+                        </span>
+                    </div>
+                </li>
+            </ul>
 
-                <button *ngIf="showMoreBtn"
-                    class="{{$class}}__more-btn"
-                    (click)="toggleRows()">
-                    {{showAllText | translate}}
-                </button>
-            </div>
-        </ng-container>
+            <button *ngIf="showMoreBtn"
+                class="{{$class}}__more-btn"
+                (click)="toggleRows()">
+                {{showAllText | translate}}
+            </button>
+        </div>
     </div>
 </ng-template>
 
 <ng-template #emptyData>
     <div wlc-wrapper
         class="{{$class}}__empty"
-        [inlineParams]="$params.emptyConfig"></div>
+        [inlineParams]="emptyDataConfig"></div>
 </ng-template>
 
 <ng-template #loader>
