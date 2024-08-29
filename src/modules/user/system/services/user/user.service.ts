@@ -315,21 +315,6 @@ export class UserService {
         });
 
         this.eventService.filter([
-            {name: 'FORCE_LOGOUT'},
-        ]).subscribe(() => {
-            this.logService.sendLog({
-                code: '1.2.6',
-                flog: {
-                    authToken: this.configService.get({name: 'jwtAuthToken', storageType: 'localStorage'}),
-                    refreshToken: this.configService.get({name: 'jwtAuthRefreshToken', storageType: 'localStorage'}),
-                    userId: this.userInfo.idUser,
-                    email: this.userInfo.email,
-                },
-            });
-            this.logout();
-        });
-
-        this.eventService.filter([
             {name: 'USER_PROFILE_ERROR'},
         ]).subscribe((event: IEvent<IData>) => {
             if (event.data.code === 401) {
