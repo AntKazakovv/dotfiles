@@ -36,6 +36,7 @@ export interface ICheckboxCParams extends IComponentParams<ComponentTheme, Compo
     checkboxType?: CheckboxType;
     validators?: ValidatorType[];
     text?: string;
+    iconPath?: string;
     textSide?: TextSide;
     /* for checkbox for legal rules with link inside */
     textWithLink?: ILegalCheckboxWithLink;
@@ -54,6 +55,7 @@ export const defaultParams: ICheckboxCParams = {
     class: 'wlc-checkbox',
     moduleName: 'core',
     componentName: 'wlc-checkbox',
+    iconPath: '/wlc/icons/icons_new/tick.svg',
     common: {
         checkedDefault: false,
     },

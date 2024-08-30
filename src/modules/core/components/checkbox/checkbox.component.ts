@@ -96,6 +96,18 @@ export class CheckboxComponent extends AbstractComponent implements OnInit {
         }
     }
 
+    public get checkboxName(): string {
+        return this.$params.name;
+    }
+
+    public get checkboxText(): string {
+        return this.$params.text;
+    }
+
+    public get iconPath(): string {
+        return this.$params.iconPath;
+    }
+
     public showModal(name: string, slug: string): void {
         this.modalService.showModal(name, {slug, parseAsPlainHTML: true});
     }

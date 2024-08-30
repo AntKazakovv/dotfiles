@@ -7,16 +7,16 @@
     <ng-container [ngSwitch]="checkboxType">
         <label *ngSwitchCase="'legal-modal'" class="{{$class}}__label">
             <input ngDefaultControl
-                   type="checkbox"
-                   name="{{$params.name}}"
-                   [attr.data-wlc-element]="fieldWlcElement"
-                   [formControl]="control"
-                   [ngClass]="checkboxClassNames"
-                   (change)="onChange($event)"/>
+                type="checkbox"
+                name="{{checkboxName}}"
+                [attr.data-wlc-element]="fieldWlcElement"
+                [formControl]="control"
+                [ngClass]="checkboxClassNames"
+                (change)="onChange($event)"/>
             <span wlc-icon
-                  class="{{$class}}__elem"
-                  iconPath="/wlc/icons/icons_new/tick.svg"
-                  [ngClass]="{checked: control?.value}">
+                class="{{$class}}__elem"
+                iconPath="{{iconPath}}"
+                [ngClass]="{checked: control?.value}">
             </span>
             <div class="{{$class}}__text">
                 {{textWithLink.prefix | translate}}
@@ -29,21 +29,20 @@
 
         <label *ngSwitchCase="'legal-link'" class="{{$class}}__label">
             <input ngDefaultControl
-                   type="checkbox"
-                   name="{{$params.name}}"
-                   data-wlc-element="input_payment-checkbox"
-                   [ngClass]="checkboxClassNames"
-                   [formControl]="control"
-                   (change)="onChange($event)"/>
+                type="checkbox"
+                name="{{checkboxName}}"
+                data-wlc-element="input_payment-checkbox"
+                [ngClass]="checkboxClassNames"
+                [formControl]="control"
+                (change)="onChange($event)"/>
             <span wlc-icon
-                  class="{{$class}}__elem"
-                  iconPath="/wlc/icons/icons_new/tick.svg"
-                  [ngClass]="{checked: control?.value}">
+                class="{{$class}}__elem"
+                iconPath="{{iconPath}}"
+                [ngClass]="{checked: control?.value}">
             </span>
             <div class="{{$class}}__text">
                 {{textWithLink.prefix | translate}}
-                <a
-                    class="{{$class}}__link"
+                <a class="{{$class}}__link"
                     [uiSref]="'app.contacts'"
                     [uiParams]="{slug: textWithLink.slug, '#': textWithLink.urlHook}"
                     [target]="textWithLink.target">
@@ -55,19 +54,20 @@
 
         <label *ngSwitchDefault class="{{$class}}__label">
             <input ngDefaultControl
-                   type="checkbox"
-                   name="{{$params.name}}"
-                   [attr.data-wlc-element]="fieldWlcElement"
-                   [formControl]="control"
-                   [ngClass]="checkboxClassNames"
-                   (change)="onChange($event)"/>
+                type="checkbox"
+                name="{{checkboxName}}"
+                [attr.data-wlc-element]="fieldWlcElement"
+                [formControl]="control"
+                [ngClass]="checkboxClassNames"
+                (change)="onChange($event)"/>
             <span wlc-icon
-                  class="{{$class}}__elem"
-                  iconPath="/wlc/icons/icons_new/tick.svg"
-                  [ngClass]="{checked: control?.value}">
+                class="{{$class}}__elem"
+                iconPath="{{iconPath}}"
+                [ngClass]="{checked: control?.value}">
             </span>
-            <div *ngIf="$params.text" class="{{$class}}__text">
-                {{$params.text | translate:textContext}}
+            <div *ngIf="checkboxText"
+                class="{{$class}}__text"
+                [innerHtml]="checkboxText | translate:textContext">
             </div>
         </label>
     </ng-container>
@@ -75,16 +75,16 @@
 
 <ng-template #toggle>
     <label class="{{$class}}__label">
-        <div *ngIf="$params.text" class="{{$class}}__text">
-            {{$params.text | translate:textContext}}
+        <div *ngIf="checkboxText" class="{{$class}}__text">
+            {{checkboxText | translate:textContext}}
         </div>
         <input ngDefaultControl
-               type="checkbox"
-               name="{{$params.name}}"
-               [attr.data-wlc-element]="fieldWlcElement"
-               [formControl]="control"
-               [ngClass]="checkboxClassNames"
-               (change)="onChange($event)"/>
+            type="checkbox"
+            name="{{checkboxName}}"
+            [attr.data-wlc-element]="fieldWlcElement"
+            [formControl]="control"
+            [ngClass]="checkboxClassNames"
+            (change)="onChange($event)"/>
         <span class="{{$class}}__elem" [ngClass]="{checked: control?.value}"></span>
     </label>
 </ng-template>
