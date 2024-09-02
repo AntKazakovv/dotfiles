@@ -14,7 +14,7 @@
                 [attr.type]="'button'"
                 text="{{$params.common.link}}"
                 iconPath="/wlc/icons/icons_new/arrow.svg"
-                [theme]="$params.common.useLinkButton ? 'cleared' : 'default'"
+                [theme]="buttonTheme"
                 [wlcElement]="$params.wlcElement + '-button'"
                 (click)="goTo($params.common.actionParams); $event.preventDefault();"
         >
@@ -28,7 +28,7 @@
             text="{{$params.common.link}}"
             [wlcElement]="$params.wlcElement + '-button'"
             icon="default"
-            [theme]="$params.common.useLinkButton ? 'cleared' : 'default'"
+            [theme]="buttonTheme"
             (click)="goTo($params.common.actionParams); $event.preventDefault();"
     >
 </button>

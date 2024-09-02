@@ -17,6 +17,7 @@ import {
     InteractiveTextService,
     ModalService,
 } from 'wlc-engine/modules/core';
+import * as ButtonParams from 'wlc-engine/modules/core/components/button/button.params';
 
 import * as Params from './link-block.params';
 
@@ -62,6 +63,10 @@ export class LinkBlockComponent
             this.setInteractiveText();
             this.subscribeForInteractiveText();
         }
+    }
+
+    public get buttonTheme(): ButtonParams.Theme {
+        return this.$params.common?.useLinkButton ? 'cleared' : null;
     }
 
     public goTo(data: Params.IActionParams): void {
