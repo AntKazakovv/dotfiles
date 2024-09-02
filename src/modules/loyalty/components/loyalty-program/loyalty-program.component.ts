@@ -44,7 +44,7 @@ export class LoyaltyProgramComponent extends AbstractComponent implements OnInit
 
         this.ready$ = this.$ctrl.ready$;
 
-        await this.$ctrl.init({
+        this.$ctrl.init({
             theme: this.$params.theme,
             title: this.$params.title ?? this.configService.get<string>('$loyalty.loyalty.programTitle'),
             decorLeftPath: this.$params.decorLeftPath,

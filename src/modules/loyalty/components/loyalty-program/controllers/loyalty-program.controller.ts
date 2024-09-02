@@ -14,7 +14,6 @@ import {
     map,
     filter,
     takeUntil,
-    tap,
 } from 'rxjs/operators';
 import {NavigationOptions} from 'swiper/types/modules/navigation';
 import _merge from 'lodash-es/merge';
@@ -79,52 +78,51 @@ export class LoyaltyProgramController implements OnDestroy  {
     protected readonly modalService: ModalService = inject(ModalService);
     protected readonly actionService: ActionService = inject(ActionService);
 
-    public async init(props: IControllerProps): Promise<void> {
+    public init(props: IControllerProps): void {
         this.$props = props;
-        this.levels = await this.getLoyaltyLevels();
+        this.subscribeToLoyaltyLevels();
 
         switch (this.$props.theme) {
             case 'wolf':
-                this.startSlidesUpdatingOnLevelChange();
                 this.$component = LoyaltyProgramWolfComponent;
                 break;
             case 'default':
             default:
                 this.isMobile$ = this.actionService.isMobileDeviceType();
-                this.slides$.next(this.generateSlides(this.levels, null));
                 this.$component = LoyaltyProgramDefaultComponent;
         }
-
-        this.ready$.next(true);
     }
 
     /**
      * Watches for user login/logout for detect user level changes
      * **/
-    public startSlidesUpdatingOnLevelChange(): void {
-        this.configService.get<BehaviorSubject<boolean>>('$user.isAuth$')
-            .pipe(
-                tap(async (isAuth: boolean): Promise<void> => {
-                    if (isAuth) {
-                        this.userService ??= await this.injectionService.getService<UserService>('user.user-service');
+    public subscribeToLoyaltyLevels(): void {
+        this.configService.get<BehaviorSubject<boolean>>('$user.isAuth$').pipe(
+            takeUntil(this.$destroy),
+        ).subscribe(async (isAuth: boolean): Promise<void> => {
+            let slides: ISlide[];
+            const levels: LoyaltyLevelModel[] = await this.loyaltyLevelsService.getLoyaltyLevels();
 
-                        const userLevel: number = await firstValueFrom(this.userService.userInfo$.pipe(
-                            filter((userInfo: UserInfo) => !!userInfo?.loyalty?.Level),
-                            map((userInfo: UserInfo) => +userInfo.loyalty.Level),
-                            takeUntil(this.$destroy),
-                        ));
+            if (isAuth) {
+                this.userService ??= await this.injectionService.getService<UserService>('user.user-service');
 
-                        this.slides$.next(this.generateSlides(this.levels, userLevel));
-                    } else {
-                        this.slides$.next(this.generateSlides(this.levels, null));
-                    }
-                }),
-                takeUntil(this.$destroy),
-            ).subscribe();
-    }
+                const userLevel: number = await firstValueFrom(this.userService.userInfo$.pipe(
+                    filter((userInfo: UserInfo) => !!userInfo?.loyalty?.Level),
+                    map((userInfo: UserInfo) => +userInfo.loyalty.Level),
+                    takeUntil(this.$destroy),
+                ));
 
-    public async getLoyaltyLevels(): Promise<LoyaltyLevelModel[]> {
-        return firstValueFrom(this.loyaltyLevelsService.getLoyaltyLevelsObserver().pipe(filter(v => !!v)));
+                slides = this.generateSlides(levels, userLevel);
+            } else {
+                slides = this.generateSlides(levels, null);
+            }
+
+            this.slides$.next(slides);
+
+            if (!this.ready$.value) {
+                this.ready$.next(true);
+            }
+        });
     }
 
     /**
@@ -161,7 +159,7 @@ export class LoyaltyProgramController implements OnDestroy  {
                 image: level.image || this.loyaltyLevelsService.getLevelIcon(level.level),
                 isUserLevel: level.level === userLevel,
             },
-        }));
+        })) ?? [];
     }
 
     public getSliderParams(componentSliderParams: ISliderCParams, useNavigation: boolean): ISliderCParams {
