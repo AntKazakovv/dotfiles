@@ -46,7 +46,6 @@ export class CfErrorsInterceptor implements HttpInterceptor {
                     this.stateService.go('app.something-wrong');
 
                     this.logService.sendLog({code: '7.1.0'});
-
                 } else {
                     return throwError(() => err);
                 }
