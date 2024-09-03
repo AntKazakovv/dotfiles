@@ -57,6 +57,7 @@ export const WebSocketEvents: IIndexing<IIndexing<string>> = {
         LOYALTY_GET: 'loyalty.loyalty.get',
         LOYALTY_UPDATE: 'updateloyalty',
         LOYALTY_USERINFO: 'UserInfo',
+        LOYALTY_BONUSES: 'bonusesloyalty',
         USER: 'funcore.wlcinfo.user',
         USER_BALANCE: 'userbalance',
         ACHIEVEMENTS: 'achievementsloyalty',

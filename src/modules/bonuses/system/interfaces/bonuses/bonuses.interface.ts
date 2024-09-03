@@ -288,6 +288,7 @@ export interface IBonusConditionsGames {
     MarketsBL: any;
 }
 
+/** @deprecated **/
 export interface IQueryParams {
     type?: RestType;
     event?: string;
@@ -295,10 +296,12 @@ export interface IQueryParams {
 }
 
 export interface IQueryFilters {
-    event?: string[],
-    group?: string,
-    currency?: string,
-    hasPromocode?: boolean,
+    type?: RestType;
+    PromoCode?: string;
+    event?: string;
+    group?: string;
+    currency?: string;
+    hasPromocode?: boolean;
 }
 
 export interface IGetSubscribeParams {
@@ -308,6 +311,47 @@ export interface IGetSubscribeParams {
     until?: Observable<unknown>;
     ready$?: Subject<boolean>;
     queryFilters?: IQueryFilters;
+}
+
+export interface IWSBonusAction {
+    Node: number;
+    action: BonusWSActionEnum;
+    api_id: number;
+    bonus_id: number;
+    dwh_event_id: string;
+    odb_event_id: string;
+    timestamp: string;
+    timestamp_ms: number;
+    user_id: number;
+    fields?: string;
+}
+
+export interface IBonusActionEvent {
+    actionType: ActionTypeEnum;
+    bonusId: number;
+}
+
+export const enum BonusWSActionEnum {
+    AddedToInventory = 'LoyaltyBonusActivateInventoried',
+    RemovedFromInventory = 'LoyaltyBonusRemoveInventory',
+    Subscribe = 'LoyaltyBonusSubscribe',
+    Unsubscribe = 'LoyaltyBonusUnsubscribe',
+    Activate = 'LoyaltyBonusActivate',
+    Cancel = 'LoyaltyBonusCancel',
+    Complete = 'LoyaltyBonusComplete',
+    Expire = 'BonusExpire',
+}
+
+export const enum ActionTypeEnum {
+    Inventory = 'inventory',
+    Subscribe = 'subscribe',
+    Unsubscribe = 'unsubscribe',
+    Cancel = 'cancel',
+    Expired = 'expired',
+    Activate = 'activate',
+    Complete = 'complete',
+    PromoCodeSuccess = 'promoCodeSuccess',
+    Empty = 'empty',
 }
 
 export type TBonusSortOrder = 'active' | 'promocode' | 'subscribe' | 'inventory' | number;
@@ -322,8 +366,7 @@ export type BonusesFilterType =
     | 'united'
     | 'default';
 export type RestType = 'active' | 'lootboxPrizes' | 'store' | 'reg' | 'any';
-export type ActionType = 'inventory' | 'cancel' | 'expired' | 'subscribe' | 'unsubscribe';
-export type RequestType = RestType | ActionType | 'cancelInfo';
+export type RequestType = RestType | ActionTypeEnum | 'cancelInfo';
 
 interface IBlankBonus {
     id: null

@@ -52,7 +52,7 @@
                 <p class="{{$class}}__step-title">{{'Select a cryptocurrency' | translate}}</p>
                 <ng-container [ngTemplateOutlet]="cryptoInvoiceSystems"></ng-container>
             </div>
-            <div *ngIf="bonusesExist && showBonuses" class="{{$class}}__step {{$class}}__step--bonuses">
+            <div *ngIf="showBonuses" class="{{$class}}__step {{$class}}__step--bonuses">
                 <div class="{{$class}}__divider"></div>
                 <p class="{{$class}}__step-title">{{'Select a bonus' | translate}}</p>
                 <ng-container [ngTemplateOutlet]="bonuses"></ng-container>
@@ -123,7 +123,7 @@
             </div>
         </div>
 
-        <div *ngIf="bonusesExist && showBonuses" class="{{$class}}__step-group {{$class}}__step-group--bonuses">
+        <div *ngIf="showBonuses" class="{{$class}}__step-group {{$class}}__step-group--bonuses">
             <ng-container *ngTemplateOutlet="divider"></ng-container>
             <p class="{{$class}}__title">{{'Select a bonus' | translate}}</p>
             <div wlc-wrapper
@@ -245,8 +245,9 @@
                     [inlineParams]="activeBonusesListParams"></div>
             </div>
     </div>
-    <div wlc-wrapper
-         [inlineParams]="bonusesListParams">
+    <div *ngIf="bonusesListParams; else preloader"
+        wlc-wrapper
+        [inlineParams]="bonusesListParams">
     </div>
     <ng-container [ngTemplateOutlet]="depositPromoCode"></ng-container>
 </ng-template>

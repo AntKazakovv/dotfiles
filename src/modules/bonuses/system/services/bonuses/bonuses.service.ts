@@ -1,12 +1,17 @@
-import {Injectable} from '@angular/core';
+import {
+    inject,
+    Injectable,
+} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {StateService} from '@uirouter/core';
 
 import {
     BehaviorSubject,
     Observable,
-    Subscription,
+    OperatorFunction,
     pipe,
+    Subject,
+    Subscription,
 } from 'rxjs';
 import {
     takeUntil,
@@ -39,15 +44,14 @@ import _toString from 'lodash-es/toString';
 import _pull from 'lodash-es/pull';
 
 import {
-    UserProfile,
     UserInfo,
+    UserProfile,
 } from 'wlc-engine/modules/user';
 import {
     CachingService,
     ConfigService,
     DataService,
     EventService,
-    ModalService,
     IBonusesBalance,
     IData,
     IEvent,
@@ -56,9 +60,11 @@ import {
     IIndexing,
     InjectionService,
     IPushMessageParams,
-    LogService,
-    NotificationEvents,
     IRequestMethod,
+    LogService,
+    ModalService,
+    NotificationEvents,
+    WebsocketService,
 } from 'wlc-engine/modules/core';
 import {
     Game,
@@ -66,23 +72,28 @@ import {
 } from 'wlc-engine/modules/games';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {
-    ActionType,
+    ActionTypeEnum,
     BonusesFilterType,
-    TBonusSortOrder,
+    BonusWSActionEnum,
     IBonus,
-    IGetSubscribeParams,
-    IQueryParams,
-    RestType,
-    ILootboxPrize,
+    IBonusActionEvent,
     IBonusCanceledInfo,
-    RequestType,
+    IGetSubscribeParams,
+    ILootboxPrize,
     IPromoCodeInfo,
     IQueryFilters,
+    IQueryParams,
+    IWSBonusAction,
+    RequestType,
+    RestType,
+    TBonusSortOrder,
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {LootboxPrizeModel} from 'wlc-engine/modules/bonuses/system/models/lootbox-prize/lootbox-prize.model';
 import {BonusCancellationInfo} from '../../models/bonus/bonus-cancellation-info.model';
 import {RequestParamsType} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
+import {WebSocketEvents} from 'wlc-engine/modules/core/system/services/websocket/websocket.service';
+import {IWSConsumerData} from 'wlc-engine/modules/core/system/interfaces/websocket.interface';
 
 type TUserLoyaltyInfo = Pick<UserInfo, 'bonusesBalance' | 'freeRounds'>;
 
@@ -105,6 +116,19 @@ interface IFreeRoundData {
     date: string,
 }
 
+interface IQueryBonusesByFilterParams {
+    localFilter: BonusesFilterType;
+    queryFilters: IQueryFilters;
+}
+
+interface IActionSubscribeParams {
+    observer: (actionEvent: IBonusActionEvent) => void;
+    until: Observable<unknown>;
+    executeObserverOnStart?: boolean;
+    pipes?: OperatorFunction<IBonusActionEvent, unknown>;
+    actions?: ActionTypeEnum[];
+}
+
 @Injectable({
     providedIn: 'root',
 })
@@ -114,7 +138,9 @@ export class BonusesService {
     public dbPromoUrl: string = 'promocode';
     public bonuses: Bonus[] = [];
     public profile: UserProfile;
+    public bonusActionEvent: Subject<IBonusActionEvent> = new Subject();
 
+    protected readonly websocketService: WebsocketService = inject(WebsocketService);
     protected activeBonuses: Bonus[] = [];
     protected lootboxPrizes: LootboxPrizeModel[] = [];
     protected gamesCatalogService: GamesCatalogService;
@@ -263,6 +289,28 @@ export class BonusesService {
         }
 
         return (flow$ as BehaviorSubject<T[]>).asObservable();
+    }
+
+    public getActionSubscribe(params: IActionSubscribeParams): Subscription {
+        if (params.executeObserverOnStart) {
+            params.observer({actionType: ActionTypeEnum.Empty, bonusId: 0});
+        }
+
+        return this.bonusActionEvent.pipe(
+            filter(({actionType}): boolean => (params.actions ?? [
+                ActionTypeEnum.Subscribe,
+                ActionTypeEnum.Unsubscribe,
+                ActionTypeEnum.Inventory,
+                ActionTypeEnum.Cancel,
+                ActionTypeEnum.Activate,
+                ActionTypeEnum.Complete,
+                ActionTypeEnum.Expired,
+                ActionTypeEnum.PromoCodeSuccess,
+            ]).includes(actionType)),
+            distinctUntilChanged(_isEqual),
+            params.pipes ?? pipe(),
+            (params.until) ? takeUntil(params.until) : pipe(),
+        ).subscribe(params.observer);
     }
 
     /**
@@ -551,12 +599,12 @@ export class BonusesService {
                 system: 'bonuses',
                 url: `/bonuses/${bonus.id}`,
                 type: 'POST',
-                mapFunc: (res) => this.prepareBonusActionData(res, bonus, 'subscribe'),
+                mapFunc: (res) => this.prepareBonusActionData(res, bonus, ActionTypeEnum.Subscribe),
                 events: {
                     success: 'BONUS_SUBSCRIBE_SUCCEEDED',
                     fail: 'BONUS_SUBSCRIBE_FAILED',
                 },
-            }, 'subscribe', params);
+            }, ActionTypeEnum.Subscribe, params);
 
             if (showPush) {
                 this.showSuccess(gettext('Successful subscription to the bonus'));
@@ -591,12 +639,12 @@ export class BonusesService {
                 system: 'bonuses',
                 url: `/bonuses/${bonus.id}`,
                 type: 'POST',
-                mapFunc: (res) => this.prepareBonusActionData(res, bonus, 'unsubscribe'),
+                mapFunc: (res) => this.prepareBonusActionData(res, bonus, ActionTypeEnum.Unsubscribe),
                 events: {
                     success: 'BONUS_UNSUBSCRIBE_SUCCEEDED',
                     fail: 'BONUS_UNSUBSCRIBE_FAILED',
                 },
-            }, 'unsubscribe', params);
+            }, ActionTypeEnum.Unsubscribe, params);
             this.showSuccess(gettext('You have been successfully unsubscribed from the bonus'));
             return response.data;
         } catch (error) {
@@ -633,12 +681,12 @@ export class BonusesService {
                 system: 'bonuses',
                 url: `/bonuses/${bonus.id}`,
                 type: 'DELETE',
-                mapFunc: (res) => this.prepareBonusActionData(res, bonus, 'cancel'),
+                mapFunc: (res) => this.prepareBonusActionData(res, bonus, ActionTypeEnum.Cancel),
                 events: {
                     success: 'BONUS_CANCEL_SUCCEEDED',
                     fail: 'BONUS_CANCEL_FAILED',
                 },
-            }, 'cancel', params);
+            }, ActionTypeEnum.Cancel, params);
             this.showSuccess(gettext('The bonus has been cancelled'));
             return response.data;
         } catch (error) {
@@ -694,8 +742,8 @@ export class BonusesService {
                 system: 'bonuses',
                 url: `/bonuses/${bonus.id}`,
                 type: 'PUT',
-                mapFunc: (res) => this.prepareBonusActionData(res, bonus, 'inventory'),
-            }, 'inventory', params);
+                mapFunc: (res) => this.prepareBonusActionData(res, bonus, ActionTypeEnum.Inventory),
+            }, ActionTypeEnum.Inventory, params);
 
             if (emitDelay) {
                 setTimeout((): void => {
@@ -716,6 +764,7 @@ export class BonusesService {
 
     /**
      * Get bonuses
+     * @deprecated Use queryBonusesByFilter instead
      *
      * @param {boolean} publicSubject is public rxjs subject from query
      * @param {RestType} type bonuses rest type ('active' | 'history' | 'store' | 'any') (no required)
@@ -776,6 +825,37 @@ export class BonusesService {
             });
         } finally {
             this.queryPromises[type].next(false);
+        }
+    }
+
+    public async queryBonusesByFilter(params: IQueryBonusesByFilterParams): Promise<Bonus[]> {
+        const {queryFilters, localFilter} = params;
+
+        try {
+            const res: IBonusesData = await this.dataService.request('bonuses/bonuses', queryFilters);
+
+            let bonuses: Bonus[] = _orderBy(
+                this.checkForbid(await this.modifyBonuses(
+                    (res as IData<IBonus[]>).data,
+                    Date.parse(res.headers.get('Date')))),
+                'weight',
+                'desc',
+            );
+
+            if (localFilter) {
+                bonuses = this.filterBonuses(bonuses, localFilter);
+            }
+
+            return bonuses;
+        } catch (error) {
+            this.logService.sendLog({code: '10.0.0', data: error});
+
+            this.eventService.emit({
+                name: 'BONUSES_FETCH_FAILED',
+                data: error,
+            });
+
+            return [];
         }
     }
 
@@ -909,9 +989,6 @@ export class BonusesService {
 
             if (type === 'store') {
                 params.event = type;
-                queryFilters.event = queryFilters.event?.length
-                    ? [type, ...queryFilters.event]
-                    : [type];
             }
         }
 
@@ -995,6 +1072,39 @@ export class BonusesService {
                     this.checkNewFreeRoundGames(userLoyaltyInfo.freeRounds);
                 }
             });
+
+        this.websocketService.getMessages({
+            endPoint: 'wsc2',
+            events: [
+                WebSocketEvents.RECEIVE.LOYALTY_BONUSES,
+            ],
+        }).subscribe((data: IWSConsumerData<IWSBonusAction>): void => {
+            if (data?.data?.['action']) {
+                const wsData: IWSBonusAction = data.data as IWSBonusAction;
+                let actionType: ActionTypeEnum | null;
+
+                switch (wsData.action) {
+                    case BonusWSActionEnum.Complete:
+                        actionType = ActionTypeEnum.Complete;
+                        break;
+                    case BonusWSActionEnum.Expire:
+                        actionType = ActionTypeEnum.Expired;
+                        break;
+                    case BonusWSActionEnum.Activate:
+                        actionType = ActionTypeEnum.Activate;
+                        break;
+                    default:
+                        actionType = null;
+                }
+
+                if (actionType) {
+                    this.bonusActionEvent.next({
+                        actionType: actionType,
+                        bonusId: wsData.bonus_id,
+                    });
+                }
+            }
+        });
     }
 
     private async modifyBonuses(data: IBonus[], bonusesServerTime: number): Promise<Bonus[]> {
@@ -1205,39 +1315,44 @@ export class BonusesService {
      *
      * @param {unknown} res part of the changed data from the server
      * @param {Bonus} bonus current bonus
-     * @param {ActionType} actionType action
+     * @param {ActionTypeEnum} actionType action
      *
      * @return {Bonus}
      * **/
-    private prepareBonusActionData(res: unknown, bonus: Bonus, actionType: ActionType): Bonus {
+    private prepareBonusActionData(res: unknown, bonus: Bonus, actionType: ActionTypeEnum): Bonus {
         _extend(bonus.data, res);
 
         switch (actionType) {
-            case 'inventory':
+            case ActionTypeEnum.Inventory:
                 bonus.data.Inventoried = 0;
                 bonus.data.Active = 1;
                 bonus.data.Status = -99;
                 break;
 
-            case 'subscribe':
+            case ActionTypeEnum.Subscribe:
                 if (bonus.isInventory) {
                     bonus.data.Inventoried = 1;
                 }
                 bonus.data.Status = -99;
                 break;
 
-            case 'unsubscribe':
+            case ActionTypeEnum.Unsubscribe:
                 if (bonus.isInventory) {
                     bonus.data.Inventoried = 0;
                 }
                 bonus.data.Status = -99;
                 break;
 
-            case 'cancel':
+            case ActionTypeEnum.Cancel:
                 bonus.data.Active = 0;
                 bonus.data.Status = -99;
                 break;
         }
+
+        this.bonusActionEvent.next({
+            actionType: actionType,
+            bonusId: bonus.id,
+        });
 
         return bonus;
     }

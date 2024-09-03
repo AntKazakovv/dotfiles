@@ -28,6 +28,7 @@ import {
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {
+    ActionTypeEnum,
     BonusItemComponentEvents,
     ChosenBonusSetParams,
     ChosenBonusType,
@@ -370,6 +371,11 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
             setTimeout((): void => {
                 this.eventService.emit({name: 'BONUS_REFRESH'});
             }, 310000);
+
+            this.bonusesService.bonusActionEvent.next({
+                actionType: ActionTypeEnum.Expired,
+                bonusId: this.bonus.id,
+            });
         }
     }
 

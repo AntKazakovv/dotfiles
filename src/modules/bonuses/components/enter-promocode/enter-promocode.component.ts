@@ -23,6 +23,7 @@ import {
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {TPromoSuccessStatus} from 'wlc-engine/modules/bonuses/components/promo-success/promo-success.params';
+import {ActionTypeEnum} from 'wlc-engine/modules/bonuses';
 
 import * as Params from 'wlc-engine/modules/bonuses/components/enter-promocode/enter-promocode.params';
 
@@ -119,6 +120,11 @@ export class EnterPromocodeComponent extends AbstractComponent implements OnInit
             this.eventService.emit({
                 name: 'PROMO_SUCCESS',
                 data: bonuses[0],
+            });
+
+            this.bonusesService.bonusActionEvent.next({
+                actionType: ActionTypeEnum.PromoCodeSuccess,
+                bonusId: bonuses[0].id,
             });
 
         } catch (error) {

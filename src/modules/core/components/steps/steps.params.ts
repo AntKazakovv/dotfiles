@@ -282,7 +282,7 @@ export const defaultParams: IStepsParams = {
                                         restType: 'reg',
                                         filter: 'reg',
                                         queryFilters: {
-                                            event: Bonus.regEvents,
+                                            event: Bonus.regEvents.join(','),
                                         },
                                         selectFirstBonus: true,
                                         useBlankBonus: true,
@@ -308,7 +308,7 @@ export const defaultParams: IStepsParams = {
                                         restType: 'reg',
                                         filter: 'reg',
                                         queryFilters: {
-                                            event: Bonus.regEvents,
+                                            event: Bonus.regEvents.join(','),
                                         },
                                         selectFirstBonus: true,
                                         useBlankBonus: true,
@@ -374,7 +374,7 @@ export const defaultParams: IStepsParams = {
                                         restType: 'reg',
                                         filter: 'reg',
                                         queryFilters: {
-                                            event: Bonus.regEvents,
+                                            event: Bonus.regEvents.join(','),
                                         },
                                         selectFirstBonus: true,
                                         useBlankBonus: false,

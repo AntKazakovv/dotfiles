@@ -32,7 +32,6 @@ import _remove from 'lodash-es/remove';
 import _each from 'lodash-es/each';
 import _find from 'lodash-es/find';
 import _indexOf from 'lodash-es/indexOf';
-import _set from 'lodash-es/set';
 
 import {
     IMixedParams,
@@ -55,15 +54,19 @@ import {
 
 import {
     ProfileUpdateTypes,
+    UserInfo,
     UserProfile,
     UserService,
 } from 'wlc-engine/modules/user';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {
+    ActionTypeEnum,
     Bonus,
     BonusesService,
     BonusItemComponentEvents,
+    IBonusActionEvent,
     IBonusesListCParams,
+    TBonusEvent,
 } from 'wlc-engine/modules/bonuses';
 
 import {ISelectedWallet} from 'wlc-engine/modules/multi-wallet';
@@ -128,14 +131,7 @@ export class DepositWithdrawComponent
 
     public useBonuses: boolean = false;
     public showBonuses: boolean = false;
-    public bonusesListParams: IFormWrapperCParams = {
-        components: [
-            {
-                name: 'bonuses.wlc-deposit-bonuses',
-                params: {},
-            },
-        ],
-    };
+    public bonusesListParams: IFormWrapperCParams;
     public paymentFormParams: IPaymentFormCParams = {
         mode: this.$params?.mode,
     };
@@ -151,8 +147,6 @@ export class DepositWithdrawComponent
     public selectedWallet: ISelectedWallet;
     public isMultiWallet: boolean = false;
     public ready: boolean = false;
-    public bonusesExist: boolean = false;
-    public activeBonusesExist: boolean = false;
     public useDepositPromoCode: boolean = false;
     public appliedPromoCode$: BehaviorSubject<Bonus> = new BehaviorSubject(null);
     public currentStep: Params.TMobileStep = 1;
@@ -161,10 +155,13 @@ export class DepositWithdrawComponent
     public userCountry: string;
 
     protected userService: UserService;
+    protected bonusesService: BonusesService;
     protected alertInformation: TAlertList;
     protected useStepsTemplate: boolean;
     protected holdStep: boolean = false;
     protected isInitialized: boolean = false;
+    protected depositBonuses: Bonus[];
+    protected activeBonuses: Bonus[];
 
     private static forceEnableAutoSelectPaySystem: boolean = false;
     private useScroll: boolean = false;
@@ -275,6 +272,10 @@ export class DepositWithdrawComponent
         return this.$params.themeMod;
     }
 
+    public get activeBonusesExist(): boolean {
+        return Bonus.existActiveBonus;
+    }
+
     public onPromoCodeChanged(bonus: Bonus): void {
         this.appliedPromoCode$.next(bonus);
         this.setCurrentBonus(bonus, false);
@@ -370,7 +371,7 @@ export class DepositWithdrawComponent
         this.cryptoListConfig = _merge(this.cryptoListConfig, cryptoListConfig);
         this.paymentFormParams = _merge(this.paymentFormParams, paymentFormConfig);
         this.listConfig = _merge(this.listConfig, paymentListConfig);
-        this.bonusesListParams = _set(this.bonusesListParams, 'components[0].params', bonusesConfig);
+        this.bonusesListParams = this.getBonusesListConfig(bonusesConfig);
     }
 
     protected initSubscribers(): void {
@@ -590,74 +591,22 @@ export class DepositWithdrawComponent
             this.eventService.subscribe({name: 'BONUSES_FETCH_FAILED'}, (): void => {
                 Params.PaymentSteps.bonus.$resolve();
                 this.deleteStep(Params.PaymentSteps.bonus);
-            });
+            }, this.$destroy);
 
-            const bonusesService = await this.injectionService
-                .getService<BonusesService>('bonuses.bonuses-service');
-            bonusesService.getSubscribe({
-                type: 'any',
-                useQuery: true,
-                until: this.$destroy,
-                observer: {
-                    next: (bonuses: Bonus[]): void => {
-                        this.activeBonusesAlertParams = null;
-                        this.activeBonusesListParams = null;
-                        this.activeBonusesExist = false;
+            this.bonusesService ??= await this.injectionService.getService<BonusesService>('bonuses.bonuses-service');
 
-                        const depositBonuses: Bonus[] = bonusesService.filterBonuses(bonuses, 'deposit');
-                        this.bonusesExist = depositBonuses.some((bonus: Bonus) => !bonus.isActive);
-
-                        if (this.bonusesExist) {
-                            const activeBonuses: Bonus[] = bonusesService.filterBonuses(bonuses, 'active');
-                            this.activeBonusesExist = !!activeBonuses.length;
-
-                            if (this.activeBonusesExist) {
-                                this.activeBonusesListParams = {
-                                    components: activeBonuses.map((activeBonus: Bonus) => {
-                                        return {
-                                            name: 'bonuses.wlc-bonus-item',
-                                            params: {
-                                                theme: 'name-only',
-                                                bonus: activeBonus,
-                                            },
-                                        };
-                                    }),
-                                };
-
-                                const isNonCancelable: boolean =
-                                    activeBonuses.some((bonus: Bonus): boolean => bonus.disableCancel);
-
-                                if (isNonCancelable && this.showAlert('activeBonusNonCancelable')) {
-                                    const alert: IAlertMessage = this.alertInformation['activeBonusNonCancelable'];
-                                    this.activeBonusesAlertParams = {
-                                        title: alert.title,
-                                        mod: alert.mod,
-                                        description: alert.description ??'',
-                                    };
-                                } else if (this.showAlert('activeBonusNotStackable')) {
-                                    const alert: IAlertMessage = this.alertInformation['activeBonusNotStackable'];
-                                    this.activeBonusesAlertParams = {
-                                        title: alert.title,
-                                        mod: alert.mod,
-                                        description: alert.description ?? '',
-                                    };
-                                }
-                            }
-
-                            _merge(this.bonusesListParams.components[0].params, {
-                                bonuses: depositBonuses,
-                                disableBonuses$: this.appliedPromoCode$,
-                            });
-                            this.bonusesListParams = Object.assign({}, this.bonusesListParams);
-
+            this.bonusesService.getActionSubscribe({
+                observer: (actionEvent: IBonusActionEvent): void => {
+                    this.processBonuses(actionEvent).finally((): void => {
+                        if (this.ready) {
+                            this.cdr.markForCheck();
                         } else {
-                            this.deleteStep(Params.PaymentSteps.bonus);
+                            Params.PaymentSteps.bonus.$resolve();
                         }
-                        Params.PaymentSteps.bonus.$resolve();
-
-                        this.cdr.markForCheck();
-                    },
+                    });
                 },
+                executeObserverOnStart: true,
+                until: this.$destroy,
             });
         }
 
@@ -721,6 +670,102 @@ export class DepositWithdrawComponent
                 this.init();
             }
         });
+    }
+
+    protected async processBonuses(actionEvent: IBonusActionEvent): Promise<void> {
+        const {actionType, bonusId} = actionEvent;
+
+        const isExistingActiveBonus: boolean = this.activeBonuses?.some((b: Bonus): boolean => b.id === bonusId);
+        const isExistingDepositBonus: boolean = this.depositBonuses?.some((b: Bonus): boolean => b.id === bonusId);
+        const isNewActiveBonus: boolean = actionType === ActionTypeEnum.Activate && !isExistingActiveBonus;
+        const isInitialization: boolean = actionType === ActionTypeEnum.Empty;
+
+        if (isInitialization || isNewActiveBonus || isExistingActiveBonus || isExistingDepositBonus) {
+            this.userService ??= await this.injectionService.getService<UserService>('user.user-service');
+            const userInfo: UserInfo = await firstValueFrom(this.userService.userInfo$.pipe(
+                first((v) => !!v?.idUser),
+                takeUntil(this.$destroy),
+            ));
+
+            const depositCount: number = userInfo?.depositsCount ?? 0;
+            const depEvents: TBonusEvent[] = depositCount > 0
+                ? Bonus.depEvents.filter(
+                    (event: TBonusEvent): boolean => event !== 'deposit first',
+                ) : Bonus.depEvents;
+
+            this.depositBonuses = await this.bonusesService.queryBonusesByFilter({
+                queryFilters: {
+                    event: depEvents.join(','),
+                },
+                localFilter: 'deposit',
+            });
+
+            if (this.depositBonuses.length) {
+                this.activeBonuses = await this.bonusesService.queryBonusesByFilter({
+                    queryFilters: {
+                        type: 'active',
+                    },
+                    localFilter: 'active',
+                });
+
+                if (this.activeBonuses.length) {
+                    this.activeBonusesListParams = this.getActiveBonusesListConfig(this.activeBonuses);
+                    this.activeBonusesAlertParams = this.getActiveBonusesAlertParams(this.activeBonuses);
+                } else {
+                    this.activeBonusesListParams = null;
+                    this.activeBonusesAlertParams = null;
+                }
+
+                this.bonusesListParams = this.getBonusesListConfig({
+                    ...(this.bonusesListParams?.components?.[0]?.params ?? {}),
+                    bonuses: this.depositBonuses,
+                    disableBonuses$: this.appliedPromoCode$,
+                });
+            } else {
+                this.deleteStep(Params.PaymentSteps.bonus);
+            }
+        }
+    }
+
+    protected getBonusesListConfig(params?: IBonusesListCParams): IFormWrapperCParams {
+        return {
+            components: [
+                {
+                    name: 'bonuses.wlc-deposit-bonuses',
+                    params: {
+                        ...(params ?? {}),
+                        disableBonuses$: this.appliedPromoCode$,
+                    },
+                },
+            ],
+        };
+    }
+
+    protected getActiveBonusesListConfig(activeBonuses: Bonus[]): IFormWrapperCParams {
+        return {
+            components: activeBonuses.map((activeBonus: Bonus) => {
+                return {
+                    name: 'bonuses.wlc-bonus-item',
+                    params: {
+                        theme: 'name-only',
+                        bonus: activeBonus,
+                    },
+                };
+            }),
+        };
+    }
+
+    protected getActiveBonusesAlertParams(activeBonuses: Bonus[]): IAlertMessage | null {
+        let alertParams: IAlertMessage = null;
+        const isNonCancelable: boolean = activeBonuses.some((bonus: Bonus): boolean => bonus.disableCancel);
+
+        if (isNonCancelable && this.showAlert('activeBonusNonCancelable')) {
+            alertParams = this.alertInformation['activeBonusNonCancelable'];
+        } else if (this.showAlert('activeBonusNotStackable')) {
+            alertParams = this.alertInformation['activeBonusNotStackable'];
+        }
+
+        return alertParams;
     }
 
     private prepareStepsOrdering(): void {
