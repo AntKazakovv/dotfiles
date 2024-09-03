@@ -69,7 +69,12 @@ $themePromo: map-merge((
 
     'infoRows': ef.size(4) 1fr auto,
     'infoAreas': 'tag' 'info' 'button',
-    'infoGap': ef.size(4),
+    'infoGap': (
+        375: ef.size(4),
+        560: ef.size(2),
+        720: ef.size(3),
+        1630: ef.size(4),
+    ),
 
     'nameFontColor': var(--mc-baseMain),
     'nameTextStyle': (
@@ -167,5 +172,7 @@ $themePromo: map-merge((
     'descrLineClamp': (
         560: 2,
         720: 4,
+        900: 3,
+        1630: 4,
     )
 ), $customThemePromo);

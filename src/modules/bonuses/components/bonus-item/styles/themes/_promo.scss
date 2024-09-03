@@ -77,13 +77,13 @@
             @include bm.get-mq-map('padding', $themePromo, 'infoPadding');
             @include bm.get-mq-map('flex-direction', $themePromo, 'infoFlexDirection');
             @include bm.get-mq-map('align-items', $themePromo, 'infoAlignItems');
+            @include bm.get-mq-map('gap', $themePromo, 'infoGap');
 
             z-index: 1;
 
             display: grid;
             grid-template-areas: ef.get-value($themePromo, 'infoAreas');
             grid-template-rows: ef.get-value($themePromo, 'infoRows');
-            gap: ef.get-value($themePromo, 'infoGap');
             min-width: 0;
             max-width: 100%;
 
