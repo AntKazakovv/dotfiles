@@ -1,6 +1,7 @@
 .wlc-sections__profile-content--theme-wolf {
 
     > .container {
+        @include bm.get-mq-map('min-height', $profileSettings, 'wolfMinHeight');
         @include bm.get-mq-map('padding', $profileSettings, 'wolfPadding');
         @include bm.get-mq-map('background', $profileSettings, 'wolfSectionBg');
         @include bm.get-mq-map('border-radius', $profileSettings, 'wolfBorderRadius');

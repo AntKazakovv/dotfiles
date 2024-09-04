@@ -1,25 +1,9 @@
-
 <ng-container *ngIf="ready || error; else preloader">
 
-    <div class="{{$class}}__status {{$class}}__status--verify">
-
-        <ng-container *ngIf="secure; else unsecureIcon">
-            <div wlc-icon
-                class="icon-btn secure"
-                iconPath="/wlc/icons/status/secure.svg">
-            </div>
-        </ng-container>
-        <span>
-            {{statusText | translate}}
-        </span>
-        <ng-container *ngIf="showBtn">
-            <button wlc-button
-                text="{{'Start verification' | translate}}"
-                typeAttr="button"
-                (click)="requestSession()">
-            </button>
-        </ng-container>
-    </div>
+    <ng-container [ngSwitch]="$params.theme">
+        <ng-container *ngSwitchCase="'wolf'" [ngTemplateOutlet]="themeWolf"></ng-container>
+        <ng-container *ngSwitchDefault [ngTemplateOutlet]="themeDefault"></ng-container>
+    </ng-container>
 
     <div *ngIf="error"
         class="{{$class}}__error" data-wlc-element="shufti-pro-kycaml-error">
@@ -52,6 +36,33 @@
     </ng-container>
 </ng-container>
 
+<ng-template #themeDefault>
+    <div class="{{$class}}__status {{$class}}__status--verify">
+
+        <ng-container *ngIf="secure; else unsecureIcon">
+            <div wlc-icon
+                class="icon-btn secure"
+                iconPath="/wlc/icons/status/secure.svg">
+            </div>
+        </ng-container>
+        <span>
+            {{statusText | translate}}
+        </span>
+        <ng-container *ngIf="showBtn" [ngTemplateOutlet]="button"></ng-container>
+    </div>
+</ng-template>
+
+<ng-template #themeWolf>
+    <div wlc-alert
+        class="{{$class}}__status"
+        [level]="statusLevel"
+        [title]="statusText | translate"
+        [inlineParams]="alertParams">
+    </div>
+
+    <ng-container *ngIf="showBtn" [ngTemplateOutlet]="button"></ng-container>
+</ng-template>
+
 <ng-template #preloader>
     <div wlc-loader></div>
 </ng-template>
@@ -61,4 +72,12 @@
         class="icon-btn not-secure"
         iconPath="/wlc/icons/status/not-secure.svg">
     </div>
+</ng-template>
+
+<ng-template #button>
+    <button wlc-button
+        text="{{'Start verification' | translate}}"
+        typeAttr="button"
+        (click)="requestSession()">
+    </button>
 </ng-template>

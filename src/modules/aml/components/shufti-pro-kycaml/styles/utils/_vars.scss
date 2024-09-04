@@ -1,7 +1,4 @@
-@use 'engine-scss/functions' as ef;
-
 $customThemeDefault: () !default;
-
 $themeDefault: map-merge((
     'notSecureColor': var(--mc-warning),
     'secureColor': var(--mc-success),
@@ -26,4 +23,30 @@ $themeDefault: map-merge((
     'errorIconMargin': 0 0 20px 0,
     'errorIconWidth': 80px,
     'errorIconHeight': 80px,
+), $customThemeDefault);
+
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'statusMargin': (
+        375: 0 0 ef.size(4),
+        1024: 0 0 ef.size(6),
+    ),
+    'alertTitlePadding': ef.size(3),
+    'alertIconPadding': 0 ef.size(3),
+    'alertWarningBg': var(--mc-warning-o2),
+    'alertSuccessBg': var(--mc-success-o2),
+    'iframeMinHeight': (
+        375: 600px,
+        560: 510px,
+    ),
+    'iframeMargin': ef.size(4) 0 0,
+    'iframeBorderRadius': ef.size(2),
+    'buttonPadding': ef.size(2) ef.size(6),
+    'errorTextStyle': 'CaptionText',
+    'errorColor': var(--mc-baseMain),
+    'errorBg': var(--mc-bg500),
+    'errorIconMargin': 0 0 ef.size(6) 0,
+    'errorIconWidth': 100px,
+    'errorIconHeight': 100px,
+    'errorIconColor': var(--mc-bg300),
 ), $customThemeDefault);

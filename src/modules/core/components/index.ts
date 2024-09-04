@@ -79,4 +79,8 @@ export {
     ISlide,
     ISwiperEvent,
 } from './slider/slider.params';
+export {
+    TLevel,
+    IAlertCParams,
+} from './alert/alert.params';
 export {ISaCParams} from './sa/sa.component';

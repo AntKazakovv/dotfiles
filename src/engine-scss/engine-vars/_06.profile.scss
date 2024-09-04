@@ -163,6 +163,11 @@ $profileSettings: map-merge((
         900: size-func(8),
         1200: size-func(12),
     ),
+
+    'wolfMinHeight': (
+        375: auto,
+        900: 500px,
+    ),
 ), $customProfileSettings);
 
 /// Глобальные настройки профиля (первая тема):

@@ -1,0 +1,81 @@
+.wlc-shufti-pro-kycaml--theme-wolf:host {
+
+    ::ng-deep {
+
+        .wlc-alert--success {
+
+            .wlc-alert__main[class] {
+                background-color: ef.get-value($themeWolf, 'alertSuccessBg');
+            }
+        }
+
+        .wlc-alert--warning {
+
+            .wlc-alert__main[class] {
+                background-color: ef.get-value($themeWolf, 'alertWarningBg');
+            }
+        }
+
+        .wlc-shufti-pro-kycaml {
+
+            &__status {
+                @include bm.get-mq-map('margin', $themeWolf, 'statusMargin');
+
+                .wlc-alert {
+
+                    &__title[class] {
+                        padding: ef.get-value($themeWolf, 'alertTitlePadding');
+                    }
+
+                    &__icon[class] {
+                        align-self: unset;
+                        padding: ef.get-value($themeWolf, 'alertIconPadding');
+                    }
+                }
+            }
+
+
+            &__error,
+            &__iframe {
+                @include bm.get-mq-map('min-height', $themeWolf, 'iframeMinHeight');
+                width: 100%;
+                margin: ef.get-value($themeWolf, 'iframeMargin');
+                border-radius: ef.get-value($themeWolf, 'iframeBorderRadius');
+            }
+
+            &__iframe-container {
+                margin: ef.get-value($themeWolf, 'iframeMargin');
+            }
+
+            &__error {
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'errorTextStyle'),
+                    ef.get-value($themeWolf, 'errorColor')
+                );
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                background-color: ef.get-value($themeWolf, 'errorBg');
+                border-radius: ef.get-value($themeWolf, 'iframeBorderRadius');
+
+                .wlc-icon {
+                    margin: ef.get-value($themeWolf, 'errorIconMargin');
+                }
+
+                ::ng-deep {
+
+                    svg {
+                        width: ef.get-value($themeWolf, 'errorIconWidth');
+                        height: ef.get-value($themeWolf, 'errorIconHeight');
+                        fill: ef.get-value($themeWolf, 'errorIconColor');
+                    }
+                }
+            }
+        }
+
+        .wlc-btn {
+            padding: ef.get-value($themeWolf, 'buttonPadding');
+        }
+    }
+}

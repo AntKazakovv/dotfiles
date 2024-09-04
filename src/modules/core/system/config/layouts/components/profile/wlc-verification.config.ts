@@ -9,6 +9,13 @@ export namespace wlcVerification {
         name: 'aml.wlc-shufti-pro-kycaml',
     };
 
+    export const wolfShuftiProKycaml: ILayoutComponent = {
+        name: 'aml.wlc-shufti-pro-kycaml',
+        params: {
+            theme: 'wolf',
+        },
+    };
+
     export const kycQuestionnaire: ILayoutComponent = {
         name: 'aml.wlc-kyc-questionnaire-info',
     };

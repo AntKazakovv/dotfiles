@@ -4,6 +4,7 @@ import {
     ChangeDetectionStrategy,
     Component,
     ElementRef,
+    Input,
     Inject,
     OnInit,
     ViewChild,
@@ -23,6 +24,8 @@ import {
 import {
     AbstractComponent,
     LogService,
+    TLevel,
+    IAlertCParams,
     DomSanitizerService,
 } from 'wlc-engine/modules/core';
 import {
@@ -43,8 +46,10 @@ import * as Params from './shufti-pro-kycaml.params';
     ],
 })
 export class ShuftiProKycamlComponent extends AbstractComponent implements OnInit, AfterViewInit {
+    @Input() protected inlineParams: Params.IShuftiProKycamlCParams;
     @ViewChild('sumsubwebsdk') protected sumsubContainer: ElementRef<HTMLDivElement>;
 
+    public override $params: Params.IShuftiProKycamlCParams;
     public data: IKycamlData;
     public url: SafeResourceUrl;
     public ready: boolean = false;
@@ -53,19 +58,23 @@ export class ShuftiProKycamlComponent extends AbstractComponent implements OnIni
     public verify$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     public statusText!: string;
     public secure: boolean = false;
+    public statusLevel!: TLevel;
+    public alertParams!: IAlertCParams;
 
     constructor(
-        @Inject('injectParams') protected injectParams: Params.IShuftiProKycamlCParams,
+        @Inject('injectParams') protected params: Params.IShuftiProKycamlCParams,
         protected shuftiProKycamlService: ShuftiProKycamlService,
         protected domSanitizerService: DomSanitizerService,
         protected translateService: TranslateService,
         protected logService: LogService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams});
+        super({injectParams: params, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {
-        super.ngOnInit(this.injectParams);
+        super.ngOnInit(this.inlineParams);
+        this.alertParams = this.$params.alertParams;
+        this.statusLevel = this.$params.alertParams.level;
     }
 
     public async ngAfterViewInit(): Promise<void> {
@@ -77,6 +86,7 @@ export class ShuftiProKycamlComponent extends AbstractComponent implements OnIni
         } catch (error) {
             this.error = true;
             this.setReady();
+            this.statusText = statusDesc['uncommitted'];
             this.logService.sendLog({
                 code: '25.0.0',
                 data: error,
@@ -182,6 +192,7 @@ export class ShuftiProKycamlComponent extends AbstractComponent implements OnIni
 
             case 'completed':
                 this.secure = true;
+                this.statusLevel = 'success';
                 this.cdr.markForCheck();
                 break;
 
