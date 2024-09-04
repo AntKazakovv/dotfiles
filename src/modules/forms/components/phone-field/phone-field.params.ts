@@ -33,7 +33,7 @@ export interface IPhoneFieldCParams extends IComponentParams<ComponentTheme, Com
 
 export let defaultParams: Partial<IPhoneFieldCParams> = {
     componentName: 'wlc-phone-field',
-    moduleName: 'user',
+    moduleName: 'forms',
     class: 'wlc-phone-field',
     phoneCode: <ISelectCParams>{
         labelText: gettext('Phone'),

@@ -369,7 +369,7 @@ export namespace wlcProfileForm {
                 },
                 FormElements.pep,
                 {
-                    name: 'user.wlc-phone-field',
+                    name: 'forms.wlc-phone-field',
                     params: {
                         name: ['phoneCode', 'phoneNumber'],
                         locked: true,

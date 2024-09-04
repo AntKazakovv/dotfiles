@@ -27,7 +27,6 @@ import {IconExpLpDescriptionComponent} from './components/icon-exp-lp-descriptio
 import {LogoutComponent} from './components/logout/logout.component';
 import {LoyaltyProgressComponent} from './components/loyalty-progress/loyalty-progress.component';
 import {NewPasswordFormComponent} from './components/new-password-form/new-password-form.component';
-import {PhoneFieldComponent} from './components/phone-field/phone-field.component';
 import {ProfileFormComponent} from './components/profile-form/profile-form.component';
 import {ProfileBlocksComponent} from './components/profile-blocks/profile-blocks.component';
 import {
@@ -91,7 +90,6 @@ export const components = {
     'wlc-loyalty-progress': LoyaltyProgressComponent,
     'wlc-new-password-form': NewPasswordFormComponent,
     'wlc-password-confirmation-form': PasswordConfirmationFormComponent,
-    'wlc-phone-field': PhoneFieldComponent,
     'wlc-profile-blocks': ProfileBlocksComponent,
     'wlc-profile-form': ProfileFormComponent,
     'wlc-reality-check-info': RealityCheckInfoComponent,
@@ -126,7 +124,6 @@ export const components = {
         NewPasswordFormComponent,
         PasswordConfirmationFormComponent,
         ProfileFormComponent,
-        PhoneFieldComponent,
         ProfileFormComponent,
         ProfileBlocksComponent,
         RealityCheckInfoComponent,
@@ -170,7 +167,6 @@ export const components = {
         LogoutComponent,
         LoyaltyProgressComponent,
         ProfileFormComponent,
-        PhoneFieldComponent,
         ProfileBlocksComponent,
         RealityCheckInfoComponent,
         SocialNetworksComponent,

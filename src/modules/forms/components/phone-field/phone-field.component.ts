@@ -22,7 +22,6 @@ import {
     SelectValuesService,
 } from 'wlc-engine/modules/core/system/services/select-values/select-values.service';
 import {ValidationService} from 'wlc-engine/modules/core/system/services/validation/validation.service';
-import {UserService} from 'wlc-engine/modules/user/system/services';
 import {UserProfile} from 'wlc-engine/modules/user';
 import {ProfileType} from 'wlc-engine/modules/core/system/interfaces/base-config/profile.interface';
 import {ISelectOptions} from 'wlc-engine/modules/core/components/select/select.params';
@@ -53,7 +52,6 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected injectParams: Params.IPhoneFieldCParams,
         protected selectValues: SelectValuesService,
-        protected userService: UserService,
         protected validationService: ValidationService,
         protected modalService: ModalService,
     ) {
@@ -76,7 +74,9 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
 
         this.setValidators('default');
 
-        this.userService.userProfile$
+        const userProfile$ = this.configService.get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'});
+
+        userProfile$
             .pipe(takeUntil(this.$destroy))
             .pipe(filter((profile: UserProfile): boolean => !!profile))
             .subscribe(((profile: UserProfile): void => {
@@ -178,9 +178,9 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
     }
 
     protected setValidators(value: string): void {
-        const lengths = this.phoneLimits[value];
-        const min = lengths?.minLength || 6;
-        const max = lengths?.maxLength || 13;
+        const lengths = this.phoneLimits[value] || this.phoneLimits['default'];
+        const min = lengths.minLength;
+        const max = lengths.maxLength;
 
         this.$params.phoneNumber.control.clearValidators();
 

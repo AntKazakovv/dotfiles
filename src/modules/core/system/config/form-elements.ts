@@ -436,7 +436,7 @@ export namespace FormElements {
     };
 
     export const mobilePhone: IFormComponent = {
-        name: 'user.wlc-phone-field',
+        name: 'forms.wlc-phone-field',
         params: {
             name: ['phoneCode', 'phoneNumber'],
             theme: 'vertical',
@@ -446,7 +446,7 @@ export namespace FormElements {
     };
 
     export const mobilePhoneWithCode: IFormComponent = {
-        name: 'user.wlc-phone-field',
+        name: 'forms.wlc-phone-field',
         params: {
             phoneCode: {
                 labelText: gettext('Phone Code'),

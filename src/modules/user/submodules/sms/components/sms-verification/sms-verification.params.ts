@@ -48,7 +48,7 @@ export const smsVerificationFormConfig: IFormWrapperCParams = {
     class: 'wlc-form-wrapper',
     components: [
         {
-            name: 'user.wlc-phone-field',
+            name: 'forms.wlc-phone-field',
             params: {
                 name: ['phoneCode', 'phoneNumber'],
                 phoneCode: <ISelectCParams>{

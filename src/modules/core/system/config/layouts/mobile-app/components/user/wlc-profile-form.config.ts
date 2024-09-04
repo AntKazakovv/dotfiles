@@ -310,7 +310,7 @@ export namespace wlcProfileForm {
                     },
                 },
                 {
-                    name: 'user.wlc-phone-field',
+                    name: 'forms.wlc-phone-field',
                     params: {
                         name: ['phoneCode', 'phoneNumber'],
                         locked: true,
