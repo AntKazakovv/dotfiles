@@ -399,11 +399,20 @@ export const standaloneComponents = {
                 return m.LanguageSelectorComponent;
             });
     },
+
     'wlc-google-one-tap': async (callback: TCallbackImportFunction) => {
         return import('wlc-engine/standalone/core/components/google-one-tap/google-one-tap.component')
             .then((m) => {
                 callback(m.GoogleOneTapComponent);
                 return m.GoogleOneTapComponent;
+            });
+    },
+
+    'wlc-error-page': async (callback: TCallbackImportFunction) => {
+        return import('wlc-engine/standalone/core/components/error-page/error-page.component')
+            .then((m) => {
+                callback(m.ErrorPageComponent);
+                return m.ErrorPageComponent;
             });
     },
     // 'some-sa-component-name': IFunctionImportStandalone

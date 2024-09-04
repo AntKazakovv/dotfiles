@@ -13,7 +13,6 @@ export {ICurrencyCParams} from './currency/currency.params';
 export {CurrencyComponent} from './currency/currency.component';
 export {IDatepickerCParams} from './datepicker/datepicker.params';
 export {IDisclaimerCParams} from './disclaimer/disclaimer.params';
-export {IErrorPageCParams} from './error-page/error-page.params';
 export {IOfflinePageCParams} from './offline-page/offline-page.params';
 export {IFeedbackFormCParams} from './feedback-form/feedback-form.params';
 export {IContactUsPageCParams} from './contact-us-page/contact-us-page.params';

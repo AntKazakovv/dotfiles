@@ -4,6 +4,8 @@ import {
     OnInit,
     ChangeDetectionStrategy,
 } from '@angular/core';
+
+import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {IMixedParams} from 'wlc-engine/modules/core';
 import * as Params from './error-page.params';
@@ -13,6 +15,10 @@ import * as Params from './error-page.params';
     templateUrl: './error-page.component.html',
     styleUrls: ['./styles/error-page.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [
+        CoreModule,
+    ],
 })
 export class ErrorPageComponent extends AbstractComponent implements OnInit {
 
@@ -22,10 +28,7 @@ export class ErrorPageComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected params: Params.IErrorPageCParams,
     ) {
-        super(<IMixedParams<any>>{
-            injectParams: params,
-            defaultParams: Params.defaultParams,
-        });
+        super(<IMixedParams<any>>{injectParams: params, defaultParams: Params.defaultParams});
     }
 
     public override ngOnInit(): void {
