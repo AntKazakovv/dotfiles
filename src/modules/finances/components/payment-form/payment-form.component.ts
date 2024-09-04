@@ -1041,8 +1041,11 @@ export class PaymentFormComponent
                 formComponents.push(lastAccount);
             }
 
-            if (!this.isDeposit && this.currentSystem?.checkNameBeforeWithdraw) {
-
+            if (
+                !this.isDeposit
+                && this.currentSystem?.checkNameBeforeWithdraw
+                && this.userProfile.fullName.split(' ').every(Boolean)
+            ) {
                 formComponents.push({
                     name: 'core.wlc-checkbox',
                     params: <ICheckboxCParams>{
