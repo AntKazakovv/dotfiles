@@ -3,7 +3,6 @@ import _toNumber from 'lodash-es/toNumber';
 import {
     ICurrencyFilter,
     IWallet,
-    IWalletObj,
     IWalletsSettings,
 } from 'wlc-engine/modules/multi-wallet';
 import {
@@ -25,7 +24,7 @@ export class WalletHelper {
 
     public static $resolveMultiWallet: () => void;
     public static createCurrentWallet(
-        wallets: IWalletObj,
+        wallets: IIndexing<IWallet>,
         currency: string,
         displayName: string,
     ): IWallet {

@@ -1,4 +1,5 @@
-import {IWSWalletObj} from 'wlc-engine/modules/multi-wallet';
+import {IIndexing} from 'wlc-engine/modules/core';
+import {IWSWallet} from 'wlc-engine/modules/multi-wallet';
 
 /**
  * `POST /api/v1/userPassword` body params
@@ -44,8 +45,11 @@ export interface IWSDataUserBalance {
     odb_event_id?: number;
     Node?: number;
     GameActionID?: number;
-    Wallets?: IWSWalletObj;
     availableWithdraw?: string;
+    /**
+     * Key - wallet id
+     */
+    Wallets?: IIndexing<IWSWallet>;
 }
 
 export interface IUserNickIcon {

@@ -7,12 +7,12 @@
               <span
                   wlc-icon
                   class="{{$class}}__icon"
-                  iconPath="{{walletHelper.getCurrencyIconUrl(currency.code)}}"
+                  iconPath="{{walletHelper.getCurrencyIconUrl(currency.name)}}"
                   wlcElement="icon_currency"></span>
-            {{currency.name}}
+            {{currency.displayName}}
         </div>
         <div class="{{$class}}__right">
-            {{currency.code}}
+            {{currency.name}}
             <div
                 wlc-checkbox
                 [inlineParams]="createCheckboxParams(currency)"></div>

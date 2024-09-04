@@ -3,13 +3,19 @@ import {
     Component,
     Inject,
     Input,
+    inject,
     OnInit,
+    OnDestroy,
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
 
-import {CurrencyName} from 'wlc-engine/modules/currency/system/interfaces/currency.interface';
-import {AbstractComponent} from 'wlc-engine/modules/core';
-import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
+import _assign from 'lodash-es/assign';
+
+import {ICurrency} from 'wlc-engine/modules/currency/system/interfaces/currency.interface';
+import {AbstractComponent, ICheckboxCParams} from 'wlc-engine/modules/core';
+import {WalletHelper, IWalletsSettings} from 'wlc-engine/modules/multi-wallet';
+import {UserService} from 'wlc-engine/modules/user';
+import {CurrencyService} from 'wlc-engine/modules/currency';
 
 import * as Params from 'wlc-engine/modules/multi-wallet/components/settings/settings.params';
 
@@ -19,10 +25,24 @@ import * as Params from 'wlc-engine/modules/multi-wallet/components/settings/set
     styleUrls: ['./styles/settings.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SettingsComponent extends AbstractComponent implements OnInit {
+export class SettingsComponent extends AbstractComponent implements OnInit, OnDestroy {
 
     @Input() public inlineParams: Params.ISettingsParams;
     public override $params: Params.ISettingsParams;
+
+    protected toggleHideZeroParams: ICheckboxCParams = {
+        name: 'hideZeroBalances',
+        theme: 'toggle',
+    };
+    protected toggleViewFiatParams: ICheckboxCParams = {
+        name: 'viewFiat',
+        theme: 'toggle',
+    };
+
+    private walletSettings: IWalletsSettings;
+
+    private readonly currencyService: CurrencyService = inject(CurrencyService);
+    private readonly userService: UserService = inject(UserService);
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISettingsParams,
@@ -30,32 +50,48 @@ export class SettingsComponent extends AbstractComponent implements OnInit {
         super({injectParams, defaultParams: Params.defaultParams});
     }
 
-    public override async ngOnInit(): Promise<void> {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-        this.$params.toggleHideZero.control = new FormControl(this.$params.walletSettings.hideWalletsWithZeroBalance);
-        this.$params.toggleViewFiat.control = new FormControl(this.$params.walletSettings.conversionInFiat);
-        this.$params.toggleHideZero.onChange = (checked: boolean): void => {
-            this.$params.walletSettings.hideWalletsWithZeroBalance = checked;
+        this.toggleHideZeroParams.control = new FormControl(WalletHelper.walletSettings.hideWalletsWithZeroBalance);
+        this.toggleViewFiatParams.control = new FormControl(WalletHelper.walletSettings.conversionInFiat);
+        this.toggleHideZeroParams.onChange = (checked: boolean): void => {
+            WalletHelper.walletSettings.hideWalletsWithZeroBalance = checked;
         };
-        this.$params.toggleViewFiat.onChange = (checked: boolean): void => {
-            this.$params.walletSettings.conversionInFiat = checked;
+        this.toggleViewFiatParams.onChange = (checked: boolean): void => {
+            WalletHelper.walletSettings.conversionInFiat = checked;
         };
+        this.walletSettings = _assign({}, WalletHelper.walletSettings);
+    }
 
-        if (this.$params.walletSettings?.currency?.length) {
-            this.$params.currencies = this.$params.currencies
-                .sort((item: CurrencyName) => item.name === this.$params.walletSettings.currency ? -1 : 1);
+    public override ngOnDestroy(): void {
+        super.ngOnDestroy();
+
+        if (this.walletSettings.conversionInFiat !== WalletHelper.walletSettings.conversionInFiat
+            || this.walletSettings.hideWalletsWithZeroBalance !== WalletHelper.walletSettings.hideWalletsWithZeroBalance
+            || this.walletSettings.currency !== WalletHelper.walletSettings.currency) {
+            this.userService.updateProfile(
+                {extProfile: {conversionCurrency: WalletHelper.walletSettings}},
+                {updatePartial: true},
+            );
         }
-        WalletHelper.walletSettings = this.$params.walletSettings;
+    }
+
+    public get displayCurrencies(): ICurrency<string>[] {
+
+        return Array.from(this.currencyService?.conversionCurrencies)
+            .sort((currency: ICurrency<string>) => currency.Name === WalletHelper.walletSettings.currency ? -1 : 0);
+    }
+
+    public get currencyConversion(): string {
+        return WalletHelper.walletSettings.currency;
+    }
+
+    public get showError(): boolean {
+        return !WalletHelper.walletSettings.currency?.length && WalletHelper.walletSettings.conversionInFiat;
     }
 
     public onCurrencyChange(currency: string): void {
-        this.$params.walletSettings.currency = currency;
-        this.$params.currencies = this.$params.currencies
-            .sort((item: CurrencyName) => item.name === currency ? -1 : 1);
+        WalletHelper.walletSettings.currency = currency;
         this.cdr.markForCheck();
-    }
-
-    public get showError (): boolean {
-        return !this.$params.walletSettings.currency?.length && this.$params.walletSettings.conversionInFiat;
     }
 }

@@ -1,3 +1,5 @@
+import {CurrencyName} from 'wlc-engine/modules/currency';
+
 export interface IWallet {
     currency?: string;
     displayName?: string;
@@ -12,15 +14,6 @@ export interface IWSWallet {
     Currency: string;
     availableWithdraw?: string;
     WalletId?: number;
-}
-
-// TODO заменить в дальнейшем на IIndexing
-export interface IWalletObj {
-    [currency: string]: IWallet;
-}
-
-export interface IWSWalletObj {
-    [id: string]: IWSWallet;
 }
 
 export interface ICreatedWallet {
@@ -63,9 +56,7 @@ export interface ICurrencyConversion {
     estimatedAmount?: number;
 }
 
-export interface ICurrencyFilter {
-    name: string;
-    code: string;
+export interface ICurrencyFilter extends CurrencyName {
     isUsed: boolean;
 }
 

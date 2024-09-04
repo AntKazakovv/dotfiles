@@ -2,7 +2,7 @@
     <span>{{$params.hideWalletText | translate}}</span>
     <div
         wlc-checkbox
-        [inlineParams]="$params.toggleHideZero"
+        [inlineParams]="toggleHideZeroParams"
     ></div>
 </div>
 <hr class="{{$class}}__divider"/>
@@ -11,7 +11,7 @@
     <span>{{$params.viewFiatText | translate}}</span>
     <div
         wlc-checkbox
-        [inlineParams]="$params.toggleViewFiat"
+        [inlineParams]="toggleViewFiatParams"
     ></div>
 </div>
 <hr class="{{$class}}__divider"/>
@@ -21,17 +21,17 @@
 <div
     wlc-alert
     class="{{$class}}__alert-block"
-    [level]="this.showError ? 'error' : 'info'"
+    [level]="showError ? 'error' : 'info'"
     [title]="$params.infoBlockText | translate">
 </div>
 
 <div class="{{$class}}__currencies">
     <div
-        *ngFor="let currency of $params.currencies"
+        *ngFor="let currency of displayCurrencies"
         class="{{$class}}__currency"
-        [class.active]="$params.walletSettings.currency === currency.name"
-        (click)="onCurrencyChange(currency.name)">
-        <span>{{currency.name}}</span>
-        <span>{{currency.displayName}}</span>
+        [class.active]="currencyConversion === currency.Name"
+        (click)="onCurrencyChange(currency.Name)">
+        <span>{{currency.Name}}</span>
+        <span>{{currency.DisplayName}}</span>
     </div>
 </div>

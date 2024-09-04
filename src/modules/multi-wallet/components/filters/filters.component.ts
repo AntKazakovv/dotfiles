@@ -7,9 +7,6 @@ import {
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
 
-import _findIndex from 'lodash-es/findIndex';
-import _filter from 'lodash-es/filter';
-
 import {
     AbstractComponent,
     ICheckboxCParams,
@@ -48,10 +45,10 @@ export class FiltersComponent extends AbstractComponent implements OnInit {
             control: new FormControl(currency.isUsed),
             onChange: (isUsed: boolean) => {
                 this.$params.currencies[
-                    _findIndex(this.$params.currencies, (item: ICurrencyFilter) => item.code === currency.code)
+                    this.$params.currencies.findIndex((item: ICurrencyFilter) => item.name === currency.name)
                 ].isUsed = isUsed;
-                WalletHelper.currencies = _filter(this.$params.currencies,
-                    (currency: ICurrencyFilter) => !currency.isUsed);
+                WalletHelper.currencies = this.$params.currencies
+                    .filter((currency: ICurrencyFilter) => !currency.isUsed);
             },
             theme: 'toggle',
         };

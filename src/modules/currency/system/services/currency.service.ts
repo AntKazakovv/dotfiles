@@ -14,6 +14,7 @@ import {
 export class CurrencyService {
     public currencies: ICurrency<string>[] = [];
     public regCurrencies: ICurrency<string>[] = [];
+    public conversionCurrencies: ICurrency<string>[];
 
     constructor(
         protected translationService: TranslateService,
@@ -38,6 +39,13 @@ export class CurrencyService {
             return new CurrencyModel({}, value, this.translationService);
         });
         this.regCurrencies = this.currencies.filter((curr: ICurrency<string>) => curr.registration);
+
+        if (this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet')) {
+            const onlyFiat: boolean = this.configService.get<boolean>('$base.multiWallet.onlyFiat');
+            this.conversionCurrencies = onlyFiat
+                ? this.currencies.filter((currency: ICurrency<string>) => !currency.IsCryptoCurrency)
+                : this.currencies;
+        }
     }
 
     private init(): void {

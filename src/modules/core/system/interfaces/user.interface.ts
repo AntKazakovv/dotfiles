@@ -2,7 +2,7 @@ import {TColorTheme} from 'wlc-engine/modules/core/system/interfaces/base-config
 import {
     ICurrencyFilter,
     ISelectedWallet,
-    IWalletObj,
+    IWallet,
     IWalletsSettings,
 } from 'wlc-engine/modules/multi-wallet/system/interfaces/wallet.interface';
 
@@ -57,7 +57,10 @@ export interface IUserInfo {
     transfersAllowed: boolean;
     /*Tags*/
     Tags?: IIndexing<string> | [];
-    wallets?: IWalletObj;
+    /**
+     * Key - wallet currency
+     */
+    wallets?: IIndexing<IWallet>;
     enabled2FAGoogle?: boolean;
     notify2FAGoogle?: boolean;
     ageConfirmed?: boolean;

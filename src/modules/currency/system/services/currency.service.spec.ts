@@ -66,6 +66,8 @@ describe('CurrencyService', () => {
             },
         );
         configServiceSpy.get.withArgs('appConfig.siteconfig.currencies').and.returnValues(currencies);
+        configServiceSpy.get.withArgs('appConfig.siteconfig.isMultiWallet').and.returnValues(true);
+        configServiceSpy.get.withArgs('$base.multiWallet.onlyFiat').and.returnValues(true);
 
         TestBed.configureTestingModule({
             providers: [

@@ -2,7 +2,10 @@ import {TranslateService} from '@ngx-translate/core';
 
 import {AbstractModel, IFromLog} from 'wlc-engine/modules/core';
 
-import {TDisplayName, ICurrency} from '../interfaces/currency.interface';
+import {
+    TDisplayName,
+    ICurrency,
+} from 'wlc-engine/modules/currency';
 
 export class CurrencyModel extends AbstractModel<ICurrency<TDisplayName>> {
 

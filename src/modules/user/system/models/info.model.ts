@@ -29,9 +29,7 @@ import {
 import {
     ISelectedWallet,
     IWallet,
-    IWalletObj,
     IWSWallet,
-    IWSWalletObj,
 } from 'wlc-engine/modules/multi-wallet/system/interfaces/wallet.interface';
 import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
 import {IWSDataUserBalance} from 'wlc-engine/modules/user/system/interfaces/user.interface';
@@ -44,7 +42,7 @@ export class UserInfo extends AbstractModel<IUserInfo> {
 
     protected $loyaltyData: ILoyalty = {} as ILoyalty;
 
-    private _wsWallets: IWalletObj;
+    private _wsWallets: IIndexing<IWallet>;
     private _wcAvailableWithdraw: number;
 
     constructor(
@@ -356,7 +354,7 @@ export class UserInfo extends AbstractModel<IUserInfo> {
         }
     }
 
-    public set wsWallets(wallets: IWSWalletObj) {
+    public set wsWallets(wallets: IIndexing<IWSWallet>) {
 
         if (!this._wsWallets) {
             this._wsWallets = this.data.wallets;
@@ -384,7 +382,7 @@ export class UserInfo extends AbstractModel<IUserInfo> {
         }
     }
 
-    public get wallets(): IWalletObj {
+    public get wallets(): IIndexing<IWallet> {
         return this._wsWallets ?? this.data?.wallets;
     }
 
