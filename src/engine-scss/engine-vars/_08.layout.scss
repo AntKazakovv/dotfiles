@@ -58,5 +58,6 @@ $layoutWithFixedPanels: map-merge((
     // ), (if you need padding on some breakpoints)
     'sectionsWithoutPadding': (
         '.wlc-sections__sticky-footer': null,
+        '.wlc-sections__loyalty-program': null,
     ),
 ), $customLayoutWithFixedPanels);
