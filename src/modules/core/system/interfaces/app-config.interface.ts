@@ -145,6 +145,7 @@ export interface ISiteConfig {
     EnableMinimalBalanceNotifications?: boolean;
     /** List of limits to show fast deposit for each currency on project */
     MinimalBalanceNotifications?: IIndexing<number>;
+    allowAdditionalGenders?: boolean;
 }
 
 export interface ISiteconfigLanguage {

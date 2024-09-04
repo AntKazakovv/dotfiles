@@ -28,6 +28,7 @@ import _merge from 'lodash-es/merge';
 import _get from 'lodash-es/get';
 import _cloneDeep from 'lodash-es/cloneDeep';
 import _has from 'lodash-es/has';
+import _isEmpty from 'lodash-es/isEmpty';
 
 import {UserProfile} from 'wlc-engine/modules/user';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
@@ -507,7 +508,9 @@ export class SelectValuesService {
      * @returns {TConstantValue} Observable list of gender options
      */
     public getGendersList(): TConstantValue {
-        return new BehaviorSubject([
+        const additionalGendersEnabled = this.configService.get<boolean>('appConfig.additionalGendersEnabled');
+        const additionalGenders = this.configService.get<Params.ISelectOptions[]>('$base.additionalGenders');
+        const defaultGenders: Params.ISelectOptions[] = [
             {
                 value: '',
                 title: gettext('Not selected'),
@@ -520,7 +523,13 @@ export class SelectValuesService {
                 value: 'm',
                 title: gettext('Male'),
             },
-        ]);
+        ];
+
+        if (additionalGendersEnabled && !_isEmpty(additionalGenders)) {
+            return new BehaviorSubject([...defaultGenders, ...additionalGenders]);
+        }
+
+        return new BehaviorSubject(defaultGenders);
     }
 
     /**

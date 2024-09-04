@@ -281,6 +281,13 @@ export class AppConfigModel extends AbstractModel<IBootstrap> {
         return this.data.checkPassOnUpdate;
     }
 
+    /**
+     * @returns {boolean} is additional genders enabled
+     */
+    public get additionalGendersEnabled(): boolean {
+        return this.siteconfig.allowAdditionalGenders;
+    }
+
     protected override checkData(): void {
         super.checkData();
 

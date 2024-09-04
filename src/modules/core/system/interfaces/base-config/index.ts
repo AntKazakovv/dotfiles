@@ -12,6 +12,7 @@ import {IAutoMockConfig} from 'wlc-engine/mocks/browser';
 import {
     IIndexing,
     IRedirectConfig,
+    ISelectOptions,
 } from 'wlc-engine/modules/core';
 import {IRegistrationConfig} from './registration.interface';
 import {IAnalytics} from 'wlc-engine/modules/analytics/system/interfaces/analytics.interface';
@@ -182,4 +183,5 @@ export interface IBaseConfig {
     queryParams?: string[];
     multiWallet?: MultiWalletConfig;
     ubidex?: IUbidexConfig;
+    additionalGenders?: ISelectOptions[];
 }
