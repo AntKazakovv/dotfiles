@@ -2,6 +2,7 @@
     class="{{$class}}__wrapper"
     #wrapper
     wlc-observer-element
+    [rootMargin]="$params.intersectingMargin"
     (isIntersecting)="intersectingHandler($event)">
     <ng-container *ngIf="showContent">
         <ng-container *ngFor="let item of items">

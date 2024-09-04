@@ -32,6 +32,8 @@ export interface IIconListCParams extends IAbstractIconsListParams<ComponentThem
     }
     /** `false` - by default, show alt of image instead of image. If `true` - block with image will be hidden */
     hideImgOnError?: boolean;
+    /** retreat until element intersects */
+    intersectingMargin?: string;
 }
 
 /**
@@ -43,4 +45,5 @@ export const defaultParams: IIconListCParams = {
     moduleName: 'core',
     theme: 'merchants',
     imgPlaceholder: '/static/images/placeholder.png',
+    intersectingMargin: '300px',
 };
