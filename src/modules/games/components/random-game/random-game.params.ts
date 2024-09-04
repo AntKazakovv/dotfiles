@@ -17,7 +17,7 @@ export const defaultParams: IRandomGameCParams = {
     componentName: 'wlc-random-game',
     class: 'wlc-random-game',
     title: gettext('Random game'),
-    btnText: gettext('Play now'),
+    btnText: gettext('Play'),
     image: {
         url: '/wlc/icons/random-game/random-game.svg',
     },
