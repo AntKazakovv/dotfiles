@@ -5,6 +5,7 @@ import {
 } from '@angular/core';
 
 import {WINDOW} from 'wlc-engine/modules/app/system';
+import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 
@@ -15,6 +16,10 @@ import * as Params from './something-wrong-page.params';
     templateUrl: './something-wrong-page.component.html',
     styleUrls: ['./styles/something-wrong-page.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [
+        CoreModule,
+    ],
 })
 export class SomethingWrongPageComponent extends AbstractComponent {
 

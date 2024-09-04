@@ -415,6 +415,14 @@ export const standaloneComponents = {
                 return m.ErrorPageComponent;
             });
     },
+
+    'wlc-something-wrong-page': async (callback: TCallbackImportFunction) => {
+        return import('wlc-engine/standalone/core/components/something-wrong-page/something-wrong-page.component')
+            .then((m) => {
+                callback(m.SomethingWrongPageComponent);
+                return m.SomethingWrongPageComponent;
+            });
+    },
     // 'some-sa-component-name': IFunctionImportStandalone
     // 'another-sa-component-name': IFunctionImportStandalone
     /** === Independent components END === */

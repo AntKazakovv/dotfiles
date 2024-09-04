@@ -121,9 +121,6 @@ import {ThemeTogglerComponent} from './components/theme-toggler/theme-toggler.co
 import {AlertComponent} from './components/alert/alert.component';
 import {LottieAnimationComponent} from './components/lottie-animation/lottie-animation.component';
 import {FooterComponent} from './components/footer/footer.component';
-import {
-    SomethingWrongPageComponent,
-} from 'wlc-engine/modules/core/components/something-wrong-page/something-wrong-page.component';
 import {PromocodeLinkComponent} from 'wlc-engine/modules/core/components/promocode-link/promocode-link.component';
 import {HeaderComponent} from './components/header/header.component';
 import {TabsComponent} from './components/tabs/tabs.component';
@@ -199,7 +196,6 @@ export const components = {
     'wlc-datepicker': DatepickerComponent,
     'wlc-disclaimer': DisclaimerComponent,
     'wlc-offline-page': OfflinePageComponent,
-    'wlc-something-wrong-page': SomethingWrongPageComponent,
     'wlc-feedback-form': FeedbackFormComponent,
     'wlc-forbidden-country': ForbiddenCountryComponent,
     'wlc-form-control': FormControlComponent,
@@ -292,7 +288,6 @@ export const services = {
         DisclaimerComponent,
         DragNDropDirective,
         OfflinePageComponent,
-        SomethingWrongPageComponent,
         FallbackImgDirective,
         FeedbackFormComponent,
         ContactUsPageComponent,
@@ -389,7 +384,6 @@ export const services = {
         DisclaimerComponent,
         DragNDropDirective,
         OfflinePageComponent,
-        SomethingWrongPageComponent,
         FallbackImgDirective,
         FloatPanelsComponent,
         ForbiddenCountryComponent,
