@@ -558,6 +558,12 @@ export class PaymentFormComponent
             } else if (response[0] === 'POST') {
                 this.addFormToBodyAndSubmit(response);
                 return;
+            } else if (response[0] === 'message') {
+                this.currentSystem.message = response[1];
+                this.modalService.showModal(
+                    this.getPaymentMessageModalConfig('message'),
+                );
+                return;
             } else if (response[0] === PIQCashierResponse) {
                 return;
             }
@@ -1384,6 +1390,7 @@ export class PaymentFormComponent
                 minAmount: this.minAmount,
                 maxAmount: this.maxAmount,
                 currency: this.currentCurrency,
+                mode: this.mode,
             },
             dismissAll: true,
             backdrop: 'static',

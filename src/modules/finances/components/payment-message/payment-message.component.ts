@@ -48,7 +48,8 @@ export type TMessageType = 'html'
     | 'pay_to_bank'
     | 'pay_to_xaddress'
     | 'pay_to_address_with_amount'
-    | 'pay_via_invoice';
+    | 'pay_via_invoice'
+    | 'qr_only';
 
 type TInputName = 'address' | 'invoice' | 'xadress' | 'memo' | 'tag' | 'cryptoAmount' | 'copyEmail';
 
@@ -209,6 +210,11 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
         if (typeof(this.message) === 'string') {
             this.type = 'text';
             this.modalText = (this.message as string).split('\n');
+        }
+
+        if (Object.keys(this.message).length === 1 && this.message.qrlink) {
+            this.type = 'qr_only';
+            return;
         }
 
         if (this.message.translate === 'pay_to_bank') {

@@ -4,6 +4,7 @@ import {
     CustomType,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ITimerCParams} from 'wlc-engine/modules/core';
+import {TPaymentsMethods} from '../../system/interfaces';
 
 export type ComponentTheme = 'default' | 'wolf' | CustomType;
 export type ComponentType = 'default' | CustomType;
@@ -15,12 +16,14 @@ export interface IPaymentMessageCParams extends IComponentParams<ComponentTheme,
     minAmount?: number;
     maxAmount?: number;
     currency?: string;
+    mode?: TPaymentsMethods;
 };
 
 export const defaultParams: IPaymentMessageCParams = {
     class: 'wlc-payment-message',
     componentName: 'wlc-payment-message',
     moduleName: 'finances',
+    mode: 'deposit',
 };
 
 export const timerParams: ITimerCParams = {

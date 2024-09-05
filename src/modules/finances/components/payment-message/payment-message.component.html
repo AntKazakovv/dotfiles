@@ -5,6 +5,7 @@
     <ng-container *ngSwitchCase="'html'" [ngTemplateOutlet]="htmlForm"></ng-container>
     <ng-container *ngSwitchCase="'text'" [ngTemplateOutlet]="textForm"></ng-container>
     <ng-container *ngSwitchCase="'pay_via_invoice'" [ngTemplateOutlet]="payViaInvoice"></ng-container>
+    <ng-container *ngSwitchCase="'qr_only'" [ngTemplateOutlet]="qrOnly"></ng-container>
     <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
 
     <div *ngIf="showCryptoGuideButton"
@@ -148,6 +149,14 @@
             (click)="cancelInvoiceHandler()"
         ></button>
     </div>
+</ng-template>
+
+<ng-template #qrOnly>
+    <div class="{{$class}}__text">
+        <ng-container [ngTemplateOutlet]="limits"></ng-container>
+        <ng-container [ngTemplateOutlet]="instruction"></ng-container>
+    </div>
+    <ng-container [ngTemplateOutlet]="qrCode"></ng-container>
 </ng-template>
 
 <ng-template #error>
