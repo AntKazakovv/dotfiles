@@ -718,7 +718,7 @@ export class Catalog {
                 item,
                 this.router,
                 this.configService,
-                item.IDMerchantsCurrencies
+                !!Number(item.IDMerchantsCurrencies)
                     ? this.games.merchantsCurrencies[`${merchantId}=>${item.IDMerchantsCurrencies}`]
                     : this.games.merchantsCurrencies[merchantId],
             );
