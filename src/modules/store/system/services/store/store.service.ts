@@ -273,10 +273,12 @@ export class StoreService {
     private async modifyStoreResponse(data: IStoreResponse): Promise<IStore> {
         const queryStore: IStore = {
             categories: [],
-            items: [],
+            items: this.storeItems,
         };
 
         if (data?.Items?.length) {
+            queryStore.items = [];
+
             const bonusesService: BonusesService = await this.injectionService
                 .getService<BonusesService>('bonuses.bonuses-service');
             const storeBonuses: Bonus[] = bonusesService.storeBonuses.length ?
