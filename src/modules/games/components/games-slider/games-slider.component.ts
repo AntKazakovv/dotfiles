@@ -29,8 +29,8 @@ import {
     IWrapperCParams,
 } from 'wlc-engine/modules/core';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
-import {GameThumbComponent} from 'wlc-engine/modules/games/components/game-thumb/game-thumb.component';
-import {IGameThumbCParams} from 'wlc-engine/modules/games/components/game-thumb/game-thumb.params';
+import {GameThumbComponent} from 'wlc-engine/standalone/games/components/game-thumb/game-thumb.component';
+import {IGameThumbCParams} from 'wlc-engine/standalone/games/components/game-thumb/game-thumb.params';
 import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 
 import * as Params from './games-slider.params';

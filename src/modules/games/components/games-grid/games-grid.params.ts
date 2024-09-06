@@ -14,10 +14,10 @@ import {
     CategoryModel,
     Game,
     IGamesFilterData,
-    IGameThumbCParams,
     IProgressBarCParams,
     TOpenContext,
 } from 'wlc-engine/modules/games';
+import {IGameThumbCParams} from 'wlc-engine/standalone/games/components/game-thumb/game-thumb.params';
 import {
     ITournamentGames,
 } from 'wlc-engine/modules/tournaments';

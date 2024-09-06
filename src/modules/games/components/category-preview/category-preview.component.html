@@ -13,7 +13,9 @@
         </div>
 
         <div *ngIf="category.game" class="{{$class}}-item__game">
-            <div wlc-game-thumb [game]="category.game" [inlineParams]="$params.thumbParams"></div>
+            <div wlc-sa="wlc-game-thumb"
+                [wlc-sa-input-params]="{inlineParams: $params.thumbParams, game: category.game}">
+            </div>
         </div>
     </div>
 </div>

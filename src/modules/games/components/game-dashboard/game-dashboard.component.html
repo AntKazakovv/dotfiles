@@ -145,7 +145,9 @@
 
             <div *ngIf="!isMobile || !landscapeOrientation" wlc-scrollbar>
                 <div *ngFor="let game of lastPlayedGames | slice: 0:lastPlayedGamesShowLimit" class="{{$class}}__game">
-                    <div wlc-game-thumb [game]="game"></div>
+                    <div wlc-sa="wlc-game-thumb"
+                        [wlc-sa-input-params]="{game: game}">
+                    </div>
                 </div>
             </div>
         </ng-container>

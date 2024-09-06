@@ -33,6 +33,7 @@ import {
     AppType,
     GlobalHelper,
 } from 'wlc-engine/modules/core';
+import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {ISource} from 'wlc-engine/modules/core/components/image/image.params';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {ColorThemeService} from 'wlc-engine/modules/core/system/services/color-theme/color-theme.service';
@@ -61,6 +62,10 @@ import * as Params from './game-thumb.params';
     templateUrl: './game-thumb.component.html',
     styleUrls: ['./styles/game-thumb.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [
+        CoreModule,
+    ],
 })
 export class GameThumbComponent extends AbstractComponent implements OnInit {
 

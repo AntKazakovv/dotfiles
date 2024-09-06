@@ -71,9 +71,9 @@ import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
 import {gamesEvents} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {GamesFilterServiceEvents} from 'wlc-engine/modules/games/system/services/games-filter.service';
-import {GameThumbComponent} from 'wlc-engine/modules/games/components/game-thumb/game-thumb.component';
+import {GameThumbComponent} from 'wlc-engine/standalone/games/components/game-thumb/game-thumb.component';
 import {GamesFilterService} from 'wlc-engine/modules/games/system/services/games-filter.service';
-import {IGameThumbCParams} from 'wlc-engine/modules/games/components/game-thumb/game-thumb.params';
+import {IGameThumbCParams} from 'wlc-engine/standalone/games/components/game-thumb/game-thumb.params';
 
 import {
     GamesCatalogService,

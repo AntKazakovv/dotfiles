@@ -35,10 +35,9 @@
                     <div *ngFor="let game of games | slice: 0:gamesCount; trackBy: trackGames"
                         #gameItem
                         class="{{$class}}__item">
-                        <div wlc-game-thumb
+                        <div wlc-sa="wlc-game-thumb"
                             [@appearance]="$params.usePlaceholders ? '' : 'useAnim'"
-                            [game]="game"
-                            [inlineParams]="$params.thumbParams">
+                            [wlc-sa-input-params]="{inlineParams: $params.thumbParams, game: game}">
                         </div>
                     </div>
 
@@ -109,10 +108,9 @@
                     <div *ngFor="let game of games | slice: 0:gamesCount; trackBy: trackGames"
                         #gameItem
                         class="{{$class}}__item">
-                        <div wlc-game-thumb
+                        <div wlc-sa="wlc-game-thumb"
                             [@appearance]="$params.usePlaceholders ? '' : 'useAnim'"
-                            [game]="game"
-                            [inlineParams]="$params.thumbParams">
+                            [wlc-sa-input-params]="{inlineParams: $params.thumbParams, game: game}">
                         </div>
                     </div>
 
@@ -284,10 +282,9 @@
     <div *ngFor="let item of placeHolders"
         #gameItem
         class="{{$class}}__item">
-        <div wlc-game-thumb
+        <div wlc-sa="wlc-game-thumb"
             [@appearance]="'useAnim'"
-            [dumpy]="true"
-            [inlineParams]="$params.thumbParams">
+            [wlc-sa-input-params]="{inlineParams: $params.thumbParams, dumpy: true}">
         </div>
     </div>
 </ng-template>

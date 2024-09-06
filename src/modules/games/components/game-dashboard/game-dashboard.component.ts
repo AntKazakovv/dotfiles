@@ -61,7 +61,7 @@ import * as componentLib from 'wlc-engine/modules/core/system/config/layouts/com
 import {DashboardSide} from 'wlc-engine/modules/games/components/game-dashboard/game-dashboard.params';
 import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
-import {GameThumbComponent} from 'wlc-engine/modules/games/components/game-thumb/game-thumb.component';
+import {GameThumbComponent} from 'wlc-engine/standalone/games/components/game-thumb/game-thumb.component';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import * as Params from './game-dashboard.params';

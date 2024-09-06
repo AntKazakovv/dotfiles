@@ -13,7 +13,7 @@ import {
 
 import _forEach from 'lodash-es/forEach';
 
-import {IMediaContent} from 'wlc-engine/modules/games';
+import {IMediaContent} from 'wlc-engine/standalone/games/components/game-thumb/game-thumb.params';
 
 /**
  * @example

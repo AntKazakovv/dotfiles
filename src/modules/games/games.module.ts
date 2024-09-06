@@ -19,7 +19,6 @@ import {gamesConfig} from './system/config/games.config';
 
 // Components
 import {GamesGridComponent} from './components/games-grid/games-grid.component';
-import {GameThumbComponent} from './components/game-thumb/game-thumb.component';
 import {GameWrapperComponent} from './components/game-wrapper/game-wrapper.component';
 import {RecommendedGamesComponent} from './components/recommended-games/recommended-games.component';
 import {SearchFieldComponent} from './components/search-field/search-field.component';
@@ -65,7 +64,6 @@ export const moduleConfig =
 export const components = {
     'wlc-category-preview': CategoryPreviewComponent,
     'wlc-game-dashboard': GameDashboardComponent,
-    'wlc-game-thumb': GameThumbComponent,
     'wlc-game-wrapper': GameWrapperComponent,
     'wlc-games-catalog': GamesCatalogComponent,
     'wlc-games-grid': GamesGridComponent,
@@ -96,7 +94,6 @@ export const services = {
     declarations: [
         CategoryPreviewComponent,
         GameDashboardComponent,
-        GameThumbComponent,
         GameWrapperComponent,
         GamesCatalogComponent,
         GamesGridComponent,
@@ -144,7 +141,6 @@ export const services = {
         GamesGridComponent,
         RecommendedGamesComponent,
         GameWrapperComponent,
-        GameThumbComponent,
         SearchFieldComponent,
         SearchComponent,
         DropdownSearchComponent,

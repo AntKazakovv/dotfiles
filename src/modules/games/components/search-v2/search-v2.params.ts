@@ -4,7 +4,7 @@ import {
     CustomType,
     IComponentParams,
 } from 'wlc-engine/modules/core/system/interfaces/config.interface';
-import {IGameThumbCParams} from 'wlc-engine/modules/games/components/game-thumb/game-thumb.params';
+import {IGameThumbCParams} from 'wlc-engine/standalone/games/components/game-thumb/game-thumb.params';
 import {
     IGamesGridCParams,
     IShowAsSwiper,

@@ -1,5 +1,5 @@
 import {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {IGameThumbCParams} from 'wlc-engine/modules/games';
+import {IGameThumbCParams} from 'wlc-engine/standalone/games/components/game-thumb/game-thumb.params';
 
 export type Type = 'default' | CustomType;
 export type Theme = 'default' | CustomType;

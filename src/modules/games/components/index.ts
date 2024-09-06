@@ -1,5 +1,3 @@
-export * from './game-thumb/game-thumb.params';
-export * from './game-thumb/game-thumb.component';
 export {
     IGameDashboardCParams,
     GameDashboardEvents,

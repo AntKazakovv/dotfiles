@@ -398,7 +398,6 @@ export const standaloneComponents = {
                 return m.LanguageSelectorComponent;
             });
     },
-
     'wlc-google-one-tap': async (callback: TCallbackImportFunction) => {
         return import('wlc-engine/standalone/core/components/google-one-tap/google-one-tap.component')
             .then((m) => {
@@ -406,7 +405,6 @@ export const standaloneComponents = {
                 return m.GoogleOneTapComponent;
             });
     },
-
     'wlc-error-page': async (callback: TCallbackImportFunction) => {
         return import('wlc-engine/standalone/core/components/error-page/error-page.component')
             .then((m) => {
@@ -414,7 +412,6 @@ export const standaloneComponents = {
                 return m.ErrorPageComponent;
             });
     },
-
     'wlc-something-wrong-page': async (callback: TCallbackImportFunction) => {
         return import('wlc-engine/standalone/core/components/something-wrong-page/something-wrong-page.component')
             .then((m) => {
@@ -422,7 +419,6 @@ export const standaloneComponents = {
                 return m.SomethingWrongPageComponent;
             });
     },
-
     'wlc-amount-limit': async (callback: TCallbackImportFunction) => {
         return import('wlc-engine/standalone/core/components/amount-limit/amount-limit.component')
             .then((m) => {
@@ -435,6 +431,13 @@ export const standaloneComponents = {
             .then((m) => {
                 callback(m.AnimateSpriteComponent);
                 return m.AnimateSpriteComponent;
+            });
+    },
+    'wlc-game-thumb': async (callback: TCallbackImportFunction) => {
+        return import('wlc-engine/standalone/games/components/game-thumb/game-thumb.component')
+            .then((m) => {
+                callback(m.GameThumbComponent);
+                return m.GameThumbComponent;
             });
     },
     // 'some-sa-component-name': IFunctionImportStandalone

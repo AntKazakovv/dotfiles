@@ -99,7 +99,7 @@ import {
     IRecommendedGame,
     gamesEvents,
 } from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
-import {Type as IGameThumbType} from 'wlc-engine/modules/games/components/game-thumb/game-thumb.params';
+import {Type as IGameThumbType} from 'wlc-engine/standalone/games/components/game-thumb/game-thumb.params';
 import {ITournamentGames} from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
 import {
     TFreeRoundGames,
