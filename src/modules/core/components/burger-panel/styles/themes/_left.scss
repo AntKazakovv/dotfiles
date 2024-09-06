@@ -418,6 +418,22 @@
 
             --pm-menu-margin: #{ef.get-value($themeLeftFixed, 'contentMarginCompact')};
             --us-display: none;
+
+            background: var(--mc-bg700);
+            overflow-y: auto;
+
+            &::-webkit-scrollbar {
+                display: none;
+                width: 0;
+                scrollbar-width: none;
+            }
+
+            &:has(.wlc-burger-panel__content:hover) {
+                width: 300px;
+                padding: ef.get-value($themeLeftFixed, 'hoverContentPadding');
+                background-clip: content-box;
+                box-shadow: none;
+            }
         }
 
         .wlc-burger-panel {
