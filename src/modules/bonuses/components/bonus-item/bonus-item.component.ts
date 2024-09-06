@@ -465,4 +465,8 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
             this.addModifiers('always-show-buttons');
         }
     }
+
+    protected get isBonusRelative(): boolean {
+        return this.bonus.viewTarget === 'relative';
+    }
 }

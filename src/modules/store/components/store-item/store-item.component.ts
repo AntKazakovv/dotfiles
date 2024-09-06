@@ -153,6 +153,11 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
         return _isArray(this.storeItem.bonus.value) ? 0 : this.storeItem.bonus.value;
     }
 
+
+    protected get isBonusRelative(): boolean {
+        return this.storeItem.bonus.viewTarget === 'relative';
+    }
+
     protected prepareModifiers(): void {
         let modifiers: Params.Modifiers[] = [];
         if (this.$params.common?.customModifiers) {

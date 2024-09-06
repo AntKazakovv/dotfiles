@@ -481,7 +481,7 @@
                     </span>
                 </div>
             </ng-template>
-            <ng-container *ngIf="bonus.currencyIcon then valueBalance; else valueFreerounds"></ng-container>
+            <ng-container *ngIf="bonus.currencyIcon then bonusCurrencyValue; else bonusValue"></ng-container>
         </ng-container>
     </div>
 </ng-template>
@@ -551,28 +551,29 @@
     </div>
 </ng-template>
 
-<ng-template #valueBalance>
+<ng-template #bonusCurrencyValue>
     <span *ngIf="bonus.value && bonus.bonusType != 'lootbox'"
-          wlc-currency
-          class="{{$class}}__icon-text"
-          digitsInfo="1-0-0"
-          minLength="4"
-          maxLength="6"
-          [wlc-value-length]="valueBonus"
-          [value]="valueBonus"
-          [currency]="bonus.currencyValue"
-          (click)="chooseBonusNoBtn()">
+        wlc-currency
+        class="{{$class}}__icon-text"
+        digitsInfo="1-0-0"
+        minLength="4"
+        maxLength="6"
+        [wlc-value-length]="valueBonus"
+        [value]="valueBonus"
+        [currency]="bonus.currencyValue"
+        (click)="chooseBonusNoBtn()">
     </span>
 </ng-template>
 
-<ng-template #valueFreerounds>
+<ng-template #bonusValue>
     <span *ngIf="bonus.value && bonus.bonusType != 'lootbox'"
-          class="{{$class}}__icon-text"
-          minLength="4"
-          maxLength="6"
-          [wlc-value-length]="bonus.value"
-          (click)="chooseBonusNoBtn()">
+        class="{{$class}}__icon-text"
+        minLength="4"
+        maxLength="6"
+        [wlc-value-length]="bonus.value"
+        (click)="chooseBonusNoBtn()">
         {{bonus.value}}
+        <span *ngIf="isBonusRelative" class="{{$class}}__icon-percent">%</span>
     </span>
 </ng-template>
 
