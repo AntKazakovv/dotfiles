@@ -1,0 +1,16 @@
+.wlc-store-filter-form--theme-default:host {
+
+    ::ng-deep {
+
+        .wlc-form {
+            @include bm.get-mq-map('max-width', $themeDefault, 'formMaxWidth');
+            display: grid;
+            row-gap: ef.get-value($themeDefault, 'formRowGap');
+            margin: ef.get-value($themeDefault, 'formMargin');
+        }
+
+        .wlc-btn {
+            margin: ef.get-value($themeDefault, 'btnMargin');
+        }
+    }
+}

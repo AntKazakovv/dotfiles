@@ -75,7 +75,7 @@ export class StoreItem extends AbstractModel<IStoreItem> {
     /**
      * @returns {string} Disabled message for info modal
      */
-    public getDisabledInfo(userLevel: number): IDisabledItemInfo {
+    public getItemDisabledInfo(userLevel: number): IDisabledItemInfo {
         if (!this.isAvailable) {
             return {
                 messageText: gettext('This item will become available for purchase when you ' +
@@ -98,6 +98,14 @@ export class StoreItem extends AbstractModel<IStoreItem> {
                 btnText: gettext('Temporarily unavailable'),
             };
         }
+
+        return {};
+    }
+
+    public isItemDisabled(userLevel: number): boolean {
+        return !this.isAvailable
+            || !this.hasUserAccessByLevel(userLevel)
+            || this.nextDateAvailable;
     }
 
     public override set data(data: IStoreItem) {

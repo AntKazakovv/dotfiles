@@ -4,9 +4,9 @@
 
         .wlc-store-list__list {
             @include bm.get-mq-map('grid-template-columns', $themeDefault, 'gridTemplateColumns');
-
             display: flex;
             flex-direction: column;
+            grid-area: list;
             align-items: center;
 
             > div {
@@ -28,17 +28,44 @@
             }
         }
 
-        .wlc-store-list__nocontent {
-            text-align: center;
-
-            @include mq.min(1024) {
-                text-align: left;
-            }
+        .wlc-store-list__nocontent,
+        .wlc-store-list__loader {
+            grid-area: list;
         }
 
         .wlc-store-list__alert-block {
             max-width: 100%;
             padding: ef.get-value($themeDefault, 'alertPadding');
+        }
+
+        .wlc-pagination {
+            grid-area: pagination;
+        }
+
+        .wlc-store-list__content {
+            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'contentGridColumns');
+            @include bm.get-mq-map('grid-template-areas', $themeDefault, 'contentGridAreas');
+            display: grid;
+        }
+
+        .wlc-store-list__filter {
+            grid-area: filter;
+            width: ef.get-value($themeDefault, 'filterWidth');
+            margin: ef.get-value($themeDefault, 'filterMargin');
+        }
+
+        .wlc-store-list__filter-button {
+            position: absolute;
+            top: ef.get-value($themeDefault, 'filterButtonTop');
+            right: ef.get-value($themeDefault, 'filterButtonRight');
+            color: ef.get-value($themeDefault, 'filterButtonColor');
+        }
+
+        .wlc-store-list__user-stats {
+            display: flex;
+            grid-area: stats;
+            align-items: center;
+            justify-content: flex-end;
         }
     }
 }

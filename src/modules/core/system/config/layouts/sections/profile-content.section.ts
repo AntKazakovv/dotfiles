@@ -2207,7 +2207,6 @@ export namespace profileContent {
         usePreloader: true,
         components: [
             componentLib.wlcStoreTitle.def,
-            componentLib.wlcUserStats.storeWithDescriptionIcon,
             componentLib.wlcProfileMenu.submenu,
             componentLib.wlcStoreList.def,
         ],
@@ -2251,15 +2250,6 @@ export namespace profileContent {
                         {
                             name: 'core.wlc-wrapper',
                             params: {
-                                class: 'wlc-profile-content__stats',
-                                components: [
-                                    componentLib.wlcUserStats.store,
-                                ],
-                            },
-                        },
-                        {
-                            name: 'core.wlc-wrapper',
-                            params: {
                                 class: 'wlc-profile-content__body',
                                 components: [
                                     componentLib.wlcStoreList.first,
@@ -2295,7 +2285,6 @@ export namespace profileContent {
                     components: [
                         componentLib.wlcProfileMenu.defTypeWolf,
                         componentLib.wlcProfileMenu.submenuWolf,
-                        componentLib.wlcUserStats.storeWithDescriptionIcon,
                         componentLib.wlcStoreList.wolf,
                     ],
                 },

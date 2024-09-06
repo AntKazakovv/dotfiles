@@ -11,6 +11,7 @@ import {
     Observable,
     pipe,
     firstValueFrom,
+    Subject,
 } from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import _filter from 'lodash-es/filter';
@@ -43,6 +44,7 @@ import {
     IStoreBuyResponse,
     IGetSubscribeParams,
     StoreRestType,
+    TStoreFilter,
 } from 'wlc-engine/modules/store/system/interfaces/store.interface';
 import {StoreItem} from 'wlc-engine/modules/store/system/models/store-item.model';
 import {StoreCategory} from 'wlc-engine/modules/store/system/models/store-category.model';
@@ -58,6 +60,9 @@ interface IRequestParams {
     providedIn: 'root',
 })
 export class StoreService {
+
+    public storeFilter$: Subject<TStoreFilter> = new Subject<TStoreFilter>();
+
     protected storeItems: StoreItem[] = [];
     protected storeCategories: StoreCategory[] = [];
     protected storeOrders: IStoreOrder[] = [];
@@ -258,6 +263,10 @@ export class StoreService {
         return _find(store.categories, (category: StoreCategory): boolean => {
             return category.id === categoryId;
         });
+    }
+
+    public setStoreFilter(filterVaule: TStoreFilter): void {
+        this.storeFilter$.next(filterVaule);
     }
 
     private async modifyStoreResponse(data: IStoreResponse): Promise<IStore> {
