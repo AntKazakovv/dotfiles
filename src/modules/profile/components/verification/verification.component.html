@@ -52,9 +52,11 @@
                 </p>
             </div>
 
-            <div *ngIf="currentDocGroup.shortDescription; else requirements" class="{{$class}}-requirements">
-                {{currentDocGroup.shortDescription}}
-            </div>
+            <ng-container *ngIf="currentDocGroup.shortDescription; else requirements">
+                <div class="{{$class}}-requirements"
+                    [innerHtml]="currentDocGroup.shortDescription | safeValue: 'html'">
+                </div>
+            </ng-container>
 
             <div *ngIf="currentDocGroup.fullDescription"
                 class="{{$class}}__description-full"

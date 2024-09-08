@@ -37,7 +37,7 @@
             flex: ef.get-value($themeDefault, 'docTypeFlex');
             flex-direction: ef.get-value($themeDefault, 'docTypeDirection');
             align-items: ef.get-value($themeDefault, 'docTypeAlignItems');
-
+            width: 100%;
             min-height: ef.get-value($themeDefault, 'docTypeMinHeight');
         }
 
@@ -123,8 +123,15 @@
         &__description-short {
             @include text.get-text-style(ef.get-value($themeDefault, 'textFont'), ef.get-value($themeDefault, 'color'));
 
+            width: 100%;
             padding: ef.get-value($themeDefault, 'dsPadding');
-            text-align: ef.get-value($themeDefault, 'dsTextAlign');
+
+            ::ng-deep {
+
+                img {
+                    max-width: 100%;
+                }
+            }
         }
 
         &__dropzone {
