@@ -596,6 +596,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                     'app.profile.gamblings.bets',
                     'app.profile.cash.transactions',
                     'app.profile.loyalty-tournaments.history',
+                    'app.profile.loyalty-store.history',
                 ],
                 name: 'app.profile.gamblings.bets',
                 params: {},

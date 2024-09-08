@@ -138,6 +138,7 @@ export const menuConfig: IMenuConfig = {
                     'profile-menu:transaction-history',
                     'profile-menu:bonuses-history',
                     'profile-menu:tournaments-history',
+                    'profile-menu:orders-history',
                 ],
             },
             {
