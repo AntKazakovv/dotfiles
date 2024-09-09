@@ -178,9 +178,8 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
     }
 
     protected setValidators(value: string): void {
-        const lengths = this.phoneLimits[value] || this.phoneLimits['default'];
-        const min = lengths.minLength;
-        const max = lengths.maxLength;
+        const min = this.phoneLimits[value].minLength ?? this.phoneLimits['default'].minLength;
+        const max = this.phoneLimits[value].maxLength ?? this.phoneLimits['default'].maxLength;
 
         this.$params.phoneNumber.control.clearValidators();
 
