@@ -120,6 +120,8 @@ $themeDefault: map-merge((
     'iconWidth': 36px,
     'iconHeight': 36px,
     'iconMargin': 0 ef.size(1) 0 0,
+
+    'logoPadding': ef.size(2) ef.size(4) ef.size(2) ef.size(2),
 ), $customThemeDefault);
 
 $customThemeLeft: () !default;
