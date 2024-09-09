@@ -201,12 +201,6 @@ export const $profileLayouts: IPanelsConfig = {
             'profile-content': sectionsLib.profileContent.empty,
         },
     },
-    'app.profile.payments': {
-        extends: 'app.profile',
-        sections: {
-            'profile-content': sectionsLib.profileContent.empty,
-        },
-    },
     'app.profile.limits': {
         extends: 'app.profile',
         sections: {

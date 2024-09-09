@@ -676,14 +676,18 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
 
     'profile-menu:cash': {
         name: gettext('Cash'),
-        type: 'title',
-        icon: 'cash',
-        class: 'cash',
+        type: 'sref',
+        icon: 'payments',
+        class: 'payments',
         params: {
             state: {
-                parent: 'app.profile.cash',
                 name: 'app.profile.cash.deposit',
                 params: {},
+                parent: [
+                    'app.profile.cash.deposit',
+                    'app.profile.cash.withdraw',
+                    'app.profile.cash.transfer',
+                ],
             },
         },
     },
@@ -1059,36 +1063,6 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         params: {
             state: {
                 name: 'app.profile.notifications',
-                params: {},
-            },
-        },
-    },
-
-    'profile-menu:payments': {
-        name: gettext('Payments'),
-        type: 'sref',
-        icon: 'payments',
-        class: 'payments',
-        params: {
-            state: {
-                name: 'app.profile.payments',
-                params: {},
-                parent: [
-                    'app.profile.cash.deposit',
-                    'app.profile.cash.withdraw',
-                    'app.profile.cash.transfer',
-                ],
-            },
-        },
-    },
-    'profile-first-menu:payments': {
-        name: gettext('Payments'),
-        type: 'sref',
-        icon: 'payments',
-        class: 'payments',
-        params: {
-            state: {
-                name: 'app.profile.payments',
                 params: {},
             },
         },

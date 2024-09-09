@@ -71,7 +71,6 @@ let states = {
     'app.profile.limitations': States.profileLimitationsState,
     'app.profile.password': States.profilePasswordState,
     'app.profile.notifications': States.profileNotificationsState,
-    'app.profile.payments': States.profilePaymentsState,
     'app.profile.limits': States.profileLimitsState,
     'app.profile.loyalty-level': States.profileLoyaltyLevelState,
     'app.profile.loyalty-program': States.profileLoyaltyProgramState,

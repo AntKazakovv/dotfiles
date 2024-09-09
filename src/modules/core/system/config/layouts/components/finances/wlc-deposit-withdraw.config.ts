@@ -42,30 +42,6 @@ export namespace wlcDepositWithdraw {
         },
     };
 
-    export const submenu: ILayoutComponent = {
-        name: 'menu.wlc-menu',
-        display: {
-            before: 899,
-        },
-        params: {
-            themeMod: 'underline',
-            items: [
-                'profile-menu:cash-deposit',
-                'profile-menu:cash-withdrawal',
-            ],
-        },
-    };
-
-    export const submenuWolf: ILayoutComponent = {
-        name: 'menu.wlc-menu',
-        params: {
-            items: [
-                'profile-menu:cash-deposit',
-                'profile-menu:cash-withdrawal',
-            ],
-        },
-    };
-
     export const balanceAdaptive: ILayoutComponent = {
         name: 'core.wlc-wrapper',
         params: {

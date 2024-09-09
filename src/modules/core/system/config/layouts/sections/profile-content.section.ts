@@ -1211,11 +1211,11 @@ export namespace profileContent {
                 params: {
                     class: 'wlc-profile-content__top',
                     components: [
-                        componentLib.wlcTitle.profileCashDeposit,
+                        componentLib.wlcTitle.cash,
                     ],
                 },
             },
-            componentLib.wlcDepositWithdraw.submenu,
+            componentLib.wlcProfileMenu.submenu,
             componentLib.wlcDepositWithdraw.deposit,
         ],
     };
@@ -1226,12 +1226,7 @@ export namespace profileContent {
         usePreloader: true,
         components: [
             {
-                name: 'core.wlc-section-title',
-                params: {
-                    theme: 'wolf',
-                    text: 'Deposit',
-                    iconPath: 'wlc/icons/european/v3/deposit.svg',
-                },
+                ...componentLib.wlcTitle.cashWolf,
                 display: {
                     before: 899,
                 },
@@ -1242,7 +1237,7 @@ export namespace profileContent {
                     class: 'wlc-profile-content__wrp',
                     components: [
                         componentLib.wlcProfileMenu.defTypeWolf,
-                        componentLib.wlcDepositWithdraw.submenuWolf,
+                        componentLib.wlcProfileMenu.submenuWolf,
                         componentLib.wlcDepositWithdraw.deposit,
                     ],
                 },
@@ -1309,11 +1304,11 @@ export namespace profileContent {
                 params: {
                     class: 'wlc-profile-content__top',
                     components: [
-                        componentLib.wlcTitle.profileCashWithdrawal,
+                        componentLib.wlcTitle.cash,
                     ],
                 },
             },
-            componentLib.wlcDepositWithdraw.submenu,
+            componentLib.wlcProfileMenu.submenu,
             componentLib.wlcDepositWithdraw.withdraw,
         ],
     };
@@ -1324,12 +1319,7 @@ export namespace profileContent {
         usePreloader: true,
         components: [
             {
-                name: 'core.wlc-section-title',
-                params: {
-                    theme: 'wolf',
-                    text: 'Withdrawal',
-                    iconPath: 'wlc/icons/european/v3/withdrawal.svg',
-                },
+                ...componentLib.wlcTitle.cashWolf,
                 display: {
                     before: 899,
                 },
@@ -1340,7 +1330,7 @@ export namespace profileContent {
                     class: 'wlc-profile-content__wrp',
                     components: [
                         componentLib.wlcProfileMenu.defTypeWolf,
-                        componentLib.wlcDepositWithdraw.submenuWolf,
+                        componentLib.wlcProfileMenu.submenuWolf,
                         componentLib.wlcDepositWithdraw.withdraw,
                     ],
                 },
@@ -1406,7 +1396,7 @@ export namespace profileContent {
                 params: {
                     class: 'wlc-profile-content__top',
                     components: [
-                        componentLib.wlcTitle.profileTransfer,
+                        componentLib.wlcTitle.cash,
                     ],
                 },
             },
@@ -1420,11 +1410,7 @@ export namespace profileContent {
         theme: 'wolf',
         components: [
             {
-                name: 'core.wlc-wrapper',
-                params: {
-                    class: 'wlc-profile-content__top',
-                    components: [componentLib.wlcTitle.paymentsWolf],
-                },
+                ...componentLib.wlcTitle.cashWolf,
                 display: {
                     before: 899,
                 },
@@ -1469,7 +1455,7 @@ export namespace profileContent {
                         {
                             name: 'core.wlc-wrapper',
                             params: {
-                                class: 'wlc-profile-content__header',
+                                class: 'wlc-profile-content__header underlined',
                                 components: [
                                     componentLib.wlcTitle.profileTransfer,
                                 ],
@@ -3424,7 +3410,7 @@ export namespace profileContent {
                 params: {
                     class: 'wlc-profile-content__header',
                     components: [
-                        componentLib.wlcTitle.cashback,
+                        componentLib.wlcTitle.cash,
                         componentLib.wlcCashbackHistory.filterTypeFirst,
                     ],
                 },

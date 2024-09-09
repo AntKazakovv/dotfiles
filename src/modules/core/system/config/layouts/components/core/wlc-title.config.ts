@@ -77,7 +77,16 @@ export namespace wlcTitle {
         params: <ITitleCParams>{
             customMod: ['profile'],
             mainText: gettext('Cash'),
-            wlcElement: 'header_edit-profile',
+            wlcElement: 'header_cash',
+        },
+    };
+
+    export const cashWolf: ILayoutComponent = {
+        name: 'core.wlc-section-title',
+        params: {
+            theme: 'wolf',
+            text: gettext('Cash'),
+            iconPath: 'wlc/icons/european/v3/payments.svg',
         },
     };
 
@@ -427,15 +436,6 @@ export namespace wlcTitle {
             customMod: ['profile'],
             mainText: gettext('Cashback'),
             wlcElement: 'header_cashback',
-        },
-    };
-
-    export const paymentsWolf: ILayoutComponent = {
-        name: 'core.wlc-section-title',
-        params: {
-            theme: 'wolf',
-            text: 'Payments',
-            iconPath: 'wlc/icons/european/v3/payments.svg',
         },
     };
 

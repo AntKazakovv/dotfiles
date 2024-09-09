@@ -188,12 +188,6 @@ export const $profileWolfLayouts: IPanelsConfig = {
             'profile-content': sectionsLib.profileContent.empty,
         },
     },
-    'app.profile.payments': {
-        extends: 'app.profile',
-        sections: {
-            'profile-content': sectionsLib.profileContent.empty,
-        },
-    },
     'app.profile.limits': {
         extends: 'app',
         sections: {
