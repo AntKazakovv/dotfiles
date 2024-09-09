@@ -18,11 +18,8 @@ import {UIRouter} from '@uirouter/core';
 import Swiper from 'swiper';
 import {SwiperOptions} from 'swiper/types/swiper-options';
 import {NavigationOptions} from 'swiper/types/modules/navigation';
-import _find from 'lodash-es/find';
-import _findIndex from 'lodash-es/findIndex';
 import _merge from 'lodash-es/merge';
 import _union from 'lodash-es/union';
-import _each from 'lodash-es/each';
 import _random from 'lodash-es/random';
 
 import {
@@ -213,7 +210,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
     }
 
     public get chosenBonus(): Bonus {
-        return _find(this.bonuses, ({isChoose}) => isChoose);
+        return this.bonuses.find(({isChoose}: Bonus) => isChoose);
     }
 
     protected get selectFirstBonus(): boolean {
@@ -223,9 +220,9 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
     public chooseBlankBonus(): void {
         this.unchooseBonuses();
         setTimeout(() => {
-            const isChosenBonus = _find(this.bonuses, ({isChoose}) => isChoose);
+            const isChosenBonus = this.bonuses.find(({isChoose}: Bonus) => isChoose);
 
-            _each(this.bonuses, bonus => {
+            this.bonuses.forEach((bonus: Bonus) => {
                 if (!isChosenBonus && !bonus.id) {
                     bonus.isChoose = true;
                 }
@@ -316,15 +313,13 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                 this.blankBonus.isChoose = false;
             }
 
-            this.chosenBonusIndex = _findIndex(this.bonuses,
-                (item: Bonus) => item.id === bonus.id,
-            );
+            this.chosenBonusIndex = this.bonuses.findIndex((item: Bonus) => item.id === bonus.id);
 
             if (this.checkBoxParams.control.touched || this.checkBoxParams.control.value === true) {
                 this.checkBoxParams.control.setValue(false);
             }
 
-            const allowedBonus: boolean = !!_find(this.bonuses, ({id}: Bonus) => id === bonus.id);
+            const allowedBonus: boolean = !!this.bonuses.find(({id}: Bonus) => id === bonus.id);
 
             if (!allowedBonus && this.selectFirstBonus) {
                 return this.chooseBonusByPosition(0);
@@ -347,7 +342,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         this.eventService.subscribe({name: 'CHOOSE_BLANK_BONUS'}, () => {
             this.chooseBlankBonus();
 
-            _each(this.bonuses, bonus => {
+            this.bonuses.forEach((bonus: Bonus) => {
                 if (bonus.type === 'blank') {
                     bonus.isChoose = true;
                 }
@@ -428,10 +423,26 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         }
     }
 
+    protected retrieveChosenBonusFromConfig(): ChosenBonusType {
+        let chosenBonus = this.configService.get<ChosenBonusType>(ChosenBonusSetParams.ChosenBonus);
+
+        if (!chosenBonus) {
+            const chosenBonusId = this.configService.get<number>(ChosenBonusSetParams.ChosenBonusId);
+            chosenBonus = chosenBonusId && this.bonuses.find((bonus) => bonus.id === chosenBonusId);
+
+            if (chosenBonus) {
+                this.eventService.emit({
+                    name: BonusItemComponentEvents.reg,
+                    data: chosenBonus,
+                });
+            }
+        }
+
+        return chosenBonus;
+    }
+
     protected unchooseBonuses(): void {
-        _each(this.bonuses, (bonus) => {
-            bonus.isChoose = false;
-        });
+        this.bonuses.forEach((bonus: Bonus) => bonus.isChoose = false);
 
         this.cdr.detectChanges();
     }
@@ -440,12 +451,12 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
     protected onGetBonuses(bonuses: Bonus[]): void {
         this.paginatedBonuses = this.bonuses = bonuses;
         this.showAllBtn = !!this.$params.allBtnParams && !!this.bonuses.length;
-        const chosenBonus = this.configService.get<ChosenBonusType>(ChosenBonusSetParams.ChosenBonus);
 
-        if (chosenBonus?.id) {
-            const chosenBonusIndex = _findIndex(this.bonuses,
-                (item: Bonus) => item.id === chosenBonus.id,
-            );
+        const storedChosenBonus: ChosenBonusType = this.retrieveChosenBonusFromConfig();
+
+        if (storedChosenBonus?.id) {
+
+            const chosenBonusIndex = this.bonuses.findIndex((item: Bonus) => item.id === storedChosenBonus.id);
             if (chosenBonusIndex !== -1) {
                 this.bonuses[chosenBonusIndex].isChoose = true;
 
@@ -458,7 +469,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                     });
                 }
             }
-        } else if (!this.selectFirstBonus && chosenBonus?.id === null) {
+        } else if (!this.selectFirstBonus && storedChosenBonus?.id === null) {
             this.chooseBlankBonus();
         } else if (this.selectFirstBonus && !this.chosenBonus) {
             this.chooseBonusByPosition(0);

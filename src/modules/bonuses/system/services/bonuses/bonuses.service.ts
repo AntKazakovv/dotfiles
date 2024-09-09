@@ -86,6 +86,8 @@ import {
     RestType,
     TBonusSortOrder,
     IBonusesData,
+    ChosenBonusType,
+    ChosenBonusSetParams,
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {LootboxPrizeModel} from 'wlc-engine/modules/bonuses/system/models/lootbox-prize/lootbox-prize.model';
 import {BonusCancellationInfo} from '../../models/bonus/bonus-cancellation-info.model';
@@ -1143,6 +1145,15 @@ export class BonusesService {
             },
         });
 
+        this.subjects.reg$.subscribe({
+            next: (bonuses: Bonus[]): void => {
+                this.eventService.emit({
+                    name: 'BONUSES_FETCH_REG_SUCCESS',
+                    data: bonuses,
+                });
+            },
+        });
+
         this.eventService.filter([
             {name: 'LOGIN'},
             {name: 'LOGOUT'},
@@ -1170,6 +1181,16 @@ export class BonusesService {
         });
 
         this.translateService.onLangChange.subscribe((): void => {
+            this.subjects.reg$.next([]);
+            this.configService.set<number>({
+                name: ChosenBonusSetParams.ChosenBonusId,
+                value: this.configService.get<ChosenBonusType>(ChosenBonusSetParams.ChosenBonus)?.id,
+            });
+            this.configService.set<ChosenBonusType>({
+                name: ChosenBonusSetParams.ChosenBonus,
+                value: null,
+            });
+
             this.updateSubscribers();
         });
     }
@@ -1269,6 +1290,9 @@ export class BonusesService {
         }
         if (this.subjects.lootboxPrizes$.observers.length > 1) {
             this.queryBonuses(true, 'lootboxPrizes');
+        }
+        if (this.subjects.reg$.observers.length > 1 ) {
+            this.queryBonuses(true, 'reg');
         }
     }
 

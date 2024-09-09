@@ -397,6 +397,7 @@ interface IBlankBonus {
 
 export enum ChosenBonusSetParams {
     ChosenBonus = 'CHOSEN_BONUS',
+    ChosenBonusId = 'CHOSEN_BONUS_ID',
 }
 
 export type ChosenBonusType = Bonus | IBlankBonus;
