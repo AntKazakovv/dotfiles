@@ -242,11 +242,6 @@ export class PaymentFormComponent
         this.isRomanianLicense = this.configService.get<string>('appConfig.license') === 'romania';
         this.useLotteryWidget = this.isDeposit && this.configService.get<boolean>('$finances.useLotteryWidget');
 
-        if (!this.isMultiWallet) {
-            this.currentCurrency = this.configService.get<string>('appConfig.user.currency')
-                || this.configService.get<string>('$base.defaultCurrency');
-        }
-
         this.configService
             .get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
             .pipe(takeUntil(this.$destroy))
@@ -254,6 +249,12 @@ export class PaymentFormComponent
                 if (userProfile) {
                     this.userProfile$.next(userProfile);
                     this.userProfile = userProfile;
+
+                    if (!this.isMultiWallet) {
+                        this.currentCurrency = this.userProfile.idUser
+                            ? this.userProfile.currency
+                            : this.configService.get<string>('$base.defaultCurrency') || 'EUR';
+                    }
 
                     if (this.showCommissions) {
                         this.initCommissions();
@@ -754,6 +755,7 @@ export class PaymentFormComponent
         const psChanges: SimpleChange = changes['currentSystem'];
         const bonusChanges: SimpleChange = changes['bonus'];
         const walletChanges: SimpleChange = changes['wallet'];
+        const userCurrency: SimpleChange = changes['userCurrency'];
 
         if (psChanges) {
             this.onPaySystemChange();
@@ -765,6 +767,10 @@ export class PaymentFormComponent
 
         if (walletChanges) {
             this.onWalletChange(walletChanges);
+        }
+
+        if (userCurrency) {
+            this.updateFormConfig();
         }
     }
 
@@ -817,9 +823,9 @@ export class PaymentFormComponent
         }
 
         if (this.currentSystem.isHosted
-                && (!this.isLoadingHostedFields || !this.currentSystem.hostedFields.loaded)
-                && _isEmpty(this.requiredFields)
-                && this.$params.type !== 'partial-amount') {
+            && (!this.isLoadingHostedFields || !this.currentSystem.hostedFields.loaded)
+            && _isEmpty(this.requiredFields)
+            && this.$params.type !== 'partial-amount') {
             await this.loadHostedFields();
         }
 
@@ -905,7 +911,7 @@ export class PaymentFormComponent
 
     protected async prepareLotteryWidget(): Promise<void> {
         this.lotteriesService =
-        await this.injectionService.getService<LotteriesService>('lotteries.lotteries-service');
+            await this.injectionService.getService<LotteriesService>('lotteries.lotteries-service');
         this.lotteriesService.fetchLottery();
         this.lotteryWidget = this.$params.lotteryWidgetParams;
 
@@ -1593,7 +1599,8 @@ export class PaymentFormComponent
             const response = await this.financesService.deposit(
                 this.currentSystem.id,
                 amount || this.currentSystem.depositMin,
-                {...params,
+                {
+                    ...params,
                     bonusId: this.bonus?.id,
                     bonusCode: this.bonus?.promoCode,
                 },
@@ -1669,7 +1676,7 @@ export class PaymentFormComponent
     }
 
     private checkAppearance(response: any): void {
-        switch(this.currentSystem.appearance) {
+        switch (this.currentSystem.appearance) {
             case 'newtab':
                 setTimeout(() => {
                     this.window.open(response[1], '_blank');
