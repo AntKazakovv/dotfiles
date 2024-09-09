@@ -527,8 +527,13 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             const exceptCategories = this.configService.get<string[]>('$finances.fastDeposit.excludeCategorySlug');
 
             if (exceptCategories) {
-                const categoryIds: number[] =
-                    exceptCategories.map((slug: string) => this.gamesCatalogService.getCategoryBySlug(slug).id);
+
+                const categoryIds: number[] = exceptCategories.reduce((ids: number[], slug: string) => {
+                    if (this.gamesCatalogService.getCategoryBySlug(slug)) {
+                        ids.push(this.gamesCatalogService.getCategoryBySlug(slug).id);
+                    }
+                    return ids;
+                }, []);
 
                 if (categoryIds?.length) {
                     return categoryIds.every((categoryId: number) => !this.game.hasCategoryById(categoryId));
