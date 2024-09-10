@@ -19,6 +19,7 @@ export interface IOfflinePageCParams extends IComponentParams<Theme, Type, Theme
      * Path to image
      */
     image?: string;
+    buttonText?: string;
 }
 
 export const defaultParams: IOfflinePageCParams = {
@@ -26,4 +27,5 @@ export const defaultParams: IOfflinePageCParams = {
     componentName: 'wlc-offline-page',
     class: 'wlc-offline-page',
     image: 'offline',
+    buttonText: gettext('Reload the page'),
 };
