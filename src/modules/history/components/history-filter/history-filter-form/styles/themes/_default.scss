@@ -33,7 +33,7 @@
 
         .wlc-text-block {
             width: 100%;
-            margin-bottom: 0;
+            margin: ef.get-value($themeDefault, 'textBlockMargin');
 
             ::ng-deep {
 

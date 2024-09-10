@@ -39,12 +39,14 @@
         }
 
         &__title {
+            @include bm.get-mq-map('margin', $themeDefault, 'titleMargin');
             @include text.get-text-style(
                 ef.get-value($themeDefault, 'titleTextStyle', 375),
                 ef.get-value($themeDefault, 'titleTextColor'),
             );
             position: relative;
             z-index: 5;
+            display: inline-block;
 
             @include mq.min(560) {
                 @include text.get-text-style(

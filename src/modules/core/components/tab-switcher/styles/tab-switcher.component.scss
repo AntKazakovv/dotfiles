@@ -26,7 +26,10 @@ $base: map-merge((
 
     // modifiers
     'bodyItemLoginMargin': auto,
-    'bodyItemLoginPadding': ef.size(4) ef.size(3) ef.size(8),
+    'bodyItemLoginPadding': (
+        375: ef.size(4) ef.size(3) ef.size(8),
+        900: ef.size(6) ef.size(6) ef.size(8),
+    ),
     'bodyItemLoginWithBannerPadding': 0 0 ef.size(8),
     // modifiers
 

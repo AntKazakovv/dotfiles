@@ -26,6 +26,7 @@ $themeDefault: map-merge((
     'formJustifyContent': center,
 
     'textBlockAlignment': center,
+    'textBlockMargin': ef.size(3) 0 0,
     'btnWidth': auto,
     'btnMargin': ef.size(4) auto 0,
 ), $customThemeDefault);

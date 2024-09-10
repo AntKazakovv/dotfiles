@@ -11,7 +11,7 @@ $themePreview: map-merge((
     'hostColOffset': (
         375: 0,
     ),
-    'hostRadius': unset,
+    'hostRadius': 0 ef.get('radius', 'big') ef.get('radius', 'big') 0,
 
     'contentHeigh': 100%,
     'contentBg': center/cover,
@@ -22,6 +22,7 @@ $themePreview: map-merge((
     'tagFontColor': var(--mc-baseMain),
     'tagBg': none,
     'tagPadding': 0,
+    'tagMargin': ef.size(4) 0 0,
 
     'iconSignBoreder': 3px solid transparent,
     'iconSignRadius': 50%,
@@ -51,10 +52,10 @@ $themePreview: map-merge((
     'bonusTitleStyle': 'PromoTitle',
     'bonusTitleMargin': auto auto ef.size(6),
     'bonusSubtitleStyle': 'PrimaryText',
-    'bonusSubtitleMargin': 0 auto auto,
+    'bonusSubtitleMargin': ef.size(4) auto auto,
     'bonusTextStyle': 'ThirdTitle',
     'bonusPadding': (
-        375: ef.size(6) ef.size(8) ef.size(11),
+        375: ef.size(6) ef.size(6) ef.size(11),
         1630: ef.size(6) ef.size(12) ef.size(15),
     ),
     'bonusBackground': var(--mc-bg300) no-repeat center top/cover,

@@ -3,8 +3,8 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'textBlockHeight': (
-        375: 145px,
-        480: 155px,
+        375: 195px,
+        480: 170px,
     ),
     'textBlockTextAlign': center,
 
@@ -12,7 +12,10 @@ $themeDefault: map-merge((
         375: 'ThirdTitleBold',
         560: 'QoteTextBold',
     ),
-    'titleTextColor': var(--mc-baseSecond-locked, var(--mc-baseMain-locked)),
+    'titleTextColor': var(--mc-baseSecond, var(--mc-baseMain)),
+    'titleMargin': (
+        375: ef.size(3) 0 0,
+    ),
 
     'descLineClamp': 3,
     'descMaxWidth': (

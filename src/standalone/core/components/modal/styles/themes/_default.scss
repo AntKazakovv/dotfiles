@@ -3,11 +3,8 @@
     .wlc-modal {
 
         &__dialog {
+            @include bm.get-mq-map('border-radius', $themeDefault, 'dialogRadius');
             background: ef.get-value($themeDefault, 'dialogBackground');
-
-            @include mq.min(560) {
-                border-radius: ef.get-value($themeDefault, 'dialogBorderRadius');
-            }
         }
 
         &__title {
@@ -65,6 +62,7 @@
                     ef.get-value($themeDefault, 'loginSignUpTitleStyle'),
                     ef.get-value($themeDefault, 'loginSignUpTitleColor')
                 );
+                margin: 0;
                 text-align: ef.get-value($themeDefault, 'loginSignUpTitleAlign');
             }
 
@@ -72,13 +70,18 @@
                 padding: 0;
 
                 .wlc-text-block__title {
+                    @include bm.lineClamp(2);
                     @include text.get-text-style(
                         ef.get-value($themeDefault, 'loginSignUpTextFontSize', 320),
                         ef.get-value($themeDefault, 'loginSignUpTextColor')
                     );
+                    @include bm.get-mq-map('margin', $themeDefault, 'loginSignUpTitleMargin');
 
                     @include mq.min(768) {
-                        @include text.get-text-style(ef.get-value($themeDefault, 'loginSignUpTextFontSize', 768), null);
+                        @include text.get-text-style(
+                            ef.get-value($themeDefault, 'loginSignUpTextFontSize', 768),
+                            null
+                        );
                     }
                 }
 
@@ -104,7 +107,6 @@
                 @include bm.get-mq-map('height', $themeDefault, 'loginSignUpDialogHeight');
                 @include bm.get-mq-map('margin', $themeDefault, 'loginSignUpDialogMarign');
                 @include bm.get-mq-map('border', $themeDefault, 'loginSignUpDialogBorder');
-                overflow: hidden;
             }
         }
     }
@@ -114,11 +116,15 @@
 
         .wlc-modal {
 
-            &__wrapper {
-                @include bm.get-mq-map('padding', $themeDefault, 'restoreModalWrapperPadding');
+            &__dialog {
+                @include bm.get-mq-map('height', $themeDefault, 'restoreDialogHeight');
+                @include bm.get-mq-map('border', $themeDefault, 'restoreDialogBorder');
+                @include bm.get-mq-map('margin', $themeDefault, 'restoreDialogMarign');
+                @include bm.get-mq-map('border-radius', $themeDefault, 'restoreDialogRadius');
             }
 
             &__header {
+                @include bm.get-mq-map('border-radius', $themeDefault, 'restoreHeaderPadding');
                 border-bottom: none;
             }
 
@@ -131,7 +137,7 @@
             }
 
             &__back-btn {
-                justify-content: center;
+                height: auto;
 
                 .icon-arrow {
 
@@ -143,12 +149,12 @@
 
             &__back-btn-text {
                 @include bm.get-mq-map('display', $themeDefault, 'restoreBtnTextDisplay');
+                line-height: 1;
             }
 
-            &__dialog {
-                @include bm.get-mq-map('height', $themeDefault, 'restoreDialogHeight');
-                @include bm.get-mq-map('border', $themeDefault, 'restoreDialogBorder');
-                @include bm.get-mq-map('margin', $themeDefault, 'restoreDialogMarign');
+            &__close[wlc-button] {
+                @include bm.get-mq-map('top', $themeDefault, 'restoreCloseIconTop');
+                @include bm.get-mq-map('right', $themeDefault, 'restoreCloseIconRight');
             }
         }
     }
@@ -380,6 +386,7 @@
 
             &__back-btn-text {
                 @include bm.get-mq-map('display', $themeDefault, 'restoreBtnTextDisplay');
+                line-height: 1;
             }
         }
     }
@@ -458,7 +465,6 @@
                 ef.get-value($themeDefault, 'autoLogoutTextModalStyle'),
                 ef.get-value($themeDefault, 'autoLogoutTextModalColor')
             );
-
             text-align: center;
         }
     }
@@ -514,6 +520,7 @@
 
             &__back-btn-text {
                 @include bm.get-mq-map('display', $themeDefault, 'kycQBackBtnTextDisplay');
+                line-height: 1;
             }
         }
     }

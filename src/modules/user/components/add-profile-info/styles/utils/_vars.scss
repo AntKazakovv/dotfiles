@@ -1,7 +1,7 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     // title
-    'titleMargin': 0 0 20px,
+    'titleMargin': ef.size(4) 0 ef.size(4),
 
     // form
     'formPadding': 0 0 20px,

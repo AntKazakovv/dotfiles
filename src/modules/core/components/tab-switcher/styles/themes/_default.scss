@@ -56,8 +56,8 @@
 
                 &--login {
                     @include bm.get-mq-map('width', $themeDefault, 'loginBodyWidth');
+                    @include bm.get-mq-map('padding', $themeDefault, 'bodyItemLoginPadding');
                     margin: ef.get-value($themeDefault, 'bodyItemLoginMargin');
-                    padding: ef.get-value($themeDefault, 'bodyItemLoginPadding');
                 }
 
                 &--signup {

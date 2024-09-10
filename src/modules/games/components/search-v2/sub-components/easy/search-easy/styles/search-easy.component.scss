@@ -22,7 +22,7 @@
         }
 
         .wlc-modal__close {
-            @include bm.get-mq-map('top', $themeEasy, 'closeTop');
+            @include bm.get-mq-map('top', $themeEasy, 'modalCloseTop');
             @include bm.get-mq-map('right', $themeEasy, 'modalCloseRight');
         }
     }
@@ -35,7 +35,6 @@
         &__title {
             @include bm.get-mq-map('padding', $themeEasy, 'searchModalHeaderPadding');
             @include bm.get-mq-map('text-align', $themeEasy, 'searchModalHeaderPositionText');
-
             margin: ef.get-value($themeEasy, 'searchModalHeaderMargin');
 
             ::ng-deep {
@@ -48,7 +47,10 @@
                     line-height: 1;
 
                     @include mq.min(1024) {
-                        @include text.get-text-style(ef.get-value($themeEasy, 'recentTitleFontStyle', 1024), null);
+                        @include text.get-text-style(
+                            ef.get-value($themeEasy, 'recentTitleFontStyle', 1024),
+                            null
+                        );
                     }
                 }
             }

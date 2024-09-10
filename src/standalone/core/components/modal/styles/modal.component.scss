@@ -161,9 +161,9 @@
         }
 
         .wlc-modal__header--headless & {
+            @include bm.get-mq-map('left', $hostModal, 'backBtnLeftPos');
             position: absolute;
-            top: ef.get-value($hostModal, 'backBtnTopPostion');
-            left: ef.get-value($hostModal, 'backBtnLeftPostion');
+            top: ef.get-value($hostModal, 'backBtnTopPos');
             transform: translateY(0);
         }
 
@@ -323,12 +323,11 @@
         width: ef.get-value($hostModal, 'closeSize');
         height: ef.get-value($hostModal, 'closeSize');
         color: ef.get-value($hostModal, 'closeColor');
-        transform: translateY(-50%);
         cursor: pointer;
         opacity: 0.4;
 
         .wlc-modal__header--headless & {
-            @include bm.get-mq-map('top', $hostModal, 'closePosTopHeadLess');
+            @include bm.get-mq-map('top', $hostModal, 'closeHeadLessPosTop');
             transform: translateY(0);
         }
 

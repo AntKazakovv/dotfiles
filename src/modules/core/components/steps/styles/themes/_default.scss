@@ -10,6 +10,13 @@
             align-self: ef.get-value($themeDefault, 'stepsAlignSelf');
         }
 
+        .wlc-text-block {
+
+            &__title {
+                @include bm.get-mq-map('margin', $themeDefault, 'stepsTitleMargin');
+            }
+        }
+
         .wlc-bonuses-list {
             @include bm.get-mq-map('margin', $themeDefault, 'bonusListMargin');
 
@@ -39,15 +46,17 @@
                 &--sign-up {
 
                     .wlc-steps__head {
+                        @include bm.get-mq-map('max-width', $themeDefault, 'singupHeadMaxWidth');
                         position: relative;
                         width: ef.get-value($themeDefault, 'singupHeadWidth');
-                        max-width: ef.get-value($themeDefault, 'singupHeadMaxWidth');
                         padding: ef.get-value($themeDefault, 'singupHeadPadding');
 
                         &.wlc-steps__head--wolf {
+                            @include bm.get-mq-map('max-width', $themeWolf, 'singupWolfHeadMaxWidth');
 
                             .wlc-link-block {
-                                @include bm.get-mq-map('top', $themeWolf, 'singupWolfLinkBlockTopPos');
+                                @include bm.get-mq-map('top', $themeWolf, 'singupWolfLinkBlockPosTop');
+                                @include bm.get-mq-map('left', $themeWolf, 'singupWolfLinkBlockPosLeft');
                                 z-index: 10;
 
                                 .wlc-btn__text {
@@ -55,6 +64,7 @@
                                         ef.get-value($themeWolf, 'singupWolfBtnTextFontStyle'),
                                         ef.get-value($themeWolf, 'singupBtnTextColor')
                                     );
+                                    line-height: 1;
                                 }
 
                                 .wlc-icon {
@@ -77,19 +87,21 @@
                             position: absolute;
                             right: ef.get-value($themeDefault, 'singupLinkBlockRightPos');
                             left: initial;
+
                             align-items: ef.get-value($themeDefault, 'singupLinkBlockAlignItems');
                             justify-content: ef.get-value($themeDefault, 'singupLinkBlockJustify');
+                            line-height: 0;
                             overflow: hidden;
                             white-space: nowrap;
 
                             .wlc-btn__text {
+                                @include bm.get-mq-map('font-size', $themeDefault, 'singupBtnTextFontSize');
                                 display: flex;
                                 align-items: ef.get-value($themeDefault, 'singupBtnTextAlign');
-                                font-size: ef.get-value($themeDefault, 'singupBtnTextFontSize');
-                                line-height: 1;
 
-                                @include mq.min(560) {
+                                @include mq.min(900) {
                                     @include text.get-text-style(ef.get-value($themeDefault, 'singupBtnTextFontSizeMD'), ef.get-value($themeDefault, 'singupBtnTextColor'));
+                                    line-height: 1;
                                 }
                             }
 
@@ -190,6 +202,7 @@
                 &--sign-up {
 
                     .wlc-steps__head {
+                        @include bm.get-mq-map('margin', $themeDefault, 'stepsHeadMargin');
 
                         .wlc-text-block {
 
@@ -212,13 +225,6 @@
 
     &::ng-deep {
 
-        .wlc-text-block {
-
-            &__title {
-                margin: ef.get-value($themeDefault, 'stepsTitleMargin');
-            }
-        }
-
         .wlc-bonuses-list {
             @include bm.get-mq-map('width', $themeDefault, 'bonusListWidthFirst');
         }
@@ -234,7 +240,8 @@
                     .wlc-steps__head {
 
                         .wlc-link-block {
-                            left: ef.get-value($themeDefault, 'singupLinkBlockLeftPosTop');
+                            @include bm.get-mq-map('top', $themeDefault, 'singupLinkBlockLeftPosTop');
+                            left: ef.get-value($themeDefault, 'singupLinkBlockLeftPos');
                             width: ef.get-value($themeDefault, 'singupLinkBlockWidthTop');
                         }
                     }

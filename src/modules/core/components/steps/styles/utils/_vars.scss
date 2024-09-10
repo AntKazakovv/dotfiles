@@ -2,7 +2,14 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'stepsHeight': 100%,
     'stepsAlignSelf': stretch,
-    'stepsTitleMargin': 0 0 ef.size(2) 0,
+    'stepsTitleMargin': (
+        375: 0 ef.size(4) ef.size(2) ef.size(4),
+        900: ef.size(4) 0 ef.size(2) 0,
+    ),
+    'stepsHeadMargin': (
+        375: 0,
+        900: ef.size(2) 0 0,
+    ),
 
     'containerMinHeight': (
         320: auto,
@@ -70,9 +77,12 @@ $themeDefault: map-merge((
         1630: ef.size(4) auto ef.size(8) auto,
     ),
 
-    'singupHeadMaxWidth': 285px,
+    'singupHeadMaxWidth': (
+        375: 285px,
+        900: 100%,
+    ),
     'singupHeadWidth': 100%,
-    'singupHeadPadding': 0 ef.size(3),
+    'singupHeadPadding': 0,
 
     'singupLinkBlockDisplay': (
         320: flex,
@@ -82,20 +92,25 @@ $themeDefault: map-merge((
         320: none,
         900: block
     ),
-    'singupLinkBlockRightPos': 100%,
+    'singupLinkBlockRightPos': unset,
     'singupLinkBlockBottomPos': (
         320: ef.size(8),
         900: ef.size(6),
     ),
     'singupLinkBlockLeftPos': 0,
-    'singupLinkBlockLeftPosTop': auto,
+    'singupLinkBlockLeftPosTop': (
+        900: 2px,
+    ),
+    'singupLinkBlockLeftPosLeft': auto,
     'singupLinkBlockAlignItems': center,
     'singupLinkBlockWidthTop': auto,
     'singupLinkBlockWidth': 100%,
     'singupLinkBlockJustify': center,
     'singupLinkBlockTopPos': (
-        320: 4px,
-        560: ef.size(2),
+        375: ef.size(2),
+        560: ef.size(3),
+        768: ef.size(5),
+        900: ef.size(-2),
     ),
     'singupLinkBlockMarign': (
         320: 0 ef.size(-4) 0 0,
@@ -110,7 +125,10 @@ $themeDefault: map-merge((
         560: 70px,
     ),
 
-    'singupBtnTextFontSize': 0,
+    'singupBtnTextFontSize': (
+        375: 0,
+        900: inherit,
+    ),
     'singupBtnTextFontSizeMD': 'CaptionTextBold',
     'singupBtnTextColor': var(--mc-main),
     'singupBtnTextColorHover': var(--mc-baseMain),
@@ -119,11 +137,11 @@ $themeDefault: map-merge((
     'singupIconMargin': 0 ef.size(1) 0 0,
     'singupIconSvgWidth': (
         320: 14px,
-        560: ef.size(2),
+        900: ef.size(2),
     ),
     'singupIconSvgHeight': (
         320: 19px,
-        560: 8px,
+        900: ef.size(2),
     ),
     'singupIconSvgTransform': rotateZ(90deg),
 
@@ -176,9 +194,16 @@ $themeDefault: map-merge((
 
 $customThemeWolf: () !default;
 $themeWolf: map-merge((
-    'singupWolfLinkBlockTopPos': (
-        375: -90px,
-        900: 7px,
+    'singupWolfHeadMaxWidth': (
+        375: 100%,
+    ),
+    'singupWolfLinkBlockPosTop': (
+        375: -112px,
+        560: -104px,
+        900: 0,
+    ),
+    'singupWolfLinkBlockPosLeft': (
+        375: auto,
     ),
     'singupWolfBtnTextFontStyle': 'PrimaryTextBold',
     'singupBtnTextColor': var(--mc-main),

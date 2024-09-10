@@ -1,8 +1,8 @@
 $customThemeEasy: () !default;
 $themeEasy: map-merge((
     'searchModalHeaderPadding': (
-        375: ef.size(6) 0 ef.size(3),
-        560: ef.size(6) 0 ef.size(4),
+        375: ef.size(10) 0 ef.size(3),
+        560: ef.size(10) 0 ef.size(4),
     ),
     'searchModalHeaderPositionText': (
         375: center,
@@ -34,7 +34,6 @@ $themeEasy: map-merge((
     ),
     'closeTop': (
         375: ef.size(5),
-        1200: 33px,
     ),
     'modalDialogMaxWidth': 1433px,
     'modalCloseRight': (

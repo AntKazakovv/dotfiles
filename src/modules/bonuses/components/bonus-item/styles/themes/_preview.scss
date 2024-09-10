@@ -8,13 +8,13 @@
         &__content {
             @include bm.get-mq-map('grid-row-gap', $themePreview, 'hostRowOffset');
             @include bm.get-mq-map('grid-column-gap', $themePreview, 'hostColOffset');
+            @include bm.get-mq-map('padding', $themePreview, 'bonusPadding');
 
             display: grid;
             align-content: ef.get-value($themePreview, 'hostAlignContent');
             justify-items: ef.get-value($themePreview, 'hostJustifyItems');
 
             height: ef.get-value($themePreview, 'contentHeigh');
-            padding: ef.get-value($themePreview, 'bonusPadding');
             text-align: ef.get-value($themePreview, 'hostTextAlign');
             background: ef.get-value($themePreview, 'contentBg');
 
@@ -48,6 +48,7 @@
 
         &__tag {
             @include text.get-text-style(ef.get-value($themePreview, 'bonusSubtitleStyle'), ef.get-value($themePreview, 'tagFontColor'));
+            margin: ef.get-value($themePreview, 'tagMargin');
             padding: ef.get-value($themePreview, 'tagPadding');
             background: ef.get-value($themePreview, 'tagBg');
         }

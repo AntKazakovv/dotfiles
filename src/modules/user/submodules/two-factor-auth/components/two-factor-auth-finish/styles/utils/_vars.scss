@@ -1,8 +1,8 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'titleMargin': (
-        375: 0 0 ef.size(10),
-        560: 0 0 ef.size(6),
+        375: ef.size(4) 0 ef.size(10),
+        560: ef.size(4) 0 ef.size(6),
     ),
     'titleFontSize': (
         375: 1.6rem,
