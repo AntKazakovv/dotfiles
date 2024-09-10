@@ -546,7 +546,7 @@ export class WheelService {
             data: <IPushMessageParams>{
                 type: 'warning',
                 title: gettext('Information'),
-                message: gettext('Results are unknown yet, try again later'),
+                message: gettext('There are no results yet. Please try again later'),
                 wlcElement: 'stream-wheel-join-sending-error',
             },
         });

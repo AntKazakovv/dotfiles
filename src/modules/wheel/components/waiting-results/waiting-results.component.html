@@ -20,6 +20,6 @@
 <button *ngIf="showButtonResults$ | async"
     wlc-button
     themeMod="default"
-    text="{{'Take results' | translate}}"
+    [text]="'Get results' | translate"
     (click)="takeResults()">
 </button>
