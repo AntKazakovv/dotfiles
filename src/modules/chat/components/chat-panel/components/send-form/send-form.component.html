@@ -15,7 +15,7 @@
             <ng-container *ngIf="nickname; else connecting">{{nickname}}</ng-container>
         </div>
 
-        <ng-template #connecting>{{'connecting...' | translate}}</ng-template>
+        <ng-template #connecting>{{'Connecting...' | translate}}</ng-template>
 
         <div class="{{$class}}__textarea-wrapper">
             <div #textareaFake class="{{$class}}__textarea {{$class}}__textarea--fake">{{message.value}}</div>
