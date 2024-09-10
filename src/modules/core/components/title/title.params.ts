@@ -7,7 +7,7 @@ import {
 
 export type Theme = 'default' | CustomType;
 export type Type = 'default' | 'modal' | CustomType;
-export type ThemeMod = 'default' | 'third' | CustomType;
+export type ThemeMod = 'default' | 'third' | 'wolf' | CustomType;
 export type TagType = 'div' | 'h1' | 'h2' | 'span' | CustomType;
 
 export type varTextType = 'mainText' | 'secondText';
@@ -26,6 +26,8 @@ export interface ITitleCParams extends IComponentParams<Theme, Type, ThemeMod> {
 
 export const defaultParams: ITitleCParams = {
     class: 'wlc-title',
+    moduleName: 'core',
+    componentName: 'wlc-title',
     common: {
         mainTag: 'div',
         secondTag: 'div',

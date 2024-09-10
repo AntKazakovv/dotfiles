@@ -29,10 +29,6 @@
         .wlc-title.wlc-title--tournaments[wlc-title] {
             @include bm.get-mq-map('margin', $promotionsThemeDefault, 'titleMargin');
             text-align: ef.get-value($promotionsThemeDefault, 'titleAlign');
-
-            div.wlc-title__main {
-                font-size: ef.get-value($promotionsThemeDefault, 'titleFontSize');
-            }
         }
 
         .wlc-tournament-list--theme-default {

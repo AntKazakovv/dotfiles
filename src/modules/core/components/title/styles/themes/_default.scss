@@ -8,11 +8,17 @@
     h1.wlc-title {
 
         &__main {
-            @include text.get-text-style(ef.get-value($themeDefault, 'mainTitleStyle'), ef.get-value($themeDefault, 'mainColors'));
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'mainTitleStyle'),
+                ef.get-value($themeDefault, 'mainColor'),
+            );
         }
 
         &__second {
-            @include text.get-text-style(ef.get-value($themeDefault, 'secondTitleStyle'), ef.get-value($themeDefault, 'secondColor'));
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'secondTitleStyle'),
+                ef.get-value($themeDefault, 'secondColor'),
+            );
         }
     }
 
@@ -25,6 +31,26 @@
                     ef.get-value($themeDefault, 'mainTitleStyleModThird'),
                     null
                 );
+            }
+        }
+    }
+
+    &.wlc-title--theme-mod-wolf {
+
+        .wlc-title {
+
+            &__main {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'mainTitleStyleModWolf'),
+                    null,
+                );
+
+                @include mq.min(900) {
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'mainTitleStyleModWolf', 900),
+                        null,
+                    );
+                }
             }
         }
     }

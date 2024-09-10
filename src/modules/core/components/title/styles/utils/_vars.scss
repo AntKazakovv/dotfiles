@@ -1,15 +1,16 @@
 $customThemeDefault: () !default;
 
 $themeDefault: map-merge((
-    'mainColor': (
-        375:var(--mc-baseMain),
-    ),
-    'secondColor': (
-        375: var(--mc-baseMain)
-    ),
+    'mainColor': var(--mc-baseSecond, var(--mc-baseMain)),
+    'secondColor': var(--mc-baseSecond, var(--mc-baseMain)),
     'mainTitleStyle': 'QoteTextBold',
     'secondTitleStyle': 'CaptionText',
     'titleMargin': 15px,
 
     'mainTitleStyleModThird': 'ThirdTitleBold',
+
+    'mainTitleStyleModWolf': (
+        375: 'ThirdTitleBold',
+        900: 'SecondTitleBold',
+    ),
 ), $customThemeDefault);

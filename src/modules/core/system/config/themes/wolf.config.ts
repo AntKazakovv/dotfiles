@@ -6,5 +6,8 @@ export const wolfConfig: Partial<Record<TModuleName, IIndexing<IIndexing<unknown
         'wlc-info-page': {
             theme: 'wolf',
         },
+        'wlc-title': {
+            themeMod: 'wolf',
+        },
     },
 };
