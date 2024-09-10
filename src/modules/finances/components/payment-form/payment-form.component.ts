@@ -161,8 +161,8 @@ export class PaymentFormComponent
     public onChanges$: Subject<SimpleChanges> = new Subject();
 
     protected amount$: BehaviorSubject<number> = new BehaviorSubject(0);
-    protected userTotalBalance: number;
-    protected userAvailableWithdraw: number;
+    protected userTotalBalance: number = null;
+    protected userAvailableWithdraw: number = null;
     protected amountControl: UntypedFormControl;
     protected clearAmountButton = _cloneDeep(FormElements.clearAmountButton);
     protected cryptoCheck: boolean = false;

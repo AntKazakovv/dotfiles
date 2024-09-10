@@ -69,9 +69,16 @@ export class UserInfo extends AbstractModel<IUserInfo> {
     }
 
     public get availableWithdraw(): number {
-        return UserInfo.currency
-            ? this.getWalletAvailableWithdraw(UserInfo.currency)
-            : this._wcAvailableWithdraw ?? this.data?.availableWithdraw;
+
+        if (this.data.socketsData && _isUndefined(this._wcAvailableWithdraw)) {
+            return null;
+
+        } else if (!!UserInfo.currency) {
+            return this.getWalletAvailableWithdraw(UserInfo.currency);
+
+        } else {
+            return this._wcAvailableWithdraw ?? this.data?.availableWithdraw;
+        }
     }
 
     public set balance(balance: number) {

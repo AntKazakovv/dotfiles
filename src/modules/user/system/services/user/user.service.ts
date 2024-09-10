@@ -19,7 +19,6 @@ import {
     Subject,
 } from 'rxjs';
 import {
-    delay,
     first,
     map,
     takeUntil,
@@ -1077,7 +1076,6 @@ export class UserService {
                     eventFilterFunc: this.filterEventWSTimestamp.bind(this),
                 })
                 .pipe(
-                    delay(1500),
                     takeWhile((data: IWSConsumerData<IWSDataUserBalance>) => {
                         const isError: boolean = data.status === 'error';
 
@@ -1098,6 +1096,7 @@ export class UserService {
                     }
 
                     this.info.availableWithdraw = Number(data.data.availableWithdraw);
+                    this.userInfo$.next(this.info);
                 });
         }
     }
