@@ -141,7 +141,12 @@ export namespace wlcProfileForm {
                                 name: FormElements.address.name,
                                 params: {
                                     ...FormElements.address.params,
-                                    validators: null,
+                                    validators: [
+                                        {
+                                            name: 'onlyLatinLetters',
+                                            projectType: 'wlc',
+                                        },
+                                    ],
                                 },
                             },
                         ],
