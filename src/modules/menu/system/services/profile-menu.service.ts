@@ -1,4 +1,5 @@
 import {
+    inject,
     Injectable,
 } from '@angular/core';
 import {StateService} from '@uirouter/core';
@@ -17,9 +18,9 @@ import _forEach from 'lodash-es/forEach';
 import {
     BehaviorSubject,
     firstValueFrom,
+    merge,
 } from 'rxjs';
 import {
-    distinctUntilChanged,
     filter,
 } from 'rxjs/operators';
 
@@ -57,6 +58,7 @@ import {
     QuestModel,
     QuestsService,
 } from 'wlc-engine/modules/quests';
+import {TranslateService} from '@ngx-translate/core';
 
 import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
 import * as Config from 'wlc-engine/modules/menu/system/config/profile-menu.config';
@@ -80,22 +82,26 @@ export class ProfileMenuService {
     protected subMenu: IIndexing<IMenuItem[]> = {};
     protected dropdownMenu: MenuItemObjectType[] = [];
 
-    constructor(
-        protected configService: ConfigService,
-        protected stateService: StateService,
-        protected injectionService: InjectionService,
-    ) {
-        this.configService.get<BehaviorSubject<boolean>>('$user.isAuth$')
-            .pipe(distinctUntilChanged())
-            .subscribe(async (): Promise<void> => {
-                this.readyStatus = new Deferred<void>();
-                this.ready = this.readyStatus.promise;
+    protected configService: ConfigService = inject(ConfigService);
+    protected stateService: StateService = inject(StateService);
+    protected injectionService: InjectionService = inject(InjectionService);
+    protected translateService: TranslateService = inject(TranslateService);
 
-                this.resetMenu();
-                await this.init();
+    constructor() {
+        merge(
+            this.configService.get<BehaviorSubject<boolean>>('$user.isAuth$'),
+            this.translateService.onLangChange,
+        ).pipe(
+            filter((): boolean => this.readyStatus?.status !== 'pending'),
+        ).subscribe((): void => {
+            this.readyStatus = new Deferred<void>();
+            this.ready = this.readyStatus.promise;
 
+            this.resetMenu();
+            this.init().then((): void => {
                 this.readyStatus.resolve();
             });
+        });
     }
 
     /**
@@ -433,16 +439,11 @@ export class ProfileMenuService {
      * @returns {Promise<void>}
      */
     protected async init(): Promise<void> {
-
         this.initConfig();
 
         if (this.configService.get<boolean>('$base.profile.store.use')) {
             await this.prepareMarket();
             this.prepareOrdersHistory();
-        }
-
-        if (this.configService.get('$base.profile.transfers.use')) {
-            await this.prepareTransfer();
         }
 
         if (this.configService.get<boolean>('$base.profile.achievements.use')) {
@@ -451,6 +452,10 @@ export class ProfileMenuService {
 
         if (this.configService.get<boolean>('$base.profile.quests.use')) {
             await this.prepareQuests();
+        }
+
+        if (this.configService.get('$base.profile.transfers.use')) {
+            await this.prepareTransfer();
         }
     }
 

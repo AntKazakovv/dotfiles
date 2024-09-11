@@ -167,6 +167,8 @@ export class AchievementsService {
         AchievementModel.currentLang = this.translateService.currentLang || 'en';
         AchievementGroupModel.currentLang = this.translateService.currentLang || 'en';
         this.translateService.onLangChange.subscribe(({lang}: LangChangeEvent) => {
+            this._groups = [];
+
             if (AchievementModel.currentLang !== lang) {
                 AchievementModel.currentLang = lang;
             }
