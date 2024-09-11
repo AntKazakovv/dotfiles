@@ -30,7 +30,10 @@ import {LayoutService} from 'wlc-engine/modules/core/system/services/layout/layo
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {IMenuOptions} from 'wlc-engine/modules/core/system/interfaces/menu.interface';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
-import {AppType} from 'wlc-engine/modules/core';
+import {
+    AppType,
+    LogService,
+} from 'wlc-engine/modules/core';
 
 import {gamesEvents} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
@@ -44,6 +47,7 @@ import {
 } from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
 import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
 import {TIconExtension} from 'wlc-engine/modules/menu/system/interfaces/menu.interface';
+import {TLoggingLoadedSections} from 'wlc-engine/modules/core/system/interfaces/base-config/monitoring.interface';
 
 import * as Config from 'wlc-engine/modules/menu/system/config/main-menu.items.config';
 import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
@@ -75,6 +79,7 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
         protected eventService: EventService,
         protected injectionService: InjectionService,
         protected menuService: MenuService,
+        protected logService: LogService,
     ) {
         super(
             <IMixedParams<Params.IMainMenuCParams>>{
@@ -176,7 +181,19 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
             }, this.$destroy);
         }
 
+        if (this.isMenuHeader
+            && this.configService.get('$base.monitoring.loggingLoadedSections.use')
+            && this.configService.get<TLoggingLoadedSections[]>('$base.monitoring.loggingLoadedSections.sections')
+                .includes('main-menu')
+        ) {
+            this.logService.sendLog({code: '33.0.3'}, true);
+        }
+
         this.cdr.markForCheck();
+    }
+
+    protected get isMenuHeader(): boolean {
+        return !this.$params.theme || this.$params.theme === 'default';
     }
 
     protected initFixedMenu(): void {

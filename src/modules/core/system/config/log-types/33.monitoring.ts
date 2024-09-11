@@ -16,6 +16,11 @@ export const errorTypes: ILogTypes = {
         level: 'info',
         durationType: 'fromStart',
     },
+    '33.0.3': {
+        // Initialization time of the main menu in the header
+        level: 'info',
+        durationType: 'fromStart',
+    },
     '33.0.6': {
         // First Contentful Paint (FCP) metric data
         level: 'info',
