@@ -135,7 +135,7 @@ export class NicknameIconEditComponent extends AbstractComponent implements OnIn
         let avatar: string;
         let nick: string;
 
-        if(!this.control.valid) {
+        if (!this.control.valid) {
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,
                 data: <IPushMessageParams>{

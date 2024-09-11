@@ -204,7 +204,7 @@ export class BodyClassService {
         const hasBodyScroll = bodyStyles.getPropertyValue('overflow-y') !== 'hidden';
 
         if (removePadding) {
-            if(this._openedModalsCounter > 0) {
+            if (this._openedModalsCounter > 0) {
                 this._openedModalsCounter--;
             }
         } else {

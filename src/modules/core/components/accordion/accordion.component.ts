@@ -66,7 +66,7 @@ export class AccordionComponent extends AbstractComponent implements OnInit, OnC
      * @returns {void}
      */
     public expandToggle(item: Params.IAccordionData): void {
-        if(this.$params.collapseAll) {
+        if (this.$params.collapseAll) {
             const prevState = item.expand;
             this.foldAll();
             item.expand = !prevState;

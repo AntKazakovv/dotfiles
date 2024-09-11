@@ -531,7 +531,7 @@ export class ProfileMenuService {
                 return menuItem?.params?.state?.name !== state;
             } else if ((item as IMenuItem)?.params?.state?.name) {
                 return (item as IMenuItem).params.state.name !== state;
-            } else if('parent' in item) {
+            } else if ('parent' in item) {
                 item.items = this.removeMenuItemsByState(item.items, state);
                 return !!item.items.length;
             } else {

@@ -43,6 +43,10 @@ export const defaultParams: Partial<ICountryAndStateCParams> = {
         insensitiveSearch: true,
         noResultText: gettext('No results available'),
         autocomplete: 'new-password',
+        deepSearch: {
+            use: true,
+            aliasesType: 'countries',
+        },
     },
     stateCode: {
         labelText: gettext('State'),

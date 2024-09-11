@@ -313,6 +313,10 @@ export namespace FormElements {
             useSearch: true,
             insensitiveSearch: true,
             noResultText: gettext('No results available'),
+            deepSearch: {
+                use: true,
+                aliasesType: 'countries',
+            },
         },
     };
 

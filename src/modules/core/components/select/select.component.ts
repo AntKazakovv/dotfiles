@@ -54,8 +54,8 @@ import {
     ISelectOptions,
 } from 'wlc-engine/modules/core';
 
-import {suggestCountry} from 'wlc-engine/modules/core/components/select/helpers/suggest-country.helper';
-import {mergeCountryAliases} from 'wlc-engine/modules/core/components/select/helpers/merge-country-aliases.helper';
+import {suggestOption} from 'wlc-engine/modules/core/components/select/helpers/suggest-option.helper';
+import {mergeAliases} from 'wlc-engine/modules/core/components/select/helpers/merge-aliases.helper';
 
 import * as Params from './select.params';
 
@@ -109,7 +109,8 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
     protected clearedValue: unknown;
     protected memoizePlaceholderText = _memoize(this.placeholderText);
 
-    private searchSubject$ = new Subject<string>();
+    protected searchSubject$ = new Subject<string>();
+    protected aliases: Params.IAlias[] = [];
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISelectCParams,
@@ -428,26 +429,23 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
     }
 
     /**
-     * The method resolve what method or methods are executing to search items (countries)
+     * The method resolve what method or methods are executing to search items (countries...)
      * List of possible execute methods: searchItems(), modifiedSearchItems(), searchInAliases(), smartSearch()
      * @method executeSearch
      * @returns {void} void
      */
     public executeSearch(): void {
-        const useAliasCheck: boolean = this.$params?.deepSearch?.useAliasCheck;
-        const useSmartSearch: boolean = this.$params?.deepSearch?.useSmartSearch;
-        const isCountrySelect: boolean = this.$params.options === 'countries';
+        const useDeepSearch: boolean = this.$params?.deepSearch?.use;
 
-        if (useAliasCheck && isCountrySelect) {
-            this.modifiedSearchItems();
-            this.searchInAliases();
-        } else {
+        if (!useDeepSearch){
             this.searchItems();
+            return;
         }
 
-        if (useSmartSearch) {
-            this.smartSearch();
-        }
+        this.prepareAliases();
+        this.modifiedSearchItems();
+        this.searchInAliases();
+        this.smartSearch();
     }
 
     /**
@@ -494,7 +492,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
      * @returns {void} void
      */
     public searchInAliases(): void {
-        if (this.foundItems.length) {
+        if (this.foundItems.length && this.aliases.length) {
             return;
         }
 
@@ -502,7 +500,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
         const regExp: RegExp = new RegExp(`(${searchText})`, this.$params.insensitiveSearch ? 'i' : '');
 
         const aliasFilterFn = (item: Params.IAlias): boolean => _some(item.aliases, alias => alias.match(regExp));
-        const matchedAliases: Params.IAlias[] = _filter(this.prepareCountryAliases(), aliasFilterFn);
+        const matchedAliases: Params.IAlias[] = this.aliases.filter(aliasFilterFn);
         const matchedTitles: string[] = _map(matchedAliases, (item) => item.value);
 
         const filterFn = (item: ISelectOptions): boolean => matchedTitles.includes(item.value.toString());
@@ -516,11 +514,11 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
      * @method prepareCountryAliases
      * @returns {IAlias[]} merged aliases from params with all countries that contains iso2 and iso3
      */
-    private prepareCountryAliases(): Params.IAlias[] {
-        const aliases: Params.IAlias[] = this.configService.get('$aliases.countryAliases');
-        const countries = this.$params.items as ICountry[];
-
-        return mergeCountryAliases(aliases, countries);
+    protected prepareAliases(): void {
+        const aliases: Record<string, Params.IAlias[]> = this.configService.get('$base.forms.aliases') || {};
+        const options: ISelectOptions<unknown>[] = this.$params.items;
+        const aliasesType: Params.TAliasesType  = this.$params.deepSearch.aliasesType;
+        this.aliases = mergeAliases(aliases, options, aliasesType);
     }
 
     /**
@@ -535,7 +533,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
         this.searchSubject$
             .pipe(debounceTime(debounceTimeMs), takeUntil(this.$destroy))
             .subscribe((inputValue) => {
-                this.foundItems = suggestCountry(inputValue,this.$params.items, this.$params.deepSearch.searchLimit);
+                this.foundItems = suggestOption(inputValue, this.$params.items, this.$params.deepSearch?.searchLimit);
                 this.cdr.markForCheck();
             });
     }

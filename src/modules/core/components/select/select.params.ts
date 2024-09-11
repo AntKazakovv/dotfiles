@@ -14,6 +14,7 @@ export type AutoModifiers = Theme | 'default';
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
 export type TComponentsWithIcon = 'phoneCode' | 'countryCode' | 'currency';
+export type TAliasesType = 'countries';
 
 export interface ISelectCParams<V = unknown>
 extends IComponentParams<ComponentTheme, ComponentType, string>, IDeepSearch {
@@ -84,8 +85,8 @@ export interface ILevenshteinDistance {
 
 export interface IDeepSearch {
     deepSearch?: {
-        useAliasCheck?: boolean;
-        useSmartSearch?: boolean;
+        use?: boolean;
+        aliasesType?: TAliasesType;
         searchLimit?: number;
     }
 }

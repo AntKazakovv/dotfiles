@@ -82,7 +82,7 @@ export class DropdownSearchComponent extends AbstractComponent implements OnInit
      * @return void
      */
     public clickOnTheSearchField(): void {
-        if(!this.isOpened) {
+        if (!this.isOpened) {
             this.isOpened = true;
         }
     }

@@ -2,6 +2,7 @@ import {
     ValidationErrors,
     ValidatorFn,
 } from '@angular/forms';
+import {IAlias} from 'wlc-engine/modules/core/components/select/select.params';
 
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {IPhoneLimits} from 'wlc-engine/modules/core/system/services/select-values/select-values.service';
@@ -21,6 +22,9 @@ export interface IFormsConfig {
         },
         showCountryNamesForPhoneCodes?: boolean;
         isoByPhoneCode?: IIndexing<string>;
+        aliases?: {
+            countries?: IAlias[],
+        };
     },
 }
 

@@ -86,7 +86,7 @@ export class TurnstileService {
             url: '/turnstile',
             type: 'GET',
         });
-        if(result.data && result.code === 200) {
+        if (result.data && result.code === 200) {
             this.turnstileSiteKey = result.data;
         } else {
             console.error('Cant get turnstile siteKey');
@@ -170,7 +170,7 @@ export class TurnstileService {
     }
 
     protected parseAction(action: string): void {
-        if(!action) return;
+        if (!action) return;
 
         const maxActionLength: number = 32;
         const hostName: string = this.window.location.host.replace(/[^\w-]/g, '_');

@@ -175,7 +175,7 @@ export class GamesSliderComponent extends AbstractComponent implements OnInit {
 
                 if (this.isMobile && !this.$params.isModal && !this.mockGamesList.length) {
                     this.getGamesForMock();
-                } else if(!this.slides.length) {
+                } else if (!this.slides.length) {
                     this.createSlides();
                 }
 

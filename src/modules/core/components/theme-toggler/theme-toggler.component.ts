@@ -115,7 +115,7 @@ export class ThemeTogglerComponent extends AbstractComponent implements OnInit {
      * It is fired by click on the toggler and emits change color theme event
      */
     public toggleThemeHandler(status?: TColorTheme): void {
-        if(!_isUndefined(status)) {
+        if (!_isUndefined(status)) {
 
             if (this.status && status === 'alt' || !this.status && status === 'default') {
                 return;
