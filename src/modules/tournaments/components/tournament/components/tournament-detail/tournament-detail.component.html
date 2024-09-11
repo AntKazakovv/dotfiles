@@ -146,14 +146,10 @@
             </div>
         </div>
 
-        <div *ngIf="tournament.terms || tournament.description" class="{{$class}}__rules">
+        <div *ngIf="tournament.terms" class="{{$class}}__rules">
             <h4 class="{{$class}}__rules--title">
                 {{$params.common?.rulesSectionTitle | translate}}
             </h4>
-
-            <div class="{{$class}}__rules--descr"
-                [innerHTML]="tournament.descriptionSafeHTML | safeValue:'html'">
-            </div>
 
             <div class="{{$class}}__rules--terms"
                 [innerHTML]="tournament.termsSafeHTML | safeValue:'html'">
@@ -297,14 +293,10 @@
             </div>
         </div>
 
-        <div *ngIf="tournament.terms || tournament.description" class="{{$class}}__rules">
+        <div *ngIf="tournament.terms" class="{{$class}}__rules">
             <h4 class="{{$class}}__rules--title">
                 {{$params.common?.rulesSectionTitle | translate}}
             </h4>
-
-            <div class="{{$class}}__rules--descr"
-                [innerHTML]="tournament.descriptionSafeHTML | safeValue:'html'">
-            </div>
 
             <div class="{{$class}}__rules--terms"
                 [innerHTML]="tournament.termsSafeHTML | safeValue:'html'">
