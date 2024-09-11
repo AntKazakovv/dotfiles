@@ -707,7 +707,17 @@ export class Catalog {
         Game.enabledMerchants = this.merchants.allMerchants;
 
         for (const item of response.games) {
-            const merchantId: string = !!item.SubMerchantID ? item.IDMerchantsCurrencies : item.MerchantID ;
+            let merchantsCurrency: string[];
+
+            if (!!Number(item.IDMerchantsCurrencies)) {
+                merchantsCurrency = this.games.merchantsCurrencies[`${item.MerchantID}=>${item.IDMerchantsCurrencies}`];
+            } else {
+                merchantsCurrency = this.games.merchantsCurrencies[`${item.SubMerchantID}`];
+            }
+
+            if (!merchantsCurrency?.length) {
+                merchantsCurrency = this.games.merchantsCurrencies[`${item.MerchantID}`];
+            }
 
             if (this.optimizationService?.useSlimImages) {
                 item.Image = this.optimizationService.getSlimImage(item.Image);
@@ -718,9 +728,7 @@ export class Catalog {
                 item,
                 this.router,
                 this.configService,
-                !!Number(item.IDMerchantsCurrencies)
-                    ? this.games.merchantsCurrencies[`${merchantId}=>${item.IDMerchantsCurrencies}`]
-                    : this.games.merchantsCurrencies[merchantId],
+                merchantsCurrency,
             );
 
             await this.hooksService.run<Game>(
