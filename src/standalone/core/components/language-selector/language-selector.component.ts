@@ -49,6 +49,7 @@ import * as Params from './language-selector.params';
 import {
     TFixedPanelStore,
 } from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
+import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 
 export {ILanguageSelectorCParams} from './language-selector.params';
 
@@ -367,6 +368,7 @@ export class LanguageSelectorComponent
         }
     }
 
+    @CustomHook('core', 'languageSelectorComponentFindLanguage')
     protected findLanguage(lang: string): ILanguage {
         return _find(this.configService.get<ILanguage[]>('appConfig.languages'), {
             code: lang,
