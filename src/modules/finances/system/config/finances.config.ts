@@ -234,4 +234,20 @@ export const financesConfig: IFinancesConfig = {
             },
         },
     },
+    payLoaderPageGenerateFn: (title: string): string => {
+        return `<html lang='en'>
+            <head>
+                <link rel="stylesheet" href="/static/css/app.loader.css">
+                <title>${title}</title>
+            </head>
+            <body>
+                <div class="wlc-app__preload">
+                    <div class="wlc-app__preload-content">
+                        <div class="wlc-app__preload-img"></div>
+                        <div class="wlc-app__preload-loader"></div>
+                    </div>
+                </div>
+            </body>
+        </html>`;
+    },
 };

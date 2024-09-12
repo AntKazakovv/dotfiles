@@ -39,6 +39,12 @@ export interface IPaymentFormCParams extends IComponentParams<ComponentTheme, Co
     depositWithdrawThemeMod?: TDepositWithdrawСThemeMod;
     /** Params for lottery widget */
     lotteryWidgetParams?: IFormComponent;
+    /** If true: a new tab will be opened without preloading, as soon as the payment url is ready.
+     * Warning: Some payments may not open in a new tab without preloading
+     *
+     * If false: a new tab will open immediately with a preloader, then redirect to the payment page
+      */
+    disableNewTabPreloader?: boolean;
 };
 
 export const timerParams: ITimerCParams = {

@@ -208,6 +208,7 @@ export class PaymentFormComponent
     private hideAmount: boolean = false;
 
     private formSubmit: HTMLFormElement;
+    private newTabRef: Window;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IPaymentFormCParams,
@@ -487,6 +488,16 @@ export class PaymentFormComponent
 
         this.formObject = form;
 
+        if (this.currentSystem.appearance === 'newtab' && !this.$params.disableNewTabPreloader) {
+            this.newTabRef = this.window.open('', '_blank');
+            const generatePageFn: Function =  this.configService.get<Function>('$finances.payLoaderPageGenerateFn');
+            const casinoName: string = this.configService.get<string>('$base.site.name') ?? 'waiting...';
+            const pageHTML: string = generatePageFn?.(casinoName) ?? 'waiting...';
+            this.newTabRef.document.write(pageHTML);
+            this.setCSSVariables(this.newTabRef, ['--mc-main', '--mc-bg', '--mc-bg700']);
+            this.newTabRef.history.pushState({}, null, '/redirect');
+        }
+
         if (this.isDeposit) {
             this.eventService.emit({
                 name: 'DEPOSIT',
@@ -576,6 +587,11 @@ export class PaymentFormComponent
                 message: FinancesHelper.errorToMessage(error),
             });
             isWithdrawSuccess = false;
+
+            if (this.newTabRef) {
+                this.newTabRef.close();
+                this.newTabRef = null;
+            }
 
             return false;
         } finally {
@@ -1377,7 +1393,13 @@ export class PaymentFormComponent
 
     protected addFormToBodyAndSubmit(response): void {
         this.formSubmit = this.createForm(response);
-        this.document.body.appendChild(this.formSubmit);
+
+        if (this.newTabRef) {
+            this.newTabRef.location = this.formSubmit.action;
+            this.newTabRef = null;
+        } else {
+            this.document.body.appendChild(this.formSubmit);
+        }
     }
 
     protected createForm(response: any): HTMLFormElement {
@@ -1650,13 +1672,22 @@ export class PaymentFormComponent
             });
             isDepositSuccess = false;
 
+            if (this.newTabRef) {
+                this.newTabRef.close();
+                this.newTabRef = null;
+            }
+
             return false;
         } finally {
-
             if (this.formSubmit && isDepositSuccess && this.currentSystem.appearance !== 'iframe') {
-                setTimeout(() => {
-                    this.formSubmit.submit();
-                }, 100);
+                if (this.newTabRef) {
+                    this.newTabRef.location = this.formSubmit.action;
+                    this.newTabRef = null;
+                } else {
+                    setTimeout(() => {
+                        this.formSubmit.submit();
+                    }, 100);
+                }
             }
 
             if (this.modalService.getActiveModal('data-is-processing')) {
@@ -1678,9 +1709,14 @@ export class PaymentFormComponent
     private checkAppearance(response: any): void {
         switch (this.currentSystem.appearance) {
             case 'newtab':
-                setTimeout(() => {
-                    this.window.open(response[1], '_blank');
-                }, 100);
+                if (this.newTabRef) {
+                    this.newTabRef.location = response[1];
+                    this.newTabRef = null;
+                } else {
+                    setTimeout(() => {
+                        this.window.open(response[1], '_blank');
+                    }, 100);
+                }
                 break;
             case 'iframe':
                 this.addFormToBodyAndSubmit(response);
@@ -1702,5 +1738,15 @@ export class PaymentFormComponent
                 this.formData$.next({amount: `${preselectedAmountsData[0]}`});
             }
         }
+    }
+
+    private setCSSVariables(targetWindow: Window, CSSVariables: string[]): void {
+        const computedStyles: CSSStyleDeclaration = getComputedStyle(this.window.document.documentElement);
+        CSSVariables.forEach((variable: string): void => {
+            targetWindow.document.documentElement.style.setProperty(
+                variable,
+                computedStyles.getPropertyValue(variable),
+            );
+        });
     }
 }

@@ -63,6 +63,9 @@ export interface IFinancesConfig {
         use: boolean;
         wager: number;
     };
+    /** Function for generating HTML content for a new independent browser tab.
+     * Display time - 1-3 seconds, then redirect to the payment page. */
+    payLoaderPageGenerateFn?: (title: string) => string;
 }
 
 export interface ITransactionHistoryAlert {
