@@ -1,6 +1,7 @@
 import {
     ChangeDetectionStrategy,
     Component,
+    inject,
     Inject,
     Input,
     OnInit,
@@ -11,10 +12,8 @@ import {
     AbstractComponent,
     ICheckboxCParams,
 } from 'wlc-engine/modules/core';
-import {
-    ICurrencyFilter,
-    WalletHelper,
-} from 'wlc-engine/modules/multi-wallet';
+import {ICurrencyFilter} from 'wlc-engine/modules/multi-wallet';
+import {WalletsService} from 'wlc-engine/modules/multi-wallet/system/services/wallets.service';
 
 import * as Params from 'wlc-engine/modules/multi-wallet/components/filters/filters.params';
 
@@ -28,16 +27,18 @@ export class FiltersComponent extends AbstractComponent implements OnInit {
     @Input() public inlineParams: Params.IFiltersParams;
     public override $params: Params.IFiltersParams;
 
-    protected readonly walletHelper = WalletHelper;
+    public readonly walletsService: WalletsService = inject(WalletsService);
 
-    constructor(
-        @Inject('injectParams') protected injectParams: Params.IFiltersParams,
-    ) {
+    constructor(@Inject('injectParams') protected injectParams: Params.IFiltersParams) {
         super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
+    }
+
+    public getCurrencyIconUrl(currency: string): string {
+        return this.walletsService.getCurrencyIconUrl(currency);
     }
 
     public createCheckboxParams(currency: ICurrencyFilter): ICheckboxCParams {
@@ -47,7 +48,7 @@ export class FiltersComponent extends AbstractComponent implements OnInit {
                 this.$params.currencies[
                     this.$params.currencies.findIndex((item: ICurrencyFilter) => item.name === currency.name)
                 ].isUsed = isUsed;
-                WalletHelper.currencies = this.$params.currencies
+                this.walletsService.currencies = this.$params.currencies
                     .filter((currency: ICurrencyFilter) => !currency.isUsed);
             },
             theme: 'toggle',

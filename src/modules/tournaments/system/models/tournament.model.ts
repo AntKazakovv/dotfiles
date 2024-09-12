@@ -25,7 +25,6 @@ import {
 import {TournamentsService} from 'wlc-engine/modules/tournaments/system/services/tournaments/tournaments.service';
 import {AbstractTournamentModel} from 'wlc-engine/modules/tournaments/system/models/abstract-tournament.model';
 import {CurrenciesInfo} from 'wlc-engine/modules/core/constants/currencies-info.constants';
-import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
 
 export class Tournament extends AbstractTournamentModel<ITournament> {
     public hasGames: boolean = false;
@@ -378,20 +377,20 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
 
             if (moneyPrize) {
                 prizes.push({
-                    currency: WalletHelper.conversionCurrency ?? tournamentCurrency,
+                    currency: this.tournamentsService.walletsService?.conversionCurrency ?? tournamentCurrency,
                     value: moneyPrize * (AbstractTournamentModel.useUsersCurrency
-                        ? WalletHelper.coefficientOriginalCurrencyConversion
-                        : WalletHelper.coefficientConversionEUR),
+                        ? this.tournamentsService.walletsService?.coefficientOriginalCurrencyConversion
+                        : this.tournamentsService.walletsService?.coefficientConversionEUR) || 1,
                 });
             }
 
             prizes.push(...specialPrizes);
         } else {
             prizes.push({
-                currency: WalletHelper.conversionCurrency ?? tournamentCurrency,
+                currency: this.tournamentsService.walletsService?.conversionCurrency ?? tournamentCurrency,
                 value: _toNumber(rawPrizeRow) * (AbstractTournamentModel.useUsersCurrency
-                    ? WalletHelper.coefficientOriginalCurrencyConversion
-                    : WalletHelper.coefficientConversionEUR),
+                    ? this.tournamentsService.walletsService?.coefficientOriginalCurrencyConversion
+                    : this.tournamentsService.walletsService?.coefficientConversionEUR) || 1,
             });
         }
         return prizes;

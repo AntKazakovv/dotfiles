@@ -5,7 +5,6 @@ import {
     Input,
     OnInit,
     inject,
-    ChangeDetectorRef,
 } from '@angular/core';
 
 import _assign from 'lodash-es/assign';
@@ -27,7 +26,6 @@ import {
 
 import {
     AbstractComponent,
-    ConfigService,
     EventService,
     IIndexing,
     ModalService,
@@ -46,10 +44,10 @@ import {
     ICurrencyFilter,
     MultiWalletEvents,
 } from 'wlc-engine/modules/multi-wallet/system/interfaces/wallet.interface';
-import {WalletHelper} from 'wlc-engine/modules/multi-wallet/system/helpers/wallet.helper';
 import {IFiltersParams} from 'wlc-engine/modules/multi-wallet/components/filters/filters.params';
 import {RatesCurrencyService} from 'wlc-engine/modules/rates';
 import {TUpdateProfileRes} from 'wlc-engine/modules/user/system/services/user/user.service';
+import {WalletsService} from 'wlc-engine/modules/multi-wallet/system/services/wallets.service';
 
 import * as Params from './wallets.params';
 
@@ -77,9 +75,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
     public walletListRead: boolean = false;
     public hideSettings: boolean;
 
-    protected showDepositBtn;
-
-    protected readonly walletHelper = WalletHelper;
+    protected readonly walletsService: WalletsService = inject(WalletsService);
     protected readonly eventService: EventService = inject(EventService);
     protected readonly modalService: ModalService = inject(ModalService);
     protected readonly userService: UserService = inject(UserService);
@@ -91,13 +87,12 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
     protected $coefficientResolve: () => void;
     protected createWalletListReady: Promise<void>;
     protected $createWalletListResolve: () => void;
+    protected showDepositBtn: boolean;
 
     private searchQuery: string = '';
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.WalletsParams,
-        protected override cdr: ChangeDetectorRef,
-        protected override configService: ConfigService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams});
     }
@@ -140,7 +135,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
                 this.cdr.detectChanges();
             });
         this.eventService.subscribe({name: 'LOGOUT'}, (): void => {
-            WalletHelper.conversionReset();
+            this.walletsService.conversionReset();
         });
         this.eventService.subscribe([
             {name: MultiWalletEvents.CreateWallet},
@@ -160,13 +155,14 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
             : item.balance;
     }
 
-    protected get displayedBalance(): string {
-        return this.isConvert ? (Number(this.currentWallet.balance) * WalletHelper.coefficientConversion)
-            .toFixed(2) : <string>this.currentWallet.balance;
+    public get displayedBalance(): string {
+        return this.isNeedConversion()
+            ? (Number(this.currentWallet.balance) * this.walletsService.coefficientConversion).toFixed(2)
+            : <string>this.currentWallet.balance;
     }
 
-    protected get displayedCurrency(): string {
-        return this.isConvert ? WalletHelper.walletSettings?.currency : null;
+    public get displayedCurrency(): string {
+        return this.isNeedConversion() ? this.walletsService.walletSettings?.currency : null;
     }
 
     protected get showSettings(): boolean {
@@ -177,8 +173,12 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
         return this.$params.filterIcon;
     }
 
+    public getCurrencyIconUrl(currency: string): string {
+        return this.walletsService.getCurrencyIconUrl(currency);
+    }
+
     protected get isConvert(): boolean {
-        return !this.isFinance && WalletHelper.walletSettings?.conversionInFiat;
+        return !this.isFinance && this.walletsService.walletSettings?.conversionInFiat;
     }
 
     protected isConvertBalanceWallet(wallet: IWallet): boolean {
@@ -186,7 +186,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
     }
 
     protected async onChangingWallet(item: IWallet): Promise<void> {
-        this.currentWallet = WalletHelper.createCurrentWallet(
+        this.currentWallet = this.walletsService.createCurrentWallet(
             this.userService.userInfo.wallets,
             item.currency,
             item.displayName,
@@ -270,7 +270,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
             showConfirmBtn: false,
             dismissAll: true,
             onModalHide: () => this.userService.updateProfile(
-                {extProfile: {unusedCurrencies: WalletHelper.currencies}},
+                {extProfile: {unusedCurrencies: this.walletsService.currencies}},
                 {updatePartial: true},
             ),
         });
@@ -296,7 +296,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
             const balance: number = Number(wallet.balance);
             wallet.balance = from(this.ratesService.getRate({
                 currencyFrom: currency,
-                currencyTo: WalletHelper.walletSettings.currency,
+                currencyTo: this.walletsService.walletSettings.currency,
             })).pipe(
                 map((value: number) => Number(balance) * value),
             );
@@ -362,16 +362,16 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
     private async initSelector(): Promise<void> {
 
         if (!this.isFinance) {
-            WalletHelper.currencies = this.userService.userProfile.unusedCurrencies;
+            this.walletsService.currencies = this.userService.userProfile.unusedCurrencies;
         }
 
         this.currencies = this.currencyService.regCurrencies;
         await this.initCurrentWallet();
 
         if (this.userService.userProfile.extProfile.conversionCurrency) {
-            WalletHelper.walletSettings = this.userService.userProfile.extProfile.conversionCurrency;
+            this.walletsService.walletSettings = this.userService.userProfile.extProfile.conversionCurrency;
         } else {
-            WalletHelper.walletSettings = {
+            this.walletsService.walletSettings = {
                 hideWalletsWithZeroBalance: false,
                 conversionInFiat: false,
                 currency: null,
@@ -384,7 +384,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
 
         this.isShowWalletSelector = true;
         this.cdr.markForCheck();
-        WalletHelper.$resolveMultiWallet();
+        this.walletsService.$resolveMultiWallet();
 
         const hour: number = 1000 * 60 * 60;
 
@@ -415,7 +415,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
             let walletsArray: IWallet[] = Object.values(wallets);
 
             if (currentCurrency) {
-                this.walletList.push(WalletHelper.createCurrentWallet(
+                this.walletList.push(this.walletsService.createCurrentWallet(
                     wallets,
                     this.currentWallet?.currency || this.userService.userProfile.selectedCurrency,
                     this.currentWallet?.displayName || this.userService.userProfile.selectedCurrency,
@@ -426,7 +426,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
                 this.walletList.push(walletsArray[0]);
             } else {
                 let currencies: ICurrency<string>[] = _sortBy(this.currencies, ['DisplayName', 'Name']);
-                this.walletList.push(WalletHelper.createCurrentWallet(
+                this.walletList.push(this.walletsService.createCurrentWallet(
                     wallets,
                     currencies[0].Name,
                     currencies[0].DisplayName,
@@ -467,7 +467,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
     }
 
     private filteredWallets(currency: string, wallet: IWallet): void {
-        const currentCurrencyUnused: ICurrencyFilter = WalletHelper.currencies
+        const currentCurrencyUnused: ICurrencyFilter = this.walletsService.currencies
             ?.find((item: ICurrencyFilter) => item.name === currency);
 
         if (!currentCurrencyUnused) {
@@ -513,7 +513,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
             currency.displayName.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
             currency.currency.toLowerCase().includes(this.searchQuery.toLowerCase());
 
-        const zeroBalanceCondition: boolean = WalletHelper.walletSettings?.hideWalletsWithZeroBalance
+        const zeroBalanceCondition: boolean = this.walletsService.walletSettings?.hideWalletsWithZeroBalance
             && !this.searchQuery.length && !this.isFinance;
 
         this.walletList = this.walletList.filter((currency: IWallet) => searchCondition(currency)
@@ -528,43 +528,49 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
     }
 
     private async updateConversionCoefficient(): Promise<void> {
-        WalletHelper.rates = {};
+        this.walletsService.rates = {};
 
-        if (!WalletHelper.walletSettings.currency?.length) {
-            WalletHelper.walletSettings.conversionInFiat = false;
+        if (!this.walletsService.walletSettings.currency?.length) {
+            this.walletsService.walletSettings.conversionInFiat = false;
         }
 
-        if (WalletHelper.walletSettings.conversionInFiat) {
-            WalletHelper.coefficientConversion = await this.ratesService.getRate({
+        if (this.walletsService.walletSettings.conversionInFiat) {
+            this.walletsService.coefficientConversion = await this.ratesService.getRate({
                 currencyFrom: this.currentWallet.currency,
-                currencyTo: WalletHelper.walletSettings.currency,
+                currencyTo: this.walletsService.walletSettings.currency,
             });
 
-            WalletHelper.coefficientOriginalCurrencyConversion = WalletHelper.coefficientConversion;
+            this.walletsService.coefficientOriginalCurrencyConversion = this.walletsService.coefficientConversion;
 
             if (this.currentWallet.currency !== this.userService.userProfile.originalCurrency) {
-                WalletHelper.coefficientOriginalCurrencyConversion = await this.ratesService.getRate({
+                this.walletsService.coefficientOriginalCurrencyConversion = await this.ratesService.getRate({
                     currencyFrom: this.userService.userProfile.originalCurrency,
-                    currencyTo: WalletHelper.walletSettings.currency,
+                    currencyTo: this.walletsService.walletSettings.currency,
                 });
             }
 
             if (this.currentWallet.currency === 'EUR') {
-                WalletHelper.coefficientConversionEUR = WalletHelper.coefficientConversion;
+                this.walletsService.coefficientConversionEUR = this.walletsService.coefficientConversion;
             } else if (this.userService.userProfile.originalCurrency === 'EUR') {
-                WalletHelper.coefficientConversionEUR = WalletHelper.coefficientOriginalCurrencyConversion;
+                this.walletsService.coefficientConversionEUR =
+                    this.walletsService.coefficientOriginalCurrencyConversion;
             } else {
-                WalletHelper.coefficientConversionEUR = await this.ratesService.getRate({
+                this.walletsService.coefficientConversionEUR = await this.ratesService.getRate({
                     currencyFrom: 'EUR',
-                    currencyTo: WalletHelper.walletSettings.currency,
+                    currencyTo: this.walletsService.walletSettings.currency,
                 });
             }
 
         } else {
-            WalletHelper.conversionReset();
+            this.walletsService.conversionReset();
         }
 
         this.userService.userInfo$.next(this.userService.userInfo);
         this.eventService.emit({name: MultiWalletEvents.CurrencyConversionChanged});
+    }
+
+    protected isNeedConversion(currency: string = this.currentWallet.currency): boolean {
+        return !this.isFinance && this.walletsService.walletSettings?.conversionInFiat
+            && currency !== this.walletsService.walletSettings?.currency;
     }
 }

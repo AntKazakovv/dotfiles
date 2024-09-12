@@ -56,9 +56,9 @@ import {
     Transaction,
     ITransaction,
 } from 'wlc-engine/modules/history/system/models/transaction-history/transaction-history.model';
-import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
 import {HistoryHelper} from 'wlc-engine/modules/history/system/helpers';
 import {RatesCurrencyService} from 'wlc-engine/modules/rates';
+import {WalletsService} from 'wlc-engine/modules/multi-wallet/system/services/wallets.service';
 
 interface IBonusesData extends IData {
     data?: TBonusesHistory;
@@ -92,6 +92,7 @@ type RestType = 'bonusesHistory' | 'tournamentsHistory';
     providedIn: 'root',
 })
 export class HistoryService {
+    protected walletsService: WalletsService;
 
     protected historyBonuses: BonusHistoryItemModel[] = [];
 
@@ -122,6 +123,7 @@ export class HistoryService {
         private logService: LogService,
         private translateService: TranslateService,
     ) {
+        this.setMultiWallet();
         this.registerMethods();
         this.setSubscribers();
     }
@@ -148,8 +150,11 @@ export class HistoryService {
 
                 this.historyBonuses = _map((res as IData<TBonusesHistory>).data,
                     (bonus: IBonusHistory): BonusHistoryItemModel => {
-                        return (
-                            new BonusHistoryItemModel({service: 'BonusesService', method: 'queryBonuses'}, bonus)
+
+                        return new BonusHistoryItemModel(
+                            this.walletsService,
+                            {service: 'BonusesService', method: 'queryBonuses'},
+                            bonus,
                         );
                     });
 
@@ -203,15 +208,15 @@ export class HistoryService {
                     'tournaments/tournaments', queryParams,
                 );
                 //TODO нужно удалить при рефакторинге
-                if (WalletHelper.conversionCurrency) {
+                if (this.walletsService?.conversionCurrency) {
 
                     this.ratesService ??=
                         await this.injectionService.getService<RatesCurrencyService>('rates.rates-currency-service');
 
-                    WalletHelper.coefficientConversionEUR = await this.ratesService.getRate(
+                    this.walletsService.coefficientConversionEUR = await this.ratesService.getRate(
                         {
                             currencyFrom: 'EUR',
-                            currencyTo: WalletHelper.conversionCurrency,
+                            currencyTo: this.walletsService.conversionCurrency,
                         },
                     );
                 }
@@ -396,10 +401,10 @@ export class HistoryService {
                         if (value) {
                             let prize: ITournamentPrize = {currency, value};
 
-                            if (WalletHelper.conversionCurrency) {
+                            if (this.walletsService.conversionCurrency) {
                                 prize = {
-                                    currency: WalletHelper.conversionCurrency,
-                                    value: value * WalletHelper.coefficientConversionEUR,
+                                    currency: this.walletsService.conversionCurrency,
+                                    value: value * this.walletsService.coefficientConversionEUR,
                                 };
                             }
                             result.push(prize);
@@ -414,10 +419,10 @@ export class HistoryService {
                     value: moneyWin,
                 };
 
-                if (WalletHelper.conversionCurrency) {
+                if (this.walletsService.conversionCurrency) {
                     prize = {
-                        currency: WalletHelper.conversionCurrency,
-                        value: moneyWin * WalletHelper.coefficientConversionEUR,
+                        currency: this.walletsService.conversionCurrency,
+                        value: moneyWin * this.walletsService.coefficientConversionEUR,
                     };
                 }
 
@@ -430,10 +435,10 @@ export class HistoryService {
                 value: Number(rawWinRow),
             };
 
-            if (WalletHelper.conversionCurrency) {
+            if (this.walletsService?.conversionCurrency) {
                 prize = {
-                    currency: WalletHelper.conversionCurrency,
-                    value: Number(rawWinRow) * WalletHelper.coefficientConversionEUR,
+                    currency: this.walletsService.conversionCurrency,
+                    value: Number(rawWinRow) * this.walletsService.coefficientConversionEUR,
                 };
             }
             wins.push(prize);
@@ -469,8 +474,12 @@ export class HistoryService {
         try {
             const response: IData<Transaction[]> = await this.dataService
                 .request<IData>('finances/transactions', params);
-            const transactions: Transaction[] = await HistoryHelper
-                .conversionCurrency<Transaction>(this.injectionService, response.data);
+            const transactions: Transaction[] = await HistoryHelper.conversionCurrency<Transaction>(
+                this.injectionService,
+                response.data,
+                this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet'),
+            );
+
             return transactions;
         } catch (error) {
             //TODO need to be implemented in release 1.81: remove ELSE-IF block. More info: #635561.
@@ -592,5 +601,11 @@ export class HistoryService {
             {service: 'HistoryService', method: 'createOrders'},
             item,
         ));
+    }
+
+    private async setMultiWallet(): Promise<void> {
+        if (this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet')) {
+            this.walletsService = await this.injectionService.getService<WalletsService>('multi-wallet.wallet-service');
+        }
     }
 }

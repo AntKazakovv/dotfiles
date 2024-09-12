@@ -7,7 +7,7 @@ import _toString from 'lodash-es/toString';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {IWrapperCParams} from 'wlc-engine/modules/core/components/wrapper/wrapper.component';
 import {ICurrencyCParams} from 'wlc-engine/modules/core/components/currency/currency.params';
-import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
+import {WalletsService} from 'wlc-engine/modules/multi-wallet/system/services/wallets.service';
 
 import * as Params from './table.params';
 
@@ -24,6 +24,7 @@ export class TableRowModel {
     public paramsInjector: IIndexing<Injector> = {};
 
     constructor(
+        protected readonly walletsService: WalletsService,
         private data: unknown,
         private params: Params.ITableCParams,
     ) {
@@ -55,10 +56,11 @@ export class TableRowModel {
                 if (col.component === 'core.wlc-currency' && currency) {
 
                     if (col.useCurrencyIcon) {
+
                         return defaultValue = {
                             value: <string>defaultValue,
-                            currency: WalletHelper.conversionCurrency ?? currency,
-                            showValueOnly: !WalletHelper.conversionCurrency,
+                            currency: this.walletsService?.conversionCurrency ?? currency,
+                            showValueOnly: !this.walletsService?.conversionCurrency,
                             useCurrencyIcon: true,
                         };
                     }

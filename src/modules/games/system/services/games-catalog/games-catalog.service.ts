@@ -126,11 +126,11 @@ import {
 } from 'wlc-engine/modules/core';
 import {Games} from 'wlc-engine/modules/games/system/classes/games';
 import {GameLauncherService} from 'wlc-engine/modules/games/system/services/game-launcher/game-launcher.service';
-import {ISelectedWallet} from 'wlc-engine/modules/multi-wallet/system/interfaces';
-import {WalletsService} from 'wlc-engine/modules/multi-wallet/system/services';
 import {
     zingBrainCategoryMap,
 } from 'wlc-engine/modules/games/system/constants/recommended-games.constants';
+import {ISelectedWallet} from 'wlc-engine/modules/multi-wallet';
+import {WalletsService} from 'wlc-engine/modules/multi-wallet/system/services/wallets.service';
 
 export interface ILaunchGameModal {
     show: boolean;

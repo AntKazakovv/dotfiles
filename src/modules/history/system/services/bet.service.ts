@@ -11,6 +11,7 @@ import {
     DataService,
     LogService,
     InjectionService,
+    ConfigService,
 } from 'wlc-engine/modules/core';
 import {IBet} from 'wlc-engine/modules/profile/system/interfaces/bet.interfaces';
 import {HistoryHelper} from 'wlc-engine/modules/history/system/helpers';
@@ -36,6 +37,7 @@ export class BetService {
         protected dataService: DataService,
         private logService: LogService,
         private injectionService: InjectionService,
+        private configService: ConfigService,
     ) {
         this.registerMethods();
     }
@@ -103,7 +105,9 @@ export class BetService {
             const response: IData<IBet[]> = await this.dataService.request<IData>('profile/bets', params);
             const bets: Bet[] = await HistoryHelper.conversionCurrency<Bet>(
                 this.injectionService,
-                (response.data) as unknown as Bet[]);
+                (response.data) as unknown as Bet[],
+                this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet'),
+            );
 
             return bets;
         } catch (error) {

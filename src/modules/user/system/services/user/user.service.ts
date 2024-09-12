@@ -98,6 +98,7 @@ import {
     TwoFactorAuthService,
 } from 'wlc-engine/modules/user/submodules/two-factor-auth/system/services/two-factor-auth/two-factor-auth.service';
 import {LocalJackpotsService} from 'wlc-engine/modules/local-jackpots';
+import {WalletsService} from 'wlc-engine/modules/multi-wallet/system/services/wallets.service';
 
 export enum LanguageChangeEvents {
     ChangeLanguage = 'CHANGE_LANGUAGE'
@@ -175,6 +176,7 @@ export class UserService {
     public isAuthenticated: boolean;
     public isAuth$: BehaviorSubject<boolean> = this.configService.get('$user.isAuth$');
 
+    protected walletsService: WalletsService;
     protected info: UserInfo;
     protected profile: UserProfile;
     protected userInfoHandler: Subscription;
@@ -256,9 +258,8 @@ export class UserService {
         this.isAuth$ ??= this.configService.get('$user.isAuth$');
         this.isAuthenticated = this.configService.get('$user.isAuthenticated');
         this.useAchievements = this.configService.get<boolean>('$base.profile.achievements.use');
-        this.isMultiWallet = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
         this.useLastWithdrawCancel = this.configService.get<boolean>('$base.finances.lastWithdrawCancelWidget');
-
+        await this.setMultiWallet();
         this.userProfile$.subscribe((profile) => {
             this.configUserProfile$.next(profile);
         });
@@ -282,6 +283,7 @@ export class UserService {
         this.info = new UserInfo(
             {service: 'UserService', method: 'constructor'},
             this.translateService,
+            this.walletsService,
         );
         this.profile = new UserProfile({service: 'UserService', method: 'constructor'},
             this.fileService, this.configService);
@@ -606,6 +608,7 @@ export class UserService {
         this.info = new UserInfo(
             {service: 'UserService', method: 'constructor'},
             this.translateService,
+            this.walletsService,
         );
         this.setUserInfo();
         this.profile = new UserProfile({service: 'UserService', method: 'constructor'},
@@ -1716,5 +1719,13 @@ export class UserService {
             backdrop: 'static',
         });
         this.isShowSessionEndedModal = false;
+    }
+
+    private async setMultiWallet(): Promise<void> {
+        this.isMultiWallet = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
+
+        if (this.isMultiWallet) {
+            this.walletsService = await this.injectionService.getService<WalletsService>('multi-wallet.wallet-service');
+        }
     }
 }

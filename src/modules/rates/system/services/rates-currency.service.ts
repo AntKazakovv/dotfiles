@@ -1,30 +1,35 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 
 import {
+    ConfigService,
     DataService,
     EventService,
     IData,
+    InjectionService,
     IPushMessageParams,
     LogService,
     NotificationEvents,
 } from 'wlc-engine/modules/core';
-import {
-    ICurrencyConversion,
-    WalletHelper,
-} from 'wlc-engine/modules/multi-wallet';
+import {ICurrencyConversion} from 'wlc-engine/modules/multi-wallet';
 import {IRatesCurrency} from 'wlc-engine/modules/rates/system/interfaces';
 import {RateCurrencyModel} from 'wlc-engine/modules/rates/system/models/rates-currency.model';
+import {WalletsService} from 'wlc-engine/modules/multi-wallet/system/services/wallets.service';
 
 @Injectable({
     providedIn: 'root',
 })
 export class RatesCurrencyService {
+    public walletsService: WalletsService;
+
+    protected readonly configService: ConfigService = inject(ConfigService);
 
     constructor(
         protected logService: LogService,
+        protected injectionService: InjectionService,
         private dataService: DataService,
         private eventService: EventService,
     ) {
+        this.setMultiWallet();
     }
 
     public async getRateCurrency(cryptoCurrency: string, currency: string): Promise<RateCurrencyModel> {
@@ -57,7 +62,7 @@ export class RatesCurrencyService {
             return 1;
         }
 
-        let rate: number = WalletHelper.rates[`${body.currencyFrom}->${body.currencyTo}`];
+        const rate: number = this.walletsService?.rates[`${body.currencyFrom}->${body.currencyTo}`];
 
         if (rate) {
             return rate;
@@ -69,10 +74,14 @@ export class RatesCurrencyService {
                     url: `/estimate?currencyFrom=${body.currencyFrom}&currencyTo=${body.currencyTo}`,
                     type: 'GET',
                 });
-                WalletHelper.rates = {
-                    ...WalletHelper.rates,
-                    [`${body.currencyFrom}->${body.currencyTo}`]: response.data.estimatedAmount,
-                };
+
+                if (this.walletsService) {
+                    this.walletsService.rates = {
+                        ...this.walletsService.rates,
+                        [`${body.currencyFrom}->${body.currencyTo}`]: response.data.estimatedAmount,
+                    };
+                }
+
                 return response.data.estimatedAmount;
 
             } catch (error) {
@@ -92,5 +101,11 @@ export class RatesCurrencyService {
             }
         }
 
+    }
+
+    private async setMultiWallet(): Promise<void> {
+        if (this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet')) {
+            this.walletsService = await this.injectionService.getService<WalletsService>('multi-wallet.wallet-service');
+        }
     }
 }

@@ -9,11 +9,12 @@ import {
 } from 'wlc-engine/modules/core';
 import {IBonusHistory} from 'wlc-engine/modules/history/system/interfaces/bonus-history/bonus-history.interface';
 import {TBonusFilter} from 'wlc-engine/modules/history/system/interfaces/history-filter.interface';
-import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
+import {WalletsService} from 'wlc-engine/modules/multi-wallet/system/services/wallets.service';
 
 export class BonusHistoryItemModel extends AbstractModel<IBonusHistory> {
 
     constructor(
+        protected readonly walletsService: WalletsService,
         from: IFromLog,
         data: any,
     ) {
@@ -34,7 +35,8 @@ export class BonusHistoryItemModel extends AbstractModel<IBonusHistory> {
     }
 
     public get Balance(): string {
-        return _toString(_toNumber(this.data.Balance) * WalletHelper.coefficientOriginalCurrencyConversion);
+        return _toString(_toNumber(this.data.Balance)
+            * (this.walletsService?.coefficientOriginalCurrencyConversion || 1));
     }
 
     public get LoyaltyPoints(): string {
@@ -70,7 +72,7 @@ export class BonusHistoryItemModel extends AbstractModel<IBonusHistory> {
     }
 
     public get currency(): string {
-        return WalletHelper.conversionCurrency ?? this.data.Currency;
+        return this.walletsService?.conversionCurrency ?? this.data.Currency;
     }
 
     protected modifyData(historyItem: any): any {

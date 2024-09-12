@@ -42,8 +42,8 @@ describe('BonusConfirmationComponent', () => {
             ' bonusInfo',
             [],
             {
-                bonusBalanceDecrease: '2',
-                realBalanceDecrease: '4',
+                bonusBalanceDecrease: 2,
+                realBalanceDecrease: 4,
                 currency: 'EUR',
             });
 

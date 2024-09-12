@@ -24,10 +24,7 @@ import {
     ITournamentPlace,
 } from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
 import {TournamentsService} from 'wlc-engine/modules/tournaments/system/services/tournaments/tournaments.service';
-import {
-    IAmount,
-    WalletHelper,
-} from 'wlc-engine/modules/multi-wallet';
+import {IAmount} from 'wlc-engine/modules/multi-wallet';
 import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 
 export abstract class AbstractTournamentModel<T extends ITournamentAbstract> extends AbstractModel<T> {
@@ -145,7 +142,7 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
     }
 
     public get feeAmountConversion(): number {
-        return this.feeAmount * WalletHelper.coefficientConversion;
+        return this.feeAmount * this.tournamentsService.walletsService?.coefficientConversion || 1;
     }
 
     public get id(): number {
@@ -232,7 +229,7 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
         } else {
             if (this.useConversionInFiat) {
                 amount = this.feeAmountConversion;
-                conversionCurrency = WalletHelper.conversionCurrency;
+                conversionCurrency = this.tournamentsService.walletsService.conversionCurrency;
             } else {
                 amount = this.data.FeeAmount[walletCurrency];
             }

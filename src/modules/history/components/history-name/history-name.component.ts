@@ -11,7 +11,6 @@ import {
     AbstractComponent,
     IMixedParams,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
 
 import {IHistoryNameItem} from './history-name.params';
 import * as Params  from './history-name.params';
@@ -32,7 +31,6 @@ export class HistoryNameComponent extends AbstractComponent implements OnInit {
     public itemCurrency: string;
 
     protected readonly isMultiWalletOn: boolean = this.configService.get('appConfig.siteconfig.isMultiWallet');
-    protected readonly WalletHelper = WalletHelper;
 
     constructor(
         @Inject('injectParams') protected params: Params.IHistoryNameParams,

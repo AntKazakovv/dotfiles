@@ -34,12 +34,12 @@
          wlc-currency
          [value]="displayedBalance"
          [currency]="displayedCurrency"
-         [showValueOnly]="!isConvert"
+         [showValueOnly]="!isNeedConversion()"
      ></span>
     <span
         wlc-icon
         class="currency"
-        iconPath="{{walletHelper.getCurrencyIconUrl(currentWallet.currency)}}"
+        iconPath="{{walletsService.getCurrencyIconUrl(currentWallet.currency)}}"
         wlcElement="icon_currency"></span>
 </ng-template>
 
@@ -107,7 +107,7 @@
                <span
                    wlc-icon
                    class="currency"
-                   iconPath="{{walletHelper.getCurrencyIconUrl(item.currency)}}"
+                   iconPath="{{getCurrencyIconUrl(item.currency)}}"
                    wlcElement="icon_currency"></span>
             </div>
             {{item.displayName}}
@@ -117,6 +117,7 @@
             class="{{$class}}__value"
             [value]="getWalletBalance(item) | async"
             [currency]="displayedCurrency"
-            [showValueOnly]="!isConvert"></span>
+            [showValueOnly]="!isNeedConversion()"
+   ></span>
     </div>
 </ng-template>

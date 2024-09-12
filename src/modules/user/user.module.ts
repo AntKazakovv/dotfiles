@@ -46,7 +46,6 @@ import {
 import {
     PasswordConfirmationFormComponent,
 } from 'wlc-engine/modules/user/components/password-confirmation-form/password-confirmation-form.component';
-import {MultiWalletModule} from 'wlc-engine/modules/multi-wallet/multi-wallet.module';
 import {
     LogoutConfirmationComponent,
 } from 'wlc-engine/modules/user/components/logout-confirmation/logout-confirmation.component';
@@ -142,7 +141,6 @@ export const components = {
     imports: [
         CoreModule,
         UIRouterModule,
-        MultiWalletModule,
     ],
     providers: [
         DataService,

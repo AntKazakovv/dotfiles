@@ -7,6 +7,7 @@ import {
     IData,
     DataService,
     LogService,
+    InjectionService,
 } from 'wlc-engine/modules/core';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {IBonus} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
@@ -16,17 +17,22 @@ import {
     ITransferResponse,
 } from 'wlc-engine/modules/transfer/system/interfaces';
 import {TransferModel} from 'wlc-engine/modules/transfer/system/models';
+import {WalletsService} from 'wlc-engine/modules/multi-wallet/system/services/wallets.service';
 
 @Injectable({
     providedIn: 'root',
 })
 export class TransferService {
+    protected walletsService: WalletsService;
+
     constructor(
+        public injectionService: InjectionService,
         private dataService: DataService,
         private logService: LogService,
         private configService: ConfigService,
     ) {
         this.registerMethods();
+        this.setMultiWallet();
     }
 
     /**
@@ -73,6 +79,7 @@ export class TransferService {
                 return new Bonus(
                     {service: 'TransferService', method: 'getBonusInfo'},
                     response.data,
+                    this.walletsService,
                     this.configService,
                 );
             } else {
@@ -116,6 +123,12 @@ export class TransferService {
         } catch(error) {
             this.logService.sendLog({code: '27.0.1', data: error});
             return Promise.reject(error);
+        }
+    }
+
+    private async setMultiWallet(): Promise<void> {
+        if (this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet')) {
+            this.walletsService = await this.injectionService.getService<WalletsService>('multi-wallet.wallet-service');
         }
     }
 

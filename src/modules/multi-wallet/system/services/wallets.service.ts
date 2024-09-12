@@ -1,11 +1,14 @@
 import {Injectable} from '@angular/core';
 
 import _toNumber from 'lodash-es/toNumber';
+import _assign from 'lodash-es/assign';
 
 import {
     DataService,
     EventService,
+    GlobalHelper,
     IData,
+    IIndexing,
     InjectionService,
     IPushMessageParams,
     LogService,
@@ -14,14 +17,29 @@ import {
 import {UserService} from 'wlc-engine/modules/user';
 import {
     ICreatedWallet,
+    ICurrencyFilter,
     ISelectedWallet,
+    IWallet,
+    IWalletsSettings,
     MultiWalletEvents,
-} from 'wlc-engine/modules/multi-wallet/system/interfaces/wallet.interface';
+} from 'wlc-engine/modules/multi-wallet';
 
 @Injectable({
     providedIn: 'root',
 })
 export class WalletsService {
+    public coefficientOriginalCurrencyConversion: number = 1;
+    public coefficientConversion: number = 1;
+    public coefficientConversionEUR: number = 1;
+    public conversionCurrency: string;
+    public rates: IIndexing<number> = {};
+    public currencies: ICurrencyFilter[];
+    public walletSettings: IWalletsSettings;
+
+    public readyMultiWallet: Promise<void> = new Promise((resolve: () => void): void => {
+        this.$resolveMultiWallet = resolve;
+    });
+    public $resolveMultiWallet: () => void;
 
     private userService: UserService;
 
@@ -31,6 +49,36 @@ export class WalletsService {
         private injectionService: InjectionService,
         private eventService: EventService,
     ) {
+    }
+
+    public createCurrentWallet(
+        wallets: IIndexing<IWallet>,
+        currency: string,
+        displayName: string,
+    ): IWallet {
+        let currentWallet: IWallet = _assign({}, wallets)[currency];
+
+        if (!currentWallet) {
+            currentWallet = {
+                currency: currency,
+                balance: '0',
+                availableWithdraw: '0',
+            };
+        }
+        currentWallet.balance = _toNumber(currentWallet.balance).toFixed(2);
+        currentWallet.displayName = displayName;
+        return currentWallet;
+    }
+
+    public conversionReset(): void {
+        this.coefficientConversion = 1;
+        this.coefficientOriginalCurrencyConversion = 1;
+        this.coefficientConversionEUR = 1;
+        this.conversionCurrency = null;
+    }
+
+    public getCurrencyIconUrl(currency: string): string {
+        return GlobalHelper.proxyUrl(`/wlc/icons/currencies/${currency.toLowerCase()}.svg`);
     }
 
     public async addWallet(currency: string): Promise<string> {

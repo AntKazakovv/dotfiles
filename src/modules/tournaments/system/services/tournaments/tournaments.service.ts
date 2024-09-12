@@ -47,6 +47,7 @@ import {
 } from '../../interfaces/tournaments.interface';
 import {UserProfile} from 'wlc-engine/modules/user';
 import {MultiWalletEvents} from 'wlc-engine/modules/multi-wallet';
+import {WalletsService} from 'wlc-engine/modules/multi-wallet/system/services/wallets.service';
 
 interface ITournamentData extends IData {
     data?: ITournament;
@@ -59,6 +60,7 @@ export class TournamentsService {
     public tournaments: Tournament[] = [];
     public isProcessed$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     public profile: UserProfile = {} as UserProfile;
+    public walletsService: WalletsService;
 
     private subjects = {
         tournaments$: new BehaviorSubject<Tournament[]>(null),
@@ -78,6 +80,7 @@ export class TournamentsService {
         private logService: LogService,
         private injectionService: InjectionService,
     ) {
+        this.setMultiWallet();
         this.registerMethods();
         this.setSubscribers();
     }
@@ -550,5 +553,11 @@ export class TournamentsService {
     private prepareTournamentActionData(res: unknown, tournament: Tournament): Tournament {
         _extend(tournament.data, res);
         return tournament;
+    }
+
+    private async setMultiWallet(): Promise<void> {
+        if (this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet')) {
+            this.walletsService = await this.injectionService.getService<WalletsService>('multi-wallet.wallet-service');
+        }
     }
 }

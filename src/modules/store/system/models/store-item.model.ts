@@ -22,10 +22,7 @@ import {
 import {StoreService} from '../services';
 import {Bonus} from 'wlc-engine/modules/bonuses';
 import {UserProfile} from 'wlc-engine/modules/user';
-import {
-    IAmount,
-    WalletHelper,
-} from 'wlc-engine/modules/multi-wallet';
+import {IAmount} from 'wlc-engine/modules/multi-wallet';
 
 export class StoreItem extends AbstractModel<IStoreItem> {
     public bonus: Bonus;
@@ -37,7 +34,7 @@ export class StoreItem extends AbstractModel<IStoreItem> {
         from: IFromLog,
         data: IStoreItem,
         protected ConfigService: ConfigService,
-        protected StoreService: StoreService,
+        protected storeService: StoreService,
     ) {
         super({from: _assign({model: 'StoreItem'}, from)});
         this.userCurrency = this.ConfigService.get<string>('appConfig.user.currency')
@@ -286,13 +283,13 @@ export class StoreItem extends AbstractModel<IStoreItem> {
         }
 
         if (this.useConversionInFiat) {
-            value = Number(this.data.Price[WalletHelper.conversionCurrency.toUpperCase()]);
+            value = Number(this.data.Price[this.storeService.walletsService?.conversionCurrency.toUpperCase()]);
 
             if (!value) {
-                value = Number(this.data.Price['EUR']) * WalletHelper.coefficientConversionEUR;
+                value = Number(this.data.Price['EUR']) * this.storeService.walletsService?.coefficientConversionEUR;
             }
 
-            conversionCurrency = WalletHelper.conversionCurrency;
+            conversionCurrency = this.storeService.walletsService?.conversionCurrency;
         }
 
         amount.push({
@@ -316,11 +313,12 @@ export class StoreItem extends AbstractModel<IStoreItem> {
         if (moneyPrice) {
 
             if (this.useConversionInFiat) {
-                const originalPrice = this.priceMoney[WalletHelper.conversionCurrency.toUpperCase()];
+                const originalPrice: string =
+                    this.priceMoney[this.storeService.walletsService?.conversionCurrency.toUpperCase()];
 
                 moneyPrice = Number(originalPrice)
-                    || Number(this.priceMoney['EUR']) * WalletHelper.coefficientConversionEUR;
-                conversionCurrency = WalletHelper.conversionCurrency.toLowerCase();
+                    || Number(this.priceMoney['EUR']) * this.storeService.walletsService?.coefficientConversionEUR;
+                conversionCurrency = this.storeService.walletsService?.conversionCurrency.toLowerCase();
             }
 
             return {

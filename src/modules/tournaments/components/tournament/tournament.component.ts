@@ -22,8 +22,6 @@ import {
     ModalService,
 } from 'wlc-engine/modules/core';
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
-import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
-
 import {Tournament} from 'wlc-engine/modules/tournaments/system/models/tournament.model';
 import {TournamentsService} from 'wlc-engine/modules/tournaments/system/services/tournaments/tournaments.service';
 import {
@@ -131,7 +129,7 @@ export class TournamentComponent extends AbstractComponent implements OnInit {
         }
 
         if (this.isMultiWallet) {
-            await WalletHelper.readyMultiWallet;
+            await this.tournamentsService.walletsService.readyMultiWallet;
 
             this.modalService.showModal('walletConfirm', {
                 model: this.tournament,

@@ -6,8 +6,7 @@ import {
     ChangeDetectionStrategy,
 } from '@angular/core';
 
-import {AbstractComponent} from 'wlc-engine/modules/core';
-import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
+import {AbstractComponent, GlobalHelper} from 'wlc-engine/modules/core';
 import {IStoreItemTotalPrice} from 'wlc-engine/modules/store/system/interfaces/store.interface';
 
 import * as Params from './store-item-price.params';
@@ -25,8 +24,6 @@ export class StoreItemPriceComponent extends AbstractComponent implements OnInit
 
     public override $params: Params.IStoreItemPriceCParams;
 
-    protected readonly WalletHelper = WalletHelper;
-
     constructor(
         @Inject('injectParams') protected injectParams: Params.IStoreItemPriceCParams,
     ) {
@@ -38,5 +35,9 @@ export class StoreItemPriceComponent extends AbstractComponent implements OnInit
 
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+    }
+
+    public getCurrencyIconUrl(currency: string): string {
+        return GlobalHelper.proxyUrl(`/wlc/icons/currencies/${currency.toLowerCase()}.svg`);
     }
 }

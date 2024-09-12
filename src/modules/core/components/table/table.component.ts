@@ -33,6 +33,7 @@ import {
 import {GlobalHelper} from  'wlc-engine/modules/core/system/helpers/global.helper';
 import {TableRowModel} from './table-row.model';
 import {WINDOW} from 'wlc-engine/modules/app/system';
+import {WalletsService} from 'wlc-engine/modules/multi-wallet/system/services/wallets.service';
 
 import * as Params from './table.params';
 
@@ -61,6 +62,8 @@ export class TableComponent extends AbstractComponent implements OnInit {
     public indexFactor: number = 0;
     public tableType: Params.TableTypeEnum = Params.TableTypeEnum.TABLE;
     public headDescriptions: string[] = [];
+    public walletsService: WalletsService;
+
     readonly isMultiWalletOn: boolean = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
 
     public theme: Params.Theme;
@@ -82,6 +85,18 @@ export class TableComponent extends AbstractComponent implements OnInit {
 
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
+
+        if (this.isMultiWalletOn) {
+            this.configService.get<BehaviorSubject<boolean>>('$user.isAuth$')
+                .subscribe(async (isAuth: boolean): Promise<void> => {
+
+                    if (isAuth) {
+                        this.walletsService ??=
+                            await this.injectionService.getService<WalletsService>('multi-wallet.wallet-service');
+                    }
+
+                });
+        }
 
         const mediaQueryList: MediaQueryList = this.window.matchMedia(`(min-width: ${this.$params.switchWidth}px)`);
         this.calcTableType(mediaQueryList);
@@ -230,7 +245,7 @@ export class TableComponent extends AbstractComponent implements OnInit {
     }
 
     private createTableRow(rows: unknown[]): TableRowModel[] {
-        return rows.map((row) => new TableRowModel(row, this.$params));
+        return rows.map((row) => new TableRowModel(this.walletsService, row, this.$params));
     }
 
     private paginationUseCheck(): void {

@@ -92,6 +92,7 @@ import {LootboxPrizeModel} from 'wlc-engine/modules/bonuses/system/models/lootbo
 import {BonusCancellationInfo} from '../../models/bonus/bonus-cancellation-info.model';
 import {RequestParamsType} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
+import {WalletsService} from 'wlc-engine/modules/multi-wallet/system/services/wallets.service';
 import {WebSocketEvents} from 'wlc-engine/modules/core/system/services/websocket/websocket.service';
 import {IWSConsumerData} from 'wlc-engine/modules/core/system/interfaces/websocket.interface';
 
@@ -138,6 +139,7 @@ export class BonusesService {
     public dbPromoUrl: string = 'promocode';
     public bonuses: Bonus[] = [];
     public profile: UserProfile;
+    public walletsService: WalletsService;
     public bonusActionEvent: Subject<IBonusActionEvent> = new Subject();
 
     protected readonly websocketService: WebsocketService = inject(WebsocketService);
@@ -569,6 +571,7 @@ export class BonusesService {
                     return new Bonus(
                         {service: 'BonusesService', method: 'getBonus'},
                         data.data,
+                        this.walletsService,
                         this.configService,
                     );
                 } catch (error) {
@@ -713,7 +716,7 @@ export class BonusesService {
             const bonusInfo: IBonusCanceledInfo = response.data[loyaltyBonusId];
 
             if (bonusInfo) {
-                return new BonusCancellationInfo(bonusInfo);
+                return new BonusCancellationInfo(this.walletsService, bonusInfo);
             } else throw new Error();
 
         } catch (error) {
@@ -1034,6 +1037,7 @@ export class BonusesService {
 
         await this.configService.ready;
 
+        this.setMultiWallet();
         this.configService
             .get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
             .subscribe((UserProfile) => {
@@ -1119,6 +1123,7 @@ export class BonusesService {
                 const bonus: Bonus = new Bonus(
                     {service: 'BonusesService', method: 'modifyBonuses'},
                     bonusData,
+                    this.walletsService,
                     this.configService,
                 );
 
@@ -1498,5 +1503,18 @@ export class BonusesService {
                 },
             },
         });
+    }
+
+    private setMultiWallet(): void {
+        if (this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet')) {
+            this.configService.get<BehaviorSubject<boolean>>('$user.isAuth$')
+                .subscribe(async (isAuth: boolean): Promise<void> => {
+
+                    if (isAuth) {
+                        this.walletsService ??=
+                            await this.injectionService.getService<WalletsService>('multi-wallet.wallet-service');
+                    }
+                });
+        }
     }
 }

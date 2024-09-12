@@ -153,6 +153,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                     Description: this.$params.common.blankBonus.description || '',
                     Terms: '',
                 } as IBonus,
+                this.bonusesService.walletsService,
                 this.configService,
             );
 

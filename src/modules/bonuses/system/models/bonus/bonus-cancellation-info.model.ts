@@ -1,16 +1,20 @@
+import {inject} from '@angular/core';
+
 import _assign from 'lodash-es/assign';
-import _toString from 'lodash-es/toString';
-import _toNumber from 'lodash-es/toNumber';
+
+import {ConfigService} from 'wlc-engine/modules/core';
 
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {IFromLog} from 'wlc-engine/modules/core/system/services/log/log.service';
 
 import {IBonusCanceledInfo} from 'wlc-engine/modules/bonuses';
-import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
+import {WalletsService} from 'wlc-engine/modules/multi-wallet/system/services/wallets.service';
 
 export class BonusCancellationInfo extends AbstractModel<IBonusCanceledInfo> {
+    protected readonly configService: ConfigService = inject(ConfigService);
 
     constructor(
+        protected readonly walletsService: WalletsService,
         data: IBonusCanceledInfo,
         from?: IFromLog,
     ) {
@@ -18,12 +22,16 @@ export class BonusCancellationInfo extends AbstractModel<IBonusCanceledInfo> {
         this.data = data;
     }
 
-    public get bonusBalanceDecrease(): string {
-        return _toString(_toNumber(this.data.BurnOnBonusBalance) * WalletHelper.coefficientOriginalCurrencyConversion);
+    public get coefficientConversion(): number {
+        return this.walletsService?.coefficientOriginalCurrencyConversion || 1;
     }
 
-    public get realBalanceDecrease(): string {
-        return  _toString(_toNumber(this.data.BurnOnRealBalance) * WalletHelper.coefficientOriginalCurrencyConversion);
+    public get bonusBalanceDecrease(): number {
+        return Number(this.data.BurnOnBonusBalance) * this.coefficientConversion;
+    }
+
+    public get realBalanceDecrease(): number {
+        return  Number(this.data.BurnOnRealBalance) * this.coefficientConversion;
     }
 
     public get realBalanceIncrease(): string {
@@ -35,7 +43,6 @@ export class BonusCancellationInfo extends AbstractModel<IBonusCanceledInfo> {
     }
 
     public get currency(): string {
-        return WalletHelper.conversionCurrency ?? this.data.Currency;
+        return this.walletsService?.conversionCurrency ?? this.data.Currency;
     }
-
 }

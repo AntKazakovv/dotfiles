@@ -16,7 +16,6 @@ import _isNil from 'lodash-es/isNil';
 import _isNumber from 'lodash-es/isNumber';
 import _toNumber from 'lodash-es/toNumber';
 import _reduce from 'lodash-es/reduce';
-import _round from 'lodash-es/round';
 
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
@@ -39,11 +38,9 @@ import {
     IBonusResultValueFreerounds,
     IFreeroundsRangeRelative,
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
-import {
-    IAmount,
-    WalletHelper,
-} from 'wlc-engine/modules/multi-wallet';
+import {IAmount} from 'wlc-engine/modules/multi-wallet';
 import {LootboxPrizeModel} from 'wlc-engine/modules/bonuses/system/models/lootbox-prize/lootbox-prize.model';
+import {WalletsService} from 'wlc-engine/modules/multi-wallet/system/services/wallets.service';
 import {UserProfile} from 'wlc-engine/modules/user';
 
 export const disabledReasons = {
@@ -100,7 +97,8 @@ export class Bonus extends AbstractModel<IBonus> {
     constructor(
         from: IFromLog,
         data: IBonus,
-        protected configService: ConfigService,
+        protected readonly walletsService: WalletsService,
+        protected readonly configService: ConfigService,
     ) {
         super({from: _assign({model: 'Bonus'}, from)});
 
@@ -775,20 +773,20 @@ export class Bonus extends AbstractModel<IBonus> {
         switch (this.target) {
             case 'loyalty' || 'experience':
                 return resultsTarget.Type === 'relative'
-                    ? _round(_toNumber(resultsTarget.Value))
-                    : _round(_toNumber((resultsTarget as IBonusResultValueDefault).Value?.EUR));
+                    ? Math.round(Number(resultsTarget.Value))
+                    : Math.round(Number((resultsTarget as IBonusResultValueDefault).Value?.EUR));
             case 'lootbox':
                 return (resultsTarget as IBonusResultValueLootbox).Value;
             case 'freerounds':
                 return this.produceFreeroundsValue(resultsTarget as IBonusResultValueFreerounds);
             default:
-                return _round(_toNumber((resultsTarget as IBonusResultValueDefault).Value[Bonus.depositCurrency
+                return Math.round(Number((resultsTarget as IBonusResultValueDefault).Value[Bonus.depositCurrency
                         ?? Bonus.userCurrency]))
-                    || _round(_toNumber((resultsTarget as IBonusResultValueDefault).Value?.Currency))
-                    * WalletHelper.coefficientOriginalCurrencyConversion
-                    || _round(_toNumber((resultsTarget as IBonusResultValueDefault).Value?.EUR))
-                    * WalletHelper.coefficientConversionEUR
-                    || _round(_toNumber(resultsTarget.Value));
+                    || Math.round(Number((resultsTarget as IBonusResultValueDefault).Value?.Currency))
+                    * (this.walletsService?.coefficientOriginalCurrencyConversion || 1)
+                    || Math.round(Number((resultsTarget as IBonusResultValueDefault).Value?.EUR))
+                    * (this.walletsService?.coefficientConversionEUR || 1)
+                    || Math.round(Number(resultsTarget.Value));
         }
     }
 
@@ -1138,7 +1136,7 @@ export class Bonus extends AbstractModel<IBonus> {
         const userProfile: UserProfile
             = this.configService.get<BehaviorSubject<UserProfile>>('$user.userProfile$').getValue();
         const conversionCurrency: string = userProfile?.isConversionInFiat
-            ? WalletHelper.conversionCurrency
+            ? this.walletsService.conversionCurrency
             : null;
 
         let value: string = conversionCurrency

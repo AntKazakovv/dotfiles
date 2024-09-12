@@ -61,10 +61,8 @@ import {
 } from 'wlc-engine/modules/finances/system/interfaces/piq-cashier.interface';
 import {cryptoInvoiceSystem} from 'wlc-engine/modules/finances/system/constants/crypto-invoices.constants';
 import {FinancesHelper} from 'wlc-engine/modules/finances/system/helpers/finances.helper';
-import {
-    ISelectedWallet,
-    WalletsService,
-} from 'wlc-engine/modules/multi-wallet';
+import {WalletsService} from 'wlc-engine/modules/multi-wallet/system/services/wallets.service';
+import {ISelectedWallet} from 'wlc-engine/modules/multi-wallet';
 import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 import {ITransaction, Transaction} from 'wlc-engine/modules/history';
 

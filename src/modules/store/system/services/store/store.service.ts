@@ -50,6 +50,7 @@ import {StoreItem} from 'wlc-engine/modules/store/system/models/store-item.model
 import {StoreCategory} from 'wlc-engine/modules/store/system/models/store-category.model';
 import {MultiWalletEvents} from 'wlc-engine/modules/multi-wallet';
 import {RequestParamsType} from 'wlc-engine/modules/core/system/services/data/data.service';
+import {WalletsService} from 'wlc-engine/modules/multi-wallet/system/services/wallets.service';
 
 interface IRequestParams {
     type?: string;
@@ -60,7 +61,7 @@ interface IRequestParams {
     providedIn: 'root',
 })
 export class StoreService {
-
+    public walletsService: WalletsService;
     public storeFilter$: Subject<TStoreFilter> = new Subject<TStoreFilter>();
 
     protected storeItems: StoreItem[] = [];
@@ -80,6 +81,7 @@ export class StoreService {
         private uiRouter: UIRouter,
         private injectionService: InjectionService,
     ) {
+        this.setMultiWallet();
         this.registerMethods();
         this.setSubscribers();
     }
@@ -234,7 +236,7 @@ export class StoreService {
                     fail: 'STORE_ITEM_BUY_FAILED',
                 },
             }, params);
-            this.showSuccess(gettext('Product purchase'), gettext('The product has been successfully purchased'), 
+            this.showSuccess(gettext('Product purchase'), gettext('The product has been successfully purchased'),
                 'buy');
             return response.data;
         } catch (error) {
@@ -414,5 +416,18 @@ export class StoreService {
                 wlcElement: id ? 'notification-store-' + id + '-success' : undefined,
             },
         });
+    }
+
+    private setMultiWallet(): void {
+        if (this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet')) {
+            this.configService.get<BehaviorSubject<boolean>>('$user.isAuth$')
+                .subscribe(async (isAuth: boolean): Promise<void> => {
+
+                    if (isAuth) {
+                        this.walletsService ??=
+                            await this.injectionService.getService<WalletsService>('multi-wallet.wallet-service');
+                    }
+                });
+        }
     }
 }

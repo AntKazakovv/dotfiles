@@ -31,8 +31,8 @@ import {
     IWallet,
     IWSWallet,
 } from 'wlc-engine/modules/multi-wallet/system/interfaces/wallet.interface';
-import {WalletHelper} from 'wlc-engine/modules/multi-wallet';
 import {IWSDataUserBalance} from 'wlc-engine/modules/user/system/interfaces/user.interface';
+import {WalletsService} from 'wlc-engine/modules/multi-wallet/system/services/wallets.service';
 
 export class UserInfo extends AbstractModel<IUserInfo> {
 
@@ -47,7 +47,8 @@ export class UserInfo extends AbstractModel<IUserInfo> {
 
     constructor(
         from: IFromLog,
-        protected translateService: TranslateService,
+        protected readonly translateService: TranslateService,
+        protected readonly walletsService: WalletsService,
     ) {
         super({from: _assign({model: 'UserInfo'}, from)});
     }
@@ -87,7 +88,7 @@ export class UserInfo extends AbstractModel<IUserInfo> {
 
     public get balance(): number {
         return (UserInfo.currency ? this.getWalletBalance(UserInfo.currency) :
-            this.data?.balance) * WalletHelper.coefficientConversion;
+            this.data?.balance) * (this.walletsService?.coefficientConversion || 1);
     }
 
     public getAvailableWithdrawForSelectWallet(selectedWallet: ISelectedWallet): number {
@@ -179,7 +180,7 @@ export class UserInfo extends AbstractModel<IUserInfo> {
      * @returns {number}
      */
     public get bonusBalance(): number {
-        return this.originalBonusBalance * WalletHelper.coefficientOriginalCurrencyConversion;
+        return this.originalBonusBalance * (this.walletsService?.coefficientOriginalCurrencyConversion || 1);
     }
 
     public get originalBonusBalance(): number {
@@ -207,7 +208,7 @@ export class UserInfo extends AbstractModel<IUserInfo> {
 
     public get realBalance(): number {
         return UserInfo.currency
-            ? this.getWalletBalance(UserInfo.currency) * WalletHelper.coefficientConversion
+            ? this.getWalletBalance(UserInfo.currency) * (this.walletsService?.coefficientConversion || 1)
             : this.balance - this.bonusBalance;
     }
 

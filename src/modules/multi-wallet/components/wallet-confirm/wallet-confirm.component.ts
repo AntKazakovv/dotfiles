@@ -20,13 +20,13 @@ import {
     IWalletConfirmController,
     TWalletConfirmItem,
 } from '../../system/interfaces';
-import {WalletHelper} from '../../system/helpers/';
 import {
     WalletConfirmBaseController,
     WalletConfirmBonusController,
     WalletConfirmStoreController,
     WalletConfirmTournamentController,
 } from '../../system/controllers/';
+import {WalletsService} from 'wlc-engine/modules/multi-wallet/system/services/wallets.service';
 
 import * as Params from './wallet-confirm.params';
 
@@ -49,7 +49,7 @@ export class WalletConfirmComponent extends AbstractComponent implements OnInit 
     public isMultiWallet: boolean;
     public walletsParams: IWrapperCParams;
     public subscribeButtonText: string = gettext('Subscribe');
-    public readonly walletHelper = WalletHelper;
+    public readonly walletsService: WalletsService = inject(WalletsService);
 
     protected controller: IWalletConfirmController = inject(WalletConfirmBaseController);
     protected modalService: ModalService = inject(ModalService);
@@ -105,6 +105,10 @@ export class WalletConfirmComponent extends AbstractComponent implements OnInit 
         }
 
         return false;
+    }
+
+    public getCurrencyIconUrl(currency: string): string {
+        return this.walletsService.getCurrencyIconUrl(currency);
     }
 
     public async subscribeHandler(): Promise<void> {
