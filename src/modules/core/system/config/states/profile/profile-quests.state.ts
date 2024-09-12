@@ -23,29 +23,27 @@ export const profileQuestsState: Ng2StateDeclaration = {
  * **/
 export const profileQuestsMainState: Ng2StateDeclaration = {
     url: '?questId',
-    onEnter: (transition: Transition): void => {
-        setTimeout(async (): Promise<void> => {
-            const params = transition.params();
+    onEnter: async (transition: Transition): Promise<void> => {
+        const params = transition.params();
 
-            if ('questId' in params) {
-                const injectionService: InjectionService = transition.injector().get(InjectionService);
-                const questsService: QuestsService =
-                    await injectionService.getService<QuestsService>('quests.quests-service');
-                const quest: QuestModel | null = await questsService.getQuestByState(transition);
+        if ('questId' in params) {
+            const injectionService: InjectionService = transition.injector().get(InjectionService);
+            const questsService: QuestsService =
+                await injectionService.getService<QuestsService>('quests.quests-service');
+            const quest: QuestModel | null = await questsService.getQuestByState(transition);
 
-                if (!quest) {
-                    const quests: Map<string, QuestModel> = await questsService.getQuestsMap();
-                    const activeQuestId: string = quests.keys().next().value;
+            if (!quest) {
+                const quests: Map<string, QuestModel> = await questsService.getQuestsMap();
+                const activeQuestId: string = quests.keys().next().value;
 
-                    if (activeQuestId) {
-                        transition.abort();
-                        transition.router.stateService.go('app.profile.quests.main', {
-                            locale: params['locale'] || transition.injector().get('lang') || 'en',
-                            questId: activeQuestId,
-                        });
-                    }
+                if (activeQuestId) {
+                    transition.abort();
+                    transition.router.stateService.go('app.profile.quests.main', {
+                        locale: params['locale'] || transition.injector().get('lang') || 'en',
+                        questId: activeQuestId,
+                    });
                 }
             }
-        });
+        }
     },
 };
