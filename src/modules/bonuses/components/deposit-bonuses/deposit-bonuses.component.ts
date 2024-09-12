@@ -32,13 +32,8 @@ import {BonusesService} from 'wlc-engine/modules/bonuses/system/services';
 import {
     BonusItemComponentEvents,
     IBonus,
-    IBonusesTags,
     IPromoCodeInfo,
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
-import {
-    ITagCommon,
-    ITagCParams,
-} from 'wlc-engine/modules/core/components/tag/tag.params';
 import {BonusItemComponent} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.component';
 import {IBonusItemCParams} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';
 import {WINDOW} from 'wlc-engine/modules/app/system';
@@ -60,7 +55,6 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
     public currentBonus: Bonus | null = null;
     public autoSelect: number | IAutoSelectByDevice<number>;
     public slides: ISlide[] = [];
-    public tagConfig: ITagCParams;
 
     protected currentPaySystemId: number = 0;
     protected blankBonus: Bonus;
@@ -92,7 +86,6 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
         this.currentPaySystemId = this.configService.get<PaymentSystem>('chosenPaySystem')?.id;
 
         this.createBlankBonus();
-        this.setTagConfig();
 
         this.eventService.subscribe({
             name: 'select_system',
@@ -211,27 +204,6 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
     public onSlideChange(swiper: Swiper): void {
         if (swiper.params.slidesPerView === 1 || swiper.params.slidesPerView === 'auto') {
             this.chooseBonusByPos(swiper.realIndex);
-        }
-    }
-
-    protected setTagConfig(): void {
-        const moduleTagsConfig: IBonusesTags = this.configService.get<IBonusesTags>('$bonuses.tagsConfig');
-
-        if (moduleTagsConfig.tagList['subscribed']) {
-            const tagCommon: ITagCommon = Object.assign(moduleTagsConfig.tagList['subscribed']);
-
-            if (!moduleTagsConfig.useIcons) {
-                tagCommon.iconUrl = null;
-            }
-
-            if (!this.$params.itemParams?.themeMod) {
-                tagCommon.bg = null;
-                tagCommon.iconUrl = null;
-            }
-
-            this.tagConfig = {
-                common: tagCommon,
-            };
         }
     }
 

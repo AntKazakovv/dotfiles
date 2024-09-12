@@ -10,9 +10,8 @@
     display: inline-flex;
     gap: ef.get-value($themeDefault, 'gap');
     align-items: center;
-    justify-content: center;
-    min-height: var(--wlc-tag-min-height, #{ef.get-value($themeDefault, 'minHeight')});
-    padding: var(--wlc-tag-padding, #{ef.get-value($themeDefault, 'padding')});
+    min-height: ef.get-value($themeDefault, 'minHeight');
+    padding: ef.get-value($themeDefault, 'padding');
     border-radius: ef.get-value($themeDefault, 'radius');
     line-height: 1;
     overflow: hidden;
@@ -29,7 +28,7 @@
         height: 100%;
 
         background-color: var(--wlc-tag-bg, var(--mc-secondary));
-        opacity: var(--wlc-tag-bg-opacity, #{ef.get-value($themeDefault, 'bgOpacity')});
+        opacity: ef.get-value($themeDefault, 'bgOpacity');
     }
 
     .wlc-tag {

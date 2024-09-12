@@ -1,70 +1,48 @@
 .wlc-bonus-item--theme-mini {
-    height: 100%;
     overflow: visible;
-    background: var(--wlc-bi-bg, #{ef.get-value($themeMini, 'hostBg')});
-
-    .swiper-slide & {
-        margin: 0 0 ef.size(1);
-    }
 
     .wlc-bonus-item {
 
         &__content {
-            position: relative;
-            height: 100%;
             cursor: ef.get-value($themeMini, 'contentCursor');
 
-            &:after {
-                @include bm.transition();
-
-                content: '';
-
-                position: absolute;
-                top: 0;
-                left: 0;
-
-                display: var(--wlc-bi-pseudo-display, block);
-                width: 100%;
-                height: 100%;
-
-                border: ef.get-value($themeMini, 'wrapperBorder');
-                border-radius: ef.get-value($themeMini, 'wrapperRadius');
-                box-shadow: var(--wlc-bi-shadow);
-                pointer-events: none;
-                border-color: var(--wlc-bi-border-color, transparent);
-            }
-
             &.chosen {
-                --wlc-bi-border-color: #{ef.get-value($themeMini, 'wrapperBorderColorActive')};
-                --wlc-bi-shadow: #{ef.get-value($themeMini, 'wrapperShadowActive')};
+
+                .wlc-bonus-item__wrapper {
+                    border-color: ef.get-value($themeMini, 'wrapperBorderColorActive');
+                    box-shadow: ef.get-value($themeMini, 'wrapperShadowActive');
+                }
             }
 
             &.disabled {
-                --wlc-bi-shadow: none;
-
                 cursor: ef.get-value($themeMini, 'contentDisabledCursor');
             }
 
             &.blank {
-                --wlc-bi-wrapper-bg: #{ef.get-value($themeMini, 'wrapperBgBlank')};
-                --wlc-bi-wrapper-height: #{ef.get-value($themeMini, 'blankWrapperHeight')};
+
+                .wlc-bonus-item__wrapper {
+                    background: ef.get-value($themeMini, 'wrapperBgBlank');
+                }
             }
 
             &:not(.disabled) {
-
                 @include bm.hover() {
-                    --wlc-bi-shadow: #{ef.get-value($themeMini, 'wrapperShadowHover')};
+
+                    .wlc-bonus-item__wrapper {
+                        box-shadow: ef.get-value($themeMini, 'wrapperShadowHover');
+                    }
                 }
             }
         }
 
         &__wrapper {
+            @include bm.transition();
             position: ef.get-value($themeMini, 'wrapperPosition');
             display: block;
-            height: var(--wlc-bi-wrapper-height, auto);
             padding-top: ef.get-value($themeMini, 'wrapperPaddingTop');
             border-radius: ef.get-value($themeMini, 'wrapperRadius');
-            background: var(--wlc-bi-wrapper-bg, #{ef.get-value($themeMini, 'wrapperBg')});
+            border: ef.get-value($themeMini, 'wrapperBorder');
+            background-color: ef.get-value($themeMini, 'wrapperBgColor');
             overflow: ef.get-value($themeMini, 'wrapperOverflow');
 
             &-bg {
@@ -113,13 +91,12 @@
         }
 
         &__bottom {
-            position: relative;
             padding: ef.get-value($themeMini, 'bottomPadding');
         }
 
         &__name {
             @include text.get-text-style(ef.get-value($themeMini, 'nameFontStyle'), ef.get-value($themeMini, 'nameFontColor'));
-            @include bm.lineClamp(map-get($themeMini, 'nameClamp'));
+            @include bm.lineClamp();
             text-align: ef.get-value($themeMini, 'nameTextAlign');
         }
 
@@ -143,51 +120,37 @@
                 }
             }
         }
-
-        &__tag-wrapper {
-            --wlc-tag-min-width: #{ef.get-value($themeMini, 'tagMinWidth')};
-            --wlc-tag-min-height: #{ef.get-value($themeMini, 'tagMinHeight')};
-            --wlc-tag-bg-opacity: #{ef.get-value($themeMini, 'tagBgOpacity')};
-
-            position: absolute;
-            top: ef.get-value($themeMini, 'tagPosTop');
-            left: ef.get-value($themeMini, 'tagPosLeft');
-            line-height: 1;
-            transform: ef.get-value($themeMini, 'tagTransform');
-        }
     }
 
     &.wlc-bonus-item--theme-mod-mini-wolf {
-        --wlc-bi-bg: #{ef.get-value($themeModMiniWolf, 'hostBg')};
-        --wlc-bi-wrapper-bg: #{ef.get-value($themeModMiniWolf, 'wrapperBg')};
 
         .wlc-bonus-item {
 
-            &__image-block {
-                background-image: var(--wlc-bi-decor-bg);
-            }
-
             &__content {
-                --wlc-bi-border-color: #{ef.get-value($themeModMiniWolf, 'wrapperBorderColorActive')};
-                --wlc-bi-shadow: #{ef.get-value($themeModMiniWolf, 'wrapperBoxShadow')};
 
                 &.blank {
-                    --wlc-bi-wrapper-height: #{ef.get-value($themeModMiniWolf, 'blankWrapperHeight')};
-                }
 
-                &:not(.disabled) {
-                    @include bm.hover() {
-                        --wlc-bi-shadow: #{ef.get-value($themeModMiniWolf, 'wrapperBoxShadowHover')};
-                        --wlc-bi-decor-bg: #{ef.get-value($themeModMiniWolf, 'bonusItemBgHover')};
+                    .wlc-bonus-item__wrapper {
+                        background-color: ef.get-value($themeModMiniWolf, 'bonusItemBg');
                     }
                 }
 
-                &.chosen {
-                    --wlc-bi-shadow: #{ef.get-value($themeModMiniWolf, 'wrapperBoxShadowSelected')};
-                    --wlc-bi-decor-bg: #{ef.get-value($themeModMiniWolf, 'bonusItemBgSelected')};
+                &.chosen,
+                &.chosen:hover {
 
-                    @include bm.hover {
-                        --wlc-bi-decor-bg: #{ef.get-value($themeModMiniWolf, 'bonusItemBgSelected')};
+                    .wlc-bonus-item__wrapper {
+                        @include bonusItemSelectionReset();
+
+                        background-image: ef.get-value($themeModMiniWolf, 'bonusItemBgSelected');
+                    }
+                }
+
+                @include bm.hover() {
+
+                    .wlc-bonus-item__wrapper {
+                        @include bonusItemSelectionReset();
+
+                        background-image: ef.get-value($themeModMiniWolf, 'bonusItemBgHover');
                     }
                 }
             }

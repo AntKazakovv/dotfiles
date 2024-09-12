@@ -399,16 +399,11 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
 
     protected prepareTagConfig(): void {
         const moduleTagsConfig: IBonusesTags = this.configService.get<IBonusesTags>('$bonuses.tagsConfig');
+        const tagCommon: ITagCommon = moduleTagsConfig.tagList[this.bonus.tag];
 
-        if (moduleTagsConfig.tagList[this.bonus.tag]) {
-            const tagCommon: ITagCommon = Object.assign(moduleTagsConfig.tagList[this.bonus.tag]);
+        if (tagCommon) {
 
             if (!moduleTagsConfig.useIcons) {
-                tagCommon.iconUrl = null;
-            }
-
-            if (!this.$params.themeMod) {
-                tagCommon.bg = null;
                 tagCommon.iconUrl = null;
             }
 

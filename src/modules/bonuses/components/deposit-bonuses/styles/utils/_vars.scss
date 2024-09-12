@@ -2,9 +2,8 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'listTemplateColumns': (
         375: repeat(auto-fill, minmax(120px, 1fr)),
-        900: repeat(auto-fill, minmax(145px, 1fr)),
+        900: repeat(auto-fill, minmax(150px, 1fr)),
     ),
-    'listGapFallback': ef.size(2),
     'listGap': (
         375: ef.size(2),
         900: ef.size(4),
@@ -20,11 +19,6 @@ $themeDefault: map-merge((
     'shortBonusFontStyle': 'PrimaryText',
     'shortBonusFontColor': null,
     'shortBonusTextAlign': center,
-    'shortBonusTagMinWidth': 80px,
-    'shortBonusTagMinHeight': 20px,
-    'shortBonusTagBgOpacity': 1,
-    'shortBonusTagDisplay': block,
-    'shortBonusTagMargin': 0 0 ef.size(1),
 
     //short bonus info
     'shortBonusInfoPadding': 3px,
@@ -72,7 +66,7 @@ $themeDefault: map-merge((
 
     //type swiper
     'slideWidth': 170px,
-    'offsetSize': ef.size(2),
+    'offsetSize': ef.size(3),
     'pseudoBg': linear-gradient(90deg, var(--mc-bg700) 5%, var(--mc-bg700-o0) 90%),
     'pseudoDisplay': block,
     'pseudoWidth': 40px,

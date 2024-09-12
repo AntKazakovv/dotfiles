@@ -1,14 +1,11 @@
 $customThemeMini: () !default;
 $themeMini: map-merge((
-    'hostBg': var(--mc-bg500),
-    'blankWrapperHeight': 100%,
-
     'contentCursor': pointer,
     'contentDisabledCursor': not-allowed,
 
     // wrapper
     'wrapperPosition': relative,
-    'wrapperBg': var(--mc-bg500-d10),
+    'wrapperBgColor': var(--mc-bg500),
     'wrapperBgRepeat': no-repeat,
     'wrapperBgPos': center,
     'wrapperBgSize': cover,
@@ -17,7 +14,7 @@ $themeMini: map-merge((
     'wrapperBorder': 2px solid transparent,
     'wrapperPaddingTop': 68%,
     'wrapperShadowHover': 0 0 5px var(--mc-main),
-    'wrapperShadowActive': 0 0 8px var(--mc-main),
+    'wrapperShadowActive': 0 0 14px var(--mc-main),
     'wrapperBorderColorActive': var(--mc-main),
     'wrapperBgBlank': var(--mc-bg),
     'wrapperOverflow': hidden,
@@ -35,13 +32,12 @@ $themeMini: map-merge((
     'imageIconMinHeight': 14px,
 
     // bottom block
-    'bottomPadding': ef.size(3) ef.size(2) ef.size(2),
+    'bottomPadding': ef.size(2) 0 0,
 
     // name
     'nameFontStyle': 'PrimaryText',
     'nameFontColor': null,
     'nameTextAlign': center,
-    'nameClamp': 2,
 
     // more icon
     'moreIconPadding': 6px,
@@ -52,25 +48,11 @@ $themeMini: map-merge((
     // bonus icon
     'bonusIconTextStyleSmall': 0.9rem,
     'bonusIconTextStyleSmaller': 0.8rem,
-
-    //bonus tag
-    'tagMinWidth': 80px,
-    'tagMinHeight': 20px,
-    'tagBgOpacity': 1,
-    'tagPosTop': 0,
-    'tagPosLeft': 50%,
-    'tagTransform': translate(-50%, -50%),
 ), $customThemeMini);
 
 $customThemeModMiniWolf: () !default;
 $themeModMiniWolf: map-merge((
-    'hostBg': transparent,
-    'blankWrapperHeight': auto,
-    'wrapperBg': var(--mc-bg),
+    'bonusItemBg': var(--mc-black),
     'bonusItemBgHover': linear-gradient(to top, var(--mc-main) 0, var(--mc-main) 2px, var(--mc-black-o0) 2px, var(--mc-black-o0) 100%),
     'bonusItemBgSelected': linear-gradient(to top, var(--mc-main) 0, var(--mc-main) 2px, var(--mc-main-o4) 2px, var(--mc-black-o0) 100%),
-    'wrapperBorderColorActive': transparent,
-    'wrapperBoxShadow': none,
-    'wrapperBoxShadowHover': none,
-    'wrapperBoxShadowSelected': none,
 ), $customThemeModMiniWolf);

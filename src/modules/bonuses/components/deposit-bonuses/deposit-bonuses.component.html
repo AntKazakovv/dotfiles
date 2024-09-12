@@ -47,19 +47,15 @@
         </span>
     </button>
     <div *ngIf="!!currentBonus" class="{{$class}}__short-bonus">
-        <div *ngIf="currentBonus.isSubscribed" class="{{$class}}__short-bonus-tag">
-            <span wlc-tag [inline]="tagConfig"></span>
-        </div>
-        <div class="{{$class}}__details">
-            {{currentBonus.name}}
+        {{currentBonus.name}}
 
-            <button wlc-button
-                class="{{$class}}__short-bonus-info"
-                theme="icon"
-                iconPath="/wlc/icons/info.svg"
-                (click)="openCurrentBonusInfo()">
-            </button>
-        </div>
+        <button
+            wlc-button
+            class="{{$class}}__short-bonus-info"
+            theme="icon"
+            iconPath="/wlc/icons/info.svg"
+            (click)="openCurrentBonusInfo()"
+        ></button>
     </div>
 </ng-template>
 
