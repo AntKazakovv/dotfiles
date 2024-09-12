@@ -199,6 +199,11 @@
 
             <div class="{{$class}}__link-text">
                 {{menuItemName(item.parent)}}
+
+                <span *ngIf="item.parent?.counterParams as counterParams"
+                    wlc-counter
+                    [inlineParams]="counterParams">
+                </span>
             </div>
 
             <span wlc-icon
