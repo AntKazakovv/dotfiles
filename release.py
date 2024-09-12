@@ -16,7 +16,7 @@ projects = [
         # Devcasino
         "id": "1",
         "repository": "git@wlcgitlab.egamings.com:wlcdevcasino/web.git",
-        "branches": ["develop", "master", "scr1-profile", "scr1-var1", "scr1-var2", "scr1-mc1", "scr1-lic1", "scr1-kiosk", "scr1-aff", "scr2-var1", "scr2-var2", "scr2-mc1", "scr2-lic1", "scr2-kiosk", "scr3-wolf1"],
+        "branches": ["develop", "master", "scr1-profile", "scr1-var1", "scr1-var2", "scr1-mc1", "scr1-lic1", "scr1-kiosk", "scr1-aff", "scr2-var1", "scr2-var2", "scr2-mc1", "scr2-lic1", "scr2-kiosk", "scr3-wolf1", "scr3-wolf2-mc"],
     },
     {
         # Kiosk
