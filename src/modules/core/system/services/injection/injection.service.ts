@@ -23,6 +23,7 @@ import {
     externalServices,
     TExternalServices,
 } from 'wlc-engine/modules/core/system/constants/external-services.constants';
+import {ICustomStandalone} from 'wlc-engine/modules/core/system/interfaces/base-config/site.interface';
 
 @Injectable({
     providedIn: 'root',
@@ -31,12 +32,14 @@ export class InjectionService {
     private components: IIndexing<IIndexing<unknown>> = {};
     private services: IIndexing<IIndexing<InjectionToken<unknown>>> = {};
     private standaloneList: IIndexing<Type<unknown>>  = {};
+    private customStandaloneConfig: ICustomStandalone;
     private loadedModules: IIndexing<unknown> = {};
 
     constructor(
         private configService: ConfigService,
         private injector: Injector,
     ) {
+        this.init();
     }
 
     /**
@@ -85,7 +88,6 @@ export class InjectionService {
             if (!_get(this.services, moduleName)) {
                 await this.importModule(moduleName as TModuleName);
             }
-
 
             token = _get(this.loadedModules, `[${moduleName}].services[${serviceName}]`);
 
@@ -139,12 +141,21 @@ export class InjectionService {
         return _get(this.standaloneList, name);
     }
 
+    private async init(): Promise<void> {
+        await this.configService.ready;
+
+        this.customStandaloneConfig ??= this.configService.get<ICustomStandalone>('$base.site.customStandalone');
+    }
+
     private importStandalone(name: TStandaloneName): unknown {
         if (this.loadedModules[name]) {
             return this.loadedModules[name];
         }
 
-        const importStandaloneFunction: IFunctionImportStandalone | undefined = standaloneComponents[name];
+        const importStandaloneFunction: IFunctionImportStandalone | null = standaloneComponents[name]
+            ?? (this.customStandaloneConfig.use
+                ? this.customStandaloneConfig.listComponents[name]
+                : null);
 
         if (importStandaloneFunction) {
             return importStandaloneFunction(this.afterStandaloneLoad.bind(this, name));

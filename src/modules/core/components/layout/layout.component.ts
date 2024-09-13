@@ -42,6 +42,7 @@ import {
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {standaloneComponents} from 'wlc-engine/modules/core/system/constants/modules.constants';
 import {ISaCParams} from 'wlc-engine/modules/core/components/sa/sa.component';
+import {ICustomStandalone} from 'wlc-engine/modules/core/system/interfaces/base-config/site.interface';
 
 @Component({
     selector: '[wlc-layout]',
@@ -63,13 +64,14 @@ export class LayoutComponent implements OnInit, OnDestroy {
     protected useColumnsLayout: boolean = false;
     protected smartSectionConfig: ISmartSectionConfig;
     protected columnList: string[];
+    protected customStandaloneConfig: ICustomStandalone;
     private currentConfig: ILayoutStateConfig;
 
     private resize$: Subscription;
     private auth$: Subscription;
 
     constructor(
-        protected ConfigService: ConfigService,
+        protected configService: ConfigService,
         protected layoutService: LayoutService,
         protected cdr: ChangeDetectorRef,
         private transition: TransitionService,
@@ -91,6 +93,8 @@ export class LayoutComponent implements OnInit, OnDestroy {
                 this.uiRouter.transition?.targetState().params(),
             );
         }, this.$destroy);
+
+        this.customStandaloneConfig ??= this.configService.get('$base.site.customStandalone');
     }
 
     public getInjector(component: ILayoutComponent): Injector {
@@ -223,7 +227,9 @@ export class LayoutComponent implements OnInit, OnDestroy {
         return components.map((component) => {
             const name: string = component && component.name.split('.')[1];
 
-            if (standaloneComponents[name]) {
+            if (standaloneComponents[name]
+                || (this.customStandaloneConfig && this.customStandaloneConfig[name])
+            ) {
                 const saConfig: ILayoutComponent = {
                     name: 'core.wlc-sa',
                     params: <ISaCParams<unknown>>{

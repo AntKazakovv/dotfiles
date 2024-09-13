@@ -24,7 +24,7 @@ describe('InjectionService', () => {
     beforeEach(async () => {
         configServiceSpy = jasmine.createSpyObj(
             'ConfigService',
-            ['set'],
+            ['set', 'get'],
             {
                 load: Promise.resolve(),
             },

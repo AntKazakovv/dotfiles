@@ -59,7 +59,7 @@ export class WrapperComponent extends LayoutComponent implements OnInit, OnChang
 
     constructor(
         @Optional() @Inject('injectParams') protected params: IWrapperCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         layoutService: LayoutService,
         cdr: ChangeDetectorRef,
         transition: TransitionService,

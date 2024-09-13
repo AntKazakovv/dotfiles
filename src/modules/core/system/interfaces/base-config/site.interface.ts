@@ -1,3 +1,6 @@
+import {IFunctionImportStandalone} from 'wlc-engine/modules/core/system/constants/modules.constants';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
+
 export interface ISiteLanguages {
     availableOnly?: string[];
 }
@@ -31,6 +34,12 @@ export interface ISiteConfig {
     turnstileConfig?: Record<string, string>;
     /** Сustom gstatic url on the project */
     gstaticUrl?: string;
+    customStandalone?: ICustomStandalone;
 }
 
 export type TThemeApp = 'wolf';
+
+export interface ICustomStandalone {
+    use?: boolean;
+    listComponents?: IIndexing<IFunctionImportStandalone>
+}
