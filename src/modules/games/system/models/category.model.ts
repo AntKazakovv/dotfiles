@@ -358,7 +358,7 @@ export class CategoryModel extends AbstractModel<ICategory> {
     public sortGames(): void {
         if (this.availableGames.length) {
 
-            if (this.useSeparateSorts) {
+            if (this.useSeparateSorts && !this.isNew && !this.isPopular) {
                 GamesHelper.sortGamesInCategory(this.availableGames, this.sorts, {
                     sortSetting: this.separateSortSettings,
                     country: CategoryModel._country,
@@ -377,7 +377,7 @@ export class CategoryModel extends AbstractModel<ICategory> {
             if (this._gameBlocks.length) {
 
                 _forEach(this._gameBlocks, (gameBlock: IGameBlock): void => {
-                    if (this.useSeparateSorts) {
+                    if (this.useSeparateSorts && !this.isNew && !this.isPopular) {
                         GamesHelper.sortGamesInCategory(gameBlock.games, this.sorts, {
                             sortSetting: this.separateSortSettings,
                             country: CategoryModel._country,
