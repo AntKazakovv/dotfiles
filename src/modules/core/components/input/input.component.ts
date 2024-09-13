@@ -10,16 +10,25 @@ import {
     AfterViewInit,
     HostBinding,
     ChangeDetectionStrategy,
+    inject,
 } from '@angular/core';
-import {UntypedFormControl} from '@angular/forms';
+import {
+    UntypedFormControl,
+} from '@angular/forms';
 
 import {IMaskDirective} from 'angular-imask';
 import {
     distinctUntilChanged,
     filter,
     takeUntil,
+    map,
 } from 'rxjs/operators';
 import _isEqual from 'lodash-es/isEqual';
+import _kebabCase from 'lodash-es/kebabCase';
+import _clone from 'lodash-es/clone';
+import _union from 'lodash-es/union';
+import _isString from 'lodash-es/isString';
+import _flow from 'lodash-es/flow';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
@@ -29,14 +38,10 @@ import {
     IPushMessageParams,
 } from 'wlc-engine/modules/core/system/services/notification';
 import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
+import {FormsService} from 'wlc-engine/modules/core/system/services';
+import {IControlResult} from 'wlc-engine/modules/core/system/interfaces/base-config/forms.interface';
 
 import * as Params from './input.params';
-
-import _kebabCase from 'lodash-es/kebabCase';
-import _clone from 'lodash-es/clone';
-import _union from 'lodash-es/union';
-import _isString from 'lodash-es/isString';
-import _flow from 'lodash-es/flow';
 
 type TValueTransformer = (value: string) => string;
 
@@ -72,6 +77,8 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
     public useTooltip: boolean;
     public useAutoCompleteFix: boolean = true;
 
+    protected formsService = inject(FormsService);
+
     protected readonly commonTransformers: TValueTransformer[] = [
         this.trimSpaces.bind(this),
         this.normalizeProhibitedPattern.bind(this),
@@ -100,6 +107,8 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.control = this.$params?.control;
+
+        this.handleControlErrorState();
         this.prepareModifiers();
         this.fieldWlcElement = 'input_' + _kebabCase(this.$params.name);
         this.useTooltip = !!(this.$params.common?.tooltipText || this.$params.common?.tooltipModal);
@@ -117,6 +126,8 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
                 )
                 .subscribe((v: string) => this.transformControlValue(v));
         }
+
+        this.cdr.markForCheck();
     }
 
     public override ngOnChanges(changes: SimpleChanges): void {
@@ -203,7 +214,6 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
 
     public onBlur(): void {
         this.syncValueWithModel();
-        this.setInvalidOnEmptyRequired();
 
         if (!this.control.touched || !this.control.valid) {
             this.control.updateValueAndValidity();
@@ -359,5 +369,20 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
         const maxLength = this.$params.common.maxLength;
 
         return maxLength ? value.slice(0, maxLength) : value;
+    }
+
+    protected handleControlErrorState(): void {
+        this.control.valueChanges.pipe(
+            distinctUntilChanged(),
+            map((value) => this.control.errors
+                ? {value: null, errors: this.control.errors}
+                : {value, errors: null}),
+            takeUntil(this.$destroy),
+        ).subscribe((controlResult: IControlResult) => {
+            controlResult.errors
+                ? this.formsService.setControlErrors(this.$params?.name, this.control.errors)
+                : this.formsService.clearControlErrors(this.$params?.name);
+        });
+
     }
 }

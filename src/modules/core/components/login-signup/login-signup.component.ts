@@ -3,6 +3,7 @@ import {
     Inject,
     OnInit,
     ChangeDetectionStrategy,
+    inject,
 } from '@angular/core';
 
 import _get from 'lodash-es/get';
@@ -12,6 +13,7 @@ import {
     ModalService,
     LogService,
     EventService,
+    FormsService,
 } from 'wlc-engine/modules/core/system/services';
 import {
     ProcessEvents,
@@ -33,6 +35,8 @@ export class LoginSignupComponent extends AbstractComponent implements OnInit {
     public override $params: Params.ILoginSignupCParams;
     protected isAffiliate: boolean = false;
     protected affiliateUrl: string = '';
+
+    protected formsService = inject(FormsService);
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILoginSignupCParams,
@@ -115,7 +119,10 @@ export class LoginSignupComponent extends AbstractComponent implements OnInit {
                 },
             });
             this.modalService.showModal(action).then((comp) => {
-                comp.closed.then(logWaiter);
+                comp.closed.then(() => {
+                    logWaiter();
+                    this.formsService.clearAllControlErrors();
+                });
             });
         }
     }

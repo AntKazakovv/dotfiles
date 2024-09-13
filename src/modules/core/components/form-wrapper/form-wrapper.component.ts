@@ -12,12 +12,14 @@ import {
     ElementRef,
     Output,
     EventEmitter,
+    inject,
 } from '@angular/core';
 import {
     AbstractControl,
     AsyncValidatorFn,
     UntypedFormControl,
     UntypedFormGroup,
+    ValidationErrors,
     ValidatorFn,
 } from '@angular/forms';
 import {
@@ -73,6 +75,7 @@ import {
 import {FormValidators} from 'wlc-engine/modules/core/system/services/validation/validators';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
+import {FormsService} from 'wlc-engine/modules/core/system/services';
 
 export interface IControls extends IIndexing<UntypedFormControl> {
 }
@@ -148,6 +151,8 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     private locked: string[] = [];
     private initiated: boolean;
 
+    protected formsService = inject(FormsService);
+
     constructor(
         @Inject('injectParams') params: IFormWrapperCParams,
         layoutService: LayoutService,
@@ -204,9 +209,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     }
 
     public override getInjector(component: any): Injector {
-
         if (component.params.components) {
-
             component.params.components = this.filterNullComponents(component.params.components);
             _each(component.params.components, component => {
                 this.getInjector(component);
@@ -224,6 +227,29 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
             });
         }
 
+        const componentName: string | string[] = component.params?.name;
+        if (componentName) {
+            switch (typeof componentName) {
+                case 'string':
+                    const controlErrors: ValidationErrors = this.formsService.getControlError(componentName);
+
+                    if (controlErrors && component.params.control) {
+                        component.params.control.setErrors(controlErrors);
+                        component.params.control.markAsTouched();
+                        component.params.control.updateValueAndValidity();
+                    }
+                    break;
+                case 'object':
+                    for (const name of componentName) {
+                        const errors: ValidationErrors = this.formsService.getControlError(name);
+                        if (errors) {
+                            component.params[name].control.setErrors(errors);
+                            component.params[name].control.markAsTouched();
+                            component.params[name].control.updateValueAndValidity();
+                        }
+                    }
+            }
+        }
         return super.getInjector(component);
     }
 

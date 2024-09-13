@@ -51,3 +51,5 @@ export {DomSanitizerService} from './dom-sanitizer/dom-sanitizer.service';
 
 export {WebsocketService} from './websocket/websocket.service';
 export {TimerService} from './timer/timer.service';
+
+export {FormsService} from './forms/forms.service';
