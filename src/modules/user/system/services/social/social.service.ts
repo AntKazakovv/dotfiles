@@ -2,6 +2,12 @@ import {UIRouterGlobals} from '@uirouter/core';
 import {Injectable} from '@angular/core';
 
 import {
+    from,
+    Observable,
+} from 'rxjs';
+import {map} from 'rxjs/operators';
+
+import {
     NotificationEvents,
     IPushMessageParams,
     ConfigService,
@@ -210,6 +216,16 @@ export class SocialService {
                 },
             });
         }
+    }
+
+    /**
+     * Get google client id
+     * @param provider social network id
+     * @returns observable google client id
+     */
+    public getClientId(provider: string): Observable<string> {
+        const clientIdRegex = /client_id=([^&]+)/;
+        return from(this.socialLogin(provider)).pipe(map(url => clientIdRegex.exec(url)![1]));
     }
 
     /**

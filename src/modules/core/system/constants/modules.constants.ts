@@ -399,6 +399,13 @@ export const standaloneComponents = {
                 return m.LanguageSelectorComponent;
             });
     },
+    'wlc-google-one-tap': async (callback: TCallbackImportFunction) => {
+        return import('wlc-engine/standalone/core/components/google-one-tap/google-one-tap.component')
+            .then((m) => {
+                callback(m.GoogleOneTapComponent);
+                return m.GoogleOneTapComponent;
+            });
+    },
     // 'some-sa-component-name': IFunctionImportStandalone
     // 'another-sa-component-name': IFunctionImportStandalone
     /** === Independent components END === */
