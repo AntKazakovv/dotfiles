@@ -50,7 +50,17 @@
         }
     }
 
+    .profile-history-filter {
+        display: ef.get-value($profileSettings, 'historyFilterDisplay');
+        align-items: ef.get-value($profileSettings, 'historyFilterAlign');
+        justify-content: ef.get-value($profileSettings, 'historyFilterJustify');
+    }
+
     .wlc-section-title {
         margin: ef.get-value($profileSettings, 'wolfTopMargin');
+
+        .profile-history-filter & {
+            margin: 0;
+        }
     }
 }

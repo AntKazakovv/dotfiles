@@ -1,0 +1,17 @@
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'historyGap': ef.size(4),
+    'historyFilterGap': ef.size(4),
+    'historyFilterColumns': 140px 140px,
+    'historyFilterColor': var(--fc-placeholderColor),
+
+    'tableCellGridTemplateColumns': 1fr auto,
+    'tableCellVerticalAlign': middle,
+
+    'periodMaxWidth': 180px,
+    'periodMargin': 0 auto,
+    'periodTextAlign': (
+        375: right,
+        1024: left,
+    )
+), $customThemeWolf);

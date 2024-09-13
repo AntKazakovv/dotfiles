@@ -3368,6 +3368,7 @@ export namespace profileContent {
                     ],
                 },
             },
+            componentLib.wlcProfileMenu.submenu,
             componentLib.wlcCashbackRewards.def,
         ],
     };
@@ -3377,11 +3378,13 @@ export namespace profileContent {
         theme: 'wolf',
         components: [
             {
-                name: 'core.wlc-section-title',
+                name: 'core.wlc-wrapper',
                 params: {
-                    theme: 'wolf',
-                    text: 'Cashback',
-                    iconPath: 'wlc/icons/european/v3/cashback.svg',
+                    class: 'wlc-profile-content__top profile-history-filter',
+                    components: [
+                        componentLib.wlcTitle.cashWolf,
+                        componentLib.wlcCashbackHistory.filterTypeWolf,
+                    ],
                 },
                 display: {
                     before: 899,
@@ -3393,6 +3396,19 @@ export namespace profileContent {
                     class: 'wlc-profile-content__wrp',
                     components: [
                         componentLib.wlcProfileMenu.defTypeWolf,
+                        componentLib.wlcProfileMenu.submenuWolf,
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                components: [
+                                    componentLib.wlcCashbackHistory.filterTypeWolf,
+                                ],
+                            },
+                            display: {
+                                after: 900,
+                                before: 1023,
+                            },
+                        },
                         componentLib.wlcCashbackRewards.def,
                     ],
                 },

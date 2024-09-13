@@ -17,6 +17,7 @@
                     <div class="{{$class}}-item__period">{{'Period' | translate}}: {{item.period | translate}} </div>
                     <div *ngIf="item.cashbackStatus && !item.timerEnded"
                         wlc-timer
+                        class="{{$class}}-item__timer"
                         value="{{item.cashbackStatus.date}}"
                         text="{{item.cashbackStatus.text}}"
                         (timerEnds)="timerExpiry(item)">
@@ -54,7 +55,7 @@
                 <div *ngIf="showDepositTimer"
                     wlc-timer
                     class="{{$class}}__timer"
-                    [theme]="'default'"
+                    [theme]="theme"
                     [value]="timerValue"
                     [text]="$params.claimTimerText"
                     (timerEnds)="depositTimerEnd()">
@@ -67,7 +68,9 @@
                 </button>
             </ng-container>
         </ng-container>
-        <div wlc-cashback-history></div>
+        <div wlc-cashback-history
+            [theme]="theme">
+        </div>
     </div>
 </ng-template>
 

@@ -1,0 +1,119 @@
+.wlc-cashback--theme-wolf:host {
+
+    .wlc-cashback {
+
+        &__content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: ef.get-value($themeWolf, 'contentMargin');
+
+            &:has(.wlc-cashback__deposit) {
+                align-items: start;
+            }
+
+            .wlc-cashback__deposit {
+                @include bm.get-mq-map('gap', $themeWolf, 'cashbackGap');
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+
+                .wlc-timer--theme-wolf {
+                    @include bm.get-mq-map('margin', $themeWolf, 'cashbackTimerMargin');
+                    width: ef.get-value($themeWolf, 'cashbackTimerWidth');
+
+                    ::ng-deep {
+
+                        .secondary-text {
+                            text-align: left;
+                        }
+
+                        .time-text__item .value {
+                            background: ef.get-value($themeWolf, 'cashbackTimerValueBg');
+                        }
+                    }
+                }
+
+                .wlc-cashback-item__btn {
+                    width: ef.get-value($themeWolf, 'cashbackBtnWidth');
+                    margin: ef.get-value($themeWolf, 'cashbackBtnMargin');
+                    padding: ef.get-value($themeWolf, 'cashbackBtnPadding');
+                }
+            }
+
+            .wlc-cashback__no-content {
+                width: 100%;
+            }
+        }
+
+        &__items {
+            @include bm.get-mq-map('grid-template-columns', $themeWolf, 'itemsTemplateColumns');
+            display: grid;
+            gap: ef.get-value($themeWolf, 'itemsGap');
+            width: ef.get-value($themeWolf, 'itemsWidth');
+        }
+
+        &-item {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'itemTextStyle'),
+                ef.get-value($themeWolf, 'itemTextColor')
+            );
+            display: grid;
+            grid-template-rows: ef.get-value($themeWolf, 'itemGridRows');
+            gap: ef.get-value($themeWolf, 'itemGap');
+            justify-items: ef.get-value($themeWolf, 'itemJustifyItems');
+            min-height: ef.get-value($themeWolf, 'itemHeight');
+            border-radius: ef.get-value($themeWolf, 'itemRadius');
+            padding: ef.get-value($themeWolf, 'itemPadding');
+            text-align: ef.get-value($themeWolf, 'itemTextAlign');
+            background: ef.get-value($themeWolf, 'itemBg');
+            place-items: center;
+
+            &__title {
+                @include bm.lineClamp(2);
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'itemTitleStyle'),
+                    ef.get-value($themeWolf, 'itemTitleColor')
+                );
+            }
+
+            &__desc {
+                @include bm.lineClamp(2);
+            }
+
+            &__pending {
+                display: flex;
+                align-items: ef.get-value($themeWolf, 'itemPendingAlignItems');
+                justify-content: ef.get-value($themeWolf, 'itemPendingJustifyContent');
+                width: 100%;
+                max-width: ef.get-value($themeWolf, 'timerContentWidth');
+                height: 100%;
+                border-radius: ef.get-value($themeWolf, 'itemPendingRadius');
+                background: ef.get-value($themeWolf, 'itemPendingBg');
+            }
+
+            &__btn-block {
+                display: ef.get-value($themeWolf, 'itemBtnDisplay');
+                flex: ef.get-value($themeWolf, 'itemBtnFlex');
+                align-items: ef.get-value($themeWolf, 'itemBtnAlignItems');
+            }
+        }
+
+        ::ng-deep {
+
+            .wlc-timer {
+
+                &__content {
+                    width: ef.get-value($themeWolf, 'timerContentWidth');
+                }
+            }
+        }
+    }
+
+    &.wlc-cashback--theme-mod-first {
+
+        .wlc-cashback__items {
+            @include bm.get-mq-map('grid-template-columns', $themeWolf, 'itemsTemplateColumnsModFirst');
+        }
+    }
+}

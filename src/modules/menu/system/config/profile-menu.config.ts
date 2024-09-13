@@ -687,6 +687,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                     'app.profile.cash.deposit',
                     'app.profile.cash.withdraw',
                     'app.profile.cash.transfer',
+                    'app.profile.cashback-rewards',
                 ],
             },
         },

@@ -1,0 +1,48 @@
+.wlc-cashback-history--theme-wolf:host {
+    display: grid;
+    gap: ef.get-value($themeWolf, 'historyGap');
+
+    .wlc-cashback-history__filter {
+        display: grid;
+        grid-template-columns: ef.get-value($themeWolf, 'historyFilterColumns');
+        gap: ef.get-value($themeWolf, 'historyFilterGap');
+        color: ef.get-value($themeWolf, 'historyFilterColor');
+    }
+
+    .wlc-history-range {
+        margin: 0;
+    }
+
+    .wlc-table--theme-default.wlc-table::ng-deep {
+
+        .wlc-table__cell--first {
+            grid-template-columns: ef.get-value($themeWolf, 'tableCellGridTemplateColumns');
+
+            .wlc-table__cell-label {
+                display: none;
+            }
+        }
+
+        .wlc-table__content .wlc-table__row {
+
+            .wlc-table__cell {
+                vertical-align: ef.get-value($themeWolf, 'tableCellVerticalAlign');
+            }
+        }
+
+        .wlc-table__cell--Period {
+
+            .wlc-table__cell-content {
+                @include bm.get-mq-map('text-align', $themeWolf, 'periodTextAlign');
+                max-width: ef.get-value($themeWolf, 'periodMaxWidth');
+                margin: ef.get-value($themeWolf, 'periodMargin');
+            }
+        }
+
+        .wlc-table__cell--AmountConverted[class] {
+            @include mq.max(1024) {
+                display: none;
+            }
+        }
+    }
+}

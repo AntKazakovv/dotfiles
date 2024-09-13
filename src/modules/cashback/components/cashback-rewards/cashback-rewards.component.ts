@@ -213,6 +213,10 @@ export class CashbackRewardsComponent extends AbstractComponent implements OnIni
         this.cdr.detectChanges();
     }
 
+    public get theme(): Params.ComponentTheme {
+        return this.$params.theme;
+    }
+
     private async updateCashback(): Promise<void> {
         this.ready$.next(false);
         await this.cashbackController.fetchCashback();

@@ -58,16 +58,19 @@
     }
 
     .wlc-bet-history .wlc-table--wolf-colors &,
+    .wlc-cashback-history .wlc-table--wolf-colors &,
     .wlc-transaction-history .wlc-table--wolf-colors & {
 
         &.wlc-currency {
 
+            &--equal-zero,
             &--less-zero,
             &--above-zero {
                 padding: ef.get-value($themeDefault, 'currencyPadding');
                 border-radius: ef.get-value($themeDefault, 'currencyRadius');
             }
 
+            &--equal-zero,
             &--less-zero {
                 background: ef.get-value($themeDefault, 'currencyNegativeBg');
             }
