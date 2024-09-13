@@ -57,6 +57,7 @@ export const defaultParams: Partial<ICountryAndStateCParams> = {
         options: 'countryStates',
         wlcElement: 'block_state',
         customMod: ['state'],
+        locked: true,
     },
     cpf: _cloneDeep(FormElements.cpf.params),
     cnp: _cloneDeep(FormElements.cnp.params),

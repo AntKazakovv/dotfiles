@@ -337,6 +337,7 @@ export namespace FormElements {
             options: 'states',
             wlcElement: 'block_state',
             customMod: ['state'],
+            locked: true,
         },
     };
 
@@ -344,7 +345,7 @@ export namespace FormElements {
         name: 'core.wlc-country-and-state',
         params: {
             name: ['countryCode', 'stateCode', 'cpf'],
-            locked: ['countryCode', 'cpf'],
+            locked: ['countryCode', 'cpf', 'stateCode'],
             validatorsField: [
                 {
                     name: 'countryCode',
