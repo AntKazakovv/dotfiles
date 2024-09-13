@@ -3,7 +3,7 @@ import {commonMenuItems} from 'wlc-engine/modules/menu/system/config/common.item
 
 export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'main-menu:home': {
-        name: gettext('Home page'),
+        name: gettext('Main page'),
         type: 'sref',
         class: 'home',
         icon: 'lobby',

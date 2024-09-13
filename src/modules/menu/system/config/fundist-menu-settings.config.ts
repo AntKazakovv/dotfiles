@@ -7,7 +7,7 @@ export const fundistSettings: IMenu = {
                 type: 'page',
                 id: 'lobby',
                 name: {
-                    en: 'Lobby',
+                    en: 'Main page',
                 },
                 order: 10,
                 device: 'all',
@@ -139,7 +139,7 @@ export const fundistSettings: IMenu = {
                 type: 'page',
                 id: 'home',
                 name: {
-                    en: 'Home Page',
+                    en: 'Main page',
                 },
                 order: 10,
                 device: 'all',

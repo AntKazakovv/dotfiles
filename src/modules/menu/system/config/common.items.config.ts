@@ -63,7 +63,7 @@ export namespace commonMenuItems {
     };
 
     export const lobby: MenuParams.IMenuItem = {
-        name: gettext('Lobby'),
+        name: gettext('Main page'),
         type: 'sref',
         icon: 'lobby',
         class: 'lobby',

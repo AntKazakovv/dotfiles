@@ -320,7 +320,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
 
     protected getLobbyBtn(): MenuParams.IMenuItem {
         return {
-            name: gettext('Lobby'),
+            name: gettext('Main page'),
             type: 'sref',
             icon: this.iconPath('lobby'),
             class: 'lobby',
