@@ -509,7 +509,7 @@ export class FinancesService {
                         } else {
                             message.push(
                                 this.translateService.instant(
-                                    gettext('{{currencyElement}} were successfully deposited in your account'),
+                                    gettext('{{currencyElement}} were successfully deposited into your account'),
                                     {currencyElement: currencyElement},
                                 ),
                             );
