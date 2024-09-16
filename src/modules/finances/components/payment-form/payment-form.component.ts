@@ -1410,7 +1410,7 @@ export class PaymentFormComponent
             form.action = response[1];
         } else {
             form.method = response[0];
-            form.action = (response[1] && response[1].URL) ? response[1].URL : '';
+            let url: URL = new URL(response[1]?.URL);
 
             for (const key in response[1]) {
 
@@ -1420,12 +1420,14 @@ export class PaymentFormComponent
 
                 if (_isArray(response[1][key])) {
                     for (const value of response[1][key]) {
-                        form.appendChild(this.addField(key, value));
+                        url.searchParams.append(key, value);
                     }
                 } else {
-                    form.appendChild(this.addField(key, response[1][key]));
+                    url.searchParams.append(key, response[1][key]);
                 }
             }
+
+            form.action = url.href ;
         }
 
         form.style.display = 'none';
@@ -1457,14 +1459,6 @@ export class PaymentFormComponent
         }
 
         return form;
-    }
-
-    protected addField(name: string, value: any): HTMLInputElement {
-        const input: HTMLInputElement = this.document.createElement('input');
-        input.type = 'text';
-        input.name = name;
-        input.value = value;
-        return input;
     }
 
     protected showIFrame(form: HTMLFormElement): void {
