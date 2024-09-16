@@ -97,7 +97,6 @@ import {
 import {RadioButtonsComponent} from './components/radio-buttons/radio-buttons.component';
 import {RatingComponent} from './components/rating/rating.component';
 import {ScrollbarComponent} from './components/scrollbar/scrollbar.component';
-import {ScrollUpComponent} from 'wlc-engine/modules/core/components/scroll-up/scroll-up.component';
 import {SectionTitleComponent} from 'wlc-engine/modules/core/components/section-title/section-title.component';
 import {SelectComponent} from './components/select/select.component';
 import {SliderComponent} from './components/slider/slider.component';
@@ -213,7 +212,6 @@ export const components = {
     'wlc-promocode-link': PromocodeLinkComponent,
     'wlc-preloader': PreloaderComponent,
     'wlc-radio-buttons': RadioButtonsComponent,
-    'wlc-scroll-up': ScrollUpComponent,
     'wlc-rating': RatingComponent,
     'wlc-section-title': SectionTitleComponent,
     'wlc-select': SelectComponent,
@@ -319,7 +317,6 @@ export const services = {
         RadioButtonsComponent,
         RatingComponent,
         ScrollbarComponent,
-        ScrollUpComponent,
         SelectComponent,
         SliderComponent,
         SliderNavigationComponent,
@@ -409,7 +406,6 @@ export const services = {
         RadioButtonsComponent,
         RatingComponent,
         ScrollbarComponent,
-        ScrollUpComponent,
         SectionTitleComponent,
         SelectComponent,
         SliderComponent,

@@ -1,4 +1,5 @@
-import {ILayoutComponent, IScrollUpParams} from 'wlc-engine/modules/core';
+import {ILayoutComponent} from 'wlc-engine/modules/core';
+import {IScrollUpParams} from 'wlc-engine/standalone/core/components/scroll-up/scroll-up.params';
 
 export namespace wlcScrollUp {
 

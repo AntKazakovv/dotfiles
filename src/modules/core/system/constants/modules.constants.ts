@@ -447,6 +447,13 @@ export const standaloneComponents = {
                 return m.GamesGridComponent;
             });
     },
+    'wlc-scroll-up': async (callback: TCallbackImportFunction) => {
+        return import('wlc-engine/standalone/core/components/scroll-up/scroll-up.component')
+            .then((m) => {
+                callback(m.ScrollUpComponent);
+                return m.ScrollUpComponent;
+            });
+    },
     // 'some-sa-component-name': IFunctionImportStandalone
     // 'another-sa-component-name': IFunctionImportStandalone
     /** === Independent components END === */

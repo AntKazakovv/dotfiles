@@ -14,6 +14,7 @@ import {
     throttleTime,
 } from 'rxjs';
 
+import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ActionService} from 'wlc-engine/modules/core';
 import {WINDOW} from 'wlc-engine/modules/app/system';
@@ -25,6 +26,10 @@ import * as Params from './scroll-up.params';
     templateUrl: './scroll-up.component.html',
     styleUrls: ['./styles/scroll-up.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [
+        CoreModule,
+    ],
 })
 
 export class ScrollUpComponent extends AbstractComponent implements OnInit {

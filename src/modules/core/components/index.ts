@@ -68,8 +68,6 @@ export {IconComponent} from './icon/icon.component';
 export {ImageComponent} from './image/image.component';
 export {TimerComponent} from './timer/timer.component';
 export {ISocialIconsCParams} from './social-icons/social-icons.params';
-export {IScrollUpParams} from './scroll-up/scroll-up.params';
-export {ScrollUpComponent} from './scroll-up/scroll-up.component';
 export {CounterComponent} from './counter/counter.component';
 export {ICounterCParams} from './counter/counter.params';
 export {IHeaderCParams} from './header/header.params';
