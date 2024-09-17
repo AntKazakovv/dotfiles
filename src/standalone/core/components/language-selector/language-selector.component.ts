@@ -4,7 +4,6 @@ import {
     ElementRef,
     Inject,
     OnInit,
-    AfterViewInit,
     Input,
     ViewChild,
     TemplateRef,
@@ -102,7 +101,7 @@ export {ILanguageSelectorCParams} from './language-selector.params';
 })
 export class LanguageSelectorComponent
     extends AbstractComponent
-    implements OnInit, AfterViewInit {
+    implements OnInit {
     @ViewChild('langList') langListRef: TemplateRef<any>;
     @ViewChild('dropdown') protected dropdownRef!: ElementRef<HTMLElement>;
     @ViewChild('langContainer') protected langContainer!: ElementRef;
@@ -170,13 +169,11 @@ export class LanguageSelectorComponent
             });
         }
 
-        this.setDropdownModifier();
-    }
-
-    public ngAfterViewInit(): void {
         if (this.$params.compactMod) {
             this.initCompactMod();
         }
+
+        this.setDropdownModifier();
     }
 
     public changeLanguage(lang: string, event: MouseEvent): void {
