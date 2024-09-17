@@ -940,7 +940,10 @@ export class UserService {
                     + 'Kindly check your email box and confirm registration using the link in the email.',
                 ));
             } else {
-                message.push(gettext('Please complete registration using link in e-mail'));
+                message.push(gettext(
+                    'Please check your e-mail and complete your sign-up via the link. ' +
+                    'The verification link is valid for 48 hours',
+                ));
             }
         }
 
