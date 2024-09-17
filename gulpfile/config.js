@@ -44,6 +44,10 @@ module.exports = function config(root, bundleType, pathsConfig = {}) {
             translationLogsDocDist: `${root}/src/docs/content/1000.translations`,
             apiTest: `${root}/api-tests`,
             ...pathsConfig,
+            images: {
+                all: `${root}/roots/static/images`,
+                gamesThumb: `${root}/roots/static/images/games_thumb`,
+            },
         },
         tmpFileOptions: {
             tmpdir: root + '/temp',
@@ -66,6 +70,11 @@ module.exports = function config(root, bundleType, pathsConfig = {}) {
             groups: {
                 'global': 'Global',
             },
+        },
+        limits: {
+            allImages: 250, // max size of all images (kb)
+            thumbImages: 100, // max thumbnail size (kb)
+            allSvg: 40, // max svg size (kb)
         },
     };
 };

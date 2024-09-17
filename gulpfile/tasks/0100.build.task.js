@@ -86,6 +86,7 @@ module.exports = function buildTask() {
 
     task('dev', series(
         'check-settings',
+        'images',
         'build:prepare',
         'prepare:dev',
         'build:symlinkHeadFile',
