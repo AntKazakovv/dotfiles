@@ -194,9 +194,7 @@ export class Game extends AbstractModel<IGame> {
             || restrictions.restrictedByDefault[this.merchantID];
 
         if (_isObject(restrictedCountries)) {
-
-            for (let country in countries) {
-
+            for (let country of countries) {
                 if (restrictedCountries[country]) {
                     this._isRestricted = true;
                     break;
