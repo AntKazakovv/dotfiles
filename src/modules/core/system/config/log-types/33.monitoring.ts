@@ -11,4 +11,9 @@ export const errorTypes: ILogTypes = {
         level: 'info',
         durationType: 'fromStart',
     },
+    '33.0.2': {
+        // Loading time for banners
+        level: 'info',
+        durationType: 'fromStart',
+    },
 };

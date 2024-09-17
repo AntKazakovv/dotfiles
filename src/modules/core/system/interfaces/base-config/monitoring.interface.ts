@@ -1,7 +1,10 @@
 import {TProcessConfigs} from 'wlc-engine/modules/monitoring';
 
+export type TLoggingLoadedSections = 'main-menu' | 'banners';
+
 interface ILoggingLoadedSections {
-    use: boolean;
+    use?: boolean;
+    sections?: TLoggingLoadedSections[];
 }
 
 export interface IMonitoringConfig {

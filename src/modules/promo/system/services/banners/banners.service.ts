@@ -16,6 +16,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {BannerModel} from 'wlc-engine/modules/promo/system/models/banner.model';
 import {Deferred} from 'wlc-engine/modules/core/system/classes/deferred.class';
+import {TLoggingLoadedSections} from 'wlc-engine/modules/core/system/interfaces/base-config/monitoring.interface';
 
 declare type IPlatform = 'any' | 'desktop' | 'mobile';
 declare type IVisibility = 'anyone' | 'anonymous' | 'authenticated';
@@ -166,7 +167,7 @@ export class BannersService {
             if (!data) {
                 data = (await this.dataService.request<IData<IIndexing<IBanner[]>>>('banners/banners'))?.data;
             }
-            
+
             if (data) {
                 this.allBanners = data;
 
@@ -181,6 +182,13 @@ export class BannersService {
             this.logService.sendLog({code: '20.0.1', data: error});
         } finally {
             this.readyStatus.resolve();
+
+            if (this.configService.get('$base.monitoring.loggingLoadedSections.use')
+                && this.configService.get<TLoggingLoadedSections[]>('$base.monitoring.loggingLoadedSections.sections')
+                    .includes('banners')
+            ) {
+                this.logService.sendLog({code: '33.0.2'}, true);
+            }
         }
     }
 
