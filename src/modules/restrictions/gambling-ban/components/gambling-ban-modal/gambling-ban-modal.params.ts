@@ -54,11 +54,11 @@ const primaryText = gettext(
     'We inform you that subject to subsection 15(2A) ' +
     'of the Australian Interactive Gambling Act 2001 it is prohibited ' +
     'to provide the service for customers who are physically present in Australia. ' +
-    'By continuing you confirm that you are not physically present in Australia ' +
+    'By continuing to use the site services you confirm that you are not physically present in Australia ' +
     'and you have been informed that it is illegal to access the service ' +
-    'while residing in Australia.',
-);
+    'while residing in Australia',
 
+);
 export const defaultParams: IGamblingBanModalParams = {
     class: 'gambling-ban-modal',
     componentName: 'gambling-ban-modal',
@@ -72,7 +72,7 @@ export const defaultParams: IGamblingBanModalParams = {
     confirmation: {
         checkbox: {
             common: {checkedDefault: false},
-            text: gettext('I confirm I am not physically present in Australia'),
+            text: gettext('I confirm that I am not physically present in Australia'),
             textSide: 'right',
         },
     },
