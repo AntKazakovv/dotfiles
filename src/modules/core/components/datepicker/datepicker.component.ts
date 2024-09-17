@@ -7,7 +7,6 @@ import {
     ChangeDetectionStrategy,
 } from '@angular/core';
 import {UntypedFormControl} from '@angular/forms';
-
 import {takeUntil} from 'rxjs';
 
 import {IMaskDirective} from 'angular-imask';
@@ -18,12 +17,15 @@ import {
 } from 'ngx-bootstrap/datepicker';
 import dayjs from 'dayjs';
 import type {Dayjs} from 'dayjs';
-
-import {defineLocale} from 'ngx-bootstrap/chronos';
 import * as locales from 'ngx-bootstrap/locale';
+import {defineLocale} from 'ngx-bootstrap/chronos';
 
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {
+    IUnregisteredLanguages,
+    unregisteredLanguages,
+} from 'wlc-engine/modules/core/components/datepicker/constants';
 
 import * as Params from './datepicker.params';
 
@@ -68,9 +70,18 @@ export class DatepickerComponent extends AbstractComponent implements OnInit {
         super.ngOnInit(this.inlineParams);
         this.bsValue = this.$params.useEmptyValue ? null : new Date();
         this.locale = this.translateService.currentLang;
-        const dpLocale: Params.ILocale = this.$params.locales[this.locale] || this.$params.locales['en'];
-        defineLocale(dpLocale.name, locales[dpLocale.config]);
-        this.localeService.use(dpLocale.name);
+
+        if (this.$params.locales[this.locale]) {
+            const dpLocale: Params.ILocale = this.$params.locales[this.locale];
+            defineLocale(dpLocale.name, locales[dpLocale.config]);
+            this.localeService.use(dpLocale.name);
+        } else {
+            const exceptionLocale: IUnregisteredLanguages =
+                unregisteredLanguages.find(item => item.abbr === this.locale);
+            defineLocale(this.locale, exceptionLocale);
+            this.localeService.use(exceptionLocale.abbr);
+        }
+
         this.control = this.$params.control || new UntypedFormControl('');
 
         this.control.valueChanges

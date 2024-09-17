@@ -60,7 +60,6 @@ export const defaultParams: Partial<IDatepickerCParams> = {
         'cs': {name: 'cs', config: 'csLocale'},
         'da': {name: 'da', config: 'daLocale'},
         'de': {name: 'de', config: 'deLocale'},
-        'en': {name: 'en-gb', config: 'enGbLocale'},
         'es': {name: 'es', config: 'esLocale'},
         'fi': {name: 'fi', config: 'fiLocale'},
         'fr': {name: 'fr', config: 'frLocale'},
@@ -90,5 +89,6 @@ export const defaultParams: Partial<IDatepickerCParams> = {
         'ua': {name: 'uk', config: 'ukLocale'},
         'vi': {name: 'vi', config: 'viLocale'},
         'zh-cn': {name: 'zh-cn', config: 'zhCnLocale'},
+        'en': {name: 'en-gb', config: 'enGbLocale'},
     },
 };
