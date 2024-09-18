@@ -1392,14 +1392,35 @@ export class PaymentFormComponent
     }
 
     protected addFormToBodyAndSubmit(response): void {
-        this.formSubmit = this.createForm(response);
-
         if (this.newTabRef) {
-            this.newTabRef.location = this.formSubmit.action;
+            const url: URL = this.createURL(response);
+            this.newTabRef.location = url.href;
             this.newTabRef = null;
         } else {
+            this.formSubmit = this.createForm(response);
             this.document.body.appendChild(this.formSubmit);
         }
+    }
+
+    protected createURL(response: any): URL {
+        let url: URL = new URL(response[1]?.URL);
+
+        for (const key in response[1]) {
+
+            if (key === 'URL' || !response[1].hasOwnProperty(key)) {
+                continue;
+            }
+
+            if (_isArray(response[1][key])) {
+                for (const value of response[1][key]) {
+                    url.searchParams.append(key, value);
+                }
+            } else {
+                url.searchParams.append(key, response[1][key]);
+            }
+        }
+
+        return url;
     }
 
     protected createForm(response: any): HTMLFormElement {
@@ -1410,7 +1431,7 @@ export class PaymentFormComponent
             form.action = response[1];
         } else {
             form.method = response[0];
-            let url: URL = new URL(response[1]?.URL);
+            form.action = (response[1] && response[1].URL) ? response[1].URL : '';
 
             for (const key in response[1]) {
 
@@ -1420,14 +1441,12 @@ export class PaymentFormComponent
 
                 if (_isArray(response[1][key])) {
                     for (const value of response[1][key]) {
-                        url.searchParams.append(key, value);
+                        form.appendChild(this.addField(key, value));
                     }
                 } else {
-                    url.searchParams.append(key, response[1][key]);
+                    form.appendChild(this.addField(key, response[1][key]));
                 }
             }
-
-            form.action = url.href ;
         }
 
         form.style.display = 'none';
@@ -1454,11 +1473,17 @@ export class PaymentFormComponent
             }
             form.target = 'deposit_frame';
             this.showIFrame(form);
-        } else if (this.currentSystem.appearance === 'newtab') {
-            form.target = '_blank';
         }
 
         return form;
+    }
+
+    protected addField(name: string, value: any): HTMLInputElement {
+        const input: HTMLInputElement = this.document.createElement('input');
+        input.type = 'text';
+        input.name = name;
+        input.value = value;
+        return input;
     }
 
     protected showIFrame(form: HTMLFormElement): void {
