@@ -9,14 +9,14 @@
 <div *ngIf="ready">
     <div *ngIf="!isAvailablePayment"
         class="{{$class}}__fields-message">
-        {{'Payment method is not available.' | translate}}
+        {{'The payment method is not available' | translate}}
     </div>
 
     <div *ngIf="requiredFieldsKeys.length"
         class="{{$class}}__fields-error"
         data-wlc-element="add_required_fields">
         <p class="{{$class}}__fields-message">
-            {{'Payment method is not available. Please, add the following info:' | translate}}
+            {{'The payment method is not available. Please add the following info:' | translate}}
         </p>
         <ul class="{{$class}}__fields-ul">
             <li *ngFor="let item of requiredFieldsKeys"

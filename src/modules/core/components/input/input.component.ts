@@ -197,7 +197,7 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
             data: <IPushMessageParams>{
                 type: 'success',
                 title: gettext('Info'),
-                message: gettext('Copied to clipboard!'),
+                message: gettext('Copied to the clipboard!'),
                 wlcElement: 'notification_input-info',
             },
         });

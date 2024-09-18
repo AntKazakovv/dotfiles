@@ -655,7 +655,7 @@ export class PaymentFormComponent
             this.pushNotification({
                 type: 'error',
                 title: notificationTitle,
-                message: gettext('You must select payment method'),
+                message: gettext('You must select a payment method'),
                 wlcElement: 'notification_deposit-method-error',
             });
             return false;
@@ -1375,7 +1375,7 @@ export class PaymentFormComponent
     protected getPaymentMessageModalConfig(type: TModalType, isInvoice?: boolean): IModalConfig {
         return {
             id: 'payment-message',
-            modalTitle: gettext('Payment'),
+            modalTitle: gettext('Deposit'),
             modifier: type,
             component: PaymentMessageComponent,
             componentParams: {

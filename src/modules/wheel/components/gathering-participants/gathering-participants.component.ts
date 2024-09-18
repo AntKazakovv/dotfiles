@@ -176,7 +176,7 @@ export class GatheringParticipantsComponent extends AbstractComponent implements
             data: <IPushMessageParams>{
                 type: 'success',
                 title: gettext('Info'),
-                message: gettext('Copied to clipboard!'),
+                message: gettext('Copied to the clipboard!'),
                 wlcElement: 'notification_input-info',
             },
         });

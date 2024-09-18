@@ -121,8 +121,8 @@ export const financesConfig: IFinancesConfig = {
                         systems: ['inpay_withdraw'],
                     },
                     {
-                        tooltip: gettext('Please enter 11 digit numbers of CPF from RG ID card.' +
-                            ' Please do not use Dash.'),
+                        tooltip: gettext('Please enter the 11-digit number of the CPF from your RG ID card.' +
+                            ' Please do not use a dash'),
                         validators: [
                             {
                                 name: 'pattern',
