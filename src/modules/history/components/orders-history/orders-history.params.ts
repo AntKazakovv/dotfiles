@@ -5,6 +5,8 @@ import {
     ITableCol,
     ITableCParams,
 } from 'wlc-engine/modules/core';
+import {StoreItemPriceComponent} from 'wlc-engine/modules/store/components/store-item-price/store-item-price.component';
+import {IStoreItemPriceCParams} from 'wlc-engine/modules/store/components/store-item-price/store-item-price.params';
 import {HistoryNameComponent} from 'wlc-engine/modules/history/components/history-name/history-name.component';
 import {IHistoryNameItem} from 'wlc-engine/modules/history/components/history-name/history-name.params';
 import {OrderHistoryItemModel} from 'wlc-engine/modules/history/system/models/orders-history/orders-history.model';
@@ -45,17 +47,22 @@ export const ordersHistoryTableHeadConfig: ITableCol[] = [
     },
     {
         key: 'amount',
-        title: gettext('Loyalty'),
-        type: 'text',
+        title: gettext('Price'),
+        type: 'component',
+        mapValue: (item: OrderHistoryItemModel): IStoreItemPriceCParams => {
+            return {
+                isHistory: true,
+                storeItemTotalPrice: {
+                    loyaltyPrice: +item.amount,
+                    expPrice: +item.amountExperience,
+                    moneyPrice: item.currencyPrice?.price,
+                    moneyCurrency: item.currencyPrice?.currency,
+                },
+            };
+        },
+        componentClass: StoreItemPriceComponent,
         order: 30,
         wlcElement: 'wlc-profile-table__cell_amount',
-    },
-    {
-        key: 'amountExperience',
-        title: gettext('Experience'),
-        type: 'text',
-        order: 50,
-        wlcElement: 'wlc-profile-table__cell_experience',
     },
     {
         key: 'addDate',

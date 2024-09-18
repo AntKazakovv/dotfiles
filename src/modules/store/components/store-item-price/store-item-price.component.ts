@@ -23,6 +23,9 @@ export class StoreItemPriceComponent extends AbstractComponent implements OnInit
     @Input() public storeItemTotalPrice: IStoreItemTotalPrice;
 
     public override $params: Params.IStoreItemPriceCParams;
+    public storeItemTotalPriceHistory: IStoreItemTotalPrice;
+
+    protected readonly isMultiWallet: boolean = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IStoreItemPriceCParams,
@@ -35,6 +38,19 @@ export class StoreItemPriceComponent extends AbstractComponent implements OnInit
 
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+        this.storeItemTotalPriceHistory ??= this.$params.storeItemTotalPrice;
+    }
+
+    public get isNeedCurrencyIcon(): boolean {
+        return (!this.$params.isHistory || this.isMultiWallet);
+    }
+
+    public get hasPrice(): boolean {
+        return Object.values(this.storeItemTotalPriceHistory).some(elem => !!elem);
+    }
+
+    public get isHistory(): boolean {
+        return this.$params.isHistory;
     }
 
     public getCurrencyIconUrl(currency: string): string {

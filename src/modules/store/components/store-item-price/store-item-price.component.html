@@ -1,4 +1,10 @@
-<div class="{{$class}}__content">
+<div class="{{$class}}__content" data-wlc-element="block_content-store-item-price">
+    <ng-template [ngIf]="isHistory" [ngIfElse]="default">
+        <ng-container *ngIf="hasPrice; else noValue" [ngTemplateOutlet]="history"></ng-container>
+    </ng-template>
+</div>
+
+<ng-template #default>
     <div *ngIf="!!storeItemTotalPrice.loyaltyPrice"
         wlc-currency
         class="price-item"
@@ -13,7 +19,9 @@
         digitsInfo="1-0-0"
         [value]="storeItemTotalPrice.expPrice">
     </div>
-    <div *ngIf="!!storeItemTotalPrice.moneyPrice" class="{{$class}}__money price-item">
+    <div *ngIf="!!storeItemTotalPrice.moneyPrice"
+        class="{{$class}}__money price-item"
+        data-wlc-element="price-item_currency">
         <span wlc-currency
             class="{{$class}}__money-value"
             [value]="storeItemTotalPrice.moneyPrice"
@@ -25,4 +33,40 @@
             [iconPath]="getCurrencyIconUrl(storeItemTotalPrice.moneyCurrency)">
         </span>
     </div>
-</div>
+</ng-template>
+
+<ng-template #history>
+    <div *ngIf="!!storeItemTotalPriceHistory.moneyPrice"
+        class="{{$class}}__money price-item"
+        data-wlc-element="price-item_currency">
+        <span wlc-currency
+            class="{{$class}}__money-value"
+            [currency]="storeItemTotalPriceHistory.moneyCurrency"
+            [value]="storeItemTotalPriceHistory.moneyPrice"
+            digitsInfo="1-2-2"
+            [showValueOnly]="isNeedCurrencyIcon">
+        </span>
+        <span *ngIf="isNeedCurrencyIcon"
+            wlc-icon
+            class="{{$class}}__money-icon"
+            [iconPath]="WalletHelper.getCurrencyIconUrl(storeItemTotalPriceHistory.moneyCurrency)">
+        </span>
+    </div>
+
+    <div *ngIf="!!storeItemTotalPriceHistory.loyaltyPrice"
+        wlc-currency
+        class="price-item lp"
+        currency="LP"
+        digitsInfo="1-0-0"
+        [value]="storeItemTotalPriceHistory.loyaltyPrice">
+    </div>
+    <div *ngIf="!!storeItemTotalPriceHistory.expPrice"
+        wlc-currency
+        class="price-item exp"
+        currency="EP"
+        digitsInfo="1-0-0"
+        [value]="storeItemTotalPriceHistory.expPrice">
+    </div>
+</ng-template>
+
+<ng-template #noValue>-</ng-template>

@@ -600,6 +600,7 @@ export class HistoryService {
         return data.map((item: IOrder) => new OrderHistoryItemModel(
             {service: 'HistoryService', method: 'createOrders'},
             item,
+            this.configService,
         ));
     }
 
