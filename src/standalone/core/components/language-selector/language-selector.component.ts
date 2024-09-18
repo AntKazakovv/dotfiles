@@ -95,7 +95,7 @@ export {ILanguageSelectorCParams} from './language-selector.params';
                 animate(0),
             ]),
             transition('* => *', [
-                animate('0.15s'),
+                animate('0.3s'),
             ]),
         ]),
     ],

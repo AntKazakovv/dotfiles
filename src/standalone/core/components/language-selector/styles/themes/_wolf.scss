@@ -54,6 +54,7 @@
                 &__link {
 
                     &-flag {
+                        @include bm.transition(all);
                         width: ef.get-value($themeWolf, 'ddHoverLangIconWidth');
                         height: ef.get-value($themeWolf, 'ddHoverLangIconHeight');
                         margin: 0;
@@ -107,6 +108,7 @@
                 }
 
                 &__link {
+                    @include bm.transition(all);
 
                     &--active {
                         background: ef.get-value($themeWolf, 'ddActiveLinkBg');
