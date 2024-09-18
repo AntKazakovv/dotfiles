@@ -222,8 +222,10 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
             });
 
         } else {
-            _assign(component.params, {
-                control: this.form?.controls[component.params.name] || new UntypedFormControl(''),
+            const params = component.params?.hasOwnProperty('saName') ? component.params.saParams : component.params;
+
+            _assign(params, {
+                control: this.form?.controls[params.name] || new UntypedFormControl(''),
             });
         }
 
@@ -384,65 +386,74 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
         const controls: IIndexing<UntypedFormControl> = {};
 
         components = this.filterNullComponents(components);
+
         _each(components, (component) => {
-            if (component.params.components) {
-                this.prepareComponents(component.params.components);
+            const componentParams: IIndexing<any> = component.params?.hasOwnProperty('saName')
+                ? component.params.saParams
+                : component.params;
+
+            const componentName: string = component.params?.hasOwnProperty('saName')
+                ? component.params.saName
+                : component.name;
+
+            if (componentParams.components) {
+                this.prepareComponents(componentParams.components);
                 return;
             }
 
             if (
                 this.configService.get<boolean>('$base.useButtonPending')
-                && component.params.common?.typeAttr === 'submit'
+                && componentParams.common?.typeAttr === 'submit'
             ) {
                 this.submitButtonPending$ = new BehaviorSubject(false);
-                _set(component.params, 'pending$', this.submitButtonPending$);
+                _set(componentParams, 'pending$', this.submitButtonPending$);
             }
 
-            if (!component.params?.name) {
+            if (!componentParams?.name) {
                 return;
             }
 
             const validators: ValidatorFn[] = [];
             const asyncValidators: AsyncValidatorFn[] = [];
 
-            if (!component.params.validators) {
-                component.params.validators = [];
+            if (!componentParams.validators) {
+                componentParams.validators = [];
             }
 
-            switch (component.name) {
-                case 'core.wlc-input':
-                    component.params.validators.push(FormValidators.tagReg, FormValidators.emojiReg);
-                    if (!_find(component.params.validators, {name: 'maxLength'})) {
-                        component.params.validators.push(FormValidators.maxLength);
+            if (componentName) {
+
+                if (componentName.includes('wlc-input')) {
+                    componentParams.validators.push(FormValidators.tagReg, FormValidators.emojiReg);
+                    if (!_find(componentParams.validators, {name: 'maxLength'})) {
+                        componentParams.validators.push(FormValidators.maxLength);
                     }
-                    break;
-                case 'core.wlc-textarea':
-                    component.params.validators.push(FormValidators.tagReg, FormValidators.emojiReg);
-                    break;
-                default:
-                    break;
+                }
+
+                if (componentName.includes('wlc-textarea')) {
+                    componentParams.validators.push(FormValidators.tagReg, FormValidators.emojiReg);
+                }
             }
 
-            _each(component.params.validators, (validator) => {
+            _each(componentParams.validators, (validator) => {
                 this.getValidator(validator, asyncValidators, validators);
 
                 if (validator === 'required'
-                    && _isUndefined(component.params.locked)
+                    && _isUndefined(componentParams.locked)
                     && this.$params.isStrictLocked)
                 {
-                    component.params.locked = true;
+                    componentParams.locked = true;
                 }
             });
 
-            if (_isArray(component.params.name)) {
-                _each(component.params.name, (field: string) => {
+            if (_isArray(componentParams.name)) {
+                _each(componentParams.name, (field: string) => {
 
                     const fieldValidator: ValidatorFn[] = [];
                     const fieldAsyncValidators: AsyncValidatorFn[] = [];
 
-                    if (_find(component.params.validatorsField, {name: field})) {
+                    if (_find(componentParams.validatorsField, {name: field})) {
                         const validator: ValidatorType | ValidatorType[] =
-                            _find(component.params.validatorsField, {name: field})['validators'];
+                            _find(componentParams.validatorsField, {name: field})['validators'];
 
                         if (Array.isArray(validator)) {
                             _each(validator, (val: ValidatorType) => {
@@ -456,8 +467,8 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                     if (!this.allControls[field] || component.alwaysNew) {
                         this.allControls[field] = new UntypedFormControl(
                             {
-                                value: _get(this.formData?.value, field, component.params[field]?.value) || '',
-                                disabled: component.params.disabled,
+                                value: _get(this.formData?.value, field, componentParams[field]?.value) || '',
+                                disabled: componentParams.disabled,
                             },
                             !!fieldValidator.length ? fieldValidator : validators,
                             !!fieldAsyncValidators.length ? fieldAsyncValidators : asyncValidators,
@@ -471,36 +482,36 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
 
                     controls[field] = this.allControls[field];
 
-                    if (component.params.locked) {
-                        if (_isArray(component.params.locked)) {
-                            this.locked.push(...component.params.locked);
+                    if (componentParams.locked) {
+                        if (_isArray(componentParams.locked)) {
+                            this.locked.push(...componentParams.locked);
                             return;
                         }
                         this.locked.push(field);
                     }
                 });
             } else {
-                if (!this.allControls[component.params.name] || component.alwaysNew) {
-                    this.allControls[component.params.name] = new UntypedFormControl(
+                if (!this.allControls[componentParams.name] || component.alwaysNew) {
+                    this.allControls[componentParams.name] = new UntypedFormControl(
                         {
-                            value: _get(this.formData?.value, component.params.name, component.params.value) || '',
-                            disabled: component.params.disabled,
+                            value: _get(this.formData?.value, componentParams.name, componentParams.value) || '',
+                            disabled: componentParams.disabled,
                         },
                         validators,
                         asyncValidators,
                     );
 
-                    if (component.alwaysNew?.saveValue && this.formDataStorage[component.params.name]) {
-                        this.allControls[component.params.name].setValue(this.formDataStorage[component.params.name]);
-                        this.allControls[component.params.name].markAsTouched();
+                    if (component.alwaysNew?.saveValue && this.formDataStorage[componentParams.name]) {
+                        this.allControls[componentParams.name].setValue(this.formDataStorage[componentParams.name]);
+                        this.allControls[componentParams.name].markAsTouched();
                     }
                 }
 
-                controls[component.params.name] = this.allControls[component.params.name];
+                controls[componentParams.name] = this.allControls[componentParams.name];
             }
 
-            if (component.params.locked) {
-                this.locked.push(component.params.name);
+            if (componentParams.locked) {
+                this.locked.push(componentParams.name);
             }
         });
 

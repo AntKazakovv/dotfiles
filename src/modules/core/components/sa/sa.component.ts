@@ -17,6 +17,7 @@ import {
 
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {TStandaloneName} from 'wlc-engine/modules/core/system/constants/modules.constants';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 
 export type TSaStatus = {status: 'success', data: ComponentRef<unknown>}
     | {status: 'error', data: 'error'}
@@ -52,7 +53,7 @@ export class SaComponent implements AfterViewInit {
      * Standalone component params. If defined, will be injected as `injectParams`
      * to the component. Will be provided only if `wlc-sa-injector` is undefined.
      */
-    @Input('wlc-sa-params') public props?: unknown;
+    @Input('wlc-sa-input-params') public inputParams?: IIndexing<unknown>;
     /**
      * Standalone component injector. If defined, will be provided to component.
      * `wlc-sa-params` will be ignored.
@@ -86,9 +87,17 @@ export class SaComponent implements AfterViewInit {
             const m: Type<unknown> = await this.injectionService
                 .loadStandalone(this.name);
 
-            this.componentRef = this.target.createComponent(m, {
+            const componentRef = this.target.createComponent(m, {
                 injector: this.injector,
             });
+
+            if (this.inputParams) {
+                for (let key in this.inputParams) {
+                    componentRef.setInput(key, this.inputParams[key]);
+                }
+            }
+
+            this.componentRef = componentRef;
 
             this.cdr.markForCheck();
 
@@ -99,12 +108,12 @@ export class SaComponent implements AfterViewInit {
     }
 
     protected createInjector(): void {
-        if (this.props && !this.injector) {
+        if (this.injectParams && !this.injector) {
             this.injector = Injector.create({
                 providers: [
                     {
                         provide: 'injectParams',
-                        useValue: this.props,
+                        useValue: this.injectParams.saParams,
                     },
                 ],
                 parent: this.hostInjector,
@@ -113,10 +122,8 @@ export class SaComponent implements AfterViewInit {
     }
 
     protected prepareParams(): void {
-        if (this.injectParams?.saName) {
+        if (this.injectParams?.saName && !this.name) {
             this.name = this.injectParams.saName;
-            this.props = this.injectParams.saParams;
         }
     }
-
 }
