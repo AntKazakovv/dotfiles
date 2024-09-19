@@ -77,6 +77,7 @@ import {IntercomService} from 'wlc-engine/modules/external-services/system/servi
 import {BannersService} from 'wlc-engine/modules/promo';
 import {UbidexService} from 'wlc-engine/modules/ubidex';
 import {IUbidexConfig} from 'wlc-engine/modules/ubidex/system/interfaces';
+import {MonitoringService} from 'wlc-engine/services/monitoring/monitoring.service';
 
 const defaultParams = {
     class: 'wlc-sections',
@@ -112,6 +113,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
     }
 
     protected optimizationService: OptimizationService;
+    protected monitoringService: MonitoringService;
 
     private testViewPort = false;
     private isIOS: boolean = false;
@@ -149,7 +151,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
         }
         this.isIOS = this.actionService.device.osName === 'ios';
 
-        this.setOptimizationService();
+        this.externalServices();
         this.loadAnalytics();
         this.launchMonitoring();
         this.initHookHandlers();
@@ -267,9 +269,19 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
         return section.name;
     }
 
+    protected externalServices(): void {
+        this.setOptimizationService();
+        this.setMonitoringService();
+    }
+
     private async setOptimizationService(): Promise<void> {
         this.optimizationService = await this.injectionService
             .getExternalService<OptimizationService>('optimization');
+    }
+
+    private async setMonitoringService(): Promise<void> {
+        this.monitoringService = await this.injectionService
+            .getExternalService<MonitoringService>('monitoring');
     }
 
     private initHookHandlers(): void {

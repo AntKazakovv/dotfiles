@@ -6,4 +6,9 @@ export const errorTypes: ILogTypes = {
         level: 'info',
         durationType: 'fromStart',
     },
+    '33.0.1': {
+        // Largest Contentful Paint (LCP) metric data
+        level: 'info',
+        durationType: 'fromStart',
+    },
 };

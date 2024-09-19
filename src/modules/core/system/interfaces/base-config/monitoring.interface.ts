@@ -11,4 +11,12 @@ export interface IMonitoringConfig {
     processConfigs?: TProcessConfigs;
     loggingLoadedSections?: ILoggingLoadedSections;
     loggingLoadedFullSite?: boolean;
+    performanceReport?: IListMetricsPerformanceReport;
 }
+
+export interface IListMetricsPerformanceReport {
+    use?: boolean;
+    listMetrics?: [TListMetricsPerformanceReport];
+}
+
+export type TListMetricsPerformanceReport = 'LCP';

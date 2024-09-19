@@ -39,6 +39,11 @@ export const $base: IBaseConfig = {
     rewritingWpLanguages: {
         'pt-br': 'pb',
     },
+    monitoring: {
+        performanceReport: {
+            listMetrics: ['LCP'],
+        },
+    },
     idle: idleConfig,
     defaultCurrency: 'EUR',
     rewritingCurrencyName: {
