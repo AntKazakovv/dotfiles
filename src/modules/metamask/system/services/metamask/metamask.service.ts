@@ -301,9 +301,9 @@ export class MetamaskService {
             const network: ethers.providers.Network = await provider.getNetwork();
 
             if (this.isProd && network.chainId !== 1) {
-                throw {errors: gettext('Wrong Ethereum chain. Please switch to the Ethereum Main Network (Mainnet).')};
+                throw {errors: gettext('Wrong Ethereum chain. Please switch to the Ethereum main network (Mainnet)')};
             } else if (!this.isProd && network.chainId !== 4) {
-                throw {errors: gettext('Wrong Ethereum chain. Please switch to the Rinkeby Test Network.')};
+                throw {errors: gettext('Wrong Ethereum chain. Please switch to the Rinkeby test network')};
             }
 
             return provider;

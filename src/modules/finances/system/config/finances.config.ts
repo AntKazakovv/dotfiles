@@ -50,7 +50,7 @@ export const financesConfig: IFinancesConfig = {
                         {
                             name: 'pattern',
                             options: '^[a-zA-Z0-9:]*$',
-                            text: gettext('Cryptocurrency wallet address is incorrect'),
+                            text: gettext('The cryptocurrency wallet address is incorrect'),
                         },
                         {
                             name: 'minLength',

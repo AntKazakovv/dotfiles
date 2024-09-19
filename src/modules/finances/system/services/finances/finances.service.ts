@@ -666,7 +666,7 @@ export class FinancesService {
             this.pushNotification({
                 type: 'success',
                 title: gettext('Deposit'),
-                message: gettext('Invoice has been successfully canceled.'),
+                message: gettext('Invoice has been successfully canceled'),
                 wlcElement: 'notification_deposit-cancel-invoice-success',
             });
 
