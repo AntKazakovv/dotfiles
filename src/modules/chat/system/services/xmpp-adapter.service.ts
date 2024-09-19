@@ -62,7 +62,7 @@ export class XMPPAdapterService {
         modify: gettext('You have used profanity in your message. ' +
             'Please rephrase the message and send it again without using prohibited words.'),
         link: gettext('Sending links in the chat is prohibited. Please abide by the rules.'),
-        default: gettext('Something went wrong. Please try again later.'),
+        default: gettext('Something went wrong. Please try again later'),
     };
 
     constructor(

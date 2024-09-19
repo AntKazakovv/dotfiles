@@ -94,7 +94,7 @@ export class AcceptTermsComponent extends AbstractComponent implements OnInit {
                 data: <IPushMessageParams>{
                     type: 'error',
                     title: gettext('Error'),
-                    message: gettext('Something went wrong. Please try again later.'),
+                    message: gettext('Something went wrong. Please try again later'),
                     wlcElement: 'notification_accept-error',
                 },
             });

@@ -90,7 +90,7 @@ export class NicknameFormComponent extends AbstractChatComponent implements OnIn
                             return acc;
                         }, {}));
                 } else {
-                    this.errors = [gettext('Something went wrong. Please try again later.')];
+                    this.errors = [gettext('Something went wrong. Please try again later')];
                     this.cdr.detectChanges();
                 }
 

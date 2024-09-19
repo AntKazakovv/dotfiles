@@ -33,7 +33,7 @@ export class FinancesHelper {
     public static errorToMessage(error: {errors?: any}): string | string[] {
         return  error.errors?.length
             ? error.errors.filter((i: unknown) => _isString(i))
-            : gettext('Something went wrong. Please try again later.');
+            : gettext('Something went wrong. Please try again later');
     }
 
     /**

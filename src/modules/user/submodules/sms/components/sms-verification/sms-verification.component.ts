@@ -241,7 +241,7 @@ export class SmsVerificationComponent extends UserActionsAbstract<Params.ISmsVer
             data: <IPushMessageParams>{
                 type: 'error',
                 title: gettext('SMS verification'),
-                message: [gettext('Something went wrong. Please try again later.')],
+                message: [gettext('Something went wrong. Please try again later')],
                 wlcElement: 'sms-sended-error',
             },
         });

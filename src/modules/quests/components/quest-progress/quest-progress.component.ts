@@ -190,7 +190,7 @@ export class QuestProgressComponent extends AbstractComponent implements OnInit,
             data: <IPushMessageParams>{
                 type: 'error',
                 title: gettext('Error'),
-                message: error?.errors || gettext('Something wrong. Please try later.'),
+                message: error?.errors || gettext('Something went wrong. Please try again later'),
             },
         });
     }

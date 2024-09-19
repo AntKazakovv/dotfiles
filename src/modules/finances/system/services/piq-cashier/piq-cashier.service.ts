@@ -265,7 +265,7 @@ export class PIQCashierService {
                 type: 'error',
                 title: this.method === 'deposit' ? gettext('Deposit error') : gettext('Withdraw error'),
                 message: [
-                    gettext('Something went wrong. Please try again later.'),
+                    gettext('Something went wrong. Please try again later'),
                     error ? error : '',
                 ],
             },

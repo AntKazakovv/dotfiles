@@ -82,7 +82,7 @@ export class RatesCurrencyService {
                     data: <IPushMessageParams>{
                         type: 'error',
                         title: gettext('Currency conversion failed'),
-                        message: error.errors ?? gettext('Something went wrong. Please try again later.'),
+                        message: error.errors ?? gettext('Something went wrong. Please try again later'),
                         wlcElement: 'notification_creating-wallet-error',
                     },
                 });

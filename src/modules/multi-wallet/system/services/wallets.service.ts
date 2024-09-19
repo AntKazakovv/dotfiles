@@ -76,7 +76,7 @@ export class WalletsService {
                 data: <IPushMessageParams>{
                     type: 'error',
                     title: gettext('Failed to create a wallet'),
-                    message: error.errors ?? gettext('Something went wrong. Please try again later.'),
+                    message: error.errors ?? gettext('Something went wrong. Please try again later'),
                     wlcElement: 'notification_creating-wallet-error',
                 },
             });

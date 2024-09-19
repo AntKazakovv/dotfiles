@@ -975,7 +975,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                             data: <IPushMessageParams>{
                                 type: 'error',
                                 title: gettext('Game error'),
-                                message: gettext('Something wrong. Please try later.'),
+                                message: gettext('Something went wrong. Please try again later'),
                                 wlcElement: 'notification_game-error',
                             },
                         });
@@ -1037,7 +1037,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         }
 
         this.modalService.showError({
-            modalMessage: error.msg || gettext('Something wrong. Please try later.'),
+            modalMessage: error.msg || gettext('Something went wrong. Please try again later'),
             onModalHide: () => {
                 setTimeout(() => {
                     this.closeGame();

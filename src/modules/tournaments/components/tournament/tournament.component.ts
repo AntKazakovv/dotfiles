@@ -257,7 +257,7 @@ export class TournamentComponent extends AbstractComponent implements OnInit {
             );
         } else {
             this.modalService.showError({
-                modalMessage: gettext('Something went wrong. Please try again later.'),
+                modalMessage: gettext('Something went wrong. Please try again later'),
             });
         }
     }

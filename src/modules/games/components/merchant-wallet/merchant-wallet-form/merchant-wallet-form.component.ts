@@ -129,7 +129,7 @@ export class MerchantWalletFormComponent extends AbstractComponent implements On
                     title: this.merchantName,
                     message: _isArray(error.errors)
                         ? error.errors
-                        : gettext('Something went wrong. Please try again later.'),
+                        : gettext('Something went wrong. Please try again later'),
                 },
             });
             return false;
