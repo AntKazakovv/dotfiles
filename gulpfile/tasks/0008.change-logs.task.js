@@ -88,10 +88,7 @@ module.exports = function changeLogsTask() {
             );
         }
 
-        const searchUrl = `curl "https://wlcgitlab.egamings.com/api/v4/projects/?private_token=${apiKey}`
-            + '&search='
-            + encodeURIComponent('wlc-engine')
-            + '"';
+        const searchUrl = `curl -H "PRIVATE-TOKEN: ${apiKey}" "https://wlcgitlab.egamings.com/api/v4/projects/?search=${encodeURIComponent('wlc-engine')}"`;
 
         const response = this.execNativeShellSync(searchUrl);
         let result;
@@ -155,8 +152,7 @@ module.exports = function changeLogsTask() {
             try {
                 if (!res.branch) {
                     const response = this.execNativeShellSync(
-                        `curl "https://${gitUrl}/api/v4/projects/${projectId}/`
-                        + `repository/commits/${res.hash}?private_token=${apiKey}"`,
+                        `curl -H "PRIVATE-TOKEN: ${apiKey}" "https://${gitUrl}/api/v4/projects/${projectId}/repository/commits/${res.hash}"`,
                     );
 
                     const data = JSON.parse(response);
@@ -172,15 +168,17 @@ module.exports = function changeLogsTask() {
 
             // attemp to get merge request data
             try {
-                let response = this.execNativeShellSync(`curl "https://${gitUrl}/api/v4/projects`
-                + `/${projectId}/repository/commits/${res.hash}/merge_requests?state=merged&private_token=${apiKey}"`);
+                let response = this.execNativeShellSync(
+                    `curl -H "PRIVATE-TOKEN: ${apiKey}" "https://${gitUrl}/api/v4/projects/${projectId}/repository/commits/${res.hash}/merge_requests?state=merged"`
+                );
 
                 const data = JSON.parse(response);
                 if (data && data.length) {
 
                     if (data.length > 1) {
-                        const response = this.execNativeShellSync(`curl "https://${gitUrl}/api/v4/projects`
-                            + `/${projectId}/repository/commits/${res.hash}?private_token=${apiKey}"`);
+                        const response = this.execNativeShellSync(
+                            `curl -H "PRIVATE-TOKEN: ${apiKey}" "https://${gitUrl}/api/v4/projects/${projectId}/repository/commits/${res.hash}"`
+                        );
                         const data = JSON.parse(response);
                         throw new ManyMrError(`Commit "${data.title}" ${data.web_url} has many MRs. Fix it and try again`);
                     }
@@ -199,13 +197,14 @@ module.exports = function changeLogsTask() {
             try {
                 if (!res.mrId) {
                     if (res.branch) {
-                        response = this.execNativeShellSync(`curl "https://${gitUrl}/api/v4/projects`
-                            + `/${projectId}/merge_requests?state=merged`
-                            + `&source_branch=${res.branch}&private_token=${apiKey}"`);
+                        response = this.execNativeShellSync(
+                            `curl -H "PRIVATE-TOKEN: ${apiKey}" "https://${gitUrl}/api/v4/projects/${projectId}/merge_requests?state=merged&source_branch=${res.branch}"`
+                        );
                     } else {
                         const searchText = encodeURIComponent(res.message);
-                        response = this.execNativeShellSync(`curl "https://${gitUrl}/api/v4/projects/`
-                            + `${projectId}/merge_requests?state=merged&search=${searchText}&private_token=${apiKey}"`);
+                        response = this.execNativeShellSync(
+                            `curl -H "PRIVATE-TOKEN: ${apiKey}" "https://${gitUrl}/api/v4/projects/${projectId}/merge_requests?state=merged&search=${searchText}"`
+                        );
                     }
 
 
