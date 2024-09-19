@@ -17,6 +17,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {StoreService} from 'wlc-engine/modules/store/system/services';
 import {StoreCategory} from 'wlc-engine/modules/store/system/models/store-category.model';
+
 import * as Params from './store-title.params';
 
 @Component({
@@ -72,7 +73,7 @@ export class StoreTitleComponent extends AbstractComponent implements OnInit, On
     protected async setTitleByCategory(): Promise<void> {
         const category: StoreCategory = await this.storeService.getCategoryByState();
         if (category) {
-            this.title = category.name(this.translateService.currentLang);
+            this.title = category.name;
         } else {
             this.title = this.$params.common?.text;
         }

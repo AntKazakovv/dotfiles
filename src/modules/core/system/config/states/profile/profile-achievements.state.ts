@@ -30,9 +30,9 @@ export const profileAchievementsMainState: Ng2StateDeclaration = {
 
             if (!group) {
                 transition.abort();
-                const {locale} = transition.params();
+                const locale = transition.params().locale || transition.injector().get('lang') || 'en';
                 transition.router.stateService.go('app.profile.achievements.main', {
-                    locale: locale || transition.injector().get('lang') || 'en',
+                    locale,
                     group: undefined,
                 });
             }

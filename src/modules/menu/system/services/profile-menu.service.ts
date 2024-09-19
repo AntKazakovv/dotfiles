@@ -3,6 +3,7 @@ import {
     Injectable,
 } from '@angular/core';
 import {StateService} from '@uirouter/core';
+import {TranslateService} from '@ngx-translate/core';
 
 import _cloneDeep from 'lodash-es/cloneDeep';
 import _isString from 'lodash-es/isString';
@@ -20,9 +21,7 @@ import {
     firstValueFrom,
     merge,
 } from 'rxjs';
-import {
-    filter,
-} from 'rxjs/operators';
+import {filter} from 'rxjs/operators';
 
 import {
     ConfigService,
@@ -58,7 +57,6 @@ import {
     QuestModel,
     QuestsService,
 } from 'wlc-engine/modules/quests';
-import {TranslateService} from '@ngx-translate/core';
 
 import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
 import * as Config from 'wlc-engine/modules/menu/system/config/profile-menu.config';
@@ -254,7 +252,7 @@ export class ProfileMenuService {
             const menuItems: MenuParams.IMenuItem[] = _map(
                 storeCategories, (category: StoreCategory): IMenuItem => {
                     return {
-                        name: category.nameTranslations(),
+                        name: category.name,
                         noTranslate: !category.isAllGoods,
                         type: 'sref',
                         icon: 'store-category',
@@ -304,7 +302,7 @@ export class ProfileMenuService {
         const historyMenuIndex: number = this.profileMenuConfig.findIndex((item: MenuParams.MenuConfigItem) => {
             if (Object.getOwnPropertyNames(item).includes('parent')) {
                 return (item as MenuParams.MenuConfigItemsGroup).parent === 'profile-menu:history'
-             || (item as MenuParams.MenuConfigItemsGroup).parent === 'profile-first-menu:history';
+                    || (item as MenuParams.MenuConfigItemsGroup).parent === 'profile-first-menu:history';
             }
         });
 

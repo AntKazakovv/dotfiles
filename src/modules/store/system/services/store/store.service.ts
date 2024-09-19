@@ -1,9 +1,13 @@
-import {Injectable} from '@angular/core';
+import {
+    Injectable,
+    inject,
+} from '@angular/core';
 import {
     UIRouter,
     Transition,
     RawParams,
 } from '@uirouter/core';
+import {TranslateService} from '@ngx-translate/core';
 
 import {
     BehaviorSubject,
@@ -67,6 +71,7 @@ export class StoreService {
     protected storeItems: StoreItem[] = [];
     protected storeCategories: StoreCategory[] = [];
     protected storeOrders: IStoreOrder[] = [];
+    protected translateService: TranslateService = inject(TranslateService);
 
     private store$: BehaviorSubject<IStore> = new BehaviorSubject(null);
     private orders$: BehaviorSubject<IStoreOrder[]> = new BehaviorSubject(null);
@@ -84,6 +89,10 @@ export class StoreService {
         this.setMultiWallet();
         this.registerMethods();
         this.setSubscribers();
+
+        this.translateService.onLangChange.subscribe(() => {
+            this.storeCategories = [];
+        });
     }
 
     /**
@@ -137,6 +146,7 @@ export class StoreService {
             if (publicSubject) {
                 this.store$.next(result);
             }
+            this.storeCategories = result.categories;
             this.storeItems = result.items;
             return result;
         } catch (error) {
@@ -184,38 +194,11 @@ export class StoreService {
      * @returns {Promise<StoreCategory[]>} Store categories
      */
     public async getCategories(): Promise<StoreCategory[]> {
-        try {
-            const response: IData = await this.dataService.request('store/storeCategories');
-            const categories: StoreCategory[] = [];
-
-            for (const categoryData of response.data) {
-                categories.push(new StoreCategory(
-                    {service: 'StoresService', method: 'getCategories'},
-                    categoryData,
-                ));
-            }
-
-            categories.push(new StoreCategory(
-                {service: 'StoresService', method: 'getCategories'},
-                {
-                    ID: '0',
-                    Name: {
-                        en: gettext('All goods'),
-                    },
-                    Order: '999999',
-                    Status: '1',
-                }));
-
-            this.storeCategories = _orderBy(categories, 'order', 'desc');
-
-            return this.storeCategories;
-        } catch (error) {
-            this.logService.sendLog({code: '11.0.2', data: error});
-            this.eventService.emit({
-                name: 'STORE_CATEGORIES_FETCH_FAILED',
-                data: error,
-            });
+        if (!this.storeCategories.length) {
+            await this.getStore(true);
         }
+
+        return this.storeCategories;
     }
 
     public async buyItem(itemId: number, quantity: number = 1, wallet: number = null): Promise<IStoreBuyResponse> {
@@ -308,9 +291,27 @@ export class StoreService {
             });
         }
 
-        queryStore.categories = this.storeCategories.length > 0
-            ? this.storeCategories
-            : await this.getCategories();
+        if (data?.Categories?.length) {
+            const categories: StoreCategory[] = [];
+
+            for (const categoryData of data.Categories) {
+                categories.push(new StoreCategory(
+                    {service: 'StoresService', method: 'modifyStoreResponse'},
+                    categoryData,
+                ));
+            }
+
+            categories.push(new StoreCategory(
+                {service: 'StoresService', method: 'modifyStoreResponse'},
+                {
+                    ID: '0',
+                    Name: gettext('All goods'),
+                    Order: '999999',
+                    Status: '1',
+                }));
+
+            queryStore.categories = _orderBy(categories, 'order', 'desc');
+        }
 
         return queryStore;
     }
@@ -338,16 +339,6 @@ export class StoreService {
             system: 'store',
             url: '/store',
             type: 'GET',
-        });
-
-        this.dataService.registerMethod({
-            name: 'storeCategories',
-            system: 'store',
-            url: '/store',
-            type: 'GET',
-            params: {
-                type: 'categories',
-            },
         });
     }
 

@@ -19,17 +19,19 @@ export const profileStoreState: Ng2StateDeclaration = {
 export const profileStoreMain: Ng2StateDeclaration = {
     url: '?category',
     onEnter: async (transition: Transition) => {
-        const injectionService: InjectionService = transition.injector().get(InjectionService);
-        const storeService: StoreService = await injectionService.getService('store.store-service');
-        const category: StoreCategory = await storeService.getCategoryByState(transition);
+        if (transition.params().category) {
+            const injectionService: InjectionService = transition.injector().get(InjectionService);
+            const storeService: StoreService = await injectionService.getService('store.store-service');
+            const category: StoreCategory = await storeService.getCategoryByState(transition);
 
-        if (transition.params().category && !category) {
-            transition.abort();
-            const {locale} = transition.params();
-            transition.router.stateService.go('app.profile.loyalty-store.main', {
-                locale: locale || transition.injector().get('lang') || 'en',
-                category: undefined,
-            });
+            if (!category) {
+                transition.abort();
+                const locale = transition.params().locale || transition.injector().get('lang') || 'en';
+                transition.router.stateService.go('app.profile.loyalty-store.main', {
+                    locale,
+                    category: undefined,
+                });
+            }
         }
     },
 };
