@@ -129,7 +129,7 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
                 data: <IPushMessageParams>{
                     type: 'error',
                     title: gettext('Error'),
-                    message: gettext('Error occurred while downloading the file'),
+                    message: gettext('An error has occurred while downloading the file'),
                     wlcElement: 'notification_download-pdf-error',
                 },
             });

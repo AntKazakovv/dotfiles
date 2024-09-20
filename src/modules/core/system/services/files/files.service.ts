@@ -187,7 +187,7 @@ export class FilesService {
             a.click();
             a.remove();
         } catch (error) {
-            throw new Error('Error occurred while downloading the file');
+            throw new Error('An error has occurred while downloading the file');
         }
     }
 

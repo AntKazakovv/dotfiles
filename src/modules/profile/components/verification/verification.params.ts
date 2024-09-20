@@ -21,9 +21,9 @@ export const defaultParams: IVerificationCParams = {
     class: 'wlc-verification',
     iconPath: 'wlc/icons/doc-icons/',
     requirements: [
-        gettext('Both Front and Back of ID card must be received'),
+        gettext('Both the front and the back of an ID card must be present'),
         gettext('Document must be in date and not expired'),
-        gettext('Document must be showing expiry date'),
+        gettext('The document must show the expiry date'),
         gettext('Document must show your unaltered photo'),
         gettext('Document must show your date of birth'),
         gettext('Water marks on documents must be visible'),

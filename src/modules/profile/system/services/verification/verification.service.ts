@@ -92,7 +92,7 @@ export class VerificationService {
 
         try {
             const result = await this.dataService.request<IData>('docs/send-file', formData);
-            this.showSuccess(gettext('Document uploaded successfully'));
+            this.showSuccess(gettext('The document has been successfully uploaded'));
 
             return result;
         } catch (result) {
@@ -117,7 +117,7 @@ export class VerificationService {
                 type: 'DELETE',
                 system: 'docs',
             });
-            this.showSuccess(gettext('Document deleted successfully'));
+            this.showSuccess(gettext('The document has been successfully deleted'));
 
             return result;
         } catch (result) {
@@ -161,12 +161,12 @@ export class VerificationService {
         const extension = file.name.split('.').pop();
 
         if (file.size > maxSize * 1000000) {
-            this.showError(gettext('Invalid size'));
+            this.showError(gettext('The size of the uploaded file is invalid'));
             return false;
         }
 
         if (!_includes(fileTypes, extension.toLowerCase())) {
-            this.showError(gettext('Invalid format'));
+            this.showError(gettext('The format of the uploaded file is invalid'));
             return false;
         }
 

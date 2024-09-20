@@ -57,7 +57,7 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
     public loaded: boolean = false;
     public override $params: Params.IVerificationCParams;
     public selectParams: ISelectCParams = {
-        labelText: gettext('Type document'),
+        labelText: gettext('Document type'),
         theme: 'vertical',
         common: {},
         name: undefined,
