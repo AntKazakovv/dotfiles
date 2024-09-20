@@ -107,11 +107,6 @@ export class DatepickerComponent extends AbstractComponent implements OnInit {
         }
     }
 
-    public setPrevValue(): void {
-        this.bsValue = (this.control.value as Dayjs).toDate();
-        this.control.updateValueAndValidity();
-    }
-
     public onDateChanged(date: Date): void {
         if (this.imask) {
             this.imask.maskRef.updateValue();
