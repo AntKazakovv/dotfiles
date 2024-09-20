@@ -29,12 +29,30 @@ export class FiltersComponent extends AbstractComponent implements OnInit {
 
     public readonly walletsService: WalletsService = inject(WalletsService);
 
+    protected toggleHideZeroParams: ICheckboxCParams = {
+        name: 'hideZeroBalances',
+        theme: 'toggle',
+    };
+
     constructor(@Inject('injectParams') protected injectParams: Params.IFiltersParams) {
         super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
+
+        this.toggleHideZeroParams.control =
+            new FormControl(this.walletsService.walletSettings.hideWalletsWithZeroBalance);
+        this.toggleHideZeroParams.onChange = (checked: boolean): void => {
+            this.walletsService.walletSettings.hideWalletsWithZeroBalance = checked;
+        };
+    }
+
+    public get hideWalletText(): string {
+        return this.$params.hideWalletText;
+    }
+    public getDisplayName(currency: ICurrencyFilter): string {
+        return currency.displayName ?? currency.name;
     }
 
     public getCurrencyIconUrl(currency: string): string {

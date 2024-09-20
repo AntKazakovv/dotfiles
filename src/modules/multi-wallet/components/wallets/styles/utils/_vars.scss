@@ -138,7 +138,9 @@ $themeWolf: map-merge((
     'notFoundFontColor': var(--mc-baseSecond),
 
     'filterColor': var(--mc-baseThird),
-    'scrollbarTrackBg': var(--mc-baseOpacity),
+
+    'scrollbarTrackBg': var(--mc-baseSecond),
+    'scrollbarThumbBg': var(--mc-bg100),
 
     'currencyIconSize': 15px,
     'arrowIconWidth': 12px,

@@ -12,6 +12,10 @@ $selector: '.wlc-filters';
 
     #{$selector} {
 
+        &__description {
+            padding: ef.get-value($themeWolf, 'descriptioPadding');
+        }
+
         &__currency {
             --wlc-icon-width: #{ef.get-value($themeWolf, 'iconSize')};
             --wlc-icon-height: #{ef.get-value($themeWolf, 'iconSize')};
@@ -27,8 +31,6 @@ $selector: '.wlc-filters';
 
         &__list {
             @include bm.scrollbar($themeWolf);
-
-            padding: ef.get-value($themeWolf, 'listPadding');
         }
     }
 }

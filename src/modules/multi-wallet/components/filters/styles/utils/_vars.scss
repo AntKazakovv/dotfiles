@@ -1,14 +1,17 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'descriptionFontStyle': 'PrimaryText',
+    'baseFontStyle': 'PrimaryText',
+    'baseFontColor': inherit,
     'currencyFontStyle': 'PrimaryTextBold',
 
     'scrollbarTrackBg': var(--mc-bg700),
     'scrollbarThumbBg': var(--mc-bg100),
 
-    'modalBodyGap': ef.size(4),
     'modalBodyAlign': center,
-    'modalBodyPadding': ef.size(4) 0 0 ef.size(6),
+    'modalBodyPadding': (
+        375: ef.size(6) 0 0 ef.size(4),
+        560: ef.size(6) 0 0 ef.size(6),
+    ),
     'modalBodyBorderRadius': ef.get('radius', 'biger'),
     'modalFooterPadding': 0,
     'modalHeight': (
@@ -25,12 +28,18 @@ $themeDefault: map-merge((
         375: 100%,
         560: fit-content,
     ),
-    'listPaddings': 0 ef.size(6) 0 0,
+    'listPadding': (
+        375: 0 ef.size(3) 0 0,
+        560: 0 ef.size(5) 0 0,
+    ),
+    'togglePadding': (
+        375: ef.size(4) ef.size(4) 0 0,
+        560: ef.size(4) ef.size(6) 0 0,
+    ),
 
     'currencyAlign': center,
     'currencyJustifyContent': space-between,
     'currencyWidth': 100%,
-    'currencyHeight': 40px,
     'currencyTextColor': inherit,
 
     'leftGap': ef.size(1),
@@ -40,6 +49,18 @@ $themeDefault: map-merge((
     'rightAlign': center,
 
     'checkboxPadding': 0 0 0 ef.size(4),
+    'toggleWidth': 100%,
+    'currencyHeight': 40px,
+    'descriptionPadding': 0 0 ef.size(4),
+
+    'dividerMargin': (
+        375: ef.size(2) ef.size(4) ef.size(4) 0,
+        560: ef.size(2) ef.size(6) ef.size(4) 0,
+    ),
+    'dividerWidth': (
+        375: calc(100% - 20px),
+        560: calc(100% - 30px),
+    ),
 ), $customThemeDefault);
 
 $customThemeWolf: () !default;
@@ -50,12 +71,11 @@ $themeWolf: map-merge((
     'currencyFontStyle': 'CaptionTextBold',
     'currencyFontColor': var(--mc-baseThird),
 
-    'listPadding': 0 ef.size(4) ef.size(4) 0,
-    'scrollbarTrackBg': var(--mc-baseOpacity),
+    'scrollbarTrackBg': var(--mc-baseSecond),
+    'scrollbarThumbBg': var(--mc-bg100),
 
     'iconSize': 15px,
-
     'closeIconSize': 16px,
-
-    'hrMargin': 0,
+    'descriptioPadding': ef.size(4) 0,
+    'dividerMargin': 0,
 ), $customThemeWolf);

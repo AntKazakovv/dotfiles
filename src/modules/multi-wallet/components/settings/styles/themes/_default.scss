@@ -42,7 +42,6 @@ $selector: '.wlc-settings';
             }
         }
 
-        &__hide-wallets,
         &__view-fiat {
             @include text.get-text-style(
                 ef.get-value($themeDefault, 'hideTextStyle'),

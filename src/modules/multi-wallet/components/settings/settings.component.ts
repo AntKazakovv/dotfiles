@@ -36,11 +36,6 @@ export class SettingsComponent extends AbstractComponent implements OnInit, OnDe
     public readonly userService: UserService = inject(UserService);
     public readonly walletsService: WalletsService = inject(WalletsService);
 
-
-    protected toggleHideZeroParams: ICheckboxCParams = {
-        name: 'hideZeroBalances',
-        theme: 'toggle',
-    };
     protected toggleViewFiatParams: ICheckboxCParams = {
         name: 'viewFiat',
         theme: 'toggle',
@@ -52,12 +47,8 @@ export class SettingsComponent extends AbstractComponent implements OnInit, OnDe
 
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-        this.toggleHideZeroParams.control =
-            new FormControl(this.walletsService.walletSettings.hideWalletsWithZeroBalance);
+
         this.toggleViewFiatParams.control = new FormControl(this.walletsService.walletSettings.conversionInFiat);
-        this.toggleHideZeroParams.onChange = (checked: boolean): void => {
-            this.walletsService.walletSettings.hideWalletsWithZeroBalance = checked;
-        };
         this.toggleViewFiatParams.onChange = (checked: boolean): void => {
             this.walletsService.walletSettings.conversionInFiat = checked;
         };
@@ -93,6 +84,14 @@ export class SettingsComponent extends AbstractComponent implements OnInit, OnDe
     public get showError(): boolean {
         return !this.walletsService.walletSettings.currency?.length
             && this.walletsService.walletSettings.conversionInFiat;
+    }
+
+    public get viewFiatText(): string {
+        return this.$params.viewFiatText;
+    }
+
+    public getDisplayName(currency: ICurrency<string>): string {
+        return currency.DisplayName ?? currency.Name;
     }
 
     public onCurrencyChange(currency: string): void {

@@ -11,6 +11,7 @@ export type ThemeMod = 'default' | CustomType;
 export interface IFiltersParams extends IComponentParams<Theme, Type, ThemeMod> {
     descriptionText?: string;
     currencies?: ICurrencyFilter[];
+    hideWalletText?: string;
 }
 
 export const defaultParams: IFiltersParams = {
@@ -19,4 +20,5 @@ export const defaultParams: IFiltersParams = {
     componentName: 'wlc-filters',
     currencies: [],
     descriptionText: gettext('Select wallets to display'),
+    hideWalletText: gettext('Hide zero balances'),
 };

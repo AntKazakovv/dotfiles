@@ -1,22 +1,35 @@
 .wlc-filters:host {
+    @include text.get-text-style(
+        ef.get-value($themeDefault, 'baseFontStyle'),
+        ef.get-value($themeDefault, 'baseFontColor'),
+    );
     @include bm.get-mq-map('height', $themeDefault, 'modalHeight');
+
     display: flex;
     flex-direction: column;
-    gap: ef.get-value($themeDefault, 'modalBodyGap');
     align-items: ef.get-value($themeDefault, 'modalBodyAlign');
     border-radius: ef.get-value($themeDefault, 'modalBodyBorderRadius');
     overflow: hidden;
 
     .wlc-filters {
 
+        &__toggle-divider {
+            @include bm.get-mq-map('width', $themeDefault, 'dividerWidth');
+            @include bm.get-mq-map('margin', $themeDefault, 'dividerMargin');
+        }
+
+        &__description {
+            padding: ef.get-value($themeDefault, 'descriptionPadding');
+        }
+
         &__list {
             @include bm.scrollbar($themeDefault);
             @include bm.get-mq-map('max-height', $themeDefault, 'listMaxHeight');
             @include bm.get-mq-map('height', $themeDefault, 'listHeight');
+            @include bm.get-mq-map('padding', $themeDefault, 'listPadding');
 
             overflow-y: auto;
             width: ef.get-value($themeDefault, 'listHeight');
-            padding: ef.get-value($themeDefault, 'listPaddings');
         }
 
         &__currency {
@@ -63,11 +76,20 @@
             }
         }
 
-        &__description {
-            @include text.get-text-style(
-                ef.get-value($themeDefault, 'descriptionFontStyle'),
-                null,
-            );
+        &__hide-wallets {
+            @include bm.get-mq-map('padding', $themeDefault, 'togglePadding');
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: ef.get-value($themeDefault, 'toggleWidth');
+
+            ::ng-deep {
+
+                .wlc-checkbox__label[class] {
+                    padding: ef.get-value($themeDefault, 'checkboxPadding');
+                }
+            }
         }
 
         &__divider {
@@ -87,7 +109,7 @@
             }
 
             &__body {
-                padding: ef.get-value($themeDefault, 'modalBodyPadding');
+                @include bm.get-mq-map('padding', $themeDefault, 'modalBodyPadding');
             }
 
             &__footer {

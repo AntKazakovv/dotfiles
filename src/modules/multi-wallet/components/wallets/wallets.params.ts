@@ -36,8 +36,8 @@ export const defaultParams: WalletsParams = {
     isWithdrawal: false,
     theme: 'default',
     filterText: gettext('Filter'),
+    settingsText: gettext('Conversion settings'),
     filterIcon: '/wlc/icons/filter.svg',
-    settingsText: gettext('Wallet settings'),
     depositBtnParams: {
         common: {
             sref: 'app.profile.cash.deposit',

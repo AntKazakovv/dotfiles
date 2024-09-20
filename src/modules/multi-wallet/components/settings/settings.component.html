@@ -1,14 +1,5 @@
-<div class="{{$class}}__hide-wallets">
-    <span>{{$params.hideWalletText | translate}}</span>
-    <div
-        wlc-checkbox
-        [inlineParams]="toggleHideZeroParams"
-    ></div>
-</div>
-<hr class="{{$class}}__divider"/>
-
 <div class="{{$class}}__view-fiat">
-    <span>{{$params.viewFiatText | translate}}</span>
+    <span>{{viewFiatText | translate}}</span>
     <div
         wlc-checkbox
         [inlineParams]="toggleViewFiatParams"
@@ -32,6 +23,6 @@
         [class.active]="currencyConversion === currency.Name"
         (click)="onCurrencyChange(currency.Name)">
         <span>{{currency.Name}}</span>
-        <span>{{currency.DisplayName}}</span>
+        <span>{{getDisplayName(currency)}}</span>
     </div>
 </div>

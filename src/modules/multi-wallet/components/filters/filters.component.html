@@ -1,4 +1,13 @@
-<span class="{{$class}}__description">{{$params.descriptionText | translate}}</span>
+<div class="{{$class}}__hide-wallets">
+    <span>
+        {{hideWalletText | translate}}
+    </span>
+    <div wlc-checkbox [inlineParams]="toggleHideZeroParams"></div>
+</div>
+<hr class="{{$class}}__toggle-divider"/>
+<span class="{{$class}}__description">
+    {{$params.descriptionText | translate}}
+</span>
 <div class="{{$class}}__list">
     <div
         *ngFor="let currency of $params.currencies"
@@ -9,7 +18,7 @@
                   class="{{$class}}__icon"
                   iconPath="{{getCurrencyIconUrl(currency.name)}}"
                   wlcElement="icon_currency"></span>
-            {{currency.displayName || currency.name}}
+            {{getDisplayName(currency)}}
         </div>
         <div class="{{$class}}__right">
             {{currency.name}}
