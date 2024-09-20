@@ -90,8 +90,8 @@ export class LicenseLimitationsService {
                 type: 'error',
                 title: gettext('Error'),
                 message: gettext(
-                    'Unfortunately, you cannot perform this action, since you have requested self-exclusion. ' +
-                    'Please, contact technical support service of our casino if you have any questions',
+                    'Unfortunately, you cannot perform this action since you have requested self-exclusion. ' +
+                    'Please contact the technical support of our casino if you have any questions',
                 ),
                 wlcElement: 'notification_self-exclusion-transition-denied',
             },

@@ -220,7 +220,7 @@ export class LimitationService {
                     type: 'error',
                     title: gettext('Error'),
                     message: _isString(error.errors[0])
-                        ? error.errors[0] : gettext('Error getting user self exclusion'),
+                        ? error.errors[0] : gettext('An error has occurred when getting user self-exclusion'),
                     wlcElement: 'notification_get-self-exclusion-error',
                 },
             });
@@ -271,7 +271,7 @@ export class LimitationService {
                 data: <IPushMessageParams>{
                     type: 'error',
                     title: gettext('Error'),
-                    message: error.errors?.[0] || gettext('Error remove user self exclusion'),
+                    message: error.errors?.[0] || gettext('An error has occurred when removing user self-exclusion'),
                     wlcElement: 'notification_remove-self-exclusion-error',
                 },
             });
