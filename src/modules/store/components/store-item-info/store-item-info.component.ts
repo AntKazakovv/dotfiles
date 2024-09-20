@@ -11,7 +11,7 @@ import {
     IMixedParams,
     ModalService,
 } from 'wlc-engine/modules/core';
-import {WlcModalComponent} from 'wlc-engine/standalone/core/components/modal/modal.component';
+import {AbstractModalComponent} from 'wlc-engine/modules/core/system/classes';
 
 import * as Params from './store-item-info.params';
 
@@ -30,7 +30,7 @@ export class StoreItemInfoComponent extends AbstractComponent implements OnInit 
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IStoreItemInfoCParams,
-        @Inject(WlcModalComponent) protected modal: WlcModalComponent,
+        protected readonly modal: AbstractModalComponent,
         protected modalService: ModalService,
     ) {
         super(

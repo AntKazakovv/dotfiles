@@ -45,6 +45,8 @@ import {
 import {IProcessEventData} from 'wlc-engine/modules/monitoring';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {CompilerModule} from 'wlc-engine/modules/compiler';
+import {AbstractModalComponent} from 'wlc-engine/modules/core/system/classes';
+
 /**
  * A wrapper component for displaying the component in a modal window.
  * It is a wrapper with basic elements, such as:
@@ -75,9 +77,15 @@ import {CompilerModule} from 'wlc-engine/modules/compiler';
         ModalModule,
         CompilerModule,
     ],
+    providers: [
+        {
+            provide: AbstractModalComponent,
+            useExisting: WlcModalComponent,
+        },
+    ],
 })
 export class WlcModalComponent extends AbstractComponent
-    implements OnInit, AfterViewInit, OnDestroy {
+    implements OnInit, AfterViewInit, OnDestroy, AbstractModalComponent {
     @ViewChild('modal') public modalElement: ElementRef;
     @ViewChild(ModalDirective) modalDirect: ModalDirective;
 

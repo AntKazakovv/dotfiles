@@ -23,7 +23,7 @@ import {
     UserInfo,
     UserService,
 } from 'wlc-engine/modules/user';
-import type {WlcModalComponent} from 'wlc-engine/standalone/core/components/modal/modal.component';
+import type {AbstractModalComponent} from 'wlc-engine/modules/core/system/classes';
 
 @Injectable({providedIn: 'root'})
 export class GamblingBanService {
@@ -76,7 +76,7 @@ export class GamblingBanService {
     }
 
     protected async openRestrictModal(): Promise<void> {
-        const component: WlcModalComponent = await this.modalService.showModal(this.modalConfig);
+        const component: AbstractModalComponent = await this.modalService.showModal(this.modalConfig);
         this.mutations ??= new LockedNodeMutations(this.reopenModal.bind(this));
         this.mutations.observe(component.nativeElement);
     }

@@ -1027,9 +1027,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     /**
      * Set error
      *
-     * @param {string | string[]} msgs
-     * @param {string} title
-     * @returns {ComponentRef<WlcModalComponent>}
+     * @param {IError} error
      */
     protected setError(error: IError = {}): void {
         if (this.destroyed) {

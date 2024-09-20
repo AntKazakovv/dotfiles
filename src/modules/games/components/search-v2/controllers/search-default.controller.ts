@@ -1,5 +1,4 @@
 import {
-    Inject,
     Injectable,
     inject,
 } from '@angular/core';
@@ -40,7 +39,7 @@ import {
     SearchDefaultComponent,
 } from 'wlc-engine/modules/games/components/search-v2';
 import {IGamesGridCParams} from 'wlc-engine/modules/games/components/games-grid/games-grid.params';
-import {WlcModalComponent} from 'wlc-engine/standalone/core/components/modal/modal.component';
+import {AbstractModalComponent} from 'wlc-engine/modules/core/system/classes';
 
 export interface IControllerDefaultParams {
     titleText: string,
@@ -85,7 +84,7 @@ export class SearchControllerDefault extends AbstractSearchController<IControlle
     };
 
     constructor(
-        @Inject(WlcModalComponent) protected modal: WlcModalComponent,
+        protected readonly modal: AbstractModalComponent,
     ) {
         super();
         this.setValueObservers();

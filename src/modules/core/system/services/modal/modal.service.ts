@@ -37,7 +37,6 @@ import {
     MODALS_LIST,
     DEFAULT_MODAL_CONFIG,
 } from 'wlc-engine/standalone/core/components/modal/modal.params';
-import type {WlcModalComponent} from 'wlc-engine/standalone/core/components/modal/modal.component';
 import {
     IModalConfig,
     IModalOptions,
@@ -51,7 +50,10 @@ import {
     ProcessEventsDescriptions,
 } from 'wlc-engine/modules/monitoring/system/config/process.config';
 import {IProcessEventData} from 'wlc-engine/modules/monitoring';
-import {Deferred} from 'wlc-engine/modules/core/system/classes';
+import {
+    AbstractModalComponent,
+    Deferred,
+} from 'wlc-engine/modules/core/system/classes';
 
 export const modalServiceHooks = {
     showModal: 'showModal@ModalService',
@@ -67,7 +69,7 @@ export interface IHookShowModal {
  */
 export interface IActiveModal {
     id: string;
-    ref: ComponentRef<WlcModalComponent>;
+    ref: ComponentRef<AbstractModalComponent>;
 }
 
 export type IModalParams = IModalConfig | IModalName;
@@ -124,7 +126,7 @@ export class ModalService {
      * @param componentParams
      * @returns Reference on component
      */
-    public async showModal<T>(config: IModalParams, componentParams?: T): Promise<WlcModalComponent> {
+    public async showModal<T>(config: IModalParams, componentParams?: T): Promise<AbstractModalComponent> {
         let modalConfig: IModalConfig;
 
         if (_isString(config)) {
@@ -194,7 +196,7 @@ export class ModalService {
 
         if (this.closeQueue.length) {
             const $watcher = new Subject();
-            const res = new Deferred<WlcModalComponent>();
+            const res = new Deferred<AbstractModalComponent>();
             this.$closeObserver.pipe(takeUntil($watcher)).subscribe((val: number) => {
                 if (!val) {
                     $watcher.next(null);
@@ -350,18 +352,12 @@ export class ModalService {
         }
     }
 
-    private async openModal(config: IModalConfig): Promise<WlcModalComponent> {
-        const modalComponent = await import('wlc-engine/standalone/core/components/modal/modal.component')
-            .then((m) => m.WlcModalComponent);
-        /**
-         * Todo #604923: компонент теперь не попадает в кор модуль, однако попадает в те,
-         * которые инжектируют этот компонент что бы полчить инстанс модалки в которой открыты.
-         * Нужно сделать инжекшн токен для модалки и передавать с ним инстанс модала отсюда, вместе с injectParams
-         *
-         */
+    private async openModal(config: IModalConfig): Promise<AbstractModalComponent> {
         if (_find(this.activeModals, ({id}) => id === config.id)) {
             return;
         }
+        const modalComponent = await import('wlc-engine/standalone/core/components/modal/modal.component')
+            .then((m) => m.WlcModalComponent);
 
         let windowFactory = this.cfr.resolveComponentFactory(modalComponent);
         let injector = Injector.create({
@@ -373,7 +369,7 @@ export class ModalService {
             ],
         });
 
-        const windowCmptRef: ComponentRef<WlcModalComponent> = windowFactory.create(injector);
+        const windowCmptRef: ComponentRef<AbstractModalComponent> = windowFactory.create(injector);
         const modalElement = windowCmptRef.location.nativeElement;
 
         this.appRef.attachView(windowCmptRef.hostView);

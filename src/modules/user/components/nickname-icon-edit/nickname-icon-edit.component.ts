@@ -32,7 +32,7 @@ import {
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
 import {IUserNickIcon} from 'wlc-engine/modules/user/system/interfaces/user.interface';
-import {WlcModalComponent} from 'wlc-engine/standalone/core/components/modal/modal.component';
+import {AbstractModalComponent} from 'wlc-engine/modules/core/system/classes';
 
 import * as Params from './nickname-icon-edit.params';
 
@@ -60,7 +60,7 @@ export class NicknameIconEditComponent extends AbstractComponent implements OnIn
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.INicknameIconEditCParams,
-        @Inject(WlcModalComponent) protected modal: WlcModalComponent,
+        protected readonly modal: AbstractModalComponent,
         protected fileService: FilesService,
         protected userService: UserService,
         protected eventService: EventService,

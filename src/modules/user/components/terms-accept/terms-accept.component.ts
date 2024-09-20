@@ -25,7 +25,7 @@ import {
     TermsAcceptService,
     IValidateData,
 } from 'wlc-engine/modules/user/system/services/terms/terms-accept.service';
-import {WlcModalComponent} from 'wlc-engine/standalone/core/components/modal/modal.component';
+import {AbstractModalComponent} from 'wlc-engine/modules/core/system/classes';
 
 import * as Params from './terms-accept.params';
 
@@ -44,8 +44,7 @@ export class AcceptTermsComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams')
         protected injectParams: Params.ITermsAcceptCParams,
-        @Optional() @Inject(WlcModalComponent)
-        protected modal: WlcModalComponent,
+        @Optional() protected readonly modal: AbstractModalComponent,
         protected modalService: ModalService,
         protected eventService: EventService,
         protected termsAcceptService: TermsAcceptService,

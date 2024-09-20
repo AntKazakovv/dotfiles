@@ -35,7 +35,7 @@ import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 import {IHookRequestData} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {IHookGameStartData} from 'wlc-engine/modules/core/system/config/resolvers';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
-import type {WlcModalComponent} from 'wlc-engine/standalone/core/components/modal/modal.component';
+import type {AbstractModalComponent} from 'wlc-engine/modules/core/system/classes';
 
 export type IValidateData = Pick<IUserInfo, 'ageConfirmed' | 'agreeWithSelfExcluded' | 'agreedWithTermsAndConditions'>;
 
@@ -328,7 +328,7 @@ export class TermsAcceptService {
         return !!await this.cachingService.get<number>('accept-terms-timeout');
     }
 
-    private async showModal(userInfo: UserInfo): Promise<WlcModalComponent> {
+    private async showModal(userInfo: UserInfo): Promise<AbstractModalComponent> {
         if (await this.isRequireCheckbox(userInfo)) {
             return await this.modalService.showModal(
                 this.acceptExtendedModalConfig,

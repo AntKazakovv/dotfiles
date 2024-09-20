@@ -12,7 +12,7 @@ import {
     IMixedParams,
     GlobalHelper,
 } from 'wlc-engine/modules/core';
-import {WlcModalComponent} from 'wlc-engine/standalone/core/components/modal/modal.component';
+import {AbstractModalComponent} from 'wlc-engine/modules/core/system/classes';
 import {StoreService} from 'wlc-engine/modules/store';
 
 import * as Params from 'wlc-engine/modules/store/components/store-confirmation/store-confirmation.params';
@@ -34,7 +34,7 @@ export class StoreConfirmationComponent extends AbstractComponent implements OnI
 
     constructor(
         @Inject('injectParams') protected params: Params.IStoreConfirmationCParams,
-        @Inject(WlcModalComponent) protected modal: WlcModalComponent,
+        protected readonly modal: AbstractModalComponent,
         protected storeService: StoreService,
     ) {
         super(

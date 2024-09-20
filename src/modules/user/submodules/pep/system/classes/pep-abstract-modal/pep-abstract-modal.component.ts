@@ -25,7 +25,7 @@ import {
     PepService,
 } from 'wlc-engine/modules/user/submodules/pep/system/services/pep/pep.service';
 import {WINDOW} from 'wlc-engine/modules/app/system';
-import type {WlcModalComponent} from 'wlc-engine/standalone/core/components/modal/modal.component';
+import type {AbstractModalComponent} from 'wlc-engine/modules/core/system/classes';
 
 
 @Directive()
@@ -78,7 +78,7 @@ export abstract class PepAbstractModalComponent extends AbstractComponent implem
             .subscribe(() => this.pepService.fireEvent(this.cancellingEvent));
     }
 
-    protected getModal(): WlcModalComponent | null {
+    protected getModal(): AbstractModalComponent | null {
         return this.modalService.getActiveModal(this.modalId)?.ref?.instance ?? null;
     }
 
