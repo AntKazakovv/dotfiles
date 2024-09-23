@@ -34,16 +34,16 @@
                         {{(message | translate:messageContext) + '\n'}}
                     </ng-template>
                 </ng-container>
-
             </div>
-            <button *ngIf="action"
-                    wlc-button
-                    theme="default"
-                    wlcElement="button_close"
-                    [text]="action.label"
-                    (click)="action.onClick()"
-            ></button>
         </div>
+        <button *ngIf="action"
+            wlc-button
+            class="wlc-notification-message__action-button"
+            theme="default"
+            wlcElement="button_close"
+            [text]="action.label"
+            (click)="action.onClick()"
+        ></button>
     </div>
 
     <button *ngIf="isPopup && $params.showCloseButton"

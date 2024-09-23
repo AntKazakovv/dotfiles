@@ -106,6 +106,10 @@
         margin: ef.get-value($themeDefault, 'messageContainerMargin');
     }
 
+    .wlc-notification-message__action-button {
+        align-self: start;
+    }
+
     .wlc-notification-message__message {
         display: inline-block;
         white-space: pre-line;

@@ -448,7 +448,7 @@ export class InternalMailsService {
             data: <IPushMessageParams>{
                 type: 'message',
                 title: gettext(currentMessage.title),
-                message: gettext(clearedMsg),
+                message: gettext(this.removeHtml(clearedMsg)),
 
                 action: {
                     label: gettext('Read more'),
@@ -465,5 +465,14 @@ export class InternalMailsService {
 
     private isRestrictedState(): boolean {
         return this.notificationsParams.excludedStatesForNotifications.some(state => this.stateService.is(state));
+    }
+
+    private removeHtml(text: string): string {
+        const htmlTagRegex: RegExp = /<[^>]+>/;
+
+        if (htmlTagRegex.test(text)) {
+            return null;
+        }
+        return text;
     }
 }
