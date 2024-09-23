@@ -50,6 +50,7 @@ export class XMPPAdapterService {
 
     protected stanzas$: Subject<IStanza> = new Subject();
     protected errors$: Subject<string> = new Subject();
+    protected reconError$: Subject<string> = new Subject();
     protected status$: BehaviorSubject<TChatStatus> = new BehaviorSubject('offline');
     protected roomConnected$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     protected pingResolver$: BehaviorSubject<boolean> = new BehaviorSubject(false);
@@ -91,6 +92,9 @@ export class XMPPAdapterService {
         return this.userJid?.local === tempUser.username;
     }
 
+    public get isReconError$(): Observable<string> {
+        return this.reconError$.asObservable();
+    }
     /**
      * sendQueue
      */
@@ -150,7 +154,10 @@ export class XMPPAdapterService {
                 });
             });
 
-            this.client.on('error', (error: any) => {
+            this.client.on('error', (error: unknown) => {
+                if (error.toString().includes('not-authorized')) {
+                    this.reconError$.next('reconnection error');
+                }
                 console.error('CHAT', error);
             });
 
@@ -222,8 +229,8 @@ export class XMPPAdapterService {
 
     public async logout(): Promise<void> {
         if (this.client) {
-            this.client.reconnect.stop();
             try {
+                this.client.reconnect.stop();
                 await this.client.send(xml('presence', {type: 'unavailable'}));
             } catch (error) {
                 // eslint-disable-next-line no-console
@@ -251,7 +258,6 @@ export class XMPPAdapterService {
 
     public errorTypeHandler(type: string): void {
         const error = this.errorTypes[type] ?? this.errorTypes.default;
-
         this.errors$.next(error);
     }
 

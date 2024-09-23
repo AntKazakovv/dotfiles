@@ -23,6 +23,7 @@ import {
     skip,
     startWith,
     Subject,
+    Subscription,
     switchMap,
     takeWhile,
     tap,
@@ -47,7 +48,9 @@ import {NicknameFormComponent} from
 import {DialogService} from 'wlc-engine/modules/chat/system/services/dialog.service';
 import {IChatCredentials} from './temp-adapter.service';
 import {TempAdapterService} from 'wlc-engine/modules/chat/system/services/temp-adapter.service';
-import {TFixedPanelPos} from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
+import {
+    TFixedPanelPos,
+} from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
 import {
     Direction,
     INewMsg,
@@ -94,6 +97,10 @@ export class ChatService {
     protected userChanged$: BehaviorSubject<any> = new BehaviorSubject(null);
     protected chatStatus$: BehaviorSubject<'connecting' | null> = new BehaviorSubject(null);
     protected fixedPanelPos: TFixedPanelPos;
+    protected maxMsgCount: number = this.config.base.maxMsgCount;
+    private chatStartedSub: Subscription;
+    private connectedSub: Subscription;
+    private tabVisibilitySub: Subscription;
 
     constructor (
         @Inject(DOCUMENT) protected document: Document,
@@ -115,10 +122,10 @@ export class ChatService {
      * Open chat panel
      */
     public openChat(): void {
+        this.initChat();
+
         if (this.fixedPanelPos) {
             this.tas.toggleFixedPanel(this.fixedPanelPos);
-        } else {
-            this.isChatOpened$.next(true);
         }
     }
 
@@ -128,9 +135,13 @@ export class ChatService {
     public closeChat(): void {
         if (this.fixedPanelPos) {
             this.tas.toggleFixedPanel(this.fixedPanelPos);
-        } else {
-            this.isChatOpened$.next(false);
         }
+
+        this.chatStartedSub.unsubscribe();
+        this.connectedSub.unsubscribe();
+        this.tabVisibilitySub.unsubscribe();
+        this.isChatOpened$.next(false);
+        this.xmppService.logout();
     }
 
     public get currentNickname(): string | null {
@@ -252,15 +263,13 @@ export class ChatService {
      * Service init method
      */
     protected async init(): Promise<void> {
-
         this.prepareRooms();
         this.setActiveRoom();
         this.subscribeStanzaStream();
         this.subscribeClientStatus();
-        this.subscribeIsAuthStatus();
-        this.subscribeVisibilityStatus();
 
         const fixedPanelPosition = this.config.base.initOptions.fixedPanelPosition;
+
         if (!fixedPanelPosition) {
             timer(0).pipe(tap(() => {
                 if (!this.panelRef) {
@@ -270,6 +279,10 @@ export class ChatService {
         } else {
             this.fixedPanelPos = fixedPanelPosition;
             this.useInFixedPanel = true;
+
+            if (this.tas.fixedPanelStore$.getValue()[fixedPanelPosition] === 'expanded') {
+                this.initChat();
+            }
         }
         await this.getModerators();
     }
@@ -300,7 +313,8 @@ export class ChatService {
     /**
      * Updates chat statuses on client status change
      */
-    protected tapClientStatusSubscription(status: string): void {
+    protected async tapClientStatusSubscription(status: string): Promise<void> {
+
         if (status === 'failed') {
             this.userChanged$.next('failed');
             this.roomConnected$.next('failed');
@@ -311,7 +325,18 @@ export class ChatService {
 
     protected subscribeVisibilityStatus(): void {
         this.zone.runOutsideAngular(() => {
-            merge(
+            this.tabVisibilitySub = this.tabVisibility$
+                .pipe(
+                    skip(1),
+                    filter(Boolean),
+                )
+                .subscribe(() => {
+                    if (this.nickname) {
+                        this.authProcess(this.nickname, true);
+                    }
+                });
+
+            this.connectedSub = merge(
                 fromEvent(this.window, 'offline'),
                 this.tabVisibility$.pipe(skip(1), filter(Boolean)),
                 this.messageFail$,
@@ -332,6 +357,17 @@ export class ChatService {
                 this.checkCompleted = true;
             });
         });
+    }
+
+    protected initChat(): void {
+        if (this.xmppService.client && this.tas.isAuth$.getValue()) {
+            this.chatReenter();
+        } else {
+            this.subscribeIsAuthStatus();
+            this.subscribeVisibilityStatus();
+            this.subscribeReconnectionErrors();
+        }
+        this.isChatOpened$.next(true);
     }
 
     protected checkSocket(): Observable<boolean> {
@@ -355,7 +391,7 @@ export class ChatService {
      * Subscribes to isAuth user status
      */
     protected subscribeIsAuthStatus(): void {
-        this.tas.isAuth$
+        this.chatStartedSub = this.tas.isAuth$
             .pipe(switchMap((isAuth: boolean) => {
                 this.roomConnected$.next('disconnected');
 
@@ -369,14 +405,20 @@ export class ChatService {
             });
     }
 
+    protected subscribeReconnectionErrors(): void {
+        this.xmppService.isReconError$.subscribe(() => {
+            this.authProcess(this.nickname, true);
+        });
+    }
+
     /**
      * Process auth. Reconnect client on change (login/logout) user
      * @param login
      */
-    protected async authProcess(login: string | null): Promise<void> {
+    protected async authProcess(login: string | null, reconnect: boolean = false): Promise<void> {
         this.nickname = login;
 
-        if (this.tas.isAuth$.getValue() && this.nickname) {
+        if (reconnect || (this.tas.isAuth$.getValue() && this.nickname)) {
             this.chatStatus$.next('connecting');
             const userData: IChatCredentials = await this.tas.getCredentials();
             this.initClient(userData.login, userData.password);
@@ -436,13 +478,20 @@ export class ChatService {
      */
     protected async initClient(username: string, password: string): Promise<void> {
         if (this.xmppService.client) {
-            await this.xmppService.logout();
+            if (this.xmppService.client?.status !== 'offline') {
+                await this.xmppService.logout();
+            }
             this.userData.nickname = '';
             this.userData.role = '';
             this.userData.status = null;
         }
 
         await this.xmppService.authClient(username, password);
+    }
+
+    protected async chatReenter(): Promise<void> {
+        const userData: IChatCredentials = await this.tas.getCredentials();
+        await this.xmppService.authClient(userData.login, userData.password);
     }
 
     /**
@@ -466,7 +515,7 @@ export class ChatService {
      * Stream handler to process stanza
      * @param stanza ws message data
      */
-    protected processStanza(stanza: IStanza): void {
+    protected async processStanza(stanza: IStanza): Promise<void> {
         // enter chat error
         if (stanza.is('presence') && stanza.getChild('error')) {
             this.errorPresenceHandler(stanza);
@@ -526,6 +575,11 @@ export class ChatService {
             }
 
             if (from?.resource && body && !replace) {
+
+                if (this.maxMsgCount === this.rooms.get(from.local)?.messageStore.newMessages.length - 1) {
+                    this.retractMsg(this.rooms.get(from.local)?.messageStore.newMessages[0].id, from.local);
+                }
+
                 const message: INewMsg = {
                     type: 'new',
                     ocId: ocId,
@@ -614,7 +668,6 @@ export class ChatService {
             console.error('Nickname is not uniq =(');
         } else { // any other case
             this.roomConnected$.next('disconnected');
-            console.error(stanza);
         }
     }
 

@@ -105,7 +105,7 @@ export class ChatWrapperComponent extends AbstractChatComponent implements OnIni
         ).subscribe((message: IMessage) => {
 
             if (message.type === 'retract') {
-                this.updateBuffer(false, true);
+                this.updateBuffer(true, true, true);
 
             } else if (message.type === 'replace') {
                 this.updateBuffer(false, false, true);

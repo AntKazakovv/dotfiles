@@ -61,6 +61,7 @@ export interface IChatConfig {
      * Error message display duration
      */
     errorTimer?: number;
+    maxMsgCount?: number;
 }
 
 export type TEmojiList = [string, string][];
@@ -117,4 +118,5 @@ export const chatConfig: IChatConfig = {
         // ['woman_beard', '🧔‍♀️'],
     ],
     errorTimer: 5000,
+    maxMsgCount: 20,
 };
