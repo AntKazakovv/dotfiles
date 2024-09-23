@@ -147,7 +147,7 @@ module.exports = function messagesTask() {
             + ' --keyword="trans" --keyword="transchoice" --keyword="_" --keyword="gettext"' +
             ` --files \`cat ${tmpFile.name}\`\n`;
 
-        await this.execShell(commands, true);
+        await this.execShell(commands, false);
         await this.execShell(extractCommand, true);
 
         // fix date update
@@ -168,7 +168,7 @@ module.exports = function messagesTask() {
             getTextCommand = `xgettext -L PHP --force-po -f ${tmpFile.name} -o ${this.params.paths.temp}/messages_php.pot\n`
                 +  `sed --in-place ${this.params.paths.temp}/messages_php.pot --expression="s|#:[[:space:]]${this.params.paths.root}|#: |"\n`;
 
-        await this.execShell(commands, true);
+        await this.execShell(commands, false);
         await this.execShell(getTextCommand, true);
         cb();
     });
@@ -244,7 +244,7 @@ module.exports = function messagesTask() {
             const poFilePath = `${poFilePath1}/${locale}.po`;
 
             if (fs.existsSync(poFilePath)) {
-                return `msgmerge --force-po --no-fuzzy-matching --update --backup=off --lang=${locale} ` +
+                return `msgmerge --force-po --update --backup=off --lang=${locale} ` +
                 `${poFilePath} ${this.params.paths.temp}/front.pot \n` +
                 `sed -i 's/#~ //g' ${poFilePath}\n`;
             } else {
