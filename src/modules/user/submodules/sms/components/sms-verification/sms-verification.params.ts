@@ -56,6 +56,7 @@ export const smsVerificationFormConfig: IFormWrapperCParams = {
                     wlcElement: 'block_phoneCode',
                     common: {
                         placeholder: gettext('Mobile code'),
+                        type: 'tel',
                     },
                     name: 'phoneCode',
                     validators: ['required'],
@@ -65,7 +66,7 @@ export const smsVerificationFormConfig: IFormWrapperCParams = {
                     common: {
                         separateLabel: gettext('Mobile phone'),
                         placeholder: gettext('Enter phone number'),
-                        type: 'text',
+                        type: 'tel',
                     },
                     wlcElement: 'block_phoneNumber',
                     name: 'phoneNumber',
@@ -156,6 +157,7 @@ export const inlinePhoneVerificationConfig: IWrapperCParams = {
                                 phoneCode: {
                                     labelText: gettext('Phone'),
                                     wlcElement: 'block_phoneCode',
+                                    type: 'tel',
                                     common: {
                                         placeholder: gettext('Mobile code'),
                                     },
@@ -168,7 +170,7 @@ export const inlinePhoneVerificationConfig: IWrapperCParams = {
                                         useLabel: false,
                                         separateLabel: '',
                                         placeholder: gettext('Enter phone number'),
-                                        type: 'text',
+                                        type: 'tel',
                                     },
                                     wlcElement: 'block_phoneNumber',
                                     name: 'phoneNumber',

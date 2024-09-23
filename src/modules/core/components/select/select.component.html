@@ -20,7 +20,7 @@
         <input #searchInput
                id="{{$params.id || $params.name}}"
                class="{{$class}}__field"
-               type="text"
+               type="{{$params?.inputType || 'text'}}"
                [placeholder]="placeholderText
                     | functionPurePipe:[control.value, $params.items, $params.common?.placeholder]
                     | translate:foundItems[activeItemIndex]?.context"

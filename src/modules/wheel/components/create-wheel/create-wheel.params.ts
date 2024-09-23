@@ -34,6 +34,7 @@ export const formConfig: IFormWrapperCParams = {
                     placeholder: gettext('Winning amount'),
                     customModifiers: 'right-shift',
                     maxLength: 55,
+                    type: 'tel',
                 },
                 exampleValue: gettext('Enter amount'),
                 theme: 'vertical',

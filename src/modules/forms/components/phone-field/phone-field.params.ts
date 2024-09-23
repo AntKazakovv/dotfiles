@@ -40,6 +40,7 @@ export let defaultParams: Partial<IPhoneFieldCParams> = {
         wlcElement: 'block_phoneCode',
         common: {
             placeholder: gettext('Code'),
+            type: 'tel',
         },
         locked: true,
         name: 'phoneCode',
@@ -50,7 +51,7 @@ export let defaultParams: Partial<IPhoneFieldCParams> = {
     phoneNumber: <IInputCParams>{
         common: {
             placeholder: gettext('Phone number'),
-            type: 'text',
+            type: 'tel',
         },
         wlcElement: 'block_phoneNumber',
         name: 'phoneNumber',

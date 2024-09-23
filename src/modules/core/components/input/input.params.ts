@@ -4,6 +4,7 @@ import {
     IComponentParams,
     ValidatorType,
     IIndexing,
+    TInputBaseType,
 } from 'wlc-engine/modules/core';
 import {ThemeMod as TooltipThemeMod} from 'wlc-engine/modules/core/components/tooltip/tooltip.params';
 
@@ -44,7 +45,7 @@ export interface IInputCParams extends IComponentParams<ComponentTheme, Componen
     common: {
         placeholder?: string;
         separateLabel?: string;
-        type?: string;
+        type?: TInputBaseType;
         customModifiers?: CustomMod;
         usePasswordVisibilityBtn?: boolean;
         /**

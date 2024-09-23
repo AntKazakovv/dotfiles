@@ -4,6 +4,7 @@ import {
     IComponentParams,
     ValidatorType,
     IIndexing,
+    TInputBaseType,
 } from 'wlc-engine/modules/core';
 import {ThemeMod as TooltipThemeMod} from 'wlc-engine/modules/core/components/tooltip/tooltip.params';
 
@@ -30,6 +31,10 @@ extends IComponentParams<ComponentTheme, ComponentType, string>, IDeepSearch {
         tooltipMod?: TooltipThemeMod;
         tooltipModalParams?: IIndexing<string>;
     },
+    /*
+    * This is input type for select.
+    */
+    inputType?: TInputBaseType;
     autocomplete?: string;
     validators?: ValidatorType[];
     control?: UntypedFormControl;

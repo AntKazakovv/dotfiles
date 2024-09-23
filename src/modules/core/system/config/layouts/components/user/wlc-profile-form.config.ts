@@ -94,6 +94,7 @@ export namespace wlcProfileForm {
                                     ...FormElements.mobilePhone.params,
                                     showVerification: true,
                                     phoneCode: {
+                                        type: 'tel',
                                         common: {
                                             tooltipIcon: 'verified-icon',
                                             tooltipMod: 'resolve',
@@ -397,10 +398,16 @@ export namespace wlcProfileForm {
                         locked: true,
                         showVerification: true,
                         phoneCode: {
+                            type: 'tel',
                             common: {
                                 tooltipIcon: 'verified-icon',
                                 tooltipMod: 'resolve',
                                 tooltipText: gettext('The phone has been successfully verified'),
+                            },
+                        },
+                        phoneNumber: {
+                            common: {
+                                type: 'tel',
                             },
                         },
                     },

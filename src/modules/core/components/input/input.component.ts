@@ -38,8 +38,10 @@ import {
     IPushMessageParams,
 } from 'wlc-engine/modules/core/system/services/notification';
 import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
+
 import {FormsService} from 'wlc-engine/modules/core/system/services';
 import {IControlResult} from 'wlc-engine/modules/core/system/interfaces/base-config/forms.interface';
+import {TInputBaseType} from 'wlc-engine/modules/core/system/types';
 
 import * as Params from './input.params';
 
@@ -187,7 +189,7 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
         );
     }
 
-    public toggleType(type: string): void {
+    public toggleType(type: TInputBaseType): void {
         this.$params.common.type = type;
     }
 
