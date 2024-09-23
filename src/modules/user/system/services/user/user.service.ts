@@ -542,11 +542,18 @@ export class UserService {
         const result = this.dataService.request<IIndexing<any>>('user/userLogin', loginData);
         this.logService.sendLog({code: '1.2.5'});
         result.then((res) => {
+
             if (res.code === 231) {
                 this.enterTwoFactorAuthCode(res.data.authKey, res.code);
             } else {
                 this.eventService.emit({name: 'LOGIN'});
             }
+
+            this.configService.set<string>({
+                name: 'X-Sessiontrace',
+                value: res.headers.get('X-Sessiontrace'),
+                storageType: 'sessionStorage',
+            });
         }).catch((error) => {
 
             if (this.configService.get<boolean>('$base.site.useXNonce')) {
@@ -604,6 +611,12 @@ export class UserService {
         this.profile = new UserProfile({service: 'UserService', method: 'constructor'},
             this.fileService, this.configService);
         this.userProfile$.next(this.profile);
+
+        this.configService.set({
+            name: 'X-Sessiontrace',
+            value: null,
+            storageType: 'sessionStorage',
+        });
 
         if (this.modalService.getActiveModal('login-error')) {
             firstValueFrom(
@@ -737,7 +750,13 @@ export class UserService {
 
     public async fetchUserInfo(): Promise<void> {
         try {
-            await this.dataService.request('user/userInfo');
+            const request: IData = await this.dataService.request('user/userInfo');
+
+            this.configService.set<string>({
+                name: 'X-Sessiontrace',
+                value: request.headers.get('X-Sessiontrace'),
+                storageType: 'sessionStorage',
+            });
         } catch (error) {
             this.logService.sendLog({code: '1.3.3'});
         }
