@@ -27,7 +27,7 @@
             </div>
             <div *ngIf="isMobileBanner"
                 class="{{$class}}__content--mobile"
-                [uiSref]="item.buttonSref">
+                [wlc-link]="[item.buttonSref]">
             </div>
             <div *ngIf="!isMobileBanner" class="{{$class}}__btns">
                 <button *ngIf="item.buttonText && item.buttonSref"
@@ -35,8 +35,7 @@
                         wlc-button
                         [typeAttr]="$params.redirectButton.common.typeAttr"
                         [text]="item.buttonText"
-                        [sref]="item.buttonSref"
-                        [srefParams]="item.buttonSrefParams"
+                        [wlc-link]="[item.buttonSref, item.buttonSrefParams]">
                 ></button>
                 <button *ngIf="item.html"
                         class="{{$class}}__button"
