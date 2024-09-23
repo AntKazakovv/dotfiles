@@ -1,16 +1,18 @@
 <div class="wlc-notification-message__inner">
     <span *ngIf="icon && !image"
-          wlc-icon
-          class="wlc-notification-message__icon"
-          [iconPath]="icon">
+        wlc-icon
+        class="wlc-notification-message__icon"
+        [iconUrl]="icon.src"
+        [fallback]="icon.fallback">
     </span>
 
     <div *ngIf="image" class="wlc-notification-message__image-container">
         <img class="wlc-notification-message__image"
-             loading="lazy"
-             [style.object-fit]="$params.imageFit"
-             [src]="image.src"
-             [alt]="image.alt">
+            loading="lazy"
+            [style.object-fit]="$params.imageFit"
+            [src]="image.src"
+            [wlc-fallback]="image.fallback"
+            [alt]="image.alt">
     </div>
 
     <div class="wlc-notification-message__content">

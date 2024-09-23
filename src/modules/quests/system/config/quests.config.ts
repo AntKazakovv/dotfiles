@@ -2,8 +2,20 @@ import {
     IQuestsConfig,
     QuestTaskModel,
 } from 'wlc-engine/modules/quests';
+import {GlobalHelper} from 'wlc-engine/modules/core';
 
 export const questsConfig: IQuestsConfig = {
+    /**
+     * Config for notification when a quest is completed
+     * **/
+    notification: {
+        questTitle: gettext('Congratulations!'),
+        questMessage: gettext(
+            'You have fulfilled all conditions of the quest "{{questname}}"'
+            + ' and can get your reward!',
+        ),
+        fallbackIcon: GlobalHelper.gstaticUrl + '/wlc/quests/mask-active.png',
+    },
     /**
      * Data modifier for quests data.
      * **/

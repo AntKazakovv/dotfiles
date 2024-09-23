@@ -9,6 +9,7 @@ export interface IImage {
     src: string;
     alt?: string;
     fit?: TObjectFit;
+    fallback?: string;
 }
 
 export interface IAction {
@@ -25,6 +26,7 @@ export interface IMessageData {
     type?: Params.TMessageType;
     action?: IAction;
     image?: IImage;
+    icon?: IImage;
     wlcElement?: string;
     themeMod?: ThemeModMessage;
 }

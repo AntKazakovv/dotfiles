@@ -107,6 +107,12 @@ export interface IDataModifier {
     tasks?: IDataModifiers;
 }
 
+export interface IQuestNotification {
+    questTitle: string;
+    questMessage: string;
+    fallbackIcon: string;
+}
+
 export interface IGetSubscribeParams {
     useQuery: boolean;
     observer: PartialObserver<IQuestsDataModels>;
@@ -115,6 +121,7 @@ export interface IGetSubscribeParams {
 }
 
 export interface IQuestsConfig {
+    notification?: IQuestNotification;
     /**
      * Modification like ordering for task list
      */
@@ -141,6 +148,7 @@ export interface IWSQuestData {
     quest_id: number;
     user_id: number;
     quest_name: string;
+    image: string;
     api_id: number;
     dwh_event_id: string;
 }

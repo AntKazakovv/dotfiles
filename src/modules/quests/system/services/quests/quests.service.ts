@@ -47,6 +47,7 @@ import {
     IWSQuestData,
     IDataModifiers,
     QuestStatusEnum,
+    IQuestNotification,
 } from 'wlc-engine/modules/quests';
 import {
     Bonus,
@@ -200,7 +201,13 @@ export class QuestsService {
         }).subscribe(
             {
                 next: (message: IWSConsumerData<IWSQuestData>): void => {
-                    const questName = JSON.parse(message.data.quest_name);
+                    if (!message?.data) {
+                        return;
+                    }
+
+                    const questNotificationConfig: IQuestNotification = this.configService.get('$quests.notification');
+                    const questName: string = JSON.parse(message.data.quest_name);
+                    const questImage: string = message.data.image;
                     const translatedQuestName: string = questName[(this.translateService.currentLang)]?.length
                         ? questName[(this.translateService.currentLang)]
                         : questName[('en')];
@@ -208,12 +215,13 @@ export class QuestsService {
                     this.eventService.emit({
                         name: NotificationEvents.PushMessage,
                         data: <IPushMessageParams>{
-                            type: 'success',
-                            title: gettext('Congratulations!'),
-                            message: gettext(
-                                'You have fulfilled all conditions of the quest "{{questname}}"'
-                                + ' and can get your reward!',
-                            ),
+                            icon: {
+                                src: questImage || questNotificationConfig?.fallbackIcon,
+                                fallback: questNotificationConfig?.fallbackIcon,
+                                alt: questName,
+                            },
+                            title: questNotificationConfig?.questTitle,
+                            message: questNotificationConfig?.questMessage,
                             messageContext: {
                                 questname: translatedQuestName,
                             },

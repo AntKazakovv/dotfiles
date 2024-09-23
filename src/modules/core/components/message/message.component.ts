@@ -45,7 +45,7 @@ export class MessageComponent
         onClick: () => void;
     };
     public image: IImage;
-    public icon: string;
+    public icon: IImage;
     public isHTML: boolean;
     public messageContext: IIndexing<string | number>;
 
@@ -74,14 +74,14 @@ export class MessageComponent
         }
         super.ngOnInit(this.params);
 
-        const {title, message, action, image, displayAsHTML} = this.params;
+        const {title, message, action, image, displayAsHTML, type, icon} = this.params;
 
         _assign(this, {
-            title: title || this.$params.defaultTitles[this.$params.type],
+            title: title || this.$params.defaultTitles[type],
             messages: this.prepareMessages(message),
             isHTML: displayAsHTML,
             image,
-            icon: this.$params.typeIcons[this.$params.type],
+            icon: icon || (this.$params.typeIcons[type] ? {src: this.$params.typeIcons[type]} : null),
         });
 
         if (action) {
