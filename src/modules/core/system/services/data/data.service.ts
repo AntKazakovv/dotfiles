@@ -490,7 +490,6 @@ export class DataService {
                                                             }),
                                                         },
                                                     });
-                                                    this.configService.updateJwtTokens(null, null);
                                                     this.eventService.emit({name: 'FORCE_LOGOUT'});
                                                     return throwError(error);
                                                 }),
@@ -512,7 +511,6 @@ export class DataService {
                                             }),
                                         },
                                     });
-                                    this.configService.updateJwtTokens(null, null);
                                     this.eventService.emit({name: 'FORCE_LOGOUT'});
                                 }
                                 return throwError(error);

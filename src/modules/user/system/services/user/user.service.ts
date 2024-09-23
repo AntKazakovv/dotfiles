@@ -326,6 +326,7 @@ export class UserService {
                     email: this.userInfo.email,
                 },
             });
+            this.configService.updateJwtTokens(null, null);
             this.logout();
         });
 
