@@ -14,7 +14,16 @@
 
             .wlc-icon {
 
+                &-content {
+                    display: flex;
+                }
+
                 svg {
+                    --wlc-icon-width: #{ef.get-value($themeDefault, 'svgIconSizeWidth')};
+                    --wlc-icon-height: #{ef.get-value($themeDefault, 'svgIconSizeHeight')};
+                }
+
+                path {
                     @include bm.transition(all);
                     fill: ef.get-value($themeDefault, 'iconColor');
                 }

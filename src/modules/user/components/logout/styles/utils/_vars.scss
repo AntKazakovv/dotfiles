@@ -4,4 +4,6 @@ $themeDefault: map-merge((
     'textFont': 'ButtonText',
     'textColor': var(--mc-baseOpacity),
     'textColorHover': var(--mc-baseMain),
+    'svgIconSizeWidth': 21px,
+    'svgIconSizeHeight': 17px,
 ), $customThemeDefault);
