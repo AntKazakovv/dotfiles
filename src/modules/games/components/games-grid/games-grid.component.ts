@@ -562,7 +562,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
 
     protected isUseIntersectionObserver(): boolean {
         const config = this.configService.get<ILazyLoadingIntersectionObserver>(
-            '$base.lazyLoadingIntersectionObserver',
+            '$base.optimization.lazyLoadingIntersectionObserver',
         );
         return config && config.use && config.components?.includes('games-grid');
     }
