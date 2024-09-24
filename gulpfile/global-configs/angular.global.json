@@ -63,9 +63,7 @@
         },
         "projects.wlc-site.architect.build.configurations.dev": {
             "watch": true,
-            "buildOptimizer": false,
             "optimization": false,
-            "vendorChunk": true,
             "extractLicenses": false,
             "sourceMap": true,
             "namedChunks": true
@@ -82,12 +80,11 @@
                 }
             ],
             "optimization": true,
-            "buildOptimizer": false,
             "outputHashing": "all",
             "sourceMap": false,
             "namedChunks": false,
             "extractLicenses": true,
-            "vendorChunk": false,
+            "aot": true,
             "budgets": [
                 {
                     "type": "bundle",
