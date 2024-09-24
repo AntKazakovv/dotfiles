@@ -31,7 +31,6 @@ export const generateConfig = (useLogin: boolean, isKiosk: boolean): IFormWrappe
                     wlcElement: 'block_email-login',
                     common: {
                         placeholder: gettext('E-mail'),
-                        type: 'email',
                     },
                     name: 'email',
                     validators: ['required', 'email'],

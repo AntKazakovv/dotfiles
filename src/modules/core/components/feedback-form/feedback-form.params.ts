@@ -46,7 +46,6 @@ export const getFeedbackConfig = (isAuth: boolean): IFormWrapperCParams => ({
                 locked: isAuth,
                 common: {
                     placeholder: gettext('E-mail'),
-                    type: 'email',
                 },
                 name: 'senderEmail',
                 theme: 'vertical',
