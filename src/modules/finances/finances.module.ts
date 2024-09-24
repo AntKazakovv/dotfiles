@@ -1,4 +1,3 @@
-import {UIRouterModule} from '@uirouter/angular';
 import {
     FormsModule,
     ReactiveFormsModule,
@@ -61,7 +60,6 @@ export const services = {
 
 @NgModule({
     imports: [
-        UIRouterModule,
         CompilerModule,
         CoreModule,
         FormsModule,
