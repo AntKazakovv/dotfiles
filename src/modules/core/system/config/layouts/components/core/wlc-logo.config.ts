@@ -32,6 +32,10 @@ export namespace wlcLogo {
         },
     };
 
+    export const footerDefault: ILayoutComponent = {
+        name: 'core.wlc-logo',
+    };
+
     export const footerFirst: ILayoutComponent = {
         name: 'core.wlc-logo',
         params: {
