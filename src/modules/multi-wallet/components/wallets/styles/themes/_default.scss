@@ -192,6 +192,10 @@ $selector: '.wlc-wallets';
                     border: ef.get-value($themeDefault, 'selectCurrencyBorder');
                     box-shadow: ef.get-value($themeDefault, 'selectCurrencyBoxShadow');
                 }
+
+                @include bm.hover() {
+                    cursor: pointer;
+                }
             }
         }
 

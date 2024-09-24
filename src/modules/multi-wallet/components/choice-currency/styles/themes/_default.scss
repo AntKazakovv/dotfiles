@@ -105,6 +105,7 @@ $selector: '.wlc-choice-currency';
 
             @include bm.hover() {
                 background: ef.get-value($themeDefault, 'currencyBgHover');
+                cursor: pointer;
             }
         }
     }
