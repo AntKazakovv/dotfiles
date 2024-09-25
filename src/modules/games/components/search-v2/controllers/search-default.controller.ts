@@ -294,10 +294,11 @@ export class SearchControllerDefault extends AbstractSearchController<IControlle
         }, this.$destroy);
 
         this.modal.closed.then(() => {
-            if (this.router.globals.current.name === 'app.gameplay'
-                || (this.modal.modalDirect.dismissReason !== 'backdrop-click'
-                && this.modal.modalDirect.dismissReason !== 'esc')
-            ) {
+            const notFeatReason = this.modal.modalDirect.dismissReason
+                && this.modal.modalDirect.dismissReason !== 'backdrop-click'
+                && this.modal.modalDirect.dismissReason !== 'esc';
+
+            if (this.router.globals.current.name === 'app.gameplay' || notFeatReason) {
                 return;
             }
             this.deleteFilter();

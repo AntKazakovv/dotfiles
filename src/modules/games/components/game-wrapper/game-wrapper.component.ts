@@ -77,6 +77,8 @@ import {
     GlobalHelper,
     ResizedEventModel,
     IWrapperCParams,
+    TLifecycleEvent,
+    RouterService,
 } from 'wlc-engine/modules/core';
 import {SeoService} from 'wlc-engine/modules/seo';
 import {MultiWalletEvents} from 'wlc-engine/modules/multi-wallet/system/interfaces';
@@ -262,6 +264,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         protected titleService: Title,
         protected stateService: StateService,
         protected injectionService: InjectionService,
+        protected routerService: RouterService,
     ) {
         super({
             injectParams,
@@ -466,6 +469,15 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             await this.gamesCatalogService.toggleFavourites(this.game.ID);
         } catch (error) {
         }
+    }
+
+    protected setCloseGameSubscription(): void {
+        this.routerService.events$.pipe(
+            filter((event: TLifecycleEvent) => event.name === 'onStart'),
+            takeUntil(this.$destroy),
+        ).subscribe(() => {
+            this.eventService.emit({name: 'CLOSE_GAME'});
+        });
     }
 
     public closeGame(): void {
@@ -1051,6 +1063,8 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         if (_isFunction(this.hooksByMerchant[this.gameParams.merchantId])) {
             this.hooksByMerchant[this.gameParams.merchantId]();
         }
+
+        this.setCloseGameSubscription();
 
         this.actionService.deviceType()
             .pipe(takeUntil(this.$destroy))
