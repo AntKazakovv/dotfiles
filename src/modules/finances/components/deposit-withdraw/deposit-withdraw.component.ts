@@ -683,7 +683,7 @@ export class DepositWithdrawComponent
         if (isInitialization || isNewActiveBonus || isExistingActiveBonus || isExistingDepositBonus) {
             this.userService ??= await this.injectionService.getService<UserService>('user.user-service');
             const userInfo: UserInfo = await firstValueFrom(this.userService.userInfo$.pipe(
-                first((v) => !!v?.idUser),
+                first((v: UserInfo) => !!v?.loyalty?.DepositsCount),
                 takeUntil(this.$destroy),
             ));
 
