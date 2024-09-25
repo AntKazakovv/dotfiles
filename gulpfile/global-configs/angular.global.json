@@ -41,6 +41,7 @@
             "tsConfig": "tsconfig.app.json",
             "preserveSymlinks": true,
             "aot": true,
+            "optimization": true,
             "verbose": false,
             "assets": [
                 "src/favicon.ico",
@@ -63,6 +64,7 @@
         },
         "projects.wlc-site.architect.build.configurations.dev": {
             "watch": true,
+            "aot": false,
             "optimization": false,
             "extractLicenses": false,
             "sourceMap": true,
@@ -79,7 +81,6 @@
                     "with": "wlc-engine/modules/core/system/interceptors/interceptors.prod.ts"
                 }
             ],
-            "optimization": true,
             "outputHashing": "all",
             "sourceMap": false,
             "namedChunks": false,

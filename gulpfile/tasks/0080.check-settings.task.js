@@ -5,6 +5,8 @@ module.exports = function checkSettings() {
     task('check-settings', (cb) => {
         checkManifest(cb);
         checkAngularJson(cb);
+        checkMainTS(cb);
+        checkPackageJSON(cb)
     });
 };
 
@@ -53,5 +55,36 @@ const checkAngularJson = (cb) => {
                 }
         `);
     }
+    cb();
+};
+
+const checkMainTS = (cb) => {
+    const mainTS = fs.realpathSync(`${process.env.INIT_CWD}/src/main.ts`);
+    const mainTSFile = fs.readFileSync(mainTS).toString();
+
+    if (mainTSFile.includes('DOMContentLoaded')) {
+        console.warn(
+            '\x1b[31m%s\x1b[0m', '\n  WARN: Please remove the subscription '
+            +
+            'document.addEventListener("DOMContentLoaded") from src/main.ts'
+        );
+    }
+
+    cb();
+};
+
+const checkPackageJSON = (cb) => {
+    const package = fs.realpathSync(`${process.env.INIT_CWD}/package.json`);
+    const packageJSONString = fs.readFileSync(package).toString();
+    const packageJSON = JSON.parse(packageJSONString);
+
+    if (packageJSON['scripts']
+        && packageJSON['scripts']['fullup']
+        && (!packageJSON['scripts']['fullup'].includes('gulp update:configs')
+            || !packageJSON['scripts']['update:engine'].includes('gulp update:configs'))
+    ) {
+        console.warn('\x1b[31m%s\x1b[0m', '\n  WARN: Please run gulp update:configs');
+    }
+
     cb();
 };
