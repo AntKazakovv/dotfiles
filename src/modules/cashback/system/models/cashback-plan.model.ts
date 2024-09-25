@@ -44,7 +44,7 @@ export class CashbackPlanModel extends AbstractModel<ICashbackPlan> {
                 },
             }
             : {
-                text: gettext('Claim reward'),
+                text: gettext('Get cashback'),
             };
 
         this.timerEnded = this.isPending ? true : false;
