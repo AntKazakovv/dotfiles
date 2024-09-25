@@ -308,7 +308,7 @@ export namespace wlcProfileForm {
                                 projectType: 'wlc',
                             },
                         ],
-                        exampleValue: gettext('Enter your name'),
+                        exampleValue: gettext('First name'),
                     },
                 },
                 {
@@ -328,7 +328,7 @@ export namespace wlcProfileForm {
                                 projectType: 'wlc',
                             },
                         ],
-                        exampleValue: gettext('Enter your last name'),
+                        exampleValue: gettext('Last name'),
                     },
                 },
                 {

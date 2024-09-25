@@ -70,16 +70,16 @@ formConfig: {
                     'allowLettersOnly',
                     {
                         name: 'minLength',
-                        text: gettext('Field length must be more than 2 characters'),
+                        text: gettext('The field must contain more than 2 characters'),
                         options: 2,
                     },
                     {
                         name: 'maxLength',
-                        text: gettext('The field must be no more than 50 characters long'),
+                        text: gettext('The field cannot contain more than 50 characters'),
                         options: 50,
                     },
                 ],
-                exampleValue: gettext('Enter your name'),
+                exampleValue: gettext('First name'),
             },
         },
         {
@@ -98,7 +98,7 @@ formConfig: {
                     'email',
                     {
                         name: 'maxLength',
-                        text: gettext('The field must be no more than 50 characters long'),
+                        text: gettext('The field cannot contain more than 50 characters'),
                         options: 50,
                     },
                 ],
@@ -118,11 +118,11 @@ formConfig: {
                     'required',
                     {
                         name: 'maxLength',
-                        text: gettext('The field must be no more than 50 characters long'),
+                        text: gettext('The field cannot contain more than 50 characters'),
                         options: 50,
                     },
                 ],
-                exampleValue: gettext('Enter subject'),
+                exampleValue: gettext('Subject'),
             },
         },
         {
@@ -138,12 +138,12 @@ formConfig: {
                     'required',
                     {
                         name: 'minLength',
-                        text: gettext('Field length must be more than 5 characters'),
+                        text: gettext('The field must contain more than 5 characters'),
                         options: 5,
                     },
                     {
                         name: 'maxLength',
-                        text: gettext('The field must be no more than 1500 characters long'),
+                        text: gettext('The field cannot contain more than 1500 characters'),
                         options: 1500,
                     },
                     {
@@ -152,7 +152,7 @@ formConfig: {
                         options: /<\/?\w+>/gi,
                     },
                 ],
-                exampleValue: gettext('Enter your message'),
+                exampleValue: gettext('Message'),
             },
         },
         {
@@ -161,7 +161,7 @@ formConfig: {
                 wlcElement: 'button_submit',
                 common: {
                     typeAttr: 'submit',
-                    text: gettext('Send message'),
+                    text: gettext('Send'),
                 },
             },
         },

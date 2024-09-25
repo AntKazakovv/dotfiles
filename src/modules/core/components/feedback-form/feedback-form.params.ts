@@ -28,16 +28,16 @@ export const getFeedbackConfig = (isAuth: boolean): IFormWrapperCParams => ({
                     'allowLettersOnly',
                     {
                         name: 'minLength',
-                        text: gettext('Field length must be more than 2 characters'),
+                        text: gettext('The field must contain more than 2 characters'),
                         options: 2,
                     },
                     {
                         name: 'maxLength',
-                        text: gettext('The field must be no more than 50 characters long'),
+                        text: gettext('The field cannot contain more than 50 characters'),
                         options: 50,
                     },
                 ],
-                exampleValue: gettext('Enter your name'),
+                exampleValue: gettext('First name'),
             },
         },
         {
@@ -56,7 +56,7 @@ export const getFeedbackConfig = (isAuth: boolean): IFormWrapperCParams => ({
                     'email',
                     {
                         name: 'maxLength',
-                        text: gettext('The field must be no more than 50 characters long'),
+                        text: gettext('The field cannot contain more than 50 characters'),
                         options: 50,
                     },
                 ],
@@ -76,11 +76,11 @@ export const getFeedbackConfig = (isAuth: boolean): IFormWrapperCParams => ({
                     'required',
                     {
                         name: 'maxLength',
-                        text: gettext('The field must be no more than 50 characters long'),
+                        text: gettext('The field cannot contain more than 50 characters'),
                         options: 50,
                     },
                 ],
-                exampleValue: gettext('Enter subject'),
+                exampleValue: gettext('Subject'),
             },
         },
         {
@@ -96,12 +96,12 @@ export const getFeedbackConfig = (isAuth: boolean): IFormWrapperCParams => ({
                     'required',
                     {
                         name: 'minLength',
-                        text: gettext('Field length must be more than 5 characters'),
+                        text: gettext('The field must contain more than 5 characters'),
                         options: 5,
                     },
                     {
                         name: 'maxLength',
-                        text: gettext('The field must be no more than 1500 characters long'),
+                        text: gettext('The field cannot contain more than 1500 characters'),
                         options: 1500,
                     },
                     {
@@ -110,7 +110,7 @@ export const getFeedbackConfig = (isAuth: boolean): IFormWrapperCParams => ({
                         options: /<\/?\w+>/gi,
                     },
                 ],
-                exampleValue: gettext('Enter your message'),
+                exampleValue: gettext('Message'),
             },
         },
         {
@@ -119,7 +119,7 @@ export const getFeedbackConfig = (isAuth: boolean): IFormWrapperCParams => ({
                 wlcElement: 'button_submit',
                 common: {
                     typeAttr: 'submit',
-                    text: gettext('Send message'),
+                    text: gettext('Send'),
                 },
             },
         },

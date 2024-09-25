@@ -300,7 +300,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                     data: <IPushMessageParams>{
                         type: 'error',
                         title: gettext('Error filling form'),
-                        message: gettext('Fill required fields'),
+                        message: gettext('Fill in the required fields'),
                         wlcElement: 'notification_form-filling-error',
                     },
                 });

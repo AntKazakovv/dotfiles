@@ -21,7 +21,7 @@ export class FormValidators {
     static get cityMinLength(): IValidatorSettings {
         return {
             name: 'minLength',
-            text: gettext('Field length must be more than 2 characters'),
+            text: gettext('The field must contain more than 2 characters'),
             options: 2,
         };
     };
@@ -36,7 +36,7 @@ export class FormValidators {
     static get maxLength(): IValidatorSettings {
         return {
             name: 'maxLength',
-            text: gettext('The field must be no more than 55 characters long'),
+            text: gettext('The field cannot contain more than 55 characters'),
             options: 55,
         };
     };

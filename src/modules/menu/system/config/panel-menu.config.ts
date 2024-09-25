@@ -24,7 +24,7 @@ export const wlcPanelMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'panel-menu:favourites': commonMenuItems.favourites,
     'panel-menu:lastplayed': commonMenuItems.lastplayed,
     'panel-menu:contacts': {
-        name: gettext('Contact Us'),
+        name: gettext('Contact us'),
         type: 'sref',
         class: 'contacts',
         icon: 'contact-us',
@@ -43,7 +43,7 @@ export const wlcPanelMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         wlcElement: 'link_main-nav-contuctus',
     },
     'panel-menu:contact-us': {
-        name: gettext('Contact Us'),
+        name: gettext('Contact us'),
         type: 'sref',
         class: 'contacts',
         icon: 'contact-us',

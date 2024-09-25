@@ -129,7 +129,7 @@ export namespace commonMenuItems {
     };
 
     export const contactUs: MenuParams.IMenuItem = {
-        name: gettext('Contact Us'),
+        name: gettext('Contact us'),
         type: 'sref',
         class: 'contactUs',
         icon: 'contactUs',
@@ -145,7 +145,7 @@ export namespace commonMenuItems {
     };
 
     export const contacts: MenuParams.IMenuItem = {
-        name: gettext('Contact Us'),
+        name: gettext('Contact us'),
         type: 'sref',
         class: 'contacts',
         icon: 'info',

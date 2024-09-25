@@ -32,7 +32,7 @@ const contacts: ILayoutComponent = {
         theme: 'contacts',
         items: [
             {
-                name: 'Contact Us',
+                name: 'Contact us',
                 type: 'sref',
                 params: {
                     state: {

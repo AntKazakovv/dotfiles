@@ -58,7 +58,7 @@ export const financesConfig: IFinancesConfig = {
                         },
                         {
                             name: 'maxLength',
-                            text: gettext('The field must be no more than 255 characters long'),
+                            text: gettext('The field cannot contain more than 255 characters'),
                             options: 255,
                         },
                     ],
