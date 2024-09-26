@@ -4,19 +4,26 @@ import {
     ChangeDetectionStrategy,
     Inject,
     Input,
+    inject,
+    DestroyRef,
 } from '@angular/core';
-import {TransitionService} from '@uirouter/core';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 import {BehaviorSubject} from 'rxjs';
 import {filter} from 'rxjs/operators';
 
 import {
-    AbstractComponent,
+    EventService,
+    RouterService,
+    TLifecycleEvent,
     IMixedParams,
-} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
-import {IHistoryFilter} from 'wlc-engine/modules/history/system/interfaces/history-filter.interface';
-import {HistoryFilterService} from 'wlc-engine/modules/history/system/services/history-filter.service';
+    AbstractComponent,
+} from 'wlc-engine/modules/core';
+
+import {
+    HistoryFilterService,
+    IHistoryFilter,
+} from 'wlc-engine/modules/history';
 
 import * as Params from './history-range.params';
 
@@ -34,11 +41,13 @@ export class HistoryRangeComponent extends AbstractComponent implements OnInit {
     public override $params: Params.IHistoryRangeCParams;
     public ready: boolean;
 
+    protected readonly destroyRef: DestroyRef = inject(DestroyRef);
+    protected readonly eventService: EventService = inject(EventService);
+    protected readonly historyFilterService: HistoryFilterService = inject(HistoryFilterService);
+    protected readonly routerService: RouterService = inject(RouterService);
+
     constructor(
         @Inject('injectParams') protected params: Params.IHistoryRangeCParams,
-        protected eventService: EventService,
-        protected historyFilterService: HistoryFilterService,
-        protected transition: TransitionService,
     ) {
         super(
             <IMixedParams<Params.IHistoryRangeCParams>>{
@@ -49,15 +58,12 @@ export class HistoryRangeComponent extends AbstractComponent implements OnInit {
 
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-        this.subscribeOnDateChanges();
 
-        this.transition.onSuccess({}, async () => {
-            this.ready = false;
-            this.cdr.detectChanges();
-        });
+        this.subscribeToDateChanges();
+        this.subscribeToRouterEvents();
     }
 
-    public subscribeOnDateChanges(): void {
+    protected subscribeToDateChanges(): void {
         (this.historyFilterService.history[this.$params.historyType] as BehaviorSubject<IHistoryFilter>)
             .pipe(filter((historyFilter: IHistoryFilter<string>): boolean => !!historyFilter))
             .subscribe((historyFilter: IHistoryFilter<string>): void => {
@@ -68,7 +74,17 @@ export class HistoryRangeComponent extends AbstractComponent implements OnInit {
                     ? historyFilter.endDate.format('DD.MM.YYYY')
                     : this.endDate;
                 this.ready = true;
-                this.cdr.detectChanges();
+                this.cdr.markForCheck();
             });
+    }
+
+    protected subscribeToRouterEvents(): void {
+        this.routerService.events$.pipe(
+            filter((event: TLifecycleEvent) => event.name === 'onSuccess'),
+            takeUntilDestroyed(this.destroyRef),
+        ).subscribe(() => {
+            this.ready = false;
+            this.cdr.markForCheck();
+        });
     }
 }
