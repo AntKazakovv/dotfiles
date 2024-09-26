@@ -49,7 +49,7 @@
 
 <ng-template #storeItemInfoTpl>
     <p>{{'Are you sure?' | translate}}</p>
-    <p>{{'Your balance will be debited on:' | translate}}</p>
+    <p>{{'Your balance will be debited:' | translate}}</p>
     <ng-container *ngTemplateOutlet="amountRowTpl; context: {$implicit: debitAmount}"></ng-container>
 
     @if (hasCreditAmount) {

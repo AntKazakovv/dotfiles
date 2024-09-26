@@ -94,7 +94,7 @@ export class StoreItem extends AbstractModel<IStoreItem> {
         if (this.nextDateAvailable) {
             return {
                 messageText: gettext('The item is temporarily unavailable for a repeated purchase. ' +
-                    'Please, try again later'),
+                    'Please try again later'),
                 btnText: gettext('Temporarily unavailable'),
             };
         }

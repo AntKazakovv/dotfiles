@@ -38,7 +38,7 @@ export const defaultParams: ITournamenFreeSpinsParams = {
     freeSpinsText: gettext('Free spins'),
     buttonText: gettext('Buy now'),
     modalIconPath: '/wlc/tournaments/icons/buy-free-spins.svg',
-    textClickBuy: gettext('Click "Buy now" to replenish.'),
+    textClickBuy: gettext('Click "Buy now" to replenish'),
     textFreeRoundsInPackage: gettext('Your free spins balance will be replenished with:'),
     textDebitedBalance: gettext('Your real balance will be debited:'),
     textAvailableReplenishments: gettext('Available number of replenishments:'),

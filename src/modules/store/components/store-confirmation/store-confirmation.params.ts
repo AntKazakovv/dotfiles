@@ -36,7 +36,7 @@ export const defaultParams: Partial<IStoreConfirmationCParams> = {
         ],
     },
     modalMessage: gettext('Are you sure?'),
-    balanceMessage: gettext('Your balance will be debited on:'),
+    balanceMessage: gettext('Your balance will be debited:'),
     storeItemTotalPrice: {
         loyaltyPrice: 0,
         expPrice: 0,
