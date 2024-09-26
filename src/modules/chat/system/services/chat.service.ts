@@ -360,7 +360,7 @@ export class ChatService {
     }
 
     protected initChat(): void {
-        if (this.xmppService.client && this.tas.isAuth$.getValue()) {
+        if (this.xmppService.client && this.tas.isAuth$.getValue() && this.nickname) {
             this.chatReenter();
         } else {
             this.subscribeIsAuthStatus();
