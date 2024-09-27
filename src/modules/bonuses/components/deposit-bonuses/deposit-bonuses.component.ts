@@ -5,6 +5,7 @@ import {
     Inject,
     ViewChild,
     TemplateRef,
+    inject,
 } from '@angular/core';
 
 import Swiper from 'swiper';
@@ -42,6 +43,7 @@ import {
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {BonusItemComponent} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.component';
 import {IBonusItemCParams} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';
+import {PromoCodeService} from 'wlc-engine/modules/bonuses/system/services/promocode/promocode.service';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import * as Params from './deposit-bonuses.params';
@@ -72,6 +74,7 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
     protected paymentsAutoSelect: boolean = false;
     protected lastBonusId: number;
     protected promoCodeInfo: IPromoCodeInfo;
+    protected readonly promoCodeService: PromoCodeService = inject(PromoCodeService);
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IDepositBonusesCParams,
@@ -113,7 +116,7 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
         }, this.$destroy);
 
         this.followBreakpoints();
-        this.promoCodeInfo = await this.bonusesService.getPromoCodeInfo();
+        this.promoCodeInfo = await this.promoCodeService.getPromoCodeInfo();
         this.getBonuses();
 
         if (this.configService.get<boolean>('$finances.useDepositPromoCode') && this.$params.disableBonuses$) {
@@ -455,11 +458,7 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
             return;
         }
 
-        /* TODO: refactor here and there:
-         * src/modules/bonuses/system/services/bonuses/bonuses.service.ts (getBonusesByCode method)
-         * src/modules/bonuses/system/models/bonus/bonus.ts (promoCode getter)
-         */
-        promoCodeBonus.data.PromoCode = this.promoCodeInfo.promoCode;
+        promoCodeBonus.userPromoCode = this.promoCodeInfo.promoCode;
     }
 
     protected processPaySystemChange(paySystem?: PaymentSystem): void {

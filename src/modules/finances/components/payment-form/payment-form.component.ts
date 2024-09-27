@@ -1668,7 +1668,7 @@ export class PaymentFormComponent
                 {
                     ...params,
                     bonusId: this.bonus?.id,
-                    bonusCode: this.bonus?.promoCode,
+                    bonusCode: this.bonus?.userPromoCode,
                 },
                 this.cssVariables,
                 this.wallet,

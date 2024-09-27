@@ -51,6 +51,7 @@ import {AppType} from 'wlc-engine/modules/core/system/interfaces/base-config/app
 import {IRedirect} from 'wlc-engine/modules/core/system/interfaces/core.interface';
 import {CachingService} from 'wlc-engine/modules/core/system/services/caching/caching.service';
 import {ColorThemeService} from 'wlc-engine/modules/core/system/services/color-theme/color-theme.service';
+import {PromoCodeService} from 'wlc-engine/modules/bonuses/system/services/promocode/promocode.service';
 import {
     FinancesService,
     IPaymentPostMessage,
@@ -128,6 +129,7 @@ export class ActionService {
     private scrollTop: number;
     private scrollableElements$: IIndexing<Observable<number>> = {};
     private bonusesService: BonusesService;
+    private promoCodeService: PromoCodeService;
     public userMove: Promise<void> = new Promise((resolve: () => void): void => {
         this.$resolve = resolve;
     });
@@ -291,7 +293,7 @@ export class ActionService {
 
         if (initialPath.promocode) {
             this.bonusesService ??= await this.injectionService.getService<BonusesService>('bonuses.bonuses-service');
-            this.bonusesService.processPromocode(initialPath.promocode);
+            this.bonusesService.processPromoCodeFromUrl(initialPath.promocode);
         }
 
         if (initialPath.bonus) {

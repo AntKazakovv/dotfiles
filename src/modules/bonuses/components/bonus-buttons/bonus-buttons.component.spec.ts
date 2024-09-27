@@ -15,6 +15,7 @@ import {
     ModalService,
 } from 'wlc-engine/modules/core';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
+import {PromoCodeService} from 'wlc-engine/modules/bonuses/system/services/promocode/promocode.service';
 import {ButtonComponent} from 'wlc-engine/modules/core/components/button/button.component';
 
 import * as Params from './bonus-buttons.params';
@@ -30,6 +31,7 @@ describe('BonusButtonsComponent', () => {
     let eventServiceSpy: jasmine.SpyObj<EventService>;
     let modalServiceSpy: jasmine.SpyObj<ModalService>;
     let bonusesServiceSpy: jasmine.SpyObj<BonusesService>;
+    let promoCodeServiceSpy: jasmine.SpyObj<PromoCodeService>;
     let routerSpy: jasmine.SpyObj<UIRouter>;
 
     function resetProp(prop: string, value: boolean): void {
@@ -82,11 +84,14 @@ describe('BonusButtonsComponent', () => {
             [
                 'takeInventory',
                 'subscribeBonus',
-                'clearPromoBonus',
                 'cancelBonus',
                 'unsubscribeBonus',
                 'filterBonuses',
             ],
+        );
+        promoCodeServiceSpy = jasmine.createSpyObj(
+            'PromoCodeService',
+            ['clearPromoBonus'],
         );
 
         TestBed.configureTestingModule({
@@ -111,6 +116,10 @@ describe('BonusButtonsComponent', () => {
                 {
                     provide: BonusesService,
                     useValue: bonusesServiceSpy,
+                },
+                {
+                    provide: PromoCodeService,
+                    useValue: promoCodeServiceSpy,
                 },
                 {
                     provide: UIRouter,

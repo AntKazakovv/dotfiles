@@ -11,6 +11,7 @@ import {
     Output,
     EventEmitter,
     SimpleChanges,
+    inject,
 } from '@angular/core';
 import {UntypedFormControl} from '@angular/forms';
 
@@ -28,7 +29,7 @@ import {
 
 import {
     Bonus,
-    BonusesService,
+    PromoCodeService,
     IBonusModalCParams,
 } from 'wlc-engine/modules/bonuses';
 import {IAlertCParams} from 'wlc-engine/modules/core/components/alert/alert.params';
@@ -60,7 +61,7 @@ export class DepositPromocodeComponent extends AbstractComponent implements OnIn
     public submitBtnParams: IButtonCParams;
 
     protected _isBonusApplied: boolean = false;
-    protected bonusesService: BonusesService;
+    protected promoCodeService: PromoCodeService = inject(PromoCodeService);
 
     private isModal: boolean = false;
 
@@ -106,29 +107,24 @@ export class DepositPromocodeComponent extends AbstractComponent implements OnIn
 
     public async processPromoCode(): Promise<void> {
         const code: string = this.promoCodeControl.value;
-        this.bonusesService ??= await this.injectionService.getService<BonusesService>('bonuses.bonuses-service');
 
         if (!code || this.bonusPending$.getValue()) {
-            this.bonusesService.showPromoCodeError(gettext('Enter promo code'));
             return;
         }
 
         try {
             this.bonusPending$.next(true);
 
-            const bonuses: Bonus[] = await this.bonusesService.getBonusesByCode(code);
+            const bonus: Bonus = await this.promoCodeService.getBonusByCode(code);
 
-            if (bonuses.length) {
-                this.bonus = bonuses[0];
-                this.bonus.data.PromoCode = code;
+            if (bonus) {
+                this.bonus = bonus;
                 this.promoCodeControl.setValue(null);
 
                 this.showBonusModal(true);
-            } else {
-                this.bonusesService.showPromoCodeError(gettext('The promo code has not been found'));
             }
         } catch (error) {
-            this.bonusesService.showPromoCodeError(error.errors ? error.errors : error);
+            this.promoCodeService.showPromoCodeError(error.errors ? error.errors : error);
         } finally {
             this.bonusPending$.next(false);
         }

@@ -2,6 +2,7 @@ import {
     ChangeDetectionStrategy,
     Component,
     HostBinding,
+    inject,
     Inject,
     Input,
     OnDestroy,
@@ -58,6 +59,7 @@ import {
     IBonus,
     RestType,
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
+import {PromoCodeService} from 'wlc-engine/modules/bonuses/system/services/promocode/promocode.service';
 
 import * as Params from './bonuses-list.params';
 
@@ -109,6 +111,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
     protected ready$: Subject<boolean> = new Subject();
     protected filter?: BonusesFilterType;
     protected bonusesListController: IBonusesListController;
+    protected readonly promoCodeService: PromoCodeService = inject(PromoCodeService);
 
     constructor(
         @Inject('injectParams') protected params: Params.IBonusesListCParams,

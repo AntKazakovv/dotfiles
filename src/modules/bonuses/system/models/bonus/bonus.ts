@@ -13,7 +13,6 @@ import _floor from 'lodash-es/floor';
 import _isObject from 'lodash-es/isObject';
 import _isString from 'lodash-es/isString';
 import _isNil from 'lodash-es/isNil';
-import _isNumber from 'lodash-es/isNumber';
 import _toNumber from 'lodash-es/toNumber';
 import _reduce from 'lodash-es/reduce';
 
@@ -94,6 +93,7 @@ export class Bonus extends AbstractModel<IBonus> {
     private _fallBackIconPath: string = '';
     private _expirationTime: Dayjs;
     private _originalTarget: string;
+    private _userPromoCode: string | null = null;
 
     constructor(
         from: IFromLog,
@@ -480,12 +480,20 @@ export class Bonus extends AbstractModel<IBonus> {
         return this.data.Name;
     }
 
-    public get promoCode(): string {
-        return _isNumber(this.data.PromoCode) ? '' : this.data.PromoCode;
+    public get promoCode(): number {
+        return this.data.PromoCode;
     }
 
     public get hasPromoCode(): boolean {
-        return _isNumber(this.data.PromoCode) ? !!this.data.PromoCode : !!this.data.PromoCode?.length;
+        return !!this.promoCode;
+    }
+
+    public set userPromoCode(code: string) {
+        this._userPromoCode = code;
+    }
+
+    public get userPromoCode(): string {
+        return this._userPromoCode;
     }
 
     public get paySystems(): number[] {
@@ -781,7 +789,8 @@ export class Bonus extends AbstractModel<IBonus> {
         }
 
         switch (this.target) {
-            case 'loyalty' || 'experience':
+            case 'loyalty':
+            case 'experience':
                 return resultsTarget.Type === 'relative'
                     ? Math.round(Number(resultsTarget.Value))
                     : Math.round(Number((resultsTarget as IBonusResultValueDefault).Value?.EUR));

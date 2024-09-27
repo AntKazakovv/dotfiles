@@ -39,7 +39,6 @@ import _find from 'lodash-es/find';
 import _isEqual from 'lodash-es/isEqual';
 import _isUndefined from 'lodash-es/isUndefined';
 import _keys from 'lodash-es/keys';
-import _forEach from 'lodash-es/forEach';
 import _toString from 'lodash-es/toString';
 import _pull from 'lodash-es/pull';
 
@@ -80,13 +79,13 @@ import {
     IBonusCanceledInfo,
     IGetSubscribeParams,
     ILootboxPrize,
-    IPromoCodeInfo,
     IQueryFilters,
     IQueryParams,
     IWSBonusAction,
     RequestType,
     RestType,
     TBonusSortOrder,
+    IBonusesData,
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {LootboxPrizeModel} from 'wlc-engine/modules/bonuses/system/models/lootbox-prize/lootbox-prize.model';
 import {BonusCancellationInfo} from '../../models/bonus/bonus-cancellation-info.model';
@@ -96,12 +95,9 @@ import {WalletsService} from 'wlc-engine/modules/multi-wallet/system/services/wa
 import {WebSocketEvents} from 'wlc-engine/modules/core/system/services/websocket/websocket.service';
 import {IWSConsumerData} from 'wlc-engine/modules/core/system/interfaces/websocket.interface';
 import {MultiWalletEvents} from 'wlc-engine/modules/multi-wallet';
+import {PromoCodeService} from 'wlc-engine/modules/bonuses/system/services/promocode/promocode.service';
 
 type TUserLoyaltyInfo = Pick<UserInfo, 'bonusesBalance' | 'freeRounds'>;
-
-interface IBonusesData extends IData {
-    data?: IBonus[] | ILootboxPrize[];
-}
 
 interface ISubjects {
     bonuses$: BehaviorSubject<Bonus[]>;
@@ -137,8 +133,6 @@ interface IActionSubscribeParams {
 })
 export class BonusesService {
     public storeBonuses: Bonus[] = [];
-    public promoBonus: Bonus = null;
-    public dbPromoUrl: string = 'promocode';
     public bonuses: Bonus[] = [];
     public profile: UserProfile;
     public walletsService: WalletsService;
@@ -147,14 +141,11 @@ export class BonusesService {
         new BehaviorSubject<string>(this.configService.get<string>('$base.defaultCurrency') || 'EUR');
 
     protected readonly websocketService: WebsocketService = inject(WebsocketService);
+    protected readonly promoCodeService: PromoCodeService = inject(PromoCodeService);
     protected activeBonuses: Bonus[] = [];
     protected lootboxPrizes: LootboxPrizeModel[] = [];
     protected gamesCatalogService: GamesCatalogService;
-    protected promocodeFetchSubscriber: Subscription = {} as Subscription;
-    protected promocodeFetchData: IData = {} as IData;
 
-    private promoBonusIdCacheKey: string = 'promo-bonus-id';
-    private bonusesCacheExpTime: number = 7 * 24 * 60 * 60 * 1000;
     private subjects: ISubjects = {
         bonuses$: new BehaviorSubject(null),
         active$: new BehaviorSubject(null),
@@ -193,6 +184,10 @@ export class BonusesService {
 
     public get hasBonuses(): boolean {
         return !!this.bonuses.length;
+    }
+
+    public get promoBonus(): Bonus {
+        return this.promoCodeService.promoBonus;
     }
 
     /**
@@ -371,137 +366,6 @@ export class BonusesService {
     }
 
     /**
-     * Get bonuses by promocode
-     *
-     * @param {string} code promocode
-     * @returns {Bonus[]} bonuses array
-     */
-    public async getBonusesByCode(code: string): Promise<Bonus[]> {
-        try {
-            this.promocodeFetchSubscriber = this.eventService.subscribe([
-                {name: 'BONUSES_BY_PROMO_FETCH_SUCCESS'},
-                {name: 'BONUSES_BY_PROMO_FETCH_FAILED'},
-            ], (data: IData) => {
-                this.promocodeFetchData = data;
-                this.promocodeFetchSubscriber.unsubscribe();
-            });
-
-            const bonuses: Bonus[] = await this.queryBonuses(false, undefined, code);
-            let bonusResult: Bonus[] = [];
-
-            _forEach(this.promocodeFetchData?.errors, (error: string): void => {
-                throw error;
-            });
-
-            bonusResult = bonuses.filter((bonus: Bonus) => {
-                return bonus.status == 1;
-            });
-
-            _each(bonusResult, (bonus: Bonus) => {
-                bonus.data.PromoCode = code;
-            });
-            return bonusResult;
-        } catch (error) {
-            this.logService.sendLog({code: '10.0.2', data: error});
-            throw error;
-        }
-    }
-
-    /**
-     * Subscribes bonus with promocode from URL
-     *
-     * @param {IIndexing<string>} promoCode
-     * @returns {Promise<void>}
-     */
-    public async processPromocode(promoCode: string): Promise<void> {
-        const promocodeCacheKey: string = this.dbPromoUrl;
-
-        await this.configService.ready;
-        await this.cachingService.set<string>(
-            promocodeCacheKey,
-            promoCode,
-            true,
-            this.bonusesCacheExpTime,
-        );
-        try {
-            await this.checkPromoBonus();
-
-            if (await this.cachingService.get(promocodeCacheKey)) {
-                if (this.promoBonus) {
-                    if (this.configService.get<boolean>('$user.isAuthenticated')) {
-                        const bonus: Bonus = await this.subscribeBonus(this.promoBonus, false);
-                        if (bonus) {
-
-                            switch (bonus.event) {
-                                case 'sign up':
-                                case 'registration':
-                                case 'verification':
-                                    this.modalService.showModal('promoSuccess', {
-                                        title: gettext('Bonus success'),
-                                        status: 'fromLink',
-                                        texts: {
-                                            fromLink: this.translateService.instant(
-                                                gettext('Congratulations! You activated bonus'))
-                                                + ` ${bonus.name}! `
-                                                + this.translateService.instant(
-                                                    gettext('Bonus successfully added to the Bonuses page.')),
-                                        },
-                                    });
-                                    break;
-                                default:
-                                    this.modalService.showModal('promoSuccess', {
-                                        title: gettext('Bonus success'),
-                                        status: 'fromLink',
-                                        texts: {
-                                            fromLink: this.translateService.instant(
-                                                gettext('Congratulations! You have got bonus'))
-                                                + ` ${bonus.name}! `
-                                                + this.translateService.instant(
-                                                    gettext('Bonus successfully added to the Bonuses page.')),
-                                        },
-                                    });
-                                    break;
-                            }
-                            this.cachingService.clear(promocodeCacheKey);
-                        }
-                    } else {
-                        const subscription: Subscription = this.eventService.subscribe([
-                            {name: 'LOGIN'},
-                        ], (): void => {
-                            this.processPromocode(promoCode).then((): void => {
-                                subscription.unsubscribe();
-                            });
-                        });
-                        if (!this.modalService.getActiveModal('signup')) {
-                            this.modalService.showModal('login');
-                        }
-                    }
-                } else {
-                    this.showPromoCodeError(gettext('The promo code has not been found'));
-                    this.cachingService.clear(promocodeCacheKey);
-                }
-            }
-        } catch (error) {
-            this.showError(
-                error.errors || error,
-                gettext('Promo code error'),
-            );
-        }
-    }
-
-    public showPromoCodeError(message: string, title: string = gettext('Promo code error')): void {
-        this.eventService.emit({
-            name: NotificationEvents.PushMessage,
-            data: <IPushMessageParams>{
-                type: 'error',
-                title,
-                message,
-                wlcElement: 'notification_promocode-error',
-            },
-        });
-    }
-
-    /**
      * Open bonus modal by bonusId from URL
      *
      * @param {IIndexing<string>} bonusId
@@ -598,8 +462,8 @@ export class BonusesService {
      * @returns {Bonus} bonus object
      */
     public async subscribeBonus(bonus: Bonus, showPush: boolean = true, wallet: number = null): Promise<Bonus> {
-        bonus.data.PromoCode = (bonus.id === this.promoBonus?.id) ? this.promoBonus.promoCode : '';
-        const params = {ID: bonus.id, PromoCode: bonus.promoCode, Selected: 1, wallet};
+        const promoCode: string = this.promoCodeService.getPromoCode(bonus);
+        const params = {ID: bonus.id, PromoCode: promoCode, Selected: 1, wallet};
 
         try {
             const response: IData = await this.limitedRequests({
@@ -787,6 +651,7 @@ export class BonusesService {
         queryFilters?: IQueryFilters,
     ): Promise<T[]> {
         this.queryPromises[type].next(true);
+
         const queryParams: IQueryParams = this.prepareQueryParams(type, promoCode, queryFilters);
 
         try {
@@ -805,27 +670,11 @@ export class BonusesService {
                 'desc',
             );
 
-            if (bonuses.length && !queryParams.PromoCode && !this.promoBonus) {
-                await this.checkPromoBonus();
-            }
-
             this.saveBonuses(type, bonuses, publicSubject);
 
-            if (promoCode) {
-                this.eventService.emit({
-                    name: 'BONUSES_BY_PROMO_FETCH_SUCCESS',
-                });
-            }
             return bonuses as T[];
         } catch (error) {
             this.logService.sendLog({code: '10.0.0', data: error});
-
-            if (!!promoCode) {
-                this.eventService.emit({
-                    name: 'BONUSES_BY_PROMO_FETCH_FAILED',
-                    data: error as IData,
-                });
-            }
 
             this.eventService.emit({
                 name: 'BONUSES_FETCH_FAILED',
@@ -869,13 +718,6 @@ export class BonusesService {
         }
     }
 
-    public clearPromoBonus(): void {
-        if (this.promoBonus) {
-            this.cachingService.clear(this.dbPromoUrl);
-            this.promoBonus = null;
-        }
-    }
-
     /**
      * Unchooses all bonuses
      * @returns {void}
@@ -885,16 +727,6 @@ export class BonusesService {
             bonus.isChoose = false;
         });
     }
-
-    public async getPromoCodeInfo(): Promise<IPromoCodeInfo> {
-        const bonusId = await this.cachingService.get<number>(this.promoBonusIdCacheKey);
-        const promoCode = await this.cachingService.get<string>(this.dbPromoUrl);
-
-        if (promoCode && bonusId) {
-            return {bonusId, promoCode};
-        }
-    }
-
 
     /**
      * Sorts bonuses according to sort order
@@ -931,23 +763,41 @@ export class BonusesService {
                 || event.data === MultiWalletEvents.WalletChanged);
     }
 
-    /**
-     * Saves bonus with promo if promo exists in cache
-     * @returns {Promise<void>}
-     */
-    private async checkPromoBonus(): Promise<void> {
-        const promocode: string = await this.cachingService.get<string>(this.dbPromoUrl);
+    /** Checks promocode from url, if find promocode bonus, subscribe it */
+    public async processPromoCodeFromUrl(code: string, bonus?: Bonus): Promise<void> {
+        await this.configService.ready;
 
-        if (!promocode) return;
-        try {
-            const bonuses: Bonus[] = await this.getBonusesByCode(promocode);
+        const promoBonus: Bonus = bonus || await this.promoCodeService.getBonusByCode(code);
 
-            if (bonuses.length) {
-                this.promoBonus = bonuses[0];
-            }
-        } catch (error) {
-            this.logService.sendLog({code: '10.0.2', data: error});
-            throw error;
+        if (!promoBonus) return;
+
+        if (this.configService.get<boolean>('$user.isAuthenticated')) {
+            this.subscribePromoBonus(promoBonus);
+        } else {
+            this.processPromoCodeForUnAuth(code, promoBonus);
+        }
+    }
+
+    /** Subscribes promo bonus */
+    private async subscribePromoBonus(bonus: Bonus): Promise<void> {
+        const subscribedBonus: Bonus = await this.subscribeBonus(bonus, false);
+
+        if (subscribedBonus) {
+            this.promoCodeService.onPromoBonusSubscribed(subscribedBonus);
+        }
+    }
+
+    private async processPromoCodeForUnAuth(code: string, bonus: Bonus): Promise<void> {
+        const subscription: Subscription = this.eventService.subscribe([
+            {name: 'LOGIN'},
+        ], (): void => {
+            this.processPromoCodeFromUrl(code, bonus).then((): void => {
+                subscription.unsubscribe();
+            });
+        });
+
+        if (!this.modalService.getActiveModal('signup')) {
+            this.modalService.showModal('login');
         }
     }
 
@@ -1188,11 +1038,12 @@ export class BonusesService {
                 return bonus.active || bonus.selected || bonus.inventoried;
             });
         }
+
         return bonuses;
     }
 
     private isPromocodeEntered(bonus: Bonus): boolean {
-        return bonus.id === this.promoBonus?.id;
+        return this.promoCodeService.isPromoCodeEntered(bonus);
     }
 
     /**
@@ -1275,33 +1126,6 @@ export class BonusesService {
 
                 this.updateSubscribers();
             },
-        });
-
-        this.eventService.subscribe([
-            {name: 'LOGOUT'},
-        ], (): void => {
-            this.clearPromoBonus();
-        });
-
-        this.eventService.subscribe([
-            {name: 'PROMO_SUCCESS'},
-        ], (bonus: Bonus): void => {
-            if (bonus) {
-                this.promoBonus = bonus;
-                this.cachingService.set(this.dbPromoUrl, this.promoBonus.promoCode, true, this.bonusesCacheExpTime);
-                this.cachingService.set<number>(
-                    this.promoBonusIdCacheKey,
-                    this.promoBonus.id,
-                    true,
-                    this.bonusesCacheExpTime,
-                );
-            }
-        });
-
-        this.eventService.subscribe([
-            {name: 'PROMO_ERROR'},
-        ], (): void => {
-            this.cachingService.clear(this.dbPromoUrl);
         });
 
         this.translateService.onLangChange.subscribe((): void => {

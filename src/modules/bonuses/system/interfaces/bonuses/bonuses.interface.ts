@@ -1,9 +1,13 @@
-import {IIndexing} from 'wlc-engine/modules/core';
 import {
     PartialObserver,
     Observable,
     Subject,
 } from 'rxjs';
+
+import {
+    IData,
+    IIndexing,
+} from 'wlc-engine/modules/core';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {BonusesListNoContentByThemeType} from 'wlc-engine/modules/bonuses/components/bonuses-list/bonuses-list.params';
 import {
@@ -232,7 +236,7 @@ export interface IBonus extends IBonusBase {
     MinBet: IIndexing<string>;
     Name: string;
     PaySystems: string[];
-    PromoCode: string | number;
+    PromoCode: number;
     RealWinning: string;
     Results: IBonusResults;
     Selected: number;
@@ -438,3 +442,7 @@ export type IPromoCodeInfo = {
 };
 
 export type TBonusValue = number | number[] | string;
+
+export interface IBonusesData extends IData {
+    data?: IBonus[] | ILootboxPrize[];
+}

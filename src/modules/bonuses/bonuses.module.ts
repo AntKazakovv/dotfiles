@@ -34,6 +34,7 @@ import {
 import {
     BonusChoiceModalComponent,
 } from 'wlc-engine/modules/bonuses/components/bonus-choice-modal/bonus-choice-modal.component';
+import {PromoCodeService} from 'wlc-engine/modules/bonuses/system/services/promocode/promocode.service';
 
 export const moduleConfig = GlobalHelper.mergeConfig<IBonusesModule>(bonusesConfig, _get($config, '$bonuses', {}));
 
@@ -55,6 +56,7 @@ export const components = {
 
 export const services = {
     'bonuses-service': BonusesService,
+    'promocode-service': PromoCodeService,
 };
 
 @NgModule({
@@ -82,6 +84,7 @@ export const services = {
     ],
     providers: [
         BonusesService,
+        PromoCodeService,
     ],
     exports: [
         BonusItemComponent,

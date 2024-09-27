@@ -9,7 +9,7 @@ export const errorTypes: ILogTypes = {
         // Bonus not found
     },
     '10.0.2': {
-        // Bonus promocode not found
+        // Bonus promocode error
     },
     '10.0.3': {
         // Information to cancel the bonus not found

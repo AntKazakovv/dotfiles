@@ -10,6 +10,7 @@ import {
     ElementRef,
     EventEmitter,
     AfterViewChecked,
+    inject,
 } from '@angular/core';
 
 import {UIRouter} from '@uirouter/core';
@@ -29,6 +30,7 @@ import {
 import {ButtonComponent} from 'wlc-engine/modules/core/components/button/button.component';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
+import {PromoCodeService} from 'wlc-engine/modules/bonuses/system/services/promocode/promocode.service';
 import {SportsbookService} from 'wlc-engine/modules/sportsbook';
 import {BonusItemComponentEvents} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {Theme as BonusItemTheme} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';
@@ -60,6 +62,8 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit, 
     public isAuth: boolean;
     public isDisableButtons: boolean;
     public isEmpty: boolean = false;
+
+    protected readonly promoCodeService: PromoCodeService = inject(PromoCodeService);
 
     private static sportsbookService: SportsbookService;
     private componentWillBeDestroyedNow: boolean = false;
@@ -301,8 +305,11 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit, 
 
         if (bonus) {
             this.bonus = bonus;
-            this.bonusesService.clearPromoBonus();
             this.hideActiveModal('bonus-modal');
+
+            if (bonus.hasPromoCode) {
+                this.promoCodeService.clearPromoBonus();
+            }
 
             if (bonus.event === 'deposit' &&
                 this.configService.get<boolean>('$base.finances.redirectAfterDepositBonus')) {

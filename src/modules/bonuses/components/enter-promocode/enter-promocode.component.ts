@@ -1,6 +1,7 @@
 import {
     ChangeDetectionStrategy,
     Component,
+    inject,
     Inject,
     Input,
     OnDestroy,
@@ -20,6 +21,7 @@ import {
     IInputCParams,
     ModalService,
 } from 'wlc-engine/modules/core';
+import {PromoCodeService} from 'wlc-engine/modules/bonuses/system/services/promocode/promocode.service';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {TPromoSuccessStatus} from 'wlc-engine/modules/bonuses/components/promo-success/promo-success.params';
@@ -40,6 +42,7 @@ export class EnterPromocodeComponent extends AbstractComponent implements OnInit
 
     public override $params: Params.IEnterPromocodeCParams;
     public pending$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    public promoCodeService: PromoCodeService = inject(PromoCodeService);
 
     protected bonus: Bonus[];
     protected pendingSubscriber: Subscription;
@@ -82,7 +85,7 @@ export class EnterPromocodeComponent extends AbstractComponent implements OnInit
         const promocode = this.enterPromocodeInput.control.value;
 
         if (!promocode) {
-            this.bonusesService.showPromoCodeError(gettext('Enter promo code'));
+            this.promoCodeService.showPromoCodeError(gettext('Enter promo code'));
             return;
         }
 
@@ -94,7 +97,10 @@ export class EnterPromocodeComponent extends AbstractComponent implements OnInit
         try {
             this.pending$.next(true);
 
-            const bonuses: Bonus[] = await this.bonusesService.getBonusesByCode(promocode);
+            const bonus: Bonus = await this.promoCodeService.getBonusByCode(promocode);
+
+            if (!bonus) return;
+
             let promoSuccessStatus: TPromoSuccessStatus;
 
             // TODO временно, нужно другое решение
@@ -102,13 +108,8 @@ export class EnterPromocodeComponent extends AbstractComponent implements OnInit
                 return;
             }
 
-            if (!bonuses.length) {
-                this.bonusesService.showPromoCodeError(gettext('The promo code has not been found'));
-                return;
-            }
-
-            if (bonuses[0].selected) {
-                promoSuccessStatus = bonuses[0].active ? 'active' : 'selected';
+            if (bonus.selected) {
+                promoSuccessStatus = bonus.active ? 'active' : 'selected';
             } else {
                 promoSuccessStatus = 'notSelected';
             }
@@ -119,19 +120,18 @@ export class EnterPromocodeComponent extends AbstractComponent implements OnInit
 
             this.eventService.emit({
                 name: 'PROMO_SUCCESS',
-                data: bonuses[0],
+                data: bonus,
             });
 
             this.bonusesService.bonusActionEvent.next({
                 actionType: ActionTypeEnum.PromoCodeSuccess,
-                bonusId: bonuses[0].id,
+                bonusId: bonus.id,
             });
 
         } catch (error) {
             this.eventService.emit({
                 name: 'PROMO_ERROR',
             });
-            this.bonusesService.showPromoCodeError(error.errors ? error.errors : error);
         } finally {
             this.pending$.next(false);
         }
