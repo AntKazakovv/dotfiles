@@ -244,9 +244,8 @@ module.exports = function messagesTask() {
             const poFilePath = `${poFilePath1}/${locale}.po`;
 
             if (fs.existsSync(poFilePath)) {
-                return `msgmerge --force-po --update --backup=off --lang=${locale} ` +
-                `${poFilePath} ${this.params.paths.temp}/front.pot \n` +
-                `sed -i 's/#~ //g' ${poFilePath}\n`;
+                return `msgmerge --force-po --no-fuzzy-matching --update --backup=off --lang=${locale} ` +
+                `${poFilePath} ${this.params.paths.temp}/front.pot`;
             } else {
                 return `msgcat --force-po --lang=${locale} ` +
                     `${this.params.paths.temp}/front.pot > ${poFilePath}\n`;
