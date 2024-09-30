@@ -186,10 +186,9 @@
         &__btns {
             display: flex;
             justify-content: ef.get-value($themeDefault, 'btnsJustifyContent');
-            margin: ef.get-value($themeDefault, 'btnsOuterOffset');
 
-            .wlc-btn {
-                margin: ef.get-value($themeDefault, 'btnsInnerOffset');
+            .wlc-btn--theme-skew {
+                @include bm.get-mq-map('margin', $themeDefault, 'btnSkewMargin');
             }
         }
 

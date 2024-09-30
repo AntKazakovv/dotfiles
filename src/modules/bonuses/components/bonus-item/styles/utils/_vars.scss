@@ -261,8 +261,6 @@ $themeDefault: map-merge((
     'timerMargin': ef.size(1) 0 0,
 
     // Btns
-    'btnsInnerOffset': 0 ef.size(1),
-    'btnsOuterOffset': 0 ef.size(-1),
     'btnsJustifyContent': center,
     'btnsOpacity': (
         320: 0,
@@ -289,6 +287,10 @@ $themeDefault: map-merge((
         320: translateY(0),
     ),
     'btnsMarginWithImg': ef.size(2) 0 0,
+    'btnSkewMargin': (
+        375: auto,
+        560: 0 ef.size(1),
+    ),
 
     // Bottom
     'btmFlexDir': column,

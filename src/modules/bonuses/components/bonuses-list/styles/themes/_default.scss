@@ -197,12 +197,15 @@
 
             &__nocontent-btn {
                 @include bm.get-mq-map('justify-content', $noBonusItem, 'btnsBlockJustifyContent');
-                @include bm.get-mq-map('margin', $noBonusItem, 'btnsBlockMargin');
                 @include bm.get-mq-map('padding', $noBonusItem, 'btnsBlockPadding');
-
                 grid-area: btns;
+                margin: ef.get-value($noBonusItem, 'btnsBlockMargin');
 
                 button {
+
+                    &.wlc-btn--theme-skew {
+                        @include bm.get-mq-map('margin', $noBonusItem, 'btnSkewMargin');
+                    }
 
                     @include mq.max(560) {
                         margin: auto;

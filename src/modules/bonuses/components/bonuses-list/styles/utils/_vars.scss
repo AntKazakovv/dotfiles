@@ -271,9 +271,7 @@ $noBonusItem: map-merge((
         560: left,
     ),
 
-    'btnsBlockMargin': (
-        560: auto ef.size(-1) 0,
-    ),
+    'btnsBlockMargin': auto 0 0,
     'btnsBlockJustifyContent': (
         560: start,
     ),
@@ -282,6 +280,10 @@ $noBonusItem: map-merge((
         560: 0 ef.size(3) ef.size(3),
         720: 0 ef.size(6) ef.size(3),
         1200: 0 ef.size(3) ef.size(3),
+    ),
+    'btnSkewMargin': (
+        375: auto,
+        560: 0 ef.size(1),
     ),
 
     'headlineBg': var(--mc-baseOpacity),
