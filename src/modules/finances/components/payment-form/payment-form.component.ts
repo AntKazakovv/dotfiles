@@ -327,7 +327,8 @@ export class PaymentFormComponent
     }
 
     public get isInvoicePending(): boolean {
-        return this.isDeposit && !!(this.currentSystem?.message as IPaymentMessage)?.dateEnd
+        return this.isDeposit
+            && !!(this.currentSystem?.message as IPaymentMessage)?.dateEnd
             && this.dateExpire > dayjs();
     }
 
@@ -384,6 +385,10 @@ export class PaymentFormComponent
         return !this.requiredFieldsKeys.length && !this.isWaitingResponse && !this.showErrorHostedLoad;
     }
 
+    public get isNotInvoice(): boolean {
+        return this.isDeposit && !(this.currentSystem?.message as IPaymentMessage)?.dateEnd;
+    }
+
     protected get showAdditionalFields(): boolean {
         return this.$params.type !== 'partial-amount'
             || this.currentSystem?.cryptoInvoices
@@ -400,6 +405,10 @@ export class PaymentFormComponent
 
     public onCryptoInvoiceExpires(): void {
         this.cdr.detectChanges();
+
+        this.eventService.emit({
+            name: 'CLEAR_AMOUNT',
+        });
 
         if (this.modalService.getActiveModal('payment-message')) {
             this.modalService.hideModal('payment-message');
@@ -490,7 +499,7 @@ export class PaymentFormComponent
 
         if (this.currentSystem.appearance === 'newtab' && !this.$params.disableNewTabPreloader) {
             this.newTabRef = this.window.open('', '_blank');
-            const generatePageFn: Function =  this.configService.get<Function>('$finances.payLoaderPageGenerateFn');
+            const generatePageFn: Function = this.configService.get<Function>('$finances.payLoaderPageGenerateFn');
             const casinoName: string = this.configService.get<string>('$base.site.name') ?? 'waiting...';
             const pageHTML: string = generatePageFn?.(casinoName) ?? 'waiting...';
             this.newTabRef.document.write(pageHTML);
@@ -722,6 +731,18 @@ export class PaymentFormComponent
 
     public cancelInvoiceHandler(): void {
         this.financesService.cancelInvoiceHandler(this.currentSystem?.id);
+    }
+
+    public getInputParamsLockedAmount(): IInputCParams {
+        const amount: IInputCParams = _merge(
+            _cloneDeep(FormElements.amount.params),
+            {
+                control: new UntypedFormControl((this.currentSystem.message as IPaymentMessage).userAmount),
+                validators: null,
+            },
+        );
+        amount.control.disable();
+        return amount;
     }
 
     protected async initCommissions(): Promise<void> {

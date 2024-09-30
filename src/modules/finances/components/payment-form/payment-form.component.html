@@ -107,7 +107,8 @@
         [ngSubmit]="sendPrestepForm.bind(this)">
     </div>
 
-    <div wlc-form-wrapper
+    <div *ngIf="isNotInvoice"
+        wlc-form-wrapper
         class="{{$class}}__form"
         [config]="formConfig"
         [formData]="formData$"
@@ -116,19 +117,25 @@
         [ngSubmit]="sendForm.bind(this)">
     </div>
 
-    <div *ngIf="isInvoicePending" class="{{$class}}__invoice-btns">
-        <button class="{{$class}}__invoice-btn"
-            wlc-button
-            [text]="'Open'"
-            (click)="openInvoicePaymentMessage()">
-        </button>
-        <button class="{{$class}}__invoice-btn"
-            wlc-button
-            [text]="'Cancel'"
-            [themeMod]="'secondary'"
-            (click)="cancelInvoiceHandler()">
-        </button>
-    </div>
+    <ng-container *ngIf="isInvoicePending">
+        <div wlc-input
+            class="{{$class}}__amount"
+            [inlineParams]="getInputParamsLockedAmount()">
+        </div>
+        <div class="{{$class}}__invoice-btns">
+            <button class="{{$class}}__invoice-btn"
+                wlc-button
+                [text]="'Open'"
+                (click)="openInvoicePaymentMessage()">
+            </button>
+            <button class="{{$class}}__invoice-btn"
+                wlc-button
+                [text]="'Cancel'"
+                [themeMod]="'secondary'"
+                (click)="cancelInvoiceHandler()">
+            </button>
+        </div>
+    </ng-container>
 
     <div *ngIf="isInvoiceExpired" class="{{$class}}__invoice-btns">
         <button class="{{$class}}__invoice-btn"
