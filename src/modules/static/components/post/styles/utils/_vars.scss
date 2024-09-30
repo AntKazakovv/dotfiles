@@ -34,15 +34,12 @@ $themeAffiliates: map-merge((
     ),
     'titleTextTransform': uppercase,
     'titleColor': var(--mc-baseMain),
-    'titleMargin': (
-        375: ef.size(4) 0 ef.size(3),
-        1200: ef.size(6) 0 ef.size(3),
-    ),
+    'titleMargin': ef.size(8) 0 ef.size(4),
 
     'subtitleMaxWidth': 55ch,
     'subtitleMargin': 0 auto,
 
-    'baseTextMaxWidth': 108ch,
+    'baseTextMaxWidth': 95ch,
     'baseTextMargin': 0 auto ef.size(2),
 ), $customThemeAffiliates);
 

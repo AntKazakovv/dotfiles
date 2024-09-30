@@ -1,6 +1,13 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'menuJustify': center,
+    'menuBorderRadius': (
+        375: 0,
+        768: ef.get('radius', 'main'),
+    ),
+    'menuBg': var(--mc-bg700),
+    'menuMinHeight': 61px,
+    'menuPlaceItems': center,
 
     'itemPadding': (
         375: ef.size(2),

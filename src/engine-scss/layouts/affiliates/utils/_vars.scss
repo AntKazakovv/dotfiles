@@ -1,31 +1,46 @@
 $customAffSectionsDefault: () !default;
 $affSectionsDefault: map-merge((
-    'anchorsBg': (
-        375:  var(--mc-bg700),
+    'anchorsContainerDisplay': (
+        375:  contents,
+        768:  block,
     ),
-    'anchorsPadding': ef.size(2) 0,
+    'anchorsMargin': 0 0 ef.size(8),
 
     'benefitsBg': null, //single color or map value
-    'benefitsPadding': ef.size(8) 0,
+    'benefitsMargin': 0 0 ef.size(8),
 
     'comissionBg': null, //single color or map value
-    'comissionPadding': 0 0 ef.size(8),
+    'comissionMargin': 0 0 ef.size(8),
 
     'descrBg': (
         375: var(--mc-bg700),
     ),
-    'descrPadding': ef.size(8) 0,
+    'descrMargin': 0 0 ef.size(8),
+    'descrPadding': ef.size(8) ef.size(4),
+    'descrContainerDisplay': (
+        375: contents,
+        768: block,
+    ),
+    'descrBorderRadius': (
+        375: 0,
+        768: ef.get('radius', 'main'),
+    ),
 
     'faqBg': null, //single color or map value
-    'faqPadding': ef.size(8) 0,
+    'faqMargin': 0 0 ef.size(8),
     'faqContainerMaxWidth': 1050px,
     'faqContainerPadding': 0 ef.size(3),
 
     'testimonialsBg': null, //single color or map value
-    'testimonialsPadding': ef.size(8) 0,
+    'testimonialsMargin': 0 0 ef.size(8),
     'testimonialsContainerMaxWidth': 1050px,
     'testimonialsContainerPadding': 0 ef.size(3),
 
+    'bannersAffMinHeight': (
+        375: 220px,
+        900: 300px,
+    ),
+    'bannersAffMargin': 0 0 ef.size(4),
 ), $customAffSectionsDefault);
 
 
@@ -48,7 +63,7 @@ $themeDefaultBenefits: map-merge((
         1024: 0,
     ),
 
-    'itemGridGap': 10px,
+    'itemGridGap': ef.size(4),
     'itemGridColumns': 1fr,
     'itemGridRows': (
         375: 54px auto,
@@ -57,7 +72,6 @@ $themeDefaultBenefits: map-merge((
     'itemPadding': (
         375: 0,
         1024: 0 ef.size(2),
-        1630: 0 ef.size(4),
     ),
 
     'iconSize': (
@@ -99,7 +113,7 @@ $themeDefaultDigits: map-merge((
         1200: ef.size(3),
     ),
     'itemBg': var(--mc-bg700),
-    'itemRadius': ef.get('radius', 'biger'),
+    'itemRadius': ef.get('radius', 'main'),
     'itemTextAlign': center,
     'itemPadding': (
         375: ef.size(2),
@@ -116,7 +130,6 @@ $themeDefaultDigits: map-merge((
     'mainTextFontSize': (
         375: ef.get('font', 'PromoTitle'),
         1200: ef.get('font', 'ScreamTitle'),
-        1630: 7.2rem,
     ),
     'mainTextFontWeight': bold,
     'mainTextLineHeight': 1,

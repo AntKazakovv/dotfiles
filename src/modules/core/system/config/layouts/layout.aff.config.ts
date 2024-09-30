@@ -9,6 +9,7 @@ export const $layoutsAff: ILayoutsConfig = {
         sections: {
             header: sectionsLib.header.aff,
             footer: sectionsLib.footer.themeSecond,
+            'sticky-footer': sectionsLib.stickyFooter.def,
         },
     },
     'app.home': {
@@ -65,19 +66,6 @@ export const $layoutsAff: ILayoutsConfig = {
                 components: [
                     {
                         name: 'affiliates.wlc-faq',
-                    },
-                ],
-            },
-            'testimonials-section': {
-                container: true,
-                components: [
-                    {
-                        name: 'affiliates.wlc-testimonials',
-                        params: {
-                            common: {
-                                title: 'Testimonials',
-                            },
-                        },
                     },
                 ],
             },

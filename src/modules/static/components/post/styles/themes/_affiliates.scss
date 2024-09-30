@@ -13,9 +13,8 @@
         h4,
         h5,
         h6 {
-            @include bm.get-mq-map('margin', $themeAffiliates, 'titleMargin');
-
             @include text.get-text-style(ef.get-value($themeAffiliates, 'titleTextStyle', 375), ef.get-value($themeAffiliates, 'titleColor'));
+            margin: ef.get-value($themeAffiliates, 'titleMargin');
             text-transform: ef.get-value($themeAffiliates, 'titleTextTransform');
 
             &:first-child {

@@ -51,6 +51,7 @@ export class FaqComponent extends AbstractComponent implements OnInit {
             title: this.$params.title,
             titleIconPath: this.$params.titleIconPath,
             collapseAll: this.$params.collapseAll,
+            theme: this.$params.theme,
             items: [],
         };
         try {

@@ -1,8 +1,8 @@
 $customThemeWolf: () !default;
 $themeWolf: map-merge((
     'headerMargin': 0 0 ef.size(5),
-    'headerTextStyle': 'PrimaryTextBold',
-    'headerColor': var(--mc-baseSecond),
+    'headerTextStyle': 'QoteTextBold',
+    'headerColor': var(--mc-baseMain),
     'headerTextAlign': center,
 
     'itemMargin': ef.size(1) 0 0,
@@ -24,7 +24,7 @@ $themeWolf: map-merge((
     'itemDescrTextStyle': 'CaptionText',
     'itemDescrColor': inherit,
 
-    'titleTextStyle': 'CaptionTextBold',
+    'titleTextStyle': 'ThirdTitleBold',
     'titleColor': inherit,
     'titleColorActive': var(--mc-baseSecond),
     'titlePadding': ef.size(3),
@@ -32,7 +32,7 @@ $themeWolf: map-merge((
     'titleGridColumns': 1fr auto,
 
     'contentPadding': ef.size(3),
-    'contentTextStyle': 'CaptionText',
+    'contentTextStyle': 'ThirdTitle',
     'contentColor': inherit,
     'contentDivider': 1px solid var(--mc-bgModal),
     'contentBg': inherit,

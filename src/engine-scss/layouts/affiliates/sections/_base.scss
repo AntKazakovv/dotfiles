@@ -1,33 +1,57 @@
 // we need @use here, otherwise we get errors in project build
 @use 'modules/core/components/button/styles/utils/mixins' as button;
 @use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/functions' as ef;
 
 .wlc-sections {
 
+    &__banners-aff {
+        margin: ef.get-value($affSectionsDefault, 'bannersAffMargin');
+
+        &.wlc-sections__banners-aff--theme-default {
+
+            .banner[class] {
+                @include bm.get-mq-map('min-height', $affSectionsDefault, 'bannersAffMinHeight');
+            }
+        }
+    }
+
     &__anchors-menu {
-        @include bm.get-mq-map('background', $affSectionsDefault, 'anchorsBg');
-        padding: ef.get-value($affSectionsDefault, 'anchorsPadding');
+        margin: ef.get-value($affSectionsDefault, 'anchorsMargin');
+
+        .container {
+            @include bm.get-mq-map('display', $affSectionsDefault, 'anchorsContainerDisplay');
+        }
     }
 
     &__benefits-section {
         @include bm.get-mq-map('background', $affSectionsDefault, 'benefitsBg');
-        padding: ef.get-value($affSectionsDefault, 'benefitsPadding');
+        margin: ef.get-value($affSectionsDefault, 'benefitsMargin');
     }
 
     &__commission-section {
         @include bm.get-mq-map('background', $affSectionsDefault, 'bencomissionBgefitsBg');
-        padding: ef.get-value($affSectionsDefault, 'comissionPadding');
+        margin: ef.get-value($affSectionsDefault, 'comissionMargin');
     }
 
     &__description-section {
-        @include bm.get-mq-map('background', $affSectionsDefault, 'descrBg');
-        padding: ef.get-value($affSectionsDefault, 'descrPadding');
+        margin: ef.get-value($affSectionsDefault, 'descrMargin');
+
+        .container {
+            @include bm.get-mq-map('display', $affSectionsDefault, 'descrContainerDisplay');
+        }
+
+        .wlc-post {
+            @include bm.get-mq-map('border-radius', $affSectionsDefault, 'descrBorderRadius');
+            @include bm.get-mq-map('background', $affSectionsDefault, 'descrBg');
+            padding: ef.get-value($affSectionsDefault, 'descrPadding');
+        }
     }
 
     &__faq-section {
         @include bm.get-mq-map('background', $affSectionsDefault, 'faqBg');
-        padding: ef.get-value($affSectionsDefault, 'faqPadding');
+        margin: ef.get-value($affSectionsDefault, 'faqMargin');
 
         .container {
             max-width: ef.get-value($affSectionsDefault, 'faqContainerMaxWidth');
@@ -37,7 +61,7 @@
 
     &__testimonials-section {
         @include bm.get-mq-map('background', $affSectionsDefault, 'testimonialsBg');
-        padding: ef.get-value($affSectionsDefault, 'testimonialsPadding');
+        margin: ef.get-value($affSectionsDefault, 'testimonialsMargin');
 
         .container {
             max-width: ef.get-value($affSectionsDefault, 'testimonialsContainerMaxWidth');

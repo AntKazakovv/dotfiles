@@ -1,4 +1,9 @@
 .wlc-affiliates-menu--theme-default:host {
+    @include bm.get-mq-map('border-radius', $themeDefault, 'menuBorderRadius');
+    display: grid;
+    min-height: ef.get-value($themeDefault, 'menuMinHeight');
+    place-items: ef.get-value($themeDefault, 'menuPlaceItems');
+    background-color: ef.get-value($themeDefault, 'menuBg');
 
     ::ng-deep {
 
