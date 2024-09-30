@@ -68,7 +68,8 @@ export const defaultParams: IDepositPromoCodeCParams = {
     tooltipParams: {
         type: 'wrapper',
         bsTooltipMod: 'error',
-        inlineText: 'Blocked by an active bonus. You have to wager active bonus first or cancel it to claim new bonus.',
+        inlineText: 'Blocked by an active bonus. You have to wager the active bonus first ' 
+        + 'or cancel it to claim a new bonus',
         placement: 'bottom',
     },
 };

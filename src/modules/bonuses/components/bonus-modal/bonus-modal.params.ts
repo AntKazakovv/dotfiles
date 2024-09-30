@@ -50,7 +50,7 @@ export const defaultParams: IBonusModalCParams = {
     },
     gamesCommon: {
         title: gettext('Games with bonus'),
-        description: gettext('Games in which you can wager a bonus'),
+        description: gettext('Games in which you can wager the bonus'),
     },
     freeroundGamesCommon: {
         title: gettext('Free rounds'),

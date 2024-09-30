@@ -23,8 +23,8 @@ export const defaultParams: IBonusConfirmationParams = {
     componentName: 'wlc-bonus-confirmation',
     class: 'wlc-bonus-confirmation',
     text: gettext('Are you sure?'),
-    textBonusBalanceDecrease: gettext('Your bonus balance will be debited on:'),
-    textRealBalanceDecrease: gettext('Your real balance will be debited on:'),
+    textBonusBalanceDecrease: gettext('Your bonus balance will be debited:'),
+    textRealBalanceDecrease: gettext('Your real balance will be debited:'),
     textSubscribeWarning: gettext('The current active bonus prohibits the activation of other bonuses. '
                                 + 'Activation of this bonus will not happen. Are you sure you want to subscribe?'),
     iconPath: '/wlc/icons/status/confirm.svg',

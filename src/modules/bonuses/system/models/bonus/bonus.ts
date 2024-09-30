@@ -55,8 +55,8 @@ export const disabledReasons = {
     // user already has active bonus with `allowStack = false`
     2: gettext('You currently have an active bonus. '
         + 'The bonus does not allow stacking. '
-        + 'You have to wager active bonus first or '
-        + 'cancel it to claim new bonus.'),
+        + 'You have to wager the active bonus first or '
+        + 'cancel it to claim a new bonus'),
     // Apply to deposit bonuses with `allowStack = false` in case if
     // user already has active bonus with `allowStack = true`
     3: gettext('Blocked by an active bonus. '

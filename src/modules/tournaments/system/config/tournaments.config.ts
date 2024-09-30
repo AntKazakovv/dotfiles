@@ -70,6 +70,6 @@ export const tournamentsConfig: ITournamentsModule = {
             },
         },
     },
-    timerTextAfterStart: gettext('Time remaining'),
+    timerTextAfterStart: gettext('Time remaining:'),
     timerTextBeforeStart: gettext('Coming soon'),
 };

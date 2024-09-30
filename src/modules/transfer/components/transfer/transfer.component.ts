@@ -149,7 +149,7 @@ export class TransferComponent extends AbstractComponent implements OnInit {
                 this.resetMainForm();
                 this.showMessage(
                     this.translateService.instant(gettext('A gift for a friend has been successfully sent.' +
-                        ' The gift is available in a friend\'s bonus offers.')),
+                        ' The gift is available in the friend\'s bonus offers')),
                 );
             }
             return true;
@@ -184,7 +184,7 @@ export class TransferComponent extends AbstractComponent implements OnInit {
                 this.resetMainForm();
                 this.showMessage(
                     this.translateService.instant(gettext('A gift for a friend has been successfully sent.' +
-                    ' The gift is available in a friend\'s bonus offers.')),
+                    ' The gift is available in the friend\'s bonus offers')),
                 );
             }
             return true;

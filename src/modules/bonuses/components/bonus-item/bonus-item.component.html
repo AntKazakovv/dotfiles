@@ -42,7 +42,7 @@
         <div *ngIf="hasTimer"
              class="{{$class}}__timer"
              wlc-timer
-             text="{{'Time remaining' | translate}}"
+             text="{{'Time remaining:' | translate}}"
              [value]="bonus.expirationTimeDaysjs"
              [theme]="'wolf'"
              [themeMod]="'small'"
@@ -511,7 +511,7 @@
         <div *ngIf="!bonus.isExpired"
              class="{{$class}}__timer"
              wlc-timer
-             text="{{'Time remaining' | translate}}"
+             text="{{'Time remaining:' | translate}}"
              [value]="bonus.expirationTimeDaysjs"
              (timerEnds)="updateBonuses()"
              [serverDateUTC]="bonus.serverTime">

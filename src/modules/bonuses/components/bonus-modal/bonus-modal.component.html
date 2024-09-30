@@ -60,7 +60,7 @@
         <div class="{{$class}}__timer">
             <div *ngIf="showExpirationTimer"
                 wlc-timer
-                text="{{'Time remaining' | translate}}"
+                text="{{'Time remaining:' | translate}}"
                 [value]="bonus.expirationTimeDaysjs"
                 [serverDateUTC]="bonus.serverTime">
             </div>
