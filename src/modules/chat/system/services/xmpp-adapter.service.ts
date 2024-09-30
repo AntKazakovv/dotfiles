@@ -58,10 +58,10 @@ export class XMPPAdapterService {
     protected msgQueue: Map<string, IMsgQueueElem> = new Map();
     protected errorTypes: {[key: string]: string} = {
         wait: gettext('You have tried to send too many messages ' +
-            'in a short amount of time. Please try again later.'),
+            'in a short amount of time. Please try again later'),
         modify: gettext('You have used profanity in your message. ' +
-            'Please rephrase the message and send it again without using prohibited words.'),
-        link: gettext('Sending links in the chat is prohibited. Please abide by the rules.'),
+            'Please rephrase the message and send it again without using prohibited words'),
+        link: gettext('Sending links in the chat is prohibited. Please follow the rules'),
         default: gettext('Something went wrong. Please try again later'),
     };
 

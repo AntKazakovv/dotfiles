@@ -30,7 +30,7 @@ export const defaultParams: ILivechatButtonCParams = {
     componentName: 'wlc-livechat-button',
     moduleName: 'livechat',
     replaceDefault: true,
-    buttonText: gettext('Live Chat'),
+    buttonText: gettext('Live chat'),
     iconPath: 'wlc/icons/livechat_new.svg',
     fixedPanelPosition: 'left',
     compactMod: false,

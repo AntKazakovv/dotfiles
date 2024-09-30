@@ -208,7 +208,7 @@ export class ChatService {
                 showFooter: false,
                 showClose: true,
                 closeByBackdrop: false,
-                headerText: gettext('Enter chat nickname:'),
+                headerText: gettext('Enter your chat nickname:'),
                 component: NicknameFormComponent,
                 componentParams: {
                     onSuccess: () => {

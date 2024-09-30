@@ -101,7 +101,7 @@ export class NicknameFormComponent extends AbstractChatComponent implements OnIn
     protected required(): ValidatorFn {
         return (ctrl: AbstractControl): ValidationErrors | null => {
             return ctrl.value?.trim().length < 1 ? {
-                'required': gettext('Value can\'t be empty'),
+                'required': gettext('The field must not be empty'),
             } : null;
         };
     }
@@ -109,7 +109,7 @@ export class NicknameFormComponent extends AbstractChatComponent implements OnIn
     protected hasEmoji(): ValidatorFn {
         return (ctrl: AbstractControl): ValidationErrors | null => {
             return ctrl.value && ChatHelper.emojiRegex.test(ctrl.value) ? {
-                'hasEmoji': gettext('Value can\'t contain emoji'),
+                'hasEmoji': gettext('The value must not contain emoji'),
             } : null;
         };
     }
@@ -117,7 +117,8 @@ export class NicknameFormComponent extends AbstractChatComponent implements OnIn
     protected hasForbiddenSymbols(): ValidatorFn {
         return (ctrl: AbstractControl): ValidationErrors | null => {
             return ctrl.value && ChatHelper.nicknameForbiddenSymbols.test(ctrl.value) ? {
-                'hasForbiddenSymbols': this.translateService.instant('Value can\'t contain symbols:')
+                // eslint-disable-next-line max-len
+                'hasForbiddenSymbols': this.translateService.instant('The value must not contain the following characters:')
                     + ' \\t\\n\\r!"&\',./:<>?@',
             } : null;
         };
