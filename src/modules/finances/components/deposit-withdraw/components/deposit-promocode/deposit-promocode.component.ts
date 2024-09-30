@@ -108,7 +108,7 @@ export class DepositPromocodeComponent extends AbstractComponent implements OnIn
 
                 this.showBonusModal(true);
             } else {
-                this.bonusesService.showPromoCodeError(gettext('No voucher found'));
+                this.bonusesService.showPromoCodeError(gettext('The promo code has not been found'));
             }
         } catch (error) {
             this.bonusesService.showPromoCodeError(error.errors ? error.errors : error);
@@ -155,7 +155,7 @@ export class DepositPromocodeComponent extends AbstractComponent implements OnIn
 
         if (!this.bonus.isDeposit) {
             alerts.push({
-                title: gettext('The bonus is not a deposit one'),
+                title: gettext('The bonus does not qualify as a deposit one'),
             });
         }
 

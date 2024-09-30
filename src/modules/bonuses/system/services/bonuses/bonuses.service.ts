@@ -471,7 +471,7 @@ export class BonusesService {
                         }
                     }
                 } else {
-                    this.showPromoCodeError(gettext('No voucher found'));
+                    this.showPromoCodeError(gettext('The promo code has not been found'));
                     this.cachingService.clear(promocodeCacheKey);
                 }
             }
@@ -645,7 +645,7 @@ export class BonusesService {
                     fail: 'BONUS_UNSUBSCRIBE_FAILED',
                 },
             }, ActionTypeEnum.Unsubscribe, params);
-            this.showSuccess(gettext('You have been successfully unsubscribed from the bonus'));
+            this.showSuccess(gettext('You have successfully unsubscribed from the bonus'));
             return response.data;
         } catch (error) {
             this.showError(error?.errors);

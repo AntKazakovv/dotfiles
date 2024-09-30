@@ -90,7 +90,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
     public slides: ISlide[] = [];
     public checkBoxParams: ICheckboxCParams = {
         name: 'choose-no-bonus',
-        text: gettext('Proceed without welcome bonus'),
+        text: gettext('Proceed without a welcome bonus'),
         textSide: 'right',
         control: new UntypedFormControl(),
         onChange: (checked: boolean) => {

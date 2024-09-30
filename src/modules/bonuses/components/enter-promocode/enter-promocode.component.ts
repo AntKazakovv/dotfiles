@@ -103,7 +103,7 @@ export class EnterPromocodeComponent extends AbstractComponent implements OnInit
             }
 
             if (!bonuses.length) {
-                this.bonusesService.showPromoCodeError(gettext('No voucher found'));
+                this.bonusesService.showPromoCodeError(gettext('The promo code has not been found'));
                 return;
             }
 
