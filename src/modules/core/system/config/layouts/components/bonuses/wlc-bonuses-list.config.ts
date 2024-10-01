@@ -121,6 +121,7 @@ export namespace wlcBonusesList {
     export const active: ILayoutComponent = {
         name: 'bonuses.wlc-bonuses-list',
         params: <IBonusesListCParams>{
+            inProfile: true,
             common: {
                 restType: 'active',
                 useQuery: true,
@@ -131,6 +132,7 @@ export namespace wlcBonusesList {
     export const activeFirst: ILayoutComponent = {
         name: 'bonuses.wlc-bonuses-list',
         params: <IBonusesListCParams>{
+            inProfile: true,
             theme: 'active',
             common: {
                 restType: 'active',
@@ -443,7 +445,7 @@ export namespace wlcBonusesList {
             auth: true,
             after: 1200,
         },
-        params: <IBonusesListCParams> {
+        params: <IBonusesListCParams>{
             type: 'swiper',
             theme: 'promo-home',
             title: gettext('Bonus'),

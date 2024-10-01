@@ -1223,6 +1223,17 @@ export namespace profileContent {
         usePreloader: true,
         components: [
             {
+                name: 'core.wlc-section-title',
+                params: {
+                    theme: 'wolf',
+                    text: 'Bonuses',
+                    iconPath: 'wlc/icons/european/v3/bonuses.svg',
+                },
+                display: {
+                    before: 899,
+                },
+            },
+            {
                 name: 'core.wlc-wrapper',
                 params: {
                     class: 'wlc-profile-content__wrp',
@@ -1309,6 +1320,17 @@ export namespace profileContent {
         theme: 'wolf',
         usePreloader: true,
         components: [
+            {
+                name: 'core.wlc-section-title',
+                params: {
+                    theme: 'wolf',
+                    text: 'Bonuses',
+                    iconPath: 'wlc/icons/european/v3/bonuses.svg',
+                },
+                display: {
+                    before: 899,
+                },
+            },
             {
                 name: 'core.wlc-wrapper',
                 params: {
