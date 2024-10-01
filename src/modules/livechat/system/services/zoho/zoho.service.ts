@@ -188,7 +188,7 @@ export class ZohoChatService extends LivechatAbstract<ILivechatZohoConfig> {
         script.id = 'zsiqscript';
         script.type = 'text/javascript';
         script.defer = true;
-        script.src = 'https://salesiq.zoho.com/widget';
+        script.src = 'https://salesiq.zoho.eu/widget';
 
         const sc = this.document.getElementsByTagName('script')[0];
 
