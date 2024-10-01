@@ -298,7 +298,7 @@ export const kycQStepsConfig = {
                     },
                     textWithLink: {
                         prefix: gettext('I am a'),
-                        linkText: gettext('Politically Exposed Person'),
+                        linkText: gettext('Politically exposed person'),
                         suffix: gettext('(or a family member or a close associate of a PEP)'),
                         slug: 'kyc-pep',
                     },

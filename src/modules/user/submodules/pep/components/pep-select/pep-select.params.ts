@@ -9,7 +9,7 @@ export const defaultParams: ISelectCParams = {
     control: new UntypedFormControl(''),
     common: {
         placeholder: gettext('PEP'),
-        tooltipText: gettext('Politically Exposed Person'),
+        tooltipText: gettext('Politically exposed person'),
     },
     updateOnControlChange: true,
     locked: true,

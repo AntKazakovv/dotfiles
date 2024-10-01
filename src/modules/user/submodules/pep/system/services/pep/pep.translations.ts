@@ -47,7 +47,7 @@ export type PepPhrases = {
 
 const statusCancel: NotificationPhrases = {
     title: gettext('Confirmation canceled'),
-    message: gettext('PEP status isn\'t approved'),
+    message: gettext('The PEP status has not been approved'),
 };
 
 const incorrectPassword: NotificationPhrases = {
@@ -57,11 +57,11 @@ const incorrectPassword: NotificationPhrases = {
 
 const changeStatus: NotificationPhrases = {
     title: gettext('Error'),
-    message: gettext('An error has occurred during the setting your PEP status'),
+    message: gettext('An error has occurred while setting your PEP status'),
 };
 
 const infoModal: InfoModalPhrases = {
-    title: gettext('Politically Exposed Person'),
+    title: gettext('Politically exposed person'),
     explaining: gettext(
         'means an individual who is or has been entrusted ' +
         'with prominent public functions, such as but not limited ' +
@@ -96,11 +96,11 @@ const confirmationModal: ConfirmationModalPhrases = {
 };
 
 const savedModal: SavedModalPhrases = {
-    title: gettext('Politically Exposed Person'),
+    title: gettext('Politically exposed person'),
     close: gettext('Close'),
     success: gettext('Changes saved successfully.'),
-    markedAsPep: gettext('Now you are marked as PEP.'),
-    markedAsNotPep: gettext('Now you are marked as no PEP.'),
+    markedAsPep: gettext('Now you are marked as a PEP'),
+    markedAsNotPep: gettext('Now you are marked as not a PEP'),
 };
 
 export const phrases: PepPhrases = {

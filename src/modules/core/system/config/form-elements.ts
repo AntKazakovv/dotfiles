@@ -420,7 +420,7 @@ export namespace FormElements {
             control: new UntypedFormControl(''),
             common: {
                 placeholder: gettext('PEP'),
-                tooltipText: gettext('Politically Exposed Person'),
+                tooltipText: gettext('Politically exposed person'),
             },
             locked: true,
             name: 'pep',
