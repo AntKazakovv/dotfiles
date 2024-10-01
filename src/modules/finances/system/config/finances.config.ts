@@ -212,9 +212,9 @@ export const financesConfig: IFinancesConfig = {
     transactionHistoryAlert: {
         show: false,
         title: gettext('Didn\'t receive a deposit?'),
-        text: gettext('On average, a deposit can be received up to 15 minutes, ' +
-            'if funds are not credited to your balance during this period, be ' +
-            'sure to write to the support chat.'),
+        text: gettext('On average, the deposit is credited within 15 minutes. ' +
+            'If funds are not credited to your balance during this period, ' +
+            'please contact the technical support of our casino'),
     },
     alerts: {
         deposit: {
