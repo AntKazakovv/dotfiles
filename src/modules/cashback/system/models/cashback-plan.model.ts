@@ -89,7 +89,7 @@ export class CashbackPlanModel extends AbstractModel<ICashbackPlan> {
                     text: gettext('Available for'),
                     date: expiresAt,
                 } : {
-                    text: gettext('Will be available in'),
+                    text: gettext('Available in'),
                     date: availableAt,
                 };
         }
@@ -112,12 +112,12 @@ export class CashbackPlanModel extends AbstractModel<ICashbackPlan> {
                     'and we will help you with it!');
             case gettext('Weekly'):
                 return gettext('Play with us for a week ' +
-                    'and get your cash rewards.');
+                    'and get your money rewards');
             case gettext('Biweekly'):
                 return gettext('Get ready to take your ' +
                     'two-week cash prize.');
             case gettext('Monthly'):
-                return gettext('Every month, you can return a part of the money you spent on betting.');
+                return gettext('Every month you can get back some of the money you spent on betting');
             default:
                 return '';
         }

@@ -25,7 +25,7 @@ export const defaultParams: ICashbackRewardCParams = {
     componentName: 'wlc-cashback-rewards',
     class: 'wlc-cashback',
     claimBtnText: gettext('Get cashback'),
-    claimTimerText: gettext('Will be available in'),
+    claimTimerText: gettext('Available in'),
     noCashbackText: gettext('No cashback available'),
     emptyConfig: {
         components: [
