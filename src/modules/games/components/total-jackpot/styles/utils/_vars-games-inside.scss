@@ -11,6 +11,10 @@ $themeGamesInside: map-merge((
     'radius': (
         375: ef.get('radius', 'biger'),
     ),
+    'radiusFluid':(
+        375: initial,
+        1200: ef.get('radius', 'biger'),
+    ),
     'bg': ef.static('wlc/total-jackpot/bg.png') center/contain repeat-x,
     'contentPadding': (
         375: ef.size(6) ef.size(2),

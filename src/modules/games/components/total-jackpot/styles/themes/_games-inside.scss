@@ -27,6 +27,10 @@
             width: 100%;
             height: 100%;
             background: ef.get-value($themeGamesInside, 'bg');
+
+            [class*='--fluid'] & {
+                @include bm.get-mq-map('border-radius', $themeGamesInside, 'radiusFluid');
+            }
         }
 
         &__content {
