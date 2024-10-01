@@ -91,11 +91,11 @@ export class KycQuestionnaireInfoComponent extends AbstractComponent implements 
     protected get infoTextByDep(): string {
         return this.sumDeposits >= 2000 ?
             this.translateService.instant(gettext('The total amount of your deposits is equal ' +
-                'to or exceeds 2000 euros. The operator will not be able to confirm your deposit, ' +
-                'as your KYC questionnaire is not filled out. Please fill out the KYC questionnaire')) :
-            this.translateService.instant(gettext('In accordance of our AML measures, ' +
+                'to or exceeds 2,000 euros. The operator will not be able to confirm your deposit, ' +
+                'as your KYC questionnaire is not filled in. Please fill in the KYC questionnaire')) :
+            this.translateService.instant(gettext('In accordance with AML measures, ' +
                 'we are obliged to collect some information about users.' +
-                ' Please kindly answer the questions and confirm the information provided'));
+                ' Please answer the questions and confirm the information provided'));
     }
 
     protected async docStatusHandler(): Promise<void> {

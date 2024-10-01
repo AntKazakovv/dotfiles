@@ -77,9 +77,9 @@ const infoModal: InfoModalPhrases = {
         'require additional information and documents ' +
         'to verify the identity and, in particular, to confirm ' +
         'the source of funds of individuals with the PEP status. ' +
-        'For this purpose You will be asked to complete our KYC forms ' +
+        'For this purpose, you will be asked to complete our KYC forms ' +
         'and provide us with sufficient supporting documents ' +
-        'to confirm Your source of funds.',
+        'to confirm your source of funds.',
     ),
     confirm: gettext('I confirm that I have read and understood all of the above information'),
     close: gettext('Close'),
