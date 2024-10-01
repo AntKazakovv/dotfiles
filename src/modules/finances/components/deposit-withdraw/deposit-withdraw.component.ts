@@ -53,7 +53,6 @@ import {
 } from 'wlc-engine/modules/finances';
 
 import {
-    ProfileUpdateTypes,
     UserInfo,
     UserProfile,
     UserService,
@@ -69,7 +68,10 @@ import {
     TBonusEvent,
 } from 'wlc-engine/modules/bonuses';
 
-import {ISelectedWallet} from 'wlc-engine/modules/multi-wallet';
+import {
+    ISelectedWallet,
+    MultiWalletEvents,
+} from 'wlc-engine/modules/multi-wallet';
 import {WalletsParams} from 'wlc-engine/modules/multi-wallet/components/wallets/wallets.params';
 import {IPaymentFormCParams} from 'wlc-engine/modules/finances/components/payment-form/payment-form.params';
 
@@ -384,6 +386,10 @@ export class DepositWithdrawComponent
         this.bonusesListParams = this.getBonusesListConfig(bonusesConfig);
     }
 
+    protected isProfileUpdated (type: string): boolean {
+        return type !== MultiWalletEvents.CurrencyConversionChanged && type !== MultiWalletEvents.WalletChanged;
+    }
+
     protected initSubscribers(): void {
 
         this.eventService.subscribe(
@@ -400,7 +406,8 @@ export class DepositWithdrawComponent
         this.eventService.subscribe(
             {name: 'PROFILE_UPDATE'},
             (type: string): void => {
-                if (type !== ProfileUpdateTypes.CHANGE_WALLET) {
+
+                if (this.isProfileUpdated(type)) {
                     this.onProfileUpdate();
                 }
             },

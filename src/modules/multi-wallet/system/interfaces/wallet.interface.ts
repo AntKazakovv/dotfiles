@@ -65,11 +65,11 @@ export interface ICurrencyFilter extends CurrencyName {
     isUsed: boolean;
 }
 
-export enum MultiWalletEvents {
-    CurrencyConversionChanged = 'CHANGE_CURRENCY_CONVERSION',
-    WalletChanged = 'CHANGE_WALLET',
-    CreateWallet = 'CREATE_WALLET',
-}
+export const MultiWalletEvents: Record<string, string> = {
+    CurrencyConversionChanged: 'CHANGE_CURRENCY_CONVERSION',
+    WalletChanged: 'CHANGE_WALLET',
+    CreateWallet: 'CREATE_WALLET',
+} as const;
 
 export interface IAmount {
     value: number | string;

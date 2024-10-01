@@ -57,10 +57,6 @@ export interface IUserNickIcon {
     icon: string,
 };
 
-export const ProfileUpdateTypes: Record<string, string> = {
-    CHANGE_WALLET: 'changeWallet',
-} as const;
-
 export interface IWSUserInfoPayload {
     params:  {
         RefreshWallet?: string;

@@ -86,7 +86,6 @@ import {
     IEmailVerifyData,
     IWSDataUserBalance,
     IWSUserInfoPayload,
-    ProfileUpdateTypes,
 } from 'wlc-engine/modules/user/system/interfaces/user.interface';
 import {IWSLoyalty} from 'wlc-engine/modules/loyalty/system/interfaces/interfaces';
 import {WebSocketEvents} from 'wlc-engine/modules/core/system/services/websocket/websocket.service';
@@ -98,6 +97,7 @@ import {
     TwoFactorAuthService,
 } from 'wlc-engine/modules/user/submodules/two-factor-auth/system/services/two-factor-auth/two-factor-auth.service';
 import {LocalJackpotsService} from 'wlc-engine/modules/local-jackpots';
+import {MultiWalletEvents} from 'wlc-engine/modules/multi-wallet';
 import {WalletsService} from 'wlc-engine/modules/multi-wallet/system/services/wallets.service';
 
 export enum LanguageChangeEvents {
@@ -739,8 +739,13 @@ export class UserService {
                 let type: string;
 
                 if (_has(updates, 'extProfile.currentWallet')) {
-                    type = ProfileUpdateTypes.CHANGE_WALLET;
+                    type = MultiWalletEvents.WalletChanged;
                 }
+
+                if (_has(updates, 'extProfile.conversionCurrency')) {
+                    type = MultiWalletEvents.CurrencyConversionChanged;
+                }
+
                 _merge(this.profile.data, updates);
                 this.eventService.emit({name: 'PROFILE_UPDATE', data: type});
             }
