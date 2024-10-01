@@ -6,6 +6,7 @@
 @use 'sass:math';
 @use 'sass:list';
 @use 'sass:map';
+@use 'sass:color';
 @use '../engine.variables' as ev;
 @use '../functions' as ef;
 
@@ -37,7 +38,7 @@
 @mixin generateOpacities($name, $val, $opacities) {
 
     @each $step in $opacities {
-        #{--}#{$name}-o#{$step}: #{transparentize($val, (1 - math.div($step, 10)))};
+        #{--}#{$name}-o#{$step}: #{color.adjust($val, $alpha: -1 + math.div($step, 10))};
     }
 }
 
