@@ -4,6 +4,8 @@ import {
     CustomType,
     IWrapperCParams,
     IAccordionData,
+    ITextBlockCParams,
+    IFormWrapperCParams,
 } from 'wlc-engine/modules/core';
 import {IGamesGridCParams} from 'wlc-engine/modules/games';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
@@ -37,6 +39,8 @@ export interface IBonusModalCParams extends IComponentParams<Theme, Type, ThemeM
     /** Param to pass alert into bonus-modal */
     alerts?: IAlertCParams[];
     wagerParams?: IBonusWagerCParams;
+    /** Accordion text for sport bonus */
+    sportBonusAccordionText?: IFormWrapperCParams;
 }
 
 export const defaultParams: IBonusModalCParams = {
@@ -61,7 +65,7 @@ export const defaultParams: IBonusModalCParams = {
         components: [
             {
                 name: 'games.wlc-games-grid',
-                params:<IGamesGridCParams> {
+                params: <IGamesGridCParams>{
                     theme: 'default',
                     themeMod: 'simple',
                     gamesRows: 2,
@@ -87,5 +91,17 @@ export const defaultParams: IBonusModalCParams = {
     },
     wagerParams: {
         theme: 'simple',
+    },
+    sportBonusAccordionText: {
+        components: [
+            {
+                name: 'core.wlc-text-block',
+                params: <ITextBlockCParams>{
+                    common: {
+                        textBlockText: gettext('The bonus can be wagered only by making bets on sporting events'),
+                    },
+                },
+            },
+        ],
     },
 };

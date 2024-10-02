@@ -96,4 +96,8 @@ $themeDefault: map-merge((
     'wagerBg': var(--fc-inputBg),
     'wagerCaptionTextStyle': 'CaptionTextBold',
     'wagerCaptionColor': var(--mc-baseMain),
+
+    'sportBonusTextStyle': 'PrimaryText',
+    'sportBonusTextColor': var(--mc-baseMain),
+    'sportBonusPadding': 0 ef.size(1),
 ), $customThemeDefault);

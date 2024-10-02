@@ -175,6 +175,20 @@
                 }
             }
         }
+
+        &__games {
+
+            ::ng-deep {
+
+                .wlc-text-block--theme-default {
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'sportBonusTextStyle'),
+                        ef.get-value($themeDefault, 'sportBonusTextColor'),
+                    );
+                    padding: ef.get-value($themeDefault, 'sportBonusPadding');
+                }
+            }
+        }
     }
 
     &.wlc-bonus-modal--is-unavailable {

@@ -71,7 +71,7 @@ export class BonusModalComponent extends AbstractComponent implements OnInit {
         }
 
         if (this.configService.get<boolean>('$bonuses.useNewImageSources')) {
-            this.bonusBgUrl = this.bonus.imageDescription ? `url(${this.bonus.imageDescription})`: '';
+            this.bonusBgUrl = this.bonus.imageDescription ? `url(${this.bonus.imageDescription})` : '';
         } else {
             this.bonusBgUrl = this.bonus.imageOther ? `url(${this.bonus.imageOther})` : '';
         }
@@ -152,6 +152,15 @@ export class BonusModalComponent extends AbstractComponent implements OnInit {
             theme: this.$params.theme,
             items: [],
         });
+
+        if (this.bonus.bonusType === 'sport') {
+            const sportAccordionItem: IAccordionData = _merge(
+                this.$params.gamesCommon,
+                {wrapper: this.$params.sportBonusAccordionText},
+            );
+            this.gamesAccordion.items.push(sportAccordionItem);
+            return;
+        }
 
         this.isLoadingGames = true;
         this.bonusGamesAccordion = this.prepareGamesAccordionItem(this.$params.gamesCommon);

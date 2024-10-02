@@ -382,25 +382,28 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit, 
     }
 
     private async playActionHandler(): Promise<void> {
-        switch (this.bonus.bonusType) {
-            case 'sport':
-                if (!BonusButtonsComponent.sportsbookService) {
-                    BonusButtonsComponent.sportsbookService
-                        = await this.injectionService.getService('sportsbook.sportsbook-service');
-                    await BonusButtonsComponent.sportsbookService.ready;
-                }
+        const isSportBonus: boolean = this.bonus.bonusType === 'sport';
 
-                if (BonusButtonsComponent.sportsbookService.targetSportsbookEnabled) {
-                    this.router.stateService.go(BonusButtonsComponent.sportsbookService.getBonusSportsbookState());
-                }
-                break;
-            default:
-                if (this.bonusItemTheme !== 'modal') {
-                    this.readMoreClick();
-                } else {
-                    this.showGames.emit();
-                }
-                break;
+        if (isSportBonus) {
+
+            if (!BonusButtonsComponent.sportsbookService) {
+                Promise.all([
+                    this.injectionService.getService<SportsbookService>('sportsbook.sportsbook-service'),
+                    BonusButtonsComponent.sportsbookService.ready,
+                ]).then((values: [SportsbookService, void]) => {
+                    BonusButtonsComponent.sportsbookService ??= values[0];
+                });
+            }
+
+            if (BonusButtonsComponent.sportsbookService.targetSportsbookEnabled) {
+                this.router.stateService.go(BonusButtonsComponent.sportsbookService.getBonusSportsbookState());
+            }
+        }
+
+        if (this.bonusItemTheme !== 'modal') {
+            this.readMoreClick();
+        } else {
+            this.showGames.emit();
         }
     }
 }
