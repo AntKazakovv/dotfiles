@@ -161,7 +161,7 @@ export const defaultParams: ISearchCParams = {
     searchInputParams: {
         focus: true,
         searchFrom: 'modal',
-        placeholder: gettext('Start writing game or provider name'),
+        placeholder: gettext('Start writing a game or provider name'),
     },
 
     easyThemeParams: {

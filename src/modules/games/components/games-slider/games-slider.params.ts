@@ -84,7 +84,7 @@ export const defaultParams: IGamesSliderCParams = {
     isModal: false,
     title: gettext('Need help picking a game?'),
     titleMobile: gettext('Feeling lucky?'),
-    subtitle: gettext('Try to play a random game'),
+    subtitle: gettext('Try playing a random game'),
     buttonText: gettext('Find a game'),
     errorText: gettext('No games available'),
     sliderParams: {

@@ -103,8 +103,8 @@ export class MerchantWalletFormComponent extends AbstractComponent implements On
                     title: this.merchantName,
                     message: [
                         method === 'deposit'
-                            ? gettext('The transfer to the provider\'s wallet has been successfully made!')
-                            : gettext('The transfer from the provider\'s wallet has been successfully completed!'),
+                            ? gettext('The transfer to the provider\'s wallet has been successfully completed')
+                            : gettext('The transfer from the provider\'s wallet has been successfully completed'),
                         this.translateService.instant(method === 'deposit'
                             ? gettext('Replenishment amount')
                             : gettext('Withdrawal amount'))

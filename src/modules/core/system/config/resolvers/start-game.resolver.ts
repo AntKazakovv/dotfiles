@@ -509,7 +509,7 @@ class StartGameHandler extends BaseGamesHandler {
             this.modalService.showModal(redirect.modalInsteadRedirect, {game: this.game});
         } else {
             this.showErrorNotification(
-                gettext('Deposit more money to play this game.'),
+                gettext('Deposit more money to play this game'),
                 gettext('Insufficient balance'),
             );
 
