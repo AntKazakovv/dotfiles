@@ -43,7 +43,7 @@ export const defaultParams: IProfileBlocksCParams = {
     moduleName: 'user',
     profileBlockPassword: {
         title: gettext('Password'),
-        subtitle: gettext('You can change your password here.'),
+        subtitle: gettext('You can change your password here'),
         buttonParams: {
             wlcElement: 'button_change-password',
             common: {
@@ -54,7 +54,7 @@ export const defaultParams: IProfileBlocksCParams = {
     },
     profileBlockBankInfo: {
         title: gettext('Banking information'),
-        subtitle: gettext('You can add your banking information here.'),
+        subtitle: gettext('You can add your banking information here'),
         buttonParams: {
             wlcElement: 'button_add-banking-info',
             common: {

@@ -103,7 +103,7 @@ export class AddProfileInfoComponent extends ProfileFormAbstract implements OnIn
                 data: <IPushMessageParams>{
                     type: 'success',
                     title: gettext('Profile updated successfully'),
-                    message: gettext('Your profile has been updated successfully'),
+                    message: gettext('Your profile has been successfully updated'),
                     wlcElement: 'notification_profile-update-success',
                 },
             });
@@ -111,7 +111,7 @@ export class AddProfileInfoComponent extends ProfileFormAbstract implements OnIn
             submited = true;
         } else {
 
-            const messages = [gettext('Failed to save the profile')];
+            const messages = [gettext('An error has occurred when saving the profile')];
             const {errors} = response;
 
             if (errors) {

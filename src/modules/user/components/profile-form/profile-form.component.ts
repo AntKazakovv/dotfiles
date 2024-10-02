@@ -218,7 +218,7 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
                 data: <IPushMessageParams>{
                     type: 'success',
                     title: gettext('Profile updated successfully'),
-                    message: gettext('Your profile has been updated successfully'),
+                    message: gettext('Your profile has been successfully updated'),
                     wlcElement: 'notification_profile-update-success',
                 },
             });

@@ -73,7 +73,7 @@ export class ChangePasswordFormComponent extends AbstractComponent implements On
                 data: <IPushMessageParams>{
                     type: 'success',
                     title: gettext('Password changed successfully'),
-                    message: gettext('Your password has been changed successfully!'),
+                    message: gettext('Your password has been successfully changed'),
                     wlcElement: 'notification_password-update-success',
                 },
             });
