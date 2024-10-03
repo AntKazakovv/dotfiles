@@ -10,7 +10,7 @@ import {
  * @returns {ValidationErrors | null} True if control contains only latin letters
  */
 export function onlyLatinLettersValidator(control: UntypedFormControl): ValidationErrors | null {
-    return !control.value || /^[A-Za-z]+$/.test(control.value) ? null : {
+    return !control.value || /^[A-Za-z0-9\s-,]+$/.test(control.value) ? null : {
         'onlyLatinLetters': true,
     };
 }
