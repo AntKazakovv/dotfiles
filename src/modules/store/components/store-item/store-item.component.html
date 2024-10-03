@@ -20,7 +20,7 @@
                 [src]="storeItem.bonus.icon"
                 [wlc-fallback]="storeItem.bonus.fallBackIconPath"
                 (imageError)="imageErrorLoad()">
-            <ng-container *ngIf="storeItem.bonus.currencyIcon then valueBalance else valueFreerounds"></ng-container>
+            <ng-container *ngIf="storeItem.bonus.currencyIcon then bonusCurrencyValue else bonusValue"></ng-container>
         </div>
     </div>
 </ng-template>
