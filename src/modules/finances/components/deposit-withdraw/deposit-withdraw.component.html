@@ -245,7 +245,7 @@
                     [inlineParams]="activeBonusesListParams"></div>
             </div>
     </div>
-    <div *ngIf="bonusesListParams; else preloader"
+    <div *ngIf="isExistBonusesListParams; else preloader"
         wlc-wrapper
         [inlineParams]="bonusesListParams">
     </div>

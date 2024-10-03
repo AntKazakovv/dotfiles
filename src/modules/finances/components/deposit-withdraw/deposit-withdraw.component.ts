@@ -276,6 +276,10 @@ export class DepositWithdrawComponent
         return Bonus.existActiveBonus;
     }
 
+    public get isExistBonusesListParams(): boolean {
+        return !!this.bonusesListParams?.components;
+    }
+
     public onPromoCodeChanged(bonus: Bonus): void {
         this.appliedPromoCode$.next(bonus);
         this.setCurrentBonus(bonus, false);
@@ -723,6 +727,7 @@ export class DepositWithdrawComponent
                 });
             } else {
                 this.deleteStep(Params.PaymentSteps.bonus);
+                this.showBonuses = false;
             }
         }
     }
