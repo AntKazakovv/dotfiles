@@ -296,7 +296,7 @@ export class TermsAcceptService {
         if (!data.demo) {
             const reason = await this.openModalAndCheckReason();
             if (reason !== 'accept') {
-                data.result.reject(gettext('You must accept the terms and conditions to complete this action.'));
+                data.result.reject(gettext('You must accept the Terms and Conditions to complete this action'));
                 this.showDeniedNotify();
             }
         }
@@ -316,7 +316,7 @@ export class TermsAcceptService {
                     name: request.name,
                     status: 'error',
                     errors: [
-                        gettext('You must accept the terms and conditions to complete this action.'),
+                        gettext('You must accept the Terms and Conditions to complete this action'),
                     ],
                 };
             }

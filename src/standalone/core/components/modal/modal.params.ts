@@ -297,7 +297,7 @@ export const MODALS_LIST: IModalList = {
             backdrop: 'static',
             closeBtnVisibility: false,
             showFooter: false,
-            modalMessage: gettext('Please, wait. Data processing in progress...'),
+            modalMessage: gettext('Please wait, the data is being processed'),
             textAlign: 'center',
         },
     },

@@ -101,14 +101,14 @@ export const $base: IBaseConfig = {
     ],
     errorsReplacerMap: {
         'AML verification in progress': {
-            text: gettext('Please wait, Your account is being verified'),
+            text: gettext('Please wait, your account is being verified'),
         },
         'AML verification declined': {
             text: gettext('Unfortunately, Your registration has been rejected. Please contact us at'),
             supportEmail: true,
         },
         'User waiting verification': {
-            text: gettext('Please wait, Your account is being verified'),
+            text: gettext('Please wait, your account is being verified'),
         },
     },
     popupByQuery: {

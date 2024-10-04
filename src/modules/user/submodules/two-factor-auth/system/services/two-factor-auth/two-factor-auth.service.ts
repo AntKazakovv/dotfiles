@@ -106,7 +106,7 @@ export class TwoFactorAuthService {
             const reason = await termsAcceptService.openModalAndCheckReason();
             if (reason !== 'accept') {
                 this.showNotification(
-                    gettext('You must accept the terms and conditions to complete this action.'),
+                    gettext('You must accept the Terms and Conditions to complete this action'),
                     'error',
                 );
                 return;
