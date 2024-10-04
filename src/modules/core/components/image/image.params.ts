@@ -25,10 +25,6 @@ export interface IImageCParams extends IComponentParams<string, string, string> 
     sources?: ISource[];
     /** Add value of attribute wlcElement on element */
     wlcElement?: string;
-    /** Use this image path if source from sources not loaded successfully */
-    fallback?: string;
-    /** Hide image if source from sources not loaded successfully */
-    hideOnError?: boolean;
 }
 
 export const defaultParams: IImageCParams = {

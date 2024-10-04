@@ -24,14 +24,12 @@ import * as Params from './image.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ImageComponent extends AbstractComponent implements OnInit, OnChanges {
-    @Input('slimSrc') protected _slimSrc: string;
-    @Input('slimSources') protected _slimSources: Params.ISource[];
-    @Input('src') protected _src: string;
-    @Input('sources') protected _sources: Params.ISource[];
-    @Input('wlcElement') protected _wlcElement: string;
-    @Input('customMod') protected _customMod: string | string[];
-    @Input('fallback') protected _fallback: string;
-    @Input('hideOnError') protected _hideOnError: boolean;
+    @Input() public slimSrc: string;
+    @Input() public slimSources: Params.ISource[];
+    @Input() public src: string;
+    @Input() public sources: Params.ISource[];
+    @Input() public wlcElement: string;
+    @Input() public customMod: string | string[];
 
     @Input() protected inlineParams: Params.IImageCParams;
 
@@ -39,10 +37,6 @@ export class ImageComponent extends AbstractComponent implements OnInit, OnChang
     @Output() loadError = new EventEmitter<void>();
 
     public override $params: Params.IImageCParams;
-
-    protected customSlimSources: Params.ISource[];
-    protected customSlimSrc: string;
-    protected customSources: Params.ISource[];
 
     constructor(
         @Optional()
@@ -56,35 +50,14 @@ export class ImageComponent extends AbstractComponent implements OnInit, OnChang
 
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+
+        this.$params.slimSrc = this.slimSrc || this.$params.slimSrc;
+        this.$params.slimSources = this.slimSources || this.$params.slimSources;
+        this.$params.src = this.src || this.$params.src;
+        this.$params.sources = this.sources || this.$params.sources;
+        this.$params.wlcElement = this.wlcElement || this.$params.wlcElement;
+
         this.handleCdnImages();
-    }
-
-    public get slimSrc(): string {
-        return this.customSlimSrc || this._slimSrc || this.$params.slimSrc;
-    }
-
-    public get slimSources(): Params.ISource[] {
-        return this.customSlimSources || this._slimSources || this.$params.slimSources;
-    }
-
-    public get src(): string {
-        return this.src || this.$params.src;
-    }
-
-    public get sources(): Params.ISource[] {
-        return this.customSources || this.sources || this.$params.sources;
-    }
-
-    public get wlcElement(): string {
-        return this._wlcElement || this.$params.wlcElement;
-    }
-
-    public get fallback(): string {
-        return this._fallback || this.$params.fallback;
-    }
-
-    public get hideOnError(): boolean {
-        return this._hideOnError || this.$params.hideOnError;
     }
 
     public onError(): void {
@@ -102,31 +75,24 @@ export class ImageComponent extends AbstractComponent implements OnInit, OnChang
             if (imgPath.indexOf('/games') === 0) {
 
                 if (this.configService.get<boolean>('$base.optimization.slimExtraImages.use')) {
-                    this.customSlimSrc = `${GlobalHelper.gstaticUrl}/slim-extra${imgPath}`;
-                    this.customSlimSources = [
+                    this.$params.slimSrc = `${GlobalHelper.gstaticUrl}/slim-extra${imgPath}`;
+                    this.$params.slimSources = [
                         {
-                            srcset: GlobalHelper.setFileExtension(this.customSlimSrc, 'webp'),
+                            srcset: GlobalHelper.setFileExtension(this.$params.slimSrc, 'webp'),
                             type: 'image/webp',
                         },
                     ];
                 }
 
                 if (!this.sources) {
-                    this.customSources = [
+                    this.sources = [
                         {
-                            srcset: GlobalHelper.setFileExtension(this.src, 'webp'),
+                            srcset: GlobalHelper.setFileExtension(this.$params.src, 'webp'),
                             type: 'image/webp',
                         },
                     ];
                 }
             }
         }
-    }
-
-    protected getFallback(src: string): string {
-        if (this.hideOnError) {
-            return;
-        }
-        return this.fallback || src;
     }
 }
