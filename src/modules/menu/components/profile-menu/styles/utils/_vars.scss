@@ -256,7 +256,7 @@ $themeWolf: map-merge((
     'controlHeight': 100%,
     'controlPadding': ef.size(1),
     'controlArrowColor': var(--mc-baseMain),
-    'controlArrowColorHover': var(--mc-main),
+    'controlArrowColorHover': var(--mc-baseThird),
     'controlPrevSvgTransform': rotate(90deg),
     'controlNextSvgTransform': rotate(-90deg),
     'controlNextMargin': 0 0 0 auto,
