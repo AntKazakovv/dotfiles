@@ -3,7 +3,7 @@
     .wlc-subscriptions-modal {
 
         &__container {
-            padding: ef.get-value($themeDefault, 'containerPadding');
+            @include bm.get-mq-map('padding', $themeDefault, 'containerPadding');
         }
 
         &__title {

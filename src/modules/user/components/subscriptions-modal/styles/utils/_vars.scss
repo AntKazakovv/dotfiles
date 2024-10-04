@@ -1,15 +1,18 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'containerPadding': 0 ef.size(3),
+    'containerPadding': (
+        375: 0,
+        560: 0 ef.size(3),
+    ),
 
     'titleFontSize': (
-        320: 'PrimaryTextBold',
+        375: 'PrimaryTextBold',
         768: 'QoteTextBold',
     ),
     'titleColor': var(--mc-baseMain),
     'titleMargin': ef.size(4) 0 ef.size(6),
     'titlePadding': (
-        320: 0 ef.size(5),
+        375: 0 ef.size(5),
         480: 0,
     ),
     'titleAlign': center,
