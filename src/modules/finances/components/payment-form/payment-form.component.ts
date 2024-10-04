@@ -587,7 +587,7 @@ export class PaymentFormComponent
                 type: 'success',
                 title: gettext('Withdraw'),
                 message: [
-                    this.translateService.instant('Withdraw request has been successfully sent!'),
+                    this.translateService.instant('The withdrawal request has been successfully sent'),
                     this.translateService.instant('Withdrawal amount') + ` ${currencyIcon}`,
                 ],
                 wlcElement: 'notification_withdraw-request-success',
@@ -1700,7 +1700,7 @@ export class PaymentFormComponent
                     this.pushNotification({
                         type: 'warning',
                         title: gettext('Deposit'),
-                        message: gettext('You will be redirected in a moment!'),
+                        message: gettext('You will be redirected in a moment'),
                         wlcElement: 'notification_deposit-redirection-warning',
                     });
 

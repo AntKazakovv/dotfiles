@@ -486,8 +486,9 @@ export class FinancesService {
                     const type = initialPath.type?.toLowerCase();
                     const message: string[] = [
                         (type === 'withdraw')
-                            ? this.translateService.instant(gettext('Withdraw request has been successfully sent!'))
-                            : this.translateService.instant(gettext('The deposit has been successfully made')),
+                            // eslint-disable-next-line max-len
+                            ? this.translateService.instant(gettext('The withdrawal request has been successfully sent'))
+                            : this.translateService.instant(gettext('Deposit completed successfully')),
                     ];
                     const isMultiWallet: boolean =
                         this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
@@ -593,8 +594,8 @@ export class FinancesService {
                 type: 'info',
                 title: gettext('Payment pending'),
                 message: [
-                    gettext('Transaction is in the pending status.'
-                        + ' If everything goes as expected, your funds soon will reach the gaming balance.'),
+                    gettext('The transaction is pending.'
+                        + ' If everything goes as expected, your funds will soon be credited to the game balance'),
                 ],
                 wlcElement: 'notification_deposit-pending',
             },

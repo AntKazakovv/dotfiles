@@ -34,7 +34,7 @@ export const defaultParams: IFastDepositCParams = {
         description: gettext('The selected payment method:'),
         systemUnavailable:
             gettext('The balance is running out and can be exhausted soon. ' +
-            'Go to the "Deposit" page to make a payment and receive additional bonuses.'),
+            'Go to the Deposit page to make a payment and receive additional bonuses.'),
     },
     paymentFormParams: {
         mode: 'deposit',
@@ -48,7 +48,7 @@ export const defaultParams: IFastDepositCParams = {
         type: 'fast-deposit',
     },
     linkParams: {
-        text: gettext('Go to the deposit page'),
+        text: gettext('Go to the Deposit page'),
         iconPath: '/wlc/icons/arrow-right.svg',
     },
     phoneVerifyParams: phoneVerificationConfig,

@@ -27,7 +27,7 @@ export const defaultParams: ILotteryCtaCParams = {
     class: 'wlc-lottery-cta',
     componentName: 'wlc-lottery-cta',
     moduleName: 'lotteries',
-    timerText: gettext('Time until the end of ticket issuance'),
+    timerText: gettext('Time until the end of the ticket issuance:'),
     depositBtnParams: {
         common: {
             text: gettext('Deposit'),

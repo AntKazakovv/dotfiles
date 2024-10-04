@@ -137,7 +137,7 @@ export class TransferComponent extends AbstractComponent implements OnInit {
             return;
         }
         if (this.userBalance < +form.value.amount) {
-            this.showMessage(gettext('Insufficient account balance'), true);
+            this.showMessage(gettext('Your account balance is insufficient'), true);
             return;
         }
         form.disable();
