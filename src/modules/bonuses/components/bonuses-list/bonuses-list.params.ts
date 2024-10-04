@@ -156,7 +156,7 @@ export const defaultParams: IBonusesListCParams = {
         params: {
             wlcElement: 'button_go-to-profile',
             common: {
-                text: gettext('Go to Profile'),
+                text: gettext('Go to the Profile'),
                 sref: 'app.profile.loyalty-bonuses.main',
             },
         },

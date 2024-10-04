@@ -806,7 +806,7 @@ export namespace FormElements {
         name: 'core.wlc-checkbox',
         params: {
             text: gettext(
-                'I would like to receive information about promotions, marketings materials and personalised content',
+                'I would like to receive information about promotions, marketing materials, and personalized content',
             ),
             name: 'emailAgree',
             wlcElement: 'block_email-agree',

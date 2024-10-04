@@ -45,7 +45,7 @@ export const interactiveTextConfig: IInteractiveText[] = [
     },
     {
         title: gettext('Hit the jackpot in our jackpot games!'),
-        text: gettext('Hit Jackpot'),
+        text: gettext('Hit the jackpot'),
         actionParams: {
             url: {
                 path: 'app.catalog.child',
@@ -59,7 +59,7 @@ export const interactiveTextConfig: IInteractiveText[] = [
     },
     {
         title: gettext('The best products in our store!'),
-        text: gettext('Go to store'),
+        text: gettext('Go to the Store'),
         actionParams: {
             url: {
                 path: 'app.profile.loyalty-store.main',
@@ -69,7 +69,7 @@ export const interactiveTextConfig: IInteractiveText[] = [
     },
     {
         title: gettext('Take part in the tournament competition and get a prize!'),
-        text: gettext('Go to Tournaments'),
+        text: gettext('Go to the Tournaments'),
         actionParams: {
             url: {
                 path: 'app.tournaments',

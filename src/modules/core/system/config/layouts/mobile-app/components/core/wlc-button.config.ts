@@ -10,7 +10,7 @@ export namespace wlcButton {
             class: 'wlc-btn wlc-btn-merch',
             common: {
                 iconPath: '/wlc/icons/filter-merchants.svg',
-                text: gettext('Providers'),
+                text: 'All providers',
                 event: {
                     name: 'SHOW_MODAL',
                     data: 'searchWithOpenedProviders',
@@ -52,24 +52,6 @@ export namespace wlcButton {
         },
     };
 
-    export const searchV4: ILayoutComponent = {
-        name: 'core.wlc-button',
-        display: {
-            before: 899,
-        },
-        params: {
-            class: 'wlc-btn wlc-btn-search',
-            common: {
-                iconPath: '/wlc/icons/search.svg',
-                text: gettext('Search for games'),
-                event: {
-                    name: 'SHOW_MODAL',
-                    data: 'search',
-                },
-            },
-        },
-    };
-
     export const searchDef: ILayoutComponent = {
         name: 'core.wlc-button',
         display: {
@@ -98,42 +80,6 @@ export namespace wlcButton {
             common: {
                 iconPath: '/wlc/icons/search.svg',
                 text: 'Search for games',
-                event: {
-                    name: 'SHOW_MODAL',
-                    data: 'search',
-                },
-            },
-        },
-    };
-
-    export const searchWolf: ILayoutComponent = {
-        name: 'core.wlc-button',
-        display: {
-            after: 1200,
-        },
-        params: {
-            class: 'wlc-btn wlc-btn-search',
-            common: {
-                iconPath: '/wlc/icons/search.svg',
-                text: 'Search',
-                event: {
-                    name: 'SHOW_MODAL',
-                    data: 'search',
-                },
-            },
-        },
-    };
-
-    export const searchBefore1024: ILayoutComponent = {
-        name: 'core.wlc-button',
-        display: {
-            before: 1023,
-        },
-        params: {
-            class: 'wlc-btn wlc-btn-search',
-            common: {
-                iconPath: '/wlc/icons/search.svg',
-                text: gettext('Search for games'),
                 event: {
                     name: 'SHOW_MODAL',
                     data: 'search',
@@ -199,35 +145,51 @@ export namespace wlcButton {
         },
     };
 
-    export const burgerMobileFixedPanel: ILayoutComponent = {
+    export const userIcon: ILayoutComponent = {
         name: 'core.wlc-button',
         display: {
+            auth: true,
             before: 1023,
         },
         params: {
-            class: 'wlc-btn wlc-btn-burger',
-            wlcElement: 'wlc-btn-burger',
+            class: 'wlc-btn wlc-btn-user',
             common: {
-                iconPath: '/wlc/icons/icons_new/burger.svg',
+                iconPath: '/wlc/icons/icons_new/user-icon.svg',
+                sref: 'app.profile.cash.deposit',
                 event: {
                     name: 'PANEL_OPEN',
-                    data: 'left',
+                    data: 'right',
+                },
+            },
+        },
+    };
+
+    export const userIconKiosk: ILayoutComponent = {
+        name: 'core.wlc-button',
+        display: {
+            auth: true,
+            before: 1199,
+        },
+        params: {
+            class: 'wlc-btn wlc-btn--user',
+            common: {
+                iconPath: '/wlc/icons/icons_new/user-icon.svg',
+                event: {
+                    name: 'PANEL_OPEN',
+                    data: 'right',
                 },
             },
         },
     };
 
     export const profileButton: ILayoutComponent = {
-        name: 'user.wlc-user-icon',
+        name: 'core.wlc-button',
         params: {
-            showAsBtn: true,
-            class: 'wlc-btn-profile',
-            buttonParams: {
-                common: {
-                    text: gettext('Profile'),
-                    sref: 'app.profile.dashboard',
-                    iconPath: '/wlc/icons/icons_new/user-icon.svg',
-                },
+            class: 'wlc-btn wlc-btn-profile',
+            common: {
+                text: gettext('Profile'),
+                iconPath: '/wlc/icons/icons_new/user-icon.svg',
+                sref: 'app.profile.dashboard',
             },
         },
     };
@@ -253,59 +215,21 @@ export namespace wlcButton {
                     },
                 },
                 {
-                    name: 'user.wlc-user-icon',
+                    name: 'core.wlc-button',
                     params: {
-                        event: {
-                            name: 'PANEL_OPEN',
-                            data: 'right',
+                        theme: 'cleared',
+                        themeMod: 'secondary',
+                        customMod: 'user',
+                        common: {
+                            iconPath: '/wlc/icons/icons_new/user-icon.svg',
+                            event: {
+                                name: 'PANEL_OPEN',
+                                data: 'right',
+                            },
                         },
-                        showAsBtn: true,
                     },
                 },
             ],
-        },
-    };
-
-    export const modalDepositBtn: ILayoutComponent = {
-        name: 'core.wlc-button',
-        display: {
-            auth: true,
-        },
-        params: {
-            common: {
-                text: gettext('Fast deposit'),
-                iconPath: '/wlc/icons/lightning.svg',
-                event: {
-                    name: 'SHOW_DEPOSIT_MODAL',
-                },
-                animation: {
-                    type: 'glare',
-                    handlerType: 'click',
-                },
-                wlcElement: 'button_deposit-modal',
-            },
-        },
-    };
-
-    export const modalDepositBtnCompact: ILayoutComponent = {
-        name: 'core.wlc-button',
-        display: {
-            auth: true,
-            before: 1199,
-        },
-        params: {
-            customMod: 'only-icon',
-            common: {
-                iconPath: '/wlc/icons/lightning.svg',
-                event: {
-                    name: 'SHOW_DEPOSIT_MODAL',
-                },
-                animation: {
-                    type: 'glare',
-                    handlerType: 'click',
-                },
-                wlcElement: 'button_deposit-modal',
-            },
         },
     };
 
@@ -402,42 +326,6 @@ export namespace wlcButton {
         },
     };
 
-    export const mobileLoginBtnV2: ILayoutComponent = {
-        name: 'core.wlc-button',
-        display: {
-            before: 1199,
-            auth: false,
-        },
-        params: {
-            theme: 'textonly',
-            common: {
-                customModifiers: 'mobile-login',
-                text: gettext('Login'),
-                event: {
-                    name: 'SHOW_MODAL',
-                    data: 'login',
-                },
-            },
-        },
-    };
-
-    export const mobileSignupBtn: ILayoutComponent = {
-        name: 'core.wlc-button',
-        display: {
-            before: 1199,
-            auth: false,
-        },
-        params: {
-            common: {
-                text: gettext('Sign up'),
-                event: {
-                    name: 'SHOW_MODAL',
-                    data: 'signup',
-                },
-            },
-        },
-    };
-
     export const affRedirectLink: ILayoutComponent = {
         name: 'core.wlc-button',
         params: {
@@ -474,21 +362,6 @@ export namespace wlcButton {
             themeMod: 'deposit',
             common: {
                 text: gettext('Deposit'),
-                sref: 'app.profile.cash.deposit',
-            },
-        },
-    };
-
-    export const depositMobile: ILayoutComponent = {
-        name: 'core.wlc-button',
-        display: {
-            auth: true,
-            before: 1199,
-        },
-        params: {
-            customMod: 'only-icon',
-            common: {
-                iconPath: '/wlc/icons/deposit-icon-wolf.svg',
                 sref: 'app.profile.cash.deposit',
             },
         },
@@ -550,13 +423,10 @@ export namespace wlcButton {
         params: {
             common: {
                 text: gettext('Play'),
-                event: {
-                    name: 'OPEN_CATEGORY',
-                    data: {
-                        parent: 'casino',
-                        child: 'jackpots',
-                        additionalChild: 'new',
-                    },
+                sref: 'app.catalog.child',
+                srefParams: {
+                    category: 'casino',
+                    childCategory: 'jackpots',
                 },
             },
             wlcElement: 'button-play',
@@ -566,7 +436,7 @@ export namespace wlcButton {
     export const profileBlocks: ILayoutComponent = {
         name: 'core.wlc-button',
         display: {
-            before: 899,
+            before: 1023,
             auth: true,
         },
         params: {
@@ -578,44 +448,6 @@ export namespace wlcButton {
                     name: 'SHOW_MODAL',
                     data: 'profileBlocks',
                 },
-            },
-        },
-    };
-
-    export const profileBlocksWolf: ILayoutComponent = {
-        name: 'core.wlc-button',
-        display: {
-            before: 899,
-            auth: true,
-        },
-        params: {
-            theme: 'icon',
-            themeMod: 'wolf-settings',
-            common: {
-                iconPath: '/wlc/icons/european/v3/settings.svg',
-                event: {
-                    name: 'SHOW_MODAL',
-                    data: 'profileBlocks',
-                },
-            },
-        },
-    };
-
-    export const installPwa: ILayoutComponent = {
-        name: 'core.wlc-button',
-        display: {
-            mobile: true,
-            pwa: false,
-        },
-        params: {
-            customMod: 'pwa',
-            common: {
-                text: gettext('Install the application'),
-                sref: 'app.instructions',
-                srefParams: {
-                    slug: 'install-pwa',
-                },
-                iconPath: '/wlc/icons/install.svg',
             },
         },
     };
