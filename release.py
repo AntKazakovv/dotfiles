@@ -419,9 +419,15 @@ def update_npm(project_folder=None):
 
 
 # Чекаут npm зависимостей
-def get_depends(branch):
+def get_front_depends(branch):
     print(Fore.YELLOW + "Getting dependencies from branch 'develop'" + Fore.RESET)
-    subprocess.run([ "git", "checkout", f"remotes/origin/{branch}", "package.json", "package-lock.json", "composer.json", "composer.lock"], cwd=temp_folder)
+    subprocess.run([ "git", "checkout", f"remotes/origin/{branch}", "package.json", "package-lock.json"], cwd=temp_folder)
+    print(Fore.GREEN + "Done" + Fore.RESET)
+
+
+def get_back_depends(branch):
+    print(Fore.YELLOW + "Getting dependencies from branch 'develop'" + Fore.RESET)
+    subprocess.run([ "git", "checkout", f"remotes/origin/{branch}", "composer.json", "composer.lock"], cwd=temp_folder)
     print(Fore.GREEN + "Done" + Fore.RESET)
 
 
@@ -442,7 +448,13 @@ def small_update_branch(branch):
     subprocess.run(["git", "switch", branch], cwd=temp_folder)
     print(Fore.GREEN + "Done" + Fore.RESET)
 
-    get_depends("develop")
+    if branch != "master":
+        get_front_depends("develop")
+        get_back_depends("develop")
+
+    else:
+        get_front_depends("develop")
+
     push_branch(branch)
 
 
