@@ -5,7 +5,11 @@ export {
     GameDashboardEvents,
     IChangedTabEvent,
 } from './game-dashboard/game-dashboard.params';
-export {IGameWrapperCParams} from './game-wrapper/game-wrapper.params';
+export {
+    IGameWrapperCParams,
+    gameWrapperHooks,
+    IGameWrapperHookLaunchInfo,
+} from './game-wrapper/game-wrapper.interfaces';
 export * from './game-wrapper/game-wrapper.component';
 export {IGamesGridCParams} from './games-grid/games-grid.params';
 export {IPlayGameForRealCParams} from './play-game-for-real/play-game-for-real.params';

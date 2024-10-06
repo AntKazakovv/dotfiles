@@ -48,8 +48,7 @@ import {WINDOW} from 'wlc-engine/modules/app/system';
 import {IIndexing} from 'wlc-engine/modules/core';
 
 import * as Params from './button.params';
-
-export {IButtonCParams} from './button.params';
+import * as Interfaces from './button.interfaces';
 
 @Component({
     // eslint-disable-next-line @angular-eslint/component-selector
@@ -76,22 +75,22 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
     // This prop is used by 'loading' themeMod
     @Input() public loadingValue?: number;
 
-    @Input() protected type: Params.Type;
+    @Input() protected type: Interfaces.Type;
     @Input() protected typeAttr: string;
-    @Input() protected theme: Params.Theme;
-    @Input() protected themeMod: Params.ThemeMod;
-    @Input() protected customMod: Params.CustomMod;
-    @Input() protected size: Params.Size;
+    @Input() protected theme: Interfaces.Theme;
+    @Input() protected themeMod: Interfaces.ThemeMod;
+    @Input() protected customMod: Interfaces.CustomMod;
+    @Input() protected size: Interfaces.Size;
     @Input() protected icon: string;
     @Input() protected iconPath: string;
-    @Input() protected counter: Params.CounterType;
-    @Input() protected index: Params.Index;
+    @Input() protected counter: Interfaces.CounterType;
+    @Input() protected index: Interfaces.Index;
     @Input() protected wlcElement: string;
-    @Input() protected animation: Params.TButtonAnimation;
-    @Input() protected inlineParams: Params.IButtonCParams;
+    @Input() protected animation: Interfaces.TButtonAnimation;
+    @Input() protected inlineParams: Interfaces.IButtonCParams;
 
     public ready: boolean = false;
-    public override $params: Params.IButtonCParams;
+    public override $params: Interfaces.IButtonCParams;
     protected $loading = new Subject<boolean>();
 
     @HostBinding('attr.type') get typeAttrValue(): string {
@@ -99,7 +98,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
     }
 
     constructor(
-        @Inject('injectParams') protected params: Params.IButtonCParams,
+        @Inject('injectParams') protected params: Interfaces.IButtonCParams,
         @Inject(WINDOW) protected window: Window,
         protected elementRef: ElementRef,
         protected stateService: StateService,
@@ -107,7 +106,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
         protected injectionService: InjectionService,
     ) {
         super(
-            <IMixedParams<Params.IButtonCParams>>{
+            <IMixedParams<Interfaces.IButtonCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
             });
@@ -191,12 +190,12 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
         }
     }
 
-    protected prepareParams(): Params.IButtonCParams {
+    protected prepareParams(): Interfaces.IButtonCParams {
         if (this.inlineParams) {
             return this.inlineParams;
         }
 
-        const inputProperties: (keyof Params.IButtonCParams['common'])[] = [
+        const inputProperties: (keyof Interfaces.IButtonCParams['common'])[] = [
             'text',
             'textContext',
             'size',
@@ -211,7 +210,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
             'selectorScroll',
             'counter',
         ];
-        const inlineParams: Params.IButtonCParams = {
+        const inlineParams: Interfaces.IButtonCParams = {
             common: {},
         };
 
@@ -228,7 +227,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
     }
 
     protected prepareModifiers(): void {
-        let modifiers: Params.Modifiers[] = [];
+        let modifiers: Interfaces.Modifiers[] = [];
         if (this.$params.common.size) {
             modifiers.push(`size-${this.$params.common.size}`);
         }

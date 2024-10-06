@@ -5,7 +5,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {IBonusModalCParams} from 'wlc-engine/modules/bonuses/components/bonus-modal/bonus-modal.params';
-import {Size} from 'wlc-engine/modules/core/components/button/button.params';
+import {Size} from 'wlc-engine/modules/core/components/button/button.interfaces';
 import {IAlertCParams} from 'wlc-engine/modules/core/components/alert/alert.params';
 
 /**

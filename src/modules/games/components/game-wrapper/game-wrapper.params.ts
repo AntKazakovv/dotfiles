@@ -1,22 +1,4 @@
-import {CustomType, IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ICustomGameParams} from '../../system/interfaces/games.interfaces';
-import {DashboardSide} from 'wlc-engine/modules/games/components/game-dashboard/game-dashboard.params';
-
-export type Type = 'default' | CustomType;
-export type Theme = 'default' | 'fullscreen-game-frame' | CustomType;
-export type ThemeMod = 'default' | 'wolf' | CustomType;
-export type AutoModifiers = Theme | ThemeMod;
-export type CustomMod = string;
-export type Modifiers = AutoModifiers | CustomMod | null;
-
-export interface IGameWrapperCParams extends IComponentParams<Theme, Type, ThemeMod> {
-    updateOnWindowResize?: boolean;
-    padding?: number;
-    gameParams?: ICustomGameParams;
-    type?: Type;
-    dashboardSide?: DashboardSide,
-    calcWidth?: boolean,
-}
+import {IGameWrapperCParams} from 'wlc-engine/modules/games/components/game-wrapper/game-wrapper.interfaces';
 
 export const defaultParams: IGameWrapperCParams = {
     moduleName: 'games',

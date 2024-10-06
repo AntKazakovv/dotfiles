@@ -10,7 +10,7 @@ import {
 } from '@angular/forms';
 
 import {AbstractComponent} from 'wlc-engine/modules/core';
-import {IButtonCParams} from 'wlc-engine/modules/core/components/button/button.params';
+import {IButtonCParams} from 'wlc-engine/modules/core/components/button/button.interfaces';
 
 import * as Params from './radio-buttons.params';
 

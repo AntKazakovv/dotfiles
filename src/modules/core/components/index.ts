@@ -6,7 +6,7 @@ export {IBurgerPanelCParams} from './burger-panel/burger-panel.params';
 export {
     IButtonCParams,
     TButtonAnimation,
-} from './button/button.params';
+} from './button/button.interfaces';
 export {ICheckboxCParams} from './checkbox/checkbox.params';
 export {ICopyrightCParams} from './copyright/copyright.params';
 export {ICurrencyCParams} from './currency/currency.params';

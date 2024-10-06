@@ -20,7 +20,7 @@ import {
     ISlide,
     SliderComponent,
 } from 'wlc-engine/modules/core';
-import {ThemeMod as BtnThemeMod} from 'wlc-engine/modules/core/components/button/button.params';
+import {ThemeMod as BtnThemeMod} from 'wlc-engine/modules/core/components/button/button.interfaces';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
 import {LootboxPrizeModel} from 'wlc-engine/modules/bonuses/system/models/lootbox-prize/lootbox-prize.model';

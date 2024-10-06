@@ -1,5 +1,5 @@
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
-import {IButtonCParams} from 'wlc-engine/modules/core/components/button/button.params';
+import {IButtonCParams} from 'wlc-engine/modules/core/components/button/button.interfaces';
 
 export interface IDefaultConfig {
     replaceConfig?: boolean;

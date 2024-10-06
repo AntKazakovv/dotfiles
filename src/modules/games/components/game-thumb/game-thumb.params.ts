@@ -9,7 +9,7 @@ import {
     Game,
     TOpenContext,
 } from 'wlc-engine/modules/games';
-import * as ButtonParams from 'wlc-engine/modules/core/components/button/button.params';
+import * as ButtonParams from 'wlc-engine/modules/core/components/button/button.interfaces';
 import {ITagCParams} from 'wlc-engine/modules/core/components/tag/tag.params';
 
 export type Type = 'default'

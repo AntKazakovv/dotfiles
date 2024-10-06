@@ -65,7 +65,7 @@ import {
     ResizedEventModel,
     IFormWrapperCParams,
 } from 'wlc-engine/modules/core';
-import {CounterType} from 'wlc-engine/modules/core/components/button/button.params';
+import {CounterType} from 'wlc-engine/modules/core/components/button/button.interfaces';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';

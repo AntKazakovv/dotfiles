@@ -20,7 +20,7 @@ import {
     ProcessEventsDescriptions,
 } from 'wlc-engine/modules/monitoring/system/config/process.config';
 import {IProcessEventData} from 'wlc-engine/modules/monitoring';
-import {TButtonAnimation} from 'wlc-engine/modules/core/components/button/button.params';
+import {TButtonAnimation} from 'wlc-engine/modules/core/components/button/button.interfaces';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import * as Params from './login-signup.params';

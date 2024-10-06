@@ -39,7 +39,7 @@ import {
     ITagCommon,
 } from 'wlc-engine/modules/core/components/tag/tag.params';
 import {IBonusModalCParams} from 'wlc-engine/modules/bonuses/components/bonus-modal/bonus-modal.params';
-import {Size} from 'wlc-engine/modules/core/components/button/button.params';
+import {Size} from 'wlc-engine/modules/core/components/button/button.interfaces';
 
 import * as Params from './bonus-item.params';
 

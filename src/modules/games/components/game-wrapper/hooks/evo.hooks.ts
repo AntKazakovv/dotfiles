@@ -7,7 +7,7 @@ import {HooksService} from 'wlc-engine/modules/core/system/services';
 import {
     gameWrapperHooks,
     IGameWrapperHookIframeShown,
-} from 'wlc-engine/modules/games/components/game-wrapper/game-wrapper.component';
+} from 'wlc-engine/modules/games/components/game-wrapper/game-wrapper.interfaces';
 
 export interface IEvoHooksParams {
     hooksService: HooksService;

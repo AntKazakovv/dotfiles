@@ -32,7 +32,7 @@ import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses
 import {SportsbookService} from 'wlc-engine/modules/sportsbook';
 import {BonusItemComponentEvents} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {Theme as BonusItemTheme} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';
-import {Size} from 'wlc-engine/modules/core/components/button/button.params';
+import {Size} from 'wlc-engine/modules/core/components/button/button.interfaces';
 
 import * as Params from './bonus-buttons.params';
 

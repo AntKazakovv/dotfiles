@@ -64,7 +64,7 @@ import {
     IPushMessageParams,
 } from 'wlc-engine/modules/core/system/services/notification';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
-import {IButtonCParams} from 'wlc-engine/modules/core/components/button/button.params';
+import {IButtonCParams} from 'wlc-engine/modules/core/components/button/button.interfaces';
 import {ISelectCParams} from 'wlc-engine/modules/core/components/select/select.params';
 import {ITextareaCParams} from 'wlc-engine/modules/core/components/textarea/textarea.params';
 import {IInputCParams} from 'wlc-engine/modules/core/components/input/input.params';

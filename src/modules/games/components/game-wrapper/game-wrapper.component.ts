@@ -21,7 +21,6 @@ import {
 import {UntypedFormControl} from '@angular/forms';
 import {
     UIRouter,
-    RawParams,
     StateService,
 } from '@uirouter/core';
 
@@ -54,7 +53,6 @@ import {
 } from 'wlc-engine/modules/games/components/game-dashboard/game-dashboard.params';
 import {
     IExcludeMerchantSettings,
-    ICustomGameParams,
     IGameParams,
     ILaunchInfo,
     TDisableDemoFor,
@@ -90,7 +88,6 @@ import {
     GoldenraceHooks,
     KironHooks,
 } from './hooks';
-import {IGameWrapperCParams} from './game-wrapper.params';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {IMerchantWalletPreviewCParams}
     from 'wlc-engine/modules/games/components/merchant-wallet/merchant-wallet-preview/merchant-wallet-preview.params';
@@ -102,39 +99,10 @@ import {IChoiceCurrencyParams} from 'wlc-engine/modules/multi-wallet/components/
 import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 import {FinancesService} from 'wlc-engine/modules/finances';
 import {UserService} from 'wlc-engine/modules/user';
+import {IGameWrapperHookEvalScript} from 'wlc-engine/modules/games/components/game-wrapper/game-wrapper.interfaces';
 
 import * as Params from './game-wrapper.params';
-
-interface IError {
-    msg?: string;
-    state?: string;
-    stateParams?: RawParams;
-}
-
-export const gameWrapperHooks = {
-    launchInfo: 'launchInfo@GameWrapperComponent',
-    evalScript: 'evalScript@GameWrapperComponent',
-    iframeShown: 'iframeShown@GameWrapperComponent',
-};
-
-export interface IGameWrapperHookLaunchInfo {
-    game: Game;
-    launchInfo: ILaunchInfo;
-    customGameParams: ICustomGameParams;
-    demo: boolean;
-}
-
-export interface IGameWrapperHookEvalScript {
-    game: Game;
-    customGameParams: ICustomGameParams;
-    disable: boolean;
-}
-
-export interface IGameWrapperHookIframeShown {
-    iframe: HTMLElement;
-    mobile: boolean;
-    launchInfo: ILaunchInfo;
-}
+import * as Interfaces from './game-wrapper.interfaces';
 
 @Component({
     selector: '[wlc-game-wrapper]',
@@ -149,9 +117,9 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     @ViewChild('footer') footer: ElementRef;
     @ViewChild('gameContainer') gameContainer: ElementRef<HTMLElement>;
 
-    @Input() public inlineParams: IGameWrapperCParams;
+    @Input() public inlineParams: Interfaces.IGameWrapperCParams;
 
-    public override $params: IGameWrapperCParams;
+    public override $params: Interfaces.IGameWrapperCParams;
     public game: Game;
     public gameHtml: string = '';
     public useMobileIframe: boolean = false;
@@ -248,7 +216,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     private userService: UserService;
 
     constructor(
-        @Inject('injectParams') protected injectParams: IGameWrapperCParams,
+        @Inject('injectParams') protected injectParams: Interfaces.IGameWrapperCParams,
         @Inject(DOCUMENT) protected document: Document,
         @Inject(WINDOW) protected window: Window,
         protected router: UIRouter,
@@ -557,7 +525,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     }
 
     protected async runGameScript(): Promise<void> {
-        const result = await this.hooksService.run<IGameWrapperHookEvalScript>(gameWrapperHooks.evalScript, {
+        const result = await this.hooksService.run<IGameWrapperHookEvalScript>(Interfaces.gameWrapperHooks.evalScript, {
             game: this.game,
             customGameParams: this.$params?.gameParams,
             disable: false,
@@ -659,7 +627,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             const iframe = this.wrp?.element?.nativeElement.querySelector('iframe');
             if (!this.iframe && iframe) {
                 this.containerObserver.disconnect();
-                this.hooksService.run<IGameWrapperHookIframeShown>(gameWrapperHooks.iframeShown, {
+                this.hooksService.run<Interfaces.IGameWrapperHookIframeShown>(Interfaces.gameWrapperHooks.iframeShown, {
                     iframe: iframe,
                     mobile: this.isMobile,
                     launchInfo: this.launchInfo,
@@ -881,12 +849,15 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                     this.gameParams,
                     this.game.currency,
                 );
-            const result = await this.hooksService.run<IGameWrapperHookLaunchInfo>(gameWrapperHooks.launchInfo, {
-                game: this.game,
-                launchInfo: launchInfo,
-                customGameParams: this.$params.gameParams,
-                demo: this.gameParams.demo,
-            });
+            const result = await this.hooksService.run<Interfaces.IGameWrapperHookLaunchInfo>(
+                Interfaces.gameWrapperHooks.launchInfo,
+                {
+                    game: this.game,
+                    launchInfo: launchInfo,
+                    customGameParams: this.$params.gameParams,
+                    demo: this.gameParams.demo,
+                },
+            );
             this.game = result.game;
             this.launchInfo = result.launchInfo;
 
@@ -1041,7 +1012,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
      *
      * @param {IError} error
      */
-    protected setError(error: IError = {}): void {
+    protected setError(error: Interfaces.IError = {}): void {
         if (this.destroyed) {
             return;
         }

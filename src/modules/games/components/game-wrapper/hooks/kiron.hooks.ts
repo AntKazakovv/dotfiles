@@ -13,7 +13,7 @@ import {
     gameWrapperHooks,
     IGameWrapperHookLaunchInfo,
     IGameWrapperHookIframeShown,
-} from 'wlc-engine/modules/games/components/game-wrapper/game-wrapper.component';
+} from 'wlc-engine/modules/games/components/game-wrapper/game-wrapper.interfaces';
 
 export interface IKironHooksParams {
     hooksService: HooksService;

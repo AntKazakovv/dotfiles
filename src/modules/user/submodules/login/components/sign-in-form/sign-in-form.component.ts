@@ -25,7 +25,7 @@ import {TurnstileService} from 'wlc-engine/modules/security/turnstile';
 import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 
 import * as Params from './sign-in-form.params';
-
+import * as Interfaces from './sign-in-form.interfaces';
 
 /**
  * Sign-in form component.
@@ -44,9 +44,9 @@ import * as Params from './sign-in-form.params';
     styleUrls: ['./styles/sign-in-form.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SignInFormComponent extends SignInFormAbstract<Params.ISignInFormCParams> implements OnInit {
+export class SignInFormComponent extends SignInFormAbstract<Interfaces.ISignInFormCParams> implements OnInit {
     constructor(
-        @Inject('injectParams') protected injectParams: Params.ISignInFormCParams,
+        @Inject('injectParams') protected injectParams: Interfaces.ISignInFormCParams,
         injectionService: InjectionService,
         eventService: EventService,
         protected logService: LogService,
@@ -56,7 +56,7 @@ export class SignInFormComponent extends SignInFormAbstract<Params.ISignInFormCP
         translateService: TranslateService,
     ) {
         super(
-            <IMixedParams<Params.ISignInFormCParams>>{
+            <IMixedParams<Interfaces.ISignInFormCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
             },

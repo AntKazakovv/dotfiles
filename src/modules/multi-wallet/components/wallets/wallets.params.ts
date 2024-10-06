@@ -3,7 +3,7 @@ import {
     IButtonCParams,
     IComponentParams,
 } from 'wlc-engine/modules/core';
-import {Theme} from 'wlc-engine/modules/core/components/button/button.params';
+import {Theme} from 'wlc-engine/modules/core/components/button/button.interfaces';
 
 /** Defines different functionality
  * default - for global switching wallet (in header)

@@ -32,7 +32,7 @@ import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notifi
 import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
-import {IButtonCParams} from 'wlc-engine/modules/core/components/button/button.params';
+import {IButtonCParams} from 'wlc-engine/modules/core/components/button/button.interfaces';
 import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
 import {sanitizeHTMLTags} from 'wlc-engine/modules/core/constants/regexp.constants';
 import {environment} from 'wlc-engine/system/environments/environment';

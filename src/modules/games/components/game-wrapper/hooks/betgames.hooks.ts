@@ -8,7 +8,7 @@ import {
 import {
     gameWrapperHooks,
     IGameWrapperHookIframeShown,
-} from 'wlc-engine/modules/games/components/game-wrapper/game-wrapper.component';
+} from 'wlc-engine/modules/games/components/game-wrapper/game-wrapper.interfaces';
 
 export interface IBetGamesHooksParams {
     hooksService: HooksService;

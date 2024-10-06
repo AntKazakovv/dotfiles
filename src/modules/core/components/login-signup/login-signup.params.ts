@@ -1,4 +1,4 @@
-import {TButtonAnimation} from 'wlc-engine/modules/core/components/button/button.params';
+import {TButtonAnimation} from 'wlc-engine/modules/core/components/button/button.interfaces';
 import {
     IComponentParams,
     CustomType,

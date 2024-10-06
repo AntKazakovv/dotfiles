@@ -1,4 +1,4 @@
-export * from './core/wlc-button.config';
+export * from 'wlc-engine/modules/core/components/button/button.config';
 export * from './core/wlc-counter.config';
 export * from './core/wlc-contact-us.config';
 export * from './core/wlc-language-selector.config';
@@ -59,7 +59,7 @@ export * from './menu/wlc-sticky-footer.config';
 export * from './menu/wlc-panel-menu.config';
 
 export * from './games/wlc-dropdown-search.config';
-export * from './games/wlc-game-wrapper.config';
+export * from 'wlc-engine/modules/games/components/game-wrapper/game-wrapper.config';
 export * from './games/wlc-games-catalog.config';
 export * from './games/wlc-games-grid.config';
 export * from './games/wlc-games-slider.config';

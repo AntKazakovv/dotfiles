@@ -8,7 +8,7 @@ import {
     ITimerCParams,
     IWrapperCParams,
 } from 'wlc-engine/modules/core';
-import {IButtonCParams} from 'wlc-engine/modules/core/components/button/button.component';
+import {IButtonCParams} from 'wlc-engine/modules/core/components/button/button.interfaces';
 import {
     IDepositPromoCodeCParams,
 } from 'wlc-engine/modules/finances/components/deposit-withdraw/components/deposit-promocode/deposit-promocode.params';

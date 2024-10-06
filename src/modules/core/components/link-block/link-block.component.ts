@@ -17,7 +17,7 @@ import {
     InteractiveTextService,
     ModalService,
 } from 'wlc-engine/modules/core';
-import * as ButtonParams from 'wlc-engine/modules/core/components/button/button.params';
+import * as ButtonParams from 'wlc-engine/modules/core/components/button/button.interfaces';
 
 import * as Params from './link-block.params';
 

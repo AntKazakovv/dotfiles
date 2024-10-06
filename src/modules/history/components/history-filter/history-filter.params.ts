@@ -1,6 +1,6 @@
 import {IFormWrapperCParams} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 import {ITextBlockCParams} from 'wlc-engine/modules/core/components/text-block/text-block.params';
-import {IButtonCParams} from 'wlc-engine/modules/core/components/button/button.params';
+import {IButtonCParams} from 'wlc-engine/modules/core/components/button/button.interfaces';
 import {IHistoryDefault} from 'wlc-engine/modules/history/system/interfaces/history-filter.interface';
 import {
     transactionConfig,

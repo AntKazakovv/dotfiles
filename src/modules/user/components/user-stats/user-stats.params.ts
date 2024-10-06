@@ -3,7 +3,7 @@ import {
     IComponentParams,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {IIndexing} from 'wlc-engine/modules/core';
-import * as ButtonParams from 'wlc-engine/modules/core/components/button/button.params';
+import * as ButtonParams from 'wlc-engine/modules/core/components/button/button.interfaces';
 
 export type ComponentTheme = 'default' | 'wolf' | CustomType;
 export type ComponentType = 'default' | 'dashboard' | 'short' | 'mobile' | 'store' | 'header' | CustomType;
