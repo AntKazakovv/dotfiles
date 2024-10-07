@@ -9,7 +9,7 @@
                   class="{{$class}}__icon"
                   iconPath="{{walletHelper.getCurrencyIconUrl(currency.name)}}"
                   wlcElement="icon_currency"></span>
-            {{currency.displayName}}
+            {{currency.displayName || currency.name}}
         </div>
         <div class="{{$class}}__right">
             {{currency.name}}

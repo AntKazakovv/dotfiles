@@ -55,6 +55,11 @@ $selector: '.wlc-wallets';
             --wlc-icon-width: #{ef.get-value($themeWolf, 'currencyIconSize')};
             --wlc-icon-height: #{ef.get-value($themeWolf, 'currencyIconSize')};
 
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'fontStyle'),
+                ef.get-value($themeWolf, 'fontColor'),
+            );
+
             border-radius: ef.get-value($themeWolf, 'currencyBorderRadius');
 
             .select {
@@ -64,11 +69,6 @@ $selector: '.wlc-wallets';
 
         &__list {
             @include bm.scrollbar($themeWolf);
-
-            @include text.get-text-style(
-                ef.get-value($themeWolf, 'fontStyle'),
-                ef.get-value($themeWolf, 'fontColor'),
-            );
 
             #{$selector}__currency {
                 border-radius: ef.get-value($themeWolf, 'currencyBorderRadius');
