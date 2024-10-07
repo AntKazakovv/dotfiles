@@ -705,30 +705,24 @@ def update_projects(projects):
                     make_stable_branch(branch, stable_branch)
 
         for branch in project["branches"]:
-            if branch in ["develop"] or branch in ["scr0-pretest"]:
+
+            if branch == "develop":
                 subprocess.run(["git", "switch", branch], cwd=temp_folder)
                 set_version("project", engine_version)
-
                 clear_npm_cache()
                 update_npm(temp_folder)
                 update_composer()
+                new_tag = make_tag(None, branch)
+                push_branch(branch, new_tag)
 
-                if branch in ["develop"]:
-                    new_tag = make_tag(None, branch)
-                    push_branch(branch, new_tag)
-
-                else:
-                    push_branch(branch)
+            elif branch == "master" and check_format(project_version) == "release":
+                small_update_branch(branch)
+                new_tag = make_tag(None, branch)
+                push_branch(branch, new_tag)
 
             else:
                 small_update_branch(branch)
-
-                if branch in ["master"]:
-                    new_tag = make_tag(None, branch)
-                    push_branch(branch, new_tag)
-
-                else:
-                    push_branch(branch)
+                push_branch(branch)
 
         clean_temp()
 
