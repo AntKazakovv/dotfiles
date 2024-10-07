@@ -172,13 +172,13 @@ export const defaultParams: ISearchCParams = {
     },
     easyThemeParams: {
         titleText: gettext('Search for games'),
-        recommendedText: gettext('Search requires at least 3 characters.'),
+        recommendedText: gettext('The search query must contain at least 3 characters'),
         recentSearchText: gettext('Recent search:'),
         emptyText: gettext('Sorry, but nothing was found. Check the spelling or try a different name.'),
         showMerchantsFirst: false,
         searchGamesGrid: {
             theme: 'swiper',
-            title: gettext('Search result:'),
+            title: gettext('The search result:'),
             thumbParams,
             showAsSwiper,
         },

@@ -16,7 +16,7 @@ export const fundistSettings: IMenu = {
                 type: 'page',
                 id: 'favourites',
                 name: {
-                    en: 'My favourites',
+                    en: 'My favorites',
                 },
                 order: 20,
                 device: 'all',
@@ -148,7 +148,7 @@ export const fundistSettings: IMenu = {
                 type: 'page',
                 id: 'favourites',
                 name: {
-                    en: 'My favourites',
+                    en: 'My favorites',
                 },
                 order: 20,
                 device: 'all',
@@ -334,7 +334,7 @@ export const fundistSettings: IMenu = {
                 type: 'page',
                 id: 'favourites',
                 name: {
-                    en: 'My favourites',
+                    en: 'My favorites',
                 },
                 order: 10,
                 device: 'all',

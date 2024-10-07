@@ -80,7 +80,7 @@ export namespace wlcProfileForm {
                             {
                                 name: 'core.wlc-title',
                                 params: {
-                                    mainText: gettext('Main info'),
+                                    mainText: gettext('Main information'),
                                     wlcElement: 'header_edit-main-info',
                                 },
                             },

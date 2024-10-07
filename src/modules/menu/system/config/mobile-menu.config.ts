@@ -25,7 +25,7 @@ export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'mobile-menu:promotions': commonMenuItems.promotions,
     'mobile-menu:tournaments': commonMenuItems.tournaments,
     'mobile-menu:info': {
-        name: gettext('Info'),
+        name: gettext('Information'),
         type: 'wordpress',
         params: {
             wp: {

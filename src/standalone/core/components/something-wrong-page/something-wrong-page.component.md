@@ -36,7 +36,7 @@ export const defaultParams: ISomethingWrongPageCParams = {
     class: 'wlc-something-wrong-page',
     title: gettext('Something went wrong'),
     text: gettext('Try to reload the page or come back later'),
-    buttonText: gettext('Refresh the page'),
+    buttonText: gettext('Reload the page'),
     image: 'wlc/decors/error-cat.svg',
 };
 ```
@@ -86,7 +86,7 @@ export const defaultParams: ISomethingWrongPageCParams = {
     class: 'wlc-something-wrong-page',
     title: gettext('Something went wrong'),
     text: gettext('Try to reload the page or come back later'),
-    buttonText: gettext('Refresh the page'),
+    buttonText: gettext('Reload the page'),
     image: 'wlc/decors/error-cat.svg',
 };
 ```

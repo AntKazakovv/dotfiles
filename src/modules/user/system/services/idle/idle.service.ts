@@ -153,7 +153,7 @@ export class IdleService {
         } else {
             this.modalService.showModal({
                 id: 'idle-logout-info',
-                modalTitle: gettext('Info'),
+                modalTitle: gettext('Information'),
                 modifier: 'info',
                 modalMessage: this.config.idleMessage,
                 textAlign: 'center',

@@ -15,7 +15,7 @@ export interface ITooltipCParams extends IComponentParams<unknown, ComponentType
 
 export const defaultParams: ITooltipCParams = {
     class: 'wlc-tooltip',
-    inlineText: 'Info',
+    inlineText: 'Information',
     iconName: 'info',
     placement: 'bottom',
 };

@@ -20,7 +20,7 @@ export const defaultParams: IThumbsWrapperCParams = {
     moduleName: 'youtube-block',
     componentName: 'wlc-thumbs-wrapper',
     class: 'wlc-thumbs-wrapper',
-    title: gettext('Streamers wins'),
+    title: gettext('Streamers\' winnings'),
     decor1Path: '/wlc/youtube-block/twitch.svg',
     decor2Path: '/wlc/youtube-block/youtube.svg',
 };

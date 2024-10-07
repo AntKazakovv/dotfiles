@@ -114,7 +114,7 @@ const newCheckbox = (name: string, text: string): IFormComponent => {
 export const kycQStepsConfig = {
     step1: wrapForm([
         wrapBlock(true, [
-            newTitleSecond(gettext('Main info')),
+            newTitleSecond(gettext('Main information')),
             unlock(copyElem(FormElements.firstName)),
             unlock(copyElem(FormElements.lastName)),
             unlock(copyElem(FormElements.birthDate)),

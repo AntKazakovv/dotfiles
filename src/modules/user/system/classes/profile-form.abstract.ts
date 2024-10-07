@@ -57,7 +57,7 @@ export abstract class ProfileFormAbstract extends AbstractComponent {
                 name: NotificationEvents.PushMessage,
                 data: <IPushMessageParams>{
                     type: 'error',
-                    title: gettext('Info'),
+                    title: gettext('Information'),
                     message: gettext('There are no changes to save'),
                     wlcElement: 'notification_profile-update-error',
                 },

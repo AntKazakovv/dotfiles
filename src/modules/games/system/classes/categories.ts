@@ -75,10 +75,10 @@ export class Categories {
         {
             ID: '-2',
             Name: {
-                en: gettext('My favourites'),
+                en: gettext('My favorites'),
             },
             Trans: {
-                en: gettext('My favourites'),
+                en: gettext('My favorites'),
             },
             Tags: [],
             menuId: 'favourites',

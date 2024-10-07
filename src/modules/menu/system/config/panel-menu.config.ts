@@ -59,7 +59,7 @@ export const wlcPanelMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         wlcElement: 'link_main-nav-contuctus',
     },
     'panel-menu:info': {
-        name: gettext('Info'),
+        name: gettext('Information'),
         type: 'wordpress',
         params: {
             wp: {
