@@ -1,4 +1,4 @@
-.wlc-profile-no-content:host {
+.wlc-profile-no-content--theme-default:host {
     @include text.get-text-style(
         ef.get-value($themeDefault, 'textStyle'),
         ef.get-value($themeDefault, 'textColor')

@@ -16,7 +16,6 @@ export interface IReferralsListCParams extends IComponentParams<ComponentTheme, 
     /** Number of rows to show, extra rows available by 'show all' click */
     rowsLimit?: number;
     emptyConfig?: IWrapperCParams;
-
 };
 
 export const defaultParams: IReferralsListCParams = {

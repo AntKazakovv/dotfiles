@@ -206,7 +206,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
                         return;
                     }
                     this.searchText = this.translateService.instant(this.memoizePlaceholderText(
-                        this.control.value, this.$params.items, this.$params.common.placeholder,
+                        this.control.value, this.$params.items, this.$params.common?.placeholder,
                     ));
                 });
         }
@@ -255,7 +255,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
             setTimeout(() => {
                 if (!this.control.disabled) {
                     this.searchText = this.translateService.instant(this.memoizePlaceholderText(
-                        this.control.value, this.$params.items, this.$params.common.placeholder,
+                        this.control.value, this.$params.items, this.$params.common?.placeholder,
                     ));
                 }
             });
@@ -633,7 +633,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
 
         if (!this.isOpened) {
             this.searchText = this.translateService.instant(this.memoizePlaceholderText(
-                this.control.value, this.$params.items, this.$params.common.placeholder,
+                this.control.value, this.$params.items, this.$params.common?.placeholder,
             ));
         }
     }

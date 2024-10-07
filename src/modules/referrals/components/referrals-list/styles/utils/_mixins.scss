@@ -117,6 +117,7 @@
 @mixin noContent($config) {
     @include bm.get-mq-map('--wlc-icon-width', $config, 'noContentIconSize');
     @include bm.get-mq-map('--wlc-icon-height', $config, 'noContentIconSize');
+    @include bm.get-mq-map('height', $config, 'noContentHeight');
 
     flex-direction: ef.get-value($config, 'noContentFlexDir');
     gap: ef.get-value($config, 'noContentGap');
@@ -126,5 +127,6 @@
     .wlc-profile-no-content__img[class] {
         display: block;
         align-self: ef.get-value($config, 'noContentImgAlignSelf');
+        margin: ef.get-value($config, 'noContentImgMargin');
     }
 }

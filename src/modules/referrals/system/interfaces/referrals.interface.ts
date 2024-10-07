@@ -1,3 +1,5 @@
+import {Dayjs} from 'dayjs';
+
 export interface IRefInfo {
     link: string;
     total: string;
@@ -15,15 +17,18 @@ export interface IRefCurrency {
 };
 
 export interface IRefListQueryParams {
-    from: string;
-    to: string;
-}
-export interface IRefDateFilter {
-    field: 'year' | 'month',
-    value: string,
+    from: Dayjs;
+    to: Dayjs;
 }
 
-export interface IRefList{
+export type TRefDateFilterInput = 'year' | 'month';
+
+export interface IRefDateFilterParam {
+    field: TRefDateFilterInput;
+    value: number;
+}
+
+export interface IRefListResponse{
     referrals: IRefItem[];
 }
 

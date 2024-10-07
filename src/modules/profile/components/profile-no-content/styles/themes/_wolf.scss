@@ -1,5 +1,8 @@
-.wlc-profile-no-content:host {
-    @include text.get-text-style(ef.get-value($themeWolf, 'textStyle'), ef.get-value($themeWolf, 'textColor'));
+.wlc-profile-no-content--theme-wolf:host {
+    @include text.get-text-style(
+        ef.get-value($themeWolf, 'textStyle'),
+        ef.get-value($themeWolf, 'textColor'),
+    );
     display: ef.get-value($themeWolf, 'display');
     flex-direction: ef.get-value($themeWolf, 'direction');
     align-items: ef.get-value($themeWolf, 'alignItems');

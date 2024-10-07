@@ -10,4 +10,9 @@ export const wolfConfig: Partial<Record<TModuleName, IIndexing<IIndexing<unknown
             themeMod: 'wolf',
         },
     },
+    'referrals': {
+        'wlc-referral-info': {
+            theme: 'wolf',
+        },
+    },
 };

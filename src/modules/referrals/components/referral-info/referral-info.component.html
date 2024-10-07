@@ -1,4 +1,4 @@
-<div *ngIf="refInfo$ | async as refInfo" class="{{$class}}__wrap">
+<div *ngIf="refInfo$ | async as refInfo; else loader" class="{{$class}}__wrap">
     <div class="{{$class}}__top">
         <div class="{{$class}}__cta">
             <div class="{{$class}}__cta-main">
@@ -63,3 +63,7 @@
         <div wlc-referrals-list [inlineParams]="refListInlineParams"></div>
     </div>
 </div>
+
+<ng-template #loader>
+    <div wlc-loader></div>
+</ng-template>

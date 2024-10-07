@@ -1,12 +1,12 @@
 
-<div class="{{$class}}__wrap">
-    <ng-container *ngTemplateOutlet="filters"></ng-container>
-    <ng-container *ngTemplateOutlet="summary"></ng-container>
-    <ng-container *ngTemplateOutlet="list"></ng-container>
+<div *wlcLet="referralsList$ | async as refList" class="{{$class}}__wrap">
+    <ng-container [ngTemplateOutlet]="filters" [ngTemplateOutletContext]="{$implicit: refList}"></ng-container>
+    <ng-container [ngTemplateOutlet]="summary"></ng-container>
+    <ng-container [ngTemplateOutlet]="list" [ngTemplateOutletContext]="{$implicit: refList}"></ng-container>
 </div>
 
-<ng-template #filters>
-    <div *ngIf="filtersReady$ | async" class="{{$class}}__filters">
+<ng-template #filters let-refList>
+    <div class="{{$class}}__filters" [ngStyle]="{pointerEvents: refList ? 'all' : 'none'}">
         <div class="{{$class}}__filter-item {{$class}}__filter-item--months">
             <div wlc-select [inlineParams]="monthSelect"></div>
         </div>
@@ -29,8 +29,8 @@
     </ul>
 </ng-template>
 
-<ng-template #list>
-    <div *ngIf="referralsList$ | async as refList; else loader" class="{{$class}}__list-container">
+<ng-template #list let-refList>
+    <div *ngIf="refList; else loader" class="{{$class}}__list-container">
         <div *ngIf="refList.length; else emptyData" class="{{$class}}__list-wrapper">
             <ul class="{{$class}}__list">
                 <li class="{{$class}}__item {{$class}}__item--head">

@@ -7,24 +7,29 @@ import {
     inject,
 } from '@angular/core';
 import {UntypedFormControl} from '@angular/forms';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+
 import {
     BehaviorSubject,
-    distinctUntilKeyChanged,
+    distinctUntilChanged,
     map,
     merge,
     skip,
-    takeUntil,
 } from 'rxjs';
 
-import _merge from 'lodash-es/merge';
+import type {Dayjs} from 'dayjs';
+import dayjs from 'dayjs';
+import minMaxPlugin from 'dayjs/plugin/minMax';
 
 import {
     AbstractComponent,
     ISelectCParams,
+    ISelectOptions,
     IWrapperCParams,
 } from 'wlc-engine/modules/core';
+import {monthsArray} from 'wlc-engine/modules/core/system/constants/months.constant';
 
-import {IRefDateFilter} from 'wlc-engine/modules/referrals/system/interfaces/referrals.interface';
+import {IRefDateFilterParam} from 'wlc-engine/modules/referrals/system/interfaces/referrals.interface';
 import {RefItemModel} from 'wlc-engine/modules/referrals/system/models/ref-item.model';
 import {
     IReferralsListController,
@@ -46,49 +51,43 @@ export class ReferralsListComponent extends AbstractComponent implements OnInit 
 
     public override $params: Params.IReferralsListCParams;
     public isListExpanded: boolean = false;
-    public referralItems: RefItemModel[] = [];
-    public monthSelect: ISelectCParams = {
-        name: 'months',
-        updateOnControlChange: true,
-        labelText: gettext('Report by month'),
-        disabled: false,
-        control: new UntypedFormControl(),
-        items: [],
-    };
-    public yearSelect: ISelectCParams = {
-        name: 'years',
-        updateOnControlChange: true,
-        labelText: null,
-        disabled: false,
-        control: new UntypedFormControl(),
-        items: [],
-    };
+    public monthSelect: ISelectCParams<number>;
+    public yearSelect: ISelectCParams<number>;
+    public filterInterval: string;
 
-    private _controller: IReferralsListController = inject(ReferralsListController);
+    protected readonly controller: IReferralsListController = inject(ReferralsListController);
+
+    private static readonly _refProgramStartYear: number = 2024;
+    private readonly _currentYear: number = dayjs().year();
+    private readonly _currentMonth: number = dayjs().month() + 1;
+    private _selectedYear: number;
+    private _selectedMonth: number;
+    private _monthSelectOptionsBase: ISelectOptions<number>[];
+    private _monthSelectOptions: ISelectOptions<number>[];
+    private _yearSelectOptions: ISelectOptions<number>[];
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IReferralsListCParams,
     ) {
         super({injectParams, defaultParams: Params.defaultParams});
+
+        this.prepareSelects();
     }
 
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
-        this._controller.init(this.$params);
+        this.controller.init(this.$params);
+
         this.setFilters();
     }
 
     public get monthProfit(): number {
-        return this._controller?.totalProfitSum || 0;
-    }
-
-    public get filterInterval(): string {
-        return this._controller?.filterInterval || '';
+        return this.controller?.totalProfitSum || 0;
     }
 
     public get profitReferralsCount(): number {
-        return this._controller?.profitReferralsCount || 0;
+        return this.controller?.profitReferralsCount || 0;
     }
 
     public get showAllText(): string {
@@ -103,44 +102,111 @@ export class ReferralsListComponent extends AbstractComponent implements OnInit 
         return this.$params.emptyConfig;
     }
 
-    public get filtersReady$(): BehaviorSubject<boolean> {
-        return this._controller.filtersReady$;
-    }
-
     public get referralsList$(): BehaviorSubject<RefItemModel[]> {
-        return this._controller.referralsList$;
+        return this.controller.referralsList$;
     }
 
-    public toggleRows(): void {
+    public toggleRowsExpansion(): void {
         this.isListExpanded = !this.isListExpanded;
-        this._controller.toggleRows();
+        this.controller.updateReferralsList(this.isListExpanded);
     }
 
-    private setFilters(): void {
-        this.monthSelect = _merge(this.monthSelect, <ISelectCParams>{
-            items: this._controller.monthsFilterItems,
-            value: this._controller.currentMonth,
-        });
-        this.yearSelect = _merge(this.yearSelect, <ISelectCParams>{
-            items: this._controller.yearFilterItems,
-            value: this._controller.currentYear,
-        });
+    /** Prepare options for date selects */
+    protected prepareSelects(): void {
+        dayjs.extend(minMaxPlugin);
+
+        this._yearSelectOptions = Array.from(
+            {length: this._currentYear - ReferralsListComponent._refProgramStartYear + 1},
+            (_, i) => {
+                const value = this._currentYear - i;
+                return {value, title: value};
+            })
+            .reverse();
+
+        this._selectedYear = this._currentYear;
+        this.yearSelect = {
+            name: 'years',
+            updateOnControlChange: true,
+            labelText: null,
+            control: new UntypedFormControl(),
+            items: this._yearSelectOptions,
+            value: this._selectedYear,
+        };
+
+        this._monthSelectOptionsBase = monthsArray.map((title, index) => ({title, value: ++index}));
+        this._monthSelectOptions = this._monthSelectOptionsBase.slice(0, this._currentMonth);
+        this._selectedMonth = this._currentMonth;
+        this.monthSelect = {
+            name: 'months',
+            updateOnControlChange: true,
+            labelText: gettext('Report by month'),
+            control: new UntypedFormControl(),
+            items: this._monthSelectOptions,
+            value: this._selectedMonth,
+        };
 
         merge(
             this.yearSelect.control.valueChanges
                 .pipe(
                     skip(1),
-                    map((value: string): IRefDateFilter => ({field: 'year', value}))),
+                    distinctUntilChanged(),
+                    map((value: number): IRefDateFilterParam => ({field: 'year', value}))),
             this.monthSelect.control.valueChanges
                 .pipe(
                     skip(1),
-                    map((value: string): IRefDateFilter => ({field: 'month', value}))),
+                    distinctUntilChanged(),
+                    map((value: number): IRefDateFilterParam => ({field: 'month', value}))),
         )
             .pipe(
-                distinctUntilKeyChanged<IRefDateFilter>('value'),
-                takeUntil(this.$destroy))
-            .subscribe((data: IRefDateFilter): void => {
-                this._controller.updateFilters(data);
+                takeUntilDestroyed())
+            .subscribe((filterParams: IRefDateFilterParam): void => {
+                this.updateFilters(filterParams);
             });
+    }
+
+    protected updateFilters(filterParams?: IRefDateFilterParam): void {
+        switch(filterParams.field) {
+            case 'month':
+                this._selectedMonth = filterParams.value;
+                break;
+            case 'year':
+                this._selectedYear = filterParams.value;
+
+                if (this._selectedYear === this._currentYear) {
+                    this._monthSelectOptions = this._monthSelectOptionsBase.slice(0, this._currentMonth);
+
+                    if (this._selectedMonth > this._currentMonth) {
+                        this._selectedMonth = this._currentMonth;
+                        this.monthSelect.control.setValue(this._selectedMonth);
+                        return;
+                    }
+                } else {
+                    this._monthSelectOptions = this._monthSelectOptionsBase;
+                }
+
+                break;
+        }
+
+        this.setFilters();
+    }
+
+    protected setFilters(): void {
+        const from: Dayjs = dayjs(`${this._selectedYear}-${this._selectedMonth}-01`);
+        const to: Dayjs = dayjs.min(from.endOf('month'), dayjs());
+
+        this.filterInterval =
+            `${from.format(this.$params.filterDateFormat)} - ${to.format(this.$params.filterDateFormat)}`;
+
+        this.monthSelect = {
+            ...this.monthSelect,
+            items: this._monthSelectOptions,
+            value: this._selectedMonth,
+        };
+        this.yearSelect = {
+            ...this.yearSelect,
+            value: this._selectedYear,
+        };
+
+        this.controller.fetchReferralsList({from, to});
     }
 }

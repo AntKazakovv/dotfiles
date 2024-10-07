@@ -13,7 +13,7 @@ import {
 import {
     IRefInfo,
     IRefItem,
-    IRefList,
+    IRefListResponse,
     IRefListQueryParams,
     ITakeProfitResponse,
 } from 'wlc-engine/modules/referrals/system/interfaces/referrals.interface';
@@ -24,6 +24,8 @@ import {RefInfoModel} from 'wlc-engine/modules/referrals/system/models/ref-info.
 })
 export class ReferralsService {
     public refInfo$: BehaviorSubject<RefInfoModel> = new BehaviorSubject(null);
+
+    private readonly _refListRequestDateFormat: string = 'YYYY-MM-DD';
 
     constructor(
         protected dataService: DataService,
@@ -46,9 +48,15 @@ export class ReferralsService {
         }
     }
 
-    public async fetchRefList(params: IRefListQueryParams): Promise<IRefItem[]> {
+    public async fetchRefList({from, to}: IRefListQueryParams): Promise<IRefItem[]> {
         try {
-            const refListRes = await this.dataService.request<IData<IRefList>>('referrals/getReferralsList', params);
+            const refListRes = await this.dataService
+                .request<IData<IRefListResponse>>(
+                    'referrals/getReferralsList',
+                    {
+                        from: from.format(this._refListRequestDateFormat),
+                        to: to.format(this._refListRequestDateFormat),
+                    });
 
             return refListRes.data.referrals;
         } catch (error) {
@@ -57,6 +65,8 @@ export class ReferralsService {
                 code: '32.1.0',
                 data: error,
             });
+
+            return [];
         }
     }
 

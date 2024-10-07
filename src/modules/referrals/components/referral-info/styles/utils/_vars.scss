@@ -55,7 +55,6 @@ $common: (
     'totalPadding': ef.size(1) 0,
     'totalHrWidth': 100%,
     'totalHrHeight': 2px,
-    'totalHrBg': var(--mc-baseOpacity),
     'totalHrTransform': translate(-50%, -50%),
     'totalLastHrDisplay': none,
     'totalValFontWeight': 700,
@@ -78,6 +77,7 @@ $themeDefault: map-merge(map-merge($common, (
 
     'totalTextStyle': 'PrimaryText',
     'totalValColor': inherit,
+    'totalHrBg': var(--mc-baseOpacity),
 
     'descrTitleTextStyle': (
         375: 'ThirdTitleBold',
@@ -94,6 +94,7 @@ $themeWolf: map-merge(map-merge($common, (
 
     'totalTextStyle': 'PrimaryTextBold',
     'totalValColor': var(--mc-baseThird),
+    'totalHrBg': var(--mc-bg700),
 
     'descrTitleTextStyle': (
         375: 'ThirdTitleBold',

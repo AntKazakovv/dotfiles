@@ -54,11 +54,16 @@ $common: (
         375: 50px,
         640: 100px,
     ),
-    'noContentFlexDir': column-reverse,
+    'noContentHeight': (
+        375: 220px,
+        640: 250px,
+    ),
+    'noContentFlexDir': column,
     'noContentGap': ef.size(4),
     'noContentMargin': 0,
     'noContentTextAlign': center,
     'noContentImgAlignSelf': center,
+    'noContentImgMargin': 0,
 );
 
 $customThemeDefault: () !default;
