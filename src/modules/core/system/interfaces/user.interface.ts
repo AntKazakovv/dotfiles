@@ -6,6 +6,8 @@ import {
     IWalletsSettings,
 } from 'wlc-engine/modules/multi-wallet/system/interfaces/wallet.interface';
 
+import {TUserLimitationStatus} from 'wlc-engine/modules/user/system/interfaces/user.interface';
+
 import {
     IIndexing,
     ILoyalty,
@@ -41,7 +43,7 @@ export interface IUserInfo {
      * Is user session first
      */
     firstSession: boolean;
-    status: number;
+    status: TUserLimitationStatus;
     socketsData?: IWebSocketConfig | '',
     freerounds: IFreeRound[];
     validationLevel?: TUserValidationLevel;

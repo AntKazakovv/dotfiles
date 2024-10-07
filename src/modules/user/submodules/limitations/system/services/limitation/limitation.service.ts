@@ -34,6 +34,7 @@ import {
     TLimitationType,
 } from 'wlc-engine/modules/user/submodules/limitations/system/interfaces/limitations.interface';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
+import {TUserLimitationStatus} from 'wlc-engine/modules/user/system/interfaces/user.interface';
 import {ActivityResultModel} from 'wlc-engine/modules/user/submodules/limitations/system/models/activity-result.model';
 import {IMGAConfig} from 'wlc-engine/modules/core/components/license/license.params';
 
@@ -51,6 +52,7 @@ export interface ISelfExclusion {
     MaxLossSumDay?: string;
     MaxLossSumWeek?: string;
     MaxLossSumMonth?: string;
+    UserStatus?: TUserLimitationStatus;
 }
 
 export interface ISelfExclusionData extends IData {
@@ -96,6 +98,7 @@ export class LimitationService {
     private intervalChecker: Subscription;
     private useRealityCheck: boolean = false;
     private userService: UserService;
+    private userStatus$: BehaviorSubject<TUserLimitationStatus> = new BehaviorSubject(null);
 
     constructor(
         private dataService: DataService,
@@ -120,6 +123,10 @@ export class LimitationService {
      */
     public get realityCheckEnabled(): boolean {
         return this.useRealityCheck;
+    }
+
+    public get userLimitationStatus(): TUserLimitationStatus {
+        return this.userStatus$.getValue();
     }
 
     /**
@@ -212,6 +219,7 @@ export class LimitationService {
         try {
             const result = await this.dataService
                 .request<ISelfExclusionData>('limit/getExclusion') as ISelfExclusionData;
+            this.userStatus$.next(result.data.UserStatus);
             return result.data;
         } catch (error) {
             this.eventService.emit({
@@ -303,11 +311,6 @@ export class LimitationService {
         try {
             const result: IData<string | IResultSelfExclusion> =
                 await this.dataService.request('limit/selfExclusion', {period});
-
-            if (period === 'disable') {
-                this.userService ??= await this.injectionService.getService<UserService>('user.user-service');
-                await this.userService.fetchUserInfo();
-            }
 
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,
