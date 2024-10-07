@@ -21,7 +21,7 @@ export const defaultParams: ITwoFactorAuthFinishCParams = {
     componentName: 'wlc-two-factor-auth-finish',
     class: 'wlc-two-factor-auth-finish',
     title: gettext('Google Authenticator'),
-    description: gettext('Finish the setup by entering a 6-digit code from the Google Authenticator app'),
+    description: gettext('Finish the setup by entering the 6-digit code from the Google Authenticator app'),
     config: {
         components: [
             {

@@ -57,7 +57,7 @@ export const formConfig: IFormWrapperCParams = {
                     type: 'text',
                     autocomplete: 'one-time-code',
                 },
-                exampleValue: gettext('Enter code'),
+                exampleValue: gettext('Enter the code'),
                 validators: [
                     'required',
                 ],

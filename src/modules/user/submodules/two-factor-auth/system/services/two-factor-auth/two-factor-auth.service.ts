@@ -164,7 +164,7 @@ export class TwoFactorAuthService {
                 {code2FA},
             );
             this.showNotification(
-                gettext('The authenticator is successfully connected'),
+                gettext('The authenticator has been successfully connected'),
                 'success',
             );
             this.eventService.emit({name: 'ENABLE_2FA_GOOGLE'});
@@ -175,7 +175,7 @@ export class TwoFactorAuthService {
             this.hideActiveModal('two-factor-auth-finish');
             UserHelper.showInformationModal(
                 this.modalService,
-                gettext('The authenticator is successfully connected'),
+                gettext('The authenticator has been successfully connected'),
             );
             return true;
         } catch (error) {

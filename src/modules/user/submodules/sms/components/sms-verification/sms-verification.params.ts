@@ -101,7 +101,7 @@ export const smsVerificationFormCodeConfig: IFormWrapperCParams = {
                 theme: 'vertical',
                 common: {
                     separateLabel: gettext('Code'),
-                    placeholder: gettext('Enter code'),
+                    placeholder: gettext('Enter the code'),
                     type: 'number',
                 },
                 wlcElement: 'block_sms-code',

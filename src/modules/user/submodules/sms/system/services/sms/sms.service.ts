@@ -66,7 +66,7 @@ export class SmsService {
         token: string, smsCode: string, phoneCode: string, phoneNumber: string,
     ): Promise<ISmsSendResponse> {
         const params = {token, smsCode, phoneCode, phoneNumber};
-        const textData = [gettext('The code you entered is incorrect')];
+        const textData = [gettext('The entered code is incorrect')];
         try {
             const response: IData = await this.dataService.request('sms/validate', params);
             return response.data;

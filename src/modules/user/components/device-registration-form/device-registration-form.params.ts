@@ -49,7 +49,7 @@ export const deviceRegistrationFormConfig: IFormWrapperCParams = {
                     autocomplete: 'off',
                 },
                 name: 'code',
-                exampleValue: gettext('Enter code'),
+                exampleValue: gettext('Enter the code'),
                 validators: [
                     'required',
                 ],

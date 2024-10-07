@@ -104,7 +104,7 @@ export class DeviceRegistrationFormComponent extends AbstractComponent implement
                 data: <IPushMessageParams>{
                     type: 'success',
                     title: gettext('Device verification'),
-                    message: gettext('Device has been successfully verified!'),
+                    message: gettext('The device has been successfully verified'),
                     wlcElement: 'notification_device-registration-success',
                 },
             });

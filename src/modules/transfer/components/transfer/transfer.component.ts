@@ -190,7 +190,7 @@ export class TransferComponent extends AbstractComponent implements OnInit {
             return true;
         } catch (error) {
             if (_find(error.errors, (item: string) => item === 'code_not_found')) {
-                this.showMessage([gettext('The code you entered is incorrect')], true);
+                this.showMessage([gettext('The entered code is incorrect')], true);
                 form.enable();
                 form.controls.code.setErrors({'wrong-sms-code': true});
             } else {

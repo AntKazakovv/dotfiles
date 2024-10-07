@@ -23,7 +23,7 @@ export const defaultParams: ITwoFactorAuthCodeCParams = {
     componentName: 'wlc-two-factor-auth-code',
     class: 'wlc-two-factor-auth-code',
     title: gettext('Google Authenticator'),
-    description: gettext('Please enter a 6-digit security code to continue.'),
+    description: gettext('Please enter the 6-digit security code to continue'),
     config: {
         components: [
             {
