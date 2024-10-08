@@ -4,6 +4,7 @@ export namespace wlcStoreList {
     export const def: ILayoutComponent = {
         name: 'store.wlc-store-list',
         params: {
+            filterIconPath: '/wlc/icons/filter.svg',
             common: {
                 pagination: {
                     use: true,
@@ -27,6 +28,7 @@ export namespace wlcStoreList {
         name: 'store.wlc-store-list',
         params: {
             themeMod: 'first',
+            filterIconPath: '/wlc/icons/filter.svg',
             common: {
                 pagination: {
                     use: true,
@@ -50,6 +52,7 @@ export namespace wlcStoreList {
         name: 'store.wlc-store-list',
         params: {
             themeMod: 'wolf',
+            filterIconPath: '/wlc/icons/filter-wolf.svg',
             common: {
                 pagination: {
                     use: true,

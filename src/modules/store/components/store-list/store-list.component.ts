@@ -85,6 +85,7 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
     protected readonly userService: UserService = inject(UserService);
     protected storeFilter: ISelectCParams<TStoreFilter> = storeConfig.storeFilterConfig;
     protected showDesktopFilter: boolean = false;
+    protected filterIconPath: string;
 
     private filterValue: TStoreFilter = 'all';
     private formData$: BehaviorSubject<IStoreFilterValue> = new BehaviorSubject(null);
@@ -112,6 +113,7 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
         this.isReady = false;
         this.isProfileFirst = this.configService.get<string>('$base.profile.type') === 'first';
         this.itemTheme = this.$params.themeMod ?? 'default';
+        this.filterIconPath = this.$params.filterIconPath;
         this.isMultiWallet = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
         this.storeService.setStoreFilter(this.filterValue);
         this.storeFilter.control.setValue(this.filterValue);

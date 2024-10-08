@@ -49,7 +49,7 @@
     <button wlc-button
         class="{{$class}}__filter-button"
         theme="custom"
-        iconPath="/wlc/icons/filter.svg"
+        [iconPath]="filterIconPath"
         (click)="openFilter()">
     </button>
 </ng-template>

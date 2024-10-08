@@ -12,12 +12,19 @@ $themeDefault: map-merge((
         768: repeat(2, 1fr),
     ),
     'contentGridAreas': (
-        375: 'filter stats' 'list list' 'pagination pagination',
+        375: 'filter stats' 'alert alert' 'list list' 'pagination pagination',
+    ),
+    'filterButtonPositionWolf': (
+        375: absolute,
+        900: static,
     ),
     'filterWidth': 185px,
     'filterMargin': 0 0 ef.size(4),
     'filterButtonTop': 15px,
+    'filterButtonTopWolf': 0,
     'filterButtonRight': 15px,
     'filterButtonColor': var(--mc-baseMain),
+    'filterButtonColorWolf': var(--mc-baseThird),
+    'filterButtonSizeWolf': 23px,
 ), $customThemeDefault);
 

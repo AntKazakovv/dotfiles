@@ -57,7 +57,6 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
     public storeImage: string;
     public useIconBonusImage: boolean;
     public storeItemTag: string;
-    public disabledInfo: IDisabledItemInfo;
     public tagClass: string;
 
     protected isDisabled: boolean;

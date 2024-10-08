@@ -34,6 +34,7 @@
         }
 
         .wlc-store-list__alert-block {
+            grid-area: alert;
             max-width: 100%;
             padding: ef.get-value($themeDefault, 'alertPadding');
         }
@@ -59,6 +60,22 @@
             top: ef.get-value($themeDefault, 'filterButtonTop');
             right: ef.get-value($themeDefault, 'filterButtonRight');
             color: ef.get-value($themeDefault, 'filterButtonColor');
+
+            .wlc-sections__profile-content--theme-wolf & {
+                @include bm.get-mq-map('position', $themeDefault, 'filterButtonPositionWolf');
+                top: ef.get-value($themeDefault, 'filterButtonTopWolf');
+                display: flex;
+                justify-content: flex-start;
+                color: ef.get-value($themeDefault, 'filterButtonColorWolf');
+
+                ::ng-deep {
+
+                    svg {
+                        --wlc-icon-width: #{ef.get-value($themeDefault, 'filterButtonSizeWolf')};
+                        --wlc-icon-height: #{ef.get-value($themeDefault, 'filterButtonSizeWolf')};
+                    }
+                }
+            }
         }
 
         .wlc-store-list__user-stats {

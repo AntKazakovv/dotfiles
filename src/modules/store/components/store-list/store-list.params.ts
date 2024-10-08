@@ -26,6 +26,7 @@ export interface IStoreListCParams extends IComponentParams<Theme, Type, ThemeMo
         byCategories?: boolean;
         pagination?: IPagination;
     };
+    filterIconPath?: string;
 }
 
 export const defaultParams: IStoreListCParams = {
