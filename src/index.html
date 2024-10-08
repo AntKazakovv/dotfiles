@@ -25,6 +25,11 @@
     </script>
 </head>
 <body>
+{% if crossDomainAuth and crossDomainAuth["mainDomain"] %}
+<script>
+    window.crossDomainAuth.initMirror('{{crossDomainAuth["mainDomain"]}}?v={{projectVersion}}');
+</script>
+{% endif %}
 {%if not isEntryPoint  %}
 <div ui-view class="wlc-app"></div>
 {%endif%}

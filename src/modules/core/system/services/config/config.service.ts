@@ -15,6 +15,7 @@ import {
     Observable,
     combineLatest,
     firstValueFrom,
+    fromEvent,
 } from 'rxjs';
 import {
     distinctUntilChanged,
@@ -75,6 +76,7 @@ import {
     IGlobalConfig,
     IGetParams,
     ISetParams,
+    ILocalStorageItem,
 } from './config.interface';
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 import {WINDOW} from 'wlc-engine/modules/app/system';
@@ -87,6 +89,11 @@ import {
 } from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
 import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 import * as sectionsLib from 'wlc-engine/modules/core/system/config/layouts/sections';
+import {
+    IJwtAuthUpdate,
+    TJwtAuthAction,
+} from 'wlc-engine/system/inline/cross-domain-auth/interfaces';
+import {crossDomainEvents} from 'wlc-engine/system/inline/cross-domain-auth/constants';
 
 export * from './app-config.model';
 export * from './config.interface';
@@ -122,12 +129,7 @@ export class ConfigService {
         @Inject(WINDOW) protected window: Window,
     ) {
         this.setGlobals();
-
-        this.translateService.onLangChange
-            .subscribe(() => {
-                this.getCountries();
-                this.getStates();
-            });
+        this.setSubscriptions();
     }
 
     /**
@@ -247,19 +249,63 @@ export class ConfigService {
         });
     }
 
-    public updateJwtTokens(jwtToken: string, jwtRefreshToken: string): void {
+    public updateJwtTokens(newJwtToken: string, newJwtRefreshToken: string): void {
+        if (this.window.crossDomainAuth?.isMirror) {
+            const currentJwtRefresh: string = this.get({
+                name: 'jwtAuthRefreshToken',
+                storageType: 'localStorage',
+            });
+            const currentJwtAuth: string = this.get({
+                name: 'jwtAuthToken',
+                storageType: 'localStorage',
+            });
+
+            let action: TJwtAuthAction = 'refresh';
+            if ((!currentJwtRefresh || !currentJwtAuth) && newJwtToken && newJwtRefreshToken) {
+                action = 'login';
+            } else if ((currentJwtRefresh || currentJwtAuth) && !newJwtToken && !newJwtRefreshToken) {
+                action = 'logout';
+            }
+
+            this.window.crossDomainAuth.sendMessageForMainDomain<IJwtAuthUpdate>({
+                event: crossDomainEvents.AUTH_UPDATE,
+                action: action,
+                authToken: newJwtToken || '',
+                refreshToken: newJwtRefreshToken || '',
+            });
+        }
+
         this.set({
             name: 'jwtAuthToken',
-            value: jwtToken,
+            value: newJwtToken,
             storageType: 'localStorage',
-            storageClear: !jwtToken ? 'localStorage' : null,
+            storageClear: !newJwtToken ? 'localStorage' : null,
         });
         this.set({
             name: 'jwtAuthRefreshToken',
-            value: jwtRefreshToken,
+            value: newJwtRefreshToken,
             storageType: 'localStorage',
-            storageClear: !jwtRefreshToken ? 'localStorage' : null,
+            storageClear: !newJwtRefreshToken ? 'localStorage' : null,
         });
+    }
+
+    private setSubscriptions(): void {
+        if (this.window.crossDomainAuth?.isMirror) {
+            fromEvent<CustomEvent<ILocalStorageItem<unknown>>>(this.window, 'LOCAL_STORAGE_SET').subscribe((data) => {
+                this.set({
+                    name: data.detail.name,
+                    value: data.detail.value,
+                    storageType: 'localStorage',
+                    storageClear: data.detail.value ? null : 'localStorage',
+                });
+            });
+        }
+
+        this.translateService.onLangChange
+            .subscribe(() => {
+                this.getCountries();
+                this.getStates();
+            });
     }
 
     private setGlobals(): void {

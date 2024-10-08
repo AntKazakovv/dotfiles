@@ -32,6 +32,7 @@ import {errorTypes as questsLogs} from './31.quests';
 import {errorTypes as referralsLogs} from './32.referrals';
 import {errorTypes as pwaLogs} from './34.pwa';
 import {errorTypes as monitoringLogs} from './33.monitoring';
+import {errorTypes as crossDomainLogs} from './35.cross-domain';
 
 export const defaultLogMethods: TLogMethods[] = ['flog'];
 export const defaultLogLevel: TLogLevel = 'log';
@@ -110,4 +111,5 @@ export const logTypes: ILogTypes = Object.assign(
     referralsLogs,
     monitoringLogs,
     pwaLogs,
+    crossDomainLogs,
 );

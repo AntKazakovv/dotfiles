@@ -4,6 +4,8 @@ require('./_body-class');
 require('./_cookie');
 require('./_flog');
 require('./_unhandled-errors');
+require('./cross-domain-auth/_mirror');
+require('./cross-domain-auth/_cross-domain-auth');
 require('./_x-nonce');
 require('./_jwt-auth');
 require('./_preload');

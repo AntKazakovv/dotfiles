@@ -58,6 +58,11 @@ import {
 
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {
+    IJwtGetTokens,
+    IXNonceUpdate,
+} from 'wlc-engine/system/inline/cross-domain-auth/interfaces';
+import {crossDomainEvents} from 'wlc-engine/system/inline/cross-domain-auth/constants';
 
 export interface IData<T = any> {
     status: 'success' | 'error';
@@ -348,9 +353,18 @@ export class DataService {
      * @returns {void}
      */
     public setNonceToLocalStorage(): void {
+        const xNonce = this.generateNonce();
+
+        if (this.window.crossDomainAuth?.isMirror) {
+            this.window.crossDomainAuth.sendMessageForMainDomain<IXNonceUpdate>({
+                event: crossDomainEvents.XNONCE_UPDATE,
+                xNonce: xNonce,
+            });
+        }
+
         this.configService.set({
             name: 'X-Nonce',
-            value: this.generateNonce(),
+            value: xNonce,
             storageType: 'localStorage',
         });
     }
@@ -429,8 +443,9 @@ export class DataService {
         }
 
         let countLength = method.retries.count.length;
-        let jwtRetriesCount = 1;
-        let concurentRequestRetriesCount = 2;
+        let jwtRetriesCount = 2;
+        let concurentRequestRetriesCount = 3;
+        let crossDomainRetriesCount = 3;
         let notCacheStaticData = true;
 
         return preloadData$.pipe(
@@ -466,6 +481,23 @@ export class DataService {
                                             name: 'jwtAuthRefreshToken',
                                             storageType: 'localStorage',
                                         });
+                                        const jwtAuthToken: string = this.configService.get({
+                                            name: 'jwtAuthToken',
+                                            storageType: 'localStorage',
+                                        });
+
+                                        if (this.window.crossDomainAuth?.isMirror
+                                            && crossDomainRetriesCount > 0
+                                            && (!jwtRefreshToken || !jwtAuthToken)
+                                        ) {
+                                            crossDomainRetriesCount--;
+
+                                            this.window.crossDomainAuth.sendMessageForMainDomain<IJwtGetTokens>({
+                                                event: crossDomainEvents.GET_TOKENS,
+                                            });
+
+                                            return of(error).pipe(delay(1500));
+                                        }
 
                                         if (jwtRefreshToken) {
 

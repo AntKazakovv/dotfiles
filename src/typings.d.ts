@@ -77,6 +77,12 @@ declare interface IApkFile {
     url?: string;
 }
 
+declare interface ICrossDomainAuth {
+    isMirror: boolean;
+    initMirror: (mainDomainUrl: string) => void;
+    sendMessageForMainDomain: <T>(data: T) => void;
+}
+
 declare type TDigitainOnNavigate = (event: IDigitainNavigateEvent) => void;
 
 declare type TInitDigitainApp = (app: IMobileDigitainApp) => void;
@@ -201,6 +207,7 @@ declare interface Window extends TAnalyticMethod, IBetradar {
     universalLinks?: universalLinks.IUniversalLinks;
     ApkUpdater?: any;
     turnstile?: any;
+    crossDomainAuth?: ICrossDomainAuth;
 }
 
 declare const WLC_VERSION: number;

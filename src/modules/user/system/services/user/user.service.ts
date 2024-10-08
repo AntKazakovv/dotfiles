@@ -16,6 +16,7 @@ import {
     BehaviorSubject,
     firstValueFrom,
     interval,
+    fromEvent,
     Subject,
 } from 'rxjs';
 import {
@@ -99,6 +100,7 @@ import {
 import {LocalJackpotsService} from 'wlc-engine/modules/local-jackpots';
 import {MultiWalletEvents} from 'wlc-engine/modules/multi-wallet';
 import {WalletsService} from 'wlc-engine/modules/multi-wallet/system/services/wallets.service';
+import {crossDomainEvents} from 'wlc-engine/system/inline/cross-domain-auth/constants';
 
 export enum LanguageChangeEvents {
     ChangeLanguage = 'CHANGE_LANGUAGE'
@@ -255,6 +257,7 @@ export class UserService {
 
     public async init(): Promise<void> {
         await this.configService.ready;
+
         this.isAuth$ ??= this.configService.get('$user.isAuth$');
         this.isAuthenticated = this.configService.get('$user.isAuthenticated');
         this.useAchievements = this.configService.get<boolean>('$base.profile.achievements.use');
@@ -501,7 +504,12 @@ export class UserService {
         if (this.useAchievements && this.isAuth$.getValue()) {
             this.achievementsService.setAchievementsSubscription();
         }
-        this.jwtAuthLogin();
+
+        if (this.window.crossDomainAuth?.isMirror) {
+            this.handleMirrorAuthorization();
+        } else {
+            this.jwtAuthLogin();
+        }
     }
 
     public setProfileData(formData: IUserProfile): void {
@@ -1165,13 +1173,39 @@ export class UserService {
         return this.isAuth$.getValue() && !!this.userInfo.data.socketsData && this.useWSBalance;
     }
 
+    private handleMirrorAuthorization(): void {
+        fromEvent(this.window, crossDomainEvents.AUTH_LOGIN).subscribe(() => {
+            this.jwtAuthLogin();
+        });
+        fromEvent(this.window, crossDomainEvents.AUTH_LOGOUT).subscribe(() => {
+            if (this.isAuthenticated) {
+                this.logout();
+            }
+        });
+
+        const jwtAuthLogin: string = this.configService.get({
+            name: 'jwtAuthLogin',
+            storageType: 'localStorage',
+        });
+        if (jwtAuthLogin) {
+            this.configService.set({
+                name: 'jwtAuthLogin',
+                value: null,
+                storageType: 'localStorage',
+                storageClear: 'localStorage',
+            });
+            this.jwtAuthLogin();
+        }
+    }
+
     private jwtAuthLogin(): void {
         if (!this.isAuthenticated && this.configService.get<boolean>('$base.site.useJwtToken')) {
-            const jwtRefreshToken: string = this.configService.get({
-                name: 'jwtAuthRefreshToken',
+            const jwtAuthToken: string = this.configService.get({
+                name: 'jwtAuthToken',
                 storageType: 'localStorage',
             });
-            if (jwtRefreshToken) {
+
+            if (jwtAuthToken) {
                 this.eventService.emit({
                     name: 'LOGIN',
                 });

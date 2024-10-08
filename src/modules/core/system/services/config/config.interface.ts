@@ -45,3 +45,8 @@ export interface ISetParams<T> {
     merge?: boolean;
     freeze?: boolean;
 }
+
+export interface ILocalStorageItem<T> {
+    name: string;
+    value: T;
+}
