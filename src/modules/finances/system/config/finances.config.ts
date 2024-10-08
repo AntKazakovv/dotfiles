@@ -78,10 +78,10 @@ export const financesConfig: IFinancesConfig = {
             accountNumber: {
                 settings: [
                     {
-                        tooltip: gettext('Please combine the 5 digit Branch number e.g.' +
-                            ' “27370” with the 3 digit Financial institution number e.g. “001” ;' +
-                            ' and the account number digit Account number e.g. “91011112”,' +
-                            ' then you send to Inpay “273700019101112”. Please do not use Dash.'),
+                        tooltip: gettext('Combine 5 digits of your branch number, e.g., 11111, with the 3-digit' +
+                            ' number of your financial institution number, e.g., 222, and the digits' +
+                            ' of your account number, e.g., 33333333. The sequence you should' +
+                            ' send to Inpay would be: 1111122233333333. Please do not use a dash.'),
                         validators: [
                             {
                                 name: 'pattern',
@@ -100,9 +100,10 @@ export const financesConfig: IFinancesConfig = {
                         systems: ['inpay_withdraw'],
                     },
                     {
-                        tooltip: gettext('Please combine branch code/BSB with the 7 account number and' +
-                            ' 3 digit suffix. E.g. 6 digit BSB e.g. “020432”, Account number “6781299”,' +
-                            ' Suffix “001” then you send to Inpay “0204326781299001”. Please do not use Dash.'),
+                        tooltip: gettext('Combine the branch code/BSB with 7 digits of your account number and' +
+                            ' 3 digits of the suffix. E.g., your BSB is 111111, the account number is 2222222,' +
+                            ' the suffix is 333. The sequence you should send to' +
+                            ' Inpay would be: 1111112222222333. Please do not use a dash.'),
                         validators: [
                             {
                                 name: 'pattern',
@@ -145,7 +146,7 @@ export const financesConfig: IFinancesConfig = {
             phone: {
                 settings: [
                     {
-                        tooltip: gettext('Phone number format: 79111111111'),
+                        tooltip: gettext('Phone number format: 70000000000'),
                         validators: [
                             {
                                 name: 'pattern',
