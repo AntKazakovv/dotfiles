@@ -84,7 +84,7 @@ export class StoreItem extends AbstractModel<IStoreItem> {
         if (!this.hasUserAccessByLevel(userLevel)) {
             return {
                 messageText: gettext('This item is not available to you at the current level'),
-                btnText: gettext('Unavailable for current level'),
+                btnText: gettext('Unavailable for the current level'),
             };
         }
 
