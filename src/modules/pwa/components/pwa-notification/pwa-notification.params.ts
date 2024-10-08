@@ -20,7 +20,7 @@ export const defaultParams: IPwaNotificationCParams = {
     moduleName: 'pwa',
     componentName: 'wlc-pwa-notification',
     title: {
-        text: gettext('Install application'),
+        text: gettext('Install the application'),
         icon: '/wlc/icons/install.svg',
     },
     excludeStates: ['app.instructions'],

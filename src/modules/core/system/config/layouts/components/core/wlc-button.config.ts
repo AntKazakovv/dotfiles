@@ -610,7 +610,7 @@ export namespace wlcButton {
         params: {
             customMod: 'pwa',
             common: {
-                text: gettext('Install application'),
+                text: gettext('Install the application'),
                 sref: 'app.instructions',
                 srefParams: {
                     slug: 'install-pwa',

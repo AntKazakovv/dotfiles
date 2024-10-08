@@ -159,7 +159,7 @@ export class TermsAcceptService {
             data: <IPushMessageParams>{
                 type: 'error',
                 title: gettext('Error'),
-                message: gettext('You must accept terms and conditions to access this page.'),
+                message: gettext('You must accept the Terms and Conditions to access this page'),
                 wlcElement: 'notification_no-accept',
             },
         });
