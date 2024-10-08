@@ -74,8 +74,10 @@ export class SocialService {
                 name: NotificationEvents.PushMessage,
                 data: <IPushMessageParams>{
                     type: 'error',
-                    title: gettext('Social'),
-                    message: [gettext('Error complete registration via social network, try later.')],
+                    title: gettext('Social'),                    
+                    message: [gettext('An error has occurred when completing sign-up via' +
+                            ' the social network. Please try again later'),
+                    ],
                 },
             });
         }
@@ -211,8 +213,10 @@ export class SocialService {
                 name: NotificationEvents.PushMessage,
                 data: <IPushMessageParams>{
                     type: 'error',
-                    title: gettext('Social'),
-                    message: [gettext('Error disconnect social network, try later.')],
+                    title: gettext('Social'),                    
+                    message: [gettext('An error has occurred when disconnecting from the social network.' +
+                        ' Please try again later'),
+                    ],
                 },
             });
         }
@@ -294,8 +298,10 @@ export class SocialService {
                 name: NotificationEvents.PushMessage,
                 data: <IPushMessageParams>{
                     type: 'error',
-                    title: gettext('Social'),
-                    message: [gettext('Error connect social network, try later.')],
+                    title: gettext('Social'),                    
+                    message: [gettext('An error has occurred when connecting to the social network.' +
+                                    ' Please try again later'),
+                    ],
                 },
             });
         }

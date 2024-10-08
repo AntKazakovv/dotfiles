@@ -828,7 +828,8 @@ export class ActionService {
                     type: 'error',
                     title: gettext('Social connect failed'),
                     message: [
-                        gettext('Error connect social network, try later.'),
+                        gettext('An error has occurred when connecting to the social network.' +
+                                    ' Please try again later'),
                     ],
                 },
             });
