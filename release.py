@@ -691,18 +691,21 @@ def update_projects(projects):
         clean_temp()
         clone_project(project["repository"])
         project_version = get_version("project")
+        is_release = check_format(project_version) == "release"
 
-        if project["id"] == "1" and check_format(project_version) == "release":
+        if project["id"] == "1" and is_release:
             print(Fore.YELLOW + f"Making stable release {project_version} branches" + Fore.RESET)
 
             for branch in project["branches"]:
-                if branch in ["develop"]:
-                    stable_branch = "scr" + project_version.replace(".", "-")
-                    make_stable_branch(branch, stable_branch)
 
+                if branch == "develop":
+                    stable_branch = "scr" + project_version.replace(".", "-")
                 elif branch != "develop" and branch != "master":
                     stable_branch = branch + "-s"
-                    make_stable_branch(branch, stable_branch)
+                else:
+                    continue
+
+                make_stable_branch(branch, stable_branch)
 
         for branch in project["branches"]:
 
@@ -715,12 +718,12 @@ def update_projects(projects):
                 new_tag = make_tag(None, branch)
                 push_branch(branch, new_tag)
 
-            elif branch == "master" and check_format(project_version) == "release":
+            elif branch == "master" and is_release:
                 small_update_branch(branch)
                 new_tag = make_tag(None, branch)
                 push_branch(branch, new_tag)
 
-            else:
+            elif branch != "master":
                 small_update_branch(branch)
                 push_branch(branch)
 
