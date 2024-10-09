@@ -679,6 +679,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         type: 'sref',
         icon: 'payments',
         class: 'payments',
+        wlcElement: 'link_cc-profile-menu_transactions',
         params: {
             state: {
                 name: 'app.profile.cash.deposit',
