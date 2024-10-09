@@ -52,7 +52,7 @@ export class DatepickerComponent extends AbstractComponent implements OnInit {
 
     public override $params: Params.IDatepickerCParams;
     public control: UntypedFormControl;
-    public bsValue: Date = new Date();
+    public bsValue: Date | null = null;
     protected locale: string;
 
     constructor(
@@ -66,6 +66,7 @@ export class DatepickerComponent extends AbstractComponent implements OnInit {
 
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+        this.bsValue = this.$params.useEmptyValue ? null : new Date();
         this.locale = this.translateService.currentLang;
         const dpLocale: Params.ILocale = this.$params.locales[this.locale] || this.$params.locales['en'];
         defineLocale(dpLocale.name, locales[dpLocale.config]);

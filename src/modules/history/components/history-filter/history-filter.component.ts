@@ -14,6 +14,7 @@ import {
     takeUntil,
 } from 'rxjs/operators';
 import type {Dayjs} from 'dayjs';
+import dayjs from 'dayjs';
 
 import _isEqual from 'lodash-es/isEqual';
 import _keys from 'lodash-es/keys';
@@ -116,8 +117,9 @@ export class HistoryFilterComponent extends AbstractComponent implements OnInit,
         this.isFiltered = !_keys(this.defaultFormData)
             .every((key: string): boolean => {
                 const formData: IIndexing<any> = this.defaultFormData;
-                if ((formData[key] as Dayjs).isValid()) {
-                    return formData[key].format('YYYY-MM-DD') ===  data[key].format('YYYY-MM-DD');
+
+                if ((formData[key] instanceof dayjs) && (formData[key] as Dayjs).isValid()) {
+                    return (formData[key] as Dayjs).format('YYYY-MM-DD') ===  data[key].format('YYYY-MM-DD');
                 }
                 return _isEqual(formData[key], data[key]);
             });
@@ -150,19 +152,20 @@ export class HistoryFilterComponent extends AbstractComponent implements OnInit,
             const endIndex = formConfig.components
                 .findIndex((input: IFormComponent) => input.params.name === 'endDate');
 
-            if (formData.startDate && startIndex + 1) {
+            if (startIndex + 1) {
                 const date: Dayjs = formData.endDate.add(1, 'day');
                 formConfig = _merge({}, formConfig, {
                     components: formConfig.components
                         .map((el: IFormComponent, i: number) => i === startIndex
                             ? _merge({}, el, {
                                 params: {
+                                    useEmptyValue: !(Boolean(formData.startDate)),
                                     datepickerOptions: {
                                         markDates: [{
                                             dates: [
-                                                formData.startDate.date(),
-                                                formData.startDate.month() + 1,
-                                                formData.startDate.year(),
+                                                formData.startDate?.date(),
+                                                formData.startDate?.month() + 1,
+                                                formData.startDate?.year(),
                                             ],
                                             styleClass: 'defaultDate',
                                         }],
@@ -180,7 +183,7 @@ export class HistoryFilterComponent extends AbstractComponent implements OnInit,
             }
 
             if (formData.endDate && endIndex + 1) {
-                const date: Dayjs = formData.startDate.add(-1, 'day');
+                const date: Dayjs = formData.startDate ? formData.startDate.add(-1, 'day') : null;
                 formConfig = _merge({}, formConfig, {
                     components: formConfig.components
                         .map((el: IFormComponent, i: number) => i === endIndex
@@ -189,17 +192,17 @@ export class HistoryFilterComponent extends AbstractComponent implements OnInit,
                                     datepickerOptions: {
                                         markDates: [{
                                             dates: [
-                                                formData.startDate.date(),
-                                                formData.startDate.month() + 1,
-                                                formData.startDate.year(),
+                                                formData.startDate?.date(),
+                                                formData.startDate?.month() + 1,
+                                                formData.startDate?.year(),
                                             ],
                                             styleClass: 'defaultDate',
                                         }],
                                         alignSelectorRight: true,
                                         disableUntil: {
-                                            day: date.date(),
-                                            month: date.month() + 1,
-                                            year: date.year(),
+                                            day: date?.date(),
+                                            month: date?.month() + 1,
+                                            year: date?.year(),
                                         },
                                     },
                                 },

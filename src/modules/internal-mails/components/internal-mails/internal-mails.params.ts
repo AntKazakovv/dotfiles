@@ -3,6 +3,7 @@ import {
     CustomType,
     ITableCol,
     IWrapperCParams,
+    ITableCParams,
 } from 'wlc-engine/modules/core';
 import {InternalMailModel} from 'wlc-engine/modules/internal-mails/system/models/internal-mail.model';
 import {
@@ -30,27 +31,8 @@ export interface IInternalMailsCParams extends IComponentParams<Theme, Type, The
     /** wlc-profile-no-content params */
     emptyConfig?: IWrapperCParams;
     historyRangeParams?: IMailHistoryRangeParams;
+    tableConfig?: ITableCParams;
 }
-
-export const defaultParams: IInternalMailsCParams = {
-    moduleName: 'internal-mails',
-    componentName: 'wlc-internal-mails',
-    class: 'wlc-internal-mails',
-    emptyConfig: {
-        components: [
-            {
-                name: 'profile.wlc-profile-no-content',
-                params: {
-                    text: gettext('No messages'),
-                },
-            },
-        ],
-    },
-    historyRangeParams: {
-        type: 'submenu',
-        historyType: 'mails',
-    },
-};
 
 export const internalMailsTableHeadConfig: ITableCol[] = [
     {
@@ -95,3 +77,32 @@ export const internalMailsTableHeadConfig: ITableCol[] = [
         wlcElement: 'wlc-profile-table__cell_actions',
     },
 ];
+
+export const defaultParams: IInternalMailsCParams = {
+    moduleName: 'internal-mails',
+    componentName: 'wlc-internal-mails',
+    class: 'wlc-internal-mails',
+    emptyConfig: {
+        components: [
+            {
+                name: 'profile.wlc-profile-no-content',
+                params: {
+                    text: gettext('No messages'),
+                },
+            },
+        ],
+    },
+    historyRangeParams: {
+        type: 'submenu',
+        historyType: 'mails',
+    },
+    tableConfig: {
+        head: internalMailsTableHeadConfig,
+        pageCount: 10,
+        pagination: {
+            use: true,
+            breakpoints: null,
+            total: 0,
+        },
+    },
+};

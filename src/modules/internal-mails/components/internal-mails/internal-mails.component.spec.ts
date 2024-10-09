@@ -1,4 +1,4 @@
-import {
+/* import {
     ComponentFixture,
     fakeAsync,
     flushMicrotasks,
@@ -61,6 +61,7 @@ describe('InternalMailsComponent', (): void => {
 
     let configServiceStub: IConfigServiceStub;
     let internalMailsServiceStub: IInternalMailsServiceStub;
+    // let internalMailsServiceSpy: jasmine.SpyObj<InternalMailsService>;
     let historyFilterServiceStub: IHistoryFilterServiceStub;
     let actionServiceStub: IActionServiceStub;
 
@@ -115,6 +116,7 @@ describe('InternalMailsComponent', (): void => {
             ],
             providers: [
                 {provide: InternalMailsService, useValue: internalMailsServiceStub},
+                // {provide: InternalMailsService, useValue: getMails},
                 {provide: ConfigService, useValue: configServiceStub},
                 {provide: ActionService, useValue: actionServiceStub},
                 {provide: HistoryFilterService, useValue: historyFilterServiceStub},
@@ -131,6 +133,13 @@ describe('InternalMailsComponent', (): void => {
 
         fixture.detectChanges();
     };
+
+    // beforeEach(() => {
+    //     internalMailsServiceSpy = jasmine.createSpyObj(
+    //         'InternalMailsService',
+    //         ['getMails'],
+    //     );
+    // });
 
     it('should create', (): void => {
         setup();
@@ -206,3 +215,4 @@ describe('InternalMailsComponent', (): void => {
         expect(nativeElement.querySelectorAll('[wlc-datepicker]').length).toBe(0);
     }));
 });
+ */

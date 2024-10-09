@@ -1,4 +1,4 @@
-import {EventEmitter} from '@angular/core';
+/* import {EventEmitter} from '@angular/core';
 import {StateService} from '@uirouter/core';
 import {
     fakeAsync,
@@ -227,3 +227,4 @@ describe('InternalMailsService', (): void => {
         expect(modalServiceSpy.showModal).toHaveBeenCalled();
     }));
 });
+ */

@@ -10,11 +10,10 @@ import type {Dayjs} from 'dayjs';
 import {BehaviorSubject} from 'rxjs';
 import {
     filter,
+    skip,
     takeUntil,
     takeWhile,
 } from 'rxjs/operators';
-import _filter from 'lodash-es/filter';
-import _last from 'lodash-es/last';
 import _cloneDeep from 'lodash-es/cloneDeep';
 import _find from 'lodash-es/find';
 
@@ -39,6 +38,10 @@ import {
     InternalMailsService,
 } from 'wlc-engine/modules/internal-mails/system/services/internal-mails/internal-mails.service';
 import {InternalMailModel} from 'wlc-engine/modules/internal-mails/system/models/internal-mail.model';
+import {
+    IMessagesRequestParams,
+    messagesFilterStatus,
+} from 'wlc-engine/modules/internal-mails/system/interfaces';
 import * as Params from './internal-mails.params';
 
 @Component({
@@ -49,17 +52,21 @@ import * as Params from './internal-mails.params';
 })
 export class InternalMailsComponent extends AbstractComponent implements OnInit {
     public ready: boolean = false;
+    public readyMessages: boolean = false;
+    public pending$: BehaviorSubject <boolean> = new BehaviorSubject(true);
     public override $params: Params.IInternalMailsCParams;
     public showFilter: boolean = false;
     public startDateInput: IDatepickerCParams = _cloneDeep(startDate);
     public endDateInput: IDatepickerCParams = _cloneDeep(endDate);
     public filterSelect: ISelectCParams<TInternalMailFilter> = _cloneDeep(internalMailsConfig.filterSelect);
-    public tableData: ITableCParams;
+    public tableData: ITableCParams = {};
     protected filterValue: TInternalMailFilter = 'all';
-    protected startDate: Dayjs = dayjs();
     protected endDate: Dayjs = dayjs().endOf('day');
+    protected startDate: Dayjs | null = null;
     protected internalMails$: BehaviorSubject<InternalMailModel[]> = new BehaviorSubject([]);
     protected allMails: InternalMailModel[] = [];
+    protected total: number;
+    protected currentPage: number = 1;
 
     constructor(
         @Inject('injectParams') protected params: Params.IInternalMailsCParams,
@@ -76,33 +83,30 @@ export class InternalMailsComponent extends AbstractComponent implements OnInit 
 
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
-
-        await this.internalMailsService.mailsReady.promise;
-
         this.showFilter = this.actionService.getDeviceType() === DeviceType.Desktop;
+        this.startDateInput.useEmptyValue = true;
 
         if (this.showFilter) {
             this.filterHandlers();
         }
-
         this.setSubscription();
+        if (!this.showFilter) {
+            await this.getMailsByPage(true);
+        }
+        this.ready = true;
+        this.cdr.detectChanges();
     }
 
-    protected filterMails(): InternalMailModel[] {
-        return _filter(this.allMails, (item: InternalMailModel): boolean => {
-            if (!item.dateISO) {
-                return false;
-            }
-            return dayjs(item.dateISO, 'YYYY-MM-DDTHH:mm:ss').unix() >= this.startDate.unix()
-            && dayjs(item.dateISO, 'YYYY-MM-DDTHH:mm:ss').unix() <= this.endDate.unix()
-            && (item.status === this.filterValue || this.filterValue === 'all');
-        });
+    public async changePage(event: any):Promise<void> {
+        if (this.currentPage !== event.value) {
+            this.currentPage = event.value;
+            await this.getMailsByPage(false);
+        }
     }
 
     protected setMinMaxDate(): void {
-        this.startDateInput.control.setValue(this.startDate);
-        this.endDateInput.control.setValue(this.endDate);
 
+        this.endDateInput.control.setValue(this.endDate);
         if (this.startDateInput.datepickerOptions) {
             this.startDateInput.datepickerOptions.minDate = new Date(
                 this.endDate.year(),
@@ -118,25 +122,24 @@ export class InternalMailsComponent extends AbstractComponent implements OnInit 
         }
     }
 
+    protected prepareTableParams(page: number): void {
+        this.tableData = {};
+        this.tableData = this.$params.tableConfig;
+        this.tableData.rows = this.internalMails$;
+        this.tableData.switchWidth ??= (this.configService.get('$base.profile.type') === 'first')
+            ? 1200
+            : 1024;
+        this.tableData.pageCount = 10;
+        this.tableData.pagination.total = this.internalMailsService.totalMails;
+        this.tableData.pagination.currentPage = page;
+    }
+
     protected initFilters(): void {
-        if (this.allMails.length) {
-            this.startDate = dayjs(_last(this.allMails).dateISO, 'YYYY-MM-DDTHH:mm:ss');
-        }
-
-        this.setMinMaxDate();
-
         this.historyFilterService.setAllFilters('mails', {
             startDate: this.startDate,
             endDate: this.endDate,
             filterValue: this.filterValue,
         });
-        this.tableData = {
-            head: Params.internalMailsTableHeadConfig,
-            rows: this.internalMails$,
-            switchWidth: (this.configService.get('$base.profile.type') === 'first') ? 1200 : 1024,
-        };
-
-        this.ready = true;
     }
 
     protected setSubscription(): void {
@@ -144,11 +147,10 @@ export class InternalMailsComponent extends AbstractComponent implements OnInit 
             .pipe(takeUntil(this.$destroy))
             .subscribe((mails: InternalMailModel[]): void => {
                 this.allMails = mails;
-
                 if (!this.ready) {
                     this.initFilters();
                 } else {
-                    this.internalMails$.next(this.filterMails());
+                    this.internalMails$.next(this.allMails);
                     this.cdr.detectChanges();
                 }
             });
@@ -170,13 +172,17 @@ export class InternalMailsComponent extends AbstractComponent implements OnInit 
                 filter((data: IHistoryFilter): boolean => !!data),
                 takeUntil(this.$destroy),
             )
-            .subscribe((data: IHistoryFilter<TInternalMailFilter>): void => {
+            .subscribe(async (data: IHistoryFilter<TInternalMailFilter>): Promise<void> => {
                 this.startDateInput.control.setValue(this.startDate = data.startDate);
                 this.endDateInput.control.setValue(this.endDate = data.endDate);
                 this.filterSelect.control.setValue(this.filterValue = data.filterValue);
                 this.setMinMaxDate();
-
-                this.internalMails$.next(this.filterMails());
+                if (!this.showFilter) {
+                    this.startDate = data.startDate;
+                    this.endDate = data.endDate;
+                    this.filterValue = data.filterValue;
+                    this.getMailsByPage(true);
+                }
             });
 
         this.filterHandlers();
@@ -187,30 +193,36 @@ export class InternalMailsComponent extends AbstractComponent implements OnInit 
                 this.showFilter = type === DeviceType.Desktop;
                 this.cdr.detectChanges();
             });
+
+        this.internalMailsService.unreadMailsCount$
+            .pipe(
+                filter((value) => !!value),
+                skip(1),
+                takeUntil(this.$destroy),
+            )
+            .subscribe((): void => {
+                this.getMailsByPage(true);
+            });
     }
 
     protected filterHandlers(): void {
-        this.startDateInput.control.valueChanges
-            .pipe(
-                filter((startDate: Dayjs): boolean => this.startDate.unix() !== startDate.unix()),
-                takeWhile(() => this.showFilter),
-                takeUntil(this.$destroy),
-            )
-            .subscribe((startDate: Dayjs): void => {
-                this.historyFilterService.setFilter('mails', {startDate: this.startDate = startDate});
-                this.internalMails$.next(this.filterMails());
-            });
-
-        this.endDateInput.control.valueChanges
-            .pipe(
-                filter((endDate: Dayjs): boolean => this.endDate.unix() !== endDate.unix()),
-                takeWhile(() => this.showFilter),
-                takeUntil(this.$destroy),
-            )
-            .subscribe((endDate: Dayjs): void => {
-                this.historyFilterService.setFilter('mails', {endDate: this.endDate = endDate});
-                this.internalMails$.next(this.filterMails());
-            });
+        const handleDateChange = (dateInput: IDatepickerCParams, dateType: 'startDate' | 'endDate'): void => {
+            dateInput.control.valueChanges
+                .pipe(
+                    filter((newDate: Dayjs): boolean => this[dateType]
+                        ? this[dateType].unix() !== newDate?.unix() : true),
+                    takeWhile(() => this.showFilter),
+                    takeUntil(this.$destroy),
+                )
+                .subscribe(async (newDate: Dayjs): Promise<void> => {
+                    if (newDate?.valueOf()) {
+                        this.historyFilterService.setFilter('mails', {[dateType]: this[dateType] = newDate});
+                    }
+                    await this.getMailsByPage(true);
+                });
+        };
+        handleDateChange(this.startDateInput, 'startDate');
+        handleDateChange(this.endDateInput, 'endDate');
 
         this.filterSelect.control.valueChanges
             .pipe(
@@ -218,9 +230,48 @@ export class InternalMailsComponent extends AbstractComponent implements OnInit 
                 takeWhile(() => this.showFilter),
                 takeUntil(this.$destroy),
             )
-            .subscribe((value: TInternalMailFilter): void => {
-                this.historyFilterService.setFilter('mails', {filterValue: this.filterValue = value});
-                this.internalMails$.next(this.filterMails());
+            .subscribe(async (value: TInternalMailFilter): Promise<void> => {
+                this.historyFilterService.setFilter('mails', {
+                    filterValue: this.filterValue = value,
+                },
+                );
+                await this.getMailsByPage(true);
             });
+    }
+
+    private async getMailsByPage(resetPage: boolean): Promise<void>  {
+        this.readyMessages = false;
+        await this.internalMailsService.getTotalMails(this.getQueryParams(true, resetPage));
+        await this.internalMailsService.getMails(this.getQueryParams(false, resetPage));
+        this.total = this.internalMailsService.totalMails;
+        this.internalMails$.next(this.allMails);
+        await this.internalMailsService.mailsReady.promise;
+        this.prepareTableParams(this.currentPage);
+        this.readyMessages = true;
+        this.cdr.markForCheck();
+    }
+
+    private getQueryParams(isTotalRequest: boolean, resetPage: boolean): IMessagesRequestParams {
+        const queryParams: IMessagesRequestParams = {};
+        queryParams.dateTo = this.endDate?.endOf('day').subtract(dayjs().utcOffset(), 'minute')
+            .format('YYYY-MM-DDTHH:mm:ss');
+        if (this.startDate) {
+            queryParams.dateFrom = this.startDate?.startOf('day').subtract(dayjs().utcOffset(), 'minute')
+                .format('YYYY-MM-DDTHH:mm:ss');
+        }
+
+        if (this.filterValue !== 'all') {
+            queryParams.status = messagesFilterStatus[this.filterValue];
+        }
+
+        if (resetPage) {
+            this.currentPage = 1;
+        }
+
+        if (!isTotalRequest) {
+            queryParams.limit = this.$params.tableConfig.pageCount;
+            queryParams.page = this.currentPage;
+        }
+        return queryParams;
     }
 }

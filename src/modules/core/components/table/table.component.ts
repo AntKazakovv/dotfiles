@@ -5,6 +5,8 @@ import {
     Input,
     ChangeDetectionStrategy,
     Injector,
+    Output,
+    EventEmitter,
 } from '@angular/core';
 
 import {BehaviorSubject} from 'rxjs';
@@ -47,6 +49,7 @@ import * as Params from './table.params';
 export class TableComponent extends AbstractComponent implements OnInit {
 
     @Input() protected inlineParams: Params.ITableCParams;
+    @Output() public changePage: any = new EventEmitter();
 
     public override $params: Params.ITableCParams;
     public rows: TableRowModel[] = [];
@@ -204,15 +207,14 @@ export class TableComponent extends AbstractComponent implements OnInit {
     public paginationOnChange(value: IPaginateOutput): void {
         this.paginatedRows = value.paginatedItems as TableRowModel[];
         this.itemPerPage = value.event.itemsPerPage;
-
         let amountPages = Math.ceil(this.rows.length / this.itemPerPage);
-
         if (value.event.page === amountPages || this.$params.scrollUp) {
             this.actionService.scrollTo('body');
         }
 
         this.indexFactor = (value.event.page - 1) * value.event.itemsPerPage;
         this.setPaginatedRowsModifier();
+        this.changePage.emit({value: value.event.page});
         this.cdr.detectChanges();
     }
 

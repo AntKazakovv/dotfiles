@@ -5,8 +5,15 @@
         <div wlc-select [inlineParams]="filterSelect"></div>
     </div>
     <div wlc-history-range [inlineParams]="$params.historyRangeParams"></div>
-    <div *ngIf="internalMails$.value.length; else empty" wlc-table [inlineParams]='tableData'></div>
+    <ng-container *ngIf="readyMessages; else preloader" [ngTemplateOutlet]="messages"></ng-container>
 </div>
+
+<ng-template #messages>
+    <div *ngIf="internalMails$.value.length; else empty"
+    wlc-table
+    (changePage)="changePage($event)"
+    [inlineParams]='tableData'></div>
+</ng-template>
 
 <ng-template #empty>
     <div wlc-wrapper

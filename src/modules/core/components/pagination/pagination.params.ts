@@ -15,6 +15,8 @@ export interface IPaginationBreakepoint {
 export interface IPagination {
     use: boolean;
     breakpoints: IPaginationBreakepoint | null;
+    total?: number;
+    currentPage?: number;
 }
 
 export interface IPaginateOutput<T = unknown> {

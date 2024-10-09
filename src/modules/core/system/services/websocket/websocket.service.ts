@@ -102,8 +102,10 @@ export class WebsocketService {
         if (this.endPointToWebsocket.has(params.endPoint)) {
             return this.endPointToWebsocket.get(params.endPoint).pipe(
                 filter((message: IWSConsumerData) => {
-
-                    if (message.event && message.status !== 'error') {
+                    if (message.status === 'error') {
+                        return false;
+                    }
+                    if (message.event) {
                         return params.events.includes(message.event)
                             && (params.eventFilterFunc ? params.eventFilterFunc(message) : true);
                     } else {

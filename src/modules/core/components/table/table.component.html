@@ -60,5 +60,6 @@
     *ngIf="$params.pagination?.use"
     [items]="rows"
     [settings]="$params.pagination"
+    [itemPerPage]="$params.pageCount"
     (paginationOnChange)="paginationOnChange($event)">
 </div>

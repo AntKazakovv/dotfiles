@@ -2,6 +2,11 @@ import {IIndexing} from 'wlc-engine/modules/core';
 
 export type TInternaiMailStatus = 'new' | 'readed';
 
+export const messagesFilterStatus = {
+    'readed': 1,
+    'new': 0,
+};
+
 export interface IInternalMail {
     /**
      * Mail's message
@@ -25,4 +30,18 @@ export interface IInternalMail {
      * Has the mail been read
      */
     Status: TInternaiMailStatus;
+}
+
+export interface IMailNotificationsParams {
+    enableNotification?: boolean;
+    excludedStatesForNotifications?: string[];
+    numberOfNotifications?: number,
+}
+
+export interface IMessagesRequestParams {
+    dateTo?: string;
+    dateFrom?: string;
+    page?: number;
+    limit?: number;
+    status?: number;
 }

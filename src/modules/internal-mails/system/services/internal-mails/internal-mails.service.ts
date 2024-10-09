@@ -1,4 +1,7 @@
-import {Injectable} from '@angular/core';
+import {
+    inject,
+    Injectable,
+} from '@angular/core';
 import {StateService} from '@uirouter/core';
 import {
     LangChangeEvent,
@@ -11,6 +14,8 @@ import {
     Observable,
     Subject,
     Subscription,
+    filter,
+    first,
 } from 'rxjs';
 import dayjs from 'dayjs';
 import type {Dayjs} from 'dayjs';
@@ -29,19 +34,20 @@ import {
     IData,
     LogService,
     ModalService,
+    RouterService,
 } from 'wlc-engine/modules/core';
 import {
     NotificationEvents,
     IPushMessageParams,
 } from 'wlc-engine/modules/core/system/services/notification';
-import {IInternalMail} from 'wlc-engine/modules/internal-mails/system/interfaces';
+import {
+    IInternalMail,
+    IMailNotificationsParams,
+    IMessagesRequestParams,
+} from 'wlc-engine/modules/internal-mails/system/interfaces';
 import {InternalMailModel} from 'wlc-engine/modules/internal-mails/system/models';
 
-export interface IMailNotificationsParams {
-    excludedStatesForNotifications: string[];
-    numberOfNotifications: number,
-}
-
+export const MESSAGES_PER_PAGE: number = 10;
 @Injectable({
     providedIn: 'root',
 })
@@ -50,6 +56,8 @@ export class InternalMailsService {
     public unreadMailsCount$: BehaviorSubject<number> = new BehaviorSubject(0);
     public readedMailID$: Subject<string> = new Subject();
     public currentLang: string;
+    protected routerService = inject (RouterService);
+    protected totalPages: number | null = null;
     private _mails$: BehaviorSubject<InternalMailModel[]> = new BehaviorSubject([]);
     private mailsFetchHandler: Subscription;
     private newMails: InternalMailModel[];
@@ -59,7 +67,10 @@ export class InternalMailsService {
             'app.gameplay',
         ],
         numberOfNotifications: 3,
+        enableNotification: true,
     };
+    private statusSetting = {status: 0};
+    private totalMessages: number | null = null;
 
     constructor(
         private dataService: DataService,
@@ -70,7 +81,10 @@ export class InternalMailsService {
         private modalService: ModalService,
         private stateService: StateService,
     ) {
-        this.init();
+        this.routerService.stateChange$.pipe(
+            filter((value) => !!value.alias),
+            first(),
+        ).subscribe(() => this.init());
     }
 
     /**
@@ -80,6 +94,15 @@ export class InternalMailsService {
      */
     public get mails$(): Observable<InternalMailModel[]> {
         return this._mails$.pipe(distinctUntilChanged( _isEqual));
+    }
+
+    /**
+     * Get total mails count
+     *
+     * @returns {number}
+     */
+    public get totalMails(): number {
+        return this.totalMessages;
     }
 
     /**
@@ -209,9 +232,10 @@ export class InternalMailsService {
 
         InternalMailModel.currentLanguage = this.translateService.currentLang || 'en';
         this.setHandlers();
-
         this.setNotificationsParams();
-        this.setSubscriptions();
+        if (this.notificationsParams.enableNotification) {
+            this.setSubscriptions();
+        }
     }
 
     /**
@@ -237,9 +261,14 @@ export class InternalMailsService {
      *
      * @returns {Promise<void>}
      */
-    public async getMails(): Promise<void> {
-        this.mailsResponseHandler(await this.dataService.request<IData>('messages/getMails'), 'getMails');
+    public async getMails(params?: IMessagesRequestParams): Promise<void> {
+        this.mailsResponseHandler(await this.dataService.request<IData>('messages/getMails', params), 'getMails');
     }
+
+    public async getTotalMails(params?: IMessagesRequestParams): Promise<void> {
+        this.mailsTotalResponseHandler(await this.dataService.request<IData>('messages/getTotalMails', params));
+    }
+
 
     /**
      * Start fetching mails
@@ -260,10 +289,17 @@ export class InternalMailsService {
      * @returns {void}
      */
     private startMailsFetcher(): void {
-        this.mailsFetchHandler = this.dataService.subscribe(
-            'messages/fetchMails',
-            (mailsResponse: IData): void => this.mailsResponseHandler(mailsResponse, 'startMailsFetcher'),
+        this.mailsFetchHandler = this.dataService.subscribe('messages/fetchMails',
+            (mailsResponse: IData): void => {
+                this.setUnreadMailsCount(mailsResponse?.data?.length);
+            },
         );
+    }
+
+    private setUnreadMailsCount(unreadMails: number): void{
+        if (this.unreadMailsCount$.getValue() !== unreadMails) {
+            this.unreadMailsCount$.next(unreadMails);
+        }
     }
 
     /**
@@ -289,18 +325,7 @@ export class InternalMailsService {
             return;
         }
         try {
-            let unreadMails: number = 0;
-
             this._mails$.next(this.modifyMails(mailsResponse.data));
-
-            unreadMails = _filter(
-                this._mails$.getValue(),
-                (mail: InternalMailModel): boolean => mail.status === 'new',
-            ).length;
-
-            if (this.unreadMailsCount$.getValue() !== unreadMails) {
-                this.unreadMailsCount$.next(unreadMails);
-            }
         } catch (error) {
             this.fetchErrorHandler(error, 'mailsResponseHandler -> ' + fromMethod);
         } finally {
@@ -343,18 +368,26 @@ export class InternalMailsService {
         });
     }
 
-    private registerMethods(): void {
+    private registerMethods(messageParams = this.statusSetting): void {
+
         this.dataService.registerMethod({
             name: 'fetchMails',
             system: 'messages',
             url: '/messages',
             type: 'GET',
             period: 60000,
+            params: messageParams,
         });
         this.dataService.registerMethod({
             name: 'getMails',
             system: 'messages',
             url: '/messages',
+            type: 'GET',
+        });
+        this.dataService.registerMethod({
+            name: 'getTotalMails',
+            system: 'messages',
+            url: '/messages/total',
             type: 'GET',
         });
     }
@@ -474,5 +507,10 @@ export class InternalMailsService {
             return null;
         }
         return text;
+    }
+
+    private mailsTotalResponseHandler(mailsResponse: IData<number>): void {
+        this.totalMessages = mailsResponse.data;
+        this.totalPages = Math.round(this.totalMails / MESSAGES_PER_PAGE);
     }
 }

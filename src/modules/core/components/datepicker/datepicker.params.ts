@@ -25,6 +25,7 @@ export interface IDatepickerCParams extends IComponentParams<ComponentTheme, Com
     label?: string;
     control?: UntypedFormControl;
     locales?: IIndexing<ILocale>;
+    useEmptyValue?: boolean;
     event?: {
         emit?: TDatepickerEvent,
         subscribe?: TDatepickerEvent,

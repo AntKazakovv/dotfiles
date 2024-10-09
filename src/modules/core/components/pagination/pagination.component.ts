@@ -40,7 +40,7 @@ export class WlcPaginationComponent<T = unknown> extends AbstractComponent imple
     @Output() public paginationOnChange = new EventEmitter<Params.IPaginateOutput<T>>();
 
     public override $params: Params.IPaginationCParams;
-    public currentPage: number = 1;
+    public currentPage: number | null = null;
 
     protected paginatedItems: T[];
 
@@ -56,11 +56,15 @@ export class WlcPaginationComponent<T = unknown> extends AbstractComponent imple
     }
 
     public override ngOnChanges(): void {
+        this.currentPage = this.settings.currentPage ?? 1;
         if (!this.pageChanged) {
             this.pageChanged = this.pageChangedDefault;
         }
 
-        if (this.items?.length) {
+        if (this.settings.total) {
+            this.totalItems = this.settings.total;
+            this.paginatedItems = this.items;
+        } else if (this.items?.length) {
             this.totalItems = this.items.length;
             this.resetPage();
         }
@@ -72,8 +76,11 @@ export class WlcPaginationComponent<T = unknown> extends AbstractComponent imple
         if (this.settings?.breakpoints) {
             this.followBreakpoints();
         }
-
-        this.resetPage();
+        if (this.settings.total) {
+            this.pageChanged({page: this.currentPage, itemsPerPage: this.itemPerPage});
+        } else {
+            this.resetPage();
+        }
     }
 
     /**
@@ -82,7 +89,8 @@ export class WlcPaginationComponent<T = unknown> extends AbstractComponent imple
      * @returns {boolean} boolean
      */
     public get hiddenPagination(): boolean {
-        return !this.items || !this.settings?.use || (this.items.length <= this.itemPerPage);
+        const isTotalMore = (this.settings.total ? this.settings.total : this.items.length) <= this.itemPerPage;
+        return !this.items || !this.settings?.use || isTotalMore;
     }
 
     /**
@@ -97,7 +105,8 @@ export class WlcPaginationComponent<T = unknown> extends AbstractComponent imple
     protected pageChangedDefault(event: PageChangedEvent): void {
         const startItem = (event.page - 1) * event.itemsPerPage;
         const endItem = event.page * event.itemsPerPage;
-        this.paginatedItems = this.items.slice(startItem, endItem);
+        this.paginatedItems = this.settings.total ? this.items
+            : this.items.slice(startItem, endItem);
         this.paginationEmit(event);
     }
 
