@@ -1,7 +1,7 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'emailValueMargin': 0 ef.size(2),
-    'emailValueTextStyle': 'PrimaryText',
+    'emailValueTextStyle': 'CaptionTextBold',
     'emailValueColor': var(--mc-baseMain),
 ), $customThemeDefault);
 
