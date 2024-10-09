@@ -79,6 +79,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
     public gameThumbSettings: Params.IGameThumbButtonsSettings = {
         demoThemeMode: 'secondary',
     };
+    public thumbPictureSources!: ISource[];
     public isAuth: boolean;
     public isKiosk: boolean;
     public isMobile: boolean = true;
@@ -178,9 +179,6 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
         const gameId = this.$params.common?.gameId;
         this.currentLanguage = this.configService.get<string>('currentLanguage');
 
-        if (GlobalHelper.isMobileApp()) {
-            this.useWebp = false;
-        }
         this.mediaFormatTypes = this.configService.get<IIndexing<string>>('$games.mediaFormatTypes');
         if (this.$params.common?.game) {
             this.game = this.$params.common.game;
@@ -320,6 +318,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         this.isKiosk = this.configService.get<AppType>('$base.app.type') === 'kiosk';
         this.initEventHandlers();
+        this.setThumbPictureSources();
         this.hasVideo = !this.isMobile && this.gamesCatalogService.hasVideo(this.game.ID, this.$params.type);
         this.inited = true;
         this.cdr.detectChanges();
@@ -384,18 +383,6 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
         }
     }
 
-    public get imageSources(): ISource[] {
-        const sources: ISource[] = [];
-
-        if (this.useWebp) {
-            sources.push({
-                srcset: this.game.getImage(315, 'webp'),
-                type: 'image/webp',
-            });
-        }
-        return sources;
-    }
-
     /**
      * getting media content for thumbs
      *
@@ -446,6 +433,21 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
 
     public hideGameInfo(): void {
         this.removeModifiers('ppl-show');
+    }
+
+    protected setThumbPictureSources(): void {
+        this.thumbPictureSources = [];
+
+        if (GlobalHelper.isMobileApp()) {
+            this.useWebp = false;
+        }
+
+        if (this.useWebp) {
+            this.thumbPictureSources.push({
+                srcset: this.game.getImage(315, 'webp'),
+                type: 'image/webp',
+            });
+        }
     }
 
     /**

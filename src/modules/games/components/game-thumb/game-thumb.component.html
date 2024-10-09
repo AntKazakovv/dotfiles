@@ -18,7 +18,7 @@
         <div wlc-image
             data-wlc-element="block_game-thumb-img"
             (click)="startGame(false, true, $event)"
-            [sources]="imageSources"
+            [sources]="thumbPictureSources"
             [src]="game.getImage(640)">
         </div>
 
@@ -53,7 +53,7 @@
     <div wlc-image
         data-wlc-element="block_game-thumb-img"
         (click)="startGame(false, true, $event)"
-        [sources]="imageSources"
+        [sources]="thumbPictureSources"
         [src]="game.getImage(315)"
     ></div>
     <ng-container [ngTemplateOutlet]="buttonFavourite"></ng-container>
@@ -137,7 +137,7 @@
                 data-wlc-element="block_game-thumb-img"
                 (click)="startGame(false, true, $event)"
                 (loadSuccess)="successfulLoadImage()"
-                [sources]="imageSources"
+                [sources]="thumbPictureSources"
                 [src]="game.getImage(640)"
             ></div>
         </div>
@@ -371,7 +371,7 @@
     <div wlc-image
         data-wlc-element="block_game-thumb-img"
         (click)="startGame(false, true, $event)"
-        [sources]="imageSources"
+        [sources]="thumbPictureSources"
         [src]="game.getImage(315)"
     ></div>
 </ng-template>
