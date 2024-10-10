@@ -195,7 +195,7 @@ export class LimitationService {
     public async getRealityCheck(from: number): Promise<IActivityResultData> {
         try {
             const result: IData<IActivityResultData> = await this.dataService.request<IData>(
-                'limit/realityCheck', 
+                'limit/realityCheck',
                 {from: dayjs(from).add(-1 * dayjs().utcOffset(), 'minute').format('YYYY-MM-DD HH:mm:ss')});
             return result.data;
         } catch (error) {
@@ -451,8 +451,8 @@ export class LimitationService {
                     type: 'success',
                     title: gettext('User Limits'),
                     message: (exclusion?.value
-                        ? gettext('The limit was successfully added and will be applied on')
-                        : gettext('The limit will be removed on')),
+                        ? gettext('The limit was successfully added and will be applied on {{time}}')
+                        : gettext('The limit will be removed on {{time}}')),
                     messageContext: {
                         time,
                     },

@@ -144,7 +144,7 @@ export abstract class UserActionsAbstract<T> extends AbstractComponent implement
                 type: 'error',
                 title: gettext('Registration error'),
                 message: gettext('You must agree with Terms and Conditions '
-                    + 'as well as confirm that you are at least 18 years old'),
+                    + 'as well as confirm that you are at least {{age}} years old'),
                 messageContext: {
                     age: this.configService.get('legalAgeByCountry')
                         || this.configService.get('$base.profile.legalAge'),

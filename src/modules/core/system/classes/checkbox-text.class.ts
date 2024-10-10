@@ -29,7 +29,8 @@ export class CheckBoxTexts {
             slug: 'terms-and-conditions',
         },
         ageCheckboxText: gettext('I confirm that I\'m 18 years or older'),
-        ageWlcCuracaoCheckboxText: gettext('I am 18 years or older and not a resident of the restricted territories'),
+        // eslint-disable-next-line max-len
+        ageWlcCuracaoCheckboxText: gettext('I am {{age}} years or older and not a resident of the restricted territories'),
         selfExcludedCheckboxText: gettext('I have not self-excluded from any gambling website in the past 12 months'),
         paymentRulesText: {
             prefix: gettext('I have read and agree to the payment'),
