@@ -1,6 +1,6 @@
 
 .wlc-user-stats--theme-wolf.wlc-user-stats--type-default:host {
-    display: var(--us-display);
+    display: var(--us-display, grid);
     margin: var(--us-margin);
 
     .wlc-user-stats {
@@ -60,9 +60,11 @@
 
         &-balance {
             @include bm.get-mq-map('background', $themeWolf, 'balanceBg');
-
+            display: flex;
+            flex-direction: column;
             width: 100%;
             min-width: ef.get-value($themeWolf, 'balanceMinWidth');
+            height: 100%;
             padding: ef.get-value($themeWolf, 'balancePadding');
             text-align: ef.get-value($themeWolf, 'balanceTextAlign');
             border-radius: ef.get-value($themeWolf, 'balanceBorderRadius');
@@ -186,8 +188,11 @@
             }
 
             .wlc-btn--theme-default {
+                flex: 1;
+                align-items: ef.get-value($themeWolf, 'detailsAlignItems');
                 width: 100%;
                 height: ef.get-value($themeWolf, 'detailsHeight');
+                padding: ef.get-value($themeWolf, 'detailsPadding');
                 background: ef.get-value($themeWolf, 'detailsBackground');
                 border: ef.get-value($themeWolf, 'detailsBorder');
                 border-radius: ef.get-value($themeWolf, 'detailsBorderRadius');

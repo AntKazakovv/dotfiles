@@ -13,7 +13,8 @@ export interface ILoyaltyData {
     level: number,
     levelName: string,
     points: number,
-    nextLevelPoints: number
+    nextLevelPoints: number,
+    loyaltyCheckDate: string,
 }
 
 export interface ILevelViewData {
@@ -37,6 +38,8 @@ export interface ILoyaltyProgressCParams extends IComponentParams<ComponentTheme
          * Be used only if showLevelIcon === true
          * **/
         levelIconComponent?: ILayoutComponent;
+        expiryDateText?: string;
+        showExpiryDate?: boolean;
     };
 }
 
@@ -55,5 +58,7 @@ export const defaultParams: ILoyaltyProgressCParams = {
                 isUserLevel: true,
             },
         },
+        expiryDateText: gettext('Your experience points expire:'),
+        showExpiryDate: false,
     },
 };

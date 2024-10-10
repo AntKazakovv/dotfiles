@@ -20,7 +20,7 @@ const profileDefaultLoyaltyType = (isSingleLevels: boolean): ILayoutSectionConfi
                     components: [
                         isSingleLevels ? componentLib.wlcTitle.profileLoyalty : componentLib.wlcTitle.profileStore,
                         componentLib.wlcProfileMenu.submenu,
-                        componentLib.wlcLoyaltyProgress.def,
+                        componentLib.wlcLoyaltyProgress.defWithExpDate,
                         componentLib.wlcLoyaltyLevels.def,
                         componentLib.wlcLoyaltyLevelsWp.def,
                     ],
@@ -83,7 +83,7 @@ const profileFirstLoyaltyType = (isSingleLevels: boolean): ILayoutSectionConfig 
                             params: {
                                 class: 'wlc-profile-content__body',
                                 components: [
-                                    componentLib.wlcLoyaltyProgress.def,
+                                    componentLib.wlcLoyaltyProgress.defWithExpDate,
                                     componentLib.wlcLoyaltyLevels.def,
                                     componentLib.wlcLoyaltyLevelsWp.def,
                                 ],
@@ -140,7 +140,7 @@ const profileWolfLoyaltyType = (isSingleLevels: boolean): ILayoutSectionConfig =
                             name: 'core.wlc-wrapper',
                             params: {
                                 components: [
-                                    componentLib.wlcLoyaltyProgress.def,
+                                    componentLib.wlcLoyaltyProgress.defWithExpDate,
                                     componentLib.wlcLoyaltyLevels.def,
                                     componentLib.wlcLoyaltyLevelsWp.def,
                                 ],
@@ -488,7 +488,7 @@ const generateDashboardWolf = (useDepositWager?: boolean): ILayoutSectionConfig 
                             params: {
                                 class: 'smart-dashboard__top',
                                 components: [
-                                    componentLib.wlcDashboardLoyaltyBlock.wolf,
+                                    componentLib.wlcDashboardLoyaltyBlock.wolfWithExpDate,
                                     componentLib.wlcUserStats.wolf,
                                 ],
                                 smartSection: {
@@ -1630,7 +1630,7 @@ export namespace profileContent {
                 params: {
                     class: 'wlc-dashboard__top',
                     components: [
-                        componentLib.wlcDashboardLoyaltyBlock.def,
+                        componentLib.wlcDashboardLoyaltyBlock.defWithExpDate,
                         componentLib.wlcDashboardExchange.def,
                     ],
                 },
@@ -1683,7 +1683,7 @@ export namespace profileContent {
                             params: {
                                 class: 'wlc-profile-dashboard__top',
                                 components: [
-                                    componentLib.wlcDashboardLoyaltyBlock.wolf,
+                                    componentLib.wlcDashboardLoyaltyBlock.wolfWithExpDate,
                                     componentLib.wlcUserStats.wolf,
                                     componentLib.wlcEnterPromocode.wolf,
                                 ],
@@ -1740,7 +1740,7 @@ export namespace profileContent {
                             params: {
                                 class: 'wlc-dashboard__top without-store',
                                 components: [
-                                    componentLib.wlcDashboardLoyaltyBlock.def,
+                                    componentLib.wlcDashboardLoyaltyBlock.defWithExpDate,
                                     {
                                         name: 'user.wlc-user-stats',
                                         params: {
@@ -1779,7 +1779,7 @@ export namespace profileContent {
                     components: [
                         componentLib.wlcTitle.profileDashboard,
                         componentLib.wlcLogout.useText,
-                        componentLib.wlcDashboardLoyaltyBlock.def,
+                        componentLib.wlcDashboardLoyaltyBlock.defWithExpDate,
                         componentLib.wlcDashboardExchange.def,
                         componentLib.wlcTitle.profileDashboardBonuses,
                         componentLib.wlcBonusesList.dashboard,

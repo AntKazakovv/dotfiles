@@ -34,6 +34,9 @@
     </div>
 </div>
 
-<ng-template #maxLevel>
-    {{$params.common.maxProgressText | translate}}
-</ng-template>
+<ng-template #maxLevel>{{maxLevelText}}</ng-template>
+
+<div *ngIf="shouldExpiryDateBeShown" class="{{$class}}__expiry">
+    <span class="{{$class}}__expiry-date">{{expiryDateText}}</span>
+    <span class="{{$class}}__expiry-text">{{loyaltyCheckDate}}</span>
+</div>

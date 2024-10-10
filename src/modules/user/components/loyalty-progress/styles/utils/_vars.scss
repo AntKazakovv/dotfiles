@@ -1,5 +1,9 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
+    'displayLoyalty': (
+        375: block,
+        1024: flex,
+    ),
     'contentDisplay': flex,
     'contentDirection': row,
     'contentGap': ef.size(3),
@@ -28,4 +32,29 @@ $themeDefault: map-merge((
     'textVerticalAlign': baseline,
     'textColor': var(--mc-baseMain),
     'textStyle': 'CaptionTextBold',
+    //Expiry date
+    'expiryFlexDirection': row,
+    'expiryFlexDirectionLoyalty': (
+        375: row,
+        1024: column,
+    ),
+    'expiryGap': 3px,
+    'expiryGapLoyalty': (
+        375: 3px,
+        1024: 0,
+    ),
+    'expiryTextStyle': 'CaptionText',
+    'expiryTextColor': var(--mc-baseMain),
+    'expiryMargin': (
+        375: ef.size(3) 0 0,
+        900: ef.size(4) 0 0,
+    ),
+    'expiryMarginLoyalty': (
+        375: ef.size(3) 0 0,
+        1024: 0,
+    ),
+    'expiryAlignItemsLoyalty': (
+        375: start,
+        1024: end,
+    ),
 ), $customThemeDefault);

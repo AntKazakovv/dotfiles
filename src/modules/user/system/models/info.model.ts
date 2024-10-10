@@ -448,4 +448,8 @@ export class UserInfo extends AbstractModel<IUserInfo> {
     public get displayConsolidatedBalanceToStreamer(): boolean {
         return this.data?.displayConsolidatedBalanceToStreamer;
     };
+
+    public get loyaltyCheckDate(): string {
+        return this.data?.loyalty?.CheckDate;
+    }
 }

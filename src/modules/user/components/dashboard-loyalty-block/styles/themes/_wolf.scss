@@ -21,6 +21,7 @@
 
         &__all {
             margin: ef.get-value($themeWolf, 'btnAllMargin');
+            line-height: 0;
 
             ::ng-deep {
 

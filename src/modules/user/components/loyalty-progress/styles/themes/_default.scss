@@ -1,5 +1,10 @@
 .wlc-loyalty-progress--theme-default:host {
-    width: var(--wlc-lprogress-width, 100%);
+
+    .app-profile-loyalty-level-state & {
+        @include bm.get-mq-map('display', $themeDefault, 'displayLoyalty');
+        align-items: center;
+        justify-content: space-between;
+    }
 
     .wlc-loyalty-progress {
 
@@ -7,6 +12,7 @@
             display: ef.get-value($themeDefault, 'contentDisplay');
             flex-direction: ef.get-value($themeDefault, 'contentDirection');
             gap: ef.get-value($themeDefault, 'contentGap');
+            width: var(--wlc-lprogress-width, 100%);
         }
 
         &__loyalty-level-container {
@@ -15,8 +21,8 @@
             min-width: ef.get-value($themeDefault, 'iconContainerWidth');
             height: ef.get-value($themeDefault, 'iconContainerHeight');
             min-height: ef.get-value($themeDefault, 'iconContainerHeight');
-            border-radius: ef.get-value($themeDefault, 'iconContainerBorderRadius');
             background: ef.get-value($themeDefault, 'iconContainerBg');
+            border-radius: ef.get-value($themeDefault, 'iconContainerBorderRadius');
             overflow: hidden;
         }
 
@@ -70,6 +76,24 @@
             display: ef.get-value($themeDefault, 'textDisplay');
             flex-wrap: ef.get-value($themeDefault, 'textWrap');
             align-items: ef.get-value($themeDefault, 'textVerticalAlign');
+        }
+
+        &__expiry {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'expiryTextStyle'),
+                ef.get-value($themeDefault, 'expiryTextColor'),
+            );
+            @include bm.get-mq-map('margin', $themeDefault, 'expiryMargin');
+            display: flex;
+            flex-direction: ef.get-value($themeDefault, 'expiryFlexDirection');
+            gap: ef.get-value($themeDefault, 'expiryGap');
+
+            .app-profile-loyalty-level-state & {
+                @include bm.get-mq-map('flex-direction', $themeDefault, 'expiryFlexDirectionLoyalty');
+                @include bm.get-mq-map('gap', $themeDefault, 'expiryGapLoyalty');
+                @include bm.get-mq-map('align-items', $themeDefault, 'expiryAlignItemsLoyalty');
+                @include bm.get-mq-map('margin', $themeDefault, 'expiryMarginLoyalty');
+            }
         }
     }
 }

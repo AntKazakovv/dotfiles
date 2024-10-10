@@ -92,6 +92,8 @@ $themeWolf: map-merge(map-merge($base, (
     'detailsTextStyle': 'CaptionTextBold',
     'detailsTextColor': var(--mc-secondary),
     'detailsTextHoverColor': var(--mc-baseThird),
+    'detailsAlignItems': end,
+    'detailsPadding': ef.size(1) ef.size(2) ef.size(2),
 )), $customThemeWolf);
 
 $customThemeWolfHeader: () !default;

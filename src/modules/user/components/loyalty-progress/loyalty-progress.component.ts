@@ -6,6 +6,7 @@ import {
     ChangeDetectionStrategy,
     inject,
 } from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
 
 import {
     Observable,
@@ -21,6 +22,8 @@ import {
 import _find from 'lodash-es/find';
 import _merge from 'lodash-es/merge';
 import _isEqual from 'lodash-es/isEqual';
+import dayjs from 'dayjs';
+import type {Dayjs} from 'dayjs';
 
 import {
     AbstractComponent,
@@ -51,9 +54,12 @@ export class LoyaltyProgressComponent extends AbstractComponent implements OnIni
 
     protected userService: UserService = inject(UserService);
     protected injectionService: InjectionService = inject(InjectionService);
+    protected readonly translateService = inject(TranslateService);
     protected loyaltyLevelsService: LoyaltyLevelsService;
     protected nextLevel: string = '';
     protected nextLevelName: string = '';
+    protected loyaltyCheckDate: string;
+    protected dateDifference: number;
 
     public override $params: Params.ILoyaltyProgressCParams;
     public levels: LoyaltyLevelModel[];
@@ -72,6 +78,7 @@ export class LoyaltyProgressComponent extends AbstractComponent implements OnIni
             levelName: userInfo.levelName,
             points: userInfo.points,
             nextLevelPoints: userInfo.nextLevelPoints,
+            loyaltyCheckDate: userInfo.loyaltyCheckDate,
         })),
         distinctUntilChanged(_isEqual),
         map(this.infoToViewData.bind(this)),
@@ -86,6 +93,18 @@ export class LoyaltyProgressComponent extends AbstractComponent implements OnIni
 
     public override ngOnInit(): void {
         super.ngOnInit(GlobalHelper.prepareParams(this, ['maxProgressText', 'showLevelIcon']));
+    }
+
+    public get maxLevelText(): string {
+        return this.translateService.instant(this.$params.common.maxProgressText);
+    }
+
+    public get expiryDateText(): string {
+        return this.translateService.instant(this.$params.common.expiryDateText);
+    }
+
+    protected get shouldExpiryDateBeShown(): boolean {
+        return this.$params.common.showExpiryDate && (this.dateDifference >= 0);
     }
 
     private infoToViewData(loyaltyData: Params.ILoyaltyData): Params.ILevelViewData {
@@ -113,6 +132,13 @@ export class LoyaltyProgressComponent extends AbstractComponent implements OnIni
                     loyaltyLevelComponent,
                 ],
             };
+        }
+
+        if (loyaltyData.level !== 1) {
+            this.loyaltyCheckDate = dayjs(loyaltyData.loyaltyCheckDate).format('DD.MM.YYYY');
+            const nowDate: Dayjs = dayjs().startOf('day');
+            const expiryDate: Dayjs = dayjs(loyaltyData.loyaltyCheckDate).startOf('day');
+            this.dateDifference = expiryDate.diff(nowDate);
         }
 
         if (this.levels[loyaltyData.level]) {
