@@ -42,7 +42,6 @@ import {
     MerchantWalletExrateComponent,
 } from './components/merchant-wallet';
 import {LuckyButtonComponent} from './components/lucky-button/lucky-button.component';
-import {FavouriteButtonComponent} from './components/favourite-button/favourite-button.component';
 import {HouseGamesComponent} from './components/house-games/house-games.component';
 
 import {SearchMerchantListComponent} from 'wlc-engine/modules/games/components/search-v2';
@@ -83,7 +82,6 @@ export const components = {
     'wlc-dropdown-search': DropdownSearchComponent,
     'wlc-total-jackpot': TotalJackpotComponent,
     'wlc-lucky-button': LuckyButtonComponent,
-    'wlc-favourite-button': FavouriteButtonComponent,
     'wlc-house-games': HouseGamesComponent,
 };
 
@@ -116,7 +114,6 @@ export const services = {
         MerchantWalletInfoComponent,
         MerchantWalletPreviewComponent,
         LuckyButtonComponent,
-        FavouriteButtonComponent,
         HouseGamesComponent,
         SearchV2Component,
         SearchMerchantListComponent,
