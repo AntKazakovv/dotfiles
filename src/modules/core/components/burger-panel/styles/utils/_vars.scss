@@ -172,7 +172,8 @@ $themeLeft: map-merge((
     'langCurrentBgModLongHover': var(--mc-baseMain-o1),
 
     'logoMargin': 0 auto,
-    'logoSvgMaxHeight': ef.size(6),
+    'logoSvgMaxHeight': 53px,
+    'logoSvgWidth': 147px,
 
     'userInfoMargin': ef.size(6) ef.size(4) ef.size(4),
     'userInfoEmailIconWidth': ef.size(5),
@@ -220,7 +221,8 @@ $themeOption3: map-merge((
 
     'logoMaxWidth': 100%,
     'logoMargin': 0 auto,
-    'logoSvgMaxHeight': ef.size(11),
+    'logoSvgMaxHeight': 53px,
+    'logoSvgWidth': 147px,
 
     'mainMenuMaxWidth': 330px,
     'mainMenuMargin': (

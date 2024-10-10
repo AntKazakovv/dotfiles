@@ -45,6 +45,7 @@
             &__image {
 
                 svg {
+                    width: ef.get-value($themeOption3, 'logoSvgWidth');
                     max-height: ef.get-value($themeOption3, 'logoSvgMaxHeight');
                 }
             }

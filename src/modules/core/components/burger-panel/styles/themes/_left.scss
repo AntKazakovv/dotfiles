@@ -127,6 +127,7 @@
             &__image {
 
                 svg {
+                    @include bm.get-mq-map('width', $themeLeft, 'logoSvgWidth');
                     @include bm.get-mq-map('max-height', $themeLeft, 'logoSvgMaxHeight');
                 }
             }
