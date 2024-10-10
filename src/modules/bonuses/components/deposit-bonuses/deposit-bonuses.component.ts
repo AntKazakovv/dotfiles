@@ -182,10 +182,6 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
             this.chooseBlankBonus();
         } else {
             this.chooseBonus(bonus);
-            this.eventService.emit({
-                name: bonus ? BonusItemComponentEvents.deposit : BonusItemComponentEvents.blank,
-                data: bonus || null,
-            });
         }
 
         this.cdr.markForCheck();
@@ -274,6 +270,11 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
         this.currentBonus = bonus || null;
         this.lastBonusId = bonus?.id || null;
         this.updateBonusesStatus();
+
+        this.eventService.emit({
+            name: bonus ? BonusItemComponentEvents.deposit : BonusItemComponentEvents.blank,
+            data: bonus || null,
+        });
     }
 
     protected getAutoSelectedBonus(): Bonus | null {

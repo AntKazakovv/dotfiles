@@ -77,6 +77,11 @@ export class FinancesHelper {
         ));
     }
 
+    /** Returns string language-formatted currency string */
+    public static getIntlCurrencyString(lang: string, currency: string, value: number): string {
+        return Intl.NumberFormat(lang, {style: 'currency', currency: currency}).format(value);
+    }
+
     private static checkType(isDeposit: boolean, value: FilterType): boolean {
         if (isDeposit) {
             return this.depositType.includes(value);

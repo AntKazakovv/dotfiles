@@ -51,6 +51,10 @@ export interface IFinancesConfig {
      * The default initial amount from the "Preselected payment amount" field will be added to the amount entry form
      */
     useDefaultAmount?: boolean;
+    /**
+     * If true, amount field will ignore limits of selected bonus and will use only payment system limits
+     * */
+    ignoreBonusLimits?: boolean;
     newTermsVersion?: string;
     useLotteryWidget?: boolean;
     /** Settings for enable/disable deposit when necessary (use tags from UserInfo) */
@@ -307,7 +311,8 @@ export type TShowMode = 'title'
     | 'paymentInfo'
     | 'systems'
     | 'activeBonusNotStackable'
-    | 'activeBonusNonCancelable';
+    | 'activeBonusNonCancelable'
+    | 'bonusActivationInfo';
 
 export type TTechnicalTags = 'check_name_before_withdraw' | 'check_tc';
 

@@ -123,6 +123,10 @@
             }
         }
 
+        .wlc-alert--bonus-limits {
+            --wlc-alert-margin: #{ef.get-value($themeDefault, 'bonusLimitsAlertMargin')};
+        }
+
         .wlc-form {
             @include bm.get-mq-map('grid-template-columns', $themeDefault, 'formGridColumns');
             @include bm.get-mq-map('justify-items', $themeDefault, 'formJustifyItems');

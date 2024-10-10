@@ -71,6 +71,7 @@ import {
     ICheckboxCParams,
     IModalConfig,
     DataService,
+    IAlertCParams,
 } from 'wlc-engine/modules/core';
 import {
     ColorThemeValues,
@@ -200,6 +201,7 @@ export class PaymentFormComponent
         name: 'finances.wlc-tax-info',
         params: {},
     };
+    protected ignoreBonusLimits: boolean = false;
 
     private additionalFieldsConfig: IIndexing<IAdditionalFieldConfig>;
     private isDeposit: boolean;
@@ -243,6 +245,7 @@ export class PaymentFormComponent
 
         this.isDeposit = this.mode === 'deposit';
         this.isMultiWallet = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
+        this.ignoreBonusLimits = this.configService.get<boolean>('$finances.ignoreBonusLimits');
         this.additionalFieldsConfig = this.configService.get('$finances.fieldsSettings.additional');
         this.usePreselectedSummation = this.configService.get<boolean>('$finances.preselectButtons.summationMode');
         this.isRomanianLicense = this.configService.get<string>('appConfig.license') === 'romania';
@@ -363,10 +366,11 @@ export class PaymentFormComponent
 
     public get minAmount(): number {
         if (this.isDeposit) {
-            return _max([
-                +this.currentSystem.depositMin,
-                this.bonus?.minDeposit,
-            ]);
+            return this.ignoreBonusLimits ?
+                this.currentSystem.depositMin : _max([
+                    +this.currentSystem.depositMin,
+                    this.minAmountBonus,
+                ]);
         } else {
             return this.currentSystem.withdrawMin;
         }
@@ -374,13 +378,22 @@ export class PaymentFormComponent
 
     public get maxAmount(): number {
         if (this.isDeposit) {
-            return _min([
-                +this.currentSystem.depositMax,
-                this.bonus?.maxDeposit || null,
-            ]);
+            return this.ignoreBonusLimits ?
+                this.currentSystem.depositMax : _min([
+                    +this.currentSystem.depositMax,
+                    this.maxAmountBonus,
+                ]);
         } else {
             return this.currentSystem.withdrawMax;
         }
+    }
+
+    public get minAmountBonus(): number | undefined {
+        return this.bonus?.minDeposit;
+    }
+
+    public get maxAmountBonus(): number | undefined {
+        return this.bonus?.maxDeposit;
     }
 
     public get paymentMessageParams(): Partial<IPaymentMessageCParams> {
@@ -399,6 +412,12 @@ export class PaymentFormComponent
         return this.$params.type !== 'partial-amount'
             || this.currentSystem?.cryptoInvoices
             || this.currentSystem?.cryptoCheck;
+    }
+
+    protected get showBonusActivationAlert(): boolean {
+        return this.ignoreBonusLimits
+            && this.bonus?.hasDepositLimits
+            && !!this.currentSystem;
     }
 
     protected get isNeedThirdStep(): boolean {
@@ -654,7 +673,7 @@ export class PaymentFormComponent
                 .pipe(
                     distinctUntilChanged(),
                     takeUntil(this.$destroy),
-                ).subscribe(val => {
+                ).subscribe((val: string) => {
                     if (val === '') {
                         this.eventService.emit({name: 'AMOUNT_IS_EMPTY'});
                         this.clearAmountButton.params.isAmountEmpty = true;
@@ -662,7 +681,7 @@ export class PaymentFormComponent
                         this.eventService.emit({name: 'AMOUNT_NOT_EMPTY'});
                         this.clearAmountButton.params.isAmountEmpty = false;
                     }
-                    this.amount$.next(val);
+                    this.amount$.next(Number(val));
                 });
         }
     }
@@ -795,6 +814,26 @@ export class PaymentFormComponent
                     this.onPaySystemChange();
                 }
             }, this.$destroy);
+
+        if (this.ignoreBonusLimits) {
+            this.initBonusLimitsSubscriber();
+        }
+    }
+
+    protected initBonusLimitsSubscriber(): void {
+        this.amount$.pipe(
+            takeUntil(this.$destroy),
+        ).subscribe((amount: number) => {
+            this.updateBonusLimitsModifiers(amount);
+        });
+    }
+
+    protected updateBonusLimitsModifiers(amount: number): void {
+        if (this.isBonusLimitsValid(amount)) {
+            this.addModifiers('bonus-limits-valid');
+        } else {
+            this.removeModifiers('bonus-limits-valid');
+        }
     }
 
     protected changesHandler(changes: SimpleChanges): void {
@@ -892,6 +931,7 @@ export class PaymentFormComponent
 
     protected onBonusChange(): void {
         this.updateFormConfig();
+        this.updateBonusLimitsModifiers(this.amount$.getValue() || 0);
     }
 
     protected onWalletChange(changes: SimpleChange): void {
@@ -1020,6 +1060,11 @@ export class PaymentFormComponent
 
             formComponents.push(amountFieldWrap);
 
+            if (this.showBonusActivationAlert) {
+                const bonusActivationAlert: IFormComponent = this.getBonusLimitsAlertConfig();
+                formComponents.push(bonusActivationAlert);
+            }
+
             if (this.showCommissions) {
                 formComponents.push(this.commissionsInfoConfig);
             }
@@ -1093,6 +1138,34 @@ export class PaymentFormComponent
         }
 
         this.cdr.markForCheck();
+    }
+
+    /** Checks user amount for compliance with bonus limits */
+    protected isBonusLimitsValid(amount: number): boolean {
+        const isValidMin: boolean = amount >= (this.minAmountBonus || 0);
+        const isValidMax: boolean = amount <= (this.maxAmountBonus || this.currentSystem?.depositMax);
+
+        return isValidMin && isValidMax;
+    }
+
+    /** Prepares and returns config for bonus activation limits alert */
+    protected getBonusLimitsAlertConfig(): IFormComponent {
+        const alertParams = this.configService.get<IAlertCParams>('$finances.alerts.deposit.bonusActivationInfo');
+        const lang: string = this.translateService.currentLang;
+        const currency: string = this.currentCurrency ?? this.userProfile.selectedCurrency;
+        const alertTitle: string = this.translateService.instant(alertParams.title, {
+            minLim: FinancesHelper.getIntlCurrencyString(lang, currency, this.minAmountBonus),
+            maxLim: FinancesHelper.getIntlCurrencyString(lang, currency, this.maxAmountBonus || this.maxAmount),
+        });
+
+        return {
+            name: 'core.wlc-alert',
+            params: {
+                ...alertParams,
+                customMod: 'bonus-limits',
+                title: alertTitle,
+            },
+        };
     }
 
     protected prepareMainButton(): IFormComponent {

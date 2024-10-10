@@ -233,6 +233,11 @@ export const financesConfig: IFinancesConfig = {
                 description: '',
                 mod: 'warning',
             },
+            'bonusActivationInfo': {
+                title: gettext('To activate the selected bonus, ' +
+                    'the deposit amount must be more than {{minLim}} and less than {{maxLim}}'),
+                mod: 'default',
+            },
         },
     },
     payLoaderPageGenerateFn: (title: string): string => {

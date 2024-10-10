@@ -698,6 +698,11 @@ export class Bonus extends AbstractModel<IBonus> {
             _toNumber(this.conditions?.AmountMax?.EUR) || 0;
     }
 
+    /** @returns {boolean} existence at least one of deposit limits */
+    public get hasDepositLimits(): boolean {
+        return !!this.minDeposit || !!this.maxDeposit;
+    }
+
     /**
      * @returns {number} multiplier for relative bonus
      */

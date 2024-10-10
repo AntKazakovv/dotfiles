@@ -48,6 +48,8 @@ $themeDefault: map-merge((
         375: calc(40px + ef.size(2)),
     ),
 
+    'bonusLimitsAlertMargin': ef.size(2) 0 0,
+
     'mainBtnMargin': ef.size(4) 0 0,
     'mainBtnJustify': (
         375: center,

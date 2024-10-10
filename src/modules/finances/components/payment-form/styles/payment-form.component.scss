@@ -7,11 +7,25 @@
 
 @import './themes/default';
 
+.wlc-payment-form:host {
+
+    &.wlc-payment-form--bonus-limits-valid {
+
+        ::ng-deep {
+
+            .wlc-alert--bonus-limits {
+                display: none;
+            }
+        }
+    }
+}
+
 .wlc-payment-form--type-partial-additional:host {
 
     ::ng-deep {
 
-        .wlc-amount-wrapper {
+        .wlc-amount-wrapper,
+        .wlc-alert--bonus-limits {
             display: none;
         }
     }
