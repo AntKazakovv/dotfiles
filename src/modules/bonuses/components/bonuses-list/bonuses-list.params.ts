@@ -138,7 +138,7 @@ export const defaultParams: IBonusesListCParams = {
         use: false,
         params: {
             common: {
-                text: gettext('Go home'),
+                text: gettext('Main page'),
                 sref: 'app',
             },
         },

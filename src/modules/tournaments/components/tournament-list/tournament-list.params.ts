@@ -41,7 +41,7 @@ export const defaultParams: ITournamentListCParams = {
     useNoTournamentsBtn: false,
     noTournamentsBtn: {
         common: {
-            text: gettext('Go home'),
+            text: gettext('Main page'),
             sref: 'app',
         },
     },
