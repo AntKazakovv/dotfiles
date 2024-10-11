@@ -20,6 +20,7 @@ import {
     SearchControllerDefault,
     SearchControllerEasy,
 } from 'wlc-engine/modules/games/components/search-v2';
+import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 
 type TController = InstanceType<typeof SearchControllerDefault | typeof SearchControllerEasy>;
 
@@ -44,6 +45,7 @@ export class SearchV2Component extends AbstractComponent implements OnInit {
         });
     }
 
+    @CustomHook('games', 'searchV2NgOnInit')
     public override ngOnInit(): void {
         super.ngOnInit();
         const controllerToken = this.$params.theme === 'easy' ? SearchControllerEasy : SearchControllerDefault;

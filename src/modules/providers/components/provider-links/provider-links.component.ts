@@ -35,6 +35,7 @@ import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.mod
 import {gamesEvents} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {IconModel} from 'wlc-engine/modules/icon-list/system/models/icon-list-item.model';
 import {Game} from 'wlc-engine/modules/games/system/models';
+import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 import * as Params from './provider-links.params';
 
 @Component({
@@ -92,6 +93,7 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
         this.ready = true;
     }
 
+    @CustomHook('providers', 'providerLinksShowAllProviders')
     public showAllProviders(): void {
         if (GlobalHelper.isMobileApp() || this.$params.redirectToPage) {
             this.stateService.go('app.providers');
@@ -138,6 +140,7 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
      * Creates the icon list.
      * Based on games request data.
      **/
+    @CustomHook('providers', 'providerLinksSetMerchantsList')
     protected setMerchantsList(): void {
         const {iconsType, colorIconBg} = this.$params;
         const showIconAs = iconsType == 'black' ? 'svg' : 'img';
