@@ -42,7 +42,7 @@ export class SmsService {
      */
     public async send(phoneCode: string, phoneNumber: string): Promise<ISmsSendResponse> {
         const params = {phoneCode, phoneNumber};
-        const textData = [gettext('Error occurred while sending code for SMS Verification')];
+        const textData = [gettext('An error has occurred while sending the SMS verification code')];
         try {
             const response: IData = await this.dataService.request('sms/send', params);
             return response.data;

@@ -58,8 +58,8 @@ export class NonceInterceptor implements HttpInterceptor {
                         id: 'login-error',
                         modalTitle: gettext('Sorry, something went wrong!'),
                         modalMessage: gettext(
-                            'Something went wrong during login process. '
-                            + 'Please check the correctness of the entered data and try again.',
+                            'Something went wrong during the login process. '
+                            + 'Please check the entered data and try again',
                         ),
                         textAlign: 'center',
                     });

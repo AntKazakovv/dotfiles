@@ -444,7 +444,7 @@ export class MetamaskService {
 
         if (_isString(error.code)) {
             // ethers internal https://docs.ethers.io/v5/api/utils/logger/#errors
-            errors = gettext('Something went wrong. Please contact with support service.');
+            errors = gettext('Something went wrong. Please contact the technical support of our casino');
             this.logService.sendLog({code: '17.2.0', data: {method, error}});
         } else if (error.code === -32002) {
             // Metamask internal -32002

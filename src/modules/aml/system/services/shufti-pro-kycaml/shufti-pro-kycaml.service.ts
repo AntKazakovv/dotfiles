@@ -73,7 +73,7 @@ export class ShuftiProKycamlService {
                     type: 'error',
                     title: gettext('Error'),
                     message: gettext('The service is temporarily unavailable.' +
-                     ' Please, try again later or contact the technical support service'),
+                     ' Please try again later or contact the technical support of our casino'),
                 },
             });
         }

@@ -30,6 +30,6 @@ export const defaultParams: ILoyaltyProgramCParams = {
     levelsLimit: 4,
     decorLeftPath: GlobalHelper.gstaticUrl + '/loyalty-program/decor/left-decor.png',
     decorRightPath: GlobalHelper.gstaticUrl + '/loyalty-program/decor/right-decor.png',
-    emptyStateText: gettext('An error has occurred while loading data. Please try again later.'),
+    emptyStateText: gettext('An error has occurred while loading the data. Please try again later'),
 };
 ```

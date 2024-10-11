@@ -700,7 +700,7 @@ export class PaymentFormComponent
             this.pushNotification({
                 type: 'error',
                 title: notificationTitle,
-                message: gettext('You must fill required profile fields'),
+                message: gettext('You must fill in the required profile fields'),
                 wlcElement: 'notification_deposit-fields-error',
             });
             return false;

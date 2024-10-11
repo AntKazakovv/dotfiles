@@ -312,7 +312,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                         type: 'error',
                         title: gettext('Error filling form'),
                         message: formErrors.length > 1
-                            ? gettext('Check the correctness of the filled-out fields')
+                            ? gettext('Check the correctness of the filled in fields')
                             : _get(this.listErrors, formErrors[0], formErrors[0].replace(/^.+\./, 'validator-')),
                         wlcElement: 'notification_form-fields-error',
                     },

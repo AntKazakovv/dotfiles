@@ -591,7 +591,7 @@ export class BonusesService {
         } catch (error) {
             let {errors} = error;
             if (!errors) {
-                errors = [gettext('An error has occurred while loading data. Please try again later.')];
+                errors = [gettext('An error has occurred while loading the data. Please try again later')];
             }
 
             this.logService.sendLog({code: '10.0.3', data: {bonusId}});

@@ -26,7 +26,7 @@ export const defaultParams: ITransferCParams = {
     componentName: 'wlc-transfer',
     class: 'wlc-transfer',
     unavailableMessage: gettext('Sorry, this functionality is currently unavailable'),
-    errorMessage: gettext('Something went wrong. Please contact with support service.'),
+    errorMessage: gettext('Something went wrong. Please contact the technical support of our casino'),
     noContentConfig: {
         components: [
             {
