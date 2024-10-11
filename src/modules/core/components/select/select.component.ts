@@ -53,6 +53,7 @@ import {
     GlobalHelper,
     ISelectOptions,
 } from 'wlc-engine/modules/core';
+import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 
 import {suggestOption} from 'wlc-engine/modules/core/components/select/helpers/suggest-option.helper';
 import {mergeAliases} from 'wlc-engine/modules/core/components/select/helpers/merge-aliases.helper';
@@ -619,6 +620,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
      * @param {boolean} pushToControl
      * @returns {void} void
      */
+    @CustomHook('core', 'selectSelectOption')
     protected selectOption(item: Params.ISelectOptions | undefined, pushToControl: boolean = true): void {
         if (pushToControl) {
             this.control.setValue(item?.value);
