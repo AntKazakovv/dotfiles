@@ -258,6 +258,8 @@ def tag_duplicate_checking(action, tag_to_find, repo_path=None):
     remote_ref_list = get_remote_ref_list(repo_path)
     remote_tag_list = [ref.split("/")[-1] for ref in remote_ref_list]
 
+    free_tag_name = tag_to_find
+
     while tag_to_find in remote_tag_list:
         free_tag_name = ".".join(map(str, change_version(action, parse_version(tag_to_find))))
 
