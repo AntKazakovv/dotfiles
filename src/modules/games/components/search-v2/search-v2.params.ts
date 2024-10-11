@@ -66,7 +66,9 @@ export interface ISearchCParams extends IComponentParams<ComponentTheme, string,
              */
             gamesGrid?: IGamesGridCParams;
         };
-    }
+    },
+    oneTapClosePanel?: boolean;
+    radioSwitch?: boolean;
 };
 
 export type PanelType = 'merchants' | 'categories';

@@ -68,12 +68,19 @@ export class SearchControlComponent extends AbstractComponent implements OnInit 
             .subscribe((filter) => {
                 this.categoriesLength = filter.categories?.length;
                 this.merchantsLength = filter.merchants?.length;
+                this.closePanel();
             });
     }
 
     protected checkPanelState(): void {
         if (this.$searchControllerDefault.props.openProviders) {
             this.togglePanel('merchants');
+        }
+    }
+
+    protected closePanel(): void {
+        if (this.$searchControllerDefault.props.oneTapClosePanel) {
+            this.openPanel = null;
         }
     }
 }

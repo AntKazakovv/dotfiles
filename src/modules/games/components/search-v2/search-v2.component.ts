@@ -93,6 +93,8 @@ export class SearchV2Component extends AbstractComponent implements OnInit {
             gamesGridParams: gamesGridParams,
             openProviders: this.$params.common.openProvidersList,
             searchFieldParams: this.$params.searchInputParams,
+            oneTapClosePanel: this.$params.oneTapClosePanel,
+            radioSwitch: this.$params.radioSwitch,
         });
     }
 }

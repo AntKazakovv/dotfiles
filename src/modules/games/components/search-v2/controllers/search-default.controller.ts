@@ -49,6 +49,8 @@ export interface IControllerDefaultParams {
     openProviders: boolean,
     theme: string,
     searchFieldParams: ISearchFieldCParams,
+    oneTapClosePanel: boolean,
+    radioSwitch: boolean,
 }
 
 @Injectable()
@@ -137,10 +139,16 @@ export class SearchControllerDefault extends AbstractSearchController<IControlle
     }
 
     public setValueChooseMerchant(merchant: MerchantModel): void {
+        if (this.props.radioSwitch) {
+            this._chooseMerchant$.next(undefined);
+        }
         this._chooseMerchant$.next(merchant);
     }
 
     public setValueChooseCategory(category: CategoryModel): void {
+        if (this.props.radioSwitch) {
+            this._chooseCategory$.next(undefined);
+        }
         this._chooseCategory$.next(category);
     }
 
