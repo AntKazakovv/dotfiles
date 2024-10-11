@@ -218,6 +218,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         type: 'sref',
         class: 'bonuses',
         icon: 'bonuses',
+        wlcElement: 'link_cc-profile-menu_bonuses',
         params: {
             state: {
                 name: 'app.profile.loyalty-bonuses.main',
@@ -230,7 +231,6 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                 ],
             },
         },
-        wlcElement: 'link_offers',
     },
 
     'profile-first-menu:bonuses-as-offers': {
@@ -252,6 +252,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         type: 'sref',
         icon: 'bonuses-offers',
         class: 'bonuses-offers',
+        wlcElement: 'link_offers',
         params: {
             state: {
                 name: 'app.profile.loyalty-bonuses.offers',
@@ -302,6 +303,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         name: gettext('All bonuses'),
         type: 'sref',
         class: 'all-bonus',
+        wlcElement: 'link_bonuses-all',
         params: {
             state: {
                 name: 'app.profile.loyalty-bonuses.main',
@@ -314,6 +316,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         type: 'sref',
         icon: 'active-bonuses',
         class: 'active-bonus',
+        wlcElement: 'link_bonuses-all',
         params: {
             state: {
                 name: 'app.profile.loyalty-bonuses.main',
@@ -327,6 +330,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         type: 'sref',
         icon: 'inventory-bonuses',
         class: 'inventory-bonus',
+        wlcElement: 'link_bonuses-inventory',
         params: {
             state: {
                 name: 'app.profile.loyalty-bonuses.inventory',
@@ -339,6 +343,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         type: 'sref',
         icon: 'inventory-bonuses',
         class: 'inventory-bonus',
+        wlcElement: 'link_bonuses-inventory',
         params: {
             state: {
                 name: 'app.profile.loyalty-bonuses.inventory',
@@ -915,6 +920,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         type: 'sref',
         icon: 'messages',
         class: 'messages',
+        wlcElement: 'link_messages',
         params: {
             state: {
                 name: 'app.profile.messages',
@@ -1133,7 +1139,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         type: 'title',
         icon: 'loyalty',
         class: 'loyalty',
-        wlcElement: 'link_loyalty',
+        wlcElement: 'link_cc-profile-menu_loyalty',
         params: {
             state: {
                 parent: [
