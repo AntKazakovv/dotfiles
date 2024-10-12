@@ -23,8 +23,12 @@ import {
 
 export class AppConfigModel extends AbstractModel<IBootstrap> {
 
-    constructor(from: IFromLog) {
+    constructor(
+        from: IFromLog,
+        bootstrap: IBootstrap,
+    ) {
         super({from: _assign({model: 'AppConfigModel', from})});
+        this.data = bootstrap;
     }
 
     /**

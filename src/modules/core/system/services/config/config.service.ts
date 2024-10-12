@@ -320,8 +320,7 @@ export class ConfigService {
     }
 
     private prepareData(data: IBootstrap): void {
-        this.global.appConfig = new AppConfigModel({service: 'ConfigService'});
-        this.global.appConfig.data = data;
+        this.global.appConfig = new AppConfigModel({service: 'ConfigService'}, data);
 
         this.set<boolean>({name: '$user.isAuthenticated', value: this.global.appConfig.loggedIn});
         this.set<BehaviorSubject<boolean>>({

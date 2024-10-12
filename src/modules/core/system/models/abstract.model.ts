@@ -28,7 +28,7 @@ export abstract class AbstractModel<T> {
         }
     }
 
-    public set data(data: T) {
+    protected set data(data: T) {
         if (data) {
             this.objectData = _assign(this.objectData, data);
             this.checkData();

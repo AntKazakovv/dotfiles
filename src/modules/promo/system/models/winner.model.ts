@@ -17,9 +17,11 @@ export class WinnerModel extends AbstractModel<IWinnerData> {
 
     constructor(
         from: IFromLog,
-        protected gamesCatalogService: GamesCatalogService,
+        winner: IWinnerData,
+        private gamesCatalogService: GamesCatalogService,
     ) {
         super({from: _assign({model: 'WinnerModel'}, from)});
+        this.data = winner;
     }
 
     public get id(): string {
