@@ -13,7 +13,6 @@
                 ef.get-value($themeDefault, 'titleTextStyle'),
                 ef.get-value($themeDefault, 'titleColor')
             );
-            @include bm.get-mq-map('margin', $themeDefault, 'titleMargin');
         }
 
         &__btn-block {
