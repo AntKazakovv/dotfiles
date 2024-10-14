@@ -14,11 +14,15 @@ import _orderBy from 'lodash-es/orderBy';
 
 import {
     first,
+    map,
     takeUntil,
 } from 'rxjs/operators';
 import {
     filter,
+    from,
     interval,
+    Observable,
+    of,
 } from 'rxjs';
 
 import {
@@ -74,20 +78,21 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
     public hideSettings: boolean;
 
     protected showDepositBtn;
-    protected readonly walletHelper = WalletHelper;
 
-    private readonly eventService: EventService = inject(EventService);
-    private readonly modalService: ModalService = inject(ModalService);
-    private readonly userService: UserService = inject(UserService);
-    private readonly ratesService: RatesCurrencyService = inject(RatesCurrencyService);
-    private readonly currencyService: CurrencyService = inject(CurrencyService);
+    protected readonly walletHelper = WalletHelper;
+    protected readonly eventService: EventService = inject(EventService);
+    protected readonly modalService: ModalService = inject(ModalService);
+    protected readonly userService: UserService = inject(UserService);
+    protected readonly ratesService: RatesCurrencyService = inject(RatesCurrencyService);
+    protected readonly currencyService: CurrencyService = inject(CurrencyService);
+
+    protected currencies: ICurrency<string>[];
+    protected changeConversionCoefficientReady: Promise<void>;
+    protected $coefficientResolve: () => void;
+    protected createWalletListReady: Promise<void>;
+    protected $createWalletListResolve: () => void;
 
     private searchQuery: string = '';
-    private currencies: ICurrency<string>[];
-    private changeConversionCoefficientReady: Promise<void>;
-    private $coefficientResolve: () => void;
-    private createWalletListReady: Promise<void>;
-    private $createWalletListResolve: () => void;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.WalletsParams,
@@ -149,24 +154,38 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
         }, this.$destroy);
     }
 
-    public get displayedBalance(): string {
-        return this.isConvert() ? (Number(this.currentWallet.balance) * WalletHelper.coefficientConversion)
+    protected getWalletBalance(item: IWallet): Observable<string | number> {
+        return (typeof item.balance === 'string' || typeof item.balance === 'number')
+            ? of(item.balance)
+            : item.balance;
+    }
+
+    protected get displayedBalance(): string {
+        return this.isConvert ? (Number(this.currentWallet.balance) * WalletHelper.coefficientConversion)
             .toFixed(2) : <string>this.currentWallet.balance;
     }
 
-    public get displayedCurrency(): string {
-        return this.isConvert() ? WalletHelper.walletSettings?.currency : null;
+    protected get displayedCurrency(): string {
+        return this.isConvert ? WalletHelper.walletSettings?.currency : null;
     }
 
-    public get showSettings(): boolean {
+    protected get showSettings(): boolean {
         return !this.isFinance && !this.hideSettings;
     }
 
-    public get filterIconPath(): string {
+    protected get filterIconPath(): string {
         return this.$params.filterIcon;
     }
 
-    public async onChangingWallet(item: IWallet): Promise<void> {
+    protected get isConvert(): boolean {
+        return !this.isFinance && WalletHelper.walletSettings?.conversionInFiat;
+    }
+
+    protected isConvertBalanceWallet(wallet: IWallet): boolean {
+        return this.isConvert && wallet.balance !== '0.00';
+    }
+
+    protected async onChangingWallet(item: IWallet): Promise<void> {
         this.currentWallet = WalletHelper.createCurrentWallet(
             this.userService.userInfo.wallets,
             item.currency,
@@ -174,7 +193,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
         );
         this.isOpened = false;
 
-        if (WalletHelper.walletSettings.conversionInFiat && !this.isFinance) {
+        if (this.isConvert) {
             await this.updateConversionCoefficient();
         }
 
@@ -200,7 +219,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
         this.eventService.emit({name: MultiWalletEvents.WalletChanged});
     }
 
-    public onOpen(): void {
+    protected onOpen(): void {
         this.walletListRead = false;
         this.cdr.markForCheck();
         this.searchQuery = '';
@@ -211,18 +230,18 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
         }
     }
 
-    public async setSearchQuery($event: string): Promise<void> {
+    protected async setSearchQuery($event: string): Promise<void> {
         this.searchQuery = $event;
         await this.createWalletList();
         this.isShowNotFound = $event && !this.walletList.length;
         this.cdr.markForCheck();
     }
 
-    public clickOutside(): void {
+    protected clickOutside(): void {
         this.isOpened = false;
     }
 
-    public showSettingsModal(): void {
+    protected showSettingsModal(): void {
         this.modalService.showModal({
             id: 'wallet-settings',
             modalTitle: this.$params.settingsText,
@@ -237,7 +256,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
         });
     }
 
-    public async showFiltersModal(): Promise<void> {
+    protected async showFiltersModal(): Promise<void> {
         await this.createWalletListReady;
         this.modalService.showModal({
             id: 'wallet-filters',
@@ -257,7 +276,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
         });
     }
 
-    public async changeSettings(): Promise<void> {
+    protected async changeSettings(): Promise<void> {
         this.changeConversionCoefficientReady = new Promise((resolve: () => void): void => {
             this.$coefficientResolve = resolve;
         });
@@ -265,6 +284,23 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
         this.$coefficientResolve();
         this.isShowNotFound = this.searchQuery && !this.walletList.length;
         this.cdr.markForCheck();
+    }
+
+    protected async conversionOfWalletBalances(wallet: IWallet, currency: string): Promise<void> {
+        if (this.isConvertBalanceWallet(wallet)) {
+            //TODO заменить на BehaviorSubject
+            if (this.changeConversionCoefficientReady) {
+                await this.changeConversionCoefficientReady;
+            }
+
+            const balance: number = Number(wallet.balance);
+            wallet.balance = from(this.ratesService.getRate({
+                currencyFrom: currency,
+                currencyTo: WalletHelper.walletSettings.currency,
+            })).pipe(
+                map((value: number) => Number(balance) * value),
+            );
+        }
     }
 
     private walletChangeCallback(wallet: ISelectedWallet): void {
@@ -415,20 +451,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
             let wallet: IWallet = _assign({}, wallets[currency]);
 
             if (wallet.balance) {
-
-                if (this.isConvert(currency) && this.isOpened) {
-
-                    if (this.changeConversionCoefficientReady) {
-                        await this.changeConversionCoefficientReady;
-                    }
-
-                    const coefficient: number = await this.ratesService.getRate({
-                        currencyFrom: currency,
-                        currencyTo: WalletHelper.walletSettings.currency,
-                    });
-                    wallet.balance = (coefficient * Number(wallet.balance));
-                }
-                wallet.balance = Number(wallet.balance).toFixed(2);
+                await this.conversionOfWalletBalances(wallet, currency);
                 wallet.displayName = displayName || currency;
 
             } else {
@@ -438,6 +461,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
                     balance: '0.00',
                 };
             }
+
             this.filteredWallets(currency, wallet);
         }
     }
@@ -542,10 +566,5 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
 
         this.userService.userInfo$.next(this.userService.userInfo);
         this.eventService.emit({name: MultiWalletEvents.CurrencyConversionChanged});
-    }
-
-    protected isConvert(currency: string = this.currentWallet.currency): boolean {
-        return !this.isFinance && WalletHelper.walletSettings?.conversionInFiat
-            && currency !== WalletHelper.walletSettings?.currency;
     }
 }

@@ -1,3 +1,5 @@
+import {Observable} from 'rxjs';
+
 import {CurrencyName} from 'wlc-engine/modules/currency';
 import {Bonus} from 'wlc-engine/modules/bonuses';
 import {StoreItem} from 'wlc-engine/modules/store';
@@ -6,7 +8,7 @@ import {Tournament} from 'wlc-engine/modules/tournaments';
 export interface IWallet {
     currency?: string;
     displayName?: string;
-    balance?: string | number;
+    balance?: string | number | Observable<number>;
     availableWithdraw?: string;
     walletId?: number;
     freerounds?: any[];

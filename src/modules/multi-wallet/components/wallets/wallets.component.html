@@ -34,7 +34,7 @@
          wlc-currency
          [value]="displayedBalance"
          [currency]="displayedCurrency"
-         [showValueOnly]="!isConvert()"
+         [showValueOnly]="!isConvert"
      ></span>
     <span
         wlc-icon
@@ -115,9 +115,8 @@
         <span
             wlc-currency
             class="{{$class}}__value"
-            [value]="item.balance"
+            [value]="getWalletBalance(item) | async"
             [currency]="displayedCurrency"
-            [showValueOnly]="!isConvert()"
-   ></span>
+            [showValueOnly]="!isConvert"></span>
     </div>
 </ng-template>
