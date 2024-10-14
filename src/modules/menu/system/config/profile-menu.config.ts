@@ -1,8 +1,10 @@
-import {$base} from 'wlc-engine/modules/core/system/config/default.config';
 import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
 import * as ProfileMenuParams from 'wlc-engine/modules/menu/components/profile-menu/profile-menu.params';
+import {Theme as CounterTheme} from 'wlc-engine/modules/core/components/counter/counter.params';
+import {$base} from 'wlc-config/01.base.config';
 
-const counterTheme = $base.profile?.theme === 'wolf' ? 'circle' : 'default';
+const bonusesCounterTheme: CounterTheme = $base.profile?.theme === 'wolf' ? 'circle' : 'default';
+
 const profileLoyaltyMenuItem: MenuParams.IMenuItem = {
     name: gettext('Loyalty'),
     type: 'sref',
@@ -214,7 +216,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:bonuses-as-offers': {
         name: gettext('Bonuses'),
         counterParams: {
-            theme: counterTheme,
+            theme: bonusesCounterTheme,
             type: 'bonuses-all',
         },
         type: 'sref',
@@ -234,7 +236,6 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
             },
         },
     },
-
     'profile-first-menu:bonuses-as-offers': {
         name: gettext('Offers'),
         type: 'sref',
