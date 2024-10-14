@@ -69,11 +69,22 @@
                 ::ng-deep {
 
                     .wlc-provider-links-item {
-                        height: ef.get-value($themeDefault, 'linkItemWolfHeight');
+                        @include bm.get-mq-map('height', $themeDefault, 'linkItemWolfHeight');
 
                         &__wrp {
+                            @include text.get-text-style(
+                                ef.get-value($themeDefault, 'titleWolfFontStyle'),
+                                ef.get-value($themeDefault, 'iconColor'));
+                            @include bm.get-mq-map('padding', $themeDefault, 'iconItemPadding');
                             display: flex;
                             flex-direction: column;
+
+                            @include mq.max(560) {
+                                @include text.get-text-style(
+                                    ef.get-value($themeDefault, 'titleMobileWolfFontStyle'),
+                                    ef.get-value($themeDefault, 'iconColor')
+                                );
+                            }
                         }
 
                         &__image {
@@ -83,9 +94,9 @@
                         }
 
                         &__error {
+                            @include bm.get-mq-map('width', $themeDefault, 'linkItemImageWolfWidth');
                             @include bm.get-mq-map('height', $themeDefault, 'linkItemImageWolfHeight');
-                            display: flex;
-                            align-items: center;
+                            line-height: 70px;
                         }
 
                         &__info {
@@ -159,6 +170,26 @@
             @include bm.get-mq-map('grid-template-columns', $themeDefault, 'wrapperTemplateColumns');
             @include bm.get-mq-map('gap', $themeDefault, 'wrapperGap');
             display: grid;
+
+            ::ng-deep {
+
+                .wlc-provider-links-item {
+
+                    &__wrp {
+                        @include text.get-text-style(
+                            ef.get-value($themeDefault, 'titleWolfFontStyle'),
+                            ef.get-value($themeDefault, 'iconColor'));
+                        @include bm.get-mq-map('padding', $themeDefault, 'iconItemPadding');
+
+                        @include mq.max(560) {
+                            @include text.get-text-style(
+                                ef.get-value($themeDefault, 'iconWrapMobileFontSize'),
+                                ef.get-value($themeDefault, 'iconColor')
+                            );
+                        }
+                    }
+                }
+            }
         }
 
         &__slider {
@@ -182,6 +213,24 @@
                         width: ef.get-value($themeDefault, 'sliderPseudoWidth');
                         background: ef.get-value($themeDefault, 'sliderPseudoBackground');
                         pointer-events: none;
+                    }
+                }
+
+                .wlc-provider-links-item {
+
+                    &__wrp {
+                        @include text.get-text-style(
+                            ef.get-value($themeDefault, 'iconWrapFontSize'),
+                            ef.get-value($themeDefault, 'iconColor')
+                        );
+                        @include bm.get-mq-map('padding', $themeDefault, 'iconWrapPadding');
+
+                        @include mq.max(560) {
+                            @include text.get-text-style(
+                                ef.get-value($themeDefault, 'iconWrapMobileFontSize'),
+                                ef.get-value($themeDefault, 'iconColor')
+                            );
+                        }
                     }
                 }
 
@@ -210,7 +259,9 @@
     ::ng-deep {
 
         .wlc-provider-links-item {
+            @include bm.get-mq-map('height', $themeDefault, 'itemHeight');
             position: relative;
+            white-space: nowrap;
             background: ef.get-value($themeDefault, 'iconBackground');
             border-radius: ef.get-value($themeDefault, 'iconBorderRadius');
             transition: ef.get-value($themeDefault, 'iconTransition');
@@ -223,8 +274,6 @@
             }
 
             &__wrp {
-                @include bm.get-mq-map('font-size', $themeDefault, 'iconWrapFontSize');
-                @include bm.get-mq-map('padding', $themeDefault, 'iconWrapPadding');
                 position: absolute;
                 top: 0;
                 left: 0;
@@ -241,7 +290,7 @@
             &__error {
                 line-height: ef.get-value($themeDefault, 'errorLineHeight');
                 text-align: center;
-
+                text-overflow: ellipsis;
                 overflow-wrap: anywhere;
                 overflow: hidden;
             }

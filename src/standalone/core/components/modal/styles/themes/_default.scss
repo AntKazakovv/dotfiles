@@ -610,6 +610,38 @@
             top: ef.get-value($themeDefault, 'closePosTopWolf');
         }
     }
+
+    &.wlc-modal--provider-list {
+
+        .wlc-modal {
+
+            &__body {
+
+                .wlc-provider-links--theme-default {
+
+                    .wlc-provider-links {
+
+                        &__wrapper {
+
+                            .wlc-provider-links-item {
+
+                                &__wrp {
+                                    @include text.get-text-style(
+                                        ef.get-value($themeDefault, 'titleWrpFontSize', 320),
+                                        ef.get-value($themeDefault, 'titleWrpColor')
+                                    );
+
+                                    @include mq.min(768) {
+                                        @include text.get-text-style(ef.get-value($themeDefault, 'titleWrpFontSize', 768), null);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 body.modal-open {
