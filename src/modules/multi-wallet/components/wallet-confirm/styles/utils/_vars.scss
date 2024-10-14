@@ -15,4 +15,9 @@ $themeDefault: map-merge((
 
     'amountIconSize': 16px,
     'amountGap': 3px, // less, than ef.size(1)
+
+    'innerWidth': (
+        375: 330px,
+        560: 320px,
+    ),
 ), $customThemeDefault);

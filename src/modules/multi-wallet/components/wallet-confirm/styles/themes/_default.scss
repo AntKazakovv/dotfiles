@@ -1,4 +1,5 @@
 .wlc-wallet-confirm--theme-default:host {
+    @include bm.get-mq-map('--wlc-wc-inner-width', $themeDefault, 'innerWidth');
     @include text.get-text-style(
         ef.get-value($themeDefault, 'hostTextStyle'),
         ef.get-value($themeDefault, 'hostColor')
@@ -21,6 +22,26 @@
         &__details {
             display: grid;
             gap: ef.get-value($themeDefault, 'contentGap');
+        }
+
+        &__content {
+            justify-items: center;
+        }
+
+        &__details {
+            width: 100%;
+
+            &--wallets {
+                max-width: var(--wlc-wc-inner-width);
+            }
+        }
+
+        &__alerts {
+            max-width: var(--wlc-wc-inner-width);
+
+            &:empty {
+                display: none;
+            }
         }
 
         &__buttons {

@@ -132,4 +132,16 @@ export class WalletsService {
             this.logService.sendLog({code: '23.0.0', data: error});
         }
     }
+
+    public getRateByCurrency(currency: string): number {
+        let rate: number = 1;
+
+        if (!currency) return rate;
+
+        if (currency !== this.walletSettings?.currency) {
+            rate = Number(this.rates[`${currency}->${this.walletSettings?.currency}`]);
+        }
+
+        return rate || 1;
+    }
 }

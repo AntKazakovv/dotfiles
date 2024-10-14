@@ -29,6 +29,7 @@ export class WalletConfirmStoreController implements IWalletConfirmController {
     public $destroy: Subject<void> = new Subject();
 
     protected storeService: StoreService = inject(StoreService);
+    protected _isBalanceEnough: boolean = false;
 
     constructor(
         @Inject('injectParams') protected readonly params: IWalletConfirmCParams,
@@ -42,9 +43,14 @@ export class WalletConfirmStoreController implements IWalletConfirmController {
         await this.storeService.buyItem(this.model.id, 1, this.wallet$.getValue()?.walletId);
     }
 
-    public onWalletChange(wallet: ISelectedWallet): void {
+    public get isBalanceEnough(): boolean {
+        return this._isBalanceEnough;
+    }
+
+    public onWalletChange(wallet: ISelectedWallet, balance): void {
         this.wallet$.next(wallet);
         this.calcAmount(wallet);
+        this.checkEnoughBalance(balance, wallet.walletCurrency);
     }
 
     protected calcAmount(wallet: ISelectedWallet): void {
@@ -54,5 +60,14 @@ export class WalletConfirmStoreController implements IWalletConfirmController {
         } else {
             this.debitAmount = this.model.getPriceAmount(wallet.walletCurrency);
         }
+    }
+
+    protected checkEnoughBalance(balance: number, currency: string): void {
+        if (this.model.type !== 'Bonus') {
+            this._isBalanceEnough = true;
+            return;
+        }
+
+        this._isBalanceEnough = this.model.checkBalance(balance, currency);
     }
 }

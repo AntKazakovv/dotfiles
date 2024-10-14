@@ -26,8 +26,11 @@ import {IAmount} from 'wlc-engine/modules/multi-wallet';
 
 export class StoreItem extends AbstractModel<IStoreItem> {
     public bonus: Bonus;
+
     protected userCurrency: string;
     protected useConversionInFiat: boolean;
+    protected conversionCurrency: string = null;
+
     private $availableForLevels: number[] = [];
 
     constructor(
@@ -46,6 +49,8 @@ export class StoreItem extends AbstractModel<IStoreItem> {
 
         if (userProfile) {
             this.useConversionInFiat = userProfile.isConversionInFiat;
+            this.conversionCurrency = this.useConversionInFiat
+                ? this.storeService.walletsService?.walletSettings?.currency : null;
         }
     }
 
@@ -283,13 +288,12 @@ export class StoreItem extends AbstractModel<IStoreItem> {
         }
 
         if (this.useConversionInFiat) {
-            value = Number(this.data.Price[this.storeService.walletsService?.conversionCurrency?.toUpperCase()]);
+            value = Number(this.data.Price[this.conversionCurrency?.toUpperCase()]);
+            conversionCurrency = this.conversionCurrency;
 
             if (!value) {
                 value = Number(this.data.Price['EUR']) * this.storeService.walletsService?.coefficientConversionEUR;
             }
-
-            conversionCurrency = this.storeService.walletsService?.conversionCurrency;
         }
 
         amount.push({
@@ -301,6 +305,16 @@ export class StoreItem extends AbstractModel<IStoreItem> {
         return amount;
     }
 
+    /** Checks enough balance for buy item. Returns true if balance is enough */
+    public checkBalance(balance: number, currency: string): boolean {
+        if (this.priceMoney) {
+            const price: number = Number(this.priceMoney[currency]) || 0;
+            return balance >= price;
+        } else {
+            return true;
+        }
+    }
+
     protected getMoneyPriceAmount(currency: string): IAmount {
         let moneyPrice: number = Number(this.priceMoney[currency.toUpperCase()]);
         let conversionCurrency: string = null;
@@ -310,22 +324,19 @@ export class StoreItem extends AbstractModel<IStoreItem> {
             conversionCurrency = 'EUR';
         }
 
-        if (moneyPrice) {
+        if (this.useConversionInFiat) {
+            const originalPrice: number =
+                Number(this.priceMoney[this.conversionCurrency?.toUpperCase()]);
 
-            if (this.useConversionInFiat) {
-                const originalPrice: string =
-                    this.priceMoney[this.storeService.walletsService?.conversionCurrency?.toUpperCase()];
-
-                moneyPrice = Number(originalPrice)
-                    || Number(this.priceMoney['EUR']) * this.storeService.walletsService?.coefficientConversionEUR;
-                conversionCurrency = this.storeService.walletsService?.conversionCurrency?.toLowerCase();
-            }
-
-            return {
-                value: Number(moneyPrice),
-                currency,
-                conversionCurrency,
-            };
+            moneyPrice = originalPrice
+                || Number(this.priceMoney['EUR']) * this.storeService.walletsService?.coefficientConversionEUR;
+            conversionCurrency = this.conversionCurrency.toLowerCase() || 'EUR';
         }
+
+        return {
+            value: Number(moneyPrice),
+            currency,
+            conversionCurrency,
+        };
     }
 }

@@ -11,7 +11,7 @@
             <ng-container
                 *ngIf="isFinance; else base"
                 [ngTemplateOutlet]="currency"
-                [ngTemplateOutletContext]="{$implicit: currentWallet}"></ng-container>
+                [ngTemplateOutletContext]="{$implicit: selectedWallet}"></ng-container>
             <span
                 wlc-icon
                 class="arrow"
@@ -117,7 +117,6 @@
             class="{{$class}}__value"
             [value]="getWalletBalance(item) | async"
             [currency]="displayedCurrency"
-            [showValueOnly]="!isNeedConversion()"
-   ></span>
+            [showValueOnly]="!isNeedConversion() && !isLoyaltyConvert"></span>
     </div>
 </ng-template>

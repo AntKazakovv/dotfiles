@@ -162,7 +162,17 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
     }
 
     public get displayedCurrency(): string {
-        return this.isNeedConversion() ? this.walletsService.walletSettings?.currency : null;
+        return this.isNeedConversion() || this.isLoyaltyConvert ? this.walletsService.walletSettings?.currency : null;
+    }
+    protected get selectedWallet(): IWallet {
+        return this.isLoyaltyConvert ? this.currentWalletConverted : this.currentWallet;
+    }
+
+    protected get currentWalletConverted(): IWallet {
+        const wallet = _assign({}, this.currentWallet);
+        wallet.balance =
+            this.walletsService.getRateByCurrency(this.currentWallet?.currency) * Number(this.currentWallet?.balance);
+        return wallet;
     }
 
     protected get showSettings(): boolean {
@@ -181,8 +191,12 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
         return !this.isFinance && this.walletsService.walletSettings?.conversionInFiat;
     }
 
+    protected get isLoyaltyConvert(): boolean {
+        return this.walletsService.walletSettings?.conversionInFiat && this.$params.type === 'loyalty';
+    }
+
     protected isConvertBalanceWallet(wallet: IWallet): boolean {
-        return this.isConvert && wallet.balance !== '0.00';
+        return (this.isConvert || this.isLoyaltyConvert) && wallet.balance !== '0.00';
     }
 
     protected async onChangingWallet(item: IWallet): Promise<void> {
@@ -519,9 +533,7 @@ export class WalletsComponent extends AbstractComponent implements OnInit {
         this.walletList = this.walletList.filter((currency: IWallet) => searchCondition(currency)
             && (zeroBalanceCondition
                 ? (currency.currency === this.currentWallet.currency || currency.balance !== '0.00')
-                : true)
-            // TODO: refactor it after release https://tracker.egamings.com/issues/623167 (create exists wallets list)
-            && (this.$params.type === 'loyalty' ? !!currency.walletId : true),
+                : true),
         );
         this.walletListRead = true;
         this.cdr.markForCheck();

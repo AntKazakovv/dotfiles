@@ -1,25 +1,47 @@
 
-<div *ngIf="showDecor" class="{{$class}}__decor">
-    <span wlc-icon [iconPath]="decorUrl"></span>
-</div>
+@if (showDecor) {
+    <div class="{{$class}}__decor">
+        <span wlc-icon [iconPath]="decorUrl"></span>
+    </div>
+}
 <div class="{{$class}}__content">
-    <div [ngSwitch]="type" class="{{$class}}__details {{$class}}__details--prices">
-        <ng-container *ngSwitchCase="'tournament'" [ngTemplateOutlet]="tournamentInfoTpl"></ng-container>
-        <ng-container *ngSwitchCase="'bonus'" [ngTemplateOutlet]="bonusInfoTpl"></ng-container>
-        <ng-container *ngSwitchCase="'store'" [ngTemplateOutlet]="storeItemInfoTpl"></ng-container>
-    </div>
-    <div *ngIf="isMultiWallet" class="{{$class}}__details {{$class}}__details--wallets">
-        <p>{{'Select a wallet' | translate}}:</p>
-        <div wlc-wrapper [inlineParams]="walletsParams"></div>
-        <p *ngIf="isTournament">{{'Let\'s play?' | translate}}</p>
-    </div>
+    @if (isReady$ | async) {
+        <div [ngSwitch]="type" class="{{$class}}__details {{$class}}__details--prices">
+            <ng-container *ngSwitchCase="'tournament'" [ngTemplateOutlet]="tournamentInfoTpl"></ng-container>
+            <ng-container *ngSwitchCase="'bonus'" [ngTemplateOutlet]="bonusInfoTpl"></ng-container>
+            <ng-container *ngSwitchCase="'store'" [ngTemplateOutlet]="storeItemInfoTpl"></ng-container>
+        </div>
+        <div class="{{$class}}__details {{$class}}__details--wallets">
+            <p>{{'Select a wallet' | translate}}:</p>
+            <div wlc-wallets [inlineParams]="walletsParams"></div>
+
+            @if (isTournament) {
+                <p>{{'Let\'s play?' | translate}}</p>
+            }
+        </div>
+
+        <div class="{{$class}}__alerts">
+            @if (!isBalanceEnough) {
+                <div wlc-alert [inlineParams]="balanceAlertParams"></div>
+            }
+        </div>
+    } @else {
+        <div wlc-loader></div>
+    }
 </div>
 <div class="{{$class}}__buttons">
-    <button wlc-button
-        text="{{subscribeButtonText}}"
-        data-wlc-element="wlc_loyalty_confirm-subscribe"
-        (click)="subscribeHandler()">
-    </button>
+    @if (isBalanceEnough) {
+        <button wlc-button
+            [inlineParams]="subscribeBtnParams"
+            data-wlc-element="wlc_loyalty_confirm-subscribe"
+            (click)="subscribeHandler()">
+        </button>
+    } @else {
+        <button wlc-button
+            [inlineParams]="depositBtnParams"
+            data-wlc-element="wlc_loyalty_confirm-deposit">
+        </button>
+    }
 
     <button wlc-button
         themeMod="secondary"
@@ -36,15 +58,18 @@
 
 <ng-template #bonusInfoTpl>
     <p>{{'Are you sure?' | translate}}</p>
-    <p *ngIf="showSubscribeWarning">
-        {{'The current active bonus prohibits the activation of other bonuses. '
-        + 'Activation of this bonus will not happen. Are you sure you want to subscribe?' | translate}}
-    </p>
 
-    <ng-container *ngIf="creditAmount.length">
+    @if (showSubscribeWarning) {
+        <p>
+            {{'The current active bonus prohibits the activation of other bonuses. '
+            + 'Activation of this bonus will not happen. Are you sure you want to subscribe?' | translate}}
+        </p>
+    }
+
+    @if (hasCreditAmount) {
         <p>{{'After the bonus is wagered, you will be credited:' | translate}}</p>
         <ng-container *ngTemplateOutlet="amountRowTpl; context: {$implicit: creditAmount}"></ng-container>
-    </ng-container>
+    }
 </ng-template>
 
 <ng-template #storeItemInfoTpl>
@@ -60,19 +85,27 @@
 
 <ng-template #amountRowTpl let-amount>
     <p class="{{$class}}__amount">
-        <span *ngFor="let item of amount; index as i" class="{{$class}}__amount-item">
-            <span *ngIf="i > 0" class="{{$class}}__amount-divider">+</span>
-            <span wlc-currency
-                [digitsInfo]="getDigitsInfo(item)"
-                [value]="item.value"
-                [currency]="getAmountCurrency(item)"
-                [showValueOnly]="showValueOnly(item)">
+        @for (amountItem of amount; track $index;) {
+            <span class="{{$class}}__amount-item">
+                @if ($index > 0) {
+                    <span class="{{$class}}__amount-divider">+</span>
+                }
+
+                <span wlc-currency
+                    [digitsInfo]="getDigitsInfo(amountItem)"
+                    [value]="amountItem.value"
+                    [currency]="getAmountCurrency(amountItem)"
+                    [showValueOnly]="showValueOnly(amountItem)">
+                </span>
+
+                @if (showCurrencyIcon(amountItem)) {
+                    <span
+                        wlc-icon
+                        class="currency"
+                        iconPath="{{getCurrencyIconUrl(amountItem.currency)}}">
+                    </span>
+                }
             </span>
-            <span *ngIf="showCurrencyIcon(item)"
-                wlc-icon
-                class="currency"
-                iconPath="{{getCurrencyIconUrl(item.currency)}}">
-            </span>
-        </span>
+        }
     </p>
 </ng-template>

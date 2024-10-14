@@ -81,7 +81,10 @@ export type TWalletConfirmItem = Bonus | StoreItem | Tournament;
 
 export interface IWalletConfirmController {
     subscribe(): Promise<void>;
-    onWalletChange(wallet: ISelectedWallet): void;
+    // TODO: add second parameter - balance (for calculating isBalanceEnough prop)
+    onWalletChange(wallet: ISelectedWallet, balance?: number): void;
+    /** Does we have or not enough money on current wallet for loyalty operation */
+    isBalanceEnough?: boolean;
     debitAmount?: IAmount[];
     creditAmount?: IAmount[];
 }

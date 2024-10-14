@@ -1,6 +1,8 @@
 import {
     IComponentParams,
     CustomType,
+    IButtonCParams,
+    IAlertCParams,
 } from 'wlc-engine/modules/core';
 import {WalletsParams} from 'wlc-engine/modules/multi-wallet/components/wallets/wallets.params';
 import {TWalletConfirmItem} from 'wlc-engine/modules/multi-wallet/system/interfaces';
@@ -17,6 +19,10 @@ export interface IWalletConfirmCParams extends IComponentParams<ComponentTheme, 
     buttonCaptions?: {
         [Property in ComponentType]?: string;
     };
+    depositBtnParams?: IButtonCParams;
+    alertsParams?: {
+        balance?: IAlertCParams;
+    }
 };
 
 export const defaultParams: IWalletConfirmCParams = {
@@ -33,5 +39,18 @@ export const defaultParams: IWalletConfirmCParams = {
         store: gettext('Buy now'),
         tournament: gettext('Let\'s play!'),
         bonus: gettext('Yes'),
+    },
+    depositBtnParams: {
+        common: {
+            text: gettext('Deposit'),
+            sref: 'app.profile.cash.deposit',
+        },
+    },
+    alertsParams: {
+        balance: {
+            level: 'warning',
+            title: gettext('Insufficient balance on the selected wallet. '
+                + 'Please replenish the balance or select another wallet'),
+        },
     },
 };

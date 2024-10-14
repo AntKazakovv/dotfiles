@@ -1136,7 +1136,7 @@ export class Bonus extends AbstractModel<IBonus> {
         const userProfile: UserProfile
             = this.configService.get<BehaviorSubject<UserProfile>>('$user.userProfile$').getValue();
         const conversionCurrency: string = userProfile?.isConversionInFiat
-            ? this.walletsService.conversionCurrency
+            ? this.walletsService.walletSettings?.currency
             : null;
 
         let value: string = conversionCurrency

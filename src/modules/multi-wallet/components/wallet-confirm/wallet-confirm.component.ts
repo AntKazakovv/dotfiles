@@ -6,12 +6,16 @@ import {
     Input,
     inject,
 } from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
+
+import {BehaviorSubject} from 'rxjs';
 
 import {
     AbstractComponent,
     EventService,
-    IWrapperCParams,
     ModalService,
+    IButtonCParams,
+    IAlertCParams,
 } from 'wlc-engine/modules/core';
 import {CurrenciesInfo} from 'wlc-engine/modules/core/constants';
 import {Bonus} from 'wlc-engine/modules/bonuses';
@@ -26,7 +30,8 @@ import {
     WalletConfirmStoreController,
     WalletConfirmTournamentController,
 } from '../../system/controllers/';
-import {WalletsService} from 'wlc-engine/modules/multi-wallet/system/services/wallets.service';
+import {WalletsService} from '../../system/services/wallets.service';
+import {WalletsParams} from '../../components/wallets/wallets.params';
 
 import * as Params from './wallet-confirm.params';
 
@@ -46,14 +51,17 @@ import * as Params from './wallet-confirm.params';
 export class WalletConfirmComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IWalletConfirmCParams;
     public override $params: Params.IWalletConfirmCParams;
-    public isMultiWallet: boolean;
-    public walletsParams: IWrapperCParams;
-    public subscribeButtonText: string = gettext('Subscribe');
     public readonly walletsService: WalletsService = inject(WalletsService);
+    public readonly isReady$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
+    protected readonly modalService: ModalService = inject(ModalService);
+    protected readonly eventService: EventService = inject(EventService);
+    protected readonly translateService: TranslateService = inject(TranslateService);
     protected controller: IWalletConfirmController = inject(WalletConfirmBaseController);
-    protected modalService: ModalService = inject(ModalService);
-    protected eventService: EventService = inject(EventService);
+    protected pending$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    protected _balanceAlertParams!: IAlertCParams;
+    protected _walletsParams!: WalletsParams;
+    protected _subscribeBtnParams!: IButtonCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IWalletConfirmCParams,
@@ -64,6 +72,9 @@ export class WalletConfirmComponent extends AbstractComponent implements OnInit 
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.prepareParams();
+        this.walletsService.readyMultiWallet.then(() => {
+            this.isReady$.next(true);
+        });
     }
 
     public get type(): Params.ComponentType {
@@ -94,8 +105,28 @@ export class WalletConfirmComponent extends AbstractComponent implements OnInit 
         return !!this.creditAmount.length;
     }
 
+    public get depositBtnParams(): IButtonCParams {
+        return this.$params.depositBtnParams;
+    }
+
+    public get isBalanceEnough(): boolean {
+        return this.controller.isBalanceEnough;
+    }
+
+    public get balanceAlertParams(): IAlertCParams {
+        return this._balanceAlertParams;
+    }
+
     protected get model(): TWalletConfirmItem {
         return this.$params.model;
+    }
+
+    public get subscribeBtnParams(): IButtonCParams {
+        return this._subscribeBtnParams;
+    }
+
+    public get walletsParams(): WalletsParams {
+        return this._walletsParams;
     }
 
     public get showSubscribeWarning(): boolean {
@@ -112,8 +143,13 @@ export class WalletConfirmComponent extends AbstractComponent implements OnInit 
     }
 
     public async subscribeHandler(): Promise<void> {
-        await this.controller.subscribe();
-        this.closeModal();
+        try {
+            this.pending$.next(true);
+            await this.controller.subscribe();
+        } finally {
+            this.pending$.next(false);
+            this.closeModal();
+        }
     }
 
     public closeModal(): void {
@@ -141,25 +177,35 @@ export class WalletConfirmComponent extends AbstractComponent implements OnInit 
     }
 
     protected prepareParams(): void {
-        this.isMultiWallet = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
-        this.subscribeButtonText = this.$params.buttonCaptions[this.type];
+        this.prepareSubscribeBtnParams();
+        this.prepareWalletsParams();
+        this.prepareBalanceAlertParams();
+    }
 
-        if (this.isMultiWallet) {
-            this.prepareWalletsParams();
-        }
+    protected prepareSubscribeBtnParams(): void {
+        this._subscribeBtnParams = {
+            pending$: this.pending$,
+            common: {
+                text: this.$params.buttonCaptions[this.type],
+            },
+        };
     }
 
     protected prepareWalletsParams(): void {
-        this.walletsParams = {
-            components: [
-                {
-                    name: 'multi-wallet.wlc-wallets',
-                    params: {
-                        ...this.$params.walletsParams,
-                        onWalletChange: this.controller.onWalletChange.bind(this.controller),
-                    },
-                },
-            ],
+        this._walletsParams = {
+            ...this.$params.walletsParams,
+            onWalletChange: this.controller.onWalletChange.bind(this.controller),
         };
+    }
+
+    protected prepareBalanceAlertParams(): void {
+        const rawParams: IAlertCParams = this.$params.alertsParams?.balance;
+
+        if (rawParams) {
+            this._balanceAlertParams = {
+                ...rawParams,
+                title: this.translateService.instant(rawParams.title),
+            };
+        }
     }
 }

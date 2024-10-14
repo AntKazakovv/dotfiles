@@ -34,6 +34,7 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
     protected userCurrency: string;
     protected $descriptionClean: string;
     protected useConversionInFiat: boolean;
+    protected conversionCurrency: string = null;
 
     constructor(
         params: IAbstractModelParams,
@@ -59,6 +60,8 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
         if (this.isAuth) {
             const userProfile = this.configService.get<BehaviorSubject<UserProfile>>('$user.userProfile$').getValue();
             this.useConversionInFiat = userProfile?.isConversionInFiat;
+            this.conversionCurrency = this.useConversionInFiat
+                ? this.tournamentsService.walletsService?.walletSettings.currency : null;
         }
 
         AbstractTournamentModel.useUsersCurrency ??=
@@ -218,6 +221,7 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
         ).subscribe(observer);
     }
 
+    /** Returns fee amount */
     public getFeeAmount(walletCurrency: string): IAmount {
         let currency: string = walletCurrency;
         let amount: number;
@@ -227,9 +231,9 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
             currency = 'LP';
             amount = this.feeAmount;
         } else {
-            if (this.useConversionInFiat) {
+            if (this.tournamentsService.walletsService?.walletSettings.conversionInFiat) {
                 amount = this.feeAmountConversion;
-                conversionCurrency = this.tournamentsService.walletsService.conversionCurrency;
+                conversionCurrency = this.tournamentsService.walletsService?.walletSettings.currency;
             } else {
                 amount = this.data.FeeAmount[walletCurrency];
             }
@@ -240,6 +244,11 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
             conversionCurrency,
             value: amount,
         };
+    }
+
+    /** Checks balance for subscribe the tournament. Returns true if balance is enough */
+    public checkBalance(balance: number, currency: string): boolean {
+        return balance >= Number(this.data.FeeAmount[currency]);
     }
 
     /**

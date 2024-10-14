@@ -21,6 +21,7 @@ import {
 export class WalletConfirmBonusController implements IWalletConfirmController {
     public creditAmount: IAmount[] = [];
     public wallet$: BehaviorSubject<ISelectedWallet> = new BehaviorSubject(null);
+    public readonly isBalanceEnough: boolean = true;
 
     protected bonusesService: BonusesService = inject(BonusesService);
 
