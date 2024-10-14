@@ -33,7 +33,7 @@ export const defaultParams: ITournamenFreeSpinsParams = {
     moduleName: 'tournaments',
     componentName: 'wlc-tournament-free-spins',
     class: 'wlc-tournament-free-spins',
-    title: gettext('Replenish your free spins balance and increase your chances of winning!'),
+    title: gettext('Replenish your Free spins balance and increase your chances of winning!'),
     balanceText: gettext('Balance'),
     freeSpinsText: gettext('Free spins'),
     buttonText: gettext('Buy now'),

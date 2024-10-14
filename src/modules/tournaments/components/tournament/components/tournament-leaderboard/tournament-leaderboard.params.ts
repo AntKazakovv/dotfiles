@@ -37,6 +37,6 @@ export const defaultParams: ITournamentLeaderboardCParams = {
     displayPlayerName: 'login',
     common: {
         winbetRatioText: gettext('The winner is considered by the closest approximation to the coefficient:'),
-        freeSpinsText: gettext('Leaderboard is updated according to the results of free rounds package completion'),
+        freeSpinsText: gettext('The leaderboard is updated as per the results of wagering the Free spins package'),
     },
 };

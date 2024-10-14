@@ -1474,7 +1474,7 @@ export class BonusesService {
             name: NotificationEvents.PushMessage,
             data: <IPushMessageParams>{
                 type: 'success',
-                title: gettext('Free Spins'),
+                title: gettext('Free spins'),
                 wlcElement: 'notification_bonus-freespins-game',
                 themeMod: 'with-games',
                 message: gettext('Free spins available: {{count}}\n Play until: {{date}}'),

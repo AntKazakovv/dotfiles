@@ -67,7 +67,7 @@ export const bonusHistoryTableHeadConfig: ITableCol[] = [
     },
     {
         key: 'FreeroundCount',
-        title: gettext('Free rounds'),
+        title: gettext('Free spins'),
         type: 'text',
         order: 50,
         wlcElement: 'wlc-profile-table__cell_freerounds',

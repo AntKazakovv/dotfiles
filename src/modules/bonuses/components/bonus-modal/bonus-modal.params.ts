@@ -57,8 +57,8 @@ export const defaultParams: IBonusModalCParams = {
         description: gettext('Games in which you can wager the bonus'),
     },
     freeroundGamesCommon: {
-        title: gettext('Free rounds'),
-        description: gettext('Games in which you will receive Free rounds'),
+        title: gettext('Free spins'),
+        description: gettext('Games in which you will receive Free spins'),
     },
     /** Use games grid only inside wrapper component */
     gamesGridWrapperParams: {
