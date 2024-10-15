@@ -119,6 +119,7 @@ $themeAlternative: map-merge((
     'switchWidth': 100%,
 
     'activeButtonTextColor': var(--mc-baseMain),
+    'buttonBgWolfHover': var(--mc-bg100-o4),
     'activeButttonFontWeight': bold,
     'activeButtonBg': var(--mc-bg700-l5),
     'buttonBg': var(--mc-bg700),
@@ -126,6 +127,7 @@ $themeAlternative: map-merge((
 
     'buttonTextStyle': 'CaptionText',
     'buttonTextColor': var(--mc-baseMain-o6),
+    'buttonTextColorWolf': var(--mc-baseMain),
     'buttonGap': ef.size(2),
     'buttonWidth': 100%,
     'buttonHeight': ef.size(8),
@@ -139,9 +141,10 @@ $themeAlternative: map-merge((
     'hrMargin': 0,
 
     'activeButtonTextColorWolf': var(--mc-baseThird, var(--mc-baseMain)),
-    'activeButtonBgWolf': var(--mc-bg100),
+    'buttonTextColorWolfHover': var(--mc-baseSecond, var(--mc-baseMain)),
+    'activeButtonBgWolf': var(--mc-bg100-o4),
     'iconWidthWolf': ef.size(4),
-    'buttonBgWolf': var(--mc-bg300),
+    'buttonBgWolf': var(--mc-bg300-o4),
     'switchGapWolf': ef.size(1),
     'buttonHeightWolf': ef.size(10),
     'buttonPaddingWolf': ef.size(3),

@@ -66,6 +66,10 @@
 
                         .wlc-panel-menu {
                             margin: map-get($themeLeft, 'panelWolfMenuMargin');
+
+                            &--type-info {
+                                margin: map-get($themeLeft, 'panelWolfInfoMenuMargin');
+                            }
                         }
 
                         .wlc-user-stats {

@@ -82,11 +82,17 @@
             &__btn {
                 height: ef.get-value($themeAlternative, 'buttonHeightWolf');
                 padding: ef.get-value($themeAlternative, 'buttonPaddingWolf');
+                color: ef.get-value($themeAlternative, 'buttonTextColorWolf');
                 background: var(--tt-switcher-btn-bg-wolf, #{ef.get-value($themeAlternative, 'buttonBgWolf')});
 
                 &.active {
                     color: ef.get-value($themeAlternative, 'activeButtonTextColorWolf');
                     background: var(--tt-switcher-active-btn-bg-wolf);
+                }
+
+                @include bm.hover() {
+                    color: ef.get-value($themeAlternative, 'buttonTextColorWolfHover');
+                    background: ef.get-value($themeAlternative, 'buttonBgWolfHover');
                 }
             }
 
