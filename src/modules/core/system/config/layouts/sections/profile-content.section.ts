@@ -362,7 +362,7 @@ const generateDashboard = (useDepositWager?: boolean): ILayoutSectionConfig => {
                 params: {
                     class: 'smart-dashboard__top',
                     components: [
-                        componentLib.wlcDashboardLoyaltyBlock.def,
+                        componentLib.wlcDashboardLoyaltyBlock.defWithExpDate,
                         componentLib.wlcUserStats.dashboard,
                     ],
                     smartSection: {

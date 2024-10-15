@@ -222,7 +222,20 @@
         --wlc-ustats-balance-bg: #{ef.get-value($themeDefault, 'balanceBgDashboard')};
         --wlc-ustats-item-padding: #{ef.get-value($themeDefault, 'balanceItemPaddingDashboard')};
         --wlc-ustats-item-min-height: #{ef.get-value($themeDefault, 'balanceItemMinHeightDashboard')};
-
         @include bm.get-mq-map('--wlc-ustats-balance-padding', $themeDefault, 'balancePaddingDashboard');
+
+        .wlc-user-stats {
+
+            &__content {
+                display: flex;
+                height: 100%;
+            }
+
+            &-balance {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+        }
     }
 }
