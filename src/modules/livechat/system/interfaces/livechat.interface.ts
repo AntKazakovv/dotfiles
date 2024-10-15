@@ -129,6 +129,11 @@ export interface ILivechatZendeskConfig
 export interface ILivechatZohoConfig
     extends ILivechatDefaultConfig {
         type: 'zoho';
+        /**
+         * Customer receives a link to zoho chat, the link may differ
+         * depending on the location of the zoho server
+         */
+        src: string; // 'https://salesiq.zoho.eu/widget'
         setUserDetails?: boolean; // if need complete user field (id)
         fundistProdLink?: string; // prod fundist link for set user details (www2.fundist.org)
     }
