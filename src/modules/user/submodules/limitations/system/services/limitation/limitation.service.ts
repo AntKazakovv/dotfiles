@@ -370,7 +370,7 @@ export class LimitationService {
             this.userService ??= await this.injectionService.getService<UserService>('user.user-service');
             this.modalService.showModal({
                 id: 'reality-check-info',
-                modalTitle: gettext('Activity check!'),
+                modalTitle: gettext('Activity checker'),
                 withoutPadding: true,
                 componentName: 'user.wlc-reality-check-info',
                 componentParams: {
