@@ -555,27 +555,27 @@
 </ng-template>
 
 <ng-template #bonusCurrencyValue>
-    <span *ngIf="bonus.value && bonus.bonusType != 'lootbox'"
+    <span *ngIf="showBonusValue"
         wlc-currency
         class="{{$class}}__icon-text"
         digitsInfo="1-0-0"
         minLength="4"
         maxLength="6"
-        [wlc-value-length]="valueBonus"
-        [value]="valueBonus"
-        [currency]="bonus.currencyValue"
+        [wlc-value-length]="valueBonus$.getValue()"
+        [value]="valueBonus$ | async"
+        [currency]="bonusCurrency$ | async"
         (click)="chooseBonusNoBtn()">
     </span>
 </ng-template>
 
 <ng-template #bonusValue>
-    <span *ngIf="bonus.value && bonus.bonusType != 'lootbox'"
+    <span *ngIf="showBonusValue"
         class="{{$class}}__icon-text"
         minLength="4"
         maxLength="6"
-        [wlc-value-length]="bonus.value"
+        [wlc-value-length]="valueBonus$.getValue()"
         (click)="chooseBonusNoBtn()">
-        {{bonus.value}}
+        {{bonus.value$ | async}}
         <span *ngIf="isBonusRelative" class="{{$class}}__icon-percent">%</span>
     </span>
 </ng-template>

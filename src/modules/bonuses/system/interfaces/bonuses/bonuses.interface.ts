@@ -436,3 +436,5 @@ export type IPromoCodeInfo = {
     bonusId: number;
     promoCode: string;
 };
+
+export type TBonusValue = number | number[] | string;

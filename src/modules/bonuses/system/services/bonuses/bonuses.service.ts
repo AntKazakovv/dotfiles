@@ -95,6 +95,7 @@ import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorat
 import {WalletsService} from 'wlc-engine/modules/multi-wallet/system/services/wallets.service';
 import {WebSocketEvents} from 'wlc-engine/modules/core/system/services/websocket/websocket.service';
 import {IWSConsumerData} from 'wlc-engine/modules/core/system/interfaces/websocket.interface';
+import {MultiWalletEvents} from 'wlc-engine/modules/multi-wallet';
 
 type TUserLoyaltyInfo = Pick<UserInfo, 'bonusesBalance' | 'freeRounds'>;
 
@@ -120,6 +121,7 @@ interface IFreeRoundData {
 interface IQueryBonusesByFilterParams {
     localFilter: BonusesFilterType;
     queryFilters: IQueryFilters;
+    currency$?: BehaviorSubject<string>;
 }
 
 interface IActionSubscribeParams {
@@ -141,6 +143,7 @@ export class BonusesService {
     public profile: UserProfile;
     public walletsService: WalletsService;
     public bonusActionEvent: Subject<IBonusActionEvent> = new Subject();
+    public userCurrency$: BehaviorSubject<string>;
 
     protected readonly websocketService: WebsocketService = inject(WebsocketService);
     protected activeBonuses: Bonus[] = [];
@@ -231,7 +234,7 @@ export class BonusesService {
 
         return _filter(lootboxPrizes, (prize: LootboxPrizeModel): boolean => {
 
-            return _includes(bonus.value as number[], prize.id);
+            return _includes(bonus.value$.getValue() as number[], prize.id);
         });
     }
 
@@ -573,6 +576,7 @@ export class BonusesService {
                         data.data,
                         this.walletsService,
                         this.configService,
+                        this.userCurrency$,
                     );
                 } catch (error) {
                     //
@@ -840,7 +844,9 @@ export class BonusesService {
             let bonuses: Bonus[] = _orderBy(
                 this.checkForbid(await this.modifyBonuses(
                     (res as IData<IBonus[]>).data,
-                    Date.parse(res.headers.get('Date')))),
+                    Date.parse(res.headers.get('Date')),
+                    params.currency$),
+                ),
                 'weight',
                 'desc',
             );
@@ -916,6 +922,12 @@ export class BonusesService {
         }
 
         return result;
+    }
+
+    public isUpdateCurrency(event: IEvent<unknown>): boolean {
+        return event.name === 'PROFILE_UPDATE'
+            && (event.data === MultiWalletEvents.CurrencyConversionChanged
+                || event.data === MultiWalletEvents.WalletChanged);
     }
 
     /**
@@ -1036,16 +1048,24 @@ export class BonusesService {
         this.setSubscribers();
 
         await this.configService.ready;
+        const defaultCurrency: string = this.configService.get<string>('$base.defaultCurrency') || 'EUR';
+        this.userCurrency$ = new BehaviorSubject<string>(defaultCurrency);
 
         this.setMultiWallet();
         this.configService
             .get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
-            .subscribe((UserProfile) => {
-                this.profile = UserProfile;
+            .pipe(
+                filter((profile: UserProfile) => !!profile),
+            )
+            .subscribe((userProfile: UserProfile) => {
+                this.profile = userProfile;
+                const currency: string = userProfile?.idUser
+                    ? userProfile.currency
+                    : defaultCurrency;
 
-                Bonus.userCurrency = UserProfile?.idUser
-                    ? UserProfile.currency
-                    : this.configService.get<string>('$base.defaultCurrency') || 'EUR';
+                if (this.userCurrency$.getValue() !== currency) {
+                    this.userCurrency$.next(currency);
+                }
             });
 
         this.configService
@@ -1111,7 +1131,11 @@ export class BonusesService {
         });
     }
 
-    private async modifyBonuses(data: IBonus[], bonusesServerTime: number): Promise<Bonus[]> {
+    private async modifyBonuses(
+        data: IBonus[],
+        bonusesServerTime: number,
+        $currency: BehaviorSubject<string> = this.userCurrency$,
+    ): Promise<Bonus[]> {
         const queryBonuses: Bonus[] = [];
 
         if (data?.length) {
@@ -1125,6 +1149,7 @@ export class BonusesService {
                     bonusData,
                     this.walletsService,
                     this.configService,
+                    $currency,
                 );
 
                 queryBonuses.push(bonus);
@@ -1239,10 +1264,16 @@ export class BonusesService {
             {name: 'BONUS_REFRESH'},
         ]).subscribe({
             next: (event: IEvent<unknown>): void => {
+
+                if (this.isUpdateCurrency(event)) {
+                    return;
+                }
+
                 if (event.name === 'LOGIN' || event.name === 'LOGOUT') {
                     this.bonuses = [];
                     this.subjects.bonuses$.next([]);
                 }
+
                 this.updateSubscribers();
             },
         });

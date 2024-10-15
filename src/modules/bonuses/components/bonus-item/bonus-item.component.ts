@@ -17,6 +17,7 @@ import _includes from 'lodash-es/includes';
 import _isArray from 'lodash-es/isArray';
 import _set from 'lodash-es/set';
 import _isUndefined from 'lodash-es/isUndefined';
+import {BehaviorSubject} from 'rxjs';
 
 import {
     AbstractComponent,
@@ -194,8 +195,12 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
         return this.$params.themeMod === 'with-image';
     }
 
-    public get valueBonus(): number | string {
-        return _isArray(this.bonus.value) ? 0 : this.bonus.value;
+    public get valueBonus$(): BehaviorSubject<number | string> {
+        return (_isArray(this.bonus.value$.getValue()) ? 0 : this.bonus.value$) as BehaviorSubject<number | string>;
+    }
+
+    public get bonusCurrency$(): BehaviorSubject<string> {
+        return this.bonus.$currency;
     }
 
     public get bonusBg(): string {
@@ -255,6 +260,10 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
 
     public get showBonusBottom(): boolean {
         return !this.$params.hideBonusBottom && !!this.bonus.id;
+    }
+
+    public get showBonusValue(): boolean {
+        return !!this.bonus.value$.getValue() && this.bonus.bonusType !== 'lootbox';
     }
 
     public prepareBonusImage(): void {

@@ -52,24 +52,24 @@
 </div>
 
 <ng-template #valueBalance>
-    <div *ngIf="storeItem.bonus.value && storeItem.bonus.bonusType != 'lootbox'"
+    <div *ngIf="showBonusValue"
         wlc-currency
         class="icon-text"
         digitsInfo="1-0-0"
         minLength="4"
         maxLength="6"
-        [wlc-value-length]="valueStore"
-        [value]="valueStore">
+        [wlc-value-length]="valueStore$.getValue()"
+        [value]="valueStore$ | async">
     </div>
 </ng-template>
 
 <ng-template #valueFreerounds>
-    <div *ngIf="storeItem.bonus.value && storeItem.bonus.bonusType != 'lootbox'"
+    <div *ngIf="showBonusValue"
         class="icon-text"
         minLength="4"
         maxLength="6"
-        [wlc-value-length]="storeItem.bonus.value">
-        {{storeItem.bonus.value}}
+        [wlc-value-length]="bonusValue.getValue()">
+        {{bonusValue | async}}
     </div>
 </ng-template>
 

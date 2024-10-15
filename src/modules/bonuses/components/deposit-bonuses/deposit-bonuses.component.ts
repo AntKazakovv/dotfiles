@@ -366,6 +366,7 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
             (Params.defBlankBonusParams) as IBonus,
             this.bonusesService.walletsService,
             this.configService,
+            this.bonusesService.userCurrency$,
         );
     }
 

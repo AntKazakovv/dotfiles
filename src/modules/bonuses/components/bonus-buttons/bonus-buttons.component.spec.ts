@@ -5,6 +5,7 @@ import {
 
 import {MockComponent} from 'ng-mocks';
 import {UIRouter} from '@uirouter/core';
+import {BehaviorSubject} from 'rxjs';
 
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {BonusButtonsComponent} from 'wlc-engine/modules/bonuses/components/bonus-buttons/bonus-buttons.component';
@@ -38,7 +39,7 @@ describe('BonusButtonsComponent', () => {
     beforeEach(() => {
         bonusSpy = jasmine.createSpyObj<Bonus>('bonus', [], {
             'viewTarget': 'relative',
-            'value': 100,
+            'value$': new BehaviorSubject(100),
             'name': 'Super bonus',
             'description': 'Super bonus for you',
             'terms': 'Simple test',

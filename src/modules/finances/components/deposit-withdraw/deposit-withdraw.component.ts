@@ -164,6 +164,7 @@ export class DepositWithdrawComponent
     protected isInitialized: boolean = false;
     protected depositBonuses: Bonus[];
     protected activeBonuses: Bonus[];
+    protected bonusCurrency$: BehaviorSubject<string>;
 
     private static forceEnableAutoSelectPaySystem: boolean = false;
     private useScroll: boolean = false;
@@ -216,14 +217,13 @@ export class DepositWithdrawComponent
 
         if (this.useBonuses) {
             this.configService.set({name: 'chosenPaySystem', value: null});
-            Bonus.depositCurrency = null;
         }
     }
 
     public async onWalletChange(wallet: ISelectedWallet): Promise<void> {
         if (this.diffCurrencies(wallet)) {
             this.isFetchingSystems = true;
-            Bonus.depositCurrency = wallet.walletCurrency;
+            this.bonusCurrency$?.next(wallet.walletCurrency);
             this.bonusesListParams = _assign({}, this.bonusesListParams);
             this.dropCurrentSystem();
             this.deleteStep(Params.PaymentSteps.cryptoInvoices);
@@ -625,6 +625,10 @@ export class DepositWithdrawComponent
                 executeObserverOnStart: true,
                 until: this.$destroy,
             });
+
+            if (this.isMultiWallet) {
+                this.bonusCurrency$ = new BehaviorSubject<string>(this.userService.userProfile.originalCurrency);
+            }
         }
 
         if (!this.isMultiWallet) {
@@ -715,6 +719,7 @@ export class DepositWithdrawComponent
                     event: depEvents.join(','),
                 },
                 localFilter: 'deposit',
+                currency$: this.bonusCurrency$,
             });
 
             if (this.depositBonuses.length) {
@@ -723,6 +728,7 @@ export class DepositWithdrawComponent
                         type: 'active',
                     },
                     localFilter: 'active',
+                    currency$: this.bonusCurrency$,
                 });
 
                 if (this.activeBonuses.length) {

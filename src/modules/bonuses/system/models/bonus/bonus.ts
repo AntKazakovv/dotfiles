@@ -37,6 +37,7 @@ import {
     TBonusTagKey,
     IBonusResultValueFreerounds,
     IFreeroundsRangeRelative,
+    TBonusValue,
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {IAmount} from 'wlc-engine/modules/multi-wallet';
 import {LootboxPrizeModel} from 'wlc-engine/modules/bonuses/system/models/lootbox-prize/lootbox-prize.model';
@@ -73,14 +74,13 @@ export class Bonus extends AbstractModel<IBonus> {
     public static readonly regEvents: TBonusEvent[] = ['deposit first', 'registration', 'verification'];
     public static readonly depEvents: TBonusEvent[] = ['deposit', 'deposit first', 'deposit repeated', 'deposit sum'];
     public static readonly welcomeEvents: TBonusEvent[] = ['registration', 'deposit first'];
-    public static userCurrency: string;
-    public static depositCurrency: string;
     public readonly descriptionClean: string;
     public readonly termsClean: string;
     public readonly nameClean: string;
     public readonly allowPromotions: boolean;
     public readonly hidePromotionsForUnauthorized: boolean;
     public timerEnd: Dayjs;
+    public value$: BehaviorSubject<TBonusValue>;
 
     // TODO: This is array orders of wagering from fundist, need automatically.
     private static bonusTargetsOrder = ['balance', 'freerounds', 'loyalty', 'experience'];
@@ -99,6 +99,7 @@ export class Bonus extends AbstractModel<IBonus> {
         data: IBonus,
         protected readonly walletsService: WalletsService,
         protected readonly configService: ConfigService,
+        protected $userCurrency: BehaviorSubject<string>,
     ) {
         super({from: _assign({model: 'Bonus'}, from)});
 
@@ -147,6 +148,11 @@ export class Bonus extends AbstractModel<IBonus> {
         } else {
             this.timerEnd = this.endsTimeLuxon;
         }
+
+        this.value$ = new BehaviorSubject<TBonusValue>(this.value($userCurrency.getValue()));
+        $userCurrency.subscribe((currency: string) => {
+            this.value$.next(this.value(currency));
+        });
     }
 
     public static set serverTime(time: number) {
@@ -455,14 +461,14 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     public get maxBet(): number {
-        return _toNumber(this.data.MaxBet?.[Bonus.userCurrency]) ||
+        return _toNumber(this.data.MaxBet?.[this.$userCurrency.getValue()]) ||
             _toNumber(this.data.MaxBet?.EUR) ||
             _toNumber(this.data.Conditions?.MaxBet?.Currency) ||
             _toNumber(this.data.Conditions?.MaxBet?.EUR) || 0;
     }
 
     public get minBet(): number {
-        return _toNumber(this.data.MinBet?.[Bonus.userCurrency]) ||
+        return _toNumber(this.data.MinBet?.[this.$userCurrency.getValue()]) ||
             _toNumber(this.data.MinBet?.EUR) ||
             _toNumber(this.data.Conditions?.MinBet?.Currency) ||
             _toNumber(this.data.Conditions?.MinBet?.EUR) || 0;
@@ -662,7 +668,7 @@ export class Bonus extends AbstractModel<IBonus> {
      * @returns {number} bonus min deposit
      */
     public get minDeposit(): number {
-        return _toNumber(this.amountMin?.[Bonus.depositCurrency ?? Bonus.userCurrency]) ||
+        return _toNumber(this.amountMin?.[this.$userCurrency.getValue()]) ||
             _toNumber(this.amountMin?.EUR) ||
             _toNumber(this.conditions?.AmountMin?.Currency) ||
             _toNumber(this.conditions?.AmountMin?.EUR) || 0;
@@ -672,7 +678,7 @@ export class Bonus extends AbstractModel<IBonus> {
      * @returns {number} bonus max deposit
      */
     public get maxDeposit(): number {
-        return _toNumber(this.amountMax?.[Bonus.depositCurrency ?? Bonus.userCurrency]) ||
+        return _toNumber(this.amountMax?.[this.$userCurrency.getValue()]) ||
             _toNumber(this.amountMax?.EUR) ||
             _toNumber(this.conditions?.AmountMax?.Currency) ||
             _toNumber(this.conditions?.AmountMax?.EUR) || 0;
@@ -708,7 +714,7 @@ export class Bonus extends AbstractModel<IBonus> {
      */
     public get limitAmount(): number {
         if (this.results?.[this.target].Type === 'relative') {
-            return _toNumber(this.results[this.target].LimitValue[Bonus.userCurrency]) ||
+            return _toNumber(this.results[this.target].LimitValue[this.$userCurrency.getValue()]) ||
                 _toNumber(this.results[this.target].LimitValue?.EUR) || 0;
         }
     }
@@ -717,7 +723,8 @@ export class Bonus extends AbstractModel<IBonus> {
      * @returns {boolean} is bonus limit in EUR (need for experience and loyalty bonuses)
      */
     public get isLimitAmountEUR(): boolean {
-        return !this.results?.balance?.LimitValue[Bonus.userCurrency] && !!this.results?.balance?.LimitValue?.EUR;
+        return !this.results?.balance?.LimitValue[this.$userCurrency.getValue()]
+            && !!this.results?.balance?.LimitValue?.EUR;
     }
 
     /**
@@ -735,7 +742,7 @@ export class Bonus extends AbstractModel<IBonus> {
         } else {
             return _toNumber(resultsTarget?.AwardWagering?.COEF)
                 || _toNumber(resultsTarget?.AwardWagering
-                    [Bonus.userCurrency as (keyof IBonusResultValue['AwardWagering'])])
+                    [this.$userCurrency.getValue() as (keyof IBonusResultValue['AwardWagering'])])
                 || _toNumber(resultsTarget?.AwardWagering?.EUR)
                 || 0;
         }
@@ -755,15 +762,12 @@ export class Bonus extends AbstractModel<IBonus> {
         const resultsTarget = this.results[this.target];
         if (this.isWagerAbsolute) {
             return !resultsTarget?.AwardWagering
-                [Bonus.userCurrency as keyof IBonusResultValue['AwardWagering']]
+                [this.$userCurrency.getValue() as keyof IBonusResultValue['AwardWagering']]
             && !!resultsTarget?.AwardWagering?.EUR;
         }
     }
 
-    /**
-     * @returns {number | number[] | string} bonus value
-     */
-    public get value(): number | number[] | string {
+    protected value(currency: string): TBonusValue {
         const resultsTarget = this.results[this.target];
 
         if (!resultsTarget) {
@@ -780,8 +784,7 @@ export class Bonus extends AbstractModel<IBonus> {
             case 'freerounds':
                 return this.produceFreeroundsValue(resultsTarget as IBonusResultValueFreerounds);
             default:
-                return Math.round(Number((resultsTarget as IBonusResultValueDefault).Value[Bonus.depositCurrency
-                        ?? Bonus.userCurrency]))
+                return Math.round(_toNumber((resultsTarget as IBonusResultValueDefault).Value[currency]))
                     || Math.round(Number((resultsTarget as IBonusResultValueDefault).Value?.Currency))
                     * (this.walletsService?.coefficientOriginalCurrencyConversion || 1)
                     || Math.round(Number((resultsTarget as IBonusResultValueDefault).Value?.EUR))
@@ -793,10 +796,9 @@ export class Bonus extends AbstractModel<IBonus> {
     /**
      * @returns {string} currency value
      */
-    public get currencyValue(): string {
-        return Bonus.depositCurrency ?? Bonus.userCurrency;
+    public get $currency(): BehaviorSubject<string> {
+        return this.$userCurrency;
     }
-
 
     /**
      * @returns {string} fallback bonus icon path

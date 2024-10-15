@@ -10,6 +10,10 @@ import {
 
 import _union from 'lodash-es/union';
 import _isArray from 'lodash-es/isArray';
+import {
+    BehaviorSubject,
+    of,
+} from 'rxjs';
 
 import {
     AbstractComponent,
@@ -30,6 +34,7 @@ import {
     IStoreItemTotalPrice,
 } from 'wlc-engine/modules/store/system/interfaces/store.interface';
 import {StoreService} from 'wlc-engine/modules/store/system/services';
+import {TBonusValue} from 'wlc-engine/modules/bonuses';
 
 import * as Params from './store-item.params';
 
@@ -145,8 +150,18 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
         this.cdr.detectChanges();
     };
 
-    public get valueStore(): number | string {
-        return _isArray(this.storeItem.bonus.value) ? 0 : this.storeItem.bonus.value;
+    public get valueStore$(): BehaviorSubject<number | string> {
+        return (_isArray(this.storeItem.bonus.value$.getValue())
+            ? of(0)
+            : this.storeItem.bonus.value$) as BehaviorSubject<number | string>;
+    }
+
+    public get showBonusValue(): boolean {
+        return !!this.storeItem.bonus.value$.getValue() && this.storeItem.bonus.bonusType !== 'lootbox';
+    }
+
+    public get bonusValue(): BehaviorSubject<TBonusValue> {
+        return this.storeItem.bonus.value$;
     }
 
     protected get tagTheme(): TagTheme {

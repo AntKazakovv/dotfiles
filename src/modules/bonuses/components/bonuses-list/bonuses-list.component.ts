@@ -155,6 +155,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                 } as IBonus,
                 this.bonusesService.walletsService,
                 this.configService,
+                this.bonusesService.userCurrency$,
             );
 
             this.blankBonus.isChoose = true;

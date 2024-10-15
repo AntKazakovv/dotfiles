@@ -2,7 +2,9 @@ import {
     ComponentFixture,
     TestBed,
 } from '@angular/core/testing';
+
 import {MockComponent} from 'ng-mocks';
+import {BehaviorSubject} from 'rxjs';
 
 import {BonusButtonsComponent} from 'wlc-engine/modules/bonuses/components/bonus-buttons/bonus-buttons.component';
 import {BonusItemComponent} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.component';
@@ -50,7 +52,7 @@ describe('BonusModalComponent', () => {
             'getGamesFilter',
         ], {
             'viewTarget': 'relative',
-            'value': 100,
+            'value$': new BehaviorSubject(100),
             'name': 'Super bonus',
             'description': 'Super bonus for you',
             'terms': 'Simple test',
