@@ -221,6 +221,13 @@
                         color: ef.get-value($themeWolf, 'markerColor');
                     }
                 }
+
+                ::ng-deep {
+
+                    img {
+                        max-width: 100%;
+                    }
+                }
             }
 
             &-docs {
