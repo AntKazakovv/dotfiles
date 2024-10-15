@@ -4,8 +4,8 @@
     <div wlc-alert class="{{$class}}__alert-verification">
         <span class="{{$class}}__alert-verification-title" title>
             {{$params.verificationAlertMessage | translate}} ({{verification.conditions}})
-            <a *ngIf="verification.showProfileLink" [uiSref]="'app.profile.main.info'">{{'Profile' | translate}}</a>
-            <a *ngIf="verification.showVerificationLink" [uiSref]="'app.profile.verification'">{{'Verification' | translate}}</a>
+            <a *ngIf="verification.showProfileLink" wlc-link="app.profile.main.info">{{'Profile' | translate}}</a>
+            <a *ngIf="verification.showVerificationLink" wlc-link="app.profile.verification">{{'Verification' | translate}}</a>
         </span>
     </div>
 </ng-template>
