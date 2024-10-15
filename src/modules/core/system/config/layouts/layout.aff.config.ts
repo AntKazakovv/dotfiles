@@ -9,7 +9,6 @@ export const $layoutsAff: ILayoutsConfig = {
         sections: {
             header: sectionsLib.header.aff,
             footer: sectionsLib.footer.themeSecond,
-            'sticky-footer': sectionsLib.stickyFooter.def,
         },
     },
     'app.home': {

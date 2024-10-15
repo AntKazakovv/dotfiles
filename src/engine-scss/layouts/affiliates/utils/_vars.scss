@@ -81,8 +81,7 @@ $themeDefaultBenefits: map-merge((
 
     'captionTextStyleMobile': 'CaptionText',
     'captionTextStyle': (
-        375: 'SignText',
-        768: 'CaptionText',
+        375: 'CaptionText',
         1200: 'PrimaryTextBold',
     ),
     'captionMaxWidth': 21ch,
