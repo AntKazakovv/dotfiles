@@ -137,6 +137,16 @@
                 &:last-child {
                     margin-right: 0;
                 }
+
+                &.wlc-btn--theme-mod-secondary {
+
+                    ::ng-deep {
+
+                        .wlc-btn__text {
+                            color: ef.get-value($themeDefault, 'secondaryBtnTextColor');
+                        }
+                    }
+                }
             }
         }
 

@@ -336,6 +336,10 @@
                     height: 100%;
                 }
             }
+
+            &__close {
+                color: ef.get-value($themeDefault, 'lootboxModalCloseIconColor');
+            }
         }
 
         @include mq.max(560) {

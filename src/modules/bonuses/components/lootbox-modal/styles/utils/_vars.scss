@@ -12,7 +12,7 @@ $themeDefault: map-merge((
         375: 'ThirdTitleBold',
         560: 'QoteTextBold',
     ),
-    'titleTextColor': var(--mc-baseSecond, var(--mc-baseMain)),
+    'titleTextColor': var(--mc-baseSecond-locked, var(--mc-baseMain-locked)),
 
     'descLineClamp': 3,
     'descMaxWidth': (
@@ -27,7 +27,7 @@ $themeDefault: map-merge((
         375: 'PrimaryTextBold',
         560: 'ThirdTitleBold',
     ),
-    'descTextColor': var(--mc-baseSecond, var(--mc-baseMain)),
+    'descTextColor': var(--mc-baseSecond-locked, var(--mc-baseMain-locked)),
 
     'textBlockBg': (
         375: ef.static('wlc/bonuses/lootbox/coins.png') no-repeat center 23px / 134%,
@@ -93,6 +93,7 @@ $themeDefault: map-merge((
             ef.static('wlc/bonuses/lootbox/money_right.png') no-repeat 97% 90px / 31%
         )
     ),
+    'secondaryBtnTextColor': var(--mc-baseSecond-locked, var(--mc-baseMain-locked)),
 
     'swiperPadding': (
         375: ef.size(9) ef.size(3),

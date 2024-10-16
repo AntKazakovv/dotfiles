@@ -482,6 +482,7 @@ $themeDefault: map-merge((
             linear-gradient(#3e266f, #0e002c)
         ),
     ),
+    'lootboxModalCloseIconColor': var(--mc-baseSecond-locked, var(--mc-baseMain-locked)),
     // lootbox-modal
 
     // history-wins-modal
