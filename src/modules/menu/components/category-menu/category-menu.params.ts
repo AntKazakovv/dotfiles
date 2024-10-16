@@ -49,7 +49,6 @@ export const defaultParams: ICategoryMenuCParams = {
         type: 'category-menu',
         items: [],
         sliderParams: {
-            centeredSlides: true,
             swiper: {
                 spaceBetween: 0,
             },
