@@ -1,55 +1,8 @@
 @import './utils/vars';
-@import './utils/mixins';
 
 @import './themes/theme-1';
 @import './themes/theme-2';
-@import './themes/default';
-@import './themes/wolf';
 
 .wlc-sections__nav-footer {
     border-top: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-//section columns helpers
-.wlc-footer-section {
-    display: flex;
-    flex-direction: var(--f-sect-flex-dir);
-    gap: var(--f-sect-gap);
-    align-items: var(--f-sect-align-items);
-    margin: var(--f-sect-margin);
-
-    & > div {
-        display: flex;
-        flex: var(--f-sect-flex);
-        justify-content: center;
-
-        &:first-child {
-            justify-content: var(--f-sect-fc-justify);
-        }
-
-        &:last-child {
-            justify-content: flex-end;
-        }
-    }
-
-    &.between {
-        justify-content: space-between;
-    }
-
-    &.around {
-        justify-content: space-around;
-
-        & > div {
-            flex: auto;
-            justify-content: center;
-
-            &:first-child {
-                justify-content: center;
-            }
-        }
-    }
-
-    &.center {
-        justify-content: center;
-    }
 }

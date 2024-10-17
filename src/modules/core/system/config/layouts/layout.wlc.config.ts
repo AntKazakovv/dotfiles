@@ -33,7 +33,7 @@ export const $layouts: ILayoutsConfig = {
         replaceConfig: true,
         sections: {
             header: sectionsLib.header.def,
-            footer: sectionsLib.footer.themeDefault,
+            footer: sectionsLib.footer.themeSecond,
         },
     },
     'app.home': {

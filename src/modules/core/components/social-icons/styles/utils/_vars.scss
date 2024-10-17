@@ -27,18 +27,20 @@ $themeDefault: map-merge((
         900: repeat(4, 1fr)
     ),
     'iconsListGap': (
-        375: ef.size(8)
+        900: ef.size(4)
     ),
     'iconsListJustifyContent': (
         375: center,
         900: null,
     ),
     'iconsListMargin': (
-        375: 0,
+        375: 0 ef.size(-2),
+        900: 0 0 ef.size(4),
     ),
 
     'iconsListItemMargin': (
-        375: 0,
+        375: 0 ef.size(2) ef.size(4),
+        900: 0,
     ),
 
     'iconsListLinkSize': ef.size(8),
@@ -100,7 +102,7 @@ $themeWolf: map-merge((
     'iconsListLinkSize': ef.size(8),
     'iconsListLinkBg': var(--mc-baseMain),
     'iconsListPathFill': var(--mc-bg700),
-    'iconsListLinkBgHover': var(--mc-baseThird),
+    'iconsListLinkBgHover': var(--mc-main),
     'iconsListLinkBorderRadius': 100%,
 
     'iconsListLinkSvgSize': ef.size(6),

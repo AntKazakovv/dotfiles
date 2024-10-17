@@ -5,13 +5,6 @@ export namespace wlcLicense {
         name: 'core.wlc-license',
     };
 
-    export const wolf: ILayoutComponent = {
-        name: 'core.wlc-license',
-        params: {
-            theme: 'wolf',
-        },
-    };
-
     export const onlyDesktop: ILayoutComponent = {
         name: 'core.wlc-license',
         display: {
