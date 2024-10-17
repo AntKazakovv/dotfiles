@@ -6,7 +6,7 @@ import {
 import {ILatestBetsItemCParams} from 'wlc-engine/modules/promo/components/latest-bets-item/latest-bets-item.params';
 import {IPreloaderCParams} from 'wlc-engine/modules/core/components/preloader/preloader.params';
 
-export type Theme = 'default' | CustomType;
+export type Theme = 'default' | 'wolf'| CustomType;
 export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 

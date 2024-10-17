@@ -1,0 +1,74 @@
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'itemDisplay': grid,
+    'itemColumns': (
+        375: 1fr 90px,
+        560: 1fr 110px,
+        1024: 376px 290px repeat(3, minmax(0, 1fr)),
+    ),
+    'itemRadius': ef.get('radius', 'main'),
+    'itemColor': var(--mc-bg700),
+    'itemMargin': 0 0 2px 0,
+    'itemBg': var(--mc-bg700),
+
+    'gameBg': transparent,
+    'gameDecoration': none,
+    'gameBorder': none,
+    'gameHeight': 51px,
+    'gamePadding': 0,
+
+    'cellPadding': 2px,
+    'cellTextAlign': left,
+    'cellVerticalAlign': middle,
+    'cellSvgCategoryWidth': ef.size(4),
+    'cellIconColor': var(--mc-main),
+    'cellNameAlign': left,
+    'cellNameWidth': (
+        375: 175px,
+        560: auto,
+    ),
+    'cellFirstChildPadding': 2px,
+    'cellFirstChildRadius': ef.get('radius', 'main') 0 0 ef.get('radius', 'main'),
+    'cellLastChildRadius': 0 ef.get('radius', 'main') ef.get('radius', 'main') 0,
+    'cellLastChildPadding': (
+        375: 0 ef.size(2) 0 0,
+        1024: 0,
+    ),
+    'cellSiblingElementsDisplay': (
+        375: none,
+        1024: flex,
+    ),
+
+    'iconMargin': 0 ef.size(2) 0 0,
+    'iconFirstChildMargin': 0 ef.size(3) 0 0,
+
+    'titleColor': var(--mc-baseMain),
+    'titleStyle': (
+        375: 'SignText',
+        560: 'CaptionText',
+    ),
+
+    'titleValueColor': var(--mc-baseSecond, var(--mc-baseMain)),
+    'titleValueColorHover': var(--mc-baseThird),
+    'titleValueStyle': (
+        375: 'CaptionText',
+        560: 'PrimaryText',
+    ),
+
+    'thumbHeight': 51px,
+    'thumbRadius': ef.get('radius', 'less'),
+    'thumbMargin': (
+        375: 0 ef.size(2) 0 0,
+        1024: 0 ef.size(4) 0 0,
+    ),
+
+    'winBg': var(--mc-success-o2),
+    'winTextColor': var(--mc-success),
+    'lossBg': var(--mc-baseMain-o1),
+    'lossTextColor': #7b809a,
+
+    'profitValueRadius': ef.get('radius', 'main'),
+    'profitValuePadding': 0 ef.size(2),
+    'profitValueTextAlign': center,
+    'profitValueColor': var(--mc-baseThird, var(--mc-baseMain)),
+), $customThemeWolf);

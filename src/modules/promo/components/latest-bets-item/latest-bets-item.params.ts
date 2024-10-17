@@ -5,7 +5,7 @@ import {
 import {LatestBetsModel} from 'wlc-engine/modules/promo/system/models/latest-bets.model';
 
 
-export type Theme = 'default' | CustomType;
+export type Theme = 'default' | 'wolf' | CustomType;
 export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 
@@ -15,6 +15,8 @@ export interface ILatestBetsItemCParams extends IComponentParams<Theme, Type, Th
 }
 
 export const defaultParams: ILatestBetsItemCParams = {
+    moduleName: 'promo',
+    componentName: 'wlc-latest-bets-item',
     class: 'wlc-latest-bets-item',
     fallBackIconPath: '//agstatic.com/wlc/latest-bets/fallback.svg',
 };

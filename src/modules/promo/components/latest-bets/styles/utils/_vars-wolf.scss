@@ -1,0 +1,82 @@
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    'wrapperMargin': 0 0 ef.size(6),
+
+    'cellHiddenDisplay': (
+        375: none,
+        1200: table-cell,
+    ),
+
+    'filterMargin': 0 0 2px 0,
+
+    'blockButtonsDisplay': (
+        375: inline-flex,
+    ),
+    'blockButtonsWidth': (
+        375: 100%,
+        900: auto,
+    ),
+    'blockButtonsMinWidth': (
+        375: auto,
+        900: 350px,
+    ),
+    'blockButtonsHeight': ef.size(10),
+    'blockButtonsBg': var(--mc-bg700),
+    'blockButtonsRadius': ef.get('radius', 'main'),
+    'blockButtonsPadding': 2px,
+
+    'buttonHeight': 36px,
+    'buttonWidth': (
+        375: 100%,
+        900: auto,
+    ),
+    'buttonMinWidth': (
+        375: 173px,
+    ),
+    'buttonBackground': transparent,
+    'buttonPadding': (
+        375: ef.size(1),
+        900: ef.size(1) ef.size(2),
+    ),
+    'buttonRadius': ef.get('radius', 'less'),
+    'buttonActiveBg': var(--mc-bg300),
+    'buttonBg': transparent,
+    'buttonTextActiveColor': var(--mc-baseThird, var(--mc-baseMain)),
+    'buttonTextColor': var(--mc-baseMain),
+    'buttonTextColorHover': var(--mc-baseThird, var(--mc-baseMain)),
+), $customThemeWolf);
+
+$customPreloaderLatestBest: () !default;
+$preloaderLatestBest: map-merge((
+    'blockGap': 2px,
+    'blockAlignItems': start,
+    'blockBackground': transparent,
+
+    'lineFirstChildHeight': 40px,
+    'lineFirstChildWidth': (
+        375: 100%,
+        1024: 350px
+    ),
+
+    'buttonFirstChildWidth': 50%,
+    'buttonFirstChildHeight': 36px,
+
+    'lineBorderRadius': ef.get('radius', 'main'),
+    'lineBackground': #161f34,
+    'lineWidth': 100%,
+    'lineHeight': (
+        375: 44px,
+        1024: 55px
+    ),
+
+    'buttonPosition': absolute,
+    'buttonPositionTop': 2px,
+    'buttonPositionLeft': 2px,
+    'buttonBackground': #232e4a,
+    'buttonBorderRadius': ef.get('radius', 'less'),
+    'buttonWidth': (
+        375: 52px,
+        1024: 66px
+    ),
+    'buttonHeight': 51px,
+), $customPreloaderLatestBest);

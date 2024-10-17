@@ -1,0 +1,117 @@
+.wlc-latest-bets--theme-wolf {
+
+    &:host {
+
+        .wlc-latest-bets {
+
+            &__wrapper {
+                margin: ef.get-value($themeWolf, 'wrapperMargin');
+            }
+
+            &__filter {
+                margin: ef.get-value($themeWolf, 'filterMargin');
+            }
+
+            &__block-buttons {
+                @include bm.get-mq-map('display', $themeWolf, 'blockButtonsDisplay');
+                @include bm.get-mq-map('width', $themeWolf, 'blockButtonsWidth');
+                @include bm.get-mq-map('min-width', $themeWolf, 'blockButtonsMinWidth');
+                height: ef.get-value($themeWolf, 'blockButtonsHeight');
+                border-radius: ef.get-value($themeWolf, 'blockButtonsRadius');
+                padding: ef.get-value($themeWolf, 'blockButtonsPadding');
+                background: ef.get-value($themeWolf, 'blockButtonsBg');
+            }
+
+            &__button {
+                @include bm.get-mq-map('width', $themeWolf, 'buttonWidth');
+                @include bm.get-mq-map('min-width', $themeWolf, 'buttonMinWidth');
+                @include bm.get-mq-map('padding', $themeWolf, 'buttonPadding');
+                height: ef.get-value($themeWolf, 'buttonHeight');
+                background: ef.get-value($themeWolf, 'buttonBg');
+                border-radius: ef.get-value($themeWolf, 'buttonRadius');
+
+                &:before {
+                    display: none;
+                }
+
+                ::ng-deep {
+
+                    .wlc-btn__text {
+                        @include bm.transition(all);
+                        color: ef.get-value($themeWolf, 'buttonTextColor');
+                    }
+                }
+
+                &:hover {
+
+                    ::ng-deep {
+
+                        .wlc-btn__text {
+                            color: ef.get-value($themeWolf, 'buttonTextColorHover');
+                        }
+                    }
+                }
+
+                &.active {
+                    background: ef.get-value($themeWolf, 'buttonActiveBg');
+
+                    ::ng-deep {
+
+                        .wlc-btn__text {
+                            color: ef.get-value($themeWolf, 'buttonTextActiveColor');
+                        }
+                    }
+                }
+            }
+        }
+
+        .wlc-preloader--theme-default:host {
+
+            ::ng-deep {
+
+                .wlc-preloader {
+
+                    &__element {
+
+                        &--block {
+                            gap: ef.get-value($preloaderLatestBest, 'blockGap');
+                            align-items: ef.get-value($preloaderLatestBest, 'blockAlignItems');
+                            background: ef.get-value($preloaderLatestBest, 'blockBackground');
+                        }
+
+                        &--color-first {
+
+                            &:first-child {
+                                @include bm.get-mq-map('width', $preloaderLatestBest, 'lineFirstChildWidth');
+                                height: ef.get-value($preloaderLatestBest, 'lineFirstChildHeight');
+
+                                .wlc-preloader__element--button {
+                                    width: ef.get-value($preloaderLatestBest, 'buttonFirstChildWidth');
+                                    height: ef.get-value($preloaderLatestBest, 'buttonFirstChildHeight');
+                                }
+                            }
+                        }
+
+                        &--line {
+                            @include bm.get-mq-map('height', $preloaderLatestBest, 'lineHeight');
+                            width: ef.get-value($preloaderLatestBest, 'lineWidth');
+                            border-radius: ef.get-value($preloaderLatestBest, 'lineBorderRadius');
+                            background: ef.get-value($preloaderLatestBest, 'lineBackground');
+                        }
+
+                        &--button {
+                            @include bm.get-mq-map('width', $preloaderLatestBest, 'buttonWidth');
+                            @include bm.get-mq-map('height', $preloaderLatestBest, 'buttonHeight');
+                            position: ef.get-value($preloaderLatestBest, 'buttonPosition');
+                            top: ef.get-value($preloaderLatestBest, 'buttonPositionTop');
+                            left: ef.get-value($preloaderLatestBest, 'buttonPositionLeft');
+                            z-index: 10;
+                            background: ef.get-value($preloaderLatestBest, 'buttonBackground');
+                            border-radius: ef.get-value($preloaderLatestBest, 'buttonBorderRadius');
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
