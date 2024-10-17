@@ -4,7 +4,7 @@
 
 <div *ngIf="initFailed" class="{{$class}}__error">
     <div wlc-betradar-no-content
-        [contentText]="'Popular events load error'"
+        [contentText]="'Popular events load error' | translate"
         [contentImg]="'/gstatic/games/betradar/widgets/popular-events/v1/no_content.jpg'">
     </div>
 </div>

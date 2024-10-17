@@ -48,7 +48,7 @@
 
 <div *ngIf="initFailed" class="{{$class}}__error">
     <div wlc-betradar-no-content
-         [contentText]="'Match of the day load error'"
+         [contentText]="'Match of the day load error' | translate"
          [contentImg]="'/gstatic/games/betradar/widgets/daily-match/no_content.jpg'">
     </div>
 </div>
