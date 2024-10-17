@@ -4,7 +4,10 @@ import {
 } from '@angular/core';
 
 import {TranslateService} from '@ngx-translate/core';
-import {BehaviorSubject} from 'rxjs';
+import {
+    firstValueFrom,
+    Subject,
+} from 'rxjs';
 import _map from 'lodash-es/map';
 import _isObject from 'lodash-es/isObject';
 import _values from 'lodash-es/values';
@@ -23,8 +26,9 @@ import {LoyaltyLevelModel} from 'wlc-engine/modules/loyalty/system/models';
     providedIn: 'root',
 })
 export class LoyaltyLevelsService {
-    public readonly levels$: BehaviorSubject<LoyaltyLevelModel[] | null> = new BehaviorSubject(null);
+    public readonly levels$: Subject<LoyaltyLevelModel[]> = new Subject();
 
+    protected isFetching: boolean = false;
     protected logService: LogService = inject(LogService);
     protected configService: ConfigService = inject(ConfigService);
     protected dataService: DataService = inject(DataService);
@@ -41,6 +45,12 @@ export class LoyaltyLevelsService {
      *
      */
     public async getLoyaltyLevels(): Promise<LoyaltyLevelModel[]> {
+        if (this.isFetching) {
+            return await firstValueFrom(this.levels$);
+        } else {
+            this.isFetching = true;
+        }
+
         try {
             const response: IData = await this.dataService.request('loyalty/levels');
 
@@ -48,24 +58,25 @@ export class LoyaltyLevelsService {
                 response.data = _values(response.data);
             }
 
-            return this.modifyLevels(response.data);
+            const levels: LoyaltyLevelModel[] = this.modifyLevels(response.data);
+            this.levels$.next(levels);
+
+            return levels;
         } catch (error) {
             this.logService.sendLog({code: '16.0.0', data: error});
-            return Promise.reject(error);
+            this.levels$.next([]);
+
+            return [];
+        } finally {
+            this.isFetching = false;
         }
     }
 
     /**
      * get loyalty levels or return empty array on error in request
      */
-    public getLoyaltyLevelsObserver(): BehaviorSubject<LoyaltyLevelModel[]> {
-        this.getLoyaltyLevels()
-            .then((levels: LoyaltyLevelModel[]): void => {
-                this.levels$.next(levels);
-            }).catch((): void => {
-                this.levels$.next([]);
-            });
-
+    public getLoyaltyLevelsObserver(): Subject<LoyaltyLevelModel[]> {
+        this.getLoyaltyLevels().finally();
 
         return this.levels$;
     }

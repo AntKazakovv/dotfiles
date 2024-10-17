@@ -12,12 +12,10 @@ import {
     Observable,
     distinctUntilChanged,
     map,
-    skipWhile,
+    filter,
     startWith,
     mergeMap,
     takeUntil,
-    filter,
-    firstValueFrom,
 } from 'rxjs';
 import _find from 'lodash-es/find';
 import _merge from 'lodash-es/merge';
@@ -64,15 +62,14 @@ export class LoyaltyProgressComponent extends AbstractComponent implements OnIni
     public override $params: Params.ILoyaltyProgressCParams;
     public levels: LoyaltyLevelModel[];
     public levelData$: Observable<Params.ILevelViewData> = this.userService.userInfo$.pipe(
+        filter((userInfo: UserInfo) => !!userInfo?.data?.loyalty?.Level),
         mergeMap(async (userInfo: UserInfo): Promise<UserInfo> => {
             if (!this.levels) {
-                this.loyaltyLevelsService = await this.injectionService.getService('loyalty.loyalty-levels-service');
-                this.levels =
-                    await firstValueFrom(this.loyaltyLevelsService.getLoyaltyLevelsObserver().pipe(filter(v => !!v)));
+                this.loyaltyLevelsService ??= await this.injectionService.getService('loyalty.loyalty-levels-service');
+                this.levels = await this.loyaltyLevelsService.getLoyaltyLevels();
             }
             return userInfo;
         }),
-        skipWhile((userInfo: UserInfo) => !userInfo?.data?.loyalty?.Level),
         map((userInfo: UserInfo): Params.ILoyaltyData => ({
             level: userInfo.level,
             levelName: userInfo.levelName,

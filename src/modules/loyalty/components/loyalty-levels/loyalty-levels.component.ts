@@ -9,8 +9,6 @@ import {
 
 import {BehaviorSubject} from 'rxjs';
 import {
-    first,
-    tap,
     takeUntil,
 } from 'rxjs/operators';
 
@@ -63,9 +61,9 @@ export class LoyaltyLevelsComponent extends AbstractComponent implements OnInit 
         };
 
         this.loyaltyLevelsService.getLoyaltyLevelsObserver().pipe(
-            first(v => !!v),
-            tap((levels: LoyaltyLevelModel[]) => this.levels$.next(levels)),
             takeUntil(this.$destroy),
-        ).subscribe();
+        ).subscribe((levels: LoyaltyLevelModel[]): void => {
+            this.levels$.next(levels);
+        });
     }
 }
