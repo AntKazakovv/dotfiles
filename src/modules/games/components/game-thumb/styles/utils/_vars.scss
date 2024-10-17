@@ -59,6 +59,7 @@ $themeDefault: map-merge((
     'favouriteHoverBg': ef.get('mainColors', 'baseMain'), // Locked color
     'favouriteBackBgActive': ef.get('mainColors', 'bg300'), // Locked color
     'favouriteBackBgHover': ef.get('mainColors', 'bg300'), // Locked color
+    'favouriteBackSize': ef.size(8),
     'favouriteBackRadius': ef.get('radius', 'biger'),
     'favouriteBoxShadow': none,
 
@@ -133,6 +134,7 @@ $themeDefault: map-merge((
     'pplMoreBlockGap': ef.size(2),
     'pplMoreNameMaxWidth': 200px,
     'pplMoreTextWeight': bold,
+    'pplMoreTitleMaxWidth': 100%,
 
     'merchantsPosition': 0,
     'merchantsPadding': ef.size(1),
@@ -193,8 +195,10 @@ $customThemeDefaultCircle: () !default;
 $themeDefaultModCircle: map-merge((
     'descBg': linear-gradient( 360deg, var(--mc-baseContrast) 0%, var(--mc-baseContrast-o0) 47%),
 
-    'titlePosition': 0,
-    'titleAlignItems': center,
+    'titlePosition': ef.size(2),
+    'titleAlignItems': start,
+    'titleOpacity': 1,
+    'titleOpacityHover': 0,
 
     'btnsGridRows': auto ef.size(8),
     'btnsGridRowsVert': minmax(0, 1fr) minmax(0, 1fr),
@@ -248,6 +252,8 @@ $themeDefaultModCircle: map-merge((
     'rtpMargin': ef.size(2) 0 0,
     'rtpTitleMargin': 0 0 ef.size(5),
     'rtpTagMargin': 0 0 0 ef.size(2),
+    'pplMoreTitlePosition': 0,
+    'pplMoreTitleAlignItems': center,
 ), $customThemeDefaultCircle);
 
 $customThemeDefaultBottom: () !default;

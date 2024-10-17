@@ -545,8 +545,18 @@
             }
 
             &__title {
-                position: relative;
-                align-items: center;
+                justify-self: center;
+                max-width: calc(100% - #{ef.get-value($themeDefault, 'favouriteBackSize')} * 2 * 1.2);
+            }
+        }
+
+        .wlc-game-thumb__info {
+
+            .wlc-game-thumb {
+
+                &__title {
+                    max-width: ef.get-value($themeDefault, 'pplMoreTitleMaxWidth');
+                }
             }
         }
     }
@@ -566,11 +576,12 @@
             }
 
             &__title {
-                position: relative;
+                position: absolute;
                 bottom: ef.get-value($themeDefaultModCircle, 'titlePosition');
                 left: ef.get-value($themeDefaultModCircle, 'titlePosition');
 
                 align-items: ef.get-value($themeDefaultModCircle, 'titleAlignItems');
+                opacity: ef.get-value($themeDefaultModCircle, 'titleOpacity');
             }
 
             &__buttons {
@@ -619,6 +630,19 @@
             }
         }
 
+        &.wlc-game-thumb--type-ppl-info {
+
+            .wlc-game-thumb {
+
+                &__title {
+                    position: relative;
+                    bottom: ef.get-value($themeDefaultModCircle, 'pplMoreTitlePosition');
+                    left: ef.get-value($themeDefaultModCircle, 'pplMoreTitlePosition');
+                    align-items: ef.get-value($themeDefaultModCircle, 'pplMoreTitleAlignItems');
+                }
+            }
+        }
+
         @include bm.hover {
 
             .wlc-game-thumb {
@@ -627,6 +651,10 @@
                 &__buttons,
                 &__icon {
                     opacity: ef.get-value($themeDefaultModCircle, 'btnsAndIconOpacityHover');
+                }
+
+                &__title {
+                    opacity: ef.get-value($themeDefaultModCircle, 'titleOpacityHover');
                 }
             }
         }
