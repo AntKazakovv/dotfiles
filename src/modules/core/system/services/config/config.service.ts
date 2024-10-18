@@ -444,7 +444,7 @@ export class ConfigService {
         const nickIconUse = profile?.nicknameIcon?.use;
         let section: ILayoutSectionConfig;
 
-        if (profile.theme === 'wolf') {
+        if (appConfig.$base.site.theme === 'wolf' || profile?.theme === 'wolf') {
             section = sectionsLib.profileContent.profileMainTypeWolf;
         } else {
             section = profile?.type === 'first'
