@@ -288,7 +288,7 @@ export namespace FormElements {
         params: <IInputCParams>{
             theme: 'vertical',
             common: {
-                placeholder: gettext('Captcha'),
+                placeholder: gettext('CAPTCHA'),
                 customModifiers: 'captcha',
             },
             name: 'captcha',
@@ -477,7 +477,7 @@ export namespace FormElements {
         name: 'forms.wlc-phone-field',
         params: {
             phoneCode: {
-                labelText: gettext('Phone Code'),
+                labelText: gettext('Phone code'),
                 theme: 'vertical',
             },
             phoneNumber: {

@@ -62,7 +62,7 @@ export const defaultParams: ITotalJackpotCParams = {
     animateSprite: {
         imageUrl: GlobalHelper.gstaticUrl + '/sprites/star-sprite.png',
     },
-    title: gettext('Total Jackpot'),
+    title: gettext('Total jackpot'),
     gamesGridParams: {
         theme: 'swiper',
         type: 'swiper',

@@ -115,7 +115,7 @@ export namespace wlcTitle {
         name: 'core.wlc-title',
         params: <ITitleCParams>{
             customMod: ['profile'],
-            mainText: gettext('Social Networks'),
+            mainText: gettext('Social networks'),
             wlcElement: 'header_socials',
         },
     };
@@ -308,7 +308,7 @@ export namespace wlcTitle {
                     name: 'core.wlc-title',
                     params: <ITitleCParams>{
                         customMod: ['profile'],
-                        mainText: gettext('Loyalty Program'),
+                        mainText: gettext('Loyalty program'),
                         wlcElement: 'header_loyalty',
                     },
                 },
@@ -380,7 +380,7 @@ export namespace wlcTitle {
     export const totalJackpot: ILayoutComponent = {
         name: 'core.wlc-title',
         params: {
-            mainText: gettext('Total Jackpot'),
+            mainText: gettext('Total jackpot'),
             wlcElement: 'header_total-jackpot',
         },
     };

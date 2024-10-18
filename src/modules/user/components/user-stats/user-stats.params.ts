@@ -60,7 +60,7 @@ export const shownUserStatsConfig: IIndexing<IUserStatsItemConfig> = {
         wlcElement: 'block_user-stat-balance-bonus',
     },
     points: {
-        name: gettext('Loyalty Points'),
+        name: gettext('Loyalty points'),
         abbreviation: 'LP',
         modification: 'customCurrency',
         currency: 'LP',

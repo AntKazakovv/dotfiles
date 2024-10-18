@@ -186,7 +186,7 @@ export namespace CurrenciesInfo {
         LP: {
             svg: '/currency/lp.svg',
             name: gettext('LP'),
-            description: gettext('Loyalty Points'),
+            description: gettext('Loyalty points'),
         },
         FS: {
             svg: '/currency/fs.svg',
@@ -201,12 +201,12 @@ export namespace CurrenciesInfo {
         EP: {
             svg: '/currency/exp.svg',
             name: gettext('EXP'),
-            description: gettext('Experience Points'),
+            description: gettext('Experience points'),
         },
         EXP: {
             svg: '/currency/exp.svg',
             name: gettext('EXP'),
-            description: gettext('Experience Points'),
+            description: gettext('Experience points'),
         },
         DOGE: {
             symbol: [208],

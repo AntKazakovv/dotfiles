@@ -53,8 +53,8 @@ export interface IAbstractSignInFormCParams<T, R, M> extends IDefaultAbstractSig
 }
 
 export const defaultSignInFormParams: IDefaultAbstractSignInCParams = {
-    captchaErrorText: gettext('Incorrect captcha'),
-    captchaCreatingText: gettext('Enter the captcha'),
+    captchaErrorText: gettext('The CAPTCHA is incorrect'),
+    captchaCreatingText: gettext('Enter the CAPTCHA'),
     captchaInsertConfig: {
         insertAfter: 4,
         components: {

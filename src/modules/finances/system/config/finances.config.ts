@@ -17,11 +17,11 @@ export const financesConfig: IFinancesConfig = {
                 order: 20,
             },
             card_method: {
-                name: gettext('Bank Cards'),
+                name: gettext('Bank cards'),
                 order: 16,
             },
             e_wallet: {
-                name: gettext('E-Wallets'),
+                name: gettext('E-wallets'),
                 order: 12,
             },
             crypto: {
@@ -29,11 +29,11 @@ export const financesConfig: IFinancesConfig = {
                 order: 8,
             },
             buy_crypto: {
-                name: gettext('Buy Crypto'),
+                name: gettext('Buy crypto'),
                 order: 6,
             },
             direct_banking: {
-                name: gettext('Bank Transfer'),
+                name: gettext('Bank transfer'),
                 order: 4,
             },
             other: {

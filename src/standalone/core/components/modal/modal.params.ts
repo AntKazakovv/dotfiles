@@ -308,7 +308,7 @@ export const MODALS_LIST: IModalList = {
     descriptionCasinosCurrency: {
         config: {
             id: 'descriptionCasinosCurrency',
-            modalTitle: gettext('Loyalty Program'),
+            modalTitle: gettext('Loyalty program'),
             closeBtnVisibility: true,
             componentName: 'user.wlc-icon-exp-lp',
         },

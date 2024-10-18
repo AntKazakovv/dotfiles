@@ -1165,7 +1165,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-first-menu:loyalty-level': profileLoyaltyMenuItem,
 
     'profile-menu:loyalty-program': {
-        name: gettext('Loyalty Program'),
+        name: gettext('Loyalty program'),
         type: 'sref',
         icon: 'loyalty-program',
         class: 'loyalty-program',

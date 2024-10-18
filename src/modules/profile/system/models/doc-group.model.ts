@@ -132,7 +132,7 @@ export class DocGroupModel extends AbstractDocModel<IDocType> {
         if (this.twoStepLoading
             && !this.previewString
             && this.loadingStatus === LoaderStatus.Ready) {
-            return gettext('Select File');
+            return gettext('Select a file');
         }
 
         switch (this.loadingStatus) {
