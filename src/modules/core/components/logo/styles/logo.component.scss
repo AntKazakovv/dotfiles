@@ -18,6 +18,26 @@
                 margin: ef.get-value($themeDefault, 'logoMarginWolf');
             }
         }
+
+        .wlc-logo__image::ng-deep {
+
+            img,
+            svg {
+                width: ef.get-value($themeDefault, 'logoWolfFooterWidth');
+            }
+        }
+    }
+
+    &.wlc-logo--theme-mod-default {
+
+        .wlc-logo__image::ng-deep {
+
+            img,
+            svg {
+                width: ef.get-value($themeDefault, 'logoDefFooterWidth');
+                max-height: ef.get-value($themeDefault, 'logoDefFooterMaxHeight');
+            }
+        }
     }
 }
 

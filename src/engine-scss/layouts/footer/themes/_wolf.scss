@@ -1,0 +1,16 @@
+.wlc-sections__footer--theme-wolf {
+    @include footerBase($themeWolfFooter);
+    @include footerIcons($themeWolfFooter);
+
+    .container {
+        @include footerContainer($themeWolfFooter);
+    }
+
+    .footer-menu {
+        @include footerMenu($themeWolfFooter);
+    }
+
+    .wlc-footer-disclaimer {
+        @include footerDisclaimer($themeWolfFooter);
+    }
+}

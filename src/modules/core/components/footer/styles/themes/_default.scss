@@ -63,6 +63,13 @@
                 }
             }
 
+            .wlc-post-menu__control {
+
+                &:before {
+                    background: ef.get-value($themeDefault, 'footerPostMenuControlBg');
+                }
+            }
+
             .wlc-loader[wlc-loader] {
                 @include bm.get-mq-map('position', $themeDefault, 'footerPostMenuLoaderPosition');
                 @include bm.get-mq-map('top', $themeDefault, 'footerPostMenuLoaderPosTop');

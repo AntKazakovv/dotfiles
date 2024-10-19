@@ -51,4 +51,25 @@
             }
         }
     }
+
+    &.wlc-license--theme-wolf {
+
+        .wlc-license {
+
+            &__apg-seal {
+                width: ef.get-value($themeDefault, 'apgSealWolfWidth');
+            }
+
+            &__curacao-icon {
+
+                img {
+                    max-height: ef.get-value($themeDefault, 'curacaoIconWolfMaxHeight');
+                }
+            }
+
+            &__age-restrictions {
+                width: ef.get-value($themeDefault, 'ageRestrictionsWolfWidth');
+            }
+        }
+    }
 }

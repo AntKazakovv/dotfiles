@@ -7,4 +7,10 @@ $themeDefault: map-merge((
     // footer theme Wolf
     'logoWidthWolf': 170px,
     'logoMarginWolf': 0 auto,
+
+    //default footer
+    'logoDefFooterWidth': 120px,
+    'logoDefFooterMaxHeight': 45px,
+
+    'logoWolfFooterWidth': 165px,
 ), $customThemeDefault);

@@ -55,6 +55,8 @@ $themeDefault: map-merge((
     'footerPostMenuItemWhiteSpace': (
         900: nowrap,
     ),
+    'footerPostMenuControlBg': linear-gradient(90deg, var(--mc-bg700) 65%, var(--mc-bg700-o0) 100%),
+
     //footer post menu link
     'footerPostMenuLinkColor': var(--mc-baseMain),
 

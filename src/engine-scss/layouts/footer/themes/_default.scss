@@ -1,0 +1,17 @@
+.wlc-sections__footer--theme-default {
+    @include footerBase($themeDefaultFooter);
+    @include footerIcons($themeDefaultFooter);
+
+    .container {
+        @include footerContainer($themeDefaultFooter);
+    }
+
+    .footer-menu {
+        @include footerMenu($themeDefaultFooter);
+    }
+
+    .wlc-footer-disclaimer {
+        @include footerDisclaimer($themeDefaultFooter);
+    }
+}
+
