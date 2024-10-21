@@ -56,6 +56,8 @@ export class MailActionsDropdownComponent extends AbstractComponent implements O
             id: 'internal-mail-delete',
             modalTitle: gettext('Confirmation'),
             modalMessage: gettext('Are you sure?'),
+            modifier: 'confirmation',
+            textAlign: 'center',
             showConfirmBtn: true,
             closeBtnParams: {
                 themeMod: 'secondary',

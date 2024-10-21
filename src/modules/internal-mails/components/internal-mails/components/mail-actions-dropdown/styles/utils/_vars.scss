@@ -7,5 +7,7 @@ $themeDefault: map-merge((
     'dropdownButtonColor': var(--mc-baseMain),
     'dropdownBorderRadius': 10px,
     'dropdownButtonWidth': 140px,
+    'dropdownButtonPadding': ef.size(1) ef.size(3),
+    'dropdownButtonGap': ef.size(2),
     'dropdownIconColor': var(--mc-baseOpacity),
 ), $customThemeDefault);

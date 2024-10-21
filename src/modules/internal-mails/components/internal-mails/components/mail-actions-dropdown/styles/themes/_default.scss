@@ -27,6 +27,7 @@
                 z-index: 100;
 
                 .wlc-btn {
+                    padding: ef.get-value($themeDefault, 'dropdownButtonPadding');
                     color: ef.get-value($themeDefault, 'dropdownIconColor');
                     border-radius: 0;
                     background-color: ef.get-value($themeDefault, 'dropdownButtonBg');
@@ -45,7 +46,7 @@
                     &__text {
                         display: flex;
                         flex-direction: row-reverse;
-                        gap: 16px;
+                        gap: ef.get-value($themeDefault, 'dropdownButtonGap');
                         align-items: flex-end;
                         justify-content: flex-end;
                         width: ef.get-value($themeDefault, 'dropdownButtonWidth');
