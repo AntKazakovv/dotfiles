@@ -659,7 +659,7 @@ export class UserService {
 
     public createUserProfile(userProfile: IUserProfile): Promise<IIndexing<any>> {
         if (GlobalHelper.restrictRegistration(this.configService, this.eventService)) {
-            throw new Error(gettext('Sorry, registration is disabled.'));
+            throw new Error(gettext('Sorry, sign-up is disabled'));
         }
         this.prepareCreateProfile(userProfile);
         const queryParams: ICreateProfileQueryParams = {};

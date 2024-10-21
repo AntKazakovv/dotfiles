@@ -303,7 +303,7 @@ export class GlobalHelper {
                 name: NotificationEvents.PushMessage,
                 data: <IPushMessageParams>{
                     type: 'error',
-                    message: gettext('Sorry, registration is disabled.'),
+                    message: gettext('Sorry, sign-up is disabled'),
                     wlcElement: 'registration-is-disabled',
                 },
             });

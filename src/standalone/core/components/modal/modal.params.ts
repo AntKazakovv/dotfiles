@@ -277,7 +277,7 @@ export const MODALS_LIST: IModalList = {
             backdrop: 'static',
             closeBtnVisibility: false,
             showFooter: false,
-            modalMessage: gettext('Registration completed. Wait for authorization'),
+            modalMessage: gettext('Sign-up has been completed. Please wait for authorization'),
             textAlign: 'center',
         },
     },
@@ -401,7 +401,7 @@ export const MODALS_LIST: IModalList = {
         config: {
             id: 'social-register',
             modifier: 'social-register',
-            modalTitle: gettext('Registration'),
+            modalTitle: gettext('Sign up'),
             componentName: 'signup.wlc-social-sign-up-form',
             showFooter: false,
         },

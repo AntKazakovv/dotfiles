@@ -99,7 +99,7 @@ export const restorePasswordWithPhoneFormConfig: IFormWrapperCParams = {
                         gettext('Please enter the e-mail or phone number (without country code) '
                         + 'that is linked to your account on'),
                         $base.site.url || $base.site.name + '. ',
-                        gettext('We will send you a link or a reset code.'),
+                        gettext('A link or a reset code will be sent to you'),
                     ],
                 },
             },

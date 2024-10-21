@@ -113,9 +113,9 @@ export class RestorePasswordFormComponent extends AbstractComponent implements O
                     title = gettext('Password reset success');
                     message = this.configService.get<boolean>('appConfig.hideEmailExistence')
                         ? gettext(
-                            'Recovery link has been sent to the entered e-mail address. '
-                            + 'If you didn’t receive it, please make sure you’ve used correct email address, '
-                            + 'or check your spam/junk folder.',
+                            'The recovery link has been sent to the entered e-mail address. '
+                            + 'If the e-mail is not in your Inbox, please make sure you have used the correct e-mail '
+                            + 'address or check the Spam/Junk folder',
                         )
                         : gettext('A password reset link will be sent to your e-mail address shortly.');
                 }
