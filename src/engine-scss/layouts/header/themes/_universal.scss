@@ -17,6 +17,13 @@
                     margin-left: calc(var(--h-gap) * 0.5);
                 }
             }
+
+            .wlc-btn-burger {
+
+                + .wlc-logo {
+                    @include bm.get-mq-map('margin', $headerThemeUniversal, 'headerBurgerLogoMargin');
+                }
+            }
         }
     }
 

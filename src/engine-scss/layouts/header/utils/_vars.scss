@@ -25,8 +25,8 @@ $theme1Header: map-merge((
         1200: auto auto minmax(0, 1fr) auto auto,
     ),
     'headerGridGap': (
-        375: ef.size(2),
-        480: ef.size(4),
+        375: ef.size(3),
+        1200: ef.size(4),
     ),
     'headerMinHeight': (
         375: 70px,
@@ -39,7 +39,7 @@ $theme1Header: map-merge((
     ),
     'headerBackground': transparent,
     'headerGlobalPadding': ef.size(3),
-    'headerLogoMargin': 0 auto,
+    'headerLogoMargin': 0,
     'headerLogoMaxWidth': (
         375: 144px,
     ),
@@ -71,7 +71,7 @@ $theme1Header: map-merge((
 
     'logoImgHeight': null,
     'logoImgAlignItems': center,
-    'logoImgJustifyContent': center,
+    'logoImgJustifyContent': start,
     'logoObjPosition': center,
     'searchBtnTransformOnHover': rotate(30deg),
     'searchBtnDisplay': flex,
@@ -116,8 +116,8 @@ $theme2Header: map-merge((
         1200: auto auto minmax(0, 1fr) auto auto auto,
     ),
     'headerGridGap': (
-        375: ef.size(2),
-        480: ef.size(4),
+        375: ef.size(3),
+        1200: ef.size(4),
     ),
     'headerMinHeight': (
         375: 70px,
@@ -132,12 +132,12 @@ $theme2Header: map-merge((
 
     'logoImgHeight': null,
     'logoImgAlignItems': center,
-    'logoImgJustifyContent': center,
+    'logoImgJustifyContent': start,
     'logoObjPosition': center,
     'headerLogoMaxWidth': (
         375: 144px,
     ),
-    'headerLogoMargin': 0 auto,
+    'headerLogoMargin': 0,
     'headerSvgLogoWidth': (
         375: auto,
     ),
@@ -231,8 +231,12 @@ $headerThemeUniversal: map-merge((
     'headerBackground': transparent,
     'headerGlobalPadding': ef.size(3),
     'headerLogoMargin': (
-        375: 0 auto,
-        1024: 0 0 0 ef.size(2),
+        375: 0 0 0 ef.size(3),
+        1200: 0 0 0 ef.size(4),
+    ),
+    'headerBurgerLogoMargin': (
+        375: 0 0 0 ef.size(3),
+        1200: 0 0 0 ef.size(2),
     ),
     'headerLogoMaxWidth': (
         375: 144px,
@@ -280,7 +284,7 @@ $headerThemeUniversal: map-merge((
 
     'logoImgHeight': null,
     'logoImgAlignItems': center,
-    'logoImgJustifyContent': center,
+    'logoImgJustifyContent': start,
     'logoObjPosition': center,
     'searchBtnTransformOnHover': rotate(30deg),
     'searchBtnDisplay': flex,
