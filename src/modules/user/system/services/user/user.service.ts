@@ -960,9 +960,9 @@ export class UserService {
         } else {
             if (this.configService.get<boolean>('appConfig.hideEmailExistence')) {
                 message.push(gettext(
-                    'An email was sent to the specified email address. '
+                    'An e-mail has been sent to the specified address. '
                     + 'If you already have an account, we will send you a password recovery link. '
-                    + 'Kindly check your email box and confirm registration using the link in the email.',
+                    + 'Please check your e-mail and confirm sign-up via the link',
                 ));
             } else {
                 message.push(gettext(
@@ -1228,7 +1228,7 @@ export class UserService {
             id: 'registration-errors',
             modalTitle: gettext('Sorry, something went wrong!'),
             modalMessage: gettext(
-                'Something went wrong during registration, check your email to change your password.',
+                'Something went wrong during sign-up, check your e-mail to change your password',
             ),
             textAlign: 'center',
             dismissAll: true,

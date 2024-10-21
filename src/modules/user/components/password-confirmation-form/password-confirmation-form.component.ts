@@ -65,7 +65,7 @@ export class PasswordConfirmationFormComponent extends AbstractComponent impleme
                 data: <IPushMessageParams>{
                     type: 'success',
                     title: gettext('Email verification success'),
-                    message: gettext('Your email has been successfully verified!'),
+                    message: gettext('Your e-mail has been successfully verified'),
                     wlcElement: 'notification_email-verification-success',
                 },
             });

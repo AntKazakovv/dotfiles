@@ -76,7 +76,7 @@ export const shownUserStatsConfig: IIndexing<IUserStatsItemConfig> = {
         wlcElement: 'block_user-stat-level',
     },
     email: {
-        name: gettext('Email'),
+        name: gettext('E-mail'),
         path: 'email',
         wlcElement: 'block_user-stat_email',
     },

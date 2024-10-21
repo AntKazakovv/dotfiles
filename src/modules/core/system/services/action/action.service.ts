@@ -469,7 +469,7 @@ export class ActionService {
                     type: 'success',
                     title: gettext('Unsubscribe complete'),
                     message: [
-                        gettext('You have been successfully unsubscribed from receiving email notifications'),
+                        gettext('You have been successfully unsubscribed from receiving e-mail notifications'),
                     ],
                 },
             });
@@ -871,7 +871,7 @@ export class ActionService {
                     data: <IPushMessageParams>{
                         type: 'success',
                         title: gettext('Email verification success'),
-                        message: gettext('Your email has been successfully verified!'),
+                        message: gettext('Your e-mail has been successfully verified'),
                         wlcElement: 'notification_email-verification-success',
                     },
                 });

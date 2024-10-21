@@ -97,8 +97,8 @@ export class EmailFieldComponent extends AbstractComponent implements OnInit {
             this.timeLimitService.showNotification();
         } else {
             const message: string = this.emailControl.errors?.required
-                ? gettext('Email is empty')
-                : gettext('Email is incorrect');
+                ? gettext('E-mail field is empty')
+                : gettext('E-mail is incorrect');
 
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,

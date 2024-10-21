@@ -27,7 +27,7 @@ export const defaultParams: IPasswordConfirmationFormCParams = {
                 params: {
                     common: {
                         textBlockSubtitle: [
-                            gettext('Please enter your account password to complete email verification.'),
+                            gettext('Please enter your account password to complete e-mail verification'),
                         ],
                     },
                 },

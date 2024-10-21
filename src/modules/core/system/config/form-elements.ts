@@ -200,7 +200,7 @@ export namespace FormElements {
                 common: {
                     tooltipIcon: 'verified-icon',
                     tooltipMod: 'resolve',
-                    tooltipText: gettext('Email is verified'),
+                    tooltipText: gettext('E-mail address has been verified'),
                 },
             },
             wlcElement: 'block_email',
