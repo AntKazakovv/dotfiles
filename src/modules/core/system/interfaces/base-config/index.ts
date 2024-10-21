@@ -34,6 +34,7 @@ import {ICoupleCurrency} from 'wlc-engine/modules/rates/system/interfaces/rates.
 import {MultiWalletConfig} from 'wlc-engine/modules/core/system/interfaces/base-config/multiwallet.interface';
 import {IUbidexConfig} from 'wlc-engine/modules/ubidex/system/interfaces';
 import {IOptimizationConfig} from 'wlc-engine/modules/core/system/interfaces/base-config/optimization.interface';
+import {ISitemapConfig} from 'wlc-engine/modules/core/system/interfaces/base-config/sitemap-config.interface';
 
 export * from './games.interface';
 export * from './tournaments.interface';
@@ -185,4 +186,5 @@ export interface IBaseConfig {
     multiWallet?: MultiWalletConfig;
     ubidex?: IUbidexConfig;
     additionalGenders?: ISelectOptions[];
+    sitemap?: ISitemapConfig;
 }

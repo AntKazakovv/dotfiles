@@ -91,6 +91,7 @@ let states = {
     'app.lotteries-detail': States.lotteryDetailState,
     'app.local-jackpots': States.localJackpotsState,
     'app.crypto-purchase-guide': States.cryptoPurchaseGuide,
+    'app.sitemap': States.sitemapState,
 };
 
 const appState: Ng2StateDeclaration = {

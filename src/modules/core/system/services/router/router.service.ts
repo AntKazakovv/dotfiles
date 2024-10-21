@@ -74,6 +74,10 @@ export class RouterService {
         return this.stateService.reload();
     }
 
+    public get(): StateDeclaration[] {
+        return this.stateService.get();
+    }
+
     public is(state: TLinkStateName, stateParams?: TLinkStateParams): boolean {
         return this.stateService.is(state, stateParams);
     }

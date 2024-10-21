@@ -42,3 +42,4 @@ export * from './signin.state';
 export * from './something-wrong.state';
 export * from './local-jackpots.state';
 export * from './crypto-purchase-guide.state';
+export * from './sitemap.state';

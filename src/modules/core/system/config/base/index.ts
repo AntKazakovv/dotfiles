@@ -11,6 +11,7 @@ import {interactiveTextConfig} from './interactiveText.config';
 import {redirectsConfig} from './redirect.config';
 import {idleConfig} from './idle.config';
 import {fixedPanelConfig} from './fixed-panel.config';
+import {sitemapConfig} from './sitemap.config';
 
 export const $base: IBaseConfig = {
     app: appConfig,
@@ -132,4 +133,5 @@ export const $base: IBaseConfig = {
         ],
     },
     queryParams: ['message', 'error', 'promocode', 'popup', 'wheel', 'utm_', 'bonus'],
+    sitemap: sitemapConfig,
 };

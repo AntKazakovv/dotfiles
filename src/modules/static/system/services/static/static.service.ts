@@ -325,7 +325,8 @@ export class StaticService {
     }
 
     private getHttpRequestParams<T>(type: StaticTextType, params: IStaticParams = {}): HttpRequest<T> {
-        const lang = this.getLanguageCode(params.lang || this.translateService.currentLang);
+        const configCurrentLanguage = this.configService.get<string>('appConfig.language');
+        const lang = this.getLanguageCode(params.lang || this.translateService.currentLang || configCurrentLanguage);
         const url = this.getWpApiUrl(type, lang);
 
         const fromObject = _merge({}, this.params, params, {lang});
