@@ -98,7 +98,7 @@
 
         &__button {
 
-            &--first {
+            &:first-child {
                 @include bm.get-mq-map('margin', $themeDefault, 'firstButtonMargin');
             }
         }

@@ -29,6 +29,7 @@ export interface IPromoCustomFieldsResponse {
     button_text: string,
     decor_image: string,
     promo_sort_weight: number,
+    href: string,
 }
 
 export interface IUrlSettings {
@@ -136,6 +137,10 @@ export class WpPromoModel extends AbstractModel<TextDataModel>{
         return _toNumber(this._acf.promo_sort_weight) || 0;
     }
 
+    public get href(): string {
+        return this._acf.href || '';
+    }
+
     public override set data(data: TextDataModel) {
         super.data = data;
 
@@ -152,7 +157,7 @@ export class WpPromoModel extends AbstractModel<TextDataModel>{
                     data: error,
                 });
             }
-        } else {
+        } else if (acf.button_link !== 'href') {
             urlButtonSettings.sref = acf.button_link;
         }
 

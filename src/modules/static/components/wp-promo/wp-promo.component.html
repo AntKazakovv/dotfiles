@@ -1,7 +1,7 @@
 <ng-container *ngIf="items.length">
     <div *ngIf="$params.titleComponentParams.mainText"
-        class="{{$class}}__title"
         wlc-title
+        class="{{$class}}__title"
         [inlineParams]="$params.titleComponentParams"
     ></div>
     <div class="{{$class}}__wrapper-list">
@@ -31,17 +31,23 @@
             </div>
             <div *ngIf="!isMobileBanner" class="{{$class}}__btns">
                 <button *ngIf="item.buttonText && item.buttonSref"
-                        class="{{$class}}__button {{$class}}__button--first"
                         wlc-button
+                        class="{{$class}}__button"
                         [typeAttr]="$params.redirectButton.common.typeAttr"
                         [text]="item.buttonText"
                         [wlc-link]="[item.buttonSref, item.buttonSrefParams]">
                 ></button>
                 <button *ngIf="item.html"
-                        class="{{$class}}__button"
                         wlc-button
+                        class="{{$class}}__button"
                         [inlineParams]="$params.modalButton"
                         (click)="openDescription(item)"
+                ></button>
+                <button *ngIf="item.buttonText && item.href"
+                    wlc-button
+                    class="{{$class}}__button"
+                    [text]="item.buttonText"
+                    [href]="item.href"
                 ></button>
             </div>
         </div>

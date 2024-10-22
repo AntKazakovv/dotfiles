@@ -73,42 +73,42 @@ export interface ICacheExpiry {
 }
 
 export interface IPostResponse {
-    author: number;
-    categories: number[];
-    comment_status: string;
+    author?: number;
+    categories?: number[];
+    comment_status?: string;
     content: {
         protected: boolean;
         rendered: string;
     };
     date: string;
-    date_gmt: string;
-    excerpt: {
+    date_gmt?: string;
+    excerpt?: {
         protected: boolean;
         rendered: string;
     };
-    featured_media: number;
-    format: string;
-    guid: {
+    featured_media?: number;
+    format?: string;
+    guid?: {
         rendered: string;
     };
     id: number;
-    link: number;
-    meta: any[];
-    modified: string;
-    modified_gmt: string;
-    ping_statis: string;
+    link?: number;
+    meta?: any[];
+    modified?: string;
+    modified_gmt?: string;
+    ping_statis?: string;
     slug: string;
-    status: string;
-    sticky: boolean;
-    tags: any[];
-    template: string;
+    status?: string;
+    sticky?: boolean;
+    tags?: any[];
+    template?: string;
     title: {
         rendered: string;
     };
-    type: string;
-    image: string;
+    type?: string;
+    image?: string;
     acf?: IAcf;
-    _embedded: any;
+    _embedded?: any;
     code?: string;
 }
 
