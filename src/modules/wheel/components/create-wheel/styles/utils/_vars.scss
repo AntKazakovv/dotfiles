@@ -30,5 +30,6 @@ $config: map-merge((
     ),
     'titleMargin': 0 0 ef.size(4) 0,
     'marginTopWrapperIllustration': 100px,
-    'btnMargin': ef.size(4) auto 0,
+    'btnMargin': ef.size(2) auto 0,
+    'checkboxMargin': ef.size(4) 0,
 ), $customConfig);

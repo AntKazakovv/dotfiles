@@ -146,6 +146,7 @@ export class WheelService {
             streamWheelsParticipant: userInfo.streamWheelsParticipant,
             streamWheelOwner: userInfo.streamWheelOwner,
             currency: this.userService.userProfile.currency,
+            isAffUser: !!userInfo.affiliateID,
         };
     }
 

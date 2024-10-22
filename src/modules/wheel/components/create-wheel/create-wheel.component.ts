@@ -4,15 +4,21 @@ import {
     OnInit,
     Inject,
 } from '@angular/core';
-import {UntypedFormGroup} from '@angular/forms';
+import {
+    UntypedFormControl,
+    UntypedFormGroup,
+} from '@angular/forms';
 
 import {BehaviorSubject} from 'rxjs';
+import _cloneDeep from 'lodash-es/cloneDeep';
 
 import {
     AbstractComponent,
     IMixedParams,
     IFormWrapperCParams,
     IIndexing,
+    IFormComponent,
+    ICheckboxCParams,
 } from 'wlc-engine/modules/core';
 import {WheelService} from 'wlc-engine/modules/wheel/system/services/wheel.service';
 
@@ -28,8 +34,9 @@ import * as Params from './create-wheel.params';
 })
 export class CreateWheelComponent extends AbstractComponent implements OnInit {
     public override $params!: Params.ICreateWheelCParams;
-    public configForm!: IFormWrapperCParams;
-    public formData$: BehaviorSubject<IIndexing<any>> = new BehaviorSubject(null);
+    protected configForm: IFormWrapperCParams | null = null;
+    protected formData$: BehaviorSubject<IIndexing<any>> = new BehaviorSubject(null);
+    protected affilate: boolean = false;
 
     constructor(
         @Inject('injectParams') protected params: Params.ICreateWheelCParams,
@@ -43,7 +50,31 @@ export class CreateWheelComponent extends AbstractComponent implements OnInit {
 
     public override ngOnInit(): void {
         super.ngOnInit();
-        this.configForm = Params.formConfig;
+        this.prepareForm();
+    }
+
+    public prepareForm(): void {
+        const formConfig = _cloneDeep(Params.formConfig);
+
+        if (this.wheelService.getUserWheel().isAffUser) {
+            const onlyForRefCheckbox: IFormComponent = {
+                name: 'core.wlc-checkbox',
+                alwaysNew: {
+                    saveValue: true,
+                },
+                params: <ICheckboxCParams>{
+                    name: 'onlyRef',
+                    text: gettext('Raffle for referrals'),
+                    textSide: 'right',
+                    control: new UntypedFormControl(),
+                    onChange: (checked: boolean) => {
+                        this.affilate = checked;
+                    },
+                },
+            };
+            formConfig.components.splice(formConfig.components.length - 1, 0, onlyForRefCheckbox);
+        }
+        this.configForm = formConfig;
     }
 
     public async ngSubmit(form: UntypedFormGroup): Promise<boolean> {
@@ -51,6 +82,7 @@ export class CreateWheelComponent extends AbstractComponent implements OnInit {
             amount: form.value.amount,
             duration: form.value.duration,
             winnersCount: form.value.winners,
+            onlyForReferrals: this.affilate,
         };
 
         try {

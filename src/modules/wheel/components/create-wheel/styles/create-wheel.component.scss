@@ -78,6 +78,11 @@
                                 grid-column: span 2;
                             }
                         }
+
+                        .wlc-checkbox {
+                            grid-column: span 2;
+                            margin: ef.get-value($config, 'checkboxMargin');
+                        }
                     }
                 }
             }

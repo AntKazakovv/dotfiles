@@ -4,6 +4,7 @@ export interface ISettingsWheel {
     winnersCount?: string;
     id?: number;
     link?: string;
+    onlyForReferrals?: boolean;
 }
 
 export interface IParticipant {
@@ -18,6 +19,7 @@ export interface IUserWheel {
     streamWheelOwner?: number;
     streamWheelsParticipant?: number[];
     currency?: string;
+    isAffUser?: boolean;
 }
 
 export interface IInfoWheelResponse extends ISettingsWheel {
