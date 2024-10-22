@@ -1,4 +1,3 @@
-import {UIRouterModule} from '@uirouter/angular';
 import {NgModule} from '@angular/core';
 
 import {
@@ -64,7 +63,6 @@ export const services = {
         BetInfoComponent,
     ],
     imports: [
-        UIRouterModule,
         CoreModule,
         StaticModule,
         CompilerModule,
