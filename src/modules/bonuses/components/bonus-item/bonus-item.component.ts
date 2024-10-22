@@ -391,7 +391,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
     }
 
     public get bonusCaption(): string {
-        return this.tagConfig?.common.caption ?? 'processing';
+        return this.tagConfig?.common.caption ?? gettext('Processing');
     }
 
     protected prepareTagConfig(): void {
