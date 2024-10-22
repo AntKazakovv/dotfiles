@@ -30,7 +30,8 @@ $themeUniversal: map-merge((
         480: ef.size(4),
     ),
     'headerGridGapWolf': (
-        375: 0 ef.size(2),
+        375: 0 ef.size(1),
+        480: 0 ef.size(2),
     ),
     'headerMinHeight': (
         375: 70px,
