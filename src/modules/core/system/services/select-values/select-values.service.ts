@@ -70,7 +70,7 @@ export class SelectValuesService {
     public dayList: BehaviorSubject<Params.ISelectOptions[]> = new BehaviorSubject([]);
     public countryStates$: BehaviorSubject<IState[]> = new BehaviorSubject([{
         value: '',
-        title: gettext('Please select country'),
+        title: gettext('Please select the country'),
     }]);
 
     protected merchantsList: TConstantValue = null;

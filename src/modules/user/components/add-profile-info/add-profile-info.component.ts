@@ -149,7 +149,7 @@ export class AddProfileInfoComponent extends ProfileFormAbstract implements OnIn
     }
 
     protected disableStatesControl(): void {
-        this.selectService.countryStates$.next([{value: '', title:gettext('Please select country')}]);
+        this.selectService.countryStates$.next([{value: '', title:gettext('Please select the country')}]);
 
         this.eventService.subscribe(
             {name: 'COUNTRY_STATES'},

@@ -866,7 +866,7 @@ export class UserService {
                     data: <IPushMessageParams>{
                         type: 'success',
                         title: gettext('Password reset'),
-                        message: gettext('Password has been changed!'),
+                        message: gettext('The password has been changed'),
                         wlcElement: 'notification_password-change-success',
                     },
                 });

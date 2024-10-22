@@ -436,7 +436,7 @@ export namespace FormElements {
         params: <IInputCParams>{
             theme: 'vertical',
             common: {
-                placeholder: gettext('Iban number'),
+                placeholder: gettext('IBAN number'),
                 autocomplete: 'off',
             },
             name: 'ibanNumber',
