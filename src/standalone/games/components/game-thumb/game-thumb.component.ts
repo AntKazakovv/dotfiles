@@ -54,6 +54,7 @@ import {
     GamesCatalogService,
 } from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import {ITagCParams} from 'wlc-engine/modules/core/components/tag/tag.params';
+import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 
 import * as Params from './game-thumb.params';
 
@@ -395,7 +396,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
      * @param format - extension file
      * @returns {Params.IMediaContent[] | string}
      */
-
+    @CustomHook('games', 'gameThumbGetMediaContent')
     public getMediaContent(type: Params.MediaType, format: string[]): Params.IMediaContent[] {
         const gameName = this.game.name?.en;
         const merchantName = this.game.getMerchantName();
