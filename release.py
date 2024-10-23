@@ -16,7 +16,7 @@ projects = [
         # Devcasino
         "id": "1",
         "repository": "git@wlcgitlab.egamings.com:wlcdevcasino/web.git",
-        "branches": ["develop", "master", "scr1-profile", "scr1-var1", "scr1-var2", "scr1-mc1", "scr1-lic1", "scr1-kiosk", "scr1-aff", "scr2-var1", "scr2-var2", "scr2-mc1", "scr2-lic1", "scr2-kiosk", "scr3-wolf1", "scr3-wolf2-mc"],
+        "branches": ["develop", "master", "scr1-profile", "scr1-var1", "scr1-var2", "scr1-mc1", "scr1-lic1", "scr1-kiosk", "scr1-aff", "scr2-var1", "scr2-var2", "scr2-mc1", "scr2-lic1", "scr2-kiosk", "scr3-wolf1", "scr3-wolf2-mc", "scr3-wolf-aff"],
     },
     {
         # Kiosk
@@ -375,15 +375,15 @@ def push_branch(branch, tag=None, project=None):
     subprocess.run(["git", "add", "."], cwd=temp_folder)
 
     if project == "translate":
-        subprocess.run(["git", "commit", "-m", f"Release @egamings/wlc-engine-translate {tag} version"], cwd=temp_folder)
+        subprocess.run(["git", "commit", "-m", f"Updated for release @egamings/wlc-engine-translate {tag} version"], cwd=temp_folder)
         subprocess.run(["git", "tag", "-a", tag, "-m", f"Release @egamings/wlc-engine-translate {tag} version"], cwd=temp_folder)
 
     else:
         engine_version = get_version()
-        subprocess.run(["git", "commit", "-m", f"SCR #0 - project up {engine_version}"], cwd=temp_folder)
+        subprocess.run(["git", "commit", "-m", f"Updated for release project with {engine_version} engine version"], cwd=temp_folder)
 
         if tag:
-            subprocess.run(["git", "tag", "-a", tag, "-m", f"SCR #0 - project up {engine_version}"], cwd=temp_folder)
+            subprocess.run(["git", "tag", "-a", tag, "-m", f"Release project with {engine_version} engine version"], cwd=temp_folder)
 
     if tag:
         subprocess.run(["git", "push", "origin", branch, "--force-with-lease", "--follow-tags"], cwd=temp_folder)
@@ -550,7 +550,7 @@ def update_language_pack(branch):
 
     print(Fore.YELLOW + "Commit and push changes..." + Fore.RESET)
     subprocess.run(["git", "add", "package.json", "package-lock.json"])
-    subprocess.run(["git", "commit", "-m", f"SCR #123456 - update: language pack to the {new_tag} version"])
+    subprocess.run(["git", "commit", "-m", f"Updated for {new_tag} language pack version"])
     subprocess.run(["git", "push", "origin", f"HEAD:{branch}"])
     print(Fore.GREEN + "Done" + Fore.RESET)
 
@@ -607,8 +607,8 @@ def make_release(action, branch):
 
     print(Fore.YELLOW + "Commit and push changes..." + Fore.RESET)
     subprocess.run(["git", "add", "src/docs/content", "package.json"])
-    subprocess.run(["git", "commit", "-m", f"Updated for release @egamings/wlc-engine {new_tag}"])
-    subprocess.run(["git", "tag", "-a", new_tag, "-m", f"Release @egamings/wlc-engine {new_tag}"])
+    subprocess.run(["git", "commit", "-m", f"Updated for release @egamings/wlc-engine {new_tag} version"])
+    subprocess.run(["git", "tag", "-a", new_tag, "-m", f"Release @egamings/wlc-engine {new_tag} version"])
     subprocess.run(["git", "push", "origin", f"HEAD:{branch}", "--follow-tags"])
     print(Fore.GREEN + "Done" + Fore.RESET)
 
@@ -644,8 +644,8 @@ def change_core_version(project):
 
     print(Fore.YELLOW + "Update project" + Fore.RESET)
     subprocess.run(["git", "add", "."], cwd=temp_folder)
-    subprocess.run(["git", "commit", "-m", f"SCR #0 - update: wlc-core to the {new_core_version} version"], cwd=temp_folder)
-    subprocess.run(["git", "tag", "-a", new_tag, "-m", f"SCR #0 - update: wlc-core to the {new_core_version} version"], cwd=temp_folder)
+    subprocess.run(["git", "commit", "-m", f"Updated for release project with {new_core_version} core version"], cwd=temp_folder)
+    subprocess.run(["git", "tag", "-a", new_tag, "-m", f"Release project with {new_core_version} core version"], cwd=temp_folder)
     subprocess.run(["git", "push", "origin", branch, "--follow-tags"], cwd=temp_folder)
     print(Fore.GREEN + "Done" + Fore.RESET)
 
