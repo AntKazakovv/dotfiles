@@ -291,6 +291,7 @@ export class InternalMailsService {
     private startMailsFetcher(): void {
         this.mailsFetchHandler = this.dataService.subscribe('messages/fetchMails',
             (mailsResponse: IData): void => {
+                this._mails$.next(this.modifyMails(mailsResponse.data));
                 this.setUnreadMailsCount(mailsResponse?.data?.length);
             },
         );
