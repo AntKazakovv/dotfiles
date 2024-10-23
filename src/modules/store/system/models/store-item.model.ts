@@ -325,16 +325,20 @@ export class StoreItem extends AbstractModel<IStoreItem> {
         }
 
         if (this.useConversionInFiat) {
-            const originalPrice: number =
-                Number(this.priceMoney[this.conversionCurrency?.toUpperCase()]);
+            conversionCurrency = this.storeService.walletsService?.walletSettings.currency || 'EUR';
 
-            moneyPrice = originalPrice
+            const originalPrice: string = this.priceMoney[conversionCurrency.toUpperCase()];
+
+            moneyPrice = Number(originalPrice)
                 || Number(this.priceMoney['EUR']) * this.storeService.walletsService?.coefficientConversionEUR;
-            conversionCurrency = this.conversionCurrency.toLowerCase() || 'EUR';
+
+            if (currency.toLowerCase() === conversionCurrency.toLowerCase()) {
+                conversionCurrency = null;
+            }
         }
 
         return {
-            value: Number(moneyPrice),
+            value: moneyPrice,
             currency,
             conversionCurrency,
         };
