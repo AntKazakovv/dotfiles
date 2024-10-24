@@ -19,7 +19,7 @@ export interface IMonitoringConfig {
 
 export interface IListMetricsPerformanceReport {
     use?: boolean;
-    listMetrics?: [TListMetricsPerformanceReport];
+    listMetrics?: TListMetricsPerformanceReport[];
 }
 
-export type TListMetricsPerformanceReport = 'LCP';
+export type TListMetricsPerformanceReport = 'LCP' | 'CLS' | 'FCP';

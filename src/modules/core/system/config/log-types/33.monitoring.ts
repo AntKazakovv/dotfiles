@@ -16,4 +16,14 @@ export const errorTypes: ILogTypes = {
         level: 'info',
         durationType: 'fromStart',
     },
+    '33.0.6': {
+        // First Contentful Paint (FCP) metric data
+        level: 'info',
+        durationType: 'fromStart',
+    },
+    '33.0.7': {
+        // Cumulative Layout Shift (CLS) metric data
+        level: 'info',
+        durationType: 'fromStart',
+    },
 };

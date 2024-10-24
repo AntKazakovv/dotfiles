@@ -5,7 +5,11 @@ import {
 
 import {
     LCPMetric,
+    CLSMetric,
+    FCPMetric,
     onLCP,
+    onCLS,
+    onFCP,
 } from 'web-vitals';
 
 import {LogService} from 'wlc-engine/modules/core';
@@ -39,6 +43,12 @@ export class MonitoringService {
                 case 'LCP':
                     this.setLCPMetric();
                     break;
+                case 'FCP':
+                    this.setFCPMetric();
+                    break;
+                case 'CLS':
+                    this.setCLSMertric();
+                    break;
             }
         });
     }
@@ -47,6 +57,28 @@ export class MonitoringService {
         onLCP((metric: LCPMetric) => {
             this.logService.sendLog({
                 code: '33.0.1',
+                flog: {
+                    time: metric.value,
+                },
+            });
+        });
+    }
+
+    private setFCPMetric(): void {
+        onFCP((metric: FCPMetric) => {
+            this.logService.sendLog({
+                code: '33.0.6',
+                flog: {
+                    time: metric.value,
+                },
+            });
+        });
+    }
+
+    private setCLSMertric(): void {
+        onCLS((metric: CLSMetric) => {
+            this.logService.sendLog({
+                code: '33.0.7',
                 flog: {
                     time: metric.value,
                 },
