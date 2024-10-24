@@ -58,7 +58,6 @@ import {CuracaoRequirement} from 'wlc-engine/modules/app/system';
 // -- PROVIDERS IMPORTS END -
 
 // -- COMPONENTS IMPORTS  --;
-import {AnimateSpriteComponent} from './components/animate-sprite/animate-sprite.component';
 import {AccordionComponent} from 'wlc-engine/modules/core/components/accordion/accordion.component';
 import {BirthdayFieldComponent} from './components/birthday-field/birthday-field.component';
 import {BurgerPanelComponent} from './components/burger-panel/burger-panel.component';
@@ -179,7 +178,6 @@ export const moduleConfig =
 
 export const components = {
     'wlc-alert': AlertComponent,
-    'wlc-animate-sprite': AnimateSpriteComponent,
     'wlc-accordion': AccordionComponent,
     'wlc-birth-field': BirthdayFieldComponent,
     'wlc-button': ButtonComponent,
@@ -266,7 +264,6 @@ export const services = {
     declarations: [
         DynamicPipe,
         AlertComponent,
-        AnimateSpriteComponent,
         AccordionComponent,
         AuthDirective,
         BirthdayFieldComponent,
@@ -361,7 +358,6 @@ export const services = {
         /** END modules */
         DynamicPipe,
         AlertComponent,
-        AnimateSpriteComponent,
         AccordionComponent,
         AuthDirective,
         BirthdayFieldComponent,

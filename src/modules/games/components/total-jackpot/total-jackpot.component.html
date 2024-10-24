@@ -20,10 +20,12 @@
         <div class="{{$class}}__image">
             <ng-container *ngIf="$params.useSprite; else image">
                 <div class="{{$class}}__sprite"
-                    wlc-animate-sprite
-                    [parentElementRef]="elementRef.nativeElement"
-                    [inlineParams]="$params.animateSprite">
-                </div>
+                    wlc-sa="wlc-animate-sprite"
+                    [wlc-sa-input-params]="{
+                        inlineParams: $params.animateSprite,
+                        parentElementRef: elementRef.nativeElement,
+                    }"
+                ></div>
             </ng-container>
         </div>
         <div class="{{$class}}__content">
@@ -120,4 +122,3 @@
         (click)="openState(jackpotBtnParams.event)">
     </button>
 </ng-template>
-

@@ -2,9 +2,11 @@
     <div class="{{$class}}__image">
         <ng-container *ngIf="$params.useSprite; else image">
             <div class="{{$class}}__sprite"
-                wlc-animate-sprite
-                [parentElementRef]="elementRef.nativeElement"
-                [inlineParams]="$params.animateSprite"
+                wlc-sa="wlc-animate-sprite"
+                [wlc-sa-input-params]="{
+                    inlineParams: $params.animateSprite,
+                    parentElementRef: elementRef.nativeElement,
+                }"
             ></div>
         </ng-container>
     </div>

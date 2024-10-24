@@ -40,6 +40,7 @@ import * as Params from './animate-sprite.params';
     templateUrl: './animate-sprite.component.html',
     styleUrls: ['./styles/animate-sprite.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
 })
 export class AnimateSpriteComponent extends AbstractComponent implements OnInit, OnDestroy {
     @ViewChild('canvasRef', {static: true}) protected canvasRef: ElementRef<HTMLCanvasElement>;
@@ -306,7 +307,7 @@ export class AnimateSpriteComponent extends AbstractComponent implements OnInit,
 
     protected calc(): void {
         const canvas = this.canvasRef.nativeElement;
-        const thisElementStyles = getComputedStyle(this.elementRef.nativeElement);
+        const thisElementStyles = getComputedStyle(this.elementRef.nativeElement?.parentElement);
         this.frameWidth = this.imageRef.nativeElement.naturalWidth;
         this.frameHeight = this.imageRef.nativeElement.naturalHeight / this.$params.framesCount;
 

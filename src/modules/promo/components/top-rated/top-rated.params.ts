@@ -2,8 +2,8 @@ import {
     GlobalHelper,
     IComponentParams,
 } from 'wlc-engine/modules/core';
-import {IAnimateSpriteCParams} from 'wlc-engine/modules/core/components/animate-sprite/animate-sprite.params';
 import {IRatingCParams} from 'wlc-engine/modules/core/components/rating/rating.params';
+import {IAnimateSpriteCParams} from 'wlc-engine/standalone/core/components/animate-sprite/animate-sprite.params';
 
 export type ComponentTheme = string;
 export type ComponentType = string;

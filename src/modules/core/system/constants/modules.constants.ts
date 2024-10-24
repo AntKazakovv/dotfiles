@@ -430,6 +430,13 @@ export const standaloneComponents = {
                 return m.AmountLimitComponent;
             });
     },
+    'wlc-animate-sprite': async (callback: TCallbackImportFunction) => {
+        return import('wlc-engine/standalone/core/components/animate-sprite/animate-sprite.component')
+            .then((m) => {
+                callback(m.AnimateSpriteComponent);
+                return m.AnimateSpriteComponent;
+            });
+    },
     // 'some-sa-component-name': IFunctionImportStandalone
     // 'another-sa-component-name': IFunctionImportStandalone
     /** === Independent components END === */
