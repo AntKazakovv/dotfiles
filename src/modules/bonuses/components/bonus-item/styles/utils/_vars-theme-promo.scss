@@ -154,11 +154,13 @@ $themePromo: map-merge((
     'baseBg': var(--mc-bg300),
     'baseBgHover': var(--mc-bg500),
 
+    //Buttons
     'btnsJustifySelf': (
         375: center,
         560: start,
     ),
     'btnsAlignSelf': end,
+    'btnsFlexGap': ef.size(4),
 
     // With image
     'maxWidthWithImg': 320px,
