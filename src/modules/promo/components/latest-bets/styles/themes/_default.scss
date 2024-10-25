@@ -139,6 +139,7 @@
         }
 
         .wlc-preloader--theme-default:host {
+            margin: ef.get-value($themeDefault, 'preloaderMargin');
 
             ::ng-deep {
 

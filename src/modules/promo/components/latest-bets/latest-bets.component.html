@@ -17,10 +17,17 @@
                     </button>
                 </div>
             </div>
-            <div *ngFor="let bet of (allBets$ | async)"
-                wlc-latest-bets-item
-                [inlineParams]="prepareBetParams(bet)">
-            </div>
+            @for (bet of (allBets$ | async); track bet.gameID) {
+                <div
+                    wlc-latest-bets-item
+                    [inlineParams]="prepareBetParams(bet)">
+                </div>
+            } @empty {
+                <div *ngIf="$params.preloader?.use"
+                    wlc-preloader
+                    [inlineParams]="$params.preloader.params">
+                </div>
+            }
         </div>
     </div>
 </ng-container>
