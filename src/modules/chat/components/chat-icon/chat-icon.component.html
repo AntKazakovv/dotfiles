@@ -13,6 +13,7 @@
 <ng-template #default>
     <button type="button"
         class="{{$class}}__button"
+        data-wlc-element="wlc-chat-icon"
         (click)="clickHandler()">
         <ng-container [ngSwitch]="params.theme">
             <ng-container *ngSwitchCase="'wolf'" [ngTemplateOutlet]="newIcon"></ng-container>

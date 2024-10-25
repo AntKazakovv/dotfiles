@@ -288,12 +288,13 @@
 </ng-template>
 
 <ng-template #content let-item="item">
-    <div class="{{$class}}__link">
-         <span class="{{$class}}__icon">
-             <span wlc-wrapper [inlineParams]="item.params?.content"></span>
-         </span>
+    <div class="{{$class}}__link"
+        data-wlc-element="wlc-chat-icon">
+        <span class="{{$class}}__icon">
+            <span wlc-wrapper [inlineParams]="item.params?.content"></span>
+        </span>
         <span class="{{$class}}__link-text">
-                <span>{{menuItemName(item)}}</span>
+            <span>{{menuItemName(item)}}</span>
         </span>
     </div>
 </ng-template>
