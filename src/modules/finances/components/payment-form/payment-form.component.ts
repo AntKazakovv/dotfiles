@@ -386,7 +386,7 @@ export class PaymentFormComponent
     }
 
     public get isNotInvoice(): boolean {
-        return this.isDeposit && !(this.currentSystem?.message as IPaymentMessage)?.dateEnd;
+        return !(this.currentSystem?.message as IPaymentMessage)?.dateEnd;
     }
 
     protected get showAdditionalFields(): boolean {
