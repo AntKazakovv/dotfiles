@@ -37,6 +37,10 @@
                 .wlc-sections__profile-content--theme-first & {
                     @include bm.get-mq-map('width', $themeDefault, 'groupWidthProfileFirst');
                 }
+
+                .wlc-sections__profile-content--theme-wolf & {
+                    @include bm.get-mq-map('width', $themeDefault, 'groupWidthProfileWolf');
+                }
             }
         }
     }
