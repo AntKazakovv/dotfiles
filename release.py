@@ -550,7 +550,7 @@ def update_language_pack(branch):
 
     print(Fore.YELLOW + "Commit and push changes..." + Fore.RESET)
     subprocess.run(["git", "add", "package.json", "package-lock.json"])
-    subprocess.run(["git", "commit", "-m", f"SCR #0 - update: language pack to the {new_tag} version"])
+    subprocess.run(["git", "commit", "-m", f"Updated language pack to the {new_tag} version"])
     subprocess.run(["git", "push", "origin", f"HEAD:{branch}"])
     print(Fore.GREEN + "Done" + Fore.RESET)
 
