@@ -31,7 +31,8 @@ $themeWolf: map-merge((
         900: auto,
     ),
     'buttonMinWidth': (
-        375: 173px,
+        375: fit-content,
+        900: 173px,
     ),
     'buttonBackground': transparent,
     'buttonPadding': (
