@@ -1,6 +1,7 @@
 import {
     Injectable,
     inject,
+    ElementRef,
 } from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
@@ -125,6 +126,10 @@ export class SearchControllerDefault extends AbstractSearchController<IControlle
     public setFilter(): void {
         this.gamesFilterService.set(this.props.searchFilterName, this._filters, true);
         this._filters$.next(this._filters);
+    }
+
+    public get modalHost(): ElementRef {
+        return this.modal.element;
     }
 
     public setValueSearchQuery(query: string): void {

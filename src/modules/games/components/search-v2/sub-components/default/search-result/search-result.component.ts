@@ -3,6 +3,7 @@ import {
     OnInit,
     ChangeDetectionStrategy,
     Inject,
+    ElementRef,
 } from '@angular/core';
 
 import {
@@ -24,6 +25,7 @@ import * as Params from './search-result.params';
 })
 export class SearchResultComponent extends AbstractComponent implements OnInit {
     public searchQuery$: BehaviorSubject<string> = new BehaviorSubject('');
+    public gamesGridScrollHost: ElementRef;
     protected gamesGridParams: IGamesGridCParams;
 
     constructor(
@@ -38,6 +40,7 @@ export class SearchResultComponent extends AbstractComponent implements OnInit {
     public override ngOnInit(): void {
         super.ngOnInit();
         this.subscribeSearchQuery();
+        this.gamesGridScrollHost = this.$searchControllerDefault.modalHost;
         this.gamesGridParams = this.$searchControllerDefault.props.gamesGridParams;
     }
 

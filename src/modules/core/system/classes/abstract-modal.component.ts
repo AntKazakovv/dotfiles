@@ -1,11 +1,14 @@
-import {
-    IModalOptions,
-    IModalType,
-} from 'wlc-engine/modules/core';
+import {ElementRef} from '@angular/core';
+
 import {
     ModalDirective,
     ModalOptions,
 } from 'ngx-bootstrap/modal';
+
+import {
+    IModalOptions,
+    IModalType,
+} from 'wlc-engine/modules/core';
 
 export abstract class AbstractModalComponent {
     $params: IModalOptions;
@@ -16,6 +19,7 @@ export abstract class AbstractModalComponent {
     abstract get closed(): Promise<string>;
     abstract get ready(): Promise<void>;
     abstract get nativeElement(): Node;
+    abstract get element(): ElementRef;
 
     /**
      * A method that sets the closed state of the modal. Does not close the window itself, it is only used to put

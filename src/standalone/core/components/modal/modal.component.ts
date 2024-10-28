@@ -11,6 +11,7 @@ import {
     ElementRef,
     Renderer2,
     ChangeDetectionStrategy,
+    inject,
 } from '@angular/core';
 
 import {takeUntil} from 'rxjs/operators';
@@ -98,17 +99,17 @@ export class WlcModalComponent extends AbstractComponent
     protected modalType: IModalType;
     protected $ready: Deferred<void> = new Deferred();
     protected $closed: Deferred<string> = new Deferred();
+    protected readonly elementRef: ElementRef = inject(ElementRef);
+    protected readonly eventService: EventService = inject(EventService);
+    protected readonly modalService: ModalService = inject(ModalService);
+    protected readonly renderer: Renderer2 = inject(Renderer2);
+    protected readonly injector: Injector = inject(Injector);
+    protected readonly window: Window = inject(WINDOW) as Window;
 
     @Input() protected inlineParams: IModalOptions;
 
     constructor(
         @Inject('injectParams') protected params: IModalOptions,
-        protected eventService: EventService,
-        protected injector: Injector,
-        protected modalService: ModalService,
-        protected element: ElementRef,
-        protected renderer: Renderer2,
-        @Inject(WINDOW) private window: Window,
     ) {
         super(<IMixedParams<IModalOptions>>{
             injectParams: params,
@@ -131,7 +132,11 @@ export class WlcModalComponent extends AbstractComponent
     }
 
     public get nativeElement(): Node {
-        return this.element.nativeElement;
+        return this.elementRef.nativeElement;
+    }
+
+    public get element(): ElementRef {
+        return this.elementRef;
     }
 
     /**
