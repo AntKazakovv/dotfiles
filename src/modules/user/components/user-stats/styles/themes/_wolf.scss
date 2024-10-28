@@ -197,7 +197,7 @@
                 border: ef.get-value($themeWolf, 'detailsBorder');
                 border-radius: ef.get-value($themeWolf, 'detailsBorderRadius');
 
-                &:before {
+                &:after {
                     display: none;
                 }
 

@@ -151,7 +151,7 @@
                         transform: ef.get-value($themeWolf, 'btnIconTransform');
                     }
 
-                    &:before {
+                    &:after {
                         display: none;
                     }
 
