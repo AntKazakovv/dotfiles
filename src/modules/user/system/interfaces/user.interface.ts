@@ -32,7 +32,7 @@ export interface ILoginWithPhoneData {
 
 export interface IWSDataUserBalance {
     Balance: number | string;
-    BonusBalance: number;
+    BonusBalance: number | string;
     IDUser: string;
     Login: string;
     Currency?: string;

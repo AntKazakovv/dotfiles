@@ -1380,7 +1380,7 @@ export class UserService {
 
     private setUserInfo(): void {
         if (this.wsBalanceData) {
-            const bonusBalance: number = this.wsBalanceData.BonusBalance || 0;
+            const bonusBalance: number = Number(this.wsBalanceData.BonusBalance) || 0;
             const userBalance: number = Number(this.wsBalanceData.Balance) || 0;
             this.info.balance = userBalance + bonusBalance;
             this.info.bonusBalanceWS = bonusBalance;
