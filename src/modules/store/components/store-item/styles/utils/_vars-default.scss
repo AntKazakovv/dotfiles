@@ -55,7 +55,7 @@ $themeDefault: map-merge((
     'bonusIconValueBlockBottom': 10px,
     'bonusIconValueBlockMinWidth': 60px,
     'bonusIconValueBlockPadding': 0 ef.size(1),
-    'bonusIconValueBg': var(--mc-baseMain),
+    'bonusIconValueBg': var(--mc-baseMain-locked),
     'bonusIconValueBlockRadius': ef.get('radius', 'biger'),
 
     'priceTextStyle': 'PrimaryTextBold',
