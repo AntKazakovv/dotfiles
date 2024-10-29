@@ -30,3 +30,5 @@ export interface ILazyLoadingIntersectionObserver {
 }
 
 type TLazyLoadingComponents = 'icon-list' | 'games-grid';
+
+export type TIntersectionVisibility = 'visible' | 'hidden' | '';
