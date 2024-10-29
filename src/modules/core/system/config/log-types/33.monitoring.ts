@@ -31,4 +31,9 @@ export const errorTypes: ILogTypes = {
         level: 'info',
         durationType: 'fromStart',
     },
+    '33.0.8': {
+        // Time to First Byte (TTFB) metric data
+        level: 'info',
+        durationType: 'fromStart',
+    },
 };

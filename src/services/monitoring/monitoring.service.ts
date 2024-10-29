@@ -7,9 +7,11 @@ import {
     LCPMetric,
     CLSMetric,
     FCPMetric,
+    TTFBMetric,
     onLCP,
     onCLS,
     onFCP,
+    onTTFB,
 } from 'web-vitals';
 
 import {LogService} from 'wlc-engine/modules/core';
@@ -49,6 +51,9 @@ export class MonitoringService {
                 case 'CLS':
                     this.setCLSMertric();
                     break;
+                case 'TTFB':
+                    this.setTTFBMetric();
+                    break;
             }
         });
     }
@@ -79,6 +84,17 @@ export class MonitoringService {
         onCLS((metric: CLSMetric) => {
             this.logService.sendLog({
                 code: '33.0.7',
+                flog: {
+                    time: metric.value,
+                },
+            });
+        });
+    }
+
+    private setTTFBMetric(): void {
+        onTTFB((metric: TTFBMetric) => {
+            this.logService.sendLog({
+                code: '33.0.8',
                 flog: {
                     time: metric.value,
                 },
