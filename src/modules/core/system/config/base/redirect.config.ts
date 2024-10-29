@@ -16,7 +16,6 @@ export const redirectsConfig: IRedirectConfig = {
         },
         'app.profile': {
             state: 'app.profile.main.info',
-            profile: 'first',
         },
     },
 };
