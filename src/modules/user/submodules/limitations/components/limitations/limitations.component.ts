@@ -26,6 +26,7 @@ import {
     NotificationEvents,
 } from 'wlc-engine/modules/core';
 import {
+    UserInfo,
     UserService,
 } from 'wlc-engine/modules/user';
 import {
@@ -310,7 +311,8 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
 
         if (this.configService.get<string>('appConfig.license') === 'malta'
             && !selfExclusion.CoolOffTime
-            && this.limitationService.userLimitationStatus === 2
+            && this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'})
+                .getValue()?.status === 2
         ) {
             limits.push({
                 type: 'CoolOffTime',

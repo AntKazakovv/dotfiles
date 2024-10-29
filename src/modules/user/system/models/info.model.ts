@@ -31,11 +31,8 @@ import {
     IWallet,
     IWSWallet,
 } from 'wlc-engine/modules/multi-wallet/system/interfaces/wallet.interface';
+import {IWSDataUserBalance} from 'wlc-engine/modules/user/system/interfaces/user.interface';
 import {WalletsService} from 'wlc-engine/modules/multi-wallet/system/services/wallets.service';
-import {
-    IWSDataUserBalance,
-    TUserLimitationStatus,
-} from 'wlc-engine/modules/user/system/interfaces/user.interface';
 
 export class UserInfo extends AbstractModel<IUserInfo> {
 
@@ -174,7 +171,7 @@ export class UserInfo extends AbstractModel<IUserInfo> {
         return _isString(this.data?.socketsData) ? null : this.data?.socketsData;
     }
 
-    public get status(): TUserLimitationStatus {
+    public get status(): number {
         return this.data?.status;
     }
 

@@ -8,14 +8,6 @@ import {IWSWallet} from 'wlc-engine/modules/multi-wallet';
  * @param sendSmsCode - must be `1` if param `phone` is used
  * @param reCaptchaToken - if captcha is used - send this field
  */
-
-/**
- * User statuses description:
- * 0 - disabled user
- * 1 - active
- * 2 - self-excluded, Romanian license
- */
-export type TUserLimitationStatus = 0 | 1 | 2;
 export interface IUserPasswordPost {
     email?: string;
     phone?: string;
