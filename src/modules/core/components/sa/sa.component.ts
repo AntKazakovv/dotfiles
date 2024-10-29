@@ -32,7 +32,13 @@ export interface ISaCParams<T> {
  *
  * @example
  * ```
- * <div wlc-sa="my-standalone-component" class="{{$class}}__wrapper"></div>
+ * <div
+ *      wlc-sa="my-standalone-component"
+ *      class="{{$class}}__wrapper"
+ *      [wlc-sa-input-params]="{param1:'value1',param2:'value2'}"
+ *      (wlc-sa-input-events)="{click:handleClick($event),change:handleChange($event)}"
+ * >
+ * </div>
  * ```
  */
 
@@ -54,6 +60,11 @@ export class SaComponent implements AfterViewInit {
      * to the component. Will be provided only if `wlc-sa-injector` is undefined.
      */
     @Input('wlc-sa-input-params') public inputParams?: IIndexing<unknown>;
+
+    /**
+     * Standalone component events. If defined, will be provided to component.
+     */
+    @Input('wlc-sa-input-events') public inputEvents?: IIndexing<unknown>;
     /**
      * Standalone component injector. If defined, will be provided to component.
      * `wlc-sa-params` will be ignored.
@@ -94,6 +105,12 @@ export class SaComponent implements AfterViewInit {
             if (this.inputParams) {
                 for (let key in this.inputParams) {
                     componentRef.setInput(key, this.inputParams[key]);
+                }
+            }
+
+            if (this.inputEvents) {
+                for (let key in this.inputEvents) {
+                    componentRef.setInput(key, this.inputEvents[key]);
                 }
             }
 
