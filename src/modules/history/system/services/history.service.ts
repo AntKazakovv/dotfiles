@@ -164,7 +164,6 @@ export class HistoryService {
 
                 return this.historyBonuses as T[];
             } catch (error) {
-                //TODO need to be implemented in release 1.81: remove ELSE-IF block. More info: #635561.
                 if (error.errors.dateFrom) {
                     this.eventService.emit({
                         name: NotificationEvents.PushMessage,
@@ -175,19 +174,6 @@ export class HistoryService {
                             wlcElement: 'notification_bonuses-history',
                         },
                     });
-                } else if (error.code === 400
-                    && error.errors.length === 1
-                    && error.errors[0] === 'Report interval is more than 90 days') {
-                    this.eventService.emit({
-                        name: NotificationEvents.PushMessage,
-                        data: <IPushMessageParams>{
-                            type: 'error',
-                            title: 'Error',
-                            message: gettext('Report interval is more than 90 days'),
-                            wlcElement: 'notification_bonuses-history',
-                        },
-                    });
-                    return [];
                 } else {
                     this.logService.sendLog({code: '10.0.0', data: error});
 
@@ -226,7 +212,6 @@ export class HistoryService {
                 publicSubject ? this.subjects.tournamentsHistory$.next(tournaments) : null;
                 return tournaments as T[];
             } catch (error) {
-                //TODO need to be implemented in release 1.81: remove ELSE-IF block. More info: #635561.
                 if (error.errors.dateFrom) {
                     this.eventService.emit({
                         name: NotificationEvents.PushMessage,
@@ -237,19 +222,6 @@ export class HistoryService {
                             wlcElement: 'notification_tournaments-history',
                         },
                     });
-                } else if (error.code === 400
-                    && error.errors.length === 1
-                    && error.errors[0] === 'Report interval is more than 90 days') {
-                    this.eventService.emit({
-                        name: NotificationEvents.PushMessage,
-                        data: <IPushMessageParams>{
-                            type: 'error',
-                            title: 'Error',
-                            message: gettext('Report interval is more than 90 days'),
-                            wlcElement: 'notification_tournaments-history',
-                        },
-                    });
-                    return [];
                 } else {
                     this.logService.sendLog({
                         code: '13.0.0',
@@ -486,7 +458,6 @@ export class HistoryService {
 
             return transactions;
         } catch (error) {
-            //TODO need to be implemented in release 1.81: remove ELSE-IF block. More info: #635561.
             if (error.errors.startDate) {
                 this.eventService.emit({
                     name: NotificationEvents.PushMessage,
@@ -497,20 +468,6 @@ export class HistoryService {
                         wlcElement: 'notification_transaction-history',
                     },
                 });
-            } else if (error.code === 400
-                && error.errors.length === 1
-                && error.errors[0] === 'Report interval is more than 90 days'
-            ) {
-                this.eventService.emit({
-                    name: NotificationEvents.PushMessage,
-                    data: <IPushMessageParams>{
-                        type: 'error',
-                        title: 'Error',
-                        message: gettext('Report interval is more than 90 days'),
-                        wlcElement: 'notification_transaction-history',
-                    },
-                });
-                return [];
             } else {
                 this.logService.sendLog({
                     code: '17.6.0',
