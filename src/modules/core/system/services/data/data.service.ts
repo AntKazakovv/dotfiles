@@ -263,7 +263,9 @@ export class DataService {
             },
         );
 
-        const requestKey = `${method.request.url || method.request.fullUrl}|${JSON.stringify(method.params || {})}`;
+        const requestUrl = method.request.url || method.request.fullUrl;
+        const requestParams = JSON.stringify(method.params || method.request.params || {});
+        const requestKey = `${method.request.type}|${requestUrl}|${requestParams}`;
         const pendingRequest = this.pendingRequests.get(requestKey) as Promise<IData | T>;
 
         if (pendingRequest) {
