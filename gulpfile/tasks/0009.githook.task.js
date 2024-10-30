@@ -50,12 +50,15 @@ module.exports = function githookTask() {
     task('githook:checking-changes', (cb) => {
         const status = this.execNativeShellSync('git status --short | grep \'^\\w.\'');
         const comparator = new RegExp('^SCR #.+ - update:.+');
+        const messageRelease = 'Updated language pack to the';
 
         const commitMessage = fs
             .readFileSync(process.argv[process.argv.length - 1] || '.git/COMMIT_EDITMSG')
             .toString();
 
-        if (!comparator.test(commitMessage) && status.includes('package-lock.json')) {
+        if ((!comparator.test(commitMessage) && status.includes('package-lock.json'))
+            || (!commitMessage.includes(messageRelease) && status.includes('package-lock.json'))
+        ) {
             throw new Error('Want to add package-lock you do not.');
         }
 
