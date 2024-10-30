@@ -274,6 +274,10 @@ export class SelectValuesService {
     public getPepList(): TConstantValue {
         return new BehaviorSubject<Params.ISelectOptions[]>([
             {
+                value: '',
+                title: gettext('Not selected'),
+            },
+            {
                 value: true,
                 title: gettext('Yes'),
             },
