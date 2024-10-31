@@ -716,7 +716,7 @@ export class BonusesService {
             const bonusInfo: IBonusCanceledInfo = response.data[loyaltyBonusId];
 
             if (bonusInfo) {
-                return new BonusCancellationInfo(this.walletsService, bonusInfo);
+                return new BonusCancellationInfo(bonusInfo, this.walletsService);
             } else throw new Error();
 
         } catch (error) {

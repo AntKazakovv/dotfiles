@@ -71,6 +71,7 @@ export class SettingsComponent extends AbstractComponent implements OnInit, OnDe
             || (this.walletSettings.hideWalletsWithZeroBalance
                 !== this.walletsService.walletSettings.hideWalletsWithZeroBalance)
             || this.walletSettings.currency !== this.walletsService.walletSettings.currency) {
+            this.walletsService.conversionCurrency = this.walletsService.walletSettings.currency;
             this.userService.updateProfile(
                 {extProfile: {conversionCurrency: this.walletsService.walletSettings}},
                 {updatePartial: true},

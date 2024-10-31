@@ -283,7 +283,7 @@ export class StoreItem extends AbstractModel<IStoreItem> {
         }
 
         if (this.useConversionInFiat) {
-            value = Number(this.data.Price[this.storeService.walletsService?.conversionCurrency.toUpperCase()]);
+            value = Number(this.data.Price[this.storeService.walletsService?.conversionCurrency?.toUpperCase()]);
 
             if (!value) {
                 value = Number(this.data.Price['EUR']) * this.storeService.walletsService?.coefficientConversionEUR;
@@ -314,11 +314,11 @@ export class StoreItem extends AbstractModel<IStoreItem> {
 
             if (this.useConversionInFiat) {
                 const originalPrice: string =
-                    this.priceMoney[this.storeService.walletsService?.conversionCurrency.toUpperCase()];
+                    this.priceMoney[this.storeService.walletsService?.conversionCurrency?.toUpperCase()];
 
                 moneyPrice = Number(originalPrice)
                     || Number(this.priceMoney['EUR']) * this.storeService.walletsService?.coefficientConversionEUR;
-                conversionCurrency = this.storeService.walletsService?.conversionCurrency.toLowerCase();
+                conversionCurrency = this.storeService.walletsService?.conversionCurrency?.toLowerCase();
             }
 
             return {
