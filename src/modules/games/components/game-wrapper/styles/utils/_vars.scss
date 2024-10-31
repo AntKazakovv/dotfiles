@@ -41,6 +41,7 @@ $themeWolf: map-merge((
     'textColor': var(--mc-baseMain),
     'btnCenterGap': ef.size(10),
     'checkboxWidth': 40px,
+    'checkboxMinWidth': 40px,
     'checkboxHeight': 20px,
     'checkboxBeforeSizeCircle': 15px,
     'checkboxBeforeBgActive': var(--mc-main-o6),

@@ -61,7 +61,7 @@
             }
 
             .wlc-checkbox__elem {
-                width: ef.get-value($themeDefault, 'checkboxElemWidth');
+                min-width: ef.get-value($themeDefault, 'checkboxElemWidth');
             }
 
             .wlc-icon {
@@ -219,6 +219,7 @@
 
                     .wlc-checkbox__elem {
                         width: ef.get-value($themeWolf, 'checkboxWidth');
+                        min-width: ef.get-value($themeWolf, 'checkboxMinWidth');
                         height: ef.get-value($themeWolf, 'checkboxHeight');
 
                         &.checked {
