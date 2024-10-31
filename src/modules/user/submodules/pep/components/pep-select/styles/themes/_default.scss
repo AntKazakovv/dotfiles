@@ -17,7 +17,7 @@
                     bottom: 15%;
 
                     .wlc-sections__profile-content--theme-first & {
-                        right: 4%;
+                        @include bm.get-mq-map('right', $themeDefault, 'iconPosRightProfileFirst');
                         bottom: 10%;
                     }
 

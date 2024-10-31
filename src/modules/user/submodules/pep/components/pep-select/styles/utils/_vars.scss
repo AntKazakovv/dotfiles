@@ -1,17 +1,26 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'groupWidth': (
-        375: 89%,
+        375: 90%,
         560: 94%,
+        900: 91%,
+        1200: 94%,
+        1420: 95%,
     ),
     'groupWidthProfileFirst': (
         375: 90%,
+        560: 91%,
+        720: 93%,
         900: 85%,
+    ),
+    'iconPosRightProfileFirst': (
+        375: 3%,
+        900: 4%,
     ),
     'groupWidthProfileWolf': (
         375: 90%,
         560: 94%,
-        900: 90%,
+        900: 91%,
         1200: 93%,
     ),
     'iconSize': 24px,
