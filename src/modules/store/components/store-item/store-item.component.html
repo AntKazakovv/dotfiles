@@ -14,7 +14,8 @@
         <span wlc-tag
             class="{{$class}}__tag"
             [inline]="tagConfig"
-            [theme]="tagTheme">
+            [theme]="tagTheme"
+            [class.unavailable]="isDisabled">
         </span>
         <div class="{{$class}}__name"
             data-wlc-element="store_item-name">

@@ -20,6 +20,7 @@ $themeDefault: map-merge((
     'tagPositionTop': ef.size(5),
     'tagPositionLeft': 50%,
     'tagTransform': translateX(-50%),
+    'tagBgUnavailable': var(--mc-bg700-locked),
 
     'infoWidth': (
         375: 250px,

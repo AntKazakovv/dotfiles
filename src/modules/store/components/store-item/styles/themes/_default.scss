@@ -39,6 +39,10 @@
             top: ef.get-value($themeDefault, 'tagPositionTop');
             left: ef.get-value($themeDefault, 'tagPositionLeft');
             transform: ef.get-value($themeDefault, 'tagTransform');
+
+            &.unavailable {
+                background: ef.get-value($themeDefault, 'tagBgUnavailable');
+            }
         }
 
         &__name {
