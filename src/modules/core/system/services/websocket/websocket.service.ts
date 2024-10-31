@@ -70,7 +70,6 @@ export const WebSocketEvents: IIndexing<IIndexing<string>> = {
         LOYALTY: 'loyalty.loyalty.get',
         USER_INFO: 'funcore.wlcinfo.user',
         USER_INFO_NEW: 'funcore.wlcinfo.new',
-        USER_PAYMENT: 'funcore.userpayment',
     },
 };
 

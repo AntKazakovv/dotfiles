@@ -30,9 +30,10 @@ import {errorTypes as lotteriesLogs} from './28.lotteries';
 import {errorTypes as LocalJackpotsLogs} from './30.local-jackpots';
 import {errorTypes as questsLogs} from './31.quests';
 import {errorTypes as referralsLogs} from './32.referrals';
-import {errorTypes as pwaLogs} from './34.pwa';
 import {errorTypes as monitoringLogs} from './33.monitoring';
+import {errorTypes as pwaLogs} from './34.pwa';
 import {errorTypes as crossDomainLogs} from './35.cross-domain';
+import {errorTypes as websocketLogs} from './36.websocket';
 
 export const defaultLogMethods: TLogMethods[] = ['flog'];
 export const defaultLogLevel: TLogLevel = 'log';
@@ -112,4 +113,5 @@ export const logTypes: ILogTypes = Object.assign(
     monitoringLogs,
     pwaLogs,
     crossDomainLogs,
+    websocketLogs,
 );

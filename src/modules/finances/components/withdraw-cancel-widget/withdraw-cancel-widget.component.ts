@@ -14,7 +14,6 @@ import {
     filter,
     takeUntil,
     map,
-    tap,
     take,
 } from 'rxjs/operators';
 
@@ -74,15 +73,11 @@ export class WithdrawCancelWidgetComponent extends AbstractComponent implements 
                         method: 'cancelWithdraw',
                     },
                 });
-            })
-            .finally(()=> {
-                this.currentPendingWithdraw = null;
-                this.cdr.markForCheck();
             });
     }
 
     public async hideWidget(): Promise<void> {
-        await this.writeToProfile(this.currentPendingWithdraw = null);
+        await this.writeTransactionToProfile(this.currentPendingWithdraw = null);
     }
 
     public get formattedDateWithdraw(): string {
@@ -97,18 +92,17 @@ export class WithdrawCancelWidgetComponent extends AbstractComponent implements 
         this.userService.userWithdrawCancelWSData$
             .pipe(
                 filter(data => !!data),
-                tap(async (websocketData: ILastWithdraw) => {
-                    if (websocketData.Status === 0) {
-                        this.currentPendingWithdraw = await this.getWithdrawById(websocketData.ID);
-                        this.writeToProfile(this.currentPendingWithdraw.id);
-                    } else {
-                        this.writeToProfile(this.currentPendingWithdraw = null);
-                    }
-
-                    this.cdr.markForCheck();
-                }),
                 takeUntil(this.$destroy),
-            ).subscribe();
+            ).subscribe(async (websocketData: ILastWithdraw) => {
+                if (websocketData.Status === 0) {
+                    this.currentPendingWithdraw = await this.getWithdrawById(websocketData.ID);
+                    this.writeTransactionToProfile(this.currentPendingWithdraw.id);
+                } else if (websocketData.ID === this.currentPendingWithdraw?.id && websocketData.Status === -55) {
+                    this.writeTransactionToProfile(this.currentPendingWithdraw = null);
+                }
+
+                this.cdr.markForCheck();
+            });
     }
 
     protected subscribeToUserProfile(): void {
@@ -117,15 +111,15 @@ export class WithdrawCancelWidgetComponent extends AbstractComponent implements 
                 filter((profile: UserProfile) => !!profile?.extProfile.lastPendingWithdrawId),
                 take(1),
                 map((userProfile: UserProfile): number => userProfile.extProfile?.lastPendingWithdrawId),
-                tap(async (transactionID: number) => {
-                    this.currentPendingWithdraw = await this.getWithdrawById(transactionID);
+            )
+            .subscribe(async (transactionID: number) => {
+                this.currentPendingWithdraw = await this.getWithdrawById(transactionID);
 
-                    this.cdr.markForCheck();
-                }),
-            ).subscribe();
+                this.cdr.markForCheck();
+            });
     }
 
-    protected async writeToProfile(id: number | null): Promise<void> {
+    protected async writeTransactionToProfile(id: number | null): Promise<void> {
         try {
             await this.userService.updateProfile({
                 extProfile: {

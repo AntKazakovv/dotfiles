@@ -399,18 +399,7 @@ export class UserService {
                 }
 
                 if (this.useLastWithdrawCancel) {
-                    this.webSocketService.sendToWebsocket('wsc2', WebSocketEvents.SEND.USER_PAYMENT);
-                    this.webSocketService.getMessages(
-                        {
-                            endPoint: 'wsc2',
-                            system: 'funcore',
-                            events: [WebSocketEvents.RECEIVE.LAST_WITHDRAW],
-                        })
-                        .pipe(
-                            filter((data: IWSLastWithdraw) => data.status === 'success'),
-                            tap(async (data: IWSLastWithdraw) => this.userWithdrawCancelWSData$.next(data.data)),
-                        )
-                        .subscribe();
+                    this.subscribeToLastWithdraw();
                 }
             }
         });
@@ -1418,6 +1407,32 @@ export class UserService {
             this.wsBalanceData = null;
             this.setUserInfo();
         };
+    }
+
+    private subscribeToLastWithdraw(): void {
+        this.webSocketService.getMessages(
+            {
+                endPoint: 'wsc2',
+                system: 'funcore',
+                events: [WebSocketEvents.RECEIVE.LAST_WITHDRAW],
+            })
+            .pipe(
+                tap((data: IWSLastWithdraw) => {
+                    if (data.status !== 'success') {
+                        this.logService.sendLog({
+                            code: '36.1.0',
+                            from: {
+                                service: 'UserService',
+                                method: 'subscribeToLastWithdraw',
+                            },
+                        });
+                    }
+                }),
+                filter((data: IWSLastWithdraw) => data.status === 'success'),
+            )
+            .subscribe(async (wsData: IWSLastWithdraw) => {
+                this.userWithdrawCancelWSData$.next(wsData.data);
+            });
     }
 
     private setUserInfo(): void {

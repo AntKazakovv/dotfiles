@@ -16,5 +16,5 @@ export const defaultParams: IWithdrawCancelWidgetCParams = {
     moduleName: 'finances',
     componentName: 'wlc-withdraw-cancel',
     class: 'wlc-withdraw-cancel',
-    transactionDateFormat: 'dd/MM/yy HH:mm:ss',
+    transactionDateFormat: 'DD/MM/YY HH:mm:ss',
 };
