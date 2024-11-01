@@ -2,7 +2,6 @@ import {UIRouter} from '@uirouter/core';
 import {BehaviorSubject} from 'rxjs';
 
 import _assign from 'lodash-es/assign';
-import _isObject from 'lodash-es/isObject';
 import _intersection from 'lodash-es/intersection';
 import _includes from 'lodash-es/includes';
 import _toNumber from 'lodash-es/toNumber';
@@ -186,22 +185,35 @@ export class Game extends AbstractModel<IGame> {
      *
      * @param {IRestrictions} restrictions
      * @param {string[]} countries
+     * @param {string} restrictSubdivision
      * @returns {boolean}
      */
-    public gameRestricted(restrictions: IRestrictions, countries: string[]): boolean {
-        const restrictedCountries: IIndexing<boolean> = restrictions.restrictedByID[this.countryRestrictionId]
-            || restrictions.restrictedByDefault[this.subMerchantID]
-            || restrictions.restrictedByDefault[this.merchantID];
+    public isGameRestricted(
+        restrictions: IRestrictions,
+        countries: string[],
+        restrictSubdivision: string,
+    ): boolean {
+        const restrictedCountries: IIndexing<boolean> =
+              restrictions.restrictedByID[this.countryRestrictionId]?.countries
+                || restrictions.restrictedByDefault[this.subMerchantID]?.countries
+                || restrictions.restrictedByDefault[this.merchantID]?.countries;
 
-        if (_isObject(restrictedCountries)) {
+        const restrictedStates: IIndexing<boolean> =
+              restrictions.restrictedByID[this.countryRestrictionId]?.subdivisions
+                || restrictions.restrictedByDefault[this.subMerchantID]?.subdivisions
+                || restrictions.restrictedByDefault[this.merchantID]?.subdivisions;
+
+        if (restrictedCountries) {
             for (let country of countries) {
                 if (restrictedCountries[country]) {
                     this._isRestricted = true;
                     break;
                 }
             }
-        } else {
-            this._isRestricted = false;
+        }
+
+        if (!this._isRestricted && restrictedStates) {
+            this._isRestricted = !!restrictedStates[restrictSubdivision];
         }
 
         return this._isRestricted;

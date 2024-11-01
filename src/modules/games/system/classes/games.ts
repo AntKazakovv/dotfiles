@@ -119,7 +119,11 @@ export class Games {
         }
     }
 
-    public setAvailableGames(disabledMerchants: number[], restrictCountries: string[]): void {
+    public setAvailableGames(
+        disabledMerchants: number[],
+        restrictCountries: string[],
+        restrictSubdivision: string,
+    ): void {
         const autotest: boolean = GlobalHelper.isAutotest();
         this.availableGames = _filter(this.allGames, (game: Game) => {
             if (autotest) {
@@ -129,8 +133,7 @@ export class Games {
             if (disabledMerchants && _includes(disabledMerchants, game.merchantID)) {
                 return false;
             }
-
-            return !game.gameRestricted(this.restrictions, restrictCountries);
+            return !game.isGameRestricted(this.restrictions, restrictCountries, restrictSubdivision);
         });
         this.sort(this.availableGames);
     }

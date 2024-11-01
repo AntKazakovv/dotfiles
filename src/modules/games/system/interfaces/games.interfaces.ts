@@ -260,6 +260,7 @@ export type ICountriesRestriction = {
     IDApiTemplate: string;
     IsDefault: string;
     Name: string;
+    Subdivisions: string[];
 }
 
 export type IByMerchant = {
@@ -347,9 +348,14 @@ export type IMapping = {
     byCategory?: IByCategory;
 }
 
+export interface IRestrictionInfo {
+    countries: IIndexing<boolean>;
+    subdivisions: IIndexing<boolean>;
+}
+
 export type IRestrictions = {
-    restrictedByID: {[key: string]: IIndexing<boolean>;};
-    restrictedByDefault: {[key: string]: IIndexing<boolean>;};
+    restrictedByID: IIndexing<IRestrictionInfo>;
+    restrictedByDefault: IIndexing<IRestrictionInfo>;
 }
 
 export type IJackpot = {

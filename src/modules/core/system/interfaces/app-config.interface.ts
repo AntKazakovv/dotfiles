@@ -28,6 +28,7 @@ export interface IBootstrap {
     menu: IBootstrapMenuItem[];
     mobile: boolean;
     mobileApp?: IMobileApp;
+    regionIsoCode: string;
     sessionName: string;
     site: string;
     siteconfig: ISiteConfig;

@@ -175,7 +175,7 @@ export class Catalog {
         );
 
         if (includeCategories.length) {
-            let categories: CategoryModel[] = [];
+            let categories: CategoryModel[] | null = null;
             if (parentCategory) {
                 categories = _filter(this.getCategoriesBySlugs(includeCategories), (category: CategoryModel) => {
                     return category.parentCategory?.slug === parentCategory;
@@ -265,11 +265,10 @@ export class Catalog {
     public searchByQuery(searchString: string, showMerchantsFirst: boolean = false): Game[] {
         if (searchString.length < 3) {
             return [];
-        };
+        }
 
         searchString = searchString.toLowerCase().replace(/\s+/, ' ');
         const queries: string[] = searchString.split(' ');
-        let result: Game[] = [];
 
         const merchantsIds: number[] = this.games.filterItems<MerchantModel, number>({
             collection: this.merchants.availableMerchants,
@@ -279,7 +278,7 @@ export class Catalog {
             getPushItem: (item: MerchantModel): number => item.id,
         });
 
-        result = this.games.filterItems<Game, Game>(this.games.generateParams({
+        let result: Game[] = this.games.filterItems<Game, Game>(this.games.generateParams({
             searchString,
             queries,
             merchantsIds,
@@ -594,11 +593,13 @@ export class Catalog {
 
         const country: string = this.configService.get<string>('appConfig.country') || null;
         const restrictCountries: string[] = [country, this.userCountry];
+        const restrictRegionIsoCode: string = this.configService.get<string>('appConfig.regionIsoCode');
         const disabledMerchants: number[] = this.merchants.disabledMerchants;
 
         this.games.setAvailableGames(
             disabledMerchants,
             restrictCountries,
+            restrictRegionIsoCode,
         );
 
         this.merchants.setAvailableMerchants(this.games.availableGames);

@@ -1,5 +1,4 @@
 import _get from 'lodash-es/get';
-import _isArray from 'lodash-es/isArray';
 import _toNumber from 'lodash-es/toNumber';
 import _each from 'lodash-es/each';
 import _set from 'lodash-es/set';
@@ -24,7 +23,6 @@ import {
     IByCategory,
     IMapping,
     ICategory,
-    ICountriesRestriction,
     ICountriesRestrictions,
     IIndexingMerchants,
     IMerchant,
@@ -345,23 +343,25 @@ export class GamesHelper {
             restrictedByID: {},
             restrictedByDefault: {},
         };
-        _each(countriesRestrictions, (restriction: ICountriesRestriction) => {
-            if (_isArray(restriction.Countries)) {
-                _each(restriction.Countries, (country: string) => {
-                    if (restriction.IsDefault === '1') {
-                        if (!restrictions.restrictedByDefault[restriction.IDMerchant]) {
-                            restrictions.restrictedByDefault[restriction.IDMerchant] = {};
-                        }
-                        restrictions.restrictedByDefault[restriction.IDMerchant][country] = true;
-                    } else {
-                        if (!restrictions.restrictedByID[restriction.ID]) {
-                            restrictions.restrictedByID[restriction.ID] = {};
-                        }
-                        restrictions.restrictedByID[restriction.ID][country] = true;
-                    }
-                });
+        const mapValues = (dictionary: IIndexing<boolean>, value: string): IIndexing<boolean> => {
+            dictionary[value] = true;
+            return dictionary;
+        };
+
+        for (const restriction of Object.values(countriesRestrictions)) {
+            if (restriction.IsDefault === '1') {
+                restrictions.restrictedByDefault[restriction.IDMerchant] = {
+                    countries: restriction.Countries.reduce(mapValues, {}),
+                    subdivisions: restriction.Subdivisions.reduce(mapValues, {}),
+                };
+            } else {
+                restrictions.restrictedByID[restriction.ID] = {
+                    countries: restriction.Countries.reduce(mapValues, {}),
+                    subdivisions: restriction.Subdivisions.reduce(mapValues, {}),
+                };
             }
-        });
+        }
+
         return restrictions;
     }
 

@@ -75,6 +75,13 @@ export class AppConfigModel extends AbstractModel<IBootstrap> {
     }
 
     /**
+     * @returns {string} region code ISO-1 ('ru-amu', 'en-wn'...)
+     */
+    public get regionIsoCode(): string {
+        return this.data.regionIsoCode;
+    }
+
+    /**
      * @returns {string} language code ISO-2 ('ru', 'en'...)
      */
     public get countryLangs(): string[] {
