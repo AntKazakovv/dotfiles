@@ -39,6 +39,8 @@ import {
     AdditionalFieldsControllerM,
 } from 'wlc-engine/modules/finances/system/classes/additional-fields.controller';
 
+import {ILimits} from 'wlc-engine/standalone/core/components/amount-limit/amount-limit.params';
+
 export type FilterType = TPaymentsMethods | 'Deposits' | 'Withdraws' | 'withdraw' | 'all' | 'All';
 
 export interface IHostedFormData extends IIndexing<string | IIndexing<string>> {
@@ -53,6 +55,7 @@ export interface IPaymentSystem {
     alias: string;
     allowiframe: number;
     appearance: string;
+    currencyInfo?: ICurrencyInfo;
     customParams?: IPaymentSystemCustomParams | [];
     depositFeatures?: 'prestep' | string;
     description: string;
@@ -117,7 +120,8 @@ export interface IPaymentAdditionalParam {
     prestep?: string;
 }
 
-export interface IPaymentAdditionalParamEx extends Omit<IPaymentAdditionalParam,'skipsaving' | 'optional' | 'prestep'> {
+export interface IPaymentAdditionalParamEx
+    extends Omit<IPaymentAdditionalParam, 'skipsaving' | 'optional' | 'prestep'> {
     skipsaving?: number;
     optional?: number;
     prestep?: number;
@@ -133,6 +137,15 @@ export interface IPaymentSystemCustomParams {
 export interface IPreselectedAmount {
     currency: string;
     amounts: number[];
+}
+
+export interface ICurrencyInfo {
+    [key: string]: ICurrencyTransactionLimits;
+}
+
+export interface ICurrencyTransactionLimits {
+    deposit: ILimits,
+    withdraw: ILimits,
 }
 
 const disabledReasons = {
@@ -386,6 +399,10 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
         return this.hostedController.ready.promise;
     }
 
+    public get selectedCurrency(): string | null {
+        return this.data.currencyInfo ? Object.keys(this.data.currencyInfo)?.[0] : null;
+    }
+
     public getPreselectedDepositAmounts(currency?: string): number[] {
         return _find(this.data.preselectedDepositAmounts, {'currency': currency || this.userCurrency})?.amounts || [];
     }
@@ -405,7 +422,7 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
 
         const requiredFields: string[] = [];
 
-        fields.forEach((field : string) => {
+        fields.forEach((field: string) => {
             const realField: string = fieldNameByDbName[field];
             if (realField) {
                 requiredFields.push(realField);
@@ -417,7 +434,7 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
         }
 
         return requiredFields.reduce((acc, field) => {
-            if ( GlobalHelper.getOwnProperty(this.userProfile$.getValue() as any, field)
+            if (GlobalHelper.getOwnProperty(this.userProfile$.getValue() as any, field)
                 && !_get(this.userProfile$.getValue(), [field, 'length'], false)
             ) {
                 return {

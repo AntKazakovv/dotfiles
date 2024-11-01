@@ -47,6 +47,7 @@ import {
     ColorThemeService,
     TIconColorBg,
     LogService,
+    IFormComponent,
 } from 'wlc-engine/modules/core';
 import {MediaQueries} from 'wlc-engine/modules/core/constants';
 import {UserInfo} from 'wlc-engine/modules/user';
@@ -80,6 +81,7 @@ import {
     CustomHook,
 } from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 
+import {IAmountLimitCParams} from 'wlc-engine/standalone/core/components/amount-limit/amount-limit.params';
 import * as Params from './payment-list.params';
 
 interface IPaymentsIterator extends IMerchantsPaymentsIterator {
@@ -180,7 +182,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
             && this.$params.colorIconBg
             && this.$params.iconsType === 'color'
             && !this.$params.ignoreAltTheme) {
-            this.subscribeOnToggleSiteTheme(() => this.setPaymentsIconsList());
+            this.subscribeOnToggleSiteTheme(() => this.setPaymentsItemsList());
         }
 
         if (this.useTags) {
@@ -325,7 +327,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     }
 
     public get activeTagName(): string {
-        const tagsControl:TPaySystemTagAll = this.tagsControl.value;
+        const tagsControl: TPaySystemTagAll = this.tagsControl.value;
         return this.tagsConfig.categoriesConfig[tagsControl]?.name;
     }
 
@@ -456,7 +458,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
             this.systems = systems.filter((system) => system.checkTermsVersion);
         }
 
-        this.setPaymentsIconsList();
+        this.setPaymentsItemsList();
 
         if (this.useTags) {
             let tagSystems: PaymentSystem[] = this.systems.filter((val) => val.tags.includes(this.tagsControl.value));
@@ -641,48 +643,57 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         return null;
     }
 
-    protected setPaymentsIconsList(): void {
+    protected setPaymentsItemsList(): void {
         const {iconsType, colorIconBg} = this.$params;
         const showAs = iconsType === 'black' ? 'svg' : 'img';
 
         this.systems.forEach((item: PaymentSystem): void => {
-            this.itemsMap.set(item.id, this.setIcon(item, showAs, colorIconBg));
+            this.itemsMap.set(item.id, this.setPaymentsItem(item, showAs, colorIconBg));
         });
 
         this.cdr.markForCheck();
     }
 
-    protected setIcon(item: PaymentSystem, showAs: 'svg' | 'img', bg: TIconColorBg): IWrapperCParams {
-        return {
-            components: [
-                {
-                    name: 'icon-list.wlc-icon-list-item',
-                    params: {
-                        icon: new IconModel(
-                            {
-                                component: 'PaymentListComponent',
-                                method: 'setPaymentsIconsList',
-                            },
-                            this.isCryptoInvoices
-                                ? this.cryptoIterator(item)
-                                : this.merchantsPaymentsIterator('payments', {
-                                    showAs: showAs,
-                                    wlcElement: 'block_payment-' + this.wlcElementTail(item.alias),
-                                    nameForPath: item.alias,
-                                    alt: item.name,
-                                    colorIconBg: bg,
-                                    imgPath: this.isDeposit
-                                        ? item.image
-                                        : (item.imageWithdraw || item.image),
-                                    defaultImages: item.defaultImages,
-                                    paymentType: this.$params.paymentType,
-                                }),
-                        ),
-                        class: this.$class + '-item',
-                        logImageErrorChild: this.logImageError,
+    protected setPaymentsItem(item: PaymentSystem, showAs: 'svg' | 'img', bg: TIconColorBg): IWrapperCParams {
+        const components: IFormComponent[] = [];
+
+        components.push({
+            name: 'icon-list.wlc-icon-list-item',
+            params: {
+                icon: new IconModel(
+                    {
+                        component: 'PaymentListComponent',
+                        method: 'setPaymentsItemsList',
                     },
-                },
-            ],
+                    this.isCryptoInvoices
+                        ? this.cryptoIterator(item)
+                        : this.merchantsPaymentsIterator('payments', {
+                            showAs: showAs,
+                            wlcElement: 'block_payment-' + this.wlcElementTail(item.alias),
+                            nameForPath: item.alias,
+                            alt: item.name,
+                            colorIconBg: bg,
+                            imgPath: this.isDeposit
+                                ? item.image
+                                : (item.imageWithdraw || item.image),
+                            defaultImages: item.defaultImages,
+                            paymentType: this.$params.paymentType,
+                        }),
+                ),
+                class: this.$class + '-item',
+                logImageErrorChild: this.logImageError,
+            },
+        });
+
+        if (this.showAmountLimit) {
+            components.push({
+                name: 'core.wlc-amount-limit',
+                params: this.getAmountLimitParams(item),
+            });
+        }
+
+        return {
+            components: components,
         };
     }
 
@@ -783,5 +794,18 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         }
 
         return system.nameWithdraw;
+    }
+
+    protected getAmountLimitParams(system: PaymentSystem): IAmountLimitCParams {
+        return {
+            minValue: this.isDeposit ? system.depositMin : system.withdrawMin,
+            maxValue: this.isDeposit ? system.depositMax : system.withdrawMax,
+            showLimits: system.id === -1 ? false : true,
+            currency: system.selectedCurrency ? system.selectedCurrency : system.userCurrency,
+        };
+    }
+
+    protected get showAmountLimit(): boolean {
+        return this.$params.showAmountLimit;
     }
 }

@@ -1,17 +1,20 @@
 import {
-    Component, Inject, Input,
+    Component,
+    Inject,
+    Input,
     OnInit,
     ChangeDetectionStrategy,
 } from '@angular/core';
+
+import _isObject from 'lodash-es/isObject';
+
 import {
     AbstractComponent,
     GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 
-import * as Params from 'wlc-engine/standalone/core/components/amount-limit/amount-limit.params';
-
-import _isObject from 'lodash-es/isObject';
+import * as Params from './amount-limit.params';
 
 @Component({
     selector: '[wlc-amount-limit]',
@@ -42,7 +45,7 @@ export class AmountLimitComponent extends AbstractComponent implements OnInit {
     }
 
     public override ngOnInit(): void {
-        super.ngOnInit(GlobalHelper.prepareParams(this, ['minValue', 'maxValue', 'showLimits']));
+        super.ngOnInit(GlobalHelper.prepareCParams(this, ['minValue', 'maxValue', 'showLimits']));
         this.setLimits();
     }
 

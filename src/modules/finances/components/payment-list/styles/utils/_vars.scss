@@ -82,6 +82,9 @@ $themeDefault: map-merge(map-merge($common, (
     'itemSvgColorActive': var(--mc-baseMain),
     'itemBorderColorActive': var(--mc-main),
 
+    'itemLimitTextStyle': 'SignTextBold',
+    'itemLimitTextColor': var(--mc-baseSecond-o6, var(--mc-disabled-o6)),
+
     // Item Image
     'imageWidth': 136px,
     'imageHeight': 75px,
@@ -198,6 +201,7 @@ $themeCryptoList: map-merge(map-merge($common, (
     'listGridGap': ef.size(2),
 
     'itemGridTemplateColumn': auto 1fr auto,
+    'itemGridTemplateAreas': 'icon name ticker' 'limit limit limit',
     'itemGridGap': ef.size(3),
     'itemIconWidth': 30px,
     'itemIconHeight': 30px,
@@ -206,6 +210,8 @@ $themeCryptoList: map-merge(map-merge($common, (
     'itemTickerTextStyle': 'PrimaryText',
     'itemTickerTextColor': var(--mc-baseOpacity),
     'itemPadding': ef.size(2) ef.size(3),
+    'itemLimitTextStyle': 'SignTextBold',
+    'itemLimitTextColor': var(--mc-baseSecond-o6, var(--mc-disabled-o6)),
 
     'btnHeight': auto,
     'btnImagePadding': 0 ef.size(2),

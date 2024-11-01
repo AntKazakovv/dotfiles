@@ -161,6 +161,7 @@
         <button class="{{$class}}__button"
             [class.active]="system.id === currentSystem?.id"
             [class.disabled]="system.disabledBy"
+            [class.show-limit]="showAmountLimit"
             [attr.data-wlc-element]="'block_payment-item-name'"
             (click)="selectPayment(system)"
             type="button">
@@ -172,6 +173,10 @@
             ></span>
             <span class="{{$class}}__name">{{system.name}}</span>
             <span *ngIf="system.cryptoTicker" class="{{$class}}__ticker">{{system.cryptoTicker}}</span>
+            <span wlc-sa="wlc-amount-limit"
+                [wlc-sa-input-params]="{inlineParams: getAmountLimitParams(system)}"
+                class="wlc-sa-amount-limit">
+            </span>
         </button>
         <div *ngIf="system.disabledBy"
             wlc-tooltip
@@ -190,6 +195,7 @@
                 class="{{$class}}__button"
                 [class.active]="system.id === currentSystem?.id || system.id === selectedParentID"
                 [class.disabled]="system.disabledBy"
+                [class.show-limit]="showAmountLimit"
                 type="button"
                 [attr.aria-label]="system.name"
                 [attr.data-wlc-element]="'block_payment-item-name'"
@@ -220,6 +226,7 @@
                             class="{{$class}}__button"
                             [class.active]="system.id === currentSystem?.id || system.id === selectedParentID"
                             [class.disabled]="system.disabledBy"
+                            [class.show-limit]="showAmountLimit"
                             type="button"
                             [attr.aria-label]="system.name"
                             [attr.data-wlc-element]="'block_payment-item-name'"

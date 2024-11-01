@@ -8,7 +8,7 @@ import {PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-s
 
 export type Theme = 'default' | 'crypto-list' | CustomType;
 export type Type = 'default' | 'children' | 'fast-deposit' | CustomType;
-export type ThemeMod = 'default'| 'wolf' | CustomType;
+export type ThemeMod = 'default' | 'wolf' | CustomType;
 
 export type IconsType = 'color' | 'black';
 /**
@@ -55,6 +55,7 @@ export interface IPaymentListCParams extends IAbstractIconsListParams<Theme, Typ
     chosenMethodText?: string;
     noSelectedButton?: INoSelectedButton;
     ignoreAltTheme?: boolean;
+    showAmountLimit?: boolean,
 }
 
 export interface IPaymentsGroup {
@@ -86,4 +87,5 @@ export const defaultParams: IPaymentListCParams = {
         title: gettext('Select a payment method'),
         subtitle: gettext('Show all methods'),
     },
+    showAmountLimit: true,
 };

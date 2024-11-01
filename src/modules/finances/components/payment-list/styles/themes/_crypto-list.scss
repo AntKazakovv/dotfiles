@@ -53,6 +53,26 @@
                 pointer-events: none;
             }
 
+            &.show-limit {
+                grid-template-areas: ef.get-value($themeCryptoList, 'itemGridTemplateAreas');
+            }
+
+            .wlc-sa-amount-limit {
+                grid-area: limit;
+
+                ::ng-deep {
+
+                    .wlc-amount-limit {
+                        @include text.get-text-style(
+                            ef.get-value($themeCryptoList, 'itemLimitTextStyle'),
+                            ef.get-value($themeCryptoList, 'itemLimitTextColor'),
+                        );
+                        margin: 0;
+                        line-height: 1;
+                    }
+                }
+            }
+
             @include bm.hover() {
                 color: ef.get-value($themeCryptoList, 'itemSvgColorHover');
                 box-shadow: ef.get-value($themeCryptoList, 'itemBoxShadowHover');
@@ -62,8 +82,8 @@
         &__icon {
             --wlc-icon-width: #{ef.get-value($themeCryptoList, 'itemIconWidth')};
             --wlc-icon-height: #{ef.get-value($themeCryptoList, 'itemIconHeight')};
-
             display: block;
+            grid-area: icon;
             width: var(--wlc-icon-width);
             height: var(--wlc-icon-height);
         }
@@ -73,6 +93,7 @@
                 ef.get-value($themeCryptoList, 'itemNameTextStyle'),
                 ef.get-value($themeCryptoList, 'itemNameTextColor')
             );
+            grid-area: name;
         }
 
         &__ticker {
@@ -80,6 +101,7 @@
                 ef.get-value($themeCryptoList, 'itemTickerTextStyle'),
                 ef.get-value($themeCryptoList, 'itemTickerTextColor')
             );
+            grid-area: ticker;
         }
 
         &__btn-modal {

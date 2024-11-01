@@ -130,6 +130,30 @@
                         }
                     }
                 }
+
+                .wlc-amount-limit--theme-default.wlc-amount-limit {
+
+                    ::ng-deep {
+
+                        .wlc-amount-limit {
+                            @include text.get-text-style(
+                                ef.get-value($themeDefault, 'itemLimitTextStyle'),
+                                ef.get-value($themeDefault, 'itemLimitTextColor'),
+                            );
+                            margin: 0;
+                        }
+                    }
+                }
+            }
+
+            &.show-limit {
+
+                ::ng-deep {
+
+                    .wlc-payment-list-item__wrp {
+                        height: calc(100% - 20px);
+                    }
+                }
             }
         }
 
