@@ -195,14 +195,17 @@
     }
 }
 
-@keyframes iconScale {
+@media all {
 
-    55% {
-        transform: scale(ef.get-value($themeIconsCompact, 'animeIconScale')) rotate(ef.get-value($themeIconsCompact, 'animeIconRotate'));
-    }
+    @keyframes iconScale {
 
-    100% {
-        transform: scale(1) rotate(0deg);
+        55% {
+            transform: scale(ef.get-value($themeIconsCompact, 'animeIconScale')) rotate(ef.get-value($themeIconsCompact, 'animeIconRotate'));
+        }
+
+        100% {
+            transform: scale(1) rotate(0deg);
+        }
     }
 }
 
