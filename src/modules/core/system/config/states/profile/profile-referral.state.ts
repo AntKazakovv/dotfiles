@@ -7,6 +7,6 @@ import {StateHelper} from 'wlc-engine/modules/core/system/helpers';
 export const profileReferralState: Ng2StateDeclaration = {
     url: '/referral',
     resolve: [
-        StateHelper.profileStateResolver('$base.profile.referralProgram.use'),
+        StateHelper.profileStateResolver('appConfig.siteconfig.EnableRefferals'),
     ],
 };

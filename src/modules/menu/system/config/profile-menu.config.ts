@@ -1499,11 +1499,11 @@ export const profileMenuFilter: ProfileMenuParams.IProfileMenuFilter[] = [
         item: 'profile-first-menu:socials',
     },
     {
-        config: '$base.profile.referralProgram.use',
+        config: 'appConfig.siteconfig.EnableRefferals',
         item: 'profile-menu:referral',
     },
     {
-        config: '$base.profile.referralProgram.use',
+        config: 'appConfig.siteconfig.EnableRefferals',
         item: 'profile-first-menu:referral',
     },
 ];

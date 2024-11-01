@@ -95,10 +95,6 @@ export interface IProfileConfig {
         iconsFolder?: string;
         nickMaxLength?: number;
     };
-    referralProgram?: {
-        /** Enable referral program */
-        use: boolean;
-    }
 }
 
 export interface IFundistUserId {

@@ -96,7 +96,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
         this.transfersEnabled = this.configService.get<boolean>('$base.profile.transfers.use');
         this.filterSelect = this.transfersEnabled ? config.filterSelectTransfer : config.filterSelect;
 
-        if (this.configService.get<boolean>('$base.profile.referralProgram.use')) {
+        if (this.configService.get<boolean>('appConfig.siteconfig.EnableRefferals')) {
             const items: ISelectOptions<TTransactionFilter>[] =
                 _union(this.filterSelect.items, [refCommissionFilterConfig as ISelectOptions<TTransactionFilter>]);
             this.filterSelect.items = items;
