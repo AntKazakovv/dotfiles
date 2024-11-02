@@ -25,7 +25,7 @@ import {IMocksConfig} from './mocks.interface';
 import {IMonitoringConfig} from './monitoring.interface';
 import {IIdleConfig} from './idle.interface';
 import {IRestrictionsConfig} from './restrictions.interface';
-import {ILegalCheckboxWithLink} from 'wlc-engine/modules/core/components/checkbox/checkbox.params';
+import {ILegalCheckboxWithLink} from 'wlc-engine/modules/core/components/checkbox/checkbox.interfaces';
 import {TErrorReplacerMap} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {IFormsConfig} from 'wlc-engine/modules/core/system/interfaces/base-config/forms.interface';
 import {IHooksConfig} from 'wlc-engine/modules/core/system/interfaces/base-config/hooks.interface';

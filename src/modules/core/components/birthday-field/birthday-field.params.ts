@@ -1,31 +1,4 @@
-import {CustomType, IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ISelectCParams} from 'wlc-engine/modules/core/components/select/select.params';
-
-export type ComponentTheme = 'default' | CustomType;
-export type ComponentType = 'default' | CustomType;
-export type Theme = 'default' | CustomType;
-export type AutoModifiers = Theme | 'default';
-export type CustomMod = string;
-export type Modifiers = AutoModifiers | CustomMod | null;
-
-export interface IBirthFields {
-    birthDay: ISelectCParams;
-    birthMonth: ISelectCParams;
-    birthYear: ISelectCParams;
-}
-
-export interface IBirthFieldCParams extends IComponentParams<ComponentTheme, ComponentType, string>, IBirthFields {}
-
-export interface IFieldsValue {
-    /**
-     * names of controls
-     */
-    field: keyof IBirthFields;
-    /**
-     * controls value type
-     */
-    value: string;
-}
+import {IBirthFieldCParams} from 'wlc-engine/modules/core/components/birthday-field/birthday-field.interfaces';
 
 export const defaultParams: Partial<IBirthFieldCParams> = {
     class: 'wlc-birth-field',

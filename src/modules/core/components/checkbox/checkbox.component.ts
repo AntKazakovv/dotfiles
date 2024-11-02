@@ -20,6 +20,7 @@ import {IBaseConfig} from 'wlc-engine/modules/core/system/interfaces';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 
 import * as Params from './checkbox.params';
+import * as Interfaces from './checkbox.interfaces';
 
 type ClassNames = Record<string, boolean>;
 
@@ -30,12 +31,12 @@ type ClassNames = Record<string, boolean>;
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CheckboxComponent extends AbstractComponent implements OnInit {
-    @Input() protected inlineParams: Params.ICheckboxCParams;
-    public override $params: Params.ICheckboxCParams;
+    @Input() protected inlineParams: Interfaces.ICheckboxCParams;
+    public override $params: Interfaces.ICheckboxCParams;
     public control: UntypedFormControl;
     public fieldWlcElement: string;
-    public textContext: Params.ICheckboxCParams['textContext'];
-    public textWithLink: Params.ILegalCheckboxWithLink = {
+    public textContext: Interfaces.ICheckboxCParams['textContext'];
+    public textWithLink: Interfaces.ILegalCheckboxWithLink = {
         prefix: '',
         suffix: '',
         linkText: '',
@@ -45,7 +46,7 @@ export class CheckboxComponent extends AbstractComponent implements OnInit {
     public checkboxClassNames!: ClassNames;
 
     constructor(
-        @Inject('injectParams') protected injectParams: Params.ICheckboxCParams,
+        @Inject('injectParams') protected injectParams: Interfaces.ICheckboxCParams,
         protected modalService: ModalService,
         protected checkBoxTexts: CheckBoxTexts,
         protected eventService: EventService,
@@ -120,7 +121,7 @@ export class CheckboxComponent extends AbstractComponent implements OnInit {
         }
     }
 
-    protected setLegalCheckboxParams(type: Exclude<Params.CheckboxType, 'age'>): void {
+    protected setLegalCheckboxParams(type: Exclude<Interfaces.CheckboxType, 'age'>): void {
         let configKey: keyof IBaseConfig['legal'];
 
         switch (type) {
@@ -146,7 +147,7 @@ export class CheckboxComponent extends AbstractComponent implements OnInit {
 
         this.textWithLink = _assign(
             {},
-            this.checkBoxTexts.get(configKey) as Params.ILegalCheckboxWithLink,
+            this.checkBoxTexts.get(configKey) as Interfaces.ILegalCheckboxWithLink,
             this.$params.textWithLink,
         );
     }
@@ -154,7 +155,7 @@ export class CheckboxComponent extends AbstractComponent implements OnInit {
     // TODO move to abstract class
     protected prepareModifiers(): void {
 
-        let modifiers: Params.Modifiers[] = [];
+        let modifiers: Interfaces.Modifiers[] = [];
         if (this.$params.textSide) {
             modifiers.push(`text-${this.$params.textSide}`);
         }

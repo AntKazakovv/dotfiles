@@ -19,6 +19,7 @@ import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract
 import {SelectValuesService} from 'wlc-engine/modules/core';
 
 import * as Params from './birthday-field.params';
+import * as Interfaces from './birthday-field.interfaces';
 
 @Component({
     selector: '[wlc-birth-field]',
@@ -27,11 +28,11 @@ import * as Params from './birthday-field.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BirthdayFieldComponent extends AbstractComponent implements OnInit, OnDestroy {
-    @Input() protected inlineParams: Params.IBirthFieldCParams;
-    public override $params: Params.IBirthFieldCParams;
+    @Input() protected inlineParams: Interfaces.IBirthFieldCParams;
+    public override $params: Interfaces.IBirthFieldCParams;
 
     constructor(
-        @Inject('injectParams') protected injectParams: Params.IBirthFieldCParams,
+        @Inject('injectParams') protected injectParams: Interfaces.IBirthFieldCParams,
         protected selectValues: SelectValuesService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams});
@@ -62,17 +63,17 @@ export class BirthdayFieldComponent extends AbstractComponent implements OnInit,
 
         merge(
             this.$params.birthYear.control.valueChanges.pipe(
-                map((value: string): Params.IFieldsValue => ({field: 'birthYear', value})),
+                map((value: string): Interfaces.IFieldsValue => ({field: 'birthYear', value})),
             ),
             this.$params.birthMonth.control.valueChanges.pipe(
-                map((value: string): Params.IFieldsValue => ({field: 'birthMonth', value})),
+                map((value: string): Interfaces.IFieldsValue => ({field: 'birthMonth', value})),
             ),
         )
             .pipe(
                 distinctUntilKeyChanged('value'),
                 takeUntil(this.$destroy),
             )
-            .subscribe(({field, value}: Params.IFieldsValue) => {
+            .subscribe(({field, value}: Interfaces.IFieldsValue) => {
                 const inputValue: number = _toNumber(value);
 
                 if (field === 'birthMonth') {

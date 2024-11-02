@@ -2,12 +2,12 @@ export {
     IAccordionCParams,
     IAccordionData,
 } from './accordion/accordion.params';
-export {IBurgerPanelCParams} from './burger-panel/burger-panel.params';
+export {IBurgerPanelCParams} from './burger-panel/burger-panel.interfaces';
 export {
     IButtonCParams,
     TButtonAnimation,
 } from './button/button.interfaces';
-export {ICheckboxCParams} from './checkbox/checkbox.params';
+export {ICheckboxCParams} from './checkbox/checkbox.interfaces';
 export {ICopyrightCParams} from './copyright/copyright.params';
 export {ICurrencyCParams} from './currency/currency.params';
 export {CurrencyComponent} from './currency/currency.component';

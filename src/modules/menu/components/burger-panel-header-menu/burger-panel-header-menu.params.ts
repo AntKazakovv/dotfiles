@@ -2,7 +2,7 @@ import {
     IComponentParams,
     CustomType,
 } from 'wlc-engine/modules/core';
-import {BurgerPanelType} from 'wlc-engine/modules/core/components/burger-panel/burger-panel.params';
+import {BurgerPanelType} from 'wlc-engine/modules/core/components/burger-panel/burger-panel.interfaces';
 
 export type Type = 'default' | CustomType;
 export type Theme = 'default' | CustomType;

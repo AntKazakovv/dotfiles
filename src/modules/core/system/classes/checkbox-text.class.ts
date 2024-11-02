@@ -10,7 +10,7 @@ import _assign from 'lodash-es/assign';
 
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {IBaseConfig} from 'wlc-engine/modules/core/system/interfaces/base-config';
-import {ILegalCheckboxWithLink} from 'wlc-engine/modules/core/components/checkbox/checkbox.params';
+import {ILegalCheckboxWithLink} from 'wlc-engine/modules/core/components/checkbox/checkbox.interfaces';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {CuracaoRequirement} from 'wlc-engine/modules/app/system';
 

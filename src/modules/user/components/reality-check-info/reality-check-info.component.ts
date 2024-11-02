@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import {UntypedFormControl} from '@angular/forms';
 import dayjs from 'dayjs';
-import {ICheckboxCParams} from 'wlc-engine/modules/core/components/checkbox/checkbox.params';
+import {ICheckboxCParams} from 'wlc-engine/modules/core/components/checkbox/checkbox.interfaces';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
 import {

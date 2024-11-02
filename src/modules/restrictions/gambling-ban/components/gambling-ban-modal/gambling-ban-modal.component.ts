@@ -9,7 +9,7 @@ import {UntypedFormControl} from '@angular/forms';
 import {
     GamblingBanService,
 } from 'wlc-engine/modules/restrictions/gambling-ban/system/services/gambling-ban/gambling-ban.service';
-import {ICheckboxCParams} from 'wlc-engine/modules/core/components/checkbox/checkbox.params';
+import {ICheckboxCParams} from 'wlc-engine/modules/core/components/checkbox/checkbox.interfaces';
 import * as Params from './gambling-ban-modal.params';
 import {
     AbstractComponent,

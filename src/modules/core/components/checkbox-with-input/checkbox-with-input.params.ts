@@ -2,7 +2,7 @@ import {
     IComponentParams,
     CustomType,
 } from 'wlc-engine/modules/core/system/interfaces/config.interface';
-import {ICheckboxCParams} from 'wlc-engine/modules/core/components/checkbox/checkbox.params';
+import {ICheckboxCParams} from 'wlc-engine/modules/core/components/checkbox/checkbox.interfaces';
 import {IInputCParams} from 'wlc-engine/modules/core/components/input/input.params';
 
 export type ComponentTheme = 'default' | CustomType;

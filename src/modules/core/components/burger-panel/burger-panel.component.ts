@@ -60,7 +60,9 @@ import {
     TFixedPanelStore,
 } from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
 import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
+
 import * as Params from './burger-panel.params';
+import * as Interfaces from './burger-panel.interfaces';
 
 enum Directions {
     left = 2,
@@ -82,14 +84,14 @@ export class BurgerPanelComponent extends AbstractComponent
     @HostBinding('attr.aria-hidden') get isHidden(): boolean {
         return !this.isOpened;
     };
-    @HostBinding('@outerAppearance') public outerAppearance: Params.IFixedPanelAppearanceParams = {};
+    @HostBinding('@outerAppearance') public outerAppearance: Interfaces.IFixedPanelAppearanceParams = {};
 
     @Input() public isOpened: boolean;
     @Input() protected id: string;
-    @Input() protected inlineParams: Params.IBurgerPanelCParams;
+    @Input() protected inlineParams: Interfaces.IBurgerPanelCParams;
 
     public updateScrollbar: Subject<void> = new Subject();
-    public override $params: Params.IBurgerPanelCParams;
+    public override $params: Interfaces.IBurgerPanelCParams;
     public title: string;
     public headerMenuConfig: IWrapperCParams;
     public fixedPanelState: TFixedPanelState;
@@ -107,7 +109,7 @@ export class BurgerPanelComponent extends AbstractComponent
     protected fixedPanelStore$: BehaviorSubject<TFixedPanelStore>;
 
     constructor(
-        @Optional() @Inject('injectParams') protected injectParams: Params.IBurgerPanelCParams,
+        @Optional() @Inject('injectParams') protected injectParams: Interfaces.IBurgerPanelCParams,
         protected eventService: EventService,
         protected renderer: Renderer2,
         protected logService: LogService,
@@ -309,7 +311,7 @@ export class BurgerPanelComponent extends AbstractComponent
         }
     }
 
-    protected whatDirection(type: Params.BurgerPanelType = 'left', delta: number): boolean {
+    protected whatDirection(type: Interfaces.BurgerPanelType = 'left', delta: number): boolean {
         switch (type) {
             case 'left':
                 return delta <= 0;
