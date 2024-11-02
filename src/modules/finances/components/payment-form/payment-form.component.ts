@@ -241,7 +241,9 @@ export class PaymentFormComponent
         this.additionalFieldsConfig = this.configService.get('$finances.fieldsSettings.additional');
         this.usePreselectedSummation = this.configService.get<boolean>('$finances.preselectButtons.summationMode');
         this.isRomanianLicense = this.configService.get<string>('appConfig.license') === 'romania';
-        this.useLotteryWidget = this.isDeposit && this.configService.get<boolean>('$finances.useLotteryWidget');
+        this.useLotteryWidget = this.isDeposit
+            && this.configService.get<boolean>('$finances.useLotteryWidget')
+            && this.$params.type !== 'partial-additional';
 
         this.configService
             .get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
@@ -297,7 +299,6 @@ export class PaymentFormComponent
         );
 
         if (this.currentSystem) {
-            this.updateAdditionalParams();
             this.onPaySystemChange();
         }
 
@@ -1101,8 +1102,12 @@ export class PaymentFormComponent
 
         button = _cloneDeep(button);
 
-        if (this.$params.type === 'partial-additional') {
-            _set(button, 'params.common.text', gettext('Save'));
+        if (this.$params.type === 'partial-amount') {
+            const buttonCaption: string = Object.keys(this.additionalParams).length
+                ? gettext('Next')
+                : gettext('Deposit');
+
+            _set(button, 'params.common.text', buttonCaption);
         }
 
         return button;
