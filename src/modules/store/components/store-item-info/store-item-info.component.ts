@@ -12,6 +12,7 @@ import {
     ModalService,
 } from 'wlc-engine/modules/core';
 import {AbstractModalComponent} from 'wlc-engine/modules/core/system/classes';
+import {IWalletConfirmCParams} from 'wlc-engine/modules/multi-wallet/components/wallet-confirm/wallet-confirm.params';
 
 import * as Params from './store-item-info.params';
 
@@ -56,9 +57,12 @@ export class StoreItemInfoComponent extends AbstractComponent implements OnInit 
     }
 
     public showConfirmationModal(): void {
-        if (this.isMultiWallet && this.$params.storeItem.type !== 'Item') {
-            this.modalService.showModal('walletConfirm', {
-                item: this.$params.storeItem,
+        if (this.isMultiWallet
+            && this.$params.storeItem.type !== 'Item'
+            && this.$params.storeItem.type !== 'TournamentPoints'
+        ) {
+            this.modalService.showModal<IWalletConfirmCParams>('walletConfirm', {
+                model: this.$params.storeItem,
                 type: 'store',
             });
         } else {

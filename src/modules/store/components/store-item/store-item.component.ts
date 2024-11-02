@@ -35,6 +35,7 @@ import {
 } from 'wlc-engine/modules/store/system/interfaces/store.interface';
 import {StoreService} from 'wlc-engine/modules/store/system/services';
 import {TBonusValue} from 'wlc-engine/modules/bonuses';
+import {IWalletConfirmCParams} from 'wlc-engine/modules/multi-wallet/components/wallet-confirm/wallet-confirm.params';
 
 import * as Params from './store-item.params';
 
@@ -130,7 +131,7 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
         const isMultiWallet: boolean = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
 
         if (isMultiWallet && this.showWalletConfirmation) {
-            this.modalService.showModal('walletConfirm', {
+            this.modalService.showModal<IWalletConfirmCParams>('walletConfirm', {
                 model: this.storeItem,
                 type: 'store',
             });

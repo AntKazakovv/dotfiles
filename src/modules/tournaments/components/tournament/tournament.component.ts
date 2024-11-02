@@ -40,6 +40,7 @@ import {
     IActionParams,
 } from 'wlc-engine/modules/tournaments/components/tournament/components/tournament-promo/tournament-promo.params';
 import {ITournamenFreeSpinsParams} from '../tournament/components/tournament-free-spins/tournament-free-spins.params';
+import {IWalletConfirmCParams} from 'wlc-engine/modules/multi-wallet/components/wallet-confirm/wallet-confirm.params';
 
 import * as Params from 'wlc-engine/modules/tournaments/components/tournament/tournament.params';
 
@@ -129,7 +130,9 @@ export class TournamentComponent extends AbstractComponent implements OnInit {
         }
 
         if (this.isMultiWallet) {
-            this.modalService.showModal('walletConfirm', {
+            await this.tournamentsService.walletsService.readyMultiWallet;
+
+            this.modalService.showModal<IWalletConfirmCParams>('walletConfirm', {
                 model: this.tournament,
                 type: 'tournament',
             });

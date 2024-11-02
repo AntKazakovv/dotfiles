@@ -35,6 +35,7 @@ import {SportsbookService} from 'wlc-engine/modules/sportsbook';
 import {BonusItemComponentEvents} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {Theme as BonusItemTheme} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';
 import {Size} from 'wlc-engine/modules/core/components/button/button.interfaces';
+import {IWalletConfirmCParams} from 'wlc-engine/modules/multi-wallet/components/wallet-confirm/wallet-confirm.params';
 
 import * as Params from './bonus-buttons.params';
 
@@ -219,7 +220,7 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit, 
         const isMultiWallet: boolean = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
 
         if (isMultiWallet) {
-            this.modalService.showModal('walletConfirm', {
+            this.modalService.showModal<IWalletConfirmCParams>('walletConfirm', {
                 model: this.bonus,
                 type: 'bonus',
             });
