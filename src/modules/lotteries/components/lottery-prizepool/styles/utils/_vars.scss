@@ -1,5 +1,8 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
+    'headTextStyle': 'CaptionText',
+    'headColor': inherit,
+
     'rowGap': ef.size(2),
     'rowPadding': 0 ef.size(4),
     'rowMinHeight': 30px,
@@ -12,10 +15,10 @@ $themeDefault: map-merge((
     'placeCenteringFixTransform': translateY(2px),
 
     'commonTextStyle': 'CaptionText',
-    'commonColor': var(--mc-baseThird, var(--mc-baseMain)),
+    'commonColor': var(--mc-baseMain),
 
     'prizeTextStyle': 'CaptionTextBold',
-    'prizeColor': var(--mc-baseThird, var(--mc-baseMain)),
+    'prizeColor': var(--mc-baseSecond, var(--mc-baseMain)),
 
     'allBtnTextStyle': 'CaptionTextBold',
     'allBtnColor': var(--mc-main),

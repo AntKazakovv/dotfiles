@@ -49,6 +49,7 @@
     padding: ef.get-value($config, 'rowPadding');
 
     &.current {
+        --wlc-lw-col-place-color: #{ef.get-value($config, 'currentColor')};
 
         &:before {
             $currentGap: ef.get-value($config, 'currentGap');
@@ -102,6 +103,8 @@
     &--place {
         --wlc-lw-col-justify: #{ef.get-value($config, 'itemPlaceJustify')};
         --wlc-lw-col-text-align: #{ef.get-value($config, 'itemPlaceTextAlign')};
+
+        color: var(--wlc-lw-col-place-color, #{ef.get-value($config, 'itemPlaceColor')});
     }
 
     &--users {

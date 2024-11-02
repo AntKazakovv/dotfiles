@@ -1,7 +1,7 @@
 .wlc-lottery-prizepool--theme-default:host {
     @include text.get-text-style(
         ef.get-value($themeDefault, 'commonTextStyle'),
-        ef.get-value($themeDefault, 'commonColor')
+        var(--wlc-lp-common-color, #{ef.get-value($themeDefault, 'commonColor')})
     );
 
     .wlc-lottery-prizepool {
@@ -44,6 +44,16 @@
                 align-items: center;
             }
 
+            &--head {
+
+                .wlc-lottery-prizepool__col {
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'headTextStyle'),
+                        ef.get-value($themeDefault, 'headColor')
+                    );
+                }
+            }
+
             &--all-btn {
                 @include bm.transition(color);
                 @include text.get-text-style(
@@ -69,7 +79,7 @@
             &--prize {
                 @include text.get-text-style(
                     ef.get-value($themeDefault, 'prizeTextStyle'),
-                    ef.get-value($themeDefault, 'prizeColor')
+                    var(--wlc-lp-prize-color, #{ef.get-value($themeDefault, 'prizeColor')})
                 );
                 align-self: center;
                 text-align: ef.get-value($themeDefault, 'prizeTextAlign');

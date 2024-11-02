@@ -53,10 +53,12 @@ $themeDefault: map-merge(map-merge($common, (
 $customThemeWolf: () !default;
 $themeWolf: map-merge(map-merge($common, (
     'itemColor': var(--mc-baseSecond),
+    'itemPlaceColor': var(--mc-baseMain),
 
     'rowPadding': 0 ef.size(5),
     'rowHeadColor': var(--mc-baseMain),
 
+    'currentColor': var(--mc-baseSecond),
     'currentGap': 0,
     'currentRadius': 0,
     'currentBg': linear-gradient(180deg, var(--mc-secondary-o0) 0%, var(--mc-secondary-o4) 100%),

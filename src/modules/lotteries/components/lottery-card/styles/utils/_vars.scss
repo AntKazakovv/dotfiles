@@ -89,19 +89,23 @@ $themeDefault: map-merge((
     'noContentBg': var(--mc-bg700),
     'noContentGridColumns': (
         375: 1fr,
-        1024: 1fr minmax(0, 2fr),
+        1024: 350px auto,
+        1200: 350px auto 350px,
     ),
     'noContentTextAlign': (
         375: center,
         1024: left,
+        1200: center,
     ),
     'noContentHeight': (
         375: 185px,
-        1024: 400px,
+        1024: 250px,
     ),
-    'noContentMainPadding': (
-        375: 0 ef.size(4) ef.size(4),
-        1024: 0 ef.size(4) 0 0,
+    'noContentWrapperPadding': (
+        375: 0,
+        1024: 0 ef.size(2),
+        1366: 0 ef.size(4),
+        1630: 0 ef.size(8),
     ),
     'noContentGap': (
         375: 0,
@@ -138,4 +142,6 @@ $themeDefault: map-merge((
         1024: 'QoteTextBold',
     ),
     'nameColorWolf': var(--mc-baseThird-locked),
+    'prizepoolColorWolf': var(--mc-baseThird-locked),
+    'prizepoolPrizeColorWolf': var(--mc-baseThird-locked),
 ), $customThemeDefault);

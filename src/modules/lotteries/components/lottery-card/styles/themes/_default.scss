@@ -116,9 +116,9 @@
         }
 
         &__nocontent {
-            @include bm.get-mq-map('--wlc-lc-main-padding', $themeDefault, 'noContentMainPadding');
             @include bm.get-mq-map('grid-template-columns', $themeDefault, 'noContentGridColumns');
             @include bm.get-mq-map('gap', $themeDefault, 'noContentGap');
+            @include bm.get-mq-map('padding', $themeDefault, 'noContentWrapperPadding');
 
             display: grid;
             min-height: var(--wlc-lc-nocontent-height);
@@ -138,6 +138,8 @@
 
     &.wlc-lottery-card--theme-mod-wolf {
         --wlc-lc-main-gap: #{ef.get-value($themeDefault, 'mainGapWolf')};
+        --wlc-lp-common-color: #{ef.get-value($themeDefault, 'prizepoolColorWolf')};
+        --wlc-lp-prize-color: #{ef.get-value($themeDefault, 'prizepoolPrizeColorWolf')};
 
         @include bm.get-mq-map('--wlc-lc-min-height', $themeDefault, 'cardMinHeightWolf');
         @include bm.get-mq-map('--wlc-lc-decor-width', $themeDefault, 'decorWidthWolf');
