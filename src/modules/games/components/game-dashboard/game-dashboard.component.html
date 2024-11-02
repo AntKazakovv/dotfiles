@@ -40,15 +40,19 @@
      #container>
     <div class="{{$class}}__panch"
          #dragBtn
+         data-wlc-element="game-dashboard_panch"
          [hidden]="!isMobile || (isKiosk && !isAuth)">
-        <div class="{{$class}}__panch-content">
+        <div class="{{$class}}__panch-content"
+             data-wlc-element="game-dashboard_panch-content">
             <div *ngIf="this.showMobileInstruction && showPanchBtn"
                  class="{{$class}}__panch-btn"
+                 data-wlc-element="game-dashboard_panch-btn"
                  [@fadeIn]="decorAnimationState"
                  (click)="onDashboardBtnClick()">
             </div>
             <div *ngIf="!this.showMobileInstruction && showPanchBtn"
                  class="{{$class}}__panch-btn"
+                 data-wlc-element="game-dashboard_panch-btn"
                  (click)="onDashboardBtnClick()">
             </div>
         </div>

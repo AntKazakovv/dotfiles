@@ -85,6 +85,9 @@
             [formControl]="control"
             [ngClass]="checkboxClassNames"
             (change)="onChange($event)"/>
-        <span class="{{$class}}__elem" [ngClass]="{checked: control?.value}"></span>
+        <span class="{{$class}}__elem"
+              data-wlc-element="wlc-icon"
+              [ngClass]="{checked: control?.value}">
+        </span>
     </label>
 </ng-template>
