@@ -33,6 +33,7 @@ import {
     ChosenBonusSetParams,
     ChosenBonusType,
     IBonusesTags,
+    TBonusTagKey,
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {
     ITagCParams,
@@ -396,9 +397,14 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
 
     protected prepareTagConfig(): void {
         const moduleTagsConfig: IBonusesTags = this.configService.get<IBonusesTags>('$bonuses.tagsConfig');
+        let tag: TBonusTagKey = this.bonus.tag;
 
-        if (moduleTagsConfig.tagList[this.bonus.tag]) {
-            const tagCommon: ITagCommon = Object.assign(moduleTagsConfig.tagList[this.bonus.tag]);
+        if (this.bonus.isSubscribed && this.$params.theme === 'mini') {
+            tag = 'subscribed';
+        }
+
+        if (moduleTagsConfig.tagList[tag]) {
+            const tagCommon: ITagCommon = Object.assign(moduleTagsConfig.tagList[tag]);
 
             if (!moduleTagsConfig.useIcons) {
                 tagCommon.iconUrl = null;
