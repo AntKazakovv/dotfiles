@@ -99,7 +99,7 @@ export class ChangePasswordFormComponent extends AbstractComponent implements On
             } else if (_isString(error.errors)) {
                 messages.push(error.errors);
             } else {
-                messages.push('Password is invalid');
+                messages.push(gettext('The password is incorrect'));
             }
 
             this.errors$.next({currentPassword: _toString(messages)});
