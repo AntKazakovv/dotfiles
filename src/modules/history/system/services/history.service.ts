@@ -401,7 +401,7 @@ export class HistoryService {
                         if (value) {
                             let prize: ITournamentPrize = {currency, value};
 
-                            if (this.walletsService.conversionCurrency) {
+                            if (this.walletsService?.conversionCurrency) {
                                 prize = {
                                     currency: this.walletsService.conversionCurrency,
                                     value: value * this.walletsService.coefficientConversionEUR,
@@ -419,7 +419,7 @@ export class HistoryService {
                     value: moneyWin,
                 };
 
-                if (this.walletsService.conversionCurrency) {
+                if (this.walletsService?.conversionCurrency) {
                     prize = {
                         currency: this.walletsService.conversionCurrency,
                         value: moneyWin * this.walletsService.coefficientConversionEUR,

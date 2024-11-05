@@ -357,16 +357,20 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
     private transformPrizes(rawPrizeRow: TCurrency): ITournamentPrize[] {
         const prizes: ITournamentPrize[] = [];
         const tournamentCurrency: string = this.targetDefaultCurrency;
+        const conversionCoefficient: number = (AbstractTournamentModel.useUsersCurrency
+            ? this.tournamentsService.walletsService?.coefficientOriginalCurrencyConversion
+            : this.tournamentsService.walletsService?.coefficientConversionEUR)
+            || 1;
 
         if (typeof rawPrizeRow === 'object') {
-            const moneyPrize: number = _toNumber(rawPrizeRow[tournamentCurrency]);
+            const moneyPrize: number = Number(rawPrizeRow[tournamentCurrency]);
             const specialCurrencies: ReadonlySet<String> = CurrenciesInfo.specialCurrencies;
             const specialPrizes: ITournamentPrize[] = _reduce(Array.from(specialCurrencies),
                 (result: ITournamentPrize[], currency: string) => {
                     if (rawPrizeRow[currency]) {
                         const value: number = currency === 'FB'
-                            ? _toNumber(rawPrizeRow[currency][tournamentCurrency])
-                            : _toNumber(rawPrizeRow[currency]);
+                            ? Number(rawPrizeRow[currency][tournamentCurrency])
+                            : Number(rawPrizeRow[currency]);
 
                         if (value) {
                             result.push({currency, value});
@@ -378,9 +382,7 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
             if (moneyPrize) {
                 prizes.push({
                     currency: this.tournamentsService.walletsService?.conversionCurrency ?? tournamentCurrency,
-                    value: moneyPrize * (AbstractTournamentModel.useUsersCurrency
-                        ? this.tournamentsService.walletsService?.coefficientOriginalCurrencyConversion
-                        : this.tournamentsService.walletsService?.coefficientConversionEUR) || 1,
+                    value: moneyPrize * conversionCoefficient,
                 });
             }
 
@@ -388,9 +390,7 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
         } else {
             prizes.push({
                 currency: this.tournamentsService.walletsService?.conversionCurrency ?? tournamentCurrency,
-                value: _toNumber(rawPrizeRow) * (AbstractTournamentModel.useUsersCurrency
-                    ? this.tournamentsService.walletsService?.coefficientOriginalCurrencyConversion
-                    : this.tournamentsService.walletsService?.coefficientConversionEUR) || 1,
+                value: Number(rawPrizeRow) * conversionCoefficient,
             });
         }
         return prizes;
