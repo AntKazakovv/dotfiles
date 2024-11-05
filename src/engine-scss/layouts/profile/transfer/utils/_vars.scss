@@ -1,0 +1,4 @@
+$customTransferThemeWolf: () !default;
+$transferThemeWolf: map-merge((
+    'transferDividerBg': var(--mc-bg300),
+), $customTransferThemeWolf);

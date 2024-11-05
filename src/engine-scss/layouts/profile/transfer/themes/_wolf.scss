@@ -1,0 +1,6 @@
+.app-profile-cash-transfer-state {
+
+    .wlc-sections__profile-content--theme-wolf {
+        --wlc-transfer-divider-bg: #{ef.get-value($transferThemeWolf, 'transferDividerBg')};
+    }
+}

@@ -52,7 +52,7 @@
             width: ef.get-value($themeDefault, 'dividerWidth');
             height: ef.get-value($themeDefault, 'dividerHeight');
             margin: ef.get-value($themeDefault, 'dividerMargin');
-            background: ef.get-value($themeDefault, 'dividerBg');
+            background: var(--wlc-transfer-divider-bg, #{ef.get-value($themeDefault, 'dividerBg')});
             border-radius: ef.get-value($themeDefault, 'dividerRadius');
         }
 
