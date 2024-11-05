@@ -7,12 +7,7 @@
             .wlc-input--cpf,
             .wlc-select--state,
             .wlc-input--cnp {
-
-                margin-top: ef.get-value($themeDefault, 'formRowGap');
-
-                @include mq.min(768) {
-                    margin-top: ef.get-value($themeDefault, 'formRowGap', 768);
-                }
+                margin: ef.get-value($themeDefault, 'formRowGap');
             }
         }
     }
