@@ -29,7 +29,7 @@ $buttonSettings: map-merge((
     'backgroundSecondaryActive': var(--mc-buttonColor),
     'backgroundSecondaryActiveHover': var(--mc-buttonColor),
     'backgroundResolve': var(--mc-buttonColor),
-    'backgroundResolveHover': var(--mc-buttonColor-l20),
+    'backgroundResolveHover': var(--mc-buttonColor-l20, var(--mc-buttonColor)),
     'backgroundReject': var(--mc-error),
     'backgroundRejectHover': var(--mc-error-d20),
     'backgroundDisabled': var(--mc-disabled),
