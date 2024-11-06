@@ -79,7 +79,11 @@ export interface IBaseConfig {
     /**
      * Use seo service; Service gets information from wordpress plugin 'Seo Softgamings';
      */
-    useSeo?: boolean;
+    seo?: {
+        use: boolean;
+        /** Enables adding <hreflang> tags in the document <head> for alternate language versions of the page*/
+        useAlternativeLanguages?: boolean;
+    };
     /**
      * Config of web analytics systems
      */

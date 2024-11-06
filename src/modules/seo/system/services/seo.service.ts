@@ -1,10 +1,12 @@
 import {
+    Inject,
     Injectable,
 } from '@angular/core';
 import {
     Meta,
     Title,
 } from '@angular/platform-browser';
+import {DOCUMENT} from '@angular/common';
 import {TranslateService} from '@ngx-translate/core';
 import {
     StateParams,
@@ -32,14 +34,14 @@ import {
     EventService,
     LogService,
 } from 'wlc-engine/modules/core';
+import {Game} from 'wlc-engine/modules/games';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 import {
     IGameStateData,
     IStateData,
     IPageStateData,
     IStateDataWithChild,
 } from 'wlc-engine/modules/seo/system/interfaces/seo.interfaces';
-
-import {Game} from 'wlc-engine/modules/games';
 
 type TMetaTagsKey = keyof IStateData;
 type TMetaTagsValues = Record<TMetaTagsKey, string>;
@@ -50,6 +52,7 @@ type TMetaTagsMap = Record<TMetaTagsKey, string[]>;
 })
 export class SeoService {
     private useService: boolean;
+    private useAlternativeLanguages: boolean = false;
     private useForPages: boolean = true;
     private useForGames: boolean = true;
 
@@ -69,6 +72,8 @@ export class SeoService {
     private rewritingLanguages: IIndexing<string>;
 
     constructor(
+        @Inject(WINDOW) private window: Window,
+        @Inject(DOCUMENT) private document: Document,
         private translateService: TranslateService,
         private stateService: StateService,
         private router: UIRouterGlobals,
@@ -82,11 +87,12 @@ export class SeoService {
         private logService: LogService,
         configService: ConfigService,
     ) {
-        this.useService = Boolean(configService.get<boolean>('$base.useSeo'));
+        this.useService = Boolean(configService.get<boolean>('$base.seo.use'));
         if (!this.useService) {
             return;
         }
 
+        this.useAlternativeLanguages = Boolean(configService.get<boolean>('$base.seo.useAlternativeLanguages'));
         this.siteName = configService.get('$base.site.name');
         this.rewritingLanguages = configService.get('$base.rewritingWpLanguages');
         this.init();
@@ -109,6 +115,10 @@ export class SeoService {
 
     protected async init(): Promise<void> {
         this.initMetaTags();
+
+        if (this.useAlternativeLanguages) {
+            this.addAlternativeLanguagesLinks();
+        }
 
         await Promise.all([
             this.getPagesSeoData(),
@@ -232,6 +242,10 @@ export class SeoService {
      * @param {boolean} [titleOnly=false] Update only Title tag (w/o meta tags)
      */
     protected updateSeo(titleOnly: boolean = false): void {
+        if (this.useAlternativeLanguages) {
+            this.addAlternativeLanguagesLinks();
+        }
+
         if (this.router.current.name === 'app.gameplay') {
             this.setGameMetaTag(titleOnly);
         } else {
@@ -315,6 +329,30 @@ export class SeoService {
                 });
             });
         });
+    }
+
+    protected addAlternativeLanguagesLinks(): void {
+        const currentLang: string = this.getLanguageCode();
+        const currentLinks: NodeList = this.document.querySelectorAll('link[hreflang][rel="alternate"]');
+        currentLinks.forEach((link: Node) => this.document.head.removeChild(link));
+
+        this.translateService.langs
+            .filter(lang => lang !== currentLang)
+            .forEach(lang => this.createAlternateLanguageLink(lang));
+    }
+
+    private createAlternateLanguageLink(lang: string): void {
+        const link: HTMLLinkElement = this.document.createElement('link');
+        link.rel = 'alternate';
+        link.href = this.generateAlternateLinkUrl(lang);
+        link.hreflang = lang;
+        this.document.head.appendChild(link);
+    }
+
+    private generateAlternateLinkUrl(lang: string): string {
+        const urlParts: string[] = this.window.location.href.split('/');
+        urlParts[3] = lang;
+        return urlParts.join('/');
     }
 
     private getMetaValues(stateData: IStateData): TMetaTagsValues {

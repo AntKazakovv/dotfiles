@@ -337,7 +337,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         if (this.showChoiceOfCurrency) {
             return;
         }
-        if (this.configService.get<boolean>('$base.useSeo')) {
+        if (this.configService.get<boolean>('$base.seo.use')) {
             this.seoService = await this.injectionService.getService<SeoService>('seo.seo-service');
         }
 

@@ -27,7 +27,10 @@ export const $base: IBaseConfig = {
     contacts: contactsConfig,
     interactiveText: interactiveTextConfig,
     redirects: redirectsConfig,
-    useSeo: false,
+    seo: {
+        use: false,
+        useAlternativeLanguages: false,
+    },
     finances: {
         redirectAfterDepositBonus: false,
         piqCashier: {

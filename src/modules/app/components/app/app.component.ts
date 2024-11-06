@@ -563,7 +563,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
 
     private async enableSeo(): Promise<void> {
         await this.configService.ready;
-        if (this.configService.get<boolean>('$base.useSeo')) {
+        if (this.configService.get<boolean>('$base.seo.use')) {
             this.injectionService.getService<SeoService>('seo.seo-service');
         }
     }
