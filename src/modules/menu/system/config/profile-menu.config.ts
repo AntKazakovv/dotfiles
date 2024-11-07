@@ -699,6 +699,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         type: 'title',
         icon: 'cash',
         class: 'cash',
+        wlcElement: 'link_cc-profile-menu_transactions',
         params: {
             blockExpand: true,
             state: {
