@@ -50,6 +50,7 @@ describe('BonusModalComponent', () => {
 
         bonusSpy = jasmine.createSpyObj<Bonus>('bonus', [
             'getGamesFilter',
+            'hasTarget',
         ], {
             'viewTarget': 'relative',
             'value$': new BehaviorSubject(100),

@@ -93,6 +93,7 @@ export class Bonus extends AbstractModel<IBonus> {
     private _isDep: boolean;
     private _fallBackIconPath: string = '';
     private _expirationTime: Dayjs;
+    private _originalTarget: string;
 
     constructor(
         from: IFromLog,
@@ -103,6 +104,7 @@ export class Bonus extends AbstractModel<IBonus> {
     ) {
         super({from: _assign({model: 'Bonus'}, from)});
 
+        this._originalTarget = data.Target;
         this.data = this.modifyData(data);
 
         if (this.data.Active && !Bonus.stackIsLocked) {
@@ -550,6 +552,10 @@ export class Bonus extends AbstractModel<IBonus> {
 
     public get target(): TBonusTarget {
         return this.data.Target;
+    }
+
+    public get originalTarget(): string {
+        return this._originalTarget;
     }
 
     public get terms(): string {
@@ -1020,6 +1026,17 @@ export class Bonus extends AbstractModel<IBonus> {
      */
     public get canOpen(): boolean {
         return this.isLootbox && this.inventoried;
+    }
+
+    /**
+     * Checks bonus target in a multiple targets
+     *
+     * @param {TBonusTarget} target
+     *
+     * @returns true if target exists
+     */
+    public hasTarget(target: TBonusTarget): boolean {
+        return !!target ? new RegExp(target).test(this.originalTarget) : false;
     }
 
     /**

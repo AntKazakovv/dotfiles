@@ -157,7 +157,7 @@ export class BonusModalComponent extends AbstractComponent implements OnInit {
         this.setGames(this.bonusGamesAccordion, bonusGames);
         this.gamesAccordion.items.push(this.bonusGamesAccordion);
 
-        if (this.bonus.target === 'freerounds') {
+        if (this.bonus.hasTarget('freerounds')) {
             this.prepareFreeroundGames();
         }
 
