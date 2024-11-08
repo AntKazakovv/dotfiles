@@ -488,7 +488,7 @@ export class FinancesService {
                         (type === 'withdraw')
                             // eslint-disable-next-line max-len
                             ? this.translateService.instant(gettext('The withdrawal request has been successfully sent'))
-                            : this.translateService.instant(gettext('Deposit completed successfully')),
+                            : this.translateService.instant(gettext('The deposit has been successfully made')),
                     ];
                     const isMultiWallet: boolean =
                         this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
