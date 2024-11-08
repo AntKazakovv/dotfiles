@@ -141,6 +141,8 @@ describe('DataService', () => {
     });
 
     it('-> checking the execution of requests', fakeAsync(() => {
+        const urlsList: string[] = [];
+
         for (let i = 0; i <= 30; i++) {
             const request: IRequestMethod = {
                 name: random.word(),
@@ -153,6 +155,14 @@ describe('DataService', () => {
                 request.url = `/${random.word()}`;
             } else {
                 request.fullUrl = internet.url();
+            }
+
+            if (urlsList.includes(request.url)) {
+                continue;
+            }
+
+            if (request.url) {
+                urlsList.push(request.url);
             }
 
             dataService.request(request);
