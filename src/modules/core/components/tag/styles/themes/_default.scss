@@ -113,6 +113,8 @@
 }
 
 .wlc-tag--theme-text:host {
+    --wlc-tag-min-width: #{ef.get-value($themeText, 'textMinWidth')};
+
     @include text.get-text-style(
         ef.get-value($themeText, 'textStyle'),
         ef.get-value($themeText, 'textColor'),
@@ -120,7 +122,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: ef.get-value($themeText, 'textMinWidth');
     min-height: ef.get-value($themeText, 'textMinHeight');
     padding: ef.get-value($themeText, 'textPadding');
     background: ef.get-value($themeText, 'textBg');

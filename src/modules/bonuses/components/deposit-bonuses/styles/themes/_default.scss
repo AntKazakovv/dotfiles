@@ -163,6 +163,13 @@
 
             display: ef.get-value($themeDefault, 'shortBonusTagDisplay');
             margin: ef.get-value($themeDefault, 'shortBonusTagMargin');
+
+            ::ng-deep {
+
+                .wlc-tag {
+                    color: ef.get-value($themeDefault, 'shortBonusTagColor');
+                }
+            }
         }
     }
 

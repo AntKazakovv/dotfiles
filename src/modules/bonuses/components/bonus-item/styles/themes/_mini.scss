@@ -193,4 +193,11 @@
             }
         }
     }
+
+    &:not(.wlc-bonus-item--theme-mod-mini-wolf) {
+
+        .wlc-tag {
+            color: ef.get-value($themeMini, 'tagColor');
+        }
+    }
 }

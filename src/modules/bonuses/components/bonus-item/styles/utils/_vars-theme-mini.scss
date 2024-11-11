@@ -60,6 +60,7 @@ $themeMini: map-merge((
     'tagPosTop': 0,
     'tagPosLeft': 50%,
     'tagTransform': translate(-50%, -50%),
+    'tagColor': ef.get('tagConfig', 'color'),
 ), $customThemeMini);
 
 $customThemeModMiniWolf: () !default;
