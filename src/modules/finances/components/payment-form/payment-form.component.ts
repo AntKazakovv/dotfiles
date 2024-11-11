@@ -569,10 +569,7 @@ export class PaymentFormComponent
                 this.addFormToBodyAndSubmit(response);
                 return;
             } else if (response[0] === 'message') {
-                this.currentSystem.message = response[1];
-                this.modalService.showModal(
-                    this.getPaymentMessageModalConfig('message'),
-                );
+                this.showBalanceActionResponse(response[1], response[0]);
                 return;
             } else if (response[0] === PIQCashierResponse) {
                 return;
@@ -1380,28 +1377,20 @@ export class PaymentFormComponent
         });
     }
 
-    protected showDepositResponse(params: IPaymentMessage | string, type: TModalType): void {
-        this.currentSystem.message = params;
+    protected showBalanceActionResponse(message: IPaymentMessage | string, type: TModalType): void {
+        this.currentSystem.message = message;
         this.cdr.detectChanges();
 
-        let modalType: TModalType = 'info';
-        let isInvoice: boolean = true;
-
-        if (type === 'message' || 'markup') {
-            modalType = type;
-        }
-
-        if (typeof params !== 'string') {
-            isInvoice = !!params.dateEnd;
-        }
-
         this.modalService.showModal(
-            this.getPaymentMessageModalConfig(modalType, isInvoice),
+            this.getPaymentMessageModalConfig(
+                (type === 'message' || 'markup') ? type : 'info',
+                (typeof message !== 'string') ? !!message.dateEnd : true,
+            ),
         );
 
         if (type === 'message'
-            && (typeof (params) !== 'string')
-            && (!this.showModalCryptoPayment && params.translate === 'pay_to_address' && params.address)) {
+            && (typeof (message) !== 'string')
+            && (!this.showModalCryptoPayment && message.translate === 'pay_to_address' && message.address)) {
             this.currentSystem.additionalParams = undefined;
             this.cdr.markForCheck();
         }
@@ -1696,7 +1685,7 @@ export class PaymentFormComponent
                 }
 
                 if (response[0] === 'message' || response[0] === 'markup') {
-                    this.showDepositResponse(response[1], response[0]);
+                    this.showBalanceActionResponse(response[1], response[0]);
                     return;
                 } else if (response[0] === 'redirect') {
                     this.checkAppearance(response);
