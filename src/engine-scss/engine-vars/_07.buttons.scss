@@ -66,11 +66,10 @@ $buttonSettings: map-merge((
     'secondaryBoxShadowAnimationEnd': 0 0 0 10px var(--mc-secondary-o0),
 
     // Animation glare
-    'glareWidth': 55px,
-    'glareColor': rgba(255, 255, 255, 0.1),
-    'glareBorderWidth': 0 size-func(6) 0 size-func(2),
+    'glareWidth': 130px,
+    'glareBg': center no-repeat url('//agstatic.com/wlc/icons/reflection.png'),
     'glareSpeed': 3s,
-    'glareTimingFunc': cubic-bezier(0.6, 0.15, 0.6, 0.95),
+    'glareTimingFunc': ease-in-out,
 
     // Transform
     'transformSkew': skew(-20deg, 0),

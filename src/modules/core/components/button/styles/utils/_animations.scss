@@ -41,10 +41,10 @@
 @keyframes buttonGlare {
 
     from {
-        transform: skewX(-45deg) translateX(-200px);
+        transform: translateX(-300px);
     }
 
     to {
-        transform: skewX(-45deg) translateX(200px);
+        transform: translateX(300px);
     }
 }

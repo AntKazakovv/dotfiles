@@ -86,17 +86,14 @@
             &-glare {
                 position: relative;
 
-                &:after {
+                &:before {
                     content: '';
                     position: absolute;
-                    top: ef.size(-1);
-                    bottom: ef.size(-1);
+                    top: 0;
+                    bottom: 0;
                     display: block;
                     width: ef.get-value($themeDefault, 'glareWidth');
-                    border-color: ef.get-value($themeDefault, 'glareColor');
-                    border-width: ef.get-value($themeDefault, 'glareBorderWidth');
-                    border-style: solid;
-                    transform: skewX(-45deg);
+                    background: ef.get-value($themeDefault, 'glareBg');
 
                     animation-name: buttonGlare;
                     animation-duration: ef.get-value($themeDefault, 'glareSpeed');
