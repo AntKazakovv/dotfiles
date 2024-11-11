@@ -41,6 +41,7 @@ import {
 } from 'wlc-engine/modules/games/components/search-v2';
 import {IGamesGridCParams} from 'wlc-engine/standalone/games/components/games-grid/games-grid.params';
 import {AbstractModalComponent} from 'wlc-engine/modules/core/system/classes';
+import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 
 export interface IControllerDefaultParams {
     titleText: string,
@@ -156,6 +157,7 @@ export class SearchControllerDefault extends AbstractSearchController<IControlle
         this._chooseCategory$.next(category);
     }
 
+    @CustomHook('games', 'searchDefaultInitSubscribers')
     protected initSubscribers(): void {
         this.chooseMerchantSubscribe();
         this.chooseCategorySubscribe();
