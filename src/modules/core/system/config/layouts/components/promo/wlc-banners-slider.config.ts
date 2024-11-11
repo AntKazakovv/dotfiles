@@ -79,6 +79,10 @@ export namespace wlcBannersSlider {
                                 enabled: true,
                             },
                         },
+                        1200: {
+                            slidesPerView: 1,
+                            spaceBetween: 20,
+                        },
                         1366: {
                             slidesPerView: 1.2,
                             spaceBetween: 30,
