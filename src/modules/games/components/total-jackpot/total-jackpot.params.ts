@@ -1,7 +1,7 @@
 import {CustomType, IComponentParams} from 'wlc-engine/modules/core/system/classes';
 import {CountUpOptions} from 'countup.js';
 import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
-import {IGamesGridCParams} from 'wlc-engine/modules/games/components/games-grid/games-grid.params';
+import {IGamesGridCParams} from 'wlc-engine/standalone/games/components/games-grid/games-grid.params';
 import {GlobalHelper} from 'wlc-engine/modules/core';
 import {IAnimateSpriteCParams} from 'wlc-engine/standalone/core/components/animate-sprite/animate-sprite.params';
 

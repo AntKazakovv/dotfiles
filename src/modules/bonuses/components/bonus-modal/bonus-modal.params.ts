@@ -7,7 +7,7 @@ import {
     ITextBlockCParams,
     IFormWrapperCParams,
 } from 'wlc-engine/modules/core';
-import {IGamesGridCParams} from 'wlc-engine/modules/games';
+import {IGamesGridCParams} from 'wlc-engine/standalone/games/components/games-grid/games-grid.params';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {Theme as BonusItemTheme} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';
 import {IAlertCParams} from 'wlc-engine/modules/core/components/alert/alert.params';

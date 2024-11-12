@@ -3,7 +3,7 @@ import {
     CustomType,
     IWrapperCParams,
 } from 'wlc-engine/modules/core';
-import {IGamesGridCParams} from 'wlc-engine/modules/games';
+import {IGamesGridCParams} from 'wlc-engine/standalone/games/components/games-grid/games-grid.params';
 import {ITournamentPrizesCParams} from '../tournament-prizes/tournament-prizes.params';
 import {TournamentComponent} from 'wlc-engine/modules/tournaments/components/tournament/tournament.component';
 import {Tournament} from 'wlc-engine/modules/tournaments/system/models/tournament.model';

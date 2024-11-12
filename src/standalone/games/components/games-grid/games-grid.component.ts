@@ -65,6 +65,7 @@ import {
     ResizedEventModel,
     IFormWrapperCParams,
 } from 'wlc-engine/modules/core';
+import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {CounterType} from 'wlc-engine/modules/core/components/button/button.interfaces';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
@@ -84,12 +85,18 @@ import * as Params from './games-grid.params';
 import {
     ILazyLoadingIntersectionObserver,
 } from 'wlc-engine/modules/core/system/interfaces/base-config/optimization.interface';
+import {GamesModule} from 'wlc-engine/modules/games/games.module';
 
 @Component({
     selector: '[wlc-games-grid]',
     templateUrl: './games-grid.component.html',
     styleUrls: ['./styles/games-grid.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [
+        GamesModule,
+        CoreModule,
+    ],
     animations: [
         ...ItemAppearanceAnimation,
         ...CardLoadingAnimation,
@@ -562,7 +569,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
 
     protected isUseIntersectionObserver(): boolean {
         const config = this.configService.get<ILazyLoadingIntersectionObserver>(
-            '$base.optimization.lazyLoadingIntersectionObserver',
+            '$base.lazyLoadingIntersectionObserver',
         );
         return config && config.use && config.components?.includes('games-grid');
     }

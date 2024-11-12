@@ -2,10 +2,9 @@
     <div class="{{$class}}__title">
         {{$params.title | translate}}
     </div>
-    <div wlc-games-grid
-         class="{{$class}}__games"
-         [inlineParams]="$params.gamesGridParams"
-    >
+    <div class="{{$class}}__games"
+        wlc-sa="wlc-games-grid"
+        [wlc-sa-input-params]="{inlineParams: $params.gamesGridParams}">
     </div>
     <div wlc-checkbox
          class="{{$class}}__dont-show"

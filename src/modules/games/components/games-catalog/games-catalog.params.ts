@@ -3,7 +3,7 @@ import {
     CustomType,
     ISliderCParams,
 } from 'wlc-engine/modules/core';
-import {IGamesGridCParams} from 'wlc-engine/modules/games/components/games-grid/games-grid.params';
+import {IGamesGridCParams} from 'wlc-engine/standalone/games/components/games-grid/games-grid.params';
 
 export type Type = 'default' | CustomType;
 export type Theme = 'default' | CustomType;

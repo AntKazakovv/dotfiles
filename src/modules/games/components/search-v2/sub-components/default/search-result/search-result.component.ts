@@ -12,7 +12,7 @@ import {
 } from 'rxjs';
 
 import {AbstractComponent} from 'wlc-engine/modules/core';
-import {IGamesGridCParams} from 'wlc-engine/modules/games/components/games-grid/games-grid.params';
+import {IGamesGridCParams} from 'wlc-engine/standalone/games/components/games-grid/games-grid.params';
 import {SearchControllerDefault} from 'wlc-engine/modules/games/components/search-v2';
 
 import * as Params from './search-result.params';

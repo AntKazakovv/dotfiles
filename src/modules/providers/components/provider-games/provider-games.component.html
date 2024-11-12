@@ -8,8 +8,9 @@
 
     <div class="{{$class}}__games"
         *ngFor="let grid of gamesGridList"
-        wlc-games-grid
-        [inlineParams]="grid"></div>
+        wlc-sa="wlc-games-grid"
+        [wlc-sa-input-params]="{inlineParams: grid}">
+    </div>
 </ng-container>
 
 <ng-template #loading>

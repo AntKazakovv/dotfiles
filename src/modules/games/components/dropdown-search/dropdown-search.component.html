@@ -13,11 +13,13 @@
         (click)="clickOnTheSearchField()">
     </div>
     <div wlc-scrollbar [inlineParams]="$params.scrollbarParams" #scrollbar>
-        <div wlc-games-grid
-            class="{{$class}}__games-grid"
-            [hidden]="!filters.searchQuery || !isOpened"
-            [scrollHost]="scrollbar.host"
-            [inlineParams]="$params.gamesGridParams">
+        <div class="{{$class}}__games-grid"
+            wlc-sa="wlc-games-grid"
+            [wlc-sa-input-params]="{
+                inlineParams: $params.gamesGridParams,
+                scrollHost: scrollbar.host,
+                hidden: !filters.searchQuery || !isOpened
+            }">
         </div>
     </div>
 </div>

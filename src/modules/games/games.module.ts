@@ -18,7 +18,6 @@ import {IGamesConfig} from './system/interfaces/games.interfaces';
 import {gamesConfig} from './system/config/games.config';
 
 // Components
-import {GamesGridComponent} from './components/games-grid/games-grid.component';
 import {GameWrapperComponent} from './components/game-wrapper/game-wrapper.component';
 import {RecommendedGamesComponent} from './components/recommended-games/recommended-games.component';
 import {SearchFieldComponent} from './components/search-field/search-field.component';
@@ -66,7 +65,6 @@ export const components = {
     'wlc-game-dashboard': GameDashboardComponent,
     'wlc-game-wrapper': GameWrapperComponent,
     'wlc-games-catalog': GamesCatalogComponent,
-    'wlc-games-grid': GamesGridComponent,
     'wlc-recommended-games': RecommendedGamesComponent,
     'wlc-merchant-wallet-exrate': MerchantWalletExrateComponent,
     'wlc-merchant-wallet-form': MerchantWalletFormComponent,
@@ -96,7 +94,6 @@ export const services = {
         GameDashboardComponent,
         GameWrapperComponent,
         GamesCatalogComponent,
-        GamesGridComponent,
         GamesSliderComponent,
         RecommendedGamesComponent,
         PlayGameForRealComponent,
@@ -138,7 +135,6 @@ export const services = {
         MerchantWalletService,
     ],
     exports: [
-        GamesGridComponent,
         RecommendedGamesComponent,
         GameWrapperComponent,
         SearchFieldComponent,

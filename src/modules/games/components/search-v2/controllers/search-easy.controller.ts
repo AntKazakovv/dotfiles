@@ -14,7 +14,7 @@ import {ISearchFieldCParams} from 'wlc-engine/modules/games/components/search-fi
 import {
     IGamesGridCParams,
     IShowAsSwiper,
-} from 'wlc-engine/modules/games/components/games-grid/games-grid.params';
+} from 'wlc-engine/standalone/games/components/games-grid/games-grid.params';
 import {
     AbstractSearchController,
     SearchControlEasyComponent,

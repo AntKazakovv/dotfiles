@@ -37,10 +37,10 @@ describe('DropdownSearchComponent', () => {
         TestBed.configureTestingModule({
             declarations: [
                 ClickOutsideDirective,
-                GamesGridComponent,
                 DropdownSearchComponent,
                 SpyScrollbarComponent,
                 SearchFieldComponent,
+                SaComponent,
             ],
             providers: [
                 {provide: 'injectParams', useValue: injectParams},
@@ -85,10 +85,10 @@ class ClickOutsideDirective {
     @Input() isOpened;
 }
 
-@Component({selector: '[wlc-games-grid]'})
-class GamesGridComponent {
-    @Input() scrollHost;
-    @Input() inlineParams;
+@Component({selector: '[wlc-sa]'})
+class SaComponent {
+    @Input('wlc-sa-input-params') inputParams;
+    @Input('wlc-sa') name;
 }
 
 @Component({selector: '[wlc-search-field]'})

@@ -440,6 +440,13 @@ export const standaloneComponents = {
                 return m.GameThumbComponent;
             });
     },
+    'wlc-games-grid': async (callback: TCallbackImportFunction) => {
+        return import('wlc-engine/standalone/games/components/games-grid/games-grid.component')
+            .then((m) => {
+                callback(m.GamesGridComponent);
+                return m.GamesGridComponent;
+            });
+    },
     // 'some-sa-component-name': IFunctionImportStandalone
     // 'another-sa-component-name': IFunctionImportStandalone
     /** === Independent components END === */

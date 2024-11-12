@@ -1,5 +1,5 @@
 import {ILayoutComponent} from 'wlc-engine/modules/core';
-import {IGamesGridCParams} from 'wlc-engine/modules/games';
+import {IGamesGridCParams} from 'wlc-engine/standalone/games/components/games-grid/games-grid.params';
 import {IBannersSliderCParams} from 'wlc-engine/modules/promo';
 
 export namespace wlcGamesGrid {

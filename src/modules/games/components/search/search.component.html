@@ -70,11 +70,10 @@
         <div *ngIf="searchQuery" class="{{$class}}__result">
             {{'The search query:' | translate}} {{searchQuery}}
         </div>
-        <div wlc-games-grid
-             class="{{$class}}__games"
-             [inlineParams]="gamesGridParams"
-             [scrollHost]="gamesGridScrollHost"
-        ></div>
+        <div class="{{$class}}__games"
+             wlc-sa="wlc-games-grid"
+             [wlc-sa-input-params]="{inlineParams: gamesGridParams, scrollHost: gamesGridScrollHost}">
+        </div>
     </div>
 </ng-template>
 
@@ -181,17 +180,16 @@
     </div>
 
     <div *ngIf="visibleGames.length; else emptyGames"
-          wlc-games-grid
-          class="{{$class}}__games"
-          [inlineParams]="gamesGridParams"
-          [gamesList]="visibleGames"
-    ></div>
+        class="{{$class}}__games"
+        wlc-sa="wlc-games-grid"
+        [wlc-sa-input-params]="{inlineParams: gamesGridParams, gameList: visibleGames}">
+    </div>
 
     <div *ngIf="showSecondBlock"
-         wlc-games-grid
-         class="{{$class}}__games"
-         [inlineParams]="$params.easyThemeParams.secondBlock.gamesGrid"
-    ></div>
+        class="{{$class}}__games"
+        wlc-sa="wlc-games-grid"
+        [wlc-sa-input-params]="{inlineParams: $params.easyThemeParams.secondBlock.gamesGrid}">
+    </div>
 </ng-template>
 
 <ng-template #emptyGames>

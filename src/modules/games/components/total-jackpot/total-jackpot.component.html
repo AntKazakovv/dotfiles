@@ -108,8 +108,8 @@
         </div>
         <div *ngIf="$params.gamesGridParams.gamesList.length; else jackpotBtn"
             class="{{$class}}__games"
-            wlc-games-grid
-            [inlineParams]="$params.gamesGridParams">
+            wlc-sa="wlc-games-grid"
+            [wlc-sa-input-params]="{inlineParams: $params.gamesGridParams}">
         </div>
     </div>
 </ng-template>

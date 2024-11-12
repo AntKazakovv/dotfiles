@@ -5,7 +5,7 @@ import {
     CustomType,
     IComponentParams,
 } from 'wlc-engine/modules/core/system/interfaces/config.interface';
-import {IGamesGridCParams} from 'wlc-engine/modules/games';
+import {IGamesGridCParams} from 'wlc-engine/standalone/games/components/games-grid/games-grid.params';
 
 export type JackpotType = 'default' | CustomType;
 export type JackpotTheme = CustomType;

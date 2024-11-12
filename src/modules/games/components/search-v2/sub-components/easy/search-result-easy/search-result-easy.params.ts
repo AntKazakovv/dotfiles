@@ -2,7 +2,7 @@ import {
     CustomType,
     IComponentParams,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {IGamesGridCParams} from 'wlc-engine/modules/games/components/games-grid/games-grid.params';
+import {IGamesGridCParams} from 'wlc-engine/standalone/games/components/games-grid/games-grid.params';
 
 export type ComponentType = 'default' | CustomType;
 export type ComponentTheme = 'default' | CustomType;

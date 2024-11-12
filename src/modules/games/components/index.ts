@@ -9,7 +9,6 @@ export {
     IGameWrapperHookLaunchInfo,
 } from './game-wrapper/game-wrapper.interfaces';
 export * from './game-wrapper/game-wrapper.component';
-export {IGamesGridCParams} from './games-grid/games-grid.params';
 export {IPlayGameForRealCParams} from './play-game-for-real/play-game-for-real.params';
 export {ISearchCParams} from './search/search.params';
 export {ISearchFieldCParams} from './search-field/search-field.params';

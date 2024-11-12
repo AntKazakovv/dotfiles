@@ -2,8 +2,7 @@
     {{'The search query:' | translate}} {{searchQuery$.getValue()}}
 </div>
 
-<div wlc-games-grid
-        class="{{$class}}__games"
-        [inlineParams]="gamesGridParams"
-        [scrollHost]="gamesGridScrollHost"
-></div>
+<div class="{{$class}}__games"
+    wlc-sa="wlc-games-grid"
+    [wlc-sa-input-params]="{inlineParams: gamesGridParams, scrollHost: gamesGridScrollHost}">
+</div>
