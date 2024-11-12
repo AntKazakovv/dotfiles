@@ -1,0 +1,67 @@
+.wlc-cashback-timer--theme-default:host {
+    width: ef.get-value($themeDefault, 'width');
+    background: ef.get-value($themeDefault, 'bg');
+    border-radius: ef.get-value($themeDefault, 'borderRadius');
+
+    .wlc-cashback-timer {
+
+        &__content {
+            @include bm.get-mq-map('padding', $themeDefault, 'contentPadding');
+            @include bm.get-mq-map('min-height', $themeDefault, 'contentMinHeight');
+            @include bm.get-mq-map('grid-template-rows', $themeDefault, 'contentGridRows');
+            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'contentGridColumns');
+            display: ef.get-value($themeDefault, 'contentDisplay');
+            gap: ef.get-value($themeDefault, 'contentGap');
+            align-items: ef.get-value($themeDefault, 'contentAlign');
+            overflow: hidden;
+        }
+
+        &__text {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'textStyle', 375),
+                ef.get-value($themeDefault, 'textColor')
+            );
+            display: contents;
+
+            @include mq.min(640) {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'textStyle', 640),
+                    null
+                );
+            }
+        }
+
+        &__title-text {
+            @include bm.get-mq-map('grid-row', $themeDefault, 'textTitleRow');
+            @include bm.get-mq-map('grid-column', $themeDefault, 'textTitleColumn');
+            @include bm.get-mq-map('justify-self', $themeDefault, 'textTitleJustifySelf');
+        }
+
+        &__calculating-text {
+            @include bm.get-mq-map('grid-row', $themeDefault, 'textCalculatingRow');
+            @include bm.get-mq-map('grid-column', $themeDefault, 'textCalculatingColumn');
+        }
+
+        &__timer {
+            @include bm.get-mq-map('grid-row', $themeDefault, 'timerRow');
+            @include bm.get-mq-map('grid-column', $themeDefault, 'timerColumn');
+            @include bm.get-mq-map('justify-self', $themeDefault, 'timerJustifySelf');
+            width: ef.get-value($themeDefault, 'timerWidth');
+        }
+
+        &__decor {
+            @include bm.get-mq-map('grid-row', $themeDefault, 'decorRow');
+            @include bm.get-mq-map('grid-column', $themeDefault, 'decorColumn');
+            @include bm.get-mq-map('margin', $themeDefault, 'decorMargin');
+            @include bm.get-mq-map('max-height', $themeDefault, 'decorMaxHeight');
+            @include bm.get-mq-map('align-self', $themeDefault, 'decorAlignSelf');
+
+            &-img {
+                @include bm.get-mq-map('object-fit', $themeDefault, 'decorImageObjectFit');
+                @include bm.get-mq-map('object-position', $themeDefault, 'decorImageObjectPosition');
+                width: ef.get-value($themeDefault, 'decorImageHeight');
+                height: ef.get-value($themeDefault, 'decorImageWidth');
+            }
+        }
+    }
+}

@@ -1,0 +1,96 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'width': 100%,
+    'bg': var(--mc-bg300),
+    'borderRadius': ef.get('radius', 'biger'),
+
+    'contentDisplay': grid,
+    'contentAlign': center,
+    'contentGap': ef.size(3),
+    'contentGridRows': (
+        375: repeat(2, auto),
+        640: auto,
+    ),
+    'contentGridColumns': (
+        375: repeat(2, 1fr),
+        640: repeat(3, 1fr),
+    ),
+    'contentMinHeight': (
+        375: 129px,
+        640: 85px,
+    ),
+    'contentPadding': (
+        375: ef.size(4) ef.size(5),
+        640: ef.size(3) ef.size(8),
+    ),
+
+    'textStyle': (
+        375: 'ThirdTitleBold',
+        640: 'SecondTitleBold',
+    ),
+    'textColor': var(--mc-baseMain),
+    'textTitleRow': (
+        375: #{'1 / 2'},
+        640: #{'1 / -1'},
+    ),
+    'textTitleColumn': (
+        375: #{'1 / 2'},
+        640: #{'2 / 3'},
+    ),
+    'textTitleJustifySelf': (
+        375: left,
+        640: center,
+    ),
+    'textCalculatingRow': (
+        375: #{'1 / -1'},
+    ),
+    'textCalculatingColumn': (
+        375: #{'1 / 2'},
+        640: #{'2 / -1'},
+    ),
+
+    'decorRow': (
+        375: #{'1 / -1'},
+    ),
+    'decorColumn': (
+        375: #{'2 / 3'},
+        640: #{'1 / 3'},
+        900: #{'1 / 2'},
+    ),
+    'decorMargin': (
+        375: ef.size(-4) ef.size(-5) ef.size(-5) ef.size(0),
+        640: ef.size(-3) ef.size(0) ef.size(-3) ef.size(-8),
+    ),
+    'decorMaxHeight': (
+        375: 129px,
+        640: 85px,
+    ),
+    'decorImageObjectFit': (
+        375: cover,
+        640: none,
+    ),
+    'decorAlignSelf': (
+        375: stretch,
+        640: auto,
+    ),
+    'decorImageObjectPosition': (
+        375: bottom left,
+        640: top left,
+    ),
+    'decorImageHeight': 100%,
+    'decorImageWidth': 100%,
+
+    'timerRow': (
+        375: #{'2 / 3'},
+        640: #{'1 / 2'},
+    ),
+    'timerColumn': (
+        375: #{'1 / 3'},
+        640: #{'3 / 4'},
+    ),
+    'timerJustifySelf': (
+        375: left,
+        640: right,
+    ),
+    'timerWidth': 227px,
+), $customThemeDefault);

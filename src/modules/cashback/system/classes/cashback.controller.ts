@@ -43,7 +43,9 @@ export class CashbackController implements ICashbackController {
         this.cashbackService.cashbackPlans
             .pipe(takeUntil(this.componentDestroy))
             .subscribe((cashbackPlans: CashbackPlanModel[]): void => {
-                this.cashback$.next(cashbackPlans);
+                this.cashback$.next(
+                    cashbackPlans.filter((plan) => plan.type !== 'cron'),
+                );
             });
 
         await this.fetchCashback();

@@ -1,0 +1,26 @@
+@if (ready()) {
+    @if (closestCashback) {
+        <div class="{{$class}}__content">
+            <div class="{{$class}}__decor">
+                <img class="{{$class}}__decor-img" [src]="decorImagePath">
+            </div>
+            <div class="{{$class}}__text">
+                @if (isShowTimer()) {
+                    <span class="{{$class}}__title-text">{{titleText | translate}}</span>
+                } @else {
+                    <span class="{{$class}}__calculating-text">{{calculatingText | translate}}</span>
+                }
+            </div>
+            @if (isShowTimer()) {
+                <div wlc-timer
+                    class="{{$class}}__timer"
+                    [value]="timerValue"
+                    [text]="timerText"
+                    (timerEnds)="onTimerEnd()">
+                </div>
+            }
+        </div>
+    }
+} @else {
+    <div wlc-loader class="{{$class}}__loader"></div>
+}

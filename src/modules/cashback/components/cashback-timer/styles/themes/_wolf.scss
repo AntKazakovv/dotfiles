@@ -1,0 +1,68 @@
+.wlc-cashback-timer--theme-wolf:host {
+    width: ef.get-value($themeWolf, 'width');
+    background: ef.get-value($themeWolf, 'bg');
+    border-radius: ef.get-value($themeWolf, 'borderRadius');
+
+    .wlc-cashback-timer {
+
+        &__content {
+            @include bm.get-mq-map('padding', $themeWolf, 'contentPadding');
+            @include bm.get-mq-map('min-height', $themeWolf, 'contentMinHeight');
+            @include bm.get-mq-map('grid-template-rows', $themeWolf, 'contentGridRows');
+            @include bm.get-mq-map('grid-template-columns', $themeWolf, 'contentGridColumns');
+            display: ef.get-value($themeWolf, 'contentDisplay');
+            gap: ef.get-value($themeWolf, 'contentGap');
+            align-items: ef.get-value($themeWolf, 'contentAlign');
+            overflow: hidden;
+        }
+
+        &__text {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'textStyle', 375),
+                ef.get-value($themeWolf, 'textColor')
+            );
+            display: contents;
+
+            @include mq.min(640) {
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'textStyle', 640),
+                    null
+                );
+            }
+        }
+
+        &__title-text {
+            @include bm.get-mq-map('grid-row', $themeWolf, 'textTitleRow');
+            @include bm.get-mq-map('grid-column', $themeWolf, 'textTitleColumn');
+            @include bm.get-mq-map('justify-self', $themeWolf, 'textTitleJustifySelf');
+        }
+
+        &__calculating-text {
+            @include bm.get-mq-map('grid-row', $themeWolf, 'textCalculatingRow');
+            @include bm.get-mq-map('grid-column', $themeWolf, 'textCalculatingColumn');
+        }
+
+        &__timer {
+            @include bm.get-mq-map('--wlc-timer-caption-align', $themeWolf, 'timerCaptionAlign');
+            @include bm.get-mq-map('grid-row', $themeWolf, 'timerRow');
+            @include bm.get-mq-map('grid-column', $themeWolf, 'timerColumn');
+            @include bm.get-mq-map('justify-self', $themeWolf, 'timerJustifySelf');
+            width: ef.get-value($themeWolf, 'timerWidth');
+        }
+
+        &__decor {
+            @include bm.get-mq-map('grid-row', $themeWolf, 'decorRow');
+            @include bm.get-mq-map('grid-column', $themeWolf, 'decorColumn');
+            @include bm.get-mq-map('margin', $themeWolf, 'decorMargin');
+            @include bm.get-mq-map('max-height', $themeWolf, 'decorMaxHeight');
+            @include bm.get-mq-map('align-self', $themeWolf, 'decorAlignSelf');
+
+            &-img {
+                @include bm.get-mq-map('object-fit', $themeWolf, 'decorImageObjectFit');
+                @include bm.get-mq-map('object-position', $themeWolf, 'decorImageObjectPosition');
+                width: ef.get-value($themeWolf, 'decorImageHeight');
+                height: ef.get-value($themeWolf, 'decorImageWidth');
+            }
+        }
+    }
+}

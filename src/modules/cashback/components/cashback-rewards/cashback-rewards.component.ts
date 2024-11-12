@@ -123,7 +123,7 @@ export class CashbackRewardsComponent extends AbstractComponent implements OnIni
     }
 
     public get timerValue(): Dayjs {
-        const defaultTime = dayjs(this.depositCashback.availableAt, 'YYYY-MM-DD HH:mm:ss');
+        const defaultTime = dayjs(this.depositCashback?.availableAt, 'YYYY-MM-DD HH:mm:ss');
         return defaultTime.add(dayjs().utcOffset(), 'minute');
     }
 

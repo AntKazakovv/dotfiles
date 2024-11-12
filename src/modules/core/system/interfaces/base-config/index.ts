@@ -88,6 +88,7 @@ export interface IBaseConfig {
      */
     cashbackReward?: {
         use: boolean;
+        useCashbackTimer?: boolean;
     };
     finances?: IFinancesConfig;
     /**
