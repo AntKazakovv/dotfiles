@@ -88,7 +88,7 @@ export const bonusesConfig: IBonusesModule = {
     },
     alertsConfig: {
         allowStackAlert: {
-            title: gettext('The bonus allows stacking'),
+            title: gettext('The bonus allows the presence of another active bonus'),
             level: 'info',
         },
         unavailableActivationAlert: {
