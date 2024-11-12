@@ -30,5 +30,5 @@ export namespace MediaQueries {
 
 export namespace JackpotCurrency {
 
-    export const formatCurrency: RegExp = /[\d\s\,\.]/g;
+    export const formatCurrency: RegExp = /[\d\s\,\.\০\u09e6]/g;// !!! don't touch 'о' and \u09e6
 }

@@ -120,7 +120,7 @@ export class TotalJackpotComponent extends AbstractComponent implements OnInit {
         this.currency = {
             currency: format.replace(JackpotCurrency.formatCurrency, ''),
             delimiter: /./.test(format) ? '.' : ',',
-            position: /\d/g.test(format[0]) ? 'right' : 'left',
+            position: /[\d\০\u09e6]/g.test(format[0]) ? 'right' : 'left', //!!! don't touch 'о' and \u09e6
             lang: this.translateService.currentLang,
         };
 
