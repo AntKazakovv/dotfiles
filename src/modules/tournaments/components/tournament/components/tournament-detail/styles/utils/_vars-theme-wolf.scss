@@ -2,9 +2,14 @@ $customThemeWolf: () !default;
 $themeWolf: map-merge((
     'detailBorderBottom': 2px solid var(--mc-bg500),
 
-    'headerInfoPadding': ef.size(8) 0 ef.size(10),
+    'headerInfoDisplay': flex,
+    'headerInfoFlexDirection': column,
+    'headerInfoGap': ef.size(4),
+    'headerInfoAlignItems': center,
+    'headerInfoPadding': ef.size(4) 0 ef.size(4),
     'headerInfoMinHeight': (
-        375: auto,
+        375: 300px,
+        768: 285px
     ),
     'headerInfoBg': var(--mc-bg500),
     'headerInfoBgPosition': center,
@@ -13,29 +18,17 @@ $themeWolf: map-merge((
         560: ef.get('radius', 'main') ef.get('radius', 'main') 0 0,
     ),
 
-    'headerTagMargin': 0 0 ef.size(8),
+    'headerInnerDisplay': flex,
+    'headerInnerFlexDirection': column,
+    'headerInnerAlignItems': center,
+    'headerInnerJustifyContent': center,
     'headerInnerMaxWidth': (
         375: 260px,
         900: 490px,
     ),
     'headerInnerMargin': (
-        375: 0 auto,
+        375: auto 0,
     ),
-
-    'headerBackLinkTop': (
-        375: 0,
-        768: 4px,
-    ),
-    'headerBackLinkLeft': (
-        375: 16px,
-    ),
-    'headerBackLinkTextStyle': 'PrimaryTextBold',
-    'headerBackLinkTextColor': var(--mc-secondary),
-    'headerBackLinkTextColorActive': var(--mc-baseThird),
-    'headerBackLinkDecoration': none,
-    'headerBackLinkIconTransform': rotate(90deg),
-    'headerBackLinkIconColor': currentColor,
-    'headerBackLinkMaxWidth': ef.size(12),
 
     'headerTitleJustifySelf': center,
     'headerTitleTextAlign': center,
@@ -44,17 +37,16 @@ $themeWolf: map-merge((
         900: 'QoteTextBoldSmaller'
     ),
     'headerTitleTextColor': var(--mc-baseThird),
-    'headerTitleMargin': 0 0 ef.size(3),
+    'headerSubtitleTextStyle': 'CaptionTextBold',
+    'headerSubtitleTextColor': var(--mc-baseThird),
+    'headerSubtitleMargin': ef.size(4) 0 0,
 
-    'headerDescTextStyle': 'CaptionText',
-    'headerDescColor': var(--mc-baseMain),
-    'headerDescMargin': 0 0 ef.size(3),
-    'headerDescTextAlign': center,
+    'headerTimerMargin': ef.size(4) 0 0,
 
-    'headerTimerMargin': (
-        375: 0 0 ef.size(8),
+    'headerBtnsMargin': (
+        375: ef.size(4) 0 0,
+        900: ef.size(8) 0 0,
     ),
-    'headerButtonJustifyContent': center,
 
     'leaderboardBg': transparent,
     'leaderboardJustifyItems': center,

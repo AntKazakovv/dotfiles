@@ -92,14 +92,40 @@ $selector: '.wlc-tournament-detail';
                     color: ef.get-value($themeDefault, 'headerStatusColorUnavailable');
                     background: ef.get-value($themeDefault, 'headerStatusBgUnavailable');
                 }
+
+                &.ended {
+                    color: ef.get-value($themeDefault, 'headerStatusColorEnded');
+                    background: ef.get-value($themeDefault, 'headerStatusBgEnded');
+                }
+            }
+
+            &--title,
+            &--subtitle {
+                @include bm.get-mq-map('justify-self', $themeDefault, 'headerTitleJustifySelf');
+                @include bm.get-mq-map('text-align', $themeDefault, 'headerTitleTextAlign');
+
+                word-break: break-word;
             }
 
             &--title {
-                @include bm.get-mq-map('justify-self', $themeDefault, 'headerTitleJustifySelf');
-                @include bm.get-mq-map('text-align', $themeDefault, 'headerTitleTextAlign');
-                @include text.get-text-style(ef.get-value($themeDefault, 'headerTitleTextStyle'), ef.get-value($themeDefault, 'headerTitleTextColor'));
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'headerTitleTextStyle', 375),
+                    ef.get-value($themeDefault, 'headerTitleTextColor'),
+                );
 
-                word-break: break-word;
+                @include mq.min(900) {
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'headerTitleTextStyle', 900),
+                        null
+                    );
+                }
+            }
+
+            &--subtitle {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'headerSubtitleTextStyle'),
+                    ef.get-value($themeDefault, 'headerSubtitleTextColor'),
+                );
             }
 
             &--description {
@@ -119,6 +145,7 @@ $selector: '.wlc-tournament-detail';
 
             &--buttons {
                 @include bm.get-mq-map('justify-self', $themeDefault, 'headerTimerBlockButtonSelf');
+                @include bm.get-mq-map('margin', $themeDefault, 'headerTimerBlockButtonMargin');
             }
 
             &:before {

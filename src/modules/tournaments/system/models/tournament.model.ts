@@ -85,7 +85,7 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
                 return false;
             }
         }
-        return this.isTournamentStarts;
+        return this.isTournamentStarts && !this.isTournamentEnds;
     }
 
     public get onlyForLevels(): string[] {
@@ -262,6 +262,13 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
     }
 
     /**
+     * @returns {string} tournament end time as string
+     */
+    public get endsTimeString(): string {
+        return GlobalHelper.toLocalTime(this.data.Ends, 'SQL', 'DD.MM.YYYY HH:mm');
+    }
+
+    /**
      * @returns {boolean} is tournament start
      */
     public get isTournamentStarts(): boolean {
@@ -298,6 +305,8 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
 
     public get tag(): string {
         switch (true) {
+            case this.isTournamentEnds:
+                return 'Ended';
             case this.isSelected:
                 return 'Active';
             case !this.isTournamentStarts:

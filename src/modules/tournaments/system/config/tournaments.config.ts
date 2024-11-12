@@ -68,6 +68,11 @@ export const tournamentsConfig: ITournamentsModule = {
                 bg: '#313131',
                 iconUrl: '/wlc/icons/theme-wolf/unavailable.svg',
             },
+            'Ended': {
+                caption: gettext('Ended'),
+                bg: '#42041A',
+                iconUrl: '/wlc/icons/theme-wolf/ended.svg',
+            },
         },
     },
     timerTextAfterStart: gettext('Time remaining:'),

@@ -6,6 +6,8 @@ import {
     Input,
     Renderer2,
     ElementRef,
+    OnChanges,
+    SimpleChanges,
 } from '@angular/core';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
@@ -19,7 +21,7 @@ import * as Params from './tag.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
-export class TagComponent extends AbstractComponent implements OnInit {
+export class TagComponent extends AbstractComponent implements OnInit, OnChanges {
     @Input('inline') protected inlineParams: Params.ITagCParams;
     @Input('theme') public theme: Params.ComponentTheme;
 
@@ -36,10 +38,17 @@ export class TagComponent extends AbstractComponent implements OnInit {
 
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-        this.tagConfig = this.$params.common;
+    }
 
-        if (this.tagConfig.bg) {
-            this.renderer.setStyle(this.hostRef.nativeElement, '--wlc-tag-bg', this.tagConfig.bg, 2);
+    public override ngOnChanges(changes: SimpleChanges): void {
+        super.ngOnChanges(changes);
+
+        if (changes.inlineParams?.currentValue?.common) {
+            this.tagConfig = changes.inlineParams.currentValue.common;
+
+            if (this.tagConfig.bg) {
+                this.renderer.setStyle(this.hostRef.nativeElement, '--wlc-tag-bg', this.tagConfig.bg, 2);
+            }
         }
     }
 }

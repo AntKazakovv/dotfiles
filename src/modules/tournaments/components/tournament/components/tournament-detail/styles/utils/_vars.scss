@@ -1,8 +1,7 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'defaultRowGap': (
-        320: ef.size(3),
-        768: ef.size(4)
+        320: ef.size(4),
     ),
     'defaultPadding': (
         320: ef.size(4),
@@ -66,6 +65,8 @@ $themeDefault: map-merge((
     'headerStatusBgActive': ef.get('tagConfig', 'bgActive'),
     'headerStatusColorUnavailable': ef.get('tagConfig', 'colorUnavailable'),
     'headerStatusBgUnavailable': ef.get('tagConfig', 'bgUnavailable'),
+    'headerStatusColorEnded': ef.get('tagConfig', 'colorEnded'),
+    'headerStatusBgEnded': ef.get('tagConfig', 'bgEnded'),
 
     'headerStatusPadding': (
         320: ef.get('tagConfig', 'padding'),
@@ -75,8 +76,13 @@ $themeDefault: map-merge((
 
     'headerTitleJustifySelf': center,
     'headerTitleTextAlign': center,
-    'headerTitleTextStyle': 'QoteTextBold',
+    'headerTitleTextStyle': (
+        375: 'ThirdTitleBold',
+        900: 'QoteTextBold',
+    ),
     'headerTitleTextColor': var(--mc-baseMain),
+    'headerSubtitleTextStyle': 'PrimaryTextBold',
+    'headerSubtitleTextColor': var(--mc-baseMain),
 
     'headerDescriptionJustifySelf': center,
     'headerDescriptionTextAlign': center,
@@ -85,6 +91,10 @@ $themeDefault: map-merge((
 
     'headerTimerBlockTimerSelf': center,
     'headerTimerBlockButtonSelf': center,
+    'headerTimerBlockButtonMargin': (
+        375: 0,
+        768: ef.size(4) 0 0,
+    ),
 
     'anchorsBg': var(--mc-bg),
     'anchorsMenuAlignItems': center,

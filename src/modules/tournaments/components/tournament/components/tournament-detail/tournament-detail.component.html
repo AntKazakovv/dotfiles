@@ -23,39 +23,47 @@
             <div class="{{$class}}__header-info-inner">
                 <h3 class="{{$class}}__header-info--title">{{tournament.name}}</h3>
 
-                <p *ngIf="tournament.description && $params.theme === 'default'"
-                    class="{{$class}}__header-info--description"
-                    [innerHtml]="tournament.descriptionClean">
-                </p>
-                <div wlc-timer
-                    class="{{$class}}__header-info-timer"
-                    [value]="tournament.stateDateTournament"
-                    [theme]="'default'"
-                    [text]="tournament.timerText"
-                    [serverDateUTC]="tournament.serverTime">
-                    (timerEnds)="updateTournaments()"
+                <div *ngIf="tournamentIsOver; else headerContent"
+                    class="{{$class}}__header-info--subtitle">
+                    {{("End date" | translate) + ': ' + tournament.endsTimeString}}
                 </div>
 
-                <div *ngIf="tournament.isTournamentStarts" class="{{$class}}__header-info--buttons">
-                    <ng-container *ngIf="tournament.canJoin">
-                        <button *ngIf="!tournament.onlyForLevels; else lockBtn"
+                <ng-template #headerContent>
+                    <p *ngIf="tournament.description"
+                        class="{{$class}}__header-info--description"
+                        [innerHtml]="tournament.descriptionClean">
+                    </p>
+
+                    <div wlc-timer
+                        class="{{$class}}__header-info-timer"
+                        [value]="tournament.stateDateTournament"
+                        [theme]="'default'"
+                        [text]="tournament.timerText"
+                        [serverDateUTC]="tournament.serverTime"
+                        (timerEnds)="updateTournaments()">
+                    </div>
+
+                    <div *ngIf="tournament.isTournamentStarts" class="{{$class}}__header-info--buttons">
+                        <ng-container *ngIf="tournament.canJoin">
+                            <button *ngIf="!tournament.onlyForLevels; else lockBtn"
+                                wlc-button
+                                class="{{$class}}__header-info--button"
+                                [attr.type]="'button'"
+                                [text]="$params.common?.btnSubscribeText"
+                                (click)="joinTournament()">
+                            </button>
+                        </ng-container>
+
+                        <button *ngIf="tournament.isSelected"
                             wlc-button
                             class="{{$class}}__header-info--button"
                             [attr.type]="'button'"
-                            [text]="$params.common?.btnSubscribeText"
-                            (click)="joinTournament()">
+                            themeMod="secondary"
+                            [text]="$params.common?.btnUnsubscribeText"
+                            (click)="leaveTournament()">
                         </button>
-                    </ng-container>
-
-                    <button *ngIf="tournament.isSelected"
-                        wlc-button
-                        class="{{$class}}__header-info--button"
-                        [attr.type]="'button'"
-                        themeMod="secondary"
-                        [text]="$params.common?.btnUnsubscribeText"
-                        (click)="leaveTournament()">
-                    </button>
-                </div>
+                    </div>
+                </ng-template>
             </div>
         </div>
 
@@ -163,49 +171,49 @@
     <div *ngIf="isReady && tournament; else: noData" class="{{$class}}__content">
         <div class="{{$class}}__header-info"
             [ngStyle]="{'backgroundImage': 'url(' + tournament.imageDescription + ')'}">
-            <div class="{{$class}}__header-info-tag">
-                <a class="{{$class}}__header-info--back-link"
-                    (click)="goTo('app.profile.loyalty-tournaments.main')">
-                    <span wlc-icon iconPath="/wlc/icons/arrow.svg"></span>
-                    {{$params.common?.backLinkText  | translate}}
-                </a>
-                <span wlc-tag
-                    class="{{$class}}__header-info--status"
-                    [inline]="tagConfig">
-                </span>
+            <div class="{{$class}}__header-info-tag"
+                wlc-tag
+                [inline]="tagConfig">
             </div>
             <div class="{{$class}}__header-info-inner">
                 <h3 class="{{$class}}__header-info--title">{{tournament.name}}</h3>
 
-                <div wlc-timer
-                    class="{{$class}}__header-info-timer"
-                    [value]="tournament.stateDateTournament"
-                    [theme]="'wolf'"
-                    [text]="tournament.timerText"
-                    [serverDateUTC]="tournament.serverTime">
-                    (timerEnds)="updateTournaments()"
+                <div *ngIf="tournamentIsOver; else headerContent"
+                    class="{{$class}}__header-info--subtitle">
+                    {{("End date" | translate) + ': ' + tournament.endsTimeString}}
                 </div>
 
-                <div *ngIf="tournament.isTournamentStarts" class="{{$class}}__header-info--buttons">
-                    <ng-container *ngIf="tournament.canJoin">
-                        <button *ngIf="!tournament.onlyForLevels; else lockBtn"
+                <ng-template #headerContent>
+                    <div wlc-timer
+                        class="{{$class}}__header-info-timer"
+                        [value]="tournament.stateDateTournament"
+                        [theme]="'wolf'"
+                        [text]="tournament.timerText"
+                        [serverDateUTC]="tournament.serverTime"
+                        (timerEnds)="updateTournaments()">
+                    </div>
+
+                    <div *ngIf="tournament.isTournamentStarts" class="{{$class}}__header-info--buttons">
+                        <ng-container *ngIf="tournament.canJoin">
+                            <button *ngIf="!tournament.onlyForLevels; else lockBtn"
+                                wlc-button
+                                class="{{$class}}__header-info--button"
+                                [attr.type]="'button'"
+                                [text]="$params.common?.btnSubscribeText"
+                                (click)="joinTournament()">
+                            </button>
+                        </ng-container>
+
+                        <button *ngIf="tournament.isSelected"
                             wlc-button
                             class="{{$class}}__header-info--button"
                             [attr.type]="'button'"
-                            [text]="$params.common?.btnSubscribeText"
-                            (click)="joinTournament()">
+                            themeMod="secondary"
+                            [text]="$params.common?.btnUnsubscribeText"
+                            (click)="leaveTournament()">
                         </button>
-                    </ng-container>
-
-                    <button *ngIf="tournament.isSelected"
-                        wlc-button
-                        class="{{$class}}__header-info--button"
-                        [attr.type]="'button'"
-                        themeMod="secondary"
-                        [text]="$params.common?.btnUnsubscribeText"
-                        (click)="leaveTournament()">
-                    </button>
-                </div>
+                    </div>
+                </ng-template>
             </div>
         </div>
 

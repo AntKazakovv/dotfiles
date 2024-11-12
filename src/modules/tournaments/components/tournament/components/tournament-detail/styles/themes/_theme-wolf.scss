@@ -11,65 +11,39 @@ $selector: '.wlc-tournament-detail';
             @include bm.get-mq-map('background-position', $themeWolf, 'headerInfoBgPosition');
             @include bm.get-mq-map('background-size', $themeWolf, 'headerInfoBgSize');
             @include bm.get-mq-map('border-radius', $themeWolf, 'headerInfoRadius');
+
+            display: ef.get-value($themeWolf, 'headerInfoDisplay');
+            flex-direction: ef.get-value($themeWolf, 'headerInfoFlexDirection');
+            gap: ef.get-value($themeWolf, 'headerInfoGap');
+            align-items: ef.get-value($themeWolf, 'headerInfoAlignItems');
             padding: ef.get-value($themeWolf, 'headerInfoPadding');
 
-            &--status {
-                z-index: 9;
-            }
-
             &-tag {
-                position: relative;
-                margin: ef.get-value($themeWolf, 'headerTagMargin');
-                text-align: center;
+                z-index: 1;
             }
 
             &-inner {
                 @include bm.get-mq-map('max-width', $themeWolf, 'headerInnerMaxWidth');
                 @include bm.get-mq-map('margin', $themeWolf, 'headerInnerMargin');
+
+                display: ef.get-value($themeWolf, 'headerInnerDisplay');
+                flex-direction: ef.get-value($themeWolf, 'headerInnerFlexDirection');
+                align-items: ef.get-value($themeWolf, 'headerInnerAlignItems');
+                justify-content: ef.get-value($themeWolf, 'headerInnerJustifyContent');
             }
 
-            &--back-link {
-                @include bm.get-mq-map('top', $themeWolf, 'headerBackLinkTop');
-                @include bm.get-mq-map('left', $themeWolf, 'headerBackLinkLeft');
-                @include text.get-text-style(
-                    ef.get-value($themeWolf, 'headerBackLinkTextStyle'),
-                    ef.get-value($themeWolf, 'headerBackLinkTextColor')
-                );
-                @include bm.get-mq-map('text-decoration', $themeWolf, 'headerBackLinkDecoration');
-                @include bm.transition(color);
-
-                position: absolute;
-                max-width: ef.get-value($themeWolf, 'headerBackLinkMaxWidth');
-
-                overflow: hidden;
-                white-space: nowrap;
-                text-overflow: ellipsis;
-
-                cursor: pointer;
-
-                .wlc-icon {
-                    @include bm.get-mq-map('transform', $themeWolf, 'headerBackLinkIconTransform');
-                    display: inline-block;
-
-                    svg {
-                        fill: ef.get-value($themeWolf, 'headerBackLinkIconColor');
-                    }
-                }
-
-                @include bm.hover {
-                    color: ef.get-value($themeWolf, 'headerBackLinkTextColorActive');
-                }
+            &--title,
+            &--subtitle {
+                @include bm.get-mq-map('justify-self', $themeWolf, 'headerTitleJustifySelf');
+                @include bm.get-mq-map('text-align', $themeWolf, 'headerTitleTextAlign');
+                word-break: break-word;
             }
 
             &--title {
-                @include bm.get-mq-map('justify-self', $themeWolf, 'headerTitleJustifySelf');
-                @include bm.get-mq-map('text-align', $themeWolf, 'headerTitleTextAlign');
                 @include text.get-text-style(
                     ef.get-value($themeWolf, 'headerTitleTextStyle', 375),
                     ef.get-value($themeWolf, 'headerTitleTextColor'),
                 );
-                margin: ef.get-value($themeWolf, 'headerTitleMargin');
-                word-break: break-word;
 
                 @include mq.min(900) {
                     @include text.get-text-style(
@@ -79,22 +53,20 @@ $selector: '.wlc-tournament-detail';
                 }
             }
 
-            &--description {
+            &--subtitle {
                 @include text.get-text-style(
-                    ef.get-value($themeWolf, 'headerDescTextStyle'),
-                    ef.get-value($themeWolf, 'headerDescColor'),
+                    ef.get-value($themeWolf, 'headerSubtitleTextStyle'),
+                    ef.get-value($themeWolf, 'headerSubtitleTextColor'),
                 );
-                margin: ef.get-value($themeWolf, 'headerDescMargin');
-                text-align: ef.get-value($themeWolf, 'headerDescTextAlign');
+                margin: ef.get-value($themeWolf, 'headerSubtitleMargin');
             }
 
             &-timer {
-                @include bm.get-mq-map('margin', $themeWolf, 'headerTimerMargin');
+                margin: ef.get-value($themeWolf, 'headerTimerMargin');
             }
 
             &--buttons {
-                @include bm.get-mq-map('justify-content', $themeWolf, 'headerButtonJustifyContent');
-                display: flex;
+                @include bm.get-mq-map('margin', $themeWolf, 'headerBtnsMargin');
             }
         }
 

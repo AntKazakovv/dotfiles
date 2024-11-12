@@ -423,10 +423,8 @@ $themeDefault: map-merge((
     'tournamentDetailRadiusWolf': (
         560: 0 0 ef.get('radius', 'main') ef.get('radius', 'main'),
     ),
-    'tournamentDetailIconCloseTop': (
-        375: ef.size(3),
-        768: 17px,
-    ),
+    'tournamentDetailIconCloseTop': ef.size(2),
+    'tournamentDetailIconCloseRight': ef.size(2),
     'tournamentDetailFooterBg': var(--mc-bg),
     'tournamentDetailFooterBgWolf': var(--mc-bgModal),
     //tournament-details

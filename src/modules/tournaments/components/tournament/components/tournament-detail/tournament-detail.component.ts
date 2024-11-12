@@ -58,6 +58,7 @@ export class TournamentDetailComponent extends AbstractComponent implements
     public isReady: boolean = false;
     public tournament: Tournament;
     public pending: boolean = false;
+    public tournamentIsOver: boolean = false;
     public menuParams: MenuParams.IMenuCParams;
     public gamesGrid: IWrapperCParams;
     public menuConfig: IWrapperCParams = {components: []};
@@ -118,7 +119,7 @@ export class TournamentDetailComponent extends AbstractComponent implements
                 this.prepareTournament();
                 this.cdr.markForCheck();
             });
-        this.tagClass = this.tournament.tag.toLowerCase();
+
         if (this.tournament.onlyForLevels) {
             this.availableLevels = _join([...this.tournament.onlyForLevels].reverse(), ', ');
             this.lockBtnText = this.configService.get('$tournaments.lockBtnText');
@@ -136,22 +137,9 @@ export class TournamentDetailComponent extends AbstractComponent implements
         if (this.$params.theme === 'wolf') {
             this.$params.prizesParams.theme = 'wolf';
             _set(this.gamesGrid, 'components[0].params.btnLoadMore.theme', 'theme-wolf-link');
-
-            if (this.tournament.tag) {
-                const moduleTagsConfig = this.configService.get<ITournamentTags>('$tournaments.tagsConfig');
-                const tagCommon: ITagCommon = moduleTagsConfig.tagList[this.tournament.tag];
-
-                if (tagCommon) {
-
-                    if (!moduleTagsConfig.useIcons) {
-                        tagCommon.iconUrl = null;
-                    }
-
-                    this.tagConfig = {
-                        common: tagCommon,
-                    };
-                };
-            }
+            this.setTagConfig();
+        } else {
+            this.tagClass = this.tournament.tag.toLowerCase();
         }
         const selectorParam = this.router.stateService.params['#'];
         if (selectorParam) {
@@ -184,12 +172,33 @@ export class TournamentDetailComponent extends AbstractComponent implements
      * Update tournament list
      */
     public updateTournaments(): void {
-        if (this.tournament.isTournamentEnds) {
-            if (this.modalService.getActiveModal('tournament-detail-modal')) {
-                this.modalService.hideModal('tournament-detail-modal');
+        if (!this.tournamentIsOver) {
+            this.tournamentIsOver = true;
+
+            if (this.$params.theme === 'wolf') {
+                this.setTagConfig();
             } else {
-                this.tournamentsService.updateTournaments();
-                this.router.stateService.go('app.profile.loyalty-tournaments.main');
+                this.tagClass = this.tournament.tag.toLowerCase();
+            }
+
+            this.cdr.markForCheck();
+        }
+    }
+
+    protected setTagConfig(): void {
+        if (this.tournament.tag) {
+            const moduleTagsConfig: ITournamentTags = this.configService.get('$tournaments.tagsConfig');
+            const tagCommon: ITagCommon = moduleTagsConfig.tagList[this.tournament.tag];
+
+            if (tagCommon) {
+
+                if (!moduleTagsConfig.useIcons) {
+                    tagCommon.iconUrl = null;
+                }
+
+                this.tagConfig = {
+                    common: tagCommon,
+                };
             }
         }
     }

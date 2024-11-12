@@ -12,6 +12,7 @@ import _isEmpty from 'lodash-es/isEmpty';
 import _isNumber from 'lodash-es/isNumber';
 import _toNumber from 'lodash-es/toNumber';
 import _union from 'lodash-es/union';
+import {Subscription} from 'rxjs';
 
 import {
     AbstractComponent,
@@ -121,13 +122,17 @@ export class TournamentLeaderboardComponent
         this.showFreeSpinsText = this.tournament.winnerBy === 'fr' && !this.isHistory;
 
         this.isReady = false;
-        this.tournament?.getWinnersSubscribe(
+        const winnerSubscription: Subscription = this.tournament.getWinnersSubscribe(
             {
                 next: (result) => {
                     if (result) {
                         this.getWins(result);
                         this.isReady = true;
                         this.cdr.markForCheck();
+                    }
+
+                    if ((this.tournament as Tournament).isTournamentEnds) {
+                        winnerSubscription.unsubscribe();
                     }
                 },
             },

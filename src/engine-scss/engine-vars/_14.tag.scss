@@ -8,7 +8,9 @@ $tagConfig: map-merge((
     'bg': map-get($mainColors, 'secondary'),
     'bgActive': map-get($mainColors, 'main'),
     'bgUnavailable': map-get($mainColors, 'bg700'),
+    'bgEnded': map-get($mainColors, 'bg700'),
     'color': map-get($mainColors, 'baseMain'),
     'colorActive': map-get($mainColors, 'baseMain'),
     'colorUnavailable': map-get($mainColors, 'baseMain'),
+    'colorEnded': map-get($mainColors, 'baseMain'),
 ), $customTagConfig);

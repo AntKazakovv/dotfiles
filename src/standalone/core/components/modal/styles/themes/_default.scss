@@ -186,7 +186,8 @@
         .wlc-modal__header--headless {
 
             .wlc-modal__close {
-                @include bm.get-mq-map('top', $themeDefault, 'tournamentDetailIconCloseTop');
+                top: ef.get-value($themeDefault, 'tournamentDetailIconCloseTop');
+                right: ef.get-value($themeDefault, 'tournamentDetailIconCloseRight');
             }
         }
 

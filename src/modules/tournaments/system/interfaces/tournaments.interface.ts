@@ -249,7 +249,7 @@ export type RestType = 'active' | 'history' | 'any';
 export type ThumbType = 'default' | 'dashboard' | 'banner' | 'active' | 'profile' | 'available';
 export type ActionType = 'join' | 'leave';
 export type TTournamentTarget = 'balance' | 'loyalty' | 'bonus';
-export type TTournamentTagKey = 'Active' | 'Available' | 'Coming soon' | 'Unavailable' | '';
+export type TTournamentTagKey = 'Active' | 'Available' | 'Coming soon' | 'Unavailable' | 'Ended' | '';
 
 export enum TournamentEvents {
     buyFreeSpins = 'BUY_FREE_SPINS',
