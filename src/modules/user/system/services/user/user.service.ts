@@ -256,6 +256,7 @@ export class UserService {
     }
 
     public async init(): Promise<void> {
+        this.registerMethods();
         await this.configService.ready;
 
         this.isAuth$ ??= this.configService.get('$user.isAuth$');
@@ -281,7 +282,6 @@ export class UserService {
             this.eventService.emit({name: LanguageChangeEvents.ChangeLanguage});
         });
 
-        this.registerMethods();
 
         this.info = new UserInfo(
             {service: 'UserService', method: 'constructor'},
