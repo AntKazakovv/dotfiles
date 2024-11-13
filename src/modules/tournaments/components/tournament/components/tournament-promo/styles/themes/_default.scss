@@ -71,25 +71,21 @@
 
             ::ng-deep {
 
-                .wlc-link-block {
-
-                    .wlc-btn[class] {
-                        color: ef.get-value($themeDefault, 'linkBlockColor');
-
-                        .wlc-icon {
-                            color: ef.get-value($themeDefault, 'linkBlockColor');
-                        }
-
-                        @include bm.hover {
-
-                            &,
-                            .wlc-icon {
-                                color: ef.get-value($themeDefault, 'linkBlockColorHover');
-                            }
-                        }
-                    }
+                .wlc-timer__content {
+                    background: ef.get-value($themeDefault, 'timerBg');
                 }
             }
+        }
+
+        &__btn {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            min-height: ef.get-value($themeDefault, 'linkBlockHeight');
+            padding: ef.get-value($themeDefault, 'linkBlockPadding');
+            border-radius: ef.get-value($themeDefault, 'linkBlockRadius');
+            color: ef.get-value($themeDefault, 'linkBlockColor');
+            background: ef.get-value($themeDefault, 'linkBlockBgColor');
         }
 
         &__info:before,
@@ -109,6 +105,26 @@
         &__inner {
             position: relative;
             z-index: ef.get-value($themeDefault, 'innerBlockZIndex');
+
+            &:has(.wlc-btn) {
+
+                ::ng-deep {
+
+                    .wlc-tournament-promo-prizes.wlc-tournament-prizes--theme-default {
+
+                        & .wlc-tournament-prizes {
+
+                            &__container {
+                                border-radius: ef.get-value($themeDefault, 'containerRadiusHasBtn');
+                            }
+
+                            &__body .wlc-tournament-prizes__row:last-child {
+                                border-bottom: ef.get-value($themeDefault, 'prizesRowBorder');
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         &__tag {

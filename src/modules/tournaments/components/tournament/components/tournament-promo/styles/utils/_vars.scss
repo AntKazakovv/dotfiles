@@ -1,6 +1,7 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'containerRadius': ef.get('radius', 'biger'),
+    'containerRadiusHasBtn': ef.get('radius', 'biger') ef.get('radius', 'biger') 0 0,
     'containerBackground': (
         375: var(--mc-bg500),
     ),
@@ -32,8 +33,8 @@ $themeDefault: map-merge((
     ),
 
     'boardPadding': (
-        375: ef.size(4) ef.size(6),
-        640: ef.size(4) ef.size(8),
+        375: ef.size(2) ef.size(9) ef.size(4),
+        640: ef.size(6) ef.size(9) ef.size(7),
     ),
     'boardPElementDisplay': (
         375: none,
@@ -95,6 +96,13 @@ $themeDefault: map-merge((
     'prizepoolColor': ef.get('mainColors', 'baseMain'),
     'prizepoolTextAlign': center,
 
+    'prizesRowValuePadding': ef.size(1) ef.size(3),
+    'prizesRowValueBg': var(--mc-bg700),
+    'prizesRowValueBorderRadius': ef.get('radius', 'biger'),
+    'prizesRowBorder': 1px solid var(--mc-bg300),
+
+    'timerBg': var(--mc-bg700),
+
     'descriptionFontStyle': 'PrimaryText',
     'descriptionFontStyleDesk': 'ThirdTitle',
     'descriptionColor': (
@@ -130,14 +138,17 @@ $themeDefault: map-merge((
         900: initial
     ),
     'btnsAlignSelf': end,
-    'prizesMargin': ef.size(2) auto,
+    'prizesMargin': ef.size(2) auto 0,
 
     'lockBtnMaxWidth': (
         480: 185px,
         560: none,
     ),
     'linkBlockColor': var(--mc-main),
-    'linkBlockColorHover': ef.get('mainColors', 'baseMain'), // Locked color
+    'linkBlockBgColor': var(--mc-bg700),
+    'linkBlockHeight': ef.size(8),
+    'linkBlockPadding': ef.size(2) ef.size(5),
+    'linkBlockRadius': 0 0 ef.get('radius', 'biger') ef.get('radius', 'biger'),
 
     'boardTitleMargin': 0 0 ef.size(2) 0,
 

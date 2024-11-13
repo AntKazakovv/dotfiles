@@ -3,10 +3,9 @@ $themeDefault: map-merge((
     'containerMaxWidth': 100%,
     'containerMargin': 0 auto,
     'gridTemplateColumns': 1fr,
-    'wrapperBg': var(--mc-bg700),
+    'wrapperBg': transparent,
     'wrapperBgAlt': var(--mc-bg500-o4),
     'wrapperPadding': ef.size(2) 0,
-    'wrapperRadius': ef.get('radius', 'biger'),
     'descrStyle': 'PrimaryText',
     'descrColor': inherit,
     'descrMargin': (
@@ -14,12 +13,10 @@ $themeDefault: map-merge((
     ),
     'descrAlign': center,
     'firstCellPadding': (
-        375: 0 0 0 ef.size(3),
-        768: 0 0 0 ef.size(4),
+        375: 0 0 0 ef.size(5),
     ),
     'lastCellPadding': (
-        375: 0 ef.size(3) 0 0,
-        768: 0 ef.size(4) 0 0,
+        375: 0 ef.size(5) 0 0,
     ),
     'iconMargin': 0 ef.size(2) 0 0,
     'iconSize': 12px,
@@ -29,46 +26,50 @@ $themeDefault: map-merge((
     'btnMargin': ef.size(4) auto 0,
     'nocontentBg': none,
 
+    'btnTextStyle': 'PrimaryTextBold',
+    'btnTextColor': var(--mc-main),
+    'btnTextColorHover': var(--mc-baseMain),
+    'btnHeight': 38px,
+    'btnRadius': 0 0 ef.get('radius', 'biger') ef.get('radius', 'biger'),
+
     'fontSize': ef.get('font', 'PrimaryText'),
     'rowBg': transparent,
-    'rowUserBg': var(--mc-main),
+    'rowUserBg': linear-gradient(180deg, var(--mc-bg700) 0%, var(--mc-main-o4) 100%),
     'iconBaseColor': currentColor, // set null if you need to use multicolor icon
     'iconColor': var(--mc-baseOpacity),
     'iconUserColor': var(--mc-bg),
     'btnIconColor': var(--mc-main),
     'btnIconColorHover': var(--mc-main-l20),
 
-    'delimetrwidth': 100%,
-    'delimetrheight': 2px,
-    'delimetrBg': var(--mc-baseOpacity),
-    'delimetrMargin': ef.size(1) 0,
-
     'listGap': ef.size(1),
     'listBg': var(--mc-bg700),
-    'listBgTop': none,
+    'listBgTop': var(--mc-bg700),
     'listRadius': ef.get('radius', 'biger'),
+    'listRadiusWithBtn': ef.get('radius', 'biger') ef.get('radius', 'biger') 0 0,
 
-    'itemRadius': ef.get('radius', 'big'),
+    'itemRadius': initial,
     'itemMargin': (
         375: 0 ef.size(2),
         768: 0 ef.size(3),
     ),
-    'itemHeight': 24px,
-    'itemGridTemplate': 80px 1fr 1fr,
+    'itemHeight': 38px,
+    'itemGridTemplate': repeat(3, 1fr),
 
     'itemBg': var(--mc-bg700),
     'itemTextStyle': 'PrimaryText',
-    'itemTextStyleTop': 'PrimaryTextBold',
+    'itemBoldTextStyle': 'PrimaryTextBold',
     'itemColor': inherit,
-    'itemColorTop': inherit,
     'itemPaddingUser': 0 ef.size(1),
 
     'itemUserCellTextStyle': 'PrimaryTextBold',
     'itemUserCellTextColor': var(--mc-baseThird, var(--mc-baseMain)),
+    'itemUserBorderBottom': 2px solid var(--mc-main),
 
-    'headBg': transparent,
-    'headPadding': 0 0 ef.size(1),
+    'headBg': var(--mc-bg700),
+    'headRadius': ef.get('radius', 'biger') ef.get('radius', 'biger') 0 0,
 
+    'topMargin': 0 0 ef.size(1),
+    'topRadiusWithHead': 0 0 ef.get('radius', 'biger') ef.get('radius', 'biger'),
     'topCellHeight': 26px,
     'topCellUserPadding': 0 ef.size(3) 0 ef.size(2),
     'topIconMargin': 0 0 0 ef.size(1),
@@ -80,6 +81,8 @@ $themeDefault: map-merge((
     'winTextMargin': 0 3px 0 0,
     'winBonusTextMargin': 0 10px 0 0,
     'winJustifyContent': end,
+
+    'itemBorderBottom': 1px solid var(--mc-bg300),
 ), $customThemeDefault);
 
 $customThemeModCompact: () !default;
@@ -88,22 +91,19 @@ $themeModCompact: map-merge((
     'wrapperPadding': 0,
 
     'listGap': 10px,
-    'listPadding': 10px 0,
-    'listTopPadding': 12px 0,
+    'listPadding': 0,
     'listBg': transparent,
 
-    'rowBg': var(--mc-bg),
-    'itemColumns': 50px 1fr auto,
-    'itemPadding': 3px 20px 3px 15px,
+    'rowBg': var(--mc-bg700),
+    'dashboardRowBg': var(--mc-bg500),
+    'itemColumns': 5fr 9fr 5fr,
     'itemMargin': 0,
 
-    'cellJustifyFirst': center,
-    'cellJustifyFirstTop': space-around,
-    'cellPaddingFirst': 0,
-    'cellPaddingLast': 0 ef.size(2) 0 0,
+    'cellPaddingFirst': 0 0 0 ef.size(5),
+    'cellPaddingLast': 0 ef.size(5) 0 0,
 
-    'headPaddingFirst': 0,
-    'headPaddingLast': 0 ef.size(2) 0 0,
+    'headPaddingFirst': 0 0 0 ef.size(5),
+    'headPaddingLast': 0 ef.size(5) 0 0,
 
     'btnMargin': 0,
 ), $customThemeModCompact);

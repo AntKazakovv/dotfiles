@@ -168,6 +168,10 @@ $selector: '.wlc-tournament-detail';
                     @include bm.get-mq-map('grid-template-areas', $themeDefault, 'headerTemplateAreasComing');
                 }
             }
+
+            > div:not(:last-child) {
+                border-bottom: ef.get-value($themeDefault, 'blockBorder');
+            }
         }
 
         #{$selector}__anchors {
@@ -230,6 +234,7 @@ $selector: '.wlc-tournament-detail';
 
             display: grid;
             justify-items: ef.get-value($themeDefault, 'leaderboardJustifyItems');
+            border-bottom: ef.get-value($themeDefault, 'blockBorder');
 
             &-head {
                 @include bm.get-mq-map('text-align', $themeDefault, 'leaderboardHeadAlign');
@@ -274,7 +279,7 @@ $selector: '.wlc-tournament-detail';
 
                 @include bm.get-mq-map('justify-self', $themeDefault, 'prizepoolAmoutTitleSelf');
                 @include text.get-text-style(
-                    ef.get-value($themeDefault, 'prizepoolAmoutTextStyle', 375),
+                    ef.get-value($themeDefault, 'prizepoolAmoutTextStyle'),
                     ef.get-value($themeDefault, 'prizepoolAmoutText')
                 );
 
@@ -285,21 +290,8 @@ $selector: '.wlc-tournament-detail';
                     @include bm.get-mq-map('--wlc-icon-height', $themeDefault, 'prizepoolAmountIconSizeLg');
 
                     @include text.get-text-style(
-                        ef.get-value($themeDefault, 'prizepoolAmoutTextStyleLg', 375),
+                        ef.get-value($themeDefault, 'prizepoolAmoutTextStyleLg'),
                         null
-                    );
-
-                    @include mq.min(768) {
-                        @include text.get-text-style(
-                            ef.get-value($themeDefault, 'prizepoolAmoutTextStyleLg', 768),
-                            null
-                        );
-                    }
-                }
-                @include mq.min(560) {
-                    @include text.get-text-style(
-                        ef.get-value($themeDefault, 'prizepoolAmoutTextStyle', 560),
-                        null,
                     );
                 }
             }
@@ -371,13 +363,6 @@ $selector: '.wlc-tournament-detail';
             }
         }
 
-        &:has(#{$selector}__levels) {
-
-            #{$selector}__prizepool {
-                @include bm.get-mq-map('background', $themeDefault, 'prizepoolBgHasLevels');
-            }
-        }
-
         .wlc-sections__profile-content--theme-first & {
 
             #{$selector} {
@@ -398,17 +383,6 @@ $selector: '.wlc-tournament-detail';
 
                 &__prizepool {
                     background: ef.get-value($themeDefault, 'tournamentDetailPrizepoolBgV1');
-                }
-
-                &__games {
-                    background: ef.get-value($themeDefault, 'gamesBgV1');
-                }
-            }
-
-            &:has(#{$selector}__levels) {
-
-                #{$selector}__prizepool {
-                    @include bm.get-mq-map('background', $themeDefault, 'prizepoolBgHasLevels');
                 }
             }
         }

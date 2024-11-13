@@ -36,10 +36,6 @@
                 [class.last]="$index === (winsTop.length - 1)">
                 <div class="{{$class}}__cell item-place">
                     <span class="{{$class}}__cell-place">{{win.IDUserPlace}}</span>
-                    <span *ngIf="paramExclude('themeMod', 'history') && $params.theme !== 'wolf'"
-                        wlc-icon
-                        iconPath="/wlc/icons/cup.svg">
-                    </span>
                 </div>
                 <div class="{{$class}}__cell item-user">
                     <span *ngIf="win.IDUser !== userId; else: userThee" class="user-login">{{getPlayerName(win)}}</span>
@@ -88,8 +84,7 @@
     </div>
 
     <ng-container *ngIf="needShowBtn">
-        <ng-container *ngIf="compactThemeMod" [ngTemplateOutlet]="linkButton"></ng-container>
-        <ng-container *ngIf="!compactThemeMod" [ngTemplateOutlet]="defaultButton"></ng-container>
+        <ng-container [ngTemplateOutlet]="defaultButton"></ng-container>
     </ng-container>
 </div>
 
@@ -126,18 +121,9 @@
     <button wlc-button
             class="{{$class}}__btn"
             text="Show all"
-            theme="default"
+            theme="textonly"
             [attr.type]="'button'"
             [wlcElement]="'button_show_all_wins'"
             (click)="showAllWins()">
     </button>
-</ng-template>
-
-<ng-template #linkButton>
-    <div *ngIf="needShowBtn"
-         wlc-link-block
-         class="{{$class}}__btn"
-         [link]="'Show all' | translate"
-         (click)="showAllWins()">
-    </div>
 </ng-template>

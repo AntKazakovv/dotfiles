@@ -87,7 +87,7 @@ $themeWolf: map-merge((
     'prizepoolTitleStyle': 'SecondTitleBold',
     'prizepoolTitleColor': var(--mc-baseThird),
 
-    'prizepoolAmoutTextStyle': 'PromoTitle',
+    'prizepoolAmoutTextStyle': 'ThirdTitleBold',
     'prizepoolAmoutTextColor': var(--mc-baseThird),
 
     'prizepoolAmoutTextStyleLG': 'PromoTitle',
@@ -112,6 +112,7 @@ $themeWolf: map-merge((
     ),
     'prizeboardJustifyContent': center,
     'prizeboardBg': var(--mc-bgModal),
+    'prizesAlignment': right,
 
     'gamesPadding': (
         320: ef.size(4) ef.size(3),

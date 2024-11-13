@@ -10,10 +10,11 @@ $themeWolf: map-merge((
 
     'valueTextStyle': 'CaptionTextBold',
     'valueTextColor': var(--mc-baseSecond),
-    'rowAlignItems': flex-start,
+    'rowAlignItems': center,
     'rowJustifyContent': space-between,
     'rowPadding': ef.size(1) ef.size(6),
     'rowBorderBottom': 1px solid var(--mc-bg300),
+    'rowMinHeight': 30px,
 
     'placeMargin': 0 ef.size(2) 0 0,
 

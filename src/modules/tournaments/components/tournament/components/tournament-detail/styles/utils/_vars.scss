@@ -30,7 +30,7 @@ $themeDefault: map-merge((
         560: ef.get('radius', 'biger') ef.get('radius', 'biger') 0 0,
     ),
     'headerInnerPadding': 0 ef.size(4),
-    'headerBg': var(--mc-bg500),
+    'headerBg': var(--mc-bgModal),
     'headerBgPosition': center,
     'headerBgSize': cover,
     'headerColumnWidth': (
@@ -40,7 +40,7 @@ $themeDefault: map-merge((
         320: 100%,
         768: 490px,
     ),
-    'headerBorderBottom': 2px solid var(--mc-baseOpacity),
+    'headerBorderBottom': 2px solid var(--mc-bg500),
     'headerOverlayBg': linear-gradient(0deg, var(--mc-baseContrast-o0) 0%, var(--mc-baseContrast-o8) 80%),
 
     'headerBackLinkTop': (
@@ -96,6 +96,8 @@ $themeDefault: map-merge((
         768: ef.size(4) 0 0,
     ),
 
+    'blockBorder': 2px solid var(--mc-bg500),
+
     'anchorsBg': var(--mc-bg),
     'anchorsMenuAlignItems': center,
     'anchorsMenuPadding': (
@@ -109,7 +111,7 @@ $themeDefault: map-merge((
     'anchorsMenuLinkPadding': 0 ef.size(2),
 
     'levelsPadding': ef.size(4) 0 ef.size(6),
-    'levelsBg': var(--mc-bg500),
+    'levelsBg': var(--mc-bgModal),
     'levelsTitleStyle': 'QoteTextBold',
     'levelsTitleColor': var(--mc-baseMain),
     'levelsTitleMargin': 0 0 ef.size(4),
@@ -118,12 +120,13 @@ $themeDefault: map-merge((
     'levelTextMaxWidth': (
         375: 335px,
     ),
+    'levelsBorder': 2px solid var(--mc-baseOpacity),
 
-    'leaderboardBg': var(--mc-bg),
+    'leaderboardBg': var(--mc-bgModal),
     'leaderboardBgAlt': var(--bg500-o4),
     'leaderboardJustifyItems': center,
     'leaderboardPadding': (
-        375: ef.size(4),
+        375: ef.size(4) ef.size(3),
         768: ef.size(4) ef.size(4) ef.size(8),
     ),
     'leaderboardColumnWidth': (
@@ -138,9 +141,9 @@ $themeDefault: map-merge((
     'leaderboardHeadAlign': (
         375: center,
     ),
-    'leaderboardTableMaxWidth': 480px,
+    'leaderboardTableMaxWidth': 500px,
 
-    'prizesBg': var(--mc-bg500),
+    'prizesBg': var(--mc-bgModal),
 
     'prizepoolTemplateAreas': (
         320: 'PPTitle' 'PPAmount',
@@ -153,18 +156,11 @@ $themeDefault: map-merge((
     ),
     'prizepoolJustifyContent': center,
     'prizepoolBg': transparent,
-    'prizepoolBgHasLevels': var(--mc-bg),
     'prizepoolTitleStyle': 'QoteTextBold',
     'prizepoolTitleColor': var(--mc-baseMain),
     'prizepoolTitleSelf': center,
-    'prizepoolAmoutTextStyle': (
-        375: 'QoteTextBold',
-        560: 'PromoTitle',
-    ),
-    'prizepoolAmoutTextStyleLg': (
-        375: 'ThirdTitleBold',
-        768: 'PromoTitle',
-    ),
+    'prizepoolAmoutTextStyle': 'SecondTitleBold',
+    'prizepoolAmoutTextStyleLg': 'PromoTitle',
     'prizepoolAmoutTextColor': var(--mc-baseMain),
     'prizepoolAmoutTitleSelf': center,
     'prizepoolAmountIconSize': 16px,
@@ -185,7 +181,7 @@ $themeDefault: map-merge((
 
     'prizeboardColumnWidth': (
         320: 100%,
-        768: 350px,
+        768: 500px,
     ),
     'prizeboardPadding': (
         320: 0 ef.size(4) ef.size(4),
@@ -205,7 +201,7 @@ $themeDefault: map-merge((
     'gamesTitleStyle': 'QoteTextBold',
     'gamesTitleColor': var(--mc-baseMain),
     'gamesTitleAlign': center,
-    'gamesBg': var(--mc-bg),
+    'gamesBg': var(--mc-bgModal),
     'rulesColumnWidth': (
         320: 100%,
         768: 600px,
@@ -215,7 +211,7 @@ $themeDefault: map-merge((
         1024: ef.size(4) 0,
     ),
     'rulesJustifyContent': center,
-    'rulesBg': var(--mc-bg500),
+    'rulesBg': var(--mc-bgModal),
     'rulesTitleStyle': 'QoteTextBold',
     'rulesTitleColor': var(--mc-baseMain),
     'rulesTitleAlign': center,
@@ -240,6 +236,5 @@ $themeDefault: map-merge((
         1024: 300px,
         1630: 345px,
     ),
-    'gamesBgV1': var(--mc-bg),
     'contentBorderRadiusV1': 0 0 ef.get('radius', 'biger') ef.get('radius', 'biger'),
 ), $customThemeDefault);

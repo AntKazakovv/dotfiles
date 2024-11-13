@@ -1,6 +1,12 @@
 .wlc-tournament-prizes--theme-long:host {
-    $rowRadius: ef.get-value($themeLong, 'rowRadius');
     $iconSize: ef.get-value($themeLong, 'iconSize');
+
+    &:has(.wlc-tournament-prizes__controls) {
+
+        .wlc-tournament-prizes__body {
+            border-radius: 0;
+        }
+    }
 
     .wlc-tournament-prizes {
 
@@ -11,6 +17,8 @@
                 ef.get-value($themeLong, 'headTextStyle'),
                 ef.get-value($themeLong, 'headColor')
             );
+            overflow: hidden;
+            border-radius: ef.get-value($themeLong, 'headBorderRadius');
         }
 
         &__body {
@@ -21,6 +29,15 @@
                 ef.get-value($themeLong, 'bodyTextStyle'),
                 ef.get-value($themeLong, 'bodyColor')
             );
+            overflow: hidden;
+            border-radius: ef.get-value($themeLong, 'bodyBorderRadius');
+
+            .wlc-tournament-prizes__col--prize {
+                @include text.get-text-style(
+                    ef.get-value($themeLong, 'prizeFontStyle'),
+                    ef.get-value($themeLong, 'prizeColor')
+                );
+            }
         }
 
         &__controls {
@@ -28,62 +45,33 @@
             flex-wrap: wrap;
             align-items: center;
             justify-content: center;
+            border-radius: ef.get-value($themeLong, 'controlRadius');
+            background: ef.get-value($themeLong, 'controlBackground');
 
-            &:not(:empty) {
-                margin: ef.get-value($themeLong, 'controlsMargin');
-            }
-
-            > * {
-                margin: ef.get-value($themeLong, 'controlOffset');
+            .wlc-btn {
+                width: 100%;
+                padding: ef.get-value($themeLong, 'controlPadding');
             }
         }
 
         &__row {
-            display: flex;
-            align-items: ef.get-value($themeLong, 'rowAlignItems');
+            display: grid;
+            grid-auto-columns: min-content;
+            grid-auto-flow: column;
+            grid-template-columns: min-content 1fr;
+            gap: ef.get-value($themeLong, 'colGap');
             padding: ef.get-value($themeLong, 'rowPadding');
-
-            &:nth-child(even) {
-                background: var(--prizes-row-bg-even, #{ef.get-value($themeLong, 'rowBgEven')});
-            }
-
-            &:nth-child(odd) {
-                background: var(--prizes-row-bg-odd, #{ef.get-value($themeLong, 'topBg')});
-            }
-
-            &.top {
-                color: inherit;
-                background: ef.get-value($themeLong, 'topBg');
-                border-top: 1px solid var(--mc-bg500-o6);
-
-                &:first-child {
-                    border-top-left-radius: $rowRadius;
-                    border-top-right-radius: $rowRadius;
-                }
-
-                &:nth-child(3),
-                &:last-child {
-                    border-bottom-right-radius: $rowRadius;
-                    border-bottom-left-radius: $rowRadius;
-                }
-            }
-
-            &:not(.top) {
-                border-radius: $rowRadius;
-            }
+            background: ef.get-value($themeLong, 'rowBg');
+            border-bottom: ef.get-value($themeLong, 'rowBorder');
         }
 
         &__col {
 
             &--place {
-                flex: ef.get-value($themeLong, 'colPlaceFlexSize');
-                padding: ef.get-value($themeLong, 'colPlacePadding');
                 text-align: ef.get-value($themeLong, 'colPlaceTextAlign');
             }
 
             &--prize {
-                flex: ef.get-value($themeLong, 'colPrizeFlexSize');
-                padding: ef.get-value($themeLong, 'colPrizePadding');
                 text-align: ef.get-value($themeLong, 'colPrizeTextAlign');
             }
 
@@ -91,6 +79,10 @@
                 box-sizing: content-box;
                 min-width: var(--wlc-icon-width);
                 padding: ef.get-value($themeLong, 'colInfoPadding');
+            }
+
+            &:empty {
+                display: none;
             }
         }
     }

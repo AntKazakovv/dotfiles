@@ -50,11 +50,14 @@
                     [tournament]="tournament">
                 </div>
 
-                <span *ngIf="tournament.prizeTable.length > rowLimit"
-                    wlc-link-block
-                    link="Show all"
+                <button *ngIf="tournament.prizeTable.length > rowLimit"
+                    wlc-button
+                    class="{{$class}}__btn"
+                    text="Show all"
+                    theme="textonly"
+                    [attr.type]="'button'"
                     (click)="readMore(true)">
-                </span>
+                </button>
             </div>
         </div>
 

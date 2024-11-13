@@ -24,7 +24,8 @@ $themeDefault: map-merge((
     'gridGap': (
         375: ef.size(2),
         900: ef.size(3),
-        1420: ef.size(4)
+        1420: ef.size(4),
+        1630: ef.size(5),
     ),
     'placeholderBorderRadius': ef.get('radius', 'less'),
     'placeholderTextColor': var(--mc-baseMain),
@@ -49,9 +50,9 @@ $themeDefault: map-merge((
     ),
 
     'gridColumnsTournamentDetail': (
-        375: repeat(auto-fill, minmax(130px, 1fr)),
-        900: repeat(auto-fill, minmax(160px, 1fr)),
-        1024: repeat(auto-fill, minmax(200px, 1fr)),
+        375: repeat(auto-fill, minmax(167px, 1fr)),
+        900: repeat(auto-fill, minmax(200px, 1fr)),
+        1630: repeat(auto-fill, minmax(220px, 1fr)),
     ),
     'gridColumnsSearchMobileApp': repeat(auto-fill, minmax(130px, 1fr)),
     'gridBannerRow': (
@@ -205,4 +206,3 @@ $modMobileApp: map-merge((
         1200: repeat(5, 1fr),
     ),
 ), $customModMobileApp);
-
