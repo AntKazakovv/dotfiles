@@ -150,6 +150,16 @@ export class WebsocketService {
 
         if (this.endPointToWebsocket.has(endPoint)) {
             this.endPointToWebsocket.get(endPoint).next({...data});
+        } else {
+            const socketConnectSub = this.eventService.subscribe({
+                name: 'SOCKET_CONNECT',
+                status: 'success',
+            }, (wsEndPoint) => {
+                if (endPoint === wsEndPoint) {
+                    this.endPointToWebsocket.get(endPoint).next({...data});
+                    socketConnectSub.unsubscribe();
+                }
+            });
         }
         return requestId;
     }
