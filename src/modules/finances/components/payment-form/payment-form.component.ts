@@ -1723,7 +1723,10 @@ export class PaymentFormComponent
             this.pushNotification({
                 type: 'error',
                 title: gettext('Deposit'),
-                message: FinancesHelper.errorToMessage(error),
+                message: GlobalHelper.isNewErrorStructure(error)
+                    ? FinancesHelper.newFormatErrorToMessage(error)
+                    : FinancesHelper.errorToMessage(error),
+
             });
             isDepositSuccess = false;
 

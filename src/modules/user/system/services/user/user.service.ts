@@ -159,13 +159,13 @@ export interface IUpdateProfileOptions {
 /**
  * Return type for `updateProfile` method by `UserService`
  */
-export type TUpdateProfileRes = IData<{result: boolean}> & {errors?: string[] | IIndexing<string> | null};
+export type TUpdateProfileRes = IData<{result: boolean}>;
 
 /**
  * Return type for `setNewPassword` method by `UserService`
  */
 
-export type TSetNewPasswordRes = IData<Record<'result', string>> & {errors?: string[] | IIndexing<string> | null};
+export type TSetNewPasswordRes = IData<Record<'result', string>>;
 
 @Injectable({
     providedIn: 'root',

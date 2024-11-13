@@ -1,9 +1,15 @@
 import _isString from 'lodash-es/isString';
 import _uniq from 'lodash-es/uniq';
 
-import {PaymentSystem} from '../models/payment-system.model';
+import {
+    GlobalHelper,
+    IData,
+    IIndexing,
+} from 'wlc-engine/modules/core';
 import {TPaySystemTagAll} from 'wlc-engine/modules/finances/system/interfaces/finances.interface';
 
+import {PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
+import {IErrorContextFormatMessage} from 'wlc-engine/modules/core/system/services/data/data.service';
 type FilterType = 'deposit' | 'Deposits' | 'withdraw' | 'Withdraws' | 'all' | 'All';
 
 export class FinancesHelper {
@@ -28,6 +34,29 @@ export class FinancesHelper {
     public static checkSystemType(system: PaymentSystem, filterType: FilterType): boolean {
         return (FinancesHelper.isDeposit(system.showFor) && FinancesHelper.isDeposit(filterType))
         || (FinancesHelper.isWithdraw(system.showFor) && FinancesHelper.isWithdraw(filterType));
+    }
+
+    /**
+     * Looks for the context time in the error and brings it to locale
+     *
+     * @param {IErrorContextFormatMessage} error
+     *
+     * @returns findContextInMessage method | error text
+     */
+    public static newFormatErrorToMessage(error: IData): string {
+        if (error.errors && !Array.isArray(error.errors)) {
+            const errorMessage: string = (error.errors as IErrorContextFormatMessage)?.error?.message;
+            const context: IIndexing<string> = (error.errors as IErrorContextFormatMessage)?.error?.context;
+
+            // Regular expression checks that the string is in the format YYYY-MM-DD HH:mm:ss
+            if (context.time && /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(context.time)) {
+                context.time = GlobalHelper.toLocalTime(context.time, 'SQL', 'YYYY-MM-DD HH:mm:ss');
+            }
+
+            return GlobalHelper.findContextInMessage(context, errorMessage);
+        } else {
+            gettext('Something went wrong. Please try again later.');
+        }
     }
 
     public static errorToMessage(error: {errors?: any}): string | string[] {

@@ -666,4 +666,38 @@ export class GlobalHelper {
         const cookieValue: string = '7698155c459ee95063a26a7121b2b7916fa36004cbcfe787043d27692b249971';
         return Cookie.get('runautotest') === cookieValue;
     }
+
+    /**
+     * Check the error structure and returns true if it is new, false if old
+     *
+     * @param error
+     *
+     * @returns {boolean}
+     */
+    public static isNewErrorStructure(error): boolean {
+        return typeof error.errors === 'object' && !Array.isArray(error.errors);
+    }
+
+    /**
+     * Check string and looks for parameters with {{ }}
+     * Then replace these parameters according to the context
+     *
+     * @param IIndexing<string> context
+     * @param {string} message
+     *
+     * @returns {string}
+     */
+    public static findContextInMessage(context: IIndexing<string>, message: string): string {
+        let resultMessage = message;
+
+        for (const key in context) {
+            if (context.hasOwnProperty(key)) {
+                const placeholder: string = `{{${key}}}`;
+                const regex: RegExp = new RegExp(placeholder, 'g');
+                resultMessage = resultMessage.replace(regex, context[key]);
+            }
+        }
+
+        return resultMessage;
+    }
 }

@@ -64,13 +64,20 @@ export interface IData<T = any> {
     name: string;
     system: string;
     code?: number | string;
-    errors?: string[];
+    errors?: string[] | IIndexing<string> | IErrorContextFormatMessage;
     source?: string;
     data?: T;
     headers?: HttpHeaders;
 }
 
 export type TResponseError = Pick<IData, 'status' | 'code' | 'errors'>
+
+export interface IErrorContextFormatMessage {
+    error: {
+        message: string;
+        context: IIndexing<string>;
+    };
+}
 
 export type RestMethodType = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
 
@@ -591,7 +598,11 @@ export class DataService {
                 }
 
                 if (responseData.errors) {
-                    this.emitRequestFail('0.0.12', method, responseData.errors);
+
+                    if (Array.isArray(responseData.errors)) {
+                        this.emitRequestFail('0.0.12', method, responseData.errors);
+                    }
+
                     this.flow$.next(responseData);
                     method.subject.next(responseData);
                     throwError(responseData.errors);

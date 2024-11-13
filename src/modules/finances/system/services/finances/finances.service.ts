@@ -730,7 +730,7 @@ export class FinancesService {
             }
             return res.data;
         } catch (error) {
-            error.sytemId = systemId;
+            error.systemId = systemId;
             this.logService.sendLog({
                 code: method === 'deposit' ? '17.0.1' : '17.0.2',
                 flog: {
