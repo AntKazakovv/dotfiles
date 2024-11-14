@@ -67,4 +67,8 @@ export const errorTypes: ILogTypes = {
         // Deposit wager report not found
         level: 'error',
     },
+    '17.10.0': {
+        // Error getting recomended deposit amount
+        level: 'error',
+    },
 };

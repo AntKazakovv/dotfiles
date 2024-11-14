@@ -43,6 +43,7 @@ import {
 import {
     IDepWagerData,
     IFinancesConfig,
+    IRecommendedDeposit,
     ITaxData,
     TAdditionalParams,
     TPaySystemCategoriesConfig,
@@ -89,6 +90,7 @@ export class FinancesService {
 
     public paymentSystems$: BehaviorSubject<PaymentSystem[]> = new BehaviorSubject(undefined);
     public taxes: TaxModel;
+    public recommendedDeposit$: BehaviorSubject<null | number> = new BehaviorSubject(null);
 
     protected fastDepLimit: number;
     protected fastDepCurrency: string;
@@ -643,6 +645,24 @@ export class FinancesService {
                         this.needForFastDep = false;
                     }
                 });
+        }
+    }
+
+    public async getRecommendedDepositAmount(): Promise<any> {
+        try {
+            const response: IData = await this.dataService.request({
+                system: 'reports',
+                name: 'RecommendedDepositAmount',
+                fullUrl: '/api/v1/reports?report=v2/Reports/RecommendedDepositAmount',
+                type: 'GET',
+            });
+            const data: IRecommendedDeposit = JSON.parse(response.data);
+            this.recommendedDeposit$.next(data.DepositAmountOrig);
+        } catch (error) {
+            this.logService.sendLog({
+                code: '17.10.0',
+                data: error,
+            });
         }
     }
 

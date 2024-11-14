@@ -45,6 +45,8 @@ export interface IPaymentFormCParams extends IComponentParams<ComponentTheme, Co
      * If false: a new tab will open immediately with a preloader, then redirect to the payment page
       */
     disableNewTabPreloader?: boolean;
+    /* Enables recommended deposit amount for amount input field */
+    recommendedDeposit?: boolean;
 };
 
 export const timerParams: ITimerCParams = {

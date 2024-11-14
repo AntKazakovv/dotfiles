@@ -10,6 +10,7 @@ import {
     SimpleChange,
     Output,
     EventEmitter,
+    inject,
 } from '@angular/core';
 import {UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
@@ -69,6 +70,7 @@ import {
     ValidatorType,
     ICheckboxCParams,
     IModalConfig,
+    DataService,
 } from 'wlc-engine/modules/core';
 import {
     ColorThemeValues,
@@ -159,7 +161,9 @@ export class PaymentFormComponent
     public formData$: BehaviorSubject<TFormData> = new BehaviorSubject(null);
     public userProfile$: Subject<UserProfile> = new Subject();
     public onChanges$: Subject<SimpleChanges> = new Subject();
+    public isAmountInputReady$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
+    protected readonly dataService: DataService = inject(DataService);
     protected amount$: BehaviorSubject<number> = new BehaviorSubject(0);
     protected userTotalBalance: number = null;
     protected userAvailableWithdraw: number = null;
@@ -209,6 +213,7 @@ export class PaymentFormComponent
 
     private formSubmit: HTMLFormElement;
     private newTabRef: Window;
+    private recommendedAmountDeposit: number = 0;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IPaymentFormCParams,
@@ -1007,6 +1012,12 @@ export class PaymentFormComponent
                 this.initDefaultAmount();
             }
 
+            if (this.isDeposit && this.$params.recommendedDeposit && !this.isMultiWallet) {
+                this.getRecommendedDeposit();
+            } else if (this.isNotInvoice) {
+                this.isAmountInputReady$.next(true);
+            }
+
             formComponents.push(amountFieldWrap);
 
             if (this.showCommissions) {
@@ -1795,5 +1806,24 @@ export class PaymentFormComponent
                 computedStyles.getPropertyValue(variable),
             );
         });
+    }
+
+    private async getRecommendedDeposit(): Promise<void> {
+        this.financesService.recommendedDeposit$
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((recommendedDeposit: number) => {
+                if (typeof recommendedDeposit === 'number') {
+                    this.recommendedAmountDeposit = recommendedDeposit;
+                    this.setRecommendedDeposit();
+                    this.isAmountInputReady$.next(true);
+                }
+            });
+        this.financesService.getRecommendedDepositAmount();
+    }
+
+    private setRecommendedDeposit(): void {
+        if (!!this.recommendedAmountDeposit) {
+            this.formData$.next({amount: this.recommendedAmountDeposit});
+        }
     }
 }

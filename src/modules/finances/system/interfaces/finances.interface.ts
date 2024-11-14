@@ -318,3 +318,7 @@ export interface IDepWagerData {
     wager: number;
     currency: string;
 }
+
+export interface IRecommendedDeposit {
+    DepositAmountOrig?: number;
+}

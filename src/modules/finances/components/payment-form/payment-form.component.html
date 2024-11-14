@@ -76,7 +76,7 @@
 </div>
 
 <ng-container *ngIf="isWaitingResponse">
-    <div wlc-loader></div>
+    <ng-container [ngTemplateOutlet]="preloader"></ng-container>
 </ng-container>
 
 <ng-container *ngIf="showErrorHostedLoad">
@@ -98,7 +98,9 @@
             [title]="'An error has occurred. Please check the entered data and try again' | translate"
             [level]="'error'">
         </div>
-        <div *ngIf="!currentSystem.hostedFields.loaded" wlc-loader></div>
+        <div *ngIf="!currentSystem.hostedFields.loaded">
+            <ng-container [ngTemplateOutlet]="preloader"></ng-container>
+        </div>
     </div>
 
     <div wlc-form-wrapper
@@ -107,7 +109,7 @@
         [ngSubmit]="sendPrestepForm.bind(this)">
     </div>
 
-    <div *ngIf="isNotInvoice"
+    <div *ngIf="isAmountInputReady$ | async; else preloader"
         wlc-form-wrapper
         class="{{$class}}__form"
         [config]="formConfig"
@@ -146,3 +148,7 @@
         </button>
     </div>
 </ng-container>
+
+<ng-template #preloader>
+    <div wlc-loader></div>
+</ng-template>
