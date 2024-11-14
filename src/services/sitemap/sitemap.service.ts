@@ -12,8 +12,14 @@ import {
 } from 'wlc-engine/modules/core';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {RouterService} from 'wlc-engine/modules/core/system/services/router/router.service';
-import {StaticService, TextDataModel} from 'wlc-engine/modules/static';
-import {CategoryModel, GamesCatalogService} from 'wlc-engine/modules/games';
+import {
+    StaticService,
+    TextDataModel,
+} from 'wlc-engine/modules/static';
+import {
+    CategoryModel,
+    GamesCatalogService,
+} from 'wlc-engine/modules/games';
 import {ISitemapConfig} from 'wlc-engine/modules/core/system/interfaces/base-config/sitemap-config.interface';
 import {ISitemapService} from 'wlc-engine/services/sitemap/sitemap.interface';
 
@@ -89,11 +95,11 @@ export class SitemapService implements ISitemapService {
      */
     private initLanguages(): void {
         const configLanguages: ILanguage[] = this.configService.get<ILanguage[]>('appConfig.languages');
-        this.languages = configLanguages.map((language: ILanguage) => language.code);
+        this.languages = [...new Set(configLanguages.map((language: ILanguage) => language.code))];
         const defaultLanguage: string = this.config?.defaultLanguage;
 
         if (this.languages.includes(defaultLanguage)) {
-            this.languages.filter((code: string) => code !== defaultLanguage);
+            this.languages = this.languages.filter((language: string) => language !== defaultLanguage);
             this.languages.unshift(defaultLanguage);
         }
     }
@@ -108,7 +114,7 @@ export class SitemapService implements ISitemapService {
         const routerPaths: string[] = this.getRouterPaths();
         const allPaths: string[] = [...new Set([...wordpressPaths, ...routerPaths])];
 
-        if (this.config.router.catalog.use) {
+        if (this.config.router.catalog?.use) {
             const allCategories: CategoryModel[] = this.gamesCatalogService.getAllCategories();
             allCategories.forEach((category: CategoryModel) => {
                 allPaths.push(`/catalog/${category.slug}`);
@@ -147,8 +153,8 @@ export class SitemapService implements ISitemapService {
      * @returns {string[]} - List of paths to include in the sitemap from the router configuration.
      */
     private getRouterPaths(): string[] {
-        const routerState: StateDeclaration[] = this.routerService.get();
-        return this.filterRouterState(routerState);
+        const routerStates: StateDeclaration[] = this.routerService.getRoutes();
+        return this.filterRouterState(routerStates);
     }
 
     /**
@@ -217,7 +223,7 @@ export class SitemapService implements ISitemapService {
         try {
             const wordpressPages: TextDataModel[] = await this.staticService.getPostsListByCategorySlug(CATEGORY_SLUG);
             return wordpressPages
-                .filter(page => !!page.slug && page.slug !== '/')
+                .filter((page: TextDataModel) => !!page.slug && page.slug !== '/')
                 .map((page: TextDataModel) => `/contacts/${page.slug}`);
         } catch (error: unknown) {
             console.error(error);
@@ -235,6 +241,7 @@ export class SitemapService implements ISitemapService {
         const urls: string[] = [];
         const lastModification: string = new Date().toISOString();
         const domain: string = this.window.location.origin;
+
         this.paths.forEach((path: string, index: number) => {
             const [defaultLanguage, ...otherLanguages] = this.languages;
             const pageUrl: string = `${domain}/${defaultLanguage}${path}`;

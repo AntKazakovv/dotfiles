@@ -74,7 +74,7 @@ export class RouterService {
         return this.stateService.reload();
     }
 
-    public get(): StateDeclaration[] {
+    public getRoutes(): StateDeclaration[] {
         return this.stateService.get();
     }
 

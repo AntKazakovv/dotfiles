@@ -2,9 +2,9 @@ import {
     Ng2StateDeclaration,
     Transition,
 } from '@uirouter/angular';
+
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers';
 import {ISitemapConfig} from 'wlc-engine/modules/core/system/interfaces/base-config/sitemap-config.interface';
-
 import {
     ConfigService,
     RouterService,
@@ -31,17 +31,18 @@ export const sitemapState: Ng2StateDeclaration = {
                 await configService.ready;
                 const config: ISitemapConfig = configService.get<ISitemapConfig>('$base.sitemap');
 
-                if (config?.use && GlobalHelper.isAutotest()) {
-                    return await sitemapService.downloadXml();
+                if (config && config.use && GlobalHelper.isAutotest()) {
+                    await sitemapService.downloadXml();
+                    return navigateTo('app.home', transition, routerService);
                 }
 
-                redirectToHomePage();
-
-                function redirectToHomePage(): void {
-                    transition.abort();
-                    routerService.navigate('app.home', transition.params());
-                }
+                return navigateTo('app.error', transition, routerService);
             },
         },
     ],
 };
+
+function navigateTo(route: string,transition: Transition, routerService: RouterService): void {
+    transition.abort();
+    routerService.navigate(route, transition.params());
+}
