@@ -143,7 +143,8 @@ export class BonusesService {
     public profile: UserProfile;
     public walletsService: WalletsService;
     public bonusActionEvent: Subject<IBonusActionEvent> = new Subject();
-    public userCurrency$: BehaviorSubject<string>;
+    public userCurrency$: BehaviorSubject<string> =
+        new BehaviorSubject<string>(this.configService.get<string>('$base.defaultCurrency') || 'EUR');
 
     protected readonly websocketService: WebsocketService = inject(WebsocketService);
     protected activeBonuses: Bonus[] = [];
@@ -1048,8 +1049,6 @@ export class BonusesService {
         this.setSubscribers();
 
         await this.configService.ready;
-        const defaultCurrency: string = this.configService.get<string>('$base.defaultCurrency') || 'EUR';
-        this.userCurrency$ = new BehaviorSubject<string>(defaultCurrency);
 
         this.setMultiWallet();
         this.configService
@@ -1061,7 +1060,7 @@ export class BonusesService {
                 this.profile = userProfile;
                 const currency: string = userProfile?.idUser
                     ? userProfile.currency
-                    : defaultCurrency;
+                    : this.userCurrency$.getValue();
 
                 if (this.userCurrency$.getValue() !== currency) {
                     this.userCurrency$.next(currency);
