@@ -2,9 +2,12 @@ import {ILayoutComponent} from 'wlc-engine/modules/core/system/interfaces/layout
 import {wlcTitle} from 'wlc-engine/modules/core/system/config/layouts/components/core/wlc-title.config';
 
 export namespace wlcOrdersHistory {
-    
+
     export const def: ILayoutComponent = {
         name: 'history.wlc-orders-history',
+        params: {
+            theme: 'default',
+        },
     };
 
     export const wolf: ILayoutComponent = {
