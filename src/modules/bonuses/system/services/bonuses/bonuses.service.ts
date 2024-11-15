@@ -680,6 +680,7 @@ export class BonusesService {
                 name: 'BONUSES_FETCH_FAILED',
                 data: error,
             });
+            throw error;
         } finally {
             this.queryPromises[type].next(false);
         }
