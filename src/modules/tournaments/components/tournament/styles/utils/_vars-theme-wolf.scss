@@ -31,6 +31,8 @@ $themeWolf: map-merge((
     'boardMargin': 0 auto ef.size(4),
 
     'leaderboardBg': var(--mc-bg),
-    'leaderboardListBg': none,
-    'leaderboardListBgTop': none,
+    'leaderboardListHeadBg': var(--mc-bg500),
+    'leaderboardListBg': var(--mc-bg500),
+    'leaderboardListBgTop': var(--mc-bg500),
+    'leaderboardBtnBg': var(--mc-bg500),
 ), $customThemeWolf);

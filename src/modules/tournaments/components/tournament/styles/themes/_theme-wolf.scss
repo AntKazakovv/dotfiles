@@ -187,18 +187,22 @@
 
                 ::ng-deep {
 
-                    .wlc-tournament-leaderboard__container {
+                    .wlc-tournament-leaderboard {
 
-                        .wlc-tournament-leaderboard__item--head,
-                        .wlc-tournament-leaderboard__list {
-                            border-radius: 0;
+                        &__item--head {
+                            background: ef.get-value($themeWolf, 'leaderboardListHeadBg');
                         }
 
-                        &:has(.wlc-tournament-leaderboard__item--head) {
+                        &__list {
+                            background: ef.get-value($themeWolf, 'leaderboardListBg');
 
-                            .wlc-tournament-leaderboard__list--top {
-                                border-radius: 0;
+                            &--top {
+                                background: ef.get-value($themeWolf, 'leaderboardListBgTop');
                             }
+                        }
+
+                        &__btn {
+                            background: ef.get-value($themeWolf, 'leaderboardBtnBg');
                         }
                     }
                 }
