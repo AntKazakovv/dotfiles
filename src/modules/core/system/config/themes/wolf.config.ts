@@ -15,4 +15,9 @@ export const wolfConfig: Partial<Record<TModuleName, IIndexing<IIndexing<unknown
             theme: 'wolf',
         },
     },
+    'cashback': {
+        'wlc-cashback-timer': {
+            theme: 'wolf',
+        },
+    },
 };

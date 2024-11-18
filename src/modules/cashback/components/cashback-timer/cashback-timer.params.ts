@@ -22,6 +22,6 @@ export const defaultParams: ICashbackTimerCParams = {
     class: 'wlc-cashback-timer',
     titleText: gettext('Cashback'),
     calculatingText: gettext('We are already calculating your cashback!'),
-    timerText: gettext('Will be available in'),
+    timerText: gettext('Available in'),
     decorImagePath: GlobalHelper.gstaticUrl + '/wlc/cashback/cashback-decor.png',
 };

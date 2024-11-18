@@ -591,15 +591,9 @@ const generateProfileWolf = (): ILayoutSectionConfig => ({
 const insertCashbackTimer = ({
     margin = 'wlc-mb-smd',
     columns = 'wlc-c-12',
-    theme = 'default',
 } = {}): ILayoutComponent => {
     const useCashbackTimer = $base?.cashbackReward?.useCashbackTimer;
-    let component: ILayoutComponent;
-    if (theme === 'default') {
-        component = componentLib.wlcCashbackTimer.def;
-    } else if (theme = 'wolf') {
-        component = componentLib.wlcCashbackTimer.wolf;
-    }
+    const component = componentLib.wlcCashbackTimer.def;
 
     return {
         name: 'core.wlc-wrapper',
@@ -626,7 +620,7 @@ const generateDashboardWolfWithCashbackTimer = (): ILayoutSectionConfig => {
         componentLib.wlcBonusesWolf.profileDashboardSlider,
     ];
     const componentsTimer: ILayoutComponent[] = [
-        componentLib.wlcCashbackTimer.wolf,
+        componentLib.wlcCashbackTimer.def,
         componentLib.wlcDashboardLoyaltyBlock.wolfWithExpDate,
         componentLib.wlcUserStats.wolf,
         componentLib.wlcEnterPromocode.wolf,
@@ -1074,7 +1068,7 @@ export namespace profileContent {
                     components: [
                         componentLib.wlcProfileMenu.defTypeWolf,
                         componentLib.wlcProfileMenu.submenuWolf,
-                        insertCashbackTimer({margin: 'wlc-mb-lg', theme: 'wolf'}),
+                        insertCashbackTimer({margin: 'wlc-mb-lg'}),
                         componentLib.wlcBonusesWolf.main,
                     ],
                 },
@@ -1879,7 +1873,7 @@ export namespace profileContent {
                             params: {
                                 class: 'wlc-profile-dashboard__top',
                                 components: [
-                                    componentLib.wlcCashbackTimer.wolf,
+                                    componentLib.wlcCashbackTimer.def,
                                     componentLib.wlcDashboardLoyaltyBlock.wolfWithExpDate,
                                     componentLib.wlcUserStats.wolf,
                                     componentLib.wlcEnterPromocode.wolf,
