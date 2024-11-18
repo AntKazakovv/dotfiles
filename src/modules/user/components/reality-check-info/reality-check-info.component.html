@@ -18,6 +18,9 @@
         themeMod="secondary"
         [disabled]="disabledButtons"
         (click)="close()">
+        [text]="'Log out' | translate"
+        (click)="logout()"
+        themeMod="secondary">
     </button>
     <span class="{{$class}}-footer-text">{{ 'or' | translate}}</span>
     <button wlc-button
