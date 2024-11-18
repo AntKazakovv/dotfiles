@@ -188,6 +188,8 @@
             .wlc-modal__close {
                 top: ef.get-value($themeDefault, 'tournamentDetailIconCloseTop');
                 right: ef.get-value($themeDefault, 'tournamentDetailIconCloseRight');
+                width: ef.get-value($themeDefault, 'tournamentDetailIconCloseSize');
+                height: ef.get-value($themeDefault, 'tournamentDetailIconCloseSize');
             }
         }
 

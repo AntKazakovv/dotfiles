@@ -38,13 +38,17 @@ export class TagComponent extends AbstractComponent implements OnInit, OnChanges
 
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+        this.tagConfig = this.$params.common;
     }
 
     public override ngOnChanges(changes: SimpleChanges): void {
         super.ngOnChanges(changes);
 
         if (changes.inlineParams?.currentValue?.common) {
-            this.tagConfig = changes.inlineParams.currentValue.common;
+            this.tagConfig = {
+                ...(this.tagConfig ?? {}) ,
+                ...changes.inlineParams.currentValue.common,
+            };
 
             if (this.tagConfig.bg) {
                 this.renderer.setStyle(this.hostRef.nativeElement, '--wlc-tag-bg', this.tagConfig.bg, 2);
