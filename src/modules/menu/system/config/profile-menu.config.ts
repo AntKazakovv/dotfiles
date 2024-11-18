@@ -181,6 +181,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         type: 'title',
         class: 'bonuses',
         icon: 'bonuses',
+        wlcElement: 'link_cc-profile-menu_bonuses',
         params: {
             state: {
                 parent: 'app.profile.loyalty-bonuses',
@@ -194,6 +195,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         type: 'title',
         class: 'bonuses',
         icon: 'bonuses',
+        wlcElement: 'link_cc-profile-menu_bonuses',
         params: {
             blockExpand: true,
             state: {
@@ -238,13 +240,13 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         type: 'sref',
         class: 'bonuses',
         icon: 'bonuses',
+        wlcElement: 'link_offers',
         params: {
             state: {
                 name: 'app.profile.loyalty-bonuses.main',
                 params: {},
             },
         },
-        wlcElement: 'link_offers',
     },
 
     'profile-menu:bonuses-offers': {
@@ -265,6 +267,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         type: 'sref',
         icon: 'bonuses-offers',
         class: 'bonuses-offers',
+        wlcElement: 'link_offers',
         params: {
             state: {
                 name: 'app.profile.loyalty-bonuses.main',
@@ -939,6 +942,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         type: 'sref',
         icon: 'messages',
         class: 'messages',
+        wlcElement: 'link_messages',
         params: {
             state: {
                 name: 'app.profile.messages',
