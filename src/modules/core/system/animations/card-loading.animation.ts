@@ -10,7 +10,7 @@ import {
 export const CardLoadingAnimation = [
     trigger('cardLoading', [
         transition('*<=>*', [
-            query('.wlc-games-grid__item:enter .wlc-game-thumb', [
+            query('.wlc-games-grid__item:enter', [
                 style({
                     opacity: 0,
                     transform: 'translateY(25px)',
