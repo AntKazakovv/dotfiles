@@ -50,12 +50,11 @@ export class TwoFactorAuthScanComponent extends AbstractComponent implements OnI
         return this.qrCodeImg;
     }
 
-    public override async ngOnInit(): Promise<void> {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.secretCode ??= this.$params.secretCode || this.twoFactorAuthService.secretCode;
         this.inputParams = this.getInputParams();
         this.makeLink();
-        this.cdr.markForCheck();
     }
 
     public async makeLink(): Promise<void> {
@@ -65,6 +64,7 @@ export class TwoFactorAuthScanComponent extends AbstractComponent implements OnI
                 {width: 250},
             );
         }
+        this.cdr.markForCheck();
     }
 
     protected openModal(): void {

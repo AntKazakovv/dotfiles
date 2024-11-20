@@ -5,7 +5,7 @@
     {{$params.description | translate}}
 </div>
 <div wlc-form-wrapper
-    [config]="$params.config"
+    [config]="config"
     [ngSubmit]="ngSubmit.bind(this)"
     [errors]="errors$.asObservable()">
 </div>

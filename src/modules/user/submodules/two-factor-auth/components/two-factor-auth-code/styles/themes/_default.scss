@@ -6,7 +6,7 @@
 
             &__title {
                 @include bm.get-mq-map('font-size', $themeDefault, 'titleFontSize');
-                margin: ef.get-value($themeDefault, 'titleMargin');
+                @include bm.get-mq-map('margin', $themeDefault, 'titleMargin');
             }
         }
 

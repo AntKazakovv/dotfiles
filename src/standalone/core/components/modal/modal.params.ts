@@ -532,7 +532,7 @@ export const MODALS_LIST: IModalList = {
         config: {
             id: 'two-factor-auth-finish',
             modifier: 'two-factor-auth-finish',
-            componentName: 'two-factor-auth.wlc-two-factor-auth-finish',
+            componentName: 'two-factor-auth.wlc-two-factor-auth-code',
             showFooter: false,
             useBackButton: true,
             backButtonText: gettext('Back'),
@@ -540,6 +540,9 @@ export const MODALS_LIST: IModalList = {
             dismissAll: true,
             ignoreBackdropClick: true,
             backdrop: 'static',
+            componentParams: {
+                type: 'finish',
+            },
         },
     },
     'two-factor-auth-code': {

@@ -30,6 +30,7 @@ export class TwoFactorAuthCodeComponent extends AbstractComponent implements OnI
     public override $params: Params.ITwoFactorAuthCodeCParams;
     public errors$: BehaviorSubject<Record<string, string>> = new BehaviorSubject(null);
     public config: IFormWrapperCParams;
+    public pending$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITwoFactorAuthCodeCParams,
@@ -40,22 +41,42 @@ export class TwoFactorAuthCodeComponent extends AbstractComponent implements OnI
 
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
+
+        if (this.$params.type === 'finish') {
+            this.$params.description = Params.finishDescription;
+        }
+
+        this.setFormConfig();
     }
 
-    /**
-     * Sends request to complete email verification for unauthorized user
-     *
-     * @param {FormGroup} form
-     */
     public async ngSubmit(form: UntypedFormGroup): Promise<boolean> {
         const code2FA: string = form.value.code2FA;
         form.disable();
-        const res: boolean = await this.twoFactorAuthService.enter2FAGoogleCode(
-            this.$params.authKey,
-            code2FA,
-            this.$params.responseCode,
-        );
+        this.pending$.next(true);
+        let result: boolean = false;
+
+        switch (this.$params.type) {
+            case 'finish':
+                result = await this.twoFactorAuthService.enable2FAGoogle(code2FA);
+                break;
+            default:
+                result = await this.twoFactorAuthService.enter2FAGoogleCode(
+                    this.$params.authKey,
+                    code2FA,
+                    this.$params.responseCode,
+                );
+                break;
+        }
+        this.pending$.next(false);
         form.enable();
-        return res;
+        return result;
+    }
+
+    protected setFormConfig(): void {
+        this.config = {
+            components: [
+                ...Params.components(this.pending$),
+            ],
+        };
     }
 }

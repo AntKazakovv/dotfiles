@@ -60,10 +60,7 @@ export class TwoFactorAuthService {
      */
     public async getUserInfo(): Promise<UserInfo> {
         await this.configService.ready;
-        if (!this.userService) {
-            this.userService = await this.injectionService.getService<UserService>('user.user-service');
-        }
-        this.userService.fetchUserInfo();
+        this.fetchUserInfo();
         return await firstValueFrom<UserInfo>(
             this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'})
                 .pipe(
@@ -168,10 +165,7 @@ export class TwoFactorAuthService {
                 'success',
             );
             this.eventService.emit({name: 'ENABLE_2FA_GOOGLE'});
-            if (!this.userService) {
-                this.userService = await this.injectionService.getService<UserService>('user.user-service');
-            }
-            this.userService.fetchUserInfo();
+            this.fetchUserInfo();
             this.hideActiveModal('two-factor-auth-finish');
             UserHelper.showInformationModal(
                 this.modalService,
@@ -206,6 +200,8 @@ export class TwoFactorAuthService {
     public async enter2FAGoogleCode(authKey: string, code2FA: string, responseCode: number): Promise<boolean> {
         const data: ITwoFactorEnterCodeData = {authKey, code2FA};
         try {
+            this.fetchUserInfo();
+
             switch (responseCode) {
                 case 231:
                     if (!this.userService.isAuth$.getValue()
@@ -213,7 +209,6 @@ export class TwoFactorAuthService {
                     ) {
                         this.dataService.setNonceToLocalStorage();
                     }
-
                     await this.authRequest(data);
                     break;
                 case 232:
@@ -277,10 +272,7 @@ export class TwoFactorAuthService {
                 url: '/auth/2fa/google',
                 type: 'PATCH',
             });
-            if (!this.userService) {
-                this.userService = await this.injectionService.getService<UserService>('user.user-service');
-            }
-            this.userService.fetchUserInfo();
+            this.fetchUserInfo();
             this.showNotification(
                 gettext('Notifications have been disabled successfully'),
                 'success',
@@ -302,10 +294,7 @@ export class TwoFactorAuthService {
                 url: '/auth/2fa/google',
                 type: 'DELETE',
             });
-            if (!this.userService) {
-                this.userService = await this.injectionService.getService<UserService>('user.user-service');
-            }
-            this.userService.fetchUserInfo();
+            this.fetchUserInfo();
             this.showNotification(
                 gettext('Authentication is disabled'),
                 'warning',
@@ -391,5 +380,10 @@ export class TwoFactorAuthService {
             },
             data,
         );
+    }
+
+    private async fetchUserInfo(): Promise<void> {
+        this.userService ??= await this.injectionService.getService<UserService>('user.user-service');
+        this.userService.fetchUserInfo();
     }
 }
