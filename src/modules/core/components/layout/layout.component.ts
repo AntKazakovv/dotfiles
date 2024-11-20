@@ -232,6 +232,10 @@ export class LayoutComponent implements OnInit, OnDestroy {
                     },
                 };
 
+                if (component.display) {
+                    saConfig.display = component.display;
+                }
+
                 if (component.componentClass) {
                     saConfig.componentClass = component.componentClass;
                 }
