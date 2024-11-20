@@ -38,6 +38,10 @@
                     ef.get-value($themeLong, 'prizeColor')
                 );
             }
+
+            .wlc-tournament-prizes__row:last-child {
+                border-bottom: 0;
+            }
         }
 
         &__controls {

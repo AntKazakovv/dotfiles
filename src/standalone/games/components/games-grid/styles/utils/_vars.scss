@@ -25,7 +25,6 @@ $themeDefault: map-merge((
         375: ef.size(2),
         900: ef.size(3),
         1420: ef.size(4),
-        1630: ef.size(5),
     ),
     'placeholderBorderRadius': ef.get('radius', 'less'),
     'placeholderTextColor': var(--mc-baseMain),

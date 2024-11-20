@@ -112,6 +112,7 @@
             &__container {
                 padding: ef.get-value($themeDefault, 'paddingCompact');
                 background: ef.get-value($themeDefault, 'containerBackgroundCompact');
+                border-radius: ef.get-value($themeDefault, 'bodyRadius');
             }
 
             &__head {
@@ -128,7 +129,7 @@
             &__body {
                 padding: ef.get-value($themeDefault, 'bodyPaddingCompact');
                 background: ef.get-value($themeDefault, 'bodyBackgroundCompact');
-                border-radius: ef.get-value($themeDefault, 'bodyRadiusCompact');
+                border-radius: ef.get-value($themeDefault, 'bodyRadius');
 
                 .wlc-tournament-prizes__row {
                     margin: ef.get-value($themeDefault, 'bodyRowMarginCompact');

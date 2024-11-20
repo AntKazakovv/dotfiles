@@ -215,19 +215,17 @@
                 </div>
                 <div wlc-tournament-prizes
                     class="{{$class}}-prizes"
-                    [themeMod]="'compact'"
-                    [tournament]="tournament">
-                </div>
-                <div wlc-tournament-prizes
-                    class="{{$class}}-prizes-mobile"
                     [tournament]="tournament">
                 </div>
 
-                <span *ngIf="tournament.winningSpreadByPercent.length > rowLimit"
-                    wlc-link-block
-                    link="Show all"
-                    (click)="readMore(true)"
-                ></span>
+                <button *ngIf="tournament.prizeTable.length > rowLimit"
+                    wlc-button
+                    class="{{$class}}__btn"
+                    text="Show all"
+                    theme="textonly"
+                    [attr.type]="'button'"
+                    (click)="readMore(true)">
+                </button>
             </div>
         </div>
 

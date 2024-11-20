@@ -126,8 +126,30 @@
         }
 
         &__inner {
+            --wlc-timer-bg: #{ef.get-value($themeAlternative, 'timerBg')};
+
             position: relative;
             z-index: ef.get-value($themeDefault, 'innerBlockZIndex');
+
+            &:has(.wlc-btn) {
+
+                ::ng-deep {
+
+                    .wlc-tournament-prizes--theme-default {
+
+                        & .wlc-tournament-prizes {
+
+                            &__container {
+                                border-radius: ef.get-value($themeDefault, 'containerRadiusHasBtn');
+                            }
+
+                            &__body .wlc-tournament-prizes__row:last-child {
+                                border-bottom: ef.get-value($themeDefault, 'prizesRowBorder');
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         &__tag {
@@ -246,21 +268,27 @@
             @include cm.lockBtn;
             @include bm.get-mq-map('max-width', $themeAlternative, 'lockBtnMaxWidth');
         }
+
+        &__btn {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            min-height: ef.get-value($themeAlternative, 'linkBlockHeight');
+            padding: ef.get-value($themeAlternative, 'linkBlockPadding');
+            border-radius: ef.get-value($themeAlternative, 'linkBlockRadius');
+            color: ef.get-value($themeAlternative, 'linkBlockColor');
+            background: ef.get-value($themeAlternative, 'linkBlockBg');
+        }
     }
 
     ::ng-deep {
 
         .wlc-tournament-promo-prizes {
-            @include bm.get-mq-map('display', $themeAlternative, 'prizesDisplay');
+            display: block;
             margin: ef.get-value($themeAlternative, 'prizesMargin');
 
             &:last-child {
                 margin-bottom: 0;
-            }
-
-            &-mobile {
-                @include bm.get-mq-map('display', $themeAlternative, 'prizesDisplayMobile');
-                margin: ef.get-value($themeAlternative, 'prizesMargin');
             }
         }
 
