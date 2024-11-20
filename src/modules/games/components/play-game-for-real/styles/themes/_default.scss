@@ -96,6 +96,15 @@
                         @include bm.get-mq-map('margin', $themeDefault, 'textBlockHeadMargin');
                     }
 
+                    &__text {
+                        @include text.get-text-style(
+                            ef.get-value($themeDefault, 'textBlockTextFont'),
+                            ef.get-value($themeDefault, 'textBlockTextFontColor'),
+                        );
+                        margin: ef.get-value($themeDefault, 'textBlockTextMargin');
+                        text-align: ef.get-value($themeDefault, 'textBlockTextAlign');
+                    }
+
                     &__subtitle {
                         @include text.get-text-style(ef.get-value($themeDefault, 'textBlockSubtitleFont'), ef.get-value($themeDefault, 'textBlockSubtitleFontColor'));
                     }

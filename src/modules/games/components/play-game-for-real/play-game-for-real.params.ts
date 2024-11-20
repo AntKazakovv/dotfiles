@@ -255,8 +255,7 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
             name: 'core.wlc-text-block',
             params: <ITextBlockCParams>{
                 common: {
-                    themeMod: 'game-title',
-                    textBlockSubtitle: params.game.name['en'],
+                    textBlockSubtitle: gettext('Let\'s play!'),
                 },
             },
         },
@@ -270,6 +269,16 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
                 },
             },
         },
+        {
+            name: 'core.wlc-text-block',
+            params: <ITextBlockCParams>{
+                common: {
+                    themeMod: 'game-title',
+                    textBlockText: params.game.name['en'],
+                },
+            },
+        },
+
         params.game.showChoiceOfCurrency ? {
             name: 'multi-wallet.wlc-choice-currency',
             params: <IChoiceCurrencyParams>{
@@ -295,7 +304,7 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
             params: <IButtonCParams>{
                 name: 'play-real',
                 common: {
-                    text: gettext('Play'),
+                    text: gettext('Apply'),
                     type: 'button',
                     typeAttr: 'button',
                     event: {

@@ -1,46 +1,54 @@
 <ng-template [ngIf]="isShow">
-    <div wlc-click-outside
-        class="{{$class}}__container"
-        [isOpened]="isOpened"
-        (clickOutside)="clickOutside()">
-        <span class="{{$class}}__text">
-            {{balanceText | translate}}
-        </span>
-        <div class="{{$class}}__dropdown-btn"
-            [class.isOpened]="isOpened"
-            (click)="onOpen()">
-            <ng-container
-                [ngTemplateOutlet]="currency"
-                [ngTemplateOutletContext]="{$implicit: currentCurrency}">
-            </ng-container>
-            <span wlc-icon
-                class="arrow"
-                iconPath="/wlc/icons/icons_new/arrow.svg"
-                wlcElement="icon_arrow">
+    <div class="{{$class}}__wrapper">
+        <div wlc-click-outside
+            class="{{$class}}__container"
+            [isOpened]="isOpened"
+            (clickOutside)="clickOutside()">
+            <span class="{{$class}}__text">
+                {{balanceText | translate}}
             </span>
-        </div>
+            <div class="{{$class}}__dropdown-btn"
+                [class.isOpened]="isOpened"
+                (click)="onOpen()">
+                <ng-container
+                    [ngTemplateOutlet]="currency"
+                    [ngTemplateOutletContext]="{$implicit: currentCurrency}">
+                </ng-container>
+                <span wlc-icon
+                    class="arrow"
+                    iconPath="/wlc/icons/icons_new/arrow.svg"
+                    wlcElement="icon_arrow">
+                </span>
+            </div>
 
-        <div *ngIf="isOpened"
-             class="{{$class}}__list">
-            <ng-container *ngFor="let currencyName of currencies">
-                <div *ngIf="showCurrency(currencyName)"
-                    class="{{$class}}__currency"
-                    [class.select]="currencyName === currentCurrency"
-                    (click)="onChangingCurrency(currencyName)">
-                    <ng-container
-                        [ngTemplateOutlet]="currency"
-                        [ngTemplateOutletContext]="{$implicit: currencyName}">
-                    </ng-container>
-                </div>
-            </ng-container>
+            <div *ngIf="isOpened"
+                class="{{$class}}__list">
+                <ng-container *ngFor="let currencyName of currencies">
+                    <div *ngIf="showCurrency(currencyName)"
+                        class="{{$class}}__currency"
+                        [class.select]="currencyName === currentCurrency"
+                        (click)="onChangingCurrency(currencyName)">
+                        <ng-container
+                            [ngTemplateOutlet]="currency"
+                            [ngTemplateOutletContext]="{$implicit: currencyName}">
+                        </ng-container>
+                    </div>
+                </ng-container>
+            </div>
         </div>
+        <button *ngIf="isOverlap"
+            wlc-button
+            typeAttr="button"
+            [inlineParams]="buttonParams"
+            (click)="onSelectCurrency()">
+        </button>
     </div>
-    <button *ngIf="isOverlap"
-        wlc-button
-        typeAttr="button"
-        [inlineParams]="buttonParams"
-        (click)="onSelectCurrency()">
-    </button>
+    @if (paramExclude('themeMod', 'in-modal')) {
+        <div wlc-image
+            class="{{$class}}__game-img"
+            [src]="gameImage">
+        </div>
+    }
 </ng-template>
 
 <ng-template #currency let-name>

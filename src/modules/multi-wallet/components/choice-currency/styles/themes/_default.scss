@@ -117,4 +117,38 @@ $selector: '.wlc-choice-currency';
         padding: ef.get-value($themeDefault, 'paddingInModal');
         background: transparent;
     }
+
+    &:not(#{$selector}--theme-mod-in-modal) {
+        #{$selector}__wrapper {
+            z-index: ef.get-value($themeDefault, 'wrapperZIndex');
+            display: grid;
+            grid-auto-flow: row;
+            place-items: ef.get-value($themeDefault, 'wrapperPlaceItems');
+            gap: ef.get-value($themeDefault, 'wrapperGap');
+            border-radius: ef.get-value($themeDefault, 'wrapperBorderRadius');
+            width: ef.get-value($themeDefault, 'wrapperWidth');
+            max-width: ef.get-value($themeDefault, 'wrapperMaxWidth');
+            padding: ef.get-value($themeDefault, 'wrapperPadding');
+            background: ef.get-value($themeDefault, 'wrapperBg');
+        }
+
+        #{$selector}__game-img {
+            --wlc-image-width: #{ef.get-value($themeDefault, 'gameImageWidth')};
+            --wlc-image-height: #{ef.get-value($themeDefault, 'gameImageHeight')};
+            --wlc-image-object-fit: #{ef.get-value($themeDefault, 'gameImageObjectFit')};
+
+            position: ef.get-value($themeDefault, 'gameImagePosition');
+            z-index: ef.get-value($themeDefault, 'gameImageZIndex');
+            width: ef.get-value($themeDefault, 'gameImageWidth');
+            max-width: ef.get-value($themeDefault, 'gameImageMaxWidth');
+            height: ef.get-value($themeDefault, 'gameImageHeight');
+            max-height: ef.get-value($themeDefault, 'gameImageMaxHeight');
+            border-radius: ef.get-value($themeDefault, 'gameImageBorderRadius');
+            overflow: hidden;
+
+            ::ng-deep .wlc-image__content {
+                filter: ef.get-value($themeDefault, 'gameImageFilter');
+            }
+        }
+    }
 }

@@ -127,6 +127,10 @@ export class ChoiceCurrencyComponent extends AbstractComponent implements OnInit
         this.stateService.reload();
     }
 
+    public get gameImage(): string {
+        return this.$params.game.getImage(640);
+    }
+
     protected showCurrency(currency: string): boolean {
         return this.allCurrency || this.currencyService.isFiat(currency);
     }

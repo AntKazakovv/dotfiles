@@ -2,7 +2,7 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'position': relative,
     'positionInModal': relative,
-    'paddingInModal': 0 0 ef.size(8),
+    'paddingInModal': 0,
     'display': flex,
     'flexDirection': column,
     'gap': ef.size(6),
@@ -67,4 +67,23 @@ $themeDefault: map-merge((
     'scrollbarThumbBg': var(--mc-bg100),
 
     'iconSize': ef.size(3),
+
+    'wrapperPadding': ef.size(6),
+    'wrapperGap': ef.size(6),
+    'wrapperPlaceItems': center,
+    'wrapperBg': var(--mc-bgModal),
+    'wrapperBorderRadius': ef.get('radius', 'biger'),
+    'wrapperWidth': 100%,
+    'wrapperMaxWidth': 540px,
+    'wrapperZIndex': 2,
+
+    'gameImagePosition': absolute,
+    'gameImageWidth': 100%,
+    'gameImageMaxWidth': 1280px,
+    'gameImageMaxHeight': 721px,
+    'gameImageHeight': 100%,
+    'gameImageObjectFit': cover,
+    'gameImageBorderRadius': ef.get('radius', 'biger'),
+    'gameImageZIndex': 1,
+    'gameImageFilter': blur(12.5px),
 ), $customThemeDefault);

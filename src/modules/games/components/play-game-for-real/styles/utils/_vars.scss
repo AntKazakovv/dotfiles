@@ -9,7 +9,7 @@ $themeDefault: map-merge((
     'socialNetworksMargin':  0 0 ef.size(4) 0,
     'fieldMargin': 0 0 ef.size(4) 0,
     'btnMargin': 0 auto ef.size(4) auto,
-    'btnDefaultMargin': ef.size(6) auto ef.size(2) auto,
+    'btnDefaultMargin': ef.size(8) auto ef.size(4),
     'titleMargin': ef.size(4) auto ef.size(6) auto,
     'titleMarginMobile': 0 auto ef.size(6) auto,
     'titleFontSize': 'QoteTextBold',
@@ -29,8 +29,13 @@ $themeDefault: map-merge((
 
     'linkBlockBtnMargin': 0 auto ef.size(2) auto,
     'textBlockHeadMargin': (
-        375: ef.size(4) 0 ef.size(6),
+        375: 0 0 ef.size(4),
     ),
+
+    'textBlockTextMargin': ef.size(4) auto,
+    'textBlockTextAlign': center,
+    'textBlockTextFont': 'ThirdTitleBold',
+    'textBlockTextFontColor': var(--mc-baseSecond, var(--mc-baseMain)),
 
     'textBlockSubtitleFont': 'ThirdTitleBold',
     'textBlockSubtitleFontColor': var(--mc-baseSecond, var(--mc-baseMain)),
