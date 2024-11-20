@@ -101,7 +101,7 @@ export class SearchControllerDefault extends AbstractSearchController<IControlle
             this.setCategories();
             this.setMerchants();
             this.initSubscribers();
-            this.$resolveReady();
+            this.$resolveReady(true);
         });
     }
 
@@ -119,6 +119,10 @@ export class SearchControllerDefault extends AbstractSearchController<IControlle
 
     public get filterMerchantsLength(): number {
         return this._filters$.getValue().merchants.length;
+    }
+
+    public get ready(): Promise<unknown> {
+        return this.controllerReady;
     }
 
     public get filters(): IGamesFilterData {
@@ -316,9 +320,7 @@ export class SearchControllerDefault extends AbstractSearchController<IControlle
     /**
     * If there is a cached filter, the method initializes the component with this filter
     */
-    protected initFromCache(): void {
-        const filterCache: IGamesFilterData = _isEmpty(this.gamesFilterService.filterCache)
-            ? null : this.gamesFilterService.filterCache[this.props.searchFilterName];
+    protected initFromCache(filterCache: IGamesFilterData): void {
 
         if (this.gamesFilterService.$gamesFilterSubsIsReady.getValue()) {
             setTimeout(() => {
@@ -350,8 +352,11 @@ export class SearchControllerDefault extends AbstractSearchController<IControlle
     }
 
     protected checkCache(): void {
+        const filterCache: IGamesFilterData = _isEmpty(this.gamesFilterService.filterCache)
+            ? null : this.gamesFilterService.filterCache[this.props.searchFilterName];
+
         this.searchFieldCParams = {
-            searchQueryFromCache: this.searchQuery,
+            searchQueryFromCache: filterCache?.searchQuery,
             searchFrom: this.props.searchFilterName,
             focus: true,
         };
@@ -359,7 +364,7 @@ export class SearchControllerDefault extends AbstractSearchController<IControlle
         if (this.router.globals.current.name === 'app.gameplay'
             || this.router.globals.transitionHistory.peekTail().$from().name === 'app.gameplay'
         ) {
-            this.initFromCache();
+            this.initFromCache(filterCache);
         } else {
             if (this.gamesFilterService.$gamesFilterSubsIsReady.getValue()) {
                 this.setFilter();

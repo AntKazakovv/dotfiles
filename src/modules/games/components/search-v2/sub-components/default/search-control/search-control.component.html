@@ -1,6 +1,6 @@
 <div class="{{$class}}__panel">
-
-    <div wlc-search-field
+    <div *ngIf="$searchControllerDefault.ready | async"
+        wlc-search-field
         class="{{$class}}__col {{$class}}__col--search"
         [inlineParams]="$searchControllerDefault.searchParams"
         (searchQueryEmit)="setSearchQuery($event)">

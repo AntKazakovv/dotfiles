@@ -27,7 +27,6 @@ import {
     ISearchFieldCParams,
     defaultParams,
 } from './search-field.params';
-import {SearchControllerDefault} from 'wlc-engine/modules/games/components/search-v2';
 
 @Component({
     selector: '[wlc-search-field]',
@@ -56,7 +55,6 @@ export class SearchFieldComponent extends AbstractComponent implements OnInit, A
     protected disabledSymbols: RegExp = /[$%*;<=>?@\^{|}~№]/gi;
 
     constructor(
-        @Inject(SearchControllerDefault) protected $searchControllerDefault: SearchControllerDefault,
         @Inject('injectParams') protected injectParams: ISearchFieldCParams,
         protected eventService: EventService,
         protected gamesFilterService: GamesFilterService,
@@ -83,8 +81,6 @@ export class SearchFieldComponent extends AbstractComponent implements OnInit, A
             this.searchQuery = this.inlineParams.searchQueryFromCache;
             this.emitSearch(this.searchQuery);
             this.processSearchStringLength();
-        } else {
-            this.subscribeSearchQuery();
         }
     }
 
@@ -165,15 +161,5 @@ export class SearchFieldComponent extends AbstractComponent implements OnInit, A
 
     protected processSearchStringLength(): void {
         this.searchQuery ? this.addModifiers('close-icon-showed') : this.removeModifiers('close-icon-showed');
-    }
-
-    public subscribeSearchQuery(): void {
-        this.$searchControllerDefault.searchQuery$()
-            .pipe(
-                takeUntil(this.$destroy),
-            )
-            .subscribe((value)=> {
-                this.searchQuery = value;
-            });
     }
 }
