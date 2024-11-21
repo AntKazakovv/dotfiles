@@ -274,7 +274,7 @@ export class SelectValuesService {
     public getPepList(): TConstantValue {
         return new BehaviorSubject<Params.ISelectOptions[]>([
             {
-                value: '',
+                value: null,
                 title: gettext('Not selected'),
             },
             {
@@ -516,7 +516,7 @@ export class SelectValuesService {
         const additionalGenders = this.configService.get<Params.ISelectOptions[]>('$base.additionalGenders');
         const defaultGenders: Params.ISelectOptions[] = [
             {
-                value: '',
+                value: null,
                 title: gettext('Not selected'),
             },
             {
