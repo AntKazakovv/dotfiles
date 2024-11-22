@@ -301,6 +301,25 @@ const dashboardPromoSection: ILayoutComponent = {
 
 /** Generates dashboard layout config with/without deposit wager widget. Use smart sections */
 const generateDashboard = (useDepositWager?: boolean): ILayoutSectionConfig => {
+    const useCashbackTimer = $base?.cashbackReward?.useCashbackTimer;
+    const componentsWithCashback = [
+        componentLib.wlcCashbackTimer.def,
+        componentLib.wlcDashboardLoyaltyBlock.defWithExpDate,
+        componentLib.wlcUserStats.dashboard,
+    ];
+    const componentsWithoutCashback = [
+        componentLib.wlcDashboardLoyaltyBlock.defWithExpDate,
+        componentLib.wlcUserStats.dashboard,
+    ];
+    const columnsWithCashback = [
+        'wlc-c-12',
+        'wlc-c-12 wlc-c-768-6',
+        'wlc-c-12 wlc-c-768-6',
+    ];
+    const columnsWithoutCashback = [
+        'wlc-c-12 wlc-c-768-6',
+        'wlc-c-12 wlc-c-768-6',
+    ];
     const componentsNoWager: ILayoutComponent[] = [
         componentLib.wlcEnterPromocode.def,
         componentLib.wlcSeeAllBonuses.def,
@@ -319,6 +338,8 @@ const generateDashboard = (useDepositWager?: boolean): ILayoutSectionConfig => {
         'wlc-c-12 wlc-c-720-6 wlc-c-1200-4',
         'wlc-c-12 wlc-c-720-6 wlc-c-1200-4',
     ];
+    const topLineComponents = useCashbackTimer ? componentsWithCashback : componentsWithoutCashback;
+    const topLineColumns = useCashbackTimer ? columnsWithCashback : columnsWithoutCashback;
     const bottomLineComponents: ILayoutComponent[] = useDepositWager ? componentsWager : componentsNoWager;
     const bottomLineColumns: string[] = useDepositWager ? columnsWager : columnsNoWager;
 
@@ -362,17 +383,11 @@ const generateDashboard = (useDepositWager?: boolean): ILayoutSectionConfig => {
                 name: 'core.wlc-wrapper',
                 params: {
                     class: 'smart-dashboard__top',
-                    components: [
-                        componentLib.wlcDashboardLoyaltyBlock.defWithExpDate,
-                        componentLib.wlcUserStats.dashboard,
-                    ],
+                    components: topLineComponents,
                     smartSection: {
                         hostClasses: 'wlc-mb-smd wlc-mb-1630-lg',
                         innerClasses: 'wlc-gap-smd wlc-gap-1366-md',
-                        columns: [
-                            'wlc-c-12 wlc-c-768-6',
-                            'wlc-c-12 wlc-c-768-6',
-                        ],
+                        columns: topLineColumns,
                     },
                 },
             },
@@ -441,6 +456,25 @@ const generateDashboard = (useDepositWager?: boolean): ILayoutSectionConfig => {
 
 /** Generates wolf dashboard layout config with/without deposit wager widget. Use smart sections */
 const generateDashboardWolf = (useDepositWager?: boolean): ILayoutSectionConfig => {
+    const useCashbackTimer = $base?.cashbackReward?.useCashbackTimer;
+    const componentsWithCashback = [
+        componentLib.wlcCashbackTimer.def,
+        componentLib.wlcDashboardLoyaltyBlock.wolfWithExpDate,
+        componentLib.wlcUserStats.wolf,
+    ];
+    const componentsWithoutCashback = [
+        componentLib.wlcDashboardLoyaltyBlock.wolfWithExpDate,
+        componentLib.wlcUserStats.wolf,
+    ];
+    const columnsWithCashback = [
+        'wlc-c-12',
+        'wlc-c-12 wlc-c-768-6',
+        'wlc-c-12 wlc-c-768-6',
+    ];
+    const columnsWithoutCashback = [
+        'wlc-c-12 wlc-c-768-6',
+        'wlc-c-12 wlc-c-768-6',
+    ];
     const componentsNoWager: ILayoutComponent[] = [
         componentLib.wlcEnterPromocode.wolf,
         componentLib.wlcSeeAllBonuses.wolf,
@@ -459,6 +493,8 @@ const generateDashboardWolf = (useDepositWager?: boolean): ILayoutSectionConfig 
         'wlc-c-12 wlc-c-640-6 wlc-c-1200-4',
         'wlc-c-12 wlc-c-768-6 wlc-c-1200-4',
     ];
+    const topLineComponents = useCashbackTimer ? componentsWithCashback : componentsWithoutCashback;
+    const topLineColumns = useCashbackTimer ? columnsWithCashback : columnsWithoutCashback;
     const bottomLineComponents: ILayoutComponent[] = useDepositWager ? componentsWager : componentsNoWager;
     const bottomLineColumns: string[] = useDepositWager ? columnsWager : columnsNoWager;
 
@@ -488,17 +524,11 @@ const generateDashboardWolf = (useDepositWager?: boolean): ILayoutSectionConfig 
                             name: 'core.wlc-wrapper',
                             params: {
                                 class: 'smart-dashboard__top',
-                                components: [
-                                    componentLib.wlcDashboardLoyaltyBlock.wolfWithExpDate,
-                                    componentLib.wlcUserStats.wolf,
-                                ],
+                                components: topLineComponents,
                                 smartSection: {
                                     hostClasses: 'wlc-mb-lg',
                                     innerClasses: 'wlc-gap-smd wlc-gap-768-md',
-                                    columns: [
-                                        'wlc-c-12 wlc-c-640-6',
-                                        'wlc-c-12 wlc-c-640-6',
-                                    ],
+                                    columns: topLineColumns,
                                 },
                             },
                         },
@@ -608,144 +638,6 @@ const insertCashbackTimer = ({
                 ],
             },
         },
-    };
-};
-
-const generateDashboardWolfWithCashbackTimer = (): ILayoutSectionConfig => {
-    const useCashbackTimer = $base?.cashbackReward?.useCashbackTimer;
-    const componentsNoTimer: ILayoutComponent[] = [
-        componentLib.wlcDashboardLoyaltyBlock.wolfWithExpDate,
-        componentLib.wlcUserStats.wolf,
-        componentLib.wlcEnterPromocode.wolf,
-        componentLib.wlcBonusesWolf.profileDashboardSlider,
-    ];
-    const componentsTimer: ILayoutComponent[] = [
-        componentLib.wlcCashbackTimer.def,
-        componentLib.wlcDashboardLoyaltyBlock.wolfWithExpDate,
-        componentLib.wlcUserStats.wolf,
-        componentLib.wlcEnterPromocode.wolf,
-        componentLib.wlcBonusesWolf.profileDashboardSlider,
-    ];
-    const columnsNoTimer: string[] = [
-        'wlc-c-12 wlc-c-768-6 wlc-c-1024-4',
-        'wlc-c-12 wlc-c-768-6 wlc-c-1024-4',
-        'wlc-c-12 wlc-c-768-6 wlc-c-1024-4',
-        'wlc-c-12',
-    ];
-    const columnsTimer: string[] = [
-        'wlc-c-12 wlc-mb-xs',
-        'wlc-c-12 wlc-c-768-6 wlc-c-1024-4',
-        'wlc-c-12 wlc-c-768-6 wlc-c-1024-4',
-        'wlc-c-12 wlc-c-768-6 wlc-c-1024-4',
-        'wlc-c-12',
-    ];
-    const bottomLineComponents: ILayoutComponent[] = useCashbackTimer ? componentsTimer : componentsNoTimer;
-    const bottomLineColumns: string[] = useCashbackTimer ? columnsTimer : columnsNoTimer;
-
-    return {
-        container: true,
-        theme: 'wolf',
-        usePreloader: true,
-        components: [
-            {
-                name: 'core.wlc-section-title',
-                params: {
-                    theme: 'wolf',
-                    text: 'Dashboard',
-                    iconPath: 'wlc/icons/european/v3/dashboard.svg',
-                },
-                display: {
-                    before: 899,
-                },
-            },
-            {
-                name: 'core.wlc-wrapper',
-                params: {
-                    class: 'wlc-profile-content__wrp',
-                    components: [
-                        componentLib.wlcProfileMenu.defTypeWolf,
-                        {
-                            name: 'core.wlc-wrapper',
-                            params: {
-                                class: 'smart-dashboard__bottom',
-                                components: bottomLineComponents,
-                                smartSection: {
-                                    hostClasses: 'wlc-mb-lg',
-                                    innerClasses: 'wlc-gap-smd wlc-gap-768-md',
-                                    columns: bottomLineColumns,
-                                },
-                            },
-                        },
-                    ],
-                },
-            },
-        ],
-    };
-};
-
-const generateDashboardWithCashbackTimer = (): ILayoutSectionConfig => {
-    const useCashbackTimer = $base?.cashbackReward?.useCashbackTimer;
-    const componentsNoTimer: ILayoutComponent[] = [
-        componentLib.wlcDashboardLoyaltyBlock.defWithExpDate,
-        componentLib.wlcDashboardExchange.def,
-    ];
-    const componentsTimer: ILayoutComponent[] = [
-        componentLib.wlcCashbackTimer.def,
-        componentLib.wlcDashboardLoyaltyBlock.defWithExpDate,
-        componentLib.wlcDashboardExchange.def,
-    ];
-    const columnsNoTimer: string[] = [
-        'wlc-c-12 wlc-c-720-6',
-        'wlc-c-12 wlc-c-720-6',
-    ];
-    const columnsTimer: string[] = [
-        'wlc-c-12 wlc-mb-xs',
-        'wlc-c-12 wlc-c-720-6',
-        'wlc-c-12 wlc-c-720-6',
-    ];
-    const components: ILayoutComponent[] = useCashbackTimer ? componentsTimer : componentsNoTimer;
-    const columns: string[] = useCashbackTimer ? columnsTimer : columnsNoTimer;
-
-    return {
-        container: true,
-        usePreloader: true,
-        components: [
-            {
-                name: 'core.wlc-wrapper',
-                params: {
-                    class: 'smart-dashboard__title',
-                    components: [
-                        componentLib.wlcTitle.profileDashboard,
-                    ],
-                    smartSection: {
-                        hostClasses: 'wlc-mb-sm',
-                    },
-                },
-            },
-            {
-                name: 'core.wlc-wrapper',
-                params: {
-                    class: 'smart-dashboard__bottom',
-                    components: components,
-                    smartSection: {
-                        hostClasses: 'wlc-mb-lg',
-                        innerClasses: 'wlc-gap-smd wlc-gap-1366-md',
-                        columns: columns,
-                    },
-                },
-            },
-            componentLib.wlcTitle.profileDashboardBonuses,
-            {
-                name: 'core.wlc-wrapper',
-                params: {
-                    class: 'wlc-dashboard__bottom',
-                    components: [
-                        ...componentLib.wlcBonusesList.generateDashboardConfig(false),
-                        dashboardPromoSection,
-                    ],
-                },
-            },
-        ],
     };
 };
 
@@ -1841,9 +1733,6 @@ export namespace profileContent {
 
     export const wolfDashboardWager: ILayoutSectionConfig = generateDashboardWolf(true);
     export const wolfDashboardNoWager: ILayoutSectionConfig = generateDashboardWolf(false);
-
-    export const wolfDashBoardCashbackTimer: ILayoutSectionConfig = generateDashboardWolfWithCashbackTimer();
-    export const profileDashBoardCashbackTimer: ILayoutSectionConfig = generateDashboardWithCashbackTimer();
 
     /** TODO: replace that with new dashboard config */
     export const profileWolfDashboard: ILayoutSectionConfig = {
