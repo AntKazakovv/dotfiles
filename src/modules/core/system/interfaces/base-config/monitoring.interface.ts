@@ -22,4 +22,4 @@ export interface IListMetricsPerformanceReport {
     listMetrics?: TListMetricsPerformanceReport[];
 }
 
-export type TListMetricsPerformanceReport = 'LCP' | 'CLS' | 'FCP' | 'TTFB';
+export type TListMetricsPerformanceReport = 'LCP' | 'CLS' | 'FCP' | 'TTFB' | 'FID';

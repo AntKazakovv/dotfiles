@@ -8,9 +8,11 @@ import {
     CLSMetric,
     FCPMetric,
     TTFBMetric,
+    FIDMetric,
     onLCP,
     onCLS,
     onFCP,
+    onFID,
     onTTFB,
 } from 'web-vitals';
 
@@ -51,6 +53,9 @@ export class MonitoringService {
                 case 'CLS':
                     this.setCLSMertric();
                     break;
+                case 'FID':
+                    this.setFIDMertric();
+                    break;
                 case 'TTFB':
                     this.setTTFBMetric();
                     break;
@@ -84,6 +89,17 @@ export class MonitoringService {
         onCLS((metric: CLSMetric) => {
             this.logService.sendLog({
                 code: '33.0.7',
+                flog: {
+                    time: metric.value,
+                },
+            });
+        });
+    }
+
+    private setFIDMertric(): void {
+        onFID((metric: FIDMetric) => {
+            this.logService.sendLog({
+                code: '33.0.9',
                 flog: {
                     time: metric.value,
                 },

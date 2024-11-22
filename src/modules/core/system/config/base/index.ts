@@ -47,7 +47,7 @@ export const $base: IBaseConfig = {
     },
     monitoring: {
         performanceReport: {
-            listMetrics: ['LCP', 'CLS', 'FCP', 'TTFB'],
+            listMetrics: ['LCP', 'FCP', 'FID', 'CLS', 'FCP', 'TTFB'],
         },
     },
     idle: idleConfig,
