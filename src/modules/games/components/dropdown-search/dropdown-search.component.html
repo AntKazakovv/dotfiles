@@ -15,10 +15,10 @@
     <div wlc-scrollbar [inlineParams]="$params.scrollbarParams" #scrollbar>
         <div class="{{$class}}__games-grid"
             wlc-sa="wlc-games-grid"
+            [hidden]="!filters.searchQuery || !isOpened"
             [wlc-sa-input-params]="{
                 inlineParams: $params.gamesGridParams,
                 scrollHost: scrollbar.host,
-                hidden: !filters.searchQuery || !isOpened
             }">
         </div>
     </div>
