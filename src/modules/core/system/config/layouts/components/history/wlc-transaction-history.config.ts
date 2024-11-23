@@ -1,5 +1,5 @@
 import {ILayoutComponent} from 'wlc-engine/modules/core';
-import {wlcTitle} from 'wlc-engine/modules/core/system/config/layouts/components/core/wlc-title.config';
+import {wlcTitle} from 'wlc-engine/modules/core/components/title/title.config';
 
 export namespace wlcTransactionHistory {
     export const def: ILayoutComponent = {

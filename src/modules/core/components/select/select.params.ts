@@ -6,7 +6,7 @@ import {
     IIndexing,
     TInputBaseType,
 } from 'wlc-engine/modules/core';
-import {ThemeMod as TooltipThemeMod} from 'wlc-engine/modules/core/components/tooltip/tooltip.params';
+import {ThemeMod as TooltipThemeMod} from 'wlc-engine/modules/core/components/tooltip/tooltip.interfaces';
 
 export type ComponentTheme = 'default' | 'vertical' | 'mobile-app' | CustomType;
 export type ComponentType = 'default' | CustomType;

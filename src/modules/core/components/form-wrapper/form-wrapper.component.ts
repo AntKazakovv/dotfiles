@@ -68,10 +68,8 @@ import {IButtonCParams} from 'wlc-engine/modules/core/components/button/button.i
 import {ISelectCParams} from 'wlc-engine/modules/core/components/select/select.params';
 import {ITextareaCParams} from 'wlc-engine/modules/core/components/textarea/textarea.params';
 import {IInputCParams} from 'wlc-engine/modules/core/components/input/input.params';
-import {
-    IWrapperCParams,
-    WrapperComponent,
-} from 'wlc-engine/modules/core/components/wrapper/wrapper.component';
+import {WrapperComponent} from 'wlc-engine/modules/core/components/wrapper/wrapper.component';
+import {IWrapperCParams} from 'wlc-engine/modules/core/components/wrapper/wrapper.interfaces';
 import {FormValidators} from 'wlc-engine/modules/core/system/services/validation/validators';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';

@@ -24,20 +24,9 @@ import {LayoutComponent} from 'wlc-engine/modules/core/components/layout/layout.
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {LayoutService} from 'wlc-engine/modules/core/system/services/layout/layout.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
-import {
-    ILayoutComponent,
-    ISmartSectionConfig,
-} from 'wlc-engine/modules/core/system/interfaces/layouts.interface';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {WINDOW} from 'wlc-engine/modules/app/system';
-
-
-export interface IWrapperCParams {
-    components?: ILayoutComponent[];
-    class?: string;
-    wlcElement?: string;
-    smartSection?: ISmartSectionConfig;
-}
+import * as Interfaces from './wrapper.interfaces';
 
 @Component({
     selector: '[wlc-wrapper]',
@@ -48,17 +37,17 @@ export interface IWrapperCParams {
 export class WrapperComponent extends LayoutComponent implements OnInit, OnChanges {
     @HostBinding('class') protected override $hostClass: string;
     @HostBinding('attr.data-wlc-element') protected $wlcElement: string;
-    @Input() protected inlineParams: IWrapperCParams;
+    @Input() protected inlineParams: Interfaces.IWrapperCParams;
     /**
      * additional input for pass inlineParams from dynamic html component
      * because camelCase attributes translate to lowercase
      */
-    @Input() protected inline: IWrapperCParams;
-    protected $params: IWrapperCParams;
+    @Input() protected inline: Interfaces.IWrapperCParams;
+    protected $params: Interfaces.IWrapperCParams;
     private initReady: boolean = false;
 
     constructor(
-        @Optional() @Inject('injectParams') protected params: IWrapperCParams,
+        @Optional() @Inject('injectParams') protected params: Interfaces.IWrapperCParams,
         configService: ConfigService,
         layoutService: LayoutService,
         cdr: ChangeDetectorRef,

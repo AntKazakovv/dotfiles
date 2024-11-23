@@ -1,4 +1,4 @@
-import {IWrapperCParams} from 'wlc-engine/modules/core/components/wrapper/wrapper.component';
+import {IWrapperCParams} from 'wlc-engine/modules/core/components/wrapper/wrapper.interfaces';
 import {
     CustomType,
     IComponentParams,

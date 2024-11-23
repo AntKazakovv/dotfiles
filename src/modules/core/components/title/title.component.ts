@@ -20,15 +20,10 @@ import {
 } from 'wlc-engine/modules/core';
 
 import * as Params from './title.params';
+import * as Interfaces from './title.interfaces';
 
 import _isString from 'lodash-es/isString';
-
-interface IContextTitle {
-    data: {
-        element: string;
-        text: string;
-    }
-}
+import {IContextTitle} from './title.interfaces';
 
 @Component({
     selector: '[wlc-title]',
@@ -37,19 +32,19 @@ interface IContextTitle {
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TitleComponent extends AbstractComponent implements OnInit, AfterViewInit {
-    public override $params: Params.ITitleCParams;
+    public override $params: Interfaces.ITitleCParams;
     public ready: boolean = false;
 
-    @Input() public mainTag: Params.TagType;
-    @Input() public secondTag: Params.TagType;
+    @Input() public mainTag: Interfaces.TagType;
+    @Input() public secondTag: Interfaces.TagType;
     @Input() public mainLink: string;
     @Input() public mainParams: RawParams;
     @Input() public mainShowTitleLink: boolean;
 
-    @Input() protected mainText: Params.TextType;
-    @Input() protected secondText: Params.TextType;
-    @Input() protected type: Params.Type;
-    @Input() protected inlineParams: Params.ITitleCParams;
+    @Input() protected mainText: Interfaces.TextType;
+    @Input() protected secondText: Interfaces.TextType;
+    @Input() protected type: Interfaces.Type;
+    @Input() protected inlineParams: Interfaces.ITitleCParams;
 
     @ViewChild('div', {static: false}) divTemplate: TemplateRef<IContextTitle>;
     @ViewChild('link') linkTemplate: TemplateRef<IContextTitle>;
@@ -58,10 +53,10 @@ export class TitleComponent extends AbstractComponent implements OnInit, AfterVi
     @ViewChild('span') spanTemplate: TemplateRef<IContextTitle>;
 
     constructor(
-        @Inject('injectParams') protected params: Params.ITitleCParams,
+        @Inject('injectParams') protected params: Interfaces.ITitleCParams,
     ) {
         super(
-            <IMixedParams<Params.ITitleCParams>>{
+            <IMixedParams<Interfaces.ITitleCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
             });
@@ -129,7 +124,7 @@ export class TitleComponent extends AbstractComponent implements OnInit, AfterVi
         }
     }
 
-    protected getText(type: Params.varTextType): string {
+    protected getText(type: Interfaces.varTextType): string {
         const text = (type === 'mainText') ? this.mainText : this.secondText;
         if (_isString(text)) {
             return text;

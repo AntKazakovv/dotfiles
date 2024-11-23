@@ -33,7 +33,7 @@ import _flow from 'lodash-es/flow';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
-import {ITooltipCParams} from 'wlc-engine/modules/core/components/tooltip/tooltip.params';
+import {ITooltipCParams} from 'wlc-engine/modules/core/components/tooltip/tooltip.interfaces';
 import {
     NotificationEvents,
     IPushMessageParams,

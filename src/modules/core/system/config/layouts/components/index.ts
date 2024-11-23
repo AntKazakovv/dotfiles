@@ -8,7 +8,7 @@ export * from './core/wlc-copyright.config';
 export * from './core/wlc-recaptcha-policy.config';
 export * from './core/wlc-license.config';
 export * from './core/wlc-info-page.config';
-export * from './core/wlc-title.config';
+export * from 'wlc-engine/modules/core/components/title/title.config';
 export * from './core/wlc-error-page.config';
 export * from './core/wlc-offline-page.config';
 export * from './core/wlc-something-wrong-page.config';

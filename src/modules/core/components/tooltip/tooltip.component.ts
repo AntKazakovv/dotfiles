@@ -17,6 +17,7 @@ import {
 } from 'wlc-engine/modules/core';
 
 import * as Params from './tooltip.params';
+import * as Interfaces from './tooltip.interfaces';
 
 @Component({
     selector: '[wlc-tooltip]',
@@ -25,10 +26,10 @@ import * as Params from './tooltip.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TooltipComponent extends AbstractComponent implements OnInit {
-    @Input() protected inlineParams: Params.ITooltipCParams;
+    @Input() protected inlineParams: Interfaces.ITooltipCParams;
 
     public override $class: string;
-    public override $params: Params.ITooltipCParams;
+    public override $params: Interfaces.ITooltipCParams;
     public isShow: boolean;
     public iconPath: string;
 
@@ -36,13 +37,13 @@ export class TooltipComponent extends AbstractComponent implements OnInit {
     protected resized: boolean = false;
 
     constructor(
-        @Inject('injectParams') protected injectParams: Params.ITooltipCParams,
+        @Inject('injectParams') protected injectParams: Interfaces.ITooltipCParams,
         protected modalService: ModalService,
         protected actionService: ActionService,
     )
     {
         super(
-            <IMixedParams<Params.ITooltipCParams>>{
+            <IMixedParams<Interfaces.ITooltipCParams>>{
                 injectParams: injectParams,
                 defaultParams: Params.defaultParams,
             });

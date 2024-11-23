@@ -5,7 +5,7 @@ import _isString from 'lodash-es/isString';
 import _toString from 'lodash-es/toString';
 
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
-import {IWrapperCParams} from 'wlc-engine/modules/core/components/wrapper/wrapper.component';
+import {IWrapperCParams} from 'wlc-engine/modules/core/components/wrapper/wrapper.interfaces';
 import {ICurrencyCParams} from 'wlc-engine/modules/core/components/currency/currency.params';
 import {WalletsService} from 'wlc-engine/modules/multi-wallet/system/services/wallets.service';
 

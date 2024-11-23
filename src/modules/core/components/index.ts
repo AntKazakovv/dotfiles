@@ -46,7 +46,7 @@ export {
     ITagCParams,
 } from './tag/tag.params';
 export {IThemeTogglerCParams} from './theme-toggler/theme-toggler.params';
-export {ITooltipCParams} from './tooltip/tooltip.params';
+export {ITooltipCParams} from './tooltip/tooltip.interfaces';
 export {StepsEvents} from './steps/steps.params';
 export {
     NotificationThreadComponent,
@@ -58,11 +58,9 @@ export {MessageComponent} from './message/message.component';
 export {ITextBlockCParams} from './text-block/text-block.params';
 export {ITextareaCParams} from './textarea/textarea.params';
 export {ITimerCParams} from './timer/timer.params';
-export {ITitleCParams} from './title/title.params';
-export {
-    IWrapperCParams,
-    WrapperComponent,
-} from './wrapper/wrapper.component';
+export {ITitleCParams} from './title/title.interfaces';
+export {WrapperComponent} from './wrapper/wrapper.component';
+export {IWrapperCParams} from './wrapper/wrapper.interfaces';
 export {DatepickerComponent} from './datepicker/datepicker.component';
 export {IconComponent} from './icon/icon.component';
 export {ImageComponent} from './image/image.component';
