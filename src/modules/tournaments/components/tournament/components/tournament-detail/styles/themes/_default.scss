@@ -303,7 +303,7 @@ $selector: '.wlc-tournament-detail';
         }
 
         #{$selector}__prizeboard {
-            --wlc-prizes-row-alignment: #{ef.get-value($themeDefault, 'prizesAlignment')};
+            --wlc-prizes-row-alignment: #{ef.get-value($themeDefault, 'prizeboardRowAlignment')};
 
             @include bm.get-mq-map('grid-template-columns', $themeDefault, 'prizeboardColumnWidth');
             @include bm.get-mq-map('padding', $themeDefault, 'prizeboardPadding');

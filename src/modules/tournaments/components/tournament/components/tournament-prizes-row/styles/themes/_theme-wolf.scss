@@ -5,9 +5,9 @@
     .wlc-tournament-prizes-row {
 
         &__values {
-            display: inline-flex;
+            display: flex;
             flex-wrap: wrap;
-            justify-content: var(--wlc-prizes-row-alignment, #{ef.get-value($themeWolf, 'valuesAlignment')});
+            justify-content: ef.get-value($themeWolf, 'valuesJustifyContent');
             white-space: nowrap;
             background: transparent;
             border-radius: ef.get-value($themeWolf, 'valuesRadius');

@@ -112,7 +112,7 @@ $themeWolf: map-merge((
     ),
     'prizeboardJustifyContent': center,
     'prizeboardBg': var(--mc-bgModal),
-    'prizesAlignment': right,
+    'prizeboardRowAlignment': right,
 
     'gamesPadding': (
         320: ef.size(4) ef.size(3),

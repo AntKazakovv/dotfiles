@@ -7,7 +7,8 @@
         &__values {
             display: var(--wlc-prizes-row-display, inline-flex);
             flex-wrap: wrap;
-            justify-content: var(--wlc-prizes-row-alignment, #{ef.get-value($themeDefault, 'valuesAlignment')});
+            justify-content: var(--wlc-prizes-row-alignment, #{ef.get-value($themeDefault, 'valuesJustifyContent')});
+            width: 100%;
             text-align: var(--wlc-prizes-row-alignment, #{ef.get-value($themeDefault, 'valuesAlignment')});
             text-overflow: ellipsis;
             overflow: hidden;
