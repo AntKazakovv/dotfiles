@@ -18,6 +18,7 @@ import type {Dayjs} from 'dayjs';
 import _filter from 'lodash-es/filter';
 import _merge from 'lodash-es/merge';
 import _union from 'lodash-es/union';
+import _cloneDeep from 'lodash-es/cloneDeep';
 
 import {
     AbstractComponent,
@@ -63,7 +64,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
     public showFilter: boolean = false;
     public override $params: Params.ITransactionHistoryCParams;
     public tableData: ITableCParams;
-    public startDateInput: IDatepickerCParams = startDate;
+    public startDateInput: IDatepickerCParams = _cloneDeep(startDate);
     public endDateInput: IDatepickerCParams = endDate;
     public transaction$: BehaviorSubject<Transaction[]> = new BehaviorSubject([]);
     public filterSelect: ISelectCParams<TTransactionFilter>;
@@ -75,6 +76,8 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
     protected startDate: Dayjs = this.endDate.add(-1, 'month').startOf('day');
     protected allTransactions: Transaction[] = [];
     protected transfersEnabled: boolean;
+
+    protected readonly isMaltaLicense: boolean = this.configService.get<string>('appConfig.license') === 'malta';
 
     constructor(
         @Inject('injectParams') protected params: Params.ITransactionHistoryCParams,
@@ -113,6 +116,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
         if (this.showFilter) {
             this.filterHandlers();
         }
+
         this.historyFilterService.setAllFilters('transaction', {
             filterValue: this.filterValue,
             startDate: this.startDate,
@@ -171,19 +175,22 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
         this.startDateInput.control.setValue(this.startDate);
         this.endDateInput.control.setValue(this.endDate);
 
-        if (this.startDateInput.datepickerOptions) {
-            this.startDateInput.datepickerOptions.minDate = new Date(
-                this.endDate.year(),
-                this.endDate.month(),
-                this.endDate.date(),
-            );
-
-            this.startDateInput.datepickerOptions.maxDate = new Date(
-                this.startDate.year(),
-                this.startDate.month(),
-                this.startDate.date(),
-            );
+        if (this.isMaltaLicense) {
+            this.updateDatepickersAllowedRange();
         }
+    }
+
+    /**
+     * Set max range between startDate and endDate - @param year years
+     * @param year - allowed datepicker's range in years. Default is 2
+     */
+    protected updateDatepickersAllowedRange(year: number = 2): void {
+        const datepickerParams: Partial<IDatepickerCParams> = {
+            datepickerOptions: {
+                minDate: dayjs().add(-year, 'year').toDate(),
+            },
+        };
+        this.startDateInput = _merge(this.startDateInput, datepickerParams);
     }
 
     protected setSubscription(): void {
