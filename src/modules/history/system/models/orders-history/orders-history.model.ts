@@ -2,13 +2,13 @@ import _assign from 'lodash-es/assign';
 import _toNumber from 'lodash-es/toNumber';
 
 import {BehaviorSubject} from 'rxjs';
-import dayjs from 'dayjs';
 
 import {IFromLog} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
+import {GlobalHelper} from 'wlc-engine/modules/core';
 
 export interface IOrder {
     ID: string,
@@ -88,7 +88,7 @@ export class OrderHistoryItemModel extends AbstractModel<IOrder> {
     }
 
     public get addDate(): string {
-        return dayjs(this.data.AddDate).format('DD-MM-YYYY HH:mm:ss');
+        return GlobalHelper.toLocalTime(this.addDateSQL, 'SQL', 'DD-MM-YYYY HH:mm:ss');
     }
 
     public get addDateSQL(): string {

@@ -12,6 +12,7 @@ import {
     Observable,
 } from 'rxjs';
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import _size from 'lodash-es/size';
 import _get from 'lodash-es/get';
 import _isArray from 'lodash-es/isArray';
@@ -433,6 +434,8 @@ export class GlobalHelper {
         toFormat: string,
     ): string {
         let format: string;
+        dayjs.extend(utc);
+
         switch(from) {
             case 'ISO':
                 format = 'YYYY-MM-DDTHH:mm:ss';
@@ -441,7 +444,8 @@ export class GlobalHelper {
                 format = 'YYYY-MM-DD HH:mm:ss';
                 break;
         }
-        return dayjs(date, format)
+
+        return dayjs.utc(date, format)
             .add(dayjs().utcOffset(), 'minute')
             .format(toFormat);
     }
