@@ -341,8 +341,8 @@ export class ConfigService {
                             first((userInfo: UserInfo): boolean => !!userInfo?.idUser),
                             map((userInfo: UserInfo): boolean => !!userInfo.firstSession),
                         ),
-                )},
-            );
+                ),
+            });
         }
         this.addSiteConfig();
 
@@ -368,6 +368,16 @@ export class ConfigService {
 
         if (appConfig.$base.fixedPanel?.use) {
             this.initFixedPanels();
+        }
+
+        if (
+            this.get<number>('appConfig.siteconfig.AllowPayCashbackByClaim')
+            || this.get<number>('appConfig.siteconfig.CashbackPayoutByClaimButton')
+        ) {
+            this.set<boolean>({
+                name: 'useCashbackReward',
+                value: true,
+            });
         }
 
         this.$resolve();
@@ -513,7 +523,7 @@ export class ConfigService {
                 },
             ],
         };
-        _set(appConfig,'$layouts.app.sections.withdraw-cancel', widgetSection);
+        _set(appConfig, '$layouts.app.sections.withdraw-cancel', widgetSection);
     }
 
     private async getCountries(): Promise<void> {
