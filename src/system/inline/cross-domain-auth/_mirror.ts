@@ -13,11 +13,11 @@ import {WlcFlog} from '../_flog';
  */
 export class WlcMirror {
 
-    private wlcFlog: WlcFlog = window.WlcFlog;
+    private readonly wlcFlog: WlcFlog = window.WlcFlog;
     private iframe: HTMLIFrameElement;
 
     constructor(
-        private preprodUrl: string,
+        private readonly mainDomainUrl: string,
     ) {
         this.init();
     }
@@ -27,7 +27,7 @@ export class WlcMirror {
     }
 
     private init(): void {
-        if (!this.preprodUrl) {
+        if (!this.mainDomainUrl) {
             console.error('Option "preprodUrl" for mirror not detected');
             this.wlcFlog.send({code: '35.1.0'});
             return;
@@ -58,7 +58,7 @@ export class WlcMirror {
 
     private createIframe(): void {
         this.iframe = document.createElement('iframe');
-        this.iframe.setAttribute('src', this.preprodUrl);
+        this.iframe.setAttribute('src', this.mainDomainUrl);
         this.iframe.setAttribute('id', 'wlc-domain');
         this.iframe.style.display = 'none';
     }

@@ -6,10 +6,13 @@ export class WlcCrossDomainAuth implements ICrossDomainAuth {
     public get isMirror(): boolean {
         return !!this.mirror;
     }
-    private mirror: WlcMirror;
+
+    protected readonly isProdEnvironment: boolean = !window['WLC_ENV'];
+    protected readonly testMainDomain: string = 'https://test-crossdomain.egamings.com';
+    protected mirror: WlcMirror;
 
     public initMirror(mainDomainUrl: string): void {
-        this.mirror = new WlcMirror(mainDomainUrl);
+        this.mirror = new WlcMirror(this.isProdEnvironment ? mainDomainUrl : this.testMainDomain);
     }
 
     public sendMessageForMainDomain<T>(data: T): void {
