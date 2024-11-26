@@ -16,9 +16,6 @@ import {TranslateService} from '@ngx-translate/core';
 import {ValidatorType} from 'wlc-engine/modules/core/system/services/validation/validation.service';
 
 import _isObject from 'lodash-es/isObject';
-import _find from 'lodash-es/find';
-import _keys from 'lodash-es/keys';
-import _map from 'lodash-es/map';
 import _toString from 'lodash-es/toString';
 
 @Component({
@@ -33,6 +30,7 @@ export class FormControlComponent implements OnInit, OnDestroy {
     @Input() className: string;
     @Input() fieldName: string;
     @Input() validators: ValidatorType[];
+    @Input() validatorsAnyOf: ValidatorType[];
     @HostBinding('class') protected $hostClass: string = 'form-control';
 
     public errors: string[] = [];
@@ -55,6 +53,9 @@ export class FormControlComponent implements OnInit, OnDestroy {
             takeUntil(this.ngUnsubscribe),
         ).subscribe(() => {
             this.errors = this.getErrors();
+            if (this.control.errors && !this.errors.length) {
+                this.control.setErrors(null);
+            }
             this.cdr.markForCheck();
         });
     }
@@ -69,14 +70,37 @@ export class FormControlComponent implements OnInit, OnDestroy {
     }
 
     protected getErrors(): string[] {
-        return _map(_keys(this.control.errors), (item: string): string => {
+        const validatorsErrors: string[] = [];
+        const validatorsAnyOfErrors: string[] = [];
+
+        if (this.control.errors !== null) {
+            Object.keys(this.control.errors).forEach((item: string): void => {
+                if (this.validatorsAnyOf?.includes(item)) {
+                    validatorsAnyOfErrors.push(item);
+                } else {
+                    validatorsErrors.push(item);
+                }
+            });
+        }
+
+        if (validatorsErrors.length) {
+            return this.errorHandling(validatorsErrors);
+        } else if (validatorsAnyOfErrors.length === this.validatorsAnyOf?.length) {
+            return [gettext('Check the correctness of the filled-out fields')];
+        }
+
+        return [];
+    }
+
+    protected errorHandling(errors: string[]): string[] {
+        return errors.map((item: string): string => {
             if (item === 'incomingError') {
                 return this.control.errors[item];
             }
 
-            const key = 'validator-' + this.fieldName + '-' + item;
+            const key = `validator-${this.fieldName}-${item}`;
 
-            const validator = _find(this.validators, (validator) => {
+            const validator = this.validators.find((validator) => {
                 return (_isObject(validator) ? validator['name'] : validator).toLowerCase() === item.toLowerCase();
             });
 
@@ -85,7 +109,7 @@ export class FormControlComponent implements OnInit, OnDestroy {
             } else if (this.translateService.instant(key) !== key) {
                 return key;
             } else {
-                return 'validator-' + item;
+                return `validator-${item}`;
             }
         });
     }

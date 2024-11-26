@@ -43,7 +43,6 @@ import {
     loginFieldValidator,
     emailOrPhoneValidator,
     userIdValidator,
-    emailOrUserIdValidator,
     oneOrMoreRequiredValidator,
     onlyLatinLettersValidator,
 } from './validators';
@@ -133,7 +132,6 @@ export class ValidationService {
         this.setRule('login', loginFieldValidator);
         this.setRule('emailOrPhone', emailOrPhoneValidator);
         this.setRule('userId', userIdValidator);
-        this.setRule('emailOrUserId', emailOrUserIdValidator);
         //checks if at least one of the group of fields is filled
         this.setRule('oneOrMoreRequired', oneOrMoreRequiredValidator);
 

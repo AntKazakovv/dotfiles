@@ -64,6 +64,7 @@ export interface IInputCParams extends IComponentParams<ComponentTheme, Componen
         maxLength?: number;
     }
     validators?: ValidatorType[];
+    validatorsAnyOf?: ValidatorType[];
     control?: UntypedFormControl;
     exampleValue?: string;
     disabled?: boolean;

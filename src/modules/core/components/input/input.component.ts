@@ -23,6 +23,7 @@ import {
     takeUntil,
     map,
 } from 'rxjs/operators';
+
 import _isEqual from 'lodash-es/isEqual';
 import _kebabCase from 'lodash-es/kebabCase';
 import _clone from 'lodash-es/clone';
@@ -37,6 +38,7 @@ import {
     NotificationEvents,
     IPushMessageParams,
 } from 'wlc-engine/modules/core/system/services/notification';
+import {ValidatorType} from 'wlc-engine/modules/core/system/services';
 import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 
 import {FormsService} from 'wlc-engine/modules/core/system/services';
@@ -44,6 +46,7 @@ import {IControlResult} from 'wlc-engine/modules/core/system/interfaces/base-con
 import {TInputBaseType} from 'wlc-engine/modules/core/system/types';
 
 import * as Params from './input.params';
+
 
 type TValueTransformer = (value: string) => string;
 
@@ -187,6 +190,10 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
             && !this.$params.common.readonly
             && !this.$params.clipboard
         );
+    }
+
+    protected get validatorsAnyOf(): ValidatorType[] {
+        return this.$params.validatorsAnyOf;
     }
 
     public toggleType(type: TInputBaseType): void {

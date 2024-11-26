@@ -252,27 +252,28 @@ export class TransferComponent extends AbstractComponent implements OnInit {
     }
 
     private getRecipientsConfig(): IFormComponent[] {
-        let recipientValidator = '';
         let recipientExampleValue = '';
+        let recipientValidator: string[] = [];
+        let recipientValidatorsAnyOf: string[] = [];
         let recipientTextBlock = '';
         let recipientPlaceholder = '';
 
         switch (this.transfer.transferBy) {
             case TransferByEnum.EMAIL:
-                recipientValidator = 'email';
+                recipientValidator = ['email'];
                 recipientExampleValue = 'example@mail.com';
                 recipientTextBlock = gettext('Enter the recipient\'s e-mail');
                 recipientPlaceholder = gettext('Recipient\'s e-mail');
                 break;
             case TransferByEnum.ID:
-                recipientValidator = 'userId';
+                recipientValidator = ['userId'];
                 recipientExampleValue = '';
                 recipientTextBlock = gettext('Enter the recipient\'s ID');
                 recipientPlaceholder = gettext('Recipient\'s ID');
                 break;
             case TransferByEnum.EMAIL_OR_ID:
             default:
-                recipientValidator = 'emailOrUserId';
+                recipientValidatorsAnyOf = ['email', 'userId'];
                 recipientExampleValue = '';
                 recipientTextBlock = gettext('Enter the recipient\'s e-mail or ID');
                 recipientPlaceholder = gettext('Recipient\'s e-mail or ID');
@@ -298,8 +299,9 @@ export class TransferComponent extends AbstractComponent implements OnInit {
                     name: 'recipient',
                     validators: [
                         'required',
-                        recipientValidator,
+                        ...recipientValidator,
                     ],
+                    validatorsAnyOf: recipientValidatorsAnyOf,
                     exampleValue: recipientExampleValue,
                     wlcElement: 'block_recipient',
                 },
