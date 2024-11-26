@@ -1,7 +1,9 @@
-const {resolve} = require('path');
+const path = require('path');
+
 const StylelintPlugin = require('stylelint-webpack-plugin');
 const CSSMQPackerPlugin = require('css-mqpacker-webpack-plugin');
 
+const AotCompilation = require('./aot-compilation');
 const WlcTemplateReplacePlugins = require('./wlcTemplateReplacePlugins');
 const WlcStructureInfoPlugin = require('./wlcStructureInfoPlugin');
 const WlcStaticImagePlugin = require('./wlcStaticImagePlugin');
@@ -14,7 +16,7 @@ module.exports = (config, schema, env) => {
 
     config.resolveLoader = {
         alias: {
-            'custom-components-loader': resolve(__dirname, './custom-files-loader.js'),
+            'custom-components-loader': path.resolve(__dirname, './custom-files-loader.js'),
         },
     };
 
@@ -34,9 +36,14 @@ module.exports = (config, schema, env) => {
         outputFile: 'src/staticImagesList',
     }));
 
-    config.plugins.push(WlcTemplateReplacePlugins.styles);
-
-    config.plugins.push(WlcTemplateReplacePlugins.templates);
+    if (schema.aot) {
+        AotCompilation.disableAngularCompilerOptions();
+        AotCompilation.customTemplates();
+        AotCompilation.customStyles();
+    } else{
+        config.plugins.push(WlcTemplateReplacePlugins.styles);
+        config.plugins.push(WlcTemplateReplacePlugins.templates);
+    }
 
     config.plugins.push(new CSSMQPackerPlugin({
         sort: sortMqList,
@@ -45,8 +52,8 @@ module.exports = (config, schema, env) => {
     if (isDev) {
         config.plugins.push(new WlcStructureInfoPlugin());
         config.plugins.push(new WlcWatchExtFilesPlugin([
-            resolve('roots/static/images'),
-            resolve('src/custom'),
+            path.resolve('roots/static/images'),
+            path.resolve('src/custom'),
         ]));
     }
 
