@@ -124,7 +124,7 @@ export class BurgerPanelComponent extends AbstractComponent
         });
     }
 
-    @CustomHook('core', 'burgerPanelInit')
+    @CustomHook({module: 'core', class: 'BurgerPanelComponent', method: 'ngOnInit'})
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.init();

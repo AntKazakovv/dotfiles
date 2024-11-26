@@ -396,7 +396,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
      * @param format - extension file
      * @returns {Params.IMediaContent[] | string}
      */
-    @CustomHook('games', 'gameThumbGetMediaContent')
+    @CustomHook({module: 'games', class: 'GameThumbComponent', method: 'gameThumbGetMediaContent'})
     public getMediaContent(type: Params.MediaType, format: string[]): Params.IMediaContent[] {
         const gameName = this.game.name?.en;
         const merchantName = this.game.getMerchantName();

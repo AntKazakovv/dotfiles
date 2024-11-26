@@ -108,7 +108,7 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
         super({injectParams, defaultParams: Params.defaultParams});
     }
 
-    @CustomHook('core', 'ngOnInitInput')
+    @CustomHook({module: 'core', class: 'InputComponent', method: 'ngOnInit'})
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.control = this.$params?.control;

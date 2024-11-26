@@ -385,7 +385,7 @@ export class FinancesService {
      * @param isDeposit - mode of cash, if true, then the type of request is Deposit, else Withdrawal
      * @returns {number} `number` - method id or null
      */
-    @CustomHook('finances', 'getLastSucceedPaymentMethod')
+    @CustomHook({module: 'finances', class: 'FinancesService', method: 'getLastSucceedPaymentMethod'})
     public async getLastSucceedPaymentMethod(isDeposit: boolean): Promise<number | null> {
         try {
             const result: IData<string> = await this.dataService.request({
@@ -452,7 +452,7 @@ export class FinancesService {
         }
     }
 
-    @CustomHook('finances', 'financesServiceOnPaymentFail')
+    @CustomHook({module: 'finances', class: 'FinancesService', method: 'onPaymentFail'})
     public onPaymentFail(): void {
         const userProfile$ = this.configService.get<BehaviorSubject<UserProfile>>(
             {name: '$user.userProfile$'},
@@ -474,7 +474,7 @@ export class FinancesService {
         });
     }
 
-    @CustomHook('finances', 'financesServiceOnPaymentSuccess')
+    @CustomHook({module: 'finances', class: 'FinancesService', method: 'onPaymentSuccess'})
     public onPaymentSuccess(initialPath: IPaymentPostMessage): void {
         const userProfile$ = this.configService.get<BehaviorSubject<UserProfile>>(
             {name: '$user.userProfile$'},
@@ -588,7 +588,7 @@ export class FinancesService {
         });
     }
 
-    @CustomHook('finances', 'financesServiceOnPaymentPending')
+    @CustomHook({module: 'finances', class: 'FinancesService', method: 'onPaymentPending'})
     public onPaymentPending(): void {
         this.eventService.emit({
             name: NotificationEvents.PushMessage,

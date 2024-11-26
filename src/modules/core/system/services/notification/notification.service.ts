@@ -374,7 +374,7 @@ export class NotificationService {
      *
      * @param params object with message data and notification options
      */
-    @CustomHook('core', 'notificationServicePushMessage')
+    @CustomHook({module: 'core', class: 'NotificationService', method: 'pushMessage'})
     public pushMessage({dismissTime, ...componentParams}: IPushMessageParams): void {
 
         this.pushComponent({

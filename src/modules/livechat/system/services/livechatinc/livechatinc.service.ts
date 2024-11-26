@@ -164,7 +164,7 @@ export class LivechatincService extends LivechatAbstract<ILivechatIncConfig> {
         this.initialize();
     }
 
-    @CustomAsyncHook('livechat','liveChatIncServiceInitialize')
+    @CustomAsyncHook({module: 'livechat', class: 'PaymentListComponent', method: 'initialize'})
     protected async initialize(): Promise<void> {
         this.chatState$ = new BehaviorSubject(null);
 

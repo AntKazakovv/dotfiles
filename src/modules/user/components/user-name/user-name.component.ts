@@ -95,7 +95,7 @@ export class UserNameComponent extends AbstractComponent implements OnInit, OnDe
         this.stateService.go('app.profile.main.info');
     }
 
-    @CustomHook('user', 'userNameProfileData')
+    @CustomHook({module: 'user', class: 'UserNameComponent', method: 'processDisplayName'})
     protected processDisplayName({firstName, lastName, email, idUser, nickname}: UserProfile): string {
         let name: string = gettext('User');
 

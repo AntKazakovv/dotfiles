@@ -93,7 +93,7 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
         this.ready = true;
     }
 
-    @CustomHook('providers', 'providerLinksShowAllProviders')
+    @CustomHook({module: 'providers', class: 'ProviderLinksComponent', method: 'showAllProviders'})
     public showAllProviders(): void {
         if (GlobalHelper.isMobileApp() || this.$params.redirectToPage) {
             this.stateService.go('app.providers');
@@ -140,7 +140,7 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
      * Creates the icon list.
      * Based on games request data.
      **/
-    @CustomHook('providers', 'providerLinksSetMerchantsList')
+    @CustomHook({module: 'providers', class: 'ProviderLinksComponent', method: 'providerLinksSetMerchantsList'})
     protected setMerchantsList(): void {
         const {iconsType, colorIconBg} = this.$params;
         const showIconAs = iconsType == 'black' ? 'svg' : 'img';

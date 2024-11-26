@@ -658,7 +658,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         });
     }
 
-    @CustomHook('games', 'customSetGameWindowSize')
+    @CustomHook({module: 'games', class: 'GameWrapperComponent', method: 'setGameWindowSize'})
     public setGameWindowSize(width?: number): void {
         if (this.$params.theme === 'fullscreen-game-frame') {
             this.setFullPageIframeSize();

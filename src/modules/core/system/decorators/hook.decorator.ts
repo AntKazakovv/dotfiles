@@ -1,10 +1,17 @@
 import _get from 'lodash-es/get';
 import * as $config from 'wlc-config/index';
 
-export function CustomHook(moduleName: string, methodName: string) {
+type THook = {
+    module: string;
+    class: string;
+    method: string;
+}
+
+export function CustomHook(hook: THook) {
 
     return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
-        const customHook: any = _get($config, `$hook.customHookConfig.${moduleName}.${methodName}`, null);
+        const customHook: any =
+            _get($config, `$hook.customHookConfig.${hook.module}.${hook.class}.${hook.method}`, null);
         const originalMethod: Function = descriptor.value;
 
         if (customHook) {
@@ -15,10 +22,11 @@ export function CustomHook(moduleName: string, methodName: string) {
     };
 }
 
-export function CustomAsyncHook(moduleName: string, methodName: string) {
+export function CustomAsyncHook(hook: THook) {
 
     return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
-        const customHook: any = _get($config, `$hook.customHookConfig.${moduleName}.${methodName}`, null);
+        const customHook: any =
+            _get($config, `$hook.customHookConfig.${hook.module}.${hook.class}.${hook.method}`, null);
         const originalMethod: Function = descriptor.value;
 
         if (customHook) {

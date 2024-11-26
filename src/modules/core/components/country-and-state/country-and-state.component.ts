@@ -218,7 +218,7 @@ export class CountryAndStateComponent extends AbstractComponent implements OnIni
         }
     }
 
-    @CustomHook('core','countryAndStateStatesUpdate')
+    @CustomHook({module: 'core', class: 'CountryAndStateComponent', method: 'updateStates'})
     protected updateStates(countryCode: string): void {
         if (!this.$params.stateCode.control) {
             return;

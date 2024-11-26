@@ -62,7 +62,7 @@ export class UserHelper {
         }
     }
 
-    @CustomHook('user', 'userHelperShowInformationModal')
+    @CustomHook({module: 'user', class: 'UserHelper', method: 'showInformationModal'})
     public static showInformationModal(modalService: ModalService, modalMessage: string): void {
         modalService.showModal({
             id: 'user-information',

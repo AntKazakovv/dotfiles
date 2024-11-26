@@ -372,7 +372,7 @@ export class BonusesService {
      * @param {IIndexing<string>} bonusId
      * @returns {Promise<void>}
      */
-    @CustomHook('bonuses', 'bonusesServiceProcessBonus')
+    @CustomHook({module: 'bonuses', class: 'BonusesService', method: 'processBonus'})
     public async processBonus(bonusId: number): Promise<void> {
         try {
             await this.configService.ready;

@@ -312,7 +312,7 @@ export class ActionService {
      * @param {IIndexing<string>} initialPath
      * @returns {Promise<void>}
      */
-    @CustomAsyncHook('core','actionServiceOnOpenPopup')
+    @CustomAsyncHook({module: 'core', class: 'ActionService', method: 'openPopup'})
     public async openPopup(initialPath: IIndexing<string>): Promise<void> {
         if (!initialPath.popup) {
             return;

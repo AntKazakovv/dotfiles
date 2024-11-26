@@ -157,7 +157,7 @@ export class SearchControllerDefault extends AbstractSearchController<IControlle
         this._chooseCategory$.next(category);
     }
 
-    @CustomHook('games', 'searchDefaultInitSubscribers')
+    @CustomHook({module: 'games', class: 'SearchControllerDefault', method: 'initSubscribers'})
     protected initSubscribers(): void {
         this.chooseMerchantSubscribe();
         this.chooseCategorySubscribe();

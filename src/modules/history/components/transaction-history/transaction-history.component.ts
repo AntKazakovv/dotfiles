@@ -139,7 +139,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
         this.tableData.switchWidth ??= profileType === 'first' ? 1200 : 1024;
     }
 
-    @CustomHook('history', 'historyTransactionFilter')
+    @CustomHook({module: 'history', class: 'TransactionHistoryComponent', method: 'transactionFilter'})
     protected transactionFilter(): Transaction[] {
         let result: Transaction[] = this.allTransactions || [];
 

@@ -90,7 +90,7 @@ export class StepsComponent extends AbstractComponent implements OnInit {
         this.setSubscription();
     }
 
-    @CustomHook('core', 'setSubscriptionSteps')
+    @CustomHook({module: 'core', class: 'StepsComponent', method: 'setSubscription'})
     protected setSubscription(): void {
         this.eventService.subscribe({name: Params.StepsEvents.Next}, () => {
             this.nextStep();

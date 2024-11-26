@@ -620,7 +620,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
      * @param {boolean} pushToControl
      * @returns {void} void
      */
-    @CustomHook('core', 'selectSelectOption')
+    @CustomHook({module: 'core', class: 'SelectComponent', method: 'selectOption'})
     protected selectOption(item: Params.ISelectOptions | undefined, pushToControl: boolean = true): void {
         if (pushToControl) {
             this.control.setValue(item?.value);

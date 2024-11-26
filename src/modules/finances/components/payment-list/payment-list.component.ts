@@ -246,7 +246,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         return String(index) + String(system.id) + system.name;
     }
 
-    @CustomHook('finances', 'customSelectPayment')
+    @CustomHook({module: 'finances', class: 'PaymentListComponent', method: 'selectPayment'})
     public selectPayment(
         system: PaymentSystem | null,
         clearSame: boolean = this.useBonuses,
@@ -287,7 +287,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         this.cdr.markForCheck();
     }
 
-    @CustomHook('finances', 'customOpenModal')
+    @CustomHook({module: 'finances', class: 'PaymentListComponent', method: 'openModal'})
     public openModal(): void {
         this.modalService.showModal({
             id: 'payment-list',
@@ -449,7 +449,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         });
     }
 
-    @CustomAsyncHook('finances', 'customProcessSystemsResponse')
+    @CustomAsyncHook({module: 'finances', class: 'PaymentListComponent', method: 'processSystemsResponse'})
     protected async processSystemsResponse(systems: PaymentSystem[]): Promise<void> {
 
         if (this.isActualUserTerms) {

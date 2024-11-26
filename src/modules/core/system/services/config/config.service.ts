@@ -390,7 +390,7 @@ export class ConfigService {
         });
     }
 
-    @CustomHook('core', 'configServiceAddSiteConfig')
+    @CustomHook({module: 'core', class: 'ConfigService', method: 'addSiteConfig'})
     protected addSiteConfig(): void {
         wlcConfig.$base.app.type = appConfig.$base.app.type || 'wlc';
         wlcConfig.$base.profile.type = appConfig.$base.profile?.type || 'default';

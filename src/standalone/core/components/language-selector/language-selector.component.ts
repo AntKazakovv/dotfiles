@@ -365,7 +365,7 @@ export class LanguageSelectorComponent
         }
     }
 
-    @CustomHook('core', 'languageSelectorComponentFindLanguage')
+    @CustomHook({module: 'core', class: 'LanguageSelectorComponent', method: 'findLanguage'})
     protected findLanguage(lang: string): ILanguage {
         return _find(this.configService.get<ILanguage[]>('appConfig.languages'), {
             code: lang,

@@ -194,7 +194,7 @@ export class SelectValuesService {
      * @param {TDateList} value days or months or years
      * @returns {BehaviorSubject<Params.ISelectOptions[]>}
      */
-    @CustomHook('core', 'selectValuesDateList')
+    @CustomHook({module: 'core', class: 'SelectValuesService', method: 'getDateList'})
     public getDateList(value: TDateList): TConstantValue {
         let list: Params.ISelectOptions[] = [];
         switch (value) {
@@ -446,7 +446,7 @@ export class SelectValuesService {
      * @param {ICountry[]} countries
      * @returns {ICountry[]}
      */
-    @CustomHook('core', 'selectValuesPrepareCountries')
+    @CustomHook({module: 'core', class: 'SelectValuesService', method: 'prepareCountries'})
     public prepareCountries(countries: ICountry[]): ICountry[] {
         let countryList = countries;
 

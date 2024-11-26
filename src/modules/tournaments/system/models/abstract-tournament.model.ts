@@ -257,7 +257,7 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
      * @param {ITopTournamentUsers} result tournament top users
      * @returns {ITournamentPlace[]} tournament top array
      */
-    @CustomHook('tournaments', 'abstractTournamentGetTopArray')
+    @CustomHook({module: 'tournaments', class: 'AbstractTournamentModel', method: 'getTopArray'})
     public getTopArray(result: ITopTournamentUsers): ITournamentPlace[] {
         const topWin = result?.results || [];
 

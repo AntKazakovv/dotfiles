@@ -45,7 +45,7 @@ export class SearchV2Component extends AbstractComponent implements OnInit {
         });
     }
 
-    @CustomHook('games', 'searchV2NgOnInit')
+    @CustomHook({module: 'games', class: 'SearchV2Component', method: 'ngOnInit'})
     public override ngOnInit(): void {
         super.ngOnInit();
         const controllerToken = this.$params.theme === 'easy' ? SearchControllerEasy : SearchControllerDefault;

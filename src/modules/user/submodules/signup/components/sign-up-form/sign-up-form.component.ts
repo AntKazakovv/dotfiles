@@ -87,8 +87,8 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         }, eventService, injectionService, logService, userService);
     }
 
-    @CustomHook('user', 'signUpFormNgOnInit')
-    public override async  ngOnInit(): Promise<void> {
+    @CustomHook({module: 'user', class: 'SignUpFormComponent', method: 'ngOnInit'})
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
 
         this.useSmsVerification = this.configService.get<boolean>('$base.profile.smsVerification.use');
@@ -173,12 +173,12 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         }
     }
 
-    @CustomHook('user', 'signUpFormNgOnDestroy')
+    @CustomHook({module: 'user', class: 'SignUpFormComponent', method: 'ngOnDestroy'})
     public override ngOnDestroy(): void {
         super.ngOnDestroy();
     }
 
-    @CustomHook('user', 'SignUpFormGetForm')
+    @CustomHook({module: 'user', class: 'SignUpFormComponent', method: 'getForm'})
     public override getForm(form: UntypedFormGroup): void {
         super.getForm(form);
 
@@ -207,7 +207,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
      * @param form
      * @returns {Promise}
      */
-    @CustomHook('user', 'signUpFormNgSubmit')
+    @CustomHook({module: 'user', class: 'SignUpFormComponent', method: 'ngSubmit'})
     public async ngSubmit(form: UntypedFormGroup): Promise<boolean> {
 
         if (this.isTwoSteps && !this.isSecondStep() || this.useSmsVerification) {

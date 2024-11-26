@@ -33,7 +33,7 @@ export class VerificationService {
         this.init();
     }
 
-    @CustomAsyncHook('profile', 'verificationServiceGetDocsTypes')
+    @CustomAsyncHook({module: 'profile', class: 'VerificationService', method: 'getDocsTypes'})
     public async getDocsTypes(): Promise<IDocType[]> {
         try {
             return (await this.dataService.request<IData>('docs/docs-types'))?.data;

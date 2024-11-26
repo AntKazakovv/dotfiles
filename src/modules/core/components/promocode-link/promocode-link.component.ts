@@ -37,7 +37,7 @@ export class PromocodeLinkComponent extends AbstractComponent implements OnInit 
         this.provideParams();
     }
 
-    @CustomHook('core', 'promocodeLinkProvideParams')
+    @CustomHook({module: 'core', class: 'PromocodeLinkComponent', method: 'provideParams'})
     protected provideParams(): void {
         const index = this.$params.validatorsField.findIndex((el) => el.name === 'registrationPromoCode');
         _set(this.$params, 'registrationPromoCode.validators', this.$params.validatorsField[index].validators);

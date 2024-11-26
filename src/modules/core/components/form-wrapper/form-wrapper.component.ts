@@ -182,7 +182,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
         );
     }
 
-    @CustomHook('core', 'formWrapperNgOnInit')
+    @CustomHook({module: 'core', class: 'FormWrapperComponent' , method: 'ngOnInit'})
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
         this.prepareParams();

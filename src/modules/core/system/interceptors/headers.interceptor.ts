@@ -60,7 +60,7 @@ export class HeadersInterceptor implements HttpInterceptor {
         }
     }
 
-    @CustomHook('core', 'headersInterceptorIntercept')
+    @CustomHook({module: 'core', class: 'HeadersInterceptor', method: 'intercept'})
     public intercept(
         req: HttpRequest<string>,
         next: HttpHandler,

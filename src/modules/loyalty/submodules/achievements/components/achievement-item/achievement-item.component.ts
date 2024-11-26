@@ -58,7 +58,7 @@ export class AchievementItemComponent extends AbstractComponent implements OnIni
         );
     }
 
-    @CustomHook('achievement', 'customOnInitAchievements')
+    @CustomHook({module: 'achievement', class: 'AchievementItemComponent', method: 'ngOnInit'})
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.achievement = this.$params.achievement;

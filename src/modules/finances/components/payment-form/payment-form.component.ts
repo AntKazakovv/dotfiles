@@ -569,7 +569,7 @@ export class PaymentFormComponent
         }
     }
 
-    @CustomHook('finances', 'paymentMessageWithdraw')
+    @CustomHook({module: 'finances', class: 'PaymentFormComponent', method: 'withdraw'})
     public async withdraw(form: UntypedFormGroup): Promise<boolean> {
         this.modalService.showModal('data-is-processing');
         this.inProgress = true;
@@ -665,7 +665,7 @@ export class PaymentFormComponent
         }
     }
 
-    @CustomHook('finances', 'paymentFormSetAmountSubscriber')
+    @CustomHook({module: 'finances', class: 'PaymentFormComponent', method: 'setAmountSubscriber'})
     public setAmountSubscriber(form: UntypedFormGroup): void {
         this.amountControl = <UntypedFormControl>form.controls['amount'];
         if (this.amountControl) {
