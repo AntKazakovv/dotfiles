@@ -1,15 +1,17 @@
 import {
+    IIndexing,
+    IRequestMethod,
+    IData,
+} from 'wlc-engine/modules/core';
+import {
     PartialObserver,
     Observable,
     Subject,
 } from 'rxjs';
 
-import {
-    IData,
-    IIndexing,
-} from 'wlc-engine/modules/core';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {BonusesListNoContentByThemeType} from 'wlc-engine/modules/bonuses/components/bonuses-list/bonuses-list.params';
+import {RequestParamsType} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {
     ITagCommon,
     ITagList,
@@ -378,7 +380,16 @@ export type BonusesFilterType =
     | 'united'
     | 'default';
 export type RestType = 'active' | 'lootboxPrizes' | 'store' | 'reg' | 'any';
-export type RequestType = RestType | ActionTypeEnum | 'cancelInfo';
+
+export interface ILimitedRequest {
+    url: string;
+    params?: RequestParamsType;
+}
+
+export interface ILimitedParams {
+    request: IRequestMethod,
+    params?: RequestParamsType;
+}
 
 interface IBlankBonus {
     id: null

@@ -59,7 +59,6 @@ import {
     IIndexing,
     InjectionService,
     IPushMessageParams,
-    IRequestMethod,
     LogService,
     ModalService,
     NotificationEvents,
@@ -79,17 +78,17 @@ import {
     IBonusCanceledInfo,
     IGetSubscribeParams,
     ILootboxPrize,
+    ILimitedRequest,
+    ILimitedParams,
     IQueryFilters,
     IQueryParams,
     IWSBonusAction,
-    RequestType,
     RestType,
     TBonusSortOrder,
     IBonusesData,
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {LootboxPrizeModel} from 'wlc-engine/modules/bonuses/system/models/lootbox-prize/lootbox-prize.model';
 import {BonusCancellationInfo} from '../../models/bonus/bonus-cancellation-info.model';
-import {RequestParamsType} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 import {WalletsService} from 'wlc-engine/modules/multi-wallet/system/services/wallets.service';
 import {WebSocketEvents} from 'wlc-engine/modules/core/system/services/websocket/websocket.service';
@@ -166,7 +165,7 @@ export class BonusesService {
         any: new BehaviorSubject(false),
     };
 
-    private requests: RequestType[] = [];
+    private requests: ILimitedRequest[] = [];
 
     constructor(
         private cachingService: CachingService,
@@ -467,16 +466,19 @@ export class BonusesService {
 
         try {
             const response: IData = await this.limitedRequests({
-                name: 'bonusSubscribe',
-                system: 'bonuses',
-                url: `/bonuses/${bonus.id}`,
-                type: 'POST',
-                mapFunc: (res) => this.prepareBonusActionData(res, bonus, ActionTypeEnum.Subscribe),
-                events: {
-                    success: 'BONUS_SUBSCRIBE_SUCCEEDED',
-                    fail: 'BONUS_SUBSCRIBE_FAILED',
+                request: {
+                    name: 'bonusSubscribe',
+                    system: 'bonuses',
+                    url: `/bonuses/${bonus.id}`,
+                    type: 'POST',
+                    mapFunc: (res) => this.prepareBonusActionData(res, bonus, ActionTypeEnum.Subscribe),
+                    events: {
+                        success: 'BONUS_SUBSCRIBE_SUCCEEDED',
+                        fail: 'BONUS_SUBSCRIBE_FAILED',
+                    },
                 },
-            }, ActionTypeEnum.Subscribe, params);
+                params,
+            });
 
             if (showPush) {
                 this.showSuccess(gettext('Successful subscription to the bonus'));
@@ -507,34 +509,42 @@ export class BonusesService {
 
         try {
             const response: IData = await this.limitedRequests({
-                name: 'bonusSubscribe',
-                system: 'bonuses',
-                url: `/bonuses/${bonus.id}`,
-                type: 'POST',
-                mapFunc: (res) => this.prepareBonusActionData(res, bonus, ActionTypeEnum.Unsubscribe),
-                events: {
-                    success: 'BONUS_UNSUBSCRIBE_SUCCEEDED',
-                    fail: 'BONUS_UNSUBSCRIBE_FAILED',
+                request: {
+                    name: 'bonusSubscribe',
+                    system: 'bonuses',
+                    url: `/bonuses/${bonus.id}`,
+                    type: 'POST',
+                    mapFunc: (res) => this.prepareBonusActionData(res, bonus, ActionTypeEnum.Unsubscribe),
+                    events: {
+                        success: 'BONUS_UNSUBSCRIBE_SUCCEEDED',
+                        fail: 'BONUS_UNSUBSCRIBE_FAILED',
+                    },
                 },
-            }, ActionTypeEnum.Unsubscribe, params);
-            this.showSuccess(gettext('You have successfully unsubscribed from the bonus'));
+                params,
+            });
+            this.showSuccess(gettext('You have been successfully unsubscribed from the bonus'));
             return response.data;
         } catch (error) {
             this.showError(error?.errors);
         }
     }
 
-    private limitedRequests(
-        request: string | IRequestMethod,
-        type: RequestType,
-        params?: RequestParamsType,
-    ): Promise<IData> {
-        if (this.requests.find((res: RequestType): boolean => res === type)) {
-            throw {errors: gettext('Too many requests')};
+    private limitedRequests(params: ILimitedParams): Promise<IData> {
+        const currentRequests: ILimitedRequest = this.requests.find((res: ILimitedRequest): boolean =>
+            params.request.url === res.url && JSON.stringify(params.params) === JSON.stringify(res.params),
+        );
+
+        if (currentRequests) {
+            throw {errors: [gettext('Too many requests')]};
         }
-        this.requests.push(type);
-        const res: Promise<IData> = this.dataService.request(request, params);
-        res.finally(() => _pull(this.requests, type));
+        const request: ILimitedRequest = {
+            url: params.request.url,
+            params: params.params,
+        };
+        this.requests.push(request);
+
+        const res: Promise<IData> = this.dataService.request(params.request, params.params);
+        res.finally(() => _pull(this.requests, request));
         return res;
     }
 
@@ -549,16 +559,19 @@ export class BonusesService {
 
         try {
             const response: IData = await this.limitedRequests({
-                name: 'bonusCancel',
-                system: 'bonuses',
-                url: `/bonuses/${bonus.id}`,
-                type: 'DELETE',
-                mapFunc: (res) => this.prepareBonusActionData(res, bonus, ActionTypeEnum.Cancel),
-                events: {
-                    success: 'BONUS_CANCEL_SUCCEEDED',
-                    fail: 'BONUS_CANCEL_FAILED',
+                request: {
+                    name: 'bonusCancel',
+                    system: 'bonuses',
+                    url: `/bonuses/${bonus.id}`,
+                    type: 'DELETE',
+                    mapFunc: (res) => this.prepareBonusActionData(res, bonus, ActionTypeEnum.Cancel),
+                    events: {
+                        success: 'BONUS_CANCEL_SUCCEEDED',
+                        fail: 'BONUS_CANCEL_FAILED',
+                    },
                 },
-            }, ActionTypeEnum.Cancel, params);
+                params,
+            });
             this.showSuccess(gettext('The bonus has been cancelled'));
             return response.data;
         } catch (error) {
@@ -575,12 +588,12 @@ export class BonusesService {
     public async getCancelInformation(loyaltyBonusId: string, bonusId: number): Promise<BonusCancellationInfo> {
         try {
 
-            const response: IData = await this.limitedRequests({
+            const response: IData = await this.dataService.request({
                 name: 'getCancelInformation',
                 system: 'bonuses',
                 url: `/bonuses?type=cancelInfo&lbid=${loyaltyBonusId}`,
                 type: 'GET',
-            }, 'cancelInfo');
+            });
 
             const bonusInfo: IBonusCanceledInfo = response.data[loyaltyBonusId];
 
@@ -610,12 +623,15 @@ export class BonusesService {
         const params = {id: bonus.id, type: 'take'};
         try {
             const response: IData<Bonus> = await this.limitedRequests({
-                name: 'bonusTake',
-                system: 'bonuses',
-                url: `/bonuses/${bonus.id}`,
-                type: 'PUT',
-                mapFunc: (res) => this.prepareBonusActionData(res, bonus, ActionTypeEnum.Inventory),
-            }, ActionTypeEnum.Inventory, params);
+                request: {
+                    name: 'bonusTake',
+                    system: 'bonuses',
+                    url: `/bonuses/${bonus.id}`,
+                    type: 'PUT',
+                    mapFunc: (res) => this.prepareBonusActionData(res, bonus, ActionTypeEnum.Inventory),
+                },
+                params,
+            });
 
             if (emitDelay) {
                 setTimeout((): void => {
@@ -652,14 +668,24 @@ export class BonusesService {
     ): Promise<T[]> {
         this.queryPromises[type].next(true);
 
-        const queryParams: IQueryParams = this.prepareQueryParams(type, promoCode, queryFilters);
+        const params: IQueryParams = this.prepareQueryParams(type, promoCode, queryFilters);
 
         try {
-            const res: IBonusesData = await this.limitedRequests('bonuses/bonuses', type, queryParams);
-
+            let res: IBonusesData;
             if (type === 'lootboxPrizes') {
+                res = await this.dataService.request('bonuses/bonuses', params);
                 this.lootboxPrizes = this.processLootboxPrizes((res as IData<ILootboxPrize[]>).data, publicSubject);
                 return this.lootboxPrizes as T[];
+            } else {
+                res = await this.limitedRequests({
+                    request: {
+                        url: '/bonuses',
+                        system: 'bonuses',
+                        name: 'queryBonuses',
+                        type: 'GET',
+                    },
+                    params,
+                });
             }
 
             const bonuses: Bonus[] = _orderBy(
@@ -690,7 +716,21 @@ export class BonusesService {
         const {queryFilters, localFilter} = params;
 
         try {
-            const res: IBonusesData = await this.dataService.request('bonuses/bonuses', queryFilters);
+            let res: IBonusesData;
+
+            if (queryFilters.type === 'lootboxPrizes') {
+                res = await this.dataService.request('bonuses/bonuses', queryFilters);
+            } else {
+                res = await this.limitedRequests({
+                    request: {
+                        url: '/bonuses',
+                        system: 'bonuses',
+                        name: 'queryBonuses',
+                        type: 'GET',
+                    },
+                    params: queryFilters,
+                });
+            }
 
             let bonuses: Bonus[] = _orderBy(
                 this.checkForbid(await this.modifyBonuses(
