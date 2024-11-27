@@ -21,6 +21,7 @@ export const wlcPanelMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'panel-menu:sportsbook': commonMenuItems.sportsbook,
     'panel-menu:promotions': commonMenuItems.promotions,
     'panel-menu:tournaments': commonMenuItems.tournaments,
+    'panel-menu:marathon': commonMenuItems.marathon,
     'panel-menu:favourites': commonMenuItems.favourites,
     'panel-menu:lastplayed': commonMenuItems.lastplayed,
     'panel-menu:contacts': {

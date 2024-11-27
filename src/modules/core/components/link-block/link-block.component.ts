@@ -41,6 +41,7 @@ export class LinkBlockComponent
     @Input() public useLinkButton: boolean;
 
     public override $params: Params.ILinkBlockCParams;
+    public btnIconPath: string;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILinkBlockCParams,
@@ -62,6 +63,10 @@ export class LinkBlockComponent
             await this.interactiveTextService.ready;
             this.setInteractiveText();
             this.subscribeForInteractiveText();
+        }
+
+        if (this.$params.btnWithArrow) {
+            this.btnIconPath = this.$params.btnIconPath;
         }
     }
 

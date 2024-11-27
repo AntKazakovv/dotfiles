@@ -166,6 +166,12 @@ export class TableComponent extends AbstractComponent implements OnInit {
         return this.tableType === Params.TableTypeEnum.MOBILE;
     }
 
+    public get appearanceState(): string | number | TableRowModel[] {
+        return this.$params.disableAppearanceAnimation
+            ? 'no-animation'
+            : (this.indexFactor || this.rows);
+    }
+
     public calcTableType(mediaQueryResult: MediaQueryList | MediaQueryListEvent): void {
         this.removeModifiers(this.tableType);
 
@@ -245,7 +251,13 @@ export class TableComponent extends AbstractComponent implements OnInit {
     }
 
     private createTableRow(rows: unknown[]): TableRowModel[] {
-        return rows.map((row) => new TableRowModel(this.walletsService, row, this.$params));
+        return rows.map((row) => {
+            const isOpened: boolean = this.rows.some(
+                (oldRow: TableRowModel) => oldRow['id'] === row['id'] && oldRow.opened,
+            );
+
+            return new TableRowModel(this.walletsService, row, this.$params, isOpened);
+        });
     }
 
     private paginationUseCheck(): void {

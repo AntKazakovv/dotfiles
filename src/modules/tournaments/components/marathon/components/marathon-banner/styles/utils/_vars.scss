@@ -1,0 +1,56 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'textColor': var(--mc-baseMain),
+
+    //Container
+    'containerAlignItems': center,
+    'containerJustifyContent': center,
+    'contentPadding': 0 ef.size(4),
+    'containerBg': var(--wlc-marathon-bnr-main-img) no-repeat center/cover,
+
+    //Content
+    'contentMaxWidth': (
+        375: 275px,
+        640: 600px,
+    ),
+    'contentGap': ef.size(4),
+    'contentAlignItems': center,
+    'contentJustifyContent': center,
+
+    //Left decor
+    'leftDecorContent': (
+        375: null,
+        1630: ef.static('wlc/tournaments/marathon/banner-left.png'),
+    ),
+    'leftDecorBottom': -40px,
+    'leftDecorLeft': 40px,
+
+    //Right decor
+    'rightDecorContent': (
+        375: null,
+        1630: ef.static('wlc/tournaments/marathon/banner-right.png'),
+    ),
+    'rightDecorBottom': -30px,
+    'rightDecorRight': 30px,
+
+    //Title
+    'titleTextStyle': (
+        375: 'ThirdTitleBold',
+        640: 'ScreamTitle',
+    ),
+    'titleTextAlign': center,
+
+    //Description
+    'descriptionTextStyle': (
+        375: 'PrimaryText',
+        640: 'ThirdTitle',
+    ),
+    'descriptionTextAlign': center,
+
+    //Timer
+    'timerMaxWidth': 250px,
+
+    //Promocode
+    'promocodeMaxWidth': 250px,
+    'promocodeMinHeight': 40px,
+), $customThemeDefault);

@@ -1,0 +1,96 @@
+@if (ready$ | async) {
+    @if (marathon$ | async) {
+        <div class="{{$class}}__content">
+            <ng-container [ngTemplateOutlet]="banner"></ng-container>
+            <ng-container *ngIf="(leagues$ | async).length; else: noLeagues">
+                <ng-container [ngTemplateOutlet]="leaguesLeaderboard"></ng-container>
+                <ng-container [ngTemplateOutlet]="games"></ng-container>
+                <ng-container *ngIf="marathonTerms" [ngTemplateOutlet]="rules"></ng-container>
+            </ng-container>
+        </div>
+    } @else {
+        <div class="{{$class}}__nodata container">
+            <h4 class="{{$class}}__nodata-title">{{marathonTitle | translate}}</h4>
+
+            <div wlc-no-content
+                class="{{$class}}__nodata-content"
+                [inlineParams]="noContentParams">
+            </div>
+        </div>
+    }
+} @else {
+    <div class="{{$class}}__nodata-loader">
+        <div wlc-loader></div>
+    </div>
+}
+
+<ng-template #banner>
+    <div wlc-marathon-banner
+        class="{{$class}}__banner"
+        [inlineParams]="marathonBannerParams">
+    </div>
+</ng-template>
+
+<ng-template #leaguesLeaderboard>
+    <div class="{{$class}}__leagues container">
+        <div class="{{$class}}__leagues-content">
+            <h4 class="{{$class}}__leagues-title">
+                {{leaderboardSectionName | translate}}
+            </h4>
+            <div wlc-tournament-prizes-row
+                class="{{$class}}__leagues-prize"
+                [inlineParams]="tournamentPrizesRowParams"
+                [prizes]="marathonPrizePool">
+            </div>
+            <div wlc-table
+                class="{{$class}}__leagues-table"
+                [inlineParams]="tableParams">
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #games>
+    <div class="{{$class}}__divider"></div>
+    <div class="{{$class}}__games container">
+        <h4 class="{{$class}}__games-title">
+            {{gamesSectionName | translate}}
+        </h4>
+        <div wlc-wrapper
+            class="{{$class}}__games-list"
+            [inlineParams]="gamesGridConfig">
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #rules>
+    <div class="{{$class}}__divider"></div>
+    <div class="{{$class}}__rules">
+        <div class="{{$class}}__rules-content">
+            <h4 class="{{$class}}__rules-title">
+                {{rulesSectionName | translate}}
+            </h4>
+
+            <div class="{{$class}}__rules-terms"
+                [innerHTML]="marathonTerms | safeValue:'html'">
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #noLeagues>
+    <div class="{{$class}}__no-leagues">
+        <div class="{{$class}}__no-leagues-content">
+            <div wlc-icon
+                class="{{$class}}__no-leagues-icon"
+                [iconUrl]="noLeaguesImagePath"
+                [fallback]="noLeaguesImageFallbackPath">
+            </div>
+            <div class="{{$class}}__no-leagues-message">
+                <p class="{{$class}}__no-leagues-title">{{noLeaguesTitle | translate}} </p>
+                <p class="{{$class}}__no-leagues-desc">{{noLeaguesDescription | translate}}</p>
+            </div>
+        </div>
+    </div>
+</ng-template>
+

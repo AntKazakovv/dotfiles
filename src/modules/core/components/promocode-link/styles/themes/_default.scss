@@ -1,10 +1,34 @@
-.wlc-promocode-link--theme-default {
+.wlc-promocode-link--theme-default:host {
+    display: grid;
 
-    &:host {
+    .wlc-promocode-link {
 
-        ::ng-deep {
+        &__input {
+            position: relative;
 
-            display: grid;
+            &-btn {
+                --wlc-icon-width: #{ef.get-value($themeDefault, 'inputBtnIconSize')};
+                --wlc-icon-height: #{ef.get-value($themeDefault, 'inputBtnIconSize')};
+
+                position: absolute;
+                top: 0;
+                right: ef.get-value($themeDefault, 'inputBtnRight');
+                bottom: 0;
+
+                display: flex;
+                align-items: ef.get-value($themeDefault, 'inputAlignItems');
+                justify-content: ef.get-value($themeDefault, 'inputJustifyContent');
+                width: ef.get-value($themeDefault, 'inputBtnSize');
+                height: ef.get-value($themeDefault, 'inputBtnSize');
+                margin: ef.get-value($themeDefault, 'inputBtnMargin');
+
+                border-radius: ef.get-value($themeDefault, 'inputBtnRadius');
+                background: ef.get-value($themeDefault, 'inputBtnBg');
+
+                ::ng-deep svg * {
+                    fill: ef.get-value($themeDefault, 'inputBtnIconFill');
+                }
+            }
         }
     }
 }

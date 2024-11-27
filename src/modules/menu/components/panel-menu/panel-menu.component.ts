@@ -119,9 +119,12 @@ export class PanelMenuComponent extends AbstractComponent implements OnInit {
         }
 
         if (this.$params.type !== 'info') {
-            const useTournaments = this.configService.get<boolean>('$base.tournaments.use');
-            if (!useTournaments) {
+            if (!this.configService.get<boolean>('$base.tournaments.use')) {
                 this.menuConfig = _pull(this.menuConfig, 'panel-menu:tournaments');
+            }
+
+            if (!this.configService.get<boolean>('$base.marathon.use')) {
+                this.menuConfig = _pull(this.menuConfig, 'panel-menu:marathon');
             }
         }
     }

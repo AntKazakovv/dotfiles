@@ -3,6 +3,7 @@ import {deviceConfig} from './device.config';
 import {stickyHeaderConfig} from './sticky-header.config';
 import {profileConfig} from './profile.config';
 import {tournamentsConfig} from './tournaments.config';
+import {marathonConfig} from './marathon.config';
 import {gamesConfig} from './games.config';
 import {appConfig} from './app.config';
 import {notificationsConfig} from './notifications.config';
@@ -20,6 +21,7 @@ export const $base: IBaseConfig = {
     fixedPanel: fixedPanelConfig,
     profile: profileConfig,
     tournaments: tournamentsConfig,
+    marathon: marathonConfig,
     games: gamesConfig,
     notifications: notificationsConfig,
     contacts: contactsConfig,

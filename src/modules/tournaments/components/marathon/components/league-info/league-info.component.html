@@ -1,0 +1,30 @@
+@if (isModal) {
+    <div wlc-icon
+        class="{{$class}}__image"
+        [iconUrl]="headerImage"
+        [fallback]="fallbackImagePath">
+    </div>
+    <div class="{{$class}}__content">
+        <h2 class="{{$class}}__content-name">{{leagueName}}</h2>
+        <p *ngIf="leagueDescription"
+            class="{{$class}}__content-description">
+            {{leagueDescription}}
+        </p>
+        <div class="{{$class}}__leaderboard">
+            <h2 class="{{$class}}__leaderboard-title">{{leaderboardTitle | translate}}</h2>
+            <div wlc-tournament-leaderboard
+                class="{{$class}}__leaderboard-table"
+                [tournament]="league"
+                [inlineParams]="leaderboardParams">
+            </div>
+        </div>
+    </div>
+} @else {
+    <div class="{{$class}}__tooltip-wrp">
+        <div wlc-tooltip
+            class="{{$class}}__tooltip"
+            [inlineParams]="tooltipParams"
+            (click)="openInfoModal()">
+        </div>
+    </div>
+}

@@ -1,0 +1,86 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'textColor': var(--mc-baseMain),
+    'textStyle': 'PrimaryText',
+    'titleTextStyle': 'QoteTextBold',
+    'titleTextAlign': center,
+    'rootMargin': 0 0 ef.size(8),
+    'rootContentMaxWidth': 915px,
+
+    //Header
+    'headerHeight': (
+        375: 320px,
+        640: 400px,
+    ),
+
+    //Leagues
+    'leaguesJustifyContent': center,
+    'leaguesPadding': (
+        375: ef.size(4) 0 ef.size(6),
+        900: ef.size(8) ef.size(0),
+    ),
+    'leaguesBg': transparent,
+    'leaguesContentAlignItems': center,
+    'leaguesContentGap': (
+        375: ef.size(4),
+        900: ef.size(2),
+    ),
+    'leaguesTitleTextSyle': 'QoteTextBold',
+    'leaguesTitleTextAlign': center,
+    'leaguesPrizeTextSyle': 'PromoTitle',
+    'leaguesTableBg': var(--mc-bg700),
+    'leaguesTableRadius': ef.get('radius', 'biger'),
+
+    //Game grid
+    'gamesAlignItems': center,
+    'gamesPadding': (
+        375: ef.size(4) 0,
+        900: ef.size(8) 0,
+    ),
+    'gamesBg': transparent,
+    'gamesGridColumns': repeat(auto-fill, minmax(160px, 1fr)),
+
+    //Rules
+    'rulesJustifyContent': center,
+    'rulesMargin': 0 0 ef.size(8),
+    'rulesBg': transparent,
+    'rulesContentJustifyContent': center,
+    'rulesContentGap': ef.size(4),
+    'rulesContentPadding': ef.size(4) 0 ef.size(8),
+    'rulesContentMaxWidth': (
+        375: 320px,
+        640: 560px,
+    ),
+    'rulesTextStyle': 'PrimaryText',
+
+    //Divider
+    'dividerHeight': 2px,
+    'dividerBg': var(--mc-baseOpacity),
+
+    //No leagues
+    'noLeaguesMargin': (
+        375: ef.size(8) 0,
+        640: ef.size(12) 0,
+        900: ef.size(20) 0,
+    ),
+    'noLeaguesContentGap': ef.size(8),
+    'noLeaguesContentAlignItems': center,
+    'noLeaguesContentJustifyContent': center,
+    'noLeaguesContentMargin': 0 auto,
+    'noLeaguesContentPadding': 0 ef.size(4),
+    'noLeaguesIconMinWidth': 120px,
+    'noLeaguesIconMaxWidth': 200px,
+    'noLeaguesIconMinHeight': 120px,
+    'noLeaguesIconMaxHeight': 200px,
+    'noLeaguesMessageAlignItems': center,
+    'noLeaguesMessageJustifyContent': center,
+    'noLeaguesMessageGap': ef.size(3),
+    'noLeaguesDescriptionTextStyle': 'ThirdTitle',
+
+    //No data
+    'noDataTitleTextSyle': 'QoteTextBold',
+    'noDataTitleTextAlign': center,
+    'noDataTitleMargin': 0 0 ef.size(4),
+
+    'noDataLoaderMinHeight': 300px,
+), $customThemeDefault);

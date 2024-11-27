@@ -19,15 +19,16 @@ export type Currency = {
 export type TTableValue = string | Currency | IWrapperCParams | ICurrencyCParams;
 
 export class TableRowModel {
-
-    public opened: boolean = false;
     public paramsInjector: IIndexing<Injector> = {};
+    public id: unknown;
 
     constructor(
         protected readonly walletsService: WalletsService,
         private data: unknown,
         private params: Params.ITableCParams,
+        public opened: boolean = false,
     ) {
+        this.id = data?.['id'] ?? null;
     }
 
     public getValue(col: Params.ITableCol, index?: number): TTableValue {

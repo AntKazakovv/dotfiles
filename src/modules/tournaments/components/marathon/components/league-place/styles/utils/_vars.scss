@@ -1,0 +1,8 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'rootItemsGap': ef.size(2),
+    'rootAlignItems': center,
+    'rootJustifyContent': center,
+    'textAlign': left,
+    'placeMinWidth': 4ch,
+), $customThemeDefault);

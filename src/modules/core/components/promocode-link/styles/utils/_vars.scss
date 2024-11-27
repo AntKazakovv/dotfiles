@@ -5,4 +5,14 @@ $themeDefault: map-merge((
         900: 0,
     ),
     'linkBlockJustifyContent': left,
+
+    'inputAlignItems': center,
+    'inputJustifyContent': center,
+    'inputBtnSize': 32px,
+    'inputBtnRight': 4px,
+    'inputBtnMargin': auto 0,
+    'inputBtnRadius': ef.get('radius', 'main'),
+    'inputBtnBg': var(--mc-main),
+    'inputBtnIconSize': 13px,
+    'inputBtnIconFill': var(--mc-baseMain),
 ), $customThemeDefault);

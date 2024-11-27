@@ -13,7 +13,7 @@
                 wlc-button
                 [attr.type]="'button'"
                 text="{{$params.common.link}}"
-                iconPath="/wlc/icons/icons_new/arrow.svg"
+                [iconPath]="btnIconPath"
                 [theme]="buttonTheme"
                 [wlcElement]="$params.wlcElement + '-button'"
                 (click)="goTo($params.common.actionParams); $event.preventDefault();"

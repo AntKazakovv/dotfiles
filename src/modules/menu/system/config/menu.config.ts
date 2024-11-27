@@ -14,6 +14,7 @@ export const menuConfig: IMenuConfig = {
     mainMenu: {
         items: [
             'main-menu:home',
+            'main-menu:marathon',
             'main-menu:promotions',
             'main-menu:tournaments',
             'main-menu:contacts',
@@ -45,6 +46,7 @@ export const menuConfig: IMenuConfig = {
     panelMenu: {
         items: [
             'panel-menu:home',
+            'panel-menu:marathon',
             'panel-menu:categories',
             'panel-menu:promotions',
             'panel-menu:tournaments',

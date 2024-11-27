@@ -644,6 +644,33 @@
             }
         }
     }
+
+    &.wlc-modal--join-league-confirmation-modal {
+
+        .wlc-modal__body {
+            padding: ef.get-value($themeDefault, 'joinLeagueConfirmationBodyPadding');
+        }
+
+        .modal-icon {
+            margin: ef.get-value($themeDefault, 'joinLeagueConfirmationIconMargin');
+        }
+
+        .modal-message:not(:last-child) {
+            margin: ef.get-value($themeDefault, 'joinLeagueConfirmationMessageMargin');
+        }
+    }
+
+    &.wlc-modal--league-info-modal {
+
+        .wlc-modal__dialog {
+            max-width: ef.get-value($themeDefault, 'leagueInfoModalMaxWidth');
+            overflow: hidden;
+        }
+
+        .wlc-modal__body {
+            padding: 0;
+        }
+    }
 }
 
 body.modal-open {

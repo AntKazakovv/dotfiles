@@ -20,7 +20,9 @@ import _get from 'lodash-es/get';
 import _isNil from 'lodash-es/isNil';
 import _map from 'lodash-es/map';
 
-import {Tournament} from '../../models/tournament.model';
+import {Tournament} from 'wlc-engine/modules/tournaments/system/models/tournament.model';
+import {League} from 'wlc-engine/modules/tournaments/system/models/league.model';
+import {Marathon} from 'wlc-engine/modules/tournaments/system/models/marathon.model';
 import {
     IData,
     ConfigService,
@@ -34,7 +36,6 @@ import {
     InjectionService,
 } from 'wlc-engine/modules/core';
 import {
-    ITournament,
     RestType,
     IGetSubscribeParams,
     IQueryParams,
@@ -44,13 +45,32 @@ import {
     IJoinTournamentParams,
     TournamentEvents,
     IBuyFreeSpinsParams,
-} from '../../interfaces/tournaments.interface';
+    TTournamentType,
+    TTournamentModel,
+    TTournamentInterface,
+    IMarathon,
+    ILeague,
+    ITournament,
+} from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
 import {UserProfile} from 'wlc-engine/modules/user';
 import {MultiWalletEvents} from 'wlc-engine/modules/multi-wallet';
 import {WalletsService} from 'wlc-engine/modules/multi-wallet/system/services/wallets.service';
 
 interface ITournamentData extends IData {
-    data?: ITournament;
+    data?: TTournamentInterface;
+}
+
+/**
+ * @param {boolean} publicSubject is public rxjs subject from query
+ * @param {RestType} type bonuses rest type ('active' | 'any')
+ * @param {TTournamentType} tournamentType type of tournaments ('general' | 'marathon' | 'league')
+ * @param {string} promoCode promo code
+ */
+export interface IQueryTournamentsParams {
+    publicSubject?: boolean,
+    type?: RestType,
+    tournamentType?: TTournamentType,
+    promoCode?: string,
 }
 
 @Injectable({
@@ -64,7 +84,9 @@ export class TournamentsService {
 
     private subjects = {
         tournaments$: new BehaviorSubject<Tournament[]>(null),
-        active$: new BehaviorSubject<Tournament[]>(null),
+        activeTournaments$: new BehaviorSubject<Tournament[]>(null),
+        marathons$: new BehaviorSubject<Marathon[]>(null),
+        leagues$: new BehaviorSubject<League[]>(null),
     };
 
     private winnersSubjects: IIndexing<BehaviorSubject<ITopTournamentUsers>> = {};
@@ -91,12 +113,17 @@ export class TournamentsService {
      * @param {IGetSubscribeParams} params params for subscribtion
      * @returns {Subscription} subsctibtion
      */
-    public getSubscribe(params: IGetSubscribeParams): Subscription {
+    public getSubscribe<T extends TTournamentModel>(params: IGetSubscribeParams): Subscription {
         if (params.useQuery) {
-            this.queryTournaments(true, params?.type);
+            this.queryTournaments<T>({
+                publicSubject: true,
+                type: params?.type,
+                tournamentType: params?.tournamentType,
+            });
         }
 
-        return this.getObserver(params?.type).pipe(
+        return this.getObserver(params?.type, params?.tournamentType).pipe(
+            params.pipes ?? pipe(),
             (params?.until) ? takeUntil(params?.until) : pipe(),
         ).subscribe(params.observer);
     }
@@ -105,21 +132,31 @@ export class TournamentsService {
      * Get tournaments observer from tournaments subjects by rest type
      *
      * @param {RestType} type bonuses rest type ('active' | 'any')
-     * @returns {Observable<Tournament[]>} Observable
+     * @param {TTournamentType} tournamentType type of tournaments ('general' | 'marathon' | 'league')
+     * @returns {Observable<TTournamentModel[]>} Observable
      */
-    public getObserver<T extends Tournament[]>(type?: RestType): Observable<T> {
-        let flow$: BehaviorSubject<Tournament[]>;
+    public getObserver<T extends TTournamentModel>(
+        type: RestType = 'any',
+        tournamentType: TTournamentType = 'general',
+    ): Observable<T[]> {
+        let flow$: BehaviorSubject<TTournamentModel[]>;
 
-        switch (type) {
-            case 'active':
-                flow$ = this.subjects.active$;
+        switch (true) {
+            case tournamentType === 'marathon':
+                flow$ = this.subjects.marathons$;
+                break;
+            case tournamentType === 'league':
+                flow$ = this.subjects.leagues$;
+                break;
+            case tournamentType === 'general' && type === 'active':
+                flow$ = this.subjects.activeTournaments$;
                 break;
             default:
                 flow$ = this.subjects.tournaments$;
                 break;
         }
 
-        return (flow$ as BehaviorSubject<T>).asObservable();
+        return (flow$ as BehaviorSubject<T[]>).asObservable();
     }
 
     /**
@@ -237,10 +274,10 @@ export class TournamentsService {
     /**
      * Join tournament
      *
-     * @param {Tournament} tournament Tournament object
-     * @returns {Tournament} Tournament object
+     * @param {TTournamentModel} tournament TTournamentModel object
+     * @returns {TTournamentModel} TTournamentModel object
      */
-    public async joinTournament(tournament: Tournament, walletId?: number): Promise<Tournament> {
+    public async joinTournament<T extends TTournamentModel>(tournament: T, walletId?: number): Promise<T | never> {
         const params: IJoinTournamentParams = {ID: tournament.id, Selected: 1};
         try {
             this.isProcessed$.next(true);
@@ -262,10 +299,22 @@ export class TournamentsService {
                     fail: 'TOURNAMENT_JOIN_FAILED',
                 },
             }, params);
-            this.showSuccess(gettext('Tournament join success'));
+
+            if (tournament.tournamentType === 'league') {
+                this.showSuccess(gettext('You have successfully joined the league'));
+            } else {
+                this.showSuccess(gettext('Tournament join success'));
+            }
+
             return response.data;
         } catch (error) {
-            this.showError(gettext('Tournament join failed'), error?.errors);
+            if (tournament.tournamentType === 'league') {
+                this.showError(gettext('An error has occurred when joining the league'), error?.errors);
+            } else {
+                this.showError(gettext('Tournament join failed'), error?.errors);
+            }
+
+            this.logService.sendLog({code: '13.0.5', data: error});
         } finally {
             this.isProcessed$.next(false);
         }
@@ -274,10 +323,10 @@ export class TournamentsService {
     /**
      * Leave tournament
      *
-     * @param {Tournament} tournament Tournament object
-     * @returns {Tournament} Tournament object
+     * @param {TTournamentModel} tournament TTournamentModel object
+     * @returns {TTournamentModel} TTournamentModel object
      */
-    public async leaveTournament(tournament: Tournament): Promise<Tournament> {
+    public async leaveTournament<T extends TTournamentModel>(tournament: T): Promise<T> {
         const params = {ID: tournament.id, Selected: 0};
 
         try {
@@ -302,19 +351,24 @@ export class TournamentsService {
     /**
      * Get tournaments
      *
-     * @param {boolean} publicSubject is public rxjs subject from query
-     * @param {RestType} type bonuses rest type ('active' | 'any') (no required)
-     * @returns {Tournament[]} bonuses array
+     * @param {IQueryTournamentsParams} params method params
+     * @returns {TTournamentModel[]} bonuses array
      */
-    public async queryTournaments(
-        publicSubject: boolean,
-        type?: RestType,
-    ): Promise<Tournament[]> {
-        let tournaments: Tournament[] = [];
+    public async queryTournaments<T extends TTournamentModel>(params: IQueryTournamentsParams): Promise<T[]> {
+        let tournaments: T[] = [];
+        const {publicSubject, tournamentType, type, promoCode} = params;
         const queryParams: IQueryParams = {};
 
-        if (type === 'active' || type === 'history') {
+        if (type && type !== 'any') {
             queryParams.type = type;
+        }
+
+        if (tournamentType && tournamentType !== 'general') {
+            queryParams.TournamentType = tournamentType;
+        }
+
+        if (promoCode) {
+            queryParams.PromoCode = promoCode;
         }
 
         if (this.configService.get<string>('$base.defaultCurrency') != 'EUR'
@@ -323,18 +377,27 @@ export class TournamentsService {
         }
 
         try {
-            const res: IData<ITournament[]> = await this.dataService.request(
+            const res: IData<TTournamentInterface[]> = await this.dataService.request(
                 'tournaments/tournaments', queryParams,
             );
 
-            Tournament.selectedTournaments = false;
-            Tournament.hasAllowStack = false;
-            const result = this.modifyTournaments(res.data, Date.parse(res.headers.get('Date')));
-            tournaments = this.checkForbid(result, type);
+            if (res.data?.length) {
+                Tournament.selectedTournaments = false;
+                Tournament.hasAllowStack = false;
 
-            switch (type) {
-                case 'active':
-                    publicSubject ? this.subjects.active$.next(tournaments as Tournament[]) : null;
+                const result: T[] = this.modifyTournaments<T>(res.data, Date.parse(res.headers.get('Date')));
+                tournaments = this.checkForbid<T>(result, type);
+            }
+
+            switch (true) {
+                case tournamentType === 'marathon':
+                    publicSubject ? this.subjects.marathons$.next(tournaments as Marathon[]) : null;
+                    break;
+                case tournamentType === 'league':
+                    publicSubject ? this.subjects.leagues$.next(tournaments as League[]) : null;
+                    break;
+                case tournamentType === 'general' && type === 'active':
+                    publicSubject ? this.subjects.activeTournaments$.next(tournaments as Tournament[]) : null;
                     break;
                 default:
                     publicSubject ? this.subjects.tournaments$.next(tournaments as Tournament[]) : null;
@@ -441,10 +504,10 @@ export class TournamentsService {
         });
     }
 
-    private checkForbid(
-        tournaments: Tournament[],
+    private checkForbid<T extends TTournamentModel>(
+        tournaments: T[],
         type: RestType,
-    ): Tournament[] {
+    ): T[] {
         const userCategory: string = _get(this.profile, 'info.category', '').toLowerCase();
         const forbiddenCategories = this.configService.get<IIndexing<IForbidBanned>>('$loyalty.forbidBanned');
 
@@ -455,34 +518,51 @@ export class TournamentsService {
                 _get(forbiddenCategories, `${userCategory}.ForbidTournaments`, false)
             ) && type !== 'active'
         ) {
-            tournaments = _filter(tournaments as Tournament[], (item: Tournament) => item.isSelected);
+            tournaments = _filter(tournaments, (item: T) => item.isSelected);
         }
 
         return tournaments;
     }
 
-    private modifyTournaments(
-        data: ITournament[],
+    private modifyTournaments<T extends TTournamentModel>(
+        data: TTournamentInterface[],
         tournamentsServerTime: number,
-    ): Tournament[] {
-        if (data?.length) {
-            Tournament.serverTime = tournamentsServerTime;
-            const queryTournaments = _map<ITournament, Tournament>(
-                data as ITournament[],
-                (item: ITournament) => {
-                    return new Tournament(
-                        {service: 'TournamentsService', method: 'modifyTournaments'},
-                        item,
-                        this.configService,
-                        this,
-                    );
-                });
+    ): T[] {
+        Tournament.serverTime = tournamentsServerTime;
+        const queryTournaments: T[] = _map(
+            data,
+            (item: TTournamentInterface): T => {
+                switch (item.TournamentType) {
+                    case 'marathon':
+                        return new Marathon(
+                            {service: 'TournamentsService', method: 'modifyTournaments'},
+                            item as IMarathon,
+                            this.configService,
+                            this,
+                        ) as T;
+                    case 'league':
+                        return new League(
+                            {service: 'TournamentsService', method: 'modifyTournaments'},
+                            item as ILeague,
+                            this.configService,
+                            this,
+                        ) as T;
+                    case 'general':
+                    default:
+                        return new Tournament(
+                            {service: 'TournamentsService', method: 'modifyTournaments'},
+                            item as ITournament,
+                            this.configService,
+                            this,
+                        ) as T;
+                }
+            });
 
-            return _filter(
-                queryTournaments,
-                (item: Tournament) => item.status !== -1,
-            );
-        }
+        return _filter(
+            queryTournaments,
+            (item: T) => item.status !== -1,
+        );
+
     }
 
     private setSubscribers(): void {
@@ -507,11 +587,29 @@ export class TournamentsService {
             },
         });
 
-        this.subjects.active$.subscribe({
+        this.subjects.activeTournaments$.subscribe({
             next: (tournaments: Tournament[]) => {
                 this.eventService.emit({
                     name: 'TOURNAMENTS_FETCH_ACTIVE_SUCCESS',
                     data: tournaments,
+                });
+            },
+        });
+
+        this.subjects.marathons$.subscribe({
+            next: (marathons: Marathon[]) => {
+                this.eventService.emit({
+                    name: 'TOURNAMENTS_FETCH_MARATHONS_SUCCESS',
+                    data: marathons,
+                });
+            },
+        });
+
+        this.subjects.leagues$.subscribe({
+            next: (leagues: League[]) => {
+                this.eventService.emit({
+                    name: 'TOURNAMENTS_FETCH_LEAGUES_SUCCESS',
+                    data: leagues,
                 });
             },
         });
@@ -542,15 +640,24 @@ export class TournamentsService {
     }
 
     private updateSubscribers(): void {
-        if (this.subjects.active$.observers.length > 1) {
-            this.queryTournaments(true, 'active');
+        if (this.subjects.marathons$.observers.length > 1) {
+            this.queryTournaments({publicSubject: true, tournamentType: 'marathon'});
         }
+
+        if (this.subjects.leagues$.observers.length > 1) {
+            this.queryTournaments({publicSubject: true, tournamentType: 'league'});
+        }
+
         if (this.subjects.tournaments$.observers.length > 1) {
-            this.queryTournaments(true);
+            this.queryTournaments({publicSubject: true, tournamentType: 'general'});
+        }
+
+        if (this.subjects.activeTournaments$.observers.length > 1) {
+            this.queryTournaments({publicSubject: true, type: 'active', tournamentType: 'general'});
         }
     }
 
-    private prepareTournamentActionData(res: unknown, tournament: Tournament): Tournament {
+    private prepareTournamentActionData<T extends TTournamentModel>(res: unknown, tournament: T): T {
         _extend(tournament.data, res);
         return tournament;
     }

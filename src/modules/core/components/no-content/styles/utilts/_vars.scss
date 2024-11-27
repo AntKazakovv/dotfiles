@@ -233,6 +233,10 @@ $tournamentList: map-merge((
     'nodataWolfWrapperRadius': ef.get('radius', 'main'),
 ), $customTournamentList);
 
+$customMarathon: () !default;
+$themeMarathon: map-merge((
+    'nodataDecorMaxWidth': 200px,
+), $customMarathon);
 
 $customThemePromotions: () !default;
 $themePromotions: map-merge((

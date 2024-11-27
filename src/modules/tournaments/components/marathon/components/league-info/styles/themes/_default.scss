@@ -1,0 +1,58 @@
+.wlc-league-info--theme-default:host {
+
+    .wlc-league-info {
+
+        &__tooltip-wrp {
+            display: flex;
+            justify-content: ef.get-value($themeDefault, 'tooltipWrpJustify');
+        }
+
+        &__image {
+            --wlc-icon-width: 100%;
+            @include bm.get-mq-map('--wlc-icon-height', $themeDefault, 'headerImageHeight');
+
+            ::ng-deep img {
+                object-fit: cover;
+            }
+        }
+
+        &__content {
+            display: flex;
+            flex-direction: column;
+            gap: ef.get-value($themeDefault, 'contentGap');
+            align-items: ef.get-value($themeDefault, 'contentAlignItems');
+            width: 100%;
+            padding: ef.get-value($themeDefault, 'contentPadding');
+            text-align: ef.get-value($themeDefault, 'contentTextAlign');
+
+            &-name {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'nameTextStyle'),
+                    ef.get-value($themeDefault, 'nameTextColor'),
+                );
+            }
+
+            &-description {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'descriptionTextStyle'),
+                    ef.get-value($themeDefault, 'descriptionTextColor'),
+                );
+            }
+        }
+
+        &__leaderboard {
+            width: 100%;
+            max-width: ef.get-value($themeDefault, 'leaderboardMaxWidth');
+
+            &-title {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'leaderboardTitleTextStyle'),
+                    ef.get-value($themeDefault, 'leaderboardTitleTextColor'),
+                );
+
+                margin: ef.get-value($themeDefault, 'leaderboardTitleMargin');
+                text-align: ef.get-value($themeDefault, 'leaderboardTitleTextAlign');
+            }
+        }
+    }
+}

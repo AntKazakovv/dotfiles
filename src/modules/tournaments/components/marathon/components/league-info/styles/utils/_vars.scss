@@ -1,0 +1,30 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'tooltipWrpJustify': center,
+
+    'headerImageHeight': (
+        375: 180px,
+        560: 245px,
+    ),
+    'headerImageBgPosition': center,
+    'headerImageBgRepeat': no-repeat,
+    'headerImageBgSize': cover,
+
+    'contentGap': ef.size(4),
+    'contentAlignItems': center,
+    'contentTextAlign': center,
+    'contentPadding': ef.size(6) ef.size(5) ef.size(8),
+
+    'nameTextStyle': 'QoteTextBold',
+    'nameTextColor': var(--mc-baseMain),
+
+    'descriptionTextStyle': 'PrimaryText',
+    'descriptionTextColor': var(--mc-baseMain),
+
+    'leaderboardMaxWidth': 480px,
+    'leaderboardTitleMargin': 0 0 ef.size(2),
+    'leaderboardTitleTextStyle': 'QoteTextBold',
+    'leaderboardTitleTextColor': var(--mc-baseMain),
+    'leaderboardTitleTextAlign': center,
+), $customThemeDefault);
+

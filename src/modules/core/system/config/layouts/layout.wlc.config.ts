@@ -186,6 +186,12 @@ export const $layouts: ILayoutsConfig = {
             'tournaments': sectionsLib.promoTournaments.def,
         },
     },
+    'app.marathon': {
+        extends: 'app',
+        sections: {
+            'marathon': sectionsLib.promoMarathon.def,
+        },
+    },
     'app.providers': {
         extends: 'app',
         sections: {

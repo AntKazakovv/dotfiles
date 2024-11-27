@@ -21,15 +21,17 @@ import {
     ITournamentGames,
     ITournamentPrize,
     TCurrency,
+    TTournamentType,
 } from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
 import {TournamentsService} from 'wlc-engine/modules/tournaments/system/services/tournaments/tournaments.service';
 import {AbstractTournamentModel} from 'wlc-engine/modules/tournaments/system/models/abstract-tournament.model';
 import {CurrenciesInfo} from 'wlc-engine/modules/core/constants/currencies-info.constants';
 
-export class Tournament extends AbstractTournamentModel<ITournament> {
+export class Tournament<T extends ITournament = ITournament> extends AbstractTournamentModel<T> {
     public hasGames: boolean = false;
     public prizePool: ITournamentPrize[];
     public prizeTable: IPrizeRow[];
+    public readonly promoCodes: string[];
     public static selectedTournaments: boolean = false;
     public static hasAllowStack: boolean = false;
 
@@ -38,7 +40,7 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
 
     constructor(
         from: IFromLog,
-        data: ITournament,
+        data: T,
         configService: ConfigService,
         tournamentsService: TournamentsService,
     ) {
@@ -55,6 +57,8 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
                 Tournament.hasAllowStack = true;
             }
         }
+
+        this.promoCodes = Array.isArray(this.data.PromoCodes) ? this.data.PromoCodes : [];
     }
 
     public static set serverTime(time: number) {
@@ -63,7 +67,7 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
         }
     }
 
-    public override set data(data: ITournament) {
+    public override set data(data: T) {
         super.data = data;
         this.setAvailabilityGames();
 
@@ -73,7 +77,7 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
         });
     }
 
-    public override get data(): ITournament {
+    public override get data(): T {
         return super.data;
     }
 
@@ -188,6 +192,10 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
 
     public get type(): string {
         return this.data.Type;
+    }
+
+    public get tournamentType(): TTournamentType {
+        return this.data.TournamentType;
     }
 
     public get value(): number {

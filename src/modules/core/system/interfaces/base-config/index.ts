@@ -2,6 +2,7 @@ import {IDeviceConfig} from 'wlc-engine/modules/core/system/models/device.model'
 import {IGamesConfig} from './games.interface';
 import {IProfileConfig} from './profile.interface';
 import {ITournamentsConfig} from './tournaments.interface';
+import {IMarathonConfig} from './marathon.interface';
 import {IAppConfig} from './app.interface';
 import {ISiteConfig} from './site.interface';
 import {INotificationsConfig} from './notifications.interface';
@@ -64,6 +65,7 @@ export interface IBaseConfig {
     allowedIframeReferrers?: string[];
     profile?: IProfileConfig;
     tournaments?: ITournamentsConfig;
+    marathon?: IMarathonConfig;
     games?: IGamesConfig;
     device?: IDeviceConfig;
     notifications?: INotificationsConfig;

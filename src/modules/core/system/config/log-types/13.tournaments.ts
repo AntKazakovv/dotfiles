@@ -17,4 +17,8 @@ export const errorTypes: ILogTypes = {
     '13.0.4': {
         // Tournament user not found
     },
+    '13.0.5': {
+        // Tournament join failed
+        level: 'error',
+    },
 };

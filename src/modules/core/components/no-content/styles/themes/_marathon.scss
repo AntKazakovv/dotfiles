@@ -1,0 +1,13 @@
+.wlc-no-content--wlc-marathon:host {
+    @include baseNoContent();
+
+    &.wlc-no-content--theme-promotions {
+
+        .wlc-no-content {
+
+            &__decor {
+                max-width: ef.get-value($themeMarathon, 'nodataDecorMaxWidth');
+            }
+        }
+    }
+}

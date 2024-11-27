@@ -1,0 +1,32 @@
+.wlc-league-status--theme-default:host {
+
+    .wlc-league-status {
+
+        &--can-join {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'rootTextStyle'),
+                ef.get-value($themeDefault, 'linkBtnColor'),
+            );
+
+            display: inline-block;
+
+            @include bm.hover {
+                color: ef.get-value($themeDefault, 'linkBtnColorHover');
+            }
+        }
+
+        &--not-available {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'rootTextStyle'),
+                ef.get-value($themeDefault, 'notAvailableColor'),
+            );
+        }
+
+        &--success {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'rootTextStyle'),
+                ef.get-value($themeDefault, 'successColor'),
+            );
+        }
+    }
+}

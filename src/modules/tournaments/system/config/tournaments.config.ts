@@ -34,6 +34,25 @@ export const tournamentsConfig: ITournamentsModule = {
                 },
             },
         },
+        'wlc-marathon': {
+            noContent: {
+                'default': {
+                    theme: 'promotions',
+                    title: gettext('Streamer leagues are coming soon'),
+                    text: gettext('In the meantime, show off your real skills in our casino!'),
+                    decorImage: '/wlc/tournaments/marathon/swords-colored.png',
+                    decorParams: {
+                        useDecorInside: true,
+                        useInline: true,
+                    },
+                    redirectBtn: {
+                        useBtn: true,
+                        sref: 'app.catalog',
+                        text: gettext('Play'),
+                    },
+                },
+            },
+        },
     },
     prizePodium: {
         useOnDetail: false,

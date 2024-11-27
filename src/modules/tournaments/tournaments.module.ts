@@ -6,6 +6,7 @@ import {CoreModule} from '../core/core.module';
 import {
     TournamentsService,
     ITournamentsModule,
+    MarathonBannerComponent,
 } from 'wlc-engine/modules/tournaments';
 
 import {
@@ -15,6 +16,9 @@ import {TournamentListComponent} from './components/tournament-list/tournament-l
 import {
     TournamentComponent,
 } from './components/tournament/tournament.component';
+import {
+    MarathonComponent,
+} from './components/marathon/marathon.component';
 import {
     TournamentLeaderboardComponent,
 } from './components/tournament/components/tournament-leaderboard/tournament-leaderboard.component';
@@ -34,6 +38,10 @@ import {
 import {
     TournamentPrizesRowComponent,
 } from './components/tournament/components/tournament-prizes-row/tournament-prizes-row.component';
+import {
+    LeagueStatusComponent,
+    LeagueInfoComponent,
+} from 'wlc-engine/modules/tournaments/components';
 import {CompilerModule} from 'wlc-engine/modules/compiler';
 import {GlobalHelper} from 'wlc-engine/modules/core';
 import {tournamentsConfig} from './system/config/tournaments.config';
@@ -41,6 +49,9 @@ import * as $config from 'wlc-config/index';
 
 import {TournamentFreeSpinsComponent} from
     './components/tournament/components/tournament-free-spins/tournament-free-spins.component';
+import {
+    LeaguePlaceComponent,
+} from 'wlc-engine/modules/tournaments/components/marathon/components/league-place/league-place.component';
 
 export const moduleConfig =
     GlobalHelper.mergeConfig<ITournamentsModule>(tournamentsConfig, _get($config, '$tournaments', {}));
@@ -49,6 +60,11 @@ export const components = {
     'wlc-tournament-list': TournamentListComponent,
     'wlc-tournament-leaderboard': TournamentLeaderboardComponent,
     'wlc-tournament': TournamentComponent,
+    'wlc-marathon': MarathonComponent,
+    'wlc-marathon-banner': MarathonBannerComponent,
+    'wlc-league-status': LeagueStatusComponent,
+    'wlc-league-info': LeagueInfoComponent,
+    'wlc-league-place': LeaguePlaceComponent,
 };
 
 export const services = {
@@ -60,6 +76,11 @@ export const services = {
         TournamentDetailComponent,
         TournamentListComponent,
         TournamentComponent,
+        MarathonComponent,
+        MarathonBannerComponent,
+        LeagueStatusComponent,
+        LeagueInfoComponent,
+        LeaguePlaceComponent,
         TournamentLeaderboardComponent,
         TournamentPromoComponent,
         TournamentPrizesComponent,
@@ -79,6 +100,11 @@ export const services = {
     exports: [
         TournamentListComponent,
         TournamentComponent,
+        MarathonComponent,
+        MarathonBannerComponent,
+        LeagueStatusComponent,
+        LeagueInfoComponent,
+        LeaguePlaceComponent,
         TournamentLeaderboardComponent,
     ],
 })

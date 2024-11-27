@@ -1,0 +1,234 @@
+.wlc-marathon--theme-default:host {
+    margin: ef.get-value($themeDefault, 'rootMargin');
+
+    .wlc-marathon {
+
+        &__banner {
+            @include bm.get-mq-map('height', $themeDefault, 'headerHeight');
+        }
+
+        &__leagues {
+            @include bm.get-mq-map('padding', $themeDefault, 'leaguesPadding');
+
+            display: flex;
+            justify-content: ef.get-value($themeDefault, 'leaguesJustifyContent');
+            width: 100%;
+            background: ef.get-value($themeDefault, 'leaguesBg');
+
+            &-content {
+                @include bm.get-mq-map('gap', $themeDefault, 'leaguesContentGap');
+                display: flex;
+                flex-direction: column;
+                align-items: ef.get-value($themeDefault, 'leaguesContentAlignItems');
+                width: 100%;
+                max-width: ef.get-value($themeDefault, 'rootContentMaxWidth');
+            }
+
+            &-title {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'leaguesTitleTextSyle'),
+                    ef.get-value($themeDefault, 'textColor'),
+                );
+                text-align: ef.get-value($themeDefault, 'leaguesTitleTextAlign');
+            }
+
+            &-prize {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'leaguesPrizeTextSyle'),
+                    ef.get-value($themeDefault, 'textColor'),
+                );
+            }
+
+            &-table {
+                width: 100%;
+                border-radius: ef.get-value($themeDefault, 'leaguesTableRadius');
+                overflow: hidden;
+
+                &.wlc-table--table {
+                    --wlc-marathon-lp-name-display: none;
+                    --wlc-marathon-lp-place-min-width: auto;
+
+                    min-height: initial;
+                    background: ef.get-value($themeDefault, 'leaguesTableBg');
+                }
+
+                &.wlc-table--mobile {
+                    min-height: initial;
+
+                    &::ng-deep {
+
+                        .wlc-table__cell {
+
+                            &--leaguePlace[class] {
+
+                                .wlc-table__cell-label {
+                                    display: none;
+                                }
+                            }
+
+                            &--name[class] {
+                                display: none;
+                            }
+
+                            &--leagueStatus[class]:has(.wlc-league-status--can-join) {
+                                justify-content: center;
+                                order: 1;
+                                border: none;
+
+                                .wlc-table__cell-label {
+                                    display: none;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &__games {
+            @include bm.get-mq-map('padding', $themeDefault, 'gamesPadding');
+
+            display: flex;
+            flex-direction: column;
+            align-items: ef.get-value($themeDefault, 'gamesAlignItems');
+            width: 100%;
+            background: ef.get-value($themeDefault, 'gamesBg');
+
+            &-title {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'titleTextStyle'),
+                    ef.get-value($themeDefault, 'textColor'),
+                );
+
+                text-align: ef.get-value($themeDefault, 'titleTextAlign');
+            }
+
+            &-list {
+                width: 100%;
+                max-width: ef.get-value($themeDefault, 'rootContentMaxWidth');
+
+                ::ng-deep {
+
+                    .wlc-games-grid__list {
+                        grid-template-columns: ef.get-value($themeDefault, 'gamesGridColumns');
+                    }
+                }
+            }
+        }
+
+        &__rules {
+            display: flex;
+            justify-content: ef.get-value($themeDefault, 'rulesJustifyContent');
+            width: 100%;
+            margin: ef.get-value($themeDefault, 'rulesMargin');
+            background: ef.get-value($themeDefault, 'rulesBg');
+
+            &-content {
+                @include bm.get-mq-map('max-width', $themeDefault, 'rulesContentMaxWidth');
+
+                display: flex;
+                flex-direction: column;
+                gap: ef.get-value($themeDefault, 'rulesContentGap');
+                justify-content: ef.get-value($themeDefault, 'rulesContentJustifyContent');
+                width: 100%;
+                padding: ef.get-value($themeDefault, 'rulesContentPadding');
+            }
+
+            &-title {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'titleTextStyle'),
+                    ef.get-value($themeDefault, 'textColor'),
+                );
+
+                text-align: ef.get-value($themeDefault, 'titleTextAlign');
+            }
+
+            &-terms {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'rulesTextStyle'),
+                    ef.get-value($themeDefault, 'textColor'),
+                );
+
+                text-align: ef.get-value($themeDefault, 'titleTextAlign');
+            }
+        }
+
+        &__no-leagues {
+            @include bm.get-mq-map('margin', $themeDefault, 'noLeaguesMargin');
+
+            &-content {
+                display: flex;
+                flex-direction: column;
+                gap: ef.get-value($themeDefault, 'noLeaguesContentGap');
+                align-items: ef.get-value($themeDefault, 'noLeaguesContentAlignItems');
+                justify-content: ef.get-value($themeDefault, 'noLeaguesContentJustifyContent');
+                max-width: ef.get-value($themeDefault, 'rootContentMaxWidth');
+                margin: ef.get-value($themeDefault, 'noLeaguesContentMargin');
+                padding: ef.get-value($themeDefault, 'noLeaguesContentPadding');
+            }
+
+            &-icon {
+                --wlc-icon-width: 100%;
+                --wlc-icon-height: 100%;
+
+                min-width: ef.get-value($themeDefault, 'noLeaguesIconMinWidth');
+                max-width: ef.get-value($themeDefault, 'noLeaguesIconMaxWidth');
+                min-height: ef.get-value($themeDefault, 'noLeaguesIconMinHeight');
+                max-height: ef.get-value($themeDefault, 'noLeaguesIconMaxHeight');
+                user-select: none;
+            }
+
+            &-message {
+                display: flex;
+                flex-direction: column;
+                gap: ef.get-value($themeDefault, 'noLeaguesMessageGap');
+                align-items: ef.get-value($themeDefault, 'noLeaguesMessageAlignItems');
+                justify-content: ef.get-value($themeDefault, 'noLeaguesMessageJustifyContent');
+            }
+
+            &-title {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'titleTextStyle'),
+                    ef.get-value($themeDefault, 'textColor'),
+                );
+
+                text-align: ef.get-value($themeDefault, 'titleTextAlign');
+            }
+
+            &-desc {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'noLeaguesDescriptionTextStyle'),
+                    ef.get-value($themeDefault, 'textColor'),
+                );
+
+                text-align: ef.get-value($themeDefault, 'titleTextStyle');
+            }
+        }
+
+        &__nodata {
+
+            &-title {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'noDataTitleTextSyle'),
+                    ef.get-value($themeDefault, 'textColor'),
+                );
+
+                margin: ef.get-value($themeDefault, 'noDataTitleMargin');
+                text-align: ef.get-value($themeDefault, 'noDataTitleTextAlign');
+            }
+
+            &-loader {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                min-height: ef.get-value($themeDefault, 'noDataLoaderMinHeight');
+            }
+        }
+
+        &__divider {
+            height: ef.get-value($themeDefault, 'dividerHeight');
+            background: ef.get-value($themeDefault, 'dividerBg');
+        }
+    }
+}

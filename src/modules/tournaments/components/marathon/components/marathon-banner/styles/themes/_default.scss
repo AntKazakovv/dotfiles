@@ -1,0 +1,88 @@
+.wlc-marathon-banner--theme-default:host {
+
+    .wlc-marathon-banner {
+
+        &__container {
+            position: relative;
+
+            display: flex;
+            align-items: ef.get-value($themeDefault, 'containerAlignItems');
+            justify-content: ef.get-value($themeDefault, 'containerJustifyContent');
+            width: 100%;
+            height: 100%;
+            padding: ef.get-value($themeDefault, 'contentPadding');
+
+            background: ef.get-value($themeDefault, 'containerBg');
+            overflow: hidden;
+        }
+
+        &__content {
+            @include bm.get-mq-map('max-width', $themeDefault, 'contentMaxWidth');
+
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            gap: ef.get-value($themeDefault, 'contentGap');
+            align-items: ef.get-value($themeDefault, 'contentAlignItems');
+            justify-content: ef.get-value($themeDefault, 'contentJustifyContent');
+
+            &:before {
+                @include bm.get-mq-map('content', $themeDefault, 'leftDecorContent');
+                position: absolute;
+                bottom: ef.get-value($themeDefault, 'leftDecorBottom');
+                left: ef.get-value($themeDefault, 'leftDecorLeft');
+                height: 100%;
+            }
+
+            &:after {
+                @include bm.get-mq-map('content', $themeDefault, 'rightDecorContent');
+                position: absolute;
+                right: ef.get-value($themeDefault, 'rightDecorRight');
+                bottom: ef.get-value($themeDefault, 'rightDecorBottom');
+                height: 100%;
+            }
+
+            &-title {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'titleTextStyle', 375),
+                    ef.get-value($themeDefault, 'textColor'),
+                );
+                @include bm.lineClamp(2);
+
+                text-align: ef.get-value($themeDefault, 'titleTextAlign');
+
+                @include mq.min(640) {
+                    @include text.get-text-style(ef.get-value($themeDefault, 'titleTextStyle', 640), null);
+                }
+            }
+
+            &-description {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'descriptionTextStyle', 375),
+                    ef.get-value($themeDefault, 'textColor'),
+                );
+                @include bm.lineClamp(3);
+
+                text-align: ef.get-value($themeDefault, 'descriptionTextAlign');
+
+                @include mq.min(640) {
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'descriptionTextStyle', 640),
+                        null,
+                    );
+                }
+            }
+
+            &-timer {
+                width: 100%;
+                max-width: ef.get-value($themeDefault, 'timerMaxWidth');
+            }
+
+            &-promocode {
+                width: 100%;
+                max-width: ef.get-value($themeDefault, 'promocodeMaxWidth');
+                min-height: ef.get-value($themeDefault, 'promocodeMinHeight');
+            }
+        }
+    }
+}

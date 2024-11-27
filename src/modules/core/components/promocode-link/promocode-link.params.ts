@@ -8,6 +8,7 @@ import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements'
 import {IInputCParams} from 'wlc-engine/modules/core/components/input/input.params';
 import {ILinkBlockCParams} from 'wlc-engine/modules/core/components/link-block/link-block.params';
 import {TFormCompositeComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
+import {IButtonCParams} from 'wlc-engine/modules/core';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
@@ -16,8 +17,10 @@ export type ComponentThemeMod = 'default' | CustomType;
 export interface IPromoCodeLinkCParams extends
     IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod>,
     TFormCompositeComponent<'registrationPromoCode'> {
-        linkPromoCode: ILinkBlockCParams;
+        linkPromoCode?: ILinkBlockCParams;
         registrationPromoCode: IInputCParams;
+        inputBtnParams?: IButtonCParams;
+        onSubmit?: () => void,
 };
 
 export const defaultParams: Partial<IPromoCodeLinkCParams> = {
@@ -32,4 +35,11 @@ export const defaultParams: Partial<IPromoCodeLinkCParams> = {
         },
     },
     registrationPromoCode: _cloneDeep(FormElements.promocode.params),
+    inputBtnParams: {
+        theme: 'icon',
+        common: {
+            iconPath: '/wlc/icons/enter-arrow.svg',
+        },
+        wlcElement: 'button_promocode-submit',
+    },
 };

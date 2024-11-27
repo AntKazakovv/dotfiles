@@ -92,6 +92,10 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         ...commonMenuItems.tournaments,
         wlcElement: 'link_main-nav-tournaments',
     },
+    'main-menu:marathon': {
+        ...commonMenuItems.marathon,
+        wlcElement: 'link_main-nav-marathon',
+    },
     'main-menu:sportsbook': {
         ...commonMenuItems.sportsbook,
         wlcElement: 'link_main-nav-sports',

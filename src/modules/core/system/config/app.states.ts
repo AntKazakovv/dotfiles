@@ -81,6 +81,7 @@ let states = {
     'app.error': States.errorPageState,
     'app.offline': States.offlineState,
     'app.tournaments': States.tournamentsState,
+    'app.marathon': States.marathonState,
     'app.providers': States.providersState,
     'app.providers.item': States.providersItemState,
     'app.user-social-register': States.userSocialRegister,

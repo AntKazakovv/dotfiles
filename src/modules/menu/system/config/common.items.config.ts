@@ -162,4 +162,21 @@ export namespace commonMenuItems {
             },
         },
     };
+
+    export const marathon: MenuParams.IMenuItem = {
+        name: gettext('Streamer leagues'),
+        type: 'sref',
+        class: 'marathon',
+        icon: 'swords',
+        sort: 1,
+        params: {
+            state: {
+                name: 'app.marathon',
+            },
+            href: {
+                url: '/marathon/',
+                baseSiteUrl: true,
+            },
+        },
+    };
 }

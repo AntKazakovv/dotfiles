@@ -94,6 +94,7 @@ export * from './sportsbook/wlc-sportsbook.config';
 
 export * from './tournaments/wlc-tournament-detail.config';
 export * from './tournaments/wlc-tournament-list.config';
+export * from './tournaments/wlc-marathon.config';
 
 export * from './internal-mails/wlc-internal-mails.config';
 

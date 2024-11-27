@@ -8,6 +8,11 @@ import {
 
 import _set from 'lodash-es/set';
 
+import {
+    IButtonCParams,
+    IInputCParams,
+    ILinkBlockCParams,
+} from 'wlc-engine/modules/core';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 
@@ -23,6 +28,7 @@ import * as Params from './promocode-link.params';
 export class PromocodeLinkComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IPromoCodeLinkCParams;
     public override $params: Params.IPromoCodeLinkCParams;
+    public onSubmit: () => void = (): void => {};
 
     protected showPromoCode: boolean = false;
 
@@ -35,6 +41,22 @@ export class PromocodeLinkComponent extends AbstractComponent implements OnInit 
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.provideParams();
+
+        if (this.$params.onSubmit) {
+            this.onSubmit = this.$params.onSubmit;
+        }
+    }
+
+    public get registrationPromoCode(): IInputCParams {
+        return this.$params.registrationPromoCode;
+    }
+
+    public get inputBtnParams(): IButtonCParams {
+        return this.$params.inputBtnParams;
+    }
+
+    public get linkBlockParams(): ILinkBlockCParams {
+        return this.$params.linkPromoCode;
     }
 
     @CustomHook({module: 'core', class: 'PromocodeLinkComponent', method: 'provideParams'})

@@ -1,0 +1,25 @@
+.wlc-league-place--theme-default:host {
+    display: inline-flex;
+    gap: ef.get-value($themeDefault, 'rootItemsGap');
+    align-items: ef.get-value($themeDefault, 'rootAlignItems');
+    justify-content: ef.get-value($themeDefault, 'rootJustifyContent');
+    width: 100%;
+
+    .wlc-league-place {
+
+        &__name,
+        &__place {
+            @include bm.lineClamp(1);
+
+            text-align: ef.get-value($themeDefault, 'textAlign');
+        }
+
+        &__name {
+            display: var(--wlc-marathon-lp-name-display);
+        }
+
+        &__place {
+            min-width: var(--wlc-marathon-lp-place-min-width, #{ef.get-value($themeDefault, 'placeMinWidth')});
+        }
+    }
+}

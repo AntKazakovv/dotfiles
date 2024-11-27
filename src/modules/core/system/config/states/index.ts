@@ -11,6 +11,7 @@ export * from './offline.state';
 export * from './sportsbook.state';
 export * from './tournaments.state';
 export * from './lotteries.state';
+export * from './marathon.state';
 export * from './modal.state';
 export * from './profile/profile.state';
 export * from './profile/profile-history.state';

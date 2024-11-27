@@ -15,3 +15,8 @@ export {TournamentComponent} from './tournament/tournament.component';
 export {
     TournamentLeaderboardComponent,
 } from './tournament/components/tournament-leaderboard/tournament-leaderboard.component';
+export {MarathonComponent} from './marathon/marathon.component';
+export {MarathonBannerComponent} from './marathon/components/marathon-banner/marathon-banner.component';
+export {IMarathonBannerCParams} from './marathon/components/marathon-banner/marathon-banner.params';
+export {LeagueInfoComponent} from './marathon/components/league-info/league-info.component';
+export {LeagueStatusComponent} from './marathon/components/league-status/league-status.component';

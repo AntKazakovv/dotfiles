@@ -1,0 +1,25 @@
+<div class="{{$class}}__container"
+    [style.--wlc-marathon-bnr-main-img]="'url(' + headerImagePath + ')'">
+    <div class="{{$class}}__content">
+        <span class="{{$class}}__content-title">{{marathonName}}</span>
+
+        <p *ngIf="marathonDescription"
+           class="{{$class}}__content-description"
+           [innerHtml]="marathonDescription">
+        </p>
+
+        <div wlc-timer
+            class="{{$class}}__content-timer"
+            [value]="marathonExpireTime"
+            [text]="timerText | translate"
+            (timerEnds)="updateMarathon()"
+            [serverDateUTC]="marathonServerTime">
+        </div>
+
+        <div class="{{$class}}__content-promocode">
+            <div wlc-promocode-link
+                [inlineParams]="promoCodeLinkParams">
+            </div>
+        </div>
+    </div>
+</div>

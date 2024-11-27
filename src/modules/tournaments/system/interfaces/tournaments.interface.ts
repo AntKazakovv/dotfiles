@@ -1,6 +1,7 @@
 import {
     PartialObserver,
     Observable,
+    OperatorFunction,
 } from 'rxjs';
 
 import {
@@ -9,16 +10,28 @@ import {
 import {
     TFreeRoundGames,
 } from 'wlc-engine/modules/core/system/interfaces/fundist.interface';
-import {Tournament} from '../models/tournament.model';
 import {
     TournamentsListNoContentByThemeType,
 } from 'wlc-engine/modules/tournaments/components/tournament-list/tournament-list.params';
+import {
+    MarathonNoContentByThemeType,
+} from 'wlc-engine/modules/tournaments/components/marathon/marathon.params';
 import {ITagCommon, ITagList} from 'wlc-engine/modules/core/components/tag/tag.params';
+import {
+    Tournament,
+    League,
+    Marathon,
+} from 'wlc-engine/modules/tournaments';
+
+export interface IMarathonComponentConfig {
+    noContent: MarathonNoContentByThemeType;
+}
 
 export interface ITournamentsComponents {
     'wlc-tournament-list'?: {
         noContent: TournamentsListNoContentByThemeType,
     },
+    'wlc-marathon'?: IMarathonComponentConfig,
 }
 
 export interface ITournamentGames {
@@ -81,6 +94,7 @@ export interface ITournament extends ITournamentAbstract {
     ShowOnly?: number;
     CurrentTime: number;
     Ends: string;
+    TournamentType: TTournamentType;
     Games: ITournamentGames;
     PointsLimit: string | number;
     PointsLimitMin: string | number;
@@ -95,6 +109,18 @@ export interface ITournament extends ITournamentAbstract {
     WinningSpread: IWinningSpread;
     AdditionalFreerounds?: IAdditionalFreeSpins;
     LTID?: number;
+    PromoCodes?: '' | string[];
+}
+
+export interface IMarathon extends ITournament {
+    Leagues?: ILeague[];
+}
+
+export interface ILeague extends ITournament {
+    IDLeader?: string;
+    IDParent?: number;
+    PlayersCount?: string;
+    PlayersTotalPoints?: string;
 }
 
 export interface ITopTournamentUsers {
@@ -190,13 +216,17 @@ export interface ITournamentUserStats {
 export interface IGetSubscribeParams {
     useQuery: boolean;
     observer: PartialObserver<Tournament[]>;
+    until: Observable<unknown>;
+    pipes?: OperatorFunction<TTournamentModel[], unknown>;
     type?: RestType;
-    until?: Observable<unknown>;
+    tournamentType?: TTournamentType;
 }
 
 export interface IQueryParams {
     type?: string;
     currency?: string;
+    TournamentType?: TTournamentType;
+    PromoCode?: string;
 }
 
 export interface ITournamentPrize {
@@ -246,6 +276,9 @@ export interface IBuyFreeSpinsParams {
 }
 
 export type RestType = 'active' | 'history' | 'any';
+export type TTournamentType = 'general' | 'marathon' | 'league';
+export type TTournamentModel = Tournament | Marathon | League;
+export type TTournamentInterface = ITournament | IMarathon | ILeague;
 export type ThumbType = 'default' | 'dashboard' | 'banner' | 'active' | 'profile' | 'available';
 export type ActionType = 'join' | 'leave';
 export type TTournamentTarget = 'balance' | 'loyalty' | 'bonus';

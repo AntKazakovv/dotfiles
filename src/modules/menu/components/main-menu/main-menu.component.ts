@@ -123,10 +123,14 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
             this.menuConfig = this.configService.get<MenuParams.MenuConfigItem[]>('$menu.mainMenu.items');
         }
 
-        const useTournaments = this.configService.get<boolean>('$base.tournaments.use');
-        if (!useTournaments) {
+        if (!this.configService.get<boolean>('$base.tournaments.use')) {
             this.menuConfig = _pull(this.menuConfig, 'main-menu:tournaments');
         }
+
+        if (!this.configService.get<boolean>('$base.marathon.use')) {
+            this.menuConfig = _pull(this.menuConfig, 'main-menu:marathon');
+        }
+
         this.menuConfig = _pull(
             this.menuConfig,
             this.configService.get('$base.contacts.separatedPage') ? 'main-menu:contacts' : 'main-menu:contact-us',

@@ -1,0 +1,25 @@
+@switch (true) {
+    @case (league.canJoin) {
+        <ng-container [ngTemplateOutlet]="join"></ng-container>
+    } @case (league.isSelected) {
+        <ng-container [ngTemplateOutlet]="joined"></ng-container>
+    } @default {
+        <ng-container [ngTemplateOutlet]="notAvailable"></ng-container>
+    }
+}
+
+<ng-template #join>
+    <button class="{{$class}}--can-join"
+        wlc-button
+        [inlineParams]="desktopBtnParams"
+        (click)="joinLeague()">
+    </button>
+</ng-template>
+
+<ng-template #joined>
+    <span class="{{$class}}--success">{{successStatusMessage | translate}}</span>
+</ng-template>
+
+<ng-template #notAvailable>
+    <span class="{{$class}}--not-available">{{notAvailableStatusMessage | translate}}</span>
+</ng-template>

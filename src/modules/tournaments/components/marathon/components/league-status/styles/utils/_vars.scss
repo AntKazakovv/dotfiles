@@ -1,0 +1,8 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'rootTextStyle': 'ButtonText',
+    'notAvailableColor': var(--mc-baseOpacity),
+    'successColor': var(--mc-success),
+    'linkBtnColor': var(--mc-main),
+    'linkBtnColorHover': var(--mc-baseMain),
+), $customThemeDefault);

@@ -1,9 +1,16 @@
 <div wlc-link-block
     *ngIf="!showPromoCode"
     class="wlc-link-block--promocode"
-    [inlineParams]="$params.linkPromoCode">
+    [inlineParams]="linkBlockParams">
 </div>
-<div wlc-input
-    *ngIf="showPromoCode"
-    [inlineParams]="$params.registrationPromoCode">
+<div *ngIf="showPromoCode" class="{{$class}}__input">
+    <div wlc-input
+        [inlineParams]="registrationPromoCode"
+        (keydown.enter)="onSubmit()">
+    </div>
+    <button wlc-button
+        class="{{$class}}__input-btn"
+        [inlineParams]="inputBtnParams"
+        (click)="onSubmit()">
+    </button>
 </div>

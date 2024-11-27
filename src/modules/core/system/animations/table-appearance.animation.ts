@@ -9,6 +9,7 @@ import {
 
 export const TableAppearanceAnimation = [
     trigger('tableAppearance', [
+        transition('* <=> no-animation', []),
         transition('* <=> *', [
             query(':enter', [
                 style({

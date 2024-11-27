@@ -40,6 +40,10 @@ export interface ITableCParams extends IComponentParams<Theme, Type, ThemeMod> {
      * Title at the table
      */
     title?: string;
+    /**
+     * Disable appearance animation on update
+     * */
+    disableAppearanceAnimation?: boolean;
 }
 
 export const defaultParams: ITableCParams = {

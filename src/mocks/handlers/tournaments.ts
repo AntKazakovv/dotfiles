@@ -105,6 +105,7 @@ export const tournamentsHandler = async (
                 'Image_dashboard': '',
                 'Image_description': '',
                 'Image_other': '',
+                TournamentType: 'general',
             });
         }
 

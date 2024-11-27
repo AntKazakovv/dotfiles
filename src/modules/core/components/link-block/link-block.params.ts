@@ -16,9 +16,11 @@ export interface ILinkBlockCParams extends IComponentParams<ComponentTheme, Comp
         subtitle?: string;
         link?: string;
         actionParams?: IActionParams;
-        useInteractiveText?: boolean,
-        useLinkButton?: boolean,
+        useInteractiveText?: boolean;
+        useLinkButton?: boolean;
     };
+    btnWithArrow?: true;
+    btnIconPath?: string;
 }
 
 export interface IActionParams {
@@ -44,4 +46,6 @@ export const defaultParams: ILinkBlockCParams = {
         useInteractiveText: false,
         useLinkButton: true,
     },
+    btnWithArrow: true,
+    btnIconPath: '/wlc/icons/icons_new/arrow.svg',
 };

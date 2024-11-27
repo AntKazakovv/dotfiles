@@ -622,4 +622,12 @@ $themeDefault: map-merge((
         768: 'SecondTitleBold',
     ),
     'titleWrpColor': var(--mc-baseThird, var(--mc-baseMain)),
+
+    //join-league-confirmation-modal
+    'joinLeagueConfirmationBodyPadding': ef.size(6) ef.size(6) ef.size(8),
+    'joinLeagueConfirmationIconMargin': 0 0 ef.size(4),
+    'joinLeagueConfirmationMessageMargin': 0 0 ef.size(2),
+
+    //league-info
+    'leagueInfoModalMaxWidth': 650px,
 ), $customThemeDefault);
