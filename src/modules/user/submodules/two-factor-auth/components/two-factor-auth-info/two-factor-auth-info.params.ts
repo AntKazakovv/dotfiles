@@ -33,7 +33,7 @@ export const defaultParams: ITwoFactorAuthInfoCParams = {
     ),
     linkBlockParams: {
         common: {
-            subtitle: gettext('Do you want to turn off this message?'),
+            subtitle: gettext('Do you want to disable this message?'),
             link: gettext('Disable'),
             actionParams: {
                 event: {
