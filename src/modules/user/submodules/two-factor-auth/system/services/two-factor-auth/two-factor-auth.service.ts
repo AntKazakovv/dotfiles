@@ -1,4 +1,7 @@
-import {Injectable} from '@angular/core';
+import {
+    inject,
+    Injectable,
+} from '@angular/core';
 import {
     BehaviorSubject,
     Subscription,
@@ -39,9 +42,9 @@ import {UserHelper} from 'wlc-engine/modules/user/system/helpers/user.helper';
 
 @Injectable({providedIn: 'root'})
 export class TwoFactorAuthService {
-
     public secretCode: ITwoFactorAuthResponse;
-    private userService: UserService;
+
+    private readonly userService: UserService = inject(UserService);
     private userInfoSubscribe: Subscription;
 
     constructor(
@@ -60,7 +63,7 @@ export class TwoFactorAuthService {
      */
     public async getUserInfo(): Promise<UserInfo> {
         await this.configService.ready;
-        this.fetchUserInfo();
+        this.userService.fetchUserInfo();
         return await firstValueFrom<UserInfo>(
             this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'})
                 .pipe(
@@ -165,7 +168,7 @@ export class TwoFactorAuthService {
                 'success',
             );
             this.eventService.emit({name: 'ENABLE_2FA_GOOGLE'});
-            this.fetchUserInfo();
+            this.userService.fetchUserInfo();
             this.hideActiveModal('two-factor-auth-finish');
             UserHelper.showInformationModal(
                 this.modalService,
@@ -200,8 +203,6 @@ export class TwoFactorAuthService {
     public async enter2FAGoogleCode(authKey: string, code2FA: string, responseCode: number): Promise<boolean> {
         const data: ITwoFactorEnterCodeData = {authKey, code2FA};
         try {
-            this.fetchUserInfo();
-
             switch (responseCode) {
                 case 231:
                     if (!this.userService.isAuth$.getValue()
@@ -272,7 +273,7 @@ export class TwoFactorAuthService {
                 url: '/auth/2fa/google',
                 type: 'PATCH',
             });
-            this.fetchUserInfo();
+            this.userService.fetchUserInfo();
             this.showNotification(
                 gettext('Notifications have been disabled successfully'),
                 'success',
@@ -294,7 +295,7 @@ export class TwoFactorAuthService {
                 url: '/auth/2fa/google',
                 type: 'DELETE',
             });
-            this.fetchUserInfo();
+            this.userService.fetchUserInfo();
             this.showNotification(
                 gettext('Authentication is disabled'),
                 'warning',
@@ -380,10 +381,5 @@ export class TwoFactorAuthService {
             },
             data,
         );
-    }
-
-    private async fetchUserInfo(): Promise<void> {
-        this.userService ??= await this.injectionService.getService<UserService>('user.user-service');
-        this.userService.fetchUserInfo();
     }
 }
