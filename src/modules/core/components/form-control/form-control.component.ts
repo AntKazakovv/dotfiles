@@ -86,7 +86,7 @@ export class FormControlComponent implements OnInit, OnDestroy {
         if (validatorsErrors.length) {
             return this.errorHandling(validatorsErrors);
         } else if (validatorsAnyOfErrors.length === this.validatorsAnyOf?.length) {
-            return [gettext('Check the correctness of the filled-out fields')];
+            return [gettext('Check the correctness of the filled in fields')];
         }
 
         return [];
