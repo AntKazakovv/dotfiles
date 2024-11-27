@@ -17,7 +17,10 @@ import _includes from 'lodash-es/includes';
 import _isArray from 'lodash-es/isArray';
 import _set from 'lodash-es/set';
 import _isUndefined from 'lodash-es/isUndefined';
-import {BehaviorSubject} from 'rxjs';
+import {
+    BehaviorSubject,
+    of,
+} from 'rxjs';
 
 import {
     AbstractComponent,
@@ -196,7 +199,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
     }
 
     public get valueBonus$(): BehaviorSubject<number | string> {
-        return (_isArray(this.bonus.value$.getValue()) ? 0 : this.bonus.value$) as BehaviorSubject<number | string>;
+        return (_isArray(this.bonus.value$.getValue()) ? of(0) : this.bonus.value$) as BehaviorSubject<number | string>;
     }
 
     public get bonusCurrency$(): BehaviorSubject<string> {
