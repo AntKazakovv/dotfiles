@@ -524,7 +524,7 @@ export class BonusesService {
                 },
                 params,
             });
-            this.showSuccess(gettext('You have been successfully unsubscribed from the bonus'));
+            this.showSuccess(gettext('You have successfully unsubscribed from the bonus'));
             return response.data;
         } catch (error) {
             this.showError(error?.errors);
