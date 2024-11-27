@@ -87,5 +87,4 @@ export const defaultParams: IPaymentListCParams = {
         title: gettext('Select a payment method'),
         subtitle: gettext('Show all methods'),
     },
-    showAmountLimit: true,
 };
