@@ -1,4 +1,5 @@
 <div wlc-form-wrapper
+    [useButtonPending]="useTurnstile"
     [config]="config"
     [ngSubmit]="ngSubmit.bind(this)"
     [errors]="errors$.asObservable()"

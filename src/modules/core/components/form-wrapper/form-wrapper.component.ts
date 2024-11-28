@@ -136,6 +136,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     @Input() private config: IFormWrapperCParams;
     @Input() private formData: BehaviorSubject<IIndexing<any>>;
     @Input() private errors: Observable<IIndexing<string>>;
+    @Input() private useButtonPending: boolean;
 
     @Output() public form$ = new EventEmitter<UntypedFormGroup>();
 
@@ -403,7 +404,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
             }
 
             if (
-                this.configService.get<boolean>('$base.useButtonPending')
+                (this.useButtonPending || this.configService.get<boolean>('$base.useButtonPending'))
                 && componentParams.common?.typeAttr === 'submit'
             ) {
                 this.submitButtonPending$ = new BehaviorSubject(false);

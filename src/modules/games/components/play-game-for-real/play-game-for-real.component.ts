@@ -46,6 +46,8 @@ export class PlayGameForRealComponent extends SignInFormAbstract<Params.IPlayGam
     @Input() public inlineParams: Params.IPlayGameForRealCParams;
     @HostBinding('class.is-auth') protected isAuth: boolean;
 
+    public useTurnstile: boolean = this.configService.get<boolean>('appConfig.objectData.turnstile.isEnabled');
+
     constructor(
         @Inject('injectParams') protected params: Params.IPlayGameForRealCParams,
         injectionService: InjectionService,

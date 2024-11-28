@@ -3,7 +3,10 @@ import {UntypedFormGroup} from '@angular/forms';
 import {StateService} from '@uirouter/core';
 import {TranslateService} from '@ngx-translate/core';
 
-import {BehaviorSubject} from 'rxjs';
+import {
+    BehaviorSubject,
+    firstValueFrom,
+} from 'rxjs';
 import _isObject from 'lodash-es/isObject';
 import _assign from 'lodash-es/assign';
 
@@ -18,6 +21,7 @@ import {InjectionService} from 'wlc-engine/modules/core/system/services/injectio
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {CaptchaService} from 'wlc-engine/modules/security/captcha';
+import {TurnstileService} from 'wlc-engine/modules/security/turnstile';
 import {
     IFormComponent,
     IFormWrapperCParams,
@@ -74,6 +78,8 @@ export abstract class SignInFormAbstract<T extends IAbstractSignInFormCParams<un
 
     private captchaService?: CaptchaService;
     private captchaError: boolean = false;
+    private turnstileService: TurnstileService;
+    private hasTurnstileError: boolean = false;
 
     constructor(
         mixedParams: IMixedParams<T>,
@@ -109,18 +115,18 @@ export abstract class SignInFormAbstract<T extends IAbstractSignInFormCParams<un
             this.captchaService.captchaCode = captcha;
         }
 
+        const useTurnstile = this.configService.get<boolean>('appConfig.objectData.turnstile.isEnabled');
+        if (useTurnstile) {
+            this.turnstileService = await this.injectionService.getService<TurnstileService>(
+                'turnstile.turnstile-service',
+            );
+            this.turnstileService.launch('login');
+            await firstValueFrom(this.turnstileService.tokenReceived);
+        }
+
         try {
             form.disable();
             await this.signIn(form.getRawValue());
-
-            if (this.stateService.is('app.signin')) {
-                this.stateService.go('app.home');
-            } else if (this.modalService.getActiveModal('login')) {
-                this.modalService.hideModal('login', undefined, 'submit');
-            } else if (this.modalService.getActiveModal('signup')) {
-                this.modalService.hideModal('signup', undefined, 'submitLogin');
-            }
-
             return true;
         } catch (error) {
             const errors: IIndexing<string> = error.errors;
@@ -133,6 +139,17 @@ export abstract class SignInFormAbstract<T extends IAbstractSignInFormCParams<un
             } else if (error.code === 418) {
                 this.modalService.showModal('deviceRegistration', {login: email || login, password: password});
                 return false;
+            } else if (useTurnstile && error.code === 400 && !this.hasTurnstileError) {
+                this.hasTurnstileError = true;
+                this.turnstileService.launch('login');
+                await firstValueFrom(this.turnstileService.tokenReceived);
+
+                try {
+                    await this.signIn(form.getRawValue());
+                } catch (error) {
+                    this.notificationLoginError(error.errors);
+                }
+
             } else {
                 errorMessage = errors;
                 if (this.captchaError) {
@@ -165,6 +182,14 @@ export abstract class SignInFormAbstract<T extends IAbstractSignInFormCParams<un
             await this.userService.login(loginDataPhone);
         } else {
             await this.userService.login(formValues.login || formValues.email, formValues.password);
+        }
+
+        if (this.stateService.is('app.signin')) {
+            this.stateService.go('app.home');
+        } else if (this.modalService.getActiveModal('login')) {
+            this.modalService.hideModal('login', undefined, 'submit');
+        } else if (this.modalService.getActiveModal('signup')) {
+            this.modalService.hideModal('signup', undefined, 'submitLogin');
         }
     }
 

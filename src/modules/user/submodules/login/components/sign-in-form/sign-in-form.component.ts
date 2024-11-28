@@ -21,7 +21,6 @@ import {
     AppType,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
-import {TurnstileService} from 'wlc-engine/modules/security/turnstile';
 import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 
 import * as Params from './sign-in-form.params';
@@ -45,6 +44,9 @@ import * as Interfaces from './sign-in-form.interfaces';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignInFormComponent extends SignInFormAbstract<Interfaces.ISignInFormCParams> implements OnInit {
+
+    public useTurnstile: boolean = this.configService.get<boolean>('appConfig.objectData.turnstile.isEnabled');
+
     constructor(
         @Inject('injectParams') protected injectParams: Interfaces.ISignInFormCParams,
         injectionService: InjectionService,
@@ -86,14 +88,6 @@ export class SignInFormComponent extends SignInFormAbstract<Interfaces.ISignInFo
                     params: {},
                 });
             }
-        }
-
-        const useTurnstile = this.configService.get('appConfig.objectData.turnstile.isEnabled');
-        if (useTurnstile){
-            const turnstileService = await this.injectionService.getService<TurnstileService>(
-                'turnstile.turnstile-service',
-            );
-            turnstileService.launch('login');
         }
     }
 }

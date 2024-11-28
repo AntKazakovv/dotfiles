@@ -6,6 +6,12 @@ import {
 import {DOCUMENT} from '@angular/common';
 
 import {
+    BehaviorSubject,
+    Observable,
+    filter,
+} from 'rxjs';
+
+import {
     ConfigService,
     DataService,
     EventService,
@@ -23,18 +29,22 @@ type TurnstileWlcConfig = {
     providedIn: 'root',
 })
 export class TurnstileService {
-    private _turnstileToken: string;
+    private _turnstileToken$: BehaviorSubject<string> = new BehaviorSubject(null);
     private _turnstileWlcConfig: TurnstileWlcConfig;
     private turnstileAppConfig: Record<string, string>;
     private turnstileSiteKey: string;
     private parsedAction: string;
 
-    public get turnstileToken(): string {
-        return this._turnstileToken;
+    public get turnstileToken$(): BehaviorSubject<string> {
+        return this._turnstileToken$;
     }
 
     public get turnstileWlcConfig(): TurnstileWlcConfig {
         return this._turnstileWlcConfig;
+    }
+
+    public get tokenReceived(): Observable<string> {
+        return this._turnstileToken$.asObservable().pipe(filter((v) => !!v));
     }
 
     constructor(
@@ -63,6 +73,7 @@ export class TurnstileService {
                     this.launchCheck();
                 }
             });
+        this.initLogoutSubscription();
     }
 
     public launch(action: TurnstileAction): void {
@@ -96,7 +107,7 @@ export class TurnstileService {
 
     protected setToken(token: string): void{
         if (!token) return;
-        this._turnstileToken = token;
+        this._turnstileToken$.next(token);
     }
 
     protected mergeParams(): Record<string, string> {
@@ -177,5 +188,13 @@ export class TurnstileService {
         const hostNameMaxLength: number = maxActionLength - action.length;
 
         this.parsedAction = hostName.slice(0, hostNameMaxLength) + action;
+    }
+
+    private initLogoutSubscription(): void {
+        this.eventService.subscribe({
+            name: 'LOGOUT',
+        }, () => {
+            this._turnstileToken$.next(null);
+        });
     }
 }

@@ -11,6 +11,7 @@ import {
     BehaviorSubject,
     filter,
     takeUntil,
+    firstValueFrom,
 } from 'rxjs';
 import _each from 'lodash-es/each';
 import _some from 'lodash-es/some';
@@ -32,6 +33,7 @@ import {
 import {
     UserActionsAbstract,
     InjectionService,
+    IValidateData,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user';
 import {SocialService} from 'wlc-engine/modules/user/system/services/social/social.service';
@@ -67,8 +69,11 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
     public config: IFormWrapperCParams;
     public override $params: Params.ISignUpFormCParams;
     public errors$: BehaviorSubject<IIndexing<string>> = new BehaviorSubject(null);
+    public useTurnstile: boolean = this.configService.get<boolean>('appConfig.objectData.turnstile.isEnabled');
     private isTwoSteps: boolean;
     private useSmsVerification: boolean;
+    private turnstileService: TurnstileService;
+    private hasTurnstileError: boolean = false;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISignUpFormCParams,
@@ -163,14 +168,6 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         if (this.$params.formData) {
             this.formData = new BehaviorSubject(this.$params.formData);
         }
-
-        const useTurnstile = this.configService.get('appConfig.objectData.turnstile.isEnabled');
-        if (useTurnstile){
-            const turnstileService = await this.injectionService.getService<TurnstileService>(
-                'turnstile.turnstile-service',
-            );
-            turnstileService.launch('signup');
-        }
     }
 
     @CustomHook({module: 'user', class: 'SignUpFormComponent', method: 'ngOnDestroy'})
@@ -209,10 +206,19 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
      */
     @CustomHook({module: 'user', class: 'SignUpFormComponent', method: 'ngSubmit'})
     public async ngSubmit(form: UntypedFormGroup): Promise<boolean> {
+        let regData: IValidateData;
 
         if (this.isTwoSteps && !this.isSecondStep() || this.useSmsVerification) {
             await this.nextStepSubmit(form);
             return;
+        }
+
+        if (this.useTurnstile) {
+            this.turnstileService = await this.injectionService.getService<TurnstileService>(
+                'turnstile.turnstile-service',
+            );
+            this.turnstileService.launch('signup');
+            await firstValueFrom(this.turnstileService.tokenReceived);
         }
 
         try {
@@ -220,7 +226,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
             if (!await this.checkConfirmation(form)) {
                 return false;
             }
-            let regData = this.formDataPreparation(form, this.$params.skipEmailVerification);
+            regData = this.formDataPreparation(form, this.$params.skipEmailVerification);
             if (this.isTwoSteps && this.isSecondStep()) {
                 regData = _merge(this.configService.get<IRegFormDataForConfig>('regFormData')?.form, regData);
             }
@@ -235,6 +241,17 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
 
             return true;
         } catch (error) {
+
+            if (this.useTurnstile && error.code === 400 && !this.hasTurnstileError) {
+
+                try {
+                    this.turnstileService.launch('signup');
+                    await firstValueFrom(this.turnstileService.tokenReceived);
+                    await this.finishUserReg(regData.data, this.$params.skipEmailVerification);
+                } catch {
+                    this.showRegError(error);
+                }
+            }
 
             if (this.configService.get<boolean>('$base.site.useXNonce')) {
                 this.dataService.deleteNonceFromLocalStorage();
