@@ -23,7 +23,7 @@ import * as Params from 'wlc-engine/modules/core/system/services/notification/no
 
 export const HIDE_ANIMATION_DURATION: number = 300;
 export const SHIFT_ANIMATION_DURATION: number = 300;
-export const DISMISS_ANIMATION_DURATION: number = 150;
+export const DISMISS_ANIMATION_DURATION: number = 0;
 const SHIFT_EASING: string = 'ease-in-out';
 
 @Component({
