@@ -114,6 +114,7 @@ $selector: '.wlc-choice-currency';
         position: ef.get-value($themeDefault, 'positionInModal');
         z-index: 1;
         height: ef.get-value($themeDefault, 'heightModal');
+        margin: ef.get-value($themeDefault, 'marginInModal');
         padding: ef.get-value($themeDefault, 'paddingInModal');
         background: transparent;
     }

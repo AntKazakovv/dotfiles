@@ -3,6 +3,7 @@ $themeDefault: map-merge((
     'position': relative,
     'positionInModal': relative,
     'paddingInModal': 0,
+    'marginInModal': ef.size(6) 0 0,
     'display': flex,
     'flexDirection': column,
     'gap': ef.size(6),
