@@ -73,4 +73,4 @@ export const components: (pending: BehaviorSubject<boolean>) => IFormComponent[]
 };
 
 export const finishDescription: string =
-    gettext('Finish the setup by entering a 6-digit code from the Google Authenticator app');
+    gettext('Finish the setup by entering the 6-digit code from the Google Authenticator app');
