@@ -99,16 +99,6 @@ export namespace footer {
             {
                 name: 'core.wlc-wrapper',
                 params: {
-                    class: 'wlc-footer-disclaimer',
-                    components: [
-                        componentLib.wlcDisclaimer.def,
-                        componentLib.wlcRecaptchaPolicy.def,
-                    ],
-                },
-            },
-            {
-                name: 'core.wlc-wrapper',
-                params: {
                     class: 'wlc-footer-section',
                     components: [
                         componentLib.wlcSocialIcons.wolf,
@@ -122,6 +112,8 @@ export namespace footer {
                 params: {
                     class: 'wlc-footer-disclaimer',
                     components: [
+                        componentLib.wlcDisclaimer.def,
+                        componentLib.wlcRecaptchaPolicy.def,
                         componentLib.wlcCopyright.def,
                     ],
                 },
