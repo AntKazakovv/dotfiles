@@ -10,10 +10,6 @@
             @include bm.get-mq-map('margin-bottom', $historyThemeWolf, 'profileContentMarginBottom');
         }
 
-        > .container {
-            @include bm.get-mq-map('padding', $historyThemeWolf, 'containerPadding');
-        }
-
         .wlc-profile-content__top {
 
             @include mq.max(1024) {

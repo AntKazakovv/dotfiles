@@ -10,16 +10,11 @@ $historyThemeWolf: map-merge((
         900: ef.size(10),
     ),
 
-    'containerPadding': (
-        375: 0 ef.size(6) ef.size(4),
-        1024: 0 ef.size(6) ef.size(5),
-    ),
-
     'tableGapDesktop': ef.size(3),
     'tableGapMobile': ef.size(2),
 
     'paginationMargin': (
-        375: ef.size(2) auto ef.size(4),
-        1024: ef.size(1) auto ef.size(4),
+        375: ef.size(2) auto ef.size(8),
+        1024: ef.size(1) auto 0,
     ),
 ), $customHistoryThemeWolf);

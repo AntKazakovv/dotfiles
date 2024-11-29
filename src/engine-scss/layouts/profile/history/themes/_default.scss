@@ -9,10 +9,6 @@
         &.wlc-sections__profile-content--theme-default,
         &.wlc-sections__profile-content--theme-first {
 
-            .container {
-                @include bm.get-mq-map('padding', $historyThemeDefault, 'containerPadding');
-            }
-
             .wlc-pagination--theme-default {
 
                 .pagination {
