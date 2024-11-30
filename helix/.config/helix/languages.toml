@@ -1,0 +1,51 @@
+[language-server]
+emmet-ls = { command = "emmet-ls", args = [ "--stdio" ]}
+
+[language-server.angular]
+command = "ngserver"
+args = [
+  "--stdio",
+  "--tsProbeLocations",
+  "$(npm -g root)",
+  "--ngProbeLocations",
+  "$(npm -g root)",
+]
+
+[language-server.eslint]
+command = "vscode-eslint-language-server"
+args = ["--stdio"]
+
+[[language]]
+name = "typescript"
+ formatter = { command = 'prettier', args = [
+   "--write",
+   "--parser",
+   "typescript",
+   "--config",
+   "/home/anton/.prettier/.prettierrc"
+ ] }
+# auto-format = true
+language-servers = ["typescript-language-server", "angular", "eslint"]
+
+[[language]]
+name = "html"
+formatter = { command = 'prettier', args = [
+  "--write",
+  "--parser",
+  "html",
+  "--config",
+  "/home/anton/.prettier/.prettierrc"
+] }
+auto-format = false
+indent = { tab-width = 4, unit = "    " }
+language-servers = ["vscode-html-language-server", "angular", "emmet-ls"]
+
+[[language]]
+name = "scss"
+auto-format = false
+indent = { tab-width = 4, unit = "    " }
+
+[[language]]
+name = "json"
+auto-format = false
+indent = { tab-width = 4, unit = "    " }
