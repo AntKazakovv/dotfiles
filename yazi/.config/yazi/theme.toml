@@ -1,0 +1,248 @@
+# A TOML linter such as https://taplo.tamasfe.dev/ can use this schema to validate your config.
+# If you encounter any issues, please make an issue at https://github.com/yazi-rs/schemas.
+"$schema" = "https://yazi-rs.github.io/schemas/theme.json"
+
+# vim:fileencoding=utf-8:foldmethod=marker
+
+# : Flavor {{{
+
+[flavor]
+use = ""
+
+# : }}}
+
+# : Manager {{{
+
+[manager]
+cwd = { fg = "#5F8575" }
+
+# Hovered
+hovered         = { reversed = true }
+preview_hovered = { underline = true }
+
+# Find
+find_keyword  = { fg = "#D4A017", bold = true, italic = true, underline = true }
+find_position = { fg = "#7F4A28", bg = "reset", bold = true, italic = true }
+
+# Marker
+marker_copied   = { fg = "#A8A49C",  bg = "#A8A49C" }
+marker_cut      = { fg = "#8B3626",  bg = "#8B3626" }
+marker_marked   = { fg = "#5F8575",   bg = "#5F8575" }
+marker_selected = { fg = "#D4A017", bg = "#D4A017" }
+
+# Tab
+tab_active   = { reversed = true }
+tab_inactive = {}
+tab_width    = 1
+
+# Count
+count_copied   = { fg = "#D8D8D0", bg = "#556B2F" }
+count_cut      = { fg = "#D8D8D0", bg = "#8B3626" }
+count_selected = { fg = "#D8D8D0", bg = "#D4A017" }
+
+# Border
+border_symbol = "│"
+border_style  = { fg = "#3B2F2F" }
+
+# Highlighting
+syntect_theme = ""
+
+# : }}}
+
+
+# : Status {{{
+
+[status]
+separator_open  = ""
+separator_close = ""
+separator_style = { fg = "#3B2F2F", bg = "#3B2F2F" }
+
+# Mode
+mode_normal = { bg = "#3B6F72", bold = true }
+mode_select = { bg = "#8B3626", bold = true }
+mode_unset  = { bg = "#8B3626", bold = true }
+
+# Progress
+progress_label  = { bold = true }
+progress_normal = { fg = "#3B6F72", bg = "#2F4F2F" }
+progress_error  = { fg = "#8B3626", bg = "#2F4F2F" }
+
+# Permissions
+permissions_t = { fg = "#556B2F" }
+permissions_r = { fg = "#D4A017" }
+permissions_w = { fg = "#8B3626" }
+permissions_x = { fg = "#5F8575" }
+permissions_s = { fg = "#3B2F2F" }
+
+# : }}}
+
+
+# : Pick {{{
+
+[pick]
+border   = { fg = "#3B6F72" }
+active   = { fg = "#7F4A28", bold = true }
+inactive = {}
+
+# : }}}
+
+
+# : Input {{{
+
+[input]
+border   = { fg = "#3B6F72" }
+title    = {}
+value    = {}
+selected = { reversed = true }
+
+# : }}}
+
+
+# : Confirm {{{
+
+[confirm]
+border     = { fg = "#3B6F72" }
+title      = { fg = "#3B6F72" }
+content    = {}
+list       = {}
+btn_yes    = { reversed = true }
+btn_no     = {}
+btn_labels = [ "  [Y]es  ", "  (N)o  " ]
+
+# : }}}
+
+
+# : Completion {{{
+
+[completion]
+border   = { fg = "#3B6F72" }
+active   = { reversed = true }
+inactive = {}
+
+# Icons
+icon_file    = ""
+icon_folder  = ""
+icon_command = ""
+
+# : }}}
+
+
+# : Tasks {{{
+
+[tasks]
+border  = { fg = "#3B6F72" }
+title   = {}
+hovered = { fg = "#7F4A28", underline = true }
+
+# : }}}
+
+
+# : Which {{{
+
+[which]
+cols            = 3
+mask            = { bg = "#2F4F2F" }
+cand            = { fg = "#5F8575" }
+rest            = { fg = "#3B2F2F" }
+desc            = { fg = "#7F4A28" }
+separator       = "  "
+separator_style = { fg = "#3B2F2F" }
+
+# : }}}
+
+
+# : Help {{{
+
+[help]
+on      = { fg = "#5F8575" }
+run     = { fg = "#7F4A28" }
+desc    = {}
+hovered = { reversed = true, bold = true }
+footer  = { fg = "#2F4F2F", bg = "#D8D8D0" }
+
+# : }}}
+
+
+# : Notify {{{
+
+[notify]
+title_info  = { fg = "#556B2F" }
+title_warn  = { fg = "#D4A017" }
+title_error = { fg = "#8B3626" }
+
+# Icons
+icon_info  = ""
+icon_warn  = ""
+icon_error = ""
+
+# : }}}
+
+
+# : File-specific styles {{{
+
+[filetype]
+
+rules = [
+	# Images
+	{ mime = "image/*", fg = "#D4A017" },
+
+	# Media
+	{ mime = "{audio,video}/*", fg = "#7F4A28" },
+
+	# Archives
+	{ mime = "application/{,g}zip", fg = "#8B3626" },
+	{ mime = "application/{tar,bzip*,7z-compressed,xz,rar}", fg = "#8B3626" },
+
+	# Documents
+	{ mime = "application/{pdf,doc,rtf,vnd.*}", fg = "#5F8575" },
+
+	# Special files
+	{ name = "*", is = "orphan", bg = "#8B3626" },
+	{ name = "*", is = "exec"  , fg = "#556B2F" },
+
+	# Dummy files
+	{ name = "*", is = "dummy", bg = "#8B3626" },
+	{ name = "*/", is = "dummy", bg = "#8B3626" },
+
+	# Fallback
+	{ name = "*/", fg = "#3B6F72" }
+]
+
+[icon]
+
+globs = []
+dirs  = [
+	{ name = ".config", text = "" },
+	{ name = ".git", text = "" },
+	{ name = "Desktop", text = "" },
+	{ name = "Development", text = "" },
+	{ name = "Documents", text = "" },
+	{ name = "Downloads", text = "" },
+	{ name = "Library", text = "" },
+	{ name = "Movies", text = "" },
+	{ name = "Music", text = "" },
+	{ name = "Pictures", text = "" },
+	{ name = "Public", text = "" },
+	{ name = "Videos", text = "" },
+]
+files = []
+
+conds = [
+	# Special files
+	{ if = "orphan", text = "" },
+	{ if = "link"  , text = "" },
+	{ if = "block" , text = "" },
+	{ if = "char"  , text = "" },
+	{ if = "fifo"  , text = "" },
+	{ if = "sock"  , text = "" },
+	{ if = "sticky", text = "" },
+	{ if = "dummy",  text = "" },
+
+	# Fallback
+	{ if = "dir", text = "󰉋" },
+	{ if = "exec", text = "" },
+	{ if = "!dir", text = "󰈔" },
+]
+
+# : }}}
+
