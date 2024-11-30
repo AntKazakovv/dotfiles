@@ -2,4 +2,4 @@
 ```stow <config_folder_name>```
 
 ## Example
-```stow nushell``
+```stow nushell```
