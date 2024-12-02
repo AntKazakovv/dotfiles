@@ -8,27 +8,28 @@ import {
 import {storeConfig} from 'wlc-engine/modules/store/system/config/store.config';
 import {IStoreItemParams} from 'wlc-engine/modules/store/system/interfaces/store.interface';
 
-export type Type = 'default' | CustomType;
-export type Theme = 'default' | CustomType;
-export type ThemeMod = 'default' | 'first' | 'wolf' | CustomType;
-export type AutoModifiers = Theme | ThemeMod;
+export type ComponentType = 'default' | CustomType;
+export type ComponentTheme = 'default' | CustomType;
+export type ComponentThemeMod = 'default' | 'first' | 'wolf' | CustomType;
+export type AutoModifiers = ComponentTheme | ComponentThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
 
-export interface IStoreListCParams extends IComponentParams<Theme, Type, ThemeMod> {
+export interface IStoreListCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     modifiers?: Modifiers[];
     /** wlc-profile-no-content params */
     emptyConfig?: IWrapperCParams;
     userStatsConfig: IWrapperCParams;
     formConfig: IWrapperCParams;
     common?: {
-        themeMod?: ThemeMod;
+        themeMod?: ComponentThemeMod;
         customModifiers?: CustomMod;
         byCategories?: boolean;
         pagination?: IPagination;
         storeItemParams?: IStoreItemParams;
     };
     filterIconPath?: string;
+    multiWalletAlert?: string;
 }
 
 export const defaultParams: IStoreListCParams = {
@@ -74,4 +75,5 @@ export const defaultParams: IStoreListCParams = {
             },
         ],
     },
+    multiWalletAlert: gettext('Please note that some transactions are processed only through your main wallet.'),
 };

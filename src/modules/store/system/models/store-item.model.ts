@@ -78,18 +78,18 @@ export class StoreItem extends AbstractModel<IStoreItem> {
      * @returns {string} Disabled message for info modal
      */
     public getItemDisabledInfo(userLevel: number): IDisabledItemInfo {
+        if (!this.hasUserAccessByLevel(userLevel)) {
+            return {
+                messageText: gettext('This item is not available to you at the current level'),
+                btnText: gettext('Unavailable for the current level'),
+            };
+        }
+
         if (!this.isAvailable) {
             return {
                 messageText: gettext('This item will become available for purchase when you ' +
                     'have no active bonuses left'),
                 btnText: gettext('Unavailable'),
-            };
-        }
-
-        if (!this.hasUserAccessByLevel(userLevel)) {
-            return {
-                messageText: gettext('This item is not available to you at the current level'),
-                btnText: gettext('Unavailable for the current level'),
             };
         }
 

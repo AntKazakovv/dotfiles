@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
 import {UIRouter} from '@uirouter/core';
+import {TranslateService} from '@ngx-translate/core';
 
 import {BehaviorSubject} from 'rxjs';
 import {
@@ -29,6 +30,7 @@ import {
     DeviceType,
     ModalService,
     IWrapperCParams,
+    IPagination,
 } from 'wlc-engine/modules/core';
 import {
     StoreService,
@@ -63,9 +65,9 @@ import * as Params from 'wlc-engine/modules/store/components/store-list/store-li
 })
 export class StoreListComponent extends AbstractComponent implements OnInit, OnDestroy {
 
-    @Input() protected type: Params.Type;
-    @Input() protected theme: Params.Theme;
-    @Input() protected themeMod: Params.ThemeMod;
+    @Input() protected type: Params.ComponentType;
+    @Input() protected theme: Params.ComponentTheme;
+    @Input() protected themeMod: Params.ComponentThemeMod;
     @Input() protected customMod: Params.CustomMod;
     @Input() protected inlineParams: Params.IStoreListCParams;
 
@@ -73,20 +75,26 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
     public storeItems: StoreItem[] = [];
     public paginatedStoreItems: StoreItem[] = [];
     public isReady: boolean = false;
-    public isProfileFirst: boolean;
-    public userPoints: number = 0;
+    public isProfileFirst: boolean = false;
     public userLevel: number = 0;
-    public userExpPoints: number = 0;
-    public itemTheme: Params.ThemeMod = 'default';
-    public isMultiWallet: boolean;
+    public itemTheme: Params.ComponentThemeMod = 'default';
+    public isMultiWallet: boolean = false;
+    public multiWalletAlert: string;
+    public pagination: IPagination;
 
     protected itemsPerPage: number = 0;
     protected store: IStore;
     protected userCurrency: string;
-    protected readonly userService: UserService = inject(UserService);
     protected storeFilter: ISelectCParams<TStoreFilter> = storeConfig.storeFilterConfig;
     protected showDesktopFilter: boolean = false;
     protected filterIconPath: string;
+    protected readonly translateService: TranslateService = inject(TranslateService);
+    protected readonly userService: UserService = inject(UserService);
+    protected storeService: StoreService = inject(StoreService);
+    protected eventService: EventService = inject(EventService);
+    protected modalService: ModalService = inject(ModalService);
+    protected actionService: ActionService = inject(ActionService);
+    protected router: UIRouter = inject(UIRouter);
 
     private filterValue: TStoreFilter = 'all';
     private formData$: BehaviorSubject<IStoreFilterValue> = new BehaviorSubject(null);
@@ -94,11 +102,6 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
 
     constructor(
         @Inject('injectParams') protected params: Params.IStoreListCParams,
-        protected storeService: StoreService,
-        protected eventService: EventService,
-        protected router: UIRouter,
-        protected actionService: ActionService,
-        protected modalService: ModalService,
     ) {
         super(
             <IMixedParams<Params.IStoreListCParams>>{
@@ -110,16 +113,7 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.prepareModifiers();
-
-        this.isReady = false;
-        this.isProfileFirst = this.configService.get<string>('$base.profile.type') === 'first';
-        this.itemTheme = this.$params.themeMod ?? 'default';
-        this.filterIconPath = this.$params.filterIconPath;
-        this.isMultiWallet = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
-        this.storeService.setStoreFilter(this.filterValue);
-        this.storeFilter.control.setValue(this.filterValue);
-        this.showDesktopFilter = this.actionService.getDeviceType() === DeviceType.Desktop;
-
+        this.setProps();
         this.setSubscribers();
         this.filterHandlers();
     }
@@ -133,7 +127,7 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
     public paginationOnChange(value: IPaginateOutput): void {
         this.paginatedStoreItems = value.paginatedItems as StoreItem[];
         this.itemsPerPage = value.event.itemsPerPage;
-        this.cdr.detectChanges();
+        this.cdr.markForCheck();
     }
 
     protected get userStatsConfig(): IWrapperCParams {
@@ -153,6 +147,10 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
         if (store) {
             this.store = store;
 
+            if (!this.userLevel) {
+                return;
+            }
+
             let storeItems: StoreItem[] = store.items;
             const category = this.router.globals.params['category'];
 
@@ -165,7 +163,11 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
             const selectedItems = this.getSelectedItems(storeItems);
             this.paginatedStoreItems = this.storeItems = this.sortItems(selectedItems);
 
-            this.cdr.detectChanges();
+            if (!this.isReady) {
+                this.isReady = true;
+            }
+
+            this.cdr.markForCheck();
         }
     }
 
@@ -175,6 +177,18 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
             modifiers = _union(modifiers, this.$params.common.customModifiers.split(' '));
         }
         this.addModifiers(modifiers);
+    }
+
+    protected setProps(): void {
+        this.isProfileFirst = this.configService.get<string>('$base.profile.type') === 'first';
+        this.itemTheme = this.$params.themeMod ?? 'default';
+        this.filterIconPath = this.$params.filterIconPath;
+        this.pagination = this.$params.common.pagination;
+        this.isMultiWallet = this.configService.get<boolean>('appConfig.siteconfig.isMultiWallet');
+        this.multiWalletAlert = this.translateService.instant(this.$params.multiWalletAlert);
+        this.showDesktopFilter = this.actionService.getDeviceType() === DeviceType.Desktop;
+        this.storeService.setStoreFilter(this.filterValue);
+        this.storeFilter.control.setValue(this.filterValue);
     }
 
     protected setSubscribers(): void {
@@ -205,7 +219,7 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
             )
             .subscribe((type: DeviceType): void => {
                 this.showDesktopFilter = type === DeviceType.Desktop;
-                this.cdr.detectChanges();
+                this.cdr.markForCheck();
             });
 
         this.storeService.getSubscribe({
@@ -234,10 +248,10 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
                 this.userLevel = userInfo.level;
 
                 if (!this.isReady && userInfo.level) {
-                    this.isReady = true;
+                    this.initStore(this.store);
                 }
 
-                this.cdr.detectChanges();
+                this.cdr.markForCheck();
             });
     }
 
@@ -249,7 +263,7 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
             )
             .subscribe((filterValue: TStoreFilter): void => {
                 this.storeService.setStoreFilter(filterValue);
-                this.cdr.detectChanges();
+                this.cdr.markForCheck();
             });
     }
 
