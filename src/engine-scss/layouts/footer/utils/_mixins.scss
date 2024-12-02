@@ -91,13 +91,17 @@
 
 @mixin footerIcons($theme) {
 
-
     .wlc-icon-payments-list,
     .wlc-icon-merchants-list {
         @include bm.get-mq-map('max-width', $theme, 'iconListMaxWidth');
         @include bm.get-mq-map('padding', $theme, 'iconListPadding');
 
         .wlc-icon-list {
+
+            &--theme-merchants,
+            &--theme-payments {
+                max-width: 100%;
+            }
 
             &__wrapper {
                 @include bm.get-mq-map('flex-wrap', $theme, 'wrapFlexWrap');
@@ -108,6 +112,7 @@
             &__item {
                 @include bm.get-mq-map('padding', $theme, 'itemPadding');
                 @include bm.get-mq-map('flex', $theme, 'itemFlex');
+                text-align: center;
 
                 .wlc-icon svg {
                     width: ef.get-value($theme, 'iconWidth');
