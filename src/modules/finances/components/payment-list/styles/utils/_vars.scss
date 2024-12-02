@@ -201,7 +201,8 @@ $themeCryptoList: map-merge(map-merge($common, (
     'listGridGap': ef.size(2),
 
     'itemGridTemplateColumn': auto 1fr auto,
-    'itemGridTemplateAreas': 'icon name ticker' 'limit limit limit',
+    'itemGridTemplateAreas': 'icon name ticker',
+    'itemGridTemplateAreasLimit': 'icon name ticker' 'limit limit limit',
     'itemGridGap': ef.size(3),
     'itemIconWidth': 30px,
     'itemIconHeight': 30px,

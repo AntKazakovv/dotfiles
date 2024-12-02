@@ -173,7 +173,8 @@
             ></span>
             <span class="{{$class}}__name">{{system.name}}</span>
             <span *ngIf="system.cryptoTicker" class="{{$class}}__ticker">{{system.cryptoTicker}}</span>
-            <span wlc-sa="wlc-amount-limit"
+            <span *ngIf="showAmountLimit"
+                wlc-sa="wlc-amount-limit"
                 [wlc-sa-input-params]="{inlineParams: getAmountLimitParams(system)}"
                 class="wlc-sa-amount-limit">
             </span>
