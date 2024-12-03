@@ -7,8 +7,14 @@ import {
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 
-import {BehaviorSubject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {
+    BehaviorSubject,
+    combineLatest,
+} from 'rxjs';
+import {
+    first, 
+    takeUntil,
+} from 'rxjs/operators';
 
 import {AbstractComponent} from 'wlc-engine/modules/core';
 import {SocialService} from 'wlc-engine/modules/user/system/services/social/social.service';
@@ -24,8 +30,12 @@ import * as Params from './google-one-tap.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GoogleOneTapComponent extends AbstractComponent implements OnInit {
-
     public clientId$ = new BehaviorSubject<string | null>(null);
+    public override $params: Params.IGoogleOneTapCParams;
+
+    public get loginUri(): string {
+        return this.$params.loginUri;
+    }
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IGoogleOneTapCParams,
@@ -39,15 +49,24 @@ export class GoogleOneTapComponent extends AbstractComponent implements OnInit {
     public override ngOnInit(): void {
         super.ngOnInit(this.injectParams);
 
-        if (!this.configService.get<boolean>('$user.isAuthenticated')) {
-            this.socialService.getClientId('gp').pipe(takeUntil(this.$destroy)).subscribe((clientId: string) => {
-                this.clientId$.next(clientId);
-                this.renderer2.appendChild(
-                    this.document.body,
-                    this.createScriptElement(this.$params['otScriptUrl']),
-                );
+        combineLatest([
+            this.configService.get<BehaviorSubject<boolean>>('$user.isAuth$').asObservable(),
+            this.socialService.isRegistrationOngoing$,
+        ])
+            .pipe(first())
+            .subscribe(([isAuthenticated, isRegistrationProcess]) => {
+                if (!isAuthenticated && !isRegistrationProcess) {
+                    this.socialService.getClientId('gp')
+                        .pipe(takeUntil(this.$destroy))
+                        .subscribe((clientId: string) => {
+                            this.clientId$.next(clientId);
+                            this.renderer2.appendChild(
+                                this.document.body,
+                                this.createScriptElement(this.$params['otScriptUrl']),
+                            );
+                        });
+                }
             });
-        }
     }
 
     protected createScriptElement(src: string): HTMLScriptElement {

@@ -5,6 +5,7 @@ import {
     OnInit,
     ChangeDetectionStrategy,
     Inject,
+    inject,
 } from '@angular/core';
 
 import {
@@ -13,6 +14,7 @@ import {
     IFormWrapperCParams,
     UserActionsAbstract,
     InjectionService,
+    RouterService,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
 import {SocialService} from 'wlc-engine/modules/user/system/services/social/social.service';
@@ -33,6 +35,8 @@ export class SocialSignUpFormComponent extends UserActionsAbstract<Params.ISocia
     public config: IFormWrapperCParams;
     public override $params: Params.ISocialSignUpFormCParams;
 
+    protected routerService = inject(RouterService);
+
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISocialSignUpFormCParams,
         logService: LogService,
@@ -52,7 +56,15 @@ export class SocialSignUpFormComponent extends UserActionsAbstract<Params.ISocia
     public override ngOnInit(): void {
         super.ngOnInit();
 
+        const routerHistory: string[] = this.routerService.history;
         this.config = this.$params.formConfig || Params.socialSignUpFormConfig;
+        
+        if (this.$params.formData['email'] 
+            && routerHistory[routerHistory.length-2].includes('user-social-register')
+        ) {
+            this.lockField(this.config, 'email');
+        }
+
         const data = {
             shift: 0,
             config: this.config,
@@ -66,6 +78,21 @@ export class SocialSignUpFormComponent extends UserActionsAbstract<Params.ISocia
         }
     }
 
+    protected lockField(
+        config: IFormWrapperCParams, 
+        fieldName: string, 
+    ): IFormWrapperCParams {
+        const resultConfig: IFormWrapperCParams = config;
+
+        resultConfig.components.forEach(component => {
+            if (component.params.name === fieldName) {
+                component.params.locked = true;
+            }
+        });
+
+        return resultConfig;
+    }
+    
     public async ngSubmit(form: UntypedFormGroup): Promise<boolean> {
         try {
             form.disable();

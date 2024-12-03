@@ -41,6 +41,8 @@ export class RouterService {
     private readonly currentState$ = new BehaviorSubject<ICurrentState | null>(null);
     private readonly lifecycle$ = new Subject<TLifecycleEvent>();
 
+    private _history: string[] = [];
+
     constructor() {
         this.init();
     }
@@ -61,12 +63,18 @@ export class RouterService {
         return this.uiRouter.urlService;
     }
 
+    public get history(): string[] {
+        return this._history;
+    }
+
     /** @deprecated */
     public get transition(): any {
         return this.routerGlobals.transition;
     }
 
+
     public navigate(state: TLinkStateName, params?: TLinkStateParams, options?: any): Promise<any> {
+        this._history.push(this.current.url);
         return this.stateService.go(state, params, options);
     }
 

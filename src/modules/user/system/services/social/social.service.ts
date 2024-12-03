@@ -2,6 +2,7 @@ import {UIRouterGlobals} from '@uirouter/core';
 import {Injectable} from '@angular/core';
 
 import {
+    BehaviorSubject,
     from,
     Observable,
 } from 'rxjs';
@@ -37,6 +38,11 @@ import {
 export class SocialService {
 
     protected socialRegisterData: Partial<IRegisterParams>;
+    protected isRegistrationOngoing = new BehaviorSubject<boolean | null>(null);
+
+    public get isRegistrationOngoing$(): Observable<boolean> {
+        return this.isRegistrationOngoing.asObservable();
+    }
 
     constructor(
         private dataService: DataService,
@@ -53,6 +59,7 @@ export class SocialService {
     public async continueRegistration(): Promise<void> {
         await this.configService.ready;
 
+        this.isRegistrationOngoing.next(true);
         try {
             this.socialRegisterData = (await this.getSocialData()).data;
             this.socialRegisterData.registrationBonus = this.configService.get<number>({
@@ -111,6 +118,7 @@ export class SocialService {
             this.socialRegisterData = null;
             this.eventService.emit({name: 'LOGIN'});
             this.modalService.hideModal('social-register');
+            this.isRegistrationOngoing.next(false);
         } catch (error) {
             this.logService.sendLog({code: '1.5.3', data: error});
             throw error;

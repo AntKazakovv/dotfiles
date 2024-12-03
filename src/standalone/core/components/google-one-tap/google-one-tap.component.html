@@ -1,5 +1,6 @@
 <div *ngIf="clientId$ | async"
     id="g_id_onload"
     [attr.data-client_id]="clientId$ | async"
-    [attr.data-login_uri]="$params['loginUri']">
+    [attr.data-login_uri]="loginUri"
+    data-cancel_on_tap_outside="false">
 </div>

@@ -1,6 +1,5 @@
 import {
     ResolveTypes,
-    StateService,
     Transition,
 } from '@uirouter/core';
 import {Ng2StateDeclaration} from '@uirouter/angular';
@@ -8,17 +7,18 @@ import {Ng2StateDeclaration} from '@uirouter/angular';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {SocialService} from 'wlc-engine/modules/user/system/services/social/social.service';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
+import {RouterService} from 'wlc-engine/modules/core/system/services/router/router.service'; 
 
 const socialRegisterResolver = (): ResolveTypes => {
     return {
         token: 'userSocialRegister',
         deps: [
-            StateService,
+            RouterService,
             Transition,
             InjectionService,
         ],
         resolveFn: async (
-            stateService: StateService,
+            routerService: RouterService,
             transition: Transition,
             injectionService: InjectionService,
         ): Promise<void> => {
@@ -27,12 +27,12 @@ const socialRegisterResolver = (): ResolveTypes => {
 
             if (userService.isAuthenticated) {
                 setTimeout(() => {
-                    stateService.go('app.error', transition.params());
+                    routerService.navigate('app.error', transition.params());
                 });
             } else {
                 const socialService = await injectionService.getService<SocialService>('user.social-service');
                 setTimeout( async () => {
-                    await stateService.go('app.home', transition.params());
+                    await routerService.navigate('app.home', transition.params());
                     socialService.continueRegistration();
                 });
             }
