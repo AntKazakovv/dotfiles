@@ -1,3 +1,4 @@
+<div class="{{$class}}-title">{{'Stay in control of your gambling' | translate}}</div>
 <div class="{{$class}}-time">
     <div wlc-timer
         [value]="playTime"
@@ -9,22 +10,20 @@
 
 <div wlc-table [inlineParams]="tableConfig"></div>
 
+<div wlc-checkbox [inlineParams]="checkBoxParams"></div>
+
 <div class="{{$class}}-footer">
-    <div wlc-checkbox [inlineParams]="checkBoxParams"></div>
-
-    <div *ngIf="showClose; else logoutTemplate">
-        <button wlc-button
-            text="Close"
-            (click)="close()"
-            themeMod="secondary">
-        </button>
-    </div>
-</div>
-
-<ng-template #logoutTemplate>
     <button wlc-button
-        text="Logout"
-        (click)="logout()"
-        themeMod="secondary">
+        text="Continue playing"
+        themeMod="secondary"
+        [disabled]="disabledButtons"
+        (click)="close()">
     </button>
-</ng-template>
+    <span class="{{$class}}-footer-text">{{ 'or' | translate}}</span>
+    <button wlc-button
+        text="Log out"
+        themeMod="secondary"
+        [disabled]="disabledButtons"
+        (click)="logout()">
+    </button>
+</div>

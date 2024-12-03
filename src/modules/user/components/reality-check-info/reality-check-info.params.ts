@@ -22,6 +22,13 @@ export const defaultParams: IRealityCheckInfoCParams = {
         switchWidth: 0,
         head: [
             {
+                key: 'bets',
+                title: gettext('Bet'),
+                type: 'amount',
+                order: 20,
+                wlcElement: 'wlc-profile-table__cell_bet',
+            },
+            {
                 key: 'wins',
                 title: gettext('Winning'),
                 type: 'amount',

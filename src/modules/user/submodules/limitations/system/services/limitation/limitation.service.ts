@@ -371,7 +371,6 @@ export class LimitationService {
             this.modalService.showModal({
                 id: 'reality-check-info',
                 modalTitle: gettext('Activity checker'),
-                withoutPadding: true,
                 componentName: 'user.wlc-reality-check-info',
                 componentParams: {
                     fromTime: result.fromTime,
@@ -382,7 +381,8 @@ export class LimitationService {
                         this.configService.get<IMGAConfig>('$modules.user.components["wlc-reality-check-info"].theme')??
                         'default',
                 },
-                closeBtnVisibility: true,
+                closeBtnVisibility: false,
+                backdrop: 'static',
                 showFooter: false,
                 onModalHidden: () => {
                     if (!this.intervalChecker && this.configService.get<boolean>('$user.isAuthenticated')) {

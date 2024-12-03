@@ -19,11 +19,16 @@ export class ActivityResultModel extends AbstractModel<IActivityResult> {
 
         if (!data) {
             this.data = {
+                Bets: '0',
                 Wins: '0',
                 Deposits: '0',
                 Losses: '0',
             };
         }
+    }
+
+    public get bets(): string {
+        return this.data.Bets;
     }
 
     public get wins(): string {

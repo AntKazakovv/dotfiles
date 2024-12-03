@@ -29,14 +29,14 @@ export class RealityCheckInfoComponent extends AbstractComponent implements OnIn
     @Input() public inlineParams: Params.IRealityCheckInfoCParams;
     public override $params: Params.IRealityCheckInfoCParams;
     public playTime: string;
-    public showClose: boolean = false;
+    public disabledButtons: boolean = true;
     public checkBoxParams: ICheckboxCParams = {
         name: 'i-have-seen',
         text: gettext('I have seen this message'),
         textSide: 'right',
         control: new UntypedFormControl(),
         onChange: (checked: boolean) => {
-            this.showClose = checked;
+            this.disabledButtons = !checked;
         },
     };
     protected dateRegExp = /(?<y>\d{4})-(?<m>\d{1,2})-(?<d>\d{1,2}) (?<hour>\d{1,2}):(?<min>\d{1,2}):(?<sec>\d{1,2})/;
@@ -56,7 +56,7 @@ export class RealityCheckInfoComponent extends AbstractComponent implements OnIn
 
     public override ngOnDestroy(): void {
         super.ngOnDestroy();
-        if (!this.showClose) {
+        if (this.disabledButtons) {
             this.logout();
         }
     }

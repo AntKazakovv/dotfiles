@@ -1,7 +1,18 @@
 .wlc-reality-check-info--theme-default:host {
-    padding: ef.get-value($themeDefault, 'padding');
+    display: flex;
+    flex-direction: ef.get-value($themeDefault, 'modalFlexDirection');
+    gap: ef.get-value($themeDefault, 'modalGap');
+    align-items: ef.get-value($themeDefault, 'modalAlignItems');
 
     .wlc-reality-check-info {
+
+        &-title {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'titleTextFont'),
+                ef.get-value($themeDefault, 'titleTextFontColor')
+            );
+            margin: ef.get-value($themeDefault, 'titleMargin');
+        }
 
         &-time {
             width: ef.get-value($themeDefault, 'timeWidth');
@@ -11,11 +22,12 @@
         &-footer {
             display: flex;
             flex-direction: ef.get-value($themeDefault, 'footerFlexDirection');
+            gap: ef.get-value($themeDefault, 'footerGap');
             align-items: ef.get-value($themeDefault, 'footerAlignItems');
             justify-content: ef.get-value($themeDefault, 'footerJustifyContent');
 
-            .wlc-checkbox {
-                margin: ef.get-value($themeDefault, 'footerCheckboxMargin');
+            &-text {
+                @include text.get-text-style(ef.get-value($themeDefault, 'footerTextStyle'));
             }
         }
     }
@@ -30,13 +42,20 @@
             }
 
             &--theme-default.wlc-table.wlc-table--table[class] {
+                gap: ef.get-value($themeDefault, 'tableGap');
+                width: ef.get-value($themeDefault, 'tableWidth');
+                max-width: ef.get-value($themeDefault, 'tableMaxWidth');
                 min-height: ef.get-value($themeDefault, 'tableMinHeight');
 
                 .wlc-table {
 
+                    &__row {
+                        height: ef.get-value($themeDefault, 'tableRowHeight');
+                    }
+
                     &__row--head[class] .wlc-table__cell {
                         @include text.get-text-style(
-                            ef.get-value($themeDefault, 'headTableTextStyle'),
+                            ef.get-value($themeDefault, 'tableHeadTextStyle'),
                             null
                         );
                     }
@@ -46,6 +65,8 @@
                             ef.get-value($themeDefault, 'tableTextStyle'),
                             null
                         );
+                        height: ef.get-value($themeDefault, 'tableRowHeight');
+                        padding: ef.get-value($themeDefault, 'tableCellPadding');
                     }
 
                     &__row[class]:last-child {

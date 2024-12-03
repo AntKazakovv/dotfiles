@@ -1,5 +1,8 @@
 .wlc-reality-check-info--theme-wolf:host {
-    padding: ef.get-value($themeWolf, 'formPadding');
+    display: flex;
+    flex-direction: ef.get-value($themeWolf, 'modalFlexDirection');
+    gap: ef.get-value($themeWolf, 'modalGap');
+    align-items: ef.get-value($themeWolf, 'modalAlignItems');
 
     .wlc-reality-check-info {
 
@@ -9,46 +12,85 @@
                 ef.get-value($themeWolf, 'titleTextFontColor')
             );
             margin: ef.get-value($themeWolf, 'titleMargin');
-            text-align: ef.get-value($themeWolf, 'titleAlign');
         }
 
         &-time {
+            width: ef.get-value($themeWolf, 'timeWidth');
             margin: ef.get-value($themeWolf, 'timeMargin');
-        }
-
-        &-result {
-            @include text.get-text-style(
-                ef.get-value($themeWolf, 'resultTextFont'),
-                ef.get-value($themeWolf, 'resultTextFontColor')
-            );
-            margin: ef.get-value($themeWolf, 'resultMargin');
-            border-radius: ef.get-value($themeWolf, 'resultBorderRadius');
-            background: ef.get-value($themeWolf, 'resultBackground');
-
-            &-head,
-            &-value {
-                display: grid;
-                grid-template-columns: ef.get-value($themeWolf, 'resultGridTemplateColumns');
-                padding: ef.get-value($themeWolf, 'resultPadding');
-            }
-
-            &-value {
-                border-top: ef.get-value($themeWolf, 'resultBorderTop');
-            }
-
-            &-item {
-                text-align: ef.get-value($themeWolf, 'resultItemTextAlign');
-            }
         }
 
         &-footer {
             display: flex;
             flex-direction: ef.get-value($themeWolf, 'footerFlexDirection');
+            gap: ef.get-value($themeWolf, 'footerGap');
             align-items: ef.get-value($themeWolf, 'footerAlignItems');
             justify-content: ef.get-value($themeWolf, 'footerJustifyContent');
 
-            .wlc-checkbox {
-                margin: ef.get-value($themeWolf, 'footerCheckboxMargin');
+            &-text {
+                @include text.get-text-style(ef.get-value($themeWolf, 'footerTextStyle'));
+            }
+        }
+    }
+
+    ::ng-deep {
+
+        .wlc-table {
+
+            &__content {
+                background: ef.get-value($themeWolf, 'tableBackground');
+                border-radius: ef.get-value($themeWolf, 'tableRadius');
+            }
+
+            &--theme-default.wlc-table.wlc-table--table[class] {
+                gap: ef.get-value($themeWolf, 'tableGap');
+                width: ef.get-value($themeWolf, 'tableWidth');
+                max-width: ef.get-value($themeWolf, 'tableMaxWidth');
+                min-height: ef.get-value($themeWolf, 'tableMinHeight');
+
+                .wlc-table {
+
+                    &__row {
+                        height: ef.get-value($themeWolf, 'tableRowHeight');
+                    }
+
+                    &__row--head[class] .wlc-table__cell {
+                        @include text.get-text-style(
+                            ef.get-value($themeWolf, 'tableHeadTextStyle'),
+                            null
+                        );
+                    }
+
+                    &__cell {
+                        @include text.get-text-style(
+                            ef.get-value($themeWolf, 'tableTextStyle'),
+                            null
+                        );
+                        height: ef.get-value($themeWolf, 'tableRowHeight');
+                        padding: ef.get-value($themeWolf, 'tableCellPadding');
+                    }
+
+                    &__row[class]:last-child {
+                        border-bottom: ef.get-value($themeWolf, 'tableRowBorderBottom');
+                    }
+                }
+
+                @include bm.hover {
+
+                    .wlc-table__row[class]:last-child:not(.wlc-table__row--head) {
+
+                        :last-child {
+                            border-bottom-right-radius: ef.get-value($themeWolf, 'tableRadius');
+                        }
+
+                        :first-child {
+                            border-bottom-left-radius: ef.get-value($themeWolf, 'tableRadius');
+                        }
+                    }
+                }
+            }
+
+            .wlc-pagination--theme-wolf {
+                margin: 0;
             }
         }
     }

@@ -56,6 +56,7 @@ export interface IActivityResultData {
     fromTime: string;
 }
 export interface IActivityResult {
+    Bets: string;
     Wins: string;
     Deposits: string;
     Losses: string;
