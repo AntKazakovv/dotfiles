@@ -6,6 +6,7 @@ cursorline = true
 popup-border = "all"
 bufferline = "multiple"
 color-modes = true
+insert-final-newline = true
 
 [editor.lsp]
 display-inlay-hints = true
@@ -14,7 +15,21 @@ display-inlay-hints = true
 hidden = false
 
 [editor.statusline]
-left = ["mode", "file-name", "spacer", "separator", "spacer", "version-control", "spacer", "separator", "diagnostics"]
+left = [
+  "mode", 
+  "file-name",
+  "separator",
+  "file-type",
+  "read-only-indicator",
+  "register",
+  "spacer", 
+  "separator", 
+  "spacer", 
+  "version-control", 
+  "spacer", 
+  "separator", 
+  "diagnostics",
+]
 center = ["selections"]
 right = ["spinner", "position-percentage"]
 mode.normal = "NORMAL"
