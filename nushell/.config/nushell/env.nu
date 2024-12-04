@@ -98,7 +98,10 @@ $env.NU_PLUGIN_DIRS = [
 # $env.PATH = ($env.PATH | uniq)
 
 
+
+$env.PATH = ($env.PATH | split row (char esep) | prepend '/home/antonk/.cargo/bin')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '/home/antonk/.config/nvm/versions/node/v22.11.0/bin/')
+$env.PATH = ($env.PATH | split row (char esep) | prepend '/home/antonk/.local/bin/')
 $env.EDITOR = "helix"
 
 # To load from a custom file you can use:
@@ -108,4 +111,3 @@ let nixNuScript = "/home/antonk/.nix-profile/etc/profile.d/nix.nu"
 if ($nixNuScript | path exists) {
     nu $nixNuScript | from json | load-env
 }
-

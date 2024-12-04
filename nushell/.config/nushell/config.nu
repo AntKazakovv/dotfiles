@@ -907,10 +907,10 @@ def start_zellij [] {
     }
   }
 }
-
 start_zellij
-
 alias hx = helix
-
 sshAgentWrapper
 
+// change layout RU <--> US
+setxkbmap -layout us,de
+setxkbmap -option 'grp:alt_shift_toggle'
