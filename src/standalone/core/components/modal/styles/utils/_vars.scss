@@ -248,7 +248,7 @@ $hostModal: map-merge((
         768: 0 ef.size(6) 0,
     ),
     'scrollModalFooterPadding': (
-        320: 0 ef.size(3) 0,
+        375: 0 ef.size(3) 0,
         560: 0 ef.size(3) ef.size(6),
         768: 0 ef.size(6) ef.size(6),
     ),
@@ -283,7 +283,7 @@ $themeDefault: map-merge((
 
     // loginSignUp modal modifier
     'loginSignUpModalWrapperPadding': (
-        320: ef.size(2) 0,
+        375: ef.size(6) 0,
         900: ef.size(10) 0,
     ),
     'loginSignUpModalBackground': (
@@ -352,11 +352,10 @@ $themeDefault: map-merge((
         560: none,
         900: ef.get('shadow', 'lg'),
     ),
-    // loginSignUp modal modifier
 
     // restore password modal modifier
     'restoreModalWrapperPadding': (
-        320: ef.size(2) 0,
+        375: ef.size(2) 0,
         900: ef.size(10) 0,
     ),
     'restoreModalBackground': (
