@@ -13,6 +13,7 @@ import {TCustomizableFn} from 'wlc-engine/modules/menu/components/category-menu/
 export const initAsDropdownDefault: TCustomizableFn  = function (this: CategoryMenuComponent): void {
     const useIconsParentItem: boolean = !_isNil(this.$params.menuParams.dropdowns.expandableOnHover);
     const parentCategories = this.gamesCatalogService.getParentCategories();
+    // @ts-ignore no-implicit-any #672571
     let dropdownMenu = [];
 
     const specialCategories = this.getSpecialCategories();
@@ -56,6 +57,7 @@ export const initAsDropdownDefault: TCustomizableFn  = function (this: CategoryM
         }
     });
 
+    // @ts-ignore no-implicit-any #672571
     this.$params.menuParams.items = dropdownMenu;
 };
 

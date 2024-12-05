@@ -8,9 +8,10 @@ import {IInputCParams} from 'wlc-engine/modules/core/components/input/input.para
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
 export type ComponentThemeMod = 'default' | CustomType;
+export type Name = 'checkboxParams' | 'inputParams';
 
 export interface ICheckboxWithInputCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
-    name?: string[],
+    name?: Name[],
     checkboxParams?: ICheckboxCParams,
     inputParams?: IInputCParams,
 };

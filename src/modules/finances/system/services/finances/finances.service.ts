@@ -155,6 +155,7 @@ export class FinancesService {
         additionalFields: TAdditionalParams,
         cssVariables: string,
         wallet: ISelectedWallet = null,
+    // @ts-ignore no-implicit-any #672571
     ): Promise<any> {
 
         if (wallet && !wallet.walletId) {
@@ -716,6 +717,7 @@ export class FinancesService {
         requestName: string,
         cssVariables: string,
         wallet: ISelectedWallet,
+    // @ts-ignore no-implicit-any #672571
     ): Promise<any> {
         try {
             const currentSystem = this.getSystemById(systemId);

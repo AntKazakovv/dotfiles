@@ -94,6 +94,7 @@ describe('DynamicHtml', () => {
         component.html = '<button wlc-button text="test"></button><script>window["test"] = true</script>';
         fixture.detectChanges();
         fixture.whenStable().then(() => {
+            // @ts-ignore no-implicit-any #672571
             expect(window['test']).toBeTrue();
         });
     });

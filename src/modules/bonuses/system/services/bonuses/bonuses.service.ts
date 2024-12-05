@@ -909,10 +909,14 @@ export class BonusesService {
         }
 
         Object.keys(queryFilters).forEach((key: string): void => {
+            // @ts-ignore no-implicit-any #672571
             const value: string = Array.isArray(queryFilters[key])
+                // @ts-ignore no-implicit-any #672571
                 ? queryFilters[key].join(',')
+                // @ts-ignore no-implicit-any #672571
                 : queryFilters[key].toString();
 
+            // @ts-ignore no-implicit-any #672571
             params[key] = value;
         });
 

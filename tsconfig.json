@@ -26,10 +26,10 @@
         "noImplicitOverride": true,
         "useDefineForClassFields": false,
 
-        // strict
         "alwaysStrict": true,
         "noImplicitThis": true,
         "strictBindCallApply": true,
+        "noImplicitAny": true
     },
     "exclude": [
         "node_modules"
@@ -37,6 +37,6 @@
     "angularCompilerOptions": {
         "strictTemplates": true,
         "strictInjectionParameters": true,
-        "disableTypeScriptVersionCheck": true,
+        "disableTypeScriptVersionCheck": true
     }
 }

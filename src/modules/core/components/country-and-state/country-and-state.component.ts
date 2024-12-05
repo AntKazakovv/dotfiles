@@ -239,11 +239,14 @@ export class CountryAndStateComponent extends AbstractComponent implements OnIni
 
     protected updateCpf(countryCode: string): void {
         if (this.useCpf && this.$params.cpf.control) {
+            // @ts-ignore no-implicit-any #672571
             this.showCpf = listCountryForCpfFields[countryCode]
+                // @ts-ignore no-implicit-any #672571
                 && !!this.defaultCpfParams[cpfFieldMap[countryCode]];
 
             if (this.showCpf) {
                 const formControl = this.$params.cpf.control;
+                // @ts-ignore no-implicit-any #672571
                 this.$params.cpf = _cloneDeep(this.defaultCpfParams[cpfFieldMap[countryCode]]);
 
                 this.$params.cpf.control = formControl;

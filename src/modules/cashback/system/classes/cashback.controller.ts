@@ -12,6 +12,7 @@ import {ICashbackReward} from 'wlc-engine/modules/cashback';
 export interface ICashbackController {
     cashbackType: TCashbackType;
     cashback$: Subject<CashbackPlanModel[]>;
+    // @ts-ignore no-implicit-any #672571
     getComponentDestroy(Subject): void;
     getCashbackPlans(): void;
     fetchCashback(): Promise<void>;

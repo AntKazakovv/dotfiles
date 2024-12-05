@@ -237,7 +237,7 @@ export class FilesService {
     }
 
     public getStaticFilesList(folder: string): string[] {
-        const res = [];
+        const res : string[] = [];
         _forEach(imagesList, (item: string) => {
             if (item.search(folder + '/') !== -1) {
                 res.push(item);

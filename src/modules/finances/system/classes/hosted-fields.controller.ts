@@ -125,6 +125,7 @@ export class HostedFieldsControllerM implements IHostedFieldsControllerM {
     }
 
     private async importPackage(): Promise<void> {
+        // @ts-ignore no-implicit-any #672571
         await import('hosted-fields-sdk')
             .then((m: any) => {
                 this.hostedFieldService = m['HostedFields'];

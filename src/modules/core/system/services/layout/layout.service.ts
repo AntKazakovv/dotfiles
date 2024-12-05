@@ -194,6 +194,7 @@ export class LayoutService {
                 } else {
                     const name: string = component.name.split('.')[1];
 
+                    // @ts-ignore no-implicit-any #672571
                     if (standaloneComponents[name]) {
                         component.componentClass = this.injectionService.getComponent('core.wlc-sa');
                     } else {

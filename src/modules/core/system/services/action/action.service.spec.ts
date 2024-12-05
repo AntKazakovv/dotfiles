@@ -29,6 +29,7 @@ import {
 import {ActionService} from './action.service';
 import {BonusesService} from 'wlc-engine/modules/bonuses';
 
+// @ts-ignore no-implicit-any #672571
 declare const viewport;
 
 describe('ActionService', () => {

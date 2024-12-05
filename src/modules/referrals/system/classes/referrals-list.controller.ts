@@ -55,6 +55,7 @@ export class ReferralsListController implements IReferralsListController {
         this.setReferralsList();
     }
 
+    // @ts-ignore no-implicit-any #672571
     public async fetchReferralsList(params): Promise<void> {
         this.referralsList$.next(null);
 

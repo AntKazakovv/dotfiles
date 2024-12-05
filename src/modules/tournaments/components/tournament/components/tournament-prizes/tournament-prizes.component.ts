@@ -56,6 +56,11 @@ export class TournamentPrizesComponent
         super({injectParams, defaultParams: Params.defaultParams});
     }
 
+    public getPodiumImage(index: number): TPrizePodiumImages {
+        // @ts-ignore no-implicit-any #672571
+        return this.podiumImages[index];
+    }
+
     public override ngOnInit(): void {
         super.ngOnInit(GlobalHelper.prepareParams(this,
             ['tournament', 'type', 'theme', 'themeMod', 'customMod', 'rowsLimit']));

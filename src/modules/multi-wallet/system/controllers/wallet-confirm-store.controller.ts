@@ -47,6 +47,7 @@ export class WalletConfirmStoreController implements IWalletConfirmController {
         return this._isBalanceEnough;
     }
 
+    // @ts-ignore no-implicit-any #672571
     public onWalletChange(wallet: ISelectedWallet, balance): void {
         this.wallet$.next(wallet);
         this.calcAmount(wallet);

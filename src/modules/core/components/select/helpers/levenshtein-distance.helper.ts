@@ -4,7 +4,8 @@
  * @param {string} a second value
  * @return {number} levenshtein distance
  */
-export function levenshteinDistance(a, b): number {
+
+export function levenshteinDistance(a: string, b: string): number {
     if (a.length === 0) return b.length;
     if (b.length === 0) return a.length;
 

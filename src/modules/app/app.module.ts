@@ -78,7 +78,7 @@ export class GlobalDeps {
         ConfigService,
         {
             provide: APP_INITIALIZER,
-            useFactory: (config: ConfigService) => () => void config.load(),
+            useFactory: (config: ConfigService) => (): void => void config.load(),
             deps: [ConfigService],
             multi: true,
         },

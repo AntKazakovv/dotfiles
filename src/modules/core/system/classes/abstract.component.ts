@@ -208,6 +208,7 @@ export class AbstractComponent implements OnDestroy, OnInit, OnChanges {
     protected getConfigComponentByTheme(abstractConfig: IAbstractConfig): IIndexing<unknown> {
         if (this.configService?.get<TThemeApp>('$base.site.theme') === 'wolf') {
             const defaultComponentWolfConfig: IIndexing<unknown> =
+                // @ts-ignore no-implicit-any #672571
                 wolfConfig[abstractConfig?.moduleName]?.[abstractConfig?.componentName];
 
             if (defaultComponentWolfConfig) {

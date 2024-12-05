@@ -253,6 +253,7 @@ export class TableComponent extends AbstractComponent implements OnInit {
     private createTableRow(rows: unknown[]): TableRowModel[] {
         return rows.map((row) => {
             const isOpened: boolean = this.rows.some(
+                // @ts-ignore no-implicit-any #672571
                 (oldRow: TableRowModel) => oldRow['id'] === row['id'] && oldRow.opened,
             );
 

@@ -55,6 +55,7 @@ export class EvoGamesHooks extends AbstractHook {
                         const script: HTMLScriptElement = renderer.createElement('script');
                         renderer.setAttribute(script, 'type', 'text/javascript');
                         renderer.setAttribute(
+                        // @ts-ignore no-implicit-any #672571
                             script, 'src', window['PROMO_WIDGET_PARAMS'].url + '/loader.js');
                         renderer.appendChild(target, script);
                     } catch (error) {

@@ -60,6 +60,8 @@ export class KycQuestionnaireComponent extends AbstractComponent implements OnIn
             .map(k => parseInt(k))).length;
 
         this.step = parseInt(Object.keys(this.$params.steps)[0]);
+
+        // @ts-ignore no-implicit-any #672571
         this.activeStepConfig$.next(this.$params.steps[this.step]);
     }
 
@@ -118,18 +120,22 @@ export class KycQuestionnaireComponent extends AbstractComponent implements OnIn
 
         let stepKeyConfig: string = String(next);
 
+        // @ts-ignore no-implicit-any #672571
         if (this.$params.stepsRelations?.[next]) {
+            // @ts-ignore no-implicit-any #672571
             const name: string = this.$params.stepsRelations[next];
             const value: string = this.formData.getValue()[name];
 
             stepKeyConfig += `:${name}:${value}`;
         }
 
+        // @ts-ignore no-implicit-any #672571
         if (!this.$params.steps[stepKeyConfig]) {
             console.error('step does not exist: ', stepKeyConfig);
         }
 
         this.step = next;
+        // @ts-ignore no-implicit-any #672571
         this.activeStepConfig$.next(this.$params.steps[stepKeyConfig]);
 
         return false;

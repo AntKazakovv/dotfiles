@@ -78,8 +78,11 @@ export class AdditionalFieldsControllerM implements IAdditionalFieldsControllerM
 
     private prepareAdditionalFields(): void {
         for (const key in this.data.additionalParams) {
+            // @ts-ignore no-implicit-any #672571
             if (this.data.additionalParams[key]) {
+                // @ts-ignore no-implicit-any #672571
                 this.data.additionalParams[key] = this.getField(this.data.additionalParams[key]);
+                // @ts-ignore no-implicit-any #672571
                 this.setFieldValue(key, this.data.additionalParams[key]);
             }
         }

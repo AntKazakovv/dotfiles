@@ -327,6 +327,7 @@ export class TournamentComponent extends AbstractComponent implements OnInit {
         }
     }
 
+    // @ts-ignore no-implicit-any #672571
     protected showDetailModal(scrollToSelector): void {
         this.modalService.showModal({
             id: 'tournament-detail-modal',

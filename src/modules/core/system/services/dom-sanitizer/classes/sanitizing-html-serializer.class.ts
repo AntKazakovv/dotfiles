@@ -121,7 +121,7 @@ export class SanitizingHtmlSerializer {
      *
      * @param element The element
      */
-    private endElement(element): void {
+    private endElement(element: HTMLElement): void {
         const tagName = element.nodeName.toLowerCase();
 
         if (!_includes(['body', 'html', 'br'], tagName)) {

@@ -88,6 +88,7 @@ export class TournamentFreeSpinsComponent extends AbstractComponent implements O
 
     public get buyPrice(): number {
         return _toNumber(this.isMultiWallet
+            // @ts-ignore no-implicit-any #672571
             ? this.$params.freeSpins.Price[this.userService.userProfile.currency]
             : this.$params.freeSpins.Price.Currency);
     }

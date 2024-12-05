@@ -188,6 +188,7 @@ export class TournamentDetailComponent extends AbstractComponent implements
     protected setTagConfig(): void {
         if (this.tournament.tag) {
             const moduleTagsConfig: ITournamentTags = this.configService.get('$tournaments.tagsConfig');
+            // @ts-ignore no-implicit-any #672571
             const tagCommon: ITagCommon = moduleTagsConfig.tagList[this.tournament.tag];
 
             if (tagCommon) {

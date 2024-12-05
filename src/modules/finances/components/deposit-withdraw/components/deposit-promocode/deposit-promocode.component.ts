@@ -195,7 +195,7 @@ export class DepositPromocodeComponent extends AbstractComponent implements OnIn
         _set(this.submitBtnParams, 'pending$', this.bonusPending$);
     }
 
-    private assignInputAndButtonParams(params): void {
+    private assignInputAndButtonParams(params: Params.IDepositPromoCodeFormCParams): void {
         this.inputParams = params.inputParams;
         this.submitBtnParams = params.submitBtnParams;
     }

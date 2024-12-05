@@ -38,7 +38,7 @@ export class SelectionWinnerComponent extends AbstractComponent implements OnIni
     public override $params!: Params.ISelectionWinnerCParams;
     protected participants: ParticipantModel[] = [];
     protected winners: IWinner[] = [];
-    protected drumLines = [];
+    protected drumLines : number[] = [];
     protected participantsWH: Array<ParticipantModel[]> = [];
     protected translatesParticipantsAmt: TLineTranslate;
 

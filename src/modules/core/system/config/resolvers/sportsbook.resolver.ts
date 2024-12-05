@@ -85,6 +85,7 @@ class SportsbookHandler extends BaseGamesHandler {
 
         this.modalProfileInfo.onModalHide = () => {
             if (!this.router.globals.current.name || this.router.globals.current.name === 'app.sportsbook') {
+                // @ts-ignore no-implicit-any #672571
                 const redirects = this.configService.get<boolean>('$base.redirects.states')['app.home']?.state;
                 if (redirects === 'app.sportsbook') {
                     this.stateService.go('app.profile.main.info', this.transition.params());

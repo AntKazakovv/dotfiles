@@ -82,18 +82,23 @@ describe('DropdownSearchComponent', () => {
 
 @Directive({selector: '[wlc-click-outside]'})
 class ClickOutsideDirective {
+    // @ts-ignore no-implicit-any #672571
     @Input() isOpened;
 }
 
 @Component({selector: '[wlc-sa]'})
 class SaComponent {
+    // @ts-ignore no-implicit-any #672571
     @Input('wlc-sa-input-params') inputParams;
+    // @ts-ignore no-implicit-any #672571
     @Input('wlc-sa') name;
 }
 
 @Component({selector: '[wlc-search-field]'})
 class SearchFieldComponent {
+    // @ts-ignore no-implicit-any #672571
     @Input() showClearIcon;
+    // @ts-ignore no-implicit-any #672571
     @Input() inlineParams;
 }
 
@@ -107,7 +112,9 @@ class SearchFieldComponent {
     ],
 })
 class SpyScrollbarComponent {
+    // @ts-ignore no-implicit-any #672571
     @Input() showClearIcon;
+    // @ts-ignore no-implicit-any #672571
     @Input() inlineParams;
     public setProgress(): void {}
 }

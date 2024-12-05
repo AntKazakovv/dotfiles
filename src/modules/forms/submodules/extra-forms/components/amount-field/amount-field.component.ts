@@ -79,6 +79,7 @@ export class AmountFieldComponent extends AbstractComponent implements OnInit {
         if (this.$params.minValue) {
             minValue = this.$params.minValue;
         } else if (validators?.length) {
+            // @ts-ignore no-implicit-any #672571
             minValue = Number(_find(validators, {name: 'min'})?.['options']);
         }
         this.minValue = (_isFinite(minValue) && minValue >= 0) ? minValue : 0;
@@ -86,6 +87,7 @@ export class AmountFieldComponent extends AbstractComponent implements OnInit {
         if (this.$params.maxValue) {
             maxValue = this.$params.maxValue;
         } else if (validators?.length) {
+            // @ts-ignore no-implicit-any #672571
             maxValue = Number(_find(validators, {name: 'max'})?.['options']);
         }
         this.maxValue = (_isFinite(maxValue) && maxValue > this.minValue) ? maxValue : Infinity;

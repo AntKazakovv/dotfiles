@@ -83,6 +83,7 @@ export const catalogArch3 = new CatalogBuilder()
 
                 _forEach(parentCategories, (parentCategory: CategoryModel): void => {
 
+                    // @ts-ignore no-implicit-any #672571
                     const currentChildCategories = [];
 
                     _forEach(childCategories, (category: CategoryModel): void => {
@@ -134,6 +135,7 @@ export const catalogArch3 = new CatalogBuilder()
                         }
                     });
 
+                    // @ts-ignore no-implicit-any #672571
                     parentCategory.setChildCategories(currentChildCategories);
                 });
 

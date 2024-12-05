@@ -204,6 +204,7 @@ export class NicknameIconEditComponent extends AbstractComponent implements OnIn
 
     protected getIconList(): Params.IIcon[] {
         const list = this.fileService.getStaticFilesList(this.iconsFolder);
+        // @ts-ignore no-implicit-any #672571
         let res = [];
 
         list.forEach((file: string) => {
@@ -222,6 +223,7 @@ export class NicknameIconEditComponent extends AbstractComponent implements OnIn
             }
         });
 
+        // @ts-ignore no-implicit-any #672571
         return res;
     }
 }

@@ -153,5 +153,5 @@ describe('LootboxPrizeComponent', (): void => {
 
 @Component({selector: '[wlc-icon]'})
 class IconComponent {
-    @Input() iconPath;
+    @Input() iconPath: string;
 }

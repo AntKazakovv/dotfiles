@@ -133,7 +133,7 @@ export class AchievementListComponent extends AbstractComponent implements OnIni
         return this.achievementsService.modifyAchievementArray(achievements, modifier);
     }
 
-    public getItemInlineParams(achievement): IAchievementItemCParams {
+    public getItemInlineParams(achievement: AchievementModel): IAchievementItemCParams {
         return {
             achievement: achievement,
             theme: this.$params.themeMod,

@@ -31,9 +31,11 @@ export class ButtonComponent extends AbstractChatComponent implements OnChanges 
 
     public ngOnChanges(changes: SimpleChanges): void {
         this.changeable.forEach((prop: string): void => {
+            // @ts-ignore no-implicit-any #672571
             if (changes[prop] && changes[prop].previousValue !== this[prop]) {
                 this.replaceMod(
                     `${prop}-${changes[prop].previousValue}`,
+                    // @ts-ignore no-implicit-any #672571
                     `${prop}-${this[prop]}`,
                 );
             }

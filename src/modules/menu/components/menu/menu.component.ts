@@ -253,6 +253,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         }
 
         if (_isObject((item as IMenuItem).name)) {
+            // @ts-ignore no-implicit-any #672571
             return (item as IMenuItem).name['en'];
         } else {
             return (item as IMenuItem).name as string;

@@ -418,6 +418,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         const index = _findIndex(this.systems, (item) => item.id === this.currentSystem?.id);
 
         if (index !== -1) {
+            // @ts-ignore no-implicit-any #672571
             const activeIconModel: IconModel = this.itemsMap.get(this.currentSystem.id).components[0].params['icon'];
             this.activeIcon = {
                 components: [

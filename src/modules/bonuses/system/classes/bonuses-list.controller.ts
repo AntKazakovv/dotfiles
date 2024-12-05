@@ -144,7 +144,7 @@ export class BonusesListController implements IBonusesListController {
         return this.bonusesService.filterBonuses(bonuses, filter);
     }
 
-    private sortBonuses(bonuses, sortParams: TBonusSortOrder[]): Bonus[] {
+    private sortBonuses(bonuses: Bonus[], sortParams: TBonusSortOrder[]): Bonus[] {
         return this.bonusesService.sortBonuses(bonuses, sortParams);
     }
 }

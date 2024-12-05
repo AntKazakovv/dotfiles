@@ -371,6 +371,7 @@ export class UserService {
                         case WebSocketEvents.RECEIVE.LOYALTY_UPDATE:
                             const updatedLoyalty: ILoyalty = {};
                             for (const [key, value] of Object.entries(this.info.loyalty)) {
+                                // @ts-ignore no-implicit-any #672571
                                 updatedLoyalty[key] = (data.data as ILoyaltyUpdate)[key]?.toString() ?? value;
                             }
                             this.info.loyalty = updatedLoyalty;

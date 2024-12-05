@@ -222,6 +222,7 @@ export class LatestBetsService {
             },
             );
         }
+        // @ts-ignore no-implicit-any #672571
         return this.getData<LatestBetsModel[]>(tmpBets);
     }
 

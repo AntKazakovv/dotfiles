@@ -109,6 +109,7 @@ export class DynamicHtmlComponent implements AfterViewInit {
 
         // find all wlc- components
         const componentNames: string[] = [...new Set(template.match(/wlc-[\w-]*/g))].filter(
+            // @ts-ignore no-implicit-any #672571
             (componentName: string): boolean => !!components[componentName],
         );
 
@@ -161,6 +162,7 @@ export class DynamicHtmlComponent implements AfterViewInit {
      */
     private createComponent(componentName: string, templateElement: HTMLElement): void {
         // get component
+        // @ts-ignore no-implicit-any #672571
         const component = components[componentName];
 
         if (!component) {
@@ -224,6 +226,7 @@ export class DynamicHtmlComponent implements AfterViewInit {
                     attributeValue = JSON.parse(attributeValueJson);
                 }
 
+                // @ts-ignore no-implicit-any #672571
                 currentComponentRef.instance[attributeName] = attributeValue;
 
                 // clone attribute

@@ -139,7 +139,9 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
         if (this.feeType === 'loyalty') {
             return _toNumber(this.data.FeeAmount) || 0;
         } else {
+            // @ts-ignore no-implicit-any #672571
             return _toNumber(this.data.FeeAmount[this.tournamentsService.profile.selectedCurrency]
+                // @ts-ignore no-implicit-any #672571
                 ?? this.data.FeeAmount['Currency']);
         }
     }
@@ -235,6 +237,7 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
                 amount = this.feeAmountConversion;
                 conversionCurrency = this.tournamentsService.walletsService?.walletSettings.currency;
             } else {
+                // @ts-ignore no-implicit-any #672571
                 amount = this.data.FeeAmount[walletCurrency];
             }
         }
@@ -248,6 +251,7 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
 
     /** Checks balance for subscribe the tournament. Returns true if balance is enough */
     public checkBalance(balance: number, currency: string): boolean {
+        // @ts-ignore no-implicit-any #672571
         return balance >= Number(this.data.FeeAmount[currency]);
     }
 

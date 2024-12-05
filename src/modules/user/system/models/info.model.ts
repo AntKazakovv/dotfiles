@@ -437,6 +437,7 @@ export class UserInfo extends AbstractModel<IUserInfo> {
             {name: '$base.registration.requiredRegisterCheckboxNames'}) || [];
         return checkboxNames.reduce((acc: string[], key) => {
 
+            // @ts-ignore no-implicit-any #672571
             if (!_isUndefined(this.data?.[key])) {
 
                 return [...acc, key];

@@ -121,7 +121,9 @@ export class TurnstileService {
     }
 
     protected pushEventToDataLayer(event: {}): void {
+        // @ts-ignore no-implicit-any #672571
         if (!this.window['dataLayer']) return;
+        // @ts-ignore no-implicit-any #672571
         this.window['dataLayer'].push(event);
     }
 
@@ -137,7 +139,7 @@ export class TurnstileService {
         const turnstileCallback = (): void => {
             const turnstileId = this.window.turnstile.render(tsBlock, {
                 ...params,
-                callback: (token) => {
+                callback: (token: string) => {
                     modal.style.display = 'none';
                     this.setToken(token);
                     this.window.turnstile.remove(turnstileId);
@@ -164,6 +166,7 @@ export class TurnstileService {
                     this.pushEventToDataLayer({event: 'turnStyleLaunched'});
                 },
 
+                // @ts-ignore no-implicit-any #672571
                 'error-callback': (err) => {
                     this.pushEventToDataLayer({event: 'turnStyleError', turnStyleError: err});
                     console.error('Cloudflare turnstile error:', err);

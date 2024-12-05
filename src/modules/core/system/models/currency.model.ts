@@ -156,9 +156,11 @@ export class CurrencyModel extends AbstractModel<ICurrencyOptions>{
     protected getCryptocurrencyIndicator(): string {
         const indicatorFormat: string = _find(
             ['narrowSymbol', 'symbol', 'code'],
+            // @ts-ignore no-implicit-any #672571
             (indicatorFormat) => !!this.currencyFormat[indicatorFormat],
         );
 
+        // @ts-ignore no-implicit-any #672571
         const chars: readonly number[] = this.currencyFormat[indicatorFormat];
 
         if (!chars) {

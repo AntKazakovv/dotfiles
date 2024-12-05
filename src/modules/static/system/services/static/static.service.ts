@@ -321,6 +321,7 @@ export class StaticService {
             page: apiUrl + 'pages',
         };
 
+        // @ts-ignore no-implicit-any #672571
         return requestUrls[type];
     }
 

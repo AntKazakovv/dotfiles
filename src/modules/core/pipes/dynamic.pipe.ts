@@ -12,7 +12,9 @@ const $dynamicPipes = _get($config, '$dynamicPipes', {});
 })
 export class DynamicPipe implements PipeTransform {
     transform(value: unknown, pipeName: string, params: unknown[] = []): any {
+        // @ts-ignore no-implicit-any #672571
         if ($dynamicPipes.hasOwnProperty(pipeName) && typeof $dynamicPipes[pipeName] === 'function') {
+            // @ts-ignore no-implicit-any #672571
             return $dynamicPipes[pipeName](value, ...params);
         } else {
             console.warn(`DynamicPipe: Pipe '${pipeName}' not found or is not a function.`);

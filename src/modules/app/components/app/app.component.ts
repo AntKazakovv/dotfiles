@@ -527,8 +527,10 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
         this.routerService.events$.pipe(
             takeUntil(this.$destroy),
         ).subscribe((event: TLifecycleEvent) => {
+            // @ts-ignore no-implicit-any #672571
             if (routerEventNames[event.name]) {
                 this.eventService.emit({
+                    // @ts-ignore no-implicit-any #672571
                     name: routerEventNames[event.name],
                     data: event.transition,
                 });

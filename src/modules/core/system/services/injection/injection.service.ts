@@ -110,6 +110,7 @@ export class InjectionService {
 
             if (!token) {
                 token = await externalServices[alias].importFn().then((m) => {
+                    // @ts-ignore no-implicit-any #672571
                     return m[Object.keys(m)[0]];
                 });
                 _set(this.services, alias, token);

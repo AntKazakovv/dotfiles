@@ -229,6 +229,7 @@ export class CategoryModel extends AbstractModel<ICategory> {
     }
 
     public getBlockSettings(slug: string): ICategoryBlock {
+        // @ts-ignore no-implicit-any #672571
         return this.settings?.[slug];
     }
 

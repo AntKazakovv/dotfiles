@@ -1338,8 +1338,10 @@ export class PaymentFormComponent
     protected setLimitParams(amount: IFormComponent, showLimits: boolean): IAmountLimitCParams {
         const limitParams: IAmountLimitCParams = {
             minValue: amount.params.validators
+                // @ts-ignore no-implicit-any #672571
                 .find((val) => val['name'] && val['name'] === 'min')['options'],
             maxValue: amount.params.validators
+                // @ts-ignore no-implicit-any #672571        
                 .find((val) => val['name'] && val['name'] === 'max')['options'],
             showLimits,
         };
@@ -1500,6 +1502,7 @@ export class PaymentFormComponent
         };
     }
 
+    // @ts-ignore no-implicit-any #672571
     protected addFormToBodyAndSubmit(response): void {
         if (this.newTabRef) {
             const url: URL = this.createURL(response);
@@ -1713,7 +1716,9 @@ export class PaymentFormComponent
     private getLastAccountSelect(lastAccounts: IIndexing<string> | string[]): IFormComponent {
         const items: ISelectOptions[] = _map(_keys(lastAccounts), (item) => {
             return {
+                // @ts-ignore no-implicit-any #672571
                 value: lastAccounts[item],
+                // @ts-ignore no-implicit-any #672571
                 title: _isArrayLikeObject(lastAccounts) ? lastAccounts[item] : item,
             };
         });

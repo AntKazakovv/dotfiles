@@ -72,6 +72,7 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit, O
     public override ngOnInit(): void {
         super.ngOnInit();
 
+        // @ts-ignore no-implicit-any #672571
         this.menuConfig = Params.menuConfigs[this.$params.theme];
         let configKey: string = 'icons';
         switch (this.$params.type) {
@@ -97,6 +98,7 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit, O
         }
 
         if (this.$params.type === 'tabs' || this.$params.type === 'submenu') {
+            // @ts-ignore no-implicit-any #672571
             this.sliderNavigationOptions = this.menuConfig[this.$params.type]?.sliderNavigation;
             this.useSliderNavigation = !!this.sliderNavigationOptions?.use;
             this.setSliderNavigationVisibility();
@@ -150,9 +152,12 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit, O
 
         switch (this.$params.type) {
             case 'tabs':
+                // @ts-ignore no-implicit-any #672571
                 if (this.menuConfig[this.$params.type]?.menuParams) {
+                    // @ts-ignore no-implicit-any #672571
                     _merge(this.menuParams, this.menuConfig[this.$params.type].menuParams);
 
+                    // @ts-ignore no-implicit-any #672571
                     if (this.menuConfig[this.$params.type]?.menuParams.common?.useSwiper) {
                         this.addModifiers('swiper');
                     }
@@ -161,7 +166,9 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit, O
                 iconsKey = 'icons';
                 break;
             case 'submenu':
+                // @ts-ignore no-implicit-any #672571
                 if (this.menuConfig[this.$params.type]?.menuParams) {
+                    // @ts-ignore no-implicit-any #672571
                     _merge(this.menuParams, this.menuConfig[this.$params.type].menuParams);
                 }
 

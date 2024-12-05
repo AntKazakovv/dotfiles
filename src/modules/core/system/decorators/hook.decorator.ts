@@ -15,6 +15,7 @@ export function CustomHook(hook: THook) {
         const originalMethod: Function = descriptor.value;
 
         if (customHook) {
+            // @ts-ignore no-implicit-any #672571
             descriptor.value = function (...args) {
                 return customHook.call(this, originalMethod.bind(this), ...args);
             };
@@ -30,6 +31,7 @@ export function CustomAsyncHook(hook: THook) {
         const originalMethod: Function = descriptor.value;
 
         if (customHook) {
+            // @ts-ignore no-implicit-any #672571
             descriptor.value = async function (...args) {
                 return customHook.call(this, originalMethod.bind(this), ...args);
             };

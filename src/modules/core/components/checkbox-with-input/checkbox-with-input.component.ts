@@ -38,7 +38,9 @@ export class CheckboxWithInputComponent extends AbstractComponent implements OnI
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
+        // @ts-ignore no-implicit-any #672571
         this.checkboxControl = this.$params.checkboxParams.control = this.$params[this.$params.name[0]].control;
+        // @ts-ignore no-implicit-any #672571
         this.inputControl = this.$params.inputParams.control = this.$params[this.$params.name[1]].control;
         this.checkboxControl.getRawValue() ? this.inputControl.enable() : this.inputControl.disable();
 

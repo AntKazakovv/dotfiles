@@ -46,11 +46,14 @@ export class TglabHooks extends AbstractHook {
             `<sb-web-launch initializible="true" pre-live-path="${lang}/${path}" live-path="${lang}/${path}/in-play/"`);
 
         this.initSubscription = interval(500).subscribe(() => {
+            // @ts-ignore no-implicit-any #672571
             if (this.params.window['SB_LAUNCH_ACTIONS']) {
                 this.initSubscription.unsubscribe();
                 try {
+                    // @ts-ignore no-implicit-any #672571
                     this.params.window['SB_LAUNCH_ACTIONS'].destroy();
                 } catch {}
+                // @ts-ignore no-implicit-any #672571
                 this.params.window['SB_LAUNCH_ACTIONS'].init();
             }
         });
@@ -60,7 +63,9 @@ export class TglabHooks extends AbstractHook {
     protected override onDisableHooks(): void {
         super.onDisableHooks();
         this.initSubscription.unsubscribe();
+        // @ts-ignore no-implicit-any #672571
         if (this.params.window['SB_LAUNCH_ACTIONS']) {
+            // @ts-ignore no-implicit-any #672571
             this.params.window['SB_LAUNCH_ACTIONS'].destroy();
         }
     }

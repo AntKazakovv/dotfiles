@@ -28,6 +28,7 @@ export class TableRowModel {
         private params: Params.ITableCParams,
         public opened: boolean = false,
     ) {
+        // @ts-ignore no-implicit-any #672571
         this.id = data?.['id'] ?? null;
     }
 

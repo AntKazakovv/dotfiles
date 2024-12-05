@@ -637,7 +637,7 @@ export class GamesCatalogService {
         const parentCategory = this.getParentCategoryByState();
         const childCategory = this.getChildCategoryByState();
 
-        let games = [];
+        let games: Game[] = [];
         if (!this.catalogOpened()) {
             games = this.getGameList();
         } else if (parentCategory?.slug == 'lastplayed' || childCategory?.slug == 'lastplayed') {
@@ -1330,9 +1330,11 @@ export class GamesCatalogService {
     protected async getThumbConfig(type: 'default' | 'vertical'): Promise<IVideoThumbsConfig> {
         const thumbType = `${type}ThumbsConfig`;
 
+        // @ts-ignore no-implicit-any #672571
         if (!this[thumbType]) {
 
             await this.dataService.request(`games/${thumbType}`).then(({data}) => {
+                // @ts-ignore no-implicit-any #672571
                 this[thumbType] = data || {
                     haveVideo: [],
                 };
@@ -1348,6 +1350,7 @@ export class GamesCatalogService {
             });
         }
 
+        // @ts-ignore no-implicit-any #672571
         return this[thumbType];
     }
 
@@ -1544,6 +1547,7 @@ export class GamesCatalogService {
 
     private sortsToDict(allSorts: IAllSortsItemResponse[]): IIndexing<IAllSortsItemResponse> {
         return _reduce(allSorts, (res, sort) => {
+            // @ts-ignore no-implicit-any #672571
             res[sort.ID] = sort;
             return res;
         }, {});

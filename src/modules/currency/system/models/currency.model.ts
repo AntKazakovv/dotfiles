@@ -28,6 +28,7 @@ export class CurrencyModel extends AbstractModel<ICurrency<TDisplayName>> {
             return this.data.Name;
         }
 
+        // @ts-ignore no-implicit-any #672571
         const name: string = this.data.DisplayName[lang] || this.data.DisplayName['en'] || this.data.Name;
         return name;
     }

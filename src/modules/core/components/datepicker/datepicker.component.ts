@@ -71,8 +71,11 @@ export class DatepickerComponent extends AbstractComponent implements OnInit {
         this.bsValue = this.$params.useEmptyValue ? null : new Date();
         this.locale = this.translateService.currentLang;
 
+        // @ts-ignore no-implicit-any #672571
         if (this.$params.locales[this.locale]) {
+            // @ts-ignore no-implicit-any #672571
             const dpLocale: Params.ILocale = this.$params.locales[this.locale];
+            // @ts-ignore no-implicit-any #672571
             defineLocale(dpLocale.name, locales[dpLocale.config]);
             this.localeService.use(dpLocale.name);
         } else {

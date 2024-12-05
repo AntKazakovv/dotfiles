@@ -18,6 +18,7 @@ export class ChatConfigService {
 
     constructor(@Inject(WINDOW) window: Window) {
         const env = window.WLC_ENV === 'dev' ? 'qa' : window.WLC_ENV || 'prod';
+        // @ts-ignore no-implicit-any #672571
         this.domain = this.base.domains[env];
         this.service = `wss://${this.domain}/xmpp-websocket`;
         this.rooms = this.base.rooms?.map((room: IRoom): IRoom => {

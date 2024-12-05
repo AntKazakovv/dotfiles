@@ -197,6 +197,7 @@ export class TermsAcceptService {
         }
         const requiredCheckbox: string[] = userInfo.getRequiredRegisterCheckbox(this.configService);
         if (requiredCheckbox.length) {
+            // @ts-ignore no-implicit-any #672571
             return requiredCheckbox.some((key: string) => userInfo[key] === false);
         }
         return false;

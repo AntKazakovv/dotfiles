@@ -34,6 +34,7 @@ export class GoogleOneTapComponent extends AbstractComponent implements OnInit {
     public override $params: Params.IGoogleOneTapCParams;
 
     public get loginUri(): string {
+        // @ts-ignore no-implicit-any #672571
         return this.$params.loginUri;
     }
 
@@ -45,6 +46,7 @@ export class GoogleOneTapComponent extends AbstractComponent implements OnInit {
     ) {
         super({injectParams, defaultParams: Params.defaultParams});
     }
+
 
     public override ngOnInit(): void {
         super.ngOnInit(this.injectParams);
@@ -62,6 +64,7 @@ export class GoogleOneTapComponent extends AbstractComponent implements OnInit {
                             this.clientId$.next(clientId);
                             this.renderer2.appendChild(
                                 this.document.body,
+                                // @ts-ignore no-implicit-any #672571
                                 this.createScriptElement(this.$params['otScriptUrl']),
                             );
                         });

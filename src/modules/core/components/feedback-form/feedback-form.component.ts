@@ -164,6 +164,7 @@ export class FeedbackFormComponent extends AbstractComponent implements OnInit, 
         const lang = this.translateService.currentLang;
         _each(this.contactsConfig.translate,
             (value: TContactsTranslate[keyof TContactsTranslate], key: string): void => {
+                // @ts-ignore no-implicit-any #672571
                 this.contactsConfig[key] = value[lang] || this.contactsConfig[key];
             });
     }

@@ -91,6 +91,7 @@ export class TournamentBannerComponent
         if (this.$params.theme === 'wolf' && this.tournament.tag) {
 
             const moduleTagsConfig = this.configService.get<ITournamentTags>('$tournaments.tagsConfig');
+            // @ts-ignore no-implicit-any #672571
             const tagCommon: ITagCommon = moduleTagsConfig.tagList[this.tournament.tag];
 
             if (tagCommon) {

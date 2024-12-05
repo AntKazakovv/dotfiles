@@ -42,6 +42,7 @@ export class RadioButtonsComponent extends AbstractComponent implements OnInit {
         super.ngOnInit(this.inlineParams);
 
         this.control = Array.isArray(this.$params.name)
+            // @ts-ignore no-implicit-any #672571
             ? this.$params[this.$params.name[0]].control
             : this.$params.control;
 
@@ -81,6 +82,7 @@ export class RadioButtonsComponent extends AbstractComponent implements OnInit {
     protected prepareItems(): void {
         for (const item of this.$params.items) {
             if (item.input) {
+                // @ts-ignore no-implicit-any #672571
                 const control: UntypedFormControl = item.input.control = this.$params[item.input.name].control;
                 this.itemInputControls.set(item.value, control);
                 if (!this.isActive(item)) {

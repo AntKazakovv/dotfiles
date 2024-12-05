@@ -380,13 +380,17 @@ export class Tournament<T extends ITournament = ITournament> extends AbstractTou
             || 1;
 
         if (typeof rawPrizeRow === 'object') {
+            // @ts-ignore no-implicit-any #672571
             const moneyPrize: number = Number(rawPrizeRow[tournamentCurrency]);
             const specialCurrencies: ReadonlySet<String> = CurrenciesInfo.specialCurrencies;
             const specialPrizes: ITournamentPrize[] = _reduce(Array.from(specialCurrencies),
                 (result: ITournamentPrize[], currency: string) => {
+                    // @ts-ignore no-implicit-any #672571
                     if (rawPrizeRow[currency]) {
                         const value: number = currency === 'FB'
+                            // @ts-ignore no-implicit-any #672571
                             ? Number(rawPrizeRow[currency][tournamentCurrency])
+                            // @ts-ignore no-implicit-any #672571
                             : Number(rawPrizeRow[currency]);
 
                         if (value) {

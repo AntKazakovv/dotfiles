@@ -38,7 +38,7 @@
         <div *ngFor="let value of prizesTable | slice:0:3; index as i;" class="{{$class}}__item">
             <div class="{{$class}}__item-cup-wrapper">
                 <img class="{{$class}}__item-cup"
-                    src="{{podiumImages[i + 1]}}"
+                    src="{{getPodiumImage(i + 1)}}"
                     alt="{{i + 1}} {{'Place' | translate}}"/>
             </div>
             <div class="{{$class}}__item-caption">

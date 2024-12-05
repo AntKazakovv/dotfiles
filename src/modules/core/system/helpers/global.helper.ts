@@ -210,6 +210,7 @@ export class GlobalHelper {
     public static prepareParams<T>(instance: unknown, inputProperties: string[] = []): T {
         const inlineParams: any = _mergeWith({
             common: {},
+            // @ts-ignore no-implicit-any #672571
         }, instance['inlineParams'] as IIndexing<unknown> || {});
 
         _forEach(inputProperties, property => {
@@ -232,6 +233,7 @@ export class GlobalHelper {
      * prepare component params
      */
     public static prepareCParams<T>(instance: unknown, inputProperties: string[] = []): T {
+        // @ts-ignore no-implicit-any #672571
         const inlineParams: any = instance['inlineParams'] as IIndexing<unknown> || {};
 
         _forEach(inputProperties, property => {
@@ -674,6 +676,7 @@ export class GlobalHelper {
      *
      * @returns {boolean}
      */
+    // @ts-ignore no-implicit-any #672571
     public static isNewErrorStructure(error): boolean {
         return typeof error.errors === 'object' && !Array.isArray(error.errors);
     }

@@ -282,7 +282,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
     ): string {
         const res = _find(items, item => item.value === value);
 
-        if (res) {
+        if (res && res.title) {
             return res.title.toString();
         } else {
             return placeholder?.toString() || '';

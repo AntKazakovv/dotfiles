@@ -349,8 +349,11 @@ export class QuestsService {
                 const questNotificationConfig: IQuestNotification = this.configService.get('$quests.notification');
                 const questName: string = JSON.parse(message.data.quest_name);
                 const questImage: string = message.data.image;
+                // @ts-ignore no-implicit-any #672571
                 const translatedQuestName: string = questName[(this.translateService.currentLang)]?.length
+                    // @ts-ignore no-implicit-any #672571
                     ? questName[(this.translateService.currentLang)]
+                    // @ts-ignore no-implicit-any #672571
                     : questName[('en')];
 
                 this.eventService.emit({

@@ -390,12 +390,16 @@ export class HistoryService {
         const wins: ITournamentPrize[] = [];
 
         if (typeof rawWinRow === 'object') {
+            // @ts-ignore no-implicit-any #672571
             const moneyWin: number = _toNumber(rawWinRow[tournamentCurrency]);
             const specialWins: ITournamentPrize[] = _reduce(Array.from(CurrenciesInfo.specialCurrencies),
                 (result: ITournamentPrize[], currency: string) => {
+                    // @ts-ignore no-implicit-any #672571
                     if (rawWinRow[currency]) {
                         const value: number = currency === 'FB'
+                            // @ts-ignore no-implicit-any #672571
                             ? _toNumber(rawWinRow[currency][tournamentCurrency])
+                            // @ts-ignore no-implicit-any #672571
                             : _toNumber(rawWinRow[currency]);
 
                         if (value) {

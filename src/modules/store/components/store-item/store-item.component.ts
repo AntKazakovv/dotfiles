@@ -191,6 +191,7 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
 
     protected makeTagConfig(): void {
         const storeTagsConfig = this.configService.get<IStoreTagsConfig>('$store.tagsConfig');
+        // @ts-ignore no-implicit-any #672571
         const tagCommon: ITagCommon = storeTagsConfig.tagList[this.tagClass];
 
         this.tagConfig = {

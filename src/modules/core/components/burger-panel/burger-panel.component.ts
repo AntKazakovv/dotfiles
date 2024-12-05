@@ -274,6 +274,7 @@ export class BurgerPanelComponent extends AbstractComponent
         this.renderer.removeStyle(nativeElement, 'transition');
         this.renderer.removeStyle(nativeElement, 'transform');
 
+        // @ts-ignore no-implicit-any #672571
         if (event.direction === Directions[this.$params.type] &&
             (Math.abs(event.deltaX) > this.$width / 5 * 3 ||
                 (event.deltaTime < this.$width && Math.abs(event.deltaX) > 70))) {

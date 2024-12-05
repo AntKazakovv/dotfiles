@@ -664,8 +664,11 @@ export class WheelService {
                 this.winners.push({
                     amount: +winnersTmp[user].amount,
                     currency: winnersTmp[user].currency,
+                    // @ts-ignore no-implicit-any #672571
                     name: (winnersTmp[user].name && winnersTmp[user].lastName)
+                        // @ts-ignore no-implicit-any #672571
                         ? winnersTmp[user].name + winnersTmp[user].lastName
+                        // @ts-ignore no-implicit-any #672571
                         : winnersTmp[user].email,
                     id: +winnersTmp[user].id,
                     avatar: this.getUserAvatar(+winnersTmp[user].id),

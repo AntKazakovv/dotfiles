@@ -81,6 +81,7 @@ export class MerchantFieldsService {
         let requiredFields: string[] = [];
 
         fields.forEach((field : string) => {
+            // @ts-ignore no-implicit-any #672571
             const realField: string = fieldNameByDbName[field] || this.fieldsByAlias[field];
             if (realField) {
                 requiredFields.push(realField);
@@ -105,12 +106,14 @@ export class MerchantFieldsService {
             return !profile.hasField(field) && profile.fieldIsEmpty(field);
         });
         if (emptyFields.length > 0 && !emptyFields.includes('countryCode') && !emptyFields.includes('stateCode')
+            // @ts-ignore no-implicit-any #672571
             && this.configService.get<BehaviorSubject<IState[]>>('states').getValue()[profile.countryCode]
         ) {
             emptyFields.push('stateCode');
         }
         if (emptyFields.includes('stateCode')
             && (emptyFields.includes('countryCode') || (profile.countryCode
+                // @ts-ignore no-implicit-any #672571
                 && !this.configService.get<BehaviorSubject<IState[]>>('states').getValue()[profile.countryCode]))
         ) {
             emptyFields = emptyFields.filter((field) => field !== 'stateCode');

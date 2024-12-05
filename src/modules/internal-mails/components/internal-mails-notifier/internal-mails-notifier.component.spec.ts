@@ -129,10 +129,12 @@ describe('InternalMailsNotifierComponent', (): void => {
 
 @Component({selector: '[wlc-counter]'})
 class CounterComponent {
+    // @ts-ignore no-implicit-any #672571
     @Input() inlineParams;
 }
 
 @Component({selector: '[wlc-button]'})
 class ButtonComponent {
+    // @ts-ignore no-implicit-any #672571
     @Input() inlineParams;
 }

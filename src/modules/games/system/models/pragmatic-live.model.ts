@@ -192,7 +192,7 @@ export class PragmaticLiveModel extends AbstractModel<PragmaticLiveData> {
     }
 
     protected getLastResult(): IPragmaticResult[] {
-        let res = [];
+        let res: IPragmaticResult[] = [];
 
         switch (this.data.tableType) {
             case 'ROULETTE':
@@ -215,6 +215,7 @@ export class PragmaticLiveModel extends AbstractModel<PragmaticLiveData> {
                 break;
 
             case 'BACCARAT':
+                // @ts-ignore no-implicit-any #672571
                 res = _map(this.data.gameResult, (item) => {
                     return {
                         value: item.winner[0],
