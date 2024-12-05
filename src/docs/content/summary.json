@@ -231,24 +231,8 @@
                 "file": "./900.change-logs/releases/1.9.0_20-07-2022.md"
             },
             {
-                "title": "1.88.0RC5 (05-12-2024)",
-                "file": "./900.change-logs/releases/1.88.0-rc.5_05-12-2024.md"
-            },
-            {
-                "title": "1.88.0RC4 (03-12-2024)",
-                "file": "./900.change-logs/releases/1.88.0-rc.4_03-12-2024.md"
-            },
-            {
-                "title": "1.88.0RC3 (29-11-2024)",
-                "file": "./900.change-logs/releases/1.88.0-rc.3_29-11-2024.md"
-            },
-            {
-                "title": "1.88.0RC2 (28-11-2024)",
-                "file": "./900.change-logs/releases/1.88.0-rc.2_28-11-2024.md"
-            },
-            {
-                "title": "1.88.0RC1 (26-11-2024)",
-                "file": "./900.change-logs/releases/1.88.0-rc.1_26-11-2024.md"
+                "title": "1.88.0 (05-12-2024)",
+                "file": "./900.change-logs/releases/1.88.0_05-12-2024.md"
             },
             {
                 "title": "1.87.0 (25-11-2024)",
