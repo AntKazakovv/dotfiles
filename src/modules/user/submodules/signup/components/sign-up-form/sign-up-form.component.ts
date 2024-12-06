@@ -24,7 +24,6 @@ import {
     EventService,
     LogService,
     IFormWrapperCParams,
-    StepsEvents,
     IIndexing,
     DataService,
     IPushMessageParams,
@@ -45,6 +44,7 @@ import {CuracaoRequirement} from 'wlc-engine/modules/app/system';
 import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 import {SignUpService} from 'wlc-engine/modules/user/submodules/signup/system/services/signup.service';
 import {IRegFormDataForConfig} from 'wlc-engine/modules/user/submodules/signup/system/interfaces/signup.interface';
+import {StepsEvents} from 'wlc-engine/standalone/core/components/steps/steps.constants';
 
 import * as Params from './sign-up-form.params';
 

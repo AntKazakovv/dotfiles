@@ -40,8 +40,8 @@ export class TurnstileInterceptor implements HttpInterceptor {
         next: HttpHandler,
     ): Observable<HttpEvent<IData>> {
         if (this.useTurnstile
-            && (req.url === '/api/v1/profiles' && req.method === 'POST')
-                || (req.url === '/api/v1/auth' && req.method === 'PUT')
+            && ((req.url === '/api/v1/profiles' && req.method === 'POST')
+                || (req.url === '/api/v1/auth' && req.method === 'PUT'))
         ) {
             return from(this.getToken(req, next));
         }

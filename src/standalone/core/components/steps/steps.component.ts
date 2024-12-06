@@ -17,6 +17,8 @@ import {EventService} from 'wlc-engine/modules/core/system/services/event/event.
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {GlobalHelper} from  'wlc-engine/modules/core/system/helpers/global.helper';
 import {IMGAConfig} from 'wlc-engine/modules/core/components/license/license.params';
+import {StepsEvents} from 'wlc-engine/standalone/core/components/steps/steps.constants';
+import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 
 import * as Params from 'wlc-engine/standalone/core/components/steps/steps.params';
 
@@ -26,7 +28,6 @@ import _map from 'lodash-es/map';
 import _find from 'lodash-es/find';
 import _filter from 'lodash-es/filter';
 import _includes from 'lodash-es/includes';
-import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorator';
 
 @Component({
     selector: '[wlc-steps]',
@@ -98,11 +99,11 @@ export class StepsComponent extends AbstractComponent implements OnInit {
 
     @CustomHook({module: 'core', class: 'StepsComponent', method: 'setSubscription'})
     protected setSubscription(): void {
-        this.eventService.subscribe({name: Params.StepsEvents.Next}, () => {
+        this.eventService.subscribe({name: StepsEvents.Next}, () => {
             this.nextStep();
         }, this.$destroy);
 
-        this.eventService.subscribe({name: Params.StepsEvents.Prev}, () => {
+        this.eventService.subscribe({name: StepsEvents.Prev}, () => {
             this.previousStep();
         }, this.$destroy);
 
@@ -120,7 +121,7 @@ export class StepsComponent extends AbstractComponent implements OnInit {
                 .pipe(first())
                 .subscribe((data: IEvent<boolean>) => {
                     if (data.data){
-                        this.eventService.emit({name: Params.StepsEvents.Next});
+                        this.eventService.emit({name: StepsEvents.Next});
                     } else if (this.stepList.length > 1 ) {
                         GlobalHelper.restrictRegistration(this.configService, this.eventService);
                     }

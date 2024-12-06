@@ -13,6 +13,7 @@ import {
     ChosenBonusSetParams,
     IBonusesListCParams,
 } from 'wlc-engine/modules/bonuses';
+import {StepsEvents} from 'wlc-engine/standalone/core/components/steps/steps.constants';
 
 export type Type = 'default' | CustomType;
 export type ComponentTheme = 'default' | CustomType;
@@ -30,11 +31,6 @@ export interface IStep {
 
 export interface IStepConfig extends IWrapperCParams {
     name: string;
-}
-
-export enum StepsEvents {
-    Next = 'NEXT_REG_STEP',
-    Prev = 'PREVIOUS_REG_STEP',
 }
 
 export interface IStepsParams extends IComponentParams<Theme, Type, ThemeMod> {
