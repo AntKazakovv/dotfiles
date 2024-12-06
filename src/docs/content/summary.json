@@ -231,6 +231,10 @@
                 "file": "./900.change-logs/releases/1.9.0_20-07-2022.md"
             },
             {
+                "title": "1.89.0RC1 (06-12-2024)",
+                "file": "./900.change-logs/releases/1.89.0-rc.1_06-12-2024.md"
+            },
+            {
                 "title": "1.88.0 (05-12-2024)",
                 "file": "./900.change-logs/releases/1.88.0_05-12-2024.md"
             },
@@ -886,6 +890,10 @@
                 "file": "./1000.translations/history/05-12-2024.md"
             },
             {
+                "title": "06-12-2024",
+                "file": "./1000.translations/history/06-12-2024.md"
+            },
+            {
                 "title": "07-11-2024",
                 "file": "./1000.translations/history/07-11-2024.md"
             },
@@ -896,10 +904,6 @@
             {
                 "title": "08-08-2024",
                 "file": "./1000.translations/history/08-08-2024.md"
-            },
-            {
-                "title": "08-10-2024",
-                "file": "./1000.translations/history/08-10-2024.md"
             }
         ]
     }
