@@ -12,3 +12,7 @@ export def sshAgentWrapper [] {
   export-env { $env.SSH_AUTH_SOCK = $sshAgentTable.SSH_AUTH_SOCK }
   export-env { $env.SSH_AGENT_PID = $sshAgentTable.SSH_AGENT_PID }
 }
+
+export def applyMonitorMode [] {
+  xrandr --output Virtual-1 --mode 2560x1080;
+}
