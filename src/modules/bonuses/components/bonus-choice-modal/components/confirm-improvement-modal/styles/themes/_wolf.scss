@@ -1,0 +1,56 @@
+.wlc-confirm-improvement-modal--theme-wolf:host {
+
+    .wlc-confirm-improvement-modal {
+
+        &__image {
+            @include bm.get-mq-map('height', $themeWolf, 'imageHeight');
+            background: ef.get-value($themeWolf, 'imageBackground');
+        }
+
+        &__container {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'containerTextStyle'),
+                ef.get-value($themeWolf, 'containerTextColor'),
+            );
+            display: ef.get-value($themeWolf, 'containerDisplay');
+            flex-direction: ef.get-value($themeWolf, 'containerDirection');
+            gap: ef.get-value($themeWolf, 'containerGap');
+            align-items: ef.get-value($themeWolf, 'containerAlignItems');
+            padding: ef.get-value($themeWolf, 'containerPadding');
+            text-align: ef.get-value($themeWolf, 'containerTextAlign');
+        }
+
+        &__name {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'nameTextStyle', 375),
+                ef.get-value($themeWolf, 'nameTextColor'),
+            );
+            margin: ef.get-value($themeWolf, 'nameMargin');
+
+            @include mq.min(900) {
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'nameTextStyle', 900),
+                    null,
+                );
+            }
+        }
+
+        &__description {
+            min-height: ef.get-value($themeWolf, 'descriptionMinHeight');
+        }
+
+        &__amount-value {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'amountValueTextStyle'),
+                ef.get-value($themeWolf, 'amountValueTextColor'),
+            );
+        }
+
+        &__btns {
+            display: ef.get-value($themeWolf, 'btnsDisplay');
+            gap: ef.get-value($themeWolf, 'btnsGap');
+            justify-content: ef.get-value($themeWolf, 'btnsJustifyContent');
+            margin: ef.get-value($themeWolf, 'btnsMargin');
+        }
+    }
+}

@@ -93,7 +93,8 @@ export type TBonusEvent =
     | 'sign up'
     | 'store'
     | 'promotion'
-    | 'cashback';
+    | 'cashback'
+    | 'quest group';
 
 export type TBonusTarget =
     | 'balance'
@@ -107,7 +108,7 @@ export type TBonusResultValueType = 'absolute' | 'relative';
 
 export interface IBonusResultValue {
     Type?: TBonusResultValueType;
-    Value?: IIndexing<string> | number[] | string;
+    Value?: IIndexing<string> | number[] | string | string[];
     AwardWagering?: {
         COEF?: string;
         EUR?: number;
@@ -151,7 +152,8 @@ export interface IBonusResultValueFreerounds extends IBonusResultValue {
 }
 
 export interface IBonusResultValueLootbox extends IBonusResultValue {
-    Value?: number[];
+    Value?: number[] | string[];
+    LootboxImprovementPrice?: IIndexing<string>;
 }
 
 export interface IBonusResults {
@@ -253,13 +255,20 @@ export interface IBonus extends IBonusBase {
     AllowPromotions?: string;
     /** Show/hide bonus in Promo for unauthorized user (available in combination witn AllowPromotions) ("0" | "1") */
     HidePromotionsForUnauthorized?: string;
+    ImprovementBonus?: IBonus;
+    /** For "quest group" or "modal game" event **/
+    IsImprovementLootbox?: '0' | '1';
+    LootboxPrice?: IIndexing<string>;
+    LootboxPairID?: string;
+    LootboxPairLBID?: string;
+    LootboxEvent?: string;
     /** Loyalty levels for custom in issue #537651 */
     Levels?: string[];
     showOnly?: boolean;
 }
 
 export interface ILootboxPrize {
-    ID: number;
+    ID: number | string; //TODO remove string type after release #677535
     Name: string;
     Image: string;
     Image_other: string;
@@ -453,7 +462,7 @@ export type IPromoCodeInfo = {
     promoCode: string;
 };
 
-export type TBonusValue = number | number[] | string;
+export type TBonusValue = number | number[] | string | string[];
 
 export interface IBonusesData extends IData {
     data?: IBonus[] | ILootboxPrize[];

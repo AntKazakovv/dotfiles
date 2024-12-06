@@ -14,8 +14,12 @@ import {
 } from '@ngx-translate/core';
 import {
     BehaviorSubject,
+    pipe,
     Subscription,
 } from 'rxjs';
+import {
+    takeUntil,
+} from 'rxjs/operators';
 import _map from 'lodash-es/map';
 import _orderBy from 'lodash-es/orderBy';
 import _keys from 'lodash-es/keys';
@@ -42,12 +46,12 @@ import {
     IDataModifier,
     IOrderModifier,
     IGetSubscribeParams,
-    IOpenRewardData,
-    IOpenRewardResponse,
     IWSQuestData,
     IDataModifiers,
-    QuestStatusEnum,
     IQuestNotification,
+    QuestTaskStatusEnum,
+    IRewardData,
+    ITakeRewardData,
 } from 'wlc-engine/modules/quests';
 import {
     Bonus,
@@ -64,9 +68,9 @@ export interface IQueryQuestsParams {
     providedIn: 'root',
 })
 export class QuestsService {
-    protected _questsMap: Map<string, QuestModel> = new Map();
-    protected _questsArray: QuestModel[] = [];
-    protected quests$: BehaviorSubject<IQuestsDataModels> = new BehaviorSubject(null);
+    protected questsMap: Map<string, QuestModel> = new Map();
+    protected questsArray: QuestModel[] = [];
+    protected quests$: BehaviorSubject<IQuestsDataModels | null> = new BehaviorSubject(null);
     protected questsDataModifiers: IDataModifier;
     protected dataQuestSub: Subscription;
     protected bonusesService: BonusesService;
@@ -81,9 +85,7 @@ export class QuestsService {
 
     constructor() {
         const language: string = this.translateService.currentLang || 'en';
-
         QuestModel.currentLang = QuestTaskModel.currentLang = language;
-
         this.translateService.onLangChange.subscribe(({lang}: LangChangeEvent): void => {
             if (QuestModel.currentLang !== lang) {
                 QuestModel.currentLang = QuestTaskModel.currentLang = lang;
@@ -117,8 +119,9 @@ export class QuestsService {
             this.queryQuests({withModifier: params.modifyData});
         }
 
-        return this.quests$.asObservable().pipe(
-            params.pipes,
+        return this.quests$.pipe(
+            (params.pipes || pipe()),
+            (params.until) ? takeUntil(params.until) : pipe(),
         ).subscribe(params.observer);
     }
 
@@ -127,7 +130,6 @@ export class QuestsService {
 
         try {
             if (withModifier && !this.questsDataModifiers) {
-                await this.configService.ready;
                 this.questsDataModifiers = this.configService.get('$quests.questsDataModifiers');
             }
 
@@ -138,30 +140,30 @@ export class QuestsService {
                 type: 'GET',
             });
 
-            [this._questsArray, this._questsMap] = this.modifyQuestsData(
+            [this.questsArray, this.questsMap] = this.modifyQuestsData(
                 response.data.quests,
-                withModifier ? this.questsDataModifiers.quests : null,
+                this.questsDataModifiers?.quests,
             );
 
             const tasksMap: Map<string, QuestTaskModel[]> = this.modifyTasksData(
                 response.data.tasks,
-                withModifier ? this.questsDataModifiers.tasks : null,
+                this.questsDataModifiers?.tasks,
             );
 
             this.quests$.next({
-                quests: this._questsMap,
+                quests: this.questsMap,
                 tasks: tasksMap,
             });
-
         } catch (error) {
             this.logService.sendLog({code: '31.0.0', data: error});
+            this.quests$.next(null);
         }
     }
 
-    public async openReward(questId: string): Promise<IOpenRewardResponse> {
+    public async openReward(questId: string): Promise<Bonus> {
         return new Promise(async (resolve, reject): Promise<void> => {
             try {
-                const response: IData<IOpenRewardData> = await this.dataService.request({
+                const response: IData<IRewardData> = await this.dataService.request({
                     name: 'quests',
                     system: 'loyalty',
                     url: '/quests/openReward',
@@ -172,80 +174,81 @@ export class QuestsService {
                 });
 
                 if (response.data?.error) {
-                    reject({
+                    return reject({
                         errors: [response.data.error],
                     });
-                } else if (response.data?.Bonus.ID) {
+                }
+
+                if (response.data?.Bonus?.ID) {
                     this.bonusesService ??=
                         await this.injectionService.getService('bonuses.bonuses-service');
-
                     const bonus: Bonus = await this.bonusesService.getBonus(Number(response.data.Bonus.ID));
 
-                    resolve({
-                        newQuestStatus: QuestStatusEnum.FINISHED,
-                        bonus: bonus,
-                    });
+                    return resolve(bonus);
                 } else {
-                    reject();
+                    this.logService.sendLog({code: '31.0.1', data: response});
+
+                    return reject({
+                        errors: [gettext('Something went wrong')],
+                    });
                 }
             } catch (error) {
                 this.logService.sendLog({code: '31.0.1', data: error});
-                reject(error);
+                return reject(error);
             }
         });
     }
 
-    public getQuestsWSCSubscription(): Subscription {
-        return this.webSocketService.getMessages({
-            endPoint: 'wsc2', events: [WebSocketEvents.RECEIVE.QUESTS],
-        }).subscribe(
-            {
-                next: (message: IWSConsumerData<IWSQuestData>): void => {
-                    if (!message?.data) {
-                        return;
-                    }
+    public async takeReward(questId: string, bonusId: string): Promise<string> {
+        return new Promise(async (resolve, reject): Promise<void> => {
+            try {
+                const response: IData<ITakeRewardData> = await this.dataService.request({
+                    name: 'quests',
+                    system: 'loyalty',
+                    url: '/quests/takeReward',
+                    type: 'GET',
+                    mapFunc: (data: string) => JSON.parse(data),
+                }, {
+                    IDQuest: questId,
+                    IDBonus: bonusId,
+                });
 
-                    const questNotificationConfig: IQuestNotification = this.configService.get('$quests.notification');
-                    const questName: string = JSON.parse(message.data.quest_name);
-                    const questImage: string = message.data.image;
-                    const translatedQuestName: string = questName[(this.translateService.currentLang)]?.length
-                        ? questName[(this.translateService.currentLang)]
-                        : questName[('en')];
-
-                    this.eventService.emit({
-                        name: NotificationEvents.PushMessage,
-                        data: <IPushMessageParams>{
-                            icon: {
-                                src: questImage || questNotificationConfig?.fallbackIcon,
-                                fallback: questNotificationConfig?.fallbackIcon,
-                                alt: questName,
-                            },
-                            title: questNotificationConfig?.questTitle,
-                            message: questNotificationConfig?.questMessage,
-                            messageContext: {
-                                questname: translatedQuestName,
-                            },
-                        },
+                if (response.data?.error) {
+                    return reject({
+                        errors: [response.data.error],
                     });
-                },
-            },
-        );
+                }
+
+                if (response.data?.BonusTakenAt) {
+                    return resolve(response.data.BonusTakenAt);
+                } else {
+                    this.logService.sendLog({code: '31.0.2', data: response});
+
+                    return reject({
+                        errors: [gettext('Something went wrong')],
+                    });
+                }
+            } catch (error) {
+                this.logService.sendLog({code: '31.0.2', data: error});
+                return reject(error);
+            }
+        });
     }
 
     public async getQuestsMap(withModifier?: boolean): Promise<Map<string, QuestModel>> {
-        if (!this._questsMap.size) {
+        if (!this.questsMap.size) {
             await this.queryQuests({withModifier: withModifier});
         }
 
-        return this._questsMap;
+        return this.questsMap;
     }
 
     public async getQuestsArray(withModifier?: boolean): Promise<QuestModel[]> {
-        if (!this._questsArray.length) {
+        if (!this.questsArray.length) {
             await this.queryQuests({withModifier: withModifier});
         }
 
-        return this._questsArray;
+        return this.questsArray;
     }
 
     public async getQuestByState(transition?: Transition): Promise<QuestModel | null> {
@@ -268,7 +271,7 @@ export class QuestsService {
 
     protected modifyQuestsData(
         quests: readonly IQuest[],
-        modifiers: IDataModifiers,
+        modifiers?: IDataModifiers,
     ): [QuestModel[], Map<string, QuestModel>] {
         const questModelsMap: Map<string, QuestModel> = new Map();
 
@@ -294,24 +297,22 @@ export class QuestsService {
 
     protected modifyTasksData(
         tasksObject: IIndexing<readonly IQuestTask[]>,
-        modifiers: IDataModifiers,
+        modifiers?: IDataModifiers,
     ): Map<string, QuestTaskModel[]> {
         const questTasksMap: Map<string, QuestTaskModel[]> = new Map();
 
         _keys(tasksObject).forEach((questId: string): void => {
 
-            const taskModels: QuestTaskModel[] = _map(
-                tasksObject[questId],
-                (questTask: IQuestTask): QuestTaskModel =>
-                    new QuestTaskModel(
-                        {
-                            service: 'QuestsService',
-                            method: 'modifyTasksData',
-                        },
-                        questTask,
-                        questId,
-                    ),
-            );
+            const taskModels: QuestTaskModel[] = tasksObject[questId].filter((questTask: IQuestTask): boolean => {
+                return ![QuestTaskStatusEnum.DISABLED, QuestTaskStatusEnum.NOT_USED].includes(questTask.Status);
+            }).map((questTask: IQuestTask): QuestTaskModel =>  new QuestTaskModel(
+                {
+                    service: 'QuestsService',
+                    method: 'modifyTasksData',
+                },
+                questTask,
+                questId,
+            ));
 
             questTasksMap.set(
                 questId,
@@ -322,7 +323,7 @@ export class QuestsService {
         return questTasksMap;
     }
 
-    protected sortItems<T>(items: T[], modifiers: IDataModifiers): T[] {
+    protected sortItems<T>(items: T[], modifiers?: IDataModifiers): T[] {
 
         if (modifiers?.orders?.length && items?.length) {
             items = _orderBy(
@@ -333,5 +334,41 @@ export class QuestsService {
         }
 
         return items;
+    }
+
+    protected getQuestsWSCSubscription(): Subscription {
+        return this.webSocketService.getMessages({
+            endPoint: 'wsc2',
+            events: [WebSocketEvents.RECEIVE.QUESTS],
+        }).subscribe({
+            next: (message: IWSConsumerData<IWSQuestData>): void => {
+                if (!message?.data) {
+                    return;
+                }
+
+                const questNotificationConfig: IQuestNotification = this.configService.get('$quests.notification');
+                const questName: string = JSON.parse(message.data.quest_name);
+                const questImage: string = message.data.image;
+                const translatedQuestName: string = questName[(this.translateService.currentLang)]?.length
+                    ? questName[(this.translateService.currentLang)]
+                    : questName[('en')];
+
+                this.eventService.emit({
+                    name: NotificationEvents.PushMessage,
+                    data: {
+                        icon: {
+                            src: questImage || questNotificationConfig?.fallbackIcon,
+                            fallback: questNotificationConfig?.fallbackIcon,
+                            alt: questName,
+                        },
+                        title: questNotificationConfig?.questTitle,
+                        message: questNotificationConfig?.questMessage,
+                        messageContext: {
+                            questname: translatedQuestName,
+                        },
+                    } as IPushMessageParams,
+                });
+            },
+        });
     }
 }

@@ -14,7 +14,7 @@ $themeDefault: map-merge((
     'prizeRadius': ef.get('radius', 'main'),
     'prizeImgWidth': 86px,
     'prizeImgHeight': auto,
-    'prizeSelectFilter': drop-shadow(0 8px 8px var(--mc-main)) drop-shadow(0 -8px 8px var(--mc-main)),
-    'prizeSelectBorderBottom': 4px solid var(--mc-main),
-
+    'prizeBorderBottom': 4px solid var(--mc-main-o2),
+    'prizeSelectedBorderBottom': 4px solid var(--mc-main),
+    'prizeSelectedFilter': drop-shadow(0 8px 8px var(--mc-main)) drop-shadow(0 -8px 8px var(--mc-main)),
 ), $customThemeDefault);

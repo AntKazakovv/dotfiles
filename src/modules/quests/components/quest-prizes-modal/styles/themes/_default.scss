@@ -48,12 +48,12 @@
                 height: 100%;
 
                 border-radius: inherit;
-                border-bottom: var(--wlc-qpm-selected-border-bottom, none);
+                border-bottom: var(--wlc-qpm-selected-border-bottom, #{ef.get-value($themeDefault, 'prizeBorderBottom')});
             }
 
             &.selected {
-                --wlc-qpm-selected-filter: #{ef.get-value($themeDefault, 'prizeSelectFilter')};
-                --wlc-qpm-selected-border-bottom: #{ef.get-value($themeDefault, 'prizeSelectBorderBottom')};
+                --wlc-qpm-selected-filter: #{ef.get-value($themeDefault, 'prizeSelectedFilter')};
+                --wlc-qpm-selected-border-bottom: #{ef.get-value($themeDefault, 'prizeSelectedBorderBottom')};
             }
         }
 

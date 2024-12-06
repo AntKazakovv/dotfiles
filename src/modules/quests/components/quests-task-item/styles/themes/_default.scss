@@ -99,7 +99,7 @@
                     width: 100%;
                     height: ef.get-value($themeDefault, 'progressBarTrackHeight');
 
-                    background: ef.get-value($themeDefault, 'progressBarTrackBg');
+                    background: var(--wlc-qti-track-bg, #{ef.get-value($themeDefault, 'progressBarTrackBg')});
                     border-radius: ef.get-value($themeDefault, 'progressBarTrackRadius');
 
                     overflow: hidden;
@@ -112,6 +112,7 @@
                         height: 100%;
 
                         background: ef.get-value($themeDefault, 'progressBarTrackBgFilled');
+                        box-shadow: ef.get-value($themeDefault, 'progressBarTrackBoxShadow');
                         border-radius: inherit;
                     }
                 }
@@ -128,5 +129,9 @@
 
     &.wlc-quests-task-item--completed {
         --wlc-qti-content-bg: #{ef.get-value($themeDefault, 'contentBgCompleted')};
+    }
+
+    &.wlc-quests-task-item--theme-mod-wolf {
+        --wlc-qti-track-bg: #{ef.get-value($themeDefault, 'progressBarTrackBgWolf')};
     }
 }

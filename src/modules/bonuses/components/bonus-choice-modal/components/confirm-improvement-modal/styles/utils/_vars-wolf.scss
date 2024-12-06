@@ -1,0 +1,40 @@
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    //Image
+    'imageHeight': (
+        375: 180px,
+        900: 245px,
+    ),
+    'imageBackground': center / cover no-repeat,
+
+    //Container
+    'containerTextStyle': 'PrimaryText',
+    'containerTextColor': var(--mc-baseSecond, var(--mc-baseMain)),
+    'containerDisplay': flex,
+    'containerDirection': column,
+    'containerAlignItems': center,
+    'containerGap': ef.size(3),
+    'containerPadding': ef.size(5) ef.size(4) ef.size(10),
+    'containerTextAlign': center,
+
+    //Name
+    'nameTextStyle': (
+        375: 'QoteTextBoldSmaller',
+        900: 'QoteTextBold',
+    ),
+    'nameTextColor': inherit,
+    'nameMargin': 0 0 ef.size(2),
+
+    //Description
+    'descriptionMinHeight': 60px,
+
+    //Amount
+    'amountValueTextStyle': 'PrimaryTextBold',
+    'amountValueTextColor': inherit,
+
+    //Btns
+    'btnsDisplay': flex,
+    'btnsJustifyContent': center,
+    'btnsGap': ef.size(2),
+    'btnsMargin': 0 0 ef.size(10),
+), $customThemeWolf);

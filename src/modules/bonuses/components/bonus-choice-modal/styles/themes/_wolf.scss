@@ -1,0 +1,163 @@
+.wlc-bonus-choice-modal--theme-wolf:host {
+    display: flex;
+    flex-direction: ef.get-value($themeWolf, 'hostDirection');
+    row-gap: ef.get-value($themeWolf, 'hostRowGap');
+    align-items: center;
+    text-align: center;
+
+    .wlc-bonus-choice-modal {
+
+        &__bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: -1;
+
+            width: 100%;
+            height: 100%;
+
+            background: ef.get-value($themeWolf, 'bg');
+        }
+
+        &__title {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'titleStyle', 375),
+                ef.get-value($themeWolf, 'titleColor'),
+            );
+
+            @include mq.min(900) {
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'titleStyle', 900),
+                    null,
+                );
+            }
+        }
+
+        &__header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: ef.get-value($themeWolf, 'headerMaxWidth');
+
+            &-prefix {
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'headerPrefixStyle', 375),
+                    ef.get-value($themeWolf, 'headerPrefixColor'),
+                );
+
+                @include mq.min(900) {
+                    @include text.get-text-style(
+                        ef.get-value($themeWolf, 'headerPrefixStyle', 900),
+                        null,
+                    );
+                }
+            }
+
+            &-text {
+                @include text.get-text-style(
+                    ef.get-value($themeWolf, 'headerTextStyle', 375),
+                    ef.get-value($themeWolf, 'headerTextColor'),
+                );
+
+                @include mq.min(900) {
+                    @include text.get-text-style(
+                        ef.get-value($themeWolf, 'headerTextStyle', 900),
+                        null,
+                    );
+                }
+            }
+        }
+
+        &__image {
+            --wlc-icon-width: 100%;
+            --wlc-icon-height: auto;
+
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: ef.get-value($themeWolf, 'imageWidth');
+            height: ef.get-value($themeWolf, 'imageHeight');
+
+            &:before {
+                content: '';
+
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                z-index: -1;
+
+                width: ef.get-value($themeWolf, 'imageBgWidth');
+                height: ef.get-value($themeWolf, 'imageBgHeight');
+
+                background: ef.get-value($themeWolf, 'imageBg');
+                transform: translate(-50%, -50%);
+            }
+
+            ::ng-deep .wlc-icon-content {
+                object-fit: contain;
+            }
+        }
+
+        &__description {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'descriptionTextStyle'),
+                ef.get-value($themeWolf, 'descriptionTextColor'),
+            );
+
+            max-width: ef.get-value($themeWolf, 'descriptionMaxWidth');
+        }
+
+        &__btns {
+            display: ef.get-value($themeWolf, 'btnsDisplay');
+            flex-direction: ef.get-value($themeWolf, 'btnsDirection');
+            row-gap: ef.get-value($themeWolf, 'btnsRowGap');
+            align-items: ef.get-value($themeWolf, 'btnsAlignItems');
+            margin: ef.get-value($themeWolf, 'btnsMargin');
+        }
+
+        &__improve-btn-container {
+            position: relative;
+
+            &:before,
+            &:after {
+                @include bm.transition(transform);
+                position: absolute;
+                z-index: 1;
+                display: block;
+                pointer-events: none;
+            }
+
+            &:before {
+                content: ef.get-value($themeWolf, 'improveBtnBeforeImageUrl');
+                top: ef.get-value($themeWolf, 'improveBtnBeforeTop');
+                left: ef.get-value($themeWolf, 'improveBtnBeforeLeft');
+            }
+
+            &:after {
+                content: ef.get-value($themeWolf, 'improveBtnAfterImageUrl');
+                right: ef.get-value($themeWolf, 'improveBtnAfterRight');
+                bottom: ef.get-value($themeWolf, 'improveBtnAfterBottom');
+            }
+
+            @include bm.hover {
+
+                &:before {
+                    transform: ef.get-value($themeWolf, 'improveBtnBeforeHoverTransform');
+                }
+
+                &:after {
+                    transform: ef.get-value($themeWolf, 'improveBtnAfterHoverTransform');
+                }
+            }
+        }
+
+        &__or {
+            @include text.get-text-style(
+                ef.get-value($themeWolf, 'orTextStyle'),
+                ef.get-value($themeWolf, 'orTextColor'),
+            );
+        }
+    }
+}

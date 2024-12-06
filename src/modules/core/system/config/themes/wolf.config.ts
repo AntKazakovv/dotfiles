@@ -20,4 +20,17 @@ export const wolfConfig: Partial<Record<TModuleName, IIndexing<IIndexing<unknown
             theme: 'wolf',
         },
     },
+    'bonuses': {
+        'wlc-bonus-choice-modal': {
+            theme: 'wolf',
+        },
+        'wlc-confirm-improvement-modal': {
+            theme: 'wolf',
+        },
+    },
+    'quests': {
+        'wlc-quests-task-item': {
+            themeMod: 'wolf',
+        },
+    },
 };

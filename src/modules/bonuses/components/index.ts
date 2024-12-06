@@ -13,3 +13,7 @@ export {
 } from './recommended-bonuses/recommended-bonuses.params';
 export {ILootboxPrizeCParams} from './lootbox-prize/lootbox-prize.params';
 export {IBonusChoiceModalCParams} from './bonus-choice-modal/bonus-choice-modal.params';
+export {
+    IConfirmImprovementModalCParams,
+} from './bonus-choice-modal/components/confirm-improvement-modal/confirm-improvement-modal.params';
+export {IBonusConfirmationParams} from './bonus-buttons/components/bonus-confirmation/bonus-confirmation.params';

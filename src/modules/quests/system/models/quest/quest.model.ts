@@ -31,8 +31,11 @@ export class QuestModel extends AbstractModel<IQuest> {
         this.updateData(data);
     }
 
-    public updateData(newData: IQuest): void {
-        this.data = newData;
+    public updateData(newData: Partial<IQuest> | IQuest): void {
+        this.data = {
+            ...(this.data ?? {}),
+            ...newData,
+        } as IQuest;
         this.id = this.data.ID.toString();
         this.name = this.getCurrentLangText(this.data.Name);
         this._statuses = {
@@ -41,27 +44,35 @@ export class QuestModel extends AbstractModel<IQuest> {
             OPENED: this.data.Status === QuestStatusEnum.OPENED,
             FINISHED: this.data.Status === QuestStatusEnum.FINISHED,
         };
-        this.progressPercent = Math.floor(this.data.Progress.Ready * 100 / (this.data.Progress.Total || 1));
+        this.progressPercent = Math.floor(this.progressReady * 100 / (this.progressTotal || 1));
     }
 
     public get renewalTime(): Dayjs {
         return dayjs(this.data.RenewalTime);
     }
 
-    public get status(): IQuest['Status'] {
+    public get bonusTakenAt(): string {
+        return this.data.BonusTakenAt;
+    }
+
+    public get status(): QuestStatusEnum {
         return this.data.Status;
     }
 
-    public get idBonus(): IQuest['IDBonus']  {
+    public get idBonus(): number {
         return this.data.IDBonus;
     }
 
-    public get progressTotal(): IQuest['Progress']['Total']  {
+    public get progressTotal(): number {
         return this.data.Progress.Total;
     }
 
-    public get progressReady(): IQuest['Progress']['Ready']   {
+    public get progressReady(): number   {
         return this.data.Progress.Ready;
+    }
+
+    public get rewardedBonusId(): number {
+        return this.data.Progress.Bonus;
     }
 
     public get isNotCompletedStatus(): boolean {

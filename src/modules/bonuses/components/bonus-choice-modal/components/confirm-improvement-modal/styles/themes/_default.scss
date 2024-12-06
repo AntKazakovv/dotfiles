@@ -1,0 +1,56 @@
+.wlc-confirm-improvement-modal--theme-default:host {
+
+    .wlc-confirm-improvement-modal {
+
+        &__image {
+            @include bm.get-mq-map('height', $themeDefault, 'imageHeight');
+            background: ef.get-value($themeDefault, 'imageBackground');
+        }
+
+        &__container {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'containerTextStyle'),
+                ef.get-value($themeDefault, 'containerTextColor'),
+            );
+            display: ef.get-value($themeDefault, 'containerDisplay');
+            flex-direction: ef.get-value($themeDefault, 'containerDirection');
+            gap: ef.get-value($themeDefault, 'containerGap');
+            align-items: ef.get-value($themeDefault, 'containerAlignItems');
+            padding: ef.get-value($themeDefault, 'containerPadding');
+            text-align: ef.get-value($themeDefault, 'containerTextAlign');
+        }
+
+        &__name {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'nameTextStyle', 375),
+                ef.get-value($themeDefault, 'nameTextColor'),
+            );
+            margin: ef.get-value($themeDefault, 'nameMargin');
+
+            @include mq.min(900) {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'nameTextStyle', 900),
+                    null,
+                );
+            }
+        }
+
+        &__description {
+            min-height: ef.get-value($themeDefault, 'descriptionMinHeight');
+        }
+
+        &__amount-value {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'amountValueTextStyle'),
+                ef.get-value($themeDefault, 'amountValueTextColor'),
+            );
+        }
+
+        &__btns {
+            display: ef.get-value($themeDefault, 'btnsDisplay');
+            gap: ef.get-value($themeDefault, 'btnsGap');
+            justify-content: ef.get-value($themeDefault, 'btnsJustifyContent');
+            margin: ef.get-value($themeDefault, 'btnsMargin');
+        }
+    }
+}

@@ -18,7 +18,7 @@ export interface IQuestPrizesModalCParams extends IComponentParams<ComponentThem
     prizeIconPath?: string;
     prizeIconFallbackPath?: string;
     openBtnParams?: IButtonCParams;
-    onClick?: Function;
+    onSubmit?: () => Promise<void>;
 }
 
 export const defaultParams: IQuestPrizesModalCParams = {

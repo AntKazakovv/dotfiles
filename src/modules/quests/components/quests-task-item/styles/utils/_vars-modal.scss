@@ -25,10 +25,13 @@ $themeModal: map-merge((
     'progressRowGap': ef.size(2),
     'progressTextStyle': 'CaptionText',
     'progressTextColor': var(--mc-baseMain),
-
     'progressTrackWidth': 275px,
     'progressTrackHeight': 8px,
-    'progressTrackBg': var(--mc-bg300),
+    'progressTrackBg': var(--fc-inputBg),
     'progressTrackBgFilled': var(--mc-main),
+    'progressTrackBoxShadow': inset 0 0 4px rgba(0, 0, 0, 0.25),
     'progressTrackRadius': ef.get('radius', 'main'),
+
+    //Wolf theme mod
+    'progressTrackBgWolf': var(--mc-bg300),
 ), $customThemeModal);

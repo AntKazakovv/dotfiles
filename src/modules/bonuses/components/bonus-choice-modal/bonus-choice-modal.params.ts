@@ -9,18 +9,20 @@ import {
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 
 export type ComponentType = 'default' | CustomType;
-export type ComponentTheme = 'default' | CustomType;
+export type ComponentTheme = 'default' | 'wolf' | CustomType;
 export type ComponentThemeMod = 'default' | CustomType;
 
 export interface IBonusChoiceModalCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     bonus?: Bonus;
     headerMessage?: string;
-    headerMessagePostfix?: string;
     title?: string;
     takeBtnParams?: IButtonCParams;
-    onConfirm?: Function;
+    improveBtnParams?: IButtonCParams;
+    onTakeImproved?: (bonus: Bonus) => Promise<void>;
+    onTakeBase?: (bonus: Bonus) => Promise<void>;
     image?: string,
     imageFallback?: string,
+    digitsInfo?: string,
 }
 
 export const defaultParams: IBonusChoiceModalCParams = {
@@ -31,12 +33,26 @@ export const defaultParams: IBonusChoiceModalCParams = {
     headerMessage: gettext('You have won:'),
     takeBtnParams: {
         pending$: new BehaviorSubject<boolean>(false),
+        themeMod: 'secondary',
         common: {
             text: gettext('Take'),
             typeAttr: 'button',
         },
         wlcElement: 'button_take-quest-prize',
     },
+    improveBtnParams: {
+        pending$: new BehaviorSubject<boolean>(false),
+        common: {
+            text: gettext('Improve'),
+            typeAttr: 'button',
+            animation: {
+                type: 'glare',
+                handlerType: 'click',
+            },
+        },
+        wlcElement: 'button_take-quest-prize',
+    },
     image: GlobalHelper.gstaticUrl + '/wlc/bonuses/choice-modal/cash.png',
     imageFallback: GlobalHelper.gstaticUrl + '/wlc/bonuses/choice-modal/cash.png',
+    digitsInfo: '1-0-2',
 };

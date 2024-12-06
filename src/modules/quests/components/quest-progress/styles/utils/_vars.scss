@@ -2,7 +2,20 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     //Host
     'hostRowGap': ef.size(4),
-    'hostRowPadding': ef.size(2) 0,
+    'hostRowPadding': (
+        375: ef.size(2),
+        900: ef.size(2) 0,
+    ),
+    'hostBg': var(--mc-bg700),
+    'hostRadius': ef.get('radius', 'main'),
+
+    // Claim date
+    'claimDateTextStyle': 'PrimaryTextBold',
+    'claimDateTextColor': var(--mc-baseSecond, var(--mc-baseMain)),
+    'claimDateAlign': (
+        375: center,
+        900: flex-start,
+    ),
 
     //Timer
     'timerAlign': (

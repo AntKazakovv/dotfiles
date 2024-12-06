@@ -10,25 +10,31 @@ import {
 } from '@angular/core';
 
 import dayjs from 'dayjs';
+import {BehaviorSubject} from 'rxjs';
 
 import {
     AbstractComponent,
     EventService,
+    IButtonCParams,
+    IModalConfig,
     InjectionService,
     IPushMessageParams,
+    ITimerCParams,
     ModalService,
     NotificationEvents,
 } from 'wlc-engine/modules/core';
 import {
-    IOpenRewardResponse,
     IQuestPrizesModalCParams,
+    QuestModel,
     QuestsService,
+    QuestStatusEnum,
 } from 'wlc-engine/modules/quests';
 import {
     Bonus,
     BonusesService,
     IBonusChoiceModalCParams,
     IBonusModalCParams,
+    IConfirmImprovementModalCParams,
 } from 'wlc-engine/modules/bonuses';
 
 import * as Params from './quest-progress.params';
@@ -43,17 +49,20 @@ export class QuestProgressComponent extends AbstractComponent implements OnInit,
     @Input() protected inlineParams: Params.IQuestProgressCParams;
 
     public override $params: Params.IQuestProgressCParams;
+    public ready$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     public progressText: string;
     public showTimer: boolean = false;
     public statusImagePath: string;
     public statusImageFallbackPath: string;
+    public questProgress: string;
 
     protected injectionService: InjectionService = inject(InjectionService);
     protected modalService: ModalService = inject(ModalService);
     protected eventService: EventService = inject(EventService);
     protected questsService: QuestsService = inject(QuestsService);
     protected bonusesService: BonusesService;
-    protected bonusFetching: boolean = false;
+    protected questTakePrizeModalConfig: IModalConfig;
+    protected cursor$: BehaviorSubject<Params.CursorEnum> = new BehaviorSubject(Params.CursorEnum.POINTER);
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IQuestProgressCParams,
@@ -65,7 +74,9 @@ export class QuestProgressComponent extends AbstractComponent implements OnInit,
         super.ngOnInit(this.inlineParams);
 
         if (this.$params.quest) {
-            this.init();
+            this.init().finally((): void => {
+                this.ready$.next(true);
+            });
         }
     }
 
@@ -73,21 +84,9 @@ export class QuestProgressComponent extends AbstractComponent implements OnInit,
         super.ngOnChanges(changes);
 
         if (this.$params && changes['inlineParams']?.currentValue?.quest) {
-            this.init();
-        }
-    }
-
-    public init(): void {
-        this.showTimer = this.$params.quest.renewalTime > dayjs();
-        this.progressText = `${this.$params.quest.progressReady} / ${this.$params.quest.progressTotal}`;
-
-        this.statusImagePath = this.getStatusImage(false);
-        this.statusImageFallbackPath = this.getStatusImage(true);
-
-        if (this.$params.quest.isCompletedStatus || this.$params.quest.isOpenedStatus) {
-            this.addModifiers('completed');
-        } else {
-            this.removeModifiers('completed');
+            this.init().finally((): void => {
+                this.cdr.markForCheck();
+            });
         }
     }
 
@@ -96,44 +95,79 @@ export class QuestProgressComponent extends AbstractComponent implements OnInit,
     }
 
     public async showBonusInfoHandler(): Promise<void> {
-        if (this.$params.quest.isNotCompletedStatus || this.$params.quest.isCompletedStatus) {
-            this.bonusFetching = true;
+        this.cursor$.next(Params.CursorEnum.WAIT);
+        const rewardBonus: Bonus = await this.getBonus(this.quest.idBonus);
 
-            this.bonusesService ??= await this.injectionService.getService<BonusesService>('bonuses.bonuses-service');
+        if (rewardBonus) {
+            this.modalService.showModal('bonusModal', {
+                bonus: rewardBonus,
+                hideBonusButtons: true,
+            } as IBonusModalCParams);
+        }
 
-            const rewardBonus: Bonus = await this.bonusesService.getBonus(this.$params.quest.idBonus);
+        this.cursor$.next(Params.CursorEnum.POINTER);
+    }
 
-            if (rewardBonus) {
-                this.modalService.showModal('bonusModal', <IBonusModalCParams>{
-                    bonus: rewardBonus,
-                    hideBonusButtons: true,
-                });
-            }
+    public claimReward(): void {
+        this.$params.claimButtonParams.pending$.next(true);
 
-            this.bonusFetching = false;
-            this.cdr.markForCheck();
+        if (this.quest.isCompletedStatus) {
+            this.modalService.showModal(this.$params.questPrizesModalConfig, {
+                quest: this.$params.quest,
+                onSubmit: this.openTheChest.bind(this, this.$params.questPrizesModalConfig.id),
+            } as IQuestPrizesModalCParams).finally((): void => {
+                this.$params.claimButtonParams.pending$.next(false);
+            });
+        } else if (this.quest.isOpenedStatus) {
+            this.getBonus(this.quest.rewardedBonusId).then((bonus: Bonus): void => {
+                this.openModalWithQuestReward(bonus);
+            }).finally((): void => {
+                this.$params.claimButtonParams.pending$.next(false);
+            });
         }
     }
 
-    public claimHandler(): void {
-        this.modalService.showModal(this.$params.questPrizesModalConfig, <IQuestPrizesModalCParams>{
-            quest: this.$params.quest,
-            onClick: this.openCasket.bind(this),
-        });
+    public get quest(): QuestModel {
+        return this.$params.quest;
     }
 
-    public get casketCursor(): string {
-        let cursor: string;
+    public get timerParams(): ITimerCParams {
+        return this.$params.timerParams;
+    }
 
-        if (this.$params.quest.isFinishedStatus) {
-            cursor = 'auto';
-        } else if (this.bonusFetching) {
-            cursor = 'wait';
+    public get pathToLeftImage(): string {
+        return this.$params.pathToLeftImage;
+    }
+
+    public get pathToLeftImageFallback(): string {
+        return this.$params.pathToLeftImageFallback;
+    }
+
+    public get claimButtonParams(): IButtonCParams {
+        return this.$params.claimButtonParams;
+    }
+
+    public get claimDatePrefixText(): string {
+        return this.$params.claimDatePrefixText;
+    }
+
+    public get claimButtonDisabled(): boolean {
+        return this.quest.isNotCompletedStatus || this.quest.isFinishedStatus;
+    }
+
+    protected async init(): Promise<void> {
+        this.showTimer = this.quest.renewalTime > dayjs();
+        this.progressText = `${this.quest.progressReady} / ${this.quest.progressTotal}`;
+        this.questProgress = this.quest.progressPercent + '%';
+
+        this.statusImagePath = this.getStatusImage(false);
+        this.statusImageFallbackPath = this.getStatusImage(true);
+
+        if (this.quest.isCompletedStatus || this.quest.isOpenedStatus) {
+            this.addModifiers('completed');
         } else {
-            cursor = 'pointer';
+            this.removeModifiers('completed');
         }
-
-        return cursor;
     }
 
     protected getStatusImage(fallback: boolean = false): string {
@@ -142,9 +176,9 @@ export class QuestProgressComponent extends AbstractComponent implements OnInit,
             ? this.$params.pathsToQuestStatusFallbackImages
             : this.$params.pathsToQuestStatusImages;
 
-        if (this.$params.quest.progressPercent === 0) {
+        if (this.quest.progressPercent === 0) {
             imagePath = source.noProgress;
-        } else if (this.$params.quest.progressPercent > 0 && this.$params.quest.progressPercent < 100) {
+        } else if (this.quest.progressPercent > 0 && this.quest.progressPercent < 100) {
             imagePath = source.inProgress;
         } else {
             imagePath = source.finished;
@@ -153,45 +187,110 @@ export class QuestProgressComponent extends AbstractComponent implements OnInit,
         return imagePath;
     }
 
-    protected async openCasket(): Promise<void> {
-        this.modalService.closeAllModals();
-        this.$params.claimButtonParams.pending$.next(true);
-
+    protected async openTheChest(currentModalId: string): Promise<void> {
         try {
-            const result: IOpenRewardResponse = await this.questsService.openReward(this.$params.quest.id);
-
-            if (result.bonus) {
-                this.modalService.showModal(
-                    this.$params.questTakePrizeModalConfig,
-                    <IBonusChoiceModalCParams>{
-                        bonus: result.bonus,
-                        onConfirm: this.takeCasketPrizeHandler.bind(this),
-                    },
-                );
-
-                this.$params.onClaimReward?.(this.$params.quest.id, result.newQuestStatus);
-            }
-
-            this.cdr.markForCheck();
+            const bonus: Bonus = await this.questsService.openReward(this.quest.id);
+            this.openModalWithQuestReward(bonus);
+            this.$params.updateQuestData(this.quest.id, {
+                Status: QuestStatusEnum.OPENED,
+                Progress: {
+                    ...this.quest.data.Progress,
+                    Bonus: bonus.id,
+                },
+            });
         } catch (error) {
             this.showErrorMessage(error);
         } finally {
-            this.$params.claimButtonParams.pending$.next(false);
+            if (currentModalId) {
+                this.modalService.hideModal(currentModalId);
+            }
         }
     }
 
-    protected takeCasketPrizeHandler(): void {
-        this.modalService.hideModal(this.$params.questTakePrizeModalConfig.id);
+    protected openModalWithQuestReward(bonus: Bonus): void {
+        this.questTakePrizeModalConfig = {
+            ...this.$params.questTakePrizeModalConfig,
+            componentParams: {
+                ...(this.$params.questTakePrizeModalConfig.componentParams as Object ?? {}),
+                bonus: bonus,
+                onTakeImproved: async (bonus: Bonus): Promise<void> => {
+                    await this.takeImprovedBonus(bonus, this.$params.questTakePrizeModalConfig.id);
+                },
+                onTakeBase: async (bonus: Bonus): Promise<void> => {
+                    await this.takeBonus(bonus, this.$params.questTakePrizeModalConfig.id);
+                },
+            } as IBonusChoiceModalCParams,
+        };
+        this.modalService.showModal(this.questTakePrizeModalConfig);
+    }
+
+    protected async takeImprovedBonus(improvementBonus: Bonus, currentModalId?: string): Promise<void> {
+        this.modalService.hideModal(currentModalId);
+        const modalConfig: IModalConfig = this.getConfirmImprovementModalConfig(improvementBonus);
+        await this.modalService.showModal(modalConfig);
+    }
+
+    protected async takeBonus(baseBonus: Bonus, currentModalId?: string): Promise<void> {
+        await this.questsService.takeReward(this.quest.id, baseBonus.id.toString())
+            .then((bonusTakenAt: string): void => {
+                this.showSuccessMessage(gettext('The bonus has been taken successfully'));
+                this.$params.updateQuestData(this.quest.id, {
+                    Status: QuestStatusEnum.FINISHED,
+                    BonusTakenAt: bonusTakenAt,
+                });
+            })
+            .catch((error): void => {
+                this.showErrorMessage(error);
+            })
+            .finally((): void => {
+                if (currentModalId) {
+                    this.modalService.hideModal(currentModalId);
+                }
+            });
     }
 
     protected showErrorMessage(error?: any): void {
         this.eventService.emit({
             name: NotificationEvents.PushMessage,
-            data: <IPushMessageParams>{
+            data: {
                 type: 'error',
                 title: gettext('Error'),
                 message: error?.errors || gettext('Something went wrong. Please try again later'),
-            },
+            } as IPushMessageParams,
         });
+    }
+
+    protected showSuccessMessage(message: string | string[], title: string = gettext('Bonus success')): void {
+        this.eventService.emit({
+            name: NotificationEvents.PushMessage,
+            data: {
+                type: 'success',
+                title,
+                message,
+                wlcElement: 'notification_bonus-success',
+            } as IPushMessageParams,
+        });
+    }
+
+    protected getConfirmImprovementModalConfig(improvementBonus: Bonus): IModalConfig {
+        return {
+            ...this.$params.confirmImprovementBonusModalConfig,
+            componentParams: {
+                ...(this.$params.confirmImprovementBonusModalConfig.componentParams as Object ?? {}),
+                bonus: improvementBonus,
+                onConfirm: async (bonus: Bonus): Promise<void> => {
+                    await this.takeBonus(bonus, this.$params.confirmImprovementBonusModalConfig.id);
+                },
+                onReject: async (): Promise<void> => {
+                    this.modalService.hideModal(this.$params.confirmImprovementBonusModalConfig.id);
+                    await this.modalService.showModal(this.questTakePrizeModalConfig);
+                },
+            } as IConfirmImprovementModalCParams,
+        };
+    }
+
+    protected async getBonus(bonusId: number): Promise<Bonus> {
+        this.bonusesService ??= await this.injectionService.getService<BonusesService>('bonuses.bonuses-service');
+        return this.bonusesService.getBonus(bonusId, {cache: 60 * 1000});
     }
 }

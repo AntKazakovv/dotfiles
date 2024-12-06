@@ -78,6 +78,7 @@ export class Bonus extends AbstractModel<IBonus> {
     public readonly nameClean: string;
     public readonly allowPromotions: boolean;
     public readonly hidePromotionsForUnauthorized: boolean;
+    public readonly improvementBonus: Bonus;
     public timerEnd: Dayjs;
     public value$: BehaviorSubject<TBonusValue>;
 
@@ -155,6 +156,16 @@ export class Bonus extends AbstractModel<IBonus> {
         $userCurrency.subscribe((currency: string) => {
             this.value$.next(this.value(currency));
         });
+
+        if (this.data.ImprovementBonus) {
+            this.improvementBonus = new Bonus(
+                {model: 'Bonus', method: 'constructor'},
+                this.data.ImprovementBonus,
+                this.walletsService,
+                this.configService,
+                this.$userCurrency,
+            );
+        }
     }
 
     public static set serverTime(time: number) {
@@ -456,6 +467,10 @@ export class Bonus extends AbstractModel<IBonus> {
 
     public get limitation(): string {
         return this.data.Limitation;
+    }
+
+    public get lootboxPrice(): IIndexing<string> {
+        return this.data.LootboxPrice;
     }
 
     public get loyaltyPoints(): number {
@@ -800,7 +815,7 @@ export class Bonus extends AbstractModel<IBonus> {
                     ? Math.round(Number(resultsTarget.Value))
                     : Math.round(Number((resultsTarget as IBonusResultValueDefault).Value?.EUR));
             case 'lootbox':
-                return (resultsTarget as IBonusResultValueLootbox).Value;
+                return this.produceLootBoxValue(resultsTarget as IBonusResultValueLootbox);
             case 'freerounds':
                 return this.produceFreeroundsValue(resultsTarget as IBonusResultValueFreerounds);
             default:
@@ -981,6 +996,10 @@ export class Bonus extends AbstractModel<IBonus> {
             acc.push(...current);
             return acc;
         }, []);
+    }
+
+    public get isQuestBonus(): boolean {
+        return this.data.LootboxEvent === 'quest group';
     }
 
     public getGamesFilter(): IBonusWagerGamesFilter {
@@ -1228,6 +1247,23 @@ export class Bonus extends AbstractModel<IBonus> {
                 ? `${ranges[0].Value}-${ranges[ranges.length - 1].Value}`
                 : ranges[0].Value;
         }
+
+        return resultsTarget.Value;
+    }
+
+    private produceLootBoxValue(resultsTarget: IBonusResultValueLootbox): number[] | string[] {
+        if (Array.isArray(resultsTarget.Value)) {
+            return resultsTarget.Value.reduce((values: number[], currentValue: string | number): number[] => {
+                if (typeof currentValue === 'number') {
+                    values.push(currentValue);
+                } else if (typeof currentValue === 'string' && currentValue.includes(',')) {
+                    values.push(+(currentValue.split(',')[0]));
+                }
+
+                return values;
+            }, []);
+        }
+
         return resultsTarget.Value;
     }
 

@@ -9,6 +9,7 @@ import {
     ITimerCParams,
 } from 'wlc-engine/modules/core';
 import {
+    IQuest,
     QuestModel,
 } from 'wlc-engine/modules/quests';
 
@@ -22,17 +23,24 @@ export interface IQuestStatusImages {
     finished?: string;
 }
 
+export const enum CursorEnum {
+    POINTER = 'pointer',
+    WAIT = 'wait',
+}
+
 export interface IQuestProgressCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     quest?: QuestModel;
-    onClaimReward?: (questId: string, newQuestStatus: number) => void;
+    updateQuestData?: (questId: string, newData: Partial<IQuest>) => void;
     timerParams?: ITimerCParams;
     claimButtonParams?: IButtonCParams;
     questPrizesModalConfig?: IModalConfig;
     questTakePrizeModalConfig?: IModalConfig;
+    confirmImprovementBonusModalConfig?: IModalConfig;
     pathsToQuestStatusImages?: IQuestStatusImages;
     pathsToQuestStatusFallbackImages?: IQuestStatusImages;
     pathToLeftImage?: string;
     pathToLeftImageFallback?: string;
+    claimDatePrefixText?: string;
 }
 
 export const defaultParams: IQuestProgressCParams = {
@@ -83,4 +91,11 @@ export const defaultParams: IQuestProgressCParams = {
         size: 'md',
         showFooter: false,
     },
+    confirmImprovementBonusModalConfig: {
+        id: 'confirm-improvement-bonus',
+        componentName: 'bonuses.wlc-confirm-improvement-modal',
+        size: 'md',
+        showFooter: false,
+    },
+    claimDatePrefixText: gettext('Claimed'),
 };

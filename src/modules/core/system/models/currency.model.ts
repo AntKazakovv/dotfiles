@@ -33,6 +33,9 @@ export interface ICurrencyIcon {
 export interface ICurrencyOptions {
     language?: string;
     currency?: string;
+    /**
+     * String template: `${minimumIntegerDigits}-${minimumFractionDigits}-${maximumFractionDigits}`
+     * */
     digitsInfo?: string;
     svgPosition?: 'left' | 'right';
 }

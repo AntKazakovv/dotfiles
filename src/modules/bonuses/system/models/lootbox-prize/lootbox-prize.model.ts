@@ -10,6 +10,7 @@ import {
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 
 export class LootboxPrizeModel extends AbstractModel<ILootboxPrize> {
+    public readonly id: number;
     public readonly termsClean: string;
     public readonly descriptionClean: string;
     protected static $bonuses: IBonusesModule;
@@ -26,17 +27,9 @@ export class LootboxPrizeModel extends AbstractModel<ILootboxPrize> {
             LootboxPrizeModel.$bonuses = this.configService.get<IBonusesModule>('$bonuses');
         }
 
+        this.id = +this.data.ID; //TODO Remove conversion to number and make it a getter again after release #677535
         this.descriptionClean = GlobalHelper.deleteHTMLTags(this.data.Description);
         this.termsClean = GlobalHelper.deleteHTMLTags(this.data.Terms);
-    }
-
-    /**
-     * get id
-     *
-     * @returns {number}
-     */
-    public get id(): number {
-        return this.data.ID;
     }
 
     /**

@@ -1,0 +1,63 @@
+$customThemeWolf: () !default;
+$themeWolf: map-merge((
+    //Host
+    'hostDirection': column,
+    'hostRowGap': ef.size(4),
+
+    //Bg
+    'bg': ef.static('wlc/bonuses/choice-modal/bg.svg') repeat center/150%,
+
+    //Title
+    'titleStyle': (
+        375: 'ThirdTitleBold',
+        900: 'SecondTitleBold',
+    ),
+    'titleColor': var(--mc-baseSecond, var(--mc-baseMain)),
+
+    //Header
+    'headerMaxWidth': 335px,
+    'headerPrefixStyle': (
+        375: 'CaptionTextBold',
+        900: 'PlaceholderTextBold',
+    ),
+    'headerPrefixColor': var(--mc-baseSecond, var(--mc-baseMain)),
+    'headerTextStyle': (
+        375: 'PlaceholderTextBold',
+        900: 'ThirdTitleBold',
+    ),
+    'headerTextColor': var(--fc-textColor),
+
+    //Prize image
+    'imageWidth': 300px,
+    'imageHeight': 250px,
+    'imageBg': ef.static('wlc/bonuses/choice-modal/sun.png') no-repeat center/contain,
+    'imageBgWidth': 140%,
+    'imageBgHeight': 200%,
+
+    //Description
+    'descriptionMaxWidth': 335px,
+    'descriptionTextStyle': 'PrimaryText',
+    'descriptionTextColor': var(--mc-baseSecond, var(--mc-baseMain)),
+
+    //Btns
+    'btnsDisplay': flex,
+    'btnsDirection': column,
+    'btnsRowGap': ef.size(4),
+    'btnsAlignItems': center,
+    'btnsMargin': ef.size(5) 0 0,
+
+    //Improve btn
+    'improveBtnBeforeImageUrl': ef.static('wlc/bonuses/choice-modal/btn-left-decor.svg'),
+    'improveBtnBeforeTop': -10px,
+    'improveBtnBeforeLeft': -12px,
+    'improveBtnBeforeHoverTransform': translate(-5px, -5px),
+
+    'improveBtnAfterImageUrl': ef.static('wlc/bonuses/choice-modal/btn-right-decor.svg'),
+    'improveBtnAfterRight': -12px,
+    'improveBtnAfterBottom': -22px,
+    'improveBtnAfterHoverTransform': translate(5px, 5px),
+
+    //Or
+    'orTextStyle': 'PrimaryText',
+    'orTextColor': var(--mc-baseSecond, var(--mc-baseMain)),
+), $customThemeWolf);

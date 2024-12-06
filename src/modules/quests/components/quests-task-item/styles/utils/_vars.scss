@@ -47,10 +47,14 @@ $themeDefault: map-merge((
     'progressBarDetailsTextColor': var(--mc-baseThird, var(--mc-baseMain)),
 
     'progressBarTrackHeight': 6px,
-    'progressBarTrackBg': var(--mc-bg300),
+    'progressBarTrackBg': var(--fc-inputBg),
     'progressBarTrackBgFilled': var(--mc-main),
+    'progressBarTrackBoxShadow': inset 0 0 4px rgba(0, 0, 0, 0.25),
     'progressBarTrackRadius': ef.get('radius', 'big'),
 
     'progressBarStatusIconWidth': 30px,
     'progressBarStatusIconHeight': 30px,
+
+    //Wolf theme mod
+    'progressBarTrackBgWolf': var(--mc-bg300),
 ), $customThemeDefault);

@@ -9,6 +9,7 @@ import {
 import {
     IQuestTask,
     QuestTaskStatusEnum,
+    TQuestTarget,
 } from 'wlc-engine/modules/quests';
 
 export class QuestTaskModel extends AbstractModel<IQuestTask> {
@@ -33,35 +34,34 @@ export class QuestTaskModel extends AbstractModel<IQuestTask> {
         this.name = this.getCurrentLangText(this.data.Name);
         this.description = this.getCurrentLangText(this.data.Description);
         this.actionTitle = this.getCurrentLangText(this.data.ActionTitle);
-        this.progressPercent = Math.floor(
-            this.data.ProgressDetails.Current * 100 / (this.data.ProgressDetails.Total || 1));
+        this.progressPercent = Math.floor((this.progressCurrent * 100) / (this.progressTotal || 1));
     }
 
-    public get progressCurrent(): IQuestTask['ProgressDetails']['Current'] {
+    public get progressCurrent(): number {
         return this.data.ProgressDetails.Current;
     }
 
-    public get progressTotal(): IQuestTask['ProgressDetails']['Total'] {
+    public get progressTotal(): number {
         return this.data.ProgressDetails.Total;
     }
 
-    public get progressTarget(): IQuestTask['ProgressDetails']['Target'] {
+    public get progressTarget(): TQuestTarget {
         return this.data.ProgressDetails.Target;
     }
 
-    public get isDisabled(): boolean {
-        return this.data.Status === QuestTaskStatusEnum.DISABLED;
+    public get status(): QuestTaskStatusEnum {
+        return this.data.Status;
     }
 
-    public get imageActive(): IQuestTask['ImageActive'] {
+    public get imageActive(): string {
         return this.data.ImageActive;
     }
 
-    public get imageNotActive(): IQuestTask['ImageNotActive'] {
+    public get imageNotActive(): string {
         return this.data.ImageNotActive;
     }
 
-    public get actionUrl(): IQuestTask['ActionUrl'] {
+    public get actionUrl(): string {
         return this.data.ActionUrl;
     }
 

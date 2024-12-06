@@ -426,7 +426,7 @@ export class ProfileMenuService {
             this.profileMenuConfig[questItemIndex] = {
                 parent: 'profile-menu:quests',
                 type: 'group',
-                items: menuItems.length > 1 ? menuItems : [],
+                items: menuItems,
             };
         }
     }

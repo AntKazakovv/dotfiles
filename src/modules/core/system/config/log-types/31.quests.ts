@@ -9,4 +9,8 @@ export const errorTypes: ILogTypes = {
         // Error when open reward
         level: 'error',
     },
+    '31.0.2': {
+        // Error when take reward
+        level: 'error',
+    },
 };

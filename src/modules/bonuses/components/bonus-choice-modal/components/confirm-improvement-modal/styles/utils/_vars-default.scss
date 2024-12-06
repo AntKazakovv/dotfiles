@@ -1,0 +1,40 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    //Image
+    'imageHeight': (
+        375: 140px,
+        900: 245px,
+    ),
+    'imageBackground': center / cover no-repeat,
+
+    //Container
+    'containerTextStyle': 'PrimaryText',
+    'containerTextColor': var(--mc-baseSecond, var(--mc-baseMain)),
+    'containerDisplay': flex,
+    'containerDirection': column,
+    'containerAlignItems': center,
+    'containerGap': ef.size(2),
+    'containerPadding': ef.size(8) ef.size(4),
+    'containerTextAlign': center,
+
+    //Name
+    'nameTextStyle': (
+        375: 'PlaceholderTextBold',
+        900: 'QoteTextBold',
+    ),
+    'nameTextColor': inherit,
+    'nameMargin': 0 0 ef.size(2),
+
+    //Description
+    'descriptionMinHeight': 60px,
+
+    //Amount
+    'amountValueTextStyle': 'ThirdTitleBold',
+    'amountValueTextColor': inherit,
+
+    //Btns
+    'btnsDisplay': flex,
+    'btnsJustifyContent': center,
+    'btnsGap': ef.size(2),
+    'btnsMargin': 0 0 ef.size(8),
+), $customThemeDefault);

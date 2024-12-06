@@ -1,4 +1,5 @@
 import {
+    Observable,
     OperatorFunction,
     PartialObserver,
 } from 'rxjs';
@@ -12,7 +13,6 @@ import {
     QuestTaskModel,
 } from 'wlc-engine/modules/quests';
 import {
-    Bonus,
     IBonus,
 } from 'wlc-engine/modules/bonuses';
 
@@ -34,6 +34,7 @@ export interface IQuest {
     Progress: IQuestProgress;
     RenewalTime: string;
     Status: QuestStatusEnum;
+    BonusTakenAt: string | null;
 }
 
 export interface IQuestTask {
@@ -59,9 +60,14 @@ export const enum QuestStatusEnum {
     FINISHED = 3,
 }
 
+/**
+ * Tasks with negative statuses do not affect the completion of the quest.
+ * */
 export const enum QuestTaskStatusEnum {
-    DISABLED = 0,
-    ENABLED = 1,
+    DISABLED = -2,
+    NOT_USED = -1,
+    ENABLED = 0,
+    COMPLETED = 1,
 }
 
 export type TQuestTarget = 'Bet'
@@ -82,6 +88,14 @@ export interface IQuestTaskProgressDetails {
 export interface IQuestProgress {
     Total: number;
     Ready: number;
+    /**
+     * Quest task statuses {..., "taskId": taskStatus, ...}
+     * */
+    TaskStatuses?: Record<string, QuestTaskStatusEnum>;
+    /**
+     * Rewarded bonus id
+     * */
+    Bonus?: number;
 }
 
 export interface IOrderModifier {
@@ -114,8 +128,9 @@ export interface IQuestNotification {
 }
 
 export interface IGetSubscribeParams {
-    useQuery: boolean;
     observer: PartialObserver<IQuestsDataModels>;
+    until: Observable<unknown>;
+    useQuery?: boolean;
     modifyData?: boolean;
     pipes?:  OperatorFunction<IQuestsDataModels, unknown>;
 }
@@ -128,15 +143,17 @@ export interface IQuestsConfig {
     questsDataModifiers?: IDataModifier;
 }
 
-export interface IOpenRewardData {
+export interface IRewardData {
     Status?: number;
     Bonus?: IBonus;
     error?: string;
 }
 
-export interface IOpenRewardResponse {
-    newQuestStatus?: QuestStatusEnum;
-    bonus?: Bonus;
+export interface ITakeRewardData extends IRewardData {
+    /**
+     * Date of claiming the reward
+     */
+    BonusTakenAt?: string;
 }
 
 export interface IWSQuestData {

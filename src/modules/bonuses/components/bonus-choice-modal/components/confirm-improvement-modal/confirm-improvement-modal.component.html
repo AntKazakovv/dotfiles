@@ -1,0 +1,40 @@
+<div class="{{$class}}__image" [style.backgroundImage]="bonusBgUrl"></div>
+<div class="{{$class}}__container">
+    <div class="{{$class}}__name">{{bonus.nameClean}}</div>
+    <div class="{{$class}}__description">{{bonus.descriptionClean}}</div>
+    <div class="{{$class}}__amount-block">
+        <span class="{{$class}}__amount-note">{{(textBalance | translate) + ' '}}</span>
+        <span wlc-currency
+            class="{{$class}}__amount-value"
+            [digitsInfo]="digitsInfo"
+            [value]="userBalance"
+            [currency]="currency">
+        </span>
+    </div>
+    <div class="{{$class}}__amount-block">
+        <span class="{{$class}}__amount-note">{{(textPrice | translate) + ' '}}</span>
+        <span wlc-currency
+            class="{{$class}}__amount-value"
+            [digitsInfo]="digitsInfo"
+            [value]="improvementPrice"
+            [currency]="currency">
+        </span>
+    </div>
+    @for (message of messages; track message) {
+        <div class="{{$class}}__message">
+            {{message | translate}}
+        </div>
+    }
+</div>
+<div class="{{$class}}__btns">
+    <button wlc-button
+        class="{{$class}}__btn"
+        [inlineParams]="mainBtnParams"
+        (click)="mainBtnClick()">
+    </button>
+    <button wlc-button
+        class="{{$class}}__btn"
+        [inlineParams]="rejectBtnParams"
+        (click)="rejectBtnClick()">
+    </button>
+</div>

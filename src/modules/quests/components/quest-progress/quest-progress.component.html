@@ -1,34 +1,44 @@
-<div *ngIf="showTimer"
-     wlc-timer
-     class="{{$class}}__timer"
-     [value]="$params.quest.renewalTime"
-     [inlineParams]="$params.timerParams"
-     (timerEnds)="updateQuestsDataHandler()">
-</div>
+@if (ready$ | async) {
 
-<div class="{{$class}}__content">
-    <div class="{{$class}}__track">
-        <div wlc-icon
-            class="{{$class}}__track-start-img"
-            [iconUrl]="$params.pathToLeftImage"
-            [fallback]="$params.pathToLeftImageFallback">
+    @if (quest.bonusTakenAt) {
+        <div class="{{$class}}__claim-date">
+            {{claimDatePrefixText | translate}} {{quest.bonusTakenAt}}
         </div>
-        <div class="{{$class}}__track-line"
-            [style.--wlc-qp-progress]="$params.quest.progressPercent + '%'">
-            <span class="{{$class}}__track-line-data">{{progressText}}</span>
+    } @else if (showTimer) {
+        <div wlc-timer
+            class="{{$class}}__timer"
+            [value]="quest.renewalTime"
+            [inlineParams]="timerParams"
+            (timerEnds)="updateQuestsDataHandler()">
         </div>
-        <div wlc-icon
-            class="{{$class}}__track-end-img"
-            [style.--wlc-qp-icon-cursor]="casketCursor"
-            [iconUrl]="statusImagePath"
-            [fallback]="statusImageFallbackPath"
-            (click)="showBonusInfoHandler()">
+    }
+
+    <div class="{{$class}}__content">
+        <div class="{{$class}}__track">
+            <div wlc-icon
+                class="{{$class}}__track-start-img"
+                [iconUrl]="pathToLeftImage"
+                [fallback]="pathToLeftImageFallback">
+            </div>
+            <div class="{{$class}}__track-line"
+                [style.--wlc-qp-progress]="questProgress">
+                <span class="{{$class}}__track-line-data">{{progressText}}</span>
+            </div>
+            <div wlc-icon
+                class="{{$class}}__track-end-img"
+                [style.--wlc-qp-icon-cursor]="cursor$ | async"
+                [iconUrl]="statusImagePath"
+                [fallback]="statusImageFallbackPath"
+                (click)="showBonusInfoHandler()">
+            </div>
         </div>
+        <button wlc-button
+            class="{{$class}}__btn"
+            [inlineParams]="claimButtonParams"
+            [disabled]="claimButtonDisabled"
+            (click)="claimReward()">
+        </button>
     </div>
-    <button wlc-button
-        class="{{$class}}__btn"
-        [inlineParams]="$params.claimButtonParams"
-        [disabled]="!$params.quest.isCompletedStatus"
-        (click)="claimHandler()">
-    </button>
-</div>
+} @else {
+    <div wlc-loader></div>
+}

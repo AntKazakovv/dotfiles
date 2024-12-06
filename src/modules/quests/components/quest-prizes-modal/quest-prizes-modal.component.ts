@@ -43,7 +43,9 @@ export class QuestPrizesModalComponent extends AbstractComponent implements OnIn
 
     public async open(): Promise<void> {
         if (this.selectedPrizeNumber) {
-            await this.$params.onClick?.();
+            this.$params.openBtnParams?.pending$?.next(true);
+            await this.$params.onSubmit();
+            this.$params.openBtnParams?.pending$?.next(false);
         }
     }
 }

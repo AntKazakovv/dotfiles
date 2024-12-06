@@ -22,9 +22,16 @@
 
         &__title {
             @include text.get-text-style(
-                ef.get-value($themeDefault, 'titleStyle'),
+                ef.get-value($themeDefault, 'titleStyle', 375),
                 ef.get-value($themeDefault, 'titleColor'),
             );
+
+            @include mq.min(900) {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'titleStyle', 900),
+                    null,
+                );
+            }
         }
 
         &__header {
@@ -86,6 +93,56 @@
             );
 
             max-width: ef.get-value($themeDefault, 'descriptionMaxWidth');
+        }
+
+        &__btns {
+            display: ef.get-value($themeDefault, 'btnsDisplay');
+            flex-direction: ef.get-value($themeDefault, 'btnsDirection');
+            row-gap: ef.get-value($themeDefault, 'btnsRowGap');
+            align-items: ef.get-value($themeDefault, 'btnsAlignItems');
+        }
+
+        &__improve-btn-container {
+            position: relative;
+
+            &:before,
+            &:after {
+                @include bm.transition(transform);
+                position: absolute;
+                z-index: 1;
+                display: block;
+                pointer-events: none;
+            }
+
+            &:before {
+                content: ef.get-value($themeDefault, 'improveBtnBeforeImageUrl');
+                top: ef.get-value($themeDefault, 'improveBtnBeforeTop');
+                left: ef.get-value($themeDefault, 'improveBtnBeforeLeft');
+            }
+
+            &:after {
+                content: ef.get-value($themeDefault, 'improveBtnAfterImageUrl');
+                right: ef.get-value($themeDefault, 'improveBtnAfterRight');
+                bottom: ef.get-value($themeDefault, 'improveBtnAfterBottom');
+            }
+
+            @include bm.hover {
+
+                &:before {
+                    transform: ef.get-value($themeDefault, 'improveBtnBeforeHoverTransform');
+                }
+
+                &:after {
+                    transform: ef.get-value($themeDefault, 'improveBtnAfterHoverTransform');
+                }
+            }
+        }
+
+        &__or {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'orTextStyle'),
+                ef.get-value($themeDefault, 'orTextColor'),
+            );
         }
     }
 }

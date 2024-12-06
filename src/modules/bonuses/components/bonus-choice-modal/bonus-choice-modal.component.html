@@ -1,22 +1,37 @@
 <div class="{{$class}}__bg"></div>
 
-<div class="{{$class}}__title">{{$params.title | translate}}</div>
+<div class="{{$class}}__title">{{title | translate}}</div>
 
 <div class="{{$class}}__header">
-    <span class="{{$class}}__header-prefix">{{$params.headerMessage | translate}}</span>
-    <span class="{{$class}}__header-text">{{$params.bonus.name}}</span>
+    <span class="{{$class}}__header-prefix">{{headerMessage | translate}}</span>
+    <span class="{{$class}}__header-text">{{bonus.name}}</span>
 </div>
 
 <div wlc-icon
     class="{{$class}}__image"
-    [iconUrl]="$params.image"
-    [fallback]="$params.imageFallback">
+    [iconUrl]="image"
+    [fallback]="imageFallback">
 </div>
 
-<div class="{{$class}}__description">{{$params.bonus.description}}</div>
+<div class="{{$class}}__description">{{bonus.description}}</div>
 
-<button wlc-button
-    class="{{$class}}__btn"
-    [inlineParams]="$params.takeBtnParams"
-    (click)="$params.onConfirm?.()">
-</button>
+<div class="{{$class}}__btns">
+    @if (improvementBonus) {
+        <div class="{{$class}}__improve-btn-container">
+            <button wlc-button
+                class="{{$class}}__improve-btn"
+                [inlineParams]="improveBtnParams"
+                (click)="onTakeImproved()">
+            </button>
+        </div>
+
+        <div class="{{$class}}__or">{{'or' | translate}}</div>
+    }
+
+    <button wlc-button
+        class="{{$class}}__confirm-btn"
+        [inlineParams]="takeBtnParams"
+        (click)="onTakeBase()">
+    </button>
+</div>
+

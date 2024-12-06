@@ -97,6 +97,7 @@ import {WebSocketEvents} from 'wlc-engine/modules/core/system/services/websocket
 import {IWSConsumerData} from 'wlc-engine/modules/core/system/interfaces/websocket.interface';
 import {MultiWalletEvents} from 'wlc-engine/modules/multi-wallet';
 import {PromoCodeService} from 'wlc-engine/modules/bonuses/system/services/promocode/promocode.service';
+import {RequestParamsType} from 'wlc-engine/modules/core/system/services/data/data.service';
 
 type TUserLoyaltyInfo = Pick<UserInfo, 'bonusesBalance' | 'freeRounds'>;
 
@@ -425,15 +426,17 @@ export class BonusesService {
      * Get bonus by id
      *
      * @param {number} id bonus id
+     * @param {RequestParamsType} params request params
      * @returns {Bonus} bonus object
      */
-    public async getBonus(id: number): Promise<Bonus> {
+    public async getBonus(id: number, params?: RequestParamsType): Promise<Bonus> {
         try {
             const data: IData<IBonus> = await this.dataService.request({
                 name: 'bonusById',
                 system: 'bonuses',
                 url: `/bonuses/${id}`,
                 type: 'GET',
+                ...(params ?? {}),
             });
             if (_isObject(data.data)) {
                 try {
@@ -1047,7 +1050,15 @@ export class BonusesService {
                 queryBonuses.push(bonus);
             }
         }
-        return _filter(queryBonuses, (bonus: Bonus) => {
+
+        return _filter(queryBonuses, (bonus: Bonus): boolean => {
+            if (bonus.isQuestBonus && !bonus.active) {
+                /**
+                 * Quest bonuses should not be visible anywhere
+                 * */
+                return false;
+            }
+
             return bonus.allowCatalog
                 || (!bonus.allowCatalog && (bonus.selected || bonus.active || bonus.inventoried));
         });

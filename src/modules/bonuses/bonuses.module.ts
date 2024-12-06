@@ -34,6 +34,10 @@ import {
     BonusChoiceModalComponent,
 } from 'wlc-engine/modules/bonuses/components/bonus-choice-modal/bonus-choice-modal.component';
 import {PromoCodeService} from 'wlc-engine/modules/bonuses/system/services/promocode/promocode.service';
+import {
+    ConfirmImprovementModalComponent,
+// eslint-disable-next-line max-len
+} from 'wlc-engine/modules/bonuses/components/bonus-choice-modal/components/confirm-improvement-modal/confirm-improvement-modal.component';
 
 export const moduleConfig = GlobalHelper.mergeConfig<IBonusesModule>(bonusesConfig, _get($config, '$bonuses', {}));
 
@@ -51,6 +55,8 @@ export const components = {
     'wlc-deposit-bonuses': DepositBonusesComponent,
     'wlc-bonus-wager': BonusWagerComponent,
     'wlc-bonus-choice-modal': BonusChoiceModalComponent,
+    'wlc-bonus-confirmation': BonusConfirmationComponent,
+    'wlc-confirm-improvement-modal': ConfirmImprovementModalComponent,
 };
 
 export const services = {
@@ -74,6 +80,7 @@ export const services = {
         BonusConfirmationComponent,
         BonusWagerComponent,
         BonusChoiceModalComponent,
+        ConfirmImprovementModalComponent,
     ],
     imports: [
         CoreModule,
@@ -97,6 +104,8 @@ export const services = {
         RecommendedBonusesComponent,
         BonusWagerComponent,
         BonusChoiceModalComponent,
+        BonusConfirmationComponent,
+        ConfirmImprovementModalComponent,
     ],
 })
 

@@ -6,7 +6,11 @@ import {
     OnInit,
 } from '@angular/core';
 
-import {AbstractComponent} from 'wlc-engine/modules/core';
+import {
+    AbstractComponent,
+    IButtonCParams,
+} from 'wlc-engine/modules/core';
+import {Bonus} from 'wlc-engine/modules/bonuses';
 
 import * as Params from './bonus-choice-modal.params';
 
@@ -29,5 +33,51 @@ export class BonusChoiceModalComponent extends AbstractComponent implements OnIn
 
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+    }
+
+    public onTakeImproved(): void {
+        this.$params.improveBtnParams.pending$.next(true);
+        this.$params.onTakeImproved(this.improvementBonus).finally((): void => {
+            this.$params.improveBtnParams.pending$.next(false);
+        });
+    }
+
+    public onTakeBase(): void {
+        this.$params.takeBtnParams.pending$.next(true);
+        this.$params.onTakeBase(this.bonus).finally((): void => {
+            this.$params.improveBtnParams.pending$.next(false);
+        });
+    }
+
+    public get bonus(): Bonus {
+        return this.$params.bonus;
+    }
+
+    public get improvementBonus(): Bonus {
+        return this.$params.bonus.improvementBonus;
+    }
+
+    public get title(): string {
+        return this.$params.title;
+    }
+
+    public get headerMessage(): string {
+        return this.$params.headerMessage;
+    }
+
+    public get image(): string {
+        return this.$params.image;
+    }
+
+    public get imageFallback(): string {
+        return this.$params.imageFallback;
+    }
+
+    public get improveBtnParams(): IButtonCParams {
+        return this.$params.improveBtnParams;
+    }
+
+    public get takeBtnParams(): IButtonCParams {
+        return this.$params.takeBtnParams;
     }
 }

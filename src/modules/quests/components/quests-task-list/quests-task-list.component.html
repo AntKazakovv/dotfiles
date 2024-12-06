@@ -1,29 +1,27 @@
-<ng-container *ngIf="ready$ | async; else preloader">
-    <ng-container *ngIf="currentQuest$ | async as currentQuest; else empty">
+@if (ready$ | async) {
+
+    @if (questProgressParams) {
         <div class="{{$class}}__content">
             <div wlc-quest-progress
                 class="{{$class}}__progress"
-                [inlineParams]="{
-                    quest: currentQuest,
-                    onClaimReward: updateCurrentQuestStatus.bind(this),
-                }">
+                [inlineParams]="questProgressParams">
             </div>
-            <div *ngIf="tasksFromActiveQuest$ | async as tasks"
-                class="{{$class}}__list"
-                [@tableAppearance]="tasks">
-                <div *ngFor="let task of tasks"
-                    wlc-quests-task-item
-                    [task]="task">
+
+            @if (tasksFromActiveQuest$ | async; as tasks) {
+                <div class="{{$class}}__list"
+                    [@tableAppearance]="tasks">
+                    @for (task of tasks; track task.id) {
+                        <div wlc-quests-task-item
+                            [task]="task">
+                        </div>
+                    }
                 </div>
-            </div>
+            }
         </div>
-    </ng-container>
-</ng-container>
+    } @else {
+        <div wlc-wrapper [inlineParams]="emptyConfig"></div>
+    }
 
-<ng-template #preloader>
+} @else {
     <div wlc-loader></div>
-</ng-template>
-
-<ng-template #empty>
-    <div wlc-wrapper [inlineParams]="$params.emptyConfig"></div>
-</ng-template>
+}

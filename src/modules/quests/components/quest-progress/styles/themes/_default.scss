@@ -1,12 +1,21 @@
 .wlc-quest-progress--theme-default:host {
-
+    @include bm.get-mq-map('padding', $themeDefault, 'hostRowPadding');
     display: flex;
     flex-direction: column;
     width: 100%;
     row-gap: ef.get-value($themeDefault, 'hostRowGap');
-    padding: ef.get-value($themeDefault, 'hostRowPadding');
+    background: ef.get-value($themeDefault, 'hostBg');
+    border-radius: ef.get-value($themeDefault, 'hostRadius');
 
     .wlc-quest-progress {
+
+        &__claim-date {
+            @include bm.get-mq-map('align-self', $themeDefault, 'claimDateAlign');
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'claimDateTextStyle'),
+                ef.get-value($themeDefault, 'claimDateTextColor')
+            );
+        }
 
         &__timer {
             @include bm.get-mq-map('align-self', $themeDefault, 'timerAlign');

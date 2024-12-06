@@ -57,7 +57,7 @@
                 width: ef.get-value($themeModal, 'progressTrackWidth');
                 height: ef.get-value($themeModal, 'progressTrackHeight');
 
-                background: ef.get-value($themeModal, 'progressTrackBg');
+                background: var(--wlc-qti-track-bg, #{ef.get-value($themeModal, 'progressTrackBg')});
                 border-radius: ef.get-value($themeModal, 'progressTrackRadius');
                 overflow: hidden;
 
@@ -69,9 +69,14 @@
                     height: 100%;
 
                     background: ef.get-value($themeModal, 'progressTrackBgFilled');
+                    box-shadow: ef.get-value($themeModal, 'progressTrackBoxShadow');
                     border-radius: inherit;
                 }
             }
         }
+    }
+
+    &.wlc-quests-task-item--theme-mod-wolf {
+        --wlc-qti-track-bg: #{ef.get-value($themeModal, 'progressTrackBgWolf')};
     }
 }

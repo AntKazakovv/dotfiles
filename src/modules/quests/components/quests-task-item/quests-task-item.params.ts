@@ -11,7 +11,7 @@ import {
 
 export type ComponentTheme = 'default' | 'modal' | CustomType;
 export type ComponentType = 'default' | CustomType;
-export type ComponentThemeMod = 'default' | CustomType;
+export type ComponentThemeMod = 'default' | 'wolf' | CustomType;
 
 export interface IPathsToIcons {
     completedStatus?: string;
