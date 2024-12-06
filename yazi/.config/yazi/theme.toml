@@ -1,51 +1,34 @@
-# A TOML linter such as https://taplo.tamasfe.dev/ can use this schema to validate your config.
-# If you encounter any issues, please make an issue at https://github.com/yazi-rs/schemas.
-"$schema" = "https://yazi-rs.github.io/schemas/theme.json"
-
 # vim:fileencoding=utf-8:foldmethod=marker
-
-# : Flavor {{{
-
-[flavor]
-use = ""
-
-# : }}}
 
 # : Manager {{{
 
 [manager]
-cwd = { fg = "#5F8575" }
+cwd = { fg = "#a7c080" } # Soft Green
 
 # Hovered
-hovered         = { reversed = true }
+hovered = { fg = "#2c313a", bg = "#d3c6aa" } # Dark background, Soft beige foreground
 preview_hovered = { underline = true }
 
 # Find
-find_keyword  = { fg = "#D4A017", bold = true, italic = true, underline = true }
-find_position = { fg = "#7F4A28", bg = "reset", bold = true, italic = true }
+find_keyword = { fg = "#d3c6aa", italic = true }                # Soft beige
+find_position = { fg = "#e8a2af", bg = "reset", italic = true } # Soft red
 
 # Marker
-marker_copied   = { fg = "#A8A49C",  bg = "#A8A49C" }
-marker_cut      = { fg = "#8B3626",  bg = "#8B3626" }
-marker_marked   = { fg = "#5F8575",   bg = "#5F8575" }
-marker_selected = { fg = "#D4A017", bg = "#D4A017" }
+marker_selected = { fg = "#a7c080", bg = "#a7c080" } # Soft Green
+marker_copied = { fg = "#d3c6aa", bg = "#d3c6aa" }   # Soft beige
+marker_cut = { fg = "#e8a2af", bg = "#e8a2af" }      # Soft red
 
 # Tab
-tab_active   = { reversed = true }
-tab_inactive = {}
-tab_width    = 1
-
-# Count
-count_copied   = { fg = "#D8D8D0", bg = "#556B2F" }
-count_cut      = { fg = "#D8D8D0", bg = "#8B3626" }
-count_selected = { fg = "#D8D8D0", bg = "#D4A017" }
+tab_active = { fg = "#2c313a", bg = "#d3c6aa" }   # Dark background, Soft beige foreground
+tab_inactive = { fg = "#a7c080", bg = "#434c5e" } # Soft Green on muted dark
+tab_width = 1
 
 # Border
 border_symbol = "│"
-border_style  = { fg = "#3B2F2F" }
+border_style = { fg = "#687d68" } # Muted Green
 
 # Highlighting
-syntect_theme = ""
+syntect_theme = "~/.config/bat/themes/Everforest-Soft.tmTheme"
 
 # : }}}
 
@@ -53,36 +36,26 @@ syntect_theme = ""
 # : Status {{{
 
 [status]
-separator_open  = ""
+separator_open = ""
 separator_close = ""
-separator_style = { fg = "#3B2F2F", bg = "#3B2F2F" }
+separator_style = { fg = "#434c5e", bg = "#434c5e" } # Muted dark
 
 # Mode
-mode_normal = { bg = "#3B6F72", bold = true }
-mode_select = { bg = "#8B3626", bold = true }
-mode_unset  = { bg = "#8B3626", bold = true }
+mode_normal = { fg = "#2c313a", bg = "#d3c6aa", bold = true } # Dark background, Soft beige foreground
+mode_select = { fg = "#2c313a", bg = "#a7c080", bold = true } # Dark background, Soft Green foreground
+mode_unset = { fg = "#2c313a", bg = "#e8a2af", bold = true }  # Dark background, Soft red foreground
 
 # Progress
-progress_label  = { bold = true }
-progress_normal = { fg = "#3B6F72", bg = "#2F4F2F" }
-progress_error  = { fg = "#8B3626", bg = "#2F4F2F" }
+progress_label = { fg = "#ffffff", bold = true }
+progress_normal = { fg = "#d3c6aa", bg = "#434c5e" } # Soft beige on muted dark
+progress_error = { fg = "#e8a2af", bg = "#434c5e" }  # Soft red on muted dark
 
 # Permissions
-permissions_t = { fg = "#556B2F" }
-permissions_r = { fg = "#D4A017" }
-permissions_w = { fg = "#8B3626" }
-permissions_x = { fg = "#5F8575" }
-permissions_s = { fg = "#3B2F2F" }
-
-# : }}}
-
-
-# : Pick {{{
-
-[pick]
-border   = { fg = "#3B6F72" }
-active   = { fg = "#7F4A28", bold = true }
-inactive = {}
+permissions_t = { fg = "#d3c6aa" } # Soft beige
+permissions_r = { fg = "#d3c6aa" } # Soft beige
+permissions_w = { fg = "#e8a2af" } # Soft red
+permissions_x = { fg = "#a7c080" } # Soft Green
+permissions_s = { fg = "#687d68" } # Muted Green
 
 # : }}}
 
@@ -90,39 +63,20 @@ inactive = {}
 # : Input {{{
 
 [input]
-border   = { fg = "#3B6F72" }
-title    = {}
-value    = {}
+border = { fg = "#d3c6aa" }    # Soft beige
+title = {}
+value = {}
 selected = { reversed = true }
 
 # : }}}
 
 
-# : Confirm {{{
+# : Select {{{
 
-[confirm]
-border     = { fg = "#3B6F72" }
-title      = { fg = "#3B6F72" }
-content    = {}
-list       = {}
-btn_yes    = { reversed = true }
-btn_no     = {}
-btn_labels = [ "  [Y]es  ", "  (N)o  " ]
-
-# : }}}
-
-
-# : Completion {{{
-
-[completion]
-border   = { fg = "#3B6F72" }
-active   = { reversed = true }
+[select]
+border = { fg = "#d3c6aa" } # Soft beige
+active = { fg = "#e8a2af" } # Soft red
 inactive = {}
-
-# Icons
-icon_file    = ""
-icon_folder  = ""
-icon_command = ""
 
 # : }}}
 
@@ -130,9 +84,9 @@ icon_command = ""
 # : Tasks {{{
 
 [tasks]
-border  = { fg = "#3B6F72" }
-title   = {}
-hovered = { fg = "#7F4A28", underline = true }
+border = { fg = "#d3c6aa" }    # Soft beige
+title = {}
+hovered = { underline = true }
 
 # : }}}
 
@@ -140,13 +94,12 @@ hovered = { fg = "#7F4A28", underline = true }
 # : Which {{{
 
 [which]
-cols            = 3
-mask            = { bg = "#2F4F2F" }
-cand            = { fg = "#5F8575" }
-rest            = { fg = "#3B2F2F" }
-desc            = { fg = "#7F4A28" }
-separator       = "  "
-separator_style = { fg = "#3B2F2F" }
+mask = { bg = "#2c313a" }            # Dark background
+cand = { fg = "#a7c080" }            # Soft Green
+rest = { fg = "#d3c6aa" }            # Soft beige
+desc = { fg = "#e8a2af" }            # Soft red
+separator = "  "
+separator_style = { fg = "#434c5e" } # Muted dark
 
 # : }}}
 
@@ -154,26 +107,11 @@ separator_style = { fg = "#3B2F2F" }
 # : Help {{{
 
 [help]
-on      = { fg = "#5F8575" }
-run     = { fg = "#7F4A28" }
-desc    = {}
-hovered = { reversed = true, bold = true }
-footer  = { fg = "#2F4F2F", bg = "#D8D8D0" }
-
-# : }}}
-
-
-# : Notify {{{
-
-[notify]
-title_info  = { fg = "#556B2F" }
-title_warn  = { fg = "#D4A017" }
-title_error = { fg = "#8B3626" }
-
-# Icons
-icon_info  = ""
-icon_warn  = ""
-icon_error = ""
+on = { fg = "#e8a2af" }                     # Soft red
+run = { fg = "#a7c080" }                   # Soft Green
+desc = { fg = "#d3c6aa" }                   # Soft beige
+hovered = { bg = "#434c5e", bold = true }   # Muted dark background
+footer = { fg = "#2c313a", bg = "#d3c6aa" } # Dark background, Soft beige foreground
 
 # : }}}
 
@@ -183,65 +121,25 @@ icon_error = ""
 [filetype]
 
 rules = [
-	# Images
-	{ mime = "image/*", fg = "#D4A017" },
+  # Images
+  { mime = "image/*", fg = "#a7c080" }, # Soft Green
 
-	# Media
-	{ mime = "{audio,video}/*", fg = "#7F4A28" },
+  # Videos
+  { mime = "video/*", fg = "#d3c6aa" }, # Soft beige
+  { mime = "audio/*", fg = "#d3c6aa" }, # Soft beige
 
-	# Archives
-	{ mime = "application/{,g}zip", fg = "#8B3626" },
-	{ mime = "application/{tar,bzip*,7z-compressed,xz,rar}", fg = "#8B3626" },
+  # Archives
+  { mime = "application/zip", fg = "#e8a2af" },             # Soft red
+  { mime = "application/gzip", fg = "#e8a2af" },            # Soft red
+  { mime = "application/x-tar", fg = "#e8a2af" },           # Soft red
+  { mime = "application/x-bzip", fg = "#e8a2af" },          # Soft red
+  { mime = "application/x-bzip2", fg = "#e8a2af" },         # Soft red
+  { mime = "application/x-7z-compressed", fg = "#e8a2af" }, # Soft red
+  { mime = "application/x-rar", fg = "#e8a2af" },           # Soft red
 
-	# Documents
-	{ mime = "application/{pdf,doc,rtf,vnd.*}", fg = "#5F8575" },
-
-	# Special files
-	{ name = "*", is = "orphan", bg = "#8B3626" },
-	{ name = "*", is = "exec"  , fg = "#556B2F" },
-
-	# Dummy files
-	{ name = "*", is = "dummy", bg = "#8B3626" },
-	{ name = "*/", is = "dummy", bg = "#8B3626" },
-
-	# Fallback
-	{ name = "*/", fg = "#3B6F72" }
-]
-
-[icon]
-
-globs = []
-dirs  = [
-	{ name = ".config", text = "" },
-	{ name = ".git", text = "" },
-	{ name = "Desktop", text = "" },
-	{ name = "Development", text = "" },
-	{ name = "Documents", text = "" },
-	{ name = "Downloads", text = "" },
-	{ name = "Library", text = "" },
-	{ name = "Movies", text = "" },
-	{ name = "Music", text = "" },
-	{ name = "Pictures", text = "" },
-	{ name = "Public", text = "" },
-	{ name = "Videos", text = "" },
-]
-files = []
-
-conds = [
-	# Special files
-	{ if = "orphan", text = "" },
-	{ if = "link"  , text = "" },
-	{ if = "block" , text = "" },
-	{ if = "char"  , text = "" },
-	{ if = "fifo"  , text = "" },
-	{ if = "sock"  , text = "" },
-	{ if = "sticky", text = "" },
-	{ if = "dummy",  text = "" },
-
-	# Fallback
-	{ if = "dir", text = "󰉋" },
-	{ if = "exec", text = "" },
-	{ if = "!dir", text = "󰈔" },
+  # Fallback
+  { name = "*", fg = "#d3c6aa" },  # Soft beige
+  { name = "*/", fg = "#d3c6aa" }, # Soft beige
 ]
 
 # : }}}
