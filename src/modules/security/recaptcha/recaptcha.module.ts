@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
-import {CompilerModule} from 'wlc-engine/modules/compiler';
 
 // -- SERVICES IMPORTS START --;
 import {RecaptchaService} from 'wlc-engine/modules/security/recaptcha/system/services';
@@ -27,7 +26,6 @@ export const services = {
         RecaptchaPolicyComponent,
     ],
     imports: [
-        CompilerModule,
         CoreModule,
     ],
     providers: [

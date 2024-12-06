@@ -9,7 +9,7 @@ import {BehaviorSubject} from 'rxjs';
 import {BonusButtonsComponent} from 'wlc-engine/modules/bonuses/components/bonus-buttons/bonus-buttons.component';
 import {BonusItemComponent} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.component';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
-import {DynamicHtmlComponent} from 'wlc-engine/modules/compiler';
+import {DynamicHtmlComponent} from 'wlc-engine/modules/core/components/dynamic-html/dynamic-html.component';
 import {
     ConfigService,
     InjectionService,

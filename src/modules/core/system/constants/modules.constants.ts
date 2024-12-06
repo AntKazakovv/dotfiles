@@ -21,7 +21,6 @@ export type TModuleName =
     | 'profile'
     | 'sportsbook'
     | 'livechat'
-    | 'compiler'
     | 'custom'
     | 'analytics'
     | 'monitoring'
@@ -160,11 +159,6 @@ export const modulesApp: Record<TModuleName, IFunctionImportModule> = {
         const m = await import('wlc-engine/modules/livechat/livechat.module');
         callback(name, m);
         return m.LivechatModule;
-    },
-    'compiler': async (name: TModuleName, callback: Function) => {
-        const m = await import('wlc-engine/modules/compiler/compiler.module');
-        callback(name, m);
-        return m.CompilerModule;
     },
     'custom': async (name: TModuleName, callback: Function) => {
         const m = await import('wlc-src/custom/custom.module');

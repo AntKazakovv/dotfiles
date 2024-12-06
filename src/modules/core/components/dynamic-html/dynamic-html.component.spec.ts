@@ -1,12 +1,15 @@
+import {Component} from '@angular/core';
 import {
     ComponentFixture,
     TestBed,
 } from '@angular/core/testing';
+
+import {BehaviorSubject} from 'rxjs';
+
 import {AppModule} from 'wlc-engine/modules/app/app.module';
-import {Component} from '@angular/core';
-import {CompilerModule} from 'wlc-engine/modules/compiler/compiler.module';
-import {DynamicHtmlComponent} from 'wlc-engine/modules/compiler/components/dynamic-html/dynamic-html.component';
+import {DynamicHtmlComponent} from 'wlc-engine/modules/core/components/dynamic-html/dynamic-html.component';
 import {WINDOW} from 'wlc-engine/modules/app/system/tokens/window';
+import {ConfigService} from 'wlc-engine/modules/core/system/services';
 
 @Component({
     selector: '[wlc-test-component]',
@@ -29,10 +32,11 @@ describe('DynamicHtml', () => {
     let fixture: ComponentFixture<TestComponent>;
     let nativeElement: HTMLElement;
     let window: Window;
+    let configServiceSpy: jasmine.SpyObj<ConfigService>;
 
     beforeEach((() => {
         fixture = TestBed.configureTestingModule({
-            imports: [AppModule, CompilerModule],
+            imports: [AppModule],
             declarations: [DynamicHtmlComponent, TestComponent],
             providers: [
                 {
@@ -44,6 +48,13 @@ describe('DynamicHtml', () => {
         component = fixture.componentInstance;
         nativeElement = fixture.nativeElement;
         window = TestBed.inject<Window>(WINDOW);
+
+        configServiceSpy = jasmine.createSpyObj(
+            'ConfigService',
+            ['get'],
+        );
+        configServiceSpy.get.and.returnValues({});
+        configServiceSpy.get.withArgs('$user.isAuth$').and.returnValues(new BehaviorSubject(false));
     }));
 
     it('-> should be created', () => {

@@ -42,7 +42,6 @@ import {
     LeagueStatusComponent,
     LeagueInfoComponent,
 } from 'wlc-engine/modules/tournaments/components';
-import {CompilerModule} from 'wlc-engine/modules/compiler';
 import {GlobalHelper} from 'wlc-engine/modules/core';
 import {tournamentsConfig} from './system/config/tournaments.config';
 import * as $config from 'wlc-config/index';
@@ -92,7 +91,6 @@ export const services = {
     ],
     imports: [
         CoreModule,
-        CompilerModule,
     ],
     providers: [
         TournamentsService,

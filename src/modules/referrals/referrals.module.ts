@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
-import {CompilerModule} from 'wlc-engine/modules/compiler';
 import {ReferralInfoComponent} from 'wlc-engine/modules/referrals/components/referral-info/referral-info.component';
 import {ReferralsService} from 'wlc-engine/modules/referrals/system/services/referrals.service';
 import {ReferralsListComponent}
@@ -23,7 +22,6 @@ export const services = {
     ],
     imports: [
         CoreModule,
-        CompilerModule,
     ],
     exports: [
         ReferralInfoComponent,

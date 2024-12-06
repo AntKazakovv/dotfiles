@@ -4,7 +4,6 @@ import _get from 'lodash-es/get';
 
 import {CoreModule} from '../core/core.module';
 import {GlobalHelper} from 'wlc-engine/modules/core';
-import {CompilerModule} from 'wlc-engine/modules/compiler/compiler.module';
 
 import {StoreService} from './system/services';
 
@@ -48,7 +47,6 @@ export const moduleConfig = GlobalHelper.mergeConfig<IStoreModule>(storeConfig, 
     ],
     imports: [
         CoreModule,
-        CompilerModule,
     ],
     providers: [
         StoreService,

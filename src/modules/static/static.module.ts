@@ -8,7 +8,6 @@ import {InstructionComponent} from 'wlc-engine/modules/static/components/instruc
 import {GlobalHelper} from 'wlc-engine/modules/core';
 import {StaticService, IStaticConfig} from 'wlc-engine/modules/static';
 import {staticConfig} from './system/config/static.config';
-import {CompilerModule} from 'wlc-engine/modules/compiler';
 import * as $config from 'wlc-config/index';
 
 import _get from 'lodash-es/get';
@@ -38,7 +37,6 @@ export const services = {
     imports: [
         UIRouterModule,
         CoreModule,
-        CompilerModule,
     ],
     exports: [
         PostComponent,

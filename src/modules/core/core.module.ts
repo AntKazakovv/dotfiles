@@ -23,9 +23,6 @@ import {TranslateModule} from '@ngx-translate/core';
 import {UIRouterModule} from '@uirouter/angular';
 import {IMaskModule} from 'angular-imask';
 
-import {CompilerModule} from 'wlc-engine/modules/compiler/compiler.module';
-// -- MODULES IMPORTS END --;
-
 // -- SERVICES IMPORTS START --;
 import {
     ActionService,
@@ -123,6 +120,7 @@ import {HeaderComponent} from './components/header/header.component';
 import {TabsComponent} from './components/tabs/tabs.component';
 import {TagComponent} from 'wlc-engine/modules/core/components/tag/tag.component';
 import {SaComponent} from './components/sa/sa.component';
+import {DynamicHtmlComponent} from './components/dynamic-html/dynamic-html.component';
 // -- COMPONENTS IMPORTS END  --;
 
 //  -- DIRECTIVES IMPORTS STARTS--;
@@ -232,6 +230,7 @@ export const components = {
     'wlc-tabs': TabsComponent,
     'wlc-footer': FooterComponent,
     'wlc-sa': SaComponent,
+    'wlc-dynamic-html': DynamicHtmlComponent,
 };
 
 // TODO #616954
@@ -255,7 +254,6 @@ export const services = {
         TooltipModule.forRoot(),
         PaginationModule.forRoot(),
         BsDatepickerModule.forRoot(),
-        CompilerModule,
         LottieModule.forRoot({player: playerFactory}),
         LottieCacheModule.forRoot(),
     ],
@@ -346,6 +344,7 @@ export const services = {
         SaComponent,
         FunctionPurePipe,
         IntersectionDirective,
+        DynamicHtmlComponent,
     ],
     exports: [
         /** START modules */
@@ -435,6 +434,7 @@ export const services = {
         SaComponent,
         FunctionPurePipe,
         IntersectionDirective,
+        DynamicHtmlComponent,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

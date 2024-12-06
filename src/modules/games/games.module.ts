@@ -7,7 +7,6 @@ import _get from 'lodash-es/get';
 
 // Modules
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
-import {CompilerModule} from 'wlc-engine/modules/compiler';
 import {GlobalHelper} from 'wlc-engine/modules/core';
 
 // System
@@ -126,7 +125,6 @@ export const services = {
         FormsModule,
         CountUpModule,
         CoreModule,
-        CompilerModule,
     ],
     providers: [
         GamesCatalogService,

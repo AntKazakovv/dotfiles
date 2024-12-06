@@ -5,7 +5,6 @@ import _get from 'lodash-es/get';
 
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {PromoModule} from 'wlc-engine/modules/promo/promo.module';
-import {CompilerModule} from 'wlc-engine/modules/compiler/compiler.module';
 
 import {BonusItemComponent} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.component';
 import {BonusesListComponent} from 'wlc-engine/modules/bonuses/components/bonuses-list/bonuses-list.component';
@@ -80,7 +79,6 @@ export const services = {
         CoreModule,
         PromoModule,
         UIRouterModule,
-        CompilerModule,
     ],
     providers: [
         BonusesService,

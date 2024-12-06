@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
-import {CompilerModule} from 'wlc-engine/modules/compiler';
 import {HistoryModule} from 'wlc-engine/modules/history/history.module';
 
 // components
@@ -45,7 +44,6 @@ export const services = {
     ],
     imports: [
         CoreModule,
-        CompilerModule,
         HistoryModule,
     ],
     exports: [

@@ -45,7 +45,6 @@ import {
 } from 'wlc-engine/modules/monitoring/system/config/process.config';
 import {IProcessEventData} from 'wlc-engine/modules/monitoring';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
-import {CompilerModule} from 'wlc-engine/modules/compiler';
 import {AbstractModalComponent} from 'wlc-engine/modules/core/system/classes';
 
 /**
@@ -76,7 +75,6 @@ import {AbstractModalComponent} from 'wlc-engine/modules/core/system/classes';
     imports: [
         CoreModule,
         ModalModule,
-        CompilerModule,
     ],
     providers: [
         {

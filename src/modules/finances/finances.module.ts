@@ -10,7 +10,6 @@ import {
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {IconListModule} from 'wlc-engine/modules/icon-list/icon-list.module';
 import {TaxInfoComponent} from './components/tax-info/tax-info.component';
-import {CompilerModule} from 'wlc-engine/modules/compiler';
 import {DepositWithdrawComponent} from './components/deposit-withdraw/deposit-withdraw.component';
 import {PaymentListComponent} from './components/payment-list/payment-list.component';
 import {PaymentMessageComponent} from './components/payment-message/payment-message.component';
@@ -60,7 +59,6 @@ export const services = {
 
 @NgModule({
     imports: [
-        CompilerModule,
         CoreModule,
         FormsModule,
         ReactiveFormsModule,
