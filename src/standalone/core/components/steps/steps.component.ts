@@ -7,6 +7,8 @@ import {
 } from '@angular/core';
 import {first} from 'rxjs/operators';
 
+import {CoreModule} from 'wlc-engine/modules/core/core.module';
+
 import {
     IEvent,
     IIndexing,
@@ -16,7 +18,7 @@ import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract
 import {GlobalHelper} from  'wlc-engine/modules/core/system/helpers/global.helper';
 import {IMGAConfig} from 'wlc-engine/modules/core/components/license/license.params';
 
-import * as Params from 'wlc-engine/modules/core/components/steps/steps.params';
+import * as Params from 'wlc-engine/standalone/core/components/steps/steps.params';
 
 import _entries from 'lodash-es/entries';
 import _findIndex from 'lodash-es/findIndex';
@@ -31,6 +33,10 @@ import {CustomHook} from 'wlc-engine/modules/core/system/decorators/hook.decorat
     templateUrl: './steps.component.html',
     styleUrls: ['./styles/steps.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [
+        CoreModule,
+    ],
 })
 export class StepsComponent extends AbstractComponent implements OnInit {
 

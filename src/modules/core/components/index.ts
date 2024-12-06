@@ -47,7 +47,7 @@ export {
 } from './tag/tag.params';
 export {IThemeTogglerCParams} from './theme-toggler/theme-toggler.params';
 export {ITooltipCParams} from './tooltip/tooltip.interfaces';
-export {StepsEvents} from './steps/steps.params';
+export {StepsEvents} from 'wlc-engine/standalone/core/components/steps/steps.params';
 export {
     NotificationThreadComponent,
     HIDE_ANIMATION_DURATION,

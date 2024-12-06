@@ -20,6 +20,7 @@ import {
 import _merge from 'lodash-es/merge';
 import _isUndefined from 'lodash-es/isUndefined';
 
+import {ComponentHelper} from 'wlc-engine/modules/core/system/helpers/component.helper';
 import {LayoutComponent} from 'wlc-engine/modules/core/components/layout/layout.component';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {LayoutService} from 'wlc-engine/modules/core/system/services/layout/layout.service';
@@ -114,7 +115,7 @@ export class WrapperComponent extends LayoutComponent implements OnInit, OnChang
         this.$wlcElement = this.$params.wlcElement;
         this.allComponents$.length = 0;
 
-        this.$params.components = this.changeConfigStandaloneComponents(this.$params.components);
+        this.$params.components = ComponentHelper.changeConfigStandaloneComponents(this.$params.components);
 
         for (const component of this.$params.components) {
             const configProperty = component && component.display?.configProperty;

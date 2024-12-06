@@ -27,6 +27,7 @@ import _each from 'lodash-es/each';
 import _isEqual from 'lodash-es/isEqual';
 import _findIndex from 'lodash-es/findIndex';
 
+import {ComponentHelper} from 'wlc-engine/modules/core/system/helpers/component.helper';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
@@ -40,8 +41,6 @@ import {
     ISmartSectionConfig,
 } from 'wlc-engine/modules/core/system/interfaces/layouts.interface';
 import {WINDOW} from 'wlc-engine/modules/app/system';
-import {standaloneComponents} from 'wlc-engine/modules/core/system/constants/modules.constants';
-import {ISaCParams} from 'wlc-engine/modules/core/components/sa/sa.component';
 import {ICustomStandalone} from 'wlc-engine/modules/core/system/interfaces/base-config/site.interface';
 
 @Component({
@@ -207,7 +206,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
             this.allComponents$.length = 0;
         }
 
-        allComponents = this.changeConfigStandaloneComponents(allComponents);
+        allComponents = ComponentHelper.changeConfigStandaloneComponents(allComponents);
 
         this.allComponents$.push(...allComponents);
     }
@@ -221,37 +220,5 @@ export class LayoutComponent implements OnInit, OnDestroy {
         );
         this.ready = true;
         this.cdr.markForCheck();
-    }
-
-    protected changeConfigStandaloneComponents(components: ILayoutComponent[]): ILayoutComponent[] {
-        return components.map((component) => {
-            const name: string = component && component.name.split('.')[1];
-
-            // @ts-ignore no-implicit-any #672571
-            if (standaloneComponents[name]
-                // @ts-ignore no-implicit-any #672571
-                || (this.customStandaloneConfig && this.customStandaloneConfig[name])
-            ) {
-                const saConfig: ILayoutComponent = {
-                    name: 'core.wlc-sa',
-                    params: <ISaCParams<unknown>>{
-                        saName: name,
-                        saParams: component.params,
-                    },
-                };
-
-                if (component.display) {
-                    saConfig.display = component.display;
-                }
-
-                if (component.componentClass) {
-                    saConfig.componentClass = component.componentClass;
-                }
-
-                return saConfig;
-            }
-
-            return component;
-        });
     }
 }

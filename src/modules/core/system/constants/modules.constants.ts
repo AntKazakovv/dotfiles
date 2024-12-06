@@ -457,6 +457,13 @@ export const standaloneComponents = {
                 return m.IconMerchantsListComponent;
             });
     },
+    'wlc-steps': async (callback: TCallbackImportFunction) => {
+        return import('wlc-engine/standalone/core/components/steps/steps.component')
+            .then((m) => {
+                callback(m.StepsComponent);
+                return m.StepsComponent;
+            });
+    },
     // 'some-sa-component-name': IFunctionImportStandalone
     // 'another-sa-component-name': IFunctionImportStandalone
     /** === Independent components END === */

@@ -10,6 +10,7 @@ import {
 import _values from 'lodash-es/values';
 import _each from 'lodash-es/each';
 
+import {ComponentHelper} from 'wlc-engine/modules/core/system/helpers/component.helper';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
@@ -67,7 +68,9 @@ export class TabSwitcherComponent
     protected applyConfig(): void {
         _each(this.tabs, async tab => {
             if (tab.component) {
-                tab.componentClass = await this.injectionService.loadComponent(tab.component);
+                tab.componentClass = await this.injectionService
+                    .loadComponent(ComponentHelper.getComponent(tab.component));
+
                 this.cdr.markForCheck();
             }
 
@@ -80,7 +83,7 @@ export class TabSwitcherComponent
                 tab.injector = Injector.create({
                     providers: [{
                         provide: 'injectParams',
-                        useValue: tab.componentParams,
+                        useValue: ComponentHelper.getComponentParams(tab.component, tab.componentParams),
                     }],
 
                     parent: this.injector,
