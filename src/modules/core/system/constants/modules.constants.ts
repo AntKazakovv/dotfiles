@@ -454,6 +454,15 @@ export const standaloneComponents = {
                 return m.ScrollUpComponent;
             });
     },
+    'wlc-icon-merchants-list': async (callback: TCallbackImportFunction) => {
+        return import(
+            'wlc-engine/standalone/icon-list/components/icon-merchants-list/icon-merchants-list.component'
+        )
+            .then((m) => {
+                callback(m.IconMerchantsListComponent);
+                return m.IconMerchantsListComponent;
+            });
+    },
     // 'some-sa-component-name': IFunctionImportStandalone
     // 'another-sa-component-name': IFunctionImportStandalone
     /** === Independent components END === */

@@ -22,10 +22,17 @@ import _each from 'lodash-es/each';
 import _filter from 'lodash-es/filter';
 import _includes from 'lodash-es/includes';
 import _sortedUniqBy from 'lodash-es/sortedUniqBy';
+import {CoreModule} from 'wlc-engine/modules/core/core.module';
+import {IconListModule} from 'wlc-engine/modules/icon-list/icon-list.module';
 
 @Component({
     selector: '[wlc-icon-merchants-list]',
     templateUrl: './icon-merchants-list.component.html',
+    standalone: true,
+    imports: [
+        CoreModule,
+        IconListModule, // TODO: #661729
+    ],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IconMerchantsListComponent extends IconListAbstract<Params.IIconMerchantsListCParams> implements OnInit {
