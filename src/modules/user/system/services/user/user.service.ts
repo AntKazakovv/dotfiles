@@ -6,10 +6,7 @@ import {
 import {TranslateService} from '@ngx-translate/core';
 import dayjs from 'dayjs';
 import type {Dayjs} from 'dayjs';
-import {
-    StateService,
-    UIRouter,
-} from '@uirouter/core';
+import {StateService} from '@uirouter/core';
 
 import {
     Subscription,
@@ -246,7 +243,6 @@ export class UserService {
         private modalService: ModalService,
         private injectionService: InjectionService,
         private stateService: StateService,
-        private router: UIRouter,
         private webSocketService: WebsocketService,
         private ngZone: NgZone,
         private fileService: FilesService,
@@ -661,8 +657,6 @@ export class UserService {
         this.prepareCreateProfile(userProfile);
         const queryParams: ICreateProfileQueryParams = {};
         const isFastRegistration = this.configService.get<number>('appConfig.siteconfig.fastRegistration');
-
-        userProfile.registrationURL = this.router.urlService.config.host();
 
         if (userProfile.phoneCode && userProfile.phoneNumber && !userProfile.login && !userProfile.email) {
             queryParams.smsLogin = 1;

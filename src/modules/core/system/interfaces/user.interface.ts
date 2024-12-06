@@ -131,8 +131,6 @@ export interface IUserProfile {
     ageConfirmed?: boolean;
     agreeWithSelfExcluded?: boolean;
     agreedWithTermsAndConditions?: boolean;
-    /** user registration Url */
-    registrationURL?: string;
     /** user's nick */
     nick?: string;
 }
