@@ -17,8 +17,6 @@ hidden = false
 [editor.statusline]
 left = [
   "mode", 
-  "file-name",
-  "separator",
   "file-type",
   "read-only-indicator",
   "register",
@@ -31,7 +29,11 @@ left = [
   "diagnostics",
 ]
 center = ["selections"]
-right = ["spinner", "position-percentage"]
+right = [
+  "spinner", 
+  "position-percentage",
+  "total-line-numbers"
+  ]
 mode.normal = "NORMAL"
 mode.insert = "INSERT"
 mode.select = "SELECT"
