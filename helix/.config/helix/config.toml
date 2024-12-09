@@ -21,11 +21,11 @@ left = [
   "read-only-indicator",
   "register",
   "spacer", 
-  "separator", 
+  # "separator", 
   "spacer", 
   "version-control", 
   "spacer", 
-  "separator", 
+  # "separator", 
   "diagnostics",
 ]
 center = ["selections"]
