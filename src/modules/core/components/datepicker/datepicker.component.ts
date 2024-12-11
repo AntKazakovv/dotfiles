@@ -71,19 +71,8 @@ export class DatepickerComponent extends AbstractComponent implements OnInit {
         this.bsValue = this.$params.useEmptyValue ? null : new Date();
         this.locale = this.translateService.currentLang;
 
-        // @ts-ignore no-implicit-any #672571
-        if (this.$params.locales[this.locale]) {
-            // @ts-ignore no-implicit-any #672571
-            const dpLocale: Params.ILocale = this.$params.locales[this.locale];
-            // @ts-ignore no-implicit-any #672571
-            defineLocale(dpLocale.name, locales[dpLocale.config]);
-            this.localeService.use(dpLocale.name);
-        } else {
-            const exceptionLocale: IUnregisteredLanguages =
-                unregisteredLanguages.find(item => item.abbr === this.locale);
-            defineLocale(this.locale, exceptionLocale);
-            this.localeService.use(exceptionLocale.abbr);
-        }
+        const nameLocale: Params.ILocale = this.getNameLocale();
+        this.localeService.use(nameLocale.name);
 
         this.control = this.$params.control || new UntypedFormControl('');
 
@@ -166,5 +155,28 @@ export class DatepickerComponent extends AbstractComponent implements OnInit {
         return dateTime <= this.$params.datepickerOptions.maxDate
             && (!this.$params.datepickerOptions.minDate
             || dateTime >= this.$params.datepickerOptions.minDate);
+    }
+
+    protected getNameLocale(): Params.ILocale {
+        if (this.$params.locales[this.locale]) {
+            const dpLocale: Params.ILocale = this.$params.locales[this.locale];
+            // @ts-ignore no-implicit-any #672571
+            defineLocale(dpLocale.name, locales[dpLocale.config]);
+            return dpLocale;
+        }
+
+        const exceptionLocale: IUnregisteredLanguages =
+            unregisteredLanguages.find(item => item.abbr === this.locale);
+
+        if (exceptionLocale) {
+            // @ts-ignore no-implicit-any #672571
+            defineLocale(exceptionLocale.abbr, locales[exceptionLocale.abbr]);
+            return {name: exceptionLocale.abbr, config: exceptionLocale.abbr};
+        }
+
+        const fallbackLocale: Params.ILocale = this.$params.locales['en'];
+        // @ts-ignore no-implicit-any #672571
+        defineLocale(fallbackLocale.name, locales[fallbackLocale.config]);
+        return fallbackLocale;
     }
 }
