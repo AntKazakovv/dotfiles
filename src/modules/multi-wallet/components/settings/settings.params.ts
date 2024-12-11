@@ -18,6 +18,6 @@ export const defaultParams: ISettingsParams = {
     moduleName: 'multi-wallet',
     componentName: 'wlc-settings',
     viewFiatText: gettext('View in fiat'),
-    descriptionText: gettext('Select the fiat currency to display your bets'),
+    descriptionText: gettext('Select the fiat currency to display your data'),
     infoBlockText: gettext('Please note that the currency amounts are approximate'),
 };
