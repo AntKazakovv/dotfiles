@@ -68,8 +68,8 @@ export class DynamicHtmlComponent implements AfterViewInit {
 
     @Output() protected htmlRendered = new EventEmitter<void>();
 
-    protected readonly viewRef = inject<ViewContainerRef>(ViewContainerRef);
-    protected readonly elementRef = inject<ElementRef>(ElementRef);
+    protected readonly viewContainerRef = inject<ViewContainerRef>(ViewContainerRef);
+    protected readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
     protected readonly domSanitizerService = inject<DomSanitizerService>(DomSanitizerService);
     protected readonly renderer = inject<Renderer2>(Renderer2);
     protected readonly configService = inject<ConfigService>(ConfigService);
@@ -78,10 +78,16 @@ export class DynamicHtmlComponent implements AfterViewInit {
     protected readonly ngZone = inject<NgZone>(NgZone);
     protected readonly destroyRef = inject<DestroyRef>(DestroyRef);
 
-    protected isAuth$$: BehaviorSubject<boolean> | null = null;
-
     public ngAfterViewInit(): void {
+        try {
+            this.init();
+        } catch (error: unknown) {
+            this.parseAsPlainHTML = true;
+            throw new Error(`${error}`);
+        }
+    }
 
+    private init(): void {
         if (!this.html) {
             return;
         }
@@ -95,15 +101,6 @@ export class DynamicHtmlComponent implements AfterViewInit {
             return;
         }
 
-        try {
-            this.init();
-        } catch (error: unknown) {
-            this.parseAsPlainHTML = true;
-            throw new Error(`${error}`);
-        }
-    }
-
-    private init(): void {
         const template: string = this.getSerializeHtml();
         this.renderTemplate(template);
 
@@ -120,8 +117,8 @@ export class DynamicHtmlComponent implements AfterViewInit {
         }
 
         const parallaxElement: HTMLElement = this.elementRef.nativeElement.querySelector('[wlc-parallax]');
-        const wlcLinkElements = this.elementRef.nativeElement.querySelectorAll('[wlc-link]');
-        const authElements: HTMLElement[] = this.elementRef.nativeElement.querySelectorAll('[auth]');
+        const wlcLinkElements: NodeListOf<Element> = this.elementRef.nativeElement.querySelectorAll('[wlc-link]');
+        const authElements: NodeListOf<Element> = this.elementRef.nativeElement.querySelectorAll('[auth]');
 
         if (parallaxElement) {
             this.initWlcParallax();
@@ -150,6 +147,8 @@ export class DynamicHtmlComponent implements AfterViewInit {
     private renderTemplate(template: string): void {
         const elementDiv: HTMLElement = this.renderer.createElement(`${this.tag || 'div'}`);
         this.renderer.setProperty(elementDiv, 'innerHTML', template);
+        this.renderer.addClass(elementDiv, 'ng-star-inserted');
+        this.renderer.setAttribute(elementDiv, 'wlc-dynamic', '');
         this.renderer.appendChild(this.elementRef.nativeElement, elementDiv);
     }
 
@@ -200,7 +199,7 @@ export class DynamicHtmlComponent implements AfterViewInit {
         const childNodes = Array.from(element.childNodes);
 
         // create current component reference
-        const currentComponentRef = this.viewRef.createComponent(component,
+        const currentComponentRef = this.viewContainerRef.createComponent(component,
             {projectableNodes: [childNodes]});
         const {nativeElement} = currentComponentRef.location;
 
@@ -216,10 +215,10 @@ export class DynamicHtmlComponent implements AfterViewInit {
                 }
 
                 const attributeName = attribute.name.replace(/[*\[\]]/g, '');
-
+                const isAttributeValueToObject = ['event', 'inline'].includes(attributeName);
                 let attributeValue: string | Object | boolean = attribute.value;
 
-                if (attributeName === 'event') {
+                if (isAttributeValueToObject) {
                     const attributeValueJson = attribute.value
                         .replace(/'/g, '"')
                         .replace(/([$A-Z_a-z][\w$]*)\s*:/g, '"$1":');
@@ -310,21 +309,22 @@ export class DynamicHtmlComponent implements AfterViewInit {
      * @returns {void} The content of the HTML body, or the original string if no body tag is found.
      * @private
     */
-    private initAuthDirective(authElements: HTMLElement[]): void {
-        this.isAuth$$ = this.configService.get<BehaviorSubject<boolean>>('$user.isAuth$');
+    private initAuthDirective(authElements: NodeListOf<Element>): void {
+        const isAuth$$ = this.configService.get<BehaviorSubject<boolean>>('$user.isAuth$');
 
-        this.isAuth$$.pipe(
+        isAuth$$.pipe(
             distinctUntilChanged(),
             takeUntilDestroyed(this.destroyRef),
         ).subscribe((isAuth: boolean): void => {
-            authElements.forEach((element: HTMLElement): void => {
+            authElements.forEach((element: Element): void => {
                 const isAuthAttribute = element.getAttribute('auth');
 
                 if (isAuth && isAuthAttribute === 'true') {
-                    this.renderer.setStyle(element, 'display', true);
+                    this.renderer.setStyle(element, 'display', 'block');
+                }
 
-                } else if (!isAuth && isAuthAttribute === 'false') {
-                    this.renderer.setStyle(element, 'display', false);
+                if (!isAuth && isAuthAttribute === 'false') {
+                    this.renderer.setStyle(element, 'display', 'none');
                 }
             });
         });
@@ -338,8 +338,8 @@ export class DynamicHtmlComponent implements AfterViewInit {
      * @returns {void}
      * @private
      */
-    private initWlcLinkDirective(wlcLinkElements: HTMLElement[]): void {
-        wlcLinkElements.forEach((linkElement: HTMLElement): void => {
+    private initWlcLinkDirective(wlcLinkElements: NodeListOf<Element>): void {
+        wlcLinkElements.forEach((linkElement: Element): void => {
 
             this.ngZone.runOutsideAngular(() => {
                 const state = linkElement.getAttribute('wlc-link');

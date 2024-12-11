@@ -107,6 +107,10 @@
             margin-left: auto;
             overflow: hidden;
 
+            div[wlc-dynamic-html] {
+                height: 100%;
+            }
+
             div[wlc-dynamic] {
                 height: 100%;
 
