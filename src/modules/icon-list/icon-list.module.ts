@@ -5,6 +5,9 @@ import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {IconListComponent} from 'wlc-engine/modules/icon-list/components/icon-list/icon-list.component';
 import {IconListItemComponent} from 'wlc-engine/modules/icon-list/components/icon-list-item/icon-list-item.component';
 import {
+    IconMerchantsListComponent,
+} from 'wlc-engine/modules/icon-list/components/icon-merchants-list/icon-merchants-list.component';
+import {
     IconPaymentsListComponent,
 } from 'wlc-engine/modules/icon-list/components/icon-payments-list/icon-payments-list.component';
 import {
@@ -14,6 +17,7 @@ import {
 export const components = {
     'wlc-icon-list': IconListComponent,
     'wlc-icon-list-item': IconListItemComponent,
+    'wlc-icon-merchants-list': IconMerchantsListComponent,
     'wlc-icon-payments-list': IconPaymentsListComponent,
     'wlc-icon-safety-list': IconSafetyListComponent,
 };
@@ -22,6 +26,7 @@ export const components = {
     declarations: [
         IconListComponent,
         IconListItemComponent,
+        IconMerchantsListComponent,
         IconPaymentsListComponent,
         IconSafetyListComponent,
     ],
@@ -32,6 +37,7 @@ export const components = {
     exports: [
         IconListComponent,
         IconListItemComponent,
+        IconMerchantsListComponent,
         IconPaymentsListComponent,
         IconSafetyListComponent,
     ],

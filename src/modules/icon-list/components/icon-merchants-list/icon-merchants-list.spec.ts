@@ -17,7 +17,6 @@ import {
     MerchantModel,
     GamesCatalogService,
 } from 'wlc-engine/modules/games';
-import {IconListModule} from 'wlc-engine/modules/icon-list/icon-list.module';
 
 describe('IconMerchantsListComponent', () => {
     let component: IconMerchantsListComponent;
@@ -118,10 +117,7 @@ describe('IconMerchantsListComponent', () => {
             {'appColorTheme$': new BehaviorSubject(null)});
 
         TestBed.configureTestingModule({
-            imports: [
-                IconListModule,
-                IconMerchantsListComponent,
-            ],
+            declarations: [IconMerchantsListComponent],
             providers: [
                 {
                     provide: ConfigService,
@@ -136,7 +132,6 @@ describe('IconMerchantsListComponent', () => {
                     useValue: InjectionServiceSpy,
                 },
             ],
-
         }).overrideComponent(IconMerchantsListComponent, {
             set: {
                 providers: [
