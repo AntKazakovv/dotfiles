@@ -22,6 +22,7 @@ export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
         wlcElement: 'link_main-nav-sports-inplay',
     },
+    'mobile-menu:marathon': commonMenuItems.marathon,
     'mobile-menu:promotions': commonMenuItems.promotions,
     'mobile-menu:tournaments': commonMenuItems.tournaments,
     'mobile-menu:info': {

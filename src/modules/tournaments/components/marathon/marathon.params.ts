@@ -93,7 +93,10 @@ export const defaultParams: IMarathonCParams = {
         gamesRows: 3,
         usePlaceholders: true,
         themeMod: '',
-        thumbParams: {},
+        thumbParams: {
+            type: 'simple',
+            themeMod: 'default',
+        },
     },
     noLeaguesImagePath: '/wlc/tournaments/marathon/swords-colored.png',
     noLeaguesImageFallbackPath: '/wlc/tournaments/marathon/swords-colored.png',
