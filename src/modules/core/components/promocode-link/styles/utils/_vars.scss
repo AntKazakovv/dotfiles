@@ -14,5 +14,5 @@ $themeDefault: map-merge((
     'inputBtnRadius': ef.get('radius', 'main'),
     'inputBtnBg': var(--mc-main),
     'inputBtnIconSize': 13px,
-    'inputBtnIconFill': var(--mc-baseMain),
+    'inputBtnIconFill': var(--fc-inputBg),
 ), $customThemeDefault);

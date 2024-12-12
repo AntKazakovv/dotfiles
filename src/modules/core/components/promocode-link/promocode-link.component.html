@@ -6,9 +6,10 @@
 <div *ngIf="showPromoCode" class="{{$class}}__input">
     <div wlc-input
         [inlineParams]="registrationPromoCode"
-        (keydown.enter)="onSubmit()">
+        (keydown.enter)="onSubmit?.()">
     </div>
-    <button wlc-button
+    <button *ngIf="onSubmit"
+        wlc-button
         class="{{$class}}__input-btn"
         [inlineParams]="inputBtnParams"
         (click)="onSubmit()">

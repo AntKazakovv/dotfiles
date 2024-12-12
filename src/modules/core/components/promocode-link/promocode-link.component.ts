@@ -28,7 +28,6 @@ import * as Params from './promocode-link.params';
 export class PromocodeLinkComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IPromoCodeLinkCParams;
     public override $params: Params.IPromoCodeLinkCParams;
-    public onSubmit: () => void = (): void => {};
 
     protected showPromoCode: boolean = false;
 
@@ -41,10 +40,6 @@ export class PromocodeLinkComponent extends AbstractComponent implements OnInit 
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.provideParams();
-
-        if (this.$params.onSubmit) {
-            this.onSubmit = this.$params.onSubmit;
-        }
     }
 
     public get registrationPromoCode(): IInputCParams {
@@ -57,6 +52,10 @@ export class PromocodeLinkComponent extends AbstractComponent implements OnInit 
 
     public get linkBlockParams(): ILinkBlockCParams {
         return this.$params.linkPromoCode;
+    }
+
+    public get onSubmit(): Function | undefined {
+        return this.$params.onSubmit;
     }
 
     @CustomHook({module: 'core', class: 'PromocodeLinkComponent', method: 'provideParams'})
