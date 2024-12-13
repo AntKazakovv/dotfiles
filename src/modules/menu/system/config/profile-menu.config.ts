@@ -1404,11 +1404,11 @@ export const profileMenuFilter: ProfileMenuParams.IProfileMenuFilter[] = [
         item: 'profile-menu:tournaments',
     },
     {
-        config: 'useCashbackReward',
+        config: '$base.cashbackReward.use',
         item: 'profile-menu:cashback-rewards',
     },
     {
-        config: 'useCashbackReward',
+        config: '$base.cashbackReward.use',
         item: 'profile-first-menu:cashback-rewards',
     },
     {

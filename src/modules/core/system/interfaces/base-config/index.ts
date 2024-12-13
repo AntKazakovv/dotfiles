@@ -91,9 +91,10 @@ export interface IBaseConfig {
     colorThemeSwitching?: IColorThemeSwitchingConfig;
     registration?: IRegistrationConfig;
     /**
-     * Enable cashback timer
+     * Enable cashback for user from client side;
      */
     cashbackReward?: {
+        use: boolean;
         useCashbackTimer?: boolean;
     };
     finances?: IFinancesConfig;
