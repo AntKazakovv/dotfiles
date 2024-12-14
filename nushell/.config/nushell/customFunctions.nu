@@ -13,6 +13,10 @@ export def sshAgentWrapper [] {
   export-env { $env.SSH_AGENT_PID = $sshAgentTable.SSH_AGENT_PID }
 }
 
-export def applyMonitorMode [] {
+export def applyDockMode [] {
   xrandr --output Virtual-1 --mode 2560x1080;
+}
+
+export def applyDeckMode [] {
+  xrandr --output Virtual-1 --mode 1280x800;
 }
