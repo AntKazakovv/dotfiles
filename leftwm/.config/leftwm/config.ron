@@ -14,11 +14,13 @@
     log_level: "debug",
     modkey: "Mod4",
     mousekey: "Mod4",
-    workspaces: [],
+    workspaces: [
+        ( output: "Virtual-1", y: 0, x: 0, height: 2560, width: 1080 ),
+    ],
     tags: [
-        "1",
-        "2",
-        "3",
+        "Dev",
+        "Slack",
+        "Another",
         "4",
         "5",
         "6",
@@ -117,6 +119,9 @@
         (command: MoveToTag, value: "7", modifier: ["modkey", "Shift"], key: "7"),
         (command: MoveToTag, value: "8", modifier: ["modkey", "Shift"], key: "8"),
         (command: MoveToTag, value: "9", modifier: ["modkey", "Shift"], key: "9"),
+        (command: FloatingToTile, modifier: ["modkey", "Shift"], key: "t"),
+        (command: TileToFloating, modifier: ["modkey", "Shift"], key: "f"),
+        (command: ToggleFullScreen, modifier: ["modkey"], key: "f"),
     ],
     state_path: None,
 )
