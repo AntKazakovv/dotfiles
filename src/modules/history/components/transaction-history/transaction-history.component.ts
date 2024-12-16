@@ -330,7 +330,8 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
 
         const newFilterValue: IHistoryFilter<TTransactionFilter> = {startDate: startDate, endDate: endDate};
         this.historyFilterService.setFilter('transaction', newFilterValue);
-        const intervalExceeded: boolean = endDate.startOf('day').add(-90, 'day') > startDate;
+        const allowedDays: number = this.isMaltaLicense ? 184 : 90;
+        const intervalExceeded: boolean = endDate.startOf('day').add(-allowedDays, 'day') > startDate;
 
         if ((isStartDateEarlier || isEndDateLater)
             || (intervalExceeded !== this.reportIntervalExceeded)) {
