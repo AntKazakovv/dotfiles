@@ -310,7 +310,7 @@ export class DynamicHtmlComponent implements AfterViewInit {
      * @private
     */
     private initAuthDirective(authElements: NodeListOf<Element>): void {
-        const isAuth$$ = this.configService.get<BehaviorSubject<boolean>>('$user.isAuth$');
+        const isAuth$$: BehaviorSubject<boolean> = this.configService.get('$user.isAuth$');
 
         isAuth$$.pipe(
             distinctUntilChanged(),
@@ -319,18 +319,14 @@ export class DynamicHtmlComponent implements AfterViewInit {
             authElements.forEach((element: Element): void => {
                 const isAuthAttribute = element.getAttribute('auth');
 
-                if (isAuth && isAuthAttribute === 'true') {
-                    this.renderer.setStyle(element, 'display', 'block');
-                }
-
-                if (!isAuth && isAuthAttribute === 'false') {
+                if (String(!isAuth) === isAuthAttribute) {
                     this.renderer.setStyle(element, 'display', 'none');
+                } else {
+                    this.renderer.removeStyle(element, 'display');
                 }
             });
         });
     }
-
-
 
     /**
      * Initializes the WLC link directive by finding all elements with the 'wlc-link' attribute
