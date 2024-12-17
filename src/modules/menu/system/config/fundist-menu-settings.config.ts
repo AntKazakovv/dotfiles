@@ -316,12 +316,6 @@ export const fundistSettings: IMenu = {
             },
             {
                 type: 'page',
-                id: 'marathon',
-                order: 55,
-                device: 'all',
-            },
-            {
-                type: 'page',
                 id: 'promotions',
                 order: 60,
                 device: 'all',
@@ -453,12 +447,6 @@ export const fundistSettings: IMenu = {
                         device: 'all',
                     },
                 ],
-                device: 'all',
-            },
-            {
-                type: 'page',
-                id: 'marathon',
-                order: 40,
                 device: 'all',
             },
             {

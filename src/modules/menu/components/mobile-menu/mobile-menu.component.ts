@@ -109,6 +109,9 @@ export class MobileMenuComponent extends AbstractComponent implements OnInit {
             this.menuConfig = _pull(this.menuConfig, 'mobile-menu:tournaments');
         }
 
+        if (!this.configService.get<boolean>('$base.marathon.use')) {
+            this.menuConfig = _pull(this.menuConfig, 'mobile-menu:marathon');
+        }
     }
 
     protected initMenu(): void {

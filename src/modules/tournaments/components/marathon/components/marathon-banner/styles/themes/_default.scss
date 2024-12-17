@@ -74,8 +74,7 @@
             }
 
             &-timer {
-                width: 100%;
-                max-width: ef.get-value($themeDefault, 'timerMaxWidth');
+                width: ef.get-value($themeDefault, 'timerWidth');
             }
 
             &-promocode {
