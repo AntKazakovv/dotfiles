@@ -17,13 +17,25 @@ args = ["--stdio"]
 
 [[language]]
 name = "typescript"
- formatter = { command = 'prettier', args = [
-   "--write",
-   "--parser",
-   "typescript",
-   "--config",
-   "/home/anton/.prettier/.prettierrc"
- ] }
+## Prettier:
+# ==>
+formatter = { command = 'npx', args = [
+  "prettier",
+  "--write",
+  "--parser",
+  "typescript",
+  "--config",
+  "$(npm root)/../prettier.config.js"
+] }
+
+## Eslint:
+# ==>
+# formatter = { command = 'npx', args = [
+#     "eslint",
+#     "--fix",
+#     "--config",
+#     "$(npm root)/../eslint.config.mjs"
+# ] }
 # auto-format = true
 language-servers = ["typescript-language-server", "angular", "eslint"]
 

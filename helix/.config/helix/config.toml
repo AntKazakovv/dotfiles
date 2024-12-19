@@ -69,4 +69,4 @@ C-y = ":sh zellij run -c -f -x 10% -y 10% --width 80% --height 80% -- bash ~/.co
 pageup = "page_cursor_half_up"
 pagedown = "page_cursor_half_down"
 A-s = ":write"
-
+A-f = ":fmt"
