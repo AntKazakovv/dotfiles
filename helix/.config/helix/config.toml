@@ -70,3 +70,6 @@ pageup = "page_cursor_half_up"
 pagedown = "page_cursor_half_down"
 A-s = ":write"
 A-f = ":fmt"
+
+[keys.insert]
+esc = ["normal_mode", ":run-shell-command xkb-switch -s us"]
