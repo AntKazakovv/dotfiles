@@ -90,7 +90,6 @@ $env.NU_PLUGIN_DIRS = [
 # $env.PATH = ($env.PATH | split row (char esep) | prepend '/some/path')
 # An alternate way to add entries to $env.PATH is to use the custom command `path add`
 # which is built into the nushell stdlib:
-# use std "path add"
 # $env.PATH = ($env.PATH | split row (char esep))
 # path add /some/path
 # path add ($env.CARGO_HOME | path join "bin")
@@ -98,12 +97,19 @@ $env.NU_PLUGIN_DIRS = [
 # $env.PATH = ($env.PATH | uniq)
 
 
+use std "path add"
 
-$env.PATH = ($env.PATH | split row (char esep) | prepend '/home/antonk/.cargo/bin')
-$env.PATH = ($env.PATH | split row (char esep) | prepend '/home/antonk/.config/nvm/versions/node/v22.11.0/bin/')
-$env.PATH = ($env.PATH | split row (char esep) | prepend '/home/antonk/.local/bin/')
-$env.EDITOR = "helix"
+path add ($'($env.HOME)' | path join ".cargo" "bin")
+path add ($'($env.HOME)' | path join ".local" "bin")
+path add ($'($env.HOME)' | path join ".local" "share" "fnm")
 
+$env.EDITOR = "hx"
+$env.XDG_RUNTIME_DIR = $"/tmp/(id -u remi)-runtime-dir"
+
+if (not ($env.XDG_RUNTIME_DIR | path exists)) {
+    mkdir $"($env.XDG_RUNTIME_DIR)"
+    chmod 0700 $"($env.XDG_RUNTIME_DIR)"
+}
 # To load from a custom file you can use:
 # source ($nu.default-config-dir | path join 'custom.nu')
 
@@ -111,3 +117,20 @@ let nixNuScript = "/home/antonk/.nix-profile/etc/profile.d/nix.nu"
 if ($nixNuScript | path exists) {
     nu $nixNuScript | from json | load-env
 }
+
+# fnm
+fnm env --shell powershell 
+    | lines 
+    | reduce --fold {} {|x, acc| 
+        let rw = $x 
+            | str replace "$env:" "" 
+            | split row " = "; 
+        $acc 
+            | insert $rw.0 ($rw.1 | str replace --all '"' '') 
+    } 
+    | transpose key value 
+    | filter {|it| $it.key != "PATH"} 
+    | transpose -rd 
+    | load-env
+
+path add ( $env.FNM_MULTISHELL_PATH | path join "bin")

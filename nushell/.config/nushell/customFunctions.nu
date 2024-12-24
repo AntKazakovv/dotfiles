@@ -14,7 +14,7 @@ export def sshAgentWrapper [] {
 }
 
 export def applyDockMode [] {
-  xrandr --output Virtual-1 --mode 2560x1080;
+  xrandr --output DisplayPort-0 --mode 2560x1080;
 }
 
 export def applyDeckMode [] {

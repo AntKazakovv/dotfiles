@@ -228,7 +228,6 @@ $env.config = {
     }
 
     color_config: $dark_theme # if you want a more interesting theme, you can replace the empty record with `$dark_theme`, `$light_theme` or another custom record
-    use_grid_icons: true
     footer_mode: 25 # always, never, number_of_rows, auto
     float_precision: 2 # the precision for displaying floats in tables
     buffer_editor: null # command that will be used to edit the current line buffer with ctrl+o, if unset fallback to $env.EDITOR and $env.VISUAL
@@ -908,8 +907,13 @@ def start_zellij [] {
   }
 }
 start_zellij
-alias hx = helix
 sshAgentWrapper
 
 # change layout RU <--> US
 setxkbmap -layout "us,ru(unipunct)" -option "grp:alt_shift_toggle,lv3:ralt_switch,grp_led:scroll"
+
+let poshTheme = 'https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/main/themes/clean-detailed.omp.json'
+# Generate the .oh-my-posh.nu file
+oh-my-posh init nu --config $poshTheme
+
+source ~/.oh-my-posh.nu
