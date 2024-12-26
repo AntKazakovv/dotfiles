@@ -5,16 +5,21 @@
 [manager]
 ratio          = [ 1, 4, 3 ]
 sort_by        = "alphabetical"
-sort_sensitive = false
+sort_sensitive = true
 sort_reverse 	 = false
 sort_dir_first = true
 sort_translit  = false
-linemode       = "none"
+linemode       = "size"
 show_hidden    = true
 show_symlink   = true
 scrolloff      = 5
 mouse_events   = [ "click", "scroll" ]
 title_format   = "Yazi: {cwd}"
+
+# [[manager.prepend_keymap]]
+# on = "!"
+# run = 'shell "$SHELL" --block'
+# desc = "Open shell here"
 
 [preview]
 wrap            = "no"
@@ -31,7 +36,7 @@ ueberzug_offset = [ 0, 0, 0, 0 ]
 
 [opener]
 edit = [
-	{ run = '${EDITOR:-vi} "$@"', desc = "$EDITOR", block = true, for = "unix" },
+	{ run = 'hx "$1"', desc = "Editor", block = true, for = "unix" },
 	{ run = 'code %*',    orphan = true, desc = "code",           for = "windows" },
 	{ run = 'code -w %*', block = true,  desc = "code (block)",   for = "windows" },
 ]
@@ -57,6 +62,15 @@ play = [
 ]
 
 [open]
+prepend_rules = [
+	{ name = "*.json", use = "edit"},
+	{ name = "*.html", use = "edit"},
+	{ name = "*.ts", use = "edit"},
+	{ name = "*.nu", use = "edit"},
+	{ name = "*.cljs", use = "edit"},
+	{ name = "*.zip", use = "extract"},
+
+]
 rules = [
 	# Folder
 	{ name = "*/", use = [ "edit", "open", "reveal" ] },
@@ -75,7 +89,7 @@ rules = [
 	# Empty file
 	{ mime = "inode/x-empty", use = [ "edit", "reveal" ] },
 	# Fallback
-	{ name = "*", use = [ "open", "reveal" ] },
+	{ name = "*", use = [ "edit", "reveal" ] },
 ]
 
 [tasks]

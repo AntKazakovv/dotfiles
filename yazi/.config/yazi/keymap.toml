@@ -1,0 +1,19 @@
+[[manager.prepend_keymap]]
+on   = [ "g", "h" ]
+run  = "cd ~"
+desc = "Cd to home"
+
+[[manager.prepend_keymap]]
+on   = [ "g", "p" ]
+run  = "cd ~/Projects"
+desc = "Cd to ~/Projects"
+
+[[manager.prepend_keymap]]
+on   = [ "g", "w" ]
+run  = "cd ~/Projects/src/wlc-engine"
+desc = "Cd to wlc-engine"
+
+[[manager.prepend_keymap]]
+on   = [ "g", "c" ]
+run  = "cd ~/.config"
+desc = "Cd to .config"

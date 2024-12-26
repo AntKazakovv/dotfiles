@@ -1,5 +1,6 @@
 [language-server]
 emmet-ls = { command = "emmet-ls", args = [ "--stdio" ]}
+biome = { command = "biome", args = ["lsp-proxy"] }
 
 [language-server.angular]
 command = "ngserver"
@@ -19,14 +20,14 @@ args = ["--stdio"]
 name = "typescript"
 ## Prettier:
 # ==>
-formatter = { command = 'npx', args = [
-  "prettier",
-  "--write",
-  "--parser",
-  "typescript",
-  "--config",
-  "$(npm root)/../prettier.config.js"
-] }
+# formatter = { command = 'npx', args = [
+#   "prettier",
+#   "--write",
+#   "--parser",
+#   "typescript",
+#   "--config",
+#   "$(npm root)/../prettier.config.js"
+# ] }
 
 ## Eslint:
 # ==>
@@ -37,20 +38,51 @@ formatter = { command = 'npx', args = [
 #     "$(npm root)/../eslint.config.mjs"
 # ] }
 # auto-format = true
-language-servers = ["typescript-language-server", "angular", "eslint"]
+
+## Biome:
+# ==>
+# formatter = { command = 'npx', args = [
+#   "@biomejs/biome",
+#   "format",
+#   "--write",
+#   "--config-path",
+#   "/home/remi/.config/biome/biome.jsonc",
+#   "--stdin-file-path"
+# ] }
+auto-format = false
+language-servers = [
+  { name = "typescript-language-server", except-features = ["format"]},
+  "angular",
+  "biome"
+]
 
 [[language]]
 name = "html"
-formatter = { command = 'prettier', args = [
-  "--write",
-  "--parser",
-  "html",
-  "--config",
-  "/home/anton/.prettier/.prettierrc"
-] }
+# formatter = { command = 'prettier', args = [
+#   "--write",
+#   "--parser",
+#   "html",
+#   "--config",
+#   "/home/anton/.prettier/.prettierrc"
+# ] }
+
+## Biome:
+# ==>
+# formatter = { command = 'npx', args = [
+#   "@biomejs/biome",
+#   "format",
+#   "--write",
+#   "--config-path",
+#   "~/.config/biome/biome.jsonc",
+#   "--stdin-file-path"
+# ] }
 auto-format = false
 indent = { tab-width = 4, unit = "    " }
-language-servers = ["vscode-html-language-server", "angular", "emmet-ls"]
+language-servers = [
+  "vscode-html-language-server",
+  "angular",
+  "emmet-ls"
+]
 
 [[language]]
 name = "scss"

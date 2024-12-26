@@ -21,12 +21,12 @@ current = false
 
 [[repos.themes]]
 name = "Ascent"
-directory = "/home/antonk/.config/leftwm/themes/Ascent"
+directory = "/home/remi/.config/leftwm/themes/Ascent"
 repository = "https://gitlab.com/mWalrus/ascent"
 commit = "*"
 version = "1.0.0"
 leftwm_versions = ">0.2.7"
-current = false
+current = true
 
 [[repos.themes]]
 name = "Blue Coffee"
@@ -38,7 +38,7 @@ current = false
 
 [[repos.themes]]
 name = "Bumblebee"
-directory = "/home/antonk/.config/leftwm/themes/Bumblebee"
+directory = "/home/remi/.config/leftwm/themes/Bumblebee"
 repository = "https://github.com/mfdorst/leftwm-bumblebee/"
 commit = "*"
 version = "0.0.1"
@@ -47,7 +47,6 @@ current = false
 
 [[repos.themes]]
 name = "Catppuccin"
-directory = "/home/antonk/.config/leftwm/themes/Catppuccin"
 repository = "https://github.com/di-effe/catppuccin"
 commit = "*"
 version = "0.1.1"
@@ -72,7 +71,7 @@ current = false
 
 [[repos.themes]]
 name = "Desire"
-directory = "/home/antonk/.config/leftwm/themes/Desire"
+directory = "/home/remi/.config/leftwm/themes/Desire"
 repository = "https://github.com/copypasteonly/Desire"
 commit = "*"
 version = "0.1"
@@ -113,7 +112,7 @@ current = false
 
 [[repos.themes]]
 name = "Forest"
-directory = "/home/antonk/.config/leftwm/themes/Forest"
+directory = "/home/remi/.config/leftwm/themes/Forest"
 repository = "https://github.com/lex148/forest/"
 commit = "*"
 version = "0.0.1"
@@ -162,7 +161,6 @@ current = false
 
 [[repos.themes]]
 name = "Orange Forest"
-directory = "/home/antonk/.config/leftwm/themes/Orange Forest"
 repository = "https://github.com/PVautour/leftwm-theme-orange-forest/"
 commit = "*"
 version = "0.0.2"
@@ -187,12 +185,11 @@ current = false
 
 [[repos.themes]]
 name = "Serika"
-directory = "/home/antonk/.config/leftwm/themes/Serika"
 repository = "https://github.com/VuiMuich/leftwm-theme-serika.git"
 commit = "*"
 version = "0.0.1"
 leftwm_versions = ">=0.3.0"
-current = true
+current = false
 
 [[repos.themes]]
 name = "Soothe"
@@ -245,7 +242,7 @@ current = false
 
 [[repos.themes]]
 name = "Zexanima"
-repository = "https://github.com/calebgasser/zexanima-leftwm-theme/tree/develop"
+repository = "https://github.com/calebgasser/zexanima-leftwm-theme/"
 commit = "*"
 version = "0.0.1"
 leftwm_versions = ">0.3.0"
@@ -261,7 +258,7 @@ current = false
 
 [[repos.themes]]
 name = "Late-Night"
-directory = "/home/antonk/.config/leftwm/themes/Late-Night"
+directory = "/home/remi/.config/leftwm/themes/Late-Night"
 repository = "https://github.com/JacoMalan1/LateNight"
 commit = "*"
 version = "0.0.2"

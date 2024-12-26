@@ -912,7 +912,7 @@ sshAgentWrapper
 # change layout RU <--> US
 setxkbmap -layout "us,ru(unipunct)" -option "grp:alt_shift_toggle,lv3:ralt_switch,grp_led:scroll"
 
-let poshTheme = 'https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/main/themes/clean-detailed.omp.json'
+let poshTheme = $'($env.HOME)/.config/nushell/theme/clean-detailed.omp.json'
 # Generate the .oh-my-posh.nu file
 oh-my-posh init nu --config $poshTheme
 

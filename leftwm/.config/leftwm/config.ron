@@ -15,7 +15,6 @@
     modkey: "Mod4",
     mousekey: "Mod4",
     workspaces: [
-        ( output: "Virtual-1", y: 0, x: 0, height: 2560, width: 1080 ),
     ],
     tags: [
         "Dev",

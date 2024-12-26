@@ -102,9 +102,11 @@ use std "path add"
 path add ($'($env.HOME)' | path join ".cargo" "bin")
 path add ($'($env.HOME)' | path join ".local" "bin")
 path add ($'($env.HOME)' | path join ".local" "share" "fnm")
+path add '/usr/local/bin'
 
 $env.EDITOR = "hx"
 $env.XDG_RUNTIME_DIR = $"/tmp/(id -u remi)-runtime-dir"
+$env.BIOME_CONFIG_PATH = $"($env.HOME)/.config/biome/"
 
 if (not ($env.XDG_RUNTIME_DIR | path exists)) {
     mkdir $"($env.XDG_RUNTIME_DIR)"
@@ -134,3 +136,4 @@ fnm env --shell powershell
     | load-env
 
 path add ( $env.FNM_MULTISHELL_PATH | path join "bin")
+alias la = ls -la
