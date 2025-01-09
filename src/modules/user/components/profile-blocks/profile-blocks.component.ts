@@ -4,10 +4,11 @@ import {
     OnInit,
     Input,
     ChangeDetectionStrategy,
+    inject,
 } from '@angular/core';
 import {UntypedFormControl} from '@angular/forms';
 
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Subject, from} from 'rxjs';
 import {
     takeUntil,
     first,
@@ -55,15 +56,14 @@ export class ProfileBlocksComponent extends AbstractComponent implements OnInit 
     public toggleSmsBtn: ICheckboxCParams = this.generateToggleBtn('notification-sms', 'smsAgree');
     public isDefaultUser: boolean = false;
     public use2FAGoogle: boolean = false;
-    public get ready(): boolean {
-        return this.ready2FA && !!this.use2FAGoogle;
-    };
-    public enabled2FAGoogle: boolean;
+    public enabled2FAGoogle = new BehaviorSubject<boolean>(false);
     public lockLink: boolean = false;
     public useAutoLogout: boolean = false;
 
     protected twoFactorAuthService?: TwoFactorAuthService;
-    protected ready2FA: boolean = false;
+
+    protected isConfigServiceReady = new Subject();
+    protected isUserProfileReady = new Subject();
 
     constructor(
         @Inject('injectParams') protected params: Params.IProfileBlocksCParams,
@@ -77,19 +77,23 @@ export class ProfileBlocksComponent extends AbstractComponent implements OnInit 
 
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
-        await this.configService.ready;
-        await this.userService.userProfile$.pipe(
-            first((profile: UserProfile): boolean => !!profile),
-        ).toPromise();
-        this.isDefaultUser = this.userService.userProfile.type === 'default';
+        from(this.configService.ready)
+            .subscribe(() => this.isConfigServiceReady.next(true));
 
-        this.userService.userProfile$.pipe(
-            filter((profile: UserProfile): boolean => !!profile),
-            distinctUntilKeyChanged('emailAgree'),
-            takeUntil(this.$destroy),
-        ).subscribe((profile: UserProfile): void => {
-            this.toggleEmailBtn.control.setValue(profile.emailAgree);
-        });
+        this.userService.userProfile$
+            .pipe(first((profile: UserProfile): boolean => !!profile))
+            .subscribe((profile) => 
+                this.isDefaultUser = profile.type === 'default');
+
+
+        this.userService.userProfile$
+            .pipe(
+                filter((profile: UserProfile): boolean => !!profile),
+                distinctUntilKeyChanged('emailAgree'),
+                takeUntil(this.$destroy),
+            ).subscribe((profile: UserProfile): void => {
+                this.toggleEmailBtn.control.setValue(profile.emailAgree);
+            });
 
         this.userService.userProfile$.pipe(
             filter((profile: UserProfile): boolean => !!profile),
@@ -101,9 +105,8 @@ export class ProfileBlocksComponent extends AbstractComponent implements OnInit 
 
         this.use2FAGoogle = this.configService.get<boolean>('appConfig.siteconfig.Enable2FAGoogle');
         if (this.use2FAGoogle) {
-            this.twoFactorAuthService = await this.injectionService
-                .getService<TwoFactorAuthService>('two-factor-auth.two-factor-auth-service');
-            await this.setStatus2FAGoogle();
+            this.twoFactorAuthService = inject(TwoFactorAuthService);
+            this.setStatus2FAGoogle();
             this.initSubscribers();
         }
 
@@ -208,11 +211,10 @@ export class ProfileBlocksComponent extends AbstractComponent implements OnInit 
         this.twoFactorAuthService.openModalDisable(() => this.setLockLink(true));
     }
 
-    protected async setStatus2FAGoogle(): Promise<void> {
-        const {enabled2FAGoogle} = await this.twoFactorAuthService.getUserInfo();
-        this.enabled2FAGoogle = enabled2FAGoogle;
-        this.ready2FA = true;
-        this.cdr.markForCheck();
+    protected setStatus2FAGoogle(): void {
+        from(this.twoFactorAuthService.getUserInfo())
+            .subscribe(({enabled2FAGoogle}) =>
+                this.enabled2FAGoogle.next(enabled2FAGoogle));
     }
 
     protected setLockLink(value: boolean): void {
@@ -232,7 +234,7 @@ export class ProfileBlocksComponent extends AbstractComponent implements OnInit 
             distinctUntilChanged(),
             takeUntil(this.$destroy),
         ).subscribe((enabled2FAGoogle: boolean) => {
-            this.enabled2FAGoogle = enabled2FAGoogle;
+            this.enabled2FAGoogle.next(enabled2FAGoogle);
             this.setLockLink(false);
         });
     }
