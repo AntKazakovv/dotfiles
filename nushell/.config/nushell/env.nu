@@ -137,3 +137,6 @@ fnm env --shell powershell
 
 path add ( $env.FNM_MULTISHELL_PATH | path join "bin")
 alias la = ls -la
+
+$env.BUN_INSTALL = $"($env.HOME)/.bun"
+path add $'($env.BUN_INSTALL)/bin'
