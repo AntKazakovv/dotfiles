@@ -17,3 +17,9 @@ desc = "Cd to wlc-engine"
 on   = [ "g", "c" ]
 run  = "cd ~/.config"
 desc = "Cd to .config"
+
+
+[[manager.prepend_keymap]]
+on   = [ "o", "g" ]
+run  = "lazygit $PWD"
+desc = "Open lazygit"
