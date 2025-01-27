@@ -1,0 +1,137 @@
+source "%val{config}/plugins/plug.kak/rc/plug.kak"
+plug "andreyorst/plug.kak" noload
+
+# ======[ Theme ]======
+colorscheme gruvbox-dark
+
+# ======[ Common settings ]======
+set-option global tabstop 4
+set-option global indentwidth 4
+set-option global scrolloff 8,3
+set-option global ui_options terminal_assistant=cat
+
+# ======[ Highlights ]======
+add-highlighter global/ number-lines -hlcursor -relative -separator "  " -cursor-separator " |"
+add-highlighter global/ show-matching
+
+# ======[ Mapping ]======
+map global normal <esc> ";,"
+map -docstring "Comment this line" global user c ":comment-line<ret>"
+map -docstring "Save buffer" global normal "<a-s>" ":w<ret>"
+map -docstring "Open lsp" global user l ": enter-user-mode lsp<ret>"
+
+# ======[ Plugins ]======
+## autopairs
+plug "alexherbo2/auto-pairs.kak" config %{
+  enable-auto-pairs
+}
+## powerline
+plug "andreyorst/powerline.kak" defer powerline_gruvbox %{
+    powerline-theme gruvbox
+    powerline-format global 'git bufname filetype mode_info line_column position'
+} config %{
+    powerline-start
+}
+## X selection extendings
+plug "evanrelf/byline.kak" config %{
+  require-module "byline"
+}
+
+## Lua support pluggins
+plug "gustavo-hms/luar" config %{
+  require-module luar
+}
+
+## Install LSP
+plug "kak-lsp/kak-lsp" do %{
+  cargo install --locked --force --path .
+  # optional: if you want to use specific language servers
+  mkdir -p ~/.config/kak-lsp
+  cp -n kak-lsp.toml ~/.config/kak-lsp/
+}
+
+hook global WinSetOption filetype=(rust|javascript|typescript|c) %{
+  lsp-enable-window
+  lsp-inlay-diagnostics-enable global
+}
+
+## Install Tree viewer 
+plug "andreyorst/kaktree" defer kaktree %{
+    set-option global kaktree_double_click_duration '0.5'
+    set-option global kaktree_indentation 1
+    set-option global kaktree_dir_icon_open  '▾ 🗁 '
+    set-option global kaktree_dir_icon_close '▸ 🗀 '
+    set-option global kaktree_file_icon      '⠀⠀🖺'
+    set-option global kaktree_show_hidden true
+} config %{
+    hook global WinSetOption filetype=kaktree %{
+        remove-highlighter buffer/numbers
+        remove-highlighter buffer/matching
+        remove-highlighter buffer/wrap
+        remove-highlighter buffer/show-whitespaces
+    }
+    kaktree-enable
+}
+
+## Install smooth scroll
+plug "caksoylar/kakoune-smooth-scroll" config %{
+     # configuration here
+}
+
+hook global WinCreate [^*].* %{
+    hook -once window WinDisplay .* %{
+        smooth-scroll-enable
+    }
+}
+
+# ======[ LSP ]======
+
+# rust
+hook global WinSetOption filetype=rust %{
+  hook window -group semantic-tokens BufReload .* lsp-semantic-tokens
+  hook window -group semantic-tokens NormalIdle .* lsp-semantic-tokens
+  hook window -group semantic-tokens InsertIdle .* lsp-semantic-tokens
+  hook -once -always window WinSetOption filetype=.* %{
+    remove-hooks window semantic-tokens
+  }
+}
+# typescript
+hook global WinSetOption filetype=typescript %{
+  hook window -group semantic-tokens BufReload .* lsp-semantic-tokens
+  hook window -group semantic-tokens NormalIdle .* lsp-semantic-tokens
+  hook window -group semantic-tokens InsertIdle .* lsp-semantic-tokens
+  hook -once -always window WinSetOption filetype=.* %{
+    remove-hooks window semantic-tokens
+  }
+}
+
+# javascript
+hook global WinSetOption filetype=javascript %{
+  hook window -group semantic-tokens BufReload .* lsp-semantic-tokens
+  hook window -group semantic-tokens NormalIdle .* lsp-semantic-tokens
+  hook window -group semantic-tokens InsertIdle .* lsp-semantic-tokens
+  hook -once -always window WinSetOption filetype=.* %{
+    remove-hooks window semantic-tokens
+  }
+}
+
+lsp-enable
+
+# ======[ Hooks ]======
+
+# tabs for autocomplete
+hook global InsertCompletionShow .* %{
+  try %{
+    # this command temporarily removes cursors preceded by whitespace;
+    # if there are no cursors left, it raises an error, does not
+    # continue to execute the mapping commands, and the error is eaten
+    # by the `try` command so no warning appears.
+    execute-keys -draft 'h<a-K>\h<ret>'
+    map window insert <tab> <c-n>
+    map window insert <s-tab> <c-p>
+    hook -once -always window InsertCompletionHide .* %{
+      unmap window insert <tab> <c-n>
+      unmap window insert <s-tab> <c-p>
+    }
+  }
+}
