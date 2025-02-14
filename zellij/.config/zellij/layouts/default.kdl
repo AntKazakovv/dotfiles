@@ -1,0 +1,20 @@
+layout {
+    default_tab_template {
+        pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
+        }
+        children
+        //pane size=2 borderless=true {
+        //    plugin location="zellij:status-bar"
+        //}
+    }
+    tab name="WLC" cwd="~/Projects/wlc" {
+        pane
+    }
+    tab name="engine root" cwd="~/Projects/src/wlc-engine" {
+        pane command="yazi"
+    }
+    tab name="engine git" cwd="~/Projects/src/wlc-engine/" {
+        pane command="lazygit"
+    }
+}

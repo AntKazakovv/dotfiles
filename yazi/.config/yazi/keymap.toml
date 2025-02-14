@@ -21,5 +21,9 @@ desc = "Cd to .config"
 
 [[manager.prepend_keymap]]
 on   = [ "o", "g" ]
-run  = "lazygit $PWD"
+run  = "lazygit"
 desc = "Open lazygit"
+
+[[manager.prepend_keymap]]
+on  = "M"
+run = "plugin mount"

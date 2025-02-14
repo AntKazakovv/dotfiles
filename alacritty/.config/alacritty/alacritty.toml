@@ -8,4 +8,4 @@ import = ["~/.config/alacritty/themes/everforest.toml"]
 [terminal]
 
 [terminal.shell]
-program = "/usr/bin/fish"
+program = "/usr/bin/zellij"
