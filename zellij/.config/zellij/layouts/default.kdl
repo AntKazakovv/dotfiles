@@ -12,7 +12,10 @@ layout {
         pane
     }
     tab name="engine root" cwd="~/Projects/src/wlc-engine" {
-        pane command="yazi"
+        pane {
+			command "yazi"
+			cwd "~/Projects/src/wlc-engine"
+		}
     }
     tab name="engine git" cwd="~/Projects/src/wlc-engine/" {
         pane command="lazygit"
