@@ -2,6 +2,13 @@
 emmet-ls = { command = "emmet-ls", args = [ "--stdio" ]}
 biome = { command = "biome", args = ["lsp-proxy"] }
 
+[[language]]
+name = "rust"
+
+[[grammar]]
+name = "rust"
+source = { git = "https://github.com/tree-sitter/tree-sitter-rust", rev = "0431a2c60828731f27491ee9fdefe25e250ce9c9" }
+
 [language-server.angular]
 command = "ngserver"
 args = [
@@ -15,6 +22,22 @@ args = [
 [language-server.eslint]
 command = "vscode-eslint-language-server"
 args = ["--stdio"]
+
+[language-server.eslint.config]
+# format = true
+nodePath = "./"
+# onIgnoredFiles = "off"
+# packageManager = "yarn"
+quiet = false
+rulesCustomizations = []
+run = "onType"
+# useESLintClass = false
+validate = "on"
+codeAction = { disableRuleComment = { enable = true, location = "separateLine" }, showDocumentation = { enable = true } }
+# codeActionsOnSave = { mode = "all" }
+experimental = {}
+problems = { shortenToSingleLine = false }
+workingDirectory = { mode = "auto" }
 
 [[language]]
 name = "typescript"
@@ -41,19 +64,19 @@ name = "typescript"
 
 ## Biome:
 # ==>
-# formatter = { command = 'npx', args = [
-#   "@biomejs/biome",
-#   "format",
-#   "--write",
-#   "--config-path",
-#   "/home/remi/.config/biome/biome.jsonc",
-#   "--stdin-file-path"
-# ] }
+formatter = { command = 'npx', args = [
+  "@biomejs/biome",
+  "format",
+  "--write",
+  "--config-path",
+  "/home/remi/.config/biome/biome.jsonc",
+  "--stdin-file-path"
+] }
 auto-format = false
 language-servers = [
   { name = "typescript-language-server", except-features = ["format"]},
   "angular",
-  "biome"
+  "eslint"
 ]
 
 [[language]]
@@ -91,5 +114,5 @@ indent = { tab-width = 4, unit = "    " }
 
 [[language]]
 name = "json"
-auto-format = false
+auto-format = true
 indent = { tab-width = 4, unit = "    " }
