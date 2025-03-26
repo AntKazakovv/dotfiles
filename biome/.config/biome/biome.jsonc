@@ -22,9 +22,11 @@
 		"enabled": false
 	},
 	"linter": {
-		"enabled": false,
+		"enabled": true,
 		"rules": {
-			"recommended": true
+			"style": {
+				"useImportType": "warn"
+			}
 		}
 	},
 	"javascript": {
@@ -38,7 +40,7 @@
 			"arrowParentheses": "always",
 			"bracketSameLine": true,
 			"bracketSpacing": false,
-			"attributePosition": "multiline",
+			"attributePosition": "multiline"
 		}
 	}
 }

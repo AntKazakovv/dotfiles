@@ -1,6 +1,5 @@
 [language-server]
 emmet-ls = { command = "emmet-ls", args = [ "--stdio" ]}
-biome = { command = "biome", args = ["lsp-proxy"] }
 
 [[language]]
 name = "rust"
@@ -22,6 +21,11 @@ args = [
 [language-server.eslint]
 command = "vscode-eslint-language-server"
 args = ["--stdio"]
+
+[language-server.biome]
+command = "npx"
+args = ["@biomejs/biome", "lsp-proxy", "--config-path", "/home/antonkazakov/.config/biome/biome.jsonc"]
+display-messages = false
 
 [language-server.eslint.config]
 # format = true
@@ -67,13 +71,14 @@ name = "typescript"
 formatter = { command = 'npx', args = [
   "@biomejs/biome",
   "format",
-  "--write",
   "--config-path",
-  "/home/remi/.config/biome/biome.jsonc",
-  "--stdin-file-path"
+  "/home/antonkazakov/.config/biome/biome.jsonc",
+  "--stdin-file-path",
+  "a.ts"
 ] }
 auto-format = false
 language-servers = [
+  { name = "biome" },
   { name = "typescript-language-server", except-features = ["format"]},
   "angular",
   "eslint"
