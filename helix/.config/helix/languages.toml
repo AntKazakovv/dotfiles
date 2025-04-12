@@ -25,13 +25,12 @@ args = ["--stdio"]
 [language-server.biome]
 command = "npx"
 args = ["@biomejs/biome", "lsp-proxy", "--config-path", "/home/antonkazakov/.config/biome/biome.jsonc"]
-display-messages = false
+display-messages = true
 
 [language-server.eslint.config]
 # format = true
 nodePath = "./"
-# onIgnoredFiles = "off"
-# packageManager = "yarn"
+packageManager = "npm"
 quiet = false
 rulesCustomizations = []
 run = "onType"
@@ -55,16 +54,6 @@ name = "typescript"
 #   "--config",
 #   "$(npm root)/../prettier.config.js"
 # ] }
-
-## Eslint:
-# ==>
-# formatter = { command = 'npx', args = [
-#     "eslint",
-#     "--fix",
-#     "--config",
-#     "$(npm root)/../eslint.config.mjs"
-# ] }
-# auto-format = true
 
 ## Biome:
 # ==>
