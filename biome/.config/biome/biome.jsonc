@@ -26,6 +26,9 @@
 		"rules": {
 			"style": {
 				"useImportType": "warn"
+			},
+			"complexity": {
+				"noStaticOnlyClass": "off"
 			}
 		}
 	},

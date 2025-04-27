@@ -28,33 +28,37 @@ args = ["@biomejs/biome", "lsp-proxy", "--config-path", "/home/antonkazakov/.con
 display-messages = false
 
 [language-server.eslint.config]
-# format = true
-nodePath = "./"
-# onIgnoredFiles = "off"
-# packageManager = "yarn"
+format = true
+nodePath = ""
+onIgnoredFiles = "off"
+packageManager = "npm"
 quiet = false
 rulesCustomizations = []
 run = "onType"
-# useESLintClass = false
+useESLintClass = false
 validate = "on"
 codeAction = { disableRuleComment = { enable = true, location = "separateLine" }, showDocumentation = { enable = true } }
-# codeActionsOnSave = { mode = "all" }
+codeActionsOnSave = { mode = "all" }
 experimental = {}
 problems = { shortenToSingleLine = false }
 workingDirectory = { mode = "auto" }
 
-[[language]]
-name = "typescript"
-## Prettier:
-# ==>
-# formatter = { command = 'npx', args = [
+# [language-server.prettier]
+# command = "npx"
+# args = [
 #   "prettier",
 #   "--write",
 #   "--parser",
 #   "typescript",
 #   "--config",
-#   "$(npm root)/../prettier.config.js"
-# ] }
+#   "~/.config/prettier/prettier.config.js"
+# ]
+
+[[language]]
+name = "typescript"
+## Prettier:
+# ==>
+formatter = { command = 'prettier-run' }
 
 ## Eslint:
 # ==>
@@ -68,14 +72,14 @@ name = "typescript"
 
 ## Biome:
 # ==>
-formatter = { command = 'npx', args = [
-  "@biomejs/biome",
-  "format",
-  "--config-path",
-  "/home/antonkazakov/.config/biome/biome.jsonc",
-  "--stdin-file-path",
-  "a.ts"
-] }
+# formatter = { command = 'npx', args = [
+#   "@biomejs/biome",
+#   "format",
+#   "--config-path",
+#   "/home/antonkazakov/.config/biome/biome.jsonc",
+#   "--stdin-file-path",
+#   "a.ts"
+# ] }
 auto-format = false
 language-servers = [
   { name = "biome" },
