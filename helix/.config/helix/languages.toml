@@ -85,7 +85,8 @@ language-servers = [
   { name = "biome" },
   { name = "typescript-language-server", except-features = ["format"]},
   "angular",
-  "eslint"
+  "eslint",
+  "lsp-ai"
 ]
 
 [[language]]
@@ -113,7 +114,7 @@ indent = { tab-width = 4, unit = "    " }
 language-servers = [
   "vscode-html-language-server",
   "angular",
-  "emmet-ls"
+  "emmet-ls",
 ]
 
 [[language]]
@@ -125,3 +126,36 @@ indent = { tab-width = 4, unit = "    " }
 name = "json"
 auto-format = true
 indent = { tab-width = 4, unit = "    " }
+
+# LSP AI
+[language-server.lsp-ai]
+command = "lsp-ai"
+
+[language-server.lsp-ai.config.memory]
+file_store = { }
+
+[language-server.lsp-ai.config.models.model1]
+type = "open_ai"
+chat_endpoint = "https://api.openai.com/v1/chat/completions"
+model = "gpt-4o-mini"
+auth_token = "$GPT_AUTH_TOKEN"
+
+# [language-server.lsp-ai.config.completion]
+# model = "model1"
+
+# [language-server.lsp-ai.config.completion.parameters]
+# max_tokens = 64
+# max_context = 1024
+
+[[language-server.lsp-ai.config.chat]]
+trigger = "!C"
+action_display_name = "Chat AI"
+model = "model1"
+
+[language-server.lsp-ai.config.chat.parameters]
+max_context = 4096
+max_tokens = 1024
+
+[[language-server.lsp-ai.config.chat.parameters.messages]]
+role = "system"
+content = "You are a code assistant chatbot. The user will ask you for assistance coding and you will do your best to answer succinctly and accurately"
