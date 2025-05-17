@@ -1,0 +1,7 @@
+# FONT
+font-size = 14
+# THEMES
+theme = everforest-dark
+# SHELL
+command = /usr/bin/fish --login --interactive
+
