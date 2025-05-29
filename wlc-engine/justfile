@@ -1,0 +1,53 @@
+cache-clean:
+    npm cache clean -f
+
+fullup:
+    npm run fullup
+
+# Run lazygit
+lg:
+    lazygit
+
+# Run lazygit in wlc_devcasino
+[working-directory: '/www/wlc_devcasino']
+lg-d:
+    lazygit
+
+# Search and Replace with Serpl
+sr:
+    serpl
+
+# Clean cache and fullup
+clean-deps: cache-clean fullup
+
+[working-directory: '/www/wlc_devcasino']
+@start:
+    npm run dev
+
+# Git: Generate git commit with <message> and <prefix> 
+commit message prefix='feat':
+    git commit -m "SCR #$(git rev-parse --abbrev-ref HEAD | sed 's/^scr\([0-9]\+\).*$/\1/') - {{prefix}}: {{message}}"
+
+# Git: Make amend commit
+amend:
+    git commit --amend
+
+# nap snippet
+if:
+    @nap typescript/if
+
+# nap snippet
+print:
+    @nap typescript/print
+
+# nap snippet
+method:
+    @nap typescript/method
+
+# Esling: fix <file> by eslint
+fix file:
+    npx eslint {{file}} --fix
+
+# Angular: migrate file to new control flow
+to-new-control-flow:
+    ng generate @angular/core:control-flow

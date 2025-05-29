@@ -27,6 +27,9 @@ command = "npx"
 args = ["@biomejs/biome", "lsp-proxy", "--config-path", "/home/antonkazakov/.config/biome/biome.jsonc"]
 display-messages = false
 
+[language-server.gpt]
+command = "helix-gpt"
+
 [language-server.eslint.config]
 format = true
 nodePath = ""
@@ -86,7 +89,7 @@ language-servers = [
   { name = "typescript-language-server", except-features = ["format"]},
   "angular",
   "eslint",
-  "lsp-ai"
+  "gpt"
 ]
 
 [[language]]
@@ -159,3 +162,7 @@ max_tokens = 1024
 [[language-server.lsp-ai.config.chat.parameters.messages]]
 role = "system"
 content = "You are a code assistant chatbot. The user will ask you for assistance coding and you will do your best to answer succinctly and accurately"
+
+
+
+

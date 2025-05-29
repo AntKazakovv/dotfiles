@@ -42,8 +42,8 @@ mode.select = "SELECT"
 
 [editor.cursor-shape]
 normal = "block"
-insert = "bar"
-select = "underline"
+insert = "block"
+select = "block"
 
 [editor.smart-tab]
 enable = true
@@ -76,6 +76,7 @@ pageup = "page_cursor_half_up"
 pagedown = "page_cursor_half_down"
 A-s = ":write"
 A-d = ":pipe deno fmt --config ~/.config/denofmt/deno.jsonc -"
+"H"= ":toggle lsp.display-inlay-hints"
 
 [keys.insert]
 esc = ["normal_mode", ":run-shell-command xkb-switch -s us"]
