@@ -112,6 +112,7 @@ name = "html"
 #   "~/.config/biome/biome.jsonc",
 #   "--stdin-file-path"
 # ] }
+formatter = { command = 'prettier-run' }
 auto-format = false
 indent = { tab-width = 4, unit = "    " }
 language-servers = [

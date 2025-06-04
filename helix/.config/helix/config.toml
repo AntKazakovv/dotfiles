@@ -77,6 +77,10 @@ pagedown = "page_cursor_half_down"
 A-s = ":write"
 A-d = ":pipe deno fmt --config ~/.config/denofmt/deno.jsonc -"
 "H"= ":toggle lsp.display-inlay-hints"
+# A-y = ":sh nu ~/.config/yazelix/nushell/reveal_in_yazi.nu \"%{buffer_name}\""
+
+[keys.normal.c]
+q = ":bc"
 
 [keys.insert]
 esc = ["normal_mode", ":run-shell-command xkb-switch -s us"]
