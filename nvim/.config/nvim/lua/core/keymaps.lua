@@ -30,4 +30,7 @@ km('n', '<leader>f', builtin.find_files, {desc = "Helix-like file picker"})
 ---- Tabs
 km("n", "<leader>,", "<Cmd>BufferPrevious<CR>", {desc = "Prev tab", silent = true})
 km("n", "<leader>.", "<Cmd>BufferNext<CR>", {desc = "Next tab", silent = true})
+km("n", "<leader>d", "<Cmd>Trouble diagnostics toggle<CR>", { desc = "Open errors list" })
+
+
 
