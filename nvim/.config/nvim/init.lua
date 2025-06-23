@@ -7,4 +7,8 @@ require('core.keymaps') -- базовые сочетания клавиш
 require('plugins.treesitter')
 -- require('plugins.lsp')
 -- require('plugins.cmp')
+require('plugins.settings.null-ls')
+require('plugins.settings.prettier')
+
 require('mini.animate').setup()
+require('lualine').setup()
