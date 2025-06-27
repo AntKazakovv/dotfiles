@@ -32,5 +32,8 @@ km("n", "<leader>,", "<Cmd>BufferPrevious<CR>", {desc = "Prev tab", silent = tru
 km("n", "<leader>.", "<Cmd>BufferNext<CR>", {desc = "Next tab", silent = true})
 km("n", "<leader>d", "<Cmd>Trouble diagnostics toggle<CR>", { desc = "Open errors list" })
 
+km("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "Go to definition" })
+km('n', ':', '<cmd>FineCmdline<CR>', {noremap = true})
+km('n', '<leader>b', "<Cmd>BufferLinePick<CR>", {desc = "Pick buffer"})
 
 

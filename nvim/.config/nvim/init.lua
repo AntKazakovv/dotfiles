@@ -15,3 +15,5 @@ require('plugins.settings.treesitter')
 require('mini.animate').setup()
 require('lualine').setup()
 require('Comment').setup()
+-- vim.opt.termguicolors = true
+require("bufferline").setup{}
