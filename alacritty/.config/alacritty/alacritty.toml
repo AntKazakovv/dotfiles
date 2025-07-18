@@ -3,7 +3,7 @@
 size = 12
 
 [general]
-import = ["~/.config/alacritty/themes/gruvbox-material-alacritty.toml"]
+import = ["~/.config/alacritty/themes/aura-theme.toml"]
 
 [terminal]
 
