@@ -38,3 +38,19 @@ desc = "Open helix"
 [[manager.prepend_keymap]]
 on  = "M"
 run = "plugin mount"
+
+[[manager.prepend_keymap]]
+on = ["~"]
+run = "plugin simple-tag -- toggle-tag"
+desc = "Toggle tag"
+
+[[manager.prepend_keymap]]
+on = ["T","s"]
+run = "plugin simple-tag -- toggle-select"
+desc = "Filter by tag"
+
+[[manager.prepend_keymap]]
+on = ["T","c"]
+run = "plugin simple-tag -- clear"
+desc = "Clear all tags"
+
