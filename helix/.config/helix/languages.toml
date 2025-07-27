@@ -22,6 +22,10 @@ args = [
 command = "vscode-eslint-language-server"
 args = ["--stdio"]
 
+[language-server.vscode-css-language-server]
+command = "vscode-css-language-server"
+args = ["--stdio"]
+
 [language-server.biome]
 command = "npx"
 args = ["@biomejs/biome", "lsp-proxy", "--config-path", "/home/antonkazakov/.config/biome/biome.jsonc"]
@@ -59,20 +63,7 @@ workingDirectory = { mode = "auto" }
 
 [[language]]
 name = "typescript"
-## Prettier:
-# ==>
 formatter = { command = 'prettier-run' }
-
-## Eslint:
-# ==>
-# formatter = { command = 'npx', args = [
-#     "eslint",
-#     "--fix",
-#     "--config",
-#     "$(npm root)/../eslint.config.mjs"
-# ] }
-# auto-format = true
-
 ## Biome:
 # ==>
 # formatter = { command = 'npx', args = [
@@ -86,6 +77,7 @@ formatter = { command = 'prettier-run' }
 auto-format = false
 language-servers = [
   { name = "biome" },
+  { name = "vscode-css-language-server"},
   { name = "typescript-language-server", except-features = ["format"]},
   "angular",
   "eslint",
@@ -112,7 +104,7 @@ name = "html"
 #   "~/.config/biome/biome.jsonc",
 #   "--stdin-file-path"
 # ] }
-formatter = { command = 'prettier-run' }
+formatter = { command = 'prettier-run-html' }
 auto-format = false
 indent = { tab-width = 4, unit = "    " }
 language-servers = [

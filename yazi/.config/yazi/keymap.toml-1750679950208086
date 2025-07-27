@@ -1,0 +1,40 @@
+[[manager.prepend_keymap]]
+on   = [ "g", "h" ]
+run  = "cd ~"
+desc = "Cd to home"
+
+[[manager.prepend_keymap]]
+on   = [ "g", "p" ]
+run  = "cd ~/Projects"
+desc = "Cd to ~/Projects"
+
+[[manager.prepend_keymap]]
+on   = [ "g", "w" ]
+run  = "cd ~/Projects/src/wlc-engine"
+desc = "Cd to wlc-engine"
+
+[[manager.prepend_keymap]]
+on   = [ "g", "c" ]
+run  = "cd ~/.config"
+desc = "Cd to .config"
+
+
+[[manager.prepend_keymap]]
+on   = [ "o", "g" ]
+run  = "lazygit"
+desc = "Open lazygit"
+
+[[manager.prepend_keymap]]
+on   = [ "g", "e"]
+run  = "shell --block hx"
+desc = "Open helix"
+
+## TODO interactive start just commands
+# [[manager.prepend_keymap]]
+# on   = [ "g", "e"]
+# run  = "shell --block just"
+# desc = "Open helix"
+
+[[manager.prepend_keymap]]
+on  = "M"
+run = "plugin mount"
