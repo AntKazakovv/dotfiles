@@ -1,0 +1,225 @@
+# Aura Theme for Helix Editor
+# Based on the official Aura theme by Dalton Menezes
+# Repository: https://github.com/daltonmenezes/aura-theme
+
+# Syntax highlighting
+"attribute" = "purple"
+"type" = "orange"
+"type.builtin" = "orange"
+"type.parameter" = "white"
+"type.enum.variant" = "purple"
+"constructor" = "purple"
+"constant" = "orange"
+"constant.builtin" = "orange"
+"constant.boolean" = "orange"
+"constant.character" = "green"
+"constant.character.escape" = "cyan"
+"constant.numeric" = "orange"
+"constant.numeric.integer" = "orange"
+"constant.numeric.float" = "orange"
+
+"string" = "green"
+"string.regexp" = "cyan"
+"string.special" = "cyan"
+"string.special.path" = "green"
+"string.special.url" = "blue"
+"string.special.symbol" = "purple"
+
+"comment" = "gray"
+"comment.line" = "gray"
+"comment.block" = "gray"
+"comment.documentation" = "gray"
+
+"variable" = "white"
+"variable.builtin" = "purple"
+"variable.parameter" = "white"
+"variable.other.member" = "white"
+"variable.other.member.private" = "white"
+
+"label" = "purple"
+
+"punctuation" = "white"
+"punctuation.delimiter" = "white"
+"punctuation.bracket" = "white"
+"punctuation.special" = "purple"
+
+"keyword" = "purple"
+"keyword.control" = "purple"
+"keyword.control.conditional" = "purple"
+"keyword.control.repeat" = "purple"
+"keyword.control.import" = "purple"
+"keyword.control.return" = "purple"
+"keyword.control.exception" = "purple"
+"keyword.operator" = "purple"
+"keyword.directive" = "purple"
+"keyword.function" = "purple"
+"keyword.storage" = "purple"
+"keyword.storage.type" = "purple"
+"keyword.storage.modifier" = "purple"
+
+"operator" = "purple"
+
+"function" = "blue"
+"function.builtin" = "blue"
+"function.method" = "blue"
+"function.method.private" = "blue"
+"function.macro" = "purple"
+"function.special" = "purple"
+
+"tag" = "purple"
+"tag.builtin" = "purple"
+
+"namespace" = "purple"
+
+"special" = "purple"
+
+# Markup
+"markup.heading" = { fg = "blue", modifiers = ["bold"] }
+"markup.heading.marker" = "gray"
+"markup.heading.1" = { fg = "blue", modifiers = ["bold"] }
+"markup.heading.2" = { fg = "blue", modifiers = ["bold"] }
+"markup.heading.3" = { fg = "blue", modifiers = ["bold"] }
+"markup.heading.4" = { fg = "blue", modifiers = ["bold"] }
+"markup.heading.5" = { fg = "blue", modifiers = ["bold"] }
+"markup.heading.6" = { fg = "blue", modifiers = ["bold"] }
+"markup.list" = "purple"
+"markup.list.unnumbered" = "purple"
+"markup.list.numbered" = "purple"
+"markup.list.checked" = "green"
+"markup.list.unchecked" = "orange"
+"markup.bold" = { modifiers = ["bold"] }
+"markup.italic" = { modifiers = ["italic"] }
+"markup.strikethrough" = { modifiers = ["crossed_out"] }
+"markup.link" = "blue"
+"markup.link.url" = { fg = "blue", modifiers = ["underlined"] }
+"markup.link.label" = "purple"
+"markup.link.text" = "white"
+"markup.quote" = "gray"
+"markup.raw" = "green"
+"markup.raw.inline" = "green"
+"markup.raw.block" = "green"
+
+# Diff
+"diff.plus" = "green"
+"diff.plus.gutter" = "green"
+"diff.minus" = "red"
+"diff.minus.gutter" = "red"
+"diff.delta" = "orange"
+"diff.delta.moved" = "blue"
+"diff.conflict" = "red"
+"diff.conflict.gutter" = "red"
+
+# UI Interface
+"ui.background" = { bg = "background" }
+"ui.background.separator" = "gray"
+"ui.cursor" = { bg = "selection", modifiers = ["reversed"] }
+"ui.cursor.normal" = { bg = "selection" }
+"ui.cursor.insert" = { bg = "blue" }
+"ui.cursor.select" = { bg = "purple" }
+"ui.cursor.match" = { fg = "orange", bg = "background_highlight" }
+"ui.cursor.primary" = { bg = "selection", modifiers = ["reversed"] }
+"ui.cursor.primary.normal" = { bg = "selection" }
+"ui.cursor.primary.insert" = { bg = "blue" }
+"ui.cursor.primary.select" = { bg = "purple" }
+"ui.cursorline.primary" = { bg = "background_highlight" }
+"ui.cursorline.secondary" = { bg = "background_highlight" }
+"ui.cursorcolumn.primary" = { bg = "background_highlight" }
+"ui.cursorcolumn.secondary" = { bg = "background_highlight" }
+
+"ui.selection" = { bg = "selection" }
+"ui.selection.primary" = { bg = "selection" }
+"ui.highlight" = { bg = "background_highlight" }
+"ui.highlight.frameline" = { bg = "background_highlight" }
+
+"ui.linenr" = "gray"
+"ui.linenr.selected" = "white"
+"ui.statusline" = { fg = "white", bg = "statusline" }
+"ui.statusline.inactive" = { fg = "gray", bg = "statusline" }
+"ui.statusline.normal" = { fg = "white", bg = "statusline" }
+"ui.statusline.insert" = { fg = "background", bg = "blue" }
+"ui.statusline.select" = { fg = "background", bg = "purple" }
+"ui.statusline.separator" = "gray"
+
+"ui.bufferline" = { fg = "gray", bg = "statusline" }
+"ui.bufferline.active" = { fg = "white", bg = "background" }
+"ui.bufferline.background" = { bg = "statusline" }
+
+"ui.popup" = { fg = "white", bg = "popup" }
+"ui.popup.info" = { fg = "white", bg = "popup" }
+"ui.window" = { fg = "gray", bg = "background" }
+"ui.help" = { fg = "white", bg = "popup" }
+
+"ui.text" = "white"
+"ui.text.focus" = "white"
+"ui.text.inactive" = "gray"
+"ui.text.info" = "white"
+"ui.text.directory" = "blue"
+
+"ui.virtual.ruler" = { bg = "background_highlight" }
+"ui.virtual.whitespace" = "gray"
+"ui.virtual.indent-guide" = "gray"
+"ui.virtual.inlay-hint" = "gray"
+"ui.virtual.inlay-hint.parameter" = "gray"
+"ui.virtual.inlay-hint.type" = "gray"
+"ui.virtual.wrap" = "gray"
+"ui.virtual.jump-label" = { fg = "background", bg = "orange", modifiers = ["bold"] }
+
+"ui.menu" = { fg = "white", bg = "popup" }
+"ui.menu.selected" = { fg = "background", bg = "blue" }
+"ui.menu.scroll" = { fg = "gray", bg = "popup" }
+
+"ui.picker.header" = { fg = "white", modifiers = ["bold"] }
+"ui.picker.header.column" = { fg = "white", modifiers = ["bold"] }
+"ui.picker.header.column.active" = { fg = "blue", modifiers = ["bold"] }
+
+"ui.gutter" = { bg = "background" }
+"ui.gutter.selected" = { bg = "background_highlight" }
+
+"ui.debug.breakpoint" = { fg = "red", bg = "background" }
+"ui.debug.active" = { fg = "orange", bg = "background" }
+
+# Diagnostics
+"warning" = "orange"
+"error" = "red"
+"info" = "blue"
+"hint" = "gray"
+"diagnostic" = "white"
+"diagnostic.hint" = "gray"
+"diagnostic.info" = "blue"
+"diagnostic.warning" = "orange"
+"diagnostic.error" = "red"
+"diagnostic.unnecessary" = { modifiers = ["dim"] }
+"diagnostic.deprecated" = { modifiers = ["crossed_out"] }
+
+# Color palette based on official Aura theme
+[palette]
+# Main background and foreground colors
+background = "#15141b"
+foreground = "#edecee"
+white = "#edecee"
+
+# Background variations
+background_highlight = "#1d1c23"
+selection = "#29263c"
+statusline = "#0d0d0d"
+popup = "#1d1c23"
+
+# Core Aura colors
+purple = "#a277ff"
+blue = "#61ffca"
+cyan = "#5ccfe6"
+green = "#a6cc70"
+orange = "#ffca85"
+red = "#ff6767"
+pink = "#f694ff"
+
+# Grays and muted colors
+gray = "#6d6d6d"
+dark_gray = "#3d375e"
+light_gray = "#9e9e9e"
+
+# Alternative color variations for more nuanced styling
+purple_dim = "#8a63d2"
+blue_dim = "#4dd0a7"
+green_dim = "#87a654"
+orange_dim = "#d4a76a"
