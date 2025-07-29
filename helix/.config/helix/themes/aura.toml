@@ -33,8 +33,8 @@
 "variable" = "white"
 "variable.builtin" = "purple"
 "variable.parameter" = "white"
-"variable.other.member" = "white"
-"variable.other.member.private" = "white"
+"variable.other.member" = "cyan"
+"variable.other.member.private" = "pink"
 
 "label" = "purple"
 
@@ -156,7 +156,7 @@
 "ui.text.directory" = "blue"
 
 "ui.virtual.ruler" = { bg = "background_highlight" }
-"ui.virtual.whitespace" = "gray"
+"ui.virtual.whitespace" = "dark_gray"
 "ui.virtual.indent-guide" = "gray"
 "ui.virtual.inlay-hint" = "gray"
 "ui.virtual.inlay-hint.parameter" = "gray"
