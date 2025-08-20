@@ -75,8 +75,11 @@ C-y = ":sh zellij run -c -f -x 10% -y 10% --width 80% --height 80% -- bash ~/.co
 pageup = "page_cursor_half_up"
 pagedown = "page_cursor_half_down"
 A-s = ":write"
+A-r = "split_selection_on_newline"
 A-d = ":pipe deno fmt --config ~/.config/denofmt/deno.jsonc -"
 "H"= ":toggle lsp.display-inlay-hints"
+"Y" = ["select_line_above", "yank"]
+"D" = ["select_line_above", "delete_selection"]
 # A-y = ":sh nu ~/.config/yazelix/nushell/reveal_in_yazi.nu \"%{buffer_name}\""
 
 [keys.insert]

@@ -18,6 +18,13 @@ args = [
   "$(npm -g root)",
 ]
 
+[[language]]
+name = "angular"
+scope = "source.angular"
+roots = ["angular.json"]
+language-server = { command = "ngserver", args = ["--stdio", "--tsProbeLocations", "$(npm -g root)", "--ngProbeLocations", "$(npm -g root)"] }
+file-types = ["ts", "html"]
+
 [language-server.eslint]
 command = "vscode-eslint-language-server"
 args = ["--stdio"]
@@ -64,16 +71,7 @@ workingDirectory = { mode = "auto" }
 [[language]]
 name = "typescript"
 formatter = { command = 'prettier-run' }
-## Biome:
-# ==>
-# formatter = { command = 'npx', args = [
-#   "@biomejs/biome",
-#   "format",
-#   "--config-path",
-#   "/home/antonkazakov/.config/biome/biome.jsonc",
-#   "--stdin-file-path",
-#   "a.ts"
-# ] }
+roots = ["tsconfig.json"]
 auto-format = false
 language-servers = [
   { name = "biome" },
@@ -81,8 +79,23 @@ language-servers = [
   { name = "typescript-language-server", except-features = ["format"]},
   "angular",
   "eslint",
-  "gpt"
+  # "gpt"
 ]
+
+[language.debugger]
+name = "ts-debugger"
+transport = "tcp"         # или "stdio"
+command = "js-debug"
+args = ["--node-debugger"]
+
+
+[[language.debugger.templates]]
+name = "Launch JS (js-debug)"
+request = "launch"
+completion = [
+  { name = "entrypoint", completion = "filename", default = "index.js" }
+]
+args = { mode = "debug", program = "{0}", args = ["-r", "192.168.40.180", "-p", "8080", "-d", "60"] }
 
 [[language]]
 name = "html"
@@ -157,5 +170,7 @@ role = "system"
 content = "You are a code assistant chatbot. The user will ask you for assistance coding and you will do your best to answer succinctly and accurately"
 
 
-
-
+[[language]]
+name = "php"
+language-servers = [ "intelephense" ]
+auto-format = true
