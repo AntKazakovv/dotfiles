@@ -5,4 +5,11 @@ alias jt=just
 alias bat=batcat
 alias yz=yazi
 alias sc=scooter
-alias go_eng=cd ~/Project/src/wlc-engine
+
+function go_engine
+    cd ~/Project/src/wlc-engine
+end
+
+function go_devcasino
+    cd ~/Project/src/wlc_devcasino
+end
