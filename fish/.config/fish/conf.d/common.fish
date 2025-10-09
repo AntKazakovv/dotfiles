@@ -7,9 +7,9 @@ alias yz=yazi
 alias sc=scooter
 
 function go_engine
-    cd ~/Project/src/wlc-engine
+    cd ~/Projects/src/wlc-engine
 end
 
 function go_devcasino
-    cd ~/Project/src/wlc_devcasino
+    cd ~/Projects/src/wlc_devcasino
 end
