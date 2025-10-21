@@ -81,6 +81,3 @@ A-d = ":pipe deno fmt --config ~/.config/denofmt/deno.jsonc -"
 "Y" = ["select_line_above", "yank"]
 "D" = ["select_line_above", "delete_selection"]
 # A-y = ":sh nu ~/.config/yazelix/nushell/reveal_in_yazi.nu \"%{buffer_name}\""
-
-[keys.insert]
-esc = ["normal_mode", ":run-shell-command xkb-switch -s us"]
