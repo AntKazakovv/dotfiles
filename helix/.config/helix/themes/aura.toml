@@ -200,7 +200,7 @@ white = "#edecee"
 
 # Background variations
 background_highlight = "#1d1c23"
-selection = "#29263c"
+selection = "#ad3188"
 statusline = "#0d0d0d"
 popup = "#1d1c23"
 
