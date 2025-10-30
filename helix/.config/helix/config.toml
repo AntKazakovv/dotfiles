@@ -34,7 +34,8 @@ right = [
   "file-name",
   "spinner", 
   "position-percentage",
-  "total-line-numbers"
+  "total-line-numbers",
+  "position",
   ]
 mode.normal = "NORMAL"
 mode.insert = "INSERT"
