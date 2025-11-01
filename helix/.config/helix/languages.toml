@@ -6,6 +6,11 @@ command = "lsp-ai"
 [language-server.lsp-ai.config.memory]
 file_store = { }
 
+[[language-server.lsp-ai.config.chat]]
+trigger = "!C"
+action_display_name = "Chat"
+model = "model1"
+
 [language-server.lsp-ai.config.models.model1]
 type = "open_ai"
 chat_endpoint = "https://api.openai.com/v1/chat/completions"
