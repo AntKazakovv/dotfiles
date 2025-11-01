@@ -13,7 +13,7 @@ model = "model1"
 
 [language-server.lsp-ai.config.models.model1]
 type = "open_ai"
-chat_endpoint = "http://localhost:1234/v1"
+chat_endpoint = "http://localhost:1234/v1/chat/completions"
 model =  "gemma-3n-e4b-it-mlx"
 # auth_token_env_var_name = ""
 auth_token = ""
