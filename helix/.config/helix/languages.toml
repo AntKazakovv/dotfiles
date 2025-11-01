@@ -23,7 +23,7 @@ model = "model1"
 
 [language-server.lsp-ai.config.completion.parameters]
 max_tokens = 64
-max_context = 1024
+max_context = 2048
 
 ## Configure the messages per your needs
 [[language-server.lsp-ai.config.completion.parameters.messages]]
