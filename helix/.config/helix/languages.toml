@@ -1,6 +1,6 @@
 [language-server.lsp-ai]
 command = "lsp-ai"
-args = ["--config", "~/.config/lsp-ai/config"]
+args = ["--config", "/Users/antonkazakov/.config/lsp-ai/config"]
 
 
 [language-server]
