@@ -1,4 +1,4 @@
-theme = "dark_high_contrast"
+theme = "adwaita-dark"
 
 [editor]
 line-number = "relative"
