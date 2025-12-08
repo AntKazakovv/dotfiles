@@ -294,7 +294,7 @@ themes {
 // Default: default
 //
 // theme "everforest-dark-medium"
-theme "gruvbox-dark"
+theme "ayu_mirage"
 
 // The name of the default layout to load on startup
 // Default: "default"
