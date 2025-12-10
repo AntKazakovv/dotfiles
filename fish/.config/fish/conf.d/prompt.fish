@@ -31,12 +31,12 @@ function fish_prompt
         if test -z "$branch"
             set branch (git rev-parse --short HEAD 2>/dev/null)
         end
-        
+
         # Проверяем состояние репозитория
         set -l git_status (git status --porcelain 2>/dev/null)
         set -l git_symbol " "
         set -l git_color yellow
-        
+
         if test -n "$git_status"
             set git_symbol "±"
             set git_color yellow --bold
@@ -44,7 +44,7 @@ function fish_prompt
             set git_symbol "✓"
             set git_color green
         end
-        
+
         # Количество изменений
         set -l changes_count (echo "$git_status" | wc -l | string trim)
         if test $changes_count -gt 0
@@ -78,19 +78,19 @@ end
 
 function fish_right_prompt
     # Показываем время и длительность последней команды
-    set -l time_display (set_color brblack)(date '+%H:%M:%S')(set_color normal)
-    
+    set -l time_display (set_color brblack)(metric_time (date '+%H:%M:%S'))(set_color normal)
+
     # Длительность последней команды
     set -l duration_info
     if test $CMD_DURATION
         set -l duration_ms $CMD_DURATION
         set -l duration_s (math "$duration_ms / 1000")
-        
+
         if test $duration_s -ge 1
             set -l hours (math -s0 "$duration_s / 3600")
             set -l minutes (math -s0 "$duration_s % 3600 / 60")
             set -l seconds (math -s0 "$duration_s % 60")
-            
+
             if test $hours -gt 0
                 set duration_info (printf "%dh %dm %ds" $hours $minutes $seconds)
             else if test $minutes -gt 0
@@ -98,10 +98,10 @@ function fish_right_prompt
             else
                 set duration_info (printf "%ds" $seconds)
             end
-            
+
             set duration_info " "(set_color yellow)"⏱ $duration_info"(set_color normal)" "
         end
     end
-    
+
     echo $duration_info$time_display
 end
