@@ -75,6 +75,7 @@ tabpad = "·"
 C-y = ":sh zellij run -c -f -x 10% -y 10% --width 80% --height 80% -- bash ~/.config/helix/yazi-picker.sh open"
 pageup = "page_cursor_half_up"
 pagedown = "page_cursor_half_down"
+space.B = ":echo %sh{git blame -L %{cursor_line},+1 %{buffer_name}}" # Git Blame
 A-s = ":write"
 A-r = "split_selection_on_newline"
 A-d = ":pipe deno fmt --config ~/.config/denofmt/deno.jsonc -"
