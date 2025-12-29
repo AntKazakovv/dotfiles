@@ -197,6 +197,10 @@ plugins {
     filepicker location="zellij:strider" {
         cwd "/"
     }
+    zellij-autolock location="file:~/.config/zellij/plugins/zellij-autolock.wasm" {
+        triggers "hx"  // Автоматическая блокировка при запуске Helix
+        intercept_enter true  // Перехват Enter для корректной работы
+    }
 }
 
 // Choose what to do when zellij receives SIGTERM, SIGINT, SIGQUIT or SIGHUP

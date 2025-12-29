@@ -83,3 +83,17 @@ A-d = ":pipe deno fmt --config ~/.config/denofmt/deno.jsonc -"
 "Y" = ["select_line_above", "yank"]
 "D" = ["select_line_above", "delete_selection"]
 # A-y = ":sh nu ~/.config/yazelix/nushell/reveal_in_yazi.nu \"%{buffer_name}\""
+
+# ==== REPL Integration (Zellij) ====
+# Навигация между панелями
+C-h = ":sh zellij action move-focus-or-tab left"
+C-j = ":sh zellij action move-focus-or-tab down"
+C-k = ":sh zellij action move-focus-or-tab up"
+C-l = ":sh zellij action move-focus-or-tab right"
+
+# Создание REPL панели
+C-a = { r = ":sh zellij action new-pane -d down -- ~/.config/helix/scripts/start-repl.sh %{buffer_name}" }
+
+# Отправка кода в REPL
+C-space = ":pipe-to ~/.config/helix/scripts/send-to-repl.sh"  # Отправка текущей строки/выделения
+C-esc = ":pipe-to rg -v '^\\s*$' | ~/.config/helix/scripts/send-to-repl.sh"  # Отправка без пустых строк
