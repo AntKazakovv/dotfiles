@@ -39,15 +39,15 @@ Ctrl-p f      →  Полноэкранный режим панели
 
 ## Поддерживаемые языки
 
-| Расширение | REPL |
-|------------|------|
-| `.py` | IPython / Python3 |
-| `.js`, `.mjs` | Node.js |
-| `.ts` | Deno / ts-node |
-| `.rb` | IRB |
-| `.clj` | Clojure |
-| `.lua` | Lua |
-| другие | Fish / Bash |
+| Расширение | REPL           |
+|------------|----------------|
+| `.py`      | Python3        |
+| `.js`      | Node.js        |
+| `.ts`      | Deno / ts-node |
+| `.rb`      | IRB            |
+| `.clj`     | Clojure        |
+| `.lua`     | Lua            |
+| другие     | Fish / Bash    |
 
 ---
 

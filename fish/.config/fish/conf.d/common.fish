@@ -13,3 +13,7 @@ end
 function go_devcasino
     cd ~/Projects/src/wlc_devcasino
 end
+
+function go_wlc
+    cd ~/Projects/wlc
+end
