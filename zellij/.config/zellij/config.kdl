@@ -266,6 +266,19 @@ session_serialization false
 // 
 
 themes {
+    amethyst {
+        fg      "#cdd6f4"  // мягкий лавандово-белый текст
+        bg      "#1e1e2e"  // тёмный фон с фиолетовым оттенком
+        black   "#181825"  // фон неактивных элементов
+        red     "#f38ba8"  // ошибки
+        green   "#94e2d5"  // бирюзовый — Normal mode, активные элементы
+        yellow  "#f9e2af"  // предупреждения
+        blue    "#89b4fa"  // синий
+        magenta "#cba6f7"  // фиолетовый — Tab mode, акцент
+        cyan    "#89dceb"  // светлая бирюза — Resize/Scroll
+        white   "#cdd6f4"  // текст
+        orange  "#fab387"  // Tmux mode
+    }
     goblincore {
         fg "#A8A49C"
         bg "#2F4F2F"
@@ -298,7 +311,7 @@ themes {
 // Default: default
 //
 // theme "everforest-dark-medium"
-theme "ayu_mirage"
+theme "amethyst"
 
 // The name of the default layout to load on startup
 // Default: "default"
