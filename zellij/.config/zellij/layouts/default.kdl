@@ -4,9 +4,9 @@ layout {
             plugin location="zellij:compact-bar"
         }
         children
-        //pane size=2 borderless=true {
-        //    plugin location="zellij:status-bar"
-        //}
+        pane size=2 borderless=true {
+            plugin location="zellij:status-bar"
+        }
     }
     tab name="wlc" cwd="~/Projects/wlc" {
         pane
