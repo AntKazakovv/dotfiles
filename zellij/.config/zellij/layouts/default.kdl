@@ -14,6 +14,9 @@ layout {
     tab name="engine" cwd="~/Projects/src/wlc-engine" {
         pane command="hx" cwd="~/Projects/src/wlc-engine"
     }
+    tab name="engine-git" cwd="~/Projects/src/wlc-engine" {
+        pane command="lazygit" cwd="~/Projects/src/wlc-engine"
+    }
     tab name="develop" cwd="~/Projects/src/wlc_develop" {
         pane
     }
