@@ -17,3 +17,7 @@ end
 function go_wlc
     cd ~/Projects/wlc
 end
+
+function my_notes
+    hx ~/notes.md
+end
