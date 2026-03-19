@@ -1,4 +1,7 @@
 // If you'd like to override the default keybindings completely, be sure to change "keybinds" to "keybinds clear-defaults=true"
+
+web_server_ip "0.0.0.0"
+
 keybinds {
     normal {
         // uncomment this and adjust key if using copy_on_select=false
@@ -329,7 +332,7 @@ theme "ayu_mirage"
 // that will be used by default if this option is not set.
 // Examples:
 //
-// copy_command "xclip -selection clipboard" // x11
+copy_command "xclip -selection clipboard" // x11
 // copy_command "wl-copy"                    // wayland
 // copy_command "pbcopy"                     // osx
 
