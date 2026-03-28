@@ -2,6 +2,6 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 
-if which neofetch
-    neofetch
+if which lolcat
+    lolcat ~/witch_acii.txt
 end
