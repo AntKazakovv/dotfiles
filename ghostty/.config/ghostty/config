@@ -1,5 +1,5 @@
 # FONT
-font-size = 13
+font-size = 12
 # THEMES
 theme = everforest-dark
 # SHELL
@@ -10,3 +10,4 @@ command = zellij
 window-theme = ghostty
 window-decoration = false
 
+custom-shader = ~/.config/ghostty/shaders/in-game-crt.glsl
