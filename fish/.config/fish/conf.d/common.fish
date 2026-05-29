@@ -5,6 +5,11 @@ alias jt=just
 alias bat=batcat
 alias yz=yazi
 alias sc=scooter
+alias ls=eza
+
+function eza_tree
+    eza --tree --level=2 --icons -I node_modules
+end
 
 function go_engine
     cd ~/Projects/src/wlc-engine

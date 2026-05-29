@@ -24,11 +24,16 @@ args = [
   "$(npm -g root)",
 ]
 
+# [[language]]
+# name = "angular"
+# scope = "source.angular"
+# roots = ["angular.json"]
+
 [[language]]
-name = "angular"
-scope = "source.angular"
-roots = ["angular.json"]
-file-types = ["ts", "html"]
+name = "tsx"
+language-servers = ["typescript-language-server", "vscode-eslint-language-server"]
+auto-format = true
+formatter = { command = 'npx', args = ["prettier", "--parser", "typescript"] }
 
 [language-server.eslint]
 command = "vscode-eslint-language-server"
