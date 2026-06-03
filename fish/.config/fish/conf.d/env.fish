@@ -9,3 +9,4 @@ set -gx COLORTERM truecolor
 set -x NVM_DIR "$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ]; and source "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ]; and source "$NVM_DIR/bash_completion"
+fish_add_path ~/.opencode/bin
