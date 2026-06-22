@@ -2,6 +2,15 @@
 ## Configuration for languages ##
 #################################
 
+# [language-server.buxn-ls]
+# command = "buxn-ls"
+
+# [[language]]
+# name = "uxntal"
+# scope = "source.uxntal"
+# file-types = ["tal"]
+# language-servers = ["buxn-ls"]
+
 # ===========================================================
 
 [language-server]
@@ -37,6 +46,10 @@ formatter = { command = 'npx', args = ["prettier", "--parser", "typescript"] }
 
 [language-server.eslint]
 command = "vscode-eslint-language-server"
+args = ["--stdio"]
+
+[language-server.vscode-html-language-server]
+command = "vscode-html-language-server"
 args = ["--stdio"]
 
 [language-server.vscode-css-language-server]
