@@ -10,3 +10,6 @@ set -x NVM_DIR "$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ]; and source "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ]; and source "$NVM_DIR/bash_completion"
 fish_add_path ~/.opencode/bin
+set -x OPENAI_BASE_URL "http://localhost:8080/v1"
+set -x OPENAI_API_KEY ignored
+set -gx EDITOR hx
